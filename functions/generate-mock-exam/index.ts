@@ -1,6 +1,6 @@
 // POST /functions/v1/generate-mock-exam
 //
-// Body: { certification_id, mode?: 'simulator' | 'exam' }
+// Body: { certification_id, mode?: 'simulator' | 'exam', language?: 'en' | 'es-419' | 'pt-BR' }
 // Auth: Bearer JWT
 //
 // Assembles a BLUEPRINT-WEIGHTED exam form:
@@ -10,8 +10,11 @@
 //   - Within each domain, spreads across that domain's tasks and balances
 //     difficulty (~30% easy / 50% medium / 20% hard).
 //   - Draws from a POOL determined by mode:
-//        mode='simulator' -> pool='practice'  (kind='mock_exam')      — practice items
-//        mode='exam'      -> pool='secure'    (kind='certification_exam') — secure items
+//        mode='simulator' -> pool='practice'  (kind='mock_exam')          — practice items
+//        mode='exam'      -> pool='secure'    (kind='certification_exam')  — secure items
+//   - Serves questions in the learner's LANGUAGE (en / es-419 / pt-BR). The
+//     trilingual siblings share group_key, correct_answer and option ids, so
+//     scoring is identical regardless of which language form is served.
 //   - For a real exam, REFUSES (clear error) if the secure pool cannot fill
 //     the blueprint for any domain, rather than silently issuing a malformed
 //     form. This guarantees every certification exam is blueprint-valid.
@@ -24,9 +27,13 @@ import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 
+const SUPPORTED_LANGUAGES = ["en", "es-419", "pt-BR"] as const;
+type Language = (typeof SUPPORTED_LANGUAGES)[number];
+
 interface Body {
   certification_id: string;
   mode?: "simulator" | "exam";
+  language?: string;
 }
 
 interface QuestionRow {
@@ -57,6 +64,23 @@ serve(async (req) => {
     const mode = body.mode === "exam" ? "exam" : "simulator";
     const pool = mode === "exam" ? "secure" : "practice";
     const sessionKind = mode === "exam" ? "certification_exam" : "mock_exam";
+
+    // Resolve and validate language. Default to English. An unknown locale is
+    // rejected for a real exam (we will not silently issue an English form to a
+    // candidate who requested another language); for the simulator we fall back
+    // to English rather than erroring.
+    let language: Language = "en";
+    if (body.language) {
+      if ((SUPPORTED_LANGUAGES as readonly string[]).includes(body.language)) {
+        language = body.language as Language;
+      } else if (mode === "exam") {
+        throw new HttpError(
+          400,
+          `unsupported language '${body.language}'. Supported: ${SUPPORTED_LANGUAGES.join(", ")}`,
+        );
+      }
+      // simulator + unknown language -> keep English fallback
+    }
 
     const svc = getServiceClient();
 
@@ -93,13 +117,13 @@ serve(async (req) => {
       (taskRows ?? []).map((t: any) => [t.id, t.domain_id]),
     );
 
-    // 4. Candidate questions for this cert + pool + language (English forms).
+    // 4. Candidate questions for this cert + pool + language.
     const { data: question_rows } = await svc
       .from("quiz_questions")
       .select("id, question_text, question_type, options, difficulty, task_id")
       .eq("certification_id", body.certification_id)
       .eq("pool", pool)
-      .eq("language", "en")
+      .eq("language", language)
       .eq("status", "approved")
       .eq("is_exam_scope", true);
 
@@ -107,8 +131,8 @@ serve(async (req) => {
       throw new HttpError(
         400,
         mode === "exam"
-          ? "no secure questions available — the certification exam pool is empty"
-          : "no practice questions available for the simulator",
+          ? `no secure questions available in '${language}' — the certification exam pool is empty for this language`
+          : `no practice questions available in '${language}' for the simulator`,
       );
     }
 
@@ -159,8 +183,8 @@ serve(async (req) => {
         .join("; ");
       throw new HttpError(
         409,
-        `secure pool insufficient to assemble a blueprint-valid exam (${detail}). ` +
-          `Add secure items to these domains before issuing certification exams.`,
+        `secure pool insufficient to assemble a blueprint-valid exam in '${language}' (${detail}). ` +
+          `Add secure items to these domains/language before issuing certification exams.`,
       );
     }
 
@@ -196,6 +220,7 @@ serve(async (req) => {
     return jsonResponse({
       session_id: session.id,
       mode,
+      language,
       started_at: session.started_at,
       duration_minutes: cert.exam_duration_minutes ?? 60,
       passing_score_pct: Number(cert.passing_score_pct ?? 85),
