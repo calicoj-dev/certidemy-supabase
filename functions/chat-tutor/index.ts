@@ -1,10 +1,17 @@
 // POST /functions/v1/chat-tutor
 //
-// Body: { session_id?: string, certification_id, message, language? }
+// Body: { session_id?: string, certification_id, message, language?, lesson_context? }
 // Auth: Bearer JWT
 //
 // Streams the tutor's response back as Server-Sent Events. The full assistant
 // message is also persisted to chat_messages when the stream completes.
+//
+// `lesson_context` (optional): a short human-readable string naming what the
+// learner is currently studying, e.g. "Lesson: The Agile Manifesto — section:
+// The Twelve Principles". When present it is surfaced to Claude as a
+// <lesson_context> block so answers can be grounded to the learner's current
+// place in the course. It does NOT change retrieval — the grounding rules and
+// citations still come only from <reference_material>.
 //
 // SSE event types sent to the client:
 //   - event: "start"      data: { session_id, citations: RetrievedChunk[] }
@@ -23,10 +30,15 @@ interface Body {
   certification_id: string;
   message: string;
   language?: Language;
+  lesson_context?: string;
 }
 
 const CLAUDE_MODEL = 'claude-sonnet-4-6';
 const MAX_HISTORY = 12; // keep last 12 messages (6 turns) for context
+
+// A lesson_context string is a short label, not free content. Cap it
+// defensively so a malformed caller can't stuff the prompt.
+const MAX_LESSON_CONTEXT_CHARS = 300;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
@@ -45,6 +57,12 @@ serve(async (req) => {
 
     const svc = getServiceClient();
     const language: Language = body.language ?? 'en';
+
+    // Optional lesson context — trimmed and length-capped.
+    const lesson_context =
+      typeof body.lesson_context === 'string'
+        ? body.lesson_context.trim().slice(0, MAX_LESSON_CONTEXT_CHARS)
+        : '';
 
     // 1. Resolve or create the chat session.
     let session_id = body.session_id;
@@ -102,7 +120,22 @@ serve(async (req) => {
     });
 
     const reference_block = formatReferenceMaterial(chunks);
-    const user_message_with_context = `${reference_block}\n\n<user_question>\n${body.message}\n</user_question>`;
+
+    // When the learner is inside a lesson, tell Claude where they are. This
+    // block is advisory — it helps the tutor pitch the answer at the right
+    // topic — but it is NOT a source of facts. Grounding/citations still come
+    // only from <reference_material>.
+    const lesson_context_block = lesson_context
+      ? `<lesson_context>\nThe learner is currently studying: ${lesson_context}\n` +
+        `Favor this topic when the question is ambiguous, and pitch the answer ` +
+        `at the part of the course they are on. Still answer only from ` +
+        `<reference_material>; do not treat this line as a citable source.\n` +
+        `</lesson_context>\n\n`
+      : '';
+
+    const user_message_with_context =
+      `${lesson_context_block}${reference_block}\n\n` +
+      `<user_question>\n${body.message}\n</user_question>`;
 
     const claude_messages = [
       ...history_messages.map(m => ({ role: m.role, content: m.content })),

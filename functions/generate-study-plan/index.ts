@@ -6,15 +6,21 @@
 // Pipeline:
 //   1. Load cert catalog (modules, lessons, prerequisites) + the user's current
 //      concept mastery + recent mock exam results.
-//   2. Ask Claude to (a) rank concepts by priority given weak areas and time
-//      budget, (b) recommend an emphasis strategy ("front-load weak modules",
-//      "balanced sweep", "mock-heavy"), (c) produce a short coaching message.
-//   3. Run a deterministic scheduler:
-//        - topo-sort modules by hard prerequisites
-//        - allocate lessons across days within daily_minutes budget
-//        - inject one FSRS review block per ~3 study days
+//   2. Ask Claude for personalization (strategy, priorities, coaching copy).
+//   3. Run a deterministic scheduler over ONE lesson per lesson group, skipping
+//      groups the learner has already completed.
 //   4. Persist study_plans + study_plan_items rows.
 //   5. Return the schedule + Claude's coaching message.
+//
+// LANGUAGE NOTE: lessons exist as one row per language, all sharing a
+// `lesson_group_id` (the English head's id is the canonical group id). The
+// scheduler must work in GROUPS, not rows — otherwise a 25-lesson course
+// produces a 75-item plan with each lesson tripled across en/es-419/pt-BR.
+// We dedupe to the canonical row (where lesson_group_id = id) before scheduling.
+//
+// COMPLETION NOTE: completion is also group-keyed. A lesson done in any one
+// language counts for the whole group, so we roll up user_lesson_progress by
+// lesson_group_id and skip groups already completed.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -29,10 +35,10 @@ interface Body {
 
 interface ClaudePersonalization {
   emphasis_strategy: 'front_load_weak' | 'balanced_sweep' | 'mock_heavy' | 'rapid_review';
-  priority_concepts: string[];   // concept slugs in priority order
-  weekly_themes: string[];       // 1 sentence each
-  coaching_message: string;      // <= 3 sentences to show on plan creation
-  estimated_readiness_at_exam: number; // 0..1, model's gut-check
+  priority_concepts: string[];
+  weekly_themes: string[];
+  coaching_message: string;
+  estimated_readiness_at_exam: number;
 }
 
 serve(async (req) => {
@@ -53,7 +59,7 @@ serve(async (req) => {
     const svc = getServiceClient();
 
     // 1. Pull catalog.
-    const [{ data: cert }, { data: modules }, { data: prereqs }, { data: concepts }, { data: mastery }] = await Promise.all([
+    const [{ data: cert }, { data: modules }, , { data: concepts }, { data: mastery }] = await Promise.all([
       svc.from('certifications').select('id, code, name, passing_score_pct').eq('id', body.certification_id).single(),
       svc.from('modules').select('id, title, order_index, estimated_minutes').eq('certification_id', body.certification_id).order('order_index'),
       svc.from('module_prerequisites').select('module_id, prerequisite_module_id, strength').in('module_id', []),
@@ -69,14 +75,33 @@ serve(async (req) => {
       .select('module_id, prerequisite_module_id, strength')
       .in('module_id', module_ids);
 
-    const { data: lessons } = await svc
+    // Lessons — all language rows; we dedupe to one per group below.
+    const { data: lessons_all } = await svc
       .from('lessons')
-      .select('id, module_id, title, order_index, estimated_minutes')
+      .select('id, module_id, title, order_index, estimated_minutes, lesson_group_id, language')
       .in('module_id', module_ids)
       .order('order_index');
 
-    // Recent mock exam results — the richest signal for what the learner is
-    // weak on. Feeds the personalization prompt.
+    // ---- Dedupe to ONE lesson per group (the canonical head). ----
+    // Prefer the row where lesson_group_id = id (English head). Fall back to
+    // the first row seen for a group if no head is present (shouldn't happen
+    // after migration 010, but defensive).
+    const lessons = dedupeByGroup(lessons_all ?? []);
+
+    // ---- Skip groups the learner has already completed (group-aware). ----
+    // NOTE: assumes user_lesson_progress(user_id, lesson_id, status) with
+    // status 'completed'. If the schema differs, adjust the select + predicate.
+    const { data: progress } = await svc
+      .from('user_lesson_progress')
+      .select('lesson_id, status')
+      .eq('user_id', user_id);
+
+    const completed_group_ids = await rollUpCompletedGroups(svc, progress ?? []);
+    const remaining_lessons = lessons.filter(
+      l => !completed_group_ids.has(l.lesson_group_id ?? l.id)
+    );
+
+    // Recent mock exam results for personalization.
     const { data: recent_exams } = await svc
       .from('mock_exam_results')
       .select('score_pct, passed, weakest_concepts, created_at')
@@ -85,7 +110,7 @@ serve(async (req) => {
       .order('created_at', { ascending: false })
       .limit(3);
 
-    // 2. Build concept-mastery view to feed Claude.
+    // 2. Concept-mastery view for Claude.
     const mastery_by_id = new Map((mastery ?? []).map(m => [m.concept_id, m]));
     const concept_view = (concepts ?? []).map(c => ({
       slug: c.slug,
@@ -95,7 +120,7 @@ serve(async (req) => {
       attempts: mastery_by_id.get(c.id)?.attempts ?? 0,
     }));
 
-    // 3. Call Claude for personalization (NOT scheduling).
+    // 3. Personalization.
     const personalization = await getPersonalization({
       cert_name: cert.name,
       cert_code: cert.code,
@@ -108,18 +133,17 @@ serve(async (req) => {
       recent_exams: recent_exams ?? [],
     });
 
-    // 4. Deterministic scheduling.
+    // 4. Deterministic scheduling over remaining (incomplete) lessons.
     const ordered_modules = topoSortModules(modules, prereqs_real ?? []);
     const items = scheduleLessons({
       modules: ordered_modules,
-      lessons: lessons ?? [],
+      lessons: remaining_lessons,
       total_days,
       daily_minutes: body.daily_minutes,
       start_date,
     });
 
-    // 5. Persist plan + items (transactional via two writes — second clears
-    //    any previous plan items if a plan already existed).
+    // 5. Persist.
     const { data: plan, error: planErr } = await svc
       .from('study_plans')
       .upsert({
@@ -128,6 +152,7 @@ serve(async (req) => {
         target_exam_date: body.target_exam_date,
         daily_minutes_goal: body.daily_minutes,
         status: 'active',
+        coaching_message: personalization.coaching_message,
         updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id,certification_id' })
       .select('id')
@@ -138,12 +163,14 @@ serve(async (req) => {
 
     const insert_rows = items.map((it, idx) => ({
       study_plan_id: plan.id,
+      item_type: it.kind, // 'lesson' | 'review' | 'mock_exam'
       lesson_id: it.kind === 'lesson' ? it.lesson_id : null,
-      module_id: it.kind === 'lesson' ? null : it.module_id,
+      module_id: null,
       scheduled_date: it.date,
       order_index: idx,
       status: 'not_started' as const,
     }));
+
     if (insert_rows.length > 0) {
       const { error: insErr } = await svc.from('study_plan_items').insert(insert_rows);
       if (insErr) throw new Error(`study_plan_items insert: ${insErr.message}`);
@@ -164,6 +191,59 @@ serve(async (req) => {
     return jsonResponse({ error: (err as Error).message }, 500);
   }
 });
+
+// ----- Group dedup + completion rollup -----
+
+interface LessonRow {
+  id: string;
+  module_id: string;
+  title: string;
+  order_index: number;
+  estimated_minutes: number;
+  lesson_group_id: string | null;
+  language: string | null;
+}
+
+/** Keep one lesson per group: the canonical head (lesson_group_id = id) if
+ *  present, else the first row seen for that group. */
+function dedupeByGroup(rows: LessonRow[]): LessonRow[] {
+  const byGroup = new Map<string, LessonRow>();
+  for (const r of rows) {
+    const gid = r.lesson_group_id ?? r.id;
+    const existing = byGroup.get(gid);
+    if (!existing) {
+      byGroup.set(gid, r);
+    } else if (r.lesson_group_id === r.id && existing.lesson_group_id !== existing.id) {
+      // Prefer the canonical head row.
+      byGroup.set(gid, r);
+    }
+  }
+  return Array.from(byGroup.values());
+}
+
+/** Roll up completed lessons into the set of completed GROUP ids. A lesson
+ *  completed in any language marks its whole group complete. */
+async function rollUpCompletedGroups(
+  svc: ReturnType<typeof getServiceClient>,
+  progress: Array<{ lesson_id: string; status: string }>,
+): Promise<Set<string>> {
+  const completedLessonIds = progress
+    .filter(p => p.status === 'completed')
+    .map(p => p.lesson_id);
+  if (completedLessonIds.length === 0) return new Set();
+
+  // Map those lesson ids → their group ids.
+  const { data: rows } = await svc
+    .from('lessons')
+    .select('id, lesson_group_id')
+    .in('id', completedLessonIds);
+
+  const groups = new Set<string>();
+  for (const r of (rows ?? []) as Array<{ id: string; lesson_group_id: string | null }>) {
+    groups.add(r.lesson_group_id ?? r.id);
+  }
+  return groups;
+}
 
 // ----- Claude personalization call -----
 
@@ -186,10 +266,10 @@ produce concept priorities, a strategy label, weekly themes, and short coaching 
 Output schema (strict JSON):
 {
   "emphasis_strategy": "front_load_weak" | "balanced_sweep" | "mock_heavy" | "rapid_review",
-  "priority_concepts": string[],          // concept slugs, ordered most-important first
-  "weekly_themes": string[],              // one short sentence per week, ${'<='} 6 entries
-  "coaching_message": string,             // ${'<='} 3 sentences, second-person, motivating but realistic
-  "estimated_readiness_at_exam": number   // 0..1
+  "priority_concepts": string[],
+  "weekly_themes": string[],
+  "coaching_message": string,
+  "estimated_readiness_at_exam": number
 }
 
 Strategy guide:
@@ -232,7 +312,7 @@ Produce the JSON output.`;
 
 interface ScheduleItem {
   kind: 'lesson' | 'review' | 'mock_exam';
-  date: string; // YYYY-MM-DD
+  date: string;
   lesson_id?: string;
   module_id?: string;
   title: string;
@@ -243,7 +323,6 @@ function topoSortModules(
   modules: Array<{ id: string; order_index: number; title: string; estimated_minutes: number }>,
   prereqs: Array<{ module_id: string; prerequisite_module_id: string; strength: string }>,
 ) {
-  // Kahn's algorithm on the hard-prerequisite DAG; ties broken by order_index.
   const by_id = new Map(modules.map(m => [m.id, m]));
   const hard = prereqs.filter(p => p.strength === 'hard');
   const indegree = new Map<string, number>();
@@ -283,7 +362,6 @@ function scheduleLessons(args: {
   }
   for (const arr of lessons_by_module.values()) arr.sort((a, b) => a.order_index - b.order_index);
 
-  // Flatten in module order.
   const queue: Array<{ lesson: typeof args.lessons[0]; module_title: string }> = [];
   for (const m of args.modules) {
     for (const l of (lessons_by_module.get(m.id) ?? [])) {
@@ -324,14 +402,12 @@ function scheduleLessons(args: {
     queue.shift();
   }
 
-  // Inject review days every Nth study day where there's headroom.
   for (let d = REVIEW_EVERY_N_DAYS; d < args.total_days; d += REVIEW_EVERY_N_DAYS) {
     if (!days_with_content.has(d)) {
       items.push({ kind: 'review', date: dateFor(d), title: 'FSRS review block', minutes: REVIEW_BLOCK_MINUTES });
     }
   }
 
-  // Schedule a mock exam in the final week, and another at 75% if there's time.
   if (args.total_days >= 7) {
     items.push({ kind: 'mock_exam', date: dateFor(args.total_days - 2), title: 'Full mock exam', minutes: 60 });
   }

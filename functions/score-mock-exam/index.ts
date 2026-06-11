@@ -20,7 +20,9 @@
 //     - ON PASS: issues the credential (credentials row) atomically with the
 //       attempt — snapshotting holder name and certification name so later
 //       renames never rewrite issued history. One active credential per
-//       user+cert; a re-pass returns the existing one. The response carries
+//       user+cert; a re-pass returns the existing one. The credential also
+//       records the exam language as `locale` so the certificate PDF renders
+//       in the language the exam was taken in. The response carries
 //       credential_id + credential_code so the results screen can link to
 //       the public verify page immediately.
 //
@@ -329,6 +331,15 @@ serve(async (req) => {
               console.warn("holder name lookup failed:", err);
             }
 
+            // Record the exam language as the credential's locale, so the
+            // certificate PDF renders in the language the exam was taken in.
+            // Normalized to the three supported render locales; anything else
+            // falls back to English at render time.
+            const credential_locale =
+              body.language === "es-419" || body.language === "pt-BR"
+                ? body.language
+                : "en";
+
             const { data: cred, error: cErr } = await svc
               .from("credentials")
               .insert({
@@ -340,6 +351,7 @@ serve(async (req) => {
                 certification_name: cert.name,
                 certification_code: cert.code,
                 score_pct,
+                locale: credential_locale,
                 issued_at: now.toISOString(),
               })
               .select("id, credential_code")

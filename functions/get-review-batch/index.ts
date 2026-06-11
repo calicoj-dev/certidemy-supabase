@@ -48,26 +48,40 @@ serve(async (req) => {
       .limit(review_limit);
 
     // 2. Net new items — questions in this cert the user has never seen.
-    //    Pull a small pool, then filter out anything already in fsrs_cards.
+    //    Exclude seen IDs at the query level so the whole unseen bank is
+    //    reachable (not just the first N rows of the full table).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let new_items: any[] = [];
     if (new_limit > 0) {
       const { data: seen_ids } = await svc
         .from('fsrs_cards')
         .select('question_id')
         .eq('user_id', user_id);
-      const seen = new Set((seen_ids ?? []).map(r => r.question_id));
+      const seen = (seen_ids ?? [])
+        .map((r) => r.question_id)
+        .filter(Boolean);
 
-      const { data: candidates } = await svc
+      let q = svc
         .from('quiz_questions')
         .select('id, question_text, question_type, options, difficulty, module_id')
-        .eq('certification_id', body.certification_id)
-        .limit(new_limit * 4);
+        .eq('certification_id', body.certification_id);
+
+      // Exclude already-seen questions in the query itself. PostgREST's
+      // `not in` wants a (a,b,c) list; build it from the seen IDs.
+      if (seen.length > 0) {
+        q = q.not('id', 'in', `(${seen.join(',')})`);
+      }
+
+      // Pull a generous pool of unseen questions. Order by id for stable,
+      // deterministic paging; the player shuffles presentation if desired.
+      const { data: candidates } = await q.limit(new_limit * 4);
 
       new_items = (candidates ?? [])
-        .filter(q => !seen.has(q.id))
         .slice(0, new_limit)
-        .map(q => ({ ...q, kind: 'new' }));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((qq: any) => ({ ...qq, kind: 'new' }));
     }
+
 
     const reviews = (due_cards ?? []).map((c: any) => ({
       kind: 'review',
