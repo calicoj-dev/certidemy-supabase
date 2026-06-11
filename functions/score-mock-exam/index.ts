@@ -14,11 +14,15 @@
 //     - Does NOT feed mastery — the secure exam is inert to the adaptive
 //       practice engine (no secure-item signal leaks into mastery).
 //     - Does NOT write mock_exam_results.
-//     - Writes a credential-ready exam_attempts row (the durable record that
-//       Phase B credentials/verify/badges/vouchers will hang off), with
-//       company_id auto-linked to the company sponsoring THIS cert (via
+//     - Writes a credential-ready exam_attempts row, with company_id
+//       auto-linked to the company sponsoring THIS cert (via
 //       company_certifications), or null for B2C self-pay.
-//     - Returns score + pass/fail + breakdown (no mastery side effects).
+//     - ON PASS: issues the credential (credentials row) atomically with the
+//       attempt — snapshotting holder name and certification name so later
+//       renames never rewrite issued history. One active credential per
+//       user+cert; a re-pass returns the existing one. The response carries
+//       credential_id + credential_code so the results screen can link to
+//       the public verify page immediately.
 //
 // Both close the quiz session with score + pass.
 
@@ -33,6 +37,17 @@ interface Body {
   session_id: string;
   answers: Array<{ question_id: string; user_answer: string[]; time_taken_seconds?: number }>;
   language?: Language;
+}
+
+/** Human-friendly credential code, e.g. SMPC-7K2M-9DQ4 (no 0/O/1/I). */
+function makeCredentialCode(certCode: string): string {
+  const alphabet = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+  const block = () =>
+    Array.from(
+      crypto.getRandomValues(new Uint8Array(4)),
+      (b) => alphabet[b % alphabet.length]
+    ).join("");
+  return `${certCode.toUpperCase()}-${block()}-${block()}`;
 }
 
 serve(async (req) => {
@@ -263,21 +278,83 @@ serve(async (req) => {
         console.warn("company attribution lookup failed:", err);
       }
 
-      // Credential-ready record. Phase B reads this to mint credentials.
-      const { error: aErr } = await svc.from("exam_attempts").insert({
-        user_id,
-        certification_id: session.certification_id,
-        session_id: body.session_id,
-        company_id,
-        voucher_id: null, // Phase B
-        score_pct,
-        passed,
-        total_questions: total,
-        correct_answers: correct_count,
-        duration_seconds,
-        submitted_at: now.toISOString(),
-      });
+      // Credential-ready record — and capture its id to link the credential.
+      const { data: attempt, error: aErr } = await svc
+        .from("exam_attempts")
+        .insert({
+          user_id,
+          certification_id: session.certification_id,
+          session_id: body.session_id,
+          company_id,
+          voucher_id: null, // Phase B vouchers
+          score_pct,
+          passed,
+          total_questions: total,
+          correct_answers: correct_count,
+          duration_seconds,
+          submitted_at: now.toISOString(),
+        })
+        .select("id")
+        .single();
       if (aErr) throw new Error(`exam_attempts insert: ${aErr.message}`);
+
+      // ---- Credential issuance (on pass only) ----
+      let credential_id: string | null = null;
+      let credential_code: string | null = null;
+      if (passed) {
+        try {
+          // One active credential per user+cert: return the existing one
+          // on a re-pass instead of minting a duplicate.
+          const { data: existing } = await svc
+            .from("credentials")
+            .select("id, credential_code")
+            .eq("user_id", user_id)
+            .eq("certification_id", session.certification_id)
+            .eq("status", "active")
+            .maybeSingle();
+
+          if (existing) {
+            credential_id = existing.id;
+            credential_code = existing.credential_code;
+          } else {
+            // Snapshot the holder's name at issuance.
+            let holder_name = "Certified Professional";
+            try {
+              const { data: userData } = await svc.auth.admin.getUserById(user_id);
+              holder_name =
+                (userData?.user?.user_metadata?.full_name as string | undefined) ??
+                userData?.user?.email ??
+                holder_name;
+            } catch (err) {
+              console.warn("holder name lookup failed:", err);
+            }
+
+            const { data: cred, error: cErr } = await svc
+              .from("credentials")
+              .insert({
+                credential_code: makeCredentialCode(cert.code),
+                user_id,
+                certification_id: session.certification_id,
+                exam_attempt_id: attempt.id,
+                holder_name,
+                certification_name: cert.name,
+                certification_code: cert.code,
+                score_pct,
+                issued_at: now.toISOString(),
+              })
+              .select("id, credential_code")
+              .single();
+            if (cErr) {
+              console.error("credential issuance failed:", cErr);
+            } else {
+              credential_id = cred.id;
+              credential_code = cred.credential_code;
+            }
+          }
+        } catch (err) {
+          console.error("credential issuance error:", err);
+        }
+      }
 
       return jsonResponse({
         kind: "certification_exam",
@@ -287,9 +364,11 @@ serve(async (req) => {
         total_questions: total,
         correct_answers: correct_count,
         duration_seconds,
-        // Credential issuance (badge, verify page) is Phase B; for now the
-        // authoritative attempt is recorded and the result returned.
-        credential_pending: passed,
+        credential_id,
+        credential_code,
+        // True only if passed but issuance failed (rare) — the attempt row
+        // is the durable record either way; ops can re-issue from it.
+        credential_pending: passed && credential_id === null,
       });
     }
 
