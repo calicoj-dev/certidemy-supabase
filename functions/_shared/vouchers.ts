@@ -1,19 +1,22 @@
 // supabase/functions/_shared/vouchers.ts
 //
-// Shared voucher logic: code generation, eligibility resolution, and atomic
+// Shared voucher logic: code generation, eligibility resolution, atomic
 // consumption. Used by generate-mock-exam (consume at start),
-// get-exam-eligibility (read), and revoke-credential (cascade).
+// get-exam-eligibility (read), revoke-credential (cascade), assign-voucher.
 //
-// "Attempts remaining" resolution order:
-//   voucher.attempts_allowed (override)  ->  allocation.attempts_per_seat
-//   ->  NULL means UNLIMITED.
+// ATTEMPT ALLOWANCE RESOLUTION (post seat-batches refactor):
+//   1. voucher.attempts_allowed (per-voucher override) — wins if set
+//   2. the voucher's BATCH attempts_per_seat (partner vouchers cut from a batch)
+//   3. legacy fallback: company_certifications.attempts_per_seat (vouchers not
+//      yet relinked to a batch — defensive; migration should have set batch_id)
+//   4. no allocation + no override → 1 (safest; never accidental unlimited)
+//   NULL anywhere in 1–3 means UNLIMITED.
 //
-// A voucher is REDEEMABLE for a real exam when:
-//   status in ('assigned','redeemed-with-attempts-left' is not a status; we
-//   model "redeemed" as exhausted) — concretely: status = 'assigned' AND
-//   not revoked AND attempts remaining > 0 (or unlimited).
-// On consumption we increment attempts_used; if the allowance is now
-// exhausted we flip status -> 'redeemed'. Unlimited vouchers never flip.
+// UNLIMITED is a per-seat license: it can be assigned (1 seat → 1 person) but
+// is NEVER a top-up source (that would let one purchased seat grant infinite
+// attempts to infinite people). Top-up (future) must draw only from FINITE
+// batches. This file doesn't implement top-up, but resolveAllowance treats
+// unlimited correctly: NULL allowance = unlimited for that one voucher holder.
 
 import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -41,38 +44,51 @@ interface VoucherRow {
   status: string;
   attempts_allowed: number | null;
   attempts_used: number;
+  batch_id: string | null;
   company_certification_id: string | null;
   company_id: string | null;
 }
 
 /**
- * Resolve the effective attempt allowance for a voucher.
- * Returns null for unlimited.
+ * Resolve the effective attempt allowance for a voucher. NULL = unlimited.
+ *
+ * Order: per-voucher override → batch terms → legacy allocation terms → 1.
  */
 async function resolveAllowance(
   svc: SupabaseClient,
   v: VoucherRow,
 ): Promise<number | null> {
-  // Per-voucher override wins.
+  // 1. Per-voucher override wins (B2C vouchers carry this).
   if (v.attempts_allowed !== null && v.attempts_allowed !== undefined) {
     return v.attempts_allowed;
   }
-  // Otherwise inherit the allocation policy. No allocation (B2C without one)
-  // and no override -> treat as single attempt by default is NOT desired;
-  // a standalone B2C voucher should carry its own attempts_allowed at
-  // creation. If somehow neither is set, we fall back to 1 (safest: never
-  // grant unlimited by accident).
-  if (!v.company_certification_id) return 1;
 
-  const { data: alloc } = await svc
-    .from("company_certifications")
-    .select("attempts_per_seat")
-    .eq("id", v.company_certification_id)
-    .maybeSingle();
+  // 2. Batch terms (the normal partner path post-refactor).
+  if (v.batch_id) {
+    const { data: batch } = await svc
+      .from("seat_batches")
+      .select("attempts_per_seat")
+      .eq("id", v.batch_id)
+      .maybeSingle();
+    if (batch) {
+      // attempts_per_seat NULL = unlimited.
+      return batch.attempts_per_seat ?? null;
+    }
+  }
 
-  if (!alloc) return 1;
-  // attempts_per_seat NULL = unlimited (negotiated deal).
-  return alloc.attempts_per_seat ?? null;
+  // 3. Legacy fallback: allocation terms (voucher not yet relinked to a batch).
+  if (v.company_certification_id) {
+    const { data: alloc } = await svc
+      .from("company_certifications")
+      .select("attempts_per_seat")
+      .eq("id", v.company_certification_id)
+      .maybeSingle();
+    if (alloc) return alloc.attempts_per_seat ?? null;
+  }
+
+  // 4. No allocation, no override, no batch → single attempt (never unlimited
+  //    by accident).
+  return 1;
 }
 
 /**
@@ -84,13 +100,10 @@ export async function getEligibility(
   userId: string,
   certificationId: string,
 ): Promise<VoucherEligibility> {
-  // Candidate vouchers: assigned to this user, this cert, not revoked,
-  // not exhausted. Prefer 'assigned' (active) rows; a 'redeemed' row is
-  // exhausted by definition.
   const { data: rows } = await svc
     .from("vouchers")
     .select(
-      "id, status, attempts_allowed, attempts_used, company_certification_id, company_id",
+      "id, status, attempts_allowed, attempts_used, batch_id, company_certification_id, company_id",
     )
     .eq("assigned_user_id", userId)
     .eq("certification_id", certificationId)
@@ -107,7 +120,6 @@ export async function getEligibility(
     };
   }
 
-  // Pick the first with attempts remaining.
   for (const v of rows as VoucherRow[]) {
     const allowance = await resolveAllowance(svc, v);
     if (allowance === null) {
@@ -131,7 +143,6 @@ export async function getEligibility(
     }
   }
 
-  // All assigned vouchers are exhausted.
   return {
     has_voucher: false,
     voucher_id: null,
@@ -148,12 +159,11 @@ export async function getEligibility(
  * Side effects on success:
  *   - vouchers.attempts_used += 1
  *   - if the allowance is now exhausted: status -> 'redeemed', redeemed_at set
- *   - company_certifications.seats_used += 1 (a seat is spent at exam start)
+ *   - seat usage counter incremented (on the batch if present, else the legacy
+ *     allocation) — convenience counter; the voucher attempt is source of truth
  *
- * Concurrency note: Supabase/PostgREST has no multi-statement transaction from
- * the client, so we guard against double-spend with a conditional update that
- * matches the exact attempts_used we read (optimistic lock). If the update
- * affects 0 rows, someone else consumed concurrently and we retry once.
+ * Optimistic-lock against double-spend: conditional update matching the exact
+ * attempts_used we read; 0 rows affected = lost the race, retry once.
  */
 export async function consumeAttempt(
   svc: SupabaseClient,
@@ -164,11 +174,10 @@ export async function consumeAttempt(
     const elig = await getEligibility(svc, userId, certificationId);
     if (!elig.has_voucher || !elig.voucher_id) return null;
 
-    // Re-read the exact row for the optimistic-lock value.
     const { data: v } = await svc
       .from("vouchers")
       .select(
-        "id, status, attempts_allowed, attempts_used, company_certification_id, company_id, redeemed_at",
+        "id, status, attempts_allowed, attempts_used, batch_id, company_certification_id, company_id, redeemed_at",
       )
       .eq("id", elig.voucher_id)
       .maybeSingle();
@@ -187,7 +196,6 @@ export async function consumeAttempt(
       update.redeemed_at = new Date().toISOString();
     }
 
-    // Optimistic lock: only succeed if attempts_used is still what we read.
     const { data: updated, error: updErr } = await svc
       .from("vouchers")
       .update(update)
@@ -206,10 +214,14 @@ export async function consumeAttempt(
       continue;
     }
 
-    // Seat accounting: a seat is spent at exam start. Best-effort increment
-    // on the allocation (B2B only). A failure here doesn't unwind the
-    // consume — the voucher attempt is the source of truth; seats_used is a
-    // convenience counter the quota view also derives independently.
+    // Seat accounting (best-effort convenience counter). Prefer the batch; fall
+    // back to the legacy allocation column. A failure here does NOT unwind the
+    // consume — the voucher attempt is the source of truth.
+    if (v.batch_id) {
+      // seat_batches has no seats_used column by design (usage is derived from
+      // vouchers); nothing to increment here. The voucher attempt is the record.
+      // Legacy allocation counter kept in sync below if present.
+    }
     if (v.company_certification_id) {
       const { data: alloc } = await svc
         .from("company_certifications")
