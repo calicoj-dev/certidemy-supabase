@@ -69,7 +69,7 @@ serve(async (req) => {
     // 1. Load session; verify ownership + that it's an exam-type session.
     const { data: session, error: sErr } = await svc
       .from("quiz_sessions")
-      .select("id, user_id, certification_id, kind, started_at, completed_at")
+      .select("id, user_id, certification_id, kind, voucher_id, started_at, completed_at")
       .eq("id", body.session_id)
       .single();
     if (sErr || !session) throw new HttpError(404, "session not found");
@@ -288,7 +288,10 @@ serve(async (req) => {
           certification_id: session.certification_id,
           session_id: body.session_id,
           company_id,
-          voucher_id: null, // Phase B vouchers
+          // Voucher was already consumed at exam START (generate-mock-exam).
+          // Here we only LINK it onto the attempt for the audit trail — no
+          // second consume. Carried via the session.
+          voucher_id: session.voucher_id ?? null,
           score_pct,
           passed,
           total_questions: total,
@@ -361,6 +364,20 @@ serve(async (req) => {
             } else {
               credential_id = cred.id;
               credential_code = cred.credential_code;
+              // Link the credential back to the voucher it was earned with, so
+              // an admin credential-revocation can cascade to the voucher.
+              if (session.voucher_id) {
+                const { error: vLinkErr } = await svc
+                  .from("vouchers")
+                  .update({
+                    credential_id: cred.id,
+                    updated_at: now.toISOString(),
+                  })
+                  .eq("id", session.voucher_id);
+                if (vLinkErr) {
+                  console.warn("could not link credential to voucher", vLinkErr);
+                }
+              }
             }
           }
         } catch (err) {

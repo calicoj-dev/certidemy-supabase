@@ -20,12 +20,22 @@
 //     form. This guarantees every certification exam is blueprint-valid.
 //   - Shuffles final order; never returns correct_answer / difficulty / tags.
 //
+// VOUCHER GATE (mode='exam' only): a real certification exam requires a
+// redeemable voucher assigned to the user for this cert. The attempt is
+// CONSUMED at start — issuing the secure form burns one attempt regardless of
+// whether the candidate finishes (abandon/disconnect still counts). The
+// simulator is always free and ungated. Consumption is atomic and happens
+// BEFORE the form is assembled, so we never hand out secure items without
+// having charged the attempt.
+//
 // Scoring is handled by score-mock-exam, which reads quiz_sessions.kind to
-// decide credential vs practice behaviour.
+// decide credential vs practice behaviour and links voucher_id onto the
+// attempt (without consuming again).
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
+import { consumeAttempt } from "../_shared/vouchers.ts";
 
 const SUPPORTED_LANGUAGES = ["en", "es-419", "pt-BR"] as const;
 type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -83,6 +93,32 @@ serve(async (req) => {
     }
 
     const svc = getServiceClient();
+
+    // ====================================================================
+    // VOUCHER GATE + CONSUME — real certification exam only.
+    // Done BEFORE assembling the form: if the user has no redeemable voucher
+    // we refuse without revealing any secure items; if they do, we consume
+    // one attempt now (exam start = attempt spent). The consumed voucher id
+    // is carried onto the session so the scorer can link it to the attempt.
+    // ====================================================================
+    let consumed_voucher_id: string | null = null;
+    if (mode === "exam") {
+      const consumed = await consumeAttempt(svc, user_id, body.certification_id);
+      if (!consumed) {
+        throw new HttpError(
+          403,
+          "no exam attempts available. A certification exam requires a voucher " +
+            "with remaining attempts. Practice in the Simulator is always free.",
+        );
+      }
+      consumed_voucher_id = consumed.voucher_id;
+    }
+
+    // From here, if anything fails for a real exam, the attempt has already
+    // been consumed. That is intentional and matches the proctored-exam model
+    // (starting burns the attempt). The blueprint-integrity gate below should
+    // never trip in production because the secure pool is verified complete;
+    // if it ever does, ops can re-issue from the audit trail.
 
     // 1. Cert config.
     const { data: cert, error: cErr } = await svc
@@ -203,7 +239,8 @@ serve(async (req) => {
     shuffle(selected);
     const finalQuestions = selected.slice(0, target_count);
 
-    // 10. Create the session.
+    // 10. Create the session. For a real exam, stamp the consumed voucher id
+    //     so the scorer can link it onto the exam_attempts row.
     const { data: session, error: sErr } = await svc
       .from("quiz_sessions")
       .insert({
@@ -211,6 +248,7 @@ serve(async (req) => {
         certification_id: body.certification_id,
         module_id: null,
         kind: sessionKind,
+        voucher_id: consumed_voucher_id,
         started_at: new Date().toISOString(),
       })
       .select("id, started_at")
