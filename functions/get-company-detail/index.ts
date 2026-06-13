@@ -133,6 +133,7 @@ serve(async (req) => {
         assignedAt: v.assigned_at,
         redeemedAt: v.redeemed_at,
         revokedReason: v.revoked_reason,
+        credentialId: v.credential_id,
       };
     });
 
