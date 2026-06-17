@@ -12,35 +12,60 @@
  * Idempotent: it reads current counts first and only fills the deficit, so
  * re-running is safe and tops up whatever's still short.
  *
- * Run from the supabase repo (it only needs env + network):
+ * Setup (once): put a .env next to this script (supabase\scripts\.env) with:
+ *   SUPABASE_SERVICE_ROLE_KEY=eyJ...
+ *   ANTHROPIC_API_KEY=sk-ant-...
+ * SUPABASE_URL and CERT_ID already default to this project / the SM-I cert.
+ *
+ * Run it with the run-backfill.ps1 helper, or directly:
  *   cd C:\Users\Juan\Documents\certidemy\supabase
- *   $env:SUPABASE_URL="https://pctynukndxnmnxiqpgck.supabase.co"
- *   $env:SUPABASE_SERVICE_ROLE_KEY="..."   # service role; NEVER commit this
- *   $env:ANTHROPIC_API_KEY="sk-ant-..."
- *   $env:CERT_ID="11111111-1111-1111-1111-111111111111"   # the SM-I cert id
- *   # optional knobs:
- *   $env:FLOOR="10"          # per-language target (default 10)
- *   $env:CHUNK="8"           # questions per Claude call (default 8)
- *   $env:MAX_TASKS="0"       # cap tasks per run, 0 = no cap
- *   $env:TASK_ID=""          # restrict to a single task id (great for a test)
- *   $env:DRY_RUN="1"         # generate + validate + print, DO NOT insert
- *   node backfill-practice.mjs
+ *   node scripts\backfill-practice.mjs
+ *
+ * Optional knobs (env or .env): FLOOR (default 10), CHUNK (8), MAX_TASKS (0=all),
+ * TASK_ID (restrict to one task), DRY_RUN (1 = generate + print, no insert).
  *
  * Recommended first run: DRY_RUN=1 with TASK_ID set to one empty D4/D5 task,
  * eyeball the output, then drop DRY_RUN and let it run a domain at a time.
  *
- * Needs @supabase/supabase-js (already a dependency) and Node 18+ (global fetch).
+ * Needs @supabase/supabase-js (installed in supabase\) and Node 18+.
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 
 // ---------------------------------------------------------------------------
-// Config
+// Load a local .env (KEY=VALUE per line) sitting next to this script, so the
+// secrets live in one gitignored file instead of being typed each run. Real
+// process env still wins over the file.
 // ---------------------------------------------------------------------------
-const SUPABASE_URL = need("SUPABASE_URL");
+function loadDotEnv() {
+  const here = dirname(fileURLToPath(import.meta.url));
+  const path = resolve(here, ".env");
+  if (!existsSync(path)) return;
+  for (const raw of readFileSync(path, "utf8").split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    const eq = line.indexOf("=");
+    if (eq === -1) continue;
+    const key = line.slice(0, eq).trim();
+    let val = line.slice(eq + 1).trim();
+    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      val = val.slice(1, -1);
+    }
+    if (process.env[key] === undefined || process.env[key] === "") process.env[key] = val;
+  }
+}
+loadDotEnv();
+
+// ---------------------------------------------------------------------------
+// Config. Sensible defaults so only the two secrets are ever required.
+// ---------------------------------------------------------------------------
+const SUPABASE_URL = process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.supabase.co";
 const SERVICE_KEY = need("SUPABASE_SERVICE_ROLE_KEY");
 const ANTHROPIC_API_KEY = need("ANTHROPIC_API_KEY");
-const CERT_ID = need("CERT_ID");
+const CERT_ID = process.env.CERT_ID || "11111111-1111-1111-1111-111111111111"; // SM-I
 
 const FLOOR = int(process.env.FLOOR, 10);
 const CHUNK = int(process.env.CHUNK, 8);
@@ -250,14 +275,25 @@ async function gather() {
   }
 
   // current practice counts per task per language (cert-scoped).
-  const { data: qRows, error: qErr } = await supabase
-    .from("quiz_questions")
-    .select("task_id, language")
-    .eq("certification_id", CERT_ID)
-    .eq("pool", "practice");
-  if (qErr) throw new Error(`quiz_questions: ${qErr.message}`);
+  // IMPORTANT: PostgREST caps a query at 1000 rows by default, so we MUST
+  // paginate — once the pool exceeds 1000 rows an un-paged select silently
+  // truncates, making tasks beyond the window look empty and get re-filled.
+  const qRows = [];
+  const PAGE = 1000;
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await supabase
+      .from("quiz_questions")
+      .select("task_id, language")
+      .eq("certification_id", CERT_ID)
+      .eq("pool", "practice")
+      .range(from, from + PAGE - 1);
+    if (error) throw new Error(`quiz_questions: ${error.message}`);
+    const batch = data || [];
+    qRows.push(...batch);
+    if (batch.length < PAGE) break;
+  }
   const counts = new Map(); // task_id -> { en, 'es-419', 'pt-BR' }
-  for (const r of qRows || []) {
+  for (const r of qRows) {
     if (!r.task_id) continue;
     if (!counts.has(r.task_id)) counts.set(r.task_id, { en: 0, "es-419": 0, "pt-BR": 0 });
     const c = counts.get(r.task_id);
