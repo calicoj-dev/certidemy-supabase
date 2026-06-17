@@ -42,7 +42,7 @@ interface Body {
 
 interface GeneratedQuestion {
   question_text: string;
-  question_type: 'single_choice' | 'multi_choice' | 'true_false';
+  question_type: 'single_choice' | 'true_false';
   options: Array<{ id: string; text: string }>;
   correct_answer: string[];
   explanation: string;
@@ -275,10 +275,12 @@ Strict requirements for every question:
   - Keep Scrum proper nouns in English, untranslated: Sprint, Scrum Master, Product
     Owner, Daily Scrum, Definition of Done, Sprint Backlog, Sprint Goal, Product Backlog,
     Product Goal, Increment, Sprint Review, Sprint Retrospective, Sprint Planning, INVEST.
-  - Single unambiguous correct answer (or multiple if question_type is "multi_choice").
-  - 4 options for single/multi choice, 2 for true_false.
+  - question_type is ONLY "single_choice" or "true_false". The real exam has no
+    select-all-that-apply questions, so never produce more than one correct answer.
+  - Exactly ONE unambiguous correct answer.
+  - 4 options for single_choice, 2 for true_false.
   - Option IDs are "a", "b", "c", "d" (or "a", "b" for true_false).
-  - correct_answer is an array of option IDs.
+  - correct_answer is an array with exactly one option ID.
   - Explanation is 1-3 sentences and references the underlying concept.
   - Difficulty 1=trivial recall, 5=tricky multi-step reasoning. Favor Apply/Analyze
     (difficulty 3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.
@@ -287,9 +289,9 @@ Output schema (strict JSON, top level is an array; NO prose, NO markdown fences)
 [
   {
     "question_text": string,
-    "question_type": "single_choice" | "multi_choice" | "true_false",
+    "question_type": "single_choice" | "true_false",
     "options": [{"id": "a", "text": string}, ...],
-    "correct_answer": [string, ...],
+    "correct_answer": [string],
     "explanation": string,
     "difficulty": 1 | 2 | 3 | 4 | 5
   }
@@ -325,9 +327,11 @@ Produce the JSON array now.`;
 function validateQuestion(q: any): q is GeneratedQuestion {
   if (!q || typeof q !== 'object') return false;
   if (typeof q.question_text !== 'string' || q.question_text.length < 10) return false;
-  if (!['single_choice', 'multi_choice', 'true_false'].includes(q.question_type)) return false;
+  // single_choice / true_false only — the exam has no select-all questions.
+  if (!['single_choice', 'true_false'].includes(q.question_type)) return false;
   if (!Array.isArray(q.options) || q.options.length < 2) return false;
-  if (!Array.isArray(q.correct_answer) || q.correct_answer.length === 0) return false;
+  // Exactly one correct answer; reject any multi-answer leftovers.
+  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
   const option_ids = new Set(q.options.map((o: any) => o.id));
   if (!q.correct_answer.every((id: string) => option_ids.has(id))) return false;
   if (typeof q.difficulty !== 'number' || q.difficulty < 1 || q.difficulty > 5) return false;
