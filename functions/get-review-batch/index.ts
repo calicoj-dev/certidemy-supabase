@@ -1,12 +1,16 @@
 // POST /functions/v1/get-review-batch
 //
-// Body: { certification_id, limit?: number, include_new?: number }
+// Body: { certification_id, limit?: number, include_new?: number, language?: string }
 // Auth: Bearer JWT
 //
 // Returns the user's review queue for today:
 //   - All FSRS cards with due <= now, sorted by due ascending
 //   - Optionally padded with `include_new` brand-new questions the user hasn't
 //     seen yet (defaults to a few from their current module).
+//
+// New items are drawn from the PRACTICE pool ONLY (never secure/exam items)
+// and in the requested language, so a review/practice slate can never surface
+// an exam question or one in the wrong locale.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -16,6 +20,7 @@ interface Body {
   certification_id: string;
   limit?: number;
   include_new?: number;
+  language?: string;
 }
 
 serve(async (req) => {
@@ -30,6 +35,7 @@ serve(async (req) => {
     const svc = getServiceClient();
     const review_limit = Math.min(body.limit ?? 20, 100);
     const new_limit = Math.min(body.include_new ?? 5, 20);
+    const language = (body.language && body.language.trim()) || 'en';
 
     // 1. Due reviews — FSRS cards whose due time has passed, for questions in
     //    this certification.
@@ -47,9 +53,11 @@ serve(async (req) => {
       .order('due', { ascending: true })
       .limit(review_limit);
 
-    // 2. Net new items — questions in this cert the user has never seen.
-    //    Exclude seen IDs at the query level so the whole unseen bank is
-    //    reachable (not just the first N rows of the full table).
+    // 2. Net new items — PRACTICE-pool questions in this cert, in the requested
+    //    language, that the user has never seen. The pool filter is the lock:
+    //    secure/exam items must NEVER pad a practice/review slate. Seen IDs are
+    //    excluded at the query level so the whole unseen bank is reachable (not
+    //    just the first N rows of the full table).
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let new_items: any[] = [];
     if (new_limit > 0) {
@@ -64,7 +72,11 @@ serve(async (req) => {
       let q = svc
         .from('quiz_questions')
         .select('id, question_text, question_type, options, difficulty, module_id')
-        .eq('certification_id', body.certification_id);
+        .eq('certification_id', body.certification_id)
+        // Practice pool ONLY — never serve a secure (exam) item as "new".
+        .eq('pool', 'practice')
+        // Match the learner's language.
+        .eq('language', language);
 
       // Exclude already-seen questions in the query itself. PostgREST's
       // `not in` wants a (a,b,c) list; build it from the seen IDs.
