@@ -1,0 +1,399 @@
+/**
+ * backfill-practice.mjs — bring the PRACTICE pool up to a per-language floor.
+ *
+ * For every task in a cert that is below the floor in any language, this
+ * generates new questions in English, translates each to es-419 and pt-BR
+ * (preserving option ids / correct_answer / type / difficulty exactly), and
+ * inserts the trilingual set through the create_practice_questions RPC — which
+ * forces pool='practice', is_exam_scope=false, and derives question_concepts
+ * from task_concepts in one transaction. So every row it writes is reachable
+ * by the practice engine and linked to exactly its task's concepts.
+ *
+ * Idempotent: it reads current counts first and only fills the deficit, so
+ * re-running is safe and tops up whatever's still short.
+ *
+ * Run from the supabase repo (it only needs env + network):
+ *   cd C:\Users\Juan\Documents\certidemy\supabase
+ *   $env:SUPABASE_URL="https://pctynukndxnmnxiqpgck.supabase.co"
+ *   $env:SUPABASE_SERVICE_ROLE_KEY="..."   # service role; NEVER commit this
+ *   $env:ANTHROPIC_API_KEY="sk-ant-..."
+ *   $env:CERT_ID="11111111-1111-1111-1111-111111111111"   # the SM-I cert id
+ *   # optional knobs:
+ *   $env:FLOOR="10"          # per-language target (default 10)
+ *   $env:CHUNK="8"           # questions per Claude call (default 8)
+ *   $env:MAX_TASKS="0"       # cap tasks per run, 0 = no cap
+ *   $env:TASK_ID=""          # restrict to a single task id (great for a test)
+ *   $env:DRY_RUN="1"         # generate + validate + print, DO NOT insert
+ *   node backfill-practice.mjs
+ *
+ * Recommended first run: DRY_RUN=1 with TASK_ID set to one empty D4/D5 task,
+ * eyeball the output, then drop DRY_RUN and let it run a domain at a time.
+ *
+ * Needs @supabase/supabase-js (already a dependency) and Node 18+ (global fetch).
+ */
+
+import { createClient } from "@supabase/supabase-js";
+
+// ---------------------------------------------------------------------------
+// Config
+// ---------------------------------------------------------------------------
+const SUPABASE_URL = need("SUPABASE_URL");
+const SERVICE_KEY = need("SUPABASE_SERVICE_ROLE_KEY");
+const ANTHROPIC_API_KEY = need("ANTHROPIC_API_KEY");
+const CERT_ID = need("CERT_ID");
+
+const FLOOR = int(process.env.FLOOR, 10);
+const CHUNK = int(process.env.CHUNK, 8);
+const MAX_TASKS = int(process.env.MAX_TASKS, 0);
+const ONLY_TASK = (process.env.TASK_ID || "").trim();
+const DRY_RUN = ["1", "true", "yes"].includes((process.env.DRY_RUN || "").toLowerCase());
+
+const MODEL = "claude-sonnet-4-6";
+const LANGS = [
+  { code: "es-419", name: "Latin American Spanish" },
+  { code: "pt-BR", name: "Brazilian Portuguese" },
+];
+const SCRUM_NOUNS = [
+  "Sprint", "Scrum Master", "Product Owner", "Daily Scrum", "Definition of Done",
+  "Sprint Backlog", "Sprint Goal", "Product Backlog", "Product Goal", "Increment",
+  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST",
+];
+const MAX_ROUNDS_PER_TASK = 3; // guard against a task that keeps failing validation
+
+const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
+  auth: { persistSession: false },
+});
+
+function need(k) {
+  const v = process.env[k];
+  if (!v || !v.trim()) {
+    console.error(`Missing required env var: ${k}`);
+    process.exit(1);
+  }
+  return v.trim();
+}
+function int(v, d) {
+  const n = parseInt(v ?? "", 10);
+  return Number.isFinite(n) ? n : d;
+}
+
+// ---------------------------------------------------------------------------
+// Claude
+// ---------------------------------------------------------------------------
+async function callClaude({ system, user, maxTokens = 8000 }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: maxTokens,
+      temperature: 0.7,
+      system,
+      messages: [{ role: "user", content: user }],
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Anthropic ${res.status}: ${body.slice(0, 500)}`);
+  }
+  const data = await res.json();
+  const text = (data.content || [])
+    .filter((b) => b.type === "text")
+    .map((b) => b.text)
+    .join("\n");
+  return parseJsonArray(text);
+}
+
+function parseJsonArray(text) {
+  let t = (text || "").trim();
+  // strip ``` / ```json fences if present
+  t = t.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+  // fall back to the first [...] block
+  if (!t.startsWith("[")) {
+    const a = t.indexOf("[");
+    const b = t.lastIndexOf("]");
+    if (a !== -1 && b !== -1 && b > a) t = t.slice(a, b + 1);
+  }
+  return JSON.parse(t);
+}
+
+// ---------------------------------------------------------------------------
+// Validation
+// ---------------------------------------------------------------------------
+function validateEnglish(q) {
+  if (!q || typeof q !== "object") return false;
+  if (typeof q.question_text !== "string" || q.question_text.length < 10) return false;
+  if (!["single_choice", "true_false"].includes(q.question_type)) return false;
+  if (!Array.isArray(q.options) || q.options.length < 2) return false;
+  if (!q.options.every((o) => o && typeof o.id === "string" && typeof o.text === "string")) return false;
+  const ids = new Set(q.options.map((o) => o.id));
+  if (ids.size !== q.options.length) return false;
+  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
+  if (!q.correct_answer.every((id) => ids.has(id))) return false;
+  if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return false;
+  if (typeof q.explanation !== "string" || q.explanation.length < 5) return false;
+  return true;
+}
+
+/**
+ * Graft a translation onto the English skeleton: keep ids / correct_answer /
+ * type / difficulty from English, substitute only the translated text fields
+ * matched by option id. Returns null if the translation can't be matched.
+ */
+function graftTranslation(enQ, tr) {
+  if (!tr || typeof tr !== "object") return null;
+  if (typeof tr.question_text !== "string" || tr.question_text.length < 5) return null;
+  if (typeof tr.explanation !== "string" || tr.explanation.length < 3) return null;
+  if (!Array.isArray(tr.options)) return null;
+  const trById = new Map(tr.options.filter((o) => o && o.id).map((o) => [o.id, o.text]));
+  const options = [];
+  for (const o of enQ.options) {
+    const text = trById.get(o.id);
+    if (typeof text !== "string" || text.length === 0) return null;
+    options.push({ id: o.id, text });
+  }
+  return {
+    question_text: tr.question_text,
+    question_type: enQ.question_type,
+    options,
+    correct_answer: enQ.correct_answer,
+    explanation: tr.explanation,
+    difficulty: enQ.difficulty,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Generation + translation
+// ---------------------------------------------------------------------------
+function genSystem() {
+  return `You are a certification exam question writer for Certidemy (Scrum Master I).
+You write practice questions in English that match the rigor of a professional Scrum certification.
+
+Strict requirements for every question:
+  - question_type is ONLY "single_choice" or "true_false". The real exam has no
+    select-all questions; never produce more than one correct answer.
+  - Exactly ONE unambiguous correct answer.
+  - 4 options for single_choice, 2 for true_false. Option ids "a","b","c","d"
+    (or "a","b" for true_false). correct_answer is an array with one option id.
+  - Explanation is 1-3 sentences referencing the underlying concept.
+  - Difficulty 1=trivial recall .. 5=tricky multi-step. Favor Apply/Analyze
+    (3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.
+  - Ground every question in the 2020 Scrum Guide. Do NOT reference any specific
+    certification provider or brand.
+
+Output strict JSON, top level an array, NO prose, NO markdown fences:
+[{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
+}
+
+function genUser(concepts, k) {
+  return `Generate ${k} new practice questions that TEST the following concept(s):
+
+${concepts.map((c) => `  - ${c.name}: ${c.description || ""}`).join("\n")}
+
+Make them distinct from one another. Produce the JSON array now.`;
+}
+
+function translateSystem(langName) {
+  return `You translate certification practice questions from English to ${langName}.
+Return a JSON array of the SAME length and order as the input. For each item return
+an object: {"question_text":string,"options":[{"id":string,"text":string}],"explanation":string}.
+
+Rules:
+  - Translate question_text, every option's text, and explanation into ${langName}.
+  - Keep each option's "id" EXACTLY as given (do not renumber or reorder).
+  - Keep these Scrum proper nouns in English, untranslated: ${SCRUM_NOUNS.join(", ")}.
+  - Do NOT add, drop, or merge options. Do NOT include correct_answer, difficulty,
+    or question_type.
+  - Output strict JSON only, NO prose, NO markdown fences.`;
+}
+
+function translateUser(enQuestions) {
+  const payload = enQuestions.map((q) => ({
+    question_text: q.question_text,
+    options: q.options.map((o) => ({ id: o.id, text: o.text })),
+    explanation: q.explanation,
+  }));
+  return `Translate these ${payload.length} questions:\n\n${JSON.stringify(payload, null, 2)}\n\nReturn the JSON array now.`;
+}
+
+// ---------------------------------------------------------------------------
+// Data gathering
+// ---------------------------------------------------------------------------
+async function gather() {
+  // Concepts for this cert (id, slug, name, description) — confirmed column
+  // concepts.certification_id.
+  const { data: conceptRows, error: cErr } = await supabase
+    .from("concepts")
+    .select("id, slug, name, description")
+    .eq("certification_id", CERT_ID);
+  if (cErr) throw new Error(`concepts: ${cErr.message}`);
+  const conceptById = new Map((conceptRows || []).map((c) => [c.id, c]));
+  const conceptIds = [...conceptById.keys()];
+  if (conceptIds.length === 0) throw new Error("no concepts for this cert");
+
+  // task -> concepts, via task_concepts (this also defines the task universe).
+  const { data: tcRows, error: tcErr } = await supabase
+    .from("task_concepts")
+    .select("task_id, concept_id")
+    .in("concept_id", conceptIds);
+  if (tcErr) throw new Error(`task_concepts: ${tcErr.message}`);
+  const conceptsByTask = new Map();
+  for (const r of tcRows || []) {
+    const c = conceptById.get(r.concept_id);
+    if (!c) continue;
+    if (!conceptsByTask.has(r.task_id)) conceptsByTask.set(r.task_id, []);
+    conceptsByTask.get(r.task_id).push({ slug: c.slug, name: c.name, description: c.description });
+  }
+
+  // current practice counts per task per language (cert-scoped).
+  const { data: qRows, error: qErr } = await supabase
+    .from("quiz_questions")
+    .select("task_id, language")
+    .eq("certification_id", CERT_ID)
+    .eq("pool", "practice");
+  if (qErr) throw new Error(`quiz_questions: ${qErr.message}`);
+  const counts = new Map(); // task_id -> { en, 'es-419', 'pt-BR' }
+  for (const r of qRows || []) {
+    if (!r.task_id) continue;
+    if (!counts.has(r.task_id)) counts.set(r.task_id, { en: 0, "es-419": 0, "pt-BR": 0 });
+    const c = counts.get(r.task_id);
+    if (r.language in c) c[r.language] += 1;
+  }
+
+  return { conceptsByTask, counts };
+}
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
+async function main() {
+  console.log(
+    `Backfill: cert=${CERT_ID} floor=${FLOOR}/lang chunk=${CHUNK} ` +
+    `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
+  );
+
+  const { conceptsByTask, counts } = await gather();
+
+  // Build the work list: tasks below floor in any language, emptiest first.
+  let tasks = [...conceptsByTask.keys()];
+  if (ONLY_TASK) tasks = tasks.filter((t) => t === ONLY_TASK);
+
+  const work = [];
+  for (const taskId of tasks) {
+    const c = counts.get(taskId) || { en: 0, "es-419": 0, "pt-BR": 0 };
+    const min = Math.min(c.en, c["es-419"], c["pt-BR"]);
+    const need = FLOOR - min;
+    if (need > 0) work.push({ taskId, need, min, c });
+  }
+  work.sort((a, b) => a.min - b.min); // zeros first
+  const limited = MAX_TASKS > 0 ? work.slice(0, MAX_TASKS) : work;
+
+  const totalNeed = limited.reduce((s, w) => s + w.need, 0);
+  console.log(
+    `${work.length} task(s) below floor; processing ${limited.length}; ` +
+    `~${totalNeed} logical questions (×3 languages) to generate.\n`
+  );
+  if (limited.length === 0) return;
+
+  let inserted = 0;
+  for (const w of limited) {
+    const concepts = conceptsByTask.get(w.taskId) || [];
+    const slugs = concepts.map((c) => c.slug).join(", ");
+    console.log(`▶ task ${w.taskId} [${slugs}] — have min ${w.min}, need ${w.need}`);
+
+    let remaining = w.need;
+    let rounds = 0;
+    while (remaining > 0 && rounds < MAX_ROUNDS_PER_TASK) {
+      rounds += 1;
+      const k = Math.min(remaining, CHUNK);
+      let enQs;
+      try {
+        const raw = await callClaude({ system: genSystem(), user: genUser(concepts, k) });
+        enQs = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
+      } catch (e) {
+        console.log(`    generate failed: ${e.message}`);
+        break;
+      }
+      if (enQs.length === 0) {
+        console.log("    no valid English questions this round");
+        continue;
+      }
+
+      // Translate to each non-English language and graft onto the EN skeleton.
+      const byLang = { en: enQs };
+      let ok = true;
+      for (const lang of LANGS) {
+        try {
+          const raw = await callClaude({
+            system: translateSystem(lang.name),
+            user: translateUser(enQs),
+          });
+          const arr = Array.isArray(raw) ? raw : [];
+          if (arr.length !== enQs.length) { ok = false; console.log(`    ${lang.code}: count mismatch`); break; }
+          const grafted = enQs.map((q, i) => graftTranslation(q, arr[i]));
+          if (grafted.some((g) => g === null)) { ok = false; console.log(`    ${lang.code}: graft failed`); break; }
+          byLang[lang.code] = grafted;
+        } catch (e) {
+          ok = false;
+          console.log(`    ${lang.code} translate failed: ${e.message}`);
+          break;
+        }
+      }
+      if (!ok) continue;
+
+      // Build the trilingual payload: one shared group id per logical question.
+      const payload = [];
+      for (let i = 0; i < enQs.length; i++) {
+        const groupId = globalThis.crypto.randomUUID();
+        for (const langCode of ["en", "es-419", "pt-BR"]) {
+          const q = byLang[langCode][i];
+          payload.push({
+            certification_id: CERT_ID,
+            task_id: w.taskId,
+            question_group_id: groupId,
+            question_text: q.question_text,
+            question_type: q.question_type,
+            options: q.options,
+            correct_answer: q.correct_answer,
+            explanation: q.explanation,
+            difficulty: q.difficulty,
+            language: langCode,
+          });
+        }
+      }
+
+      if (DRY_RUN) {
+        console.log(`    [dry] ${enQs.length} logical ✓ (sample EN: ${enQs[0].question_text.slice(0, 80)}…)`);
+        remaining -= enQs.length;
+        continue;
+      }
+
+      const { data: ids, error: rpcErr } = await supabase.rpc("create_practice_questions", {
+        p_questions: payload,
+      });
+      if (rpcErr) {
+        console.log(`    RPC failed: ${rpcErr.message}`);
+        break;
+      }
+      const wrote = (ids || []).length;
+      inserted += wrote;
+      remaining -= enQs.length;
+      console.log(`    +${enQs.length} logical (${wrote} rows) — ${remaining} left for this task`);
+    }
+    if (remaining > 0) console.log(`    ⚠ task left ${remaining} short after ${rounds} round(s)`);
+  }
+
+  console.log(
+    `\nDone. ${DRY_RUN ? "Would have written" : "Wrote"} ~${DRY_RUN ? "(dry run)" : inserted} rows. ` +
+    `Re-run to top up any tasks left short.`
+  );
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
