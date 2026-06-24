@@ -1,38 +1,43 @@
 /**
- * backfill-practice.mjs â€” bring the PRACTICE pool up to a per-language floor.
+ * gen-spo-i-secure.mjs â€” fill the SECURE (certification-exam) pool to a
+ * per-task target, the cert-exam counterpart to backfill-practice.mjs.
  *
- * For every task in a cert that is below the floor in any language, this
- * generates new questions in English, translates each to es-419 and pt-BR
- * (preserving option ids / correct_answer / type / difficulty exactly), and
- * inserts the trilingual set through the create_practice_questions RPC â€” which
- * forces pool='practice', is_exam_scope=false, and derives question_concepts
- * from task_concepts in one transaction. So every row it writes is reachable
- * by the practice engine and linked to exactly its task's concepts.
+ * For every task in a cert below the secure target in any language, this
+ * generates exam-grade questions in English, translates each to es-419 and
+ * pt-BR (preserving option ids / correct_answer / type / difficulty exactly),
+ * and inserts the trilingual set DIRECTLY into quiz_questions with the secure
+ * shape:
+ *     pool = 'secure', is_exam_scope = true, status = 'approved',
+ *     module_id = null, bloom_level set, shared question_group_id per item.
  *
- * Idempotent: it reads current counts first and only fills the deficit, so
- * re-running is safe and tops up whatever's still short.
+ * IT DELIBERATELY DOES NOT WRITE question_concepts. The practice engine finds
+ * questions by walking question_concepts; linking a secure item there would
+ * leak exam content into practice. The secure firewall = no concept link.
+ * (Mirrors the hand-authored SM-I secure SQL in migrations 036-041.)
  *
- * CERT-AWARE: the generator persona and grounding are derived from the cert
- * (its name is read from the DB), not hardcoded â€” so the same script writes
- * Scrum Master questions for SM-I and Product Owner questions for SPO-I, and
- * the grounding allows product-ownership and AI-era concepts that aren't in the
- * Scrum Guide. CERT_ID selects the cert.
+ * The mock-exam builder (generate-mock-exam) draws the cert exam from
+ * pool='secure' + is_exam_scope=true + status='approved' + language, allocates
+ * across DOMAINS by weight_pct, and REFUSES to issue a form if any domain is
+ * short. A healthy per-task target (default 8) gives every domain margin over
+ * its blueprint quota, so forms vary candidate-to-candidate and the allocator
+ * never trips.
  *
- * Setup (once): put a .env next to this script (supabase\scripts\.env) with:
+ * Idempotent: reads current secure counts first and only fills the deficit, so
+ * re-running tops up whatever's still short.
+ *
+ * Setup (once): supabase\scripts\.env with:
  *   SUPABASE_SERVICE_ROLE_KEY=eyJ...
  *   ANTHROPIC_API_KEY=sk-ant-...
- * SUPABASE_URL and CERT_ID already default to this project / the SM-I cert.
  *
- * Run it with the run-backfill.ps1 helper, or directly:
+ * Run (one full pass over all tasks):
  *   cd C:\Users\Juan\Documents\certidemy\supabase
- *   node scripts\backfill-practice.mjs
+ *   $env:CERT_ID="33333333-3333-3333-3333-333333333333"; $env:MAX_TASKS="0"
+ *   node scripts\gen-spo-i-secure.mjs
  *
- * Optional knobs (env or .env): FLOOR (default 10), CHUNK (8), MAX_TASKS (0=all),
+ * Optional knobs (env or .env): SECURE_PER_TASK (default 8), CHUNK (8),
+ * MAX_TASKS (0=all; note the shared .env may set this to 9 â€” override per run),
  * TASK_ID (restrict to one task), DRY_RUN (1 = generate + print, no insert),
  * CERT_ID (target cert; defaults to SM-I).
- *
- * Recommended first run: TASK_ID set to one representative task (e.g. an AI-era
- * SPO-I task), eyeball the output, then run a domain at a time.
  *
  * Needs @supabase/supabase-js (installed in supabase\) and Node 18+.
  */
@@ -43,9 +48,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 // ---------------------------------------------------------------------------
-// Load a local .env (KEY=VALUE per line) sitting next to this script, so the
-// secrets live in one gitignored file instead of being typed each run. Real
-// process env still wins over the file.
+// Local .env loader (KEY=VALUE), real process env wins over the file.
 // ---------------------------------------------------------------------------
 function loadDotEnv() {
   const here = dirname(fileURLToPath(import.meta.url));
@@ -67,14 +70,14 @@ function loadDotEnv() {
 loadDotEnv();
 
 // ---------------------------------------------------------------------------
-// Config. Sensible defaults so only the two secrets are ever required.
+// Config.
 // ---------------------------------------------------------------------------
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.supabase.co";
 const SERVICE_KEY = need("SUPABASE_SERVICE_ROLE_KEY");
 const ANTHROPIC_API_KEY = need("ANTHROPIC_API_KEY");
 const CERT_ID = process.env.CERT_ID || "11111111-1111-1111-1111-111111111111"; // SM-I
 
-const FLOOR = int(process.env.FLOOR, 10);
+const PER_TASK = int(process.env.SECURE_PER_TASK, 8);
 const CHUNK = int(process.env.CHUNK, 8);
 const MAX_TASKS = int(process.env.MAX_TASKS, 0);
 const ONLY_TASK = (process.env.TASK_ID || "").trim();
@@ -90,7 +93,7 @@ const SCRUM_NOUNS = [
   "Sprint Backlog", "Sprint Goal", "Product Backlog", "Product Goal", "Increment",
   "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST",
 ];
-const MAX_ROUNDS_PER_TASK = 3; // guard against a task that keeps failing validation
+const MAX_ROUNDS_PER_TASK = 3;
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
   auth: { persistSession: false },
@@ -107,6 +110,13 @@ function need(k) {
 function int(v, d) {
   const n = parseInt(v ?? "", 10);
   return Number.isFinite(n) ? n : d;
+}
+
+/** Difficulty -> bloom_level enum, matching the hand-authored SM-I secure rows. */
+function bloomFor(difficulty) {
+  if (difficulty <= 2) return "2_understand";
+  if (difficulty === 3) return "3_apply";
+  return "4_analyze"; // 4-5
 }
 
 // ---------------------------------------------------------------------------
@@ -142,9 +152,7 @@ async function callClaude({ system, user, maxTokens = 8000 }) {
 
 function parseJsonArray(text) {
   let t = (text || "").trim();
-  // strip ``` / ```json fences if present
   t = t.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-  // fall back to the first [...] block
   if (!t.startsWith("[")) {
     const a = t.indexOf("[");
     const b = t.lastIndexOf("]");
@@ -171,11 +179,6 @@ function validateEnglish(q) {
   return true;
 }
 
-/**
- * Graft a translation onto the English skeleton: keep ids / correct_answer /
- * type / difficulty from English, substitute only the translated text fields
- * matched by option id. Returns null if the translation can't be matched.
- */
 function graftTranslation(enQ, tr) {
   if (!tr || typeof tr !== "object") return null;
   if (typeof tr.question_text !== "string" || tr.question_text.length < 5) return null;
@@ -203,39 +206,46 @@ function graftTranslation(enQ, tr) {
 // ---------------------------------------------------------------------------
 function genSystem(certName) {
   return `You are a certification exam question writer for Certidemy (${certName}).
-You write practice questions in English that match the rigor of a professional Scrum certification.
+You write SECURE, exam-grade questions in English for the real certification exam
+(not practice) â€” they must withstand scrutiny and unambiguously discriminate a
+competent candidate from an unprepared one.
 
 Strict requirements for every question:
-  - question_type is ONLY "single_choice" or "true_false". The real exam has no
+  - question_type is ONLY "single_choice" or "true_false". The exam has no
     select-all questions; never produce more than one correct answer.
-  - Exactly ONE unambiguous correct answer.
+  - Exactly ONE defensibly correct answer; the distractors must be plausible to
+    someone with a shallow understanding but clearly wrong to someone who knows
+    the material. No "all of the above", no throwaway joke options.
   - 4 options for single_choice, 2 for true_false. Option ids "a","b","c","d"
     (or "a","b" for true_false). correct_answer is an array with one option id.
-  - Explanation is 1-3 sentences referencing the underlying concept.
-  - Difficulty 1=trivial recall .. 5=tricky multi-step. Favor Apply/Analyze
-    (3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.
+  - Explanation is 1-3 sentences stating why the answer is correct (used for
+    candidate review after scoring).
+  - Difficulty 1..5. Distribution across the set you generate: about 30% at
+    level 2, 50% at level 3, 20% at level 4. Avoid level 1 (trivial recall) and
+    level 5 (overly tricky) â€” the certification exam tests applied judgment, not
+    memorization or trickery. Favor scenario and Apply/Analyze items.
   - Ground each question in the concept(s) provided and in established Scrum and
     product-ownership practice (the 2020 Scrum Guide where it applies). Some
     concepts extend beyond the Scrum Guide â€” product strategy, backlog craft,
     value and measurement, and AI-assisted product ownership; for those, ground
-    the question in the concept description and sound product-management
-    practice rather than forcing a Scrum Guide citation. Do NOT reference any
-    specific certification provider or brand.
+    the question in the concept description and sound product-management practice
+    rather than forcing a Scrum Guide citation. Do NOT reference any specific
+    certification provider or brand.
 
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
 }
 
 function genUser(concepts, k) {
-  return `Generate ${k} new practice questions that TEST the following concept(s):
+  return `Generate ${k} new SECURE exam questions that TEST the following concept(s):
 
 ${concepts.map((c) => `  - ${c.name}: ${c.description || ""}`).join("\n")}
 
-Make them distinct from one another. Produce the JSON array now.`;
+Make them distinct from one another and from obvious phrasings. Produce the JSON array now.`;
 }
 
 function translateSystem(langName) {
-  return `You translate certification practice questions from English to ${langName}.
+  return `You translate certification exam questions from English to ${langName}.
 Return a JSON array of the SAME length and order as the input. For each item return
 an object: {"question_text":string,"options":[{"id":string,"text":string}],"explanation":string}.
 
@@ -261,8 +271,6 @@ function translateUser(enQuestions) {
 // Data gathering
 // ---------------------------------------------------------------------------
 async function gather() {
-  // Cert display name â€” drives the generator persona. Stripped of the redundant
-  // "Certidemy " brand prefix since the persona line already says "Certidemy".
   const { data: certRow, error: nameErr } = await supabase
     .from("certifications")
     .select("name")
@@ -271,8 +279,6 @@ async function gather() {
   if (nameErr) throw new Error(`certifications: ${nameErr.message}`);
   const certName = (certRow?.name || "Scrum certification").replace(/^Certidemy\s+/i, "");
 
-  // Concepts for this cert (id, slug, name, description) â€” confirmed column
-  // concepts.certification_id.
   const { data: conceptRows, error: cErr } = await supabase
     .from("concepts")
     .select("id, slug, name, description")
@@ -282,7 +288,6 @@ async function gather() {
   const conceptIds = [...conceptById.keys()];
   if (conceptIds.length === 0) throw new Error("no concepts for this cert");
 
-  // task -> concepts, via task_concepts (this also defines the task universe).
   const { data: tcRows, error: tcErr } = await supabase
     .from("task_concepts")
     .select("task_id, concept_id")
@@ -296,10 +301,7 @@ async function gather() {
     conceptsByTask.get(r.task_id).push({ slug: c.slug, name: c.name, description: c.description });
   }
 
-  // current practice counts per task per language (cert-scoped).
-  // IMPORTANT: PostgREST caps a query at 1000 rows by default, so we MUST
-  // paginate â€” once the pool exceeds 1000 rows an un-paged select silently
-  // truncates, making tasks beyond the window look empty and get re-filled.
+  // current SECURE counts per task per language (cert-scoped, paginated).
   const qRows = [];
   const PAGE = 1000;
   for (let from = 0; ; from += PAGE) {
@@ -307,14 +309,14 @@ async function gather() {
       .from("quiz_questions")
       .select("task_id, language")
       .eq("certification_id", CERT_ID)
-      .eq("pool", "practice")
+      .eq("pool", "secure")
       .range(from, from + PAGE - 1);
     if (error) throw new Error(`quiz_questions: ${error.message}`);
     const batch = data || [];
     qRows.push(...batch);
     if (batch.length < PAGE) break;
   }
-  const counts = new Map(); // task_id -> { en, 'es-419', 'pt-BR' }
+  const counts = new Map();
   for (const r of qRows) {
     if (!r.task_id) continue;
     if (!counts.has(r.task_id)) counts.set(r.task_id, { en: 0, "es-419": 0, "pt-BR": 0 });
@@ -330,14 +332,13 @@ async function gather() {
 // ---------------------------------------------------------------------------
 async function main() {
   console.log(
-    `Backfill: cert=${CERT_ID} floor=${FLOOR}/lang chunk=${CHUNK} ` +
+    `Secure backfill: cert=${CERT_ID} target=${PER_TASK}/lang/task chunk=${CHUNK} ` +
     `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
   );
 
   const { conceptsByTask, counts, certName } = await gather();
-  console.log(`Generating as: "${certName}" question writer\n`);
+  console.log(`Generating as: "${certName}" exam writer\n`);
 
-  // Build the work list: tasks below floor in any language, emptiest first.
   let tasks = [...conceptsByTask.keys()];
   if (ONLY_TASK) tasks = tasks.filter((t) => t === ONLY_TASK);
 
@@ -345,15 +346,15 @@ async function main() {
   for (const taskId of tasks) {
     const c = counts.get(taskId) || { en: 0, "es-419": 0, "pt-BR": 0 };
     const min = Math.min(c.en, c["es-419"], c["pt-BR"]);
-    const need = FLOOR - min;
+    const need = PER_TASK - min;
     if (need > 0) work.push({ taskId, need, min, c });
   }
-  work.sort((a, b) => a.min - b.min); // zeros first
+  work.sort((a, b) => a.min - b.min);
   const limited = MAX_TASKS > 0 ? work.slice(0, MAX_TASKS) : work;
 
   const totalNeed = limited.reduce((s, w) => s + w.need, 0);
   console.log(
-    `${work.length} task(s) below floor; processing ${limited.length}; ` +
+    `${work.length} task(s) below target; processing ${limited.length}; ` +
     `~${totalNeed} logical questions (Ã—3 languages) to generate.\n`
   );
   if (limited.length === 0) return;
@@ -382,7 +383,6 @@ async function main() {
         continue;
       }
 
-      // Translate to each non-English language and graft onto the EN skeleton.
       const byLang = { en: enQs };
       let ok = true;
       for (const lang of LANGS) {
@@ -404,15 +404,16 @@ async function main() {
       }
       if (!ok) continue;
 
-      // Build the trilingual payload: one shared group id per logical question.
-      const payload = [];
+      // Build the trilingual secure rows. Direct insert; NO question_concepts.
+      const rows = [];
       for (let i = 0; i < enQs.length; i++) {
         const groupId = globalThis.crypto.randomUUID();
         for (const langCode of ["en", "es-419", "pt-BR"]) {
           const q = byLang[langCode][i];
-          payload.push({
+          rows.push({
             certification_id: CERT_ID,
             task_id: w.taskId,
+            module_id: null,
             question_group_id: groupId,
             question_text: q.question_text,
             question_type: q.question_type,
@@ -420,7 +421,11 @@ async function main() {
             correct_answer: q.correct_answer,
             explanation: q.explanation,
             difficulty: q.difficulty,
+            bloom_level: bloomFor(q.difficulty),
             language: langCode,
+            pool: "secure",
+            is_exam_scope: true,
+            status: "approved",
           });
         }
       }
@@ -431,14 +436,15 @@ async function main() {
         continue;
       }
 
-      const { data: ids, error: rpcErr } = await supabase.rpc("create_practice_questions", {
-        p_questions: payload,
-      });
-      if (rpcErr) {
-        console.log(`    RPC failed: ${rpcErr.message}`);
+      const { data: ins, error: insErr } = await supabase
+        .from("quiz_questions")
+        .insert(rows)
+        .select("id");
+      if (insErr) {
+        console.log(`    insert failed: ${insErr.message}`);
         break;
       }
-      const wrote = (ids || []).length;
+      const wrote = (ins || []).length;
       inserted += wrote;
       remaining -= enQs.length;
       console.log(`    +${enQs.length} logical (${wrote} rows) â€” ${remaining} left for this task`);
