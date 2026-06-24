@@ -356,6 +356,13 @@ serve(async (req) => {
                 score_pct,
                 locale: credential_locale,
                 issued_at: now.toISOString(),
+                // AI-era credentials expire 1 year after issuance — the
+                // coursework tracks a fast-moving field, so recertification
+                // keeps the credential honest (and is a renewal touchpoint).
+                expires_at: new Date(
+                  now.getFullYear() + 1, now.getMonth(), now.getDate(),
+                  now.getHours(), now.getMinutes(), now.getSeconds(),
+                ).toISOString(),
               })
               .select("id, credential_code")
               .single();
