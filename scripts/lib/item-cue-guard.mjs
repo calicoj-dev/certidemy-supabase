@@ -146,14 +146,27 @@ export function shuffleOptions(q, rng = Math.random) {
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return q;
 
   const correctId = q.correct_answer[0];
-  const arr = q.options.map((o) => ({ text: o.text, correct: o.id === correctId }));
+  const arr = q.options.map((o) => ({ oldId: o.id, text: o.text, correct: o.id === correctId }));
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   const options = arr.map((o, i) => ({ id: LETTERS[i], text: o.text }));
   const correctIdx = arr.findIndex((o) => o.correct);
-  return { ...q, options, correct_answer: [LETTERS[correctIdx]] };
+  const out = { ...q, options, correct_answer: [LETTERS[correctIdx]] };
+
+  // Any "(option a)" letter references in the explanation were written against
+  // the PRE-shuffle order; remap them through the permutation so they stay
+  // correct. (Explanations should reference content, not letters - this is a
+  // safety net for any that slip through.)
+  if (typeof q.explanation === "string" && /\boption\s+[a-h]\b/i.test(q.explanation)) {
+    const oldToNew = new Map(arr.map((o, i) => [o.oldId, LETTERS[i]]));
+    out.explanation = q.explanation.replace(/\boption\s+([a-h])\b/gi, (m, L) => {
+      const n = oldToNew.get(L.toLowerCase());
+      return n ? `option ${n}` : m;
+    });
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------------------

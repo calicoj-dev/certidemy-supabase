@@ -157,7 +157,9 @@ Strict requirements for every question:
   - Option ids "a","b","c","d" (or "a","b" for true_false); correct_answer is an
     array with one option id.
   - Explanation: 1-3 sentences stating why the key is correct AND, where natural,
-    why a tempting distractor is wrong.
+    why a tempting distractor is wrong. Refer to options by their CONTENT or
+    substance, never by letter (do not write "option a", "option b", etc.); the
+    options are reshuffled after writing, so letter references would be wrong.
   - ${difficultyLine(kind)}
   - ${GROUNDING}
 ${CUE_NEUTRALITY_RULES}
@@ -203,6 +205,9 @@ check for these flaws and FIX them:
      tricky.
   5. CLARITY: fix unclear stems, double negatives, and remove "all/none of the
      above".
+  6. EXPLANATION REFERENCES: the explanation must refer to options by their
+     content or substance, never by letter (no "option a/b/c/d"). Rewrite any
+     letter reference to name what the option actually says.
 
 Preserve each item's tested concept and the MEANING of its correct answer. Keep
 the same number of options. If an item is unsalvageable, set "reject": true.
