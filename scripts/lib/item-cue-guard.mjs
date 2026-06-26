@@ -56,10 +56,15 @@ function int(v, d) {
 export const CUE_CFG = {
   // Reject if (longest option − shortest option) exceeds this many characters.
   LEN_SPREAD_MAX: int(process.env.LEN_SPREAD_MAX, 70),
-  // Reject if the KEY is longer than its longest rival by more than this margin.
-  // Small and positive: trivial differences are fine (no reverse cue); a key
-  // that clearly dominates on length is not.
+  // The KEY may exceed its longest rival by the LARGER of:
+  //   - KEY_LEN_MARGIN chars (a small absolute floor, so short options are
+  //     judged on chars), or
+  //   - KEY_LEN_PCT % of the rival length (so long options are judged on
+  //     proportion — 12 chars on a 150-char option is noise, not a cue).
+  // This matches the "within ~25%" rule the prompt already gives the model, so
+  // the guard and the prompt agree instead of the guard over-rejecting.
   KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 12),
+  KEY_LEN_PCT: int(process.env.KEY_LEN_PCT, 25),
 };
 
 const ABS_WORDS =
@@ -72,11 +77,12 @@ const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
 // ---------------------------------------------------------------------------
 export const CUE_NEUTRALITY_RULES = `
 ANSWER-CUE NEUTRALITY (critical — the answer must be findable ONLY by knowing the content):
-  - LENGTH PARITY: All options must be close in length. Write every distractor as
-    fully and specifically as the correct answer; never pair an elaborated,
+  - LENGTH PARITY: All options must be close in length, and the correct answer
+    must NOT be the single longest option. Concretely: make at least one
+    DISTRACTOR as long as, or longer than, the correct answer. Write every
+    distractor as fully and specifically as the key; never pair an elaborated,
     fully-qualified correct answer with short, clipped distractors. Keep every
-    option within roughly 25% character-length of the others. The correct answer
-    must NOT stand out as the longest option.
+    option within roughly 25% character-length of the others.
   - NO POSITIONAL HABIT: Do not favor any option id for the correct answer. Spread
     the correct id across a/b/c/d. (The system reshuffles positions after you
     write, but do not lean on "b" or "c".)
@@ -115,8 +121,9 @@ export function auditItem(q, cfg = CUE_CFG) {
     .filter(([id]) => id !== correctId)
     .map(([, t]) => t.length);
   const maxOther = Math.max(...others);
-  if (correct.length - maxOther > cfg.KEY_LEN_MARGIN) {
-    return { ok: false, reason: `key dominates on length (key ${correct.length} vs rival ${maxOther}, margin > ${cfg.KEY_LEN_MARGIN})` };
+  const allowed = Math.max(cfg.KEY_LEN_MARGIN, Math.round((cfg.KEY_LEN_PCT / 100) * maxOther));
+  if (correct.length - maxOther > allowed) {
+    return { ok: false, reason: `key dominates on length (key ${correct.length} vs rival ${maxOther}, allowed +${allowed})` };
   }
 
   // Absolute-word tell: every distractor uses an absolute, the key does not.
