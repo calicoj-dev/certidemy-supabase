@@ -1,5 +1,5 @@
 /**
- * gen-spo-i-secure.mjs â€” fill the SECURE (certification-exam) pool to a
+ * gen-spo-i-secure.mjs - fill the SECURE (certification-exam) pool to a
  * per-task target, the cert-exam counterpart to backfill-practice.mjs.
  *
  * For every task in a cert below the secure target in any language, this
@@ -15,6 +15,16 @@
  * leak exam content into practice. The secure firewall = no concept link.
  * (Mirrors the hand-authored SM-I secure SQL in migrations 036-041.)
  *
+ * ANSWER-CUE NEUTRALITY (added after the bias audit of June 2026): every item
+ * is run through scripts/lib/item-cue-guard.mjs before translation. The guard
+ * (a) injects length-parity / no-positional-habit / no-rhetorical-tell rules
+ * into the system prompt, (b) drops any item whose key dominates on length or
+ * shows the absolute-word tell, and (c) deterministically shuffles option order
+ * so the correct answer lands in a uniformly random slot. Cues are born in
+ * English, so neutralizing the English skeleton before translation makes all
+ * three languages inherit a clean item. This is the same control used by
+ * backfill-practice.mjs and every future cert.
+ *
  * The mock-exam builder (generate-mock-exam) draws the cert exam from
  * pool='secure' + is_exam_scope=true + status='approved' + language, allocates
  * across DOMAINS by weight_pct, and REFUSES to issue a form if any domain is
@@ -23,7 +33,8 @@
  * never trips.
  *
  * Idempotent: reads current secure counts first and only fills the deficit, so
- * re-running tops up whatever's still short.
+ * re-running tops up whatever's still short. (Dropped-for-cue items reduce a
+ * round's yield; just re-run to top up.)
  *
  * Setup (once): supabase\scripts\.env with:
  *   SUPABASE_SERVICE_ROLE_KEY=eyJ...
@@ -35,9 +46,10 @@
  *   node scripts\gen-spo-i-secure.mjs
  *
  * Optional knobs (env or .env): SECURE_PER_TASK (default 8), CHUNK (8),
- * MAX_TASKS (0=all; note the shared .env may set this to 9 â€” override per run),
+ * MAX_TASKS (0=all; note the shared .env may set this to 9 - override per run),
  * TASK_ID (restrict to one task), DRY_RUN (1 = generate + print, no insert),
  * CERT_ID (target cert; defaults to SM-I).
+ * Cue-guard knobs: LEN_SPREAD_MAX (default 70), KEY_LEN_MARGIN (default 12).
  *
  * Needs @supabase/supabase-js (installed in supabase\) and Node 18+.
  */
@@ -46,6 +58,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./lib/item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
 // Local .env loader (KEY=VALUE), real process env wins over the file.
@@ -207,7 +220,7 @@ function graftTranslation(enQ, tr) {
 function genSystem(certName) {
   return `You are a certification exam question writer for Certidemy (${certName}).
 You write SECURE, exam-grade questions in English for the real certification exam
-(not practice) â€” they must withstand scrutiny and unambiguously discriminate a
+(not practice) - they must withstand scrutiny and unambiguously discriminate a
 competent candidate from an unprepared one.
 
 Strict requirements for every question:
@@ -222,16 +235,16 @@ Strict requirements for every question:
     candidate review after scoring).
   - Difficulty 1..5. Distribution across the set you generate: about 30% at
     level 2, 50% at level 3, 20% at level 4. Avoid level 1 (trivial recall) and
-    level 5 (overly tricky) â€” the certification exam tests applied judgment, not
+    level 5 (overly tricky) - the certification exam tests applied judgment, not
     memorization or trickery. Favor scenario and Apply/Analyze items.
   - Ground each question in the concept(s) provided and in established Scrum and
     product-ownership practice (the 2020 Scrum Guide where it applies). Some
-    concepts extend beyond the Scrum Guide â€” product strategy, backlog craft,
+    concepts extend beyond the Scrum Guide - product strategy, backlog craft,
     value and measurement, and AI-assisted product ownership; for those, ground
     the question in the concept description and sound product-management practice
     rather than forcing a Scrum Guide citation. Do NOT reference any specific
     certification provider or brand.
-
+${CUE_NEUTRALITY_RULES}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
 }
@@ -355,7 +368,7 @@ async function main() {
   const totalNeed = limited.reduce((s, w) => s + w.need, 0);
   console.log(
     `${work.length} task(s) below target; processing ${limited.length}; ` +
-    `~${totalNeed} logical questions (Ã—3 languages) to generate.\n`
+    `~${totalNeed} logical questions (x3 languages) to generate.\n`
   );
   if (limited.length === 0) return;
 
@@ -363,7 +376,7 @@ async function main() {
   for (const w of limited) {
     const concepts = conceptsByTask.get(w.taskId) || [];
     const slugs = concepts.map((c) => c.slug).join(", ");
-    console.log(`â–¶ task ${w.taskId} [${slugs}] â€” have min ${w.min}, need ${w.need}`);
+    console.log(`> task ${w.taskId} [${slugs}] - have min ${w.min}, need ${w.need}`);
 
     let remaining = w.need;
     let rounds = 0;
@@ -373,13 +386,22 @@ async function main() {
       let enQs;
       try {
         const raw = await callClaude({ system: genSystem(certName), user: genUser(concepts, k) });
-        enQs = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
+        const valid = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
+        // Answer-cue neutrality: drop biased items, then de-bias position
+        // BEFORE translation so all languages inherit the neutral layout.
+        const kept = [];
+        for (const q of valid) {
+          const a = auditItem(q);
+          if (!a.ok) { console.log(`    drop (cue): ${a.reason}`); continue; }
+          kept.push(shuffleOptions(q));
+        }
+        enQs = kept;
       } catch (e) {
         console.log(`    generate failed: ${e.message}`);
         break;
       }
       if (enQs.length === 0) {
-        console.log("    no valid English questions this round");
+        console.log("    no valid cue-neutral questions this round");
         continue;
       }
 
@@ -431,7 +453,7 @@ async function main() {
       }
 
       if (DRY_RUN) {
-        console.log(`    [dry] ${enQs.length} logical âœ“ (sample EN: ${enQs[0].question_text.slice(0, 80)}â€¦)`);
+        console.log(`    [dry] ${enQs.length} logical ok (sample EN: ${enQs[0].question_text.slice(0, 80)}...)`);
         remaining -= enQs.length;
         continue;
       }
@@ -447,9 +469,9 @@ async function main() {
       const wrote = (ins || []).length;
       inserted += wrote;
       remaining -= enQs.length;
-      console.log(`    +${enQs.length} logical (${wrote} rows) â€” ${remaining} left for this task`);
+      console.log(`    +${enQs.length} logical (${wrote} rows) - ${remaining} left for this task`);
     }
-    if (remaining > 0) console.log(`    âš  task left ${remaining} short after ${rounds} round(s)`);
+    if (remaining > 0) console.log(`    ! task left ${remaining} short after ${rounds} round(s)`);
   }
 
   console.log(

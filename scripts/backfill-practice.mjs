@@ -1,19 +1,28 @@
 /**
- * backfill-practice.mjs â€” bring the PRACTICE pool up to a per-language floor.
+ * backfill-practice.mjs - bring the PRACTICE pool up to a per-language floor.
  *
  * For every task in a cert that is below the floor in any language, this
  * generates new questions in English, translates each to es-419 and pt-BR
  * (preserving option ids / correct_answer / type / difficulty exactly), and
- * inserts the trilingual set through the create_practice_questions RPC â€” which
+ * inserts the trilingual set through the create_practice_questions RPC - which
  * forces pool='practice', is_exam_scope=false, and derives question_concepts
  * from task_concepts in one transaction. So every row it writes is reachable
  * by the practice engine and linked to exactly its task's concepts.
+ *
+ * ANSWER-CUE NEUTRALITY (added after the bias audit of June 2026): every item
+ * is run through scripts/lib/item-cue-guard.mjs before translation - identical
+ * control to gen-spo-i-secure.mjs. The guard injects length-parity /
+ * no-positional-habit / no-rhetorical-tell rules into the system prompt, drops
+ * any item whose key dominates on length or shows the absolute-word tell, and
+ * shuffles option order so the correct answer lands in a uniformly random slot.
+ * Cues are born in English, so neutralizing the English skeleton before
+ * translation makes all three languages inherit a clean item.
  *
  * Idempotent: it reads current counts first and only fills the deficit, so
  * re-running is safe and tops up whatever's still short.
  *
  * CERT-AWARE: the generator persona and grounding are derived from the cert
- * (its name is read from the DB), not hardcoded â€” so the same script writes
+ * (its name is read from the DB), not hardcoded - so the same script writes
  * Scrum Master questions for SM-I and Product Owner questions for SPO-I, and
  * the grounding allows product-ownership and AI-era concepts that aren't in the
  * Scrum Guide. CERT_ID selects the cert.
@@ -30,6 +39,7 @@
  * Optional knobs (env or .env): FLOOR (default 10), CHUNK (8), MAX_TASKS (0=all),
  * TASK_ID (restrict to one task), DRY_RUN (1 = generate + print, no insert),
  * CERT_ID (target cert; defaults to SM-I).
+ * Cue-guard knobs: LEN_SPREAD_MAX (default 70), KEY_LEN_MARGIN (default 12).
  *
  * Recommended first run: TASK_ID set to one representative task (e.g. an AI-era
  * SPO-I task), eyeball the output, then run a domain at a time.
@@ -41,6 +51,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./lib/item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
 // Load a local .env (KEY=VALUE per line) sitting next to this script, so the
@@ -216,12 +227,12 @@ Strict requirements for every question:
     (3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.
   - Ground each question in the concept(s) provided and in established Scrum and
     product-ownership practice (the 2020 Scrum Guide where it applies). Some
-    concepts extend beyond the Scrum Guide â€” product strategy, backlog craft,
+    concepts extend beyond the Scrum Guide - product strategy, backlog craft,
     value and measurement, and AI-assisted product ownership; for those, ground
     the question in the concept description and sound product-management
     practice rather than forcing a Scrum Guide citation. Do NOT reference any
     specific certification provider or brand.
-
+${CUE_NEUTRALITY_RULES}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
 }
@@ -261,7 +272,7 @@ function translateUser(enQuestions) {
 // Data gathering
 // ---------------------------------------------------------------------------
 async function gather() {
-  // Cert display name â€” drives the generator persona. Stripped of the redundant
+  // Cert display name - drives the generator persona. Stripped of the redundant
   // "Certidemy " brand prefix since the persona line already says "Certidemy".
   const { data: certRow, error: nameErr } = await supabase
     .from("certifications")
@@ -271,7 +282,7 @@ async function gather() {
   if (nameErr) throw new Error(`certifications: ${nameErr.message}`);
   const certName = (certRow?.name || "Scrum certification").replace(/^Certidemy\s+/i, "");
 
-  // Concepts for this cert (id, slug, name, description) â€” confirmed column
+  // Concepts for this cert (id, slug, name, description) - confirmed column
   // concepts.certification_id.
   const { data: conceptRows, error: cErr } = await supabase
     .from("concepts")
@@ -298,7 +309,7 @@ async function gather() {
 
   // current practice counts per task per language (cert-scoped).
   // IMPORTANT: PostgREST caps a query at 1000 rows by default, so we MUST
-  // paginate â€” once the pool exceeds 1000 rows an un-paged select silently
+  // paginate - once the pool exceeds 1000 rows an un-paged select silently
   // truncates, making tasks beyond the window look empty and get re-filled.
   const qRows = [];
   const PAGE = 1000;
@@ -354,7 +365,7 @@ async function main() {
   const totalNeed = limited.reduce((s, w) => s + w.need, 0);
   console.log(
     `${work.length} task(s) below floor; processing ${limited.length}; ` +
-    `~${totalNeed} logical questions (Ã—3 languages) to generate.\n`
+    `~${totalNeed} logical questions (x3 languages) to generate.\n`
   );
   if (limited.length === 0) return;
 
@@ -362,7 +373,7 @@ async function main() {
   for (const w of limited) {
     const concepts = conceptsByTask.get(w.taskId) || [];
     const slugs = concepts.map((c) => c.slug).join(", ");
-    console.log(`â–¶ task ${w.taskId} [${slugs}] â€” have min ${w.min}, need ${w.need}`);
+    console.log(`> task ${w.taskId} [${slugs}] - have min ${w.min}, need ${w.need}`);
 
     let remaining = w.need;
     let rounds = 0;
@@ -372,13 +383,22 @@ async function main() {
       let enQs;
       try {
         const raw = await callClaude({ system: genSystem(certName), user: genUser(concepts, k) });
-        enQs = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
+        const valid = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
+        // Answer-cue neutrality: drop biased items, then de-bias position
+        // BEFORE translation so all languages inherit the neutral layout.
+        const kept = [];
+        for (const q of valid) {
+          const a = auditItem(q);
+          if (!a.ok) { console.log(`    drop (cue): ${a.reason}`); continue; }
+          kept.push(shuffleOptions(q));
+        }
+        enQs = kept;
       } catch (e) {
         console.log(`    generate failed: ${e.message}`);
         break;
       }
       if (enQs.length === 0) {
-        console.log("    no valid English questions this round");
+        console.log("    no valid cue-neutral questions this round");
         continue;
       }
 
@@ -426,7 +446,7 @@ async function main() {
       }
 
       if (DRY_RUN) {
-        console.log(`    [dry] ${enQs.length} logical âœ“ (sample EN: ${enQs[0].question_text.slice(0, 80)}â€¦)`);
+        console.log(`    [dry] ${enQs.length} logical ok (sample EN: ${enQs[0].question_text.slice(0, 80)}...)`);
         remaining -= enQs.length;
         continue;
       }
@@ -441,9 +461,9 @@ async function main() {
       const wrote = (ids || []).length;
       inserted += wrote;
       remaining -= enQs.length;
-      console.log(`    +${enQs.length} logical (${wrote} rows) â€” ${remaining} left for this task`);
+      console.log(`    +${enQs.length} logical (${wrote} rows) - ${remaining} left for this task`);
     }
-    if (remaining > 0) console.log(`    âš  task left ${remaining} short after ${rounds} round(s)`);
+    if (remaining > 0) console.log(`    ! task left ${remaining} short after ${rounds} round(s)`);
   }
 
   console.log(
