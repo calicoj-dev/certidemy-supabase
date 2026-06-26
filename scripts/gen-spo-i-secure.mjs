@@ -58,7 +58,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
-import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./lib/item-cue-guard.mjs";
+import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
 
 // ---------------------------------------------------------------------------
 // Local .env loader (KEY=VALUE), real process env wins over the file.
@@ -175,23 +175,8 @@ function parseJsonArray(text) {
 }
 
 // ---------------------------------------------------------------------------
-// Validation
+// Translation graft (the English skeleton is authoritative)
 // ---------------------------------------------------------------------------
-function validateEnglish(q) {
-  if (!q || typeof q !== "object") return false;
-  if (typeof q.question_text !== "string" || q.question_text.length < 10) return false;
-  if (!["single_choice", "true_false"].includes(q.question_type)) return false;
-  if (!Array.isArray(q.options) || q.options.length < 2) return false;
-  if (!q.options.every((o) => o && typeof o.id === "string" && typeof o.text === "string")) return false;
-  const ids = new Set(q.options.map((o) => o.id));
-  if (ids.size !== q.options.length) return false;
-  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
-  if (!q.correct_answer.every((id) => ids.has(id))) return false;
-  if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return false;
-  if (typeof q.explanation !== "string" || q.explanation.length < 5) return false;
-  return true;
-}
-
 function graftTranslation(enQ, tr) {
   if (!tr || typeof tr !== "object") return null;
   if (typeof tr.question_text !== "string" || tr.question_text.length < 5) return null;
@@ -215,48 +200,8 @@ function graftTranslation(enQ, tr) {
 }
 
 // ---------------------------------------------------------------------------
-// Generation + translation
+// Translation
 // ---------------------------------------------------------------------------
-function genSystem(certName) {
-  return `You are a certification exam question writer for Certidemy (${certName}).
-You write SECURE, exam-grade questions in English for the real certification exam
-(not practice) - they must withstand scrutiny and unambiguously discriminate a
-competent candidate from an unprepared one.
-
-Strict requirements for every question:
-  - question_type is ONLY "single_choice" or "true_false". The exam has no
-    select-all questions; never produce more than one correct answer.
-  - Exactly ONE defensibly correct answer; the distractors must be plausible to
-    someone with a shallow understanding but clearly wrong to someone who knows
-    the material. No "all of the above", no throwaway joke options.
-  - 4 options for single_choice, 2 for true_false. Option ids "a","b","c","d"
-    (or "a","b" for true_false). correct_answer is an array with one option id.
-  - Explanation is 1-3 sentences stating why the answer is correct (used for
-    candidate review after scoring).
-  - Difficulty 1..5. Distribution across the set you generate: about 30% at
-    level 2, 50% at level 3, 20% at level 4. Avoid level 1 (trivial recall) and
-    level 5 (overly tricky) - the certification exam tests applied judgment, not
-    memorization or trickery. Favor scenario and Apply/Analyze items.
-  - Ground each question in the concept(s) provided and in established Scrum and
-    product-ownership practice (the 2020 Scrum Guide where it applies). Some
-    concepts extend beyond the Scrum Guide - product strategy, backlog craft,
-    value and measurement, and AI-assisted product ownership; for those, ground
-    the question in the concept description and sound product-management practice
-    rather than forcing a Scrum Guide citation. Do NOT reference any specific
-    certification provider or brand.
-${CUE_NEUTRALITY_RULES}
-Output strict JSON, top level an array, NO prose, NO markdown fences:
-[{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
-}
-
-function genUser(concepts, k) {
-  return `Generate ${k} new SECURE exam questions that TEST the following concept(s):
-
-${concepts.map((c) => `  - ${c.name}: ${c.description || ""}`).join("\n")}
-
-Make them distinct from one another and from obvious phrasings. Produce the JSON array now.`;
-}
-
 function translateSystem(langName) {
   return `You translate certification exam questions from English to ${langName}.
 Return a JSON array of the SAME length and order as the input. For each item return
@@ -378,30 +323,23 @@ async function main() {
     const slugs = concepts.map((c) => c.slug).join(", ");
     console.log(`> task ${w.taskId} [${slugs}] - have min ${w.min}, need ${w.need}`);
 
+    // Stage 1: source the real misconceptions for this task once, reused per round.
+    const misconceptions = await sourceMisconceptions({
+      callClaude, concepts, certName, log: (m) => console.log(`    ${m}`),
+    });
+
     let remaining = w.need;
     let rounds = 0;
     while (remaining > 0 && rounds < MAX_ROUNDS_PER_TASK) {
       rounds += 1;
       const k = Math.min(remaining, CHUNK);
-      let enQs;
-      try {
-        const raw = await callClaude({ system: genSystem(certName), user: genUser(concepts, k) });
-        const valid = (Array.isArray(raw) ? raw : []).filter(validateEnglish);
-        // Answer-cue neutrality: drop biased items, then de-bias position
-        // BEFORE translation so all languages inherit the neutral layout.
-        const kept = [];
-        for (const q of valid) {
-          const a = auditItem(q);
-          if (!a.ok) { console.log(`    drop (cue): ${a.reason}`); continue; }
-          kept.push(shuffleOptions(q));
-        }
-        enQs = kept;
-      } catch (e) {
-        console.log(`    generate failed: ${e.message}`);
-        break;
-      }
+      // Stages 2-4: draft -> hostile critique-and-revise -> guards + position shuffle.
+      const enQs = await buildCleanItems({
+        callClaude, concepts, k, certName, kind: "secure",
+        misconceptions, log: (m) => console.log(`    ${m}`),
+      });
       if (enQs.length === 0) {
-        console.log("    no valid cue-neutral questions this round");
+        console.log("    no clean items this round");
         continue;
       }
 
