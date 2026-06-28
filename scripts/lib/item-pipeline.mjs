@@ -271,7 +271,49 @@ export async function critiqueAndRevise({ callClaude, items, certName, log = () 
 }
 
 // ---------------------------------------------------------------------------
-// Orchestrator - draft -> critique -> validate -> audit -> shuffle.
+// Targeted normalization - one narrow rewrite call to even out option lengths
+// for an item that failed the parity gate. Fixes the CAUSE (the key is more
+// developed than the distractors) rather than padding. Returns a fixed item or
+// null. Only invoked on items that fail the length parity gate.
+// ---------------------------------------------------------------------------
+function normalizeSystem(certName) {
+  return `You are an expert assessment editor for Certidemy (${certName}). You receive ONE
+multiple-choice item whose options are uneven in length or development - typically
+the correct answer is written more fully than the distractors, which is an answer
+cue a test-wise candidate can exploit. Rewrite the OPTION TEXTS so that:
+  - all four options are closely matched in length and depth of development;
+  - the correct answer is NOT the longest option, and at least one DISTRACTOR is
+    as fully developed as the correct answer;
+  - every option keeps its original MEANING and the SAME option remains correct;
+  - distractors stay genuine, specific misconceptions - do NOT weaken them into
+    obviously-wrong throwaways just to match length.
+Keep the stem unchanged. Keep the explanation's meaning and refer to options by
+their content, never by letter. Preserve question_type, correct_answer (same id),
+and difficulty.
+
+Return a JSON array containing the SINGLE revised item:
+[{"question_text":string,"question_type":string,"options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]
+NO prose, NO markdown fences.`;
+}
+
+async function normalizeOptions({ callClaude, item, certName, log = () => {} }) {
+  try {
+    const raw = await callClaude({
+      system: normalizeSystem(certName),
+      user: `Rewrite this item for option-length parity:\n\n${JSON.stringify(item, null, 2)}\n\nReturn the JSON array now.`,
+      maxTokens: 3000,
+    });
+    const arr = Array.isArray(raw) ? raw : [];
+    const fixed = arr[0];
+    return fixed && validateEnglish(fixed) ? fixed : null;
+  } catch (e) {
+    log(`normalize failed: ${e.message}`);
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Orchestrator - draft -> critique -> parity gate (normalize-or-drop) -> shuffle.
 // Returns clean, cue-neutral English items ready for translation.
 // ---------------------------------------------------------------------------
 export async function buildCleanItems({ callClaude, concepts, k, certName, kind, misconceptions = [], log = () => {} }) {
@@ -291,12 +333,23 @@ export async function buildCleanItems({ callClaude, concepts, k, certName, kind,
   const reviewed = (Array.isArray(revised) ? revised : []).filter(validateEnglish);
   if (!reviewed.length) { log("no items survived critique this round"); return []; }
 
-  // Stage 4: structural guards (backstop) + position de-bias
+  // Stage 4: parity gate -> normalize-or-drop -> position de-bias.
   const clean = [];
   for (const q of reviewed) {
-    const a = auditItem(q);
+    let item = q;
+    let a = auditItem(item);
+    // Length/parity failures get one repair attempt; absolute-word tells are
+    // dropped (they regenerate next round - normalization is for length, not tone).
+    if (!a.ok && /length|dominates|spread/i.test(a.reason)) {
+      const fixed = await normalizeOptions({ callClaude, item, certName, log });
+      if (fixed) {
+        const a2 = auditItem(fixed);
+        if (a2.ok) { item = fixed; a = a2; log("normalized: evened option lengths"); }
+        else { a = a2; }
+      }
+    }
     if (!a.ok) { log(`drop (cue): ${a.reason}`); continue; }
-    clean.push(shuffleOptions(q));
+    clean.push(shuffleOptions(item));
   }
   return clean;
 }

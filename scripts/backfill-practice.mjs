@@ -123,7 +123,7 @@ function int(v, d) {
 // ---------------------------------------------------------------------------
 // Claude
 // ---------------------------------------------------------------------------
-async function callClaude({ system, user, maxTokens = 8000 }) {
+async function rawClaude(system, user, maxTokens) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -144,11 +144,29 @@ async function callClaude({ system, user, maxTokens = 8000 }) {
     throw new Error(`Anthropic ${res.status}: ${body.slice(0, 500)}`);
   }
   const data = await res.json();
-  const text = (data.content || [])
+  return (data.content || [])
     .filter((b) => b.type === "text")
     .map((b) => b.text)
     .join("\n");
-  return parseJsonArray(text);
+}
+
+async function callClaude({ system, user, maxTokens = 8000 }) {
+  const text = await rawClaude(system, user, maxTokens);
+  try {
+    return parseJsonArray(text);
+  } catch {
+    // One JSON-repair retry: the model occasionally emits malformed JSON and we
+    // don't want to lose an entire batch to a stray comma. (An API/credit error
+    // is NOT caught here - it throws from rawClaude and propagates as before.)
+    const repaired = await rawClaude(
+      system,
+      user +
+        "\n\nIMPORTANT: your previous response was not valid JSON and failed to parse. " +
+        "Return ONLY the corrected, strictly valid JSON now - no prose, no markdown fences, no trailing commas.",
+      maxTokens
+    );
+    return parseJsonArray(repaired);
+  }
 }
 
 function parseJsonArray(text) {

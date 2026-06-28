@@ -60,11 +60,14 @@ export const CUE_CFG = {
   //   - KEY_LEN_MARGIN chars (a small absolute floor, so short options are
   //     judged on chars), or
   //   - KEY_LEN_PCT % of the rival length (so long options are judged on
-  //     proportion — 12 chars on a 150-char option is noise, not a cue).
-  // This matches the "within ~25%" rule the prompt already gives the model, so
-  // the guard and the prompt agree instead of the guard over-rejecting.
-  KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 12),
-  KEY_LEN_PCT: int(process.env.KEY_LEN_PCT, 25),
+  //     proportion).
+  // Tightened from the original gross-violation backstop (12 / 25%) to a MODERATE
+  // PARITY gate: a key that leads by more than a small margin is sent to the
+  // normalization escalation (item-pipeline.mjs), not shipped. Items that fail
+  // here are repaired, not just dropped, so tightening doesn't starve generation
+  // or create a reverse cue — the key still lands marginally longest sometimes.
+  KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 8),
+  KEY_LEN_PCT: int(process.env.KEY_LEN_PCT, 10),
 };
 
 const ABS_WORDS =
