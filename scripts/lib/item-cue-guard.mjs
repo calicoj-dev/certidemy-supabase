@@ -66,7 +66,7 @@ export const CUE_CFG = {
   // normalization escalation (item-pipeline.mjs), not shipped. Items that fail
   // here are repaired, not just dropped, so tightening doesn't starve generation
   // or create a reverse cue — the key still lands marginally longest sometimes.
-  KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 6),
+  KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 5),
   KEY_LEN_PCT: int(process.env.KEY_LEN_PCT, 10),
 };
 
