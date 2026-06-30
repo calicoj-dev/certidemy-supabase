@@ -4,8 +4,8 @@
 // public "blueprint" — its domains (with exam weight) and the plain-language
 // tasks each domain tests, derived from the Job Task Analysis.
 //
-//   GET  ?cert=SM-I   (or ?code=SM-I)   — case-insensitive cert code/slug
-//   POST { cert } or { code }
+//   GET  ?cert=SM-I&lang=es-419   (cert | code ; lang | locale)
+//   POST { cert | code, lang | locale }
 //
 // Why a dedicated public function: the domains/tasks tables are gated to
 // authenticated users by RLS, but the blueprint is non-sensitive (it's the
@@ -17,6 +17,11 @@
 // tasks for the cert, ordered by order_index, grouped by domain. No
 // is_exam_scope filter, so this never diverges from the learner-facing
 // blueprint. The score / mastery is user-specific and is never returned here.
+//
+// LOCALIZATION: when lang is es-419 / pt-BR, domain titles and task statements
+// are overlaid from domain_translations / task_translations (English fallback
+// per string), matching loadBlueprint. English base rows stay the source of
+// truth; only the two rendered text fields are translated. Cert-agnostic.
 //
 // AI-ERA: each task is returned WITH its concepts (slug/name/description, the
 // same non-sensitive JTA data the in-app blueprint reads). The AI-Era flag is
@@ -33,16 +38,21 @@ serve(async (req) => {
 
   try {
     let cert: string | null = null;
+    let lang: string | null = null;
 
     if (req.method === "GET") {
       const url = new URL(req.url);
       cert = url.searchParams.get("cert") ?? url.searchParams.get("code");
+      lang = url.searchParams.get("lang") ?? url.searchParams.get("locale");
     } else if (req.method === "POST") {
       const body = (await req.json().catch(() => ({}))) as {
         cert?: string;
         code?: string;
+        lang?: string;
+        locale?: string;
       };
       cert = body.cert ?? body.code ?? null;
+      lang = body.lang ?? body.locale ?? null;
     } else {
       return jsonResponse({ error: "method not allowed" }, 405);
     }
@@ -50,6 +60,8 @@ serve(async (req) => {
     if (!cert || !cert.trim()) {
       return jsonResponse({ error: "cert code required" }, 400);
     }
+
+    const overlay = lang === "es-419" || lang === "pt-BR";
 
     const svc = getServiceClient();
 
@@ -83,18 +95,24 @@ serve(async (req) => {
       domain_id: string;
       order_index: number;
     }[];
+    const domainRows = (domainData ?? []) as {
+      id: string;
+      code: string;
+      title: string;
+      weight_pct: number;
+      order_index: number;
+    }[];
+
+    const taskIds = taskRows.map((t) => t.id);
+    const domainIds = domainRows.map((d) => d.id);
 
     // ---- Concepts per task (for client-side AI-Era derivation) ----
-    // task -> task_concepts -> concepts, two plain reads, mirroring
-    // lib/blueprint/data.ts. Non-sensitive JTA metadata; the canonical rule
-    // (lib/blueprint/ai-era.ts) runs on the client over exactly this set.
     type ConceptInput = {
       slug: string | null;
       name: string | null;
       description: string | null;
     };
     const conceptsByTaskId = new Map<string, ConceptInput[]>();
-    const taskIds = taskRows.map((t) => t.id);
     if (taskIds.length > 0) {
       const { data: tcData } = await svc
         .from("task_concepts")
@@ -135,6 +153,34 @@ serve(async (req) => {
       }
     }
 
+    // ---- JTA localization overlay (es-419 / pt-BR), English fallback ----
+    const stmtByTask = new Map<string, string>();
+    const titleByDomain = new Map<string, string>();
+    if (overlay) {
+      const [{ data: ttData }, { data: dtData }] = await Promise.all([
+        taskIds.length > 0
+          ? svc
+              .from("task_translations")
+              .select("task_id, statement")
+              .in("task_id", taskIds)
+              .eq("language", lang)
+          : Promise.resolve({ data: [] }),
+        domainIds.length > 0
+          ? svc
+              .from("domain_translations")
+              .select("domain_id, title")
+              .in("domain_id", domainIds)
+              .eq("language", lang)
+          : Promise.resolve({ data: [] }),
+      ]);
+      for (const r of (ttData ?? []) as { task_id: string; statement: string }[]) {
+        stmtByTask.set(r.task_id, r.statement);
+      }
+      for (const r of (dtData ?? []) as { domain_id: string; title: string }[]) {
+        titleByDomain.set(r.domain_id, r.title);
+      }
+    }
+
     const tasksByDomain = new Map<
       string,
       { code: string; statement: string; concepts: ConceptInput[] }[]
@@ -147,22 +193,14 @@ serve(async (req) => {
       }
       list.push({
         code: t.code,
-        statement: t.statement,
+        statement: stmtByTask.get(t.id) ?? t.statement,
         concepts: conceptsByTaskId.get(t.id) ?? [],
       });
     }
 
-    const domainRows = (domainData ?? []) as {
-      id: string;
-      code: string;
-      title: string;
-      weight_pct: number;
-      order_index: number;
-    }[];
-
     const domains = domainRows.map((d) => ({
       code: d.code,
-      title: d.title,
+      title: titleByDomain.get(d.id) ?? d.title,
       weightPct: Number(d.weight_pct),
       tasks: tasksByDomain.get(d.id) ?? [],
     }));
