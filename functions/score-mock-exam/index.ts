@@ -27,6 +27,19 @@
 //       the public verify page immediately.
 //
 // Both close the quiz session with score + pass.
+//
+// ISO/IEC 17024 hardening (migration 062):
+//   - Per-item telemetry: each quiz_attempts row now records language,
+//     domain_code (D1..D5, resolved question -> task -> domain), and
+//     presented_order (position in the assembled form). Item-analysis +
+//     standard-setting substrate.
+//   - Late-submission flag: the server compares elapsed time to the cert's
+//     duration + a grace window and RECORDS lateness on the exam_attempts row
+//     (late_submission / over_by_seconds). It does NOT reject — the client
+//     auto-submits at zero, so lateness is only ever latency or tampering.
+//   - JTA version stamp: the cert's currently-published jta_versions.id is
+//     stamped onto exam_attempts and the credential, so /verify renders the
+//     exact blueprint the candidate was assessed against.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -34,6 +47,11 @@ import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.t
 import { callClaudeJSON } from "../_shared/claude.ts";
 import { mockExamFeedbackPrompt, Language } from "../_shared/prompts.ts";
 import { updateMastery } from "../_shared/mastery.ts";
+
+// Grace window (seconds) absorbing normal network/processing latency between
+// the client hitting zero and the submission landing. Beyond this, the row is
+// flagged late (recorded, never rejected).
+const LATE_GRACE_SECONDS = 60;
 
 interface Body {
   session_id: string;
@@ -81,24 +99,48 @@ serve(async (req) => {
 
     const isCertExam = session.kind === "certification_exam";
 
-    // 2. Cert config.
+    // 2. Cert config. exam_duration_minutes drives the server-side late check.
     const { data: cert } = await svc
       .from("certifications")
-      .select("code, name, passing_score_pct")
+      .select("code, name, passing_score_pct, exam_duration_minutes")
       .eq("id", session.certification_id)
       .single();
     if (!cert) throw new HttpError(404, "cert not found");
     const passing_threshold = Number(cert.passing_score_pct ?? 85);
 
-    // 3. Load questions with correct answers + concept tags.
+    // 2b. Blueprint lookup so each telemetry row can carry its domain_code
+    //     (question -> task -> domain). Best-effort: a missing map degrades to
+    //     null, never blocks scoring.
+    const domainCodeByTask = new Map<string, string | null>();
+    try {
+      const [{ data: taskRows }, { data: domRows }] = await Promise.all([
+        svc.from("tasks").select("id, domain_id").eq("certification_id", session.certification_id),
+        svc.from("domains").select("id, code").eq("certification_id", session.certification_id),
+      ]);
+      const codeByDomain = new Map<string, string>(
+        (domRows ?? []).map((d: any) => [d.id, d.code]),
+      );
+      for (const t of taskRows ?? []) {
+        domainCodeByTask.set(t.id, codeByDomain.get(t.domain_id) ?? null);
+      }
+    } catch (err) {
+      console.warn("domain_code map lookup failed (telemetry domain_code will be null):", err);
+    }
+
+    // 3. Load questions with correct answers + concept tags + task (for domain_code).
     const question_ids = body.answers.map((a) => a.question_id);
     const { data: questions } = await svc
       .from("quiz_questions")
-      .select("id, correct_answer, difficulty, question_concepts(concept_id, concepts(slug, name))")
+      .select("id, correct_answer, difficulty, task_id, question_concepts(concept_id, concepts(slug, name))")
       .in("id", question_ids);
     if (!questions) throw new Error("failed to load questions");
 
     const q_by_id = new Map(questions.map((q: any) => [q.id, q]));
+
+    // Telemetry: the form's presented order is the submitted answer order (the
+    // client maps over the assembled question list in order). The language is
+    // the form's language; default en.
+    const telemetry_language: string = body.language ?? "en";
 
     // 4. Grade + bucket.
     const attempt_rows: any[] = [];
@@ -106,9 +148,9 @@ serve(async (req) => {
     const per_difficulty = new Map<number, { attempted: number; correct: number }>();
     let correct_count = 0;
 
-    for (const ans of body.answers) {
+    body.answers.forEach((ans, presented_order) => {
       const q = q_by_id.get(ans.question_id) as any;
-      if (!q) continue;
+      if (!q) return;
       const correct_set = new Set(q.correct_answer as string[]);
       const user_set = new Set(ans.user_answer);
       const is_correct =
@@ -123,6 +165,10 @@ serve(async (req) => {
         is_correct,
         time_taken_seconds: ans.time_taken_seconds ?? null,
         attempted_at: now.toISOString(),
+        // --- 17024 telemetry (migration 062) ---
+        language: telemetry_language,
+        domain_code: q.task_id ? domainCodeByTask.get(q.task_id) ?? null : null,
+        presented_order,
       });
 
       for (const qc of q.question_concepts ?? []) {
@@ -139,9 +185,9 @@ serve(async (req) => {
       const dbucket = per_difficulty.get(d)!;
       dbucket.attempted += 1;
       if (is_correct) dbucket.correct += 1;
-    }
+    });
 
-    // 5. Insert per-question attempts (audit trail for both kinds).
+    // 5. Insert per-question attempts (audit trail + item telemetry for both kinds).
     if (attempt_rows.length > 0) {
       const { error } = await svc.from("quiz_attempts").insert(attempt_rows);
       if (error) throw new Error(`quiz_attempts insert: ${error.message}`);
@@ -233,6 +279,12 @@ serve(async (req) => {
       (now.getTime() - new Date(session.started_at).getTime()) / 1000,
     );
 
+    // 6b. Server-side late check (record, never reject). The client auto-submits
+    //     at zero, so any excess is latency or tampering — evidence, not a block.
+    const allowed_seconds = (cert.exam_duration_minutes ?? 60) * 60 + LATE_GRACE_SECONDS;
+    const late_submission = duration_seconds > allowed_seconds;
+    const over_by_seconds = late_submission ? duration_seconds - allowed_seconds : null;
+
     const concept_breakdown = [...per_concept.values()]
       .map((c) => ({ ...c, pct: c.attempted > 0 ? (c.correct / c.attempted) * 100 : 0 }))
       .sort((a, b) => a.pct - b.pct);
@@ -257,6 +309,22 @@ serve(async (req) => {
     // 8. Branch: real certification exam vs simulator.
     // ====================================================================
     if (isCertExam) {
+      // 8a. Resolve the cert's currently-published JTA version, to stamp onto
+      //     the attempt + credential (historical blueprint fidelity). Null-safe:
+      //     if no version is published yet, the stamp is null and nothing breaks.
+      let jta_version_id: string | null = null;
+      try {
+        const { data: ver } = await svc
+          .from("jta_versions")
+          .select("id")
+          .eq("certification_id", session.certification_id)
+          .eq("status", "published")
+          .maybeSingle();
+        jta_version_id = ver?.id ?? null;
+      } catch (err) {
+        console.warn("jta_version lookup failed (stamp will be null):", err);
+      }
+
       // Auto-link the sponsoring company for THIS cert (via company_certifications
       // intersected with the user's team memberships). Null for B2C self-pay.
       let company_id: string | null = null;
@@ -297,6 +365,10 @@ serve(async (req) => {
           total_questions: total,
           correct_answers: correct_count,
           duration_seconds,
+          // --- 17024 hardening (migration 062) ---
+          late_submission,
+          over_by_seconds,
+          jta_version_id,
           submitted_at: now.toISOString(),
         })
         .select("id")
@@ -355,6 +427,9 @@ serve(async (req) => {
                 certification_code: cert.code,
                 score_pct,
                 locale: credential_locale,
+                // Stamp the same JTA version onto the credential so /verify
+                // renders the exact blueprint this credential was earned against.
+                jta_version_id,
                 issued_at: now.toISOString(),
                 // AI-era credentials expire 1 year after issuance — the
                 // coursework tracks a fast-moving field, so recertification
