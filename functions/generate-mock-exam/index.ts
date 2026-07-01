@@ -20,6 +20,14 @@
 //     form. This guarantees every certification exam is blueprint-valid.
 //   - Shuffles final order; never returns correct_answer / difficulty / tags.
 //
+// POOL ELIGIBILITY:
+//   - is_exam_scope gates the SECURE certification blueprint only — it marks
+//     which secure items are eligible for a real certification exam form.
+//   - The SIMULATOR is practice rehearsal: any approved practice item in the
+//     requested language is eligible. Applying is_exam_scope to the practice
+//     pool would needlessly starve it (most practice items are not flagged),
+//     so the flag is applied for mode='exam' ONLY.
+//
 // VOUCHER GATE (mode='exam' only): a real certification exam requires a
 // redeemable voucher assigned to the user for this cert. The attempt is
 // CONSUMED at start — issuing the secure form burns one attempt regardless of
@@ -154,14 +162,22 @@ serve(async (req) => {
     );
 
     // 4. Candidate questions for this cert + pool + language.
-    const { data: question_rows } = await svc
+    //    is_exam_scope is applied for the SECURE certification exam ONLY (see
+    //    the POOL ELIGIBILITY note in the header). The simulator draws from all
+    //    approved practice items in the language.
+    let questionQuery = svc
       .from("quiz_questions")
       .select("id, question_text, question_type, options, difficulty, task_id")
       .eq("certification_id", body.certification_id)
       .eq("pool", pool)
       .eq("language", language)
-      .eq("status", "approved")
-      .eq("is_exam_scope", true);
+      .eq("status", "approved");
+
+    if (mode === "exam") {
+      questionQuery = questionQuery.eq("is_exam_scope", true);
+    }
+
+    const { data: question_rows } = await questionQuery;
 
     if (!question_rows || question_rows.length === 0) {
       throw new HttpError(
