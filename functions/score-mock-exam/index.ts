@@ -40,6 +40,9 @@
 //   - JTA version stamp: the cert's currently-published jta_versions.id is
 //     stamped onto exam_attempts and the credential, so /verify renders the
 //     exact blueprint the candidate was assessed against.
+//   - Mark-for-review capture: each quiz_attempts row records whether the
+//     candidate flagged the item during the exam (marked_for_review), making
+//     the examination record complete for the reviewer/appeals surface.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -55,7 +58,7 @@ const LATE_GRACE_SECONDS = 60;
 
 interface Body {
   session_id: string;
-  answers: Array<{ question_id: string; user_answer: string[]; time_taken_seconds?: number }>;
+  answers: Array<{ question_id: string; user_answer: string[]; time_taken_seconds?: number; marked_for_review?: boolean }>;
   language?: Language;
 }
 
@@ -169,6 +172,8 @@ serve(async (req) => {
         language: telemetry_language,
         domain_code: q.task_id ? domainCodeByTask.get(q.task_id) ?? null : null,
         presented_order,
+        // --- mark-for-review capture (migration 064) ---
+        marked_for_review: ans.marked_for_review ?? false,
       });
 
       for (const qc of q.question_concepts ?? []) {
