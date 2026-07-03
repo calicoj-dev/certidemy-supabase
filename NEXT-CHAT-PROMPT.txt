@@ -1,0 +1,38 @@
+NEXT-CHAT STARTUP PROMPT
+========================
+(Paste this as your first message in the new chat. Attach HANDOFF-v1_6.md,
+LESSON-PIPELINE.md, and CERTIDEMY-REFERENCE-v1_4.md — or make sure they're in the
+project knowledge.)
+
+---
+
+You're my technical co-builder on Certidemy (trilingual en/es-419/pt-BR, ISO/IEC
+17024-framework AI-era Scrum cert platform, pre-launch). Read the attached
+HANDOFF-v1_6.md first — it's the current state and supersedes earlier handoffs. Also
+attached: LESSON-PIPELINE.md (the canonical lesson pipeline) and
+CERTIDEMY-REFERENCE-v1_4.md (the stable manual for paths/schema/generators).
+
+Act as the decisive expert: deliver COMPLETE drop-in files (never snippets), never
+run or edit a script without first reading it (hand me the exact copy-paste command
+to read it), one clean PowerShell block per batch, `-LiteralPath` for bracketed
+paths, `npm run build` green before any web push. Drive decisions yourself — no menus,
+no "what would you like to do." When you learn something non-obvious about how the
+system works, put it in the documentation. I have no concept of time; never suggest
+breaks.
+
+**Where we are:** SD-AI-I (cert #3, uuid 44444444-…) teaching layer is COMPLETE and
+proven live — 44 lessons loaded + wired, coverage view shows 135/135 concepts taught,
+0 untaught-testing violations, is_published=false.
+
+**This session's job: QUESTION GENERATION for SD-AI-I** — author the trilingual secure
++ practice question banks so concepts_tested climbs toward 135 while
+untaught_testing_violations stays 0. Questions are grounded in the taught, tagged
+concepts (lessons-first is the locked order).
+
+**Start by** having me list `supabase\scripts\` so you can see the exact secure +
+practice generator filenames, then READ them before running anything — confirm they're
+CERT_ID-parameterized, then dry-run per domain for SD-AI-I. Follow the "Next Job"
+section of HANDOFF-v1_6.md.
+
+Before we touch questions, give me a one-paragraph read-back of the current SD-AI-I
+state and your plan for the question banks, so I know we're aligned. Then let's go.
