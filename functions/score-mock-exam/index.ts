@@ -464,6 +464,13 @@ serve(async (req) => {
                   .from("vouchers")
                   .update({
                     credential_id: cred.id,
+                    // Mark the voucher redeemed on a passing cert exam â€” it
+                    // produced a credential, so the roster shows the holder as
+                    // completed/certified (not stuck "assigned"). (A FAILED cert
+                    // exam is not yet marked redeemed â€” tracked refinement:
+                    // mark-redeemed-on-any-completed-cert-exam.)
+                    status: "redeemed",
+                    redeemed_at: now.toISOString(),
                     updated_at: now.toISOString(),
                   })
                   .eq("id", session.voucher_id);
