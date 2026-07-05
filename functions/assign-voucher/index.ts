@@ -121,7 +121,16 @@ serve(async (req) => {
       .maybeSingle();
     const certCode = (cert?.code as string | undefined) ?? "EXAM";
 
-    // 7. Mint, linked to the batch (inherits its terms). assigned_user_id NULL.
+    // 6b. If this email already belongs to a registered user, bind the voucher
+    //     to them now (the signup claim trigger only fires for FUTURE signups).
+    const { data: existingProfile } = await svc
+      .from("profiles")
+      .select("id")
+      .ilike("email", email)
+      .maybeSingle();
+    const assignedUserId = (existingProfile?.id as string | undefined) ?? null;
+
+    // 7. Mint, linked to the batch (inherits its terms).
     const now = new Date().toISOString();
     const voucher_code = makeVoucherCode(certCode);
 
@@ -134,6 +143,7 @@ serve(async (req) => {
         company_id: batch.company_id,
         batch_id: batch.id,
         assigned_email: email,
+        assigned_user_id: assignedUserId,
         assigned_by: caller,
         status: "assigned",
         assigned_at: now,
