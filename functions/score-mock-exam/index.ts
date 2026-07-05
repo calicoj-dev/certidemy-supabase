@@ -105,7 +105,7 @@ serve(async (req) => {
     // 2. Cert config. exam_duration_minutes drives the server-side late check.
     const { data: cert } = await svc
       .from("certifications")
-      .select("code, name, passing_score_pct, exam_duration_minutes")
+      .select("code, name, passing_score_pct, exam_duration_minutes, status")
       .eq("id", session.certification_id)
       .single();
     if (!cert) throw new HttpError(404, "cert not found");
@@ -383,7 +383,13 @@ serve(async (req) => {
       // ---- Credential issuance (on pass only) ----
       let credential_id: string | null = null;
       let credential_code: string | null = null;
-      if (passed) {
+      // Lifecycle guard: only mint when the cert was in a launched state. An
+      // exam should never have STARTED under draft/coming_soon, so if we somehow
+      // reach mint there, refuse. (unavailable is allowed: a freeze blocks new
+      // starts, but an attempt already in progress under 'available' completes
+      // and mints â€” fairer to the candidate, defensible for 17024.)
+      const mintable = (cert as any).status === "available" || (cert as any).status === "unavailable";
+      if (passed && mintable) {
         try {
           // One active credential per user+cert: return the existing one
           // on a re-pass instead of minting a duplicate.

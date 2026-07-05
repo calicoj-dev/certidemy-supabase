@@ -111,6 +111,20 @@ serve(async (req) => {
     // ====================================================================
     let consumed_voucher_id: string | null = null;
     if (mode === "exam") {
+      // Lifecycle freeze: a certification exam can only START when the cert is
+      // 'available'. draft/coming_soon/unavailable refuse here, BEFORE any
+      // voucher attempt is consumed, so a freeze never burns an attempt.
+      const { data: statusRow } = await svc
+        .from("certifications")
+        .select("status")
+        .eq("id", body.certification_id)
+        .single();
+      if (!statusRow || statusRow.status !== "available") {
+        throw new HttpError(
+          403,
+          "this certification is not currently available for examination.",
+        );
+      }
       const consumed = await consumeAttempt(svc, user_id, body.certification_id);
       if (!consumed) {
         throw new HttpError(
@@ -131,7 +145,7 @@ serve(async (req) => {
     // 1. Cert config.
     const { data: cert, error: cErr } = await svc
       .from("certifications")
-      .select("id, code, name, exam_duration_minutes, passing_score_pct, num_questions")
+      .select("id, code, name, exam_duration_minutes, passing_score_pct, num_questions, status")
       .eq("id", body.certification_id)
       .single();
     if (cErr || !cert) throw new HttpError(404, "certification not found");
