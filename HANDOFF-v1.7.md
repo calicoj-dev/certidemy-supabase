@@ -129,3 +129,49 @@ a certification body must operate *documented, controlled procedures* so quality
 repeatable and not person-dependent. `PIPELINE-INDEX.md` + the procedure docs +
 this handoff *are* that management system taking shape. Keep it fed: any new
 repeatable procedure gets a doc and an index row, immediately.
+
+---
+
+## 7. Session addendum (post-v1.7 â€” Fix F + the grant sweep)
+
+**Fix F (dashboard earned-credential display) â€” DONE, shipped.**
+- Built as a compact tokenized "Verified credential" seal beside the greeting,
+  cert-scoped to the credential for the cert in the URL, linking to /verify/{id}.
+  Renders nothing (no layout shift) when the viewer holds no active credential.
+- Files: NEW `lib/credentials/data.ts` (`loadEarnedCredential`, owner-RLS direct
+  read); NEW `components/dashboard/credential-seal.tsx`; dashboard `page.tsx`
+  header restructured to a flex row; i18n key `dashboard.credentialSealEyebrow`
+  (en/es-419/pt-BR via `scripts/i18n-credential-seal.mjs`). Web commit 632f60c.
+- DESIGN DECISION: chose a tokenized seal over reusing a "credential-og" image.
+  **CORRECTION to Section 3:** there is NO per-credential og renderer. The verify
+  page's `generateMetadata` points og:image at a STATIC
+  `/og/credential-fallback.png` (generic, identical for every holder, 1200x630),
+  and its own inline comment flags the per-credential renderer as unbuilt.
+  Section 3's "reuse the credential-og image the verify page already generates"
+  was inaccurate â€” do NOT chase it. Building a real per-credential og renderer is
+  a genuine (unstarted) backlog item.
+
+**The grant bug + sweep (the session's real lesson).**
+- The seal detection hit `42501 permission denied for table credentials`: the
+  `authenticated` role had an owner RLS policy but NO table grant. Fixed by
+  migration 070 (column-scoped GRANT SELECT on credentials, `score_pct` excluded).
+- Swept ALL tables the web app reads via direct authed query against their
+  `authenticated` grants. One more gap found: `mock_exam_results` (read at
+  `lib/dashboard/data.ts:109`, failure-tolerant, so its dashboard exam-history
+  section had been silently EMPTY for authed users). Fixed by migration 071 (full
+  GRANT SELECT â€” strictly owner-only table). Every other directly-read table was
+  already granted; the ~14 ungranted tables are edge-function-only (service role)
+  and correctly stay deny-by-default.
+- See PIPELINE-INDEX gotchas 11 (RLS != grant) + 12 (ship the grant before the
+  feature).
+
+**Codebase note â€” typing the SSR client in server data-loaders.** Incumbent
+convention is `AnyClient = SupabaseClient<any, any, any>` (see
+`lib/dashboard/data.ts`). `lib/credentials/data.ts` uses the more precise
+`ServerClient = Awaited<ReturnType<typeof import("@/lib/supabase/server").createClient>>`.
+Either works. Plain `SupabaseClient` from `@supabase/supabase-js` does NOT â€” it
+defaults to `SupabaseClient<"public">`, which mismatches the `createClient` return
+(`SupabaseClient<Database>`) and throws a TS "not assignable" error at build.
+
+**Migration tip is now 071.** 070 = credentials grant, 071 = mock_exam_results
+grant; both applied editor-first and committed to the supabase repo.

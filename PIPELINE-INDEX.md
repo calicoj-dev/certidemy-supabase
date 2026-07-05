@@ -108,6 +108,25 @@ evidence, not just convenience).
    UPDATE doesn't tell you it changed rows — re-query with `returning` or a select.
 10. **Full-cert sweep to a double-zero is the authoritative completeness gate**
     (domain-level checks alone missed 3 D5 secure tasks once).
+11. **RLS is NOT a grant.** A direct authed query (supabase.from("table") with the
+    SSR/user client, NOT via an edge function on the service role) needs BOTH an
+    owner RLS policy AND a table-level GRANT SELECT ... TO authenticated. RLS
+    filters WHICH rows; the grant lets the role touch the table at all. Missing
+    grant = Postgres 42501 "permission denied for table", raised BEFORE RLS runs.
+    If the data-loader is failure-tolerant (try/catch that degrades a section),
+    the 42501 is SWALLOWED and the feature silently no-ops with no visible error.
+    This is exactly how Fix F's seal and the dashboard's mock_exam_results section
+    were both silently dark. Column-scope the grant on a public-reachable table
+    (exclude sensitive cols, e.g. credentials excludes score_pct); full-grant a
+    strictly owner-only table (e.g. mock_exam_results). Migrations 070/071 added
+    the two missing ones; a sweep confirmed every OTHER directly-read table was
+    already granted, and the ungranted rest are edge-function-only (service role),
+    correctly deny-by-default. Adding a direct authed read to a NEW table? This is
+    the playbook: check its authenticated grant FIRST.
+12. **Ship the grant BEFORE (or with) the feature.** A direct-authed-query feature
+    deployed ahead of its grant silently no-ops in prod until the grant lands (Fix
+    F's first push beat migration 070 by minutes; the seal was dark until the grant
+    ran). Order: grant editor-first, THEN push the web feature.
 
 ---
 
