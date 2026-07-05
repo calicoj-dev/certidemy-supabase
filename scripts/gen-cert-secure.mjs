@@ -1,5 +1,5 @@
 /**
- * gen-spo-i-secure.mjs - fill the SECURE (certification-exam) pool to a
+ * gen-cert-secure.mjs - fill the SECURE (certification-exam) pool to a
  * per-task target, the cert-exam counterpart to backfill-practice.mjs.
  *
  * For every task in a cert below the secure target in any language, this
@@ -43,7 +43,7 @@
  * Run (one full pass over all tasks):
  *   cd C:\Users\Juan\Documents\certidemy\supabase
  *   $env:CERT_ID="33333333-3333-3333-3333-333333333333"; $env:MAX_TASKS="0"
- *   node scripts\gen-spo-i-secure.mjs
+ *   node scripts\gen-cert-secure.mjs
  *
  * Optional knobs (env or .env): SECURE_PER_TASK (default 8), CHUNK (8),
  * MAX_TASKS (0=all; note the shared .env may set this to 9 - override per run),

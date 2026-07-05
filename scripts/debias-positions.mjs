@@ -11,7 +11,7 @@
  * order so the correct answer lands in a uniformly random slot.
  *
  * It does NOT fix length or the semantic tell - those require regenerating the
- * option TEXT, which is Tier 2 (re-run the fixed gen-spo-i-secure.mjs /
+ * option TEXT, which is Tier 2 (re-run the fixed gen-cert-secure.mjs /
  * backfill-practice.mjs). This script REPORTS the residual length cue so you can
  * see how much Tier 2 still owes.
  *

@@ -161,7 +161,7 @@ is display-only):
   `is_exam_scope=false`, DERIVES `question_concepts` — firewall-safe by
   construction). Idempotent, paginated. Knobs: `CERT_ID`, `FLOOR`, `CHUNK`,
   `MAX_TASKS`, `TASK_ID`, `DRY_RUN`.
-- **`gen-spo-i-secure.mjs`** — the SECURE generator (MISNOMER: it's cert-agnostic
+- **`gen-cert-secure.mjs`** — the SECURE generator (cert-agnostic
   via `CERT_ID`). Tops the secure pool to `SECURE_PER_TASK` (default 8) per lang;
   inserts DIRECTLY to `quiz_questions` with the secure shape (`pool='secure'`,
   `is_exam_scope=true`, `status='approved'`, `module_id=null`, `bloom_level` from
@@ -383,7 +383,7 @@ $env:CERT_ID="11111111-1111-1111-1111-111111111111"
 $env:TASK_ID=""             # one task: a task uuid; all tasks: empty
 $env:MAX_TASKS="0"
 $env:DRY_RUN="1"            # dry-run first; then set "0" to insert
-node scripts\gen-spo-i-secure.mjs
+node scripts\gen-cert-secure.mjs
 ```
 
 ### Run the LESSON-WIRING control (project frontmatter → join tables) — NEW
@@ -450,8 +450,7 @@ where certification_id='CERT_UUID' order by code;
 - **PDF:** pdf-lib + @pdf-lib/fontkit + qrcode (pure-JS/Deno-safe).
 - **Deploy:** Cloudflare Pages. **Dev env:** Windows 11 / PowerShell (`-LiteralPath`
   for bracketed paths), Supabase CLI, Node 18+.
-- **scripts\:** `backfill-practice.mjs` (practice), `gen-spo-i-secure.mjs` (secure;
-  cert-agnostic despite the name), **`wire-lessons.mjs` (lesson→join-table
+- **scripts\:** `backfill-practice.mjs` (practice), `gen-cert-secure.mjs` (secure), **`wire-lessons.mjs` (lesson→join-table
   projection control)**; all driven by `supabase\scripts\.env`.
 - **Governance docs:** `SCHEME-SM-AI-I.md`, `SCHEME-SPO-AI-I.md` (17024-framework
   certification schemes), `LESSON_AUTHORING_SPEC.md` (v1.2 with the projection

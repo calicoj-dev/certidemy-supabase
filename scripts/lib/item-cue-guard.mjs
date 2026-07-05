@@ -3,7 +3,7 @@
  *
  * WHY THIS EXISTS
  * ---------------
- * Both generators (gen-spo-i-secure.mjs, backfill-practice.mjs) let the model
+ * Both generators (gen-cert-secure.mjs, backfill-practice.mjs) let the model
  * choose which option is correct and write it however it liked. The result was
  * a bank where the correct answer could be found WITHOUT knowing the material,
  * via three independent surface cues measured across the live pools:

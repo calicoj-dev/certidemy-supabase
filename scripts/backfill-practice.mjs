@@ -11,7 +11,7 @@
  *
  * ANSWER-CUE NEUTRALITY (added after the bias audit of June 2026): every item
  * is run through scripts/lib/item-cue-guard.mjs before translation - identical
- * control to gen-spo-i-secure.mjs. The guard injects length-parity /
+ * control to gen-cert-secure.mjs. The guard injects length-parity /
  * no-positional-habit / no-rhetorical-tell rules into the system prompt, drops
  * any item whose key dominates on length or shows the absolute-word tell, and
  * shuffles option order so the correct answer lands in a uniformly random slot.
