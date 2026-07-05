@@ -148,3 +148,48 @@ evidence, not just convenience).
 - **Design aesthetic:** premium, restrained (Linear/Stripe/Vercel/Mercury). Three.js
   rejected (edge-runtime incompatible). Button variants: link/primary/accent/glass/
   outline/ghost/destructive only. Badge variants: default/accent/success/outline/mono.
+
+
+---
+
+## Lesson-edit propagation (added v1.8 â€” the trap that cost a whole detour)
+
+**THE PIPELINE ORDER for editing an EXISTING lesson (memorize):**
+  1. edit the lesson's frontmatter/body on DISK (content/<cert>/...)
+  2. `scripts/update-lesson-content.mjs --lang <l> --file <abs.md> ...` (dry-run first)
+     -> propagates disk content into the DB `lessons.content_md`
+  3. `scripts/wire-lessons.mjs` (CERT_ID set explicitly) -> projects content_md
+     frontmatter into `lesson_concepts` / `lesson_tasks`
+
+**WHY it bites:** `wire-lessons.mjs` parses `content_md` from the DB, NOT the
+disk file. `load-lessons-direct.mjs` only INSERTS (it skips any existing
+slug+language). So editing a lesson on disk and running the loader changes
+NOTHING in the DB, and wiring then reads stale content. Symptom: you tag a
+concept, wire "succeeds," but the coverage view doesn't move and the new
+`lesson_concepts` rows never appear. The fix is the middle step.
+
+Translations wrinkle: some certs (SM-AI-I) have es-419/pt-BR lessons that live
+ONLY in the DB (no disk source). For a structural frontmatter change there
+(e.g. task_codes), do a targeted exact-ASCII substring `replace()` in content_md
+via a migration (safe from multibyte paste corruption â€” you touch only the
+ASCII value, not translated prose). See migration 075.
+
+## Concept-inventory reconciliation (added v1.8)
+When `v_coverage_tested_not_taught` flags a concept, it's usually a MISSING LINK
+(taught but unlinked), a DUPLICATE concept (two rows, same idea â€” one taught, one
+orphaned that questions point at), or a redundant UMBRELLA (questions link a
+broad concept while specific taught concepts exist). Fixes, auditor-defensible:
+  - missing link  -> tag the lesson (confirm against the BODY, not the title),
+                     propagate + wire.
+  - duplicate     -> retire the orphan: repoint its question/task links to the
+                     taught canonical (conflict-safe), delete the orphan concept.
+                     Migrations 073 (sm-accountabilities), 074 (sprint-events).
+  - untaught for real -> verify the ITEMS are valid/in-scope, THEN author a
+                     lesson block calibrated to what's tested. Never item->lesson.
+Never mask a duplicate with a second lesson tag; the duplicate concept row is
+itself an audit finding.
+
+## Migration tip
+Latest committed migration: **075**. Next is 076.
+(070/071 grants, 072 voucher claim trigger, 073/074 concept retirement,
+075 Module-06 task_code fix.)
