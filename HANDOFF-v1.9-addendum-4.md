@@ -134,3 +134,30 @@ diagnosis + fix on SD-AI-I (migration 079). Read v1.9 + addenda 1-3 first.
 - **Indentation-exact anchors:** node-script edits keep failing on 2-space indent
   mismatches; the `'{0,4}|{1}|'` whitespace-bracketed dump is the diagnostic, and
   unique-inner-substring anchors beat whole-block anchors.
+
+---
+
+## UPDATE — root cause RESOLVED (migration 080)
+
+The "root-cause follow-up" flagged above is now DONE.
+
+- **Cause confirmed:** `quiz_questions.visibility` has a column default of `'secure'`
+  (migration 058, deny-by-default — a SAFE default). `create_practice_questions`
+  inserted practice rows WITHOUT setting visibility, so they inherited `'secure'`.
+  SM-AI-I / SPO-AI-I only became `'private'` because 058's one-time backfill ran
+  after their practice rows existed; SD-AI-I's practice rows were generated later
+  and never got that backfill. (Secure path, gen-cert-secure.mjs, also omits
+  visibility but that's accidentally correct — secure rows SHOULD be 'secure'.)
+- **Fix (migration 080, editor-first + committed 8c11847):** `CREATE OR REPLACE`
+  of create_practice_questions, byte-identical except two added lines — it now
+  inserts `visibility='private'` explicitly. The column default STAYS 'secure'
+  (deny-by-default preserved); the practice write path is now explicit rather
+  than inheriting. Live-verified: sets_private=true.
+- **Guardrail (in 080 footer, run anytime / after building a new cert):**
+    select c.code, count(*) from public.quiz_questions q
+    join public.certifications c on c.id = q.certification_id
+    where q.pool='practice' and q.is_exam_scope=false and q.visibility='secure'
+    group by c.code;
+  Expect 0 rows. Post-080 it returns empty across all certs.
+
+Migrations tip: **080**. next: 081.
