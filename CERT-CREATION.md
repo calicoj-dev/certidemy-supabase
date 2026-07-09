@@ -246,6 +246,60 @@ The second is the "no untaught testing" guarantee — it must always be 0.
 
 ---
 
+### Stage 8.5 — Encoding integrity (detect + repair mojibake)
+
+Stage 8 loads via the API loader precisely to avoid encoding corruption (never
+SQL-editor paste multibyte content — that is the corruption source). This stage
+covers *detection and repair* for when corruption already exists — because mojibake
+is **silent to row/coverage counts but visible on the rendered page**, so it
+survives every other gate. Shipped SM-AI-I module-1 lessons carried it undetected
+until a learner-facing spot-check (fix committed as `08746a0`).
+
+**Corruption signature.** A multibyte char (em-dash `—`, curly quotes, ellipsis)
+gets double-encoded and renders as `â€¦`-style garbage. In bytes it starts with the
+mojibake lead `C3 A2` (`Ã¢`). Em-dashes were found in **two distinct 8-byte
+variants** in the same corpus — assume more than one flavor per file.
+
+**DETECT — use the blunt literal, never a clever regex.**
+```sql
+-- Reliable. A character-class regex either cries wolf on valid pt-BR/es accents
+-- (Ã, Â, ã are normal Portuguese) or misses the real thing. The literal lead
+-- sequence â€ is unambiguous corruption in ANY language.
+select c.code, l.language, l.slug
+from lessons l
+join modules m on m.id = l.module_id
+join certifications c on c.id = m.certification_id
+where l.content_md like '%â€%'                       -- em-dash / quote corruption (any lang)
+   or (l.language = 'en' and l.content_md like '%Ã%') -- Ã in English = corruption
+order by c.code, l.language, l.slug;
+-- Same check on questions: question_text / explanation / options::text like '%â€%'
+```
+A "no rows" result is trustworthy **only** if the rendered page also looks clean. If
+the page shows `â€` and SQL says clean, the query is wrong, not the page. The page
+is ground truth.
+
+**REPAIR — read the actual bytes, never guess the sequence.**
+1. Hex-dump around each `C3 A2` occurrence to read the *real* byte run and its
+   context (which char it should be). Do not assume the sequence length or the
+   target char from memory.
+2. Fix on **disk** with a guarded byte-replace: map each verified mojibake sequence
+   → its correct bytes (em-dash → `E2 80 94`), and **only write the file if the
+   post-replace residual `C3 A2` count is 0.** This refuses to ship a half-fix when a
+   file has more than one corruption flavor (it will — fix each sequence, re-check
+   residual, repeat until 0).
+3. Verify disk clean (`-match 'â€'` on the file text).
+4. Push to DB with **`update-lesson-content.mjs`** (`--file`-scoped, `--lang`,
+   `CERT_ID`, `--dry` first) — **NOT** `load-lessons-direct.mjs`, which *skips
+   existing rows* and would silently no-op the repair.
+5. Verify DB with the `%â€%` query (expect 0) **and eyeball the rendered page.**
+6. Commit the repaired disk files (source-of-truth); a corruption-only fix shows as
+   equal insertions/deletions (byte swaps, no content change).
+
+**Standing check.** Run the DETECT query after every lesson load/translation and
+before any `draft → coming_soon` flip. Treat it as a Stage 10 invariant in spirit:
+*zero `%â€%` rows, all languages.*
+
+
 ### Stage 9 — Generate question banks (LEVEL I; see §7 for Level II)
 
 Both generators are cert-agnostic and `CERT_ID`-driven. Need
