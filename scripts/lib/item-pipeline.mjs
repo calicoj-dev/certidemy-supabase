@@ -47,12 +47,13 @@ import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./item-cue-guar
 // Shared grounding + the canonical English validator (moved here from the
 // generators so there is one definition).
 // ---------------------------------------------------------------------------
-const GROUNDING = `Ground each question in the concept(s) provided and in established Scrum and
-product-ownership practice (the 2020 Scrum Guide where it applies). Some concepts
-extend beyond the Scrum Guide - product strategy, backlog craft, value and
-measurement, and AI-assisted product ownership; for those, ground the question in
-the concept description and sound product-management practice rather than forcing
-a Scrum Guide citation. Do NOT reference any specific certification provider or brand.`;
+// GROUNDING is no longer a single hardcoded (Scrum) constant. It is resolved PER
+// CERT - see ./item-grounding.mjs. The Scrum text is preserved verbatim there for
+// the Scrum certs, so their generation is unchanged; other certs get grounding that
+// matches their actual audience. A hardcoded Scrum grounding was producing
+// sprint-backlog scenarios inside an AI-literacy exam aimed at HR/marketing/ops -
+// a construct-irrelevant validity defect that passed every other gate.
+import { groundingFor } from "./item-grounding.mjs";
 
 export function validateEnglish(q) {
   if (!q || typeof q !== "object") return false;
@@ -161,7 +162,7 @@ Strict requirements for every question:
     substance, never by letter (do not write "option a", "option b", etc.); the
     options are reshuffled after writing, so letter references would be wrong.
   - ${difficultyLine(kind)}
-  - ${GROUNDING}
+  - ${groundingFor(certName)}
 ${CUE_NEUTRALITY_RULES}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
