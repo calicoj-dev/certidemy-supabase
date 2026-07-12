@@ -145,11 +145,20 @@ serve(async (req) => {
     // 1. Cert config.
     const { data: cert, error: cErr } = await svc
       .from("certifications")
-      .select("id, code, name, exam_duration_minutes, passing_score_pct, num_questions, status")
+      .select("id, code, name, exam_duration_minutes, passing_score_pct, num_questions, status, exam_blueprint")
       .eq("id", body.certification_id)
       .single();
     if (cErr || !cert) throw new HttpError(404, "certification not found");
     const target_count: number = cert.num_questions ?? 40;
+
+    // Optional per-cert FORM blueprint. Shape:
+    //   exam_blueprint = { "difficulty_mix": { "1": 44, "2": 40, "3": 16 } }
+    // Keys are exact difficulty levels, values percentages. Because bloom_level is
+    // a pure function of difficulty within a cert's tier (literacy: 1=remember,
+    // 2=understand, 3=apply), stratifying on difficulty IS stratifying on Bloom.
+    // NULL -> legacy 30/50/20 balance (unchanged for every existing cert).
+    const difficulty_mix: Record<string, number> | null =
+      ((cert as any).exam_blueprint?.difficulty_mix as Record<string, number>) ?? null;
 
     // 2. Blueprint: domains + weights.
     const { data: domainRows, error: dErr } = await svc
@@ -232,7 +241,7 @@ serve(async (req) => {
       const quota = allocation.get(d.id) ?? 0;
       if (quota === 0) continue;
       const poolForDomain = (byDomain.get(d.id) ?? []).filter((q) => !chosen.has(q.id));
-      const picked = pickAcrossTasksBalanced(poolForDomain, quota);
+      const picked = pickAcrossTasksBalanced(poolForDomain, quota, difficulty_mix);
       for (const q of picked) {
         chosen.add(q.id);
         selected.push(q);
@@ -337,7 +346,11 @@ function allocateByWeight(domains: DomainRow[], total: number): Map<string, numb
  * Pick `quota` questions from a single domain's pool, spreading across the
  * domain's tasks (round-robin by task) and balancing difficulty ~30/50/20.
  */
-function pickAcrossTasksBalanced(pool: QuestionRow[], quota: number): QuestionRow[] {
+function pickAcrossTasksBalanced(
+  pool: QuestionRow[],
+  quota: number,
+  mix: Record<string, number> | null = null,
+): QuestionRow[] {
   if (pool.length === 0 || quota === 0) return [];
 
   // Group by task, shuffle within each, then round-robin across tasks so a
@@ -366,8 +379,10 @@ function pickAcrossTasksBalanced(pool: QuestionRow[], quota: number): QuestionRo
     }
   }
 
-  // Now balance difficulty across the round-robin-ordered list.
-  return pickBalancedDifficulty(roundRobin, Math.min(quota, roundRobin.length));
+  // Now balance difficulty across the round-robin-ordered list. A cert with an
+  // exam_blueprint stratifies to ITS declared mix; everything else keeps 30/50/20.
+  const n = Math.min(quota, roundRobin.length);
+  return mix ? pickByMix(roundRobin, n, mix) : pickBalancedDifficulty(roundRobin, n);
 }
 
 function pickBalancedDifficulty(pool: QuestionRow[], quota: number): QuestionRow[] {
@@ -394,6 +409,81 @@ function pickBalancedDifficulty(pool: QuestionRow[], quota: number): QuestionRow
       }
     }
   }
+  return picked.slice(0, quota);
+}
+
+/**
+ * Pick `quota` questions stratified to an explicit difficulty mix (the cert's
+ * exam_blueprint). Seats per level use largest-remainder so they sum to `quota`
+ * exactly. `pool` arrives in round-robin (task-spread) order and that order is
+ * preserved within each level, so task spread survives stratification.
+ *
+ * If a level is undersized the shortfall is filled from the remainder, exactly as
+ * the legacy path does - the caller's blueprint-integrity gate is what refuses to
+ * issue a real exam when the pool genuinely cannot fill the form.
+ */
+function pickByMix(
+  pool: QuestionRow[],
+  quota: number,
+  mix: Record<string, number>,
+): QuestionRow[] {
+  if (pool.length === 0 || quota === 0) return [];
+
+  const levels = Object.keys(mix)
+    .map((k) => Number(k))
+    .filter((n) => Number.isFinite(n))
+    .sort((a, b) => a - b);
+  if (levels.length === 0) return pickBalancedDifficulty(pool, quota);
+
+  const sumPct = levels.reduce((s, l) => s + (mix[String(l)] ?? 0), 0) || 1;
+
+  // Largest-remainder seat allocation per difficulty level.
+  const seats = levels.map((l) => {
+    const raw = ((mix[String(l)] ?? 0) / sumPct) * quota;
+    return { level: l, n: Math.floor(raw), rem: raw - Math.floor(raw) };
+  });
+  let assigned = seats.reduce((s, x) => s + x.n, 0);
+  const byRemainder = [...seats].sort((a, b) => b.rem - a.rem);
+  let i = 0;
+  while (assigned < quota && byRemainder.length > 0) {
+    byRemainder[i % byRemainder.length].n += 1;
+    assigned += 1;
+    i += 1;
+  }
+
+  // Bucket by exact difficulty, preserving round-robin order within each bucket.
+  const byLevel = new Map<number, QuestionRow[]>();
+  for (const q of pool) {
+    const d = Number(q.difficulty);
+    if (!byLevel.has(d)) byLevel.set(d, []);
+    byLevel.get(d)!.push(q);
+  }
+
+  const picked: QuestionRow[] = [];
+  const used = new Set<string>();
+  for (const s of seats) {
+    const bucket = byLevel.get(s.level) ?? [];
+    let taken = 0;
+    for (const q of bucket) {
+      if (taken >= s.n) break;
+      if (used.has(q.id)) continue;
+      used.add(q.id);
+      picked.push(q);
+      taken += 1;
+    }
+  }
+
+  // Shortfall: top up from whatever remains, preserving task-spread order.
+  if (picked.length < quota) {
+    for (const q of pool) {
+      if (picked.length >= quota) break;
+      if (!used.has(q.id)) {
+        used.add(q.id);
+        picked.push(q);
+      }
+    }
+  }
+
   return picked.slice(0, quota);
 }
 

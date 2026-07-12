@@ -54,6 +54,9 @@ import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./item-cue-guar
 // sprint-backlog scenarios inside an AI-literacy exam aimed at HR/marketing/ops -
 // a construct-irrelevant validity defect that passed every other gate.
 import { groundingFor } from "./item-grounding.mjs";
+// Difficulty/Bloom guidance is likewise per-cert: a literacy tier WANTS recall items
+// and must never exceed its declared ceiling. See ./item-profile.mjs.
+import { difficultyLineFor } from "./item-profile.mjs";
 
 export function validateEnglish(q) {
   if (!q || typeof q !== "object") return false;
@@ -70,15 +73,9 @@ export function validateEnglish(q) {
   return true;
 }
 
-// Difficulty guidance differs slightly by pool, mirroring the originals.
-function difficultyLine(kind) {
-  return kind === "secure"
-    ? `Difficulty 1..5, distributed about 30% level 2, 50% level 3, 20% level 4.
-Avoid level 1 (trivial recall) and level 5 (overly tricky) - test applied
-judgment. Favor scenario and Apply/Analyze items.`
-    : `Difficulty 1=trivial recall .. 5=tricky multi-step. Favor Apply/Analyze
-(3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.`;
-}
+// Difficulty guidance is resolved PER CERT TIER - see ./item-profile.mjs.
+// (The old hardcoded 30/50/20 + "avoid level 1" text lives there as the
+// PROFESSIONAL profile, preserved verbatim for the Scrum and governance certs.)
 
 function personaLine(kind, certName) {
   return kind === "secure"
@@ -161,7 +158,7 @@ Strict requirements for every question:
     why a tempting distractor is wrong. Refer to options by their CONTENT or
     substance, never by letter (do not write "option a", "option b", etc.); the
     options are reshuffled after writing, so letter references would be wrong.
-  - ${difficultyLine(kind)}
+  - ${difficultyLineFor(kind, certName)}
   - ${groundingFor(certName)}
 ${CUE_NEUTRALITY_RULES}
 Output strict JSON, top level an array, NO prose, NO markdown fences:

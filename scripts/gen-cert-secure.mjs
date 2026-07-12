@@ -59,6 +59,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
+import { bloomForCert } from "./lib/item-profile.mjs";
 
 // ---------------------------------------------------------------------------
 // Local .env loader (KEY=VALUE), real process env wins over the file.
@@ -125,11 +126,16 @@ function int(v, d) {
   return Number.isFinite(n) ? n : d;
 }
 
-/** Difficulty -> bloom_level enum, matching the hand-authored SM-I secure rows. */
+/**
+ * Difficulty -> bloom_level enum, resolved PER CERT TIER (lib/item-profile.mjs).
+ * The professional tier keeps the original mapping exactly (<=2 understand, 3 apply,
+ * 4+ analyze). The literacy tier can emit 1_remember and is hard-capped at 3_apply.
+ * CERT_NAME is module-level and set by main() once the cert row is fetched, so this
+ * needs no signature change at the call site.
+ */
+let CERT_NAME = "";
 function bloomFor(difficulty) {
-  if (difficulty <= 2) return "2_understand";
-  if (difficulty === 3) return "3_apply";
-  return "4_analyze"; // 4-5
+  return bloomForCert(difficulty, CERT_NAME);
 }
 
 // ---------------------------------------------------------------------------
@@ -313,6 +319,7 @@ async function main() {
   );
 
   const { conceptsByTask, counts, certName } = await gather();
+  CERT_NAME = certName; // tier profile (difficulty + bloom) keys off this
   console.log(`Generating as: "${certName}" exam writer\n`);
 
   let tasks = [...conceptsByTask.keys()];
