@@ -387,6 +387,46 @@ async function verify(cert) {
     ? R.pass("status", "§8", "All items approved", `${questions.length} items`)
     : R.fail("status", "§8", "All items approved", `${notApproved.length} not approved -> invisible to the assembler`);
 
+  // === 13. DRAG-MATCH IS STRICTLY 1:1 =======================================
+  // A drag-match must be n items -> n targets, exactly one item per target, and must
+  // never use allowReuse. Two reasons, and the second is the one that matters:
+  //
+  //   (a) BUG. The widget places one item per target by default. A many-to-few design
+  //       without allowReuse silently OVERRIDES the previous drop - a real, shipped,
+  //       learner-facing defect found in AIE-I by clicking through the app.
+  //   (b) ASSESSMENT. Sorting 4 items into 2 buckets is 4 independent coin-flips; a
+  //       guesser scores ~50% knowing nothing. Matching 4 items to 4 distinct targets
+  //       is 24 permutations - you either know it or you don't. Only the 1:1 form is
+  //       a real measurement, which is what a credential's exercises have to be.
+  //
+  // This reads content_md straight from the DB, so no lesson in any cert - including
+  // certs not yet built - can reintroduce the pattern without failing this gate.
+  const dmBad = [];
+  let dmCount = 0;
+  for (const l of lessons) {
+    const md = l.content_md || "";
+    const re = /^::interactive([^\n]*)\n([\s\S]*?)\n::\s*$/gm;
+    let m;
+    while ((m = re.exec(md)) !== null) {
+      if (!/widget="drag-match"/.test(m[1])) continue;
+      dmCount++;
+      let cfg;
+      try { cfg = JSON.parse(m[2]); } catch { dmBad.push(`${l.language}/${l.slug}: unparseable JSON`); continue; }
+      const ni = (cfg.items ?? []).length;
+      const nt = (cfg.targets ?? []).length;
+      const used = Object.values(cfg.correct ?? {});
+      const errs = [];
+      if (ni !== nt) errs.push(`${ni} items -> ${nt} targets (not 1:1)`);
+      if ("allowReuse" in cfg) errs.push("uses allowReuse (banned)");
+      if (new Set(used).size !== nt || used.length !== ni) errs.push("targets not used exactly once each");
+      if (errs.length) dmBad.push(`${l.language}/${l.slug}: ${errs.join("; ")}`);
+    }
+  }
+  if (dmCount === 0) R.skip("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", "no drag-match widgets");
+  else dmBad.length === 0
+    ? R.pass("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmCount} widgets, all n->n, no allowReuse`)
+    : R.fail("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmBad.length} of ${dmCount} violate the rule (learners will hit drop-override)`, dmBad);
+
   return R;
 }
 
