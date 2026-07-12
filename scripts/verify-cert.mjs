@@ -387,31 +387,83 @@ async function verify(cert) {
     ? R.pass("status", "§8", "All items approved", `${questions.length} items`)
     : R.fail("status", "§8", "All items approved", `${notApproved.length} not approved -> invisible to the assembler`);
 
-  // === 13. DRAG-MATCH IS STRICTLY 1:1 =======================================
-  // A drag-match must be n items -> n targets, exactly one item per target, and must
-  // never use allowReuse. Two reasons, and the second is the one that matters:
+  // === 13 + 14. LESSON DSL STRUCTURE ========================================
+  // Parse the lesson DSL properly rather than with a regex. The DSL is line-oriented:
+  // a section opens on a line starting "::name ..." and closes on a line that is
+  // exactly "::". The old regex used a non-greedy [\s\S]*? up to the first "\n::",
+  // which silently mis-slices whenever a block is malformed - and that is precisely
+  // the case it most needs to get right.
   //
-  //   (a) BUG. The widget places one item per target by default. A many-to-few design
-  //       without allowReuse silently OVERRIDES the previous drop - a real, shipped,
-  //       learner-facing defect found in AIE-I by clicking through the app.
-  //   (b) ASSESSMENT. Sorting 4 items into 2 buckets is 4 independent coin-flips; a
-  //       guesser scores ~50% knowing nothing. Matching 4 items to 4 distinct targets
-  //       is 24 permutations - you either know it or you don't. Only the 1:1 form is
-  //       a real measurement, which is what a credential's exercises have to be.
+  // INVARIANT 14 - EVERY BLOCK HAS A CLOSER. Two AIGRM-I lessons ended their widget
+  // JSON with "}" and ran straight into the next "::concept" with no "::" closer. The
+  // renderer never saw the section terminate, so BOTH WIDGETS SILENTLY FAILED TO
+  // RENDER, in all three languages, in a live cert. No error, no visual glitch - just
+  // a missing exercise nobody noticed. That is the worst failure mode in the system,
+  // and it is exactly what an executable invariant is for.
   //
-  // This reads content_md straight from the DB, so no lesson in any cert - including
-  // certs not yet built - can reintroduce the pattern without failing this gate.
+  // INVARIANT 13 - DRAG-MATCH IS STRICTLY 1:1 (n items -> n targets, one each,
+  // allowReuse never used). Two reasons:
+  //   (a) BUG. On a drop into an occupied target the component evicted the occupant,
+  //       so 4 items -> 2 targets could never hold more than 2 placements; allPlaced
+  //       never became true and Check never enabled. Those widgets were literally
+  //       uncompletable. (Component now degrades gracefully, but the rule stands.)
+  //   (b) ASSESSMENT. Sorting 4 items into 2 buckets is 4 coin-flips - a guesser
+  //       scores ~50% knowing nothing. Matching 4 items to 4 distinct targets is 24
+  //       permutations: you know it or you don't. Only the 1:1 form measures.
+
+  /** Line-based DSL scan. Returns { blocks, unclosed }. */
+  function scanLessonDsl(md) {
+    const lines = (md || "").split(/\r?\n/);
+    const blocks = [];
+    const unclosed = [];
+    let inFrontmatter = false;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // Skip YAML frontmatter (--- ... ---) at the very top.
+      if (i === 0 && line.trim() === "---") { inFrontmatter = true; continue; }
+      if (inFrontmatter) { if (line.trim() === "---") inFrontmatter = false; continue; }
+
+      const open = line.match(/^::([a-z][a-z-]*)(\s.*)?$/);
+      if (!open) continue;
+      const name = open[1];
+      const attrs = open[2] ?? "";
+      // Consume until a line that is exactly "::".
+      let j = i + 1;
+      const body = [];
+      let closed = false;
+      for (; j < lines.length; j++) {
+        if (lines[j].trim() === "::") { closed = true; break; }
+        // Another block OPENS before this one closed -> the closer is missing.
+        if (/^::[a-z][a-z-]*(\s|$)/.test(lines[j])) break;
+        body.push(lines[j]);
+      }
+      if (!closed) unclosed.push({ name, line: i + 1, attrs: attrs.trim().slice(0, 60) });
+      blocks.push({ name, attrs, body: body.join("\n"), closed });
+      i = closed ? j : j - 1;
+    }
+    return { blocks, unclosed };
+  }
+
+  const unclosedAll = [];
   const dmBad = [];
   let dmCount = 0;
+
   for (const l of lessons) {
-    const md = l.content_md || "";
-    const re = /^::interactive([^\n]*)\n([\s\S]*?)\n::\s*$/gm;
-    let m;
-    while ((m = re.exec(md)) !== null) {
-      if (!/widget="drag-match"/.test(m[1])) continue;
+    const { blocks, unclosed } = scanLessonDsl(l.content_md);
+    for (const u of unclosed) {
+      unclosedAll.push(`${l.language}/${l.slug}: ::${u.name} at line ${u.line} never closed -> block will NOT render`);
+    }
+    for (const b of blocks) {
+      if (b.name !== "interactive" || !/widget="drag-match"/.test(b.attrs)) continue;
       dmCount++;
+      if (!b.closed) continue; // already reported by invariant 14; JSON is unreliable
       let cfg;
-      try { cfg = JSON.parse(m[2]); } catch { dmBad.push(`${l.language}/${l.slug}: unparseable JSON`); continue; }
+      try {
+        cfg = JSON.parse(b.body);
+      } catch (e) {
+        dmBad.push(`${l.language}/${l.slug}: widget JSON does not parse (${String(e.message).slice(0, 50)})`);
+        continue;
+      }
       const ni = (cfg.items ?? []).length;
       const nt = (cfg.targets ?? []).length;
       const used = Object.values(cfg.correct ?? {});
@@ -422,10 +474,21 @@ async function verify(cert) {
       if (errs.length) dmBad.push(`${l.language}/${l.slug}: ${errs.join("; ")}`);
     }
   }
+
+  // --- 14: block closers ---
+  if (lessons.length === 0) {
+    R.skip("lesson.closers", "§11", "Every lesson block has a closer", "no lessons");
+  } else {
+    unclosedAll.length === 0
+      ? R.pass("lesson.closers", "§11", "Every lesson block has a closer", `${lessons.length} lesson rows scanned`)
+      : R.fail("lesson.closers", "§11", "Every lesson block has a closer", `${unclosedAll.length} block(s) never close -> they SILENTLY DO NOT RENDER`, unclosedAll);
+  }
+
+  // --- 13: drag-match 1:1 ---
   if (dmCount === 0) R.skip("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", "no drag-match widgets");
   else dmBad.length === 0
     ? R.pass("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmCount} widgets, all n->n, no allowReuse`)
-    : R.fail("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmBad.length} of ${dmCount} violate the rule (learners will hit drop-override)`, dmBad);
+    : R.fail("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmBad.length} of ${dmCount} are many-to-few (coin-flip sorting, not assessment)`, dmBad);
 
   return R;
 }
