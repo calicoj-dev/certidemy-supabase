@@ -57,6 +57,10 @@ import { groundingFor } from "./item-grounding.mjs";
 // Difficulty/Bloom guidance is likewise per-cert: a literacy tier WANTS recall items
 // and must never exceed its declared ceiling. See ./item-profile.mjs.
 import { difficultyLineFor } from "./item-profile.mjs";
+// The JOB-TASK ANALYSIS finally reaches the item writer. Items are written to assess
+// a TASK at the cognitive level the JTA declares for it - not to cover a bag of
+// concepts at a difficulty level someone invented. See ./item-task-context.mjs.
+import { taskBlock, bloomDirective } from "./item-task-context.mjs";
 
 export function validateEnglish(q) {
   if (!q || typeof q !== "object") return false;
@@ -135,7 +139,7 @@ List the real misconceptions now as a JSON array of strings.`;
 // Stage 2 - draft items whose distractors map to real misconceptions and whose
 // options are parallel in structure / specificity / length.
 // ---------------------------------------------------------------------------
-function draftSystem(kind, certName) {
+function draftSystem(kind, certName, task = null) {
   return `${personaLine(kind, certName)}
 
 Strict requirements for every question:
@@ -158,21 +162,22 @@ Strict requirements for every question:
     why a tempting distractor is wrong. Refer to options by their CONTENT or
     substance, never by letter (do not write "option a", "option b", etc.); the
     options are reshuffled after writing, so letter references would be wrong.
-  - ${difficultyLineFor(kind, certName)}
+  - ${bloomDirective(task, kind, difficultyLineFor(kind, certName))}
   - ${groundingFor(certName)}
 ${CUE_NEUTRALITY_RULES}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
 }
 
-function draftUser(concepts, misconceptions, k) {
+function draftUser(concepts, misconceptions, k, task = null) {
   const mis = misconceptions.length
     ? `Real misconceptions to anchor distractors (use distinct ones across items; add equally specific ones if you need more):
 ${misconceptions.map((m) => `  - ${m}`).join("\n")}
 
 `
     : "";
-  return `Write ${k} new questions that TEST the following concept(s):
+  const tb = taskBlock(task);
+  return `${tb ? tb + "\n\n" : ""}Write ${k} new questions that assess ${task ? "THAT TASK" : "the following concept(s)"}, drawing on:
 
 ${concepts.map((c) => `  - ${c.name}: ${c.description || ""}`).join("\n")}
 
@@ -314,11 +319,11 @@ async function normalizeOptions({ callClaude, item, certName, log = () => {} }) 
 // Orchestrator - draft -> critique -> parity gate (normalize-or-drop) -> shuffle.
 // Returns clean, cue-neutral English items ready for translation.
 // ---------------------------------------------------------------------------
-export async function buildCleanItems({ callClaude, concepts, k, certName, kind, misconceptions = [], log = () => {} }) {
+export async function buildCleanItems({ callClaude, concepts, k, certName, kind, task = null, misconceptions = [], log = () => {} }) {
   // Stage 2: draft
   let drafts;
   try {
-    drafts = await callClaude({ system: draftSystem(kind, certName), user: draftUser(concepts, misconceptions, k) });
+    drafts = await callClaude({ system: draftSystem(kind, certName, task), user: draftUser(concepts, misconceptions, k, task) });
   } catch (e) {
     log(`draft failed: ${e.message}`);
     return [];

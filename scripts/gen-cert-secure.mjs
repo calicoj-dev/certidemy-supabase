@@ -60,6 +60,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
 import { bloomForCert } from "./lib/item-profile.mjs";
+import { bloomForTask } from "./lib/item-task-context.mjs";
 
 // ---------------------------------------------------------------------------
 // Local .env loader (KEY=VALUE), real process env wins over the file.
@@ -270,6 +271,16 @@ async function gather() {
   const conceptIds = [...conceptById.keys()];
   if (conceptIds.length === 0) throw new Error("no concepts for this cert");
 
+  // THE JTA. Every task carries its statement, KSAs and DECLARED cognitive level.
+  // The generator never read this table until now - items were written from concept
+  // definitions alone, and bloom_level was stamped from an invented difficulty curve.
+  const { data: taskRows, error: tErr } = await supabase
+    .from("tasks")
+    .select("id, code, statement, bloom_level, criticality, knowledge, skills, abilities, is_exam_scope")
+    .eq("certification_id", CERT_ID);
+  if (tErr) throw new Error(`tasks: ${tErr.message}`);
+  const taskById = new Map((taskRows || []).map((t) => [t.id, t]));
+
   const { data: tcRows, error: tcErr } = await supabase
     .from("task_concepts")
     .select("task_id, concept_id")
@@ -306,7 +317,7 @@ async function gather() {
     if (r.language in c) c[r.language] += 1;
   }
 
-  return { conceptsByTask, counts, certName };
+  return { conceptsByTask, counts, certName, taskById };
 }
 
 // ---------------------------------------------------------------------------
@@ -318,7 +329,7 @@ async function main() {
     `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
   );
 
-  const { conceptsByTask, counts, certName } = await gather();
+  const { conceptsByTask, counts, certName, taskById } = await gather();
   CERT_NAME = certName; // tier profile (difficulty + bloom) keys off this
   console.log(`Generating as: "${certName}" exam writer\n`);
 
@@ -360,7 +371,7 @@ async function main() {
       const k = Math.min(remaining, CHUNK);
       // Stages 2-4: draft -> hostile critique-and-revise -> guards + position shuffle.
       const enQs = await buildCleanItems({
-        callClaude, concepts, k, certName, kind: "secure",
+        callClaude, concepts, k, certName, kind: "secure", task: taskById.get(w.taskId) || null,
         misconceptions, log: (m) => console.log(`    ${m}`),
       });
       if (enQs.length === 0) {
@@ -406,7 +417,8 @@ async function main() {
             correct_answer: q.correct_answer,
             explanation: q.explanation,
             difficulty: q.difficulty,
-            bloom_level: bloomFor(q.difficulty),
+            // Stamped from the TASK's declared level (the JTA), never from difficulty.
+            bloom_level: bloomForTask(taskById.get(w.taskId), bloomFor(q.difficulty)),
             language: langCode,
             pool: "secure",
             is_exam_scope: true,
