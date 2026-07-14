@@ -52,6 +52,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
+import { bloomForTask } from "./lib/item-task-context.mjs";
 
 // ---------------------------------------------------------------------------
 // Load a local .env (KEY=VALUE per line) sitting next to this script, so the
@@ -263,7 +264,22 @@ async function gather() {
   const conceptIds = [...conceptById.keys()];
   if (conceptIds.length === 0) throw new Error("no concepts for this cert");
 
-  // task -> concepts, via task_concepts (this also defines the task universe).
+  // THE JOB-TASK ANALYSIS. This is what the generator writes questions AGAINST.
+  //
+  // Until now this script derived its task universe from task_concepts alone and never
+  // read public.tasks - so it never saw a task's statement, its KSAs, its criticality,
+  // or its declared bloom_level. It wrote items from concept definitions, and its RPC
+  // payload carried no bloom_level, so every practice item took the column default.
+  // 93.6% of the practice pool is 2_understand because nobody ever set the field.
+  const { data: taskRows, error: tErr } = await supabase
+    .from("tasks")
+    .select("id, code, statement, knowledge, skills, abilities, criticality, frequency, bloom_level, is_exam_scope")
+    .eq("certification_id", CERT_ID);
+  if (tErr) throw new Error(`tasks: ${tErr.message}`);
+  const taskById = new Map((taskRows || []).map((t) => [t.id, t]));
+  if (taskById.size === 0) throw new Error("no tasks for this cert - the JTA is the source of truth and it is empty");
+
+  // task -> concepts, via task_concepts.
   const { data: tcRows, error: tcErr } = await supabase
     .from("task_concepts")
     .select("task_id, concept_id")
@@ -304,7 +320,7 @@ async function gather() {
     if (r.language in c) c[r.language] += 1;
   }
 
-  return { conceptsByTask, counts, certName };
+  return { conceptsByTask, counts, certName, taskById };
 }
 
 // ---------------------------------------------------------------------------
@@ -316,7 +332,7 @@ async function main() {
     `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
   );
 
-  const { conceptsByTask, counts, certName } = await gather();
+  const { conceptsByTask, counts, certName, taskById } = await gather();
   console.log(`Generating as: "${certName}" question writer\n`);
 
   // Build the work list: tasks below floor in any language, emptiest first.
@@ -344,7 +360,13 @@ async function main() {
   for (const w of limited) {
     const concepts = conceptsByTask.get(w.taskId) || [];
     const slugs = concepts.map((c) => c.slug).join(", ");
-    console.log(`> task ${w.taskId} [${slugs}] - have min ${w.min}, need ${w.need}`);
+    const wTask = taskById.get(w.taskId);
+    if (!wTask || !wTask.bloom_level) {
+      console.log(`  ! task ${w.taskId} declares no bloom_level - SKIPPED. Fix the JTA; do not guess a level.`);
+      continue;
+    }
+    console.log(`> task ${wTask.code} [${wTask.bloom_level}] - have min ${w.min}, need ${w.need}`);
+    console.log(`    "${(wTask.statement || "").slice(0, 76)}"`);
 
     // Stage 1: source the real misconceptions for this task once, reused per round.
     const misconceptions = await sourceMisconceptions({
@@ -359,6 +381,7 @@ async function main() {
       // Stages 2-4: draft -> hostile critique-and-revise -> guards + position shuffle.
       const enQs = await buildCleanItems({
         callClaude, concepts, k, certName, kind: "practice",
+        task: taskById.get(w.taskId) || null,   // the JTA reaches the prompt at last
         misconceptions, log: (m) => console.log(`    ${m}`),
       });
       if (enQs.length === 0) {
@@ -404,6 +427,11 @@ async function main() {
             correct_answer: q.correct_answer,
             explanation: q.explanation,
             difficulty: q.difficulty,
+            // FROM THE TASK. Not from a difficulty curve, not from a column default.
+            // The task's declared level is the only legitimate source of an item's
+            // cognitive level, and the DB trigger will reject anything else.
+            bloom_level: bloomForTask(taskById.get(w.taskId)),
+            bank_revision: "v2-jta",
             language: langCode,
           });
         }

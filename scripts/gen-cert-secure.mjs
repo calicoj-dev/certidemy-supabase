@@ -419,7 +419,20 @@ async function main() {
             explanation: q.explanation,
             difficulty: q.difficulty,
             // Stamped from the TASK's declared level (the JTA), never from difficulty.
-            bloom_level: bloomForTask(taskById.get(w.taskId), bloomFor(q.difficulty)),
+            // NO FALLBACK. bloomFor(q.difficulty) used to sit here as the second
+            // argument - the difficulty curve that made 1_remember structurally
+            // unreachable and cut item cognition off from the JTA. Every task now
+            // declares a level, so the fallback could only ever fire when something is
+            // already broken, and it would fire SILENTLY. Throw instead.
+            bloom_level: (() => {
+              const t = taskById.get(w.taskId);
+              const b = t && t.bloom_level;
+              if (!b) throw new Error(
+                `task ${t ? t.code : w.taskId} declares no bloom_level. Fix the JTA - do not guess a cognitive level from a difficulty score.`
+              );
+              return b;
+            })(),
+            bank_revision: "v2-jta",
             language: langCode,
             pool: "secure",
             is_exam_scope: true,
