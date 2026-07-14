@@ -74,6 +74,13 @@ export function validateEnglish(q) {
   if (!q.correct_answer.every((id) => ids.has(id))) return false;
   if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return false;
   if (typeof q.explanation !== "string" || q.explanation.length < 5) return false;
+
+  // LENGTH CEILING. The prompt asks; this enforces. An item that cannot be read inside
+  // the exam's per-item budget measures reading speed, not competence - and measures it
+  // most harshly in es-419 and pt-BR, which run 15-25% longer for identical content.
+  const words = (s) => String(s || "").trim().split(/\s+/).filter(Boolean).length;
+  if (words(q.question_text) > 60) return false;
+  if ((q.options || []).some((o) => words(o.text) > 25)) return false;
   return true;
 }
 
@@ -153,7 +160,18 @@ Strict requirements for every question:
     you supply). No throwaway options, no obviously-wrong options, no joke options,
     no "all/none of the above".
   - PARALLEL OPTIONS: write all four options in the same grammatical form, the
-    same level of specificity, and closely matched length. The correct answer must
+    same level of specificity, and closely matched length.
+
+LENGTH CEILING - a hard limit, not a style preference:
+  * The stem is at most 60 WORDS.
+  * EACH option is at most 25 WORDS.
+An exam that cannot be READ in the time allowed measures reading speed, not competence -
+and it penalises the Spanish and Portuguese versions hardest, since they run 15-25% longer
+than English for the same content. Keep every option's "X, because Y" rationale - that is
+what makes a distractor substantively wrong rather than merely wrong-sounding - but say it
+TIGHTLY. Cut hedges, cut throat-clearing, cut restatements of the stem.
+
+The correct answer must
     not stand out as longer, more qualified, or more "balanced/reasonable" than the
     distractors. A well-written distractor is as substantial as the key.
   - Option ids "a","b","c","d" (or "a","b" for true_false); correct_answer is an
@@ -195,7 +213,14 @@ professional multiple-choice item-writing standards. For EACH item you receive,
 check for these flaws and FIX them:
   1. ANSWER CUES: the correct answer is longer, more detailed, more hedged, or
      more "reasonable/balanced-sounding" than the distractors; or the distractors
-     cluster absolute words (always/never/must/only). The answer must be findable
+     cluster absolute words (always/never/must/only).
+
+REJECT any item whose stem exceeds 60 words, or any option exceeding 25 words. Do not
+merely flag it - rewrite it inside the ceiling, preserving the reasoning in each option.
+If an item cannot be said inside the ceiling, it is testing reading stamina rather than
+the competence, and should be rejected outright.
+
+The answer must be findable
      ONLY by knowing the content. Rewrite so all four options are parallel in
      length, specificity, and tone.
   2. MULTIPLE DEFENSIBLE ANSWERS: if more than one option could be argued correct,

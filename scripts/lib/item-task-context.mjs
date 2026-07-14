@@ -71,21 +71,41 @@ Apply, and it overshoots this task's declared level.`,
   },
   "2_understand": {
     name: "Understand",
-    write: `The candidate EXPLAINS, DISTINGUISHES, CLASSIFIES, or gives the reason WHY. Typical
-stems: why a rule exists, how two things differ, what a term does and does not cover,
-which description is accurate. The candidate must grasp meaning - not merely recall a
-label, and not yet choose a course of action.`,
-    overshoot: `Do NOT write "a team does X, what should you do?" - that is Apply, above this
-task's declared level.`,
+    write: `The candidate EXPLAINS, DISTINGUISHES, CLASSIFIES, or gives the reason WHY.
+
+A SCENARIO IS ALLOWED AT THIS LEVEL. What makes an item Understand is not the absence of
+a situation - it is the QUESTION ASKED OF IT:
+
+    Understand asks:  WHAT IS THIS?  Which category does it fall into? Why does it work
+                      that way? How do these two differ? Which description is accurate?
+    Apply asks:       WHAT SHOULD BE DONE?  Given this situation, what action does the
+                      rule require?
+
+So "here is a described system - is it a foundation model, a generative model, or an
+agentic system?" is UNDERSTAND: the candidate demonstrates they grasp the taxonomy.
+Classifying, categorizing, matching a case to a concept, and naming what is missing are
+all Understand - the candidate is showing comprehension, not taking an action.
+
+Vary the vehicle across the set: some items purely conceptual, some presenting a short
+situation and asking what it IS. Both are Understand.`,
+    overshoot: `Do NOT ask "what should you do?", "what is the correct next step?", or "how
+should the team respond?" - the moment the candidate must ACT rather than IDENTIFY, the
+item has become Apply and overshoots this task's declared level.`,
   },
   "3_apply": {
     name: "Apply",
-    write: `The candidate USES the knowledge in a concrete, short situation: given a described
-scenario, select the correct action, judgment, or classification. One clear situation,
-one right response. Keep the scenario tight - it exists to be acted on, not analysed.`,
+    write: `The candidate EXECUTES A RULE OR PROCEDURE to reach a decision. Given a described
+situation, they determine WHAT SHOULD BE DONE - the correct action, the required response,
+the permitted course.
+
+The distinguishing question is "what should be done?", not "what is this?". Merely
+CLASSIFYING a described case is Understand, not Apply - the candidate must act on the
+situation, not just name it. One clear situation, one right response, derivable by
+applying the taught rule.`,
     overshoot: `Do NOT require the candidate to weigh several competing considerations, diagnose a
 root cause, or reason across multiple interacting factors - that is Analyze, above this
-task's declared level.`,
+task's declared level. And do NOT write a pure "which category is this?" item - that is
+Understand, BELOW this task's declared level, and under-tests the competence.`,
   },
   "4_analyze": {
     name: "Analyze",

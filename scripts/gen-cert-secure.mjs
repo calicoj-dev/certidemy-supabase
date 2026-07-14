@@ -358,7 +358,15 @@ async function main() {
   for (const w of limited) {
     const concepts = conceptsByTask.get(w.taskId) || [];
     const slugs = concepts.map((c) => c.slug).join(", ");
-    console.log(`> task ${w.taskId} [${slugs}] - have min ${w.min}, need ${w.need}`);
+    const wTask = taskById.get(w.taskId);
+    if (!wTask || !wTask.bloom_level) {
+      console.log(`  ! task ${w.taskId} declares no bloom_level - SKIPPED. Fix the JTA; do not guess a level.`);
+      continue;
+    }
+    console.log(`\n> task ${wTask.code}  [${wTask.bloom_level}]  - have min ${w.min}, need ${w.need}`);
+    console.log(`    STATEMENT: ${wTask.statement}`);
+    if (wTask.skills) console.log(`    SKILLS:    ${wTask.skills}`);
+    console.log(`    concepts:  ${slugs}`);
 
     // Stage 1: source the real misconceptions for this task once, reused per round.
     const misconceptions = await sourceMisconceptions({
@@ -442,7 +450,19 @@ async function main() {
       }
 
       if (DRY_RUN) {
-        console.log(`    [dry] ${enQs.length} logical ok (sample EN: ${enQs[0].question_text.slice(0, 80)}...)`);
+        // Print EVERY item in full. A dry run whose output cannot be read is not a dry
+        // run - it is a slower way of guessing. Judging cognitive level from the first
+        // 80 characters of one stem is exactly how a correct run nearly got aborted.
+        console.log(`    [dry] ${enQs.length} item(s) at ${wTask.bloom_level}:`);
+        for (const q of enQs) {
+          const key = Array.isArray(q.correct_answer) ? q.correct_answer.join(",") : String(q.correct_answer);
+          console.log(`\n      --- d${q.difficulty} ------------------------------------------------`);
+          console.log(`      ${q.question_text}`);
+          for (const o of q.options || []) {
+            console.log(`        ${o.id === key || key.includes(o.id) ? "*" : " "} ${o.id}) ${o.text}`);
+          }
+        }
+        console.log("");
         remaining -= enQs.length;
         continue;
       }
