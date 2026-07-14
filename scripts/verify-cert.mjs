@@ -142,11 +142,15 @@ async function verify(cert) {
   const profile = profileFor((cert.name || "").replace(/^Certidemy\s+/i, ""));
 
   // --- fetch everything once -------------------------------------------------
-  const [{ data: domains }, { data: tasks }, { data: concepts }, { data: modules }] = await Promise.all([
+  // NOTE: tasks.bloom_level and certifications.exam_blueprint. The verifier could not
+  // previously SEE either - which is precisely why nothing ever checked that an item
+  // tests its task at the level the JTA declares. The data was always there.
+  const [{ data: domains }, { data: tasks }, { data: concepts }, { data: modules }, { data: profileRows }] = await Promise.all([
     db.from("domains").select("id, code, weight_pct, order_index").eq("certification_id", id).order("order_index"),
-    db.from("tasks").select("id, code, domain_id, is_exam_scope").eq("certification_id", id),
+    db.from("tasks").select("id, code, domain_id, is_exam_scope, bloom_level, statement").eq("certification_id", id),
     db.from("concepts").select("id, slug").eq("certification_id", id),
     db.from("modules").select("id, slug, order_index").eq("certification_id", id),
+    db.from("v_cognitive_profile").select("bloom_level, tasks, pct_of_form").eq("certification_id", id),
   ]);
 
   const taskIds = (tasks ?? []).map((t) => t.id);
@@ -235,43 +239,124 @@ async function verify(cert) {
       : R.fail(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${short.length} below floor`, short.slice(0, 12));
   }
 
-  // === 5. COGNITIVE CEILING =================================================
-  const ceilRank = BLOOM_RANK[profile.ceiling] ?? 6;
-  const above = questions.filter((q) => q.pool === "secure" && (BLOOM_RANK[q.bloom_level] ?? 0) > ceilRank);
-  above.length === 0
-    ? R.pass("ceiling", "§6", `No secure item above declared ceiling (${profile.ceiling})`, `tier=${profile.id}, 0 above`)
-    : R.fail("ceiling", "§6", `No secure item above declared ceiling (${profile.ceiling})`, `${above.length} items ABOVE ceiling`, [...new Set(above.map((q) => q.bloom_level))]);
+  // ==========================================================================
+  // THE JTA -> ITEM TRACEABILITY CHAIN (invariants 15-18)
+  //
+  // This is the chain ISO/IEC 17024 actually asks a certification body to demonstrate:
+  // the exam measures the competences the job-task analysis declares, at the levels it
+  // declares them, and the published blueprint is the truth about the exam.
+  //
+  // None of it was checkable before, because the verifier never fetched
+  // tasks.bloom_level. The declarations were decorative - nothing depended on them
+  // being right, so nobody checked whether they were. When we finally did, every one of
+  // the five JTAs was internally inconsistent, and three tasks were Bloom 6 (Create)
+  // being assessed by multiple choice.
+  // ==========================================================================
 
-  // === 6. BLUEPRINT CONFORMANCE (can the pool fill the declared form?) ======
-  const mix = cert.exam_blueprint?.difficulty_mix ?? null;
+  const taskById = new Map((tasks ?? []).map((t) => [t.id, t]));
+  const secure = questions.filter((q) => q.pool === "secure");
+
+  // === 15. ITEM BLOOM == TASK BLOOM =========================================
+  // The core rule. An item's cognitive level EQUALS its task's declared level.
+  //   above  -> construct-irrelevant variance: measuring competence never declared.
+  //   below  -> construct under-representation: certifying competence never measured.
+  // Both are validity failures (Messick). "Easier is safer" is exactly backwards.
+  //
+  // The SECURE pool is the examination instrument and is held to strict equality.
+  // The PRACTICE pool is study material, where scaffolding below the task's level is
+  // legitimate teaching - so it is checked only for the ceiling, not for equality.
+  const mismatched = [];
+  let secureWithTask = 0;
+  for (const q of secure) {
+    const t = taskById.get(q.task_id);
+    if (!t || !t.bloom_level) continue;
+    secureWithTask++;
+    if (String(q.bloom_level) !== String(t.bloom_level)) {
+      const dir = (BLOOM_RANK[q.bloom_level] ?? 0) > (BLOOM_RANK[t.bloom_level] ?? 0) ? "ABOVE" : "below";
+      mismatched.push(`${q.language} task ${t.code}: item is ${q.bloom_level}, task declares ${t.bloom_level} (${dir})`);
+    }
+  }
+  if (secureWithTask === 0) {
+    R.skip("jta.itemBloom", "§9", "Item cognitive level == task's declared level", "no secure items carry a task");
+  } else if (mismatched.length === 0) {
+    R.pass("jta.itemBloom", "§9", "Item cognitive level == task's declared level", `${secureWithTask} secure items, all match their task's JTA declaration`);
+  } else {
+    const aboveN = mismatched.filter((m) => m.endsWith("(ABOVE)")).length;
+    R.fail(
+      "jta.itemBloom", "§9", "Item cognitive level == task's declared level",
+      `${mismatched.length} of ${secureWithTask} (${pct(mismatched.length, secureWithTask)}%) do not match - ${aboveN} test ABOVE their task (construct-irrelevant variance), ${mismatched.length - aboveN} test below (construct under-representation)`,
+      [...new Set(mismatched)].slice(0, 12),
+    );
+  }
+
+  // === 16. MCQ CEILING ON TASKS =============================================
+  // Multiple choice cannot validly assess Evaluate or Create. A task declared at 5 or 6
+  // must be out of exam scope (simulation only) - otherwise the exam is pretending to
+  // measure something the instrument physically cannot reach.
+  // (This found SM-AI-I 5.11 at 5_evaluate AND is_exam_scope=true, contradicting its own
+  //  JTA's stated ceiling; and three tasks whose skills said "write" / "design" - Bloom 6.)
+  const overCeiling = (tasks ?? []).filter(
+    (t) => t.is_exam_scope && (BLOOM_RANK[t.bloom_level] ?? 0) > BLOOM_RANK["4_analyze"],
+  );
+  overCeiling.length === 0
+    ? R.pass("jta.mcqCeiling", "§9", "No exam-scope task above the MCQ ceiling (4_analyze)", `${(tasks ?? []).filter((t) => t.is_exam_scope).length} exam-scope tasks`)
+    : R.fail("jta.mcqCeiling", "§9", "No exam-scope task above the MCQ ceiling (4_analyze)",
+        `${overCeiling.length} task(s) declared above 4_analyze while in exam scope - MCQ cannot validly assess Evaluate or Create`,
+        overCeiling.map((t) => `${t.code} (${t.bloom_level}): ${(t.statement || "").slice(0, 54)}`));
+
+  // === 17. BLUEPRINT == THE COMPUTED PROFILE ================================
+  // The published claim and the database must be mutually verifying. The blueprint is
+  // re-derived here from the LIVE tasks (via v_cognitive_profile, the same view the
+  // migration used) and compared with what is stored. Retag a task's bloom, edit a
+  // domain weight, or hand-edit the blueprint, and this fails.
+  //
+  // This is the property 17024 is really asking for: the scheme document cannot silently
+  // drift from the exam it describes. Before this, the two had drifted for eight months.
+  const stored = cert.exam_blueprint?.cognitive_profile ?? null;
+  const live = {};
+  for (const r of profileRows ?? []) live[r.bloom_level] = Number(r.pct_of_form);
+
+  if (!stored) {
+    R.fail("jta.blueprint", "§9", "Blueprint equals the profile computed from the JTA",
+      "no exam_blueprint.cognitive_profile: the exam makes no cognitive claim, so nothing can be verified against it");
+  } else if (Object.keys(live).length === 0) {
+    R.skip("jta.blueprint", "§9", "Blueprint equals the profile computed from the JTA", "v_cognitive_profile returned nothing");
+  } else {
+    const keys = [...new Set([...Object.keys(stored), ...Object.keys(live)])].sort();
+    const drift = keys
+      .map((k) => ({ k, s: Number(stored[k] ?? 0), l: Number(live[k] ?? 0) }))
+      .filter((x) => Math.abs(x.s - x.l) > 0.02);   // tolerance = rounding only
+    const shape = keys.map((k) => `${k.replace(/^\d_/, "")} ${Number(live[k] ?? 0).toFixed(1)}%`).join(" / ");
+    drift.length === 0
+      ? R.pass("jta.blueprint", "§9", "Blueprint equals the profile computed from the JTA", shape)
+      : R.fail("jta.blueprint", "§9", "Blueprint equals the profile computed from the JTA",
+          `${drift.length} level(s) drifted - the published claim and the JTA disagree`,
+          drift.map((x) => `${x.k}: blueprint says ${x.s}%, tasks say ${x.l}%`));
+  }
+
+  // === 18. THE POOL CAN ACTUALLY FILL A FORM ================================
+  // A blueprint the bank cannot satisfy is a promise the exam breaks silently: the
+  // assembler falls back, the form drifts off-profile, and nobody is told. Check every
+  // (domain x language) has enough approved secure items for its share of the form.
   const nq = cert.num_questions ?? 0;
-  if (!mix) {
-    R.warn("blueprint", "§6", "Cognitive blueprint declared", "no exam_blueprint: forms use the legacy 30/50/20 difficulty balance, which is NOT tied to this cert's JTA");
-  } else if (!domains?.length || !nq) {
-    R.skip("blueprint", "§6", "Cognitive blueprint", "missing domains or num_questions");
+  if (!domains?.length || !nq) {
+    R.skip("jta.formFill", "§9", "Pool can fill a form at the declared profile", "missing domains or num_questions");
   } else {
     const domSeats = allocate(domains.map((d) => ({ key: d.id, pct: Number(d.weight_pct) })), nq);
-    const levels = Object.keys(mix).map(Number).sort((a, b) => a - b);
     const shortfalls = [];
     for (const lang of LANGS) {
       for (const d of domains) {
         const seats = domSeats.get(d.id) ?? 0;
         if (!seats) continue;
-        const lvlSeats = allocate(levels.map((l) => ({ key: l, pct: mix[String(l)] })), seats);
         const dTasks = new Set((tasks ?? []).filter((t) => t.domain_id === d.id && t.is_exam_scope).map((t) => t.id));
-        for (const l of levels) {
-          const need = lvlSeats.get(l) ?? 0;
-          if (!need) continue;
-          const have = questions.filter((q) =>
-            q.pool === "secure" && q.language === lang && q.status === "approved" &&
-            dTasks.has(q.task_id) && Number(q.difficulty) === l).length;
-          if (have < need) shortfalls.push(`${lang} ${d.code} d${l}: need ${need}, have ${have}`);
-        }
+        const have = secure.filter((q) => q.language === lang && q.status === "approved" && dTasks.has(q.task_id)).length;
+        if (have < seats) shortfalls.push(`${lang} ${d.code}: form needs ${seats}, pool has ${have}`);
       }
     }
     shortfalls.length === 0
-      ? R.pass("blueprint", "§6", "Pool can fill the declared blueprint (every domain x level x lang)", `${nq}-item form, mix ${levels.map((l) => mix[String(l)] + "%").join("/")}`)
-      : R.fail("blueprint", "§6", "Pool can fill the declared blueprint", `${shortfalls.length} shortfall(s) -> forms will silently drift off blueprint`, shortfalls.slice(0, 10));
+      ? R.pass("jta.formFill", "§9", "Pool can fill a form at the declared profile", `${nq}-item form, every domain x language covered`)
+      : R.fail("jta.formFill", "§9", "Pool can fill a form at the declared profile",
+          `${shortfalls.length} shortfall(s) -> forms will silently drift off the published profile`, shortfalls.slice(0, 10));
   }
 
   // === 7. CONSTRUCT GROUNDING (no out-of-domain vocabulary) =================
