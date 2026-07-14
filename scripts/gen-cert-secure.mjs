@@ -303,6 +303,7 @@ async function gather() {
       .select("task_id, language")
       .eq("certification_id", CERT_ID)
       .eq("pool", "secure")
+      .order("id")   // load-bearing: unordered .range() overlaps pages and corrupts the deficit count
       .range(from, from + PAGE - 1);
     if (error) throw new Error(`quiz_questions: ${error.message}`);
     const batch = data || [];

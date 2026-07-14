@@ -159,14 +159,33 @@ async function verify(cert) {
   const { data: tcs } = await db.from("task_concepts").select("task_id, concept_id").in("task_id", taskIds.length ? taskIds : ["00000000-0000-0000-0000-000000000000"]);
 
   // questions (paged; banks can exceed the default row cap)
+  //
+  // .order("id") IS LOAD-BEARING. Postgres guarantees NO row order without an explicit
+  // ORDER BY, so range(0,999) and range(1000,1999) can overlap: the same row returns on
+  // two pages while another is skipped entirely. The total row count still comes out
+  // right, so the bug is invisible - but the CONTENTS are wrong, and every downstream
+  // count is computed on duplicated and incomplete data.
+  //
+  // This bit us the moment migration 089 stamped bank_revision on every row: rewriting
+  // the whole table scrambled physical heap order, and two certs' secure counts jumped
+  // above their true totals. The bug had been latent for months.
   let questions = [];
   for (let from = 0; ; from += 1000) {
     const { data } = await db.from("quiz_questions")
       .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text")
-      .eq("certification_id", id).range(from, from + 999);
+      .eq("certification_id", id)
+      .order("id")
+      .range(from, from + 999);
     if (!data || data.length === 0) break;
     questions.push(...data);
     if (data.length < 1000) break;
+  }
+
+  // Paranoia, cheap: prove the page-join produced no duplicates.
+  const uniqIds = new Set(questions.map((q) => q.id));
+  if (uniqIds.size !== questions.length) {
+    console.error(`  !! FETCH BUG: ${questions.length} rows fetched, ${uniqIds.size} distinct. Pagination is returning duplicates.`);
+    process.exitCode = 1;
   }
 
   const secureIds = questions.filter((q) => q.pool === "secure").map((q) => q.id);

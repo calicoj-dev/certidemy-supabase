@@ -92,6 +92,7 @@ async function loadPool(pool) {
       .select("id, question_group_id, language, question_type, options, correct_answer")
       .eq("certification_id", CERT_ID)
       .eq("pool", pool)
+      .order("id")   // load-bearing: unordered .range() overlaps pages
       .range(from, from + PAGE - 1);
     if (error) throw new Error(`load ${pool}: ${error.message}`);
     const batch = data || [];

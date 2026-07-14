@@ -209,6 +209,7 @@ async function main() {
       .from("lessons")
       .select("id, lesson_group_id, language, slug, content_md, module_id")
       .in("module_id", moduleIds)
+      .order("id")   // load-bearing: unordered .range() overlaps pages
       .range(from, from + PAGE - 1);
     if (ONLY_LANG) q = q.eq("language", ONLY_LANG);
     const { data, error } = await q;
