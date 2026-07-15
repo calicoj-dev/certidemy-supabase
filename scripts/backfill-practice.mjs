@@ -344,7 +344,18 @@ async function main() {
     const c = counts.get(taskId) || { en: 0, "es-419": 0, "pt-BR": 0 };
     const min = Math.min(c.en, c["es-419"], c["pt-BR"]);
     const need = FLOOR - min;
-    if (need > 0) work.push({ taskId, need, min, c });
+    if (need > 0) {
+      // OUT-OF-SCOPE TASKS GET NO ITEMS. A task the JTA excludes from the exam
+      // (is_exam_scope = false) is not assessed, and the practice pool exists to
+      // predict the exam - so neither pool may contain it. The competence still lives
+      // in the lessons, which is where out-of-scope teaching belongs.
+      const t = taskById.get(taskId);
+      if (t && t.is_exam_scope === false) {
+        console.log(`  - skip ${t.code} [${t.bloom_level}] - out of exam scope (is_exam_scope=false); no items in either pool`);
+      } else {
+        work.push({ taskId, need, min, c });
+      }
+    }
   }
   work.sort((a, b) => a.min - b.min); // zeros first
   const limited = MAX_TASKS > 0 ? work.slice(0, MAX_TASKS) : work;

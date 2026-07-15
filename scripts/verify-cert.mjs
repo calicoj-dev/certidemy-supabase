@@ -226,13 +226,33 @@ async function verify(cert) {
   if (!cov) {
     R.skip("coverage", "§10", "Coverage matrix", "no v_coverage_summary row");
   } else {
-    const { concepts_total: T, concepts_taught: TT, concepts_tested: TS, untaught_testing_violations: V } = cov;
+    const {
+      concepts_total: T,
+      concepts_testable: TESTABLE,
+      concepts_taught: TT,
+      concepts_tested_in_scope: TSI,
+      concepts_out_of_scope_only: OOS,
+      untaught_testing_violations: V,
+    } = cov;
+
+    // Every concept must be TAUGHT - teaching is unbounded by exam scope.
     TT === T
       ? R.pass("coverage.taught", "§10", "All concepts taught", `${TT}/${T}`)
       : R.fail("coverage.taught", "§10", "All concepts taught", `${TT}/${T}`);
-    TS === T
-      ? R.pass("coverage.tested", "§10", "All concepts tested", `${TS}/${T}`)
-      : R.fail("coverage.tested", "§10", "All concepts tested", `${TS}/${T}`);
+
+    // "All concepts tested" measures tested-vs-TESTABLE. A concept reachable only through
+    // an out-of-scope task is not testable by MCQ, and requiring it here would demand
+    // something the scheme forbids.
+    TSI === TESTABLE
+      ? R.pass("coverage.tested", "§10", "All testable concepts tested", `${TSI}/${TESTABLE} in-scope`)
+      : R.fail("coverage.tested", "§10", "All testable concepts tested", `${TSI}/${TESTABLE} in-scope`);
+
+    // Taught but not examinable by MCQ: a documented boundary, surfaced as a warning.
+    if (OOS > 0) {
+      R.warn("coverage.outOfScopeOnly", "§10", "Concepts reachable only via out-of-scope tasks",
+        `${OOS} taught but not examinable by MCQ (out-of-scope tasks only)`);
+    }
+
     V === 0
       ? R.pass("coverage.untaught", "§10", "No untaught testing (17024)", "violations = 0")
       : R.fail("coverage.untaught", "§10", "No untaught testing (17024)", `violations = ${V}`);
@@ -244,9 +264,13 @@ async function verify(cert) {
     : R.fail("firewall", "§8", "Secure pool carries no concept links", `${leaked} SECURE ITEMS LEAK INTO PRACTICE`);
 
   // === 4. ITEM FLOORS (per task, per language) ==============================
+  // Only IN-SCOPE tasks carry a floor. A task the JTA excludes from the exam
+  // (is_exam_scope = false) is REQUIRED to hold no items - failing it for an empty
+  // pool would punish the correct state.
+  const inScopeTasks = (tasks ?? []).filter((t) => t.is_exam_scope);
   for (const [pool, floor] of [["secure", 8], ["practice", 10]]) {
     const short = [];
-    for (const t of tasks ?? []) {
+    for (const t of inScopeTasks) {
       for (const lang of LANGS) {
         const n = questions.filter((q) => q.pool === pool && q.language === lang && q.task_id === t.id).length;
         if (n < floor) short.push(`${t.code}/${lang}=${n}`);
@@ -254,7 +278,7 @@ async function verify(cert) {
     }
     const total = questions.filter((q) => q.pool === pool).length;
     short.length === 0
-      ? R.pass(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${total} items, all ${(tasks ?? []).length} tasks x3 langs at floor`)
+      ? R.pass(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${total} items, all ${inScopeTasks.length} in-scope tasks x3 langs at floor`)
       : R.fail(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${short.length} below floor`, short.slice(0, 12));
   }
 
