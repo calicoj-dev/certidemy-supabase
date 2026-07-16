@@ -1,0 +1,980 @@
+{
+  "generated_at": "2026-07-12T15:43:51.366Z",
+  "certs": [
+    {
+      "code": "AIE-I",
+      "name": "Certidemy AI Essentials I",
+      "status": "available",
+      "verdict": "PASS",
+      "checks": [
+        {
+          "id": "scaffold.weights",
+          "clause": "┬º4",
+          "label": "Domain weights sum to 100",
+          "status": "PASS",
+          "detail": "100.00%",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.tasks",
+          "clause": "┬º5",
+          "label": "Every task belongs to a domain",
+          "status": "PASS",
+          "detail": "16 tasks",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.concepts",
+          "clause": "┬º5",
+          "label": "Every concept linked to a task",
+          "status": "PASS",
+          "detail": "47 concepts / 47 links",
+          "evidence": null
+        },
+        {
+          "id": "coverage.taught",
+          "clause": "┬º10",
+          "label": "All concepts taught",
+          "status": "PASS",
+          "detail": "47/47",
+          "evidence": null
+        },
+        {
+          "id": "coverage.tested",
+          "clause": "┬º10",
+          "label": "All concepts tested",
+          "status": "PASS",
+          "detail": "47/47",
+          "evidence": null
+        },
+        {
+          "id": "coverage.untaught",
+          "clause": "┬º10",
+          "label": "No untaught testing (17024)",
+          "status": "PASS",
+          "detail": "violations = 0",
+          "evidence": null
+        },
+        {
+          "id": "firewall",
+          "clause": "┬º8",
+          "label": "Secure pool carries no concept links",
+          "status": "PASS",
+          "detail": "0 leaked links",
+          "evidence": null
+        },
+        {
+          "id": "floors.secure",
+          "clause": "┬º8",
+          "label": "secure floor >= 8/task/lang",
+          "status": "PASS",
+          "detail": "384 items, all 16 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "floors.practice",
+          "clause": "┬º8",
+          "label": "practice floor >= 10/task/lang",
+          "status": "PASS",
+          "detail": "480 items, all 16 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "ceiling",
+          "clause": "┬º6",
+          "label": "No secure item above declared ceiling (3_apply)",
+          "status": "PASS",
+          "detail": "tier=literacy, 0 above",
+          "evidence": null
+        },
+        {
+          "id": "blueprint",
+          "clause": "┬º6",
+          "label": "Pool can fill the declared blueprint (every domain x level x lang)",
+          "status": "PASS",
+          "detail": "25-item form, mix 44%/40%/16%",
+          "evidence": null
+        },
+        {
+          "id": "grounding",
+          "clause": "┬º10",
+          "label": "No out-of-domain (agile) vocabulary",
+          "status": "PASS",
+          "detail": "0 / 288 en items",
+          "evidence": null
+        },
+        {
+          "id": "cue.position",
+          "clause": "┬º8.1",
+          "label": "No answer-position bias",
+          "status": "PASS",
+          "detail": "21.1% / 23.7% / 27.2% / 28.1% (chi2=1.4 <= 11.34)",
+          "evidence": null
+        },
+        {
+          "id": "cue.length",
+          "clause": "┬º8.1",
+          "label": "Length cue non-diagnostic",
+          "status": "PASS",
+          "detail": "strict-longest 37.7%, mean margin 5.9 chars (4.4% of option), guard escapes 0% (0/114)",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.items",
+          "clause": "┬º8",
+          "label": "Every question group holds 3 language rows",
+          "status": "PASS",
+          "detail": "288 groups",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.lessons",
+          "clause": "┬º11",
+          "label": "Every lesson group holds 3 language rows",
+          "status": "PASS",
+          "detail": "16 groups, 48 rows",
+          "evidence": null
+        },
+        {
+          "id": "encoding",
+          "clause": "┬º11",
+          "label": "No mojibake in lesson content",
+          "status": "PASS",
+          "detail": "48 lesson rows clean",
+          "evidence": null
+        },
+        {
+          "id": "scope",
+          "clause": "┬º4",
+          "label": "All tasks in exam scope",
+          "status": "PASS",
+          "detail": "16 tasks",
+          "evidence": null
+        },
+        {
+          "id": "status",
+          "clause": "┬º8",
+          "label": "All items approved",
+          "status": "PASS",
+          "detail": "864 items",
+          "evidence": null
+        },
+        {
+          "id": "widget.dragmatch",
+          "clause": "┬º11",
+          "label": "drag-match widgets are strictly 1:1",
+          "status": "PASS",
+          "detail": "27 widgets, all n->n, no allowReuse",
+          "evidence": null
+        }
+      ]
+    },
+    {
+      "code": "AIGRM-I",
+      "name": "Certidemy AI Governance & Risk Management I - AI",
+      "status": "available",
+      "verdict": "FAIL",
+      "checks": [
+        {
+          "id": "scaffold.weights",
+          "clause": "┬º4",
+          "label": "Domain weights sum to 100",
+          "status": "PASS",
+          "detail": "100.00%",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.tasks",
+          "clause": "┬º5",
+          "label": "Every task belongs to a domain",
+          "status": "PASS",
+          "detail": "49 tasks",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.concepts",
+          "clause": "┬º5",
+          "label": "Every concept linked to a task",
+          "status": "PASS",
+          "detail": "165 concepts / 174 links",
+          "evidence": null
+        },
+        {
+          "id": "coverage.taught",
+          "clause": "┬º10",
+          "label": "All concepts taught",
+          "status": "PASS",
+          "detail": "165/165",
+          "evidence": null
+        },
+        {
+          "id": "coverage.tested",
+          "clause": "┬º10",
+          "label": "All concepts tested",
+          "status": "PASS",
+          "detail": "165/165",
+          "evidence": null
+        },
+        {
+          "id": "coverage.untaught",
+          "clause": "┬º10",
+          "label": "No untaught testing (17024)",
+          "status": "PASS",
+          "detail": "violations = 0",
+          "evidence": null
+        },
+        {
+          "id": "firewall",
+          "clause": "┬º8",
+          "label": "Secure pool carries no concept links",
+          "status": "PASS",
+          "detail": "0 leaked links",
+          "evidence": null
+        },
+        {
+          "id": "floors.secure",
+          "clause": "┬º8",
+          "label": "secure floor >= 8/task/lang",
+          "status": "PASS",
+          "detail": "1176 items, all 49 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "floors.practice",
+          "clause": "┬º8",
+          "label": "practice floor >= 10/task/lang",
+          "status": "PASS",
+          "detail": "1470 items, all 49 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "ceiling",
+          "clause": "┬º6",
+          "label": "No secure item above declared ceiling (4_analyze)",
+          "status": "PASS",
+          "detail": "tier=professional, 0 above",
+          "evidence": null
+        },
+        {
+          "id": "blueprint",
+          "clause": "┬º6",
+          "label": "Cognitive blueprint declared",
+          "status": "WARN",
+          "detail": "no exam_blueprint: forms use the legacy 30/50/20 difficulty balance, which is NOT tied to this cert's JTA",
+          "evidence": null
+        },
+        {
+          "id": "grounding",
+          "clause": "┬º10",
+          "label": "No out-of-domain (agile) vocabulary",
+          "status": "WARN",
+          "detail": "4 / 882 (0.5%) - incidental; verify no KEY depends on it",
+          "evidence": [
+            "A product team is planning an AI-powered hiring screening tool. At whi",
+            "A risk analyst is characterizing an AI model's susceptibility to adver",
+            "A product team argues that their existing IT scoping documentsΓÇöcoverin",
+            "Which characteristic most clearly distinguishes a systematic governanc"
+          ]
+        },
+        {
+          "id": "cue.position",
+          "clause": "┬º8.1",
+          "label": "No answer-position bias",
+          "status": "PASS",
+          "detail": "25.6% / 23.6% / 22.8% / 28% (chi2=2.5 <= 11.34)",
+          "evidence": null
+        },
+        {
+          "id": "cue.length",
+          "clause": "┬º8.1",
+          "label": "Length cue non-diagnostic",
+          "status": "PASS",
+          "detail": "strict-longest 34.7%, mean margin 8.8 chars (4.5% of option), guard escapes 0% (0/386)",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.items",
+          "clause": "┬º8",
+          "label": "Every question group holds 3 language rows",
+          "status": "PASS",
+          "detail": "882 groups",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.lessons",
+          "clause": "┬º11",
+          "label": "Every lesson group holds 3 language rows",
+          "status": "PASS",
+          "detail": "49 groups, 147 rows",
+          "evidence": null
+        },
+        {
+          "id": "encoding",
+          "clause": "┬º11",
+          "label": "No mojibake in lesson content",
+          "status": "PASS",
+          "detail": "147 lesson rows clean",
+          "evidence": null
+        },
+        {
+          "id": "scope",
+          "clause": "┬º4",
+          "label": "All tasks in exam scope",
+          "status": "PASS",
+          "detail": "49 tasks",
+          "evidence": null
+        },
+        {
+          "id": "status",
+          "clause": "┬º8",
+          "label": "All items approved",
+          "status": "PASS",
+          "detail": "2646 items",
+          "evidence": null
+        },
+        {
+          "id": "widget.dragmatch",
+          "clause": "┬º11",
+          "label": "drag-match widgets are strictly 1:1",
+          "status": "FAIL",
+          "detail": "42 of 93 violate the rule (learners will hit drop-override)",
+          "evidence": [
+            "en/01-01-governance-risk-compliance: 4 items -> 3 targets (not 1:1)",
+            "es-419/01-01-governance-risk-compliance: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/01-01-governance-risk-compliance: 4 items -> 3 targets (not 1:1)",
+            "en/01-05-trustworthy-ai-characteristics: unparseable JSON",
+            "es-419/01-05-trustworthy-ai-characteristics: unparseable JSON",
+            "pt-BR/01-05-trustworthy-ai-characteristics: unparseable JSON",
+            "en/01-07-governance-instrument-types: 4 items -> 3 targets (not 1:1)",
+            "es-419/01-07-governance-instrument-types: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/01-07-governance-instrument-types: 4 items -> 3 targets (not 1:1)",
+            "en/01-08-ai-management-system: 4 items -> 2 targets (not 1:1)",
+            "es-419/01-08-ai-management-system: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/01-08-ai-management-system: 4 items -> 2 targets (not 1:1)",
+            "en/02-04-risk-tolerance: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-04-risk-tolerance: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-04-risk-tolerance: 4 items -> 2 targets (not 1:1)",
+            "en/02-09-model-drift-monitoring: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-09-model-drift-monitoring: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-09-model-drift-monitoring: 4 items -> 2 targets (not 1:1)",
+            "en/02-10-human-oversight-control: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-10-human-oversight-control: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-10-human-oversight-control: 4 items -> 2 targets (not 1:1)",
+            "en/03-03-transparency-obligations: 4 items -> 3 targets (not 1:1)",
+            "es-419/03-03-transparency-obligations: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/03-03-transparency-obligations: 4 items -> 3 targets (not 1:1)",
+            "en/03-05-gpai-obligations: 4 items -> 3 targets (not 1:1)",
+            "es-419/03-05-gpai-obligations: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/03-05-gpai-obligations: 4 items -> 3 targets (not 1:1)",
+            "en/04-05-documentation: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-05-documentation: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-05-documentation: 4 items -> 3 targets (not 1:1)",
+            "en/04-06-data-governance: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-06-data-governance: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-06-data-governance: 4 items -> 3 targets (not 1:1)",
+            "en/04-07-content-provenance: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-07-content-provenance: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-07-content-provenance: 4 items -> 3 targets (not 1:1)",
+            "en/04-10-third-party-ai: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-10-third-party-ai: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-10-third-party-ai: 4 items -> 3 targets (not 1:1)",
+            "en/04-12-decommissioning-change: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-12-decommissioning-change: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-12-decommissioning-change: 4 items -> 3 targets (not 1:1)"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SD-AI-I",
+      "name": "Scrum Developer I ΓÇö AI",
+      "status": "available",
+      "verdict": "FAIL",
+      "checks": [
+        {
+          "id": "scaffold.weights",
+          "clause": "┬º4",
+          "label": "Domain weights sum to 100",
+          "status": "PASS",
+          "detail": "100.00%",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.tasks",
+          "clause": "┬º5",
+          "label": "Every task belongs to a domain",
+          "status": "PASS",
+          "detail": "44 tasks",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.concepts",
+          "clause": "┬º5",
+          "label": "Every concept linked to a task",
+          "status": "PASS",
+          "detail": "135 concepts / 135 links",
+          "evidence": null
+        },
+        {
+          "id": "coverage.taught",
+          "clause": "┬º10",
+          "label": "All concepts taught",
+          "status": "PASS",
+          "detail": "135/135",
+          "evidence": null
+        },
+        {
+          "id": "coverage.tested",
+          "clause": "┬º10",
+          "label": "All concepts tested",
+          "status": "PASS",
+          "detail": "135/135",
+          "evidence": null
+        },
+        {
+          "id": "coverage.untaught",
+          "clause": "┬º10",
+          "label": "No untaught testing (17024)",
+          "status": "PASS",
+          "detail": "violations = 0",
+          "evidence": null
+        },
+        {
+          "id": "firewall",
+          "clause": "┬º8",
+          "label": "Secure pool carries no concept links",
+          "status": "PASS",
+          "detail": "0 leaked links",
+          "evidence": null
+        },
+        {
+          "id": "floors.secure",
+          "clause": "┬º8",
+          "label": "secure floor >= 8/task/lang",
+          "status": "PASS",
+          "detail": "1107 items, all 44 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "floors.practice",
+          "clause": "┬º8",
+          "label": "practice floor >= 10/task/lang",
+          "status": "PASS",
+          "detail": "1380 items, all 44 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "ceiling",
+          "clause": "┬º6",
+          "label": "No secure item above declared ceiling (4_analyze)",
+          "status": "PASS",
+          "detail": "tier=professional, 0 above",
+          "evidence": null
+        },
+        {
+          "id": "blueprint",
+          "clause": "┬º6",
+          "label": "Cognitive blueprint declared",
+          "status": "WARN",
+          "detail": "no exam_blueprint: forms use the legacy 30/50/20 difficulty balance, which is NOT tied to this cert's JTA",
+          "evidence": null
+        },
+        {
+          "id": "grounding",
+          "clause": "┬º10",
+          "label": "Construct grounding",
+          "status": "SKIP",
+          "detail": "Scrum cert: agile vocabulary IS the construct",
+          "evidence": null
+        },
+        {
+          "id": "cue.position",
+          "clause": "┬º8.1",
+          "label": "No answer-position bias",
+          "status": "PASS",
+          "detail": "23.5% / 25.8% / 24.7% / 26% (chi2=0.6 <= 11.34)",
+          "evidence": null
+        },
+        {
+          "id": "cue.length",
+          "clause": "┬º8.1",
+          "label": "Length cue non-diagnostic",
+          "status": "PASS",
+          "detail": "strict-longest 35.5%, mean margin 8.1 chars (4.6% of option), guard escapes 0% (0/361)",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.items",
+          "clause": "┬º8",
+          "label": "Every question group holds 3 language rows",
+          "status": "PASS",
+          "detail": "829 groups",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.lessons",
+          "clause": "┬º11",
+          "label": "Every lesson group holds 3 language rows",
+          "status": "PASS",
+          "detail": "44 groups, 132 rows",
+          "evidence": null
+        },
+        {
+          "id": "encoding",
+          "clause": "┬º11",
+          "label": "No mojibake in lesson content",
+          "status": "PASS",
+          "detail": "132 lesson rows clean",
+          "evidence": null
+        },
+        {
+          "id": "scope",
+          "clause": "┬º4",
+          "label": "All tasks in exam scope",
+          "status": "PASS",
+          "detail": "44 tasks",
+          "evidence": null
+        },
+        {
+          "id": "status",
+          "clause": "┬º8",
+          "label": "All items approved",
+          "status": "PASS",
+          "detail": "2487 items",
+          "evidence": null
+        },
+        {
+          "id": "widget.dragmatch",
+          "clause": "┬º11",
+          "label": "drag-match widgets are strictly 1:1",
+          "status": "FAIL",
+          "detail": "9 of 75 violate the rule (learners will hit drop-override)",
+          "evidence": [
+            "en/01-05-who-the-developers-are: 4 items -> 2 targets (not 1:1)",
+            "es-419/01-05-who-the-developers-are: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/01-05-who-the-developers-are: 4 items -> 2 targets (not 1:1)",
+            "en/01-06-matching-ai-to-complexity: 4 items -> 2 targets (not 1:1)",
+            "es-419/01-06-matching-ai-to-complexity: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/01-06-matching-ai-to-complexity: 4 items -> 2 targets (not 1:1)",
+            "en/02-08-self-management: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-08-self-management: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-08-self-management: 4 items -> 2 targets (not 1:1)"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SM-AI-I",
+      "name": "Scrum Master I ΓÇö AI",
+      "status": "available",
+      "verdict": "FAIL",
+      "checks": [
+        {
+          "id": "scaffold.weights",
+          "clause": "┬º4",
+          "label": "Domain weights sum to 100",
+          "status": "PASS",
+          "detail": "100.00%",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.tasks",
+          "clause": "┬º5",
+          "label": "Every task belongs to a domain",
+          "status": "PASS",
+          "detail": "51 tasks",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.concepts",
+          "clause": "┬º5",
+          "label": "Every concept linked to a task",
+          "status": "PASS",
+          "detail": "107 concepts / 115 links",
+          "evidence": null
+        },
+        {
+          "id": "coverage.taught",
+          "clause": "┬º10",
+          "label": "All concepts taught",
+          "status": "PASS",
+          "detail": "107/107",
+          "evidence": null
+        },
+        {
+          "id": "coverage.tested",
+          "clause": "┬º10",
+          "label": "All concepts tested",
+          "status": "PASS",
+          "detail": "107/107",
+          "evidence": null
+        },
+        {
+          "id": "coverage.untaught",
+          "clause": "┬º10",
+          "label": "No untaught testing (17024)",
+          "status": "PASS",
+          "detail": "violations = 0",
+          "evidence": null
+        },
+        {
+          "id": "firewall",
+          "clause": "┬º8",
+          "label": "Secure pool carries no concept links",
+          "status": "PASS",
+          "detail": "0 leaked links",
+          "evidence": null
+        },
+        {
+          "id": "floors.secure",
+          "clause": "┬º8",
+          "label": "secure floor >= 8/task/lang",
+          "status": "PASS",
+          "detail": "1224 items, all 51 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "floors.practice",
+          "clause": "┬º8",
+          "label": "practice floor >= 10/task/lang",
+          "status": "PASS",
+          "detail": "1533 items, all 51 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "ceiling",
+          "clause": "┬º6",
+          "label": "No secure item above declared ceiling (4_analyze)",
+          "status": "PASS",
+          "detail": "tier=professional, 0 above",
+          "evidence": null
+        },
+        {
+          "id": "blueprint",
+          "clause": "┬º6",
+          "label": "Cognitive blueprint declared",
+          "status": "WARN",
+          "detail": "no exam_blueprint: forms use the legacy 30/50/20 difficulty balance, which is NOT tied to this cert's JTA",
+          "evidence": null
+        },
+        {
+          "id": "grounding",
+          "clause": "┬º10",
+          "label": "Construct grounding",
+          "status": "SKIP",
+          "detail": "Scrum cert: agile vocabulary IS the construct",
+          "evidence": null
+        },
+        {
+          "id": "cue.position",
+          "clause": "┬º8.1",
+          "label": "No answer-position bias",
+          "status": "PASS",
+          "detail": "26.8% / 27.1% / 27.7% / 18.4% (chi2=8.1 <= 11.34)",
+          "evidence": null
+        },
+        {
+          "id": "cue.length",
+          "clause": "┬º8.1",
+          "label": "Length cue non-diagnostic",
+          "status": "PASS",
+          "detail": "strict-longest 36.7%, mean margin 8 chars (4.6% of option), guard escapes 0% (0/343)",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.items",
+          "clause": "┬º8",
+          "label": "Every question group holds 3 language rows",
+          "status": "PASS",
+          "detail": "919 groups",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.lessons",
+          "clause": "┬º11",
+          "label": "Every lesson group holds 3 language rows",
+          "status": "PASS",
+          "detail": "31 groups, 93 rows",
+          "evidence": null
+        },
+        {
+          "id": "encoding",
+          "clause": "┬º11",
+          "label": "No mojibake in lesson content",
+          "status": "PASS",
+          "detail": "93 lesson rows clean",
+          "evidence": null
+        },
+        {
+          "id": "scope",
+          "clause": "┬º4",
+          "label": "All tasks in exam scope",
+          "status": "PASS",
+          "detail": "51 tasks",
+          "evidence": null
+        },
+        {
+          "id": "status",
+          "clause": "┬º8",
+          "label": "All items approved",
+          "status": "PASS",
+          "detail": "2757 items",
+          "evidence": null
+        },
+        {
+          "id": "widget.dragmatch",
+          "clause": "┬º11",
+          "label": "drag-match widgets are strictly 1:1",
+          "status": "FAIL",
+          "detail": "24 of 54 violate the rule (learners will hit drop-override)",
+          "evidence": [
+            "en/02-02-the-product-owner: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "es-419/02-02-the-product-owner: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "pt-BR/02-02-the-product-owner: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "en/02-03-the-scrum-master: 4 items -> 3 targets (not 1:1)",
+            "es-419/02-03-the-scrum-master: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/02-03-the-scrum-master: 4 items -> 3 targets (not 1:1)",
+            "en/06-01-ai-agents-as-tools: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "es-419/06-01-ai-agents-as-tools: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "pt-BR/06-01-ai-agents-as-tools: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "en/06-05-what-to-delegate-what-to-keep: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "es-419/06-05-what-to-delegate-what-to-keep: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "pt-BR/06-05-what-to-delegate-what-to-keep: 4 items -> 2 targets (not 1:1); uses allowReuse (banned)",
+            "en/03-04-the-sprint-review: 4 items -> 2 targets (not 1:1)",
+            "es-419/03-04-the-sprint-review: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/03-04-the-sprint-review: 4 items -> 2 targets (not 1:1)",
+            "en/04-02-product-backlog-and-product-goal: 4 items -> 2 targets (not 1:1)",
+            "es-419/04-02-product-backlog-and-product-goal: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/04-02-product-backlog-and-product-goal: 4 items -> 2 targets (not 1:1)",
+            "en/04-03-sprint-backlog-and-sprint-goal: 4 items -> 2 targets (not 1:1)",
+            "es-419/04-03-sprint-backlog-and-sprint-goal: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/04-03-sprint-backlog-and-sprint-goal: 4 items -> 2 targets (not 1:1)",
+            "en/05-04-coaching-the-organization-and-scaling: 4 items -> 2 targets (not 1:1)",
+            "es-419/05-04-coaching-the-organization-and-scaling: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/05-04-coaching-the-organization-and-scaling: 4 items -> 2 targets (not 1:1)"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SPO-AI-I",
+      "name": "Scrum Product Owner I ΓÇö AI",
+      "status": "available",
+      "verdict": "FAIL",
+      "checks": [
+        {
+          "id": "scaffold.weights",
+          "clause": "┬º4",
+          "label": "Domain weights sum to 100",
+          "status": "PASS",
+          "detail": "100.00%",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.tasks",
+          "clause": "┬º5",
+          "label": "Every task belongs to a domain",
+          "status": "PASS",
+          "detail": "44 tasks",
+          "evidence": null
+        },
+        {
+          "id": "scaffold.concepts",
+          "clause": "┬º5",
+          "label": "Every concept linked to a task",
+          "status": "PASS",
+          "detail": "132 concepts / 132 links",
+          "evidence": null
+        },
+        {
+          "id": "coverage.taught",
+          "clause": "┬º10",
+          "label": "All concepts taught",
+          "status": "PASS",
+          "detail": "132/132",
+          "evidence": null
+        },
+        {
+          "id": "coverage.tested",
+          "clause": "┬º10",
+          "label": "All concepts tested",
+          "status": "PASS",
+          "detail": "132/132",
+          "evidence": null
+        },
+        {
+          "id": "coverage.untaught",
+          "clause": "┬º10",
+          "label": "No untaught testing (17024)",
+          "status": "PASS",
+          "detail": "violations = 0",
+          "evidence": null
+        },
+        {
+          "id": "firewall",
+          "clause": "┬º8",
+          "label": "Secure pool carries no concept links",
+          "status": "PASS",
+          "detail": "0 leaked links",
+          "evidence": null
+        },
+        {
+          "id": "floors.secure",
+          "clause": "┬º8",
+          "label": "secure floor >= 8/task/lang",
+          "status": "PASS",
+          "detail": "1056 items, all 44 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "floors.practice",
+          "clause": "┬º8",
+          "label": "practice floor >= 10/task/lang",
+          "status": "PASS",
+          "detail": "1325 items, all 44 tasks x3 langs at floor",
+          "evidence": null
+        },
+        {
+          "id": "ceiling",
+          "clause": "┬º6",
+          "label": "No secure item above declared ceiling (4_analyze)",
+          "status": "PASS",
+          "detail": "tier=professional, 0 above",
+          "evidence": null
+        },
+        {
+          "id": "blueprint",
+          "clause": "┬º6",
+          "label": "Cognitive blueprint declared",
+          "status": "WARN",
+          "detail": "no exam_blueprint: forms use the legacy 30/50/20 difficulty balance, which is NOT tied to this cert's JTA",
+          "evidence": null
+        },
+        {
+          "id": "grounding",
+          "clause": "┬º10",
+          "label": "Construct grounding",
+          "status": "SKIP",
+          "detail": "Scrum cert: agile vocabulary IS the construct",
+          "evidence": null
+        },
+        {
+          "id": "cue.position",
+          "clause": "┬º8.1",
+          "label": "No answer-position bias",
+          "status": "PASS",
+          "detail": "23.1% / 31.5% / 22.7% / 22.7% (chi2=6.2 <= 11.34)",
+          "evidence": null
+        },
+        {
+          "id": "cue.length",
+          "clause": "┬º8.1",
+          "label": "Length cue non-diagnostic",
+          "status": "PASS",
+          "detail": "strict-longest 38.5%, mean margin 7.2 chars (4.3% of option), guard escapes 0% (0/273)",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.items",
+          "clause": "┬º8",
+          "label": "Every question group holds 3 language rows",
+          "status": "PASS",
+          "detail": "793 groups",
+          "evidence": null
+        },
+        {
+          "id": "trilingual.lessons",
+          "clause": "┬º11",
+          "label": "Every lesson group holds 3 language rows",
+          "status": "PASS",
+          "detail": "44 groups, 132 rows",
+          "evidence": null
+        },
+        {
+          "id": "encoding",
+          "clause": "┬º11",
+          "label": "No mojibake in lesson content",
+          "status": "PASS",
+          "detail": "132 lesson rows clean",
+          "evidence": null
+        },
+        {
+          "id": "scope",
+          "clause": "┬º4",
+          "label": "All tasks in exam scope",
+          "status": "PASS",
+          "detail": "44 tasks",
+          "evidence": null
+        },
+        {
+          "id": "status",
+          "clause": "┬º8",
+          "label": "All items approved",
+          "status": "PASS",
+          "detail": "2381 items",
+          "evidence": null
+        },
+        {
+          "id": "widget.dragmatch",
+          "clause": "┬º11",
+          "label": "drag-match widgets are strictly 1:1",
+          "status": "FAIL",
+          "detail": "51 of 57 violate the rule (learners will hit drop-override)",
+          "evidence": [
+            "en/01-01-agile-meaning: 4 items -> 2 targets (not 1:1)",
+            "es-419/01-01-agile-meaning: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/01-01-agile-meaning: 4 items -> 2 targets (not 1:1)",
+            "en/01-05-scrum-in-ai-era: 6 items -> 2 targets (not 1:1)",
+            "es-419/01-05-scrum-in-ai-era: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/01-05-scrum-in-ai-era: 6 items -> 2 targets (not 1:1)",
+            "en/01-06-spec-driven-development: 4 items -> 2 targets (not 1:1)",
+            "es-419/01-06-spec-driven-development: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/01-06-spec-driven-development: 4 items -> 2 targets (not 1:1)",
+            "en/02-01-scrum-framework: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-01-scrum-framework: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-01-scrum-framework: 4 items -> 2 targets (not 1:1)",
+            "en/02-06-artifacts-as-ai-instruction: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-06-artifacts-as-ai-instruction: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-06-artifacts-as-ai-instruction: 4 items -> 2 targets (not 1:1)",
+            "en/02-07-dod-ai-assisted: 4 items -> 2 targets (not 1:1)",
+            "es-419/02-07-dod-ai-assisted: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/02-07-dod-ai-assisted: 4 items -> 2 targets (not 1:1)",
+            "en/03-01-maximizing-value: 6 items -> 2 targets (not 1:1)",
+            "es-419/03-01-maximizing-value: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/03-01-maximizing-value: 6 items -> 2 targets (not 1:1)",
+            "en/03-03-po-authority: 5 items -> 2 targets (not 1:1)",
+            "es-419/03-03-po-authority: 5 items -> 2 targets (not 1:1)",
+            "pt-BR/03-03-po-authority: 5 items -> 2 targets (not 1:1)",
+            "en/03-04-po-boundaries: 6 items -> 3 targets (not 1:1)",
+            "es-419/03-04-po-boundaries: 6 items -> 3 targets (not 1:1)",
+            "pt-BR/03-04-po-boundaries: 6 items -> 3 targets (not 1:1)",
+            "en/04-03-user-stories: 4 items -> 2 targets (not 1:1)",
+            "es-419/04-03-user-stories: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/04-03-user-stories: 4 items -> 2 targets (not 1:1)",
+            "en/04-05-acceptance-criteria: 6 items -> 2 targets (not 1:1)",
+            "es-419/04-05-acceptance-criteria: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/04-05-acceptance-criteria: 6 items -> 2 targets (not 1:1)",
+            "en/04-07-estimation: 6 items -> 2 targets (not 1:1)",
+            "es-419/04-07-estimation: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/04-07-estimation: 6 items -> 2 targets (not 1:1)",
+            "en/04-10-ai-assisted-refinement: 4 items -> 3 targets (not 1:1)",
+            "es-419/04-10-ai-assisted-refinement: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/04-10-ai-assisted-refinement: 4 items -> 3 targets (not 1:1)",
+            "en/05-02-product-goal: 4 items -> 2 targets (not 1:1)",
+            "es-419/05-02-product-goal: 4 items -> 2 targets (not 1:1)",
+            "pt-BR/05-02-product-goal: 4 items -> 2 targets (not 1:1)",
+            "en/05-04-measuring-value: 6 items -> 2 targets (not 1:1)",
+            "es-419/05-04-measuring-value: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/05-04-measuring-value: 6 items -> 2 targets (not 1:1)",
+            "en/05-07-business-strategy-alignment: 4 items -> 3 targets (not 1:1)",
+            "es-419/05-07-business-strategy-alignment: 4 items -> 3 targets (not 1:1)",
+            "pt-BR/05-07-business-strategy-alignment: 4 items -> 3 targets (not 1:1)",
+            "en/05-10-ai-roadmap-strategy: 6 items -> 2 targets (not 1:1)",
+            "es-419/05-10-ai-roadmap-strategy: 6 items -> 2 targets (not 1:1)",
+            "pt-BR/05-10-ai-roadmap-strategy: 6 items -> 2 targets (not 1:1)"
+          ]
+        }
+      ]
+    }
+  ]
+}
