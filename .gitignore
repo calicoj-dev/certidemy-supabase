@@ -6,3 +6,7 @@ node_modules/
 
 node_modules/
 scripts/.env
+*.bak
+patch-*.mjs
+verify.json
+*.tmp
