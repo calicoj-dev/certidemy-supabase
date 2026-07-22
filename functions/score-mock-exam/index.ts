@@ -502,8 +502,9 @@ serve(async (req) => {
     }
 
     // ---- Simulator (mock_exam): analytics + recommendations ----
-    const adjusted = score_pct - 5;
-    const predicted_real_exam_pass_pct = sigmoid((adjusted - passing_threshold) / 8) * 100;
+    /* The sigmoid readiness estimate that used to live here was removed:
+       score_pct - 5, slope 8, both invented. Readiness is now derived from
+       the blueprint in v_user_exam_readiness (migrations 119/120). */
 
     let recommendations: string[] = [];
     try {
@@ -549,7 +550,6 @@ Produce the JSON output now.`;
       difficulty_breakdown,
       weakest_concepts,
       recommendations,
-      predicted_real_exam_pass_pct,
     });
 
     return jsonResponse({
@@ -564,7 +564,6 @@ Produce the JSON output now.`;
       difficulty_breakdown,
       weakest_concepts,
       recommendations,
-      predicted_real_exam_pass_pct,
     });
   } catch (err) {
     if (err instanceof HttpError) return jsonResponse({ error: err.message }, err.status);
@@ -573,6 +572,3 @@ Produce the JSON output now.`;
   }
 });
 
-function sigmoid(x: number): number {
-  return 1 / (1 + Math.exp(-x));
-}
