@@ -166,7 +166,7 @@ Rules:
 - Each recommendation is ONE sentence, action-oriented ("Review the X module" not "You should consider reviewing X").
 - Prioritize concepts where score < 60%.
 - Mention the concept name explicitly so the UI can link to it.
-- If they passed (>= 70%), 2-3 reinforcement suggestions are fine. If they failed, focus on the biggest gaps.
+- If they passed, 2-3 reinforcement suggestions are fine. If they failed, focus on the biggest gaps. Use the attempt's own passed flag - passing scores differ per certification, so never assume a threshold.
 - Return JSON: { "recommendations": string[] }`;
 
   if (language === 'es-419') {
