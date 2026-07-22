@@ -1,0 +1,55 @@
+-- 118_grant_user_owned_tables.sql
+--
+-- Grants on three user-owned tables that have RLS policies but no privileges.
+--
+-- SAME BUG AS CREDENTIALS (migration 117), found by the same audit. Each of
+-- these has a correct owner-scoped policy:
+--   chat_sessions             "own chat_sessions"   ALL  user_id = auth.uid()
+--   chat_messages             "own chat_messages"   ALL  user_id = auth.uid()
+--   lesson_format_preferences "own format prefs"    ALL  user_id = auth.uid()
+-- and NO table-level grant. Postgres checks the grant BEFORE the policy, so
+-- every statement fails 42501 - swallowed by failure-tolerant loaders, so the
+-- feature just quietly does nothing.
+--
+-- LIKELY VISIBLE SYMPTOM: the tutor starting from a blank slate every time
+-- rather than resuming a conversation, and lesson format preferences never
+-- persisting. Worth confirming after this runs, because if the tutor DOES
+-- currently persist history then it is going through an edge function on the
+-- service role and these grants change nothing - in which case the grant is
+-- still correct, just not the fix for that symptom.
+--
+-- PRIVILEGES MATCH THE POLICIES. The policies are `ALL`, so the tables are
+-- designed for full CRUD by their owner: a learner may write a chat message,
+-- and may delete their own conversation. Granting only SELECT would leave the
+-- feature half-broken in a more confusing way than fully broken.
+--
+-- The team_admin read policies on the chat tables are SELECT-only and rely on
+-- is_team_admin_of() / is_platform_admin(); they need no extra grant beyond the
+-- SELECT included here, since RLS narrows what the grant exposes.
+--
+-- anon gets nothing: none of these tables has an anonymous use case.
+--
+-- ASCII only: pasted into the Supabase SQL editor. Idempotent.
+
+grant select, insert, update, delete on public.chat_sessions to authenticated;
+grant select, insert, update, delete on public.chat_messages to authenticated;
+grant select, insert, update, delete on public.lesson_format_preferences to authenticated;
+
+-- Verify: all three true.
+--   select has_table_privilege('authenticated','public.chat_sessions','SELECT')             as chat_sessions,
+--          has_table_privilege('authenticated','public.chat_messages','SELECT')             as chat_messages,
+--          has_table_privilege('authenticated','public.lesson_format_preferences','SELECT') as format_prefs;
+--
+-- Re-run the standing audit; what remains should be service-role-only tables:
+--   select p.tablename
+--     from (select distinct schemaname, tablename from pg_policies where schemaname='public') p
+--    where not has_table_privilege('authenticated', format('%I.%I', p.schemaname, p.tablename), 'SELECT')
+--    order by 1;
+--
+-- EXPECTED TO REMAIN LOCKED, and correctly so:
+--   admin_actions, audit_logs, company_invites, document_chunks,
+--   module_prerequisites, simulation_attempts, simulations, source_documents
+--   quiz_questions  <- LOAD-BEARING. Practice and exams reach the item bank
+--                      only through edge functions on the service role. A grant
+--                      here would expose correct_answer handling to the client
+--                      and undermine the exam firewall. Never grant it.
