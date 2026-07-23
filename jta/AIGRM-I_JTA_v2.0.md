@@ -1,3 +1,26 @@
+> ## SUPERSEDED FOR ALL FACTUAL CONTENT
+>
+> **The authoritative JTA for AIGRM-I is `jta/AIGRM-I_JTA_generated.md`**, rendered
+> from the live database by `scripts/gen-jta-doc.mjs`. Regenerate it rather than
+> reading or editing the tables below.
+>
+> Measured on 2026-07-23, this document disagrees with the database on
+> **20 task statement(s)** and is **missing 2 task(s)** entirely. Its exam
+> facts and any hand-typed Bloom distribution are also unreliable - SPO-AI-I's copy
+> published a 15/35/35/15 profile where the computed figure is 1.9/36.9/52.7/8.5,
+> and a 90-minute duration where the database says 120.
+>
+> **This is not a hypothetical risk.** A translator worked from the SM-AI-I copy of
+> this document rather than the live tasks, and five statements were translated into
+> Spanish and Portuguese from wording migration 091 had already superseded.
+>
+> **What is still valuable here:** the design rationale, domain-weight reasoning,
+> sourcing and review history. That judgment cannot be regenerated from a query and
+> has not been moved yet. It will be extracted into `AIGRM-I_JTA_narrative.md`,
+> after which this file is archived. Until then, read it for the *why* and never for
+> the *what*.
+
+---
 # AIGRM-I — Job-Task Analysis (JTA) — v1 (complete, all five domains)
 
 **Credential:** Certidemy AI Governance & Risk Management I — AI
