@@ -154,7 +154,7 @@ async function verify(cert) {
   // tests its task at the level the JTA declares. The data was always there.
   const [{ data: domains }, { data: tasks }, { data: concepts }, { data: modules }, { data: profileRows }] = await Promise.all([
     db.from("domains").select("id, code, weight_pct, order_index").eq("certification_id", id).order("order_index"),
-    db.from("tasks").select("id, code, domain_id, is_exam_scope, is_simulation_candidate, bloom_level, statement").eq("certification_id", id),
+    db.from("tasks").select("id, code, domain_id, is_exam_scope, is_simulation_candidate, bloom_level, statement, order_index").eq("certification_id", id),
     db.from("concepts").select("id, slug").eq("certification_id", id),
     db.from("modules").select("id, slug, order_index").eq("certification_id", id),
     db.from("v_cognitive_profile").select("bloom_level, tasks, pct_of_form").eq("certification_id", id),
@@ -314,6 +314,14 @@ async function verify(cert) {
   // being assessed by multiple choice.
   // ==========================================================================
 
+  // Translations and schema guardrails - fetched after tasks/domains so ids exist.
+  const txTaskIds = (tasks ?? []).map((t) => t.id);
+  const txDomainIds = (domains ?? []).map((d) => d.id);
+  const [{ data: taskTx }, { data: domTx }, { data: guard }] = await Promise.all([
+    txTaskIds.length ? db.from("task_translations").select("task_id, language, is_provisional").in("task_id", txTaskIds) : { data: [] },
+    txDomainIds.length ? db.from("domain_translations").select("domain_id, language, is_provisional").in("domain_id", txDomainIds) : { data: [] },
+    db.from("v_schema_guardrails").select("*").maybeSingle(),
+  ]);
   const taskById = new Map((tasks ?? []).map((t) => [t.id, t]));
   const secure = questions.filter((q) => q.pool === "secure");
 
@@ -541,6 +549,150 @@ async function verify(cert) {
     ? R.pass("encoding", "§11", "No mojibake in lesson content", `${lessons.length} lesson rows clean`)
     : R.fail("encoding", "§11", "No mojibake in lesson content", `${mojibake.length} corrupted`, mojibake.slice(0, 5).map((l) => `${l.language}/${l.slug}`));
 
+  // === 15b. TRANSLATIONS MATCH THE ENGLISH THEY RENDER ======================
+  // A provisional row is one whose English source changed after it was approved
+  // (trigger trg_invalidate_task_translations, migration 132) or one never
+  // reviewed. Either way the published blueprint in that language describes a
+  // competence the exam does not measure - construct invalidity for every
+  // candidate sitting in that language.
+  //
+  // This is not hypothetical. Five SM-AI-I statements were translated from
+  // wording migration 091 had already superseded; the Spanish blueprint said
+  // "Explicar los tres pilares" while the exam measured "Apply the three pillars
+  // to diagnose which pillar is broken".
+  const txProvisional = [
+    ...(taskTx ?? []).filter((r) => r.is_provisional).map((r) => {
+      const t = taskById.get(r.task_id);
+      return `task ${t ? t.code : r.task_id}/${r.language}`;
+    }),
+    ...(domTx ?? []).filter((r) => r.is_provisional).map((r) => {
+      const d = (domains ?? []).find((x) => x.id === r.domain_id);
+      return `domain ${d ? d.code : r.domain_id}/${r.language}`;
+    }),
+  ];
+  const txTotal = (taskTx ?? []).length + (domTx ?? []).length;
+  if (txTotal === 0) {
+    R.skip("i18n.approved", "§11", "Translations reviewed against current English", "no translations loaded");
+  } else {
+    txProvisional.length === 0
+      ? R.pass("i18n.approved", "§11", "Translations reviewed against current English", `${txTotal} rows, none provisional`)
+      : R.fail("i18n.approved", "§11", "Translations reviewed against current English",
+          `${txProvisional.length} of ${txTotal} provisional - the English moved, or they were never reviewed`,
+          [...new Set(txProvisional)].slice(0, 12));
+  }
+
+  // === 15c. THE STATEMENT'S VERB AGREES WITH ITS DECLARED LEVEL =============
+  // The task statement is what the credential publishes; bloom_level is what the
+  // exam is built to. When they disagree, the blueprint claims one competence and
+  // the items measure another - and nothing caught it, because every check
+  // compared the DATABASE to ITSELF.
+  //
+  // 16 tasks across three certs were incoherent while all six certs passed this
+  // gate (migration 128). Only unambiguous verbs are mapped: "identify",
+  // "recognize" and "determine" legitimately span levels and are skipped. A verb
+  // that is not mapped at all is WARNED, not failed - that is how "Present a Done
+  // Increment" and "Work with the Product Owner" surface for human eyes.
+  // Only verbs whose level is UNAMBIGUOUS. Deliberately absent:
+  //   distinguish / differentiate - span 2..4 ("Distinguish Done from looks-done"
+  //     is analysis; "Distinguish the types of governance instrument" is not)
+  //   identify / recognize / determine / classify / define - same problem
+  // A verb that is not here is WARNED, never failed.
+  const VERB_RANK = {
+    recall: 1, list: 1, state: 1, name: 1,
+    explain: 2, describe: 2, summarize: 2, articulate: 2,
+    apply: 3, select: 3, choose: 3, match: 3, implement: 3, calculate: 3,
+    analyze: 4, analyse: 4, diagnose: 4, trace: 4, deconstruct: 4,
+    evaluate: 5, judge: 5, critique: 5, justify: 5,
+    create: 6, write: 6, build: 6, design: 6, construct: 6, compose: 6, formulate: 6, draft: 6,
+  };
+  // Compound statements carry their level in the SECOND verb: "Explain incident and
+  // problem management AND SELECT which applies" is Apply, not Understand. Scan the
+  // opening word plus any word directly after " and ", and take the highest rank.
+  // Scanning every word would misfire on nouns - "a described AI USE case" is not Apply.
+  const rankOf = (statement) => {
+    const s = String(statement || "").trim();
+    const words = [s.split(/[\s,:]+/)[0]];
+    // Bloom-5 verbs are also ordinary English ("Verify AND EVALUATE AI output"
+    // means judge it, not Bloom's Evaluate), so they are only trusted in the
+    // LEADING position - never picked up from a trailing "and" clause.
+    const AMBIGUOUS_TRAILING = new Set(["evaluate", "judge", "assess", "critique", "use", "trace", "match"]);
+    for (const m of s.matchAll(/\band\s+([A-Za-z]+)/g)) {
+      if (!AMBIGUOUS_TRAILING.has(m[1].toLowerCase())) words.push(m[1]);
+    }
+    const found = words
+      .map((w) => VERB_RANK[w.toLowerCase().replace(/[^a-z]/g, "")])
+      .filter((r) => r !== undefined);
+    return { rank: found.length ? Math.max(...found) : undefined, lead: words[0].toLowerCase().replace(/[^a-z]/g, "") };
+  };
+  const mismatchedVerbs = [];
+  const unknownVerbs = [];
+  for (const t of tasks ?? []) {
+    const { rank: vr, lead } = rankOf(t.statement);
+    if (!lead) continue;
+    const tr = BLOOM_RANK[t.bloom_level] ?? 0;
+    if (vr === undefined) { unknownVerbs.push(`${t.code} "${lead}"`); continue; }
+    // An out-of-scope task is assessed by simulation, which can reach ABOVE the
+    // verb's rank. Only exam-scope tasks are held to strict equality.
+    const bad = t.is_exam_scope ? vr !== tr : vr > tr;
+    if (bad) {
+      mismatchedVerbs.push(`${t.code}: verb level ${vr} ("${lead}") vs declared ${t.bloom_level}`);
+    }
+  }
+  if (mismatchedVerbs.length === 0) {
+    R.pass("jta.statementVerb", "§9", "Statement verb agrees with declared level", `${(tasks ?? []).length} tasks`);
+  } else {
+    R.fail("jta.statementVerb", "§9", "Statement verb agrees with declared level",
+      `${mismatchedVerbs.length} task(s) publish a verb at a different cognitive level than the exam is built to`,
+      mismatchedVerbs.slice(0, 12));
+  }
+  if (unknownVerbs.length > 0) {
+    R.warn("jta.statementVerbUnknown", "§9", "Statement verbs are recognisable Bloom verbs",
+      `${unknownVerbs.length} task(s) open with a verb outside the known map - check each names an assessable competence`,
+      unknownVerbs.slice(0, 12));
+  }
+
+  // === 15d. BLUEPRINT DISPLAY ORDER ========================================
+  // order_index is global across a cert in some certs and per-domain in others,
+  // so the absolute value proves nothing. What matters is that within a domain,
+  // display order equals task-code order. Two SPO-AI-I tasks added after the
+  // scaffold sorted FIRST in their domain (migration 131).
+  const orderIssues = [];
+  for (const d of domains ?? []) {
+    const dt = (tasks ?? []).filter((t) => t.domain_id === d.id);
+    const byIndex = [...dt].sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0)).map((t) => t.code);
+    const byCode = [...dt].sort((a, b) => {
+      const [am, an] = a.code.split(".").map(Number);
+      const [bm, bn] = b.code.split(".").map(Number);
+      return am - bm || an - bn;
+    }).map((t) => t.code);
+    byIndex.forEach((code, i) => { if (code !== byCode[i]) orderIssues.push(`${d.code}: ${code} shows at position ${i + 1}, belongs at ${byCode.indexOf(code) + 1}`); });
+  }
+  orderIssues.length === 0
+    ? R.pass("jta.displayOrder", "§4", "Blueprint order matches task-code order", `${(domains ?? []).length} domains`)
+    : R.fail("jta.displayOrder", "§4", "Blueprint order matches task-code order",
+        `${orderIssues.length} task(s) display out of sequence`, orderIssues.slice(0, 10));
+
+  // === 15e. SCHEMA GUARDRAILS (platform-wide, not per-cert) =================
+  // Properties supabase-js cannot otherwise reach. Both of these were real:
+  // v_live_items leaked the secure answer key to any authenticated user through
+  // PostgREST (126), and quiz_attempts CASCADE meant deleting an item silently
+  // destroyed the evidence a candidate had answered it (127).
+  if (!guard) {
+    R.skip("schema.guardrails", "§8", "Schema guardrails", "v_schema_guardrails not readable");
+  } else {
+    guard.answer_key_views_exposed === 0
+      ? R.pass("schema.answerKeyViews", "§8", "No view exposes correct_answer to a client role", "0 exposed")
+      : R.fail("schema.answerKeyViews", "§8", "No view exposes correct_answer to a client role",
+          `${guard.answer_key_views_exposed} view(s) emit correct_answer AND are granted to anon/authenticated`);
+    guard.attempt_evidence_cascades === 0
+      ? R.pass("schema.attemptEvidence", "§8", "Deleting an item cannot destroy attempt evidence", "quiz_attempts FK is RESTRICT")
+      : R.fail("schema.attemptEvidence", "§8", "Deleting an item cannot destroy attempt evidence",
+          "quiz_attempts.question_id is not RESTRICT - a DELETE would silently remove scored-attempt records");
+    if (guard.owner_run_views_granted > 0) {
+      R.warn("schema.ownerRunViews", "§8", "Client-granted views run as caller",
+        `${guard.owner_run_views_granted} granted view(s) run as owner and bypass RLS - review each is safe`);
+    }
+  }
   // === 11. EXAM SCOPE =======================================================
   // "(intentional?)" used to be an unanswerable question. is_simulation_candidate
   // answers it: a task excluded from the exam because MCQ cannot validly assess it
