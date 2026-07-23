@@ -1,3 +1,48 @@
+> ## SUPERSEDED BY MIGRATION 128 - READ THIS FIRST
+>
+> **This analysis reached the wrong conclusion on 5 of its 16 tasks.** It is kept
+> because the reasoning error is itself part of the record, and because the
+> corrected analysis only makes sense against it.
+>
+> **The error:** this document compared each task's STATEMENT verb against its
+> `bloom_level` and nothing else. A task's competence is its whole definition -
+> statement plus knowledge, skills and abilities. Migration 094 had already
+> established the skills line as the tiebreaker:
+>
+>     "Statement said 'Explain that the PO is one accountable person' while its
+>      SKILLS say 'APPLY the one-person rule to a scenario'."
+>
+> Read against their K/S/A, all 16 tasks tell the same story: **the skills line
+> agrees with the stored `bloom_level`, and the statement is the outlier.** The
+> existing item banks confirm it independently - the generator reads statement +
+> skills + concepts and lets the skills govern, so the items were already testing
+> the correct competence.
+>
+> **What actually changed (migration 128):** 16 statements corrected. **Zero
+> cognitive levels changed. No blueprint recompute. No item regeneration. No
+> retirement.** Invariant 17 verified MATCH across all six certs; item drift 0.
+>
+> **Reversed from the recommendations below:**
+>
+> | task | this document said | 128 did |
+> |---|---|---|
+> | AIGRM-I 3.10 | raise to `4_analyze` | kept `2_understand`, statement -> Explain |
+> | AIGRM-I 5.8 | raise to `4_analyze` | kept `2_understand`, statement -> Explain |
+> | AIGRM-I 3.7 | lower to `2_understand` | kept `3_apply`, statement -> Match |
+> | SPO-AI-I 2.7 | rewrite at `3_apply` | kept `3_apply`, statement -> Apply (per skills) |
+> | SPO-AI-I 3.6 | rewrite at `3_apply` | kept `3_apply`, statement -> Determine (per skills) |
+>
+> **One finding this document missed entirely:** six tasks have a SKILLS line
+> naming a performance an MCQ cannot assess (Write a story, Craft a vision,
+> Construct a roadmap/prompt, Demonstrate software). Their statements were
+> narrowed to what the exam measures AND `is_simulation_candidate` set true, so
+> the authoring half is parked explicitly rather than silently dropped.
+>
+> **Method note for future analyses:** read the K/S/A and sample the actual items
+> before proposing a change. Three times in this session the answer came from
+> reading what was there rather than from inference.
+
+---
 # Bloom/Verb Reconciliation — Analysis & Recommendations
 
 **Date:** 2026-07-23
