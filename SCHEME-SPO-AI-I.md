@@ -249,6 +249,33 @@ evolves.
 
 ---
 
+
+### 10.4 Trilingual equivalence and terminology control
+
+This credential is delivered in English, Latin American Spanish (es-419) and
+Brazilian Portuguese (pt-BR). The published blueprint in each language states
+what the credential attests, so a translated task statement that describes a
+different competence than the exam measures would be invalid for every candidate
+sitting in that language.
+
+Terminology is governed by **`TERMINOLOGY-POLICY.md`**, the single source of
+truth for all Certidemy credentials. It records sixteen rules, each traceable to
+a primary source (the official EU AI Act language versions, the official
+translated Scrum Guides, the ISO/IEC standards) or to a recorded external-review
+decision.
+
+Scrum roles and artifacts stay in English per Rule 4, following the official translated Scrum Guides. Two credential-specific points: *Spec-Driven Development* stays in English in both languages with one gloss on first use (Rule 8), since it is a named methodology and appears in a domain title; and PBI uses the expanded `elementos del Product Backlog` / `itens do Product Backlog` rather than the acronym (Rule 9). `Increment` stays English in both languages even though the official pt-BR guide uses `Incremento` - a deliberate, recorded platform convention (Rule 7).
+
+**Equivalence is enforced mechanically, not by procedure.** A database trigger
+(`trg_invalidate_task_translations`) flips a task's translations back to
+provisional in the same transaction whenever its English statement changes, and
+the conformance gate (`verify-cert.mjs`, invariant `i18n.approved`) fails any
+certification holding a provisional translation. The English cannot move without
+the translations declaring themselves stale, and the credential cannot publish
+while they are.
+
+---
+
 ## 11. Scheme maintenance and governance
 
 **Review cadence.** Reviewed when the underlying Scrum Guide is revised, when the

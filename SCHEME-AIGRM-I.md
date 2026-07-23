@@ -348,6 +348,33 @@ rather than by hand, so the matrix stays complete as content evolves.
 
 ---
 
+
+### 10.4 Trilingual equivalence and terminology control
+
+This credential is delivered in English, Latin American Spanish (es-419) and
+Brazilian Portuguese (pt-BR). The published blueprint in each language states
+what the credential attests, so a translated task statement that describes a
+different competence than the exam measures would be invalid for every candidate
+sitting in that language.
+
+Terminology is governed by **`TERMINOLOGY-POLICY.md`**, the single source of
+truth for all Certidemy credentials. It records sixteen rules, each traceable to
+a primary source (the official EU AI Act language versions, the official
+translated Scrum Guides, the ISO/IEC standards) or to a recorded external-review
+decision.
+
+This credential teaches named legal instruments, so **policy S3 governs**: official EU AI Act language versions decide statutory terms, not translator preference. The load-bearing ones are `vigilancia humana` (Article 14), `vigilancia poscomercializacion`, `gobernanza` (never *gobierno*), and the value-chain actors `proveedor` / `responsable del despliegue` (es-419) and `prestador` / `responsavel pela implantacao` (pt-BR). One deliberate exception: *trustworthy AI* is `IA confiable`, not the official-but-Peninsular `fiable` (Rule 3). NIST AI RMF function names are glossed in English on first use in task 2.1 only (Rule 13).
+
+**Equivalence is enforced mechanically, not by procedure.** A database trigger
+(`trg_invalidate_task_translations`) flips a task's translations back to
+provisional in the same transaction whenever its English statement changes, and
+the conformance gate (`verify-cert.mjs`, invariant `i18n.approved`) fails any
+certification holding a provisional translation. The English cannot move without
+the translations declaring themselves stale, and the credential cannot publish
+while they are.
+
+---
+
 ## 11. Scheme maintenance and governance
 
 **Review cadence.** Reviewed when a governing framework in the body of knowledge is

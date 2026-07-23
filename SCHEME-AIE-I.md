@@ -363,6 +363,33 @@ than by hand, so the matrix stays complete as content evolves.
 
 ---
 
+
+### 10.4 Trilingual equivalence and terminology control
+
+This credential is delivered in English, Latin American Spanish (es-419) and
+Brazilian Portuguese (pt-BR). The published blueprint in each language states
+what the credential attests, so a translated task statement that describes a
+different competence than the exam measures would be invalid for every candidate
+sitting in that language.
+
+Terminology is governed by **`TERMINOLOGY-POLICY.md`**, the single source of
+truth for all Certidemy credentials. It records sixteen rules, each traceable to
+a primary source (the official EU AI Act language versions, the official
+translated Scrum Guides, the ISO/IEC standards) or to a recorded external-review
+decision.
+
+This credential is entry-tier and non-regulated, so no statutory terminology applies. Note one deliberate cross-cert difference: AIE-I renders *human oversight* as `supervision humana`/`supervisao humana` and translates the `human in the loop` gloss into plain language, because the audience is non-technical and the phrase is explanatory rather than a tested distinction. AIGRM-I uses the statutory `vigilancia humana`, and AISM-I keeps `human-in-the-loop` in English at task 4.13 where the in-loop / on-loop distinction is itself examined. All three are correct under the cross-cert rule (policy S3, Rule 2).
+
+**Equivalence is enforced mechanically, not by procedure.** A database trigger
+(`trg_invalidate_task_translations`) flips a task's translations back to
+provisional in the same transaction whenever its English statement changes, and
+the conformance gate (`verify-cert.mjs`, invariant `i18n.approved`) fails any
+certification holding a provisional translation. The English cannot move without
+the translations declaring themselves stale, and the credential cannot publish
+while they are.
+
+---
+
 ## 11. Scheme maintenance and governance
 
 **Review cadence.** Reviewed when the job-task analysis is re-validated, when the

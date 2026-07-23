@@ -321,6 +321,33 @@ rather than by hand, so the matrix stays complete as content evolves.
 
 ---
 
+
+### 10.4 Trilingual equivalence and terminology control
+
+This credential is delivered in English, Latin American Spanish (es-419) and
+Brazilian Portuguese (pt-BR). The published blueprint in each language states
+what the credential attests, so a translated task statement that describes a
+different competence than the exam measures would be invalid for every candidate
+sitting in that language.
+
+Terminology is governed by **`TERMINOLOGY-POLICY.md`**, the single source of
+truth for all Certidemy credentials. It records sixteen rules, each traceable to
+a primary source (the official EU AI Act language versions, the official
+translated Scrum Guides, the ISO/IEC standards) or to a recorded external-review
+decision.
+
+Scrum roles and artifacts stay in English per Rule 4, following the official translated Scrum Guides; the Guide's own title is translated (Rule 5). *Done* is kept in English as a quality state (`un Increment Done`). *Spec-Driven Development* stays English with one gloss (Rule 8). Note that `salida`/`saida` appears here for AI output without the outputs-vs-outcomes lock that governs AISM-I - this credential teaches no such contrast, so Rule 10 does not apply to it.
+
+**Equivalence is enforced mechanically, not by procedure.** A database trigger
+(`trg_invalidate_task_translations`) flips a task's translations back to
+provisional in the same transaction whenever its English statement changes, and
+the conformance gate (`verify-cert.mjs`, invariant `i18n.approved`) fails any
+certification holding a provisional translation. The English cannot move without
+the translations declaring themselves stale, and the credential cannot publish
+while they are.
+
+---
+
 ## 11. Scheme maintenance and governance
 
 **Review cadence.** Reviewed when the underlying Scrum Guide is revised, when the
