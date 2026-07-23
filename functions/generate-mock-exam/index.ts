@@ -265,8 +265,12 @@ serve(async (req) => {
 
     // 9. Simulator only: if practice pool is thin in a domain, top off from
     //    any remaining practice questions so the learner still gets a full form.
+    //    Fillers must still trace to a task/domain: an item with no task_id
+    //    belongs to no blueprint domain and must never be served, in either
+    //    pool. The secure path already excludes these (step 6 skips rows with
+    //    no domain_id); this keeps the simulator consistent with it.
     if (mode === "simulator" && selected.length < target_count) {
-      const fillers = candidates.filter((q) => !chosen.has(q.id));
+      const fillers = candidates.filter((q) => !chosen.has(q.id) && q.domain_id !== null);
       shuffle(fillers);
       for (const q of fillers) {
         if (selected.length >= target_count) break;
