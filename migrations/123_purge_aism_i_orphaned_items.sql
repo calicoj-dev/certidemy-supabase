@@ -1,0 +1,151 @@
+-- 123_purge_aism_i_orphaned_items.sql
+--
+-- Remove 1,026 AIE-I quiz items misfiled under the AISM-I certification_id.
+--
+-- Editor-first: paste + run in the Supabase SQL editor (project pctynukndxnmnxiqpgck),
+-- then commit this file as the versioned record. This file IS the audit record for
+-- the deletion - the reasoning below is the justification an auditor would need.
+--
+-- ASCII-clean. Idempotent (a second run deletes 0 rows).
+--
+-- ===========================================================================
+-- 0. CORRECTION TO MIGRATION 122
+-- ===========================================================================
+-- Migration 122's header comment stated:
+--
+--     "AISM-I's secure item bank has not been generated yet, so no
+--      quiz_questions rows are stamped against these statements."
+--
+-- THAT CLAIM WAS FALSE. It was asserted from memory rather than queried.
+-- AISM-I holds 2,370 practice and 1,950 secure items, including items against
+-- tasks 1.4 and 1.5 - the two rows 122 edited.
+--
+-- The edits in 122 remain correct and are NOT reverted. Both were cosmetic or
+-- terminological rather than competence-changing:
+--   1.4 - removed a leaked authoring annotation that was never part of the
+--         competence being tested.
+--   1.5 - "identical result" -> "identical output", aligning the English with
+--         the approved es-419 / pt-BR translations.
+-- Neither alters what an item against those tasks must assess, so no item
+-- regeneration is implied. Only the stated justification was wrong; this note
+-- corrects the record.
+--
+-- ===========================================================================
+-- 1. WHAT IS BEING DELETED, AND WHY IT IS UNAMBIGUOUS
+-- ===========================================================================
+-- 1,026 rows carry certification_id = AISM-I with task_id IS NULL:
+--     practice  180 en + 180 es-419 + 180 pt-BR =  540
+--     secure    162 en + 162 es-419 + 162 pt-BR =  486
+-- All were created on 2026-07-14 - a single generation event.
+--
+-- Their content is AIE-I, not service management. Verbatim samples:
+--     "A 1990s chess engine beat grandmasters by searching millions of moves"
+--     "la diferencia clave entre un prompt y una consulta de busqueda"
+--     "You are a market analyst. Compare prices for the five suppliers"
+-- These map to AIE-I tasks 1.1/1.2, 2.1 and 2.2. AIE-I already holds its own
+-- complete, correctly generated bank (540 practice / 432 secure), so these are
+-- duplicates filed against the wrong certification - not a bank anyone needs.
+--
+-- This is the same contamination class already remediated for AISM-I LESSON
+-- rows (stale AIE-I lessons found on AISM-I module IDs). That earlier cleanup
+-- did not cover quiz_questions.
+--
+-- AISM-I's legitimate bank is intact underneath and is NOT touched:
+--     linked practice 1,830 = 61 tasks x 3 languages x 10 per task per language
+--     linked secure   1,464 = 61 tasks x 3 languages x  8 per task per language
+-- Those ratios match AIE-I's live bank exactly, which is what a correct
+-- generation run produces.
+--
+-- ===========================================================================
+-- 2. WHY THIS MATTERS BEYOND TIDINESS
+-- ===========================================================================
+-- 486 of the orphans are pool='secure', status='approved', visibility='secure'.
+-- If generate-mock-exam selects on certification_id + pool + status without
+-- joining through task -> domain, an AISM-I candidate could have been served
+-- AIE-I items. Independently of that, ISO/IEC 17024 requires every scored item
+-- to trace to a task in the job-task analysis; an item with task_id IS NULL
+-- cannot. AISM-I is status='draft', so nothing was live and no candidate was
+-- affected - but this must be clean before that status flips.
+--
+-- ===========================================================================
+-- 3. WHY DELETE RATHER THAN RETIRE
+-- ===========================================================================
+-- quiz_questions supports soft-retirement (retired_at / retired_by /
+-- retire_reason). Retirement is the right tool for an item that legitimately
+-- belonged to a bank and has been superseded. These rows never belonged to
+-- AISM-I at all, and retaining them would leave 1,026 wrong-certification rows
+-- that every future query must remember to exclude. This migration file is the
+-- durable record of what was removed and why.
+--
+-- ===========================================================================
+-- 4. VERIFY BEFORE (expect: 540 practice, 486 secure, all created 2026-07-14)
+-- ===========================================================================
+-- select pool, language, count(*) as items, min(created_at) as first_created
+--   from public.quiz_questions
+--  where certification_id = (select id from public.certifications where code = 'AISM-I')
+--    and task_id is null
+--  group by pool, language
+--  order by pool, language;
+--
+-- Confirm no legitimate AISM-I item lacks a task before deleting - every task
+-- in the real bank must be linked. Expect 61.
+--
+-- select count(distinct task_id) as tasks_with_items
+--   from public.quiz_questions
+--  where certification_id = (select id from public.certifications where code = 'AISM-I')
+--    and task_id is not null;
+-- ---------------------------------------------------------------------------
+
+
+-- ===========================================================================
+-- 5. THE DELETE
+-- ===========================================================================
+-- Guarded three ways: scoped to AISM-I, to rows with no task link, and to the
+-- single creation date of the contamination event. Any legitimate AISM-I item
+-- has a task_id, so the second predicate alone is sufficient; the date is a
+-- belt-and-braces guard against deleting anything generated later.
+
+delete from public.quiz_questions
+ where certification_id = (select id from public.certifications where code = 'AISM-I')
+   and task_id is null
+   and created_at < timestamptz '2026-07-15';
+
+
+-- ===========================================================================
+-- 6. VERIFY AFTER
+-- ===========================================================================
+-- (a) zero orphans remain for AISM-I, and zero across every cert
+--
+-- select c.code,
+--        count(*) filter (where q.task_id is null) as orphaned,   -- expect 0 for all
+--        count(*)                                   as total
+--   from public.quiz_questions q
+--   join public.certifications c on c.id = q.certification_id
+--  group by c.code
+--  order by c.code;
+--
+-- (b) AISM-I's real bank is untouched: expect practice 1830, secure 1464
+--
+-- select pool, count(*) as items
+--   from public.quiz_questions
+--  where certification_id = (select id from public.certifications where code = 'AISM-I')
+--  group by pool
+--  order by pool;
+--
+-- (c) per-task-per-language floors hold: expect 10 practice / 8 secure, 61 tasks each
+--
+-- select pool, language, count(*) / count(distinct task_id) as per_task,
+--        count(distinct task_id) as tasks
+--   from public.quiz_questions
+--  where certification_id = (select id from public.certifications where code = 'AISM-I')
+--  group by pool, language
+--  order by pool, language;
+--
+-- (d) no secure item is linked into question_concepts (the sacred firewall)
+--
+-- select count(*) as secure_items_with_concept_links
+--   from public.question_concepts qc
+--   join public.quiz_questions q on q.id = qc.question_id
+--  where q.certification_id = (select id from public.certifications where code = 'AISM-I')
+--    and q.pool = 'secure';   -- expect 0
+-- ---------------------------------------------------------------------------
