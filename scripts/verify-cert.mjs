@@ -93,7 +93,14 @@ const BLOOM_RANK = { "1_remember": 1, "2_understand": 2, "3_apply": 3, "4_analyz
 // discipline to parse an item. Keyed by tier/family, checked against en items.
 const OUT_OF_DOMAIN = {
   // Non-Scrum certs must not carry agile-framework vocabulary.
-  nonScrum: /\b(sprint|scrum|product backlog|sprint backlog|user stor(y|ies)|definition of done|daily standup|story points?|velocity)\b/i,
+  // Inflected forms matter: \bsprint\b does NOT match "sprints" (no boundary
+  // between t and s), and that is exactly how 6 items passed this gate.
+  // NOT velocidad / velocidade: they are the ordinary Spanish and Portuguese
+  // words for speed, and 41 AISM-I items use them legitimately (response
+  // times, throughput). English "velocity" is safe because the cert never
+  // uses it in the plain sense - the cognates are not. Extending an
+  // English word list across languages needs this check per term.
+  nonScrum: /\b(sprints?|scrums?|product backlogs?|sprint backlogs?|user stor(y|ies|ias?)|definition of done|daily standups?|story points?|velocity)\b/i,
 };
 
 // ---------------------------------------------------------------------------
@@ -147,7 +154,7 @@ async function verify(cert) {
   // tests its task at the level the JTA declares. The data was always there.
   const [{ data: domains }, { data: tasks }, { data: concepts }, { data: modules }, { data: profileRows }] = await Promise.all([
     db.from("domains").select("id, code, weight_pct, order_index").eq("certification_id", id).order("order_index"),
-    db.from("tasks").select("id, code, domain_id, is_exam_scope, bloom_level, statement").eq("certification_id", id),
+    db.from("tasks").select("id, code, domain_id, is_exam_scope, is_simulation_candidate, bloom_level, statement").eq("certification_id", id),
     db.from("concepts").select("id, slug").eq("certification_id", id),
     db.from("modules").select("id, slug, order_index").eq("certification_id", id),
     db.from("v_cognitive_profile").select("bloom_level, tasks, pct_of_form").eq("certification_id", id),
@@ -436,12 +443,14 @@ async function verify(cert) {
   if (isScrum) {
     R.skip("grounding", "§10", "Construct grounding", "Scrum cert: agile vocabulary IS the construct");
   } else {
+    // ALL languages, not just English. The check used to look at en only, so a
+    // Spanish or Portuguese item could carry agile vocabulary and never be seen.
+    // Scrum terms stay English by platform policy, so one regex serves all three.
     const bad = questions.filter((q) =>
-      q.language === "en" &&
       OUT_OF_DOMAIN.nonScrum.test(`${q.question_text || ""} ${JSON.stringify(q.options || "")}`));
-    const enTotal = questions.filter((q) => q.language === "en").length;
+    const enTotal = questions.length;
     const rate = pct(bad.length, enTotal);
-    if (bad.length === 0) R.pass("grounding", "§10", "No out-of-domain (agile) vocabulary", `0 / ${enTotal} en items`);
+    if (bad.length === 0) R.pass("grounding", "§10", "No out-of-domain (agile) vocabulary", `0 / ${enTotal} items, all languages`);
     else if (rate <= 1.0) R.warn("grounding", "§10", "No out-of-domain (agile) vocabulary", `${bad.length} / ${enTotal} (${rate}%) - incidental; verify no KEY depends on it`, bad.slice(0, 5).map((q) => (q.question_text || "").slice(0, 70)));
     else R.fail("grounding", "§10", "No out-of-domain (agile) vocabulary", `${bad.length} / ${enTotal} (${rate}%) - construct-irrelevant load`, bad.slice(0, 5).map((q) => (q.question_text || "").slice(0, 70)));
   }
