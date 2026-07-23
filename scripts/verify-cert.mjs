@@ -174,6 +174,7 @@ async function verify(cert) {
     const { data } = await db.from("quiz_questions")
       .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text")
       .eq("certification_id", id)
+      .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
       .range(from, from + 999);
     if (!data || data.length === 0) break;
@@ -248,9 +249,19 @@ async function verify(cert) {
       : R.fail("coverage.tested", "§10", "All testable concepts tested", `${TSI}/${TESTABLE} in-scope`);
 
     // Taught but not examinable by MCQ: a documented boundary, surfaced as a warning.
+    // Taught but not examinable by MCQ. This is a legitimate, DOCUMENTED boundary
+    // when the task carrying the concept is above the MCQ ceiling and flagged
+    // is_simulation_candidate - the competence is parked for simulation, not
+    // dropped. It is only a warning when no such intent is recorded.
     if (OOS > 0) {
-      R.warn("coverage.outOfScopeOnly", "§10", "Concepts reachable only via out-of-scope tasks",
-        `${OOS} taught but not examinable by MCQ (out-of-scope tasks only)`);
+      const oosTasks = (tasks ?? []).filter((t) => !t.is_exam_scope);
+      const allDeclared = oosTasks.length > 0 && oosTasks.every((t) => t.is_simulation_candidate);
+      allDeclared
+        ? R.pass("coverage.outOfScopeOnly", "§10", "Concepts outside MCQ reach are declared, not dropped",
+            `${OOS} concept(s) taught but not MCQ-examinable, reachable only via task(s) flagged is_simulation_candidate`,
+            oosTasks.map((t) => `${t.code} (${t.bloom_level})`))
+        : R.warn("coverage.outOfScopeOnly", "§10", "Concepts outside MCQ reach are declared, not dropped",
+            `${OOS} taught but not examinable by MCQ, and not every out-of-scope task records simulation intent`);
     }
 
     V === 0
@@ -298,6 +309,24 @@ async function verify(cert) {
 
   const taskById = new Map((tasks ?? []).map((t) => [t.id, t]));
   const secure = questions.filter((q) => q.pool === "secure");
+
+  // === 15a. EVERY ITEM TRACES TO A TASK =====================================
+  // The precondition for the whole chain below, and the one it never checked.
+  // The Bloom check does `if (!t) continue` - so an item with no task_id was
+  // silently EXCLUDED from verification rather than flagged. An untraceable item
+  // cannot be tied to a competence, cannot be allocated to a domain by the form
+  // assembler, and under 17024 cannot be defended as measuring anything at all.
+  //
+  // Not hypothetical: 1,026 AIE-I items were found filed under AISM-I with no
+  // task link (migration 123). They passed every gate this verifier had, because
+  // every count-based check counted them and every content check skipped them.
+  const orphanItems = questions.filter((q) => !q.task_id);
+  orphanItems.length === 0
+    ? R.pass("jta.itemTraceable", "§9", "Every item traces to a task", `${questions.length} live items, all linked to a task`)
+    : R.fail("jta.itemTraceable", "§9", "Every item traces to a task",
+        `${orphanItems.length} item(s) carry no task_id - untraceable to any competence, invisible to the Bloom and blueprint checks below`,
+        [...new Set(orphanItems.map((q) => `${q.pool}/${q.language}`))].slice(0, 12));
+
 
   // === 15. ITEM BLOOM == TASK BLOOM =========================================
   // The core rule. An item's cognitive level EQUALS its task's declared level.
@@ -504,10 +533,24 @@ async function verify(cert) {
     : R.fail("encoding", "§11", "No mojibake in lesson content", `${mojibake.length} corrupted`, mojibake.slice(0, 5).map((l) => `${l.language}/${l.slug}`));
 
   // === 11. EXAM SCOPE =======================================================
+  // "(intentional?)" used to be an unanswerable question. is_simulation_candidate
+  // answers it: a task excluded from the exam because MCQ cannot validly assess it
+  // (typically Bloom 5-6) and parked for simulation is the CORRECT state, not a
+  // finding. A warning that fires on the correct state teaches people to ignore
+  // warnings. Only an exclusion with no recorded reason is worth flagging.
   const outScope = (tasks ?? []).filter((t) => !t.is_exam_scope);
-  outScope.length === 0
-    ? R.pass("scope", "§4", "All tasks in exam scope", `${(tasks ?? []).length} tasks`)
-    : R.warn("scope", "§4", "All tasks in exam scope", `${outScope.length} out of scope (intentional?)`, outScope.map((t) => t.code));
+  const undeclared = outScope.filter((t) => !t.is_simulation_candidate);
+  if (outScope.length === 0) {
+    R.pass("scope", "§4", "Every out-of-scope task declares its intent", `${(tasks ?? []).length} tasks, all in exam scope`);
+  } else if (undeclared.length === 0) {
+    R.pass("scope", "§4", "Every out-of-scope task declares its intent",
+      `${outScope.length} out of scope, all flagged is_simulation_candidate`,
+      outScope.map((t) => `${t.code} (${t.bloom_level})`));
+  } else {
+    R.warn("scope", "§4", "Every out-of-scope task declares its intent",
+      `${undeclared.length} excluded from the exam with no is_simulation_candidate flag - no recorded reason`,
+      undeclared.map((t) => t.code));
+  }
 
   // === 12. APPROVED STATUS ==================================================
   const notApproved = questions.filter((q) => q.status !== "approved");
