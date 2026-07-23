@@ -609,26 +609,73 @@ async function verify(cert) {
   // problem management AND SELECT which applies" is Apply, not Understand. Scan the
   // opening word plus any word directly after " and ", and take the highest rank.
   // Scanning every word would misfire on nouns - "a described AI USE case" is not Apply.
+  // Cognitive verbs that genuinely span levels. "Distinguish Done from
+  // looks-done" is analysis; "Distinguish the types of governance instrument" is
+  // comprehension. The declared level governs and the verb proves nothing either
+  // way, so these are neither failed nor warned.
+  const AMBIGUOUS_VERBS = new Set([
+    "distinguish", "differentiate", "identify", "recognize", "recognise",
+    "determine", "define", "classify", "characterize", "characterise",
+    "interpret", "decide", "assess",
+  ]);
+
+  // Verbs from the PROFESSION rather than from Bloom. A job-task analysis is
+  // supposed to name competences the way practitioners do - "Refactor safely
+  // toward maintainability" is how an engineer says it - while the SKILLS line
+  // names what the exam measures ("Refactor without changing behavior; verify
+  // with tests"). That division is correct, not a defect, and ISO/IEC 17024 does
+  // not require the two to use the same word: it requires the competence to be
+  // declared, taught, assessed, and honestly claimed.
+  //
+  // No regex can read a skills line, so warning on these produced ~100 hits
+  // across six certs with zero confirmed defects - and a warning that fires on
+  // the correct state teaches people to ignore warnings. They are reviewed by a
+  // human against their items instead.
+  const DOMAIN_VERBS = new Set([
+    "coach", "facilitate", "refactor", "conduct", "run", "own", "share", "give",
+    "practice", "collaborate", "keep", "live", "manage", "align", "measure",
+    "protect", "verify", "use", "operate", "engage", "surface", "turn", "uphold",
+    "translate", "selfmanage", "work", "present", "maintain",
+  ]);
+
+  // "Given a described AI system, determine whether it is high-risk" - the
+  // competence verb follows the scenario clause, so parse past the opener.
+  const SCENARIO_OPENERS = new Set([
+    "given", "when", "for", "in", "after", "before", "during", "using", "from", "with",
+  ]);
+  const norm = (w) => String(w || "").toLowerCase().replace(/[^a-z]/g, "");
+
   const rankOf = (statement) => {
-    const s = String(statement || "").trim();
+    let s = String(statement || "").trim();
+    if (SCENARIO_OPENERS.has(norm(s.split(/[\s,:]+/)[0]))) {
+      // The scenario clause can be closed by a comma OR by a dash-delimited
+      // aside: "Given a described situation - including a decision about
+      // whether to adopt AI - apply the appropriate guiding principle".
+      // Take the LAST such delimiter so a nested aside does not strand us
+      // mid-clause; the competence verb is what follows it.
+      const parts = s.split(/\s+-\s+|\s+--\s+|,/);
+      if (parts.length > 1) {
+        const tail = parts[parts.length - 1].trim();
+        if (tail) s = tail;
+      }
+    }
     const words = [s.split(/[\s,:]+/)[0]];
     // Bloom-5 verbs are also ordinary English ("Verify AND EVALUATE AI output"
     // means judge it, not Bloom's Evaluate), so they are only trusted in the
     // LEADING position - never picked up from a trailing "and" clause.
     const AMBIGUOUS_TRAILING = new Set(["evaluate", "judge", "assess", "critique", "use", "trace", "match"]);
     for (const m of s.matchAll(/\band\s+([A-Za-z]+)/g)) {
-      if (!AMBIGUOUS_TRAILING.has(m[1].toLowerCase())) words.push(m[1]);
+      if (!AMBIGUOUS_TRAILING.has(norm(m[1]))) words.push(m[1]);
     }
-    const found = words
-      .map((w) => VERB_RANK[w.toLowerCase().replace(/[^a-z]/g, "")])
-      .filter((r) => r !== undefined);
-    return { rank: found.length ? Math.max(...found) : undefined, lead: words[0].toLowerCase().replace(/[^a-z]/g, "") };
+    const found = words.map((w) => VERB_RANK[norm(w)]).filter((r) => r !== undefined);
+    return { rank: found.length ? Math.max(...found) : undefined, lead: norm(words[0]) };
   };
+
   const mismatchedVerbs = [];
   const unknownVerbs = [];
   for (const t of tasks ?? []) {
     const { rank: vr, lead } = rankOf(t.statement);
-    if (!lead) continue;
+    if (!lead || AMBIGUOUS_VERBS.has(lead) || DOMAIN_VERBS.has(lead)) continue;
     const tr = BLOOM_RANK[t.bloom_level] ?? 0;
     if (vr === undefined) { unknownVerbs.push(`${t.code} "${lead}"`); continue; }
     // An out-of-scope task is assessed by simulation, which can reach ABOVE the
