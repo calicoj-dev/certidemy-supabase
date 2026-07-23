@@ -1,0 +1,128 @@
+-- 133_sd_ai_i_task_3_10_statement.sql
+--
+-- Reword one SD-AI-I task statement so the published claim names the competence
+-- the exam actually measures. No level change, no scope change, no items touched.
+--
+-- Editor-first: paste + run in the Supabase SQL editor (project pctynukndxnmnxiqpgck),
+-- then commit this file as the versioned record.
+--
+-- ASCII-clean. Idempotent (guarded on the text being replaced).
+--
+-- ===========================================================================
+-- THE FINDING
+-- ===========================================================================
+-- Caught by the jta.statementVerb invariant added the same day - the first defect
+-- that check found on its own rather than being written to describe one already
+-- known.
+--
+--     statement    "Build quality in continuously (shift-left), including
+--                   AI-generated tests"
+--     bloom_level  4_analyze
+--
+-- "Build" is a Create verb (Bloom 6) opening a task declared at Analyze.
+--
+-- ===========================================================================
+-- WHAT THE EVIDENCE SAYS
+-- ===========================================================================
+-- The rule this project follows is the one migration 094 and the SM-AI-I
+-- reconciliation record both state: the SKILLS line is the diagnostic, not the
+-- statement verb, and the items are the independent check.
+--
+--   S: "Evaluate whether a test suite actually constrains behavior."
+--   A: "Distrust of coverage-as-vanity-metric."
+--
+-- Its live secure items:
+--   "Management argues that adding two more QA reviewers will achieve built-in
+--    quality. Which ANALYSIS correctly identifies..."
+--   "An AI tool raises line coverage from 61% to 89% overnight with 800 new
+--    tests. Does this prove the product is adequately tested?"
+--   "A team uses the same AI model to generate both a microservice and its unit
+--    tests. Tests pass at 94% coverage..."
+--   "A team moves its regression suite to run at PR creation instead of nightly.
+--    Defect escape rates do not improve. What does this reveal?"
+--
+-- Every item hands the candidate a scenario and asks what the suite FAILS to
+-- catch. That is decomposition - Analyze - and it matches the skills line.
+--
+-- So `bloom_level = 4_analyze` is correct, the items are correct, and the task
+-- correctly stays in exam scope. Only the published statement was wrong: it
+-- opened with lean idiom ("build quality in") instead of naming the competence.
+--
+-- ===========================================================================
+-- WHY THIS MATTERS UNDER ISO/IEC 17024
+-- ===========================================================================
+-- 17024 asks a certification body to show a chain: the competence is declared in
+-- the JTA, it is taught, it is assessed, and the published claim matches what is
+-- measured. For this task the chain was declared / taught / tested / MISMATCHED -
+-- only the last link was broken, and only in the wording.
+--
+-- The standard has no opinion on whether a verb is elegant. It has an opinion on
+-- whether the credential attests what it measured. That is the whole reason the
+-- jta.statementVerb check exists, and the only reason this migration does.
+--
+-- "Shift-left" is not lost: it remains in the task's knowledge line and its
+-- concept links, which is where taught-but-not-directly-claimed content belongs.
+--
+-- ===========================================================================
+-- SIDE EFFECT, AND IT IS THE INTENDED ONE
+-- ===========================================================================
+-- Migration 132 added trg_invalidate_task_translations. Changing this statement
+-- will automatically flip the task's es-419 and pt-BR rows back to
+-- is_provisional = true, and verify-cert's i18n.approved invariant will FAIL
+-- until they are re-translated and re-approved.
+--
+-- That is the machinery working on its first real use. Before 132, this edit
+-- would have silently left two translations describing a competence the exam no
+-- longer claims - which is exactly what happened to five SM-AI-I statements at
+-- migration 091 and went unnoticed for weeks.
+--
+-- ---------------------------------------------------------------------------
+-- BEFORE
+-- select code, bloom_level::text, is_exam_scope, statement
+--   from public.tasks
+--  where certification_id = (select id from public.certifications where code='SD-AI-I')
+--    and code = '3.10';
+--
+-- select tt.language, tt.is_provisional, tt.statement
+--   from public.task_translations tt
+--   join public.tasks t on t.id = tt.task_id
+--  where t.certification_id = (select id from public.certifications where code='SD-AI-I')
+--    and t.code = '3.10';
+-- ---------------------------------------------------------------------------
+
+
+update public.tasks
+   set statement = 'Analyze whether a test suite actually constrains behavior, including AI-generated tests'
+ where certification_id = (select id from public.certifications where code = 'SD-AI-I')
+   and code = '3.10'
+   and statement like 'Build quality in%';
+
+
+-- ---------------------------------------------------------------------------
+-- VERIFY
+--
+-- (a) the statement now opens with Analyze, level and scope unchanged.
+-- select code, bloom_level::text, is_exam_scope, statement
+--   from public.tasks
+--  where certification_id = (select id from public.certifications where code='SD-AI-I')
+--    and code = '3.10';
+--
+-- (b) THE TRIGGER FIRED. Expect both rows is_provisional = true.
+-- select tt.language, tt.is_provisional
+--   from public.task_translations tt
+--   join public.tasks t on t.id = tt.task_id
+--  where t.certification_id = (select id from public.certifications where code='SD-AI-I')
+--    and t.code = '3.10';
+--
+-- (c) the blueprint is untouched - no level changed, so invariant 17 must hold.
+-- select c.code,
+--        case when c.exam_blueprint -> 'cognitive_profile' =
+--             (select jsonb_object_agg(p.bloom_level, p.pct_of_form)
+--                from public.v_cognitive_profile p where p.certification_id = c.id)
+--        then 'MATCH' else '*** DIVERGED ***' end as verdict
+--   from public.certifications c where c.code = 'SD-AI-I';
+--
+-- (d) the gate: node scripts\verify-cert.mjs --cert SD-AI-I
+--     Expect jta.statementVerb to PASS and i18n.approved to FAIL with 2 rows -
+--     the FAIL is correct and clears once the translations are re-approved.
+-- ---------------------------------------------------------------------------
