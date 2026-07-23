@@ -1,0 +1,137 @@
+-- 127_quiz_attempts_fk_restrict.sql
+--
+-- Stop item deletion from silently destroying the record that a candidate was
+-- presented that item and answered it.
+--
+-- Editor-first: paste + run in the Supabase SQL editor (project pctynukndxnmnxiqpgck),
+-- then commit this file as the versioned record.
+--
+-- ASCII-clean. Idempotent (drop-if-exists then recreate).
+--
+-- ===========================================================================
+-- THE FINDING
+-- ===========================================================================
+-- Five foreign keys reference public.quiz_questions. Four are correct:
+--
+--   appeals.flagged_question_id     NO ACTION  - a disputed item cannot be
+--                                                deleted out from under the appeal
+--   quiz_questions.supersedes_id    NO ACTION  - the supersession chain survives
+--   question_concepts.question_id   CASCADE    - join-table cleanup, not evidence
+--   fsrs_cards.question_id          CASCADE    - per-user scheduling state, has no
+--                                                meaning without its item
+--
+-- One is not:
+--
+--   quiz_attempts.question_id       CASCADE    <- deleting an item silently
+--                                                deletes every record of it
+--                                                having been answered
+--
+-- A quiz_attempts row is the evidence that a specific candidate was presented a
+-- specific item, what they answered, whether it was correct, and how long they
+-- took. Under ISO/IEC 17024 that is the audit trail behind a scored decision.
+-- An auditor asking "what exactly was this candidate asked, and what did they
+-- answer?" needs that join to survive. Today a single DELETE on quiz_questions
+-- erases it with no error and no trace.
+--
+-- The platform already has the correct alternative built: retired_at,
+-- retired_by, retire_reason, supersedes_id and bank_revision on quiz_questions,
+-- plus v_live_items (serving filter) and v_retired_items_evidence (the audit
+-- view, which joins retired items to their attempts and computes p-values,
+-- times presented and average seconds). Items are meant to be RETIRED, never
+-- deleted. This constraint makes that the only possible path once an item has
+-- been answered.
+--
+-- ===========================================================================
+-- WHY THIS WAS NOT CAUGHT EARLIER
+-- ===========================================================================
+-- Migration 123 deleted 1,026 contaminated items and succeeded. That success was
+-- initially read as proof no attempts referenced them - which is FALSE
+-- reasoning: with CASCADE the delete succeeds either way and takes the attempts
+-- with it.
+--
+-- The actual proof is the timeline: AISM-I's only session was 2026-07-11 and the
+-- contamination was created 2026-07-14, so nothing could have referenced them.
+-- The conclusion held; the reasoning did not.
+--
+-- ===========================================================================
+-- RESTRICT vs NO ACTION
+-- ===========================================================================
+-- Functionally equivalent here (neither constraint is deferrable). RESTRICT is
+-- used because it states the intent explicitly: this delete must not happen.
+-- appeals uses NO ACTION; both are correct, and the difference only matters for
+-- deferrable constraints.
+--
+-- ===========================================================================
+-- CONSEQUENCE FOR THE BLOOM/VERB WORK
+-- ===========================================================================
+-- After this migration, regenerating items for a task whose items have been
+-- answered will FAIL on delete. That is the intended behaviour. Those items must
+-- instead be retired:
+--
+--   update public.quiz_questions
+--      set retired_at    = now(),
+--          retired_by    = <admin uuid>,
+--          retire_reason = 'JTA v2.1: task statement rewritten to the
+--                           MCQ-assessable competence (see
+--                           BLOOM-VERB-RECONCILIATION.md)'
+--    where task_id = <task> and retired_at is null;
+--
+-- then generate replacements with supersedes_id pointing at the retired row.
+-- v_retired_items_evidence should then populate with real p-values.
+--
+-- Only test attempts exist (Juan's own accounts; the platform has not
+-- launched), so this is a zero-stakes rehearsal of the retirement path before
+-- it matters.
+--
+-- ---------------------------------------------------------------------------
+-- BEFORE: how many items would this constraint actually protect?
+--
+-- select c.code,
+--        count(distinct qa.question_id) as items_with_attempts,
+--        count(qa.id)                   as attempt_rows
+--   from public.quiz_attempts qa
+--   join public.quiz_questions q on q.id = qa.question_id
+--   join public.certifications c on c.id = q.certification_id
+--  group by c.code
+--  order by c.code;
+-- ---------------------------------------------------------------------------
+
+
+-- ===========================================================================
+-- THE CHANGE
+-- ===========================================================================
+
+alter table public.quiz_attempts
+  drop constraint if exists quiz_attempts_question_id_fkey;
+
+alter table public.quiz_attempts
+  add constraint quiz_attempts_question_id_fkey
+  foreign key (question_id)
+  references public.quiz_questions (id)
+  on delete restrict;
+
+
+-- ---------------------------------------------------------------------------
+-- VERIFY: expect quiz_attempts.question_id -> RESTRICT, everything else
+-- unchanged.
+--
+-- select tc.table_name, kcu.column_name, rc.delete_rule
+--   from information_schema.table_constraints tc
+--   join information_schema.key_column_usage kcu
+--     on kcu.constraint_name = tc.constraint_name and kcu.table_schema = tc.table_schema
+--   join information_schema.referential_constraints rc
+--     on rc.constraint_name = tc.constraint_name and rc.constraint_schema = tc.table_schema
+--   join information_schema.constraint_column_usage ccu
+--     on ccu.constraint_name = tc.constraint_name and ccu.table_schema = tc.table_schema
+--  where tc.constraint_type = 'FOREIGN KEY'
+--    and tc.table_schema = 'public'
+--    and ccu.table_name = 'quiz_questions'
+--  order by tc.table_name;
+--
+-- Expected:
+--   appeals            flagged_question_id  NO ACTION
+--   fsrs_cards         question_id          CASCADE
+--   question_concepts  question_id          CASCADE
+--   quiz_attempts      question_id          RESTRICT   <- changed
+--   quiz_questions     supersedes_id        NO ACTION
+-- ---------------------------------------------------------------------------
