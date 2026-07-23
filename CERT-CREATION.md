@@ -346,7 +346,60 @@ scheme doc references clause-by-clause.
 
 ---
 
-### Stage 11 — Translate lessons (progressive, not a launch blocker)
+### Stage 11 — Translate the JTA (blueprint) — GATE
+
+**This stage did not exist until July 2026, and its absence caused a real defect.**
+Migration 091 rewrote five SM-AI-I task statements to fix Bloom alignment. Their
+es-419 and pt-BR translations had already been loaded and approved, and nothing
+marked them stale. The Spanish blueprint went on saying *"Explicar los tres
+pilares"* while the exam measured *"Apply the three pillars to diagnose which
+pillar is broken"* — a construct-validity failure for every Spanish-speaking
+candidate. It was found weeks later only because a human read a CSV column by
+column.
+
+**What is translated here.** `task_translations` and `domain_translations`: the
+task statements and domain titles/descriptions that the published blueprint page
+renders. This is separate from lesson translation (Stage 12) and from item
+translation (already done inside Stage 9).
+
+```powershell
+cd C:\Users\Juan\Documents\certidemy\certidemy-web
+node scripts\load-jta-i18n.mjs --cert <CODE> --dry            # drafts, is_provisional = true
+node scripts\load-jta-i18n.mjs --cert <CODE>
+# ... external review ...
+node scripts\load-jta-i18n.mjs --cert <CODE> --dry --approve  # ALWAYS dry first
+node scripts\load-jta-i18n.mjs --cert <CODE> --approve
+```
+
+- **`--approve` re-upserts the CURRENT file contents** with `is_provisional =
+  false`. So approving-with-fixes is one step: edit the pack, then `--approve`
+  writes the correction and clears the flag together.
+- **The pack is ASCII-only** — every accented character is a `\uXXXX` escape, so
+  corrected text reaches the database through the API loader and cannot be
+  corrupted by a SQL-editor paste.
+- **Terminology is governed by `TERMINOLOGY-POLICY.md`**, not by translator
+  preference. Sixteen rules, each traceable to a primary source or a recorded
+  review decision. Read it before drafting, and cite it when briefing the
+  external reviewer — otherwise the reviewer will "helpfully" propose changes
+  that violate settled policy.
+- **Check the pack block is COMPLETE before relying on `--approve`.** Some certs
+  carry "stragglers only" stub blocks whose remaining rows were written straight
+  to the database with no disk representation. A stub cert needs the pack
+  expanded plus a migration to clear the flag on rows the pack does not carry.
+  Compare the block's task count against the database before starting.
+
+**THE GATE:** `verify-cert.mjs` invariant `i18n.approved` fails on any
+provisional translation. A certification cannot publish while one exists.
+
+**You do not have to remember to re-run this.** Migration 132 added
+`trg_invalidate_task_translations` and `trg_invalidate_domain_translations`:
+changing an English statement, or a domain title or description, flips that row's
+translations back to provisional **in the same transaction**. Any later JTA edit
+— a Bloom reconciliation, a statement rewrite — automatically reopens this stage
+and the gate holds the cert until it is closed again.
+
+---
+### Stage 12 — Translate lessons (progressive, not a launch blocker)
 
 Per `TRANSLATION-PIPELINE.md` + `translate-lessons.mjs` → `load-lessons-direct.mjs`
 (`--lang es-419` / `--lang pt-BR`). The `lesson_group_id = uuid_v5(cert_uuid, slug)`
@@ -357,7 +410,7 @@ state this transparently in the scheme's open-content note.
 
 ---
 
-### Stage 12 — Confirm exam params → publish → set status
+### Stage 13 — Confirm exam params → publish → set status
 
 - Reconcile the scheme's §6 exam table against the live `certifications` row
   (`num_questions`, `passing_score_pct`, `exam_duration_minutes`). "I"-tier
@@ -458,6 +511,7 @@ L2 cert — it would flatten the best-answer items into wrong-answer items.
 - [ ] Lessons authored to the style-guide gate; `LESSON_AUTHORING_SPEC` clean.
 - [ ] Load + wire + `v_coverage_summary`: taught = total, violations = 0.
 - [ ] Secure + practice banks at floor, trilingual; all §4 invariants pass.
+- [ ] JTA translated, externally reviewed, `--approve`d; `i18n.approved` shows 0 provisional.
 - [ ] Exam params reconciled with the live `certifications` row.
 - [ ] Grants shipped ahead of any new authed read; build green; both repos pushed.
 - [ ] Status set (`coming_soon` or `available`); cert row added to PIPELINE-INDEX.
