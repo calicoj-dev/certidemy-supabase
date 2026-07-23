@@ -651,12 +651,18 @@ async function verify(cert) {
       // The scenario clause can be closed by a comma OR by a dash-delimited
       // aside: "Given a described situation - including a decision about
       // whether to adopt AI - apply the appropriate guiding principle".
-      // Take the LAST such delimiter so a nested aside does not strand us
-      // mid-clause; the competence verb is what follows it.
-      const parts = s.split(/\s+-\s+|\s+--\s+|,/);
-      if (parts.length > 1) {
-        const tail = parts[parts.length - 1].trim();
-        if (tail) s = tail;
+      // Take the FIRST delimiter: the scenario clause is the OPENING one, and
+      // everything after it is the competence. Taking the last lands mid-sentence
+      // on a list comma - "determine where AIOps adds value across monitoring,
+      // event correlation, and noise reduction" would parse the verb as "and".
+      // A dash-delimited aside is closed by its second dash, so prefer a dash
+      // pair when present.
+      const dash = s.match(/^(.*?)\s+-\s+(.*?)\s+-\s+(.*)$/);
+      if (dash) {
+        s = dash[3].trim();
+      } else {
+        const i = s.search(/\s+-\s+|,/);
+        if (i > -1) s = s.slice(i).replace(/^(\s+-\s+|,)\s*/, "").trim();
       }
     }
     const words = [s.split(/[\s,:]+/)[0]];
