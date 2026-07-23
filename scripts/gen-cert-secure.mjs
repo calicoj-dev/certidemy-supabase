@@ -97,6 +97,9 @@ const CHUNK = int(process.env.CHUNK, 8);
 const MAX_TASKS = int(process.env.MAX_TASKS, 0);
 const ONLY_TASK = (process.env.TASK_ID || "").trim();
 const DRY_RUN = ["1", "true", "yes"].includes((process.env.DRY_RUN || "").toLowerCase());
+// Stamps every generated row. Bump when regenerating against changed tasks so that
+// retired items and their replacements stay distinguishable in v_retired_items_evidence.
+const BANK_REVISION = (process.env.BANK_REVISION || "v2-jta").trim();
 
 const MODEL = "claude-sonnet-4-6";
 const LANGS = [
@@ -303,6 +306,7 @@ async function gather() {
       .select("task_id, language")
       .eq("certification_id", CERT_ID)
       .eq("pool", "secure")
+      .is("retired_at", null)   // retired items are NOT stock: counting them makes regeneration a silent no-op
       .order("id")   // load-bearing: unordered .range() overlaps pages and corrupts the deficit count
       .range(from, from + PAGE - 1);
     if (error) throw new Error(`quiz_questions: ${error.message}`);
@@ -451,7 +455,7 @@ async function main() {
               );
               return b;
             })(),
-            bank_revision: "v2-jta",
+            bank_revision: BANK_REVISION,
             language: langCode,
             pool: "secure",
             is_exam_scope: true,
