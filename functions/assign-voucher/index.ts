@@ -144,6 +144,9 @@ serve(async (req) => {
         assigned_by: caller,
         status: "assigned",
         assigned_at: now,
+        // The holder's own six months. Independent of the batch date, which
+        // gates ASSIGNMENT rather than redemption (migration 137).
+        expires_at: new Date(Date.now() + 182 * 24 * 60 * 60 * 1000).toISOString(),
         updated_at: now,
       })
       .select("id, voucher_code, assigned_email, status")

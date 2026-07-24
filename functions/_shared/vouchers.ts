@@ -44,6 +44,7 @@ interface VoucherRow {
   status: string;
   attempts_allowed: number | null;
   attempts_used: number;
+  expires_at?: string | null;
   batch_id: string | null;
   company_certification_id: string | null;
   company_id: string | null;
@@ -103,7 +104,7 @@ export async function getEligibility(
   const { data: rows } = await svc
     .from("vouchers")
     .select(
-      "id, status, attempts_allowed, attempts_used, batch_id, company_certification_id, company_id",
+      "id, status, attempts_allowed, attempts_used, batch_id, company_certification_id, company_id, expires_at",
     )
     .eq("assigned_user_id", userId)
     .eq("certification_id", certificationId)
@@ -120,7 +121,12 @@ export async function getEligibility(
     };
   }
 
+  const nowMs = Date.now();
   for (const v of rows as VoucherRow[]) {
+    // EXPIRY IS A HARD GATE. A seat past its six months cannot be redeemed, even
+    // with attempts left - the whole point of the clock is that the credential
+    // reflects competence measured against a current bank and a current JTA.
+    if (v.expires_at && new Date(v.expires_at).getTime() < nowMs) continue;
     const allowance = await resolveAllowance(svc, v);
     if (allowance === null) {
       return {
