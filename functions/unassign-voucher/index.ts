@@ -25,6 +25,26 @@
 // This is also the honest reading of the partner's own case: the person who left
 // never took the exam. If they had, the company got what it paid for.
 //
+// B2C SEATS CANNOT BE UNASSIGNED
+//
+// A direct seat has no batch and no company. Two things break if it is returned:
+//
+//   1. There is no pool. 'available' means "back on the shelf", and a direct
+//      voucher has no shelf - no company owns it, no batch lists it, no admin
+//      surface can draw from it. The row becomes an orphan nobody can reach.
+//
+//   2. It would never expire. v_voucher_validity resolves an UNASSIGNED seat's
+//      clock from its BATCH (assigned -> voucher clock, otherwise -> batch
+//      clock). Clearing expires_at on a voucher with no batch leaves it with no
+//      clock at all: effective_expires_at NULL, days_remaining NULL,
+//      effective_status back to raw. An immortal seat, which is precisely what
+//      the two-clock model exists to prevent.
+//
+// The real B2C case is a mistyped buyer email, and that is a reassignment rather
+// than a return. The path is revoke and re-issue, which keeps the CertiGlobal
+// refund and the replacement seat as two separate auditable events instead of
+// one silent mutation.
+//
 // WHAT IS CLEARED, AND WHY EACH ONE
 //
 //   status           -> 'available'   the seat is inventory again
@@ -70,8 +90,8 @@ serve(async (req) => {
   try {
     const svc = getServiceClient();
     const caller = await authenticate(req);
-    const body = (await req.json()) as Body;
 
+    const body = (await req.json()) as Body;
     const voucherId = body.voucher_id?.trim();
     if (!voucherId || !UUID_RE.test(voucherId)) {
       throw new HttpError(400, "valid voucher_id required");
@@ -96,6 +116,7 @@ serve(async (req) => {
       .select("platform_role")
       .eq("id", caller)
       .maybeSingle();
+
     const isPlatformAdmin =
       (profile as { platform_role?: string } | null)?.platform_role === "platform_admin";
 
@@ -109,6 +130,7 @@ serve(async (req) => {
         .eq("user_id", caller)
         .eq("company_id", voucher.company_id)
         .maybeSingle();
+
       // team_members.role is team_admin | team_member - there is no "owner".
       const role = (membership as { role?: string } | null)?.role;
       if (role !== "team_admin") {
@@ -117,12 +139,24 @@ serve(async (req) => {
     }
 
     // 3. State guards, in the order a human would ask them.
+
+    //    Is this seat returnable at all? A direct (B2C) seat has no batch, so
+    //    there is no pool to return it to and no batch clock to bound it once
+    //    its own expiry is cleared. See the B2C note in the header.
+    if (!voucher.batch_id) {
+      throw new HttpError(
+        409,
+        "this is a direct seat with no batch pool to return it to - revoke it and issue a new one instead",
+      );
+    }
+
     if (voucher.status !== "assigned") {
       throw new HttpError(
         409,
         `only an assigned seat can be returned to the pool (this one is '${voucher.status}')`,
       );
     }
+
     if ((voucher.attempts_used as number) > 0) {
       throw new HttpError(
         409,
@@ -151,6 +185,7 @@ serve(async (req) => {
       console.error("unassign update failed", updErr);
       throw new HttpError(500, "failed to return the seat to the pool");
     }
+
     if (!updated) {
       // Lost a race with an exam start: consumeAttempt moved attempts_used
       // between our read and our write. The seat is now spent and stays assigned.
