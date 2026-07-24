@@ -16,7 +16,7 @@
 // task-level blueprint flag).
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-import initWasm, { Resvg } from "https://esm.sh/@resvg/resvg-wasm@2.6.2";
+import { initWasm, Resvg } from "https://esm.sh/@resvg/resvg-wasm@2.6.2?target=deno";
 import { corsHeaders } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
 
