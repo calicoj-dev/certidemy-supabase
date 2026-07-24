@@ -109,8 +109,9 @@ serve(async (req) => {
         .eq("user_id", caller)
         .eq("company_id", voucher.company_id)
         .maybeSingle();
+      // team_members.role is team_admin | team_member - there is no "owner".
       const role = (membership as { role?: string } | null)?.role;
-      if (role !== "admin" && role !== "owner") {
+      if (role !== "team_admin") {
         throw new HttpError(403, "not authorized for this voucher");
       }
     }
