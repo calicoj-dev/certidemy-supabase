@@ -3,7 +3,7 @@
 // PUBLIC endpoint (deploy with --no-verify-jwt). Renders a 1200x630 branded PNG
 // card for a credential, used as the og:image on the /verify/<code> page so a
 // pasted link previews as a real credential (LinkedIn/WhatsApp/Slack require a
-// raster image — SVG won't render there).
+// raster image â€” SVG won't render there).
 //
 // ROBUSTNESS: the per-credential card is rendered at the edge with resvg-wasm.
 // If ANYTHING fails (wasm/font fetch, lookup miss, render error), the function
@@ -20,7 +20,7 @@ import initWasm, { Resvg } from "https://esm.sh/@resvg/resvg-wasm@2.6.2";
 import { corsHeaders } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
 
-const SITE_URL = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.pages.dev";
+const SITE_URL = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 const FALLBACK_URL = `${SITE_URL}/og/credential-fallback.png`;
 
 const UUID_RE =
@@ -100,7 +100,7 @@ function buildSvg(c: CardData): string {
   <circle cx="84" cy="536" r="6" fill="${statusColor}"/>
   <text x="102" y="544" font-family="Poppins" font-weight="600" font-size="22" letter-spacing="2" fill="${statusColor}">${statusLabel}</text>
   <text x="72" y="592" font-family="Poppins" font-weight="400" font-size="24" fill="#968d9b">${code}</text>
-  <text x="1128" y="592" font-family="Poppins" font-weight="600" font-size="24" fill="#c9c0cd" text-anchor="end">certidemy.pages.dev</text>
+  <text x="1128" y="592" font-family="Poppins" font-weight="600" font-size="24" fill="#c9c0cd" text-anchor="end">certidemy.com</text>
 </svg>`;
 }
 
@@ -132,7 +132,7 @@ async function fallback(): Promise<Response> {
         headers: { "content-type": "image/png", "cache-control": "public, max-age=300", ...corsHeaders },
       });
     }
-  } catch { /* ignore — fall through to redirect */ }
+  } catch { /* ignore â€” fall through to redirect */ }
   return new Response(null, { status: 302, headers: { location: FALLBACK_URL, ...corsHeaders } });
 }
 

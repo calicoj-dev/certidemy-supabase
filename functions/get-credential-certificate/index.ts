@@ -15,7 +15,7 @@
 //   - Lazy + cached: if a certificate_path is already stored, returns a
 //     fresh signed URL to it. Otherwise renders the PDF, uploads it to the
 //     private `certificates` bucket, stores the path, and returns the URL.
-//   - The score is never included — consistent with verify-credential.
+//   - The score is never included â€” consistent with verify-credential.
 //
 // Locale: the render language. Preference order:
 //   explicit ?locale=  ->  credential.locale (stamped at mint time)  ->  en.
@@ -36,7 +36,7 @@ const SIGNED_URL_TTL = 60 * 60; // 1 hour
 // Public site origin for the QR verify URL. Override via env if the domain
 // changes; defaults to the live Cloudflare Pages site.
 const VERIFY_BASE =
-  Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.pages.dev";
+  Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -91,7 +91,7 @@ serve(async (req) => {
     }
     if (!cred) return jsonResponse({ found: false }, 404);
 
-    // Validity gate — identical semantics to verify-credential.
+    // Validity gate â€” identical semantics to verify-credential.
     const expired =
       cred.expires_at !== null &&
       new Date(cred.expires_at).getTime() < Date.now();
