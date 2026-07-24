@@ -137,7 +137,7 @@ The body is divided into **sections**, each opened by a marker line starting wit
 ### Example
 ```
 ::callout type="exam-watch"
-CertiProf often asks about the order of values. Memorize it.
+The exam often asks about the order of values. Memorize it.
 ::
 ```
 
@@ -298,7 +298,7 @@ Visual aside. Several types with distinct styles.
 
 ```
 ::callout type="exam-watch"
-CertiProf often asks which value takes precedence. The items on the left are valued MORE.
+The exam often asks which value takes precedence. The items on the left are valued MORE.
 ::
 ```
 
@@ -691,7 +691,7 @@ A diagram with clickable hotspots that reveal explanations.
 
 ### Writing about Scrum-specific terminology
 - Always teach the 2020 Guide term as authoritative
-- When CertiProf uses a legacy term, flag it with a `::callout type="terminology"`
+- When legacy training materials use an older term, flag it with a `::callout type="terminology"`
 - Don't make the deprecated term sound shameful — it's just legacy
 
 ### Localization-friendly writing
@@ -794,7 +794,7 @@ The structure matters. The Manifesto doesn't reject the items on the right — d
 ::
 
 ::callout type="exam-watch"
-CertiProf often asks which Agile value comes first or what each value emphasizes. Memorize the order: Individuals → Software → Collaboration → Change.
+The exam often asks which Agile value comes first or what each value emphasizes. Memorize the order: Individuals → Software → Collaboration → Change.
 ::
 
 ::interactive widget="drag-match" id="match-values-to-behaviors" concept_slugs="agile-values"
