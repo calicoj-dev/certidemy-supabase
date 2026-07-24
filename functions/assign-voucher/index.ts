@@ -23,7 +23,7 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
-import { makeVoucherCode } from "../_shared/vouchers.ts";
+import { makeVoucherCode, hasUsableVoucherByEmail } from "../_shared/vouchers.ts";
 
 interface Body {
   batch_id?: string;
@@ -99,17 +99,14 @@ serve(async (req) => {
 
     // 5. Double-assign guard: this email must not already hold a non-revoked
     //    voucher for this certification (any batch).
-    const { data: existing } = await svc
-      .from("vouchers")
-      .select("id")
-      .eq("assigned_email", email)
-      .eq("certification_id", batch.certification_id)
-      .in("status", ["assigned", "redeemed", "available"])
-      .maybeSingle();
-    if (existing) {
+    const held = await hasUsableVoucherByEmail(svc, email, batch.certification_id);
+    if (held.blocked) {
+      const left = held.attempts_remaining === null
+        ? "unlimited attempts"
+        : `${held.attempts_remaining} attempt(s)`;
       throw new HttpError(
         409,
-        "this email already has a voucher for this certification",
+        `this email already holds an unused seat for this certification (${held.voucher_code}, ${left} remaining)`,
       );
     }
 

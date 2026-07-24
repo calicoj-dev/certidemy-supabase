@@ -165,6 +165,55 @@ export async function getEligibility(
  * Optimistic-lock against double-spend: conditional update matching the exact
  * attempts_used we read; 0 rows affected = lost the race, retry once.
  */
+/**
+ * Does this EMAIL already hold a USABLE seat for this certification?
+ *
+ * "Usable" means an `assigned` voucher with attempts remaining. This is the
+ * double-assign guard for assign-voucher, and it is deliberately narrower than
+ * "has any voucher".
+ *
+ * WHY IT MATTERS: status 'redeemed' does NOT mean the candidate passed - see
+ * consumeAttempt below, which flips a voucher to 'redeemed' the moment its
+ * allowance is EXHAUSTED. Blocking on 'redeemed' therefore refused a new seat to
+ * precisely the person who needs one: someone who used their attempts and wants
+ * to buy more. That is a legitimate, revenue-generating purchase, and under the
+ * published re-examination policy it is how a retake is issued.
+ *
+ * 'revoked' does not block (already the case). 'available' does not block: an
+ * available voucher is by definition unassigned, so an assigned_email on one is
+ * vestigial data rather than a held seat.
+ *
+ * Works by EMAIL, not user id, because a seat can be assigned before the person
+ * has ever signed up.
+ */
+export async function hasUsableVoucherByEmail(
+  svc: SupabaseClient,
+  email: string,
+  certificationId: string,
+): Promise<{ blocked: false } | { blocked: true; voucher_code: string; attempts_remaining: number | null }> {
+  const { data: rows } = await svc
+    .from("vouchers")
+    .select(
+      "id, voucher_code, status, attempts_allowed, attempts_used, batch_id, company_certification_id, company_id",
+    )
+    .ilike("assigned_email", email)
+    .eq("certification_id", certificationId)
+    .eq("status", "assigned");
+
+  for (const row of (rows ?? []) as (VoucherRow & { voucher_code: string })[]) {
+    const allowance = await resolveAllowance(svc, row);
+    if (allowance === null) {
+      // Unlimited: always a usable seat.
+      return { blocked: true, voucher_code: row.voucher_code, attempts_remaining: null };
+    }
+    const remaining = allowance - row.attempts_used;
+    if (remaining > 0) {
+      return { blocked: true, voucher_code: row.voucher_code, attempts_remaining: remaining };
+    }
+  }
+  return { blocked: false };
+}
+
 export async function consumeAttempt(
   svc: SupabaseClient,
   userId: string,
