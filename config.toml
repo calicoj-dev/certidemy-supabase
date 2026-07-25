@@ -406,3 +406,11 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+# Public Edge Function -- serves unauthenticated (the certificate download an
+# employer/recruiter reaches from the public verify page, no account). verify_jwt
+# defaults to true, so WITHOUT this entry a plain redeploy silently re-privatizes
+# it and the download 401s (happened 2026-07-25). Pinned so the flag travels with
+# the repo, not the deploy command.
+[functions.get-credential-certificate]
+verify_jwt = false
