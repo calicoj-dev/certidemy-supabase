@@ -2,7 +2,7 @@
 // blueprint_snapshot) and the full task inventory (code/statement/domain),
 // feeding the scheme cards' JTA artifact drawer. Same gate, same shape
 // otherwise (v1 fields unchanged).
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2?target=deno";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",

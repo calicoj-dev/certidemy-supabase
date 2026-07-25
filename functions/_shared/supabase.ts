@@ -4,7 +4,7 @@
 // - getUserClient(auth) : enforces RLS as the calling user. Use to verify
 //                         the caller's identity via auth.getUser().
 
-import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2?target=deno";
 
 export function getServiceClient(): SupabaseClient {
   return createClient(

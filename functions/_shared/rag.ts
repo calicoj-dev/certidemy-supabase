@@ -3,7 +3,7 @@
 // Given a query, returns the top-K chunks most similar to it, filtered to
 // the specified certification. Used by the chat-tutor Edge Function.
 
-import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
+import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2?target=deno";
 import { embedText } from './voyage.ts';
 import type { RetrievedChunk } from './prompts.ts';
 
