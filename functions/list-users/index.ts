@@ -43,6 +43,7 @@ interface Enrollment {
   name: string;
   source: string; // self | voucher | seat | admin
   status: string; // active | archived | completed
+  certified: boolean; // holds an active credential for THIS cert
 }
 
 interface CensusUser {
@@ -132,6 +133,32 @@ serve(async (req) => {
       }
     }
 
+    // --- certified: active credentials, keyed by user AND by user+cert -----
+    // certifiedIds answers "certified in anything" (drives the account stage);
+    // certifiedUserCert answers "certified in THIS cert" (greens the matching
+    // enrollment chip, so a person certified in one cert but studying others
+    // still shows their in-progress work). Built here, before enrollments, so
+    // each enrollment can be tagged as it's assembled.
+    const certifiedIds = new Set<string>();
+    const certifiedUserCert = new Set<string>(); // key: `${user_id}|${CERT_CODE}`
+    {
+      const { data: creds } = await svc
+        .from("credentials")
+        .select("user_id, status, certification_code")
+        .eq("status", "active")
+        .in("user_id", userIds.length > 0 ? userIds : ["00000000-0000-0000-0000-000000000000"]);
+      for (const c of (creds ?? []) as {
+        user_id: string;
+        status: string;
+        certification_code: string | null;
+      }[]) {
+        certifiedIds.add(c.user_id);
+        if (c.certification_code) {
+          certifiedUserCert.add(`${c.user_id}|${c.certification_code.toUpperCase()}`);
+        }
+      }
+    }
+
     // --- 3. enrollments (user_certifications + cert code/name) --------------
     const enrollmentsByUser = new Map<string, Enrollment[]>();
     {
@@ -152,6 +179,9 @@ serve(async (req) => {
           name: r.certifications.name,
           source: r.source,
           status: r.status,
+          certified: certifiedUserCert.has(
+            `${r.user_id}|${r.certifications.code.toUpperCase()}`,
+          ),
         });
         enrollmentsByUser.set(r.user_id, list);
       }
@@ -199,19 +229,6 @@ serve(async (req) => {
         ) {
           usableByUser.set(v.assigned_user_id, { daysRemaining: days });
         }
-      }
-    }
-
-    // --- 5. certified: users with an active credential ---------------------
-    const certifiedIds = new Set<string>();
-    {
-      const { data: creds } = await svc
-        .from("credentials")
-        .select("user_id, status")
-        .eq("status", "active")
-        .in("user_id", userIds.length > 0 ? userIds : ["00000000-0000-0000-0000-000000000000"]);
-      for (const c of (creds ?? []) as { user_id: string; status: string }[]) {
-        certifiedIds.add(c.user_id);
       }
     }
 
