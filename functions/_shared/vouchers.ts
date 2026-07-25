@@ -18,7 +18,7 @@
 // batches. This file doesn't implement top-up, but resolveAllowance treats
 // unlimited correctly: NULL allowance = unlimited for that one voucher holder.
 
-import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2?target=deno";
+import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 export interface VoucherEligibility {
   has_voucher: boolean;

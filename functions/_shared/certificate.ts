@@ -19,9 +19,9 @@ import {
   rgb,
   type PDFFont,
   type PDFPage,
-} from "https://esm.sh/pdf-lib@1.17.1?target=deno";
-import fontkit from "https://esm.sh/@pdf-lib/fontkit@1.1.1?target=deno";
-import QRCode from "https://esm.sh/qrcode@1.5.3?target=deno";
+} from "https://esm.sh/pdf-lib@1.17.1";
+import fontkit from "https://esm.sh/@pdf-lib/fontkit@1.1.1";
+import QRCode from "https://esm.sh/qrcode@1.5.3";
 import {
   INTER_REGULAR_B64,
   INTER_SEMIBOLD_B64,
