@@ -112,7 +112,7 @@ market-aligned, regulation-aligned, and job-anchored.
 |Open/closed book|Closed book|
 |Attempts|1 included; retake purchasable|
 |Bloom ceiling|3 (Apply) — literacy tier; no Analyze+ in MCQs|
-|Pricing model|**Free to study + sit the exam; small fee ($19-29) to mint the verifiable credential/badge**|
+|Commercial model|Free to study; the examination is purchased on certiglobal.org. Price points are CertiGlobal's and are not scoped by this JTA.|
 |Validity|2 years (proposed)|
 |Languages offered|English, Español (es-419), Português (pt-BR)|
 
