@@ -3,9 +3,12 @@
 **Scheme owner:** Certidemy (the certification body)
 **Scheme code:** AIHR-I
 **Document version:** 1.0
-**Status:** Pre-production scheme of record. JTA locked at v1.2; cert row not yet
-scaffolded (`status` will be `draft` on creation).
-**Basis document:** `AIHR-I_JTA_v1_2.md` (LOCKED, 25 July 2026)
+**Status:** Scheme of record. JTA locked at v2.0 (launch baseline) and scaffolded by
+migrations 145-148. 28 lessons authored and loaded; secure and practice item banks
+generated and verified. `verify-cert.mjs` returns 28 pass / 0 fail with one warning
+(progressive lesson localization). Cert row at `status = 'draft'` pending the
+publication decisions in §11.6.
+**Basis document:** `AIHR-I_JTA_v2.0.md` (LOCKED — launch baseline, 26 July 2026)
 **Last updated:** July 25, 2026
 
 ---
@@ -55,7 +58,7 @@ distinction is binding on all marketing and catalog copy for this credential (§
 | Credential type | Knowledge-and-application certification (entry / "I" tier) |
 | Tier relationship | **Lateral to AIE-I**, not above it. A role specialization, not a rung on the AI Essentials literacy ladder (Level II there remains CAIP-I). |
 | Languages offered | English, Latin American Spanish (es-419), Brazilian Portuguese (pt-BR) |
-| Credential validity | See §9 — **open decision**, JTA v1.2 states 2 years; this document recommends 1 |
+| Credential validity | **1 year** (§9) |
 | Delivery | Online, remotely proctored-equivalent secure examination |
 | Commercial model | Free to study. The examination is purchased on certiglobal.org; **price points are CertiGlobal's and are not scoped by this scheme.** |
 
@@ -172,12 +175,16 @@ level from the task it is written against, enforced at the database level by
 `trg_item_bloom_matches_task`. An item cannot claim a cognitive level its parent task
 does not declare.
 
-**Task statements are assessment-valid by construction.** Every task statement uses a
-verb an examination of this format can actually measure — identify, determine,
-distinguish, explain, recognize, evaluate, analyze, select, judge, apply. Statements
-denoting production (write, draft, create, maintain) were systematically removed at
-JTA v1.1, because an item written against a production verb silently measures
-something narrower than the task claims. Where the underlying competence is
+**Task statements are assessment-valid by construction**, under two separate
+constraints. First, every statement uses a verb an examination of this format can
+actually measure; statements denoting production (write, draft, create, maintain) were
+systematically removed at JTA v1.1, because an item written against a production verb
+silently measures something narrower than the task claims. Second, every verb sits
+**at or below its task's declared cognitive level** — no statement opens with a Bloom-5
+verb such as *evaluate* or *judge* while the examination measures at Analyze or below,
+because the statement is the published claim and a verb above the assessment overstates
+it. Three statements failed the second constraint at scaffold and were corrected before
+any content was authored; the check is an automated invariant, not a review habit. Where the underlying competence is
 productive, the KSA skills line still records it and the instruction still teaches it;
 only the *assessable claim* is narrowed. This boundary is stated rather than concealed
 (see JTA §4 Rule 5 and the note under task 3.3).
@@ -317,36 +324,28 @@ document is a hope.
 
 ## 9. Recertification
 
-**Credential validity: OPEN DECISION — this section requires a determination before
-publication.**
+**Credential validity: 1 year.**
 
-JTA v1.2 states a validity period of **2 years**, adopted for consistency with AIE-I.
-Authoring this scheme surfaced a problem with that figure that the JTA did not
-consider, and it is recorded here rather than resolved silently.
+The period is set by house policy across Certidemy credentials, and the reason
+concerns the **certification's content** rather than the candidate's memory. A
+validity period is a commitment to re-review the body of knowledge on that cadence
+and to reissue only against material that still holds. Where a credential's subject
+matter is anchored to a stable framework, that review may confirm the existing
+version repeatedly and the scheme will hold a version for a long time. Where it is
+not, the review will change things.
 
-**The problem.** This credential's Domain 2 competence is anchored to a legal
-landscape that demonstrably moves faster than two years. On the current timetable, EU
-high-risk obligations for employment AI apply from December 2027 and one US state's
-replacement statute takes effect January 2027 — both *after* a candidate certified
-today would still be within a two-year validity window. A credential asserting current
-legal literacy while the underlying obligations have changed underneath it is a
-weaker claim than the scheme wants to make.
+For AIHR-I the commitment is not notional. In the six months before this scheme was
+written, the EU deferred its employment high-risk obligations by sixteen months, one
+US state repealed its AI act before it took effect and replaced it with a
+structurally different statute, and another brought a new regime into force with
+implementing rules unfinalized. A credential asserting current competence across
+that landscape cannot honestly run for two years, and the perishability controls in
+§11.2 exist because of the same facts.
 
-**Recommendation: 1 year**, matching AIGRM-I, the catalog's other regulation-facing
-credential. This is defensible on the subject matter, consistent within the catalog's
-regulation-facing tier, and honest about what the credential can assert.
-
-**What adopting it requires.** Validity is an examination parameter, not a task code —
-amending it costs a JTA revision to v1.3 and a one-field change at scaffold. It does
-not reopen the lock on any task, statement, weight, or cognitive level. **Juan's
-decision.** Until it is taken, this scheme carries the JTA's 2-year figure and this
-section is the record of the dispute.
-
-**Recertification mechanism (either validity period).** Recertification is by
-re-examination against the then-current form. Certidemy does not offer
-continuing-education-credit recertification for this credential, because the thing
-most likely to have gone stale is precisely the material a candidate would need to be
-re-tested on rather than merely exposed to.
+**Recertification is by re-examination** against the then-current form. Certidemy
+does not offer continuing-education-credit recertification for this credential,
+because the thing most likely to have gone stale is precisely the material a
+candidate would need to be re-tested on rather than merely exposed to.
 
 **Issued credentials are permanent records.** Expiry changes what a credential
 asserts about currency; it does not revoke the fact that the holder passed a
@@ -506,7 +505,6 @@ Named plainly rather than implied as satisfied:
   commercial and training functions (§8).
 - Operational records required by the standard: appeals, complaints handling,
   examination-integrity and identity procedures, and internal audit.
-- Determination of the validity period (§9).
 - Latin American regulatory content authored into Domain 2 — **a launch requirement
   for this credential, not a fast-follow** (§11.6).
 

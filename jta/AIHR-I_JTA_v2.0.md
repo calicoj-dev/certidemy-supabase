@@ -1,9 +1,12 @@
-# AIHR-I — Job-Task Analysis (v1.3 — LOCKED, scaffolded)
+# AIHR-I — Job-Task Analysis (v2.0 — LAUNCH BASELINE)
 
-**Document version:** 1.3
-**Status:** **LOCKED and scaffolded.** Seeded to the database by migrations 145-148
-(2026-07-25); `verify-cert.mjs --cert AIHR-I` returns 17 pass / 0 warn, the only
-failures being content-absence (no lessons or item banks yet). This is the basis for content production. Exam parameters
+**Document version:** 2.0
+**Status:** **LOCKED — launch baseline.** Seeded by migrations 145-148, content
+authored and loaded, both item banks generated. `verify-cert.mjs --cert AIHR-I`
+returns **28 pass / 0 fail**, the single warning being progressive lesson
+localization, which is explicitly not a launch blocker. Version 2.0 aligns this
+document with the rest of the catalog, all of which begin at 2.0 for launch;
+pre-launch drafting history is in git and is not carried forward here. This is the basis for content production. Exam parameters
 signed off by Juan on 25 July 2026. Task codes and statements below are now
 immutable; changing one requires a new version and a re-lock, not an edit.
 **Certification:** Certidemy AI for Human Resources & Talent I (AIHR-I) —
@@ -20,32 +23,12 @@ remains **CAIP-I**.
 
 ## Change log
 
-- **v1.2a** — documentation correction before commit, not a scheme change: struck two
-  references to pricing as an open Certidemy decision. Price points are CertiGlobal's;
-  the scheme owns validity, attempts, and the free-to-learn / paid-to-examine split, and
-  nothing else commercial. No task, code, statement, weight, Bloom level, or exam
-  parameter moved.
-- **v1.3** — post-scaffold reconciliation. Three task statements corrected (2.5, 3.5,
-  4.4) after `verify-cert.mjs` invariant `jta.statementVerb` caught them publishing a
-  Bloom-5 verb above their declared level; **Rule 5 amended** with the clause that was
-  missing. Concept inventory replaced with the scaffolded count (114 actual, not the
-  ~97 estimated). Declared levels, weights, codes, and item counts unchanged. Applied
-  as migration 148.
-- **v1.2** — **LOCKED.** Exam duration set to **50 minutes** (from 60) on Juan's
-  call; item count held at 40. Rationale in §6 — the burden concern sits in the
-  minutes figure on the catalog page, not the item count, and 75 s/item is still more
-  generous than the house's own Scrum certs at 67.5 s/item. No structural change: no
-  task, code, statement, weight, or Bloom level moved.
-- **v1.1** — Grok review reconciled. **Seven** task statements narrowed from
-  production verbs to MCQ-assessable verbs (review caught one; the sweep found six
-  more — see §4 Rule 5). Exam expanded **30 → 40 items / 45 → 60 minutes** to fix
-  task under-sampling; weights preserved and still land on whole item counts. Two
-  tasks added (2.9 vendor documentation, 3.9 internal mobility) closing the gaps
-  the review identified. Domain 3 firewall converted from prose rule to a
-  **runnable pre-publication check** (§5). Domain 2 held at 30% with its
-  positioning phrase now binding (§1). No domain weights changed. No task codes
-  from v1.0 changed.
-- **v1.0** — initial draft. Regulatory currency verified July 25, 2026.
+- **v2.0** — launch baseline. Aligns with the catalog convention that every JTA
+  begins at 2.0 at launch. Consolidates the pre-launch drafting sequence (external
+  review, MCQ-verb rules, exam parameters, scaffolding reconciliation) into a single
+  locked document, and sets the **credential validity period to 1 year** per §6.
+  Content is otherwise unchanged from the version verified against the database:
+  4 domains, 28 tasks, 114 concepts, 118 links.
 
 ---
 
@@ -214,7 +197,6 @@ legal." A cert producing recruiters who think they can self-clear a compliance
 question is worse than no cert.
 
 **Rule 5 — Task verbs must be MCQ-assessable *and* at or below the declared level.**
-*(v1.1: first clause. v1.3: second clause added after it failed in practice.)*
 
 **5a — assessability.**
 The exam is multiple choice. A task statement whose verb denotes *production*
@@ -224,7 +206,7 @@ silently test something narrower than the task claims. Every task statement uses
 selection-compatible verb: **identify, determine, distinguish, explain, recognize,
 evaluate, analyze, select, judge, apply.**
 
-This rule was applied as a sweep in v1.1 and rewrote **seven** statements: 1.1,
+Applied as a sweep during drafting, this rule rewrote **seven** statements: 1.1,
 2.8, 3.1, 3.3, 3.8, 4.2, 4.5. The underlying competence is unchanged in every case
 — the KSA `S:` lines still describe the productive skill, because that is what
 lessons teach and what the learner does at work. Only the *assessable claim*
@@ -237,12 +219,12 @@ Bloom level** — for this scheme, at or below 4 (Analyze). A task statement is 
 *published claim* about what the credential measures; a verb one level above the
 assessment overstates it.
 
-This clause exists because v1.1 lacked it. Rule 5a listed *evaluate* and *judge* among
+This clause exists because the first version of the rule lacked it. Rule 5a listed *evaluate* and *judge* among
 the permitted verbs: both are MCQ-assessable and both sit at Bloom 5. Three statements
 carried them into the scaffold (2.5, 3.5, 4.4), and `verify-cert.mjs` invariant
 `jta.statementVerb` caught all three before any content was authored.
-**MCQ-assessability and level-appropriateness are separate constraints; v1.1 enforced
-only the first.**
+**MCQ-assessability and level-appropriateness are separate constraints, and enforcing
+only the first is not enough.**
 
 Permitted opening verbs, level-banded:
 
@@ -262,9 +244,9 @@ Verified across all 28 statements after correction: zero Bloom-5 verbs remain.
 Domain 3 teaches learners how to evaluate credentials. Certidemy sells credentials.
 That is a real conflict, handled structurally.
 
-External review confirmed the v1.0 structure survives a hostile reading, with one
+External review confirmed the structure survives a hostile reading, with one
 caveat: the rules were **aspirational prose**, and a merely-competent item writer
-could still produce a self-serving stem. v1.1 makes them checkable.
+could still produce a self-serving stem. They are now checkable.
 
 ### The five structural rules
 
@@ -314,14 +296,14 @@ look if this ever goes wrong.
 | Attribute | Value |
 |---|---|
 | Format | Multiple choice, online, scenario-stemmed |
-| Questions | **40** *(v1.1: raised from 30)* |
-| Duration | **50 minutes** *(v1.2: set from 60)* |
+| Questions | **40** |
+| Duration | **50 minutes** |
 | Passing score | **80% (32 / 40)** — provisional, pending standard-setting |
 | Open/closed book | Closed book |
 | Attempts | 1 included; retake purchasable |
 | Bloom ceiling | **4 (Analyze)** |
 | Bloom floor | **2 (Understand)** — no `1_remember` anywhere in this scheme |
-| Validity | 2 years |
+| Validity | **1 year** |
 | Languages | English, Español (es-419), Português (pt-BR) |
 | Prerequisite | None. AIE-I recommended, not required. |
 
@@ -350,7 +332,24 @@ arithmetic. "40 questions · 50 minutes" reads as a lunch break.
 Cutting to 30 items was rejected. At 28 tasks that yields 1.07 items per task: every
 task sampled exactly once, no headroom to weight the high-criticality ones, and a
 single weak item takes out a whole task's coverage. An honest 30-item version requires
-culling to ~22 tasks, dropping content added for good reason in v1.1.
+culling to ~22 tasks, dropping content added for good reason.
+
+**On 1-year validity.** Certidemy credentials expire after one year as a matter of
+house policy, and the reason is about the **certification's content**, not the
+candidate's memory. A validity period is a commitment to re-review the body of
+knowledge on that cadence and to reissue only against material that still holds.
+
+For this scheme the commitment is not notional. Between February and July 2026 the
+EU deferred its employment high-risk obligations by sixteen months, one US state
+repealed its AI act before it took effect and replaced it with a structurally
+different statute, and another brought a new regime into force with implementing
+rules unfinalized. A credential asserting current competence in that landscape
+cannot honestly run for two years.
+
+Credentials whose body of knowledge is anchored to a stable framework may hold a
+version for far longer in practice; the review cadence is the same, and the outcome
+of the review differs. Recertification is by re-examination against the then-current
+form (§9 of the scheme document).
 
 **Duration is the reversible parameter.** `exam_duration_minutes` is a one-row update
 once median completion times exist from live candidates; item count is a blueprint
@@ -442,7 +441,6 @@ evidence. Establishes the object that D2, D3 and D4 then govern, evaluate, and u
 | Simulation candidate | No |
 | Concept slugs | `talent-lifecycle`, `ai-in-sourcing`, `ai-in-screening`, `ai-in-worker-management` |
 
-*v1.1: "Map" → "Identify" (Rule 5).*
 
 **KSAs:**
 
@@ -691,7 +689,6 @@ volatility. Confirmed by external review.
 * **A:** Treating vendor assurance as an input to one's own judgment, not a
   substitute for it
 
-*v1.3: opening verb "Evaluate" (Bloom 5) -> "Analyze" (Rule 5b). Competence unchanged.*
 
 ---
 
@@ -759,8 +756,6 @@ it entirely.
 | Simulation candidate | No |
 | Concept slugs | `decision-record`, `record-retention`, `documented-human-judgment`, `audit-trail` |
 
-*v1.1: "Maintain a defensible record…" → "Determine what a defensible record… must
-contain" (Rule 5).*
 
 **KSAs:**
 
@@ -774,7 +769,7 @@ contain" (Rule 5).*
 
 ---
 
-### Task 2.9 — Determine the minimum documentation a deployer should require from an AI hiring vendor *(NEW in v1.1)*
+### Task 2.9 — Determine the minimum documentation a deployer should require from an AI hiring vendor
 
 | Attribute | Value |
 |---|---|
@@ -828,8 +823,6 @@ the product.
 | Simulation candidate | Yes |
 | Concept slugs | `requirement-elicitation`, `need-to-capability`, `role-scoping` |
 
-*v1.1: "Translate a business need into AI-related role requirements" → current
-statement (Rule 5).*
 
 **KSAs:**
 
@@ -877,8 +870,6 @@ statement (Rule 5).*
 | Simulation candidate | Yes |
 | Concept slugs | `task-based-requirement`, `tool-name-versus-capability`, `over-specification`, `must-have-versus-nice-to-have` |
 
-*v1.1: "Write a job description that specifies…" → current statement (Rule 5).
-Flagged by external review; the sweep found six others.*
 
 **KSAs:**
 
@@ -942,7 +933,6 @@ papered over.
 * **A:** Neither dismissing credentials nor over-reading them; one evidence source
   among several
 
-*v1.3: opening verb "Evaluate" (Bloom 5) -> "Analyze" (Rule 5b). Competence unchanged.*
 
 **Firewall: §5 rules 1–5 apply. Subject to the §5 pre-publication check.**
 
@@ -1018,7 +1008,6 @@ Subject to the §5 check, and the first place to look if the firewall ever fails
 | Simulation candidate | Yes |
 | Concept slugs | `credential-verification`, `verification-of-record`, `expiry-and-recertification`, `fabrication-signals` |
 
-*v1.1: "Verify a claimed credential and recognize…" → current statement (Rule 5).*
 
 **KSAs:**
 
@@ -1033,7 +1022,7 @@ Subject to the §5 check, and the first place to look if the firewall ever fails
 
 ---
 
-### Task 3.9 — Determine how AI-driven task change affects internal mobility and reskilling decisions *(NEW in v1.1)*
+### Task 3.9 — Determine how AI-driven task change affects internal mobility and reskilling decisions
 
 | Attribute | Value |
 |---|---|
@@ -1105,8 +1094,6 @@ erode it.
 | Simulation candidate | Yes |
 | Concept slugs | `ai-drafted-content`, `output-review-duty`, `fabricated-requirement`, `accountability-for-output` |
 
-*v1.1: "Use AI to draft recruiting content while retaining accountability…" →
-current statement (Rule 5).*
 
 **KSAs:**
 
@@ -1168,7 +1155,6 @@ careful and explicitly evidence-based. Detection does not work; verification doe
 * **S:** Given a workflow, draw the line above which a human must decide and document
 * **A:** Accountability as personal rather than procedural
 
-*v1.3: opening verb "Judge" (Bloom 5) -> "Determine" (Rule 5b). Competence unchanged.*
 
 ---
 
@@ -1184,10 +1170,6 @@ careful and explicitly evidence-based. Detection does not work; verification doe
 | Simulation candidate | Yes |
 | Concept slugs | `candidate-facing-transparency`, `stakeholder-communication`, `trust-and-perception` |
 
-*v1.1: "Communicate AI use in hiring…" → current statement (Rule 5). Retained
-despite being offered as a cull candidate — the move to 40 items removed the
-pressure, and it is the only task covering the transparency conversation that D2's
-notice duties create.*
 
 **KSAs:**
 
@@ -1213,7 +1195,7 @@ cross-domain reuse links:
 | 3.9 | `task-composition-shift` (from 3.4) | internal mobility applies the same analysis inward |
 | 4.4 | `accountability-for-output` (from 4.2) | the non-delegable boundary rests on it |
 
-The v1.2 estimate of ~97 assumed reuse that did not survive deduplication; the
+An early estimate of ~97 assumed reuse that did not survive deduplication; the
 scaffolded figure is authoritative. Verified at seed: zero orphan concepts, zero
 unlinked tasks, and every link resolving to a defined task and concept.
 
@@ -1235,7 +1217,9 @@ database.
    No tasks culled; two added. **Resolved.**
 4. **Duration** — 50 minutes (75 s/item), answering candidate-facing burden without
    degrading sampling; benchmarked against house precedent, reversible with live
-   completion data. **Resolved — Juan, 25 July 2026.**
+   completion data. **Resolved.**
+5. **Validity** — 1 year, per house policy and the content-review rationale in §6.
+   The scheme document's §9 dispute is closed in favour of 1 year. **Resolved.**
 4. **80% cut score** — kept as house convention, stated provisional pending
    standard-setting in both this document and the scheme doc. **Resolved.**
 5. **Task 4.3 (detection vs verification)** — confirmed correct on the evidence.
@@ -1275,7 +1259,8 @@ and never to "current law."
 
 ---
 
-*v1.3 — July 25, 2026. **LOCKED and scaffolded** (migrations 145-148). Task codes,
-statements, weights, and cognitive levels are frozen. Next step per CERT-CREATION.md
-Stage 11: the JTA translation wave — es-419 and pt-BR for all 28 statements and 4
-domain descriptions — before any lesson authoring begins (SCHEME-AIHR-I.md §11.1).*
+*v2.0 — July 26, 2026. **LOCKED — launch baseline.** Scaffolded (migrations
+145-148), trilingual at the JTA layer, 28 lessons authored and loaded, 672 secure and
+840 practice items generated and verified. Task codes, statements, weights, and
+cognitive levels are frozen; a substantive change requires a new version, external
+review, and a re-lock.*
