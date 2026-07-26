@@ -56,10 +56,24 @@ serve(async (req) => {
       if (!token) throw new HttpError(400, "token required");
       if (token.length < 8) throw new HttpError(400, "token looks too short");
 
+      // Sanitize config: a GHL Location ID is a bare id with no slashes. Users
+      // often paste a URL fragment (".../location/<id>/settings/...") by mistake,
+      // which then corrupts every API path. Extract just the id: take the segment
+      // after "/location(s)/" if present, else the value, and drop anything from
+      // the first slash onward.
+      const cfg = { ...(body.config ?? {}) } as Record<string, unknown>;
+      if (typeof cfg.location_id === "string") {
+        let loc = cfg.location_id.trim();
+        const m = loc.match(/\/locations?\/([^/?#]+)/i);
+        if (m) loc = m[1];
+        loc = loc.split(/[/?#]/)[0].trim();
+        cfg.location_id = loc;
+      }
+
       const { error } = await svc.rpc("integration_store_token", {
         p_slug: body.slug,
         p_token: token,
-        p_config: body.config ?? {},
+        p_config: cfg,
         p_actor: actorId,
       });
       if (error) throw new Error(`integration_store_token: ${error.message}`);
