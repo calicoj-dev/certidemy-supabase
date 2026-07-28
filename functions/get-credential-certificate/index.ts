@@ -78,7 +78,7 @@ serve(async (req) => {
     let query = svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path",
+        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen",
       );
     query = id
       ? query.eq("id", id)
@@ -133,6 +133,7 @@ serve(async (req) => {
       certification_name: cred.certification_name,
       certification_code: cred.certification_code,
       issued_at: cred.issued_at,
+      is_specimen: cred.is_specimen === true,
     };
     const pdfBytes = await renderCertificate(certData, renderLocale, VERIFY_BASE);
 

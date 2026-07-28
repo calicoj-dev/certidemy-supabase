@@ -49,6 +49,13 @@ export interface CertificateData {
   certification_name: string;
   certification_code: string;
   issued_at: string;
+  /**
+   * Marketing specimen. Renders through this same path so it cannot drift
+   * from a real certificate, but carries an unmistakable mark. Optional so
+   * existing callers keep compiling; a caller that omits it produces an
+   * UNMARKED document, so every caller must be checked.
+   */
+  is_specimen?: boolean;
 }
 
 type Locale = "en" | "es-419" | "pt-BR";
@@ -60,6 +67,8 @@ const STRINGS: Record<Locale, {
   issued: string;
   credentialId: string;
   verifyHint: string;
+  specimenBand: string;
+  specimenMark: string;
 }> = {
   "en": {
     eyebrow: "CERTIFICATE OF ACHIEVEMENT",
@@ -68,6 +77,8 @@ const STRINGS: Record<Locale, {
     issued: "ISSUED",
     credentialId: "CREDENTIAL ID",
     verifyHint: "Scan to verify",
+    specimenBand: "SPECIMEN \u00B7 NOT A CERTIFICATION DECISION",
+    specimenMark: "SPECIMEN",
   },
   "es-419": {
     eyebrow: "CERTIFICADO DE LOGRO",
@@ -76,6 +87,9 @@ const STRINGS: Record<Locale, {
     issued: "EMITIDO",
     credentialId: "ID DE CREDENCIAL",
     verifyHint: "Escanea para verificar",
+    specimenBand:
+      "MUESTRA \u00B7 NO ES UNA DECISI\u00D3N DE CERTIFICACI\u00D3N",
+    specimenMark: "MUESTRA",
   },
   "pt-BR": {
     eyebrow: "CERTIFICADO DE CONQUISTA",
@@ -84,6 +98,9 @@ const STRINGS: Record<Locale, {
     issued: "EMITIDO",
     credentialId: "ID DA CREDENCIAL",
     verifyHint: "Escaneie para verificar",
+    specimenBand:
+      "AMOSTRA \u00B7 N\u00C3O \u00C9 UMA DECIS\u00C3O DE CERTIFICA\u00C7\u00C3O",
+    specimenMark: "AMOSTRA",
   },
 };
 
@@ -252,6 +269,28 @@ export async function renderCertificate(
   const vhSize = 7.5;
   const vhW = reg.widthOfTextAtSize(t.verifyHint, vhSize);
   page.drawText(t.verifyHint, { x: qx + qpx / 2 - vhW / 2, y: qy - 16, size: vhSize, font: reg, color: INK_MUTE });
+
+  // ---- specimen marks ----
+  //
+  // LAST on purpose. pdf-lib paints in call order; drawn any earlier these
+  // would be covered by the certificate body and vanish silently.
+  if (cred.is_specimen) {
+    page.drawRectangle({ x: 0, y: H - 30, width: W, height: 30, color: ACCENT_DEEP });
+    drawTracked(page, t.specimenBand, cx, H - 20, 8.5, bold, WHITE, 2.2);
+
+    // Light enough that the design still reads -- a specimen nobody can
+    // look at is useless to the people who asked for one.
+    const markSize = fitSize(t.specimenMark, bold, 120, 56, W - 2 * M - 40);
+    const markW = bold.widthOfTextAtSize(t.specimenMark, markSize);
+    page.drawText(t.specimenMark, {
+      x: cx - markW / 2,
+      y: H / 2 - markSize / 3,
+      size: markSize,
+      font: bold,
+      color: ACCENT,
+      opacity: 0.12,
+    });
+  }
 
   return await doc.save();
 }

@@ -57,7 +57,7 @@ serve(async (req) => {
     let query = svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status"
+        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, is_specimen"
       );
     query = id ? query.eq("id", id) : query.eq("credential_code", code!.trim().toUpperCase());
 
@@ -67,7 +67,15 @@ serve(async (req) => {
     // Expiry is evaluated live, never trusted from the stored status alone.
     const expired =
       cred.expires_at !== null && new Date(cred.expires_at).getTime() < Date.now();
-    const effective_status = expired && cred.status === "active" ? "expired" : cred.status;
+    // A specimen is a marketing artifact, not a certification decision. Its
+    // stored status stays "active" so the certificate renders through the
+    // normal path -- but verification must never call it genuine. Saying
+    // "valid" here is the fraud vector the specimen design exists to avoid.
+    const effective_status = cred.is_specimen
+      ? "specimen"
+      : expired && cred.status === "active"
+        ? "expired"
+        : cred.status;
 
     return jsonResponse({
       found: true,
@@ -81,6 +89,7 @@ serve(async (req) => {
         expires_at: cred.expires_at,
         status: effective_status,
         valid: effective_status === "active",
+        is_specimen: cred.is_specimen === true,
       },
     });
   } catch (err) {

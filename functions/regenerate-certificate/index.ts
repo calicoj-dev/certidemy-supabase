@@ -82,7 +82,7 @@ serve(async (req) => {
     const { data: cred, error: cErr } = await svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path",
+        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen",
       )
       .eq("id", credentialId)
       .maybeSingle();
@@ -116,6 +116,9 @@ serve(async (req) => {
       certification_name: cred.certification_name,
       certification_code: cred.certification_code,
       issued_at: cred.issued_at,
+      // Without this, regenerating a specimen strips its mark and yields a
+      // certificate indistinguishable from a real one.
+      is_specimen: cred.is_specimen === true,
     };
 
     const pdfBytes = await renderCertificate(certData, renderLocale, VERIFY_BASE);
