@@ -104,6 +104,8 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
     last_sign_in_at: string | null;
     email_confirmed_at: string | null;
     confirmed_at?: string | null;
+    /** Present at runtime; the batch is cast through unknown. */
+    user_metadata?: { service_account?: boolean } | null;
   };
 
   const authUsers: AuthUser[] = [];
@@ -114,7 +116,16 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
     const { data, error } = await svc.auth.admin.listUsers({ page, perPage });
     if (error) throw new Error(`auth.admin.listUsers: ${error.message}`);
     const batch = (data?.users ?? []) as unknown as AuthUser[];
-    authUsers.push(...batch);
+    // Service accounts are not people. specimen@certidemy.com owns the
+    // marketing specimen credentials because credentials.user_id is NOT
+    // NULL; it is not a learner and must not reach the funnel. This census
+    // also feeds sync-to-ghl, so without this filter the account would be
+    // pushed to the CRM as a contact.
+    //
+    // Applied after batch.length is read below, so pagination is unaffected.
+    authUsers.push(
+      ...batch.filter((u) => u.user_metadata?.service_account !== true),
+    );
     if (batch.length < perPage) break;
     page++;
   }
