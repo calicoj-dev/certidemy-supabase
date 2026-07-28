@@ -68,7 +68,7 @@ serve(async (req) => {
     const code = body.certification_code?.trim().toUpperCase();
     const language = (body.language ?? "en") as AssetLocale;
 
-    if (assetType !== "factsheet") {
+    if (assetType !== "factsheet" && assetType !== "specimen_certificate") {
       return jsonResponse(
         { error: `asset_type '${assetType}' not implemented yet` },
         400,
@@ -125,6 +125,75 @@ serve(async (req) => {
         },
         409,
       );
+    }
+
+    // ---- specimen certificate --------------------------------------------
+    //
+    // Delegated, not duplicated. get-credential-certificate owns the
+    // versioned locale-scoped path, the lazy render and the specimen marks.
+    // Reimplementing that here would mean fixing certificate caching twice
+    // forever.
+    if (assetType === "specimen_certificate") {
+      const { data: specRow } = await svc
+        .from("credentials")
+        .select("credential_code")
+        .eq("certification_id", certRow.id)
+        .eq("is_specimen", true)
+        .maybeSingle();
+
+      if (!specRow) {
+        return jsonResponse(
+          {
+            error: "no specimen credential for this certification",
+            detail:
+              "Mint one with certidemy-web/scripts/mint-specimens.mjs.",
+          },
+          404,
+        );
+      }
+
+      const base = Deno.env.get("SUPABASE_URL") ?? "";
+      const certUrl =
+        base +
+        "/functions/v1/get-credential-certificate?code=" +
+        encodeURIComponent(specRow.credential_code) +
+        "&locale=" +
+        language;
+
+      const res = await fetch(certUrl);
+      const payload = (await res.json().catch(() => ({}))) as {
+        url?: string;
+        cached?: boolean;
+        error?: string;
+      };
+
+      if (!res.ok || !payload.url) {
+        console.error("specimen certificate fetch failed", payload);
+        return jsonResponse(
+          { error: payload.error ?? "could not obtain specimen certificate" },
+          502,
+        );
+      }
+
+      // Logged here, not there: the audit question is which member of
+      // staff obtained the file, and only this function knows that.
+      const { error: specLogErr } = await svc.from("asset_downloads").insert({
+        user_id: actor_user_id,
+        asset_type: "specimen_certificate",
+        tier: "client_safe",
+        certification_id: certRow.id,
+        language,
+      });
+      if (specLogErr) console.warn("asset_downloads insert failed", specLogErr);
+
+      return jsonResponse({
+        url: payload.url,
+        filename: `${code}-specimen-certificate-${language}.pdf`,
+        asset_type: "specimen_certificate",
+        certification_code: code,
+        language,
+        cached: payload.cached === true,
+      });
     }
 
     // ---- localized copy -------------------------------------------------
