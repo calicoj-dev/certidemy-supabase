@@ -147,7 +147,7 @@ Deno.serve(async (req) => {
     }
     for (const t of Object.values(tele)) t.avgScore = t.attempts ? Math.round(t.avgScore / t.attempts) : 0;
 
-    const { data: credRows } = await svc.from("credentials").select("certification_code, status");
+    const { data: credRows } = await svc.from("v_credentials_real").select("certification_code, status");
     const credentials: Record<string, { active: number; revoked: number; expired: number }> = {};
     for (const c of (credRows ?? []) as { certification_code: string; status: string }[]) {
       const b = (credentials[c.certification_code] ??= { active: 0, revoked: 0, expired: 0 });

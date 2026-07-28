@@ -168,7 +168,7 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
   const certifiedUserCert = new Set<string>(); // key: `${user_id}|${CERT_CODE}`
   {
     const { data: creds, error } = await svc
-      .from("credentials")
+      .from("v_credentials_real")
       .select("user_id, status, certification_code")
       .eq("status", "active")
       .in("user_id", idFilter);

@@ -46,7 +46,7 @@ serve(async (req) => {
 
     // All credentials. score_pct deliberately excluded.
     const { data: credData, error: cErr } = await svc
-      .from("credentials")
+      .from("v_credentials_real")
       .select(
         "id, credential_code, holder_name, certification_name, certification_code, status, issued_at, expires_at, exam_attempt_id"
       )
