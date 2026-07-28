@@ -3,24 +3,24 @@
 // Body: { asset_type: "factsheet", certification_code: string, language?: "en" | "es-419" | "pt-BR" }
 // Auth: Bearer JWT - MUST be platform_admin or marketing.
 //
-// The sales library's generation endpoint. First increment: fact sheet only.
-// Blueprint sheet, samples sheet, scheme PDF, specimen certificate and the
-// internal comparison sheet follow the same shape.
+// v2: the fact sheet now carries domains with exam weights, preparation
+// figures, the credibility block, and sibling certifications. All of it read
+// from rows; nothing authored here.
 //
-// GATED, NOT PUBLIC. verify_jwt stays ON for this function - the caller must be
-// staff. The public forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate
-// endpoint; that is where verify_jwt = false gets pinned in config.toml.
-// Do not confuse the two: making THIS function public would let anyone
-// enumerate assets and would bypass the download log entirely.
+// GATED, NOT PUBLIC. verify_jwt stays ON - the caller must be staff. The public
+// forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate endpoint; that is
+// where verify_jwt = false gets pinned in config.toml. Making THIS function
+// public would let anyone enumerate assets and would bypass the download log.
 //
-// CACHING: object paths are content-versioned from the source row's updated_at.
-// An edited weight or an approved translation changes the path, so the next
-// request renders fresh and the old object is simply never requested again.
-// There is no invalidation step to forget.
+// CACHING: object paths are content-versioned from source updated_at values. An
+// edited weight or an approved translation changes the path, so the next
+// request renders fresh and the old object is never requested again. No
+// invalidation step to forget.
 //
-// STATUS GATE: a `draft` certification produces no client-safe asset. A cert
-// only reaches coming_soon after verify-cert is green and the publish checklist
-// is cleared, so status already means "safe to put in front of a buyer".
+// NOTE ON SELECT STRINGS: single literals, never built with `+`. supabase-js
+// parses the select as a template-literal type; a concatenated string degrades
+// the response to GenericStringError and breaks the typed build in the web app.
+// Same discipline here for consistency even though Deno does not enforce it.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -33,16 +33,17 @@ import {
   renderFactSheet,
   type AssetLocale,
   type FactSheetData,
+  type FactSheetDomain,
+  type FactSheetSibling,
 } from "../_shared/factsheet.ts";
 
 const BUCKET = "sales-assets";
-const SIGNED_URL_TTL = 60 * 60; // 1 hour
+const SIGNED_URL_TTL = 60 * 60;
 const LOCALES: AssetLocale[] = ["en", "es-419", "pt-BR"];
 const CLIENT_SAFE_STATUSES = ["available", "coming_soon"];
 
 const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 
-/** Filesystem-safe content version from a timestamp. */
 function contentVersion(iso: string): string {
   return iso.replace(/[^0-9]/g, "").slice(0, 14);
 }
@@ -72,18 +73,12 @@ serve(async (req) => {
         400,
       );
     }
-    if (!code) {
-      return jsonResponse({ error: "certification_code required" }, 400);
-    }
+    if (!code) return jsonResponse({ error: "certification_code required" }, 400);
     if (!LOCALES.includes(language)) {
       return jsonResponse({ error: `unsupported language '${language}'` }, 400);
     }
 
     // ---- identify + authorize ------------------------------------------
-    //
-    // Marketing is a peer of platform_admin HERE and nowhere else. It exists so
-    // a sales rep never needs a role that can flip certification status, issue
-    // vouchers, or edit credential holder names.
 
     const actor_user_id = await authenticate(req);
     const svc = getServiceClient();
@@ -99,17 +94,16 @@ serve(async (req) => {
       throw new HttpError(403, "platform_admin or marketing required");
     }
 
-    // ---- source rows ----------------------------------------------------
+    // ---- certification --------------------------------------------------
     //
     // price_usd is deliberately NOT selected. No asset in this library renders
-    // a price - pricing is CertiGlobal's and varies by bundle. Spec §3.4.
+    // a price. Not fetching it is stronger than fetching and remembering not to
+    // use it. Spec §3.4.
 
     const { data: certRow, error: certErr } = await svc
       .from("certifications")
       .select(
-        "id, code, name, description, num_questions, passing_score_pct, " +
-          "exam_duration_minutes, max_exam_attempts, attempt_window_months, " +
-          "validity_days, status, exam_blueprint, updated_at",
+        "id, code, name, description, num_questions, passing_score_pct, exam_duration_minutes, max_exam_attempts, attempt_window_months, validity_days, status, category_slug, sort_order, exam_blueprint, updated_at"
       )
       .eq("code", code)
       .maybeSingle();
@@ -118,9 +112,7 @@ serve(async (req) => {
       console.error("certification lookup failed", certErr);
       return jsonResponse({ error: "lookup failed" }, 500);
     }
-    if (!certRow) {
-      return jsonResponse({ error: `no certification '${code}'` }, 404);
-    }
+    if (!certRow) return jsonResponse({ error: `no certification '${code}'` }, 404);
 
     if (!CLIENT_SAFE_STATUSES.includes(certRow.status)) {
       return jsonResponse(
@@ -128,15 +120,17 @@ serve(async (req) => {
           error: "no client-safe asset for this certification",
           status: certRow.status,
           detail:
-            "A draft certification has not cleared the publish checklist and " +
-            "must not be put in front of a buyer.",
+            "A draft certification has not cleared the publish checklist and must not be put in front of a buyer.",
         },
         409,
       );
     }
 
-    // Localized copy. Falls back to the base certifications row - AIHR-I has a
-    // null i18n description by design, since the catalog reads `claim` only.
+    // ---- localized copy -------------------------------------------------
+    //
+    // Falls back to the base row. AIHR-I has a null i18n description by design
+    // - the catalog reads `claim` only.
+
     const { data: i18nRow } = await svc
       .from("certification_i18n")
       .select("name, claim, description, updated_at")
@@ -159,12 +153,107 @@ serve(async (req) => {
         {
           error: "no approved claim for this certification",
           detail:
-            "The claim is the load-bearing sentence on a fact sheet. Rendering " +
-            "without one would put an unreviewed description in a buyer's hands.",
+            "The claim is the load-bearing sentence on a fact sheet. Rendering without one would put unreviewed copy in a buyer's hands.",
         },
         409,
       );
     }
+
+    // ---- domains + weights ----------------------------------------------
+    //
+    // The most interesting thing about a certification, and the section v1
+    // omitted entirely. domains has no language column; titles come from
+    // domain_translations, falling back to English.
+
+    const { data: domainRows } = await svc
+      .from("domains")
+      .select("id, title, weight_pct, order_index")
+      .eq("certification_id", certRow.id)
+      .order("order_index", { ascending: true });
+
+    const domainBase = (domainRows ?? []) as {
+      id: string;
+      title: string;
+      weight_pct: number;
+      order_index: number;
+    }[];
+
+    let domainTitles = new Map<string, string>();
+    if (language !== "en" && domainBase.length > 0) {
+      const { data: trRows } = await svc
+        .from("domain_translations")
+        .select("domain_id, title")
+        .in("domain_id", domainBase.map((d) => d.id))
+        .eq("language", language);
+
+      domainTitles = new Map(
+        ((trRows ?? []) as { domain_id: string; title: string }[]).map(
+          (r) => [r.domain_id, r.title] as const,
+        ),
+      );
+    }
+
+    const domains: FactSheetDomain[] = domainBase.map((d) => ({
+      title: domainTitles.get(d.id) ?? d.title,
+      weightPct: Number(d.weight_pct),
+    }));
+
+    // ---- preparation figures --------------------------------------------
+    //
+    // "How long does this take my people" is the buyer's second question.
+    // Lesson counts are per-language; fall back to English when a language has
+    // not been fully loaded, so the figure is never zero on a real course.
+
+    const { data: moduleRows } = await svc
+      .from("modules")
+      .select("id")
+      .eq("certification_id", certRow.id);
+
+    const moduleIds = ((moduleRows ?? []) as { id: string }[]).map((m) => m.id);
+
+    let lessonCount = 0;
+    let studyMinutes = 0;
+
+    if (moduleIds.length > 0) {
+      const countFor = async (lang: string) => {
+        const { data } = await svc
+          .from("lessons")
+          .select("estimated_minutes")
+          .in("module_id", moduleIds)
+          .eq("language", lang);
+        const rows = (data ?? []) as { estimated_minutes: number | null }[];
+        return {
+          count: rows.length,
+          minutes: rows.reduce((n, r) => n + (r.estimated_minutes ?? 0), 0),
+        };
+      };
+
+      let got = await countFor(language);
+      if (got.count === 0 && language !== "en") got = await countFor("en");
+      lessonCount = got.count;
+      studyMinutes = got.minutes;
+    }
+
+    // ---- siblings --------------------------------------------------------
+    //
+    // Facts about our own catalog only. No labour-market claims anywhere on
+    // this document.
+
+    const { data: sibRows } = certRow.category_slug
+      ? await svc
+        .from("certifications")
+        .select("code, name, sort_order, status")
+        .eq("category_slug", certRow.category_slug)
+        .neq("id", certRow.id)
+        .in("status", CLIENT_SAFE_STATUSES)
+        .order("sort_order", { ascending: true })
+      : { data: null };
+
+    const siblings: FactSheetSibling[] = (
+      (sibRows ?? []) as { code: string; name: string }[]
+    ).map((s) => ({ code: s.code, name: s.name }));
+
+    // ---- assemble --------------------------------------------------------
 
     const blueprint = (certRow.exam_blueprint ?? {}) as Record<string, unknown>;
 
@@ -173,25 +262,33 @@ serve(async (req) => {
       name: i18nRow?.name ?? certRow.name,
       claim,
       description: i18nRow?.description ?? certRow.description ?? "",
-      num_questions: certRow.num_questions,
-      passing_score_pct: certRow.passing_score_pct,
-      exam_duration_minutes: certRow.exam_duration_minutes,
-      max_exam_attempts: certRow.max_exam_attempts,
-      attempt_window_months: certRow.attempt_window_months,
-      validity_days: certRow.validity_days,
       status: certRow.status,
-      blueprint_computed_at: (blueprint.computed_at as string) ?? null,
-      cognitive_model_version: (blueprint.version as string) ?? null,
+      domains,
+      numQuestions: certRow.num_questions,
+      passingScorePct: certRow.passing_score_pct,
+      examDurationMinutes: certRow.exam_duration_minutes,
+      maxExamAttempts: certRow.max_exam_attempts,
+      attemptWindowMonths: certRow.attempt_window_months,
+      validityDays: certRow.validity_days,
+      moduleCount: moduleIds.length,
+      lessonCount,
+      studyMinutes,
+      siblings,
+      blueprintComputedAt: (blueprint.computed_at as string) ?? null,
+      cognitiveModelVersion: (blueprint.version as string) ?? null,
     };
 
-    // ---- cache ----------------------------------------------------------
+    // ---- cache -----------------------------------------------------------
+    //
+    // v2 in the path: v1 objects describe a different document and must not be
+    // served for a v2 request.
 
     const stamps = [certRow.updated_at, i18nRow?.updated_at]
       .filter(Boolean)
       .sort()
       .join("");
     const version = contentVersion(stamps || certRow.updated_at);
-    const path = `factsheet/${code}/${language}/${version}.pdf`;
+    const path = `factsheet/v2/${code}/${language}/${version}.pdf`;
     const filename = `${code}-factsheet-${language}.pdf`;
 
     const { data: hit } = await svc.storage
@@ -229,9 +326,9 @@ serve(async (req) => {
       signedUrl = fresh.signedUrl;
     }
 
-    // ---- audit ----------------------------------------------------------
+    // ---- audit -----------------------------------------------------------
     //
-    // Logged on every generation, cached or not - the question the log answers
+    // Logged on every generation, cached or not. The question the log answers
     // is "who obtained this file", and a cache hit is still an obtaining.
     // Best-effort: a logging failure must not deny the rep their document.
 
@@ -251,6 +348,7 @@ serve(async (req) => {
       certification_code: code,
       language,
       cached,
+      domains: domains.length,
     });
   } catch (err) {
     if (err instanceof HttpError) {
