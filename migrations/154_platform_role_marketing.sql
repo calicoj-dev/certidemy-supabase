@@ -1,0 +1,38 @@
+-- 154_platform_role_marketing.sql
+--
+-- Adds 'marketing' to the platform_role enum.
+--
+-- THIS MIGRATION MUST RUN ALONE AND FIRST.
+--
+-- Postgres will not let a newly added enum value be USED in the same
+-- transaction that adds it. Every policy referencing 'marketing' therefore
+-- lives in 156/157, which run afterwards. Do not merge this file into another.
+--
+-- No begin/commit wrapper on purpose.
+--
+-- Why a third value rather than a boolean or a separate table: every existing
+-- admin predicate in this database tests
+--
+--   p.platform_role = 'platform_admin'::platform_role
+--
+-- (verified across four live policies on vouchers, admin_actions, and
+-- credentials). Adding an enum value leaves every one of those checks correct
+-- and unchanged, and a marketing seat gets zero admin capability by
+-- construction rather than by our remembering to exclude it. A sales rep must
+-- never hold a role that can flip certification status, issue vouchers, or edit
+-- credential holder names.
+
+alter type public.platform_role add value if not exists 'marketing';
+
+-- ---------------------------------------------------------------------------
+-- Verification (run after, in a separate statement)
+-- ---------------------------------------------------------------------------
+--
+-- select e.enumlabel
+--   from pg_type t
+--   join pg_enum e on e.enumtypid = t.oid
+--   join pg_namespace n on n.oid = t.typnamespace
+--  where n.nspname = 'public' and t.typname = 'platform_role'
+--  order by e.enumsortorder;
+--
+-- Expect: learner, platform_admin, marketing
