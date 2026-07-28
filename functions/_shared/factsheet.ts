@@ -66,15 +66,16 @@ import {
  * 2 - domains, preparation, credibility block, siblings
  * 3 - version in cache key, bar grouping, heading hierarchy
  */
-export const FACTSHEET_RENDERER_VERSION = "3";
+export const FACTSHEET_RENDERER_VERSION = "4";
+// 4 - brand magenta palette (both renderers were drawing in blue)
 
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
 const INK_MUTE = rgb(0x86 / 255, 0x86 / 255, 0x8b / 255);
-const ACCENT = rgb(0x00 / 255, 0x66 / 255, 0xcc / 255);
-const ACCENT_DEEP = rgb(0x00 / 255, 0x4a / 255, 0x99 / 255);
+const ACCENT = rgb(0xbe / 255, 0x18 / 255, 0x5d / 255);
+const ACCENT_DEEP = rgb(0x9d / 255, 0x17 / 255, 0x4d / 255);
 const HAIRLINE = rgb(0xd2 / 255, 0xd2 / 255, 0xd7 / 255);
-const TRACK = rgb(0.91, 0.94, 0.98);
+const TRACK = rgb(0.98, 0.92, 0.95);
 
 const A4_W = 595.28;
 const A4_H = 841.89;

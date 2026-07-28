@@ -30,16 +30,19 @@ import {
   b64ToBytes,
 } from "./fonts.ts";
 
-// ---- palette (Apple-derived, matches app tokens) ----
+// ---- palette ----
+// Brand tokens, light mode, from certidemy-web/app/globals.css. A PDF is
+// always on white, so the dark-mode accent pair does not apply here.
+//   --color-accent #be185d - --color-accent-deep #9d174d - soft #fce7f1
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
 const INK_MUTE = rgb(0x86 / 255, 0x86 / 255, 0x8b / 255);
-const ACCENT = rgb(0x00 / 255, 0x66 / 255, 0xcc / 255);
-const ACCENT_DEEP = rgb(0x00 / 255, 0x4a / 255, 0x99 / 255);
+const ACCENT = rgb(0xbe / 255, 0x18 / 255, 0x5d / 255);
+const ACCENT_DEEP = rgb(0x9d / 255, 0x17 / 255, 0x4d / 255);
 const HAIRLINE = rgb(0xd2 / 255, 0xd2 / 255, 0xd7 / 255);
-const KEYLINE = rgb(0.91, 0.94, 0.98);
-const SEAL_FILL = rgb(0.96, 0.98, 1);
-const SEAL_INNER = rgb(0.8, 0.88, 0.97);
+const KEYLINE = rgb(0.98, 0.92, 0.95);
+const SEAL_FILL = rgb(0.988, 0.906, 0.945);
+const SEAL_INNER = rgb(0.94, 0.76, 0.84);
 const WHITE = rgb(1, 1, 1);
 
 export interface CertificateData {
@@ -288,7 +291,7 @@ export async function renderCertificate(
       size: markSize,
       font: bold,
       color: ACCENT,
-      opacity: 0.12,
+      opacity: 0.18,
     });
   }
 
