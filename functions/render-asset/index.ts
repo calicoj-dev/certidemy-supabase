@@ -31,6 +31,7 @@ import {
 } from "../_shared/supabase.ts";
 import {
   renderFactSheet,
+  FACTSHEET_RENDERER_VERSION,
   type AssetLocale,
   type FactSheetData,
   type FactSheetDomain,
@@ -288,7 +289,8 @@ serve(async (req) => {
       .sort()
       .join("");
     const version = contentVersion(stamps || certRow.updated_at);
-    const path = `factsheet/v2/${code}/${language}/${version}.pdf`;
+    const path =
+      `factsheet/v${FACTSHEET_RENDERER_VERSION}/${code}/${language}/${version}.pdf`;
     const filename = `${code}-factsheet-${language}.pdf`;
 
     const { data: hit } = await svc.storage

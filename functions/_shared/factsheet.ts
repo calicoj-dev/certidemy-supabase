@@ -2,39 +2,46 @@
 //
 // Renders a certification fact sheet as a PDF (A4 portrait, multi-page).
 //
-// v2. v1 was a spec sheet: exam length, pass mark, attempts, validity. Correct
-// for a procurement reader who has already decided to evaluate us, wrong for
-// the first email, which is what this artifact is for. It answered none of the
-// questions a reader actually has.
+// v3 CHANGES
 //
-// WHAT v2 ADDS, all of it derived from rows we already own:
-//   - the domains and their exam weights, as bars. The single most interesting
-//     thing about a certification, and v1 omitted it entirely.
-//   - preparation reality: modules, lessons, estimated study hours.
-//   - how the certification is built. Four checkable statements. This is the
-//     genuinely differentiating material and v1 had none of it.
-//   - related certifications in the same category, so one sheet sells a family.
+//   1. RENDERER VERSION. Exported and used in the storage path. v2 keyed the
+//      cache on certifications.updated_at alone, so a change to the RENDERER
+//      was invisible: after the font fix, an already-generated sheet kept
+//      serving the old file with missing-glyph boxes in it. Bump this constant
+//      whenever the layout or the font payload changes and every object
+//      invalidates on the next request.
 //
-// WHAT IT DELIBERATELY STILL OMITS:
+//   2. WEIGHT BAR GROUPING. v2 placed each bar equidistant between its own
+//      title and the next one, and put the percentage on the title line. The
+//      eye could not tell which bar belonged to which domain. The percentage
+//      now sits at the end of its own bar, the gap above tightens and the gap
+//      below opens, so each domain reads as one block.
 //
+//   3. HEADING HIERARCHY. v2 rendered every section heading identically, so
+//      nothing told the reader where to look. Three anchors now carry weight
+//      and a rule; supporting sections recede.
+//
+//   4. TIGHTER RHYTHM throughout.
+//
+// NOT DONE, AND WHY: this is not one page for a six-domain certification.
+// Header, six weighted domains, the exam table, preparation, credential, the
+// credibility block and related certs come to roughly 1350pt against 697pt of
+// usable page. AIE-I and AIHR-I fit on one page; AISM-I and AIGRM-I do not,
+// and would only fit if a whole section were dropped. Silently cutting one to
+// hit a page count would be the wrong trade.
+//
+// STILL DELIBERATELY OMITTED
 //   NO PRICE. CertiGlobal's, varies by bundle, and a printed price in a
 //   twice-forwarded PDF reads as a commitment. Spec §3.4.
+//   NO DELIVERY MODALITY. Proctoring, camera and AI policy are open decisions;
+//   printing them would settle exam-operation policy by accident.
+//   NO LABOUR-MARKET CLAIMS. No "leads to roles like", no salary, no
+//   "recognised by". Every line here is checkable, and that is the only reason
+//   the document is credible.
+//   NO "WHO IT'S FOR". There is no audience column, and inventing one per
+//   certification is authored copy, not derived fact.
 //
-//   NO DELIVERY MODALITY. Proctoring, camera, AI policy are open decisions.
-//   Printing "online, unproctored" would settle exam-operation policy by
-//   accident, in a buyer's hands, ahead of the Candidate Handbook.
-//
-//   NO LABOUR-MARKET CLAIMS. No "leads to roles like", no salary data, no
-//   "recognised by". Every line on this page is checkable against a row or a
-//   public document, and that is the only reason the page is credible. One
-//   unsupportable sentence and a sharp reader discounts all of it.
-//
-//   NO "WHO IT'S FOR". There is no audience column. Inventing one per
-//   certification is authored marketing copy, not derived fact.
-//
-// Same machinery as certificate.ts: pure pdf-lib, app typefaces from
-// _shared/fonts.ts. Bare esm.sh imports, no ?target=deno -- that sweep was
-// attempted and reverted because it regresses these libraries.
+// WORDMARK: insertion point marked below. pdf-lib embeds PNG and JPG, not SVG.
 
 import {
   PDFDocument,
@@ -51,13 +58,23 @@ import {
   b64ToBytes,
 } from "./fonts.ts";
 
+/**
+ * Bump on ANY change to this file or to the font payload. It is part of the
+ * storage path, so bumping it invalidates every cached fact sheet.
+ *
+ * 1 - initial
+ * 2 - domains, preparation, credibility block, siblings
+ * 3 - version in cache key, bar grouping, heading hierarchy
+ */
+export const FACTSHEET_RENDERER_VERSION = "3";
+
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
 const INK_MUTE = rgb(0x86 / 255, 0x86 / 255, 0x8b / 255);
 const ACCENT = rgb(0x00 / 255, 0x66 / 255, 0xcc / 255);
 const ACCENT_DEEP = rgb(0x00 / 255, 0x4a / 255, 0x99 / 255);
 const HAIRLINE = rgb(0xd2 / 255, 0xd2 / 255, 0xd7 / 255);
-const TRACK = rgb(0.93, 0.95, 0.98);
+const TRACK = rgb(0.91, 0.94, 0.98);
 
 const A4_W = 595.28;
 const A4_H = 841.89;
@@ -247,10 +264,9 @@ function fmtDate(iso: string, locale: AssetLocale): string {
   }).format(new Date(iso));
 }
 
-function fmtHours(minutes: number, locale: AssetLocale): string {
-  const h = minutes / 60;
+function fmtNum(n: number, locale: AssetLocale): string {
   const tag = locale === "en" ? "en-GB" : locale === "es-419" ? "es-419" : "pt-BR";
-  return new Intl.NumberFormat(tag, { maximumFractionDigits: 1 }).format(h);
+  return new Intl.NumberFormat(tag, { maximumFractionDigits: 1 }).format(n);
 }
 
 export async function renderFactSheet(
@@ -283,34 +299,27 @@ export async function renderFactSheet(
     if (y - h < FOOT) newPage();
   };
 
+  // Three anchors carry weight: what it covers, the examination, how it is
+  // built. Everything else supports them.
   const heading = (t: string) => {
-    need(46);
-    y -= 6;
-    page.drawText(t.toUpperCase(), { x: M, y, size: 8, font: mono, color: ACCENT });
-    y -= 8;
+    need(44);
+    y -= 4;
+    page.drawText(t.toUpperCase(), { x: M, y, size: 9, font: mono, color: ACCENT });
+    y -= 9;
     page.drawLine({
       start: { x: M, y },
       end: { x: A4_W - M, y },
-      thickness: 0.5,
-      color: HAIRLINE,
+      thickness: 0.8,
+      color: ACCENT,
     });
-    y -= 18;
+    y -= 17;
   };
 
-  const body = (t: string, size = 10.5, color = INK_SOFT) => {
-    for (const line of wrap(t, regular, size, CW)) {
-      need(size + 6);
-      page.drawText(line, { x: M, y, size, font: regular, color });
-      y -= size + 4.5;
-    }
-  };
-
-  const row = (label: string, value: string) => {
-    need(26);
-    page.drawText(label, { x: M, y, size: 10.5, font: regular, color: INK_SOFT });
-    const w = semi.widthOfTextAtSize(value, 10.5);
-    page.drawText(value, { x: A4_W - M - w, y, size: 10.5, font: semi, color: INK });
-    y -= 8;
+  const subheading = (t: string) => {
+    need(34);
+    y -= 2;
+    page.drawText(t.toUpperCase(), { x: M, y, size: 7.5, font: mono, color: INK_MUTE });
+    y -= 7;
     page.drawLine({
       start: { x: M, y },
       end: { x: A4_W - M, y },
@@ -320,64 +329,79 @@ export async function renderFactSheet(
     y -= 14;
   };
 
-  // Domain title + weight bar. The track is the full 100% scale, so a 12.5%
-  // domain renders as one eighth. Scaling to the largest domain would make the
-  // bars prettier and the document less truthful.
+  const body = (t: string, size = 10, color = INK_SOFT) => {
+    for (const line of wrap(t, regular, size, CW)) {
+      need(size + 5);
+      page.drawText(line, { x: M, y, size, font: regular, color });
+      y -= size + 3.8;
+    }
+  };
+
+  const row = (label: string, value: string) => {
+    need(23);
+    page.drawText(label, { x: M, y, size: 10, font: regular, color: INK_SOFT });
+    const w = semi.widthOfTextAtSize(value, 10);
+    page.drawText(value, { x: A4_W - M - w, y, size: 10, font: semi, color: INK });
+    y -= 7;
+    page.drawLine({
+      start: { x: M, y },
+      end: { x: A4_W - M, y },
+      thickness: 0.5,
+      color: HAIRLINE,
+    });
+    y -= 13;
+  };
+
+  // The percentage rides at the end of its own bar, not up on the title line.
+  // Gap above the bar is tight, gap below is roughly three times larger, so
+  // proximity alone tells you which title each bar belongs to.
+  const BARW = CW - 52;
   const weightBar = (title: string, pct: number) => {
-    const lines = wrap(title, semi, 10.5, CW - 52);
-    need(lines.length * 15 + 20);
-    for (const [i, line] of lines.entries()) {
+    const lines = wrap(title, semi, 10.5, CW);
+    need(lines.length * 14 + 32);
+    for (const line of lines) {
       page.drawText(line, { x: M, y, size: 10.5, font: semi, color: INK });
-      if (i === 0) {
-        const label = `${pct}%`;
-        const w = mono.widthOfTextAtSize(label, 9);
-        page.drawText(label, {
-          x: A4_W - M - w,
-          y,
-          size: 9,
-          font: mono,
-          color: ACCENT_DEEP,
-        });
-      }
       y -= 14;
     }
-    y -= 1;
+    page.drawRectangle({ x: M, y, width: BARW, height: 5, color: TRACK });
     page.drawRectangle({
       x: M,
       y,
-      width: CW,
-      height: 4,
-      color: TRACK,
-    });
-    page.drawRectangle({
-      x: M,
-      y,
-      width: Math.max(2, (CW * pct) / 100),
-      height: 4,
+      width: Math.max(2, (BARW * pct) / 100),
+      height: 5,
       color: ACCENT,
     });
-    y -= 16;
+    const label = `${fmtNum(pct, locale)}%`;
+    const w = mono.widthOfTextAtSize(label, 9);
+    page.drawText(label, {
+      x: A4_W - M - w,
+      y: y - 0.5,
+      size: 9,
+      font: mono,
+      color: ACCENT_DEEP,
+    });
+    y -= 28;
   };
 
   const bullet = (t: string) => {
     const lines = wrap(t, regular, 10, CW - 16);
-    need(lines.length * 15 + 4);
-    page.drawCircle({ x: M + 3, y: y + 3.5, size: 1.6, color: ACCENT });
-    for (const [i, line] of lines.entries()) {
-      page.drawText(line, {
-        x: M + 16,
-        y,
-        size: 10,
-        font: regular,
-        color: INK_SOFT,
-      });
-      y -= 14.5;
-      if (i < lines.length - 1) need(16);
+    need(lines.length * 14 + 6);
+    page.drawCircle({ x: M + 3, y: y + 3.5, size: 1.7, color: ACCENT });
+    for (const line of lines) {
+      page.drawText(line, { x: M + 16, y, size: 10, font: regular, color: INK_SOFT });
+      y -= 14;
     }
-    y -= 3;
+    y -= 5;
   };
 
   // ---- header -------------------------------------------------------------
+  //
+  // WORDMARK GOES HERE. When the brand PNG lands:
+  //   const png = await pdf.embedPng(b64ToBytes(WORDMARK_PNG_B64));
+  //   const s = png.scale(110 / png.width);
+  //   page.drawImage(png, { x: M, y: y - s.height + 8, width: s.width, height: s.height });
+  //   y -= s.height + 18;
+  // Everything below already flows from `y`, so nothing else needs touching.
 
   page.drawText(`${data.code} · ${S.eyebrow.toUpperCase()}`, {
     x: M,
@@ -386,119 +410,110 @@ export async function renderFactSheet(
     font: mono,
     color: ACCENT,
   });
-  y -= 28;
+  y -= 27;
 
-  for (const line of wrap(data.name, bold, 22, CW)) {
-    page.drawText(line, { x: M, y, size: 22, font: bold, color: INK });
-    y -= 27;
+  for (const line of wrap(data.name, bold, 21, CW)) {
+    page.drawText(line, { x: M, y, size: 21, font: bold, color: INK });
+    y -= 26;
   }
-  y -= 4;
+  y -= 3;
 
-  for (const line of wrap(data.claim, regular, 13, CW)) {
-    page.drawText(line, { x: M, y, size: 13, font: regular, color: INK_SOFT });
-    y -= 18;
+  for (const line of wrap(data.claim, regular, 12.5, CW)) {
+    page.drawText(line, { x: M, y, size: 12.5, font: regular, color: INK_SOFT });
+    y -= 17;
   }
 
   if (data.status === "coming_soon") {
-    y -= 6;
+    y -= 5;
     page.drawText(S.comingSoon, { x: M, y, size: 9, font: semi, color: ACCENT });
-    y -= 10;
+    y -= 9;
   }
 
-  y -= 14;
+  y -= 12;
 
-  // ---- what it covers -----------------------------------------------------
-  //
-  // First substantive section on purpose. This is what a reader wants and what
-  // v1 left out.
+  // ---- what it covers (anchor) --------------------------------------------
 
   if (data.domains.length > 0) {
     heading(S.covers);
-    page.drawText(S.coversNote, { x: M, y, size: 9, font: regular, color: INK_MUTE });
-    y -= 20;
+    page.drawText(S.coversNote, { x: M, y, size: 8.5, font: regular, color: INK_MUTE });
+    y -= 18;
     for (const d of data.domains) weightBar(d.title, d.weightPct);
-    y -= 6;
+    y -= 2;
   }
 
-  // ---- about --------------------------------------------------------------
+  // ---- about (supporting) -------------------------------------------------
 
   if (data.description) {
-    heading(S.about);
-    body(data.description);
-    y -= 10;
+    subheading(S.about);
+    body(data.description, 9.5);
+    y -= 8;
   }
 
-  // ---- examination --------------------------------------------------------
+  // ---- examination (anchor) -----------------------------------------------
 
   heading(S.exam);
   row(S.questions, String(data.numQuestions));
   row(S.duration, `${data.examDurationMinutes} ${S.minutes}`);
-  row(S.passMark, `${Number(data.passingScorePct)}%`);
+  row(S.passMark, `${fmtNum(Number(data.passingScorePct), locale)}%`);
   row(S.attempts, String(data.maxExamAttempts));
   row(S.attemptWindow, `${data.attemptWindowMonths} ${S.months}`);
   row(S.languages, S.langList);
-  y -= 10;
+  y -= 8;
 
-  // ---- preparation --------------------------------------------------------
+  // ---- preparation (supporting) -------------------------------------------
 
-  heading(S.prep);
+  subheading(S.prep);
   row(S.modules, String(data.moduleCount));
   row(S.lessons, String(data.lessonCount));
   if (data.studyMinutes > 0) {
-    row(S.studyTime, `${fmtHours(data.studyMinutes, locale)} ${S.hours}`);
+    row(S.studyTime, `${fmtNum(data.studyMinutes / 60, locale)} ${S.hours}`);
   }
-  y -= 4;
-  body(S.prepNote, 10);
-  y -= 10;
+  y -= 2;
+  body(S.prepNote, 9.5);
+  y -= 8;
 
-  // ---- credential ---------------------------------------------------------
+  // ---- credential (supporting) --------------------------------------------
 
-  heading(S.credential);
+  subheading(S.credential);
   row(S.validity, `${data.validityDays} ${S.days}`);
-  y -= 4;
-  body(S.verification, 10);
-  y -= 10;
+  y -= 2;
+  body(S.verification, 9.5);
+  y -= 8;
 
-  // ---- how it is built ----------------------------------------------------
+  // ---- how it is built (anchor) -------------------------------------------
   //
-  // The differentiating section. Four statements, every one checkable against
-  // a published document or a live page. Note what is NOT here: no
-  // "accredited", no "recognised by", no equivalence to any third-party
-  // programme. "Designed to the framework" is the honest formulation and it is
-  // the one used in the scheme documents.
+  // The differentiating section. Four statements, each checkable against a
+  // published document or a live page. Note what is absent: no "accredited",
+  // no "recognised by", no equivalence to any third-party programme.
+  // "Designed to the framework" is the honest formulation and the one the
+  // scheme documents use.
 
   heading(S.built);
   bullet(S.built1);
   bullet(S.built2);
   bullet(S.built3);
   bullet(S.built4);
-  y -= 6;
+  y -= 4;
 
-  // ---- related ------------------------------------------------------------
+  // ---- related (supporting) -----------------------------------------------
 
   if (data.siblings.length > 0) {
-    heading(S.related);
+    subheading(S.related);
     for (const s of data.siblings) {
-      need(18);
-      page.drawText(s.code, { x: M, y, size: 9, font: mono, color: ACCENT_DEEP });
-      page.drawText(s.name, {
-        x: M + 74,
-        y,
-        size: 10.5,
-        font: regular,
-        color: INK_SOFT,
-      });
-      y -= 17;
+      need(17);
+      page.drawText(s.code, { x: M, y, size: 8.5, font: mono, color: ACCENT_DEEP });
+      page.drawText(s.name, { x: M + 72, y, size: 10, font: regular, color: INK_SOFT });
+      y -= 16;
     }
     y -= 8;
   }
 
-  // ---- getting started ----------------------------------------------------
+  // ---- getting started (supporting) ---------------------------------------
 
-  heading(S.enroll);
-  body(S.enrollBody, 10.5, INK);
+  subheading(S.enroll);
+  body(S.enrollBody, 10, INK);
 
-  // ---- provenance footer, on every page -----------------------------------
+  // ---- provenance footer, every page --------------------------------------
   //
   // Non-negotiable per spec §4. A document with no generation date never
   // expires in the reader's mind, which is the failure this library exists to
@@ -508,12 +523,8 @@ export async function renderFactSheet(
   const stamp = `Certidemy · ${data.code} · ${S.eyebrow} · ${locale}`;
   const meta = [
     `${S.generated} ${fmtDate(new Date().toISOString(), locale)}`,
-    data.blueprintComputedAt
-      ? `${S.blueprintNote} ${data.blueprintComputedAt}`
-      : null,
-    data.cognitiveModelVersion
-      ? `Cognitive Model v${data.cognitiveModelVersion}`
-      : null,
+    data.blueprintComputedAt ? `${S.blueprintNote} ${data.blueprintComputedAt}` : null,
+    data.cognitiveModelVersion ? `Cognitive Model v${data.cognitiveModelVersion}` : null,
   ]
     .filter(Boolean)
     .join(" · ");
@@ -539,13 +550,7 @@ export async function renderFactSheet(
     if (pages.length > 1) {
       const n = `${S.page} ${i + 1} ${S.of} ${pages.length}`;
       const w = mono.widthOfTextAtSize(n, 7.5);
-      p.drawText(n, {
-        x: A4_W - M - w,
-        y: fy + 8,
-        size: 7.5,
-        font: mono,
-        color: INK_MUTE,
-      });
+      p.drawText(n, { x: A4_W - M - w, y: fy + 8, size: 7.5, font: mono, color: INK_MUTE });
     }
   });
 
