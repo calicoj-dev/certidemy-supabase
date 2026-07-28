@@ -31,7 +31,11 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
-import { renderCertificate, type CertificateData } from "../_shared/certificate.ts";
+import {
+  renderCertificate,
+  CERTIFICATE_RENDERER_VERSION,
+  type CertificateData,
+} from "../_shared/certificate.ts";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -125,7 +129,8 @@ serve(async (req) => {
 
     // 5. Overwrite the stored copy. Deterministic path => upsert overwrites
     //    rather than orphaning the old file.
-    const path = `${cred.id}/certificate.pdf`;
+    const path =
+      `${cred.id}/v${CERTIFICATE_RENDERER_VERSION}/${renderLocale}/certificate.pdf`;
     const { error: upErr } = await svc.storage
       .from(BUCKET)
       .upload(path, pdfBytes, { contentType: "application/pdf", upsert: true });

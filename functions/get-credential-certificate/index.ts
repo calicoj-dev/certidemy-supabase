@@ -25,7 +25,11 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
-import { renderCertificate, type CertificateData } from "../_shared/certificate.ts";
+import {
+  renderCertificate,
+  CERTIFICATE_RENDERER_VERSION,
+  type CertificateData,
+} from "../_shared/certificate.ts";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -106,11 +110,22 @@ serve(async (req) => {
 
     const renderLocale = locale ?? cred.locale ?? "en";
 
+    // Versioned and locale-scoped. The old path carried neither, so a
+    // palette change could not invalidate a stored file and two languages
+    // fought over one object.
+    const path =
+      `${cred.id}/v${CERTIFICATE_RENDERER_VERSION}/${renderLocale}/certificate.pdf`;
+
     // Cache hit: return a signed URL to the stored PDF.
-    if (cred.certificate_path) {
+    // Probe the computed path. A miss falls through to render, which is
+    // the same route a deleted object already took.
+    if (path) {
       const { data: signed, error: signErr } = await svc.storage
         .from(BUCKET)
-        .createSignedUrl(cred.certificate_path, SIGNED_URL_TTL, {
+        // Signed from the computed path, not the stored column. The
+        // column holds a single value while a credential now has one
+        // object per locale, so it can no longer answer this question.
+        .createSignedUrl(path, SIGNED_URL_TTL, {
           download: `${cred.credential_code}.pdf`,
         });
       if (!signErr && signed?.signedUrl) {
@@ -139,7 +154,7 @@ serve(async (req) => {
 
     // Path is deterministic per credential so regeneration overwrites rather
     // than orphaning. `upsert: true` makes the upload idempotent.
-    const path = `${cred.id}/certificate.pdf`;
+    // path is computed above, before the cache probe.
     const { error: upErr } = await svc.storage
       .from(BUCKET)
       .upload(path, pdfBytes, {

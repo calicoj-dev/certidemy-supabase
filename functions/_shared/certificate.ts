@@ -45,6 +45,17 @@ const SEAL_FILL = rgb(0.988, 0.906, 0.945);
 const SEAL_INNER = rgb(0.94, 0.76, 0.84);
 const WHITE = rgb(1, 1, 1);
 
+/**
+ * Bump on ANY change to this renderer or to the font payload: layout,
+ * palette, typeface, wording, the specimen marks. It forms part of the
+ * storage path, so bumping it invalidates every stored certificate and the
+ * next request re-renders.
+ *
+ * 1 - initial
+ * 2 - specimen band and watermark; brand magenta palette
+ */
+export const CERTIFICATE_RENDERER_VERSION = "2";
+
 export interface CertificateData {
   id: string;
   credential_code: string;
