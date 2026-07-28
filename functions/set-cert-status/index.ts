@@ -2,7 +2,7 @@
 //
 // Body: { certification_id, status }  where status is one of:
 //        'draft' | 'coming_soon' | 'available' | 'unavailable'
-// Auth: Bearer JWT â€” MUST be a platform_admin.
+// Auth: Bearer JWT — MUST be a platform_admin.
 //
 // The certification lifecycle control. Only Certidemy (platform_admin) can move
 // a certification between lifecycle states:
@@ -14,7 +14,7 @@
 //
 // SUSPEND != REVOKE. Flipping a cert to 'unavailable' freezes NEW exam starts
 // (enforced in generate-mock-exam) but never touches issued credentials. This is
-// the "found a bad question set / updating the JTA â€” freeze minting while we fix"
+// the "found a bad question set / updating the JTA — freeze minting while we fix"
 // lever. Enforcement lives in the exam edge functions (start requires
 // status='available'); this function only sets the state + audits it.
 //
@@ -84,7 +84,7 @@ serve(async (req) => {
       .update({ status: to_status })
       .eq("id", cert.id);
     if (uErr) throw new Error(`status update: ${uErr.message}`);
-    // 2. Audit log â€” the management-system record of the transition.
+    // 2. Audit log — the management-system record of the transition.
     const { error: logErr } = await svc.from("admin_actions").insert({
       actor_user_id,
       action: "set_cert_status",

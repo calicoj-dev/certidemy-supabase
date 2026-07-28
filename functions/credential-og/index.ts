@@ -3,7 +3,7 @@
 // PUBLIC endpoint (deploy with --no-verify-jwt). Renders a 1200x630 branded PNG
 // card for a credential, used as the og:image on the /verify/<code> page so a
 // pasted link previews as a real credential (LinkedIn/WhatsApp/Slack require a
-// raster image â€” SVG won't render there).
+// raster image — SVG won't render there).
 //
 // ROBUSTNESS: the per-credential card is rendered at the edge with resvg-wasm.
 // If ANYTHING fails (wasm/font fetch, lookup miss, render error), the function
@@ -132,7 +132,7 @@ async function fallback(): Promise<Response> {
         headers: { "content-type": "image/png", "cache-control": "public, max-age=300", ...corsHeaders },
       });
     }
-  } catch { /* ignore â€” fall through to redirect */ }
+  } catch { /* ignore — fall through to redirect */ }
   return new Response(null, { status: 302, headers: { location: FALLBACK_URL, ...corsHeaders } });
 }
 

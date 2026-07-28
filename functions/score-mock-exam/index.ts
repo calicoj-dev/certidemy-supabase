@@ -387,7 +387,7 @@ serve(async (req) => {
       // exam should never have STARTED under draft/coming_soon, so if we somehow
       // reach mint there, refuse. (unavailable is allowed: a freeze blocks new
       // starts, but an attempt already in progress under 'available' completes
-      // and mints â€” fairer to the candidate, defensible for 17024.)
+      // and mints — fairer to the candidate, defensible for 17024.)
       const mintable = (cert as any).status === "available" || (cert as any).status === "unavailable";
       if (passed && mintable) {
         try {
@@ -464,10 +464,10 @@ serve(async (req) => {
                   .from("vouchers")
                   .update({
                     credential_id: cred.id,
-                    // Mark the voucher redeemed on a passing cert exam â€” it
+                    // Mark the voucher redeemed on a passing cert exam — it
                     // produced a credential, so the roster shows the holder as
                     // completed/certified (not stuck "assigned"). (A FAILED cert
-                    // exam is not yet marked redeemed â€” tracked refinement:
+                    // exam is not yet marked redeemed — tracked refinement:
                     // mark-redeemed-on-any-completed-cert-exam.)
                     status: "redeemed",
                     redeemed_at: now.toISOString(),
