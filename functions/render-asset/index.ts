@@ -5,9 +5,8 @@
 //         certification_code: string, language?: "en" | "es-419" | "pt-BR" }
 // Auth: Bearer JWT - MUST be platform_admin or marketing.
 //
-// v4: JTA sheet. Every declared task with its level, criticality, frequency and
-// examination scope, plus knowledge/skills/abilities where the language has
-// them.
+// v5: closes an English-content leak into translated JTA sheets. See
+// "K/S/A LANGUAGE RULE" below - it is the most important paragraph in this file.
 //
 // GATED, NOT PUBLIC. verify_jwt stays ON - the caller must be staff. The public
 // forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate endpoint; that is
@@ -30,24 +29,44 @@
 //   statements once already, and a competence document that keeps serving
 //   retired wording is precisely the failure this library exists to prevent.
 //
+// K/S/A LANGUAGE RULE — READ BEFORE CHANGING THE JTA BRANCH
+//
+// Knowledge, skills and abilities live in English on `tasks`. Migration 161
+// added matching columns to `task_translations`, initially empty.
+//
+// v4 inferred "this language has K/S/A" from the translation query SUCCEEDING,
+// and fell back per field to the English column. The moment those columns
+// existed but were empty, that inference became true while the data was absent,
+// and every Spanish sheet would have rendered Spanish task statements beside
+// English knowledge statements. The columns shipped before this fix; no
+// document was served that way only because the existing objects were cached.
+//
+// Two rules now, and neither is negotiable:
+//
+//   1. A NON-ENGLISH DOCUMENT NEVER READS THE ENGLISH K/S/A COLUMNS. Translated
+//      values or nothing. A query succeeding says the column exists, which is
+//      not the same claim as the row being translated.
+//
+//   2. ALL OR NOTHING PER LANGUAGE. K/S/A renders only when EVERY task that has
+//      English K/S/A also has it translated. Partial coverage would scatter
+//      blanks through a fifteen-page document and read as data loss rather than
+//      as work in progress.
+//
+// The response reports ksa_translated / ksa_total so progress is measurable
+// while a translation pass is under way.
+//
 // TOLERANT TRANSLATION READS. domain_translations and task_translations are
 // asked for their richest shape first; if a column is absent the request fails
 // and we retry for the minimum, rather than losing translated titles and
-// statements as collateral. Adding those columns later needs no code change -
-// the first query simply starts succeeding. Responses report what was actually
-// localized, because a Spanish document quietly carrying English content is the
-// kind of thing that should not be discovered in a client's inbox.
+// statements as collateral. Responses report what was actually localized.
 //
 // PROVISIONAL TRANSLATIONS ARE EXCLUDED. Both translation tables carry
 // is_provisional, which exists to distinguish reviewed copy from unreviewed.
-// A document a rep emails to a buyer is the last place to ignore that. Today
-// every row is reviewed, so this filter costs nothing; it earns its place the
-// first time someone loads a machine-translated batch.
+// A document a rep emails to a buyer is the last place to ignore that.
 //
 // NOTE ON SELECT STRINGS: single literals, never built with `+`. supabase-js
 // parses the select as a template-literal type; a concatenated string degrades
 // the response to GenericStringError and breaks the typed build in the web app.
-// Same discipline here for consistency even though Deno does not enforce it.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -136,6 +155,12 @@ function byTaskCode(a: { code: string }, b: { code: string }): number {
   return am - bm || an - bn || a.code.localeCompare(b.code);
 }
 
+type KsaTriple = {
+  knowledge: string | null;
+  skills: string | null;
+  abilities: string | null;
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -215,8 +240,6 @@ serve(async (req) => {
     //
     // Delegated, not duplicated. get-credential-certificate owns the
     // versioned locale-scoped path, the lazy render and the specimen marks.
-    // Reimplementing that here would mean fixing certificate caching twice
-    // forever.
     if (assetType === "specimen_certificate") {
       const { data: specRow } = await svc
         .from("credentials")
@@ -229,8 +252,7 @@ serve(async (req) => {
         return jsonResponse(
           {
             error: "no specimen credential for this certification",
-            detail:
-              "Mint one with certidemy-web/scripts/mint-specimens.mjs.",
+            detail: "Mint one with certidemy-web/scripts/mint-specimens.mjs.",
           },
           404,
         );
@@ -258,8 +280,6 @@ serve(async (req) => {
         );
       }
 
-      // Logged here, not there: the audit question is which member of
-      // staff obtained the file, and only this function knows that.
       const { error: specLogErr } = await svc.from("asset_downloads").insert({
         user_id: actor_user_id,
         asset_type: "specimen_certificate",
@@ -280,9 +300,6 @@ serve(async (req) => {
     }
 
     // ---- localized copy -------------------------------------------------
-    //
-    // Falls back to the base row. AIHR-I has a null i18n description by design
-    // - the catalog reads `claim` only.
     const { data: i18nRow } = await svc
       .from("certification_i18n")
       .select("name, claim, description, updated_at")
@@ -300,9 +317,6 @@ serve(async (req) => {
         .maybeSingle();
 
     // ---- domains ---------------------------------------------------------
-    //
-    // Shared by all three sheets. domains has no language column; titles and
-    // descriptions come from domain_translations, falling back to the base row.
     const { data: domainRows } = await svc
       .from("domains")
       .select("id, code, title, description, weight_pct, order_index")
@@ -427,16 +441,10 @@ serve(async (req) => {
         );
       }
 
-      // Translated statements, and K/S/A if those columns ever land. Asking for
-      // the rich shape first means the day they exist this starts working with
-      // no code change.
       const statements = new Map<string, string>();
-      const ksa = new Map<
-        string,
-        { knowledge: string | null; skills: string | null; abilities: string | null }
-      >();
+      const ksa = new Map<string, KsaTriple>();
       let statementsLocalized = language === "en";
-      let ksaLocalized = language === "en";
+      let ksaColumnsExist = language === "en";
       let newestTranslation: string | null = null;
 
       if (language !== "en") {
@@ -452,7 +460,7 @@ serve(async (req) => {
 
         if (!richRes.error) {
           statementsLocalized = true;
-          ksaLocalized = true;
+          ksaColumnsExist = true;
           for (
             const r of (richRes.data ?? []) as {
               task_id: string;
@@ -474,7 +482,6 @@ serve(async (req) => {
             }
           }
         } else {
-          // Expected today: task_translations carries statement only.
           let lean = svc
             .from("task_translations")
             .select("task_id, statement, updated_at")
@@ -502,6 +509,32 @@ serve(async (req) => {
         }
       }
 
+      // ---- the K/S/A language decision ---------------------------------
+      //
+      // Coverage is measured against what English actually carries: a task with
+      // no English abilities statement does not need a translated one. Rule 2
+      // above - all or nothing - so a partially translated language renders no
+      // K/S/A at all rather than a document pocked with blanks.
+      const tasksWithEnglishKsa = tasks.filter(
+        (t) => t.knowledge || t.skills || t.abilities,
+      );
+      const tasksWithTranslatedKsa = tasksWithEnglishKsa.filter((t) => {
+        const tr = ksa.get(t.id);
+        if (!tr) return false;
+        if (t.knowledge && !tr.knowledge) return false;
+        if (t.skills && !tr.skills) return false;
+        if (t.abilities && !tr.abilities) return false;
+        return true;
+      });
+
+      const ksaComplete =
+        tasksWithEnglishKsa.length > 0 &&
+        tasksWithTranslatedKsa.length === tasksWithEnglishKsa.length;
+
+      const showKsa = language === "en"
+        ? tasksWithEnglishKsa.length > 0
+        : ksaColumnsExist && ksaComplete;
+
       // Newest task edit, for the cache key. Tolerant: if tasks carries no
       // updated_at the key simply loses that input rather than the request
       // failing.
@@ -516,18 +549,23 @@ serve(async (req) => {
         newestTask = (taskStamp.data[0] as { updated_at: string | null }).updated_at;
       }
 
-      // K/S/A only where it is available in the requested language. Rendering
-      // English knowledge statements inside a Spanish document would switch
-      // language every few lines across fifteen pages, which is worse than
-      // omitting them.
-      const showKsa = ksaLocalized;
-
       const jtaDomains: JtaDomain[] = domainBase.map((d) => {
         const list: JtaTask[] = tasks
           .filter((t) => t.domain_id === d.id)
           .sort(byTaskCode)
           .map((t) => {
+            // NEVER `?? t.knowledge` for a non-English document. That fallback
+            // is the leak this version exists to close.
             const tr = ksa.get(t.id);
+            const triple: KsaTriple = !showKsa
+              ? { knowledge: null, skills: null, abilities: null }
+              : language === "en"
+              ? { knowledge: t.knowledge, skills: t.skills, abilities: t.abilities }
+              : {
+                knowledge: tr?.knowledge ?? null,
+                skills: tr?.skills ?? null,
+                abilities: tr?.abilities ?? null,
+              };
             return {
               code: t.code,
               statement: statements.get(t.id) ?? t.statement,
@@ -536,9 +574,7 @@ serve(async (req) => {
               bloomLevel: t.bloom_level,
               isExamScope: t.is_exam_scope,
               isSimulationCandidate: t.is_simulation_candidate,
-              knowledge: showKsa ? (tr?.knowledge ?? t.knowledge) : null,
-              skills: showKsa ? (tr?.skills ?? t.skills) : null,
-              abilities: showKsa ? (tr?.abilities ?? t.abilities) : null,
+              ...triple,
             };
           });
         return {
@@ -563,19 +599,23 @@ serve(async (req) => {
         cognitiveModelVersion,
       };
 
+      // Whether K/S/A rendered is part of what this document IS, so it belongs
+      // in the cache key. Without it, the first sheet generated before a
+      // translation pass would keep being served after it.
       const jtaStamps = [
         certRow.updated_at,
         i18nRow?.updated_at,
         blueprintComputedAt,
         newestTask,
         newestTranslation,
+        showKsa ? "ksa" : "noksa",
       ]
         .filter(Boolean)
         .sort()
         .join("");
       const jtaVersion = contentVersion(jtaStamps || certRow.updated_at);
       const jtaPath =
-        `jta/v${JTA_RENDERER_VERSION}/${code}/${language}/${jtaVersion}.pdf`;
+        `jta/v${JTA_RENDERER_VERSION}/${code}/${language}/${showKsa ? "k" : "n"}${jtaVersion}.pdf`;
       const jtaFilename = `${code}-jta-${language}.pdf`;
 
       const { data: jtaHit } = await svc.storage
@@ -629,8 +669,10 @@ serve(async (req) => {
         tasks_declared: jtaData.totalTasks,
         tasks_examined: jtaData.examScopeTasks,
         statements_localized: statementsLocalized,
-        ksa_included: showKsa,
         descriptions_localized: descriptionsLocalized,
+        ksa_included: showKsa,
+        ksa_translated: tasksWithTranslatedKsa.length,
+        ksa_total: tasksWithEnglishKsa.length,
       });
     }
 
@@ -649,9 +691,6 @@ serve(async (req) => {
         );
       }
 
-      // LIVE task counts, never exam_blueprint.task_counts. Invariant 17
-      // catches divergence at verify time, but a document a buyer keeps should
-      // not depend on a check having been run before it was generated.
       const { data: taskRows } = await svc
         .from("tasks")
         .select("domain_id, is_exam_scope")
@@ -775,10 +814,6 @@ serve(async (req) => {
     // =====================================================================
     // FACT SHEET
     // =====================================================================
-    //
-    // The claim gate belongs here and not above: neither the blueprint nor the
-    // JTA sheet renders a claim, so refusing to generate one for want of an
-    // approved claim would be a gate on the wrong document.
     const claim = i18nRow?.claim ?? enRow?.claim ?? "";
     if (!claim) {
       return jsonResponse(
@@ -796,11 +831,6 @@ serve(async (req) => {
       weightPct: Number(d.weight_pct),
     }));
 
-    // ---- preparation figures --------------------------------------------
-    //
-    // "How long does this take my people" is the buyer's second question.
-    // Lesson counts are per-language; fall back to English when a language has
-    // not been fully loaded, so the figure is never zero on a real course.
     const { data: moduleRows } = await svc
       .from("modules")
       .select("id")
@@ -829,10 +859,6 @@ serve(async (req) => {
       studyMinutes = got.minutes;
     }
 
-    // ---- siblings --------------------------------------------------------
-    //
-    // Facts about our own catalog only. No labour-market claims anywhere on
-    // this document.
     const { data: sibRows } = certRow.category_slug
       ? await svc
         .from("certifications")
@@ -847,7 +873,6 @@ serve(async (req) => {
       (sibRows ?? []) as { code: string; name: string }[]
     ).map((s) => ({ code: s.code, name: s.name }));
 
-    // ---- assemble --------------------------------------------------------
     const data: FactSheetData = {
       code: certRow.code,
       name: i18nRow?.name ?? certRow.name,
@@ -869,7 +894,6 @@ serve(async (req) => {
       cognitiveModelVersion,
     };
 
-    // ---- cache -----------------------------------------------------------
     const stamps = [certRow.updated_at, i18nRow?.updated_at]
       .filter(Boolean)
       .sort()
@@ -910,11 +934,6 @@ serve(async (req) => {
       signedUrl = fresh.signedUrl;
     }
 
-    // ---- audit -----------------------------------------------------------
-    //
-    // Logged on every generation, cached or not. The question the log answers
-    // is "who obtained this file", and a cache hit is still an obtaining.
-    // Best-effort: a logging failure must not deny the rep their document.
     const { error: logErr } = await svc.from("asset_downloads").insert({
       user_id: actor_user_id,
       asset_type: "factsheet",
