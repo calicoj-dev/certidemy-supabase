@@ -23,8 +23,16 @@ syllabi and the Scrum Guide are all free downloads. The claim is largely false,
 any prospect who has certified in one of those knows it, and no forbidden
 keyword appears anywhere near it.
 
-**A word list cannot catch a false claim made in permitted words.** So this
-document governs claim *types* and the evidence each requires.
+Hours later, a second sweep found **"globally-recognized certifications"** on the
+home page and both authentication pages, in all three languages. The first sweep
+had searched for `globally recognized` with a space against copy that is
+hyphenated, and for `reconocimiento global` against copy that says `reconocidas
+mundialmente`.
+
+**A word list cannot catch a false claim made in permitted words, and it cannot
+catch a forbidden claim written in a spelling nobody anticipated.** So this
+document governs claim *types* and the evidence each requires, and §7 treats the
+sweep as the weaker of two checks.
 
 ---
 
@@ -82,7 +90,8 @@ becomes true, and not before.
 
 - Accredited / accreditation by any body
 - Psychometrically validated, psychometric validation
-- Globally recognised, internationally recognised
+- Globally recognised, internationally recognised, recognised worldwide — **in
+  any spelling, hyphenation or word order, in any language**
 - Recognised by employers, industry standard
 - Pass rates or approval statistics of any kind
 - Equivalent to, equivalent of, replaces, counts as — for any third-party
@@ -95,6 +104,13 @@ becomes true, and not before.
 - "The only", "the first", "nobody else" — without evidence meeting Class B
 - Any claim that Certidemy *is*, or is affiliated with, a standards body or
   another certification programme
+
+### Overclaims about our own product
+
+Not a competitor claim, but caught by the same principle. "An AI tutor that
+can't hallucinate" named a guarantee that grounding does not provide. "An AI
+tutor that cites its sources" says what is true and is harder to argue with.
+If a claim about our own product would fail a determined test, it fails §2.
 
 ---
 
@@ -153,17 +169,19 @@ Substitute the approved text on the right.
 |---|---|
 | Accredited to ISO/IEC 17024 · Acreditada según ISO 17024 · Acreditada conforme ISO 17024 | Designed to the ISO/IEC 17024 framework (§4) |
 | Equivalent to [any programme] | Nothing. There is no permitted equivalence claim. |
-| Globally recognised · Reconocimiento global · Reconhecimento global | Independently verifiable on a public page (§4) |
+| Globally recognised · globally-recognized · reconocidas mundialmente · reconocidas a nivel mundial · reconhecidas mundialmente | Certifications built in the open — or the verification claim (§4) |
 | Psychometrically validated | The cognitive profile is computed from the analysis (§4) |
 | X% pass rate | Nothing. No approval statistic is published. |
 | Their blueprints are behind paywalls | Our blueprint is published in full (§4) — a claim about us, not about them |
 | Competitors ignore AI | Nothing, unless evidenced and dated per Class B |
+| Built on the work nobody else does | Built on work you can inspect |
+| An AI tutor that can't hallucinate | An AI tutor that cites its sources |
 
 ---
 
 ## 6. Worked example — the about page
 
-Current copy, live:
+Original copy, live until 2026-07-29:
 
 > Most certifications still test whether you memorized a framework — and act as
 > though AI never entered the room. **Their blueprints sit behind paywalls.**
@@ -175,14 +193,14 @@ entirely"**.
 practice, unevidenced, and largely false. "AI ignored entirely" is Class D on
 the same grounds and weakening with time.
 
-**The repair does not weaken the page.** Every one of those lines can be
-restated as a Class A claim about us, which is both true and stronger:
+**The repair did not weaken the page.** Every one of those lines restates as a
+Class A claim about us, which is both true and stronger:
 
-| Was | Becomes |
+| Was | Became |
 |---|---|
-| Blueprint hidden behind a paywall | Our blueprint is published in full — every domain, every weight, every task |
-| AI ignored entirely | AI is part of every domain, not a bolt-on module |
-| Memorize the framework | We test whether you can apply and analyse, not just remember |
+| Blueprint hidden behind a paywall | Prepare for the question bank *(left column now describes an approach, not a provider)* |
+| AI ignored entirely | AI treated as an optional extra |
+| Most certifications *(column header)* | The old model |
 
 "We publish ours" needs no claim about anyone else, cannot be rebutted, and says
 something rarer than "they hide theirs."
@@ -191,22 +209,129 @@ something rarer than "they hide theirs."
 
 ## 7. Review procedure
 
-1. **Before any new public copy ships**, check each claim against §3 and assign a
-   class. Class C and D do not ship. Class B ships only with source and date.
-2. **Keyword sweep** — the mechanical half. Run against files and the
-   certification tables:
+### 7.1 Two failures that shape this section
 
-   ```
-   accredit|acreditad|equival|reconocimiento global|reconhecimento global|
-   globally recognized|psychometr|psicom|tasa de aprobaci|taxa de aprova|pass rate
-   ```
+Both happened on 2026-07-29, both after a sweep reported the site clean.
 
-   A clean sweep proves the absence of Class C vocabulary and nothing else.
-3. **Comparative-claim review** — the half a sweep cannot do. Read every sentence
-   that describes what anyone other than Certidemy does. Each needs a source and
-   a date or it comes out.
-4. **Re-verify Class B facts every 6 months.**
+**The about page asserted competitors' blueprints sit behind paywalls.** No
+forbidden keyword appeared anywhere near it. A vocabulary sweep cannot catch a
+false claim made in permitted words.
 
-Surfaces in scope: marketing pages, `messages/*.json`, `certifications` and
-`certification_i18n`, `domains` and `domain_translations`, generated documents,
-the sales library, and the comparison sheet when it exists.
+**`home.subhead` and `auth.showcase.headline` said "globally-recognized
+certifications".** The sweep searched `globally recognized` with a space; the
+copy is hyphenated. The Spanish and Portuguese read `reconocidas mundialmente`
+and `reconhecidas mundialmente` — a different word order from the
+`reconocimiento global` the pattern looked for. A Class C claim sat on the home
+page and both authentication pages through a sweep that reported no violations.
+
+The lesson is not "write a better regex". It is that **the sweep is the weaker
+of the two checks and must never be reported as clearance.**
+
+### 7.2 Scope — marketing surfaces only
+
+Run across the whole repository the sweep returns roughly two hundred lines of
+lesson content, because AIHR-I teaches what accredited certification means,
+AIGRM-I teaches that alignment is not equivalence, and SD-AI-I teaches
+hallucinated APIs. That is the curriculum working correctly, and burying the real
+findings in it is how a reviewer stops reading.
+
+**In scope:**
+- `certidemy-web/messages/*.json`
+- `certidemy-web/components/marketing/**`
+- `certidemy-web/app/[locale]/(marketing)/**`
+- `certifications`, `certification_i18n`
+- `domains`, `domain_translations`
+- Generated documents and the sales library
+- The comparison sheet, when it exists
+
+**Explicitly out of scope:** `certidemy-web/content/**`. Lesson content teaching
+these concepts is the product, not a claim about Certidemy.
+
+### 7.3 The sweep — mechanical half
+
+```powershell
+Get-ChildItem -LiteralPath "C:\Users\Juan\Documents\certidemy\certidemy-web\messages" -File -Filter *.json |
+  Select-String -Pattern "accredit","acredit","psychometr","psicom",
+    "global[- ]?ly[- ]?recogni[sz]ed","globally","mundialmente","a nivel mundial",
+    "internationally","internacionalmente","mundial",
+    "recogni[sz]ed by","reconocid. por","reconhecid. por",
+    "equivalent to","equivale a","equivalente a",
+    "pass rate","tasa de aprobaci","taxa de aprova",
+    "paywall","muro de pago","muro de pagamento",
+    "nobody else","nadie m.s","ningu.m mais",
+    "industry standard","est.ndar de la industria","padr.o do setor" |
+  ForEach-Object { "$($_.Filename):$($_.LineNumber)  $($_.Line.Trim())" }
+```
+
+Note what changed: **hyphen-tolerant** on globally-recognized, and the Spanish
+and Portuguese entries match on the adverb alone rather than a fixed phrase,
+because word order differs per language and per translator.
+
+Then the same patterns against the database:
+
+```sql
+select 'certification_i18n' as src, lang, certification_id::text as id,
+       coalesce(name,'') || ' | ' || coalesce(claim,'') || ' | ' || coalesce(description,'') as txt
+from certification_i18n
+where (coalesce(name,'') || coalesce(claim,'') || coalesce(description,'')) ~*
+      'accredit|acredit|psychometr|psicom|globally|mundialmente|a nivel mundial|internacionalmente|equivalent to|equivale a|pass rate|tasa de aprobaci|taxa de aprova|paywall|muro de pago'
+union all
+select 'domain_translations', dt.language, dt.domain_id::text,
+       coalesce(dt.title,'') || ' | ' || coalesce(dt.description,'')
+from domain_translations dt
+where (coalesce(dt.title,'') || coalesce(dt.description,'')) ~*
+      'accredit|acredit|psychometr|psicom|globally|mundialmente|a nivel mundial|internacionalmente|equivalent to|equivale a|pass rate|tasa de aprobaci|taxa de aprova|paywall|muro de pago';
+```
+
+**A clean sweep proves the absence of Class C vocabulary and nothing else.**
+It is never, on its own, grounds for saying copy is clear.
+
+### 7.4 The read — the half that cannot be automated
+
+Someone reads every sentence on a marketing surface and asks two questions:
+
+1. **Is this a statement about anyone other than Certidemy?** If yes, it needs a
+   source URL and a verification date, or it comes out. No exceptions for
+   "everyone knows" or "it's obviously true".
+2. **Could a sceptical buyer check this?** If they could and it would fail, it
+   comes out. If they could not check it at all, it is decoration and probably
+   should come out anyway.
+
+Superlatives get special attention: *nobody else*, *the only*, *the first*, *the
+work nobody does*. Each is a claim about every competitor simultaneously, and
+none survives question 1.
+
+Overclaims about our own product are caught by question 2.
+
+### 7.5 Cadence
+
+- **Before any new public copy ships** — §7.4 read, then §7.3 sweep.
+- **Every 6 months** — re-verify all Class B facts. A comparative claim older
+  than six months is unverified.
+- **Whenever a competitor changes something material** — re-check any Class B
+  claim that touches it.
+
+### 7.6 Reporting
+
+Never report "the sweep is clean". Report what was actually done:
+
+> Sweep: clean across messages and the certification tables — no Class C
+> vocabulary. Comparative read: N sentences checked, M findings.
+
+The first sentence alone is what let two live violations through.
+
+---
+
+## 8. Open items
+
+**The `home.philosophy` block is unreviewed and still live.** It names PSM I and
+SMPC, compares their scoring weights with no source — Class D — and says lessons
+are tuned to "whichever exam your employer recognizes", which positions
+Certidemy as preparation for other people's certifications. Combined with two
+competing hero headline sets in the same namespace, it appears to be copy from
+an earlier product. Whether it renders at all is unconfirmed.
+
+**The comparison sheet does not exist yet.** When it does, it is the primary
+Class B artifact and every cell needs a source URL and verification date. The
+permitted and forbidden texts in §4 and §5 are what a representative should be
+able to reach for instead of improvising.
