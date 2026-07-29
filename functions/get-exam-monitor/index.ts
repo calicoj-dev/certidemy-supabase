@@ -282,6 +282,10 @@ serve(async (req) => {
       .select("certification_id, kind, score_pct, passed")
       .not("completed_at", "is", null)
       .gte("completed_at", since)
+      // Only SCORED sessions are completed EXAMINATIONS. An administrative
+      // closure of an unscoreable session is a records action, not a result,
+      // and counting it made "3 cert exams, 0 passed" read as three failures.
+      .not("score_pct", "is", null)
       .in("kind", ["mock_exam", "certification_exam"]);
 
     const day = dayRows ?? [];
