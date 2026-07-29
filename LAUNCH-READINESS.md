@@ -1,254 +1,261 @@
 # LAUNCH-READINESS
 
 The sales and marketing team's ten pre-launch blockers, mapped to what exists,
-where it lives, and what is missing. Status as of 2026-07-29, migration tip 162.
+where it lives, and what is missing.
+
+Status as of 2026-07-29 (second revision), migration tip 162.
 
 Legend: **DONE** · **PARTIAL** · **MISSING** · **DECISION** (no code will
 produce it; it needs a person to decide)
 
 ---
 
-## 1. Identidad institucional — **DECISION**
+## 1. Identidad institucional — **DONE**
 
-Nothing about the legal entity exists anywhere in the platform.
+| Ask | Answer | Where |
+|---|---|---|
+| Qué entidad legal opera Certidemy | RC Capital Partners LLC | Privacy §intro, Terms §intro |
+| Registered where | State of New Jersey, United States | Privacy §intro |
+| Postal address | 210 Westervelt Ave, North Plainfield, NJ 07060 | Privacy §14, Terms §14 |
+| Quién emite la certificación | RC Capital Partners LLC, trading as Certidemy | Terms §3 |
+| Quién es dueño de los esquemas | The Company; Certidemy and CertiGlobal marks | Terms §7 |
+| Qué función cumple CertiGlobal | Voucher marketplace serving multiple certification bodies, including independent ones such as CertiProf. Certidemy is one participant | Footer badge, business copy |
+| Quién procesa los pagos | Shopify, using Stripe for card processing | Privacy §sub-processors |
+| Quién conserva los registros | The Company | Privacy §retention |
+| Contacto | info@certidemy.com | Everywhere |
 
-| Ask | Where it stands |
-|---|---|
-| Qué entidad legal opera Certidemy | Nowhere |
-| Quién emite la certificación | Nowhere |
-| Quién es dueño de los esquemas | Nowhere |
-| Qué función cumple CertiGlobal | Implied only — every asset states pricing is CertiGlobal's and examinations are purchased there, but no document says what the relationship *is* |
-| Quién procesa los pagos | Nowhere (CertiGlobal by implication) |
-| Quién conserva los registros | Nowhere |
+Certidemy and CertiGlobal are both brands of RC Capital Partners LLC. That
+sentence is now stated in the privacy policy and the terms.
 
-`/[locale]/(marketing)/about` exists as a route. **Content unverified** — it may
-already carry some of this.
+**One nuance worth being able to explain on a call.** A reader sees "brands of
+the same company" in the privacy policy and "A CertiGlobal Partner" in the
+footer. Both are true — the first is corporate ownership, the second is
+marketplace participation — but the pairing invites a question about issuer
+independence, which the AIHR-I curriculum itself teaches buyers to ask. The
+answer is that the examination does not discriminate: a fixed 80% pass mark, a
+published blueprint, and items drawn mechanically from a protected pool. There
+is no lever an incentive could act on. **This belongs in the battlecard**, because
+it sounds evasive if improvised.
 
-**Needed:** one approved paragraph. Every renderer has a footer that could carry
-it, and the three PDFs already stamp "Certidemy" with no entity behind it.
+**Still open:** no dedicated institutional page. `/about` is positioning copy —
+hero, contrast, principles — with no entity information. The legal pages carry
+the facts; a footer line and a short section on `/about` would put them where a
+buyer looks first.
 
 ---
 
-## 2. Legales terminados — **PARTIAL** (2 of 7)
+## 2. Legales terminados — **PARTIAL** (substantially done)
 
-| Ask | Route | Status |
-|---|---|---|
-| Términos de servicio | `/[locale]/terms` | Route exists, **content unverified** |
-| Política de privacidad | `/[locale]/privacy` | Route exists, **content unverified** |
-| Política de cookies | — | **MISSING** |
-| Política de reembolsos | — | **MISSING** |
-| Datos completos de la entidad | — | **MISSING** (see item 1) |
-| Jurisdicción | — | **MISSING** |
-| Correo de contacto | — | **MISSING** |
+Terms and Privacy are complete documents in `lib/legal/content.ts` — GDPR legal
+bases, LGPD, data subject rights, credential revocation, limitation of
+liability, governing law.
 
-Three new routes minimum. Note that a refunds policy is awkward while Certidemy
-takes no payments — it may belong on certiglobal.org instead, which is itself an
-item-1 question.
+| Ask | Status |
+|---|---|
+| Términos de servicio | ✓ `/[locale]/terms` |
+| Política de privacidad | ✓ `/[locale]/privacy` |
+| Política de cookies | ✓ Privacy §6. **No consent banner needed** — a codebase sweep found no analytics, advertising or non-essential cookies of any kind |
+| Política de reembolsos | ✓ Terms §5 — **DRAFT, unreviewed** |
+| Datos completos de la entidad | ✓ Name, NJ registration, postal address |
+| Jurisdicción | ✓ New Jersey, with a mandatory-consumer-protection carve-out — **DRAFT, unreviewed** |
+| Correo de contacto | ✓ info@certidemy.com |
 
-**Inconsistency to resolve:** `/[locale]/pricing` exists on Certidemy while every
-generated asset deliberately carries no price because pricing is CertiGlobal's.
-Those two facts need to agree before launch.
+**Two clauses are drafted, not transcribed**, and both are flagged in a comment
+inside `content.ts`:
+
+- **§5 refunds** — refundable within 14 days while the voucher is unredeemed;
+  non-refundable once redeemed, since redemption is when the examination is made
+  available.
+- **§12 courts** — exclusive jurisdiction of New Jersey state and federal courts,
+  preserving mandatory consumer protections in the user's country of residence.
+
+Both are conventional. Neither has been read by counsel.
+
+**Language position: English only, with a request mechanism.** The pages carry a
+notice offering the document in the reader's language on request. This is
+defensible and keeps one authoritative text rather than three that can drift.
+**Worth asking counsel:** Colombia's Estatuto del Consumidor and Brazil's CDC
+both require consumer information in the local language, and the Company now
+contracts directly with consumers in both. The request mechanism may satisfy it;
+the question is cheap to ask and expensive to get wrong.
+
+`gen-legal-translations.mjs` exists in the supabase repo, unused, if the position
+changes.
+
+**Inconsistency still open:** `/[locale]/pricing` exists on Certidemy while every
+generated asset deliberately carries no price, because vouchers are sold through
+CertiGlobal. Those two facts need to agree.
 
 ---
 
 ## 3. Especificaciones únicas por certificación — **PARTIAL** (9 of 13)
 
-The master table is `public.certifications`, and the fact sheet already renders
-from it in three languages.
+The master table is `public.certifications`; the fact sheet renders from it in
+three languages.
 
-| Ask | Where |
+Present: nombre, código, preguntas, duración, puntaje, intentos, vigencia del
+voucher, vigencia de la credencial, estado.
+
+| Gap | Detail |
 |---|---|
-| Nombre | `certifications.name` + `certification_i18n.name` ✓ |
-| Código | `certifications.code` ✓ |
-| Preguntas | `num_questions` ✓ |
-| Duración | `exam_duration_minutes` ✓ |
-| Puntaje | `passing_score_pct` ✓ |
-| Intentos | `max_exam_attempts` ✓ |
-| Vigencia del voucher | `attempt_window_months` + `v_voucher_validity` ✓ |
-| Vigencia de la credencial | `validity_days` ✓ |
-| Estado | `status` — but see below |
-| Idiomas | **Asserted in renderer code, not stored.** All three sheets hardcode "English, Spanish (LATAM), Portuguese (Brazil)" |
-| Modalidad | **Asserted in renderer code, not stored.** Blueprint sheet hardcodes "Multiple choice, single answer, online" |
-| Precio | **Not in Certidemy by design** — lives on certiglobal.org |
+| Idiomas | **Asserted in renderer code, not stored.** All three sheets hardcode the three languages |
+| Modalidad | **Asserted in renderer code.** Blueprint sheet hardcodes "Multiple choice, single answer, online" |
+| Precio | **Not in Certidemy by design** — vouchers sell through CertiGlobal |
 | Política de renovación | **MISSING** — no column, no policy |
-
-**"Beta" is not a status we have.** `status` holds `draft` / `coming_soon` /
-`available` / `unavailable`. If beta is a real state with different claims
-attached, it is a migration plus display handling in the catalog, the console and
-all three renderers — not a word on a chip.
-
-**The two asserted fields are a small risk.** If a certification ever ships in
-two languages instead of three, or adds a non-MCQ item type, the sheets will lie
-until someone remembers to edit the renderer.
+| "Beta" | **Not a status we have.** `status` holds `draft` / `coming_soon` / `available` / `unavailable`. If beta is real it is a migration plus display handling everywhere |
 
 ---
 
 ## 4. JTA y blueprint visibles — **DONE** (7 of 8)
 
-Shipped this session. Both documents generate from live rows in three languages
-via the sales library (`/console/library`).
+Both documents generate from live rows in three languages via the sales library.
 
-| Ask | Where |
-|---|---|
-| Dominios | Blueprint sheet + JTA sheet ✓ |
-| Tareas | JTA sheet — every task, in scope or not ✓ |
-| Pesos | Blueprint sheet, with question allocation ✓ |
-| Nivel cognitivo | Both, computed from tasks not asserted ✓ |
-| Número de preguntas | Both ✓ |
-| Versión | `exam_blueprint.version` — Cognitive Model v2.0, in every footer ✓ |
-| Fecha | Generation date + `computed_at` in every footer ✓ |
-| Fuentes principales | **MISSING** — no column. The JTA markdown headers carry sources outside the database |
+Present: dominios, tareas, pesos, nivel cognitivo, número de preguntas, versión,
+fecha.
 
-**Two caveats on the current state.** K/S/A renders in English only; the Spanish
-and Portuguese columns exist (migration 161) but are empty. And the 66 translated
-domain descriptions are `is_provisional = true`, so Spanish and Portuguese sheets
-currently fall back to English domain sections until a native read flips the flag.
+**Missing: fuentes principales** — no column. The JTA markdown headers carry
+sources outside the database.
+
+**Two caveats.** K/S/A renders in English only; the columns exist (migration 161)
+but are empty. And the 66 translated domain descriptions are
+`is_provisional = true`, so Spanish and Portuguese sheets fall back to English
+domain sections until a native read flips the flag.
 
 ---
 
 ## 5. Candidate Handbook — **MISSING** as a document
 
-No handbook exists. Several of its sections have working mechanics behind them,
-which shortens the writing but does not replace it.
-
-| Section | Mechanics exist? |
-|---|---|
-| Registro | Yes — signup/login |
-| Requisitos | No stated prerequisites |
-| Identificación | **No identity verification of any kind** |
-| Reglas del examen | Partial — timing and submission enforced |
-| Uso de IA | **DECISION** — see item 6 |
-| Resultados | Yes — exam engine, scoring |
-| Retakes | Yes — `max_exam_attempts`, `attempt_window_months` |
-| Apelaciones | No |
-| Quejas | No |
-| Adaptaciones | No |
-| Credencial | Yes — minting, `/verify`, public verification endpoint |
-| Renovación | **No policy** (see item 3) |
-| Revocación | Yes — console revoke, platform_admin gated |
+Mechanics exist for registro, resultados, retakes, credencial, revocación.
+Nothing exists for identificación, apelaciones, quejas, adaptaciones,
+renovación. Uso de IA is a §6 decision.
 
 ---
 
 ## 6. Operación del examen — **DECISION** (7 of 10 unanswered)
 
-| Question | Honest answer today |
-|---|---|
-| ¿Hay proctoring? | **No.** `exam-leave-guard` is a UX guard, not invigilation. It was renamed from "Proctored Run" for exactly this reason |
-| ¿Cómo se verifica la identidad? | It isn't |
-| ¿Se usa cámara? | No |
-| ¿Puede usar IA? | Undecided — nothing prevents it |
-| ¿Puede usar internet? | Undecided — nothing prevents it |
-| ¿Puede cambiar de pestaña? | Detected, not prevented |
-| ¿Qué ocurre si se desconecta? | Exam engine handles resume — **behaviour unverified**, worth confirming before writing it down |
-| ¿Cómo se detecta fraude? | Only the leave guard's signal |
-| ¿Quién revisa un incidente? | Nobody defined |
-| ¿Cuándo se emite la credencial? | Automatically on pass |
+**The honest answer to "is there proctoring" is no.** `exam-leave-guard` is a UX
+guard, not invigilation — no identity verification, no camera, tab switching
+detected but not prevented.
 
-**This is the item that gates item 10.** Everything on the team's "sin afirmar
-todavía" list depends on answering these accurately. Do not let the handbook
-inherit a proctoring claim the software does not make.
+Answerable today: no proctoring, no identity verification, no camera, credential
+issued automatically on pass.
+
+Unanswered: AI use, internet use, disconnect handling (behaviour unverified),
+fraud detection, incident review.
+
+**This gates item 10.** Everything on the team's "sin afirmar todavía" list
+depends on answering these accurately.
 
 ---
 
-## 7. Decisión de certificación — **PARTIAL** (2 of 5, none declared)
+## 7. Decisión de certificación — **PARTIAL** (2 of 5 operate, none declared)
 
-| Ask | Reality |
-|---|---|
-| Qué condición genera la aprobación | `passing_score_pct` — 80% across the catalog, enforced ✓ |
-| Quién autoriza la emisión | Nobody — issuance is automatic on pass. *That is an answer*, but it is undeclared |
-| Qué pasa cuando hay un incidente | No process |
-| Quién puede revocar | Platform admin, via the console. Implemented but not stated as policy |
-| Quién revisa una apelación | Nobody defined |
-
-The team says this need not be published but must operate internally. Two of five
-operate; none are written down.
+Approval condition is `passing_score_pct`, 80% across the catalog, enforced.
+Issuance is automatic on pass — that is an answer, but undeclared. Revocation is
+implemented, platform-admin gated. No incident process, no appeals reviewer.
 
 ---
 
-## 8. Credencial de demostración — **PARTIAL** (6 of 9)
+## 8. Credencial de demostración — **PARTIAL** (7 of 9)
 
-Seven specimen credentials shipped. They are real credential rows rendered by the
-real certificate function, excluded from every count, cannot verify as genuine,
-and print banded and watermarked.
+Seven specimen credentials shipped — real rows rendered by the real certificate
+function, excluded from every count, unable to verify as genuine, banded and
+watermarked.
 
-| Ask | Status |
+Present: diploma, ID, verification page, date, expiry, status, **QR** (vector,
+drawn from the module matrix, encoding the verification URL).
+
+| Gap | Detail |
 |---|---|
-| Diploma | ✓ specimen certificate PDF, three languages |
-| ID | ✓ `credential_code` |
-| Página de verificación | ✓ `/verify/[id]`, public `verify-credential` endpoint |
-| Fecha | ✓ |
-| Expiración | ✓ `validity_days` |
-| Estado | ✓ |
-| QR | **Unverified** — the certificate prints a verification URL; whether it also renders a QR needs checking |
-| Competencias | **Believed missing** from the certificate |
-| Versión del esquema | **Believed missing** from the certificate |
-| Badge | **MISSING** — deliberately. Credly is the intended system of record and no throwaway badge ships before it |
-
-The last three are small renderer changes now and annoying later.
+| Competencias | Not on the certificate. Recommend domain names only — a 51-task list makes it a report, not a diploma |
+| Versión del esquema | Not on the certificate. Should be: it tells a verifier which scheme version the credential was issued against |
+| Badge | Deliberate. Credly is the intended system of record; no throwaway badge ships first |
 
 ---
 
-## 9. Política de claims — **PARTIAL** (sweep done, document not written)
+## 9. Política de claims — **DONE**
 
-**The audit is complete and clean.** Both halves of the surface were checked this
-session:
+`CLAIMS-POLICY.md` — claim classes with evidence requirements, approved texts in
+three languages, forbidden formulations, review procedure.
 
-- All `.tsx` / `.ts` / `.json` in the web app grepped for accreditation,
-  equivalence, global recognition, psychometric validation and pass-rate claims
-  in all three languages. **Three hits, zero violations** — one internal console
-  analytics label reading "pass rate", two code comments about null handling.
-- `certifications` and `certification_i18n` queried for the same patterns.
-  **Zero rows.**
+**Both halves of the review were run and every violation fixed:**
 
-What remains is authorship, not searching:
+- About page asserted competitors' blueprints sit behind paywalls. False —
+  ITIL, PMI, ISTQB and the Scrum Guide all publish syllabi free. Removed in
+  three languages.
+- `home.subhead` and `auth.showcase.headline` said "globally-recognized
+  certifications". Removed in three languages.
+- `home.heroSubhead` said most certifications pretend AI doesn't exist. Removed.
+- "Built on the work nobody else does" and "An AI tutor that can't hallucinate"
+  replaced with claims that survive scrutiny.
+- 37 superseded `home` keys pruned, including the PSM I / SMPC scoring-weight
+  comparison — the last unsourced competitor claim in the repo.
 
-| Ask | Status |
-|---|---|
-| Lista oficial aprobada | **MISSING** — `TERMINOLOGY-POLICY.md` exists but is not an approved permitted/forbidden list |
-| Textos permitidos | **MISSING** |
-| Textos prohibidos | **MISSING** |
-| Versiones es/en/pt | **MISSING** |
-| Revisión de toda la web | ✓ **DONE**, clean |
-
-**One gap the sweep cannot cover:** the website is protected, but a call is where
-a rep improvises. The permitted/forbidden list needs to reach the battlecard, not
-just the site.
+**Two lessons are recorded in §7.1.** A vocabulary sweep found nothing while the
+paywall claim was live, because it was false in permitted words. And the first
+sweep missed "globally-recognized" entirely — it searched for the unhyphenated
+form, and for `reconocimiento global` against copy that said `reconocidas
+mundialmente`. **A clean sweep proves the absence of Class C vocabulary and
+nothing else.**
 
 ---
 
 ## 10. Etiqueta de lanzamiento — **PARTIAL**
 
-Their recommended framing — prelanzamiento + primera cohorte — is the right one
-and survives an honest answer to item 6.
+Prelanzamiento + primera cohorte is the right framing and survives an honest
+answer to item 6.
 
-**Can be presented today:** platform, certifications, JTA, blueprints,
-preparation (free lessons), registration.
-
-**Cannot yet:** lista de espera (**MISSING**), precios de lanzamiento (CertiGlobal's,
-not ours), participación en primera cohorte (**MISSING** — no cohort mechanics).
+**Ready:** platform, certifications, JTA, blueprints, preparation, registration.
+**Missing:** lista de espera, participación en primera cohorte.
+**Not ours:** precios de lanzamiento — CertiGlobal's.
 
 **Must not assert** — validación psicométrica, reconocimiento global,
-acreditación, tasas de aprobación, equivalencia. ✓ **None present**, confirmed by
-the item-9 sweep.
+acreditación, tasas de aprobación, equivalencia. ✓ None present.
 
 ---
 
 ## Summary
 
-| # | Item | Status |
-|---|---|---|
-| 4 | JTA y blueprint | **DONE** — 7 of 8, missing only fuentes principales |
-| 9 | Política de claims | Sweep **DONE** and clean; list not written |
-| 8 | Credencial de demostración | 6 of 9 — QR unverified, competencias and versión del esquema likely missing, badge deliberate |
-| 3 | Especificaciones | 9 of 13 — renovación missing, "beta" not a real status, precio elsewhere by design |
-| 2 | Legales | 2 of 7 routes exist, content unverified |
-| 7 | Decisión de certificación | 2 of 5 operate, none declared |
-| 5 | Candidate Handbook | Mechanics for ~half, document for none |
-| 1 | Identidad institucional | Nothing |
-| 6 | Operación del examen | 3 of 10 answerable |
-| 10 | Etiqueta de lanzamiento | Content mostly ready; waitlist and cohort missing |
+| # | Item | Status | Movement |
+|---|---|---|---|
+| 1 | Identidad institucional | **DONE** | was: nothing |
+| 4 | JTA y blueprint | **DONE** | — |
+| 9 | Política de claims | **DONE** | was: sweep only |
+| 2 | Legales | **PARTIAL** (substantial) | was: 2 of 7, unverified |
+| 8 | Credencial de demostración | 7 of 9 | QR confirmed |
+| 3 | Especificaciones | 9 of 13 | — |
+| 7 | Decisión de certificación | 2 of 5 operate | — |
+| 5 | Candidate Handbook | mechanics only | — |
+| 6 | Operación del examen | 3 of 10 | — |
+| 10 | Etiqueta de lanzamiento | content ready | — |
 
-**Blocked on code:** almost nothing. Fuentes principales, the certificate's three
-missing fields, a waitlist, and the "beta" status if it is real.
+**Three of ten are closed.**
 
-**Blocked on a decision:** items 1, 6 and 7 entirely, and they gate 2, 5 and 10.
+**Blocked on code:** fuentes principales, two certificate fields, a waitlist, and
+"beta" status if it is real.
+
+**Blocked on a decision:** item 6 entirely, and it gates 5 and 10. Item 7 needs
+declaring rather than building.
+
+**Blocked on counsel:** the two draft clauses, and the English-only language
+position.
+
+---
+
+## Trademark
+
+™ is correct and ® would not be — ® is reserved for marks registered with the
+USPTO, and using it on an unregistered mark is itself unlawful in the US. ™
+requires no registration.
+
+Convention is **once per page**, at the first or most prominent use, plus the
+wordmark. On every mention it reads as amateurish and adds nothing.
+
+**Mark the codes, not the Scrum-derived names.** `AIGRM-I`, `AISM-I`, `AIE-I`,
+`AIHR-I` are coined and distinctive. "Scrum Master I — AI" is built on an
+industry term others have interests in, and asserting a mark over it invites the
+argument you least want.
+
+Surfaces: `certifications.name`, `certification_i18n.name`, the three PDF
+renderers, the catalog, the console, the verify page. Terms §7 already reads
+"the Certidemy and CertiGlobal marks" and is where they are asserted.
