@@ -181,7 +181,7 @@ const BLOOM: Record<AssetLocale, Record<string, [string, string]>> = {
   },
 };
 
-function bloomEntry(level: string, locale: AssetLocale): [string, string] {
+export function bloomEntry(level: string, locale: AssetLocale): [string, string] {
   const e = BLOOM[locale][level];
   if (!e) {
     throw new Error(
