@@ -297,6 +297,37 @@ serve(async (req) => {
       .select("id, started_at")
       .single();
     if (sErr || !session) throw new Error(`quiz_sessions insert: ${sErr?.message}`);
+    // 10b. Record the SERVED FORM. One row per item, in presented order,
+    //      with the form's language. score-mock-exam grades against these
+    //      rows instead of the client's submitted array - see migration 163
+    //      for what that closes.
+    //
+    //      Order here is authoritative: finalQuestions is the exact array
+    //      returned to the client, so index === the position the candidate
+    //      sees, and it matches quiz_attempts.presented_order at scoring.
+    const served_rows = finalQuestions.map((q, presented_order) => ({
+      session_id: session.id,
+      question_id: q.id,
+      presented_order,
+      language,
+    }));
+
+    const { error: siErr } = await svc
+      .from("exam_session_items")
+      .insert(served_rows);
+
+    if (siErr) {
+      // A form we cannot record is a form we cannot score honestly. Refuse
+      // rather than hand out secure items with no server-side record of
+      // what was issued. For a real exam the attempt is already consumed at
+      // this point (same position as the blueprint-integrity gate above);
+      // ops re-issues from the audit trail.
+      console.error("exam_session_items insert failed", siErr);
+      throw new Error(
+        "could not record the assembled form (" + siErr.message + "). " +
+        "The exam was not issued.",
+      );
+    }
 
     return jsonResponse({
       session_id: session.id,
