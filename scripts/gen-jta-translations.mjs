@@ -16,20 +16,50 @@
  * translation until a human/SME review flips it. Scrum proper nouns stay in
  * English, matching the question generators.
  *
+ * ---------------------------------------------------------------------------
+ * ONLY — SCOPE THE RUN (added when migration 162 rewrote the English domain
+ * descriptions and nothing else)
+ *
+ * FORCE is global to a run: it re-translates domains AND tasks. When only one
+ * of the two has changed upstream, that is not a convenience, it is data loss —
+ * a forced run would have replaced 302 reviewed task statements with fresh
+ * machine output because five domain descriptions were edited.
+ *
+ *   ONLY=domains   domains only, tasks untouched
+ *   ONLY=tasks     tasks only, domains untouched
+ *   ONLY=all       both (default, previous behaviour)
+ *
+ * TITLE PRESERVATION. With FORCE on domains, an existing translated title is
+ * REUSED rather than re-translated. Domain titles did not change in 162, and
+ * re-translating an unchanged string spends money to introduce drift into copy
+ * a human already reviewed. Set RETRANSLATE_TITLES=1 to override.
+ *
+ * WHAT A RUN DOES TO LIVE DOCUMENTS. render-asset filters translations on
+ * is_provisional = false, and the flag is row-level. A provisional domain row
+ * therefore drops out COMPLETELY — the sheet falls back to the English title as
+ * well as the English description. Between this run and the review that flips
+ * the flag, Spanish and Portuguese blueprint and JTA sheets render their domain
+ * sections in English. That is the pipeline working correctly; it is not a
+ * reason to write is_provisional=false, which would put unreviewed machine
+ * translation in front of a buyer.
+ *
+ * CACHING. Neither PDF's cache key currently includes a domain stamp, so
+ * flipping the flag back to reviewed will NOT by itself refresh an
+ * already-generated sheet. Fix that in render-asset before the flip.
+ * ---------------------------------------------------------------------------
+ *
  * Setup (once): supabase\scripts\.env with:
  *   SUPABASE_SERVICE_ROLE_KEY=eyJ...
  *   ANTHROPIC_API_KEY=sk-ant-...
  *
  * Run:
  *   cd C:\Users\Juan\Documents\certidemy\supabase
- *   $env:DRY_RUN="1"; node scripts\gen-jta-translations.mjs   # eyeball SM-AI-I first
- *   Remove-Item Env:\DRY_RUN; node scripts\gen-jta-translations.mjs            # live (SM-AI-I)
- *   $env:CERT_ID="33333333-3333-3333-3333-333333333333"; node scripts\gen-jta-translations.mjs  # SPO-AI-I
+ *   $env:ONLY="domains"; $env:FORCE="1"; $env:DRY_RUN="1"; node scripts\gen-jta-translations.mjs
+ *   Remove-Item Env:\DRY_RUN; node scripts\gen-jta-translations.mjs
  *
- * Knobs: CERT_ID (default SM-AI-I), CHUNK (25 statements/call), DRY_RUN, FORCE.
- * Needs @supabase/supabase-js (installed in supabase\) and Node 18+.
+ * Knobs: CERT_ID (default SM-AI-I), ONLY, CHUNK (25 statements/call), DRY_RUN,
+ * FORCE, RETRANSLATE_TITLES. Needs @supabase/supabase-js and Node 18+.
  */
-
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -64,10 +94,20 @@ const SUPABASE_URL = process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.s
 const SERVICE_KEY = need("SUPABASE_SERVICE_ROLE_KEY");
 const ANTHROPIC_API_KEY = need("ANTHROPIC_API_KEY");
 const CERT_ID = process.env.CERT_ID || "11111111-1111-1111-1111-111111111111"; // SM-AI-I
-
 const CHUNK = int(process.env.CHUNK, 25);
 const DRY_RUN = ["1", "true", "yes"].includes((process.env.DRY_RUN || "").toLowerCase());
 const FORCE = ["1", "true", "yes"].includes((process.env.FORCE || "").toLowerCase());
+const RETRANSLATE_TITLES = ["1", "true", "yes"].includes(
+  (process.env.RETRANSLATE_TITLES || "").toLowerCase()
+);
+
+const ONLY = (process.env.ONLY || "all").toLowerCase();
+if (!["all", "domains", "tasks"].includes(ONLY)) {
+  console.error(`ONLY must be one of: all | domains | tasks (got "${ONLY}")`);
+  process.exit(1);
+}
+const DO_DOMAINS = ONLY === "all" || ONLY === "domains";
+const DO_TASKS = ONLY === "all" || ONLY === "tasks";
 
 const MODEL = "claude-sonnet-4-6";
 const LANGS = [
@@ -77,7 +117,7 @@ const LANGS = [
 const SCRUM_NOUNS = [
   "Sprint", "Scrum Master", "Product Owner", "Daily Scrum", "Definition of Done",
   "Sprint Backlog", "Sprint Goal", "Product Backlog", "Product Goal", "Increment",
-  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST",
+  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST", "Scrum Guide",
 ];
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
@@ -161,12 +201,12 @@ function parseJsonArray(text) {
 // ---------------------------------------------------------------------------
 function translateSystem(langName) {
   return `You translate ISO/IEC 17024 certification BLUEPRINT text — job-task-analysis domain titles/descriptions and task statements — from English to ${langName}.
-
 Return a JSON array of the SAME length and order as the input. Each item: {"id":string,"text":string}.
-
 Rules:
   - Translate ONLY "text" into ${langName}. Keep "id" EXACTLY as given.
   - Keep these Scrum proper nouns in English, untranslated: ${SCRUM_NOUNS.join(", ")}.
+  - For legislation, render 'statute'/'statutes' as leyes/normas (es) or leis/normas (pt), NEVER estatutos, which reads as corporate bylaws in Latin America and Brazil.
+  - Scaling a framework is escalonamento (pt-BR) or escalado (es-419), NEVER escalabilidade/escalabilidad, which mean scalability as a system property.
   - These are formal competency statements, not marketing copy: preserve meaning precisely, keep it concise and professional, no added flourish.
   - Do NOT add, drop, merge, or reorder items.
   - Output strict JSON only — NO prose, NO markdown fences.`;
@@ -199,7 +239,7 @@ async function gather() {
   if (!certRow) throw new Error(`no certification with id ${CERT_ID}`);
 
   const { data: domains, error: de } = await supabase
-    .from("domains").select("id, title, description")
+    .from("domains").select("id, code, title, description")
     .eq("certification_id", CERT_ID).order("order_index", { ascending: true });
   if (de) throw new Error(`domains: ${de.message}`);
 
@@ -211,12 +251,19 @@ async function gather() {
   const domainIds = (domains || []).map((d) => d.id);
   const taskIds = (tasks || []).map((t) => t.id);
 
+  // `title` is selected so an existing reviewed translation can be REUSED
+  // rather than re-translated when only the description changed upstream.
   const { data: dtr } = domainIds.length
-    ? await supabase.from("domain_translations").select("domain_id, language").in("domain_id", domainIds)
+    ? await supabase.from("domain_translations")
+        .select("domain_id, language, title").in("domain_id", domainIds)
     : { data: [] };
   const { data: ttr } = taskIds.length
-    ? await supabase.from("task_translations").select("task_id, language").in("task_id", taskIds)
+    ? await supabase.from("task_translations")
+        .select("task_id, language").in("task_id", taskIds)
     : { data: [] };
+
+  const domTitles = new Map();
+  for (const r of dtr || []) domTitles.set(`${r.domain_id}|${r.language}`, r.title);
 
   return {
     certRow,
@@ -224,6 +271,7 @@ async function gather() {
     tasks: tasks || [],
     haveDom: new Set((dtr || []).map((r) => `${r.domain_id}|${r.language}`)),
     haveTask: new Set((ttr || []).map((r) => `${r.task_id}|${r.language}`)),
+    domTitles,
   };
 }
 
@@ -231,8 +279,11 @@ async function gather() {
 // Main
 // ---------------------------------------------------------------------------
 async function main() {
-  console.log(`JTA translations: cert=${CERT_ID} ${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}${FORCE ? " [FORCE]" : ""}`);
-  const { certRow, domains, tasks, haveDom, haveTask } = await gather();
+  console.log(
+    `JTA translations: cert=${CERT_ID} scope=${ONLY} ` +
+    `${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}${FORCE ? " [FORCE]" : ""}`
+  );
+  const { certRow, domains, tasks, haveDom, haveTask, domTitles } = await gather();
   console.log(`${certRow.code} — ${certRow.name}: ${domains.length} domains, ${tasks.length} tasks\n`);
 
   const now = () => new Date().toISOString();
@@ -241,64 +292,101 @@ async function main() {
     console.log(`== ${lang.code} ==`);
 
     // ---- Domains (title + optional description) ----
-    const domTodo = domains.filter((d) => FORCE || !haveDom.has(`${d.id}|${lang.code}`));
-    if (domTodo.length === 0) {
-      console.log("  domains: nothing to do");
+    if (!DO_DOMAINS) {
+      console.log(`  domains: skipped (ONLY=${ONLY})`);
     } else {
-      const titleMap = await translateBatch(lang.name, domTodo.map((d) => ({ id: d.id, text: d.title })));
-      const descItems = domTodo
-        .filter((d) => d.description && d.description.trim())
-        .map((d) => ({ id: d.id, text: d.description }));
-      const descMap = descItems.length ? await translateBatch(lang.name, descItems) : new Map();
+      const domTodo = domains.filter((d) => FORCE || !haveDom.has(`${d.id}|${lang.code}`));
+      if (domTodo.length === 0) {
+        console.log("  domains: nothing to do");
+      } else {
+        // Reuse an existing reviewed title unless explicitly told not to.
+        const titleTodo = RETRANSLATE_TITLES
+          ? domTodo
+          : domTodo.filter((d) => !domTitles.get(`${d.id}|${lang.code}`));
+        const titleMap = titleTodo.length
+          ? await translateBatch(lang.name, titleTodo.map((d) => ({ id: d.id, text: d.title })))
+          : new Map();
+        if (titleTodo.length < domTodo.length) {
+          console.log(`  titles: reusing ${domTodo.length - titleTodo.length} existing translation(s)`);
+        }
 
-      const rows = [];
-      for (const d of domTodo) {
-        const title = titleMap.get(d.id);
-        if (!title) { console.log(`  ! domain ${d.id}: title missing in translation, skipped`); continue; }
-        rows.push({
-          domain_id: d.id, language: lang.code, title,
-          description: descMap.get(d.id) ?? null, is_provisional: true, updated_at: now(),
-        });
-      }
-      if (DRY_RUN) {
-        console.log(`  [dry] ${rows.length} domain rows (e.g. "${rows[0]?.title ?? ""}")`);
-      } else if (rows.length) {
-        const { error } = await supabase.from("domain_translations").upsert(rows, { onConflict: "domain_id,language" });
-        if (error) console.log(`  domain upsert failed: ${error.message}`);
-        else console.log(`  domains: wrote ${rows.length}`);
+        const descItems = domTodo
+          .filter((d) => d.description && d.description.trim())
+          .map((d) => ({ id: d.id, text: d.description }));
+        const descMap = descItems.length ? await translateBatch(lang.name, descItems) : new Map();
+
+        const rows = [];
+        for (const d of domTodo) {
+          const title = titleMap.get(d.id) ?? domTitles.get(`${d.id}|${lang.code}`);
+          if (!title) { console.log(`  ! domain ${d.code}: title missing in translation, skipped`); continue; }
+          rows.push({
+            domain_id: d.id, language: lang.code, title,
+            description: descMap.get(d.id) ?? null, is_provisional: true, updated_at: now(),
+          });
+        }
+
+        if (DRY_RUN) {
+          // Every row, not a sample. This output IS the review artifact - pipe
+          // it to a file, read it, then run live.
+          console.log(`  [dry] ${rows.length} domain rows:`);
+          for (const r of rows) {
+            const d = domains.find((x) => x.id === r.domain_id);
+            console.log(`  --- ${d?.code ?? r.domain_id}`);
+            console.log(`      title: ${r.title}`);
+            console.log(`      desc : ${r.description ?? "(none)"}`);
+          }
+        } else if (rows.length) {
+          const { error } = await supabase.from("domain_translations")
+            .upsert(rows, { onConflict: "domain_id,language" });
+          if (error) console.log(`  domain upsert failed: ${error.message}`);
+          else console.log(`  domains: wrote ${rows.length} (is_provisional=true)`);
+        }
       }
     }
 
     // ---- Tasks (statement) ----
-    const taskTodo = tasks.filter((t) => FORCE || !haveTask.has(`${t.id}|${lang.code}`));
-    if (taskTodo.length === 0) {
-      console.log("  tasks: nothing to do");
+    if (!DO_TASKS) {
+      console.log(`  tasks: skipped (ONLY=${ONLY})`);
     } else {
-      let wrote = 0;
-      for (const part of chunk(taskTodo, CHUNK)) {
-        const map = await translateBatch(lang.name, part.map((t) => ({ id: t.id, text: t.statement })));
-        const rows = [];
-        for (const t of part) {
-          const statement = map.get(t.id);
-          if (!statement) { console.log(`  ! task ${t.id}: statement missing, skipped`); continue; }
-          rows.push({ task_id: t.id, language: lang.code, statement, is_provisional: true, updated_at: now() });
+      const taskTodo = tasks.filter((t) => FORCE || !haveTask.has(`${t.id}|${lang.code}`));
+      if (taskTodo.length === 0) {
+        console.log("  tasks: nothing to do");
+      } else {
+        let wrote = 0;
+        for (const part of chunk(taskTodo, CHUNK)) {
+          const map = await translateBatch(lang.name, part.map((t) => ({ id: t.id, text: t.statement })));
+          const rows = [];
+          for (const t of part) {
+            const statement = map.get(t.id);
+            if (!statement) { console.log(`  ! task ${t.id}: statement missing, skipped`); continue; }
+            rows.push({ task_id: t.id, language: lang.code, statement, is_provisional: true, updated_at: now() });
+          }
+          if (DRY_RUN) {
+            for (const r of rows) console.log(`  [dry] ${r.statement}`);
+            wrote += rows.length;
+            continue;
+          }
+          if (rows.length) {
+            const { error } = await supabase.from("task_translations")
+              .upsert(rows, { onConflict: "task_id,language" });
+            if (error) { console.log(`  task upsert failed: ${error.message}`); break; }
+            wrote += rows.length;
+          }
         }
-        if (DRY_RUN) {
-          console.log(`  [dry] ${rows.length} task rows (e.g. "${(rows[0]?.statement ?? "").slice(0, 70)}…")`);
-          wrote += rows.length;
-          continue;
-        }
-        if (rows.length) {
-          const { error } = await supabase.from("task_translations").upsert(rows, { onConflict: "task_id,language" });
-          if (error) { console.log(`  task upsert failed: ${error.message}`); break; }
-          wrote += rows.length;
-        }
+        console.log(`  tasks: ${DRY_RUN ? "would write" : "wrote"} ${wrote}`);
       }
-      console.log(`  tasks: ${DRY_RUN ? "would write" : "wrote"} ${wrote}`);
     }
+
     console.log("");
   }
 
+  if (!DRY_RUN && DO_DOMAINS) {
+    console.log(
+      "Rows are is_provisional=true, so render-asset will OMIT them and the\n" +
+      "Spanish/Portuguese sheets fall back to English domain titles and\n" +
+      "descriptions until a review flips the flag. That is expected."
+    );
+  }
   console.log("Done. Re-run to top up; FORCE=1 to overwrite. Review the provisional strings before relying on them.");
 }
 
