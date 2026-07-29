@@ -175,7 +175,7 @@ serve(async (req) => {
     // ====================================================================
     const { data: servedRows, error: siErr } = await svc
       .from("exam_session_items")
-      .select("question_id, presented_order, language")
+      .select("question_id, presented_order, language, user_answer, time_taken_seconds, marked_for_review")
       .eq("session_id", body.session_id)
       .order("presented_order", { ascending: true });
 
@@ -203,6 +203,43 @@ serve(async (req) => {
 
     // What the candidate sent, addressable by question.
     const submitted = new Map(body.answers.map((a) => [a.question_id, a]));
+
+    // What the server saved DURING the exam (migration 164). This is what
+    // makes a crash survivable and an empty submission a valid finalise.
+    const saved = new Map(
+      served
+        .filter((s) => s.user_answer !== null && s.user_answer !== undefined)
+        .map((s) => [
+          s.question_id as string,
+          {
+            question_id: s.question_id as string,
+            user_answer: (s.user_answer ?? []) as string[],
+            time_taken_seconds: (s.time_taken_seconds ?? undefined) as number | undefined,
+            marked_for_review: (s.marked_for_review ?? false) as boolean,
+          },
+        ]),
+    );
+
+    // MERGE. The client wins per item when it sent one: a candidate may change
+    // an answer up to the moment of submission, and a save that failed on a
+    // flaky connection must not cost them that change. The saved copy fills
+    // every gap. Neither path can add an item that was not served - the form
+    // decides what is graded, and that is what closes the original defect.
+    let answers_from_client = 0;
+    let answers_from_server = 0;
+    const answerFor = (question_id: string) => {
+      const fromClient = submitted.get(question_id);
+      if (fromClient) {
+        answers_from_client += 1;
+        return fromClient;
+      }
+      const fromServer = saved.get(question_id);
+      if (fromServer) {
+        answers_from_server += 1;
+        return fromServer;
+      }
+      return undefined;
+    };
 
     // The list we grade: served order when known, submission order otherwise.
     const form: Array<{ question_id: string; presented_order: number }> =
@@ -267,7 +304,7 @@ serve(async (req) => {
         missing_items += 1;
         continue;
       }
-      const ans = submitted.get(slot.question_id);
+      const ans = answerFor(slot.question_id);
       const user_answer = ans?.user_answer ?? [];
       graded.push({
         question_id: slot.question_id,
@@ -427,6 +464,12 @@ serve(async (req) => {
       unanswered,
       unexpected_items: unexpected_ids.length,
       missing_items,
+      answers_from_client,
+      answers_from_server,
+      // An empty submission with saved answers present is a server-side
+      // finalisation: the candidate's browser never came back, and the
+      // attempt was closed from what had been persisted.
+      finalized_server_side: body.answers.length === 0 && saved.size > 0,
     };
     if (unexpected_ids.length > 0) {
       integrity_flags.unexpected_ids = unexpected_ids.slice(0, 20);
