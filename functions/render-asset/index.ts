@@ -4,10 +4,9 @@
 //         certification_code: string, language?: "en" | "es-419" | "pt-BR" }
 // Auth: Bearer JWT - MUST be platform_admin or marketing.
 //
-// v3: blueprint sheet. Exam composition, per-domain question allocation, the
-// computed cognitive profile, and the derivation chain that makes the profile
-// checkable. Shares the fact sheet's certification + domain reads; adds live
-// task counts and v_cognitive_profile.
+// v3: blueprint sheet, now carrying domain descriptions. Exam composition,
+// per-domain question allocation and content, the computed cognitive profile,
+// and the derivation chain that makes the profile checkable.
 //
 // GATED, NOT PUBLIC. verify_jwt stays ON - the caller must be staff. The public
 // forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate endpoint; that is
@@ -24,6 +23,15 @@
 // certification row, so keying on updated_at alone would serve a stale profile
 // forever. computed_at is the stamp that moves when the profile is recomputed
 // from tasks, which is exactly the event that changes this document.
+//
+// DOMAIN DESCRIPTIONS ARE SCHEMA-TOLERANT. We ask domain_translations for
+// `title, description` first. If that table has no description column the
+// request fails, and we fall back to a title-only query rather than losing
+// translated titles as collateral damage. Adding the column later needs no
+// change here: the first query simply starts succeeding. The response reports
+// `descriptions_localized` so the outcome is visible rather than silent - a
+// Spanish sheet quietly carrying English domain descriptions is exactly the
+// kind of thing that should not be discovered in a client's inbox.
 //
 // NOTE ON SELECT STRINGS: single literals, never built with `+`. supabase-js
 // parses the select as a template-literal type; a concatenated string degrades
@@ -251,13 +259,13 @@ serve(async (req) => {
         .eq("lang", "en")
         .maybeSingle();
 
-    // ---- domains + weights ----------------------------------------------
+    // ---- domains ---------------------------------------------------------
     //
-    // Shared by both sheets. domains has no language column; titles come from
-    // domain_translations, falling back to English.
+    // Shared by both sheets. domains has no language column; titles and
+    // descriptions come from domain_translations, falling back to the base row.
     const { data: domainRows } = await svc
       .from("domains")
-      .select("id, code, title, weight_pct, order_index")
+      .select("id, code, title, description, weight_pct, order_index")
       .eq("certification_id", certRow.id)
       .order("order_index", { ascending: true });
 
@@ -265,22 +273,55 @@ serve(async (req) => {
       id: string;
       code: string;
       title: string;
+      description: string | null;
       weight_pct: number;
       order_index: number;
     }[];
 
-    let domainTitles = new Map<string, string>();
+    const domainTitles = new Map<string, string>();
+    const domainDescs = new Map<string, string>();
+    let descriptionsLocalized = language === "en";
+
     if (language !== "en" && domainBase.length > 0) {
-      const { data: trRows } = await svc
+      const ids = domainBase.map((d) => d.id);
+
+      // Ask for both. If domain_translations has no description column this
+      // 400s, and we retry for titles alone - losing translated TITLES because
+      // descriptions are unavailable would be a worse outcome than the problem.
+      const both = await svc
         .from("domain_translations")
-        .select("domain_id, title")
-        .in("domain_id", domainBase.map((d) => d.id))
+        .select("domain_id, title, description")
+        .in("domain_id", ids)
         .eq("language", language);
-      domainTitles = new Map(
-        ((trRows ?? []) as { domain_id: string; title: string }[]).map(
-          (r) => [r.domain_id, r.title] as const,
-        ),
-      );
+
+      if (!both.error) {
+        descriptionsLocalized = true;
+        for (
+          const r of (both.data ?? []) as {
+            domain_id: string;
+            title: string | null;
+            description: string | null;
+          }[]
+        ) {
+          if (r.title) domainTitles.set(r.domain_id, r.title);
+          if (r.description) domainDescs.set(r.domain_id, r.description);
+        }
+      } else {
+        console.warn(
+          "domain_translations has no description column; domain descriptions will render in English",
+          both.error.message,
+        );
+        const { data: titleOnly } = await svc
+          .from("domain_translations")
+          .select("domain_id, title")
+          .in("domain_id", ids)
+          .eq("language", language);
+        for (
+          const r of (titleOnly ?? []) as { domain_id: string; title: string }[]
+        ) {
+          if (r.title) domainTitles.set(r.domain_id, r.title);
+        }
+      }
     }
 
     const blueprint = (certRow.exam_blueprint ?? {}) as Record<string, unknown>;
@@ -345,6 +386,7 @@ serve(async (req) => {
       const bpDomains: BlueprintDomain[] = domainBase.map((d) => ({
         code: d.code,
         title: domainTitles.get(d.id) ?? d.title,
+        description: domainDescs.get(d.id) ?? d.description ?? "",
         weightPct: Number(d.weight_pct),
         seats: seats.get(d.id) ?? 0,
         taskCount: tasksByDomain.get(d.id) ?? 0,
@@ -427,6 +469,7 @@ serve(async (req) => {
         cached: bpCached,
         domains: bpDomains.length,
         tasks: examScopeTasks,
+        descriptions_localized: descriptionsLocalized,
       });
     }
 
