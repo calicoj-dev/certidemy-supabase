@@ -1,12 +1,13 @@
 // POST /functions/v1/render-asset
 //
-// Body: { asset_type: "factsheet" | "specimen_certificate" | "blueprint_sheet",
+// Body: { asset_type: "factsheet" | "specimen_certificate" | "blueprint_sheet"
+//                   | "jta_sheet",
 //         certification_code: string, language?: "en" | "es-419" | "pt-BR" }
 // Auth: Bearer JWT - MUST be platform_admin or marketing.
 //
-// v3: blueprint sheet, now carrying domain descriptions. Exam composition,
-// per-domain question allocation and content, the computed cognitive profile,
-// and the derivation chain that makes the profile checkable.
+// v4: JTA sheet. Every declared task with its level, criticality, frequency and
+// examination scope, plus knowledge/skills/abilities where the language has
+// them.
 //
 // GATED, NOT PUBLIC. verify_jwt stays ON - the caller must be staff. The public
 // forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate endpoint; that is
@@ -18,20 +19,30 @@
 // request renders fresh and the old object is never requested again. No
 // invalidation step to forget.
 //
-// BLUEPRINT CACHE KEY includes exam_blueprint.computed_at, not just
-// certifications.updated_at. Editing a task's Bloom level does not touch the
-// certification row, so keying on updated_at alone would serve a stale profile
-// forever. computed_at is the stamp that moves when the profile is recomputed
-// from tasks, which is exactly the event that changes this document.
+// TWO CACHE-KEY SUBTLETIES, both learned the hard way:
 //
-// DOMAIN DESCRIPTIONS ARE SCHEMA-TOLERANT. We ask domain_translations for
-// `title, description` first. If that table has no description column the
-// request fails, and we fall back to a title-only query rather than losing
-// translated titles as collateral damage. Adding the column later needs no
-// change here: the first query simply starts succeeding. The response reports
-// `descriptions_localized` so the outcome is visible rather than silent - a
-// Spanish sheet quietly carrying English domain descriptions is exactly the
+//   The blueprint key includes exam_blueprint.computed_at. Editing a task's
+//   Bloom level does not touch the certification row, so keying on updated_at
+//   alone would serve a stale profile forever.
+//
+//   The JTA key additionally includes the newest tasks.updated_at and the
+//   newest task_translations.updated_at. Migration 091 superseded five task
+//   statements once already, and a competence document that keeps serving
+//   retired wording is precisely the failure this library exists to prevent.
+//
+// TOLERANT TRANSLATION READS. domain_translations and task_translations are
+// asked for their richest shape first; if a column is absent the request fails
+// and we retry for the minimum, rather than losing translated titles and
+// statements as collateral. Adding those columns later needs no code change -
+// the first query simply starts succeeding. Responses report what was actually
+// localized, because a Spanish document quietly carrying English content is the
 // kind of thing that should not be discovered in a client's inbox.
+//
+// PROVISIONAL TRANSLATIONS ARE EXCLUDED. Both translation tables carry
+// is_provisional, which exists to distinguish reviewed copy from unreviewed.
+// A document a rep emails to a buyer is the last place to ignore that. Today
+// every row is reviewed, so this filter costs nothing; it earns its place the
+// first time someone loads a machine-translated batch.
 //
 // NOTE ON SELECT STRINGS: single literals, never built with `+`. supabase-js
 // parses the select as a template-literal type; a concatenated string degrades
@@ -60,13 +71,32 @@ import {
   type BlueprintDomain,
   type BlueprintBloomRow,
 } from "../_shared/blueprint.ts";
+import {
+  renderJtaSheet,
+  JTA_RENDERER_VERSION,
+  type JtaData,
+  type JtaDomain,
+  type JtaTask,
+} from "../_shared/jta.ts";
 
 const BUCKET = "sales-assets";
 const SIGNED_URL_TTL = 60 * 60;
 const LOCALES: AssetLocale[] = ["en", "es-419", "pt-BR"];
 const CLIENT_SAFE_STATUSES = ["available", "coming_soon"];
-const IMPLEMENTED = ["factsheet", "specimen_certificate", "blueprint_sheet"];
+const IMPLEMENTED = [
+  "factsheet",
+  "specimen_certificate",
+  "blueprint_sheet",
+  "jta_sheet",
+];
 const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
+
+/**
+ * Only reviewed translations reach a client-facing document. Set to false only
+ * with a deliberate decision that unreviewed copy is acceptable in a buyer's
+ * hands - it governs every asset this function renders, in every language.
+ */
+const REVIEWED_TRANSLATIONS_ONLY = true;
 
 function contentVersion(iso: string): string {
   return iso.replace(/[^0-9]/g, "").slice(0, 14);
@@ -76,8 +106,8 @@ function contentVersion(iso: string): string {
  * Largest-remainder allocation. VERBATIM PORT of gen-jta-doc.mjs, which itself
  * matches generate-mock-exam's allocation. Do not "simplify" it: a different
  * rounding rule would publish per-domain question counts that the live
- * examination does not use, and the sheet's whole value is that its numbers are
- * the real ones.
+ * examination does not use, and the sheets' whole value is that their numbers
+ * are the real ones.
  */
 function allocate(
   weights: { key: string; pct: number }[],
@@ -94,6 +124,16 @@ function allocate(
     left--;
   }
   return out;
+}
+
+/**
+ * Task codes sort on their numeric segments, never as strings: "3.10" belongs
+ * after "3.9", and a lexical compare puts it after "3.1".
+ */
+function byTaskCode(a: { code: string }, b: { code: string }): number {
+  const [am, an] = a.code.split(".").map((n) => Number(n) || 0);
+  const [bm, bn] = b.code.split(".").map((n) => Number(n) || 0);
+  return am - bm || an - bn || a.code.localeCompare(b.code);
 }
 
 serve(async (req) => {
@@ -261,7 +301,7 @@ serve(async (req) => {
 
     // ---- domains ---------------------------------------------------------
     //
-    // Shared by both sheets. domains has no language column; titles and
+    // Shared by all three sheets. domains has no language column; titles and
     // descriptions come from domain_translations, falling back to the base row.
     const { data: domainRows } = await svc
       .from("domains")
@@ -285,14 +325,13 @@ serve(async (req) => {
     if (language !== "en" && domainBase.length > 0) {
       const ids = domainBase.map((d) => d.id);
 
-      // Ask for both. If domain_translations has no description column this
-      // 400s, and we retry for titles alone - losing translated TITLES because
-      // descriptions are unavailable would be a worse outcome than the problem.
-      const both = await svc
+      let q = svc
         .from("domain_translations")
         .select("domain_id, title, description")
         .in("domain_id", ids)
         .eq("language", language);
+      if (REVIEWED_TRANSLATIONS_ONLY) q = q.eq("is_provisional", false);
+      const both = await q;
 
       if (!both.error) {
         descriptionsLocalized = true;
@@ -308,7 +347,7 @@ serve(async (req) => {
         }
       } else {
         console.warn(
-          "domain_translations has no description column; domain descriptions will render in English",
+          "domain_translations description unavailable; descriptions render in English",
           both.error.message,
         );
         const { data: titleOnly } = await svc
@@ -328,6 +367,273 @@ serve(async (req) => {
     const blueprintComputedAt = (blueprint.computed_at as string) ?? null;
     const cognitiveModelVersion = (blueprint.version as string) ?? null;
 
+    const seats = allocate(
+      domainBase.map((d) => ({ key: d.id, pct: Number(d.weight_pct) })),
+      certRow.num_questions ?? 0,
+    );
+
+    // =====================================================================
+    // JTA SHEET
+    // =====================================================================
+    if (assetType === "jta_sheet") {
+      if (domainBase.length === 0) {
+        return jsonResponse(
+          {
+            error: "no domains for this certification",
+            detail: "A job task analysis with no domains has nothing to render.",
+          },
+          409,
+        );
+      }
+
+      // EVERY task, in scope or not. The out-of-scope ones are the honest part
+      // of this document: competence declared above the multiple-choice ceiling
+      // and openly marked as not examined.
+      const { data: taskRows, error: taskErr } = await svc
+        .from("tasks")
+        .select(
+          "id, code, domain_id, statement, criticality, frequency, bloom_level, is_exam_scope, is_simulation_candidate, knowledge, skills, abilities"
+        )
+        .eq("certification_id", certRow.id);
+
+      if (taskErr) {
+        console.error("task lookup failed", taskErr);
+        return jsonResponse({ error: "lookup failed" }, 500);
+      }
+
+      const tasks = (taskRows ?? []) as {
+        id: string;
+        code: string;
+        domain_id: string;
+        statement: string;
+        criticality: string | null;
+        frequency: string | null;
+        bloom_level: string;
+        is_exam_scope: boolean;
+        is_simulation_candidate: boolean;
+        knowledge: string | null;
+        skills: string | null;
+        abilities: string | null;
+      }[];
+
+      if (tasks.length === 0) {
+        return jsonResponse(
+          {
+            error: "no tasks for this certification",
+            detail:
+              "The analysis has not been authored yet. Nothing downstream of it can be published.",
+          },
+          409,
+        );
+      }
+
+      // Translated statements, and K/S/A if those columns ever land. Asking for
+      // the rich shape first means the day they exist this starts working with
+      // no code change.
+      const statements = new Map<string, string>();
+      const ksa = new Map<
+        string,
+        { knowledge: string | null; skills: string | null; abilities: string | null }
+      >();
+      let statementsLocalized = language === "en";
+      let ksaLocalized = language === "en";
+      let newestTranslation: string | null = null;
+
+      if (language !== "en") {
+        const ids = tasks.map((t) => t.id);
+
+        let rich = svc
+          .from("task_translations")
+          .select("task_id, statement, knowledge, skills, abilities, updated_at")
+          .in("task_id", ids)
+          .eq("language", language);
+        if (REVIEWED_TRANSLATIONS_ONLY) rich = rich.eq("is_provisional", false);
+        const richRes = await rich;
+
+        if (!richRes.error) {
+          statementsLocalized = true;
+          ksaLocalized = true;
+          for (
+            const r of (richRes.data ?? []) as {
+              task_id: string;
+              statement: string | null;
+              knowledge: string | null;
+              skills: string | null;
+              abilities: string | null;
+              updated_at: string | null;
+            }[]
+          ) {
+            if (r.statement) statements.set(r.task_id, r.statement);
+            ksa.set(r.task_id, {
+              knowledge: r.knowledge,
+              skills: r.skills,
+              abilities: r.abilities,
+            });
+            if (r.updated_at && (!newestTranslation || r.updated_at > newestTranslation)) {
+              newestTranslation = r.updated_at;
+            }
+          }
+        } else {
+          // Expected today: task_translations carries statement only.
+          let lean = svc
+            .from("task_translations")
+            .select("task_id, statement, updated_at")
+            .in("task_id", ids)
+            .eq("language", language);
+          if (REVIEWED_TRANSLATIONS_ONLY) lean = lean.eq("is_provisional", false);
+          const leanRes = await lean;
+          if (!leanRes.error) {
+            statementsLocalized = true;
+            for (
+              const r of (leanRes.data ?? []) as {
+                task_id: string;
+                statement: string | null;
+                updated_at: string | null;
+              }[]
+            ) {
+              if (r.statement) statements.set(r.task_id, r.statement);
+              if (r.updated_at && (!newestTranslation || r.updated_at > newestTranslation)) {
+                newestTranslation = r.updated_at;
+              }
+            }
+          } else {
+            console.warn("task_translations unreadable", leanRes.error.message);
+          }
+        }
+      }
+
+      // Newest task edit, for the cache key. Tolerant: if tasks carries no
+      // updated_at the key simply loses that input rather than the request
+      // failing.
+      let newestTask: string | null = null;
+      const taskStamp = await svc
+        .from("tasks")
+        .select("updated_at")
+        .eq("certification_id", certRow.id)
+        .order("updated_at", { ascending: false })
+        .limit(1);
+      if (!taskStamp.error && taskStamp.data && taskStamp.data.length > 0) {
+        newestTask = (taskStamp.data[0] as { updated_at: string | null }).updated_at;
+      }
+
+      // K/S/A only where it is available in the requested language. Rendering
+      // English knowledge statements inside a Spanish document would switch
+      // language every few lines across fifteen pages, which is worse than
+      // omitting them.
+      const showKsa = ksaLocalized;
+
+      const jtaDomains: JtaDomain[] = domainBase.map((d) => {
+        const list: JtaTask[] = tasks
+          .filter((t) => t.domain_id === d.id)
+          .sort(byTaskCode)
+          .map((t) => {
+            const tr = ksa.get(t.id);
+            return {
+              code: t.code,
+              statement: statements.get(t.id) ?? t.statement,
+              criticality: t.criticality,
+              frequency: t.frequency,
+              bloomLevel: t.bloom_level,
+              isExamScope: t.is_exam_scope,
+              isSimulationCandidate: t.is_simulation_candidate,
+              knowledge: showKsa ? (tr?.knowledge ?? t.knowledge) : null,
+              skills: showKsa ? (tr?.skills ?? t.skills) : null,
+              abilities: showKsa ? (tr?.abilities ?? t.abilities) : null,
+            };
+          });
+        return {
+          code: d.code,
+          title: domainTitles.get(d.id) ?? d.title,
+          description: domainDescs.get(d.id) ?? d.description ?? "",
+          weightPct: Number(d.weight_pct),
+          seats: seats.get(d.id) ?? 0,
+          tasks: list,
+        };
+      });
+
+      const jtaData: JtaData = {
+        code: certRow.code,
+        name: i18nRow?.name ?? certRow.name,
+        status: certRow.status,
+        numQuestions: certRow.num_questions,
+        domains: jtaDomains,
+        totalTasks: tasks.length,
+        examScopeTasks: tasks.filter((t) => t.is_exam_scope).length,
+        blueprintComputedAt,
+        cognitiveModelVersion,
+      };
+
+      const jtaStamps = [
+        certRow.updated_at,
+        i18nRow?.updated_at,
+        blueprintComputedAt,
+        newestTask,
+        newestTranslation,
+      ]
+        .filter(Boolean)
+        .sort()
+        .join("");
+      const jtaVersion = contentVersion(jtaStamps || certRow.updated_at);
+      const jtaPath =
+        `jta/v${JTA_RENDERER_VERSION}/${code}/${language}/${jtaVersion}.pdf`;
+      const jtaFilename = `${code}-jta-${language}.pdf`;
+
+      const { data: jtaHit } = await svc.storage
+        .from(BUCKET)
+        .createSignedUrl(jtaPath, SIGNED_URL_TTL, { download: jtaFilename });
+
+      let jtaCached = false;
+      let jtaUrl = jtaHit?.signedUrl ?? null;
+
+      if (jtaUrl) {
+        jtaCached = true;
+      } else {
+        const bytes = await renderJtaSheet(jtaData, language, SITE_BASE);
+        const { error: upErr } = await svc.storage
+          .from(BUCKET)
+          .upload(jtaPath, bytes, {
+            contentType: "application/pdf",
+            upsert: true,
+          });
+        if (upErr) {
+          console.error("jta upload failed", upErr);
+          return jsonResponse({ error: "could not store asset" }, 500);
+        }
+        const { data: fresh, error: signErr } = await svc.storage
+          .from(BUCKET)
+          .createSignedUrl(jtaPath, SIGNED_URL_TTL, { download: jtaFilename });
+        if (signErr || !fresh?.signedUrl) {
+          console.error("could not sign fresh jta", signErr);
+          return jsonResponse({ error: "could not sign asset" }, 500);
+        }
+        jtaUrl = fresh.signedUrl;
+      }
+
+      const { error: jtaLogErr } = await svc.from("asset_downloads").insert({
+        user_id: actor_user_id,
+        asset_type: "jta_sheet",
+        tier: "client_safe",
+        certification_id: certRow.id,
+        language,
+      });
+      if (jtaLogErr) console.warn("asset_downloads insert failed", jtaLogErr);
+
+      return jsonResponse({
+        url: jtaUrl,
+        filename: jtaFilename,
+        asset_type: "jta_sheet",
+        certification_code: code,
+        language,
+        cached: jtaCached,
+        domains: jtaDomains.length,
+        tasks_declared: jtaData.totalTasks,
+        tasks_examined: jtaData.examScopeTasks,
+        statements_localized: statementsLocalized,
+        ksa_included: showKsa,
+        descriptions_localized: descriptionsLocalized,
+      });
+    }
+
     // =====================================================================
     // BLUEPRINT SHEET
     // =====================================================================
@@ -345,8 +651,7 @@ serve(async (req) => {
 
       // LIVE task counts, never exam_blueprint.task_counts. Invariant 17
       // catches divergence at verify time, but a document a buyer keeps should
-      // not depend on a check having been run before it was generated. This is
-      // the drift gen-jta-doc.mjs exists to end.
+      // not depend on a check having been run before it was generated.
       const { data: taskRows } = await svc
         .from("tasks")
         .select("domain_id, is_exam_scope")
@@ -358,11 +663,6 @@ serve(async (req) => {
         tasksByDomain.set(t.domain_id, (tasksByDomain.get(t.domain_id) ?? 0) + 1);
       }
       const examScopeTasks = (taskRows ?? []).length;
-
-      const seats = allocate(
-        domainBase.map((d) => ({ key: d.id, pct: Number(d.weight_pct) })),
-        certRow.num_questions ?? 0,
-      );
 
       const { data: profileRows } = await svc
         .from("v_cognitive_profile")
@@ -406,7 +706,6 @@ serve(async (req) => {
         cognitiveModelVersion,
       };
 
-      // computed_at is in the key on purpose - see the header note.
       const bpStamps = [
         certRow.updated_at,
         i18nRow?.updated_at,
@@ -477,9 +776,9 @@ serve(async (req) => {
     // FACT SHEET
     // =====================================================================
     //
-    // The claim gate belongs here and not above: the blueprint sheet never
-    // renders a claim, so refusing to generate one for want of an approved
-    // claim would be a gate on the wrong document.
+    // The claim gate belongs here and not above: neither the blueprint nor the
+    // JTA sheet renders a claim, so refusing to generate one for want of an
+    // approved claim would be a gate on the wrong document.
     const claim = i18nRow?.claim ?? enRow?.claim ?? "";
     if (!claim) {
       return jsonResponse(
@@ -571,9 +870,6 @@ serve(async (req) => {
     };
 
     // ---- cache -----------------------------------------------------------
-    //
-    // v2 in the path: v1 objects describe a different document and must not be
-    // served for a v2 request.
     const stamps = [certRow.updated_at, i18nRow?.updated_at]
       .filter(Boolean)
       .sort()
@@ -636,6 +932,7 @@ serve(async (req) => {
       language,
       cached,
       domains: domains.length,
+      descriptions_localized: descriptionsLocalized,
     });
   } catch (err) {
     if (err instanceof HttpError) {
