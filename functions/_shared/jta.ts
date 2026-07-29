@@ -13,6 +13,31 @@
 // It is long by nature, and that is the point. A syllabus fits on a page; a
 // competence analysis does not.
 //
+// v2 CHANGES — THE DOMAIN HEADER
+//
+// v1 drew a filled tint behind the whole domain header. Two problems, one
+// mechanical and one of design.
+//
+//   MECHANICAL: the rectangle was 85pt tall for a one-line title with a
+//   two-line description, but the drawing sequence only advanced 77pt past its
+//   top edge before the first task. The band's lower edge therefore landed
+//   about 1.5pt above the cap height of the following task title, and its
+//   ascenders cut into the tint. Padding would have hidden it; the real fault
+//   was that the rectangle height and the cursor arithmetic were computed
+//   separately and were free to disagree. They are now derived from the same
+//   expression, so they cannot.
+//
+//   DESIGN: every other heading in this document, and in the fact sheet and
+//   blueprint sheet beside it, is a rule plus type. That band was the only
+//   filled shape in the entire family, which is why it read as an intrusion
+//   rather than as structure. It is now a heavy accent rule above the title —
+//   the same visual system as everything else, scaled up. Nothing sits behind
+//   text, so nothing can collide with it.
+//
+// The header also reserves room for its first task now. A domain title alone at
+// the foot of a page, with its tasks overleaf, is the same orphan problem the
+// blueprint sheet had.
+//
 // RELATIONSHIP TO gen-jta-doc.mjs. That script renders the same rows to
 // markdown as an internal audit artifact. This is the client-facing cut, and it
 // differs in three deliberate ways:
@@ -37,6 +62,11 @@
 // in this file is a drift waiting to happen, and drift between two hand-kept
 // copies of the same table is the exact failure COGNITIVE-MODEL.md exists to
 // record. blueprint.ts owns them.
+//
+// K/S/A ARRIVES ALREADY DECIDED. render-asset supplies knowledge, skills and
+// abilities only when they exist in the requested language, and never falls
+// back to English for a translated document. This renderer draws whatever it is
+// given and makes no language judgement of its own.
 //
 // TASK ORDER is the caller's responsibility and must be numeric on the code
 // segments — "3.10" sorts after "3.9", which a string comparison gets wrong.
@@ -69,8 +99,10 @@ import { bloomEntry, type AssetLocale } from "./blueprint.ts";
  * storage path, so bumping it invalidates every cached JTA sheet.
  *
  * 1 - initial
+ * 2 - domain header rebuilt as a rule rather than a filled band; header and
+ *     first task no longer able to overlap; header reserves room for a task
  */
-export const JTA_RENDERER_VERSION = "1";
+export const JTA_RENDERER_VERSION = "2";
 
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
@@ -78,7 +110,6 @@ const INK_MUTE = rgb(0x86 / 255, 0x86 / 255, 0x8b / 255);
 const ACCENT = rgb(0xbe / 255, 0x18 / 255, 0x5d / 255);
 const ACCENT_DEEP = rgb(0x9d / 255, 0x17 / 255, 0x4d / 255);
 const HAIRLINE = rgb(0xd2 / 255, 0xd2 / 255, 0xd7 / 255);
-const TRACK = rgb(0.98, 0.92, 0.95);
 
 const A4_W = 595.28;
 const A4_H = 841.89;
@@ -167,9 +198,7 @@ function enumLabel(
   if (!value) return "—";
   const out = map[locale][value];
   if (!out) {
-    throw new Error(
-      `unmapped ${what} "${value}" - add it to _shared/jta.ts`,
-    );
+    throw new Error(`unmapped ${what} "${value}" - add it to _shared/jta.ts`);
   }
   return out;
 }
@@ -394,37 +423,61 @@ export async function renderJtaSheet(
     y -= 7;
   };
 
-  /* A domain opens a section of the document, so it gets a filled band rather
-     than a rule — at fifteen pages a reader scrolling for D4 needs to find it
-     without reading. */
-  const domainHeader = (d: JtaDomain) => {
-    const titleLines = wrap(`${d.code}  ${d.title}`, bold, 15, CW - 24);
-    const descLines = d.description ? wrap(d.description, regular, 9, CW - 24) : [];
-    const h = 16 + titleLines.length * 19 + descLines.length * 12 + 26;
-    if (y - h < FOOT) newPage();
+  /* DOMAIN HEADER — a rule and type, never a fill.
+     Cursor positions are derived from ONE expression and the page-break test
+     uses the same one, so the measured height and the drawn height cannot
+     disagree. That disagreement is what put the old tint underneath the first
+     task's ascenders. */
+  const RULE_GAP = 26;   // space above the rule
+  const TITLE_TOP = 16;  // rule to title cap
+  const TITLE_CAP = 11;  // cap height at 15pt
+  const TITLE_LEAD = 19;
+  const DESC_STEP = 15;  // last title baseline to first description baseline
+  const DESC_LEAD = 12;
+  const META_STEP = 15;
+  const AFTER = 22;      // clear space between the header and the first task
+  const TASK_MIN = 96;   // a domain title must not strand at the foot of a page
 
-    page.drawRectangle({
-      x: M - 10,
-      y: y - h + 14,
-      width: CW + 20,
-      height: h,
-      color: TRACK,
+  const domainHeader = (d: JtaDomain) => {
+    const titleLines = wrap(`${d.code}  ${d.title}`, bold, 15, CW);
+    const descLines = d.description ? wrap(d.description, regular, 9, CW) : [];
+
+    const titleBlock = TITLE_TOP + TITLE_CAP + (titleLines.length - 1) * TITLE_LEAD;
+    const descBlock = descLines.length > 0
+      ? DESC_STEP + (descLines.length - 1) * DESC_LEAD
+      : 0;
+    const h = RULE_GAP + titleBlock + descBlock + META_STEP + 6;
+
+    if (y - (h + AFTER + TASK_MIN) < FOOT) newPage();
+
+    y -= RULE_GAP;
+    page.drawLine({
+      start: { x: M, y },
+      end: { x: A4_W - M, y },
+      thickness: 2,
+      color: ACCENT,
     });
 
-    y -= 6;
-    for (const line of titleLines) {
+    y -= TITLE_TOP + TITLE_CAP;
+    titleLines.forEach((line, i) => {
       page.drawText(line, { x: M, y, size: 15, font: bold, color: ACCENT_DEEP });
-      y -= 19;
+      if (i < titleLines.length - 1) y -= TITLE_LEAD;
+    });
+
+    if (descLines.length > 0) {
+      y -= DESC_STEP;
+      descLines.forEach((line, i) => {
+        page.drawText(line, { x: M, y, size: 9, font: regular, color: INK_SOFT });
+        if (i < descLines.length - 1) y -= DESC_LEAD;
+      });
     }
-    for (const line of descLines) {
-      page.drawText(line, { x: M, y, size: 9, font: regular, color: INK_SOFT });
-      y -= 12;
-    }
-    y -= 2;
+
+    y -= META_STEP;
     const meta =
       `${fmtNum(d.weightPct, locale)}% ${S.weightWord}  ·  ${d.seats} ${S.seatsWord}  ·  ${d.tasks.length} ${S.tasksWord}`;
     page.drawText(meta, { x: M, y, size: 8.5, font: mono, color: ACCENT_DEEP });
-    y -= 26;
+
+    y -= AFTER + 6;
   };
 
   /* One task, measured whole before anything is drawn so a statement never
@@ -467,7 +520,7 @@ export async function renderJtaSheet(
     }
 
     y -= 2;
-    ksa.forEach(([label, ], i) => {
+    ksa.forEach(([label], i) => {
       const lines = ksaLines[i];
       page.drawText(label, { x: M, y, size: 8, font: mono, color: ACCENT_DEEP });
       for (const line of lines) {
@@ -532,7 +585,6 @@ export async function renderJtaSheet(
   bullet(S.r2);
   bullet(S.r3);
   bullet(S.r4);
-  y -= 4;
 
   // ---- domains and tasks --------------------------------------------------
   for (const d of data.domains) {
