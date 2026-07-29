@@ -110,6 +110,11 @@ import {
   type JtaDomain,
   type JtaTask,
 } from "../_shared/jta.ts";
+import {
+  renderEngineBrief,
+  ENGINE_BRIEF_RENDERER_VERSION,
+  type EngineBriefData,
+} from "../_shared/enginebrief.ts";
 
 const BUCKET = "sales-assets";
 const SIGNED_URL_TTL = 60 * 60;
@@ -120,6 +125,7 @@ const IMPLEMENTED = [
   "specimen_certificate",
   "blueprint_sheet",
   "jta_sheet",
+  "engine_brief",
 ];
 const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 
@@ -661,6 +667,151 @@ serve(async (req) => {
         ksa_included: showKsa,
         ksa_translated: tasksWithTranslatedKsa.length,
         ksa_total: tasksWithEnglishKsa.length,
+      });
+    }
+
+    // =====================================================================
+    // ENGINE BRIEF - "How the examination works"
+    // =====================================================================
+    if (assetType === "engine_brief") {
+      if (domainBase.length === 0) {
+        return jsonResponse(
+          {
+            error: "no domains for this certification",
+            detail:
+              "This document describes how an examination is assembled from a blueprint. With no domains there is no blueprint to describe.",
+          },
+          409,
+        );
+      }
+
+      // Declared vs examined. The gap is the honest part of the scheme - tasks
+      // above the multiple-choice ceiling, declared and marked as not examined -
+      // and a document about examination integrity that omitted it would make
+      // the credential sound broader than it is.
+      const { data: briefTaskRows, error: btErr } = await svc
+        .from("tasks")
+        .select("is_exam_scope")
+        .eq("certification_id", certRow.id);
+      if (btErr) {
+        console.error("task count lookup failed", btErr);
+        return jsonResponse({ error: "lookup failed" }, 500);
+      }
+      const briefTasks = (briefTaskRows ?? []) as { is_exam_scope: boolean }[];
+
+      // Languages this examination can ACTUALLY be sat in - approved,
+      // exam-scope items in the secure pool. Not the platform's three: a
+      // certification with no Portuguese secure items must not claim it.
+      const { data: secureLangRows } = await svc
+        .from("quiz_questions")
+        .select("language")
+        .eq("certification_id", certRow.id)
+        .eq("pool", "secure")
+        .eq("status", "approved")
+        .eq("is_exam_scope", true);
+
+      const langSet = new Set(
+        ((secureLangRows ?? []) as { language: string }[]).map((r) => r.language),
+      );
+
+      if (langSet.size === 0) {
+        // No secure items at all - the coming_soon case, which the document
+        // header already marks. Fall back to the localized delivery languages
+        // so the row is not blank, rather than asserting examinability.
+        const { data: i18nLangRows } = await svc
+          .from("certification_i18n")
+          .select("lang")
+          .eq("certification_id", certRow.id);
+        for (const r of (i18nLangRows ?? []) as { lang: string }[]) langSet.add(r.lang);
+      }
+
+      // Self-naming, so the list reads correctly in all three documents without
+      // a 3x3 mapping table. Same convention every language picker uses.
+      const LANG_NAME: Record<string, string> = {
+        "en": "English",
+        "es-419": "Espa\u00f1ol (LATAM)",
+        "pt-BR": "Portugu\u00eas (BR)",
+      };
+      const briefLanguages = [...langSet].sort().map((l) => LANG_NAME[l] ?? l);
+
+      const briefData: EngineBriefData = {
+        code: certRow.code,
+        name: i18nRow?.name ?? certRow.name,
+        status: certRow.status,
+        numQuestions: certRow.num_questions,
+        passingScorePct: certRow.passing_score_pct,
+        examDurationMinutes: certRow.exam_duration_minutes,
+        maxExamAttempts: certRow.max_exam_attempts ?? null,
+        attemptWindowMonths: certRow.attempt_window_months ?? null,
+        validityDays: certRow.validity_days ?? null,
+        domainCount: domainBase.length,
+        totalTasks: briefTasks.length,
+        examScopeTasks: briefTasks.filter((t) => t.is_exam_scope).length,
+        languages: briefLanguages,
+        blueprintComputedAt,
+        cognitiveModelVersion,
+      };
+
+      const briefVersion = await contentHash(briefData);
+      const briefPath =
+        `engine/v${ENGINE_BRIEF_RENDERER_VERSION}/${code}/${language}/${briefVersion}.pdf`;
+      const briefFilename = `${code}-how-the-exam-works-${language}.pdf`;
+
+      const { data: briefHit } = await svc.storage
+        .from(BUCKET)
+        .createSignedUrl(briefPath, SIGNED_URL_TTL, { download: briefFilename });
+
+      let briefCached = false;
+      let briefUrl = briefHit?.signedUrl ?? null;
+
+      if (briefUrl) {
+        briefCached = true;
+      } else {
+        const bytes = await renderEngineBrief(briefData, language, SITE_BASE);
+        const { error: upErr } = await svc.storage
+          .from(BUCKET)
+          .upload(briefPath, bytes, {
+            contentType: "application/pdf",
+            upsert: true,
+          });
+        if (upErr) {
+          console.error("engine brief upload failed", upErr);
+          return jsonResponse({ error: "could not store asset" }, 500);
+        }
+        const { data: fresh, error: signErr } = await svc.storage
+          .from(BUCKET)
+          .createSignedUrl(briefPath, SIGNED_URL_TTL, { download: briefFilename });
+        if (signErr || !fresh?.signedUrl) {
+          console.error("could not sign fresh engine brief", signErr);
+          return jsonResponse({ error: "could not sign asset" }, 500);
+        }
+        briefUrl = fresh.signedUrl;
+      }
+
+      const { error: briefLogErr } = await svc.from("asset_downloads").insert({
+        user_id: actor_user_id,
+        asset_type: "engine_brief",
+        tier: "client_safe",
+        certification_id: certRow.id,
+        language,
+      });
+      if (briefLogErr) console.warn("asset_downloads insert failed", briefLogErr);
+
+      return jsonResponse({
+        url: briefUrl,
+        filename: briefFilename,
+        asset_type: "engine_brief",
+        certification_code: code,
+        language,
+        cached: briefCached,
+        content_hash: briefVersion,
+        domains: briefData.domainCount,
+        tasks_declared: briefData.totalTasks,
+        tasks_examined: briefData.examScopeTasks,
+        // What the document will actually claim about availability, so a caller
+        // can see it without opening the PDF.
+        languages: briefLanguages,
+        languages_from: langSet.size > 0 ? "secure_pool" : "delivery_i18n",
       });
     }
 
