@@ -6,69 +6,85 @@
 // Answers one question: does this candidate have an exam in progress, and if so
 // what exactly were they looking at?
 //
-// Returns either:
+// Returns one of:
 //   { active: false }
+//   { active: true, session_id, ..., questions: [...], saved_answers: [...] }
 //   { active: false, finalized: { session_id, score_pct, passed } }
-//   { active: true, session_id, kind, ..., questions: [...], saved_answers: [...] }
+//   { active: false, unscoreable: true, session_id, ... }
+//   { active: false, finalize_failed: true, session_id, detail }
 //
 // ============================================================================
 // WHY THIS EXISTS
 // ============================================================================
 //
-// RESUME. A form that was never recorded could not be re-served - regenerating
+// RESUME. A form that was never recorded cannot be re-served - regenerating
 // would draw a fresh sample and hand the candidate a second look at the secure
 // pool. exam_session_items (migration 163) records the exact form, so it can be
 // re-served in the exact order, with the answers already saved against it
-// (migration 164). The candidate comes back to their work, not a blank slate.
+// (migration 164). The candidate returns to their work, not a blank slate.
 //
 // FINALISING ABANDONED ATTEMPTS. Auto-submit at zero only fires if a browser is
-// present. Without one, an attempt sat in_progress forever: the voucher spent,
-// no exam_attempts row, no score, nothing the candidate holds. Two such sessions
-// were sitting in quiz_sessions on 2026-07-29 - started, never completed, no
-// attempt. On the simulator that costs nothing. On a certification exam it is
-// money and a support ticket.
+// present. Without one, an attempt sat in_progress forever: voucher spent, no
+// exam_attempts row, no score, nothing the candidate holds.
 //
-// So when this endpoint finds an expired session it CLOSES it, by calling
-// score-mock-exam with an empty answers array. The scorer already merges saved
-// answers (see patch-score-merge-saved-answers), so an empty submission scores
-// exactly what the candidate had persisted before they vanished.
+// This is not rare. On 2026-07-29 quiz_sessions held TWENTY-TWO open sessions
+// going back to May, three of them certification_exam - three consumed vouchers
+// with no attempt against them. Twenty-two abandonments across two months of
+// internal testing means closing a tab mid-exam is ordinary behaviour, and in
+// production it is a steady stream of stuck entitlements.
+//
+// ============================================================================
+// THE CHECK ORDER IS LOAD-BEARING
+// ============================================================================
+//
+// The form is read BEFORE expiry is considered. The first cut of this file did
+// the opposite, and it would have done real damage:
+//
+// Every session created before migration 163 has no recorded form. Checking
+// expiry first would have routed all of them into finalisation, where
+// score-mock-exam would grade an empty form and write an exam_attempts row
+// recording 0% on 0 questions. For the three certification exams that is a
+// fabricated failed attempt in a permanent record, polluting readiness views and
+// exposure statistics, and arguably misrepresenting a candidate.
+//
+// So: no recorded form, no scoring. Those sessions are reported as unscoreable
+// and left alone for an administrator, who can close them without inventing a
+// result. A session WITH a form and zero saved answers is a different case and
+// IS scored - the candidate was served the form and answered nothing, and 0 out
+// of 40 is the truth.
 //
 // LAZY, NOT SCHEDULED. Finalisation happens on the candidate's next
-// authenticated request rather than from a cron. That covers the realistic case
-// - they come back, or their dashboard loads - with no scheduler to forget and
-// no service-role job running unattended. A candidate who NEVER returns leaves a
-// stale session, which the console can surface for an admin; nobody is waiting
-// on that one.
+// authenticated request rather than from a cron: no scheduler to forget, no
+// unattended service-role job. A candidate who never returns leaves a stale
+// session for the console to surface; nobody is waiting on that one.
 //
 // ============================================================================
 // WHAT IS DELIBERATELY NOT RETURNED
 // ============================================================================
 //
-// correct_answer, difficulty, task_id, domain_id. Exactly as generate-mock-exam
-// withholds them. A resume path that leaked the answer key would be a far worse
-// defect than the one this chain set out to fix, and it would be easy to write
-// by selecting * from quiz_questions.
+// correct_answer, difficulty, task_id, domain_id - exactly as generate-mock-exam
+// withholds them. A resume path that leaked the answer key would be a worse
+// defect than the one this chain set out to fix, and `select *` would write it
+// by accident.
 //
-// The questions come back ordered by presented_order, so a resumed exam looks
-// identical to the one the candidate left. Anything else would be its own kind
-// of unfairness - re-shuffling mid-exam invalidates their mental map of the
-// navigator grid.
+// Questions come back ordered by presented_order, so a resumed exam is the one
+// the candidate left. Re-shuffling would invalidate their mental map of the
+// navigator grid - its own kind of unfairness.
 //
 // ============================================================================
-// UNLOCKED RESUME IS A POLICY DECISION, TAKEN DELIBERATELY
+// UNLOCKED RESUME IS A DELIBERATE POLICY DECISION
 // ============================================================================
 //
-// A resumed candidate may change answers they had already saved. Locking them
-// would be more defensible if we ever needed to argue a session was continuous,
-// but the clock is the real constraint - it never stopped running - and locking
-// costs an honest candidate whose browser died far more than it costs anyone
-// determined to cheat, who would use a second device and never leave the tab.
-// This is recorded in the candidate handbook.
+// A resumed candidate may change answers they had already saved. Locking would
+// be more defensible if we ever had to argue a session was continuous, but the
+// clock never stopped, and locking costs an honest candidate whose browser died
+// far more than it costs someone determined to cheat - who would use a second
+// device and never leave the tab. Recorded in the candidate handbook.
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 
-/** Matches score-mock-exam's grace, so the two agree on what "expired" means. */
+/** Matches score-mock-exam's grace, so both agree on what "expired" means. */
 const LATE_GRACE_SECONDS = 60;
 
 interface Body {
@@ -85,7 +101,7 @@ serve(async (req) => {
     const svc = getServiceClient();
     const now = new Date();
 
-    // ---- find the newest open exam session ----------------------------
+    // ---- 1. newest open exam session ----------------------------------
     let q = svc
       .from("quiz_sessions")
       .select("id, certification_id, kind, started_at, voucher_id")
@@ -106,7 +122,46 @@ serve(async (req) => {
     const session = (sessions ?? [])[0];
     if (!session) return jsonResponse({ active: false });
 
-    // ---- cert config + the clock --------------------------------------
+    // ---- 2. THE FORM, BEFORE ANYTHING ELSE ----------------------------
+    //
+    // Read first on purpose. See the header: checking expiry before this would
+    // route every pre-migration-163 session into scoring and fabricate a 0/0
+    // failed attempt for each.
+    const { data: servedRows, error: siErr } = await svc
+      .from("exam_session_items")
+      .select("question_id, presented_order, language, user_answer, time_taken_seconds, marked_for_review")
+      .eq("session_id", session.id)
+      .order("presented_order", { ascending: true });
+
+    if (siErr) {
+      console.error("exam_session_items read failed", siErr);
+      throw new Error(`could not read the served form: ${siErr.message}`);
+    }
+
+    const served = servedRows ?? [];
+
+    if (served.length === 0) {
+      // No record of what this candidate was shown. It cannot be resumed
+      // (regenerating would be a different exam) and it must not be scored
+      // (there is nothing to score). Reported for an administrator to close.
+      console.warn(
+        `session ${session.id} (kind=${session.kind}, started ${session.started_at}) ` +
+        `has no recorded form - unscoreable, left open for admin action`,
+      );
+      return jsonResponse({
+        active: false,
+        unscoreable: true,
+        session_id: session.id,
+        kind: session.kind,
+        started_at: session.started_at,
+        detail:
+          "this session predates form recording, so there is no record of the " +
+          "examination served. It cannot be resumed or scored, and needs an " +
+          "administrator to close it.",
+      });
+    }
+
+    // ---- 3. cert config + the clock -----------------------------------
     const { data: cert } = await svc
       .from("certifications")
       .select("code, name, exam_duration_minutes, passing_score_pct")
@@ -119,35 +174,44 @@ serve(async (req) => {
     );
     const seconds_remaining = duration_minutes * 60 - elapsed_seconds;
 
-    // ---- expired: finalise from what was saved ------------------------
+    // ---- 4. expired, and we DO have a form: finalise ------------------
     if (seconds_remaining < -LATE_GRACE_SECONDS) {
       // Delegated to score-mock-exam rather than reimplemented. That function
       // owns grading, credential issuance, voucher linkage, the JTA stamp and
-      // the mastery rules; a second copy of any of it would drift, and this one
-      // would drift silently because nothing exercises it until someone
+      // the mastery rules. A second copy of any of it would drift, and would
+      // drift SILENTLY, because nothing exercises this path until someone
       // abandons an exam.
+      //
+      // The caller's Authorization header is forwarded, so finalisation runs as
+      // the candidate and the scorer's ownership check still applies. No
+      // service-role backdoor into scoring.
       const base = Deno.env.get("SUPABASE_URL") ?? "";
       const auth = req.headers.get("Authorization") ?? "";
+      const answered = served.filter(
+        (s) => s.user_answer !== null && s.user_answer !== undefined,
+      ).length;
 
       try {
         const res = await fetch(`${base}/functions/v1/score-mock-exam`, {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: auth },
           // Empty answers. The scorer merges what was saved during the exam, so
-          // this scores exactly what the candidate had persisted.
+          // this scores exactly what the candidate had persisted - and a form
+          // with zero saved answers correctly scores zero out of the form size.
           body: JSON.stringify({ session_id: session.id, answers: [] }),
         });
         const scored = (await res.json().catch(() => ({}))) as {
           score_pct?: number;
           passed?: boolean;
+          total_questions?: number;
           error?: string;
         };
 
         if (!res.ok) {
           console.error("finalisation failed", session.id, scored);
-          // Report rather than pretend. The session stays open and will be
-          // retried on the next call; the candidate is not silently told
-          // "nothing here" while a spent voucher sits unresolved.
+          // Reported, not hidden. The session stays open and will be retried on
+          // the next call, rather than the candidate being told "nothing here"
+          // while a spent voucher sits unresolved.
           return jsonResponse({
             active: false,
             finalize_failed: true,
@@ -158,7 +222,7 @@ serve(async (req) => {
 
         console.log(
           `finalised abandoned session ${session.id} (kind=${session.kind}) ` +
-          `score=${scored.score_pct}`,
+          `form=${served.length} answered=${answered} score=${scored.score_pct}`,
         );
         return jsonResponse({
           active: false,
@@ -166,6 +230,8 @@ serve(async (req) => {
             session_id: session.id,
             score_pct: scored.score_pct ?? null,
             passed: scored.passed ?? null,
+            total_questions: scored.total_questions ?? served.length,
+            answered_before_abandon: answered,
           },
         });
       } catch (err) {
@@ -179,33 +245,8 @@ serve(async (req) => {
       }
     }
 
-    // ---- live: re-serve the recorded form -----------------------------
-    const { data: servedRows, error: siErr } = await svc
-      .from("exam_session_items")
-      .select("question_id, presented_order, language, user_answer, time_taken_seconds, marked_for_review")
-      .eq("session_id", session.id)
-      .order("presented_order", { ascending: true });
-
-    if (siErr) {
-      console.error("exam_session_items read failed", siErr);
-      throw new Error(`could not read the served form: ${siErr.message}`);
-    }
-
-    const served = servedRows ?? [];
-    if (served.length === 0) {
-      // Issued before form recording (migration 163). There is no record of what
-      // this candidate was shown, so it cannot be re-served - regenerating would
-      // be a different exam. Reported honestly rather than resumed wrongly.
-      return jsonResponse({
-        active: false,
-        unresumable: true,
-        session_id: session.id,
-        detail:
-          "this session predates form recording and cannot be resumed; it will " +
-          "finalise when its window closes",
-      });
-    }
-
+    // ---- 5. live: re-serve the recorded form --------------------------
+    //
     // Question bodies for the recorded ids. NEVER correct_answer / difficulty /
     // task_id - the same withholding generate-mock-exam applies.
     const ids = served.map((s) => s.question_id as string);
