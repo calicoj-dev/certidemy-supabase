@@ -117,7 +117,7 @@ const LANGS = [
 const SCRUM_NOUNS = [
   "Sprint", "Scrum Master", "Product Owner", "Daily Scrum", "Definition of Done",
   "Sprint Backlog", "Sprint Goal", "Product Backlog", "Product Goal", "Increment",
-  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST", "Scrum Guide",
+  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST", "Scrum Guide", "Developers", "Done",
 ];
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
@@ -207,6 +207,10 @@ Rules:
   - Keep these Scrum proper nouns in English, untranslated: ${SCRUM_NOUNS.join(", ")}.
   - For legislation, render 'statute'/'statutes' as leyes/normas (es) or leis/normas (pt), NEVER estatutos, which reads as corporate bylaws in Latin America and Brazil.
   - Scaling a framework is escalonamento (pt-BR) or escalado (es-419), NEVER escalabilidade/escalabilidad, which mean scalability as a system property.
+  - Keep 'lean' in English in BOTH languages. 'Enxuto' is correct Portuguese for manufacturing but Brazilian agile practice keeps 'lean'.
+  - 'Provenance' is procedencia (es) / proveniencia (pt), NEVER trazabilidad or rastreabilidade - traceability is a different governance concept.
+  - Keep 'prompt' and 'prompting' in English in both languages; they are the terms learners meet in practice.
+  - Named regulatory instruments keep their canonical English name: EU AI Act, ISO/IEC 42001, NIST AI Risk Management Framework.
   - These are formal competency statements, not marketing copy: preserve meaning precisely, keep it concise and professional, no added flourish.
   - Do NOT add, drop, merge, or reorder items.
   - Output strict JSON only — NO prose, NO markdown fences.`;
