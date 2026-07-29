@@ -5,29 +5,47 @@
 //         certification_code: string, language?: "en" | "es-419" | "pt-BR" }
 // Auth: Bearer JWT - MUST be platform_admin or marketing.
 //
-// v5: closes an English-content leak into translated JTA sheets. See
-// "K/S/A LANGUAGE RULE" below - it is the most important paragraph in this file.
+// v6: cache keys are CONTENT-ADDRESSED. See "CACHING" below - it replaces three
+// earlier attempts and closes the class of bug rather than another instance.
 //
 // GATED, NOT PUBLIC. verify_jwt stays ON - the caller must be staff. The public
 // forwarding URLs in SALES-LIBRARY-SPEC §9 are a separate endpoint; that is
 // where verify_jwt = false gets pinned in config.toml. Making THIS function
 // public would let anyone enumerate assets and would bypass the download log.
 //
-// CACHING: object paths are content-versioned from source updated_at values. An
-// edited weight or an approved translation changes the path, so the next
-// request renders fresh and the old object is never requested again. No
-// invalidation step to forget.
+// CACHING — WHY THE KEY IS A HASH OF THE DOCUMENT, NOT A LIST OF TIMESTAMPS
 //
-// TWO CACHE-KEY SUBTLETIES, both learned the hard way:
+// Earlier versions built the storage path from source updated_at values, and
+// the key had to be extended every time a new source turned out to matter:
 //
-//   The blueprint key includes exam_blueprint.computed_at. Editing a task's
-//   Bloom level does not touch the certification row, so keying on updated_at
-//   alone would serve a stale profile forever.
+//   v3  certifications.updated_at + certification_i18n.updated_at
+//   v4  + exam_blueprint.computed_at, because editing a task's Bloom level
+//       never touches the certification row
+//   v4  + tasks.updated_at and task_translations.updated_at for the JTA, because
+//       migration 091 had already superseded five task statements once
+//   v6  ...and then migration 162 rewrote every domain description, which none
+//       of the above notice.
 //
-//   The JTA key additionally includes the newest tasks.updated_at and the
-//   newest task_translations.updated_at. Migration 091 superseded five task
-//   statements once already, and a competence document that keeps serving
-//   retired wording is precisely the failure this library exists to prevent.
+// Three extensions, each prompted by discovering a stale document. The list
+// approach cannot be finished: it fails silently, and it fails in the direction
+// of serving a client a PDF that no longer matches the database.
+//
+// Timestamps were also not reliably available. domain_translations carries
+// updated_at; whether `domains` does, and whether anything maintains it on
+// write, was never verified. A key that silently fails to move is worse than
+// no key.
+//
+// So the key is a hash of the assembled data object - exactly what the renderer
+// will draw. Every branch already builds that object in full BEFORE the cache
+// lookup, so this costs one SHA-256 over a few kilobytes and nothing else.
+//
+//   Anything the document renders changes the hash.
+//   Anything it does not render leaves the hash alone, which is correct: the
+//   PDF really is identical.
+//   No source can be forgotten, because none is enumerated.
+//
+// The renderer version stays as a path SEGMENT so a layout change still
+// invalidates everything, independently of the data.
 //
 // K/S/A LANGUAGE RULE — READ BEFORE CHANGING THE JTA BRANCH
 //
@@ -38,8 +56,7 @@
 // and fell back per field to the English column. The moment those columns
 // existed but were empty, that inference became true while the data was absent,
 // and every Spanish sheet would have rendered Spanish task statements beside
-// English knowledge statements. The columns shipped before this fix; no
-// document was served that way only because the existing objects were cached.
+// English knowledge statements.
 //
 // Two rules now, and neither is negotiable:
 //
@@ -49,11 +66,7 @@
 //
 //   2. ALL OR NOTHING PER LANGUAGE. K/S/A renders only when EVERY task that has
 //      English K/S/A also has it translated. Partial coverage would scatter
-//      blanks through a fifteen-page document and read as data loss rather than
-//      as work in progress.
-//
-// The response reports ksa_translated / ksa_total so progress is measurable
-// while a translation pass is under way.
+//      blanks through a fifteen-page document and read as data loss.
 //
 // TOLERANT TRANSLATION READS. domain_translations and task_translations are
 // asked for their richest shape first; if a column is absent the request fails
@@ -61,8 +74,8 @@
 // statements as collateral. Responses report what was actually localized.
 //
 // PROVISIONAL TRANSLATIONS ARE EXCLUDED. Both translation tables carry
-// is_provisional, which exists to distinguish reviewed copy from unreviewed.
-// A document a rep emails to a buyer is the last place to ignore that.
+// is_provisional, which distinguishes reviewed copy from unreviewed. A document
+// a rep emails to a buyer is the last place to ignore that.
 //
 // NOTE ON SELECT STRINGS: single literals, never built with `+`. supabase-js
 // parses the select as a template-literal type; a concatenated string degrades
@@ -117,8 +130,21 @@ const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
  */
 const REVIEWED_TRANSLATIONS_ONLY = true;
 
-function contentVersion(iso: string): string {
-  return iso.replace(/[^0-9]/g, "").slice(0, 14);
+/**
+ * 16 hex characters of SHA-256 over the exact object the renderer receives.
+ *
+ * Key order is stable because these objects are built by literal expressions in
+ * fixed order, so JSON.stringify is deterministic here. If a future branch ever
+ * assembles its data dynamically, sort the keys before hashing or two identical
+ * documents will cache separately - wasteful, but never wrong.
+ */
+async function contentHash(data: unknown): Promise<string> {
+  const bytes = new TextEncoder().encode(JSON.stringify(data));
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .slice(0, 8)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 /**
@@ -213,7 +239,7 @@ serve(async (req) => {
     const { data: certRow, error: certErr } = await svc
       .from("certifications")
       .select(
-        "id, code, name, description, num_questions, passing_score_pct, exam_duration_minutes, max_exam_attempts, attempt_window_months, validity_days, status, category_slug, sort_order, exam_blueprint, updated_at"
+        "id, code, name, description, num_questions, passing_score_pct, exam_duration_minutes, max_exam_attempts, attempt_window_months, validity_days, status, category_slug, sort_order, exam_blueprint"
       )
       .eq("code", code)
       .maybeSingle();
@@ -238,8 +264,9 @@ serve(async (req) => {
 
     // ---- specimen certificate --------------------------------------------
     //
-    // Delegated, not duplicated. get-credential-certificate owns the
-    // versioned locale-scoped path, the lazy render and the specimen marks.
+    // Delegated, not duplicated. get-credential-certificate owns the versioned
+    // locale-scoped path, the lazy render and the specimen marks. It also owns
+    // its own caching, which is why nothing here hashes anything.
     if (assetType === "specimen_certificate") {
       const { data: specRow } = await svc
         .from("credentials")
@@ -302,7 +329,7 @@ serve(async (req) => {
     // ---- localized copy -------------------------------------------------
     const { data: i18nRow } = await svc
       .from("certification_i18n")
-      .select("name, claim, description, updated_at")
+      .select("name, claim, description")
       .eq("certification_id", certRow.id)
       .eq("lang", language)
       .maybeSingle();
@@ -445,14 +472,13 @@ serve(async (req) => {
       const ksa = new Map<string, KsaTriple>();
       let statementsLocalized = language === "en";
       let ksaColumnsExist = language === "en";
-      let newestTranslation: string | null = null;
 
       if (language !== "en") {
         const ids = tasks.map((t) => t.id);
 
         let rich = svc
           .from("task_translations")
-          .select("task_id, statement, knowledge, skills, abilities, updated_at")
+          .select("task_id, statement, knowledge, skills, abilities")
           .in("task_id", ids)
           .eq("language", language);
         if (REVIEWED_TRANSLATIONS_ONLY) rich = rich.eq("is_provisional", false);
@@ -468,7 +494,6 @@ serve(async (req) => {
               knowledge: string | null;
               skills: string | null;
               abilities: string | null;
-              updated_at: string | null;
             }[]
           ) {
             if (r.statement) statements.set(r.task_id, r.statement);
@@ -477,14 +502,11 @@ serve(async (req) => {
               skills: r.skills,
               abilities: r.abilities,
             });
-            if (r.updated_at && (!newestTranslation || r.updated_at > newestTranslation)) {
-              newestTranslation = r.updated_at;
-            }
           }
         } else {
           let lean = svc
             .from("task_translations")
-            .select("task_id, statement, updated_at")
+            .select("task_id, statement")
             .in("task_id", ids)
             .eq("language", language);
           if (REVIEWED_TRANSLATIONS_ONLY) lean = lean.eq("is_provisional", false);
@@ -495,13 +517,9 @@ serve(async (req) => {
               const r of (leanRes.data ?? []) as {
                 task_id: string;
                 statement: string | null;
-                updated_at: string | null;
               }[]
             ) {
               if (r.statement) statements.set(r.task_id, r.statement);
-              if (r.updated_at && (!newestTranslation || r.updated_at > newestTranslation)) {
-                newestTranslation = r.updated_at;
-              }
             }
           } else {
             console.warn("task_translations unreadable", leanRes.error.message);
@@ -512,9 +530,7 @@ serve(async (req) => {
       // ---- the K/S/A language decision ---------------------------------
       //
       // Coverage is measured against what English actually carries: a task with
-      // no English abilities statement does not need a translated one. Rule 2
-      // above - all or nothing - so a partially translated language renders no
-      // K/S/A at all rather than a document pocked with blanks.
+      // no English abilities statement does not need a translated one.
       const tasksWithEnglishKsa = tasks.filter(
         (t) => t.knowledge || t.skills || t.abilities,
       );
@@ -535,27 +551,12 @@ serve(async (req) => {
         ? tasksWithEnglishKsa.length > 0
         : ksaColumnsExist && ksaComplete;
 
-      // Newest task edit, for the cache key. Tolerant: if tasks carries no
-      // updated_at the key simply loses that input rather than the request
-      // failing.
-      let newestTask: string | null = null;
-      const taskStamp = await svc
-        .from("tasks")
-        .select("updated_at")
-        .eq("certification_id", certRow.id)
-        .order("updated_at", { ascending: false })
-        .limit(1);
-      if (!taskStamp.error && taskStamp.data && taskStamp.data.length > 0) {
-        newestTask = (taskStamp.data[0] as { updated_at: string | null }).updated_at;
-      }
-
       const jtaDomains: JtaDomain[] = domainBase.map((d) => {
         const list: JtaTask[] = tasks
           .filter((t) => t.domain_id === d.id)
           .sort(byTaskCode)
           .map((t) => {
-            // NEVER `?? t.knowledge` for a non-English document. That fallback
-            // is the leak this version exists to close.
+            // NEVER `?? t.knowledge` for a non-English document.
             const tr = ksa.get(t.id);
             const triple: KsaTriple = !showKsa
               ? { knowledge: null, skills: null, abilities: null }
@@ -599,23 +600,9 @@ serve(async (req) => {
         cognitiveModelVersion,
       };
 
-      // Whether K/S/A rendered is part of what this document IS, so it belongs
-      // in the cache key. Without it, the first sheet generated before a
-      // translation pass would keep being served after it.
-      const jtaStamps = [
-        certRow.updated_at,
-        i18nRow?.updated_at,
-        blueprintComputedAt,
-        newestTask,
-        newestTranslation,
-        showKsa ? "ksa" : "noksa",
-      ]
-        .filter(Boolean)
-        .sort()
-        .join("");
-      const jtaVersion = contentVersion(jtaStamps || certRow.updated_at);
+      const jtaVersion = await contentHash(jtaData);
       const jtaPath =
-        `jta/v${JTA_RENDERER_VERSION}/${code}/${language}/${showKsa ? "k" : "n"}${jtaVersion}.pdf`;
+        `jta/v${JTA_RENDERER_VERSION}/${code}/${language}/${jtaVersion}.pdf`;
       const jtaFilename = `${code}-jta-${language}.pdf`;
 
       const { data: jtaHit } = await svc.storage
@@ -665,6 +652,7 @@ serve(async (req) => {
         certification_code: code,
         language,
         cached: jtaCached,
+        content_hash: jtaVersion,
         domains: jtaDomains.length,
         tasks_declared: jtaData.totalTasks,
         tasks_examined: jtaData.examScopeTasks,
@@ -691,6 +679,9 @@ serve(async (req) => {
         );
       }
 
+      // LIVE task counts, never exam_blueprint.task_counts. Invariant 17
+      // catches divergence at verify time, but a document a buyer keeps should
+      // not depend on a check having been run before it was generated.
       const { data: taskRows } = await svc
         .from("tasks")
         .select("domain_id, is_exam_scope")
@@ -745,15 +736,7 @@ serve(async (req) => {
         cognitiveModelVersion,
       };
 
-      const bpStamps = [
-        certRow.updated_at,
-        i18nRow?.updated_at,
-        blueprintComputedAt,
-      ]
-        .filter(Boolean)
-        .sort()
-        .join("");
-      const bpVersion = contentVersion(bpStamps || certRow.updated_at);
+      const bpVersion = await contentHash(bpData);
       const bpPath =
         `blueprint/v${BLUEPRINT_RENDERER_VERSION}/${code}/${language}/${bpVersion}.pdf`;
       const bpFilename = `${code}-blueprint-${language}.pdf`;
@@ -805,6 +788,7 @@ serve(async (req) => {
         certification_code: code,
         language,
         cached: bpCached,
+        content_hash: bpVersion,
         domains: bpDomains.length,
         tasks: examScopeTasks,
         descriptions_localized: descriptionsLocalized,
@@ -814,6 +798,10 @@ serve(async (req) => {
     // =====================================================================
     // FACT SHEET
     // =====================================================================
+    //
+    // The claim gate belongs here and not above: neither the blueprint nor the
+    // JTA sheet renders a claim, so refusing to generate one for want of an
+    // approved claim would be a gate on the wrong document.
     const claim = i18nRow?.claim ?? enRow?.claim ?? "";
     if (!claim) {
       return jsonResponse(
@@ -831,6 +819,11 @@ serve(async (req) => {
       weightPct: Number(d.weight_pct),
     }));
 
+    // ---- preparation figures --------------------------------------------
+    //
+    // "How long does this take my people" is the buyer's second question.
+    // Lesson counts are per-language; fall back to English when a language has
+    // not been fully loaded, so the figure is never zero on a real course.
     const { data: moduleRows } = await svc
       .from("modules")
       .select("id")
@@ -859,6 +852,10 @@ serve(async (req) => {
       studyMinutes = got.minutes;
     }
 
+    // ---- siblings --------------------------------------------------------
+    //
+    // Facts about our own catalog only. No labour-market claims anywhere on
+    // this document.
     const { data: sibRows } = certRow.category_slug
       ? await svc
         .from("certifications")
@@ -894,11 +891,7 @@ serve(async (req) => {
       cognitiveModelVersion,
     };
 
-    const stamps = [certRow.updated_at, i18nRow?.updated_at]
-      .filter(Boolean)
-      .sort()
-      .join("");
-    const version = contentVersion(stamps || certRow.updated_at);
+    const version = await contentHash(data);
     const path =
       `factsheet/v${FACTSHEET_RENDERER_VERSION}/${code}/${language}/${version}.pdf`;
     const filename = `${code}-factsheet-${language}.pdf`;
@@ -934,6 +927,11 @@ serve(async (req) => {
       signedUrl = fresh.signedUrl;
     }
 
+    // ---- audit -----------------------------------------------------------
+    //
+    // Logged on every generation, cached or not. The question the log answers
+    // is "who obtained this file", and a cache hit is still an obtaining.
+    // Best-effort: a logging failure must not deny the rep their document.
     const { error: logErr } = await svc.from("asset_downloads").insert({
       user_id: actor_user_id,
       asset_type: "factsheet",
@@ -950,6 +948,7 @@ serve(async (req) => {
       certification_code: code,
       language,
       cached,
+      content_hash: version,
       domains: domains.length,
       descriptions_localized: descriptionsLocalized,
     });
