@@ -120,6 +120,11 @@ import {
   WHATIS_RENDERER_VERSION,
   type WhatIsCertidemyData,
 } from "../_shared/whatis.ts";
+import {
+  renderObjections,
+  OBJECTIONS_RENDERER_VERSION,
+  type ObjectionsData,
+} from "../_shared/objections.ts";
 
 const BUCKET = "sales-assets";
 const SIGNED_URL_TTL = 60 * 60;
@@ -132,6 +137,7 @@ const IMPLEMENTED = [
   "jta_sheet",
   "engine_brief",
   "what_is_certidemy",
+  "objections_brief",
 ];
 
 /**
@@ -142,7 +148,7 @@ const IMPLEMENTED = [
  * A list, not a boolean: the next platform document should be one entry here
  * rather than another special case.
  */
-const PLATFORM_ASSETS = ["what_is_certidemy"];
+const PLATFORM_ASSETS = ["what_is_certidemy", "objections_brief"];
 const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 
 /**
@@ -392,6 +398,82 @@ serve(async (req) => {
         // Echoed so a caller can see what the document will claim without
         // opening it.
         catalogue: whatisData,
+      });
+    }
+
+    // ---- objections, INTERNAL tier ---------------------------------------
+    //
+    // Platform-level, so it branches here beside what_is_certidemy and before
+    // the certification lookup. Authorization already happened above.
+    //
+    // PER-RECIPIENT BY DESIGN. The band, the diagonal watermark and the footer
+    // all carry the address this copy was generated for, which is the only
+    // thing making the library modal's "watermarked" warning true. So the
+    // address MUST be in the cache key: a document keyed on language alone
+    // would serve the first rep's stamped file to the second, correct in
+    // appearance, signed to the wrong person, and logged nowhere.
+    if (assetType === "objections_brief") {
+      const { data: actorAuth } = await svc.auth.admin.getUserById(actor_user_id);
+      const recipientEmail = actorAuth?.user?.email ?? actor_user_id;
+    
+      const objectionsData: ObjectionsData = { recipientEmail };
+    
+      const objVersion = await contentHash(objectionsData);
+      const objPath =
+        `platform/objections/v${OBJECTIONS_RENDERER_VERSION}/${language}/${objVersion}.pdf`;
+      // The filename names its own tier, so a forwarded file announces the
+      // mistake in the recipient's download list.
+      const objFilename = `certidemy-objections-INTERNAL-${language}.pdf`;
+    
+      const { data: objHit } = await svc.storage
+        .from(BUCKET)
+        .createSignedUrl(objPath, SIGNED_URL_TTL, { download: objFilename });
+    
+      let objCached = false;
+      let objUrl = objHit?.signedUrl ?? null;
+    
+      if (objUrl) {
+        objCached = true;
+      } else {
+        const bytes = await renderObjections(objectionsData, language, SITE_BASE);
+        const { error: upErr } = await svc.storage
+          .from(BUCKET)
+          .upload(objPath, bytes, {
+            contentType: "application/pdf",
+            upsert: true,
+          });
+        if (upErr) {
+          console.error("objections upload failed", upErr);
+          return jsonResponse({ error: "could not store asset" }, 500);
+        }
+        const { data: fresh, error: signErr } = await svc.storage
+          .from(BUCKET)
+          .createSignedUrl(objPath, SIGNED_URL_TTL, { download: objFilename });
+        if (signErr || !fresh?.signedUrl) {
+          console.error("could not sign fresh objections", signErr);
+          return jsonResponse({ error: "could not sign asset" }, 500);
+        }
+        objUrl = fresh.signedUrl;
+      }
+    
+      // certification_id is null - this document is not about one.
+      const { error: objLogErr } = await svc.from("asset_downloads").insert({
+        user_id: actor_user_id,
+        asset_type: "objections_brief",
+        tier: "internal",
+        certification_id: null,
+        language,
+      });
+      if (objLogErr) console.warn("asset_downloads insert failed", objLogErr);
+    
+      return jsonResponse({
+        url: objUrl,
+        filename: objFilename,
+        preview_url: await signInline(svc, objPath),
+        asset_type: "objections_brief",
+        language,
+        cached: objCached,
+        content_hash: objVersion,
       });
     }
 
