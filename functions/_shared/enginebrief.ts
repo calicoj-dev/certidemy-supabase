@@ -15,6 +15,33 @@
 // to is the point.
 //
 // ============================================================================
+// v2 - THREE DIAGRAMS
+// ============================================================================
+//
+// v1 was unbroken prose for four pages. Three sections were carrying arguments
+// that are structural rather than verbal, and reading them as paragraphs made
+// the reader do work a picture does for free:
+//
+//   THE CHAIN was a single line of monospace arrows. It is now a two-row flow,
+//   and the rows are the point: the top row happens ONCE PER VERSION of the
+//   certification, the bottom row happens FOR EVERY CANDIDATE. The prose never
+//   said that. The diagram cannot avoid saying it.
+//
+//   THE FIREWALL was a sentence. It is now the study engine reaching the
+//   practice pool, a barrier, and the secure pool feeding only the examination.
+//   This is the strongest security claim in the document and it is spatial.
+//
+//   THE INTERRUPTION was three bullets. It is now a timeline with the server
+//   clock drawn as a band spanning the whole width INCLUDING the gap. "Time away
+//   is time spent" stops being an assertion and becomes something you can see.
+//
+// ON FILLS. jta.ts had a filled band removed in its v2 because this family's
+// visual language is rules and type, not fills - and a lone filled shape read as
+// an intrusion. Diagrams are the exception, deliberately: a diagram uses fill to
+// distinguish elements, and that is a different job from decorating a heading.
+// Not a regression.
+//
+// ============================================================================
 // THIS IS NOT THE CONSOLE BRIEFING
 // ============================================================================
 //
@@ -24,26 +51,21 @@
 // representative attaches to an email.
 //
 // What crosses over is the mechanism, the ISO/IEC 17024 alignment, and the
-// capability argument for building rather than buying. What does not cross over:
+// capability argument for building rather than buying. What does not:
 //
 //   NO COMPETITOR NAMES. The console page names commodity quiz platforms because
 //   a rep needs the comparison in their head. A client-facing document asserting
-//   what a named competitor does or does not do is a Class D claim under
-//   CLAIMS-POLICY - unevidenced, undated, and exactly the kind of thing that
-//   invites a rebuttal. The argument here is stated as requirements we had, not
-//   as failings others have.
+//   what a named competitor does is a Class D claim under CLAIMS-POLICY -
+//   unevidenced, undated, and an invitation to be rebutted. The argument here is
+//   stated as requirements we had, not failings others have.
 //
 //   NO CLAIMS BLACKLIST. Telling a buyer what we are careful not to say reads as
 //   either naive or evasive.
 //
-//   NO INTERNAL FRAMING. "Do not describe this as catching cheaters" is guidance
-//   for a person on a call, not content.
-//
 // PER CERTIFICATION, NOT GENERIC. Every structural claim is paired with this
-// certification's real numbers - form size, pass mark, domain count, declared
-// versus examined tasks. A generic brochure about "our engine" is marketing; a
-// document stating that THIS examination declares N tasks and examines N-k of
-// them, and names the gap, is evidence.
+// certification's real numbers. A generic brochure about "our engine" is
+// marketing; a document stating that THIS examination declares N tasks and
+// examines N-k of them, and names the gap, is evidence.
 //
 // STILL DELIBERATELY OMITTED
 //   NO PRICE. NO ITEM CONTENT - not one question, not one distractor. NO PASS
@@ -72,14 +94,17 @@ import { type AssetLocale } from "./blueprint.ts";
  * storage path, so bumping it invalidates every cached brief.
  *
  * 1 - initial
+ * 2 - three vector diagrams: the chain as authoring vs per-sitting, the
+ *     practice/secure firewall, the interruption timeline
  */
-export const ENGINE_BRIEF_RENDERER_VERSION = "1";
+export const ENGINE_BRIEF_RENDERER_VERSION = "2";
 
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
 const INK_MUTE = rgb(0x86 / 255, 0x86 / 255, 0x8b / 255);
 const ACCENT = rgb(0xbe / 255, 0x18 / 255, 0x5d / 255);
 const ACCENT_DEEP = rgb(0x9d / 255, 0x17 / 255, 0x4d / 255);
+const ACCENT_SOFT = rgb(0xfd / 255, 0xf2 / 255, 0xf6 / 255);
 const HAIRLINE = rgb(0xd2 / 255, 0xd2 / 255, 0xd7 / 255);
 
 const A4_W = 595.28;
@@ -137,9 +162,20 @@ interface Strings {
 
   chainHeading: string;
   chainLead: string;
-  chainFlow: string;
   chainBody1: string;
   chainBody2: string;
+  // diagram A
+  dAuthoring: string;
+  dPerSitting: string;
+  dAnalysis: string;
+  dDomains: string;
+  dTasks: string;
+  dBank: string;
+  dForm: string;
+  dRecorded: string;
+  dScore: string;
+  dCredential: string;
+  dCaptionA: string;
 
   serverHeading: string;
   serverLead: string;
@@ -152,6 +188,14 @@ interface Strings {
   continuity1: string;
   continuity2: string;
   continuity3: string;
+  // diagram C
+  dStart: string;
+  dSaved: string;
+  dFails: string;
+  dResumed: string;
+  dSubmit: string;
+  dClock: string;
+  dCaptionC: string;
 
   securityHeading: string;
   securityLead: string;
@@ -159,6 +203,13 @@ interface Strings {
   security2: string;
   security3: string;
   security4: string;
+  // diagram B
+  dStudyEngine: string;
+  dPracticePool: string;
+  dSecurePool: string;
+  dExam: string;
+  dNoLink: string;
+  dCaptionB: string;
 
   langHeading: string;
   langLead: string;
@@ -224,12 +275,22 @@ const STRINGS: Record<AssetLocale, Strings> = {
 
     chainHeading: "Where the questions come from",
     chainLead: "Every link is a record, not a document somebody maintains.",
-    chainFlow:
-      "job task analysis  ->  domains and weights  ->  tasks at cognitive levels  ->  item bank  ->  assembled form  ->  recorded form  ->  score  ->  credential",
     chainBody1:
       "The job task analysis declares what a certified person can do. Domains carry weights. Each task carries a cognitive level, a criticality and a frequency. Items are written against tasks and cannot claim a level their task does not have.",
     chainBody2:
       "The examination's cognitive profile is therefore computed from the analysis rather than asserted over it. The blueprint sheet publishes the result and can be compared with this document.",
+    dAuthoring: "ONCE PER VERSION",
+    dPerSitting: "EVERY CANDIDATE, EVERY SITTING",
+    dAnalysis: "Job task\nanalysis",
+    dDomains: "Domains\n+ weights",
+    dTasks: "Tasks\n+ levels",
+    dBank: "Item\nbank",
+    dForm: "Form\nassembled",
+    dRecorded: "Form\nrecorded",
+    dScore: "Score",
+    dCredential: "Credential",
+    dCaptionA:
+      "The top row is authored, reviewed and published once per version of the certification. The bottom row happens for every candidate, every sitting.",
 
     serverHeading: "The examination is defined by the server",
     serverLead: "Not by the candidate's browser.",
@@ -248,6 +309,14 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "A candidate who returns resumes the same form, in the same order, with their own answers in place. Because the form was recorded they are not issued a new sample.",
     continuity3:
       "The clock is anchored to the server's start time and continues while the candidate is away. Interruption is permitted; additional time is not.",
+    dStart: "Start",
+    dSaved: "Answers\nsaved",
+    dFails: "Device\nfails",
+    dResumed: "Same form\nresumed",
+    dSubmit: "Submit",
+    dClock: "SERVER CLOCK - RUNS THROUGHOUT",
+    dCaptionC:
+      "Answers already saved are not lost, and the clock does not pause. Time away is time spent.",
 
     securityHeading: "Item security",
     securityLead: "What protects the meaning of the credential.",
@@ -259,6 +328,13 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "Practice items and examination items are separate pools. Examination items are not linked into the study engine, so no practice path can surface one.",
     security4:
       "Item exposure - how much of a pool a single sitting reveals, and what repeated attempts accumulate to - is measured rather than assumed.",
+    dStudyEngine: "Study\nengine",
+    dPracticePool: "Practice\npool",
+    dSecurePool: "Secure\npool",
+    dExam: "Certification\nexamination",
+    dNoLink: "NO LINK",
+    dCaptionB:
+      "The study engine can reach practice items and cannot reach examination items. The separation is in the data model, not a rule somebody follows.",
 
     langHeading: "Three languages, one measurement",
     langLead: "Not three examinations that resemble each other.",
@@ -341,12 +417,22 @@ const STRINGS: Record<AssetLocale, Strings> = {
 
     chainHeading: "De dónde vienen las preguntas",
     chainLead: "Cada eslabón es un registro, no un documento que alguien mantiene.",
-    chainFlow:
-      "análisis de tareas  ->  dominios y pesos  ->  tareas con nivel cognitivo  ->  banco de ítems  ->  forma armada  ->  forma registrada  ->  puntaje  ->  credencial",
     chainBody1:
       "El análisis de tareas declara qué puede hacer una persona certificada. Los dominios llevan pesos. Cada tarea lleva un nivel cognitivo, una criticidad y una frecuencia. Los ítems se escriben contra tareas y no pueden declarar un nivel que su tarea no tiene.",
     chainBody2:
       "Por lo tanto, el perfil cognitivo del examen se calcula a partir del análisis en lugar de declararse sobre él. El blueprint publica el resultado y puede compararse con este documento.",
+    dAuthoring: "UNA VEZ POR VERSIÓN",
+    dPerSitting: "CADA CANDIDATO, CADA APLICACIÓN",
+    dAnalysis: "Análisis\nde tareas",
+    dDomains: "Dominios\n+ pesos",
+    dTasks: "Tareas\n+ niveles",
+    dBank: "Banco\nde ítems",
+    dForm: "Forma\narmada",
+    dRecorded: "Forma\nregistrada",
+    dScore: "Puntaje",
+    dCredential: "Credencial",
+    dCaptionA:
+      "La fila superior se redacta, se revisa y se publica una vez por versión de la certificación. La inferior ocurre para cada candidato, en cada aplicación.",
 
     serverHeading: "El examen lo define el servidor",
     serverLead: "No el navegador del candidato.",
@@ -365,6 +451,14 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "Quien regresa retoma la misma forma, en el mismo orden, con sus propias respuestas en su lugar. Como la forma quedó registrada, no se emite una muestra nueva.",
     continuity3:
       "El reloj está anclado a la hora de inicio del servidor y continúa mientras el candidato está ausente. La interrupción se permite; el tiempo adicional no.",
+    dStart: "Inicio",
+    dSaved: "Respuestas\nguardadas",
+    dFails: "Falla el\nequipo",
+    dResumed: "Misma forma\nretomada",
+    dSubmit: "Envío",
+    dClock: "RELOJ DEL SERVIDOR - CORRE TODO EL TIEMPO",
+    dCaptionC:
+      "Las respuestas ya guardadas no se pierden, y el reloj no se detiene. El tiempo ausente es tiempo gastado.",
 
     securityHeading: "Seguridad de los ítems",
     securityLead: "Lo que protege el significado de la credencial.",
@@ -376,6 +470,13 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "Los ítems de práctica y los de examen son bancos separados. Los ítems de examen no están vinculados al motor de estudio, así que ninguna ruta de práctica puede exponer uno.",
     security4:
       "La exposición de ítems - cuánto de un banco revela una sola aplicación y cuánto acumulan los intentos repetidos - se mide en lugar de suponerse.",
+    dStudyEngine: "Motor de\nestudio",
+    dPracticePool: "Banco de\npráctica",
+    dSecurePool: "Banco\nseguro",
+    dExam: "Examen de\ncertificación",
+    dNoLink: "SIN VÍNCULO",
+    dCaptionB:
+      "El motor de estudio puede alcanzar los ítems de práctica y no puede alcanzar los de examen. La separación está en el modelo de datos, no en una regla que alguien sigue.",
 
     langHeading: "Tres idiomas, una sola medición",
     langLead: "No tres exámenes que se parecen entre sí.",
@@ -458,12 +559,22 @@ const STRINGS: Record<AssetLocale, Strings> = {
 
     chainHeading: "De onde vêm as questões",
     chainLead: "Cada elo é um registro, não um documento que alguém mantém.",
-    chainFlow:
-      "análise de tarefas  ->  domínios e pesos  ->  tarefas com nível cognitivo  ->  banco de itens  ->  forma montada  ->  forma registrada  ->  nota  ->  credencial",
     chainBody1:
       "A análise de tarefas declara o que uma pessoa certificada é capaz de fazer. Os domínios carregam pesos. Cada tarefa carrega um nível cognitivo, uma criticidade e uma frequência. Os itens são escritos contra tarefas e não podem declarar um nível que sua tarefa não tem.",
     chainBody2:
       "Portanto, o perfil cognitivo do exame é calculado a partir da análise em vez de declarado sobre ela. O blueprint publica o resultado e pode ser comparado com este documento.",
+    dAuthoring: "UMA VEZ POR VERSÃO",
+    dPerSitting: "CADA CANDIDATO, CADA APLICAÇÃO",
+    dAnalysis: "Análise\nde tarefas",
+    dDomains: "Domínios\n+ pesos",
+    dTasks: "Tarefas\n+ níveis",
+    dBank: "Banco\nde itens",
+    dForm: "Forma\nmontada",
+    dRecorded: "Forma\nregistrada",
+    dScore: "Nota",
+    dCredential: "Credencial",
+    dCaptionA:
+      "A linha superior é redigida, revisada e publicada uma vez por versão da certificação. A inferior acontece para cada candidato, em cada aplicação.",
 
     serverHeading: "O exame é definido pelo servidor",
     serverLead: "Não pelo navegador do candidato.",
@@ -482,6 +593,14 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "Quem retorna retoma a mesma forma, na mesma ordem, com suas próprias respostas no lugar. Como a forma foi registrada, não é emitida uma nova amostra.",
     continuity3:
       "O relógio está ancorado ao horário de início do servidor e continua enquanto o candidato está ausente. A interrupção é permitida; tempo adicional não.",
+    dStart: "Início",
+    dSaved: "Respostas\nsalvas",
+    dFails: "Equipamento\nfalha",
+    dResumed: "Mesma forma\nretomada",
+    dSubmit: "Envio",
+    dClock: "RELÓGIO DO SERVIDOR - CORRE O TEMPO TODO",
+    dCaptionC:
+      "As respostas já salvas não são perdidas, e o relógio não para. Tempo ausente é tempo gasto.",
 
     securityHeading: "Segurança dos itens",
     securityLead: "O que protege o significado da credencial.",
@@ -493,6 +612,13 @@ const STRINGS: Record<AssetLocale, Strings> = {
       "Itens de prática e itens de exame são bancos separados. Os itens de exame não estão vinculados ao motor de estudo, então nenhum caminho de prática pode expor um deles.",
     security4:
       "A exposição de itens - quanto de um banco uma única aplicação revela e quanto as tentativas repetidas acumulam - é medida em vez de suposta.",
+    dStudyEngine: "Motor de\nestudo",
+    dPracticePool: "Banco de\nprática",
+    dSecurePool: "Banco\nseguro",
+    dExam: "Exame de\ncertificação",
+    dNoLink: "SEM VÍNCULO",
+    dCaptionB:
+      "O motor de estudo alcança os itens de prática e não alcança os de exame. A separação está no modelo de dados, não em uma regra que alguém segue.",
 
     langHeading: "Três idiomas, uma única medição",
     langLead: "Não três exames que se parecem entre si.",
@@ -607,18 +733,89 @@ export async function renderEngineBrief(
     if (y - h < FOOT) newPage();
   };
 
-  /** Orphan control: a heading reserves enough of its own section. */
+  /* ---- primitives ---------------------------------------------------- */
+
+  const centered = (
+    text: string,
+    cx: number,
+    ty: number,
+    size: number,
+    font: PDFFont,
+    color = INK,
+  ) => {
+    const w = font.widthOfTextAtSize(text, size);
+    page.drawText(text, { x: cx - w / 2, y: ty, size, font, color });
+  };
+
+  /**
+   * A labelled box. `label` may contain \n for a second line - diagram labels
+   * are hand-broken rather than auto-wrapped, because a two-word box that wraps
+   * unpredictably across three languages looks like a bug.
+   */
+  const boxed = (
+    x: number,
+    top: number,
+    w: number,
+    h: number,
+    label: string,
+    filled: boolean,
+  ) => {
+    page.drawRectangle({
+      x,
+      y: top - h,
+      width: w,
+      height: h,
+      color: filled ? ACCENT_SOFT : undefined,
+      borderColor: filled ? ACCENT : HAIRLINE,
+      borderWidth: filled ? 0.9 : 0.7,
+    });
+    const lines = label.split("\n");
+    const size = 7.5;
+    const lead = 9.5;
+    const blockH = lines.length * lead;
+    let ty = top - h / 2 + blockH / 2 - lead + 3;
+    for (const line of lines) {
+      centered(line, x + w / 2, ty, size, semi, filled ? ACCENT_DEEP : INK);
+      ty -= lead;
+    }
+  };
+
+  /** Horizontal arrow, left to right. Chevron head - no polygon needed. */
+  const arrowR = (x1: number, x2: number, ay: number) => {
+    page.drawLine({ start: { x: x1, y: ay }, end: { x: x2, y: ay }, thickness: 0.8, color: ACCENT });
+    page.drawLine({ start: { x: x2 - 3.5, y: ay + 2.6 }, end: { x: x2, y: ay }, thickness: 0.8, color: ACCENT });
+    page.drawLine({ start: { x: x2 - 3.5, y: ay - 2.6 }, end: { x: x2, y: ay }, thickness: 0.8, color: ACCENT });
+  };
+
+  /** Vertical arrow, downward. */
+  const arrowD = (ax: number, y1: number, y2: number) => {
+    page.drawLine({ start: { x: ax, y: y1 }, end: { x: ax, y: y2 }, thickness: 0.8, color: ACCENT });
+    page.drawLine({ start: { x: ax - 2.6, y: y2 + 3.5 }, end: { x: ax, y: y2 }, thickness: 0.8, color: ACCENT });
+    page.drawLine({ start: { x: ax + 2.6, y: y2 + 3.5 }, end: { x: ax, y: y2 }, thickness: 0.8, color: ACCENT });
+  };
+
+  /** Double-headed horizontal arrow. */
+  const arrowLR = (x1: number, x2: number, ay: number) => {
+    arrowR(x1, x2, ay);
+    page.drawLine({ start: { x: x1 + 3.5, y: ay + 2.6 }, end: { x: x1, y: ay }, thickness: 0.8, color: ACCENT });
+    page.drawLine({ start: { x: x1 + 3.5, y: ay - 2.6 }, end: { x: x1, y: ay }, thickness: 0.8, color: ACCENT });
+  };
+
+  const caption = (t: string) => {
+    for (const line of wrap(t, regular, 8.5, CW)) {
+      need(12);
+      page.drawText(line, { x: M, y, size: 8.5, font: regular, color: INK_MUTE });
+      y -= 11;
+    }
+    y -= 8;
+  };
+
   const heading = (t: string, lead?: string, reserve = 170) => {
     if (y - reserve < FOOT) newPage();
     y -= 6;
     page.drawText(t.toUpperCase(), { x: M, y, size: 9, font: mono, color: ACCENT });
     y -= 9;
-    page.drawLine({
-      start: { x: M, y },
-      end: { x: A4_W - M, y },
-      thickness: 0.8,
-      color: ACCENT,
-    });
+    page.drawLine({ start: { x: M, y }, end: { x: A4_W - M, y }, thickness: 0.8, color: ACCENT });
     y -= 16;
     if (lead) {
       for (const line of wrap(lead, semi, 10.5, CW)) {
@@ -655,13 +852,156 @@ export async function renderEngineBrief(
     const w = semi.widthOfTextAtSize(value, 10);
     page.drawText(value, { x: A4_W - M - w, y, size: 10, font: semi, color: INK });
     y -= 7;
+    page.drawLine({ start: { x: M, y }, end: { x: A4_W - M, y }, thickness: 0.5, color: HAIRLINE });
+    y -= 13;
+  };
+
+  /* ---- diagram A: the chain, two rows -------------------------------- */
+  //
+  // The row split IS the argument. Authoring happens once per version; delivery
+  // happens per candidate. The prose never said that; a two-row diagram cannot
+  // avoid saying it.
+  const diagramChain = () => {
+    const BW = 110;
+    const BH = 36;
+    const GAP = (CW - BW * 4) / 3;
+    const totalH = 10 + BH + 26 + 10 + BH;
+    need(totalH + 40);
+
+    const rowLabel = (t: string) => {
+      page.drawText(t, { x: M, y, size: 6.5, font: mono, color: ACCENT_DEEP });
+      y -= 10;
+    };
+    const rowBoxes = (labels: string[], filled: boolean) => {
+      const top = y;
+      labels.forEach((label, i) => {
+        const x = M + i * (BW + GAP);
+        boxed(x, top, BW, BH, label, filled);
+        if (i < labels.length - 1) {
+          arrowR(x + BW + 3, x + BW + GAP - 3, top - BH / 2);
+        }
+      });
+      y = top - BH;
+    };
+
+    rowLabel(S.dAuthoring);
+    rowBoxes([S.dAnalysis, S.dDomains, S.dTasks, S.dBank], false);
+
+    // The join: last box of row one feeds the first of row two.
+    arrowD(M + BW / 2, y - 4, y - 20);
+    y -= 26;
+
+    rowLabel(S.dPerSitting);
+    rowBoxes([S.dForm, S.dRecorded, S.dScore, S.dCredential], true);
+
+    y -= 14;
+    caption(S.dCaptionA);
+  };
+
+  /* ---- diagram B: the firewall --------------------------------------- */
+  const diagramFirewall = () => {
+    const BW = 100;
+    const BH = 36;
+    const NG = 25; // normal gap
+    const WG = CW - BW * 4 - NG * 2; // the barrier gap takes the remainder
+    need(BH + 46);
+
+    const top = y;
+    const x1 = M;
+    const x2 = x1 + BW + NG;
+    const x3 = x2 + BW + WG;
+    const x4 = x3 + BW + NG;
+    const mid = top - BH / 2;
+
+    boxed(x1, top, BW, BH, S.dStudyEngine, false);
+    boxed(x2, top, BW, BH, S.dPracticePool, false);
+    boxed(x3, top, BW, BH, S.dSecurePool, true);
+    boxed(x4, top, BW, BH, S.dExam, true);
+
+    arrowLR(x1 + BW + 3, x2 - 3, mid);
+    arrowR(x3 + BW + 3, x4 - 3, mid);
+
+    // The barrier: two vertical rules with the label above. Not an arrow,
+    // because nothing crosses.
+    const bx = x2 + BW + WG / 2;
+    for (const dx of [-2.5, 2.5]) {
+      page.drawLine({
+        start: { x: bx + dx, y: top + 4 },
+        end: { x: bx + dx, y: top - BH - 4 },
+        thickness: 1.2,
+        color: ACCENT,
+      });
+    }
+    centered(S.dNoLink, bx, top + 9, 6.5, mono, ACCENT_DEEP);
+
+    y = top - BH - 16;
+    caption(S.dCaptionB);
+  };
+
+  /* ---- diagram C: the interruption timeline -------------------------- */
+  //
+  // The clock band spans the WHOLE width, gap included. That is the argument:
+  // interruption is allowed, extra time is not.
+  const diagramTimeline = () => {
+    const bandH = 13;
+    need(bandH + 62);
+
+    const top = y;
+
+    // Server clock band - continuous, deliberately spanning the interruption.
+    page.drawRectangle({
+      x: M,
+      y: top - bandH,
+      width: CW,
+      height: bandH,
+      color: ACCENT_SOFT,
+      borderColor: ACCENT,
+      borderWidth: 0.7,
+    });
+    centered(S.dClock, M + CW / 2, top - bandH + 4, 6.5, mono, ACCENT_DEEP);
+
+    // Timeline below it.
+    const ty = top - bandH - 16;
     page.drawLine({
-      start: { x: M, y },
-      end: { x: A4_W - M, y },
-      thickness: 0.5,
+      start: { x: M, y: ty },
+      end: { x: A4_W - M, y: ty },
+      thickness: 0.7,
       color: HAIRLINE,
     });
-    y -= 13;
+
+    const marks = [S.dStart, S.dSaved, S.dFails, S.dResumed, S.dSubmit];
+    marks.forEach((label, i) => {
+      const cx = M + (CW / (marks.length - 1)) * i;
+      const isGap = i === 2; // "device fails" - the interruption itself
+      page.drawCircle({
+        x: cx,
+        y: ty,
+        size: 2.6,
+        color: isGap ? undefined : ACCENT,
+        borderColor: ACCENT,
+        borderWidth: 0.9,
+      });
+      const lines = label.split("\n");
+      let ly = ty - 11;
+      for (const line of lines) {
+        // Nudge the outer labels inward so they cannot overrun the margins.
+        const w = semi.widthOfTextAtSize(line, 7);
+        let lx = cx - w / 2;
+        if (lx < M) lx = M;
+        if (lx + w > A4_W - M) lx = A4_W - M - w;
+        page.drawText(line, {
+          x: lx,
+          y: ly,
+          size: 7,
+          font: semi,
+          color: isGap ? ACCENT_DEEP : INK_SOFT,
+        });
+        ly -= 9;
+      }
+    });
+
+    y = ty - 34;
+    caption(S.dCaptionC);
   };
 
   // ---- header -------------------------------------------------------------
@@ -696,9 +1036,6 @@ export async function renderEngineBrief(
   y -= 14;
 
   // ---- this examination ---------------------------------------------------
-  //
-  // Numbers first, so every structural claim that follows is anchored to this
-  // certification rather than reading as a generic brochure.
   heading(S.paramsHeading, undefined, 200);
   row(S.pQuestions, String(data.numQuestions));
   row(S.pDuration, `${data.examDurationMinutes} ${S.minutes}`);
@@ -720,13 +1057,8 @@ export async function renderEngineBrief(
   y -= 6;
 
   // ---- the chain ----------------------------------------------------------
-  heading(S.chainHeading, S.chainLead, 200);
-  for (const line of wrap(S.chainFlow, mono, 8, CW)) {
-    need(14);
-    page.drawText(line, { x: M, y, size: 8, font: mono, color: ACCENT_DEEP });
-    y -= 12;
-  }
-  y -= 8;
+  heading(S.chainHeading, S.chainLead, 260);
+  diagramChain();
   body(S.chainBody1);
   body(S.chainBody2);
 
@@ -737,13 +1069,15 @@ export async function renderEngineBrief(
   bullet(S.server3);
 
   // ---- continuity ---------------------------------------------------------
-  heading(S.continuityHeading, S.continuityLead, 190);
+  heading(S.continuityHeading, S.continuityLead, 260);
+  diagramTimeline();
   bullet(S.continuity1);
   bullet(S.continuity2);
   bullet(S.continuity3);
 
   // ---- item security ------------------------------------------------------
-  heading(S.securityHeading, S.securityLead, 220);
+  heading(S.securityHeading, S.securityLead, 280);
+  diagramFirewall();
   bullet(S.security1);
   bullet(S.security2);
   bullet(S.security3);
@@ -777,8 +1111,8 @@ export async function renderEngineBrief(
   bullet(S.iso3);
   bullet(S.iso4);
   y -= 2;
-  // The accreditation distinction, in a box, because it is the single sentence
-  // most likely to be skimmed past and most damaging to get wrong.
+  // The accreditation distinction, boxed, because it is the single sentence most
+  // likely to be skimmed past and most damaging to get wrong.
   {
     const lines = wrap(S.isoNote, regular, 9.5, CW - 24);
     const h = lines.length * 13 + 20;
