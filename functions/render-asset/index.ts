@@ -154,6 +154,30 @@ async function contentHash(data: unknown): Promise<string> {
 }
 
 /**
+ * A second signature for the same object, WITHOUT a download disposition, so a
+ * console preview can render it inline in an iframe.
+ *
+ * The download variant sets Content-Disposition: attachment, which makes a
+ * browser save the file rather than display it. The download query parameter
+ * does not affect the signature and could be stripped client-side instead, but
+ * that relies on an implementation detail: if it changed, previews would
+ * silently start downloading files with nothing in any log.
+ *
+ * Costs a signature computation and no I/O. The object is content-addressed and
+ * already cached, so a preview followed by a download renders nothing twice.
+ */
+async function signInline(
+  // deno-lint-ignore no-explicit-any
+  svc: any,
+  path: string,
+): Promise<string | null> {
+  const { data } = await svc.storage
+    .from(BUCKET)
+    .createSignedUrl(path, SIGNED_URL_TTL);
+  return data?.signedUrl ?? null;
+}
+
+/**
  * Largest-remainder allocation. VERBATIM PORT of gen-jta-doc.mjs, which itself
  * matches generate-mock-exam's allocation. Do not "simplify" it: a different
  * rounding rule would publish per-domain question counts that the live
@@ -654,6 +678,7 @@ serve(async (req) => {
       return jsonResponse({
         url: jtaUrl,
         filename: jtaFilename,
+        preview_url: await signInline(svc, jtaPath),
         asset_type: "jta_sheet",
         certification_code: code,
         language,
@@ -800,6 +825,7 @@ serve(async (req) => {
       return jsonResponse({
         url: briefUrl,
         filename: briefFilename,
+        preview_url: await signInline(svc, briefPath),
         asset_type: "engine_brief",
         certification_code: code,
         language,
@@ -935,6 +961,7 @@ serve(async (req) => {
       return jsonResponse({
         url: bpUrl,
         filename: bpFilename,
+        preview_url: await signInline(svc, bpPath),
         asset_type: "blueprint_sheet",
         certification_code: code,
         language,
@@ -1095,6 +1122,7 @@ serve(async (req) => {
     return jsonResponse({
       url: signedUrl,
       filename,
+      preview_url: await signInline(svc, path),
       asset_type: "factsheet",
       certification_code: code,
       language,
