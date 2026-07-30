@@ -115,6 +115,11 @@ import {
   ENGINE_BRIEF_RENDERER_VERSION,
   type EngineBriefData,
 } from "../_shared/enginebrief.ts";
+import {
+  renderWhatIsCertidemy,
+  WHATIS_RENDERER_VERSION,
+  type WhatIsCertidemyData,
+} from "../_shared/whatis.ts";
 
 const BUCKET = "sales-assets";
 const SIGNED_URL_TTL = 60 * 60;
@@ -126,7 +131,18 @@ const IMPLEMENTED = [
   "blueprint_sheet",
   "jta_sheet",
   "engine_brief",
+  "what_is_certidemy",
 ];
+
+/**
+ * Assets that describe the PLATFORM rather than one certification. They carry no
+ * certification_code, so the code guard is skipped for them and they branch
+ * before the certification lookup.
+ *
+ * A list, not a boolean: the next platform document should be one entry here
+ * rather than another special case.
+ */
+const PLATFORM_ASSETS = ["what_is_certidemy"];
 const SITE_BASE = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 
 /**
@@ -241,7 +257,10 @@ serve(async (req) => {
         400,
       );
     }
-    if (!code) return jsonResponse({ error: "certification_code required" }, 400);
+    const isPlatformAsset = PLATFORM_ASSETS.includes(assetType);
+    if (!isPlatformAsset && !code) {
+      return jsonResponse({ error: "certification_code required" }, 400);
+    }
     if (!LOCALES.includes(language)) {
       return jsonResponse({ error: `unsupported language '${language}'` }, 400);
     }
@@ -259,6 +278,121 @@ serve(async (req) => {
     const role = actorProfile?.platform_role;
     if (role !== "platform_admin" && role !== "marketing") {
       throw new HttpError(403, "platform_admin or marketing required");
+    }
+
+    // ---- platform-level assets ------------------------------------------
+    //
+    // Before the certification lookup, because there is nothing to look up.
+    // Authorization has already happened above; nothing else from the
+    // certification path applies here.
+    if (assetType === "what_is_certidemy") {
+      const { data: certRows, error: cErr } = await svc
+        .from("certifications")
+        .select("id, status, category_slug");
+      if (cErr) {
+        console.error("catalogue count failed", cErr);
+        return jsonResponse({ error: "lookup failed" }, 500);
+      }
+      const allCerts = (certRows ?? []) as {
+        id: string;
+        status: string;
+        category_slug: string | null;
+      }[];
+
+      // Only what a visitor can actually see. A draft or archived certification
+      // inflating these figures would undercut the one document whose whole
+      // argument is that our numbers are checkable.
+      const visible = allCerts.filter((c) => CLIENT_SAFE_STATUSES.includes(c.status));
+      const openCount = visible.filter((c) => c.status === "available").length;
+      const visibleIds = visible.map((c) => c.id);
+
+      let domainCount = 0;
+      let taskCount = 0;
+      if (visibleIds.length > 0) {
+        const { count: dc } = await svc
+          .from("domains")
+          .select("id", { count: "exact", head: true })
+          .in("certification_id", visibleIds);
+        const { count: tc } = await svc
+          .from("tasks")
+          .select("id", { count: "exact", head: true })
+          .in("certification_id", visibleIds);
+        domainCount = dc ?? 0;
+        taskCount = tc ?? 0;
+      }
+
+      const programCount = new Set(
+        visible.map((c) => c.category_slug).filter(Boolean),
+      ).size;
+
+      const whatisData: WhatIsCertidemyData = {
+        certificationsAvailable: openCount,
+        certificationsTotal: visible.length,
+        programs: programCount,
+        domains: domainCount,
+        tasks: taskCount,
+        languages: LOCALES.length,
+      };
+
+      const whatisVersion = await contentHash(whatisData);
+      const whatisPath =
+        `platform/whatis/v${WHATIS_RENDERER_VERSION}/${language}/${whatisVersion}.pdf`;
+      const whatisFilename = `certidemy-what-is-${language}.pdf`;
+
+      const { data: whatisHit } = await svc.storage
+        .from(BUCKET)
+        .createSignedUrl(whatisPath, SIGNED_URL_TTL, { download: whatisFilename });
+
+      let whatisCached = false;
+      let whatisUrl = whatisHit?.signedUrl ?? null;
+
+      if (whatisUrl) {
+        whatisCached = true;
+      } else {
+        const bytes = await renderWhatIsCertidemy(whatisData, language, SITE_BASE);
+        const { error: upErr } = await svc.storage
+          .from(BUCKET)
+          .upload(whatisPath, bytes, {
+            contentType: "application/pdf",
+            upsert: true,
+          });
+        if (upErr) {
+          console.error("what-is upload failed", upErr);
+          return jsonResponse({ error: "could not store asset" }, 500);
+        }
+        const { data: fresh, error: signErr } = await svc.storage
+          .from(BUCKET)
+          .createSignedUrl(whatisPath, SIGNED_URL_TTL, { download: whatisFilename });
+        if (signErr || !fresh?.signedUrl) {
+          console.error("could not sign fresh what-is", signErr);
+          return jsonResponse({ error: "could not sign asset" }, 500);
+        }
+        whatisUrl = fresh.signedUrl;
+      }
+
+      // certification_id is null - this document is not about one. See the header
+      // note if that column turns out to be NOT NULL.
+      const { error: whatisLogErr } = await svc.from("asset_downloads").insert({
+        user_id: actor_user_id,
+        asset_type: "what_is_certidemy",
+        tier: "client_safe",
+        certification_id: null,
+        language,
+      });
+      if (whatisLogErr) console.warn("asset_downloads insert failed", whatisLogErr);
+
+      return jsonResponse({
+        url: whatisUrl,
+        filename: whatisFilename,
+        preview_url: await signInline(svc, whatisPath),
+        asset_type: "what_is_certidemy",
+        language,
+        cached: whatisCached,
+        content_hash: whatisVersion,
+        // Echoed so a caller can see what the document will claim without
+        // opening it.
+        catalogue: whatisData,
+      });
     }
 
     // ---- certification --------------------------------------------------
