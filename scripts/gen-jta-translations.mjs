@@ -102,12 +102,16 @@ const RETRANSLATE_TITLES = ["1", "true", "yes"].includes(
 );
 
 const ONLY = (process.env.ONLY || "all").toLowerCase();
-if (!["all", "domains", "tasks"].includes(ONLY)) {
-  console.error(`ONLY must be one of: all | domains | tasks (got "${ONLY}")`);
+if (!["all", "domains", "tasks", "ksa"].includes(ONLY)) {
+  console.error(`ONLY must be one of: all | domains | tasks | ksa (got "${ONLY}")`);
   process.exit(1);
 }
 const DO_DOMAINS = ONLY === "all" || ONLY === "domains";
 const DO_TASKS = ONLY === "all" || ONLY === "tasks";
+// NOT part of ONLY=all. K/S/A is a separate pass over the same rows, and
+// folding it into the default would make every routine run rewrite fields it
+// was not asked to touch.
+const DO_KSA = ONLY === "ksa";
 
 const MODEL = "claude-sonnet-4-6";
 const LANGS = [
@@ -248,7 +252,7 @@ async function gather() {
   if (de) throw new Error(`domains: ${de.message}`);
 
   const { data: tasks, error: te } = await supabase
-    .from("tasks").select("id, statement")
+    .from("tasks").select("id, code, statement, knowledge, skills, abilities")
     .eq("certification_id", CERT_ID).order("order_index", { ascending: true });
   if (te) throw new Error(`tasks: ${te.message}`);
 
@@ -381,7 +385,103 @@ async function main() {
       }
     }
 
+    // ---- Tasks (knowledge / skills / abilities) ----
+    //
+    // UPDATE ONLY, never upsert - see the header. A payload omitting `statement`
+    // would INSERT a null statement on any row that does not exist yet.
+    if (!DO_KSA) {
+      if (ONLY !== "all") console.log(`  ksa: skipped (ONLY=${ONLY})`);
+    } else {
+      // Which rows already carry a K/S/A block for this language. Read here
+      // rather than reusing haveTask, which only knows about statements.
+      const { data: ksaHave } = await supabase
+        .from("task_translations")
+        .select("task_id")
+        .eq("language", lang.code)
+        .not("knowledge", "is", null);
+      const haveKsa = new Set((ksaHave ?? []).map((r) => `${r.task_id}|${lang.code}`));
+
+      const ksaTodo = tasks.filter(
+        (t) =>
+          (t.knowledge || t.skills || t.abilities) &&
+          (FORCE || !haveKsa.has(`${t.id}|${lang.code}`)),
+      );
+
+      if (ksaTodo.length === 0) {
+        console.log("  ksa: nothing to do");
+      } else {
+        let wrote = 0;
+        let missingRow = 0;
+        let failed = 0;
+
+        for (const part of chunk(ksaTodo, CHUNK)) {
+          // Three items per task, keyed separately so a dropped field does not
+          // take the other two with it.
+          const items = [];
+          for (const t of part) {
+            if (t.knowledge) items.push({ id: `${t.id}::k`, text: t.knowledge });
+            if (t.skills) items.push({ id: `${t.id}::s`, text: t.skills });
+            if (t.abilities) items.push({ id: `${t.id}::a`, text: t.abilities });
+          }
+          const map = await translateBatch(lang.name, items);
+
+          for (const t of part) {
+            // No statement row means no row to update. Reported, not created.
+            if (!haveTask.has(`${t.id}|${lang.code}`)) {
+              missingRow += 1;
+              continue;
+            }
+
+            // Exactly five columns. Never statement, never is_provisional.
+            const patch = { ksa_is_provisional: true, updated_at: now() };
+            if (t.knowledge) patch.knowledge = map.get(`${t.id}::k`) ?? null;
+            if (t.skills) patch.skills = map.get(`${t.id}::s`) ?? null;
+            if (t.abilities) patch.abilities = map.get(`${t.id}::a`) ?? null;
+
+            if (DRY_RUN) {
+              console.log(`  [dry] ${t.code ?? t.id}  K: ${patch.knowledge ?? "-"}`);
+              console.log(`        ${" ".repeat((t.code ?? "").length)}  S: ${patch.skills ?? "-"}`);
+              console.log(`        ${" ".repeat((t.code ?? "").length)}  A: ${patch.abilities ?? "-"}`);
+              wrote += 1;
+              continue;
+            }
+
+            const { error } = await supabase
+              .from("task_translations")
+              .update(patch)
+              .eq("task_id", t.id)
+              .eq("language", lang.code);
+            if (error) {
+              console.log(`  ! ksa update failed (${t.code ?? t.id}): ${error.message}`);
+              failed += 1;
+              continue;
+            }
+            wrote += 1;
+          }
+        }
+
+        console.log(`  ksa: ${DRY_RUN ? "would write" : "wrote"} ${wrote}`);
+        if (missingRow > 0) {
+          console.log(
+            `  ksa: ${missingRow} task(s) have no ${lang.code} statement row - ` +
+            `run ONLY=tasks for this cert first, then re-run ksa`,
+          );
+        }
+        if (failed > 0) console.log(`  ksa: ${failed} update(s) failed`);
+      }
+    }
+
     console.log("");
+  }
+
+  if (!DRY_RUN && DO_KSA) {
+    console.log(
+      "K/S/A rows are ksa_is_provisional=true. Renderers must OMIT the whole\n" +
+      "K/S/A block for that language until a review flips the flag - a sheet\n" +
+      "mixing translated statements with English knowledge is worse than one\n" +
+      "with no knowledge section at all.\n\n" +
+      "Statements and their is_provisional flag were NOT touched by this run."
+    );
   }
 
   if (!DRY_RUN && DO_DOMAINS) {
