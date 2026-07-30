@@ -302,9 +302,39 @@ function fonts(): Uint8Array[] {
   return fontBuffers;
 }
 
-async function renderPng(c: CardData): Promise<Uint8Array> {
+/* ---------------------------- generic card ------------------------------ */
+/* The static /og/credential-fallback.png is DERIVED FROM THIS, not hand-made.
+   The previous fallback was a one-off file that still advertised
+   certidemy.pages.dev long after the domain was retired (v3.2 s7 fixed the
+   hardcoded domain inside this function's SVG but could not reach a PNG sitting
+   in the web repo). A hand-made asset with no relationship to the renderer will
+   always rot; a derived one cannot.
+
+   Regenerate with: node scripts/gen-og-fallback.mjs   (from certidemy-web)
+
+   English only, deliberately: this card is served precisely when the credential
+   did not resolve, so there is no locale to read. */
+function buildGenericSvg(): string {
+  return `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="${INK.bg}"/>
+  <rect x="0" y="0" width="10" height="630" fill="${INK.rail}"/>
+
+  <text x="72" y="112" font-family="Inter" font-weight="600" font-size="30" letter-spacing="8" fill="${INK.white}">CERTIDEMY</text>
+
+  <text x="72" y="286" font-family="Inter" font-weight="600" font-size="22" letter-spacing="6" fill="${INK.accentSoft}">VERIFY A CREDENTIAL</text>
+
+  <text x="72" y="384" font-family="Inter" font-weight="700" font-size="62" fill="${INK.white}">Certification, built</text>
+  <text x="72" y="456" font-family="Inter" font-weight="700" font-size="62" fill="${INK.white}">for the age of AI.</text>
+
+  <line x1="72" y1="530" x2="1128" y2="530" stroke="${INK.keyline}" stroke-width="2"/>
+  <text x="72" y="576" font-family="Inter" font-weight="400" font-size="24" fill="${INK.mute}">Verify any credential at</text>
+  <text x="378" y="576" font-family="Inter" font-weight="600" font-size="24" fill="${INK.soft}">certidemy.com</text>
+</svg>`;
+}
+
+async function renderSvg(svg: string): Promise<Uint8Array> {
   await ensureWasm();
-  const resvg = new Resvg(buildSvg(c), {
+  const resvg = new Resvg(svg, {
     font: {
       fontBuffers: fonts(),
       defaultFontFamily: "Inter",
@@ -313,6 +343,10 @@ async function renderPng(c: CardData): Promise<Uint8Array> {
     fitTo: { mode: "width", value: 1200 },
   });
   return resvg.render().asPng();
+}
+
+async function renderPng(c: CardData): Promise<Uint8Array> {
+  return await renderSvg(buildSvg(c));
 }
 
 function pngResponse(png: Uint8Array): Response {
@@ -353,6 +387,25 @@ serve(async (req) => {
 
   const url = new URL(req.url);
   const debug = url.searchParams.get("debug") === "1";
+
+  /* ?generic=1 renders the brand card with no credential. This is the SOURCE
+     for /og/credential-fallback.png -- see buildGenericSvg. It is also what a
+     crawler gets if it somehow reaches this function with no ref, which is
+     better than a 400 in a link preview. */
+  if (url.searchParams.get("generic") === "1") {
+    try {
+      return pngResponse(await renderSvg(buildGenericSvg()));
+    } catch (err) {
+      console.error("credential-og generic:", err);
+      if (debug) {
+        return new Response("ERR: " + ((err as Error)?.stack ?? String(err)), {
+          status: 500,
+          headers: { "content-type": "text/plain" },
+        });
+      }
+      return await fallback();
+    }
+  }
 
   try {
     const id = url.searchParams.get("id");
