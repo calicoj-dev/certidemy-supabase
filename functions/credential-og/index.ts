@@ -450,7 +450,11 @@ serve(async (req) => {
       state,
       issuedAt: cred.issued_at ?? null,
       expiresAt: cred.expires_at ?? null,
-      lang: toLang(cred.locale),
+      // Reader's language, not the holder's. credentials.locale is the language
+      // the exam was taken in -- correct for the certificate PDF, which is a
+      // record. The card's labels are chrome, and chrome follows whoever is
+      // looking at it. Falls back to the record, then to en.
+      lang: toLang(url.searchParams.get("lang") ?? cred.locale),
     });
 
     return pngResponse(png);
