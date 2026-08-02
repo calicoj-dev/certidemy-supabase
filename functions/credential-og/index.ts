@@ -332,6 +332,55 @@ function buildGenericSvg(): string {
 </svg>`;
 }
 
+
+/* ------------------------- certification card --------------------------- */
+
+/**
+ * Share card for a CERTIFICATION page, not a credential.
+ *
+ * The badge is the subject here -- there is no holder -- so it is centred and
+ * large rather than sitting in a left column. Name and code beneath it, a
+ * keyline, then the domain. Same palette, same fonts, same renderer.
+ *
+ * Renders from params only. No credentials lookup, so this mode cannot leak a
+ * holder name, and it costs one badge lookup rather than a round trip.
+ */
+function buildCertSvg(code: string, name: string): string {
+  const badge = badgeDataUri(code);
+
+  // With a badge the text sits below it; without one the text moves up and
+  // takes the space. A card missing its badge should not look broken, just
+  // plainer.
+  const hasBadge = badge !== null;
+  const BS = 300;                       // badge size
+  const BX = (1200 - BS) / 2;
+  const BY = 40;
+
+  const nameY = hasBadge ? 424 : 300;
+  const codeY = nameY + 52;
+  const ruleY = codeY + 46;
+
+  // Auto-shrink: "AI Governance & Risk Management I" is nearly twice the width
+  // of "AI Essentials I". Same helper the credential card uses for holders.
+  const nameSize = fitSize(name, 1000, 58, 34, 0.56);
+  const shown = clip(name, 1000, nameSize, 0.56);
+
+  return `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="${INK.bg}"/>
+  <rect x="0" y="0" width="10" height="630" fill="${INK.rail}"/>
+
+  ${hasBadge ? `<image x="${BX}" y="${BY}" width="${BS}" height="${BS}" href="${badge}" preserveAspectRatio="xMidYMid meet"/>` : ""}
+
+  <text x="600" y="${nameY}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="${nameSize}" fill="${INK.white}">${esc(shown)}</text>
+
+  <text x="600" y="${codeY}" text-anchor="middle" font-family="Inter" font-weight="600" font-size="26" letter-spacing="3" fill="${INK.accentSoft}">${esc(code)}</text>
+
+  <line x1="380" y1="${ruleY}" x2="820" y2="${ruleY}" stroke="${INK.keyline}" stroke-width="2"/>
+
+  <text x="600" y="${ruleY + 48}" text-anchor="middle" font-family="Inter" font-weight="600" font-size="24" fill="${INK.soft}">certidemy.com</text>
+</svg>`;
+}
+
 async function renderSvg(svg: string): Promise<Uint8Array> {
   await ensureWasm();
   const resvg = new Resvg(svg, {
@@ -397,6 +446,29 @@ serve(async (req) => {
       return pngResponse(await renderSvg(buildGenericSvg()));
     } catch (err) {
       console.error("credential-og generic:", err);
+      if (debug) {
+        return new Response("ERR: " + ((err as Error)?.stack ?? String(err)), {
+          status: 500,
+          headers: { "content-type": "text/plain" },
+        });
+      }
+      return await fallback();
+    }
+  }
+
+  /* ?cert=<CODE>&name=<Name> renders a CERTIFICATION card -- the badge, the
+     name, the code. Used as the og:image on /certifications/<code>. No
+     credential is looked up, so no holder data is reachable through this mode.
+     Checked before the credential branch because it takes no id/code ref. */
+  const certCode = url.searchParams.get("cert");
+  if (certCode) {
+    try {
+      const certName = url.searchParams.get("name") ?? certCode;
+      return pngResponse(
+        await renderSvg(buildCertSvg(certCode.trim().toUpperCase(), certName))
+      );
+    } catch (err) {
+      console.error("credential-og cert:", err);
       if (debug) {
         return new Response("ERR: " + ((err as Error)?.stack ?? String(err)), {
           status: 500,
