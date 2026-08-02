@@ -120,6 +120,7 @@ serve(async (req) => {
       certification_name: cred.certification_name,
       certification_code: cred.certification_code,
       issued_at: cred.issued_at,
+      expires_at: cred.expires_at,
       // Without this, regenerating a specimen strips its mark and yields a
       // certificate indistinguishable from a real one.
       is_specimen: cred.is_specimen === true,
