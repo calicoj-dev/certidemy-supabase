@@ -1,7 +1,7 @@
 # HANDOFF-v5.0.md
 
 **Previous:** HANDOFF-v4.9.md
-**Migration tip:** unchanged from v4.9 — this session ran no SQL.
+**Migration tip:** 168 · **next free number: 169** — this session ran no SQL.
 **Session date:** 2 August 2026
 **Repos touched:** both
 
