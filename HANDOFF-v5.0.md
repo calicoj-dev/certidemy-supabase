@@ -194,9 +194,9 @@ Carried from v4.4 and still open: badge header hex drifts within programme
 (three Scrum badges, three different navies) — a corrected set lands as a pure
 drop-in, same filenames, same 501 × 501, same trim. `/favicon.ico` still 404s.
 
-Carried from earlier: AIE-I's JTA v2.0 still states two-year validity against
-365-day credentials. AIGRM-I Stage 9 remains — secure bank, practice backfill,
-translations, `SCHEME-AIGRM-I.md`, then `draft` → `coming_soon`.
+**All seven certifications are vailable — built, published, live.** Verified
+against `public.certifications` on 3 August 2026. Any note anywhere claiming a
+cert is draft or mid-build is stale; check the column, not a handoff.
 
 ---
 
