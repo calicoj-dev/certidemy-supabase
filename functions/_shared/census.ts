@@ -277,6 +277,30 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
     }
   }
 
+  // --- 6. real last-activity (v_user_last_activity) --------------------------
+  // auth.users.last_sign_in_at only moves on a FRESH sign-in. A session that
+  // keeps refreshing never rewrites it, so a daily user read as dormant --
+  // and `dormant` is the audience an operator emails or pushes to the CRM.
+  //
+  // The view unions every table that records a human touching the product:
+  // quiz attempts, exam submissions, FSRS reviews, lesson progress and tutor
+  // chat. Users with no activity are ABSENT from it, not null, so "never did
+  // anything" stays distinguishable from "did something at an unknown time".
+  const activityByUser = new Map<string, string>();
+  {
+    const { data: acts, error } = await svc
+      .from("v_user_last_activity")
+      .select("user_id, last_activity_at")
+      .in("user_id", idFilter);
+    if (error) throw new Error(`v_user_last_activity: ${error.message}`);
+    for (const a of (acts ?? []) as {
+      user_id: string;
+      last_activity_at: string | null;
+    }[]) {
+      if (a.last_activity_at) activityByUser.set(a.user_id, a.last_activity_at);
+    }
+  }
+
   // --- Assemble --------------------------------------------------------------
   const dormantCutoff = nowMs - DORMANT_DAYS * 86400000;
 
@@ -301,7 +325,18 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
       ? "team_admin"
       : "learner";
 
-    const lastActive = u.last_sign_in_at ?? null;
+    // LAST ACTIVE is the LATER of real activity and a fresh sign-in.
+    //
+    // Neither alone is right. Activity alone marks someone dormant who signed
+    // in this morning but has not studied in a fortnight; sign-in alone was
+    // the original bug. Both were observed in the same ten rows of live data.
+    const activityAt = activityByUser.get(u.id) ?? null;
+    const signInAt = u.last_sign_in_at ?? null;
+    const lastActive = activityAt != null && signInAt != null
+      ? (new Date(activityAt).getTime() >= new Date(signInAt).getTime()
+        ? activityAt
+        : signInAt)
+      : (activityAt ?? signInAt);
     const dormant = lastActive != null
       ? new Date(lastActive).getTime() < dormantCutoff
       // never signed in at all counts as dormant for re-engagement
