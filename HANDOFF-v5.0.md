@@ -194,7 +194,7 @@ Carried from v4.4 and still open: badge header hex drifts within programme
 (three Scrum badges, three different navies) — a corrected set lands as a pure
 drop-in, same filenames, same 501 × 501, same trim. `/favicon.ico` still 404s.
 
-**All seven certifications are vailable — built, published, live.** Verified
+**All seven certifications are `available` — built, published, live.** Verified
 against `public.certifications` on 3 August 2026. Any note anywhere claiming a
 cert is draft or mid-build is stale; check the column, not a handoff.
 
