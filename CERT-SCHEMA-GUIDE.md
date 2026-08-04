@@ -15,7 +15,7 @@ exactly. Reference migrations: **065** (SD-AI-I cert/domains/concepts/tasks/link
 
 ---
 
-## 0. The two scaffold migrations
+## 0. The three scaffold migrations
 
 A new cert `X` (uuid `U`, code `CODE`) needs THREE editor-first migrations:
 
@@ -24,6 +24,13 @@ A new cert `X` (uuid `U`, code `CODE`) needs THREE editor-first migrations:
   SECTION 5 tasks + SECTION 6 task_concepts + a commented verification query.
 - **`NNN+1_seed_<code>_modules.sql`** — the modules (one per domain, aligned by
   `order_index`).
+- **`NNN+2_<code>_exam_blueprint.sql`** — the exam blueprint. **Required, not
+  optional:** without `exam_blueprint.cognitive_profile` the examination makes no
+  cognitive claim and `verify-cert.mjs` fails the cert. Build the profile by
+  reading `public.v_cognitive_profile` inside the migration, never as a typed
+  literal — the object's own `derived_from` says the profile is computed from the
+  JTA, and a literal makes that sentence descriptive rather than true.
+  Reference: **173** (ISMS-F). 147 (AIHR-I) predates the read-from-view pattern.
 
 Both are **editor-first** (paste + run in the Supabase SQL editor to affect the
 live DB; commit the file as the versioned record) and **idempotent** (fixed ids +
