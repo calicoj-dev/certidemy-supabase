@@ -17,7 +17,7 @@ exactly. Reference migrations: **065** (SD-AI-I cert/domains/concepts/tasks/link
 
 ## 0. The two scaffold migrations
 
-A new cert `X` (uuid `U`, code `CODE`) needs two editor-first migrations:
+A new cert `X` (uuid `U`, code `CODE`) needs THREE editor-first migrations:
 
 - **`NNN_seed_<code>.sql`** — SECTION 0 category (if founding a family) + SECTION 1
   cert + SECTION 2 idempotency reset + SECTION 3 domains + SECTION 4 concepts +
