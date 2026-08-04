@@ -66,7 +66,7 @@ Facts derived from our own records, checkable by a reader.
 | The cognitive profile is computed from the job task analysis, not asserted over it | `v_cognitive_profile`; verify-cert invariant 17 blocks divergence |
 | Every examination question traces to a task in a published analysis | Enforced by the item generators and the Bloom trigger |
 | Multiple-choice items are capped at Bloom 4; levels 5 and 6 are reserved for simulation and are not certified until simulations exist | Stated on the blueprint and JTA sheets |
-| Designed to the ISO/IEC 17024 framework for bodies certifying persons | **This exact formulation only** — see §5 |
+| Designed to the ISO/IEC 17024:2026 framework for bodies certifying persons | **This exact formulation only** — see §5. Edition pinned deliberately; see §4 note |
 | Every credential is independently verifiable on a public page, without contacting us | `/verify/[id]`, public endpoint, QR on the certificate |
 | The full course is free to study; only the examination is purchased | True today |
 | Available in English, Latin American Spanish and Brazilian Portuguese | True for lessons, exams and generated documents |
@@ -97,6 +97,13 @@ becomes true, and not before.
 - Equivalent to, equivalent of, replaces, counts as — for any third-party
   certification
 - Salary, hiring or labour-market outcomes
+- Conforms to / complies with ISO/IEC 17024:2026 clause 6.5, or any claim that
+  our use of AI in the certification process has been assessed. Clause 6.5
+  governs AI use in the certification process; conformance is assessed by an
+  accreditation body, not asserted. *Designed to* remains available. A claim
+  about our AI governance in certification is separately unearned until the
+  documented AI-in-certification policy and candidate-facing disclosure both
+  exist.
 
 ### Class D — never permitted
 
@@ -139,9 +146,14 @@ claim of this kind is needed.
 
 | | |
 |---|---|
-| **en** | Designed to the ISO/IEC 17024 framework for bodies certifying persons. |
-| **es** | Diseñada conforme al marco ISO/IEC 17024 para organismos que certifican personas. |
-| **pt** | Projetada conforme a estrutura ISO/IEC 17024 para organismos que certificam pessoas. |
+| **en** | Designed to the ISO/IEC 17024:2026 framework for bodies certifying persons. |
+| **es** | Diseñada conforme al marco ISO/IEC 17024:2026 para organismos que certifican personas. |
+| **pt** | Projetada conforme a estrutura ISO/IEC 17024:2026 para organismos que certificam pessoas. |
+
+**Edition note.** ISO/IEC 17024:2026 replaced the 2012 edition in March 2026.
+The edition is named because two are in circulation and the referent would
+otherwise be ambiguous. The claim is unchanged in kind: *designed to*, never
+*accredited to*. Re-check on the next revision.
 
 ### Verification
 
@@ -167,7 +179,7 @@ Substitute the approved text on the right.
 
 | Do not say | Say instead |
 |---|---|
-| Accredited to ISO/IEC 17024 · Acreditada según ISO 17024 · Acreditada conforme ISO 17024 | Designed to the ISO/IEC 17024 framework (§4) |
+| Accredited to ISO/IEC 17024 · Acreditada según ISO 17024 · Acreditada conforme ISO 17024 | Designed to the ISO/IEC 17024:2026 framework (§4) |
 | Equivalent to [any programme] | Nothing. There is no permitted equivalence claim. |
 | Globally recognised · globally-recognized · reconocidas mundialmente · reconocidas a nivel mundial · reconhecidas mundialmente | Certifications built in the open — or the verification claim (§4) |
 | Psychometrically validated | The cognitive profile is computed from the analysis (§4) |

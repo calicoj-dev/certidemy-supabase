@@ -31,7 +31,35 @@ live DB; commit the file as the versioned record) and **idempotent** (fixed ids 
 
 ---
 
-## 1. `cert_categories` — the family table (from 048)
+## 0a. Verify before you write - every time
+
+**This guide is a reference, not an oracle. Confirm it against the live schema at
+the start of every cert build, before writing a line of SQL.** It has been stale
+twice: `certifications.is_published` (dropped by 069-part-2, documented as
+present) and the repeating-digit UUID convention (exhausted, documented as
+current). Both were copied into a migration that failed on paste.
+
+```sql
+select table_name, ordinal_position, column_name, data_type, is_nullable, column_default
+from information_schema.columns
+where table_schema = 'public'
+  and table_name in ('certifications','domains','concepts','tasks','modules')
+order by table_name, ordinal_position;
+```
+
+A gap in `ordinal_position` means a dropped column - that is the signature of a
+guide section that has gone stale.
+
+Also confirm the family slot before founding a family, because `sort_order` is
+claimed by existing rows:
+
+```sql
+select slug, label, sort_order from public.cert_categories order by sort_order;
+```
+
+---
+
+## 1. `cert_categories`
 
 Certs are grouped into families. The frontend calls them "families"; the DB calls
 them **categories**. Same thing. A cert with no category does **not** render in the
@@ -64,37 +92,63 @@ cert_categories (
 
 ---
 
-## 2. `certifications` — the cert row (065 + 048 + 069 columns)
+## 2. `certifications` - the cert row
 
-Insert column set (all real, verified in 084):
+**Verified against `information_schema` on 4 August 2026** and confirmed by
+`171_seed_isms_f.sql` running clean. Re-verify per S0a before the next build.
 
 ```
 certifications (
-  id                     uuid   -- fixed, repeating-digit convention (see §6)
-  code                   text   -- OUR code, e.g. 'AIGRM-I' (never a third party's)
-  name                   text   -- 'Certidemy <Name> I - AI'
-  provider               text   -- 'Certidemy'
-  description            text   -- dollar-quoted prose
-  exam_duration_minutes  int    -- 60 (SM) / 90 (SPO,SD,AIGRM); confirm at publish
-  passing_score_pct      numeric-- 80.00 for I-tier
-  num_questions          int    -- 80 for I-tier
-  difficulty_level       int    -- 1 (I-tier)
-  tier                   smallint  -- 1 (from 048; I-tier)  [note: distinct from difficulty_level]
-  is_published           boolean-- false at scaffold (legacy flag; kept in sync with status)
-  category_slug          text   -- FK -> cert_categories.slug (REQUIRED for catalog)
-  sort_order             smallint  -- position within the family (1 = first)
-  status                 text   -- lifecycle (see §3); 'draft' at scaffold
+  id                     uuid        NOT NULL  default uuid_generate_v4()
+  code                   text        NOT NULL  -- OUR code, e.g. 'ISMS-F' (never a third party's)
+  name                   text        NOT NULL
+  provider               text        NOT NULL  default 'Certidemy'
+  description            text        NULL      -- dollar-quoted prose
+  price_usd              numeric     NOT NULL  default 0
+  exam_link              text        NULL
+  exam_duration_minutes  integer     NULL
+  passing_score_pct      numeric     NULL      default 70.00   -- SET EXPLICITLY, see below
+  num_questions          integer     NULL
+  difficulty_level       smallint    NULL      -- 1 for I-tier
+  created_at             timestamptz NOT NULL  default now()
+  updated_at             timestamptz NOT NULL  default now()
+  category_slug          text        NULL      -- FK -> cert_categories.slug; REQUIRED for catalog
+  tier                   smallint    NOT NULL  default 1
+  sort_order             smallint    NOT NULL  default 0       -- position WITHIN the family
+  status                 text        NOT NULL  default 'draft' -- lifecycle, see S3
+  exam_blueprint         jsonb       NULL
+  max_exam_attempts      integer     NOT NULL  default 6
+  attempt_window_months  integer     NOT NULL  default 12
+  validity_days          integer     NOT NULL  default 365
 )
 ```
+
+**`is_published` no longer exists.** 069 introduced `status`; 069-part-2 dropped
+the boolean. `status` is the sole source of truth. Any migration or script still
+writing `is_published` fails on paste - which is how this section was found stale.
+
+**`passing_score_pct` defaults to 70.00, not 80.00.** Every I-tier cert is 80.
+Omitting the column silently seeds a cert that passes at 70, with no error and
+nothing downstream to catch it. **Always write it.**
+
+**`sort_order` is position within the family**, distinct from
+`cert_categories.sort_order`, which orders the families themselves. First cert in
+a new family = 1.
+
+**`tier` and `difficulty_level` are distinct.** Both are 1 for an I-tier cert.
+
+**`validity_days` is 365 platform-wide** and matches the scheme decision that
+credential validity tracks the content re-review cadence. Write it explicitly so a
+future change to the column default cannot silently move a locked scheme term.
+
+Safe to omit at scaffold (defaults are correct): `price_usd`, `exam_link`,
+`exam_blueprint`, `max_exam_attempts`, `attempt_window_months`, `created_at`,
+`updated_at`.
+
 Upsert by fixed `id` with `on conflict (id) do update set ... updated_at = now()`.
 
-**Status vs is_published:** 069 replaced the boolean with a 4-state `status`.
-Scaffold sets `status='draft'` AND `is_published=false` (keep both consistent
-until 069-part-2 drops the boolean). Do not rely on is_published for new reads;
-`status` is the source of truth.
-
----
-
+**Reference implementation: migration 171** (`ISMS-F`). It is the current best
+template for a cert row - 084 predates the `is_published` drop.
 ## 3. `certifications.status` — the lifecycle (from 069)
 
 ```
@@ -185,8 +239,13 @@ bloom_level     : '1_remember' | '2_understand' | '3_apply' | '4_analyze' | '5_e
 ```
 modules (id, certification_id, title, description, order_index, estimated_minutes, slug)
 ```
-- **id** deterministic: `aNNNNNNN-0000-0000-0000-00000000000K` where `NNNNNNN`
-  mirrors the cert's repeating digit and `K` is the module number
+- **id** - generate five UUIDs at authoring time and hardcode them as literals so
+  `on conflict (id) do update` still works. The old pattern below is RETIRED with
+  the repeating-digit convention (S7); it was cosmetic, and `order_index` is what
+  carries domain alignment. Never call `gen_random_uuid()` inside the migration -
+  a fresh uuid on re-run breaks idempotency and duplicates the modules.
+  *(Retired pattern, for reading old migrations only:* `aNNNNNNN-0000-0000-0000-00000000000K`
+  where `NNNNNNN` mirrors the cert's repeating digit and `K` is the module number
   (AIGRM-I: `a5555555-0000-0000-0000-00000000000{1..5}`). Enables `on conflict (id)`.
 - **order_index** aligns 1:1 to the domains (module K ↔ domain DK) — this shared
   index is the module→domain→tasks→task_concepts reachability fallback.
@@ -200,24 +259,58 @@ modules (id, certification_id, title, description, order_index, estimated_minute
 
 ---
 
-## 7. UUID convention (repeating-digit)
+## 7. UUID convention - RETIRED, generate instead
 
-Human-readable, collision-free by inspection:
+**The repeating-digit convention is retired as of cert #8 (`ISMS-F`).** It ran out
+of readable slots and it was never load-bearing: the UUID is an opaque internal
+identifier and nothing in the platform reads meaning from it.
+
+**New certs:** generate a UUID at authoring time, hardcode it into the seed
+migration as a literal, and record it in the migration header comment. The
+migration stays idempotent (`on conflict (id) do update`) exactly as before - the
+id is fixed in the file, it is simply no longer patterned.
+
+```sql
+-- at authoring time, once:
+select gen_random_uuid();
+-- paste the result into the migration as a literal. Do NOT call
+-- gen_random_uuid() inside the migration itself: the migration must be
+-- idempotent and a fresh uuid on re-run would duplicate the cert.
+```
+
+**Module ids** no longer mirror a cert digit. Generate five and hardcode them the
+same way, keeping `order_index` 1..N aligned to the domains. The module id pattern
+was cosmetic; `order_index` is what carries the domain alignment.
+
+**Existing certs keep their repeating digits.** They are opaque identifiers;
+renaming would touch every migration, script and content folder for no gain.
 
 | Cert | UUID |
 |---|---|
-| SM-AI-I | `11111111-…` |
-| GAIPC stub | `22222222-…` (CertiProf-era; not ours) |
-| SPO-AI-I | `33333333-…` |
-| SD-AI-I | `44444444-…` |
-| **AIGRM-I** | `55555555-…` |
-| *next cert* | `66666666-…` |
+| SM-AI-I | `11111111-...` |
+| GAIPC stub | `22222222-...` (CertiProf-era; not ours) |
+| SPO-AI-I | `33333333-...` |
+| SD-AI-I | `44444444-...` |
+| AIGRM-I | `55555555-...` |
+| AISM-I | `66666666-...` |
+| AIHR-I | `77777777-...` |
+| **ISMS-F and later** | **generated - read the migration header** |
 
-Module ids reuse the cert's digit: `a<digit×7>-0000-0000-0000-00000000000K`.
-
----
-
+**The old trap is closed.** HANDOFF v2.1's rule - *never infer a new
+certification's UUID from how many certs exist* - no longer has anything to infer
+from. The free-slot query in migration 105 is vestigial for new certs.
 ## 8. Paste-safety (large scaffold migrations)
+
+**Prove it rather than trust it.** A generated migration is checked for non-ASCII
+BEFORE it is pasted, not after it corrupts a row:
+
+```powershell
+Select-String -LiteralPath <migration.sql> -Pattern '[^\x00-\x7F]'   # expect no output
+```
+
+Migrations generated by parsing a locked JTA inherit whatever the JTA contains -
+em-dashes, curly quotes and ellipses are normal in a markdown document and fatal
+in a large SQL paste. Sanitize at generation time, then prove it.
 
 The Supabase SQL editor can corrupt multibyte characters (em-dashes, curly quotes,
 ellipses) inside **large** pastes. A full scaffold (100s of rows) is a large paste.
