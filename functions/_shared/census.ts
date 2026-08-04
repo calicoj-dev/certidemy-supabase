@@ -52,6 +52,11 @@ export interface Enrollment {
   source: string; // self | voucher | seat | admin
   status: string; // active | archived | completed
   certified: boolean; // holds an active credential for THIS cert
+  /**
+   * The active credential's id, for linking straight to /verify/{id} --
+   * the same form the certificate QR encodes. Null unless certified.
+   */
+  credentialId: string | null;
 }
 
 export interface CensusUser {
@@ -176,23 +181,29 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
   // still shows their in-progress work). Built BEFORE enrollments, so each
   // enrollment can be tagged as it's assembled.
   const certifiedIds = new Set<string>();
-  const certifiedUserCert = new Set<string>(); // key: `${user_id}|${CERT_CODE}`
+  // key: `${user_id}|${CERT_CODE}` -> credential id.
+  // Was a Set; now a Map so an enrollment chip can link to the credential.
+  // If a user somehow holds two ACTIVE credentials for one cert, last wins --
+  // acceptable, because either is a valid thing to open.
+  const certifiedUserCert = new Map<string, string>();
   {
     const { data: creds, error } = await svc
       .from("v_credentials_real")
-      .select("user_id, status, certification_code")
+      .select("id, user_id, status, certification_code")
       .eq("status", "active")
       .in("user_id", idFilter);
     if (error) throw new Error(`credentials: ${error.message}`);
     for (const c of (creds ?? []) as {
+      id: string;
       user_id: string;
       status: string;
       certification_code: string | null;
     }[]) {
       certifiedIds.add(c.user_id);
       if (c.certification_code) {
-        certifiedUserCert.add(
+        certifiedUserCert.set(
           `${c.user_id}|${c.certification_code.toUpperCase()}`,
+          c.id,
         );
       }
     }
@@ -222,6 +233,9 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
         certified: certifiedUserCert.has(
           `${r.user_id}|${r.certifications.code.toUpperCase()}`,
         ),
+        credentialId: certifiedUserCert.get(
+          `${r.user_id}|${r.certifications.code.toUpperCase()}`,
+        ) ?? null,
       });
       enrollmentsByUser.set(r.user_id, list);
     }

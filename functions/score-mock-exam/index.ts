@@ -594,13 +594,42 @@ serve(async (req) => {
             credential_id = existing.id;
             credential_code = existing.credential_code;
           } else {
+            // HOLDER NAME IS SNAPSHOTTED HERE, PERMANENTLY.
+            //
+            // A certificate records who was certified at the moment of
+            // certification, so this is a copy and not a live reference. After
+            // this insert the only way to change it is update-credential-name,
+            // which is admin-gated and audited.
+            //
+            // Order: the name the holder DELIBERATELY chose, then their display
+            // name, then their email, then a placeholder. Reads profiles rather
+            // than auth.users.user_metadata -- migration 168 flagged this as the
+            // follow-up, because a profile name edit that this function never
+            // reads is a feature that looks broken rather than missing.
+            //
+            // The email fallback is a last resort and prints an address where a
+            // name should be. The dashboard reminder exists so it never fires.
             let holder_name = "Certified Professional";
             try {
-              const { data: userData } = await svc.auth.admin.getUserById(user_id);
-              holder_name =
-                (userData?.user?.user_metadata?.full_name as string | undefined) ??
-                userData?.user?.email ??
-                holder_name;
+              const { data: prof } = await svc
+                .from("profiles")
+                .select("certificate_name, full_name")
+                .eq("id", user_id)
+                .maybeSingle();
+              const chosen = (prof as {
+                certificate_name?: string | null;
+                full_name?: string | null;
+              } | null) ?? null;
+              const picked =
+                chosen?.certificate_name?.trim() ||
+                chosen?.full_name?.trim() ||
+                "";
+              if (picked) {
+                holder_name = picked;
+              } else {
+                const { data: userData } = await svc.auth.admin.getUserById(user_id);
+                holder_name = userData?.user?.email ?? holder_name;
+              }
             } catch (err) {
               console.warn("holder name lookup failed:", err);
             }
