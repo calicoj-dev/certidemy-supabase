@@ -57,7 +57,8 @@
  *   $env:ONLY="domains"; $env:FORCE="1"; $env:DRY_RUN="1"; node scripts\gen-jta-translations.mjs
  *   Remove-Item Env:\DRY_RUN; node scripts\gen-jta-translations.mjs
  *
- * Knobs: CERT_ID (default SM-AI-I), ONLY, CHUNK (25 statements/call), DRY_RUN,
+ * Knobs: CERT_ID (REQUIRED - no default; the script exits if unset),
+ * ONLY (all | domains | tasks | ksa), CHUNK (25 statements/call), DRY_RUN,
  * FORCE, RETRANSLATE_TITLES. Needs @supabase/supabase-js and Node 18+.
  */
 import { createClient } from "@supabase/supabase-js";
@@ -93,7 +94,17 @@ loadDotEnv();
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.supabase.co";
 const SERVICE_KEY = need("SUPABASE_SERVICE_ROLE_KEY");
 const ANTHROPIC_API_KEY = need("ANTHROPIC_API_KEY");
-const CERT_ID = process.env.CERT_ID || "11111111-1111-1111-1111-111111111111"; // SM-AI-I
+// CERT_ID is MANDATORY. It used to default to SM-AI-I, which meant a forgotten
+// env var silently wrote machine translations into a cert with 116 reviewed,
+// approved rows. A run against the wrong cert has already happened once via a
+// leftover $env:CERT_ID. Fail loudly instead.
+const CERT_ID = process.env.CERT_ID;
+if (!CERT_ID) {
+  console.error("CERT_ID is required. Set it explicitly - there is no default.");
+  console.error('  PowerShell:  $env:CERT_ID="<uuid>"');
+  console.error("  Clear a stale one with:  Remove-Item Env:\\CERT_ID");
+  process.exit(1);
+}
 const CHUNK = int(process.env.CHUNK, 25);
 const DRY_RUN = ["1", "true", "yes"].includes((process.env.DRY_RUN || "").toLowerCase());
 const FORCE = ["1", "true", "yes"].includes((process.env.FORCE || "").toLowerCase());
@@ -215,6 +226,13 @@ Rules:
   - 'Provenance' is procedencia (es) / proveniencia (pt), NEVER trazabilidad or rastreabilidade - traceability is a different governance concept.
   - Keep 'prompt' and 'prompting' in English in both languages; they are the terms learners meet in practice.
   - Named regulatory instruments keep their canonical English name: EU AI Act, ISO/IEC 42001, NIST AI Risk Management Framework.
+  - ISO STANDARD VOCABULARY (Rule 17). Where a certification is built on a published standard, clause-and-control vocabulary follows the ADOPTED translation, because a candidate can open the source and check. These rules fire only when the terms appear:
+  - 'clause' as a numbered division of an ISO standard: pt-BR is Se\u00e7\u00e3o (ABNT NBR ISO/IEC 27001 normative text: "os requisitos especificados nas Se\u00e7\u00f5es 4 a 10"). es-419 is cap\u00edtulo for a whole top-level division and apartado for a numbered sub-requirement. NEVER cl\u00e1usula in either language - it reads as a contractual clause.
+  - The ISO 31000:2018 risk triplet in es-419, which changed meaning from the 2010 edition: risk assessment (the WHOLE process) is evaluaci\u00f3n del riesgo; risk analysis is an\u00e1lisis del riesgo; risk evaluation (the THIRD step only) is valoraci\u00f3n del riesgo. NEVER apreciaci\u00f3n, which is the superseded 2010 rendering. Do not collapse evaluaci\u00f3n and valoraci\u00f3n - the distinction is what the task assesses.
+  - The same triplet in pt-BR: risk assessment (whole process) is processo de avalia\u00e7\u00e3o de riscos; risk analysis is an\u00e1lise de riscos; risk evaluation (third step) is avalia\u00e7\u00e3o de riscos.
+  - Fixed ISO 27001 renderings: Statement of Applicability is Declaraci\u00f3n de Aplicabilidad / Declara\u00e7\u00e3o de Aplicabilidade. ISMS is SGSI in both. Annex A is Anexo A. reference controls is controles de referencia / refer\u00eancia de controles. nonconformity is no conformidad / n\u00e3o conformidade. documented information is informaci\u00f3n documentada / informa\u00e7\u00e3o documentada. interested parties is partes interesadas / partes interessadas. risk owner is propietario del riesgo / propriet\u00e1rio do risco. residual risk is riesgo residual / risco residual.
+  - Annex A themes: Controles organizacionales/organizacionais, de personas/de pessoas, f\u00edsicos/f\u00edsicos, tecnol\u00f3gicos/tecnol\u00f3gicos.
+  - Keep 'shadow AI' in English on first use, glossed: IA en la sombra (shadow AI) / IA sombra (shadow AI).
   - These are formal competency statements, not marketing copy: preserve meaning precisely, keep it concise and professional, no added flourish.
   - Do NOT add, drop, merge, or reorder items.
   - Output strict JSON only — NO prose, NO markdown fences.`;
