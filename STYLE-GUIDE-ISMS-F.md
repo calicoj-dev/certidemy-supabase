@@ -111,6 +111,12 @@ Only three of the six primitives have schemas in the spec. **Do not invent
 configuration for `toggle-and-observe`, `highlight-mistake` or
 `annotated-diagram`** — confirm the schema first.
 
+**Generated items follow the catalog, not this guide.** `item-pipeline.mjs`
+contains no spelling instruction, so both generators default to American.
+Lessons and items therefore have to agree by the lessons matching the
+catalog — and any future cert that sets a different dialect for its prose has
+this collision waiting, silently, until the first item is read.
+
 ---
 
 ## 5. The honesty firewall in practice
@@ -132,8 +138,31 @@ credibility spent there is not available where the change is real.
 
 ## 6. Voice
 
-**British spelling**, following ISO's own English: *organisation, unauthorised,
-recognise, prioritise*.
+**American spelling**, following the rest of the catalog: *organization,
+unauthorized, recognize, prioritize, behavior, analyze, catalog*.
+
+This reversed the original ruling and the reversal is the point. S6 first said
+British, reasoning that ISO's own English is British. That ignored the seven
+certs already shipped. Counting en-language items settled it:
+
+| cert | british | american |
+|---|---|---|
+| AIE-I | 0 | 19 |
+| AIGRM-I | 0 | 110 |
+| AIHR-I | 5 | 25 |
+| AISM-I | 7 | 80 |
+| SD-AI-I | 0 | 15 |
+| SM-AI-I | 1 | 45 |
+| SPO-AI-I | 1 | 54 |
+
+**348 American to 14 British**, and the British hits are incidental rather than
+a convention. A candidate moving between Certidemy certs would notice a dialect
+switch long before they would notice that one cert matched its source
+document's house style.
+
+It was also the cheaper direction: 49 lesson files against 5,548 existing
+items. Corrected by `scripts/patch-isms-f-spelling.ps1` - 852 replacements,
+605 insertions and 605 deletions, no structural drift.
 
 **Second person, active voice**, per spec §8.
 
@@ -217,8 +246,38 @@ Before a lesson leaves draft:
 
 ---
 
+## 11. Read the first generated batch before scaling it
+
+Every generator in this pipeline can produce 49 tasks' worth of output in one
+run. **Generate one, read it in full, then run the rest.**
+
+This is the rule that caught the spelling defect. The secure-bank generator
+was run with `MAX_TASKS=1` and `DRY_RUN=1` against a single task, and the
+eight items came back in American English against 49 British lessons. Had the
+full pass run first, the fix would have been ~2,600 items rather than 49
+files.
+
+What a first batch is being read for:
+
+- Does the output match the lessons in **register, dialect and vocabulary**?
+- Is the **Bloom level** what the task declares, and do the items read that way?
+- Do the distractors reflect **misconceptions from the material**, or generic ones?
+- Does anything violate S1 - a recited definition rather than a taught one?
+
+It applies to the secure bank, the practice bank, JTA translations and lesson
+translations alike. The cost is one extra command. The saving is the
+difference between correcting a batch and correcting a bank.
+
+---
+
 ## Changelog
 
+- **1.1** (4 August 2026) — S6 reversed to American spelling after counting
+  en-language items across the seven shipped certs (348 to 14). S4 gains a
+  note that generated items inherit the catalog default because the item
+  pipeline carries no spelling instruction. S11 added: read the first
+  generated batch before scaling it - the rule that caught the S6 error at
+  the only cheap moment.
 - **1.0** (4 August 2026) — derived from module 1 and its review. §1 and §2 exist
   because the first draft got both wrong and the external review endorsed both
   errors: five near-verbatim ISO definitions, and the Portuguese rendering of
