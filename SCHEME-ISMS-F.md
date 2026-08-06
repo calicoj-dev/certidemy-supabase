@@ -3,7 +3,7 @@
 **Scheme owner:** Certidemy (the certification body)
 **Scheme code:** ISMS-F
 **Document version:** 1.0
-**Status:** Active scheme of record (pre-launch; `status = coming_soon`)
+**Status:** Active scheme of record (published; `status = available`)
 **Last updated:** August 2026
 
 ---
@@ -441,19 +441,26 @@ recorded in `TERMINOLOGY-ISMS-F.md` and are enforced in the translation tooling.
 corruption. Both item banks are complete in all three languages. A candidate may study
 and sit the examination fully in any of the three languages.
 
-**Publication status.** This credential is **pre-launch** at the time of writing
-(`status = coming_soon`): the teaching layer is complete and coverage-proven in all
-three languages, and both the secure and practice item banks are complete, balanced and
-verified. Publication to `available` follows once the open items below that gate launch
-are cleared.
+**Publication status.** This credential is **published** (`status = available`, August
+2026). The teaching layer is complete and coverage-proven in all three languages; both
+the secure and practice item banks are complete, balanced and verified; and the
+blueprint translations have been independently reviewed and approved. All twenty-nine
+scheme invariants hold under `verify-cert --strict`.
+
+The open items below are the path from a structurally legitimate credential to an
+**accredited** one. None of them gates publication; each is named because a reader is
+entitled to know what a body has and has not yet done.
 
 **Open items on the path to accreditation** (named transparently):
 
-- **Independent review of the es-419 and pt-BR blueprint translations.** The 108 domain
-  and task-statement translation rows are currently held as **provisional** and have not
-  been through independent review. This gates publication: a candidate must not sit an
-  examination whose published blueprint has not been read in their language. *(Verified
-  live: `verify-cert --strict` fails on this and only this.)*
+- **Row-by-row review of the task knowledge, skills and abilities fields.** The 108
+  domain and task-statement translation rows **have been independently reviewed and
+  approved** (August 2026). That review raised one material finding — an ambiguous
+  rendering of *breach* in pt-BR, corrected in the affected statement and lesson title —
+  and confirmed the terminology rules in §11 as applied. The **knowledge / skills /
+  abilities** fields on those same rows were **spot-checked rather than read row by row**.
+  They render in the published blueprint and in the Blueprint Drawer, and no automated
+  check currently examines their review flag. Stated here rather than left implied.
 - Independent SME-panel validation of the job-task analysis and weightings (§5).
 - Formal standard-setting study and psychometric validation of the cut score, using
   candidate data collected in live operation (§7).
