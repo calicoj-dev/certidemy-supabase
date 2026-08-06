@@ -186,7 +186,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "Are you accredited?",
             dont: "Yes, we\u2019re ISO 17024 certified. / We\u2019re ISO compliant.",
             say:
-              "No. We\u2019re designed to the ISO/IEC 17024 framework, which is the standard for bodies that certify people - but accreditation is a formal third-party assessment by an accreditation body, and we haven\u2019t been through one. Claiming otherwise would be false. What I can show you is the whole thing the framework asks for: the job task analysis, the exam blueprint derived from it, and how the examination is conducted.",
+              "No. We\u2019re designed to the ISO/IEC 17024:2026 framework, which is the standard for bodies that certify people - but accreditation is a formal third-party assessment by an accreditation body, and we haven\u2019t been through one. Claiming otherwise would be false. What I can show you is the whole thing the framework asks for: the job task analysis, the exam blueprint derived from it, and how the examination is conducted.",
             why:
               "A buyer who asks this knows the difference. Saying it first turns your weakest point into the most credible sentence in the conversation. Every generated document already states it, so a rep who fudges it will be contradicted by their own attachment.",
           },
@@ -320,7 +320,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     ],
     sourcesLabel: "Sources",
     sources:
-      "How the exam works covers integrity and ISO/IEC 17024 alignment in detail. CLAIMS-POLICY.md is the authority on permitted wording; this document applies it to live conversation and does not override it. The blueprint sheet and job task analysis carry the numbers for each certification.",
+      "How the exam works covers integrity and ISO/IEC 17024:2026 alignment in detail. CLAIMS-POLICY.md is the authority on permitted wording; this document applies it to live conversation and does not override it. The blueprint sheet and job task analysis carry the numbers for each certification.",
     generated: "Generated",
     generatedFor: "Generated for",
     page: "Page",
@@ -347,7 +347,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "\u00BFEst\u00E1n acreditados?",
             dont: "S\u00ED, estamos certificados en ISO 17024. / Cumplimos con ISO.",
             say:
-              "No. Estamos dise\u00F1ados conforme al marco ISO/IEC 17024, que es el est\u00E1ndar para organismos que certifican personas, pero la acreditaci\u00F3n es una evaluaci\u00F3n formal de un tercero realizada por un organismo de acreditaci\u00F3n, y no hemos pasado por una. Afirmar lo contrario ser\u00EDa falso. Lo que s\u00ED puedo mostrarte es todo lo que el marco pide: el an\u00E1lisis de tareas, el blueprint del examen derivado de \u00E9l, y c\u00F3mo se administra el examen.",
+              "No. Estamos dise\u00F1ados conforme al marco ISO/IEC 17024:2026, que es el est\u00E1ndar para organismos que certifican personas, pero la acreditaci\u00F3n es una evaluaci\u00F3n formal de un tercero realizada por un organismo de acreditaci\u00F3n, y no hemos pasado por una. Afirmar lo contrario ser\u00EDa falso. Lo que s\u00ED puedo mostrarte es todo lo que el marco pide: el an\u00E1lisis de tareas, el blueprint del examen derivado de \u00E9l, y c\u00F3mo se administra el examen.",
             why:
               "Un comprador que pregunta esto conoce la diferencia. Decirlo primero convierte tu punto m\u00E1s d\u00E9bil en la frase m\u00E1s cre\u00EDble de la conversaci\u00F3n. Todos los documentos generados ya lo declaran, as\u00ED que un representante que lo maquille ser\u00E1 contradicho por su propio adjunto.",
           },
@@ -481,7 +481,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     ],
     sourcesLabel: "Fuentes",
     sources:
-      "C\u00F3mo funciona el examen cubre en detalle la integridad y la alineaci\u00F3n con ISO/IEC 17024. CLAIMS-POLICY.md es la autoridad sobre la redacci\u00F3n permitida; este documento la aplica a la conversaci\u00F3n en vivo y no la reemplaza. El blueprint y el an\u00E1lisis de tareas llevan las cifras de cada certificaci\u00F3n.",
+      "C\u00F3mo funciona el examen cubre en detalle la integridad y la alineaci\u00F3n con ISO/IEC 17024:2026. CLAIMS-POLICY.md es la autoridad sobre la redacci\u00F3n permitida; este documento la aplica a la conversaci\u00F3n en vivo y no la reemplaza. El blueprint y el an\u00E1lisis de tareas llevan las cifras de cada certificaci\u00F3n.",
     generated: "Generado",
     generatedFor: "Generado para",
     page: "P\u00E1gina",
@@ -508,7 +508,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "Voc\u00EAs s\u00E3o acreditados?",
             dont: "Sim, somos certificados na ISO 17024. / Estamos em conformidade com a ISO.",
             say:
-              "N\u00E3o. Somos projetados conforme a estrutura ISO/IEC 17024, que \u00E9 o padr\u00E3o para organismos que certificam pessoas, mas a acredita\u00E7\u00E3o \u00E9 uma avalia\u00E7\u00E3o formal de terceiros feita por um organismo acreditador, e n\u00E3o passamos por uma. Afirmar o contr\u00E1rio seria falso. O que eu posso mostrar \u00E9 tudo o que a estrutura pede: a an\u00E1lise de tarefas, o blueprint do exame derivado dela, e como o exame \u00E9 aplicado.",
+              "N\u00E3o. Somos projetados conforme a estrutura ISO/IEC 17024:2026, que \u00E9 o padr\u00E3o para organismos que certificam pessoas, mas a acredita\u00E7\u00E3o \u00E9 uma avalia\u00E7\u00E3o formal de terceiros feita por um organismo acreditador, e n\u00E3o passamos por uma. Afirmar o contr\u00E1rio seria falso. O que eu posso mostrar \u00E9 tudo o que a estrutura pede: a an\u00E1lise de tarefas, o blueprint do exame derivado dela, e como o exame \u00E9 aplicado.",
             why:
               "Um comprador que pergunta isso conhece a diferen\u00E7a. Dizer primeiro transforma seu ponto mais fraco na frase mais cr\u00EDvel da conversa. Todos os documentos gerados j\u00E1 declaram isso, ent\u00E3o um representante que maquiar ser\u00E1 contradito pelo pr\u00F3prio anexo.",
           },
@@ -642,7 +642,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     ],
     sourcesLabel: "Fontes",
     sources:
-      "Como o exame funciona cobre em detalhe a integridade e o alinhamento com a ISO/IEC 17024. CLAIMS-POLICY.md \u00E9 a autoridade sobre a reda\u00E7\u00E3o permitida; este documento a aplica \u00E0 conversa ao vivo e n\u00E3o a substitui. O blueprint e a an\u00E1lise de tarefas carregam os n\u00FAmeros de cada certifica\u00E7\u00E3o.",
+      "Como o exame funciona cobre em detalhe a integridade e o alinhamento com a ISO/IEC 17024:2026. CLAIMS-POLICY.md \u00E9 a autoridade sobre a reda\u00E7\u00E3o permitida; este documento a aplica \u00E0 conversa ao vivo e n\u00E3o a substitui. O blueprint e a an\u00E1lise de tarefas carregam os n\u00FAmeros de cada certifica\u00E7\u00E3o.",
     generated: "Gerado",
     generatedFor: "Gerado para",
     page: "P\u00E1gina",

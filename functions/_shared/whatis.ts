@@ -21,7 +21,7 @@
 // and spent its last paragraph explaining that we are not accredited. Accurate,
 // and wrong for this document: a first-contact page that argues against itself
 // before anyone has raised an objection is bad selling, and the sentence is not
-// needed to stay honest - "built to the structure of ISO/IEC 17024" claims
+// needed to stay honest - "built to the structure of ISO/IEC 17024:2026" claims
 // nothing about accreditation on its own.
 //
 // The full distinction still exists, in the engine brief, which is where a buyer
@@ -214,9 +214,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
     cLanguages: "Languages",
     cOf: "of",
 
-    isoHeading: "Built on ISO/IEC 17024",
+    isoHeading: "Built on ISO/IEC 17024:2026",
     iso:
-      "ISO/IEC 17024 is the international framework for bodies that certify persons. Our schemes are built to its structure: competence defined and published before assessment, an examination derived from that definition, a published scope that matches what is actually measured, and a retained record of every attempt.",
+      "ISO/IEC 17024:2026 is the international framework for bodies that certify persons. Our schemes are built to its structure: competence defined and published before assessment, an examination derived from that definition, a published scope that matches what is actually measured, and a retained record of every attempt.",
 
     generated: "Generated",
     more: "Full blueprints and task analyses for every certification:",
@@ -267,9 +267,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
     cLanguages: "Idiomas",
     cOf: "de",
 
-    isoHeading: "Construido sobre ISO/IEC 17024",
+    isoHeading: "Construido sobre ISO/IEC 17024:2026",
     iso:
-      "ISO/IEC 17024 es el marco internacional para organismos que certifican personas. Nuestros esquemas se construyen según su estructura: la competencia se define y se publica antes de la evaluación, el examen se deriva de esa definición, el alcance publicado coincide con lo que realmente se mide, y se conserva el registro de cada intento.",
+      "ISO/IEC 17024:2026 es el marco internacional para organismos que certifican personas. Nuestros esquemas se construyen según su estructura: la competencia se define y se publica antes de la evaluación, el examen se deriva de esa definición, el alcance publicado coincide con lo que realmente se mide, y se conserva el registro de cada intento.",
 
     generated: "Generado",
     more: "Blueprints y análisis de tareas completos de cada certificación:",
@@ -320,9 +320,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
     cLanguages: "Idiomas",
     cOf: "de",
 
-    isoHeading: "Construído sobre a ISO/IEC 17024",
+    isoHeading: "Construído sobre a ISO/IEC 17024:2026",
     iso:
-      "A ISO/IEC 17024 é a estrutura internacional para organismos que certificam pessoas. Nossos esquemas são construídos conforme sua estrutura: a competência é definida e publicada antes da avaliação, o exame é derivado dessa definição, o escopo publicado coincide com o que é realmente medido, e o registro de cada tentativa é preservado.",
+      "A ISO/IEC 17024:2026 é a estrutura internacional para organismos que certificam pessoas. Nossos esquemas são construídos conforme sua estrutura: a competência é definida e publicada antes da avaliação, o exame é derivado dessa definição, o escopo publicado coincide com o que é realmente medido, e o registro de cada tentativa é preservado.",
 
     generated: "Gerado",
     more: "Blueprints e análises de tarefas completos de cada certificação:",

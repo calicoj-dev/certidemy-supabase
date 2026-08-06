@@ -50,7 +50,7 @@
 // analytics without overstating it. NONE of that belongs in a document a
 // representative attaches to an email.
 //
-// What crosses over is the mechanism, the ISO/IEC 17024 alignment, and the
+// What crosses over is the mechanism, the ISO/IEC 17024:2026 alignment, and the
 // capability argument for building rather than buying. What does not:
 //
 //   NO COMPETITOR NAMES. The console page names commodity quiz platforms because
@@ -361,7 +361,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     not3:
       "It does not attempt to block copying. Such measures are trivially bypassed and they break assistive technology, which would trade genuine accessibility for no security. Instead, timing and interaction are recorded per item, and an attempt whose pattern is inconsistent with reasoning can be reviewed by a person under a documented process.",
 
-    isoHeading: "Alignment with ISO/IEC 17024",
+    isoHeading: "Alignment with ISO/IEC 17024:2026",
     isoLead:
       "The framework for bodies certifying persons. Alignment, not accreditation - see the note below.",
     iso1:
@@ -373,7 +373,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     iso4:
       "Records are retained. Each examination keeps its item-level record - what was served, what was answered, how long each item took - and unenrolment archives rather than deletes.",
     isoNote:
-      "Certidemy is designed to the ISO/IEC 17024 framework. It is not accredited to it. Accreditation is a formal third-party assessment by an accreditation body, and any claim of it would be false until such an assessment has taken place. That distinction is stated here because a buyer who cannot find it stated tends to assume the stronger claim.",
+      "Certidemy is designed to the ISO/IEC 17024:2026 framework. It is not accredited to it. Accreditation is a formal third-party assessment by an accreditation body, and any claim of it would be false until such an assessment has taken place. That distinction is stated here because a buyer who cannot find it stated tends to assume the stronger claim.",
 
     whyHeading: "Why this was built rather than bought",
     whyLead: "Four requirements no general-purpose assessment tool satisfies.",
@@ -503,7 +503,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     not3:
       "No intenta bloquear la copia. Esas medidas se eluden con facilidad y rompen la tecnología asistiva, lo que cambiaría accesibilidad real por ninguna seguridad. En su lugar, se registran el tiempo y la interacción por ítem, y un intento cuyo patrón sea inconsistente con el razonamiento puede ser revisado por una persona bajo un proceso documentado.",
 
-    isoHeading: "Alineación con ISO/IEC 17024",
+    isoHeading: "Alineación con ISO/IEC 17024:2026",
     isoLead:
       "El marco para organismos que certifican personas. Alineación, no acreditación: véase la nota al final.",
     iso1:
@@ -515,7 +515,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     iso4:
       "Los registros se conservan. Cada examen mantiene su registro a nivel de ítem - qué se entregó, qué se respondió, cuánto tardó cada ítem - y la baja de inscripción archiva en lugar de eliminar.",
     isoNote:
-      "Certidemy está diseñada conforme al marco ISO/IEC 17024. No está acreditada bajo él. La acreditación es una evaluación formal por parte de un organismo de acreditación, y afirmarla sería falso hasta que esa evaluación ocurra. Esta distinción se declara aquí porque quien no la encuentra declarada suele asumir la afirmación más fuerte.",
+      "Certidemy está diseñada conforme al marco ISO/IEC 17024:2026. No está acreditada bajo él. La acreditación es una evaluación formal por parte de un organismo de acreditación, y afirmarla sería falso hasta que esa evaluación ocurra. Esta distinción se declara aquí porque quien no la encuentra declarada suele asumir la afirmación más fuerte.",
 
     whyHeading: "Por qué se construyó en lugar de contratarse",
     whyLead: "Cuatro requisitos que ninguna herramienta de evaluación de propósito general satisface.",
@@ -645,7 +645,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     not3:
       "Não tenta bloquear a cópia. Essas medidas são facilmente contornadas e quebram a tecnologia assistiva, o que trocaria acessibilidade real por nenhuma segurança. Em vez disso, o tempo e a interação são registrados por item, e uma tentativa cujo padrão seja inconsistente com o raciocínio pode ser revisada por uma pessoa sob um processo documentado.",
 
-    isoHeading: "Alinhamento com a ISO/IEC 17024",
+    isoHeading: "Alinhamento com a ISO/IEC 17024:2026",
     isoLead:
       "A estrutura para organismos que certificam pessoas. Alinhamento, não acreditação: veja a nota ao final.",
     iso1:
@@ -657,7 +657,7 @@ const STRINGS: Record<AssetLocale, Strings> = {
     iso4:
       "Os registros são preservados. Cada exame mantém seu registro em nível de item - o que foi entregue, o que foi respondido, quanto tempo cada item levou - e o cancelamento da inscrição arquiva em vez de excluir.",
     isoNote:
-      "A Certidemy é projetada conforme a estrutura ISO/IEC 17024. Ela não é acreditada por ela. A acreditação é uma avaliação formal por um organismo de acreditação, e afirmá-la seria falso até que essa avaliação ocorra. Esta distinção é declarada aqui porque quem não a encontra declarada tende a assumir a afirmação mais forte.",
+      "A Certidemy é projetada conforme a estrutura ISO/IEC 17024:2026. Ela não é acreditada por ela. A acreditação é uma avaliação formal por um organismo de acreditação, e afirmá-la seria falso até que essa avaliação ocorra. Esta distinção é declarada aqui porque quem não a encontra declarada tende a assumir a afirmação mais forte.",
 
     whyHeading: "Por que foi construído em vez de contratado",
     whyLead: "Quatro requisitos que nenhuma ferramenta de avaliação de uso geral atende.",
