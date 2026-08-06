@@ -13,9 +13,17 @@
 |---|---|
 | Credential name | **ISO/IEC 42001 Foundation** |
 | Code | `AIMS-F` |
+| **UUID** | **`de046fa6-e627-48c1-85d8-9df226d144f4`** — generated, not patterned. The repeating-digit convention was retired at cert #8 (`CERT-SCHEMA-GUIDE` §7) |
 | Tier | **Level I** — single-correct-answer, MCQ, Bloom ceiling `4_analyze` |
-| Family | `governance` *(slug to be confirmed by query — see §7)* |
+| Family | **`governance-service-management`** — verified live 2026-08-06 |
+| **`sort_order`** | **3.** AIGRM-I holds 1, AISM-I holds 2. Leaves 4 and 5 for AIMS-IA and AIMS-LI so the ladder sits contiguous. **Do not renumber the live rows** |
 | Ladder position | Rung 1 of the 42001 ladder. `AIMS-IA`, `AIMS-LI` follow at Level II; `AIMS-LA` is Level III and blocked on simulation assessment |
+
+**Why this family and not a new one.** The existing tagline — *"Governing, running,
+and assuring enterprise AI — responsibly, and by design"* — describes 42001 more
+literally than it describes either current occupant. Founding a seventh family for
+one cert would also have created a fourth broken `FamilyContent` entry before it
+created anything else (HANDOFF v5.4 §8 item 7).
 
 **No `- AI` suffix.** The naming rule locked in HANDOFF v5.2: AI enters a credential
 name only when the base subject is not already AI. `ISO/IEC 27001 Foundation - AI`
@@ -235,16 +243,41 @@ controls.** Same decision ISMS-F made for its 93 — four themes, not 93 tasks. 
 control-per-task JTA inflates the task count, wrecks the items-per-task ratio (below)
 and teaches recall where the standard wants judgment.
 
-### 4.5 The sampling ratio — decide it here, not after the blueprint computes
+### 4.5 Exam form and sampling — RULED, from live evidence
 
-ISMS-F runs 40 items over 49 tasks: **0.82 items per task, the lowest ratio in the
-catalogue**, and `SCHEME-ISMS-F.md` states it plainly rather than waiting for an
-auditor. The exam blueprint is computed from the JTA, so the ratio is a
-*consequence* of task count, not a knob turned afterwards.
+**The items-per-task ratio does not govern anything and is not the constraint.**
+ISMS-F's 0.82 is the lowest in the catalogue and prompted an external
+recommendation of a ≥0.9 floor. Checking the live blueprint showed the alarm was
+misplaced — ISMS-F allocates **6 / 7 / 9 / 11 / 7 items across its five domains on
+a 40-item form.** No domain below six. The blueprint is well-formed where
+blueprints are actually judged.
 
-**Rule for Stage 2:** cap the task count or raise the form length, deliberately. A
-40-item form is also what the nearest competitor uses, which makes the ratio a
-comparison a buyer could actually run.
+| ISMS-F domain | weight | tasks | items on form |
+|---|---|---|---|
+| D1 Fundamentals and threat landscape | 15.0% | 7 | 6 |
+| D2 Context, leadership, scope, policy | 17.5% | 9 | 7 |
+| D3 Risk assessment and treatment | 22.5% | 11 | 9 |
+| D4 Annex A controls | 27.5% | 13 | 11 |
+| D5 Evaluation, improvement, certification | 17.5% | 9 | 7 |
+
+**The ruling:**
+
+1. **Form length: 40 items.** Same as ISMS-F, and matched to a Foundation whose
+   surface is genuinely smaller than 27001's — 51 pages, 38 Annex A controls
+   against 93.
+2. **Floor: no domain below 6 items on the form**, i.e. **no domain weighted
+   below 15%.** This is the real constraint. It is a blueprint rule, not a
+   ratio, and it is the one a scheme auditor can evaluate.
+3. **Task count falls out of teaching need, not arithmetic.** With D4 taught as
+   structure rather than a 38-control survey (§4.4), ~32–38 tasks is the natural
+   landing. Do not pad the JTA to move a ratio, and do not thin it either.
+
+**Disclosure owed in `SCHEME-AIMS-F.md`.** A six-item domain **cannot carry a
+diagnostic subscore.** 17024 requires the examination to sample the JTA and the
+*pass decision* to be reliable — whole-form reliability governs that. But if the
+score report shows per-domain feedback, six items is noisy and must be presented
+as directional, never as a competence finding at domain level. **ISMS-F has the
+same exposure today and the same sentence is owed there.**
 
 ---
 
@@ -293,24 +326,27 @@ Every one of these exists because something went wrong first. All apply here.
 
 ## 7. Open before Stage 2
 
-1. **Query `cert_categories`.** `CERT-SCHEMA-GUIDE.md` §1 says the slug is
-   `governance`; HANDOFF v5.2 says `governance-service-management`; ISMS-F took
-   `ai-security` at `sort_order` 6, so something holds 5 and neither document says
-   what. It is an FK, and a wrong slug produces a cert that does not render in the
-   catalogue at all — silently.
-2. **`sort_order` within the family.** The family will hold a ladder plus two
-   standalones. AIMS rungs must sit adjacent so the ladder reads as a ladder.
+1. ~~Query `cert_categories`.~~ **Resolved 2026-08-06.**
+   `governance-service-management`, `sort_order` 3. Live roster is six families:
+   `scrum` (1), `ai` (2), `agile-frameworks` (3),
+   `governance-service-management` (4), `ai-workplace` (5), `ai-security` (6).
+   **`CERT-SCHEMA-GUIDE` §1 line 83 named four and the wrong slug for the fourth
+   — patched in the same session.**
+2. ~~`sort_order` within the family.~~ **Resolved: 3**, leaving 4 and 5 for the
+   Level II rungs.
 3. **AIGRM-I discrimination copy, three languages, reciprocal.** HANDOFF v5.2 §3.2
    ruled AIGRM-I is *not* a 42001 Foundation — one task on 42001, no clause
-   machinery, market analogue IAPP's AIGP. Adjacent on one shelf is exactly where a
-   buyer must be able to tell them apart in one line:
+   machinery, market analogue IAPP's AIGP. They will now sit at positions 1 and 3
+   of the same family, which is exactly where a buyer must tell them apart in one
+   line:
    > **AIGRM-I** certifies the AI governance and risk practitioner's body of
    > knowledge — framework-independent.
    > **AIMS-F** certifies one standard: ISO/IEC 42001.
-4. **UUID convention.** `CERT-SCHEMA-GUIDE.md` §7 still prints the repeating-digit
-   table with *next cert `66666666`*, but v5.2's commit `a726d13` includes UUID
-   retirement and ISMS-F took a generated UUID. **Read the ISMS-F row and migration
-   171 before choosing.** Two documents disagree and neither is the database.
+4. ~~UUID convention.~~ **Resolved.** `CERT-SCHEMA-GUIDE` §7 line 271 already
+   records the repeating-digit convention as retired at cert #8; lines 301–302 are
+   a historical table, not an instruction. **A cached copy of an older revision was
+   read as current and the guide was wrongly called stale on this point.** AIMS-F
+   takes a generated UUID because the guide says to, not despite it.
 5. ~~Verify the four supporting ISO standards.~~ **Done 2026-08-06, locked.**
 6. **Citation rule for ISO/IEC 22989**, per §5. Now more urgent — the review
    recommended the forbidden posture.
@@ -330,10 +366,13 @@ verdict, not the gate. `CERT-CREATION.md` Stage 1 names one signatory.
 - [ ] Revised differentiator ruling (§2.3) accepted: **27001 integration primary,
       rigour second, currency third; trilingual and free-courseware STRUCK**
 - [ ] Scope and out-of-scope (§2.4, §4.3) accepted
-- [ ] Source list (§3) accepted — §3.2 now verified and locked
+- [x] Source list (§3) — verified and locked 2026-08-06
 - [ ] §4.4 constraints accepted: the D2 task pair, D4 as structure not survey
-- [ ] §4.5 sampling ratio ruled before Stage 2 begins
-- [ ] Family and `sort_order` resolved (§7.1, §7.2)
+- [x] §4.5 ruled: 40 items, **≥6 items per domain (≥15% weight)**, task count from
+      teaching need. Subscore disclosure owed in the scheme doc
+- [x] Family `governance-service-management`, `sort_order` 3, UUID
+      `de046fa6-e627-48c1-85d8-9df226d144f4`
+- [ ] §7.6 — the ISO/IEC 22989 citation rule, written down before D1
 
 ---
 

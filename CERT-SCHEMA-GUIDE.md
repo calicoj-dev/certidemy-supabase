@@ -74,14 +74,20 @@ catalog — filing under a category is mandatory for visibility.
 
 ```
 cert_categories (
-  slug        text primary key,     -- e.g. 'governance'
-  label       text not null,        -- e.g. 'Certidemy Governance'
+  slug        text primary key,     -- e.g. 'ai-security'
+  label       text not null,        -- e.g. 'Certidemy AI Security'
   tagline     text,
   sort_order  smallint not null default 0
 )
 ```
-- Seeded families: `scrum` (1), `ai` (2), `agile-frameworks` (3), **`governance` (4)**
-  (founded by AIGRM-I, migration 084).
+- Seeded families, **verified live 2026-08-06** - `scrum` (1), `ai` (2),
+  `agile-frameworks` (3), `governance-service-management` (4, founded by AIGRM-I,
+  migration 084), `ai-workplace` (5), `ai-security` (6, founded by ISMS-F,
+  migration 171).
+- **Query `cert_categories` before writing SECTION 0.** This list was stale once
+  already: it named four families and the wrong slug for the fourth. A wrong
+  `category_slug` FK means the cert does not render in the catalog at all, and it
+  fails silently.
 - RLS: public SELECT (049); base-table GRANT to anon+authenticated (050). A new
   category row needs no new policy/grant — the table-level ones cover it.
 - **Founding a new family** = one upsert row in the cert's SECTION 0:
