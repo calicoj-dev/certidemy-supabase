@@ -1,4 +1,4 @@
--- 174_jta_versions_backfill_aihr_isms.sql
+-- 175_jta_versions_backfill_aihr_isms.sql
 -- Certidemy - ISO/IEC 17024 scheme evidence record
 --
 -- Migration 106 standardized jta_versions for the six certifications that
@@ -38,7 +38,7 @@ begin
   from public.certifications c
   where not exists (select 1 from public.domains d where d.certification_id = c.id);
   if n > 0 then
-    raise exception '174 ABORT: % certification(s) have no domains', n;
+    raise exception '175 ABORT: % certification(s) have no domains', n;
   end if;
 
   -- Every certification lacking a row must have a computable profile, or the
@@ -48,7 +48,7 @@ begin
   where not exists (select 1 from public.jta_versions v where v.certification_id = c.id)
     and not exists (select 1 from public.v_cognitive_profile p where p.certification_id = c.id);
   if n > 0 then
-    raise exception '174 ABORT: % certification(s) lack a cognitive profile', n;
+    raise exception '175 ABORT: % certification(s) lack a cognitive profile', n;
   end if;
 
   -- -------------------------------------------------------------------------
@@ -65,7 +65,7 @@ begin
   get diagnostics n_added = row_count;
 
   if n_added = 0 then
-    raise notice '174 OK: nothing to backfill, every certification already holds a row';
+    raise notice '175 OK: nothing to backfill, every certification already holds a row';
     return;
   end if;
 
@@ -80,7 +80,7 @@ begin
     blueprint_snapshot = jsonb_build_object(
       'jta_version',   'v2.0',
       'generated_at',  now(),
-      'generated_by',  'migration 174 - projected from live rows',
+      'generated_by',  'migration 175 - projected from live rows',
       'certification', to_jsonb(c.*),
       'counts', jsonb_build_object(
         'domains', (
@@ -135,26 +135,26 @@ begin
   from public.certifications c
   where not exists (select 1 from public.jta_versions v where v.certification_id = c.id);
   if n > 0 then
-    raise exception '174 ABORT: % certification(s) still hold no row', n;
+    raise exception '175 ABORT: % certification(s) still hold no row', n;
   end if;
 
   select count(*) into n
   from (select certification_id from public.jta_versions
         group by certification_id having count(*) > 1) q;
   if n > 0 then
-    raise exception '174 ABORT: % certification(s) hold more than one row', n;
+    raise exception '175 ABORT: % certification(s) hold more than one row', n;
   end if;
 
   select count(*) into n from public.jta_versions
   where version_string <> 'v2.0' or status <> 'published';
   if n > 0 then
-    raise exception '174 ABORT: % row(s) not at the standard', n;
+    raise exception '175 ABORT: % row(s) not at the standard', n;
   end if;
 
   select count(*) into n from public.jta_versions v
   where jsonb_array_length(v.blueprint_snapshot -> 'domains') = 0;
   if n > 0 then
-    raise exception '174 ABORT: % snapshot(s) carry no domains', n;
+    raise exception '175 ABORT: % snapshot(s) carry no domains', n;
   end if;
 
   select count(*) into n from public.jta_versions v
@@ -163,7 +163,7 @@ begin
     where jsonb_array_length(dd -> 'tasks') > 0
   );
   if n > 0 then
-    raise exception '174 ABORT: % snapshot(s) carry no tasks', n;
+    raise exception '175 ABORT: % snapshot(s) carry no tasks', n;
   end if;
 
   select count(*) into n
@@ -171,10 +171,10 @@ begin
   where ea.jta_version_id is not null
     and not exists (select 1 from public.jta_versions v where v.id = ea.jta_version_id);
   if n > 0 then
-    raise exception '174 ABORT: % orphaned exam_attempt reference(s)', n;
+    raise exception '175 ABORT: % orphaned exam_attempt reference(s)', n;
   end if;
 
-  raise notice '174 OK: % row(s) created and populated; every certification now holds one v2.0/published row', n_added;
+  raise notice '175 OK: % row(s) created and populated; every certification now holds one v2.0/published row', n_added;
 end
 $migration$;
 
