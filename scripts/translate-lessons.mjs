@@ -350,6 +350,7 @@ TRANSLATE into natural, professional ${name}:
 - Frontmatter values of: title, subtitle, preview. Keep the YAML keys and the "preview: |" block style.
 - All body prose, list items, callouts, summaries.
 - The title="..." value on ::concept and ::deep-dive markers, and the caption="..." value on ::diagram markers.
+- ISO/IEC 42001 AI MANAGEMENT SYSTEM TERMINOLOGY. Spell it out: sistema de gestión de IA (es-419) / sistema de gestão de IA (pt-BR). NEVER coin an acronym for it - not SGSIA, not SGIA, not SGSI de IA. SGSI means information SECURITY management system and belongs to ISO/IEC 27001 only; it is correct where the English says ISMS, and wrong everywhere the English says AI management system or AIMS. Several lessons contrast the two, so keeping them distinct is the point rather than a detail.
 - The bracketed LABEL in [label]{glossary="slug"} — translate the label, keep the slug verbatim.
 - Inside JSON blocks, EVERY human-readable display string. Depending on the widget this includes: text, question, explanation, label, intro, scenario_title, situation, feedback, span, alt_text, off_consequence, on_consequence, reflection_prompt, reflection_answer, and the "text" of any options/items/targets entry.
 
