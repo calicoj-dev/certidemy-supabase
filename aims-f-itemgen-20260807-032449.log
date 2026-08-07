@@ -1,0 +1,56 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260807032449
+Username: WIN-ALJVMNDTTQ7\Juan
+RunAs User: WIN-ALJVMNDTTQ7\Juan
+Configuration Name: 
+Machine: WIN-ALJVMNDTTQ7 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 19184
+PSVersion: 5.1.26100.8875
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8875
+BuildVersion: 10.0.26100.8875
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+==============================================================
+ AIMS-F item generation   started 03:24:49
+ cert de046fa6   secure 8/lang/task   practice FLOOR 10/lang/task
+ 35 tasks x 3 languages, both pools
+==============================================================
+
+==============================================================
+ 1/4  SECURE   pass 1    03:24:49
+==============================================================
+
+ -> exit 0, elapsed 02:22:07
+
+==============================================================
+ 2/4  SECURE   top-up    05:46:56
+==============================================================
+
+ -> exit 0, elapsed 00:12:37
+
+==============================================================
+ 3/4  PRACTICE pass 1    05:59:34
+==============================================================
+
+ -> exit 0, elapsed 02:49:12
+
+==============================================================
+ 4/4  PRACTICE top-up    08:48:47
+==============================================================
+
+ -> exit 0, elapsed 00:23:00
+
+==============================================================
+ ALL STAGES DONE   2026-08-07 09:11:48
+ transcript: C:\Users\Juan\Documents\certidemy\supabase\aims-f-itemgen-20260807-032449.log
+==============================================================
+**********************
+Windows PowerShell transcript end
+End time: 20260807091148
+**********************
