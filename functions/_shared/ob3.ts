@@ -383,18 +383,28 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
 export interface CredentialInput {
   credentialCode: string;
   holderName: string;
-  /** Salted hash of the holder's email. Never the email itself. */
-  subjectIdentifierHash: string;
   /**
-   * The salt the hash was computed with, from credentials.subject_salt.
+   * Salted hash of the holder's email, and the salt it was computed with.
    *
-   * PUBLISHED DELIBERATELY. OB 3.0 verification is hash(email + salt), so a
-   * verifier who already holds the email can confirm the match. Withholding it
-   * would leave an identifier nobody on earth can check — decorative, and the
-   * exact opposite of the point. The salt is what makes a rainbow table useless
-   * while keeping the check possible; it is not itself a secret.
+   * NULL FOR ANONYMOUS VIEWERS. Passing null omits `identifier[]` entirely and
+   * produces a different — separately signed — document.
+   *
+   * Why the split. OB 3.0 verification is hash(email + salt), and the salt must
+   * be published or the identifier is decorative: nobody could ever check it.
+   * But publishing both makes CONFIRMATION-OF-A-GUESS possible — hash a
+   * suspected address with that salt and compare. Extraction is still
+   * infeasible; confirmation is not.
+   *
+   * All six real credentials belong to external learners using personal
+   * addresses, so that confirmation is a genuine disclosure about a real person
+   * to any stranger holding a verify link. Acceptable to the subject; not to a
+   * stranger. So the holder gets it and the public does not.
+   *
+   * A field CANNOT be stripped after signing — the copy would fail
+   * verification. These are two genuinely different documents with two proofs,
+   * which is why this is a build-time input rather than a response filter.
    */
-  subjectSalt: string;
+  subject: { identifierHash: string; salt: string } | null;
   issuedAt: string;
   expiresAt: string | null;
   statusListIndex: number;
@@ -435,18 +445,20 @@ export function buildCredential(c: CredentialInput): Record<string, unknown> {
       // date and stays put for the same reason: a name fix must not make a
       // credential look newly valid.
       awardedDate: c.issuedAt,
-      identifier: [
-        {
-          type: "IdentityObject",
-          identityType: "emailAddress",
-          hashed: true,
-          // Published on purpose — see CredentialInput.subjectSalt. Verification
-          // is hash(email + salt); an unpublished salt makes the identifier
-          // impossible for anyone to check.
-          salt: c.subjectSalt,
-          identityHash: c.subjectIdentifierHash,
-        },
-      ],
+      // Present only for the holder. See CredentialInput.subject.
+      ...(c.subject
+        ? {
+          identifier: [
+            {
+              type: "IdentityObject",
+              identityType: "emailAddress",
+              hashed: true,
+              salt: c.subject.salt,
+              identityHash: c.subject.identifierHash,
+            },
+          ],
+        }
+        : {}),
       achievement: c.achievement,
     },
     credentialStatus: {

@@ -170,23 +170,47 @@ serve(async (req) => {
         );
       }
 
-      // The holder's email, for the salted subject identifier. Read from auth,
-      // hashed immediately, and never placed in the document.
-      const { data: authUser } = await svc.auth.admin.getUserById(cred.user_id);
-      const email = authUser?.user?.email ?? null;
-      const subjectIdentifierHash = email
-        ? await hashSubjectIdentifier(email, cred.subject_salt)
-        : null;
+      // ---- Who is asking? ------------------------------------------------
+      //
+      // The subject identifier (salted email hash) goes ONLY to the holder.
+      // Everyone else gets a separately-signed document without it — see
+      // CredentialInput.subject in _shared/ob3.ts for why.
+      //
+      // The viewer is established by VERIFYING A BEARER TOKEN here. It is never
+      // taken from a query parameter: `?viewer=<uuid>` would let anyone claim
+      // to be anyone and would be a straightforward PII disclosure. The proxy
+      // route forwards the caller's own Supabase session token; this function
+      // asks Supabase Auth who that token belongs to.
+      let viewerId: string | null = null;
+      const authHeader = req.headers.get("authorization");
+      if (authHeader?.toLowerCase().startsWith("bearer ")) {
+        const token = authHeader.slice(7).trim();
+        // Anon-key calls carry a bearer token too, and it is not a user — a
+        // failed lookup simply means "not the holder", which is the safe default.
+        const { data: viewer } = await svc.auth.getUser(token);
+        viewerId = viewer?.user?.id ?? null;
+      }
+
+      const isHolder = viewerId !== null && viewerId === cred.user_id;
+
+      let subject: { identifierHash: string; salt: string } | null = null;
+      if (isHolder) {
+        const { data: authUser } = await svc.auth.admin.getUserById(cred.user_id);
+        const email = authUser?.user?.email ?? null;
+        if (email) {
+          subject = {
+            identifierHash: await hashSubjectIdentifier(email, cred.subject_salt),
+            salt: cred.subject_salt,
+          };
+        }
+      }
 
       const statusListId = `${siteUrl}/status/1`;
 
       const unsigned = buildCredential({
         credentialCode: cred.credential_code,
         holderName: cred.holder_name,
-        // A credential with no resolvable holder identity is still a valid
-        // credential; it just cannot be auto-matched to an employee record.
-        subjectIdentifierHash: subjectIdentifierHash ?? "",
-        subjectSalt: cred.subject_salt,
+        subject,
         issuedAt: cred.issued_at,
         expiresAt: cred.expires_at,
         statusListIndex: cred.status_list_index,
@@ -213,7 +237,14 @@ serve(async (req) => {
         new Date(cred.material_updated_at).toISOString(),
       );
 
-      return ldResponse(signed, CACHE_STABLE);
+      // CACHING IS VIEWER-DEPENDENT AND THIS MATTERS.
+      //
+      // The public document is byte-stable and safely cacheable at the edge.
+      // The holder document contains the subject identifier and MUST NOT enter
+      // a shared cache — a CDN that stored it would serve it to the next
+      // anonymous visitor, which is exactly the disclosure this split exists to
+      // prevent. `private` keeps it in the holder's own browser only.
+      return ldResponse(signed, isHolder ? "private, no-store" : CACHE_STABLE);
     }
 
     /* ------------------------------------------------------------ status -- */
