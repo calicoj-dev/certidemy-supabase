@@ -1,17 +1,16 @@
 # STYLE-GUIDE-AIMS-F.md
 
 **Scope:** lesson authoring for `AIMS-F` (ISO/IEC 42001 Foundation).
-**Derived from:** module 1, six lessons, and its Stage-3-style review.
+**Derived from:** all five modules, 35 lessons, and their reviews.
 **Companion to:** `LESSON_AUTHORING_SPEC.md` (the renderer contract) and
 `AIMS-F_JTA_v1.3.md` (what is taught). This document is neither of those. It is
 **how AIMS-F sounds and what it is not allowed to say.**
-**Version:** 1.0 · **Date:** 2026-08-07
+**Version:** 1.1 · **Date:** 2026-08-07
 
 > ISMS-F's style guide has eleven sections and four exist because something went
-> wrong first. This one starts with **one** written that way — §1, attribution,
-> which was nearly a defect in lesson 01-01. The rest are conventions applied
-> consistently across module 1 and written down so module 2 does not re-derive
-> them. **Expect this file to grow by failure.** That is the point of it.
+> wrong first. **v1.0 had one such section. v1.1 has four**, and §13 and §14 were
+> both written after a load failed. Expect this file to keep growing by failure;
+> that is the point of it.
 
 ---
 
@@ -109,9 +108,19 @@ Module 1's shape, which held across all six lessons:
 | `::checkpoint` | 1 | 4 questions |
 | `::summary` | 1 | 6 bullets |
 
-**Budget: 12,000-13,000 characters, 12-14 minutes.** Module 1 ran 12,165-12,846.
-ISMS-F ran wider (8,688-14,090); the tighter band is deliberate here because
-every AIMS-F task is `2_understand` or above and none is recall.
+**Budget, revised in v1.1: 12,000-14,000 characters, 12-15 minutes.** Module 1
+ran 12,165-12,846 and the original band was set from it. Modules 2 to 5 could not
+hold it, and the reason is structural rather than indiscipline: module 1 is
+conceptual while modules 4 and 5 enumerate 38 controls and the clause 9-10
+machinery. **Two stated exceptions**, both deliberate:
+
+| lesson | chars | why |
+|---|---|---|
+| 04-06 use and third-party controls | ~14,500 | Carries the full human-oversight guidance, which is the longest passage in Annex B |
+| 05-05 the certification route | ~14,100 | Four documents to separate, and the separation is the whole competence |
+
+**Trimming below the band costs content the task assesses.** Where a lesson runs
+long, state why in this table rather than cutting a concept block.
 
 **The `::interactive` earns its place or it is cut.** Each of module 1's six
 targets a real confusion: requirement vs technical choice, role in a described
@@ -273,6 +282,77 @@ authoring each module.**
 
 ---
 
-*Written after module 1, before module 2. Every section here is either a
-convention applied consistently or a rule that exists because something nearly
-went wrong. When the next thing goes wrong, add a section and say why.*
+
+---
+
+## 13. LESSON SLUGS ARE GLOBALLY UNIQUE
+
+**Written after module 5 failed to load.** Three lessons silently did not insert,
+and coverage read 142 of 154 with no error reported anywhere.
+
+`lessons.slug` is unique **across all certifications**, not scoped per cert — the
+same shape as `modules_slug_unique`, which migration 177 already hit. ISMS-F owned
+`05-01-monitoring-and-measurement`, `05-02-internal-audit` and
+`05-03-management-review`, because two certs on management-system standards
+produce the same clause structure and therefore the same natural lesson names.
+
+**`load-lessons-direct.mjs` checks `(slug, language)` and skips silently.** It
+reported `skipped(existing): 32` when only 29 existed, and nothing in the output
+distinguished a real skip from a collision.
+
+**The rule:**
+
+> Before authoring a module, query for slug collisions. One statement:
+>
+> ```sql
+> select l.slug, c.code from lessons l
+> join modules m on m.id = l.module_id
+> join certifications c on c.id = m.certification_id
+> where l.slug in ('<planned slugs>');
+> ```
+>
+> Any row is a collision. **Prefix the cert's lessons** — AIMS-F uses
+> `05-01-aims-...` — and do it before loading, because `lesson_group_id` is
+> `uuidV5(lesson_id, CERT_ID)` and translations group on it.
+
+**This will recur.** AIMS-IA, ISMS-IA and AIMS-LI all sit on clause-structured
+standards. Consider prefixing every lesson slug from the start on any future
+standards-based cert rather than discovering the collision at load.
+
+**And verify the load by count, not by exit code.** `inserted + skipped` must
+equal the file count, and `skipped` must equal what was already there.
+
+---
+
+## 14. THE SWEEP FINDS WHAT THE REVIEW DOES NOT
+
+**Written from five modules of evidence.**
+
+Across all five reviews, the external reviewer rated factual accuracy 9.0 to 9.3
+and reported no material errors. **It found zero of the thirteen reproduced
+definitions and clause statements.** The mechanical sweep found all thirteen.
+
+That is not a failing of the review. It checks whether claims are *true*, and a
+reproduction is true — which is exactly what makes it invisible to that check.
+**Two instruments, two defect classes, and only one of them looks for §2.**
+
+| module | §2 hits found by sweep | what they were |
+|---|---|---|
+| 1 | 3 | Introduction text, A.6.1.2 control wording, a clause 4.1 `shall` |
+| 2 | 5 | Clause 4.3 scope, risk definition, impact assessment definition, SoA definition, the consistency phrase |
+| 3 | 0 | first clean pass |
+| 4 | 0 | Table A.1's 35 control statements, clean on first pass |
+| 5 | 5 | clause 3 definitions: nonconformity, corrective action, requirement, effectiveness, plus 9.3.1 |
+
+**The pattern to read from this:** hits cluster where the standard's own phrasing
+is most quotable. Definitions and short `shall` clauses are the danger; long
+guidance passages are safe because nobody reproduces a paragraph by accident.
+
+**Run the sweep before sending anything for review**, and run it against the
+specific text the module touches — a generic banned-phrase list will not catch
+module 5's clause 3 definitions or module 4's Table A.1.
+
+---
+
+*v1.1 written after all 35 lessons. §1, §10, §13 and §14 exist because something
+went wrong first. When the next thing does, add a section and say why.*
