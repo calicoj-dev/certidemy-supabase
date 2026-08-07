@@ -262,6 +262,12 @@ modules (id, certification_id, title, description, order_index, estimated_minute
   (AIGRM-I: `a5555555-0000-0000-0000-00000000000{1..5}`). Enables `on conflict (id)`.
 - **order_index** aligns 1:1 to the domains (module K ↔ domain DK) — this shared
   index is the module→domain→tasks→task_concepts reachability fallback.
+- **slug is GLOBALLY UNIQUE.** `modules_slug_unique` is a table-wide constraint,
+  **not scoped to `certification_id`**. Verified 2026-08-06: AIMS-F's modules
+  migration failed with 23505, colliding with ISMS-F on
+  `evaluation-improvement-certification`. **Prefix module slugs per cert**
+  (AIMS-F uses `aims-`), or check first:
+  `select slug from modules where slug in (...);`
 - **slug** MUST equal the lesson content folder name **minus the `NN-` prefix**, and
   the `module_slug` in every lesson's frontmatter. Slug typo = lessons silently
   misfile at load. AIGRM-I slugs → folders `content/aigrm-i/01-foundations-of-ai-governance/`, etc.
