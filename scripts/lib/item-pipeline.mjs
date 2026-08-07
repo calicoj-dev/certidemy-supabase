@@ -44,6 +44,33 @@
 import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
+// ATTRIBUTION - for certs whose subject matter is a published standard or
+// framework. Interpolated into the draft prompt and enforced by the critique
+// stage. Added 2026-08-06 after ISMS-F shipped items asserting requirements
+// that the standard does not contain (HANDOFF v5.5 section 2). verify-cert
+// checks structure, coverage, cue neutrality, firewall and Bloom - it does NOT
+// check whether a factual claim is true. This is the only guard on that class.
+// ---------------------------------------------------------------------------
+export const ATTRIBUTION_RULES = `ATTRIBUTION - applies only where the subject matter is a published
+standard, framework, or named body of knowledge:
+  - State what a document REQUIRES only where it is a requirement in that
+    document text. Preserve the modal: "shall" is a requirement, "should" is
+    guidance, and a NOTE is neither.
+  - Where a widely-taught rule is an IMPLICATION of the text rather than the
+    text itself, attribute it to practice - "in practice", "commonly", "most
+    certification bodies" - never to the standard.
+  - Where the real source is a DIFFERENT document, name that document. Audit
+    conduct rules are ISO 19011. Certification cycles and certificate validity
+    are ISO/IEC 17021-1 and the scheme-specific requirements standard. Do not
+    attribute either to the management system standard being taught.
+  - NEVER write "the standard requires X" where X is common professional
+    vocabulary rather than text. A risk register, maturity levels, a
+    three-year certificate and a RACI matrix are practice, not requirements.
+  - A DISTRACTOR may be a false attribution - that is a real misconception and
+    makes a good distractor. The KEY and the EXPLANATION must never contain
+    one.`;
+
+// ---------------------------------------------------------------------------
 // Shared grounding + the canonical English validator (moved here from the
 // generators so there is one definition).
 // ---------------------------------------------------------------------------
@@ -162,6 +189,8 @@ Strict requirements for every question:
   - PARALLEL OPTIONS: write all four options in the same grammatical form, the
     same level of specificity, and closely matched length.
 
+${ATTRIBUTION_RULES}
+
 LENGTH CEILING - a hard limit, not a style preference:
   * The stem is at most 60 WORDS.
   * EACH option is at most 25 WORDS.
@@ -236,6 +265,14 @@ The answer must be findable
   6. EXPLANATION REFERENCES: the explanation must refer to options by their
      content or substance, never by letter (no "option a/b/c/d"). Rewrite any
      letter reference to name what the option actually says.
+  7. FALSE ATTRIBUTION: any KEY or EXPLANATION that says a standard requires
+     something the standard does not contain must be rewritten. Check the
+     modal - a "should" or a NOTE is not a requirement - and check the source:
+     audit conduct rules belong to ISO 19011, certification cycles and
+     certificate validity to ISO/IEC 17021-1. Practice vocabulary (risk
+     register, maturity levels, three-year certificates) is NOT normative text.
+     Attribute it to practice or cut it. A DISTRACTOR built on a false
+     attribution is legitimate and should be kept.
 
 Preserve each item's tested concept and the MEANING of its correct answer. Keep
 the same number of options. If an item is unsalvageable, set "reject": true.
