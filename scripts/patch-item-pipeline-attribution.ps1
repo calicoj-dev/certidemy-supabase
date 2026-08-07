@@ -111,7 +111,7 @@ if ($fail) { throw "ANCHOR MISMATCH - do not apply." }
 if (-not $Apply) {
   Write-Host ""
   Write-Host "DRY OK - all three anchors matched exactly once. Re-run with -Apply."
-  exit 0
+  exit 2   # NOT APPLIED - non-zero so a skipped -Apply cannot look like success
 }
 
 foreach ($e in $edits) { $t = $t.Replace($e.old, $e.new) }

@@ -50,7 +50,7 @@ if ($t -match 'modules_slug_unique') { throw "Already patched - modules_slug_uni
 if (-not $Apply) {
   Write-Host ""
   Write-Host "DRY OK - anchor matched exactly once. Re-run with -Apply."
-  exit 0
+  exit 2   # NOT APPLIED - non-zero so a skipped -Apply cannot look like success
 }
 
 $t = $t.Replace($old, $new)
