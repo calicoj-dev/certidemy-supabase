@@ -1,7 +1,7 @@
 # BOK-AIMS-F.md — Body of Knowledge decision
 
 **Stage:** 1 of `CERT-CREATION.md`
-**Status:** DRAFT — awaiting Juan's sign-off. No JTA work begins until this is signed.
+**Status:** **SIGNED OFF 2026-08-06.** Stage 2 open.
 **Date:** 2026-08-06
 **Sources verified live:** 2026-08-06. Third-party facts age out at six months.
 
@@ -96,13 +96,17 @@ than discovered at lesson-authoring time.
 
 Revised after the §2.1a competitive check. In descending order of durability:
 
-1. **Integrated with 27001, because that is how 42001 is actually implemented.**
-   The team standing up an AIMS is usually the team already running an ISMS, and
-   42001 shares the Harmonised Structure with 27001 clause for clause. Certidemy
-   is the only body that can teach the integration from *both* sides, because
-   ISMS-F exists and is live. **This is the strongest and most defensible
-   differentiator. It now carries nearly all the weight, and it must shape the
-   JTA rather than sit in marketing copy.**
+1. **Integrated with 27001, because that is how 42001 is actually implemented —
+   and the standard says so.** **Annex D.2 states that integration of the AIMS
+   with generic or sector-specific management system standards is essential for
+   responsible development and use of an AI system, names ISO/IEC 27001 first,
+   and notes that because both use the harmonised structure their integrated use
+   is facilitated and of great benefit — with information-security-related
+   controls implementable through the organization's existing 27001.** This is no
+   longer an inference from market behaviour; it is a citation. Certidemy is the
+   only body that can teach the join from *both* sides, because ISMS-F exists and
+   is live. **It now carries nearly all the weight, and it must shape the JTA
+   rather than sit in marketing copy.**
 2. **Rigour, and specifically the published blueprint.** Against an accredited body
    this is a polite argument. Against a 40-item exam with no published blueprint,
    no coverage proof and no computed cognitive profile it is the entire pitch.
@@ -143,9 +147,16 @@ Revised after the §2.1a competitive check. In descending order of durability:
 
 | Source | Status | Use |
 |---|---|---|
-| **ISO/IEC 42001:2023** | First edition, 2023-12, 51 pp. JTC 1/SC 42. **Still the current edition** | The spine: clauses 4–10, Annex A (38 controls in 9 objectives), Annexes B–D |
+| **ISO/IEC 42001:2023** | First edition, 2023-12, 51 pp. JTC 1/SC 42. **Still the current edition** | The spine: clauses 4–10, Annex A (**38 controls in 9 categories, A.2–A.10, carrying 10 stated objectives** — A.6 splits into A.6.1 and A.6.2), Annexes B–D |
 | **EN ISO/IEC 42001:2026** | Approved by CEN 13 Mar 2026, **endorsed without any modification**. 34 national bodies bound to implement | Citation designation only. Technically identical — see §5 |
 | **ISO/IEC 42006:2025** | Published | Requirements for bodies auditing and certifying an AIMS. Owns the D5 certification-process content and explains what accredited certification means |
+
+> **Verified against the standard itself 2026-08-06**, not against secondary sources.
+> Two things every secondary source gets wrong: it is **nine control categories with
+> ten objectives**, not nine objectives; and **Annex B is NORMATIVE**, not
+> informative — implementation guidance carrying normative status, though B.1
+> exempts the guidance itself from SoA justification. Annexes C and D are
+> informative.
 
 ### 3.2 Supporting ISO standards — VERIFIED 2026-08-06, locked
 
@@ -183,20 +194,35 @@ ISMS-F will otherwise map 42001 onto the ISMS model and get it wrong.
 
 ### 4.1 The five real departures
 
-1. **Impact assessment, not just risk assessment.** 27001 assesses risk *to the
-   organization*. 42001 additionally requires assessment of impact *on individuals
-   and on society*. This is the signature departure and the one most likely to be
-   flattened by an author with 27001 reflexes.
-2. **Role-based obligations.** One organization can simultaneously be a provider,
-   a developer and a user of AI systems, and its obligations differ by role.
-   No 27001 analogue.
-3. **The AI system lifecycle** is a first-class object in a way the information
-   asset is not.
-4. **Data for AI systems** — provenance, quality, preparation — is a control theme
-   in its own right.
+1. **Impact assessment sits alongside risk assessment and feeds it.** The naive
+   framing — *risk is to the organization, impact is to people* — **does not hold
+   and must not be taught.** Clause 6.1.2 already has risk analysis assess
+   consequences to the organization, individuals and societies. The real
+   differences are anchoring (objectives vs deployment, intended use and
+   foreseeable misuse), output (risk levels for treatment vs documented
+   consequences), context (risk criteria vs technical, societal and jurisdictional
+   context) and audience (internal vs may be released to interested parties).
+   **Clause 6.1.4 requires impact assessment results to be considered in the risk
+   assessment** — they are not parallel processes.
+2. **Role determination is a `shall`, and the taxonomy has six categories.**
+   Clause 4.1 requires the organization to determine its roles with respect to its
+   AI systems, and its note gives **AI providers, AI producers, AI customers, AI
+   partners, AI subjects, and relevant authorities** — with developers a subtype of
+   producer, not a peer. Roles determine which requirements and controls apply. No
+   27001 analogue.
+3. **The AI system life cycle** is a first-class object in a way the information
+   asset is not, and continuous learning means behaviour changes during use.
+4. **Data for AI systems** — acquisition, quality, provenance, preparation — is a
+   control category in its own right.
 5. **Transparency to interested parties and human oversight** are management-system
-   requirements that map directly onto EU AI Act Articles 50 and 14. This is where
-   the standard and the regulation actually touch.
+   concerns mapping onto EU AI Act Articles 50 and 14.
+6. **Climate change is an explicit `shall` in clause 4.1**, with a matching note on
+   interested parties in 4.2. Surprising, real, and exactly the requirement a
+   candidate skims past.
+7. **Clause 8 re-states risk assessment, risk treatment and impact assessment as
+   operational requirements** (8.2/8.3/8.4) — performed at planned intervals or on
+   significant change, with results retained. Clause 6 defines the process; clause 8
+   performs it. That split is its own competence.
 
 ### 4.2 The regulatory context, verified 2026-08-06
 
@@ -297,14 +323,31 @@ Every one of these exists because something went wrong first. All apply here.
 - **Read the first generated batch before scaling it.** `MAX_TASKS=1`, read eight
   items. This rule paid for itself twice on the day it was written.
 - **Glossary markup frozen in both directions** in `translate-lessons.mjs`.
-- **A citation rule is owed, as it was for 27000, and the pressure is already
-  visible.** ISMS-F ruled that no lesson cites ISO/IEC 27000 as a definitional
-  source. The external review of this document recommended using ISO/IEC 22989 as
-  the *"terminology baseline"* — which, taken literally, is the thing that rule
-  forbids. **Decide the 22989 analogue before D1 is authored.** The likely ruling:
-  22989 informs our vocabulary, is never cited as the authority for a definition,
-  and no definition is reproduced. Same posture, same reason — a definition is
-  normative text and is recognisable on sight.
+- **The ISO/IEC 22989 citation rule — DECIDED, not owed.** ISMS-F ruled that no
+  lesson cites ISO/IEC 27000 as a definitional source. The external review of this
+  document recommended using 22989 as the *"terminology baseline"* — which, taken
+  literally, is what that rule forbids. The ruling:
+
+  1. **22989 informs our vocabulary. It is never cited as the authority for a
+     definition.** No lesson says *"ISO/IEC 22989 defines X as…"*.
+  2. **No definition is reproduced, in any language.** Style guide §1 governs.
+  3. **Where 42001 Clause 3 carries a term, teach the concept and note that the
+     standard defines it — without quoting it.** That a term is normatively defined
+     and where to find it is a different fact from the definition, and it is the
+     one that is ours to teach.
+  4. **Naming 22989 as a cross-reference is permitted** per `CERT-CREATION.md` §4
+     gate 6. The red line is claiming to *be* that document.
+  5. **Amendment 1 (generative AI) is under development.** Do not build teaching
+     content on terms it could move.
+
+  **The addition 27001 did not need.** AI terminology is genuinely contested in a
+  way information-security terminology is not — *agent*, *foundation model*, and
+  above all **AI system**, whose definition is load-bearing outside the standard
+  because the EU AI Act's scope turns on it. So **teach the boundary question as a
+  competence, not the definition as a recital.** *"Is this thing in scope of our
+  AIMS?"* is what an implementer actually gets wrong, it is assessable at
+  `3_apply` and `4_analyze`, and a recited definition is `1_remember` and teaches
+  nothing. Same shape as ISMS-F's shadow-AI scope point — the trap generalises.
 
 ---
 
@@ -334,14 +377,36 @@ Every one of these exists because something went wrong first. All apply here.
    — patched in the same session.**
 2. ~~`sort_order` within the family.~~ **Resolved: 3**, leaving 4 and 5 for the
    Level II rungs.
-3. **AIGRM-I discrimination copy, three languages, reciprocal.** HANDOFF v5.2 §3.2
-   ruled AIGRM-I is *not* a 42001 Foundation — one task on 42001, no clause
-   machinery, market analogue IAPP's AIGP. They will now sit at positions 1 and 3
-   of the same family, which is exactly where a buyer must tell them apart in one
-   line:
-   > **AIGRM-I** certifies the AI governance and risk practitioner's body of
-   > knowledge — framework-independent.
-   > **AIMS-F** certifies one standard: ISO/IEC 42001.
+3. **AIGRM-I discrimination copy — DRAFTED, review owed.** They will sit at
+   positions 1 and 3 of the same family. HANDOFF v5.2 §3.2 ruled AIGRM-I is *not* a
+   42001 Foundation — one task on 42001, no clause machinery, market analogue
+   IAPP's AIGP.
+
+   **AIGRM-I**
+   - **en** — Framework-independent AI governance and risk practice: NIST AI RMF,
+     the regulatory landscape, and how risk is run day to day.
+   - **es-419** — Práctica de gobernanza y riesgo de IA independiente de marcos:
+     NIST AI RMF, el panorama regulatorio y la gestión cotidiana del riesgo.
+   - **pt-BR** — Prática de governança e risco de IA independente de estruturas:
+     NIST AI RMF, o panorama regulatório e a gestão cotidiana do risco.
+
+   **AIMS-F**
+   - **en** — One standard, in depth: the ISO/IEC 42001 clauses, its Annex A
+     controls, the AI system impact assessment, and the route to certification.
+   - **es-419** — Una norma, en profundidad: los capítulos de ISO/IEC 42001, sus
+     controles del Anexo A, la evaluación de impacto del sistema de IA y la ruta
+     hacia la certificación.
+   - **pt-BR** — Uma norma, em profundidade: as seções da ISO/IEC 42001, seus
+     controles do Anexo A, a avaliação de impacto do sistema de IA e o caminho até
+     a certificação.
+
+   Rule 17 applied: `capítulos` in es-419 for whole top-level divisions, `Seções`
+   in pt-BR, `clauses` in English only. NIST AI RMF untranslated as a proper noun.
+
+   **Two flags.** These are assistant translations and **nothing tracks them** —
+   `certification_i18n` has no `is_provisional` column (v5.3 §1), so `verify-cert`
+   cannot see them. Same review packet as the ISMS-F rows. And **AIGRM-I's line
+   changes a live published cert** — it ships in a migration, not the scaffold.
 4. ~~UUID convention.~~ **Resolved.** `CERT-SCHEMA-GUIDE` §7 line 271 already
    records the repeating-digit convention as retired at cert #8; lines 301–302 are
    a historical table, not an instruction. **A cached copy of an older revision was
