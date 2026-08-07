@@ -10,3 +10,6 @@ scripts/.env
 patch-*.mjs
 verify.json
 *.tmp
+
+# item-generation logs are build artifacts, not source
+*.log
