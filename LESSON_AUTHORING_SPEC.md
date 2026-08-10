@@ -481,7 +481,27 @@ Drag items onto matching targets.
 | `correct` | Map of item id → target id |
 | `explanation` | Shown after submit |
 
-Variants: set `"allowReuse": true` to allow one target to receive multiple items.
+**`drag-match` is strictly 1:1, and this is enforced.** Equal items and targets,
+every target used exactly once. **`allowReuse` is not supported and must not be
+used** - `verify-cert` invariant 13 fails any cert whose drag-match widgets are
+many-to-few or set the flag.
+
+Two reasons, and the first is a bug that shipped:
+
+1. **The component evicted the occupant** on a drop into a filled target, so a
+   4-items-to-2-targets widget could never hold more than two placements.
+   `allPlaced` never became true and the Check button never enabled. Those
+   widgets were literally uncompletable. The component now degrades gracefully;
+   the rule stands.
+2. **Sorting four items into two buckets is four coin flips** - a guesser scores
+   about 50% knowing nothing. Matching four items to four distinct targets is
+   twenty-four permutations: you know it or you do not. Only the 1:1 form
+   measures anything.
+
+**Four items is the house size** - enough to discriminate, small enough for a
+phone. Where the teaching point is genuinely categorical and a 1:1 mapping would
+be artificial, `drag-match` is the wrong primitive: use `highlight-mistake` or
+`sort-into-order` instead.
 
 ---
 
@@ -727,10 +747,22 @@ Before marking a lesson `status: published`, verify:
 - [ ] Has exactly 1 `::checkpoint` section
 - [ ] Has at least 1 `::concept` section
 - [ ] Has at least 1 `::interactive` section (strongly recommended; not strictly required)
-- [ ] `::summary` is present and has 3-5 bullets
+- [ ] `::summary` is present and has 5 bullets (3 is the floor; every cert has
+      settled on 5, one per major concept)
+- [ ] Every checkpoint question offers **at least four options**. Two-option
+      true/false items are a coin flip and must never reach a secure bank; the
+      answer-position guard also skips anything under three options, so the items
+      most vulnerable to position cueing are the ones it cannot see
 - [ ] After authoring, `wire-lessons.mjs` was run for the cert (dry-run reviewed, then applied) — see §12
 - [ ] The lesson has **≥1 row in `lesson_concepts`** and **≥1 row in `lesson_tasks`** (the projection landed)
 - [ ] `wire-lessons.mjs` reported **zero UNRESOLVED** `concept_slugs` / `task_codes` for this lesson (every frontmatter tag resolves to a real concept/task at current codes)
+- [ ] **`verify-cert --cert <CODE>` was run after module 1 landed and before the
+      per-cert style guide was derived.** A style guide derived from an unchecked
+      module 1 codifies whatever module 1 got wrong, and every later module copies
+      it faithfully. AIMS-F reached twelve broken widgets this way.
+- [ ] **`verify-cert --all` was run whenever an invariant was added.** Invariant 13
+      was correct and unread for four weeks against a live cert. A rule that lives
+      in a checker nobody runs is not a rule.
 
 **Content:**
 - [ ] Sections appear in narrative order
