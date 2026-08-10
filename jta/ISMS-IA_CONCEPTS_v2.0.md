@@ -312,9 +312,9 @@ is a defect**, however true the underlying practice.
 
 | slug | name | description |
 |---|---|---|
-| `ia-amendment-1-2024-climate-change` | Amendment 1:2024 | Adds to clause 4.1 the requirement that the organization determine whether **climate change** is a relevant issue, naming it specifically rather than as a general environmental condition. **Wording pending verification against the amended standard.** |
+| `ia-amendment-1-2024-climate-change` | Amendment 1:2024 | ISO/IEC 27001:2022/Amd 1:2024, Climate action changes, adds one sentence to clause 4.1: the organization shall determine whether climate change is a relevant issue. The amendment is one page and adds nothing else to clause 4.1. It names climate change specifically, not environmental conditions. |
 | `ia-climate-change-as-a-4-1-issue` | Climate change as a 4.1 issue | The determination is required of every organization; the answer may be that it is not relevant, but the determination itself must have been made and be evidenced. |
-| `ia-interested-party-climate-requirements-4-2` | Interested party climate requirements | Amendment 1:2024 adds a note at clause 4.2 that relevant interested parties can have climate-change-related requirements. **Wording pending verification.** |
+| `ia-interested-party-climate-requirements-4-2` | Interested party climate requirements | Amendment 1:2024 adds NOTE 2 at the end of clause 4.2: relevant interested parties can have requirements related to climate change. It is a second note - the existing note on legal, regulatory and contractual requirements becomes NOTE 1. A note is not a requirement. |
 
 ### Task 4.8
 
@@ -428,9 +428,10 @@ is a defect**, however true the underlying practice.
 
 ## BEFORE SCAFFOLD
 
-1. ⛔ **Three concepts on task 4.7** carry *pending verification* in their
-   descriptions. Resolve against the amended standard, or the descriptions ship
-   with a hedge that will read as vagueness to an item generator.
+1. **CLOSED 2026-08-10.** The two task 4.7 concepts that carried *pending
+   verification* are resolved against ISO/IEC 27001:2022/Amd 1:2024, read
+   directly. The live rows were updated in the same pass; these entries and the
+   database now agree.
 2. **`concepts.slug` uniqueness** — one query; the `ia-` prefix stands either way.
 3. **Introspect `concepts` before writing SQL.** No SQL against a table not
    introspected in the session.

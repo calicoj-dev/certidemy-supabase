@@ -39,12 +39,16 @@ makes the reuse-link count checkable.
 edition, unamended), ISO/IEC 42001:2023, ISO 19011:2026 (fourth edition, 2026-05,
 ISO/PC 302).
 
-> ⛔ **Task 4.7 alone** rests on ISO/IEC 27001 **Amendment 1:2024**, absent from
-> the copy read. Wording taken from the amended ISO/IEC 42001 and near-certainly
-> identical — **but that is inference.**
+> **CLOSED 2026-08-10 — erratum 2.** Task 4.7 previously rested on inference.
+> **ISO/IEC 27001:2022/Amd 1:2024 has now been read directly.** Its whole normative
+> body is two sentences, quoted at task 4.7's K field below. The inference was
+> correct word for word, and one detail was wrong: the clause 4.2 addition is
+> **NOTE 2**, not an unnumbered note — the existing note on legal and contractual
+> requirements becomes NOTE 1. **No blocked item remains in this credential.**
 
-**Erratum clause**, on the `ISMS-F` precedent: a correction arising from the ⛔
-item **before any item is generated against task 4.7** lands as a dated erratum,
+**Erratum clause**, on the `ISMS-F` precedent: a correction arising from a
+named unverified item **before any item is generated against that task** lands as a
+dated erratum,
 not a version bump. Once items exist against that task, it becomes a version
 change.
 
@@ -149,7 +153,7 @@ not used — the first would overstate the rhythm, the second is Scrum-flavoured
 | 25 | 4.4 | `4_analyze` | **high** | weekly | Determine whether a Statement of Applicability is consistent with the risk treatment decisions behind it. |
 | 26 | 4.5 | `3_apply` | medium | weekly | **Select the evidence that would establish conformity with a given clause 7 requirement** for competence, awareness or documented information. |
 | 27 | 4.6 | `4_analyze` | **high** | weekly | **Determine whether operational planning and control and the clause 9.1 measurement arrangements are operating as planned.** |
-| 28 | 4.7 ⛔ | `3_apply` | medium | occasional | Determine whether the organization has addressed the climate change consideration Amendment 1:2024 adds to clause 4.1. |
+| 28 | 4.7 | `3_apply` | medium | occasional | Determine whether the organization has addressed the climate change consideration Amendment 1:2024 adds to clause 4.1. |
 | 29 | 4.8 | `4_analyze` | **high** | weekly | Identify AI systems and AI-derived assets inside the ISMS scope that the asset inventory has not captured. |
 | 30 | 4.9 | `4_analyze` | medium | occasional | Determine whether an Annex A control still operates as claimed where the process it protects has become non-deterministic. |
 | 31 | 4.10 | `4_analyze` | medium | occasional | Distinguish ISMS conformity from AI management system conformity where the two scopes overlap. |
@@ -244,7 +248,7 @@ this is load-bearing are marked **⚠ ATTR**.
 
 **4.6** · K — clause 6 defines the processes and clause 8 performs them — 6.1.2 defines the risk assessment process, 8.2 performs assessments at planned intervals or on significant change; 6.1.3 defines the treatment process, 8.3 implements the plan; and clause 9.1 requires the organization to determine six things, including **who shall monitor and measure** and **who shall analyse and evaluate**. · S — determine whether described operational evidence shows the planned arrangements actually running. · A — looks for the operation of a plan rather than the existence of one.
 
-**4.7 ⛔** · K — Amendment 1:2024 requires the organization to determine whether **climate change** is a relevant issue, naming it specifically rather than as a general environmental condition, and adds a note at 4.2 that relevant interested parties can have climate-change-related requirements. · S — determine whether a described organization has addressed the requirement and what evidence would show it. · A — checks the named requirement rather than a paraphrase of it.
+**4.7** · K — **ISO/IEC 27001:2022/Amd 1:2024, Climate action changes**, published February 2024, adds exactly two things. To clause 4.1: *"The organization shall determine whether climate change is a relevant issue."* To clause 4.2, as **NOTE 2**: *"Relevant interested parties can have requirements related to climate change."* The amendment is priced at one page and its normative body is those two sentences. **The 4.1 addition is a determination requirement, not a treatment requirement** — *shall determine whether* is satisfied by either answer, so a documented determination that climate change is not relevant is full compliance. The 4.2 addition is a note, and notes are not requirements; the existing note on legal, regulatory and contractual requirements becomes NOTE 1. The term in the standard is **climate change**, not environmental conditions. · S — determine whether a described organization has addressed the requirement and what evidence would show it. · A — checks the named requirement rather than a paraphrase of it.
 
 **4.8** · K — the asset classes an AI system introduces, why they are routinely absent from inventories built before the system arrived, and that Annex A 5.9 requires an inventory of information and other associated assets **including owners**. · S — determine from a described environment which AI-related assets fall inside scope and are unaccounted for. · A — treats an absent asset class as more likely than an absent control.
 
@@ -303,7 +307,7 @@ and omitting the column silently seeds a cert that passes at 70.**
 
 ## 6. CARRIED INTO STAGE 5
 
-1. ⛔ **Amd 1:2024 text** for task 4.7
+1. **`ISMS-F` task 2.3** reads *"the environmental-conditions consideration introduced by Amendment 1:2024"*. The amendment says **climate change**. A live cert teaches the wrong term for a two-sentence amendment
 2. **`ISMS-F` lesson 3.6** — check whether the NOTE 1 / NOTE 3 misnumbering reached the published lesson
 3. **`ISMS-IA_BoK_v1.md`** — §3 Layer 1 to ISO's two-item change list; add ISO/IEC TS 17012:2024; §4 own-work row replaced by 1.3's K field; Layer 6 cites 42001 **Annex D.2 informative**
 4. **`concepts.slug` uniqueness** — one query for `CERT-SCHEMA-GUIDE`; the `ia-` prefix stands either way
