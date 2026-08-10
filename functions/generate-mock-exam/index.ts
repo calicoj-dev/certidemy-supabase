@@ -194,7 +194,10 @@ serve(async (req) => {
       .eq("certification_id", body.certification_id)
       .eq("pool", pool)
       .eq("language", language)
-      .eq("status", "approved");
+      .eq("status", "approved")
+      // Migration 089: retiring removes an item from circulation for future
+      // forms. Its response history is preserved; it is never served again.
+      .is("retired_at", null);
 
     if (mode === "exam") {
       questionQuery = questionQuery.eq("is_exam_scope", true);
