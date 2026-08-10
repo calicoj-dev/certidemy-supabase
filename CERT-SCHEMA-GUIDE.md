@@ -31,6 +31,19 @@ A new cert `X` (uuid `U`, code `CODE`) needs THREE editor-first migrations:
   literal — the object's own `derived_from` says the profile is computed from the
   JTA, and a literal makes that sentence descriptive rather than true.
   Reference: **173** (ISMS-F). 147 (AIHR-I) predates the read-from-view pattern.
+- **`NNN+3_<code>_jta_version.sql`** - the `jta_versions` row. **Required, and
+  `verify-cert` does NOT check for it.** Every exam attempt is stamped with the
+  JTA version in force; without this row an attempt records nothing and the
+  scheme's traceability claim has a hole. SD-AI-I operated without one until the
+  governance dashboard surfaced it on its first day. Project the snapshot from
+  live rows - counts, domains with tasks nested, the whole certification row, and
+  `v_cognitive_profile` - never typed. Reference: **192** (ISMS-IA); 178 (AIMS-F)
+  and 174 (ISMS-F) order tasks by `code` as text, which puts 4.10 ahead of 4.2.
+
+Split the spine migration when it gets large. ISMS-IA used five: cert row, then
+domains/modules/tasks, then concepts and their links together, then blueprint,
+then a verb correction. Concepts and `task_concepts` must stay in ONE migration
+so the reachability graph is never briefly incomplete.
 
 Both are **editor-first** (paste + run in the Supabase SQL editor to affect the
 live DB; commit the file as the versioned record) and **idempotent** (fixed ids +
@@ -133,12 +146,27 @@ certifications (
   max_exam_attempts      integer     NOT NULL  default 6
   attempt_window_months  integer     NOT NULL  default 12
   validity_days          integer     NOT NULL  default 365
+  issuer_id              uuid        NOT NULL                  -- FK -> issuers.id, NO DEFAULT
 )
 ```
 
 **`is_published` no longer exists.** 069 introduced `status`; 069-part-2 dropped
 the boolean. `status` is the sole source of truth. Any migration or script still
 writing `is_published` fails on paste - which is how this section was found stale.
+
+**`issuer_id` is NOT NULL with no default, and it is newer than most of this
+guide.** It arrived with the Open Badges issuer work (migrations 185/186), so
+EVERY scaffold migration written before then omits it and is an unusable
+template for a cert insert. Read the issuer id from the live table and paste it
+as a literal:
+
+```sql
+select id, name from public.issuers order by created_at;
+-- Certidemy: b2b35e1e-fb05-484d-9065-5deeb400492a (verified 2026-08-10)
+```
+
+Omitting it fails the insert, which is the good outcome. The dangerous columns
+are the ones below, which succeed with the wrong value.
 
 **`passing_score_pct` defaults to 70.00, not 80.00.** Every I-tier cert is 80.
 Omitting the column silently seeds a cert that passes at 70, with no error and
@@ -148,7 +176,13 @@ nothing downstream to catch it. **Always write it.**
 `cert_categories.sort_order`, which orders the families themselves. First cert in
 a new family = 1.
 
-**`tier` and `difficulty_level` are distinct.** Both are 1 for an I-tier cert.
+**`tier` and `difficulty_level` are distinct, and `tier` defaults to 1.** Both are
+1 for an I-tier cert. **ISMS-IA (cert #10) is the first Level II and sets both to
+2** - the first time the `tier` default is wrong. Omitting it records a Level II
+credential as Level I with no error. `difficulty_level` is nullable and every
+earlier cert carries 1; because every earlier cert is also tier 1, the two columns
+are perfectly correlated in the data and the convention cannot be read from it.
+Mirror `tier` and write it explicitly.
 
 **`validity_days` is 365 platform-wide** and matches the scheme decision that
 credential validity tracks the content re-review cadence. Write it explicitly so a
@@ -160,8 +194,8 @@ Safe to omit at scaffold (defaults are correct): `price_usd`, `exam_link`,
 
 Upsert by fixed `id` with `on conflict (id) do update set ... updated_at = now()`.
 
-**Reference implementation: migration 171** (`ISMS-F`). It is the current best
-template for a cert row - 084 predates the `is_published` drop.
+**Reference implementation: migration 187** (`ISMS-IA`). It is the current best
+template for a cert row - 171 predates `issuer_id` and 084 predates the `is_published` drop.
 ## 3. `certifications.status` — the lifecycle (from 069)
 
 ```
@@ -192,6 +226,9 @@ domains (certification_id, code, title, description, weight_pct, order_index)
 concepts (certification_id, slug, name, description)
 ```
 - `slug` kebab-case, **unique within the cert**, immutable once published.
+  Constraint is `concepts_certification_id_slug_key UNIQUE (certification_id, slug)`,
+  re-verified 2026-08-10. **Contrast `modules.slug`, which is TABLE-WIDE unique
+  (S6).** Two adjacent tables, opposite rules - do not assume they match.
 - One concept = one teachable/testable idea.
 
 ### tasks  (the KSA-bearing table — do NOT omit knowledge/skills/abilities)
@@ -244,6 +281,23 @@ bloom_level     : '1_remember' | '2_understand' | '3_apply' | '4_analyze' | '5_e
   per_exam/occasional/weekly).
 - I-tier certs stay within `2_understand`/`3_apply`/`4_analyze` (avoid 1_remember
   trivia and 5/6 for an entry tier).
+- **II-tier certs stay within the same ceiling.** `verify-cert` invariant 16 forces
+  `is_exam_scope = false` on a `5_evaluate` task, so a Level II built on Analyze and
+  below needs NO schema change - proven by ISMS-IA, 38 tasks, all exam-scoped.
+  A tier is defined by cognitive demand and item contract, not by reaching for a
+  higher Bloom level.
+- **Sweep both `statement` AND `skills` for create-level verbs.** `verify-cert`
+  checks the statement and NOT the skills field - and skills is generator input.
+  ISMS-IA shipped seven skills fields telling the generator to have a candidate
+  write, design or compose something, none of it scoreable by selected response:
+
+```sql
+select code, statement, skills from public.tasks
+where certification_id = '<U>'
+  and (statement ~* '^(construct|design|compose|write|create|develop|formulate)'
+    or skills     ~* '\m(rewrite|write|design|compose|create|draft|record an)\M');
+-- expect 0 rows
+```
 
 ---
 
@@ -353,6 +407,8 @@ select
   (select count(*) from task_concepts tc join tasks t on t.id=tc.task_id
      where t.certification_id='<U>') as links;                                  -- >= M
 -- modules: select count(*) from modules where certification_id='<U>';          -- 5
+-- jta_versions: select version_string, status from jta_versions
+--   where certification_id='<U>';                                            -- 1, published
 ```
 Expect the JTA's exact task/concept/link totals. AIGRM-I: `1 / 1 / 5 / 49 / 165 / 174`, modules `5`.
 
