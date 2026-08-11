@@ -250,11 +250,13 @@ async function gather() {
   // "Certidemy " brand prefix since the persona line already says "Certidemy".
   const { data: certRow, error: nameErr } = await supabase
     .from("certifications")
-    .select("name")
+    .select("name, tier")
     .eq("id", CERT_ID)
     .maybeSingle();
   if (nameErr) throw new Error(`certifications: ${nameErr.message}`);
   const certName = (certRow?.name || "Scrum certification").replace(/^Certidemy\s+/i, "");
+  // Tier selects the item contract - see L2_CONTRACT in lib/item-pipeline.mjs.
+  const certTier = Number(certRow?.tier ?? 1) || 1;
 
   // Concepts for this cert (id, slug, name, description) - confirmed column
   // concepts.certification_id.
@@ -324,7 +326,7 @@ async function gather() {
     if (r.language in c) c[r.language] += 1;
   }
 
-  return { conceptsByTask, counts, certName, taskById };
+  return { conceptsByTask, counts, certName, certTier, taskById };
 }
 
 // ---------------------------------------------------------------------------
@@ -336,7 +338,7 @@ async function main() {
     `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
   );
 
-  const { conceptsByTask, counts, certName, taskById } = await gather();
+  const { conceptsByTask, counts, certName, certTier, taskById } = await gather();
   console.log(`Generating as: "${certName}" question writer\n`);
 
   // Build the work list: tasks below floor in any language, emptiest first.
@@ -397,6 +399,7 @@ async function main() {
       const enQs = await buildCleanItems({
         callClaude, concepts, k, certName, kind: "practice",
         task: taskById.get(w.taskId) || null,   // the JTA reaches the prompt at last
+        tier: certTier,
         misconceptions, log: (m) => console.log(`    ${m}`),
       });
       if (enQs.length === 0) {

@@ -259,11 +259,15 @@ function translateUser(enQuestions) {
 async function gather() {
   const { data: certRow, error: nameErr } = await supabase
     .from("certifications")
-    .select("name")
+    .select("name, tier")
     .eq("id", CERT_ID)
     .maybeSingle();
   if (nameErr) throw new Error(`certifications: ${nameErr.message}`);
   const certName = (certRow?.name || "Scrum certification").replace(/^Certidemy\s+/i, "");
+  // Tier selects the item contract. Tier 2 items carry four defensible options
+  // with one best; tier 1 carries one correct among three wrong on the merits.
+  // See L2_CONTRACT in lib/item-pipeline.mjs. Defaults to 1 if the column is null.
+  const certTier = Number(certRow?.tier ?? 1) || 1;
 
   const { data: conceptRows, error: cErr } = await supabase
     .from("concepts")
@@ -322,7 +326,7 @@ async function gather() {
     if (r.language in c) c[r.language] += 1;
   }
 
-  return { conceptsByTask, counts, certName, taskById };
+  return { conceptsByTask, counts, certName, certTier, taskById };
 }
 
 // ---------------------------------------------------------------------------
@@ -334,7 +338,7 @@ async function main() {
     `${ONLY_TASK ? `task=${ONLY_TASK} ` : ""}${DRY_RUN ? "[DRY RUN]" : "[LIVE]"}`
   );
 
-  const { conceptsByTask, counts, certName, taskById } = await gather();
+  const { conceptsByTask, counts, certName, certTier, taskById } = await gather();
   CERT_NAME = certName; // tier profile (difficulty + bloom) keys off this
   console.log(`Generating as: "${certName}" exam writer\n`);
 
@@ -396,6 +400,7 @@ async function main() {
       // Stages 2-4: draft -> hostile critique-and-revise -> guards + position shuffle.
       const enQs = await buildCleanItems({
         callClaude, concepts, k, certName, kind: "secure", task: taskById.get(w.taskId) || null,
+        tier: certTier,
         misconceptions, log: (m) => console.log(`    ${m}`),
       });
       if (enQs.length === 0) {

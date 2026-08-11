@@ -70,6 +70,36 @@ standard, framework, or named body of knowledge:
     makes a good distractor. The KEY and the EXPLANATION must never contain
     one.`;
 
+export const L2_CONTRACT = `LEVEL II ITEM CONTRACT - this task is tier 2. It REPLACES the
+single-defensible-answer rule above.
+
+  - FOUR options, ALL of them defensible on the facts given. One is BEST.
+  - The best answer must be better than the second-best for a reason a competent
+    practitioner could state in ONE SENTENCE. If you cannot write that sentence,
+    the item is a coin flip between two good answers and must be rewritten.
+  - The second-best must be GENUINELY DEFENSIBLE, not merely wrong. An item whose
+    second choice is incorrect is a Level I item in the wrong bank. Ask of it:
+    would a competent practitioner who chose this be making a defensible call, or
+    a mistake? It must be the former.
+  - The two remaining options are also defensible positions - narrower, or resting
+    on a premise the scenario undercuts, or correct in a neighbouring situation.
+    None is a throwaway.
+  - WHAT SEPARATES THEM is qualification, scope, or what the evidence actually
+    supports - not one option being right and three wrong. Typical shapes:
+      * the best answer states what the evidence establishes; the second states
+        slightly more than it establishes;
+      * the best answer names the requirement that actually applies; the second
+        names a real requirement that applies to a neighbouring situation;
+      * the best answer is bounded by a condition the scenario supplies; the
+        second omits the condition and is right only when it happens to hold.
+  - THE BEST ANSWER MAY THEREFORE BE LONGER, because a qualifying clause is often
+    exactly what makes it best. Do not pad the others to match, and do not strip
+    the qualification to shorten it. Match them in SUBSTANCE: every option carries
+    its own reasoning, so no option is thin.
+  - The explanation must say why the best answer is better THAN THE SECOND-BEST
+    specifically, naming both by their content. "The others are wrong" is not an
+    acceptable explanation at this tier, because they are not wrong.`
+
 // ---------------------------------------------------------------------------
 // Shared grounding + the canonical English validator (moved here from the
 // generators so there is one definition).
@@ -88,6 +118,33 @@ import { difficultyLineFor } from "./item-profile.mjs";
 // a TASK at the cognitive level the JTA declares for it - not to cover a bag of
 // concepts at a difficulty level someone invented. See ./item-task-context.mjs.
 import { taskBlock, bloomDirective } from "./item-task-context.mjs";
+
+/**
+ * Does THIS task get the Level II item contract?
+ *
+ * Tier alone is too broad. ISMS-IA is tier 2, but 13 of its 38 tasks sit at
+ * 2_understand or 3_apply, and there the four-defensible contract is dishonest.
+ * A dry run on task 5.3 - "select the nonconformity statement that correctly
+ * links evidence to requirement" - showed it plainly: the wrong options prescribe
+ * a remedy, attribute intent, or substitute consequence for evidence. Those are
+ * real auditor errors and excellent distractors, but they are NOT defensible
+ * calls. A competent auditor does not write "the procurement team disregarded
+ * supplier policy". That task has one right answer by construction.
+ *
+ * The contract belongs where the candidate WEIGHS things: analyze-level tasks,
+ * where two principles pull against each other or the evidence supports one
+ * conclusion better than another. Verified on task 1.2, which produced four
+ * options each naming a real tension, with a best answer beatable in one
+ * sentence.
+ *
+ * Bloom alone would be too broad the other way: nine tier-1 certs hold 37
+ * 4_analyze tasks between them, and switching their contract would leave their
+ * banks internally inconsistent - old items one-right-three-wrong, new items
+ * four-defensible. Both conditions, therefore.
+ */
+function isL2(task, tier) {
+  return Number(tier) >= 2 && String(task?.bloom_level || "") === "4_analyze";
+}
 
 export function validateEnglish(q) {
   if (!q || typeof q !== "object") return false;
@@ -173,14 +230,17 @@ List the real misconceptions now as a JSON array of strings.`;
 // Stage 2 - draft items whose distractors map to real misconceptions and whose
 // options are parallel in structure / specificity / length.
 // ---------------------------------------------------------------------------
-function draftSystem(kind, certName, task = null) {
+function draftSystem(kind, certName, task = null, tier = 1) {
+  const l2 = isL2(task, tier);
   return `${personaLine(kind, certName)}
 
 Strict requirements for every question:
-  - question_type is ONLY "single_choice" or "true_false". Never more than one
-    correct answer. Prefer single_choice with 4 options for assessable depth.
-  - Exactly ONE defensibly correct answer. There must be no second option a
-    knowledgeable person could argue for.
+  - ${l2 ? `question_type is ONLY "single_choice", with FOUR options. A two-option
+    true/false item is a coin flip - a candidate who knows nothing scores 50% -
+    and is never acceptable at this tier.` : `question_type is ONLY "single_choice" or "true_false". Never more than one
+    correct answer. Prefer single_choice with 4 options for assessable depth.`}
+  - ${l2 ? "The LEVEL II ITEM CONTRACT at the end of this prompt governs how many options are defensible - read it before writing." : `Exactly ONE defensibly correct answer. There must be no second option a
+    knowledgeable person could argue for.`}
   - DISTRACTOR QUALITY IS THE PRIORITY. Each of the 3 distractors must be built on
     a DISTINCT, real misconception - a wrong mental model a candidate actually
     holds - drawn from the provided misconception list (or an equally specific one
@@ -212,6 +272,7 @@ The correct answer must
   - ${bloomDirective(task, kind, difficultyLineFor(kind, certName))}
   - ${groundingFor(certName)}
 ${CUE_NEUTRALITY_RULES}
+${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;
 }
@@ -236,7 +297,8 @@ JSON array now.`;
 // ---------------------------------------------------------------------------
 // Stage 3 - hostile critique-and-revise. Returns a revised item array.
 // ---------------------------------------------------------------------------
-function critiqueSystem(certName) {
+function critiqueSystem(certName, tier = 1, task = null) {
+  const l2 = isL2(task, tier);
   return `You are a hostile, expert item reviewer for Certidemy (${certName}), enforcing
 professional multiple-choice item-writing standards. For EACH item you receive,
 check for these flaws and FIX them:
@@ -252,8 +314,16 @@ the competence, and should be rejected outright.
 The answer must be findable
      ONLY by knowing the content. Rewrite so all four options are parallel in
      length, specificity, and tone.
-  2. MULTIPLE DEFENSIBLE ANSWERS: if more than one option could be argued correct,
-     tighten the stem or the options so exactly one is defensible.
+  2. ${l2 ? `DEFENSIBILITY SPREAD (tier 2, analyze-level): every option must be defensible and ONE must be
+     best. Two flaws, opposite directions. (a) An option that is simply wrong - a
+     throwaway a competent practitioner would never choose - must be replaced with
+     a defensible position: narrower, or resting on a premise the scenario
+     undercuts, or right in a neighbouring situation. (b) If the best and
+     second-best are equally good the item is a coin flip: sharpen the stem or the
+     qualification until one is better, and be able to say why in one sentence. Do
+     NOT "fix" this by making three options wrong - that converts a Level II item
+     to Level I and destroys what it tests.` : `MULTIPLE DEFENSIBLE ANSWERS: if more than one option could be argued correct,
+     tighten the stem or the options so exactly one is defensible.`}
   3. WEAK DISTRACTORS: any distractor that is obviously wrong, throwaway, or not a
      real misconception must be replaced with a genuine, specific misconception
      that a real candidate would hold.
@@ -274,6 +344,7 @@ The answer must be findable
      Attribute it to practice or cut it. A DISTRACTOR built on a false
      attribution is legitimate and should be kept.
 
+${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Preserve each item's tested concept and the MEANING of its correct answer. Keep
 the same number of options. If an item is unsalvageable, set "reject": true.
 
@@ -321,10 +392,10 @@ function coerceCritique(raw, n, log) {
   return null;
 }
 
-export async function critiqueAndRevise({ callClaude, items, certName, log = () => {} }) {
+export async function critiqueAndRevise({ callClaude, items, certName, tier = 1, task = null, log = () => {} }) {
   if (!items.length) return [];
   try {
-    const raw = await callClaude({ system: critiqueSystem(certName), user: critiqueUser(items), maxTokens: 12000 });
+    const raw = await callClaude({ system: critiqueSystem(certName, tier, task), user: critiqueUser(items), maxTokens: 12000 });
     const coerced = coerceCritique(raw, items.length, log);
     if (coerced && coerced.length) return coerced;
     log("critique returned nothing usable; dropping this round for re-draft");
@@ -341,14 +412,18 @@ export async function critiqueAndRevise({ callClaude, items, certName, log = () 
 // developed than the distractors) rather than padding. Returns a fixed item or
 // null. Only invoked on items that fail the length parity gate.
 // ---------------------------------------------------------------------------
-function normalizeSystem(certName) {
+function normalizeSystem(certName, tier = 1, task = null) {
+  const l2 = isL2(task, tier);
   return `You are an expert assessment editor for Certidemy (${certName}). You receive ONE
 multiple-choice item whose options are uneven in length or development - typically
 the correct answer is written more fully than the distractors, which is an answer
 cue a test-wise candidate can exploit. Rewrite the OPTION TEXTS so that:
   - all four options are closely matched in length and depth of development;
-  - the correct answer is NOT the longest option, and at least one DISTRACTOR is
-    as fully developed as the correct answer;
+  - ${l2 ? `the correct answer MAY be the longest: at tier 2 a qualifying clause is often
+    exactly what makes it best, so do NOT strip qualification to shorten it. Match
+    the options in SUBSTANCE instead - every option must carry its own reasoning
+    so none is thin;` : `the correct answer is NOT the longest option, and at least one DISTRACTOR is
+    as fully developed as the correct answer;`}
   - every option keeps its original MEANING and the SAME option remains correct;
   - distractors stay genuine, specific misconceptions - do NOT weaken them into
     obviously-wrong throwaways just to match length.
@@ -361,7 +436,7 @@ Return a JSON array containing the SINGLE revised item:
 NO prose, NO markdown fences.`;
 }
 
-async function normalizeOptions({ callClaude, item, certName, log = () => {} }) {
+async function normalizeOptions({ callClaude, item, certName, tier = 1, task = null, log = () => {} }) {
   try {
     const raw = await callClaude({
       system: normalizeSystem(certName),
@@ -381,11 +456,11 @@ async function normalizeOptions({ callClaude, item, certName, log = () => {} }) 
 // Orchestrator - draft -> critique -> parity gate (normalize-or-drop) -> shuffle.
 // Returns clean, cue-neutral English items ready for translation.
 // ---------------------------------------------------------------------------
-export async function buildCleanItems({ callClaude, concepts, k, certName, kind, task = null, misconceptions = [], log = () => {} }) {
+export async function buildCleanItems({ callClaude, concepts, k, certName, kind, task = null, tier = 1, misconceptions = [], log = () => {} }) {
   // Stage 2: draft
   let drafts;
   try {
-    drafts = await callClaude({ system: draftSystem(kind, certName, task), user: draftUser(concepts, misconceptions, k, task) });
+    drafts = await callClaude({ system: draftSystem(kind, certName, task, tier), user: draftUser(concepts, misconceptions, k, task) });
   } catch (e) {
     log(`draft failed: ${e.message}`);
     return [];
@@ -394,7 +469,7 @@ export async function buildCleanItems({ callClaude, concepts, k, certName, kind,
   if (!drafts.length) { log("no valid drafts this round"); return []; }
 
   // Stage 3: hostile critique-and-revise
-  const revised = await critiqueAndRevise({ callClaude, items: drafts, certName, log });
+  const revised = await critiqueAndRevise({ callClaude, items: drafts, certName, tier, task, log });
   const reviewed = (Array.isArray(revised) ? revised : []).filter(validateEnglish);
   if (!reviewed.length) { log("no items survived critique this round"); return []; }
 
@@ -406,7 +481,7 @@ export async function buildCleanItems({ callClaude, concepts, k, certName, kind,
     // Length/parity failures get one repair attempt; absolute-word tells are
     // dropped (they regenerate next round - normalization is for length, not tone).
     if (!a.ok && /length|dominates|spread/i.test(a.reason)) {
-      const fixed = await normalizeOptions({ callClaude, item, certName, log });
+      const fixed = await normalizeOptions({ callClaude, item, certName, tier, task, log });
       if (fixed) {
         const a2 = auditItem(fixed);
         if (a2.ok) { item = fixed; a = a2; log("normalized: evened option lengths"); }
