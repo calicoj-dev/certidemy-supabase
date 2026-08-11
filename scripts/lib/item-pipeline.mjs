@@ -440,6 +440,18 @@ The answer must be findable
      Attribute it to practice or cut it. A DISTRACTOR built on a false
      attribution is legitimate and should be kept.
 
+     JUDGE AGAINST THE EDITION SET BELOW, NOT AGAINST YOUR OWN RECOLLECTION.
+     You are reviewing items for a scheme whose source documents have been read
+     directly and are stated here. On a live run this reviewer rejected a
+     correct item with "FALSE ATTRIBUTION: ISO 19011:2026 does not exist; the
+     current edition is ISO 19011:2018" - confidently, and wrongly. The fourth
+     edition was published in 2026. A reviewer that overrules the scheme from
+     memory discards correct work and is worse than no reviewer at all. Where an
+     item cites an edition or a clause the block below names, it is right and
+     you must not "correct" it.
+
+${groundingFor(certName)}
+
 ${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Preserve each item's tested concept and the MEANING of its correct answer. Keep
 the same number of options. If an item is unsalvageable, set "reject": true.
