@@ -53,6 +53,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
 import { bloomForTask } from "./lib/item-task-context.mjs";
+import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
 // Load a local .env (KEY=VALUE per line) sitting next to this script, so the

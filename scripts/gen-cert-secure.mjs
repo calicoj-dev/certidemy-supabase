@@ -61,6 +61,7 @@ import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
 import { bloomForCert } from "./lib/item-profile.mjs";
 import { bloomForTask } from "./lib/item-task-context.mjs";
+import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
 // Local .env loader (KEY=VALUE), real process env wins over the file.
