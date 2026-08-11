@@ -391,6 +391,36 @@ function pickAcrossTasksBalanced(
 ): QuestionRow[] {
   if (pool.length === 0 || quota === 0) return [];
 
+  // ONE VARIANT PER STEM.
+  //
+  // The bank legitimately holds several items with the same stem and different
+  // options - "who are the Developers on a Scrum Team?" appears twice in
+  // SM-AI-I's secure English pool with entirely different distractors and
+  // different keys. Both are valid items and neither should be retired.
+  //
+  // What must never happen is BOTH reaching one form. A candidate would answer
+  // the same question twice with different options, which is confusing and
+  // wastes a slot the blueprint allocated to measuring something.
+  //
+  // `chosen` upstream dedupes on id, which does not catch this: variants are
+  // different rows. Dedupe here, BEFORE the task grouping, so the round-robin
+  // and the difficulty balancer both see a clean pool and the domain quota is
+  // still met. Filtering after selection would leave the quota short and trip
+  // the integrity gate at step 8.
+  //
+  // Shuffled first so it is not always the same variant that survives.
+  const stemShuffled = [...pool];
+  shuffle(stemShuffled);
+  const seenStem = new Set<string>();
+  const deduped: QuestionRow[] = [];
+  for (const q of stemShuffled) {
+    const stem = (q.question_text ?? "").trim().slice(0, 160);
+    if (seenStem.has(stem)) continue;
+    seenStem.add(stem);
+    deduped.push(q);
+  }
+  pool = deduped;
+
   // Group by task, shuffle within each, then round-robin across tasks so a
   // single over-represented task (e.g. 3.9) can't dominate the domain.
   const byTask = new Map<string, QuestionRow[]>();
