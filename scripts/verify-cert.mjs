@@ -154,7 +154,7 @@ async function verify(cert) {
   // tests its task at the level the JTA declares. The data was always there.
   const [{ data: domains }, { data: tasks }, { data: concepts }, { data: modules }, { data: profileRows }] = await Promise.all([
     db.from("domains").select("id, code, weight_pct, order_index").eq("certification_id", id).order("order_index"),
-    db.from("tasks").select("id, code, domain_id, is_exam_scope, is_simulation_candidate, bloom_level, statement, order_index").eq("certification_id", id),
+    db.from("tasks").select("id, code, domain_id, is_exam_scope, is_simulation_candidate, bloom_level, statement, skills, order_index").eq("certification_id", id),
     db.from("concepts").select("id, slug").eq("certification_id", id),
     db.from("modules").select("id, slug, order_index").eq("certification_id", id),
     db.from("v_cognitive_profile").select("bloom_level, tasks, pct_of_form").eq("certification_id", id),
@@ -212,6 +212,7 @@ async function verify(cert) {
   }
 
   const { data: cov } = await db.from("v_coverage_summary").select("*").eq("certification_id", id).maybeSingle();
+  const { data: jtaRows } = await db.from("jta_versions").select("version_string, status").eq("certification_id", id);
 
   // === 1. SCAFFOLD INTEGRITY ================================================
   const wsum = (domains ?? []).reduce((s, d) => s + Number(d.weight_pct), 0);
@@ -874,6 +875,167 @@ async function verify(cert) {
   else dmBad.length === 0
     ? R.pass("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmCount} widgets, all n->n, no allowReuse`)
     : R.fail("widget.dragmatch", "§11", "drag-match widgets are strictly 1:1", `${dmBad.length} of ${dmCount} are many-to-few (coin-flip sorting, not assessment)`, dmBad);
+
+  // === 19. OPTION FLOOR =====================================================
+  // A two-option item is a coin flip: a candidate who knows nothing scores 50%.
+  // 79 groups across 8 certs shipped this way, and nothing detected them -
+  // because the answer-position guard at §8.1 filters to items with three or
+  // more options. The items most vulnerable to position cueing were exactly the
+  // ones it could not see. A structural check that skips the rows most likely to
+  // be defective is worse than no check: it reports a pass.
+  //
+  // FAIL on secure, WARN on practice. A coin flip inside a live exam is a
+  // validity failure. The same item in a practice quiz is a quality problem.
+  {
+    const thin = questions.filter((q) => !Array.isArray(q.options) || q.options.length < 4);
+    const thinSecure = thin.filter((q) => q.pool === "secure");
+    const thinPractice = thin.filter((q) => q.pool !== "secure");
+    const ev = (rows) => rows.slice(0, 8).map((q) => `${q.language}/${(q.question_text || "").slice(0, 60)} (${(q.options || []).length} opts)`);
+    if (thinSecure.length > 0)
+      R.fail("items.optionfloor", "§8.1", "Every secure item offers at least four options",
+        `${thinSecure.length} item(s) below four - a guesser scores 50% on a two-option item`, ev(thinSecure));
+    else if (thinPractice.length > 0)
+      R.warn("items.optionfloor", "§8.1", "Every item offers at least four options",
+        `${thinPractice.length} practice item(s) below four`, ev(thinPractice));
+    else
+      R.pass("items.optionfloor", "§8.1", "Every item offers at least four options", `${questions.length} items`);
+  }
+
+  // === 20. NO UNGROUPED ITEMS ===============================================
+  // question_group_id ties an item to its siblings in the other two languages.
+  // An item without one is invisible to the language-completeness check at §8,
+  // because that check GROUPS BY the column it lacks. 20 such items sat in
+  // AIE-I, es-419 only, never verified for language completeness and never
+  // going to be.
+  {
+    const orphans = questions.filter((q) => !q.question_group_id);
+    orphans.length === 0
+      ? R.pass("items.grouped", "§8", "Every item belongs to a question group", `${questions.length} items`)
+      : R.fail("items.grouped", "§8", "Every item belongs to a question group",
+          `${orphans.length} ungrouped - invisible to the 3-language check, which groups by this column`,
+          orphans.slice(0, 8).map((q) => `${q.language}/${q.pool}/${(q.question_text || "").slice(0, 60)}`));
+  }
+
+  // === 21. NO DUPLICATE STEMS ===============================================
+  // Two items with identical text can both be drawn into one session, so a
+  // learner answers the same question twice. Found in AIE-I among the ungrouped
+  // set. Compared within (language, pool) - the same stem in en and es-419 is a
+  // translation, not a duplicate.
+  {
+    const seen = new Map();
+    for (const q of questions) {
+      const k = `${q.language}\u0000${q.pool}\u0000${(q.question_text || "").trim().slice(0, 160)}`;
+      seen.set(k, (seen.get(k) ?? 0) + 1);
+    }
+    const dups = [...seen.entries()].filter(([, n]) => n > 1);
+    dups.length === 0
+      ? R.pass("items.nodupes", "§8", "No duplicate item stems within a language and pool", `${questions.length} items`)
+      : R.fail("items.nodupes", "§8", "No duplicate item stems within a language and pool",
+          `${dups.length} stem(s) appear more than once - a learner can draw both in one session`,
+          dups.slice(0, 6).map(([k, n]) => `x${n} ${k.split("\u0000")[0]}/${k.split("\u0000")[2].slice(0, 60)}`));
+  }
+
+  // === 22. THE JTA IS PUBLISHED =============================================
+  // The scheme of record. Ten certs each discovered this was missing
+  // independently, because nothing checked and CERT-PUBLISH-CHECKLIST has no
+  // step for it. A cert whose JTA exists only as a markdown file in a repo
+  // cannot show an assessor what its exam claims to measure.
+  {
+    const published = (jtaRows ?? []).filter((r) => (r.status || "").toLowerCase() === "published");
+    published.length > 0
+      ? R.pass("jta.published", "§5", "Certification holds a published JTA version",
+          published.map((r) => r.version_string).join(", "))
+      : R.fail("jta.published", "§5", "Certification holds a published JTA version",
+          (jtaRows ?? []).length === 0 ? "no jta_versions row at all" : `${jtaRows.length} row(s), none published`);
+  }
+
+  // === 23. NO CREATE-VERB IN THE SKILLS FIELD ===============================
+  // §15c checks the STATEMENT's verb. Nothing ever read `skills`, and it is the
+  // field the item generator actually consumes. 13 tasks across 6 certs open it
+  // with a generative verb - five of them contradicting their own statement in
+  // the same row, because the statement was corrected when §15c landed and the
+  // skills line never was.
+  //
+  // Leading position only. "privacy-by-design measure" and "an assessment
+  // design" are correct English and fired a naive word-anywhere match on four
+  // certs. A warning that fires on the correct state teaches people to ignore
+  // warnings.
+  {
+    const CREATE_LEAD = /^\s*(rewrite|write|design|compose|create|draft|develop|formulate|produce|build|construct|assemble)\b/i;
+    const bad = (tasks ?? []).filter((t) => CREATE_LEAD.test(t.skills || ""));
+    bad.length === 0
+      ? R.pass("jta.skillsverb", "§9", "No skills field opens with a create-level verb", `${(tasks ?? []).length} tasks`)
+      : R.warn("jta.skillsverb", "§9", "No skills field opens with a create-level verb",
+          `${bad.length} task(s) name a competence no selected-response item can assess - check each against its statement`,
+          bad.slice(0, 8).map((t) => `${t.code}: "${(t.skills || "").slice(0, 70)}"`));
+  }
+
+  // === 24. WIDGET CONFIG MATCHES ITS COMPONENT ==============================
+  // Nothing verified that a widget's JSON is the shape the component reads.
+  // AIMS-F shipped 36 widgets on shapes no renderer understands: eleven
+  // scenario-mcq with no `steps` (single MCQs written into a branching-scenario
+  // widget), five highlight-mistake using prompt/options, four sort-into-order
+  // using `correct` instead of `correct_order`. All rendered as dead text or
+  // nothing at all, in three languages, in a published cert.
+  //
+  // The shapes below are read from components/lessons/widgets/*.tsx, which are
+  // authoritative. LESSON_AUTHORING_SPEC is incomplete - the highlight-mistake
+  // component cites a spec section that does not exist.
+  {
+    const REQUIRED = {
+      "drag-match":        ["items", "targets", "correct"],
+      "sort-into-order":   ["items", "correct_order"],
+      "highlight-mistake": ["scenario_title", "text", "highlights"],
+      "scenario-mcq":      ["scenario_title", "steps"],
+      "toggle-and-observe":["toggles"],
+    };
+    const broken = [];
+    for (const l of lessons) {
+      const re = /::interactive\s+widget="([a-z-]+)"[^\n]*\n([\s\S]*?)\n::/g;
+      let m;
+      while ((m = re.exec(l.content_md || "")) !== null) {
+        const kind = m[1];
+        const need = REQUIRED[kind];
+        if (!need) continue;
+        let cfg;
+        try { cfg = JSON.parse(m[2]); }
+        catch { broken.push(`${l.language}/${l.slug} ${kind}: config is not valid JSON`); continue; }
+        const missing = need.filter((k) => cfg[k] === undefined);
+        if (missing.length) broken.push(`${l.language}/${l.slug} ${kind}: missing ${missing.join(", ")}`);
+      }
+    }
+    broken.length === 0
+      ? R.pass("lesson.widgetshape", "§11", "Widget config matches the shape its component reads", `${lessons.length} lesson rows scanned`)
+      : R.fail("lesson.widgetshape", "§11", "Widget config matches the shape its component reads",
+          `${broken.length} widget(s) the renderer cannot read - they show as dead text`, broken.slice(0, 8));
+  }
+
+  // === 25. HIGHLIGHT-MISTAKE SPANS RESOLVE ==================================
+  // The component slices `text` looking for each `span` as a literal substring.
+  // A span that is not present is simply never clickable, and nothing says so -
+  // the widget renders, it just cannot be completed. A translator who rewords
+  // the passage without rewording the spans breaks it silently, and the
+  // translator's own structural validator will not catch it: both fields are
+  // strings, so the JSON shape is unchanged.
+  {
+    const broken = [];
+    for (const l of lessons) {
+      const re = /::interactive\s+widget="highlight-mistake"[^\n]*\n([\s\S]*?)\n::/g;
+      let m;
+      while ((m = re.exec(l.content_md || "")) !== null) {
+        let cfg;
+        try { cfg = JSON.parse(m[1]); } catch { continue; }   // §24 reports the parse failure
+        for (const h of cfg.highlights ?? []) {
+          if (typeof cfg.text !== "string" || typeof h.span !== "string") continue;
+          if (!cfg.text.includes(h.span)) broken.push(`${l.language}/${l.slug}: "${h.span.slice(0, 50)}"`);
+        }
+      }
+    }
+    broken.length === 0
+      ? R.pass("lesson.spansresolve", "§11", "Every highlight-mistake span appears in its own text", `${lessons.length} lesson rows scanned`)
+      : R.fail("lesson.spansresolve", "§11", "Every highlight-mistake span appears in its own text",
+          `${broken.length} span(s) are not substrings of the passage - those are not clickable`, broken.slice(0, 8));
+  }
 
   return R;
 }
