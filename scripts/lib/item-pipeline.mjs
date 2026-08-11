@@ -146,7 +146,7 @@ function isL2(task, tier) {
   return Number(tier) >= 2 && String(task?.bloom_level || "") === "4_analyze";
 }
 
-export function validateEnglish(q) {
+export function validateEnglish(q, tier = 1, task = null) {
   if (!q || typeof q !== "object") return false;
   if (typeof q.question_text !== "string" || q.question_text.length < 10) return false;
   if (!["single_choice", "true_false"].includes(q.question_type)) return false;
@@ -156,16 +156,108 @@ export function validateEnglish(q) {
   if (ids.size !== q.options.length) return false;
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
   if (!q.correct_answer.every((id) => ids.has(id))) return false;
+  // DIFFICULTY IS REPAIRABLE METADATA, NOT A VALIDITY CONDITION.
+  //
+  // Instrumenting the draft filter showed roughly 9 of 22 rejects on ISMS-IA task
+  // 1.2 were items with sound stems and options comfortably inside the ceiling,
+  // discarded solely because the model omitted "difficulty". Every other field was
+  // present and well-formed. Throwing away a defensible analyze-level item over a
+  // missing integer is pure waste: the field is a dial for form assembly, not a
+  // property that makes the item right or wrong.
+  //
+  // So repair it in place. 3 is the middle of the 1-5 range and the modal value the
+  // generators actually produce; a mis-set difficulty costs a slightly off-target
+  // difficulty mix, while a rejected item costs a whole generation round.
+  //
+  // Out-of-RANGE difficulty is still a rejection - that is the model asserting
+  // something wrong rather than omitting something.
+  if (q.difficulty === undefined || q.difficulty === null) q.difficulty = 3;
   if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return false;
   if (typeof q.explanation !== "string" || q.explanation.length < 5) return false;
 
   // LENGTH CEILING. The prompt asks; this enforces. An item that cannot be read inside
   // the exam's per-item budget measures reading speed, not competence - and measures it
   // most harshly in es-419 and pt-BR, which run 15-25% longer for identical content.
+  //
+  // THE CEILING IS PER TIER, and it has to be. A Level II option names two positions
+  // and what separates them. "Independence against due professional care: independence
+  // requires distance from the audited activity, yet due professional care requires the
+  // competence only this person holds" is 25 words for the SHORTEST honest version of
+  // that option - and it has not yet said why the alternative is weaker.
+  //
+  // Under the Level I ceiling, six consecutive live runs on ISMS-IA task 1.2 produced
+  // five usable items and reported "no valid drafts this round" fifteen times. The
+  // drafts were dying HERE, before critique or the cue guard ever saw them, because the
+  // contract asks for reasoning the ceiling forbids. The survivors were the ones that
+  // squeaked under - which selects for thin options, the exact shape Level II exists to
+  // avoid.
+  //
+  // The reading-time argument survives the change; it is a budget, not a bound. Four
+  // 45-word options and a 90-word stem is roughly 90 seconds of reading before any
+  // thinking, so a 60-item Level II form needs about 150 minutes rather than 90. That
+  // is a scheme decision with a stated reason - comparing two defensible positions IS
+  // the competence being measured - not a number to preserve by discarding good items.
+  const l2 = isL2(task, tier);
   const words = (s) => String(s || "").trim().split(/\s+/).filter(Boolean).length;
-  if (words(q.question_text) > 60) return false;
-  if ((q.options || []).some((o) => words(o.text) > 25)) return false;
+  if (words(q.question_text) > (l2 ? 90 : 60)) return false;
+  if ((q.options || []).some((o) => words(o.text) > (l2 ? 45 : 25))) return false;
   return true;
+}
+
+/**
+ * Why did this draft fail validation? Returns null if it passed.
+ *
+ * Exists so the orchestrator can ROUTE rather than discard. An item whose only
+ * fault is an over-length option is repairable - normalizeOptions was written to
+ * shorten options while preserving meaning - but it sat downstream of the gate
+ * that made it necessary, reachable only from the stage-4 cue guard. So the
+ * pipeline had two length checks with opposite consequences: the character-based
+ * cue guard repaired, and the word-based ceiling destroyed.
+ *
+ * Measured on ISMS-IA task 1.2: items lost to options at 46, 46 and 49 words
+ * against a 45 ceiling. One word over, whole item gone, three good distractors
+ * with it.
+ *
+ * Only "option-length" is routable. Everything else here is a structural fault
+ * normalizeOptions does not repair and must not be asked to.
+ */
+export function validationFault(q, tier = 1, task = null) {
+  if (!q || typeof q !== "object") return "shape";
+  if (typeof q.question_text !== "string" || q.question_text.length < 10) return "stem-missing";
+  if (!["single_choice", "true_false"].includes(q.question_type)) return "type";
+  if (!Array.isArray(q.options) || q.options.length < 2) return "options-missing";
+  if (!q.options.every((o) => o && typeof o.id === "string" && typeof o.text === "string")) return "option-shape";
+  if (new Set(q.options.map((o) => o.id)).size !== q.options.length) return "duplicate-ids";
+  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return "key-count";
+  if (!q.correct_answer.every((id) => new Set(q.options.map((o) => o.id)).has(id))) return "key-unresolved";
+  if (q.difficulty === undefined || q.difficulty === null) q.difficulty = 3;
+  if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return "difficulty-range";
+  if (typeof q.explanation !== "string" || q.explanation.length < 5) return "explanation";
+  const l2 = isL2(task, tier);
+  const words = (s) => String(s || "").trim().split(/\s+/).filter(Boolean).length;
+  // Stem length is NOT routable: normalizeOptions leaves the stem alone by design.
+  if (words(q.question_text) > (l2 ? 90 : 60)) return "stem-length";
+  if ((q.options || []).some((o) => words(o.text) > (l2 ? 45 : 25))) return "option-length";
+  return null;
+}
+
+/**
+ * Repair-or-drop. An item failing ONLY on option length gets one normalization
+ * pass - the same repair the cue guard already gets - before being discarded.
+ * normalizeOptions re-validates its own output, so a repair that is still over
+ * length returns null and the item drops as before. No loop.
+ */
+async function keepOrRepair({ callClaude, items, certName, tier, task, log, stage }) {
+  const out = [];
+  for (const q of items || []) {
+    const fault = validationFault(q, tier, task);
+    if (!fault) { out.push(q); continue; }
+    if (fault !== "option-length") { log(`  drop (${stage}): ${fault}`); continue; }
+    const fixed = await normalizeOptions({ callClaude, item: q, certName, tier, task, log });
+    if (fixed) { out.push(fixed); log(`  repaired (${stage}): option over length, shortened`); }
+    else { log(`  drop (${stage}): option-length, repair failed`); }
+  }
+  return out;
 }
 
 // Difficulty guidance is resolved PER CERT TIER - see ./item-profile.mjs.
@@ -252,8 +344,12 @@ Strict requirements for every question:
 ${ATTRIBUTION_RULES}
 
 LENGTH CEILING - a hard limit, not a style preference:
-  * The stem is at most 60 WORDS.
-  * EACH option is at most 25 WORDS.
+  * The stem is at most ${l2 ? "90" : "60"} WORDS.
+  * EACH option is at most ${l2 ? "45" : "25"} WORDS.${l2 ? `
+    At this tier an option must name its position AND what makes it weaker or
+    stronger than the alternative. That does not fit in 25 words. Use the room to
+    carry reasoning, not to pad - an option that reaches 45 words by restating the
+    stem is worse than one that says its piece in 30.` : ""}
 An exam that cannot be READ in the time allowed measures reading speed, not competence -
 and it penalises the Spanish and Portuguese versions hardest, since they run 15-25% longer
 than English for the same content. Keep every option's "X, because Y" rationale - that is
@@ -306,7 +402,7 @@ check for these flaws and FIX them:
      more "reasonable/balanced-sounding" than the distractors; or the distractors
      cluster absolute words (always/never/must/only).
 
-REJECT any item whose stem exceeds 60 words, or any option exceeding 25 words. Do not
+REJECT any item whose stem exceeds ${l2 ? "90" : "60"} words, or any option exceeding ${l2 ? "45" : "25"} words. Do not
 merely flag it - rewrite it inside the ceiling, preserving the reasoning in each option.
 If an item cannot be said inside the ceiling, it is testing reading stamina rather than
 the competence, and should be rejected outright.
@@ -445,7 +541,7 @@ async function normalizeOptions({ callClaude, item, certName, tier = 1, task = n
     });
     const arr = Array.isArray(raw) ? raw : [];
     const fixed = arr[0];
-    return fixed && validateEnglish(fixed) ? fixed : null;
+    return fixed && validateEnglish(fixed, tier, task) ? fixed : null;
   } catch (e) {
     log(`normalize failed: ${e.message}`);
     return null;
@@ -465,12 +561,16 @@ export async function buildCleanItems({ callClaude, concepts, k, certName, kind,
     log(`draft failed: ${e.message}`);
     return [];
   }
-  drafts = (Array.isArray(drafts) ? drafts : []).filter(validateEnglish);
+  const rawCount = Array.isArray(drafts) ? drafts.length : -1;
+  drafts = await keepOrRepair({ callClaude, items: drafts, certName, tier, task, log, stage: "draft" });
+  log(`  drafts: ${rawCount} returned, ${drafts.length} kept`);
   if (!drafts.length) { log("no valid drafts this round"); return []; }
 
   // Stage 3: hostile critique-and-revise
   const revised = await critiqueAndRevise({ callClaude, items: drafts, certName, tier, task, log });
-  const reviewed = (Array.isArray(revised) ? revised : []).filter(validateEnglish);
+  // The hostile reviewer is told to rewrite inside the ceiling. When its rewrite
+  // lands a word over, its work was being thrown away too - same gate, same fix.
+  const reviewed = await keepOrRepair({ callClaude, items: revised, certName, tier, task, log, stage: "critique" });
   if (!reviewed.length) { log("no items survived critique this round"); return []; }
 
   // Stage 4: parity gate -> normalize-or-drop -> position de-bias.
