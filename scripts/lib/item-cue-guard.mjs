@@ -104,6 +104,55 @@ ANSWER-CUE NEUTRALITY (critical — the answer must be findable ONLY by knowing 
 // Audit (run on the English skeleton, single_choice with >=3 options).
 // true_false and <3-option items are exempt (no length/position cue surface).
 // ---------------------------------------------------------------------------
+/**
+ * Resolve the cue tolerance a BANK was built under, from its own blueprint.
+ *
+ * WHY THIS EXISTS. The tolerance was a module-level constant read from env, and
+ * verify-cert HARDCODED A COPY of the L1 values (5 / 10). ISMS-IA generated its
+ * 912 secure items at 25 / 15 by env override, then failed its own audit with
+ * "guard escapes 8.6%" - 26 items sitting between the tolerance they were built
+ * under and the tolerance they were judged by. Measured at 25/15 the bank has
+ * zero escapes. Not one of those items was defective. The checker and the
+ * generator disagreed about the number and neither could tell.
+ *
+ * A cue tolerance is a property of the SCHEME, not of whoever's shell last ran a
+ * script. A Level II option carries a qualifying clause a Level I option does
+ * not - "provided the sample is representative of the period under audit" - so
+ * its key is legitimately a few characters longer, and one global number cannot
+ * be right for both tiers. Stamping it on the cert means:
+ *
+ *   - the audit is REPRODUCIBLE. Re-running verify-cert in two years judges the
+ *     bank against the tolerance it was built under, not against whatever the
+ *     defaults have become. That is what 17024 asks of an examination record.
+ *   - each new cert declares its tolerance ONCE, with a stated reason. AIMS-IA
+ *     and any Lead Auditor scheme inherit the mechanism rather than rediscover
+ *     the argument.
+ *   - an assessor asking "why does this bank allow 25 characters" gets an answer
+ *     from the data.
+ *
+ * Absent from the blueprint -> the Level I defaults, so every existing cert is
+ * unaffected and nothing needs backfilling. Env still overrides, for
+ * experiments, but the resolved source is reported so a loosened setting can
+ * never pass silently.
+ */
+export function cueConfigFor(examBlueprint) {
+  const t = examBlueprint?.item_model?.cue_tolerance ?? null;
+  const envSet = ["LEN_SPREAD_MAX", "KEY_LEN_MARGIN", "KEY_LEN_PCT"]
+    .filter((k) => process.env[k] !== undefined && process.env[k] !== "");
+  const base = t
+    ? {
+        LEN_SPREAD_MAX: int(t.len_spread_max, CUE_CFG.LEN_SPREAD_MAX),
+        KEY_LEN_MARGIN: int(t.key_len_margin, CUE_CFG.KEY_LEN_MARGIN),
+        KEY_LEN_PCT: int(t.key_len_pct, CUE_CFG.KEY_LEN_PCT),
+        source: "blueprint",
+        rationale: t.rationale || null,
+      }
+    : { ...CUE_CFG, source: "default", rationale: null };
+  for (const k of envSet) base[k] = int(process.env[k], base[k]);
+  if (envSet.length) base.source = base.source + "+env(" + envSet.join(",") + ")";
+  return base;
+}
+
 export function auditItem(q, cfg = CUE_CFG) {
   if (!q || !Array.isArray(q.options) || q.options.length < 3) return { ok: true };
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return { ok: true };

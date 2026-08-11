@@ -563,7 +563,7 @@ async function normalizeOptions({ callClaude, item, certName, tier = 1, task = n
 // Orchestrator - draft -> critique -> parity gate (normalize-or-drop) -> shuffle.
 // Returns clean, cue-neutral English items ready for translation.
 // ---------------------------------------------------------------------------
-export async function buildCleanItems({ callClaude, concepts, k, certName, kind, task = null, tier = 1, misconceptions = [], log = () => {} }) {
+export async function buildCleanItems({ callClaude, concepts, k, certName, kind, task = null, tier = 1, cueCfg = undefined, misconceptions = [], log = () => {} }) {
   // Stage 2: draft
   let drafts;
   try {
@@ -588,13 +588,13 @@ export async function buildCleanItems({ callClaude, concepts, k, certName, kind,
   const clean = [];
   for (const q of reviewed) {
     let item = q;
-    let a = auditItem(item);
+    let a = auditItem(item, cueCfg);
     // Length/parity failures get one repair attempt; absolute-word tells are
     // dropped (they regenerate next round - normalization is for length, not tone).
     if (!a.ok && /length|dominates|spread/i.test(a.reason)) {
       const fixed = await normalizeOptions({ callClaude, item, certName, tier, task, log });
       if (fixed) {
-        const a2 = auditItem(fixed);
+        const a2 = auditItem(fixed, cueCfg);
         if (a2.ok) { item = fixed; a = a2; log("normalized: evened option lengths"); }
         else { a = a2; }
       }

@@ -45,6 +45,7 @@
  * this script never writes.
  */
 import { createClient } from "@supabase/supabase-js";
+import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { profileFor } from "./lib/item-profile.mjs";
 
@@ -499,12 +500,18 @@ async function verify(cert) {
     // conspicuous. An absolute char threshold therefore punishes certs with longer
     // options and produces false alarms.
     //
-    // The principled bar already exists: item-cue-guard's CUE_CFG declares the design
-    // tolerance as max(KEY_LEN_MARGIN=5 chars, KEY_LEN_PCT=10% of the longest rival).
-    // Anything inside that is cue-neutral BY DESIGN. So the audit measures ESCAPES -
-    // items whose key exceeds the guard's own allowance, i.e. items that should never
-    // have shipped - rather than re-inventing a threshold.
-    const KEY_LEN_MARGIN = 5, KEY_LEN_PCT = 10;
+    // The principled bar already exists: item-cue-guard declares the design tolerance
+    // as max(KEY_LEN_MARGIN chars, KEY_LEN_PCT% of the longest rival). Anything inside
+    // that is cue-neutral BY DESIGN, so the audit measures ESCAPES - items whose key
+    // exceeds the guard's own allowance - rather than re-inventing a threshold.
+    //
+    // READ FROM THE BANK, NOT HARDCODED. This previously copied the L1 values 5 and 10.
+    // ISMS-IA generated 912 items at 25/15 and then failed its own audit on 26 items
+    // sitting between the tolerance they were built under and the one they were judged
+    // by - none of them defective. A tolerance is a property of the scheme; the checker
+    // has to read the same declaration the generator did or the two silently diverge.
+    const cueCfg = cueConfigFor(cert.exam_blueprint);
+    const KEY_LEN_MARGIN = cueCfg.KEY_LEN_MARGIN, KEY_LEN_PCT = cueCfg.KEY_LEN_PCT;
     let escapes = 0, marginPctSum = 0;
     for (const q of en) {
       const keyId = Array.isArray(q.correct_answer) ? q.correct_answer[0] : q.correct_answer;
@@ -519,7 +526,7 @@ async function verify(cert) {
     const avgMarginPct = longest ? Math.round((10 * marginPctSum) / longest) / 10 : 0;
     const escapeRate = pct(escapes, en.length);
     const strictPct = pct(longest, en.length);
-    const detail = `strict-longest ${strictPct}%, mean margin ${avgMargin} chars (${avgMarginPct}% of option), guard escapes ${escapeRate}% (${escapes}/${en.length})`;
+    const detail = `strict-longest ${strictPct}%, mean margin ${avgMargin} chars (${avgMarginPct}% of option), guard escapes ${escapeRate}% (${escapes}/${en.length}) [tolerance ${KEY_LEN_MARGIN}ch/${KEY_LEN_PCT}% from ${cueCfg.source}]`;
 
     // FAIL only on a real, exploitable cue: items that beat the guard's tolerance, or
     // a strict-longest rate so high the key is findable by "pick the longest" alone.
