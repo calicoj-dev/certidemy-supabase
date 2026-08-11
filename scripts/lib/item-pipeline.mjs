@@ -513,7 +513,18 @@ function normalizeSystem(certName, tier = 1, task = null) {
   return `You are an expert assessment editor for Certidemy (${certName}). You receive ONE
 multiple-choice item whose options are uneven in length or development - typically
 the correct answer is written more fully than the distractors, which is an answer
-cue a test-wise candidate can exploit. Rewrite the OPTION TEXTS so that:
+cue a test-wise candidate can exploit. Sometimes an option is simply over the
+hard word ceiling and must come down.
+
+HARD BUDGET: EVERY option must end at ${l2 ? "45" : "25"} WORDS OR FEWER. Count them. This is a
+gate, not a preference - an option at ${l2 ? "46" : "26"} words fails and the whole item is
+discarded, taking its distractors with it. Evening the options relative to each
+other is NOT sufficient if the longest is still over budget.
+
+Cut hedges, throat-clearing and restatements of the stem first. Cut the reasoning
+LAST and only if nothing else will do${l2 ? ", because at this tier the reasoning is what makes an option defensible rather than merely wrong" : ""}.
+
+Rewrite the OPTION TEXTS so that:
   - all four options are closely matched in length and depth of development;
   - ${l2 ? `the correct answer MAY be the longest: at tier 2 a qualifying clause is often
     exactly what makes it best, so do NOT strip qualification to shorten it. Match
