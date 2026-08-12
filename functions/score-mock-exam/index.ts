@@ -164,7 +164,7 @@ serve(async (req) => {
     // 2. Cert config. exam_duration_minutes drives the server-side late check.
     const { data: cert } = await svc
       .from("certifications")
-      .select("code, name, passing_score_pct, exam_duration_minutes, status")
+      .select("code, name, passing_score_pct, exam_duration_minutes, status, validity_days")
       .eq("id", session.certification_id)
       .single();
     if (!cert) throw new HttpError(404, "cert not found");
@@ -655,13 +655,35 @@ serve(async (req) => {
                 locale: credential_locale,
                 jta_version_id,
                 issued_at: now.toISOString(),
-                // AI-era credentials expire 1 year after issuance - the
-                // coursework tracks a fast-moving field, so recertification
-                // keeps the credential honest.
-                expires_at: new Date(
-                  now.getFullYear() + 1, now.getMonth(), now.getDate(),
-                  now.getHours(), now.getMinutes(), now.getSeconds(),
-                ).toISOString(),
+                // VALIDITY COMES FROM THE CERTIFICATION, NOT FROM THIS LINE.
+                //
+                // This previously read getFullYear() + 1, hardcoded. Migration 158
+                // added certifications.validity_days and recorded the gap in its own
+                // header: "the credential mint path computes expires_at independently
+                // of this column. Until it reads validity_days, there are two sources
+                // for one fact and they can diverge silently." That was exactly right,
+                // and this closes it.
+                //
+                // A validity period is a commitment to re-review the body of knowledge
+                // on that schedule - it is a scheme decision with a stated reason, not
+                // a constant. An Internal Auditor credential rests on standards that
+                // revise on a multi-year cycle (ISO 19011: 2018 to 2026), so annual
+                // recertification would be churn without a change in the body of
+                // knowledge. A cert tracking fast-moving regulation may want less than
+                // a year. The column carries the decision; this line obeys it.
+                //
+                // DAYS, NOT YEARS. getFullYear() + N on 29 February produces an invalid
+                // date that JavaScript silently rolls into 1 March. Adding days is
+                // exact for every issuance date.
+                //
+                // Falls back to 365 when the column is absent, so every certification
+                // that has not declared otherwise behaves exactly as before.
+                expires_at: (() => {
+                  const days = Number(cert.validity_days) > 0 ? Number(cert.validity_days) : 365;
+                  const exp = new Date(now.getTime());
+                  exp.setDate(exp.getDate() + days);
+                  return exp.toISOString();
+                })(),
               })
               .select("id, credential_code")
               .single();
