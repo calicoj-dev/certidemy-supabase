@@ -219,7 +219,69 @@ traceability matrix has a hole in it.
 
 Dry run, review the UNRESOLVED report, then apply.
 
+## 11. Rules that generalise across modules
+
+Established by module 1 and module 2 and their external reviews. These are the
+recurring distinctions an AIMS-IA lesson has to get right, and the recurring
+distractors an item writer should reach for.
+
+**1. Programme risks are not the organization's AI risks.** ISO 19011 clause 5.3
+concerns risks that the audit programme will not achieve its objectives - planning,
+resources, team selection, communication, implementation, records, monitoring.
+ISO/IEC 42001 clauses 6.1.2 and 8.2 concern risks to the organization's AI
+objectives. Conflating them is a recurring distractor and should be used as one.
+
+**2. Role determination is upstream of scope.** Clause 4.1 produces the roles;
+clause 4.3 scopes in light of them. Test the determination against the actual estate
+- procurement records, repositories, product documentation - before testing the scope
+statement. Testing one against the other is circular and always passes.
+
+**3. Existence of a determination is auditable; adequacy of its content may not be.**
+An auditor can always test whether a required determination exists and whether records
+evidence it. Judging whether the content is adequate to the work needs domain
+competence the auditor may lack. **State the limit explicitly whenever a lesson reaches
+it.** This applies most sharply to clause 7.2 competence in task 4.13.
+
+**4. Method follows evidence type, not convenience.** Virtual locations and
+auditor-directed sampling are the default for most AIMS evidence. On-site is not the
+rigorous default and remote is not the lesser method. Reading a record establishes what
+it says; testing a control requires the auditor to choose what is opened.
+
+**5. Objectives, criteria and scope are defined before fieldwork.** Their function is to
+make findings testable afterwards. Adjusting them once evidence emerges removes the only
+fixed reference the finding could be measured against. Clause 9.2.2 a) is the `shall`;
+ISO 19011 clause 5.5.2 is the `should`.
+
+**6. A programme can fail while every audit in it is sound.** Deferred audits, narrowed
+scopes and unreached systems leave no artifact in any individual report. This is why
+ISO 19011 clauses 5.6 and 5.7 exist, and why clause 9.2.2 requires the next programme to
+consider previous results and process importance.
+
+**7. The audit can be misdirected by the thing it examines.** Where a programme allocates
+effort using the organization's own impact ratings, a misrating propagates into the audit
+plan. Form a view of the estate from the systems themselves, then compare it to the
+organization's assessment; a divergence is worth auditing in its own right.
+
+---
+
+## 12. Module 4 note, carried forward
+
+Task 4.12 tests one competence - whether a control declared in the statement of
+applicability is implemented as declared - and it generalises across all nine Annex A
+families. **The lesson and its items must deliberately reach A.4 (resources), A.6 (AI
+system life cycle) and A.7 (data), not only A.2 (policies) and A.3 (internal
+organization).**
+
+A.2 and A.3 are the families that most resemble ISO/IEC 27001 and are the easiest to
+write about. A module 4 treatment drawn only from them would teach nothing an ISO/IEC
+27001 auditor did not already know, and the scheme's fourth differentiator would be
+claimed in SCHEME-AIMS-IA section 4.2 and measured by nothing.
+
+---
+
 ---
 
 *Derived from AIMS-IA module 1, externally reviewed August 2026 and accepted at
-9.0/10 with four minor notes, all of which are incorporated above.*
+9.0/10 with four minor notes. Extended after the module 2 review, which accepted the
+module and returned seven generalisable rules; those are section 11, and the module 4
+sampling reminder is section 12.*
