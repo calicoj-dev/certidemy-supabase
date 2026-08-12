@@ -410,7 +410,7 @@ organization holds toward its AI systems.
 
 ---
 
-# Domain 3 — Conducting the audit: evidence, sampling and testing (22.50%)
+# Domain 3 — Conducting the audit: evidence, sampling and testing (20.00%)
 
 **Description.** The individual audit from initiation to completion — ISO 19011:2026
 clause 6 and Annex A. Domain 3 is about the *quality of the evidence*: whether it was
@@ -541,7 +541,7 @@ requirement is Domain 4.
 
 ---
 
-# Domain 4 — Auditing the AIMS against ISO/IEC 42001 as criteria (27.50%)
+# Domain 4 — Auditing the AIMS against ISO/IEC 42001 as criteria (30.00%)
 
 **Description.** The largest domain, and where this cert diverges from its ISMS sibling.
 Testing the management system clause by clause, with the layered normativity of Annex A
@@ -962,6 +962,18 @@ PRESENT  no clause requires a risk register
 to Apply, 38 tasks not needing merges.** All confirmed by the review. Unchanged, except
 that the two new tasks take the count to 40 and move a further 2.5 points from D3 to
 D4 on the reasoning already given in section 3.
+
+### Amendment 2 — domain heading weights
+
+The v1.1 edit updated the section 3 weight table (D3 22.50 -> 20.00, D4 27.50 ->
+30.00) and did not update the two domain HEADINGS, which still read the v1.0 values.
+Caught when the migration generator parsed both and they disagreed. Headings corrected;
+the section 3 table was and remains authoritative.
+
+**The generator is the control here.** Migration 205 is emitted FROM this document
+rather than transcribed alongside it, so a document that contradicts itself fails to
+generate rather than producing a database that quietly disagrees with the published
+blueprint.
 
 ### Amendment 1 — cognitive profile sanity-check (§5.1)
 
