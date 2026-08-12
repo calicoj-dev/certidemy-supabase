@@ -969,6 +969,105 @@ async function verify(cert) {
           (jtaRows ?? []).length === 0 ? "no jta_versions row at all" : `${jtaRows.length} row(s), none published`);
   }
 
+  // === 12. SELLABILITY - the surfaces nothing ever checked ==================
+  //
+  // Every invariant above this point is about assessment integrity. None is
+  // about whether the certification can be SOLD, and CERT-PUBLISH-CHECKLIST
+  // opens by saying so: verify-cert returns "safe to publish" on a cert that
+  // renders a blank catalogue card and shows no sample questions.
+  //
+  // Four defects have now been found the same way - a human loading a page:
+  //
+  //   AIHR-I   blank catalogue card         -> migration 151
+  //   AIHR-I   English description in es    -> load-aihr-descriptions.mjs
+  //   ISMS-IA  English blueprint in es      -> gen-jta-translations never run
+  //   ISMS-IA  no long-form description     -> same class, three certs later
+  //
+  // Every one was invisible because the render path FALLS BACK rather than
+  // failing: `tr?.description ?? c.description` shows English silently, with no
+  // error and no blank. That fallback is right for the reader and wrong for the
+  // builder, which is why the check belongs here and not in the page.
+  //
+  // ON is_provisional: presence is what is checked, not review state. The site
+  // renders provisional domain and task translations deliberately and withholds
+  // only the dense K/S/A prose (lib/blueprint/data.ts says so and gives its
+  // reason). Review state has its own check in section 11.
+  {
+    const I18N_LANGS = ["en", "es-419", "pt-BR"];
+    const TR_LANGS = ["es-419", "pt-BR"];
+    const NONE = "00000000-0000-0000-0000-000000000000";
+    const filled = (s) => typeof s === "string" && s.trim().length > 0;
+    const domIds = (domains ?? []).map((d) => d.id);
+
+    const [{ data: i18nRows }, { data: domTr }, { data: taskTr }, { data: pub }, { data: leaked }] =
+      await Promise.all([
+        db.from("certification_i18n").select("lang, claim, description").eq("certification_id", id),
+        db.from("domain_translations").select("domain_id, language, title")
+          .in("domain_id", domIds.length ? domIds : [NONE]),
+        db.from("task_translations").select("task_id, language, statement")
+          .in("task_id", taskIds.length ? taskIds : [NONE]),
+        db.from("quiz_questions").select("question_group_id, task_id, language")
+          .eq("certification_id", id).eq("pool", "practice")
+          .eq("visibility", "public").is("retired_at", null),
+        db.from("quiz_questions").select("id")
+          .eq("certification_id", id).eq("pool", "secure")
+          .neq("visibility", "secure").is("retired_at", null),
+      ]);
+
+    {
+      const have = new Set((i18nRows ?? []).filter((r) => filled(r.claim)).map((r) => r.lang));
+      const missing = I18N_LANGS.filter((l) => !have.has(l));
+      missing.length === 0
+        ? R.pass("catalogue.claim", "§12", "Catalogue claim present in every language", "3 languages")
+        : R.fail("catalogue.claim", "§12", "Catalogue claim present in every language",
+            `missing: ${missing.join(", ")} - the card renders code and name only`);
+    }
+
+    {
+      const have = new Set((i18nRows ?? []).filter((r) => filled(r.description)).map((r) => r.lang));
+      const missing = I18N_LANGS.filter((l) => !have.has(l));
+      missing.length === 0
+        ? R.pass("catalogue.description", "§12", "Long-form description present in every language", "3 languages")
+        : R.fail("catalogue.description", "§12", "Long-form description present in every language",
+            `missing: ${missing.join(", ")} - the page falls back to English silently`);
+    }
+
+    {
+      const gaps = [];
+      for (const lang of TR_LANGS) {
+        const dHave = new Set((domTr ?? []).filter((r) => r.language === lang && filled(r.title)).map((r) => r.domain_id));
+        const tHave = new Set((taskTr ?? []).filter((r) => r.language === lang && filled(r.statement)).map((r) => r.task_id));
+        const dMiss = domIds.filter((x) => !dHave.has(x)).length;
+        const tMiss = taskIds.filter((x) => !tHave.has(x)).length;
+        if (dMiss || tMiss) gaps.push(`${lang}: ${dMiss} domain(s), ${tMiss} task(s)`);
+      }
+      gaps.length === 0
+        ? R.pass("jta.translated", "§12", "Blueprint and tasks translated",
+            `${domIds.length} domains x ${taskIds.length} tasks x 2 languages`)
+        : R.fail("jta.translated", "§12", "Blueprint and tasks translated",
+            `${gaps.join(" | ")} - run gen-jta-translations.mjs`);
+    }
+
+    {
+      const counts = I18N_LANGS.map((l) => (pub ?? []).filter((r) => r.language === l).length);
+      const en = (pub ?? []).filter((r) => r.language === "en");
+      const tasksUsed = new Set(en.map((r) => r.task_id));
+      const detail = `${counts.join(" / ")} items, ${tasksUsed.size} distinct task(s)`;
+      counts.every((c) => c === 6) && tasksUsed.size === 6
+        ? R.pass("samples.public", "§12", "Six public samples across six distinct tasks", detail)
+        : R.fail("samples.public", "§12", "Six public samples across six distinct tasks",
+            `${detail} - expected 6/6/6 across 6 tasks (two picks in one task was AIHR-I migration 149)`);
+    }
+
+    {
+      const n = (leaked ?? []).length;
+      n === 0
+        ? R.pass("samples.firewall", "§8", "No secure item is publicly visible", "0 exposed")
+        : R.fail("samples.firewall", "§8", "No secure item is publicly visible",
+            `${n} secure item(s) with visibility <> 'secure'`);
+    }
+  }
+
   // === 23. NO CREATE-VERB IN THE SKILLS FIELD ===============================
   // §15c checks the STATEMENT's verb. Nothing ever read `skills`, and it is the
   // field the item generator actually consumes. 13 tasks across 6 certs open it
