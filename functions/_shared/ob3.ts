@@ -339,7 +339,23 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
     id,
     type: ["Achievement"],
     name: a.certName,
-    achievementType: "Certificate",    // THE BADGE. Optional in the specification, and the field every consuming    // platform reads to display anything at all. Without it a holder who imports    // this credential into LinkedIn or a wallet gets text, while ten badge files    // sit in the web app rendering only on Certidemy's own verify page.    //    // Built from the code, the same way the verify page builds it, so a new    // certification needs no registration step - drop <CODE>.png into    // public/badges and the credential carries it.    //    // This changes the Achievement document, which is served live and unsigned.    // Credentials already issued keep the snapshot they were signed with; their    // signatures are untouched. Newly issued ones carry the image.    image: {      id: `${a.siteUrl}/badges/${a.certCode}.png`,      type: "Image",    },
+    achievementType: "Certificate",
+    // THE BADGE. Optional in the specification, and the field every consuming
+    // platform reads to display anything at all. Without it a holder who imports
+    // this credential into LinkedIn or a wallet gets text, while ten badge files
+    // sit in the web app rendering only on Certidemy's own verify page.
+    //
+    // Built from the code, the same way the verify page builds it, so a new
+    // certification needs no registration step - drop <CODE>.png into
+    // public/badges and the credential carries it.
+    //
+    // The Achievement document is served live and unsigned, so credentials
+    // already issued keep the snapshot they were signed with. Their signatures
+    // are untouched; newly issued ones carry the image.
+    image: {
+      id: `${a.siteUrl}/badges/${a.certCode}.png`,
+      type: "Image",
+    },
     // The competence statement is the criterion: it is what the holder
     // demonstrated, in one sentence, and it is the field a 17024 credential
     // cannot omit.
