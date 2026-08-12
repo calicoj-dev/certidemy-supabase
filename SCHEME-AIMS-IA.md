@@ -209,11 +209,17 @@ to exactly one task.
 
 **Cognitive profile.**
 
-| Bloom level | Tasks | Share | Item contract |
+| Bloom level | Tasks | Weighted share | Item contract |
 |---|---|---|---|
 | 2 — Understand | 5 | 13.02% | Level I: exactly one defensibly correct option |
 | 3 — Apply | 7 | 17.50% | Level I |
 | 4 — Analyze | 28 | **69.48%** | **Level II: four defensible options, one best** |
+
+**Weighted share, not task share.** The figures above apply each domain's per-task
+weight — D4's 13 tasks carry 2.308 points each against D2's 2.857 — and are the values
+recorded in `exam_blueprint.cognitive_profile`. Counting rows instead gives 12.5 / 17.5
+/ 70.0, which is a different number and is not the blueprint's. The blueprint value is
+computed from the task rows after they land, never typed in.
 
 **The Level II contract, and where it stops.** For a task at tier 2 **and** bloom level
 `4_analyze` — both conditions — an item presents four options that are all defensible,
@@ -373,6 +379,25 @@ A.1 control is required unconditionally.
 The grounding block is versioned in source control and composed from a shared audit-method
 half and a scheme-specific criteria half, so the method rules cannot drift between this
 scheme and `ISMS-IA` while the criteria stay correctly separate.
+
+### 8.3 Control-family sampling requirement (task 4.12)
+
+Task 4.12 tests one competence — whether a control declared in the statement of
+applicability is implemented as declared — and that competence generalises across all
+nine Annex A control families. **Its item bank must be sampled deliberately, and this is
+a scheme requirement rather than an authoring preference.**
+
+Because the competence is general, an item writer will default to A.2 (policies) and
+A.3 (internal organization): those are the families that most resemble ISO/IEC 27001,
+and they are the easiest to write. **The bank for task 4.12 must deliberately reach
+A.4 (resources for AI systems), A.6 (AI system life cycle) and A.7 (data for AI
+systems)**, which are precisely the evidence types that have no ISO/IEC 27001 analogue.
+
+A 4.12 bank drawn only from A.2 and A.3 has tested nothing an ISO/IEC 27001 internal
+auditor did not already know, and the credential's fourth differentiator (§4.2) would be
+claimed by this scheme and measured by nothing in it. This requirement carries into the
+item-generation brief and the lesson style guide, and is checked when the bank is
+reviewed.
 
 ---
 
