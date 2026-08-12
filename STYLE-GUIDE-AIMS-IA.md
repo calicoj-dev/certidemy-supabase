@@ -1,0 +1,225 @@
+# STYLE-GUIDE-AIMS-IA.md
+
+**What this is:** the quality contract for AIMS-IA lesson authoring, derived from
+module 1 and the external review that accepted it at 9.0/10. It is the CERT-CREATION
+Stage 7 artifact: module 1 was authored, reviewed, and the accepted feedback turned
+into an explicit reusable contract so that modules 2 to 5 are written to a proven
+standard rather than re-litigated per module.
+
+**Scope.** This guide is specific to AIMS-IA. It does not restate
+`LESSON_AUTHORING_SPEC.md`, which governs the section-marker DSL, widget schemas and
+frontmatter for every cert. Where the two speak to the same thing, the spec governs
+and this document adds only what module 1 established.
+
+**Status:** locked for modules 2 to 5.
+
+---
+
+## 1. The shape module 1 proved
+
+Every lesson runs 13,000 to 16,500 characters and 11 to 13 `duration_minutes`.
+Section order:
+
+```
+::hook                    one or two sentences, a concrete puzzle
+::concept x 3-4           titled, claim-based (see section 2)
+::callout                 one or two, interleaved between concepts
+::interactive             one widget, JSON body
+::deep-dive               one, extending rather than repeating
+::checkpoint              exactly one, four questions
+::summary                 exactly one, six bullets
+```
+
+`::callout` placement is not fixed. It belongs where the misconception it corrects
+would occur to the reader - after the concept that provokes it, not collected at the
+end.
+
+---
+
+## 2. Concept titles state a claim, never a topic
+
+This is the rule the review flagged, and the one most easily lost.
+
+A `::concept` title asserts the teaching point in the reader's memory. A descriptive
+title makes them read the section to find out what it said.
+
+| Do not write | Write |
+|---|---|
+| What clause 4.6 actually says | Independence is asked for wherever practicable, not absolutely |
+| What ISO 19011 says about its own status | ISO 19011 states no requirements, and says so itself |
+| What counts as criteria | Criteria include the organization's own requirements, named first |
+| What clause 9.2 asks you to produce | Clause 9.2 asks for information, not a decision |
+| What an internal audit of an AIMS is for | An internal audit answers against two sets of criteria, not one |
+
+The test: read the title alone. If it tells the reader something true and useful
+about auditing, it is claim-based. If it tells them only what the section is about,
+rewrite it.
+
+---
+
+## 3. Attribution discipline
+
+This is what the credential certifies, so the lessons model it rather than merely
+describing it.
+
+- **Never write that ISO 19011 requires or mandates anything.** Write *recommends*,
+  *calls for*, *advises*, or name the clause and quote its modal. ISO 19011:2026 has
+  one `shall` (patent boilerplate) and 264 `should`.
+- **Never write that the standard states there is no precedence** among the
+  principles. Write that it *presents them without ranking them*. An absence in the
+  text is not an assertion by the text.
+- **Never assert a Table A.1 control unconditionally.** Annex A.1 records that not
+  all controls are required to be used. Write *where A.2.2 is selected, the
+  organization shall document an AI policy*, never *ISO/IEC 42001 requires an AI
+  policy*.
+- **Never describe Annex B as informative.** It is normative and written in
+  `should`, binding through clause 6.1.3 e).
+- **Never attribute major/minor grading to ISO/IEC 42001.** It uses only
+  *nonconformity*. Grading comes from certification practice; ISO 19011 clause 6.4.8
+  permits it where the criteria are defined and communicated.
+- **Never cite a clause of a document the body does not hold** - ISO/IEC 22989,
+  ISO/IEC 42006, ISO/IEC 17021-1. Name them and their scope; cite no clause numbers.
+
+**Where a lesson quotes a clause, it quotes the clause's own modal.** A `shall`
+stays a `shall` and a `should` stays a `should`, in bold where the distinction is
+the teaching point.
+
+---
+
+## 4. Checkpoint questions
+
+- **Exactly four**, all with `bloom_level` matching the lesson's task. A task at
+  `3_apply` produces four apply questions; a task at `4_analyze` produces four
+  analyze questions. This is not a target to average toward - `trg_item_bloom_matches_task`
+  enforces it at database level for items, and the lessons should not disagree.
+- **`difficulty` 3 to 5.** Module 1 landed on 3/4/4/4 and 4/4/5/5. A difficulty-2
+  question in a Level II cert is usually a recall question wearing an apply verb.
+- **Distractors are real auditor errors**, not near-misses of wording. The best ones
+  in module 1: citing a guidance document as criteria, asserting an independence rule
+  that does not exist, accepting a certification body's audit as discharging clause
+  9.2, treating an impact assessment and a risk assessment as one activity.
+- **`single_choice` by default.** Module 1's one `multi_choice` was the weakest item
+  in the module and was replaced. Multi-select tests recall of a list; single-best
+  tests judgement.
+- **Explanations say why the wrong answers are wrong**, not only why the right one is
+  right - and stop there. Three to five sentences. Module 1's longest ran to seven and
+  the review asked for them tightened.
+- **`concept_slugs` on each question** must be slugs the lesson declares in its
+  frontmatter.
+
+---
+
+## 5. Interactives
+
+Use only widget schemas for which a working example exists in the repo. As of module
+1 that is **`drag-match`** and **`toggle-and-observe`**. `highlight-mistake`,
+`sort-into-order`, `scenario-mcq` and `annotated-diagram` are in the spec; before
+using one, read a rendered example from an existing cert rather than authoring from
+the schema alone.
+
+**`drag-match`** suits classification - engagement to audit party, statement to
+whether it can carry a finding, activity to whose remit it is. Four items, four
+targets, and one of the four should be the case that catches people. The
+`explanation` names which one and why.
+
+**`toggle-and-observe`** suits dependent chains, where each step only becomes
+possible once the previous one is taken. Use `depends_on`. The `reflection_answer`
+should say what the exercise was really about, and it is the right place to state
+that a tension was resolved by a trade rather than by a rule.
+
+Every widget carries `concept_slugs` drawn from the lesson's frontmatter.
+
+---
+
+## 6. Deep-dives extend, they do not repeat
+
+A `::deep-dive` earns its place by going somewhere the concepts did not:
+
+- module 1 lesson 1 went to the second-party case that arrives through A.10 supplier
+  relationships;
+- lesson 2 went to why the precedence distinction is load-bearing for findings later
+  in the credential;
+- lesson 4 went to the recursive case of auditing the audit arrangement itself.
+
+If the deep-dive restates a concept at greater length, cut it.
+
+---
+
+## 7. What makes an AIMS-IA lesson different from its ISMS-IA sibling
+
+The two schemes are deliberately parallel and the lessons must not be
+interchangeable. Four things carry the difference, and a lesson touching any of them
+should say so explicitly:
+
+1. **The AI system impact assessment** (6.1.4, 8.4, Annex A.5) is a required artifact
+   distinct from the risk assessment, addressing consequences for individuals, groups
+   and societies. No ISO/IEC 27001 analogue.
+2. **Normativity is layered.** Annex A is `shall`; Annex B is normative and `should`,
+   binding via 6.1.3 e); Annexes C and D are informative.
+3. **Scope follows a role determination.** Clause 4.1 has the organization determine
+   its roles - developer, provider, user, possibly several on one system - and 4.3
+   scoping follows.
+4. **Evidence types are unfamiliar.** A.4 resources, A.6 life cycle and A.7 data call
+   for documentation a conventional management-system auditor has never sampled.
+
+**The fifth, minor but frequently mis-stated:** the climate-change wording is in the
+published first edition of ISO/IEC 42001. There is no amendment. ISO/IEC 27001
+acquired the same wording through Amd 1:2024.
+
+---
+
+## 8. Voice
+
+Module 1 established it and the review endorsed it.
+
+- **Second person for the auditor, third for the organization.** *You ask whether...*
+  / *The organization shall determine...*
+- **Open on a concrete puzzle**, not a definition. The hook is a specific situation
+  whose resolution is not obvious.
+- **State the rule, then the exception, then what to do.** Not the reverse.
+- **Name the misconception explicitly** where one exists. "You cannot audit your own
+  work" and "the standard states no precedence" are both named and dismantled in
+  module 1 rather than quietly avoided.
+- **No filler sentences at section boundaries.** No *in this section we will look
+  at...*, no *as we have seen*.
+- **Localization-friendly:** no idioms, no country-specific institutions, no currency
+  assumptions, metric units. These lessons are translated into es-419 and pt-BR.
+
+---
+
+## 9. Frontmatter conventions for this cert
+
+```
+lesson_id         aims-ia-<NN>-<NN>-<slug>
+lesson_group_id   identical to lesson_id
+module_slug       aia-<module>          (matches the modules table)
+certification_code AIMS-IA
+task_codes        exactly one task per lesson
+concept_slugs     exactly the JTA slugs for that task, all of them
+prerequisites     the previous lesson in the module; [] for the first
+duration_minutes  11-13
+status            draft
+```
+
+**One lesson per task, all 40.** `concept_slugs` must match the locked JTA exactly -
+not a subset, not an addition. A lesson that wants a concept the JTA does not carry
+is a signal to amend the JTA deliberately, not to add a slug locally.
+
+---
+
+## 10. After authoring: the step that has been missed twice
+
+`LESSON_AUTHORING_SPEC` Section 12 is mandatory and has been skipped on two certs -
+SM-AI-I's six AI lessons, and all 132 of SPO-AI-I's rows.
+
+Frontmatter alone is inert. `wire-lessons.mjs` projects `concept_slugs` and
+`task_codes` into `lesson_concepts` and `lesson_tasks`, which is what the running
+system queries. **A lesson with zero rows in either is not done**, and the
+traceability matrix has a hole in it.
+
+Dry run, review the UNRESOLVED report, then apply.
+
+---
+
+*Derived from AIMS-IA module 1, externally reviewed August 2026 and accepted at
+9.0/10 with four minor notes, all of which are incorporated above.*
