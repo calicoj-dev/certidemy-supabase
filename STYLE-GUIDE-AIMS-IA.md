@@ -279,9 +279,59 @@ claimed in SCHEME-AIMS-IA section 4.2 and measured by nothing.
 
 ---
 
+## 13. Rules from the module 3 review - evidence and sufficiency
+
+Established by module 3 and its external review. These govern how any lesson or item
+in modules 4 and 5 talks about evidence.
+
+**1. Evidence establishes what it establishes, nothing more.** A demonstration
+establishes what was shown. A statement of fact establishes what was said. A conclusion
+about a control requires records a second auditor could re-examine.
+
+**2. Who selected the items determines what the set can support.** Auditor-selected
+means Annex A.6 sampling language is available. Auditee-selected means it is **not a
+sample** in the Annex A.6 sense, and the finding can only be about the items shown.
+Never apply sampling language to a set the auditee chose.
+
+**3. The population is defined before a sample size means anything.** In AIMS work,
+model versions, pipeline runs, assessment events and log slices are different
+populations answering different questions. State which one is being sampled.
+
+**4. Small populations are examined, not sampled.** Annex A.6.1 describes sampling as
+the response to it being impractical or not cost-effective to examine everything. Four
+heterogeneous AI systems is a census population.
+
+**5. Operational records are frequently better evidence than purpose-built ones.**
+Registries, run logs and experiment trackers were produced by the work rather than about
+it. Test their retention against the organization's own clause 7.5.1 determination, not
+against an assumed audit retention period.
+
+**6. A recorded disagreement is a working audit.** Clause 6.4.8 asks that attempts be
+made to resolve diverging opinions and that unresolved ones be recorded; clause 6.5.1 j)
+puts them in the report. **Acknowledgement is not agreement.**
+
+**7. The two documentation questions stay sequential.** Thin documented information is
+first a planning problem under clause 6.3.1 - inform the audit client, programme manager
+and auditee, decide continue or suspend. It becomes a possible clause 7.5.1 finding only
+when tested with evidence during fieldwork. Reversing the order turns the auditor's
+inconvenience into a nonconformity.
+
+---
+
+## 14. The D3/D4 boundary, confirmed in review
+
+> **D3 asks "is this evidence sufficient?" D4 asks "sufficient for which requirement?"**
+
+Module 3 was reviewed specifically against this and no lesson crossed it. Module 4 works
+the other side and must not drift back: its lessons take evidence as given and ask what
+requirement it does or does not satisfy. Where a module 4 lesson needs to discuss whether
+evidence is adequate in itself, it refers to module 3 rather than re-teaching it.
+
+---
+
 ---
 
 *Derived from AIMS-IA module 1, externally reviewed August 2026 and accepted at
-9.0/10 with four minor notes. Extended after the module 2 review, which accepted the
-module and returned seven generalisable rules; those are section 11, and the module 4
-sampling reminder is section 12.*
+9.0/10 with four minor notes. Extended after the module 2 review (section 11,
+seven rules; section 12, the module 4 sampling reminder) and after the module 3 review
+(section 13, seven evidence rules; section 14, the D3/D4 boundary confirmed).*
