@@ -1,0 +1,40 @@
+{
+ "cert": "4818fc03-6da0-4266-9329-0e1ea2ea3fb4",
+ "modules": [
+  {
+   "slug": "aia-audit-function",
+   "title": "The Audit Function and Its Boundaries",
+   "description": "Who the internal auditor is and what governs their work. Establishes ISO 19011:2026 as the audit method and ISO/IEC 42001:2023 as the audit criteria, the seven principles of auditing and how they interact when they pull against one another, and the boundary between a first-party audit and certification-body activity.",
+   "order_index": 1,
+   "estimated_minutes": 125
+  },
+  {
+   "slug": "aia-audit-programme",
+   "title": "Managing the Audit Programme",
+   "description": "The programme above the individual audit: objectives drawn from context, risks and opportunities to the programme itself, resourcing, the competence an AIMS audit team needs, and the scope that follows from the roles an organization holds toward its AI systems. Covers selecting auditing methods, including remote methods and virtual locations.",
+   "order_index": 2,
+   "estimated_minutes": 175
+  },
+  {
+   "slug": "aia-conducting-the-audit",
+   "title": "Conducting the Audit",
+   "description": "The individual audit from initiation to completion. Evidence and its verification, sampling and what a sample can support, interviewing the people who do the work, and judging the sufficiency of evidence obtained remotely. This module asks whether the evidence is sound; module 4 asks what it is sound for.",
+   "order_index": 3,
+   "estimated_minutes": 200
+  },
+  {
+   "slug": "aia-auditing-the-aims",
+   "title": "Auditing the AIMS Against ISO/IEC 42001",
+   "description": "The largest module and where this credential differs from its ISO/IEC 27001 sibling. Testing the management system clause by clause, with the layered normativity of Annex A and Annex B, scope that follows from a role determination, the AI system impact assessment as an artifact distinct from the risk assessment, and the control families whose evidence has no ISO/IEC 27001 counterpart.",
+   "order_index": 4,
+   "estimated_minutes": 325
+  },
+  {
+   "slug": "aia-findings-and-follow-up",
+   "title": "Findings, Reporting and Follow-up",
+   "description": "Turning evidence into findings that survive challenge. What separates a conformity, a nonconformity and an opportunity for improvement, how a finding links evidence to a requirement without prescribing a remedy, whether a proposed finding is supportable given the normative status of the clause cited, and how corrective action and management review close the loop.",
+   "order_index": 5,
+   "estimated_minutes": 175
+  }
+ ]
+}
