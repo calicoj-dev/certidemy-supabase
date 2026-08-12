@@ -163,37 +163,6 @@ text itself:
     complete");
   - fair presentation (4.3, completeness) against confidentiality (4.5,
     discretion in the use and protection of information).
-  - That ISO 19011 REQUIRES anything. It is a guidance document - its scope says
-    so - and it contains no normative requirement at all: 264 instances of
-    "should" and not one operative "shall". Never write "ISO 19011 requires",
-    "the standard mandates", or a stem asking "what does ISO 19011 require?".
-    Write "recommends", "calls for", "advises", or name the clause and quote its
-    modal.
-  - That the standard STATES there is no precedence among the seven principles.
-    It states nothing of the kind. The words "precedence", "hierarchy" and "rank"
-    appear nowhere in the document. Clause 4.1 says only that adherence to the
-    principles is fundamental, and that Clauses 5 to 7 are based on the seven
-    outlined in 4.2 to 4.8. The absence of a ranking is not a stated rule of no
-    ranking - the first is an observation about the text, the second is a claim
-    the text does not make. Write "the standard presents all seven as fundamental
-    without ranking them", never "the standard states no precedence".
-
-WHERE TWO PRINCIPLES PULL AGAINST EACH OTHER - the analyze-level heart of this
-cert - the resolution is professional judgement, because nothing in the text
-ranks them. These are the pairs that genuinely collide, drawn from the clause
-text itself:
-  - evidence-based (4.7, sampling and verifiability) against risk-based (4.8,
-    which "should substantively influence the planning and implementation of the
-    audit programme");
-  - independence (4.6, "wherever practicable", with the explicit internal-auditor
-    carve-out: where it is not possible, "every effort should be made to remove
-    bias and encourage objectivity") against due professional care (4.4,
-    competence and reasoned judgement);
-  - integrity (4.2, honesty) against fair presentation (4.3, which requires the
-    communication to be "truthful, accurate, objective, timely, clear and
-    complete");
-  - fair presentation (4.3, completeness) against confidentiality (4.5,
-    discretion in the use and protection of information).
 A DISTRACTOR built on one of these is excellent - they are exactly the
 misconceptions this exam exists to detect. The KEY and the EXPLANATION must be
 clean.
