@@ -126,7 +126,7 @@ no candidate is refused for lacking it.
 | Domains | 5 |
 | Tasks | 40 |
 | Concepts | 158 |
-| JTA of record | `AIMS-IA_JTA_v1_1.md` (v1.0-LOCKED) |
+| JTA of record | `AIMS-IA_JTA_v1_1.md` (v1.1-LOCKED) |
 
 | Domain | Title | Weight | Tasks |
 |---|---|---|---|
@@ -211,9 +211,9 @@ to exactly one task.
 
 | Bloom level | Tasks | Share | Item contract |
 |---|---|---|---|
-| 2 — Understand | 10 | 25.0% | Level I: exactly one defensibly correct option |
-| 3 — Apply | 2 | 5.0% | Level I |
-| 4 — Analyze | 28 | 70.0% | **Level II: four defensible options, one best** |
+| 2 — Understand | 5 | 13.02% | Level I: exactly one defensibly correct option |
+| 3 — Apply | 7 | 17.50% | Level I |
+| 4 — Analyze | 28 | **69.48%** | **Level II: four defensible options, one best** |
 
 **The Level II contract, and where it stops.** For a task at tier 2 **and** bloom level
 `4_analyze` — both conditions — an item presents four options that are all defensible,
@@ -269,7 +269,7 @@ comparable.
 
 **Duration is deliberately unset in this document.** `ISMS-IA` runs 150 minutes at 3.00
 minutes per item, derived from a measured reading load: a ~90-word stem plus four
-~200-character options at 65.6% analyze. **AIMS-IA sits at 70.0% analyze**, so roughly
+~200-character options at 65.6% analyze. **AIMS-IA sits at 69.48% analyze**, so roughly
 35 of 50 items carry that load rather than 33, and the measurement that justified 150
 minutes does not transfer. Duration will be derived from AIMS-IA's own item lengths once
 the secure bank exists, and recorded with its reasoning in the migration that sets it.
@@ -478,4 +478,4 @@ framework* and never *accredited*.
 
 ---
 
-*End of SCHEME-AIMS-IA.md. The JTA of record is `AIMS-IA_JTA_v1_1.md` (v1.0-LOCKED).*
+*End of SCHEME-AIMS-IA.md. The JTA of record is `AIMS-IA_JTA_v1_1.md` (v1.1-LOCKED).*

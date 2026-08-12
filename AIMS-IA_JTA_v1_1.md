@@ -1,6 +1,6 @@
 # AIMS-IA — Job-Task Analysis (v1)
 
-**Document version:** 1.0-LOCKED — externally reviewed and locked (CERT-CREATION Stage 4)
+**Document version:** 1.1-LOCKED — amended after a profile sanity-check (see §5.1)
 **Status:** **LOCKED.** Domains, tasks, task codes, weights and the concept list are frozen. Changes after this point are version-controlled scheme changes, not edits.
 **Certification:** Certidemy `AIMS-IA` — ISO/IEC 42001:2023 Internal Auditor
 **Tier:** II (single-BEST-answer)
@@ -171,19 +171,26 @@ meets 6.1.4, whether an Annex B deviation can be a nonconformity at all — D4.
 
 ## 4. Bloom distribution
 
-| Level | Tasks | % | Notes |
-|---|---|---|---|
-| 2 — Understand | 10 | 25.0% | |
-| 3 — Apply | 2 | 5.0% | |
-| 4 — Analyze | 28 | **70.0%** | Level II contract applies |
-| 5-6 | 0 | | Reserved for simulations |
+| Level | Tasks | Share of tasks | Weighted share | Notes |
+|---|---|---|---|---|
+| 2 — Understand | 5 | 12.5% | 13.02% | |
+| 3 — Apply | 7 | 17.5% | 17.50% | |
+| 4 — Analyze | 28 | 70.0% | **69.48%** | Level II contract applies |
+| 5-6 | 0 | | | Reserved for simulations |
+
+**Two columns, because they are different numbers and only one of them is the
+blueprint's.** Share of tasks counts rows. Weighted share applies each domain's
+per-task weight — D4's 13 tasks carry 2.308 points each against D2's 2.857 — and is
+what `exam_blueprint.cognitive_profile` records. The blueprint value is **computed from
+`v_cognitive_profile` after the task rows land**, never typed in; the figures above are
+the hand-check the migration asserts against.
 
 **The gate is `tier >= 2 AND bloom_level = '4_analyze'`, both conditions.** The 28
 analyze tasks generate on the Level II contract: four options, all defensible, one best.
 The 12 understand and apply tasks stay on the Level I contract — forcing four-defensible
 onto a task with one right answer produces a coin flip, not a harder item.
 
-ISMS-IA sits at 65.6% analyze. AIMS-IA is at 70.0%, and both v1.1 additions are
+ISMS-IA sits at 65.6% analyze. AIMS-IA is at 69.48%, and both v1.1 additions are
 analyze tasks. **This makes duration re-derivation non-optional rather than merely
 good practice**: at 70%, roughly 35 of 50 items carry a ~90-word stem and four
 ~200-character options, which is more reading than the ISMS-IA measurement assumed.
@@ -200,14 +207,14 @@ this, every downstream judgment rests on borrowed assumptions.
 
 ## Tasks
 
-### Task 1.1 — Distinguish first-, second- and third-party audits and locate the internal auditor among them
+### Task 1.1 — Classify a described audit engagement as first, second or third party and locate the internal auditor's remit within it
 
 |Attribute|Value|
 |-|-|
 |Domain|1|
 |Criticality|High|
 |Frequency|Occasional|
-|Bloom level|2 (Understand)|
+|Bloom level|3 (Apply)|
 |Concept slugs|`aia-audit-party-types`, `aia-internal-audit-definition`, `aia-audit-client-vs-auditee`|
 
 **KSAs:**
@@ -234,14 +241,14 @@ this, every downstream judgment rests on borrowed assumptions.
 > stated rule of no ranking is a claim the text does not make. This distinction cost
 > ISMS-IA a migration (198). Concept descriptions must not repeat that error.
 
-### Task 1.3 — Distinguish ISO 19011 as audit methodology from ISO/IEC 42001 as audit criteria
+### Task 1.3 — Apply the distinction between ISO 19011 as methodology and ISO/IEC 42001 as criteria to a proposed audit finding
 
 |Attribute|Value|
 |-|-|
 |Domain|1|
 |Criticality|High|
 |Frequency|Frequent|
-|Bloom level|2 (Understand)|
+|Bloom level|3 (Apply)|
 |Concept slugs|`aia-method-vs-criteria`, `aia-19011-is-guidance-only`, `aia-no-certification-to-19011`, `aia-audit-criteria-definition`|
 
 **KSAs:**
@@ -267,14 +274,14 @@ this, every downstream judgment rests on borrowed assumptions.
 > **Authoring note.** Neither standard *forbids* auditing your own work. That claim is
 > widely taught and is not in either text.
 
-### Task 1.5 — Distinguish internal audit under ISO/IEC 42001 clause 9.2 from certification-body audit governed by ISO/IEC 17021-1 and ISO/IEC 42006
+### Task 1.5 — Classify activities in a described audit programme as within or outside the internal auditor's remit
 
 |Attribute|Value|
 |-|-|
 |Domain|1|
 |Criticality|Medium|
 |Frequency|Occasional|
-|Bloom level|2 (Understand)|
+|Bloom level|3 (Apply)|
 |Concept slugs|`aia-internal-vs-certification-audit`, `aia-17021-1-governs-certification-bodies`, `aia-42006-scope-boundary`, `aia-no-certification-decision`|
 
 **KSAs:**
@@ -412,14 +419,14 @@ requirement is Domain 4.
 
 ## Tasks
 
-### Task 3.1 — Explain the sequence of activities from initiating an audit to completing it
+### Task 3.1 — Place a described audit activity at its correct point in the sequence from initiation to completion
 
 |Attribute|Value|
 |-|-|
 |Domain|3|
 |Criticality|High|
 |Frequency|Frequent|
-|Bloom level|2 (Understand)|
+|Bloom level|3 (Apply)|
 |Concept slugs|`aia-audit-sequence`, `aia-initiating-the-audit`, `aia-audit-feasibility`, `aia-completing-the-audit`|
 
 **KSAs:**
@@ -783,14 +790,14 @@ statement saying so is defensible.
 
 ## Tasks
 
-### Task 5.1 — Explain what distinguishes a conformity, a nonconformity and an opportunity for improvement
+### Task 5.1 — Classify a described observation as a conformity, a nonconformity or an opportunity for improvement
 
 |Attribute|Value|
 |-|-|
 |Domain|5|
 |Criticality|High|
 |Frequency|Frequent|
-|Bloom level|2 (Understand)|
+|Bloom level|3 (Apply)|
 |Concept slugs|`aia-recording-conformities`, `aia-recording-nonconformities`, `aia-opportunity-for-improvement`, `aia-classification-scheme-is-an-organizational-choice`|
 
 **KSAs:**
@@ -956,6 +963,53 @@ to Apply, 38 tasks not needing merges.** All confirmed by the review. Unchanged,
 that the two new tasks take the count to 40 and move a further 2.5 points from D3 to
 D4 on the reasoning already given in section 3.
 
+### Amendment 1 — cognitive profile sanity-check (§5.1)
+
+Raised after locking: the profile read **understand 25.52 / apply 5.00 / analyze
+69.48**, against ISMS-IA's **5.0 / 29.4 / 65.6**. Nearly inverted on the middle two,
+for two schemes deliberately built parallel. 5% apply is implausibly low for an
+internal-auditor credential — classifying a finding and selecting a nonconformity
+statement are apply work, and there should be more than two such tasks.
+
+**Investigated, and the anomaly was real but not where it looked.** COGNITIVE-MODEL.md
+is explicit that the **task statement's verb declares the cognitive level**, and that
+this is the only place level is declared anywhere in the system. By that rule all ten
+understand tasks were correctly *labelled* — and that was the defect. Five of them
+carried statements saying *Explain* or *Distinguish* while their own **S fields
+described applied work**:
+
+| Task | S field said | Statement said |
+|---|---|---|
+| 1.1 | "Place a described engagement in the correct category" | Distinguish |
+| 1.3 | "Given a proposed finding, identify whether the criterion cited is capable of being a criterion" | Distinguish |
+| 1.5 | "Identify which activities in a described programme fall outside the internal auditor's remit" | Distinguish |
+| 3.1 | "Place a described activity at the correct point in the sequence" | Explain |
+| 5.1 | "Classify a described observation" | Explain |
+
+**This is the migration-198 defect exactly** — ISMS-IA task 1.2 asked which principle
+*governs* while one of its own concepts said none did, and the generator was handed two
+incompatible instructions and produced both kinds of key across runs.
+
+**Fixed by moving the statement to match the competence, not by relabelling the bloom.**
+A relabel would have left the statement lying about what the task tests, and the
+statement is what a candidate reads on the published blueprint. All five now carry apply
+verbs — *Classify*, *Apply*, *Place* — and `bloom_level = 3_apply`. Their S and K fields
+were already correct and are unchanged.
+
+**Resulting profile: understand 13.02 / apply 17.50 / analyze 69.48.** The analyze share
+is untouched, because nothing moved into or out of it. Five understand tasks against
+ISMS-IA's two is still the more foundational shape, and that is defensible: 42001's
+layered normativity has to be established before it can be applied.
+
+**Left alone deliberately.** Nine analyze tasks open with *Determine*, which
+COGNITIVE-MODEL.md §96 maps to Apply. ISMS-IA does the same on its flagship analyze task
+1.2. The operative rule is the competence — *determine which of several defensible
+positions holds, given considerations that pull against each other* is analyze — and the
+verb list is a heuristic that the practice has already outgrown. **Recorded as a
+documentation defect in COGNITIVE-MODEL.md, not churned here**: changing nine statements
+to satisfy a heuristic that the sibling scheme already departs from would break family
+parallelism to fix a doc.
+
 ### Found during the review pass, not raised by the reviewer
 
 **Annex A.5 belongs in task 4.6.** The family "Assessing impacts of AI systems" —
@@ -963,11 +1017,10 @@ A.5.2 impact assessment process, A.5.5 assessing societal impacts — is the con
 support for clause 6.1.4, and v1.0's signature task did not name it. Added to the KSA
 and as slug `aia-annex-a-5-impact-controls`.
 
-### Open for Juan, not for the reviewer
+### Resolved after the review — task 5.1 parity with ISMS-IA
 
-**Task 5.1 wording parity with ISMS-IA.** The review asks that the no-severity-scheme
-language match ISMS-IA's treatment so the family stays consistent. That is a database
-question, not a judgment, and the answer is not in this document:
+The review asked that the no-severity-scheme language match ISMS-IA's treatment. That
+was a database question, not a judgment, and it was settled by query:
 
 ```sql
 select con.slug, con.description
@@ -979,8 +1032,18 @@ where c.code = 'ISMS-IA'
 order by con.slug;
 ```
 
-Whatever that returns is what `aia-no-severity-scheme-in-42001` is written against,
-with `ISO/IEC 27001` swapped for `ISO/IEC 42001` and nothing else changed.
+ISMS-IA's slug is **`ia-classification-scheme-is-an-organizational-choice`** — a name
+about the competence, not about the absence — so AIMS-IA takes
+`aia-classification-scheme-is-an-organizational-choice` rather than the descriptive name
+originally drafted.
+
+The query also returned a third element that would otherwise have been dropped: ISMS-IA's
+description records **where the term `nonconformity` itself is defined**. For ISO/IEC
+27001 that is ISO/IEC 27000, an external vocabulary standard. **For ISO/IEC 42001 it is
+clause 3.16 of the standard itself** — non-fulfilment of a requirement — alongside
+conformity (3.15) and corrective action (3.17). Structural parity with the sibling, and
+a stronger position: this scheme needs no external vocabulary standard for its core
+terms. Task 5.1's K field now says so.
 
 ---
 
@@ -1003,4 +1066,4 @@ Auditor`** is load-bearing for that routing.
 
 ---
 
-*End of AIMS-IA_JTA — v1.0-LOCKED. Stage 4 complete. Proceed to Stage 5 (SCHEME-AIMS-IA.md) and Stage 6 (migrations 205, 206).*
+*End of AIMS-IA_JTA — v1.1-LOCKED. Stage 4 complete. Proceed to Stage 6 (migrations 205, 206).*
