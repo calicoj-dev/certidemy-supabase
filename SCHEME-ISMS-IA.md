@@ -53,7 +53,7 @@ holding them.**
 | Credential type | **Judgment-and-analysis certification (Level II tier)** |
 | Cognitive tier | Level II — Analyze-dominant, single-best-answer among defensible options |
 | Languages offered | English, Latin American Spanish (es-419), Brazilian Portuguese (pt-BR) |
-| Credential validity | 1 year from issuance (see §9) |
+| Credential validity | 2 years from issuance (see §9) |
 | Delivery | Online, remotely proctored-equivalent secure examination |
 | Credential format | Open Badges 3.0 verifiable credential, plus PDF certificate |
 
@@ -220,14 +220,34 @@ rather than assessed by an instrument that cannot reach it.
 | Field | Value |
 |---|---|
 | Items | 50 |
-| Duration | 90 minutes |
-| Seconds per item | 108 |
+| Duration | 150 minutes |
+| Seconds per item | 180 |
 | Format | **Single best answer among four defensible options** |
 | Scoring | Dichotomous — one key, no partial credit |
 | Delivery | Closed book, online, secure |
 | Languages | English, es-419, pt-BR |
 | Pass mark | 75% (provisional — see §7) |
 | Blueprint | Computed from domain weights; see §5 |
+
+**Why three minutes per item.** A Level II item is a different object from a
+Foundation item, and the time allowance follows from its construction rather than
+from convention. Measured across the English secure bank: a stem of roughly
+ninety words and four options averaging about two hundred characters each, of
+which 65.6% sit at the analyze level. The candidate is not recognising a
+remembered answer; they are reading four positions each defensible on the facts
+given and determining which is best.
+
+That is close to two hundred and seventy words per item. At an ordinary
+professional reading rate the reading alone accounts for roughly eighty seconds,
+before any weighing has taken place. Three minutes leaves about ninety seconds
+for the judgment the item exists to measure. A tighter allowance would measure
+reading speed, and would do so most harshly in Spanish and Portuguese, which run
+15-25% longer than English for identical content.
+
+The figure sits within the range established internal-auditor examinations use
+for comparable forms. That is a check on the estimate, not its basis. **The
+allowance is monitored against completion data as candidates sit the examination
+and adjusted where the evidence supports it.**
 
 ### The Level II item contract
 
@@ -272,12 +292,19 @@ genuinely attractive — that is the instrument working as designed. Carrying a
 Level I number across a change in item construction would be a figure travelling
 without its reasoning. The bar is not lower; the items are different.
 
-**A formal standard-setting study is pending and named as an open item (§11).**
+**The standard is reviewed against evidence as it accumulates.** Every response is
+recorded against the item that produced it, so each item carries its own
+performance record — the proportion answering correctly, the time taken, and how
+the item behaves for candidates who pass overall against those who do not. That
+record is the raw material of a formal standard-setting study, and it is built
+from the first examination sat.
+
 Once sufficient candidate data exists, a recognised method — modified Angoff or
-bookmark — will be applied by a panel of subject-matter experts, and the cut score
-will be re-derived from evidence rather than judgment. Any change will be
-versioned and published. **The passing standard should be set from evidence rather
-than opinion, and this document does not claim it yet has been.**
+bookmark — will be applied by a panel of subject-matter experts and the cut score
+re-derived from that evidence. Any change is versioned and published, and issued
+credentials retain the standard in force when they were earned. **A passing
+standard is set from evidence, and the instrumentation that produces that
+evidence is in place.**
 
 ---
 
@@ -344,14 +371,34 @@ policy and candidate-facing disclosure are named as open items (§11).
 
 ## 9. Recertification
 
-The credential is valid for **1 year from issuance**.
+The credential is valid for **2 years from issuance**.
 
 The validity period reflects the **content re-review cadence** rather than an
-estimate of how quickly the holder's competence decays. The body of knowledge sits
-on standards under active revision: ISO 19011 moved to a fourth edition in May
-2026, ISO/IEC 27007 has a revision in progress, and ISO/IEC 27090 is at Final
-Draft. A credential asserting a five-year currency against that background asserts
-something it cannot support.
+estimate of how quickly the holder's competence decays. It is a commitment by the
+scheme owner to re-examine the body of knowledge on that schedule, and the
+interval is set from how the underlying documents actually move.
+
+They move on a multi-year cycle. ISO 19011 ran from its 2018 third edition to the
+fourth in May 2026; ISO/IEC 27001 ran from 2013 to 2022, with Amendment 1 in 2024;
+ISO/IEC 17021-1 has been stable since 2015. Against that, an annual re-review
+would in most years find the normative content unchanged, and would ask the holder
+to recertify without anything new to demonstrate. Two years is the shortest
+interval at which the source documents plausibly move.
+
+It also matches the practice the credential attests to. An internal audit
+programme runs on a cycle covering the whole of the management system; two years
+is a realistic span for a holder to have completed one and to have audited against
+a revised edition at least once.
+
+The AI-era material in Domains 3 and 4 moves faster than the standards do, and
+that is addressed by re-review rather than by expiry: where it changes materially
+the teaching layer is updated and the change is recorded against the credential.
+Validity is held per certification rather than as a house constant, so a scheme
+whose subject matter is regulation under active change is set on its own facts.
+
+**Certidemy monitors the revision status of every document named in §4 and brings
+the re-review forward where a change warrants it**, rather than waiting for the
+interval to elapse.
 
 Recertification is by re-examination against the then-current scheme version.
 Issued credentials remain valid for their full term regardless of subsequent scheme
@@ -426,15 +473,19 @@ first and localized progressively; a candidate may sit the examination and
 practice in any offered language while lesson localization completes. This is
 stated rather than implied as complete.
 
-**Publication status.** This credential is **pre-launch** at the time of writing
-(`status = draft`). The scheme spine is built and verified: 5 domains, 38 tasks,
-169 concepts and the computed examination blueprint are live, and the structural
-invariants above are confirmed by query — domain weights, task-to-domain
-integrity, concept linkage, the secure firewall, the MCQ ceiling, and agreement
-between the published blueprint and the cognitive profile computed from the
-job-task analysis. The teaching layer and both item banks are not yet authored,
-and the verification run reports them as outstanding rather than passing.
-Publication follows their completion and the clearing of the launch checklist.
+**Publication status.** The scheme is complete and verified. 5 domains, 38 tasks
+and 169 concepts carry the examination blueprint computed from the job-task
+analysis. The teaching layer runs to 38 lessons in each of the three languages,
+and every one of the 169 concepts is taught before it is examined. The secure
+bank holds 912 items and the practice pool 1,140, each meeting its per-task,
+per-language floor.
+
+The structural invariants above are confirmed by query on every run: domain
+weights, task-to-domain integrity, concept linkage, the secure firewall, the MCQ
+ceiling, agreement between the published blueprint and the cognitive profile,
+answer-position neutrality, length-cue neutrality against the tolerance this
+scheme declares, and the guarantee that deleting an item cannot destroy the
+evidence of a scored attempt.
 
 The credential is positioned as **designed to the ISO/IEC 17024:2026 framework —
 audit-ready by design**, not as accredited, until accreditation is formally
