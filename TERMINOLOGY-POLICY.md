@@ -195,6 +195,34 @@ Portuguese acronym is `IA`.
 physical piping; `pipeline` is near-universal in LATAM technical usage. Portuguese
 already keeps it.
 
+**Rule 17 — clause references follow the standard's own numbering hierarchy.**
+A top-level numbered clause is a **capítulo** in es-419 and a **Seção** in
+pt-BR. Anything below the decimal point is an **apartado** in es-419 and remains
+a **Seção** in pt-BR.
+
+| Reference | es-419 | pt-BR |
+|---|---|---|
+| 4, 5, 6, 7, 8, 9, 10 | capítulo 6 | Seção 6 |
+| 9.2, 6.1.3, 4.1 | apartado 9.2 | Seção 9.2 |
+| a range | los capítulos 4 al 10 | as Seções 4 a 10 |
+
+This rule was **discovered, not decided**. It was already applied correctly in
+every published translation — ISMS-IA at twelve of twelve, ISMS-F and AIMS-F at
+nine of ten — by translators following the UNE Spanish convention. It is written
+down here because an external reviewer read the variation as inconsistency and
+raised it as the highest-priority finding on a cert where nothing was wrong. The
+rule existed only in the output. A convention that lives nowhere but in the data
+will be "corrected" by the next person who looks.
+
+The single genuine outlier, AIMS-F task 3.8 (`apartado 8`, a top-level clause),
+was fixed in migration 204 — by targeted UPDATE, because the row was already
+reviewed and re-running the generator would have replaced all eighty of that
+cert's approved rows to correct one word.
+
+**pt-BR does not carry the distinction.** Brazilian practice under ABNT adoption
+uses Seção at every level, so a pt-BR row is correct at any depth. Do not
+introduce a two-term split there to mirror Spanish.
+
 **Rule 16 — domain titles use sentence case in es-419 and pt-BR**, never Title
 Case. Title Case is an English orthographic convention.
 
