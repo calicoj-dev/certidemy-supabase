@@ -27,6 +27,38 @@
  *
  * Every grounding string ends with the standing rule: never name a certification
  * provider or brand.
+ *
+ * THE SAME DEFECT, ONE LAYER UP (August 2026)
+ * -------------------------------------------
+ * The single AUDIT block below was written for ISMS-IA and hardcodes ISO/IEC 27001
+ * as the criteria standard - its edition set, its Statement of Applicability, its
+ * absent severity scheme. Routing reached it through /auditor/ in the cert name.
+ *
+ * AIMS-IA is named "ISO/IEC 42001:2023 Internal Auditor". It matches /auditor/.
+ * It would therefore have generated 42001 items grounded in 27001 editions - the
+ * exact shape of the defect this file was created to fix, one level up: GOVERNANCE
+ * caught audit certs and knew nothing about EDITIONS; AUDIT caught 42001 and knew
+ * nothing about WHICH STANDARD.
+ *
+ * So the audit grounding is now COMPOSED, not monolithic:
+ *
+ *   AUDIT_METHOD     the auditing craft - ISO 19011:2026, its principles, its
+ *                    annex, its modal discipline, the internal-vs-CB boundary.
+ *                    True for every management-system auditor cert.
+ *   CRITERIA_27001   what ISMS-IA audits against.
+ *   CRITERIA_42001   what AIMS-IA audits against.
+ *
+ * Routing keys on the STANDARD, not on the word "auditor". An audit cert matching
+ * no known standard falls back to method-only rather than silently inheriting
+ * someone else's criteria - the failure mode that made this change necessary.
+ *
+ * KNOWN, NOT FIXED HERE: AIMS-F, ISMS-F, AISM-I and AIHR-I all fall through to
+ * NEUTRAL, which carries no edition set and no never-assert list. Both Foundation
+ * certs are standards-based and generated without ever being told what their
+ * standard says. This is the likely mechanism behind ISMS-F task 2.3 ("environ-
+ * mental-conditions" where Amd 1:2024 says "climate change"). Fixing it forward is
+ * cheap - route F-tier certs to the matching CRITERIA_* block - but it implies
+ * regenerating existing banks, so it is a scoped decision, not a side effect.
  */
 
 const NO_BRAND = `Do NOT reference any specific certification provider or brand.`;
@@ -83,7 +115,7 @@ what data must never be pasted into a public tool, and knowing when a human must
 stay in the loop. ${NO_BRAND}`;
 
 /**
- * Management-system AUDITING certs (ISMS-IA and successors).
+ * THE AUDITING CRAFT - shared by every management-system auditor cert.
  *
  * WHY THIS IS SEPARATE FROM GOVERNANCE. The governance grounding was catching
  * these certs through /audit/ in the name, and it knows nothing about EDITIONS.
@@ -92,46 +124,71 @@ stay in the loop. ${NO_BRAND}`;
  * requires current evidence independently supporting a significant breach", a
  * severity scheme ISO/IEC 27001 does not contain.
  *
- * Neither was a prompt failure. 101 of this cert's 169 concept descriptions name
+ * Neither was a prompt failure. 101 of that cert's 169 concept descriptions name
  * no document at all, so the drafter filled the gap from training data. The
  * edition set and the dismantled claims have to reach the prompt, because the
  * concepts cannot carry them alone.
  *
- * Each correction below was established by reading the standard text directly,
+ * THE ANNEX LIST is here because the critique reviewer had the edition set but
+ * not the CONTENTS, so it rejected citations to annexes it could not verify - it
+ * threw out a correct reference to Annex A.17 during the ISMS-IA run. Verified
+ * against the standard: ISO 19011:2026 has exactly ONE annex, and A.17 is
+ * "Conducting interviews".
+ *
+ * Every correction below was established by reading the standard text directly,
  * not from secondary sources. See the JTA attribution map.
  */
-const AUDIT = `Ground each question in the work of an INTERNAL auditor examining their own
+const AUDIT_METHOD = `Ground each question in the work of an INTERNAL auditor examining their own
 organization's management system - planning an audit, gathering and weighing
 evidence, testing a control against what the Statement of Applicability claims,
 writing a finding, following up a corrective action. The candidate audits their
 own organization; they are not a certification-body auditor and do not make
 certification decisions.
 
-EDITIONS - cite these and no others:
-  - ISO/IEC 27001:2022, INCLUDING Amendment 1:2024. The amendment adds one
-    sentence to clause 4.1 (determine whether climate change is a relevant issue)
-    and NOTE 2 to clause 4.2. Nothing else.
-  - ISO 19011:2026, the FOURTH edition. NEVER cite ISO 19011:2018 - it is
-    superseded, and its clause numbering differs.
+THE AUDIT METHODOLOGY - cite this edition and no other:
+  - ISO 19011:2026, the FOURTH edition, "Guidelines for auditing management
+    systems". NEVER cite ISO 19011:2018 - it is superseded, and its clause
+    numbering differs. The fourth edition cancels and replaces the third; its
+    stated changes are expanded guidance on remote auditing methods drawn from
+    ISO/IEC TS 17012, and an expanded Annex A covering remote methods and
+    virtual locations.
+  - ISO 19011:2026 has NO normative references and names no specific management-
+    system standard. It is discipline-agnostic: it supplies the METHOD, and the
+    criteria standard below supplies what is audited AGAINST.
   - ISO/IEC 17021-1 for anything about certification bodies, certification
-    cycles, or certificate validity.
-  - ISO/IEC 27000 for defined terms.
+    cycles, or certificate validity. It is out of the candidate's remit and is
+    named only to mark the boundary.
+
+ISO 19011:2026 STRUCTURE - clauses:
+  1 Scope | 2 Normative references (none) | 3 Terms and definitions |
+  4 Principles of auditing | 5 Managing an audit programme |
+  6 Conducting an audit | 7 Competence and evaluation of auditors.
+
+ISO 19011:2026 HAS EXACTLY ONE ANNEX. There is no Annex B. Annex A is
+INFORMATIVE, titled "Additional guidance for auditors for planning and conducting
+audits". Cite a subsection only if it appears in this list, and never invent one:
+  A.1  Applying auditing methods            A.10 Auditing risks and opportunities
+  A.2  Auditing of processes                A.11 Life cycle
+  A.3  Professional judgement               A.12 Audit of supply chain
+  A.4  Performance results                  A.13 Preparing audit working documents
+  A.5  Verifying information                A.14 Selecting sources of information
+  A.6  Sampling                             A.15 Visiting the auditee's location
+       A.6.1 General                        A.16 Using remote auditing methods
+       A.6.2 Judgement-based sampling       A.17 Conducting interviews
+       A.6.3 Statistical sampling           A.18 Audit findings
+  A.7  Auditing compliance within a               A.18.1 Determining audit findings
+       management system                          A.18.2 Recording conformities
+  A.8  Auditing context                            A.18.3 Recording nonconformities
+  A.9  Auditing leadership and commitment          A.18.4 Dealing with audit findings
+                                                          related to multiple criteria
 
 CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION - each is widely taught
 and none is in the text:
-  - That a standard forbids auditing your own work. ISO/IEC 27001 does not say
-    it; ISO 19011:2026 clause 4.6 asks auditors to be independent of the activity
-    audited WHEREVER PRACTICABLE, and where internal auditors cannot be, to make
-    every effort to remove bias.
-  - That any clause requires a RISK REGISTER. No clause does. Clauses 6.1.2 and
-    6.1.3 require documented information about the PROCESSES; clauses 8.2 and 8.3
-    require it of the RESULTS.
-  - That ISO/IEC 27001 defines MAJOR and MINOR nonconformities. It defines no
-    severity scheme at all. Those categories come from third-party certification
-    practice under ISO/IEC 17021-1, and an internal programme may adopt any
-    scheme it declares.
-  - That "planned intervals" carries a numeric value. It never does, anywhere in
-    the standard.
+  - That a standard forbids auditing your own work. ISO 19011:2026 clause 4.6
+    asks auditors to be independent of the activity audited WHEREVER PRACTICABLE,
+    and where internal auditors cannot be, to make every effort to remove bias
+    and encourage objectivity. What the criteria standard says is set out below.
+  - That "planned intervals" carries a numeric value. It never does, anywhere.
   - That ISO 19011 REQUIRES anything. It is a guidance document - its scope says
     so - and it contains no normative requirement at all: 264 instances of
     "should" and not one operative "shall". Never write "ISO 19011 requires",
@@ -147,8 +204,8 @@ and none is in the text:
     the text does not make. Write "the standard presents all seven as fundamental
     without ranking them", never "the standard states no precedence".
 
-WHERE TWO PRINCIPLES PULL AGAINST EACH OTHER - the analyze-level heart of this
-cert - the resolution is professional judgement, because nothing in the text
+WHERE TWO PRINCIPLES PULL AGAINST EACH OTHER - the analyze-level heart of these
+certs - the resolution is professional judgement, because nothing in the text
 ranks them. These are the pairs that genuinely collide, drawn from the clause
 text itself:
   - evidence-based (4.7, sampling and verifiability) against risk-based (4.8,
@@ -162,14 +219,145 @@ text itself:
     communication to be "truthful, accurate, objective, timely, clear and
     complete");
   - fair presentation (4.3, completeness) against confidentiality (4.5,
-    discretion in the use and protection of information).
-A DISTRACTOR built on one of these is excellent - they are exactly the
+    discretion in the use and protection of information).`;
+
+/** ISMS-IA - what an ISO/IEC 27001 internal auditor audits AGAINST. */
+const CRITERIA_27001 = `THE CRITERIA STANDARD - cite these and no others:
+  - ISO/IEC 27001:2022, INCLUDING Amendment 1:2024. The amendment adds one
+    sentence to clause 4.1 (determine whether climate change is a relevant issue)
+    and NOTE 2 to clause 4.2. Nothing else.
+  - ISO/IEC 27000 for defined terms.
+
+CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:
+  - That ISO/IEC 27001 forbids auditing your own work. It does not say it.
+  - That any clause requires a RISK REGISTER. No clause does. Clauses 6.1.2 and
+    6.1.3 require documented information about the PROCESSES; clauses 8.2 and 8.3
+    require it of the RESULTS.
+  - That ISO/IEC 27001 defines MAJOR and MINOR nonconformities. It defines no
+    severity scheme at all. Those categories come from third-party certification
+    practice under ISO/IEC 17021-1, and an internal programme may adopt any
+    scheme it declares.`;
+
+/**
+ * AIMS-IA - what an ISO/IEC 42001 internal auditor audits AGAINST.
+ *
+ * 42001 IS NOT 19011 AND IS NOT 27001. Read from the standard directly:
+ *
+ *   - 121 "shall" against 166 "should", and the split is STRUCTURAL, not mixed
+ *     prose. Clauses 4-10 contain 81 "shall" and ZERO "should". Annex A is
+ *     "shall". Annex B is almost entirely "should". Annexes C and D are
+ *     informative.
+ *   - Annex B is NORMATIVE - the contents page says so - yet restates each of the
+ *     38 controls under a "Control" heading using SHOULD where Table A.1 says
+ *     SHALL. The paradox resolves at clause 6.1.3 e): the organization "shall
+ *     consider the guidance in Annex B". Annex B binds as an input you must
+ *     consider, not as text whose own sentences are requirements.
+ *   - "risk register" appears zero times, exactly as in 27001.
+ *   - The climate-change wording is in the PUBLISHED FIRST EDITION. There is no
+ *     amendment to 42001.
+ */
+const CRITERIA_42001 = `THE CRITERIA STANDARD - cite these and no others:
+  - ISO/IEC 42001:2023, "Information technology - Artificial intelligence -
+    Management system", FIRST edition, December 2023.
+  - There is NO amendment to ISO/IEC 42001. Never cite "ISO/IEC 42001:2023/Amd
+    1" or "Amendment 1:2024" for this standard - unlike ISO/IEC 27001, the
+    climate-change wording is in the published first edition itself: clause 4.1
+    "The organization shall determine whether climate change is a relevant
+    issue", and the NOTE at 4.2 that relevant interested parties can have
+    requirements related to climate change.
+  - ISO/IEC 22989:2022 for defined terms. It is the ONLY normative reference in
+    ISO/IEC 42001, and it is a DATED reference, so a future edition of 22989 does
+    not flow through. Clause 3 of 42001 itself defines the rest.
+  - ISO/IEC 42006:2025 exists and supplements ISO/IEC 17021-1 with AI-specific
+    requirements for bodies that AUDIT AND CERTIFY an AIMS. It governs
+    certification bodies, not this candidate. NEVER cite a clause, table or annex
+    of ISO/IEC 42006 - the document is not held and no citation to it can be
+    verified. Name it only to mark the boundary.
+
+THE MODAL STRUCTURE OF ISO/IEC 42001 - this is what the cert tests:
+  - Clauses 4 to 10 are the requirements. They are written entirely in "shall"
+    and contain no "should" at all.
+  - Annex A (NORMATIVE), "Reference control objectives and controls", holds
+    Table A.1: 38 controls, each stated with "shall".
+  - Annex B (NORMATIVE), "Implementation guidance for AI controls", is written in
+    "should". It restates each control under a "Control" heading in the SHOULD
+    form. Clause 6.1.3 e) is what makes it normative: the organization "shall
+    consider the guidance in Annex B". B.1 adds that organizations do not have to
+    document or justify inclusion or exclusion of implementation guidance in the
+    statement of applicability.
+  - Annexes C and D are INFORMATIVE.
+
+CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:
+  - That ISO/IEC 42001 forbids auditing your own work. It does not say it.
+    Clause 9.2.2 b) asks the organization to select auditors and conduct audits
+    to ensure objectivity and the impartiality of the audit process, and names no
+    independence rule beyond that.
+  - That any clause requires a RISK REGISTER. The phrase appears nowhere in the
+    standard. Clause 6.1.3 requires a documented risk treatment PROCESS and a
+    statement of applicability; 6.1.4 requires the RESULT of the AI system impact
+    assessment to be documented.
+  - That ISO/IEC 42001 defines MAJOR and MINOR nonconformities. It defines no
+    severity scheme. Clause 10.2 describes reacting to a nonconformity and
+    corrective action without grading it.
+  - That Annex B is informative. It is normative - but see the modal note above,
+    and never quote an Annex B sentence as a requirement.
+  - That a Table A.1 control is required unconditionally. Annex A.1 states that
+    "Not all the control objectives and controls listed in Table A.1 are required
+    to be used", and clause 6.1.3 b)-d) has the organization compare, consider
+    and extend them. Every Table A.1 "shall" is conditional on that control being
+    necessary and declared in the statement of applicability. Write "where A.2.2
+    is selected, the organization shall document an AI policy", never "ISO/IEC
+    42001 requires an AI policy".
+  - That ISO/IEC 42001 requires the use of ISO 19011. It does not. ISO 19011 is
+    named once, in a Note to entry under clause 3.18, observing that "audit
+    evidence" and "audit criteria" are defined there. Clause 9.2 sets out the
+    internal audit requirement in its own words.
+  - That the AI system impact assessment (6.1.4, 8.4) and the AI risk assessment
+    (6.1.2, 8.2) are the same activity. They are distinct: the impact assessment
+    addresses consequences for individuals, groups and societies, and 6.1.4
+    requires its results to be CONSIDERED IN the risk assessment.
+
+ONE DRAFTING ANOMALY, stated so an item does not trip on it: Note 2 to entry
+under clause 3.26 (statement of applicability) contains "shall" - all identified
+risks and the controls addressing them shall be reflected in the statement of
+applicability. A note carrying a requirement is unusual and an item should not
+turn on whether notes are normative in general. Prefer clause 6.1.3 f), which
+requires the statement of applicability in the requirement text itself.`;
+
+/** The close, appended to every composed audit grounding. */
+const AUDIT_TAIL = `A DISTRACTOR built on one of these is excellent - they are exactly the
 misconceptions this exam exists to detect. The KEY and the EXPLANATION must be
 clean.
 
 Where an item turns on what a document says, name the document and preserve the
 modal: "shall" is a requirement, "should" is guidance, and a NOTE is neither.
 ${NO_BRAND}`;
+
+/** Compose the auditing craft with the criteria standard for this cert. */
+function auditGrounding(criteria) {
+  return `${AUDIT_METHOD}
+
+${criteria}
+
+${AUDIT_TAIL}`;
+}
+
+const AUDIT_27001 = auditGrounding(CRITERIA_27001);
+const AUDIT_42001 = auditGrounding(CRITERIA_42001);
+
+/**
+ * An audit cert whose criteria standard is not yet registered. Method only -
+ * never someone else's editions. If you are seeing this in a generation log, add
+ * a CRITERIA_* block before generating a single item.
+ */
+const AUDIT_METHOD_ONLY = `${AUDIT_METHOD}
+
+THE CRITERIA STANDARD for this certification is not registered in
+item-grounding.mjs. Do NOT assume one, and do NOT cite the edition of any
+management-system standard. Ground every question in the concept descriptions
+provided and in ISO 19011:2026 audit methodology alone.
+
+${AUDIT_TAIL}`;
 
 /** Fallback for any cert not yet registered - neutral, never Scrum. */
 const NEUTRAL = `Ground each question in the concept(s) provided and in established professional
@@ -184,7 +372,7 @@ or artifacts unless the concepts themselves are about Scrum). ${NO_BRAND}`;
  * Order matters: check the most specific patterns first.
  *
  * @param {string} certName e.g. "AI Essentials I", "Scrum Master I - AI",
- *                          "AI Governance & Risk Management I"
+ *                          "ISO/IEC 42001:2023 Internal Auditor"
  * @returns {string} the grounding block to inject into the draft prompt
  */
 export function groundingFor(certName) {
@@ -198,7 +386,13 @@ export function groundingFor(certName) {
 
   // Management-system auditing certs. MUST precede the governance test, which
   // catches "Internal Auditor" via /audit/ and knows nothing about editions.
-  if (/auditor|internal audit/.test(n)) return AUDIT;
+  // Route on the STANDARD, not on the word "auditor": the criteria half differs
+  // per cert and inheriting the wrong one is silent and total.
+  if (/auditor|internal audit/.test(n)) {
+    if (/42001|\baims\b/.test(n)) return AUDIT_42001;
+    if (/27001|\bisms\b/.test(n)) return AUDIT_27001;
+    return AUDIT_METHOD_ONLY;
+  }
 
   // AI governance / risk / compliance.
   if (/governance|risk|compliance|audit/.test(n)) return GOVERNANCE;
@@ -207,4 +401,17 @@ export function groundingFor(certName) {
 }
 
 /** Exported for tests / inspection. */
-export const GROUNDINGS = { SCRUM, GOVERNANCE, AUDIT, WORKPLACE, NEUTRAL };
+export const GROUNDINGS = {
+  SCRUM,
+  GOVERNANCE,
+  WORKPLACE,
+  NEUTRAL,
+  AUDIT_METHOD,
+  CRITERIA_27001,
+  CRITERIA_42001,
+  AUDIT_27001,
+  AUDIT_42001,
+  AUDIT_METHOD_ONLY,
+  /** Back-compat: the old single AUDIT constant was ISMS-IA's grounding. */
+  AUDIT: AUDIT_27001,
+};
