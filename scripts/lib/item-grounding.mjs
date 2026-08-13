@@ -308,6 +308,32 @@ CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:
     necessary and declared in the statement of applicability. Write "where A.2.2
     is selected, the organization shall document an AI policy", never "ISO/IEC
     42001 requires an AI policy".
+  - A FINDING WHOSE EVIDENCE DOES NOT REACH THE CITED CRITERION. This is the
+    commonest defect in a generated finding and it survives casual reading.
+    A.2.2 requires only that the organization DOCUMENT a policy for the
+    development or use of AI systems - so a policy that exists but omits some
+    content does NOT breach A.2.2, and no clause requires a policy to mention
+    any particular topic. Content requirements for the AI policy are at clause
+    5.2 and are different. Before writing any finding, read the cited text and
+    confirm the evidence would actually fail it.
+
+CLAUSE LETTERS AND SUB-CLAUSE NUMBERS - THE HARDEST RULE IN THIS BLOCK.
+Do NOT assert a sub-clause letter or number unless it appears in this grounding
+block. Cite the clause at the level you can verify: "clause 6.1.2" and "clause
+5.2" are safe; "6.1.2 c)" and "5.2 e)" are claims about internal structure and
+are frequently wrong. Two observed failures, both from importing ISO/IEC 27001:
+  - "clause 6.1.2 c) requires documented acceptance criteria" - FALSE TWICE.
+    6.1.2 c) is "identifies risks that aid or prevent achieving its AI
+    objectives", and the phrase "acceptance criteria" appears NOWHERE in
+    ISO/IEC 42001. Risk criteria are required by clause 6.1.1, which requires
+    the organization to establish and maintain AI risk criteria that support
+    distinguishing acceptable from non-acceptable risks; 6.1.2 e) 1) compares
+    the analysis against those criteria and points back to 6.1.1.
+  - "clause 5.2 e) requires policy communication" - THERE IS NO 5.2 e).
+    Clause 5.2 runs a) to d) for the policy's properties, then uses DASHES for:
+    available as documented information; refer as relevant to other
+    organizational policies; communicated within the organization; available to
+    interested parties as appropriate. Cite "clause 5.2" and quote the dash item.
   - That ISO/IEC 42001 requires the use of ISO 19011. It does not. ISO 19011 is
     named once, in a Note to entry under clause 3.18, observing that "audit
     evidence" and "audit criteria" are defined there. Clause 9.2 sets out the
@@ -316,6 +342,17 @@ CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:
     (6.1.2, 8.2) are the same activity. They are distinct: the impact assessment
     addresses consequences for individuals, groups and societies, and 6.1.4
     requires its results to be CONSIDERED IN the risk assessment.
+  - That clause 6.1.4 requires a SEPARATE or DISTINCT process, or that one
+    document cannot satisfy both 6.1.4 and 6.1.2. The clause requires a defined
+    process, a documented result, and consideration of that result in the risk
+    assessment. It prescribes no document count and no format. Where an
+    organization merges them, the available finding is that the CONSIDERATION
+    cannot be evidenced - never that a merged document is forbidden.
+  - That the NOTE under 6.1.2 d) 1) does not exist. It does: "When assessing the
+    consequences as part of 6.1.2 d) 1), the organization can utilize an AI
+    system impact assessment as indicated in 6.1.4." It is a "can" - permission
+    to draw on the impact assessment inside the risk assessment, not permission
+    to let one process discharge both requirements.
 
 ONE DRAFTING ANOMALY, stated so an item does not trip on it: Note 2 to entry
 under clause 3.26 (statement of applicability) contains "shall" - all identified
