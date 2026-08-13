@@ -329,9 +329,59 @@ evidence is adequate in itself, it refers to module 3 rather than re-teaching it
 
 ---
 
+## 15. Rules from the module 4 review - criteria and layers
+
+Established by module 4 and its external review, which described the first three as
+**settled and locked for item generation**. These govern module 5 and every item
+written against ISO/IEC 42001 as criteria.
+
+**1. Clause requirements are unconditional; Table A.1 shalls are conditional on
+selection.** Annex A.1 states that not all control objectives and controls are required
+to be used. Excluding a control never removes a clause obligation - excluding A.2.2
+leaves clause 5.2's AI policy requirement, excluding A.5.2 leaves clause 6.1.4's impact
+assessment requirement, excluding A.4.6 leaves clause 7.2's competence requirements.
+**Always locate the finding at the correct layer.**
+
+**2. Cite Table A.1 for a control obligation, never Annex B.** A `should` cannot carry a
+nonconformity. The only finding available against Annex B is that it was **not
+considered**, under clause 6.1.3 e). "The organization departed from Annex B" is not a
+nonconformity, because clause B.1 expressly permits modification and states that
+inclusion or exclusion of the guidance need not be justified in the statement of
+applicability.
+
+**3. The statement of applicability records decisions, not operation.** A declared
+control that is not operated is a **clause 8.1** finding - not a Table A.1 finding and
+not a clause 6.1.3 f) finding.
+
+**4. Defined versus performed is a structural split.** Process definition lives in
+clause 6; performance and retention of results live in clause 8. The pairs are 6.1.2
+with 8.2, 6.1.3 with 8.3 and 8.1, and 6.1.4 with 8.4. A missing process is a clause 6
+finding; a defined process that never ran is a clause 8 finding.
+
+**5. Impact assessment and risk assessment are distinct and one process cannot discharge
+both.** Results travel one way only - impact into risk, per clause 6.1.4. The NOTE under
+clause 6.1.2 d) 1) is permission (`can` utilize an impact assessment when assessing
+consequences), not obligation and not a licence to collapse them.
+
+**6. Existence and evidencing are always auditable; content adequacy may not be.** State
+what was tested. Never assert that a competence standard or an impact analysis is
+inadequate unless the auditor possesses the domain competence to make that judgement.
+
+**7. ISO/IEC 42001 contains no risk register requirement and no risk-owner
+requirement.** Both are ISO/IEC 27001 habits - the risk-owner requirement is at ISO/IEC
+27001 clause 6.1.2 c) 2). Importing either is a false attribution.
+
+**8. An AIMS audit that never opens A.4, A.6 or A.7 has audited the ISMS-like surface.**
+The report's sampling statement, required by ISO 19011 clause 6.5.1 k), must make the
+choice of families visible.
+
+---
+
 ---
 
 *Derived from AIMS-IA module 1, externally reviewed August 2026 and accepted at
 9.0/10 with four minor notes. Extended after the module 2 review (section 11,
-seven rules; section 12, the module 4 sampling reminder) and after the module 3 review
-(section 13, seven evidence rules; section 14, the D3/D4 boundary confirmed).*
+seven rules; section 12, the module 4 sampling reminder) after the module 3 review
+(section 13, seven evidence rules; section 14, the D3/D4 boundary confirmed), and after the
+module 4 review (section 15, eight rules on criteria and layers, the first three of which
+the review described as settled and locked for item generation).*
