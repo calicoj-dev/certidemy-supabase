@@ -354,6 +354,16 @@ controls). There are 38 controls in nine families:
 Note the numbering starts at .2 in every family - the .1 slot is the family's
 own objective statement, not a control. There is no A.2.1, no A.4.1 control,
 and no A.6.1.4 or A.6.1.5.
+
+AN EXCLUDED CONTROL CANNOT ANCHOR A FINDING, EVEN CONDITIONALLY. Where the
+statement of applicability excludes a control, that control carries no
+obligation (Annex A.1). If the exclusion looks wrong, the finding is at clause
+6.1.3 - limb b) requires the organization to determine all necessary controls
+and compare them with Annex A to verify that no necessary control has been
+omitted, and limb f) requires justification for inclusions and exclusions.
+Never write "a finding can rest on A.5.4 once the exclusion is shown
+unjustified": the determination is what failed, and the control does not become
+citable by the auditor disagreeing with the exclusion.
   - That ISO/IEC 42001 requires the use of ISO 19011. It does not. ISO 19011 is
     named once, in a Note to entry under clause 3.18, observing that "audit
     evidence" and "audit criteria" are defined there. Clause 9.2 sets out the
