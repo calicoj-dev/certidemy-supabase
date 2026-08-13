@@ -227,13 +227,71 @@ Cognitive profile is what makes the level ladder mean something. It is not marke
 |---|---|---|
 | **Literacy** (AIE-I) | Understand, with applied judgment | `3_apply` |
 | **Level I** | Understand → Apply → some Analyze | `4_analyze` |
-| **Level II** *(planned)* | Apply → Analyze dominant; best-of-four-plausible items | `4_analyze` |
+| **Level II** | Apply → Analyze dominant; best-of-four-plausible items | `4_analyze` |
 | **Level III** *(planned)* | Analyze → Evaluate; simulation-assessed | simulation |
 
 A Level II is not "Level I with harder questions." **Difficulty does not define a
 tier — cognitive demand does.** A Level II exam asks the candidate to *diagnose and
 choose among defensible options*; a Level I asks them to *understand and apply*. That
 distinction is now enforced in the schema, not merely asserted in a brochure.
+
+### Form shape follows the item contract
+
+A tier does not only change what an item asks. It changes how many can be asked
+and how long each one takes, and both follow from the same fact:
+
+| Tier | Items | Minutes / item | Form |
+|---|---|---|---|
+| **Level I** | 80 | 1.50 | 120 min |
+| **Level II** | 50 | 3.00 | 150 min *(base)* |
+
+**A Level I item asks the candidate to find one correct answer among three that
+are wrong. A Level II item asks them to evaluate four defensible options and
+determine which is better, for a reason they could state in one sentence.** That
+is a different act and it costs roughly double.
+
+Fewer items is not a concession. Past a point a longer form stops measuring
+competence and starts measuring stamina, and 80 analyze items is past that point.
+This is the same move PSM I to PSM II makes, for the same reason.
+
+### Measurement adjusts within tier
+
+The tier gives the base. The number that ships is measured on the **built bank**,
+on two inputs, and is never inherited from a sibling scheme:
+
+**1. Reading load in the longest language.** One duration serves en, es-419 and
+pt-BR, so a duration set on English disadvantages Spanish candidates. Measured
+across two schemes, es-419 runs 116.9% and 117.4% of English - consistent enough
+to treat as structural. **The longest language binds.**
+
+**2. Analyze share** against the tier's reference scheme. Character counts cannot
+see reasoning time. A form that moves items from apply to analyze costs more than
+its length suggests.
+
+The method, as applied to AIMS-IA in migration 212:
+
+~~~
+reference rate  = reference scheme's minutes / (items x its binding-language chars)
+floor           = this scheme's binding-language chars x items / reference rate
+duration        = floor + analyze premium, rounded to a quarter hour
+~~~
+
+ISMS-IA: 50 x 1354 chars in 150 min = **451 chars/minute**.
+AIMS-IA: 50 x 1408 chars at that rate = **156.1 min** floor; at 69.48% analyze
+against 65.60%, **165 minutes**, 3.30 min/item.
+
+### Why this is defensible rather than arbitrary
+
+ISO/IEC 17024 prescribes no duration. It requires the examination to be planned
+and structured so that assessment is valid and reliable, and the decisions behind
+it documented. So the claim is never "165 minutes is correct." It is that the
+number was **derived by a stated rule from the built bank**, benchmarked against
+what the market publishes, and carries a review trigger.
+
+**Review trigger.** Re-measure when the item bank is regenerated, when the
+cognitive profile moves more than 2 percentage points, or when the binding
+language's expansion ratio leaves 110-125% of English. Otherwise semi-annually
+with the rest of the scheme.
 
 ---
 
