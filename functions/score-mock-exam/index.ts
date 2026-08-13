@@ -572,6 +572,10 @@ serve(async (req) => {
       // ---- Credential issuance (on pass only) ----
       let credential_id: string | null = null;
       let credential_code: string | null = null;
+      // Why a THIRD variable: the mint used to fail into a console.error
+      // while this function returned 200. The caller could not tell a
+      // credential that was issued from one that threw. It can now.
+      let credential_error: string | null = null;
 
       // Lifecycle guard: only mint when the cert was in a launched state.
       // 'unavailable' is allowed - a freeze blocks new starts, but an attempt
@@ -641,10 +645,54 @@ serve(async (req) => {
                 ? telemetry_language
                 : "en";
 
+            // ISSUER AND SALT ARE NOT NULL WITH NO DEFAULT.
+            //
+            // The Open Badges 3.0 migration added issuer_id and
+            // subject_salt to credentials as NOT NULL. Every other column
+            // it added carries a default (status_list_index nextval,
+            // material_updated_at now(), is_specimen false) -- these two do
+            // not, and this insert did not write them, so it raised 23502 on
+            // every pass. Adding a column to a table does not fail the
+            // writers that predate it until one of them runs.
+            //
+            // Resolved by is_active, never hardcoded: issuers is a table
+            // precisely so a whitelabel issuer can exist without a code
+            // change. Matches the lookup in functions/open-badge/index.ts.
+            const { data: issuerRow, error: issErr } = await svc
+              .from("issuers")
+              .select("id")
+              .eq("slug", "certidemy")
+              .eq("is_active", true)
+              .maybeSingle();
+            if (issErr) throw new Error(`issuer lookup: ${issErr.message}`);
+            if (!issuerRow) {
+              throw new Error(
+                "no active issuer configured -- cannot mint a credential " +
+                  "that nothing can be shown to have signed",
+              );
+            }
+
+            // The salt for the OB3 subject identifier hash:
+            // sha256(email.trim().toLowerCase() + salt), per
+            // _shared/ob3.ts hashSubjectIdentifier.
+            //
+            // It is PUBLISHED next to the hash in the holder's document --
+            // it has to be, or the identifier is decorative and nobody can
+            // ever check it. So this needs randomness, not secrecy: it stops
+            // one rainbow table covering every credential, and per-credential
+            // means confirming a guessed address on one tells you nothing
+            // about any other.
+            const subject_salt = Array.from(
+              crypto.getRandomValues(new Uint8Array(16)),
+              (b) => b.toString(16).padStart(2, "0"),
+            ).join("");
+
             const { data: cred, error: cErr } = await svc
               .from("credentials")
               .insert({
                 credential_code: makeCredentialCode(cert.code),
+                issuer_id: issuerRow.id,
+                subject_salt,
                 user_id,
                 certification_id: session.certification_id,
                 exam_attempt_id: attempt.id,
@@ -689,6 +737,7 @@ serve(async (req) => {
               .single();
 
             if (cErr) {
+              credential_error = cErr.message ?? String(cErr);
               console.error("credential issuance failed:", cErr);
             } else {
               credential_id = cred.id;
@@ -710,6 +759,7 @@ serve(async (req) => {
             }
           }
         } catch (err) {
+          credential_error = (err as Error).message;
           console.error("credential issuance error:", err);
         }
       }
@@ -725,6 +775,7 @@ serve(async (req) => {
         credential_id,
         credential_code,
         credential_pending: passed && credential_id === null,
+        credential_error,
       });
     }
 
