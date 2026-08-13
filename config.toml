@@ -414,3 +414,20 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # the repo, not the deploy command.
 [functions.get-credential-certificate]
 verify_jwt = false
+
+# Public Edge Function -- serves unauthenticated. These are the four Open
+# Badges 3.0 identifier URLs (/issuer, /achievements/CODE, /credentials/CODE,
+# /status/N), and the callers are external verifiers, wallets and HR systems
+# that have no Certidemy account and never will. A credential's id is a
+# promise that the document stays fetchable there, by anyone.
+#
+# The function authenticates ITSELF: it reads the bearer token, resolves it
+# via auth.getUser, and falls back to "not the holder" -- which is how the
+# public document and the holder document (carrying the salted subject
+# identifier) stay separate. Gateway JWT checking does not harden that, it
+# removes the public half.
+#
+# Pinned here rather than passed as --no-verify-jwt for the reason stated
+# above: this broke once already, when a plain redeploy dropped the flag.
+[functions.open-badge]
+verify_jwt = false
