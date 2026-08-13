@@ -1,12 +1,13 @@
-# HANDOFF v7.1 — AIMS-IA reaches one failure, and an invariant finds three defects nobody was looking for
+# HANDOFF v7.1 — AIMS-IA published, and an invariant finds three defects nobody was looking for
 
 **Session date:** 2026-08-13
 **Supersedes:** HANDOFF-v7.0
 
-**Migration tip 214, next free 215.**
-**supabase `0e66c72`. certidemy-web `8d83b1f`.**
+**Migration tip 215, next free 216.**
+**supabase `8339ee3`. certidemy-web `8d83b1f`.**
 
-**AIMS-IA is at 37 pass / 1 fail. Every other certification is at 0 fail.**
+**AIMS-IA is `available`. Eleven certifications, all live, all at 0 fail.**
+**Published 2026-08-13 19:46:55 UTC, `draft` -> `available`, audited in `admin_actions`.**
 
 The session began as "finish AIMS-IA Stage 9" and ended having corrected a live
 certification's exam duration, retired five items that two separate checks could not
@@ -276,6 +277,57 @@ nine.*
 
 ---
 
+## 4b. The translation review — the last failure cleared (migration 215)
+
+Ninety rows read against `TRANSLATION-REVIEW-AIMS-IA.md`, which renders English
+beside both translations. The flag is a claim that **a human read the string**, so
+flipping it is a record of work, not a formality.
+
+**Clean across all 90.** No coined acronym for "AI management system" in either
+language. Clause references consistent with the family — *apartado* in Spanish,
+*seção* in Portuguese. *Declaración de Aplicabilidad* / *Declaração de
+Aplicabilidade* correct. No modal drift, no standard renamed, no clause moved.
+
+**Three corrected**, via `scripts/fix-aims-ia-translations.mjs` because the SQL
+editor corrupts multibyte characters:
+
+| | Was | Now | Why |
+|---|---|---|---|
+| pt-BR 5.2 | *registro* | **enunciado** | The English is "the nonconformity **statement**" and the skills field is "Choose the statement that does this and no more." *Registro* is a record — a different artifact. es-419 had it right. **The only one that changed what the task tests.** |
+| es-419 1.1 | *compromiso* | **encargo** | "Audit engagement" as a false friend; both read as COMMITMENT. *Encargo* is the IAASB term. |
+| pt-BR 1.1 | *engajamento* | **trabalho** | Same; *trabalho* is the IBRACON/CFC term. |
+
+**Flagged and withdrawn**, recorded so it is not re-raised: pt-BR 3.2's *análise
+crítica* for "review" is correct ABNT usage across ISO management-system standards,
+not reserved for management review.
+
+### The cache warning was stale
+
+`gen-jta-translations.mjs`'s docstring warns that neither PDF's cache key includes a
+domain stamp, so flipping the flag will not refresh a generated sheet. **That warning
+predates `render-asset` v6**, which made cache keys **content-addressed** —
+`contentHash()` at `index.ts` lines 849 (JTA) and 1132 (blueprint). A changed domain
+description produces a different hash and therefore a different path, so the sheet
+regenerates on its own. No version bump was needed. **The docstring should be
+corrected.**
+
+---
+
+## 4c. Publication
+
+```
+AIMS-IA   draft -> available   2026-08-13 19:46:55 UTC
+```
+
+Through `/console/certifications` as `platform_admin`, which writes the
+`admin_actions` row. **Eleven certifications, all `available`.**
+
+**`exam_link` is still null on both Internal Auditor certs** — AIMS-IA and ISMS-IA.
+ISMS-IA has been sellable since 2026-08-12 with no buy button. Console task, not a
+migration.
+
+---
+
 ## 5. JTA files consolidated
 
 `jta/` now holds **eleven `CODE_JTA_v2.0.md` files, one per certification.** Four were
@@ -383,62 +435,73 @@ Result: **eleven certs PASS.**
 
 ## 9. Open items
 
-### AIMS-IA — the last four
+### AIMS-IA — published, two follow-ups
 
-1. **Translation review, 90 provisional rows.** The single remaining failure.
-   `gen-translation-review.mjs`. Spanish and Portuguese sheets fall back to English
-   until the flag flips — that is the pipeline being honest, not a bug.
-2. **`render-asset` cache key must land BEFORE the flip.** Its own docstring: neither
-   PDF's cache key includes a domain stamp, so flipping `is_provisional` will not
-   refresh an already-generated sheet. Nothing is cached for AIMS-IA yet, so the order
-   is still free to get right.
-3. **`cue_tolerance` re-measurement.** Still PROVISIONAL (25ch / 15% / spread 100,
-   `measured_over: null`). The bank now exists. **Strict-longest is 45.6%** — above the
-   threshold SCHEME-AIMS-IA §8.1 itself names as a concern, though mitigated: mean
-   margin 13.7 chars (6.8% of an option) and 0% guard escapes. Worth a deliberate look,
-   not a PASS.
-4. **`set-cert-status` → `available`**, plus `exam_link` purchase link.
+1. **`exam_link`** — null on AIMS-IA *and* ISMS-IA. Console task. ISMS-IA has been
+   sellable since 2026-08-12 without a buy button.
+2. **`cue_tolerance` re-measurement.** Still PROVISIONAL (25ch / 15% / spread 100,
+   `measured_over: null`). **Strict-longest is 45.6%** — above the threshold
+   SCHEME-AIMS-IA §8.1 itself names as a concern, though mitigated: mean margin 13.7
+   chars (6.8% of an option), 0% guard escapes. Deliberate look, not a PASS.
 
-### Recorded, not done
+### Recorded, not done — found this session
 
-5. **Cue guard has no verdict-prefix rule.** An option opening `Correct:` / `Incorrect:`
-   is a positional tell as fatal as length dominance. Add to `item-cue-guard.mjs`.
-6. **The four-option check counts through groups.** It must count items directly, or an
-   ungrouped item escapes it — as one did.
-7. **verify-cert's summary line miscounts.** It printed `11 cert(s) with failures` on a
-   run where ten certs had 0 fail, and `1 cert(s) with failures` on AIHR-I at 0 fail. A
-   summary that says DO NOT PUBLISH on a clean cert trains people to ignore it.
-8. **Tier I durations catalogue-wide were never measured.** AIHR-I's items being longest
-   of its cohort suggests 1.50 may be tight for scenario-heavy schemes. Eight certs.
-9. **AIMS-F JTA header reads DRAFT**; ISMS-F names family `security` not `ai-security`.
-10. **AISM-I has no v2.0 JTA file** — generate one from live rows.
-11. **OG version asymmetry**: `verify/[id]` carries `&v=`, the marketing `?cert` URL does
-    not. Not a defect today; a future badge redesign is invalidatable on one path only.
+3. **Cue guard has no verdict-prefix rule.** An option opening `Correct:` /
+   `Incorrect:` is a positional tell as fatal as length dominance. Two items shipped
+   with it before being caught by eye. Add to `item-cue-guard.mjs`.
+4. **The four-option check counts through groups.** It must count items directly, or
+   an ungrouped item escapes it — as one did, the only sub-four-option item in the
+   catalogue.
+5. **`/console/certifications` is hard to read.** The super-admin certifications page
+   is visually ugly and hard to ingest. It is where exam links and status flips
+   happen, so it is worth a design pass.
+6. **`gen-translation-review.mjs` clobbers.** It advertises `CERT_ID` and cert-
+   agnosticism, then writes to a filename it derives wrongly — running it for AIMS-IA
+   **overwrote `TRANSLATION-REVIEW-ISMS-IA.md`**. The file is gitignored, so the
+   original was lost. Regenerable, and was regenerated.
+7. **verify-cert's summary line miscounts.** It printed `11 cert(s) with failures` on
+   a run where ten certs had 0 fail, and `1 cert(s) with failures` on AIHR-I at 0
+   fail. A summary that says DO NOT PUBLISH on a clean cert trains people to ignore
+   it.
+8. **`gen-jta-translations.mjs`'s cache warning is stale.** It predates render-asset
+   v6's content-addressed keys. Correct the docstring so the next person does not
+   plan around a problem that no longer exists.
+9. **Tier I durations catalogue-wide were never measured.** ISMS-F and AIMS-F both sit
+   at exactly 60 despite a 7% item-length difference. AIHR-I's items being longest of
+   its cohort suggests 1.50 may be tight for scenario-heavy schemes. Eight certs.
+10. **AIMS-F JTA header reads DRAFT** though `jta_versions` published its v2.0 on
+    2026-08-07; **ISMS-F names family `security`** where the database says
+    `ai-security`.
+11. **AISM-I has no v2.0 JTA file** — its working copy was archived as superseded
+    (22 statements adrift). Generate one from live rows.
+12. **OG version asymmetry**: `verify/[id]` carries `&v=`, the marketing `?cert` URL
+    does not. Not a defect today; a future badge redesign is invalidatable on one
+    path only.
 
 ### Carried from v7.0
 
-12. Re-issue Julio's second seat (`SM-AI-I-V-6BBH-YSW8` spent by defect).
-13. `exam-results.tsx` — render `credential_error` honestly.
-14. Pin `verify-credential` and `credential-og` (both public, neither pinned).
-15. `check-ob3-endpoints.ps1` into `CERT-PUBLISH-CHECKLIST.md`.
-16. `translate="no"` on the exam surface.
-17. Server-side finalisation on timeout.
-18. No pass email. No learner-facing `/my-credentials`.
-19. ISMS-IA cue_guard — ISMS-F task 2.3 field describes the wrong guard type.
-20. Four certs (AIMS-F, ISMS-F, AISM-I, AIHR-I) route to NEUTRAL grounding.
-21. CAIP-I unbuilt. AIMS-IA's own sibling **AIMS Lead Auditor** is the next IA-family cert.
-22. PL 2338 trigger for AIHR-I D2.
-23. GHL live push verification; advertising vendor-enable console panel; CertiGlobal
+13. Re-issue Julio's second seat (`SM-AI-I-V-6BBH-YSW8` spent by defect).
+14. `exam-results.tsx` — render `credential_error` honestly.
+15. Pin `verify-credential` and `credential-og` (both public, neither pinned).
+16. `check-ob3-endpoints.ps1` into `CERT-PUBLISH-CHECKLIST.md`.
+17. `translate="no"` on the exam surface.
+18. Server-side finalisation on timeout.
+19. No pass email. No learner-facing `/my-credentials`.
+20. ISMS-IA cue_guard — ISMS-F task 2.3 field describes the wrong guard type.
+21. Four certs (AIMS-F, ISMS-F, AISM-I, AIHR-I) route to NEUTRAL grounding.
+22. CAIP-I unbuilt. **AIMS Lead Auditor** is the next IA-family cert.
+23. PL 2338 trigger for AIHR-I D2.
+24. GHL live push verification; advertising vendor-enable console panel; CertiGlobal
     checkout webhook.
 
 ---
 
 ## 10. State summary
 
-- **Migration tip 214. Next free 215.**
-- **Eleven certifications; ten `available`, AIMS-IA `draft`.**
-- **AIMS-IA: 37 pass, 1 fail, 5 warn.** The failure is the translation review.
-- **Every other certification: 0 fail.**
+- **Migration tip 215. Next free 216.**
+- **Eleven certifications, ALL `available`.**
+- **AIMS-IA: 38 pass, 0 fail, 5 warn.** Published 2026-08-13 19:46:55 UTC.
+- **Every certification in the catalogue: 0 fail.**
 - **AIMS-IA bank:** 960 secure + 1,200 practice, firewall clean, all groups trilingual,
   no invented control ids, no false attributions in any key.
 - **AIMS-IA exam:** 50 items, 165 minutes, 75% pass mark, 12-month attempt window.
@@ -448,8 +511,9 @@ Result: **eleven certs PASS.**
 
 ---
 
-**End of checkpoint v7.1.** AIMS-IA went from Stage 9 unstarted to one failure from
-publishable. Along the way an invariant written to stop the *next* NULL duration found
+**End of checkpoint v7.1.** AIMS-IA went from Stage 9 unstarted to **published** in a
+single session — 40 tasks, 158 concepts, 40 lessons, 2,160 items in three languages,
+165 measured minutes. Along the way an invariant written to stop the *next* NULL duration found
 a live certification that had been giving candidates 17% less time than its siblings,
 five items that two checks were structurally unable to see, and two badges that had
 never reached the renderer. **Every one of those was found by writing down a rule and
