@@ -5,8 +5,6 @@
 **File:** `supabase/jta/AIMS-IA_JTA_v2.0.md`
 
 **Status:** **LOCKED.** Domains, tasks, task codes, weights and the concept list are frozen. Changes after this point are version-controlled scheme changes, not edits.
-**Certification:** Certidemy `AIMS-IA` — ISO/IEC 42001:2023 Internal Auditor
-**Tier:** II (single-BEST-answer)
 **Sibling schemes:** `AIMS-F` (same standard, Foundation) · `ISMS-IA` (same role, ISO/IEC 27001)
 **Authored:** 12 August 2026 | **Revised:** 12 August 2026 after external review (see §5)
 
