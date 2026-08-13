@@ -1,6 +1,9 @@
-# AIMS-IA — Job-Task Analysis (v1)
+# AIMS-IA — Job-Task Analysis v2.0 · **LAUNCH BASELINE**
+**Credential:** ISO/IEC 42001:2023 Internal Auditor
+**Code:** `AIMS-IA` · **Tier II** · Family `governance-service-management`, `sort_order` 4
+**Locked:** 2026-08-13
+**File:** `supabase/jta/AIMS-IA_JTA_v2.0.md`
 
-**Document version:** 1.1-LOCKED — amended after a profile sanity-check (see §5.1)
 **Status:** **LOCKED.** Domains, tasks, task codes, weights and the concept list are frozen. Changes after this point are version-controlled scheme changes, not edits.
 **Certification:** Certidemy `AIMS-IA` — ISO/IEC 42001:2023 Internal Auditor
 **Tier:** II (single-BEST-answer)
