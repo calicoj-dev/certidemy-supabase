@@ -215,6 +215,47 @@ async function verify(cert) {
   const { data: cov } = await db.from("v_coverage_summary").select("*").eq("certification_id", id).maybeSingle();
   const { data: jtaRows } = await db.from("jta_versions").select("version_string, status").eq("certification_id", id);
 
+  // === 0. FORM SHAPE =======================================================
+  //
+  // COGNITIVE-MODEL section 5: form shape follows the item contract. A Level I
+  // item asks the candidate to find one right answer among three wrong ones; a
+  // Level II item asks them to evaluate four defensible options and determine
+  // which is better. That costs roughly double, which is why the tiers sit at
+  // 80 items / 1.50 min and 50 items / 3.00 min.
+  //
+  // The floor is a FLOOR. Measurement on the built bank adjusts upward - longer
+  // items or a heavier analyze share earn more time. Nothing earns less: the
+  // item contract does not get cheaper.
+  //
+  // AIMS-IA reached Stage 11 with a NULL duration and nothing objected. It was
+  // caught only because its scheme document happened to say "publication gate".
+  {
+    const TIER_FLOOR = { 1: 1.5, 2: 3.0 };
+    const dur = cert.exam_duration_minutes;
+    const items = cert.num_questions ?? 0;
+    const tier = Number(cert.tier ?? 0);
+    const floor = TIER_FLOOR[tier];
+
+    if (dur == null) {
+      R.fail("form.duration", "\u00a75", "Exam declares a duration",
+        "exam_duration_minutes is null - a form with no time limit cannot be sat");
+    } else if (!items) {
+      R.fail("form.duration", "\u00a75", "Exam declares a duration",
+        `${dur} min declared but num_questions is ${items}`);
+    } else if (floor == null) {
+      R.warn("form.duration", "\u00a75", "Exam declares a duration",
+        `${dur} min / ${items} items = ${(dur / items).toFixed(2)} min/item - tier ${tier} has no declared floor`);
+    } else {
+      const mpi = dur / items;
+      mpi >= floor - 0.001
+        ? R.pass("form.duration", "\u00a75", "Minutes per item at or above the tier floor",
+            `${dur} min / ${items} items = ${mpi.toFixed(2)} min/item (tier ${tier} floor ${floor.toFixed(2)})`)
+        : R.fail("form.duration", "\u00a75", "Minutes per item at or above the tier floor",
+            `${mpi.toFixed(2)} min/item is below the tier ${tier} floor of ${floor.toFixed(2)} - ` +
+            `either the form is too long for its time or the time is too short for its item contract`);
+    }
+  }
+
   // === 1. SCAFFOLD INTEGRITY ================================================
   const wsum = (domains ?? []).reduce((s, d) => s + Number(d.weight_pct), 0);
   Math.abs(wsum - 100) < 0.01
@@ -1179,7 +1220,7 @@ function render(cert, R) {
 
 // ---------------------------------------------------------------------------
 (async () => {
-  let q = db.from("certifications").select("id, code, name, status, num_questions, passing_score_pct, exam_blueprint, category_slug");
+  let q = db.from("certifications").select("id, code, name, status, num_questions, passing_score_pct, exam_blueprint, category_slug, exam_duration_minutes, tier");
   if (ONLY_CERT) q = q.eq("code", ONLY_CERT);
   const { data: certs, error } = await q.order("code");
   if (error) { console.error(error.message); process.exit(2); }
