@@ -378,7 +378,7 @@ organization holds toward its AI systems.
 * **S:** Write a scope statement that a finding can later be tested against.
 * **A:** Precision at the outset rather than at the report stage.
 
-### Task 2.6 — Select auditing methods appropriate to AI system evidence, including remote methods and virtual locations
+### Task 2.6 — Determine which auditing methods fit the evidence an AI management system produces, including remote methods and virtual locations
 
 |Attribute|Value|
 |-|-|
@@ -962,6 +962,16 @@ PRESENT  no clause requires a risk register
 to Apply, 38 tasks not needing merges.** All confirmed by the review. Unchanged, except
 that the two new tasks take the count to 40 and move a further 2.5 points from D3 to
 D4 on the reasoning already given in section 3.
+
+### Amendment 3 — task 2.6 statement verb
+
+verify-cert flagged task 2.6 as publishing an apply verb (Select) against a declared
+4_analyze level. Amendment 1 moved five statements UP to apply verbs where the S field
+described applied work; this is the same defect in the opposite direction and was missed
+in that pass. The competence is analyze - the S field reads "Match method to evidence type
+and justify the choice" - so the STATEMENT moves, not the bloom. The 18 items already
+generated for 2.6 remain valid because they were built at 4_analyze. Corrected while no
+translations existed, so trg_invalidate_task_translations had nothing to invalidate.
 
 ### Amendment 2 — domain heading weights
 
