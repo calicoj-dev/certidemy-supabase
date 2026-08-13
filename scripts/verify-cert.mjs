@@ -1248,7 +1248,14 @@ function render(cert, R) {
     }
     console.log(bad.length === 0
       ? "\n" + paint(C.green, "All certs conform. Safe to publish.")
-      : "\n" + paint(C.red, `${bad.length} cert(s) with failures - DO NOT publish those until resolved.`));
+      : "\n" + paint(
+          reports.some(([, R]) => R.failed.length) ? C.red : C.yellow,
+          (() => {
+            const failing = reports.filter(([, R]) => R.failed.length).length;
+            return failing
+              ? `${failing} cert(s) with FAILURES - DO NOT publish those until resolved.`
+              : `${bad.length} cert(s) carry warnings only - 0 failures. --strict counts a warning as blocking; review each, then publish.`;
+          })()));
   }
 
   process.exit(reports.some(([, R]) => !R.ok) ? 1 : 0);
