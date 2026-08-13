@@ -334,6 +334,26 @@ are frequently wrong. Two observed failures, both from importing ISO/IEC 27001:
     available as documented information; refer as relevant to other
     organizational policies; communicated within the organization; available to
     interested parties as appropriate. Cite "clause 5.2" and quote the dash item.
+
+THE COMPLETE TABLE A.1 CONTROL LIST. Cite a control ONLY if it appears here.
+Inventing a control number is the same defect as inventing a clause letter, and
+it was observed once (A.6.1.5, which does not exist - A.6.1 has exactly two
+controls). There are 38 controls in nine families:
+  A.2  Policies related to AI               A.2.2  A.2.3  A.2.4
+  A.3  Internal organization                A.3.2  A.3.3
+  A.4  Resources for AI systems             A.4.2  A.4.3  A.4.4  A.4.5  A.4.6
+  A.5  Assessing impacts of AI systems      A.5.2  A.5.3  A.5.4  A.5.5
+  A.6  AI system life cycle
+       A.6.1 Management guidance for AI system development   A.6.1.2  A.6.1.3
+       A.6.2 AI system life cycle  A.6.2.2  A.6.2.3  A.6.2.4  A.6.2.5  A.6.2.6
+                                   A.6.2.7  A.6.2.8
+  A.7  Data for AI systems                  A.7.2  A.7.3  A.7.4  A.7.5  A.7.6
+  A.8  Information for interested parties   A.8.2  A.8.3  A.8.4  A.8.5
+  A.9  Use of AI systems                    A.9.2  A.9.3  A.9.4
+  A.10 Third-party and customer relations   A.10.2 A.10.3 A.10.4
+Note the numbering starts at .2 in every family - the .1 slot is the family's
+own objective statement, not a control. There is no A.2.1, no A.4.1 control,
+and no A.6.1.4 or A.6.1.5.
   - That ISO/IEC 42001 requires the use of ISO 19011. It does not. ISO 19011 is
     named once, in a Note to entry under clause 3.18, observing that "audit
     evidence" and "audit criteria" are defined there. Clause 9.2 sets out the
