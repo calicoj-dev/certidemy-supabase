@@ -431,3 +431,46 @@ verify_jwt = false
 # above: this broke once already, when a plain redeploy dropped the flag.
 [functions.open-badge]
 verify_jwt = false
+
+# Public Edge Function -- the credential registry read behind /verify/<code>.
+# Called server-side from app/[locale]/verify/[id]/page.tsx with NO auth header,
+# and it is the page a recruiter or auditor lands on from a QR code or a shared
+# link. Those callers have no Supabase key.
+#
+# Returns sanitized fields only and NEVER the score. Revocation and expiry
+# render as distinct states rather than as absence, so a withdrawn credential
+# says so instead of looking like a typo.
+#
+# Pinned, not passed as --no-verify-jwt: the flag belongs to one command, the
+# pin belongs to the repo. Fourth occurrence of that distinction mattering.
+[functions.verify-credential]
+verify_jwt = false
+
+# Public Edge Function -- the 1200x630 share card.
+#
+# FOUND RETURNING 401 IN PRODUCTION. The og:image meta tag on the verify page
+# emits this function's URL directly, so the fetcher is LinkedIn's, Twitter's or
+# Slack's crawler, which carries no Supabase key and never will. Every credential
+# share card was broken from whichever redeploy dropped the flag until this pin.
+# It rendered fine in a browser because a browser never fetches og:image.
+#
+# Renders only facts already public on the verify page, and reads is_specimen so
+# a demonstration credential cannot be shared as a real one.
+#
+# After deploying, re-scrape through the LinkedIn Post Inspector: previews are
+# held roughly a week with no purge you control, so a broken card can outlive
+# its fix.
+[functions.credential-og]
+verify_jwt = false
+
+# Public Edge Function -- the published exam blueprint.
+#
+# Fetched from the BROWSER by components/verify/blueprint-modal.tsx with no
+# headers at all, on the public verify page. Unpinned until now and working only
+# because of a --no-verify-jwt deploy nobody recorded.
+#
+# The blueprint is deliberately public: "the full blueprint is published" is an
+# approved Class A claim in CLAIMS-POLICY precisely because a reader can open it.
+# Gating it behind a key would make that claim false.
+[functions.get-certification-blueprint]
+verify_jwt = false
