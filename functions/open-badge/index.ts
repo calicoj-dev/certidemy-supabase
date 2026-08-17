@@ -44,6 +44,8 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
+import { BADGE_B64 } from "../_shared/badges.ts";
+import { bakeCredentialIntoPng, b64ToBytes } from "../_shared/png-bake.ts";
 import {
   buildAchievement,
   buildCredential,
@@ -143,7 +145,15 @@ serve(async (req) => {
 
     /* -------------------------------------------------------- credential -- */
 
-    if (doc === "credential") {
+    /* ?doc=credential returns the JSON-LD document.
+       ?doc=baked returns the SAME document embedded in the badge PNG.
+
+       ONE BRANCH, deliberately. Everything below -- the specimen refusal, the
+       bearer-token viewer check that decides whether the salted identifier is
+       present, and the cache split that keeps the holder's copy out of shared
+       caches -- applies identically to both. A parallel branch would be a second
+       copy of three rules that must not diverge. */
+    if (doc === "credential" || doc === "baked") {
       const code = url.searchParams.get("code");
       if (!code) return jsonResponse({ error: "code required" }, 400);
 
@@ -251,7 +261,54 @@ serve(async (req) => {
       // a shared cache — a CDN that stored it would serve it to the next
       // anonymous visitor, which is exactly the disclosure this split exists to
       // prevent. `private` keeps it in the holder's own browser only.
-      return ldResponse(signed, isHolder ? "private, no-store" : CACHE_STABLE);
+      const cache = isHolder ? "private, no-store" : CACHE_STABLE;
+
+      if (doc === "baked") {
+        /* Open Badges 3.0 s10 baking. The credential travels INSIDE the image,
+           so a holder can email one file and any OB3-aware system extracts it,
+           resolves the issuer, checks the signature and reads the status list --
+           without contacting us and without trusting us.
+
+           404 rather than a blank image when the artwork is missing: a badge
+           file with no badge in it reads as a broken credential, and it is the
+           holder who gets blamed when they share it. */
+        const art = BADGE_B64[cred.certification_code];
+        if (!art) return jsonResponse({ error: "not found" }, 404);
+
+        let baked: Uint8Array;
+        try {
+          baked = bakeCredentialIntoPng(
+            b64ToBytes(art),
+            JSON.stringify(signed),
+          );
+        } catch (err) {
+          // A bake failure is ours, not the caller's. Never serve the bare
+          // badge as a fallback -- an image that looks like a credential and
+          // carries nothing is the worst possible artifact to hand someone.
+          console.error("bake failed:", err);
+          return jsonResponse({ error: "badge could not be prepared" }, 500);
+        }
+
+        // Deno 2.x tightened Uint8Array's generic: BodyInit wants
+        // Uint8Array<ArrayBuffer>, and concat() produces ArrayBufferLike.
+        // Response accepts the bytes at runtime. Same cast as credential-og.
+        return new Response(baked as unknown as BodyInit, {
+          status: 200,
+          headers: {
+            ...corsHeaders,
+            "content-type": "image/png",
+            // SAME cache semantics as the document. The holder's baked badge
+            // carries their salted identifier and must never enter a shared
+            // cache -- here it would be inside a file people pass around.
+            "cache-control": cache,
+            vary: "authorization",
+            "content-disposition":
+              `attachment; filename="${cred.credential_code}.png"`,
+          },
+        });
+      }
+
+      return ldResponse(signed, cache);
     }
 
     /* ------------------------------------------------------------ status -- */
