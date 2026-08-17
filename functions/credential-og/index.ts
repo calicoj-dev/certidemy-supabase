@@ -75,7 +75,11 @@ import {
 } from "../_shared/fonts.ts";
 import { badgeDataUri } from "../_shared/badges.ts";
 
-const OG_RENDERER_VERSION = 2;
+// v3: the badge, centered, on white. See patch-og-badge-card.mjs for why.
+// BUMP THIS AND BOTH CALLERS TOGETHER:
+//   app/[locale]/verify/[id]/page.tsx                        (credential cards)
+//   app/[locale]/(marketing)/certifications/[code]/page.tsx  (cert cards)
+const OG_RENDERER_VERSION = 3;
 
 const SITE_URL = Deno.env.get("PUBLIC_SITE_URL") ?? "https://certidemy.com";
 const FALLBACK_URL = `${SITE_URL}/og/credential-fallback.png`;
@@ -89,6 +93,10 @@ const WASM_URL = "https://unpkg.com/@resvg/resvg-wasm@2.6.2/index_bg.wasm";
 /* Matches certificate.ts and factsheet.ts after the v3.7 brand move. If the
    brand moves again, all three change together or the family splits again. */
 const INK = {
+  // v3 card surface. The badge is the subject, so the ground gets out of its
+  // way -- and a partner's badge is not framed in our brand.
+  card: "#ffffff",
+  // Retained for the generic fallback card, which is OURS and stays branded.
   bg: "#0c0a0f",
   rail: "#be185d",
   accent: "#be185d",
@@ -211,13 +219,115 @@ interface CardData {
   lang: Lang;
 }
 
-const COL_X = 580;          // right column left edge
-const COL_W = 540;          // right column usable width
+/* v3 geometry. The badge is square and the canvas is 1200x630, so the badge is
+   sized off the SHORT axis and centered on both. 470 leaves ~80px of air top and
+   bottom, which stops it reading as a cropped image at feed-thumbnail size.
+
+   When a status band is present the badge shifts up by half the band height, so
+   the composition stays balanced instead of the badge sitting dead-centre with a
+   bar hanging under it. */
+const CARD_W = 1200;
+const CARD_H = 630;
+const BADGE_S = 470;
+const BAND_H = 64;
+
+/* v2 two-column geometry, still used by the retained legacy builders below. */
+const COL_X = 580;
+const COL_W = 540;
 const BADGE_X = 92;
 const BADGE_Y = 100;
-const BADGE_S = 400;
+const BADGE_S_V2 = 400;
 
-function buildSvg(c: CardData): string {
+/**
+ * Status band, or empty string for an active credential.
+ *
+ * ACTIVE RENDERS NOTHING. A band reading "ACTIVE" is noise on the common case
+ * and trains a reader to ignore the band, which is the one thing it must not do.
+ * The band appears only when the credential is NOT simply valid, so its presence
+ * is itself the signal.
+ *
+ * Text is auto-fitted, not fixed. A size chosen against the English string
+ * overflows in pt-BR, which is longer -- the trap the holder name hit in v2.
+ *
+ * The local names here deliberately avoid 't' and 'isSpec': those appear in the
+ * retained v2 builder below, and a patch anchor targeting that body must not
+ * also match this one.
+ */
+function statusBand(card: CardData): string {
+  if (card.state === "active") return "";
+  const dict = T[card.lang];
+  const specimen = card.state === "specimen";
+  const label = specimen
+    ? dict.specimen
+    : card.state === "revoked"
+      ? dict.revoked
+      : dict.expired;
+  const bg = specimen ? INK.warn : card.state === "revoked" ? INK.bad : INK.mute;
+  const fg = specimen ? INK.warnInk : INK.white;
+  const y = CARD_H - BAND_H;
+  const size = fitSize(label, CARD_W - 80, 26, 14, 0.62);
+  return SVG_BAND(y, bg, fg, size, esc(label));
+}
+
+/* Assembled in a helper so the SVG fragment is built with ordinary string
+   concatenation. Kept out of the builder body for readability only. */
+function SVG_BAND(
+  y: number,
+  bg: string,
+  fg: string,
+  size: number,
+  label: string,
+): string {
+  return (
+    '<rect x="0" y="' + y + '" width="' + CARD_W + '" height="' + BAND_H +
+    '" fill="' + bg + '"/>' +
+    '<text x="' + CARD_W / 2 + '" y="' + (y + BAND_H / 2 + size * 0.36) +
+    '" text-anchor="middle" font-family="Inter" font-weight="700" font-size="' +
+    size + '" letter-spacing="2" fill="' + fg + '">' + label + '</text>'
+  );
+}
+
+/**
+ * A badge centred on white, and nothing else.
+ *
+ * Everything v2 drew in text -- holder, certification, issued, expires, the
+ * credential code, our domain -- is gone from the IMAGE and lives in og:title
+ * and og:description, which crawlers read and screen readers reach.
+ *
+ * No badge on file is not an error. certification_code may be new, or a partner
+ * may not have uploaded one. The card falls back to the certification code set
+ * large: plain, but not broken -- and a broken link preview is worse than a
+ * plain one.
+ */
+function buildSvg(card: CardData): string {
+  const band = statusBand(card);
+  const badge = badgeDataUri(card.certCode);
+  const shift = band ? -BAND_H / 2 : 0;
+  const bx = (CARD_W - BADGE_S) / 2;
+  const by = (CARD_H - BADGE_S) / 2 + shift;
+
+  const art = badge
+    ? '<image x="' + bx + '" y="' + by + '" width="' + BADGE_S + '" height="' +
+      BADGE_S + '" href="' + badge + '" preserveAspectRatio="xMidYMid meet"/>'
+    : '<text x="' + CARD_W / 2 + '" y="' + (CARD_H / 2 + shift + 24) +
+      '" text-anchor="middle" font-family="Inter" font-weight="700" ' +
+      'font-size="72" letter-spacing="4" fill="' + INK.accent + '">' +
+      esc(card.certCode) + '</text>';
+
+  return (
+    '<svg width="' + CARD_W + '" height="' + CARD_H + '" viewBox="0 0 ' +
+    CARD_W + ' ' + CARD_H + '" xmlns="http://www.w3.org/2000/svg" ' +
+    'xmlns:xlink="http://www.w3.org/1999/xlink">' +
+    '<rect width="' + CARD_W + '" height="' + CARD_H + '" fill="' + INK.card + '"/>' +
+    art + band +
+    '</svg>'
+  );
+}
+
+/* v2's two-column card, retained UNREFERENCED so the reasoning in its comments
+   is not lost from the file. Delete it once v3 has been through a LinkedIn Post
+   Inspector pass on a real credential, a specimen and a revoked one. */
+function buildSvgV2Legacy(c: CardData): string {
   const t = T[c.lang];
   const isSpec = c.state === "specimen";
 
@@ -251,7 +361,7 @@ function buildSvg(c: CardData): string {
        <text x="${COL_X + 28}" y="508" font-family="Inter" font-weight="600" font-size="22" letter-spacing="2" fill="${statusColor}">${esc(statusLabel)}</text>`;
 
   const badgeBlock = badge
-    ? `<image x="${BADGE_X}" y="${BADGE_Y}" width="${BADGE_S}" height="${BADGE_S}" href="${badge}" preserveAspectRatio="xMidYMid meet"/>`
+    ? `<image x="${BADGE_X}" y="${BADGE_Y}" width="${BADGE_S_V2}" height="${BADGE_S_V2}" href="${badge}" preserveAspectRatio="xMidYMid meet"/>`
     : "";
 
   return `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -346,6 +456,31 @@ function buildGenericSvg(): string {
  * holder name, and it costs one badge lookup rather than a round trip.
  */
 function buildCertSvg(code: string, name: string): string {
+  // Same rule as the credential card: one visual standard, one thing to state to
+  // a partner. No band -- a certification has no holder and no status. The name
+  // parameter is unused now and kept so the caller does not change.
+  void name;
+  const emblem = badgeDataUri(code);
+  const ex = (CARD_W - BADGE_S) / 2;
+  const ey = (CARD_H - BADGE_S) / 2;
+  const art = emblem
+    ? '<image x="' + ex + '" y="' + ey + '" width="' + BADGE_S + '" height="' +
+      BADGE_S + '" href="' + emblem + '" preserveAspectRatio="xMidYMid meet"/>'
+    : '<text x="' + CARD_W / 2 + '" y="' + (CARD_H / 2 + 24) +
+      '" text-anchor="middle" font-family="Inter" font-weight="700" ' +
+      'font-size="72" letter-spacing="4" fill="' + INK.accent + '">' +
+      esc(code) + '</text>';
+  return (
+    '<svg width="' + CARD_W + '" height="' + CARD_H + '" viewBox="0 0 ' +
+    CARD_W + ' ' + CARD_H + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect width="' + CARD_W + '" height="' + CARD_H + '" fill="' + INK.card + '"/>' +
+    art +
+    '</svg>'
+  );
+}
+
+/* v2 certification card, retained unreferenced alongside buildSvgV2Legacy. */
+function buildCertSvgV2Legacy(code: string, name: string): string {
   const badge = badgeDataUri(code);
 
   // With a badge the text sits below it; without one the text moves up and
@@ -399,7 +534,13 @@ async function renderPng(c: CardData): Promise<Uint8Array> {
 }
 
 function pngResponse(png: Uint8Array): Response {
-  return new Response(png, {
+  // Deno 2.x tightened Uint8Array's generic parameter: BodyInit wants
+  // Uint8Array<ArrayBuffer>, and the buffer resvg's wasm hands back is typed
+  // ArrayBufferLike because the type system cannot rule out SharedArrayBuffer.
+  // Response accepts the bytes at runtime -- it always has -- so the cast is at
+  // the boundary where that guarantee lives. Do not delete it to "clean up"; the
+  // signature above is the honest description of what callers pass.
+  return new Response(png as unknown as BodyInit, {
     headers: {
       "content-type": "image/png",
       // Long TTL is safe because the URL carries OG_RENDERER_VERSION -- a
@@ -488,9 +629,14 @@ serve(async (req) => {
     const svc = getServiceClient();
     let q = svc
       .from("credentials")
+      // ONE STRING LITERAL, deliberately, however long. supabase-js infers the
+      // row type by parsing this as a literal type; a concatenation is not one,
+      // and the result degrades to GenericStringError with no columns on it. The
+      // block below reads is_specimen, status and expires_at to decide whether
+      // this card carries the SPECIMEN band, so those three fields being
+      // invisible to the compiler was the riskiest part of an untyped row here.
       .select(
-        "credential_code, holder_name, certification_name, certification_code, " +
-          "status, issued_at, expires_at, locale, is_specimen"
+        "credential_code, holder_name, certification_name, certification_code, status, issued_at, expires_at, locale, is_specimen"
       );
 
     q = id && UUID_RE.test(id)
