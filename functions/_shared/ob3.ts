@@ -144,9 +144,9 @@ async function importSigningKey(pem: string): Promise<CryptoKey> {
 }
 
 export interface SigningIssuer {
-  issuer_url: string;
+  base_url: string;
+  slug: string;
   key_id: string;
-  public_key_multibase: string;
 }
 
 /**
@@ -168,7 +168,10 @@ export async function signDocument<T extends Record<string, unknown>>(
   issuer: SigningIssuer,
   created: string,
 ): Promise<T & { proof: Record<string, unknown> }> {
-  const verificationMethod = `${issuer.issuer_url}#${issuer.key_id}`;
+  // MUST match buildIssuerProfile's verificationMethod id exactly, or a
+  // verifier resolves the issuer and finds no key by that identifier.
+  const verificationMethod =
+    `${issuer.base_url}/issuers/${issuer.slug}#${issuer.key_id}`;
 
   const proofConfig: Record<string, unknown> = {
     "@context": (document as Record<string, unknown>)["@context"],
@@ -233,9 +236,18 @@ export const PROFILE_CONTEXT = [
  * ========================================================================== */
 
 export interface IssuerRow {
+  id: string;
   slug: string;
   name: string;
+  /** Human/marketing host: badge PNGs, criteria pages, verify pages. */
   site_url: string;
+  /** Root of the OB3 identifier namespace. Migration 216. */
+  base_url: string;
+  /**
+   * Stored issuer identifier. DERIVED, not authoritative: issuerUrl() computes
+   * the same value from base_url + slug. Kept as a column because other readers
+   * resolve it directly.
+   */
   issuer_url: string;
   key_id: string;
   public_key_multibase: string | null;
@@ -247,21 +259,47 @@ export interface IssuerRow {
  * document is self-describing: fetch the issuer identifier from any credential
  * and you land on the public key that signed it.
  */
+/* -------------------------------------------------------------------------- *
+ * Identifier namespace
+ *
+ * Every OB3 identifier is issuer-scoped so a second issuer needs no new route
+ * and no code change. Credentials are flat because credential_code carries a
+ * UNIQUE constraint across the whole platform.
+ * -------------------------------------------------------------------------- */
+
+export function issuerUrl(issuer: IssuerRow): string {
+  return `${issuer.base_url}/issuers/${issuer.slug}`;
+}
+
+export function achievementUrl(issuer: IssuerRow, certCode: string): string {
+  return `${issuerUrl(issuer)}/achievements/${certCode}`;
+}
+
+export function statusListUrl(issuer: IssuerRow, listNumber: number): string {
+  return `${issuerUrl(issuer)}/status/${listNumber}`;
+}
+
+export function credentialUrl(issuer: IssuerRow, credentialCode: string): string {
+  return `${issuer.base_url}/credentials/${credentialCode}`;
+}
+
 export function buildIssuerProfile(issuer: IssuerRow): Record<string, unknown> {
   const doc: Record<string, unknown> = {
     "@context": PROFILE_CONTEXT,
-    id: issuer.issuer_url,
+    id: issuerUrl(issuer),
     type: ["Profile"],
     name: issuer.name,
+    // The HUMAN site. The Profile identifier lives on the credential host; the
+    // organization's home page does not.
     url: issuer.site_url,
   };
 
   if (issuer.public_key_multibase) {
     doc.verificationMethod = [
       {
-        id: `${issuer.issuer_url}#${issuer.key_id}`,
+        id: `${issuerUrl(issuer)}#${issuer.key_id}`,
         type: "Multikey",
-        controller: issuer.issuer_url,
+        controller: issuerUrl(issuer),
         publicKeyMultibase: issuer.public_key_multibase,
       },
     ];
@@ -350,7 +388,8 @@ export interface AchievementInput {
  * any holder. Referenced by every credential awarded for it.
  */
 export function buildAchievement(a: AchievementInput): Record<string, unknown> {
-  const id = `${a.issuer.site_url}/achievements/${a.certCode}`;
+  // IDENTIFIER -> base_url. The image and criteria below stay on siteUrl.
+  const id = achievementUrl(a.issuer, a.certCode);
 
   const doc: Record<string, unknown> = {
     "@context": VC_CONTEXT,
@@ -383,7 +422,7 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
         `Awarded on passing the ${a.certCode} examination against its published blueprint.`,
     },
     creator: {
-      id: a.issuer.issuer_url,
+      id: issuerUrl(a.issuer),
       type: ["Profile"],
       name: a.issuer.name,
     },
@@ -462,11 +501,11 @@ export interface CredentialInput {
 export function buildCredential(c: CredentialInput): Record<string, unknown> {
   const doc: Record<string, unknown> = {
     "@context": VC_CONTEXT,
-    id: `${c.siteUrl}/credentials/${c.credentialCode}`,
+    id: credentialUrl(c.issuer, c.credentialCode),
     type: ["VerifiableCredential", "OpenBadgeCredential"],
     name: (c.achievement.name as string) ?? c.credentialCode,
     issuer: {
-      id: c.issuer.issuer_url,
+      id: issuerUrl(c.issuer),
       type: ["Profile"],
       name: c.issuer.name,
       url: c.issuer.site_url,
@@ -553,7 +592,7 @@ export function buildStatusListCredential(
   encodedList: string,
   validFrom: string,
 ): Record<string, unknown> {
-  const id = `${issuer.site_url}/status/${listNumber}`;
+  const id = statusListUrl(issuer, listNumber);
   return {
     // VC_CONTEXT, not credentials/v2 alone: the issuer block below uses the
     // OB 3.0 term "Profile", which is a relative @type reference without the
@@ -561,7 +600,7 @@ export function buildStatusListCredential(
     "@context": VC_CONTEXT,
     id,
     type: ["VerifiableCredential", "BitstringStatusListCredential"],
-    issuer: { id: issuer.issuer_url, type: ["Profile"], name: issuer.name },
+    issuer: { id: issuerUrl(issuer), type: ["Profile"], name: issuer.name },
     validFrom,
     credentialSubject: {
       id: `${id}#list`,

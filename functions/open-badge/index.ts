@@ -53,11 +53,17 @@ import {
   hashSubjectIdentifier,
   isSignable,
   signDocument,
+  statusListUrl,
   type IssuerRow,
   type SnapshotDomain,
 } from "../_shared/ob3.ts";
 
-const ISSUER_SLUG = "certidemy";
+/**
+ * The issuer slug comes from the request, not a constant, so a partner issuer
+ * resolves without a redeploy. Absent -> "certidemy", which is what the existing
+ * certidemy.com proxy routes send.
+ */
+const DEFAULT_ISSUER_SLUG = "certidemy";
 
 /** Credentials are JSON-LD, not plain JSON. Consumers sniff this. */
 const LD_JSON = "application/vc+ld+json";
@@ -92,15 +98,18 @@ serve(async (req) => {
   try {
     const url = new URL(req.url);
     const doc = (url.searchParams.get("doc") ?? "issuer").toLowerCase();
+    const issuerSlug = (url.searchParams.get("issuer") ?? DEFAULT_ISSUER_SLUG)
+      .trim()
+      .toLowerCase();
     const svc = getServiceClient();
 
     // ---- Issuer, always. Every document names it. -----------------------
     const { data: issuerRow, error: issuerErr } = await svc
       .from("issuers")
       .select(
-        "slug, name, site_url, issuer_url, key_id, public_key_multibase, key_created_at",
+        "id, slug, name, site_url, base_url, issuer_url, key_id, public_key_multibase, key_created_at",
       )
-      .eq("slug", ISSUER_SLUG)
+      .eq("slug", issuerSlug)
       .eq("is_active", true)
       .maybeSingle();
 
@@ -141,9 +150,7 @@ serve(async (req) => {
       const { data: cred, error: credErr } = await svc
         .from("credentials")
         .select(
-          "id, credential_code, user_id, certification_code, holder_name, " +
-            "issued_at, expires_at, status, is_specimen, subject_salt, " +
-            "status_list_index, material_updated_at, jta_version_id",
+          "id, credential_code, user_id, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
         )
         .eq("credential_code", code.trim().toUpperCase())
         .maybeSingle();
@@ -205,7 +212,7 @@ serve(async (req) => {
         }
       }
 
-      const statusListId = `${siteUrl}/status/1`;
+      const statusListId = statusListUrl(issuer, 1);
 
       const unsigned = buildCredential({
         credentialCode: cred.credential_code,
@@ -221,7 +228,7 @@ serve(async (req) => {
         jtaVersion: (achievement["certidemy:jtaVersion"] as string) ?? null,
       });
 
-      const privateKey = await readSigningKey(svc);
+      const privateKey = await readSigningKey(svc, issuerSlug);
       if (!privateKey) {
         return jsonResponse(
           { error: "issuer has no signing key; credential cannot be issued" },
@@ -261,6 +268,7 @@ serve(async (req) => {
         .from("credentials")
         .select("status_list_index")
         .eq("status", "revoked")
+        .eq("issuer_id", issuer.id)
         .eq("is_specimen", false);
 
       if (revErr) throw new Error(`status list: ${revErr.message}`);
@@ -277,7 +285,7 @@ serve(async (req) => {
         new Date().toISOString(),
       );
 
-      const privateKey = await readSigningKey(svc);
+      const privateKey = await readSigningKey(svc, issuerSlug);
       if (!privateKey) {
         return jsonResponse({ error: "issuer has no signing key" }, 503);
       }
@@ -308,9 +316,9 @@ serve(async (req) => {
 // deno-lint-ignore no-explicit-any
 type Svc = any;
 
-async function readSigningKey(svc: Svc): Promise<string | null> {
+async function readSigningKey(svc: Svc, slug: string): Promise<string | null> {
   const { data, error } = await svc.rpc("issuer_get_signing_key", {
-    p_slug: ISSUER_SLUG,
+    p_slug: slug,
   });
   if (error) throw new Error(`issuer_get_signing_key: ${error.message}`);
   return (data as string | null) ?? null;
