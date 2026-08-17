@@ -210,6 +210,24 @@ export const VC_CONTEXT = [
   "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
 ];
 
+/**
+ * The issuer Profile needs one context the credential does not.
+ *
+ * A Profile publishes verificationMethod at the TOP LEVEL so a verifier can
+ * resolve the key. VC v2 defines that term only inside proof, and OB 3.0's
+ * Profile class does not define it at all, so under JSON-LD safe mode the whole
+ * property is dropped and the document fails validation. The W3C controller
+ * context is where verificationMethod and Multikey are defined.
+ *
+ * DELIBERATELY NOT ADDED TO VC_CONTEXT. The context array is hashed into every
+ * credential's proof config; widening the shared constant would change the
+ * signed bytes of every document for a term only the Profile uses.
+ */
+export const PROFILE_CONTEXT = [
+  ...VC_CONTEXT,
+  "https://www.w3.org/ns/controller/v1",
+];
+
 /* ========================================================================== *
  * Document builders
  * ========================================================================== */
@@ -231,7 +249,7 @@ export interface IssuerRow {
  */
 export function buildIssuerProfile(issuer: IssuerRow): Record<string, unknown> {
   const doc: Record<string, unknown> = {
-    "@context": VC_CONTEXT,
+    "@context": PROFILE_CONTEXT,
     id: issuer.issuer_url,
     type: ["Profile"],
     name: issuer.name,
@@ -537,7 +555,10 @@ export function buildStatusListCredential(
 ): Record<string, unknown> {
   const id = `${issuer.site_url}/status/${listNumber}`;
   return {
-    "@context": ["https://www.w3.org/ns/credentials/v2"],
+    // VC_CONTEXT, not credentials/v2 alone: the issuer block below uses the
+    // OB 3.0 term "Profile", which is a relative @type reference without the
+    // OB3 context and fails JSON-LD safe-mode validation.
+    "@context": VC_CONTEXT,
     id,
     type: ["VerifiableCredential", "BitstringStatusListCredential"],
     issuer: { id: issuer.issuer_url, type: ["Profile"], name: issuer.name },
