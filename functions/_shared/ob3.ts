@@ -54,6 +54,15 @@
  */
 
 import { effectiveStatus, isSignable, type StatusInput } from "./credential-status.ts";
+/*
+ * ?bundle-deps IS LOAD-BEARING. A plain esm.sh import of jsonld pulls
+ * rdf-canonize-native, which tries to load a .node addon that cannot exist in an
+ * edge runtime and fails with "Cannot set properties of null (setting 'path')".
+ * ?bundle-deps inlines the pure-JS canonicalizer. Measured at 37.6 ms on a 55 KB
+ * credential. Do not simplify this import.
+ */
+import jsonld from "https://esm.sh/jsonld@8.3.2?bundle-deps";
+import { bundledDocumentLoader } from "./ld-contexts.ts";
 
 /* ========================================================================== *
  * Encoding primitives
@@ -115,6 +124,33 @@ export function canonicalize(value: unknown): string {
   return JSON.stringify(sortDeep(value as Json));
 }
 
+/**
+ * RDF Dataset Canonicalization (URDNA2015) -> N-Quads.
+ *
+ * What eddsa-rdfc-2022 canonicalizes with, and a genuinely different operation
+ * from JCS: the document is EXPANDED as JSON-LD into RDF triples, those triples
+ * are canonically ordered by a hashing algorithm, and the result serialized. Two
+ * documents differing only in key order, or in which @context alias they use,
+ * produce identical N-Quads; JCS would see different bytes.
+ *
+ * safe: true, deliberately. Under safe mode a term not defined by any context is
+ * an ERROR rather than a silent drop. Without it, an undefined property would
+ * simply not appear in the N-Quads and the signature would cover a document
+ * missing a field nobody noticed was missing -- this codebase's recurring
+ * failure shape, here cryptographically blessed.
+ *
+ * The loader serves only bundled contexts and THROWS on anything else, so
+ * signing makes no network call.
+ */
+async function rdfCanonize(value: unknown): Promise<string> {
+  return await jsonld.canonize(value, {
+    algorithm: "URDNA2015",
+    format: "application/n-quads",
+    documentLoader: bundledDocumentLoader,
+    safe: true,
+  });
+}
+
 async function sha256(input: string): Promise<Uint8Array> {
   const digest = await crypto.subtle.digest(
     "SHA-256",
@@ -167,40 +203,73 @@ export async function signDocument<T extends Record<string, unknown>>(
   privateKeyPem: string,
   issuer: SigningIssuer,
   created: string,
-): Promise<T & { proof: Record<string, unknown> }> {
+): Promise<T & { proof: Record<string, unknown>[] }> {
   // MUST match buildIssuerProfile's verificationMethod id exactly, or a
   // verifier resolves the issuer and finds no key by that identifier.
   const verificationMethod =
     `${issuer.base_url}/issuers/${issuer.slug}#${issuer.key_id}`;
 
-  const proofConfig: Record<string, unknown> = {
-    "@context": (document as Record<string, unknown>)["@context"],
-    type: "DataIntegrityProof",
-    cryptosuite: "eddsa-jcs-2022",
-    created,
-    verificationMethod,
-    proofPurpose: "assertionMethod",
+  const key = await importSigningKey(privateKeyPem);
+
+  /**
+   * Sign one proof.
+   *
+   * Both cryptosuites use the same construction -- hash the proof options and
+   * the document SEPARATELY, then sign proofHash || docHash -- and differ only
+   * in the canonicalizer. Signing the document alone would leave the proof
+   * metadata (the date, the key, the purpose) unprotected and substitutable.
+   */
+  const signOne = async (
+    cryptosuite: string,
+    canon: (v: unknown) => string | Promise<string>,
+  ): Promise<Record<string, unknown>> => {
+    const config: Record<string, unknown> = {
+      "@context": (document as Record<string, unknown>)["@context"],
+      type: "DataIntegrityProof",
+      cryptosuite,
+      created,
+      verificationMethod,
+      proofPurpose: "assertionMethod",
+    };
+
+    const [proofHash, docHash] = await Promise.all([
+      Promise.resolve(canon(config)).then(sha256),
+      Promise.resolve(canon(document)).then(sha256),
+    ]);
+
+    const payload = new Uint8Array(proofHash.length + docHash.length);
+    payload.set(proofHash, 0);
+    payload.set(docHash, proofHash.length);
+
+    const sig = new Uint8Array(
+      await crypto.subtle.sign({ name: "Ed25519" }, key, payload),
+    );
+
+    // @context is carried in the config for hashing but is not part of the
+    // emitted proof object: it belongs to the enclosing document.
+    delete config["@context"];
+    return { ...config, proofValue: "z" + base58btc(sig) };
   };
 
-  const [proofHash, docHash] = await Promise.all([
-    sha256(canonicalize(proofConfig)),
-    sha256(canonicalize(document)),
+  /*
+   * A PROOF SET: two independent proofs over the same document, either of which
+   * a verifier may check. VCDM 2.0 permits this, and 1EdTech's conformance guide
+   * requires eddsa-rdfc-2022 or ecdsa-sd-2023 -- neither of which is what this
+   * platform originally signed with.
+   *
+   * JCS IS FIRST, deliberately. Some consumers read proof[0] instead of
+   * searching for a cryptosuite they support, and JCS is what this platform's
+   * own verifier has always checked. It also means that if the RDFC path is ever
+   * wrong, the credential is still verifiable.
+   */
+  const [jcsProof, rdfcProof] = await Promise.all([
+    signOne("eddsa-jcs-2022", canonicalize),
+    signOne("eddsa-rdfc-2022", rdfCanonize),
   ]);
-
-  const payload = new Uint8Array(proofHash.length + docHash.length);
-  payload.set(proofHash, 0);
-  payload.set(docHash, proofHash.length);
-
-  const key = await importSigningKey(privateKeyPem);
-  const sig = new Uint8Array(await crypto.subtle.sign({ name: "Ed25519" }, key, payload));
-
-  // @context is carried in the proof config for hashing but is not part of the
-  // emitted proof object — it belongs to the enclosing document.
-  delete proofConfig["@context"];
 
   return {
     ...document,
-    proof: { ...proofConfig, proofValue: "z" + base58btc(sig) },
+    proof: [jcsProof, rdfcProof],
   };
 }
 

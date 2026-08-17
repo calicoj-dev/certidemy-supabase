@@ -24,8 +24,13 @@ const doc = JSON.parse(json);
 console.log("");
 console.log("id            :", doc.id);
 console.log("issuer        :", doc.issuer?.id);
-console.log("cryptosuite   :", doc.proof?.cryptosuite);
-console.log("verifyMethod  :", doc.proof?.verificationMethod);
+// proof is an ARRAY since the dual-proof change (eddsa-jcs-2022 first, then
+// eddsa-rdfc-2022). Reading doc.proof.cryptosuite gives undefined on a set.
+const proofs = Array.isArray(doc.proof) ? doc.proof : doc.proof ? [doc.proof] : [];
+console.log("proofs        :", proofs.length);
+for (const p of proofs) {
+  console.log("  " + (p.cryptosuite ?? "?").padEnd(16), p.verificationMethod);
+}
 console.log("statusList    :", doc.credentialStatus?.statusListCredential);
 console.log("has identifier:", Array.isArray(doc.credentialSubject?.identifier));
 console.log("alignments    :", doc.credentialSubject?.achievement?.alignment?.length);
