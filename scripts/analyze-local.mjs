@@ -102,30 +102,21 @@ const BLUEPRINT = {
   tasks: [],
 };
 
-// --------------------------------------------------------- expected outcomes
+// ------------------------------------------------------------- the manifest
 //
-// The hand scores. Coverage is not yet computed by the engine (stage 6), so
-// only the SUPPRESSIONS are asserted today. Coverage rows are carried so the
-// assertion can be switched on the day concept matching lands.
+// scripts/calibration-manifest.json is the regression baseline and IS
+// COMMITTED. It replaces two things that used to live in this file:
+//
+//   1. A hardcoded EXPECTED map, which drifted from reality silently.
+//   2. Language detection by filename substring -- which is exactly what let
+//      the AulaUtil bug hide: the document was routed as es-419, every rule was
+//      en, zero rules ran, and the engine reported cleanPass=true on a
+//      competitor syllabus containing four legacy terms.
+//
+// Language is now DECLARED, never guessed.
 
-const EXPECTED = {
-  csm: { coverage: 29, suppression: null, driftFlags: 6 },
-  agileplaza: { coverage: null, suppression: "framework_mismatch" },
-  scrumstudy: { coverage: null, suppression: "framework_mismatch" },
-  sbok: { coverage: null, suppression: "framework_mismatch" },
-  "bcs-exin": { coverage: 38, suppression: null },
-  aulautil: { coverage: 35, suppression: null },
-  tuv: { coverage: 49, suppression: null, driftFlags: 0 },
-  clean: { coverage: null, suppression: null, driftFlags: 0 },
-  teaching: { coverage: null, suppression: null, driftFlags: 0 },
-};
-
-function expectationFor(name) {
-  for (const [key, exp] of Object.entries(EXPECTED)) {
-    if (name.toLowerCase().includes(key)) return { key, ...exp };
-  }
-  return null;
-}
+const manifest = JSON.parse(readFileSync(join(HERE, "calibration-manifest.json"), "utf8"));
+const byFile = new Map(manifest.fixtures.map((f) => [f.file, f]));
 
 // ---------------------------------------------------------------------- run
 
@@ -150,7 +141,13 @@ for (const file of files) {
   const raw = readFileSync(join(FIXTURES, file), "utf8");
   const hash = createHash("sha256").update(raw, "utf8").digest("hex");
   const name = basename(file, ".txt");
-  const lang = /-(es|pt)(-|\.|$)/i.test(name) || /aulautil/i.test(name) ? "es-419" : "en";
+  const spec = byFile.get(file);
+  if (!spec) {
+    console.log("=".repeat(78));
+    console.log(`${name}\n  SKIPPED -- not in calibration-manifest.json. Add it before it can be asserted.`);
+    continue;
+  }
+  const lang = spec.lang;
 
   const out = analyze({
     rawText: raw,
@@ -193,25 +190,44 @@ for (const file of files) {
   for (const f of drift) console.log(`    [drift ${f.severity}] ${f.label}`);
   for (const f of notes) console.log(`    [note  ${f.severity}] ${f.label}`);
 
-  const exp = expectationFor(name);
-  if (exp) {
-    const got = out.gates.suppressionReason;
-    const ok = got === exp.suppression;
-    console.log(`  EXPECTED    suppression=${exp.suppression ?? "none"} -> ${ok ? "PASS" : `FAIL (got ${got ?? "none"})`}`);
-    if (typeof exp.driftFlags === "number") {
-      const dOk = drift.length === exp.driftFlags;
-      console.log(
-        `              driftFlags=${exp.driftFlags} -> ${dOk ? "PASS" : `DIFF (got ${drift.length})`}`,
-      );
-    }
-    summary.push({ name, ok });
+  // ------------------------------------------------------------ assertions
+  const checks = [];
+  const add = (label, want, got) =>
+    checks.push({ label, want, got, ok: JSON.stringify(want) === JSON.stringify(got) });
+
+  add("sha256", spec.sha256_16, hash.slice(0, 16));
+  add("suppression", spec.expect_suppression, out.gates.suppressionReason);
+  add("framework", spec.expect_framework, out.gates.frameworkDetected);
+  add("drift", spec.expect_drift, drift.length);
+  add("cleanPass", spec.expect_clean_pass, out.cleanPass);
+
+  for (const c of checks) {
+    const mark = c.ok ? "pass" : "FAIL";
+    const detail = c.ok ? `${c.got}` : `want=${c.want} got=${c.got}`;
+    console.log(`  ${mark.padEnd(5)} ${c.label.padEnd(12)} ${detail}`);
   }
+
+  if (typeof spec.hand_drift === "number" && spec.hand_drift !== drift.length) {
+    console.log(
+      `  note  hand_drift    hand=${spec.hand_drift} engine=${drift.length} ` +
+        `-- an anchor, not an oracle; read the matched spans before changing a rule`,
+    );
+  }
+
+  summary.push({ name, ok: checks.every((c) => c.ok) });
 }
 
 console.log("=".repeat(78));
 const failed = summary.filter((s) => !s.ok);
-console.log(`suppression assertions: ${summary.length - failed.length}/${summary.length} pass`);
+console.log(
+  `calibration: ${summary.length - failed.length}/${summary.length} fixtures match baseline` +
+    `  (engine ${manifest.engine_baseline}, ruleset ${manifest.ruleset_baseline})`,
+);
 if (failed.length) {
   for (const f of failed) console.log(`  FAIL ${f.name}`);
+  console.log(
+    "\nA failure is a REGRESSION unless a migration or code change deliberately\n" +
+      "caused it -- in which case update calibration-manifest.json in the SAME commit.",
+  );
   process.exit(1);
 }
