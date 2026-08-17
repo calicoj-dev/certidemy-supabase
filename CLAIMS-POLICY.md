@@ -97,6 +97,9 @@ becomes true, and not before.
 - Equivalent to, equivalent of, replaces, counts as — for any third-party
   certification
 - Salary, hiring or labour-market outcomes
+- 1EdTech certified, 1EdTech conformant, Open Badges certified, or any
+  formulation implying a relationship with 1EdTech — **until listed in the
+  Certified Product Directory at imscert.org**. See §3.1.
 - Conforms to / complies with ISO/IEC 17024:2026 clause 6.5, or any claim that
   our use of AI in the certification process has been assessed. Clause 6.5
   governs AI use in the certification process; conformance is assessed by an
@@ -111,6 +114,44 @@ becomes true, and not before.
 - "The only", "the first", "nobody else" — without evidence meeting Class B
 - Any claim that Certidemy *is*, or is affiliated with, a standards body or
   another certification programme
+
+### 3.1 The 1EdTech boundary
+
+Singled out because it is the most dangerous kind of unearned claim: **partly
+true**, and true in a way that is easy to overstate in good faith on a call.
+
+**What is true as of August 2026.** Certidemy issues Open Badges 3.0 credentials
+that pass JSON-LD safe-mode validation and carry `eddsa-rdfc-2022` — the proof
+mechanism 1EdTech's Open Badges 3.0 Conformance and Certification Guide requires.
+Every technical requirement of the Issuer certification profile is met.
+
+**What is not true.** Certidemy is not a 1EdTech member, has not run the
+certification suite, and is not listed in the Certified Product Directory.
+Certification requires membership and a passed test suite; neither has happened.
+
+**Class A — permitted, because a reader can open the document and check it:**
+
+> Our credentials carry the proof mechanism 1EdTech's Open Badges 3.0 conformance
+> guide requires.
+
+A fact about our signature. Makes no status claim about us or about 1EdTech.
+
+**Class C — forbidden until listed in the directory:**
+
+> 1EdTech certified · 1EdTech conformant · Open Badges certified · conformance-
+> tested · officially recognised by 1EdTech
+
+The check a buyer runs is imscert.org, and it takes ten seconds. A university
+procurement officer WILL run it.
+
+**Class D — never:** anything implying Certidemy is a 1EdTech member, partner, or
+participant in its governance. This is the standards-body affiliation rule
+already stated in Class D, restated here because "conformant" does not obviously
+read as an affiliation claim to someone in a hurry.
+
+**When this changes:** passing the suite and appearing in the directory moves the
+Class C list to Class A wholesale. Until the directory lists us, it does not
+matter how much of the work is done.
 
 ### Overclaims about our own product
 
