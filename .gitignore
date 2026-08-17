@@ -16,3 +16,5 @@ verify.json
 
 # Translation review sheets - regenerable from live data via gen-translation-review.mjs
 TRANSLATION-REVIEW-*.md
+
+fixtures/
