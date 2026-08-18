@@ -54,8 +54,18 @@ export interface BlueprintTask {
 export interface BlueprintConcept {
   id: string;
   slug: string;
+  /** The analytic JTA artifact. Stays analytic; not what a syllabus prints. */
   name: string;
+  /**
+   * Surface forms a real document would print. Optional and additive: the
+   * matcher tries the name plus every term and takes the best band, so coverage
+   * improves monotonically as terms are authored and nothing regresses when a
+   * concept has none.
+   */
+  matchTerms?: string[];
   taskIds: string[];
+  /** false when every task reaching this concept is scope_tag = extended. */
+  inCoreScope?: boolean;
 }
 
 // ------------------------------------------------------------- drift rules
@@ -91,7 +101,11 @@ export interface NormalizedSource {
 
 // -------------------------------------------------------------------- gates
 
-export type SuppressionReason = "density" | "framework_mismatch";
+export type SuppressionReason =
+  | "density"
+  | "framework_mismatch"
+  /** The matcher cannot measure this source-language / blueprint-language pair. */
+  | "language_unsupported";
 
 export type FrameworkId =
   | "scrum_guide_2020"

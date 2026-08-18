@@ -32,6 +32,7 @@ import { normalize } from "./normalize.ts";
 import { evaluateGates } from "./gates.ts";
 import { detectDrift } from "./drift.ts";
 import { compareWeights } from "./weights.ts";
+import { matchConcepts, LexicalMatcher, type ConceptMatcher } from "./concepts.ts";
 
 export interface AnalyzeInput {
   rawText: string;
@@ -41,12 +42,15 @@ export interface AnalyzeInput {
   frameworkExpected?: FrameworkId | null;
   /** Rule languages to apply. See DriftInput.ruleLangs for the default. */
   ruleLangs?: Lang[];
+  /** Swap in an embedding matcher without touching the coverage formula. */
+  conceptMatcher?: ConceptMatcher;
   densityThresholdWords?: number;
 }
 
 export interface AnalyzeOutput extends AnalysisResult {
   normalized: { wordCount: number; charCount: number; transforms: string[] };
   rejectedRules: Array<{ ruleId: string; legacyTerm: string; reason: string }>;
+  concepts: { matcher: string; counts: Record<string, number>; byDomain: Array<{ code: string; weightPct: number; matchedPct: number }> } | null;
 }
 
 export function analyze(input: AnalyzeInput): AnalyzeOutput {
@@ -123,6 +127,49 @@ export function analyze(input: AnalyzeInput): AnalyzeOutput {
     });
   }
 
+  // CONCEPT MATCHING -- the ONLY stage that produces a coverage number.
+  //
+  // Skipped entirely when coverage is suppressed. Running it would compute a
+  // percentage the schema forbids storing (migration 219 CHECKs), and a number
+  // that exists in memory finds its way onto a screen eventually.
+  const matcher = input.conceptMatcher ?? new LexicalMatcher();
+
+  // A MATCHER THAT CANNOT MEASURE THIS LANGUAGE PAIR MUST NOT REPORT A NUMBER.
+  //
+  // The lexical matcher cannot cross languages: concept names exist only in
+  // English (no lang column, no i18n table). Run against the Spanish AulaUtil
+  // syllabus it produced 8.9% against a hand score of 35% -- a figure made
+  // almost entirely of language rather than curriculum, and one that would have
+  // looked like a devastating competitor finding.
+  //
+  // This is a limitation of THIS matcher, not of the engine. A multilingual
+  // embedding matcher would measure the pair fine, declare support, and this
+  // branch would never fire.
+  if (!gates.coverageSuppressed && !matcher.supports(input.sourceLang, input.blueprint.lang)) {
+    gates.coverageSuppressed = true;
+    gates.suppressionReason = "language_unsupported";
+    findings.push({
+      findingType: "structural_note",
+      label:
+        `Matcher ${matcher.name} cannot measure ${input.sourceLang} against a ` +
+        `${input.blueprint.lang} blueprint`,
+      severity: "high",
+      visibility: "internal",
+      requiresHumanReview: true,
+      note:
+        `Coverage is withheld rather than estimated. Concept names exist only in ` +
+        `${input.blueprint.lang}, so a lexical score here would measure language ` +
+        `overlap, not curriculum overlap. Drift, weighting and structural findings ` +
+        `are unaffected and are still reported.`,
+    });
+  }
+
+  let conceptOut = null;
+  if (!gates.coverageSuppressed) {
+    conceptOut = matchConcepts(src.text, input.blueprint, matcher);
+    findings.push(...conceptOut.findings);
+  }
+
   // CLEAN PASS. Required, and it must be reachable -- a detector that always
   // finds a problem is a detector nobody trusts.
   //
@@ -167,7 +214,7 @@ export function analyze(input: AnalyzeInput): AnalyzeOutput {
   return {
     engineVersion: ENGINE_VERSION,
     gates,
-    coveragePct: null, // stage 6 not built -- see header
+    coveragePct: conceptOut ? conceptOut.coveragePct : null,
     cleanPass,
     findings,
     driftRulesetSize: drift.rulesetSize,
@@ -177,5 +224,16 @@ export function analyze(input: AnalyzeInput): AnalyzeOutput {
       transforms: src.transforms,
     },
     rejectedRules: drift.rejected,
+    concepts: conceptOut
+      ? {
+          matcher: conceptOut.matcherName,
+          counts: conceptOut.counts,
+          byDomain: conceptOut.byDomain.map((d) => ({
+            code: d.code,
+            weightPct: d.weightPct,
+            matchedPct: Math.round(d.matchedPct * 10) / 10,
+          })),
+        }
+      : null,
   };
 }
