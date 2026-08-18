@@ -477,3 +477,6 @@ verify_jwt = false
 
 [functions.analyze-curriculum]
 verify_jwt = true
+
+[functions.submit-partner-lead]
+verify_jwt = false
