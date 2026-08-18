@@ -278,6 +278,25 @@ export interface ConceptOutput {
 
 const CREDITED: ConfidenceBand[] = ["strong", "probable"];
 
+/** Locator cap, well inside the 300-char column CHECK. */
+const LOCATOR_MAX = 240;
+
+/**
+ * What was searched for, so an absence is checkable rather than asserted.
+ *
+ * Lists the concept name plus any authored match terms -- the exact surfaces the
+ * matcher looked for. A partner can search their own document for the same
+ * strings and confirm the finding themselves.
+ */
+function buildAbsenceLocator(concept: BlueprintConcept): string {
+  const surfaces = [concept.name, ...(concept.matchTerms ?? [])];
+  const joined = surfaces.map((t) => `"${t}"`).join(", ");
+  const line = `not found in source; searched for ${joined}`;
+  return line.length <= LOCATOR_MAX
+    ? line
+    : `${line.slice(0, LOCATOR_MAX - 3).trimEnd()}...`;
+}
+
 export function matchConcepts(
   text: string,
   blueprint: Blueprint,
@@ -352,6 +371,23 @@ export function matchConcepts(
         label: m.concept.name,
         confidence: m.confidence,
         confidenceBand: "absent",
+        // EVIDENCE FOR AN ABSENCE.
+        //
+        // Migration 219's analysis_findings_external_needs_evidence CHECK
+        // requires an excerpt or a locator on anything a partner can see. An
+        // absent concept has no excerpt -- there is nothing to quote -- and the
+        // first version of this finding therefore violated the constraint and
+        // failed the whole report insert.
+        //
+        // The CHECK was right and the finding was wrong. Widening the CHECK
+        // would have weakened the guarantee for every finding type to
+        // accommodate one.
+        //
+        // A gap's evidence is THE SEARCH THAT FOUND NOTHING. Stating the
+        // surfaces that were looked for is more defensible to a partner than a
+        // blank evidence field, and it makes the claim checkable: they can
+        // search their own document for the same strings.
+        evidenceLocator: buildAbsenceLocator(m.concept),
         severity: "medium",
         visibility: "both",
         requiresHumanReview: false,

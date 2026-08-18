@@ -117,6 +117,11 @@ export function compareWeights(
     findings.push({
       findingType: "structural_note",
       label: "Source publishes no topic weighting",
+      // A structural note describes the DOCUMENT rather than quoting it, so it
+      // has no excerpt. The locator records what was looked for, which keeps
+      // migration 219's external-evidence CHECK satisfied honestly rather than
+      // by exempting a whole finding type from it.
+      evidenceLocator: "scanned for percentage allocations; none found",
       severity: "low",
       visibility: "both",
       requiresHumanReview: false,
@@ -195,6 +200,22 @@ export function compareWeights(
   }
 
   // Domains the source never weighted at all.
+  //
+  // EVIDENCE FOR AN ABSENCE, same rule as an absent concept match. Migration
+  // 219's analysis_findings_external_needs_evidence CHECK requires an excerpt
+  // or a locator on anything partner-visible, and a domain nobody weighted has
+  // nothing to quote. Naming the weights that WERE found makes the absence
+  // checkable rather than merely asserted: a reader can see what the source
+  // published and confirm this domain is not among it.
+  const foundLabels = weights.map((w) => w.label);
+  const surveyed =
+    foundLabels.length === 0
+      ? "no weighted topics found in source"
+      : `no weighted topic matched; source weights ${foundLabels.length} topic(s): ` +
+        foundLabels.slice(0, 6).join("; ");
+  const absenceLocator =
+    surveyed.length <= 240 ? surveyed : `${surveyed.slice(0, 237).trimEnd()}...`;
+
   for (const d of blueprint.domains) {
     if (usedDomains.has(d.id)) continue;
     findings.push({
@@ -203,6 +224,7 @@ export function compareWeights(
       label: `${d.code} ${d.title} -- not weighted by the source`,
       sourceWeightPct: 0,
       blueprintWeightPct: d.weightPct,
+      evidenceLocator: absenceLocator,
       severity: d.weightPct >= 20 ? "high" : d.weightPct >= 10 ? "medium" : "low",
       visibility: "both",
       requiresHumanReview: false,

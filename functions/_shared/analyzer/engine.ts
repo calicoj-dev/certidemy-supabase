@@ -89,6 +89,9 @@ export function analyze(input: AnalyzeInput): AnalyzeOutput {
     findings.push({
       findingType: "structural_note",
       label: `Structural comparison: source follows ${gates.frameworkDetected}`,
+      evidenceLocator:
+        `framework detected as ${gates.frameworkDetected} ` +
+        `(confidence ${gates.frameworkConfidence.toFixed(2)}); expected ${gates.frameworkExpected}`,
       severity: "high",
       visibility: "both",
       requiresHumanReview: true,
@@ -103,6 +106,7 @@ export function analyze(input: AnalyzeInput): AnalyzeOutput {
     findings.push({
       findingType: "structural_note",
       label: `Thin source: ${src.wordCount} words below the ${gates.densityThresholdWords}-word floor`,
+      evidenceLocator: `${src.wordCount} words extracted from ${src.charCount} characters`,
       severity: "medium",
       visibility: "both",
       requiresHumanReview: false,
