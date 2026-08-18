@@ -33,6 +33,7 @@ const flag = (n, d = null) => {
 
 const code = flag("cert", "SM-AI-I");
 const lang = flag("lang", "en");
+const withLessons = argv.includes("--lessons");
 const outPath = flag("out", join(HERE, "..", "..", "fixtures", `blueprint-${code}-${lang}.json`));
 
 function loadKey() {
@@ -61,7 +62,42 @@ const reader = new BlueprintReader({
   apiKey: KEY,
 });
 
-const blueprint = await reader.loadByCode(code, lang);
+// --all dumps every certification. Failures are reported per certification and
+// do not abort the run -- the weight-sum guard firing on one blueprint is itself
+// a finding worth seeing, not a reason to learn nothing about the other ten.
+if (argv.includes("--all")) {
+  const certs = await reader.listCertifications();
+  console.log(`${certs.length} certifications\n`);
+  let ok = 0;
+  const failures = [];
+  for (const c of certs) {
+    const p = join(HERE, "..", "..", "fixtures", `blueprint-${c.code}-${lang}.json`);
+    try {
+      const bp = await reader.loadByCode(c.code, lang, withLessons);
+      writeFileSync(p, JSON.stringify(bp, null, 2), "utf8");
+      const links = bp.concepts.reduce((s, x) => s + x.taskIds.length, 0);
+      const core = bp.concepts.filter((x) => x.inCoreScope !== false).length;
+      console.log(
+        `  ok    ${c.code.padEnd(10)} ${String(bp.domains.length).padStart(2)}d ` +
+          `${String(bp.tasks.length).padStart(3)}t ${String(bp.concepts.length).padStart(4)}c ` +
+          `(${core} core) ${links} links  [${c.status}]`,
+      );
+      ok++;
+    } catch (err) {
+      console.log(`  FAIL  ${c.code.padEnd(10)} ${(err && err.message) || err}`);
+      failures.push(c.code);
+    }
+  }
+  console.log(`\n${ok}/${certs.length} dumped`);
+  if (failures.length) {
+    console.log(`failed: ${failures.join(", ")}`);
+    console.log("A weight-sum failure means that blueprint is broken and every");
+    console.log("divergence computed against it would be wrong. Fix before scanning.");
+  }
+  process.exit(0);
+}
+
+const blueprint = await reader.loadByCode(code, lang, withLessons);
 
 writeFileSync(outPath, JSON.stringify(blueprint, null, 2), "utf8");
 
@@ -75,6 +111,7 @@ console.log(`  domains   ${blueprint.domains.length}  weights sum ${weightSum}`)
 console.log(`  tasks     ${blueprint.tasks.length}  exam-scope ${examScope}`);
 console.log(`  concepts  ${blueprint.concepts.length}  linked ${linked}  links ${links}`);
 console.log(`  reuse     ${links - linked} (links beyond one per concept)`);
+console.log(`  lessons   ${blueprint.lessons ? blueprint.lessons.length : "not loaded (pass --lessons)"}`);
 console.log(`  tables read: ${[...new Set(reader.accessLog)].join(", ")}`);
 
 // A concept with no task link is unreachable: nothing in the JTA claims it, so

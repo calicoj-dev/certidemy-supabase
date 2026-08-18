@@ -33,6 +33,15 @@ export interface Blueprint {
   domains: BlueprintDomain[];
   tasks: BlueprintTask[];
   concepts?: BlueprintConcept[];
+  /** Present only when the reader was asked for them. Powers build-plan links. */
+  lessons?: BlueprintLesson[];
+}
+
+export interface BlueprintLesson {
+  id: string;
+  slug: string;
+  title: string;
+  conceptIds: string[];
 }
 
 export interface BlueprintDomain {

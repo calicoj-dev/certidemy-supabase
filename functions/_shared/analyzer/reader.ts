@@ -26,6 +26,7 @@
 import type {
   Blueprint,
   BlueprintConcept,
+  BlueprintLesson,
   BlueprintDomain,
   BlueprintTask,
   Lang,
@@ -131,13 +132,29 @@ export class BlueprintReader {
     return (await res.json()) as T[];
   }
 
-  async loadByCode(code: string, lang: Lang): Promise<Blueprint> {
+  /**
+   * Every certification, for the multi-certification scan.
+   *
+   * A partner feeds ONE syllabus and is scored against ALL of them -- "your
+   * course is 71% ready for SM-AI-I, 22% for SPO-AI-I" -- which is the question
+   * a training provider actually has and has never been able to ask anyone.
+   * Nearly free: drift, weighting and the gates are computed once on the text;
+   * only concept matching is per-certification.
+   */
+  async listCertifications(): Promise<Array<{ id: string; code: string; name: string; status: string }>> {
+    return this.#select<{ id: string; code: string; name: string; status: string }>(
+      "certifications",
+      "select=id,code,name,status&order=code",
+    );
+  }
+
+  async loadByCode(code: string, lang: Lang, withLessons = false): Promise<Blueprint> {
     const certs = await this.#select<{ id: string; code: string; name: string }>(
       "certifications",
       `select=id,code,name&code=eq.${encodeURIComponent(code)}`,
     );
     if (certs.length === 0) throw new Error(`no certification with code ${code}`);
-    return this.load(certs[0].id, certs[0].code, certs[0].name, lang);
+    return this.load(certs[0].id, certs[0].code, certs[0].name, lang, withLessons);
   }
 
   async load(
@@ -145,6 +162,7 @@ export class BlueprintReader {
     code: string,
     title: string,
     lang: Lang,
+    withLessons = false,
   ): Promise<Blueprint> {
     const scope = `certification_id=eq.${certificationId}`;
 
@@ -226,6 +244,38 @@ export class BlueprintReader {
     // Weights that do not sum to 100 mean the blueprint itself is broken, and
     // every divergence computed against it would be quietly wrong. Better to
     // refuse than to report confidently against a bad reference.
+    // Lessons scope through modules, not through certification_id. Rather than
+    // teach the query layer that join, fetch them by id via lesson_concepts --
+    // the same trick used for task_concepts. Language-filtered, because a
+    // lesson exists once per language and an en blueprint must not link a
+    // pt-BR lesson.
+    let lessons: BlueprintLesson[] | undefined;
+    if (withLessons && concepts.length > 0) {
+      const links = await this.#select<{ lesson_id: string; concept_id: string }>(
+        "lesson_concepts",
+        `select=lesson_id,concept_id&concept_id=in.(${concepts.map((c) => c.id).join(",")})`,
+      );
+      const lessonIds = [...new Set(links.map((l) => l.lesson_id))];
+      const rows = lessonIds.length
+        ? await this.#select<{ id: string; slug: string; title: string; language: string }>(
+            "lessons",
+            `select=id,slug,title,language&id=in.(${lessonIds.join(",")})&language=eq.${encodeURIComponent(lang)}`,
+          )
+        : [];
+      const byLesson = new Map<string, string[]>();
+      for (const l of links) {
+        const arr = byLesson.get(l.lesson_id) ?? [];
+        arr.push(l.concept_id);
+        byLesson.set(l.lesson_id, arr);
+      }
+      lessons = rows.map((r) => ({
+        id: r.id,
+        slug: r.slug,
+        title: r.title,
+        conceptIds: byLesson.get(r.id) ?? [],
+      }));
+    }
+
     const weightSum = domains.reduce((s, d) => s + d.weightPct, 0);
     if (domains.length > 0 && Math.abs(weightSum - 100) > 0.01) {
       throw new Error(
@@ -243,6 +293,7 @@ export class BlueprintReader {
       domains,
       tasks,
       concepts,
+      lessons,
     };
   }
 }
