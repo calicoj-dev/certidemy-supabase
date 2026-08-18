@@ -30,12 +30,15 @@ const FIXTURES = join(HERE, "..", "..", "fixtures", "calibration");
 const argv = process.argv.slice(2);
 const rulesFlag = argv.indexOf("--rules");
 const rulesPath = rulesFlag !== -1 ? argv[rulesFlag + 1] : null;
+const bpFlag = argv.indexOf("--blueprint");
+const bpPath = bpFlag !== -1 ? argv[bpFlag + 1] : null;
 // Guard the -1 case: without --rules, rulesFlag + 1 is 0, which would silently
 // drop the FIRST positional filter and quietly run every fixture instead of the
 // one that was asked for.
 const rulesValueIndex = rulesFlag === -1 ? -1 : rulesFlag + 1;
+const bpValueIndex = bpFlag === -1 ? -1 : bpFlag + 1;
 const filters = argv.filter(
-  (a, i) => !a.startsWith("--") && i !== rulesValueIndex,
+  (a, i) => !a.startsWith("--") && i !== rulesValueIndex && i !== bpValueIndex,
 );
 
 // ------------------------------------------------------------------- ruleset
@@ -86,21 +89,15 @@ const rules = rulesPath ? JSON.parse(readFileSync(rulesPath, "utf8")) : BUILTIN_
 // SM-AI-I domain weights. Replace with a live BlueprintReader pull once the
 // edge function exists; the shape is deliberately identical.
 
-const BLUEPRINT = {
-  referenceKind: "certidemy_certification",
-  referenceId: "11111111-1111-1111-1111-111111111111",
-  lang: "en",
-  code: "SM-AI-I",
-  title: "Scrum Master I - AI",
-  domains: [
-    { id: "d1", code: "D1", title: "Agile and Scrum foundations", weightPct: 12.5 },
-    { id: "d2", code: "D2", title: "Scrum events and facilitation", weightPct: 22.5 },
-    { id: "d3", code: "D3", title: "Scrum artifacts and commitments", weightPct: 25.0 },
-    { id: "d4", code: "D4", title: "Product Backlog and planning", weightPct: 17.5 },
-    { id: "d5", code: "D5", title: "Scrum Master accountability and coaching", weightPct: 22.5 },
-  ],
-  tasks: [],
-};
+const BLUEPRINT = bpPath
+  ? JSON.parse(readFileSync(bpPath, "utf8"))
+  : (() => {
+      console.error(
+        "no --blueprint given. Run: node scripts/dump-blueprint.mjs\n" +
+          "then: node scripts/analyze-local.mjs --blueprint ../fixtures/blueprint-SM-AI-I-en.json",
+      );
+      process.exit(1);
+    })();
 
 // ------------------------------------------------------------- the manifest
 //
@@ -181,6 +178,18 @@ for (const file of files) {
     `  findings    drift=${drift.length} weight=${wd.length} reverseGap=${gaps.length} ` +
       `notes=${notes.length} needsReview=${review.length}`,
   );
+
+  if (out.concepts) {
+    const c = out.concepts;
+    console.log(
+      `  concepts    matcher=${c.matcher}  strong=${c.counts.strong} probable=${c.counts.probable} ` +
+        `ambiguous=${c.counts.ambiguous} absent=${c.counts.absent}`,
+    );
+    console.log(
+      "  by domain   " +
+        c.byDomain.map((d) => `${d.code}:${d.matchedPct}%(w${d.weightPct})`).join("  "),
+    );
+  }
 
   if (out.rejectedRules.length) {
     console.log(`  REJECTED RULES (${out.rejectedRules.length}):`);

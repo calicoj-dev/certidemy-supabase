@@ -474,3 +474,6 @@ verify_jwt = false
 # Gating it behind a key would make that claim false.
 [functions.get-certification-blueprint]
 verify_jwt = false
+
+[functions.analyze-curriculum]
+verify_jwt = true
