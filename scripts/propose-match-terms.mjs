@@ -34,13 +34,13 @@
 // and flags the dangerous ones rather than filtering silently, because a
 // candidate you can see and delete is safer than one quietly dropped.
 
-import { writeFileSync, readFileSync, existsSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { getAll, getAllIn, requireKey } from "./_pg.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PROJECT_REF = "pctynukndxnmnxiqpgck";
-const BASE = `https://${PROJECT_REF}.supabase.co/rest/v1`;
 
 const argv = process.argv.slice(2);
 const flag = (n, d = null) => {
@@ -53,31 +53,12 @@ const outPath =
   flag("out", null) ??
   join(HERE, "..", "..", "fixtures", `match-terms-${certCode}${domainCode ? "-" + domainCode : ""}.json`);
 
-function loadKey() {
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-  for (const c of [join(HERE, "..", ".env"), join(HERE, "..", "..", ".env")]) {
-    if (!existsSync(c)) continue;
-    const m = readFileSync(c, "utf8").match(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\n\r]+)"?/m);
-    if (m) return m[1].trim();
-  }
-  return null;
-}
-const KEY = loadKey();
-if (!KEY) {
-  console.error('SUPABASE_SERVICE_ROLE_KEY not set.\n  $env:SUPABASE_SERVICE_ROLE_KEY = "<key>"');
-  process.exit(1);
-}
-
-async function get(path) {
-  const res = await fetch(`${BASE}/${path}`, {
-    headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, Accept: "application/json" },
-  });
-  if (!res.ok) throw new Error(`${res.status} on ${path}: ${await res.text()}`);
-  return res.json();
-}
+const KEY = requireKey(HERE);
+const get = (path) => getAll(KEY, path);
 
 // ------------------------------------------------------------------ pull
 
+const lessonLang = flag("lessonLang", "en");
 const [cert] = await get(`certifications?select=id,code&code=eq.${encodeURIComponent(certCode)}`);
 if (!cert) throw new Error(`no certification ${certCode}`);
 
@@ -93,15 +74,20 @@ const tasks = await get(
 const concepts = await get(
   `concepts?select=id,slug,name,match_terms&certification_id=eq.${cert.id}&order=slug`,
 );
-const taskConcepts = await get(
-  `task_concepts?select=task_id,concept_id&task_id=in.(${tasks.map((t) => t.id).join(",")})`,
+const taskConcepts = await getAllIn(
+  KEY, "task_concepts", "task_id,concept_id", "task_id",
+  tasks.map((t) => t.id), "&order=concept_id",
 );
-const lessonConcepts = await get(
-  `lesson_concepts?select=lesson_id,concept_id&concept_id=in.(${concepts.map((c) => c.id).join(",")})`,
+const lessonConcepts = await getAllIn(
+  KEY, "lesson_concepts", "lesson_id,concept_id", "concept_id",
+  concepts.map((c) => c.id), "&order=concept_id",
 );
 const lessonIds = [...new Set(lessonConcepts.map((l) => l.lesson_id))];
+// LANGUAGE FILTER. Its absence is why the D3 review file was polluted with
+// Spanish and Portuguese candidates against an English blueprint.
 const lessons = lessonIds.length
-  ? await get(`lessons?select=id,slug,title,content_md&id=in.(${lessonIds.join(",")})`)
+  ? await getAllIn(KEY, "lessons", "id,slug,title,content_md,language", "id", lessonIds,
+      `&language=eq.${encodeURIComponent(lessonLang)}`)
   : [];
 const lessonById = new Map(lessons.map((l) => [l.id, l]));
 
@@ -115,8 +101,10 @@ const stem = (t) => t.replace(/(ings|ing|ies|es|s)$/u, "");
 /** Headings and bold spans: the plain-language topic labels in a lesson. */
 function labelsFrom(md) {
   const out = [];
+  // HEADINGS ONLY. Bold spans mark emphasis mid-sentence in these lessons, not
+  // topic labels, and including them produced candidates like "2020 Scrum Guide
+  // removed that as a requirement." -- roughly 97% noise in the D3 run.
   for (const m of md.matchAll(/^#{2,4}\s+(.+?)\s*$/gm)) out.push(m[1]);
-  for (const m of md.matchAll(/\*\*(.+?)\*\*/g)) out.push(m[1]);
   return out
     .map((s) => s.replace(/[`*_[\]()#]/g, "").replace(/\s+/g, " ").trim())
     .filter((s) => s.length >= 6 && s.length <= 70)

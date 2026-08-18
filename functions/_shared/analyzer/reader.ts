@@ -99,6 +99,9 @@ export interface ReaderConfig {
 }
 
 export class BlueprintReader {
+  /** PostgREST default page size. See the note in #select. */
+  static readonly PAGE = 1000;
+
   #restUrl: string;
   #apiKey: string;
   #fetch: typeof fetch;
@@ -119,17 +122,38 @@ export class BlueprintReader {
     assertTableAllowed(table);
     this.accessLog.push(table);
 
-    const res = await this.#fetch(`${this.#restUrl}/${table}?${query}`, {
-      headers: {
-        apikey: this.#apiKey,
-        Authorization: `Bearer ${this.#apiKey}`,
-        Accept: "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status} ${res.statusText} reading ${table}: ${await res.text()}`);
+    // PAGINATED. PostgREST caps a response at 1000 rows by default and says
+    // nothing about it.
+    //
+    // This bit hard once already: verify-invariants.mjs fetched 1000 of 1599
+    // concepts and reported the other 599 as having no lesson and no task --
+    // 606 false failures on healthy data, from the tool whose entire job is to
+    // be believed when it reports a problem.
+    //
+    // Here the consequence would be worse and quieter. A truncated blueprint
+    // produces a readiness report that under-counts a partner's coverage, and
+    // nothing in the output would look wrong. No certification is near 1000
+    // concepts today (AISM-I is largest at 226); this is for the day one is.
+    const rows: T[] = [];
+    for (let from = 0; ; from += BlueprintReader.PAGE) {
+      const res = await this.#fetch(`${this.#restUrl}/${table}?${query}`, {
+        headers: {
+          apikey: this.#apiKey,
+          Authorization: `Bearer ${this.#apiKey}`,
+          Accept: "application/json",
+          Range: `${from}-${from + BlueprintReader.PAGE - 1}`,
+          "Range-Unit": "items",
+        },
+      });
+      if (!res.ok && res.status !== 206) {
+        throw new Error(`${res.status} ${res.statusText} reading ${table}: ${await res.text()}`);
+      }
+      const page = (await res.json()) as T[];
+      rows.push(...page);
+      if (page.length < BlueprintReader.PAGE) return rows;
+      // A server ignoring Range would otherwise return page one forever.
+      if (from > 200000) throw new Error(`pagination runaway reading ${table}`);
     }
-    return (await res.json()) as T[];
   }
 
   /**

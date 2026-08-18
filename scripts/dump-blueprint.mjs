@@ -16,14 +16,14 @@
 // Uses the real BlueprintReader, so the firewall allowlist is exercised on
 // every dump rather than only in production.
 
-import { writeFileSync, readFileSync, existsSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { BlueprintReader } from "../functions/_shared/analyzer/reader.ts";
+import { requireKey, REST_URL } from "./_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PROJECT_REF = "pctynukndxnmnxiqpgck";
 
 const argv = process.argv.slice(2);
 const flag = (n, d = null) => {
@@ -36,31 +36,9 @@ const lang = flag("lang", "en");
 const withLessons = argv.includes("--lessons");
 const outPath = flag("out", join(HERE, "..", "..", "fixtures", `blueprint-${code}-${lang}.json`));
 
-function loadKey() {
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-  for (const c of [join(HERE, "..", ".env"), join(HERE, "..", "..", ".env")]) {
-    if (!existsSync(c)) continue;
-    const m = readFileSync(c, "utf8").match(
-      /^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\n\r]+)"?/m,
-    );
-    if (m) return m[1].trim();
-  }
-  return null;
-}
+const KEY = requireKey(HERE);
 
-const KEY = loadKey();
-if (!KEY) {
-  console.error(
-    'SUPABASE_SERVICE_ROLE_KEY not found.\n  $env:SUPABASE_SERVICE_ROLE_KEY = "<key>"\n' +
-      "Project Settings -> API. It is a secret; do not commit it.",
-  );
-  process.exit(1);
-}
-
-const reader = new BlueprintReader({
-  restUrl: `https://${PROJECT_REF}.supabase.co/rest/v1`,
-  apiKey: KEY,
-});
+const reader = new BlueprintReader({ restUrl: REST_URL, apiKey: KEY });
 
 // --all dumps every certification. Failures are reported per certification and
 // do not abort the run -- the weight-sum guard firing on one blueprint is itself

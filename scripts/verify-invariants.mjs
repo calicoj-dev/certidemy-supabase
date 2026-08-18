@@ -41,68 +41,15 @@
 //      competitor's readiness -- the one failure in this engine that looks like
 //      a good result rather than a bug.
 
-import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { getAll, requireKey } from "./_pg.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PROJECT_REF = "pctynukndxnmnxiqpgck";
-const BASE = `https://${PROJECT_REF}.supabase.co/rest/v1`;
 const asJson = process.argv.includes("--json");
-
-function loadKey() {
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-  for (const c of [join(HERE, "..", ".env"), join(HERE, "..", "..", ".env")]) {
-    if (!existsSync(c)) continue;
-    const m = readFileSync(c, "utf8").match(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\n\r]+)"?/m);
-    if (m) return m[1].trim();
-  }
-  return null;
-}
-const KEY = loadKey();
-if (!KEY) {
-  console.error('SUPABASE_SERVICE_ROLE_KEY not set.\n  $env:SUPABASE_SERVICE_ROLE_KEY = "<key>"');
-  process.exit(1);
-}
-
-/**
- * PostgREST caps a response at 1000 rows by default and says nothing about it.
- *
- * The first version of this script did not paginate, so `concepts` came back
- * truncated at 1000 of 1599 and every concept past the cutoff was reported as
- * having no lesson and no task -- 606 false failures on healthy data, on the
- * very check whose whole purpose is to be trusted when it says something is
- * wrong.
- *
- * A verification tool that reports false failures is worse than no tool: people
- * learn to dismiss it, and then it is silent when it matters. Range-paginate
- * everything and assert the page came back whole.
- */
-const PAGE = 1000;
-
-async function get(path) {
-  const rows = [];
-  for (let from = 0; ; from += PAGE) {
-    const res = await fetch(`${BASE}/${path}`, {
-      headers: {
-        apikey: KEY,
-        Authorization: `Bearer ${KEY}`,
-        Accept: "application/json",
-        Range: `${from}-${from + PAGE - 1}`,
-        "Range-Unit": "items",
-      },
-    });
-    if (!res.ok && res.status !== 206) {
-      throw new Error(`${res.status} on ${path}: ${await res.text()}`);
-    }
-    const page = await res.json();
-    rows.push(...page);
-    if (page.length < PAGE) return rows;
-    // Guard against a server that ignores Range: without this, an unpaginated
-    // response would loop forever returning the same first page.
-    if (from > 200000) throw new Error(`pagination runaway on ${path}`);
-  }
-}
+const KEY = requireKey(HERE);
+const get = (path) => getAll(KEY, path);
 
 const results = [];
 /**

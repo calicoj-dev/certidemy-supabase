@@ -19,15 +19,13 @@
 // .env file beside this script's parent. It is a secret -- never commit it,
 // never paste it into a chat.
 
-import { writeFileSync, readFileSync, existsSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const HERE = dirname(fileURLToPath(import.meta.url));
-const PROJECT_REF = "pctynukndxnmnxiqpgck";
-const BASE = `https://${PROJECT_REF}.supabase.co/rest/v1`;
+import { getAll, requireKey } from "./_pg.mjs";
 
-// ------------------------------------------------------------------- args
+const HERE = dirname(fileURLToPath(import.meta.url));
 
 const argv = process.argv.slice(2);
 function flag(name, fallback = null) {
@@ -37,47 +35,8 @@ function flag(name, fallback = null) {
 const lang = flag("lang", null);
 const outPath = flag("out", join(HERE, "..", "..", "fixtures", "drift-rules.json"));
 
-// ------------------------------------------------------------------- creds
-
-function loadKey() {
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  for (const candidate of [join(HERE, "..", ".env"), join(HERE, "..", "..", ".env")]) {
-    if (!existsSync(candidate)) continue;
-    const txt = readFileSync(candidate, "utf8");
-    const m = txt.match(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\n\r]+)"?/m);
-    if (m) return m[1].trim();
-  }
-  return null;
-}
-
-const KEY = loadKey();
-if (!KEY) {
-  console.error(
-    [
-      "SUPABASE_SERVICE_ROLE_KEY not found.",
-      "",
-      "Set it for this shell only (it is a secret; do not commit it):",
-      '  $env:SUPABASE_SERVICE_ROLE_KEY = "<key>"',
-      "",
-      "Or place it in a gitignored .env beside the supabase folder.",
-      "Find it in the Supabase dashboard under Project Settings -> API.",
-    ].join("\n"),
-  );
-  process.exit(1);
-}
-
-// -------------------------------------------------------------------- pull
-
-async function get(path) {
-  const res = await fetch(`${BASE}/${path}`, {
-    headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, Accept: "application/json" },
-  });
-  if (!res.ok) {
-    throw new Error(`${res.status} ${res.statusText} on ${path}\n${await res.text()}`);
-  }
-  return res.json();
-}
+const KEY = requireKey(HERE);
+const get = (path) => getAll(KEY, path);
 
 const cols = [
   "id",
