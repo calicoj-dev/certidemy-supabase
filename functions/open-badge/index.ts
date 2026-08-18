@@ -74,12 +74,15 @@ function ldResponse(
   body: unknown,
   cache: string,
   status = 200,
+  // The anchor proof is plain JSON, not a verifiable credential. Sending it as
+  // application/vc+ld+json would tell a consumer it is one.
+  contentType: string = LD_JSON,
 ): Response {
   return new Response(JSON.stringify(body, null, 2), {
     status,
     headers: {
       ...corsHeaders,
-      "content-type": `${LD_JSON}; charset=utf-8`,
+      "content-type": `${contentType}; charset=utf-8`,
       "cache-control": cache,
     },
   });
@@ -309,6 +312,71 @@ serve(async (req) => {
       }
 
       return ldResponse(signed, cache);
+    }
+
+    /* ------------------------------------------------------------ anchor -- */
+    /* The Merkle inclusion proof. NOT a credential and NOT signed -- see the
+       patch header. A verifier hashes the credential, combines it with the
+       siblings below, and compares the result to what is on chain. */
+    if (doc === "anchor") {
+      const code = url.searchParams.get("code");
+      if (!code) return jsonResponse({ error: "code required" }, 400);
+
+      const { data: cred, error: credErr } = await svc
+        .from("credentials")
+        .select(
+          "credential_code, anchor_leaf, anchor_path, is_specimen, anchor_id, credential_anchors(merkle_root, doc_version, built_at, chain, txid, anchored_at)",
+        )
+        .eq("credential_code", code.trim().toUpperCase())
+        .maybeSingle();
+
+      if (credErr) throw new Error(`anchor lookup: ${credErr.message}`);
+      if (!cred || cred.is_specimen) {
+        return jsonResponse({ error: "not found" }, 404);
+      }
+
+      /* No anchor yet is a REAL ANSWER, not a failure: the credential was
+         issued after the last batch ran. 404 rather than an empty object, so a
+         consumer cannot mistake "not yet hashed" for "hashed to nothing". */
+      if (!cred.anchor_id || !cred.anchor_leaf) {
+        return jsonResponse({ error: "not anchored yet" }, 404);
+      }
+
+      const anchor = cred.credential_anchors as unknown as {
+        merkle_root: string;
+        doc_version: string;
+        built_at: string;
+        chain: string | null;
+        txid: string | null;
+        anchored_at: string | null;
+      } | null;
+
+      if (!anchor) throw new Error("anchor row missing for a linked credential");
+
+      return ldResponse(
+        {
+          credential: `${issuer.base_url}/credentials/${cred.credential_code}`,
+          leaf: cred.anchor_leaf,
+          path: cred.anchor_path ?? [],
+          root: anchor.merkle_root,
+          docVersion: anchor.doc_version,
+          builtAt: anchor.built_at,
+          /* Null until published. The proof is still useful: it shows the
+             document has not changed since it was hashed. What a chain adds is
+             a date nobody has to take our word for. */
+          chain: anchor.chain,
+          txid: anchor.txid,
+          anchoredAt: anchor.anchored_at,
+          algorithm: {
+            leaf: "sha256(utf8 bytes of the credential document as served)",
+            node: "sha256(left32 || right32), raw bytes",
+            oddNode: "promoted unchanged, never duplicated",
+          },
+        },
+        CACHE_STABLE,
+        200,
+        "application/json",
+      );
     }
 
     /* ------------------------------------------------------------ status -- */
