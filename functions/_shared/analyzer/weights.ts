@@ -59,35 +59,147 @@ function overlap(a: Set<string>, b: Set<string>): number {
 const ALIGNMENT_FLOOR = 0.5;
 
 /**
- * Extract "<label> ... <n>%" pairs.
+ * Extract a published weighting distribution.
  *
- * Handles the two shapes seen in the calibration corpus:
- *   "2. Scrum Master role - 27.5%"   (BCS EXIN, label before)
- *   "SCRUM FUNDAMENTALS   18"        (TUV, tabular; needs the % variant)
+ * ================= WHY THIS IS FUSSY ABOUT WHAT IT ACCEPTS =================
  *
- * Deliberately conservative: a percentage with no plausible label within
- * ~80 characters is ignored rather than attached to whatever preceded it.
+ * The first version grabbed up to 80 characters before any "N%" anywhere in the
+ * document. Against a 78-page manual that produced "reverse gaps" like:
+ *
+ *   "n with an assistant and a driver when the technology cannot prevent
+ *    human errors (100% of their course)"
+ *   "grooming should never consume more than (10% of their course)"
+ *
+ * Neither is a course topic. The first is a sliced-up sentence about
+ * automation; the second is a rule about refinement time-boxing. Both were then
+ * shown to the reader under "Beyond our scope - their differentiation", which
+ * is the section whose whole job is to be generous and credible.
+ *
+ * A mangled fragment of a partner's own prose destroys trust faster than a
+ * wrong number does. So the rule is now: a weight must LOOK LIKE A TABLE ROW,
+ * not merely sit near a percent sign.
+ *
+ * Four requirements, all cheap:
+ *   1. The label starts at a line boundary or a list marker. A weighting table
+ *      is a list; a sentence is not.
+ *   2. The label is short (<= 60 chars) and few words (<= 8). Topic labels are
+ *      terse; prose is not.
+ *   3. The label does not read as a sentence fragment - no leading lowercase
+ *      verb-ish word, no trailing conjunction, no sentence punctuation inside.
+ *   4. The extracted set must plausibly BE a distribution: at least three
+ *      entries summing to somewhere near 100. One stray percentage in an essay
+ *      is not a weighting scheme.
+ *
+ * When requirement 4 fails, NOTHING is returned. Half a distribution is worse
+ * than none: it invites a comparison against a denominator that does not exist.
  */
-export function extractWeights(text: string): SourceWeight[] {
-  const out: SourceWeight[] = [];
-  const re = /([^\n]{3,80}?)[\s.:\-]*(\d{1,3}(?:[.,]\d{1,2})?)\s*%/gu;
-  let m: RegExpExecArray | null;
 
-  while ((m = re.exec(text)) !== null) {
-    const rawLabel = m[1].replace(/^[\s\d.)\-]+/, "").trim();
-    const pct = parseFloat(m[2].replace(",", "."));
-    if (!Number.isFinite(pct) || pct <= 0 || pct > 100) continue;
-    if (tokens(rawLabel).size === 0) continue;
-    out.push({ label: rawLabel, pct, index: m.index });
+/** Words that mark prose rather than a topic label. */
+const PROSE_MARKERS =
+  /\b(should|must|never|always|cannot|can|will|would|may|if|when|because|than|that|which|these|those|about|more|less|up to|at least)\b/i;
+
+/**
+ * A weighting row: optional numbering, a short label, a percentage, end of line.
+ *
+ * Trailing dot leaders and a doubled percent sign are both real -- BCS EXIN's
+ * contents page extracts as "... 32.5%% .........." -- so both are tolerated.
+ * Group 1 is the numbering (for depth), group 2 the label, group 3 the value.
+ */
+const ROW =
+  /^[\s\-*\u2022]*(\d+(?:\.\d+)*)?[.)]?\s*(.{3,60}?)[\s.:\-\u2013\u2014|]*\(?(\d{1,3}(?:[.,]\d{1,2})?)\s*%+\)?[\s.]*$/;
+
+/**
+ * A column header proving the document DOES publish weights, even when the rows
+ * cannot be read.
+ *
+ * TUV SUD's table puts each number on its own line with no percent sign -- the
+ * sign is in the header -- so the rows are unreadable without column geometry.
+ * Saying "publishes no topic weighting" about that document would be FALSE, and
+ * a confident false statement is worse than the garbage it replaced.
+ */
+const WEIGHT_HEADER = /%\s*of\s*(all|course|total|topic)/i;
+
+export function hasUnparsedWeightTable(text: string): boolean {
+  return WEIGHT_HEADER.test(text);
+}
+
+function looksLikeLabel(raw: string): boolean {
+  const label = raw.trim();
+  if (label.length < 3 || label.length > 60) return false;
+
+  const words = label.split(/\s+/);
+  if (words.length > 8) return false;
+
+  // Sentence punctuation inside a label means it is prose.
+  if (/[.;!?]/.test(label.slice(0, -1))) return false;
+
+  if (PROSE_MARKERS.test(label)) return false;
+
+  // A label carries at least one substantive word.
+  if (tokens(label).size === 0) return false;
+
+  // Fragments sliced mid-word: a one or two letter opener with no capital.
+  if (/^[a-z]{1,2}\s/.test(label)) return false;
+
+  return true;
+}
+
+/** At least this many entries before a set counts as a distribution. */
+const MIN_ENTRIES = 3;
+
+/** How far the total may sit from 100 and still be a distribution. */
+const SUM_TOLERANCE = 20;
+
+export function extractWeights(text: string): SourceWeight[] {
+  const rows: Array<SourceWeight & { depth: number }> = [];
+  let offset = 0;
+
+  for (const line of text.split("\n")) {
+    const m = ROW.exec(line);
+    if (m && m[2] && m[3]) {
+      const pct = parseFloat(m[3].replace(",", "."));
+      if (Number.isFinite(pct) && pct > 0 && pct <= 100 && looksLikeLabel(m[2])) {
+        // "2." is depth 1, "2.3" depth 2. Unnumbered rows are depth 0.
+        const depth = m[1] ? m[1].split(".").filter(Boolean).length : 0;
+        rows.push({ label: m[2].trim(), pct, index: offset, depth });
+      }
+    }
+    offset += line.length + 1;
   }
 
-  // Same label appearing twice (a contents page plus the body) is one weight.
-  const seen = new Map<string, SourceWeight>();
-  for (const w of out) {
+  // A label repeated (contents page plus body) is one weight.
+  const seen = new Map<string, SourceWeight & { depth: number }>();
+  for (const w of rows) {
     const key = w.label.toLowerCase();
     if (!seen.has(key)) seen.set(key, w);
   }
-  return [...seen.values()];
+  const unique = [...seen.values()];
+  if (unique.length === 0) return [];
+
+  // ============== PICK ONE LEVEL OF THE HIERARCHY ==============
+  //
+  // A syllabus usually publishes topics AND sub-topics, each summing to 100.
+  // Taking both doubles the total and double-counts every topic. BCS EXIN is
+  // exactly this: five topics summing to 100, plus fourteen sub-topics also
+  // summing to 100. The first version of this check saw ~200 and concluded the
+  // document had no distribution at all.
+  //
+  // So try each depth shallowest-first and take the first that plausibly sums
+  // to 100. That is the level the source considers its top-level allocation.
+  const depths = [...new Set(unique.map((w) => w.depth))].sort((a, b) => a - b);
+
+  for (const d of depths) {
+    const level = unique.filter((w) => w.depth === d);
+    if (level.length < MIN_ENTRIES) continue;
+    const sum = level.reduce((n, w) => n + w.pct, 0);
+    if (Math.abs(sum - 100) <= SUM_TOLERANCE) {
+      return level.map(({ label, pct, index }) => ({ label, pct, index }));
+    }
+  }
+
+  // No level looked like a distribution. Half of one is worse than none: it
+  // invites comparison against a denominator that does not exist.
+  return [];
 }
 
 export interface WeightOutput {
@@ -114,21 +226,28 @@ export function compareWeights(
   // pass on five high-severity findings. Most course pages do not publish
   // weights. One structural note, and nothing else.
   if (weights.length === 0) {
+    const unreadable = hasUnparsedWeightTable(text);
     findings.push({
       findingType: "structural_note",
-      label: "Source publishes no topic weighting",
+      label: unreadable
+        ? "Source publishes a weighting table that could not be read"
+        : "Source publishes no topic weighting",
       // A structural note describes the DOCUMENT rather than quoting it, so it
       // has no excerpt. The locator records what was looked for, which keeps
       // migration 219's external-evidence CHECK satisfied honestly rather than
       // by exempting a whole finding type from it.
-      evidenceLocator: "scanned for percentage allocations; none found",
+      evidenceLocator: unreadable
+        ? "a percentage column header was found, but no readable rows; the values are likely in table columns rather than inline"
+        : "scanned for percentage allocations; none found",
       severity: "low",
       visibility: "both",
       requiresHumanReview: false,
-      note:
-        "No percentage allocations were found, so no weight comparison is " +
-        "possible. This is the normal state for a course page and is not a " +
-        "finding against the source.",
+      note: unreadable
+        ? "The source DOES publish weights; this extractor could not parse them. " +
+          "Not a finding against the source -- a limitation on our side."
+        : "No percentage allocations were found, so no weight comparison is " +
+          "possible. This is the normal state for a course page and is not a " +
+          "finding against the source.",
     });
     return { findings, sourceTotalPct: 0, aligned: 0, unaligned: 0 };
   }
