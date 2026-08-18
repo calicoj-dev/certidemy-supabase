@@ -18,3 +18,4 @@ verify.json
 TRANSLATION-REVIEW-*.md
 
 fixtures/
+scripts/anchor/node_modules/

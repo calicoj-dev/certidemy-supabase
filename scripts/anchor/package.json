@@ -1,0 +1,13 @@
+{
+  "name": "certidemy-anchor",
+  "private": true,
+  "type": "module",
+  "description": "ISOLATED ON PURPOSE. opentimestamps pulls request@2.88.2, deprecated since 2020, carrying an unpatchable SSRF advisory plus qs/tough-cookie/uuid issues. Keeping it in its own package.json means the main supabase tree stays at zero vulnerabilities and nothing else can import it. Runs only on a GitHub Actions runner - a disposable Ubuntu container with no internal endpoints for an SSRF to reach.",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "opentimestamps": "^0.4.9"
+  },
+  "overrides": {
+    "form-data": "^4.0.4"
+  }
+}
