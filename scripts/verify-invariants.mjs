@@ -65,15 +65,51 @@ if (!KEY) {
   process.exit(1);
 }
 
+/**
+ * PostgREST caps a response at 1000 rows by default and says nothing about it.
+ *
+ * The first version of this script did not paginate, so `concepts` came back
+ * truncated at 1000 of 1599 and every concept past the cutoff was reported as
+ * having no lesson and no task -- 606 false failures on healthy data, on the
+ * very check whose whole purpose is to be trusted when it says something is
+ * wrong.
+ *
+ * A verification tool that reports false failures is worse than no tool: people
+ * learn to dismiss it, and then it is silent when it matters. Range-paginate
+ * everything and assert the page came back whole.
+ */
+const PAGE = 1000;
+
 async function get(path) {
-  const res = await fetch(`${BASE}/${path}`, {
-    headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, Accept: "application/json" },
-  });
-  if (!res.ok) throw new Error(`${res.status} on ${path}: ${await res.text()}`);
-  return res.json();
+  const rows = [];
+  for (let from = 0; ; from += PAGE) {
+    const res = await fetch(`${BASE}/${path}`, {
+      headers: {
+        apikey: KEY,
+        Authorization: `Bearer ${KEY}`,
+        Accept: "application/json",
+        Range: `${from}-${from + PAGE - 1}`,
+        "Range-Unit": "items",
+      },
+    });
+    if (!res.ok && res.status !== 206) {
+      throw new Error(`${res.status} on ${path}: ${await res.text()}`);
+    }
+    const page = await res.json();
+    rows.push(...page);
+    if (page.length < PAGE) return rows;
+    // Guard against a server that ignores Range: without this, an unpaginated
+    // response would loop forever returning the same first page.
+    if (from > 200000) throw new Error(`pagination runaway on ${path}`);
+  }
 }
 
 const results = [];
+/**
+ * Paranoia earned the hard way: report the row counts actually fetched. A future
+ * truncation would otherwise present as a wall of plausible-looking failures.
+ */
+const fetched = {};
 const record = (name, failures, detail) =>
   results.push({ name, pass: failures.length === 0, failures, detail });
 
@@ -81,14 +117,24 @@ const record = (name, failures, detail) =>
 
 const certs = await get("certifications?select=id,code,status&order=code");
 const certById = new Map(certs.map((c) => [c.id, c]));
-const concepts = await get("concepts?select=id,slug,name,certification_id,match_terms");
-const tasks = await get("tasks?select=id,certification_id,domain_id");
-const domains = await get("domains?select=id,code,certification_id,weight_pct");
-const taskConcepts = await get("task_concepts?select=task_id,concept_id");
-const lessonConcepts = await get("lesson_concepts?select=concept_id");
+const concepts = await get("concepts?select=id,slug,name,certification_id,match_terms&order=id");
+const tasks = await get("tasks?select=id,certification_id,domain_id&order=id");
+const domains = await get("domains?select=id,code,certification_id,weight_pct&order=id");
+const taskConcepts = await get("task_concepts?select=task_id,concept_id&order=concept_id");
+const lessonConcepts = await get("lesson_concepts?select=concept_id&order=concept_id");
 const rules = await get(
   "drift_rules?select=id,legacy_term,match_mode,pattern,lang,is_active,authority_citation_id",
 );
+
+Object.assign(fetched, {
+  certifications: certs.length,
+  concepts: concepts.length,
+  tasks: tasks.length,
+  domains: domains.length,
+  task_concepts: taskConcepts.length,
+  lesson_concepts: lessonConcepts.length,
+  drift_rules: rules.length,
+});
 
 // ---------------------------------------------- 1. concept coverage
 
@@ -189,6 +235,11 @@ if (asJson) {
   console.log(JSON.stringify({ pass: results.every((r) => r.pass), results }, null, 2));
 } else {
   console.log("PLATFORM INVARIANTS\n");
+  console.log(
+    "  fetched: " +
+      Object.entries(fetched).map(([k, v]) => `${k}=${v}`).join("  ") +
+      "\n",
+  );
   for (const r of results) {
     console.log(`  ${r.pass ? "pass" : "FAIL"}  ${r.name.padEnd(24)} ${r.detail}`);
     // Failures are listed in full up to a limit. A truncated failure list makes
