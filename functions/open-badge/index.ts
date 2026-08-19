@@ -56,6 +56,8 @@ import {
   isSignable,
   signDocument,
   statusListUrl,
+  type AuthoredAlignment,
+  type AuthoredResult,
   type IssuerRow,
   type SnapshotDomain,
 } from "../_shared/ob3.ts";
@@ -149,7 +151,7 @@ serve(async (req) => {
       if (ownedErr) throw new Error(`achievement ownership: ${ownedErr.message}`);
       if (!owned) return jsonResponse({ error: "not found" }, 404);
 
-      const achievement = await loadAchievement(svc, cert, issuer, siteUrl);
+      const achievement = await loadAchievement(svc, owned.id, issuer);
       if (!achievement) return jsonResponse({ error: "not found" }, 404);
 
       // The definition is NOT signed. It describes what a certification
@@ -176,7 +178,7 @@ serve(async (req) => {
       const { data: cred, error: credErr } = await svc
         .from("credentials")
         .select(
-          "id, credential_code, user_id, issuer_id, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
+          "id, credential_code, user_id, issuer_id, achievement_id, holder_email, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
         )
         .eq("credential_code", code.trim().toUpperCase())
         .maybeSingle();
@@ -218,15 +220,14 @@ serve(async (req) => {
 
       const achievement = await loadAchievement(
         svc,
-        cred.certification_code,
+        cred.achievement_id,
         credIssuer,
-        credIssuer.site_url,
         cred.jta_version_id,
       );
       if (!achievement) {
         throw new Error(
-          `credential ${cred.credential_code} references certification ` +
-            `${cred.certification_code}, which has no achievement definition`,
+          `credential ${cred.credential_code} references achievement ` +
+            `${cred.achievement_id}, which could not be built`,
         );
       }
 
@@ -253,16 +254,21 @@ serve(async (req) => {
 
       const isHolder = viewerId !== null && viewerId === cred.user_id;
 
+      // FROM THE COLUMN, not from auth. credentials.holder_email is snapshotted
+      // at mint (migration 231), so the hash a verifier checks today is the one
+      // that was computed then -- an account email change must not silently
+      // invalidate every identifier a holder has already published. It is also
+      // the only source that exists before the account does, which is what an
+      // issue-to-email-then-claim credential requires.
       let subject: { identifierHash: string; salt: string } | null = null;
-      if (isHolder) {
-        const { data: authUser } = await svc.auth.admin.getUserById(cred.user_id);
-        const email = authUser?.user?.email ?? null;
-        if (email) {
-          subject = {
-            identifierHash: await hashSubjectIdentifier(email, cred.subject_salt),
-            salt: cred.subject_salt,
-          };
-        }
+      if (isHolder && cred.holder_email) {
+        subject = {
+          identifierHash: await hashSubjectIdentifier(
+            cred.holder_email,
+            cred.subject_salt,
+          ),
+          salt: cred.subject_salt,
+        };
       }
 
       const statusListId = statusListUrl(credIssuer, 1);
@@ -511,17 +517,78 @@ async function readSigningKey(svc: Svc, slug: string): Promise<string | null> {
  */
 async function loadAchievement(
   svc: Svc,
-  certCode: string,
+  achievementId: string,
   issuer: IssuerRow,
-  siteUrl: string,
   jtaVersionId?: string | null,
 ): Promise<Record<string, unknown> | null> {
+  const siteUrl = issuer.site_url;
+
+  const { data: ach, error: achErr } = await svc
+    .from("achievements")
+    .select(
+      "id, code, name, description, achievement_type, certification_id, " +
+        "criteria_narrative, criteria_url, image_path, status, " +
+        "default_validity_days, " +
+        "achievement_alignments(target_name, target_url, target_framework, target_code, target_description, target_type, order_index), " +
+        "achievement_results(result_type, required_value, required_level, value_min, value_max, allowed_values, order_index)",
+    )
+    .eq("id", achievementId)
+    .maybeSingle();
+  if (achErr) throw new Error(`achievement lookup: ${achErr.message}`);
+  if (!ach) return null;
+
+  const authoredAlignments = ((ach.achievement_alignments ?? []) as
+    (AuthoredAlignment & { order_index: number })[])
+    .slice()
+    .sort((x, y) => x.order_index - y.order_index);
+  const authoredResults = ((ach.achievement_results ?? []) as
+    (AuthoredResult & { order_index: number })[])
+    .slice()
+    .sort((x, y) => x.order_index - y.order_index);
+
+  /* ---------------------------------------------------------------------- *
+   * NO CERTIFICATION BEHIND IT -- a partner's own achievement.
+   *
+   * No JTA, no blueprint snapshot, no competence claim. That is not a lesser
+   * document, it is a different one: "attended this course" is a fact about
+   * attendance, and dressing it in certification apparatus would be the exact
+   * blurring the achievement_type vocabulary exists to prevent.
+   * ---------------------------------------------------------------------- */
+  if (!ach.certification_id) {
+    // A draft achievement's definition is not a published claim. Credentials
+    // are exempt for the same reason certifications are: an achievement can be
+    // archived after issuance without breaking credentials already in the world.
+    if (!jtaVersionId && ach.status !== "active") return null;
+
+    return buildAchievement({
+      certCode: ach.code,
+      certName: ach.name,
+      description: ach.description ?? null,
+      claim: ach.criteria_narrative ?? null,
+      passingScorePct: null,
+      numQuestions: null,
+      validityDays: ach.default_validity_days ?? null,
+      domains: [],
+      issuer,
+      siteUrl,
+      achievementType: ach.achievement_type,
+      imageUrl: ach.image_path ?? null,
+      criteriaUrl: ach.criteria_url ?? null,
+      authoredAlignments,
+      authoredResults,
+    });
+  }
+
+  /* ---------------------------------------------------------------------- *
+   * CERTIFICATION-BACKED -- everything below is the original path, fetched by
+   * id rather than by an ilike on the code.
+   * ---------------------------------------------------------------------- */
   const { data: cert } = await svc
     .from("certifications")
     .select(
       "id, code, name, description, status, passing_score_pct, num_questions, validity_days",
     )
-    .ilike("code", certCode.trim())
+    .eq("id", ach.certification_id)
     .maybeSingle();
 
   if (!cert) return null;
@@ -582,6 +649,16 @@ async function loadAchievement(
   }
 
   const achievement = buildAchievement({
+    // achievementType from the ROW. Hardcoded "Certificate" until now, which
+    // understated every certification this platform has ever signed.
+    achievementType: ach.achievement_type,
+    // Built from the code, the same way the verify page builds it, so a new
+    // certification needs no registration step - drop <CODE>.png into
+    // public/badges and the credential carries it.
+    imageUrl: `${siteUrl}/badges/${cert.code}.png`,
+    criteriaUrl: null,
+    authoredAlignments,
+    authoredResults,
     certCode: cert.code,
     certName: cert.name, // live row, NOT the snapshot — see the note above
     description: cert.description ?? null,

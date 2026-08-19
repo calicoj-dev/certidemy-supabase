@@ -438,7 +438,71 @@ export function buildAlignment(
   );
 }
 
+/**
+ * An alignment authored by hand, from public.achievement_alignments.
+ *
+ * A certification's alignments are DERIVED from its job task analysis and are
+ * the richest payload this platform emits. An achievement with no JTA behind it
+ * -- a partner's training-completion badge -- has whatever its author typed.
+ * Both are legitimate; they are simply different claims, and the document says
+ * which by what it carries.
+ */
+export interface AuthoredAlignment {
+  target_name: string;
+  target_url: string;
+  target_framework: string | null;
+  target_code: string | null;
+  target_description: string | null;
+  target_type: string | null;
+}
+
+/** A result description authored by hand, from public.achievement_results. */
+export interface AuthoredResult {
+  result_type: string;
+  required_value: string | null;
+  required_level: string | null;
+  value_min: string | null;
+  value_max: string | null;
+  allowed_values: string[] | null;
+}
+
+export function buildAuthoredAlignment(
+  rows: AuthoredAlignment[],
+): Record<string, unknown>[] {
+  return rows.map((r) => ({
+    type: ["Alignment"],
+    targetName: r.target_name,
+    targetUrl: r.target_url,
+    ...(r.target_type ? { targetType: r.target_type } : {}),
+    ...(r.target_code ? { targetCode: r.target_code } : {}),
+    ...(r.target_framework ? { targetFramework: r.target_framework } : {}),
+    ...(r.target_description
+      ? { targetDescription: r.target_description }
+      : {}),
+  }));
+}
+
+export function buildAuthoredResults(
+  rows: AuthoredResult[],
+  achievementId: string,
+): Record<string, unknown>[] {
+  return rows.map((r, i) => ({
+    id: `${achievementId}#result-${i + 1}`,
+    type: ["ResultDescription"],
+    name: r.result_type,
+    resultType: r.result_type,
+    ...(r.required_value !== null ? { requiredValue: r.required_value } : {}),
+    ...(r.required_level !== null ? { requiredLevel: r.required_level } : {}),
+    ...(r.value_min !== null ? { valueMin: r.value_min } : {}),
+    ...(r.value_max !== null ? { valueMax: r.value_max } : {}),
+    ...(r.allowed_values && r.allowed_values.length
+      ? { allowedValue: r.allowed_values }
+      : {}),
+  }));
+}
+
 export interface AchievementInput {
+  /** achievements.code -- the URL segment, NOT necessarily a certification. */
   certCode: string;
   certName: string;
   description: string | null;
@@ -450,6 +514,33 @@ export interface AchievementInput {
   domains: SnapshotDomain[];
   issuer: IssuerRow;
   siteUrl: string;
+
+  /**
+   * OB 3.0 achievementType, from achievements.achievement_type.
+   *
+   * REQUIRED, not defaulted. This was hardcoded "Certificate" and every
+   * certification signed under it understated itself. It is the one
+   * machine-readable field distinguishing a certification decision from a
+   * course completion, which is exactly what a partner must not be able to
+   * blur -- so it is passed explicitly, from a column, every time.
+   */
+  achievementType: string;
+
+  /**
+   * The badge artwork. NULL omits the property entirely rather than pointing
+   * at a URL that 404s: a consumer reading `image` expects an image, and an
+   * achievement with no artwork is better described as having none.
+   */
+  imageUrl: string | null;
+
+  /** Where `criteria.id` points. NULL falls back to the certification page. */
+  criteriaUrl?: string | null;
+
+  /** achievement_alignments, unioned with anything derived from a JTA. */
+  authoredAlignments?: AuthoredAlignment[];
+
+  /** achievement_results, unioned with the exam-parameter result below. */
+  authoredResults?: AuthoredResult[];
 }
 
 /**
@@ -465,7 +556,7 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
     id,
     type: ["Achievement"],
     name: a.certName,
-    achievementType: "Certificate",
+    achievementType: a.achievementType,
     // THE BADGE. Optional in the specification, and the field every consuming
     // platform reads to display anything at all. Without it a holder who imports
     // this credential into LinkedIn or a wallet gets text, while ten badge files
@@ -478,15 +569,14 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
     // The Achievement document is served live and unsigned, so credentials
     // already issued keep the snapshot they were signed with. Their signatures
     // are untouched; newly issued ones carry the image.
-    image: {
-      id: `${a.siteUrl}/badges/${a.certCode}.png`,
-      type: "Image",
-    },
     // The competence statement is the criterion: it is what the holder
     // demonstrated, in one sentence, and it is the field a 17024 credential
-    // cannot omit.
+    // cannot omit. For an achievement with no certification behind it, the
+    // narrative is achievements.criteria_narrative, which migration 234
+    // requires to be non-empty before that achievement can go active.
     criteria: {
-      id: `${a.siteUrl}/certifications/${a.certCode.toLowerCase()}`,
+      id: a.criteriaUrl ??
+        `${a.siteUrl}/certifications/${a.certCode.toLowerCase()}`,
       narrative: a.claim ??
         `Awarded on passing the ${a.certCode} examination against its published blueprint.`,
     },
@@ -495,25 +585,48 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
       type: ["Profile"],
       name: a.issuer.name,
     },
-    alignment: buildAlignment(a.domains, a.certCode, a.siteUrl),
   };
+
+  // THE BADGE. Optional in the specification, and the field every consuming
+  // platform reads to display anything at all. Without it a holder who imports
+  // this credential into LinkedIn or a wallet gets text.
+  //
+  // Emitted only when there is one. A property pointing at a 404 is worse than
+  // an absent property, because a consumer cannot tell the difference until it
+  // renders a broken image next to somebody's name.
+  if (a.imageUrl) {
+    doc.image = { id: a.imageUrl, type: "Image" };
+  }
+
+  // A UNION, not a branch. Derived-from-JTA and authored-by-hand are the same
+  // property; one list is empty on either path. Emitted only when non-empty --
+  // `alignment: []` asserts "aligned to nothing", which is a different and
+  // wrong claim.
+  const alignment = [
+    ...buildAlignment(a.domains, a.certCode, a.siteUrl),
+    ...buildAuthoredAlignment(a.authoredAlignments ?? []),
+  ];
+  if (alignment.length > 0) doc.alignment = alignment;
 
   if (a.description) doc.description = a.description;
 
   // Exam parameters as a result description. Published, checkable, and the
-  // thing a buyer comparing two credentials actually wants.
+  // thing a buyer comparing two credentials actually wants. Unioned with any
+  // authored results, so an achievement can carry both a pass mark and a
+  // rubric without either builder knowing about the other.
+  const results: Record<string, unknown>[] = [];
   if (a.passingScorePct !== null) {
-    doc.resultDescription = [
-      {
-        id: `${id}#result`,
-        type: ["ResultDescription"],
-        name: "Examination score",
-        resultType: "Percent",
-        requiredValue: String(a.passingScorePct),
-        ...(a.numQuestions ? { "certidemy:formLength": a.numQuestions } : {}),
-      },
-    ];
+    results.push({
+      id: `${id}#result`,
+      type: ["ResultDescription"],
+      name: "Examination score",
+      resultType: "Percent",
+      requiredValue: String(a.passingScorePct),
+      ...(a.numQuestions ? { "certidemy:formLength": a.numQuestions } : {}),
+    });
   }
+  results.push(...buildAuthoredResults(a.authoredResults ?? [], id));
+  if (results.length > 0) doc.resultDescription = results;
 
   if (a.validityDays && a.validityDays > 0) {
     doc["certidemy:validityDays"] = a.validityDays;
