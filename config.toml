@@ -480,3 +480,16 @@ verify_jwt = true
 
 [functions.submit-partner-lead]
 verify_jwt = false
+
+# The two functions that mint an issuer identity and an Ed25519 signing key.
+# platform_admin is enforced in-function; this is the outer gate.
+#
+# EXPLICIT, not defaulted. verify_jwt defaults to true, but the comment above
+# on get-credential-certificate records what happens when the pin lives
+# anywhere other than this file. These two are the last entries in this system
+# that should depend on a default staying where it is.
+[functions.create-partner-issuer]
+verify_jwt = true
+
+[functions.activate-partner-issuer]
+verify_jwt = true
