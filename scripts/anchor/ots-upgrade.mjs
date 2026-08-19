@@ -194,6 +194,20 @@ async function main() {
         /* FROM THE BLOCK, never from our clock. See the header. */
         anchored_at: block.iso,
         txid: `block:${height}`,
+        /* The HASH, not just the height (migration 234).
+
+           An explorer URL takes the hash: /block/<hash> renders a page, while
+           /block-height/<height> returns the hash as plain text and nothing
+           else. Storing it is what lets a credential page link straight to a
+           third party the reader can check, instead of showing a number they
+           have to take on trust.
+
+           It is also the explorer-independent artifact -- someone running their
+           own node needs the hash and nothing from any website. Both columns
+           carry a CHECK that they are written together; a height with no hash
+           is a link that cannot be built. */
+        btc_block_hash: block.hash,
+        btc_block_height: height,
       })
       .eq("id", row.id);
 
