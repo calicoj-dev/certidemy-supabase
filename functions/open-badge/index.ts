@@ -371,7 +371,7 @@ serve(async (req) => {
       const { data: cred, error: credErr } = await svc
         .from("credentials")
         .select(
-          "credential_code, anchor_leaf, anchor_path, is_specimen, anchor_id, credential_anchors(merkle_root, doc_version, built_at, chain, txid, anchored_at)",
+          "credential_code, anchor_leaf, anchor_path, is_specimen, anchor_id, credential_anchors(merkle_root, doc_version, built_at, chain, txid, anchored_at, btc_block_hash, btc_block_height)",
         )
         .eq("credential_code", code.trim().toUpperCase())
         .maybeSingle();
@@ -395,6 +395,8 @@ serve(async (req) => {
         chain: string | null;
         txid: string | null;
         anchored_at: string | null;
+        btc_block_hash: string | null;
+        btc_block_height: number | null;
       } | null;
 
       if (!anchor) throw new Error("anchor row missing for a linked credential");
@@ -413,6 +415,22 @@ serve(async (req) => {
           chain: anchor.chain,
           txid: anchor.txid,
           anchoredAt: anchor.anchored_at,
+          /* THE BLOCK, in the form a reader can check independently.
+
+             blockHash is what a block explorer URL takes, and it is the
+             explorer-independent artifact: someone running their own node
+             needs this and nothing from any website.
+
+             NO EXPLORER URL IS EMITTED. Any explorer is somebody's company,
+             and naming one here would make a private party part of the
+             verification story for every credential. The client picks a link;
+             this returns the fact.
+
+             Null until the OpenTimestamps calendars aggregate into a Bitcoin
+             transaction and that transaction confirms -- hours, sometimes a
+             day. Null here means pending, not missing. */
+          blockHash: anchor.btc_block_hash,
+          blockHeight: anchor.btc_block_height,
           algorithm: {
             leaf: "sha256(utf8 bytes of the credential document as served)",
             node: "sha256(left32 || right32), raw bytes",
