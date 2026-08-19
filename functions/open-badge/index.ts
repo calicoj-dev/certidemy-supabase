@@ -136,6 +136,19 @@ serve(async (req) => {
       const cert = url.searchParams.get("cert");
       if (!cert) return jsonResponse({ error: "cert required" }, 400);
 
+      // OWNERSHIP, before anything is built. loadAchievement resolves by
+      // certification code alone, so without this an issuer could serve another
+      // issuer's Achievement under its own namespace with itself as `creator`.
+      // The achievements table is the ownership record (migration 231).
+      const { data: owned, error: ownedErr } = await svc
+        .from("achievements")
+        .select("id")
+        .eq("issuer_id", issuer.id)
+        .eq("code", cert.trim())
+        .maybeSingle();
+      if (ownedErr) throw new Error(`achievement ownership: ${ownedErr.message}`);
+      if (!owned) return jsonResponse({ error: "not found" }, 404);
+
       const achievement = await loadAchievement(svc, cert, issuer, siteUrl);
       if (!achievement) return jsonResponse({ error: "not found" }, 404);
 
@@ -163,7 +176,7 @@ serve(async (req) => {
       const { data: cred, error: credErr } = await svc
         .from("credentials")
         .select(
-          "id, credential_code, user_id, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
+          "id, credential_code, user_id, issuer_id, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
         )
         .eq("credential_code", code.trim().toUpperCase())
         .maybeSingle();
@@ -176,11 +189,38 @@ serve(async (req) => {
         return jsonResponse({ error: "not found" }, 404);
       }
 
+      // ---- THE ISSUER IS THE CREDENTIAL'S OWN, NEVER THE QUERY PARAMETER --
+      //
+      // Everything below -- the Achievement, the status list, the issuer block
+      // and THE SIGNING KEY -- resolves from credentials.issuer_id. Reading it
+      // from ?issuer= instead meant any caller could request any credential
+      // under any issuer slug and receive a validly-signed document naming an
+      // issuer that never issued it. The database triggers that keep issuer_id
+      // honest are upstream of this; a document assembled at read time is out
+      // of their reach, so the check has to live here.
+      const { data: credIssuerRow, error: credIssuerErr } = await svc
+        .from("issuers")
+        .select(
+          "id, slug, name, site_url, base_url, issuer_url, key_id, public_key_multibase, key_created_at",
+        )
+        .eq("id", cred.issuer_id)
+        .maybeSingle();
+      if (credIssuerErr) {
+        throw new Error(`credential issuer lookup: ${credIssuerErr.message}`);
+      }
+      if (!credIssuerRow) {
+        throw new Error(
+          `credential ${cred.credential_code} names issuer ${cred.issuer_id}, ` +
+            `which does not exist`,
+        );
+      }
+      const credIssuer = credIssuerRow as IssuerRow;
+
       const achievement = await loadAchievement(
         svc,
         cred.certification_code,
-        issuer,
-        siteUrl,
+        credIssuer,
+        credIssuer.site_url,
         cred.jta_version_id,
       );
       if (!achievement) {
@@ -225,7 +265,7 @@ serve(async (req) => {
         }
       }
 
-      const statusListId = statusListUrl(issuer, 1);
+      const statusListId = statusListUrl(credIssuer, 1);
 
       const unsigned = buildCredential({
         credentialCode: cred.credential_code,
@@ -236,12 +276,12 @@ serve(async (req) => {
         statusListIndex: cred.status_list_index,
         statusListId,
         achievement,
-        issuer,
-        siteUrl,
+        issuer: credIssuer,
+        siteUrl: credIssuer.site_url,
         jtaVersion: (achievement["certidemy:jtaVersion"] as string) ?? null,
       });
 
-      const privateKey = await readSigningKey(svc, issuerSlug);
+      const privateKey = await readSigningKey(svc, credIssuer.slug);
       if (!privateKey) {
         return jsonResponse(
           { error: "issuer has no signing key; credential cannot be issued" },
@@ -252,7 +292,7 @@ serve(async (req) => {
       const signed = await signDocument(
         unsigned,
         privateKey,
-        issuer,
+        credIssuer,
         // Stable by construction — see the caching note at the top.
         new Date(cred.material_updated_at).toISOString(),
       );
