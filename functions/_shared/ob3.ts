@@ -336,6 +336,19 @@ export interface IssuerRow {
  * UNIQUE constraint across the whole platform.
  * -------------------------------------------------------------------------- */
 
+/**
+ * The human verify page. ALWAYS Certidemy's, for every issuer.
+ *
+ * A partner's credentials are verified here because we are the ones who can
+ * resolve a credential_code -- hosting that page on their behalf IS the
+ * arrangement. Building this from issuer.site_url pointed partner credentials
+ * at a partner marketing site with no verify page, inside a signed document.
+ *
+ * NOT a per-issuer column: there is no value to look up, only a knob nobody
+ * should turn.
+ */
+export const VERIFY_SITE_URL = "https://certidemy.com";
+
 export function issuerUrl(issuer: IssuerRow): string {
   return `${issuer.base_url}/issuers/${issuer.slug}`;
 }
@@ -733,8 +746,12 @@ export function buildCredential(c: CredentialInput): Record<string, unknown> {
       statusListIndex: String(c.statusListIndex),
       statusListCredential: c.statusListId,
     },
-    // The verify page: same credential, human representation.
-    "certidemy:humanVerificationUrl": `${c.siteUrl}/verify/${c.credentialCode}`,
+    // The verify page: same credential, human representation. VERIFY_SITE_URL,
+    // not c.siteUrl -- see the constant. For the certidemy issuer these are the
+    // same string, which is why this change does not move a single byte of any
+    // credential already anchored.
+    "certidemy:humanVerificationUrl":
+      `${VERIFY_SITE_URL}/verify/${c.credentialCode}`,
     "certidemy:holderName": c.holderName,
   };
 
