@@ -533,7 +533,12 @@ export interface AchievementInput {
    */
   imageUrl: string | null;
 
-  /** Where `criteria.id` points. NULL falls back to the certification page. */
+  /**
+   * Where `criteria.id` points. NULL OMITS THE PROPERTY -- there is no
+   * fallback, deliberately. The builder cannot know whether a page exists at
+   * any guessed URL, and a criteria.id that 404s is worse than none: it claims
+   * documentation for what the holder did and then fails to produce it.
+   */
   criteriaUrl?: string | null;
 
   /** achievement_alignments, unioned with anything derived from a JTA. */
@@ -575,8 +580,13 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
     // narrative is achievements.criteria_narrative, which migration 234
     // requires to be non-empty before that achievement can go active.
     criteria: {
-      id: a.criteriaUrl ??
-        `${a.siteUrl}/certifications/${a.certCode.toLowerCase()}`,
+      // id is OPTIONAL in OB 3.0 and is emitted only when there is a real page
+      // behind it. This used to fall back to a Certidemy certifications URL,
+      // which exists for our schemes and does NOT exist for a partner's -- so
+      // every partner credential carried a 404 inside the signed document,
+      // asserting that documentation exists where it does not. The caller now
+      // supplies the URL or nothing.
+      ...(a.criteriaUrl ? { id: a.criteriaUrl } : {}),
       narrative: a.claim ??
         `Awarded on passing the ${a.certCode} examination against its published blueprint.`,
     },

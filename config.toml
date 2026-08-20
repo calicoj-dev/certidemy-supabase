@@ -493,3 +493,7 @@ verify_jwt = true
 
 [functions.activate-partner-issuer]
 verify_jwt = true
+
+# Defines what a partner issues. platform_admin only, enforced in-function.
+[functions.create-partner-achievement]
+verify_jwt = true

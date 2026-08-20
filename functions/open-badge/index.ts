@@ -674,7 +674,10 @@ async function loadAchievement(
     // certification needs no registration step - drop <CODE>.png into
     // public/badges and the credential carries it.
     imageUrl: `${siteUrl}/badges/${cert.code}.png`,
-    criteriaUrl: null,
+    // The certification page. Explicit now that buildAchievement no longer
+    // guesses -- for a Certidemy scheme this page genuinely exists, which is
+    // exactly what a partner achievement cannot assume.
+    criteriaUrl: `${siteUrl}/certifications/${cert.code.toLowerCase()}`,
     authoredAlignments,
     authoredResults,
     certCode: cert.code,
