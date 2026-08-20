@@ -34,6 +34,7 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
+import { requireIssuerAccess } from "../_shared/authorize.ts";
 
 interface Body {
   issuer_id?: string;
@@ -80,15 +81,6 @@ serve(async (req) => {
     const actor = await authenticate(req);
     const svc = getServiceClient();
 
-    const { data: actorProfile } = await svc
-      .from("profiles")
-      .select("platform_role")
-      .eq("id", actor)
-      .maybeSingle();
-    if (!actorProfile || actorProfile.platform_role !== "platform_admin") {
-      throw new HttpError(403, "platform_admin required");
-    }
-
     const body = (await req.json()) as Body;
     const issuerId = body.issuer_id?.trim();
     const name = body.name?.trim();
@@ -128,6 +120,11 @@ serve(async (req) => {
           `cannot sign is a credential waiting to fail`,
       );
     }
+
+    // Scoped. A team_admin at company A holding the role is NOT permission to
+    // mint a key for company B's issuer, and this is the only thing between
+    // those two facts.
+    await requireIssuerAccess(svc, actor, issuer.id);
 
     const expiresAt = expiresInDays
       ? new Date(Date.now() + expiresInDays * 86400_000).toISOString()

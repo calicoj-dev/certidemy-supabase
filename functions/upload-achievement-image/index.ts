@@ -44,6 +44,7 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
+import { requireIssuerAccess } from "../_shared/authorize.ts";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -94,15 +95,6 @@ serve(async (req) => {
   try {
     const actor = await authenticate(req);
     const svc = getServiceClient();
-
-    const { data: actorProfile } = await svc
-      .from("profiles")
-      .select("platform_role")
-      .eq("id", actor)
-      .maybeSingle();
-    if (!actorProfile || actorProfile.platform_role !== "platform_admin") {
-      throw new HttpError(403, "platform_admin required");
-    }
 
     let form: FormData;
     try {
@@ -186,6 +178,10 @@ serve(async (req) => {
       .eq("id", ach.issuer_id)
       .maybeSingle();
     if (!issuer) throw new HttpError(404, "issuer not found");
+
+    // Checked here rather than at the top: the achievement has to be resolved
+    // before there is an issuer to judge the caller against.
+    await requireIssuerAccess(svc, actor, ach.issuer_id);
 
     // Path is derived, never client-supplied: the constraint added in 238
     // pins image_path to this bucket, and a caller-chosen key would be the

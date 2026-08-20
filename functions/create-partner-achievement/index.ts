@@ -58,6 +58,7 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
+import { requireIssuerAccess } from "../_shared/authorize.ts";
 
 interface AlignmentIn {
   target_name?: string;
@@ -144,15 +145,6 @@ serve(async (req) => {
     const actor = await authenticate(req);
     const svc = getServiceClient();
 
-    const { data: actorProfile } = await svc
-      .from("profiles")
-      .select("platform_role")
-      .eq("id", actor)
-      .maybeSingle();
-    if (!actorProfile || actorProfile.platform_role !== "platform_admin") {
-      throw new HttpError(403, "platform_admin required");
-    }
-
     const body = (await req.json()) as Body;
 
     const issuerId = body.issuer_id?.trim();
@@ -235,6 +227,11 @@ serve(async (req) => {
           `defining achievements it cannot yet sign`,
       );
     }
+
+    // platform_admin, or the team_admin of the company that owns THIS issuer.
+    // Throws 403 with an identical message either way, so an issuer id cannot
+    // be probed for existence.
+    await requireIssuerAccess(svc, actor, issuer.id);
 
     const { data: taken } = await svc
       .from("achievements")
