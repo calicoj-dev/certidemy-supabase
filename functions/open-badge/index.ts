@@ -321,13 +321,54 @@ serve(async (req) => {
            404 rather than a blank image when the artwork is missing: a badge
            file with no badge in it reads as a broken credential, and it is the
            holder who gets blamed when they share it. */
-        const art = BADGE_B64[cred.certification_code];
-        if (!art) return jsonResponse({ error: "not found" }, 404);
+        /* TWO SOURCES, ONE RULE.
+
+           Certidemy's eleven badges are compiled into _shared/badges.ts: no
+           fetch, no network, nothing between a holder and their own badge.
+           That stays.
+
+           A partner's artwork cannot be compiled in, so it is fetched from the
+           URL in the Achievement -- which migration 238 pins by CHECK to this
+           project's public badges bucket. Without that constraint this would be
+           an SSRF handing the response back as an image. */
+        let artBytes: Uint8Array | null = null;
+
+        const compiled = BADGE_B64[cred.certification_code];
+        if (compiled) {
+          artBytes = b64ToBytes(compiled);
+        } else {
+          const imageId =
+            (achievement.image as { id?: string } | undefined)?.id ?? null;
+          if (imageId) {
+            try {
+              const artRes = await fetch(imageId, {
+                headers: { accept: "image/png" },
+                signal: AbortSignal.timeout(8000),
+                redirect: "error",
+              });
+              if (artRes.ok) {
+                const buf = new Uint8Array(await artRes.arrayBuffer());
+                // Same ceiling migration 238 enforces on upload, applied again
+                // at read: a bucket policy can be changed, this cannot.
+                if (buf.length > 0 && buf.length <= 512 * 1024) {
+                  artBytes = buf;
+                }
+              }
+            } catch (err) {
+              console.error("badge art fetch failed:", err);
+            }
+          }
+        }
+
+        /* 404 rather than a blank image when the artwork is missing: a badge
+           file with no badge in it reads as a broken credential, and it is the
+           holder who gets blamed when they share it. */
+        if (!artBytes) return jsonResponse({ error: "not found" }, 404);
 
         let baked: Uint8Array;
         try {
           baked = bakeCredentialIntoPng(
-            b64ToBytes(art),
+            artBytes,
             JSON.stringify(signed),
           );
         } catch (err) {

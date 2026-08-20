@@ -510,3 +510,6 @@ verify_jwt = false
 # database, not a user. Gated on a shared secret both sides read from Vault.
 [functions.dispatch-webhooks]
 verify_jwt = false
+# Uploads partner badge artwork. platform_admin, enforced in-function.
+[functions.upload-achievement-image]
+verify_jwt = true
