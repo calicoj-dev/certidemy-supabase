@@ -497,3 +497,12 @@ verify_jwt = true
 # Defines what a partner issues. platform_admin only, enforced in-function.
 [functions.create-partner-achievement]
 verify_jwt = true
+# Mints an API key. platform_admin, enforced in-function.
+[functions.create-issuer-api-key]
+verify_jwt = true
+
+# THE PARTNER SURFACE. verify_jwt MUST be false: callers present an API key in
+# x-certidemy-key, not a Supabase JWT, and the gateway would reject them before
+# the function ran. It authenticates itself against issuer_api_keys by hash.
+[functions.issue-partner-credential]
+verify_jwt = false
