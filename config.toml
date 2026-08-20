@@ -513,3 +513,6 @@ verify_jwt = false
 # Uploads partner badge artwork. platform_admin, enforced in-function.
 [functions.upload-achievement-image]
 verify_jwt = true
+# Revokes an API key. platform_admin or the owning company's team_admin.
+[functions.revoke-issuer-api-key]
+verify_jwt = true
