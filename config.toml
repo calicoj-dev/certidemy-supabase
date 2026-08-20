@@ -506,3 +506,7 @@ verify_jwt = true
 # the function ran. It authenticates itself against issuer_api_keys by hash.
 [functions.issue-partner-credential]
 verify_jwt = false
+# Called by pg_cron via pg_net. verify_jwt MUST be false: the caller is the
+# database, not a user. Gated on a shared secret both sides read from Vault.
+[functions.dispatch-webhooks]
+verify_jwt = false
