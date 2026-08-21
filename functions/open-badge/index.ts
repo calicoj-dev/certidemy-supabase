@@ -58,6 +58,7 @@ import {
   statusListUrl,
   type AuthoredAlignment,
   type AuthoredResult,
+  type CredentialResult,
   type IssuerRow,
   type SnapshotDomain,
 } from "../_shared/ob3.ts";
@@ -178,7 +179,7 @@ serve(async (req) => {
       const { data: cred, error: credErr } = await svc
         .from("credentials")
         .select(
-          "id, credential_code, user_id, issuer_id, achievement_id, holder_email, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id",
+          "id, credential_code, user_id, issuer_id, achievement_id, holder_email, certification_code, holder_name, issued_at, expires_at, status, is_specimen, subject_salt, status_list_index, material_updated_at, jta_version_id, results_visibility",
         )
         .eq("credential_code", code.trim().toUpperCase())
         .maybeSingle();
@@ -271,6 +272,51 @@ serve(async (req) => {
         };
       }
 
+      /* ---- the transcript layer -------------------------------------
+         Loaded for every viewer, INCLUDED for some. The decision is made
+         here, before signing, because a field removed after signing leaves a
+         document that fails verification.
+
+         'holder' (the default) means the results appear only in the copy the
+         authenticated holder receives, alongside their salted identifier.
+         'public' means the issuer decided this belongs on a document any
+         link-holder can read -- honours on a diploma, not a midterm mark. */
+      let results: CredentialResult[] = [];
+      if (isHolder || cred.results_visibility === "public") {
+        const { data: resultRows, error: resErr } = await svc
+          .from("credential_results")
+          .select(
+            "result_type, value, achieved_level, status, label, order_index, " +
+              "achievement_result_id, achievement_results(order_index)",
+          )
+          .eq("credential_id", cred.id)
+          .order("order_index", { ascending: true });
+        if (resErr) throw new Error(`credential results: ${resErr.message}`);
+
+        const achievementId = achievement.id as string;
+        results = ((resultRows ?? []) as unknown as {
+          result_type: string;
+          value: string | null;
+          achieved_level: string | null;
+          status: string | null;
+          label: string | null;
+          achievement_result_id: string | null;
+          achievement_results: { order_index: number } | null;
+        }[]).map((r) => ({
+          // The description URI is derived from the DESCRIPTION's order_index,
+          // not this row's: the two orderings are independent and only the
+          // former appears in the Achievement document.
+          resultDescription: r.achievement_results
+            ? `${achievementId}#result-${r.achievement_results.order_index + 1}`
+            : null,
+          resultType: r.result_type,
+          value: r.value,
+          achievedLevel: r.achieved_level,
+          status: r.status,
+          label: r.label,
+        }));
+      }
+
       const statusListId = statusListUrl(credIssuer, 1);
 
       const unsigned = buildCredential({
@@ -285,6 +331,7 @@ serve(async (req) => {
         issuer: credIssuer,
         siteUrl: credIssuer.site_url,
         jtaVersion: (achievement["certidemy:jtaVersion"] as string) ?? null,
+        results,
       });
 
       const privateKey = await readSigningKey(svc, credIssuer.slug);
@@ -310,6 +357,10 @@ serve(async (req) => {
       // a shared cache — a CDN that stored it would serve it to the next
       // anonymous visitor, which is exactly the disclosure this split exists to
       // prevent. `private` keeps it in the holder's own browser only.
+      // Unchanged, and worth stating why results do not alter it. Public
+      // results are the same for every caller, so the public document stays
+      // byte-stable and cacheable. Holder results ride in the holder document,
+      // which was already private for the identifier and stays that way.
       const cache = isHolder ? "private, no-store" : CACHE_STABLE;
 
       if (doc === "baked") {

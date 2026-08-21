@@ -471,6 +471,9 @@ export interface AuthoredAlignment {
 
 /** A result description authored by hand, from public.achievement_results. */
 export interface AuthoredResult {
+  /** Position within the achievement. The emitted description URI is built
+   *  from this, so it is part of the contract rather than presentation. */
+  order_index: number;
   result_type: string;
   required_value: string | null;
   required_level: string | null;
@@ -499,8 +502,10 @@ export function buildAuthoredResults(
   rows: AuthoredResult[],
   achievementId: string,
 ): Record<string, unknown>[] {
-  return rows.map((r, i) => ({
-    id: `${achievementId}#result-${i + 1}`,
+  return rows.map((r) => ({
+    // order_index, NOT the array index. A credential_results row has to name
+    // this URI, and it can only compute it from a column it carries.
+    id: `${achievementId}#result-${r.order_index + 1}`,
     type: ["ResultDescription"],
     name: r.result_type,
     resultType: r.result_type,
@@ -658,6 +663,26 @@ export function buildAchievement(a: AchievementInput): Record<string, unknown> {
   return doc;
 }
 
+/**
+ * One line of a holder's result -- OB 3.0 Result, on credentialSubject.
+ *
+ * NOT a ResultDescription. The description says "there will be a Percent and
+ * passing is 70" and is the same for everybody; this says "87" and is about
+ * one person. Conflating them puts one student's mark inside the course
+ * definition every other student's credential points at.
+ */
+export interface CredentialResult {
+  /** URI of the ResultDescription this answers, when there is one. */
+  resultDescription?: string | null;
+  resultType: string;
+  value?: string | null;
+  achievedLevel?: string | null;
+  status?: string | null;
+  /** "Midterm", "Thesis defence". OB 3.0 does not name a Result, because it
+   *  did not set out to be a transcript. Emitted as an extension. */
+  label?: string | null;
+}
+
 export interface CredentialInput {
   credentialCode: string;
   holderName: string;
@@ -691,6 +716,16 @@ export interface CredentialInput {
   issuer: IssuerRow;
   siteUrl: string;
   jtaVersion: string | null;
+
+  /**
+   * The holder's results, or empty.
+   *
+   * PASSED IN, not filtered out. Whether a viewer may see these is decided by
+   * the caller before signing, exactly as the subject hash is -- a field removed after
+   * signing produces a document that fails verification, so the two audiences
+   * are two separately-signed documents rather than one document and a filter.
+   */
+  results?: CredentialResult[];
 }
 
 /**
@@ -738,6 +773,32 @@ export function buildCredential(c: CredentialInput): Record<string, unknown> {
         }
         : {}),
       achievement: c.achievement,
+      // Omitted entirely when empty. An empty result array asserts "assessed, and here
+      // is nothing", which is a different and wrong claim from "no results
+      // recorded".
+      ...(c.results && c.results.length > 0
+        ? {
+          result: c.results.map((r) => ({
+            type: ["Result"],
+            ...(r.resultDescription
+              ? { resultDescription: r.resultDescription }
+              : {}),
+            /* NOT `resultType`. That is a ResultDescription property in
+               OB 3.0; on a Result it does not expand to an absolute IRI and
+               jsonld safe mode refuses the document rather than silently
+               dropping it -- which is the entire reason safe mode is on.
+
+               Kept as an extension because a transcript line with no declared
+               description still needs to say whether 92 is a percentage or a
+               raw score. */
+            "certidemy:resultType": r.resultType,
+            ...(r.value ? { value: r.value } : {}),
+            ...(r.achievedLevel ? { achievedLevel: r.achievedLevel } : {}),
+            ...(r.status ? { status: r.status } : {}),
+            ...(r.label ? { "certidemy:resultLabel": r.label } : {}),
+          })),
+        }
+        : {}),
     },
     credentialStatus: {
       id: `${c.statusListId}#${c.statusListIndex}`,
