@@ -5,21 +5,30 @@
 //
 // Edits an achievement, or changes its lifecycle.
 //
-// ============================== WHAT AN EDIT CAN AND CANNOT BREAK =========
+// ============================== WHAT AN EDIT ACTUALLY DOES ===============
 //
-// buildCredential embeds a FROZEN COPY of the achievement inside
-// credentialSubject, and that copy is signed. Thirty already-issued badges keep
-// the name, criteria and alignments they were signed with, forever, regardless
-// of what happens here.
+// IT CHANGES EVERY CREDENTIAL, INCLUDING ONES ISSUED MONTHS AGO.
 //
-// So an edit changes exactly two things: the live public definition at
-// /achievements/<code>, and every credential issued FROM NOW ON. It cannot
-// corrupt anything already issued.
+// There is no frozen copy. buildCredential embeds the achievement object, but
+// loadAchievement builds that object fresh on every request -- nothing about
+// the achievement is snapshotted onto the credential row. A rename is visible
+// in an existing credential on the very next fetch.
 //
-// That is why this function does NOT lock an achievement once credentials
-// exist. Locking would force a partner fixing a typo to create
-// SCRUM-BOOTCAMP-2026-09-V2 and put that code in a permanent namespace, to
-// protect credentials that were never at risk.
+// That is DELIBERATE for certifications and documented in loadAchievement: the
+// name comes from the live row so a renamed product does not stamp a stale name
+// onto credentials. Only the JTA domains come from a snapshot. Partner
+// achievements read live for the same reason.
+//
+// Editing is therefore safe not because the past is untouchable, but because
+// the credential is RE-SIGNED ON READ: an edit produces a consistent new
+// document rather than a broken old one. Migration 242 keeps
+// material_updated_at in step, so the proof timestamp still describes the
+// document it covers.
+//
+// This function does NOT lock an achievement once credentials exist. Locking
+// would force a partner fixing a typo to mint a -V2 code into a permanent
+// namespace, and would not protect anything -- the fix is one they usually
+// WANT applied to badges already in the world.
 //
 // ============================== WHAT IS ACTUALLY IMMUTABLE ===============
 //
@@ -186,9 +195,15 @@ serve(async (req) => {
         ok: true,
         status: next,
         code: ach.code,
+        // Archive is the one action that genuinely leaves issued credentials
+        // alone: it changes whether the PUBLIC DEFINITION is served, not what
+        // a credential says. That distinction only holds because of the
+        // publicDefinition flag in open-badge -- before it, archiving 500'd
+        // every credential from the achievement.
         note: next === "archived"
           ? `The public definition is no longer served and no new credentials ` +
-            `can be issued. The ${issued} already issued keep resolving.`
+            `can be issued. The ${issued} already issued keep resolving, ` +
+            `unchanged.`
           : "The public definition is being served again.",
       });
     }
@@ -391,10 +406,12 @@ serve(async (req) => {
       ok: true,
       achievement: { id: ach.id, code: ach.code },
       issued,
+      // TRUE, and deliberately not reassuring. Somebody deciding whether to
+      // fix a typo has to know the fix reaches badges people already carry.
       note: issued > 0
-        ? `Updated. The ${issued} credential${issued === 1 ? "" : "s"} already ` +
-          `issued keep the wording they were signed with; credentials issued ` +
-          `from now on carry the new version.`
+        ? `Updated. This applies to all ${issued} credential${issued === 1 ? "" : "s"} ` +
+          `already issued as well as any issued from now on -- they render from ` +
+          `this achievement rather than from a copy.`
         : "Updated.",
     });
   } catch (err) {
