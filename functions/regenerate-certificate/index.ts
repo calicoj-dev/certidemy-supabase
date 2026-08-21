@@ -86,7 +86,7 @@ serve(async (req) => {
     const { data: cred, error: cErr } = await svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen, certification_id, issuers(slug, name), achievements(achievement_type)",
+        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen, certification_id, issuers(slug, name), achievements(achievement_type, image_path)",
       )
       .eq("id", credentialId)
       .maybeSingle();
@@ -104,7 +104,7 @@ serve(async (req) => {
     const embedded = cred as unknown as {
       certification_id: string | null;
       issuers: { slug: string; name: string } | null;
-      achievements: { achievement_type: string } | null;
+      achievements: { achievement_type: string; image_path: string | null } | null;
     };
     const isCertification = embedded.certification_id !== null;
 
@@ -142,6 +142,10 @@ serve(async (req) => {
       achievement_type: embedded.achievements?.achievement_type ?? null,
       is_certification: isCertification,
       issuer_name: embedded.issuers?.name ?? null,
+      // NULL for a certification -- its badge is compiled in, not stored.
+      // Omitting it for a partner draws a placeholder on a certificate whose
+      // badge is fine everywhere else.
+      image_url: embedded.achievements?.image_path ?? null,
     };
 
     const pdfBytes = await renderCertificate(certData, renderLocale, VERIFY_BASE);

@@ -66,8 +66,11 @@ const WHITE = rgb(1, 1, 1);
  *     vector signature, QR with a real quiet zone
  * 4 - wording keyed to achievementType; no Certidemy signature on a
  *     certificate Certidemy did not issue
+ * 5 - vector fallback badge when an issuer has supplied no artwork
+ * 6 - uploaded partner artwork is fetched and drawn; the fallback is a last
+ *     resort rather than the only partner path
  */
-export const CERTIFICATE_RENDERER_VERSION = "4";
+export const CERTIFICATE_RENDERER_VERSION = "6";
 
 export interface CertificateData {
   id: string;
@@ -115,6 +118,21 @@ export interface CertificateData {
 
   /** The issuing organisation, printed on the signature rule for a partner. */
   issuer_name?: string | null;
+
+  /**
+   * Uploaded badge artwork.
+   *
+   * NULL for a Certidemy scheme, whose badge is compiled into
+   * _shared/badges.ts. For a partner this is the storage URL, which migration
+   * 238 pins by CHECK to our own public badges bucket -- so fetching it is not
+   * dereferencing an arbitrary URL.
+   *
+   * Absent draws the fallback octagon. A caller that HAS this and does not pass
+   * it produces a placeholder on a certificate whose badge renders correctly
+   * everywhere else, which is exactly the inconsistency this field exists to
+   * remove.
+   */
+  image_url?: string | null;
 }
 
 type Locale = "en" | "es-419" | "pt-BR";
@@ -239,6 +257,39 @@ const STRINGS: Record<Locale, {
     ],
   },
 };
+
+/**
+ * The word on the fallback badge.
+ *
+ * Deliberately NOT localised. It sits inside a 76pt shape at 9pt, and
+ * "CERTIFICADO DE FINALIZACION" does not fit at any size that stays legible.
+ * The eyebrow above already says it in the reader's language; this is a mark,
+ * not a sentence.
+ *
+ * Note there is no CERTIFICATION entry -- a certification always has compiled
+ * artwork, so this map is only ever consulted for a partner.
+ */
+function badgeWord(type: string | null | undefined): string {
+  switch (type) {
+    case "Course":
+    case "LearningProgram":
+      return "COURSE";
+    case "Diploma":
+      return "DIPLOMA";
+    case "Assessment":
+      return "ASSESSMENT";
+    case "License":
+      return "LICENSE";
+    case "Membership":
+      return "MEMBER";
+    case "Badge":
+    case "MicroCredential":
+    case "Competency":
+      return "ACHIEVEMENT";
+    default:
+      return "CERTIFICATE";
+  }
+}
 
 function normalizeLocale(loc: string | null | undefined): Locale {
   if (loc === "es-419" || loc === "pt-BR") return loc;
@@ -416,6 +467,80 @@ function drawCodeMark(
   });
 }
 
+/**
+ * A placeholder badge, drawn rather than fetched.
+ *
+ * Occupies the same optical box as a real badge -- 108pt of ink centred on
+ * (85, 92) in design space -- so a certificate with artwork and one without
+ * have the same composition.
+ *
+ * CARRIES NO CERTIDEMY MARK. A badge reading "Certidemy Partner" on somebody's
+ * course certificate tells every reader Certidemy stands behind that course.
+ * This says what kind of credential it is and nothing about who endorses it.
+ *
+ * Muted ink and a hairline, not brand magenta: it should read as "no artwork
+ * supplied", not as somebody's real badge. It stops being drawn the moment one
+ * is uploaded.
+ */
+function drawFallbackBadge(
+  page: PDFPage,
+  word: string,
+  font: PDFFont,
+  xCenter: number,
+  yCenterDesign: number,
+  size: number,
+) {
+  const half = size / 2;
+  const left = xCenter - half;
+  const top = yCenterDesign - half;
+  const cut = size * 0.22; // corner chamfer, echoing the frame ornament
+  const STROKE = rgb(0xb8 / 255, 0xb8 / 255, 0xbe / 255);
+
+  /* An octagon rather than a shield. A shield outline this close to the
+     Certidemy badge silhouette would read as a Certidemy badge with the
+     artwork missing, which is the one thing it must not say. */
+  const pts: [number, number][] = [
+    [left + cut, top],
+    [left + size - cut, top],
+    [left + size, top + cut],
+    [left + size, top + size - cut],
+    [left + size - cut, top + size],
+    [left + cut, top + size],
+    [left, top + size - cut],
+    [left, top + cut],
+  ];
+
+  // drawSvgPath's y origin is the page top, which is what design space already
+  // uses -- so these coordinates go in unconverted.
+  const d = pts
+    .map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`)
+    .join(" ") + " Z";
+
+  page.drawSvgPath(d, {
+    x: 0,
+    y: PAGE_H,
+    scale: 1,
+    borderColor: STROKE,
+    borderWidth: 1,
+  });
+
+  // Inner rule, then the word beneath it: the same eyebrow-and-rule rhythm the
+  // certificate head uses, so the placeholder belongs to the same document.
+  drawRect(page, xCenter - size * 0.18, yCenterDesign - size * 0.06, size * 0.36, 0.75, STROKE);
+
+  const wordSize = fitSize(word, font, 9, 5.5, size * 0.74);
+  drawTrackedCentered(
+    page,
+    word,
+    xCenter,
+    yCenterDesign + size * 0.16,
+    wordSize,
+    font,
+    MUTE,
+    1.4,
+  );
+}
+
 export async function renderCertificate(
   cred: CertificateData,
   localeRaw: string,
@@ -517,6 +642,66 @@ export async function renderCertificate(
   // prominence needs bigger source art, not a bigger box.
   {
     const uri = badgeDataUri(cred.certification_code);
+
+    /* Three sources in order: compiled, fetched, drawn.
+
+       badgeDataUri knows only the eleven compiled Certidemy codes. A partner's
+       artwork is in storage and has to be fetched -- and until it was, every
+       partner certificate showed a placeholder even when its badge rendered
+       correctly on the verify page and inside the baked PNG. */
+    let drewArtwork = false;
+
+    if (!uri && cred.image_url) {
+      try {
+        const res = await fetch(cred.image_url, {
+          headers: { accept: "image/png" },
+          signal: AbortSignal.timeout(8000),
+          redirect: "error",
+        });
+        if (res.ok) {
+          const buf = new Uint8Array(await res.arrayBuffer());
+          // The same ceiling migration 238 enforces on upload, applied again at
+          // read: a bucket policy can be changed, this cannot.
+          if (buf.length > 0 && buf.length <= 512 * 1024) {
+            const img = await doc.embedPng(buf);
+
+            /* NO CANVAS COMPENSATION. The compiled badges are 501x501 with a
+               known transparent margin, so their box is computed backwards
+               from the intended ink box. An upload is square and 256-1024px
+               with UNKNOWN margins -- possibly edge to edge -- and applying the
+               same maths would crop or shrink it unpredictably. Drawn at its
+               nominal size; the issuer's own framing is theirs. */
+            const SIZE = 108;
+            page.drawImage(img, {
+              x: 85,
+              y: Y(92 + SIZE),
+              width: SIZE,
+              height: SIZE,
+            });
+            drewArtwork = true;
+          }
+        }
+      } catch (err) {
+        // Falls through to the octagon. Everything else on this page is intact
+        // and correct; a missing badge is cosmetic where a failed download is a
+        // support ticket.
+        console.error("certificate badge art fetch failed:", err);
+      }
+    }
+
+    if (!uri && !drewArtwork) {
+      drawFallbackBadge(
+        page,
+        badgeWord(cred.achievement_type),
+        semi,
+        85 + 108 / 2,
+        92 + 108 / 2,
+        // Slightly under the real badge's 108pt ink height. An outline reads
+        // heavier than artwork at the same size, and this should recede.
+        96,
+      );
+    }
+
     if (uri) {
       const INK_H = 108;
       const INK_W = INK_H * (356 / 452);
