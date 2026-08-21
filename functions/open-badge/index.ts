@@ -152,7 +152,14 @@ serve(async (req) => {
       if (ownedErr) throw new Error(`achievement ownership: ${ownedErr.message}`);
       if (!owned) return jsonResponse({ error: "not found" }, 404);
 
-      const achievement = await loadAchievement(svc, owned.id, issuer);
+      // The public definition. The only call that passes true.
+      const achievement = await loadAchievement(
+        svc,
+        owned.id,
+        issuer,
+        null,
+        true,
+      );
       if (!achievement) return jsonResponse({ error: "not found" }, 404);
 
       // The definition is NOT signed. It describes what a certification
@@ -644,6 +651,17 @@ async function loadAchievement(
   achievementId: string,
   issuer: IssuerRow,
   jtaVersionId?: string | null,
+  /**
+   * True when building the PUBLIC definition at /achievements/<code>, false
+   * when building the copy embedded in a credential.
+   *
+   * EXPLICIT, because it used to be inferred from jtaVersionId being absent --
+   * a certification-only column. A partner credential has none, so the
+   * inference made every partner credential look like a public definition
+   * request, and archiving an achievement would have 500'd every credential
+   * ever issued from it.
+   */
+  publicDefinition = false,
 ): Promise<Record<string, unknown> | null> {
   const siteUrl = issuer.site_url;
 
@@ -682,7 +700,7 @@ async function loadAchievement(
     // A draft achievement's definition is not a published claim. Credentials
     // are exempt for the same reason certifications are: an achievement can be
     // archived after issuance without breaking credentials already in the world.
-    if (!jtaVersionId && ach.status !== "active") return null;
+    if (publicDefinition && ach.status !== "active") return null;
 
     return buildAchievement({
       certCode: ach.code,
@@ -717,9 +735,9 @@ async function loadAchievement(
 
   if (!cert) return null;
   // A draft certification's blueprint is not a published claim. Credentials
-  // pass their own jta_version_id and bypass this — a cert can be withdrawn
+  // are exempt by the same flag as the partner branch above — a cert can be withdrawn
   // after issuance without breaking credentials already in the world.
-  if (!jtaVersionId && cert.status !== "available") return null;
+  if (publicDefinition && cert.status !== "available") return null;
 
   let snapshotQuery = svc
     .from("jta_versions")
