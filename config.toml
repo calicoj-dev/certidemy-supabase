@@ -516,3 +516,6 @@ verify_jwt = true
 # Revokes an API key. platform_admin or the owning company's team_admin.
 [functions.revoke-issuer-api-key]
 verify_jwt = true
+# Edits, archives or deletes a partner achievement.
+[functions.update-partner-achievement]
+verify_jwt = true
