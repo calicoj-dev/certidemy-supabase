@@ -57,12 +57,63 @@ serve(async (req) => {
     let query = svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, is_specimen"
+        "id, credential_code, holder_name, certification_name, certification_code, " +
+          "issued_at, expires_at, status, is_specimen, issuer_id, certification_id, " +
+          "achievement_id, issuers(slug, name, site_url), " +
+          "achievements(achievement_type, image_path, criteria_url)"
       );
     query = id ? query.eq("id", id) : query.eq("credential_code", code!.trim().toUpperCase());
 
-    const { data: cred } = await query.maybeSingle();
+    const { data: credData } = await query.maybeSingle();
+
+    /* Cast through unknown, once.
+
+       PostgREST infers a row type from the select STRING. The select above is
+       built by concatenation to stay readable, and a concatenated expression
+       is not a literal -- inference falls back to GenericStringError and every
+       property access on the row fails, including ones that predate this
+       change.
+
+       This is also the only place the row's shape is written down, so a column
+       added to the select and forgotten here is a compile error rather than an
+       undefined at runtime. */
+    const cred = (credData ?? null) as unknown as {
+      id: string;
+      credential_code: string;
+      holder_name: string;
+      certification_name: string;
+      certification_code: string;
+      issued_at: string;
+      expires_at: string | null;
+      status: string;
+      is_specimen: boolean | null;
+      issuer_id: string | null;
+      certification_id: string | null;
+      achievement_id: string | null;
+      issuers: { slug: string; name: string; site_url: string } | null;
+      achievements: {
+        achievement_type: string;
+        image_path: string | null;
+        criteria_url: string | null;
+      } | null;
+    } | null;
+
     if (!cred) return jsonResponse({ found: false }, 404);
+
+    /* ---- who issued this, and what kind of thing is it? ---------------
+       The page needs both to render honestly. Without them it assumed
+       Certidemy for everything: a partner's course credential showed a
+       missing badge, the word CERTIFICATION, a blueprint that could not
+       load, and -- worst -- offered LinkedIn an "Add to profile" link
+       attributing the course to Certidemy. */
+    const issuerRow = cred.issuers;
+    const achRow = cred.achievements;
+
+    // Certidemy standing behind the credential, versus merely hosting it. Not
+    // the same question as "which issuer", and a boolean the page can branch
+    // on beats every caller re-deriving it from a slug and one getting it
+    // wrong.
+    const is_certification = cred.certification_id !== null;
 
     // Expiry is evaluated live, never trusted from the stored status alone.
     const expired =
@@ -90,6 +141,21 @@ serve(async (req) => {
         status: effective_status,
         valid: effective_status === "active",
         is_specimen: cred.is_specimen === true,
+
+        /* Everything below already appears in the credential document
+           open-badge serves publicly at /credentials/<code>. This endpoint
+           was returning less than the document beside it, and the page paid
+           for the difference. The score is still absent, which is the rule
+           this endpoint exists to keep. */
+        is_certification,
+        issuer_slug: issuerRow?.slug ?? null,
+        issuer_name: issuerRow?.name ?? null,
+        issuer_site_url: issuerRow?.site_url ?? null,
+        achievement_type: achRow?.achievement_type ?? null,
+        // NULL for a Certidemy scheme: its artwork is compiled into
+        // _shared/badges.ts and served from /badges/<code>.png, not storage.
+        image_url: achRow?.image_path ?? null,
+        criteria_url: achRow?.criteria_url ?? null,
       },
     });
   } catch (err) {
