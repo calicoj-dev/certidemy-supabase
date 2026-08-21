@@ -64,8 +64,10 @@ const WHITE = rgb(1, 1, 1);
  * 2 - specimen band and watermark; brand magenta palette
  * 3 - approved design: traced frame, wordmark, badge, code mark, expiry,
  *     vector signature, QR with a real quiet zone
+ * 4 - wording keyed to achievementType; no Certidemy signature on a
+ *     certificate Certidemy did not issue
  */
-export const CERTIFICATE_RENDERER_VERSION = "3";
+export const CERTIFICATE_RENDERER_VERSION = "4";
 
 export interface CertificateData {
   id: string;
@@ -90,9 +92,89 @@ export interface CertificateData {
    * document, so every caller must be checked.
    */
   is_specimen?: boolean;
+
+  /**
+   * OB 3.0 achievementType. Selects the wording -- a Course is completed, a
+   * Certification is earned, a Diploma is awarded.
+   *
+   * Optional so the existing caller compiles, and absent reads as a
+   * certification, which is what every credential was before partners existed.
+   * A caller that omits it on a PARTNER credential prints "CERTIFICATE OF
+   * COMPETENCE" over a weekend course.
+   */
+  achievement_type?: string | null;
+
+  /**
+   * False when Certidemy is hosting rather than issuing.
+   *
+   * Controls the SIGNATURE, which is the part that matters: absent or true
+   * draws Juan Roman's signature, and drawing that on a partner's document is
+   * a real person's signature on a certificate they had nothing to do with.
+   */
+  is_certification?: boolean;
+
+  /** The issuing organisation, printed on the signature rule for a partner. */
+  issuer_name?: string | null;
 }
 
 type Locale = "en" | "es-419" | "pt-BR";
+
+/**
+ * The banner and the verb, per kind of thing.
+ *
+ * OB 3.0 defines achievementType and no display strings whatsoever, so this
+ * table is entirely Certidemy's editorial judgement. It exists because a
+ * course attendee did not demonstrate competence, and printing that they did
+ * -- on a document their employer may read -- is a claim we would be making
+ * for a partner who never made it.
+ *
+ * A type not listed falls through to the certification wording, which is the
+ * conservative direction ONLY for Certidemy's own schemes. A partner using an
+ * unusual type gets wording that overstates, so new types belong here.
+ */
+interface KindWords {
+  eyebrow: string;
+  verb: string;
+}
+
+const KIND_WORDS: Record<Locale, Record<string, KindWords>> = {
+  "en": {
+    Course: { eyebrow: "CERTIFICATE OF COMPLETION", verb: "has successfully completed" },
+    LearningProgram: { eyebrow: "CERTIFICATE OF COMPLETION", verb: "has successfully completed" },
+    Certificate: { eyebrow: "CERTIFICATE OF COMPLETION", verb: "has successfully completed" },
+    CertificateOfCompletion: { eyebrow: "CERTIFICATE OF COMPLETION", verb: "has successfully completed" },
+    Diploma: { eyebrow: "DIPLOMA", verb: "has been awarded the" },
+    Assessment: { eyebrow: "CERTIFICATE OF ACHIEVEMENT", verb: "has passed the" },
+    License: { eyebrow: "LICENSE", verb: "is licensed as" },
+    Membership: { eyebrow: "CERTIFICATE OF MEMBERSHIP", verb: "is recognised as" },
+    Badge: { eyebrow: "CERTIFICATE OF ACHIEVEMENT", verb: "has earned the" },
+    MicroCredential: { eyebrow: "CERTIFICATE OF ACHIEVEMENT", verb: "has earned the" },
+  },
+  "es-419": {
+    Course: { eyebrow: "CERTIFICADO DE FINALIZACI\u00D3N", verb: "ha completado satisfactoriamente" },
+    LearningProgram: { eyebrow: "CERTIFICADO DE FINALIZACI\u00D3N", verb: "ha completado satisfactoriamente" },
+    Certificate: { eyebrow: "CERTIFICADO DE FINALIZACI\u00D3N", verb: "ha completado satisfactoriamente" },
+    CertificateOfCompletion: { eyebrow: "CERTIFICADO DE FINALIZACI\u00D3N", verb: "ha completado satisfactoriamente" },
+    Diploma: { eyebrow: "DIPLOMA", verb: "ha recibido el" },
+    Assessment: { eyebrow: "CERTIFICADO DE LOGRO", verb: "ha aprobado" },
+    License: { eyebrow: "LICENCIA", verb: "est\u00E1 habilitado como" },
+    Membership: { eyebrow: "CERTIFICADO DE MEMBRES\u00CDA", verb: "es reconocido como" },
+    Badge: { eyebrow: "CERTIFICADO DE LOGRO", verb: "ha obtenido" },
+    MicroCredential: { eyebrow: "CERTIFICADO DE LOGRO", verb: "ha obtenido" },
+  },
+  "pt-BR": {
+    Course: { eyebrow: "CERTIFICADO DE CONCLUS\u00C3O", verb: "concluiu com \u00EAxito" },
+    LearningProgram: { eyebrow: "CERTIFICADO DE CONCLUS\u00C3O", verb: "concluiu com \u00EAxito" },
+    Certificate: { eyebrow: "CERTIFICADO DE CONCLUS\u00C3O", verb: "concluiu com \u00EAxito" },
+    CertificateOfCompletion: { eyebrow: "CERTIFICADO DE CONCLUS\u00C3O", verb: "concluiu com \u00EAxito" },
+    Diploma: { eyebrow: "DIPLOMA", verb: "recebeu o" },
+    Assessment: { eyebrow: "CERTIFICADO DE APROVEITAMENTO", verb: "foi aprovado em" },
+    License: { eyebrow: "LICEN\u00C7A", verb: "est\u00E1 habilitado como" },
+    Membership: { eyebrow: "CERTIFICADO DE ASSOCIA\u00C7\u00C3O", verb: "\u00E9 reconhecido como" },
+    Badge: { eyebrow: "CERTIFICADO DE APROVEITAMENTO", verb: "obteve" },
+    MicroCredential: { eyebrow: "CERTIFICADO DE APROVEITAMENTO", verb: "obteve" },
+  },
+};
 
 const STRINGS: Record<Locale, {
   eyebrow: string;
@@ -342,11 +424,33 @@ export async function renderCertificate(
   const locale = normalizeLocale(localeRaw);
   const t = STRINGS[locale];
 
+  /* Certidemy issuing, versus Certidemy hosting. Absent means true, so every
+     caller written before partners existed keeps its behaviour exactly. */
+  const certidemyIssued = cred.is_certification !== false;
+
+  /* The banner and the verb. A Certidemy scheme always uses the certification
+     wording regardless of what its achievement row says -- that wording is the
+     product's own claim and does not follow a type field. */
+  const kind = certidemyIssued
+    ? null
+    : KIND_WORDS[locale][cred.achievement_type ?? ""] ??
+      // A PARTNER whose type is not in the table falls back to the weakest
+      // honest wording, not the strongest. t.eyebrow is "CERTIFICATE OF
+      // COMPETENCE" -- the conservative default for a Certidemy scheme and the
+      // reckless one for anybody else, because an unrecognised type would
+      // print the biggest claim we have on a document we know least about.
+      KIND_WORDS[locale].Certificate ?? null;
+  const eyebrowText = kind?.eyebrow ?? t.eyebrow;
+  const verbText = kind?.verb ?? t.hasEarned;
+
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
   doc.setTitle(`${cred.certification_name} \u2014 ${cred.holder_name}`);
   doc.setAuthor("Certidemy");
-  doc.setSubject("Certificate of Competence");
+  // Shows in a reader's document properties. Same claim, same rule.
+  doc.setSubject(
+    certidemyIssued ? "Certificate of Competence" : eyebrowText,
+  );
   doc.setCreator("Certidemy");
   doc.setProducer("Certidemy");
 
@@ -382,7 +486,7 @@ export async function renderCertificate(
   }
 
   // ---- eyebrow + accent rule ----
-  drawTrackedCentered(page, t.eyebrow, CX, 131, 8.5, semi, MAGENTA_TEXT, 2.2);
+  drawTrackedCentered(page, eyebrowText, CX, 131, 8.5, semi, MAGENTA_TEXT, 2.2);
   drawRect(page, 403, 142.5, 36, 2, MAGENTA);
 
   // ---- holder ----
@@ -392,7 +496,7 @@ export async function renderCertificate(
   drawRect(page, 221, 264, 400, 0.75, RULE);
 
   // ---- certification ----
-  drawCentered(page, t.hasEarned, CX, 300, 10.5, reg, MUTE);
+  drawCentered(page, verbText, CX, 300, 10.5, reg, MUTE);
   const certSize = fitSize(cred.certification_name, semi, 24, 14, 480);
   drawCentered(page, cred.certification_name, CX, 344, certSize, semi, INK);
   if (cred.certification_code) {
@@ -444,13 +548,34 @@ export async function renderCertificate(
   label(t.credentialId, 85, 501);
   drawTracked(page, cred.credential_code, 85, 516, 9, mono, INK, 0.3);
 
-  // ---- signature, centre ----
-  for (const d of CERT_SIGNATURE_PATHS) {
-    page.drawSvgPath(d, { x: 0, y: PAGE_H, scale: 1, color: INK_SIG });
+  /* ---- signature, centre ----------------------------------------------
+
+     CERT_SIGNATURE_PATHS is Juan Roman's actual signature. Drawing it on a
+     certificate Certidemy did not issue puts a real person's signature on
+     somebody else's document -- which is a different kind of wrong from
+     printing the wrong noun.
+
+     A partner certificate is UNSIGNED until they supply one. migration 233's
+     issuer_branding holds signature_name, signature_title and signature_svg_d
+     for exactly this and nothing reads them yet; until something does, the
+     honest render is their name on the rule and nothing above it. An unsigned
+     certificate is a true document. A misattributed signature is not. */
+  if (certidemyIssued) {
+    for (const d of CERT_SIGNATURE_PATHS) {
+      page.drawSvgPath(d, { x: 0, y: PAGE_H, scale: 1, color: INK_SIG });
+    }
   }
   drawRect(page, 351, 490, 140, 0.75, RULE);
-  drawCentered(page, "Juan Roman", CX, 502, 8.5, semi, INK);
-  drawTrackedCentered(page, t.role, CX, 513, 7, reg, MUTE, 0.4);
+  if (certidemyIssued) {
+    drawCentered(page, "Juan Roman", CX, 502, 8.5, semi, INK);
+    drawTrackedCentered(page, t.role, CX, 513, 7, reg, MUTE, 0.4);
+  } else if (cred.issuer_name) {
+    // Name only. No role -- we do not know who at that organisation stands
+    // behind this, and inventing a title would be the same error one step
+    // removed.
+    const nameSize = fitSize(cred.issuer_name, semi, 8.5, 6, 138);
+    drawCentered(page, cred.issuer_name, CX, 502, nameSize, semi, INK);
+  }
 
   // ---- QR, bottom right ----
   //

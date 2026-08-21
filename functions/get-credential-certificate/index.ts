@@ -82,7 +82,7 @@ serve(async (req) => {
     let query = svc
       .from("credentials")
       .select(
-        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen",
+        "id, credential_code, holder_name, certification_name, certification_code, issued_at, expires_at, status, locale, certificate_path, is_specimen, certification_id, issuers(slug, name), achievements(achievement_type)",
       );
     query = id
       ? query.eq("id", id)
@@ -94,6 +94,17 @@ serve(async (req) => {
       return jsonResponse({ error: "lookup failed" }, 500);
     }
     if (!cred) return jsonResponse({ found: false }, 404);
+
+    /* The issuer and the achievement, for the certificate's wording and its
+       signature. Cast narrowly -- only the two embedded objects, not the whole
+       row -- because the generated types do not carry these tables while the
+       rest of the row still infers correctly from the literal select above. */
+    const embedded = cred as unknown as {
+      certification_id: string | null;
+      issuers: { slug: string; name: string } | null;
+      achievements: { achievement_type: string } | null;
+    };
+    const isCertification = embedded.certification_id !== null;
 
     // Validity gate — identical semantics to verify-credential.
     const expired =
@@ -150,6 +161,13 @@ serve(async (req) => {
       issued_at: cred.issued_at,
       expires_at: cred.expires_at,
       is_specimen: cred.is_specimen === true,
+      // WITHOUT THESE a partner's certificate says CERTIFICATE OF COMPETENCE
+      // and carries Juan Roman's signature. The renderer defaults to the
+      // certification wording when it is told nothing, which is correct for
+      // every Certidemy credential and wrong for everyone else.
+      achievement_type: embedded.achievements?.achievement_type ?? null,
+      is_certification: isCertification,
+      issuer_name: embedded.issuers?.name ?? null,
     };
     const pdfBytes = await renderCertificate(certData, renderLocale, VERIFY_BASE);
 
