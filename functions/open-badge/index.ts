@@ -357,11 +357,25 @@ serve(async (req) => {
       // a shared cache — a CDN that stored it would serve it to the next
       // anonymous visitor, which is exactly the disclosure this split exists to
       // prevent. `private` keeps it in the holder's own browser only.
-      // Unchanged, and worth stating why results do not alter it. Public
-      // results are the same for every caller, so the public document stays
-      // byte-stable and cacheable. Holder results ride in the holder document,
-      // which was already private for the identifier and stays that way.
-      const cache = isHolder ? "private, no-store" : CACHE_STABLE;
+      /* CACHING, AND THE ONE CASE THAT BREAKS IT.
+
+         The public document is byte-stable because the proof's `created`
+         comes from material_updated_at rather than the clock. That holds for
+         every field except one: results_visibility is a toggle that changes
+         what the PUBLIC document contains without changing the material, so
+         nothing invalidates the edge copy and a partner turning honours on
+         watches nothing happen for a day.
+
+         So a credential with public results is served no-store. Those lose
+         edge caching entirely; everything else keeps it. The alternative --
+         bumping material_updated_at to bust the cache -- would re-date the
+         document and break its anchor for a change the document does not
+         contain. */
+      const publicResults =
+        cred.results_visibility === "public" && results.length > 0;
+      const cache = isHolder || publicResults
+        ? "private, no-store"
+        : CACHE_STABLE;
 
       if (doc === "baked") {
         /* Open Badges 3.0 s10 baking. The credential travels INSIDE the image,
