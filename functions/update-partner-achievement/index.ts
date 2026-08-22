@@ -103,6 +103,28 @@ const FORBIDDEN_IN_NAME = [
 
 const MIN_CRITERIA = 20;
 
+/**
+ * A usable alignment target.
+ *
+ * https:// as before -- a partner pasting a course link should paste a real
+ * one -- OR an ESCO skill URI, which is http:// by design.
+ *
+ * data.europa.eu URIs are persistent IDENTIFIERS rather than pages to fetch,
+ * and the scheme is part of the identifier: rewriting it to https produces a
+ * string that is no longer the thing the European Commission published. OB 3.0
+ * alignment targetUrl is exactly where such an identifier belongs.
+ *
+ * Narrow on purpose. Not "any http://" -- that would reopen the door the https
+ * rule closed.
+ */
+const ESCO_URI_RE =
+  /^http:\/\/data\.europa\.eu\/esco\/skill\/[0-9a-f-]{36}$/i;
+
+function isUsableTargetUrl(u: string): boolean {
+  return u.startsWith("https://") || ESCO_URI_RE.test(u);
+}
+
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -336,13 +358,17 @@ serve(async (req) => {
         if (!a.target_name?.trim()) {
           throw new HttpError(400, `alignments[${i}]: target_name required`);
         }
-        if (!a.target_url?.trim().startsWith("https://")) {
-          throw new HttpError(400, `alignments[${i}]: target_url must be https`);
+        const targetUrl = a.target_url?.trim() ?? "";
+        if (!isUsableTargetUrl(targetUrl)) {
+          throw new HttpError(
+            400,
+            `alignments[${i}]: target_url must be an https link or an ESCO skill URI`,
+          );
         }
         return {
           achievement_id: ach.id,
           target_name: a.target_name.trim(),
-          target_url: a.target_url.trim(),
+          target_url: targetUrl,
           target_framework: a.target_framework?.trim() || null,
           target_code: a.target_code?.trim() || null,
           target_description: a.target_description?.trim() || null,

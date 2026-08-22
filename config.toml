@@ -519,3 +519,7 @@ verify_jwt = true
 # Edits, archives or deletes a partner achievement.
 [functions.update-partner-achievement]
 verify_jwt = true
+# Proxies the public ESCO skills API. The browser cannot call it directly --
+# ESCO answers 403 to any cross-origin request.
+[functions.search-esco-skills]
+verify_jwt = true
