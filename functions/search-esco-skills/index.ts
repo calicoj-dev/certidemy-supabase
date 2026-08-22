@@ -17,9 +17,21 @@
 // request carrying an Origin header. A browser cannot call it directly, so this
 // exists purely to make the call from a server.
 //
-// It adds nothing else. No filtering, no re-ranking, no opinion about which
-// skills are appropriate: ESCO is the European Commission's vocabulary and
-// second-guessing it here would be inventing a taxonomy on top of a taxonomy.
+// It adds ONE thing: a substring-noise filter. ESCO's search matches inside
+// words, so "agile" returns "handle fragile items" and "pack fragile items for
+// transportation" alongside the two real hits. A picker showing those looks
+// broken.
+//
+// The filter keeps a result only when some word in its title STARTS WITH some
+// word of the query, accent-insensitively. That kills fr-agile while keeping
+// "Agile development", and lets an unaccented "gestion" match "gestión" and
+// "gestionar" -- which is what somebody typing into a search box expects.
+//
+// It cannot hide a legitimate hit: a real match contains the word.
+//
+// It does NOT re-rank. ESCO's own ordering is the European Commission's
+// judgement about its own vocabulary, and second-guessing that would be
+// inventing a taxonomy on top of a taxonomy.
 //
 // ============================== WHY ESCO AND NOT LIGHTCAST ================
 //
@@ -64,7 +76,29 @@ const LANGS: Record<string, string> = {
   "pt": "pt",
 };
 
-const MAX_RESULTS = 12;
+const MAX_RESULTS = 25;
+/** Returned to the caller after filtering. */
+const KEEP_RESULTS = 12;
+
+/** Lowercase, strip diacritics. "Gestión" and "gestion" are the same word to
+ *  somebody typing into a search box. */
+function fold(s: string): string {
+  return s.normalize("NFD").replace(/\p{Mn}/gu, "").toLowerCase();
+}
+
+/**
+ * Does this title genuinely match the query, or did ESCO match inside a word?
+ *
+ * True when some word of the title starts with some word of the query. Tokens
+ * under three characters are ignored -- "de", "la", "of" match everything and
+ * would defeat the filter.
+ */
+function isWordMatch(title: string, query: string): boolean {
+  const tokens = fold(query).split(/[^\p{L}\p{N}]+/u).filter((t) => t.length >= 3);
+  if (tokens.length === 0) return true;
+  const words = fold(title).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  return tokens.some((t) => words.some((w) => w.startsWith(t)));
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -135,6 +169,9 @@ serve(async (req) => {
 
     const results = (found._embedded?.results ?? [])
       .filter((r) => r.title && r.uri)
+      // Substring noise. See the header: ESCO matches inside words.
+      .filter((r) => isWordMatch(r.title as string, q))
+      .slice(0, KEEP_RESULTS)
       .map((r) => ({
         title: r.title as string,
         /* The ESCO URI, verbatim.
@@ -149,6 +186,8 @@ serve(async (req) => {
       ok: true,
       query: q,
       lang,
+      // What ESCO reported, before filtering. The caller may want to say
+      // "showing 12 of many" rather than implying these are all of them.
       total: found.total ?? results.length,
       results,
     });
