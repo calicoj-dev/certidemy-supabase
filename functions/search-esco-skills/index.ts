@@ -100,19 +100,38 @@ serve(async (req) => {
     esco.searchParams.set("limit", String(MAX_RESULTS));
     esco.searchParams.set("full", "false");
 
+    /* .text() then JSON.parse, NOT .json().
+       The edge runtime failed reading this response body over HTTP/2 --
+       "error reading a body from connection" from consumeBody, on a 17 KB
+       payload that curl fetches in half a second. Collecting the bytes as text
+       first avoids the streaming path that broke, and gives a readable error
+       instead of a stack trace if the payload is ever not JSON. */
     const res = await fetch(esco.toString(), {
-      headers: { accept: "application/json" },
-      signal: AbortSignal.timeout(8000),
+      headers: {
+        accept: "application/json",
+        // No transfer compression. ESCO does not compress this response
+        // anyway, and asking for none removes a decoding step from a read
+        // that has already proven fragile here.
+        "accept-encoding": "identity",
+      },
+      signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) {
       console.error("esco search failed", res.status);
       throw new HttpError(502, "the skills service did not respond");
     }
 
-    const found = await res.json() as {
+    const rawBody = await res.text();
+    let found: {
       total?: number;
       _embedded?: { results?: { title?: string; uri?: string }[] };
     };
+    try {
+      found = JSON.parse(rawBody);
+    } catch {
+      console.error("esco returned non-json", rawBody.slice(0, 300));
+      throw new HttpError(502, "the skills service returned something unexpected");
+    }
 
     const results = (found._embedded?.results ?? [])
       .filter((r) => r.title && r.uri)
