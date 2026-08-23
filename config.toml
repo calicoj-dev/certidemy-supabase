@@ -528,3 +528,9 @@ verify_jwt = true
 # read from Vault by both sides.
 [functions.dispatch-emails]
 verify_jwt = false
+# Public Edge Function -- the Resend delivery-event receiver. verify_jwt MUST be
+# false: the caller is Svix, which carries no Supabase JWT and never will. It
+# authenticates itself with an HMAC over the RAW body, which also proves the
+# body was not altered -- strictly stronger than a bearer token.
+[functions.resend-webhook]
+verify_jwt = false
