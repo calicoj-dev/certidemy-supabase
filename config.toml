@@ -523,3 +523,8 @@ verify_jwt = true
 # ESCO answers 403 to any cross-origin request.
 [functions.search-esco-skills]
 verify_jwt = true
+# Called by pg_cron via pg_net. verify_jwt MUST be false: the caller is the
+# database, not a user. Gated on the SAME shared secret as dispatch-webhooks,
+# read from Vault by both sides.
+[functions.dispatch-emails]
+verify_jwt = false
