@@ -68,8 +68,9 @@
 -- ============================ WHY REPLACE, NOT DROP ======================
 --
 -- Every trigger below uses CREATE OR REPLACE TRIGGER rather than this repo's
--- usual drop-if-exists-then-create. That is required for on_auth_user_created
--- and merely harmless for the other eight, so all nine use one form.
+-- usual drop-if-exists-then-create. One form for all nine, because it needs no
+-- DROP at all -- see below for why that stopped being a privilege argument and
+-- became an idempotency one.
 --
 -- auth.users is owned by supabase_auth_admin, NOT postgres. Observed ACL,
 -- 2026-08-24:
@@ -84,23 +85,42 @@
 -- exist. But pg_has_role('postgres', relowner, 'USAGE') is FALSE: postgres is
 -- not a member of supabase_auth_admin.
 --
--- CREATE TRIGGER needs the TRIGGER privilege. DROP TRIGGER needs OWNERSHIP of
--- the table. So the usual pattern
+-- The first version of this file predicted that DROP TRIGGER would be refused
+-- here, reasoning from the documented rule that DROP TRIGGER requires table
+-- OWNERSHIP while CREATE TRIGGER requires only the TRIGGER privilege.
+--
+-- THAT PREDICTION WAS WRONG. Observed 2026-08-24T14:19:26Z, from the dashboard
+-- SQL editor:
 --
 --   drop trigger if exists on_auth_user_created on auth.users;
 --
--- is expected to fail with 42501 "must be owner of relation users".
+-- SUCCEEDED. No error. postgres CAN drop a trigger on auth.users in this
+-- project despite not being a member of supabase_auth_admin. Whatever the
+-- dashboard editor runs as, or whatever Supabase grants beyond the visible
+-- ACL, ownership is not the barrier the rule implies.
 --
--- *** NOT VERIFIED ON THIS PROJECT. *** That is the documented PostgreSQL rule,
--- not an observed result -- the drop was never attempted, because attempting it
--- is a write. Confirm before relying on the shape, and record the answer here:
+-- CREATE OR REPLACE TRIGGER is still the right form, but for IDEMPOTENCY, not
+-- for privilege. Available since PostgreSQL 14; this server is 17.6
+-- (server_version_num 170006).
 --
---   -- expect 42501 must be owner of relation users
---   drop trigger if exists on_auth_user_created on auth.users;
+-- ============================ HOW THIS WAS LEARNED =======================
 --
--- CREATE OR REPLACE TRIGGER takes the same privilege as CREATE TRIGGER and
--- needs no drop, so it sidesteps the question either way. Available since
--- PostgreSQL 14; this server is 17.6 (server_version_num 170006).
+-- By breaking it. This file used to end with that DROP as a commented
+-- "verification step", labelled expect-42501. It was run. It succeeded.
+-- on_auth_user_created was gone and signup was silently dead -- every new
+-- auth.users row landing with no profile, no error, no log line -- until the
+-- trigger was recreated from section 2. Caught only because an unrelated
+-- trigger count came back 0.
+--
+-- A VERIFICATION STEP WHOSE FAILURE MODE IS INDISTINGUISHABLE FROM ITS SUCCESS
+-- IS NOT A VERIFICATION STEP. If the hypothesis had held, the statement would
+-- have errored harmlessly. Because it did not hold, the statement did the
+-- damage it was meant to rule out -- and the two outcomes are the same action.
+-- The check WAS the damage.
+--
+-- The DROP has been removed from section 3. Nothing in this repo should carry
+-- a destructive statement as a way to test a belief about privileges. Read
+-- pg_catalog, or leave the question open and say so.
 --
 -- THE GRANT IS NOT OURS. postgres holding TRIGGER on auth.users is a Supabase
 -- platform decision this repo does not control and cannot assert. A local
@@ -261,7 +281,3 @@ create or replace trigger trg_audit_user_progress
 -- from pg_class where oid = 'auth.users'::regclass;
 -- -- expected owner: supabase_auth_admin
 -- -- expected to contain: postgres=ar*wdDxtm/supabase_auth_admin
-
--- -- The drop this file avoids. Expected to fail with 42501 "must be owner of
--- -- relation users". UNVERIFIED -- run it once and record the answer above.
--- drop trigger if exists on_auth_user_created on auth.users;

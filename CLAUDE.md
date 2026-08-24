@@ -239,5 +239,12 @@ aborted on a comment saying "no grant to anon or authenticated."
 **The recurring failure mode of this system is silent success.** It is caught
 only by asserting a specific expected value, never by the absence of an error.
 
+**Never propose a destructive statement as a way to verify a hypothesis about
+privileges.** If the check and the damage are the same action, the check IS the
+damage. Migration 246 shipped `drop trigger if exists on_auth_user_created on
+auth.users;` as a commented "expect 42501" verification step; it succeeded
+instead of failing, and signup was silently dead until the trigger was
+recreated. Verify against `pg_catalog`, or leave it unverified and say so.
+
 **`git status --short` before every commit.** Build and commit are separate
 steps.
