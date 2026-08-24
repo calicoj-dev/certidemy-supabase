@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 243. Next free number: 244.** Sequential, zero-padded to three
+**Migration tip: 244. Next free number: 245.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **Editor-first.** SQL is run in the Supabase SQL editor in the browser first.

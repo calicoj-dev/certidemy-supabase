@@ -1,0 +1,106 @@
+-- 244_purchase_url_hosts.sql
+--
+-- Widens public.is_valid_purchase_url to accept certidemy.com alongside
+-- certiglobal.org, and makes the host comparison case-insensitive.
+--
+-- Editor-first: this ran live in the SQL editor on 2026-08-23. The file is the
+-- record of what already ran, not a script anyone executes. The body below was
+-- verified against the live function by md5 of prosrc with CRs stripped:
+-- 20730762f684dbf084d55343921cd450. It is the live body, modulo line endings.
+--
+-- WHY THIS WAS NEEDED: migration 199 locked the column to certiglobal.org only.
+-- An admin therefore could not save a go.certidemy.com buy link at all -- the
+-- write failed with 23514, and the set-cert-link edge function rejected it with
+-- a 400 before the database ever saw it. Two enforcement points, both narrower
+-- than the business had become.
+--
+-- WHY BOTH HOSTS, NOT certidemy.com ALONE: nine of the eleven live
+-- certifications still hold certiglobal.org product URLs. A Certidemy-only
+-- check would invalidate every one of those rows on its next update -- not
+-- immediately, because replacing a function does NOT revalidate existing rows,
+-- but at the moment someone edited an unrelated field on that certification.
+-- That is the worst shape for a failure: dormant, and triggered by an edit that
+-- has nothing to do with the link. Both hosts stay legal for the length of the
+-- CertiGlobal wind-down. Narrowing to certidemy.com alone is a later, smaller
+-- migration once the table is clean.
+--
+-- WHY ~* AND NOT ~: hosts are case-insensitive in DNS. The old operator
+-- rejected https://CertiGlobal.org/x with a constraint violation and no
+-- explanation of which character was wrong. The (/|$) anchor is what stops
+-- certidemy.com.evil.com, and it still holds under case-insensitive matching.
+-- The literal `https` still requires the s -- http:// is still rejected.
+--
+-- WHAT THIS DOES NOT TOUCH: neither check constraint was dropped or recreated.
+-- A CHECK that calls a function by name picks up the replacement automatically.
+-- Verified after the fact: certifications_exam_link_valid is still oid 25797
+-- and certifications_exam_link_i18n_valid is still oid 25798, both convalidated
+-- true. is_valid_purchase_url_map is unchanged -- it delegates, so widening the
+-- scalar validator widens the map validator with it.
+--
+-- MIRRORED REGEX -- MUST MOVE WITH THIS FILE:
+--   functions/set-cert-link/index.ts, const URL_RE
+-- That edge function validates the same two fields before the database sees
+-- them, so it is the binding constraint in practice: a value this function
+-- would accept is still refused with a 400 if URL_RE has not been widened too.
+-- It was updated and deployed in the same change. If a third surface ever
+-- writes exam_link directly, it needs the same regex or it needs to stop.
+--
+-- Before changing the accepted host set again, grep BOTH repos: this one for
+-- URL_RE and is_valid_purchase_url, and ../certidemy-web for buy-link.ts, which
+-- carries the resolution order and the final fallback URL.
+--
+-- SEE ALSO: the DEPENDENCY GAP note in 199_cert_purchase_links.sql. pg_depend
+-- does not record that is_valid_purchase_url_map calls is_valid_purchase_url,
+-- so this pair must be REWRITTEN, never dropped. This file is a create or
+-- replace for exactly that reason.
+--
+-- ASCII only (CERT-SCHEMA-GUIDE section 8).
+-- Idempotent: safe to re-run.
+
+-- ---------------------------------------------------------------------------
+-- 1. The widened validator. IMMUTABLE so a check constraint may call it.
+-- ---------------------------------------------------------------------------
+
+create or replace function public.is_valid_purchase_url(u text)
+returns boolean language sql immutable as $$
+  -- Widened from certiglobal.org-only (migration 199). Both hosts are accepted
+  -- during the CertiGlobal wind-down: nine certifications still hold
+  -- certiglobal.org URLs, and a Certidemy-only check would invalidate every one
+  -- of those rows on its next update. Narrowing to certidemy.com alone is a
+  -- later, smaller migration once the table is clean.
+  --
+  -- ~* not ~: hosts are case-insensitive in DNS, and the old operator rejected
+  -- https://CertiGlobal.org/x with a constraint violation and no explanation.
+  --
+  -- The (/|$) anchor is what stops certidemy.com.evil.com, and it still holds
+  -- under case-insensitive matching. The literal `https` still requires the s.
+  select u is null or u ~* '^https://([a-z0-9-]+\.)*(certidemy\.com|certiglobal\.org)(/|$)';
+$$;
+
+-- ---------------------------------------------------------------------------
+-- 2. Verification. Run each separately.
+--    A constraint nobody watched reject is a constraint nobody knows works.
+--    These were run against the live function and agreed with the mirrored
+--    regex in set-cert-link on all twelve cases.
+-- ---------------------------------------------------------------------------
+
+-- -- MUST return true for the first five, false for the last four.
+-- select u, public.is_valid_purchase_url(u) from (values
+--   ('https://go.certidemy.com/aims-ia'),
+--   ('https://certidemy.com'),
+--   ('https://certidemy.com/buy'),
+--   ('https://CertiGlobal.org/x'),
+--   ('https://GO.CERTIDEMY.COM/x'),
+--   ('https://certidemy.com.evil.com/x'),
+--   ('https://certiglobal.org.evil.com/x'),
+--   ('http://certiglobal.org/x'),
+--   ('https://notcertidemy.com/x')
+-- ) t(u);
+
+-- -- The nine existing certiglobal.org rows must all still pass.
+-- select code, public.is_valid_purchase_url(exam_link) as ok
+-- from public.certifications where exam_link is not null order by code;
+
+-- -- Constraints untouched by the replace: same oids as migration 199 created.
+-- select oid, conname, convalidated from pg_constraint
+-- where conrelid = 'public.certifications'::regclass and conname like '%exam_link%';

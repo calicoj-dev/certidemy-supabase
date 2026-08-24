@@ -36,6 +36,10 @@
 
 -- ---------------------------------------------------------------------------
 -- 1. Validators. IMMUTABLE so a check constraint may call them.
+--
+-- SUPERSEDED: migration 244 widened is_valid_purchase_url to accept
+-- certidemy.com as well, and moved ~ to ~*. The body below is what 199 ran, not
+-- what runs today. Read 244_purchase_url_hosts.sql for the current definition.
 -- ---------------------------------------------------------------------------
 
 create or replace function public.is_valid_purchase_url(u text)
@@ -54,6 +58,24 @@ returns boolean language sql immutable as $$
     )
   );
 $$;
+
+-- DEPENDENCY GAP (recorded 2026-08-23, not a defect to fix here):
+--
+-- is_valid_purchase_url_map calls is_valid_purchase_url in its body, but that
+-- edge is NOT in pg_depend. A quoted-string function body is opaque to the
+-- dependency tracker -- it stores the body as text and never parses it -- so
+-- the catalog believes the two functions are unrelated.
+--
+-- Consequence: DROP FUNCTION public.is_valid_purchase_url(text) succeeds
+-- silently. The default RESTRICT sees nothing to restrict. The map function
+-- survives the drop and then throws at runtime, on the next insert or update
+-- touching exam_link_i18n, as a check constraint failing for a reason that
+-- looks nothing like the cause.
+--
+-- The two CHECK constraints ARE recorded (deptype 'n'), so they block a drop of
+-- either function. It is only the function-to-function call that is invisible.
+--
+-- REWRITING THE PAIR IS SAFE. DROPPING IS NOT. Use create or replace.
 
 -- ---------------------------------------------------------------------------
 -- 2. Column + constraints.
