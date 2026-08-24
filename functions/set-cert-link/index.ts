@@ -18,9 +18,10 @@
 // degrades to the CertiGlobal home page. A buyer is never sent nowhere.
 //
 // HOST LOCK: both fields are validated here AND by check constraints in
-// migration 199. A cert page that accepts any string is a way to point a paying
-// buyer at a domain someone else owns; the DB constraint is the backstop that
-// holds even if a future surface writes this column directly.
+// migration 199, widened by migration 244. A cert page that accepts any string
+// is a way to point a paying buyer at a domain someone else owns; the DB
+// constraint is the backstop that holds even if a future surface writes this
+// column directly.
 //
 // Effects:
 //   - certifications.exam_link / exam_link_i18n -> the requested values
@@ -41,8 +42,15 @@ interface Body {
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-// Must stay in step with public.is_valid_purchase_url (migration 199).
-const URL_RE = /^https:\/\/([a-z0-9-]+\.)*certiglobal\.org(\/|$)/;
+// Must stay in step with public.is_valid_purchase_url, widened by migration 244
+// to accept certidemy.com alongside certiglobal.org.
+//
+// The `i` flag mirrors that function's move from ~ to ~*: hosts are
+// case-insensitive in DNS, and the old operator rejected https://CertiGlobal.org
+// with a constraint violation and no explanation. The trailing (/|$) anchor is
+// what stops certidemy.com.evil.com, and it still holds under case-insensitive
+// matching. The literal https still requires the s.
+const URL_RE = /^https:\/\/([a-z0-9-]+\.)*(certidemy\.com|certiglobal\.org)(\/|$)/i;
 
 const VALID_LOCALES = ["en", "es-419", "pt-BR"] as const;
 
@@ -53,7 +61,7 @@ function normalizeLink(v: unknown): string | null {
   const t = v.trim();
   if (t === "") return null;
   if (!URL_RE.test(t)) {
-    throw new HttpError(400, "exam_link must be an https:// URL on certiglobal.org");
+    throw new HttpError(400, "exam_link must be an https:// URL on certidemy.com or certiglobal.org");
   }
   return t;
 }
@@ -77,7 +85,7 @@ function normalizeMap(v: unknown): Record<string, string> | null {
     if (!URL_RE.test(t)) {
       throw new HttpError(
         400,
-        `exam_link_i18n.${k} must be an https:// URL on certiglobal.org`,
+        `exam_link_i18n.${k} must be an https:// URL on certidemy.com or certiglobal.org`,
       );
     }
     out[k] = t;
