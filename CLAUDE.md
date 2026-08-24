@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 244. Next free number: 245.** Sequential, zero-padded to three
+**Migration tip: 245. Next free number: 246.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **Editor-first.** SQL is run in the Supabase SQL editor in the browser first.
@@ -140,6 +140,41 @@ events.
   migration, and it belongs in SQL (inside the issuance statement or a trigger)
   rather than in TypeScript after the mint — otherwise a crash between the two
   leaves a credential nobody was told about.
+
+---
+
+## Partner onboarding
+
+**The invite-redemption path only ever covered signup-after-invite.**
+`on_profile_created_claim_vouchers` is AFTER INSERT on `profiles`, so an address
+that already has an account can never redeem — no second profile insert will
+ever happen for it. The invite sits pending forever with no error: no failed
+row, no log line, no exception. The trigger runs, matches nothing, returns.
+
+**"Already signed up" is the normal case**, not the edge case. A trainer
+evaluates the material, decides it is good, and asks to become a partner. The
+person most likely to be onboarded is the person most likely to already have an
+account.
+
+**Migration 245 fixed it.** `create_company_with_admin()` is a single security
+definer function doing all four writes atomically — `companies`,
+`company_invites`, `admin_actions`, and `team_members` — and it checks for an
+existing profile, granting membership immediately when one is found. The trigger
+still handles the invite-first path. **Both paths use `on conflict (company_id,
+user_id) do update set role`**, so whichever runs second upgrades the row rather
+than failing.
+
+**`company_invites.role` now has a CHECK against the `team_role` vocabulary.**
+It was plain text with no constraint while the trigger cast it to the enum, so a
+typo inserted cleanly and then raised `22P02` inside the trigger at signup —
+aborting the whole transaction and blocking that person's account creation, days
+later, against a different actor, with nothing pointing back to the invite.
+
+**`on_profile_created_claim_vouchers` exists only in the live database.** It is
+in no migration; 237 does `create or replace function` without `create trigger`.
+A fresh environment would have the function, no trigger, and every claim step
+would silently never fire. Same for `on_auth_user_created` on `auth.users`. That
+needs its own migration.
 
 ---
 
