@@ -14,8 +14,18 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 245. Next free number: 246.** Sequential, zero-padded to three
+**Migration tip: 246. Next free number: 247.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
+
+**The base schema is not in this repo, and migration replay from zero has
+never worked.** `profiles`, `certifications`, `user_progress`, `vouchers` and the
+rest are referenced by the earliest migrations and created by none of them — this
+repo begins partway through. Replay also fails at `002_rag_and_chat.sql:72`,
+which creates a trigger on `set_updated_at()`, a function no migration defined
+until 246. Treat these files as a numbered record of what ran, never as a
+buildable sequence. Migration 246 records nine triggers and two functions that
+existed only in the live database; it is a record, not a fix, and it does not
+make `supabase db reset` succeed.
 
 **Editor-first.** SQL is run in the Supabase SQL editor in the browser first.
 Only once it works does it get committed as a numbered file. The file is a
