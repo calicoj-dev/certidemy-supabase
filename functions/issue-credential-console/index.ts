@@ -1,7 +1,7 @@
 // POST /functions/v1/issue-credential-console
 //
 // Body: { issuer_id, achievement_code, recipient_email, recipient_name,
-//         display_id?, issued_at?, expires_at? }
+//         display_id?, issued_at?, expires_at?, is_specimen? }
 // Auth: Bearer JWT -- platform_admin, or the team_admin of the company that
 //       owns THIS issuer.
 //
@@ -39,6 +39,23 @@
 // invisible: credentials differing in which columns were set, or one source
 // quietly not queueing webhooks.
 //
+// ============================== SPECIMENS, platform_admin ONLY =============
+//
+// is_specimen mints a demonstration credential. It exists because the mechanism
+// was designed and then left unreachable: seven specimens exist, four parts of
+// the platform branch on the flag, and neither issuing path could produce one.
+// A mechanism the minting code cannot reach is a mechanism that rots.
+//
+// It also makes this path exercisable without minting something that reads as a
+// real award -- a specimen is excluded from the signed status list and refused
+// an anchor proof. It is NOT free: the row is permanent, revocation is a status
+// change rather than a delete, and status_list_index is still consumed from the
+// sequence.
+//
+// platform_admin ONLY, refused rather than ignored for a team_admin. A partner
+// able to set this could have real credentials read as demonstrations. That is
+// a claims decision and it is Certidemy's, not theirs.
+//
 // ============================== WHAT DIFFERS FROM THE API ==================
 //
 // No idempotency key. The machine API needs one because a webhook that fires
@@ -75,6 +92,8 @@ interface Body {
   display_id?: string;
   issued_at?: string;
   expires_at?: string;
+  /** platform_admin ONLY. See the specimen block in the header. */
+  is_specimen?: boolean;
 }
 
 const UUID_RE =
@@ -119,6 +138,21 @@ serve(async (req) => {
       );
     }
 
+    // A specimen renders as a demonstration everywhere it is read -- the verify
+    // page, the share card, the certificate. A partner able to mark their own
+    // credentials that way could issue real ones and have them read as demos,
+    // or the reverse once the flag is editable. That is a claims problem, not a
+    // permission convenience, so it is Certidemy's to set.
+    //
+    // REFUSED, NOT IGNORED. Silently dropping the flag would tell the operator
+    // they minted a specimen when they minted a real credential -- the silent
+    // success this codebase keeps paying for. requireIssuerAccess already
+    // resolved the role; this only reads it.
+    const wantsSpecimen = body.is_specimen === true;
+    if (wantsSpecimen && access.role !== "platform_admin") {
+      throw new HttpError(403, "only a platform_admin may issue a specimen");
+    }
+
     let issued;
     try {
       issued = await issueCredential(svc, {
@@ -129,6 +163,7 @@ serve(async (req) => {
         displayId,
         issuedAt: body.issued_at ?? null,
         expiresAt: body.expires_at ?? null,
+        isSpecimen: wantsSpecimen,
       });
     } catch (err) {
       if (!(err instanceof IssueError)) throw err;
@@ -173,6 +208,9 @@ serve(async (req) => {
         credential_code: issued.credentialCode,
         recipient_email: issued.recipientEmail,
         display_id: issued.displayId,
+        // From the result, not the request: the audit row records what was
+        // written, not what was asked for.
+        is_specimen: issued.isSpecimen,
         webhooks_queued: issued.webhooksQueued,
       },
     });
@@ -188,6 +226,7 @@ serve(async (req) => {
         recipient_name: issued.recipientName,
         issued_at: issued.issuedAt,
         expires_at: issued.expiresAt,
+        is_specimen: issued.isSpecimen,
         url: `${issued.issuer.baseUrl}/credentials/${issued.credentialCode}`,
         badge_url: `${issued.issuer.baseUrl}/credentials/${issued.credentialCode}/badge`,
         verify_url: `${issued.issuer.siteUrl}/verify/${issued.credentialCode}`,

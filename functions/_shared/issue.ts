@@ -33,6 +33,32 @@
  *
  * No authentication, no authorization, no idempotency, no response shaping.
  *
+ * ============================== SPECIMENS ==================================
+ *
+ * isSpecimen exists because the mechanism was unreachable from the only code
+ * that mints. Seven specimen credentials exist and the platform branches on
+ * is_specimen in four places -- verify-credential computes an effective_status
+ * from it, credential-og renders a distinct card state so a demo cannot be
+ * shared as real, _shared/certificate.ts marks the document, and open-badge
+ * both refuses an anchor proof for one and excludes it from the status list.
+ * Every one of those seven was created some other way, because both issuing
+ * paths hardcoded false.
+ *
+ * A designed mechanism that the minting code cannot produce is a mechanism
+ * that will rot. This closes that.
+ *
+ * It also makes the mint path exercisable. A specimen is NOT free -- read the
+ * next paragraph before assuming it is -- but it is materially cheaper than a
+ * real credential: open-badge:568 selects revoked indices with
+ * is_specimen = false, so a specimen's index never occupies a bit in a signed
+ * status list document, and open-badge:493 refuses to serve it an anchor proof.
+ *
+ * WHAT A SPECIMEN STILL COSTS: status_list_index defaults to
+ * nextval('credential_status_index_seq') and is NOT NULL, so a specimen
+ * consumes a sequence value like anything else -- the existing seven hold
+ * indices 3 and 5 through 10. The row is permanent and revocation is a status
+ * change, not a delete. "Cheaper" is not "free".
+ *
  * ============================== THE RETRY LOOP =============================
  *
  * Five attempts, each with a freshly minted code, retrying ONLY on 23505.
@@ -147,6 +173,17 @@ export interface IssueInput {
   /** ISO string from the caller. Absent falls back to the achievement's
    *  default_validity_days, then to no expiry. */
   expiresAt?: string | null;
+  /**
+   * Mint a demonstration credential rather than a real one.
+   *
+   * DEFAULTS FALSE, and every caller must decide deliberately to pass true.
+   * issue-partner-credential does not expose it at all -- adding a field to a
+   * live partner API is a change to its contract -- and
+   * issue-credential-console exposes it only to platform_admin, because a
+   * partner marking their own real credentials as demonstrations is a claims
+   * problem, not a convenience.
+   */
+  isSpecimen?: boolean;
 }
 
 export interface IssuedCredential {
@@ -165,6 +202,9 @@ export interface IssuedCredential {
     baseUrl: string;
     siteUrl: string;
   };
+  /** What was actually written, not what was asked for. A caller rendering
+   *  "demonstration" reads this rather than its own input. */
+  isSpecimen: boolean;
   /** How many credential.issued rows were queued. Zero is normal -- most
    *  issuers register no webhook. */
   webhooksQueued: number;
@@ -189,6 +229,9 @@ export async function issueCredential(
   const email = input.recipientEmail.trim().toLowerCase();
   const holderName = input.recipientName.trim();
   const displayId = input.displayId?.trim() || null;
+  // Explicit === true: an absent field, null, or any stray truthy value from a
+  // JSON body must not produce a specimen by accident.
+  const isSpecimen = input.isSpecimen === true;
 
   /* ------------------------------------------------------------ issuer -- */
   // Read here rather than taken as an argument so there is exactly one place
@@ -275,7 +318,7 @@ export async function issueCredential(
         expires_at: expiresAt,
         status: "active",
         subject_salt: mintSalt(),
-        is_specimen: false,
+        is_specimen: isSpecimen,
       })
       .select("id, credential_code")
       .single();
@@ -333,6 +376,10 @@ export async function issueCredential(
           recipient_name: holderName,
           issued_at: issuedAt.toISOString(),
           url: `${issuer.base_url}/credentials/${credential!.credential_code}`,
+          // Additive, not a rename: existing receivers ignore an unknown key,
+          // and one that does read it is told this is a demonstration rather
+          // than being handed a real-looking event for a demo credential.
+          is_specimen: isSpecimen,
         },
         status: "pending",
         next_retry_at: new Date().toISOString(),
@@ -348,6 +395,7 @@ export async function issueCredential(
     recipientName: holderName,
     issuedAt: issuedAt.toISOString(),
     expiresAt,
+    isSpecimen,
     achievement: { id: ach.id, code: ach.code, name: ach.name },
     issuer: {
       id: issuer.id,
