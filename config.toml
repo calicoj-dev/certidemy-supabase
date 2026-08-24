@@ -506,6 +506,19 @@ verify_jwt = true
 # the function ran. It authenticates itself against issuer_api_keys by hash.
 [functions.issue-partner-credential]
 verify_jwt = false
+# THE HUMAN SURFACE, and the first browser-reachable path into credentials.
+#
+# verify_jwt = true, PINNED rather than defaulted. Everything else that mints or
+# revokes is either key-authenticated or platform_admin-gated behind an explicit
+# pin, and this belongs with them: a plain redeploy that dropped a flag on a
+# function that WRITES credentials would be the worst instance of the defect
+# class the comments above keep describing.
+#
+# Unlike issue-partner-credential, the issuer is named in the request body, not
+# derived from a key. requireIssuerAccess in-function is the entire gate between
+# a valid learner JWT and minting under another organisation's identity.
+[functions.issue-credential-console]
+verify_jwt = true
 # Called by pg_cron via pg_net. verify_jwt MUST be false: the caller is the
 # database, not a user. Gated on a shared secret both sides read from Vault.
 [functions.dispatch-webhooks]

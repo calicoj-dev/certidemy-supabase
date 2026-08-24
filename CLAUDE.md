@@ -188,6 +188,37 @@ needs its own migration.
 
 ---
 
+## Issuing
+
+**One mint, two callers.** `functions/_shared/issue.ts` owns achievement
+resolution, the dates, the credential insert with its 5-attempt `23505` retry,
+and the `credential.issued` webhook queue. `issue-partner-credential` (API key)
+and `issue-credential-console` (JWT + `requireIssuerAccess`) are thin callers.
+Neither the shared function nor a caller may grow a second copy of the mint —
+the drift would be invisible, showing up as credentials that differ in which
+columns were set, or one source silently not queueing webhooks.
+
+**The audit rows are deliberately not shared.** `issuer_api_requests` is keyed
+to `api_key_id` and cannot represent a JWT caller; `admin_actions` is keyed to
+`actor_user_id` and cannot represent a machine. Two records of two different
+facts. `_shared/issue.ts` writes neither.
+
+**`issue-credential-console` takes `issuer_id` from the request body**, unlike
+the API where the key IS the identity. `requireIssuerAccess` is the only thing
+between a valid learner JWT and minting under another organisation's signature.
+Do not add a path that reaches `issueCredential` without it.
+
+**The `credential.issued` webhook payload carries `recipient_email` and
+`recipient_name`.** That was defensible when only a partner's own automation
+could trigger it. Console issuance now puts holder PII on the wire in response
+to a button click by someone who is not writing code and may not know a webhook
+is registered. **Not changed on purpose** — a partner's receiver may key off
+those fields, so removing them is a breaking change to their integration. Worth
+a decision before the console UI ships: either surface "this will notify
+<endpoint>" at the point of issuance, or version the payload.
+
+---
+
 ## The claims discipline
 
 Certidemy hosts credentials for partners. **The platform must never assert

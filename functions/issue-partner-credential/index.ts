@@ -20,6 +20,17 @@
 // header that means two different things is a header somebody will eventually
 // forward to the wrong place.
 //
+// ============================== THE MINT IS SHARED =========================
+//
+// Achievement resolution, the dates, the insert with its collision retry, and
+// the webhook queue all live in _shared/issue.ts and are used identically by
+// issue-credential-console, the browser path. What stays HERE is everything
+// that exists only because the caller is a machine: the API key, the
+// idempotency replay, issuer_api_requests, and this response shape.
+//
+// This function's wire behaviour is a live partner contract. The extraction
+// changed none of it -- same status codes, same bodies, same log strings.
+//
 // ============================== NO ACCOUNT REQUIRED ========================
 //
 // user_id is NULL and holder_email carries the recipient. Migration 231 made
@@ -48,13 +59,17 @@
 // signs on read, with the issuer's key, which never leaves that function.
 //
 // It does not deliver webhooks. It QUEUES them into webhook_deliveries. The
-// dispatcher is a cron that does not exist yet -- rows will accumulate as
-// pending, which is visible and recoverable, unlike a fire-and-forget POST
-// inside a request handler that nobody sees fail.
+// dispatcher is a cron.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
+import {
+  IssueError,
+  issueCredential,
+  MAX_RECIPIENT_NAME,
+  RECIPIENT_EMAIL_RE,
+} from "../_shared/issue.ts";
 
 interface Body {
   achievement_code?: string;
@@ -66,11 +81,6 @@ interface Body {
   idempotency_key?: string;
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** No I, L, O, 0 or 1: these codes get read aloud and typed off paper. */
-const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-
 function hex(bytes: Uint8Array): string {
   return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -80,39 +90,6 @@ async function sha256Hex(text: string): Promise<string> {
   const buf = new Uint8Array(new ArrayBuffer(data.length));
   buf.set(data);
   return hex(new Uint8Array(await crypto.subtle.digest("SHA-256", buf)));
-}
-
-function randomBlock(n: number): string {
-  const b = new Uint8Array(n);
-  crypto.getRandomValues(b);
-  let out = "";
-  for (const x of b) out += CODE_ALPHABET[x % CODE_ALPHABET.length];
-  return out;
-}
-
-/**
- * credential_code -- the URL segment.
- *
- * Deliberately NOT the partner's own numbering. display_id carries that and
- * prints on the certificate. This one has entropy because it is public and
- * guessable codes let anyone walk /credentials/1..5000 and harvest every
- * holder name an issuer ever wrote.
- */
-function mintCredentialCode(achievementCode: string): string {
-  const stem = achievementCode
-    .toUpperCase()
-    .replace(/[^A-Z0-9]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 16);
-  return `${stem}-${randomBlock(4)}-${randomBlock(4)}`;
-}
-
-/** 256 bits, matching the shape migration 185 backfilled. */
-function mintSalt(): string {
-  const b = new Uint8Array(32);
-  crypto.getRandomValues(b);
-  return hex(b);
 }
 
 serve(async (req) => {
@@ -185,6 +162,9 @@ serve(async (req) => {
       return jsonResponse({ error: "this key cannot issue credentials" }, 403);
     }
 
+    // Checked BEFORE the body is parsed, and kept here rather than folded into
+    // issueCredential: an inactive issuer must answer 403 even when the body is
+    // also malformed, which is the order this API has always had.
     const { data: issuer, error: iErr } = await svc
       .from("issuers")
       .select("id, slug, name, status, base_url, site_url")
@@ -215,7 +195,7 @@ serve(async (req) => {
       await logRequest(400, null, idem, "achievement_code");
       return jsonResponse({ error: "achievement_code required" }, 400);
     }
-    if (!email || !EMAIL_RE.test(email)) {
+    if (!email || !RECIPIENT_EMAIL_RE.test(email)) {
       await logRequest(400, null, idem, "recipient_email");
       return jsonResponse({ error: "valid recipient_email required" }, 400);
     }
@@ -223,9 +203,12 @@ serve(async (req) => {
       await logRequest(400, null, idem, "recipient_name");
       return jsonResponse({ error: "recipient_name required" }, 400);
     }
-    if (holderName.length > 120) {
+    if (holderName.length > MAX_RECIPIENT_NAME) {
       await logRequest(400, null, idem, "recipient_name too long");
-      return jsonResponse({ error: "recipient_name must be 120 characters or fewer" }, 400);
+      return jsonResponse(
+        { error: `recipient_name must be ${MAX_RECIPIENT_NAME} characters or fewer` },
+        400,
+      );
     }
 
     /* --------------------------------------------------- idempotency ----- */
@@ -262,144 +245,66 @@ serve(async (req) => {
       }
     }
 
-    /* -------------------------------------------------- the achievement -- */
-    const { data: ach, error: aErr } = await svc
-      .from("achievements")
-      .select("id, code, name, status, issuer_id, default_validity_days")
-      .eq("issuer_id", issuer.id)
-      .eq("code", achCode)
-      .maybeSingle();
-    if (aErr) throw new Error(`achievement lookup: ${aErr.message}`);
-    if (!ach) {
-      await logRequest(404, null, idem, "achievement not found");
-      return jsonResponse(
-        { error: `no achievement "${achCode}" for issuer "${issuer.slug}"` },
-        404,
-      );
-    }
-    if (ach.status !== "active") {
-      await logRequest(409, null, idem, "achievement not active");
-      return jsonResponse(
-        { error: `achievement "${achCode}" is ${ach.status}, not active` },
-        409,
-      );
-    }
-
     /* ---------------------------------------------------------- mint ----- */
-    const issuedAt = body.issued_at ? new Date(body.issued_at) : new Date();
-    if (Number.isNaN(issuedAt.getTime())) {
-      await logRequest(400, null, idem, "issued_at");
-      return jsonResponse({ error: "issued_at is not a valid date" }, 400);
-    }
+    let issued;
+    try {
+      issued = await issueCredential(svc, {
+        issuerId: issuer.id,
+        achievementCode: achCode,
+        recipientEmail: email,
+        recipientName: holderName,
+        displayId,
+        issuedAt: body.issued_at ?? null,
+        expiresAt: body.expires_at ?? null,
+      });
+    } catch (err) {
+      if (!(err instanceof IssueError)) throw err;
 
-    let expiresAt: string | null = null;
-    if (body.expires_at) {
-      const d = new Date(body.expires_at);
-      if (Number.isNaN(d.getTime())) {
-        await logRequest(400, null, idem, "expires_at");
-        return jsonResponse({ error: "expires_at is not a valid date" }, 400);
-      }
-      expiresAt = d.toISOString();
-    } else if (ach.default_validity_days) {
-      expiresAt = new Date(
-        issuedAt.getTime() + ach.default_validity_days * 86400_000,
-      ).toISOString();
-    }
-
-    let credential: { id: string; credential_code: string } | null = null;
-    for (let attempt = 0; attempt < 5 && !credential; attempt++) {
-      const code = mintCredentialCode(ach.code);
-      const { data, error } = await svc
-        .from("credentials")
-        .insert({
-          credential_code: code,
-          user_id: null,
-          holder_email: email,
-          holder_name: holderName,
-          display_id: displayId,
-          achievement_id: ach.id,
-          issuer_id: issuer.id,
-          // No certification behind a partner achievement, and no exam, so no
-          // score. Migration 231 made all three nullable for exactly this row.
-          certification_id: null,
-          certification_name: ach.name,
-          certification_code: ach.code,
-          score_pct: null,
-          exam_attempt_id: null,
-          issued_at: issuedAt.toISOString(),
-          expires_at: expiresAt,
-          status: "active",
-          subject_salt: mintSalt(),
-          is_specimen: false,
-        })
-        .select("id, credential_code")
-        .single();
-
-      if (!error && data) {
-        credential = data;
-        break;
-      }
-      if ((error as { code?: string } | null)?.code !== "23505") {
-        console.error("credential insert failed", error);
-        await logRequest(500, null, idem, error?.message ?? "insert failed");
-        return jsonResponse({ error: "failed to issue credential" }, 500);
+      // Each kind maps back to the status, body and log string this API
+      // returned before the mint was extracted. Partner integrations read all
+      // three.
+      switch (err.kind) {
+        case "achievement_not_found":
+          await logRequest(404, null, idem, "achievement not found");
+          return jsonResponse({ error: err.message }, 404);
+        case "achievement_not_active":
+          await logRequest(409, null, idem, "achievement not active");
+          return jsonResponse({ error: err.message }, 409);
+        case "bad_issued_at":
+          await logRequest(400, null, idem, "issued_at");
+          return jsonResponse({ error: err.message }, 400);
+        case "bad_expires_at":
+          await logRequest(400, null, idem, "expires_at");
+          return jsonResponse({ error: err.message }, 400);
+        case "insert_failed":
+          await logRequest(500, null, idem, err.detail ?? "insert failed");
+          return jsonResponse({ error: "failed to issue credential" }, 500);
+        case "code_collision":
+          await logRequest(500, null, idem, "code collision");
+          return jsonResponse({ error: "failed to issue credential" }, 500);
+        default:
+          await logRequest(500, null, idem, err.message);
+          return jsonResponse({ error: "failed to issue credential" }, 500);
       }
     }
-    if (!credential) {
-      await logRequest(500, null, idem, "code collision");
-      return jsonResponse({ error: "failed to issue credential" }, 500);
-    }
 
-    await logRequest(200, credential.id, idem, null);
-
-    /* ------------------------------------------------------- webhooks ---- */
-    // QUEUED, not delivered. A POST fired from inside this handler would fail
-    // silently on a slow endpoint and take the issuance response with it.
-    const { data: hooks } = await svc
-      .from("issuer_webhooks")
-      .select("id, events")
-      .eq("issuer_id", issuer.id)
-      .eq("is_active", true);
-    const due = (hooks ?? []).filter((h: { events: string[] }) =>
-      h.events?.includes("credential.issued")
-    );
-    if (due.length > 0) {
-      await svc.from("webhook_deliveries").insert(
-        due.map((h: { id: string }) => ({
-          webhook_id: h.id,
-          event: "credential.issued",
-          payload: {
-            event: "credential.issued",
-            issuer: issuer.slug,
-            achievement_code: ach.code,
-            credential_code: credential!.credential_code,
-            display_id: displayId,
-            recipient_email: email,
-            recipient_name: holderName,
-            issued_at: issuedAt.toISOString(),
-            url: `${issuer.base_url}/credentials/${credential!.credential_code}`,
-          },
-          status: "pending",
-          next_retry_at: new Date().toISOString(),
-        })),
-      ).then(() => {}, (e: unknown) => console.warn("webhook queue failed", e));
-    }
+    await logRequest(200, issued.id, idem, null);
 
     return jsonResponse({
       ok: true,
       credential: {
-        code: credential.credential_code,
-        display_id: displayId,
-        recipient_email: email,
-        recipient_name: holderName,
-        issued_at: issuedAt.toISOString(),
-        expires_at: expiresAt,
-        url: `${issuer.base_url}/credentials/${credential.credential_code}`,
-        badge_url: `${issuer.base_url}/credentials/${credential.credential_code}/badge`,
-        verify_url: `${issuer.site_url}/verify/${credential.credential_code}`,
+        code: issued.credentialCode,
+        display_id: issued.displayId,
+        recipient_email: issued.recipientEmail,
+        recipient_name: issued.recipientName,
+        issued_at: issued.issuedAt,
+        expires_at: issued.expiresAt,
+        url: `${issued.issuer.baseUrl}/credentials/${issued.credentialCode}`,
+        badge_url: `${issued.issuer.baseUrl}/credentials/${issued.credentialCode}/badge`,
+        verify_url: `${issued.issuer.siteUrl}/verify/${issued.credentialCode}`,
       },
-      achievement: { code: ach.code, name: ach.name },
-      issuer: { slug: issuer.slug, name: issuer.name },
+      achievement: { code: issued.achievement.code, name: issued.achievement.name },
+      issuer: { slug: issued.issuer.slug, name: issued.issuer.name },
       note:
         "The recipient has no account yet. The credential is theirs the moment " +
         "they sign up with this email; until then it verifies publicly without " +
