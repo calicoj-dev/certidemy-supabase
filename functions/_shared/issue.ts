@@ -86,6 +86,45 @@ const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 /** Attempts before a code collision is treated as a fault rather than luck. */
 const CODE_ATTEMPTS = 5;
 
+/**
+ * The two unique indexes on credentials that a mint can violate, and the whole
+ * reason this file inspects an error's text rather than just its SQLSTATE.
+ *
+ * BOTH RAISE 23505 AND THEY MEAN OPPOSITE THINGS.
+ *
+ *   credentials_credential_code_key -- two random codes collided. Astronomically
+ *     rare, entirely recoverable: mint a new code and try again. This is what
+ *     the retry loop is for.
+ *
+ *   credentials_idempotency_unique  -- this exact row was already issued under
+ *     this idempotency key. Retrying is the WRONG answer; the caller wants the
+ *     credential that already exists. Migration 247, shape copied from
+ *     issuer_api_requests_idempotency_unique.
+ *
+ * Treating them alike either mints a duplicate (retrying an idempotency
+ * conflict with a fresh code succeeds, which is exactly the failure the key
+ * exists to prevent) or fails a recoverable collision. A 23505 naming neither
+ * index is a constraint we do not know about, and is raised rather than
+ * guessed at.
+ */
+const CODE_INDEX = "credentials_credential_code_key";
+const IDEMPOTENCY_INDEX = "credentials_idempotency_unique";
+
+/**
+ * Which unique index a 23505 violated, by name, or null if it named neither.
+ *
+ * postgres-js surfaces the constraint name in message and/or details depending
+ * on the error; both are searched rather than assuming which.
+ */
+function violatedIndex(
+  error: { message?: string; details?: string } | null,
+): string | null {
+  const text = `${error?.message ?? ""} ${error?.details ?? ""}`;
+  if (text.includes(IDEMPOTENCY_INDEX)) return IDEMPOTENCY_INDEX;
+  if (text.includes(CODE_INDEX)) return CODE_INDEX;
+  return null;
+}
+
 function hex(bytes: Uint8Array): string {
   return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -184,6 +223,21 @@ export interface IssueInput {
    * problem, not a convenience.
    */
   isSpecimen?: boolean;
+  /**
+   * Makes the mint repeatable. With a key set, a second call for the same
+   * (issuer, key) returns the credential the first call created instead of
+   * minting a second one, and the returned alreadyExisted says which happened.
+   *
+   * The key is the caller's to derive and the caller's to make meaningful.
+   * issue-credential-batch derives it server-side from the batch label and the
+   * normalised email precisely so a client cannot choose it -- see that file's
+   * header for why that matters.
+   *
+   * Absent means no protection, and cannot mean anything else: two identical
+   * requests with no key are indistinguishable from two genuine issuances of
+   * the same award to the same person.
+   */
+  idempotencyKey?: string | null;
 }
 
 export interface IssuedCredential {
@@ -205,6 +259,14 @@ export interface IssuedCredential {
   /** What was actually written, not what was asked for. A caller rendering
    *  "demonstration" reads this rather than its own input. */
   isSpecimen: boolean;
+  /**
+   * TRUE when this call minted nothing and returned a credential a previous
+   * call created under the same idempotency key. Always false without a key.
+   *
+   * A caller reporting "issued" for one of these is lying by one row, which on
+   * a 500-row re-upload is a lie about 499 of them.
+   */
+  alreadyExisted: boolean;
   /** How many credential.issued rows were queued. Zero is normal -- most
    *  issuers register no webhook. */
   webhooksQueued: number;
@@ -232,6 +294,7 @@ export async function issueCredential(
   // Explicit === true: an absent field, null, or any stray truthy value from a
   // JSON body must not produce a specimen by accident.
   const isSpecimen = input.isSpecimen === true;
+  const idempotencyKey = input.idempotencyKey?.trim() || null;
 
   /* ------------------------------------------------------------ issuer -- */
   // Read here rather than taken as an argument so there is exactly one place
@@ -295,6 +358,7 @@ export async function issueCredential(
   // stops immediately: retrying it five times would turn one failure into five
   // and still fail.
   let credential: { id: string; credential_code: string } | null = null;
+  let alreadyExisted = false;
   for (let attempt = 0; attempt < CODE_ATTEMPTS && !credential; attempt++) {
     const code = mintCredentialCode(ach.code);
     const { data, error } = await client
@@ -305,6 +369,7 @@ export async function issueCredential(
         holder_email: email,
         holder_name: holderName,
         display_id: displayId,
+        idempotency_key: idempotencyKey,
         achievement_id: ach.id,
         issuer_id: issuer.id,
         // No certification behind a partner achievement, and no exam, so no
@@ -333,6 +398,47 @@ export async function issueCredential(
         detail: error?.message ?? "insert failed",
       });
     }
+
+    // A 23505. WHICH index decides whether to retry or to stop.
+    const index = violatedIndex(error);
+
+    if (index === IDEMPOTENCY_INDEX) {
+      // Already issued under this key. Return that credential, do not mint a
+      // second one, and do NOT re-queue webhooks -- the first call queued them
+      // and a receiver must not see credential.issued twice for one credential.
+      //
+      // Reached only in the race: the batch function checks for existing keys
+      // before minting. The index is what actually guarantees it, because a
+      // check-then-insert loses to a second upload running concurrently.
+      const { data: existing, error: reErr } = await client
+        .from("credentials")
+        .select("id, credential_code")
+        .eq("issuer_id", issuer.id)
+        .eq("idempotency_key", idempotencyKey)
+        .maybeSingle();
+      if (reErr) throw new Error(`idempotent re-read: ${reErr.message}`);
+      if (!existing) {
+        // The index rejected the insert but the row is not readable. Not a
+        // duplicate we can honour, and not something to paper over.
+        throw new IssueError("insert_failed", "failed to issue credential", {
+          detail: "idempotency conflict with no readable row",
+        });
+      }
+      credential = existing;
+      alreadyExisted = true;
+      break;
+    }
+
+    if (index !== CODE_INDEX) {
+      // A unique violation on something this function does not know about.
+      // Retrying with a new code would not help and might succeed for the
+      // wrong reason.
+      console.error("credential insert hit an unknown unique index", error);
+      throw new IssueError("insert_failed", "failed to issue credential", {
+        detail: error?.message ?? "unknown unique violation",
+      });
+    }
+    // CODE_INDEX: two random codes collided. Loop, mint a new one.
   }
   if (!credential) {
     throw new IssueError("code_collision", "failed to issue credential");
@@ -352,7 +458,7 @@ export async function issueCredential(
   // field names -- do not rename or drop one without treating it as a breaking
   // change to their integration.
   let webhooksQueued = 0;
-  const { data: hooks } = await client
+  const { data: hooks } = alreadyExisted ? { data: [] } : await client
     .from("issuer_webhooks")
     .select("id, events")
     .eq("issuer_id", issuer.id)
@@ -396,6 +502,7 @@ export async function issueCredential(
     issuedAt: issuedAt.toISOString(),
     expiresAt,
     isSpecimen,
+    alreadyExisted,
     achievement: { id: ach.id, code: ach.code, name: ach.name },
     issuer: {
       id: issuer.id,

@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 246. Next free number: 247.** Sequential, zero-padded to three
+**Migration tip: 247. Next free number: 248.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **The base schema is not in this repo, and migration replay from zero has

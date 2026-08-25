@@ -519,6 +519,15 @@ verify_jwt = false
 # a valid learner JWT and minting under another organisation's identity.
 [functions.issue-credential-console]
 verify_jwt = true
+# CSV batch issuance. Same gate as the console function --
+# requireIssuerAccess in-function, issuer named in the body -- so the same
+# warning applies: this is the only thing between a valid learner JWT and
+# minting under another organisation's identity, 500 rows at a time.
+#
+# verify_jwt = true, PINNED. It writes credentials in bulk; a redeploy dropping
+# a flag here is the defect class in this file with the largest blast radius.
+[functions.issue-credential-batch]
+verify_jwt = true
 # Called by pg_cron via pg_net. verify_jwt MUST be false: the caller is the
 # database, not a user. Gated on a shared secret both sides read from Vault.
 [functions.dispatch-webhooks]
