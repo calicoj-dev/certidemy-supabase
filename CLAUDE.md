@@ -319,7 +319,56 @@ running:
 - `update-lesson-content.mjs` — the one that updates existing rows. `--file`,
   `--lang`, `CERT_ID`, `--dry` first.
 - `wire-lessons.mjs` — env vars `CERT_ID` and `DRY_RUN=1/0`, no flags.
-- `verify-cert.mjs` — 38 invariants, 0 failures as the baseline.
+- `verify-cert.mjs` — the conformance gate. **The baseline is NOT clean.**
+
+  As of 2026-08-25, `--all` reports 43–44 checks per certification (the count
+  varies; some skip) and ends with `1 cert(s) with FAILURES`:
+
+  ```
+  FAIL  AIE-I      39 pass, 1 fail, 3 warn
+  WARN  AIGRM-I    41 pass, 0 fail, 2 warn
+  WARN  AIHR-I     42 pass, 0 fail, 1 warn
+  WARN  AIMS-F     42 pass, 0 fail, 2 warn
+  WARN  AIMS-IA    39 pass, 0 fail, 5 warn
+  WARN  AISM-I     42 pass, 0 fail, 1 warn
+  WARN  ISMS-F     42 pass, 0 fail, 1 warn
+  WARN  ISMS-IA    41 pass, 0 fail, 2 warn
+  WARN  SD-AI-I    40 pass, 0 fail, 2 warn
+  WARN  SM-AI-I    41 pass, 0 fail, 2 warn
+  WARN  SPO-AI-I   40 pass, 0 fail, 2 warn
+  ```
+
+  **The one failure: AIE-I, §8 "Every item belongs to a question group" — 15
+  ungrouped items.** `question_group_id` is the trilingual sibling key, so an
+  ungrouped item is invisible to the three-language coverage check that groups
+  by that column.
+
+  What the 15 rows are, established 2026-08-25 and not further investigated:
+
+  ```
+  pool      language  status    is_exam_scope  retired  n   created
+  practice  es-419    approved  false          no       15  2026-08-20 -> 08-21
+  ```
+
+  So: **none are in the secure pool**, and no certification exam form can
+  contain them. They are Spanish-only practice items with no `question_group_id`
+  and therefore no en/pt-BR siblings — the es-419 simulator and the review queue
+  can serve them, a real exam cannot. They are **not** migration 104 rebuild
+  debris as first assumed; they were written on 20–21 August 2026, which points
+  at a translation or backfill run from that week.
+
+  (A separate 20 ungrouped rows exist on AIE-I that the check correctly ignores:
+  `rejected` and retired, from 24 July.)
+
+  **Why they are ungrouped has NOT been established** — whether the fan-out
+  failed, was interrupted, or those items were written outside it. Fixing the
+  data is its own change.
+
+  This line previously read *"38 invariants, 0 failures as the baseline"* and
+  was wrong on both numbers. That is worse than saying nothing: a clean baseline
+  nobody re-checks turns the next real failure into noise someone has already
+  decided to ignore. **Every cert also warns**, so "green" is not the bar —
+  compare against the table above and investigate anything that moved.
 
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
