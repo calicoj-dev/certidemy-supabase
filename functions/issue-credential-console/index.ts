@@ -204,7 +204,22 @@ serve(async (req) => {
         company_id: access.companyId,
         issuer_id: issued.issuer.id,
         issuer_slug: issued.issuer.slug,
+        // BOTH, and they are not the same kind of thing.
+        //
+        // achievement_code is the RESOLVED value, read from the result: the
+        // fact, what this credential actually says.
+        //
+        // requested_achievement_code is what the caller ASKED for: the
+        // evidence. Recording only the resolved value makes the audit row agree
+        // with the outcome by construction, so it cannot answer the one
+        // question it exists for -- a misrouted issuance, where "asked for
+        // September and got August" and "asked for August" look identical
+        // afterwards. They differ only here.
+        //
+        // Equal on every correct issuance. Worth the bytes for the ones that
+        // are not.
         achievement_code: issued.achievement.code,
+        requested_achievement_code: achCode,
         credential_code: issued.credentialCode,
         recipient_email: issued.recipientEmail,
         display_id: issued.displayId,
