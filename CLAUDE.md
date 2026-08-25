@@ -41,6 +41,40 @@ independently copyable.
 `cron.schedule` is NOT transactional. Keep it outside the `begin/commit` block,
 commented, to be run separately after the function it points at is deployed.
 
+**A migration that adds a NOT NULL column MUST NAME EVERY WRITER OF THAT
+TABLE.** Backfilling the existing rows proves nothing about the code: a
+constraint added today does not fail the writers that predate it until one of
+them next runs, and if that path is rare, the break is silent for as long as
+nobody exercises it.
+
+This has now happened twice on the same insert. The Open Badges 3.0 migration
+added `credentials.issuer_id` and `subject_salt` NOT NULL; `score-mock-exam` did
+not write them and raised `23502` on every pass. The fix landed with a comment
+saying exactly what had gone wrong — *"Adding a column to a table does not fail
+the writers that predate it until one of them runs."* **Migration 231 then did
+it again, two columns later, in the same insert**, adding
+`credentials.achievement_id` NOT NULL on 2026-08-19. It backfilled every
+existing row and named no writer. Both mints omitted the column. It went
+unnoticed for six days, across nine live AIGRM-I seats, purely because nobody
+happened to pass an exam in that window.
+
+Note the error was **not** `23502`. `trg_guard_credential_issuer` is BEFORE
+INSERT and fires ahead of the constraint, so a null `achievement_id` surfaced as
+`achievement <NULL> not found` (P0001). **When a table has BEFORE INSERT
+triggers, the NOT NULL you added is not necessarily the error you will see** —
+searching the logs for the constraint code finds nothing.
+
+So, in the migration's own header, before the `alter ... set not null`:
+
+1. `grep -rn 'from("<table>")' functions/ scripts/` in BOTH repos and list every
+   insert site by path.
+2. State, per site, whether it writes the new column or why it does not need to.
+3. Name the rare path — the one nothing exercises on deploy day. That is the one
+   that breaks in production weeks later, in front of a real candidate.
+
+A backfill covers the rows that exist. Only the writer list covers the rows that
+do not exist yet.
+
 ---
 
 ## Database rules that were paid for
@@ -197,6 +231,33 @@ and `issue-credential-console` (JWT + `requireIssuerAccess`) are thin callers.
 Neither the shared function nor a caller may grow a second copy of the mint —
 the drift would be invisible, showing up as credentials that differ in which
 columns were set, or one source silently not queueing webhooks.
+
+**There is a THIRD mint, and it is not shared.** `score-mock-exam` writes its own
+credential insert on a passing certification exam, and
+`scripts/mint-missing-credentials.mjs` writes a fourth copy to recover attempts
+the third one dropped. Both predate `_shared/issue.ts`. **This is known debt,
+not an oversight — but every column added to `credentials` must be applied to
+all three.**
+
+Why they were not folded in (decided 2026-08-25, deliberately deferred):
+
+- `issueCredential` takes an **`achievementCode`** and resolves it scoped to an
+  issuer. The exam path has a `certification_id` and no code — the code equality
+  it would need is an artifact of migration 231's backfill, not a constraint.
+- The exam mint carries fields the shared one has no concept of:
+  `exam_attempt_id`, `score_pct`, `jta_version_id`, `locale` derived from
+  `exam_session_items`, and the voucher redeem that follows a successful mint.
+- The reconciler must set `issued_at` to the attempt's `submitted_at`, not
+  `now()`, which inverts the shared function's date handling.
+
+To reconcile them, `issueCredential` would need an achievement resolved **by
+`certification_id`** as an alternative to `achievementCode`, an optional
+exam-provenance block, and a caller-supplied `issued_at`. That is a real
+refactor on the credential path and must not be done under time pressure.
+
+**Until then: `credentials` gains a column → four inserts change.**
+`_shared/issue.ts`, `score-mock-exam`, `mint-missing-credentials.mjs`, and any
+migration backfill. Grep `from("credentials")` in both repos before shipping.
 
 **The audit rows are deliberately not shared.** `issuer_api_requests` is keyed
 to `api_key_id` and cannot represent a JWT caller; `admin_actions` is keyed to

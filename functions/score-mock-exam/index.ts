@@ -645,7 +645,7 @@ serve(async (req) => {
                 ? telemetry_language
                 : "en";
 
-            // ISSUER AND SALT ARE NOT NULL WITH NO DEFAULT.
+            // ACHIEVEMENT, ISSUER AND SALT ARE NOT NULL WITH NO DEFAULT.
             //
             // The Open Badges 3.0 migration added issuer_id and
             // subject_salt to credentials as NOT NULL. Every other column
@@ -655,20 +655,51 @@ serve(async (req) => {
             // every pass. Adding a column to a table does not fail the
             // writers that predate it until one of them runs.
             //
-            // Resolved by is_active, never hardcoded: issuers is a table
-            // precisely so a whitelabel issuer can exist without a code
-            // change. Matches the lookup in functions/open-badge/index.ts.
-            const { data: issuerRow, error: issErr } = await svc
-              .from("issuers")
-              .select("id")
-              .eq("slug", "certidemy")
-              .eq("is_active", true)
+            // IT HAPPENED AGAIN, IN THIS FILE, TWO COLUMNS LATER. Migration 231
+            // added credentials.achievement_id, backfilled every existing row,
+            // and set it NOT NULL -- and named no writer. This insert was not
+            // updated, so from 2026-08-19 every passing certification exam died
+            // at the mint. Not with 23502: trg_guard_credential_issuer is BEFORE
+            // INSERT and fires before the constraint, so a null achievement_id
+            // raises 'achievement <NULL> not found' (P0001) instead. Six days,
+            // nine live AIGRM-I seats, and nobody noticed because nobody passed.
+            //
+            // RESOLVED BY certification_id, NOT BY CODE. Migration 231 created
+            // one achievement per certification and enforces it with a partial
+            // unique index (achievements_certification_unique, "one achievement
+            // per certification, ever"). certification_id is therefore the
+            // indexed, guaranteed key; the fact that achievements.code equals
+            // certifications.code today is an artifact of that backfill and is
+            // not a constraint anyone may rely on.
+            //
+            // ISSUER COMES FROM THE ACHIEVEMENT, NOT FROM A SECOND LOOKUP. This
+            // previously resolved slug='certidemy' independently, which is right
+            // for every cert that exists today and wrong the moment a
+            // partner-owned certification does: two lookups for one fact can
+            // disagree, and trg_guard_credential_issuer would then reject the
+            // mint for a mismatch this function created. One source.
+            //
+            // A MISSING OR INACTIVE ACHIEVEMENT REFUSES THE MINT. Issuing a
+            // credential that points at no achievement, or at an archived one,
+            // is issuing a document whose claim nothing defines. The passed
+            // attempt is already recorded; ops re-issues from it with
+            // scripts/mint-missing-credentials.mjs once the achievement exists.
+            const { data: ach, error: achErr } = await svc
+              .from("achievements")
+              .select("id, status, issuer_id")
+              .eq("certification_id", session.certification_id)
               .maybeSingle();
-            if (issErr) throw new Error(`issuer lookup: ${issErr.message}`);
-            if (!issuerRow) {
+            if (achErr) throw new Error(`achievement lookup: ${achErr.message}`);
+            if (!ach) {
               throw new Error(
-                "no active issuer configured -- cannot mint a credential " +
-                  "that nothing can be shown to have signed",
+                `no achievement is defined for certification ${cert.code} -- ` +
+                  "cannot mint a credential whose claim nothing defines",
+              );
+            }
+            if (ach.status !== "active") {
+              throw new Error(
+                `the achievement for certification ${cert.code} is ` +
+                  `${ach.status}, not active -- refusing to mint against it`,
               );
             }
 
@@ -691,7 +722,8 @@ serve(async (req) => {
               .from("credentials")
               .insert({
                 credential_code: makeCredentialCode(cert.code),
-                issuer_id: issuerRow.id,
+                achievement_id: ach.id,
+                issuer_id: ach.issuer_id,
                 subject_salt,
                 user_id,
                 certification_id: session.certification_id,

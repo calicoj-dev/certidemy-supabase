@@ -30,11 +30,26 @@
 //   jta_version = carried from the attempt, not re-resolved. Re-resolving would
 //                 stamp today's published JTA onto an exam sat against an
 //                 earlier one.
+//   achievement = resolved by certification_id (migration 231's partial unique
+//                 index: one achievement per certification, ever), never by
+//                 matching code strings. Missing or non-active SKIPS the
+//                 attempt rather than aborting the run.
+//   issuer      = taken FROM that achievement, never looked up separately.
+//                 trg_guard_credential_issuer requires the two to agree.
 //
 // KNOWN DEBT: this duplicates the mint block in score-mock-exam. Two copies of
 // one rule can diverge. Kept separate deliberately -- the scorer must not grow
 // a reconciliation path, and this must not import from an edge function -- but
 // if the mint shape changes, both change.
+//
+// THAT DEBT CAME DUE ON 2026-08-19. Migration 231 added
+// credentials.achievement_id NOT NULL and named no writer. Both copies of the
+// mint omitted it, so every passing exam failed at trg_guard_credential_issuer
+// with 'achievement <NULL> not found' -- AND SO DID THIS FILE, the tool whose
+// entire purpose is to recover from exactly that. A reconciler that breaks on
+// the same constraint as the thing it reconciles is not a safety net. When the
+// mint shape changes, THIS FILE IS THE SECOND PLACE TO CHANGE, and it must be
+// dry-run against a real orphaned attempt before it is trusted.
 //
 // USAGE
 //   $env:SUPABASE_URL="https://pctynukndxnmnxiqpgck.supabase.co"
@@ -97,15 +112,15 @@ async function main() {
   console.log("");
 
   // ---- issuer ------------------------------------------------------------
-  const { data: issuer, error: issErr } = await svc
-    .from("issuers")
-    .select("id, slug, name")
-    .eq("slug", "certidemy")
-    .eq("is_active", true)
-    .maybeSingle();
-  if (issErr) throw new Error(`issuer lookup: ${issErr.message}`);
-  if (!issuer) throw new Error("no active issuer configured");
-  console.log(`issuer: ${issuer.name} (${issuer.id})`);
+  // THERE IS NO GLOBAL ISSUER LOOKUP ANY MORE.
+  //
+  // This used to resolve slug='certidemy' once, up here, and stamp every
+  // credential with it. That is correct for every certification that exists
+  // today and wrong the moment a partner-owned one does. issuer_id now comes
+  // from the resolved achievement, per attempt, because trg_guard_credential_
+  // issuer requires credentials.issuer_id == achievements.issuer_id and two
+  // independent lookups for one fact can disagree. One source. Same change as
+  // the scorer's, deliberately -- see the note below on why this file matters.
 
   // ---- orphans -----------------------------------------------------------
   let q = svc
@@ -162,6 +177,40 @@ async function main() {
       continue;
     }
 
+    // ACHIEVEMENT. Resolved by certification_id -- the key migration 231
+    // enforces with a partial unique index ("one achievement per
+    // certification, ever"), never by matching code strings, which are equal
+    // today only because 231's backfill made them so.
+    //
+    // A MISSING OR INACTIVE ACHIEVEMENT SKIPS THIS ATTEMPT, IT DOES NOT ABORT
+    // THE RUN. This is a batch reconciler: one certification with no
+    // achievement must not cost every other candidate their recovery. The
+    // scorer throws instead, because it is minting exactly one credential.
+    const { data: ach, error: achErr } = await svc
+      .from("achievements")
+      .select("id, code, status, issuer_id")
+      .eq("certification_id", a.certification_id)
+      .maybeSingle();
+    if (achErr) {
+      console.log(`    SKIP: achievement lookup failed: ${achErr.message}`);
+      skipped += 1;
+      continue;
+    }
+    if (!ach) {
+      console.log(
+        `    SKIP: no achievement defined for certification ${cert.code}`,
+      );
+      skipped += 1;
+      continue;
+    }
+    if (ach.status !== "active") {
+      console.log(
+        `    SKIP: achievement ${ach.code} is ${ach.status}, not active`,
+      );
+      skipped += 1;
+      continue;
+    }
+
     // already holds an active credential for this cert?
     const { data: existing } = await svc
       .from("credentials")
@@ -209,7 +258,8 @@ async function main() {
     const days = Number(cert.validity_days) > 0 ? Number(cert.validity_days) : 365;
     const row = {
       credential_code: makeCredentialCode(cert.code),
-      issuer_id: issuer.id,
+      achievement_id: ach.id,
+      issuer_id: ach.issuer_id,
       subject_salt: makeSalt(),
       user_id: a.user_id,
       certification_id: a.certification_id,
@@ -226,6 +276,7 @@ async function main() {
 
     console.log(`    holder  : ${holder_name}`);
     console.log(`    cert    : ${cert.code} -- ${cert.name}`);
+    console.log(`    achv    : ${ach.code} (${ach.id}) issuer ${ach.issuer_id}`);
     console.log(`    locale  : ${locale}`);
     console.log(`    code    : ${row.credential_code}`);
     console.log(`    issued  : ${row.issued_at}`);
