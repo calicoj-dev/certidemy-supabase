@@ -168,6 +168,20 @@ which cost two reverted corrections in one session:
                                     object in load-cert-i18n.mjs
 ```
 
+One more, added August 2026, and it is the only one on this page whose absence
+loses a credential rather than a sale:
+
+```
+§12  Certification has an          exactly ONE achievements row with
+     active achievement            certification_id = this cert, status
+                                   'active', achievement_type 'Certification',
+                                   on an ACTIVE issuer                (§6.7)
+```
+
+Every other invariant here catches a cert that cannot be sold. This one catches
+a cert that can be sold, examined and passed — and then cannot issue the
+document the candidate earned.
+
 The second cannot be a database check — it compares a source file against
 rows — but it is the one that matters most. A row written by hand and never
 added to its loader survives until someone runs the loader, at which point it
@@ -190,7 +204,10 @@ Until these exist, this checklist is the control, and it is a human one.
    Steps 4→7 are all catalogue surfaces. Nothing above this line looks
    inside the course, which is where the module gap and a renderer bug both
    hid on ISMS-F.
-9. Flip status.
+9. **Insert the achievement row (§6.7) and confirm it is `active`.** Nothing
+   creates it for you, and without it a passing candidate gets no credential.
+   This is the last step that is invisible until the worst possible moment.
+10. Flip status.
 
 **On step 4.** It already said this when ISMS-F was built, and ISMS-F's claims
 were written by direct SQL instead — so the rows existed only in the database
@@ -312,6 +329,66 @@ seconds and ran after the deploy rather than before.
 
 Three lists, one truth. Miss the first and the cert page renders a broken image;
 miss the third and `?doc=baked` 404s.
+
+### 6.7 A new certification has NO achievement until you insert one
+
+**Nothing creates it.** No trigger on `certifications`, no function, no edge
+function — every `public` function body was scanned and none inserts into
+`achievements`. Migration 231 created one achievement per certification as a
+**one-time backfill** over the eleven that existed on 2026-08-19 and left no
+forward mechanism.
+
+`credentials.achievement_id` is NOT NULL. So a certification created after that
+date **cannot mint a credential at all** until someone remembers this step. The
+cert will pass `verify-cert`, sell seats, run exams, score them, write the
+`exam_attempts` row — and then fail at the mint, in front of a candidate who
+has just passed.
+
+Insert it, with `certification_id` set and `status='active'`:
+
+```sql
+insert into public.achievements
+  (issuer_id, code, achievement_type, certification_id, name, description,
+   authoring_depth, status)
+select
+  (select id from public.issuers where slug = 'certidemy' and is_active),
+  c.code, 'Certification', c.id, c.name,
+  coalesce(nullif(c.description, ''), c.name),
+  'certification', 'active'
+from public.certifications c
+where c.code = '<CODE>';
+```
+
+Four things that will bite:
+
+- **`achievement_type` MUST be `'Certification'`.** The column defaults to
+  `'Certificate'`, and `guard_achievement_identity` rejects anything else once
+  `certification_id` is set.
+- **`status` MUST be `'active'`.** The mint refuses a `draft` or `archived`
+  achievement — deliberately, since a credential pointing at an inactive
+  definition claims something nothing defines.
+- **The code is immutable once a credential exists** (`guard_achievement_identity`).
+  It becomes the public URL `/achievements/<code>`. Choose it once.
+- **`achievements_certification_unique`** is a partial unique index — one
+  achievement per certification, ever — so re-running the insert is safe but a
+  second, different one is impossible.
+
+Verify by property, not by count:
+
+```sql
+select c.code
+from public.certifications c
+left join public.achievements a on a.certification_id = c.id
+left join public.issuers i on i.id = a.issuer_id
+where c.status in ('available', 'unavailable')
+group by c.code
+having count(a.id) <> 1
+    or not bool_and(a.status = 'active')
+    or not bool_and(a.achievement_type = 'Certification')
+    or not bool_and(i.is_active);
+```
+
+Zero rows is the pass. Any row names a certification that will fail at the mint.
 
 ---
 

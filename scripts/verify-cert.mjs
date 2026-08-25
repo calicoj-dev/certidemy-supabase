@@ -1107,6 +1107,57 @@ async function verify(cert) {
         : R.fail("samples.firewall", "§8", "No secure item is publicly visible",
             `${n} secure item(s) with visibility <> 'secure'`);
     }
+
+    // THE ONLY CHECK ON THIS PAGE WHOSE ABSENCE LOSES A CREDENTIAL RATHER THAN
+    // A SALE.
+    //
+    // credentials.achievement_id is NOT NULL. Migration 231 created one
+    // achievement per certification as a ONE-TIME backfill over the eleven that
+    // existed on 2026-08-19 and left no forward mechanism -- nothing creates it
+    // for a new cert. So a cert can be structurally perfect, catalogue-complete,
+    // sellable, examinable, and still unable to issue: the candidate passes,
+    // exam_attempts records it, and the mint raises.
+    //
+    // Migration 249 refuses the flip to 'available' without this. That guard is
+    // the enforcement; this check exists so the failure arrives HERE, before
+    // anyone is standing at the console mid-launch, rather than only there.
+    //
+    // Checked for every non-draft cert. A draft genuinely does not need one --
+    // that is the whole reason 249 guards the transition rather than the insert.
+    {
+      const { data: achRows } = await db
+        .from("achievements")
+        .select("id, code, status, achievement_type, issuers(is_active)")
+        .eq("certification_id", id);
+
+      const rows = achRows ?? [];
+      const a = rows[0];
+      // PostgREST types a to-one embed as an ARRAY unless FK uniqueness is
+      // provable. This client is service-role and gets an object today, but
+      // normalising both shapes costs one line and does not depend on that.
+      const iss = a ? (Array.isArray(a.issuers) ? a.issuers[0] : a.issuers) : null;
+      const issuerOk = iss?.is_active === true;
+
+      if ((cert.status ?? "draft") === "draft") {
+        R.skip("credential.achievement", "§12", "Certification has an active achievement",
+          "draft cert - not required until the flip to available (migration 249)");
+      } else if (rows.length !== 1) {
+        R.fail("credential.achievement", "§12", "Certification has an active achievement",
+          `${rows.length} achievement row(s) - expected exactly 1. Nothing creates it; see CERT-PUBLISH-CHECKLIST 6.7 for the insert`);
+      } else if (a.status !== "active") {
+        R.fail("credential.achievement", "§12", "Certification has an active achievement",
+          `achievement ${a.code} is '${a.status}', not 'active' - the mint refuses a non-active achievement`);
+      } else if (a.achievement_type !== "Certification") {
+        R.fail("credential.achievement", "§12", "Certification has an active achievement",
+          `achievement ${a.code} is type '${a.achievement_type}', not 'Certification'`);
+      } else if (!issuerOk) {
+        R.fail("credential.achievement", "§12", "Certification has an active achievement",
+          `achievement ${a.code} sits on an inactive or missing issuer - credentials.issuer_id comes from it`);
+      } else {
+        R.pass("credential.achievement", "§12", "Certification has an active achievement",
+          `${a.code} active`);
+      }
+    }
   }
 
   // === 23. NO CREATE-VERB IN THE SKILLS FIELD ===============================

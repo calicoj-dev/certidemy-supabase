@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 247. Next free number: 248.** Sequential, zero-padded to three
+**Migration tip: 249. Next free number: 250.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **The base schema is not in this repo, and migration replay from zero has
@@ -37,6 +37,21 @@ with accents goes through an API-based loader script instead.
 
 **One statement at a time** when handing SQL to a human — each block
 independently copyable.
+
+**Keep single-quoted strings inside a plpgsql body SHORT.** A long one does not
+survive the path from terminal scrollback to the SQL editor: the terminal wraps
+mid-string, the paste arrives truncated, and the result is an unterminated
+literal and a `42601`. This is the same class as the mojibake rule — the
+transport corrupts the text, not the author — and it is worse, because a
+mangled `raise exception` message can also paste *cleanly* and just be wrong.
+Migration 249's guard messages were shortened for exactly this reason. Split a
+long sentence across `message` / `detail` / `hint`, which reads better anyway.
+
+**When the human edits the SQL before running it, the file records THEIR
+version.** Read the body back from `pg_proc.prosrc` and md5 it (CRs stripped,
+as 244, 245 and 249 do) rather than committing the draft that was handed over.
+A migration file that does not match the live function is worse than no file:
+it is a record that lies, and the next person edits from it.
 
 `cron.schedule` is NOT transactional. Keep it outside the `begin/commit` block,
 commented, to be run separately after the function it points at is deployed.
