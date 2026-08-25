@@ -87,8 +87,19 @@ import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.t
 /** Matches score-mock-exam's grace, so both agree on what "expired" means. */
 const LATE_GRACE_SECONDS = 60;
 
+type ExamKind = "mock_exam" | "certification_exam";
+
 interface Body {
   certification_id?: string;
+  /**
+   * Narrow to the kind the caller can actually resume. OPTIONAL, and absent
+   * keeps the catalogue-wide behaviour the dashboard banner depends on.
+   *
+   * This exists because the exam page used to ask for the newest open session
+   * of EITHER kind and then discard it client-side when the kind was wrong.
+   * See THE KIND FILTER below for what that cost.
+   */
+  kind?: ExamKind;
 }
 
 serve(async (req) => {
@@ -101,15 +112,54 @@ serve(async (req) => {
     const svc = getServiceClient();
     const now = new Date();
 
-    // ---- 1. newest open exam session ----------------------------------
+    // ---- 1. the open exam session this caller means --------------------
+    //
+    // ====================================================================
+    // THE KIND FILTER, AND WHY IT IS NOT OPTIONAL FOR THE EXAM PAGE
+    // ====================================================================
+    //
+    // This used to return the newest open session of either kind, full stop,
+    // and mock-exam.tsx discarded the answer when res.kind was not the kind it
+    // wanted -- falling through to the intro screen with a Start button.
+    //
+    // So any newer session of the OTHER kind made a resumable exam invisible.
+    // On 2026-08-21 a candidate hit exactly that: he started a mock exam at
+    // 03:07:44, which masked the certification exam he had started at 03:06:46
+    // and was still inside its window. Seven seconds later the real exam page
+    // showed him Start instead of Resume, generate-mock-exam consumed his last
+    // attempt, and the resumable session sat one row away. Two attempts gone,
+    // no exam sat, no credential.
+    //
+    // Filtering HERE, on the server, is what makes the client correct rather
+    // than working around it. Two places deciding the same thing is how that
+    // happened.
+    //
+    // ====================================================================
+    // NO KIND: PREFER THE ONE WITH A CLOCK THAT CANNOT BE RECOVERED
+    // ====================================================================
+    //
+    // The dashboard banner asks without a kind, deliberately: it spans the
+    // whole catalogue. When both kinds are open it must surface the
+    // certification exam, because that is the one running down a timer the
+    // candidate cannot get back and the one an attempt was spent on. Showing
+    // the free practice run in preference to it is the same failure as above,
+    // one screen earlier.
+    //
+    // Chosen in TypeScript rather than by ORDER BY: 'certification_exam' sorts
+    // before 'mock_exam' alphabetically, so an ascending order would work today
+    // and silently stop working the day a kind is added between them. The
+    // preference is a decision, so it is written as one.
     let q = svc
       .from("quiz_sessions")
       .select("id, certification_id, kind, started_at, voucher_id")
       .eq("user_id", user_id)
       .is("completed_at", null)
-      .in("kind", ["mock_exam", "certification_exam"])
       .order("started_at", { ascending: false })
-      .limit(1);
+      .limit(10);
+
+    q = body.kind
+      ? q.eq("kind", body.kind)
+      : q.in("kind", ["mock_exam", "certification_exam"]);
 
     if (body.certification_id) q = q.eq("certification_id", body.certification_id);
 
@@ -119,7 +169,18 @@ serve(async (req) => {
       throw new Error(`session lookup failed: ${sErr.message}`);
     }
 
-    const session = (sessions ?? [])[0];
+    // The full selected shape: the rest of this function reads every column.
+    const open = (sessions ?? []) as {
+      id: string;
+      certification_id: string;
+      kind: string;
+      started_at: string;
+      voucher_id: string | null;
+    }[];
+    const session = body.kind
+      ? open[0]
+      : open.find((r) => r.kind === "certification_exam") ?? open[0];
+
     if (!session) return jsonResponse({ active: false });
 
     // ---- 2. THE FORM, BEFORE ANYTHING ELSE ----------------------------

@@ -125,6 +125,58 @@ serve(async (req) => {
           "this certification is not currently available for examination.",
         );
       }
+      // ================================================================
+      // ALREADY IN PROGRESS. ABOVE THE CONSUME, DELIBERATELY.
+      // ================================================================
+      //
+      // Everything below consumeAttempt burns the attempt whether or not it
+      // succeeds -- the comment after it says so. So a refusal that is meant to
+      // SAVE an attempt has to sit here, next to the lifecycle freeze, for the
+      // same reason the freeze does.
+      //
+      // On 2026-08-21 a candidate started two certification exams sixty-five
+      // seconds apart, neither finished, and both of his attempts were gone.
+      // The root cause was that he could not resume -- get-active-exam-session
+      // returned the newest session of either kind and the exam page discarded
+      // it when the kind was wrong, so he was shown Start. That is fixed there.
+      // This is the backstop, and it must not become the primary defence: a
+      // wall saying "you already have an exam open" with no way to reach it is
+      // worse than what happened to him.
+      //
+      // Which is why the refusal CARRIES THE SESSION ID. The client is expected
+      // to offer the way back, not just report the obstacle.
+      //
+      // CERTIFICATION EXAMS ONLY. A mock exam consumes nothing, and a candidate
+      // who wants a fresh practice run after abandoning one is doing something
+      // ordinary. Refusing those would be a cost with no benefit.
+      const { data: openRows } = await svc
+        .from("quiz_sessions")
+        .select("id, started_at")
+        .eq("user_id", user_id)
+        .eq("certification_id", body.certification_id)
+        .eq("kind", "certification_exam")
+        .is("completed_at", null)
+        .order("started_at", { ascending: false })
+        .limit(1);
+
+      const openExam = (openRows ?? [])[0] as
+        | { id: string; started_at: string }
+        | undefined;
+
+      if (openExam) {
+        return jsonResponse(
+          {
+            error:
+              "you already have a certification exam in progress for this " +
+              "certification. Resume it rather than starting a new one.",
+            already_in_progress: true,
+            session_id: openExam.id,
+            started_at: openExam.started_at,
+          },
+          409,
+        );
+      }
+
       const consumed = await consumeAttempt(svc, user_id, body.certification_id);
       if (!consumed) {
         throw new HttpError(
