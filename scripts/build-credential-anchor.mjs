@@ -168,6 +168,24 @@ async function leafFor(row) {
         `"${DOC_VERSION}" expects the dual-proof shape`,
     );
   }
+  // THIS GUARD IS ABOUT /credentials/<CODE>, AND ONLY THAT URL.
+  //
+  // It is not a platform-wide rule that a salted recipient hash may never be
+  // served anonymously. Since the OB2 route shipped, one deliberately is:
+  //
+  //   /credentials/<CODE>/ob2   an Open Badges 2.0 hosted assertion, which
+  //                             publishes recipient.identity and recipient.salt
+  //                             to anyone. OB2 hosted verification is unusable
+  //                             without them -- an assertion with no recipient
+  //                             identifies nobody. subject_salt is 16 random
+  //                             bytes and exists so the hash CAN be published.
+  //
+  // That sibling is NOT anchored, NOT signed, and NEVER fetched by this script.
+  // THE EXCEPTION IS THAT URL, NOT A RELAXATION OF THIS RULE. If an identifier
+  // ever appears in the document THIS fetch returns, it is still the disclosure
+  // bug it always was -- the OB3 document is the anchored one, and its public
+  // copy must stay free of holder identity or the leaf below is computed over
+  // bytes no anonymous verifier can reproduce.
   if (doc.credentialSubject?.identifier) {
     throw new Error(
       `${row.credential_code}: fetched the HOLDER copy. Only the public copy ` +

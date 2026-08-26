@@ -8,6 +8,14 @@
 //   ?doc=credential&code=AIE-I-...  -> a holder's SIGNED credential
 //   ?doc=status&list=1              -> the Bitstring Status List
 //
+// And one document that is NOT Open Badges 3.0:
+//
+//   ?doc=ob2&code=AIE-I-...         -> an Open Badges 2.0 HOSTED assertion.
+//                                      Unsigned by design: in OB2 the JSON
+//                                      served at its own id IS the proof.
+//                                      Additive -- it touches neither the OB3
+//                                      document, its signature, nor the anchor.
+//
 // ============================== WHY ONE FUNCTION ===========================
 //
 // Four functions would mean four copies of the issuer lookup and four places
@@ -46,6 +54,11 @@ import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
 import { BADGE_B64 } from "../_shared/badges.ts";
 import { bakeCredentialIntoPng, b64ToBytes } from "../_shared/png-bake.ts";
+// effectiveStatus at its source. ob3.ts re-exports isSignable (used by the OB3
+// branch) but the ?doc=ob2 branch needs the full state, not just the boolean:
+// an OB2 assertion carries `revoked`, so it has to know WHICH non-active state
+// applies.
+import { effectiveStatus } from "../_shared/credential-status.ts";
 import {
   buildAchievement,
   buildCredential,
@@ -471,6 +484,264 @@ serve(async (req) => {
       }
 
       return ldResponse(signed, cache);
+    }
+
+    /* -------------------------------------------------------------- ob2 -- */
+    /* An Open Badges 2.0 HOSTED assertion.
+     *
+     * A SEPARATE BRANCH, DELIBERATELY. The credential/baked block above is one
+     * branch because its three rules -- the specimen refusal, the viewer check
+     * and the cache split -- must not diverge between those two outputs. This
+     * one differs on the middle rule on purpose (see IDENTITY below), so
+     * folding it in would mean putting an `if` inside the very thing that block
+     * exists to keep single.
+     *
+     * NOTHING HERE IS SIGNED. OB2 hosted verification has no keypair: the JSON
+     * served at its own `id` IS the proof, because the consumer fetched it from
+     * the host that claims it. buildCredential and buildIssuerProfile are not
+     * imported by this branch and not touched by it -- a change to either is a
+     * DOC_VERSION bump and an anchor rebuild, and this is neither.
+     *
+     * ============================ IDENTITY IS PUBLIC HERE ==================
+     *
+     * The OB3 branch releases the salted email hash ONLY to an authenticated
+     * holder. This branch releases it to anyone, and that is a decision rather
+     * than an oversight.
+     *
+     * subject_salt is 16 random bytes, minted per credential, and it exists so
+     * the hash CAN be published -- _shared/issue.ts says it in as many words:
+     * it needs randomness, not secrecy. It stops one rainbow table covering
+     * every credential, and per-credential means confirming a guessed address
+     * on one tells you nothing about any other.
+     *
+     * The OB3 restriction was a conservative default, not a considered privacy
+     * position, and OB2 hosted verification is unusable without the recipient
+     * -- an assertion with no recipient identifies nobody and verifies nothing.
+     *
+     * THE ANCHOR SCRIPT'S GUARD IS UNCHANGED AND UNWEAKENED. It refuses when
+     * `credentialSubject.identifier` appears in an anonymous fetch of
+     * /credentials/<CODE>. That is about the OB3 document, the one that is
+     * anchored. This route is a sibling: not anchored, not signed, never
+     * fetched by that script. The exception is this URL, not that rule.
+     *
+     * ============================ WHAT OB2 CANNOT CARRY ====================
+     *
+     * RESULTS. The OB3 branch gates the transcript on
+     * `isHolder || results_visibility === 'public'`. OB2 has no comparable
+     * structure, so results are omitted for every credential regardless of that
+     * column. A credential whose issuer chose 'public' therefore exposes LESS
+     * over OB2 than over OB3. That is the format's limit, not a policy of ours,
+     * and inventing a structure OB2 does not define would be worse than the
+     * gap.
+     *
+     * REVOCATION, HONESTLY. This assertion carries `revoked` and
+     * `revocationReason`. It does NOT publish a hosted RevocationList, because
+     * OB2 verifiers do not read our Bitstring Status List and building a second
+     * revocation surface would be two sources for one fact.
+     *
+     * The consequence, written down so a partner can find it rather than
+     * discover it: AN OB2 CONSUMER THAT CACHED THE ASSERTION LEARNS NOTHING
+     * ABOUT A LATER REVOCATION UNTIL IT RE-FETCHES. The OB3 status list is
+     * polled, so a verifier sees a revocation without re-fetching the
+     * credential. Re-fetching the hosted assertion IS the check for this
+     * profile -- standard, and genuinely weaker than the OB3 path. If the
+     * strength of the revocation signal matters, OB3 is the document to use.
+     */
+    if (doc === "ob2") {
+      const code = url.searchParams.get("code");
+      if (!code) return jsonResponse({ error: "code required" }, 400);
+
+      const { data: cred, error: credErr } = await svc
+        .from("credentials")
+        // ONE UNBROKEN LITERAL. A concatenated select string collapses the row
+        // type to GenericStringError and every field access below becomes a
+        // TS2339. This is why the status columns are spelled out here rather
+        // than pulled from CREDENTIAL_STATUS_COLUMNS: `status, expires_at,
+        // is_specimen` are the three effectiveStatus reads, and they must stay
+        // in step with it by inspection.
+        .select(
+          "credential_code, issuer_id, achievement_id, holder_email, certification_code, issued_at, expires_at, subject_salt, status, is_specimen",
+        )
+        .eq("credential_code", code.trim().toUpperCase())
+        .maybeSingle();
+
+      if (credErr) throw new Error(`ob2 credential lookup: ${credErr.message}`);
+      if (!cred) return jsonResponse({ error: "not found" }, 404);
+
+      // Specimen refusal through the SHARED rule, never re-derived -- the same
+      // call the OB3 branch makes. A specimen must not be fetchable as a
+      // credential in any format.
+      if (!isSignable(cred)) {
+        return jsonResponse({ error: "not found" }, 404);
+      }
+
+      // The issuer is the credential's OWN, resolved from issuer_id. Never from
+      // a query parameter, for the reason spelled out in the OB3 branch: a
+      // caller must not be able to name an issuer that did not issue this.
+      const { data: iss, error: issErr } = await svc
+        .from("issuers")
+        .select("slug, name, site_url, issuer_url, email")
+        .eq("id", cred.issuer_id)
+        .maybeSingle();
+      if (issErr) throw new Error(`ob2 issuer lookup: ${issErr.message}`);
+      if (!iss) return jsonResponse({ error: "not found" }, 404);
+
+      const { data: ach, error: achErr } = await svc
+        .from("achievements")
+        .select("code, name, description, criteria_narrative, image_path, certification_id")
+        .eq("id", cred.achievement_id)
+        .maybeSingle();
+      if (achErr) throw new Error(`ob2 achievement lookup: ${achErr.message}`);
+      if (!ach) return jsonResponse({ error: "not found" }, 404);
+
+      /* NO HOLDER EMAIL -> NO ASSERTION. 422, not a hash of nothing.
+       *
+       * OB2 has no optional recipient: an assertion identifies someone or it
+       * verifies nothing. `hashSubjectIdentifier(cred.holder_email ?? "", salt)`
+       * would return a real-looking sha256$ of the salt alone, which no
+       * verifier could ever match and which claims an identity that was never
+       * recorded. Refusing is the only honest answer.
+       *
+       * This is reachable. credentials.holder_email is nullable, and
+       * score-mock-exam's mint does not set it -- migration 231 backfilled the
+       * rows that existed and no writer was updated, so every exam-minted
+       * credential since carries NULL. The OB3 branch tolerates that by
+       * omitting `identifier` entirely, because identity is optional there.
+       * OB2 cannot.
+       */
+      if (!cred.holder_email) {
+        return jsonResponse({
+          error:
+            "this credential has no recorded holder email, so an Open Badges " +
+            "2.0 hosted assertion cannot identify its recipient",
+        }, 422);
+      }
+
+      const siteUrl = iss.site_url;
+      const base = "https://credentials.certidemy.com";
+      const certBacked = ach.certification_id !== null;
+
+      /* IS THE CERTIFICATION PAGE ACTUALLY PUBLIC?
+       *
+       * "Backed by a certification" does NOT imply /certifications/<code>
+       * resolves. The anon RLS policy on certifications is
+       * `status = 'available' OR is_platform_admin()`, so a draft, coming_soon
+       * or unavailable cert 404s for the whole world.
+       *
+       * MEASURED, NOT ASSUMED: the first ob2 fetch of ZZ-TEST-I-A6BJ-EA5R
+       * emitted criteria.id = /certifications/zz-test-i, and that URL returns
+       * 404 -- the cert is 'unavailable'. That is the same defect that was
+       * found and removed from buildAchievement once already, arriving in a
+       * new format. Gate on the status, not on the FK.
+       */
+      let certPublic = false;
+      if (certBacked) {
+        const { data: certRow } = await svc
+          .from("certifications")
+          .select("status")
+          .eq("id", ach.certification_id)
+          .maybeSingle();
+        certPublic = certRow?.status === "available";
+      }
+
+      /* CRITERIA. The narrative is the same sentence the OB3 achievement
+         carries, so the two documents cannot describe the credential
+         differently.
+
+         `id` is emitted ONLY for a certification-backed achievement, where
+         /certifications/<code> provably exists. It is ABSENT for a partner
+         achievement. buildAchievement used to guess that URL for everyone,
+         which put a 404 inside every partner credential, asserting that
+         documentation exists where it does not. That was found and removed
+         once; it is not being reintroduced here in a different format. */
+      const narrative = ach.criteria_narrative?.trim() ||
+        `Awarded on passing the ${cred.certification_code} examination ` +
+          `against its published blueprint.`;
+
+      const criteria: Record<string, unknown> = { narrative };
+      if (certPublic) {
+        criteria.id =
+          `${siteUrl}/certifications/${cred.certification_code.toLowerCase()}`;
+      }
+
+      /* IMAGE. A Certidemy scheme's artwork is compiled in and served from
+         /badges/<CODE>.png. A partner's lives in storage on image_path. Absent
+         -> the property is OMITTED, never substituted: a consumer reading
+         `image` expects an image, and pointing at someone else's artwork would
+         be worse than showing none. */
+      // BADGE_B64 is generated from certidemy-web/public/badges, so a key in
+      // that map is proof the PNG is served. Being cert-backed is not: the
+      // ZZ-TEST-I fetch emitted /badges/ZZ-TEST-I.png, which 404s. Same
+      // measurement, same lesson as criteriaUrl above.
+      const imageUrl = certBacked
+        ? (BADGE_B64[cred.certification_code]
+          ? `${siteUrl}/badges/${cred.certification_code}.png`
+          : null)
+        : (ach.image_path || null);
+
+      const state = effectiveStatus(cred);
+      const revoked = state !== "active" && state !== "expired";
+
+      const issuerProfile: Record<string, unknown> = {
+        type: "Profile",
+        id: iss.issuer_url,
+        name: iss.name,
+        url: iss.site_url,
+      };
+      // NEVER SUBSTITUTE OURS. An issuer with no email omits the field. A
+      // partner appearing to be reachable at a Certidemy address would be the
+      // platform asserting something the issuer did not.
+      if (iss.email) issuerProfile.email = iss.email;
+
+      const badge: Record<string, unknown> = {
+        type: "BadgeClass",
+        id: `${base}/issuers/${iss.slug}/achievements/${ach.code}`,
+        name: ach.name,
+        description: ach.description,
+        criteria,
+        issuer: issuerProfile,
+      };
+      if (imageUrl) badge.image = imageUrl;
+
+      const assertion: Record<string, unknown> = {
+        "@context": "https://w3id.org/openbadges/v2",
+        type: "Assertion",
+        // THE ASSERTION'S OWN URL. This is what makes it verifiable -- see the
+        // route comment in the credentials Worker.
+        id: `${base}/credentials/${cred.credential_code}/ob2`,
+        recipient: {
+          type: "email",
+          hashed: true,
+          salt: cred.subject_salt,
+          identity: await hashSubjectIdentifier(
+            cred.holder_email,
+            cred.subject_salt,
+          ),
+        },
+        badge,
+        verification: { type: "HostedBadge" },
+        issuedOn: cred.issued_at,
+      };
+      if (cred.expires_at) assertion.expires = cred.expires_at;
+      if (revoked) {
+        assertion.revoked = true;
+        assertion.revocationReason = `This credential is ${state}.`;
+      }
+
+      /* NO-STORE. The OB3 branch splits its cache because the holder's copy
+         carries an identifier and a shared cache must never hold it. Here the
+         identifier is public, so that reasoning does not apply -- but
+         revocation does. With no hosted RevocationList, a cached assertion is
+         the only thing standing between a revoked credential and a consumer
+         who believes it. We do not add an edge cache to that problem. */
+      return ldResponse(
+        assertion,
+        CACHE_NEVER,
+        200,
+        // OB2 is plain JSON-LD, NOT a W3C Verifiable Credential. Sending
+        // application/vc+ld+json would tell a consumer it is one.
+        "application/json",
+      );
     }
 
     /* ------------------------------------------------------------ anchor -- */
