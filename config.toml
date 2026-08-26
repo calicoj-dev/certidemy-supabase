@@ -575,3 +575,14 @@ verify_jwt = false
 # admin_actions like every other act of that shape here.
 [functions.lti-mint-tool-key]
 verify_jwt = true
+
+# The stateful half of the LTI 1.3 OIDC third-party-initiated login: registration
+# lookup, state and nonce minting, and the skeleton/capability writes.
+#
+# verify_jwt MUST be false. The caller is certidemy.com's /lti/login route
+# handler, which holds no service_role and carries no Supabase JWT -- the
+# privileged work lives here precisely so it lives in one place. Nothing in the
+# request identifies a person: a login carries an opaque login_hint and nothing
+# else.
+[functions.lti-login]
+verify_jwt = false
