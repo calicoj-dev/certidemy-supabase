@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 249. Next free number: 250.** Sequential, zero-padded to three
+**Migration tip: 250. Next free number: 251.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **The base schema is not in this repo, and migration replay from zero has
@@ -203,6 +203,36 @@ events.
 ---
 
 ## Partner onboarding
+
+**An issuer can be verified two ways (migration 250).** `verification_method` is
+`'domain'` (the `.well-known` fetch) or `'attested'` (a platform_admin's
+out-of-band judgement, for an issuer with no site to publish on). Two CHECK
+constraints keep them from mixing: `'domain'` requires a
+`verification_domain`, `'attested'` requires it to be NULL. So an attested
+issuer who later acquires a domain must move to `'domain'` and set the domain in
+one statement — acquiring a domain means re-verifying through it, never
+inheriting an attestation.
+
+**`verification_method` is displayed NOWHERE, and that is the decision.** Not in
+the OB3 document, `verify-credential`, the verify page, the certificate PDF or
+the badge. The domain check never did reader-facing work either — it gates
+activation and disappears, and `certidemy`'s own issuer has a NULL domain and
+has signed every credential on the platform. **This is a gate, not a claim, and
+it stays one only while nothing renders it.** The moment something does, the
+wording falls under CLAIMS-POLICY and the self-host rule below stops being
+hygiene.
+
+**MIRRORED PAIR, CURRENTLY OUT OF STEP.** `create-partner-issuer` refuses a
+`verification_domain` on `certidemy.com` **or `certiglobal.org`** (exact match or
+subdomain) and allows the domain to be absent.
+`../certidemy-web/components/console/create-issuer-modal.tsx` refuses only
+`certidemy.com` and still **requires** a domain — it is the narrower half on
+both counts. A web session fixes it. Until then the function is the real gate,
+which is the right way round: the modal had the only copy of this rule, so a raw
+invocation bypassed it entirely, and that is how `test-partner-02` came to be
+`verified = true` against `credentials.certidemy.com` — a host we control,
+proving nothing. That row is deliberately left as `'domain'`; the circularity
+belongs to the row, not the method.
 
 **The invite-redemption path only ever covered signup-after-invite.**
 `on_profile_created_claim_vouchers` is AFTER INSERT on `profiles`, so an address

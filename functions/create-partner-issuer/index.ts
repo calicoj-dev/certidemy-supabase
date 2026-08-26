@@ -1,11 +1,44 @@
 // POST /functions/v1/create-partner-issuer
 //
-// Body: { company_id, slug, name, site_url, verification_domain }
+// Body: { company_id, slug, name, site_url, verification_domain? }
 // Auth: Bearer JWT -- MUST be platform_admin.
 //
-// STEP ONE OF TWO. Creates a DRAFT issuer: the slug is reserved, a verification
-// token is issued, and nothing can be signed. Keys are minted by
-// activate-partner-issuer, and only after domain verification passes.
+// STEP ONE OF TWO. Creates a DRAFT issuer: the slug is reserved and nothing can
+// be signed. Keys are minted by activate-partner-issuer, and only after that
+// issuer has been verified by one of two routes.
+//
+// ============================== TWO ROUTES TO VERIFIED =====================
+//
+// verification_domain is OPTIONAL as of migration 250.
+//
+//   SUPPLIED  -> the domain route. A verification token is issued, the partner
+//                publishes it at /.well-known/certidemy-issuer.txt, and
+//                activate-partner-issuer mode='verify' fetches it.
+//
+//   ABSENT    -> the attested route. No token (see below). A platform_admin
+//                records an out-of-band judgement with a reason via
+//                activate-partner-issuer mode='attest'.
+//
+// The attested route exists for an issuer with no site to publish on -- a solo
+// trainer running off a social profile. It is not a weaker tier of the same
+// check; it is a different kind of evidence, and the admin_actions row IS that
+// evidence.
+//
+// NOTHING DISPLAYS THE DIFFERENCE. verification_method is not returned by
+// verify-credential, does not appear in the OB3 document, the certificate or
+// the badge, and is not rendered on the verify page. It is a gate, not a claim.
+// The moment something renders it, the reserved-slug reasoning below applies to
+// the wording, and the self-host rule becomes load-bearing rather than tidy.
+//
+// ============================== NO TOKEN WITHOUT A DOMAIN ==================
+//
+// An attested issuer gets verification_domain AND verification_token null.
+// Generating a token nothing can publish and no code path can consume would be
+// dead data implying an expectation that does not exist. Nothing updates
+// verification_domain today, so holding one "ready for a later upgrade" is
+// speculative -- and migration 250's issuers_attested_has_no_domain would
+// refuse the upgrade anyway. Acquiring a domain means re-verifying through it,
+// not inheriting an attestation.
 //
 // ============================== WHY TWO STEPS ==============================
 //
@@ -56,6 +89,33 @@ const UUID_RE =
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{1,38}[a-z0-9]$/;
 
 const DOMAIN_RE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/;
+
+/**
+ * Hosts WE control. A partner cannot prove control of a domain by publishing on
+ * one of ours -- the whole point of the well-known file is that they hold the
+ * host, and the file lands wherever we say it does.
+ *
+ * This existed only in components/console/create-issuer-modal.tsx, so a raw
+ * invocation of this function bypassed it entirely. That is how test-partner-02
+ * came to be verified=true against credentials.certidemy.com: the check passed
+ * and proved nothing.
+ *
+ * WIDER THAN THE MODAL, DELIBERATELY. The modal refuses certidemy.com only.
+ * certiglobal.org is the same failure -- a host we control for the length of
+ * the wind-down. The modal is now the narrower of the two and should be brought
+ * up to this list; they are a mirrored pair.
+ *
+ * A FUNCTION CHECK, NOT A CHECK CONSTRAINT. test-partner-02 already holds
+ * credentials.certidemy.com, so a constraint would fail to validate against the
+ * existing table. That row stays as it is -- see CLAUDE.md; the circularity is
+ * a property of that row, not of the domain method.
+ */
+const SELF_HOSTS = ["certidemy.com", "certiglobal.org"];
+
+/** Exact match or any subdomain. `evilcertidemy.com` is NOT a subdomain. */
+function isSelfHost(domain: string): boolean {
+  return SELF_HOSTS.some((h) => domain === h || domain.endsWith("." + h));
+}
 
 /**
  * The OB3 identifier root. Every issuer shares it -- they are hosted here, and
@@ -136,8 +196,20 @@ serve(async (req) => {
     if (!siteUrl || !siteUrl.startsWith("https://")) {
       throw new HttpError(400, "site_url required and must be https");
     }
-    if (!domain || !DOMAIN_RE.test(domain)) {
-      throw new HttpError(400, "valid verification_domain required (host only, no scheme)");
+    // OPTIONAL as of migration 250. Absent -> the attested route. Supplied ->
+    // it must be a real host, and not one of ours.
+    if (domain) {
+      if (!DOMAIN_RE.test(domain)) {
+        throw new HttpError(400, "verification_domain must be a host only, no scheme");
+      }
+      if (isSelfHost(domain)) {
+        throw new HttpError(
+          400,
+          `verification_domain "${domain}" is a Certidemy-controlled host. ` +
+            "Publishing there proves nothing about the partner. Use a domain " +
+            "they control, or omit it and attest the issuer instead.",
+        );
+      }
     }
 
     // ---- the company must exist and must not already have an issuer -------
@@ -171,7 +243,8 @@ serve(async (req) => {
       .maybeSingle();
     if (slugTaken) throw new HttpError(409, `slug "${slug}" is taken`);
 
-    const token = verificationToken();
+    // Both null, or both set. See NO TOKEN WITHOUT A DOMAIN in the header.
+    const token = domain ? verificationToken() : null;
 
     const { data: issuer, error: insErr } = await svc
       .from("issuers")
@@ -183,7 +256,7 @@ serve(async (req) => {
         issuer_url: `${BASE_URL}/issuers/${slug}`,
         company_id: companyId,
         status: "draft",
-        verification_domain: domain,
+        verification_domain: domain ?? null,
         verification_token: token,
         // key_id defaults to 'key-1'. No key material: the CHECK added in 230
         // refuses status='active' without it, which is what keeps the two
@@ -212,7 +285,12 @@ serve(async (req) => {
         slug: issuer.slug,
         company_id: companyId,
         company_name: company.name,
-        verification_domain: domain,
+        verification_domain: domain ?? null,
+        // Which route this issuer was created for. NOT verification_method on
+        // the row -- that is written when verification actually happens, by
+        // activate-partner-issuer. This records the intent at creation so the
+        // audit trail shows which route was chosen and when.
+        verification_route: domain ? "domain" : "attested",
       },
     });
 
@@ -225,16 +303,29 @@ serve(async (req) => {
         issuer_url: issuer.issuer_url,
         status: issuer.status,
       },
-      // What the partner has to publish. The token is not secret; control of
-      // the path is the proof, not knowledge of the string.
-      verification: {
-        domain,
-        url: `https://${domain}/.well-known/certidemy-issuer.txt`,
-        file_contents: token,
-        instructions:
-          `Serve a plain-text file at https://${domain}/.well-known/certidemy-issuer.txt ` +
-          `containing exactly the token above, then run activate-partner-issuer.`,
-      },
+      // The domain route returns what the partner has to publish. The token is
+      // not secret; control of the path is the proof, not knowledge of the
+      // string. The attested route has nothing to publish, so it returns the
+      // next step instead of an empty instruction block.
+      verification: domain
+        ? {
+          route: "domain",
+          domain,
+          url: `https://${domain}/.well-known/certidemy-issuer.txt`,
+          file_contents: token,
+          instructions:
+            `Serve a plain-text file at https://${domain}/.well-known/certidemy-issuer.txt ` +
+            `containing exactly the token above, then call activate-partner-issuer ` +
+            `with mode=verify.`,
+        }
+        : {
+          route: "attested",
+          domain: null,
+          instructions:
+            "No verification domain. A platform_admin must record an " +
+            "out-of-band judgement by calling activate-partner-issuer with " +
+            "mode=attest and a reason, then again with mode=activate.",
+        },
     });
   } catch (err) {
     if (err instanceof HttpError) {
