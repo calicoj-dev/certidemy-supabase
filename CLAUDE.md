@@ -341,14 +341,47 @@ Product Owner". A human picks. Do not try it again.
 ## Scripts
 
 Node ESM under `scripts/`. Conventions differ between them, so read before
-running:
+running.
+
+**THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
+most dangerous thing about this directory.
+
+| family | flag | default | example |
+|---|---|---|---|
+| opt into SAFETY | `--dry` | **LIVE** | `load-lessons-direct.mjs` |
+| opt into WRITING | `--apply` | **dry** | `mint-missing-credentials.mjs`, `lti-mint-key.mjs` |
+
+Reading `--dry` and inferring "so without it, nothing happens" is exactly
+backwards for the first family. Reading `--apply` and inferring "so `--dry`
+makes it safe" is exactly backwards for the second — `--dry` there is an
+unrecognised flag.
+
+**A script must ABORT on an unrecognised flag, not ignore it.** Never trust that
+the reader knows which family a script belongs to. A flag someone believed in
+that silently did nothing is how `load-lessons-direct.mjs` runs live on a typo,
+and it is the failure this table exists to prevent. `lti-mint-key.mjs` does it:
+unknown flags exit 2 and the error names both conventions.
+
+New scripts take `--apply`, dry by default. It is the safe half, and a
+default that writes is not defensible in a repo where the recurring failure mode
+is silent success.
+
+The individual scripts:
 
 - `load-lessons-direct.mjs` — flag is `--dry`, NOT `--dry-run` (unknown flags are
   silently ignored, which means a typo runs it live). Needs `CERT_ID` env.
   Idempotent: SKIPS existing rows, so it cannot be used to update content.
 - `update-lesson-content.mjs` — the one that updates existing rows. `--file`,
   `--lang`, `CERT_ID`, `--dry` first.
-- `wire-lessons.mjs` — env vars `CERT_ID` and `DRY_RUN=1/0`, no flags.
+- `wire-lessons.mjs` — env vars `CERT_ID` and `DRY_RUN=1/0`, no flags. A third
+  convention, for completeness.
+- `lti-mint-key.mjs` — mints the platform RSA-2048 key for LTI 1.3, proves it
+  signs before Vault, derives the `kid` as an RFC 7638 thumbprint. `--apply` to
+  write, `--force` to mint a SECOND key (rotation). Refuses when a non-retired
+  key exists, because two accidental mints both land in the JWKS and
+  `lti_store_tool_key` only refuses a duplicate `kid`. **Mirrored pair with
+  `functions/lti-mint-tool-key`** — the script is bootstrap and operations, the
+  function is the console button. If the mint shape changes, both change.
 - `verify-cert.mjs` — the conformance gate. **The baseline is NOT clean.**
 
   As of 2026-08-25, `--all` reports 43–44 checks per certification (the count
