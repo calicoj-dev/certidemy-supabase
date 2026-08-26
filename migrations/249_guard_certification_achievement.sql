@@ -90,7 +90,13 @@
 -- There is no archive-and-see test in this file. For a refusal guard the check
 -- and the damage are the same action. Migration 246 shipped exactly that as a
 -- commented "expect 42501" step, it succeeded instead of failing, and signup
--- was silently dead. Verification is against pg_catalog only -- section 3.
+-- was silently dead. Verification is against pg_catalog -- section 3.
+--
+-- Section 3b records the guard OBSERVED REFUSING, with its verbatim message.
+-- That is not a contradiction of the rule above: it was run against ZZ-TEST-I,
+-- a throwaway one-question certification at status 'draft', where the check and
+-- the damage are NOT the same action because there is nothing to damage. 3b
+-- explains why a draft certification is the only place this test is available.
 --
 -- Precondition, checked before either trigger was created: all eleven live
 -- certifications already satisfy the rule (0 violating rows), so neither guard
@@ -268,7 +274,8 @@ create trigger trg_guard_achievement_backs_live_cert
 --    Confirmed live on 2026-08-25.
 --
 --    Do NOT verify these by archiving an achievement or by inserting a cert at
---    'available'. See the header.
+--    'available' ON A LIVE CERTIFICATION. See section 3b for the one case where
+--    doing it was safe, and why.
 -- ---------------------------------------------------------------------------
 
 -- select t.tgname, c.relname as on_table, t.tgenabled, pg_get_triggerdef(t.oid) as def
@@ -279,6 +286,66 @@ create trigger trg_guard_achievement_backs_live_cert
 --   and t.tgname in ('trg_guard_cert_has_active_achievement',
 --                    'trg_guard_achievement_backs_live_cert')
 -- order by t.tgname;
+
+-- ---------------------------------------------------------------------------
+-- 3b. THE GUARD WAS ALSO OBSERVED REFUSING. 2026-08-25.
+--
+--     Catalog verification proves the trigger EXISTS. It does not prove the
+--     body raises, that the errcode is what the source says, or that the
+--     failed statement rolls back. This does.
+--
+--     WHY IT WAS SAFE HERE, AND WHY IT NORMALLY IS NOT. Migration 246 shipped
+--     `drop trigger if exists on_auth_user_created on auth.users;` as a
+--     commented "expect 42501" verification step. It succeeded instead of
+--     failing, and signup was silently dead until the trigger was recreated.
+--     The rule that came out of it: never propose a destructive statement as a
+--     way to verify a hypothesis about privileges, because if the check and the
+--     damage are the same action, the check IS the damage.
+--
+--     This test does not break that rule; it is the version of it that costs
+--     nothing. ZZ-TEST-I is a throwaway one-question certification created for
+--     end-to-end testing, and at the time it sat at status 'draft'. A draft
+--     certification cannot be examined, has no candidate, and -- the load-
+--     bearing detail -- its achievement can be demoted at all only BECAUSE the
+--     certification is draft: trg_guard_achievement_backs_live_cert returns
+--     early for any certification not in ('available','unavailable'). On any of
+--     the eleven real certifications both guards refuse and there is no safe
+--     negative test. The throwaway cert is what made the observation possible.
+--
+--     N1  demote the achievement to 'draft'      -> succeeded (cert was draft)
+--     N2  update certifications set status =     -> REFUSED, verbatim:
+--         'available' where code = 'ZZ-TEST-I'
+--
+--       ERROR:  23514: Certification ZZ-TEST-I has an achievement that is draft, not active.
+--       DETAIL:  The mint refuses a non-active achievement.
+--       HINT:  Set the achievement to active first.
+--       CONTEXT:  PL/pgSQL function guard_cert_has_active_achievement() line 38 at RAISE
+--
+--     N3  select status                          -> still 'draft'. The failed
+--                                                   statement rolled back; the
+--                                                   flip did not partially land.
+--     N4  restore the achievement to 'active'    -> succeeded
+--     N5  re-check                               -> ZZ-TEST-I | draft | active,
+--                                                   identical to the start state
+--
+--     THREE THINGS THE MESSAGE ITSELF CORROBORATES, beyond "it refused":
+--
+--       - 23514 is check_violation, which is what `errcode = 'check_violation'`
+--         resolves to. The declared errcode is the one Postgres raised.
+--       - "line 38 at RAISE" resolves against the body committed in section 1:
+--         line 38 of that function body is the `raise exception using` inside
+--         `if v_status is distinct from 'active' then`. The CONTEXT line is
+--         independent evidence that the file matches the live function, on top
+--         of the prosrc md5 in the header.
+--       - The branch that fired is the ACHIEVEMENT-EXISTS-BUT-INACTIVE one, not
+--         the no-achievement-row one. Those are separate raises with separate
+--         messages, and the distinction is the whole reason the body checks
+--         them separately rather than counting.
+--
+--     ZZ-TEST-II and ZZ-TEST-III (the INSERT-at-available refusal and the
+--     no-achievement-row branch) were NOT run. Those two branches remain
+--     unobserved; they are verified by reading only.
+-- ---------------------------------------------------------------------------
 
 --    The property the guards enforce, as a standing check. Zero rows is the
 --    pass; any row names a certification that will fail at the mint.
