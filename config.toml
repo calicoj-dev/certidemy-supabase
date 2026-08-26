@@ -586,3 +586,14 @@ verify_jwt = true
 # else.
 [functions.lti-login]
 verify_jwt = false
+
+# Registers an LTI 1.3 platform. platform_admin, enforced in-function, with an
+# admin_actions row written from the same request.
+#
+# verify_jwt = true. A registration decides WHO MAY INITIATE A LOGIN INTO US --
+# the same class of act as creating a company or attesting an issuer, and it
+# gets the same gate. This is also why there is no INSERT grant on
+# lti_platforms: a row created with no actor recorded would be a row nobody can
+# account for later.
+[functions.create-lti-platform]
+verify_jwt = true
