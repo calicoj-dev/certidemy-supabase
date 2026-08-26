@@ -613,17 +613,45 @@ serve(async (req) => {
             //
             // The email fallback is a last resort and prints an address where a
             // name should be. The dashboard reminder exists so it never fires.
+            // HOLDER EMAIL IS SNAPSHOTTED IN THE SAME BREATH, AND FOR THE SAME
+            // REASON.
+            //
+            // Migration 231 added credentials.holder_email so the OB3 subject
+            // identifier would have one uniform source, backfilled every row
+            // that existed from auth.users, and named no writer. This insert
+            // was not updated, so every credential minted by a passing exam
+            // since 2026-08-19 carries NULL.
+            //
+            // That is the THIRD time this file has been caught by the same
+            // pattern -- issuer_id/subject_salt, then achievement_id, now this.
+            // The rule is in CLAUDE.md: a migration adding a column must name
+            // every writer of that table, because a constraint or a consumer
+            // added today does not fail the writers that predate it until one
+            // of them runs.
+            //
+            // Nothing enforced it, so nothing broke loudly. It surfaced only
+            // when the Open Badges 2.0 route tried to build a recipient and
+            // found no address to hash -- OB2 has no optional recipient, so
+            // those credentials cannot be exported at all.
+            //
+            // FROM profiles, NOT auth.users. It is the row this block already
+            // reads, profiles.email is citext and is what
+            // create_company_with_admin matches invites against, and one query
+            // for two facts about the same person cannot half-succeed.
             let holder_name = "Certified Professional";
+            let holder_email: string | null = null;
             try {
               const { data: prof } = await svc
                 .from("profiles")
-                .select("certificate_name, full_name")
+                .select("certificate_name, full_name, email")
                 .eq("id", user_id)
                 .maybeSingle();
               const chosen = (prof as {
                 certificate_name?: string | null;
                 full_name?: string | null;
+                email?: string | null;
               } | null) ?? null;
+              holder_email = chosen?.email?.trim() || null;
               const picked =
                 chosen?.certificate_name?.trim() ||
                 chosen?.full_name?.trim() ||
@@ -636,6 +664,20 @@ serve(async (req) => {
               }
             } catch (err) {
               console.warn("holder name lookup failed:", err);
+            }
+
+            // Last resort for the address only. If profiles.email was empty or
+            // the lookup above threw, ask Auth directly rather than mint a
+            // fourth credential that cannot be exported. A null here is still
+            // tolerated -- holder_email is nullable and a missing address must
+            // never cost a candidate the credential they earned.
+            if (!holder_email) {
+              try {
+                const { data: userData } = await svc.auth.admin.getUserById(user_id);
+                holder_email = userData?.user?.email ?? null;
+              } catch (err) {
+                console.warn("holder email fallback failed:", err);
+              }
             }
 
             // The credential's locale is the language the FORM was served in -
@@ -729,6 +771,16 @@ serve(async (req) => {
                 certification_id: session.certification_id,
                 exam_attempt_id: attempt.id,
                 holder_name,
+                holder_email,
+                // BORN OWNED, SO BORN CLAIMED. The other half of migration 231
+                // that this insert never learned: claimed_at marks the moment a
+                // credential acquired its holder. For issue-to-email it is the
+                // signup that binds it; for an exam there is no gap -- user_id
+                // is known at mint. 231's own backfill said so:
+                // `set claimed_at = coalesce(claimed_at, issued_at) where
+                // user_id is not null`. Leaving it NULL makes an owned
+                // credential look permanently unclaimed.
+                claimed_at: now.toISOString(),
                 certification_name: cert.name,
                 certification_code: cert.code,
                 score_pct,
