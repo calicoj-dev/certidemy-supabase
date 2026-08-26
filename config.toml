@@ -597,3 +597,14 @@ verify_jwt = false
 # account for later.
 [functions.create-lti-platform]
 verify_jwt = true
+
+# Verifies an LTI 1.3 launch. THIS IS THE CODE THAT DECIDES WHETHER A LAUNCH IS
+# GENUINE.
+#
+# verify_jwt MUST be false. The caller is certidemy.com's /lti/launch route
+# handler, which holds no service_role and carries no Supabase JWT. The request
+# authenticates ITSELF: an RS256 id_token signed by the platform, verified
+# against a key chosen from a registration WE recorded at login time, bound to a
+# single-use state row. A Supabase JWT would prove nothing about any of that.
+[functions.lti-launch]
+verify_jwt = false
