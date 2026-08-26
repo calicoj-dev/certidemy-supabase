@@ -556,3 +556,22 @@ verify_jwt = false
 # body was not altered -- strictly stronger than a bearer token.
 [functions.resend-webhook]
 verify_jwt = false
+
+# The JSON Web Key Set an LTI 1.3 platform verifies our signed messages against.
+#
+# verify_jwt MUST be false, and this pin is the point. A JWKS that requires
+# authentication is not a JWKS: the platform fetches it server-to-server with no
+# credential of ours, at registration and again whenever it meets an unfamiliar
+# kid. If a redeploy drops the flag -- the recurring defect class this whole file
+# exists to prevent, already suffered by four functions -- every launch at every
+# institution fails signature verification at once, and the error names the
+# signature rather than the endpoint.
+[functions.lti-jwks]
+verify_jwt = false
+
+# Mints the platform-level RSA keypair Certidemy signs LTI messages with.
+# platform_admin, enforced in-function. Irreversible in the sense that matters:
+# a published kid is one an LMS may cache, so minting is audited in
+# admin_actions like every other act of that shape here.
+[functions.lti-mint-tool-key]
+verify_jwt = true
