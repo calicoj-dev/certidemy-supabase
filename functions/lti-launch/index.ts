@@ -401,13 +401,44 @@ serve(async (req) => {
     await observe(svc, platform.id, null, "releases_email", hasValue(ctx.email));
     await observe(svc, platform.id, null, "releases_name", hasValue(ctx.name));
     await observe(svc, platform.id, null, "aud_is_array", Array.isArray(audRaw));
-    await observe(
-      svc,
-      platform.id,
-      null,
-      "supports_deep_linking",
-      hasValue(ctx.deepLinking.returnUrl),
-    );
+
+    // MONOTONIC. Written only when the launch IS a deep-linking request, and
+    // never with false.
+    //
+    // It used to be `observe(..., hasValue(ctx.deepLinking.returnUrl))` on
+    // EVERY launch, which made it a property of the message rather than of the
+    // platform: a resource-link launch wrote false, a deep-linking launch wrote
+    // true, and the value tracked whatever the instructor last clicked. The
+    // lti-ri row read true only because the last three launches happened to be
+    // deep-linking; one more resource-link launch and the console would have
+    // said "No" for a platform proven to support it.
+    //
+    // "This launch was not deep linking" is not evidence that a platform cannot
+    // do deep linking. So the key now means WE HAVE SEEN THIS PLATFORM DO DEEP
+    // LINKING AT LEAST ONCE, and it never returns to false. A platform that
+    // stops supporting it is a re-registration, not a flip.
+    if (hasValue(ctx.deepLinking.returnUrl)) {
+      await observe(svc, platform.id, null, "supports_deep_linking", true);
+
+      // WHAT THE PLATFORM ADVERTISED, once per launch, at the moment the claim
+      // arrived. Recorded here rather than in lti-deep-link's context action,
+      // which runs on every picker render and would count one launch several
+      // times.
+      //
+      // ABSENT accept_types RECORDS NOTHING. A platform that did not advertise
+      // is unobserved, which is not the same as advertising no link -- the same
+      // distinction the four-state reader keeps everywhere else.
+      const acceptTypes = ctx.deepLinking.acceptTypes;
+      if (acceptTypes.status === "provided") {
+        await observe(
+          svc,
+          platform.id,
+          null,
+          "advertises_link_content_item",
+          acceptTypes.value.includes("link"),
+        );
+      }
+    }
     if (Object.keys(ctx.custom).length > 0) {
       await observe(
         svc,

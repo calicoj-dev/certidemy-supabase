@@ -181,10 +181,29 @@ serve(async (req) => {
     const acceptTypes: string[] | null = session.accept_types ?? null;
     if (acceptTypes !== null && !acceptTypes.includes("link")) {
       // Honest refusal rather than an item the platform will discard silently.
+      //
+      // RENAMED 2026-08-27, from accepts_link_content_item. The old name
+      // claimed something we can never know: deep linking has NO CALLBACK. We
+      // sign, the browser redirects, and the platform decides at its own end.
+      // We learned the 1EdTech reference implementation accepted our content
+      // item by reading their web page -- nothing about acceptance reaches us,
+      // and nothing ever will. So no honest `true` could mean "the platform
+      // took it". The most any value here can mean is what it ADVERTISED.
+      //
+      // The rename was free: the key had zero rows, because this was its only
+      // write site and it only ever fired on refusal. A one-sided recorder
+      // makes absence ambiguous -- "never checked" and "checked and fine" look
+      // identical. The true branch now lives in lti-launch, once per launch,
+      // where the accept_types claim actually arrives.
+      //
+      // THIS WRITE STAYS. A platform that did not advertise link and got
+      // refused is a real event, observed at the moment it mattered, and it is
+      // a second observation of a different thing: not what was advertised at
+      // launch, but what we hit when we tried to use it.
       await svc.rpc("lti_record_capability", {
         p_platform_id: session.platform_id,
         p_deployment_id: session.deployment_id,
-        p_key: "accepts_link_content_item",
+        p_key: "advertises_link_content_item",
         p_value: false,
         p_detail: null,
       }).then(undefined, () => {});
