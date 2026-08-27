@@ -47,11 +47,15 @@ launch, reference `4b8aca65-23ef-4833-94dc-7d24e000a631`.
 `https://lti-ri.imsglobal.org` is a hosted platform you register against. No
 Docker, no install. Sign in with GitHub or Google.
 
-**Free tier:** core launch is free. Whether Deep Linking is free or requires
-1EdTech membership is UNKNOWN -- their wording is *"IMS Members have access to
-the complete functionality of the tool including services and message types"*,
-and Deep Linking is a message type. Not established either way. Do a resource
-link launch first regardless: it proves everything except the picker.
+**Free tier:** core launch is free, **and so is Deep Linking** -- settled on
+2026-08-27 by doing it, with no 1EdTech membership. Their wording had suggested
+otherwise (*"IMS Members have access to the complete functionality of the tool
+including services and message types"*, and Deep Linking is a message type), so
+this was an open question and is no longer one.
+
+Do a resource link launch first regardless. It proves everything except the
+picker, in fewer steps, and it is what leaves `supports_deep_linking = false`
+for the flip in step 8 to be visible against.
 
 ## 1. Add Platform
 
@@ -229,6 +233,125 @@ cookies were blocked, which the design tolerates -- the authoritative check is
 the `lti_nonces` row. Either value is a real observation. An empty table is the
 bug.
 
+`supports_deep_linking false` above is the RESOURCE LINK launch's observation
+and it is correct for that message. It flips to `true` the first time a
+deep-linking launch arrives -- see step 8, and see the note there about the flip
+leaving no trace of itself.
+
+## 8. Deep Linking -- the other message type
+
+**Proven end to end on 2026-08-27.** This is the half that plants a link in a
+course, and it is the half an institution actually uses.
+
+### Deep links hang off a CONTEXT, not a resource link
+
+`.../platforms/{P}/contexts/{C}/deep_links`. Reach it from the context, the same
+one step 4 made you create.
+
+**There is nothing under the resource link that leads here, and looking there is
+the natural first move.** It is backwards: a resource link is what deep linking
+PRODUCES. You are not configuring an existing link, you are asking the platform
+to let you create one.
+
+### `/new` composes the request and offers a launch we refuse
+
+The New Deep Link form builds the request, and the button it offers next POSTs
+the `id_token` with **no `state`**. We refuse it: `missing_id_token_or_state`.
+
+**This is the same trap as the plain Launch button in step 5**, in a second
+place, and the refusal is correct for the same reason -- no `state` means no
+`lti_nonces` row, nothing binding the token to a flow we started, and no way to
+tell it from a replay. Both refusals were observed on the proving run.
+
+### "Send Request" on the INDEX page is the one that works
+
+Go back to `.../deep_links`. The request you just composed is listed there, with
+**Send Request**. That starts real OIDC -- our `/lti/login`, their
+authorization endpoint, our `/lti/launch` -- and it is the only path here that
+produces a verified launch.
+
+### What you should see
+
+The picker, in the iframe: all eleven certifications, **with checkboxes**,
+because this platform advertises `accept_multiple: true`. Radio buttons would
+mean it advertised a single item, and that is a real difference read per launch,
+not a setting.
+
+### After submitting, click through their add-course step
+
+They render the returned content items and then ask you to add them. **Click
+through it** -- the confirmation is the page that follows:
+
+```
+The following Resource Links were created
+
+Title            AI Essentials I
+Resource URL     https://certidemy.com/en/certifications/aie-i
+Deep Link Type   link
+```
+
+**`Deep Link Type: link` is the row that matters.** That is the content item
+type we plant, accepted verbatim. A platform advertising only `ltiResourceLink`
+cannot take it, and the picker refuses that up front rather than returning
+something the platform discards silently.
+
+Note they turned our `link` item into a Resource Link of their own. That is the
+platform's business, not ours.
+
+### Expected rows
+
+| Table | Expected |
+|---|---|
+| `lti_launch_sessions` | the session for THAT launch has `consumed_at` NOT NULL |
+| `lti_launch_skeleton` | **two** new rows: `deep_linking_ok`, then `deep_link_returned` |
+| `lti_capabilities` | `supports_deep_linking` = `true` |
+| `lti_deployments` | still 1 row, `last_seen_at` bumped, `first_seen_at` UNCHANGED |
+
+**Two skeleton rows, not one.** The inbound `LtiDeepLinkingRequest` and the
+outbound `LtiDeepLinkingResponse` are separate facts, and the second is the only
+record that we answered at all.
+
+**Count your launches before reading `lti_launch_sessions`.** An abandoned
+picker leaves a perfectly good unconsumed session behind, and on the proving run
+there were three deep-linking sessions and only the last was consumed. An
+unconsumed row is not a failure; it is somebody who did not choose.
+
+### Observed 2026-08-27
+
+```
+skeleton   15:49:19  LtiDeepLinkingRequest   deep_linking_ok      delta 3s
+skeleton   15:49:37  LtiDeepLinkingResponse  deep_link_returned
+session    9563ee97  consumed_at 15:49:37
+deployment 1         first_seen 14:50:15 (unchanged)  last_seen 15:49:18
+```
+
+`claim_presence` on the request: `deep_linking_settings` true, `custom` true,
+`custom_unsubstituted` false, `product_family_code` **false** -- this platform
+sends no vendor name, which is recorded and, per the architecture, never
+branched on.
+
+### The `data` echo -- what migration 259 exists for
+
+Their request carried `deep_linking_settings.data` =
+`"Some random opaque data that MUST be sent back"`, it is stored on the session,
+and the signing path adds
+`https://purl.imsglobal.org/spec/lti-dl/claim/data` whenever that column is
+non-empty. They accepted the response.
+
+**That is code-level plus acceptance, not a captured wire copy.** Our skeleton
+row for the response records `content_items` and a count and says NOTHING about
+whether the echo went. On a platform that rejects at its own end -- the exact
+failure 259 was written to prevent -- we could not answer "did we send `data`
+back?" from our own records. To see it on the wire, read the response JWT on
+their `deep_links` page.
+
+### Replay defence, unprompted
+
+Two `nonce_consumed` refusals landed at 15:48:59 and 15:49:03, from a back or a
+refresh on an already-consumed launch. **Nothing asked for that test and it is
+the first time it has fired.** A consumed nonce is refused, which is the whole
+point of consuming it.
+
 ---
 
 # PART TWO -- a real Moodle
@@ -297,9 +420,15 @@ generalise the bare-string case from Part One.
 
 Add the preconfigured tool to a course and open it as an instructor.
 
-**Expect the deep-linking path**, which is NOT proven anywhere yet: the picker
-at `/lti/select`, a choice, and a signed response planting a link to
-`/{locale}/certifications/<code>`.
+**Expect the deep-linking path**: the picker at `/lti/select`, a choice, and a
+signed response planting a link to `/{locale}/certifications/<code>`.
+
+**Proven against lti-ri, not against Moodle.** Part One step 8 is the reference
+for what the rows should look like. What is genuinely untested here is Moodle's
+own half -- where it puts the picker, what it does with a `link` content item,
+and whether it sends `deep_linking_settings.data` at all. **It does not**, which
+is why that echo went unnoticed long enough to need migration 259: Moodle would
+have made this path look finished.
 
 A student clicking that link reaches the public certification page and needs no
 session. A student launching the TOOL reaches the "student launch is not
@@ -360,8 +489,26 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
 
 - **No edit action for a registration.** A wrong value needs raw SQL.
   `update-lti-platform` is planned; until then, correct `lti_platforms` directly.
-- **Deep linking is unproven anywhere.** Picker, signing, `deep_link_data` echo
-  and session consumption are all reviewed and not tested.
+- **SETTLED 2026-08-27 -- deep linking is proven** against lti-ri: picker,
+  signing, session consumption and the platform accepting the response. See
+  Part One step 8. Not proven against Moodle.
+- **We do not record whether the `data` echo was sent.** The skeleton row for an
+  `LtiDeepLinkingResponse` carries `content_items` and a count and nothing about
+  the echo, so on a platform that rejects our response at its own end -- the
+  precise failure migration 259 exists to prevent -- we could not answer "did we
+  send `data` back?" from our own records. The claim is included whenever the
+  column is non-empty, but that is a fact about the code, not evidence about a
+  launch.
+- **A capability flip leaves no trace of having flipped.**
+  `lti_record_capability` overwrites `value` and increments
+  `observation_count` unconditionally, so `observation_count` counts
+  observations of the KEY, not of the current value, and there is no
+  `first_observed_true_at` or previous value. `supports_deep_linking` reads
+  `true, 4` and nothing says it was ever `false`; the only record of the change
+  is a `resource_link_unsupported` skeleton row from an hour earlier. That is a
+  gap in exactly the place the variance architecture cares most about -- a Tier
+  C capability written at runtime by the code that discovers the limitation,
+  where the flip IS the interesting event.
 - **Unexercised checks:** the `azp` branch (needs an array `aud`),
   `unsubstituted` custom variables, `accept_multiple = false`,
   `link_type_not_accepted`, the noscript submit button, and every JWKS error
