@@ -111,10 +111,17 @@ hardcoded English if it did not — and a reference id that resolves to a real
 
 ## 3. What the reference implementation taught, all of it recorded
 
-`LTI-SETUP.md` is the runbook. Part One is marked **proven** and dated; Part Two
-(Moodle) carries a banner saying it is written from the specification and not yet
-executed, because a runbook that reads as proven when it isn't is worse than
-none.
+`LTI-SETUP.md` is the runbook. Part One is marked **proven** and dated. **Part
+Two was executed against Moodle 5.2 on 2026-08-27** and now carries its own
+dated marker — one that deliberately refuses Part One's verb. Registration,
+OIDC, RS256 verification and the deep-linking request are proven; **planting
+content is not**, because Moodle 5.2 accepts only `ltiResourceLink` and we build
+a `link`.
+
+The reasoning that put the original "not yet executed" banner there is why the
+replacement says EXECUTED rather than PROVEN: a runbook that reads as proven
+when it isn't is worse than none, and that applies to the half of Part Two that
+still does not work.
 
 Each of these presents as something other than what it is:
 
