@@ -128,6 +128,16 @@ users live (their `/users` endpoint 502s). For deep linking it is *"Send
 Request"* on the deep links **index**. The pattern: one page composes, another
 sends.
 
+**And that button is only the first of four.** Corrected 2026-08-27: the
+resource-link sequence is *Launch Resource Link (OIDC)* → *Post request* →
+*Launch Resource Link* → *Perform Launch*, across four pages, **with our own
+`/lti/login` between the second and third** — it mints `state` and `nonce` and
+302s to their authorization URL. So a Certidemy refusal can appear mid-sequence,
+on what looks like a dead end, when the reader has no reason to think they are
+halfway through. `LTI-SETUP.md` step 5 has it; step 8 records that the
+equivalent labels for deep linking were never read off the screen and refuses to
+guess them.
+
 **Deep links hang off a context, not a resource link.** Looking under the
 resource link is the natural first move and it is backwards — a resource link is
 what deep linking *produces*.

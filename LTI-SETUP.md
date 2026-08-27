@@ -137,9 +137,10 @@ Create the Context first. **Type of context: `CourseSection`.**
 
 Then create the Resource Link inside it.
 
-## 5. Launch -- and use the right button
+## 5. Launch -- the right button, and then three more pages
 
-There are two, and only one works.
+There are two buttons and only one works. Then the one that works is **not a
+single click**.
 
 **The plain "Launch" button POSTs the `id_token` with NO `state`.** We refuse
 it: `missing_id_token_or_state`, recorded in the skeleton with a null
@@ -147,9 +148,40 @@ it: `missing_id_token_or_state`, recorded in the skeleton with a null
 `lti_nonces` row, so nothing binds the token to a flow we started, and it cannot
 be told from a replay.
 
-**The OIDC path is "Launch Resource Link (OIDC)", on the resource link's ROSTER
-page.** The roster is where their generated users live, and a launch needs a
-user. Their `/users` endpoint **502s**; the roster page is the way in.
+**The OIDC path starts on the resource link's ROSTER page.** The roster is where
+their generated users live, and a launch needs a user. Their `/users` endpoint
+**502s**; the roster page is the way in.
+
+### It is FOUR actions across four pages
+
+This is the correction that matters most in this section. The first version of
+this file named only the roster button, which reads as though that button
+performs the launch. **It does not** -- three more pages follow it, and someone
+who stops after the first one has done nothing wrong and will reasonably
+conclude the integration is broken.
+
+1. **Launch Resource Link (OIDC)** -- on the ROSTER page.
+2. **Post request** -- on the parameters page.
+3. **Launch Resource Link** -- on the authorization page.
+4. **Perform Launch**.
+
+### The invisible hop is between 2 and 3, and it is ours
+
+**"Post request" does not go to their authorization page. It goes to US.**
+
+It posts to `/lti/login`, where we look the registration up by `(iss,
+client_id)`, mint the `state` and `nonce`, write the `lti_nonces` row, and 302
+to the authorization URL from the registration -- which is what renders page 3.
+
+So there is a moment, between clicking a button on their site and seeing their
+next page, when **the browser is on certidemy.com**. If anything is wrong with
+the registration, that is where it surfaces: a Certidemy refusal page appears
+mid-sequence, on what looks like a dead end, at a point the reader has no reason
+to think they are only halfway through.
+
+`unregistered_platform` here means the `iss` or `client_id` does not match --
+see step 1 on the Audience field. It does NOT mean the launch failed at their
+end, and it does not mean you have finished.
 
 ## 6. Register it in Certidemy
 
@@ -263,12 +295,28 @@ place, and the refusal is correct for the same reason -- no `state` means no
 `lti_nonces` row, nothing binding the token to a flow we started, and no way to
 tell it from a replay. Both refusals were observed on the proving run.
 
-### "Send Request" on the INDEX page is the one that works
+### "Send Request" on the INDEX page is the one that starts it
 
 Go back to `.../deep_links`. The request you just composed is listed there, with
-**Send Request**. That starts real OIDC -- our `/lti/login`, their
-authorization endpoint, our `/lti/launch` -- and it is the only path here that
-produces a verified launch.
+**Send Request**. That is the entry point to real OIDC -- our `/lti/login`,
+their authorization endpoint, our `/lti/launch` -- and it is the only path here
+that produces a verified launch.
+
+**IT IS A MULTI-PAGE SEQUENCE, THE SAME SHAPE AS STEP 5**, and this section
+originally described it as one click for the same reason step 5 did. Expect a
+parameters page, a post back through `/lti/login`, and an authorization page
+before the picker appears.
+
+**The intermediate button labels for THIS message type were not recorded on the
+proving run and are not written here.** Step 5's are named because they were
+read off the screen; these were not, and inventing four plausible labels is how
+this file got `iss` wrong the first time -- a shape generalised from one example
+rather than observed. Read them off the screen on the next deep-linking launch
+and name them here.
+
+What you can rely on: the hop through `/lti/login` sits in the middle, exactly
+as in step 5, so a Certidemy refusal appearing partway through means the
+registration did not match -- not that deep linking failed.
 
 ### What you should see
 
