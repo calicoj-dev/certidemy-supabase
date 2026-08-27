@@ -477,6 +477,19 @@ verify separately that writes landed.
 **Post-conditions name a property, not a count.** Wrong expected counts have
 caused far more false aborts than real catches.
 
+**And assert BOTH DIRECTIONS of the property — the sharper form of the same
+rule.** Asserting only that a change landed where it should passes cleanly on a
+change that ALSO landed where it should not, and over-application is a real
+failure mode rather than a theoretical one. The negative half is what catches
+it.
+
+Migration 261 is the worked example: it asserts `granted 12` **and**
+`ungranted 1`, then names the column that must still be ungranted
+(`last_detail`) rather than trusting the totals. The positive half alone would
+have passed on a grant that opened all thirteen. Whenever a property has a
+negative half, name it — the columns that must stay ungranted, the rows a
+backfill must not touch, the writers that must not change.
+
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."
 

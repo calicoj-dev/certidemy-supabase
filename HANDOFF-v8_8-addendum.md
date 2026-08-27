@@ -268,7 +268,8 @@ row behind. That is somebody who did not choose.
 
 ## 6. Open, in order
 
-1. **SETTLED 2026-08-27 — `update-lti-platform` ships**, admin-gated, with an
+1. **SETTLED 2026-08-27 — `update-lti-platform` ships in `54284b8`**,
+   admin-gated, with an
    `admin_actions` before/after diff, a named 409 excluding its own row, and
    `product_family_code` cleared when `iss` or `client_id` actually changes (the
    open question below, answered yes). Migration **260** gave
@@ -279,7 +280,10 @@ row behind. That is somebody who did not choose.
    lti-ri actually sends. Both halves now share
    `functions/_shared/lti-registration.ts`. **Deactivation exercises
    `lti-login`'s status filter, NOT `lti-launch`'s `platform_inactive`** — see
-   §5. Original entry follows.
+   §5. **The console has an edit action from that commit**, which is what
+   `LTI-SETUP.md` Part Two's reset box means when it says the fix for a stale
+   `client_id` is Edit rather than a new registration — that reference is
+   correct and this list was the stale half. Original entry follows.
 
    ~~there is no edit action for a registration, so a
    wrong value needs raw SQL. This bit on the very first registration.~~ Editable:
