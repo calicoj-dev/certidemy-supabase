@@ -51,14 +51,24 @@ custom variables, `accept_multiple = false`, `link_type_not_accepted`, the
 `noscript` submit button, every JWKS error code, and `--force` on
 `lti-mint-key.mjs`.
 
-**And one that reads as proven and is not: the iframe.** lti-ri **navigates**
+**And one that read as proven and was not: the iframe.** lti-ri **navigates**
 the top-level window rather than embedding us, so `certidemy.com` is first-party
 for the entire flow. `state_cookie_survives` read `true` across eight launches
 **with third-party cookies blocked in Chrome** — the setting did not apply
-rather than failing to bite. The third-party-cookie branch the design tolerates
-cannot be produced on this rig at all, and the picker has only ever rendered
-top-level, never in the hostile frame its own header is written against. A real
-Moodle displaying the tool in an embedded frame is what tests it.
+rather than failing to bite.
+
+**PARTLY SETTLED 2026-08-27 against Moodle 5.2, launch container Embed.** We
+rendered inside a real LMS iframe in Chrome, the page was legible with no CSP or
+`X-Frame-Options` interference — the web-side header audit confirmed from a real
+browser rather than a datacentre curl — and `state_cookie_survives` read `true`,
+4 of 4, in a genuine third-party frame.
+
+**Only one of the two propositions closed.** The frame is tested. **The
+cookie-blocked case is not:** Chrome allowed the cookie, so the flip never
+happened, and **the `false` branch of that tri-state has never been observed
+anywhere, on any platform, in any browser.** Safari is where it is expected and
+it remains untested. "The iframe is now tested" must not collapse into "the
+cookie-blocked case is now tested" — they are one browser apart.
 
 ---
 

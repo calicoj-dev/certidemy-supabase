@@ -266,7 +266,8 @@ the `lti_nonces` row. Either value is a real observation. An empty table is the
 bug.
 
 **AND `true` HERE PROVES NOTHING ABOUT THIRD-PARTY COOKIES. THIS RIG CANNOT
-TEST THEM.**
+TEST THEM.** (Part Two now tests the frame. It does not test the blocked
+cookie -- see the end of this section.)
 
 Observed 2026-08-27: `state_cookie_survives` stayed `true` across eight
 launches **with third-party cookies BLOCKED in Chrome**. That is not the browser
@@ -286,9 +287,29 @@ frame.** Until then, that branch is written, tolerated by design, and untested.
 The same limit applies to everything the picker's own header worries about. It
 describes an LMS iframe as "the most hostile rendering context we ship to" --
 blocked storage, restrictive CSP, ancient embedded browsers -- and **on this rig
-the picker has only ever rendered top-level.** The no-client-JavaScript
-decision is still right; it has simply never been under the pressure it was made
-for.
+the picker has only ever rendered top-level.**
+
+### UPDATED 2026-08-27 -- the frame was tested, the blocked cookie was not
+
+Part Two ran against Moodle 5.2 with the launch container set to **Embed**, so
+the following are no longer open:
+
+- **The iframe was exercised.** We rendered inside a real LMS frame in Chrome.
+- **The page rendered legibly** -- no CSP or `X-Frame-Options` interference,
+  confirming the web-side header audit from a real browser rather than a
+  datacentre curl.
+- `state_cookie_survives` read **`true`, 4 of 4, in that genuine third-party
+  iframe.**
+
+**THESE ARE TWO DIFFERENT PROPOSITIONS AND ONLY ONE OF THEM CLOSED.** The frame
+is tested. The **cookie-blocked** case is not: Chrome allowed the cookie in that
+context, so the flip never happened. **The `false` branch of that tri-state has
+still never been observed anywhere, on any platform, in any browser.**
+
+**Safari is where `false` is expected and it remains untested.** Do not let "the
+iframe is now tested" collapse into "the cookie-blocked case is now tested" --
+they are one Embed setting apart and one browser apart, and only the first of
+those two has been changed.
 
 `supports_deep_linking false` above is the RESOURCE LINK launch's observation
 and it is correct for that message. It flips to `true` the first time a
@@ -466,17 +487,41 @@ point of consuming it.
 
 # PART TWO -- a real Moodle
 
-> ## WRITTEN FROM THE SPECIFICATION AND NOT YET EXECUTED
->
-> **Nothing below has been run.** Part One is proven; this is not. Field names,
-> menu paths and Moodle's own behaviour are from documentation, and Moodle's
-> configuration differs between versions.
->
-> **The first real Moodle registration is the thing that validates this half.**
-> Whoever does it should correct this section from what they actually see, and
-> move this banner when they have.
+**Status: EXECUTED against a real Moodle on 2026-08-27** -- Moodle 5.2, public
+sandbox. Registration, OIDC, RS256 verification and the deep-linking request are
+proven. **Planting content is not, and cannot be with what we currently build:**
+Moodle 5.2 accepts only `ltiResourceLink` and we produce a `link`. The picker
+refuses, legibly, and nothing reaches the course. See step 8.
 
-## 1. Moodle -> create the tool
+> ### THE SANDBOX RESETS EVERY HOUR, ON THE HOUR
+>
+> `https://sandbox.moodledemo.net` wipes to blank at the top of every hour.
+> **Do the whole sequence in one sitting.** Starting at :55 means rebuilding
+> from step 1.
+>
+> **What survives the reset is asymmetric, and that is the part that catches
+> you.** Our `lti_platforms` row is in our database and survives. Their tool is
+> in theirs and does not. Rebuilding the tool produces a **NEW `client_id`**,
+> so the registration that survived now points at a tool that no longer exists.
+>
+> **The fix is Edit on the registration card, not a new registration.**
+> Re-registering succeeds -- a new `client_id` makes a new `(iss, client_id)`
+> pair, so nothing collides and nothing warns -- and leaves you with two rows
+> for one institution, one of which matches no launch that will ever arrive.
+> This is `update-lti-platform`'s first real use case.
+
+## 1. Enable the External tool activity module
+
+**Site administration -> Plugins -> Activity modules.** The **External tool**
+module ships **DISABLED** on this Moodle.
+
+**Do this before anything else**, because the symptom has no error in it.
+Until the module is enabled, neither External tool nor your preconfigured tool
+appears in the activity chooser. The tool is correctly configured, the
+registration is correct, both sides are right, and there is simply nothing to
+click. Nothing says why.
+
+## 2. Moodle -> create the tool
 
 **Site administration -> Plugins -> Activity modules -> External tool -> Manage
 tools -> configure a tool manually.**
@@ -490,8 +535,23 @@ tools -> configure a tool manually.**
 | Public keyset | `https://certidemy.com/lti/jwks` |
 | Initiate login URL | `https://certidemy.com/lti/login` |
 | Redirection URI(s) | `https://certidemy.com/lti/launch` |
+| **Supports Deep Linking (Content-Item Message)** | **CHECKED** |
+| **Content Selection URL** | `https://certidemy.com/lti/launch` |
 | Tool configuration usage | Show as preconfigured tool |
-| Default launch container | New window |
+| Default launch container | New window -- **see step 5** |
+
+**THE TWO BOLD ROWS ARE REQUIRED AND WERE MISSING FROM THIS TABLE.** Without
+them there is no picker at all. Deep linking is not something Moodle infers from
+the request; it is a checkbox and a second URL on the tool definition, and a
+tool without them can only ever send `LtiResourceLinkRequest`.
+
+### Half these fields are hidden behind "Show more..."
+
+In the **Tool settings** section. **Custom parameters**, **Tool configuration
+usage** and **the deep linking fields** are all behind it.
+
+Worth naming because the fields do not look collapsed -- they look absent, and
+the natural conclusion is that this Moodle version does not have them.
 
 **Services: leave IMS LTI Assignment and Grade Services and Names and Role
 Provisioning OFF.** Phase 1 implements neither, and advertising a service we do
@@ -501,7 +561,7 @@ not answer is a difference that ends up in a capability row.
 picker is instructor-facing and needs no identity -- but phase 2 will, and an
 institution that withholds them is a case worth knowing about early.
 
-## 2. Moodle -> read back three values
+## 3. Moodle -> read back three values
 
 **Manage tools -> View configuration details** on the tool you created.
 
@@ -511,53 +571,213 @@ institution that withholds them is a case worth knowing about early.
   auto-register on first launch. Entering one is neither necessary nor possible
   in our form.
 
-Endpoints, derived from the site URL:
+Endpoints, observed 2026-08-27:
 
 ```
-authorization   https://<site>/mod/lti/auth.php
-token           https://<site>/mod/lti/token.php
-jwks            https://<site>/mod/lti/certs.php
+authorization   https://sandbox.moodledemo.net/mod/lti/auth.php
+token           https://sandbox.moodledemo.net/mod/lti/token.php
+jwks            https://sandbox.moodledemo.net/mod/lti/certs.php
 ```
 
-## 3. Certidemy -> register
+The sandbox is `https://sandbox.moodledemo.net`; `demo.moodle.net` redirects
+there. Credentials `admin` / `sandbox24`.
+
+## 4. Certidemy -> register
 
 Same form as Part One step 6. `iss` is the Platform ID.
 
-**Unlike the reference implementation, Moodle's `iss` IS a URL.** Do not
-generalise the bare-string case from Part One.
+**Worked example, the registration proven on 2026-08-27:**
 
-## 4. Launch
+```
+name        Moodle sandbox 5.2
+iss         https://sandbox.moodledemo.net
+auth        https://sandbox.moodledemo.net/mod/lti/auth.php
+token       https://sandbox.moodledemo.net/mod/lti/token.php
+jwks        https://sandbox.moodledemo.net/mod/lti/certs.php
+```
+
+`client_id` is whatever that hour's tool produced -- see the reset box.
+
+**Unlike the reference implementation, Moodle's `iss` IS a URL**, confirmed on
+the wire. Do not generalise the bare-string case from Part One, and do not
+generalise this one either: `iss` is an identifier and its shape is the
+platform's business.
+
+## 5. Launch -- and it is TWO launches, not one
 
 Add the preconfigured tool to a course and open it as an instructor.
 
-**Expect the deep-linking path**: the picker at `/lti/select`, a choice, and a
-signed response planting a link to `/{locale}/certifications/<code>`.
+### The activity page is not the launch
 
-**Proven against lti-ri, not against Moodle.** Part One step 8 is the reference
-for what the rows should look like. What is genuinely untested here is Moodle's
-own half -- where it puts the picker, what it does with a `link` content item,
-and whether it sends `deep_linking_settings.data` at all. **It does not**, which
-is why that echo went unnoticed long enough to need migration 259: Moodle would
-have made this path look finished.
+With **Default launch container: New window**, opening the activity renders a
+page containing an **"Open in new window"** link. **Nothing has launched yet.**
+The launch is a second click, on a second page.
 
-A student clicking that link reaches the public certification page and needs no
-session. A student launching the TOOL reaches the "student launch is not
-available yet" page.
+**This is the same single-click error corrected twice in Part One**, now in a
+third place -- and unlike those two it is not a trap in somebody else's UI, it
+was written into this runbook. The previous text said "open it as an instructor"
+and stopped there.
 
-Verify with the same queries as Part One step 7, plus:
+### Embed is the second launch, and the frame is the real test
+
+Set **Default launch container: Embed** and reopen the activity. That renders us
+**in an iframe**, which is the configuration a real institution is most likely
+to use and the only one that tests anything about being framed.
+
+**Do both.** New window proves the launch; Embed proves it survives a frame.
+Part One cannot test this at all -- lti-ri navigates top-level and has no
+equivalent setting (Part One step 7).
+
+## 6. Reaching the deep-linking picker
+
+**It is on an EXISTING activity, not on the creation form.**
+
+**Course activity -> Settings tab -> General -> Content -> "Select content".**
+
+That is the whole path, and nothing on the activity creation form leads to it.
+You create the activity first, then open its settings, then select content into
+it.
+
+### TRAP: "Add tool" builds a second registration, it does not open a picker
+
+**Course -> More -> LTI External tools -> "Add tool"** looks exactly like the
+affordance you want and is not.
+
+It creates a **second, course-scoped tool definition from scratch**, defaulting
+to **LTI 1.0/1.1 with a consumer key and shared secret**. Filling it in builds a
+duplicate registration that our platform row knows nothing about, on a version
+of LTI we do not implement.
+
+**Cancel out of it.** The tell is the LTI version dropdown: if you are being
+asked for a consumer key, you are creating a tool, not choosing content from one.
+
+### TRAP: the padlock in that table is a status indicator, not a menu
+
+Same table, **Actions** column. It means **"site-defined, not editable here"**.
+
+It is not a control. Clicking it reports a permission error, which reads as
+"you lack a privilege" when the truth is "this is not a button". It sits exactly
+where a row-actions menu would sit.
+
+## 7. Verify the rows -- what four launches actually wrote
+
+Same queries as Part One step 7, plus the session:
 
 ```sql
-select message_type, deep_link_return_url, accept_types, accept_multiple,
+select message_type, accept_types, accept_multiple, document_targets,
        locale, deep_link_data, consumed_at
 from lti_launch_sessions;
 ```
 
-Expect one row with `consumed_at` NOT NULL after the response is sent, and
-`accept_types` containing `link`.
+### Observed 2026-08-27, four launches
 
-**The one failure with no telemetry on our side:** if the platform rejects our
-signed response, that rejection happens entirely at their end. Nothing is
-written here. Whether Moodle shows the planted link is the only signal.
+Three `LtiResourceLinkRequest`, one `LtiDeepLinkingRequest`.
+`clock_delta_seconds` **0, 1, 3, 1**.
+
+```
+product_family_code           moodle
+advertises_link_content_item  false  0 of 1
+aud_is_array                  false  0 of 4
+custom_vars_substituted       false  0 of 4
+releases_email                true   4 of 4
+releases_name                 true   4 of 4
+state_cookie_survives         true   4 of 4
+supports_deep_linking         true   1 of 1
+```
+
+**`product_family_code = 'moodle'` is the first non-null value that column has
+ever held.** lti-ri sent an empty string and the tolerant reader correctly wrote
+NULL (Part One, closing notes). This is the first platform to actually fill it,
+and it is still never branched on.
+
+**`custom_vars_substituted = false` is the first observation of that value
+anywhere.** `$Canvas.user.sisSourceId` came back as its own literal -- a Canvas
+variable Moodle has no idea about -- and the `UNSUBSTITUTED` regex in
+`_shared/lti-jwt.ts` caught it. That state was designed for a case nobody had
+seen; this is the case.
+
+**`state_cookie_survives = true, 4 of 4, IN A GENUINE THIRD-PARTY IFRAME** in
+Chrome. The flip did not happen: this browser allows the cookie. **Safari is
+where `false` is expected, and it has not been tested** -- so the `no` branch of
+that tri-state has still never been observed anywhere. See step 8 of Part One's
+Known gaps.
+
+**The refusal page rendered correctly inside the Moodle iframe** -- legible, no
+CSP or `X-Frame-Options` interference. That confirms the web-side header audit
+**from a real browser in a real LMS frame** rather than from a datacentre curl,
+which is a different claim.
+
+### The row that lies, and knowing it before you read it
+
+The deep-linking launch wrote `outcome = 'deep_linking_ok'`, `error_code` null
+-- **and the picker then refused it.** See step 8.
+
+That is not a bug in the row: `lti-launch` writes it the moment the request
+verifies and a session is recorded, which is before any content selection
+exists. But **it is written once and never revised**, and every refusal after
+verification writes nothing at all. So the skeleton table currently says this
+Moodle launch succeeded.
+
+The fact IS recorded, in the other table:
+`advertises_link_content_item = false`. When these two disagree, the capability
+row is the one that knows.
+
+## 8. WHERE IT STOPS -- Moodle accepts only `ltiResourceLink`
+
+**This is the finding that decides the status marker at the top.**
+
+Everything through verification works. The picker page then renders **"This
+course cannot take the link"** and nothing is added to the course.
+
+### The two platforms advertise different things
+
+Observed verbatim:
+
+| claim | Moodle 5.2 | 1EdTech reference |
+|---|---|---|
+| `accept_types` | `["ltiResourceLink"]` | `["link","file","html","ltiResourceLink","image"]` |
+| `document_targets` | `["frame","iframe","window"]` | `["iframe","window","embed"]` |
+| `accept_multiple` | `true` | `true` |
+| `deep_linking_settings.data` | **null** | `"Some random opaque data that MUST be sent back"` |
+
+**lti-ri accepts five content-item types and Moodle accepts one.** Every
+deep-linking run before this one took the `link` path because lti-ri happened to
+allow it. We build a `link` content item; Moodle will not take one; the picker
+refuses up front rather than returning something the platform would discard
+silently.
+
+**`document_targets` diverges too**, which nobody predicted -- a second Tier A
+difference on the same claim, found by reading the row rather than by reasoning
+about the specification.
+
+### The capability pair says it exactly
+
+```
+supports_deep_linking         true   1 of 1
+advertises_link_content_item  false  0 of 1
+```
+
+**Deep linking works at this platform. Our content item does not.** That is the
+first `false` `advertises_link_content_item` has ever taken, and **the first
+time the pair has disagreed** -- on lti-ri both read true. Two keys were needed
+precisely because these are two different facts, and this is the launch that
+proved it.
+
+### Moodle does not send `deep_link_data`, exactly as predicted
+
+Confirmed `null`. So migration 259's echo path stays **unexercised here**, which
+is the whole reason lti-ri was needed to prove it: a Moodle-only test would have
+left that column looking finished and untested. See Part One step 8.
+
+### What this costs, and where it goes
+
+An `ltiResourceLink` content item points back at **our own launch URL**, so the
+next thing Moodle does with one is send a **student** through it. That lands
+directly in the entitlement question and in `profiles.email` being NOT NULL
+UNIQUE.
+
+**So this is not a small compatibility patch: it IS phase 2**, and it is settled
+on paper before any code. It is the top open item.
 
 ---
 
@@ -619,13 +839,25 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
   gap in exactly the place the variance architecture cares most about -- a Tier
   C capability written at runtime by the code that discovers the limitation,
   where the flip IS the interesting event.
-- **THE IFRAME HAS NEVER BEEN EXERCISED, and it cannot be here.** lti-ri
-  navigates top-level rather than embedding, so `state_cookie_survives = true`
-  across eight launches was measured with third-party cookies blocked and means
-  nothing about them. The picker has only ever rendered top-level. Blocked
-  third-party storage, a restrictive CSP and the whole hostile-frame case the
-  no-JavaScript decision was made for are untested. A real Moodle set to display
-  the tool in an embedded frame is what produces them. See step 7.
+- **PARTLY SETTLED 2026-08-27 -- the frame is tested, the blocked cookie is
+  not.** Part Two ran against Moodle 5.2 with the launch container set to
+  Embed: we rendered inside a real LMS iframe in Chrome, the page was legible
+  with no CSP or `X-Frame-Options` interference, and `state_cookie_survives`
+  read `true`, 4 of 4, in that genuine third-party frame. **What is still open
+  is the other half:** Chrome allowed the cookie, so the flip never happened,
+  and **the `false` branch of that tri-state has never been observed anywhere,
+  on any platform, in any browser.** Safari is where it is expected and it is
+  untested. lti-ri cannot produce it at all -- it navigates top-level. See
+  Part One step 7 and Part Two step 7.
+- **`link_type_not_accepted` is still unexercised even though Moodle triggered
+  the condition.** Two guards cover it and only the quieter one ran: the picker
+  refuses on `accepts_link === false` before anything can be submitted, so
+  `lti-deep-link`'s own refusal -- the one that records a capability -- is never
+  reached. See Part Two step 8.
+- **Every refusal after verification writes no `lti_launch_skeleton` row.** The
+  Moodle deep-linking launch reads `deep_linking_ok` while the picker refused
+  it. `outcome` is written once, at verification, and never revised. The
+  capability row is the one that knows. See Part Two step 7.
 - **Unexercised checks:** the `azp` branch (needs an array `aud`),
   `unsubstituted` custom variables, `accept_multiple = false`,
   `link_type_not_accepted`, the noscript submit button, and every JWKS error
