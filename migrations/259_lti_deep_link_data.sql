@@ -1,0 +1,94 @@
+-- 259_lti_deep_link_data.sql
+--
+-- One column: lti_launch_sessions.deep_link_data.
+--
+-- Editor-first: this ran live in the SQL editor on 2026-08-26. The file is the
+-- record of what already ran. No function body, so no md5 -- section 3 records
+-- the observed column definition.
+--
+-- ============================ WHAT IT IS =================================
+--
+-- deep_linking_settings.data is an OPAQUE STRING a platform may include in an
+-- LtiDeepLinkingRequest, and the specification requires it echoed back verbatim
+-- in the LtiDeepLinkingResponse. It is the platform's own correlation handle
+-- between the request it made and the response it gets. It means nothing to us
+-- and is never interpreted, trimmed, defaulted or logged.
+--
+-- ============================ WHY IT WAS MISSED, AND WHY THAT MATTERS ====
+--
+-- 257 built lti_launch_sessions with every field the picker needs and not this
+-- one, because this one is OPTIONAL and MOODLE DOES NOT SEND IT.
+--
+-- That combination is the whole lesson. Deep linking would have worked
+-- perfectly against the platform we were about to test with, and then failed
+-- against the first platform that does send a `data` value -- and failed in the
+-- worst possible place: THE PLATFORM REJECTS OUR RESPONSE AT ITS OWN END, where
+-- we never see the rejection. No callback, no error reaching us, no row in
+-- lti_launch_skeleton. An institution would report "adding the link does
+-- nothing" and there would be nothing on our side to look at.
+--
+-- That is precisely the failure shape the variance architecture exists to
+-- prevent: a difference between platforms that we discover from what they
+-- actually send rather than from what the specification says they should. The
+-- difference here is that this one is knowable in advance from the spec, so
+-- there was no excuse for finding it later.
+--
+-- It was named in a header before it was fixed, and NAMED-BUT-UNFIXED WAS THE
+-- WRONG PLACE TO LEAVE IT. A header note is where a known defect goes to be
+-- forgotten; a one-column migration is smaller than the note explaining why the
+-- column is missing.
+--
+-- ============================ NULLABLE, AND STAYS NULL ===================
+--
+-- The claim is optional, so absent must remain absent. lti-launch stores it
+-- through the four-state reader in _shared/lti-jwt.ts and writes NULL rather
+-- than "" when the platform sent nothing, and lti-deep-link OMITS the claim
+-- entirely from the signed response rather than sending null or an empty
+-- string.
+--
+-- A platform that sent nothing has nothing to correlate. An empty string would
+-- be a value where there was none -- the same distinction the tolerant reader
+-- keeps on the way in, kept on the way out.
+--
+-- ASCII only (CERT-SCHEMA-GUIDE section 8).
+-- Idempotent.
+
+-- ---------------------------------------------------------------------------
+-- 1. The column.
+-- ---------------------------------------------------------------------------
+
+alter table public.lti_launch_sessions
+  add column if not exists deep_link_data text;
+
+-- ---------------------------------------------------------------------------
+-- 2. No grant follows, and that is not an omission.
+--
+--    lti_launch_sessions has no grant to anon or authenticated at all (257) --
+--    it is read by an edge function under service_role, because there is no
+--    authenticated role in the deep-linking flow to grant to. Adding a column
+--    to a closed table leaves it closed.
+-- ---------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------
+-- 3. Verification. Observed live 2026-08-26.
+-- ---------------------------------------------------------------------------
+
+-- select a.attname, format_type(a.atttypid, a.atttypmod), a.attnotnull
+-- from pg_attribute a
+-- where a.attrelid = 'public.lti_launch_sessions'::regclass
+--   and a.attname = 'deep_link_data';
+--
+-- OBSERVED:  deep_link_data | text | false
+
+-- ---------------------------------------------------------------------------
+-- 4. Deployed alongside, 2026-08-26.
+--
+--    functions/lti-launch      stores it from deep_linking_settings.data
+--    functions/lti-deep-link   echoes it as
+--                              https://purl.imsglobal.org/spec/lti-dl/claim/data
+--
+--    Both were committed BEFORE this migration ran and deployed only after,
+--    because lti-launch inserts the column and lti-deep-link selects it. The
+--    previously deployed lti-launch did not reference it and kept working in
+--    the interval.
+-- ---------------------------------------------------------------------------
