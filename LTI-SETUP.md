@@ -265,6 +265,31 @@ cookies were blocked, which the design tolerates -- the authoritative check is
 the `lti_nonces` row. Either value is a real observation. An empty table is the
 bug.
 
+**AND `true` HERE PROVES NOTHING ABOUT THIRD-PARTY COOKIES. THIS RIG CANNOT
+TEST THEM.**
+
+Observed 2026-08-27: `state_cookie_survives` stayed `true` across eight
+launches **with third-party cookies BLOCKED in Chrome**. That is not the browser
+setting failing to apply -- it is the setting not being relevant. lti-ri
+**navigates** the top-level window rather than embedding us, so `certidemy.com`
+is first-party for the whole flow and our cookie is a first-party cookie.
+
+The case the design tolerates -- a tool rendered in an LMS iframe, where we are
+third-party and the cookie is dropped -- **cannot be produced against lti-ri at
+all.** There is no setting for it. Anyone reading `true, 8 of 8` off this
+platform and concluding third-party cookies are fine has measured something
+else.
+
+**What produces it: a real Moodle with the tool set to display in an embedded
+frame.** Until then, that branch is written, tolerated by design, and untested.
+
+The same limit applies to everything the picker's own header worries about. It
+describes an LMS iframe as "the most hostile rendering context we ship to" --
+blocked storage, restrictive CSP, ancient embedded browsers -- and **on this rig
+the picker has only ever rendered top-level.** The no-client-JavaScript
+decision is still right; it has simply never been under the pressure it was made
+for.
+
 `supports_deep_linking false` above is the RESOURCE LINK launch's observation
 and it is correct for that message. It flips to `true` the first time a
 deep-linking launch arrives -- see step 8, and see the note there about the flip
@@ -302,21 +327,31 @@ Go back to `.../deep_links`. The request you just composed is listed there, with
 their authorization endpoint, our `/lti/launch` -- and it is the only path here
 that produces a verified launch.
 
-**IT IS A MULTI-PAGE SEQUENCE, THE SAME SHAPE AS STEP 5**, and this section
-originally described it as one click for the same reason step 5 did. Expect a
-parameters page, a post back through `/lti/login`, and an authorization page
-before the picker appears.
+**IT IS A MULTI-PAGE SEQUENCE, THE SAME SHAPE AS STEP 5.** Read off the screen
+2026-08-27:
 
-**The intermediate button labels for THIS message type were not recorded on the
-proving run and are not written here.** Step 5's are named because they were
-read off the screen; these were not, and inventing four plausible labels is how
-this file got `iss` wrong the first time -- a shape generalised from one example
-rather than observed. Read them off the screen on the next deep-linking launch
-and name them here.
+1. **Send Request** (labelled **Post request** on some pages) -- deep links index.
+2. **Launch Deep Link** -- on the authorization page.
+3. **Perform Launch**.
+4. The **picker** appears. Choose, then **Add**.
+5. Their **confirmation page**, listing what was created.
 
-What you can rely on: the hop through `/lti/login` sits in the middle, exactly
-as in step 5, so a Certidemy refusal appearing partway through means the
-registration did not match -- not that deep linking failed.
+**The hop through `/lti/login` sits before the authorization page**, exactly as
+in step 5 -- so a Certidemy refusal appearing partway through means the
+registration did not match, not that deep linking failed.
+
+### `/deep_links/new` has its OWN direct Launch button, and we refuse it too
+
+**This is the same trap as step 5, in a THIRD place.** The form that composes a
+deep-linking request offers a launch that POSTs the `id_token` with no `state`;
+we answer `missing_id_token_or_state`.
+
+Three pages now carry a button that looks like the one you want and is not: the
+resource link page, the deep link `/new` page, and the roster's plain Launch.
+**The rule that covers all three: if you did not pass through an authorization
+page, no OIDC happened, and we will refuse it.** The refusal is correct every
+time -- no `state` means no `lti_nonces` row, nothing binding the token to a
+flow we started, and no way to tell it from a replay.
 
 ### What you should see
 
@@ -378,6 +413,27 @@ deployment 1         first_seen 14:50:15 (unchanged)  last_seen 15:49:18
 sends no vendor name, which is recorded and, per the architecture, never
 branched on.
 
+### Their confirmation page decodes our signed response -- read it
+
+It renders the JWT we sent, decoded. That is the only place our own outbound
+document is visible to us, because deep linking has no callback, and it settled
+two things that had been reviewed and never tested. Observed 2026-08-27:
+
+```
+iss           certidemy-tool
+aud           certidemy
+message_type  LtiDeepLinkingResponse
+```
+
+**THE INVERSION IS CORRECT ON THE WIRE.** `iss` is our `client_id` and `aud` is
+the platform's `iss` -- the reverse of an inbound launch. It looks backwards
+every time anyone reads it, and it is right: on the way out we are the issuer,
+identified by the client_id THEY issued to US, and they are the audience.
+`lti-deep-link` has a header note saying so; this is the observation behind it.
+
+And the created item reads **`Deep Link Type: link`** -- the content item type we
+plant, accepted verbatim.
+
 ### The `data` echo -- what migration 259 exists for
 
 Their request carried `deep_linking_settings.data` =
@@ -386,12 +442,18 @@ and the signing path adds
 `https://purl.imsglobal.org/spec/lti-dl/claim/data` whenever that column is
 non-empty. They accepted the response.
 
-**That is code-level plus acceptance, not a captured wire copy.** Our skeleton
-row for the response records `content_items` and a count and says NOTHING about
-whether the echo went. On a platform that rejects at its own end -- the exact
-failure 259 was written to prevent -- we could not answer "did we send `data`
-back?" from our own records. To see it on the wire, read the response JWT on
-their `deep_links` page.
+**That is code-level plus acceptance, not a captured wire copy, and it is STILL
+OPEN after two deep-linking runs.** Our skeleton row for the response records
+`content_items` and a count and says NOTHING about whether the echo went. On a
+platform that rejects at its own end -- the exact failure 259 was written to
+prevent -- we could not answer "did we send `data` back?" from our own records.
+
+**The evidence is one screen away and has been missed twice.** The confirmation
+page above decodes our whole payload, `data` claim included. Both runs read
+`iss`, `aud` and `message_type` off it and neither captured the `data` claim.
+**Next deep-linking launch, read that one line first** -- it is the only
+unproven item left in Part One, and it costs one glance at a page you are
+already looking at.
 
 ### Replay defence, unprompted
 
@@ -557,6 +619,13 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
   gap in exactly the place the variance architecture cares most about -- a Tier
   C capability written at runtime by the code that discovers the limitation,
   where the flip IS the interesting event.
+- **THE IFRAME HAS NEVER BEEN EXERCISED, and it cannot be here.** lti-ri
+  navigates top-level rather than embedding, so `state_cookie_survives = true`
+  across eight launches was measured with third-party cookies blocked and means
+  nothing about them. The picker has only ever rendered top-level. Blocked
+  third-party storage, a restrictive CSP and the whole hostile-frame case the
+  no-JavaScript decision was made for are untested. A real Moodle set to display
+  the tool in an embedded frame is what produces them. See step 7.
 - **Unexercised checks:** the `azp` branch (needs an array `aud`),
   `unsubstituted` custom variables, `accept_multiple = false`,
   `link_type_not_accepted`, the noscript submit button, and every JWKS error

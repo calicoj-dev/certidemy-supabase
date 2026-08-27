@@ -51,6 +51,15 @@ custom variables, `accept_multiple = false`, `link_type_not_accepted`, the
 `noscript` submit button, every JWKS error code, and `--force` on
 `lti-mint-key.mjs`.
 
+**And one that reads as proven and is not: the iframe.** lti-ri **navigates**
+the top-level window rather than embedding us, so `certidemy.com` is first-party
+for the entire flow. `state_cookie_survives` read `true` across eight launches
+**with third-party cookies blocked in Chrome** — the setting did not apply
+rather than failing to bite. The third-party-cookie branch the design tolerates
+cannot be produced on this rig at all, and the picker has only ever rendered
+top-level, never in the hostile frame its own header is written against. A real
+Moodle displaying the tool in an embedded frame is what tests it.
+
 ---
 
 ## 2. The bug: a `page.tsx` that returned `Response` objects
