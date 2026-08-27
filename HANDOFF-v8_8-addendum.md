@@ -1,6 +1,7 @@
 # HANDOFF v8.8 addendum — the unproven half is now proven
 
-**Migration tip: 259. Next free: 260.** No new migrations.
+**Migration tip: 261. Next free: 262.** Two applied since this addendum was
+written: **260** `lti_platform_status_vocab`, **261** `lti_capability_history`.
 
 Read `HANDOFF-v8_8.md` first. **§7 of that file is now out of date** and this
 addendum exists mainly to say so: it opens *"No `lti_platforms` row has ever
@@ -168,6 +169,18 @@ works at all.
 
 ## 5. Two gaps the proving run exposed
 
+> **CLOSED IN THE DATA LAYER 2026-08-27 by migration 261**, and the console has
+> not caught up yet — it still renders `value` and `observation_count` and knows
+> nothing about the counts. Read the gap below as written; the fix and what it
+> could not recover are in 261's header.
+>
+> Building it also turned up a live bug the gap was hiding: **`supports_deep_linking`
+> was not a platform property at all.** `lti-launch` wrote `false` on every
+> resource-link launch and `true` on every deep-linking one, so the value tracked
+> whatever the instructor last clicked. It read `true` below only because the last
+> three launches happened to be deep-linking. It is now monotonic — written only
+> when the launch IS a deep-linking request, never with `false`.
+
 **A capability flip leaves no trace of having flipped.**
 `lti_record_capability` does `value = excluded.value, observation_count =
 observation_count + 1` unconditionally, so the count is of the **key**, not of
@@ -219,8 +232,21 @@ row behind. That is somebody who did not choose.
 
 ## 6. Open, in order
 
-1. **`update-lti-platform`** — there is no edit action for a registration, so a
-   wrong value needs raw SQL. This bit on the very first registration. Editable:
+1. **SETTLED 2026-08-27 — `update-lti-platform` ships**, admin-gated, with an
+   `admin_actions` before/after diff, a named 409 excluding its own row, and
+   `product_family_code` cleared when `iss` or `client_id` actually changes (the
+   open question below, answered yes). Migration **260** gave
+   `lti_platforms.status` the vocabulary CHECK it never had, since this is the
+   first writer able to set it. Building it also found that
+   `create-lti-platform` had been wrong about `iss` all along — it required an
+   absolute https URL, which refuses the bare-string issuers LTI permits and
+   lti-ri actually sends. Both halves now share
+   `functions/_shared/lti-registration.ts`. **Deactivation exercises
+   `lti-login`'s status filter, NOT `lti-launch`'s `platform_inactive`** — see
+   §5. Original entry follows.
+
+   ~~there is no edit action for a registration, so a
+   wrong value needs raw SQL. This bit on the very first registration.~~ Editable:
    name, `iss`, `client_id`, the three endpoints, `company_id`, skew, status.
    Admin-gated function, `admin_actions` row, `(iss, client_id)` collision
    returning a named 409 rather than a raw `23505`. `product_family_code` stays
@@ -233,14 +259,22 @@ row behind. That is somebody who did not choose.
    a note** — a banner asking for a correction pass cannot enforce one, and the
    likely outcome is someone hits a mismatch, works around it, and never comes
    back. `CERT-PUBLISH-CHECKLIST.md` §6.7 is the precedent.
-3. **The two gaps in §5**, both small and both in the place they matter.
-4. **Phase 2** — the student launch, unchanged from v8.8 §10: programmatic user
+3. **The console pass for migration 261.** The data layer records
+   `true_count` / `false_count` / `first_observed_at` / `changed_at` /
+   `previous_value`; nothing reads them. `lib/console/lti.ts` line 90 also still
+   lists `accepts_link_content_item`, renamed to `advertises_link_content_item`,
+   so it renders "not yet observed" for a key that can no longer exist. Kept
+   deliberately separate from the migration so a display bug could not be
+   mistaken for a write bug.
+4. **The `data` echo gap in §5**, still open — we record nothing about whether
+   the echo was sent.
+5. **Phase 2** — the student launch, unchanged from v8.8 §10: programmatic user
    creation, session minting, `lti_users` on `(platform_id, sub)`, and what a
    launched student is entitled to. **`profiles.email` is NOT NULL UNIQUE and
    feeds five downstream paths including `credentials.holder_email`**, so a
    synthetic address for a withheld email gets hashed into a credential. Settle
    that on paper first.
-5. **The last-admin guard** still unnumbered and unapplied. Next free is **261**
+6. **The last-admin guard** still unnumbered and unapplied. Next free is **262**
    — 260 is `lti_platform_status_vocab`, added with `update-lti-platform`
    because that function is the first writer able to put an operator-chosen
    value in `lti_platforms.status`.
