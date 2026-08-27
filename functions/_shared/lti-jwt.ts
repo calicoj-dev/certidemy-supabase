@@ -303,6 +303,15 @@ export interface LaunchContext {
     acceptTypes: Claim<string[]>;
     acceptMultiple: boolean;
     documentTargets: Claim<string[]>;
+    /**
+     * OPAQUE, AND MUST BE ECHOED BACK UNCHANGED.
+     *
+     * The platform uses it to correlate our response with the request it made.
+     * It means nothing to us and must not be interpreted, trimmed or defaulted
+     * -- read as a claim like everything else so an absent one stays absent
+     * rather than becoming an empty string in the response.
+     */
+    data: Claim<string>;
   };
 }
 
@@ -347,6 +356,7 @@ export function parseLaunch(payload: Record<string, unknown>): LaunchContext {
       acceptTypes: readArray(dl.accept_types),
       acceptMultiple: dl.accept_multiple === true,
       documentTargets: readArray(dl.accept_presentation_document_targets),
+      data: readString(dl.data),
     },
   };
 }

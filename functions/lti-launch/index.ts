@@ -465,6 +465,15 @@ serve(async (req) => {
             : null,
           locale,
           target_link_uri: nonceRow.target_link_uri,
+          // OPAQUE, STORED SO IT CAN BE ECHOED. deep_linking_settings.data is
+          // the platform's own correlation handle and the specification
+          // requires it back in the response unchanged. It is optional -- Moodle
+          // does not send one -- but a platform that DOES send it and does not
+          // get it back rejects our response at its own end, where we never see
+          // the rejection. Absent stays null rather than becoming "".
+          deep_link_data: ctx.deepLinking.data.status === "provided"
+            ? ctx.deepLinking.data.value
+            : null,
         })
         .select("id")
         .single();

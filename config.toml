@@ -608,3 +608,16 @@ verify_jwt = true
 # single-use state row. A Supabase JWT would prove nothing about any of that.
 [functions.lti-launch]
 verify_jwt = false
+
+# Deep linking: reads a launch session and signs the LtiDeepLinkingResponse.
+#
+# verify_jwt MUST be false. The caller is certidemy.com's picker, and there is
+# no user behind it -- the instructor is inside an LMS iframe with no Certidemy
+# account. Authorisation is the lti_launch_sessions id, a 122-bit bearer that
+# expires in 30 minutes and unlocks a certification picker and nothing else.
+#
+# THE SIGNING HALF OF A PAIR with lti-launch: that verifies an RS256 JWT a
+# platform sent us, this signs one we send back. If the two ever disagree about
+# the JWT shape, a platform rejects our response with an error we cannot see.
+[functions.lti-deep-link]
+verify_jwt = false
