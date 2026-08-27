@@ -189,6 +189,27 @@ rejects at its own end — precisely the failure 259 exists to prevent — we co
 not answer "did we send `data` back?" from anything we store.** The column earned
 itself; the observability around it hasn't.
 
+**A deactivated registration's refused launches land in the orphan list.**
+Found while building `update-lti-platform`, which is the function that makes
+deactivation reachable. `lti-login` filters `.eq("status", "active")`, so an
+inactive platform simply does not match and the refusal is recorded as
+`unregistered_platform` **with `platform_id` NULL** — which puts it on the
+console under *"Launches from platforms we have not registered"*. That is wrong
+for a platform we registered and deliberately switched off, and it reads to an
+operator as a stranger knocking.
+
+Fixing it means `lti-login` distinguishing "no such registration" from
+"registered but inactive", which is a change to the refusal vocabulary **and**
+to what the console renders. Recorded in `update-lti-platform`'s header, not
+fixed.
+
+Related and settled the same day: **deactivating does not exercise
+`platform_inactive`.** `lti-launch:281` is only reachable when a platform is
+switched off *between* a successful login and the launch POST that follows,
+because login refuses first and there is no launch without one. Deactivation
+does exercise a never-run path — `lti-login`'s status filter — just not that
+one. Do not claim the coverage.
+
 Also worth knowing before someone debugs a working system: **two unconsumed
 `lti_launch_sessions` rows are not a failure.** Three deep-linking sessions
 exist; only the last is consumed. An abandoned picker leaves a perfectly healthy
@@ -219,7 +240,10 @@ row behind. That is somebody who did not choose.
    feeds five downstream paths including `credentials.holder_email`**, so a
    synthetic address for a withheld email gets hashed into a credential. Settle
    that on paper first.
-5. **The last-admin guard** still unnumbered and unapplied. Next free is 260.
+5. **The last-admin guard** still unnumbered and unapplied. Next free is **261**
+   — 260 is `lti_platform_status_vocab`, added with `update-lti-platform`
+   because that function is the first writer able to put an operator-chosen
+   value in `lti_platforms.status`.
 
 Everything else in v8.8 §10 stands unchanged.
 

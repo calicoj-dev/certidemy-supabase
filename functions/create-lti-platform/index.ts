@@ -40,10 +40,30 @@
 //
 // ============================== VALIDATION ===============================
 //
-// Absolute https on iss and all three endpoints. Not pedantry: these are
-// fetched server-to-server (jwks_url) or redirected to in a browser
-// (auth_login_url), and a scheme-relative or http value fails later, at a
-// moment that names OIDC rather than the typo.
+// Absolute https on THE THREE ENDPOINTS. Not pedantry: these are fetched
+// server-to-server (jwks_url) or redirected to in a browser (auth_login_url),
+// and a scheme-relative or http value fails later, at a moment that names OIDC
+// rather than the typo.
+//
+// CORRECTED 2026-08-27 -- iss IS NO LONGER REQUIRED TO BE A URL.
+//
+// It used to be, and that was a defect in this function rather than a rule
+// update-lti-platform relaxed to make its own life easier. An LTI issuer is an
+// IDENTIFIER: it is compared for equality against an inbound token's `iss`
+// claim and used as half of the (iss, client_id) key, and nothing anywhere
+// fetches it. The 1EdTech reference implementation sends the bare string
+// `certidemy`, which is legal, which LTI-SETUP.md's closing notes already
+// stated, and which this function refused.
+//
+// The reason nobody noticed is worth keeping: our lti-ri registration was
+// created HERE with a URL that turned out to be wrong -- a predicted value --
+// and then corrected to `certidemy` in raw SQL, which validates nothing. The
+// only row that disproves the rule exists because the rule was bypassed. A
+// validation never tested against the input it wrongly rejects looks correct
+// forever.
+//
+// Both halves now import the same validators from _shared/lti-registration.ts,
+// so this is not a pair to keep in step. See that file's header.
 //
 // The (iss, client_id) pre-check exists for a USEFUL 409. The unique index
 // lti_platforms_iss_client_unique is the real guard -- two admins submitting at
@@ -57,6 +77,13 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
+import {
+  httpsUrl,
+  issuerId,
+  requiredText,
+  skewSeconds,
+  UUID_RE,
+} from "../_shared/lti-registration.ts";
 
 interface Body {
   iss?: string;
@@ -67,37 +94,6 @@ interface Body {
   jwks_url?: string;
   company_id?: string | null;
   skew_tolerance_seconds?: number | null;
-}
-
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-/**
- * Bounds on the clock tolerance.
- *
- * The LTI specification states no normative value and defers to OIDC; the
- * industry norm is 30-60 seconds. These bounds are not the norm, they are the
- * edges of defensible: below 5 seconds ordinary network jitter starts rejecting
- * valid launches, and above 300 the replay window is wide enough that the check
- * has stopped meaning much.
- */
-const SKEW_MIN = 5;
-const SKEW_MAX = 300;
-
-/** Absolute https, no fragment, parseable. */
-function httpsUrl(value: string | undefined, field: string): string {
-  const v = value?.trim();
-  if (!v) throw new HttpError(400, `${field} is required`);
-  let u: URL;
-  try {
-    u = new URL(v);
-  } catch {
-    throw new HttpError(400, `${field} must be an absolute URL`);
-  }
-  if (u.protocol !== "https:") {
-    throw new HttpError(400, `${field} must use https`);
-  }
-  return v;
 }
 
 serve(async (req) => {
@@ -124,16 +120,14 @@ serve(async (req) => {
     const body = (await req.json().catch(() => ({}))) as Body;
 
     /* ---- validate BEFORE any write, so a refusal writes nothing --------- */
-    const iss = httpsUrl(body.iss, "iss");
+    // iss is an IDENTIFIER, not a location. See the header on the correction.
+    const iss = issuerId(body.iss);
     const authLoginUrl = httpsUrl(body.auth_login_url, "auth_login_url");
     const authTokenUrl = httpsUrl(body.auth_token_url, "auth_token_url");
     const jwksUrl = httpsUrl(body.jwks_url, "jwks_url");
 
-    const clientId = body.client_id?.trim();
-    if (!clientId) throw new HttpError(400, "client_id is required");
-
-    const name = body.name?.trim();
-    if (!name) throw new HttpError(400, "name is required");
+    const clientId = requiredText(body.client_id, "client_id");
+    const name = requiredText(body.name, "name");
 
     let companyId: string | null = null;
     if (body.company_id) {
@@ -154,13 +148,7 @@ serve(async (req) => {
       body.skew_tolerance_seconds !== undefined &&
       body.skew_tolerance_seconds !== null
     ) {
-      skew = Number(body.skew_tolerance_seconds);
-      if (!Number.isInteger(skew) || skew < SKEW_MIN || skew > SKEW_MAX) {
-        throw new HttpError(
-          400,
-          `skew_tolerance_seconds must be a whole number between ${SKEW_MIN} and ${SKEW_MAX}`,
-        );
-      }
+      skew = skewSeconds(body.skew_tolerance_seconds, "skew_tolerance_seconds");
     }
 
     /* ---- siblings: same iss, other client_ids. NORMAL. ------------------ */

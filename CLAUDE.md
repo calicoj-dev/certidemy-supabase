@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 250. Next free number: 251.** Sequential, zero-padded to three
+**Migration tip: 260. Next free number: 261.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **The base schema is not in this repo, and migration replay from zero has
@@ -133,6 +133,25 @@ Expect two pre-existing fontkit/QRCode import errors in anything importing
 **WebCrypto typing trap:** a helper annotated `: Uint8Array` widens the buffer to
 `ArrayBufferLike` and `crypto.subtle.importKey` rejects it (TS2769). Annotate
 `Uint8Array<ArrayBuffer>` on any helper returning bytes for WebCrypto.
+
+**A validation never tested against the input it wrongly rejects looks correct
+forever.** `create-lti-platform` required `iss` to be an absolute https URL for
+weeks. An LTI issuer is an IDENTIFIER — compared for equality, never fetched —
+and the 1EdTech reference implementation sends the bare string `certidemy`. The
+rule refused a specification-conformant issuer, and `type="url"` on the console
+input refused it a second time in the browser.
+
+Nothing caught it because **the one row that disproves the rule got in by
+bypassing the rule**: registered through the console with a URL that turned out
+to be a wrong guess, then corrected in raw SQL, which validates nothing. Fixed
+2026-08-27 in both halves at once. When a shipped validator and a real-world
+value disagree, check which one was ever actually exercised.
+
+**A pair inside ONE repo does not have to stay a pair.** `create-lti-platform`
+and `update-lti-platform` write the same nine columns, so their rules live in
+`functions/_shared/lti-registration.ts` and both import them — there is nothing
+to keep in step. Reserve the mirrored-pair discipline for what genuinely spans
+two repos.
 
 **Use `arrayBuffer()`, never `.text()`, in any pass-through proxy.** `.text()`
 has corrupted PNG bytes twice.

@@ -598,6 +598,18 @@ verify_jwt = false
 [functions.create-lti-platform]
 verify_jwt = true
 
+# Corrects a registration. Same gate as create, for the same reason: this
+# function can change WHICH ISSUER MAY INITIATE A LOGIN INTO US, and can take a
+# registration out of service entirely. platform_admin, enforced in-function,
+# with an admin_actions row carrying a before/after diff.
+#
+# verify_jwt = true. There is no UPDATE grant on lti_platforms either -- the
+# row that decides who may log into us is not editable by a browser at any
+# role, and an edit with no actor recorded is exactly the thing that made the
+# one raw-SQL correction we did make unaccountable.
+[functions.update-lti-platform]
+verify_jwt = true
+
 # Verifies an LTI 1.3 launch. THIS IS THE CODE THAT DECIDES WHETHER A LAUNCH IS
 # GENUINE.
 #
