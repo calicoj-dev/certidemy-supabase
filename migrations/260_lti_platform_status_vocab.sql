@@ -2,9 +2,10 @@
 --
 -- One CHECK: lti_platforms.status in ('active','inactive').
 --
--- Editor-first: run these in the SQL editor, one statement at a time. This file
--- is the record of what ran. No function body, so no md5 -- section 4 records
--- the observed constraint definition verbatim.
+-- Editor-first: this ran live in the SQL editor on 2026-08-27, one statement at
+-- a time. The file is the record of what already ran, not a script anyone
+-- executes. No function body, so no md5 -- section 4 records the observed
+-- constraint definition verbatim.
 --
 -- ============================ WHY IT WAS MISSING =========================
 --
@@ -101,8 +102,21 @@ alter table public.lti_platforms
 -- where conrelid = 'public.lti_platforms'::regclass
 --   and conname = 'lti_platforms_status_vocab';
 --
--- OBSERVED:
---   (paste the verbatim pg_get_constraintdef output here after running)
+-- OBSERVED 2026-08-27, verbatim:
+--
+--   lti_platforms_status_vocab | CHECK ((status = ANY (ARRAY['active'::text, 'inactive'::text])))
+--
+-- NOTE THE REWRITE. Section 3 says `status in ('active', 'inactive')` and the
+-- catalog says `status = ANY (ARRAY[...])`. Postgres normalises IN over a
+-- literal list into a scalar-array comparison and stores THAT; the text above
+-- is not what the database holds.
+--
+-- This is small and it is exactly why the rule is to record the observed
+-- definition rather than the submitted one. The next person diffing this file
+-- against pg_get_constraintdef would otherwise find a mismatch, and a
+-- recorded-value mismatch is indistinguishable at a glance from a constraint
+-- somebody edited by hand. A file that does not match the live object is worse
+-- than no file: it is a record that lies.
 
 -- ---------------------------------------------------------------------------
 -- 5. No grant follows, and that is not an omission.
