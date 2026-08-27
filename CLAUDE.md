@@ -461,7 +461,13 @@ Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 **Complete files or fully scripted edits.** Never snippets.
 
 **Read a file before editing it.** Never reconstruct contents from an earlier
-paste or a similar file.
+paste, a similar file, or **a diff**. A diff is evidence about a CHANGE, not
+about a STATE: a deletion sitting next to an insertion reads at a glance like an
+insertion above surviving text, which is how stale banner text in
+`LTI-SETUP.md` was reported as still present after the commit that removed it.
+If the claim is about what a file contains now, `grep` the file. Verifying costs
+seconds; editing on a misread costs a commit that records a defect which never
+existed.
 
 **`--dry` first, always**, and a dry run reporting `ok` has changed nothing —
 verify separately that writes landed.
