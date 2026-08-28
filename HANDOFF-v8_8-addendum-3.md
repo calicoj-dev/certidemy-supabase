@@ -207,6 +207,13 @@ item 4 and not a patch.
 > platform — confirmed null — and the sandbox is gone, so there is no rig for it
 > today. A check asserting only that `data` reads `true` would pass on code that
 > hardcoded it.
+>
+> **It travels with the Safari flip test.** §1 needs a fresh sandbox hour in
+> Safari to make `state_cookie_survives` go `true → false` and produce the first
+> capability flip ever observed. That is the same platform, the same hour and the
+> same launch: **one deep-linking launch on Moodle in Safari closes both** — the
+> flip on one row, and `false`/`false` on the response row. Two unproven things,
+> one rig, and neither is worth standing the sandbox up for alone.
 
 **The `data` echo.** Item 2 on the session's own opening list, carried over from
 addendum 2 §1, and untouched after a full day. **[SUPERSEDED 2026-08-28 — done
