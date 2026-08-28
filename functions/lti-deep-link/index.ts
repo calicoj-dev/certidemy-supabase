@@ -71,6 +71,22 @@ const SUPPORTED_LOCALES = new Set(["en", "es-419", "pt-BR"]);
 /** Response JWTs are short-lived. They cross one browser hop and are consumed. */
 const RESPONSE_TTL_SECONDS = 300;
 
+/**
+ * THE ONLY CLAIM URL IN THIS FILE THAT IS NAMED, AND DELIBERATELY SO.
+ *
+ * Every other claim in the response payload appears once, as an inline literal,
+ * and should stay that way. This one is referenced TWICE -- once to set it, and
+ * once to derive the `data` boolean recorded on the skeleton row.
+ *
+ * Two copies of a URL string is exactly the drift that would make that boolean
+ * silently wrong forever: a typo in the second copy yields `false` on every
+ * launch, nothing fails, and the row we added specifically to answer "did we
+ * send data back?" answers it incorrectly with no error anywhere.
+ *
+ * So: named because it is used twice. Do NOT tidy the others to match.
+ */
+const DL_DATA_CLAIM = "https://purl.imsglobal.org/spec/lti-dl/claim/data";
+
 // deno-lint-ignore no-explicit-any
 type Svc = any;
 
@@ -307,9 +323,36 @@ serve(async (req) => {
     // where there was none -- the same distinction the tolerant reader keeps
     // on the way in.
     if (session.deep_link_data) {
-      payload["https://purl.imsglobal.org/spec/lti-dl/claim/data"] =
-        session.deep_link_data;
+      payload[DL_DATA_CLAIM] = session.deep_link_data;
     }
+
+    /* ---- the two booleans recorded on the response row ------------------- */
+    //
+    // TWO INDEPENDENT SOURCES, AND THAT IS THE ENTIRE POINT.
+    //
+    //   dataRequested  from the SESSION COLUMN -- did the platform send one?
+    //   dataEchoed     from the PAYLOAD        -- did we put one in the JWT?
+    //
+    // Derived separately so they are a CHECK rather than a restatement. A row
+    // where `data_requested` is true and `data` is false says exactly one
+    // thing, and it is the failure migration 259 exists to prevent: a platform
+    // that sent a correlation handle, did not get it back, and rejected our
+    // response AT ITS OWN END where we never see the rejection.
+    //
+    // One boolean could not say that. `data: false` alone means both "there was
+    // nothing to echo" and "we dropped what we had" -- and the sweep in 258
+    // deletes the session about a day after expiry, so joining the column to
+    // disambiguate works only in the window where nobody is asking. The
+    // skeleton has indefinite retention and this row has to answer on its own,
+    // weeks later.
+    //
+    // dataEchoed IS COMPUTED HERE, not at the insert. Here the payload is final
+    // and about to become the signed bytes. Reading it thirty lines below would
+    // be correct today and is the weaker guarantee -- it would depend on
+    // nothing mutating the object in between, which is a promise about future
+    // code rather than a fact about this one.
+    const dataEchoed = DL_DATA_CLAIM in payload;
+    const dataRequested = Boolean(session.deep_link_data);
 
     const signingInput = `${b64urlJson(header)}.${b64urlJson(payload)}`;
     const key = await importSigningKey(pem as string);
@@ -346,7 +389,16 @@ serve(async (req) => {
       message_type: "LtiDeepLinkingResponse",
       outcome: "deep_link_returned",
       error_code: null,
-      claim_presence: { content_items: true, count: contentItems.length > 0 },
+      // BOOLEANS ONLY. claim_presence records WHICH claims were present, never
+      // their values, on a table with no PII and indefinite retention. The
+      // `data` value is opaque platform-supplied content and has no business
+      // here -- only whether it went.
+      claim_presence: {
+        content_items: true,
+        count: contentItems.length > 0,
+        data: dataEchoed,
+        data_requested: dataRequested,
+      },
       clock_delta_seconds: null,
     });
 
