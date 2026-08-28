@@ -234,13 +234,14 @@ the negative one.]**
 
 ---
 
-## 5. The reading problem, now four instances and a family
+## 5. The reading problem, now five instances and a family
 
 `CLAUDE.md` item 8 has held one rule for a while: **`git log` orders by graph,
 not by time**, so a sibling repo's parallel commits sort above your own and read
 as history.
 
-**Three more arrived today, and all four are the same mistake.**
+**Three more arrived today, a fifth by the end of the night, and all five are
+the same mistake.**
 
 | the rule | the instance |
 |---|---|
@@ -248,17 +249,23 @@ as history.
 | **a diff is not a file** | a committed defect asserted from a rendering of a change; the text had been *deleted* in that commit |
 | **a working directory is not a remote** | "five unpushed commits in certidemy-web" — they existed, they were pushed; only the word *unpushed* was invented |
 | **a banner does not protect a mid-section reader** | two wrong assertions from `HANDOFF-v8_8-addendum.md` §5, with the closure banner four lines above the text being read |
+| **a prompt is not an address** | three web-session plans sent to the supabase session in one night, each caught by the receiving session noticing it did not hold the plan being approved — never by the label |
 
-**All four are trusting a rendering of state over the state.** A graph, a diff,
-a working directory, a section — each one is *about* the thing and gets read
-*as* the thing. Every one of them is settled by one command against the thing
-itself, and every one of them was quiet: the assertion was specific, quoted
-accurately, and wrong.
+**All five are trusting a rendering of state over the state.** A graph, a diff,
+a working directory, a section, a prompt — each one is *about* the thing and
+gets read *as* the thing. Every one of them was quiet: the assertion was
+specific, quoted accurately, and wrong.
 
-**Two came from the coordination chat and two from a repo-rooted session.**
+**Four of the five are settled by one command against the thing itself. The
+fifth is not, and that is what makes it worth its own row.** There is no `grep`
+for *which session holds this plan* — the state is not in either repo. It is
+settled by asking, which is why it lands on the constraint below rather than on
+the habit.
+
+**Three came from the coordination chat and two from a repo-rooted session.**
 `git log` orders by graph and *a working directory is not a remote* were both
-the supabase session; *a diff is not a file* and the two mid-section banner
-reads were the coordination chat.
+the supabase session; *a diff is not a file*, the two mid-section banner reads
+and the three misroutes were the coordination chat.
 
 **That ratio is the finding, and it is not the one this section originally
 drew.** The first version argued the coordination chat is most exposed because
@@ -268,14 +275,35 @@ repo did not prevent it, because the failure is never a lack of access — it is
 not reaching for it. Each of the four was settled by one command that was
 available the whole time and simply not run.
 
+**The fifth row does not change that conclusion, and the majority it creates is
+not evidence for the version this section abandoned.** Three of five now come
+from this window, but the two that do not were made by a session sitting in the
+repo with `grep` in hand. A ratio that moves because one window kept working
+later into the night says nothing about exposure; the two counter-examples still
+say everything, and they are unaffected.
+
 **So the guard is the habit — check the thing itself — not the vantage point.**
 A rule that made this the coordination chat's problem would have left both
-sessions unguarded, which is exactly how two of the four happened.
+sessions unguarded, which is exactly how two of the five happened.
 
 The chat does carry one extra constraint, as a consequence rather than an
 explanation: **it has no `grep`, so where a session can verify, the chat must
 ask.** That is a real asymmetry in what the remedy looks like, not in who is
 prone to the mistake.
+
+**The fifth row is the case where that constraint runs both ways.** A misrouted
+prompt cannot be caught by checking a file, because the state it gets wrong —
+which session holds which plan — is in neither repo. It was caught every time by
+the receiving session saying *I do not hold this*, which is the same move the
+chat has to make, from the other end. **Its mechanical fix is in addendum 2 §2:
+the target repo goes in the first line of the prompt itself, because a label
+outside the block is not carried by the block.**
+
+And the reason it belongs in this family rather than beside it: **a session that
+treats a misroute as its own memory gap will reconstruct the plan and build it**,
+producing an approval trail for decisions nobody made. That is the same shape as
+the other four — a specific, accurately quoted, confident wrong answer — with a
+worse artifact at the end of it.
 
 Two guards follow, and they belong with the working method in addendum 2 §2:
 
