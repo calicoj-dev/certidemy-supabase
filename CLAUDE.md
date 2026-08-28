@@ -510,8 +510,25 @@ test is whether a reader could act on the sentence today and be wrong:
 - *"`supports_deep_linking` now reads `true, 4`"* was true when written and
   reads as history. **No marker** — dating it is what it already does.
 
+**A HEADING IS A CLAIM TOO, and it is the highest-traffic place a stale one can
+sit.** Marking a body under a stale heading leaves the most-read part wrong: a
+reader scanning headings never reaches the marker. *"The one thing that never
+got done"* survived above a section whose subject had been done that night —
+correct in every sentence beneath it and false at the top.
+
+So a heading that asserts current state gets **rewritten**, not marked, and the
+body underneath gets the marker. Those are different treatments because a
+heading has no room for a bracket and no reader stops in the middle of one.
+
 Preserve the original wording and append the marker; do not rewrite the text
-around it, or the record stops being a record. And **name what actually
+around it, or the record stops being a record.
+
+**And a live instruction is not a stale observation — rewrite those too.**
+*"Next deep-linking launch, read that one line first"* would still be followed
+by the next reader, on a task already complete. A marker beside it competes with
+the instruction; replacing it removes the instruction. The test is whether the
+sentence tells someone to **do** something: mark what merely describes, rewrite
+what directs. And **name what actually
 replaced it**: 261 added `first_observed_at`, not the `first_observed_true_at`
 the gap text asked for, and a marker implying otherwise would send someone
 looking for a column that does not exist.
