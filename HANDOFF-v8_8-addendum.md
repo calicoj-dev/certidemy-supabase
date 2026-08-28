@@ -302,11 +302,17 @@ row behind. That is somebody who did not choose.
    should clear it so the next launch rediscovers. Probably yes; changing the
    `iss` may mean a different platform.
 2. **Register a real Moodle**, and correct `LTI-SETUP.md` Part Two from what you
-   actually see, moving the banner. **Make that a numbered step in the task, not
+   actually see, moving the banner. **[SUPERSEDED 2026-08-27 — done. Moodle 5.2
+   sandbox, Part Two rewritten from four steps to eight and marked EXECUTED, the
+   banner replaced with a dated marker. It also produced a new item that ranks
+   above everything left here: see addendum 3 §1.]** **Make that a numbered step
+   in the task, not
    a note** — a banner asking for a correction pass cannot enforce one, and the
    likely outcome is someone hits a mismatch, works around it, and never comes
    back. `CERT-PUBLISH-CHECKLIST.md` §6.7 is the precedent.
-3. **The console pass for migration 261.** The data layer records
+3. **The console pass for migration 261.** **[SUPERSEDED 2026-08-27 — done. The
+   counts, `varies` and the flip line render; `lib/console/lti.ts` line 90 was
+   renamed to `advertises_link_content_item`.]** The data layer records
    `true_count` / `false_count` / `first_observed_at` / `changed_at` /
    `previous_value`; nothing reads them. `lib/console/lti.ts` line 90 also still
    lists `accepts_link_content_item`, renamed to `advertises_link_content_item`,

@@ -497,7 +497,11 @@ file it could not have anticipated.**
 
 **Highest value:**
 
-1. **Register a real Moodle.** Everything in §7 depends on it.
+1. **Register a real Moodle.** Everything in §7 depends on it. **[SUPERSEDED
+   2026-08-27 — done, against the Moodle 5.2 sandbox. `LTI-SETUP.md` Part Two is
+   the record. It produced a new item ranking above phase 2: Moodle accepts only
+   `ltiResourceLink` content items and we build a `link`, so nothing reaches the
+   course. See addendum 3 §1.]**
 2. **LTI phase 2** — the student launch. That is where the identity and entitlement
    work lives: programmatic user creation (zero occurrences in either repo today),
    server-side session minting (same), `lti_users` on `(platform_id, sub)`, and
@@ -509,6 +513,10 @@ file it could not have anticipated.**
    already add or remove another via PostgREST with no audit row and no
    last-admin protection — harmless while no company has two admins, and it
    changes character the moment multi-admin ships. **Next free number 260.**
+   **[SUPERSEDED 2026-08-27 — next free is now 262. 260 is
+   `lti_platform_status_vocab` and 261 is `lti_capability_history`, both
+   applied. The guard itself is still unnumbered and unapplied; only the number
+   is stale.]**
 
 **Found, not fixed:**
 
