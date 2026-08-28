@@ -95,6 +95,44 @@ both repos, writes the prompts, and writes the SQL.
 *"Web session:"* on the line before the block. Two sessions and no label is how
 a migration ends up in the wrong repo.
 
+### The label has to be INSIDE the prompt, on its first line
+
+**A label outside the prompt is not carried by the thing being pasted.** The
+sentence above the block stays in this window; the block travels alone. So the
+target repo goes in the **first line of the prompt itself** — *"Supabase
+session:"* as line one of what gets copied, not as the line above it.
+
+**Three misroutes in one night, all in the same direction, none caught by the
+label.** A web-session plan about `console-kit` button states, a set of
+decisions about outcome rendering and an "item 2" that existed only in the web
+session's plan, and a third earlier the same evening. Every one was caught by
+the **receiving** session noticing it did not hold the plan being approved.
+
+**The tell is a specific phrase: *"as you proposed"*, attached to something the
+session never proposed.** Also *"as we discussed"*, *"the plan you sent"*, or a
+numbered decision answering items the session cannot see. Any message crediting
+a session with a plan it does not hold is **a routing error, not a memory
+lapse** — and the distinction decides what to do about it.
+
+**THE FAILURE MODE IS NOT CONFUSION. IT IS A COOPERATIVE SESSION INVENTING
+CONSENT.** A session that treats this as its own gap will do the obliging thing:
+read the files, reconstruct a plausible plan, and build it — and the result is
+**an approval trail for decisions nobody made.** The commit message says the
+decision was approved. The handoff records it as settled. Nothing in the repo
+distinguishes it from a decision that was actually taken, because from inside
+the artifacts it is identical.
+
+So: **a session that does not hold the plan must say so and stop**, even where
+it could reconstruct one — especially there, because the ability to reconstruct
+is what makes the fabrication convincing. Ask; do not infer.
+
+**This is the fifth form of `CLAUDE.md` item 8's family** — a rendering of state
+trusted over the state itself. The other four are a commit graph, a diff, a
+working directory and a section banner. Here the state is **which session holds
+what**, and the rendering is a prompt that arrived without its address.
+Addendum 3 §5 enumerates the first four; this is the one that came after it was
+written.
+
 ### SQL comes from here, never from Claude Code
 
 **Claude Code never runs SQL and never hands you SQL to copy.** It reports what
