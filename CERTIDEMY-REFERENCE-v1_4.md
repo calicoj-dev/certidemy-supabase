@@ -328,6 +328,20 @@ platform_admin**); `team_members.role` (team_admin | team_member).
     validation, lesson localization) as provisional. One PowerShell block per batch;
     be decisive — recommend, don't menu. LF→CRLF warnings harmless. Never suggest
     breaks.
+16. **A COUNT FROM A CMDLET IS A CLAIM, NOT A MEASUREMENT.** Sibling of rule 13.
+    `Get-Content | Measure-Object -Line` reported **299 lines on a 332-line
+    file** while `Select-String` on the same file matched at lines **302–313**.
+    Two cmdlets, one file, contradictory answers — and each is individually
+    plausible, so whichever you ran first looks authoritative.
+    **Resolve a contradiction by reading raw bytes, never by deciding which
+    cmdlet feels more reliable.** `[System.IO.File]::ReadAllText()` and count
+    the newlines, or `(Get-Content -Raw).Length`. The trap is not that one
+    cmdlet is buggy: it is that line-counting depends on trailing newlines,
+    encoding and how each cmdlet splits, so both can be self-consistent and
+    disagree. Same family as `Select-String -Path` nulling on bracketed paths
+    and `-LiteralPath` in PS 5.1 — **the tool reports success while measuring
+    something other than what you asked about.** Never quote a cmdlet's count
+    as a fact about a file; if a number matters, derive it from the bytes.
 
 ---
 
