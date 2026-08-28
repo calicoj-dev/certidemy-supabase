@@ -1,8 +1,8 @@
 # HANDOFF v8.8 addendum 3 — what Moodle changed, and a correction to addendum 2
 
-**Migration tip: 261. Next free: 262.** No new migrations. Nothing today needed
-one, which is worth noticing: an entire session of findings and every one of
-them landed in documentation, copy, or a component.
+**Migration tip: 261. Next free: 262.** Two migrations ran on 2026-08-27 —
+**260** `lti_platform_status_vocab` and **261** `lti_capability_history` — both
+described in addendum 1's header.
 
 This is a **delta**, not a handoff. The Moodle run itself is written up where it
 belongs — `LTI-SETUP.md` Part Two, now eight steps and marked **EXECUTED**
@@ -99,10 +99,16 @@ That is a flip on one key on one row, and it is one browser away.
 Full detail in `LTI-SETUP.md` Part Two. The short version, because the shape of
 it matters more than the steps:
 
-**Part Two documented a flow Moodle 5.x removed.** Not slightly wrong about a
-click sequence — the mechanism it described is gone. No amount of re-reading
-would have surfaced that. Only executing it did, which is the entire argument
-for the banner having been there.
+**Part Two described a path that does not work on Moodle 5.2.** Not one wrong
+click in an otherwise sound sequence — the module ships disabled so nothing
+appears in the activity chooser at all; two required fields were missing from
+the table, without which there is no picker; more fields sit behind a "Show
+more…" link and read as absent; the launch container makes it two launches
+rather than one; and the picker is reached from an existing activity, not from
+the creation form. Every one of those is enumerated in Part Two now.
+
+**No amount of re-reading would have surfaced any of it. Only executing it
+did** — which is the entire argument for the banner having been there.
 
 **Three firsts, all of them in the tolerant reader's favour:**
 `product_family_code = 'moodle'` is the first non-null that column has ever
@@ -214,11 +220,27 @@ a working directory, a section — each one is *about* the thing and gets read
 itself, and every one of them was quiet: the assertion was specific, quoted
 accurately, and wrong.
 
-**Three of the four came from the coordination chat** — the window whose entire
-job is holding state across two repos. That is not incidental. It is the window
-furthest from the files, working from reports and diffs by construction, and it
-is therefore the one most exposed to this class. The sessions are rooted in
-repos and can `grep`; this window cannot, and must ask rather than infer.
+**Two came from the coordination chat and two from a repo-rooted session.**
+`git log` orders by graph and *a working directory is not a remote* were both
+the supabase session; *a diff is not a file* and the two mid-section banner
+reads were the coordination chat.
+
+**That ratio is the finding, and it is not the one this section originally
+drew.** The first version argued the coordination chat is most exposed because
+it is furthest from the files. It isn't: **a session that could `grep` made the
+same mistake just as often as the window that could not.** Being rooted in a
+repo did not prevent it, because the failure is never a lack of access — it is
+not reaching for it. Each of the four was settled by one command that was
+available the whole time and simply not run.
+
+**So the guard is the habit — check the thing itself — not the vantage point.**
+A rule that made this the coordination chat's problem would have left both
+sessions unguarded, which is exactly how two of the four happened.
+
+The chat does carry one extra constraint, as a consequence rather than an
+explanation: **it has no `grep`, so where a session can verify, the chat must
+ask.** That is a real asymmetry in what the remedy looks like, not in who is
+prone to the mistake.
 
 Two guards follow, and they belong with the working method in addendum 2 §2:
 
@@ -288,4 +310,16 @@ so they cannot invert.
   acknowledged as wrong is the worse option, and the rationale for leaving the
   67 is about the risk of touching shipped strings, not a house style.
 
-Everything else in v8.8 §10 and addendum 1 §6 stands unchanged.
+**§1 supersedes three entries in the older lists**, which is the point of this
+file and the opposite of leaving them alone:
+
+- **v8.8 §10 item 1** — *"Register a real Moodle"* — done.
+- **addendum 1 §6 item 2** — *"Register a real Moodle, and correct
+  `LTI-SETUP.md` Part Two… moving the banner"* — done, banner moved.
+- **addendum 1 §6 item 3** — *"The console pass for migration 261"* — done.
+
+All three carry inline supersession markers where they sit. **Neither of those
+lists contains `ltiResourceLink` at all**, and §1 now ranks it first, so read
+§1 as the order and those lists only for what §1 does not mention.
+
+What remains in them stands.
