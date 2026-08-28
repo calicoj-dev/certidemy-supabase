@@ -490,6 +490,37 @@ have passed on a grant that opened all thirteen. Whenever a property has a
 negative half, name it — the columns that must stay ungranted, the rows a
 backfill must not touch, the writers that must not change.
 
+**A correction banner does not protect a reader who lands mid-section.** When a
+section is preserved under a banner saying it has been superseded, **the stale
+sentences themselves need inline markers.** A banner protects someone reading
+top to bottom, and a document long enough to need banners is one nobody reads
+top to bottom — the common case is arriving mid-section from a search, a
+pointer, or a grep hit.
+
+This has now caused two wrong assertions in a day, both from partial reads of
+`HANDOFF-v8_8-addendum.md` §5: that the capability-flip columns did not exist,
+and that they had been added by the wrong migration. The closure banner was four
+lines above the text being read.
+
+**Mark claims about the present. Leave observations dated to a moment.** The
+test is whether a reader could act on the sentence today and be wrong:
+
+- *"`lti_record_capability` does `observation_count + 1` unconditionally"* is a
+  present-tense description of behaviour that names the exact SQL. **Marker.**
+- *"`supports_deep_linking` now reads `true, 4`"* was true when written and
+  reads as history. **No marker** — dating it is what it already does.
+
+Preserve the original wording and append the marker; do not rewrite the text
+around it, or the record stops being a record. And **name what actually
+replaced it**: 261 added `first_observed_at`, not the `first_observed_true_at`
+the gap text asked for, and a marker implying otherwise would send someone
+looking for a column that does not exist.
+
+This mostly codifies existing practice — the iframe paragraph, §6 item 1 and
+`LTI-SETUP.md` step 7 all carry inline markers already. §5's flip body was the
+one place with a banner and nothing inline, which is exactly where the two wrong
+assertions came from.
+
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."
 

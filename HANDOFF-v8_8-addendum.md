@@ -220,10 +220,17 @@ works at all.
 **A capability flip leaves no trace of having flipped.**
 `lti_record_capability` does `value = excluded.value, observation_count =
 observation_count + 1` unconditionally, so the count is of the **key**, not of
-the current value. `supports_deep_linking` now reads `true, 4` and **nothing in
-the row says it was ever `false`** — the only evidence of the change is a
-`resource_link_unsupported` skeleton row from an hour earlier. There is no
-`first_observed_true_at` and no previous value.
+the current value. **[SUPERSEDED 2026-08-27 by migration 261 — that function
+body was replaced. It now increments `true_count` or `false_count` by which
+value was observed, and `observation_count` remains the sum. Do not act on the
+SQL named in this sentence.]** `supports_deep_linking` now reads `true, 4` and
+**nothing in the row says it was ever `false`** — the only evidence of the
+change is a `resource_link_unsupported` skeleton row from an hour earlier. There
+is no `first_observed_true_at` and no previous value. **[SUPERSEDED 2026-08-27
+by migration 261 — `previous_value` and `changed_at` now exist and are set only
+when the value actually differs. Note that `first_observed_true_at` was never
+created and still does not exist; the question it names is answered by
+`changed_at` plus `previous_value` instead.]**
 
 That is a gap in exactly the place the variance architecture cares most: a Tier C
 capability is written at runtime by the code that discovers a limitation, and

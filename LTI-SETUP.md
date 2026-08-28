@@ -227,6 +227,46 @@ select key, value, observation_count from lti_capabilities order by key;
 select platform_id, length(raw_jwt), expires_at from lti_launch_evidence;
 ```
 
+### `first_seen_at` can be LATER than `last_seen_at`, and that is the writer
+
+**A brand-new `lti_deployments` row holds two clocks.** This is a property of
+how the row is written, not an anomaly to go looking for -- which matters,
+because by the time anyone looks it is usually gone.
+
+`lti-launch:371` upserts the deployment with
+`last_seen_at: new Date().toISOString()` -- **the Deno isolate's clock**. It
+does not supply `first_seen_at`, so on INSERT that column takes migration 253's
+column default, `now()` -- **the Postgres clock**. Two hosts, one row, one
+statement. **Whenever the isolate lags Postgres, `first_seen_at` lands after
+`last_seen_at`.**
+
+There is no ordering logic to be wrong here. There is no ordering logic at all.
+
+What follows:
+
+- **It reproduces on EVERY new deployment row**, not once. It is ordinary NTP
+  drift between two machines, so the size varies and the direction is whichever
+  way the isolate happens to be off.
+- **`last_seen_at - first_seen_at` is negative on a fresh row**, so anything
+  computing a duration gets a negative one. **Nothing computes one today** --
+  the console renders both timestamps literally -- so this is latent, not live.
+  It is the kind of thing a "seen for N minutes" column would inherit silently.
+- **The observation window closes at the second launch.** The upsert rewrites
+  `last_seen_at` every time, so one more launch pushes it safely ahead and the
+  inversion disappears for good. It can only ever be seen between a deployment's
+  first launch and its second.
+
+**OBSERVED 2026-08-27** on the Moodle row, `first_seen_at`
+`20:27:04.014174+00` against `last_seen_at` `20:27:03.96+00` -- **54 ms
+inverted**. Already invisible: the fourth launch moved `last_seen_at` to
+`20:40:17.333+00`.
+
+**Migration 261 is the contrast, and it is why this is worth naming.**
+`lti_capabilities.first_observed_at` defaults to `now()` and
+`lti_record_capability` sets `observed_at = now()` -- **both Postgres**. One
+clock, so those timestamps cannot invert no matter how far any isolate drifts.
+The deployment upsert is the **only** place in the LTI code that mixes the two.
+
 **A successful resource link launch produces exactly:**
 
 | Table | Expected |
