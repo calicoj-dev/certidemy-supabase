@@ -236,7 +236,16 @@ That is a gap in exactly the place the variance architecture cares most: a Tier 
 capability is written at runtime by the code that discovers a limitation, and
 **the flip is the interesting event.**
 
-**We do not record whether the `data` echo was sent.** The signing path adds the
+**We do not record whether the `data` echo was sent.** **[CLOSED 2026-08-28 by
+`a2b5895` — this is the gap that commit exists to fix. The
+`LtiDeepLinkingResponse` row's `claim_presence` now carries TWO booleans:
+`data`, derived from the signed payload immediately before it becomes the signed
+bytes, and `data_requested`, derived from the session column. Two independent
+sources, so `data_requested: true` with `data: false` is precisely the failure
+259 exists to prevent, self-contained in one row with indefinite retention.
+Observed `true`/`true` on lti-ri at 00:47:59. **The `false`/`false` half is
+UNPROVEN** — it needs a platform that sends no `data`, which is Moodle, and the
+sandbox is gone.]** The signing path adds the
 claim whenever the column is non-empty, the column was non-empty, and the
 platform accepted the response. But that is *code plus acceptance, not a captured
 wire copy* — the skeleton row for an `LtiDeepLinkingResponse` carries
@@ -320,13 +329,20 @@ row behind. That is somebody who did not choose.
    deliberately separate from the migration so a display bug could not be
    mistaken for a write bug.
 4. **The `data` echo gap in §5**, still open — we record nothing about whether
-   the echo was sent.
+   the echo was sent. **[CLOSED 2026-08-28 by `a2b5895` — `claim_presence` now
+   carries `data` and `data_requested`. What remains open is narrower and is
+   verification, not observability: the `false`/`false` case has never been
+   seen, and needs a platform that sends no `data`.]**
 5. **Phase 2** — the student launch, unchanged from v8.8 §10: programmatic user
    creation, session minting, `lti_users` on `(platform_id, sub)`, and what a
    launched student is entitled to. **`profiles.email` is NOT NULL UNIQUE and
    feeds five downstream paths including `credentials.holder_email`**, so a
    synthetic address for a withheld email gets hashed into a credential. Settle
-   that on paper first.
+   that on paper first. **[SETTLED 2026-08-28 — see `LTI-PHASE-2.md`. The
+   identity control sits at the moment of assessment and nowhere else; the
+   withheld-email case is refused with two doors and no address is ever
+   invented. "What a launched student is entitled to" resolved to: the whole
+   app, never the exam.]**
 6. **The last-admin guard** still unnumbered and unapplied. Next free is **262**
    — 260 is `lti_platform_status_vocab`, added with `update-lti-platform`
    because that function is the first writer able to put an operator-chosen

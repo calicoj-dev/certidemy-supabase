@@ -503,18 +503,33 @@ and the signing path adds
 `https://purl.imsglobal.org/spec/lti-dl/claim/data` whenever that column is
 non-empty. They accepted the response.
 
-**That is code-level plus acceptance, not a captured wire copy, and it is STILL
-OPEN after two deep-linking runs.** Our skeleton row for the response records
-`content_items` and a count and says NOTHING about whether the echo went. On a
-platform that rejects at its own end -- the exact failure 259 was written to
-prevent -- we could not answer "did we send `data` back?" from our own records.
+**PROVEN ON THE WIRE 2026-08-28 00:36.** The confirmation page above decodes our
+whole outbound payload, and it carries
+`https://purl.imsglobal.org/spec/lti-dl/claim/data` =
+`"Some random opaque data that MUST be sent back"` -- verbatim, the value their
+request sent. The echo works.
 
-**The evidence is one screen away and has been missed twice.** The confirmation
-page above decodes our whole payload, `data` claim included. Both runs read
-`iss`, `aud` and `message_type` off it and neither captured the `data` claim.
-**Next deep-linking launch, read that one line first** -- it is the only
-unproven item left in Part One, and it costs one glance at a page you are
-already looking at.
+It took three runs to read one line. The first two read `iss`, `aud` and
+`message_type` off that same page and stopped, because nothing about it
+announces which line is the one still unproven.
+
+**And proving it was only half the job**, because a wire observation is not
+something the system can be asked about later. `a2b5895` records it: the
+`LtiDeepLinkingResponse` skeleton row's `claim_presence` now carries **two**
+booleans -- `data`, derived from the signed payload immediately before it
+becomes the signed bytes, and `data_requested`, derived from the session column.
+Independent sources on purpose, so `data_requested: true` with `data: false` is
+exactly the failure 259 exists to prevent, answerable from one row weeks later
+on a table with indefinite retention.
+
+**The negative half has never been observed.** `false`/`false` needs a platform
+that sends no `data`. Moodle is that platform -- confirmed null in Part Two --
+and the sandbox resets hourly, so there is no rig for it today. **A check
+asserting only that `data` reads `true` would pass on code that hardcoded it**,
+so do not read `true`/`true` as both directions proven.
+
+If you are running a Moodle sandbox hour for any other reason, one deep-linking
+launch closes it.
 
 ### Replay defence, unprompted
 
@@ -817,7 +832,12 @@ directly in the entitlement question and in `profiles.email` being NOT NULL
 UNIQUE.
 
 **So this is not a small compatibility patch: it IS phase 2**, and it is settled
-on paper before any code. It is the top open item.
+on paper before any code. It is the top open item. **[SETTLED 2026-08-28 -- see
+`LTI-PHASE-2.md`. The paper decision is made: the identity control sits at the
+moment of assessment and nowhere else, a launched student gets the whole app but
+never the exam, and the withheld-email case is refused with two doors rather
+than given an invented address. Still the top open item; it is now a build
+rather than a question, and it ships with `ltiResourceLink` or not at all.]**
 
 ---
 
@@ -859,6 +879,10 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
 
 - **No edit action for a registration.** A wrong value needs raw SQL.
   `update-lti-platform` is planned; until then, correct `lti_platforms` directly.
+  **[SETTLED 2026-08-27 -- `update-lti-platform` shipped in `54284b8`. Edit is
+  on the registration card. Do NOT correct `lti_platforms` directly; the
+  function is admin-gated and writes an `admin_actions` before/after diff, and
+  raw SQL writes neither.]**
 - **SETTLED 2026-08-27 -- deep linking is proven** against lti-ri: picker,
   signing, session consumption and the platform accepting the response. See
   Part One step 8. Not proven against Moodle.
@@ -868,7 +892,13 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
   precise failure migration 259 exists to prevent -- we could not answer "did we
   send `data` back?" from our own records. The claim is included whenever the
   column is non-empty, but that is a fact about the code, not evidence about a
-  launch.
+  launch. **[CLOSED 2026-08-28 by `a2b5895`. `claim_presence` now carries TWO
+  booleans on that row: `data` from the signed payload and `data_requested`
+  from the session column, derived independently so `data_requested: true` with
+  `data: false` is exactly the failure named above, readable from one row
+  forever. `true`/`true` observed on lti-ri. **The `false`/`false` case has
+  never been seen** -- it needs a platform that sends no `data`, which is
+  Moodle, and the sandbox is gone.]**
 - **A capability flip leaves no trace of having flipped.**
   `lti_record_capability` overwrites `value` and increments
   `observation_count` unconditionally, so `observation_count` counts

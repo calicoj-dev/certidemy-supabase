@@ -61,13 +61,17 @@ That last row is worth reading twice. **Moodle would have made the `data` path
 look finished.** The column exists only because we chose not to leave a named gap
 sitting in a header, and lti-ri is what proved it.
 
-### The one thing still open on the old rig
+### The one thing still open on the old rig — closed 2026-08-28
 
 The `data` echo. Their confirmation page decodes our entire outbound payload,
 `data` claim included, and **two deep-linking runs have now read `iss`, `aud` and
 `message_type` off that page without capturing that one line.** It is the last
 unproven item in Part One and it costs one glance at a page you are already
-looking at.
+looking at. **[CLOSED 2026-08-28 — the third run read that line. The claim is on
+the wire, and `a2b5895` records it rather than inferring it:
+`claim_presence.data` from the signed payload and `.data_requested` from the
+session column. `true`/`true` observed; `false`/`false` still unproven and needs
+a platform that sends no `data`.]**
 
 ---
 
@@ -192,11 +196,16 @@ and the `iss`/`aud` inversion confirmed on the wire.
 **Next, in order:**
 
 1. **The Moodle sandbox** — §1. Everything left needs a real iframe.
-2. **The `data` echo**, one glance away on a page already being read.
+2. **The `data` echo**, one glance away on a page already being read. **[CLOSED
+   2026-08-28 — read off that page, and recorded rather than inferred:
+   `claim_presence.data` and `.data_requested`, `a2b5895`.]**
 3. **Phase 2** — the student launch. `profiles.email` is `NOT NULL UNIQUE` and
    feeds five downstream paths including `credentials.holder_email`, so a
    synthetic address for a withheld email gets hashed into a credential. **Settle
-   that on paper before any code.**
+   that on paper before any code.** **[SETTLED 2026-08-28 — see
+   `LTI-PHASE-2.md`. The identity control sits at the moment of assessment and
+   nowhere else; the withheld-email case is refused with two doors and no
+   address is ever invented.]**
 4. **The last-admin guard**, still unnumbered and unapplied. Next free is 262.
 
 Everything else stands as recorded in v8.8 and addendum 1.

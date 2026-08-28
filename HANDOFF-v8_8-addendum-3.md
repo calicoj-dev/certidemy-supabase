@@ -36,7 +36,9 @@ coordination chat, so it gets corrected from there.
    working on the most widely deployed LMS in the world.**
 2. **Phase 2 — the student launch.** Unchanged in substance, and now reached
    *through* item 1 rather than after it. See §2.
-3. **The `data` echo.** Still undone. See §4.
+3. **The `data` echo.** Still undone. See §4. **[CLOSED 2026-08-28 — proven on
+   the wire and made observable in `a2b5895`. The negative half is still
+   unproven; see §4.]**
 4. **The post-verification recording gap.** Eighteen refusal paths write
    nothing. See §3.
 5. **The last-admin guard**, still unnumbered and unapplied.
@@ -56,7 +58,11 @@ inside their own course.
 So the paper decision comes first, unchanged from v8.8 §10: `profiles.email` is
 `NOT NULL UNIQUE` and feeds five downstream paths including
 `credentials.holder_email`, so **a synthetic address for a withheld email gets
-hashed into a credential.**
+hashed into a credential.** **[SETTLED 2026-08-28 — see `LTI-PHASE-2.md`. The
+paper decision is made: the identity control sits at the moment of assessment
+and nowhere else, and the withheld-email case is refused with two doors rather
+than given a synthetic address. Item 1 below is still gated on item 2, but item
+2 is now a build rather than a question.]**
 
 **One thing the Moodle run contributed to that decision.** Every launch released
 `sub`, `name`, `email`, `roles` and `context_title` — from a platform configured
@@ -183,19 +189,41 @@ item 4 and not a patch.
 
 ---
 
-## 4. The one thing that never got done
+## 4. The last thing outstanding, closed 2026-08-28
+
+> **CLOSED after this section was written.** The echo is proven on the wire —
+> lti-ri's confirmation page decodes our outbound response and carries
+> `https://purl.imsglobal.org/spec/lti-dl/claim/data` = *"Some random opaque data
+> that MUST be sent back"*, read at **00:36** — and it is now recorded rather
+> than inferred. Commit `a2b5895` adds **two** booleans to the
+> `LtiDeepLinkingResponse` row's `claim_presence`: `data` derived from the signed
+> payload and `data_requested` derived from the session column, deliberately from
+> two independent sources so a divergence between them **is** the bug signature.
+> Observed `true`/`true` at **00:47:59**, with the old-shape row at **00:36:12**
+> sitting beneath it as the boundary.
+>
+> **The negative half is still unproven and the section below still applies to
+> it.** `false`/`false` needs a platform that sends no `data`. Moodle is that
+> platform — confirmed null — and the sandbox is gone, so there is no rig for it
+> today. A check asserting only that `data` reads `true` would pass on code that
+> hardcoded it.
 
 **The `data` echo.** Item 2 on the session's own opening list, carried over from
-addendum 2 §1, and untouched after a full day.
+addendum 2 §1, and untouched after a full day. **[SUPERSEDED 2026-08-28 — done
+that night. See the banner above.]**
 
 It costs **one glance at a page already being read.** lti-ri's confirmation page
 decodes our entire outbound payload, `data` claim included, and three
 deep-linking runs have now read `iss`, `aud` and `message_type` off that page
 without capturing that one line. Migration 259 exists for this claim; the column
-earned itself; **the observability around it still has not.**
+earned itself; **the observability around it still has not.** **[SUPERSEDED
+2026-08-28 — the observability now exists: `claim_presence.data` and
+`claim_presence.data_requested`, `a2b5895`.]**
 
 Moodle cannot close it — it sends no `data`, confirmed null, exactly as
-predicted. This needs lti-ri.
+predicted. This needs lti-ri. **[STILL TRUE, and now it reads the other way:
+lti-ri closed the positive half, and Moodle is the only platform that can close
+the negative one.]**
 
 ---
 

@@ -508,7 +508,12 @@ file it could not have anticipated.**
    **what a launched student is entitled to.** `profiles.email` is NOT NULL UNIQUE
    and feeds five downstream paths including `credentials.holder_email` — **a
    synthetic address for a withheld email would be hashed into a credential.**
-   Settle that on paper before any code.
+   Settle that on paper before any code. **[SETTLED 2026-08-28 — see
+   `LTI-PHASE-2.md`. The identity control sits at the moment of assessment and
+   nowhere else; a launched student gets the whole app, the exam always breaks
+   out to a real login, and the withheld-email case is refused with two doors
+   rather than papered over. No address is ever invented. The entitlement model
+   named here is not needed — see that file's §6.]**
 3. **The last-admin guard.** Statements drafted, never run. A `team_admin` can
    already add or remove another via PostgREST with no audit row and no
    last-admin protection — harmless while no company has two admins, and it
