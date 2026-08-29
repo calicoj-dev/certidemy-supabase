@@ -129,6 +129,7 @@ import {
   parseLaunch,
   verifyRs256,
 } from "../_shared/lti-jwt.ts";
+import { provisionStudent } from "../_shared/lti-provision.ts";
 
 interface Body {
   id_token?: string;
@@ -525,15 +526,60 @@ serve(async (req) => {
     }
 
     if (messageType === RESOURCE_LINK) {
-      // NOT a failure. Phase 2 does not exist yet, and the honest answer is a
-      // page that says so. Recorded as its own outcome, which also makes it
-      // free telemetry: it tells us which institutions want phase 2 before we
-      // build it.
-      const ref = await recordSkeleton(svc, trace, "resource_link_unsupported", null);
+      // A STUDENT LAUNCH. Phase 2.
+      //
+      // TWO ROWS, NOT ONE, and the reason is that one row lies. Deep linking
+      // already writes a pair -- deep_linking_ok then deep_link_returned --
+      // because the inbound request and what we did about it are separate
+      // facts. Here it matters more: verification can succeed and an ACCOUNT
+      // can still fail to exist. A single resource_link_ok row for a student
+      // who never got one is the defect LTI-SETUP.md Part Two step 7 records
+      // as "the row that lies", on the path that creates accounts.
+      //
+      // Row one says the launch verified. It is written BEFORE provisioning so
+      // that a throw in there still leaves the verification recorded.
+      const verifiedRef = await recordSkeleton(svc, trace, "resource_link_ok", null);
+
+      const localeClaim = ctx.locale;
+      const studentLocale = localeClaim.status === "provided" &&
+          SUPPORTED_LOCALES.has(localeClaim.value)
+        ? localeClaim.value
+        : "en";
+
+      const result = await provisionStudent(
+        svc,
+        ctx,
+        platform.id,
+        trace.deploymentId,
+        studentLocale,
+      );
+
+      // Row two: what we did about it. The reference a person is shown is THIS
+      // one, because it is the row that knows what happened to them.
+      const ref = await recordSkeleton(
+        svc,
+        trace,
+        result.outcome,
+        result.detail ?? null,
+      );
+
+      if (result.tokenHash && result.next) {
+        return jsonResponse({
+          ok: true,
+          action: "student_session",
+          token_hash: result.tokenHash,
+          next: result.next,
+          reference: ref ?? verifiedRef,
+        });
+      }
+
+      // No session. The web route renders the honest page for the state.
       return jsonResponse({
         ok: true,
-        action: "not_supported_yet",
-        reference: ref,
+        action: result.outcome,
+        locale: studentLocale,
+        link_token: result.linkToken ?? null,
+        reference: ref ?? verifiedRef,
       });
     }
 

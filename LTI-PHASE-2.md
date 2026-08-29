@@ -184,3 +184,188 @@ Not a build plan — the build session writes that. This is the surface area:
 `ltiResourceLink` content item points back at our own launch URL, so building it
 without this is shipping a link that lands a student on a refusal page inside
 their own course. The two ship together or neither does.
+
+---
+
+## 8. The spike — OBSERVED 2026-08-28, on the wire, against the live project
+
+§7 named two primitives as zero-occurrence and the build was gated on them. Both
+are now settled by observation rather than by reading a `.d.ts`, because this
+project has already paid for the difference between *reviewed and looked fine*
+and *seen on the wire*.
+
+### `generateLink` does NOT send mail
+
+**The question that could have changed the design's shape.** §5 requires that
+**no password email is ever sent at launch time**, and a minting path that
+emailed every student would have broken that and, worse, hit the email rate
+limiter partway through a class of thirty.
+
+Six `POST /auth/v1/admin/generate_link` calls in about one second, all 200, **no
+rate limiting** — a limiter exists to protect a mail sender and it never engaged.
+A seventh to a different address also succeeded immediately, so it was not
+per-address bucketing. **Then confirmed at the inbox: zero messages**, spam and
+trash included.
+
+### `*_sent_at` IS STAMPED WHETHER OR NOT MAIL IS DELIVERED
+
+**This is the trap in the finding, and it points the wrong way.** Every call
+moved a timestamp: `confirmation_sent_at` on creation, `recovery_sent_at` on
+each call after. Eight stamps, zero emails.
+
+Those columns record **token issuance, not delivery** — and they are precisely
+the field someone would reach for to answer *"was this person emailed?"*. Every
+LTI-provisioned student will carry a populated `confirmation_sent_at` having
+never been written to.
+
+**So this is a second, independent reason the passwordless flag must be our own
+column** (§5, and the decision that it is set at provisioning time). The auth
+table is not merely insufficient here: it holds a field that looks like the
+answer and is not one. There is no check to fall back to, and now there is
+something that could be mistaken for one.
+
+### The chain, observed
+
+```
+POST /auth/v1/admin/generate_link  {type:"magiclink", email, redirect_to}
+  -> 200   hashed_token 75db32b6...   verification_type magiclink
+
+POST /auth/v1/verify  {token_hash, type:"magiclink"}      [ANON key]
+  -> 200   access_token (ES256) + refresh_token
+           email_confirmed_at 2026-08-28T22:42:56Z
+
+same token again
+  -> 403   otp_expired  "Email link is invalid or has expired"
+```
+
+**The token is single-use.** That matters more here than in an email flow: this
+one travels through a redirect inside an LMS frame, and a replayable mint would
+be a session anyone in the frame's history could take.
+
+**Verification succeeds with the ANON key**, which is what a browser carries — so
+`/auth/confirm`'s `createServerClient` path works unchanged. The only edit
+needed there is `ALLOWED_TYPES`.
+
+### `email_confirmed_at` is set at REDEMPTION, not at creation
+
+It was null after `generate_link` and populated by `/verify`. **This is why
+provisioning is two calls, not one.** `generateLink` will create the user itself
+for `signup`, `invite` and `magiclink` — but a one-call design leaves the
+student unconfirmed until they complete the hop, and collapses *"account created,
+mint failed"* into *"nothing happened"*, which is a state the second skeleton row
+could not describe. Two calls set `email_confirm: true` explicitly, and
+`options.data` reaches `raw_user_meta_data` where `handle_new_user()` (072)
+already reads `full_name`.
+
+### One value, three names
+
+| where | name |
+|---|---|
+| `action_link` query string | `token` |
+| `generate_link` response body | `hashed_token` |
+| `verifyOtp` parameter | `token_hash` |
+
+And the raw API takes `redirect_to` where the SDK takes `options.redirectTo`.
+Nothing is wrong with any of them; they are simply four spellings of two things,
+across one hop.
+
+### `ALLOWED_TYPES` is intent, not defence
+
+`app/[locale]/auth/confirm/route.ts` whitelists the OTP types it will redeem.
+Adding `magiclink` is required and costs nothing, **and nobody should later
+reason about it as a security control.** A `token_hash` is a bearer secret
+redeemable at Supabase's own `/verify` regardless of what our route accepts. The
+list narrows what our route is *for*; it stops no attack.
+
+### Cost of the spike
+
+Two `auth.users` rows, both deleted 2026-08-28, verified in both directions:
+the ids absent, no `ltispike` address in either table, and both counts down by
+**exactly two** — 33 to 31, matching the 31 observed before the first call. The
+`profiles` cascade fired.
+
+
+---
+
+## 9. The second launch, and why the launch wins
+
+**The common case, and the one nothing had been designed for.** A student opens
+the activity again next week. `sub` hits `lti_users`, `last_seen_at` is bumped, a
+session is minted, and they are in. No lookup, no provisioning.
+
+Four sub-cases carry decisions rather than behaviour:
+
+**They are already signed in as someone else. THE LAUNCH WINS.**
+
+This is the one worth writing down, because the alternative is defensible and
+somebody will ask. Deferring to the existing session sounds respectful and is
+worse: **on a shared machine it would show one student another student's
+dashboard.** The platform has just asserted who is opening this activity, the
+student expects their own course to open as themselves, and a silent switch to
+the correct person beats a silent failure to switch away from the wrong one.
+
+**The LMS address changed. We do not follow it.** `sub` still resolves to a
+user, so the session is minted for the account we already know, and the
+divergence is recorded as `student_email_mismatch`. Email is the identity, and
+rewriting it silently MOVES AN ACCOUNT.
+
+**`student_email_mismatch` is a SIGNAL, NOT A REFUSAL.** The student still gets
+in. Filing it as a failure would make the console lie in the other direction --
+a working launch recorded as broken -- and an institution changing a student's
+address mid-course is something to SEE rather than infer later from a support
+ticket. It replaces `student_linked` for that launch rather than accompanying
+it: one row, most specific outcome.
+
+**A second institution.** Different `platform_id`, so a miss, resolved by email
+to the same profile, and a second `lti_users` row. Correct with no special
+handling -- the same mechanism that makes Canvas's per-placement `sub` harmless
+whenever an email is present.
+
+**Volume.** A session is minted on every launch, and Moodle's Embed container
+fires a launch on every activity VIEW. Token count will exceed student count by
+a large factor. It is not a sign-in count.
+
+---
+
+## 10. The obvious reading keeps being wrong
+
+**Five things in this feature read as something they are not.** Listed together
+because separately each looks like a local quirk, and the pattern is the point.
+
+1. **`ALLOWED_TYPES` reads as a defence.** It is intent. A `token_hash` is a
+   bearer secret redeemable at Supabase's own `/verify` regardless of what our
+   route accepts. The list says what the route is FOR; it stops no attack.
+
+2. **`password_set` reads as a control.** It gates a MESSAGE. The exam is gated
+   by login and voucher. Someone who lies to skip their own reminder meets a
+   login form instead of a helpful sentence, and has gained nothing.
+
+3. **An unsubstituted claim reads as a value.** `$Person.email.primary` comes
+   back as its own literal -- present, a string, and not data. `profiles.email`
+   is NOT NULL UNIQUE, so a truthiness check would have SUCCEEDED in creating an
+   account named after a variable, and fed it to `credentials.holder_email`.
+   That is `holder_email ?? ""` with a longer string; the empty one was caught
+   because it was empty.
+
+4. **`*_sent_at` reads as proof that an email was sent.** It records token
+   issuance. Eight stamps, zero emails, observed 2026-08-28. Every
+   LTI-provisioned student carries a populated `confirmation_sent_at` having
+   never been written to.
+
+5. **`verify_jwt = true` on the provisioner read as a boundary.** It refuses
+   anonymous callers, and the only credential that gets past it is the
+   service-role key -- which can call `auth.admin.createUser` directly. It would
+   have refused strangers from doing something strangers already cannot do.
+
+**THE FIFTH DID NOT COME FROM THE CODE. It came from this document, an hour
+before it was written down.** It was proposed in a plan, approved as a
+decision, and had a well-formed sentence explaining it. That sentence was the
+problem: it was about a gateway setting that does not do the work attributed to
+it, and it survived a plan and an approval before anyone checked.
+
+That is why the list is worth keeping. **Four found in the code would read as a
+caution about the code.** Five, with one written into a decision that had
+already been agreed, is a caution about the reasoning -- and specifically about
+this feature, which keeps producing readings that sound right and are not.
+
+A plausible sentence is exactly what a wrong one feels like from the inside.
