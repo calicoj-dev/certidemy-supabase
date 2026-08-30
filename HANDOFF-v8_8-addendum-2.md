@@ -230,6 +230,32 @@ commits, this chat tells you when to push, you run it. Cloudflare deploys
 Use `git commit -F` rather than `-m`. **Backticks in a `-m` string trigger
 PowerShell command substitution** and mangle the message — this happened twice.
 
+**AND THE RULE WAS FOLLOWED WHEN THE TRAP ARRIVED ONE LAYER UP, 2026-08-30.**
+
+The commit message went through `-F`, correctly. What was mangled was the
+*document the commit was about*: it had been edited by a `node -e` script
+wrapped in a **double-quoted bash string**, and backticks inside double quotes
+are command substitution in bash exactly as they are in PowerShell. Eight
+identifiers — `lti_diag=t1b1`, `getSession()`, a column name — were replaced by
+nothing, leaving *"the door-two proof carried  -- the  being the RAW  read
+before any fallback"*.
+
+**Nothing caught it.** bash printed `b1: command not found` six times, and the
+script still printed `ok`, and the commit still succeeded — because
+**substitution yields empty strings rather than an error the script can
+observe.** The payload was corrupt, the exit code was zero, and the guard that
+exists for exactly this class was watching the message rather than the content.
+
+**A guard of the right shape at the wrong layer**, which reads as coverage: `-F`
+was chosen deliberately, for this reason, and it protected the one string that
+did not need protecting on that command.
+
+**THE DURABLE ANSWER: use the Edit tool for anything whose payload contains
+backticks or `${`.** It never touches a shell, so there is no quoting to get
+right and no layer for the trap to move to. Reserve shell edits for payloads you
+have read and know to be plain — and note that this repo's documents are
+markdown full of backticked identifiers, so that is almost never true here.
+
 ### The two-repo blind spot, both halves
 
 **Writing:** a rule copied into two repos drifts. `CLAUDE.md` item 8 lists the
