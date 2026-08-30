@@ -81,8 +81,38 @@ instruments — the browser and the Cloudflare log — both said fine.
 `peer next <=15.5.2`, and with the repository archived **that ceiling is
 permanent.**
 
-**15.5.2 itself failed in CI on `/_not-found`, and the local instrument could not
-reproduce it.** So the top of the supported range is not usable either.
+**And the top of that range is not usable either — but the reason is unexplained,
+not understood.**
+
+**CI refused three builds on 15.5.2, on a condition the local instrument cannot
+reproduce.** That is the whole of what is known. State it that way.
+
+**A RETRACTED CLAIM, recorded so it is not repeated:** *"Next 15.5.2 emits
+`/_not-found` as `nodejs22.x` regardless of the edge pin"* was stated as
+measured and **does not reproduce.** Four full builds on 15.5.2 — cached, clean,
+Node 24, and Node 22.16.0 matching CI exactly — **all emit it as edge.** Compared
+route by route, 15.1.4 and 15.5.2 differ in **exactly one place, and it is a
+dedup symlink.**
+
+**So the trigger is unknown.** Not "known and hard to hit" — unknown.
+
+**The practical consequence, which is the part that governs planning: a 15.5 fix
+can only be validated by pushing it.** There is no local reproduction, so there
+is no way to test a candidate before it is in CI. Budget for that rather than
+for an afternoon of bisecting locally.
+
+### The baseline undercuts the obvious next hypothesis
+
+**`next-on-pages` tolerates Node functions.** On **15.1.4 — the version
+deploying right now** — `_error.func` and `favicon.ico.rsc.func` are both
+`nodejs22.x`, in a build that ships.
+
+**So its own error message states a rule it does not enforce.** "A Node function
+appeared where an edge one was required" is therefore not, by itself, an
+explanation for the CI refusal — the working deploy contains two of them.
+
+Anyone picking this up will reach for that hypothesis first. It is already
+excluded by the baseline.
 
 **`next` is pinned exactly at `15.1.4` for that reason** — not as caution, as the
 only version observed to work under a build tool that will never move again.
