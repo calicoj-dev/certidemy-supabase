@@ -651,10 +651,10 @@ same claim, and only one of them is what an institution will do.
 
 It also gives the frame test for free, which lti-ri cannot provide at all.
 
-### TWO UNPROVEN THINGS SHARE ONE SANDBOX HOUR
+### THREE UNPROVEN THINGS SHARE ONE SANDBOX HOUR
 
 The Moodle sandbox resets on the hour, so anything needing it needs a sitting.
-Door two was the third and is **done** (§12); two remain:
+Door two was the third and is **done** (§12); three remain:
 
 1. ~~**Door two** -- with privacy turned off.~~ **PROVEN 2026-08-30, §12.**
 2. **A `false` on `state_cookie_survives`** -- that ONE KEY has never read
@@ -668,8 +668,28 @@ Door two was the third and is **done** (§12); two remain:
    migration 259's claim_presence pair needs a platform that sends no
    `deep_linking_settings.data`, and Moodle is that platform. A check asserting
    only that `data` reads `true` would pass on code that hardcoded it.
+4. **THE FRAMED / TOP-LEVEL PAIR -- and it is the ONLY thing that closes §13.**
+   One Embed launch and one New Window launch of the same activity. Embed must
+   render the interstitial; New Window must redirect straight through with no
+   interstitial at all. **Two launches, and the answer is which screen appears.**
 
-**They are listed together because they are one booking, not three.** Each is
+   **The live behaviour is currently REASONING, NOT MEASUREMENT.** The frame
+   test reads `Sec-Fetch-Dest`, and what a browser actually sends on a
+   cross-site TOP-LEVEL form POST has never been observed on this path. The
+   spec says `document`; nothing here has confirmed it. Every probe available
+   from a terminal fails signature verification long before that branch is
+   reached -- four header variants were tried and produced four identical
+   *unverified* pages, which establishes nothing about the branch. **A probe
+   that "passed" would have been the same result with the test inverted.**
+
+   If `document` does not arrive, **every New Window launch gets an interstitial
+   it does not need.** That risk is why the absent-header default was split:
+   a silent Fetch Metadata family means an old browser and takes the extra
+   click, while a partial family means the header was stripped upstream and does
+   not -- bounded versus unbounded populations. See the two-causes note in
+   `certidemy-web`'s CLAUDE.md.
+
+**They are listed together because they are one booking, not four.** Each is
 cheap once the rig is up and none of them is reachable without it.
 
 ---
