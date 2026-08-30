@@ -554,13 +554,25 @@ serve(async (req) => {
         studentLocale,
       );
 
+      /* A DESTINATION FAILURE IS RECORDED, OR IT IS INVISIBLE.
+         The identity outcome is healthy in this case -- the student is linked --
+         so nothing else on any surface would ever say that the activity pointed
+         at a certification we could not resolve. It goes in the skeleton's
+         error_code behind any real identity detail, which keeps
+         lms_email_differs winning where both are true. */
+      const certDetail = result.certification?.status === "missing"
+        ? "certification_missing"
+        : result.certification?.status === "unsubstituted"
+        ? "certification_unsubstituted"
+        : null;
+
       // Row two: what we did about it. The reference a person is shown is THIS
       // one, because it is the row that knows what happened to them.
       const ref = await recordSkeleton(
         svc,
         trace,
         result.outcome,
-        result.detail ?? null,
+        result.detail ?? certDetail,
       );
 
       if (result.tokenHash && result.next) {
@@ -569,6 +581,13 @@ serve(async (req) => {
           action: "student_session",
           token_hash: result.tokenHash,
           next: result.next,
+          /* THE WEB ROUTE DECIDES WHAT TO SHOW, not this function. It is the
+             half that renders, and a student whose activity names a dead
+             certification must be told rather than dropped somewhere plausible.
+             Sent as the status alone -- the uuid is of no use to a reader and
+             the code does not exist to send. */
+          certification: result.certification?.status ?? "absent",
+          locale: studentLocale,
           reference: ref ?? verifiedRef,
         });
       }

@@ -72,6 +72,32 @@ export type ProvisionOutcome =
   | "student_no_identity"
   | "student_mint_failed";
 
+/**
+ * WHERE THE INSTRUCTOR'S CHOICE RESOLVED TO -- AND WHY THIS IS NOT AN OUTCOME.
+ *
+ * `ProvisionOutcome` answers WHO THIS PERSON IS. This answers WHERE TO SEND
+ * THEM. They fail independently: a student can be perfectly linked while the
+ * activity points at a certification that has since been deleted, and folding
+ * that into the outcome enum would describe a healthy identity as a broken one.
+ *
+ * There is a second reason, and it is structural. `ProvisionOutcome` is one half
+ * of a cross-repo mirrored pair -- `scripts/i18n-lti-outcomes.mjs` in
+ * certidemy-web reads this union and refuses to merge if the two drift. Adding
+ * a member is a two-repo change by design. A destination failure has no business
+ * paying that cost, and quietly widening the vocabulary that a checker exists to
+ * police is how the checker stops meaning anything.
+ *
+ * `unsubstituted` is a real state, not defensiveness: we plant a LITERAL uuid,
+ * so a platform returning the variable's own name has mangled it, and the
+ * four-state reader is what turns that into a detectable event instead of a
+ * student silently seated somewhere they were not sent.
+ */
+export type CertificationTarget =
+  | { status: "absent" }
+  | { status: "resolved"; id: string; code: string }
+  | { status: "missing"; id: string }
+  | { status: "unsubstituted" };
+
 export interface ProvisionResult {
   outcome: ProvisionOutcome;
   /** Present when a session was minted. The bearer the browser redirects with. */
@@ -84,6 +110,8 @@ export interface ProvisionResult {
   linkToken?: string;
   /** Free-text detail for the skeleton row's error_code column. */
   detail?: string | null;
+  /** Where the planted activity pointed. See CertificationTarget. */
+  certification?: CertificationTarget;
 }
 
 /**
@@ -250,6 +278,80 @@ async function mintLinkToken(
  * DRIFT if an address is ever changed on one side only; recorded rather than
  * guarded, because nothing in this repo changes it today.
  */
+/**
+ * The custom parameter lti-deep-link plants on every content item. A uuid, never
+ * a code -- see the long note at the plant site for why a mutable key would
+ * orphan every planted activity at every institution with nothing here to see
+ * it.
+ */
+const CERT_CUSTOM_KEY = "certidemy_certification_id";
+
+/** Resolve the planted id to a certification that exists RIGHT NOW. */
+async function resolveCertification(
+  svc: Svc,
+  ctx: LaunchContext,
+): Promise<CertificationTarget> {
+  const claim = ctx.custom[CERT_CUSTOM_KEY];
+  if (!claim) return { status: "absent" };
+  if (claim.status === "unsubstituted") return { status: "unsubstituted" };
+
+  const id = realValue(claim);
+  if (!id) return { status: "absent" };
+
+  /* THE LOOKUP IS THE POINT. Reading the CURRENT code from the id is what makes
+     a rename invisible to every planted activity: the platform replays the same
+     uuid forever and we resolve it against live data each time. */
+  const { data } = await svc
+    .from("certifications")
+    .select("code, status")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (!data?.code) return { status: "missing", id };
+  // Never seat anyone into a draft, even if a planted activity names one.
+  if (data.status === "draft") return { status: "missing", id };
+  return { status: "resolved", id, code: String(data.code).toLowerCase() };
+}
+
+/**
+ * ENROL THE STUDENT, ON THEIR BEHALF, AND THIS IS A DECISION RATHER THAN A SIDE
+ * EFFECT.
+ *
+ * /learn/[cert] is behind an enrolment gate (isEnrolledInCert). Sending a
+ * launched student there without a row shows them "Add this certification" -- an
+ * upsell page -- instead of the lessons their instructor planted. Getting the
+ * URL right and stopping there would have looked like it worked.
+ *
+ * Why it is legitimate: LTI-PHASE-2.md section 2 says a launched student gets
+ * the app -- lessons, practice, progress. Enrolment is free and carries no
+ * commerce ("you only pay when you sit the exam"). And the instructor planting
+ * the activity in their own course IS the consent; the student clicked it.
+ *
+ * SOURCE IS 'lti', NOT 'self'. The column exists to record provenance and this
+ * enrolment is not self-service. It surfaces in listUserEnrollments and the
+ * console census, so a convenient lie here propagates. Needs migration 265,
+ * which widens the CHECK; the RLS insert policy still pins learners to 'self',
+ * so nothing is granted to anyone -- this writes with service_role.
+ *
+ * IGNORE DUPLICATES, NEVER OVERWRITE. A student who enrolled herself last year
+ * and later launches from her university's Moodle keeps source='self'. Rewriting
+ * it would falsify how she actually got here, which is the one thing the column
+ * is for.
+ */
+async function enrol(svc: Svc, userId: string, certificationId: string): Promise<boolean> {
+  const { error } = await svc
+    .from("user_certifications")
+    .upsert(
+      { user_id: userId, certification_id: certificationId, source: "lti", status: "active" },
+      { onConflict: "user_id,certification_id", ignoreDuplicates: true },
+    );
+  if (error) {
+    console.error("lti enrol failed", error.message);
+    return false;
+  }
+  return true;
+}
+
 export async function provisionStudent(
   svc: Svc,
   ctx: LaunchContext,
@@ -260,7 +362,24 @@ export async function provisionStudent(
   const sub = realValue(ctx.sub);
   const email = realValue(ctx.email)?.toLowerCase() ?? null;
   const fullName = realValue(ctx.name);
-  const next = `/${locale}/dashboard`;
+
+  const cert = await resolveCertification(svc, ctx);
+
+  /**
+   * SEATING IS ENROL-THEN-LAND, and it is one function because it must happen
+   * at every point a `next` is produced. There are three, and a copy at each
+   * would be a mirrored trio inside one file -- the shape that gets fixed in
+   * two places out of three.
+   *
+   * An enrolment that fails falls back to the dashboard rather than sending a
+   * student to a gate that will turn them away. That is the honest degradation:
+   * they are signed in and in the app, just not seated.
+   */
+  const seat = async (userId: string): Promise<string> => {
+    if (cert.status !== "resolved") return `/${locale}/dashboard`;
+    const ok = await enrol(svc, userId, cert.id);
+    return ok ? `/${locale}/learn/${cert.code}` : `/${locale}/dashboard`;
+  };
 
   /* ---- 1. the fast path ------------------------------------------------ */
   if (sub) {
@@ -295,13 +414,15 @@ export async function provisionStudent(
          student's address mid-course is something worth SEEING rather than
          inferring later from a support ticket. */
       const mismatch = email !== null && email !== known;
+      const next = await seat(link.user_id);
       const tokenHash = await mintSession(svc, known, next);
-      if (!tokenHash) return { outcome: "student_mint_failed", userId: link.user_id };
+      if (!tokenHash) return { outcome: "student_mint_failed", userId: link.user_id, certification: cert };
       return {
         outcome: mismatch ? "student_email_mismatch" : "student_linked",
         userId: link.user_id,
         tokenHash,
         next,
+        certification: cert,
         detail: mismatch ? "lms_email_differs" : null,
       };
     }
@@ -322,9 +443,10 @@ export async function provisionStudent(
          collision would be a worse product for no security gain -- the
          impersonation risk it would guard against is handled at the exam. */
       await linkSub(svc, platformId, sub, prof.id);
+      const next = await seat(prof.id);
       const tokenHash = await mintSession(svc, email, next);
-      if (!tokenHash) return { outcome: "student_mint_failed", userId: prof.id };
-      return { outcome: "student_linked", userId: prof.id, tokenHash, next };
+      if (!tokenHash) return { outcome: "student_mint_failed", userId: prof.id, certification: cert };
+      return { outcome: "student_linked", userId: prof.id, tokenHash, next, certification: cert };
     }
 
     /* CREATE. email_confirm is set explicitly here rather than left to the
@@ -362,9 +484,10 @@ export async function provisionStudent(
       .then(undefined, () => {});
 
     await linkSub(svc, platformId, sub, userId);
+    const next = await seat(userId);
     const tokenHash = await mintSession(svc, email, next);
-    if (!tokenHash) return { outcome: "student_mint_failed", userId };
-    return { outcome: "student_provisioned", userId, tokenHash, next };
+    if (!tokenHash) return { outcome: "student_mint_failed", userId, certification: cert };
+    return { outcome: "student_provisioned", userId, tokenHash, next, certification: cert };
   }
 
   /* ---- 3. no email ------------------------------------------------------ */
@@ -384,6 +507,16 @@ export async function provisionStudent(
     return { outcome: "student_no_identity" };
   }
 
+  /* DOOR TWO IS SEATED ON THE SECOND LAUNCH, NOT THIS ONE, and that is by
+     construction rather than by omission. There is no account yet, so there is
+     nobody to enrol; the student signs up, /auth/confirm consumes the link
+     token, and their NEXT launch takes the fast path above and seats them in the
+     instructor's certification. Section 12's whole assertion is that second
+     launch.
+
+     The cost is one launch's delay. Carrying the certification through signup
+     would mean a column on lti_link_tokens and a claim in the confirm route --
+     worth doing if the delay ever bites, and not worth guessing at now. */
   const linkToken = await mintLinkToken(svc, platformId, deploymentId, sub, locale);
-  return { outcome: "student_email_absent", linkToken: linkToken ?? undefined };
+  return { outcome: "student_email_absent", linkToken: linkToken ?? undefined, certification: cert };
 }
