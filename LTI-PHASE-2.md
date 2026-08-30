@@ -800,3 +800,50 @@ the case expected to produce the flip, and it did not.** Chrome allowed the stat
 cookie in a genuine third-party frame. The prediction was not wrong about the
 mechanism — a third-party frame is where a cookie gets dropped — it was wrong
 about the browser.
+
+---
+
+## 14. OPEN: when the picker refuses, the platform is never told
+
+**Found 2026-08-30 while reading the deep-linking specification against the
+implementation. Its own piece of work, not started.**
+
+The deep-linking response has four optional claims for talking back to the
+platform:
+
+| claim | spec text |
+|---|---|
+| `msg` | *"a plain text string of a message the platform may show to the end user upon return"* |
+| `log` | *"a message the platform may log when processing this message"* |
+| `errormsg` | *"...may show to the end user... It indicates some error as occurred"* |
+| `errorlog` | *"...may log... It indicates some error as occurred"* |
+
+**We send none of them, and that fails nothing.** All four are optional, and the
+specification *"does not prescribe what tools must do"* with them — they are the
+platform's business once received. **This is not a certification gap and must
+not be recorded as one.**
+
+**The product gap is real and separate.** When the picker refuses —
+`plants: "neither"`, or no certifications available, or an expired session —
+**we do not return to the platform at all.** The instructor reads our page
+inside the frame and Moodle is told nothing: no response, no error, no record on
+their side. From the LMS's point of view the instructor opened a tool and
+nothing happened.
+
+`errormsg` and `errorlog` are precisely the specified way to return having
+failed. `msg` is the specified way to confirm having succeeded — *"Added AI
+Essentials I to this course"* in the platform's own chrome, in the platform's
+own language, rather than only in ours.
+
+**Why it is its own work rather than four strings.** Returning-on-error means
+signing and posting a response with an empty `content_items` array, which is a
+different shape from the success path — the picker currently has no way to send
+anything back at all, only to render. And the strings are instructor-facing in
+three locales, which puts them under the claims discipline: what `errormsg` says
+about *whose* fault a refusal is will be read inside an institution's own LMS.
+
+**One caution for whoever builds it.** `msg` on success is tempting and is the
+part most likely to be wrong: the platform decides whether and where to show it,
+so a message that reads well in Moodle may be invisible in Canvas or duplicated
+beside our own confirmation. Ship `errormsg` first, where silence is
+unambiguously worse than a sentence.
