@@ -153,8 +153,9 @@ like success.
   would have repaired one path and left the other silently broken, as part of
   the fix.**
 
-  **[DISPUTED 2026-08-30 — the first clause conflicts with a measurement, and
-  it is left unresolved on purpose. Evidence against it:** `auth.users` on the
+  **[DISPUTED 2026-08-30, THEN SETTLED THE SAME DAY — see the resolution at the
+  end of this marker. The first clause conflicts with a measurement, and it was
+  left unresolved while it could not be settled. Evidence against it:** `auth.users` on the
   door-two account shows `confirmation_sent_at 01:13:01.200` and
   `email_confirmed_at 01:13:19.647`, 18.5 seconds apart — an email was sent and
   a human clicked it. And the reported landing page after confirming was
@@ -166,7 +167,16 @@ like success.
   this with the callback running normally. **Both cannot be true as stated.**
   Not resolved here: a wrong reason stated confidently is the failure this
   section is about, and picking one now would reproduce it one level up. Whoever
-  fixes it settles which clause is wrong.**]**
+  fixes it settles which clause is wrong.
+
+  **RESOLVED 2026-08-30: the second clause is right and the first is wrong.**
+  The door-two proof carried  -- the  being the RAW
+   read before any fallback -- so the variable
+  was present and  was never undefined. Email confirmation DOES reach a
+  landing route; what failed is that  read the request cookie
+  store for a session written to the response, so  was falsy. The
+  callback ran and the guard did not fire.  now takes the
+  session as a parameter so that mistake is unavailable.**]**
 - Gap 1 alone would have planted real launchable activities that ignore the
   instructor's choice and seat every student at the generic dashboard.
 - Gap 2's URL alone would have landed them on an upsell page.

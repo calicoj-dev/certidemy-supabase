@@ -581,6 +581,20 @@ ENVIRONMENT.** An earlier note in this record said measurement had ruled the env
 var out. **It had not** — no measurement of that variable exists. The counts
 that were read concern migration 264's new columns and say nothing about it.
 
+**[SETTLED 2026-08-30 — CANDIDATE B IS NOW EXCLUDED, BY MEASUREMENT.** The
+door-two proof carried `lti_diag=t1b1`, and the `b1` is the **raw**
+`NEXT_PUBLIC_EDGE_FUNCTIONS_URL` read *before any fallback* — so the variable
+was present in the Cloudflare environment and `base` was never `undefined`.
+**Candidate A is the cause:** `getSession()` asked the request cookie store for
+a session `exchangeCodeForSession` had just written to the *response*, so
+`token` was falsy and the guarded fetch never fired.
+
+The paragraph above stands as written — it was correct when written, and the
+measurement that settles it did not exist yet. What is superseded is only its
+conclusion, not its reasoning: **the demand for a measurement was right, and the
+measurement is what closed it.** `lib/lti/consume.ts` now takes the session as a
+parameter precisely so the fetch-versus-parameter mistake is unavailable.**]**
+
 **They are not mutually exclusive, and that is the trap:**
 
 > **If `token` is falsy the fetch never happens regardless of `base`.** So
