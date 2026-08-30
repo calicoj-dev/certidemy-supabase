@@ -76,6 +76,40 @@ interface Body {
 
 const SITE = "https://certidemy.com";
 
+/** Locales we can plant a `link` for, in the fallback branch only. */
+const SUPPORTED_LOCALES = new Set(["en", "es-419", "pt-BR"]);
+
+/**
+ * WHAT WE WILL PLANT FOR THIS PLATFORM. ONE RULE, IN ONE PLACE.
+ *
+ * Both the picker and the signer need this answer, and an earlier version had
+ * each of them derive it from raw accept_types independently -- the function
+ * refusing on `!includes("link")` and the page rendering its own
+ * `accepts_link === false`. That is a mirrored pair with the two halves in
+ * different repos, and the failure is a page that explains one thing while the
+ * signer does another.
+ *
+ * So the FUNCTION decides and the page is told. `plants` is the answer, not the
+ * evidence.
+ *
+ * ORDER MATTERS AND IT IS NOT ARBITRARY. ltiResourceLink is what an instructor
+ * is actually asking for: an activity students launch, which is the only shape
+ * that reaches phase 2 at all. A plain `link` is a URL resource -- it opens the
+ * public certification page and no launch ever happens. It is a real fallback
+ * and a lesser one, so it is second and it is DECLARED to the instructor rather
+ * than substituted quietly.
+ *
+ * `null` means the platform advertised nothing. The deep linking spec's default
+ * is ltiResourceLink and any platform doing deep linking accepts it, so silence
+ * gets the good one rather than the fallback.
+ */
+function plantable(acceptTypes: string[] | null): "ltiResourceLink" | "link" | "neither" {
+  if (acceptTypes === null) return "ltiResourceLink";
+  if (acceptTypes.includes("ltiResourceLink")) return "ltiResourceLink";
+  if (acceptTypes.includes("link")) return "link";
+  return "neither";
+}
+
 /** Response JWTs are short-lived. They cross one browser hop and are consumed. */
 const RESPONSE_TTL_SECONDS = 300;
 
@@ -181,10 +215,11 @@ serve(async (req) => {
           locale: session.locale ?? "en",
           accept_multiple: session.accept_multiple === true,
           accept_types: acceptTypes,
-          // ADVERTISED, NOT ASSUMED. Null means the platform did not say, which
-          // is different from saying "no link" -- the picker treats the two
-          // differently and records which happened.
-          accepts_link: acceptTypes === null ? null : acceptTypes.includes("link"),
+          /* THE ANSWER, NOT THE EVIDENCE. This replaced `accepts_link`, which
+             handed the page a raw fact and left it to reach the same conclusion
+             the signer reaches -- two derivations of one rule, in two repos.
+             The page renders what this says and derives nothing. */
+          plants: plantable(acceptTypes),
         },
         certifications: certs ?? [],
       });
@@ -203,8 +238,33 @@ serve(async (req) => {
     }
 
     const acceptTypes: string[] | null = session.accept_types ?? null;
-    if (acceptTypes !== null && !acceptTypes.includes("link")) {
+
+    /* SAME FUNCTION THE PICKER WAS ANSWERED WITH. If this re-derived the rule
+       the two could disagree, and the instructor would read one thing on the
+       page and get another in their course. */
+    const plants = plantable(acceptTypes);
+
+    /* WHAT THE PLATFORM ADVERTISED ABOUT THE TYPE WE ACTUALLY WANT. Recorded on
+       every sign, not only on refusal: a one-sided recorder makes absence
+       ambiguous, which is the defect the note below already describes for the
+       old key. A `false` here is the population that gets the lesser fallback,
+       and until now nothing counted it. */
+    await svc.rpc("lti_record_capability", {
+      p_platform_id: session.platform_id,
+      p_deployment_id: session.deployment_id,
+      p_key: "advertises_ltiresourcelink",
+      p_value: plants === "ltiResourceLink",
+      p_detail: acceptTypes === null ? "not_advertised" : null,
+    }).then(undefined, () => {});
+
+    if (plants === "neither") {
       // Honest refusal rather than an item the platform will discard silently.
+      //
+      // THE REFUSAL IS NOW MUCH RARER AND MEANS SOMETHING DIFFERENT. It used to
+      // fire on any platform that did not advertise `link`, which included every
+      // platform that accepts only ltiResourceLink -- the type we now prefer.
+      // What is left is a platform advertising NEITHER type, which is a platform
+      // that cannot take deep-linked content from anyone.
       //
       // RENAMED 2026-08-27, from accepts_link_content_item. The old name
       // claimed something we can never know: deep linking has NO CALLBACK. We
@@ -231,7 +291,12 @@ serve(async (req) => {
         p_value: false,
         p_detail: null,
       }).then(undefined, () => {});
-      return jsonResponse({ ok: false, reason: "link_type_not_accepted" }, 400);
+      /* REASON RENAMED with the meaning. `link_type_not_accepted` described the
+         old rule -- "you would not take a link" -- and would now be read by the
+         next person as though the fallback had been refused, when in fact
+         neither type was on offer. A reason string that outlives the rule it
+         names is the same defect as a comment that was true when written. */
+      return jsonResponse({ ok: false, reason: "content_type_not_accepted" }, 400);
     }
 
     // Verify the codes are real and available. A code that is not is either a
@@ -329,14 +394,41 @@ serve(async (req) => {
        four-state claim reader turns a platform mangling this value into a
        detectable event rather than a student silently seated in the wrong
        place. */
-    const contentItems = found.map((c) => ({
-      type: "ltiResourceLink",
-      title: c.name,
-      url: `${SITE}/lti/launch`,
-      custom: {
-        certidemy_certification_id: c.id,
-      },
-    }));
+    /* THE FALLBACK IS DECLARED, NOT SUBSTITUTED. A platform that advertises
+       `link` but not `ltiResourceLink` gets the phase 1 shape: a URL resource
+       pointing at the public certification page. It opens a real page and no
+       launch ever happens, so none of phase 2 runs -- no identity, no seating,
+       no progress.
+
+       AN INSTRUCTOR CANNOT TELL THE TWO APART AT PLANT TIME, which is why
+       `plants` is sent to the picker and the picker says so before they choose.
+       Silently handing back the lesser item would be a correct-looking action on
+       a different product, which is the exact failure this whole gap sequence
+       keeps producing.
+
+       The locale is planted into the URL here and ONLY here. A `link` outlives
+       our routing and must not depend on a redirect we control; the
+       ltiResourceLink branch needs none, because a launch carries the STUDENT's
+       own launch_presentation.locale. */
+    const contentItems = plants === "ltiResourceLink"
+      ? found.map((c) => ({
+        type: "ltiResourceLink",
+        title: c.name,
+        url: `${SITE}/lti/launch`,
+        custom: {
+          certidemy_certification_id: c.id,
+        },
+      }))
+      : found.map((c) => {
+        const loc = session.locale && SUPPORTED_LOCALES.has(session.locale)
+          ? session.locale
+          : "en";
+        return {
+          type: "link",
+          title: c.name,
+          url: `${SITE}/${loc}/certifications/${c.code.toLowerCase()}`,
+        };
+      });
 
     /* ---- sign ------------------------------------------------------------ */
     const now = Math.floor(Date.now() / 1000);

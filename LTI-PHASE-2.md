@@ -146,6 +146,37 @@ step turns a click into a chore and most students never complete it.
 
 ---
 
+## 5b. NO GRADE PASSBACK. Deliberately, and for now.
+
+**There is no AGS anywhere: no line items, no scores, no gradebook column.** An
+instructor who plants a Certidemy activity gets no grade back into Moodle, and
+nothing in either repo has ever pretended otherwise.
+
+**It is written here because silence reads as an oversight.** It is the first
+thing a Moodle instructor asks about an external tool, and until now this
+document simply did not mention it — which leaves the next person to discover it
+from a support ticket rather than a design note. Saying "not built, on purpose"
+is a position somebody can disagree with. Saying nothing is not.
+
+**Why it is defensible today.** What a Certidemy credential attests is an exam
+sat under our own conditions, not coursework completed in someone else's LMS. A
+number posted into a partner's gradebook is a claim on the partner's surface
+about a candidate's performance, and the claims discipline in `certidemy-web`'s
+CLAUDE.md already refuses the smaller version of that: **never state an exam
+score outside the holder's own surfaces** — `list-credentials` and
+`get-company-detail` both decline to. AGS would be exactly that refusal
+reversed, so building it is a claims decision before it is an engineering one.
+
+**What an instructor should expect instead:** students launch, land in the
+certification's learn area, and their progress lives on Certidemy. Verification
+is the credential itself, at its public URL.
+
+**If it is ever built**, the honest shape is completion or credential-issued as
+a pass/fail line item, not an exam percentage — and it wants its own review
+against the claims policy, not an afternoon.
+
+---
+
 ## 6. What this does NOT need
 
 Recorded because these were all named as phase 2 work in earlier handoffs, and
