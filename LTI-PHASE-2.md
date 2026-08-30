@@ -651,43 +651,93 @@ same claim, and only one of them is what an institution will do.
 
 It also gives the frame test for free, which lti-ri cannot provide at all.
 
-### THREE UNPROVEN THINGS SHARE ONE SANDBOX HOUR
+### THE SITTING LIST IS DOWN TO ONE, AND IT BLOCKS NOTHING
 
-The Moodle sandbox resets on the hour, so anything needing it needs a sitting.
-Door two was the third and is **done** (§12); three remain:
+**All three remaining items closed on Moodle 5.2, 2026-08-30.** Items 3 and 4
+below are struck through with what was observed; the list is kept rather than
+deleted so the sequence can be re-read.
+
+**What is left is a single `false` on `state_cookie_survives`, and it needs
+Safari, and therefore a Mac.**
+
+> **IT IS NOT BLOCKING ANYTHING, AND SAYING SO IS THE POINT.**
+>
+> The design already treats the state cookie as **non-authoritative** —
+> `lti_nonces` is the authority, and `state_cookie_survives` is a diagnostic
+> observation rather than a control. Observing the `false` would confirm a
+> design that is **correct by construction**: the branch it exercises is the one
+> that already tolerates the cookie being absent.
+>
+> So this is **the last unobserved value in a tri-state — tidy rather than
+> important.** Do not let it sit at the top of a list and read as a blocker; it
+> has no dependents, and nothing waits on it.
 
 1. ~~**Door two** -- with privacy turned off.~~ **PROVEN 2026-08-30, §12.**
 2. **A `false` on `state_cookie_survives`** -- that ONE KEY has never read
-   `false` anywhere: **30 of 30 on Moodle, 13 of 13 on lti-ri.** Chrome allows
+   `false` anywhere: **35 of 35 on Moodle, 13 of 13 on lti-ri.** Chrome allows
    the state cookie even in a genuine third-party iframe, and Safari is the only
    known path to a `false`. **[CORRECTED 2026-08-30 — this item used to say "the
    Safari flip", as though the capability flip in general were unobserved. It is
    not: three keys flipped on Moodle the same day, from door-two privacy
    toggling. See §13. What remains open is this key and nothing wider.]**
-3. **`false`/`false` on the `data` echo** -- proving the NEGATIVE half of
-   migration 259's claim_presence pair needs a platform that sends no
-   `deep_linking_settings.data`, and Moodle is that platform. A check asserting
-   only that `data` reads `true` would pass on code that hardcoded it.
-4. **THE FRAMED / TOP-LEVEL PAIR -- and it is the ONLY thing that closes §13.**
-   One Embed launch and one New Window launch of the same activity. Embed must
-   render the interstitial; New Window must redirect straight through with no
-   interstitial at all. **Two launches, and the answer is which screen appears.**
+3. ~~**`false`/`false` on the `data` echo**~~ -- **PROVEN 2026-08-30.** Three
+   `LtiDeepLinkingResponse` rows on Moodle, all reading `data = false` and
+   `data_requested = false`. Moodle sends no `deep_linking_settings.data`, we
+   echo none, and **the two booleans agree while being derived independently**
+   -- one from the signed payload, one from the session column.
 
-   **The live behaviour is currently REASONING, NOT MEASUREMENT.** The frame
-   test reads `Sec-Fetch-Dest`, and what a browser actually sends on a
-   cross-site TOP-LEVEL form POST has never been observed on this path. The
-   spec says `document`; nothing here has confirmed it. Every probe available
-   from a terminal fails signature verification long before that branch is
-   reached -- four header variants were tried and produced four identical
-   *unverified* pages, which establishes nothing about the branch. **A probe
-   that "passed" would have been the same result with the test inverted.**
+   **That is the half that catches a hardcoded `true`, and it was unreachable
+   on lti-ri**, which sends a `data` value on every request. The positive half
+   (`true`/`true`, 2026-08-28 00:47:59) proves the claim is echoed; this proves
+   the code is reading something rather than asserting it. Neither alone would
+   have.
+4. ~~**THE FRAMED / TOP-LEVEL PAIR**~~ -- **CLOSED 2026-08-30, and it was the
+   only thing that closed §13.**
 
-   If `document` does not arrive, **every New Window launch gets an interstitial
-   it does not need.** That risk is why the absent-header default was split:
-   a silent Fetch Metadata family means an old browser and takes the extra
-   click, while a partial family means the header was stripped upstream and does
-   not -- bounded versus unbounded populations. See the two-causes note in
-   `certidemy-web`'s CLAUDE.md.
+   **New Window launch redirected straight through into the learn area, no
+   interstitial. Embed launch rendered the interstitial in the frame, and its
+   button opened Certidemy in a new tab and landed correctly.** Both halves,
+   same activity, one sitting.
+
+   **`Sec-Fetch-Dest: document` DOES arrive on a cross-site top-level form
+   POST.** That was the open question and it is now measured rather than
+   reasoned. **The risk that every New Window launch would take an interstitial
+   it does not need is dead by observation.**
+
+   **The two-causes split on the ABSENT header remains correct and remains
+   unexercised** -- this browser sent the header, so nothing here tested what
+   happens when it is missing. A silent Fetch Metadata family still means an old
+   browser and takes the extra click; a partial family still means the header
+   was stripped upstream and does not. See the two-causes note in
+   `certidemy-web`'s CLAUDE.md. **Correct by argument, unproven by measurement,
+   and distinguishing those two is why the item is closed and the note is not.**
+
+   Original text follows, kept because the reasoning it records was sound and
+   the measurement is what retired it -- not a correction:
+
+   > **The live behaviour is currently REASONING, NOT MEASUREMENT.** The frame
+   > test reads `Sec-Fetch-Dest`, and what a browser actually sends on a
+   > cross-site TOP-LEVEL form POST has never been observed on this path. The
+   > spec says `document`; nothing here has confirmed it. Every probe available
+   > from a terminal fails signature verification long before that branch is
+   > reached -- four header variants were tried and produced four identical
+   > *unverified* pages, which establishes nothing about the branch. **A probe
+   > that "passed" would have been the same result with the test inverted.**
+
+5. ~~**`custom` REPLAY**~~ -- **OBSERVED 2026-08-30.** The launch seated the
+   student in **the certification the instructor picked**, which means Moodle
+   carried the content item's `custom` claim through to a subsequent launch.
+   Specification behaviour, and now watched rather than assumed -- it is the
+   mechanism the whole content-item design rests on (§3: keyed on
+   `certifications.id`, never the code), and until this launch nothing had shown
+   a platform actually replaying it.
+
+6. ~~**`accept_multiple: true` end to end**~~ -- **OBSERVED 2026-08-30.** A
+   single deep-linking response carried **three content items** -- AI Governance
+   & Risk Management I, ISO/IEC 42001:2023 Internal Auditor, AI Essentials I --
+   and **Moodle planted all three.** The advertised limit is read, honoured in
+   the picker, enforced independently in the signer, and accepted by the
+   platform.
 
 **They are listed together because they are one booking, not four.** Each is
 cheap once the rig is up and none of them is reachable without it.
@@ -779,7 +829,7 @@ solve our half of it.**
 this shape of failure — Safari blocking cookies in third-party iframes made a
 workaround necessary for storing state between login and launch, and Canvas
 implements it. **But that solves the STATE cookie**, which we already have
-working at 30 of 30 on Moodle and 13 of 13 on lti-ri.
+working at 35 of 35 on Moodle and 13 of 13 on lti-ri.
 
 A developer on 1EdTech's own forum described our situation exactly: cookieless
 auth working for the initial request, and afterwards **the application's own
@@ -814,7 +864,7 @@ embedding context is not what anyone does.
 
 **We do NOT implement LTI Platform Storage, and we do not need it.** A reviewer
 may ask, and the honest answer is two sentences: our state cookie survives the
-third-party frame — measured, 30 of 30 and 13 of 13 — so the problem Platform
+third-party frame — measured, 35 of 35 and 13 of 13 — so the problem Platform
 Storage exists to solve does not arise for us; and the session layer it does not
 cover is out of scope for the specification by its own architects' account.
 
@@ -919,7 +969,7 @@ against real data, and 261's columns remain correct-and-unexercised.
 > anyone looked for it.
 >
 > **WHAT SURVIVES IS NARROWER AND MUST BE STATED AS THAT:**
-> `state_cookie_survives` **specifically** has never read `false` — **30 of 30
+> `state_cookie_survives` **specifically** has never read `false` — **35 of 35
 > on Moodle, 13 of 13 on lti-ri.** Safari is still the only known path to that
 > one key. "The flip" is closed; "the state cookie has never been dropped" is
 > not.
