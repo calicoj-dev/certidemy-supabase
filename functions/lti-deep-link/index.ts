@@ -47,13 +47,22 @@
 //
 // Tier A: advertised per launch in deep_linking_settings, so it is read from
 // the session rather than guessed. A platform that accepts only one item gets
-// one, and a platform that does not accept a plain `link` gets an honest
-// refusal rather than an item it will discard.
+// one.
 //
-// WE PLANT A `link`, NOT AN `ltiResourceLink`. An ltiResourceLink is a link
-// that launches US -- which in phase 1 lands on "student launch is not
-// available yet". A plain link to the public certification page is the thing
-// that actually works, and planting the other would be planting a dead end.
+// WE PLANT AN `ltiResourceLink`. This header used to say the opposite, in the
+// same certain tone -- "planting the other would be planting a dead end" -- and
+// it was correct WHEN WRITTEN and became false without changing a character.
+// In phase 1 an ltiResourceLink launched us and we answered "student launch is
+// not available yet", so a plain link to the public certification page was the
+// only thing that worked. Phase 2 shipped the student launch and proved it on a
+// real withheld-email Moodle launch, at which point the plain link became the
+// dead end: a `link` content item is a URL resource, so clicking it is an
+// ordinary navigation with no id_token and no launch, and every bit of phase 2
+// sits unreachable behind it.
+//
+// A COMMENT THAT WAS TRUE ON THE DAY IT WAS WRITTEN IS THE HARDEST KIND TO
+// CATCH, because nothing about it ever looks wrong. What dates it is not the
+// wording but the fact it asserts about another part of the system.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
@@ -66,7 +75,6 @@ interface Body {
 }
 
 const SITE = "https://certidemy.com";
-const SUPPORTED_LOCALES = new Set(["en", "es-419", "pt-BR"]);
 
 /** Response JWTs are short-lived. They cross one browser hop and are consumed. */
 const RESPONSE_TTL_SECONDS = 300;
@@ -159,7 +167,7 @@ serve(async (req) => {
     if (body.action !== "sign") {
       const { data: certs } = await svc
         .from("certifications")
-        .select("code, name, description")
+        .select("id, code, name, description")
         .eq("status", "available")
         .order("sort_order", { ascending: true })
         .order("code", { ascending: true });
@@ -230,7 +238,7 @@ serve(async (req) => {
     // stale picker or an edited form; either way it must not be planted.
     const { data: certs } = await svc
       .from("certifications")
-      .select("code, name")
+      .select("id, code, name")
       .eq("status", "available")
       .in("code", codes);
 
@@ -273,17 +281,61 @@ serve(async (req) => {
     }
 
     /* ---- the content items ---------------------------------------------- */
-    // LOCALE IS PLANTED EXPLICITLY, NEVER LEFT UNPREFIXED. A link in someone's
-    // course outlives our routing, so it must not depend on a redirect we
-    // control. Unrecognised or absent falls back to 'en' as a literal segment.
-    const locale = session.locale && SUPPORTED_LOCALES.has(session.locale)
-      ? session.locale
-      : "en";
+    /* WE PLANT AN ltiResourceLink, NOT A link, AND THE DIFFERENCE IS THE WHOLE
+       FEATURE. A `link` content item becomes a URL resource in the platform:
+       clicking it is an ordinary web navigation, with no id_token, no sub and
+       no launch. Everything phase 2 does -- identity, the two doors, seating --
+       is unreachable from one. This previously planted a link to the PUBLIC
+       MARKETING PAGE, so an instructor's course activity was a bookmark to a
+       sales page. It was not wrong when it shipped: phase 1 had no launch to
+       point at. It was overtaken.
 
+       THE URL IS THE LAUNCH ENDPOINT AND CARRIES NO LOCALE. It used to carry
+       one because a planted link outlives our routing. A launch does not need
+       it: launch_presentation.locale arrives with every launch and is the
+       STUDENT's language, whereas a locale planted here would be the
+       INSTRUCTOR's, pinned permanently onto every student in the course. */
+
+    /* ================== THE CUSTOM CLAIM IS KEYED ON THE IMMUTABLE ID ======
+       certification_id, never the code, and this is the most consequential
+       line in the file.
+
+       A CONTENT ITEM IS WRITTEN ONCE INTO A PLATFORM WE DO NOT CONTROL AND
+       REPLAYED ON EVERY LAUNCH FOREVER. We cannot edit it, migrate it, or see
+       it. Whatever goes in here is permanent at every institution that ever
+       planted one.
+
+       `code` is mutable and has already been rewritten across this entire
+       catalogue: migration 053 renamed every certification to the AI line and
+       silently falsified four things -- a validator, a lookup, a generated
+       artifact and a directory name -- none of which raised its voice for two
+       months. If the code were the key, the next rename would orphan every
+       planted activity at every institution, and NOTHING IN EITHER REPO WOULD
+       EVER SEE IT: the launches keep arriving, they simply resolve to nothing.
+       That is 053's silent failure relocated to somewhere we have no logs at
+       all.
+
+       `certifications.id` is a uuid primary key. A rename does not touch it,
+       so the launch resolves id -> CURRENT code from live data and every
+       planted activity follows the rename by itself.
+
+       AND ONLY THE ID -- the code is deliberately NOT carried alongside it. A
+       readable copy of a mutable fact sitting next to the immutable key is the
+       pair that somebody eventually branches on, and a stale copy of a code is
+       worse than no copy. The instructor already sees the certification's name
+       in `title`, which is the platform's own display text.
+
+       A literal can never legitimately arrive `unsubstituted`, so the launch's
+       four-state claim reader turns a platform mangling this value into a
+       detectable event rather than a student silently seated in the wrong
+       place. */
     const contentItems = found.map((c) => ({
-      type: "link",
+      type: "ltiResourceLink",
       title: c.name,
-      url: `${SITE}/${locale}/certifications/${c.code.toLowerCase()}`,
+      url: `${SITE}/lti/launch`,
+      custom: {
+        certidemy_certification_id: c.id,
+      },
     }));
 
     /* ---- sign ------------------------------------------------------------ */
