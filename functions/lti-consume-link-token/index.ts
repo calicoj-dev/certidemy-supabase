@@ -71,7 +71,7 @@ serve(async (req) => {
   // Look up by HASH. The caller sends the token; we never store or log it.
   const { data: row, error: rErr } = await svc
     .from("lti_link_tokens")
-    .select("id, platform_id, deployment_id, sub, expires_at, consumed_at")
+    .select("id, platform_id, deployment_id, sub, expires_at, consumed_at, attempts")
     .eq("token_sha256", await sha256Hex(token))
     .maybeSingle();
 
@@ -80,22 +80,57 @@ serve(async (req) => {
     return jsonResponse({ ok: false, reason: "lookup_failed" }, 500);
   }
 
-  // UNKNOWN, CONSUMED AND EXPIRED ARE DELIBERATELY THE SAME ANSWER OUTWARD.
-  // Distinguishing them would tell a caller whether a token they hold was ever
-  // real, which is a probing oracle over a table keyed by a secret. The
-  // difference is inward only, in the log line. Same instinct as
-  // nonce_not_found and nonce_consumed being indistinguishable in lti-launch.
+  /**
+   * ONE WORD OUTWARD, THREE WORDS INWARD.
+   *
+   * UNKNOWN, CONSUMED AND EXPIRED ARE DELIBERATELY THE SAME ANSWER ON THE WIRE.
+   * Distinguishing them would tell a caller whether a token they hold was ever
+   * real, which is a probing oracle over a table keyed by a secret. Same
+   * instinct as nonce_not_found and nonce_consumed being indistinguishable in
+   * lti-launch -- there the difference is a replay oracle, here it is an
+   * existence oracle, and both are answered with one word.
+   *
+   * THE SPECIFIC REASON IS RECORDED WHERE ONLY AN ADMIN CAN READ IT --
+   * lti_link_tokens.last_error, added by migration 264. The browser gets a
+   * redirect and learns nothing either way, so precision costs it nothing.
+   *
+   * AND THE RECORDING IS THE POINT OF 264. Door two failed on its first real
+   * run and nothing could say why: the caller swallowed its catch, and the only
+   * other trace was consumed_at -- WRITTEN BY THE VERY STEP THAT FAILED.
+   * Absence of it was consistent with every failure mode and proved none.
+   * A reporting path must not depend on the mechanism it reports on.
+   *
+   * So: attempts is bumped BEFORE any refusal returns, which makes
+   * attempts = 0 mean "this function never ran" -- a fact the caller could
+   * never write about itself.
+   */
   const now = Date.now();
+
+  async function note(id: string, err: string | null): Promise<void> {
+    await svc
+      .from("lti_link_tokens")
+      .update({
+        attempts: (row?.attempts ?? 0) + 1,
+        last_attempt_at: new Date().toISOString(),
+        last_error: err,
+      })
+      .eq("id", id)
+      .then(undefined, () => {});
+  }
+
   if (!row) {
+    // No row to record against -- an unknown hash has nowhere to leave a trace,
+    // which is the one case that stays silent by construction. It is also the
+    // least interesting: a token we never issued.
     console.log("link token: unknown");
     return jsonResponse({ ok: false, reason: "not_usable" }, 400);
   }
   if (row.consumed_at) {
-    console.log(`link token ${row.id}: already consumed`);
+    await note(row.id, "consumed");
     return jsonResponse({ ok: false, reason: "not_usable" }, 400);
   }
   if (new Date(row.expires_at).getTime() < now) {
-    console.log(`link token ${row.id}: expired`);
+    await note(row.id, "expired");
     return jsonResponse({ ok: false, reason: "not_usable" }, 400);
   }
 
@@ -112,8 +147,16 @@ serve(async (req) => {
 
   if (lErr) {
     console.error("lti_users link failed", lErr.message);
+    await note(row.id, "link_failed");
     return jsonResponse({ ok: false, reason: "link_failed" }, 500);
   }
+
+  // The success side is recorded too, so `attempts` counts every arrival rather
+  // than only the refusals. A field that increments on failure alone makes
+  // "never tried" and "tried and worked" look identical, which is the same
+  // one-sided-recorder defect that made advertises_link_content_item ambiguous
+  // until its true branch was moved to lti-launch.
+  await note(row.id, null);
 
   // CONSUME AFTER LINKING, not before. Consuming first and then failing to link
   // would burn the token and leave the student unlinked with nothing to retry
