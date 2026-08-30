@@ -1,18 +1,27 @@
 # OPENNEXT-MIGRATION.md
 
-**Status: PHASE 1 COMPLETE, 2026-08-30. Nothing has touched Cloudflare.**
+**Status: PHASE 3 COMPLETE, 2026-08-30. `certidemy.com` serves from Workers,
+and the homepage 500 is fixed.**
 
-Executed through step 1.7 on branch `opennext-migration`, six commits. Phases 2
-and 3 have not begun.
+Executed end to end. Every step in §4 ran; the plan's two stops were never
+taken.
 
-> **THE SITE IS NOT HALF-MOVED.** `main` is unchanged at **`fdf8180`** and still
-> deployable on Next 15.1.4. **The Pages project does not build from
-> `opennext-migration`**, which is pushed but not wired to anything. No Workers
-> project exists yet, no DNS has moved, and the Pages project has not been
-> touched.
+> **THE LIVE STATE.** The apex is attached to the Worker **`certidemy-worker`**,
+> built from `main` at **`32c6db6`** — Next 15.5.24 on `@opennextjs/cloudflare`.
+> `deploy:check` prints **ALL PASS** against `https://certidemy.com`.
 >
-> A reader arriving mid-migration is looking at one live site on the old
-> adapter and one branch that has never been deployed.
+> **The Pages project still exists and has NOT been deleted.** It is the
+> rollback target for the duration of the 72-hour soak. **Read the Rollback
+> section before touching it** — the rollback is not the single-step operation
+> this document originally described.
+>
+> `credentials.certidemy.com` was never involved: separate Worker, separate
+> repo, untouched throughout. See §5 #7.
+
+**The site is no longer half-moved, and the earlier warning that said so has
+been removed rather than marked** — it described a state that no longer exists
+in any form, and a marked-stale blockquote at the top of a status header is
+read as current by anyone who skims.
 
 **Why this file exists.** `HANDOFF-v9_0.md` §5 was the only written record of
 this work, and §7 items 1–2 pointed at work with no document behind them. The
@@ -85,7 +94,7 @@ Written down because "badge" appearing in both a `_headers` rule and a route
 filename is exactly the coincidence someone re-checking this will find, and it
 looks like the counter-example that breaks the conclusion. It is not.
 
-### CONFIRMED TWICE IN EXECUTION, and neither confirmation is documentation
+### CONFIRMED THREE TIMES IN EXECUTION, and no confirmation is documentation
 
 **The conclusion above no longer rests on the adapter's documentation at any
 point.** Two independent measurements at Phase 1:
@@ -104,8 +113,20 @@ _headers byte-identical at e7931a71e6ab00d9
 **With a hash control**, so the comparison was shown capable of reporting a
 difference rather than merely reporting none.
 
+**Third, on the wire, in production.** Step 2.4 ran `curl -sI` against
+`/_next/static/chunks/836-*.js` on the deployed Worker:
+
+```
+Cache-Control: public, max-age=31536000, immutable
+```
+
+**That is this section's conclusion as a response header from Cloudflare's
+edge**, not a parse count and not a hash of a local build.
+
 The first confirms the file is read and understood. The second confirms every
-asset the rules point at actually ships. **Together they close the one gap this
+asset the rules point at actually ships. **The third confirms the rule reaches a
+real client** — which is the only form of the claim that ever mattered, and the
+one neither of the first two could make. **Together they close the one gap this
 section originally had** — see §4 step 1.6, which existed for exactly that
 reason.
 
@@ -376,13 +397,57 @@ risk it was aimed at and removed nothing else.
 
 ### Phase 2 — the workers.dev gate, before DNS
 
+**EXECUTED 2026-08-30. All five steps ran; the gate passed.**
+
 | # | Step | R/NR | Validation |
 |---|---|---|---|
-| 2.1 | Create a **new Workers project**. Do not touch the Pages project. Set every variable from 0.1 — **including at build time, not only as runtime vars** (§5 #5). **`SUPABASE_SECRET_KEY` is a FIFTH variable and is a SECRET, not a var** — see below. | R | PRODUCTION ONLY |
-| 2.2 | Deploy the branch to workers.dev. | R | CI ONLY |
-| 2.3 | `npm run deploy:check https://<worker>.<subdomain>.workers.dev`. **This is the gate. DNS does not move until it prints ALL PASS.** | R | CI/PRODUCTION |
-| 2.4 | Manual on workers.dev: `/lti/jwks` (well-formed keyset), `/lti/select` (zero `<script>`), one console route, one `/verify/<id>`, and `curl -I` on `/_next/static/…` asserting `max-age=31536000, immutable` — **the live proof of the §1 conclusion**. | R | PRODUCTION ONLY |
-| 2.5 | Merge to `main` only after 2.3 passes. | R | — |
+| 2.1 | **DONE.** Worker `certidemy-worker`, build `npm run cf:build`, deploy `npx wrangler deploy`. **FOUR variables**, plus `NODE_VERSION=22.16.0`. | R | PRODUCTION ONLY |
+| 2.2 | **DONE after two failed builds** — see the findings below. Green at `32c6db6`. | R | CI ONLY |
+| 2.3 | **ALL PASS** on `https://certidemy-worker.jroman-mobile.workers.dev`. The gate held. | R | CI/PRODUCTION |
+| 2.4 | **DONE**, including the live `_headers` proof — see below. | R | PRODUCTION ONLY |
+| 2.5 | **DONE** — fast-forward `fdf8180..32c6db6`, 86 files, pushed. Worker production branch repointed to `main`. | R | — |
+
+**Step 2.3 as executed — what ALL PASS actually contained:**
+
+- three locale roots **200**, at **7,506 / 8,311 / 8,108** visible characters
+  script-stripped
+- the Supabase **ref and anon key found in `chunk 836-*`** — §5 #5's build-time
+  inlining, confirmed rather than assumed
+- **canonical correctly reading `certidemy.com` from a workers.dev origin**
+- the **carrier route passing** and the **control failing all five**
+
+The carrier and the control are both there, which is §7's *both halves* lesson
+being applied rather than restated.
+
+**Step 2.4 as executed.** `/lti/jwks` returns a well-formed RS256 keyset.
+`/en/verify` renders. `/en/console` correctly bounces to
+`/en/login?next=%2Fen%2Fconsole`. **And the live §1 proof:** `curl -sI` on
+`/_next/static/chunks/836-*.js` returned
+`Cache-Control: public, max-age=31536000, immutable`.
+
+**Step 2.2 — THREE OPERATIONAL FINDINGS, and all three cost a build.**
+
+Recorded because none is in the plan above and each will be hit by anyone
+repeating this:
+
+1. **Workers Builds has NO BRANCH SELECTOR in its creation flow.** It takes the
+   repository's **default branch** — here `main`, at `fdf8180`, which predates
+   the migration entirely. The first two builds failed with
+   `Missing script: "cf:build"`, and **that error is correct**: the script did
+   not exist on the branch it was actually building. The message names the
+   symptom and gives no hint that the branch is wrong.
+2. **RETRYING A FAILED BUILD REPLAYS ITS ORIGINAL COMMIT.** It does not pick up
+   settings changed since. So fixing the branch in Settings and pressing retry
+   changes nothing, and the second identical failure reads as the fix not
+   working rather than as the retry not applying it.
+3. **The fix is a fresh trigger, not a retry** — set the production branch in
+   Settings, then push an **empty commit**. Build `32c6db6` green.
+
+**`NODE_VERSION=22.16.0` was set explicitly.** Workers Builds auto-detected
+**24.18.0**; the lock was generated and gated under 22.16.0, and §5 #2's whole
+subject is a CI failure nobody could reproduce locally. **Pinning the pair that
+the lock was built under removes one variable from a class of failure this
+migration already has an unexplained instance of.**
 
 **Step 2.1 — THERE IS A FIFTH VARIABLE, AND IT IS NOT IN `wrangler.jsonc`.**
 
@@ -395,20 +460,57 @@ put`, or the dashboard — and **never a plaintext var in a tracked config
 file**. It is **deliberately absent from `wrangler.jsonc` for that reason**.
 Its absence is the correct state of that file, not an omission to be repaired.
 
-**THIS IS THE MOST DANGEROUS LINE IN PHASE 2 IN BOTH DIRECTIONS:**
+> **[RETRACTED IN HALF, 2026-08-30, BY 2.1 AS EXECUTED.]** The original text
+> follows, unaltered:
+>
+> > **THIS IS THE MOST DANGEROUS LINE IN PHASE 2 IN BOTH DIRECTIONS:**
+> >
+> > - **Forget it** and every admin-client path fails on the new Workers project
+> >   while the four public vars make the site look configured. The failure is
+> >   partial and looks like something else.
+> > - **"Fix" it** by adding it to `wrangler.jsonc` alongside the four and a
+> >   service-role key is committed to git.
+> >
+> > The first is an outage. The second is a credential disclosure, and it is the
+> > easier mistake to make, because a reader comparing `wrangler.jsonc` against
+> > the dashboard sees four where there should be five and reaches for the file.
+> >
+> > **0.1 is amended to confirm the dashboard carries it**, so this is
+> > discovered while reading the old project rather than while debugging the new
+> > one.
+>
+> **THE OUTAGE HALF IS WRONG. THERE IS NO OUTAGE RISK.**
+>
+> **Nothing the Worker serves reaches `getAdminClient()`.** Measured:
+>
+> ```
+> getAdminClient  ->  3 call sites, ALL under scripts/ingest/
+>                     (apply.ts, diff-lessons.ts, plan.ts)
+> app/ components/ lib/  ->  1 match, the definition itself
+> ```
+>
+> **2.1 as executed is the proof, not the grep.** The Worker was created with
+> **four variables**, `SUPABASE_SECRET_KEY` deliberately not set, and it has
+> served every route — including `/en/console`, `/en/verify` and `/lti/jwks` —
+> for an hour with `deploy:check` passing. **A missing secret that nothing
+> reads is not a missing secret.**
+>
+> **The disclosure half stands, and is now the WHOLE of it.** That makes this
+> line simpler, not safer: the only way to get hurt here is to "repair" the
+> four-vs-five gap by writing the key into `wrangler.jsonc`. **There is no
+> countervailing pressure to set it at all**, so the correct action is to leave
+> it absent everywhere — the file, the dashboard, and the secret store.
+>
+> **0.1's amendment stands but changes purpose.** Confirm what the Pages
+> dashboard carries in order to know what NOT to carry forward, not in order to
+> reproduce it.
 
-- **Forget it** and every admin-client path fails on the new Workers project
-  while the four public vars make the site look configured. The failure is
-  partial and looks like something else.
-- **"Fix" it** by adding it to `wrangler.jsonc` alongside the four and a
-  service-role key is committed to git.
-
-The first is an outage. The second is a credential disclosure, and it is the
-easier mistake to make, because a reader comparing `wrangler.jsonc` against the
-dashboard sees four where there should be five and reaches for the file.
-
-**0.1 is amended to confirm the dashboard carries it**, so this is discovered
-while reading the old project rather than while debugging the new one.
+**Why this was wrong, and it is the file's own lesson.** The outage half was
+inferred from the existence of `lib/supabase/admin.ts` — a module that exists,
+is correct, and is genuinely server-only. **Existence was read as use.** The
+call-site listing was never done until after 2.1 had already disproved it by
+running. Compare §2's "ZERO adapter API surface", which was settled by listing
+call sites and was right for exactly that reason.
 
 **Step 2.3, amended.** The original described three assertions — status,
 headline, control. **`check-deploy.mjs` now carries five assertions plus a
@@ -422,14 +524,36 @@ contents here, because that description has already gone stale once.
 
 | # | Step | R/NR | Validation |
 |---|---|---|---|
-| 3.1 | Add `certidemy.com` + `www` as a custom domain on the Worker; remove from the Pages project. | R (see rollback) | PRODUCTION ONLY |
-| 3.2 | `npm run deploy:check https://certidemy.com`. | R | PRODUCTION ONLY |
-| 3.3 | Leave the Pages project deployed and untouched for a defined soak. **Deleting it is the only NR step in this plan — do it last, or never.** | NR | — |
+| 3.1 | **DONE — but NOT as written.** Cloudflare refused the direct move; the Pages custom domain had to be **removed first**. Apex only; there was no `www` record. | R (see rollback) | PRODUCTION ONLY |
+| 3.2 | **ALL PASS** on `https://certidemy.com`. **THE 500 IS FIXED.** | R | PRODUCTION ONLY |
+| 3.3 | **Pages project NOT deleted.** 72-hour soak running, `deploy:check` at start and end. Still the rollback target. | NR | — |
 
-**Step 3.1 — time it while you are doing it.** Attaching the custom domain to
-the Worker **is the rollback operation in the other direction**, and it is the
-only cheap opportunity to measure how long that takes before you need the number
-under pressure. See the Rollback section.
+**Step 3.1 as executed — THE DIRECT MOVE IS REFUSED.** The step said "add to
+the Worker; remove from the Pages project", in that order. Cloudflare answered:
+
+```
+Hostname already has externally managed DNS records.
+```
+
+**The Pages custom domain must be REMOVED BEFORE the Worker can claim the
+hostname.** A hostname is held by one project at a time, and the handover is not
+atomic. This rewrites the Rollback section below — see it before you need it.
+
+**Only the apex was attached. There is no `www` record**, so the plan's
+"`certidemy.com` + `www`" was one item too many. Nothing was lost by it, but a
+reader looking for a `www` to move back during a rollback will not find one and
+should not go looking.
+
+**Step 3.2 — the fix, measured by the instrument that found the failure.** Same
+command, same domain, two hours apart:
+
+| when | visible chars, script-stripped | result |
+|---|---|---|
+| before | **48 / 58 / 48** | three failures |
+| after | **7,506 / 8,311 / 8,108** | **ALL PASS** |
+
+Identical to the workers.dev gate at 2.3, which is the point: the apex now
+serves what the gate approved.
 
 **Step 3.3 — the soak is 72 hours**, with `check-deploy.mjs` run at the start
 and at the end. Two runs, not one: a single pass at the beginning proves the
@@ -439,22 +563,55 @@ cutover, and only the second proves it held.
 
 ### Rollback
 
+> **REWRITTEN 2026-08-30. THE ORIGINAL DESCRIBED THIS AS ONE STEP. IT IS TWO,
+> AND THERE IS A WINDOW BETWEEN THEM WHERE THE APEX IS ATTACHED TO NOTHING.**
+>
+> The original text read *"remove the custom domain from the Worker, re-add it
+> to the Pages project"* as a single reassignment. **Step 3.1 proved Cloudflare
+> refuses a direct hostname move**, in that direction and therefore in this one:
+> `Hostname already has externally managed DNS records`.
+>
+> **Anyone reading this section is reading it under pressure.** Being surprised
+> by a second step, at that moment, is the worst possible time to discover it.
+
 **What must be true:** the Pages project still exists with its last successful
 deployment (the `4a175a0` build) intact, and its build settings and environment
-variables unchanged. **Nothing in Phases 1–2 touches it; Phase 3.1 only
-detaches the domain.**
+variables unchanged. **This is why 3.3 has not deleted it.** Nothing in
+Phases 1–2 touched it, and 3.1 only detached the domain.
 
-**The action:** remove the custom domain from the Worker, re-add it to the Pages
-project. **No rebuild, no revert commit, no redeploy** — the artifact is already
-sitting there.
+**THE ACTION IS TWO STEPS, IN THIS ORDER:**
 
-**How long it takes: NOT MEASURED.** Custom-domain reassignment is
-Cloudflare-internal and normally propagates in minutes, but it has not been
-timed on this account and **no number is put on it here.** Time it during
-Phase 3.1.
+1. **Remove `certidemy.com` from the Worker `certidemy-worker`.** The hostname
+   is now attached to nothing.
+2. **Add `certidemy.com` as a custom domain on the Pages project.**
 
-**Rollback restores the site to today's behaviour, which includes the homepage
-500.** That is the point: **it is a rollback, not a fix.**
+**Apex only. There is no `www` record** — do not go looking for one.
+
+**Between 1 and 2 the site is down**, not degraded. That window did not exist in
+the original description of this operation, and its length is **the number that
+matters and the one nobody has**.
+
+**No rebuild, no revert commit, no redeploy** — that part of the original was
+right. The Pages artifact is already sitting there.
+
+**HOW LONG IT TAKES: STILL NOT MEASURED, AND NOW HARDER TO MEASURE.** The plan
+intended 3.1 to be the cheap rehearsal. It was not, for a reason worth stating:
+**3.1 was not the same operation.** It was remove-from-Pages-then-add-to-Worker,
+under no time pressure, with the old site still serving until the moment of
+removal. A rollback is the mirror of that with an outage running through the
+middle of it, so even a number taken at 3.1 would have described a different
+thing.
+
+**No number is invented here.** Custom-domain attachment is Cloudflare-internal
+and normally propagates in minutes; that is a general expectation, not a
+measurement on this account, and it should not be quoted as one during an
+incident.
+
+**Rollback restores the site to its pre-migration behaviour, which includes the
+homepage 500** — 48 / 58 / 48 visible characters and three `deploy:check`
+failures. That is the point: **it is a rollback, not a fix.** It trades a
+working site for a known-broken one, deliberately, and only to escape something
+worse.
 
 ---
 
@@ -589,6 +746,40 @@ reason the gate sits before DNS.
 > when they read the failure.** Which matters: a reader who thinks the mechanism
 > is understood will look for a variant of it, and the trigger is unknown.
 
+> **[RESOLVED 2026-08-30 — OBSERVED, NOT EXPLAINED. The distinction is the
+> whole entry.]**
+>
+> **Next 15.5.24 built and deployed in Cloudflare CI without the refusal that
+> stopped 15.5.2 three times.** Build `32c6db6` green, gate passed at 2.3, apex
+> serving since 3.1.
+>
+> **WHAT IS SETTLED:** the bet paid. The version ceiling is cleared, 15.5.24 is
+> proven on this account and in this CI, and no version between 15.1.4 and
+> 15.5.24 needs to be attempted by anyone, ever.
+>
+> **WHAT IS NOT SETTLED, AND MUST NOT BE WRITTEN UP AS IF IT WERE:** *why the
+> 15.5.2 builds were refused.* **The trigger remains unknown.** It was unknown
+> before the migration and it is unknown now — the migration did not diagnose
+> it, it walked around it. **The prediction that it would evaporate under
+> OpenNext was borne out without ever being understood.**
+>
+> A prediction that comes true is not thereby explained. The conditional above
+> still has an unproven antecedent; what changed is that the consequent was
+> observed, which is weaker evidence for the antecedent than it feels like. **If
+> `next-on-pages` is ever reached for again — on any project, on any version —
+> this is still an open unknown and none of it has been ruled out.**
+>
+> **AND NOTE WHICH INSTRUMENT SETTLED IT.** This entry's own finding was that
+> *a 15.5 fix can only be validated by pushing it — there is no local
+> reproduction, so no candidate can be tested before it is in CI.* That is
+> exactly what happened: four local builds proved nothing, and one CI build
+> answered it.
+>
+> **The plan named the instrument before it named the answer.** That is the
+> transferable part. Writing down *what could settle this* is useful even when
+> you cannot predict *how it will settle* — and it is what kept 15.5.24 from
+> being tested anywhere production could see it.
+
 ### #3 — wrangler must go 3.114.17 → v4, a second unvalidated major in the same commit
 
 OpenNext peers `wrangler: ^4.125.0`; installed is 3.114.17. Unavoidable, but
@@ -687,6 +878,32 @@ true regardless of what 1.7 shows.
 > could have been something OpenNext also reproduces. After 1.7, it cannot be
 > that — it can only be something the deployed platform does and preview does
 > not. **The space got smaller, not empty.**
+
+> **[RESOLVED 2026-08-30 — AT THE DEPLOYED ARTIFACT, WHICH IS THE OBSERVATION
+> THAT COUNTS.]**
+>
+> `deploy:check` prints **ALL PASS** against `https://certidemy.com`. The
+> homepage returns **7,506 visible characters** script-stripped where two hours
+> earlier it returned **48**.
+>
+> **This is the observation the entry above said was required**, and it is
+> deliberately not the one 1.7 provided. 1.7 was the local Workers runtime;
+> this is Cloudflare's edge, on the real domain, on the deployed artifact —
+> the only place the 500 was ever observed and therefore the only place it
+> could be shown gone.
+>
+> **The entry's caution was correct and cost nothing.** Declining to claim the
+> fix at 1.7 did not slow the migration by a single step; Phase 2 was going to
+> run either way. **A claim withheld until the right instrument is available is
+> free when that instrument is already on the schedule.**
+>
+> **The mechanism is still not measured.** The reasoning — that OpenNext does
+> not use the emitter that produced the bad chunk — was never verified
+> directly; what was verified is that the symptom is gone. **Same shape as #2:
+> the prediction held, the explanation was never tested.** Two of this
+> document's central bets paid out without being understood, and it is worth
+> being uncomfortable about that rather than reading two confirmations as two
+> proofs.
 
 ---
 
@@ -802,3 +1019,35 @@ properties**, and only identity supports what §1 needs — a listing cannot tel
 correct asset from a truncated one. That was not luck, and the distinction is
 the transferable part: **when a step names the cheap check, ask what property
 the conclusion actually requires.**
+
+### The two stops were never taken, and that is NOT the same as the plan being right
+
+This plan wrote two places to stop: **1.7**, if `/en` still failed under
+preview, and **2.3**, if the gate did not print ALL PASS. **Neither fired.** It
+would be easy to read that as the plan having predicted the migration
+accurately. It did not.
+
+**Three of Phase 1's six commits were unplanned** — two blockers and a
+regression. **Phase 2's first two builds failed**, on a branch selector the plan
+never mentioned, with a retry mechanism that replays the original commit and so
+made the fix look ineffective. **Step 3.1 was refused outright** and had to be
+done in the opposite order from the one written. **Step 2.1's most important
+prose was half wrong**, and only running it disproved it. **And §5 #2 and #8,
+the two central bets, both paid out without being explained.**
+
+So the plan was wrong about the sequence, wrong about a hostname move, wrong
+about a variable, and unable to explain either of the things it correctly
+predicted. **What it got right was where to stand when it turned out to be
+wrong.**
+
+**THE PLAN'S VALUE WAS NOT PREDICTION. IT WAS PLACEMENT.** Every one of those
+surprises happened somewhere it was survivable: the blockers on a branch nobody
+deployed, the failed builds against a workers.dev subdomain with production
+untouched, the refused hostname move at the one moment both projects still
+existed. **The stops not firing is what success looks like for a structure whose
+job is to make failures cheap — not evidence that the failures were foreseen.**
+
+The corollary is the part worth carrying: **do not grade a plan by how much of
+it came true.** Grade it by where it put you when something did not. A plan that
+predicts perfectly and stages the work badly is worse than this one, and it will
+read as more impressive right up until the first surprise.
