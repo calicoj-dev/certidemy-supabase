@@ -1,6 +1,18 @@
 # OPENNEXT-MIGRATION.md
 
-**Status: AGREED, NOT STARTED.** Nothing in this plan has been executed.
+**Status: PHASE 1 COMPLETE, 2026-08-30. Nothing has touched Cloudflare.**
+
+Executed through step 1.7 on branch `opennext-migration`, six commits. Phases 2
+and 3 have not begun.
+
+> **THE SITE IS NOT HALF-MOVED.** `main` is unchanged at **`fdf8180`** and still
+> deployable on Next 15.1.4. **The Pages project does not build from
+> `opennext-migration`**, which is pushed but not wired to anything. No Workers
+> project exists yet, no DNS has moved, and the Pages project has not been
+> touched.
+>
+> A reader arriving mid-migration is looking at one live site on the old
+> adapter and one branch that has never been deployed.
 
 **Why this file exists.** `HANDOFF-v9_0.md` §5 was the only written record of
 this work, and §7 items 1–2 pointed at work with no document behind them. The
@@ -72,6 +84,30 @@ in the word, not the path.
 Written down because "badge" appearing in both a `_headers` rule and a route
 filename is exactly the coincidence someone re-checking this will find, and it
 looks like the counter-example that breaks the conclusion. It is not.
+
+### CONFIRMED TWICE IN EXECUTION, and neither confirmation is documentation
+
+**The conclusion above no longer rests on the adapter's documentation at any
+point.** Two independent measurements at Phase 1:
+
+**wrangler printed `Parsed 5 valid header rules` at preview startup,
+unprompted.** Not asked for, not a flag — the adapter reporting the same count
+this section derived by listing. Five rules written, five rules parsed.
+
+**Step 1.6 hashed all 30 files under `public/` against `.open-next/assets`:**
+
+```
+30 present, 0 missing, 0 byte-different
+_headers byte-identical at e7931a71e6ab00d9
+```
+
+**With a hash control**, so the comparison was shown capable of reporting a
+difference rather than merely reporting none.
+
+The first confirms the file is read and understood. The second confirms every
+asset the rules point at actually ships. **Together they close the one gap this
+section originally had** — see §4 step 1.6, which existed for exactly that
+reason.
 
 ---
 
@@ -206,14 +242,38 @@ missing phase.)
 
 | # | Step | R/NR | Validation |
 |---|---|---|---|
-| 0.1 | Record the current Pages project's build command, output dir, Node version and full environment-variable set from the dashboard. `wrangler.jsonc` shows four `NEXT_PUBLIC_*` vars; whether the dashboard sets more is not measured — it cannot be read from the repo. | R | PRODUCTION ONLY (dashboard read) |
+| 0.1 | Record the current Pages project's build command, output dir, Node version and full environment-variable set from the dashboard. `wrangler.jsonc` shows four `NEXT_PUBLIC_*` vars; whether the dashboard sets more is not measured — it cannot be read from the repo. **Confirm specifically whether the dashboard carries `SUPABASE_SECRET_KEY`** — see 2.1. | R | PRODUCTION ONLY (dashboard read) |
 | 0.2 | Establish the baseline: `npm run deploy:check` against `https://certidemy.com`. **It will fail — that is the point.** It is the before-figure. | R | PRODUCTION ONLY |
 
 ---
 
 ### Phase 1 — the atomic change
 
-See **§5 #1**: this cannot be split.
+**EXECUTED 2026-08-30 on branch `opennext-migration`.** See **§5 #1**: this
+cannot be split.
+
+**The commits, and the shape of this table is the finding:**
+
+| step | commit | what |
+|---|---|---|
+| 1.1 | — | branch, no commit |
+| 1.2 | `b686aa4` | the dependency swap |
+| 1.3 | `d782cad` | the 81 pins |
+| **—** | **`fefb529`** | **the sitemap reversal — NOT a plan step (§4b)** |
+| 1.4 + 1.5 | `4459149` | committed together |
+| **—** | **`4a69afb`** | **the esbuild/diff blocker — NOT a plan step (§4b)** |
+| **—** | **`c33e299`** | **the `.open-next` gitignore — NOT a plan step (§4b)** |
+| 1.6 | — | a build and a measurement |
+| 1.7 | — | a preview and a measurement |
+
+**THREE OF THE SIX COMMITS ARE NOT PLAN STEPS** — two unanticipated blockers
+and one regression. **And the two steps that produced this migration's most
+important evidence, 1.6's asset listing and 1.7's preview, produced no commits
+at all.**
+
+**A plan measured in commits would have counted this backwards**: it would score
+the unplanned work as the plan being executed, and score the two measurements
+that actually de-risked the migration as nothing having happened.
 
 | # | Step | R/NR | Validation |
 |---|---|---|---|
@@ -250,18 +310,67 @@ So: read each of the 81 files **as a Buffer** and assert
 
 Not a tally, and not `grep -a`.
 
-**Step 1.6 is the one Deliverable-1 assertion resting on documentation rather
-than a listing.** Everything else in §1 was settled by listing files. This one
-is settled by the adapter's docs until this step runs. **Settle it here, before
-deploying.**
+**Step 1.3, as executed — the line-ending rule had to change on contact.**
 
-**Step 1.7 is the first instrument capable of seeing whether the chunk bug
+The approved guard also aborted on mixed line endings. **Four files are
+genuinely mixed, and all four carried a pin** — so aborting would have stopped
+the edit at **77 of 81**, with the remaining four looking like a failure of the
+edit rather than a property of the files.
+
+**A byte-level line splice made the abort unnecessary rather than working
+around it.** The distinction matters: the fix was not to suppress the guard or
+to normalise the files, it was to edit in a way that has nothing to say about
+line endings.
+
+**The guard was correct in intent and wrong about the population.** It assumed
+mixed endings meant something had gone wrong; in this repository they are simply
+present, in files nobody has touched in months. Note that the byte-range
+assertion above already permits `10` and `13` deliberately — the abort was an
+addition on top of it, and the addition is what was wrong.
+
+**Step 1.6 was the one Deliverable-1 assertion resting on documentation rather
+than a listing. RESOLVED — it no longer rests on documentation at all.**
+Everything else in §1 was settled by listing files; this one was settled by the
+adapter's docs until this step ran.
+
+**It ran, and it was strengthened past what the plan asked for.** The plan said
+"list the output root to confirm the files are present". What was done instead
+was **hash all 30 files under `public/` against `.open-next/assets`**:
+
+```
+30 present, 0 missing, 0 byte-different
+_headers byte-identical at e7931a71e6ab00d9
+```
+
+**Presence was the plan; identity is what was measured.** A listing proves a
+filename exists in the output. A hash proves the bytes the `_headers` rules
+point at are the bytes that shipped — which is the property §1 actually needs,
+and a listing cannot distinguish a correct asset from a truncated one.
+
+**With a hash control**, so the comparison was shown capable of reporting a
+difference. Compare the planted-NUL control at 1.3: same discipline, and it is
+the only reason "0 byte-different" is worth reading.
+
+**Step 1.7 was the first instrument capable of seeing whether the chunk bug
 survived.** `next dev` never reproduced it, because the broken module graph
-existed only in adapter output — so this is the earliest possible observation.
+existed only in adapter output — so this was the earliest possible observation.
 
 > **IF `/en` STILL FAILS UNDER PREVIEW, THE PLAN STOPS HERE.** Do not proceed to
 > Phase 2 and do not go near DNS. A failure at 1.7 means the premise in §5 #8 is
 > wrong, and everything after it was scoped on that premise.
+
+**IT PASSED. `/en` renders under `opennextjs-cloudflare preview`.** The stop was
+not taken, and §5 #8's premise survives its first real test — see #8, now
+resolved.
+
+**wrangler also printed `Parsed 5 valid header rules` at startup**, unprompted.
+That is §1's five rules, counted by the runtime rather than by me.
+
+**What 1.7 does NOT prove:** preview is the local Workers runtime, not
+Cloudflare's edge. It shares the runtime, not the platform — no real DNS, no
+production variable set, no cold start on Cloudflare's own machines, and no
+`SUPABASE_SECRET_KEY`. **Phase 2 remains the gate.** 1.7 removed the specific
+risk it was aimed at and removed nothing else.
 
 ---
 
@@ -269,11 +378,37 @@ existed only in adapter output — so this is the earliest possible observation.
 
 | # | Step | R/NR | Validation |
 |---|---|---|---|
-| 2.1 | Create a **new Workers project**. Do not touch the Pages project. Set every variable from 0.1 — **including at build time, not only as runtime vars** (§5 #5). | R | PRODUCTION ONLY |
+| 2.1 | Create a **new Workers project**. Do not touch the Pages project. Set every variable from 0.1 — **including at build time, not only as runtime vars** (§5 #5). **`SUPABASE_SECRET_KEY` is a FIFTH variable and is a SECRET, not a var** — see below. | R | PRODUCTION ONLY |
 | 2.2 | Deploy the branch to workers.dev. | R | CI ONLY |
 | 2.3 | `npm run deploy:check https://<worker>.<subdomain>.workers.dev`. **This is the gate. DNS does not move until it prints ALL PASS.** | R | CI/PRODUCTION |
 | 2.4 | Manual on workers.dev: `/lti/jwks` (well-formed keyset), `/lti/select` (zero `<script>`), one console route, one `/verify/<id>`, and `curl -I` on `/_next/static/…` asserting `max-age=31536000, immutable` — **the live proof of the §1 conclusion**. | R | PRODUCTION ONLY |
 | 2.5 | Merge to `main` only after 2.3 passes. | R | — |
+
+**Step 2.1 — THERE IS A FIFTH VARIABLE, AND IT IS NOT IN `wrangler.jsonc`.**
+
+This plan has said "the four `NEXT_PUBLIC_*` vars" throughout, because four is
+what the tracked config file carries. **There are five.**
+
+**`SUPABASE_SECRET_KEY` is server-only and read at runtime by
+`lib/supabase/admin.ts`.** It must be a **Workers SECRET** — `wrangler secret
+put`, or the dashboard — and **never a plaintext var in a tracked config
+file**. It is **deliberately absent from `wrangler.jsonc` for that reason**.
+Its absence is the correct state of that file, not an omission to be repaired.
+
+**THIS IS THE MOST DANGEROUS LINE IN PHASE 2 IN BOTH DIRECTIONS:**
+
+- **Forget it** and every admin-client path fails on the new Workers project
+  while the four public vars make the site look configured. The failure is
+  partial and looks like something else.
+- **"Fix" it** by adding it to `wrangler.jsonc` alongside the four and a
+  service-role key is committed to git.
+
+The first is an outage. The second is a credential disclosure, and it is the
+easier mistake to make, because a reader comparing `wrangler.jsonc` against the
+dashboard sees four where there should be five and reaches for the file.
+
+**0.1 is amended to confirm the dashboard carries it**, so this is discovered
+while reading the old project rather than while debugging the new one.
 
 **Step 2.3, amended.** The original described three assertions — status,
 headline, control. **`check-deploy.mjs` now carries five assertions plus a
@@ -320,6 +455,67 @@ Phase 3.1.
 
 **Rollback restores the site to today's behaviour, which includes the homepage
 500.** That is the point: **it is a rollback, not a fix.**
+
+---
+
+## 4b. What executing Phase 1 found
+
+Phase 1 ran on 2026-08-30. The plan above is amended in place where a step
+changed; this section holds what does not belong to any single step.
+
+### The plan was right about the shape and wrong about the population
+
+**Every step executed. No step was abandoned, reordered or found unnecessary.**
+The sequencing constraint in §3 held, the atomic commit was genuinely atomic,
+and the two stops (1.7, and the gate at 2.3) are still where they were put.
+
+**What the plan got wrong, twice, was the population a guard would run
+against** — not the guard's intent:
+
+- **1.3's line-ending abort** assumed mixed CRLF/LF meant something had gone
+  wrong. Four files are simply mixed, all four carried pins, and the abort
+  would have stopped the edit at 77 of 81.
+- The **sitemap regression** (`fefb529`) and the **esbuild/diff blocker**
+  (`4a69afb`) were not anticipated by any step.
+
+**A guard written against an imagined population fires on the real one.** Both
+line-ending files and the sitemap were in the repository the whole time and
+could have been measured before the plan was written. Neither was.
+
+### Three of six commits were not plan steps — and the two best measurements produced none
+
+The commit table under Phase 1 is the evidence. Restating what it shows,
+because it is the finding and not the bookkeeping:
+
+**THREE OF THE SIX COMMITS ARE NOT PLAN STEPS.** Two unanticipated blockers and
+one regression. **And the two steps that produced this migration's most
+important evidence — 1.6's asset hashing and 1.7's preview — produced no commits
+at all.**
+
+**A plan measured in commits would have counted this backwards.** It would score
+the unplanned work as the plan being executed, and score the two measurements
+that actually de-risked the migration as nothing having happened.
+
+This generalises past this migration: **commits measure edits, and the valuable
+part of a risky change is often the part that edits nothing.** 1.6 and 1.7 are
+where this plan stopped resting on documentation and reasoning; they are exactly
+where a commit-count progress report would show a stall.
+
+### What Phase 1 removed, and what it did not
+
+**Removed:** the §1 `_headers` conclusion is now measured twice (§1, and step
+1.6's 30-file hash). §5 #8's premise survived its first real test — `/en`
+renders. The 81 pins are gone with both directions asserted.
+
+**Not removed:** everything platform-shaped. Preview is the local Workers
+runtime, not Cloudflare. **No production variable has been set, no
+`SUPABASE_SECRET_KEY` has been placed, no DNS has moved, and the Pages project
+has not been touched.** §5 #2 (the 15.5 CI trigger) is untested by anything
+Phase 1 did, and by its own finding **can only be tested by pushing** — Phase 1
+never pushed to CI.
+
+**The site is exactly as it was.** `main` at `fdf8180`, deployed on 15.1.4,
+still returning the homepage 500.
 
 ---
 
@@ -407,7 +603,17 @@ its own change with its own i18n review surface across three locales.
 
 ### #5 — `NEXT_PUBLIC_*` are baked at build time, and `wrangler.jsonc` vars are runtime-only
 
-All four are `NEXT_PUBLIC_`, so Next inlines them into the client bundle during
+> **CORRECTION: "all four" is wrong — there are FIVE variables.** The fifth,
+> `SUPABASE_SECRET_KEY`, is server-only, read at runtime by
+> `lib/supabase/admin.ts`, and **deliberately absent from `wrangler.jsonc`
+> because it must be a Workers SECRET.** It is NOT `NEXT_PUBLIC_`, so this
+> section's build-time-inlining argument does not apply to it — **but the
+> configure-the-new-project risk does, in a worse form.** See step 2.1.
+>
+> This section's reasoning about the four is unchanged and correct. The count
+> was wrong, and the count is what a reader carries to the dashboard.
+
+All four `NEXT_PUBLIC_*` vars are inlined by Next into the client bundle during
 `next build`. **The `vars` block satisfies the Worker at runtime; it does not
 satisfy the build.** Today the Pages dashboard supplies them to the build
 environment.
@@ -464,6 +670,23 @@ settle it, and the plan stops there if it does not.
 Nothing in Phases 2–3 is justified by "the 500 will be fixed". They are
 justified by the adapter being archived, defective and unupgradable — which is
 true regardless of what 1.7 shows.
+
+> **UPDATED 2026-08-30 — 1.7 PASSED. `/en` renders under preview.**
+>
+> **This is now measurement, on the local Workers runtime.** The premise held
+> at the first point it could be tested, and the stop was not taken.
+>
+> **The claim in this section's heading does not change.** The plan still does
+> not claim the migration fixes the production 500 — preview is not Cloudflare,
+> and the 500 was only ever observed on a deployed artifact. **§4b's own
+> finding applies here: local output does not predict the deployed artifact,
+> which is how this defect was found in the first place.** The observation that
+> would settle it is Phase 2's workers.dev deploy, not 1.7.
+>
+> What changed is the failure mode that remains available. Before 1.7, the 500
+> could have been something OpenNext also reproduces. After 1.7, it cannot be
+> that — it can only be something the deployed platform does and preview does
+> not. **The space got smaller, not empty.**
 
 ---
 
@@ -531,3 +754,40 @@ output and would have gone stale the moment the bundler moved.
 
 **When two arguments reach the same place, keep the one that does not depend on
 today's artifact.**
+
+### A guard can be right in intent and wrong about the population
+
+**Added by Phase 1 — this is the fifth instance of the family already recorded
+above**, alongside the hand-copied needle and the control-without-a-carrier. The
+1.3 line-ending abort was correct about what it wanted to prevent and wrong
+about what it would encounter: four files in this repository are genuinely mixed
+CRLF/LF, all four carried pins, and the abort would have stopped the edit at 77
+of 81 — with the four survivors reading as a failed edit rather than a property
+of the files.
+
+**The fix was to make the abort unnecessary, not to suppress it.** A byte-level
+line splice has nothing to say about line endings, so the question stops being
+asked rather than being answered wrongly. Suppressing the guard and removing the
+need for it look identical in the diff and are not the same act.
+
+**Before writing a guard, measure the population it will run against.** The four
+mixed files were in the repository the whole time. Nothing prevented measuring
+them except assuming what they would look like — which is the same assumption
+that produced the wrong pin count in v9.0, from the wrong side of `.gitignore`.
+
+### The valuable part of a risky change often edits nothing
+
+**Phase 1's two best measurements produced no commits.** Step 1.6's 30-file hash
+and step 1.7's preview are where this plan stopped resting on documentation and
+on reasoning respectively; both produced zero lines of diff. Meanwhile three of
+the six commits were unplanned work.
+
+**A plan tracked by commits would have counted this exactly backwards.**
+
+**And 1.6 went past what the plan asked for, on purpose.** The step said "list
+the output root to confirm the files are present". Hashing all 30 assets was
+chosen over listing them because **presence and identity are different
+properties**, and only identity supports what §1 needs — a listing cannot tell a
+correct asset from a truncated one. That was not luck, and the distinction is
+the transferable part: **when a step names the cheap check, ask what property
+the conclusion actually requires.**
