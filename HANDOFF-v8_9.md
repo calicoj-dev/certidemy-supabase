@@ -170,12 +170,12 @@ like success.
   fixes it settles which clause is wrong.
 
   **RESOLVED 2026-08-30: the second clause is right and the first is wrong.**
-  The door-two proof carried  -- the  being the RAW
-   read before any fallback -- so the variable
-  was present and  was never undefined. Email confirmation DOES reach a
-  landing route; what failed is that  read the request cookie
-  store for a session written to the response, so  was falsy. The
-  callback ran and the guard did not fire.  now takes the
+  The door-two proof carried `lti_diag=t1b1` — the `b1` being the RAW
+  `NEXT_PUBLIC_EDGE_FUNCTIONS_URL` read before any fallback — so the variable
+  was present and `base` was never `undefined`. **Email confirmation DOES reach
+  a landing route.** What failed is that `getSession()` read the request cookie
+  store for a session written to the *response*, so `token` was falsy. The
+  callback ran and the guard did not fire. `lib/lti/consume.ts` now takes the
   session as a parameter so that mistake is unavailable.**]**
 - Gap 1 alone would have planted real launchable activities that ignore the
   instructor's choice and seat every student at the generic dashboard.
