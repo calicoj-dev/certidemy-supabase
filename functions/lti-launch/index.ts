@@ -363,6 +363,63 @@ serve(async (req) => {
       : null;
     trace.claimPresence = claimPresence(ctx);
 
+    /* ---- 7b. REQUIRED CLAIMS. The certification suite tests these. --------
+     *
+     * Added 2026-08-30 after reading the LTI 1.3 core certification guide
+     * against this function. All four were being PARSED and none was being
+     * CHECKED -- read into LaunchContext, reported in claim_presence, and never
+     * able to refuse anything.
+     *
+     * Verified against lti_launch_evidence before adding: 43 launches, and all
+     * 43 carry version=1.3.0, sub, roles and (on the 34 resource-link launches)
+     * resource_link.id. NONE OF THESE WOULD HAVE REFUSED A LAUNCH WE ALREADY
+     * ACCEPTED. They are free against observed traffic, which is why they can
+     * go in without a migration of behaviour.
+     */
+
+    // version splits into missing/mismatch, mirroring missing_exp/expired and
+    // missing_iat/iat_in_future above. "Absent" and "says 1.4" are different
+    // facts about a platform and the error_code is the only place that shows.
+    if (ctx.version.status !== "provided") return await fail("missing_version");
+    if (ctx.version.value !== "1.3.0") return await fail("version_mismatch");
+
+    if (!hasValue(ctx.sub)) return await fail("missing_sub");
+
+    /* roles: CHECK PRESENCE, NOT TRUTHINESS. THE OBVIOUS CHECK IS WRONG.
+     *
+     * An empty roles array is LEGAL -- the claim must be present, its contents
+     * may be empty. And readArray() maps [] to `provided_empty`, not
+     * `provided`, while hasValue() returns true ONLY for `provided`.
+     *
+     * So `if (!hasValue(ctx.roles))` refuses exactly the legal case the
+     * specification goes out of its way to permit. It reads correctly, it is
+     * the same shape as the two lines above it, and it is wrong in the one
+     * direction that matters. This is what the four-state reader was built for
+     * and this is the first check that actually needs the distinction.
+     *
+     * RESIDUAL, and it is a comment rather than a fifth state: readArray also
+     * returns `absent` for a non-array, so a `roles` claim sent as a bare
+     * string is indistinguishable from omission. Both are malformed and both
+     * are refused here -- but the code will say "missing" when the truth may be
+     * "wrong type". Worth knowing before diagnosing one.
+     */
+    if (ctx.roles.status === "absent") return await fail("missing_roles");
+
+    /* message_type: ABSENT IS INVALID, NOT UNSUPPORTED.
+     *
+     * This used to fall through to the `unsupported_message` outcome at the
+     * bottom of the branch, which returns ok: true. That recorded a token which
+     * never identified itself as a well-formed request for something we do not
+     * implement -- the vocabulary claiming something false about the launch.
+     *
+     * The distinction is kept, not removed: a message_type we do not recognise
+     * IS still `unsupported_message` and still ok: true, because that is a
+     * conforming token asking for a feature. Absent is a broken token.
+     */
+    if (ctx.messageType.status !== "provided") {
+      return await fail("missing_message_type");
+    }
+
     if (!hasValue(ctx.deploymentId)) return await fail("missing_deployment_id");
     const deploymentIdClaim = (ctx.deploymentId as { value: string }).value;
 
@@ -526,6 +583,20 @@ serve(async (req) => {
     }
 
     if (messageType === RESOURCE_LINK) {
+      /* resource_link.id is REQUIRED here and NOWHERE ELSE.
+       *
+       * It cannot go in the block with the other four: a deep-linking request
+       * has no resource link by definition -- it is the message asking for one
+       * to be created -- so requiring it globally would refuse every launch
+       * that reaches the picker. Checked per message type, not per token.
+       *
+       * Before row one is written, so a launch missing it is recorded as
+       * verification_failed rather than as a resource_link_ok that lied.
+       */
+      if (!hasValue(ctx.resourceLinkId)) {
+        return await fail("missing_resource_link_id");
+      }
+
       // A STUDENT LAUNCH. Phase 2.
       //
       // TWO ROWS, NOT ONE, and the reason is that one row lies. Deep linking

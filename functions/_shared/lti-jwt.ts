@@ -294,6 +294,15 @@ export interface LaunchContext {
   email: Claim<string>;
   locale: Claim<string>;
   roles: Claim<string[]>;
+  /**
+   * resource_link.id. REQUIRED on an LtiResourceLinkRequest and absent by
+   * definition on a deep-linking one, which has no resource link yet -- that is
+   * the message asking for one to be created.
+   *
+   * Read as the id rather than the whole claim because the id is the only part
+   * anything requires. title and description are optional and unread.
+   */
+  resourceLinkId: Claim<string>;
   contextTitle: Claim<string>;
   productFamilyCode: Claim<string>;
   /** Custom variables, each read through the same four-state reader. */
@@ -346,6 +355,7 @@ export function parseLaunch(payload: Record<string, unknown>): LaunchContext {
       ? readString(lp.locale)
       : readString(payload.locale),
     roles: readArray(payload[LTI.roles]),
+    resourceLinkId: readString(obj(payload[LTI.resourceLink]).id),
     contextTitle: readString(obj(payload[LTI.context]).title),
     productFamilyCode: readString(
       obj(payload[LTI.toolPlatform]).product_family_code,
