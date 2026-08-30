@@ -64,8 +64,9 @@ browser rather than a datacentre curl — and `state_cookie_survives` read `true
 4 of 4, in a genuine third-party frame.
 
 **Only one of the two propositions closed.** The frame is tested. **The
-cookie-blocked case is not:** Chrome allowed the cookie, so the flip never
-happened, and **the `false` branch of that tri-state has never been observed
+cookie-blocked case is not:** Chrome allowed the cookie, so THAT KEY never
+flipped -- **[three other keys flipped on 2026-08-30 from door-two privacy
+toggling; `LTI-PHASE-2.md` §13. "The flip" is closed, this key is not]** -- and **the `false` branch of that tri-state has never been observed
 anywhere, on any platform, in any browser.** Safari is where it is expected and
 it remains untested. "The iframe is now tested" must not collapse into "the
 cookie-blocked case is now tested" — they are one browser apart.

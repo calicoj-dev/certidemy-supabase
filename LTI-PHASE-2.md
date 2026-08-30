@@ -643,11 +643,13 @@ The Moodle sandbox resets on the hour, so anything needing it needs a sitting.
 Door two was the third and is **done** (§12); two remain:
 
 1. ~~**Door two** -- with privacy turned off.~~ **PROVEN 2026-08-30, §12.**
-2. **The Safari flip on `state_cookie_survives`** -- the `false` branch of that
-   tri-state has never been observed anywhere. Chrome allowed the cookie in a
-   genuine third-party iframe, **29 of 29 as of 2026-08-30**. See `LTI-SETUP.md`
-   Part Two step 7, and §13 below for the embedded run that was expected to
-   produce the flip and did not.
+2. **A `false` on `state_cookie_survives`** -- that ONE KEY has never read
+   `false` anywhere: **30 of 30 on Moodle, 13 of 13 on lti-ri.** Chrome allows
+   the state cookie even in a genuine third-party iframe, and Safari is the only
+   known path to a `false`. **[CORRECTED 2026-08-30 — this item used to say "the
+   Safari flip", as though the capability flip in general were unobserved. It is
+   not: three keys flipped on Moodle the same day, from door-two privacy
+   toggling. See §13. What remains open is this key and nothing wider.]**
 3. **`false`/`false` on the `data` echo** -- proving the NEGATIVE half of
    migration 259's claim_presence pair needs a platform that sends no
    `deep_linking_settings.data`, and Moodle is that platform. A check asserting
@@ -794,6 +796,39 @@ every platform.** The `varies` styling and the flip line have never rendered
 against real data, and 261's columns remain correct-and-unexercised.
 
 **Safari remains the only known path, and it stays on the list above.**
+
+> **[CORRECTED 2026-08-30 — THE FLIP HAD ALREADY HAPPENED, HOURS EARLIER, AND
+> THIS PARAGRAPH WAS WRONG WHEN WRITTEN.]**
+>
+> Three keys on the Moodle platform, from `lti_capabilities`:
+>
+> ```
+> releases_email           true   20 / 10   changed_at 2026-08-30 04:18:49
+> releases_name            true   24 /  6   changed_at 2026-08-30 02:10:33
+> custom_vars_substituted  true   15 /  4   changed_at 2026-08-30 04:21:42
+> ```
+>
+> `changed_at` and `previous_value` are populated, both counters are non-zero,
+> and **the `varies` styling has therefore rendered against real data.**
+> Migration 261's columns are exercised, not merely correct.
+>
+> **It was not Safari. It was door two.** Toggling Moodle's privacy setting on
+> and off to test the withheld-email path flips `releases_email` and
+> `releases_name` directly. The flip was produced by the testing, hours before
+> anyone looked for it.
+>
+> **WHAT SURVIVES IS NARROWER AND MUST BE STATED AS THAT:**
+> `state_cookie_survives` **specifically** has never read `false` — **30 of 30
+> on Moodle, 13 of 13 on lti-ri.** Safari is still the only known path to that
+> one key. "The flip" is closed; "the state cookie has never been dropped" is
+> not.
+>
+> **How the wrong claim survived, because it is the rule this file already
+> carries:** it was asserted repeatedly from a query that only ever asked about
+> `state_cookie_survives`. The query was accurate, complete, and about one key
+> — and the conclusion drawn was about every key on every platform. **An
+> instrument pointed at the wrong thing**, which is §7's own rule in the
+> handoff, produced by the window that wrote it down.
 
 Worth noting precisely, because it was a prediction: **the embedded launch was
 the case expected to produce the flip, and it did not.** Chrome allowed the state

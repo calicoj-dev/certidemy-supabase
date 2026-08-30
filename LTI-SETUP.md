@@ -757,6 +757,17 @@ where `false` is expected, and it has not been tested** -- so the `no` branch of
 that tri-state has still never been observed anywhere. See step 8 of Part One's
 Known gaps.
 
+**[CORRECTED 2026-08-30. Two things above are now stale and they are different
+sizes.** The count is 30 of 30 on this platform, not 4 of 4 -- that is only
+drift. **The load-bearing error is "the flip did not happen", which was read as
+a statement about capability flips generally and is false.** Three keys on this
+same platform flipped that day -- `releases_email` 20/10, `releases_name` 24/6,
+`custom_vars_substituted` 15/4, all with `changed_at` and `previous_value`
+populated -- produced by toggling Moodle's privacy setting during door-two
+testing. **What is still true is only this: `state_cookie_survives`
+specifically has never read `false`, on any platform, in any browser.** Safari
+remains the path to that one key. See `LTI-PHASE-2.md` section 13.**]**
+
 **The refusal page rendered correctly inside the Moodle iframe** -- legible, no
 CSP or `X-Frame-Options` interference. That confirms the web-side header audit
 **from a real browser in a real LMS frame** rather than from a datacentre curl,
@@ -909,12 +920,17 @@ deliberately indistinguishable to a caller -- the difference is a replay oracle.
   gap in exactly the place the variance architecture cares most about -- a Tier
   C capability written at runtime by the code that discovers the limitation,
   where the flip IS the interesting event.
+  **[CLOSED by migration 261, and EXERCISED 2026-08-30. `changed_at` and
+  `previous_value` now exist and are populated on three keys -- the trace this
+  bullet says is missing is being kept. See `LTI-PHASE-2.md` section 13.]**
 - **PARTLY SETTLED 2026-08-27 -- the frame is tested, the blocked cookie is
   not.** Part Two ran against Moodle 5.2 with the launch container set to
   Embed: we rendered inside a real LMS iframe in Chrome, the page was legible
   with no CSP or `X-Frame-Options` interference, and `state_cookie_survives`
-  read `true`, 4 of 4, in that genuine third-party frame. **What is still open
-  is the other half:** Chrome allowed the cookie, so the flip never happened,
+  read `true`, 4 of 4, in that genuine third-party frame (30 of 30 as of
+  2026-08-30). **What is still open is narrower than this bullet says:** Chrome
+  allowed the cookie, so THAT key never flipped -- but three other keys did, on
+  2026-08-30, from door-two privacy toggling. See `LTI-PHASE-2.md` section 13.
   and **the `false` branch of that tri-state has never been observed anywhere,
   on any platform, in any browser.** Safari is where it is expected and it is
   untested. lti-ri cannot produce it at all -- it navigates top-level. See

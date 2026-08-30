@@ -41,7 +41,7 @@ credential.
   to signup carrying a link token. The next launch resolves by `sub`.
 - **Exam** → always breaks out to a real login on `certidemy.com`.
 
-**Proven:** first provisioning at 01:23 on 2026-08-27 (`student_provisioned`,
+**Proven:** first provisioning at 00:23:36 UTC on **2026-08-29** [corrected: the file said 2026-08-27, which is before phase 2 existed -- migrations 262 and 263 are dated 08-28. From lti_launch_skeleton and lti_users, both 2026-08-29 00:23:36] (`student_provisioned`,
 `password_set = false`, session landed, 1.13s end to end). Fast path proven on
 the second launch (`student_linked`, no duplicate account). Door two closed
 2026-08-30 (`consumed_at` set, `attempts = 1`, `student_linked` on the launch
@@ -116,16 +116,27 @@ different instruments, different layers, different documents — never compared.
 
 Both need the Moodle sandbox, which resets on the hour.
 
-1. **The Safari flip on `state_cookie_survives`.** 29 of 29 `true`, on every key,
-   on every platform. `changed_at` and `previous_value` have never been non-null.
+1. **A `false` on `state_cookie_survives`.** **[CORRECTED 2026-08-30. This item
+   said "29 of 29 true, on every key, on every platform; changed_at and
+   previous_value have never been non-null". THE FLIP HAD ALREADY HAPPENED --
+   three keys on Moodle, releases_email 20/10, releases_name 24/6,
+   custom_vars_substituted 15/4, all with changed_at and previous_value
+   populated, and `varies` rendered against real data. Cause: door-two privacy
+   toggling, not Safari. The claim came from a query that only ever asked about
+   state_cookie_survives -- §7's own instrument rule.]** What remains open is
+   ONE KEY: state_cookie_survives has never read `false`, **30 of 30 on Moodle,
+   13 of 13 on lti-ri**.
    Chrome allows the state cookie even in a genuine third-party frame; Safari
    blocks third-party cookies by default and is the only known path to a `false`.
 2. **`false`/`false` on the `data` echo.** Needs a platform that sends no
    `deep_linking_settings.data`. Moodle is that platform.
 
-**The embedded launch was predicted to produce the flip and did not.** Not wrong
-about the mechanism — a third-party frame is where a cookie gets dropped — wrong
-about the browser.
+**The embedded launch was predicted to produce a `false` on this key and did
+not.** Not wrong about the mechanism — a third-party frame is where a cookie
+gets dropped — wrong about the browser. **[And it was looking in the wrong place
+for a different reason: the flip it was waiting for arrived the same day on
+three other keys, from privacy toggling rather than from cookies. The
+prediction watched one key and the event happened beside it.]**
 
 ---
 
@@ -141,6 +152,21 @@ like success.
   button is a separate `<form>` and the token stopped at it. **The obvious fix
   would have repaired one path and left the other silently broken, as part of
   the fix.**
+
+  **[DISPUTED 2026-08-30 — the first clause conflicts with a measurement, and
+  it is left unresolved on purpose. Evidence against it:** `auth.users` on the
+  door-two account shows `confirmation_sent_at 01:13:01.200` and
+  `email_confirmed_at 01:13:19.647`, 18.5 seconds apart — an email was sent and
+  a human clicked it. And the reported landing page after confirming was
+  `/en/dashboard`, which is the callback's own `next` parameter, so the callback
+  did run. **Evidence for it:** `lti-consume-link-token` was never invoked, so
+  something inside that branch did not fire; the web session's reading is that
+  `getSession()` returned nothing because `exchangeCodeForSession` had written
+  the session to the *response* in the same request, which would produce exactly
+  this with the callback running normally. **Both cannot be true as stated.**
+  Not resolved here: a wrong reason stated confidently is the failure this
+  section is about, and picking one now would reproduce it one level up. Whoever
+  fixes it settles which clause is wrong.**]**
 - Gap 1 alone would have planted real launchable activities that ignore the
   instructor's choice and seat every student at the generic dashboard.
 - Gap 2's URL alone would have landed them on an upsell page.
@@ -173,8 +199,11 @@ route.**
 - **A pair with half its state in a dashboard has no local ground truth.** The
   `emailRedirectTo` / Confirm-signup-template pair. No grep can find the
   mismatch and the build is green either way.
-- **A prompt is not an address.** Five misroutes, all one direction, all caught
-  by the receiving session. The tell — "as you proposed" attached to a plan the
+- **A prompt is not an address.** Four misroutes [the file said five; the
+  records show four -- addendum 2 §2 records three, the colliding-plan section
+  adds the fourth. A fifth may have occurred and gone unrecorded; the count that
+  is written down is four], all one direction, all caught by the receiving
+  session. The tell — "as you proposed" attached to a plan the
   session does not hold — is necessary and not sufficient: it cannot see a
   *colliding* plan, and when both sessions hold the same symptom they produce
   overlapping ones.
@@ -210,14 +239,24 @@ one** — see §9.
    token. Caught twice during testing; mints a fresh token each time.
 3. **The Safari sitting** (§5), two proofs, one hour.
 4. **`session_cookie_survives`** as a second capability key — not a rename, since
-   the 29 observations are real observations of exactly what the current name
+   the 30 observations are real observations of exactly what the current name
    says.
-5. **1EdTech conformance certification** — see the separate note; it is a
+5. **`advertises_ltiresourcelink` is a NINTH capability key** and the console
+   does not know it. `KNOWN_CAPABILITIES` in `../certidemy-web/lib/console/lti.ts`
+   lists eight; the edge functions now write nine. **A cross-repo pair, and the
+   half that drifted is the reader.** The list exists so a never-observed
+   capability renders "not yet observed" rather than vanishing — a key missing
+   from it still renders once observed, because the component appends unknown
+   keys, but its ABSENCE is invisible. So a platform that has never advertised
+   `ltiResourceLink` shows nothing at all for it, which is the exact collapse
+   that list was written to prevent. One line, same fix as
+   `advertises_link_content_item` on 2026-08-27.
+6. **1EdTech conformance certification** — see the separate note; it is a
    membership and paperwork question more than an engineering one.
-6. **The last-admin guard**, still unnumbered and unapplied.
-7. **`cert.yml`'s collections are stale** — 6 inserts, 15 updates, 48 deletes.
+7. **The last-admin guard**, still unnumbered and unapplied.
+8. **`cert.yml`'s collections are stale** — 6 inserts, 15 updates, 48 deletes.
    Regenerate from the database, do not hand-edit.
-8. **The learn layout's hand-rolled unaccented translation table**, on the page
+9. **The learn layout's hand-rolled unaccented translation table**, on the page
    an LTI student lands on.
 
 ---

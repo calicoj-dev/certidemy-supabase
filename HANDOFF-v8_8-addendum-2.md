@@ -51,7 +51,7 @@ it, and never comes back.
 |---|---|
 | the picker in a real iframe | set the launch container to embed |
 | third-party cookie drop | genuinely third-party in a frame; `state_cookie_survives` may finally read `false` |
-| the **mixed capability row** — `varies` styling, `changed_at`, `previous_value` | a `true` then a `false` on one key is the first real flip |
+| the **mixed capability row** — `varies` styling, `changed_at`, `previous_value` | a `true` then a `false` on one key is the first real flip **[HAPPENED 2026-08-30 — three keys, from door-two privacy toggling, not from the cookie case predicted here]** |
 | `product_family_code` populated | Moodle sends a vendor name; lti-ri sends an empty string |
 | `unsubstituted` custom variables | ask for a Moodle substitution it can't resolve |
 | whether AGS/NRPS claims arrive at all | they are per-install, not per-product — leave both **off** |

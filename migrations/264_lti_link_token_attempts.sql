@@ -139,4 +139,10 @@ alter table public.lti_link_tokens
 --    lti-consume-link-token does not set them and the callback does not report
 --    a non-attempt. Until that lands, `attempts = 0` continues to mean nothing.
 --    That work belongs with the door-two caller fix in ../certidemy-web.
+--
+--    [SUPERSEDED 2026-08-30 -- they ARE written now, by
+--    lti-consume-link-token. Observed on the door-two token: attempts = 1 with
+--    last_attempt_at non-null. So `attempts = 0` means "nobody tried" for rows
+--    created from that date, exactly as section 1 intended -- and continues to
+--    mean nothing on the five rows that predate the column.]
 -- ---------------------------------------------------------------------------

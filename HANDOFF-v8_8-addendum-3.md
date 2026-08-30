@@ -81,7 +81,7 @@ wrong**, and the wrong one that matters is the flip.
 |---|---|
 | credentials `admin` / `sandbox` | `admin` / `sandbox24` |
 | `state_cookie_survives` may finally read `false` | read `true`, 4 of 4 — Chrome allowed it |
-| the mixed capability row is the first real flip | **no flip occurred at all** |
+| the mixed capability row is the first real flip | **no flip occurred at all** **[WRONG — CORRECTED 2026-08-30. It happened, from door-two privacy toggling rather than the cookie case. The prediction was right and this row was not.]** |
 | `product_family_code` populated | correct — `moodle` |
 
 **The flip still has not happened.** Two platforms, twelve launches, and
@@ -92,11 +92,21 @@ decoration that is untested — the function sets them on a genuine difference,
 which was read from `prosrc` and confirmed. **What has never been observed is a
 capability changing its mind.**
 
+**[SUPERSEDED 2026-08-30 — a capability changed its mind three times, on the
+Moodle platform: `releases_email` 20/10 changed 04:18:49, `releases_name` 24/6
+changed 02:10:33, `custom_vars_substituted` 15/4 changed 04:21:42.
+`changed_at` and `previous_value` are populated and `varies` has rendered
+against real data. Cause: toggling Moodle privacy on and off to test door two.
+What is still unobserved is ONE KEY -- `state_cookie_survives` has never read
+`false`, 30 of 30 on Moodle and 13 of 13 on lti-ri. See `LTI-PHASE-2.md` §13.]**
+
 Safari is the path to it. It blocks third-party cookies by default, it is named
 in `lib/lti/config.ts` as the reason the state cookie is never authoritative,
 and a run against a fresh sandbox hour in Safari should write
 `state_cookie_survives = false` on a platform where it already reads `true`.
-That is a flip on one key on one row, and it is one browser away.
+That is a flip on one key on one row, and it is one browser away. **[STILL TRUE
+for THAT key, and it is now the only part of this paragraph that is: the flip in
+general is no longer unobserved. See the marker above.]**
 
 ---
 
@@ -209,8 +219,10 @@ item 4 and not a patch.
 > hardcoded it.
 >
 > **It travels with the Safari flip test.** §1 needs a fresh sandbox hour in
-> Safari to make `state_cookie_survives` go `true → false` and produce the first
-> capability flip ever observed. That is the same platform, the same hour and the
+> Safari to make `state_cookie_survives` go `true → false`. **[CORRECTED
+> 2026-08-30: it would no longer be "the first capability flip ever observed" --
+> three keys flipped that day from door-two privacy toggling. It would be the
+> first `false` on THIS key, which is still unobserved anywhere.]** That is the same platform, the same hour and the
 > same launch: **one deep-linking launch on Moodle in Safari closes both** — the
 > flip on one row, and `false`/`false` on the response row. Two unproven things,
 > one rig, and neither is worth standing the sandbox up for alone.
