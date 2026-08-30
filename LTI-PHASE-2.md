@@ -731,7 +731,65 @@ from what it is**, and it is not needed for the finding above. Confirm it by
 reading the attribute if it ever matters; do not assume it because it appears
 here.
 
-### Options — NONE CHOSEN
+### DECIDED 2026-08-30 — option 3, the honest interstitial
+
+**In the frame, we render one screen that says why and offers a button that
+breaks out.** Not a silent redirect, not a cookie change, not a documented
+refusal.
+
+**THIS IS NOT A CERTIDEMY PROBLEM, AND THAT IS THE POINT.** It is the defining
+problem of the LTI tool ecosystem, and **the standard explicitly declines to
+solve our half of it.**
+
+1EdTech built **LTI Platform Storage / Client Side postMessages** for exactly
+this shape of failure — Safari blocking cookies in third-party iframes made a
+workaround necessary for storing state between login and launch, and Canvas
+implements it. **But that solves the STATE cookie**, which we already have
+working at 30 of 30 on Moodle and 13 of 13 on lti-ri.
+
+A developer on 1EdTech's own forum described our situation exactly: cookieless
+auth working for the initial request, and afterwards **the application's own
+session cookie blocked so the user cannot navigate the tool.** An 1EdTech
+architect answered that **LTI does not describe how tools and platforms work
+outside the LTI interaction**, so the cookieless solutions give no guidance on
+cookies within a tool's own system.
+
+**So the session layer is out of scope for the standard, by design, and every
+tool solves it itself.**
+
+**What tools actually do.** 1EdTech's own guidance to institutions is that
+platforms can set a link to launch in a new window, **which allows the tool to
+be used even if the experience degrades.** Qwickly, a commercial LTI vendor,
+tells its customers the same: configure a new window and the tool stops being
+third-party. And Chuck Severance predicted the split years ago — large tools pop
+themselves out of the iframe; small widgets carry state in parameters and use no
+cookies at all. **We are the first category.**
+
+**Which is what settles it between 2 and 3.** Option 2 does what the ecosystem
+does, silently. Option 3 does the same thing and tells the instructor why. The
+break-out is not a workaround we are embarrassed by — it is the documented
+behaviour of large LTI tools, recommended by the standards body — so there is no
+reason to perform it behind the reader's back.
+
+**And option 1 is the one nobody recommends.** Not merely constrained by §1 and
+§4 below: it is absent from every piece of ecosystem guidance found, because
+making a product's session cookie third-party-readable everywhere to serve one
+embedding context is not what anyone does.
+
+### FOR THE CERTIFICATION CONVERSATION
+
+**We do NOT implement LTI Platform Storage, and we do not need it.** A reviewer
+may ask, and the honest answer is two sentences: our state cookie survives the
+third-party frame — measured, 30 of 30 and 13 of 13 — so the problem Platform
+Storage exists to solve does not arise for us; and the session layer it does not
+cover is out of scope for the specification by its own architects' account.
+
+**Do not offer to implement it to look thorough.** It would be building a
+workaround for a failure we do not have.
+
+### The four rejected options — kept, not deleted
+
+Recorded so the decision can be re-argued rather than re-discovered.
 
 1. **Session cookies to `SameSite=None; Secure`.** Works in the frame. Makes
    them third-party cookies **everywhere**, subject to Chrome's phase-out and
@@ -739,16 +797,25 @@ here.
    scope: the read above found the SSR auth cookies are `Lax` along with every
    other cookie at that path — so this is not a one-line override on one cookie,
    it is a change to how the Supabase SSR client writes the session for the
-   whole product, to serve one embedding context.**
+   whole product, to serve one embedding context.** **[REJECTED — and it is the
+   one option no ecosystem guidance recommends, not merely the one this document
+   argues against.]**
 2. **Break out of the frame on launch.** Top-level navigation into the learn
-   area, the same move the exam already makes.
+   area, the same move the exam already makes. **[REJECTED — right behaviour,
+   wrong manners. It is what the ecosystem does and what option 3 also does; it
+   just does it without telling the instructor why their Embed setting did not
+   hold.]**
 3. **An interstitial in the frame** — one honest screen saying why, one click
    out. The middle ground, and the only option that respects the instructor's
-   setting while telling the truth about it.
+   setting while telling the truth about it. **[CHOSEN 2026-08-30 — see above.]**
 4. **Document Embed as unsupported**, tell institutions to set New window.
    Cheapest, worst product, and it contradicts step 5 of the runbook.
+   **[REJECTED — it makes the institution do the work and still leaves the
+   student staring at a login page if they miss the note.]**
 5. **Storage Access API** — request storage access from inside the frame. Real,
-   needs a user gesture, and support varies.
+   needs a user gesture, and support varies. **[REJECTED — a user gesture is
+   already required to break out, so this buys a worse-supported path to the
+   same click.]**
 
 **THIS DOCUMENT HAS ALREADY DECIDED THIS QUESTION TWICE, AND THAT NARROWS IT.**
 
