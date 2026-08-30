@@ -446,16 +446,79 @@ could have.
 
 ---
 
-## 12. Door two is BUILT AND UNPROVEN
+## 12. Door two is CLOSED — proven 2026-08-30
 
-> **RUN 2026-08-30, AND IT DID NOT CLOSE.** The sitting below happened. A
-> student launched with the email withheld, met the two-doors page, signed up,
-> confirmed by email and landed in the app — **with no `lti_users` row and an
-> unconsumed token.** Five tokens accumulated for `sub = '2'` between 01:08:21
-> and 01:18:21. The assertion in this section is therefore still unmet, and §12b
-> records why. Read this section as written; it states the target correctly.
+> **OBSERVED, IN ORDER, ON A REAL WITHHELD-EMAIL LAUNCH:**
+>
+> ```
+> 03:09:47  token minted
+> 03:10:52  consumed_at set, attempts 1, last_error null
+> 03:10:52  lti_users row: sub 2 -> info+door4@certiglobal.org
+> 03:13:19  resource_link_ok
+> 03:13:20  student_email_absent      (launch predates the link)
+> 03:14:10  resource_link_ok
+> 03:14:10  student_linked            (the door closing)
+> ```
+>
+> `identities = 1`. **No second account.** That is the whole assertion as it was
+> written below before the run: `student_linked` rather than
+> `student_provisioned`, `consumed_at` set exactly once, and the student seated
+> without a duplicate.
+>
+> The 03:13:20 `student_email_absent` is not a failure — that launch was fired
+> before the link existed and correctly found nothing. It is the control: the
+> same rig producing the old outcome one minute earlier is what makes 03:14:10
+> evidence of the link rather than of a code change.
 
-### 12b. Why it did not close — TWO LIVE CANDIDATES, NEITHER EXCLUDED
+**What it took, and none of it was the cause first written down.** Three
+defects, each independently sufficient, fixed in this order:
+
+1. the consumption asked `getSession()` for a session written to the *response*;
+2. it lived in `/auth/callback`, which email confirmation does not reach — and
+   could not fire on the OAuth path either, because the Google button is a
+   separate `<form>` and the token stopped at it;
+3. `signupAction`'s `emailRedirectTo` and the Supabase **Confirm signup**
+   template were a mismatched pair, the template still being the stock
+   `{{ .ConfirmationURL }}` while recovery had been migrated long ago.
+
+Details of 2 and 3 live in `certidemy-web`'s `CLAUDE.md` (Auth, and item 8's
+fifth pair, which records both templates verbatim because the dashboard keeps no
+history).
+
+### 12b. CANDIDATE B IS DEAD, BY MEASUREMENT — read 2026-08-30
+
+**`NEXT_PUBLIC_EDGE_FUNCTIONS_URL` IS SET IN THE CLOUDFLARE ENVIRONMENT.** The
+successful run carried `lti_diag=t1b1` in the address bar: token present, and
+the **raw** variable present, read before any fallback because a fallback
+destroys the measurement. Candidate B was never the cause.
+
+**It stayed open across two sessions and two repos on nothing but inference**,
+and it was cheap to close the whole time — one line recording two booleans. Both
+sessions argued about it instead, and one of them (this file, below) wrote that
+it had been excluded by measurement when nothing had measured it. **The variable
+was readable at any point by anyone willing to print it.**
+
+**Candidate A was never isolated, and this is not the section to claim it was.**
+The `t1b1` read happened after the `getSession` fix was already deployed, so what
+`getSession()` *would* have returned at 01:13 has not been observed and now
+cannot be. Defect 2 above was independently sufficient, and so was defect 3, and
+all three were fixed before the successful run. **Three fixes, one green result,
+no attribution** — which is the honest end state and worth more than a tidy one.
+
+> **AND THE SEARCH THAT "FOUND NOTHING" WAS LOOKING IN THE WRONG BROWSER.** A
+> `chrome://history` search for `lti_diag` came back empty and was read as
+> evidence the branch never ran. The Moodle tabs run in a **different Chrome
+> profile signed into a different Google account**, so the confirmation clicks
+> were never in the history being searched. The history was accurate; it was
+> the wrong history.
+>
+> Same family as *a diff is not a file*, *a working directory is not a remote*,
+> *a filtered view is not the state*, and *a title is not a URL*: **a rendering
+> of state read as the state.** The new form is that the rendering was correct
+> and complete — about a different subject. Before reading an absence as
+> evidence, check that the instrument was pointed at the thing.
+
+### 12c. The original diagnosis, kept because it was wrong in an instructive way
 
 **The measured fact, and it is the only one:** `lti-consume-link-token` was
 **never invoked.** Not a failed call, no call — the edge function logs are empty
@@ -543,12 +606,12 @@ same claim, and only one of them is what an institution will do.
 
 It also gives the frame test for free, which lti-ri cannot provide at all.
 
-### THREE UNPROVEN THINGS NOW SHARE ONE SANDBOX HOUR
+### TWO UNPROVEN THINGS SHARE ONE SANDBOX HOUR
 
 The Moodle sandbox resets on the hour, so anything needing it needs a sitting.
-Three things are now waiting on the same one:
+Door two was the third and is **done** (§12); two remain:
 
-1. **Door two** -- the above, with privacy turned off.
+1. ~~**Door two** -- with privacy turned off.~~ **PROVEN 2026-08-30, §12.**
 2. **The Safari flip on `state_cookie_survives`** -- the `false` branch of that
    tri-state has never been observed anywhere. Chrome allowed the cookie in a
    genuine third-party iframe, 4 of 4. See `LTI-SETUP.md` Part Two step 7.
