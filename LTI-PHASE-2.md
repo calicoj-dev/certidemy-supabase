@@ -448,6 +448,66 @@ could have.
 
 ## 12. Door two is BUILT AND UNPROVEN
 
+> **RUN 2026-08-30, AND IT DID NOT CLOSE.** The sitting below happened. A
+> student launched with the email withheld, met the two-doors page, signed up,
+> confirmed by email and landed in the app — **with no `lti_users` row and an
+> unconsumed token.** Five tokens accumulated for `sub = '2'` between 01:08:21
+> and 01:18:21. The assertion in this section is therefore still unmet, and §12b
+> records why. Read this section as written; it states the target correctly.
+
+### 12b. Why it did not close — TWO LIVE CANDIDATES, NEITHER EXCLUDED
+
+**The measured fact, and it is the only one:** `lti-consume-link-token` was
+**never invoked.** Not a failed call, no call — the edge function logs are empty
+for it across the entire window. Whatever went wrong happened before the fetch,
+inside this branch of `/auth/callback`:
+
+```ts
+const { data: s } = await supabase.auth.getSession();
+const token = s.session?.access_token;
+const base = process.env.NEXT_PUBLIC_EDGE_FUNCTIONS_URL;
+if (token && base) { ...fetch... }
+```
+
+**Candidate A — `token` is falsy. The web session's finding, and the stronger
+of the two.** `exchangeCodeForSession` had just run **in the same request**, so
+`getSession()` asks a cookie store for a session that was written to the
+*response*, not the request. The discriminator is real: the sibling probe at
+`auth/actions.ts:253` uses the identical shape and **works** — because that user
+was already signed in when it ran. Same code, different precondition, opposite
+outcome.
+
+**Candidate B — `base` is falsy.** `NEXT_PUBLIC_EDGE_FUNCTIONS_URL` is read with
+no fallback here, one of four such sites out of thirteen in `certidemy-web`
+(recorded in that repo's `CLAUDE.md`). If the variable is unset in the
+Cloudflare environment, `base` is `undefined` and the guard never fires.
+
+**NEITHER HAS BEEN EXCLUDED, AND NOTHING HAS READ THE CLOUDFLARE
+ENVIRONMENT.** An earlier note in this record said measurement had ruled the env
+var out. **It had not** — no measurement of that variable exists. The counts
+that were read concern migration 264's new columns and say nothing about it.
+
+**They are not mutually exclusive, and that is the trap:**
+
+> **If `token` is falsy the fetch never happens regardless of `base`.** So
+> adding the fallback on `base` would fix nothing while looking exactly like the
+> fix — the code would read correctly, the guard would still not fire, and the
+> next failed launch would be blamed on something else.
+
+**One read separates them.** At that branch, record the two booleans
+independently — `!!token` and `!!base` — on the next confirmed signup. They are
+two facts and one line, and either can be false without the other.
+
+Migration 264 exists for the same reason at the durable layer: `attempts = 0`
+with `last_attempt_at` null says *nobody tried*, which is ours, and is
+distinguishable from a recorded refusal, which is the token's. **Note it is not
+yet written by anything** — the columns exist and no code sets them.
+
+**Attribution, because it decides who fixes it:** candidate A is the web
+session's, from reading the auth flow. Candidate B is the supabase session's,
+inferred from the fallback divergence and circumstantial. The fix belongs with
+the web session, which owns `auth/callback/route.ts` and `auth/actions.ts`.
+
 Everything in section 3's second door now exists: the launch mints a token, the
 page offers it, signup carries it, and `/auth/callback` consumes it. **No
 launch has ever taken that path**, because the only rig that has exercised phase
