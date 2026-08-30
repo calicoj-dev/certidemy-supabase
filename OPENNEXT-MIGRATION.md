@@ -324,7 +324,7 @@ line endings.
 
 **The guard was correct in intent and wrong about the population.** It assumed
 mixed endings meant something had gone wrong; in this repository they are simply
-present, in files nobody has touched in months. Note that the byte-range
+present. Note that the byte-range
 assertion above already permits `10` and `13` deliberately — the abort was an
 addition on top of it, and the addition is what was wrong.
 
@@ -742,6 +742,17 @@ both the real page and the bogus path produced the same evidence.
 **Only a known-good carrier route closed that.** A control establishes the
 negative half; a route known to carry the thing establishes the positive half.
 **Both halves, or the check is only half instrumented.**
+
+**And this lesson failed on the document that records it.** Verifying this file
+for stray control bytes, `grep -c $'\0'` returned **793** — which is the line
+count, because `$'\0'` collapses to an **empty pattern** in bash and matches
+every line. **It would have reported the same "clean" for any file, including
+one full of NULs.** The instrument answered a different question from the one
+asked, and the answer was plausible enough to accept. Re-running as a byte-range
+check with a **planted-NUL control** exposed it: 0 on the file, 1 on the
+control. **That is the third time in this migration a control caught the
+instrument rather than a defect** — the hand-truncated JWT needle, the
+local-manifest chunk analysis, and this.
 
 ### An error or 404 shell loads only framework chunks — and this is the structural one
 
