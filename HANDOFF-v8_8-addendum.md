@@ -1,6 +1,6 @@
 # HANDOFF v8.8 addendum — the unproven half is now proven
 
-**Migration tip: 261. Next free: 262.** Two applied since this addendum was
+**Migration tip: 263. Next free: 264** -- verify with `ls migrations/ | tail -1`, the disk is authoritative. Two applied since this addendum was
 written: **260** `lti_platform_status_vocab`, **261** `lti_capability_history`.
 
 Read `HANDOFF-v8_8.md` first. **§7 of that file is now out of date** and this

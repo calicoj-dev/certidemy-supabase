@@ -14,8 +14,27 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 261. Next free number: 262.** Sequential, zero-padded to three
+**Migration tip: 263. Next free number: 264.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
+
+**THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
+
+```
+ls migrations/ | tail -1
+```
+
+This tip was written by hand in **four** documents — here, and the header of
+each of the three v8.8 addenda — and on 2026-08-30 all four still said *"next
+free: 262"* while `261`, `262` and `263` existed. It goes stale the moment a
+session that did not write it applies a migration, which is the normal case with
+two sessions: whoever applies is not whoever last edited the tip.
+
+The cost is not a wrong number in a document. **It is two sessions independently
+reaching for the same next-free number and both being right**, which happened
+with 264 — one session drafted a `SECURITY DEFINER` check for the deployment
+timestamp pair, another proposed an unrelated identity migration, same number,
+neither aware. A filename collision is cheap to fix and expensive to notice,
+because both files look correct in isolation.
 
 **The base schema is not in this repo, and migration replay from zero has
 never worked.** `profiles`, `certifications`, `user_progress`, `vouchers` and the

@@ -1,6 +1,6 @@
 # HANDOFF v8.8 addendum 2 — the iframe test, and how this work runs
 
-**Migration tip: 261. Next free: 262.**
+**Migration tip: 263. Next free: 264.** Verify with `ls migrations/ | tail -1` -- the disk is authoritative, not this line.
 
 Two things, and the second is the one that doesn't exist anywhere else.
 
@@ -132,6 +132,42 @@ working directory and a section banner. Here the state is **which session holds
 what**, and the rendering is a prompt that arrived without its address.
 Addendum 3 §5 enumerates the first four; this is the one that came after it was
 written.
+
+### The tell is necessary and NOT sufficient: it cannot see a colliding plan
+
+**The rule above detects a FOREIGN plan. It does not detect a COLLIDING one**,
+and the fourth misroute was the second kind.
+
+When both sessions are handed the same symptom they produce **overlapping
+plans**. A supabase session diagnosed door two from the database — no
+`lti-consume-link-token` invocation, five unconsumed tokens, `base` undefined at
+`auth/callback/route.ts:58` — and closed with four numbered options. The web
+session, working the same failure, produced its own report ending in four
+numbered items. The reply *"do all four, in this order"* was then routed here.
+
+**Nothing looked wrong, because nothing was wrong to look at.** No *"as you
+proposed"* attached to something unfamiliar; the four items mapped onto four
+this session had genuinely written, in the right order. It read as a direct
+answer to its own list, because structurally it was one — just to a different
+copy.
+
+**The failure it produced is the one the rule predicts.** This session did not
+build, but it did not refuse cleanly either: it designed a `SECURITY DEFINER`
+RPC, a four-outcome vocabulary and checked a column's nullability to confirm the
+design worked — all against a report it had not produced. Stopping at the write
+step is not the same as noticing.
+
+**So the guard cannot be the tell alone.** The tell fires when a plan is
+unfamiliar and is silent exactly when two sessions agree, which is precisely
+when the same symptom is in front of both. What closes it is the mechanical fix
+above — **the target repo in the first line of the prompt itself** — because
+that is checkable without recognising anything. A label survives a plan the
+receiving session could plausibly have written.
+
+**And there is a second collision the same shape produces: the migration
+number.** Both sessions reach for the next free one, and both are right about
+what "next free" means. See the note in `CLAUDE.md`'s migration rules: **the
+disk is authoritative, not the tip.**
 
 ### SQL comes from here, never from Claude Code
 

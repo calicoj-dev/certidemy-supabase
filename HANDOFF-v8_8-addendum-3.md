@@ -1,6 +1,6 @@
 # HANDOFF v8.8 addendum 3 — what Moodle changed, and a correction to addendum 2
 
-**Migration tip: 261. Next free: 262.** Two migrations ran on 2026-08-27 —
+**Migration tip: 263. Next free: 264** -- verify with `ls migrations/ | tail -1`, the disk is authoritative. Two migrations ran on 2026-08-27 —
 **260** `lti_platform_status_vocab` and **261** `lti_capability_history` — both
 described in addendum 1's header.
 
