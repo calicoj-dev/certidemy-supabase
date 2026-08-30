@@ -89,6 +89,38 @@ a platform-supplied one**, since the platform-supplied one is an assertion by a
 system whose admin can impersonate. The privacy-strict institution ends up with
 better identity than the default one.
 
+### A DOOR-TWO ACCOUNT PERMANENTLY DIVERGES FROM ITS LMS EMAIL
+
+**By construction, not by error, and forever.**
+
+The account is created with an address **the student supplied precisely because
+the platform withheld theirs.** So from the moment of linking, every subsequent
+launch presents an LMS email that differs from the profile — and it will do so
+for the life of the account. There is no point at which they converge, because
+the platform never sends the address the profile holds.
+
+**Observed 2026-08-30**: `sub = 2` presenting `demo@moodle.a` against a profile
+created through door two as `info+door4@certiglobal.org`. Eighteen launches,
+eighteen `student_email_mismatch` rows, each paired with a `resource_link_ok` in
+the same second. **The outcome fired correctly every time** — its first
+observation on any platform.
+
+**THIS IS CORRECT TODAY ONLY BECAUSE NOTHING ACTS ON IT.**
+`lms_email_differs` is a signal: the student is seated regardless, and the row
+exists so a human can see the divergence.
+
+**It stops being correct the moment anything acts on it.** A rule that treated a
+mismatch as suspicious — a lockout, a re-verification prompt, a support alert —
+would fire on **every launch of every door-two student, for the life of the
+account.** The population it would hit is exactly the one door two exists to
+serve: students at privacy-strict institutions, who did nothing wrong and cannot
+make the mismatch go away.
+
+**So: reading `lms_email_differs` is fine. Branching on it is not, without
+excluding door-two accounts first.** The same warning is written at the outcome
+in `functions/_shared/lti-provision.ts`, because that is where someone reaching
+for it will be.
+
 **Never invent an address.** `profiles.email` is `NOT NULL UNIQUE` and feeds
 `credentials.holder_email`, which is hashed into a signed credential. A synthetic
 address for a withheld email produces a real-looking `sha256$` claiming an

@@ -412,7 +412,36 @@ export async function provisionStudent(
          it as a failure would make the console lie in the other direction --
          a working launch filed as broken -- and an institution changing a
          student's address mid-course is something worth SEEING rather than
-         inferring later from a support ticket. */
+         inferring later from a support ticket.
+
+         ================================================================
+         DO NOT BRANCH ON THIS WITHOUT EXCLUDING DOOR-TWO ACCOUNTS FIRST.
+         ================================================================
+
+         A DOOR-TWO ACCOUNT DIVERGES FROM ITS LMS EMAIL PERMANENTLY, BY
+         CONSTRUCTION. It was created with an address the student supplied
+         precisely BECAUSE the platform withheld theirs -- so the platform will
+         never send the address the profile holds, and every launch after the
+         link mismatches. Forever. There is no point at which they converge.
+
+         Observed 2026-08-30, the first time this branch ever fired: sub = 2
+         presenting demo@moodle.a against a profile created through door two as
+         info+door4@certiglobal.org. Eighteen launches, eighteen mismatches,
+         each paired with a resource_link_ok in the same second. Correct every
+         time.
+
+         That is fine while nothing ACTS on it, which is the case today. It
+         stops being fine the moment something does: a lockout, a
+         re-verification prompt, a support alert keyed on lms_email_differs
+         would fire on EVERY LAUNCH OF EVERY DOOR-TWO STUDENT for the life of
+         the account -- and that population is exactly the one door two exists
+         to serve, students at privacy-strict institutions who did nothing
+         wrong and cannot make the mismatch go away.
+
+         Reading it is fine. Branching on it needs a door-two exclusion, and
+         `profiles.password_set` is not that exclusion -- it distinguishes
+         provisioned from claimed, not withheld-email from released-email.
+         See LTI-PHASE-2.md section 3. */
       const mismatch = email !== null && email !== known;
       const next = await seat(link.user_id);
       const tokenHash = await mintSession(svc, known, next);

@@ -87,8 +87,23 @@ Found by the session that could query, not by re-reading.
 - **First provisioning is 2026-08-29, not 08-27.** Migrations 262 and 263 are
   dated 08-28, so phase 2 did not exist on the 27th.
 - **§6's clause about email confirmation not reaching the callback was wrong.**
-  Marked disputed, then settled: `lti_diag=t1b1` measured the raw env var before
-  any fallback, so the callback ran and `getSession()` was the fault.
+  Marked disputed, then settled — **by two separate observations, which are
+  worth keeping separate:**
+
+  - `lti_diag=t1b1` established that **`base` was present**, the `b1` being the
+    raw `NEXT_PUBLIC_EDGE_FUNCTIONS_URL` read before any fallback.
+  - The **landing page** established that **the callback ran** — `/en/dashboard`
+    is the callback's own `next` parameter, so it executed and redirected.
+
+  Neither shows the other. Only together do they leave `getSession()` as the
+  fault.
+
+  **And the diagnostic came from a SUCCESSFUL run**, so it describes the
+  environment rather than the failing moment. It excludes candidate B by
+  inference about a constant environment — the variable was set then, so it was
+  set an hour earlier — not by measuring the failure itself. **That is a sound
+  inference and it is still an inference**, which is worth writing in a
+  paragraph about not stating reasons confidently.
 - **Four misroutes, not five.** The written record is the count.
 
 ---
@@ -108,15 +123,66 @@ email gets two doors, not a dead end. A student in a frame gets a screen that
 names the browser as the actor and tells the instructor how to remove the step —
 which is 1EdTech's own guidance, not our workaround. A student whose activity
 points at a retired certification is told the activity is stale rather than that
-Certidemy is broken.
+Certidemy is broken — **rendered, and unverified from the database.**
+
+> **That last one is an instance of a known gap rather than an unsupported
+> claim.** It is a web-side render that writes no skeleton row, so no outcome
+> exists for it and none fired during the sitting — the outcome vocabulary
+> observed on 2026-08-30 was `resource_link_ok`, `student_email_mismatch`,
+> `student_linked`, `student_email_absent`, `deep_linking_ok`,
+> `deep_link_returned` and `verification_failed`, and nothing else.
+>
+> **Addendum 3 §3 records exactly this shape: every refusal after verification
+> writes nothing**, so a path can be correct, reachable and invisible at the
+> same time. The claim is believable; the database cannot confirm it. That is
+> the gap, not a defect in the claim.
+
+### `student_email_mismatch` fired 18 times, and it was right 18 times
+
+**The highest-count outcome of the sitting, and it appears nowhere else in this
+document — so it is written down before somebody finds it and assumes a
+defect.**
+
+**All 18 are one identity.** `sub = 2` on Moodle, presenting `demo@moodle.a` —
+the sandbox's built-in demo account and the only resource-link identity
+launching in that window. The linked profile holds `info+door4@certiglobal.org`,
+**created through door two**, where the platform withheld the email and the
+student supplied their own.
+
+**So the two addresses differ permanently, by construction.** Every launch after
+the link presents an LMS email that is not the profile email. The outcome is not
+misfiring; it is reporting a real divergence, once per launch, correctly.
+
+**Eighteen mismatches, eighteen successful seatings.** Each is paired with a
+`resource_link_ok` in the same second or the one before it — no orphans on
+either side, no `student_mint_failed`, and `lti_users.last_seen_at` matching the
+final pair to the second. `student_email_mismatch` is a **signal, not a
+refusal**: the student is seated regardless, which is what makes 18 of them
+healthy telemetry rather than 18 failures.
+
+**And it is the first observation of that branch.** The outcome existed and had
+never fired on any platform. It fired eighteen times and was right eighteen
+times — **a small positive, not only an artefact of the testing.**
+
+**The durable consequence is in `LTI-PHASE-2.md` §3 and at the outcome itself:**
+a door-two account diverges from its LMS email forever, so anything that ever
+*acts* on `lms_email_differs` would fire on every launch of every door-two
+student for the life of the account.
 
 ---
 
 ## 5. Open, in order
 
 1. **1EdTech conformance certification.** The core gap list closed — six
-   required-claim validations shipped, free against 43 observed launches. What
-   remains is membership and paperwork. LTI Advantage Certified (Core plus Deep
+   required-claim validations **deployed 2026-08-30**, and free against **every
+   launch on record**: `version`, `sub`, `roles` and `message_type` present on
+   all of them, `resource_link.id` on every resource-link launch.
+
+   *(The count that used to sit here was 43, measured before the sitting, which
+   added five. A count in an assertion is a fact about the data — see §7 of
+   v8.9 — so this states the property instead. It was 48 as of 2026-08-30.)*
+
+   What remains is membership and paperwork. LTI Advantage Certified (Core plus Deep
    Linking) is the realistic tier; Complete needs AGS and NRPS, and §5b argues
    AGS is a claims decision rather than a gap.
 2. **OB3 certification.** Closest of the two. Issue a valid badge to
