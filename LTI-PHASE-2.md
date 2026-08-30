@@ -645,7 +645,9 @@ Door two was the third and is **done** (§12); two remain:
 1. ~~**Door two** -- with privacy turned off.~~ **PROVEN 2026-08-30, §12.**
 2. **The Safari flip on `state_cookie_survives`** -- the `false` branch of that
    tri-state has never been observed anywhere. Chrome allowed the cookie in a
-   genuine third-party iframe, 4 of 4. See `LTI-SETUP.md` Part Two step 7.
+   genuine third-party iframe, **29 of 29 as of 2026-08-30**. See `LTI-SETUP.md`
+   Part Two step 7, and §13 below for the embedded run that was expected to
+   produce the flip and did not.
 3. **`false`/`false` on the `data` echo** -- proving the NEGATIVE half of
    migration 259's claim_presence pair needs a platform that sends no
    `deep_linking_settings.data`, and Moodle is that platform. A check asserting
@@ -653,3 +655,118 @@ Door two was the third and is **done** (§12); two remain:
 
 **They are listed together because they are one booking, not three.** Each is
 cheap once the rig is up and none of them is reachable without it.
+
+---
+
+## 13. Embed renders the LOGIN PAGE — the frame holds the launch, not the session
+
+**Observed 2026-08-30. Moodle, Chrome, a real third-party iframe.**
+
+```
+Embed launch      -> Certidemy renders in the frame -> LOGIN PAGE
+                     "Welcome back, log in to continue your study plan"
+New window, same activity -> works, student lands in SM-AI-I
+state_cookie_survives      true, 29 of 29, changed_at null
+```
+
+### The launch SUCCEEDED, and that is what makes this bad
+
+This is not a launch failure. The OIDC handshake completed, verification passed,
+provisioning ran, the session was minted. **The student has a real account and a
+real session, and the browser will not send it back.** They are looking at a
+login form for an account they already have, inside their own course, having
+done nothing wrong.
+
+An institution that chooses Embed — the setting `LTI-SETUP.md` Part Two step 5
+calls "the configuration a real institution is most likely to use" — gets this
+for every student.
+
+### Two cookies, same origin, same frame, opposite outcomes
+
+**LEADING HYPOTHESIS, NOT VERIFIED.** The read that settles it was not run.
+
+Third-party blocking would take both cookies, not one, so the difference is
+unlikely to be blocking. The likelier difference is the **`SameSite` attribute**:
+
+- **The LTI state cookie must be `SameSite=None; Secure`** or the OIDC handshake
+  could never work cross-site at all — it is written on one request and read on
+  another, both inside the frame. Its survival is not luck; it is a declared
+  capability.
+- **Supabase's SSR auth cookies are set by the client library**, and `Lax` is
+  the ordinary default. **A `Lax` cookie is not sent on a cross-site iframe
+  request.**
+
+Same origin, same frame, one sent and one withheld, because one was declared
+cross-site-capable and the other was not.
+
+**The read that settles it:** DevTools -> Application -> Cookies on the framed
+document, comparing `SameSite` on the two. One line, and it should happen before
+anything is built, because every option below depends on the answer.
+
+### Options — NONE CHOSEN
+
+1. **Session cookies to `SameSite=None; Secure`.** Works in the frame. Makes
+   them third-party cookies **everywhere**, subject to Chrome's phase-out and
+   already blocked by default in Safari, and widens CSRF surface.
+2. **Break out of the frame on launch.** Top-level navigation into the learn
+   area, the same move the exam already makes.
+3. **An interstitial in the frame** — one honest screen saying why, one click
+   out. The middle ground, and the only option that respects the instructor's
+   setting while telling the truth about it.
+4. **Document Embed as unsupported**, tell institutions to set New window.
+   Cheapest, worst product, and it contradicts step 5 of the runbook.
+5. **Storage Access API** — request storage access from inside the frame. Real,
+   needs a user gesture, and support varies.
+
+**THIS DOCUMENT HAS ALREADY DECIDED THIS QUESTION TWICE, AND THAT NARROWS IT.**
+
+§1: the exam always breaks out, because a session minted in a frame inherits
+whatever the platform asserted. §4: signup breaks out because *"the frame cannot
+be trusted for identity"*.
+
+**A session cookie is identity.** Option 1 is the only one that argues against
+the rule the rest of this file is built on — it makes our session cookie
+readable in every third-party context on the web to fix one of them. Options 2
+and 3 are what this document already says everywhere else.
+
+That is not a decision. It is a constraint on the decision: **option 1 needs an
+argument against §1 and §4, not merely an argument for itself.**
+
+### The observability problem: the metric was GREEN on the runs that failed
+
+`state_cookie_survives` read **`true` on 29 of 29 launches — including the
+embedded ones that landed on the login page.**
+
+**The name is accurate and the measurement is correct.** It compares
+`body.state_cookie === state` at `/lti/launch` and answers one question: *did
+our OIDC handshake survive the frame?* That is genuinely useful, and it is why
+deep linking works embedded at all.
+
+**The problem is the inference it invites.** Anyone reading `true, 29 of 29`
+concludes that cookies work in this frame. They do not — *one* cookie works. The
+metric's scope is narrower than its name, and the two diverged on real data on
+the first day the difference mattered.
+
+**This is not the item-8 family.** Nothing here is a rendering read as the thing;
+the reading is honest and the value is right. It is narrower and more ordinary:
+**a measurement whose name is broader than its scope, in a table built to be read
+at a glance.** The tri-state discipline protects absence from being read as a
+*no*. It does not protect a small *true* from being read as a large one.
+
+**Not fixed.** When it is, the shape is a second key — `session_cookie_survives`
+— rather than a rename: the 29 observations are real observations of exactly what
+the name says, and renaming would orphan them.
+
+### And the flip STILL has not happened
+
+**29 of 29 `true`. `changed_at` null, `previous_value` null. On every key, on
+every platform.** The `varies` styling and the flip line have never rendered
+against real data, and 261's columns remain correct-and-unexercised.
+
+**Safari remains the only known path, and it stays on the list above.**
+
+Worth noting precisely, because it was a prediction: **the embedded launch was
+the case expected to produce the flip, and it did not.** Chrome allowed the state
+cookie in a genuine third-party frame. The prediction was not wrong about the
+mechanism — a third-party frame is where a cookie gets dropped — it was wrong
+about the browser.
