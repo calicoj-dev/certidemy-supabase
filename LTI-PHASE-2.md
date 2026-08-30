@@ -681,33 +681,63 @@ An institution that chooses Embed — the setting `LTI-SETUP.md` Part Two step 5
 calls "the configuration a real institution is most likely to use" — gets this
 for every student.
 
-### Two cookies, same origin, same frame, opposite outcomes
+### The auth cookies are `SameSite=Lax` — CONFIRMED by direct read
 
-**LEADING HYPOTHESIS, NOT VERIFIED.** The read that settles it was not run.
+**FINDING, not hypothesis. Observed 2026-08-30**, DevTools -> Application ->
+Cookies, on the framed login document at `certidemy.com/en/login`:
 
-Third-party blocking would take both cookies, not one, so the difference is
-unlikely to be blocking. The likelier difference is the **`SameSite` attribute**:
+```
+sb-pctynukndxnmnx...  (x2)   SameSite = Lax     <- the Supabase SSR auth cookies
+certidemy_consent            Lax
+certidemy-theme              Lax
+NEXT_LOCALE                  Lax
+_shopify_y                   Lax
+```
 
-- **The LTI state cookie must be `SameSite=None; Secure`** or the OIDC handshake
-  could never work cross-site at all — it is written on one request and read on
-  another, both inside the frame. Its survival is not luck; it is a declared
-  capability.
-- **Supabase's SSR auth cookies are set by the client library**, and `Lax` is
-  the ordinary default. **A `Lax` cookie is not sent on a cross-site iframe
-  request.**
+**The auth cookies are PRESENT AND READABLE in that frame. Not blocked, not
+absent, not evicted.** They exist on the origin and the browser simply does not
+send them on a cross-site iframe request, because `Lax` says not to. Nothing is
+broken; a default is doing exactly what it says.
 
-Same origin, same frame, one sent and one withheld, because one was declared
-cross-site-capable and the other was not.
+That single fact is the whole explanation and it needs no comparison to anything
+else.
 
-**The read that settles it:** DevTools -> Application -> Cookies on the framed
-document, comparing `SameSite` on the two. One line, and it should happen before
-anything is built, because every option below depends on the answer.
+### DO NOT WRITE THIS AS "ONE COOKIE SURVIVED AND THE OTHER DID NOT"
+
+**`certidemy_lti_state` does not appear in the list above, and its absence there
+is not evidence of anything.** It is scoped `Path=/lti`; the inspected document
+is `/en/login`. It is out of scope for that path, so DevTools was never going to
+show it.
+
+**Its `SameSite` attribute has never been read.** What is known about it comes
+from somewhere else entirely: `state_cookie_survives` is measured **server-side**
+at `/lti/launch`, by comparing `body.state_cookie` to `state`. Never in a
+browser, never in DevTools, never on the same document as the read above.
+
+**So the two facts were established by different instruments, at different
+layers, on different documents.** The sentence that merges them — *"the state
+cookie survived the frame and the session cookie did not"* — reads as one
+observation of two cookies and is actually two observations that were never
+compared. It is a tidier story than the evidence supports, and it is the kind
+that survives because nobody re-derives it.
+
+**What can honestly be inferred, marked as inference:** a `Lax` cookie is not
+sent on a cross-site POST, and an LTI launch is a cross-site POST. So a state
+cookie that survived 29 of 29 launches is very unlikely to be `Lax` — the
+behaviour implies `SameSite=None`. **That is inferred from what it did, not read
+from what it is**, and it is not needed for the finding above. Confirm it by
+reading the attribute if it ever matters; do not assume it because it appears
+here.
 
 ### Options — NONE CHOSEN
 
 1. **Session cookies to `SameSite=None; Secure`.** Works in the frame. Makes
    them third-party cookies **everywhere**, subject to Chrome's phase-out and
-   already blocked by default in Safari, and widens CSRF surface.
+   already blocked by default in Safari, and widens CSRF surface. **Note the
+   scope: the read above found the SSR auth cookies are `Lax` along with every
+   other cookie at that path — so this is not a one-line override on one cookie,
+   it is a change to how the Supabase SSR client writes the session for the
+   whole product, to serve one embedding context.**
 2. **Break out of the frame on launch.** Top-level navigation into the learn
    area, the same move the exam already makes.
 3. **An interstitial in the frame** — one honest screen saying why, one click
