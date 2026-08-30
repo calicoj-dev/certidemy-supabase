@@ -369,3 +369,133 @@ already been agreed, is a caution about the reasoning -- and specifically about
 this feature, which keeps producing readings that sound right and are not.
 
 A plausible sentence is exactly what a wrong one feels like from the inside.
+
+---
+
+## 11. What has been proven, and by whom
+
+**Two launches on 2026-08-29 took the whole path**: verified RS256 launch ->
+resolve or provision -> `generateLink` -> redirect -> `verifyOtp` -> seated
+session in the app. **1.13 seconds** from the first skeleton row to
+`last_sign_in_at` on the first one.
+
+    00:23:35.501  resource_link_ok        row one, at verification
+    00:23:36.213  student_provisioned     row two, 712ms later
+    00:23:36.633  last_sign_in_at         the token was redeemed
+
+    00:46:47.777  resource_link_ok
+    00:46:48.195  student_linked          the FAST PATH, first time it ran
+    00:46:48.473  last_sign_in_at         minted again, no new account
+
+`password_set = false` is the first value that column has ever held. `full_name`
+reached `profiles` through `user_metadata` and `handle_new_user` with no extra
+write. `lti_link_tokens` stayed empty, correct for a launch that had an email.
+No mail was sent at any point, which section 5 requires.
+
+### THE THIRD LAUNCH WAS THE ONE THAT MATTERED, AND NOBODY PLANNED IT
+
+At **00:29:07**, between the two above, a colleague on a conference call ran the
+same lti-ri launch **from a different house, on a different PC, on a different
+network, as a different person, on a machine we do not control.** It provisioned
+nothing new and seated them correctly, taking the fast path by `sub`.
+
+**It was not set up as a test. Someone on a call just ran it.**
+
+That makes it the strongest evidence phase 2 has, and it is worth being precise
+about why. Every other proof in this file and in `LTI-SETUP.md` was **one
+machine, one browser, one network, one person** -- the person who wrote the
+code, on the machine it was written on, with that machine's cookies, clock,
+extensions and DNS. A great many integration bugs live exactly in the gap
+between that and anyone else.
+
+**This is what a real student launch looks like**: someone who did not build it,
+somewhere else, clicking a link in a course. It is the closest thing to an
+institutional test this has had, and it arrived by accident.
+
+### THE DISCRIMINATOR WAS A PERSON ON A CALL, NOT SOMETHING IN THE DATABASE
+
+That third launch also caused, and then resolved, the closest thing to a wrong
+turn in this work.
+
+The first launch wrote a row whose `last_seen_at` was 13ms EARLIER than its
+`first_seen_at` -- two clocks, one row (see migration 263). A generic check was
+written to catch that class of defect. Run against the live table, it reported
+**success**, over a row believed to be inverted. The conclusion drawn was that
+the check was broken, and a replacement migration was drafted.
+
+**The check was fine.** The colleague's launch at 00:29:07 had run under the old
+writer, whose fast path set `last_seen_at` from the edge function's clock -- and
+five and a half minutes of elapsed time makes 13ms of skew irrelevant. **The row
+had already healed.** The check reported zero because zero was true.
+
+**Nothing in the database recorded why.** The skeleton row at 00:29:07 says a
+launch happened; it does not say it was somebody else, and there is no column
+where that would have gone. The row's own timestamps had been rewritten by the
+event being investigated.
+
+The replacement migration would have been written, would have "worked", and
+would have enforced a condition that was already true -- and nobody would ever
+have learned it was unnecessary.
+
+**What generalises: a system with more than one actor produces state changes its
+own records cannot explain.** The temptation is to explain them from the code,
+because the code is what is in front of you and it is legible. The cheaper
+question is who else was in it. Here the answer was one sentence from someone on
+the call, and it settled in a moment what no amount of reading the DO block
+could have.
+
+---
+
+## 12. Door two is BUILT AND UNPROVEN
+
+Everything in section 3's second door now exists: the launch mints a token, the
+page offers it, signup carries it, and `/auth/callback` consumes it. **No
+launch has ever taken that path**, because the only rig that has exercised phase
+2 is the 1EdTech reference implementation, and it releases `sub`, `name` and
+`email` on every launch. It has no withheld case to produce.
+
+### What must be proven, stated before the run rather than after
+
+**THE ASSERTION IS THE SECOND LAUNCH.** Door two closing means the student stops
+meeting door two. Concretely, after a successful link:
+
+1. the next launch presents the same `sub`
+2. it HITS `lti_users` and takes the fast path
+3. the skeleton pair reads `resource_link_ok` then **`student_linked`**
+4. **no new account is created** -- `profiles` and `auth.users` counts unchanged
+5. the student is seated in the app
+
+**`student_linked` rather than `student_provisioned` is the whole result.** A
+launch that provisions a second account has not closed the door, it has papered
+over it -- the student would have two accounts, one per launch, and nothing
+would error.
+
+Also to observe: `lti_link_tokens.consumed_at` set exactly once, and the token
+refused on a replay.
+
+### The test must be a platform withholding, not a payload stripped
+
+**Turn the privacy settings OFF on the Moodle sandbox tool.** A doctored
+payload would prove the code path and not the situation: what is being tested is
+that a real platform, configured the way a privacy-strict institution configures
+it, produces a launch we can still do something honest with. The two are not the
+same claim, and only one of them is what an institution will do.
+
+It also gives the frame test for free, which lti-ri cannot provide at all.
+
+### THREE UNPROVEN THINGS NOW SHARE ONE SANDBOX HOUR
+
+The Moodle sandbox resets on the hour, so anything needing it needs a sitting.
+Three things are now waiting on the same one:
+
+1. **Door two** -- the above, with privacy turned off.
+2. **The Safari flip on `state_cookie_survives`** -- the `false` branch of that
+   tri-state has never been observed anywhere. Chrome allowed the cookie in a
+   genuine third-party iframe, 4 of 4. See `LTI-SETUP.md` Part Two step 7.
+3. **`false`/`false` on the `data` echo** -- proving the NEGATIVE half of
+   migration 259's claim_presence pair needs a platform that sends no
+   `deep_linking_settings.data`, and Moodle is that platform. A check asserting
+   only that `data` reads `true` would pass on code that hardcoded it.
+
+**They are listed together because they are one booking, not three.** Each is
+cheap once the rig is up and none of them is reachable without it.

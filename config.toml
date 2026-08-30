@@ -633,3 +633,40 @@ verify_jwt = false
 # the JWT shape, a platform rejects our response with an error we cannot see.
 [functions.lti-deep-link]
 verify_jwt = false
+
+# Records that a user now has a password they chose, for profiles.password_set.
+#
+# verify_jwt = true, and unlike the LTI endpoints above the reason is ordinary:
+# the caller is a signed-in person, the request carries their Supabase JWT, and
+# the function writes exactly one column on exactly their own row. Contrast
+# lti-launch, which MUST be false because its request authenticates ITSELF with
+# an RS256 platform signature and a Supabase JWT would prove nothing about it.
+#
+# It is safe for a user to call this about themselves. password_set gates a
+# MESSAGE, not access -- the exam is gated by login and voucher -- so someone
+# who calls it without setting a password has only removed their own reminder.
+# There is no UPDATE grant on profiles.password_set at any role, and there must
+# not be: migration 168 enumerates the columns authenticated may write so that a
+# column added later fails closed, and a per-column grant cannot constrain the
+# VALUE.
+[functions.lti-mark-password-set]
+verify_jwt = true
+
+# Closes door two: links an LMS identity to the account a student just created,
+# when their platform withheld the email address at launch.
+#
+# verify_jwt = true, AND HERE IT IS A REAL BOUNDARY rather than a decorative
+# one. Contrast the provisioner, where the same setting was proposed and
+# rejected: the only credential past that gate would have been the service-role
+# key, which can create accounts directly, so it would have refused strangers
+# from doing what strangers already cannot do. This function is different
+# because the gate establishes WHICH USER, and the whole operation is defined
+# relative to that answer.
+#
+# IT TAKES BOTH A TOKEN AND A SESSION. The token proves someone launched from
+# that LMS; the session proves they own this account. A token-only variant would
+# let whoever holds it attach that student's future launches to an address they
+# control -- the victim keeps launching from their course, keeps landing in
+# somebody else's account, and it looks like a working integration throughout.
+[functions.lti-consume-link-token]
+verify_jwt = true
