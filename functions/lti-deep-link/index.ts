@@ -163,7 +163,7 @@ async function loadSession(svc: Svc, id: string) {
   // ONE UNBROKEN LITERAL -- concatenation collapses the row type.
   const { data, error } = await svc
     .from("lti_launch_sessions")
-    .select("id, platform_id, deployment_id, message_type, deep_link_return_url, accept_types, accept_multiple, locale, deep_link_data, expires_at, consumed_at")
+    .select("id, platform_id, deployment_id, message_type, deep_link_return_url, accept_types, accept_multiple, locale, deep_link_data, correlation_id, expires_at, consumed_at")
     .eq("id", id)
     .maybeSingle();
 
@@ -533,6 +533,12 @@ serve(async (req) => {
       message_type: "LtiDeepLinkingResponse",
       outcome: "deep_link_returned",
       error_code: null,
+      // THE OTHER HALF OF THE LAUNCH. lti-launch generated this and stored it on
+      // the session; this is the row that makes the pair joinable. Before
+      // migration 266 the only thing connecting these two rows was that they
+      // happened to be minutes apart. See that migration on why proximity is
+      // not a join.
+      correlation_id: session.correlation_id ?? null,
       // BOOLEANS ONLY. claim_presence records WHICH claims were present, never
       // their values, on a table with no PII and indefinite retention. The
       // `data` value is opaque platform-supplied content and has no business

@@ -147,6 +147,31 @@ serve(async (req) => {
         message_type: "LtiOidcLogin",
         outcome: "unregistered_platform",
         error_code: clientId ? "no_such_iss_client" : "no_such_iss",
+        /**
+         * THE ONLY THING THAT IDENTIFIES A STRANGER, and it is UNVERIFIED BY
+         * CONSTRUCTION.
+         *
+         * This is what an unregistered caller CLAIMED to be, taken from an OIDC
+         * initiation request before any signature exists to check it against.
+         * Nothing has attested it and nothing can, at this point in the flow.
+         *
+         * It is here so these rows can be GROUPED -- "the same institution
+         * tried three times this week" rather than two anonymous rows that
+         * might be one caller or two. That is the difference between the least
+         * informative rows on the console and the most actionable ones.
+         *
+         * IT MUST NEVER BE TREATED AS AN IDENTITY. Use it for a support
+         * conversation and for counting repeat attempts. Do not resolve it, do
+         * not join on it, do not let it authorise anything.
+         *
+         * Written HERE and never in lti-launch: there, platform_id already
+         * answers the question on resolved rows, and on pre-resolution failures
+         * the token's iss is attacker-controlled. A column that sometimes holds
+         * a verified issuer and sometimes holds whatever a stranger typed is
+         * worse than one that only ever holds the second, because nothing on
+         * the row says which. See migration 266.
+         */
+        iss,
         claim_presence: {
           iss: true,
           client_id: clientId !== null,
@@ -174,6 +199,11 @@ serve(async (req) => {
         message_type: "LtiOidcLogin",
         outcome: "ambiguous_registration",
         error_code: "iss_matches_multiple_without_client_id",
+        // Unverified, same as above -- but note this one DID match registered
+        // rows, so the value is one we already store in lti_platforms. It is
+        // recorded anyway: the row says which issuer was ambiguous, which is
+        // the first thing anyone diagnosing it needs.
+        iss,
         claim_presence: { iss: true, client_id: false },
       });
 

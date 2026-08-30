@@ -154,6 +154,23 @@ interface Trace {
   messageType: string | null;
   clockDeltaSeconds: number | null;
   claimPresence: Record<string, boolean> | null;
+  /**
+   * THE CORRELATION HANDLE. Generated once per request, written on EVERY
+   * skeleton row this launch produces.
+   *
+   * A launch writes two rows -- resource_link_ok then a provision outcome, or
+   * deep_linking_ok then deep_link_returned -- and until migration 266 nothing
+   * connected them. Support's "what happened to this launch" was answered by
+   * TIMESTAMP PROXIMITY, which is not a join: it holds while traffic is one
+   * person clicking and degrades silently the moment two students launch at
+   * once.
+   *
+   * It lives on Trace rather than being passed to recordSkeleton so that the
+   * failure rows get it too. A verification_failed row correlates nothing on
+   * its own -- but a column that is present on some rows and absent on others
+   * is one nobody can write a query against.
+   */
+  correlationId: string;
 }
 
 /**
@@ -179,6 +196,7 @@ async function recordSkeleton(
       error_code: errorCode,
       claim_presence: trace.claimPresence,
       clock_delta_seconds: trace.clockDeltaSeconds,
+      correlation_id: trace.correlationId,
     })
     .select("id")
     .single();
@@ -222,6 +240,10 @@ serve(async (req) => {
     messageType: null,
     clockDeltaSeconds: null,
     claimPresence: null,
+    // ONCE PER REQUEST, BEFORE ANYTHING CAN FAIL. Generated here rather than at
+    // the first recordSkeleton call so that every row of this launch shares it,
+    // including a failure that produces only one.
+    correlationId: crypto.randomUUID(),
   };
 
   /** One exit for every verification failure. Generic outward, precise inward. */
@@ -563,6 +585,11 @@ serve(async (req) => {
           deep_link_data: ctx.deepLinking.data.status === "provided"
             ? ctx.deepLinking.data.value
             : null,
+          // HOW THE HANDLE CROSSES THE REQUEST BOUNDARY. Deep linking writes
+          // its second skeleton row from lti-deep-link, in a different request
+          // minutes later, and the session is the only thing that already spans
+          // both. See migration 266.
+          correlation_id: trace.correlationId,
         })
         .select("id")
         .single();

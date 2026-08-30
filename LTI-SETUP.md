@@ -227,6 +227,35 @@ select key, value, observation_count from lti_capabilities order by key;
 select platform_id, length(raw_jwt), expires_at from lti_launch_evidence;
 ```
 
+### BEFORE DAY 30 YOU CAN ANSWER WHAT A LAUNCH CONTAINED. AFTER, YOU HAVE BOOLEANS.
+
+The two tables above are retained differently, and the difference decides what
+a support question can be answered with.
+
+| table | holds | retention |
+|---|---|---|
+| `lti_launch_evidence` | the raw JWT and every decoded claim -- `sub`, email, name, roles, custom values | **30 days**, swept at expiry with no grace period (258) |
+| `lti_launch_skeleton` | identifiers, outcome, error code, timing, and `claim_presence` -- a boolean map of WHICH claims arrived, never their values | **indefinite** |
+
+**That is the correct trade** -- permanent statistics from a table with nothing
+personal in it, and an expiring half that can be defended to an institution's
+DPO (253). **It is also invisible until somebody asks about an old launch**, so
+it is written here rather than only in the migration.
+
+**The concrete instance, which is more persuasive than the rule.** On
+2026-08-30, eighteen `student_email_mismatch` rows were traced to a single
+`sub` presenting one LMS address against one profile created through door two --
+establishing that the outcome had fired correctly eighteen times rather than
+indicating a defect.
+
+**Every step of that read `lti_launch_evidence.claims`.** The skeleton alone
+says eighteen mismatches happened; it cannot say they were one student, and the
+booleans are identical whether they were one student or eighteen. **That
+investigation would have been impossible on a 31-day-old incident.**
+
+So: when an institution reports something odd, **pull the evidence rows first.**
+They are the half with a deadline.
+
 ### `first_seen_at` can be LATER than `last_seen_at`, and that is the writer
 
 **A brand-new `lti_deployments` row holds two clocks.** This is a property of
