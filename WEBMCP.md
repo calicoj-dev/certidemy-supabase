@@ -40,8 +40,15 @@ of everything below, so it is stated before anything else:
 - **It exists only in a browser, on our page.** There is no daemon, no endpoint,
   nothing to deploy, nothing to secure at the network layer.
 
-**Reach today, which is small:** Chrome 149 **origin trial**; Edge **behind a
-flag**; and **Gemini in Chrome is currently the only consuming agent**.
+**Reach today, which is smaller than "small":** Chrome 149 **origin trial**;
+Edge **behind a flag**; and **Gemini in Chrome is the only CANDIDATE consuming
+agent — and it does not call registered tools.**
+
+**Measured on production 2026-08-31, see §2b.** The distinction is the content
+here: being *the only agent* is not the same as being *an agent that consumes*,
+and this document originally recorded a July citation in the place where a
+measurement belonged. **The citation is kept as corroboration; the observation
+is the evidence.**
 
 ---
 
@@ -71,6 +78,108 @@ attempting the session-bound ideas in §8 — a learner's progress, starting a
 quiz — where the same unknowns would have been discovered against real user
 data. **Everything in §3 was found on a tool where being wrong cost nothing.**
 That was the purchase.
+
+---
+
+## 2b. MEASURED ON PRODUCTION, 2026-08-31
+
+**This is the section that settles §2.** Everything above it about reach was
+argument and citation; this is first-party observation on the live site.
+
+### The tool is live, and the origin trial token is honoured
+
+With **`chrome://flags/#enable-webmcp-testing` set to DISABLED** and Chrome
+relaunched, on `https://certidemy.com/en/verify`:
+
+```
+document.modelContext.getTools()   ->  verify_credential
+```
+
+**THAT IS THE ONLY RUN THAT COULD HAVE PROVEN THE TOKEN WORKS.** The flag
+**creates the API locally regardless of any token**, so every earlier test —
+all of §3's and §5's — proved **the code** and said nothing whatever about
+**the trial**. Two different claims that produce identical output on a
+flag-enabled browser.
+
+**This is the same shape as the no-op cleanup in §5 and the invisible expiry in
+§7**, arriving a third time: a local configuration that keeps working is not
+evidence about production, and here it was actively masking the only question
+being asked.
+
+**Scope it honestly: the token was observed honoured on 2026-08-31, on that
+page.** That is not "honoured until 2026-11-16", and §7 stands unchanged.
+
+### The meta tag is in `<head>` — measured, not claimed
+
+```
+document.head.querySelector('meta[http-equiv="origin-trial"]')  ->  the tag
+```
+
+**So React 19 does hoist it.** The comment at
+`app/[locale]/verify/page.tsx:95` asserts exactly this, and until now it was an
+assertion sitting one line above the thing it described. **It is now backed by a
+measurement** — a web session can promote the comment; that file is out of scope
+here.
+
+Note what this closes off: §5's row records that Next's Metadata `other` field
+emits `name=` and Chrome ignores it. **Avoiding that trap and landing the tag in
+`<head>` are two different facts**, and only the second one is the site working.
+
+### GEMINI IN CHROME DOES NOT CALL THE TOOL
+
+Asked **"Verify credential AIE-I-5GFT-YJ93 on this page"**, with the sidebar
+open and sharing that exact page, it replied that **it cannot interact with web
+pages or submit forms**, and gave the user **three steps to click the box
+themselves**.
+
+**Read it in both directions, because only one half is a failure:**
+
+- **EVERY LAYER WE OWN WORKS.** The tool is registered, the token is read, the
+  API exists on the tab, the schema and the enforcement in `execute` are live.
+  Nothing in §3, §5 or §6 is called into question by this.
+- **THE CONSUMING AGENT IS NOT A WebMCP CLIENT.** The gap is entirely on the
+  demand side, and it is not a gap we can close by writing better code.
+
+**A tool nothing calls is not a broken tool. It is a tool with no caller**, and
+those need opposite responses — the first wants debugging, the second wants
+waiting.
+
+### The shape worth keeping: there is no discovery signal
+
+**Gemini read the page and produced instructions for a human.** It did what an
+agent does with any page: parsed the DOM, inferred the affordance, told the user
+where to click.
+
+**A PAGE WITH REGISTERED TOOLS IS INDISTINGUISHABLE FROM ONE WITHOUT, TO AN
+AGENT THAT DOES NOT CHECK.** There is **no discovery mechanism and no signal** —
+nothing in the markup, nothing in a header, nothing an agent encounters unless
+it already knows to call `getTools()`.
+
+**This is Chrome's own listed limitation, met in practice on the first try.**
+Which is worth noting on its own: the documented caveat and the observed
+behaviour agreed exactly, in a specification where §3 records them disagreeing
+completely. **The docs are reliable about what the API cannot do and unreliable
+about what it enforces** — and those were read with equal trust before tonight.
+
+**Corroboration, one line:** Google Search's **AI Mode**, asked the same
+question, **fetched the page server-side, could not see the tool, and
+recommended building a Playwright harness** — the exact thing WebMCP exists to
+make unnecessary. Two of Google's own surfaces, neither aware of a Google-backed
+API.
+
+### The consequence for §2, which this settles
+
+**`llms.txt` reaches every agent that can fetch a URL, today. WebMCP reaches, so
+far, NONE.**
+
+§2 argued this from reach and made it a comparison of sizes. It is no longer a
+comparison — **one of the numbers is zero, measured.**
+
+**The tool remains worth having, for the reason §2 already gives**: learning the
+surface on something public, unauthenticated and low-stakes before the
+session-bound work in §8. **That reason is now the ONLY one supporting it,
+rather than one of two.** Nothing in this section is a reason to remove the
+tool, and nothing in it is a reason to build the next one yet.
 
 ---
 
@@ -201,7 +310,7 @@ cost time rather than raising errors.
 | its arguments are a **JSON string**, not an object | passing an object does not throw at the call site |
 | unregistration is `registerTool(tool, { signal })` + `controller.abort()` — **not a method** | our cleanup called `.unregister()` / `.remove()`. **NEITHER EXISTS**, the `typeof` guards swallowed both, and **the tool was never unregistered on unmount**. **A NO-OP CLEANUP IS INDISTINGUISHABLE FROM A WORKING ONE UNTIL TESTED** |
 | `registerTool` returns `Promise<void>` | **a synchronous `try/catch` cannot see a rejected registration.** Found by `webmcp-types`; **the hand-written interface hid it** |
-| the trial token must be `<meta http-equiv>` | Next's Metadata `other` field emits `name=`, and **Chrome silently ignores it**. The token would have shipped, **looked correct in view-source**, and never been read |
+| the trial token must be `<meta http-equiv>` | Next's Metadata `other` field emits `name=`, and **Chrome silently ignores it**. The token would have shipped, **looked correct in view-source**, and never been read. **Trap avoided and confirmed in `<head>` on production — §2b** |
 
 **Three of these six are silent-success failures** — the no-op cleanup, the
 unobservable rejected promise, and the ignored meta tag. Each produces a system
@@ -260,6 +369,25 @@ effect returns having done nothing.
 **Same family as the no-op cleanup in §5:** correct-looking local behaviour
 concealing a dead production path. It is listed as its own section because it is
 the only item in this document with a date on it.
+
+### HOW TO LOOK FOR IT — this section had no procedure until 2026-08-31
+
+An invisible failure with no stated way of detecting it is not actionable. §2b
+supplies the procedure, and it is the same one that proved the token worked in
+the first place:
+
+1. **Set `chrome://flags/#enable-webmcp-testing` to DISABLED.**
+2. **Relaunch Chrome** — the flag is read at startup.
+3. On `https://certidemy.com/en/verify`, run
+   `document.modelContext.getTools()`.
+
+**`verify_credential` present means the token is being honoured. Absent means it
+is not**, and after 2026-11-16 that is the expected result.
+
+**STEP 1 IS THE WHOLE PROCEDURE.** With the flag enabled — its normal state on
+any machine that has done this work — **the API exists regardless of the token**
+and the check returns the tool either way. Running steps 2 and 3 without step 1
+produces a confident pass on a dead trial.
 
 ---
 
