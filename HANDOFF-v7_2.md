@@ -56,11 +56,18 @@ IDENTIFIERS  ->  credentials.certidemy.com
   /credentials/<CODE>                    the signed credential
 
 HUMAN        ->  certidemy.com
-  /badges/<CODE>.png                     badge artwork
+  /badges/<CERT-CODE>.png                badge artwork (CERTIFICATION code)
   /certifications/<code>                 criteria page
   /verify/<CODE>                         verification page
   /credentials/<CODE>                    VIEWER-AWARE copy (see below)
 ```
+
+**[2026-08-31: the badges row was `<CODE>` and was ambiguous — it is the
+CERTIFICATION code, while `<CODE>` means the credential code in the three
+neighbouring rows. An agent read this row, built
+`/badges/<credential-code>.png`, and reported the resulting 404 as a defect.
+Per-credential artwork comes from `image_url` on the credential, never from a
+`/badges/` path. See `HANDOFF-v9_2.md` §4.]**
 
 Issuer-scoped because two issuers may legitimately define achievements with the
 same code, and an identifier that collides is not an identifier. Credentials stay
