@@ -1,12 +1,8 @@
 > ## FOUNDING VISION DOCUMENT - PARTLY SUPERSEDED
 >
-> This is the original product specification, written when the v1 target was
-> **CertiProf's SMPC** and v2 was **GAIPC**. That strategy changed: Certidemy issues six
+> This is the original product specification, That strategy changed: Certidemy issues six
 > of its own proprietary credentials and resells nobody's exam.
 >
-> The strategic reasoning here remains valuable - notably decision 8, "Build own content
-> from JTA, not consume CertiProf material," which is the decision that produced the
-> current product. Read it for the *why*.
 >
 > For what is true now: `supabase/CERT-CREATION.md`, `supabase/SCHEME-<CODE>.md`,
 > `supabase/TERMINOLOGY-POLICY.md`, and the generated JTAs.
@@ -45,10 +41,6 @@
 ## 1\. Product summary
 
 **Certidemy** is an adaptive certification prep platform serving primarily LATAM professionals seeking globally-recognized credentials.
-
-**v1 target certification:** CertiProf Scrum Master Professional Certificate (SMPC).
-**v2 target certification:** CertiProf Generative AI Professional Certificate (GAIPC).
-**Long-term:** Provider-agnostic. Same content engine can prep PSM I, CSM, SAFe, AWS, Google Cloud, etc.
 
 **Differentiation:**
 
@@ -169,7 +161,7 @@ Reference: see `/mnt/user-data/outputs/certidemy\_schema.sql`
 
 ### Migration 003 (pending — to be written next)
 
-**Will add:** `domains`, `tasks`, lesson sectioning support, widget definitions, format preferences. Schema updates to `quiz\_questions` (bloom\_level, is\_exam\_scope, task\_id) and `certifications` (SMPC passing score 70→80).
+**Will add:** `domains`, `tasks`, lesson sectioning support, widget definitions, format preferences. Schema updates to `quiz\_questions` (bloom\_level, is\_exam\_scope, task\_id) and `certifications` (SM-AI-I passing score 70→80).
 
 ### RLS posture
 
@@ -203,8 +195,7 @@ Four principles that govern every content decision:
 1. **Test what we teach, teach what we test.** Every quiz question maps to a task. Every task maps to lesson content. No orphan questions, no orphan lessons.
 2. **Active recall over passive reading.** Lessons end with checkpoints. Interactives appear mid-lesson, not just at end.
 3. **Bloom-honest.** Claim only the cognitive level we can actually test. Multiple choice tops out at Analyze (Bloom 4). Evaluate/Create reserved for AI simulations (future).
-4. **Provider-neutral pedagogy, provider-specific terminology.** Teach Scrum from the Scrum Guide. Layer in CertiProf-specific terminology drift (e.g., "ceremonies," "self-managing") as exam tips, not as core truth.
-
+4. **Provider-neutral pedagogy, provider-specific terminology.** Teach Scrum from the Scrum Guide.
 **Anti-principles** (things we explicitly reject):
 
 * ❌ Teaching to the exam exclusively (learners pass exam, fail in real Scrum Master role)
@@ -229,14 +220,14 @@ Certification
         └── Concept tags (link to user\_concept\_mastery)
 ```
 
-**For SMPC v2 (locked):**
+**For SMAII v2 (locked):**
 
 * 5 domains: Foundations (12.5%), Team \& Accountabilities (22.5%), Events (25%), Artifacts \& Commitments (17.5%), SM in Practice \& Org Context (22.5%)
 * \~44 tasks total
 * Bloom MCQ target distribution: 15% Remember / 35% Understand / 35% Apply / 15% Analyze
 * Bloom 5-6 (Evaluate/Create): flagged as future AI-simulation candidates, not MCQ-tested
 
-See `SMPC\_JTA\_v2.md` for full task list (next deliverable after this spec).
+See `SMAII\_JTA\_v2.md` for full task list (next deliverable after this spec).
 
 \---
 
@@ -284,7 +275,7 @@ Individuals and interactions over processes and tools...
 ::
 
 ::callout type="exam-watch"
-CertiProf's SMPC frequently asks which value takes precedence. Memorize the order.
+
 ::
 
 ::checkpoint
@@ -416,7 +407,6 @@ Currently empty. Will be populated with:
 
 1. Our own Certidemy lessons (auto-ingested when published)
 2. Public-domain Scrum sources (2020 Scrum Guide, Agile Manifesto)
-3. Optionally: CertiProf official materials (for calibration, with proper licensing review)
 
 \---
 
@@ -507,7 +497,6 @@ Three languages supported throughout:
 * Concept slugs (always English; they're identifiers)
 * Task IDs, module IDs (always English; identifiers)
 * Internal admin tooling (English only for now)
-* CertiProf-specific terminology in exam tips (kept in English since that's how the exam presents it, even when surrounding text is Spanish)
 
 ### Translation workflow
 
@@ -603,7 +592,7 @@ certidemy-web/
 
 ### 🚧 After v1 ships
 
-* Phase 3.1: Content production at scale (10 modules × \~5 lessons = 50 lessons for SMPC)
+* Phase 3.1: Content production at scale (10 modules × \~5 lessons = 50 lessons for SM-AI-I)
 * Phase 3.2: Question bank to 150+ questions
 * Phase 3.3: ES-419 + PT-BR translations
 * Phase 3.4: GAIPC certification (Module 2 cert)
@@ -650,10 +639,10 @@ certidemy/
 ### What needs to be created
 
 * `CERTIDEMY\_SPEC.md` (this file)
-* `SMPC\_JTA\_v2.md`
+* `SMAII\_JTA\_v2.md`
 * `003\_jta\_curriculum.sql`
 * `LESSON\_AUTHORING\_SPEC.md`
-* `lessons/smpc/01-foundations/01-agile-manifesto.md` (first lesson)
+* `lessons/SMAII/01-foundations/01-agile-manifesto.md` (first lesson)
 * `certidemy-web/` (Next.js frontend, separate folder/repo)
 
 \---
@@ -671,8 +660,8 @@ Every non-obvious decision we've made, with rationale:
 |5|Server-side answer grading, not client-side|early|Anti-cheating; correct\_answer never leaves server before submit|
 |6|Claude for personalization, code for scheduling|study plan|Claude handles judgment (strategy, coaching); code handles arithmetic (topo sort, time budget)|
 |7|Three Tutor languages via system prompt variants|tutor|One model, three prompts, consistent grounding rules|
-|8|Build own content from JTA, not consume CertiProf material|spec|Strategic moat; provider-agnostic; better pedagogy|
-|9|5 domains for SMPC (not 6, not 4)|JTA v2|Triangulated across Grok, Gemini, primary sources|
+|8|Build own content from JTA,
+|9|5 domains for SM-AI-I (not 6, not 4)|JTA v2|Triangulated across Grok, Gemini, primary sources|
 |10|Bloom ceiling at 4 (Analyze) for MCQs|JTA v2|MCQs can't reliably test Evaluate/Create; reserved for AI simulations|
 |11|Dual-renderer lessons (slide + article from same source)|format|Slide for first-time, article for review; one source of truth|
 |12|Six widget primitives|format|Covers \~80% of needs without building bespoke widgets per lesson|
