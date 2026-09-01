@@ -1,0 +1,135 @@
+-- ============================================================================
+-- 267_purchase_url_certidemy_only.sql
+--
+-- NARROW is_valid_purchase_url TO certidemy.com ALONE.
+--
+-- Migration 244 widened the predicate to accept certiglobal.org alongside
+-- certidemy.com, and said why in its own header: "nine certifications still
+-- hold certiglobal.org URLs, and a Certidemy-only check would invalidate every
+-- one of those rows on its next update. Narrowing to certidemy.com alone is a
+-- later, smaller migration once the table is clean."
+--
+-- THIS IS THAT MIGRATION. The condition 244 named has expired. Measured
+-- 2026-09-01, before writing a line of SQL:
+--
+--     certifications.exam_link non-NULL, any host      0
+--     certifications.exam_link matching certiglobal    0
+--     certifications.exam_link_i18n matching certiglobal 0
+--     issuers.site_url matching certiglobal            0
+--
+-- Every exam_link is NULL. They are filled in per certification by a platform
+-- admin in the super-admin console; NULL means not-yet-entered, not broken.
+--
+-- go.certidemy.com IS THE STORE. It is covered as a subdomain by the
+-- ([a-z0-9-]+\.)* group and is deliberately NOT named in the predicate:
+-- naming a store host in a validator is exactly what let the old brand name
+-- outlive its truth. certidemy-web's lib/certifications/buy-link.ts records
+-- the same lesson at its STORE_HOME constant.
+--
+-- NOT IN SCOPE, DELIBERATELY: create-partner-issuer's SELF_HOSTS still lists
+-- certiglobal.org. That guards DOMAIN CONTROL, not commerce -- a partner must
+-- not domain-verify against a host we control -- and we still control it. It
+-- is live behind LTI door-two. A commerce wind-down is not a DNS relinquish.
+--
+-- ---------------------------------------------------------------------------
+-- WHAT RAN, AND THE EVIDENCE. Recorded because a migration that states only
+-- its statement records a hope; this one records a measurement.
+--
+-- FUNCTION BODY MD5 (CRs stripped, as 244/245/249 do):
+--
+--   is_valid_purchase_url        before  20730762f684dbf084d55343921cd450  (798)
+--   is_valid_purchase_url        after   208f4b322edfc9c0bbe06bb264bf54a5  (661)
+--   is_valid_purchase_url_map    before  78da1c12e543d4a93a232bbb86186adb  (241)
+--   is_valid_purchase_url_map    after   78da1c12e543d4a93a232bbb86186adb  (241)
+--
+-- THE MAP FUNCTION'S MD5 IS THE NEGATIVE HALF AND IT IS THE POINT. There are
+-- TWO constraints on this table, not one:
+--
+--   certifications_exam_link_valid       CHECK (is_valid_purchase_url(exam_link))
+--   certifications_exam_link_i18n_valid  CHECK (is_valid_purchase_url_map(exam_link_i18n))
+--
+-- is_valid_purchase_url_map DELEGATES -- its body calls
+-- public.is_valid_purchase_url(e.value) rather than carrying its own copy of
+-- the regex. So narrowing the base function narrows BOTH constraints, and the
+-- map function needed no edit. An unchanged md5 proves the delegation held and
+-- that the wrong function was not touched.
+--
+-- PREDICATE, 9 CASES, ALL AS PREDICTED (run before revalidating):
+--
+--   https://go.certidemy.com/products/xyz   true
+--   https://go.certidemy.com                true
+--   https://GO.CERTIDEMY.COM/x              true
+--   https://certidemy.com/x                 true
+--   null                                    true
+--   https://certiglobal.org/x               false
+--   https://go.certiglobal.org/x            false
+--   https://certidemy.com.evil.com/x        false
+--   http://go.certidemy.com/x               false
+--
+-- Both halves. The last four are what make the first five worth reading: a
+-- predicate asserted only on values it should accept passes cleanly on one
+-- that accepts everything.
+--
+-- Both constraints revalidated clean:
+--   certifications_exam_link_valid
+--   certifications_exam_link_i18n_valid
+--
+-- NOTE: is_valid_purchase_url is NOT SECURITY DEFINER. It was briefed as one;
+-- pg_proc.prosecdef reads false. It is a plain IMMUTABLE SQL function, which
+-- is why this migration needed no definer-rights review.
+--
+-- MIRRORED SET, AND THE DB HALF MOVED FIRST. functions/set-cert-link/index.ts
+-- carries URL_RE plus two error strings naming the accepted hosts. Until that
+-- function is deployed with the narrowed regex, IT IS THE LOOSER HALF: it will
+-- accept a certiglobal.org URL that the constraint then rejects, surfacing as
+-- a 500 from a request the function believed valid. Deploy set-cert-link with
+-- this migration, not after it.
+-- ============================================================================
+
+create or replace function public.is_valid_purchase_url(u text)
+returns boolean language sql immutable as $$
+  -- Narrowed to certidemy.com alone (migration 267). 244 accepted
+  -- certiglobal.org during the wind-down because nine certifications held
+  -- product URLs on that host; measured 2026-09-01, that count is ZERO and
+  -- every exam_link is NULL.
+  --
+  -- go.certidemy.com is the store and is covered as a subdomain by the
+  -- ([a-z0-9-]+\.)* group. It is deliberately NOT named here: naming the store
+  -- host in a validator is what let the old brand name outlive its truth.
+  --
+  -- ~* not ~: hosts are case-insensitive in DNS.
+  -- The (/|$) anchor is what stops certidemy.com.evil.com.
+  select u is null or u ~* '^https://([a-z0-9-]+\.)*certidemy\.com(/|$)';
+$$;
+
+-- ---------------------------------------------------------------------------
+-- Revalidation. Both constraints, because the map function delegates.
+
+alter table public.certifications validate constraint certifications_exam_link_valid;
+alter table public.certifications validate constraint certifications_exam_link_i18n_valid;
+
+-- ---------------------------------------------------------------------------
+-- Verification, run separately. Property, not count.
+--
+-- select u, public.is_valid_purchase_url(u) as ok from (values
+--   ('https://go.certidemy.com/products/xyz'),
+--   ('https://go.certidemy.com'),
+--   ('https://GO.CERTIDEMY.COM/x'),
+--   ('https://certidemy.com/x'),
+--   (null),
+--   ('https://certiglobal.org/x'),
+--   ('https://go.certiglobal.org/x'),
+--   ('https://certidemy.com.evil.com/x'),
+--   ('http://go.certidemy.com/x')
+-- ) t(u);
+--
+-- Expect the first five true, the last four false.
+--
+-- select proname, length(prosrc) as len,
+--        md5(replace(prosrc, chr(13), '')) as md5
+-- from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+-- where n.nspname = 'public'
+--   and proname in ('is_valid_purchase_url','is_valid_purchase_url_map');
+--
+-- Expect 208f4b322edfc9c0bbe06bb264bf54a5 and the map UNCHANGED at
+-- 78da1c12e543d4a93a232bbb86186adb.

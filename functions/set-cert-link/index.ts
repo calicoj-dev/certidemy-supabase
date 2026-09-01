@@ -1,21 +1,26 @@
 // POST /functions/v1/set-cert-link
 //
 // Body: { certification_id, exam_link, exam_link_i18n? }
-//   exam_link       : string | null  - the default CertiGlobal product page
+//   exam_link       : string | null  - the default store product page
 //   exam_link_i18n  : object | null  - optional per-locale overrides, keys
 //                                      limited to en / es-419 / pt-BR
 //
 // Auth: Bearer JWT - MUST be a platform_admin.
 //
-// Certidemy sells nothing. Vouchers are purchased on certiglobal.org, so every
-// "Buy exam voucher" CTA in the app has to hand the buyer to the right product
-// page. This function is how a platform admin sets that URL per certification,
-// instead of hardcoding links in the frontend.
+// Exam vouchers are sold at go.certidemy.com, so every "Buy exam voucher" CTA
+// in the app has to hand the buyer to the right product page. This function is
+// how a platform admin sets that URL per certification, instead of hardcoding
+// links in the frontend.
 //
 // RESOLUTION ORDER (mirrored in lib/certifications/buy-link.ts):
-//   exam_link_i18n[locale]  ->  exam_link  ->  https://certiglobal.org
+//   exam_link_i18n[locale]  ->  exam_link  ->  https://go.certidemy.com
 // A missing locale key degrades to the default link, and a missing default
-// degrades to the CertiGlobal home page. A buyer is never sent nowhere.
+// degrades to the store home page. A buyer is never sent nowhere.
+//
+// THE FALLBACK VALUE LIVES ONCE, as STORE_HOME in that file, and is not
+// duplicated here: this function WRITES links, it does not resolve them. The
+// old value outlived its truth because a constant was named for a brand
+// instead of a role; buy-link.ts records that lesson at the constant itself.
 //
 // HOST LOCK: both fields are validated here AND by check constraints in
 // migration 199, widened by migration 244. A cert page that accepts any string
@@ -42,15 +47,24 @@ interface Body {
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-// Must stay in step with public.is_valid_purchase_url, widened by migration 244
-// to accept certidemy.com alongside certiglobal.org.
+// Must stay in step with public.is_valid_purchase_url, NARROWED by migration
+// 267 to certidemy.com alone. Migration 244 had widened it to accept
+// certiglobal.org during the wind-down; measured 2026-09-01, no row on any
+// host survives -- every exam_link is NULL -- so 244's stated reason expired.
+//
+// go.certidemy.com is the store and is matched as a subdomain by the
+// ([a-z0-9-]+\.)* group. It is deliberately NOT named here: naming a store
+// host in a validator is what let the old brand name outlive its truth.
+//
+// THE DB HALF MOVED FIRST. Until this function is deployed, it is the LOOSER
+// half and will accept a URL the constraint rejects. Deploy with 267.
 //
 // The `i` flag mirrors that function's move from ~ to ~*: hosts are
 // case-insensitive in DNS, and the old operator rejected https://CertiGlobal.org
 // with a constraint violation and no explanation. The trailing (/|$) anchor is
 // what stops certidemy.com.evil.com, and it still holds under case-insensitive
 // matching. The literal https still requires the s.
-const URL_RE = /^https:\/\/([a-z0-9-]+\.)*(certidemy\.com|certiglobal\.org)(\/|$)/i;
+const URL_RE = /^https:\/\/([a-z0-9-]+\.)*certidemy\.com(\/|$)/i;
 
 const VALID_LOCALES = ["en", "es-419", "pt-BR"] as const;
 
@@ -61,7 +75,7 @@ function normalizeLink(v: unknown): string | null {
   const t = v.trim();
   if (t === "") return null;
   if (!URL_RE.test(t)) {
-    throw new HttpError(400, "exam_link must be an https:// URL on certidemy.com or certiglobal.org");
+    throw new HttpError(400, "exam_link must be an https:// URL on certidemy.com");
   }
   return t;
 }
@@ -85,7 +99,7 @@ function normalizeMap(v: unknown): Record<string, string> | null {
     if (!URL_RE.test(t)) {
       throw new HttpError(
         400,
-        `exam_link_i18n.${k} must be an https:// URL on certidemy.com or certiglobal.org`,
+        `exam_link_i18n.${k} must be an https:// URL on certidemy.com`,
       );
     }
     out[k] = t;
