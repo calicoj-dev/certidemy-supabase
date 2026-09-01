@@ -118,7 +118,7 @@ diagnosis + fix on SD-AI-I (migration 079). Read v1.9 + addenda 1-3 first.
 
 ### Carried
 - Transactional email (SMTP + SPF/DKIM); is_published->status RLS cutover +
-  CERT-LIFECYCLE.md; GAIPC DB stub decision; SPO concept audit; Credly;
+  CERT-LIFECYCLE.md; GAIPC DB stub decision [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]; SPO concept audit; Credly;
   governance tab; PDF expert review; Scrum II JTAs (coming-soon first, do NOT
   build the II generator); WCAG mode.
 

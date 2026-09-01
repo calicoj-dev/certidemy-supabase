@@ -67,9 +67,22 @@ evidence, not just convenience).
 ### Certs (UUIDs)
 - SM-AI-I `11111111-1111-1111-1111-111111111111` — status `available`
 - SPO-AI-I `33333333-3333-3333-3333-333333333333` — status `available`
-- SD-AI-I `44444444-4444-4444-4444-444444444444` — status `available` (as of this session; content-complete, exam proven)
-- GAIPC stub `22222222-…` — CertiProf-era placeholder, **not ours**; likely `draft` or already absent. To be replaced with an own-code cert (data cleanup, backlog).
-- All "I"-tier certs: **80 questions, 80% pass, single-best-answer.** Durations: SM 60min, SPO/SD 90min.
+- SD-AI-I `44444444-4444-4444-4444-444444444444` — status `available`
+- AIGRM-I `55555555-5555-5555-5555-555555555555` — status `available`
+- AISM-I `66666666-6666-6666-6666-666666666666` — status `available`
+- AIE-I, AIHR-I, ISMS-F, ISMS-IA, AIMS-F, AIMS-IA — status `available`; ids are no longer repeating-digit (that convention is exhausted).
+- AIE-I `22222222-2222-2222-2222-222222222222` — status `available`. **The slot was NULL (placeholder row; never a certification we offered) -> reassigned to AIE-I by migration 104, 2026-07-20.** Collision recovery: migration 102 had overwritten AIE-I at `66666666-…`. Older documents describing this UUID as a CertiProf-era placeholder pending cleanup are stale.
+- **Exam parameters vary by cert and are NOT uniform.** Verified live 2026-08-31:
+
+  | cert | questions | pass | minutes | tier |
+  |---|---|---|---|---|
+  | SM-AI-I, SPO-AI-I, SD-AI-I, AIGRM-I, AISM-I | 80 | 80% | 120 | 1 |
+  | ISMS-F, AIHR-I, AIMS-F | 40 | 80% | 60 | 1 |
+  | AIE-I | 25 | 80% | 45 | 1 |
+  | ISMS-IA | 50 | 75% | 150 | 2 |
+  | AIMS-IA | 50 | 75% | 165 | 2 |
+
+  All single-best-answer. **Read the table rather than assuming a family default** — the "all I-tier certs are 80/80" rule this line used to state was wrong for four certs and its durations were wrong for all three it named.
 
 ### Content
 - Lessons: `certidemy-web/content/<cert-code>/`; SD-AI-I at `content/sd-ai-i/`; translations under `content/<cert>/_i18n/<lang>/`.

@@ -119,7 +119,7 @@ mobile-menu solid-bg commit.
 ### Carried (unchanged from prior addenda)
 - Transactional email (SMTP + SPF/DKIM for @certiglobal.org sender; info@ is the
   CONTACT address only); is_published -> status RLS cutover + CERT-LIFECYCLE.md;
-  GAIPC DB stub (22222222-…) delete-vs-draft; SPO concept audit; SM/SPO practice
+  GAIPC DB stub (22222222-…) delete-vs-draft [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]; SPO concept audit; SM/SPO practice
   backfill to >=10/task/lang; Credly; governance tab; PDF expert review;
   Scrum II JTAs (coming-soon first, do NOT build the II generator); WCAG mode.
 

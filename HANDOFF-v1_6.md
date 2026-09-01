@@ -39,7 +39,7 @@ Parent (NOT a repo): `C:\Users\Juan\Documents\certidemy\`
 into the Supabase dashboard SQL Editor and Run; the committed file is only the
 versioned record. `auth.uid()` is NULL in that editor. DB ref `pctynukndxnmnxiqpgck`.
 Cert UUIDs: **SM-AI-I `11111111-…`**, **SPO-AI-I `33333333-…`**, **SD-AI-I
-`44444444-…`**, GAIPC `22222222-…` (unpublished stub). Latest migration: **067**;
+`44444444-…`**, GAIPC `22222222-…` (unpublished stub). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.] Latest migration: **067**;
 next is 068.
 
 ---

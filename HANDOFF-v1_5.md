@@ -37,7 +37,7 @@ it**; the committed file is only the versioned record. `auth.uid()` is NULL in t
 editor (postgres role); `set role anon/authenticated` has quirks (a column denial
 reports at table granularity — that's expected). DB ref `pctynukndxnmnxiqpgck`.
 Cert UUIDs: **SM-AI-I `11111111-…`**, **SPO-AI-I `33333333-…`**, GAIPC
-`22222222-…` (unpublished stub). Latest migration: **060**; next is 061.
+`22222222-…` (unpublished stub). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.] Latest migration: **060**; next is 061.
 
 ---
 

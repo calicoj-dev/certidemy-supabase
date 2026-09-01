@@ -121,7 +121,7 @@ for the upcoming signup/login overhaul.
   custom sender = SMTP config + SPF/DKIM DNS on the domain. Separate infra
   task; deliverability matters.
 - **GAIPC DB stub** (`22222222-…`): decide delete vs leave-draft (RLS/FK
-  implications — do NOT fold silently into another change).
+  implications — do NOT fold silently into another change). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 
 ### Marketing / UX (Juan's direction, this session)
 - **Scrum FAMILY PAGE** (`/certifications/scrum`): role narrative (SM/SPO/Dev)

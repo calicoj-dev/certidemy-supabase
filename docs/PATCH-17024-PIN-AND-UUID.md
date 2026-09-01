@@ -4,6 +4,11 @@
 **Scope:** Two catalog-wide documents. Neither is owned by `ISMS-F`; both block it.
 **Blocking:** Patch A blocks `SCHEME-ISMS-F.md`. Patch B blocks the `ISMS-F` scaffold.
 
+> **[NOTE ADDED 2026-08-31 — the diff bodies below are UNCHANGED and must stay that way.]**
+> The `22222222-…` row quoted in the patch text below was NULL (placeholder row; never a certification we offered) -> reassigned to AIE-I by migration 104, 2026-07-20.
+> This note is at the top because annotating a diff body would corrupt the
+> record of what the patch actually did.
+
 ---
 
 ## Patch A — `CLAIMS-POLICY.md`: pin the 17024 claim to the 2026 edition

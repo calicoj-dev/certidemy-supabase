@@ -61,8 +61,7 @@ own accreditation.*
 | ISO 42001 Internal Auditor (`I42001IA`) | |
 | ISO 42001 Lead Auditor (`I42001LA`) | Launched 18 June 2026, en + es, via their ATP network. 60 min / 40 items |
 
-Not a competitor to discover later. The `22222222` stub UUID in `CERT-SCHEMA-GUIDE`
-is labelled CertiProf-era.
+Not a competitor to discover later.
 
 **Consequence: the entry is unaccredited and CROWDED, not unaccredited and empty.**
 Two differentiators previously claimed in §2.3 do not survive this and have been

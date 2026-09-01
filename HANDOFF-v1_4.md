@@ -63,7 +63,7 @@ SQL Editor and run it**; the committed file is only the versioned record.
     (10/lang)** → 1,056 secure + 1,320 practice. 132 concepts, 5 modules. Lesson→
     concept/task wiring COMPLETE (396 concept links + 132 task links via
     `wire-lessons.mjs`). Signature competency: **Spec-Driven Development**.
-  - **GAIPC** `22222222-…`: stub (`is_published=false`).
+  - **GAIPC** `22222222-…`: stub (`is_published=false`). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 - **The AI is now genuinely IN the credential criteria.** SM-AI-I's old Module-6
   "AI-Augmented Teams" domain (which sat at weight 0.00, authored-but-dark) was
   dissolved: its 7 AI tasks were **re-homed into D1–D5 and flipped to exam-scope**

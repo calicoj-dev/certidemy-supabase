@@ -115,7 +115,7 @@ The last Option-A piece. Done in two commits:
 - Transactional email: info@certiglobal.org is the CONTACT address; auth emails
   still send from Supabase default (custom sender = SMTP + SPF/DKIM DNS).
 - is_published -> status RLS cutover + CERT-LIFECYCLE.md.
-- GAIPC DB stub (22222222-…) delete-vs-draft decision.
+- GAIPC DB stub (22222222-…) delete-vs-draft decision. [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 - Carried v1.8 items (SPO concept audit, practice backfill, Credly, governance
   tab, PDF review, Scrum II JTAs, WCAG, etc.).
 

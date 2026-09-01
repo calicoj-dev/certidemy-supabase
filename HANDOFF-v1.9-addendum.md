@@ -97,7 +97,7 @@ Supabase repo unchanged since v1.9 (still tip 078; next 079).
 ### Unchanged from v1.9
 - Auth overhaul (NEXT — see below), family page + comparison chart, nav
   transparency, within-group sort, Layer 2 DB-content i18n, pricing i18n,
-  transactional email (SMTP+SPF/DKIM), GAIPC DB stub decision, is_published->
+  transactional email (SMTP+SPF/DKIM), GAIPC DB stub decision [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.], is_published->
   status RLS cutover, and all carried-from-v1.8 items.
 
 ---

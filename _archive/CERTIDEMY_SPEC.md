@@ -595,7 +595,7 @@ certidemy-web/
 * Phase 3.1: Content production at scale (10 modules × \~5 lessons = 50 lessons for SM-AI-I)
 * Phase 3.2: Question bank to 150+ questions
 * Phase 3.3: ES-419 + PT-BR translations
-* Phase 3.4: GAIPC certification (Module 2 cert)
+* Phase 3.4: GAIPC certification (Module 2 cert) [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 * Phase 3.5: Team admin dashboard
 * Phase 3.6: Stripe integration + B2B licensing
 * Phase 3.7: AI simulations (Bloom 5-6, real-time Claude interactions)

@@ -88,7 +88,7 @@ built, check whether there's an existing credential-og / thumbnail asset to reus
 - **Commit-2: drop `is_published`** once every read is migrated to `status` and proven green (the boolean is currently a derived bridge).
 
 ### Data cleanups
-- **GAIPC stub → own-code cert** (CertiProf residue; replace with an own equivalent). Note: only 3 certs returned in the status backfill, so the GAIPC row may already be gone — verify via the `/console/certifications` panel (it lists ALL certs incl. drafts).
+- **GAIPC stub → own-code cert** (CertiProf residue; replace with an own equivalent). Note: only 3 certs returned in the status backfill, so the GAIPC row may already be gone — verify via the `/console/certifications` panel (it lists ALL certs incl. drafts). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 - **SD-AI-I `name`** still has the `"Certidemy "` prefix while SM/SPO dropped it — cosmetic parity nit, one-line update.
 - **`?? "Certification"` fallback** in `lib/console/admin.ts` batch mapping — same family as the fixed partner bug; works, low priority.
 

@@ -91,7 +91,7 @@ status: draft                                               # draft | review | p
 |---|---|---|
 | `lesson_id` | string | kebab-case, globally unique, immutable once published |
 | `module_slug` | string | references a module (`modules.slug` column we'll add) |
-| `certification_code` | string | `SMPC`, `GAIPC`, etc. |
+| `certification_code` | string | `SM-AI-I`, `AIE-I`, etc. (`SMPC` is SM-AI-I's legacy code and survives only in content paths) |
 | `title` | string | shown as the lesson header |
 | `subtitle` | string? | optional, shown smaller below title |
 | `language` | enum | `en`, `es-419`, or `pt-BR` |

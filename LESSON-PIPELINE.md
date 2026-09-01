@@ -190,7 +190,7 @@ complete. Then:
    `question_concepts` from `task_concepts`. As questions land, `concepts_tested`
    climbs toward `concepts_total` and violations stay 0 (questions are grounded in
    taught, tagged concepts).
-2. **Publish**: flip `is_published = true` once every domain clears its blueprint
+2. **Publish**: set `status = 'available'` once every domain clears its blueprint
    in all three languages.
 
 ---
@@ -209,7 +209,7 @@ For cert **X** with uuid **U**, code **CODE**, content in `content/x/`:
 4. **Prove** — `select * from v_coverage_summary where certification_code='CODE';`
    → `concepts_taught == concepts_total`, `untaught_testing_violations == 0`.
 5. **Questions** — run the secure + practice generators per domain.
-6. **Publish** — flip `is_published`.
+6. **Publish** — set `status = 'available'`.
 
 Stages 2–4 are three commands and one query. The heavy lift for a new cert is
 **authoring** the JTA and the lessons (creative work); the plumbing is fast and

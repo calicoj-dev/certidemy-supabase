@@ -361,7 +361,7 @@ renaming would touch every migration, script and content folder for no gain.
 | Cert | UUID |
 |---|---|
 | SM-AI-I | `11111111-...` |
-| GAIPC stub | `22222222-...` (CertiProf-era; not ours) |
+| AIE-I | `22222222-...` |
 | SPO-AI-I | `33333333-...` |
 | SD-AI-I | `44444444-...` |
 | AIGRM-I | `55555555-...` |

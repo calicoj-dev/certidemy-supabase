@@ -160,7 +160,7 @@ Confirm with Juan which thread to pull; don't assume.
   (SD-AI-I is fine.) Under-floor task lists were captured this session.
 
 ### Data cleanups
-- **GAIPC stub -> own-code cert** (CertiProf residue; also surfaces on signup page).
+- **GAIPC stub -> own-code cert** (CertiProf residue; also surfaces on signup page). [RESOLVED 2026-07-20, migration 104: placeholder row, never a certification we offered; slot reassigned to AIE-I.]
 - **SD-AI-I `name`** still has "Certidemy " prefix while SM/SPO dropped it.
 
 ### UX / polish / compliance

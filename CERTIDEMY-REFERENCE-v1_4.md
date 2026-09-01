@@ -93,7 +93,9 @@ switcher / bottom-bar derive the cert FROM THE URL.
 
 ### Cert resolution (UPDATED v1.4)
 - `lib\certifications\data.ts` — **`getCertByCode`** (URL slug → cert via
-  `ilike("code", …)` + `is_published=true`). **`DEFAULT_CERT_CODE = "sm-ai-i"`.**
+  `ilike("code", …)` + `.neq("status","draft")`). **`DEFAULT_CERT_CODE` and
+  `getDefaultCert` were REMOVED.** `is_published` no longer exists as a column; it
+  survives in `CertSummary` only as a DERIVED field (`status === 'available'`).
   **`LEGACY_CODE_ALIASES`** map rewrites old segments before lookup
   (`sm-i`→`SM-AI-I`, `spo-i`→`SPO-AI-I`) so old URLs never 404 — add a row here only
   when a cert's code changes. Also `CertSummary` + `listPublishedCerts`,
@@ -185,7 +187,7 @@ is display-only):
 ### Certs / blueprints
 - **SM-AI-I** `11111111-…`: code **`SM-AI-I`**, name **"Scrum Master I — AI"**,
   provider Certidemy, `num_questions=80`, `passing_score_pct=80`,
-  `exam_duration_minutes=60`, `is_published=true`. URL `/learn/sm-ai-i` (legacy
+  `exam_duration_minutes=120`, status `available`. URL `/learn/sm-ai-i` (legacy
   `/sm-i` aliases). **5 domains / 51 tasks, ALL exam-scope.** Domains: D1 "Agile
   Foundations & Empirical Thinking" 12.5% (7 tasks), D2 "The Scrum Team &
   Accountabilities" 22.5% (11), D3 "Scrum Events" 25% (11), D4 "Scrum Artifacts &
@@ -196,8 +198,8 @@ is display-only):
   exam-scope** (migrations 052/054). Lesson→concept/task wiring COMPLETE (migration
   055 for the 6 AI lessons; the rest were always wired).
 - **SPO-AI-I** `33333333-…`: code **`SPO-AI-I`**, name **"Scrum Product Owner I —
-  AI"**, `num_questions=80`, `passing_score_pct=80`, `exam_duration_minutes=90`,
-  `is_published=true`. URL `/learn/spo-ai-i` (legacy `/spo-i` aliases). **5 domains
+  AI"**, `num_questions=80`, `passing_score_pct=80`, `exam_duration_minutes=120`,
+  status `available`. URL `/learn/spo-ai-i` (legacy `/spo-i` aliases). **5 domains
   / 44 tasks, all exam-scope.** Weights 12.5/15/15/30/27.5 → blueprint
   D1=10/D2=12/D3=12/D4=24/D5=22=80. Tasks per domain: D1=6, D2=8, D3=7, D4=12,
   D5=11. **Per task: 24 secure (8/lang) + 30 practice (10/lang)** → 1,056 secure +
@@ -205,8 +207,13 @@ is display-only):
   COMPLETE (396 concept + 132 task links via `wire-lessons.mjs`). Signature:
   Spec-Driven Development. English lessons complete; es-419/pt-BR lesson
   localization in progress (practice + exam already trilingual).
-- **GAIPC** `22222222-…`: stub (`is_published=false`). **SD-AI-I** (Scrum Developer
-  I — AI) = the next cert to build.
+- **AIE-I** `22222222-…`: code **`AIE-I`**, name **"AI Essentials I"**, status
+  `available`, `num_questions=25`, `passing_score_pct=80`,
+  `exam_duration_minutes=45`, `tier=1`, `category_slug='ai-workplace'`,
+  `sort_order=5`. **The slot was NULL (placeholder row; never a certification
+  we offered) -> reassigned to AIE-I by migration 104, 2026-07-20.** **SD-AI-I is
+  built and `available`** —
+  it is not "the next cert to build", and eleven certifications now exist.
 
 ### The THREE junction tables (keep them straight — UPDATED v1.4)
 - **`task_concepts (task_id, concept_id)`** — authoritative task→concept map; drives
