@@ -5,7 +5,7 @@
 --   "The canonical English lesson IS the group head — its lesson_group_id = its
 --    own id." Translated rows point at that head.
 --
--- A few English-only stub lessons (e.g. the unpublished GAIPC cert's module
+-- A few English-only stub lessons (e.g. the unpublished 2222... cert's module
 -- heads) were inserted without their self-referencing group id, leaving
 -- lesson_group_id NULL. A NULL group breaks any logic that rolls progress /
 -- mastery up across a lesson's language variants, because the row belongs to

@@ -8,7 +8,7 @@
 -- First credential in the Governance family; first non-Scrum cert on the platform.
 -- Signature domain D4 (The AI Lifecycle & Accountable Deployment, 25%) carries the
 -- agentic-accountability capstone. cert id 55555555-... continues the repeating-digit
--- convention (SM 1111, GAIPC 2222, SPO 3333, SD 4444, AIGRM 5555).
+-- convention (SM 1111, AIE-I 2222, SPO 3333, SD 4444, AIGRM 5555).
 --
 -- status = 'draft' (hidden) and is_published = false: AIGRM-I stays dark until it has
 -- lessons + both question pools. Promote to coming_soon / available later via set-cert-status.

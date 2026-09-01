@@ -1,0 +1,141 @@
+-- ============================================================================
+-- 269_record_vendor_scrub_and_task_edits.sql
+--
+-- A RECORD. Two subjects: the vendor-name scrub that DID leave files, and two
+-- task-statement edits that did NOT.
+--
+-- ---------------------------------------------------------------------------
+-- THIRD UNDOCUMENTED LIVE CHANGE FOUND IN ONE SESSION. NAME THE PATTERN.
+--
+--   1. certifications.is_published was DROPPED with no migration file.
+--      Recorded 2026-09-01 by migration 268. Known only from prose inside
+--      three unrelated seed migrations, one of which exists because a
+--      scaffold FAILED on the missing column.
+--
+--   2. on_profile_created_claim_vouchers -- the voucher-claim trigger on
+--      public.profiles -- exists only in the live database. Migration 237
+--      does `create or replace function` with no `create trigger`. Same for
+--      on_auth_user_created on auth.users. CLAUDE.md records both.
+--
+--   3. THIS FILE: tasks 4.9 and 5.7 statements on cert 11111111-... were
+--      edited with no migration. See below.
+--
+-- Three in one session is not three accidents. The shape is always the same:
+-- a change is made in the SQL editor, the result is correct, and the file that
+-- would have recorded it is never written -- because the change was small,
+-- or urgent, or a fix to something already being fixed. The cost lands later
+-- and on someone else, as a document that disagrees with the database and no
+-- way to tell which is wrong.
+--
+-- The editor-first workflow is not the problem; it is deliberate and it works.
+-- THE GAP IS BETWEEN "IT RAN" AND "IT WAS WRITTEN DOWN", and nothing currently
+-- closes it except memory.
+--
+-- ---------------------------------------------------------------------------
+-- SUBJECT 1: THE VENDOR-NAME SCRUB.
+--
+-- A competitor's name was removed from learner-facing and structural content
+-- by two migrations, both forward-only, both retained:
+--
+--   015_scrub_vendor_references.sql
+--       tasks.knowledge (task 5.7 on cert 11111111-...) and three
+--       concepts.description rows. Surgical phrase swaps, not deletions.
+--
+--   016_scrub_vendor_references_lessons.sql
+--       lessons.content_md and one lessons.title, in ALL THREE LANGUAGES --
+--       en, es-419, pt-BR -- as three separate localized statements. Companion
+--       to 015.
+--
+-- VERIFIED CLEAN 2026-09-01. Zero rows across six columns:
+--
+--   tasks.statement            0
+--   tasks.knowledge            0
+--   concepts.name              0
+--   concepts.description       0
+--   lessons.content_md         0
+--   lessons.title              0
+--   certifications.provider    0
+--
+-- (Seven columns listed; provider is the seventh and was checked because
+-- migration 135 records that it once defaulted to the vendor's name.)
+--
+-- 015 AND 016 ARE RETAINED DELIBERATELY, AND THAT IS THE POINT OF THIS
+-- PARAGRAPH. They carry the before/after mapping -- which exact phrase became
+-- which exact phrase. Every content correction made to 003_jta_curriculum.sql
+-- alongside this file was derived from that mapping and from the live rows.
+-- Delete 015 and 016 and those corrections become unverifiable: the claim
+-- "the file now matches the database" would have no source to check against.
+--
+-- A scrub that cannot say what it scrubbed is not auditable. CLAIMS-POLICY.md
+-- section 3.2 states this as a rule.
+--
+-- ---------------------------------------------------------------------------
+-- SUBJECT 2: TWO TASK STATEMENTS CHANGED WITH NO FILE.
+--
+-- 015 touched tasks.KNOWLEDGE and concepts.DESCRIPTION only. It never touched
+-- tasks.STATEMENT -- read it and see. Yet both statements below differ from
+-- what 003_jta_curriculum.sql inserted, and NO MIGRATION RECORDS THE CHANGE.
+--
+-- Cert 11111111-1111-1111-1111-111111111111 (SM-AI-I).
+--
+-- TASK 4.9 -- the vendor phrase was DELETED, not replaced:
+--   003 inserted : 'Interpret burndown charts and velocity metrics (<vendor> emphasis)'
+--   live today   : 'Interpret burndown charts and velocity metrics'
+--
+-- TASK 5.7 -- a full rewrite, not a phrase swap:
+--   003 inserted : 'Navigate <vendor> vs. Scrum Guide terminology drift'
+--   live today   : 'Translate between legacy training terminology and the 2020 Scrum Guide'
+--
+-- For contrast, 5.7's KNOWLEDGE was changed by 015 and is accounted for:
+--   live today   : 'Where legacy training materials use legacy terms
+--                   ("ceremonies," "self-organizing," "servant-leader")'
+--
+-- Both live values were read from the database on 2026-09-01 and 003 has been
+-- corrected to match them exactly, so the file and the row now agree. What
+-- cannot be recovered is WHEN the statements were changed, by whom, or in the
+-- same operation as 015 or a separate one. That information is gone.
+--
+-- NOTHING IS RE-APPLIED HERE. The live values are correct and this file does
+-- not touch them. Re-running a replace against rows that already hold the
+-- target text would be a no-op that looks like verification and is not.
+--
+-- ---------------------------------------------------------------------------
+-- THIS FILE IS A RECORD, NOT A REBUILD STEP.
+--
+-- It contains no executable statement at all -- not even a guarded one --
+-- because there is nothing to make idempotent: the scrub ran, the statements
+-- were edited, and both results are already in the database.
+--
+-- Migration replay from zero has never worked in this repository and 269 does
+-- not change that. See 268 for the same note at more length.
+--
+-- ---------------------------------------------------------------------------
+-- VERIFICATION, run separately. Property, and both directions.
+--
+-- select 'tasks.statement'    as col, count(*) as n from public.tasks
+--   where statement ilike '%<vendor>%'
+-- union all select 'tasks.knowledge',      count(*) from public.tasks
+--   where knowledge::text ilike '%<vendor>%'
+-- union all select 'concepts.name',        count(*) from public.concepts
+--   where name ilike '%<vendor>%'
+-- union all select 'concepts.description', count(*) from public.concepts
+--   where description ilike '%<vendor>%'
+-- union all select 'lessons.content_md',   count(*) from public.lessons
+--   where content_md ilike '%<vendor>%'
+-- union all select 'lessons.title',        count(*) from public.lessons
+--   where title ilike '%<vendor>%'
+-- union all select 'certifications.provider', count(*) from public.certifications
+--   where provider ilike '%<vendor>%';
+--
+-- Expect zero on every row. Substitute the vendor name from 015's header --
+-- it is not written here, and that is why 015 must not be deleted.
+--
+-- The POSITIVE half, which the zeroes alone do not prove:
+--
+-- select code, statement from public.tasks
+--  where certification_id = '11111111-1111-1111-1111-111111111111'
+--    and code in ('4.9','5.7') order by code;
+--
+-- Expect exactly the two statements quoted under SUBJECT 2. Seven zeroes are
+-- also what an empty table returns.
+-- ============================================================================

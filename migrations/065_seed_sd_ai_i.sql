@@ -12,7 +12,7 @@
 -- so the practice/question pipeline can find questions the moment any are seeded
 -- — no D6-style orphan repair will ever be needed here.
 --
--- Cert id 44444444-... follows the established pattern (SM 1111..., GAIPC 2222...,
+-- Cert id 44444444-... follows the established pattern (SM 1111..., AIE-I 2222...,
 -- SPO 3333...). is_published = false: SD-AI-I stays dark until it has lessons +
 -- both question pools. provider = 'Certidemy' (proprietary AI-native cert).
 --

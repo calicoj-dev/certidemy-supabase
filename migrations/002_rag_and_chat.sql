@@ -7,7 +7,7 @@
 create extension if not exists vector;
 
 -- -----------------------------------------------------------------------------
--- Source documents: the CertiProf materials the tutor is allowed to cite from.
+-- Source documents: the Certidemy materials the tutor is allowed to cite from.
 -- One row per ingested document (PDF, markdown file, video transcript, etc.).
 -- The content_md is the full normalized text; chunks live in document_chunks.
 -- -----------------------------------------------------------------------------

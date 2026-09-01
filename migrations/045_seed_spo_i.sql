@@ -8,14 +8,14 @@
 -- creation, the practice/question pipeline can find questions for these concepts
 -- the moment any are seeded — no D6-style orphan repair will ever be needed here.
 --
--- Cert id 33333333-... follows the established pattern (SM-I 1111..., GAIPC 2222...).
+-- Cert id 33333333-... follows the established pattern (SM-I 1111..., AIE-I 2222...).
 -- is_published = false: SPO-I stays dark until it has lessons + questions.
 -- provider = 'Certidemy': this is the proprietary AI-native cert (modeled on
 --   CertMind), NOT a CertiProf resale. If SM-I uses a different provider string
 --   and you want brand consistency, change the one literal in section 1.
 --
 -- Idempotent: section 2 wipes ONLY this cert's children (scoped to 3333...),
--- then sections 3-6 reseed. Safe to re-run; never touches SM-I or GAIPC.
+-- then sections 3-6 reseed. Safe to re-run; never touches SM-I or the 2222... cert.
 -- Editor-first: run top-to-bottom in the SQL Editor, then commit this file.
 -- Prose uses dollar-quoting ($$...$$) so apostrophes need no escaping.
 

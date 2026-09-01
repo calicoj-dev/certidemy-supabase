@@ -23,13 +23,16 @@
 -- -----------------------------------------------------------------------------
 -- 1. Schema fixes
 -- -----------------------------------------------------------------------------
--- SMPC actually requires 80% (32/40) to pass — verified from CertiProf.
+-- SMPC actually requires 80% (32/40) to pass -- verified from the published program.
 -- Our initial schema had 70%. Fix it.
 update public.certifications
 set passing_score_pct = 80.00
 where code = 'SMPC';
 
--- GAIPC also typically 80% on CertiProf; align it too.
+-- The 2222... slot held a placeholder row, aligned to 80% at the time.
+-- That row is gone and the slot holds AIE-I now (migration 104), so the
+-- statement below matches nothing. The predicate is left EXACTLY as it ran:
+-- changing it to any other code would make it match something unintended.
 update public.certifications
 set passing_score_pct = 80.00
 where code = 'GAIPC';
@@ -425,12 +428,12 @@ insert into public.concepts (certification_id, slug, name, description) values
   ('11111111-1111-1111-1111-111111111111', 'coaching-stances',          'Coaching stances',                           'Teach, mentor, coach, facilitate — knowing when to use each.'),
   ('11111111-1111-1111-1111-111111111111', 'servant-leadership',        'Servant leadership',                         'Greenleaf concept: leaders serve the team first.'),
   ('11111111-1111-1111-1111-111111111111', 'true-leadership',           'True leadership (2020 term)',                'Scrum Guide 2020 phrasing; servant-leadership substance retained.'),
-  ('11111111-1111-1111-1111-111111111111', 'servant-vs-true-leader',    'Servant vs true leader',                     'Terminology drift between Scrum Guide 2020 and CertiProf materials.'),
+  ('11111111-1111-1111-1111-111111111111', 'servant-vs-true-leader',    'Servant vs true leader',                     'Terminology drift between Scrum Guide 2020 and legacy training materials.'),
   ('11111111-1111-1111-1111-111111111111', 'psychological-safety',      'Psychological safety',                       'Edmondson: the team-level belief that interpersonal risk is safe.'),
   ('11111111-1111-1111-1111-111111111111', 'team-trust',                'Team trust',                                 'Trust as foundation for self-management and conflict tolerance.'),
   ('11111111-1111-1111-1111-111111111111', 'coaching-po',               'Coaching the Product Owner',                 'Helping the PO grow without taking ownership.'),
   ('11111111-1111-1111-1111-111111111111', 'po-coaching-techniques',    'PO coaching techniques',                     'Practical patterns for SM-to-PO coaching.'),
-  ('11111111-1111-1111-1111-111111111111', 'ceremonies-vs-events-terminology', 'Ceremonies vs Events (terminology)', 'CertiProf sometimes uses "ceremonies"; Scrum Guide 2020 uses "events".'),
+  ('11111111-1111-1111-1111-111111111111', 'ceremonies-vs-events-terminology', 'Ceremonies vs Events (terminology)', 'Some training materials use "ceremonies"; Scrum Guide 2020 uses "events".'),
   ('11111111-1111-1111-1111-111111111111', 'org-coaching',              'Coaching the organization',                  'SM serves the organization through training and coaching.'),
   ('11111111-1111-1111-1111-111111111111', 'scrum-adoption',            'Scrum adoption',                             'Introducing Scrum at the organizational level.'),
   ('11111111-1111-1111-1111-111111111111', 'org-impediments',           'Organizational impediments',                 'Functional silos, command-and-control, project funding, etc.'),
@@ -660,7 +663,7 @@ insert into public.tasks (certification_id, domain_id, code, statement, critical
    'Avoid the anti-pattern of "Refinement Meeting" treated as a sixth event',
    'Comfort with embedded activities', 8),
 
-  (cert_id, d4, '4.9', 'Interpret burndown charts and velocity metrics (CertiProf emphasis)',
+  (cert_id, d4, '4.9', 'Interpret burndown charts and velocity metrics',
    'medium', 'daily', '3_apply', false,
    'Burndowns show remaining work over time; velocity = points completed per Sprint; both are forecasting tools',
    'Read a burndown and identify what''s happening (scope creep, late completion)',
@@ -710,9 +713,9 @@ insert into public.tasks (certification_id, domain_id, code, statement, critical
    'Coach without taking ownership',
    'Respect for PO''s authority', 6),
 
-  (cert_id, d5, '5.7', 'Navigate CertiProf vs. Scrum Guide terminology drift',
+  (cert_id, d5, '5.7', 'Translate between legacy training terminology and the 2020 Scrum Guide',
    'medium', 'per_exam', '2_understand', false,
-   'Where CertiProf prep materials use legacy terms ("ceremonies," "self-organizing," "servant-leader")',
+   'Where legacy training materials use legacy terms ("ceremonies," "self-organizing," "servant-leader")',
    'Translate between the two on the exam',
    'Patience with terminology lag', 7),
 
