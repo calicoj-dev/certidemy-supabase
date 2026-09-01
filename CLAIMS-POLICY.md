@@ -153,6 +153,39 @@ read as an affiliation claim to someone in a hurry.
 Class C list to Class A wholesale. Until the directory lists us, it does not
 matter how much of the work is done.
 
+### 3.2 Naming another certification body
+
+Class B already sets the evidence bar for a comparative claim: source URL,
+verification date, six-month ageing. This section adds the part Class B does
+not cover — WHERE such a claim may appear.
+
+**Permitted: competitive and market analysis.** A BOK, a readiness document, a
+scheme rationale. `BOK-ISMS-F.md` is the worked example — CertiProf, PECB, APMG
+and EXIN in one sourced table, two rows marked "INDICATIVE, not usable
+externally". That marking is the discipline, not the naming.
+
+**Not permitted: marketing copy, app chrome, lesson content, lesson templates,
+or any worked example an author copies from.** A competitor's name in a template
+propagates into every cert built from it, and nobody re-decides it on the way.
+
+**THE RED LINE IS AN IDENTITY OR EQUIVALENCE CLAIM ON A USER-FACING SURFACE,
+NOT THE MENTION.** "CertiProf issues 3 years; we issue 365 days" is a checkable
+comparison. "Equivalent to X" or "recognised by X" is Class D and stays Class D
+whether or not the name appears. Removing a name from a sentence that implies
+equivalence does not fix it.
+
+**A citation that justifies one of OUR decisions must stay.** Where a
+competitor's published parameter is the stated basis for a scheme term, deleting
+the name strands the decision with no justification and invites someone to
+re-litigate it from nothing. `BOK-ISMS-F.md` sets our 80% threshold as "matching
+CertiProf, exceeding PECB's 70%" — that sentence is load-bearing.
+
+**Scrubbing is for rendered surfaces.** Migrations 015 and 016 removed vendor
+names from lessons and concepts, and the database is clean (verified 2026-09-01:
+zero across tasks, concepts, lessons, provider). Those migrations still name
+what they removed, and must — a scrub that cannot say what it scrubbed is not
+auditable. The same applies to any handoff or archive recording the change.
+
 ### Overclaims about our own product
 
 Not a competitor claim, but caught by the same principle. "An AI tutor that
@@ -383,6 +416,8 @@ are tuned to "whichever exam your employer recognizes", which positions
 Certidemy as preparation for other people's certifications. Combined with two
 competing hero headline sets in the same namespace, it appears to be copy from
 an earlier product. Whether it renders at all is unconfirmed.
+**This is exactly what §3.2 classifies: competitor names on a marketing surface,
+unsourced — not permitted regardless of whether the comparison is accurate.**
 
 **The comparison sheet does not exist yet.** When it does, it is the primary
 Class B artifact and every cell needs a source URL and verification date. The

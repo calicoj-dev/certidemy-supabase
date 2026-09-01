@@ -3,7 +3,7 @@
 // Body: { certification_id, title, source_type, source_url?, content_md }
 // Auth: Bearer JWT (must be platform_admin)
 //
-// Takes raw markdown content for a CertiProf source document, chunks it,
+// Takes raw markdown content for a Certidemy source document, chunks it,
 // embeds each chunk, and stores them. The chat-tutor function will only ever
 // cite from chunks ingested through this endpoint.
 

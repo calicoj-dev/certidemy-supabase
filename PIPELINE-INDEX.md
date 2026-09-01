@@ -71,7 +71,7 @@ evidence, not just convenience).
 - AIGRM-I `55555555-5555-5555-5555-555555555555` — status `available`
 - AISM-I `66666666-6666-6666-6666-666666666666` — status `available`
 - AIE-I, AIHR-I, ISMS-F, ISMS-IA, AIMS-F, AIMS-IA — status `available`; ids are no longer repeating-digit (that convention is exhausted).
-- AIE-I `22222222-2222-2222-2222-222222222222` — status `available`. **The slot was NULL (placeholder row; never a certification we offered) -> reassigned to AIE-I by migration 104, 2026-07-20.** Collision recovery: migration 102 had overwritten AIE-I at `66666666-…`. Older documents describing this UUID as a CertiProf-era placeholder pending cleanup are stale.
+- AIE-I `22222222-2222-2222-2222-222222222222` — status `available`. **The slot was NULL (placeholder row; never a certification we offered) -> reassigned to AIE-I by migration 104, 2026-07-20.** Collision recovery: migration 102 had overwritten AIE-I at `66666666-…`. Older documents describing this UUID as a placeholder pending cleanup are stale.
 - **Exam parameters vary by cert and are NOT uniform.** Verified live 2026-08-31:
 
   | cert | questions | pass | minutes | tier |
