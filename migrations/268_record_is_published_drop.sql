@@ -1,0 +1,163 @@
+-- ============================================================================
+-- 268_record_is_published_drop.sql
+--
+-- RECORD THE DROP OF public.certifications.is_published, WHICH HAPPENED
+-- OUTSIDE VERSION CONTROL.
+--
+-- Migration 069 is PART 1: it added `status`, added a CHECK and an index,
+-- backfilled from the boolean, and deliberately LEFT is_published in place.
+-- Its own header says so. A "069-part-2" then dropped the column.
+--
+-- THERE IS NO FILE FOR IT. Not 069-part-2, not any other number. `ls
+-- migrations/069*` returns exactly one file. The drop is known only from prose
+-- written after the fact:
+--
+--   migrations/145_seed_aihr_i.sql:13   "CERT-SCHEMA-GUIDE.md section 2, which
+--                                        still lists is_published (dropped by
+--                                        069-part-2)"
+--   migrations/171_seed_isms_f.sql:14   "certifications.is_published NO LONGER
+--                                        EXISTS (069-part-2 shipped)."
+--   migrations/176_seed_aims_f.sql:51   "NOTE: is_published was dropped by
+--                                        migration 069-part-2."
+--   scripts/apply-doc-patches-2026-08-04.ps1:191-193
+--                                       "`is_published` no longer exists. 069
+--                                        introduced `status`; 069-part-2
+--                                        dropped the boolean."
+--
+-- Three of those four are incidental notes inside seed migrations for
+-- unrelated certifications. The fourth is a spent PowerShell run. None of them
+-- is the record of the change, and 171's line exists because a scaffold
+-- migration FAILED on `column "is_published" ... does not exist` -- the drop
+-- was discovered by breaking something, twice.
+--
+-- DISCOVERED AS A GAP 2026-09-01. CONFIRMED BY 42703: selecting the column
+-- raises `undefined_column`.
+--
+-- `status` IS THE SOLE SOURCE OF TRUTH for certification lifecycle. Nothing
+-- reads a published boolean from this table, and nothing may be added that
+-- does. The 4-state vocabulary is 069's: draft / coming_soon / available /
+-- unavailable.
+--
+-- ---------------------------------------------------------------------------
+-- THIS FILE IS A RECORD, NOT A REBUILD STEP.
+--
+-- MIGRATION REPLAY FROM ZERO HAS NEVER WORKED IN THIS REPOSITORY AND 268 DOES
+-- NOT CHANGE THAT. The base schema is not in this repo; `profiles`,
+-- `certifications`, `user_progress` and `vouchers` are referenced by the
+-- earliest migrations and created by none of them, and replay fails at
+-- 002_rag_and_chat.sql:72 regardless. The guard below is correct and costs
+-- nothing -- `drop column if exists` is a no-op on a database where the column
+-- is already gone, which is every database that exists today -- but it does not
+-- make this repository buildable, and no one should read it as claiming so.
+--
+-- What this file is for: the next person greps for is_published, finds the
+-- three prose mentions and no migration, and has to re-derive whether the
+-- column exists. Now they find this.
+--
+-- ---------------------------------------------------------------------------
+-- EVIDENCE, measured 2026-09-01 before writing a line of SQL.
+--
+-- (1) THE COLUMN IS GONE. information_schema.columns for
+--     public.certifications, filtered to the two names, returned ONE row:
+--
+--       column_name  data_type  is_nullable  column_default
+--       status       text       NO           'draft'::text
+--
+--     Zero rows named is_published.
+--
+-- (2) THE LIVE RLS POLICIES ON public.certifications -- three, all on status,
+--     none on the boolean:
+--
+--       policyname                    cmd     roles           using
+--       admin write certifications    ALL     {public}        is_platform_admin()
+--       catalog read certifications   SELECT  {public}        ((status = 'available'::text)
+--                                                              OR is_platform_admin())
+--       tied read certifications      SELECT  {authenticated} user_has_cert_tie(id)
+--
+--     Migration 057 defined the catalog gate as `is_published OR
+--     is_platform_admin()`. The live policy is the status form. 056/057/060/068
+--     are NOT edited -- a superseded policy definition is a record of what ran.
+--
+-- (3) A SWEEP FOR SURVIVING REFERENCES across six object classes -- policies,
+--     views and matviews, functions, constraints, indexes, and column
+--     defaults / generated expressions -- returned exactly ONE row:
+--
+--       kind  obj                        def
+--       view  public.v_coverage_summary  ... status = 'available'::text AS is_published ...
+--
+-- ---------------------------------------------------------------------------
+-- THAT ONE ROW IS AN OUTPUT ALIAS, NOT A COLUMN REFERENCE, AND IT EXPLAINS WHY
+-- THE DROP NEEDED NO CASCADE.
+--
+-- v_coverage_summary computes the value:
+--
+--     select id   as certification_id,
+--            code as certification_code,
+--            status = 'available'::text as is_published,   -- <- the hit
+--            ...
+--            status
+--     from certifications cert;
+--
+-- The view returns 12 rows and works. Had it genuinely depended on the column,
+-- Postgres would have refused the drop or taken the view with it. It did
+-- neither, because the dependants had already been migrated to `status` before
+-- the column went. THAT IS EVIDENCE THE DROP WAS DONE CAREFULLY -- which is
+-- worth knowing about an operation that left no file.
+--
+-- It mirrors certidemy-web/lib/certifications/data.ts, which carries the same
+-- derived field with the same intent: "Derived: status === 'available'. Bridge
+-- field during the is_published migration." Two halves of one compatibility
+-- shim, on both sides of the wire.
+--
+-- ---------------------------------------------------------------------------
+-- THE BRIDGE HAS NO READERS. NAMED HERE SO THE NEXT PERSON FINDS IT.
+--
+-- Both repositories were grepped 2026-09-01. v_coverage_summary has three
+-- consumers and NOT ONE of them reads .is_published:
+--
+--   scripts/verify-cert.mjs:215                     .select("*") -- reads
+--     untaught_testing_violations, concepts_taught, concepts_total. Never
+--     is_published. (grep for the name in that file: zero hits.)
+--   functions/get-governance-snapshot/index.ts:130  .select("*") -- zero hits.
+--   certidemy-web components/console/governance-panels.tsx:402 -- renders the
+--     view's name as a label. Zero is_published hits anywhere under
+--     components/console.
+--
+-- Documentation consumers (CERT-CREATION.md, LESSON-PIPELINE.md, the SCHEME-*
+-- verification tables, jta/ASSESSMENT-ENGINE.md) all cite
+-- untaught_testing_violations, concepts_taught and concepts_total. None cites
+-- the alias.
+--
+-- SO IT IS A BRIDGE FIELD WITH NO READERS: a future cleanup, not a defect, and
+-- deliberately NOT cleaned up here. Two reasons. A migration whose job is to
+-- record a drop is the wrong place to change a view's contract. And `select
+-- *` consumers exist, so removing a column from a view is a wider change than
+-- it looks and deserves its own migration and its own verification.
+-- ============================================================================
+
+begin;
+
+-- Idempotent by construction. This is a no-op on every database that exists
+-- today; see the replay note above for why that is the expected outcome and
+-- not a sign the statement is wrong.
+alter table public.certifications drop column if exists is_published;
+
+commit;
+
+-- ---------------------------------------------------------------------------
+-- Verification, run separately. Property, and both directions.
+--
+-- select
+--   (select count(*) from information_schema.columns
+--     where table_schema='public' and table_name='certifications'
+--       and column_name='is_published')            as must_be_0,
+--   (select count(*) from information_schema.columns
+--     where table_schema='public' and table_name='certifications'
+--       and column_name='status')                  as must_be_1,
+--   (select count(*) from pg_policies
+--     where schemaname='public' and tablename='certifications')  as must_be_3,
+--   (select count(*) from public.v_coverage_summary)             as must_be_12;
+--
+-- The negative half is `must_be_0`. The positive halves matter just as much:
+-- a statement that dropped `status`, or took the view with it, would satisfy
+-- the first column alone.
