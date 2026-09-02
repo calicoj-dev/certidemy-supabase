@@ -1,0 +1,165 @@
+-- ============================================================================
+-- 272_record_base_schema_auth_tables.sql
+--
+-- A RECORD. public.profiles AND public.team_members CANNOT BE CAPTURED AS
+-- CREATE TABLE STATEMENTS FROM THIS REPOSITORY, AND THIS FILE SAYS WHY.
+--
+-- ZERO EXECUTABLE STATEMENTS, deliberately. A `create table if not exists`
+-- pair would look complete and would not be. See "WHY NOT A CREATE" below.
+--
+-- Found by the schema audit of 2026-09-01. 270 captured the two RLS predicate
+-- functions; 271 captured the two role enums; both would still fail against an
+-- empty database because these two tables exist in no file. This is the third
+-- and last file in that sequence, and it closes the auth-path work by
+-- recording what is not capturable rather than pretending otherwise.
+--
+-- ---------------------------------------------------------------------------
+-- public.profiles -- 12 columns, 39 rows, RLS enabled (not forced)
+--
+--   1  id                             uuid          NOT NULL
+--   2  email                          citext        NOT NULL
+--   3  full_name                      text          NULL
+--   4  avatar_url                     text          NULL
+--   5  platform_role                  platform_role NOT NULL  'learner'
+--   6  timezone                       text          NULL      'UTC'
+--   7  locale                         text          NULL      'en'
+--   8  created_at                     timestamptz   NOT NULL  now()
+--   9  updated_at                     timestamptz   NOT NULL  now()
+--  10  certificate_name               text          NULL
+--  11  certificate_name_confirmed_at  timestamptz   NULL
+--  12  password_set                   boolean       NULL
+--
+-- No identity columns, no generated columns.
+--
+--   profiles_pkey       PRIMARY KEY (id)
+--   profiles_email_key  UNIQUE (email)
+--   profiles_id_fkey    FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE
+--
+--   Indexes: profiles_pkey, profiles_email_key. Both constraint-backed; there
+--   are no standalone indexes on this table.
+--
+--   Triggers:
+--     profiles_updated_at                BEFORE UPDATE  set_updated_at()
+--                                        function in 002 / 246
+--     on_profile_created_claim_vouchers  AFTER INSERT   claim_vouchers_for_new_profile()
+--                                        function in 237; TRIGGER captured by 274
+--
+-- ---------------------------------------------------------------------------
+-- public.team_members -- 6 columns, 2 rows, RLS enabled (not forced)
+--
+--   1  id          uuid         NOT NULL  extensions.uuid_generate_v4()
+--   2  company_id  uuid         NOT NULL
+--   3  user_id     uuid         NOT NULL
+--   4  role        team_role    NOT NULL  'team_member'
+--   5  invited_by  uuid         NULL
+--   6  joined_at   timestamptz  NOT NULL  now()
+--
+--   team_members_pkey                    PRIMARY KEY (id)
+--   team_members_company_id_user_id_key  UNIQUE (company_id, user_id)
+--   team_members_company_id_fkey         FK company_id -> companies(id) ON DELETE CASCADE
+--   team_members_user_id_fkey            FK user_id    -> profiles(id)  ON DELETE CASCADE
+--   team_members_invited_by_fkey         FK invited_by -> profiles(id)  (no action)
+--
+--   Indexes: the two constraint-backed, plus team_members_company_id_idx and
+--   team_members_user_id_idx, both plain btree.
+--
+--   Triggers: none.
+--
+-- ---------------------------------------------------------------------------
+-- WHY NOT A CREATE. Four reasons, in order of severity.
+--
+-- 1. profiles IS NOT A ROOT. IT HANGS OFF auth.users, WHICH SUPABASE OWNS.
+--
+--      profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE
+--
+--    auth.users is provisioned by the platform. No migration in this repo
+--    creates it and none could. A create-table INCLUDING that FK fails wherever
+--    the auth schema has not been provisioned; EXCLUDING it produces a
+--    different table -- one that would accept a profile for a user who does not
+--    exist, and would not delete when the account is deleted. Neither option is
+--    honest, and the second is worse because it works.
+--
+-- 2. IT DEPENDS ON TWO EXTENSIONS, ALSO UNDOCUMENTED.
+--
+--    profiles.email is citext. team_members.id defaults to
+--    extensions.uuid_generate_v4() (uuid-ossp). Neither extension has a
+--    CREATE EXTENSION in any file, so the dependency chain runs one layer
+--    deeper than the tables themselves.
+--
+-- 3. THE CAPTURED OBJECT WOULD BE A FRACTION OF THE REAL ONE.
+--
+--    For profiles: 12 columns and 3 constraints in the file, against 21
+--    INBOUND FOREIGN KEYS, 2 triggers and 2 policies that a create-table
+--    statement does not carry. A file that produces a table nothing
+--    references, nothing protects and no trigger fires on is WORSE than no
+--    file, because it reads as complete.
+--
+-- 4. THE CIRCULARITY CANNOT BE CUT AROUND TWO TABLES.
+--
+--    team_members -> companies, and companies is also in the undocumented set.
+--    is_team_admin_of() reads team_members. profiles' own read policy calls
+--    is_team_admin_of(id). So the policy on profiles depends on team_members,
+--    which depends on companies, which has no file.
+--
+-- ---------------------------------------------------------------------------
+-- THE 21 INBOUND FOREIGN KEYS ON profiles. This is what makes it hard.
+--
+--   ON DELETE CASCADE (18):
+--     appeals.user_id                     chat_messages.user_id
+--     chat_sessions.user_id               exam_attempts.user_id
+--     fsrs_cards.user_id                  fsrs_reviews.user_id
+--     lesson_format_preferences.user_id   mock_exam_results.user_id
+--     pass_predictions.user_id            quiz_attempts.user_id
+--     quiz_sessions.user_id               simulation_attempts.user_id
+--     study_plans.user_id                 team_members.user_id
+--     user_concept_mastery.user_id        user_lesson_progress.user_id
+--     user_progress.user_id
+--
+--   ON DELETE SET NULL (1):
+--     audit_logs.user_id
+--
+--   NO ACTION (3):
+--     lti_platforms.created_by            source_documents.uploaded_by
+--     team_members.invited_by
+--
+--   ZERO tables reference team_members.
+--
+--   The cascade set is the account-deletion contract: deleting an auth.users
+--   row cascades to profiles and from there to seventeen tables. That
+--   behaviour is not written down anywhere else, and it is the reason the FK
+--   in reason 1 cannot simply be dropped from a capture.
+--
+-- ---------------------------------------------------------------------------
+-- THE RECOVERY ROUTE, PLAINLY.
+--
+--   pg_dump --schema-only AGAINST A LIVE DATABASE.
+--
+-- Not a hand-written migration. The 2026-09-01 audit found 26 tables in public
+-- with no CREATE TABLE in any file -- the original application schema, which
+-- predates this repository. profiles and team_members are two of them, and
+-- they are not separable from the other 24 by any correct boundary.
+--
+-- Anyone rebuilding this database starts from a dump, then replays migrations
+-- for what came after. MIGRATION REPLAY FROM ZERO HAS NEVER WORKED IN THIS
+-- REPOSITORY AND 272 DOES NOT CHANGE THAT; see 268.
+--
+-- ---------------------------------------------------------------------------
+-- WHAT 273 AND 274 CAPTURE, so a reader sees this audit CLOSED, not abandoned.
+--
+--   273  The four RLS policies on these two tables. Capturable in full: a
+--        CREATE POLICY needs only the table to exist, so unlike the tables
+--        themselves these can be reproduced exactly.
+--
+--          profiles      profile self read      SELECT  PUBLIC
+--          profiles      profile self update    UPDATE  PUBLIC
+--          team_members  team self read members SELECT  authenticated
+--          team_members  team_admin manage members ALL  authenticated
+--
+--   274  on_profile_created_claim_vouchers, the AFTER INSERT trigger on
+--        profiles. Its function is in 237 and 246 records the trigger's
+--        existence; only the CREATE TRIGGER was missing.
+--
+-- After 270, 271, 273 and 274, EVERYTHING IN THE AUTH PATH THAT CAN BE
+-- CAPTURED HAS BEEN. What remains is the base schema, and this file is the
+-- record of why that is a dump and not a migration.
+-- ============================================================================
