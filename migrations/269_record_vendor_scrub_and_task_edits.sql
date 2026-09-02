@@ -1,11 +1,40 @@
 -- ============================================================================
 -- 269_record_vendor_scrub_and_task_edits.sql
 --
--- A RECORD. Two subjects: the vendor-name scrub that DID leave files, and two
--- task-statement edits that did NOT.
+-- A RECORD of the vendor-name scrub, which DID leave files.
 --
 -- ---------------------------------------------------------------------------
--- THIRD UNDOCUMENTED LIVE CHANGE FOUND IN ONE SESSION. NAME THE PATTERN.
+-- *** CORRECTED 2026-09-01, AFTER THE FULL SCHEMA AUDIT. ***
+--
+-- AS FIRST COMMITTED, THIS FILE CLAIMED A THIRD UNDOCUMENTED LIVE CHANGE.
+-- THERE IS NO THIRD. Subject 2 below has been rewritten; this block records
+-- what the file used to say and why it was wrong, because a correction that
+-- erases its own cause teaches nothing.
+--
+-- The original claimed tasks 4.9 and 5.7 on cert 11111111-... had been edited
+-- with no migration behind them. BOTH ARE FULLY DOCUMENTED. The chain is
+-- 003 -> 015 -> 091 and every link has a file.
+--
+-- HOW THE WRONG CLAIM GOT IN: 015 was read from line 35 onward -- where the
+-- tasks.knowledge and concepts.description updates are -- and the lines above
+-- were inferred rather than read. Lines 24 to 33 of 015 update BOTH task
+-- statements, which is precisely what the claim said did not exist.
+--
+-- A MIGRATION WHOSE PURPOSE IS TO BE A RECORD IS THE WORST PLACE FOR AN
+-- INFERENCE STATED AS A MEASUREMENT. The original wording was worse than
+-- merely wrong: it said "read it and see", inviting the reader to verify
+-- against the file that disproves it. Confidence was borrowed from a check
+-- that had not been run.
+--
+-- WHAT THE AUDIT ACTUALLY FOUND, and the gap is SMALLER than this file feared,
+-- not larger. Across nine object classes -- tables, views, functions,
+-- triggers, policies, constraints, indexes, enum types and grants -- the
+-- undocumented set was 26 tables, 2 functions, 1 trigger, 0 views and ZERO
+-- unexplained content drift on cert 11111111-... Every one of that cert's 86
+-- seeded concepts matches live exactly, and all six task statements that
+-- differ from 003 are accounted for by 091's Bloom pass.
+--
+-- SO THE COUNT IS TWO, NOT THREE:
 --
 --   1. certifications.is_published was DROPPED with no migration file.
 --      Recorded 2026-09-01 by migration 268. Known only from prose inside
@@ -13,23 +42,22 @@
 --      scaffold FAILED on the missing column.
 --
 --   2. on_profile_created_claim_vouchers -- the voucher-claim trigger on
---      public.profiles -- exists only in the live database. Migration 237
---      does `create or replace function` with no `create trigger`. Same for
---      on_auth_user_created on auth.users. CLAUDE.md records both.
+--      public.profiles -- existed only in the live database. Migration 237
+--      does `create or replace function` with no `create trigger`. CAPTURED
+--      by 274. Its sibling on_auth_user_created on auth.users is still open.
 --
---   3. THIS FILE: tasks 4.9 and 5.7 statements on cert 11111111-... were
---      edited with no migration. See below.
+-- Both are now closed or recorded: 268, 270 through 274.
 --
--- Three in one session is not three accidents. The shape is always the same:
--- a change is made in the SQL editor, the result is correct, and the file that
--- would have recorded it is never written -- because the change was small,
--- or urgent, or a fix to something already being fixed. The cost lands later
--- and on someone else, as a document that disagrees with the database and no
--- way to tell which is wrong.
+-- The observation the original block reached for still holds, and is worth
+-- keeping in the smaller form the evidence supports: a change is made in the
+-- SQL editor, the result is correct, and the file that would have recorded it
+-- is never written. The editor-first workflow is not the problem; it is
+-- deliberate and it works. THE GAP IS BETWEEN "IT RAN" AND "IT WAS WRITTEN
+-- DOWN", and nothing currently closes it except memory.
 --
--- The editor-first workflow is not the problem; it is deliberate and it works.
--- THE GAP IS BETWEEN "IT RAN" AND "IT WAS WRITTEN DOWN", and nothing currently
--- closes it except memory.
+-- What is NOT supported is the leap from two instances to a pattern. Two is
+-- two. This file made that leap and then supplied its own third instance by
+-- getting one wrong, which is the more instructive failure.
 --
 -- ---------------------------------------------------------------------------
 -- SUBJECT 1: THE VENDOR-NAME SCRUB.
@@ -70,30 +98,44 @@
 -- section 3.2 states this as a rule.
 --
 -- ---------------------------------------------------------------------------
--- SUBJECT 2: TWO TASK STATEMENTS CHANGED WITH NO FILE.
+-- SUBJECT 2: THE TWO TASK STATEMENTS, AND THE CHAIN IS COMPLETE.
 --
--- 015 touched tasks.KNOWLEDGE and concepts.DESCRIPTION only. It never touched
--- tasks.STATEMENT -- read it and see. Yet both statements below differ from
--- what 003_jta_curriculum.sql inserted, and NO MIGRATION RECORDS THE CHANGE.
+-- Cert 11111111-1111-1111-1111-111111111111 (SM-AI-I). Tasks 4.9 and 5.7
+-- differ from what 003 inserted. EVERY STEP HAS A FILE:
 --
--- Cert 11111111-1111-1111-1111-111111111111 (SM-AI-I).
+--   003 -> 015 (vendor scrub) -> 091 (Bloom pass)
 --
--- TASK 4.9 -- the vendor phrase was DELETED, not replaced:
+-- TASK 4.9 -- 015:24-28, the vendor phrase DELETED, not replaced:
 --   003 inserted : 'Interpret burndown charts and velocity metrics (<vendor> emphasis)'
---   live today   : 'Interpret burndown charts and velocity metrics'
+--   015 set      : 'Interpret burndown charts and velocity metrics'
+--   live today   : unchanged since. 091 did not touch 4.9.
 --
--- TASK 5.7 -- a full rewrite, not a phrase swap:
+-- TASK 5.7 -- changed TWICE, by 015 and then by 091:
 --   003 inserted : 'Navigate <vendor> vs. Scrum Guide terminology drift'
---   live today   : 'Translate between legacy training terminology and the 2020 Scrum Guide'
+--   015:30-34    : 'Navigate terminology drift between legacy training
+--                   materials and the Scrum Guide'
+--   091:168      : 'Translate between legacy training terminology and the
+--                   2020 Scrum Guide'
+--   live today   : the 091 value.
 --
--- For contrast, 5.7's KNOWLEDGE was changed by 015 and is accounted for:
+-- 091 IS WHY THE SECOND REWRITE HAPPENED, and it recorded its own reasoning in
+-- the row. Its notes append reads: 'v2.0: statement verb was "Navigate" (an
+-- Apply verb) while the skills said "Translate between the two" and the level
+-- was 2_understand. Level kept; statement corrected.'
+--
+-- 5.7's KNOWLEDGE was changed by 015 in the same pass and is likewise
+-- accounted for:
 --   live today   : 'Where legacy training materials use legacy terms
 --                   ("ceremonies," "self-organizing," "servant-leader")'
 --
+-- 091 rewrote FIVE other statements on this cert in the same Bloom pass --
+-- 1.2, 3.3, 3.6, 3.9, 4.4 and 5.9 -- for the systematic defect it names in
+-- its own header: SM-AI-I over-declared Analyze. Those five are not vendor
+-- related and were never in question; they are listed here so a future reader
+-- comparing 003 against live finds all six differences explained in one place.
+--
 -- Both live values were read from the database on 2026-09-01 and 003 has been
--- corrected to match them exactly, so the file and the row now agree. What
--- cannot be recovered is WHEN the statements were changed, by whom, or in the
--- same operation as 015 or a separate one. That information is gone.
+-- corrected to match them exactly, so the file and the row now agree.
 --
 -- NOTHING IS RE-APPLIED HERE. The live values are correct and this file does
 -- not touch them. Re-running a replace against rows that already hold the
