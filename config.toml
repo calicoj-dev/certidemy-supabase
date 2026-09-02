@@ -670,3 +670,14 @@ verify_jwt = true
 # somebody else's account, and it looks like a working integration throughout.
 [functions.lti-consume-link-token]
 verify_jwt = true
+
+# One learner's progress in one certification, for the console People
+# drill-down. platform_admin enforced in-function, then a service client --
+# because six of the seven tables it reads have NO platform_admin policy and
+# would silently return zero rows to the admin's own JWT.
+#
+# EXPLICIT, not defaulted, for the reason recorded above on
+# create-partner-issuer: this gate is the only thing between a learner JWT and
+# every other learner's progress.
+[functions.get-user-cert-overview]
+verify_jwt = true
