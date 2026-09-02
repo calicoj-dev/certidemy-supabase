@@ -180,11 +180,14 @@ the name strands the decision with no justification and invites someone to
 re-litigate it from nothing. `BOK-ISMS-F.md` sets our 80% threshold as "matching
 CertiProf, exceeding PECB's 70%" — that sentence is load-bearing.
 
-**Scrubbing is for rendered surfaces.** Migrations 015 and 016 removed vendor
-names from lessons and concepts, and the database is clean (verified 2026-09-01:
-zero across tasks, concepts, lessons, provider). Those migrations still name
-what they removed, and must — a scrub that cannot say what it scrubbed is not
-auditable. The same applies to any handoff or archive recording the change.
+**Scrubbing is for rendered surfaces.** A vendor-name scrub removed competitor
+names from lessons and concepts, and the database is clean (verified
+2026-09-01: zero across tasks, concepts, lessons, provider). **A scrub that
+cannot say what it scrubbed is not auditable** — the before/after mapping must
+survive somewhere, whether in the migration that applied it or in a record that
+replaces it. Deleting the one without writing the other turns every string it
+touched into a value nobody can check. The same applies to any handoff or
+archive recording the change.
 
 ### Overclaims about our own product
 

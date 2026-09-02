@@ -16,7 +16,7 @@
 --     re-stamp below so nothing carries stale strings into launch.
 --
 -- (2) 1-year credential expiry. AI-era coursework tracks a fast-moving field;
---     credentials expire 1 year after issuance (vs CertiProf's 3 / unlimited),
+--     credentials expire 1 year after issuance (vs <vendor>'s 3 / unlimited),
 --     keeping the credential current and creating a recertification touchpoint.
 --     The durable change is in score-mock-exam (sets expires_at at mint). Here
 --     we backfill expires_at on any credential where it's null.

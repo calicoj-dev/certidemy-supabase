@@ -83,7 +83,7 @@ comment on function public.fn_audit_attempt_policy() is
 -- ===========================================================================
 -- 2. THE INHERITED PROVIDER DEFAULT
 -- ===========================================================================
--- public.certifications.provider defaulted to 'CertiProf'.
+-- public.certifications.provider defaulted to '<vendor>'.
 --
 -- Every live row already reads 'Certidemy', so nothing is currently mislabelled.
 -- The DEFAULT is the hazard: the next certification inserted without an explicit

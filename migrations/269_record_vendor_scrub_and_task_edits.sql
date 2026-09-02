@@ -63,16 +63,34 @@
 -- SUBJECT 1: THE VENDOR-NAME SCRUB.
 --
 -- A competitor's name was removed from learner-facing and structural content
--- by two migrations, both forward-only, both retained:
+-- by two migrations, both forward-only:
 --
---   015_scrub_vendor_references.sql
---       tasks.knowledge (task 5.7 on cert 11111111-...) and three
---       concepts.description rows. Surgical phrase swaps, not deletions.
+--   015_scrub_vendor_references.sql   *** DELETED 2026-09-01 ***
+--       tasks.statement (4.9 and 5.7), tasks.knowledge (5.7) and three
+--       concepts.description rows, all on cert 11111111-... Surgical phrase
+--       swaps, not deletions. IT HAD ALREADY RUN; deleting the file changes
+--       nothing in the database. ITS FULL BEFORE/AFTER MAPPING IS RECORDED
+--       BELOW so that 003's current strings remain verifiable without it.
 --
---   016_scrub_vendor_references_lessons.sql
+--   016_scrub_vendor_references_lessons.sql   RETAINED
 --       lessons.content_md and one lessons.title, in ALL THREE LANGUAGES --
---       en, es-419, pt-BR -- as three separate localized statements. Companion
---       to 015.
+--       en, es-419, pt-BR -- as three separate localized statements.
+--
+--       016 IS KEPT AND THE REASON IS MECHANICAL, NOT SENTIMENTAL. Its
+--       replacement strings contain 45 non-ASCII characters -- accented
+--       Spanish and Portuguese -- and this file is ASCII-only per
+--       CERT-SCHEMA-GUIDE section 8. The localized mapping CANNOT be moved
+--       here without accent-stripping it, which would record strings that
+--       never existed and match nothing. That is the mojibake failure
+--       CLAUDE.md warns about, manufactured on purpose.
+--
+--       It also costs nothing to keep: 016 touches `lessons`, which 003 does
+--       not seed. Nothing in 003 depends on it.
+--
+--       Note 016 also replaces references to Scrum.org. That is a different
+--       body from the vendor masked here, it is cited deliberately by
+--       TERMINOLOGY-POLICY.md rule 6 as a translation authority, and it is
+--       left NAMED in 016 rather than masked.
 --
 -- VERIFIED CLEAN 2026-09-01. Zero rows across six columns:
 --
@@ -87,15 +105,53 @@
 -- (Seven columns listed; provider is the seventh and was checked because
 -- migration 135 records that it once defaulted to the vendor's name.)
 --
--- 015 AND 016 ARE RETAINED DELIBERATELY, AND THAT IS THE POINT OF THIS
--- PARAGRAPH. They carry the before/after mapping -- which exact phrase became
--- which exact phrase. Every content correction made to 003_jta_curriculum.sql
--- alongside this file was derived from that mapping and from the live rows.
--- Delete 015 and 016 and those corrections become unverifiable: the claim
--- "the file now matches the database" would have no source to check against.
+-- A SCRUB THAT CANNOT SAY WHAT IT SCRUBBED IS NOT AUDITABLE. CLAIMS-POLICY.md
+-- section 3.2 states this as a rule, and the mapping below is what discharges
+-- it now that 015 is gone.
 --
--- A scrub that cannot say what it scrubbed is not auditable. CLAIMS-POLICY.md
--- section 3.2 states this as a rule.
+-- Every content correction made to 003_jta_curriculum.sql alongside this file
+-- was derived from that mapping and from the live rows. Without it, the claim
+-- "the file now matches the database" has no source to check against.
+--
+-- ---------------------------------------------------------------------------
+-- THE 015 MAPPING, RECORDED IN FULL. <vendor> is the masked competitor name.
+--
+-- All on cert 11111111-1111-1111-1111-111111111111 (SM-AI-I).
+--
+-- tasks.statement -- two rows, WHOLE-VALUE assignment, not phrase swaps:
+--
+--   4.9  from  'Interpret burndown charts and velocity metrics (<vendor> emphasis)'
+--        to    'Interpret burndown charts and velocity metrics'
+--        (the parenthetical was dropped entirely)
+--
+--   5.7  from  'Navigate <vendor> vs. Scrum Guide terminology drift'
+--        to    'Navigate terminology drift between legacy training materials
+--               and the Scrum Guide'
+--        LATER SUPERSEDED by 091:168 -- see SUBJECT 2. The live value today is
+--        091's, not this one. Recorded anyway: without it the chain from 003
+--        to live has a hole in the middle.
+--
+-- tasks.knowledge -- one row, surgical phrase swap preserving the rest:
+--
+--   5.7  '<vendor> prep materials'  ->  'legacy training materials'
+--        guarded by  knowledge like '%<vendor> prep materials%'
+--
+-- concepts.description -- three rows, surgical phrase swaps:
+--
+--   '<vendor> sometimes uses'     ->  'Some training materials use'
+--        guarded by  description like '<vendor> sometimes uses%'
+--   '<vendor> materials may use'  ->  'some legacy materials may use'
+--        guarded by  description like '%<vendor> materials may use%'
+--   'and <vendor> materials'      ->  'and legacy training materials'
+--        guarded by  description like '%and <vendor> materials%'
+--
+-- Those three land on the concepts servant-vs-true-leader,
+-- ceremonies-vs-events-terminology and self-organizing-vs-self-managing.
+-- All three were verified byte-identical between 003 and live on 2026-09-01,
+-- along with the other 83 concepts 003 seeds.
+--
+-- THE LESSON MAPPING IS NOT REPRODUCED HERE. It is in 016, which is retained
+-- for exactly that reason -- see above.
 --
 -- ---------------------------------------------------------------------------
 -- SUBJECT 2: THE TWO TASK STATEMENTS, AND THE CHAIN IS COMPLETE.
@@ -169,8 +225,17 @@
 -- union all select 'certifications.provider', count(*) from public.certifications
 --   where provider ilike '%<vendor>%';
 --
--- Expect zero on every row. Substitute the vendor name from 015's header --
--- it is not written here, and that is why 015 must not be deleted.
+-- Expect zero on every row. Substitute the vendor name, which is not written
+-- in this file. IT IS STILL IN THE WORKING TREE: docs/BOK-ISMS-F.md and
+-- BOK-AIMS-F.md name it a dozen times in sourced competitive analysis, kept
+-- deliberately under CLAIMS-POLICY.md section 3.2 -- naming another
+-- certification body is permitted in analysis, and removing those citations
+-- would make the comparisons unverifiable rather than making them safer.
+--
+-- (This note used to say "substitute the name from 015's header, and that is
+-- why 015 must not be deleted". 015 was deleted on 2026-09-01 once its full
+-- mapping was recorded above. The instruction outlived its premise by one
+-- commit, which is the failure mode this whole file is about.)
 --
 -- The POSITIVE half, which the zeroes alone do not prove:
 --
