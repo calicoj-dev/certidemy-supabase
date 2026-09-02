@@ -1,3 +1,23 @@
+> ## SUPERSEDED FOR ALL FACTUAL CONTENT
+>
+> **The authoritative JTA for AIHR-I is `jta/AIHR-I_JTA_generated.md`**, rendered
+> from the live database by `scripts/gen-jta-doc.mjs`. Regenerate it rather than
+> reading or editing the tables below.
+>
+> Generated 2026-09-01. Its exam facts were verified against
+> `public.certifications` on that date: questions, duration, pass mark and pass
+> ratio all match.
+>
+> **THIS DOCUMENT HAS NOT BEEN DIFFED AT TASK LEVEL.** The banners on AIE-I,
+> AIGRM-I, SD-AI-I, SM-AI-I, SPO-AI-I and the archived AISM-I each state a count
+> of divergent task statements, measured 2026-07-23. No equivalent count exists
+> for this file. Absence of a number here is not a claim that it agrees with the
+> database - only that nobody has checked.
+>
+> **What is still valuable here:** the design rationale, domain-weight reasoning,
+> sourcing and review history. That judgment cannot be regenerated from a query.
+> Read this file for the *why* and never for the *what*.
+
 # AIHR-I — Job-Task Analysis (v2.0 — LAUNCH BASELINE)
 
 **Document version:** 2.0
@@ -293,12 +313,24 @@ look if this ever goes wrong.
 
 ## 6. Exam facts
 
+**SUPERSEDED -- read `jta/AIHR-I_JTA_generated.md` for the exam facts.** The table
+that stood here stated a duration that is no longer true. Not patched: putting
+the figure in two places is how it went stale.
+
+| it said | live 2026-09-01 |
+|-|-|
+| Duration **50 minutes** | **60 minutes** |
+
+Questions (40) and pass mark (80%, 32/40) were correct and are not repeated
+here -- the generated JTA carries all three. The pass mark's "provisional,
+pending standard-setting" caveat still stands and is not superseded by this
+note.
+
+**Exam facts NOT held in the database:**
+
 | Attribute | Value |
 |---|---|
 | Format | Multiple choice, online, scenario-stemmed |
-| Questions | **40** |
-| Duration | **50 minutes** |
-| Passing score | **80% (32 / 40)** — provisional, pending standard-setting |
 | Open/closed book | Closed book |
 | Attempts | 1 included; retake purchasable |
 | Bloom ceiling | **4 (Analyze)** |

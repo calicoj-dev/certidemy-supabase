@@ -64,12 +64,22 @@ Each task carries an attribute line (Domain, Criticality, Frequency, Bloom level
 
 ## Exam facts (target)
 
+**SUPERSEDED -- read `jta/SPO-AI-I_JTA_generated.md` for the exam facts.** The
+table that stood here stated a duration that is no longer true. Not patched:
+putting the figure in two places is how it went stale.
+
+| it said | live 2026-09-01 |
+|-|-|
+| Duration **90 minutes** | **120 minutes** |
+
+Questions (80) and pass mark (80%, 64/80) were correct and are not repeated
+here -- the generated JTA carries all three.
+
+**Exam facts NOT held in the database:**
+
 | Attribute | Value |
 |-|-|
 | Format | Multiple choice (single answer) + scenario items, online |
-| Questions | 80 |
-| Duration | 90 minutes |
-| Passing score | 80% (64/80) |
 | Open/closed book | Closed book |
 | Bloom ceiling | 4 (Analyze) for MCQ; 5–6 reserved for AI simulations |
 | Source material | 2020 Scrum Guide, Agile Manifesto, Agile Glossary, *Essential Scrum*, *The Professional Product Owner* |

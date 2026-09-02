@@ -91,18 +91,22 @@ consistent with the SPO-AI-I scheme.
 | Credential code | SD-AI-I |
 | Cert id | `44444444-4444-4444-4444-444444444444` |
 | Issuing body | Certidemy (provider = `Certidemy`) |
-| Items | 80 |
-| Duration | 90 minutes |
+| Questions | see `jta/SD-AI-I_JTA_generated.md` |
+| Duration | see the generated JTA -- **this file said 90 minutes; live is 120** |
 | Item format | Single-best-answer multiple choice and true/false (no multi-select) |
-| Pass mark | 80% (64 / 80) — criterion-referenced, provisional |
+| Pass mark | see the generated JTA -- 80% (64/80) was correct, criterion-referenced, provisional |
 | Languages | English, es-419, pt-BR |
 | Validity | 1 year from issuance |
 | `is_published` | `false` (dark) until lessons + both pools are built |
 
-These mirror SPO-AI-I exactly (80 / 80% / 90 min). The Level-I suite is thereby
-internally consistent at **80 items / 80% pass** across all three credentials. (The
-only standing inconsistency in the suite is SM-AI-I's 60-minute duration vs.
-90 for SPO/SD — flagged for the suite-consistency pass, not changed here.)
+These mirror SPO-AI-I exactly. The Level-I suite is internally consistent at
+**80 items / 80% pass** across all three credentials.
+
+**[RESOLVED 2026-09-01: the suite-consistency pass happened. Every Level-I
+credential is now 120 minutes — SM-AI-I included, which this sentence flagged at
+60. Do not act on the parenthetical that stood here; it named an inconsistency
+that no longer exists and pointed at the wrong target. Durations live in the
+database and are rendered to `jta/SD-AI-I_JTA_generated.md`.]**
 
 ---
 

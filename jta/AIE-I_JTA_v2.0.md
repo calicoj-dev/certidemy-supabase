@@ -103,18 +103,33 @@ market-aligned, regulation-aligned, and job-anchored.
 
 ## Exam facts (proposed)
 
+**SUPERSEDED -- read `jta/AIE-I_JTA_generated.md` for the exam facts.** The table
+that stood here stated a duration that is no longer true. Not patched: putting
+the figure in two places is how it went stale.
+
+| it said | live 2026-09-01 |
+|-|-|
+| Duration **30 minutes** | **45 minutes** |
+
+Questions (25) and pass mark (80%, 20/25) were correct and are not repeated
+here -- the generated JTA carries all three.
+
+**Exam facts NOT held in the database**, kept because no query can reconstruct
+them:
+
 |Attribute|Value|
 |-|-|
 |Format|Multiple choice, online|
-|Questions|**25**|
-|Duration|30 minutes|
-|Passing score|**80% (20 / 25 correct)**|
 |Open/closed book|Closed book|
 |Attempts|1 included; retake purchasable|
 |Bloom ceiling|3 (Apply) — literacy tier; no Analyze+ in MCQs|
-|Commercial model|Free to study; the examination is purchased on certiglobal.org. Price points are CertiGlobal's and are not scoped by this JTA.|
+|Commercial model|Free to study; the examination is purchased separately.|
 |Validity|2 years (proposed)|
 |Languages offered|English, Español (es-419), Português (pt-BR)|
+
+**The commercial-model row previously named certiglobal.org as the store.** That
+store is retired and sells nothing; the row is corrected to name no host, since
+a JTA is not where a storefront belongs.
 
 **On 25 questions / 80%.** 20 items would make each question worth 5% (fail on 4
 misses) — statistically swingy for a credential carrying ISO/IEC 17024 framing. 25

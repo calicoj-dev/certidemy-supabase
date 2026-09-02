@@ -1,3 +1,23 @@
+> ## SUPERSEDED FOR ALL FACTUAL CONTENT
+>
+> **The authoritative JTA for AIMS-IA is `jta/AIMS-IA_JTA_generated.md`**, rendered
+> from the live database by `scripts/gen-jta-doc.mjs`. Regenerate it rather than
+> reading or editing the tables below.
+>
+> Generated 2026-09-01. Its exam facts were verified against
+> `public.certifications` on that date: questions, duration, pass mark and pass
+> ratio all match.
+>
+> **THIS DOCUMENT HAS NOT BEEN DIFFED AT TASK LEVEL.** The banners on AIE-I,
+> AIGRM-I, SD-AI-I, SM-AI-I, SPO-AI-I and the archived AISM-I each state a count
+> of divergent task statements, measured 2026-07-23. No equivalent count exists
+> for this file. Absence of a number here is not a claim that it agrees with the
+> database - only that nobody has checked.
+>
+> **What is still valuable here:** the design rationale, domain-weight reasoning,
+> sourcing and review history. That judgment cannot be regenerated from a query.
+> Read this file for the *why* and never for the *what*.
+
 # AIMS-IA — Job-Task Analysis v2.0 · **LAUNCH BASELINE**
 **Credential:** ISO/IEC 42001:2023 Internal Auditor
 **Code:** `AIMS-IA` · **Tier II** · Family `governance-service-management`, `sort_order` 4

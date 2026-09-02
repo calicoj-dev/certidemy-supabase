@@ -1,3 +1,23 @@
+> ## SUPERSEDED FOR ALL FACTUAL CONTENT
+>
+> **The authoritative JTA for ISMS-F is `jta/ISMS-F_JTA_generated.md`**, rendered
+> from the live database by `scripts/gen-jta-doc.mjs`. Regenerate it rather than
+> reading or editing the tables below.
+>
+> Generated 2026-09-01. Its exam facts were verified against
+> `public.certifications` on that date: questions, duration, pass mark and pass
+> ratio all match.
+>
+> **THIS DOCUMENT HAS NOT BEEN DIFFED AT TASK LEVEL.** The banners on AIE-I,
+> AIGRM-I, SD-AI-I, SM-AI-I, SPO-AI-I and the archived AISM-I each state a count
+> of divergent task statements, measured 2026-07-23. No equivalent count exists
+> for this file. Absence of a number here is not a claim that it agrees with the
+> database - only that nobody has checked.
+>
+> **What is still valuable here:** the design rationale, domain-weight reasoning,
+> sourcing and review history. That judgment cannot be regenerated from a query.
+> Read this file for the *why* and never for the *what*.
+
 # ISMS-F - Job-Task Analysis (v2.0 LOCKED)
 
 **Document version:** 2.0.1 - **LOCKED** (erratum: see change log)
@@ -50,8 +70,10 @@ of AI within it.** It does not certify the ability to build or operate an ISMS
 **Ladder.** `ISMS-F` (Level I) -> `ISMS-LI` (Level II). `AIGRM-I` is orthogonal
 and recommended as companion study, not a prerequisite. Eligibility is open.
 
-**Exam form (locked in BoK).** 40 items / 60 minutes / 80% (32/40) / closed
-book / en - es-419 - pt-BR.
+**Exam form (locked in BoK).** Closed book / en - es-419 - pt-BR. **Items,
+duration and pass mark: read `jta/ISMS-F_JTA_generated.md`.** These values were
+correct as of 2026-09-01 and are not repeated here -- the generated JTA carries
+them. A reader should not have to know which narratives happen to be accurate.
 
 ---
 

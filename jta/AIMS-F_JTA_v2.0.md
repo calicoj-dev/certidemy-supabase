@@ -1,3 +1,23 @@
+> ## SUPERSEDED FOR ALL FACTUAL CONTENT
+>
+> **The authoritative JTA for AIMS-F is `jta/AIMS-F_JTA_generated.md`**, rendered
+> from the live database by `scripts/gen-jta-doc.mjs`. Regenerate it rather than
+> reading or editing the tables below.
+>
+> Generated 2026-09-01. Its exam facts were verified against
+> `public.certifications` on that date: questions, duration, pass mark and pass
+> ratio all match.
+>
+> **THIS DOCUMENT HAS NOT BEEN DIFFED AT TASK LEVEL.** The banners on AIE-I,
+> AIGRM-I, SD-AI-I, SM-AI-I, SPO-AI-I and the archived AISM-I each state a count
+> of divergent task statements, measured 2026-07-23. No equivalent count exists
+> for this file. Absence of a number here is not a claim that it agrees with the
+> database - only that nobody has checked.
+>
+> **What is still valuable here:** the design rationale, domain-weight reasoning,
+> sourcing and review history. That judgment cannot be regenerated from a query.
+> Read this file for the *why* and never for the *what*.
+
 # AIMS-F_JTA_v1.3.md — Job-Task Analysis
 
 **Credential:** ISO/IEC 42001 Foundation
@@ -159,7 +179,10 @@ once printed *APPROVED - Grok has signed off* when no review had run.
 | D5 | Performance evaluation, improvement and certification | 17.5% | 6 | **7** |
 | | **Total** | **100.0%** | **35** | **40** |
 
-**Form:** 40 items · 80% pass · 60 minutes · closed book · open eligibility.
+**Form:** closed book · open eligibility. **Items, pass mark and duration: read
+`jta/AIMS-F_JTA_generated.md`.** These values were correct as of 2026-09-01 and
+are not repeated here -- the generated JTA carries them. A reader should not have
+to know which narratives happen to be accurate.
 
 **The floor holds.** Thinnest domain carries 6 items — the BoK §4.5 minimum, set
 from ISMS-F's live 6/7/9/11/7 allocation. Items per task is **1.14**; that is an
