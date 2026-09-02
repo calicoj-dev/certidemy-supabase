@@ -195,6 +195,129 @@ function renderIssuance(locale: Locale, p: Record<string, unknown>): Rendered {
   };
 }
 
+// ---------------------------------------------------------------- lead.received
+//
+// INTERNAL MAIL. This one goes from us to us -- to info@certidemy.com, when a
+// public contact form writes a row to partner_leads.
+//
+// THREE DELIBERATE DEPARTURES FROM issuance.credential, none of them oversights:
+//
+// 1. NO LOCALE. The issuance template is Record<Locale, ...> because its
+//    recipient is a learner anywhere. This recipient is always the same inbox,
+//    read in English. Three translations of a string one person reads would be
+//    three things to keep in step for no reader. The LEAD's own locale is in
+//    the payload as data ABOUT them, which is worth seeing -- four of the first
+//    five leads came in es-419.
+//
+// 2. NOTHING IS REQUIRED BEYOND name AND email. renderIssuance throws when its
+//    fields are missing, and dispatch-emails classifies that throw as TERMINAL
+//    and walks the row straight to 'abandoned' -- one attempt, no retry. For a
+//    lead notification that trade is backwards: a lead with a blank
+//    organization is still a lead, and an email nobody receives because a field
+//    was empty is precisely the silence this template was written to end.
+//    name and email are NOT NULL on partner_leads, so they cannot be absent.
+//
+// 3. NO LINK, AND THEREFORE NO URL VALIDATION. renderIssuance must check that
+//    verify_url points at certidemy.com, because a payload that becomes an href
+//    is a redirect someone else controls. This template contains no anchor at
+//    all except a mailto: built from the lead's own address, so that class of
+//    bug cannot arise. There is also nowhere useful to link until a
+//    /console/leads screen exists.
+//
+// THE CLAIMS RULE DOES NOT BIND THE SAME WAY HERE. issuance.credential names
+// the ISSUER in its subject and From header because Certidemy must never assert
+// what a partner did not. There is no third party in this mail, so fromName is
+// a flat "Certidemy".
+//
+// EVERY INTERPOLATED VALUE IS ATTACKER-INFLUENCED. name, organization and
+// message arrive from a public, unauthenticated form. esc() covers HTML
+// injection into the body. It does NOT strip CR/LF, and `name` reaches the
+// SUBJECT line -- where a newline is header injection, not a cosmetic bug.
+// submit-partner-lead's clean() caps length and does not strip newlines, so
+// this template strips them itself rather than trusting the caller.
+
+/** Subject lines are headers. A newline in one is an injection point. */
+function headerSafe(v: unknown): string {
+  return String(v ?? "").replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/** One row of the lead table. Omitted entirely when the value is empty. */
+function leadRow(label: string, valueHtml: string): string {
+  if (!valueHtml) return "";
+  return [
+    '<tr><td style="padding:6px 16px 6px 0;color:#71717a;font-size:13px;white-space:nowrap;vertical-align:top;">',
+    esc(label),
+    '</td><td style="padding:6px 0;font-size:14px;vertical-align:top;">',
+    valueHtml,
+    "</td></tr>",
+  ].join("");
+}
+
+function renderLeadReceived(p: Record<string, unknown>): Rendered {
+  const name = String(p.name ?? "").trim();
+  const email = String(p.email ?? "").trim();
+
+  // The only two that are NOT NULL in partner_leads. If these are missing the
+  // payload did not come from that table and rendering anything would be a
+  // guess.
+  if (!name || !email) {
+    throw new Error("lead.received: name and email are required");
+  }
+
+  const organization = String(p.organization ?? "").trim();
+  const orgType = String(p.org_type ?? "").trim();
+  const message = String(p.message ?? "").trim();
+  const source = String(p.source ?? "").trim();
+  const leadLocale = String(p.locale ?? "").trim();
+  const createdAt = String(p.created_at ?? "").trim();
+  const phone = String(p.phone_e164 ?? "").trim();
+  const country = String(p.country_alpha2 ?? "").trim();
+  const whatsappOk = p.whatsapp_ok === true;
+
+  // WhatsApp is meaningless without a number, and whatsapp_ok is already false
+  // whenever phone_e164 is null (submit-partner-lead sets it that way). Shown
+  // as a badge beside the phone rather than as a row of its own.
+  const phoneCell = phone
+    ? esc(phone) +
+      (whatsappOk
+        ? ' <span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:10px;background:#dcfce7;color:#166534;font-size:12px;font-weight:600;">WhatsApp OK</span>'
+        : "")
+    : "";
+
+  const rows = [
+    leadRow("Name", esc(name)),
+    leadRow("Email", `<a href="mailto:${esc(email)}" style="color:${BRAND};">${esc(email)}</a>`),
+    leadRow("Phone", phoneCell),
+    leadRow("Country", esc(country)),
+    leadRow("Organization", esc(organization)),
+    leadRow("Type", esc(orgType)),
+    leadRow("Source", esc(source)),
+    leadRow("Lead locale", esc(leadLocale)),
+    leadRow("Received", esc(createdAt)),
+  ].join("");
+
+  const messageHtml = message
+    ? `<div style="margin:20px 0 0;padding:14px 16px;background:#f4f4f5;border-left:3px solid ${BRAND};border-radius:4px;white-space:pre-wrap;font-size:14px;">${esc(message).replace(/\n/g, "<br>")}</div>`
+    : '<p style="margin:20px 0 0;color:#a1a1aa;font-size:13px;">(no message)</p>';
+
+  const body = [
+    '<h1 style="margin:0 0 18px;font-size:20px;line-height:1.3;">New partner lead</h1>',
+    '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;">',
+    rows,
+    "</table>",
+    messageHtml,
+  ].join("");
+
+  const who = headerSafe(name);
+  const org = headerSafe(organization);
+
+  return {
+    subject: org ? `New partner lead: ${who} (${org})` : `New partner lead: ${who}`,
+    html: shell(body, "Sent by Certidemy because a contact form was submitted on certidemy.com."),
+    fromName: "Certidemy",
+  };
+}
+
 export function render(
   templateKey: string,
   locale: Locale,
@@ -203,6 +326,10 @@ export function render(
   switch (templateKey) {
     case "issuance.credential":
       return renderIssuance(locale, payload);
+    case "lead.received":
+      // Locale is deliberately ignored: this mail always goes to one internal
+      // inbox and is always English. See the note above renderLeadReceived.
+      return renderLeadReceived(payload);
     default:
       throw new Error(`unknown template_key: ${templateKey}`);
   }
