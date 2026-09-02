@@ -47,6 +47,15 @@ export type Stage =
   | "never_activated";
 
 export interface Enrollment {
+  /**
+   * The certification's uuid. The console People drill-down needs it to call
+   * get-user-cert-overview, which keys on { user_id, certification_id }.
+   *
+   * `code` is the human handle and is what the certified/credentialId lookups
+   * below key on; this is the join key. They are not interchangeable -- a code
+   * is stable-by-convention, an id is stable by constraint.
+   */
+  certificationId: string;
   code: string;
   name: string;
   source: string; // self | voucher | seat | admin
@@ -214,18 +223,19 @@ export async function buildCensus(svc: ServiceClient): Promise<Census> {
   {
     const { data: ucs, error } = await svc
       .from("user_certifications")
-      .select("user_id, source, status, certifications(code, name)")
+      .select("user_id, source, status, certifications(id, code, name)")
       .in("user_id", idFilter);
     if (error) throw new Error(`user_certifications: ${error.message}`);
     for (const r of (ucs ?? []) as unknown as {
       user_id: string;
       source: string;
       status: string;
-      certifications: { code: string; name: string } | null;
+      certifications: { id: string; code: string; name: string } | null;
     }[]) {
       if (!r.certifications) continue; // cert hard-deleted; skip nameless row
       const list = enrollmentsByUser.get(r.user_id) ?? [];
       list.push({
+        certificationId: r.certifications.id,
         code: r.certifications.code,
         name: r.certifications.name,
         source: r.source,
