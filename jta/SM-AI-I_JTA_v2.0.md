@@ -55,18 +55,45 @@ This document was authored when SM-I was conceived as **preparation for an exter
 
 \---
 
-## Exam facts (verified)
+## Exam facts — SUPERSEDED, read `jta/SM-AI-I_JTA_generated.md`
+
+**The table that stood here was headed "(verified)" and was wrong in five of
+eight rows.** It is not patched, because patching would put the same numbers in
+two places again and that is exactly how it went stale. **The database is the
+source; `scripts/gen-jta-doc.mjs` renders it.**
+
+What it claimed, against the live database on 2026-09-01:
+
+| it said | live |
+|-|-|
+| Questions **40** | **80** |
+| Duration **60 minutes** | **120 minutes** |
+| Passing score 80% **(32/40 correct)** | 80% **(64/80)** |
+| Attempts **1 included; retake purchasable** | `max_exam_attempts` **6**, `attempt_window_months` **12** |
+
+The pass *percentage* was right and the ratio was not, which is the shape a
+half-correct table takes: 80% has been the locked standard throughout, so the
+number nobody had to change is the number that stayed right.
+
+Named rather than deleted so a reader who remembers 40/60 knows those figures
+were wrong, not merely removed.
+
+## Exam facts NOT held in the database
+
+These four are human judgment `gen-jta-doc.mjs` cannot reconstruct and the
+generated JTA deliberately does not carry. They are kept here, which is the
+right home for them, and they are NOT rendered from any query:
 
 |Attribute|Value|
 |-|-|
-|Format|Multiple choice, online|
-|Questions|40|
-|Duration|60 minutes|
-|Passing score|80% (32/40 correct)|
 |Open/closed book|Closed book|
-|Attempts|1 included; retake purchasable|
 |Source material|2020 Scrum Guide, Agile Manifesto, Agile Alliance Glossary, *Essential Scrum* (Kenneth Rubin)|
-|Languages offered|English, Spanish, Portuguese, others|
+|Format note|Single answer; no multi-select|
+|Languages offered|English, es-419, pt-BR|
+
+**"Languages offered" previously read "English, Spanish, Portuguese, others".
+There is no "others"** — the platform serves exactly three locales, and an
+unbounded availability claim is a Class D overclaim under `CLAIMS-POLICY.md`.
 
 \---
 
