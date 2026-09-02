@@ -185,7 +185,7 @@ dashboard that displays it. **They cannot drift, because they are the same query
 hand-edit a blueprint, and the gate fails.
 
 **What broke:** four JTAs carried a free-standing *"Bloom's Taxonomy distribution (MCQ
-target)"* table, inherited from `SMPC_JTA_v2.md` — written when Certidemy was an
+target)"* table, inherited from an earlier JTA — written when Certidemy was an
 exam-**prep** product for an external Scrum exam, where it was a **marketing claim**
 (*"we place 50% at Apply/Analyze so learners over-prepare"*). Carried into an
 own-credential JTA it became a second, competing declaration of cognitive level,

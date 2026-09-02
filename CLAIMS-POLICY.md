@@ -416,7 +416,7 @@ The first sentence alone is what let two live violations through.
 ## 8. Open items
 
 **The `home.philosophy` block is unreviewed and still live.** It names PSM I and
-SMPC, compares their scoring weights with no source — Class D — and says lessons
+compares scoring weights with no source — Class D — and says lessons
 are tuned to "whichever exam your employer recognizes", which positions
 Certidemy as preparation for other people's certifications. Combined with two
 competing hero headline sets in the same namespace, it appears to be copy from

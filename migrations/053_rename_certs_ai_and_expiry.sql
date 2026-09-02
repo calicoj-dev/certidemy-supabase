@@ -1,7 +1,7 @@
 -- 053_rename_certs_ai_and_expiry.sql
 --
 -- (1) Rebrand both live certs onto the AI line. The "AI" in the name is a
---     competitive differentiator against non-AI Scrum certs (PSM I, SMPC) —
+--     competitive differentiator against non-AI Scrum certs —
 --     these certs weave AI through every domain AND test it (see migration 052),
 --     so the credential criteria back the name.
 --       code  SM-I  -> SM-AI-I    name -> "Scrum Master I — AI"

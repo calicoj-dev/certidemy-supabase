@@ -5,7 +5,7 @@
 -- on duplicate tables/columns. For a fresh start, run after a clean DB reset.
 --
 -- Sections:
---   1. Schema fixes (SMPC passing score 70 -> 80)
+--   1. Schema fixes (SM-AI-I passing score 70 -> 80)
 --   2. JTA tables (domains, tasks, task_concepts)
 --   3. Quiz question additions (bloom_level, is_exam_scope, task_id)
 --   4. Lesson sectioning (lesson_sections, lesson task mapping)
@@ -14,7 +14,7 @@
 --   7. Simulation scaffolding (Phase 2)
 --   8. Translation grouping (lesson_group_id)
 --   9. RLS policies for new tables
---  10. Seed data: 5 domains and 34 tasks for SMPC
+--  10. Seed data: 5 domains and 44 tasks for SM-AI-I
 --  11. Seed data: new concepts identified in JTA v2
 --  12. Seed data: link tasks to concepts
 -- =============================================================================
@@ -23,7 +23,7 @@
 -- -----------------------------------------------------------------------------
 -- 1. Schema fixes
 -- -----------------------------------------------------------------------------
--- SMPC actually requires 80% (32/40) to pass -- verified from the published program.
+-- SM-AI-I actually requires 80% (32/40) to pass -- verified from the published program.
 -- Our initial schema had 70%. Fix it.
 update public.certifications
 set passing_score_pct = 80.00
@@ -308,7 +308,7 @@ create policy "team_admin read simulation_attempts" on public.simulation_attempt
 
 
 -- =============================================================================
--- 10. Seed data: domains for SMPC
+-- 10. Seed data: domains for SM-AI-I
 -- =============================================================================
 -- Using fixed UUIDs so future migrations / seeds can reference them stably.
 
@@ -443,7 +443,7 @@ insert into public.concepts (certification_id, slug, name, description) values
 
 
 -- =============================================================================
--- 12. Seed data: 34 tasks for SMPC
+-- 12. Seed data: 44 tasks for SM-AI-I
 -- =============================================================================
 
 -- Convenience macro for domain UUIDs.

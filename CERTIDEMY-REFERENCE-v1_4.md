@@ -109,8 +109,8 @@ switcher / bottom-bar derive the cert FROM THE URL.
   (immersive), `quiz\history\`, `exam\` (Simulator + Cert tabs), `tutor\`,
   `blueprint\`, `module\[module]\`, `[lesson]\`.
 - `components\lessons\lesson-container.tsx` + `review-mode.tsx` — take the cert code
-  from resolved `certMeta.code`, NOT front-matter `certification_code` (which is
-  still stale "SMPC"/"SPO-I" in some lessons — see HANDOFF debt item).
+  from resolved `certMeta.code`, NOT front-matter `certification_code`, which is
+  stale in some lessons.
 - `lib\engine\` — FOLDER; `sessions.ts` has **`fetchConceptPractice`** (concept
   slugs → `concepts(id)` → `question_concepts(question_id)` → `quiz_questions`).
   **It does NOT filter by `pool`** (a `pool='practice'` filter is pending
@@ -124,9 +124,7 @@ Top-level `app\[locale]\console\` (own dark layout). Gated by `lib\console\
 access.ts`. All 15 console files now use the magenta accent tokens (was blue
 `#5b9dff`); status colors stay semantic (amber pending/expiring, green active/
 healthy, red revoked/below-threshold). Pages: `console\page.tsx`,
-`companies\[id]\`, `credentials\`, `seats\`, `people\`, `audit\`. `lib\team\
-data.ts` still has **`SMPC_CERT_ID`** = the SM-AI-I UUID (invisible legacy
-constant name).
+`companies\[id]\`, `credentials\`, `seats\`, `people\`, `audit\`.
 
 ---
 

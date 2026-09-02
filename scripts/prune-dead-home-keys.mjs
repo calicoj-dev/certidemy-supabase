@@ -29,7 +29,7 @@
  *   reviewer who finds a third of their work pointless starts skimming, and
  *   skimming is how the next claim slips through.
  *
- *   `philosophy*` contains the PSM I / SMPC scoring-weight comparison - an
+ *   `philosophy*` contains a scoring-weight comparison - an
  *   unsourced Class D claim under CLAIMS-POLICY, and the last known one in the
  *   codebase. Dead code that makes claims is a landmine: one re-wire and it is
  *   live again. Deleting it closes the CLAIMS-POLICY §8 open item permanently

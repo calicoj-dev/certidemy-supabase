@@ -190,7 +190,7 @@ the published claim and the item bank cannot silently diverge.
 
 3. **The reconciled profile lands close to the old "target" table on Remember and
    Understand, and far from it on Apply/Analyze.** The old table was not absurd — it was
-   *unvalidated*. It was inherited from `SMPC_JTA_v2.md`, written when Certidemy was an
+   *unvalidated*. It was inherited from an earlier JTA, written when Certidemy was an
    exam-prep product for an external Scrum exam, where it was a marketing claim (*"we place 50%
    at Apply/Analyze so learners over-prepare"*). Carried into an own-credential JTA it
    became a second, competing declaration of cognitive level, reconciled with nothing.

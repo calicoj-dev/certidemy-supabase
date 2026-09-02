@@ -72,25 +72,29 @@
 --       nothing in the database. ITS FULL BEFORE/AFTER MAPPING IS RECORDED
 --       BELOW so that 003's current strings remain verifiable without it.
 --
---   016_scrub_vendor_references_lessons.sql   RETAINED
+--   016_scrub_vendor_references_lessons.sql   *** DELETED 2026-09-02 ***
 --       lessons.content_md and one lessons.title, in ALL THREE LANGUAGES --
---       en, es-419, pt-BR -- as three separate localized statements.
+--       en, es-419, pt-BR -- as three separate localized statements. IT HAD
+--       ALREADY RUN; deleting the file changed nothing in the database.
 --
---       016 IS KEPT AND THE REASON IS MECHANICAL, NOT SENTIMENTAL. Its
---       replacement strings contain 45 non-ASCII characters -- accented
---       Spanish and Portuguese -- and this file is ASCII-only per
---       CERT-SCHEMA-GUIDE section 8. The localized mapping CANNOT be moved
---       here without accent-stripping it, which would record strings that
---       never existed and match nothing. That is the mojibake failure
---       CLAUDE.md warns about, manufactured on purpose.
+--       THIS PARAGRAPH USED TO SAY 016 WAS RETAINED, and gave the reason:
+--       its replacement strings carry 45 non-ASCII characters -- accented
+--       Spanish and Portuguese -- which cannot be moved into this ASCII-only
+--       file without accent-stripping them into strings that never existed.
+--       That reasoning was correct and the decision was reversed anyway.
 --
---       It also costs nothing to keep: 016 touches `lessons`, which 003 does
---       not seed. Nothing in 003 depends on it.
+--       SO THE LOCALIZED MAPPING IS NOT RECORDED ANYWHERE IN THE WORKING
+--       TREE. It survives only in git history, at 016 before its deletion.
+--       Nothing in 003 depended on it -- 016 touched `lessons`, which 003
+--       does not seed -- so no claim made in this file rests on it. But a
+--       future reader asking "what exact Spanish phrase became what" has to
+--       go to the history, and this paragraph is the pointer that tells them
+--       the history is where to look.
 --
---       Note 016 also replaces references to Scrum.org. That is a different
---       body from the vendor masked here, it is cited deliberately by
---       TERMINOLOGY-POLICY.md rule 6 as a translation authority, and it is
---       left NAMED in 016 rather than masked.
+--       016 also replaced references to Scrum.org, left NAMED there rather
+--       than masked: a different body from the vendor masked here, cited
+--       deliberately by TERMINOLOGY-POLICY.md rule 6 as a translation
+--       authority.
 --
 -- VERIFIED CLEAN 2026-09-01. Zero rows across six columns:
 --
@@ -150,8 +154,9 @@
 -- All three were verified byte-identical between 003 and live on 2026-09-01,
 -- along with the other 83 concepts 003 seeds.
 --
--- THE LESSON MAPPING IS NOT REPRODUCED HERE. It is in 016, which is retained
--- for exactly that reason -- see above.
+-- THE LESSON MAPPING IS NOT REPRODUCED HERE, and after 016's deletion on
+-- 2026-09-02 it is not in the working tree at all. Git history at 016 is the
+-- only copy -- see above.
 --
 -- ---------------------------------------------------------------------------
 -- SUBJECT 2: THE TWO TASK STATEMENTS, AND THE CHAIN IS COMPLETE.

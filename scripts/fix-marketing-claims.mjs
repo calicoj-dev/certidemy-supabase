@@ -46,7 +46,7 @@
  *     Portuguese sites - an entire landing-page section, in the primary market.
  *
  * NOT TOUCHED, AND IT NEEDS A DECISION. The `philosophy` block names PSM I and
- * SMPC, compares their scoring weights with no source, and says lessons are
+ * compares scoring weights with no source, and says lessons are
  * tuned to "whichever exam your employer recognizes". That is Class D on the
  * weights, and it positions Certidemy as preparation for other people's
  * certifications, which contradicts the rest of the page. Combined with two

@@ -50,7 +50,7 @@ Four of the five JTAs contain a section titled **"Bloom's Taxonomy distribution 
 target)"** — a free-standing table asserting a percentage mix of items across Bloom
 levels. For example, SM-AI-I: *15% Remember / 35% Understand / 35% Apply / 15% Analyze.*
 
-That table originated in `SMPC_JTA_v2.md` (May 2026), written when Certidemy was an
+That table originated in an earlier JTA (May 2026), written when Certidemy was an
 **exam-prep product for an external Scrum exam**. There, the table was a marketing claim about
 our *practice* material: *"By placing 50% of questions at Apply/Analyze, learners
 over-prepare for the actual exam. Train to a higher standard than the test."* For a prep

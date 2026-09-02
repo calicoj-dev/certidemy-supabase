@@ -188,7 +188,7 @@ three languages, forbidden formulations, review procedure.
 - `home.heroSubhead` said most certifications pretend AI doesn't exist. Removed.
 - "Built on the work nobody else does" and "An AI tutor that can't hallucinate"
   replaced with claims that survive scrutiny.
-- 37 superseded `home` keys pruned, including the PSM I / SMPC scoring-weight
+- 37 superseded `home` keys pruned, including the scoring-weight
   comparison — the last unsourced competitor claim in the repo.
 
 **Two lessons are recorded in §7.1.** A vocabulary sweep found nothing while the

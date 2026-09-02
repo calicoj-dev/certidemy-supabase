@@ -91,7 +91,7 @@ status: draft                                               # draft | review | p
 |---|---|---|
 | `lesson_id` | string | kebab-case, globally unique, immutable once published |
 | `module_slug` | string | references a module (`modules.slug` column we'll add) |
-| `certification_code` | string | `SM-AI-I`, `AIE-I`, etc. (`SMPC` is SM-AI-I's legacy code and survives only in content paths) |
+| `certification_code` | string | `SM-AI-I`, `AIE-I`, etc. |
 | `title` | string | shown as the lesson header |
 | `subtitle` | string? | optional, shown smaller below title |
 | `language` | enum | `en`, `es-419`, or `pt-BR` |
@@ -869,7 +869,7 @@ The original group also drafted the **Twelve Principles** that elaborate on the 
 ::concept title="From Manifesto to Scrum"
 Scrum is one **implementation** of Agile thinking, not the only one. Other Agile methods exist (Kanban, XP, Lean software development) and a healthy Scrum team often borrows practices from them.
 
-For the SMPC exam, you don't need to memorize the relationships between Agile methods. You need to know:
+For the SM-AI-I exam, you don't need to memorize the relationships between Agile methods. You need to know:
 - Scrum is Agile (predates the Manifesto by 6 years, but aligns with it)
 - The Manifesto explains *why* Scrum looks the way it does
 - A team can be "doing Scrum" without being Agile if they follow the rituals but miss the values
@@ -936,7 +936,7 @@ A team that holds all the Scrum events on schedule but doesn't talk to users, do
 - The Agile Manifesto is four values and twelve principles, drafted in 2001.
 - The items on the LEFT of each value statement are prioritized over the items on the right — but the right side isn't worthless.
 - Scrum predates the Manifesto but aligns with it; Scrum without Agile values is "Scrum theater."
-- For SMPC: know the four values and their order.
+- For SM-AI-I: know the four values and their order.
 ::
 ```
 

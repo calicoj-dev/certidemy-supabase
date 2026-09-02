@@ -27,7 +27,7 @@
 **Status:** Locked. This is the basis for content production.
 **Certification:** Certidemy Scrum Master I (SM-I) — proprietary, issued by Certidemy
 **Authority:** 2020 Scrum Guide (Schwaber \& Sutherland) — primary
-**Last updated:** June 18, 2026 (v2.1 — renamed SMPC→SM-I, reframed issuer to Certidemy, terminology drift made provider-neutral; D6 reconcile still pending)
+**Last updated:** June 18, 2026 (v2.1 — renamed to SM-I, reframed issuer to Certidemy, terminology drift made provider-neutral; D6 reconcile still pending)
 
 \---
 
