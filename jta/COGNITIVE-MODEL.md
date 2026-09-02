@@ -51,7 +51,7 @@ target)"** — a free-standing table asserting a percentage mix of items across 
 levels. For example, SM-AI-I: *15% Remember / 35% Understand / 35% Apply / 15% Analyze.*
 
 That table originated in `SMPC_JTA_v2.md` (May 2026), written when Certidemy was an
-**exam-prep product for CertiProf's SMPC**. There, the table was a marketing claim about
+**exam-prep product for an external Scrum exam**. There, the table was a marketing claim about
 our *practice* material: *"By placing 50% of questions at Apply/Analyze, learners
 over-prepare for the actual exam. Train to a higher standard than the test."* For a prep
 product aimed at someone else's exam, that was a perfectly reasonable thing to say.

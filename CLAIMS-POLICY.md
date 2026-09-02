@@ -160,25 +160,27 @@ verification date, six-month ageing. This section adds the part Class B does
 not cover — WHERE such a claim may appear.
 
 **Permitted: competitive and market analysis.** A BOK, a readiness document, a
-scheme rationale. `BOK-ISMS-F.md` is the worked example — CertiProf, PECB, APMG
-and EXIN in one sourced table, two rows marked "INDICATIVE, not usable
-externally". That marking is the discipline, not the naming.
+scheme rationale — where the claim is sourced, dated and falsifiable, and where
+rows that are not usable externally are **marked as such in the table itself**.
+That marking is the discipline, not the naming.
 
 **Not permitted: marketing copy, app chrome, lesson content, lesson templates,
 or any worked example an author copies from.** A competitor's name in a template
 propagates into every cert built from it, and nobody re-decides it on the way.
 
 **THE RED LINE IS AN IDENTITY OR EQUIVALENCE CLAIM ON A USER-FACING SURFACE,
-NOT THE MENTION.** "CertiProf issues 3 years; we issue 365 days" is a checkable
+NOT THE MENTION.** "They issue 3 years; we issue 365 days" is a checkable
 comparison. "Equivalent to X" or "recognised by X" is Class D and stays Class D
 whether or not the name appears. Removing a name from a sentence that implies
 equivalence does not fix it.
 
-**A citation that justifies one of OUR decisions must stay.** Where a
-competitor's published parameter is the stated basis for a scheme term, deleting
-the name strands the decision with no justification and invites someone to
-re-litigate it from nothing. `BOK-ISMS-F.md` sets our 80% threshold as "matching
-CertiProf, exceeding PECB's 70%" — that sentence is load-bearing.
+**A citation that justifies one of OUR decisions must stay — or the decision
+must be re-grounded.** Where a competitor's published parameter is the stated
+basis for a scheme term, deleting the name strands the decision and invites
+someone to re-litigate it from nothing. **If the citation is removed, the
+parameter must be explicitly marked as pending standard-setting, or carry a
+dated market-research reference, rather than being left bare. A NUMBER WITH NO
+JUSTIFICATION IS WORSE THAN ONE WITH A COMPETITOR'S.**
 
 **Scrubbing is for rendered surfaces.** A vendor-name scrub removed competitor
 names from lessons and concepts, and the database is clean (verified

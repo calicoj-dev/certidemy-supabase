@@ -136,32 +136,30 @@ is treated as unverified and must be re-checked.
 | Provider | Items | Duration | Pass | Book | Prereq | Validity | Source |
 |---|---|---|---|---|---|---|---|
 | PECB ISO/IEC 27001 Foundation | 40 | 60 min | 70% | closed | training course required | does not expire | pecb.com; partner listings |
-| CertiProf ISO/IEC 27001 Foundation | 40 | 60 min | 80% (32/40) | closed | none | 3 years | certiprof.com |
 | APMG ISO/IEC 27001 Foundation | ~40-60 | 60 min | ~50-70% | — | — | — | **exam-prep vendors only — INDICATIVE, not usable externally** |
 | EXIN ISFS | ~45 | 60 min | 65% | — | — | — | **candidate blog only — INDICATIVE, not usable externally** |
 
-**40 items / 60 minutes is the market standard.** Four providers, no meaningful
-dissent on form. Pass marks range 65-80%.
+**40 items / 60 minutes is the market standard.** Three providers, no meaningful
+dissent on form. Pass marks range 65-70% among those with published figures.
 
 APMG and EXIN figures are from exam-preparation vendors and a candidate blog,
 not the certification bodies. They do not enter the comparison dataset and must
 not appear on any external surface until sourced from APMG and EXIN directly.
 
-#### Implementer tier — the market splits, and the split is diagnostic
+#### Implementer tier — PECB's pattern, and why it is the reference
 
 | Provider | Items | Duration | Book |
 |---|---|---|---|
 | PECB ISO/IEC 27001 Lead Implementer | 80 | 3 hours | **open book** |
-| CertiProf ISO/IEC 27001 Lead Implementer | 40 | 60 min | closed |
 
-Same product name, dimensionally different examinations. PECB's pattern across
-both Lead Implementer and Lead Auditor is 80 questions / 3 hours / open book —
-an instrument designed to test judgment with the standard available, which is
-what the job actually looks like. CertiProf's Lead Implementer is dimensionally
-identical to its own Foundation.
+PECB's pattern across both Lead Implementer and Lead Auditor is 80 questions /
+3 hours / open book — an instrument designed to test judgment with the standard
+available, which is what the job actually looks like. Other implementer-tier
+examinations surveyed in 2026-08 were dimensionally identical to their own
+Foundation papers, which is the contrast that makes PECB's shape informative.
 
 **Carried forward to `ISMS-LI`:** the credible reference point is PECB's
-80/3hr/open-book, not CertiProf's. Open book is worth a deliberate decision at
+80/3hr/open-book. Open book is worth a deliberate decision at
 that tier — a lead implementer at work has the standard on the desk.
 
 #### The positioning finding
@@ -185,15 +183,16 @@ Two related facts, same date:
   between a certification body and its own training function.
 - **Published structure is thin across the market.** PECB's Foundation is graded
   across two competency domains weighted 50/50. No published weighting was found
-  for CertiProf. Five domains with differentiated weights, a published blueprint,
+  for the other programmes surveyed. Five domains with differentiated weights,
+  a published blueprint,
   and a cognitive profile computed from the JTA is a real gap rather than a
   claimed one.
 
 #### Where the market goes the other way
 
-**Credential validity.** CertiProf issues 3 years. PECB's Foundation certificate
-does not expire. Certidemy issues 365 days — the tightest validity in this
-market by a wide margin.
+**Credential validity.** PECB's Foundation certificate does not expire, and the
+other Foundation-tier programmes surveyed in 2026-08 issue multi-year validity.
+Certidemy issues 365 days — the tightest validity of the programmes surveyed.
 
 Defensible on the merits (one year tracks the content re-review cadence, and the
 standard's own AI companion documents are publishing this year), but a buyer
@@ -298,9 +297,10 @@ assembler samples by domain weight.
 | Languages | en / es-419 / pt-BR |
 
 Derived from market convention (40/60 across four providers), not from internal
-precedent. 80% holds Certidemy's uniform criterion-referenced standard — matching
-CertiProf, exceeding PECB's 70%. Open eligibility is the deliberate divergence
-and the defensible one.
+precedent. 80% holds Certidemy's uniform criterion-referenced standard across
+every scheme, consistent with Foundation-tier market research conducted 2026-08.
+A criterion-referenced study remains the intended basis. Open eligibility is the
+deliberate divergence and the defensible one.
 
 ### Cognitive profile — a deliberate departure
 

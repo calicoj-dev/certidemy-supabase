@@ -59,7 +59,7 @@ book / en - es-419 - pt-BR.
 
 See `BOK-ISMS-F.md` v0.3 section 3. Triangulated from ISO/IEC 27001:2022 +
 Amd 1:2024 and the 27000 family (primary, normative); market consensus across
-PECB, CertiProf, APMG and EXIN Foundation examinations, collected and dated
+PECB, APMG and EXIN Foundation examinations, collected and dated
 4 August 2026; and published AI-era security practice - OWASP Top 10 for LLM
 Applications, OWASP Top 10 for Agentic Applications 2026, OWASP MCP Top 10,
 MITRE ATLAS, the NIST adversarial ML taxonomy, and NCSC/CISA secure AI guidance.

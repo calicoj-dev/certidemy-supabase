@@ -34,15 +34,15 @@
 
 ## Design decisions (why this JTA looks the way it does)
 
-1. **AI is woven through the domains, not isolated.** Unlike SM-I (where AI became a bolted-on 6th domain, D6), SPO-I designs AI into the blueprint from line one — AI-augmented competencies live *inside* the relevant role domains. This mirrors the market leader we're aligning to (CertMind's "Scrum Product Owner – Inteligencia Artificial"), and it's more honest: an AI-ready Product Owner *uses* AI inside backlog and value work; it isn't a separate skill. **11 of the 44 tasks are AI-integrated, spread across all 5 domains.**
+1. **AI is woven through the domains, not isolated.** Unlike SM-I (where AI became a bolted-on 6th domain, D6), SPO-I designs AI into the blueprint from line one — AI-augmented competencies live *inside* the relevant role domains. This mirrors the AI-native Product Owner programmes we align to, and it's more honest: an AI-ready Product Owner *uses* AI inside backlog and value work; it isn't a separate skill. **11 of the 44 tasks are AI-integrated, spread across all 5 domains.**
 
-2. **Alignment target is the AI-native CertMind blueprint, not CertiProf's traditional SPOPC.** CertiProf's SPOPC contains zero AI content; CertMind's is AI-native and is the model Certidemy is emulating. We cover CertMind's topic blueprint, structured at our finer task granularity.
+2. **Alignment target is an AI-native Product Owner blueprint, not a traditional SPOPC syllabus.** Traditional Product Owner syllabi contain zero AI content; the AI-native model is what Certidemy is emulating. We cover that topic blueprint, structured at our finer task granularity. The market research behind this comparison has no recorded verification date.
 
-3. **We train to a higher standard than the test.** CertMind's PO exam is 60Q, 70% pass, Bloom capped at L3 (62% sits at L2). We keep Certidemy's standard: **80% pass, Bloom ceiling 4 (Analyze)**, with ~50% of items at Apply/Analyze. (80% is the locked standard across all "I"-tier certs — rigorous but accessible for a first-level credential, and consistent brand-wide.)
+3. **We train to a higher standard than the test.** Comparable Product Owner examinations sit lower on both dimensions — fewer items, a lower pass mark, and a Bloom ceiling at L3. We keep Certidemy's standard: **80% pass, Bloom ceiling 4 (Analyze)**, with ~50% of items at Apply/Analyze. (80% is the locked standard across all "I"-tier certs — rigorous but accessible for a first-level credential, and consistent brand-wide.) The market research behind the comparison has no recorded verification date.
 
 4. **Bloom 5–6 reserved for AI simulations (Phase 2)**, never MCQ-tested — same as SM-I. Simulation candidates are flagged inline.
 
-5. **Single-answer MCQ + scenario items only. No multi-select** — matches how both CertMind and CertiProf actually test, and matches the Certidemy practice/exam engine.
+5. **Single-answer MCQ + scenario items only. No multi-select** — matches how comparable programmes actually test, and matches the Certidemy practice/exam engine.
 
 ---
 
@@ -90,7 +90,7 @@ Each task carries an attribute line (Domain, Criticality, Frequency, Bloom level
 
 ### Rationale
 
-- **Domains 4 + 5 carry 57.5% together** because backlog and value *are* the Product Owner role — the inverse of SM-I, where Events led. This matches CertMind's own distribution, where product management is roughly half the syllabus.
+- **Domains 4 + 5 carry 57.5% together** because backlog and value *are* the Product Owner role — the inverse of SM-I, where Events led. This matches the distribution in comparable AI-native Product Owner programmes, where product management is roughly half the syllabus. The market research behind this comparison has no recorded verification date.
 - **Domain 4 (Backlog & Spec-Driven Development) is the single heaviest at 30%** — it is the core daily craft and the home of the signature AI competency (stories as agent-executable specifications).
 - **Domain 5 (Vision, Value, Roadmap & Strategy) at 27.5%** — the strategic half of the role, and where "why strategic vision matters more in the AI era" lands.
 - **Domain 1 (Foundations) is light at 12.5%** — a PO needs empiricism and the agile "why," but is tested on it less directly than on the craft.

@@ -33,12 +33,12 @@
 
 ## ⚠ Reconcile note (v2.1)
 
-This document was authored when SM-I was conceived as **CertiProf SMPC exam prep**. Two gaps remain that a rename alone does not close:
+This document was authored when SM-I was conceived as **preparation for an external Scrum exam**. Two gaps remain that a rename alone does not close:
 
 1. **D6 (AI / agentic Scrum) is NOT documented here.** The live database carries a **6th domain, D6**, added after this JTA was authored (~7 tasks on AI-augmented Scrum Mastery). This doc still describes the original **5 domains / 44 tasks**. Reconciling requires pulling D6's actual tasks + concepts from the DB and appending them — it should not be reconstructed from memory. **Until then, treat the domain/task counts below as the pre-D6 baseline, not the current DB state.** (For comparison, the newer SPO-I cert weaves AI through all domains rather than isolating it — the preferred model going forward.)
-2. **Exam facts are stale.** The "Exam facts" table below reads **40 questions / 80% / 60 min** — those are the *original CertiProf SMPC* numbers this JTA was authored against. The live Certidemy SM-I cert is **80 questions / 85% pass / 60 min** (per the DB). Treat the table as historical; the DB is canonical.
+2. **Exam facts are stale.** The "Exam facts" table below reads **40 questions / 80% / 60 min** — those are the *original external exam* numbers this JTA was authored against, and the market research behind them has no recorded verification date. **[STALE 2026-09-01: the figures this note gives for the live cert are ALSO wrong. It said 80 questions / 85% pass / 60 min; the database reads 80 / 80.00% / 120 min. Do not read either set of numbers here as current: regenerate `jta/SM-AI-I_JTA_generated.md` and read that.]** Treat the table as historical; the DB is canonical.
 
-3. **Exam-target positioning.** SM-I is now a Certidemy-issued proprietary credential (`provider='Certidemy'`). Terminology-drift content has been made provider-neutral (legacy Scrum materials vs. the 2020 Guide). If SM-I is still specifically intended to prep for **CertiProf's** external exam, the exam-target framing should be restored — that is a strategic decision, not a doc cleanup.
+3. **Exam-target positioning.** SM-I is now a Certidemy-issued proprietary credential (`provider='Certidemy'`). Terminology-drift content has been made provider-neutral (legacy Scrum materials vs. the 2020 Guide). If SM-I is still specifically intended to prep for **an external exam**, the exam-target framing should be restored — that is a strategic decision, not a doc cleanup.
 
 \---
 

@@ -77,7 +77,7 @@ The BoK is triangulated from three independent sources that converge on the same
 1. **Market consensus (what peers certify).** AWS Certified AI Practitioner
    (AIF-C01) — Fundamentals of AI/ML, Fundamentals of Generative AI, Applications of
    Foundation Models, Guidelines for Responsible AI, Security/Compliance/Governance.
-   CertiProf AIFPC — explicitly for non-technical professionals; "understand, evaluate,
+   A comparable non-technical AI foundation credential — "understand, evaluate,
    and use AI tools safely, ethically, and effectively," including detecting
    hallucinations, privacy basics, and responsible use. Our 3-domain shape is the
    non-technical distillation of this shared consensus.
@@ -141,8 +141,8 @@ catalog.
   Remember/Understand territory.
 * **Domain 2 (Working with GenAI) at 36%** because prompts, capabilities/limitations,
   and output verification are the daily hands-on reality for the target audience —
-  and where market peers (AWS "Fundamentals of GenAI", CertiProf prompt/hallucination
-  content) put heavy weight.
+  and where market peers (AWS "Fundamentals of GenAI", and comparable
+  prompt/hallucination content elsewhere) put heavy weight.
 * **Domain 3 (Responsible & Safe Use) at 24%** — smaller but non-negotiable. This is
   the Article 4 bridge and the on-ramp to AIGRM-I. Kept lean so AIE-I stays *literacy*,
   not *governance*, while still covering privacy, bias, oversight, and policy awareness.
@@ -600,8 +600,9 @@ do not let them drift to other tasks at scaffold time.)
 
 ## Resolved decisions (Grok review, 9.4/10)
 
-1. **Coverage gap check** — *No material gaps.* Covers everything CertiProf AIFPC, AWS
-   AI Practitioner (non-technical slices), Google AI Essentials, and the EU literacy
+1. **Coverage gap check** — *No material gaps.* Covers everything comparable
+   non-technical AI credentials, AWS AI Practitioner (non-technical slices),
+   Google AI Essentials, and the EU literacy
    definition expect. Nothing is fluff. **Keep all 16 tasks.**
 2. **Domain 1 vs 2 weight (40/36)** — **Keep.** At literacy level, vocabulary and mental
    model (D1) is the foundation; D2 is already strong.

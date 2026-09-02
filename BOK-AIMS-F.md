@@ -52,14 +52,10 @@ own accreditation.*
 
 ### 2.1a The Foundation tier is unaccredited but NOT empty
 
-**CertiProf already ships the full 42001 ladder in Spanish** — verified 2026-08-06:
-
-| Credential | Note |
-|---|---|
-| ISO 42001 Foundation (`I42001F`) | Market guides place it at $150–300 |
-| ISO 42001 AI Governance Fundamentals (`I42001AIGF`) | **Exam is free**; you pay only for the certificate and badge |
-| ISO 42001 Internal Auditor (`I42001IA`) | |
-| ISO 42001 Lead Auditor (`I42001LA`) | Launched 18 June 2026, en + es, via their ATP network. 60 min / 40 items |
+**At least one competitor already ships a full 42001 ladder in Spanish** —
+four rungs including Foundation, Internal Auditor and Lead Auditor, en + es via
+an ATP network. Verified 2026-08-06; provider detail removed. **Re-verify before
+any comparative copy.**
 
 Not a competitor to discover later.
 
@@ -119,11 +115,11 @@ Revised after the §2.1a competitive check. In descending order of durability:
 
 ### STRUCK — do not use these as differentiators
 
-- ~~**Trilingual, LATAM-first delivery.**~~ Partly matched: CertiProf ships en + es
-  through an ATP network. **pt-BR at full parity may still be a genuine gap — but it
-  is UNVERIFIED and must not be claimed until checked.**
-- ~~**Free courseware.**~~ "Free" alone is no longer a sentence: CertiProf gives the
-  *exam* away and charges for the badge. Certidemy gives the *courseware* away and
+- ~~**Trilingual, LATAM-first delivery.**~~ Partly matched: at least one competitor
+  ships en + es through an ATP network. **pt-BR at full parity may still be a
+  genuine gap — but it is UNVERIFIED and must not be claimed until checked.**
+- ~~**Free courseware.**~~ "Free" alone is no longer a sentence: a competitor gives
+  the *exam* away and charges for the badge. Certidemy gives the *courseware* away and
   charges for the exam. **Ours is the better shape for a university channel** — a
   convenio can put the whole course in front of a cohort at no cost — but the
   argument must be made on that specific shape, never on the word *free*.
@@ -360,7 +356,7 @@ Every one of these exists because something went wrong first. All apply here.
 | ISO/IEC 42005 / 5338 / 23894 / 22989 | **Verified and locked 2026-08-06** | Before publish |
 | **ISO/IEC 22989 Amendment 1 (generative AI)** | Medium. Under development. Would change the terminology baseline | Before lock; every 6 months |
 | Accredited 42001 personnel schemes | Medium. PECB accredited at LI; Foundation tier unaccredited | Before any claim copy ships |
-| **CertiProf's 42001 ladder** | **High — four rungs shipped, en + es, ATP network in LATAM.** Their pt-BR coverage is UNVERIFIED | **Before Stage 2, and before any comparative copy** |
+| **A competitor's 42001 ladder** | **High — four rungs shipped, en + es, ATP network in LATAM.** Their pt-BR coverage is UNVERIFIED | **Before Stage 2, and before any comparative copy** |
 | Brazil PL 2338 | Medium. Already a named trigger for AIHR-I Domain 2 | Same cadence |
 | Accredited 42001 certification bodies | Medium — the list is growing | Only if named in content; prefer not naming |
 

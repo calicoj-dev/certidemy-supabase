@@ -19,7 +19,7 @@ produce it; it needs a person to decide)
 | Postal address | 210 Westervelt Ave, North Plainfield, NJ 07060 | Privacy §14, Terms §14 |
 | Quién emite la certificación | RC Capital Partners LLC, trading as Certidemy | Terms §3 |
 | Quién es dueño de los esquemas | The Company; Certidemy and CertiGlobal marks | Terms §7 |
-| Qué función cumple CertiGlobal | Voucher marketplace serving multiple certification bodies, including independent ones such as CertiProf. Certidemy is one participant | Footer badge, business copy |
+| Qué función cumple CertiGlobal | Voucher marketplace serving multiple certification bodies, including independent ones. Certidemy is one participant | Footer badge, business copy |
 | Quién procesa los pagos | Shopify, using Stripe for card processing | Privacy §sub-processors |
 | Quién conserva los registros | The Company | Privacy §retention |
 | Contacto | info@certidemy.com | Everywhere |
