@@ -498,10 +498,39 @@ serve(async (req) => {
     const weakest_concepts = concept_breakdown.slice(0, 3).map((c) => c.slug);
 
     // 8. Close the session.
-    await svc
+    //
+    // THE RESULT IS INSPECTED, AND 23514 IS THE REASON. Migration 248 added
+    // quiz_sessions_reason_excludes_score, so this write physically cannot land
+    // on a session already closed with a reason -- an administrative closure,
+    // or migration 276's abandoned-session sweep. That is the constraint doing
+    // its job.
+    //
+    // Discarding the result turned that correct refusal into a lie: the row
+    // stayed closed-unscored, this function carried on, and the candidate was
+    // shown a score that was never persisted. The 409 at :160 catches the
+    // already-completed case at READ time, ~350 lines above; it cannot catch a
+    // closure that lands in between. The sweep did not create this defect, it
+    // made it reachable.
+    //
+    // BOTH FAILURE MODES THROW, because they have the same consequence:
+    //   - closeErr        the constraint rejected the write
+    //   - zero rows back  the .is() guard matched nothing, so a concurrent
+    //                     close won the race. Not an error in PostgREST, which
+    //                     is why it needs its own check -- a silent no-op is
+    //                     the same defect one layer over.
+    const { data: closedRows, error: closeErr } = await svc
       .from("quiz_sessions")
       .update({ completed_at: now.toISOString(), score_pct, passed })
-      .eq("id", body.session_id);
+      .eq("id", body.session_id)
+      .is("completed_at", null)
+      .select("id");
+
+    if (closeErr) {
+      throw new HttpError(409, `session could not be closed: ${closeErr.message}`);
+    }
+    if (!closedRows || closedRows.length === 0) {
+      throw new HttpError(409, "session was closed while scoring");
+    }
 
     // ====================================================================
     // 9. Branch: real certification exam vs simulator.

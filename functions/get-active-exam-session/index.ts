@@ -53,10 +53,39 @@
 // IS scored - the candidate was served the form and answered nothing, and 0 out
 // of 40 is the truth.
 //
-// LAZY, NOT SCHEDULED. Finalisation happens on the candidate's next
-// authenticated request rather than from a cron: no scheduler to forget, no
-// unattended service-role job. A candidate who never returns leaves a stale
-// session for the console to surface; nobody is waiting on that one.
+// TWO PATHS, DIVIDED BY ONE CUTOFF. This used to read "LAZY, NOT SCHEDULED",
+// and that stopped being true when migration 276 added the sweep.
+//
+//   UNDER 24 HOURS -- lazy. Finalisation happens on the candidate's next
+//   authenticated request, scoring what they had saved. A closed laptop or a
+//   dropped connection is still plausibly the same attempt.
+//
+//   OVER 24 HOURS -- this function REFUSES to score a mock_exam and returns
+//   { active: false, abandoned: true }. The row is left for
+//   public.sweep_abandoned_exam_sessions(), which closes it
+//   'abandoned_unscoreable' with no score, hourly on pg_cron.
+//
+// WHY THE REFUSAL EXISTS. This path had already written two fabricated
+// failures: mock_exam rows at 0.00% finalised 11.6 and 21.3 hours after their
+// sessions started. Grading three answers out of twenty-five as 12%, days
+// later, puts a result in a permanent record that the candidate never
+// submitted. Migration 248 named that risk; 276 built the alternative.
+//
+// Without the refusal the outcome would depend on whether a cron tick or a
+// candidate login happened first -- a permanent record decided by a race.
+//
+// IT REFUSES; IT DOES NOT CLOSE. One writer of closed_reason for this case,
+// not two. The sweep owns the row from here.
+//
+// SCOPED TO mock_exam. A certification exam a candidate actually sat is a
+// different question and is deliberately still open -- refusing to score it
+// would be its own misrepresentation, and its voucher is already spent. Cert
+// behaviour is unchanged by this branch.
+//
+// ABANDON_CUTOFF_HOURS must stay equal to sweep_abandoned_exam_sessions'
+// p_cutoff_hours default. If they drift apart, sessions fall into the gap
+// between them -- refused here, not yet swept there, or scored here after the
+// sweep would have taken them.
 //
 // ============================================================================
 // WHAT IS DELIBERATELY NOT RETURNED
@@ -86,6 +115,14 @@ import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.t
 
 /** Matches score-mock-exam's grace, so both agree on what "expired" means. */
 const LATE_GRACE_SECONDS = 60;
+
+/**
+ * Matches public.sweep_abandoned_exam_sessions(p_cutoff_hours default 24), so
+ * both agree on what "abandoned" means. See the header: these two numbers are
+ * one boundary expressed twice, and a gap between them is a session neither
+ * path owns.
+ */
+const ABANDON_CUTOFF_HOURS = 24;
 
 type ExamKind = "mock_exam" | "certification_exam";
 
@@ -237,6 +274,29 @@ serve(async (req) => {
 
     // ---- 4. expired, and we DO have a form: finalise ------------------
     if (seconds_remaining < -LATE_GRACE_SECONDS) {
+      // ---- 4a. ...unless it is already abandoned. See the header.
+      //
+      // Past the cutoff this is not a candidate finishing late, it is a row the
+      // sweep owns. Returning rather than scoring is what stops a fabricated
+      // result being written days after the fact.
+      //
+      // `abandoned` is a bare discriminant the client is free to ignore --
+      // exactly like `unscoreable`, which lib/engine/client.ts types and
+      // components/exam/mock-exam.tsx never reads. Verified 2026-09-02: with
+      // active:false and no `finalized`, mock-exam.tsx falls through to
+      // setPhase("intro") and shows the normal start screen, which is the right
+      // thing for someone whose simulator lapsed a day ago.
+      if (
+        session.kind === "mock_exam" &&
+        elapsed_seconds > ABANDON_CUTOFF_HOURS * 3600
+      ) {
+        return jsonResponse({
+          active: false,
+          abandoned: true,
+          session_id: session.id,
+        });
+      }
+
       // Delegated to score-mock-exam rather than reimplemented. That function
       // owns grading, credential issuance, voucher linkage, the JTA stamp and
       // the mastery rules. A second copy of any of it would drift, and would
