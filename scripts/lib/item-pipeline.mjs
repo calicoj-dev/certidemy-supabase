@@ -366,7 +366,7 @@ The correct answer must
     substance, never by letter (do not write "option a", "option b", etc.); the
     options are reshuffled after writing, so letter references would be wrong.
   - ${bloomDirective(task, kind, difficultyLineFor(kind, certName))}
-  - ${groundingFor(certName)}
+  - ${groundingFor(certName, tier)}
 ${CUE_NEUTRALITY_RULES}
 ${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
@@ -450,7 +450,7 @@ The answer must be findable
      item cites an edition or a clause the block below names, it is right and
      you must not "correct" it.
 
-${groundingFor(certName)}
+${groundingFor(certName, tier)}
 
 ${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Preserve each item's tested concept and the MEANING of its correct answer. Keep

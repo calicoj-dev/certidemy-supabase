@@ -63,13 +63,285 @@
 
 const NO_BRAND = `Do NOT reference any specific certification provider or brand.`;
 
-/** The original text, preserved verbatim - SM-AI-I / SPO-AI-I / SD-AI-I. */
-const SCRUM = `Ground each question in the concept(s) provided and in established Scrum and
+/**
+ * The original text, preserved verbatim - SM-AI-I / SPO-AI-I / SD-AI-I.
+ *
+ * RENAMED from SCRUM to SCRUM_CORE when SM-AI-II arrived. NOT ONE BYTE OF THE
+ * VALUE CHANGED, and that is the whole point of the rename: `\bscrum\b` is the
+ * first branch in groundingFor and now matches FOUR certifications, so editing
+ * this string would silently regenerate three shipped Level I banks differently
+ * on the next top-up run. Level II composes on top of it instead - see SCRUM_L2.
+ */
+const SCRUM_CORE = `Ground each question in the concept(s) provided and in established Scrum and
 product-ownership practice (the 2020 Scrum Guide where it applies). Some concepts
 extend beyond the Scrum Guide - product strategy, backlog craft, value and
 measurement, and AI-assisted product ownership; for those, ground the question in
 the concept description and sound product-management practice rather than forcing
 a Scrum Guide citation. ${NO_BRAND}`;
+
+/* ---------------------------------------------------------------------------
+ * SCRUM_GUIDE_FACTS
+ *
+ * Form follows AUDIT_METHOD's CLAIMS block exactly: heading at column 0,
+ * entries as "  - " bullets with continuations at four spaces, each written as
+ * CLAIM -> CORRECTION -> REASON.
+ *
+ * The verbosity is load-bearing. "Never say X" gives the model nothing to write
+ * instead; "X is false, here is what the text actually says, and here is why
+ * the confusion arises" gives it a correct sentence AND a distractor.
+ *
+ * Four entries are marked [derived]: they are inferences from the Guide, not
+ * sentences in it. An item may rely on them; an item may NEVER attribute them
+ * to the Guide as a quotation. This is the ISMS-IA attribution defect - "an
+ * auditor may not audit their own work" was asserted confidently, is in neither
+ * source standard, and survived external review.
+ *
+ * NOT LEVEL II MATERIAL, AND WIRED INTO LEVEL II ANYWAY. "Only the Product
+ * Owner may cancel a Sprint" is as true for SD-AI-I as for SM-AI-II. The three
+ * Level I banks were generated against a SCRUM string carrying no never-assert
+ * list at all, which is very likely a real quality gap in shipped banks. It is
+ * defined here and named, but reaches only SCRUM_L2 - because wiring it into
+ * Level I changes generation on three live certifications, and that is a scoped
+ * decision with its own review rather than something to slip in alongside a new
+ * cert.
+ * ------------------------------------------------------------------------- */
+
+const SCRUM_GUIDE_FACTS = `THE SOURCE. The 2020 Scrum Guide (Schwaber and Sutherland) is the authority for
+every Scrum fact. It is thirteen pages and it declares itself purposefully
+incomplete, defining only the parts required to implement Scrum theory. Where it
+is silent, it is silent ON PURPOSE - do not fill the gap with a rule and do not
+present common practice as though the Guide prescribed it.
+
+CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION - each is widely taught
+and none is in the text:
+  - That anyone other than the Product Owner may cancel a Sprint. Only the
+    Product Owner has that authority, and a Sprint is cancelled when its Sprint
+    Goal becomes obsolete - not when the work is late, hard or unpopular.
+  - That the Scrum Master may overrule the Product Owner's ordering of the
+    Product Backlog. The Product Owner may have others do the ordering work but
+    remains accountable, and those wanting a change persuade the Product Owner.
+  - That the Scrum Team may weaken an organizational Definition of Done. Where
+    the organization has one it is a MINIMUM the Scrum Team may only strengthen.
+    Permitted change runs in one direction.
+  - That the Scrum Master is accountable for the Increment, the Product Backlog
+    or delivery. The Developers are accountable for the Increment; the Product
+    Owner for the Product Backlog. The Scrum Master is accountable for the Scrum
+    Team's effectiveness.
+  - That a Sprint may be extended, paused, or its timebox varied once begun. It
+    may not. A fixed length is what makes the Sprint a container that bounds
+    risk to one Sprint.
+  - That the Daily Scrum is a status report to the Scrum Master, a manager or
+    the Product Owner. It is FOR the Developers, to inspect progress toward the
+    Sprint Goal and adapt the Sprint Backlog.
+  - That the Daily Scrum requires any particular three questions. The 2020
+    edition REMOVED them as a requirement. A team may use them; the Guide does
+    not ask for them, and an item that treats them as required is testing a
+    superseded edition.
+  - That a forecast, an estimate or a velocity figure is a commitment. The
+    Sprint Backlog is a FORECAST by the Developers. The Sprint Goal is the
+    commitment. The distinction does not change because a number looks precise.
+  - That Scrum prescribes story points, velocity, burndown charts, or
+    refinement as an event. It prescribes none of them. Product Backlog
+    refinement is an ongoing ACTIVITY, not one of the five events. A team may
+    use any of these; none is Scrum.
+  - That Scrum defines ROLES. The 2020 edition defines ACCOUNTABILITIES. The
+    change is not cosmetic: a role is a job title a person holds, an
+    accountability is an outcome someone is answerable for.
+  - That the Scrum Master assigns work to Developers. Nobody does. The
+    Developers decide who does what within the Sprint.
+  - That a group of people may collectively be "the Product Owner". The Product
+    Owner is ONE PERSON. A committee may advise; it may not hold the
+    accountability.
+  - That the Daily Scrum is for anyone but the Developers. Others may attend
+    only if they are actively working on Sprint Backlog items.
+  - That a timebox is a fixed duration. Timeboxes are MAXIMA. An event that
+    achieves its purpose early ends early.
+  - That the Sprint Review is a release gate. Release may happen whenever an
+    Increment meets the Definition of Done, including mid-Sprint. Multiple
+    Increments may be created within one Sprint.
+  - That only one Increment may be created in a Sprint, or that release is
+    reserved to Sprint end. Both are false, for the reason immediately above.
+  - That the Product Goal and the Sprint Goal are the same thing, or
+    interchangeable. The Product Goal is the Product Backlog's commitment and
+    describes a future state of the product. The Sprint Goal is the Sprint
+    Backlog's commitment and is the single objective for one Sprint.
+  - That the Scrum Master writes the Sprint Goal. The whole Scrum Team crafts
+    it during Sprint Planning.
+  - That the Product Owner must estimate work or assign it. Sizing belongs to
+    the Developers; assignment belongs to nobody.
+  - That the Scrum Master is an administrative coordinator or secretary for the
+    team - a scheduler of meetings, a taker of notes, a chaser of statuses. The
+    Guide describes true leaders who serve the team and the organization.
+  - That any scaling framework is part of Scrum. None is. Do not name one.
+  - That the terms are anything other than the 2020 terms: SELF-MANAGING, not
+    self-organizing. EVENTS, not ceremonies. ACCOUNTABILITIES, not roles.
+    Prior-edition vocabulary in a stem tells the candidate they are reading an
+    item written against a superseded text.
+
+CLAIMS THAT ARE TRUE BUT ARE INFERENCES, NOT QUOTATIONS. An item may rely on
+these. An item must NEVER attribute them to the Guide as something it states:
+  - [derived] A tool, model or agent holds no Scrum accountability and is not a
+    member of the Scrum Team. The Guide says accountabilities are held by the
+    Product Owner, the Scrum Master and the Developers, and that the Scrum Team
+    is people. It does not discuss tools. Write it the first way, never as "the
+    Scrum Guide states that a tool cannot hold an accountability".
+  - [derived] The Definition of Done may not be relaxed for AI-generated work.
+    This follows from the floor-and-additions rule, which is about the standard
+    and says nothing about who or what produced the work.
+  - [derived] AI-generated work that meets the Definition of Done IS an
+    Increment. This is the INVERSE of the entry above and must ship with it. A
+    list that forbids only the permissive error teaches the restrictive one, and
+    "generated work cannot be Done" is equally false and harder to catch because
+    it sounds cautious.
+  - [derived] A model's output does not constitute inspection. Inspection is an
+    act the Scrum Team performs against a transparent artifact. A generated
+    summary is an artifact that may be inspected, not the inspection itself.
+    Items in this domain will invent the opposite if it is not forbidden.`;
+
+/* ---------------------------------------------------------------------------
+ * SCRUM_L2_JUDGMENT
+ *
+ * The borderline candidate, in WORKPLACE's proven form. WORKPLACE does NOT
+ * prepend a candidate block: its subject scoping is one clause, the candidate
+ * is the second sentence, and the scenario paragraph and three of its four hard
+ * constraints refer back to it. The candidate does the work; the scoping opens
+ * the door. Same here - SCRUM_CORE has already done the scoping, so this opens
+ * on the person.
+ *
+ * WHY THIS EXISTS AT ALL, AND IT IS NOT ONLY A STANDARD-SETTING DOCUMENT.
+ * The Level II contract turns on "a competent practitioner" four times, always
+ * as the arbiter of whether the second-best option is defensible. Nothing
+ * anywhere said who that is. The pipeline's only model of a candidate is the
+ * binary in personaLine - competent versus unprepared - with nothing between,
+ * which is exactly the region the second-best option is supposed to occupy.
+ * This is the missing term.
+ *
+ * It is simultaneously the minimally-competent-candidate definition the scheme
+ * needs for a modified-Angoff standard-setting panel. Same text, two uses. It
+ * must therefore be concrete enough for a model to build a distractor from and
+ * disciplined enough for a judge to rate against.
+ * ------------------------------------------------------------------------- */
+
+const SCRUM_L2_JUDGMENT = `THE CANDIDATE, AND WHO THE SECOND-BEST ANSWER MUST BE DEFENSIBLE TO.
+
+The candidate is an EXPERIENCED Scrum Master - two to five years, several teams,
+at least one organization that did Scrum badly. They are not shaky on the
+framework. They would pass a Level I examination comfortably: they know the
+timeboxes, the accountabilities, the artifacts and their commitments, and they
+recognize the named anti-patterns on sight.
+
+What makes them BORDERLINE is narrower and harder. Where the Guide is silent -
+which is where this entire examination lives - they reach for what their last
+three organizations did, and they cannot reliably tell the difference between
+"the Guide does not say" and "the Guide says do it this way". Their habits
+usually work. That is what makes them defensible, and it is what makes them the
+right author of the second-best option.
+
+THE SECOND-BEST OPTION IS WHAT THIS CANDIDATE WOULD CHOOSE. Write it as the move
+they would make and be able to defend in a retrospective. The BEST option is
+what a Scrum Master one level further on would choose, and it must beat the
+second-best for a reason statable in one sentence. If the second-best is a
+mistake rather than a defensible call, the item is a Level I item in the wrong
+bank.
+
+WHAT THIS CANDIDATE RELIABLY GETS RIGHT - do not build distractors on these,
+they produce items that are Level I wearing a scenario:
+  - Applying a rule the Guide determines. Who may cancel a Sprint, which
+    direction the Definition of Done may move, who owns the Sprint Backlog.
+  - Naming an anti-pattern. They will identify a status-report Daily Scrum
+    instantly. What they do about it is the Level II question.
+  - Protecting a timebox, and holding the Sprint Goal against casual scope
+    pressure.
+
+WHAT THIS CANDIDATE GETS WRONG - each of these is a source for a defensible
+second-best:
+  - THEY OVER-INTERVENE. Offered a choice between removing an impediment and
+    developing the team's capacity to remove it themselves, they remove it. It
+    works, the team is grateful, and the team is no more self-managing than it
+    was. Proportionality is the competence they lack, not diagnosis.
+  - THEY FIX THE VISIBLE SYMPTOM. Told the Daily Scrum has become a status
+    report, they change its format. The cause was who attends, or what the team
+    believes happens to what they say, and the format was never the problem.
+  - THEY IMPORT A PRACTICE AND PRESENT IT AS THE FRAMEWORK. Estimation
+    technique, a refinement meeting, a metric, a board policy. Each may be a
+    sound complementary practice; the failure is asserting that Scrum requires
+    it, or defending it because "that is how Scrum works".
+  - THEY ABSORB ACCOUNTABILITIES TO KEEP THINGS MOVING. The Product Owner is
+    absent, so they order the backlog. Sprint Planning is stalling, so they
+    write the Sprint Goal. Every instance is locally helpful and each one moves
+    an accountability that cannot be moved.
+  - THEY ESCALATE AT ONE VOLUME. Either they raise an impediment with whoever is
+    nearest and let it sit, or they take it to a senior stakeholder immediately.
+    Matching the intervention to the impediment's cost, urgency and their own
+    standing is the judgment they have not developed.
+  - THEY TREAT AN ARTIFACT AS EVIDENCE OF THE ACTIVITY THAT PRODUCES IT. A
+    Retrospective happened because there is a list of actions. Inspection
+    happened because there is a summary. This failure gets much worse when the
+    artifact was generated: the document exists, it reads well, and nobody in
+    the team holds what is in it.
+  - THEY PROTECT THE RELATIONSHIP OVER THE TRANSPARENCY. Given a choice between
+    telling a stakeholder something they will not want to hear and finding a
+    formulation that keeps everyone comfortable, they take the second. They know
+    this is wrong in the abstract and do it anyway under pressure.
+  - IN AN AI-AUGMENTED TEAM, THEY MEASURE WHAT MOVED RATHER THAN WHAT HELD.
+    Throughput is up, so the change was good. They are slower to ask whether the
+    Increment is still usable, whether the team can still inspect what it
+    produced, and whether a Developer can account for work they submitted.
+
+WHAT THE CANDIDATE ONE LEVEL FURTHER ON DOES DIFFERENTLY - this is the BEST
+option, and every one of these is a single-sentence reason:
+  - Chooses the intervention that leaves the team more capable, not the one that
+    resolves the situation fastest.
+  - Separates what the Guide determines from what it leaves open, and says which
+    they are doing.
+  - Treats a practice that works as worth keeping AND as not Scrum, without
+    needing to resolve the two.
+  - Declines work that would move an accountability, even when declining costs
+    the Sprint something.
+  - Reads an artifact as a claim to be tested, not as evidence of the activity.
+  - Says the uncomfortable thing to the person who can act on it, at the volume
+    the impediment warrants and no louder.
+
+SCENARIOS. Draw them from a real team mid-Sprint, with enough specificity that a
+reader can tell which option is best: name what is blocked, how much of the
+Sprint remains, and what has already been tried. A stem that could be answered
+without those details is testing a rule, not judgment.`;
+
+/* ---------------------------------------------------------------------------
+ * SCRUM_L2_TAIL
+ *
+ * Modelled on AUDIT_TAIL, whose first paragraph is the sentence that turns a
+ * never-assert list from a prohibition into a source. The second paragraph
+ * differs: AUDIT_TAIL's modal rule (shall / should / NOTE) is ISO drafting
+ * convention and does not apply to the Scrum Guide, which uses ordinary prose.
+ * The Scrum equivalent of that discipline is the silence rule.
+ * ------------------------------------------------------------------------- */
+
+const SCRUM_L2_TAIL = `A DISTRACTOR built on one of these is excellent - they are exactly the
+misconceptions this exam exists to detect. The KEY and the EXPLANATION must be
+clean.
+
+Where an item turns on what the Scrum Guide says, quote or paraphrase it and say
+so. Where it turns on what the Guide does NOT say, say that instead - "the Guide
+does not address this" is a legitimate and often correct thing for a key to
+rest on, and inventing a rule to fill the silence is the single worst failure
+available in this examination. ${NO_BRAND}`;
+
+/* ---------------------------------------------------------------------------
+ * COMPOSITION
+ *
+ * Mirrors auditGrounding(criteria) below. SCRUM_GUIDE_FACTS is included here
+ * and NOT in SCRUM_CORE, so the three live Level I certifications keep a
+ * byte-identical grounding string.
+ * ------------------------------------------------------------------------- */
+
+const SCRUM_L2 = `${SCRUM_CORE}
+
+${SCRUM_GUIDE_FACTS}
+
+${SCRUM_L2_JUDGMENT}
+
+${SCRUM_L2_TAIL}`;
 
 /** AIGRM-I - AI governance, risk and compliance practitioners. */
 const GOVERNANCE = `Ground each question in the concept(s) provided and in established AI governance,
@@ -438,15 +710,22 @@ or artifacts unless the concepts themselves are about Scrum). ${NO_BRAND}`;
  * Resolve grounding from the cert name the generators already pass.
  * Order matters: check the most specific patterns first.
  *
+ * TIER, NOT NAME. `\bscrum\b` cannot tell "Scrum Master I - AI" from "Scrum
+ * Master II - AI" without matching on a numeral, and routing a TIER decision off
+ * a naming convention is the defect this file was created to fix one layer down
+ * (AUDIT hardcoding 27001 and matching on /auditor/). `tier` DEFAULTS TO 1, so
+ * every existing caller keeps its exact behaviour.
+ *
  * @param {string} certName e.g. "AI Essentials I", "Scrum Master I - AI",
  *                          "ISO/IEC 42001:2023 Internal Auditor"
+ * @param {number} [tier=1] the certification's tier. Only the Scrum branch reads it.
  * @returns {string} the grounding block to inject into the draft prompt
  */
-export function groundingFor(certName) {
+export function groundingFor(certName, tier = 1) {
   const n = (certName || "").toLowerCase();
 
   // Scrum family (Scrum Master / Scrum Product Owner / Scrum Developer).
-  if (/\bscrum\b/.test(n)) return SCRUM;
+  if (/\bscrum\b/.test(n)) return tier >= 2 ? SCRUM_L2 : SCRUM_CORE;
 
   // AI Essentials (literacy tier) - check BEFORE governance, since both say "AI".
   if (/essential/.test(n)) return WORKPLACE;
@@ -469,7 +748,11 @@ export function groundingFor(certName) {
 
 /** Exported for tests / inspection. */
 export const GROUNDINGS = {
-  SCRUM,
+  /** Back-compat: the key stays SCRUM; the const was renamed SCRUM_CORE. */
+  SCRUM: SCRUM_CORE,
+  SCRUM_L2,
+  SCRUM_GUIDE_FACTS,
+  SCRUM_L2_JUDGMENT,
   GOVERNANCE,
   WORKPLACE,
   NEUTRAL,
