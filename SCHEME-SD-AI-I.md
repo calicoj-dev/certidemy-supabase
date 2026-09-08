@@ -86,7 +86,7 @@ of eligibility and confers no advantage in the secure examination (§8).
 
 ## 4. Body of knowledge
 
-The body of knowledge is organized into **5 domains** comprising **44 assessable
+The body of knowledge is organized into **5 domains** comprising **45 assessable
 tasks**, supported by **135 defined concepts** and delivered through **5
 instructional modules / 44 lessons** (authored in English; see the open content
 note in §11).
@@ -95,13 +95,16 @@ The five domains and their examination weightings:
 
 | Domain | Title | Weight | Tasks |
 |---|---|---|---|
-| D1 | Agile Foundations & Empirical Thinking in the AI Era | 12.5% | 6 |
+| D1 | Agile Foundations & Empirical Thinking in the AI Era | 12.5% | 7 |
 | D2 | The Scrum Team, Events & AI-Ready Collaboration | 15.0% | 8 |
 | D3 | Technical Craft & Quality (Done, Testing, Integration) | 20.0% | 10 |
 | D4 | AI-Assisted Development & Verification | 30.0% | 12 |
 | D5 | Professionalism, Collaboration & the AI-Era Developer | 22.5% | 8 |
 
-All **44 tasks are within examination scope.** AI-specific competencies are
+All **45 tasks are within examination scope** (as at 2026-09-08;
+`public.tasks.is_exam_scope`). **Counts in this document carry an "as at" date
+and domain weights do not; the reasoning is stated once in `SCHEME-SM-AI-I.md`
+§4 and applies here unchanged.** AI-specific competencies are
 distributed across all five domains, with the heaviest weighting (D4, 30%) on
 AI-assisted development and the generate-then-verify discipline — the scheme's
 signature area.
@@ -115,7 +118,7 @@ depend on any third-party vendor's product or any specific AI tool.
 
 ## 5. Competency model and job-task basis
 
-The domain-and-task structure is a **job-task model**: each of the 44 tasks
+The domain-and-task structure is a **job-task model**: each of the 45 tasks
 describes what a competent Developer must know or do, and each task is linked to
 the concepts it draws on and to the assessment items that test it. This produces a
 complete, queryable **traceability matrix** from domain → task → concept →
@@ -136,16 +139,30 @@ editorial review, not the formal SME job-task validation the standard requires.)
 | Parameter | Value |
 |---|---|
 | Number of items | 80 |
-| Duration | 90 minutes |
+| Duration | 120 minutes (see the note below) |
 | Item format | Single-best-answer multiple choice and true/false |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
 
-> **Verification note (pre-launch):** the values above follow the "I"-tier
-> convention shared with SM-AI-I and SPO-AI-I. Confirm `num_questions`,
-> `passing_score_pct`, and `exam_duration_minutes` against the live
-> `certifications` row for SD-AI-I before publication, and reconcile this table if
-> they differ.
+> **RECONCILED 2026-09-08.** This note previously *asked* a future reader to
+> confirm `num_questions`, `passing_score_pct` and `exam_duration_minutes`
+> against the live `certifications` row before publication. That has now been
+> done, and it found one difference: **duration read 90 and the row said 120.**
+> `num_questions` (80) and `passing_score_pct` (80.00) matched.
+>
+> **DURATION IS 120 MINUTES, AND IT IS AN INTERIM SETTING.** **Migration 100**
+> moved every Level I Scrum examination to 120 minutes — for this scheme, 68
+> seconds to **90 seconds per item**. Its header records why the number is
+> provisional: *"THIS IS AN INTERIM SETTING, AND IT IS FALSIFIABLE.
+> `quiz_attempts.time_taken_seconds` records every response… Once there is data
+> we set duration from the observed distribution (e.g. 95th-percentile
+> completion) rather than from a benchmark."* Full note in `SCHEME-SM-AI-I.md`
+> §6.
+>
+> **The instruction is replaced rather than marked, because it directed rather
+> than described** — left standing it would send the next reader to do work that
+> is done. That it sat here unactioned while the number was wrong is the reason
+> the scheme documents now carry "as at" dates on counts.
 
 **Blueprint (item allocation by domain).** Each form draws items proportionally to
 the domain weightings, yielding this target distribution at 80 items:
@@ -208,13 +225,14 @@ established-in-design, to-be-formalized-operationally.
 
 **Item bank inventory.** The item bank holds, **per assessable task**, a floor of
 8 secure items and 10 practice items **per language** across en / es-419 / pt-BR,
-for all 44 tasks. Current holdings (some tasks exceed the floor, which is benign
-over-coverage): **1,107 secure** and **1,380 practice** items.
+for all 45 tasks. Holdings as at **2026-09-08**, counted from
+`public.quiz_questions` (some tasks exceed the floor, which is benign
+over-coverage): **1,113 secure** and **1,368 practice** items.
 
-| Pool | Floor per task per language | Design total (44×) | Current holdings |
+| Pool | Floor per task per language | Design minimum (45×) | Holdings, as at 2026-09-08 |
 |---|---|---|---|
-| Secure (examination) | 8 | 1,056 | 1,107 |
-| Practice (learning) | 10 | 1,320 | 1,380 |
+| Secure (examination) | 8 | 1,080 | **1,113** (371 per language) |
+| Practice (learning) | 10 | 1,350 | **1,368** (456 per language) |
 
 **Form variation.** The secure bank provides substantial over-coverage of every
 domain's blueprint quota — every domain sits well above its per-form quota in each
@@ -295,7 +313,7 @@ Three audit-relevant guarantees follow, each backed by a live database view or
 query (these are the intended data feeds for the super-admin governance dashboard;
 see §12):
 
-1. **Coverage** — every one of the 44 in-scope tasks is supported by assessment
+1. **Coverage** — every one of the 45 in-scope tasks is supported by assessment
    items in both pools, in all three languages (verified: every task carries ≥8
    secure and ≥10 practice items per language), and is taught by at least one
    lesson per language. Proven live: **135 / 135 concepts taught, 135 / 135
@@ -397,7 +415,7 @@ shows, per clause, the current state of the evidence. The intended feeds:
 | Coverage / no untaught testing (§10) | `concepts_taught`, `concepts_tested`, `untaught_testing_violations` | `v_coverage_summary` |
 | Secure firewall (§8, §10) | count of secure items carrying a concept link (must be 0) | firewall query on `question_concepts` |
 | Trilingual group integrity | count of question groups not holding exactly 3 language rows (must be 0) | group-integrity query |
-| Blueprint sufficiency (§6) | per-task secure count ≥ 8 per language across all 44 tasks | per-task count query |
+| Blueprint sufficiency (§6) | per-task secure count ≥ 8 per language across all 45 tasks | per-task count query |
 | Answer-cue neutrality (§8.1) | position distribution, key-longest %, length spread | cue-audit query |
 | Standard-setting / item stats (§7, §8.1) | *pending live candidate data* | (post-launch) |
 

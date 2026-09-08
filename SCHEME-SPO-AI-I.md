@@ -84,7 +84,7 @@ of eligibility and confers no advantage in the secure examination (§8).
 
 ## 4. Body of knowledge
 
-The body of knowledge is organized into **5 domains** comprising **44 assessable
+The body of knowledge is organized into **5 domains** comprising **46 assessable
 tasks**, supported by **132 defined concepts** and delivered through **5
 instructional modules / 44 lessons** (authored across the credential languages;
 see the open content note in §11).
@@ -95,11 +95,14 @@ The five domains and their examination weightings:
 |---|---|---|---|
 | D1 | Agile Foundations in the AI Era | 12.5% | 6 |
 | D2 | The Scrum Framework & AI-Era Artifacts | 15.0% | 8 |
-| D3 | Product Owner Accountability in the Scrum Team | 15.0% | 7 |
+| D3 | Product Owner Accountability in the Scrum Team | 15.0% | 8 |
 | D4 | Product Backlog & Spec-Driven Development | 30.0% | 12 |
-| D5 | Vision, Value & Strategy | 27.5% | 11 |
+| D5 | Vision, Value & Strategy | 27.5% | 12 |
 
-All **44 tasks are within examination scope.** AI-specific competencies are
+All **46 tasks are within examination scope** (as at 2026-09-08;
+`public.tasks.is_exam_scope`). **Counts in this document carry an "as at" date
+and domain weights do not; the reasoning is stated once in `SCHEME-SM-AI-I.md`
+§4 and applies here unchanged.** AI-specific competencies are
 distributed across all five domains, with the heaviest weighting (D4, 30%) on
 backlog craft and Spec-Driven Development — the scheme's signature area.
 
@@ -112,7 +115,7 @@ depend on any third-party vendor's product or any specific AI tool.
 
 ## 5. Competency model and job-task basis
 
-The domain-and-task structure is a **job-task model**: each of the 44 tasks
+The domain-and-task structure is a **job-task model**: each of the 46 tasks
 describes what a competent Product Owner must know or do, and each task is linked
 to the concepts it draws on and to the assessment items that test it. This
 produces a complete, queryable **traceability matrix** from domain → task →
@@ -131,10 +134,22 @@ but not yet completed**, and is a prerequisite for accreditation.
 | Parameter | Value |
 |---|---|
 | Number of items | 80 |
-| Duration | 90 minutes |
+| Duration | 120 minutes (see the note below) |
 | Item format | Single-best-answer multiple choice and true/false |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
+
+> **DURATION IS 120 MINUTES, AND IT IS AN INTERIM SETTING.** This document
+> previously said 90. **Migration 100** moved every Level I Scrum examination to
+> 120 minutes — for this scheme, 68 seconds to **90 seconds per item** — and the
+> scheme documents did not follow.
+>
+> Its header records why the number is provisional: *"THIS IS AN INTERIM
+> SETTING, AND IT IS FALSIFIABLE. `quiz_attempts.time_taken_seconds` records
+> every response… Once there is data we set duration from the observed
+> distribution (e.g. 95th-percentile completion) rather than from a benchmark."*
+> Carried here so a future change reads as expected rather than as a mistake.
+> Full note in `SCHEME-SM-AI-I.md` §6.
 
 **Blueprint (item allocation by domain).** Each form draws items proportionally
 to the domain weightings, yielding this target distribution at 80 items:
@@ -193,15 +208,23 @@ decisions are free from commercial or training-side influence) is a formal
 accreditation requirement on the body's roadmap; it is named here as
 established-in-design, to-be-formalized-operationally.
 
-**Item bank inventory.** The item bank holds, **per assessable task**, 24 secure
-items and 30 practice items — i.e. 8 secure + 10 practice **per language** across
-en / es-419 / pt-BR, for all 44 tasks. Aggregate: **1,056 secure** and **1,320
-practice** items.
+**Item bank inventory.** The floor is **8 secure + 10 practice per task per
+language** across en / es-419 / pt-BR — i.e. 24 secure and 30 practice per task
+across all three. At **46 tasks** that is a design minimum of **1,104 secure**
+and **1,380 practice** items. Over-fill is retained; items are never deleted to
+meet a number.
 
-| Pool | Per task (all langs) | Per language per task | Bank total |
+| Pool | Floor per task per language | Design minimum (46×) | Holdings, as at 2026-09-08 |
 |---|---|---|---|
-| Secure (examination) | 24 | 8 | 1,056 |
-| Practice (learning) | 30 | 10 | 1,320 |
+| Secure (examination) | 8 | 1,104 | **1,191** (397 per language) |
+| Practice (learning) | 10 | 1,380 | **1,392** (464 per language) |
+
+> **The design minimum and the holdings are now separate columns, and that is
+> the correction.** This table previously reported 1,056 / 1,320 as the "Bank
+> total", which was the floor for 44 tasks presented as an actual count — a
+> figure that was neither the current floor nor the current holdings. Holdings
+> are counted from `public.quiz_questions`; see the counts-versus-weights note
+> in `SCHEME-SM-AI-I.md` §4.
 
 **Form variation.** The secure bank provides substantial over-coverage of every
 domain's blueprint quota — every domain sits at roughly 3–5× its per-form quota
@@ -235,7 +258,7 @@ The scheme maintains a complete, queryable traceability matrix:
 
 Two audit-relevant guarantees follow:
 
-1. **Coverage** — every one of the 44 in-scope tasks is supported by assessment
+1. **Coverage** — every one of the 46 in-scope tasks is supported by assessment
    items in both pools, in all three languages (verified: every task carries 24
    secure and 30 practice items across en / es-419 / pt-BR), and is taught by at
    least one lesson per language.

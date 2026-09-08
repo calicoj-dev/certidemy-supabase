@@ -82,10 +82,28 @@ Assessment integrity — the training and certification functions are separated)
 
 ## 4. Body of knowledge
 
-The body of knowledge is organized into **5 domains** comprising **51 assessable
-tasks**, supported by **109 defined concepts** and delivered through **5
+The body of knowledge is organized into **5 domains** comprising **53 assessable
+tasks**, supported by **107 defined concepts** and delivered through **5
 instructional modules / 31 lessons** (authored in all three credential
 languages).
+
+> **A WEIGHT IS SCHEME POLICY. A COUNT IS A PROJECTION OF A MOVING DATABASE.**
+> This distinction is stated once here and referenced by the two sibling Scrum
+> schemes, because it was established by measurement rather than assumed: when
+> all three documents were reconciled against the database on **2026-09-08**,
+> **all fifteen domain weights across the three schemes were correct**, and
+> every number that had drifted was a count of rows.
+>
+> A weight is a decision the body made and does not change unless the body
+> changes it. A count is a fact about `public.tasks`, `public.concepts` and
+> `public.lessons` at a moment, and a migration that splits one task into two
+> moves it without anyone editing this file. **Every count below therefore
+> carries an "as at" date and the table that owns it.** Domain weights carry
+> neither, deliberately — they are not measurements.
+>
+> Counts as at **2026-09-08**: tasks from `public.tasks`, concepts from
+> `public.concepts`, lesson groups from `public.lessons` via `public.modules`,
+> item-bank holdings from `public.quiz_questions`.
 
 The five domains and their examination weightings:
 
@@ -94,12 +112,29 @@ The five domains and their examination weightings:
 | D1 | Agile Foundations & Empirical Thinking | 12.5% | 7 |
 | D2 | The Scrum Team & Accountabilities | 22.5% | 11 |
 | D3 | Scrum Events | 25.0% | 11 |
-| D4 | Scrum Artifacts & Commitments | 17.5% | 11 |
+| D4 | Scrum Artifacts & Commitments | 17.5% | 13 |
 | D5 | Scrum Master in Practice & Organizational Context | 22.5% | 11 |
 
-All **51 tasks are within examination scope.** AI-specific competencies are
-distributed across all five domains rather than concentrated, consistent with the
-scheme's purpose (§2).
+**52 of the 53 tasks are within examination scope** (as at 2026-09-08;
+`public.tasks.is_exam_scope`). AI-specific competencies are distributed across
+all five domains rather than concentrated, consistent with the scheme's purpose
+(§2).
+
+**The one exclusion is deliberate and is named here rather than left to be
+inferred from a count.** Task **5.11** — *diagnose an AI-augmentation
+anti-pattern and coach the team back toward empiricism* — is declared at Bloom
+level **`5_evaluate`**, which sits **above the ceiling for a multiple-choice
+instrument**. A task at that level cannot be honestly assessed by selecting one
+option from four, so it is declared in the body of knowledge and excluded from
+examination rather than tested badly or quietly dropped.
+
+> **CORRECTION, 2026-09-08.** This sentence previously read *"All 51 tasks are
+> within examination scope."* That was a stale count and, once task 5.11 was
+> added, a **false claim** — it asserted that a task above the MCQ ceiling was
+> examined. It is the only divergence found in the three Scrum schemes that was
+> wrong rather than merely out of date, and it is recorded here because a
+> reader who trusted it would have concluded the examination measures something
+> it does not.
 
 The authoritative reference for Scrum content is the **2020 Scrum Guide**
 (Schwaber & Sutherland). AI-related tasks are grounded in the concept definitions
@@ -131,10 +166,27 @@ is named here rather than implied as done.
 | Parameter | Value |
 |---|---|
 | Number of items | 80 |
-| Duration | 60 minutes |
+| Duration | 120 minutes (see the note below) |
 | Item format | Single-best-answer multiple choice and true/false |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
+
+> **DURATION IS 120 MINUTES, AND IT IS AN INTERIM SETTING.** This document
+> previously said 60. **Migration 100** moved every Level I Scrum examination to
+> 120 minutes — for this scheme, 45 seconds to **90 seconds per item** — and the
+> scheme documents did not follow.
+>
+> **The migration's own header records why the number is provisional and how it
+> will be replaced:** *"THIS IS AN INTERIM SETTING, AND IT IS FALSIFIABLE.
+> `quiz_attempts.time_taken_seconds` records every response, per item, per
+> language, from the first candidate. Once there is data we set duration from
+> the observed distribution (e.g. 95th-percentile completion) rather than from a
+> benchmark."*
+>
+> That reasoning is carried here rather than only in the migration, because a
+> corrected number with no note is what let the first one drift for two months.
+> **When duration is reset from candidate data, this note is what tells the next
+> editor the change is expected rather than a mistake.**
 
 **Blueprint (item allocation by domain).** Each examination form draws items
 proportionally to the domain weightings, yielding the following target
@@ -206,12 +258,13 @@ certification decisions are free from commercial or training-side influence) is 
 formal accreditation requirement and is on the body's roadmap; it is named here
 as established-in-design, to-be-formalized-operationally.
 
-**Item bank inventory (per language).**
+**Item bank inventory (per language), as at 2026-09-08** — counted from
+`public.quiz_questions`. See the counts-versus-weights note in §4.
 
 | Pool | English | es-419 | pt-BR |
 |---|---|---|---|
-| Secure (examination) | 408 | 408 | 408 |
-| Practice (learning) | 619 | 609 | 609 |
+| Secure (examination) | 469 | 469 | 469 |
+| Practice (learning) | 536 | 546 | 531 |
 
 **Form variation.** The secure bank provides substantial over-coverage of every
 domain's blueprint quota — for example, Domain D3 (20 items per form) draws from
