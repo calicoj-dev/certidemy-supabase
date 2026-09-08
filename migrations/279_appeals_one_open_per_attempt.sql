@@ -1,0 +1,114 @@
+-- ============================================================
+-- 279_appeals_one_open_per_attempt.sql
+--
+-- ONE OPEN APPEAL PER EXAM ATTEMPT. Guarantee half.
+--
+-- RUN IN THE SQL EDITOR FIRST, THEN COMMITTED HERE AS THE RECORD.
+-- Committing this file does not apply it -- there is no migration runner.
+-- ============================================================
+--
+-- WHY THIS EXISTS, AND WHAT IT IS NOT REPLACING
+--
+-- certidemy-web/lib/appeals/actions.ts already checks, before inserting, that
+-- the attempt has no appeal in 'open' or 'under_review'. That check is the
+-- FRIENDLY PATH: it can say "you already have an appeal open on this result"
+-- before anything is attempted, and it is what a candidate should normally hit.
+--
+-- IT IS NOT THE GUARANTEE. It is a read followed by a write with a gap between
+-- them, and RLS does not close that gap: two rapid submits -- a double-click, a
+-- retried request, two tabs -- can both read "no open appeal" and both insert.
+-- Nothing in the application layer can make that atomic.
+--
+-- THIS INDEX IS THE GUARANTEE. Postgres evaluates it inside the insert, so the
+-- second writer loses regardless of what either read a moment earlier.
+--
+-- BOTH ARE KEPT ON PURPOSE. The application check produces a good message; the
+-- index produces correctness. Deleting either one leaves a real gap: without the
+-- check, every duplicate becomes a raw 23505 the candidate cannot act on;
+-- without the index, the invariant is advisory.
+--
+-- actions.ts MAPS 23505 BACK TO THE SAME RESULT as its own pre-check, so a
+-- candidate who loses the race reads "you already have an appeal open on this
+-- result" rather than a generic failure. If this index is ever renamed or its
+-- predicate changed, that mapping is what has to be re-read -- the code keys on
+-- the SQLSTATE, not on the index name, so a rename is safe and a predicate
+-- change is not.
+--
+-- ------------------------------------------------------------
+-- WHY PARTIAL, AND WHY THESE TWO STATUSES
+--
+-- appeals_status_chk (062:184) allows open | under_review | upheld | denied |
+-- withdrawn. Only the first two mean "still being decided".
+--
+-- A candidate whose appeal was DENIED, UPHELD or WITHDRAWN must be able to file
+-- again -- new evidence, a later attempt at the same certification, a withdrawn
+-- filing they want to resubmit. A total unique index on exam_attempt_id would
+-- make the first appeal the only appeal a result could ever have, which is a
+-- policy nobody has decided and clause 9.9 does not require.
+--
+-- The predicate MIRRORS ACTIVE_APPEAL_STATUSES in
+-- certidemy-web/lib/appeals/data.ts. That is a mirrored pair in the sense
+-- CLAUDE.md item 8 catalogues: two halves in two repositories that must move
+-- together. It fails in the quieter direction if they drift -- widening the
+-- constant without widening this predicate lets a duplicate through that the
+-- application believes it prevented, and nothing errors. Change both in one
+-- thought.
+--
+-- ------------------------------------------------------------
+-- WHAT THIS DOES NOT CONSTRAIN
+--
+--   * kind. A regrade and an item_flag on the same attempt would collide under
+--     this index. That is correct TODAY, because only 'regrade' is built and no
+--     item_flag row can exist -- the candidate never sees a question id after an
+--     attempt (lib/engine/types.ts:188). WHEN ITEM FLAGGING SHIPS, revisit this:
+--     one open regrade and one open item flag on the same attempt is plausibly
+--     legitimate, and this index would refuse it. Adding `kind` to the index is
+--     the likely answer, and it is a decision, not a mechanical widening.
+--
+--   * user_id. Redundant here: appeals.exam_attempt_id references an attempt
+--     that already carries exactly one user_id, and the insert policy pins
+--     appeals.user_id to auth.uid(). Including it would suggest two users could
+--     appeal the same attempt, which they cannot.
+--
+-- ------------------------------------------------------------
+-- STATE WHEN WRITTEN: public.appeals holds ZERO rows, so this index cannot fail
+-- to validate against existing data. If it is applied later against a populated
+-- table it can fail, and that failure would itself be the finding.
+-- ============================================================
+
+create unique index if not exists appeals_one_open_per_attempt
+  on public.appeals (exam_attempt_id)
+  where status in ('open', 'under_review');
+
+comment on index public.appeals_one_open_per_attempt is
+  'One appeal per exam attempt may be open or under_review at a time. Resolved appeals (upheld, denied, withdrawn) do not block a new filing. The application pre-check in certidemy-web/lib/appeals/actions.ts is the friendly path; this index is the guarantee, and actions.ts maps SQLSTATE 23505 back to the same result so a lost race reads as the ordinary already-open case.';
+
+-- ---------------------------------------------------------------------------
+-- VERIFY AFTER APPLYING
+--
+--   select indexdef from pg_indexes
+--   where schemaname = 'public' and indexname = 'appeals_one_open_per_attempt';
+--     -> CREATE UNIQUE INDEX ... ON public.appeals USING btree (exam_attempt_id)
+--        WHERE (status = ANY (ARRAY['open'::text, 'under_review'::text]))
+--
+--   -- The negative half. Both statements must be run: the first proves the
+--   -- index blocks what it should, the second proves it does NOT block what it
+--   -- should not. An index that refused everything would pass the first alone.
+--   --
+--   -- Use a real attempt id and roll back.
+--   begin;
+--     insert into public.appeals (exam_attempt_id, user_id, certification_id, kind)
+--       select id, user_id, certification_id, 'regrade' from public.exam_attempts limit 1;
+--     insert into public.appeals (exam_attempt_id, user_id, certification_id, kind)
+--       select id, user_id, certification_id, 'regrade' from public.exam_attempts limit 1;
+--     -- expect: ERROR 23505 duplicate key value violates unique constraint
+--   rollback;
+--
+--   begin;
+--     insert into public.appeals (exam_attempt_id, user_id, certification_id, kind, status)
+--       select id, user_id, certification_id, 'regrade', 'denied' from public.exam_attempts limit 1;
+--     insert into public.appeals (exam_attempt_id, user_id, certification_id, kind)
+--       select id, user_id, certification_id, 'regrade' from public.exam_attempts limit 1;
+--     -- expect: BOTH SUCCEED. A denied appeal must not block a new filing.
+--   rollback;
+-- ---------------------------------------------------------------------------
