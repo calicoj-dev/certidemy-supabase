@@ -527,24 +527,83 @@ card on `/certifications`, a reachable detail page, and an entry in that page's
 JSON-LD catalogue. Set to `draft`. **`unavailable` is not a hiding place, and the
 status flip is the moment of publication.**
 
-### A HANDOFF IS MISSING FROM THIS REPOSITORY, AND NOTHING WOULD EVER HAVE SAID SO
+**pt-BR HAS BEEN RENDERED ONCE, EVER, ACROSS SIX RENDERER FAMILIES.** The
+`sales-assets` bucket holds **50 objects**, counted 2026-09-07:
 
-**There is no `HANDOFF-v6_1.md` here at any commit.** Not deleted — `git log
---all --diff-filter=D` finds no removal. The sequence on disk runs `v5_8` →
-`v6_2` and always has.
+| family | en | es-419 | pt-BR |
+|---|---|---|---|
+| `jta` | 4 | 10 | 0 |
+| `engine` | 2 | 9 | 0 |
+| `blueprint` | 2 | 8 | 0 |
+| `factsheet` | 2 | 7 | **1** |
+| `whatis` | 0 | 3 | 0 |
+| `objections` | 1 | 1 | 0 |
+| **total** | **11** | **38** | **1** |
 
-**It exists.** It is the session that built `/our-standard` and established the
-rule that **no percentage is written into that page** — the governance artifact
-behind the public standard page, and the source of the §3.1 warning quoted in
-§2.3 above. It was mounted to that chat session as a project file and never
-committed here.
+The single pt-BR document is `factsheet/v2/AIGRM-I/pt-BR/…`, generated
+2026-07-28 on a cache-key generation now **three versions stale**. **Five of the
+six families have never produced a pt-BR document at all**, and `whatis` has
+never produced an English one either.
 
-**Nothing in this repository counts or checks handoff continuity.** There is no
-index, no sequence assertion, no step in any checklist. Sixty-odd handoffs sit in
-the root and the only thing that would notice one missing is a human reading the
-filenames in order and knowing which numbers to expect. **The gap surfaced only
-because a verification pass went looking for a citation** — not because anything
-was watching.
+**So the pt-BR path through every renderer is effectively untested in
+production** — not the translations, which are reviewed, but the rendering:
+fonts, glyph coverage, line breaking and page fit on strings that run 15-25%
+longer than English. `REVIEWED_TRANSLATIONS_ONLY` gates whether copy is good
+enough to ship; nothing gates whether it lays out. **This session added freshly
+authored pt-BR strings to `objections.ts` that nothing has ever rendered**, and
+the corrected `enrollBody` is longer than the line it replaced in all three
+languages.
+
+**Generating one pt-BR document per family is the whole test**, and it costs six
+button presses in `/console/library`.
+
+### THE HANDOFF SEQUENCE IS SPLIT ACROSS TWO REPOSITORIES AND NOTHING KNOWS IT
+
+> **THIS SUBSECTION WAS WRONG WHEN IT WAS COMMITTED, AND THE CHECK IT PROPOSED
+> IS WHAT FOUND IT WRONG.** It said `HANDOFF-v6_1.md` *"was mounted to that chat
+> session as a project file and never committed here"*, and its table row read
+> *"one document absent between `v5_8` and `v6_2`"*. Both are false. The
+> paragraph below it recommended running a sorted `ls` against the expected
+> sequence; running that, once, across both trees and all history, produced
+> everything that follows. **The best evidence in this section is that the
+> section was itself an uncounted claim** — written by someone who had checked
+> one repository and inferred the rest.
+
+**`HANDOFF-v6_1.md` IS committed. It is in `certidemy-web/docs/`, at
+`cfa4527`.** And it is not alone — **four consecutive handoffs live in the web
+repo**, none of them in this one:
+
+| file | commit |
+|---|---|
+| `HANDOFF-v5_9.md` | `2bbfc5d` — Open Badges 3.0 issuer |
+| `HANDOFF-v5_9-addendum.md` | `4bc126e` — credential panel, bundle export, four failures |
+| `HANDOFF-v6_0.md` | `f2a4f2d` — deterministic apex, catalog ItemList, parallel homepage loads |
+| `HANDOFF-v6_1.md` | `cfa4527` — /our-standard, structured data, the working protocol |
+
+`v6_1` is the governance artifact behind the public standard page, the session
+that established that **no percentage is written into that page**, and the source
+of the §3.1 warning quoted in §2.3 above. **Nothing was lost. It was filed
+somewhere nobody looks for it**, by no stated rule — there is no convention
+anywhere saying which repository a handoff belongs to, and neither tree knows the
+other half exists.
+
+**104 distinct handoff versions** across both repositories and all history,
+including deletions. Counted, the sequence has **three kinds of absence, and they
+have different fixes**:
+
+| kind | which | fix |
+|---|---|---|
+| **misfiled** | `v5_9`, `v5_9-addendum`, `v6_0`, `v6_1` | move or cross-reference; nothing is lost |
+| **deleted but recoverable** | `v3_0`, `v3_9`, `v4_7`, `v4_9`, `v5_2`, `v6_3`, `v7_3`, `v7_4`, and the whole `v1.4`–`v2.9` range | `git show <sha>^:<file>`; deliberate removals, recoverable on demand |
+| **never written** | **`v4_3`, `v4_5`** — zero hits in either tree at any commit — and **`v1_0` through `v1_3`**; the sequence begins at v1.4 | nothing to recover; the number was skipped |
+
+**Those three were indistinguishable until someone counted.** A reader hitting a
+dead `v6_1` reference cannot tell whether it was misfiled, deleted, or never
+written, and the remedy differs in each case — which is the actual cost of an
+unchecked series, and it is larger than one absent file.
+
+(One naming oddity, not a gap: the v1.9 addenda run `-addendum, -2, -3, -4, -5,
+-6b, -7, -8`. There is a `-6b` and no plain `-6`.)
 
 **This is the third instance of one shape, and the shape is now the finding:**
 
@@ -552,16 +611,17 @@ was watching.
 |---|---|
 | the migration ledger (v9.3 §1.1) | 7 rows against 268 files, and one ledger row with no file |
 | the certification count | "eleven" in every handoff since v7.1; the table holds thirteen |
-| the handoff sequence | one document absent between `v5_8` and `v6_2` |
+| the handoff sequence | 104 versions across two repositories, three kinds of absence, no index in either tree |
 
 **In all three the artifacts are individually correct and the SERIES is
 unchecked.** Each one was found by someone going after a different question. A
 missing member of a sequence produces no error, no gap in any query, and no log
 line — the same absence-of-events failure this whole document is about.
 
-**Commit `v6_1` here, and then decide whether a continuity check is worth
-writing.** A `ls HANDOFF-*.md` sorted and diffed against its own expected
-sequence is a few lines and would have caught this the day it happened.
+**Decide where handoffs live, then write the check.** A sorted `ls HANDOFF-*.md`
+across both trees, diffed against its own expected sequence, is a few lines and
+would have caught this the day it happened — and would have caught this
+subsection's own error before it was committed.
 
 ---
 
