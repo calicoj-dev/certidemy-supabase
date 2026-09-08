@@ -214,10 +214,19 @@ across all three. At **46 tasks** that is a design minimum of **1,104 secure**
 and **1,380 practice** items. Over-fill is retained; items are never deleted to
 meet a number.
 
-| Pool | Floor per task per language | Design minimum (46×) | Holdings, as at 2026-09-08 |
+| Pool | Floor per task per language | Design minimum (46×) | Shipping, as at 2026-09-08 |
 |---|---|---|---|
-| Secure (examination) | 8 | 1,104 | **1,191** (397 per language) |
-| Practice (learning) | 10 | 1,380 | **1,392** (464 per language) |
+| Secure (examination) | 8 | 1,104 | **1,167** (389 per language) |
+| Practice (learning) | 10 | 1,380 | **1,380** (460 per language) |
+
+**These counts EXCLUDE RETIRED ITEMS** (`retired_at is not null`) — 24 secure
+and 12 practice rows are retired and not counted here. A scheme document's
+inventory is a claim about what the examination *ships*, and a retired item is
+never served. A raw `count(*)` over `public.quiz_questions` returns 1,191 and
+1,392 instead; those were the figures this table carried until 2026-09-08 and
+they were wrong. `verify-cert.mjs` filters the same way, so the two agree.
+**The practice pool now sits exactly at its design minimum**, so the
+over-fill noted above applies to the secure pool only.
 
 > **The design minimum and the holdings are now separate columns, and that is
 > the correction.** This table previously reported 1,056 / 1,320 as the "Bank
@@ -358,6 +367,6 @@ modules: 5
 lesson_groups: 44
 domain_weights: D1=12.5, D2=15.0, D3=15.0, D4=30.0, D5=27.5
 domain_tasks: D1=6, D2=8, D3=8, D4=12, D5=12
-secure_per_language: 397
-practice_per_language: 464
+secure_per_language: 389, 389, 389
+practice_per_language: 460, 460, 460
 ```

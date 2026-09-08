@@ -225,14 +225,24 @@ established-in-design, to-be-formalized-operationally.
 
 **Item bank inventory.** The item bank holds, **per assessable task**, a floor of
 8 secure items and 10 practice items **per language** across en / es-419 / pt-BR,
-for all 45 tasks. Holdings as at **2026-09-08**, counted from
-`public.quiz_questions` (some tasks exceed the floor, which is benign
-over-coverage): **1,113 secure** and **1,368 practice** items.
+for all 45 tasks. Shipping holdings as at **2026-09-08**: **1,080 secure** and
+**1,350 practice** items — **exactly the design minimum on both pools**, with no
+over-fill anywhere in the bank.
 
-| Pool | Floor per task per language | Design minimum (45×) | Holdings, as at 2026-09-08 |
+| Pool | Floor per task per language | Design minimum (45×) | Shipping, as at 2026-09-08 |
 |---|---|---|---|
-| Secure (examination) | 8 | 1,080 | **1,113** (371 per language) |
-| Practice (learning) | 10 | 1,350 | **1,368** (456 per language) |
+| Secure (examination) | 8 | 1,080 | **1,080** (360 per language) |
+| Practice (learning) | 10 | 1,350 | **1,350** (450 per language) |
+
+**These counts EXCLUDE RETIRED ITEMS** (`retired_at is not null`) — 33 secure
+and 18 practice rows are retired and not counted here. A scheme document's
+inventory is a claim about what the examination *ships*, and a retired item is
+never served. A raw `count(*)` over `public.quiz_questions` returns 1,113 and
+1,368 instead; those were the figures this table carried until 2026-09-08, and
+they also carried the sentence *"some tasks exceed the floor, which is benign
+over-coverage"* — which the correct counts show to be false. **Every task sits
+exactly at the floor**, so any retirement drops this bank below its own declared
+minimum. `verify-cert.mjs` filters the same way, so the two agree.
 
 **Form variation.** The secure bank provides substantial over-coverage of every
 domain's blueprint quota — every domain sits well above its per-form quota in each
@@ -452,6 +462,6 @@ modules: 5
 lesson_groups: 44
 domain_weights: D1=12.5, D2=15.0, D3=20.0, D4=30.0, D5=22.5
 domain_tasks: D1=7, D2=8, D3=10, D4=12, D5=8
-secure_per_language: 371
-practice_per_language: 456
+secure_per_language: 360, 360, 360
+practice_per_language: 450, 450, 450
 ```

@@ -263,8 +263,15 @@ as established-in-design, to-be-formalized-operationally.
 
 | Pool | English | es-419 | pt-BR |
 |---|---|---|---|
-| Secure (examination) | 469 | 469 | 469 |
-| Practice (learning) | 536 | 546 | 531 |
+| Secure (examination) | 458 | 458 | 458 |
+| Practice (learning) | 525 | 535 | 520 |
+
+**These counts EXCLUDE RETIRED ITEMS** (`retired_at is not null`) — 33 secure
+and 33 practice rows are retired and not counted here. A scheme document's
+inventory is a claim about what the examination *ships*, and a retired item is
+never served. A raw `count(*)` over `public.quiz_questions` returns 469 / 536 /
+546 / 531 instead; those are the figures this table carried until 2026-09-08 and
+they were wrong. `verify-cert.mjs` filters the same way, so the two agree.
 
 **Form variation.** The secure bank provides substantial over-coverage of every
 domain's blueprint quota — for example, Domain D3 (20 items per form) draws from
@@ -398,5 +405,6 @@ modules: 5
 lesson_groups: 31
 domain_weights: D1=12.5, D2=22.5, D3=25.0, D4=17.5, D5=22.5
 domain_tasks: D1=7, D2=11, D3=11, D4=13, D5=11
-secure_per_language: 469
+secure_per_language: 458, 458, 458
+practice_per_language: 525, 535, 520
 ```
