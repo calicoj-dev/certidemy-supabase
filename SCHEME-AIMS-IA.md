@@ -276,7 +276,7 @@ comparable.
 **Duration is 165 minutes, and it was MEASURED on this scheme's own bank rather than
 chosen or inherited.** This section previously withheld a duration entirely and gated
 publication on deriving one — *"Inheriting 150 minutes without that measurement is not
-permitted."* **That gate was satisfied by migration 212 on 2026-08-12**, once the secure
+permitted."* **That gate was satisfied by migration 212 on 2026-08-13**, once the secure
 bank existed at 960 items, 320 per language. The reasoning is carried here and not only
 in the migration, because a bare number invites exactly the suspicion this section was
 written to prevent: that 150 was inherited after all.
