@@ -1,0 +1,195 @@
+-- ============================================================
+-- 281_marked_for_review_is_a_bookmark.sql
+--
+-- A MARK IS A BOOKMARK, NOT A CHALLENGE. Comments only, three objects.
+--
+-- RUN IN THE SQL EDITOR FIRST, THEN COMMITTED AS THE RECORD.
+-- Committing this file does not apply it -- there is no migration runner.
+-- ============================================================
+--
+-- WHAT THE COLUMN COMMENTS SAID, AND WHY THEY HAD TO CHANGE
+--
+-- 164:88-89 shipped, and pg_description still holds:
+--
+--   'The candidate flagged this item during the exam. Part of the examination
+--    record for the reviewer and appeals surface. Never affects scoring.'
+--
+-- Every clause is defensible on its own. Together they invite one specific
+-- wrong conclusion: that marked_for_review is a candidate's complaint about an
+-- item. It is not. It is the in-exam mark control -- the same affordance every
+-- commercial delivery platform offers under "mark for review" -- and it means
+-- "come back to this", nothing else. A candidate marks an item because they are
+-- unsure, because they want to re-read it, or for no reason they could state.
+-- THEY HAVE SAID NOTHING ABOUT THE ITEM.
+--
+-- THE HEADER OF 164 WAS ALREADY RIGHT AND THE SHIPPED COMMENT WAS THE LOOSE
+-- HALF. 164:59-60 reads "the candidate's own flag, carried into the examination
+-- record. Never affects scoring." -- possessive, and silent about appeals. The
+-- comment that reached the database dropped "own", which is the word doing the
+-- work, and added "for the reviewer and appeals surface", which is the phrase
+-- that does the damage.
+--
+-- ------------------------------------------------------------
+-- WHY THIS IS NOT PEDANTRY
+--
+-- certidemy-web/app/[locale]/(app)/appeals/page.tsx:30-32 records the intended
+-- design for item challenges: "Item flagging is to be captured IN-SESSION
+-- through exam_session_items, where the question is on screen, and promoted to
+-- an appeal at scoring time when exam_attempt_id finally exists."
+--
+-- That is a correct plan for a column that does not exist yet. Read next to the
+-- old comments, it names a column that DOES exist and appears to describe it.
+-- The next person to build item flagging has every reason to conclude the
+-- capture half is already done and only the promotion is missing.
+--
+-- IF THAT PROMOTION WERE BUILT ON THIS COLUMN, every bookmark would become a
+-- filed challenge asserting that a candidate objected to an item. That is a
+-- claim attributed to a person who never made it, written into an ISO/IEC 17024
+-- clause 9.9 record, at a volume set by how carefully candidates use a
+-- navigation aid. The most diligent candidate would generate the most false
+-- complaints. Nothing in the schema would flag it, because every row would be
+-- structurally valid.
+--
+-- ------------------------------------------------------------
+-- ALL THREE OBJECTS MOVE IN THIS ONE MIGRATION, AND SPLITTING THEM WOULD BE THE
+-- DEFECT.
+--
+-- This is one correction to one concept expressed in three places:
+--
+--   1. exam_session_items.marked_for_review   (164:88-89)
+--   2. quiz_attempts.marked_for_review        (064:16-17)
+--   3. idx_quiz_attempts_marked               (064:19-20, in-file prose only)
+--
+-- An earlier draft of this migration corrected only the first and wrote the
+-- second out in a comment as owed. That is worse than leaving all three wrong,
+-- in one narrow and specific way: a reader who checks one column and not the
+-- other gets a CONFIDENT ANSWER EITHER WAY, and which answer they get depends
+-- on which table they happened to open. Two sources disagreeing is not half a
+-- fix; it is a new failure mode that did not exist while both were wrong
+-- together.
+--
+-- The same argument applies to partial application. If only some of the three
+-- statements below run, the result is precisely the inconsistency this
+-- migration exists to remove. Run all three or none.
+--
+-- ------------------------------------------------------------
+-- THE CAPTURE DIFFERENCE IS REAL AND IS PRESERVED IN THE WORDING
+--
+-- 064's comment says "Captured at submit". That is accurate and is NOT the same
+-- mechanism as the other column:
+--
+--   exam_session_items.marked_for_review   written INCREMENTALLY during the
+--                                          exam by save-exam-answer:200, on the
+--                                          debounced flush, as the candidate
+--                                          marks and unmarks.
+--   quiz_attempts.marked_for_review        written ONCE at submit by
+--                                          score-mock-exam:314 and :363, copied
+--                                          from the exam_session_items row it
+--                                          read at :218.
+--
+-- So the second is a snapshot of the first, taken when the attempt is graded.
+-- Both new comments say which they are, because a reader debugging a mismatch
+-- between them needs to know that one lags the other by design rather than
+-- suspecting a lost write.
+--
+-- ------------------------------------------------------------
+-- THE INDEX SERVES NO QUERY TODAY, AND THE COMMENT SAYS SO
+--
+-- 064:19-20 describes idx_quiz_attempts_marked as keeping "reviewers/appeals
+-- queries" cheap. There is no reviewers surface and no appeals surface that
+-- reads this column. Measured across both repositories: quiz_attempts
+-- .marked_for_review is WRITTEN by score-mock-exam and READ BY NOTHING. Every
+-- read of a mark anywhere -- get-active-exam-session:230, get-exam-monitor:136,
+-- score-mock-exam:178 -- is against exam_session_items, not this table.
+--
+-- The index is therefore not justified by any existing query, and the honest
+-- comment says that rather than inventing a purpose for it. It is not dropped:
+-- it is partial on the TRUE rows only, so it costs almost nothing, and the flag
+-- is part of the examination record. Naming it unused is the useful act, because
+-- an index described as serving a surface that does not exist is an index nobody
+-- will ever question.
+--
+-- 064:19-20 IS IN-FILE PROSE, NOT A SHIPPED COMMENT. No COMMENT ON INDEX has
+-- ever existed on this index -- obj_description returns null. Statement 3 below
+-- creates one for the first time. 064 itself is left exactly as it ran; it is a
+-- record of what was applied, and correcting it in place would falsify that.
+-- ============================================================
+
+-- ---- 1 of 3 ---------------------------------------------------------------
+comment on column public.exam_session_items.marked_for_review is
+  'The candidate bookmarked this item during the exam to return to it, written incrementally as they mark and unmark. A NAVIGATION AID AND NOTHING MORE: the candidate has asserted nothing about the item and may have marked it for any reason or none. Never affects scoring. THIS IS NOT AN ITEM CHALLENGE. No item-flag mechanism exists yet; when one is built it will be a separate, explicit act with its own column. Promoting a bookmark into a filed challenge would attribute to a candidate a claim they never made, inside an ISO/IEC 17024 clause 9.9 record.';
+
+-- ---- 2 of 3 ---------------------------------------------------------------
+comment on column public.quiz_attempts.marked_for_review is
+  'The candidate bookmarked this item during the exam to return to it. Copied here once at submit from exam_session_items, which is the live record during the exam; this column is the snapshot taken at grading. A NAVIGATION AID AND NOTHING MORE: the candidate has asserted nothing about the item and may have marked it for any reason or none. Never affects scoring. THIS IS NOT AN ITEM CHALLENGE, and no item-flag mechanism exists yet. Written by score-mock-exam and read by nothing.';
+
+-- ---- 3 of 3 ---------------------------------------------------------------
+comment on index public.idx_quiz_attempts_marked is
+  'Partial index on quiz_attempts(session_id) where marked_for_review is true. NO QUERY USES IT TODAY: nothing in either repository reads quiz_attempts.marked_for_review at all. The one shape it would serve is "which items did this candidate bookmark on this attempt", if a surface ever needs that. Kept because it indexes only the TRUE rows and costs almost nothing, and because the flag is part of the examination record. Recorded as unused rather than given an invented purpose.';
+
+-- ---------------------------------------------------------------------------
+-- VERIFY AFTER APPLYING
+--
+-- BOTH DIRECTIONS, ON ALL THREE OBJECTS. The positive half is that each now
+-- says bookmark; the negative half is that the phrases that caused this are
+-- gone. A rewrite that added the clarification without removing "appeals
+-- surface" would read as corrected and leave the misreading fully intact.
+--
+--   select c.relname as obj, coalesce(a.attname, '(index)') as col,
+--          d.description
+--   from pg_description d
+--   join pg_class c on c.oid = d.objoid
+--   join pg_namespace n on n.oid = c.relnamespace
+--   left join pg_attribute a
+--     on a.attrelid = c.oid and d.objsubid > 0 and a.attnum = d.objsubid
+--   where n.nspname = 'public'
+--     and (c.relname in ('exam_session_items','quiz_attempts')
+--          or c.relname = 'idx_quiz_attempts_marked')
+--   order by c.relname, d.objsubid;
+--
+--   -- expect, per object:
+--   --   exam_session_items.marked_for_review  contains 'NAVIGATION AID'   true
+--   --   quiz_attempts.marked_for_review       contains 'NAVIGATION AID'   true
+--   --   idx_quiz_attempts_marked              contains 'NO QUERY USES IT' true
+--   --   any of the three                      contains 'appeals surface'  FALSE
+--   --   any of the three           contains 'reviewers/appeals queries'   FALSE
+--
+-- THE CATCH-ALL, AND IT IS THE CHECK THAT WOULD HAVE FOUND THIS AS A
+-- THREE-INSTANCE PROBLEM RATHER THAN A ONE-LINE ONE. Expect ZERO ROWS.
+--
+-- Both replacement texts were written to avoid the word entirely so this check
+-- needs no exceptions. An earlier draft said "promoting a bookmark into an
+-- appeal"; that is now "into a filed challenge", because a catch-all with a
+-- carve-out for the deliberate mentions is a catch-all nobody can run without
+-- reading it first.
+--
+--   select c.relname as obj, d.objsubid, d.description
+--   from pg_description d
+--   join pg_class c on c.oid = d.objoid
+--   join pg_namespace n on n.oid = c.relnamespace
+--   where n.nspname = 'public'
+--     and (c.relname in ('exam_session_items','quiz_attempts')
+--          or c.oid in (
+--            select indexrelid from pg_index
+--            where indrelid in ('public.exam_session_items'::regclass,
+--                               'public.quiz_attempts'::regclass)))
+--     and d.description ilike '%appeal%';
+--   -- -> 0 rows. Any row is a comment still tying a bookmark to a complaint.
+--
+-- NOTHING ELSE CHANGED. No column, type, default, constraint or index was
+-- touched by this migration; only pg_description moved.
+--
+--   select column_name, data_type, is_nullable, column_default
+--   from information_schema.columns
+--   where table_schema = 'public'
+--     and table_name in ('exam_session_items','quiz_attempts')
+--     and column_name = 'marked_for_review'
+--   order by table_name;
+--   -- -> exam_session_items | boolean | NO | false
+--   -- -> quiz_attempts      | boolean | NO | false
+--
+--   select indexdef from pg_indexes
+--   where schemaname = 'public' and indexname = 'idx_quiz_attempts_marked';
+--   -- -> unchanged: ON public.quiz_attempts USING btree (session_id)
+--   --    WHERE (marked_for_review = true)
+-- ---------------------------------------------------------------------------
