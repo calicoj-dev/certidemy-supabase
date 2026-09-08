@@ -102,7 +102,7 @@ confers no advantage in the secure examination (§8).
 
 ## 4. Body of knowledge
 
-The body of knowledge is organized into **3 domains** comprising **16 assessable
+The body of knowledge is organized into **3 domains** comprising **18 assessable
 tasks**, supported by **47 defined concepts** and delivered through **3 instructional
 modules / 16 lessons**, complete in all three languages (48 lesson records).
 
@@ -110,11 +110,18 @@ The three domains and their examination weightings:
 
 | Domain | Title | Weight | Tasks |
 |---|---|---|---|
-| D1 | AI Concepts & Landscape | 40% | 6 |
+| D1 | AI Concepts & Landscape | 40% | 7 |
 | D2 | Working with Generative AI | 36% | 6 |
-| D3 | Responsible & Safe Use at Work | 24% | 4 |
+| D3 | Responsible & Safe Use at Work | 24% | 5 |
 
-All **16 tasks are within examination scope.**
+> **TASK COUNT CORRECTED, 2026-09-08: 16 to 18.** This document described the
+> pre-rebuild JTA. **Migration 104 rebuilt AIE-I** at 3 domains / 18 tasks / 47
+> concepts / 55 links and asserts the count in its own body --
+> `if n <> 18 then raise exception 'Expected 18 tasks, got %'` -- so the database
+> could not have held 16 since it ran. D1 gained one and D3 gained one; the
+> concept count of 47 was already correct.
+
+All **18 tasks are within examination scope.**
 
 The body of knowledge is grounded in the concept definitions of the scheme itself and
 in established, vendor-neutral practice for the use of generative AI at work. It does
@@ -149,11 +156,19 @@ standard requires, and it is not presented as such.
 | Parameter | Value |
 |---|---|
 | Number of items | 25 |
-| Duration | 30 minutes |
+| Duration | 45 minutes (see the note below) |
 | Pass mark | 80% (20 of 25 items) |
 | Item format | Single-best-answer multiple choice and true/false |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
+
+> **DURATION IS 45 MINUTES, AND IT IS AN INTERIM SETTING.** This document
+> previously said 30. **Migration 100** raised it, recording the reason inline:
+> `30 -> 45 (72 s -> 108 s; shorter items, non-technical audience)`. Its header
+> states why the number stays provisional: *"THIS IS AN INTERIM SETTING, AND IT
+> IS FALSIFIABLE. `quiz_attempts.time_taken_seconds` records every response...
+> Once there is data we set duration from the observed distribution (e.g.
+> 95th-percentile completion) rather than from a benchmark."*
 
 **Blueprint — item allocation by domain.** Each form draws items proportionally to the
 domain weightings (largest-remainder rounding, so parts sum exactly to 25):
@@ -317,6 +332,26 @@ durability, while remaining short enough that a current credential is a genuine 
 of current literacy. Recertification re-tests against the then-current body of
 knowledge.
 
+> **UNRESOLVED CONFLICT, RECORDED 2026-09-08. THE DATABASE ISSUES ONE YEAR.**
+> `certifications.validity_days` for AIE-I is **365**, not 730, and **no migration
+> has ever set it to 730** -- every file was checked. 365 is the house default that
+> migration 202 calls exactly that when it moves ISMS-IA to 730 and verifies
+> *"every other cert still sits at the house default"*.
+>
+> **Five AIE-I credentials have been issued**, between 2026-07-28 and 2026-09-04,
+> and every one carries a stamped `expires_at` exactly 365 days after its
+> `issued_at`. Expiry is written at issue, so those five are fixed at one year
+> whatever the column is set to later.
+>
+> **Neither side has been changed, deliberately.** Editing this section to say one
+> year would silently retract a published two-year promise to five holders;
+> setting the column to 730 would change what the credential means going forward.
+> Both are decisions with a credential consequence and neither is a documentation
+> fix. The `scheme-claims` block below still declares 730, so `verify-cert` reports
+> this as a failure on every run until someone decides -- which is the correct
+> behaviour for an open question, and the reason it is not quietly reconciled.
+
+
 ---
 
 ## 10. Traceability and coverage
@@ -466,14 +501,14 @@ sees both the contract and its current, queryable state in a single view.
 
 ```scheme-claims
 items: 25
-duration_minutes: 30
+duration_minutes: 45
 passing_score_pct: 80
 validity_days: 730
 domains: 3
-tasks_total: 16
+tasks_total: 18
 concepts: 47
 modules: 3
 lesson_groups: 16
 domain_weights: D1=40.0, D2=36.0, D3=24.0
-domain_tasks: D1=6, D2=6, D3=4
+domain_tasks: D1=7, D2=6, D3=5
 ```

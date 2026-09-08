@@ -123,6 +123,17 @@ The five domains and their examination weightings:
 | D4 | Annex A controls and the AI weave | 27.5% | 13 | 13 |
 | D5 | Performance evaluation, improvement and certification | 17.5% | 9 | 9 |
 
+> **CONCEPT COUNT CORRECTED, 2026-09-08: 191 to 192, AND THE EXTRA ONE HAS NO
+> MIGRATION.** Migration 171 seeded exactly 191 concept rows; the database holds
+> 192. **No migration after 171 inserts a concept for this certification** --
+> checked across every file. One concept was added directly, in the SQL editor,
+> leaving no record of what it is or why.
+>
+> This is the same class as the `is_published` drop recorded by migration 268 and
+> the RLS predicates captured by 270: a live change with no file behind it. The
+> count here is corrected to what ships; **identifying the row and recording it is
+> a separate job** and is not done by this edit.
+
 (Domain titles, weights and task counts are reconciled against the live `domains` and
 `tasks` rows for ISMS-F; weights sum to 100 and per-domain task counts sum to 49.)
 
@@ -526,7 +537,7 @@ passing_score_pct: 80
 validity_days: 365
 domains: 5
 tasks_total: 49
-concepts: 191
+concepts: 192
 modules: 5
 domain_weights: D1=15.0, D2=17.5, D3=22.5, D4=27.5, D5=17.5
 domain_tasks: D1=7, D2=9, D3=11, D4=13, D5=9

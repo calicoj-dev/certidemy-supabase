@@ -148,6 +148,15 @@ The six domains and their examination weightings:
 | D5 | Governing AI in Service Management | 15.0% | 9 |
 | D6 | Experience, Trust & Sustainable Service | 12.5% | 8 |
 
+> **CONCEPT COUNT CORRECTED, 2026-09-08: 220 to 226.** The figure above was never
+> right. **Migration 102 seeded 226** and says so in its own verification line --
+> *"expect: 1 cert, 1 category, 6 domains, 61 tasks, 226 concepts, 227 links"* --
+> so the database has held 226 since the scheme was created. The 220 came from
+> the arithmetic in the sentence beside it, 205 native plus 15 shared, which does
+> not reconcile with what was seeded. **The split is not re-derived here**,
+> because which concepts are shared with AIGRM-I is a content question this
+> correction did not measure.
+
 (Weights sum to 100; per-domain task counts sum to 61. At scaffold, these are reconciled against
 the live `domains` and `tasks` rows for AISM-I.)
 
@@ -514,7 +523,7 @@ passing_score_pct: 80
 validity_days: 365
 domains: 6
 tasks_total: 61
-concepts: 220
+concepts: 226
 modules: 6
 lesson_groups: 61
 domain_weights: D1=12.5, D2=15.0, D3=17.5, D4=27.5, D5=15.0, D6=12.5

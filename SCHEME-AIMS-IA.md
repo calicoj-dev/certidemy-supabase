@@ -246,7 +246,7 @@ outstanding in §12.
 | Parameter | Value |
 |---|---|
 | Number of items | 50 |
-| Duration | **Provisional — to be derived by measurement before publication (see below)** |
+| Duration | **165 minutes** (3.30 min/item) — measured, not chosen; see below |
 | Item format | Single-**best**-answer multiple choice, four options |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
@@ -273,13 +273,48 @@ items is an endurance test rather than a competence measure. Fifty is the count 
 `ISMS-IA`, the only other Level II scheme, and holding both at 50 keeps the family
 comparable.
 
-**Duration is deliberately unset in this document.** `ISMS-IA` runs 150 minutes at 3.00
-minutes per item, derived from a measured reading load: a ~90-word stem plus four
-~200-character options at 65.6% analyze. **AIMS-IA sits at 69.48% analyze**, so roughly
-35 of 50 items carry that load rather than 33, and the measurement that justified 150
-minutes does not transfer. Duration will be derived from AIMS-IA's own item lengths once
-the secure bank exists, and recorded with its reasoning in the migration that sets it.
-Inheriting 150 minutes without that measurement is not permitted.
+**Duration is 165 minutes, and it was MEASURED on this scheme's own bank rather than
+chosen or inherited.** This section previously withheld a duration entirely and gated
+publication on deriving one — *"Inheriting 150 minutes without that measurement is not
+permitted."* **That gate was satisfied by migration 212 on 2026-08-12**, once the secure
+bank existed at 960 items, 320 per language. The reasoning is carried here and not only
+in the migration, because a bare number invites exactly the suspicion this section was
+written to prevent: that 150 was inherited after all.
+
+**The rule.** Tier sets the base — Tier II is 50 items at 3.00 min/item, because a Level
+II item asks the candidate to weigh four defensible options rather than find one correct
+answer among three wrong ones, which costs roughly double. **Measurement then adjusts
+within tier**, on two inputs computed from the built bank: the reading load *in the
+longest language*, because one duration serves all three and setting it on English
+disadvantages Spanish candidates; and the analyze share against the tier's reference
+scheme, because character counts cannot see reasoning time.
+
+**The measurement.** Mean item length, stem plus options, secure pool:
+
+| | en | es-419 | pt-BR | es-419 as % of en |
+|---|---|---|---|---|
+| AIMS-IA | 1205 | **1408** | 1357 | 116.9% |
+| ISMS-IA | 1153 | **1354** | 1300 | 117.4% |
+
+ISMS-IA's 150 minutes against its binding language is 50 × 1354 = 67,700 characters in
+150 minutes, or **451 characters per minute**. AIMS-IA's binding-language load at that
+same rate is 50 × 1408 = 70,400 ÷ 451 = **156.1 minutes** — the floor, being reading
+parity with a scheme already in the field, and carrying no allowance for the harder
+profile. The cognitive premium for 69.48% analyze against 65.60% moves roughly two items
+of a 50-item form to the tier's most expensive level. **156.1 plus that premium, rounded
+to a clean quarter hour, is 165 minutes — 3.30 min/item**, the highest in the catalogue,
+which is what the most analyze-heavy scheme should be.
+
+**The claim this supports is narrow, and 212 states it exactly:** not that *"165 minutes
+is correct"*, but that the number was derived from the built bank by a stated rule,
+benchmarked against what the market publishes, and is subject to review. ISO/IEC 17024
+does not prescribe a duration; it requires that the examination be planned so assessment
+is valid and reliable and that the decisions behind it be documented.
+
+**REVIEW TRIGGER, from 212 and binding here.** Re-measure when any of these move: the
+item bank is regenerated, the cognitive profile changes by more than 2 percentage points,
+or the binding language's expansion ratio leaves 110–125% of English. Otherwise review
+semi-annually with the rest of the scheme.
 
 **Session timeout must be verified against the final duration before publication.** A
 form longer than the session token lifetime logs candidates out mid-examination.
@@ -492,7 +527,6 @@ forgive.
 | Standard-setting study for the 75% cut score | **Pending candidate data.** No live candidates yet. |
 | Item difficulty and discrimination statistics | **Pending candidate data.** |
 | Form reliability estimates | **Pending candidate data.** |
-| Examination duration | **Pending measurement** against this scheme's own item lengths (§6). |
 | Cue-tolerance declaration | **Pending measurement** against this scheme's own bank (§8.1). |
 | Session timeout verification | **Pending**, and required before publication. |
 | Accreditation to ISO/IEC 17024 | **Not held.** Scheme designed to the framework; accreditation not claimed. |
@@ -519,7 +553,7 @@ framework* and never *accredited*.
 
 ```scheme-claims
 items: 50
-duration_minutes: absent
+duration_minutes: 165
 passing_score_pct: 75
 validity_days: 730
 domains: 5

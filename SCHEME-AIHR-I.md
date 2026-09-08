@@ -202,12 +202,27 @@ SME-panel validation; this is named as an open item on the path to accreditation
 |---|---|
 | Format | Multiple choice, single correct answer, scenario-stemmed |
 | Items per form | 40 |
-| Duration | 50 minutes |
+| Duration | 60 minutes (see the note below) |
 | Delivery | Online, secure examination |
 | Book policy | Closed book |
 | Attempts | One included with the examination purchase; retake available |
 | Blueprint | Fixed by domain weight: 8 / 12 / 12 / 8 |
 | Languages | English, es-419, pt-BR — identical blueprint in each |
+
+> **DURATION IS 60 MINUTES, AND THE CORRECTION WAS FOUND BY A CHECK, NOT BY A
+> READER.** This document previously said 50. **Migration 213** raised it after
+> the exam-duration invariant added alongside migration 212 flagged AIHR-I as
+> the only certification in the catalogue below its tier floor -- 1.25 min/item
+> against a Tier I floor of 1.50.
+>
+> **It was a defect, not a tuned choice, and 213 shows the measurement.** Across
+> the three Tier I certifications that run 40 items, mean characters of stem plus
+> options in the secure pool: AIHR-I 745 en / 896 es-419 at 50 minutes; AIMS-F
+> 726 / 862 at 60; ISMS-F 685 / 806 at 60. **AIHR-I had the longest items of the
+> three and gave the least time** -- a Spanish-language candidate was reading 11%
+> more than ISMS-F's in 17% less time. As 213 puts it, its subject, judgement
+> about legal exposure in employment decisions, is the last place to rush a
+> candidate.
 
 **Blueprint fidelity.** Domain weights land on whole item counts with no rounding.
 Every form drawn satisfies the blueprint exactly; no form over- or under-represents a
@@ -560,7 +575,7 @@ task_concepts, modules — followed immediately by the JTA translation wave per 
 
 ```scheme-claims
 items: 40
-duration_minutes: 50
+duration_minutes: 60
 passing_score_pct: 80
 validity_days: 365
 domains: 4

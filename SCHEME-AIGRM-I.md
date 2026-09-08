@@ -101,7 +101,7 @@ of eligibility and confers no advantage in the secure examination (§8).
 
 ## 4. Body of knowledge
 
-The body of knowledge is organized into **5 domains** comprising **49 assessable
+The body of knowledge is organized into **5 domains** comprising **51 assessable
 tasks**, supported by **165 defined concepts** and delivered through **5
 instructional modules / 49 lessons** (authored in English; see the open content
 note in §11).
@@ -110,17 +110,27 @@ The five domains and their examination weightings:
 
 | Domain | Title | Weight | Tasks |
 |---|---|---|---|
-| D1 | Foundations of AI Governance & Trustworthy AI | 15.0% | 8 |
+| D1 | Foundations of AI Governance & Trustworthy AI | 15.0% | 10 |
 | D2 | AI Risk Management in Practice | 22.5% | 11 |
 | D3 | Regulatory & Standards Landscape | 20.0% | 10 |
 | D4 | The AI Lifecycle & Accountable Deployment | 25.0% | 12 |
 | D5 | Responsible AI, Ethics & the Governance Function | 17.5% | 8 |
 
+> **TASK COUNT CORRECTED, 2026-09-08: 49 to 51, both in D1.** **Migration 096**
+> split two compound tasks that welded a recall competence to an applied one --
+> 1.2 *"define the core AI terms"* + *"classify a system"*, and 1.4 *"identify the
+> value-chain actors"* + *"assign the role"*. Its header records the reason as a
+> consistency defect in the body's own adjudication: the same compound shape had
+> been split for AIE-I and SM-AI-I but collapsed upward for AIGRM-I, SPO-AI-I and
+> SD-AI-I, *"silently discarding the recall half"*. **This is a scheme-content
+> change, not a count drift** -- D1 now declares two competences it previously
+> folded away.
+
 (Domain titles, weights, and task counts are reconciled against the live `domains`
 and `tasks` rows for AIGRM-I; weights sum to 100 and per-domain task counts sum to
 49.)
 
-All **49 tasks are within examination scope.** AI-governance competencies are
+All **51 tasks are within examination scope.** AI-governance competencies are
 distributed across all five domains, with the heaviest weighting (D4) on lifecycle
 accountability and accountable deployment — the scheme's signature area.
 
@@ -158,10 +168,18 @@ not the formal SME job-task validation the standard requires.)
 | Parameter | Value |
 |---|---|
 | Number of items | 80 |
-| Duration | 90 minutes |
+| Duration | 120 minutes (see the note below) |
 | Item format | Single-best-answer multiple choice and true/false |
 | Delivery language | Candidate-selected: en, es-419, or pt-BR |
 | Scoring | Dichotomous (correct / incorrect); no negative marking |
+
+> **DURATION IS 120 MINUTES, AND IT IS AN INTERIM SETTING.** This document
+> previously said 90. **Migration 100** moved every Level I Scrum-family
+> examination to 120 minutes -- for this scheme, 68 seconds to **90 seconds per
+> item**. Its header states why the number stays provisional: *"THIS IS AN
+> INTERIM SETTING, AND IT IS FALSIFIABLE... Once there is data we set duration
+> from the observed distribution (e.g. 95th-percentile completion) rather than
+> from a benchmark."*
 
 (The parameters above — 80 items, 90 minutes, 80% pass — are confirmed against the
 live `certifications` row for AIGRM-I.)
@@ -464,14 +482,14 @@ contract and its current, queryable state in a single view.
 
 ```scheme-claims
 items: 80
-duration_minutes: 90
+duration_minutes: 120
 passing_score_pct: 80
 validity_days: 365
 domains: 5
-tasks_total: 49
+tasks_total: 51
 concepts: 165
 modules: 5
 lesson_groups: 49
 domain_weights: D1=15.0, D2=22.5, D3=20.0, D4=25.0, D5=17.5
-domain_tasks: D1=8, D2=11, D3=10, D4=12, D5=8
+domain_tasks: D1=10, D2=11, D3=10, D4=12, D5=8
 ```

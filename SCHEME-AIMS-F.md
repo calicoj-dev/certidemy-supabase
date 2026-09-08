@@ -84,6 +84,15 @@ declared tasks and the exam allocation.
 | D5 Performance evaluation, improvement and certification | 17.5% | 7 |
 | **Total** | **100.0%** | **40** |
 
+**This table is the FORM BLUEPRINT -- items per form -- not a task count.** The 40
+is the examination length; the scheme declares **35 tasks** (§4.1). The two are
+different quantities and the column heading is the only thing distinguishing them,
+which is worth stating because they were confused once: the machine-readable block
+at the foot of this document briefly carried these figures as per-domain task
+counts. **The scheme states no per-domain task breakdown**, so the block declares
+none, and that composition is unchecked rather than checked against the wrong
+table.
+
 **Design floor: no domain carries fewer than 6 items.** The constraint is stated
 per domain rather than as an items-per-task ratio, because a domain is the unit a
 sampling claim must actually hold for.
@@ -198,5 +207,4 @@ concepts: 154
 modules: 5
 lesson_groups: 35
 domain_weights: D1=15.0, D2=22.5, D3=20.0, D4=25.0, D5=17.5
-domain_tasks: D1=6, D2=9, D3=8, D4=10, D5=7
 ```
