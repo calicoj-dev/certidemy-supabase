@@ -40,6 +40,34 @@
 -- misses, this row is deleted and the build stops - which is the point of creating
 -- nothing but the row here.
 --
+-- ---------------------------------------------------------------------------
+-- AMENDED 2026-09-07, AND THIS FILE NO LONGER MATCHES WHAT WAS PASTED.
+--
+-- The description below paraphrased the sentence the whole tier argument rests
+-- on. The paste read "purposefully incomplete, DEFINING ONLY the parts required
+-- to implement Scrum theory"; the 2020 Scrum Guide reads "ONLY DEFINING". Two
+-- words transposed, in the credential's load-bearing citation, inside a value
+-- that is live on certifications.description.
+--
+-- The live row was corrected first, by a targeted UPDATE in the SQL editor
+-- replacing that substring alone - not by re-running this migration, which
+-- would have failed on the primary key. This file was then amended to match, so
+-- the record and the row agree.
+--
+-- Recorded rather than quietly fixed because the editor-first rule says a
+-- migration file is a record of what ran: a file silently rewritten to disagree
+-- with its own paste is the defect that rule exists to prevent. Verified after
+-- both edits - the description literal below and the live row hash identically,
+-- md5 b456bf016139e9f0a693b335ff2647a8, 629 characters.
+--
+-- ALL THREE COPIES NOW AGREE. The paraphrase also existed in
+-- certidemy-web/content/sm-ai-ii/cert.yml, at the description and at the task
+-- 1.1 concept, and was corrected there in commit c3c3856. The citation lives in
+-- three places by design - the yml is the authored source, this file created
+-- the row, and the row is what a reader sees - so it is worth stating that they
+-- were checked against each other rather than fixed one at a time and assumed.
+-- ---------------------------------------------------------------------------
+--
 -- Run in the Supabase SQL editor. Blocks separated so they can be run one at a time.
 
 -- ============================================================================
@@ -104,7 +132,7 @@ insert into public.certifications (
   'SM-AI-II',
   'Scrum Master II — AI',
   'Certidemy',
-  'Advanced Scrum Master certification. The 2020 Scrum Guide states that the framework is purposefully incomplete, defining only the parts required to implement Scrum theory. Level I certifies that a holder knows what the Guide defines; this credential certifies that they act competently in the space it deliberately leaves open — resolving tensions between its own rules, coaching a team that performs Scrum correctly and still fails, holding accountability boundaries against the organization, restoring empiricism where inspection has gone fake, and exercising judgment when models and agents are part of how the work gets done.',
+  'Advanced Scrum Master certification. The 2020 Scrum Guide states that the framework is purposefully incomplete, only defining the parts required to implement Scrum theory. Level I certifies that a holder knows what the Guide defines; this credential certifies that they act competently in the space it deliberately leaves open — resolving tensions between its own rules, coaching a team that performs Scrum correctly and still fails, holding accountability boundaries against the organization, restoring empiricism where inspection has gone fake, and exercising judgment when models and agents are part of how the work gets done.',
   0,
   2,          -- tier II
   4,          -- sort_order, per-category: scrum holds SM-AI-I:1, SPO-AI-I:2, SD-AI-I:3
