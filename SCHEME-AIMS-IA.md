@@ -504,3 +504,27 @@ framework* and never *accredited*.
 ---
 
 *End of SCHEME-AIMS-IA.md. The JTA of record is `AIMS-IA_JTA_v1_1.md` (v1.1-LOCKED).*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 50
+duration_minutes: absent
+passing_score_pct: 75
+validity_days: 730
+domains: 5
+tasks_total: 40
+concepts: 158
+domain_weights: D1=12.5, D2=20.0, D3=20.0, D4=30.0, D5=17.5
+domain_tasks: D1=5, D2=7, D3=8, D4=13, D5=7
+```

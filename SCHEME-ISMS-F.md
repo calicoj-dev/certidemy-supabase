@@ -506,3 +506,28 @@ and its current, queryable state in a single view.
 ---
 
 *End of scheme document — ISMS-F v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 40
+duration_minutes: 60
+passing_score_pct: 80
+validity_days: 365
+domains: 5
+tasks_total: 49
+concepts: 191
+modules: 5
+domain_weights: D1=15.0, D2=17.5, D3=22.5, D4=27.5, D5=17.5
+domain_tasks: D1=7, D2=9, D3=11, D4=13, D5=9
+```

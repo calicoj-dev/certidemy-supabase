@@ -494,3 +494,29 @@ its current, queryable state in a single view.
 
 *End of scheme document — AISM-I v1.1 (content-authored / pre-scaffold; reconciled to the locked
 6-domain / 61-task / 220-concept JTA and the authored lessons, 2026-07-16).*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 80
+duration_minutes: 120
+passing_score_pct: 80
+validity_days: 365
+domains: 6
+tasks_total: 61
+concepts: 220
+modules: 6
+lesson_groups: 61
+domain_weights: D1=12.5, D2=15.0, D3=17.5, D4=27.5, D5=15.0, D6=12.5
+domain_tasks: D1=8, D2=9, D3=12, D4=15, D5=9, D6=8
+```

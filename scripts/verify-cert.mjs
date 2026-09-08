@@ -1248,6 +1248,163 @@ async function verify(cert) {
           `${broken.length} span(s) are not substrings of the passage - those are not clickable`, broken.slice(0, 8));
   }
 
+  // === 24. THE SCHEME DOCUMENT MATCHES THE DATABASE =========================
+  //
+  // THE ONLY INVARIANT IN THIS FILE THAT READS THE FILESYSTEM. Every other check
+  // compares the database against itself or against a threshold. This one
+  // compares what SCHEME-<CODE>.md CLAIMS against what the database HOLDS, which
+  // is the direction nothing has ever checked - and the docblock at the top of
+  // this script has said so since it was written: "Nothing checked that what a
+  // cert SHIPS matches what its scheme document CLAIMS."
+  //
+  // THE DEPENDENCY IS REAL AND NEW, and is stated rather than hidden: this
+  // script now behaves differently depending on the working directory, because
+  // SCHEME-*.md must be reachable from it. Run it from the repository root. The
+  // trade is accepted deliberately - a scheme document is the artifact an
+  // auditor reads, and it drifted across three documents for two months without
+  // surfacing precisely because no executable thing ever opened one.
+  //
+  // IT READS A DECLARED BLOCK, NOT PROSE. A prose parser was rejected on
+  // measurement: the eleven scheme documents state the task count in five
+  // different syntactic forms, and a parser handling five returns null on the
+  // sixth. "No claim found" then reads identically to "claim absent" - silent in
+  // the direction of passing, which is the failure this check exists to catch.
+  //
+  // THE BLOCK IS AUTHORED, NEVER GENERATED. If it were emitted by querying the
+  // database it would verify the database against itself and pass forever. When
+  // one of these checks fails, the fix is to establish which side is wrong. It
+  // is never to regenerate the block.
+  //
+  // THREE STATES, and the distinction is the point:
+  //   a declared value  -> compared against the database
+  //   `absent`          -> passes IFF the database is also null. AIMS-IA
+  //                        deliberately sets no duration; that scheme got it
+  //                        right and must not be failed for it.
+  //   a missing key     -> FAIL, not SKIP. A claim nobody declared is a claim
+  //                        nobody checked, and a skip would hide that.
+  {
+    const schemePath = `SCHEME-${cert.code}.md`;
+    if (!existsSync(schemePath)) {
+      R.warn("scheme.document", "§12", "A scheme document exists for this certification",
+        `${schemePath} not found - this certification publishes no checkable claims`);
+    } else {
+      const md = readFileSync(schemePath, "utf8");
+      const block = md.match(/```scheme-claims\r?\n([\s\S]*?)```/);
+      if (!block) {
+        R.fail("scheme.block", "§12", "Scheme document carries a declared-claims block",
+          `${schemePath} has no scheme-claims block - every number in it is unchecked`);
+      } else {
+        const claims = {};
+        for (const line of block[1].split(/\r?\n/)) {
+          if (line.trimStart().startsWith("#")) continue;
+          const kv = line.match(/^\s*([a-z_]+)\s*:\s*(.+?)\s*$/);
+          if (kv) claims[kv[1]] = kv[2];
+        }
+
+        // Facts this check needs that the outer fetch does not already hold.
+        const { data: certFull } = await db.from("certifications")
+          .select("validity_days").eq("id", id).maybeSingle();
+        const { data: schemeLessons } = await db.from("lessons")
+          .select("id, lesson_group_id, module_id")
+          .in("module_id", modIds.length ? modIds : ["00000000-0000-0000-0000-000000000000"]);
+        // ITEM COUNTS COME FROM `questions`, THE PAGED FETCH ABOVE, NOT A FRESH
+        // QUERY. Two reasons, both learned the hard way in this file:
+        //   - PostgREST caps a select at 1000 rows. A naive
+        //     .select("pool, language") returns the first 1000 of a 3,000-row
+        //     bank and yields counts that are wrong AND plausible.
+        //   - `questions` excludes retired items (`retired_at is null`),
+        //     because "the verifier verifies what the cert SHIPS". A scheme
+        //     document's inventory is a claim about the live bank, so retired
+        //     rows must not be counted into it.
+        const poolPerLanguage = (pool) => {
+          const by = {};
+          for (const q of questions) {
+            if (q.pool !== pool) continue;
+            by[q.language] = (by[q.language] ?? 0) + 1;
+          }
+          return Object.keys(by).sort().map((l) => by[l]).join(", ");
+        };
+
+        // COMPARE VALUES, NOT FORMATTING. `D1=40.0` and `D1=40` are the same
+        // weight, and a checker that fails on the trailing zero is a checker
+        // someone silences. Both sides go through one canonicaliser: a
+        // comma-separated `KEY=VALUE` list normalises each value through
+        // Number(), and a bare scalar normalises the same way. Anything
+        // non-numeric is compared as trimmed text.
+        const canon = (s) => {
+          const t = String(s).trim();
+          if (t.includes("=")) {
+            return t.split(",").map((p) => {
+              const [k, v] = p.split("=").map((x) => x.trim());
+              return `${k}=${Number.isFinite(Number(v)) ? Number(v) : v}`;
+            }).join(", ");
+          }
+          return Number.isFinite(Number(t)) && t !== "" ? String(Number(t)) : t;
+        };
+
+        // ONE CHECK PER CLAIM, so a failure names the claim rather than
+        // reporting "the block disagrees" and leaving the reader to diff it.
+        const cmp = (key, clause, label, fmt) => {
+          const declared = claims[key];
+          if (declared === undefined) {
+            R.fail(`scheme.${key}`, clause, label,
+              `no claim declared - ${schemePath} says nothing about ${key}, so nothing was checked`);
+            return;
+          }
+          const actual = fmt();
+          if (declared === "absent") {
+            actual === "null"
+              ? R.pass(`scheme.${key}`, clause, label, "declared absent, and the database holds none")
+              : R.fail(`scheme.${key}`, clause, label,
+                  `declared absent, but the database holds ${actual}`);
+            return;
+          }
+          canon(declared) === canon(actual)
+            ? R.pass(`scheme.${key}`, clause, label, actual)
+            : R.fail(`scheme.${key}`, clause, label,
+                `document says ${declared}, database says ${actual}`);
+        };
+
+        const num = (v) => (v === null || v === undefined ? "null" : String(Number(v)));
+        const perDomain = (pick) => (domains ?? []).slice()
+          .sort((x, y) => String(x.code).localeCompare(String(y.code)))
+          .map((d) => `${d.code}=${pick(d)}`).join(", ");
+
+        cmp("items", "§6", "Scheme claim: items per form", () => num(cert.num_questions));
+        cmp("duration_minutes", "§6", "Scheme claim: examination duration", () => num(cert.exam_duration_minutes));
+        cmp("passing_score_pct", "§7", "Scheme claim: pass mark", () => num(cert.passing_score_pct));
+        cmp("validity_days", "§9", "Scheme claim: credential validity", () => num(certFull?.validity_days));
+        cmp("domains", "§4", "Scheme claim: domain count", () => num((domains ?? []).length));
+        cmp("tasks_total", "§4", "Scheme claim: task count", () => num((tasks ?? []).length));
+        cmp("domain_weights", "§4", "Scheme claim: domain weights",
+          () => perDomain((d) => String(Number(d.weight_pct))));
+
+        // OPTIONAL KEYS. Checked when declared, silent when not - the recon
+        // found these in 5 to 9 of the 11 documents, so requiring them would
+        // manufacture failures on schemes that never claimed them.
+        if ("tasks_exam_scope" in claims)
+          cmp("tasks_exam_scope", "§4", "Scheme claim: exam-scope task count",
+            () => num((tasks ?? []).filter((t) => t.is_exam_scope).length));
+        if ("concepts" in claims)
+          cmp("concepts", "§4", "Scheme claim: concept count", () => num((concepts ?? []).length));
+        if ("modules" in claims)
+          cmp("modules", "§4", "Scheme claim: module count", () => num((modules ?? []).length));
+        if ("lesson_groups" in claims)
+          cmp("lesson_groups", "§4", "Scheme claim: lesson count",
+            () => String(new Set((schemeLessons ?? []).map((l) => l.lesson_group_id ?? l.id)).size));
+        if ("domain_tasks" in claims)
+          cmp("domain_tasks", "§4", "Scheme claim: tasks per domain",
+            () => perDomain((d) => (tasks ?? []).filter((t) => t.domain_id === d.id).length));
+        if ("secure_per_language" in claims)
+          cmp("secure_per_language", "§8", "Scheme claim: secure items per language",
+            () => poolPerLanguage("secure"));
+        if ("practice_per_language" in claims)
+          cmp("practice_per_language", "§8", "Scheme claim: practice items per language",
+            () => poolPerLanguage("practice"));
+      }
+    }
+  }
+
   return R;
 }
 

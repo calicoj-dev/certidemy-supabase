@@ -372,3 +372,31 @@ formally achieved.
 ---
 
 *End of scheme document — SM-AI-I v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 80
+duration_minutes: 120
+passing_score_pct: 80
+validity_days: 365
+domains: 5
+tasks_total: 53
+tasks_exam_scope: 52
+concepts: 107
+modules: 5
+lesson_groups: 31
+domain_weights: D1=12.5, D2=22.5, D3=25.0, D4=17.5, D5=22.5
+domain_tasks: D1=7, D2=11, D3=11, D4=13, D5=11
+secure_per_language: 469
+```

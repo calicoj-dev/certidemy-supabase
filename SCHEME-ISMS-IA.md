@@ -509,3 +509,29 @@ this document is the defect.**
 ---
 
 *End of SCHEME-ISMS-IA.md v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 50
+duration_minutes: 150
+passing_score_pct: 75
+validity_days: 730
+domains: 5
+tasks_total: 38
+concepts: 169
+modules: 5
+lesson_groups: 38
+domain_weights: D1=12.5, D2=20.0, D3=25.0, D4=25.0, D5=17.5
+domain_tasks: D1=5, D2=7, D3=9, D4=10, D5=7
+```

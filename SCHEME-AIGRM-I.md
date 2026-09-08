@@ -449,3 +449,29 @@ contract and its current, queryable state in a single view.
 ---
 
 *End of scheme document — AIGRM-I v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 80
+duration_minutes: 90
+passing_score_pct: 80
+validity_days: 365
+domains: 5
+tasks_total: 49
+concepts: 165
+modules: 5
+lesson_groups: 49
+domain_weights: D1=15.0, D2=22.5, D3=20.0, D4=25.0, D5=17.5
+domain_tasks: D1=8, D2=11, D3=10, D4=12, D5=8
+```

@@ -332,3 +332,32 @@ achieved.
 ---
 
 *End of scheme document — SPO-AI-I v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 80
+duration_minutes: 120
+passing_score_pct: 80
+validity_days: 365
+domains: 5
+tasks_total: 46
+tasks_exam_scope: 46
+concepts: 132
+modules: 5
+lesson_groups: 44
+domain_weights: D1=12.5, D2=15.0, D3=15.0, D4=30.0, D5=27.5
+domain_tasks: D1=6, D2=8, D3=8, D4=12, D5=12
+secure_per_language: 397
+practice_per_language: 464
+```

@@ -545,3 +545,28 @@ inherits it without anyone having to remember.
 *Scheme document — AIHR-I v1.0. Basis: `AIHR-I_JTA_v1_2.md` (LOCKED). Next step per
 CERT-CREATION.md Stage 6: scaffold migrations — cert row, domains, concepts, tasks,
 task_concepts, modules — followed immediately by the JTA translation wave per §11.1.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 40
+duration_minutes: 50
+passing_score_pct: 80
+validity_days: 365
+domains: 4
+tasks_total: 28
+tasks_exam_scope: 28
+lesson_groups: 28
+domain_weights: D1=20.0, D2=30.0, D3=30.0, D4=20.0
+domain_tasks: D1=5, D2=9, D3=9, D4=5
+```

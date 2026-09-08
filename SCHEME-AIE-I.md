@@ -451,3 +451,29 @@ sees both the contract and its current, queryable state in a single view.
 ---
 
 *End of scheme document — AIE-I v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 25
+duration_minutes: 30
+passing_score_pct: 80
+validity_days: 730
+domains: 3
+tasks_total: 16
+concepts: 47
+modules: 3
+lesson_groups: 16
+domain_weights: D1=40.0, D2=36.0, D3=24.0
+domain_tasks: D1=6, D2=6, D3=4
+```

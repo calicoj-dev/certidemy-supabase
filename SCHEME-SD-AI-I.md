@@ -426,3 +426,32 @@ contract and its current, queryable state in a single view.
 ---
 
 *End of scheme document — SD-AI-I v1.0.*
+
+---
+
+## Declared claims (machine-checked)
+
+<!--
+  THE BLOCK BELOW IS AUTHORED, NEVER GENERATED.
+  It is what THIS DOCUMENT claims. If it were produced by querying the database
+  it would verify the database against itself and pass forever.
+  When a check fails, establish which side is wrong. NEVER regenerate the block.
+  Checked by scripts/verify-cert.mjs, invariant scheme.* -- see its docblock.
+-->
+
+```scheme-claims
+items: 80
+duration_minutes: 120
+passing_score_pct: 80
+validity_days: 365
+domains: 5
+tasks_total: 45
+tasks_exam_scope: 45
+concepts: 135
+modules: 5
+lesson_groups: 44
+domain_weights: D1=12.5, D2=15.0, D3=20.0, D4=30.0, D5=22.5
+domain_tasks: D1=7, D2=8, D3=10, D4=12, D5=8
+secure_per_language: 371
+practice_per_language: 456
+```
