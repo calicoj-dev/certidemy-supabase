@@ -31,7 +31,7 @@
 // hit a page count would be the wrong trade.
 //
 // STILL DELIBERATELY OMITTED
-//   NO PRICE. CertiGlobal's, varies by bundle, and a printed price in a
+//   NO PRICE. It varies by bundle and by volume, and a printed price in a
 //   twice-forwarded PDF reads as a commitment. Spec §3.4.
 //   NO DELIVERY MODALITY. Proctoring, camera and AI policy are open decisions;
 //   printing them would settle exam-operation policy by accident.
@@ -66,8 +66,12 @@ import {
  * 2 - domains, preparation, credibility block, siblings
  * 3 - version in cache key, bar grouping, heading hierarchy
  */
-export const FACTSHEET_RENDERER_VERSION = "4";
+export const FACTSHEET_RENDERER_VERSION = "5";
 // 4 - brand magenta palette (both renderers were drawing in blue)
+// 5 - enrollBody no longer names a retired storefront. THE BUMP IS THE FIX:
+//     contentHash covers FactSheetData and the STRINGS table is not in it, so
+//     the path is unchanged by a copy edit and every cached sheet would keep
+//     serving the old text.
 
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
@@ -150,7 +154,7 @@ const STRINGS: Record<AssetLocale, Record<string, string>> = {
     built4: "The blueprint and sample questions are published, not held back.",
     related: "Related certifications",
     enroll: "Getting started",
-    enrollBody: "Study free at certidemy.com. Examinations are purchased at certiglobal.org.",
+    enrollBody: "Study free at certidemy.com. The examination is purchased separately; sign in and the purchase link is on your certification's page.",
     generated: "Generated",
     currentVersion: "Current version",
     blueprintNote: "blueprint computed",
@@ -190,7 +194,7 @@ const STRINGS: Record<AssetLocale, Record<string, string>> = {
     built4: "El blueprint y las preguntas de muestra son públicos, no se reservan.",
     related: "Certificaciones relacionadas",
     enroll: "Cómo empezar",
-    enrollBody: "Estudia gratis en certidemy.com. Los exámenes se adquieren en certiglobal.org.",
+    enrollBody: "Estudia gratis en certidemy.com. El examen se adquiere por separado; inicia sesión y el enlace de compra está en la página de tu certificación.",
     generated: "Generado",
     currentVersion: "Versión vigente",
     blueprintNote: "blueprint calculado",
@@ -230,7 +234,7 @@ const STRINGS: Record<AssetLocale, Record<string, string>> = {
     built4: "O blueprint e as questões de amostra são públicos, não são retidos.",
     related: "Certificações relacionadas",
     enroll: "Como começar",
-    enrollBody: "Estude grátis em certidemy.com. Os exames são adquiridos em certiglobal.org.",
+    enrollBody: "Estude grátis em certidemy.com. O exame é adquirido separadamente; entre na sua conta e o link de compra está na página da sua certificação.",
     generated: "Gerado",
     currentVersion: "Versão vigente",
     blueprintNote: "blueprint calculado",

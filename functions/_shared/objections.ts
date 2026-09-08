@@ -96,8 +96,12 @@ import { type AssetLocale } from "./blueprint.ts";
  * storage path.
  *
  * 1 - initial
+ * 2 - volume-pricing entry no longer names a retired storefront, and its why
+ *     line no longer claims pricing is not ours. THE BUMP IS THE FIX: the
+ *     cache key is a hash of the renderer's INPUT DATA, not of the rendered
+ *     bytes, so a copy edit alone leaves every cached brief on the old text.
  */
-export const OBJECTIONS_RENDERER_VERSION = "1";
+export const OBJECTIONS_RENDERER_VERSION = "2";
 
 const INK = rgb(0x1d / 255, 0x1d / 255, 0x1f / 255);
 const INK_SOFT = rgb(0x42 / 255, 0x42 / 255, 0x47 / 255);
@@ -281,9 +285,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "Can we get volume pricing?",
             dont: "Quote a number.",
             say:
-              "Vouchers are sold through CertiGlobal, which handles group packages and volume pricing - I\u2019ll connect you. Nothing on our side carries a price, deliberately, so I\u2019m not going to quote you something that turns out to be wrong.",
+              "Vouchers come through our partner ecosystem or our storefront at go.certidemy.com, which handles group packages and volume pricing - I\u2019ll connect you. Nothing on our side carries a price, deliberately, so I\u2019m not going to quote you something that turns out to be wrong.",
             why:
-              "Pricing genuinely isn\u2019t ours. Every generated document omits it on purpose, so quoting a figure contradicts the paperwork.",
+              "Pricing varies by bundle and by volume, and it is not this document\u2019s to quote. Every generated document omits it on purpose, so quoting a figure contradicts the paperwork.",
           },
           {
             says: "Only three languages?",
@@ -442,9 +446,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "\u00BFPodemos obtener precio por volumen?",
             dont: "Dar una cifra.",
             say:
-              "Los vouchers se venden a trav\u00E9s de CertiGlobal, que maneja paquetes grupales y precios por volumen; te conecto. Nada de nuestro lado lleva precio, deliberadamente, as\u00ED que no voy a cotizarte algo que despu\u00E9s resulte estar mal.",
+              "Los vouchers llegan por nuestro ecosistema de socios o por nuestra tienda en go.certidemy.com, donde se manejan los paquetes grupales y los precios por volumen; te conecto. Nada de nuestro lado lleva precio, deliberadamente, as\u00ED que no voy a cotizarte algo que despu\u00E9s resulte estar mal.",
             why:
-              "El precio genuinamente no es nuestro. Todos los documentos generados lo omiten a prop\u00F3sito, as\u00ED que citar una cifra contradice el papeleo.",
+              "El precio var\u00EDa seg\u00FAn el paquete y el volumen, y no es algo que este documento deba cotizar. Todos los documentos generados lo omiten a prop\u00F3sito, as\u00ED que citar una cifra contradice el papeleo.",
           },
           {
             says: "\u00BFSolo tres idiomas?",
@@ -603,9 +607,9 @@ const STRINGS: Record<AssetLocale, Strings> = {
             says: "Conseguimos pre\u00E7o por volume?",
             dont: "Dar um n\u00FAmero.",
             say:
-              "Os vouchers s\u00E3o vendidos pela CertiGlobal, que cuida de pacotes para grupos e pre\u00E7o por volume; eu te conecto. Nada do nosso lado carrega pre\u00E7o, deliberadamente, ent\u00E3o n\u00E3o vou te passar um valor que depois se mostre errado.",
+              "Os vouchers chegam pelo nosso ecossistema de parceiros ou pela nossa loja em go.certidemy.com, onde os pacotes para grupos e o pre\u00E7o por volume s\u00E3o tratados; eu te conecto. Nada do nosso lado carrega pre\u00E7o, deliberadamente, ent\u00E3o n\u00E3o vou te passar um valor que depois se mostre errado.",
             why:
-              "O pre\u00E7o genuinamente n\u00E3o \u00E9 nosso. Todos os documentos gerados o omitem de prop\u00F3sito, ent\u00E3o citar um valor contradiz a papelada.",
+              "O pre\u00E7o varia conforme o pacote e o volume, e n\u00E3o cabe a este documento cot\u00E1-lo. Todos os documentos gerados o omitem de prop\u00F3sito, ent\u00E3o citar um valor contradiz a papelada.",
           },
           {
             says: "S\u00F3 tr\u00EAs idiomas?",
