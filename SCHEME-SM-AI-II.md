@@ -682,9 +682,19 @@ least comfortable naming, and it is named in §12.
 Stated plainly, because overstating readiness is the one thing an assessor does not
 forgive.
 
+> **An entry stays listed until its claim is false as well as its failure resolved,
+> and those are two different things.** `CERT-PUBLISH-CHECKLIST.md` §6 step 4 requires
+> every remaining `verify-cert` failure to be **named** here. It does not — and cannot —
+> check that the reason given is still **true**. A row whose failure persists for a
+> changed reason passes that step while saying something false, and this table has
+> already produced both halves: the `jta_versions` entry was deleted on 2026-09-09
+> because its failure had been resolved, and the instructional-content entry was
+> reworded the same day because its failure persisted and its stated reason had
+> stopped being true. **Re-read the reasons, not only the verdicts.**
+
 | Item | Status |
 |---|---|
-| Instructional content (44 lessons) | **Not authored.** Zero lessons exist. |
+| Instructional content (44 lessons) | **Nine of 44 authored, none loaded.** Module 1 exists as `status: draft` files in `content/sm-ai-ii/01-smii-tensions/`; no lesson row is in the database, so every concept still reads as untaught (`verify-cert` §10, 0/131). |
 | Item banks | **Not generated.** Zero items exist; the floors in §8 are a design commitment. |
 | `item-profile.mjs` tier routing | **Blocker before Stage 9.** It routes on the certification NAME via `/\bscrum\b/` and does not read `tier`, so this scheme would generate against `SM-AI-I`'s Level I difficulty profile. |
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
@@ -692,7 +702,6 @@ forgive.
 | Catalogue claim and long-form description | **Not written, in any of the three languages.** The catalogue card renders code and name only; the detail page falls back to English silently. |
 | JTA translations | **Not generated.** All 5 domains and all 44 tasks are English-only; `gen-jta-translations.mjs` has not been run. |
 | Six public sample items | **None exist.** Six per language across six distinct tasks are required before publication. |
-| `jta_versions` row | **Missing.** No published JTA version is recorded for this certification, and `verify-cert` fails on it. Owed since v5.5 and still absent from `CERT-PUBLISH-CHECKLIST.md`. |
 | Standard-setting stage 1 — define the borderline candidate | **DONE** (§7.1). |
 | Standard-setting stage 2 — Angoff panel | **Pending a panel of independent SMEs.** Blocked by recruiting, not by candidate volume. |
 | Standard-setting stage 3 — validation | **Pending candidate data.** No live candidates yet. |
