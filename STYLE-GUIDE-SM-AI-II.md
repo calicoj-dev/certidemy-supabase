@@ -45,8 +45,10 @@ The 2020 Guide says **two sentences**, in full:
 > Owner has the authority to cancel the Sprint."
 
 Everything else was deliberately deleted, and the 2020 release notes name the deletion.
-Verified 2026-09-09: the words *traumatic*, *re-estimated* and *estimate* do not appear
-anywhere in the 2020 text. **Two of that lesson's four checkpoint questions test the
+**State the positive, not the absence.** The 2020 edition carries those two sentences and
+no cancellation procedure, and its word for the activity is *sizing* - *"The Developers who
+will be doing the work are responsible for the sizing."* A wording change can be quoted; an
+absence cannot be shown by any instrument available here. **Two of that lesson's four checkpoint questions test the
 deleted material**, so the defect had already reached assessment.
 
 **Three more the review found. None may be reintroduced anywhere:**
@@ -246,8 +248,10 @@ item at two points in time.**
 A day is a unit of work duration that exists whether or not a team uses Scrum, and the
 Guide's own Topic Two names *"past performance"* and *"upcoming capacity"* as legitimate
 inputs to how much fits in a Sprint. Story points and velocity are artifacts of an
-estimation practice the Guide never adopts - no occurrence of either was found in the
-2020 text, subject to the absence caveat in §0.1. **A lesson using days teaches nothing
+estimation practice the Guide does not require. Its one sentence on forecasting practices
+names burn-downs, burn-ups and cumulative flows and adds *"while proven useful, these do not
+replace the importance of empiricism"* - a statement about what is optional, which is what
+the rule needs, and not a claim about which words are missing. **A lesson using days teaches nothing
 the candidate must later unlearn; a lesson using points teaches a vocabulary the same
 module's pitfall callout disowns.**
 
@@ -304,8 +308,11 @@ followed, against concepts, callouts and deep-dives. Nothing read what an option
 asserted. A defect can sit in the highest-stakes sentence in a lesson and be invisible to
 a check that looks everywhere else.
 
-> **The check: read the 48 keys, not the 9 lessons.** Four questions per lesson, four
-> options each, nine lessons. Extract every option marked correct and every explanation,
+> **The check: read the 53 keys, not the 9 lessons.** Thirty-six questions across nine
+> lessons: 27 single-choice keys, plus 26 more across the nine multi-choice questions.
+> (This said 48 until 2026-09-09 - a miscount, in a rule about checking things properly.
+> Derive the figure from the files; do not carry it.) Extract every option marked correct
+> and every explanation,
 > and read that list against the Guide as a list — separately from the lesson it came
 > from, so the surrounding prose cannot supply a charity the candidate will not get.
 >
@@ -335,6 +342,17 @@ same failure wearing the opposite sign.
 **All four are the same error: a substring, a sample or a default limit standing in for
 the property.** A regex over text cannot tell an assertion from its refutation, because
 both contain the words. A row fetch without an explicit limit is a sample, not a set.
+
+**A fifth, and it is not a checker - it is the tool that applies the fix.** A batch edit
+script called its file-modifying function twice on one path. Each call re-read the file
+from disk, so the second call computed its output from the **unedited** text and the write
+silently discarded the first edit. Nothing errored: both edits were correct in isolation,
+both anchors were unique, and every post-condition on each one passed. **The defect was in
+the sequence, not in either edit** - the same shape as the sample and the substring, where
+the instrument is right about what it examines and wrong about what it stands for. It was
+caught only because one post-condition asserted a property of the **final** file rather
+than of each edit. **One edit call per path, enforced by the script rather than remembered
+by its author.**
 
 **So before trusting a zero:** add a line that should match and confirm it does; run the
 check against a lesson you know contains the defect; or assert the count you expect and
@@ -584,7 +602,7 @@ of this material.**
 | **a plan by and for the Developers** (for the Sprint Backlog) | a forecast | *Forecast* appears **at least twice** in the 2020 Guide - once about burn-downs and burn-ups, once about the Developers' confidence in Sprint Planning - and **never about the Sprint Backlog**. For the artifact it is 2011-2017 language. See §0.1 |
 | **commitment** (for the Sprint Goal) | - | Guide text. "Commitment: Sprint Goal" is a heading, and *"the Sprint Goal is a commitment by the Developers"* is the sentence |
 | **responsible for the sizing** | accountable for estimating | *"The Developers who will be doing the work are responsible for the sizing"* - and the next sentence permits the Product Owner to influence them |
-| **sizing** | estimation, estimates, story points | *Estimate* does not appear in the 2020 Guide in any form |
+| **sizing** | estimation, estimates, story points | The 2020 wording is *sizing*: *"The Developers who will be doing the work are responsible for the sizing."* Prefer the quotable wording change over an absence claim |
 | **self-managing** | self-organizing | 2020 replaced the term. *"They are also self-managing, meaning they internally decide who does what, when, and how"* |
 | **the Developers** | the development team, the dev team, the devs | 2020 removed "Development Team" |
 | **accountabilities** | roles | The Guide has three accountabilities and no roles |
