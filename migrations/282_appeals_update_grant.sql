@@ -1,0 +1,163 @@
+-- ============================================================================
+-- 282_appeals_update_grant.sql
+--
+-- THE APPEALS UPDATE POLICY HAS BEEN CORRECT AND UNREACHABLE SINCE 062.
+--
+-- 062:204-207 created it, and it is well formed - both clauses present, which
+-- is the thing an UPDATE policy usually gets wrong:
+--
+--   create policy "appeals admin update" on public.appeals
+--     for update to authenticated
+--     using (public.is_platform_admin())
+--     with check (public.is_platform_admin());
+--
+-- Two lines later, 062:209:
+--
+--   grant select, insert on public.appeals to authenticated;
+--
+-- No update. THE TABLE-LEVEL ACL IS CHECKED BEFORE ROW-LEVEL SECURITY, so
+-- is_platform_admin() was never evaluated. Every attempt to decide an appeal
+-- failed with 42501 permission denied for table appeals, and the console showed
+-- a generic "The decision could not be saved".
+--
+-- CLAUDE.md states this rule in its own words: "RLS is not a grant. The
+-- table-level grant is checked BEFORE row-level security. A table with RLS
+-- enabled and no grant is closed; a table with a grant and no policies is open.
+-- A missing grant produces a silent 42501." This is that, on the table the
+-- ISO/IEC 17024 clause 9.9 record lives in.
+--
+-- IT EXPLAINS THE EXACT SHAPE OF THE SYMPTOM. select and insert WERE granted,
+-- so a candidate could file an appeal and both parties could read it. Only the
+-- decision failed. A half-granted table looks like a broken feature rather than
+-- a permissions problem, which is why this cost a debugging session.
+--
+-- ============================================================================
+-- WHY COLUMN-SCOPED AND NOT TABLE-WIDE
+--
+-- RLS and the column grant answer different questions, and only both together
+-- give the property this table needs:
+--
+--   the POLICY   restricts WHICH ROWS may be updated - a platform admin only
+--   the GRANT    restricts WHAT MAY CHANGE          - five columns only
+--
+-- A table-wide grant would let any future policy loosening reach every column.
+-- Under the column grant a candidate can never rewrite their own `reason`, and
+-- nobody can forge a `reviewed_by`, even if the policy is later widened by
+-- accident. The decision surface is exactly the five columns the console action
+-- writes and nothing else.
+--
+-- VERIFIED AFTER APPLYING (pg_attribute.attacl):
+--
+--   status           {authenticated=w/postgres}
+--   resolution_note  {authenticated=w/postgres}
+--   updated_at       {authenticated=w/postgres}
+--   reviewed_by      {authenticated=w/postgres}
+--   reviewed_at      {authenticated=w/postgres}
+--
+--   has_column_privilege('authenticated','public.appeals','reason','UPDATE')
+--     = false          -- and user_id, exam_attempt_id, kind are false too
+--
+-- ONE FORM OR THE OTHER, NEVER BOTH. CLAUDE.md: "Column-scoped GRANT SELECT
+-- must list columns explicitly. A table-wide GRANT SELECT silently overrides a
+-- column-level REVOKE." The same holds for UPDATE. If a later migration ever
+-- issues a table-wide grant update on this table, it does not add to this
+-- grant - it replaces the protection with nothing, silently.
+--
+-- ============================================================================
+-- THE INSTRUMENT TRAP, RECORDED BECAUSE IT WILL CATCH THE NEXT READER
+--
+-- has_table_privilege('authenticated','public.appeals','UPDATE') returns FALSE
+-- RIGHT NOW, with this grant applied and the console working. It asks whether
+-- the role may update THE WHOLE TABLE, and under a column grant the answer is
+-- correctly no.
+--
+-- pg_class.relacl is worse: it still reads
+--
+--   {postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres,authenticated=ar/postgres}
+--
+-- exactly as it did before this migration, because column privileges live in
+-- pg_attribute.attacl and never appear there at all. relacl is the instrument
+-- that found the original defect, and it is blind to the fix.
+--
+-- So: diagnosing anything on this table needs has_column_privilege or
+-- pg_attribute.attacl. A future session that checks has_table_privilege, sees
+-- false, and concludes the grant is missing will "re-apply" it table-wide and
+-- silently destroy the column scoping. That is the failure this block exists to
+-- prevent.
+--
+-- ============================================================================
+-- READING A LINE IS NOT CHECKING WHAT IT SAYS
+--
+-- Migration 280 added reviewed_by and reviewed_at, and its header says:
+--
+--   "No new policy, no new grant: 062:209 granted select and insert to
+--    authenticated and update reaches only through the admin policy."
+--
+-- It located the right line, quoted it correctly, and drew the wrong conclusion
+-- from it. Update does NOT reach through the admin policy, because the policy is
+-- never consulted. The citation was accurate and the sentence built on it was
+-- false.
+--
+-- The defect was invisible for a second reason: nothing had ever updated this
+-- table. appeals held zero rows from 062 until 2026-09-09, so the first write
+-- ever attempted was the first one to fail.
+--
+-- ============================================================================
+-- ALREADY APPLIED. This file is the record.
+-- ============================================================================
+
+begin;
+
+grant update (status, resolution_note, updated_at, reviewed_by, reviewed_at)
+  on public.appeals to authenticated;
+
+commit;
+
+-- ============================================================================
+-- VERIFY AFTER APPLYING
+--
+-- BOTH DIRECTIONS. The positive half is that the five decision columns are
+-- writable; the negative half names the columns that must STAY ungranted,
+-- because a table-wide grant would pass the positive half alone.
+--
+--   select a.attname, a.attacl::text
+--   from pg_attribute a
+--   join pg_class c on c.oid = a.attrelid
+--   join pg_namespace n on n.oid = c.relnamespace
+--   where n.nspname = 'public' and c.relname = 'appeals' and a.attacl is not null
+--   order by a.attnum;
+--
+--   -- Expect EXACTLY five rows, all {authenticated=w/postgres}:
+--   --   status, resolution_note, updated_at, reviewed_by, reviewed_at
+--   -- If reason, user_id, exam_attempt_id or kind appears, someone granted
+--   -- table-wide and the column scoping is gone.
+--
+--   select has_column_privilege('authenticated','public.appeals','status','UPDATE')  as granted,
+--          has_column_privilege('authenticated','public.appeals','reason','UPDATE')  as must_be_false,
+--          has_table_privilege ('authenticated','public.appeals','UPDATE')           as also_false;
+--
+--   -- Expect: true | false | false
+--   -- The third one being false is CORRECT. See the instrument trap above.
+--
+-- ============================================================================
+-- THE LOOP CLOSED, 2026-09-09
+--
+-- ISO/IEC 17024 clause 9.9 requires a documented candidate review process.
+-- Certidemy has had the table since 062, protective migrations around it since
+-- 099 and 127, an index guarding one open appeal per attempt since 279, and a
+-- reviewer-identity column since 280 - against zero rows, for the whole time.
+-- Perfect guards on an empty room.
+--
+-- On 2026-09-09 the process ran end to end for the first time:
+--
+--   filed by a candidate      2026-09-09 01:45:18 UTC   kind = regrade
+--   bound to one exam attempt yes
+--   decided in the console    2026-09-09 02:37:46 UTC   status = denied
+--   reviewer recorded         reviewed_by, reviewed_at set
+--   written reason            resolution_note present
+--   visible to the candidate  yes, via the appeals owner read policy
+--
+-- Fifty-two minutes from filing to a decision the candidate can read. That is
+-- the first appeal in the platform's history, and the clause is now satisfied
+-- by something that has run rather than by something that exists.
+-- ============================================================================
