@@ -187,6 +187,45 @@ rows — but it is the one that matters most. A row written by hand and never
 added to its loader survives until someone runs the loader, at which point it
 is silently skipped or overwritten.
 
+Three more, added September 2026 after SM-AI-II. All three are about the
+**record** rather than the sale: a certification that passes every check above
+and cannot show an assessor what its exam claims to measure.
+
+```
+§5   Published JTA version         jta_versions rows for this cert where
+                                   status='published' >= 1
+§5   JTA exists as a file          jta/<CODE>_JTA_generated.md AND
+                                   jta/<CODE>_JTA_vN.md both present
+§12  verify-cert is green, or      every remaining failure is named in
+     its failures are declared     SCHEME-<CODE>.md §12 as content not
+                                   yet built
+```
+
+**Published JTA version already exists as a check** — `verify-cert.mjs:1005`,
+invariant `jta.published`. It is listed here because it was missing from §6's
+order, which is how eleven certifications each rediscovered the row by hand.
+**Migration 277 wrote the problem down in its own header:** *"jta_versions row,
+published, projected from the live rows. CERT-PUBLISH-CHECKLIST still has no
+step for this and ten certs have each rediscovered it."* SM-AI-II was the
+eleventh, and it had already paid for the absence — migration 283 overwrote its
+`cognitive_profile`, so the profile it published for six days survives in no
+queryable form.
+
+**JTA exists as a file is a filesystem check, not a database one**, like the
+claim-loader check above it. **SM-AI-II reached a complete scaffold, a written
+scheme document and an authored module of nine lessons with no JTA file of any
+kind**, while `SCHEME-SM-AI-II.md`, `cert.yml` and two migrations all cited
+`SM-AI-II_JTA_v1.2.md` as the JTA of record. That file was never committed —
+`git log --all --diff-filter=A` finds no addition, so it was not deleted; it
+never existed. **Nothing caught it for a week.**
+
+**The third is not "verify-cert green".** A certification mid-build fails
+`floors.secure`, `floors.practice` and `jta.formFill` because the bank does not
+exist yet, and that is the correct state. What must be true is that **every
+remaining failure is one the scheme document already declares**, so a failure
+nobody expected cannot hide behind the ones everybody does. This is the check §4
+assumes when it says "until `verify-cert` is green" and does not define.
+
 Until these exist, this checklist is the control, and it is a human one.
 
 ---
@@ -194,26 +233,46 @@ Until these exist, this checklist is the control, and it is a human one.
 ## 6. Order for the next cert
 
 1. `CERT-CREATION.md` stages 1–11 as documented.
-2. `verify-cert --cert <CODE>` green.
-3. English claim migration.
-4. Add the cert to `CLAIMS` in `load-cert-i18n.mjs`; `--dry`, then live.
-5. Write `module_translations` for every module, both languages (§3).
-6. Preview candidate sample questions; tag six distinct tasks public.
-7. Confirm the catalogue card and the carousel render in all three languages.
-8. **Open the course in es-419 and pt-BR and read a module list and a lesson.**
-   Steps 4→7 are all catalogue surfaces. Nothing above this line looks
-   inside the course, which is where the module gap and a renderer bug both
-   hid on ISMS-F.
-9. **Insert the achievement row (§6.7) and confirm it is `active`.** Nothing
-   creates it for you, and without it a passing candidate gets no credential.
-   This is the last step that is invisible until the worst possible moment.
-10. Flip status.
+2. **Write the JTA, both halves.** `node scripts/gen-jta-doc.mjs --cert <CODE>`
+   produces `jta/<CODE>_JTA_generated.md` from the live rows and is
+   authoritative for every fact. The hand-written `jta/<CODE>_JTA_vN.md` carries
+   only what no query can reconstruct — design rationale, review history, what
+   changed and why. **Neither substitutes for the other**, and a hand-written
+   JTA that restates the scaffold is the drift `gen-jta-doc.mjs` exists to
+   prevent.
+3. **Write the `jta_versions` row**, `status='published'`, snapshot **projected
+   from the live rows and never hand-typed**. Template: `migrations/211`. Most
+   recent worked example: `migrations/284`. Nothing creates this row for you,
+   `verify-cert` invariant `jta.published` fails without it, and a snapshot
+   pasted as literal JSON is the transport that has corrupted multibyte
+   characters before.
+4. `verify-cert --cert <CODE>` green, **or every remaining failure named in
+   `SCHEME-<CODE>.md` §12** as content not yet built.
+5. English claim migration.
+6. Add the cert to `CLAIMS` in `load-cert-i18n.mjs`; `--dry`, then live.
+7. Write `module_translations` for every module, both languages (§3).
+8. Preview candidate sample questions; tag six distinct tasks public.
+9. Confirm the catalogue card and the carousel render in all three languages.
+10. **Open the course in es-419 and pt-BR and read a module list and a lesson.**
+    Steps 6→9 are all catalogue surfaces. Nothing above this line looks
+    inside the course, which is where the module gap and a renderer bug both
+    hid on ISMS-F.
+11. **Insert the achievement row (§6.7) and confirm it is `active`.** Nothing
+    creates it for you, and without it a passing candidate gets no credential.
+    This is the last step that is invisible until the worst possible moment.
+12. Flip status.
 
-**On step 4.** It already said this when ISMS-F was built, and ISMS-F's claims
+**On step 6.** It already said this when ISMS-F was built, and ISMS-F's claims
 were written by direct SQL instead — so the rows existed only in the database
 and the loader did not know the cert. The checklist was correct and was not
 followed. Writing a row by hand is faster; adding it to the loader is what
 makes it survive.
+
+**On steps 2 and 3.** Both are records rather than surfaces, and both were
+discovered eleven times. `CERT-CREATION.md` Stage 4 says "lock the JTA" and
+names the file it produces; nothing between there and here made anyone check
+that the file was written. SM-AI-II is the certification that proved you can
+reach a complete scaffold without one.
 
 
 ---
