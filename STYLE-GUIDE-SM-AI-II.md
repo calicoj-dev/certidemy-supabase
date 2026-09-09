@@ -425,6 +425,44 @@ one real option and three fillers - see §0.3.
 generation.** The competing-defensible-actions structure *is* the assessed competence; a
 version where the runner-up is simply wrong is a different, easier item.
 
+#### When a recognition item earns its place, keep the label honest
+
+Some questions have to be recognition. `01-06` q3 asks which of four statements the 2020
+Guide actually makes, with the removed 2017 cancellation material as the distractors — it
+is the direct inoculation against the defect §0.1 records, and a practitioner trained
+before 2020 genuinely picks a wrong option. **It is also, plainly, not Analyze**, and task
+1.6 is `4_analyze`.
+
+> **Keep `bloom_level` agreeing with the task. Do not relabel a question down to describe
+> its own difficulty.**
+
+**Both available moves break something, and they are not symmetric.** A label that
+overstates one question is wrong in a way a reader sees on the next line of the same file.
+A `bloom_level` that disagrees with its task silently weakens the traceability claim for
+that task, and the item generator reads that field against the task rather than against
+the prose — so the damage is invisible where it is introduced and shows up somewhere
+nobody is looking. **Take the visible error.**
+
+**Measured 2026-09-09, across 1,445 checkpoint questions in the whole content corpus:**
+
+| certifications | below their task's level |
+|---|---|
+| AIE-I, AIGRM-I, AIHR-I, SD-AI-I, SM-AI-I, **ISMS-IA** | 259 |
+| **AIMS-F, AIMS-IA, AISM-I, ISMS-F, SM-AI-II** | **0** |
+
+Five certifications are uniform and this is one of them — **all 36 of its checkpoint
+questions sit at their task's declared level, and a below-task label here would be the
+first.** But the precedent is not confined to laddered entry-level certs as first
+assumed: **`ISMS-IA` is tier II, the same tier as this scheme, and 42 of its 152 sit
+below.** So the practice exists at this tier and this credential has not used it. That is
+a reason to be deliberate, not a reason it is unavailable.
+
+> **The count depends on a choice the measurement has to make.** A lesson carrying several
+> `task_codes` has several declared levels; scoring against the lowest gives 259 and
+> against the highest gives 279. The **1,445 total and the five zeros are the same under
+> both** — those are the numbers to quote. Anything cited as a single "below" figure is a
+> method as much as a measurement.
+
 ### 3.3 Explanations teach
 
 Every `explanation` says why the correct answer is correct **and why the most attractive
