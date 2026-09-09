@@ -54,7 +54,7 @@ deleted material**, so the defect had already reached assessment.
 | Lesson | The sentence | What the 2020 Guide actually says |
 |---|---|---|
 | **01-03** | *"...and then the same asymmetry applies to itself, because a Definition of Done that can be relaxed when a Sprint gets tight is not a definition of anything."* | *As a minimum* governs an **organizational** standard. The Guide provides **no rule against a Scrum Team lowering a Definition of Done it created itself.** The claim is sound practice and it is inference - so it must say so. |
-| **01-04** | *"The Guide is unambiguous about which of the two the Sprint Backlog is."* (the passage rests throughout on *forecast*) | 2020 calls the Sprint Backlog **"a plan by and for the Developers."** The word *forecast* appears **once in the whole document**, and not about the Sprint Backlog: *"Various practices exist to forecast progress, like burn-downs, burn-ups, or cumulative flows."* **"Forecast" for the Sprint Backlog is 2011-2017 language.** |
+| **01-04** | *"The Guide is unambiguous about which of the two the Sprint Backlog is."* (the passage rests throughout on *forecast*) | 2020 calls the Sprint Backlog **"a plan by and for the Developers."** The word *forecast* appears **at least twice, and neither instance describes the Sprint Backlog**: *"Various practices exist to forecast progress, like burn-downs, burn-ups, or cumulative flows"* (The Sprint) and *"the more confident they will be in their Sprint forecasts"* (Sprint Planning, Topic Two). **The Guide had the word available and still called the artifact a plan - it is a choice, not an absence of vocabulary.** "Forecast" for the Sprint Backlog is 2011-2017 language. |
 | **01-02** | *"The Developers are accountable for sizing the work - the Guide is explicit that the people who will do the work are the ones who size it."* | *"The Developers who will be doing the work are **responsible for the sizing**. The Product Owner **may influence** the Developers by helping them understand and select trade-offs."* **Responsible, not accountable**, and the permitted influence is half the sentence. |
 
 **The 01-04 case is the load-bearing one, because the JTA carries the same error.** Task
@@ -65,14 +65,44 @@ Guide text - 2020 carries a "Commitment: Sprint Goal" heading and the sentence *
 the Sprint Goal is a commitment by the Developers, it provides flexibility in terms of
 the exact work needed to achieve it."* The *forecast* half is not.
 
-> **Task 4.8's knowledge line also states that "the Guide never mentions velocity,
-> burndowns or story points." Verified: velocity and story points do not appear;
-> burn-downs do**, in the single sentence quoted above. Both facts are owed a correction
-> in the JTA. Until then, a lesson repeating that line asserts something false about the
-> Guide while teaching a lesson about not asserting things about the Guide.
+> **Task 4.8's knowledge line stated that "the Guide never mentions velocity, burndowns
+> or story points." No occurrence of velocity or story points was found; burn-downs
+> are named**, in the burn-downs sentence quoted above. Corrected in the JTA on
+> 2026-09-09. A lesson repeating the original line would have asserted something false
+> about the Guide while teaching a lesson about not asserting things about the Guide.
 
 **Working rule:** the 2020 Scrum Guide is thirteen pages. Keep it open in a second
 window and search it. Every defect above would have taken under a minute to catch.
+
+#### The instrument, and why it cannot prove an absence
+
+This rule was itself broken by the tool used to enforce it, on its own subject, which is
+the most useful thing in this section.
+
+The forecast count above was first written as **"appears once in the whole document."**
+That came from a URL fetch that converts the page and answers through a small model.
+**Asked whether the word appears and in what sentence, it returned one instance. Asked
+for an exhaustive section-by-section list with a total, it returned "Total Count: 1" -
+more confidently for the more exhaustive prompt. Asked to reproduce Sprint Planning Topic
+Two verbatim, the second instance was in the first passage returned.** The wrong number
+had by then been written into this document twice, a commit message, and two sections of
+`SCHEME-SM-AI-II.md`.
+
+> **Ask for the passage, never for the count.** A count from a summarizer is a claim
+> about absence, and a summarizer answers from what it surfaced rather than from what is
+> there. Quote the section and read it yourself.
+
+**And the honest caveat on everything else in this section.** Every Guide verification in
+this session used that same instrument. **The cancellation finding** (that *traumatic*,
+*re-estimated* and *estimate* appear nowhere), **the velocity and story-point absences**,
+and **the burn-downs claim** were all established the same way. The burn-downs claim is a
+presence and is verified - a quoted sentence proves a presence. **The absences are not
+proven.** They are very likely true and they are not established by a method that can
+establish them.
+
+Where a rule turns on a word being absent, either quote the passage where it would have
+appeared and is not, or say the absence is unverified. **This document is about not
+making unproven claims about the Guide; it does not get an exemption.**
 
 ### 0.2 The Level II move starts in the first concept
 
@@ -174,29 +204,60 @@ is not a rule, it is that **what the team has afterwards is not Scrum**, and the
 Retrospective they used to decide it is among the things that may not survive. A best
 answer may **name that consequence**. It may not **recommend the omission**.
 
-### 0.5 No story points, no velocity, no estimates in an example
+### 0.5 No estimation vocabulary in an example; durations only, and only when the size is the subject
 
-> **Do not use story points, velocity, or a numeric estimate as the currency of a
-> scenario, a widget, or a checkpoint option - not even in a correct answer.**
+> **Do not use story points, velocity, burn-downs, or a bare number standing in for
+> effort as the currency of a scenario, a widget, or a checkpoint option - not even in a
+> correct answer.**
+>
+> **CARVE-OUT: a duration in real units is permitted where the size ITSELF is the
+> subject.** Where the competence is reading *why a number moved*, two figures are needed
+> to compare, and removing them removes the competence.
 
-**What it cost.** `01-02` uses one three lessons before `01-04`'s pitfall says neither is
-in the Guide:
+**What it cost.** `01-02`'s first draft used one three lessons before `01-04`'s pitfall
+says neither is in the Guide:
 
 > *"Five points feels high for that. Can we call it three?"*
 
 **The example trains the opposite of the hygiene.** A candidate who meets story points in
 a lesson's own illustration has been taught that they are the natural vocabulary, and
-then meets a pitfall callout saying the Guide never uses them.
+then meets a pitfall callout disowning them. The rewritten `01-02` uses days.
 
-Verified 2026-09-09: **velocity, story point and estimate do not appear in the 2020
-Guide.** The Guide's word is **sizing**. Write the displacement without a number - *"a
-manager tells the Developers the item is smaller than they said"* carries the whole
-scenario and drags no vocabulary in with it.
+#### The test, three questions in order
 
-Where a number is genuinely the point - `01-04`'s stakeholder counting undelivered items,
-`5.4`'s model-produced estimates read as commitments - **name it as the thing under
-examination, not as the frame.** The distinction: the number may be the subject of the
-scenario; it may never be the unexamined furniture.
+**1. Does the number carry a real unit - days, hours, weeks?** If it is *points*,
+*velocity*, *story points*, or a bare integer with no unit, it is forbidden. **This is a
+lexical check:** `grep -i 'point\|velocity\|burndown\|burn-down'` over the lesson.
+
+**2. Is the number the subject, or the setting? Delete every figure from the scenario and
+re-read it. If it still asks the same question, the figures were furniture - leave them
+out.** `01-02` q1 fails that deletion and therefore passes the rule: *"the Developers
+size an item at five days… a Developer offers three"* cannot be asked as *"the Developers
+size an item and the Product Owner questions it"*, because there is no movement left to
+read.
+
+**3. Is the number ever compared across items, teams or Sprints?** Comparing sizes
+between items is relative estimation; comparing across teams or Sprints is velocity.
+**Both are forbidden regardless of unit.** A duration is permitted only for **the same
+item at two points in time.**
+
+#### Why days and not points, so this is not a matter of taste
+
+A day is a unit of work duration that exists whether or not a team uses Scrum, and the
+Guide's own Topic Two names *"past performance"* and *"upcoming capacity"* as legitimate
+inputs to how much fits in a Sprint. Story points and velocity are artifacts of an
+estimation practice the Guide never adopts - no occurrence of either was found in the
+2020 text, subject to the absence caveat in §0.1. **A lesson using days teaches nothing
+the candidate must later unlearn; a lesson using points teaches a vocabulary the same
+module's pitfall callout disowns.**
+
+The Guide's word for the activity is **sizing**.
+
+> **`4.8` and `5.4` sit on the same carve-out.** *A forecast that has become a performance
+> target* and *model-produced estimates read as commitments* are both tasks whose subject
+> is a number, so both lessons will need figures. **Durations, for the same item across
+> two moments, for the same reason.** Neither may reach for points to make the scenario
+> feel realistic.
 
 ### 0.6 A widget must do the thing its intro promises
 
@@ -421,7 +482,7 @@ of this material.**
 
 | Use | Not | Why |
 |---|---|---|
-| **a plan by and for the Developers** (for the Sprint Backlog) | a forecast | *Forecast* appears **once** in the 2020 Guide, about burn-downs and burn-ups. For the Sprint Backlog it is 2011-2017 language. See §0.1 |
+| **a plan by and for the Developers** (for the Sprint Backlog) | a forecast | *Forecast* appears **at least twice** in the 2020 Guide - once about burn-downs and burn-ups, once about the Developers' confidence in Sprint Planning - and **never about the Sprint Backlog**. For the artifact it is 2011-2017 language. See §0.1 |
 | **commitment** (for the Sprint Goal) | - | Guide text. "Commitment: Sprint Goal" is a heading, and *"the Sprint Goal is a commitment by the Developers"* is the sentence |
 | **responsible for the sizing** | accountable for estimating | *"The Developers who will be doing the work are responsible for the sizing"* - and the next sentence permits the Product Owner to influence them |
 | **sizing** | estimation, estimates, story points | *Estimate* does not appear in the 2020 Guide in any form |
@@ -482,47 +543,59 @@ query.
 
 ## 7. WHAT IS OWED, AND WHERE IT IS OWED
 
-Recorded here because they are authoring debt, not spec debt, and the next author meets
-them immediately.
+Recorded here because it is authoring debt, not spec debt, and the next author meets it
+immediately.
 
-**`01-02` is the lesson for a task that has been rewritten.** Task 1.2 moved from
-*"Identify which accountability is displaced when ordering and sizing responsibilities are
-crossed"* (`3_apply`) to *"Analyze a situation in which the Developers' estimate has been
-set by someone else"* (`4_analyze`) on 2026-09-09. **The lesson still teaches the ordering
-half**, its `drag-match` still splits cases across ordering and sizing, and its title
-*"Ordering and Sizing, and the Line Between Them"* is a heading-level claim about the old
-task. Its three `concept_slugs` are unchanged and still correct. Rewriting it to sizing
-alone is owed, and §0.5 applies to the *"five points, call it three"* example that will go
-with it.
+### 7.1 Paid on 2026-09-09
 
-**The JTA carries the `forecast` error in three knowledge lines** - tasks 1.4, 4.8 and
-5.4 all call the Sprint Backlog a forecast, which is 2011-2017 language. An author writing
-from a task's knowledge line, which is the normal way to start a lesson, reproduces it
-under a 2020 attribution.
+**The `forecast` defect, across two certifications.** Tasks 1.4, 4.8 and 5.4 all called
+the Sprint Backlog a forecast; 1.4 carried the word in its statement as well. On
+`SD-AI-I`, task 2.3's statement read *"as a living forecast"* and **task 5.8 - whose
+subject is translating legacy terminology to 2020's canonical terms - taught the
+2011-2017 word as canonical inside its own translation list.** All corrected to *a plan
+by and for the Developers*, and 5.8 now teaches the forecast-to-plan swap as a fourth
+translation rather than committing it.
 
-**Task 4.8's knowledge line makes a false claim about the Guide, in a task about not
-making them.** It reads *"The Sprint Backlog is a forecast by the Developers; the Guide
-never mentions velocity, burndowns or story points."* Verified 2026-09-09: **velocity and
-story points do not appear in the 2020 Guide; burn-downs do** - in the single sentence
-*"Various practices exist to forecast progress, like burn-downs, burn-ups, or cumulative
-flows"*, which is also the document's only occurrence of *forecast*. **The one sentence
-that disproves half the claim is the same sentence the other half misreads.**
+**Task 4.8 also claimed the Guide "never mentions velocity, burndowns or story points."**
+Burn-downs are named. Corrected.
 
-Any lesson written against 4.8 that uses its knowledge line would assert something false
-about the Guide inside a lesson teaching candidates not to. **Do not repair this by
-rewording the lesson around it** - a lesson that quietly declines to repeat its own task's
-knowledge line leaves the task wrong and the disagreement invisible.
+**Concept `sprint-backlog-as-forecast` renamed to `sprint-backlog-as-plan`**, with
+`content/sm-ai-ii/renames.yml` written so the importer emits a rename rather than a
+delete-and-insert - a concept delete cascades `task_concepts`, `lesson_concepts`,
+`question_concepts` and `user_concept_mastery`. **`SD-AI-I`'s `commitment-as-forecast`
+and `living-forecast` were deliberately NOT renamed** - 30 question links each, 42
+references across twelve lesson files in three languages, and `living-forecast` is baked
+into a `lesson_id`, a `lesson_group_id` and a filename. Their descriptions carry the
+correction instead.
 
-**A third, smaller one: *estimate* is not Guide vocabulary at all.** It appears nowhere in
-the 2020 text in any form; the Guide's word is *sizing*. Task 1.2's rewritten statement
-and 4.8's and 5.4's knowledge lines all use *estimate* or *estimates*. This is not a false
-Guide claim - none of them attributes the word to the Guide - so it is a lower-severity
-item than the two above, and it is still the vocabulary a candidate will carry.
+**Task 1.2 and its lesson.** 1.2 moved from *"Identify which accountability is displaced
+when ordering and sizing responsibilities are crossed"* (`3_apply`) to a sizing-only
+statement at `4_analyze`, and `01-02` was rewritten from *"Ordering and Sizing, and the
+Line Between Them"* to *"The Number Came Back Smaller"* - the ordering half removed, the
+*"five points"* example replaced with durations under §0.5's carve-out.
 
-> **All three are JTA changes, not lesson changes.** They are recorded here because the
-> lesson author meets them first and must not silently route around them. Fixing a task's
-> knowledge line is a JTA edit with the scheme-document and blueprint consequences that
-> follow; fixing it in the lesson is how the two halves drift.
+### 7.2 Still open
+
+**The activity uses of *forecast* were left alone and are correct**: `1.7`'s *forecasting
+failure*, `4.8`'s statement, `SM-AI-I` 4.9, `SPO-AI-I` 4.7 and 5.5. Forecasting progress
+is a practice the Guide names. **Naming the artifact a forecast is the defect; do not
+over-correct into the activity.**
+
+**`SD-AI-I`'s lesson content still teaches the word in three languages.** The task
+statements and concept descriptions were corrected; `02-03-sprint-backlog-living-forecast.md`
+and its `_i18n/es-419` and `_i18n/pt-BR` copies were not, and the lesson's own filename
+and `lesson_id` carry it. That is a content migration, not a text fix.
+
+**Absence claims in this document are not proven.** See §0.1's note on the instrument:
+every "the Guide does not say X" here was established by a tool that cannot demonstrate
+exhaustiveness, and one such claim - *forecast* appearing once - was already wrong. The
+presences are quoted and solid. Re-establish any absence a rule turns on before leaning
+on it.
+
+> **A task's wording is a JTA change, not a lesson change.** Recorded here because the
+> lesson author meets it first and must not silently route around it: a lesson that
+> quietly declines to repeat its own task's knowledge line leaves the task wrong and the
+> disagreement invisible.
 
 ---
 
