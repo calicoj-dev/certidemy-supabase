@@ -247,7 +247,12 @@ Until these exist, this checklist is the control, and it is a human one.
    pasted as literal JSON is the transport that has corrupted multibyte
    characters before.
 4. `verify-cert --cert <CODE>` green, **or every remaining failure named in
-   `SCHEME-<CODE>.md` §12** as content not yet built.
+   `SCHEME-<CODE>.md` §12** as content not yet built — **and every §12 entry
+   still TRUE, not merely still failing.** Naming and currency are different
+   properties and this step only checks the first: a row whose failure persists
+   for a changed reason passes it while saying something false. `SM-AI-II` did
+   exactly that on the first real run of this step; the standing note at the top
+   of `SCHEME-SM-AI-II.md` §12 records both halves and is the worked example.
 5. English claim migration.
 6. Add the cert to `CLAIMS` in `load-cert-i18n.mjs`; `--dry`, then live.
 7. Write `module_translations` for every module, both languages (§3).
