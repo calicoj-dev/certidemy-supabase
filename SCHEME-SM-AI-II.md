@@ -211,23 +211,37 @@ covers.
 
 | Bloom level | Tasks | Weighted share | Item contract |
 |---|---|---|---|
-| 3 — Apply | 17 | 38.51% | Level I: exactly one defensibly correct option |
-| 4 — Analyze | 27 | **61.49%** | **Level II: four defensible options, one best** |
+| 3 — Apply | 16 | 36.28% | Level I: exactly one defensibly correct option |
+| 4 — Analyze | 28 | **63.72%** | **Level II: four defensible options, one best** |
 
 **No Remember and no Understand tasks at all**, which is what a cognitive-only rung
 above a Level I credential has to look like: everything the candidate would recall is
 already certified by `SM-AI-I` and is assumed rather than re-tested.
 
 **The profile is computed, not targeted.** `certifications.exam_blueprint.cognitive_profile`
-is written by migration 278 with `jsonb_object_agg` directly from
-`public.v_cognitive_profile`; no percentage is typed anywhere in that migration, so
-`verify-cert.mjs` invariant 17 holds by construction rather than by inspection.
+was written by migration 278 and re-derived by migration 283 with `jsonb_object_agg`
+directly from `public.v_cognitive_profile`; no percentage is typed anywhere in either
+migration, so `verify-cert.mjs` invariant 17 holds by construction rather than by
+inspection.
 
-**The JTA carried a kill switch and it cleared by 6.49 points.** v1.2 would lock only if
-the computed profile reached **analyze ≥ 55% with zero Remember**. The hand prediction
-was 61.49 / 38.51 and the database returned exactly that. Across two adversarial review
-passes the analyze share fell 7.39 points — 68.88 → 63.72 → 61.49 — and **no verb was
-raised anywhere to compensate.** That is the only defence offered for the number.
+**The JTA carried a kill switch and it cleared by 8.72 points.** v1.2 would lock only if
+the computed profile reached **analyze ≥ 55% with zero Remember**.
+
+**At lock the profile was 61.49 / 38.51.** The hand prediction was 61.49 / 38.51 and the
+database returned exactly that. Across two adversarial review passes the analyze share
+fell 7.39 points — 68.88 → 63.72 → 61.49 — and **no verb was raised anywhere to
+compensate.** That was the defence offered for the number at lock, and it remains an
+accurate account of those two passes.
+
+**It is no longer the current profile, and the reason is on the record.** A third,
+external review pass on 2026-09-09 found task 1.2 — then *"Identify which accountability
+is displaced when ordering and sizing responsibilities are crossed"* — overlapping
+`SM-AI-I` 2.7, which enumerates *"SM ordering backlog"* as its first violation at
+`4_analyze` with the stronger skill of diagnosing **and** prescribing. 1.2 was rewritten
+to sizing alone, built as 3.2's structural sibling, and moved to `4_analyze`. **One verb
+was raised, deliberately and for a stated reason**, taking analyze from 61.49 to 63.72.
+Migration 283 re-derived the blueprint from `v_cognitive_profile`; no percentage was
+typed.
 
 **External validation is pending.** The JTA went through two independent review passes
 before locking. That is editorial rigor, not the SME-panel validation 17024 contemplates
@@ -273,7 +287,7 @@ competence measure, and 50 is the count both other Level II schemes use.
 > minutes from the built bank by a stated rule: reading load in the *binding* language,
 > because one duration serves all three and setting it on English disadvantages Spanish
 > candidates, plus a premium for analyze share against the tier's reference scheme.
-> **The same measurement is owed here once the bank exists**, and at 61.49% analyze
+> **The same measurement is owed here once the bank exists**, and at 63.72% analyze
 > against `ISMS-IA`'s 65.60% this scheme may land below 165 rather than above it. Until
 > that measurement is taken, 150 is a floor the body has adopted and not a number it has
 > justified.
@@ -485,18 +499,95 @@ SM-AI-II credentials are valid for **1 year** from issuance.
 holds one year because it certifies Scrum *as practiced in AI-augmented teams*, and
 reasons from the AI tooling moving quickly.
 
-**This scheme reaches one year from where the credential's weight sits.** The 2020 Scrum
+**This scheme reaches one year from the part of it that actually dates.** The 2020 Scrum
 Guide moves slowly — it is a thirteen-page document revised roughly every few years —
-and a scheme resting on it alone would justify a longer cycle. But **D5, *Scrum Master
+and a scheme resting on it alone would justify a longer cycle. **D5, *Scrum Master
 judgment when AI is inside the work system*, carries 22.5% of this examination**, the
-heaviest of the five domains. Nearly a quarter of what this credential attests concerns
-a context that is being renegotiated continuously: what a team may delegate to a model,
-what inspection means when an artifact was generated, what a Developer can be
-accountable for. A two-year cycle would let a holder carry a current credential through
-two full turns of that question.
+heaviest of the five domains. **But a domain's weight is not the measure of what dates
+inside it**, and this section argued for a time that it was. See the correction below.
 
-**The interval is set by the fastest-moving quarter of the body of knowledge, not by its
-average.** Recertification re-tests against the then-current body of knowledge.
+**Roughly 7.5% of the examination is genuinely AI-contingent.** Each D5 task carries
+22.5 / 9 = 2.50 points of form weight, and three of the nine rest on knowledge that
+would move if generation practice moved:
+
+| task | what dates in it |
+|---|---|
+| **5.1** — *what the Definition of Done must cover when implementation is AI-generated* | The Guide's DoD rule is stable; **which quality measure an existing definition fails to reach** depends on what generation currently produces. |
+| **5.5** — *a Retrospective whose inputs are model-summarised and whose actions nobody owns* | `summarisation-displacement` names a failure mode that exists because summarisation became cheap. |
+| **5.6** — *a decline in the Developers' ability to meet the Definition of Done without generation* | `generation-dependence` and `capability-erosion` describe a trend whose shape follows how much of the work generation is doing. |
+
+**The other four D5 tasks are Guide-stable, and they are correctly in this domain
+anyway.** 5.2 (too much to inspect within the Sprint Review), 5.7 (throughput rising
+while Increment usability falls), 5.8 (transparency lost to production rate) and 5.9 (a
+Developer who cannot account for work they submitted) carry **no AI vocabulary** in
+their statements, their knowledge, skills or abilities, or in any of their twelve
+concept descriptions. **None of them is new.** A Review with too much in it, volume
+beating quality, and a Developer who cannot explain their own work all long predate
+generative tooling.
+
+**What AI changed is their frequency, not their answers**, and the JTA already records
+it: all four are `per_sprint`. They belong in D5 because generation is what turned four
+occasional dysfunctions into per-Sprint ones, and a Scrum Master in an AI-augmented team
+now meets them every Sprint rather than once a year. **That is a real reason for their
+placement, and it is not a reason to shorten the interval** — what a candidate is tested
+on in those four does not date. (5.6, the one D5 task marked `occasional`, is among the
+three that do date: a capability trend is noticed occasionally even where the tooling
+producing it is used daily.)
+
+**So the interval rests on 7.5%, not on 22.5%, and that is a weaker case than this
+section previously made.** **The interval is set by the fastest-moving part of the body
+of knowledge, not by its average** — the principle stands and is the right one. What
+changed is the measured size of that part. Recertification re-tests against the
+then-current body of knowledge.
+
+**One year is retained, and it is the body's choice rather than a conclusion the
+measurement forces.** On the content alone **a two-year cycle would also be defensible**:
+92.5% of this examination rests on a document revised every few years, and the 7.5% that
+moves is carried by three tasks. One year is kept for two reasons, neither of which is a
+derivation from the content:
+
+1. **Catalogue consistency.** `SM-AI-I` holds one year by its own argument, and a Level
+   II credential outliving the Level I credential beneath it is difficult to explain to
+   a holder.
+2. **Recertification content is undefined.** Until §12's open item is closed there is
+   nothing to trade a longer interval against — a two-year cycle with an unspecified
+   renewal is a longer gap, not a lighter burden.
+
+**This is owed a revisit when recertification is defined.** The honest form of the
+question is whether 7.5% of an examination moving justifies re-testing the other 92.5%
+every twelve months.
+
+> **CORRECTION, 2026-09-09 — the 22.5% argument was measured and did not hold.**
+>
+> This section previously read: *"Nearly a quarter of what this credential attests
+> concerns a context that is being renegotiated continuously: what a team may delegate
+> to a model, what inspection means when an artifact was generated, what a Developer can
+> be accountable for."* It inferred the share of the examination that dates from **D5's
+> domain weight**, which is a different quantity.
+>
+> **Measured over all 44 tasks and 131 concepts:** five of nine D5 tasks carry any AI
+> vocabulary (12.5% of the form); three are genuinely AI-contingent (7.5%); four carry
+> none in statement, knowledge, skills, abilities or any of their twelve concept
+> descriptions (10.0%). **No task outside D5 carries any**, in any of those fields. The
+> search was verified against D5 itself before the zero was trusted — it fires on
+> exactly 5.1, 5.3, 5.4, 5.5 and 5.6, and is silent on 5.2, 5.7, 5.8 and 5.9.
+>
+> **All three worked examples were checked against the tasks. None held:**
+>
+> - *"what a team may delegate to a model"* — **no SM-AI-II task covers delegation.**
+>   That competence is `SM-AI-I` 2.11, *"Distinguish work a team may delegate to AI from
+>   the accountabilities it must retain"* — a task in the credential below this one.
+> - *"what inspection means when an artifact was generated"* — the two inspection tasks
+>   are 5.2 and 5.8, and **neither mentions generation.** 5.8 reads *"work produced
+>   faster than the team can inspect it"*, cause unstated.
+> - *"what a Developer can be accountable for"* — that is 5.3, whose own concept
+>   `tool-non-accountability` answers it with the Guide's list of the three
+>   accountabilities. **Settled, not renegotiated.**
+>
+> **No task was moved.** The four Guide-stable tasks are correctly in D5 for the
+> frequency reason stated above; relocating them to repair a sentence would move domain
+> weights and the computed cognitive profile, which is a worse trade than a wrong
+> sentence. The sentence was corrected instead.
 
 **What recertification consists of is not yet defined** — whether a full form, a shorter
 one, or something else — and no scheme in the catalogue defines it. Named in §12.
