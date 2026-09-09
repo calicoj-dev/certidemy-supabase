@@ -1,8 +1,8 @@
 # Certidemy — Lesson Authoring Specification
 
-**Document version:** 1.2
+**Document version:** 1.3
 **Status:** Locked. This is the authoring contract.
-**Last updated:** June 2026
+**Last updated:** September 2026
 **Audience:** Anyone writing lesson content (humans or AI)
 
 ---
@@ -11,7 +11,13 @@
 
 The exact markdown syntax for Certidemy lessons. Every lesson is a single `.md` file that conforms to this spec. The frontend parser reads the file and renders it as either Focus mode (slide-style) or Review mode (article-style) — the source is identical for both.
 
-If a lesson doesn't conform to this spec, the renderer will fail or produce broken output. **The spec is the contract.**
+If a lesson's **structure** doesn't conform - a malformed section marker, a widget
+body that isn't valid JSON - the renderer will fail or produce broken output.
+**The spec is the contract.**
+
+Its **references** are a different matter: nothing validates that a
+`concept_slug`, a `task_code` or a `module_slug` resolves to anything. Those fail
+silently or after the fact. See §2's validation note and §12.
 
 ---
 
@@ -47,9 +53,13 @@ A lesson file has three parts, in order:
 File extension: `.md`
 Filename convention: `{module-number}-{lesson-number}-{slug}.md`
 Example: `01-01-agile-manifesto.md`
+**The filename does NOT carry the cert prefix** that `lesson_id` requires (§2).
 
-Location convention: `content/{cert-code}/{module-slug}/{lesson-file}.md`
-Example: `content/smpc/01-foundations-of-agile/01-01-agile-manifesto.md`
+Location convention: `content/{cert-slug}/{NN-module-slug}/{lesson-file}.md`
+Example: `content/sm-ai-i/01-foundations-of-agile/01-01-agile-manifesto.md`
+
+**Translations live in a parallel tree, not a filename suffix:**
+`content/{cert-slug}/_i18n/{es-419|pt-BR}/{NN-module-slug}/{lesson-file}.md`
 
 Encoding: UTF-8, LF line endings, no BOM.
 
@@ -61,13 +71,13 @@ Every lesson opens with a YAML frontmatter block delimited by `---`. All fields 
 
 ```yaml
 ---
-lesson_id: 01-01-agile-manifesto
+lesson_id: sm-ai-i-01-01-agile-manifesto                    # CERT-PREFIXED - see below
 module_slug: foundations-of-agile
-certification_code: SMPC
+certification_code: SM-AI-I
 title: The Agile Manifesto
 subtitle: Four sentences that changed software forever      # optional
 language: en                                                 # en | es-419 | pt-BR
-lesson_group_id: 01-01-agile-manifesto                      # same as lesson_id for canonical lesson; translations point here
+lesson_group_id: sm-ai-i-01-01-agile-manifesto              # DECORATIVE - the loader computes it; see below
 duration_minutes: 8
 order_index: 1                                              # position within the module
 task_codes: [1.1]                                           # which JTA tasks this lesson teaches
@@ -89,13 +99,13 @@ status: draft                                               # draft | review | p
 
 | Field | Type | Notes |
 |---|---|---|
-| `lesson_id` | string | kebab-case, globally unique, immutable once published |
-| `module_slug` | string | references a module (`modules.slug` column we'll add) |
+| `lesson_id` | string | kebab-case, **cert-prefixed**, globally unique, immutable once published. Becomes `lessons.slug` |
+| `module_slug` | string | references `modules.slug` (it exists, and is `NOT NULL`). Must equal the content folder name minus its `NN-` prefix **and** the database row exactly - a typo resolves to no module and the lesson is **skipped with a warning, not an error** |
 | `certification_code` | string | `SM-AI-I`, `AIE-I`, etc. |
 | `title` | string | shown as the lesson header |
 | `subtitle` | string? | optional, shown smaller below title |
 | `language` | enum | `en`, `es-419`, or `pt-BR` |
-| `lesson_group_id` | string | translations share this ID; canonical English lesson uses its own `lesson_id` |
+| `lesson_group_id` | string | **Decorative - the loader does not read it.** See below |
 | `duration_minutes` | int | honest estimate of total time on Focus mode |
 | `order_index` | int | position within the module |
 | `task_codes` | string[] | JTA task codes (e.g., `["1.1", "1.2"]`) |
@@ -105,12 +115,56 @@ status: draft                                               # draft | review | p
 | `authors` | string[]? | optional credit |
 | `status` | enum | `draft` until reviewed, `review` during review, `published` when live |
 
+### `lesson_id` MUST carry a cert prefix (slug uniqueness is GLOBAL)
+
+`lessons.slug` is unique **table-wide**, not per certification:
+
+```
+lessons_slug_language_key  UNIQUE (slug, language) WHERE slug IS NOT NULL
+```
+
+So two certifications cannot both hold `01-01-agile-manifesto` in `en`. The bare
+form this spec used until v1.3 is already taken by SM-AI-I and would collide on
+insert for any cert authored today.
+
+**Prefix `lesson_id` with the cert slug**, as `STYLE-GUIDE-ISMS-IA.md` §1
+established for the first cert that hit this: `isms-ia-01-01-audit-parties`. The
+same section prefixes `module_slug` too, for the same reason - `modules.slug` is
+table-wide unique as well (`ia-audit-function`, `smii-tensions`).
+
+**The filename stays unprefixed.** The prefix belongs to the identifier, not the
+path, which already carries the cert in its directory.
+
+SM-AI-I's lessons are unprefixed and predate the rule. They are not the model.
+
+### `lesson_group_id` is computed, not read
+
+The frontmatter field is **decorative**. `load-lessons-direct.mjs:171` sets the
+column from a deterministic RFC 4122 v5 UUID instead:
+
+```js
+lesson_group_id: uuidV5(meta.lesson_id, CERT_ID)   // namespace = cert uuid, name = lesson slug
+```
+
+**The behaviour is right and the old description was not.** Because the id is
+derived from `(cert, slug)`, the en row and its es-419 and pt-BR siblings compute
+the *same* group id with no lookup and no coordination - a translation loaded
+months later lands in the right group automatically. Nothing reconciles the
+frontmatter value against the column, so a wrong value there is silent. Keep
+writing it equal to `lesson_id` for the human reader, and never rely on it.
+
 ### Validation
 
-The renderer rejects lessons where:
+**The renderer does NOT validate any of this.** There is no publish-time gate.
+`wire-lessons.mjs` reports unresolved `concept_slugs` and `task_codes` in its
+**UNRESOLVED** list - after the lesson is already loaded - and
+`load-lessons-direct.mjs` warns and skips when `module_slug` matches no module.
+Most of what follows is therefore an **authoring checklist** rather than an
+enforced constraint. The one exception is marked:
 - `task_codes` contains codes that don't exist in the `tasks` table
 - `concept_slugs` contains slugs that don't exist in the `concepts` table
-- `lesson_id` collides with another lesson at status `published`
+- `lesson_id` collides with another lesson **in any certification** at the same
+  language (this one IS enforced, by `lessons_slug_language_key`, at insert)
 - `duration_minutes < 2` or `> 30` (sanity range; flag for review)
 
 ---
@@ -224,15 +278,21 @@ A circular flow showing Transparency feeding Inspection feeding Adaptation feedi
 
 **Body:** Plain-text description used as the `alt` text for accessibility and as a fallback if the diagram component fails to load.
 
-**Registered diagram types (initial set):**
-- `scrum-framework-overview`
-- `empiricism-loop`
-- `sprint-flow`
-- `accountability-relationships`
-- `artifact-commitment-pairs`
-- `cynefin-quadrants`
+> **`::diagram` IS EFFECTIVELY UNAVAILABLE, AND THIS SECTION DESCRIBED A
+> REGISTRY THAT DOES NOT EXIST.** There is no `DiagramRegistry` anywhere in
+> `certidemy-web`. The six types below were the intended initial set; they were
+> never registered, and all six are Scrum-framework-specific, so they would not
+> serve an ISO or governance certification even if they had been.
+>
+> **Do not author a `::diagram` section until a registry exists.** Use
+> `::interactive widget="annotated-diagram"` (§7.6) - which has the same problem
+> with its `diagram_type` field - or carry the visual idea in prose. **No lesson
+> in any certification uses `::diagram` at all**, and `annotated-diagram` appears
+> only in `content/sm-ai-i/_test/_test-all-widgets.md`.
 
-New diagrams: register the type in the frontend's `DiagramRegistry`, then use it here.
+**Types the initial set named (none registered):**
+`scrum-framework-overview`, `empiricism-loop`, `sprint-flow`,
+`accountability-relationships`, `artifact-commitment-pairs`, `cynefin-quadrants`.
 
 ---
 
@@ -365,7 +425,110 @@ The end-of-lesson quiz. Required. Always last (before `::summary`). 3-5 question
 | `bloom_level` | enum | yes | matches `bloom_level` DB column |
 | `difficulty` | int 1-5 | yes | for adaptive routing |
 
-Checkpoint questions get inserted into `quiz_questions` at lesson-publish time with `is_exam_scope = true` and `task_id` derived from the lesson's `task_codes`.
+### Checkpoint questions NEVER enter `quiz_questions`
+
+> **THIS SPEC SAID THE OPPOSITE UNTIL v1.3.** The retired sentence read:
+> *"Checkpoint questions get inserted into `quiz_questions` at lesson-publish
+> time with `is_exam_scope = true` and `task_id` derived from the lesson's
+> `task_codes`."* It names two real columns - `is_exam_scope` is
+> `boolean NOT NULL DEFAULT true` on `quiz_questions`, and `task_id` is a
+> nullable uuid - which is what made it read as plausible. **What is wrong is
+> that the insert does not happen: not at publish time, not anywhere, and not
+> ever.**
+
+**There is no code path from a checkpoint to `quiz_questions`.** Across both
+repositories the table has exactly **two INSERT sites** and **two UPDATE sites**,
+and no `upsert` or `delete` anywhere:
+
+| site | operation | what it reads |
+|---|---|---|
+| `certidemy-web/scripts/seed-questions.mjs:218` | insert | a JSON file of questions, from `content/questions/*.json` |
+| `supabase/scripts/gen-cert-secure.mjs:497` | insert | generated secure items, against the JTA |
+| `certidemy-web/scripts/seed-questions.mjs:205` | update | the same JSON file, re-seeding an existing group |
+| `supabase/scripts/debias-positions.mjs:200` | update | existing rows; rewrites `options` and `correct_answer` to reshuffle key position. Creates nothing |
+
+**Only the two inserts can bring a row into existence, and neither reads a
+lesson.** Every other `from("quiz_questions")` call in either repository is a
+`.select`.
+
+Neither insert site contains the string `checkpoint`. The only thing that parses
+`::checkpoint` is `certidemy-web/lib/lessons/parser.ts:442`, which returns
+`{ kind: "checkpoint", questions }` as in-memory objects and contains **no
+network call of any kind** - no `fetch`, no supabase client, nothing.
+
+**AND IT NEVER EXISTED. Nothing was removed.** Read that as the whole history,
+because the alternative reading - that a publish path was built and later taken
+out - would make this a stale description rather than a wrong one, and would
+invite someone to restore it.
+
+- `git log --all -S'quiz_questions' -- 'lib/lessons/'` returns **nothing**. The
+  string has never appeared in the lesson library, in any commit.
+- The initial commit's `checkpoint.tsx` (`525142a`) greps clean for `fetch`,
+  `supabase`, `invoke`, `quiz_questions` and `await`. **Client-side from day
+  one.**
+- `73fcc99` (2026-07-22), *"checkpoint is formative, and say so"*, added the
+  docblock and the on-screen note. It **documented** existing behaviour; it did
+  not remove a path.
+
+**A checkpoint is FORMATIVE, scored in the browser.** `isCorrect()` at
+`components/lessons/sections/checkpoint.tsx:286` compares local state against
+the embedded `correct` array and returns a boolean. The component's own docblock
+exists to stop this change being made:
+
+> *FORMATIVE BY DESIGN - AND THE LEARNING LOOP IS CLOSED ELSEWHERE. Answers here
+> are scored CLIENT-SIDE against the embedded `correct` array and are never sent
+> to the server. That looks like a defect until you notice ConceptQuizButton
+> sitting directly below every checkpoint: it calls fetchConceptPractice for this
+> lesson's concepts, receives a real session_id, and hands it to QuizPlayer,
+> which DOES submit through the engine. Mastery and FSRS update there.*
+>
+> *So the split is deliberate: checkpoint = formative (self-check while reading),
+> concept quiz = summative (counts).* **Do NOT wire this component to
+> submit-quiz-answer** *- checkpoint questions are authored in lesson frontmatter
+> with ids local to the lesson, not quiz_questions UUIDs, so there is nothing to
+> submit against. Promoting them into the bank would be a content-model change
+> with practice/secure pool implications, not a plumbing fix.*
+
+### What following the retired sentence would actually have done
+
+Not what an earlier draft of this correction claimed. **It would not have
+reached the secure pool.** `quiz_questions.pool` is
+`text NOT NULL DEFAULT 'practice'`, and the retired sentence names only
+`is_exam_scope` and `task_id` - so a row inserted exactly as described lands in
+the **practice** pool.
+
+The certification form requires both
+(`functions/generate-mock-exam/index.ts:243-256`): it filters `pool` first and
+applies `.eq("is_exam_scope", true)` only when `mode === "exam"`. So
+`is_exam_scope = true` by itself puts nothing into a certification exam.
+
+**The real consequence is quieter and still bad.** The row would be a taught
+question sitting in the practice pool with `is_exam_scope = true`, where
+`generate-practice-questions` sets it **false** for everything it creates
+(`functions/generate-practice-questions/index.ts:16`). **The simulator applies
+no `is_exam_scope` filter**, so it would serve that item - a question the
+candidate has just been shown the answer to, inside the lesson that showed them.
+
+So, precisely:
+
+- **No insert happens at publish time, or at any other time.** There is no
+  publish step that reads a checkpoint.
+- **`id` is a local string**, `q1` to `q5` - that is the entire observed range
+  across all 1,225 lesson rows that carry a checkpoint. It is never a
+  `quiz_questions` UUID and cannot be submitted against one. Option ids are
+  `a` to `d`, also local.
+- **`is_exam_scope` is never set from here.** Secure items are generated by the
+  item pipeline against the JTA, reviewed, and loaded separately.
+- **`concept_slugs` and `bloom_level` are still required**, and still do real
+  work: `ConceptQuizButton` - rendered below every checkpoint in both modes
+  (`focus-mode.tsx:307`, `review-mode.tsx:187`) - uses the lesson's concepts to
+  fetch practice items, and `bloom_level` keeps the author honest about the level
+  the task declares. "For mastery updates" in the table above means the mastery
+  that button drives, not a write from this component.
+
+**If a checkpoint question is good enough for the exam, it does not belong in a
+checkpoint.** The candidate has just read the answer. Write it as an item and put
+it through the pipeline. §8 carries the authoring rule that follows from this.
 
 ---
 
@@ -383,7 +546,10 @@ Bullet-point takeaways. Final section.
 
 **Attributes:** none.
 
-**Body:** A bulleted list, 3-5 items. Each item is a single short sentence.
+**Body:** A bulleted list. **Five items is the rule**; three is the floor. Each
+item is a single short sentence, and the house pattern is one bullet per major
+concept - which is why five, not a range, is what every certification settled on.
+§9's checklist states the same rule and governs if the two ever drift again.
 
 ---
 
@@ -578,6 +744,24 @@ Boolean toggles change a visualization. Each toggle has consequences shown in re
 
 ### 7.4 `highlight-mistake`
 
+> **§7.4 IS NOT MISSING, AND FOUR DOCUMENTS SAY IT IS.** This note lives here
+> because here is where someone chasing the claim will land.
+>
+> `### 7.4 highlight-mistake` has been in this file since **`1101acf`,
+> 2026-06-25**, at line 579 - `git log -S'### 7.4' -- LESSON_AUTHORING_SPEC.md`
+> returns that one commit. **HANDOFF v6.4** (2026-08-10) asserted its absence -
+> *"The `highlight-mistake` component cites 'SPEC §7.4' - a section that does not
+> exist"* - **from the very tree that contained it**. The claim then propagated
+> unchecked into **v6.7**, **v6.8** and **`NEXT-SESSION-AIMS-IA.md`**.
+>
+> **v6.9 caught it and the check was never run.** It listed the item under
+> *"Likely stale - verify before carrying forward again"*, said the project copy
+> has §7.4 at line 557, and gave the instruction: ***"`git log` the file."*** Two
+> more documents carried the claim forward after that. **A flagged doubt is not a
+> resolved one**, and the one-command check sat unrun for a month.
+>
+> The component's citation was correct the whole time. Nothing here needs adding.
+
 Read text, click the part that's wrong.
 
 ```json
@@ -709,6 +893,44 @@ A diagram with clickable hotspots that reveal explanations.
 | `::callout` | 25-75 | 150 |
 | `::summary` items | 8-15 words each | 25 |
 
+### Checkpoint stems must not be bare definitional questions
+
+A checkpoint stem phrased as *"What is X?"* will eventually be written a second
+time, by a different author, for a different certification, in the secure bank -
+in the same words. It has already happened four times.
+
+Measured 2026-09-08 by extracting every `"question"` string from every
+`::checkpoint` block in `lessons.content_md` (**4,306 questions, 4,300 distinct**)
+and matching against `quiz_questions.question_text`:
+
+```
+SD-AI-I lesson 03-01-definition-of-done   en, es-419, pt-BR
+  "What is the Definition of Done in Scrum?"
+  = an SM-AI-I SECURE item, same text, in each of the three languages
+
+SD-AI-I lesson 03-04-the-sprint-review    en
+  "What is the maximum timebox for the Sprint Review for a one-month Sprint?"
+  = an SM-AI-I SECURE item, same text
+```
+
+**These are not derived from the checkpoints** - different certifications,
+different options, different keys, and no code path exists to derive them (§4.7).
+They are two authors independently writing the only obvious phrasing of a
+definitional question about a shared framework. **That is the hazard: a generic
+stem is generic to everyone.**
+
+**Nothing detects this.** `verify-cert` compares a bank against its own
+certification; a cross-certification stem collision between a lesson and a secure
+item is invisible to every check that exists.
+
+> **Write the checkpoint stem as a situation, not a lookup.** *"A team's
+> Definition of Done omits accessibility checks that the organization requires.
+> What follows?"* cannot collide with anything, because it is specific to the
+> lesson that produced it. *"What is the Definition of Done in Scrum?"* collides
+> by construction. This also serves §4.7's rule from the other direction: a stem
+> that can only be answered by recalling a definition is a weak checkpoint
+> anyway.
+
 ### Writing about Scrum-specific terminology
 - Always teach the 2020 Guide term as authoritative
 - When legacy training materials use an older term, flag it with a `::callout type="terminology"`
@@ -749,10 +971,12 @@ Before marking a lesson `status: published`, verify:
 - [ ] Has at least 1 `::interactive` section (strongly recommended; not strictly required)
 - [ ] `::summary` is present and has 5 bullets (3 is the floor; every cert has
       settled on 5, one per major concept)
-- [ ] Every checkpoint question offers **at least four options**. Two-option
-      true/false items are a coin flip and must never reach a secure bank; the
-      answer-position guard also skips anything under three options, so the items
-      most vulnerable to position cueing are the ones it cannot see
+- [ ] Every checkpoint question offers **at least four options**. A two-option
+      true/false item is a coin flip, which teaches nothing at the moment the
+      learner is checking themselves. (The same floor binds secure items for a
+      second reason - the answer-position guard skips anything under three
+      options, so the items most vulnerable to position cueing are the ones it
+      cannot see. A checkpoint never becomes a secure item; see §4.7.)
 - [ ] After authoring, `wire-lessons.mjs` was run for the cert (dry-run reviewed, then applied) — see §12
 - [ ] The lesson has **≥1 row in `lesson_concepts`** and **≥1 row in `lesson_tasks`** (the projection landed)
 - [ ] `wire-lessons.mjs` reported **zero UNRESOLVED** `concept_slugs` / `task_codes` for this lesson (every frontmatter tag resolves to a real concept/task at current codes)
@@ -768,6 +992,8 @@ Before marking a lesson `status: published`, verify:
 - [ ] Sections appear in narrative order
 - [ ] Checkpoint has 3-5 questions
 - [ ] Each checkpoint question has `concept_slugs` and `bloom_level` set
+- [ ] No checkpoint stem is a bare definitional question — *"What is X?"* stems
+      collide verbatim with secure-bank items across certifications (§8)
 - [ ] No `::concept` exceeds 400 words
 - [ ] No fictional citations or fabricated quotes
 - [ ] Terminology drift handled with `::callout type="terminology"` where relevant
@@ -786,13 +1012,13 @@ A real, complete lesson file demonstrating every section type. Use this as the t
 
 ```markdown
 ---
-lesson_id: 01-01-agile-manifesto
+lesson_id: sm-ai-i-01-01-agile-manifesto
 module_slug: foundations-of-agile
-certification_code: SMPC
+certification_code: SM-AI-I
 title: The Agile Manifesto
 subtitle: Four sentences that changed software forever
 language: en
-lesson_group_id: 01-01-agile-manifesto
+lesson_group_id: sm-ai-i-01-01-agile-manifesto
 duration_minutes: 8
 order_index: 1
 task_codes: [1.1]
@@ -944,7 +1170,7 @@ A team that holds all the Scrum events on schedule but doesn't talk to users, do
 
 ## 11. Versioning this spec
 
-This document is version 1.2. As lessons get written and we learn what works, this spec will evolve. Versioning rules:
+This document is version 1.3. As lessons get written and we learn what works, this spec will evolve. Versioning rules:
 
 - Minor revisions (added section types, new widget primitives): bump to 1.x
 - Breaking changes (renamed fields, deprecated sections): bump to 2.0 and migrate existing lessons
@@ -953,8 +1179,36 @@ The renderer always supports the **current spec version** plus one previous majo
 
 Lessons that haven't been touched in a year and reference a deprecated spec version are flagged in the admin UI for review.
 
+> **THERE IS NO `LESSON_AUTHORING_SPEC-v1_2-addendum.md`. DO NOT LOOK FOR IT.**
+> It existed for one week, was folded into this file as §12 plus three §9
+> checklist items, and was **deleted in `1101acf` (2026-06-25)** - *"retire
+> standalone addendum (now in-spec)."* The fold was verified complete against
+> `git show 1101acf^:LESSON_AUTHORING_SPEC-v1_2-addendum.md` on 2026-09-08: §12,
+> the three checklist items and the changelog entry all landed, and the only
+> wording that changed is that the addendum located frontmatter "inside
+> `content_md`" where this spec says "inside the lesson file" - the spec's is the
+> more accurate phrasing. Recover the original with `git show` if you need the
+> record; there is nothing in it this file lacks.
+
 ### Changelog
 
+- **1.3** (September 2026) — **Corrections before Stage 7 of SM-AI-II.** §4.7 said
+  checkpoint questions are inserted into `quiz_questions` at publish time with
+  `is_exam_scope = true`. **No such path exists and none ever did** - the table
+  has two insert sites, neither reads a lesson, and `quiz_questions` has never
+  appeared anywhere in `lib/lessons/` in any commit. Checkpoints are formative
+  and scored client-side. §4.7 now also states what following the old sentence
+  would really have done - a taught item in the **practice** pool, served by the
+  simulator - correcting an earlier draft of this same correction, which claimed
+  a secure-pool breach that `pool`'s `'practice'` default rules out. §8 gains the
+  stem-collision rule behind it. §7.4 carries a note recording that it is not and
+  never was missing. Every example moved off `SMPC`, a certification that does
+  not exist, onto `SM-AI-I`, which does. Three stale future-tense instructions
+  corrected: `modules.slug` exists, no `DiagramRegistry` was ever built, and the
+  renderer validates nothing. `::summary` fixed at five bullets in both places.
+  Added the cert-prefix rule for `lesson_id` (slug uniqueness is table-wide) and
+  the note that `lesson_group_id` is computed by the loader, not read from
+  frontmatter. Noted that the v1.2 addendum was folded in and deleted.
 - **1.0** (May 18, 2026) — Original authoring contract: file anatomy, frontmatter, the 8 section types, inline elements, widget schemas, writing conventions, validation checklist, and the worked example.
 - **1.2** (June 2026) — Added §12, the **projection rule**: a lesson's frontmatter `concept_slugs` / `task_codes` MUST be projected into the `lesson_concepts` / `lesson_tasks` join tables via `wire-lessons.mjs` after authoring; a lesson with zero rows in either is incomplete. Added three §9 validation-checklist items. This is coverage-traceability evidence for the ISO/IEC 17024 framework — the review→lesson link and the traceability matrix both depend on it. Additive; no existing section changes and the section-type count stays at 8. *(No standalone v1.1 was ever cut: this amendment was authored and committed as the "v1.2 addendum," so folding it in brings the spec to 1.2 to keep the version consistent with the HANDOFF, REFERENCE, and addendum already in the repo.)*
 

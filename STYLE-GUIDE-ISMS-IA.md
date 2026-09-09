@@ -44,7 +44,9 @@ the schema alone and invented a terminal step that looped to itself. Reading
 showed the actual pattern in about a minute.
 
 > **Before the first use of any widget in this cert, open a live lesson that uses
-> it.** `content/smpc/_test/_test-all-widgets.md` covers all six.
+> it.** `content/sm-ai-i/_test/_test-all-widgets.md` covers all six.
+> (This pointer read `content/smpc/` until 2026-09-08. That directory was
+> renamed in `88e880d` and no `smpc` path or flag survives in either repo.)
 
 ### 0.3 Attribution corrections never live in a `::deep-dive`
 
