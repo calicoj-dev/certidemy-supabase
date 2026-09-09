@@ -360,6 +360,34 @@ fail on anything else. The repo's own rule already covers this — *"the recurri
 mode of this system is silent success, and it is caught only by asserting a specific
 expected value, never by the absence of an error."* **A checker is a system too.**
 
+#### A removal needs a sweep, not a read
+
+The cases above are **checks** that reported wrongly. This one is a **fix** that reported
+wrongly, and it is the more common failure.
+
+The invented cancellation claim was removed from `01-06`'s deep-dive, the lesson was
+re-read to confirm the cut landed, and **the same claim survived in four other places** —
+concept 1's *"cancelling a Sprint destroys the container that inspection and adaptation
+happen inside"*, concept 2's comparison, the widget feedback, and a summary bullet. The
+lesson asserted in four places what its own deep-dive had just refused to assert, and the
+note disclaiming exactly that kind of fill-in sat below them. It took a third external
+review to find, and **the second sweep found one more than the review had listed.**
+
+> **Reading a file to confirm a removal is the same error as trusting a zero.** The eye
+> confirms the thing it was looking for is gone and slides straight past the same claim
+> in different words.
+
+> **After removing an invented provision, grep for the CLAIM, not the sentence — and use
+> two lenses if the claim can be stated without its keywords.** This one could: *"a
+> cancelled one **produces none of them**"* contains no loss verb, names no event, and
+> would survive any search built from the sentence that was deleted.
+
+**An invented provision is rarely stated once.** It gets written where it is argued, then
+restated in a callout, compressed into a widget's feedback, and finally reduced to a
+summary bullet — four surfaces, four wordings, one claim. **Removing the argument and
+leaving the compression is the normal outcome**, because the compression is the version
+that no longer looks like a Guide attribution.
+
 ---
 
 ## 1. WHAT MODULE 1 ESTABLISHED
@@ -639,6 +667,8 @@ It is enforced by reading.**
 - [ ] **Every keyed-correct option and every explanation read against the Guide as a
       list, apart from its lesson** — 48 keys, not 9 lessons (§0.7)
 - [ ] **Every check that reported zero was made to fire once first** (§0.8)
+- [ ] **Every removed claim swept for by CLAIM and not by sentence, in two lenses** —
+      a removal confirmed by re-reading is not confirmed (§0.8)
 - [ ] One lesson per task; `task_codes` holds exactly one code
 - [ ] `concept_slugs` holds exactly the three concepts mapped to that task - all three,
       none added
