@@ -17,7 +17,7 @@ mechanism and delivered prose.
 
 ---
 
-## 0. THE SIX RULES THAT OVERRIDE EVERYTHING
+## 0. THE RULES THAT OVERRIDE EVERYTHING
 
 ### 0.1 Every Guide claim is 2020 text, or the sentence says it is inference
 
@@ -280,6 +280,67 @@ the reader in a position to answer by using it.
 **Two ways out, and either is fine:** use the `depends_on` chain so the toggles compose
 into states, or drop to `drag-match` with four combination cards and four readings. **Do
 not keep an intro that promises a mechanism the widget does not have.**
+
+### 0.7 A keyed-correct option is an assertion, and §0.1 governs it
+
+> **§0.1 applies to options and explanations BEFORE it applies to concepts and callouts.
+> An answer key makes a stronger claim than a sentence does, because a candidate who
+> disagrees with it is marked wrong.**
+
+Prose can be read sceptically. A key cannot. A lesson that says something false in a
+concept block invites a reader to push back; a lesson that keys it correct **tells the
+candidate their correct belief is the wrong one, and scores them on it.**
+
+**What it cost.** `01-01` q3 offered *"It is a forecast by the Developers"* as a true
+statement about the Sprint Backlog **and keyed it correct.** The 2020 Guide calls that
+artifact *"a plan by and for the Developers"*; the word *forecast* is 2011-2017 language
+for it. `01-04`, three lessons later in the same module, teaches exactly that — and the
+key three lessons earlier told the candidate the opposite.
+
+**It survived the external review, four rewrite passes and every validation sweep this
+document describes.** Not because the sweeps were careless: because **every one of them
+read prose.** §0.1's own working rule — *keep the Guide open in a second window* — was
+followed, against concepts, callouts and deep-dives. Nothing read what an option
+asserted. A defect can sit in the highest-stakes sentence in a lesson and be invisible to
+a check that looks everywhere else.
+
+> **The check: read the 48 keys, not the 9 lessons.** Four questions per lesson, four
+> options each, nine lessons. Extract every option marked correct and every explanation,
+> and read that list against the Guide as a list — separately from the lesson it came
+> from, so the surrounding prose cannot supply a charity the candidate will not get.
+>
+> **A wrong distractor is a §0.3 problem. A wrong key is a §0.1 problem, and it is worse.**
+
+### 0.8 A checker needs a control that fires
+
+> **Plant the defect the check is meant to catch and confirm it catches it. Only then is
+> a zero worth anything.**
+
+A scan that reports nothing has told you one of two things and does not distinguish
+between them: there is nothing there, or the scan does not work. **This module produced
+four of the second kind in a single day.**
+
+| the check | what it did |
+|---|---|
+| the 2017-material scan | fired on `01-06`'s own **disowning** sentence — the paragraph naming what the Guide does not say matched a search for what the Guide does not say |
+| the `forecast` classifier | same shape, on `01-04`'s *"What is wrong is naming the artifact a forecast"* — the sentence teaching the rule counted as a violation of it |
+| the overlap checker | compared options rather than whole questions, and **missed** `q3`/`e2`. Its zero read as "no duplication" |
+| the `task_concepts` fetch | hit PostgREST's default row limit, returned a truncated set, and reported **all 27 D1 concepts as foreign to D1** |
+
+**The first two are false positives, which are cheap — they announce themselves.** The
+last two are false negatives, which are the dangerous half: one reported *no overlap*
+where overlap existed, and one reported a catastrophe that did not exist, which is the
+same failure wearing the opposite sign.
+
+**All four are the same error: a substring, a sample or a default limit standing in for
+the property.** A regex over text cannot tell an assertion from its refutation, because
+both contain the words. A row fetch without an explicit limit is a sample, not a set.
+
+**So before trusting a zero:** add a line that should match and confirm it does; run the
+check against a lesson you know contains the defect; or assert the count you expect and
+fail on anything else. The repo's own rule already covers this — *"the recurring failure
+mode of this system is silent success, and it is caught only by asserting a specific
+expected value, never by the absence of an error."* **A checker is a system too.**
 
 ---
 
@@ -557,6 +618,9 @@ It is enforced by reading.**
 - [ ] No story points, velocity or numeric estimate used as scenario furniture (§0.5)
 - [ ] **Every widget intro's promise is delivered by the widget, not by prose beneath
       it** (§0.6)
+- [ ] **Every keyed-correct option and every explanation read against the Guide as a
+      list, apart from its lesson** — 48 keys, not 9 lessons (§0.7)
+- [ ] **Every check that reported zero was made to fire once first** (§0.8)
 - [ ] One lesson per task; `task_codes` holds exactly one code
 - [ ] `concept_slugs` holds exactly the three concepts mapped to that task - all three,
       none added
