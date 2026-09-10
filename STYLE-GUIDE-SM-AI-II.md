@@ -521,6 +521,28 @@ usually the thing that is wrong.**
 Fixed by softening the key to a finding about the evidence rather than about inspection,
 so the concept and the key now say the same thing. **The concept was right and stayed.**
 
+#### Some readings are prose-safe and key-unsafe
+
+> **A lesson may argue a reading the text permits and the Guide does not settle. An item
+> may not key one. Record them as they are written, because item generation cannot tell a
+> considered reading from a settled one.**
+
+Module 3 produced three, none of them keyed, all worth keeping in the prose:
+
+- **`03-07`'s narrow *therefore*** - that the sharing recommendation does not address
+  acquisition and reorganisation pairs at all, rather than addressing them weakly. A
+  defensible reading of the sentence's scope, and commentary rather than provision.
+- **`03-08`'s singular *Scrum Team*** - reading the Guide's singular as load-bearing
+  about how many teams one Product Owner serves.
+- **`03-06`'s provisional-decision construction** - treating a decision taken in the
+  Product Owner's absence as provisional until they return.
+
+Each is the lesson reasoning past the point where the Guide stops, which is what a Level
+II lesson is for. **Keyed, each becomes the credential asserting something the 2020 text
+does not say** - §0.1 through the side door, and harder to see there because the sentence
+itself is sound. Item generation has not run against module 3 yet; this list is what it
+must not draw a key from.
+
 #### A stem and its explanation must still agree after a rewrite
 
 > **A stem is rewritten more often than the key it was built for. Re-read them together
