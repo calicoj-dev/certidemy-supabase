@@ -46,16 +46,23 @@ per line, so a fixed-string search for a sentence inside a paragraph matches.
 A `-layout` extraction also exists in working notes and is **not** committed, because it
 preserves the two-column contents page and wraps every sentence at PDF line breaks.
 
-### BULLET LISTS STILL BREAK MID-SENTENCE, AND THAT IS WHERE YOU WILL WANT TO LOOK
+### THREE LINES BREAK MID-SENTENCE, AND TWO OF THEM ARE THE SCRUM MASTER'S SERVICE LISTS
 
-**Reflowing joins paragraphs. It does not join bullets**, and 14 lines in this file end
-mid-sentence - the licence block, the contents page, and **the Scrum Master service
-lists**, which is the highest-traffic Guide territory in this scheme:
+Reflowing joins paragraphs. It joins **numbered** lists too - the four conditions under
+*"Scrum requires a Scrum Master to foster an environment where"* are all on line 25 and
+quote directly from the line file. **What it does not join is the Scrum Master's two
+service lists**, and those are the only breaks in the whole document:
 
 ```
-line 81 ends: ...understand and enact an empirical approach for complex
+line 74 ends:   ...take place and are positive, productive, and kept within the
+line 75 starts: timebox.                          <- serves the Scrum Team, 4th bullet
+
+line 81 ends:   ...understand and enact an empirical approach for complex
 line 82 starts: work; and,  Removing barriers between stakeholders and Scrum Teams.
+                                                  <- serves the organization, 3rd bullet
 ```
+
+A third break is in the CC licence block on line 9, which is not Guide content.
 
 So `grep -F "Helping employees and stakeholders understand and enact an empirical approach
 for complex work"` **returns 0, and the sentence is there.** That is a false absence, in
@@ -69,8 +76,29 @@ tr -d '\r' < reference/scrum-guide-2020.txt | tr '\n' ' ' | tr -s ' ' > /tmp/gui
 grep -c -F "the sentence you are checking" /tmp/guide-flat.txt
 ```
 
-All five sentences above - including the two that span a line break - return 1 against the
-flattened form. **Search the line file first; flatten before recording an absence.**
+Every sentence in this README - including the two that span a break - returns 1 against
+the flattened form. **Search the line file first; flatten before recording an absence.**
+In practice you need the flattened form only for the two service lists.
+
+#### HOW THIS WAS MEASURED, BECAUSE THE FIRST COUNT WAS WRONG
+
+**A line continues mid-sentence only if the next line begins with a lowercase letter.**
+That test returns three. The first version of this section said **fourteen**, from a
+cruder test - lines not ending in `.`, `:` or `;` - which swept in the contents-page dot
+leaders, `4. Repeat`, and `Commitment, Focus, Openness, Respect, and Courage`. Those are
+complete lines that happen to carry no terminal punctuation.
+
+> **THAT IS THE FORECAST DEFECT, REPEATING INSIDE THE DOCUMENT WRITTEN TO PREVENT IT.**
+> §0.1 exists because *forecast* was recorded as appearing once when it appears twice - a
+> count asserted from a measurement that was not precise enough for the claim. **This
+> README made the same error about this Guide, four commits later, in the paragraph
+> explaining how to avoid it.**
+>
+> The difference is only the cost. The forecast count survived into two documents, a
+> commit message and two sections of `SCHEME-SM-AI-II.md` before anyone caught it. This
+> one lasted one lesson, because the file is local and the corrected count took two
+> minutes to produce. **A local corpus does not stop you being wrong; it changes how long
+> you stay wrong.**
 
 ### Reproducing the extraction
 
