@@ -124,9 +124,11 @@ and none is in the text:
     the organization has one it is a MINIMUM the Scrum Team may only strengthen.
     Permitted change runs in one direction.
   - That the Scrum Master is accountable for the Increment, the Product Backlog
-    or delivery. The Developers are accountable for the Increment; the Product
-    Owner for the Product Backlog. The Scrum Master is accountable for the Scrum
-    Team's effectiveness.
+    or delivery. The Product Owner is accountable for the Product Backlog; the
+    Scrum Master for the Scrum Team's effectiveness. THE INCREMENT BELONGS TO
+    THE ENTIRE SCRUM TEAM - see the Increment pair below. This entry used to say
+    the Developers were accountable for it, which is the claim migration 289
+    retired from five sites in the job-task analysis on 2026-09-10.
   - That a Sprint may be extended, paused, or its timebox varied once begun. It
     may not. A fixed length is what makes the Sprint a container that bounds
     risk to one Sprint.
@@ -147,8 +149,14 @@ and none is in the text:
   - That Scrum defines ROLES. The 2020 edition defines ACCOUNTABILITIES. The
     change is not cosmetic: a role is a job title a person holds, an
     accountability is an outcome someone is answerable for.
-  - That the Scrum Master assigns work to Developers. Nobody does. The
-    Developers decide who does what within the Sprint.
+  - That the Scrum Master assigns work to Developers, or that nobody may. The
+    Guide states NO PROHIBITION on assignment; it states a positive provision,
+    and it gives that provision to the SCRUM TEAM rather than the Developers:
+    "Scrum Teams are cross-functional... They are also self-managing, meaning
+    they internally decide who does what, when, and how." Write the provision,
+    never the prohibition, and do not narrow it to the Developers. This entry
+    used to do both; migration 285 retired the same two errors from task 3.2 and
+    from work-assignment-boundary.
   - That a group of people may collectively be "the Product Owner". The Product
     Owner is ONE PERSON. A committee may advise; it may not hold the
     accountability.
@@ -167,8 +175,13 @@ and none is in the text:
     Backlog's commitment and is the single objective for one Sprint.
   - That the Scrum Master writes the Sprint Goal. The whole Scrum Team crafts
     it during Sprint Planning.
-  - That the Product Owner must estimate work or assign it. Sizing belongs to
-    the Developers; assignment belongs to nobody.
+  - That the Product Owner must estimate work or assign it. "The Developers who
+    will be doing the work are responsible for the sizing. The Product Owner may
+    influence the Developers by helping them understand and select trade-offs."
+    RESPONSIBLE, not accountable, and the permitted influence is half the
+    sentence - an item that drops it makes the Product Owner a bystander the
+    Guide does not describe. The word estimate does not appear in the 2020 Guide
+    in any form; its word is sizing.
   - That the Scrum Master is an administrative coordinator or secretary for the
     team - a scheduler of meetings, a taker of notes, a chaser of statuses. The
     Guide describes true leaders who serve the team and the organization.
@@ -177,6 +190,70 @@ and none is in the text:
     self-organizing. EVENTS, not ceremonies. ACCOUNTABILITIES, not roles.
     Prior-edition vocabulary in a stem tells the candidate they are reading an
     item written against a superseded text.
+
+  ---- ADDED 2026-09-10. Every entry below is a claim that reached THIS
+  ---- scheme's job-task analysis and was retired by migration 285, 287, 288 or
+  ---- 289. The list was written before all four. A never-assert list assembled
+  ---- from general knowledge catches the errors everyone makes; these are the
+  ---- errors this credential actually made, which is a different set.
+
+  - That the Developers are accountable for the Increment. The Guide gives it to
+    the whole team: "The entire Scrum Team is accountable for creating a
+    valuable, useful Increment every Sprint." The Developers are "committed to
+    creating any aspect of a usable Increment each Sprint", and their own
+    always-accountable list is four items with the Increment NOT among them:
+    creating a plan for the Sprint, instilling quality by adhering to a
+    Definition of Done, adapting their plan each day toward the Sprint Goal, and
+    holding each other accountable as professionals.
+  - AND THE INVERSE, WHICH MUST SHIP WITH IT: that the Developers therefore bear
+    no accountability for what is in the Increment. They are committed to
+    creating any aspect of it and are ALWAYS accountable for "instilling quality
+    by adhering to a Definition of Done". "The Scrum Team is accountable" is not
+    a way of saying no one in particular is. A key that removes the Developers
+    from the picture is as wrong as one that hands them the whole of it, and it
+    is the error an item about generated work reaches for first - it sounds
+    collegial. See the paired-error rule: the permissive form of this error and
+    the restrictive form are both live, so neither entry ships alone.
+  - That the Sprint bounds risk to one Sprint, or that having Sprints limits
+    risk. The sentence is about SHORTER Sprints: "Shorter Sprints can be
+    employed to generate more learning cycles and limit risk of cost and effort
+    to a smaller time frame." A comparative about Sprint LENGTH, not a property
+    of the Sprint as such. Corrected twice in this scheme, in task 2.4 and then
+    again in task 4.6 and risk-containment.
+  - That the Product Owner orders the Product Backlog to best achieve goals and
+    missions, to maximize value, or by any stated criterion. That is 2017 text.
+    Against the 2020 document: "best achieve goals" -> 0, "goals and missions"
+    -> 0. The 2020 edition reduces it to one bullet - "Ordering Product Backlog
+    items;" - with NO criterion attached. The Product Owner is accountable for
+    maximizing value; the Guide never says the ORDER is the means.
+  - That teams on one product are REQUIRED to share a Product Owner, a Product
+    Backlog or a Product Goal. Three sentences address multiple teams and only
+    three. Two are "should" and reachable only by reorganizing a too-large team.
+    The third is a "must" and is NOT scoped to that case: "If there are multiple
+    Scrum Teams working together on a product, they must mutually define and
+    comply with the same Definition of Done." The Guide knows how to require
+    something of several teams, and for the Product Owner it chose not to.
+    Preserve which modal is which.
+  - That the Sprint Review is not a presentation. The Guide says the Scrum Team
+    "should avoid limiting it to a presentation" - a should-avoid-LIMITING, not
+    an is-not. A Review that includes a demonstration is not thereby defective;
+    one that is ONLY a demonstration is what the sentence is about.
+  - That low transparency leads to bad decisions. Subject and modal are both
+    load-bearing: "ARTIFACTS THAT HAVE low transparency CAN lead to decisions
+    that diminish value AND INCREASE RISK." Not transparency in the abstract,
+    not leads, and the increase-risk half is not decoration.
+  - That the Scrum Master helps the organization adopt an empirical approach.
+    The sentence is "Helping employees and stakeholders understand and enact an
+    empirical approach for complex work." Understand AND enact, employees AND
+    stakeholders, for complex work. Four sites in this scheme drifted from it in
+    the same direction, which is how a paraphrase becomes the remembered text.
+  - That the Guide calls only Scrum a container, or only the Sprint one. It uses
+    the word for BOTH: "The Sprint is a container for all other events" and
+    "Scrum exists only in its entirety and functions well as a container for
+    other techniques, methodologies, and practices." A finding that one of these
+    did not exist was made, acted on, and committed to a message before it was
+    found false. Quote whichever one the item needs; assert nothing about the
+    other.
 
 CLAIMS THAT ARE TRUE BUT ARE INFERENCES, NOT QUOTATIONS. An item may rely on
 these. An item must NEVER attribute them to the Guide as something it states:

@@ -191,7 +191,7 @@ twenty-two are written as an explicit pair — *what can be keyed* set against *
 — rather than as a prohibition alone. That is this rule applied per task, and it is why
 §4.3 reads as a map rather than as a blacklist.
 
-### 4.1 NEVER-ASSERT — 22 entries
+### 4.1 NEVER-ASSERT — 31 entries
 
 **The deployed form is `SCRUM_GUIDE_FACTS` in `scripts/lib/item-grounding.mjs`, injected
 into the draft and critique prompts for every Level II Scrum item.** The text below is
@@ -207,14 +207,14 @@ distractors.
 | **N1** | That anyone other than the Product Owner may cancel a Sprint | Only the Product Owner has that authority, and a Sprint is cancelled when its Sprint Goal becomes obsolete — not when the work is late, hard or unpopular |
 | **N2** | That the Scrum Master may overrule the Product Owner's ordering of the Product Backlog | The Product Owner may have others do the ordering work but remains accountable, and those wanting a change persuade the Product Owner |
 | **N3** | That the Scrum Team may weaken an organizational Definition of Done | Where the organization has one it is a MINIMUM the Scrum Team may only strengthen. **Permitted change runs in one direction** |
-| **N4** | That the Scrum Master is accountable for the Increment, the Product Backlog or delivery | The Developers are accountable for the Increment; the Product Owner for the Product Backlog. The Scrum Master is accountable for the Scrum Team's effectiveness |
+| **N4** | That the Scrum Master is accountable for the Increment, the Product Backlog or delivery | The Product Owner is accountable for the Product Backlog; the Scrum Master for the Scrum Team's effectiveness. **The Increment belongs to the entire Scrum Team — see N23.** *This entry said "the Developers are accountable for the Increment" until 2026-09-10, which is the claim migration 289 retired from five JTA sites the same day.* |
 | **N5** | That a Sprint may be extended, paused, or its timebox varied once begun | It may not. A fixed length is what makes the Sprint a container that bounds risk to one Sprint |
 | **N6** | That the Daily Scrum is a status report to the Scrum Master, a manager or the Product Owner | It is FOR the Developers, to inspect progress toward the Sprint Goal and adapt the Sprint Backlog |
 | **N7** | That the Daily Scrum requires any particular three questions | The 2020 edition REMOVED them as a requirement. A team may use them; an item that treats them as required is **testing a superseded edition** |
 | **N8** | That a forecast, an estimate or a velocity figure is a commitment | The Sprint Backlog is a FORECAST by the Developers. The Sprint Goal is the commitment. The distinction does not change because a number looks precise |
 | **N9** | That Scrum prescribes story points, velocity, burndown charts, or refinement as an event | It prescribes none of them. Product Backlog refinement is an ongoing ACTIVITY, not one of the five events |
 | **N10** | That Scrum defines ROLES | The 2020 edition defines ACCOUNTABILITIES. A role is a job title a person holds; an accountability is an outcome someone is answerable for |
-| **N11** | That the Scrum Master assigns work to Developers | Nobody does. The Developers decide who does what within the Sprint |
+| **N11** | That the Scrum Master assigns work to Developers, **or that nobody may** | The Guide states **no prohibition** on assignment; it states a positive provision, and gives it to the **Scrum Team**: *"Scrum Teams are cross-functional… They are also self-managing, meaning they internally decide who does what, when, and how."* *This entry stated the prohibition and narrowed the provision to the Developers until 2026-09-10 — both errors migration 285 retired from task 3.2 and `work-assignment-boundary`.* |
 | **N12** | That a group of people may collectively be "the Product Owner" | The Product Owner is ONE PERSON. A committee may advise; it may not hold the accountability |
 | **N13** | That the Daily Scrum is for anyone but the Developers | Others may attend only if they are actively working on Sprint Backlog items |
 | **N14** | That a timebox is a fixed duration | Timeboxes are MAXIMA. An event that achieves its purpose early ends early |
@@ -222,10 +222,34 @@ distractors.
 | **N16** | That only one Increment may be created in a Sprint, or that release is reserved to Sprint end | Both are false, for the reason at N15. **N15 and N16 are a pair; neither ships alone** |
 | **N17** | That the Product Goal and the Sprint Goal are the same thing, or interchangeable | The Product Goal is the Product Backlog's commitment and describes a future state of the product. The Sprint Goal is the Sprint Backlog's commitment and is the single objective for one Sprint |
 | **N18** | That the Scrum Master writes the Sprint Goal | The whole Scrum Team crafts it during Sprint Planning |
-| **N19** | That the Product Owner must estimate work or assign it | Sizing belongs to the Developers; assignment belongs to nobody |
+| **N19** | That the Product Owner must estimate work or assign it | *"The Developers who will be doing the work are **responsible** for the sizing. The Product Owner **may influence** the Developers by helping them understand and select trade-offs."* Responsible, not accountable, and the permitted influence is half the sentence. `estimat` returns **0** in any form; the Guide's word is *sizing* |
 | **N20** | That the Scrum Master is an administrative coordinator or secretary — scheduler of meetings, taker of notes, chaser of statuses | The Guide describes true leaders who serve the team and the organization |
 | **N21** | That any scaling framework is part of Scrum | None is. **Do not name one** |
 | **N22** | That the terms are anything other than the 2020 terms | SELF-MANAGING, not self-organizing. EVENTS, not ceremonies. ACCOUNTABILITIES, not roles. Prior-edition vocabulary in a stem tells the candidate they are reading an item written against a superseded text |
+
+**N23–N31 were added on 2026-09-10, and their provenance is different from N1–N22's.**
+The first twenty-two are the misconceptions the field holds. **These nine are the ones
+this credential actually made** — every one reached the job-task analysis and was retired
+by migration 285, 287, 288 or 289. The list predates all four.
+
+> **A never-assert list assembled from general knowledge catches the errors everyone
+> makes. It does not catch the errors a particular scheme makes**, and those are the ones
+> its own item bank will reproduce, because they are already in the task text the
+> generator is handed. **The audit that produced these nine also found two of N1–N22
+> asserting what the migrations had just retired** — N4 and N11 — so the list was not
+> merely incomplete, it was in two places wrong.
+
+| # | Claim that must never be asserted | What the 2020 Guide holds, and where this scheme got it wrong |
+|---|---|---|
+| **N23** | That **the Developers** are accountable for the Increment | *"The entire Scrum Team is accountable for creating a valuable, useful Increment every Sprint."* The Developers are *"committed to creating any aspect of a usable Increment each Sprint"*, and their own always-accountable list is four items with the Increment **not among them**. **Migration 289, five sites** |
+| **N24** | That the Developers therefore bear **no** accountability for what is in the Increment | **The inverse of N23, and it ships with it** (§4.0). They are *always* accountable for *"instilling quality by adhering to a Definition of Done"*. *"The Scrum Team is accountable"* is not a way of saying no one in particular is. **This is the error an item about generated work reaches for first, because it sounds collegial** |
+| **N25** | That the Sprint bounds risk to one Sprint, or that having Sprints limits risk | The sentence is about **shorter** Sprints: *"Shorter Sprints can be employed to generate more learning cycles and limit risk of cost and effort to a smaller time frame."* A comparative about length, not a property of the Sprint. **Corrected twice — task 2.4 (285), then task 4.6 and `risk-containment` (288)** |
+| **N26** | That the Product Owner orders the Product Backlog *to best achieve goals and missions*, to maximize value, or by any stated criterion | **2017 text.** `best achieve goals` → **0**, `goals and missions` → **0**. The 2020 edition reduces it to one bullet — *"Ordering Product Backlog items;"* — with **no criterion attached**. **Task 4.4 and `product-backlog-ordering` (288)** |
+| **N27** | That teams on one product are **required** to share a Product Owner, Product Backlog or Product Goal | Two *shoulds*, reachable only by reorganizing a too-large team. The one **must** is unscoped and different: *"If there are multiple Scrum Teams working together on a product, they must mutually define and comply with the same Definition of Done."* **Task 3.7 (285), task 3.8 (287)** |
+| **N28** | That the Sprint Review **is not** a presentation | *"The Sprint Review is a working session and the Scrum Team **should avoid limiting it to** a presentation."* A should-avoid-**limiting**, not an is-not. **Task 4.1 (288), which hardened a Level I floor that was already correct** |
+| **N29** | That low transparency leads to bad decisions | Subject and modal are both load-bearing: *"**Artifacts that have** low transparency **can** lead to decisions that diminish value **and increase risk**."* **Task 4.2 and `transparency` (288)** |
+| **N30** | That the Scrum Master helps the organization *adopt an empirical approach* | *"Helping employees and stakeholders understand and enact an empirical approach for complex work."* Understand **and** enact, employees **and** stakeholders, for complex work. **Four sites drifted the same way (285)** — which is how a paraphrase becomes the remembered text |
+| **N31** | That the Guide calls only Scrum a container, or only the Sprint one | It uses the word for **both**: *"The Sprint is a container for all other events"* and *"Scrum exists only in its entirety and functions well as a container for other techniques, methodologies, and practices."* **A finding that one of these did not exist was acted on, and committed to a message, before it was found false** — `STYLE-GUIDE-SM-AI-II.md` §0.1 |
 
 ### 4.2 TRUE BUT DERIVED — 4 entries
 
@@ -642,7 +666,7 @@ measurement**.
 |---|---|---|
 | 2020 Scrum Guide | **Current edition, November 2020.** Held locally with recorded hashes | A new edition. **It would move this credential's entire subject**, because the subject is this edition's silences |
 | 2017 Scrum Guide | **Superseded.** Not held, not cited, and N7 / N22 exist to keep its vocabulary out | none — but see 9.2 row 2, where it reached a lesson anyway |
-| `SCRUM_GUIDE_FACTS` | **26 entries live in code**, not in a document. §4.1 and §4.2 are the readable copy | Any change to either copy is a change to both |
+| `SCRUM_GUIDE_FACTS` | **35 entries live in code** (31 + 4 `[derived]`), not in a document. §4.1 and §4.2 are the readable copy | Any change to either copy is a change to both. **It went 26 → 35 on 2026-09-10 and this row moved with it, which is the rule working** |
 | `SCRUM_L2_JUDGMENT` | **Live in code and in `SCHEME` §7.1.** One artefact, two homes | Same rule |
 | `reference/scrum-guide-2020.txt` | md5 `c69676b0a490c2f341df8501737f940a` | **A re-extraction changes the hash and may change line breaking.** See 9.2 row 4 |
 

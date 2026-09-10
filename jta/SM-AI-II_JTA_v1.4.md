@@ -233,8 +233,17 @@ discriminator and exactly what §7.1's borderline candidate is defined to produc
 
 ### 7.1 Where it is
 
-**The 26 never-assert entries are held in `scripts/lib/item-grounding.mjs`, in the
-constant `SCRUM_GUIDE_FACTS`.** Counted 2026-09-09:
+**The never-assert entries are held in `scripts/lib/item-grounding.mjs`, in the
+constant `SCRUM_GUIDE_FACTS`.** **35 as at 2026-09-10** — 31 plus 4 `[derived]`.
+The breakdown below was counted 2026-09-09, when the total was 26:
+
+> **NINE WERE ADDED AND THREE CORRECTED ON 2026-09-10**, after an audit against
+> migrations 285 through 289. Every one of those migrations retired a claim that had
+> reached this JTA, and the list was written before all of them. **Two entries were not
+> merely missing but wrong** — one asserted the Developers are accountable for the
+> Increment, which migration 289 retired the same day; the other narrowed self-management
+> to the Developers and stated an assignment prohibition, both retired by 285.
+> `jta/SM-AI-II_BoK_v2.0.md` §4.1 is the readable copy.
 
 - **22 entries** under *"CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION — each
   is widely taught and none is in the text"*: Sprint cancellation authority · Scrum

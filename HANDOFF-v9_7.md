@@ -276,7 +276,10 @@ from the certification name with no tier argument.
 
 **And the 26 never-assert entries are in code.** `SCRUM_GUIDE_FACTS` in
 `scripts/lib/item-grounding.mjs` — 22 plus 4 `[derived]`, with the paired-error
-rule inside the third derived entry. **The citation was wrong, not the list
+rule inside the third derived entry. **[2026-09-10: 35, being 31 plus 4. Nine were
+added and three corrected after an audit against migrations 285-289; the paired-error
+rule is now stated as a rule in `jta/SM-AI-II_BoK_v2.0.md` §4.0 rather than living
+inside one entry.]** **The citation was wrong, not the list
 lost.** v1.2's *"entries 14 and 26"* are positions 24 and 25 there, so the code
 is a faithful reconstruction and must never be described as a recovered file.
 
@@ -464,7 +467,7 @@ reason the guide was written before the rewrites rather than after.
 
 *The Sprint Backlog is a forecast* was in three knowledge lines before it was in
 a lesson. 1.2's overlap with a Level I task was in the JTA before it was in a
-module. The 26 never-assert entries were cited from a file nobody could open,
+module. The 26 never-assert entries **[2026-09-10: 35]** were cited from a file nobody could open,
 and the citation was the only record that they existed. **An author starting
 from a task inherits whatever the task got wrong, and every lesson written
 against it repeats it faithfully.**

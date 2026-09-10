@@ -530,7 +530,7 @@ silence** — which is precisely the space the examination occupies.
 
 The item generator is given an explicit grounding block naming the source, the permitted
 citations, and a list of claims that must never appear in a key or an explanation. For
-this scheme that list holds **26 never-assert entries**, each written as
+this scheme that list holds **35 never-assert entries** (26 until 2026-09-10), each written as
 claim → correction → reason, covering the misconceptions most widely taught and least
 supported by the text: that anyone but the Product Owner may cancel a Sprint; that the
 Scrum Master may overrule backlog ordering; that a Scrum Team may weaken an
