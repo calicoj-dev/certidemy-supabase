@@ -90,6 +90,68 @@ pressure.
 
 ---
 
+### 2.1 Why AI sits in one domain when `SM-AI-I` weaves it through every module
+
+**This is the first question an auditor or a candidate asks, and the answer was not
+written down.** The decision is confirmed by external JTA review and does not move. The
+argument for it is reconstructed below.
+
+> **PROVENANCE.** Reconstructed 2026-09-10 from the external review's conclusion and from
+> the minimally competent candidate definition in §7.1 and `scripts/lib/item-grounding.mjs`.
+> §4 cites `SM-AI-II_BoK_v1.1.md` (signed 2026-09-02) as the source, and **that file was
+> never committed and cannot be produced** — recorded in `jta/SM-AI-II_JTA_v1.4.md` §9 as
+> unrecoverable. **The decision predates this text; the argument for it does not survive
+> anywhere else.**
+
+**THE TWO CREDENTIALS CERTIFY DIFFERENT OBJECTS.** `SM-AI-I` certifies what the Guide
+defines, and AI is the **workplace the candidate has**. That is why its AI lessons are
+filed into `scrum-roles`, `scrum-artifacts` and `foundations-of-agile` rather than kept
+in a module of their own — a Foundation credential teaching a pre-generation workplace
+would be teaching something the candidate does not work in. **Integration is correct
+there because the subject is the framework, and the framework is met in an AI workplace.**
+
+**SM-AI-II certifies judgment where the Guide is silent.** If every silence also carried
+an AI condition, **each D1–D4 item would measure two things**: the judgment under test,
+and whether the candidate noticed a model. That is **construct-irrelevant variance across
+35 tasks whose best answer does not change** — and it would make D5 a recap of the other
+four domains rather than a domain.
+
+#### The test for where AI belongs
+
+> **A task carries AI only where the BEST ANSWER differs because a model is in the
+> system.** Not where the same answer arises more often. Not where the finding is harder
+> to raise.
+
+**Five D5 tasks meet that test:** `5.1` (what Done must reach when implementation was
+generated), `5.3` (accountability for a defect in generated work), `5.4` (a model-produced
+number read as a commitment), `5.5` (summarisation displacing participation), `5.6`
+(meeting Done without generation).
+
+**Four earn their seat on frequency rather than judgment:** `5.2`, `5.7`, `5.8`, `5.9`.
+Their best answers would be the same in a team that generates nothing; what generation
+changes is how often the situation arises and how fast it arrives. **That is recorded
+rather than hidden, because it is the honest count** — and because an item writer who
+does not know which four they are will write them as their D4 siblings with scenery
+changed. `STYLE-GUIDE-SM-AI-II.md` §0.7 names the sibling pairs.
+
+#### What the minimally competent candidate definition already settles
+
+**The evidence that the concentration is right is in the MCC, and it predates this
+section.** Failure mode 6 — treating an artifact as evidence of the activity that
+produced it — reads, in the deployed form at `scripts/lib/item-grounding.mjs`:
+
+> *"This failure gets much worse when the artifact was generated: the document exists, it
+> reads well, and nobody in the team holds what is in it."*
+
+**That is a multiplier on a competence the candidate already has, not a different
+competence.** It is how a nastier second-best gets written for a D5 item, and it is why a
+D5 item may legitimately use a non-AI failure mode. **Mode 8 — in an AI-augmented team
+they measure what moved rather than what held — is the only one of the eight that is
+AI-specific, and it is why D5 is a domain at all rather than a difficulty setting.**
+
+---
+
+
 ## 3. Eligibility
 
 **There are no prerequisites, and `SM-AI-I` is recommended rather than required.**
@@ -142,6 +204,23 @@ was asserted and never counted, and 131 is the counted value.
 **D5 is the heaviest domain at 22.5%**, and that is a deliberate statement about what
 this credential is for. The AI half of a Scrum Master's context is where the Guide is
 most silent and where practitioner habit is least tested.
+
+**AND THE MEASUREMENT AN AUDITOR WILL TAKE, STATED FIRST.** Counted 2026-09-10 across
+all 44 task statements and all 132 knowledge, skills and abilities lines:
+
+| | AI vocabulary in statements | in any K/S/A line |
+|---|---|---|
+| D1, D2, D3, D4 (35 tasks) | **0** | **0** |
+| D5 (9 tasks) | 5 | **0** |
+
+**Five of the 131 concepts carry it**, all in D5: `acceptance-decision`,
+`dod-for-generated-work`, `generated-estimates`, `generation-dependence`,
+`summarisation-displacement`. **Across the 35 authored lessons of D1-D4, AI appears in
+one sentence**, and that sentence exists to record something the Guide does not license.
+
+This is not a gap that was found and left. **It is the scope decision of §2.1 measured**,
+and a scheme that states the number is in a different position from one that waits to be
+asked for it.
 
 ---
 

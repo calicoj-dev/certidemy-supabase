@@ -666,7 +666,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `acceptance-decision`, `developer-accountability-for-generated-work`, `tool-non-accountability` |
 
-- **K:** The Developers are accountable for a usable Increment each Sprint; Scrum accountabilities are held by people
+- **K:** The entire Scrum Team is accountable for creating a valuable, useful Increment every Sprint; the Developers are committed to creating any aspect of a usable Increment each Sprint, and the three Scrum accountabilities are held by people
 - **S:** Tracing the acceptance decision
 - **A:** Refusing the tool as an explanation
 
@@ -711,7 +711,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `capability-erosion`, `generation-dependence`, `quality-adherence` |
 
-- **K:** The Developers instil quality by adhering to the Definition of Done and are accountable for a usable Increment every Sprint
+- **K:** The Developers instil quality by adhering to the Definition of Done and are committed to creating any aspect of a usable Increment each Sprint; the entire Scrum Team is accountable for the Increment
 - **S:** Distinguishing capability erosion from tooling dependence from staffing change
 - **A:** Raising a competence trend while output looks healthy
 
@@ -756,7 +756,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `coaching-response`, `comprehension-of-submitted-work`, `quality-adherence` |
 
-- **K:** The Developers are accountable for the Increment and for instilling quality by adhering to the Definition of Done
+- **K:** The Developers are always accountable for instilling quality by adhering to the Definition of Done; the entire Scrum Team is accountable for creating a valuable, useful Increment
 - **S:** Choosing between a Definition of Done change, a coaching response and an escalation
 - **A:** Raising a competence question without humiliating a person
 

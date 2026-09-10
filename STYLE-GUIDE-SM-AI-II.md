@@ -657,6 +657,43 @@ Goal can be restored belongs to 04-07; an item asking whether the board is trans
 belongs to 04-03. Generated against the wrong one, an item is answerable from the wrong
 lesson's prose and draws its distractors from the wrong failure mode.
 
+#### An AI-era task is scenery-swap unless the best answer differs
+
+> **THE TEST: a task carries AI only where the BEST ANSWER differs because a model is in
+> the system.** Not where the same situation arises more often. Not where the finding is
+> harder to raise. **A D5 scenario that differs from its non-AI sibling only by the
+> presence of a model is scenery-swap, and it measures the sibling's competence with
+> extra words.**
+
+`SCHEME-SM-AI-II.md` §2.1 records why AI sits in one domain and states the honest count:
+**five of D5's nine tasks meet this test — 5.1, 5.3, 5.4, 5.5, 5.6. Four earn their seat
+on frequency rather than judgment — 5.2, 5.7, 5.8, 5.9.** Those four are the ones that
+collapse into their siblings if written carelessly, because their best answers **are** the
+siblings' best answers.
+
+**THE SIBLING PAIRS, NAMED, because an author who does not know them will write the
+scenery version and it will look correct:**
+
+| non-AI task | D5 task | what must differ |
+|---|---|---|
+| **4.6** interval, lag or gap | **5.8** which pillar failed first under volume | pillar ORDER, not cadence |
+| **4.8** what happens when a forecast is missed | **5.4** a model-produced number read as a commitment | who is believed to have authored it |
+| **4.5** Done met and the Increment unusable | **5.1** what Done must reach for generated work | the criterion that does not exist yet |
+| **4.5** the same | **5.7** throughput up, usability down | two movements, one cause |
+| **2.2** capacity, ownership or safety | **5.5** summarisation displacing participation | a fourth cause 2.2 does not have |
+| **2.8** impediment, capability gap or self-management | **5.6** cannot meet Done without generation | the dependence, not the shortfall |
+
+**5.8 IS THE SHARPEST RISK.** It must turn on **which pillar failed first** — transparency
+before inspection before adaptation — under a volume the team cannot examine. It must
+never turn on *"the team shipped forty generated items and should look at the dashboard
+more often."* **That is 4.6 with scenery**, and it is the version an author reaches for
+because it is easier to write a scenario about volume than about pillar order.
+
+**The check is one question per D5 item: rewrite the scenario with the model removed and
+the work done by hand at the same volume. If the key does not move, the item belongs to
+the sibling task and the AI is decoration.**
+
+
 #### A stem and its explanation must still agree after a rewrite
 
 > **A stem is rewritten more often than the key it was built for. Re-read them together
