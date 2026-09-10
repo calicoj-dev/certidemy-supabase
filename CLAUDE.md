@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 282. Next free number: 283.** Sequential, zero-padded to three
+**Migration tip: 285. Next free number: 286.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
@@ -28,6 +28,14 @@ each of the three v8.8 addenda — and on 2026-08-30 all four still said *"next
 free: 262"* while `261`, `262` and `263` existed. It goes stale the moment a
 session that did not write it applies a migration, which is the normal case with
 two sessions: whoever applies is not whoever last edited the tip.
+
+**It happened again on 2026-09-09, to this paragraph, in the way this paragraph
+describes.** The line read *"282 / next free 283"* while `283` and `284` were
+both on disk — applied by sessions that ran the SQL and did not come back to
+edit the tip. Nothing was lost, because a third session checked `ls migrations/`
+before claiming `285` rather than trusting the line four lines above the
+instruction to check it. **That is the only reason this is a note and not a
+collision**, and it is the second recorded instance of the same mechanism.
 
 The cost is not a wrong number in a document. **It is two sessions independently
 reaching for the same next-free number and both being right**, which happened
