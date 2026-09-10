@@ -785,7 +785,8 @@ forgive.
 
 | Item | Status |
 |---|---|
-| Instructional content (44 lessons) | **All 44 authored, none loaded.** All five modules exist as `status: draft` files under `content/sm-ai-ii/`; no lesson row is in the database, so every concept still reads as untaught (`verify-cert` §10, 0/131). **This row read "nine of 44" until 2026-09-10: the failure never changed and the stated reason stopped being true, which is the second half of the case the banner above describes.** |
+| Instructional content (44 lessons) | ~~**Not loaded.**~~ **LOADED 2026-09-10.** All 44 authored and all 44 in the database, `status: draft`, English only. `lesson_concepts` projects 132 links over 131 concepts, so `coverage.taught` reads **131/131** where it read 0/131. **This row has now carried three different reasons for one failure** — "nine of 44 authored", then "all 44 authored, none loaded", then this. Only the third is a resolution. |
+| Lesson translations | **Not generated.** All 44 lesson rows are `en`; `verify-cert` §11 warns rather than fails, so this is a warning the scheme carries deliberately until `translate-lessons.mjs` runs. |
 | Item banks | **Not generated.** Zero items exist; the floors in §8 are a design commitment. |
 | Body of knowledge | **Exists** as `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10), **and was reconstructed rather than authored at Stage 1.** The scheme, the JTA and 44 lessons were built before it, so it cannot have constrained them — which is what a Stage 1 body of knowledge is for. `v1.1` was cited as signed 2026-09-02, was never committed and is unrecoverable. The document carries this in its own provenance banner and §11, and does not close by being signed. |
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
@@ -837,7 +838,7 @@ tasks_total: 44
 tasks_exam_scope: 44
 concepts: 131
 modules: 5
-lesson_groups: 0
+lesson_groups: 44
 domain_weights: D1=20.0, D2=20.0, D3=17.5, D4=20.0, D5=22.5
 domain_tasks: D1=9, D2=9, D3=8, D4=9, D5=9
 ```
