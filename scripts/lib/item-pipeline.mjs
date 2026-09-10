@@ -146,6 +146,23 @@ function isL2(task, tier) {
   return Number(tier) >= 2 && String(task?.bloom_level || "") === "4_analyze";
 }
 
+/**
+ * Does this certification's item contract forbid a two-option item?
+ *
+ * TIER ALONE, and that is the difference from isL2(). The four-defensible-options
+ * CONTRACT belongs where the candidate weighs, so isL2() requires tier 2 AND an
+ * analyze-level task. The OPTION COUNT is not a contract, it is a floor: a two-option
+ * item is a coin flip at every cognitive level, and SM-AI-II's 16 apply-level tasks fell
+ * through isL2() to a draft prompt that says question_type may be "true_false".
+ *
+ * verify-cert invariant 19 FAILS THE WHOLE SECURE BANK on one surviving two-option item,
+ * and it would not have surfaced until 1,056 rows had been generated and inserted. The
+ * scheme documents already say every item is four-option; only the generator disagreed.
+ */
+function fourOptions(tier) {
+  return Number(tier) >= 2;
+}
+
 export function validateEnglish(q, tier = 1, task = null) {
   if (!q || typeof q !== "object") return false;
   if (typeof q.question_text !== "string" || q.question_text.length < 10) return false;
@@ -156,6 +173,11 @@ export function validateEnglish(q, tier = 1, task = null) {
   if (ids.size !== q.options.length) return false;
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
   if (!q.correct_answer.every((id) => ids.has(id))) return false;
+  // TIER 2 OPTION FLOOR. Structural, not stylistic - see fourOptions().
+  if (fourOptions(tier)) {
+    if (q.question_type !== "single_choice") return false;
+    if (q.options.length < 4) return false;
+  }
   // DIFFICULTY IS REPAIRABLE METADATA, NOT A VALIDITY CONDITION.
   //
   // Instrumenting the draft filter showed roughly 9 of 22 rejects on ISMS-IA task
@@ -230,6 +252,9 @@ export function validationFault(q, tier = 1, task = null) {
   if (new Set(q.options.map((o) => o.id)).size !== q.options.length) return "duplicate-ids";
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return "key-count";
   if (!q.correct_answer.every((id) => new Set(q.options.map((o) => o.id)).has(id))) return "key-unresolved";
+  // Not routable: normalizeOptions shortens options, it does not invent a fourth one.
+  if (fourOptions(tier) && q.question_type !== "single_choice") return "tier2-true-false";
+  if (fourOptions(tier) && q.options.length < 4) return "tier2-option-count";
   if (q.difficulty === undefined || q.difficulty === null) q.difficulty = 3;
   if (typeof q.difficulty !== "number" || q.difficulty < 1 || q.difficulty > 5) return "difficulty-range";
   if (typeof q.explanation !== "string" || q.explanation.length < 5) return "explanation";
@@ -322,14 +347,22 @@ List the real misconceptions now as a JSON array of strings.`;
 // Stage 2 - draft items whose distractors map to real misconceptions and whose
 // options are parallel in structure / specificity / length.
 // ---------------------------------------------------------------------------
-function draftSystem(kind, certName, task = null, tier = 1) {
+/**
+ * EXPORTED FOR INSPECTION, not for use outside this module. `verify-profile.mjs`
+ * prints the emitted prompt for one 3_apply and one 4_analyze task so the tier-2 option
+ * rule can be READ rather than inferred from an item count - a dry run whose output
+ * cannot be read is a slower way of guessing.
+ */
+export function draftSystem(kind, certName, task = null, tier = 1) {
   const l2 = isL2(task, tier);
+  // The option floor is a TIER property; the defensibility contract is an isL2 one.
+  const four = fourOptions(tier);
   return `${personaLine(kind, certName)}
 
 Strict requirements for every question:
-  - ${l2 ? `question_type is ONLY "single_choice", with FOUR options. A two-option
+  - ${four ? `question_type is ONLY "single_choice", with FOUR options. A two-option
     true/false item is a coin flip - a candidate who knows nothing scores 50% -
-    and is never acceptable at this tier.` : `question_type is ONLY "single_choice" or "true_false". Never more than one
+    and is never acceptable at this tier, at ANY cognitive level.` : `question_type is ONLY "single_choice" or "true_false". Never more than one
     correct answer. Prefer single_choice with 4 options for assessable depth.`}
   - ${l2 ? "The LEVEL II ITEM CONTRACT at the end of this prompt governs how many options are defensible - read it before writing." : `Exactly ONE defensibly correct answer. There must be no second option a
     knowledgeable person could argue for.`}
@@ -365,7 +398,7 @@ The correct answer must
     why a tempting distractor is wrong. Refer to options by their CONTENT or
     substance, never by letter (do not write "option a", "option b", etc.); the
     options are reshuffled after writing, so letter references would be wrong.
-  - ${bloomDirective(task, kind, difficultyLineFor(kind, certName))}
+  - ${bloomDirective(task, kind, difficultyLineFor(kind, certName, tier))}
   - ${groundingFor(certName, tier)}
 ${CUE_NEUTRALITY_RULES}
 ${l2 ? `\n${L2_CONTRACT}\n` : ""}
@@ -402,7 +435,12 @@ check for these flaws and FIX them:
      more "reasonable/balanced-sounding" than the distractors; or the distractors
      cluster absolute words (always/never/must/only).
 
-REJECT any item whose stem exceeds ${l2 ? "90" : "60"} words, or any option exceeding ${l2 ? "45" : "25"} words. Do not
+${fourOptions(tier) ? `REJECT any item that is not "single_choice" with FOUR options. A two-option
+true/false item is a coin flip and is never acceptable at this tier, on an Apply task as
+much as on an Analyze one. Do not repair it by padding - rewrite it as a four-option item
+or reject it outright.
+
+` : ""}REJECT any item whose stem exceeds ${l2 ? "90" : "60"} words, or any option exceeding ${l2 ? "45" : "25"} words. Do not
 merely flag it - rewrite it inside the ceiling, preserving the reasoning in each option.
 If an item cannot be said inside the ceiling, it is testing reading stamina rather than
 the competence, and should be rejected outright.

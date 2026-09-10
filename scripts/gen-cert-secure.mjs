@@ -59,7 +59,6 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
-import { bloomForCert } from "./lib/item-profile.mjs";
 import { bloomForTask } from "./lib/item-task-context.mjs";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 
@@ -131,17 +130,15 @@ function int(v, d) {
   return Number.isFinite(n) ? n : d;
 }
 
-/**
- * Difficulty -> bloom_level enum, resolved PER CERT TIER (lib/item-profile.mjs).
- * The professional tier keeps the original mapping exactly (<=2 understand, 3 apply,
- * 4+ analyze). The literacy tier can emit 1_remember and is hard-capped at 3_apply.
- * CERT_NAME is module-level and set by main() once the cert row is fetched, so this
- * needs no signature change at the call site.
+/*
+ * THERE IS NO difficulty -> bloom_level MAPPING IN THIS FILE, and its absence is
+ * deliberate. bloomFor(difficulty) used to live here, wrapping bloomForCert() over a
+ * module-level CERT_NAME. Nothing called it: the insert below stamps bloom_level from
+ * tasks.bloom_level and throws when that is absent. A dead wrapper sitting beside a
+ * comment describing the live path is how the next reader concludes it IS the live path,
+ * so it is deleted rather than left. See lib/item-profile.mjs for the tier's declared
+ * mapping and why it is not on this path.
  */
-let CERT_NAME = "";
-function bloomFor(difficulty) {
-  return bloomForCert(difficulty, CERT_NAME);
-}
 
 // ---------------------------------------------------------------------------
 // Claude
@@ -343,7 +340,6 @@ async function main() {
   );
 
   const { conceptsByTask, counts, certName, certTier, cueCfg, taskById } = await gather();
-  CERT_NAME = certName;
   console.log(`Cue tolerance: ${cueCfg.KEY_LEN_MARGIN}ch / ${cueCfg.KEY_LEN_PCT}% / spread ${cueCfg.LEN_SPREAD_MAX} (${cueCfg.source})`); // tier profile (difficulty + bloom) keys off this
   console.log(`Generating as: "${certName}" exam writer\n`);
 

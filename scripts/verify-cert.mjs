@@ -47,7 +47,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { readFileSync, existsSync } from "node:fs";
-import { profileFor } from "./lib/item-profile.mjs";
 
 // ---------------------------------------------------------------------------
 // env / args
@@ -147,7 +146,6 @@ function allocate(weights, total) {
 async function verify(cert) {
   const R = new Report(cert.code);
   const id = cert.id;
-  const profile = profileFor((cert.name || "").replace(/^Certidemy\s+/i, ""));
 
   // --- fetch everything once -------------------------------------------------
   // NOTE: tasks.bloom_level and certifications.exam_blueprint. The verifier could not

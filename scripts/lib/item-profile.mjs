@@ -22,7 +22,36 @@
  * Scrum + governance keep today's behavior byte-for-byte (no regression on top-up
  * runs). Unknown certs get a neutral default rather than inheriting the Scrum tier.
  *
- * Matching is on the cert NAME the generators already pass as `certName`.
+ * Matching is on the cert NAME the generators already pass as `certName`, AND on the
+ * certification's TIER, which is the same shape `groundingFor(certName, tier)` already
+ * uses. Tier is resolved FIRST: a Level II certification's difficulty profile is a
+ * property of its ITEM CONTRACT, not of its subject matter, so it must not be reached
+ * through a name match. A fix that special-cased Scrum here would have re-encoded the
+ * defect it was written to remove.
+ *
+ * WHY TIER WAS ADDED (2026-09-10). `profileFor()` took a name and no tier, so SM-AI-II -
+ * "Scrum Master II - AI" - matched /\bscrum\b/ and inherited SM-AI-I's Level I profile:
+ * "avoid level 1, 30/50/20, favor Apply/Analyze". That is the Level I text and this is a
+ * Level II credential with no Remember or Understand tasks at all.
+ *
+ * WHAT THE DEFECT COULD AND COULD NOT DO, measured before the fix rather than assumed.
+ * The ONLY live consumer of this module is `difficultyLineFor`, which
+ * `item-pipeline.mjs` passes to `bloomDirective(task, kind, legacyLine)` - and that
+ * function returns the legacy line ONLY when the task declares no `bloom_level`.
+ * Counted 2026-09-10 across public.tasks: 509 tasks, 13 certifications, ZERO with a null
+ * bloom_level. `gen-cert-secure` additionally hard-skips any task without one.
+ *
+ * So the wrong profile was UNREACHABLE on every generation path in the repo, and this
+ * change alters no prompt that is being emitted today. It closes a trapdoor: the
+ * fallback fires exactly when a task has lost its declared level, which is already a
+ * broken state, and it fires SILENTLY. That is the worst moment to hand a Level II bank
+ * Level I's instructions.
+ *
+ * THE REGRESSION SURFACE IS THE TIER-1 CERTS, and it is guarded by
+ * `scripts/verify-profile.mjs`, which asserts the tier-1 Scrum difficulty string is
+ * BYTE-IDENTICAL rather than merely that it still routes to `professional`. A check that
+ * only confirms SM-AI-II now gets Level II passes cleanly on a change that also moved
+ * SM-AI-I.
  */
 
 const BLOOM = {
@@ -47,6 +76,46 @@ judgment. Favor scenario and Apply/Analyze items.`,
 (3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.`,
   // Original mapping from gen-cert-secure.mjs, unchanged.
   bloomFor: (d) => (d <= 2 ? "2_understand" : d === 3 ? "3_apply" : "4_analyze"),
+  ceiling: "4_analyze",
+};
+
+/**
+ * PROFESSIONAL LEVEL II tier (SM-AI-II, ISMS-IA, AIMS-IA - every cert declaring tier 2).
+ *
+ * A Level II scheme declares no Remember tasks and, in SM-AI-II's case, no Understand
+ * tasks either: everything a candidate would recall is certified by the Level I
+ * credential below it and is assumed rather than re-tested. So "avoid level 1" is too
+ * weak here - level 1 is not merely dispreferred, it contradicts the credential's own
+ * published cognitive profile.
+ *
+ * The four-option rule is stated here as well as in the pipeline because this text is
+ * what a model reads when no task-level directive is available, and a two-option item
+ * fails `verify-cert` invariant 19 for the whole SECURE bank rather than for itself.
+ */
+const PROFESSIONAL_L2 = {
+  id: "professional-l2",
+  secureDifficulty: `Difficulty 2..4, distributed about 30% level 2, 50% level 3, 20% level 4.
+
+NEVER write a level 1 (trivial recall) item. A Level II certification declares no
+Remember tasks; a recall item contradicts the credential's published profile, and
+it is not a stylistic preference like the Level I guidance it replaces.
+
+DIFFICULTY IS NOT COGNITIVE LEVEL, and at this tier the distinction is the design.
+Every item is written AT its task's declared level; difficulty varies WITHIN that
+level. An easy Analyze item and a hard Analyze item are both Analyze items. Make an
+item harder by making the content subtler, the distractors closer, or the situation
+less familiar - NEVER by raising the cognitive level.
+
+FOUR OPTIONS, ALWAYS, at every cognitive level including Apply. A two-option
+true/false item is a coin flip - a candidate who knows nothing scores 50% - and it
+is never acceptable at this tier.`,
+  practiceDifficulty: `Difficulty 2..4, aiming roughly 30% level 2, 50% level 3, 20% level 4. Never
+write level 1 (trivial recall): this credential declares no Remember tasks. Vary
+difficulty WITHIN the task's declared cognitive level, never by raising it. Four
+options always; a two-option item is a coin flip.`,
+  // Floor 2 as well as ceiling 4: 1_remember is out of scope at this tier, in the same
+  // way 4_analyze is out of scope for LITERACY.
+  bloomFor: (d) => BLOOM[Math.min(Math.max(d, 2), 4)],
   ceiling: "4_analyze",
 };
 
@@ -95,10 +164,25 @@ comprehension, and applied judgment.`,
 };
 
 /**
- * Resolve the tier profile from the cert name the generators already pass.
+ * Resolve the tier profile from the cert's TIER first, then its name.
+ *
+ * TIER IS CHECKED BEFORE ANY NAME MATCH, and that ordering is the fix. The difficulty
+ * profile follows from the item contract - four defensible options, one best - which is
+ * declared by `certifications.tier` and is true of a Level II credential regardless of
+ * whether its subject is Scrum, ISO/IEC 27001 or ISO/IEC 42001. Reaching the Level II
+ * profile through /\bscrum\b/ would leave ISMS-IA and AIMS-IA on Level I's text for the
+ * same reason SM-AI-II was on it.
+ *
+ * The name branches below are UNCHANGED and govern tier 1 only. AIE-I is tier 1, so the
+ * tier test above cannot swallow it - `verify-profile.mjs` asserts that directly,
+ * because a naive `tier >= 2` branch placed one line higher would.
+ *
  * @param {string} certName e.g. "AI Essentials I", "Scrum Master I - AI"
+ * @param {number} [tier=1] the certification's tier, from `certifications.tier`.
+ *   Defaults to 1 so every existing caller keeps its current behaviour exactly.
  */
-export function profileFor(certName) {
+export function profileFor(certName, tier = 1) {
+  if (Number(tier) >= 2) return PROFESSIONAL_L2;
   const n = (certName || "").toLowerCase();
   if (/\bscrum\b/.test(n)) return PROFESSIONAL;
   if (/essential/.test(n)) return LITERACY;              // before governance: both say "AI"
@@ -107,14 +191,23 @@ export function profileFor(certName) {
 }
 
 /** Difficulty guidance for the draft prompt. `kind` is "secure" | "practice". */
-export function difficultyLineFor(kind, certName) {
-  const p = profileFor(certName);
+export function difficultyLineFor(kind, certName, tier = 1) {
+  const p = profileFor(certName, tier);
   return kind === "secure" ? p.secureDifficulty : p.practiceDifficulty;
 }
 
-/** difficulty -> bloom_level enum, per the cert's tier (capped at its ceiling). */
-export function bloomForCert(difficulty, certName) {
-  return profileFor(certName).bloomFor(difficulty);
+/**
+ * difficulty -> bloom_level enum, per the cert's tier (bounded by its floor and ceiling).
+ *
+ * NOT ON THE GENERATION PATH, deliberately. Both generators stamp `bloom_level` from
+ * `tasks.bloom_level` - the JTA's declared level - and throw rather than guess when it is
+ * absent. This is the tier's DECLARED mapping, kept as the answer to "what would this
+ * tier do with a raw difficulty score", exercised by `verify-profile.mjs` and by nothing
+ * else. It is documented rather than deleted because the mapping is a property of the
+ * tier; the dead wrappers that called it are gone.
+ */
+export function bloomForCert(difficulty, certName, tier = 1) {
+  return profileFor(certName, tier).bloomFor(difficulty);
 }
 
-export const PROFILES = { PROFESSIONAL, LITERACY, NEUTRAL };
+export const PROFILES = { PROFESSIONAL, PROFESSIONAL_L2, LITERACY, NEUTRAL };
