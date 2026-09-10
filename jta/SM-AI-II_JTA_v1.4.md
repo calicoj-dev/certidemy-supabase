@@ -292,9 +292,24 @@ resolves to NEUTRAL."* `groundingFor(certName, tier)` now reads tier and returns
 `SCRUM_L2` for tier 2, which composes `SCRUM_CORE` with `SCRUM_GUIDE_FACTS`. **True when
 written; false since.** Migration 284 corrects the stored note.
 
-**STILL OPEN.** `scripts/lib/item-profile.mjs` resolves `profileFor(certName)` from the
-certification **name** and takes no tier argument, so this certification inherits
-`SM-AI-I`'s Level I tier profile. **Must be fixed before any item is generated.**
+**CLEARED 2026-09-10.** *"`item-profile.mjs` resolves `profileFor(certName)` from the
+certification name and takes no tier argument, so this certification inherits
+`SM-AI-I`'s Level I tier profile."* `profileFor(certName, tier)` now resolves **tier
+first, before any name match**, returning `PROFESSIONAL_L2` for tier 2. **True when
+written; false since.** Migration 290 corrects the stored note.
+
+**And the claim was narrower than it read.** `difficultyLineFor` is the module's only
+live consumer, and `bloomDirective` returns it **only when a task declares no
+`bloom_level`**. Counted 2026-09-10: 509 tasks, 13 certifications, none without one. So
+no bank was ever going to be generated against the wrong profile — the fallback fires
+only once a task has already lost its declared level, and then it fires silently. **The
+blocker was real and its stated consequence was not.**
+
+**A second defect was cleared in the same pass and this section never named it.**
+`isL2()` is tier 2 **and** `4_analyze`, so all 16 of this scheme's `3_apply` tasks
+reached a draft prompt offering `true_false`. `verify-cert` invariant 19 fails the
+**whole** secure bank on one two-option row, and nothing would have surfaced it until
+1,056 rows existed. The option floor is now a tier property.
 
 ---
 
@@ -633,11 +648,19 @@ that move against the Scrum Guide. It applies to its own paperwork.
 
 ## 10. NEXT
 
-- **Author the BoK.** `SM-AI-II_BoK_v1.1.md` cannot be recovered; a `v2.0` written fresh
-  against `jta/ISMS-IA_BoK_v1.md`'s eleven sections can be. **The falsification test and
-  the scope boundary are the two that carry accreditation weight.**
-- **Fix `item-profile.mjs`** to resolve the tier profile per certification rather than by
-  name. Last Stage 9 blocker. See §7.4.
+- ~~**Author the BoK.**~~ **DONE 2026-09-10.** `jta/SM-AI-II_BoK_v2.0.md`, eleven
+  sections against `jta/ISMS-IA_BoK_v1.md`. `v1.1` is not recovered and its lineage is
+  not continued. **§7, the falsification test, is the one section with no surviving
+  source** — it was authored, not reconstructed, and it measures Screen 1(b): 13 of 44
+  tasks Guide-determined, so **70% have a key the Guide does not determine.** The scope
+  boundary was already written, in `SCHEME-SM-AI-II.md` §2 and §2.1.
+- ~~**Fix `item-profile.mjs`.**~~ **DONE 2026-09-10.** `profileFor(certName, tier)`
+  resolves tier first. The last Stage 9 blocker; see §7.4 for what it could and could not
+  have done. **Item generation is no longer gated on code** — it is gated on the item
+  floors and on loading the 44 lessons, in that order, because `coverage.tested` counts
+  concepts reached through `question_concepts` and only the PRACTICE pool writes those.
+  **Generating practice before the lessons load flips `untaught_testing_violations` from
+  0 to 131.**
 - **Decide whether the never-assert list reaches Level I.** Three shipped banks were
   generated without one. Scoped decision with its own review; regenerating those banks is
   the cost.

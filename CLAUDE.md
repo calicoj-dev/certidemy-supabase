@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 285. Next free number: 286.** Sequential, zero-padded to three
+**Migration tip: 290. Next free number: 291.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
@@ -29,7 +29,14 @@ free: 262"* while `261`, `262` and `263` existed. It goes stale the moment a
 session that did not write it applies a migration, which is the normal case with
 two sessions: whoever applies is not whoever last edited the tip.
 
-**It happened again on 2026-09-09, to this paragraph, in the way this paragraph
+**AND A THIRD TIME ON 2026-09-10.** The line read *"285 / next free 286"* while `286`,
+`287`, `288` and `289` were all on disk — **four migrations behind, the largest gap
+yet.** Same mechanism, same outcome: caught because `ls migrations/` was run before
+`290` was claimed. **Three recorded instances now, and the tip has never once been
+correct when a later session needed it.** Treat the line as the date of the last edit,
+never as the number.
+
+**It happened on 2026-09-09, to this paragraph, in the way this paragraph
 describes.** The line read *"282 / next free 283"* while `283` and `284` were
 both on disk — applied by sessions that ran the SQL and did not come back to
 edit the tip. Nothing was lost, because a third session checked `ls migrations/`
@@ -567,6 +574,40 @@ assertions came from.
 
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."
+
+**AND THE PROSE A GUARD CHECKS CAN QUOTE THE THING IT FORBIDS.** The rule above
+is about a guard reading a *comment*. The sharper case is a guard reading the
+*content*, where the retired phrasing appears on purpose because a correction
+has to say what it corrected.
+
+Migration 290 aborted on exactly this. Its guard searched the whole stored
+`grounding_note` for `STILL BLOCKING`, and the new note quotes it — *"This note
+read STILL BLOCKING until today, on the ground that..."* — which is the sentence
+that makes the record readable. **The note was right and the guard was wrong**,
+and deleting the quotation to satisfy the check would have been the check
+editing the content.
+
+**The property is almost never lexical. It is positional or structural.** A
+stale record asserts the retired claim in its opening sentence and at its own
+label; a corrected one carries the phrase downstream of the clearance marker,
+inside the clause that explains it. So anchor on *where*: nothing retired before
+the marker, the opening sentence states the current state, and a phrase that is
+deliberately quoted must sit at the quotation and occur exactly once.
+
+**Five instances in one day, 2026-09-10.** Three were in the scripts that
+produced 290: a post-condition matching `bloomForCert` inside the comment saying
+`bloomForCert` had been deleted; one asserting a COUNT of surviving filename
+mentions rather than naming the property; one encoding `\n` against a CRLF file
+(`verify-cert.mjs` is CRLF, every sibling is LF). The fourth was 290's guard 1,
+above. **The fifth was 290's guard 3, inside the fix for the fourth** — a
+certification-wide sweep for the retired phrase, which then matched the note it
+had just corrected, because that note quotes the phrase. Scoped to the other
+twelve certifications; this one is checked positionally.
+
+**All five aborted before writing, which is what they are for — but all five
+were the guard's fault, and a guard that cries wolf gets loosened next time.**
+The tell is uniform: every one of them searched for a STRING when the property
+was a PLACE.
 
 **The recurring failure mode of this system is silent success.** It is caught
 only by asserting a specific expected value, never by the absence of an error.

@@ -51,12 +51,19 @@ following the official translated Scrum Guides; the Guide's own title is transla
 | Credential validity | 1 year from issuance (see §9) |
 | Delivery | Online, remotely proctored-equivalent secure examination |
 
-**The credential name is load-bearing and is currently mis-routed.**
-`scripts/lib/item-profile.mjs` resolves a certification's tier profile by matching the
-NAME against `/\bscrum\b/` and does not read `certifications.tier`, so this scheme
-currently resolves to the Level I professional profile. `scripts/lib/item-grounding.mjs`
-routes correctly, because `groundingFor()` takes an explicit `tier` argument. **The
-profile router must learn tier before Stage 9** — §12.
+**The credential name was load-bearing, and both routers now read tier instead.**
+`scripts/lib/item-grounding.mjs` always did — `groundingFor(certName, tier)` returns
+`SCRUM_L2` for tier 2. `scripts/lib/item-profile.mjs` did not: it matched the NAME
+against `/\bscrum\b/` and took no tier argument, so this scheme resolved to
+`SM-AI-I`'s Level I profile. **Corrected 2026-09-10 (migration 290):
+`profileFor(certName, tier)` resolves tier FIRST, before any name match.**
+
+**What that defect could and could not do, measured rather than assumed.** The only live
+consumer was `difficultyLineFor`, reached through `bloomDirective`, which returns it
+**only when a task declares no `bloom_level`** — and all 509 tasks across 13
+certifications declare one. The wrong profile was unreachable, and no emitted prompt
+changed. **It was a trapdoor, not an active fault**: the fallback fires silently at the
+moment a task has lost its declared level, which is already a broken state.
 
 ---
 
@@ -781,7 +788,6 @@ forgive.
 | Instructional content (44 lessons) | **All 44 authored, none loaded.** All five modules exist as `status: draft` files under `content/sm-ai-ii/`; no lesson row is in the database, so every concept still reads as untaught (`verify-cert` §10, 0/131). **This row read "nine of 44" until 2026-09-10: the failure never changed and the stated reason stopped being true, which is the second half of the case the banner above describes.** |
 | Item banks | **Not generated.** Zero items exist; the floors in §8 are a design commitment. |
 | Body of knowledge | **Exists** as `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10), **and was reconstructed rather than authored at Stage 1.** The scheme, the JTA and 44 lessons were built before it, so it cannot have constrained them — which is what a Stage 1 body of knowledge is for. `v1.1` was cited as signed 2026-09-02, was never committed and is unrecoverable. The document carries this in its own provenance banner and §11, and does not close by being signed. |
-| `item-profile.mjs` tier routing | **Blocker before Stage 9.** It routes on the certification NAME via `/\bscrum\b/` and does not read `tier`, so this scheme would generate against `SM-AI-I`'s Level I difficulty profile. |
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
 | Examination duration | **A floor, not a measurement.** 150 minutes is the tier-II base; migration 212 is the template for deriving the real number once the bank exists (§6). |
 | Catalogue claim and long-form description | **Not written, in any of the three languages.** The catalogue card renders code and name only; the detail page falls back to English silently. |
