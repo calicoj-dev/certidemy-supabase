@@ -793,10 +793,18 @@ Read text, click the part that's wrong.
 | `minimum_correct` | How many they need to identify to pass. **Must agree with the prompt — see below.** |
 
 **`minimum_correct` and the prompt.** A prompt that demands completeness — *"click
-every X"*, *"click each X"* — sets `minimum_correct` **equal** to the number of
+every X"*, *"click each X"*, *"click everything that…"*, *"click all the…"* — sets
+`minimum_correct` **equal** to the number of
 `is_correct: true` entries. A prompt that asks for recognition — *"what is wrong here?"*,
 *"find the risky assumptions"* — **may** set it below. **The bar and the prompt must
 agree, and a bar cannot be judged from its number alone.**
+
+> **The examples are examples, not the rule — the rule is "demands completeness".** A
+> checker written from *every* and *each* alone misses *everything*, because `\bevery\b`
+> does not match `everything`. That happened on 2026-09-10: SM-AI-II `04-01`'s prompt
+> reads *"Click everything that would stop the event determining a future adaptation"*,
+> its `minimum_correct` correctly equals its true count, and a validator flagged it as a
+> violation. **The lesson was right and the pattern was wrong.**
 
 A completeness prompt with a bar below its true count lets a reader advance having
 disobeyed the instruction the widget gave them. A recognition prompt with an equal bar
