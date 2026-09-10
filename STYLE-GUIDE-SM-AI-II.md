@@ -131,6 +131,12 @@ point in different directions, and nothing in the Guide says which wins.
 > **The test is not "is this wrong?" It is "would an experienced Scrum Master actually
 > pick this?" If the answer is no, the option is occupying a slot and teaching nothing.**
 
+**That experienced Scrum Master is defined, and §0.9 is where.** This rule is the
+distractor half of the borderline candidate: *"what they reliably get right, and
+therefore what no distractor may be built on."* It was arrived at here independently by
+external review and it is the same test — **read §0.9 for the eight failure modes a
+distractor may legitimately be built on.**
+
 At Level II an item presents **four defensible options, one best**. A distractor that
 contradicts a Guide rule outright is a Level I item's distractor, and it converts a
 four-way weighing into a two-way one - which is the exact failure the blueprint's
@@ -388,6 +394,103 @@ summary bullet — four surfaces, four wordings, one claim. **Removing the argum
 leaving the compression is the normal outcome**, because the compression is the version
 that no longer looks like a Guide attribution.
 
+### 0.9 The borderline candidate is the reader
+
+> **A Level II lesson is written to the minimally competent candidate defined in
+> `SCHEME-SM-AI-II.md` §7.1, whose deployed form is `SCRUM_L2_JUDGMENT` in
+> `scripts/lib/item-grounding.mjs`. Read it before authoring, not after.**
+
+A lesson pitched above that candidate teaches nothing they needed; a lesson pitched below
+it re-teaches Level I, which is §0.2 arriving by a different route. **The definition is
+the calibration, and until now it was not reachable from any authoring document.**
+
+#### Who they are
+
+**Two to five years as a Scrum Master, several teams, at least one organization that did
+Scrum badly. They would pass a Level I examination comfortably** — the timeboxes, the
+accountabilities, the artifacts and their commitments, and they recognise the named
+anti-patterns on sight.
+
+> **What makes them borderline is narrower and harder.** Where the Guide is silent —
+> which is where this entire examination lives — **they reach for what their last three
+> organizations did, and they cannot reliably tell the difference between "the Guide does
+> not say" and "the Guide says do it this way."** Their habits usually work. That is what
+> makes them defensible.
+
+#### The eight failure modes are the specification
+
+**A Level II lesson teaches toward one of them. If it does not, either the lesson or the
+task is miscalibrated** — and the mapping is worth doing before the lesson, not after.
+
+1. **They over-intervene** where developing the team's capacity was available.
+2. **They fix the visible symptom** rather than its cause. *Told the Daily Scrum has
+   become a status report, they change its format; the cause was who attends, or what the
+   team believes happens to what they say.*
+3. **They import a practice and present it as the framework** — asserting that Scrum
+   requires it, or defending it because "that is how Scrum works".
+4. **They absorb accountabilities to keep things moving.** *Every instance is locally
+   helpful and each one moves an accountability that cannot be moved.*
+5. **They escalate at one volume** rather than matching the impediment's cost, urgency
+   and their own standing.
+6. **They treat an artifact as evidence of the activity that produced it.** *A
+   Retrospective happened because there is a list of actions.*
+7. **They protect the relationship over the transparency.** *They know this is wrong in
+   the abstract and do it anyway under pressure.*
+8. **In an AI-augmented team they measure what moved rather than what held** — throughput
+   is up, so the change was good.
+
+#### The six contrasting moves are what the lesson teaches
+
+Each is stateable as **a one-sentence reason why the best beats the second-best**, which
+is also exactly what every checkpoint explanation has to do (§3.3). The candidate one
+level further on:
+
+- Chooses the intervention that **leaves the team more capable**, not the one that
+  resolves fastest.
+- **Separates what the Guide determines from what it leaves open, and says which they are
+  doing.**
+- Treats a practice that works as worth keeping **and** as not Scrum, without needing to
+  resolve the two.
+- **Declines work that would move an accountability**, even when declining costs the
+  Sprint something.
+- **Reads an artifact as a claim to be tested**, not as evidence of the activity.
+- Says the uncomfortable thing to the person who can act on it, **at the volume the
+  impediment warrants and no louder.**
+
+#### The scenario test, and this one is checkable
+
+> **Name what is blocked, how much of the Sprint remains, and what has already been
+> tried. A stem that could be answered without those details is testing a rule, not
+> judgment.**
+
+**Module 1 satisfies this unevenly, which is what it cost.** `01-06`'s widget names all
+three — *"Day seven of ten"*, the migration Sprint Goal, the compliance deadline that
+moved. **`01-03`'s q4 names none**: a six-week penetration test with no Sprint position,
+nothing stated as blocked and no prior attempt. It is a good item and it is a rule test
+wearing a scenario, which is precisely the distinction this line draws.
+
+> **The test applies to scenarios that test JUDGMENT, and a calibration anchor is
+> exempt.** Every `highlight-mistake` widget wants at least one case that names nothing
+> on purpose, to show that *correctly sized* includes *small*. `02-01`'s Tuesday is the
+> worked example: *a Developer asked me how long the Daily Scrum is meant to be. I told
+> them fifteen minutes.* No blocker, no Sprint position, nothing tried — **keyed
+> `is_correct: false`, and its whole job is to be the small correct answer.** Applying
+> the three-signal test to it would "fix" a case that is right, and **a checklist line
+> that flags correct work teaches authors to ignore the line.** Write the anchor so it is
+> recognisable as one.
+
+#### Why it was missing
+
+**`CERT-CREATION.md` produces §7.1 at Stage 5 and consumes it at Stage 9. Stage 7 — the
+lessons — sits between them, and nothing routed it there.** Module 1 was authored without
+it.
+
+**And §0.3 is this rule rediscovered.** *"Would an experienced Scrum Master actually pick
+this?"* is §7.1's *"what they reliably get right, and therefore what no distractor may be
+built on"*, arrived at independently by external review. **The two were never connected.**
+They are now: §0.3 is the distractor half of §0.9, and §0.9 is where its authority comes
+from.
+
 ---
 
 ## 1. WHAT MODULE 1 ESTABLISHED
@@ -461,18 +564,48 @@ in the card**, not recoverable only from the lesson body.
 
 Four to six pairs. `01-07`'s four are enough because each card carries a different signal.
 
-### 2.3 `highlight-mistake` - used in 01-03, 01-06, 01-09
+### 2.3 `highlight-mistake` - used in 01-03, 01-06, 01-09, 02-01
 
 **Include non-defects, and make the lesson's own thesis one of them.** This cert's
 recurring teaching point is that a familiar-looking thing is *not* a violation -
 `01-09`'s whole subject is a practice that works and is not part of Scrum. **The
 distractor that is not a defect is where the misconception lives.**
 
-Set `minimum_correct` below the number of true defects, so the widget rewards recognition
-rather than exhaustiveness.
-
 > **A reviewer who says a non-defect distractor is wrong has told you the lesson failed
 > to teach its own point.** That is useful information, not a defect report.
+
+#### `minimum_correct`: the prompt and the bar must agree
+
+> **A prompt that says "click every X" sets `minimum_correct` equal to the true count.
+> A prompt that asks the reader to identify wrongness without demanding completeness may
+> set it below. What makes a bar right is the sentence above it, not a number in the
+> abstract.**
+
+- **"Click every claim that is wrong"** → **equal.** Exhaustiveness is what the prompt
+  asked for, and a bar of 3 against 4 lets a reader advance having disobeyed the
+  instruction the widget gave them.
+- **"What undermines objectivity here?" / "Find the risky assumptions"** → **below is
+  right.** Recognition is what was asked, and demanding all of them turns a
+  read-and-notice exercise into a hunt.
+
+**Neither setting is anomalous, and the corpus is split almost evenly.** Measured
+2026-09-09 over the 77 English `highlight-mistake` widgets in `content/`: **36 set it
+below, 41 set it equal, none above.** (The same split reads as roughly 104 of 216 once
+the `es-419` and `pt-BR` copies are counted.) **So a bar cannot be judged from its
+number.** Read the prompt.
+
+**This rule replaces a wrong one, and the way it was wrong is the point.** §2.3 said
+*"set `minimum_correct` below the number of true defects"* full stop. **All four
+`highlight-mistake` widgets on this certification set it equal**, and at least one of
+them - `01-06`, whose prompt is *"Click every claim that is wrong"* - was right to.
+**The rule had no exception for the prompt that demands completeness**, which is the
+commonest prompt this cert writes.
+
+> **And it was validated wrong.** `01-03` was checked by reading `minimum_correct: 2`
+> against a true count of 2 and recording it as *"below the true count, per §2.3"*. Two
+> is not below two. **The number was read and the predicate was never evaluated** - §0.8
+> with the checker being a person. A check that compares two values has to state the
+> comparison it is making, or it degrades into confirming that both values exist.
 
 ### 2.4 `toggle-and-observe` - used in 01-04, and see §0.6
 
@@ -669,6 +802,12 @@ It is enforced by reading.**
 - [ ] **Every check that reported zero was made to fire once first** (§0.8)
 - [ ] **Every removed claim swept for by CLAIM and not by sentence, in two lenses** —
       a removal confirmed by re-reading is not confirmed (§0.8)
+- [ ] **Every scenario that tests judgment** names what is blocked, how much of the
+      Sprint remains and what has already been tried. **A deliberate calibration anchor
+      — a case included to show that correctly-sized can be small — is exempt and should
+      be recognisable as one** (§0.9)
+- [ ] **The lesson's task maps to one of §7.1's eight failure modes**, and the lesson
+      teaches the contrasting move (§0.9)
 - [ ] One lesson per task; `task_codes` holds exactly one code
 - [ ] `concept_slugs` holds exactly the three concepts mapped to that task - all three,
       none added
