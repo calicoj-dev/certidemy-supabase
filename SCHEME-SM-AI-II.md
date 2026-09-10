@@ -98,10 +98,13 @@ argument for it is reconstructed below.
 
 > **PROVENANCE.** Reconstructed 2026-09-10 from the external review's conclusion and from
 > the minimally competent candidate definition in §7.1 and `scripts/lib/item-grounding.mjs`.
-> §4 cites `SM-AI-II_BoK_v1.1.md` (signed 2026-09-02) as the source, and **that file was
-> never committed and cannot be produced** — recorded in `jta/SM-AI-II_JTA_v1.4.md` §9 as
-> unrecoverable. **The decision predates this text; the argument for it does not survive
-> anywhere else.**
+> §4 cited `SM-AI-II_BoK_v1.1.md` (signed 2026-09-02) as the source until 2026-09-10, and
+> **that file was never committed and cannot be produced** — recorded in
+> `jta/SM-AI-II_JTA_v1.4.md` §9 as unrecoverable. **The decision predates this text; the
+> argument for it does not survive anywhere else.** `jta/SM-AI-II_BoK_v2.0.md` §5.1 now
+> carries this argument as the body of knowledge's own — reconstructed **from** this
+> section rather than the other way round, which is the inversion the banner exists to
+> record.
 
 **THE TWO CREDENTIALS CERTIFY DIFFERENT OBJECTS.** `SM-AI-I` certifies what the Guide
 defines, and AI is the **workplace the candidate has**. That is why its AI lessons are
@@ -181,8 +184,8 @@ honestly use, and the honest position is that the examination itself is the filt
 | Tasks | 44 |
 | Concepts | 131 |
 | Task–concept links | 132 |
-| JTA of record | `SM-AI-II_JTA_v1.2.md` (locked) |
-| Body of knowledge | `SM-AI-II_BoK_v1.1.md` (signed 2026-09-02) |
+| JTA of record | `jta/SM-AI-II_JTA_v1.4.md` — the version `public.jta_versions` holds as `published`. **This row named `v1.2` until 2026-09-10.** v1.2 was the locked version; v1.3 is retired and v1.4 is published, and a scheme naming a superseded version as its record sends a reader to task text the database no longer holds. |
+| Body of knowledge | `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10) — **reconstructed, not authored at Stage 1** (§12). `v1.1` was cited here as signed 2026-09-02; it was never committed and cannot be produced, per `jta/SM-AI-II_JTA_v1.4.md` §9. |
 
 | Domain | Title | Weight | Tasks |
 |---|---|---|---|
@@ -283,8 +286,10 @@ covers.
 > originally *"adding it to `SM-AI-I` would force that credential's declared Bloom up"*.
 > That control could not fire: `SM-AI-I` already declares Analyze on 11.49% of its
 > weight against a `4_analyze` ceiling, so an Analyze task can be added to it without
-> raising anything. It read as rigorous and filtered nothing. Corrected before lock;
-> `SM-AI-II_BoK_v1.1.md` §5.2 still carries the inert text and is owed the replacement.
+> raising anything. It read as rigorous and filtered nothing. Corrected before lock. **The
+> replacement is carried in `jta/SM-AI-II_BoK_v2.0.md` §6.2**, which states Screen 1(b) in
+> its corrected form only; the inert form survives here, and here alone, as the record of
+> what it was and why it could not fire.
 
 ### 5.3 Cognitive profile
 
@@ -773,8 +778,9 @@ forgive.
 
 | Item | Status |
 |---|---|
-| Instructional content (44 lessons) | **Nine of 44 authored, none loaded.** Module 1 exists as `status: draft` files in `content/sm-ai-ii/01-smii-tensions/`; no lesson row is in the database, so every concept still reads as untaught (`verify-cert` §10, 0/131). |
+| Instructional content (44 lessons) | **All 44 authored, none loaded.** All five modules exist as `status: draft` files under `content/sm-ai-ii/`; no lesson row is in the database, so every concept still reads as untaught (`verify-cert` §10, 0/131). **This row read "nine of 44" until 2026-09-10: the failure never changed and the stated reason stopped being true, which is the second half of the case the banner above describes.** |
 | Item banks | **Not generated.** Zero items exist; the floors in §8 are a design commitment. |
+| Body of knowledge | **Exists** as `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10), **and was reconstructed rather than authored at Stage 1.** The scheme, the JTA and 44 lessons were built before it, so it cannot have constrained them — which is what a Stage 1 body of knowledge is for. `v1.1` was cited as signed 2026-09-02, was never committed and is unrecoverable. The document carries this in its own provenance banner and §11, and does not close by being signed. |
 | `item-profile.mjs` tier routing | **Blocker before Stage 9.** It routes on the certification NAME via `/\bscrum\b/` and does not read `tier`, so this scheme would generate against `SM-AI-I`'s Level I difficulty profile. |
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
 | Examination duration | **A floor, not a measurement.** 150 minutes is the tier-II base; migration 212 is the template for deriving the real number once the bank exists (§6). |
@@ -795,8 +801,9 @@ forgive.
 | An active achievement row | **Required before `status` can leave `draft`**, enforced by `trg_guard_cert_has_active_achievement`. |
 | Accreditation to ISO/IEC 17024 | **Not held.** Scheme designed to the framework; accreditation not claimed. |
 
-**`SM-AI-II_BoK_v1.1.md` §5.2 carries the inert first form of Screen 1(b)** (§5.2 above)
-and is owed the replacement.
+**The inert first form of Screen 1(b) is preserved in §5.2 above and nowhere else.** It
+was carried in `SM-AI-II_BoK_v1.1.md`, which cannot be produced;
+`jta/SM-AI-II_BoK_v2.0.md` §6.2 states the corrected form only.
 
 ---
 
@@ -831,5 +838,6 @@ domain_tasks: D1=9, D2=9, D3=8, D4=9, D5=9
 
 ---
 
-*End of SCHEME-SM-AI-II.md. The JTA of record is `SM-AI-II_JTA_v1.2.md` (locked); the
-body of knowledge is `SM-AI-II_BoK_v1.1.md` (signed 2026-09-02).*
+*End of SCHEME-SM-AI-II.md. The JTA of record is `jta/SM-AI-II_JTA_v1.4.md`, published in
+`public.jta_versions`; the body of knowledge is `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10),
+reconstructed rather than authored at Stage 1.*
