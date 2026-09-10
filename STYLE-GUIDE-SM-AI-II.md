@@ -506,6 +506,89 @@ a check that looks everywhere else.
 >
 > **A wrong distractor is a §0.3 problem. A wrong key is a §0.1 problem, and it is worse.**
 
+#### Where a key sits is an assertion too, and three cues have been measured
+
+> **A candidate who cannot answer a question can still answer the position. Everything a
+> key's location has in common across a module is something a reader can learn instead of
+> the content.**
+
+Three of these have been found in this certification, each by measuring rather than by
+noticing. They are listed together because they are one defect in three dimensions.
+
+**1. Key position, single-choice.** Module 1 keys `b` in 23 of 27 questions and `d` in
+none - 85%, chi-square 52.6 against an 11.34 threshold. Catalogue-wide the figure is
+worse: 82% of 1,543 four-option keys are `b`, and nine of twelve certifications never key
+`d` at all. Checked by `checkAnswerPositionBias` in `scripts/ingest/validate.ts`, per
+certification and per module.
+
+**2. Multi-choice key sets.** All eight of module 3's multi-choice questions keyed
+`a+b+c`, with the unkeyed option at `d` every time - ticking `abc` scored 8/8 without
+reading. Checked by `checkMultiChoiceKeyBias`, which reports per-module signature
+uniformity and a per-certification chi-square on the non-indicator's position.
+
+**3. The not-determinable option, and it is the strongest of the three.**
+
+Measured 2026-09-10 across all 27 authored lessons: **fifteen options open *"Not
+determinable"* or *"Not enough information"*. Not one is at `a` or `b`. Eleven are at
+`d`, four at `c`.**
+
+**A candidate learns that a not-determinable option lives in the back half, always.**
+That is a better cue than the key-position skew, because it does not require noticing a
+distribution - two encounters teach it, and the option type announces itself in its first
+two words. It is also the cue a candidate is most likely to have learned elsewhere, since
+the convention is common in published banks.
+
+> **THE AUTHORING RULE: a not-determinable option goes wherever the rotation puts it.**
+> Its position is decided by the same key rotation as everything else, not by a habit of
+> putting the awkward option last. **If a module reaches its close with none at `a` or
+> `b`, one gets moved.**
+
+**The fifteen are not being fixed.** They predate the rule and a retrofit would touch
+fifteen explanations for a cue no item has yet been generated from. The rule applies to
+what is written from here.
+
+**It is worth a check, and it is cheap.** The signal is a prefix match on option text -
+`^(Not determinable|Not enough|Cannot be determined|Indeterminate)` - tallied by position
+per certification, with the same 11.34 at 3 df. Fifteen instances is above the n>=12 the
+multi-choice check already uses, and the current spread of `a=0 b=0 c=4 d=11` gives a
+chi-square of **21.5**, which fires. **It would be the third check of this shape** and the
+first whose subject is a kind of option rather than a kind of question.
+
+#### What a position sweep actually costs, measured before deciding
+
+> **The cost of moving a key is not the number of letter references in its explanation.
+> It is the number that point at one of the two swapped positions.**
+
+**The retrofit for modules 1 and 2 was scoped at 25 moves.** Fifteen of those touch no
+prose at all, and the remaining ten need **one letter substituted each** - not the 75 a
+three-references-per-explanation estimate produces.
+
+The reason is arithmetic. A swap moves two positions, so it can only disturb references
+to those two. In this house style an explanation names all three distractors exactly once
+and **never names its own key**, so `refs[key] = 0` and a swap of `key` with an
+unreferenced position costs exactly one edit. `04-03` q4 is the worked example: three
+references, two of them pointing at options the swap did not touch.
+
+> **The "pick the cheapest question to move" strategy is worth exactly the VARIANCE in
+> reference count across the module, and that is measurable before deciding.**
+
+- **Module 1 has the variance.** Across its 27 single-choice questions: **10 name no
+  letter at all, 2 name one, 8 name two, 7 name three.** Choosing which question moves is
+  worth up to three edits there.
+- **Modules 2 and 4 have almost none.** Module 4 is **12 questions, every one at three
+  references**. Module 2 is **23 of 27 at three**, with two at two and two at four. Every
+  candidate move costs about one and the choice is noise.
+
+**Count single-choice only.** An earlier version of this paragraph said fourteen questions
+name no letter, which was the figure for all 36 including the multi-choice ones - and
+multi-choice explanations in this house style name no letters at all, so they inflate the
+zero bucket without being movable single-choice questions.
+
+**Measure the variance first.** Where it is zero the strategy is a decision that feels
+like optimisation and changes nothing - and in `04-02` it was worse than nothing, because
+the target key set determined which question had to move and the cheapest-question
+reasoning produced the wrong one.
+
 #### A keyed answer may not contradict a concept in the same lesson
 
 > **Before keying an option, find the sentence in the lesson's own prose that governs it.
