@@ -68,15 +68,94 @@ the Sprint Goal is a commitment by the Developers, it provides flexibility in te
 the exact work needed to achieve it."* The *forecast* half is not.
 
 > **Task 4.8's knowledge line stated that "the Guide never mentions velocity, burndowns
-> or story points." No occurrence of velocity or story points was found; burn-downs
-> are named**, in the burn-downs sentence quoted above. Corrected in the JTA on
+> or story points." **Confirmed 2026-09-10 against the complete document: velocity 0,
+> story point 0. Burn-downs are named**, in the burn-downs sentence quoted above. Corrected in the JTA on
 > 2026-09-09. A lesson repeating the original line would have asserted something false
 > about the Guide while teaching a lesson about not asserting things about the Guide.
 
-**Working rule:** the 2020 Scrum Guide is thirteen pages. Keep it open in a second
-window and search it. Every defect above would have taken under a minute to catch.
+**Working rule:** the 2020 Scrum Guide is 14 pages and **a copy of it is in this
+repository**, at `reference/scrum-guide-2020.txt`, with the PDF beside it and the
+provenance, licence and extraction in `reference/README.md`. **Grep it, and quote from
+the grep output rather than from memory.**
 
-#### The instrument, and why it cannot prove an absence
+```
+grep -n "the thing you are about to claim" reference/scrum-guide-2020.txt
+```
+
+Every defect above would have taken one command to catch.
+
+#### The instrument, replaced 2026-09-10 — and it changes what a rule may assert
+
+**Everything in the two subsections below happened, and the failures are the reason this
+rule exists.** They are preserved as the record. What has changed is the instrument they
+indict: until 2026-09-10 every Guide verification here went through a URL fetch answered
+by a summarizer. **The Guide is now a local file, and all four failures resolve against it
+in under a second:**
+
+```
+$ grep -o "forecast[a-z]*" reference/scrum-guide-2020.txt | sort | uniq -c
+      1 forecast        1 forecasts          <- exactly two, the hedge closes
+
+$ grep -n "container" reference/scrum-guide-2020.txt
+     84: The Sprint is a container for all other events.
+    157: Scrum exists only in its entirety and functions well as a container for
+         other techniques, methodologies, and practices.
+
+$ grep -c velocity   reference/scrum-guide-2020.txt   ->  0
+$ grep -c "story point"  ...                          ->  0
+$ grep -c traumatic  ...                              ->  0
+$ grep -ci "re-estimat" ...                           ->  0
+$ grep -ci estimat   ...                              ->  0     (the Guide's word is sizing)
+$ grep -c assign     ...                              ->  0
+$ grep -c escalat    ...                              ->  0
+```
+
+> ### AN ABSENCE IS NOW PROVABLE, AND THAT IS A BIGGER CHANGE THAN THE TOOL
+>
+> Against a summarizer, an absence could only ever be **left unfalsified**. Against a
+> complete local document it is a **positive result**: the corpus is bounded, the search
+> is exhaustive, and the answer is reproducible by anyone who runs the same command.
+>
+> **What it unlocks is symmetry.** A negative claim now costs exactly what a positive one
+> costs - one command. That removes the asymmetry that made *"the Guide does not say"*
+> the cheap sentence to write and the expensive one to check, which is how three of the
+> four failures below got written in the first place. **A hedge is no longer humility; it
+> is now an unrun command.**
+>
+> So: **a rule may turn on an absence.** State it flatly, and put the term you searched in
+> the sentence so the next reader can re-run it.
+
+**What this does not fix, and the new failure mode.** A grep is only as good as its
+pattern, and the failure moves from *incomplete corpus* to *wrong pattern*:
+
+- **`"assign"`** catches *assign, assigns, assigned, assignment* - a good stem.
+- **`"the Developers decide"`** would have returned nothing and proved nothing, because
+  the Guide's sentence is *"they internally decide who does what, when, and how."*
+  **A stem that encodes your phrasing tests your phrasing, not the Guide.**
+
+**The mitigation is two-step and neither half is optional. Search the shortest
+distinctive stem, then read the whole sentence around every hit.** `grep -o "[^.]*stem[^.]*\."`
+returns the sentences rather than the count, which is what you actually need: the
+`burn-down` hit is a presence and its sentence is what makes it a presence *about
+forecasting progress* and not about the Sprint Backlog.
+
+#### Verify a quotation when it is written, not when the batch is validated
+
+**Both of the worst cases in this section were caught downstream of a decision that had
+already been taken on them.** The container finding was reported, a JTA knowledge line was
+changed on it in two repositories, and the error surfaced afterwards. Lesson 03-01's
+deep-dive quoted the **2017** Product Owner sentence - *"may have the Scrum Team do it.
+However..."* - and that reached a finished lesson before batch validation found it.
+
+Neither was expensive to catch. **Both were expensive to catch late**, because by then
+something had been built on top.
+
+> **The grep goes in the same keystroke as the quotation marks.** If you are about to put
+> a sentence inside quotes and attribute it to the Guide, the cost of confirming it is one
+> command and the cost of not confirming it is a commit that has to be corrected in
+> public. Batch validation is the second net, not the first.
+
+#### The count, the sweep, and the passage — the first two failures, preserved
 
 This rule was itself broken by the tool used to enforce it, on its own subject, which is
 the most useful thing in this section.
@@ -90,23 +169,23 @@ Two verbatim, the second instance was in the first passage returned.** The wrong
 had by then been written into this document twice, a commit message, and two sections of
 `SCHEME-SM-AI-II.md`.
 
-> **Ask for the passage, never for the count.** A count from a summarizer is a claim
-> about absence, and a summarizer answers from what it surfaced rather than from what is
-> there. Quote the section and read it yourself.
+> **A count from a summarizer is a claim about absence, and a summarizer answers from
+> what it surfaced rather than from what is there.** The rule that replaced this - ask
+> for the passage, never for the count - was correct for that instrument and is
+> superseded by the local file above. **Grep the file.**
 
-**And the honest caveat on everything else in this section.** Every Guide verification in
-this session used that same instrument. **The cancellation finding** (that *traumatic*,
-*re-estimated* and *estimate* appear nowhere), **the velocity and story-point absences**,
-and **the burn-downs claim** were all established the same way. The burn-downs claim is a
-presence and is verified - a quoted sentence proves a presence. **The absences are not
-proven.** They are very likely true and they are not established by a method that can
-establish them.
+**The absences this section once could not prove, it now proves.** The cancellation
+absences (*traumatic*, *re-estimated*, *estimate*), and the velocity and story-point
+absences, were all established by the summarizer and were honestly recorded here as
+**unproven**. All of them are now confirmed at zero against the complete document, in the
+block above. The burn-downs claim was always a presence, and a quoted sentence always
+proved a presence.
 
-Where a rule turns on a word being absent, either quote the passage where it would have
-appeared and is not, or say the absence is unverified. **This document is about not
-making unproven claims about the Guide; it does not get an exemption.**
+#### A section is a sample of a document you no longer have to sample
 
-#### A section is a sample — the third case, and the worst shape
+**The failure below stands and the reasoning that produced it was sound at the time.** It
+is preserved because it is the subtlest of the four: the instrument answered *perfectly*
+and the question was too narrow.
 
 The forecast count came from asking a summarizer for a total. The cancellation absences
 came from asking it for a sweep. **This one came from a passage that was reproduced
@@ -121,15 +200,21 @@ well as a container for other techniques, methodologies and practices."*
 **The Scrum Events section, one heading up, opens: *"The Sprint is a container for all
 other events."*** The Guide uses the word for **both** objects. **The finding was false.**
 
-> **A section is a sample of the document.** Reproducing it verbatim proves what is *in*
-> it and nothing at all about what is not in the rest. The first two failures were the
-> instrument answering badly; **this one was the instrument answering perfectly and the
-> question being too narrow.** No better prompt fixes it, because the prompt was right.
+> **Reproducing a section verbatim proves what is *in* it and nothing at all about what is
+> not in the rest.** The first two failures were the instrument answering badly; **this
+> one was the instrument answering perfectly and the question being too narrow.** No
+> better prompt fixes it, because the prompt was right.
 
-**The rule:** when checking whether the Guide uses a word for a particular object, **fetch
-the containing section AND its parent**, or ask for every sentence containing the word
-across the whole document — **and treat that answer as a lower bound**, per the sweep
-failure above. A single section clears a word only for that section.
+**The rule this produced — fetch the containing section AND its parent, and treat any
+sweep as a lower bound — is retired.** The document is 4,050 words in one local file and
+there is nothing left to sample. `grep -n "container" reference/scrum-guide-2020.txt`
+returns both sentences with their line numbers, and would have returned both on the day
+the finding was made.
+
+**What survives is the shape of the error, which the new instrument can still produce:**
+a search scoped narrower than the claim. Grepping one section's text, or a stem that only
+matches the phrasing you had in mind, reproduces this failure exactly. **Scope the search
+to the claim, not to where you expect the answer.**
 
 **What it cost.** A JTA knowledge line was changed on the false finding, in the database
 and in `cert.yml`. The replacement — *"Sprint length limits risk of cost and effort to a
@@ -953,11 +1038,15 @@ statements and concept descriptions were corrected; `02-03-sprint-backlog-living
 and its `_i18n/es-419` and `_i18n/pt-BR` copies were not, and the lesson's own filename
 and `lesson_id` carry it. That is a content migration, not a text fix.
 
-**Absence claims in this document are not proven.** See §0.1's note on the instrument:
-every "the Guide does not say X" here was established by a tool that cannot demonstrate
-exhaustiveness, and one such claim - *forecast* appearing once - was already wrong. The
-presences are quoted and solid. Re-establish any absence a rule turns on before leaning
-on it.
+**Absence claims in this document ARE now proven, and were not until 2026-09-10.** Every
+*“the Guide does not say X”* here was originally established by a summarizer that cannot
+demonstrate exhaustiveness, and one such claim - *forecast* appearing once - was already
+wrong when written. **The Guide is now `reference/scrum-guide-2020.txt` and every absence
+this document relies on has been re-established at zero against the complete text.**
+
+The standing instruction changes accordingly: **do not hedge an absence, and do not
+inherit one either.** Put the term you searched into the sentence, so the next reader
+re-runs the check instead of trusting it. See §0.1.
 
 > **A task's wording is a JTA change, not a lesson change.** Recorded here because the
 > lesson author meets it first and must not silently route around it: a lesson that
