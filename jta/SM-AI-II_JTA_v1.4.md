@@ -504,6 +504,44 @@ it, and a claim that names where it looked can be disproved by pointing at a sec
 was not read. **A task whose subject is the Guide's silence has to be able to say so.** It
 still needs marking wherever a lesson renders it.
 
+**[SUPERSEDED 2026-09-10, three hours later, by migration 287 — and the hedge came out
+because the instrument changed, not because the reasoning was wrong.]** The 2020 Guide is
+now a local file at `reference/scrum-guide-2020.txt`, so an absence is a positive result
+over a bounded corpus rather than a claim that can only be left unfalsified. `attention`
+returns **0** across the whole document. 3.8 now reads *"says nothing **anywhere**"*, and
+the clause naming the two sections is gone.
+
+#### The should/must contrast, found after this section was written
+
+**It is the evidence that §8.5's own correction to task 3.7 was right, and it was not
+available when that correction was argued.** Grepping the complete Guide for multi-team
+language returns three sentences and only three:
+
+> *"If Scrum Teams become too large, they **should** consider reorganizing into multiple
+> cohesive Scrum Teams, each focused on the same product."*
+>
+> *"Therefore, they **should** share the same Product Goal, Product Backlog, and Product
+> Owner."*
+>
+> *"If there are multiple Scrum Teams working together on a product, they **must** mutually
+> define and comply with the same Definition of Done."*
+
+**The third is a must, and it is not scoped to the too-large case.** It opens on the
+general condition — *"If there are multiple Scrum Teams working together on a product"* —
+where the Product Owner sentence is a should reachable only through a reorganization.
+
+**So the Guide knows how to require something of several teams on one product, and for the
+Product Owner it chose not to.** 3.7 was rewritten on the argument that a recommendation
+had been stated as a rule; this is that argument with the Guide's own contrast behind it.
+And it makes 3.8's silence a **choice** rather than an oversight, which is what a Level II
+task wants — so the sentence is now in 3.8's knowledge line as its second clause.
+
+> **Neither half of this was reachable by the old instrument.** A summarizer asked about
+> multiple teams returns the Product Owner sentence, because that is the one the question
+> is about. The Definition of Done sentence sits in a different section under a different
+> subject, and nothing would have surfaced it. **The contrast is a property of the whole
+> document, and only a whole-document search finds a property of the whole document.**
+
 #### What the six constructs are, and why none of them changed
 
 `empiricism-prerequisites`, `escalation-proportionality`, `po-capacity`, `cross-team-equity`,

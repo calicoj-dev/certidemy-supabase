@@ -110,6 +110,16 @@ $ grep -c assign     ...                              ->  0
 $ grep -c escalat    ...                              ->  0
 ```
 
+**One of those is stronger than the rule it supports.** §0.5 forbids estimation
+vocabulary and rests on *velocity* and *story points* being absent. **`estimat` returns 0
+across the whole Guide in every form** - estimate, estimates, estimated, estimation,
+re-estimate. The 2020 edition does not use the word at all; its word is *sizing*, in *"The
+Developers who will be doing the work are responsible for the sizing."* So §0.5 is not a
+house preference over two banned nouns - **the entire vocabulary is outside the document**,
+and a lesson reaching for any of it has left the 2020 text rather than chosen a
+dispreferred synonym.
+
+
 > ### AN ABSENCE IS NOW PROVABLE, AND THAT IS A BIGGER CHANGE THAN THE TOOL
 >
 > Against a summarizer, an absence could only ever be **left unfalsified**. Against a
@@ -132,6 +142,13 @@ pattern, and the failure moves from *incomplete corpus* to *wrong pattern*:
 - **`"the Developers decide"`** would have returned nothing and proved nothing, because
   the Guide's sentence is *"they internally decide who does what, when, and how."*
   **A stem that encodes your phrasing tests your phrasing, not the Guide.**
+
+**It happened on the new instrument's first full lesson.** `grep -F "Helping employees and
+stakeholders understand and enact an empirical approach for complex work"` returned **0**,
+and the sentence is in the Guide - the extraction breaks bulleted lists at PDF line
+boundaries, and the Scrum Master service lists are among the fourteen lines that break.
+**A false absence, produced by the instrument that made absences provable, within an hour
+of it landing.** `reference/README.md` carries the caveat and the flatten-first recipe.
 
 **The mitigation is two-step and neither half is optional. Search the shortest
 distinctive stem, then read the whole sentence around every hit.** `grep -o "[^.]*stem[^.]*\."`

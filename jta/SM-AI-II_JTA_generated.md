@@ -466,7 +466,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `cross-team-equity`, `po-capacity`, `shared-product-ownership` |
 
-- **K:** The Guide recommends teams on one product share a Product Owner, and says nothing in the Product Owner or Scrum Team sections about how that attention is apportioned
+- **K:** The Guide recommends teams on one product share a Product Owner and says nothing anywhere about how that attention is divided between them; its only requirement across such teams is a shared Definition of Done
 - **S:** Selecting between capacity, prioritisation and escalation responses
 - **A:** Raising a fairness issue between teams
 

@@ -40,12 +40,37 @@ that exists on one machine is the dependency that breaks on a fresh clone.
 
 ### Which file to grep
 
-**Grep `scrum-guide-2020.txt`.** It is the reflowed extraction: one paragraph per line,
-so a sentence never spans a line break and a fixed-string search matches.
+**Grep `scrum-guide-2020.txt`.** It is the reflowed extraction: prose paragraphs are one
+per line, so a fixed-string search for a sentence inside a paragraph matches.
 
 A `-layout` extraction also exists in working notes and is **not** committed, because it
-preserves the two-column contents page and wraps sentences at PDF line breaks - which
-silently fails to match the exact sentences you most want to check.
+preserves the two-column contents page and wraps every sentence at PDF line breaks.
+
+### BULLET LISTS STILL BREAK MID-SENTENCE, AND THAT IS WHERE YOU WILL WANT TO LOOK
+
+**Reflowing joins paragraphs. It does not join bullets**, and 14 lines in this file end
+mid-sentence - the licence block, the contents page, and **the Scrum Master service
+lists**, which is the highest-traffic Guide territory in this scheme:
+
+```
+line 81 ends: ...understand and enact an empirical approach for complex
+line 82 starts: work; and,  Removing barriers between stakeholders and Scrum Teams.
+```
+
+So `grep -F "Helping employees and stakeholders understand and enact an empirical approach
+for complex work"` **returns 0, and the sentence is there.** That is a false absence, in
+the exact shape `STYLE-GUIDE-SM-AI-II.md` §0.1 warns about: the pattern was wrong, not the
+corpus. It was found on the instrument's first full lesson.
+
+**When a search that should hit returns nothing, flatten before concluding:**
+
+```
+tr -d '\r' < reference/scrum-guide-2020.txt | tr '\n' ' ' | tr -s ' ' > /tmp/guide-flat.txt
+grep -c -F "the sentence you are checking" /tmp/guide-flat.txt
+```
+
+All five sentences above - including the two that span a line break - return 1 against the
+flattened form. **Search the line file first; flatten before recording an absence.**
 
 ### Reproducing the extraction
 
@@ -60,6 +85,12 @@ different, worse file for this purpose.
 |---|---|
 | `scrum-guide-2020.pdf` | `641355a705caf4d1b6820768da684ed0` |
 | `scrum-guide-2020.txt` | `c69676b0a490c2f341df8501737f940a` |
+
+**`.gitattributes` marks both files `-text`/`binary`** so git does not normalise line
+endings on checkout. Without it the `.txt` is stored LF, checked out CRLF on Windows, and
+the md5 above is true on one platform and false on another - **a verification instruction
+that fails for the reader who most needs it.** The PDF md5 is the durable one; the `.txt`
+is derivative.
 
 ### Verify the extraction before trusting it
 

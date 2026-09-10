@@ -1,0 +1,5 @@
+# The Scrum Guide is a third-party normative document. Git must not
+# rewrite its bytes: the .txt md5 in reference/README.md is a verification
+# instruction, and autocrlf would make it platform-dependent.
+reference/scrum-guide-2020.txt -text
+reference/scrum-guide-2020.pdf binary
