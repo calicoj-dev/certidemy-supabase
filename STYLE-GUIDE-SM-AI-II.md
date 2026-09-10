@@ -156,6 +156,46 @@ returns the sentences rather than the count, which is what you actually need: th
 `burn-down` hit is a presence and its sentence is what makes it a presence *about
 forecasting progress* and not about the Sprint Backlog.
 
+#### `grep -c` counts LINES, and a flattened corpus is one line
+
+**The flatten recipe in `reference/README.md` joins the Guide into a single line** so a
+sentence never spans a break. That silently turns every `grep -c` against it into a
+**presence flag**: 1 if the term occurs anywhere, 0 if it does not, never a count.
+
+```
+reported   true      reported   true
+clear   1 ->  3      time    1 -> 10
+divid   1 ->  3      focus   1 -> 11
+```
+
+**Every zero stands.** Absent is absent under either reading, and that covers every
+absence this scheme relies on: `escalat`, `assign`, `parity`, `attention`, `metric`,
+`velocity`, `story point`, `best achieve goals`, `goals and missions`. **Every non-zero
+was unverified.**
+
+**One of them fed an absence claim.** `divid` was reported as 1 while checking whether the
+Guide says anything about dividing a shared Product Owner's attention. It is 3 - and all
+three are the substring inside *"individuals"*, so the claim held. **It held by luck, not
+by method**, and the sentences were printed alongside it, which is the only reason the
+luck was visible.
+
+> **Count with `grep -o … | wc -l`, or `grep -o … | sort | uniq -c` when you want the
+> forms as well. Never `grep -c` on the flattened form.** The three counts this document
+> rests on - `forecast` 2, `impediment` 2, `remov` 2 - were produced with `uniq -c` and
+> are correct.
+
+**THAT IS FOUR COUNT DEFECTS, AND THIS ONE IS DIFFERENT IN KIND.** The forecast count was
+a summarizer's answer. The README's *"fourteen lines break mid-sentence"* was a crude
+predicate counted precisely. `impediment appears three times` was a number nobody
+measured. **This one is a correct tool used on a corpus whose shape defeats it** - and it
+sits in the checking apparatus rather than in a document, which is the layer everything
+else is verified against.
+
+**The pattern across all four is not the instrument.** It is that **a count feels like an
+observation and is actually a measurement**, so it gets written down at the confidence of
+the former and the reliability of the latter. A quoted sentence carries its own evidence;
+a number carries none. **Where a claim turns on a number, print what you counted.**
+
 #### Verify a quotation when it is written, not when the batch is validated
 
 **Both of the worst cases in this section were caught downstream of a decision that had

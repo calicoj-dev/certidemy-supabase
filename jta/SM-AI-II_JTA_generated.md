@@ -491,7 +491,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `backlog-adaptation`, `review-as-presentation`, `sprint-review` |
 
-- **K:** The Sprint Review is a working session where the Product Backlog may be adjusted; it is not a presentation
+- **K:** The Sprint Review is a working session and the Scrum Team should avoid limiting it to a presentation; the Product Backlog may also be adjusted to meet new opportunities
 - **S:** Distinguishing a demonstration from an inspection
 - **A:** Telling stakeholders the event is not working
 
@@ -506,7 +506,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `decision-quality`, `metric-decoupling`, `transparency` |
 
-- **K:** Low transparency leads to decisions that diminish value; Scrum prescribes no metric
+- **K:** Artifacts that have low transparency can lead to decisions that diminish value and increase risk; the word metric does not appear in the Guide
 - **S:** Testing whether a number still tracks the thing it names
 - **A:** Withdrawing a number people rely on
 
@@ -536,7 +536,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `backlog-ordering-rationale`, `ordering-antipatterns`, `value-drift` |
 
-- **K:** The Product Owner orders items to best achieve goals and missions; the Guide does not define value
+- **K:** Ordering Product Backlog items is one of the four Product Backlog management accountabilities the Guide gives the Product Owner, and the Guide attaches no criterion to the ordering and does not define value
 - **S:** Detecting ordering driven by age, politics or convenience
 - **A:** Questioning an order the Product Owner defends
 
@@ -566,7 +566,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `feedback-latency`, `inspection-frequency`, `risk-containment` |
 
-- **K:** Inspection must be frequent and diligent; the Sprint bounds risk to one Sprint
+- **K:** Scrum artifacts and progress toward agreed goals must be inspected frequently and diligently; Sprint length limits risk of cost and effort to a smaller time frame
 - **S:** Relating feedback latency to the rate of change in the context
 - **A:** Proposing a cadence change the organization resists
 
