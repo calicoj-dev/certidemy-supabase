@@ -5,27 +5,36 @@
 > levels, K/S/A, concept slugs, exam facts and the cognitive profile are all there and
 > none of them is here. Regenerate that file rather than reading or editing tables.
 >
-> Generated 2026-09-09, 44 tasks, 766 lines. It is the first JTA in the catalogue whose
+> Regenerated 2026-09-10, 44 tasks, 766 lines. It is the first JTA in the catalogue whose
 > generated half existed before any hand-written half, which is the right way round and
 > was an accident.
+>
+> **REGENERATING IT IS PART OF APPLYING A JTA CHANGE, NOT A SEPARATE STEP.** See §8.5.
 >
 > **This file carries only what a query cannot reconstruct**: the design screens, the
 > lock gate, the review history, what changed and why, and what the record has lost.
 > Read it for the *why*, never for the *what*.
 
-# SM-AI-II — Job-Task Analysis v1.3
+# SM-AI-II — Job-Task Analysis v1.4
 
 **Credential:** Scrum Master II — AI
 **Code:** `SM-AI-II` · **Tier II** · Family `ai-agile`, status `draft`
-**Locked:** v1.2 locked 2026-09-02 · **v1.3 supersedes it 2026-09-09**
-**File:** `supabase/jta/SM-AI-II_JTA_v1.3.md`
+**Locked:** v1.2 locked 2026-09-02 · v1.3 superseded it 2026-09-09 ·
+**v1.4 supersedes v1.3 on 2026-09-10**
+**File:** `supabase/jta/SM-AI-II_JTA_v1.4.md`
 **Supersedes:** v1.0, v1.1, v1.2 — **none of which was ever committed to a repository.**
-See §9.
+See §9. And v1.3, which was; its changes are in §8.1–§8.4 and v1.4's in §8.5.
 **Companions:** `jta/SM-AI-II_JTA_generated.md` (authoritative for facts) ·
 `SCHEME-SM-AI-II.md` · `STYLE-GUIDE-SM-AI-II.md` · `scripts/lib/item-grounding.mjs`
 (`SCRUM_GUIDE_FACTS` — see §7)
-**Recorded in:** `public.jta_versions`, migration 284, `version_string` `v1.3`,
-`status` `published`, snapshot projected from live rows.
+**Recorded in:** `public.jta_versions`, **two rows, exactly one of them `published`** —
+`v1.4` from migration 286 is current; `v1.3` from migration 284 is **`retired`, not
+deleted**, keeping its version string and its frozen snapshot. That is the model migration
+062 built: *“at most one PUBLISHED version per certification at any time”*, enforced by the
+partial index `jta_versions_one_published`. **Many rows, one current** — and it is the
+surviving rows that let a credential render the blueprint it was earned against, while the
+one current row is what a new attempt gets stamped with. v1.3 is the only queryable record
+of the scaffold the D3 recon was run against.
 
 ---
 
@@ -90,7 +99,7 @@ having been applied.
 
 ---
 
-## 2. THE LOCK GATE, RESTATED AGAINST v1.3
+## 2. THE LOCK GATE, RESTATED AGAINST v1.4
 
 **v1.2 would lock only if the computed profile reached `analyze >= 55%` with
 `remember = 0`.**
@@ -99,6 +108,13 @@ having been applied.
 |---|---|---|---|
 | **at v1.2 lock (2026-09-02)** | 61.49% | 0 | **6.49 points** |
 | **at v1.3 (2026-09-09)** | **63.72%** | **0** | **8.72 points** |
+| **at v1.4 (2026-09-10)** | **63.72%** | **0** | **8.72 points** |
+
+**v1.4 does not move this table, and that is the point of the row.** Migration 285
+rewrote eleven knowledge and description strings and touched no `bloom_level`, so
+`v_cognitive_profile` is arithmetically identical either side of it. A version that
+corrects what a task SAYS without changing what it MEASURES should show exactly this,
+and a changed figure here would have meant the correction went further than intended.
 
 The gate still holds, and it holds by more. **Zero Remember and zero Understand are
 unchanged** — this remains a cognitive-only rung above a Level I credential, which is
@@ -121,6 +137,7 @@ section may be hand-maintained; read it from the generated JTA.**
 | **v1.2 (locked)** | **61.49** | **44** | 1 demotion · never-assert 23 → 26 |
 | *computed live at lock* | *61.49* | *44* | *matched the hand arithmetic to the hundredth* |
 | **v1.3** | **63.72** | **44** | 1 promotion (task 1.2), 1 statement and 3 knowledge lines corrected, 1 concept renamed |
+| **v1.4** | **63.72** | **44** | 5 knowledge lines and 6 concept descriptions corrected in D3; no verb moved |
 
 **Two adversarial review passes took the analyze share down 7.39 points and no verb was
 raised anywhere to compensate.** That was the only defence offered for 61.49 at lock, and
@@ -191,12 +208,21 @@ Nine tasks carry item constraints where the residue between defensible options i
 turns on a three-way attribution (imposed / conceded / genuinely contested) that carries
 its own residue.
 
+**Unchanged in v1.4, and 3.7 is the one to argue about.** D3's two entries here, 3.1 and
+3.6, are both among the three tasks migration 285 did not touch. Of the five it did, 3.7
+is the only candidate for admission and it does not qualify — the correction **sharpens**
+its residue rather than thinning it. Under v1.3's knowledge line, *“this violates the
+Guide’s one-backlog rule”* was the answer the task itself licensed; under v1.4's it is a
+confident wrong answer that a competent Scrum Master would reach for, which is a clean
+discriminator and exactly what §7.1's borderline candidate is defined to produce.
+
 ---
 
 ## 6. WHAT IS CARRIED INTO STAGE 7 AND STAGE 9
 
-- **Stage 7 — 44 lessons.** Module 1 is authored and externally reviewed;
-  `STYLE-GUIDE-SM-AI-II.md` is the delta that review produced. Modules 2–5 outstanding.
+- **Stage 7 — 44 lessons.** Modules 1 and 2 are authored, nine lessons each; module 1 was
+  externally reviewed and `STYLE-GUIDE-SM-AI-II.md` is the delta that review produced.
+  **Modules 3–5 outstanding, 26 lessons.**
 - **Stage 9 — the item bank.** Floors are 8 secure and 10 practice per in-scope task per
   language: **1,056 secure and 1,320 practice** at the floor across three languages.
 - **One Stage 9 pre-condition remains open.** See §7.2.
@@ -272,7 +298,13 @@ certification **name** and takes no tier argument, so this certification inherit
 
 ---
 
-## 8. CHANGES FROM v1.2
+## 8. CHANGES BY VERSION
+
+**§8.1 through §8.4 are what v1.3 changed from v1.2. §8.5 is what v1.4 changed from
+v1.3.** The sections are not renumbered when a version lands, because two documents in
+this repository already cite §8 and §9 by number.
+
+### 8.0 v1.3, from v1.2
 
 All between 2026-09-03 and 2026-09-09. Baseline is `content/sm-ai-ii/cert.yml` as first
 committed (`efe0f31`, 2026-09-03), which records itself as derived from v1.2.
@@ -372,11 +404,151 @@ The certification `description`, for Guide-citation wording (*"defining only the
 
 ---
 
+### 8.5 v1.4, from v1.3 — D3's knowledge lines, corrected before a lesson was written
+
+Applied 2026-09-10 by **migration 285**, in the SQL editor, with `content/sm-ai-ii/cert.yml`
+carrying the identical strings. **Eleven strings: five task knowledge lines and six concept
+descriptions, all in D3.** Task codes, statements, domains, weights, criticality, frequency,
+exam scope, `bloom_level` and `order_index` are unchanged on all 44. Counts unchanged: 44
+tasks, 131 concepts, 132 links, 5 domains. **The profile did not move** — see §2.
+
+**All seven are the same defect class: a claim about the 2020 Scrum Guide that the Guide
+does not support.** Not one was found by reading a lesson, because no lesson exists. They
+were found by the pre-authoring recon that D2 established, and D2's version of it caught
+three.
+
+> **THE ARGUMENT FOR RUNNING THE RECON BEFORE AUTHORING IS NOW EVIDENCE, NOT A POSITION.**
+> Every Guide-attribution defect that reached module 1's lessons was in its tasks first.
+> D2's recon caught three before nine lessons were written against them; D3's caught seven.
+> A knowledge line is read by every lesson in its task and by every item generated from it,
+> so a defect there is not one error — it is the same error as many times as the task is
+> used.
+
+#### The consequential one: task 3.7 and `single-product-backlog`
+
+v1.3 read *"One product has one Product Backlog, one Product Goal and one Product Owner"*,
+and the concept read *"One product has one Product Backlog, however many teams work on it."*
+
+The Guide's only sentence on this, reproduced rather than searched:
+
+> *"If Scrum Teams become too large, they should consider reorganizing into multiple
+> cohesive Scrum Teams, each focused on the same product. **Therefore, they should share
+> the same Product Goal, Product Backlog, and Product Owner.**"*
+
+**Three gaps.** It says *should*, not *must* — a recommendation stated as a rule. It is
+scoped to teams that reorganized **because one grew too large**, which is not the route two
+teams sharing a product may have taken, and 3.7's own scenario does not say they did. And
+*"however many teams work on it"* is the generalisation, not the text.
+
+**So 3.7 cannot be keyed as a Guide violation**, which is the whole shape of the task. The
+replacement gives the recommendation and then the cost — *"where they do not, no single
+order of value exists"* — and the cost is judgment, which is the Level II answer anyway.
+
+**`SM-AI-I` 05-04 overstates it the same way**: *"every scaling question is answered first
+by the Guide's rule: one Product Goal, one Product Backlog, one Product Owner per
+product."* The Level I floor was carrying the error upward, and the Level II task inherited
+it rather than inventing it.
+
+#### The one that was wrong twice: `product-goal-singularity`
+
+v1.3 read *"One product has one Product Goal at a time."* Both halves fail, against
+different passages.
+
+> *"The Product Goal is the long-term objective **for the Scrum Team**. **They** must
+> fulfill (or abandon) one objective before taking on the next."*
+
+**The Guide attaches the Product Goal to the Scrum Team, not to the product.** And
+*"fulfill or abandon one objective before taking on the next"* is a **sequencing rule about
+one team over time**; *"one product has one Product Goal at a time"* is a **cardinality rule
+about one product across teams**. Two different claims, and neither supports the other. The
+same substitution sits under the Product Backlog: *"It is the single source of work
+undertaken by **the Scrum Team**."*
+
+#### The other five
+
+| site | v1.3 | v1.4 |
+|---|---|---|
+| task 3.2 | *The **Developers** decide who does what within the Sprint* | *Self-management belongs to the **Scrum Team**, which internally decides who does what, when and how; an assignment from outside displaces a Scrum Team decision* |
+| `work-assignment-boundary` | *…**no one assigns work to them.*** | *The Guide states the provision and no prohibition; that an outside assignment displaces it **follows from the provision and is not text**.* |
+| `absence-handling` | *…and **no interim arrangement is prescribed**.* | *The Developers are accountable for creating a plan for the Sprint, and that does not depend on who is present.* |
+| task 3.8 | *…and the accountability **is not divisible*** | *…and **says nothing in the Product Owner or Scrum Team sections** about how that attention is apportioned* |
+| tasks 3.3, 3.5 · `organizational-service`, `stakeholder-influence` | *…**adopt** an empirical approach* · *…**persuade** the Product Owner* | *…**understand and enact** an empirical approach for complex work* · *…**can do so by trying to convince** the Product Owner* |
+
+**3.2's attribution error was inherited from a live certification that contradicts itself.**
+`SM-AI-I` 02-05 has it right — *"A Scrum Team is self-managing: it internally decides who
+does what, when, and how"* — and 02-03, three lessons earlier, has it wrong: *"The
+Developers are self-managing — they decide who does what, when, and how."* The Level II task
+took the wrong half. **02-03 is unchanged and is the only misattribution in SM-AI-I**, swept
+across every English lesson.
+
+**`work-assignment-boundary` and `absence-handling` are the §0.1 pair.** One asserted a
+prohibition the Guide does not make; the other rested on an absence. Both now state the
+provision and mark the inference, which is the treatment task 2.4's threshold already
+carries in module 2's lessons.
+
+**The quotation drift sat in FOUR places and the recon found two.** Task 3.3 was found only
+by sweeping the file for the claim after fixing the two known sites, and
+`stakeholder-influence` additionally hardened *"can do so by trying to convince"* into an
+exclusive channel — which is how `SM-AI-I` 02-02 phrases it: *"that is the proper channel,
+and it is the only one."* **Migration 285 therefore carries the sweep as a guard**: no
+retired phrasing may survive in any task or concept of the certification. A correction
+applied to one of four sites looks correct at the site it was applied to.
+
+#### 3.8's replacement is an absence claim on purpose
+
+It says the Guide *"says nothing in the Product Owner or Scrum Team sections"*. That is the
+class §8.5 just removed from `absence-handling`, and it stays here for one reason: **it
+names the sections that were read.** §0.1's rule is that an absence cannot be established
+by failing to find something — it has to be checked against the passage that would carry
+it, and a claim that names where it looked can be disproved by pointing at a section that
+was not read. **A task whose subject is the Guide's silence has to be able to say so.** It
+still needs marking wherever a lesson renders it.
+
+#### What the six constructs are, and why none of them changed
+
+`empiricism-prerequisites`, `escalation-proportionality`, `po-capacity`, `cross-team-equity`,
+`decision-diffusion` and `role-vacancy-pressure` have **no Guide text behind them at all**,
+and all six are correct as they stand. Every one is a bare definition of a phenomenon: none
+says *the Guide*, *must*, *may not*, or *is required*. They describe rather than legislate,
+so a lesson can mark them without first having to un-say something — which is exactly what
+the six rewritten ones needed. **Migration 285 names all six in its guard as rows that must
+not move**, because a sweep that "corrected" them would have been the over-application the
+negative half exists to catch.
+
+#### The generated JTA had been stale for four hours longer than anyone knew
+
+`jta/SM-AI-II_JTA_generated.md` was regenerated for v1.4 and the diff came back **nine
+tasks, not five**. Five were D3's, from migration 285. **The other four were D2's** — 2.1,
+2.4, 2.6 and 2.9 — from the three JTA fixes made before module 2 was authored.
+
+The dates: the generated file was committed at **15:41** on 2026-09-09 (`b8cccec`); the D2
+corrections reached `cert.yml` at **20:09** the same day (`0f8fcc8`, web). **Nobody re-ran
+`gen-jta-doc.mjs`.** So the file this document's own banner calls *"authoritative for every
+fact"* was wrong about four of 44 tasks for the whole of module 2's authoring.
+
+Nothing bad reached the lessons, because each was authored from live database reads rather
+than from the file — **which is the reason it went unnoticed, not a reason it was safe.**
+
+> **REGENERATE THE JTA IN THE SAME PASS THAT APPLIES THE CHANGE.** A generated file is only
+> authoritative between regenerations, and the window is invisible: the file has no way to
+> say it is behind, the banner asserts the opposite, and the git diff shows nothing because
+> nothing was committed. Applying a JTA change and regenerating are one step.
+
+---
+
 ## 9. WHAT v1.0 THROUGH v1.2 LOST, AND IS NOT RECOVERABLE
 
 **No version of this JTA before v1.3 was ever committed to a repository.** Neither was
 `SM-AI-II_BoK_v1.1.md`. The following is **gone**, and this section exists so that no
 future reader mistakes the surviving summary for the whole record.
+
+> **THIS SECTION IS ABOUT LOSS, NOT ABOUT CORRECTION, AND THE TWO ARE DIFFERENT KINDS OF
+> ENTRY.** Everything below is material that existed and cannot be produced. §8.5 is the
+> opposite case: nothing was lost, and seven claims that were wrong when written were
+> found and corrected before anything was built on them. A version history that files
+> both under one heading teaches its reader that a corrected record and an incomplete one
+> are the same condition. They are not — one is recoverable by work and the other is not
+> recoverable at all.
 
 **The 45th task.** v1.0 had 45 tasks; v1.1 has 44 after *"2 cuts · 1 addition."* **Which
 two tasks were cut, what they said, which domains they sat in, and what the addition was
@@ -431,16 +603,22 @@ that move against the Scrum Guide. It applies to its own paperwork.
 - **Decide whether the never-assert list reaches Level I.** Three shipped banks were
   generated without one. Scoped decision with its own review; regenerating those banks is
   the cost.
-- **Modules 2 through 5**, 35 lessons, to `STYLE-GUIDE-SM-AI-II.md`.
-- **`CERT-PUBLISH-CHECKLIST.md` has no step for the `jta_versions` row.** Migration 277
-  recorded that *"ten certs have each rediscovered it"*; SM-AI-II is the eleventh, and the
-  checklist still has no step.
+- **Modules 3 through 5**, 26 lessons, to `STYLE-GUIDE-SM-AI-II.md`. Modules 1 and 2 are
+  authored, nine lessons each.
+- ~~**`CERT-PUBLISH-CHECKLIST.md` has no step for the `jta_versions` row.**~~ **DONE.**
+  Migration 277 recorded that *"ten certs have each rediscovered it"*; SM-AI-II was the
+  eleventh. The checklist now carries it as §6 step 3, *"Write the `jta_versions` row"*.
 - **At launch, a `v2.0` row.** The house rule in migration 211 is that every scheme's JTA
-  becomes `v2.0` on locking for launch. `v1.3` is a working version on a `draft`
-  certification, and `jta_versions` is unique on `(certification_id, version_string)`, so
-  both rows can coexist and should.
+  becomes `v2.0` on locking for launch. `v1.3` and `v1.4` are working versions on a
+  `draft` certification. **All three rows coexist and exactly one is published**, which is
+  the retire-then-publish transition `public.publish_jta_version()` has shipped since
+  migration 062: `v2.0` is inserted published and `v1.4` moves to `retired`. **A v2.0 row
+  cannot be added “alongside” a published v1.4** — the partial index
+  `jta_versions_one_published` refuses it, and `score-mock-exam` calls `maybeSingle()` on
+  `status = published`, so two published rows throw rather than pick.
 
 ---
 
-*End of SM-AI-II_JTA_v1.3. Factual content lives in `jta/SM-AI-II_JTA_generated.md`;
-regenerate it after any scaffold change and let the git diff be the change record.*
+*End of SM-AI-II_JTA_v1.4. Factual content lives in `jta/SM-AI-II_JTA_generated.md`;
+regenerate it after any scaffold change and let the git diff be the change record.
+v1.4 is the version that found out what happens when you do not — see §8.5.*

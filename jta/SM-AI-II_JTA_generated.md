@@ -1,6 +1,6 @@
 # SM-AI-II - Job-Task Analysis
 
-> **GENERATED FROM THE DATABASE on 2026-09-09. Do not hand-edit.**
+> **GENERATED FROM THE DATABASE on 2026-09-10. Do not hand-edit.**
 >
 > Every fact below is rendered from the live schema by
 > `scripts/gen-jta-doc.mjs`. To change anything here, change the database
@@ -205,7 +205,7 @@ verify-cert invariant 17 fails if they diverge.
 
 ## Tasks
 
-### Task 2.1 - Select the Scrum Master's stance for a given team dysfunction
+### Task 2.1 - Determine how large an intervention a team dysfunction actually requires
 
 | Attribute | Value |
 |-|-|
@@ -216,8 +216,8 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `intervention-proportionality`, `scrum-master-services`, `stance-selection` |
 
-- **K:** The services the Scrum Master renders to the team, the Product Owner and the organization
-- **S:** Matching a stance to a dysfunction
+- **K:** The services the Scrum Master renders to the Scrum Team, the Product Owner and the organization
+- **S:** Reading the gap between what a stance can reach and what the dysfunction is costing
 - **A:** Withholding the stance that comes most naturally
 
 ### Task 2.2 - Diagnose why a Retrospective produces actions that are never completed
@@ -261,7 +261,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `consequence-threshold`, `impediment-removal`, `self-management-development` |
 
-- **K:** Impediment removal; coaching self-management; the Sprint as a container bounding risk to one Sprint
+- **K:** Impediment removal; coaching self-management; Sprint length limits risk of cost and effort to a smaller time frame
 - **S:** Applying the Sprint Goal and usable Increment threshold to a foreseeable consequence
 - **A:** Tolerating a foreseeable failure that does not cross the threshold
 
@@ -292,7 +292,7 @@ verify-cert invariant 17 fails if they diverge.
 | Concept slugs | `collective-accountability`, `developer-accountability`, `team-inclusion` |
 
 - **K:** The Developers are accountable as one unit for creating a plan for the Sprint
-- **S:** Scaling a response to the degree of exclusion
+- **S:** Choosing between testing the inference privately, naming the pattern to the Developers and changing how planning is run
 - **A:** Acting on a dynamic nobody has named aloud
 
 ### Task 2.7 - Analyze a team whose Sprint Goals are consistently a list of unrelated items
@@ -336,8 +336,8 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `element-displacement`, `practice-augmentation`, `purposeful-incompleteness` |
 
-- **K:** Scrum is purposefully incomplete and may be wrapped in other practices; its own elements may not be omitted
-- **S:** Testing whether the practice adds to or displaces a Scrum element
+- **K:** Scrum is purposefully incomplete and functions well as a container for other techniques, methodologies and practices; implementing only parts of it is possible, and the result is not Scrum
+- **S:** Choosing between leaving the practice alone, naming what it has displaced and restoring the element alongside it
 - **A:** Leaving a working practice alone
 
 ---
@@ -376,7 +376,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `management-interference`, `organizational-service`, `work-assignment-boundary` |
 
-- **K:** The Developers decide who does what within the Sprint; the Scrum Master serves the organization in its Scrum adoption
+- **K:** Self-management belongs to the Scrum Team, which internally decides who does what, when and how; an assignment from outside displaces a Scrum Team decision, and the Scrum Master serves the organization in its Scrum adoption
 - **S:** Reading whether the assignment is habit, structure or emergency
 - **A:** Engaging authority above the team
 
@@ -391,7 +391,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `empiricism-prerequisites`, `organizational-diagnosis`, `structural-impediment` |
 
-- **K:** The Scrum Master helps employees and stakeholders adopt an empirical approach
+- **K:** The Scrum Master helps employees and stakeholders understand and enact an empirical approach for complex work
 - **S:** Tracing a symptom inside the Sprint to a structure outside it
 - **A:** Describing an organizational cause without indicting individuals
 
@@ -421,7 +421,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `decision-diffusion`, `product-owner-singularity`, `stakeholder-influence` |
 
-- **K:** The Product Owner is one person, not a committee; those wanting change persuade the Product Owner
+- **K:** The Product Owner is one person, not a committee; those wanting to change the Product Backlog can do so by trying to convince the Product Owner
 - **S:** Identifying which decisions have diffused
 - **A:** Raising an arrangement the organization finds comfortable
 
@@ -451,7 +451,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `backlog-fragmentation`, `product-goal-singularity`, `single-product-backlog` |
 
-- **K:** One product has one Product Backlog, one Product Goal and one Product Owner
+- **K:** The Guide recommends that Scrum Teams working on the same product share a Product Goal, Product Backlog and Product Owner; where they do not, no single order of value exists
 - **S:** Tracing the split to organizational structure, tooling or Product Owner capacity
 - **A:** Addressing the cause rather than merging the artifacts
 
@@ -466,7 +466,7 @@ verify-cert invariant 17 fails if they diverge.
 | Exam scope | Yes |
 | Concept slugs | `cross-team-equity`, `po-capacity`, `shared-product-ownership` |
 
-- **K:** The same Product Owner serves the product across teams and the accountability is not divisible
+- **K:** The Guide recommends teams on one product share a Product Owner, and says nothing in the Product Owner or Scrum Team sections about how that attention is apportioned
 - **S:** Selecting between capacity, prioritisation and escalation responses
 - **A:** Raising a fairness issue between teams
 
@@ -762,4 +762,4 @@ verify-cert invariant 17 fails if they diverge.
 
 ---
 
-*Generated 2026-09-09 by scripts/gen-jta-doc.mjs from certification SM-AI-II (a7f3c9d2-6b14-4e85-9c07-2d5f8a1b3e46).*
+*Generated 2026-09-10 by scripts/gen-jta-doc.mjs from certification SM-AI-II (a7f3c9d2-6b14-4e85-9c07-2d5f8a1b3e46).*

@@ -24,6 +24,39 @@
 -- version_string), so a v2.0 row can be added at launch alongside this one -
 -- which is the correct shape: two versions, two records.
 --
+-- [CORRECTED 2026-09-10, by migration 286, which failed on exactly this.]
+-- THE SENTENCE ABOVE IS WRONG AND THE ROW THIS MIGRATION WROTE IS NOT. Only the
+-- reasoning is at fault, and only its last clause: a v2.0 row CANNOT be added
+-- "alongside this one" at launch while this one is published.
+--
+-- jta_versions carries TWO unique indexes and this header names one:
+--
+--   jta_versions_cert_version_uq   unique (certification_id, version_string)
+--   jta_versions_one_published     unique (certification_id) WHERE status = published
+--
+-- Migration 062 states the model above the second: "At most one PUBLISHED
+-- version per certification at any time." MANY ROWS, ONE CURRENT. status is
+-- CHECK-constrained to draft / published / retired.
+--
+-- THE LAUNCH PATH IS RETIRE-THEN-PUBLISH, and 062 shipped it as
+-- public.publish_jta_version(), which has never been called: it retires the
+-- published row for the cert, then inserts the new one as published. Take its
+-- transition, not its body - it builds a five-key snapshot where all twelve
+-- stored rows carry seven, and functions/_shared/ob3.ts reads the seven.
+--
+-- WHY THIS MATTERS MORE THAN A WRONG SENTENCE. score-mock-exam/index.ts:543
+-- resolves the version to stamp with .eq("status","published").maybeSingle(),
+-- which THROWS on more than one row. Had someone followed this header at launch,
+-- the failure would not have been a duplicate row - it would have been the first
+-- certification exam attempt, inside a try/catch that stamps null and logs a
+-- warning. The partial index refused the write instead.
+--
+-- HOW IT GOT HERE: this header described one constraint and was read as though
+-- it described the schema. Migration 286 inherited the claim from these lines
+-- rather than from 062, four lines of which contain the whole answer. Preserved
+-- rather than rewritten - the file is a record of what ran, and what ran was
+-- correct.
+--
 -- PROJECTED, NOT PASTED. The snapshot is built by this query FROM the live
 -- domains, tasks, concepts and certification rows. Two reasons, both 211's:
 --
