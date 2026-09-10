@@ -790,7 +790,26 @@ Read text, click the part that's wrong.
 |---|---|
 | `text` | The scenario text |
 | `highlights` | The clickable spans. `is_correct: false` is allowed for distractors. |
-| `minimum_correct` | How many they need to identify to pass |
+| `minimum_correct` | How many they need to identify to pass. **Must agree with the prompt — see below.** |
+
+**`minimum_correct` and the prompt.** A prompt that demands completeness — *"click
+every X"*, *"click each X"* — sets `minimum_correct` **equal** to the number of
+`is_correct: true` entries. A prompt that asks for recognition — *"what is wrong here?"*,
+*"find the risky assumptions"* — **may** set it below. **The bar and the prompt must
+agree, and a bar cannot be judged from its number alone.**
+
+A completeness prompt with a bar below its true count lets a reader advance having
+disobeyed the instruction the widget gave them. A recognition prompt with an equal bar
+demands an exhaustiveness the prompt never asked for.
+
+> **Measured 2026-09-09 across the 77 English `highlight-mistake` widgets in
+> `content/`: 36 below, 41 equal, none above.** Neither setting is anomalous, which is
+> why the number alone decides nothing. **One disagrees:** `aims-f`
+> `01-05-drivers-and-what-certification-means` asks the reader to *click every part* and
+> sets `minimum_correct: 2` against three `is_correct` entries.
+
+The craft argument — which prompt a lesson should be writing in the first place — is
+per-cert. `STYLE-GUIDE-SM-AI-II.md` §2.3 carries it for that credential.
 
 ---
 

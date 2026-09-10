@@ -581,6 +581,12 @@ distractor that is not a defect is where the misconception lives.**
 > set it below. What makes a bar right is the sentence above it, not a number in the
 > abstract.**
 
+**The constraint is catalogue-wide and it lives in `LESSON_AUTHORING_SPEC.md` §7.4**,
+alongside the field it governs — it applies to all 77 English `highlight-mistake`
+widgets across eleven certifications, not only to this one. **What follows here is the
+craft half:** which prompt this credential should be writing, and what it cost to find
+out.
+
 - **"Click every claim that is wrong"** → **equal.** Exhaustiveness is what the prompt
   asked for, and a bar of 3 against 4 lets a reader advance having disobeyed the
   instruction the widget gave them.
