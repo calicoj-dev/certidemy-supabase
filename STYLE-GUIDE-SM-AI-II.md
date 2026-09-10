@@ -106,6 +106,40 @@ Where a rule turns on a word being absent, either quote the passage where it wou
 appeared and is not, or say the absence is unverified. **This document is about not
 making unproven claims about the Guide; it does not get an exemption.**
 
+#### A section is a sample — the third case, and the worst shape
+
+The forecast count came from asking a summarizer for a total. The cancellation absences
+came from asking it for a sweep. **This one came from a passage that was reproduced
+correctly, read correctly, and generalised beyond what it covers.**
+
+Task 2.4's knowledge line read *"the Sprint as a **container** bounding risk to one
+Sprint"*. It was reported as a defect of the `forecast` kind — a Guide word attached to
+the wrong object — on this reasoning: *"The Sprint" subsection was fetched in full and
+contains no such word; where the Guide does use it is for Scrum itself, in "functions
+well as a container for other techniques, methodologies and practices."*
+
+**The Scrum Events section, one heading up, opens: *"The Sprint is a container for all
+other events."*** The Guide uses the word for **both** objects. **The finding was false.**
+
+> **A section is a sample of the document.** Reproducing it verbatim proves what is *in*
+> it and nothing at all about what is not in the rest. The first two failures were the
+> instrument answering badly; **this one was the instrument answering perfectly and the
+> question being too narrow.** No better prompt fixes it, because the prompt was right.
+
+**The rule:** when checking whether the Guide uses a word for a particular object, **fetch
+the containing section AND its parent**, or ask for every sentence containing the word
+across the whole document — **and treat that answer as a lower bound**, per the sweep
+failure above. A single section clears a word only for that section.
+
+**What it cost.** A JTA knowledge line was changed on the false finding, in the database
+and in `cert.yml`. The replacement — *"Sprint length limits risk of cost and effort to a
+smaller time frame"* — quotes the Guide accurately and is better than the half-right
+original, so **it stands and was not reverted**. The durable cost is the commit message
+`a8d57de`, which states *"The Guide calls SCRUM a container for other techniques,
+methodologies and practices; it never calls the Sprint one."* **That sentence is wrong,
+it is in the permanent record, and it will read as authoritative to whoever finds it
+next.** It is corrected here because a commit message cannot be.
+
 ### 0.2 The Level II move starts in the first concept
 
 > **A lesson may state the Level I rule in ONE SENTENCE. If the first `::concept` block
