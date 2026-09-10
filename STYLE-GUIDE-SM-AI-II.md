@@ -295,7 +295,13 @@ the rule needs, and not a claim about which words are missing. **A lesson using 
 the candidate must later unlearn; a lesson using points teaches a vocabulary the same
 module's pitfall callout disowns.**
 
-The Guide's word for the activity is **sizing**.
+The Guide's word for the activity is **sizing**, and that governs PROSE as well as
+examples. This rule was written as a claim about what the Guide does not contain, which
+is why it did not fire on `02-06`'s widget narrating that a Developer *"brought an
+estimate to the group"* - narrative, not an example, and no absence asserted anywhere
+near it. **State it positively and it covers both: Product Backlog items are sized, this
+credential's word is *sizing*, and that holds in a scenario, a widget passage and a
+checkpoint option exactly as it holds in a pitfall callout.**
 
 > **`4.8` and `5.4` sit on the same carve-out.** *A forecast that has become a performance
 > target* and *model-produced estimates read as commitments* are both tasks whose subject
@@ -357,6 +363,38 @@ a check that looks everywhere else.
 > from, so the surrounding prose cannot supply a charity the candidate will not get.
 >
 > **A wrong distractor is a §0.3 problem. A wrong key is a §0.1 problem, and it is worse.**
+
+#### A keyed answer may not contradict a concept in the same lesson
+
+> **Before keying an option, find the sentence in the lesson's own prose that governs it.
+> A lesson that teaches a move and keys its opposite teaches neither.**
+
+**What it cost.** `02-03`'s concept says *"Ask what changed rather than asserting that
+nothing did."* Its q1 then keyed *"no inspection is occurring"* - the assertion the
+concept had just ruled out - and demoted the option that made the concept's own move to
+*"the right next step rather than the right conclusion."* The demotion is the tell:
+**when an explanation has to explain away the option that follows the lesson, the key is
+usually the thing that is wrong.**
+
+Fixed by softening the key to a finding about the evidence rather than about inspection,
+so the concept and the key now say the same thing. **The concept was right and stayed.**
+
+#### A stem and its explanation must still agree after a rewrite
+
+> **A stem is rewritten more often than the key it was built for. Re-read them together
+> afterwards - the explanation is the specification the stem has to satisfy.**
+
+**What it cost.** `02-07` q4's stem said the fragmentation reflected *"commitments the
+Product Owner made to three department heads"*; its key and explanation said the Product
+Owner *"is holding a settlement they did not choose."* **A Product Owner who made the
+commitments chose them, under pressure or not** - so the stem supported the distractor
+that treats it as their ordering problem, and the organizational key was arguable rather
+than best. Both halves were written deliberately, months apart, and nothing checks that a
+stem still carries the facts its explanation asserts.
+
+**The direction of the fix matters: the stem earns the key, not the reverse.** Here the
+organizational finding was the right competence, so the stem was rewritten until the
+commitments were genuinely imposed.
 
 ### 0.8 A checker needs a control that fires
 
