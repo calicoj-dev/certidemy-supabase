@@ -620,11 +620,42 @@ Module 3 produced three, none of them keyed, all worth keeping in the prose:
 - **`03-06`'s provisional-decision construction** - treating a decision taken in the
   Product Owner's absence as provisional until they return.
 
+Module 4 produced three more, and **two of them had been keyed** - which is the finding,
+because module 3's three were caught in prose and these were caught in a key:
+
+- **`04-04`'s *emergent* as a cadence** - reading the artifact's description as a duty to
+  refresh the Product Backlog's order. The lesson's own deep-dive says *"it is the nearest
+  the Guide comes to saying a frozen order is a problem. Nearest is not the same as saying
+  it"* - and q4's key then said it. Rekeyed onto the Product Owner's accountability for
+  maximizing value and the fact of no movement against a changed market.
+- **`04-07`'s *finalized prior to the end of Sprint Planning*** read as forbidding a
+  mid-Sprint Sprint Goal. It constrains Sprint Planning; it does not constrain what a
+  Sprint may acquire afterwards. q1's explanation stepped from the constraint to the
+  prohibition on a single *so*, in a lesson whose deep-dive already said the sequencing
+  was a practitioner's construction. **The true statement is that a Sprint Goal has no
+  second origin, which is why nothing supplies one mid-Sprint** - not that a rule forbids
+  it, and the concept prose was corrected to say that.
+- **`04-09`'s Scrum Values openness** read as an enforceable duty on stakeholders to keep
+  proposing. Not keyed.
+
 Each is the lesson reasoning past the point where the Guide stops, which is what a Level
 II lesson is for. **Keyed, each becomes the credential asserting something the 2020 text
 does not say** - §0.1 through the side door, and harder to see there because the sentence
-itself is sound. Item generation has not run against module 3 yet; this list is what it
+itself is sound. Item generation has not run against either module; this list is what it
 must not draw a key from.
+
+**And the list is not only for generation.** Module 4's two were keyed by hand, months
+after the deep-dive in the same file had written down that they could not be. **A lesson
+that qualifies a reading in its prose and keys it in its checkpoint has not caught the
+reading; it has documented it and then made the claim anyway** - which is harder to see
+than a bare over-claim, because the qualification is right there and reads as evidence
+the question was considered.
+
+**A boundary between two lessons is also a generation constraint.** `04-03` tests whether
+a commitment is PRESENT; `04-07` repairs a MISSING one. An item asking *when* a Sprint
+Goal can be restored belongs to 04-07; an item asking whether the board is transparent
+belongs to 04-03. Generated against the wrong one, an item is answerable from the wrong
+lesson's prose and draws its distractors from the wrong failure mode.
 
 #### A stem and its explanation must still agree after a rewrite
 
