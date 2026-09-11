@@ -112,6 +112,33 @@ a Scrum Guide citation. ${NO_BRAND}`;
  * point at a post-generation check instead - which is what
  * scripts/audit-grounding-compliance.mjs exists to be.
  *
+ * THE EXPERIMENT RAN. THE WORDING DID NOT MOVE IT.
+ *
+ *   practice, before the patch:  4 real in 440 items = 0.91%, all in explanations
+ *   secure,   after  the patch:  3 real in 352 items = 0.85%, ONE OF THEM IN A KEY
+ *
+ * Within noise on the rate, and worse on placement: the practice bank put none of
+ * its leaks in a key and the secure bank put one - task 2.8, keyed on "available
+ * self-organized learning, making it a self-management failure this Sprint", which
+ * uses the retired term and the current one in the same sentence.
+ *
+ * SO THE PRE-REGISTERED SECOND BRANCH IS THE ONE THAT HAPPENED, and it is the more
+ * useful of the two. A prohibition the model reads in both the draft and the
+ * critique prompt, and still violates at a stable ~0.9%, is not failing because it
+ * was imprecise. NAMING THE SURFACE DID NOT HELP, so rewording the other thirty-four
+ * entries would not either, and the effort belongs somewhere else.
+ *
+ * WHERE IT BELONGS: a post-generation check, run as a gate rather than as a report.
+ * N22 is the one entry whose violations a lexical check catches reliably - it is
+ * vocabulary, not a claim, so it has no polarity problem and no clause-boundary
+ * problem. audit-grounding-compliance.mjs already finds every instance. What is
+ * missing is that nothing runs it between generation and use.
+ *
+ * THE ENTRY STAYS AS PATCHED. It is more accurate than it was, the surface list is
+ * correct, and a rule that states its scope properly is worth keeping even when
+ * stating it properly turns out not to change the model's behaviour. What changed
+ * is what we now know about the class: these entries are not a dial.
+ *
  * NOT LEVEL II MATERIAL, AND WIRED INTO LEVEL II ANYWAY. "Only the Product
  * Owner may cancel a Sprint" is as true for SD-AI-I as for SM-AI-II. The three
  * Level I banks were generated against a SCRUM string carrying no never-assert
