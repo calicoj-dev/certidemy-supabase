@@ -523,6 +523,60 @@ conformance detail line, so a loosened setting cannot pass unnoticed.
 > is chance, near 40% means a test-wise candidate beats chance by picking the longest
 > option, and that is a scheme defect to correct rather than a threshold to relax.
 
+#### The strict-longest rate, measured across the catalogue on 2026-09-11
+
+**The tolerance above is no longer unmeasured for this scheme, and the measurement turned
+up something about the CHECK rather than about the bank.**
+
+`verify-cert`'s `cue.length` fails a bank whose key is strictly the longest option in
+more than **50%** of items — *"pick the longest beats chance too reliably."* That number is
+**hardcoded and does not read `tier`**, while `cue_tolerance` was raised for tier 2 (25
+chars / 15% against Level I's 5 / 10). Measured over every secure/en bank in the
+catalogue:
+
+| tier | certification | strict-longest | mean margin |
+|---|---|---|---|
+| **II** | SM-AI-II | **49.1%** | 12.9 ch |
+| **II** | ISMS-IA | 47.4% | 13.1 ch |
+| **II** | AIMS-IA | 45.6% | 13.7 ch |
+| I | ISMS-F | 40.1% | 5.4 ch |
+| I | AIGRM-I | 37.7% | 6.4 ch |
+| I | AIMS-F · AIHR-I · AISM-I · SD-AI-I · AIE-I · SPO-AI-I | 33.2 – 36.4% | 4.9 – 6.8 ch |
+| I | SM-AI-I | 28.6% | 5.1 ch |
+
+**Every Level II bank sits between 45 and 50. Every Level I bank sits below 41.** The gap
+is not noise and it is not a defect: `L2_CONTRACT` says in as many words that **the best
+answer MAY be longer, because a qualifying clause is often exactly what makes it best**,
+and instructs the writer not to pad the others to match. A four-defensible-options item
+has a different length distribution from one right answer among three wrong ones.
+
+> **SO ALL THREE LEVEL II BANKS PASS A BAR THAT WAS NEVER SET FOR THEM**, by margins of
+> 0.9, 2.6 and 4.4 points. That is the same shape as the `item-profile.mjs` defect — a
+> Level I assumption reached without reading `tier` — and it is recorded here rather than
+> corrected, because **a threshold set from three banks is as inherited as one set from
+> none.**
+
+**What a deliberate tier-2 bar would need**, for whoever sets it:
+
+1. **More than three banks.** Three is a cluster, not a distribution. A fourth and fifth
+   Level II bank would say whether 45–50 is the range or the low end of one.
+2. **The chance baseline stated.** With four options of equal length the key is strictly
+   longest 25% of the time. **A Level II bar is a claim about how far above chance a
+   defensible-options contract legitimately pushes that**, and nobody has written that
+   claim down.
+3. **A candidate-side check that is not length.** The strict-longest rate matters only if
+   picking the longest option actually beats chance for a real candidate. **Item
+   statistics answer that and nothing else does** — it is a stage 3 question (§7.1), which
+   makes this one more thing waiting on live operation rather than on judgement.
+4. **The escape rate kept as the primary clause.** `cue.length` fails first on items that
+   exceed the guard's own declared tolerance, and that clause is tier-aware because the
+   tolerance is. **SM-AI-II's escape rate is 0% over 352 items**, as is every sibling's.
+   The strict-longest clause is the secondary one and should stay secondary.
+
+**The blueprint's `measured_over` stays NULL until that decision is taken.** Recording a
+measurement is not the same as declaring a tolerance, and filling in `measured_over` with
+a number nobody has argued for would make an unset threshold look settled.
+
 ### 8.2 Source-attribution controls
 
 **The scheme's single greatest generation risk is inventing a rule to fill the Guide's

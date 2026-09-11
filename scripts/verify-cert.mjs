@@ -178,7 +178,7 @@ async function verify(cert) {
   let questions = [];
   for (let from = 0; ; from += 1000) {
     const { data } = await db.from("quiz_questions")
-      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text")
+      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation")
       .eq("certification_id", id)
       .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
@@ -569,6 +569,20 @@ async function verify(cert) {
 
     // FAIL only on a real, exploitable cue: items that beat the guard's tolerance, or
     // a strict-longest rate so high the key is findable by "pick the longest" alone.
+    // THE 50% STRICT-LONGEST BAR IS TIER-BLIND, AND THAT IS NOW MEASURED.
+    // Every Level II secure bank in the catalogue sits between 45 and 50 - SM-AI-II
+    // 49.1, ISMS-IA 47.4, AIMS-IA 45.6 - while every Level I bank sits below 41.
+    // L2_CONTRACT says the best answer MAY be longer, because a qualifying clause is
+    // often what makes it best, so a four-defensible-options item has a different
+    // length distribution from one-right-three-wrong. All three pass by single-digit
+    // margins on a number set for the other shape.
+    //
+    // DELIBERATELY NOT CHANGED. A threshold set from three banks is as inherited as
+    // one set from none. SCHEME-SM-AI-II.md section 8.1 carries the full table and
+    // the four things a deliberate tier-2 bar would need.
+    //
+    // The FIRST clause below is the one that matters and it IS tier-aware, because
+    // the tolerance it reads comes from the blueprint. Keep it first.
     if (escapeRate > 2.0) R.fail("cue.length", "§8.1", "Length cue non-diagnostic", `${detail} - items escaped the cue-guard tolerance`);
     else if (strictPct > 50) R.fail("cue.length", "§8.1", "Length cue non-diagnostic", `${detail} - 'pick the longest' beats chance too reliably`);
     else R.pass("cue.length", "§8.1", "Length cue non-diagnostic", detail);
@@ -962,7 +976,75 @@ async function verify(cert) {
           orphans.slice(0, 8).map((q) => `${q.language}/${q.pool}/${(q.question_text || "").slice(0, 60)}`));
   }
 
-  // === 21. NO DUPLICATE STEMS ===============================================
+  // === 21. RETIRED SCRUM VOCABULARY (SCRUM_GUIDE_FACTS N22) =================
+  //
+  // THE ONLY NEVER-ASSERT ENTRY A LEXICAL CHECK CAN GATE, and that is why this
+  // check exists while the other thirty-four stay in the prompt. N22 is about
+  // VOCABULARY rather than about a claim, so it has neither of the two failure
+  // modes that gave scripts/audit-grounding-compliance.mjs a 92% false-positive
+  // rate on its first run: no polarity problem (there is no negated form of a
+  // word) and no clause-boundary problem (no span to cross).
+  //
+  // WHY A GATE AND NOT A PROMPT FIX. The entry was rewritten on 2026-09-11 to
+  // name every surface an item writes rather than only the stem, and the secure
+  // bank generated after that patch leaked at the same rate as the practice bank
+  // generated before it: 0.91% -> 0.85%. A prohibition the model reads in BOTH
+  // the draft and the critique prompt and still violates at a stable rate is not
+  // failing because it was imprecise. See item-grounding.mjs, where the
+  // hypothesis and the result are recorded together.
+  //
+  // THE TWO TERMS ARE NOT EQUALLY SAFE TO GATE ON, and the severity split is
+  // measured rather than assumed:
+  //
+  //   self-organiz*  HAS NO INNOCENT SENSE in a Scrum item. The 2020 edition
+  //                  says SELF-MANAGING; the word is the prior edition's and
+  //                  nothing else. Across 792 items it appeared 3 times, every
+  //                  one a genuine use of the retired term, once IN A KEY.
+  //                  -> FAIL on secure, WARN on practice.
+  //
+  //   ceremony/ies   IS ORDINARY ENGLISH as often as it is the retired term.
+  //                  Measured across the same 792 items: "a commitment ceremony"
+  //                  in reported speech, "an approval ceremony", "a retirement
+  //                  ceremony", "ceremonial compliance". Gating on it would fail
+  //                  correct items. -> WARN everywhere, and read the hits.
+  //
+  // Scoped to Scrum certifications: self-organizing is not a term ISMS-IA or
+  // AIMS-IA has any reason to avoid.
+  if (!isScrum) {
+    R.skip("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary", "not a Scrum certification");
+  } else {
+    const surfaces = (q) => [
+      q.question_text || "",
+      ...(Array.isArray(q.options) ? q.options.map((o) => o.text || "") : []),
+      q.explanation || "",
+    ].join(" \u0001 ");
+    const SELF_ORG = /self-organiz\w*/i;
+    const CEREMONY = /\bceremon(y|ies)\b/i;
+    const keyText = (q) => {
+      const ids = new Set([].concat(q.correct_answer || []));
+      return (Array.isArray(q.options) ? q.options.filter((o) => ids.has(o.id)) : []).map((o) => o.text || "").join(" ");
+    };
+    const soSecure = questions.filter((q) => q.pool === "secure" && SELF_ORG.test(surfaces(q)));
+    const soOther = questions.filter((q) => q.pool !== "secure" && SELF_ORG.test(surfaces(q)));
+    const cer = questions.filter((q) => CEREMONY.test(surfaces(q)));
+    const ev = (rows) => rows.slice(0, 8).map((q) => {
+      const where = SELF_ORG.test(keyText(q)) || CEREMONY.test(keyText(q)) ? "KEY"
+        : SELF_ORG.test(q.question_text || "") || CEREMONY.test(q.question_text || "") ? "STEM" : "option/explanation";
+      return `${q.language}/${q.pool} [${where}] ${(q.question_text || "").slice(0, 55)}`;
+    });
+    if (soSecure.length > 0) {
+      R.fail("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
+        `${soSecure.length} SECURE item(s) use self-organiz* - the 2020 edition says self-managing`, ev(soSecure));
+    } else if (soOther.length > 0 || cer.length > 0) {
+      R.warn("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
+        `${soOther.length} non-secure self-organiz*, ${cer.length} ceremony/ceremonies - read each; ceremony is often ordinary English`,
+        ev([...soOther, ...cer]));
+    } else {
+      R.pass("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary", `${questions.length} items`);
+    }
+  }
+
+  // === 22. NO DUPLICATE STEMS ===============================================
   // Two items with identical text can both be drawn into one session, so a
   // learner answers the same question twice. Found in AIE-I among the ungrouped
   // set. Compared within (language, pool) - the same stem in en and es-419 is a
