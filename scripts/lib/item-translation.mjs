@@ -87,7 +87,33 @@ English-language check can see. NEVER produce any of these:
 If the ENGLISH source itself uses a retired term, translate it faithfully anyway and
 do not silently correct it - a mismatch between the languages is worse than a
 faithful translation of a defect, because the defect is then findable in English
-where the tooling can see it.`;
+where the tooling can see it.
+
+FALSE FRIENDS AND REGISTER. These are not retired terms - they are correct words
+that carry the WRONG SENSE here, and every one below was caught by a bilingual
+reviewer rather than by any check. A translation can be grammatical, natural, and
+still be answering a different question.
+
+  THROUGHPUT is not RENDIMIENTO. In es-419 rendimiento reads as PERFORMANCE -
+  how well the thing works - which is the OTHER HALF of the pair the task exists
+  to separate: throughput up, usability down. Collapsing them makes the item
+  unanswerable. Keep THROUGHPUT in English, as the Portuguese already does, or
+  use volumen de entrega / ritmo de entrega. Never rendimiento, never desempeno.
+
+  SUBMITTED is not ENTREGADO. The English means submitted INTO THE INCREMENT -
+  a Developer put work in. entrego is heard as delivered or released, which is a
+  later and different event. Use sometio / submeteu. pt-BR already does.
+
+  PERFORMING SCRUM is loaded and the translation should keep the load. A team
+  PERFORMING Scrum passes every formal inspection and still fails - that is the
+  whole subject of D2. practica / pratica is accurate and weaker: it says the
+  team does Scrum, not that it does Scrum correctly and fails anyway. Prefer a
+  verb that keeps the irony.
+
+THE PATTERN IN ALL THREE: the English word was chosen to carry a distinction, and
+the natural translation drops it. When a term appears in a task STATEMENT it is
+usually load-bearing - check the concept slugs beside it before choosing a
+synonym.`;
 
 /**
  * The translation system prompt. `kind` is "secure" | "practice" and changes one word.

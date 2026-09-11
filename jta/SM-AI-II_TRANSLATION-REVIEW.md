@@ -2,6 +2,8 @@
 
 **Certification:** Scrum Master II — AI
 **Generated:** 2026-09-11 — regenerate and re-check the hashes if the English has moved.
+**Reviewed:** 2026-09-11 by the scheme owner with Grok, against the English and against
+the retired-vocabulary table below. **27 approved, 1 rejected.**
 **Scope:** tiers 1 and 2
 **Languages:** es-419 (Latin American Spanish), pt-BR (Brazilian Portuguese)
 
@@ -64,10 +66,10 @@ visible above nine correct sentences. **~20 minutes.**
     EN       Resolving framework tensions
     en#829b922a
 
-    [ ] es-419   Resolución de tensiones del marco de trabajo
+    [x] es-419   Resolución de tensiones del marco de trabajo
         NOTE:
 
-    [ ] pt-BR    Resolução de tensões no framework
+    [x] pt-BR    Resolução de tensões no framework
         NOTE:
 
 ### D2 · 20% of the exam
@@ -75,11 +77,11 @@ visible above nine correct sentences. **~20 minutes.**
     EN       Coaching a team performing Scrum and still failing
     en#fc75f971
 
-    [ ] es-419   Coaching a un equipo que practica Scrum y aun así falla
-        NOTE:
+    [x] es-419   Coaching a un equipo que practica Scrum y aun así falla
+        NOTE: Approved. Tightening for a future pass, not a defect: "practica" is weaker than "performing" - the domain is a team that passes formal inspection and still fails. Accurate, less loaded.
 
-    [ ] pt-BR    Coaching de um time que pratica Scrum e ainda assim falha
-        NOTE:
+    [x] pt-BR    Coaching de um time que pratica Scrum e ainda assim falha
+        NOTE: Approved. Same tightening as the Spanish: "pratica" is weaker than "performing".
 
 ### D3 · 17.5% of the exam
 
@@ -87,10 +89,10 @@ visible above nine correct sentences. **~20 minutes.**
              accountabilities
     en#bfaee083
 
-    [ ] es-419   Servir al Product Owner y a la organización sin absorber sus responsabilidades
+    [x] es-419   Servir al Product Owner y a la organización sin absorber sus responsabilidades
         NOTE:
 
-    [ ] pt-BR    Servir ao Product Owner e à organização sem absorver suas responsabilidades
+    [x] pt-BR    Servir ao Product Owner e à organização sem absorver suas responsabilidades
         NOTE:
 
 ### D4 · 20% of the exam
@@ -98,10 +100,10 @@ visible above nine correct sentences. **~20 minutes.**
     EN       Empiricism under distortion
     en#b37c0f40
 
-    [ ] es-419   Empirismo bajo distorsión
+    [x] es-419   Empirismo bajo distorsión
         NOTE:
 
-    [ ] pt-BR    Empirismo sob distorção
+    [x] pt-BR    Empirismo sob distorção
         NOTE:
 
 ### D5 · 22.5% of the exam
@@ -109,10 +111,10 @@ visible above nine correct sentences. **~20 minutes.**
     EN       Scrum Master judgment when AI is inside the work system
     en#6b1d1b29
 
-    [ ] es-419   Criterio del Scrum Master cuando la IA forma parte del sistema de trabajo
+    [x] es-419   Criterio del Scrum Master cuando la IA forma parte del sistema de trabajo
         NOTE:
 
-    [ ] pt-BR    Julgamento do Scrum Master quando a IA está inserida no sistema de trabalho
+    [x] pt-BR    Julgamento do Scrum Master quando a IA está inserida no sistema de trabalho
         NOTE:
 
 ---
@@ -131,11 +133,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Identifying the quality measure the existing definition does not reach
     en#3300ab43
 
-    [ ] es-419   Determinar qué debe cubrir la Definition of Done cuando la implementación es
+    [x] es-419   Determinar qué debe cubrir la Definition of Done cuando la implementación es
                  generada por IA
         NOTE:
 
-    [ ] pt-BR    Determinar o que a Definition of Done deve cobrir quando a implementação é gerada
+    [x] pt-BR    Determinar o que a Definition of Done deve cobrir quando a implementação é gerada
                  por IA
         NOTE:
 
@@ -147,11 +149,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Separating a volume problem from a preparation problem
     en#eb068538
 
-    [ ] es-419   Diagnosticar un Sprint Review en el que el Increment ya no puede inspeccionarse de
+    [x] es-419   Diagnosticar un Sprint Review en el que el Increment ya no puede inspeccionarse de
                  manera significativa dentro del evento
         NOTE:
 
-    [ ] pt-BR    Diagnosticar uma Sprint Review na qual o Increment não pode mais ser inspecionado de
+    [x] pt-BR    Diagnosticar uma Sprint Review na qual o Increment não pode mais ser inspecionado de
                  forma significativa dentro do evento
         NOTE:
 
@@ -162,11 +164,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Tracing the acceptance decision
     en#69f1bea3
 
-    [ ] es-419   Analizar la responsabilidad por un defecto en trabajo generado por IA que los
+    [x] es-419   Analizar la responsabilidad por un defecto en trabajo generado por IA que los
                  Developers aceptaron
         NOTE:
 
-    [ ] pt-BR    Analisar a responsabilidade por um defeito em trabalho gerado por IA que os
+    [x] pt-BR    Analisar a responsabilidade por um defeito em trabalho gerado por IA que os
                  Developers aceitaram
         NOTE:
 
@@ -178,11 +180,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Choosing between correcting the reading and removing the artifact
     en#0a5cbb5c
 
-    [ ] es-419   Determinar la respuesta del Scrum Master cuando la dirección interpreta las
+    [x] es-419   Determinar la respuesta del Scrum Master cuando la dirección interpreta las
                  estimaciones generadas por un modelo como compromisos
         NOTE:
 
-    [ ] pt-BR    Determinar a resposta do Scrum Master quando estimativas produzidas por modelo são
+    [x] pt-BR    Determinar a resposta do Scrum Master quando estimativas produzidas por modelo são
                  interpretadas pela gestão como compromissos
         NOTE:
 
@@ -194,11 +196,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Connecting absent ownership to displaced participation
     en#a0c65532
 
-    [ ] es-419   Diagnosticar una Sprint Retrospective cuyos insumos han sido resumidos por un modelo
+    [x] es-419   Diagnosticar una Sprint Retrospective cuyos insumos han sido resumidos por un modelo
                  y cuyas acciones no tienen responsable
         NOTE:
 
-    [ ] pt-BR    Diagnosticar uma Sprint Retrospective cujas entradas foram resumidas por modelo e
+    [x] pt-BR    Diagnosticar uma Sprint Retrospective cujas entradas foram resumidas por modelo e
                  cujas ações não têm responsável
         NOTE:
 
@@ -210,11 +212,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Distinguishing capability erosion from tooling dependence from staffing change
     en#d49f880b
 
-    [ ] es-419   Analizar una disminución en la capacidad de los Developers para cumplir la
+    [x] es-419   Analizar una disminución en la capacidad de los Developers para cumplir la
                  Definition of Done sin generación
         NOTE:
 
-    [ ] pt-BR    Analisar um declínio na capacidade dos Developers de atender à Definition of Done
+    [x] pt-BR    Analisar um declínio na capacidade dos Developers de atender à Definition of Done
                  sem geração
         NOTE:
 
@@ -225,11 +227,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Relating the two movements to a single cause
     en#2a0aff99
 
-    [ ] es-419   Analizar un aumento en el rendimiento acompañado de una disminución en la usabilidad
+    [!] es-419   Analizar un aumento en el rendimiento acompañado de una disminución en la usabilidad
                  del Increment
-        NOTE:
+        NOTE: REJECTED. "rendimiento" reads as PERFORMANCE in es-419 - how well the thing works - which is the other half of the pair this task exists to separate. The competence is throughput up and usability down; rendimiento collapses them, and a candidate reading the Spanish is answering a different question. pt-BR got it right by leaving "throughput" in English. Re-translate.
 
-    [ ] pt-BR    Analisar o aumento de throughput acompanhado pela queda na usabilidade do Increment
+    [x] pt-BR    Analisar o aumento de throughput acompanhado pela queda na usabilidade do Increment
         NOTE:
 
 ### 5.8 · 4_analyze
@@ -239,11 +241,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Identifying which pillar failed first
     en#87f68c9b
 
-    [ ] es-419   Diagnosticar la pérdida de transparencia cuando el trabajo se produce más rápido de
+    [x] es-419   Diagnosticar la pérdida de transparencia cuando el trabajo se produce más rápido de
                  lo que el equipo puede inspeccionarlo
         NOTE:
 
-    [ ] pt-BR    Diagnosticar perda de transparência quando o trabalho é produzido mais rapidamente
+    [x] pt-BR    Diagnosticar perda de transparência quando o trabalho é produzido mais rapidamente
                  do que o time consegue inspecioná-lo
         NOTE:
 
@@ -255,11 +257,11 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Choosing between a Definition of Done change, a coaching response and an escalation
     en#418f505c
 
-    [ ] es-419   Determinar la respuesta del Scrum Master cuando un Developer no puede explicar el
+    [x] es-419   Determinar la respuesta del Scrum Master cuando un Developer no puede explicar el
                  trabajo que entregó
-        NOTE:
+        NOTE: Approved. Tightening for a future pass, not a defect: "entrego" can be heard as delivered/released where the English means submitted-into-the-Increment. pt-BR's "submeteu" is exact.
 
-    [ ] pt-BR    Determinar a resposta do Scrum Master quando um Developer não consegue explicar o
+    [x] pt-BR    Determinar a resposta do Scrum Master quando um Developer não consegue explicar o
                  trabalho que submeteu
         NOTE:
 
