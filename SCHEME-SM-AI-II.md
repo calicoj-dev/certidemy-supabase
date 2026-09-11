@@ -846,7 +846,7 @@ forgive.
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
 | Examination duration | **A floor, not a measurement.** 150 minutes is the tier-II base; migration 212 is the template for deriving the real number once the bank exists (§6). |
 | Catalogue claim and long-form description | **Not written, in any of the three languages.** The catalogue card renders code and name only; the detail page falls back to English silently. |
-| JTA translations | **Not generated.** All 5 domains and all 44 tasks are English-only; `gen-jta-translations.mjs` has not been run. |
+| JTA translations | ~~**Not generated.**~~ **Generated and 27 of 98 rows reviewed** (2026-09-11). All 5 domains and all 44 tasks exist in es-419 and pt-BR. **Reviewed and approved: the five domain titles, and D5's nine task statements in both languages** — the two highest-consequence tiers, headings first and then the domain the catalogue description sells. **One row was rejected** (5.7 es-419, `throughput` rendered as `rendimiento`, which reads as *performance*), re-translated, and is provisional again pending a re-read. The remaining 70 rows are D1–D4 task statements, generated and honestly marked provisional. `i18n.approved` fails on any provisional row, so it fails on 71 — see the note below. |
 | Six public sample items | **None exist.** Six per language across six distinct tasks are required before publication. |
 | Standard-setting stage 1 — define the borderline candidate | **DONE** (§7.1). |
 | Standard-setting stage 2 — Angoff panel | **Pending a panel of independent SMEs.** Blocked by recruiting, not by candidate volume. |

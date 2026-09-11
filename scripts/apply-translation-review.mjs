@@ -31,6 +31,39 @@
  *   A ROW THAT RESOLVES TO NO DATABASE ROW, or to more than one. A document out of step
  *   with the schema must not half-apply.
  *
+ * THE COLUMN IS ONE BOOLEAN CARRYING THREE MEANINGS - A PROPOSAL, DELIBERATELY NOT BUILT
+ * ------------------------------------------------------------------------------------
+ * After round one, verify-cert's i18n.approved cannot distinguish three states it needs
+ * to, and two of them are opposite situations reported identically:
+ *
+ *   nobody has read anything                          -> FAIL today, and correctly
+ *   the highest-consequence rows read, rest marked    -> FAIL today, and WRONGLY
+ *   a reviewer REJECTED a row and it is unfixed       -> FAIL today, and correctly
+ *   everything read                                   -> PASS
+ *
+ * Rows two and three are the problem. One is a certification doing the work in priority
+ * order with its state honestly recorded; the other is a KNOWN WRONG TRANSLATION STILL
+ * BEING SERVED - 5.7 es-419 told Spanish candidates the task was about performance until
+ * it was caught. A check that answers "we are 28% through, correctly" and "we have not
+ * started" identically removes the incentive to start.
+ *
+ * THE FIX IS NOT TO SOFTEN THE CHECK TO WARN, because row three must fail. It is that
+ * is_provisional cannot express it: one boolean, three meanings, and the check can only
+ * be as expressive as the column.
+ *
+ * WHAT WOULD EARN IT: a review_status of unreviewed | approved | rejected alongside the
+ * boolean, and a check that reads
+ *
+ *     any rejected                     -> FAIL, naming them
+ *     none rejected, some unreviewed   -> WARN with the fraction, "27 of 98 reviewed"
+ *     all approved                     -> PASS
+ *
+ * HELD ON PURPOSE UNTIL A SECOND ROUND. One round is not evidence. The question that
+ * decides whether "rejected" earns a column is whether it stays RARE - one rejection in
+ * 28 rows may be the steady rate or may be the first of many, and hardening schema around
+ * a single observation is how a threshold gets set from three banks. Run tier 3, then
+ * decide.
+ *
  * IT NEVER SETS is_provisional BACK TO TRUE. A [!] or [ ] row is left exactly as it is.
  * Rejection is handled by re-translating and re-reviewing, not by this script, and an
  * unreviewed row is already provisional.

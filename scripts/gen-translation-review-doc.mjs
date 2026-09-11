@@ -221,6 +221,51 @@ if (TIERS.has("2")) {
   p();
 }
 
+if (TIERS.has("3")) {
+  // D1-D4, grouped by domain so a reviewer reads a coherent run rather than 35
+  // unrelated sentences. Lowest risk of the three tiers: these are framework
+  // statements whose vocabulary the translator has rendered many times. They are
+  // still candidate-facing - this cert has no interface-string tier.
+  const rest = (domains || []).filter((d) => d.code !== "D5");
+  const n = (tasks || []).filter((t) => rest.some((d) => d.id === t.domain_id)).length;
+  p(`## Tier 3 — D1 to D4 task statements`);
+  p();
+  p(`${n} statements, both languages. Grouped by domain so each run reads coherently.`);
+  p(`**Lowest risk of the three tiers** — framework vocabulary the translator has rendered`);
+  p(`many times — but still every word a candidate reads before paying.`);
+  p();
+  for (const d of rest) {
+    const dt = (tasks || []).filter((t) => t.domain_id === d.id)
+      .sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
+    // THE DOMAIN SEPARATOR IS NOT A HEADING, and that is deliberate.
+    // apply-translation-review.mjs keys every row off /^### (\S+)/, so a nested
+    // #### task under a ### domain would make the parser read the DOMAIN code as
+    // the key for every task row beneath it - silently, and for 70 rows. One
+    // heading level per row type keeps the document and its parser in step.
+    p(`**${d.code} — ${d.title}**`);
+    p();
+    for (const t of dt) {
+      p(`### ${t.code} · ${t.bloom_level}`);
+      p();
+      p(`    concepts ${slugsFor(t.id).join(" · ") || "(none)"}`);
+      p(`    EN       ${wrap(t.statement, 13)}`);
+      if (t.skills) p(`    skills   ${wrap(t.skills, 13)}`);
+      p(`    en#${h8(t.statement)}`);
+      p();
+      for (const l of LANGS) {
+        const tr = taskTrFor(t.id, l);
+        rowCount++;
+        if (!tr) { missing++; p(`    [ ] ${l.padEnd(8)} *** MISSING TRANSLATION ***`); p(`        NOTE:`); p(); continue; }
+        p(`    [ ] ${l.padEnd(8)} ${wrap(tr.statement, 17)}`);
+        p(`        NOTE:`);
+        p();
+      }
+    }
+  }
+  p(`---`);
+  p();
+}
+
 p(`## When you are done`);
 p();
 p(`Hand this file back marked up. **It is the evidence**, not a worksheet — \`verify-cert\`'s`);

@@ -193,6 +193,44 @@ it to add rows for translations — it won't, and doesn't need to.)
 
 ---
 
+## 3.6 Review the languages SIDE BY SIDE, not one at a time
+
+**This is a finding about the FORMAT of a review, not about anyone's Spanish**, and it
+generalises to every trilingual credential this platform ships.
+
+SM-AI-II's first translation review, 2026-09-11, caught one genuine defect in 28 rows.
+Task 5.7's English is *"Analyze rising throughput accompanied by falling Increment
+usability"* — the competence is **two movements in opposite directions**, and the item
+exists to make a candidate relate them to one cause.
+
+```
+pt-BR    Analisar o aumento de throughput acompanhado pela queda na usabilidade
+es-419   Analizar un aumento en el RENDIMIENTO acompanado de una disminucion en la usabilidad
+```
+
+**`rendimiento` reads as PERFORMANCE in es-419 — how well the thing works — which is the
+OTHER HALF of the pair the task exists to separate.** A candidate reading the Spanish is
+answering a different question. It is a correct, natural, idiomatic word, and it is wrong.
+
+> **NEITHER TRANSLATION IS WRONG ON ITS OWN.** Read the Spanish alone and it is a fluent
+> sentence about a real phenomenon. Read the Portuguese alone and it is fine. **The defect
+> exists only in the relationship between them**, and a reviewer working through one
+> language at a time cannot see it — there is nothing on the page to compare against.
+
+**The reviewer caught it because the Portuguese sat two lines above the Spanish.** That is
+a property of the document, not of the reader. The layout did the work.
+
+**So: one document, every language for a row adjacent, one shared English above them.**
+Not one file per language, not a spreadsheet column per language on separate sheets.
+`scripts/gen-translation-review-doc.mjs` produces that shape; it is the reason the shape
+is what it is.
+
+**The class of defect this catches is the one no automated check can.** The retired-
+vocabulary gate passes `rendimiento` — it is not a retired term. The generator produced
+it. Both translations are grammatical. **A false friend that lands on the other half of
+the distinction the task is testing is invisible to everything except a bilingual human
+looking at both languages at once.**
+
 ## 4. New-language checklist (condensed)
 
 For cert **X** (uuid **U**, content `content/x/`), language **L**:
