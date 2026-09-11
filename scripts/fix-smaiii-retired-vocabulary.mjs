@@ -90,23 +90,64 @@ const EDITS = [
   { group: "d9231280-96d6-45ae-965c-45460f43992c", field: "explanation", lang: "pt-BR",
     find: "já está resolvendo-a por meio de aprendizado entre pares auto-organizado — exatamente o que um time autogerenciado deve fazer",
     repl: "já está fechando-a: os Developers decidiram entre si quem ajudaria — exatamente o que um time autogerenciado faz" },
+
+  // ADDED 2026-09-11. These two ENGLISH PRACTICE rows blocked four re-translations:
+  // retranslate-retired-vocabulary.mjs refuses to translate from a source that carries
+  // a retired term, because doing so reproduces the defect in a new language and calls
+  // it fixed. Both were read before being touched, and in NEITHER is the retired term
+  // the misconception under test - which is the check N22 requires and the reason
+  // SM-AI-I's equivalents are being left alone.
+  //
+  //   2.2  distractor d. The item is about a Retrospective improvement never reaching
+  //        the Sprint Backlog. "self-organize" is incidental; d's job is to be the
+  //        exhortation-without-structure wrong answer, and it still is.
+  //
+  //   3.5  THE STEM, in reported speech: a Product Owner saying "I've asked the
+  //        development team to vote". The item assesses DECISION DIFFUSION - the key is
+  //        "the Product Owner transferred ordering authority to the team, leaving no
+  //        single person accountable" - so the 2017 term is colour, not subject.
+  //        Contrast SM-AI-I 5.7, whose stem IS "A legacy manual calls Developers
+  //        'self-organizing.' The 2020 Scrum Guide...". That one is correct and stays.
+  //
+  // RATIONALE AND REVISION BUMP: ASSESSMENT-ENGINE section 8 requires both for a key,
+  // stem or distractor change on a live SECURE item. These are PRACTICE rows, so the
+  // rule does not bind - the rationale above and the bump below are applied anyway,
+  // because a stem change is a stem change and the cost of recording it is nothing.
+  { group: "4166ce1e-a6f1-4d93-9f03-27f623dcd1c6", field: "options", optionId: "d", lang: "en",
+    find: "encourage them to self-organize around completing them",
+    repl: "encourage them to decide among themselves how to fit them in" },
+  { group: "da8f4644-1d34-4bcf-8cc9-44658bc2e4a5", field: "question_text", lang: "en",
+    find: "I've asked the development team to vote",
+    repl: "I've asked the Developers to vote" },
 ];
 
-const RETIRED = /self-organiz|autoorganiz|auto-organiz/i;
+const RETIRED = /self-organiz|autoorganiz|auto-organiz|development team/i;
 let planned = 0, failed = 0;
 
 for (const e of EDITS) {
   const { data: rows, error } = await db.from("quiz_questions")
-    .select("id, language, options, explanation, correct_answer")
+    .select("id, language, question_text, options, explanation, correct_answer")
     .eq("question_group_id", e.group).eq("language", e.lang);
   if (error) { console.error(`  read failed: ${error.message}`); failed++; continue; }
   if (!rows || rows.length !== 1) { console.error(`  ABORT ${e.group}/${e.lang}: ${rows?.length ?? 0} rows, expected 1`); failed++; continue; }
   const row = rows[0];
 
   let before, after, patch;
-  if (e.field === "explanation") {
+  if (e.field === "question_text") {
+    before = row.question_text || "";
+    if (before.split(e.find).length - 1 !== 1) {
+      if (before.includes(e.repl)) { console.log(`  ${e.lang.padEnd(7)} STEM  already applied`); continue; }
+      console.error(`  ABORT ${e.lang} stem: anchor matched ${before.split(e.find).length - 1}`); failed++; continue;
+    }
+    after = before.replace(e.find, e.repl);
+    patch = { question_text: after };
+    console.log(`  ${e.lang.padEnd(7)} STEM`);
+  } else if (e.field === "explanation") {
     before = row.explanation || "";
-    if (before.split(e.find).length - 1 !== 1) { console.error(`  ABORT ${e.lang} explanation: anchor matched ${before.split(e.find).length - 1}`); failed++; continue; }
+    if (before.split(e.find).length - 1 !== 1) {
+      if (before.includes(e.repl)) { console.log(`  ${e.lang.padEnd(7)} explanation  already applied`); continue; }
+      console.error(`  ABORT ${e.lang} explanation: anchor matched ${before.split(e.find).length - 1}`); failed++; continue;
+    }
     after = before.replace(e.find, e.repl);
     patch = { explanation: after };
   } else {
@@ -115,7 +156,10 @@ for (const e of EDITS) {
     if (i === -1) { console.error(`  ABORT ${e.lang}: no option ${e.optionId}`); failed++; continue; }
     const isKey = [].concat(row.correct_answer || []).includes(e.optionId);
     before = opts[i].text || "";
-    if (before.split(e.find).length - 1 !== 1) { console.error(`  ABORT ${e.lang} option ${e.optionId}: anchor matched ${before.split(e.find).length - 1}`); failed++; continue; }
+    if (before.split(e.find).length - 1 !== 1) {
+      if (before.includes(e.repl)) { console.log(`  ${e.lang.padEnd(7)} option ${e.optionId}  already applied`); continue; }
+      console.error(`  ABORT ${e.lang} option ${e.optionId}: anchor matched ${before.split(e.find).length - 1}`); failed++; continue;
+    }
     after = before.replace(e.find, e.repl);
     const next = opts.map((o, k) => (k === i ? { ...o, text: after } : o));
     patch = { options: next };

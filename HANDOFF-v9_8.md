@@ -313,7 +313,11 @@ module 1 is 114, not 115.
 | JTA translations | `gen-jta-translations.mjs` — 5 domains × 44 tasks × 2 langs |
 | Six public samples | Six per language across six distinct tasks; `visibility = 'public'` |
 
-**Plus the vocabulary failure**: two secure items to reword, one of them a key.
+~~**Plus the vocabulary failure**: two secure items to reword, one of them a key.~~
+**DONE 2026-09-11, and it was six rows rather than two** — the retired term had propagated
+through translation, so each logical item was wrong in all three languages. Two further
+English practice rows were fixed because they blocked four re-translations.
+**SM-AI-II now carries zero retired-term items in any language.**
 
 ### The Angoff panel — the real gate, and it is recruiting
 
@@ -343,6 +347,33 @@ threshold set from three banks is as inherited as one set from none**, and the b
 
 **2. The 25-word option ceiling on tier-2 apply tasks.** 12 of 13 length drops landed
 there. Same shape as the `item-profile` defect, one layer along.
+
+### The largest known vocabulary defect in a live bank — SPO-AI-I
+
+> **`equipo de desarrollo` / `time de desenvolvimento` in 35 SPO-AI-I secure rows — 17
+> Spanish, 18 Portuguese — and it was invisible until 2026-09-11.**
+
+**"Development Team" was REMOVED by the 2020 edition, not renamed.** The English bank does
+not carry it; the translations do, because `Developers` was never in `SCRUM_NOUNS`, so the
+translator had no instruction to keep the term and rendered it as the 2017 one.
+
+**Nothing could see it.** `verify-cert`'s `items.vocabulary` read the English pattern only
+until the same day, so a bank a third of whose rows carried a retired term reported clean.
+The check now reads all three languages and `scripts/retranslate-retired-vocabulary.mjs`
+can fix it in one run — but **SPO-AI-I is `available`, with candidates who may hold the
+credential**, so it is a scoped project rather than a sweep:
+
+- **Read each one first.** `ASSESSMENT-ENGINE.md` §8 and the SM-AI-I precedent both apply:
+  five of the 13 live English `self-organiz*` items are items whose SUBJECT is the retired
+  term, and a sweep would destroy them. The gate scores by surface and cannot see intent.
+- **These are translations, which is the easier case.** Where the English is clean, the
+  fix is a re-translation rather than a rewrite, and §8's rationale-and-bump requirement
+  bites on the English row that is not changing.
+- **Cheapest before an Angoff panel.** SPO-AI-I has not been through one, so there are no
+  ratings to invalidate. That will not stay true.
+
+**Not started. Deliberately deferred to a session that begins with it rather than one that
+found it at midnight.**
 
 ### Longer-standing, unchanged
 
