@@ -96,6 +96,22 @@ a Scrum Guide citation. ${NO_BRAND}`;
  * auditor may not audit their own work" was asserted confidently, is in neither
  * source standard, and survived external review.
  *
+ * N22 WAS SCOPED UP ON 2026-09-11, AFTER A MEASUREMENT RATHER THAN A HUNCH.
+ * The SM-AI-II practice run generated 440 items with this constant in both the
+ * draft and the critique prompt, and four of them used ceremony or ceremonies
+ * for the Scrum events - a 0.9% leak. ALL FOUR WERE IN EXPLANATIONS, and the
+ * entry named only the stem. So the wording was narrower than the rule.
+ *
+ * THE SECURE RUN IS THE TEST OF WHETHER THE WORDING MOVED IT, and the result is
+ * worth recording whichever way it goes. If the leak drops, a never-assert entry
+ * is tunable by naming the surface it applies to - which would be the first
+ * evidence of that, and it would apply to the other thirty-four. IF IT LEAKS
+ * ANYWAY AT ROUGHLY 0.9%, THE FINDING IS ABOUT THE MECHANISM, NOT THE PHRASING:
+ * a prohibition the model reads and still violates at a stable rate is not
+ * failing because it was imprecise, and no rewording will fix it. That would
+ * point at a post-generation check instead - which is what
+ * scripts/audit-grounding-compliance.mjs exists to be.
+ *
  * NOT LEVEL II MATERIAL, AND WIRED INTO LEVEL II ANYWAY. "Only the Product
  * Owner may cancel a Sprint" is as true for SD-AI-I as for SM-AI-II. The three
  * Level I banks were generated against a SCRUM string carrying no never-assert
@@ -189,7 +205,12 @@ and none is in the text:
   - That the terms are anything other than the 2020 terms: SELF-MANAGING, not
     self-organizing. EVENTS, not ceremonies. ACCOUNTABILITIES, not roles.
     Prior-edition vocabulary in a stem tells the candidate they are reading an
-    item written against a superseded text.
+    item written against a superseded text. THE PROHIBITION COVERS EVERY SURFACE
+    AN ITEM WRITES - the stem, the options, the key and the EXPLANATION. An
+    explanation that calls the events ceremonies teaches the superseded term at
+    the moment the candidate is most likely to absorb it, which is immediately
+    after answering. A distractor may still carry the old vocabulary when the
+    old vocabulary is the misconception being tested; nothing else may.
 
   ---- ADDED 2026-09-10. Every entry below is a claim that reached THIS
   ---- scheme's job-task analysis and was retired by migration 285, 287, 288 or
