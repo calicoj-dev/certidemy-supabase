@@ -337,6 +337,18 @@ would systematically reject correct items and retain flat ones. The Level II gua
 therefore tests comparable **qualification density** across options rather than
 comparable length.
 
+> **[CORRECTED 2026-09-11 — THE SENTENCE ABOVE DESCRIBES A CONTROL THAT HAS NEVER
+> EXISTED.]** The Level II guard is **character-based**, exactly as the Level I guard
+> is: it measures the key's length against the longest distractor and the spread
+> across all options, in characters. **It is the TOLERANCE that adapts for Level II,
+> not the mechanism** — this scheme declares 100 / 25 / 15 in
+> `exam_blueprint.item_model.cue_tolerance`, against Level I's 5 / 10. No
+> qualification-density measure has ever been implemented, here or anywhere.
+> `SCHEME-AIMS-IA` §8.1 and `SCHEME-SM-AI-II` §8.1 both describe it accurately; this
+> section is the only one that does not. **The wording is preserved rather than
+> rewritten because the scheme is a dated record**, and the correction is listed as an
+> open item in §11. Fixing the text is its own migration.
+
 ### 8.4 Content attribution control
 
 The item generator operates under an explicit attribution rule: it may not assert
@@ -466,6 +478,24 @@ convened panel of practising internal auditors and is named below.
   examination-integrity and identity procedures, and internal audit of the
   certification body itself.
 - Full lesson localization into es-419 and pt-BR.
+- **§8.3's description of the cue guard is wrong and must be rewritten** (see the
+  correction in that section). The control is character-based; no qualification-density
+  measure exists. The defect is in this document and in this scheme's own
+  `exam_blueprint`, and both are candidate-facing — ISMS-IA is `available`, so its
+  blueprint is already public. **It was previously recorded in SM-AI-II's blueprint,
+  which was the wrong place for it**: publishing "a live certification's public
+  blueprint contains a wrong description" under a *different* credential's row puts the
+  finding where nobody auditing this scheme would look. Migration 293 cut it from there
+  and it is recorded here instead.
+**NOT an open item: the `len_spread_max` question was already settled.** Recording it
+here anyway, because it has twice been rediscovered as though it were open.
+`HANDOFF-v6_5` line 149 records this bank generating at `LEN_SPREAD_MAX=130` via
+environment override while the blueprint declares 100, which reads like a live
+discrepancy. **`migrations/200_isms_ia_cue_tolerance.sql` decided it deliberately and
+said why:** the observed maximum spread across the 304 English secure items is 95, so
+100 *"changes nothing about what generates — it restores a real ceiling in place of a
+notional one. 130 was set without data."* The declared number is the considered one and
+the generated number was the accident. Nothing to re-verify.
 
 **Open content note.** Examination and practice item banks are complete in all
 three languages before publication. Instructional lessons are authored in English

@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 292. Next free number: 293.** Sequential, zero-padded to three
+**Migration tip: 294. Next free number: 295.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:

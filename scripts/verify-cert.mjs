@@ -1125,6 +1125,65 @@ async function verify(cert) {
   // renders provisional domain and task translations deliberately and withholds
   // only the dense K/S/A prose (lib/blueprint/data.ts says so and gives its
   // reason). Review state has its own check in section 11.
+  // === 23. THE BLUEPRINT IS PUBLISHABLE ======================================
+  //
+  // exam_blueprint is a COLUMN on certifications, and anon holds a table-wide
+  // SELECT on that table with no column privileges. A row that becomes readable
+  // publishes its blueprint with it. There is no intermediate state where the
+  // catalogue card renders and the blueprint does not.
+  //
+  // So this field is candidate-facing, and engineering history must not reach it.
+  // grounding_note states what the item model rests on and what a reader needs in
+  // order to judge the credential; scheme documents and commit messages are where
+  // the history of getting there lives.
+  //
+  // MEASURED BEFORE THIS SHIPPED, 2026-09-11: across all thirteen certifications
+  // exactly ONE blueprint named internals - SM-AI-II, the only one not yet public.
+  // The other twelve passed, and eleven of those are already 'available' and
+  // therefore already published. That is why this is a FAIL and not a WARN: it is
+  // not a bar nobody clears, it is a bar twelve of thirteen were already clearing
+  // silently, and the thirteenth was about to be published. Migration 293 cleaned
+  // it; migration 294 then made the row readable, in that order.
+  //
+  // NOTE THE HOUSE NORM IS NOT "SHORT". AIMS-IA's blueprint runs to 2,868
+  // characters and ISMS-IA's to 2,712, both of them careful cue-tolerance
+  // rationales, and both pass. Length is not the property. Provenance is.
+  //
+  // "commit " IS DELIBERATELY NOT THE PATTERN, and the reason is this repo's
+  // recurring guard failure - a check that matches an ENGLISH WORD. "commit to the
+  // Sprint Goal" is correct Scrum prose and would fail a blueprint that had done
+  // nothing wrong. The property is "names a repository artefact", so the pattern
+  // wants a git SHA: commit [0-9a-f]{7}, never the bare verb. Verified against all
+  // thirteen: the tight and loose forms agree today, and no blueprint contains the
+  // bare word at all, so tightening costs nothing now and protects future prose.
+  {
+    const INTERNALS = /\.mjs\b|\.ts\b|\bHANDOFF|\bmigration [0-9]|\bscripts\/|\bverify-cert\b|\bcommit [0-9a-f]{7}/;
+    const bp = cert.exam_blueprint;
+    if (!bp) {
+      R.skip("blueprint.publishable", "§12", "Blueprint names no repository internals", "no exam_blueprint on this certification");
+    } else {
+      // WHERE, not just WHETHER. Telling a reader the blueprint is dirty without
+      // naming the field leaves them reading several thousand characters of JSON
+      // to find it, which is how a real failure gets triaged as noise.
+      const where = [];
+      const walk = (v, path) => {
+        if (typeof v === "string") {
+          const m = [...new Set(v.match(new RegExp(INTERNALS.source, "g")) ?? [])];
+          if (m.length) where.push(`${path}: ${m.join(", ")}`);
+          return;
+        }
+        if (v && typeof v === "object") for (const k of Object.keys(v)) walk(v[k], path ? `${path}.${k}` : k);
+      };
+      walk(bp, "");
+      where.length === 0
+        ? R.pass("blueprint.publishable", "§12", "Blueprint names no repository internals",
+            `${JSON.stringify(bp).length} chars, no repository references`)
+        : R.fail("blueprint.publishable", "§12", "Blueprint names no repository internals",
+            `${where.length} field(s) name repository internals in a column anon reads as soon as this certification is not 'draft'`,
+            where.slice(0, 8));
+    }
+  }
+
   {
     const I18N_LANGS = ["en", "es-419", "pt-BR"];
     const TR_LANGS = ["es-419", "pt-BR"];
