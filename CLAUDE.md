@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 290. Next free number: 291.** Sequential, zero-padded to three
+**Migration tip: 292. Next free number: 293.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
@@ -28,6 +28,13 @@ each of the three v8.8 addenda — and on 2026-08-30 all four still said *"next
 free: 262"* while `261`, `262` and `263` existed. It goes stale the moment a
 session that did not write it applies a migration, which is the normal case with
 two sessions: whoever applies is not whoever last edited the tip.
+
+**A FOURTH TIME ON 2026-09-11, AND THIS ONE WAS SELF-INFLICTED.** The line read
+*"290 / next free 291"* while `291` was on disk — **written correct by the session
+that created 290, and left stale by the same session when it created 291 an hour
+later.** The three before it were one session failing to update what another had
+written. This was one session failing to update what IT had written, in the same
+sitting. **The mechanism does not need two people.**
 
 **AND A THIRD TIME ON 2026-09-10.** The line read *"285 / next free 286"* while `286`,
 `287`, `288` and `289` were all on disk — **four migrations behind, the largest gap
