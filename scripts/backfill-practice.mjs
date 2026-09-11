@@ -54,6 +54,9 @@ import { dirname, resolve } from "node:path";
 import { buildCleanItems, sourceMisconceptions } from "./lib/item-pipeline.mjs";
 import { bloomForTask } from "./lib/item-task-context.mjs";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
+import { SCRUM_NOUNS, translateSystem as sharedTranslateSystem } from "./lib/item-translation.mjs";
+const translateSystem = (langName) => sharedTranslateSystem(langName, "practice");
+void SCRUM_NOUNS;
 
 // ---------------------------------------------------------------------------
 // Load a local .env (KEY=VALUE per line) sitting next to this script, so the
@@ -101,11 +104,10 @@ const LANGS = [
   { code: "es-419", name: "Latin American Spanish" },
   { code: "pt-BR", name: "Brazilian Portuguese" },
 ];
-const SCRUM_NOUNS = [
-  "Sprint", "Scrum Master", "Product Owner", "Daily Scrum", "Definition of Done",
-  "Sprint Backlog", "Sprint Goal", "Product Backlog", "Product Goal", "Increment",
-  "Sprint Review", "Sprint Retrospective", "Sprint Planning", "INVEST",
-];
+// SCRUM_NOUNS AND THE TRANSLATION PROMPT MOVED TO ./lib/item-translation.mjs.
+// Both generators carried byte-identical copies, and the copy here was missing
+// "Developers" and "Scrum Team" - the two terms the 2020 edition changed most, and
+// the reason "equipo de desarrollo" reached shipped Spanish banks. One copy now.
 const MAX_ROUNDS_PER_TASK = 3; // guard against a task that keeps failing validation
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
@@ -220,19 +222,10 @@ function graftTranslation(enQ, tr) {
 // ---------------------------------------------------------------------------
 // Translation
 // ---------------------------------------------------------------------------
-function translateSystem(langName) {
-  return `You translate certification practice questions from English to ${langName}.
-Return a JSON array of the SAME length and order as the input. For each item return
-an object: {"question_text":string,"options":[{"id":string,"text":string}],"explanation":string}.
-
-Rules:
-  - Translate question_text, every option's text, and explanation into ${langName}.
-  - Keep each option's "id" EXACTLY as given (do not renumber or reorder).
-  - Keep these Scrum proper nouns in English, untranslated: ${SCRUM_NOUNS.join(", ")}.
-  - Do NOT add, drop, or merge options. Do NOT include correct_answer, difficulty,
-    or question_type.
-  - Output strict JSON only, NO prose, NO markdown fences.`;
-}
+// translateSystem now lives in ./lib/item-translation.mjs and carries the 2020
+// vocabulary contract. The draft prompt has always had SCRUM_GUIDE_FACTS; the
+// translation prompt had nothing, so a term the English got right was reintroduced
+// downstream where no English-language check could see it.
 
 function translateUser(enQuestions) {
   const payload = enQuestions.map((q) => ({

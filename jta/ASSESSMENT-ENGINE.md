@@ -472,6 +472,51 @@ heap order that had been accidentally holding it together.
 
 ---
 
+## 8. Editing an item that has already shipped
+
+**Established 2026-09-11, when prior-edition vocabulary was found in four live secure
+banks and the question became whether fixing it was cleanup or something needing a
+recorded rationale.** The answer depends entirely on WHICH PART of the item changes, and
+the three parts are not equivalent.
+
+| What changes | Psychometric consequence | What it needs |
+|---|---|---|
+| **Explanation** | **None.** The explanation is post-hoc feedback and is not part of the measurement. Difficulty and discrimination are properties of the stem and the options. | Nothing. Routine editorial work. |
+| **Distractor** | **Real but bounded.** The item's difficulty changes; a candidate who sat the old form sat a different item. Past scores remain valid for the form they sat, but the item's statistics do not carry forward. | **A recorded rationale and a `bank_revision` bump.** |
+| **Key, or the stem** | **It is a new item.** Everything prior — p-value, point-biserial, any Angoff rating — belongs to the retired version. | **A recorded rationale and a `bank_revision` bump.** |
+
+> **THE RULE, STATED ONCE: an explanation-only fix is routine and needs no ceremony. Any
+> change to a key, a stem or a distractor on a LIVE SECURE item needs a recorded rationale
+> and a `bank_revision` bump**, so the retired version and its replacement stay
+> distinguishable in `v_retired_items_evidence`.
+
+**What candidates who already sat a form are owed: nothing, provided only explanations
+changed.** Their score was computed against the items as presented. A defensibility
+problem arises only where a KEY changed such that someone was marked wrong for what is
+now the right answer — and that is the case the machinery already exists for:
+`quiz_attempts` holds a `RESTRICT` foreign key precisely so deleting an item cannot
+destroy the evidence of what was asked.
+
+**The cheapest moment to do this is before the Angoff panel, and that inverts the usual
+instinct.** `§7` above binds it: *SMEs must judge the items that will actually ship.* An
+item reworded after a panel loses its rating and must be re-rated. None of the four Scrum
+banks has been through a panel, so there are currently no ratings to invalidate — **which
+makes now cheap and every later moment expensive.**
+
+**AND READ EACH ONE FIRST, BECAUSE SOME ARE CORRECT.** A retired term is not automatically
+a defect: `SCRUM_GUIDE_FACTS` N22 licenses it in a DISTRACTOR when the old vocabulary is
+the misconception being tested. Counted across the three live Scrum banks on 2026-09-11,
+13 English secure items carried `self-organiz*` and **five of them are items whose
+SUBJECT is the retired term** — *"A 2017-era wiki states the Development Team is
+self-organizing"*, *"A legacy manual calls Developers self-organizing. The 2020 Scrum
+Guide…"*. Those are correct items doing their job, and a sweep would have destroyed them.
+
+> **A vocabulary gate scores by SURFACE. It cannot see INTENT.** `verify-cert`'s
+> `items.vocabulary` tells you where the term is; it cannot tell you whether the item is
+> about the term. **That judgement is per item and it is a human's.**
+
+---
+
 ## Appendix — The July 2026 audit
 
 What one day of forcing item Bloom to equal task Bloom exposed.

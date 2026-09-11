@@ -46,6 +46,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
+import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { readFileSync, existsSync } from "node:fs";
 
 // ---------------------------------------------------------------------------
@@ -1018,26 +1019,37 @@ async function verify(cert) {
       ...(Array.isArray(q.options) ? q.options.map((o) => o.text || "") : []),
       q.explanation || "",
     ].join(" \u0001 ");
-    const SELF_ORG = /self-organiz\w*/i;
-    const CEREMONY = /\bceremon(y|ies)\b/i;
+    // THREE LANGUAGES, NOT ONE. This check read the English pattern only until
+    // 2026-09-11, and SM-AI-II proved what that costs: its English secure bank was
+    // clean while five Spanish rows carried "autoorganizado" where the English said
+    // "self-managing". The generator was right and the TRANSLATOR reintroduced the
+    // term, so a check reading one of three languages reported a bank clean while a
+    // third of its rows were wrong. Patterns come from lib/item-translation.mjs, the
+    // same declaration the translation prompt forbids.
+    const SELF_ORG = { test: (t) => false };  // superseded by the per-language maps
+    const CEREMONY = { test: (t) => false };
+    void SELF_ORG; void CEREMONY;
     const keyText = (q) => {
       const ids = new Set([].concat(q.correct_answer || []));
       return (Array.isArray(q.options) ? q.options.filter((o) => ids.has(o.id)) : []).map((o) => o.text || "").join(" ");
     };
-    const soSecure = questions.filter((q) => q.pool === "secure" && SELF_ORG.test(surfaces(q)));
-    const soOther = questions.filter((q) => q.pool !== "secure" && SELF_ORG.test(surfaces(q)));
-    const cer = questions.filter((q) => CEREMONY.test(surfaces(q)));
+    const hard = (q) => { const re = RETIRED_HARD[q.language]; return !!re && re.test(surfaces(q)); };
+    const soft = (q) => { const re = RETIRED_SOFT[q.language]; return !!re && re.test(surfaces(q)); };
+    const soSecure = questions.filter((q) => q.pool === "secure" && hard(q));
+    const soOther = questions.filter((q) => q.pool !== "secure" && hard(q));
+    const cer = questions.filter(soft);
     const ev = (rows) => rows.slice(0, 8).map((q) => {
-      const where = SELF_ORG.test(keyText(q)) || CEREMONY.test(keyText(q)) ? "KEY"
-        : SELF_ORG.test(q.question_text || "") || CEREMONY.test(q.question_text || "") ? "STEM" : "option/explanation";
+      const h = RETIRED_HARD[q.language], f = RETIRED_SOFT[q.language];
+      const any = (t) => (!!h && h.test(t)) || (!!f && f.test(t));
+      const where = any(keyText(q)) ? "KEY" : any(q.question_text || "") ? "STEM" : "option/explanation";
       return `${q.language}/${q.pool} [${where}] ${(q.question_text || "").slice(0, 55)}`;
     });
     if (soSecure.length > 0) {
       R.fail("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
-        `${soSecure.length} SECURE item(s) use self-organiz* - the 2020 edition says self-managing`, ev(soSecure));
+        `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term (self-organiz*, development team, and their translations)`, ev(soSecure));
     } else if (soOther.length > 0 || cer.length > 0) {
       R.warn("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
-        `${soOther.length} non-secure self-organiz*, ${cer.length} ceremony/ceremonies - read each; ceremony is often ordinary English`,
+        `${soOther.length} non-secure retired-term item(s), ${cer.length} ceremony/ceremonia/cerimonia across 3 languages - read each; the ceremony family is often ordinary language`,
         ev([...soOther, ...cer]));
     } else {
       R.pass("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary", `${questions.length} items`);
