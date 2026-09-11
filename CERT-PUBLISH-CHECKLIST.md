@@ -40,6 +40,53 @@ node scripts/load-cert-i18n.mjs
 The data lives in the `CLAIMS` object inside that script, shaped
 `{ lang: { code: claim } }`. Add the new cert to both language blocks.
 
+### How the two fields actually render — neither is guessable from the database
+
+**Read this before writing either field.** Both facts below were established by reading the
+marketing certification pages on 2026-09-11, and both had already shaped copy that was
+written without them.
+
+> **THE CARD SHOWS `claim ?? description`.** `certifications/page.tsx:150`. So the CLAIM is
+> the scannable catalogue line and the DESCRIPTION is detail-page body copy. They are two
+> jobs, not two lengths of the same sentence — a claim written as a short description
+> reads as a truncation, and a description written as a long claim never gets seen on the
+> card at all.
+
+> **THE DESCRIPTION'S PARAGRAPH BREAKS DO NOT SURVIVE.** `[code]/page.tsx:263` renders it
+> inside a single `<p class="max-w-2xl text-lg">` with **no `whitespace-pre-line`**. Copy
+> drafted and approved as four paragraphs renders as one unbroken block of large type under
+> the h1 — **and nobody sees that until the page is live**, because the database holds the
+> newlines faithfully and every query shows them.
+>
+> **Write the description as one flowing paragraph.** If it needs sections, it is not a
+> description; it belongs in the scheme document, which the blueprint drawer already links.
+
+**The exam facts are already on the page and do not belong in the prose.**
+`[code]/page.tsx:269` renders a `Stat` strip directly beneath the description carrying
+**questions, pass mark, minutes and domain count**. Stating them in the description puts
+them on screen twice, a few hundred pixels apart. **Languages are NOT in that strip**, so a
+language list in the prose earns its place.
+
+### A note on length, and why SM-AI-II is not the model
+
+| | chars |
+|---|---|
+| House range across eleven certs | **266 – 595** |
+| AISM-I, the longest before 2026-09-11 | 595 |
+| **SM-AI-II** | **~1,200** |
+
+**SM-AI-II's description is roughly double the longest and that is deliberate, but it is
+not a precedent.** Its fourth passage does work no other certification's description has to
+do: it states that **four of D5's nine tasks would have the same best answer without a
+model in the work system**, and that they earn their place on frequency rather than on
+judgment. That is `SCHEME-SM-AI-II.md` §2.1's scenery-swap finding, put on the sales page
+on purpose — a competitor comparing at that level reads the scheme document and finds the
+table in a minute, and the only question is whether they find it from us first.
+
+> **DO NOT COPY THE LENGTH WITHOUT COPYING THE REASON.** A description runs long when it is
+> disclosing something a buyer would otherwise discover and hold against you. Absent that,
+> the range above is the range.
+
 ### Register
 
 Every claim in the catalogue opens with **Validates / Valida** to preserve the

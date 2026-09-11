@@ -55,8 +55,8 @@ const CLAIM_EN =
 
 const DESCRIPTION_EN =
   "The decisions the 2020 Scrum Guide does not make for you. Level II certification in " +
-  "Scrum Master judgment: 50 items, 150 minutes, 75% to pass, in English, Latin American " +
-  "Spanish and Brazilian Portuguese. Where Level I asks what Scrum determines, this asks " +
+  "Scrum Master judgment, in English, Latin American Spanish and Brazilian Portuguese. " +
+  "Where Level I asks what Scrum determines, this asks " +
   "what you do where it determines nothing — 31 of its 44 tasks have a best answer the " +
   "Guide's own text does not settle, and the scheme publishes that count rather than " +
   "asserting a difficulty gap. Every item presents four options a competent practitioner " +
@@ -121,8 +121,13 @@ for (const row of out) {
   for (const [f, v] of [["claim", row.claim], ["description", row.description]]) {
     if (!v || v.length < 40) { console.error(`ABORT ${row.lang} ${f}: too short (${v?.length ?? 0})`); bad++; }
   }
-  if (!/50/.test(row.description) || !/150/.test(row.description) || !/75/.test(row.description)) {
-    console.error(`ABORT ${row.lang}: the exam facts did not survive translation`); bad++;
+  // THE EXAM FACTS ARE NOT IN THIS COPY AND THE GUARD FOR THEM IS GONE WITH THEM.
+  // [code]/page.tsx:269 renders questions, pass mark, minutes and domain count as a
+  // dedicated Stat strip directly beneath the description, so stating them in the prose
+  // put them on screen twice. The LANGUAGES are not in that strip, so they stay here.
+  // A guard that outlives the claim it checked fails on correct output.
+  if (!/ingl|Ingl|English/.test(row.description)) {
+    console.error(`ABORT ${row.lang}: the language list did not survive translation`); bad++;
   }
   if (!/22[.,]5/.test(row.description)) { console.error(`ABORT ${row.lang}: D5's weight did not survive`); bad++; }
   if (!/31/.test(row.description) || !/44/.test(row.description)) { console.error(`ABORT ${row.lang}: the 31-of-44 count did not survive`); bad++; }
