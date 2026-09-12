@@ -74,6 +74,20 @@ import {
   readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSync,
 } from "node:fs";
 import path from "node:path";
+// ONE CONTRACT, TWO TOOLS. Until 2026-09-11 this file had no retired-vocabulary
+// and no false-friends rules at all - grep it for throughput, compromiso,
+// involucramiento, self-organiz, "development team" or engagement before that
+// date and every count is zero. The item generators had all of them, in
+// lib/item-translation.mjs, where two review rounds put them.
+//
+// So 862,836 characters of Scrum lessons were about to go through a translator
+// that did not know what 98 short blueprint statements had just taught us - into
+// the same language pair where "compromiso" had already been caught once.
+//
+// The block did not need moving. It was already exported and already shared
+// ground; nothing imported it. The patch-translate-lessons-*.ps1 files are the
+// record of terminology being bolted on here separately each time instead.
+import { RETIRED_VOCABULARY } from "./lib/item-translation.mjs";
 
 const MODEL = "claude-sonnet-4-6";
 const API_URL = "https://api.anthropic.com/v1/messages";
@@ -377,6 +391,8 @@ CRITICAL for the highlight-mistake widget: each entry in "highlights" has a "spa
 
 DO NOT TRANSLATE these Scrum proper nouns / framework terms / acronyms — keep them in English exactly:
 Scrum, Sprint, Sprint Planning, Sprint Review, Sprint Retrospective, Sprint Backlog, Sprint Goal, Product Backlog, Product Backlog Item, Product Owner, Scrum Master, Developers, Scrum Team, Increment, Product Goal, Definition of Done, Daily Scrum, Scrum Guide, INVEST, ROI, MVP, DoD, KPI, OKR, TDD, CI, CD, and the brand name Certidemy.
+
+${RETIRED_VOCABULARY}
 
 Return only the full file content.`;
 }

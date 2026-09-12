@@ -637,10 +637,37 @@ async function verify(cert) {
   const lGroups = new Map();
   for (const l of lessons) lGroups.set(l.lesson_group_id, (lGroups.get(l.lesson_group_id) ?? 0) + 1);
   const badL = [...lGroups.entries()].filter(([g, n]) => g && n !== 3);
+  // THE SEVERITY FOLLOWS THE STATUS, since 2026-09-11.
+  //
+  // This was an unconditional WARN twelve lines below trilingual.items, which is
+  // an unconditional FAIL. So a missing Spanish ITEM blocked release and 44
+  // missing Spanish LESSONS printed "44 groups not fully localized" while the
+  // gate said "All certs conform. Safe to publish."
+  //
+  // That is defensible for a cert mid-build - SCHEME s12 declares lesson
+  // localization as progressive, and a draft is allowed to be incomplete. It is
+  // not defensible once the cert is AVAILABLE, because at that point a candidate
+  // can buy a credential whose catalogue copy, blueprint and 98 task statements
+  // they read in Spanish, and then find not one lesson in it.
+  //
+  // Found in production on SM-AI-II the day it went available. AIMS-IA has been
+  // shipping in the same state for longer, which this change surfaces
+  // immediately and correctly.
+  //
+  // Conditional on 'available' specifically, mirroring credential.achievement's
+  // conditional on 'draft' - the two are the same idea from opposite ends.
+  const liveCert = (cert.status ?? "draft") === "available";
   if (lessons.length === 0) R.skip("trilingual.lessons", "§11", "Lessons trilingual", "no lessons");
-  else badL.length === 0
-    ? R.pass("trilingual.lessons", "§11", "Every lesson group holds 3 language rows", `${lGroups.size} groups, ${lessons.length} rows`)
-    : R.warn("trilingual.lessons", "§11", "Every lesson group holds 3 language rows", `${badL.length} groups not fully localized`, badL.slice(0, 5).map(([g, n]) => `${g}=${n}`));
+  else if (badL.length === 0)
+    R.pass("trilingual.lessons", "§11", "Every lesson group holds 3 language rows", `${lGroups.size} groups, ${lessons.length} rows`);
+  else if (liveCert)
+    R.fail("trilingual.lessons", "§11", "Every lesson group holds 3 language rows",
+      `${badL.length} of ${lGroups.size} groups not fully localized, and this certification is AVAILABLE - it can be bought and studied in a language that has no lessons`,
+      badL.slice(0, 5).map(([g, n]) => `${g}=${n}`));
+  else
+    R.warn("trilingual.lessons", "§11", "Every lesson group holds 3 language rows",
+      `${badL.length} groups not fully localized - a WARN only because this certification is '${cert.status ?? "draft"}'; it becomes a FAIL at 'available'`,
+      badL.slice(0, 5).map(([g, n]) => `${g}=${n}`));
 
   // === 10. ENCODING INTEGRITY ===============================================
   const mojibake = lessons.filter((l) => (l.content_md || "").includes("\u00e2\u20ac"));

@@ -841,13 +841,13 @@ forgive.
 |---|---|
 | Instructional content (44 lessons) | ~~**Not loaded.**~~ **LOADED 2026-09-10.** All 44 authored and all 44 in the database, `status: draft`, English only. `lesson_concepts` projects 132 links over 131 concepts, so `coverage.taught` reads **131/131** where it read 0/131. **This row has now carried three different reasons for one failure** — "nine of 44 authored", then "all 44 authored, none loaded", then this. Only the third is a resolution. |
 | Lesson translations | **Not generated.** All 44 lesson rows are `en`; `verify-cert` §11 warns rather than fails, so this is a warning the scheme carries deliberately until `translate-lessons.mjs` runs. |
-| Item banks | **Not generated.** Zero items exist; the floors in §8 are a design commitment. |
+| Item banks | ~~**Not generated.**~~ **Generated 2026-09-10/11.** 2,376 items — 1,056 secure + 1,320 practice — across en / es-419 / pt-BR in 792 groups. Every one of the 44 in-scope tasks meets both floors in all three languages. **No human has read an item.** |
 | Body of knowledge | **Exists** as `jta/SM-AI-II_BoK_v2.0.md` (2026-09-10), **and was reconstructed rather than authored at Stage 1.** The scheme, the JTA and 44 lessons were built before it, so it cannot have constrained them — which is what a Stage 1 body of knowledge is for. `v1.1` was cited as signed 2026-09-02, was never committed and is unrecoverable. The document carries this in its own provenance banner and §11, and does not close by being signed. |
 | Cue-tolerance declaration | **Pending measurement.** Migration 278 carries `ISMS-IA`'s numbers with `measured_over: null` (§8.1). |
 | Examination duration | **A floor, not a measurement.** 150 minutes is the tier-II base; migration 212 is the template for deriving the real number once the bank exists (§6). |
-| Catalogue claim and long-form description | **Not written, in any of the three languages.** The catalogue card renders code and name only; the detail page falls back to English silently. |
-| JTA translations | ~~**Not generated.**~~ **Generated and 27 of 98 rows reviewed** (2026-09-11). All 5 domains and all 44 tasks exist in es-419 and pt-BR. **Reviewed and approved: the five domain titles, and D5's nine task statements in both languages** — the two highest-consequence tiers, headings first and then the domain the catalogue description sells. **One row was rejected** (5.7 es-419, `throughput` rendered as `rendimiento`, which reads as *performance*), re-translated, and is provisional again pending a re-read. The remaining 70 rows are D1–D4 task statements, generated and honestly marked provisional. `i18n.approved` fails on any provisional row, so it fails on 71 — see the note below. |
-| Six public sample items | **None exist.** Six per language across six distinct tasks are required before publication. |
+| Catalogue claim and long-form description | ~~**Not written, in any of the three languages.**~~ **Written and loaded in all three** (2026-09-11). `verify-cert` `catalogue.claim` and `catalogue.description` both pass. |
+| JTA translations | ~~**Not generated.**~~ ~~**27 of 98 rows reviewed**~~ **ALL 98 rows read by a human and approved** (2026-09-11), across two review rounds; four were rejected, repaired and re-read. The paragraph below is the round-one record. All 5 domains and all 44 tasks exist in es-419 and pt-BR. **Reviewed and approved: the five domain titles, and D5's nine task statements in both languages** — the two highest-consequence tiers, headings first and then the domain the catalogue description sells. **One row was rejected** (5.7 es-419, `throughput` rendered as `rendimiento`, which reads as *performance*), re-translated, and is provisional again pending a re-read. The remaining 70 rows are D1–D4 task statements, generated and honestly marked provisional. `i18n.approved` fails on any provisional row, so it fails on 71 — see the note below. |
+| Six public sample items | ~~**None exist.**~~ **Published 2026-09-11** — 6 / 6 / 6 across six distinct tasks, including one from D5 and one showing the four-defensible contract. |
 | Standard-setting stage 1 — define the borderline candidate | **DONE** (§7.1). |
 | Standard-setting stage 2 — Angoff panel | **Pending a panel of independent SMEs.** Blocked by recruiting, not by candidate volume. |
 | Standard-setting stage 3 — validation | **Pending candidate data.** No live candidates yet. |
@@ -865,6 +865,25 @@ forgive.
 **The inert first form of Screen 1(b) is preserved in §5.2 above and nowhere else.** It
 was carried in `SM-AI-II_BoK_v1.1.md`, which cannot be produced;
 `jta/SM-AI-II_BoK_v2.0.md` §6.2 states the corrected form only.
+
+**Open content note.** Examination and practice item banks are complete in all three
+languages before publication. Instructional lessons are authored in English first and
+localized progressively; a candidate may sit the examination and practice in any offered
+language while lesson localization completes. This is stated rather than implied as
+complete.
+
+> **AS OF 2026-09-11 THIS CERTIFICATION IS IN THAT STATE, and the note is here because it
+> was NOT.** All 44 lessons exist in English only; `module_translations` holds no
+> es-419 or pt-BR rows. A Spanish or Portuguese candidate reads the catalogue copy, the
+> blueprint and all 98 task statements in their own language and then finds no lessons.
+> The scheme said nothing about it until today, so the state was undisclosed rather than
+> progressive. `ISMS-IA` s11 has carried this note since before its own launch;
+> `SM-AI-II` did not, and `AIMS-IA` — also available, also English-only lessons — does
+> not either.
+>
+> `verify-cert`'s `trilingual.lessons` now FAILS rather than warns once a certification
+> is `available`, so this note documents a state the release gate no longer permits
+> silently.
 
 ---
 
