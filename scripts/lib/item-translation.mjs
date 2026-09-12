@@ -199,6 +199,28 @@ ROLES - PIN. es-419 roles. pt-BR papeis.
   correct for different things, which is why both appear and why counting them
   together says nothing.
 
+FALSE FRIEND - ACCOUNTABLE IS NOT RESPONSABLE / RESPONSAVEL.
+
+  Same class as compromiso and rendimiento in the Scrum contract: a CORRECT
+  rendering of a DIFFERENT concept. responsable/responsavel is RESPONSIBLE -
+  who does the work. ACCOUNTABLE is who answers for the outcome, and cannot
+  be delegated or shared. Collapsing them erases the distinction that the
+  governance certifications exist to teach.
+
+  es-419   responsable (quien ejecuta)  vs  quien rinde cuentas /
+           la rendicion de cuentas  for accountable / accountability
+  pt-BR    responsavel (quem executa)   vs  quem presta contas /
+           a prestacao de contas    for accountable / accountability
+
+  CAUGHT IN REVIEW, 2026-09-12. AIGRM-I's module title "The AI Lifecycle &
+  Accountable Deployment" came back with accountable collapsed to
+  responsable / responsavel in BOTH languages - on the certification whose
+  subject is that distinction, and whose own module DESCRIPTION had already
+  rendered it correctly as "rendicion de cuentas por etapa" / "prestacao de
+  contas por etapa". The paragraph got it right and the heading above it did
+  not, which is the shape to watch: a short string has less context to
+  disambiguate from, so a TITLE is where a false friend lands first.
+
 CLAUSE - NEVER "clausula". This rule is here because it was VIOLATED.
 
   ENGLISH                       es-419                          pt-BR
