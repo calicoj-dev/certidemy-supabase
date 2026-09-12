@@ -390,7 +390,9 @@ ISO STANDARD VOCABULARY (Rule 17). These lessons are built on a published standa
 CRITICAL for the highlight-mistake widget: each entry in "highlights" has a "span" that is a VERBATIM substring of the top-level "text". When you translate "text", translate each "span" to the EXACT corresponding substring of your translated text, so the span can still be found inside it character-for-character.
 
 DO NOT TRANSLATE these Scrum proper nouns / framework terms / acronyms — keep them in English exactly:
-Scrum, Sprint, Sprint Planning, Sprint Review, Sprint Retrospective, Sprint Backlog, Sprint Goal, Product Backlog, Product Backlog Item, Product Owner, Scrum Master, Developers, Scrum Team, Increment, Product Goal, Definition of Done, Daily Scrum, Scrum Guide, INVEST, ROI, MVP, DoD, KPI, OKR, TDD, CI, CD, and the brand name Certidemy.
+Scrum, Sprint, Sprint Planning, Sprint Review, Sprint Retrospective, Sprint Backlog, Sprint Goal, Product Backlog, Product Backlog Item, Product Owner, Scrum Master, Developers, Scrum Team, Increment, Product Goal, Definition of Done, Daily Scrum, INVEST, ROI, MVP, DoD, KPI, OKR, TDD, CI, CD, and the brand name Certidemy.
+
+"Scrum Guide" IS DELIBERATELY NOT ON THAT LIST ANY MORE. It was, and the model would not honour it: across 88 lesson translations on 2026-09-11 it rendered "the 2020 Scrum Guide" as "la Guia de 2020" / "o Guia de 2020" in six files, and a targeted re-translation pass reproduced five of the six. That is idiomatic, unambiguous in context, and not wrong - and A FROZEN-TERM LIST THAT INCLUDES SOMETHING THE TRANSLATOR WILL NOT HONOUR TEACHES PEOPLE TO IGNORE THE LIST. Two passes showed it; a third would have shown it again. Translate the Guide reference naturally.
 
 ${RETIRED_VOCABULARY}
 

@@ -1146,7 +1146,7 @@ async function verify(cert) {
         `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term (self-organiz*, development team, and their translations)`, ev(soSecure));
     } else if (soOther.length > 0 || cer.length > 0) {
       R.warn("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
-        `${soOther.length} non-secure retired-term item(s), ${cer.length} ceremony/ceremonia/cerimonia across 3 languages - read each; the ceremony family is often ordinary language`,
+        `${soOther.length} non-secure retired-term item(s), ${cer.length} ceremony/role-family hit(s) across 3 languages - NOISY BY DESIGN, read each: role joined this family 2026-09-11 and roughly quadrupled the count. A hard pattern would fail correct content six times in seven; if this proves unreadable in practice, narrow it THEN, with evidence`,
         ev([...soOther, ...cer]));
     } else {
       R.pass("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary", `${questions.length} items`);
@@ -1265,7 +1265,7 @@ async function verify(cert) {
         blocking.slice(0, 10).map((g) => `${g.where} [GRADED] ${g.hit}`));
     } else if (hardProse.length > 0 || soft.length > 0 || exempted > 0) {
       R.warn("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
-        `${hardProse.length} retired term(s) in lesson PROSE, ${exempted} in lessons flagged teaches_retired_vocabulary, ${soft.length} ceremony/role-family hit(s) - read each`,
+        `${hardProse.length} retired term(s) in lesson PROSE, ${exempted} in lessons flagged teaches_retired_vocabulary, ${soft.length} ceremony/role-family hit(s) - NOISY BY DESIGN, read each: role and ceremony are ordinary language as often as the retired term, and a hard pattern failed correct content six times in seven`,
         [...hardProse, ...soft].slice(0, 10));
     } else {
       R.pass("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
