@@ -1384,6 +1384,89 @@ async function verify(cert) {
     }
   }
 
+  // === 24. PROVENANCE STATUS SAYS WHAT THE WRITER SAW =======================
+  //
+  // Migration 296. score-mock-exam looks up the published JTA version and the
+  // sponsoring company, and both lookups used to degrade to NULL on failure - so
+  // "there was nothing to stamp" and "we could not find out" were the same row.
+  //
+  // MEASURED BEFORE THE COLUMN SHIPPED: zero unexplained, across 13 attempts and
+  // 21 credentials. The column is not there because provenance was missing; it
+  // is there because PROVING it was not missing took a three-way join that
+  // inferred intent from a null - and that join got it wrong on its first
+  // attempt, silently dropping six rows. This check is the one-liner it bought.
+  //
+  // THREE FINDINGS, and they are different defects:
+  //
+  //   status disagrees with its column  the record contradicts itself. Either a
+  //                                     writer set the wrong value or something
+  //                                     wrote the id without the status.
+  //   'unrecorded'                      the backfill left NONE, so any row with
+  //                                     it was written after 296 by a writer
+  //                                     that does not set the column. A WRITER
+  //                                     WAS MISSED - and there are five.
+  //   'unreadable'                      an honest record of a real gap. Not a
+  //                                     defect in the RECORD; a defect in the
+  //                                     CREDENTIAL, and it needs repair.
+  {
+    const NONE = "00000000-0000-0000-0000-000000000000";
+    const [{ data: attRows }, { data: credRows }] = await Promise.all([
+      must("exam_attempts/provenance", db.from("exam_attempts")
+        .select("id, jta_version_id, jta_version_status, company_id, company_id_status, submitted_at")
+        .eq("certification_id", id ?? NONE)),
+      must("credentials/provenance", db.from("credentials")
+        .select("credential_code, jta_version_id, jta_version_status, issued_at")
+        .eq("certification_id", id ?? NONE)),
+    ]);
+    const att = attRows ?? [], cred = credRows ?? [];
+
+    if (att.length === 0 && cred.length === 0) {
+      R.skip("credential.provenance", "§12", "Provenance status matches what was written",
+        "no attempts or credentials for this certification");
+    } else {
+      // BOTH DIRECTIONS. 'stamped' with a null id is a lie; a non-null id not
+      // marked stamped is the same lie facing the other way, and a count-only
+      // check passes over both.
+      const disagree = [
+        ...att.filter((r) => (r.jta_version_status === "stamped") !== (r.jta_version_id != null))
+              .map((r) => `attempt ${String(r.id).slice(0, 8)} jta=${r.jta_version_status}`),
+        ...att.filter((r) => (r.company_id_status === "stamped") !== (r.company_id != null))
+              .map((r) => `attempt ${String(r.id).slice(0, 8)} company=${r.company_id_status}`),
+        ...cred.filter((r) => (r.jta_version_status === "stamped") !== (r.jta_version_id != null))
+               .map((r) => `credential ${r.credential_code} jta=${r.jta_version_status}`),
+      ];
+      const unrecorded = [
+        ...att.filter((r) => r.jta_version_status === "unrecorded" || r.company_id_status === "unrecorded")
+              .map((r) => `attempt ${String(r.id).slice(0, 8)} (${r.submitted_at ?? "?"})`),
+        ...cred.filter((r) => r.jta_version_status === "unrecorded")
+               .map((r) => `credential ${r.credential_code} (${r.issued_at ?? "?"})`),
+      ];
+      const unreadable = [
+        ...att.filter((r) => r.jta_version_status === "unreadable" || r.company_id_status === "unreadable")
+              .map((r) => `attempt ${String(r.id).slice(0, 8)}`),
+        ...cred.filter((r) => r.jta_version_status === "unreadable")
+               .map((r) => `credential ${r.credential_code}`),
+      ];
+
+      if (disagree.length > 0) {
+        R.fail("credential.provenance", "§12", "Provenance status matches what was written",
+          `${disagree.length} row(s) whose status contradicts the column it describes`,
+          disagree.slice(0, 10));
+      } else if (unrecorded.length > 0) {
+        R.fail("credential.provenance", "§12", "Provenance status matches what was written",
+          `${unrecorded.length} row(s) marked 'unrecorded' - migration 296's backfill left NONE, so a WRITER WAS MISSED. There are five: _shared/issue.ts, score-mock-exam, mint-missing-credentials.mjs, certidemy-web/scripts/mint-specimens.mjs, and any migration backfill`,
+          unrecorded.slice(0, 10));
+      } else if (unreadable.length > 0) {
+        R.warn("credential.provenance", "§12", "Provenance status matches what was written",
+          `${unreadable.length} row(s) marked 'unreadable' - an honest record of a lookup that failed at scoring time. The record is right; the CREDENTIAL needs repair`,
+          unreadable.slice(0, 10));
+      } else {
+        R.pass("credential.provenance", "§12", "Provenance status matches what was written",
+          `${att.length} attempt(s), ${cred.length} credential(s), every status agrees`);
+      }
+    }
+  }
+
   // === 23. NO CREATE-VERB IN THE SKILLS FIELD ===============================
   // §15c checks the STATEMENT's verb. Nothing ever read `skills`, and it is the
   // field the item generator actually consumes. 13 tasks across 6 certs open it

@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 295. Next free number: 296.** Sequential, zero-padded to three
+**Migration tip: 296. Next free number: 297.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
@@ -373,9 +373,21 @@ To reconcile them, `issueCredential` would need an achievement resolved **by
 exam-provenance block, and a caller-supplied `issued_at`. That is a real
 refactor on the credential path and must not be done under time pressure.
 
-**Until then: `credentials` gains a column → four inserts change.**
-`_shared/issue.ts`, `score-mock-exam`, `mint-missing-credentials.mjs`, and any
-migration backfill. Grep `from("credentials")` in both repos before shipping.
+**Until then: `credentials` gains a column → FIVE inserts change.**
+`_shared/issue.ts`, `score-mock-exam`, `mint-missing-credentials.mjs`,
+**`../certidemy-web/scripts/mint-specimens.mjs`**, and any migration backfill.
+Grep `from("credentials")` in both repos before shipping.
+
+**This line said FOUR until 2026-09-11, and the missing one is the dangerous
+kind.** `mint-specimens.mjs` upserts credentials, lives in the OTHER repO, and
+was named in no checklist — so every reader who followed this instruction
+faithfully still missed it. It surfaced only when migration 296's writer list was
+built from `pg_class` and a grep of both repos rather than from this paragraph.
+**A writer list that lives in prose decays toward the repo the author was in.**
+
+`issue-credential-batch` is NOT on the list and that is correct: it reaches
+`credentials` only through `issueCredential`. Checked, because it greps as a
+writer and is not one.
 
 **The audit rows are deliberately not shared.** `issuer_api_requests` is keyed
 to `api_key_id` and cannot represent a JWT caller; `admin_actions` is keyed to

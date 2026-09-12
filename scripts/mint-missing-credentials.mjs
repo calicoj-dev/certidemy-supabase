@@ -126,7 +126,7 @@ async function main() {
   let q = svc
     .from("exam_attempts")
     .select(
-      "id, user_id, certification_id, session_id, voucher_id, score_pct, submitted_at, jta_version_id",
+      "id, user_id, certification_id, session_id, voucher_id, score_pct, submitted_at, jta_version_id, jta_version_status",
     )
     .eq("passed", true);
   if (ONLY) q = q.eq("id", ONLY);
@@ -270,6 +270,14 @@ async function main() {
       score_pct: a.score_pct,
       locale,
       jta_version_id: a.jta_version_id,
+      // MIGRATION 296 - INHERITED, NEVER RE-DERIVED. The credential records what
+      // was known AT SCORING TIME. An attempt recorded 'unreadable' must not
+      // become 'stamped' because this reconciler's own lookup happened to work
+      // weeks later: that would launder a gap into a claim, and the claim would
+      // be about a moment this script was not present for.
+      // Falls back to 'unrecorded' rather than inventing one if the attempt
+      // predates 296 - an absence of a claim, not a wrong claim.
+      jta_version_status: a.jta_version_status ?? "unrecorded",
       issued_at: a.submitted_at,
       expires_at: addDays(a.submitted_at, days),
     };

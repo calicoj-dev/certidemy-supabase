@@ -537,40 +537,80 @@ serve(async (req) => {
     // ====================================================================
     if (isCertExam) {
       // 9a. Resolve the cert's currently-published JTA version.
+      // MIGRATION 296. The status records WHAT THIS WRITER OBSERVED, because by
+      // the time the row lands a failed lookup and an empty one are the same
+      // NULL - and that was the whole defect.
+      //
+      //   stamped         the read returned a version
+      //   not_applicable  the read worked and this cert has no published JTA
+      //   unreadable      the read failed
+      //
+      // DO NOT COLLAPSE THE MIDDLE TWO. A published JTA that returned nothing is
+      // not the same as a certification that has none.
+      //
+      // THE catch IS NOT ENOUGH ON ITS OWN, and this is the correction that
+      // matters: a PostgREST failure does NOT throw. It returns { data: null,
+      // error }, so the discarded `error` was the LIKELY failure and the catch
+      // only ever saw fetch-level faults. Reading `ver?.id ?? null` after an
+      // errored read produced null, which then read as not_applicable - the
+      // exact lie the column exists to prevent. The error is captured now.
       let jta_version_id: string | null = null;
+      let jta_version_status = "unreadable";
       try {
-        const { data: ver } = await svc
+        const { data: ver, error: verErr } = await svc
           .from("jta_versions")
           .select("id")
           .eq("certification_id", session.certification_id)
           .eq("status", "published")
           .maybeSingle();
-        jta_version_id = ver?.id ?? null;
+        if (verErr) {
+          console.warn("jta_version lookup errored (recorded unreadable):", verErr.message);
+        } else {
+          jta_version_id = ver?.id ?? null;
+          jta_version_status = jta_version_id ? "stamped" : "not_applicable";
+        }
       } catch (err) {
-        console.warn("jta_version lookup failed (stamp will be null):", err);
+        console.warn("jta_version lookup threw (recorded unreadable):", err);
       }
 
       // Auto-link the sponsoring company for THIS cert. Null for B2C self-pay.
+      // TWO reads here, and EITHER failing makes the attribution unreadable.
+      // "this candidate belongs to no company" and "we could not find out" are
+      // different facts and 11 of the 13 attempts measured on 2026-09-11 were
+      // honestly the first one.
       let company_id: string | null = null;
+      let company_id_status = "unreadable";
       try {
-        const { data: memberships } = await svc
+        const { data: memberships, error: memErr } = await svc
           .from("team_members")
           .select("company_id")
           .eq("user_id", user_id);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const myCompanies = (memberships ?? []).map((m: any) => m.company_id);
-        if (myCompanies.length > 0) {
-          const { data: sponsor } = await svc
-            .from("company_certifications")
-            .select("company_id")
-            .eq("certification_id", session.certification_id)
-            .in("company_id", myCompanies)
-            .limit(1)
-            .maybeSingle();
-          company_id = sponsor?.company_id ?? null;
+        if (memErr) {
+          console.warn("team_members lookup errored (recorded unreadable):", memErr.message);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const myCompanies = (memberships ?? []).map((m: any) => m.company_id);
+          if (myCompanies.length === 0) {
+            // Read fine, nothing to attribute. B2C self-pay.
+            company_id_status = "not_applicable";
+          } else {
+            const { data: sponsor, error: spErr } = await svc
+              .from("company_certifications")
+              .select("company_id")
+              .eq("certification_id", session.certification_id)
+              .in("company_id", myCompanies)
+              .limit(1)
+              .maybeSingle();
+            if (spErr) {
+              console.warn("sponsor lookup errored (recorded unreadable):", spErr.message);
+            } else {
+              company_id = sponsor?.company_id ?? null;
+              company_id_status = company_id ? "stamped" : "not_applicable";
+            }
+          }
         }
       } catch (err) {
-        console.warn("company attribution lookup failed:", err);
+        console.warn("company attribution lookup threw (recorded unreadable):", err);
       }
 
       const { data: attempt, error: aErr } = await svc
@@ -591,6 +631,8 @@ serve(async (req) => {
           late_submission,
           over_by_seconds,
           jta_version_id,
+          jta_version_status,
+          company_id_status,
           integrity_flags,
           submitted_at: now.toISOString(),
         })
@@ -815,6 +857,8 @@ serve(async (req) => {
                 score_pct,
                 locale: credential_locale,
                 jta_version_id,
+                // The SAME observation the attempt recorded, not a fresh guess.
+                jta_version_status,
                 issued_at: now.toISOString(),
                 // VALIDITY COMES FROM THE CERTIFICATION, NOT FROM THIS LINE.
                 //

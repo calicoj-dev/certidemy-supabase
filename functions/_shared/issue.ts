@@ -375,6 +375,12 @@ export async function issueCredential(
         // No certification behind a partner achievement, and no exam, so no
         // score. Migration 231 made all three nullable for exactly this row.
         certification_id: null,
+        // MIGRATION 296. Static, and static for a structural reason: this mint
+        // has no concept of an exam or a JTA version, so there is nothing to
+        // read and nothing that could fail. not_applicable is a statement about
+        // THE PATH, not about this row's data. issue-credential-batch reaches
+        // credentials only through here, which is why it sets nothing itself.
+        jta_version_status: "not_applicable",
         certification_name: ach.name,
         certification_code: ach.code,
         score_pct: null,
