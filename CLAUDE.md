@@ -587,6 +587,56 @@ The individual scripts:
   decided to ignore. **Every cert also warns**, so "green" is not the bar —
   compare against the table above and investigate anything that moved.
 
+- `verify-citations.mjs` — resolves every clause and annex reference in a bank
+  against the three ISO PDFs on disk. **READ-ONLY: no `--apply`, no `--dry`,
+  unknown flags exit 2.** `--index` dumps the parsed structures. Also wired into
+  verify-cert as `items.citations` (FAIL on secure, WARN on practice, SKIP where
+  the PDFs are absent). **It checks EXISTENCE, NEVER MEANING** — "clause 6.7
+  exists in ISO 19011:2026" is mechanical, "clause 6.7 says what this item
+  claims" is not, and a clean run is no evidence at all about the second.
+
+---
+
+## Reading a bank versus sweeping it
+
+**THE DECISION RULE, and it is the durable output of 2026-09-12:**
+
+> **Built with a never-assert list, sweep it. Built without one, read it.**
+
+A sweep can only find a shape someone already named. `CRITERIA_42001`'s "never
+say Annex B is informative" found AIMS-F's two worst defects — both **keys**, one
+**secure** — in four queries with no reading at all. Nothing carried over from
+the ISMS-F read would have found them, because that list is per-standard.
+
+**The converse is what makes the rule bite.** ISMS-F and AIMS-F were generated
+while `groundingFor` routed both to `NEUTRAL`, 524 characters naming no standard
+and forbidding nothing. There were no shapes to sweep for, so the shapes had to
+be produced by reading, one bank at a time. Of ISMS-F's four defect families,
+**only one was discoverable by search without reading first**; the other three
+were found by reading and only then extended by search.
+
+**And a sweep undercounts even the family it knows about.** The search for
+`monitor and review` returned 1 where there were 2 — the second instance reads
+*"monitor**ing** and review"*. A morphology variant halved a family, which is the
+same defect as every other guard in this file that searched for a STRING when
+the property was something else.
+
+**The routing fix is what retires the second category.** Every certification now
+resolves to a grounding that names its standard and its forbidden claims —
+`FOUNDATION_27001` / `FOUNDATION_42001` for the Foundation certs, `AUDIT_*` for
+the auditor certs, and the standard is decided BEFORE the role so a future Lead
+Implementer cannot fall through to NEUTRAL. So nothing generated from here on
+lands in "must be read". The two banks that already did are ISMS-F and AIMS-F.
+
+**What neither approach reaches.** Both find *addresses* and *named claims*. The
+defect class underneath — a true statement filed against the wrong source, in
+prose that reads correct — is only ever caught by a human with the standard
+open. ISMS-F's worst instance was `clause 4.1 "explicitly lists" governance,
+culture and competitive factors`: **those words appear zero times in the entire
+standard**, and no gate in this repo would have said so.
+
+---
+
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
 ---
