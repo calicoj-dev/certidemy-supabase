@@ -86,15 +86,14 @@ rejection ambiguous about which half is wrong.
     en#b539b393
 
     [ ] es-419   Las responsabilidades de los Developers, el cómo del Sprint Planning, el Sprint
-                 Backlog como un pronóstico vivo, el Daily Scrum como el evento de los Developers, la
-                 participación en el Sprint Review y la Sprint Retrospective, la estimación con la IA
-                 como insumo, y la autogestión.
+                 Backlog como un plan vivo, el Daily Scrum como el evento de los Developers, la
+                 participación en la Review y la Retrospective, la estimación con IA como entrada, y
+                 la autogestión.
         NOTE:
 
     [ ] pt-BR    As responsabilidades dos Developers, o como do Sprint Planning, o Sprint Backlog
-                 como uma previsão viva, o Daily Scrum como o evento dos Developers, a participação
-                 no Sprint Review e na Sprint Retrospective, a estimativa com a IA como insumo, e a
-                 autogestão.
+                 como um plano vivo, o Daily Scrum como o evento dos Developers, participação na
+                 Review e na Retrospective, estimativa com IA como entrada, e autogestão.
         NOTE:
 
 ---

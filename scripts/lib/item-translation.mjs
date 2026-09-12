@@ -84,6 +84,31 @@ English-language check can see. NEVER produce any of these:
     time de desenvolvimento / equipe de desenvolvimento    -> Developers, in English
     papeis (for the three Scrum accountabilities)          -> responsabilidades
 
+ARTICLE GENDER ON THE FROZEN ENGLISH NOUNS, BOTH LANGUAGES. The nouns stay in
+English, but the article in front of them is a choice, and the catalogue has
+already made it. Measured 2026-09-12 across lessons and module headings:
+
+    es-419   el Daily Scrum      33 uses      la Daily Scrum      0
+    pt-BR    o Daily Scrum       26 uses      a Daily Scrum       0
+
+    Masculine in both: el/o Sprint Backlog, Product Backlog, Sprint Goal,
+    Product Goal, Increment, Scrum Team, Sprint Planning.
+    Feminine in both: la/a Sprint Review, Sprint Retrospective - they are
+    reuniones / reunioes.
+
+  Pinned because one repair returned "a Daily Scrum" AND "la Daily Scrum", each
+  of which would have been the only instance of its form in the corpus. A frozen
+  noun with a wandering article is still an inconsistency: freezing the noun does
+  not freeze the sentence around it.
+
+  THIS PIN WAS IGNORED TWICE WHERE IT SITS. Two dry runs after it was added
+  returned the feminine form again, and both rows were corrected
+  deterministically instead. It is 14% of the way through a 7,600-character
+  block, which is a long way from the generation - the same recency problem as
+  the target-language instruction. Treat article gender as something to ASSERT
+  AFTER generation, not something to ask for. Do not assume this paragraph is
+  doing the work.
+
 If the ENGLISH source itself uses a retired term, translate it faithfully anyway and
 do not silently correct it - a mismatch between the languages is worse than a
 faithful translation of a defect, because the defect is then findable in English
