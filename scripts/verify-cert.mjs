@@ -1153,6 +1153,117 @@ async function verify(cert) {
     }
   }
 
+  // === 25. THE SAME VOCABULARY RULE, APPLIED TO LESSONS =====================
+  //
+  // items.vocabulary above reads quiz_questions. NOTHING HAS EVER READ LESSONS.
+  //
+  // That gap is not theoretical. On 2026-09-11, translating SM-AI-II's 44
+  // lessons surfaced "self-organisation" sitting in a GRADED CHECKPOINT OPTION
+  // on a live certification, and "replaced in one of the two roles" in another -
+  // where the Guide is explicit that Scrum Master and Product Owner are
+  // accountabilities. Both had been there since the lessons were authored. The
+  // release gate passed the certification twice.
+  //
+  // A TRANSLATOR READ THE TEXT MORE CAREFULLY THAN ANY CHECK EVER HAD, which is
+  // a poor way to run a content pipeline and an excellent argument for this
+  // check.
+  //
+  // PLACEMENT DECIDES SEVERITY, exactly as it does for items:
+  //
+  //   checkpoint / interactive JSON   FAIL. A graded option or a widget the
+  //                                   learner acts on. A retired term here is
+  //                                   part of what is being assessed.
+  //   prose, headings, frontmatter    WARN. A lesson may legitimately QUOTE a
+  //                                   retired term in order to retire it -
+  //                                   02-03 does exactly that, and a FAIL there
+  //                                   would be the check editing the content.
+  //
+  // The soft family (ceremony / role and their translations) is WARN everywhere
+  // and must be READ: "an unfilled role" and "no role in anyone's employment"
+  // are ordinary English, and six of the seven hits in SM-AI-II were.
+  if (!isScrum) {
+    R.skip("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons", "not a Scrum certification");
+  } else if (lessons.length === 0) {
+    R.skip("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons", "no lessons");
+  } else {
+    // Split content_md into graded blocks (::checkpoint, ::interactive) and the
+    // rest. A block runs from its ':' ':' marker to a line that is exactly '::'.
+    const gradedAndProse = (md) => {
+      const lines = String(md || "").split(/\r?\n/);
+      let graded = [], prose = [], cur = null;
+      for (const line of lines) {
+        const m = line.match(/^::([a-z-]+)/);
+        if (m) { cur = (m[1] === "checkpoint" || m[1] === "interactive") ? graded : prose; continue; }
+        if (/^::\s*$/.test(line)) { cur = null; continue; }
+        (cur ?? prose).push(line);
+      }
+      return { graded: graded.join("\n"), prose: prose.join("\n") };
+    };
+    const hardFor = (lang) => RETIRED_HARD[lang];
+    const softFor = (lang) => RETIRED_SOFT[lang];
+    const hardGraded = [], hardProse = [], soft = [];
+    for (const l of lessons) {
+      const { graded, prose } = gradedAndProse(l.content_md);
+      const h = hardFor(l.language), sf = softFor(l.language);
+      const where = `${l.language}/${l.slug}`;
+      // ASSERTED vs QUOTED, and the property is POSITIONAL rather than lexical -
+      // the same distinction migration 290 settled for grounding notes. A lesson
+      // that TEACHES the 2020 change must say the retired word:
+      //
+      //   "**self-managing** (not \"self-organizing\")"        <- correct content
+      //   "the 2017 term 'self-organizing' covered who and how"  <- correct content
+      //   "Developers ... self-organize to deliver it"       <- ASSERTED. A defect.
+      //
+      // So a hit is cleared when it sits inside quotation marks, or within 90
+      // characters of its own 2020 replacement. Verified 2026-09-11 to separate
+      // SD-AI-I 05-08 and SM-AI-I 02-05 (both teaching the change) from
+      // SPO-AI-I 03-04 (asserting the retired term as current fact).
+      //
+      // ITS LIMIT, STATED: prose that discusses the change without quoting or
+      // naming the replacement nearby still fails. That is the safe direction -
+      // a false FAIL gets read, a false PASS does not.
+      // Developers WAS HERE AND CLEARED NINE REAL DEFECTS. It is ordinary
+      // Scrum prose, not a contrast signal: "Developers size their own work ... and
+      // self-organize to deliver it" has Developers 60 characters away and is a
+      // straight assertion of the retired term. Only the actual REPLACEMENTS for
+      // self-organizing count; `development team` relies on the quotation test.
+      const REPLACEMENT = /self-managing|autogestionad|autogerenciad/i;
+      const QUOTE = /["’‘“”']/;
+      const asserted = (text, re) => {
+        for (const m of text.matchAll(new RegExp(re.source, "gi"))) {
+          const before = text.slice(Math.max(0, m.index - 90), m.index);
+          const around = text.slice(Math.max(0, m.index - 90), m.index + m[0].length + 90);
+          // QUOTED is tested BY POSITION - the character just before the term
+          // opens a quotation - rather than by building a regex out of the match.
+          // The first version of this line built one, and destroyed itself: `$&`
+          // inside a replacement string means the OUTER match, not a literal.
+          const quoted = QUOTE.test(before.slice(-1)) || QUOTE.test(before.slice(-2, -1));
+          if (!quoted && !REPLACEMENT.test(around)) return m[0];
+        }
+        return null;
+      };
+      const gradedHit = h ? asserted(graded, h) : null;
+      if (gradedHit) hardGraded.push(`${where} [GRADED] ${gradedHit}`);
+      if (h && h.test(prose)) hardProse.push(`${where} [prose] ${(prose.match(h) || [""])[0]}`);
+      if (sf && sf.test(`${graded}\n${prose}`)) {
+        const hit = (`${graded}\n${prose}`.match(sf) || [""])[0];
+        soft.push(`${where} ${hit}`);
+      }
+    }
+    if (hardGraded.length > 0) {
+      R.fail("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
+        `${hardGraded.length} lesson(s) carry a retired term INSIDE A GRADED BLOCK - a checkpoint option or an interactive widget`,
+        hardGraded.slice(0, 10));
+    } else if (hardProse.length > 0 || soft.length > 0) {
+      R.warn("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
+        `${hardProse.length} retired term(s) in lesson PROSE (a lesson may be quoting one in order to retire it - read each), ${soft.length} ceremony/role-family hit(s) across all languages`,
+        [...hardProse, ...soft].slice(0, 10));
+    } else {
+      R.pass("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
+        `${lessons.length} lesson rows across all languages`);
+    }
+  }
+
   // === 22. NO DUPLICATE STEMS ===============================================
   // Two items with identical text can both be drawn into one session, so a
   // learner answers the same question twice. Found in AIE-I among the ungrouped

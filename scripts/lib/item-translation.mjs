@@ -184,10 +184,18 @@ export const RETIRED_HARD = {
   "pt-BR": /auto-?organiz\w*|\b(time|equipe) de desenvolvimento\b/i,
 };
 
+// SOFT = ordinary language as often as the retired term. WARN and READ; never
+// gate on it. The ceremony family earned that treatment across 792 items. ROLE
+// earned it on 2026-09-11 across SM-AI-II's lesson prose, where SEVEN hits were
+// SIX ordinary uses - "an unfilled role", "no role in anyone's employment", "it
+// supplies no interim role" - and ONE retired one: a checkpoint option calling
+// Scrum Master and Product Owner "the two roles", where the 2020 Guide says
+// accountabilities. A hard pattern on `role` would fail correct content six
+// times out of seven, which is how a checker teaches people to skim it.
 export const RETIRED_SOFT = {
-  en: /\bceremon(y|ies)\b/i,
-  "es-419": /\bceremonias?\b/i,
-  "pt-BR": /\bcerim[oô]nias?\b/i,
+  en: /\bceremon(y|ies)\b|\broles?\b/i,
+  "es-419": /\bceremonias?\b|\broles?\b/i,
+  "pt-BR": /\bcerim[oô]nias?\b|\bpap[eé](l|is)\b/i,
 };
 
 /** Back-compat for any caller wanting both. Prefer the split above. */
