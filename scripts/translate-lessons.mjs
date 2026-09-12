@@ -406,6 +406,28 @@ Scrum, Sprint, Sprint Planning, Sprint Review, Sprint Retrospective, Sprint Back
 
 "Scrum Guide" IS DELIBERATELY NOT ON THAT LIST ANY MORE. It was, and the model would not honour it: across 88 lesson translations on 2026-09-11 it rendered "the 2020 Scrum Guide" as "la Guia de 2020" / "o Guia de 2020" in six files, and a targeted re-translation pass reproduced five of the six. That is idiomatic, unambiguous in context, and not wrong - and A FROZEN-TERM LIST THAT INCLUDES SOMETHING THE TRANSLATOR WILL NOT HONOUR TEACHES PEOPLE TO IGNORE THE LIST. Two passes showed it; a third would have shown it again. Translate the Guide reference naturally.
 
+A SECOND CORPUS, SAME QUESTION, 2026-09-12. AIMS-IA, 40 lessons x 2 languages.
+The twelve ISO management-system terms were honoured 374 times out of 374, in
+both languages, with no competing rendering anywhere. In the SAME RUN, under the
+SAME prompt, the 'clause' rule two bullets above - never clausula, use apartado
+or capitulo - was ignored six times across two es-419 files, which rendered ISO
+references as clausula 3.5, 3.11, 3.15, 3.16, 3.17.
+
+THE CONFOUND IS STATED BECAUSE IT MATTERS: those twelve terms were ALSO already
+in the prose bullet list here, so the passing rules were stated TWICE - once in
+prose and once as a table carrying the count of lessons in the existing
+catalogue that use each rendering - while 'clause' was stated ONCE. This is not
+a clean table-versus-prose experiment and must not be quoted as one. What it
+supports is narrower and still useful: a rule restated as a table with evidence
+beat the same rule's neighbours stated once, on the same page, on the same run.
+
+The other plausible reading is that clausula is simply the strongest cognate
+attractor on the list and would defeat any phrasing. Both readings predict the
+same action, which is why this is actionable rather than merely interesting:
+WHEN ADDING A RULE TO ANY OF THESE PROMPTS, GIVE IT THE TABLE TREATMENT AND
+CARRY THE EVIDENCE - and when a rule is violated anyway, do not just re-word it,
+MEASURE whether it was violated before deciding it is now fixed.
+
 ${contractForDomain(domain).vocabulary}
 
 Return only the full file content.`;

@@ -403,6 +403,52 @@ candidate a legacy document rather than asserting the term. Those get
 `retired_vocabulary_intent = 'quoted'` (migration 298), not a fix. The rest are
 defects.
 
+### FOUR INSTRUMENT DEFECTS ON ONE CHECK IN ONE EVENING (2026-09-12)
+
+The AIMS-IA translation check - 80 files, three parts, ~1,494 assertions - was
+run five times. **Every failure it reported on a first run was a defect in the
+check. Not one was a defect in the content.** In order:
+
+| # | the defect | what it reported | what was true |
+|---|---|---|---|
+| 1 | patterns required the SINGULAR adjacent phrase | 20 failures | the translations say `auditorias internas`, `acciones correctivas` - plural, and correct. Spanish and Portuguese inflect the noun AND the adjective |
+| 2 | `/internal audit/i` matched the prefix of `internal AUDITOR` | 2 failures | `auditor interno` is a PERSON, correctly rendered, and is not the process term. The `sub-equipo de desarrollo` boundary bug in a new costume |
+| 3 | pt-BR plural of `informacao` is `informacOES`, not `informacao`+`es` | 1 failure | the file uses the correct plural NINE TIMES |
+| 4 | **`\m` and `\M` - POSTGRES word-boundary operators - inside a JAVASCRIPT regex** | **374/374, clean** | in JS `\m` is a literal `m`. The guard searched for `mclausulaM`, could never match, and **six real violations passed under it** |
+
+**THE FOURTH IS THE WORST AND IT IS NOT CLOSE.** The first three cried wolf -
+loud, annoying, self-correcting, because a false failure gets read. The fourth
+was silent: it sat beside a Scrum-leakage assertion using `\b` that DID work,
+inside a block that returned a plausible number, and it reported the corpus
+clean. **A guard that cannot fail is worse than no guard, because it reports a
+number** - and it was that number, 374/374, that would have been quoted as
+evidence the contract held.
+
+The tell was available and was not looked for: a forbidden-term assertion that
+has never fired on a corpus of 28,000 rows and 80 fresh translations has not
+been shown to be strict. **A guard with no recorded hit is unverified, not
+clean.**
+
+### THE DEFENCE, AND IT WAS THE SAME ONE EVERY TIME
+
+**READ THE OUTPUT, NOT THE COUNT.** Every one of these was caught by looking at
+text rather than at a total, and none by re-running anything:
+
+- defects 1-3: reading the failing passages, which said `auditorias internas`,
+  `auditor interno`, `informacoes documentadas` - all correct.
+- defect 4: reading the per-term table, where `clause` showed a competing
+  rendering in 3 files while the guard beside it said clean. **The two numbers
+  disagreed and one of them was a lie.**
+- and the repair of defect 4's fallout: the dry run printed
+  **"La apartado 3.5"**. `clausula` is feminine, `apartado` masculine, so the
+  article and the relative pronoun had to move with the noun
+  (`siendo la clausula 3.15 la que` -> `siendo el apartado 3.15 el que`).
+  **A count would have read 6 replacements and been satisfied.** Only the text
+  shows a swap that landed ungrammatical - which is rule 5 above, caught in the
+  act, on the change made to satisfy rule 5.
+
+---
+
 ### TWO ADJUDICATIONS FROM 2026-09-12, RECORDED SO THEY ARE NOT RE-LITIGATED
 
 **1. `7a8e3341` (SM-AI-I practice, 5.8) STAYS AS IT IS, AND STAYS A WARN.**
