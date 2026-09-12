@@ -148,6 +148,33 @@ async function verify(cert) {
   const R = new Report(cert.code);
   const id = cert.id;
 
+  // A DROPPED READ MUST NOT BECOME A CONTENT VERDICT.
+  //
+  // Observed 2026-09-11 during a --all sweep: AIMS-IA's item fetch returned an
+  // error, `const { data }` discarded it, `questions` stayed empty, and the run
+  // reported THREE confident failures - 120 task/language slots "below floor" and
+  // a pool that "cannot fill a form at the declared profile" - against a bank of
+  // 2,160 healthy items. The very next run read 49 pass / 0 fail / 5 warn. The
+  // verdict was manufactured by a network blip.
+  //
+  // THAT IS WORSE THAN A SKIP. It names rows, it looks exactly like real content
+  // debt, and whoever chases it finds nothing wrong - which is how a checker
+  // teaches people to discount it. The same shape as the silent 42501 a missing
+  // grant produces, and the same shape as the i18n check that skipped rather than
+  // failed when review_status did not exist: A FAILURE-TOLERANT READ REPORTING A
+  // BROKEN QUERY AS A FINDING ABOUT THE DATA.
+  //
+  // So every fetch that feeds a verdict goes through here and aborts the run.
+  const must = async (label, q) => {
+    const { data, error, count } = await q;
+    if (error) {
+      console.error(`\n  !! READ FAILED  ${cert.code}/${label}: ${error.message}`);
+      console.error(`     Aborting. A dropped read must not be reported as a content defect.\n`);
+      process.exit(1);
+    }
+    return { data, count };
+  };
+
   // --- fetch everything once -------------------------------------------------
   // NOTE: tasks.bloom_level and certifications.exam_blueprint. The verifier could not
   // previously SEE either - which is precisely why nothing ever checked that an item
@@ -163,7 +190,7 @@ async function verify(cert) {
   const taskIds = (tasks ?? []).map((t) => t.id);
   const modIds = (modules ?? []).map((m) => m.id);
 
-  const { data: tcs } = await db.from("task_concepts").select("task_id, concept_id").in("task_id", taskIds.length ? taskIds : ["00000000-0000-0000-0000-000000000000"]);
+  const { data: tcs } = await must("task_concepts", db.from("task_concepts").select("task_id, concept_id").in("task_id", taskIds.length ? taskIds : ["00000000-0000-0000-0000-000000000000"]));
 
   // questions (paged; banks can exceed the default row cap)
   //
@@ -178,12 +205,14 @@ async function verify(cert) {
   // above their true totals. The bug had been latent for months.
   let questions = [];
   for (let from = 0; ; from += 1000) {
-    const { data } = await db.from("quiz_questions")
+    // `!data` below used to mean BOTH "no more pages" and "the query failed".
+    // Conflating them is what let one dropped page report an empty bank.
+    const { data } = await must(`quiz_questions[${from}]`, db.from("quiz_questions")
       .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation")
       .eq("certification_id", id)
       .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
-      .range(from, from + 999);
+      .range(from, from + 999));
     if (!data || data.length === 0) break;
     questions.push(...data);
     if (data.length < 1000) break;
@@ -199,15 +228,17 @@ async function verify(cert) {
   const secureIds = questions.filter((q) => q.pool === "secure").map((q) => q.id);
   let leaked = 0;
   for (let i = 0; i < secureIds.length; i += 300) {
-    const { count } = await db.from("question_concepts")
+    // `count ?? 0` on an errored read reports ZERO LEAKED LINKS, which is the
+    // answer that passes. A secure-firewall check must never fail open.
+    const { count } = await must(`question_concepts[${i}]`, db.from("question_concepts")
       .select("question_id", { count: "exact", head: true })
-      .in("question_id", secureIds.slice(i, i + 300));
+      .in("question_id", secureIds.slice(i, i + 300)));
     leaked += count ?? 0;
   }
 
   let lessons = [];
   if (modIds.length) {
-    const { data } = await db.from("lessons").select("id, module_id, language, slug, lesson_group_id, content_md").in("module_id", modIds);
+    const { data } = await must("lessons", db.from("lessons").select("id, module_id, language, slug, lesson_group_id, content_md").in("module_id", modIds));
     lessons = data ?? [];
   }
 
