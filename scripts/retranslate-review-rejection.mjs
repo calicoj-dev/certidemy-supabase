@@ -84,9 +84,17 @@ if (TASK) {
   english = data[0].title; srcId = data[0].id; table = "domain_translations"; col = "domain_id"; label = `domain ${DOMAIN}`;
 }
 
-const { data: before } = await db.from(table).select(TASK ? "statement" : "title", { head: false }).eq(col, srcId).eq("language", LANG);
+// review_status is read BEFORE the write so the post-condition can assert it did
+// not move. Selected defensively: the column does not exist until migration 295,
+// and this script must keep working either side of it.
+const beforeSel = TASK ? "statement, review_status" : "title, review_status";
+let { data: before } = await db.from(table).select(beforeSel, { head: false }).eq(col, srcId).eq("language", LANG);
+if (!before) {
+  ({ data: before } = await db.from(table).select(TASK ? "statement" : "title", { head: false }).eq(col, srcId).eq("language", LANG));
+}
 if (!before || before.length !== 1) { console.error(`ABORT: ${label} ${LANG} has ${before?.length ?? 0} translation rows, expected 1`); process.exit(1); }
 const prev = TASK ? before[0].statement : before[0].title;
+const statusBefore = before[0].review_status;
 
 // --- translate ---------------------------------------------------------------
 const field = TASK ? "statement" : "title";
@@ -117,11 +125,33 @@ console.log(`  NEW       ${next}`);
 
 if (APPLY) {
   // is_provisional stays TRUE. A re-translation has not been reviewed.
+  //
+  // AND review_status IS NOT IN THIS PATCH, DELIBERATELY (migration 295). REJECTED
+  // IS STICKY: only a human approval clears it. Writing 'unreviewed' here would
+  // discard the single most useful thing known about the row - that it was wrong
+  // once - which is exactly what makes it high-risk. Writing 'approved' would make
+  // the flag mean "a script is confident", the failure the flag exists to prevent.
+  // So this script touches the TEXT and nothing else about the row's review state.
   const patch = { [field]: next, is_provisional: true };
   const { error, count } = await db.from(table).update(patch, { count: "exact" }).eq(col, srcId).eq("language", LANG);
   if (error) { console.error(`write failed: ${error.message}`); process.exit(1); }
   if (count !== 1) { console.error(`updated ${count} rows, expected 1`); process.exit(1); }
-  console.log(`\n  written, and left PROVISIONAL - it needs re-reading before it is approved.`);
+
+  // BOTH DIRECTIONS. The text must have changed and the review state must NOT have.
+  // trg_demote_translation_review fires on a text change and demotes 'approved';
+  // this row is 'rejected', so it must pass through untouched. Reading it back is
+  // how we find out if that ever stops being true.
+  const { data: after } = await db.from(table).select(`${field}, is_provisional, review_status`)
+    .eq(col, srcId).eq("language", LANG);
+  const a = after && after[0];
+  if (!a || a[field] !== next || a.is_provisional !== true) {
+    console.error(`  POST-CONDITION FAILED: the re-translation did not land as written`); process.exit(1);
+  }
+  if (a.review_status !== undefined && a.review_status !== statusBefore) {
+    console.error(`  POST-CONDITION FAILED: review_status moved ${statusBefore} -> ${a.review_status}; a re-translation must not change it`);
+    process.exit(1);
+  }
+  console.log(`\n  written, review_status still ${a.review_status ?? "(pre-295)"} - it needs re-reading before it is approved.`);
 } else {
   console.log(`\n[dry] Re-run with --apply to write. It will stay provisional either way.`);
 }

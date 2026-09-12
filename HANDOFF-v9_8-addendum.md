@@ -1,14 +1,16 @@
 # HANDOFF v9.8 addendum — SM-AI-II is visible, and the policy that hid it
 
 **Date:** 2026-09-11
-**Covers:** everything after `HANDOFF-v9_8.md` — migrations 292, 293, 294,
-translation review round one, the tier-3 document, `verify-cert` invariant 23
+**Covers:** everything after `HANDOFF-v9_8.md` — migrations 292, 293, 294, 295,
+translation review rounds one AND two, `verify-cert` invariants 23 and the
+three-state `i18n.approved`
 **Repos:** `supabase` (this one) and `../certidemy-web`
 
 **The one-line state:** `SM-AI-II` went from **46 pass / 5 fail / 2 warn** to
 **52 pass / 1 fail / 3 warn**, and the row is now readable by `anon` — it appears on
-`/certifications` as `coming_soon`. The single remaining failure is `i18n.approved`,
-which needs a bilingual human and not a script.
+`/certifications` as `coming_soon`. **All 98 blueprint translation rows have now been
+read by a human**; the single remaining failure is the four they rejected, whose repairs
+are written and await a re-read.
 
 **If you read one section of this document, read §2.** It is the only place the RLS
 finding is written down in prose; everywhere else it exists only in commit messages.
@@ -28,7 +30,7 @@ finding is written down in prose; everywhere else it exists only in commit messa
 | `catalogue.description` | **fixed**, three languages |
 | `jta.translated` | **fixed** — 5 domains x 44 tasks x 2 languages |
 | `samples.public` | **fixed** — six samples, six distinct tasks |
-| — | **`i18n.approved` FAILS: 71 of 98 rows provisional.** See §5 |
+| — | **`i18n.approved` FAILS: 4 of 98 rejected.** Was 71 provisional; two review rounds cleared 94. See §5 |
 
 The three warnings are declared in `SCHEME` §12 and one is new: `items.vocabulary`
 now warns on **42 `ceremony`/`ceremonia`/`cerimonia` hits across three languages**,
@@ -235,22 +237,26 @@ real failure gets triaged as noise.
 
 ---
 
-## 5. TRANSLATION REVIEW, ROUND ONE — and the finding that generalises
+## 5. TRANSLATION REVIEW, TWO ROUNDS — and the finding that generalises
 
 **98 rows** (5 domains + 44 tasks, two languages). `scripts/gen-translation-review-doc.mjs`
 emits a markup-able document; `apply-translation-review.mjs` reads it back and clears
 `is_provisional` only for approved rows.
 
 **Round one covered 28 rows — the two highest-consequence tiers.** Result: **27 approved,
-1 rejected.** Current state, read from the database:
+1 rejected.** The 17 approved task rows were D5's nine statements in both languages,
+minus the one rejection.
+
+**Round two covered the remaining 70** — D1–D4 task statements, read by the scheme owner
+with Grok. Result: **67 approved, 3 rejected.** Current state, read from the database:
 
 ```
 domain_translations   10 rows,  0 provisional
-task_translations     88 rows, 71 provisional
+task_translations     88 rows,  4 provisional
 ```
 
-The 17 approved task rows are D5's nine statements in both languages, **minus the one
-rejection**.
+**All four remaining provisional rows are re-translations awaiting a re-read. Not one is
+unreviewed.** That inversion is what earned migration 295 — see §6.
 
 ### The rejection, and why no check could have caught it
 
@@ -275,8 +281,33 @@ up as `TRANSLATION-PIPELINE.md` §3.6 and it **generalises to every trilingual c
 this platform ships**: one document, every language for a row adjacent, one shared
 English above them. Never one file per language.
 
-The re-translation is written and **left provisional on purpose** — a re-translation has
-not been reviewed, and clearing the flag would make it mean "a script is confident".
+### Round two's three, and the second contract entry
+
+| row | defect |
+|---|---|
+| **1.9 es-419** | *"mejora **de** la Sprint Retrospective"* reads as improving the **event**. The task is an improvement **identified at** the Retrospective that would require omitting a Scrum element. |
+| **1.9 pt-BR** | Same defect, same repair — *"uma melhoria identificada **na** Sprint Retrospective"*. |
+| **3.8 es-419** | *"compromiso"* is the 2020 Spanish for **COMMITMENT**. The English is *engagement*. |
+
+**3.8 is sharper than round one's `throughput`/`rendimiento`, because `compromiso` is not
+a wrong word — it is the CORRECT rendering of a DIFFERENT Scrum term this credential
+tests by name.** Measured rather than recalled: **eleven SM-AI-II tasks across D1, D2, D4
+and D5** turn on an artifact commitment, so a candidate meeting *"pierde el compromiso del
+Product Owner"* in D3 has a live ambiguity. Repaired to `involucramiento`.
+
+**1.9 is not a false friend at all**, and it got its own heading in the contract for that
+reason. Every word of *"mejora de la Sprint Retrospective"* is correct; the **preposition**
+moves the subject of the task. **It failed in both languages identically** — a defect
+reproducing across two independent translations is not a slip, it is the shortest natural
+rendering beating the accurate one, and filing it under vocabulary would have taught the
+next translator to check words.
+
+`lib/item-translation.mjs` now carries four false friends and a separate **ATTACHMENT**
+block.
+
+All three re-translations are written and **left provisional on purpose** — a
+re-translation has not been reviewed, and clearing the flag would make it mean "a script
+is confident".
 `lib/item-translation.mjs` gained a FALSE FRIENDS block recording `throughput` ≠
 `rendimiento`, `submitted` ≠ `entregado`, and the load carried by *performing Scrum*.
 
@@ -295,25 +326,150 @@ explaining the layout.
 
 ---
 
-## 6. OPEN ITEMS CARRIED FORWARD
+## 6. MIGRATION 295 — `is_provisional` GETS A THIRD STATE
+
+> **STATUS: RAN CLEAN, 2026-09-11.** Pre-conditions and post-conditions both silent,
+> behaviour probe passed. Final counts exactly as predicted: `domain_translations`
+> approved 116; `task_translations` approved 1,010, rejected 4, unreviewed 2.
+
+After round one this was written up as a proposal and **held on purpose**: one rejection
+in 28 rows is not evidence, and hardening schema around a single observation is how a
+threshold gets set from three banks. Two rounds now exist.
+
+| round | rejected | rows | rate |
+|---|---|---|---|
+| one — domains + D5 | 1 | 28 | 3.6% |
+| two — D1–D4 | 3 | 70 | 4.3% |
+| **both** | **4** | **98** | **4.1%** |
+
+**The rate is not what decided it.** Rejection is rare and steady — it neither exploded
+nor vanished. What decided it is that **the state persists and the boolean's meaning has
+inverted**. `5.7 es-419` was rejected in round one, repaired within the hour, and was
+still provisional after round two — it survived an entire review cycle without being
+re-read. By then all four provisional rows were re-translations awaiting re-read, so the
+check said this, and **every word was false for every row it was failing on**:
+
+```
+FAIL §11  4 of 98 provisional - the English moved, or they were never reviewed
+```
+
+**A column that cannot express the state produces a check that misdescribes 100% of the
+rows it fails on. That is worse than imprecision.**
+
+**Rarity argues FOR the column, not against it.** A failure reading 71 of 98 gets worked;
+a failure reading 4 of 98 reads as *nearly done* and gets deferred — and those four are
+the highest-risk rows in the set, each a known meaning defect whose repair nobody has
+checked. All four defects were **meaning**; none was a typo.
+
+### Sticky rejected
+
+`review_status` is **the worst thing known about this row until cleared.** Only a human
+approval clears `rejected` — a re-translation does not, because returning the row to
+`unreviewed` would discard the single most useful thing known about it.
+
+```
+any rejected                    -> FAIL, naming the rows
+none rejected, some unreviewed  -> WARN with the fraction
+all approved                    -> PASS
+```
+
+**SD-AI-I is the worked example of why this is not cosmetic.** Task 2.3 is provisional in
+both languages because *nobody has read it*. Today it produces the same FAIL as a
+known-wrong translation still being served. After 295, SD-AI-I **warns** and SM-AI-II
+**fails** — which is the difference the whole column exists for.
+
+### The writer list, and the two writers no grep of application code finds
+
+Nine writers of `task_translations` / `domain_translations`, enumerated across both
+repos. **Two of them are database triggers** — `trg_invalidate_task_translations` and
+`trg_invalidate_domain_translations` — which set `is_provisional = true` when the
+**English** moves, and appear in no search for `from("task_translations")`. **That is the
+rare path**: it fires during a JTA revision and at no other time.
+
+**Seven of nine writers would have left the new column stale, and six of those write
+text.** Editing seven call sites across two repos is the drift-prone option and
+guarantees the eighth writer nobody has written yet gets it wrong. So the invariant is
+enforced **structurally**, by a trigger on the translation tables themselves: *if the
+translated text changes and the row said approved, it is no longer approved.* That holds
+for writers nobody has enumerated and writers that do not exist yet. The two triggers on
+`tasks`/`domains` are updated in the same migration to demote `approved` alongside the
+boolean.
+
+**Scope stated rather than left implicit:** `review_status` pairs with `is_provisional`,
+the statement/title half. `task_translations` also carries K/S/A under a separate
+`ksa_is_provisional`, which is **not** addressed — it would need its own column and its
+own backfill of a review state nobody has ever recorded.
+
+**The backfill inherits a claim it does not audit.** `not is_provisional -> approved`
+maps 1,126 rows across thirteen certifications. `is_provisional = false` is *already*
+defined as "a human compared this to the English", so the mapping makes an existing claim
+explicit rather than making a new one. If that claim was ever optimistic, it was
+optimistic before 295.
+
+### THE DEMOTE TRIGGER WILL SURPRISE SOMEONE — read this before you file a bug
+
+**If you re-run `gen-jta-translations.mjs` or `load-jta-i18n.mjs` against AIMS-IA,
+ISMS-IA or any other certification, its `i18n.approved` check will move from PASS to
+WARN and its approved rows will read `unreviewed`.**
+
+**That is the trigger working, not a regression.** The generator rewrites the translated
+text; nobody has re-read the new text; therefore it is not approved. Before 295 the same
+run silently left rows marked as reviewed while replacing the words a human had reviewed
+— which is precisely the lie the column exists to stop telling.
+
+What it looks like:
+
+```
+before   PASS  §11  Translations reviewed against current English   98 rows, all approved
+after    WARN  §11  Translations reviewed against current English   0 of 98 reviewed; 98 not yet read by a human
+```
+
+**It is a WARN, not a FAIL**, because unreviewed is not the same as known-wrong — that
+distinction is the entire point of the column. The fix is a review round, not a
+migration, and the review documents are generated by
+`scripts/gen-translation-review-doc.mjs`.
+
+**Nothing demotes a `rejected` row**, and nothing is demoted by an approval: the trigger
+fires only on a text change and touches only `approved`. Running
+`apply-translation-review.mjs` or `retranslate-review-rejection.mjs` cannot trip it.
+
+### The bug the companion edit found, which is the more useful half
+
+Adding `review_status` to `verify-cert`'s select and running it **before** the migration
+did not fail. It **skipped** — and SM-AI-II went from **1 fail to 0 fail with nothing
+fixed**:
+
+```
+skip §11  Translations reviewed against current English   no translations loaded
+```
+
+PostgREST rejects the whole query when a selected column does not exist, so `data` came
+back `null`, `?? []` turned it into an empty set, and an empty set reads as *this
+certification has no translations*. **A failure-tolerant read reported a broken query as
+progress** — the same shape as the silent `42501` a missing grant produces, one layer up.
+The error is now captured and named, and the check fails on it:
+
+```
+FAIL §11  the translation tables could not be read: column task_translations.review_status
+          does not exist - if this names review_status, migration 295 has not run
+```
+
+---
+
+## 7. OPEN ITEMS CARRIED FORWARD
 
 **The two that block SM-AI-II's release:**
 
-1. **`i18n.approved` — 71 of 98 rows provisional.** The tier-3 document is generated and
-   waiting for a bilingual reader. This is the last failing check and it is not
-   automatable; §5 is the argument for why.
+1. **Four rejected rows need a re-read** — `1.9` es-419, `1.9` pt-BR, `3.8` es-419,
+   `5.7` es-419. All four repairs are written; none has been reviewed. This is the last
+   failing check, it is a person's ten minutes rather than a script, and **`5.7` has been
+   waiting since round one** — which is the fact that earned §6.
 
-2. **`is_provisional` is one boolean carrying three meanings.** `verify-cert` cannot
-   distinguish *"nobody has read anything"* from *"the highest-consequence rows were read
-   and the rest are honestly marked"* — it fails both identically, and one of them is a
-   certification doing the work in priority order. **Softening the check is not the fix**,
-   because a third state must still fail: a reviewer-REJECTED row is a known wrong
-   translation still being served. What would earn it is a `review_status` of
-   `unreviewed | approved | rejected` alongside the boolean.
-   **Held on purpose until a second round** — one rejection in 28 rows may be the steady
-   rate or the first of many, and hardening schema around a single observation is how a
-   threshold gets set from three banks. Run tier 3, then decide. The proposal is written
-   out in full in `scripts/apply-translation-review.mjs`'s docblock.
+2. **Run migration 295 and commit it with its three companion script edits.** Until it
+   runs, `verify-cert` fails every certification on a read error naming the missing
+   column. *(The proposal that became 295 is preserved in
+   `scripts/apply-translation-review.mjs`'s docblock, alongside a note on why the
+   deciding fact was not the one it predicted.)*
 
 **Also open, and larger than either:**
 
@@ -345,7 +501,7 @@ explaining the layout.
 
 ---
 
-## 7. THE HONEST POSITION
+## 8. THE HONEST POSITION
 
 SM-AI-II is **listed**, not sellable. The blueprint a reader now sees is one written to
 be read by a candidate or an assessor rather than by whoever last edited the generator,
@@ -354,8 +510,16 @@ floors.
 
 **What it does not have is a human panel.** The item bank is pipeline-drafted with an
 independent critique pass, and the blueprint says so. That is editorial rigour; it is not
-the independent SME-panel validation ISO/IEC 17024 requires, and nothing in this
-addendum changes that. 71 of 98 blueprint rows have never been read by a bilingual human,
-and one of the 28 that were read was wrong in a way no automated check could see.
+the independent SME-panel validation ISO/IEC 17024 requires, and nothing in this addendum
+changes that.
 
-**The tier-3 review is the next thing, and it is a person's afternoon, not a script.**
+**What changed is the blueprint, not the bank.** All 98 blueprint rows have now been read
+by a bilingual human across two rounds, and **four of them were wrong** — 4.1%, every one
+a meaning defect rather than a typo, and every one invisible to the retired-vocabulary
+gate, the generator and the critique pass. A 4% human-detected defect rate on text two
+independent machine passes had already approved is the most useful number in this
+document, and it is a number about the **blueprint**. The 2,376 items have had no
+equivalent read.
+
+**The next thing is the four re-reads. After that, the item bank is what nobody has
+looked at.**

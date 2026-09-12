@@ -359,9 +359,9 @@ async function verify(cert) {
   // Translations and schema guardrails - fetched after tasks/domains so ids exist.
   const txTaskIds = (tasks ?? []).map((t) => t.id);
   const txDomainIds = (domains ?? []).map((d) => d.id);
-  const [{ data: taskTx }, { data: domTx }, { data: guard }] = await Promise.all([
-    txTaskIds.length ? db.from("task_translations").select("task_id, language, is_provisional").in("task_id", txTaskIds) : { data: [] },
-    txDomainIds.length ? db.from("domain_translations").select("domain_id, language, is_provisional").in("domain_id", txDomainIds) : { data: [] },
+  const [{ data: taskTx, error: taskTxErr }, { data: domTx, error: domTxErr }, { data: guard }] = await Promise.all([
+    txTaskIds.length ? db.from("task_translations").select("task_id, language, is_provisional, review_status").in("task_id", txTaskIds) : { data: [] },
+    txDomainIds.length ? db.from("domain_translations").select("domain_id, language, is_provisional, review_status").in("domain_id", txDomainIds) : { data: [] },
     db.from("v_schema_guardrails").select("*").maybeSingle(),
   ]);
   const taskById = new Map((tasks ?? []).map((t) => [t.id, t]));
@@ -622,25 +622,58 @@ async function verify(cert) {
   // wording migration 091 had already superseded; the Spanish blueprint said
   // "Explicar los tres pilares" while the exam measured "Apply the three pillars
   // to diagnose which pillar is broken".
-  const txProvisional = [
-    ...(taskTx ?? []).filter((r) => r.is_provisional).map((r) => {
-      const t = taskById.get(r.task_id);
-      return `task ${t ? t.code : r.task_id}/${r.language}`;
-    }),
-    ...(domTx ?? []).filter((r) => r.is_provisional).map((r) => {
-      const d = (domains ?? []).find((x) => x.id === r.domain_id);
-      return `domain ${d ? d.code : r.domain_id}/${r.language}`;
-    }),
-  ];
-  const txTotal = (taskTx ?? []).length + (domTx ?? []).length;
-  if (txTotal === 0) {
+  // THREE STATES SINCE MIGRATION 295, because one boolean could not carry them.
+  // The old check read is_provisional and reported two opposite situations
+  // identically: a certification that had never been reviewed, and one whose
+  // highest-consequence rows were read with the rest honestly marked. Worse, by
+  // 2026-09-11 every provisional row on SM-AI-II was a REJECTED row whose repair
+  // was awaiting a re-read - so the detail line, "the English moved, or they were
+  // never reviewed", was false for 100% of the rows it was failing on. A column
+  // that cannot express the state produces a check that misdescribes it.
+  //
+  //   any rejected                    -> FAIL, naming the rows
+  //   none rejected, some unreviewed  -> WARN with the fraction
+  //   all approved                    -> PASS
+  //
+  // SD-AI-I is the worked example of why this is not cosmetic: task 2.3 is
+  // provisional in both languages because NOBODY HAS READ IT. Before 295 that
+  // produced the same FAIL as a known-wrong translation still being served.
+  const txLabel = (r) => (r.task_id !== undefined
+    ? `task ${taskById.get(r.task_id)?.code ?? r.task_id}/${r.language}`
+    : `domain ${((domains ?? []).find((x) => x.id === r.domain_id) || {}).code ?? r.domain_id}/${r.language}`);
+  // A REJECTED READ MUST NOT LOOK LIKE AN EMPTY TABLE. PostgREST fails the whole
+  // query when a selected column does not exist, returning data: null - which the
+  // `?? []` below would turn into "no translations loaded" and a SKIP. That is the
+  // silent-success shape this file exists to catch, so the error is named here and
+  // the check fails on it rather than inferring an empty set from a broken read.
+  const txReadErr = taskTxErr || domTxErr;
+  const txRows = [...(taskTx ?? []), ...(domTx ?? [])];
+  const txTotal = txRows.length;
+  // SILENT SUCCESS IS THE FAILURE MODE HERE. If 295 has not run, review_status is
+  // undefined on every row, nothing matches 'rejected' or 'unreviewed', and this
+  // check would PASS a bank nobody has reviewed. Name it instead of inferring it.
+  const txNoColumn = txRows.filter((r) => r.review_status === undefined);
+  const txRejected = txRows.filter((r) => r.review_status === "rejected");
+  const txUnreviewed = txRows.filter((r) => r.review_status === "unreviewed");
+  if (txReadErr) {
+    R.fail("i18n.approved", "§11", "Translations reviewed against current English",
+      `the translation tables could not be read: ${txReadErr.message} - if this names review_status, migration 295 has not run`);
+  } else if (txTotal === 0) {
     R.skip("i18n.approved", "§11", "Translations reviewed against current English", "no translations loaded");
+  } else if (txNoColumn.length > 0) {
+    R.fail("i18n.approved", "§11", "Translations reviewed against current English",
+      `review_status is absent on ${txNoColumn.length} of ${txTotal} rows - migration 295 has not run, and this check cannot tell reviewed from unreviewed without it`);
+  } else if (txRejected.length > 0) {
+    R.fail("i18n.approved", "§11", "Translations reviewed against current English",
+      `${txRejected.length} row(s) REJECTED by a reviewer and not yet re-approved - a known wrong translation is being served`,
+      txRejected.map(txLabel).slice(0, 12));
+  } else if (txUnreviewed.length > 0) {
+    R.warn("i18n.approved", "§11", "Translations reviewed against current English",
+      `${txTotal - txUnreviewed.length} of ${txTotal} reviewed; ${txUnreviewed.length} not yet read by a human`,
+      txUnreviewed.map(txLabel).slice(0, 12));
   } else {
-    txProvisional.length === 0
-      ? R.pass("i18n.approved", "§11", "Translations reviewed against current English", `${txTotal} rows, none provisional`)
-      : R.fail("i18n.approved", "§11", "Translations reviewed against current English",
-          `${txProvisional.length} of ${txTotal} provisional - the English moved, or they were never reviewed`,
-          [...new Set(txProvisional)].slice(0, 12));
+    R.pass("i18n.approved", "§11", "Translations reviewed against current English",
+      `${txTotal} rows, all approved`);
   }
 
   // === 15c. THE STATEMENT'S VERB AGREES WITH ITS DECLARED LEVEL =============

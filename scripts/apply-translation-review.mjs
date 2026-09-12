@@ -31,6 +31,27 @@
  *   A ROW THAT RESOLVES TO NO DATABASE ROW, or to more than one. A document out of step
  *   with the schema must not half-apply.
  *
+ * THE THIRD STATE WAS BUILT. Migration 295, 2026-09-11. The proposal below is kept as
+ * written because it is the argument that earned the column, and because the decision
+ * turned on something other than what it predicted. It said to run tier 3 and then
+ * decide whether "rejected" stays RARE. It did stay rare - 1 of 28, then 3 of 70, 4.1%
+ * across both rounds - AND THAT WAS NOT THE DECIDING FACT.
+ *
+ * What decided it: the state PERSISTS. 5.7 es-419 was rejected in round one, repaired
+ * within the hour, and was still provisional after round two. By then all four of
+ * SM-AI-II's provisional rows were re-translations awaiting a re-read and NOT ONE was
+ * unreviewed, so the check's own detail line - "the English moved, or they were never
+ * reviewed" - was false for every row it was failing on.
+ *
+ * And rarity argued FOR the column, not against it: a failure reading 71 of 98 gets
+ * worked, a failure reading 4 of 98 reads as nearly done and gets deferred, and those
+ * four were the highest-risk rows in the set.
+ *
+ * REJECTED IS STICKY. A re-translation does not clear it; only a human approval does.
+ * "Worst thing known about this row until cleared."
+ *
+ * THE ORIGINAL PROPOSAL, PRESERVED:
+ *
  * THE COLUMN IS ONE BOOLEAN CARRYING THREE MEANINGS - A PROPOSAL, DELIBERATELY NOT BUILT
  * ------------------------------------------------------------------------------------
  * After round one, verify-cert's i18n.approved cannot distinguish three states it needs
@@ -67,6 +88,13 @@
  * IT NEVER SETS is_provisional BACK TO TRUE. A [!] or [ ] row is left exactly as it is.
  * Rejection is handled by re-translating and re-reviewing, not by this script, and an
  * unreviewed row is already provisional.
+ *
+ * [CORRECTED 2026-09-11 BY MIGRATION 295 - the paragraph above no longer describes this
+ * script.] A [!] row is NO LONGER left exactly as it is: it now records
+ * review_status = 'rejected' and is_provisional = true. A [ ] row is still untouched.
+ * The reason the old behaviour was wrong is the whole argument above - leaving a
+ * rejection unrecorded is what made "nobody read it" and "a human said it is wrong"
+ * indistinguishable. Re-translating is still not this script's job.
  */
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
@@ -139,8 +167,14 @@ const { data: tasks } = await db.from("tasks").select("id, code, statement").eq(
 const domByCode = new Map((domains || []).map((d) => [d.code, d]));
 const taskByCode = new Map((tasks || []).map((t) => [t.code, t]));
 
+// SINCE MIGRATION 295 THIS SCRIPT WRITES BOTH MARKS, not just the ticks. A [!]
+// row now records review_status = 'rejected' rather than being left alone, which
+// is what lets verify-cert tell "nobody read this" from "somebody read it and
+// said it is wrong". The refusals below therefore apply to rejections too: a
+// rejection recorded against English that has since moved is as wrong as an
+// approval recorded against it.
 const targets = [];
-for (const r of approved) {
+for (const r of [...approved, ...rejected]) {
   const src = r.kind === "domain" ? domByCode.get(r.key) : taskByCode.get(r.key);
   if (!src) { console.error(`  REFUSE line ${r.line}: ${r.kind} ${r.key} resolves to no row`); fatal++; continue; }
   const english = r.kind === "domain" ? src.title : src.statement;
@@ -150,22 +184,30 @@ for (const r of approved) {
     fatal++; continue;
   }
   if (!r.hash) { console.error(`  REFUSE line ${r.line}: ${r.key} ${r.lang} carries no hash`); fatal++; continue; }
-  targets.push({ ...r, srcId: src.id });
+  targets.push({ ...r, srcId: src.id, status: r.mark === "x" ? "approved" : "rejected" });
 }
 
 if (fatal) { console.error(`\n${fatal} refusal(s). NOTHING WRITTEN - the whole file is refused, because a partial application would record a review that did not happen.`); process.exit(1); }
 
 // --- report, then write ----------------------------------------------------
-for (const r of rejected) console.log(`  [!] ${r.key.padEnd(6)} ${r.lang.padEnd(7)} left provisional — ${r.note.slice(0, 90)}`);
-for (const r of unreviewed) console.log(`  [ ] ${r.key.padEnd(6)} ${r.lang.padEnd(7)} left provisional — not reviewed`);
-console.log(`\n${APPLY ? "clearing" : "[dry] would clear"} is_provisional on ${targets.length} approved row(s)`);
+for (const r of rejected) console.log(`  [!] ${r.key.padEnd(6)} ${r.lang.padEnd(7)} REJECTED, stays provisional — ${r.note.slice(0, 80)}`);
+for (const r of unreviewed) console.log(`  [ ] ${r.key.padEnd(6)} ${r.lang.padEnd(7)} left unreviewed — nobody marked it`);
+const nApp = targets.filter((t) => t.status === "approved").length;
+const nRej = targets.filter((t) => t.status === "rejected").length;
+console.log(`\n${APPLY ? "writing" : "[dry] would write"} review_status on ${targets.length} row(s): ${nApp} approved, ${nRej} rejected`);
 
 if (APPLY) {
   let wrote = 0;
   for (const t of targets) {
     const table = t.kind === "domain" ? "domain_translations" : "task_translations";
     const col = t.kind === "domain" ? "domain_id" : "task_id";
-    const { error, count } = await db.from(table).update({ is_provisional: false }, { count: "exact" })
+    // THE TWO COLUMNS ARE KEPT IN STEP HERE, not left to the reader: approved
+    // means not provisional, rejected means provisional. Migration 295's
+    // post-condition asserts that agreement across every row in both tables.
+    const patch = t.status === "approved"
+      ? { is_provisional: false, review_status: "approved" }
+      : { is_provisional: true, review_status: "rejected" };
+    const { error, count } = await db.from(table).update(patch, { count: "exact" })
       .eq(col, t.srcId).eq("language", t.lang);
     if (error) { console.error(`  write failed ${t.key} ${t.lang}: ${error.message}`); process.exit(1); }
     if (count !== 1) { console.error(`  ${t.key} ${t.lang}: updated ${count} rows, expected 1`); process.exit(1); }
