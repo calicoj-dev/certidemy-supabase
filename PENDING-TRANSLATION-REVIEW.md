@@ -1,6 +1,6 @@
 # ALL CERTIFICATIONS — translation review
 
-**Certification:** module titles and descriptions
+**Certification:** everything not yet approved
 **Generated:** 2026-09-12 — regenerate and re-check the hashes if the English has moved.
 **Scope:** tiers 1 and 2
 **Languages:** es-419 (Latin American Spanish), pt-BR (Brazilian Portuguese)
@@ -56,12 +56,26 @@ Product Goal. A translated one is a defect.
 
 ---
 
-## Module headings — every certification
+## Everything not yet approved — every certification, both tables
 
-Two blocks per module: the TITLE and the DESCRIPTION are separate rows to mark,
-because they fail differently — a title is a heading a candidate navigates by, a
-description is a paragraph they read once. One mark covering both would make a
-rejection ambiguous about which half is wrong.
+### ~SD-AI-I
+
+**Scrum Developer I — AI** — tier 1, available. 2 row(s) awaiting a reader.
+
+### SD-AI-I/2.3
+
+task statement · D2 · 3_apply
+
+    EN       Own and maintain the Sprint Backlog as a living plan
+    en#9c3c9de6
+
+    [ ] es-419   Asumir y mantener el Sprint Backlog como un pronóstico vivo
+        NOTE:
+
+    [ ] pt-BR    Assumir e manter o Sprint Backlog como uma previsão viva
+        NOTE:
+
+---
 
 ## When you are done
 
@@ -69,5 +83,5 @@ Hand this file back marked up. **It is the evidence**, not a worksheet — `veri
 `i18n.approved` check exists to record that a human compared these translations to the
 current English, and this document is what makes that a fact rather than an assertion.
 
-**0 rows in scope.** Nothing is flipped in the database until a person has read
+**2 rows in scope.** Nothing is flipped in the database until a person has read
 them, and nothing is flipped for a row marked `[!]` at all.

@@ -57,7 +57,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 
-const KNOWN = new Set(["--tiers", "--out", "--modules"]);
+const KNOWN = new Set(["--tiers", "--out", "--modules", "--pending"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) { console.error(`Unrecognised flag: ${a}`); process.exit(2); }
 }
@@ -84,8 +84,23 @@ for (const p of ["scripts/.env", ".env"]) {
 // the point of extending rather than writing a second generator is that a
 // reviewer learns one format.
 const MODULES = process.argv.includes("--modules");
+// --pending ASKS THE QUESTION BROADLY, which is the point of it.
+//
+// Tiers 1-3 are scoped to one CERT_ID. That scoping is why two SD-AI-I task
+// translations sat unreviewed from 2026-07-22 through two review passes: both
+// passes were run against SM-AI-II, and nothing ever asked "what is unreviewed
+// ANYWHERE". Same shape as the module backlog - invisible because nobody asked
+// the question broadly, not because anyone decided to skip it.
+//
+// So this mode takes no CERT_ID and sweeps every certification's
+// task_translations and domain_translations for anything not approved. If the
+// answer is two rows the document is two rows and costs a minute; the value is
+// that the answer comes from a generator rather than from a future session's
+// scoping query.
+const PENDING = process.argv.includes("--pending");
+const CROSS = MODULES || PENDING;
 const CERT_ID = process.env.CERT_ID;
-if (!CERT_ID && !MODULES) { console.error("Set CERT_ID (or pass --modules)."); process.exit(2); }
+if (!CERT_ID && !CROSS) { console.error("Set CERT_ID (or pass --modules / --pending)."); process.exit(2); }
 const db = createClient(process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.supabase.co",
   process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 
@@ -99,10 +114,12 @@ const wrap = (s, indent) => {
 };
 
 const EMPTY = { data: [] };
-const scoped = (q) => (MODULES ? EMPTY : q);
+const scoped = (q) => (CROSS ? EMPTY : q);
 
 const { data: cert } = MODULES
   ? { data: { code: "ALL CERTIFICATIONS", name: "module titles and descriptions" } }
+  : PENDING
+  ? { data: { code: "ALL CERTIFICATIONS", name: "everything not yet approved" } }
   : await db.from("certifications").select("code, name").eq("id", CERT_ID).single();
 const { data: domains } = await scoped(db.from("domains").select("id, code, title, weight_pct, order_index").eq("certification_id", CERT_ID).order("order_index"));
 const { data: domTr } = await db.from("domain_translations").select("domain_id, language, title, is_provisional");
@@ -271,6 +288,87 @@ if (MODULES) {
     p(`---`);
     p();
   }
+} else if (PENDING) {
+  // Every certification, both tables, anything a reviewer has not approved.
+  const { data: certs } = await db.from("certifications").select("id, code, name, status, tier");
+  const { data: doms } = await db.from("domains").select("id, code, title, certification_id, order_index");
+  const { data: domTrA } = await db.from("domain_translations")
+    .select("domain_id, language, title, review_status, is_provisional");
+  const { data: tks } = await db.from("tasks").select("id, code, statement, domain_id, bloom_level");
+  const { data: taskTrA } = await db.from("task_translations")
+    .select("task_id, language, statement, review_status, is_provisional");
+
+  const open = (r) => r.review_status !== "approved" || r.is_provisional;
+  const certOf = new Map((certs || []).map((c) => [c.id, c]));
+  const domOf = new Map((doms || []).map((d) => [d.id, d]));
+  const taskOf = new Map((tks || []).map((t) => [t.id, t]));
+
+  // Build one entry per (subject, language) that is still open, then group by
+  // certification so a reader moves through one credential at a time.
+  const items = [];
+  for (const r of (domTrA || []).filter(open)) {
+    const d = domOf.get(r.domain_id); if (!d) continue;
+    const c = certOf.get(d.certification_id); if (!c) continue;
+    items.push({ c, kind: "domain title", key: d.code, en: d.title, tr: r.title, lang: r.language, status: r.review_status, meta: "" });
+  }
+  for (const r of (taskTrA || []).filter(open)) {
+    const t = taskOf.get(r.task_id); if (!t) continue;
+    const d = domOf.get(t.domain_id); if (!d) continue;
+    const c = certOf.get(d.certification_id); if (!c) continue;
+    items.push({ c, kind: "task statement", key: t.code, en: t.statement, tr: r.statement, lang: r.language, status: r.review_status, meta: `${d.code} · ${t.bloom_level}` });
+  }
+
+  const byCert = new Map();
+  for (const it of items) {
+    if (!byCert.has(it.c.code)) byCert.set(it.c.code, { c: it.c, items: [] });
+    byCert.get(it.c.code).items.push(it);
+  }
+  const ordered = [...byCert.values()].sort((a, b) => {
+    const av = a.c.status === "available" ? 0 : 1, bv = b.c.status === "available" ? 0 : 1;
+    if (av !== bv) return av - bv;
+    if (a.items.length !== b.items.length) return b.items.length - a.items.length;
+    return a.c.code.localeCompare(b.c.code);
+  });
+
+  p(`## Everything not yet approved — every certification, both tables`);
+  p();
+  if (items.length === 0) {
+    p(`**Nothing is open.** Every domain title and task statement on every`);
+    p(`certification is approved. This is the generator answering the broad`);
+    p(`question, not a filter returning empty.`);
+    p();
+  }
+  for (const { c, items: its } of ordered) {
+    p(`### ~${c.code}`);
+    p();
+    p(`**${c.name}** — tier ${c.tier}, ${c.status}. ${its.length} row(s) awaiting a reader.`);
+    p();
+    const bySubject = new Map();
+    for (const it of its) {
+      const k = `${it.kind}|${it.key}`;
+      if (!bySubject.has(k)) bySubject.set(k, []);
+      bySubject.get(k).push(it);
+    }
+    for (const [, group] of bySubject) {
+      const f = group[0];
+      p(`### ${c.code}/${f.key}`);
+      p();
+      p(`${f.kind}${f.meta ? " · " + f.meta : ""}`);
+      p();
+      p(`    EN       ${wrap(f.en, 13)}`);
+      p(`    en#${h8(f.en)}`);
+      p();
+      for (const it of group.sort((a, b) => a.lang.localeCompare(b.lang))) {
+        rowCount++;
+        const state = it.status === "rejected" ? "  (you rejected this; not yet repaired)" : "";
+        p(`    [ ] ${it.lang.padEnd(8)} ${wrap(it.tr, 17)}${state}`);
+        p(`        NOTE:`);
+        p();
+      }
+    }
+    p(`---`);
+    p();
+  }
 } else if (TIERS.has("1")) {
   p(`## Tier 1 — domain titles`);
   p();
@@ -296,7 +394,7 @@ if (MODULES) {
   p();
 }
 
-if (TIERS.has("2")) {
+if (!CROSS && TIERS.has("2")) {
   const d5 = (domains || []).find((d) => d.code === "D5");
   const d5tasks = (tasks || []).filter((t) => t.domain_id === d5?.id).sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
   p(`## Tier 2 — D5 task statements`);
@@ -327,7 +425,7 @@ if (TIERS.has("2")) {
   p();
 }
 
-if (TIERS.has("3")) {
+if (!CROSS && TIERS.has("3")) {
   // D1-D4, grouped by domain so a reviewer reads a coherent run rather than 35
   // unrelated sentences. Lowest risk of the three tiers: these are framework
   // statements whose vocabulary the translator has rendered many times. They are
