@@ -1202,6 +1202,7 @@ async function verify(cert) {
     const hardFor = (lang) => RETIRED_HARD[lang];
     const softFor = (lang) => RETIRED_SOFT[lang];
     const hardGraded = [], hardProse = [], soft = [];
+    const exemptGroups = new Set();
     for (const l of lessons) {
       const { graded, prose } = gradedAndProse(l.content_md);
       const h = hardFor(l.language), sf = softFor(l.language);
@@ -1222,41 +1223,49 @@ async function verify(cert) {
       // ITS LIMIT, STATED: prose that discusses the change without quoting or
       // naming the replacement nearby still fails. That is the safe direction -
       // a false FAIL gets read, a false PASS does not.
-      // Developers WAS HERE AND CLEARED NINE REAL DEFECTS. It is ordinary
-      // Scrum prose, not a contrast signal: "Developers size their own work ... and
-      // self-organize to deliver it" has Developers 60 characters away and is a
-      // straight assertion of the retired term. Only the actual REPLACEMENTS for
-      // self-organizing count; `development team` relies on the quotation test.
-      const REPLACEMENT = /self-managing|autogestionad|autogerenciad/i;
-      const QUOTE = /["’‘“”']/;
-      const asserted = (text, re) => {
-        for (const m of text.matchAll(new RegExp(re.source, "gi"))) {
-          const before = text.slice(Math.max(0, m.index - 90), m.index);
-          const around = text.slice(Math.max(0, m.index - 90), m.index + m[0].length + 90);
-          // QUOTED is tested BY POSITION - the character just before the term
-          // opens a quotation - rather than by building a regex out of the match.
-          // The first version of this line built one, and destroyed itself: `$&`
-          // inside a replacement string means the OUTER match, not a literal.
-          const quoted = QUOTE.test(before.slice(-1)) || QUOTE.test(before.slice(-2, -1));
-          if (!quoted && !REPLACEMENT.test(around)) return m[0];
-        }
-        return null;
-      };
-      const gradedHit = h ? asserted(graded, h) : null;
-      if (gradedHit) hardGraded.push(`${where} [GRADED] ${gradedHit}`);
+      // DECLARATIVE, NOT HEURISTIC. Four iterations of a proximity window each
+      // fixed one case and broke another - the last one added \bDevelopers\b to
+      // the contrast set and silently cleared NINE REAL DEFECTS, because
+      // "Developers size their own work ... and self-organize to deliver it" has
+      // Developers sixty characters away and is a straight assertion.
+      //
+      // A guard that needs tuning is a guard nobody will trust. So the exemption
+      // is now a frontmatter field the author writes:
+      //
+      //     teaches_retired_vocabulary: true
+      //
+      // It is reviewable, greppable, survives translation as frontmatter, and
+      // cannot be wrong the way a window can. Eight lessons carry it, each
+      // adjudicated by reading: four teach the 2020 change, one quotes the Agile
+      // Manifesto verbatim (a 2001 document whose wording cannot change), and
+      // the rest are terminology lessons whose subject IS the retired term.
+      //
+      // IT EXEMPTS THE FAIL, NOT THE WARN. A reader should still see that the
+      // term is there; what the flag settles is whether it blocks a release.
+      //
+      // Keyed on lesson_group_id, not on the row: the flag is a property of the
+      // LESSON, and a translation that has not been reloaded since the flag was
+      // added would otherwise fail while its English sibling passes.
+      const teaches = /^teaches_retired_vocabulary:\s*true\s*$/m.test(String(l.content_md || ""));
+      if (teaches && l.lesson_group_id) exemptGroups.add(l.lesson_group_id);
+      const gradedHit = h && h.test(graded) ? (graded.match(h) || [""])[0] : null;
+      if (gradedHit) hardGraded.push({ group: l.lesson_group_id, where, hit: gradedHit });
       if (h && h.test(prose)) hardProse.push(`${where} [prose] ${(prose.match(h) || [""])[0]}`);
       if (sf && sf.test(`${graded}\n${prose}`)) {
         const hit = (`${graded}\n${prose}`.match(sf) || [""])[0];
         soft.push(`${where} ${hit}`);
       }
     }
-    if (hardGraded.length > 0) {
+    // The flag is read from every row, so the set is only complete here.
+    const blocking = hardGraded.filter((g) => !g.group || !exemptGroups.has(g.group));
+    const exempted = hardGraded.length - blocking.length;
+    if (blocking.length > 0) {
       R.fail("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
-        `${hardGraded.length} lesson(s) carry a retired term INSIDE A GRADED BLOCK - a checkpoint option or an interactive widget`,
-        hardGraded.slice(0, 10));
-    } else if (hardProse.length > 0 || soft.length > 0) {
+        `${blocking.length} lesson(s) carry a retired term INSIDE A GRADED BLOCK - a checkpoint option or an interactive widget, and none is flagged teaches_retired_vocabulary`,
+        blocking.slice(0, 10).map((g) => `${g.where} [GRADED] ${g.hit}`));
+    } else if (hardProse.length > 0 || soft.length > 0 || exempted > 0) {
       R.warn("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
-        `${hardProse.length} retired term(s) in lesson PROSE (a lesson may be quoting one in order to retire it - read each), ${soft.length} ceremony/role-family hit(s) across all languages`,
+        `${hardProse.length} retired term(s) in lesson PROSE, ${exempted} in lessons flagged teaches_retired_vocabulary, ${soft.length} ceremony/role-family hit(s) - read each`,
         [...hardProse, ...soft].slice(0, 10));
     } else {
       R.pass("lessons.vocabulary", "§8.1", "No prior-edition Scrum vocabulary in lessons",
