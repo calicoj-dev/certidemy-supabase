@@ -1,6 +1,6 @@
 # MCC drafts — ISMS-IA and AIMS-IA
 
-**DRAFTS, revision 3. For reaction. Not adopted, not referenced by any scheme
+**DRAFTS, revision 4. For reaction. Not adopted, not referenced by any scheme
 document yet — and deliberately so: they need what SM-AI-II's needed, which is a
 practising auditor reading them and saying whether that person is recognisable.
 See "Adopting these" at the foot.** Written to the shape the SM-AI-II split set: a **candidate
@@ -12,8 +12,13 @@ unifying competence, clause attribution as its own named mode, and NC/observatio
 kept as the surface rather than the gap — and cut the AI mode that had no items
 behind it.
 
-**Revision 3** rebuilds Draft B frame off any prior standard, adds a panel briefing
-note, and writes down what adopting these would touch.
+**Revision 3** rebuilt Draft B frame off any prior standard, added a panel briefing
+note, and wrote down what adopting these would touch.
+
+**Revision 4** follows an external review. It corrects the ISO 19011 edition and
+the panel note built on it, drops the claim that one competence explains
+everything, removes a slogan that collapsed the third kind of obligation, and
+names the organisational pressure behind the harm-before-nonconformity mode.
 
 ---
 
@@ -44,10 +49,25 @@ ISMS-IA 5.4 is the clearest:
 > *"…audit-conduct standards already require complete and accurate records, so any
 > AI involvement is automatically…"*
 
-That is not a modality error and no clause reaches it. **ISO 19011:2018 predates
-the question**, so the candidate has no standard to fall back on — which is
-precisely the condition that makes a borderline candidate reach for habit, and
-precisely what an MCC is for.
+That is not a modality error, and **the claim I first made about it was wrong.**
+
+I wrote that ISO 19011:2018 predates the question and no standard reaches it.
+**These schemes are built on ISO 19011:2026**, and it does reach the question.
+Verified against the corpus: AIMS-IA cites 19011:2026 in 384 items and 25
+lessons with zero references to 2018, and clause **7.2.3** — auditor competence —
+is cited across the bank and described there as *"guidance the organization uses
+to define its own competence criteria for auditors"*. Per the source, 7.2.3's
+competence list includes understanding the appropriateness and consequences of
+using emerging technology to conduct audits, naming AI-based evaluation tools.
+*(The edition and the clause are confirmed from our own corpus; that specific
+bullet's wording is taken from a reading of the standard, which this repository
+does not quote.)*
+
+**So the mode stands and the reason changes. 19011:2026 CONSTRAINS WITHOUT
+DETERMINING.** It is guidance, it says *should*, and it does not say at what
+point a reviewed AI ranking becomes the auditor's own evidence. A candidate has
+something to reason from and not enough to be told the answer — **which is the
+Level II band exactly, and a better argument than a vacuum.**
 
 **So: one AI mode, in BOTH drafts, and it is about the auditor rather than the
 auditee.** The 6 shadow-AI items in ISMS-IA are ordinary scope errors wearing AI
@@ -71,22 +91,30 @@ downgraded in the closing meeting, an auditee who had clearly seen the checklist
 They recognise that audit as unsatisfying. They do not yet recognise it as a
 description of how they themselves audit under time pressure.
 
-**What makes them borderline is one competence: THEY DO NOT RELIABLY READ THE
-MODALITY OF A REQUIREMENT.** *Shall*, *should*, and *the organisation wrote it
-down* are three different kinds of obligation, and they treat them as points on a
-single scale of strictness. Everything below follows from that.
+**What makes them borderline is not one thing, and a definition that claims it is
+one thing will not survive a reader who audits.** The largest share of it is how
+they read the STRENGTH of an obligation: a requirement in the standard, a
+recommendation in the standard, and a commitment the organisation made in its own
+documented process are three different kinds of obligation with three different
+consequences, and this candidate treats them as points on a single scale of
+strictness. **That failure runs in both directions** — a *shall* becomes
+negotiable when the auditee has a reason, a *should* becomes binding when the
+practice seems obviously right — and it is the single most common thing under a
+finding that does not survive review.
 
-**It fails in BOTH directions, and that is the point.** Under-read, a *shall*
-becomes negotiable because the auditee has a reason, and a procedure that exists
-and was followed becomes conformity without anyone asking whether the procedure
-satisfies the clause. Over-read, a *should* becomes binding because the practice
-seems obviously right, and a departure becomes a nonconformity that will not
-survive review. **The failure is not leniency and it is not strictness. It is
-that the strength of the obligation is read from how the situation feels rather
-than from the text.**
+**But some of what makes them borderline is craft, and some of it is politics.**
+Putting the remedy in the finding, asserting cause from evidence, and needing
+something to have gone wrong before writing a nonconformity are not misreadings
+of a text. They are habits formed by what it costs to raise a finding in an
+organisation you work for. **The modes below are named separately because they
+fail separately**, and a panel rates items one at a time.
 
-A procedure is *is*. A clause is *shall*. Guidance is *should*. Conflating them is
-a modality error before it is anything else.
+**On the third kind of obligation.** A documented procedure the organisation
+adopted is not weaker than a clause — for that organisation it is binding, and
+departing from it is a nonconformity in its own right. The error is not that the
+candidate treats the procedure as obligatory. It is that they stop there, and
+never ask the prior question: does the procedure, followed exactly as written,
+satisfy what the clause requires?
 
 **What they reliably get right:** the audit process and its sequence; planning and
 sampling; the structure of a written finding; the difference between auditing a
@@ -110,8 +138,15 @@ observation and opportunity for improvement.
   opportunity for improvement and still mis-grade, because the grade follows from
   a judgement about obligation they have not made yet. The category is the
   surface the gap appears on, not the gap.
-- **They require harm before they will write a nonconformity.** Absent a
-  disruption or a loss, an unmet requirement reads to them as an observation.
+- **They require harm before they will write a nonconformity, and the reason is
+  organisational rather than technical.** A nonconformity creates
+  corrective-action work for colleagues they will still be working beside next
+  month, and the closing meeting is a negotiation in which the auditee has more
+  at stake than they do. So absent a disruption or a loss, an unmet requirement
+  becomes an observation — not because they misread the clause, but because the
+  grade that costs nobody anything is available and defensible. **This is the
+  mode a room full of internal auditors will name first**, and a definition that
+  omits it reads as written by someone who has only done second-party work.
 - **They put the remedy in the finding.** "The organisation must disable the
   accounts and automate deprovisioning" — prescribing a fix rather than stating
   the gap, which takes the correction out of the auditee's hands.
@@ -119,8 +154,11 @@ observation and opportunity for improvement.
   procedure." The evidence establishes what happened, not why.
 - **They over-correct under challenge.** Pushed, they retreat to the strictest
   available reading — no verbal evidence is admissible, no delegation is
-  permitted — which is the same modality failure inverted, and much harder for an
-  auditee to argue with.
+  permitted. **Sometimes that is the modality failure inverted. Sometimes it is
+  cover**: the finding is one they cannot defend on its merits, and an
+  unarguable-sounding absolute is easier than withdrawing it. The two look
+  identical from outside and are different failures, which is why this is its own
+  mode rather than a footnote to the first.
 - **THEIR OWN USE OF AI IS UNEXAMINED.** Where an AI tool ranked, triaged or
   summarised something in the course of the audit, they treat their personal
   review of the output as making the tool's involvement immaterial. ISO 19011
@@ -204,6 +242,11 @@ elsewhere, but it is a mode, not the frame.
   certification**, because the premise is correct and only the inference is wrong.
   In 42001, Annex A and Annex B are both normative and Annex B is written in
   *should*; normative STATUS and requirement MODALITY are different properties.
+  **ANNEX B IS NORMATIVE. Do not let a later edit "correct" this to informative**
+  — it has been checked against the ISO contents page and the UNE adoption, and
+  it is counter-intuitive to anyone reasoning from 27001, which is exactly why it
+  is the sharpest item source in the bank and exactly why it will keep getting
+  challenged.
   This bites hardest on an auditor who learned annexes on 27001, where
   implementation guidance sits in a separate standard and carries no normative
   status at all — but it catches auditors without that background too, because
@@ -258,22 +301,34 @@ elsewhere, but it is a mode, not the frame.
 There is no separate panel artifact today; the definition IS what a panel is
 given, so the note travels with it.
 
-**One item set has no standard behind it.** The auditor's-own-AI mode — 11 items
-in ISMS-IA, 9 in AIMS-IA — asks what an auditor may rely on when an AI tool
-ranked, triaged or summarised something during the audit. ISO 19011:2018 predates
-the question and no clause of 27001 or 42001 reaches it. **Every other mode in
-these definitions can be rated by reading a text; this one cannot.**
+**One item set is constrained by guidance rather than determined by a
+requirement.** The auditor's-own-AI mode — 11 items in ISMS-IA, 9 in AIMS-IA —
+asks what an auditor may rely on when an AI tool ranked, triaged or summarised
+something during the audit.
 
-**Rate it as professional judgement, and expect to disagree.** That is the honest
-instruction. Disagreement there is a property of the question, not a defect in
-the panel — but only if judges are told in advance. Discovered mid-rating it
-reads as an unreliable panel, and the usual response is to discard the items,
-which would remove the one competence in the bank that a candidate cannot look
-up.
+**Point judges at ISO 19011:2026 clause 7.2.3**, which places understanding the
+appropriateness and consequences of using emerging technology to conduct audits,
+including AI-based evaluation tools, inside auditor competence. **Then point them
+at the evidence principles**, which is where the rating actually happens:
 
-**It is defensible for a Level II credential** that some items rest on judgement
-rather than on a citable requirement — that is close to what Level II means. It
-is not defensible for judges to meet those items without warning.
+- the **degree of verification** the auditor performed on what the tool produced,
+  and whether that verification was of the output or of the method; and
+- **what remains demonstrable without the tool** — whether the conclusion still
+  stands on evidence the auditor can show, or only on the tool having ranked it.
+
+**7.2.3 constrains without determining.** It is guidance, it says *should*, and
+it does not say at what point a reviewed ranking becomes the auditor's own
+evidence. That is the whole Level II band: enough to reason from, not enough to
+be told. **Judges should expect more spread here than elsewhere and should not
+read that spread as a defective panel** — the question is genuinely open in the
+standard, which is why the items exist.
+
+**AN EARLIER DRAFT OF THIS NOTE SAID THESE ITEMS HAD "NO STANDARD BEHIND THEM"
+AND CITED ISO 19011:2018.** Both were wrong. The schemes are built on 19011:2026
+— 384 AIMS-IA items and 25 lessons cite it, none cite 2018 — and 7.2.3 reaches
+the question directly. A practising auditor would have falsified that note in
+five minutes, and it would have cost the panel's confidence in everything
+alongside it. The corrected version is also the better argument.
 
 ---
 
