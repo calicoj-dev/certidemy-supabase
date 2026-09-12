@@ -47,7 +47,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
-import { buildIndex, analyseText, newSink, sourcesAvailable } from "./lib/citation-index.mjs";
+import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -104,6 +104,12 @@ if (!KEY) {
   process.exit(2);
 }
 const db = createClient(URL, KEY, { auth: { persistSession: false } });
+
+// Citations that a checker would flag and that are correct in context - an item
+// naming a superseded edition in order to dismiss it. See migration 305. Loaded
+// once; empty Map if the table is absent, so a checkout without the migration
+// re-flags those items loudly rather than passing them wrongly.
+const CITATION_EXEMPT = await loadExemptions(db);
 
 const LANGS = ["en", "es-419", "pt-BR"];
 const BLOOM_RANK = { "1_remember": 1, "2_understand": 2, "3_apply": 3, "4_analyze": 4, "5_evaluate": 5, "6_create": 6 };
@@ -1157,7 +1163,7 @@ async function verify(cert) {
         for (const q of questions) {
           const before = sink.missing.length;
           const opts = Array.isArray(q.options) ? q.options : [];
-          analyseText([q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join(String.fromCharCode(10)), index, sink);
+          analyseText([q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join(String.fromCharCode(10)), index, sink, CITATION_EXEMPT.get(q.question_group_id) || null);
           for (let i = before; i < sink.missing.length; i++) bad.push({ q, m: sink.missing[i] });
         }
         const badSecure = bad.filter((b) => b.q.pool === "secure");

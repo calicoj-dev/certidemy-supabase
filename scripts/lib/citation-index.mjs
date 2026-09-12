@@ -165,10 +165,31 @@ const BARE_ANNEX_RE = /\b([A-D]\.\d+(?:\.\d+)*)\b/g;
 const splitSentences = (s) => String(s).split(/(?<=[.;:!?])\s+|\n+/);
 
 export function newSink() {
-  return { checked: 0, missing: [], edition: [], unknownStd: [], misattributed: [], ambiguous: 0, unattributed: 0 };
+  return { checked: 0, missing: [], edition: [], unknownStd: [], misattributed: [], ambiguous: 0, unattributed: 0, exempted: 0 };
 }
 
-export function analyseText(text, index, sink) {
+/**
+ * Load the citation exemptions as Map<question_group_id, Set<token>>.
+ *
+ * An exempted citation is one a checker WOULD flag and that is correct in
+ * context - an item naming a superseded edition in order to dismiss it. See
+ * migration 305; every row carries the argument for itself.
+ *
+ * Returns an empty Map if the table is absent, so a checkout without the
+ * migration still runs (and re-flags the two items, loudly rather than wrongly).
+ */
+export async function loadExemptions(db) {
+  const out = new Map();
+  const { data, error } = await db.from("citation_exemptions").select("question_group_id, token");
+  if (error || !data) return out;
+  for (const r of data) {
+    if (!out.has(r.question_group_id)) out.set(r.question_group_id, new Set());
+    out.get(r.question_group_id).add(r.token.replace(/\s+/g, " "));
+  }
+  return out;
+}
+
+export function analyseText(text, index, sink, exempt = null) {
   const existsSomewhere = (r) => Object.values(index).some((ix) =>
     (r.kind === "annex" ? ix.annex : ix.clauses).has(r.n));
 
@@ -178,8 +199,13 @@ export function analyseText(text, index, sink) {
 
     for (const s of stds) {
       const want = CORRECT_EDITION[s.num];
+      const raw = s.raw.replace(/\s+/g, " ");
       if (want && s.year && s.year !== want) {
-        sink.edition.push({ raw: s.raw.replace(/\s+/g, " "), expected: `${s.num}:${want}` });
+        // EXEMPTIONS COVER THE EDITION HALF ONLY, ON PURPOSE. A nonexistent
+        // address is never legitimate - there is no item that correctly cites a
+        // clause which does not exist - so nothing may excuse one.
+        if (exempt && exempt.has(raw)) { sink.exempted++; continue; }
+        sink.edition.push({ raw, expected: `${s.num}:${want}` });
       } else if (!want && !UNDATED_OK.has(s.num)) {
         sink.unknownStd.push({ raw: s.raw.replace(/\s+/g, " ") });
       }

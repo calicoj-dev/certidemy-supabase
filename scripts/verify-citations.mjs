@@ -79,7 +79,7 @@ const has = (k) => process.argv.includes(`--${k}`);
 // The parser and the resolver live in scripts/lib/citation-index.mjs so that
 // verify-cert.mjs runs the SAME code as an invariant. Two copies of a parser
 // whose false-positive modes cost this much to find is the mirrored-pair defect.
-import { buildIndex, analyseText, newSink, sourcesAvailable } from "./lib/citation-index.mjs";
+import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
 
 if (!sourcesAvailable()) {
   console.error("The three ISO PDFs or pdftotext are unavailable - cannot verify anything.");
@@ -112,6 +112,7 @@ const only = arg("cert", null);
 const targets = certs.filter((c) => (only ? c.code === only : has("all") || false));
 if (!targets.length) { console.error("Pass --all or --cert CODE."); process.exit(2); }
 
+const EXEMPT = await loadExemptions(db);
 const LANG = arg("lang", null);
 const POOL = arg("pool", null);
 
@@ -125,7 +126,7 @@ for (const cert of targets) {
   const rows = [];
   for (let from = 0; ; from += 1000) {
     let q = db.from("quiz_questions")
-      .select("id, task_id, language, pool, question_text, options, explanation, correct_answer")
+      .select("id, task_id, language, pool, question_group_id, question_text, options, explanation, correct_answer")
       .eq("certification_id", cert.id).is("retired_at", null).eq("status", "approved")
       .order("id").range(from, from + 999);
     if (LANG) q = q.eq("language", LANG);
@@ -143,7 +144,7 @@ for (const cert of targets) {
     const before = { m: sink.missing.length, e: sink.edition.length };
     const opts = Array.isArray(q.options) ? q.options : [];
     const text = [q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join("\n");
-    analyseText(text, index, sink);
+    analyseText(text, index, sink, EXEMPT.get(q.question_group_id) || null);
     if (sink.missing.length > before.m || sink.edition.length > before.e) {
       perItem.set(q.id, { lang: q.language, pool: q.pool });
     }
@@ -179,6 +180,7 @@ for (const cert of targets) {
   grand.edition += sink.edition.length;
   grand.unknownStd += sink.unknownStd.length;
   grand.misattributed = (grand.misattributed||0) + sink.misattributed.length;
+  grand.exempted = (grand.exempted||0) + sink.exempted;
   grand.ambiguous += sink.ambiguous;
   grand.unattributed += sink.unattributed;
 }
@@ -187,6 +189,7 @@ console.log(`\nTOTAL  ${grand.checked} references resolved against the three PDF
 console.log(`       ${grand.missing} cite an address that does not exist`);
 console.log(`       ${grand.edition} cite a superseded or wrong edition`);
 console.log(`       ${grand.misattributed} exist elsewhere but not in the standard named alongside them (candidates, not defects)`);
+console.log(`       ${grand.exempted} exempted by citation_exemptions (correct in context - see migration 305)`);
 console.log(`       ${grand.ambiguous} ambiguous (two standards in one sentence - not guessed at)`);
 console.log(`       ${grand.unattributed} unattributed (no standard named nearby)`);
 if (allFlags.length) {
