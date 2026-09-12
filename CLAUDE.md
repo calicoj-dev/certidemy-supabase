@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 297. Next free number: 298.** Sequential, zero-padded to three
+**Migration tip: 298. Next free number: 299.** Sequential, zero-padded to three
 digits, `NNN_snake_case_name.sql`.
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
@@ -603,6 +603,19 @@ This mostly codifies existing practice — the iframe paragraph, §6 item 1 and
 `LTI-SETUP.md` step 7 all carry inline markers already. §5's flip body was the
 one place with a banner and nothing inline, which is exactly where the two wrong
 assertions came from.
+
+**A PATTERN DEFECT IS THE SAME CLASS AS A DROPPED READ, and the vocabulary
+pattern has been wrong THREE ways in eight days** — a single-language
+undercount, a boundary bug (`\b` does not stop `equipo de desarrollo`
+matching inside `sub-equipo de desarrollo`; a hyphen IS a word boundary), and
+per-language patterns blind to an untranslated English term sitting in a
+Spanish row. Each was found by a different route and **none by the check
+itself**; one produced a false all-clear that re-reading the rows could not
+catch, because the re-read used the pattern that had the blind spot.
+
+**So: measure a second, independent way.** `READ-FAILURE-AUDIT.md` §7b carries
+the standing rule and the cross-language census query. The two measurements are
+wrong in OPPOSITE directions, which is what makes their agreement meaningful.
 
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."

@@ -189,10 +189,24 @@ ${RETIRED_VOCABULARY}`;
 // the only reason it was found: the count looked like content debt and was a
 // pattern defect. Same shape as `role` matching "an unfilled role" - a term is
 // not a claim, and a boundary is not a meaning.
+// EVERY LANGUAGE ALSO CARRIES THE ENGLISH FORMS, and that is not belt-and-braces.
+//
+// The per-language patterns originally assumed a retired term would appear in
+// that language's own words. A translator can simply LEAVE THE ENGLISH IN PLACE,
+// and on SPO-AI-I it did: four secure rows in es-419 and pt-BR read "el
+// Development Team insiste en reordenar" and "o Development Team insiste em
+// reordenar". The Spanish pattern looked only for `equipo de desarrollo`, so an
+// untranslated English retired term inside a Spanish row was INVISIBLE.
+//
+// That produced a false all-clear on 2026-09-12: the sweep reported SPO-AI-I's
+// secure bank at zero affected while four rows still carried the term. Found by
+// a census query that used one pattern across all languages rather than the
+// per-language ones - i.e. by measuring a second way, not by the check.
+const EN_FORMS = String.raw`self-organiz\w*|(?<![\w-])development team\b`;
 export const RETIRED_HARD = {
-  en: /self-organiz\w*|(?<![\w-])development team\b/i,
-  "es-419": /autoorganiz\w*|auto-organiz\w*|(?<![\w-])equipo de desarrollo\b/i,
-  "pt-BR": /auto-?organiz\w*|(?<![\w-])(time|equipe) de desenvolvimento\b/i,
+  en: new RegExp(EN_FORMS, "i"),
+  "es-419": new RegExp(String.raw`autoorganiz\w*|auto-organiz\w*|(?<![\w-])equipo de desarrollo\b|` + EN_FORMS, "i"),
+  "pt-BR": new RegExp(String.raw`auto-?organiz\w*|(?<![\w-])(time|equipe) de desenvolvimento\b|` + EN_FORMS, "i"),
 };
 
 // SOFT = ordinary language as often as the retired term. WARN and READ; never

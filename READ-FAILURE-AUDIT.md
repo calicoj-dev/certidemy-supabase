@@ -213,6 +213,73 @@ to roughly 352 per language. So it is not biting.
 
 ---
 
+## 7b. A PATTERN DEFECT IS THE SAME CLASS AS A DROPPED READ
+
+A dropped read turns a broken query into a legitimate-looking empty result. **A
+defective pattern turns a correct corpus into a legitimate-looking defect list, or
+a defective corpus into a legitimate-looking all-clear.** Same consequence, same
+invisibility, same ranking rule: the dangerous direction is the one that looks fine.
+
+`RETIRED_HARD` — the prior-edition Scrum vocabulary pattern — **has now been wrong
+three different ways in eight days.** Each was found by a different route and
+**none of them was found by the check itself.**
+
+| # | the defect | direction | how it was found |
+|---|---|---|---|
+| 1 | **Single-language.** The check read English only, so `SPO-AI-I` was reported as 35 items when the Spanish and Portuguese rows were never looked at | **under**-count | adding es-419 / pt-BR to the check, 2026-09-11 |
+| 2 | **Boundary.** `\b` does not stop `equipo de desarrollo` matching inside `sub-equipo de desarrollo`, because a hyphen IS a word boundary. Scenarios about a Scrum Team split into a testing sub-team and a development sub-team — where **the sub-team is the misconception under test** — were counted as defects. Thirteen on SPO-AI-I, two on SM-AI-I | **over**-count | reading the nine stem hits before sweeping them |
+| 3 | **Per-language blindness.** Each language's pattern looked only for that language's words. A translator can LEAVE THE ENGLISH IN PLACE, and did: four secure rows read `"el Development Team insiste en reordenar"`. `RETIRED_HARD["es-419"]` had no English forms, so an untranslated English retired term inside a Spanish row was invisible | **under**-count | a census query that used ONE pattern across all languages |
+
+**Defect 3 produced a false all-clear that a re-read could not catch**, because the
+re-read used the same pattern that had the blind spot. Verifying with the instrument
+under suspicion is not verification.
+
+### THE STANDING RULE THIS EARNED
+
+**Run the census with a SINGLE CROSS-LANGUAGE PATTERN as a second, independent
+measurement — permanently, not as a one-off.** It is what caught defect 3, and it is
+the only reason the numbers dated 2026-09-12 are trustworthy.
+
+```sql
+-- The second measurement. One pattern, every language, no per-language routing.
+-- Disagreement with verify-cert's per-language count is a PATTERN defect until
+-- proven otherwise - not a content finding.
+select c.code, q.pool, count(*) as rows, count(distinct q.question_group_id) as groups
+from public.quiz_questions q
+join public.certifications c on c.id = q.certification_id
+where q.retired_at is null and q.status = 'approved'
+  and (q.question_text || ' ' || coalesce(q.explanation,'') || ' ' || q.options::text)
+      ~* '(self-organiz|auto-?organiz|equipo de desarrollo|(time|equipe) de desenvolvimento|development team)'
+group by 1, 2 order by 1, 2;
+```
+
+Postgres has no lookbehind, so this query **over**-counts by defect 2's amount — and
+that is the point. **The two measurements are wrong in opposite directions**, so
+where they agree the number is real, and where they differ the difference names the
+pattern bug. Neither alone is evidence.
+
+```
+CENSUS 2026-09-12, after all three fixes. Secure items, by placement:
+
+  cert       pool      rows  groups   key  stem  dist  expl   quoted-in-stem
+  SD-AI-I    secure      15       5     3    15     3    12        4
+  SD-AI-I    practice    58      20     9    21    40    39       12
+  SM-AI-I    secure      50      20     6    27    34    22       12
+  SM-AI-I    practice    52      20     7    17    46    37       11
+  SM-AI-II   secure       0
+  SM-AI-II   practice     0
+  SPO-AI-I   secure       4       2     0     2     4     2        0
+  SPO-AI-I   practice    99      33     3    18    80    48        0
+```
+
+**`quoted-in-stem` is the terminology-drift signature**: the retired term sits
+immediately after a quotation mark in the stem, which means the item is showing the
+candidate a legacy document rather than asserting the term. Those get
+`retired_vocabulary_intent = 'quoted'` (migration 298), not a fix. The rest are
+defects.
+
+---
+
 ## 8. How to re-run this sweep
 
 Search for the **shape**, not the symptom:
