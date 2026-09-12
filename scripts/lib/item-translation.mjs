@@ -199,28 +199,6 @@ ROLES - PIN. es-419 roles. pt-BR papeis.
   correct for different things, which is why both appear and why counting them
   together says nothing.
 
-FALSE FRIEND - ACCOUNTABLE IS NOT RESPONSABLE / RESPONSAVEL.
-
-  Same class as compromiso and rendimiento in the Scrum contract: a CORRECT
-  rendering of a DIFFERENT concept. responsable/responsavel is RESPONSIBLE -
-  who does the work. ACCOUNTABLE is who answers for the outcome, and cannot
-  be delegated or shared. Collapsing them erases the distinction that the
-  governance certifications exist to teach.
-
-  es-419   responsable (quien ejecuta)  vs  quien rinde cuentas /
-           la rendicion de cuentas  for accountable / accountability
-  pt-BR    responsavel (quem executa)   vs  quem presta contas /
-           a prestacao de contas    for accountable / accountability
-
-  CAUGHT IN REVIEW, 2026-09-12. AIGRM-I's module title "The AI Lifecycle &
-  Accountable Deployment" came back with accountable collapsed to
-  responsable / responsavel in BOTH languages - on the certification whose
-  subject is that distinction, and whose own module DESCRIPTION had already
-  rendered it correctly as "rendicion de cuentas por etapa" / "prestacao de
-  contas por etapa". The paragraph got it right and the heading above it did
-  not, which is the shape to watch: a short string has less context to
-  disambiguate from, so a TITLE is where a false friend lands first.
-
 CLAUSE - NEVER "clausula". This rule is here because it was VIOLATED.
 
   ENGLISH                       es-419                          pt-BR
@@ -263,11 +241,50 @@ export function domainForCert(code) {
   return CERT_DOMAIN[String(code || "").trim().toUpperCase()] ?? "general";
 }
 
+
+/**
+ * Carried by EVERY domain, including "general".
+ *
+ * It lived inside ISO_MS_VOCABULARY for about an hour, and the first repair that
+ * needed it proved that wrong: AIGRM-I resolves to the "general" domain, which
+ * carries no vocabulary block, so the entry was unreachable for the one
+ * certification whose subject IS the distinction - and the title collapsed to
+ * "responsable" a second time. Scrum needs it too: the 2020 Guide replaced the
+ * word ROLES with ACCOUNTABILITIES, so a contract that cannot say what
+ * accountable means is missing a 2020 term in both families.
+ */
+export const ACCOUNTABLE_FALSE_FRIEND = `FALSE FRIEND - ACCOUNTABLE IS NOT RESPONSABLE / RESPONSAVEL.
+
+  Same class as compromiso and rendimiento in the Scrum contract: a CORRECT
+  rendering of a DIFFERENT concept. responsable/responsavel is RESPONSIBLE -
+  who does the work. ACCOUNTABLE is who answers for the outcome, and cannot
+  be delegated or shared. Collapsing them erases the distinction that the
+  governance certifications exist to teach.
+
+  es-419   responsable (quien ejecuta)  vs  quien rinde cuentas /
+           la rendicion de cuentas  for accountable / accountability
+  pt-BR    responsavel (quem executa)   vs  quem presta contas /
+           a prestacao de contas    for accountable / accountability
+
+  CAUGHT IN REVIEW, 2026-09-12. AIGRM-I's module title "The AI Lifecycle &
+  Accountable Deployment" came back with accountable collapsed to
+  responsable / responsavel in BOTH languages - on the certification whose
+  subject is that distinction, and whose own module DESCRIPTION had already
+  rendered it correctly as "rendicion de cuentas por etapa" / "prestacao de
+  contas por etapa". The paragraph got it right and the heading above it did
+  not, which is the shape to watch: a short string has less context to
+  disambiguate from, so a TITLE is where a false friend lands first.`;
+
 /** The framing noun and vocabulary block for a domain. */
 export function contractForDomain(domain) {
-  if (domain === "scrum") return { subject: "Scrum certification content", vocabulary: RETIRED_VOCABULARY };
-  if (domain === "iso") return { subject: "ISO management-system certification content", vocabulary: ISO_MS_VOCABULARY };
-  return { subject: "professional certification content", vocabulary: "" };
+  const join = (...parts) => parts.filter(Boolean).join("\n\n");
+  if (domain === "scrum") {
+    return { subject: "Scrum certification content", vocabulary: join(RETIRED_VOCABULARY, ACCOUNTABLE_FALSE_FRIEND) };
+  }
+  if (domain === "iso") {
+    return { subject: "ISO management-system certification content", vocabulary: join(ISO_MS_VOCABULARY, ACCOUNTABLE_FALSE_FRIEND) };
+  }
+  return { subject: "professional certification content", vocabulary: ACCOUNTABLE_FALSE_FRIEND };
 }
 
 /**

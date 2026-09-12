@@ -158,6 +158,30 @@ information security management system.
 
 Three of the four analyze-level tasks concern that integration.
 
+### The misreading a 27001 background produces, and where the answer is
+
+**In ISO/IEC 42001:2023, Annex B is NORMATIVE.** The annexes are A (normative,
+reference control objectives and controls), **B (normative, implementation
+guidance for AI controls)**, C (informative) and D (informative).
+
+That surprises people, and it surprises them in a predictable direction. In
+**ISO/IEC 27001 the implementation guidance is not an annex at all** — it is a
+separate standard, ISO/IEC 27002, and carries no normative status. A reader
+who knows 27001 well maps "implementation guidance" onto "informative" and
+concludes that this scheme's module description — *"the normative status of
+Annex B"* — is an error.
+
+It is not an error, and **the answer is already in lesson `04-06`**: *"Annex B
+is normative, so it is not optional reading. But* should *and* some objectives
+include *are not* shall *and* must comprise.*" Normative status and mandatory
+wording are different things, which is also why `02-04` can call it "Annex B
+guidance… a recommendation rather than the clause's own requirement" without
+contradicting it.
+
+Recorded here on 2026-09-12 because this exact reading was raised in review by
+someone reading the scheme through 27001's shape. Anyone auditing this scheme
+with a 27001 background is likely to raise it again.
+
 ---
 
 ## 7. Maintenance
