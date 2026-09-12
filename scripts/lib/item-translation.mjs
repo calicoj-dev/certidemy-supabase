@@ -178,10 +178,21 @@ ${RETIRED_VOCABULARY}`;
  * fail correct items, and a re-translator that rewrote them would rewrite correct rows.
  * WARN, and read the hits.
  */
+// THE LOOKBEHIND IS LOAD-BEARING. `\b` does not stop `equipo de desarrollo`
+// matching inside `sub-equipo de desarrollo`, because a hyphen is a word
+// boundary - and SPO-AI-I task 2.2 is a scenario about a company splitting a
+// Scrum Team into a "sub-equipo de pruebas" and a "sub-equipo de desarrollo",
+// where the sub-team IS THE MISCONCEPTION UNDER TEST. Three item rows and one
+// explanation matched on that, and a sweep would have produced "sub-Developers".
+//
+// Found 2026-09-12 by reading the nine stem hits before sweeping them, which is
+// the only reason it was found: the count looked like content debt and was a
+// pattern defect. Same shape as `role` matching "an unfilled role" - a term is
+// not a claim, and a boundary is not a meaning.
 export const RETIRED_HARD = {
-  en: /self-organiz\w*|\bdevelopment team\b/i,
-  "es-419": /autoorganiz\w*|auto-organiz\w*|\bequipo de desarrollo\b/i,
-  "pt-BR": /auto-?organiz\w*|\b(time|equipe) de desenvolvimento\b/i,
+  en: /self-organiz\w*|(?<![\w-])development team\b/i,
+  "es-419": /autoorganiz\w*|auto-organiz\w*|(?<![\w-])equipo de desarrollo\b/i,
+  "pt-BR": /auto-?organiz\w*|(?<![\w-])(time|equipe) de desenvolvimento\b/i,
 };
 
 // SOFT = ordinary language as often as the retired term. WARN and READ; never

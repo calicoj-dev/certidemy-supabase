@@ -350,6 +350,13 @@ people to discount it.**
 
 ## 8. OPEN ITEMS
 
+> **NUMBERS IN THIS DOCUMENT PREDATE 2026-09-12 unless a line says otherwise.** The
+> retired-vocabulary counts in item 2 were re-measured that day after a pattern defect
+> was found; `verify-cert --all` now reads **five certifications failing** — AIE-I 2,
+> AIMS-IA 1, SD-AI-I 1, SM-AI-I 2, ZZ-TEST-I 11 — with SM-AI-II and SPO-AI-I both at
+> **0 fail**. AIMS-IA's failure is new and correct: `trilingual.lessons` became
+> status-aware, and AIMS-IA is `available` with English-only lessons.
+
 **Highest priority — will reach a candidate:**
 
 1. **The sweep bug (§2).** `sweep_abandoned_exam_sessions` and
@@ -358,10 +365,50 @@ people to discount it.**
 
 **Content debt, the largest on the platform:**
 
-2. **SM-AI-I's 52 and SPO-AI-I's 35 retired-vocabulary secure items — ONE project, not
-   two discoveries.** Same cause, same detector (`verify-cert` invariant 21, which only
-   started reading all three languages on 2026-09-11), same fix shape
-   (`retranslate-retired-vocabulary.mjs`). **Both certifications are `available`.**
+2. **Retired vocabulary in LIVE secure banks. BOTH FIGURES BELOW WERE WRONG, in opposite
+   directions, and the corrected census is in the table.**
+
+   > **This item originally read "SM-AI-I's 52 and SPO-AI-I's 35". Neither number was
+   > right.** `35` was a SINGLE-LANGUAGE undercount, taken before `items.vocabulary` read
+   > es-419 and pt-BR. `52` was INFLATED by a pattern defect: `\b` did not stop
+   > `equipo de desarrollo` matching inside `sub-equipo de desarrollo`, because a hyphen
+   > is a word boundary. Thirteen SPO-AI-I "defects" and two SM-AI-I ones were that bug —
+   > scenarios about a Scrum Team split into a testing sub-team and a development
+   > sub-team, where **the sub-team is the misconception under test** and a sweep would
+   > have produced `sub-Developers`. Fixed 2026-09-12 with a negative lookbehind, tested
+   > both directions. **Every count this check produced before that date was inflated.**
+
+   The real census, measured 2026-09-12 after the fix — secure items broken down by
+   where the term sits, because placement decides the treatment:
+
+   | cert | status | secure | key / stem / distractor / explanation | practice | lesson rows |
+   |---|---|---|---|---|---|
+   | **SD-AI-I** | available | **9** | 1 / 9 / 2 / 6 | 45 | 7 |
+   | **SM-AI-I** | available | **50** | 6 / 27 / 34 / 22 | 52 | 6 |
+   | SM-AI-II | available | 0 | — | 0 | 0 |
+   | SPO-AI-I | available | **0** | — | **99** | 1 |
+   | | | **59** | | **196** | **14** |
+
+   **SPO-AI-I's secure bank is fixed** (2026-09-12): six keys read individually and
+   swapped, 22 English rows swapped deterministically, 42 es-419/pt-BR rows re-translated
+   from the corrected English because Spanish and Portuguese need article and verb
+   agreement a term swap cannot do. Verified by reading rows back: 0 affected. It now
+   reads **56 pass, 0 fail**.
+
+   **SD-AI-I's 9 were never reported before and are mostly not defects.** The evidence
+   reads `[KEY+STEM+EXPLANATION] A 2017-era wiki states the Development Team is
+   'self-or…'` — these are TERMINOLOGY-DRIFT ITEMS whose stem quotes a 2017 document on
+   purpose. **One has it in the KEY**, which is a real defect; the rest need the
+   item-level equivalent of `teaches_retired_vocabulary`.
+
+   **SM-AI-I's 50 is the remaining job**, and the placement line says six of them are in
+   the KEY. Its first evidence line — `[STEM+DISTRACTOR] A Scrum Master learns
+   'self-organizing' was deprecated` — is the misconception-under-test case, so this is
+   a read-then-sweep job and not a sweep.
+
+   **SPO-AI-I's 99 PRACTICE items are new to this record.** `items.vocabulary` FAILs on
+   secure and WARNs on practice, so they have never blocked anything and never appeared
+   in a failure count.
 
 **Correctness:**
 

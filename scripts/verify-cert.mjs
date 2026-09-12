@@ -1135,15 +1135,43 @@ async function verify(cert) {
     const soSecure = questions.filter((q) => q.pool === "secure" && hard(q));
     const soOther = questions.filter((q) => q.pool !== "secure" && hard(q));
     const cer = questions.filter(soft);
-    const ev = (rows) => rows.slice(0, 8).map((q) => {
+    // PLACEMENT, NOT JUST PRESENCE. Scoping SPO-AI-I by hand on 2026-09-12 took a
+    // dozen queries to learn what this now prints in one line, and the answer
+    // decided the whole job: six items had the retired term IN THE KEY - the
+    // correct answer asserting pre-2020 vocabulary as the right concept - while
+    // sixty-two had it only in a distractor, where it was incidental phrasing
+    // inside an option that was wrong about something else entirely.
+    //
+    // Those need opposite treatments. A key is a defect in what the item
+    // asserts; a distractor may be the misconception UNDER TEST, and sweeping it
+    // destroys the discrimination - which is what five of SM-AI-I's thirteen
+    // turned out to be. Presence alone cannot tell them apart, so the count
+    // alone can only ever prompt another hand-scoping.
+    const distText = (q) => {
+      const ids = new Set([].concat(q.correct_answer || []));
+      return (Array.isArray(q.options) ? q.options.filter((o) => !ids.has(o.id)) : [])
+        .map((o) => o.text || "").join(" ");
+    };
+    const placementOf = (q) => {
       const h = RETIRED_HARD[q.language], f = RETIRED_SOFT[q.language];
-      const any = (t) => (!!h && h.test(t)) || (!!f && f.test(t));
-      const where = any(keyText(q)) ? "KEY" : any(q.question_text || "") ? "STEM" : "option/explanation";
-      return `${q.language}/${q.pool} [${where}] ${(q.question_text || "").slice(0, 55)}`;
-    });
+      const any = (t) => (!!h && h.test(t || "")) || (!!f && f.test(t || ""));
+      const at = [];
+      if (any(keyText(q))) at.push("KEY");
+      if (any(q.question_text)) at.push("STEM");
+      if (any(distText(q))) at.push("DISTRACTOR");
+      if (any(q.explanation)) at.push("EXPLANATION");
+      return at.length ? at : ["?"];
+    };
+    const tally = (rows) => {
+      const c = { KEY: 0, STEM: 0, DISTRACTOR: 0, EXPLANATION: 0 };
+      for (const q of rows) for (const p of placementOf(q)) if (p in c) c[p]++;
+      return `key ${c.KEY} · stem ${c.STEM} · distractor ${c.DISTRACTOR} · explanation ${c.EXPLANATION}`;
+    };
+    const ev = (rows) => rows.slice(0, 8).map((q) =>
+      `${q.language}/${q.pool} [${placementOf(q).join("+")}] ${(q.question_text || "").slice(0, 55)}`);
     if (soSecure.length > 0) {
       R.fail("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
-        `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term (self-organiz*, development team, and their translations)`, ev(soSecure));
+        `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term - BY PLACEMENT: ${tally(soSecure)}. A key is a defect in what the item asserts; a distractor may be the misconception UNDER TEST and must be read before it is swept`, ev(soSecure));
     } else if (soOther.length > 0 || cer.length > 0) {
       R.warn("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
         `${soOther.length} non-secure retired-term item(s), ${cer.length} ceremony/role-family hit(s) across 3 languages - NOISY BY DESIGN, read each: role joined this family 2026-09-11 and roughly quadrupled the count. A hard pattern would fail correct content six times in seven; if this proves unreadable in practice, narrow it THEN, with evidence`,
