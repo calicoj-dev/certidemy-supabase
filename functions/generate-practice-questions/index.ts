@@ -13,12 +13,34 @@
 // single transaction (create_practice_questions, migration 043). This makes a
 // generated question structurally identical to a canonical one: reachable by
 // the practice engine, linked to exactly the concepts its task is tagged to,
-// pool='practice', is_exam_scope=false. There is no way for it to be born an
-// orphan.
+// pool='practice', is_exam_scope=false.
 //
-// Language: defaults to 'en'. Trilingual fan-out (one logical question across
-// en/es-419/pt-BR sharing a question_group_id) is the next step; today an
-// es-419/pt-BR caller still works because fetchConceptPractice falls back to en.
+// THIS COMMENT USED TO SAY "there is no way for it to be born an orphan". That
+// was true of task_id and of question_concepts, and FALSE of question_group_id,
+// which this function did not send at all. Between 2026-08-27 and 2026-09-11 it
+// wrote 90 ungrouped English rows into AIE-I, on top of 30 es-419 rows from the
+// same path, and nothing noticed because a null group is EXCLUDED rather than
+// flagged by the checks that key on it (see below).
+//
+// Language: defaults to 'en', ONE language per call - the trilingual fan-out is
+// still unbuilt, and an es-419/pt-BR caller works because fetchConceptPractice
+// falls back to en.
+//
+// SO EVERY QUESTION GETS ITS OWN question_group_id, minted here. A group of one
+// is the honest representation of "this logical question exists in English
+// only": it is incomplete, and trilingual.items will now SAY it is incomplete
+// instead of skipping it, because that check filters `g && n !== 3` and a null
+// key is dropped by the `g &&`. It also makes the row ADDRESSABLE - a later
+// fan-out can insert siblings into an existing group, which is impossible for a
+// row whose group is null.
+//
+// WHAT A NULL GROUP SILENTLY EXCLUDED A ROW FROM, measured 2026-09-12:
+//   verify-cert trilingual.items          dropped by `g &&`
+//   verify-cert quoted-vocabulary exempt  keyed per group, so the flag is inert
+//   retranslate-retired-vocabulary.mjs    finds the English sibling by group;
+//                                         eq(col, null) matches no row
+//   debias-positions.mjs                  `if (!r.question_group_id) continue`
+//   publish-sample-questions.mjs          selects by an explicit group list
 //
 // NOTE: status is left at its column default ('approved') — generated
 // questions go live immediately, as before. A real review gate must also be
@@ -58,6 +80,10 @@ interface ConceptLite {
 interface PayloadRow {
   certification_id: string;
   task_id: string;
+  // REQUIRED, not optional. Optional here is what let the field be omitted
+  // silently for two weeks - the RPC takes a null group without complaint,
+  // unlike task_id, which it raises on.
+  question_group_id: string;
   question_text: string;
   question_type: string;
   options: unknown;
@@ -200,6 +226,9 @@ serve(async (req) => {
         payload.push({
           certification_id: body.certification_id,
           task_id,
+          // One group per generated question. See the header: a group of one is
+          // correct for a single-language item and keeps the row addressable.
+          question_group_id: crypto.randomUUID(),
           question_text: q.question_text,
           question_type: q.question_type,
           options: q.options,
