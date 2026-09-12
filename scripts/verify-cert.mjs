@@ -242,8 +242,14 @@ async function verify(cert) {
     lessons = data ?? [];
   }
 
-  const { data: cov } = await db.from("v_coverage_summary").select("*").eq("certification_id", id).maybeSingle();
-  const { data: jtaRows } = await db.from("jta_versions").select("version_string, status").eq("certification_id", id);
+  // THE LAST THREE STRAGGLERS, wrapped 2026-09-11 for the reason above. Both of
+  // these fed a FALSE FAILURE rather than a false pass: a dropped v_coverage_summary
+  // read reported "the coverage view is empty", and a dropped jta_versions read
+  // reported "no jta_versions row at all" against a certification with a published
+  // JTA. Less dangerous than a false pass and more corrosive than it looks - a
+  // checker that cries wolf is one people learn to skim.
+  const { data: cov } = await must("v_coverage_summary", db.from("v_coverage_summary").select("*").eq("certification_id", id).maybeSingle());
+  const { data: jtaRows } = await must("jta_versions", db.from("jta_versions").select("version_string, status").eq("certification_id", id));
 
   // === 0. FORM SHAPE =======================================================
   //
@@ -1340,10 +1346,13 @@ async function verify(cert) {
     // Checked for every non-draft cert. A draft genuinely does not need one --
     // that is the whole reason 249 guards the transition rather than the insert.
     {
-      const { data: achRows } = await db
+      // A dropped read here reported "0 achievement row(s) - expected exactly 1"
+      // on a certification whose achievement is fine, and that line points the
+      // reader at CERT-PUBLISH-CHECKLIST 6.7 to insert a row that already exists.
+      const { data: achRows } = await must("achievements", db
         .from("achievements")
         .select("id, code, status, achievement_type, issuers(is_active)")
-        .eq("certification_id", id);
+        .eq("certification_id", id));
 
       const rows = achRows ?? [];
       const a = rows[0];
@@ -1517,11 +1526,14 @@ async function verify(cert) {
         }
 
         // Facts this check needs that the outer fetch does not already hold.
-        const { data: certFull } = await db.from("certifications")
-          .select("validity_days").eq("id", id).maybeSingle();
-        const { data: schemeLessons } = await db.from("lessons")
+        // These feed the machine-checked scheme claims. A dropped read makes a
+        // DECLARED CLAIM look false, which is the most expensive false failure in
+        // the file - it reads as the scheme document lying about the product.
+        const { data: certFull } = await must("certifications/validity_days", db.from("certifications")
+          .select("validity_days").eq("id", id).maybeSingle());
+        const { data: schemeLessons } = await must("lessons/scheme-claims", db.from("lessons")
           .select("id, lesson_group_id, module_id")
-          .in("module_id", modIds.length ? modIds : ["00000000-0000-0000-0000-000000000000"]);
+          .in("module_id", modIds.length ? modIds : ["00000000-0000-0000-0000-000000000000"]));
         // ITEM COUNTS COME FROM `questions`, THE PAGED FETCH ABOVE, NOT A FRESH
         // QUERY. Two reasons, both learned the hard way in this file:
         //   - PostgREST caps a select at 1000 rows. A naive

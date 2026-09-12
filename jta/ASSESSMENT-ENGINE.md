@@ -358,6 +358,15 @@ to a task · all tasks in exam scope (or flagged intentional)
 
 **Pools** — secure floor ≥8/task/lang · practice floor ≥10/task/lang · every item approved
 
+**CHECK THE 1,000-ROW CAP BEFORE YOU ADD ROWS.** PostgREST caps an unfiltered
+select at 1,000 rows and `generate-mock-exam` has **no** `.range()` paging, so a
+`(certification, pool, language)` bucket that crosses 1,000 is silently truncated and
+forms are drawn from a partial pool - a wrong answer indistinguishable from a smaller
+bank. Measured 2026-09-11: no bucket exceeds 800, and SM-AI-II's 1,056 secure items
+divide to ~352 per language. **Adding a language and raising a floor are the two ways
+this starts biting.** The query to run first, and the rest of the finding, are in
+`READ-FAILURE-AUDIT.md` section 7.
+
 **Cognition (the JTA→item chain)**
 - **item bloom == task bloom** (secure, strict)
 - no exam-scope task above the MCQ ceiling

@@ -30,6 +30,29 @@ Deno.serve(async (req) => {
       });
     }
     const svc = createClient(url, serviceKey);
+
+    /* A DROPPED READ MUST NOT BECOME A GOVERNANCE NUMBER.
+     *
+     * Every read below used to discard its error, and the bank counts did it in
+     * the worst possible form: `bank[code][pool][lang] = count ?? 0`. That is 78
+     * separate counted reads in one request - 13 certs x 2 pools x 3 languages -
+     * and ONE failure reported ZERO ITEMS in that cell. Zero is not an error
+     * shape; it is a plausible, alarming, actionable answer, on the surface built
+     * to show an assessor per-clause evidence.
+     *
+     * The same read is what the guardrail rows, the telemetry and the credential
+     * counts are built from, so the fix is at the boundary rather than per cell:
+     * anything that cannot be read throws, the handler's catch returns 500, and
+     * the console shows a failure instead of a snapshot that looks complete.
+     *
+     * A GOVERNANCE SNAPSHOT HAS NO PARTIAL FORM. "Some of these numbers are real"
+     * is not a state a reader can act on, and there is nowhere in the payload to
+     * say which ones. */
+    const must = async <T>(label: string, q: PromiseLike<{ data: T; error: { message?: string } | null; count?: number | null }>) => {
+      const { data, error, count } = await q;
+      if (error) throw new Error(`governance read failed (${label}): ${error.message ?? "unknown"}`);
+      return { data, count };
+    };
     const { data: profile } = await svc
       .from("profiles").select("platform_role").eq("id", user.id).maybeSingle();
     if ((profile as { platform_role?: string } | null)?.platform_role !== "platform_admin") {
@@ -40,14 +63,14 @@ Deno.serve(async (req) => {
 
     const [{ data: certs }, { data: domains }, { data: tasks }, { data: jtas }] =
       await Promise.all([
-        svc.from("certifications")
+        must("certifications", svc.from("certifications")
           .select("id, code, name, status, passing_score_pct, num_questions, exam_duration_minutes")
-          .order("code"),
-        svc.from("domains").select("id, certification_id, code, title, weight_pct, order_index"),
-        svc.from("tasks").select("id, certification_id, domain_id, code, statement, order_index"),
-        svc.from("jta_versions")
+          .order("code")),
+        must("domains", svc.from("domains").select("id, certification_id, code, title, weight_pct, order_index")),
+        must("tasks", svc.from("tasks").select("id, certification_id, domain_id, code, statement, order_index")),
+        must("jta_versions", svc.from("jta_versions")
           .select("certification_id, version_string, status, created_at, blueprint_snapshot")
-          .order("created_at", { ascending: false }),
+          .order("created_at", { ascending: false })),
       ]);
 
     const certList = (certs ?? []) as {
@@ -112,30 +135,33 @@ Deno.serve(async (req) => {
         bank[c.code][pool] = {};
         for (const lang of LANGS) {
           if (ids.length === 0) { bank[c.code][pool][lang] = 0; continue; }
-          const { count } = await svc
+          const { count } = await must(`bank ${c.code}/${pool}/${lang}`, svc
             .from("quiz_questions")
             .select("id", { count: "exact", head: true })
-            .in("task_id", ids).eq("pool", pool).eq("language", lang);
-          bank[c.code][pool][lang] = count ?? 0;
+            .in("task_id", ids).eq("pool", pool).eq("language", lang));
+          // count is null only when PostgREST returns no count header, which is
+          // not the same as a failed read - that threw above.
+          if (count == null) throw new Error(`governance read returned no count (bank ${c.code}/${pool}/${lang})`);
+          bank[c.code][pool][lang] = count;
         }
       }
     }
 
-    const { data: guardRows } = await svc.from("v_governance_guardrails").select("*");
+    const { data: guardRows } = await must("v_governance_guardrails", svc.from("v_governance_guardrails").select("*"));
     const guardrails = (guardRows?.[0] ?? {
       practice_marked_secure: null, secure_linked_to_concepts: null,
     }) as { practice_marked_secure: number | null; secure_linked_to_concepts: number | null };
 
     const [{ data: covSummary }, { data: covTnT }, { data: covTaught }] = await Promise.all([
-      svc.from("v_coverage_summary").select("*").limit(100),
-      svc.from("v_coverage_tested_not_taught").select("*").limit(100),
-      svc.from("v_coverage_taught_not_tested").select("*").limit(100),
+      must("v_coverage_summary", svc.from("v_coverage_summary").select("*").limit(100)),
+      must("v_coverage_tested_not_taught", svc.from("v_coverage_tested_not_taught").select("*").limit(100)),
+      must("v_coverage_taught_not_tested", svc.from("v_coverage_taught_not_tested").select("*").limit(100)),
     ]);
 
-    const { data: attempts } = await svc
+    const { data: attempts } = await must("exam_attempts", svc
       .from("exam_attempts")
       .select("certification_id, score_pct, passed, late_submission, submitted_at")
-      .order("submitted_at", { ascending: false }).limit(2000);
+      .order("submitted_at", { ascending: false }).limit(2000));
     const tele: Record<string, { attempts: number; passed: number; avgScore: number; late: number }> = {};
     for (const a of (attempts ?? []) as {
       certification_id: string; score_pct: number; passed: boolean; late_submission: boolean;
@@ -147,7 +173,7 @@ Deno.serve(async (req) => {
     }
     for (const t of Object.values(tele)) t.avgScore = t.attempts ? Math.round(t.avgScore / t.attempts) : 0;
 
-    const { data: credRows } = await svc.from("v_credentials_real").select("certification_code, status");
+    const { data: credRows } = await must("v_credentials_real", svc.from("v_credentials_real").select("certification_code, status"));
     const credentials: Record<string, { active: number; revoked: number; expired: number }> = {};
     for (const c of (credRows ?? []) as { certification_code: string; status: string }[]) {
       const b = (credentials[c.certification_code] ??= { active: 0, revoked: 0, expired: 0 });
@@ -155,10 +181,10 @@ Deno.serve(async (req) => {
       else if (c.status === "revoked") b.revoked++;
       else b.expired++;
     }
-    const { data: audit } = await svc
+    const { data: audit } = await must("admin_actions", svc
       .from("admin_actions")
       .select("action, target_type, reason, created_at")
-      .order("created_at", { ascending: false }).limit(12);
+      .order("created_at", { ascending: false }).limit(12));
 
     const payload = {
       generatedAt: new Date().toISOString(),

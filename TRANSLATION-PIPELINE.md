@@ -241,6 +241,15 @@ For cert **X** (uuid **U**, content `content/x/`), language **L**:
 4. **Load** — `load-lessons-direct.mjs --in ...\content\x\_i18n\L --lang L` (dry, then live).
 5. **Verify** — per-language lesson counts in lockstep; group integrity clean. No re-wire.
 
+**CHECK THE 1,000-ROW CAP BEFORE YOU ADD ROWS.** PostgREST caps an unfiltered
+select at 1,000 rows and `generate-mock-exam` has **no** `.range()` paging, so a
+`(certification, pool, language)` bucket that crosses 1,000 is silently truncated and
+forms are drawn from a partial pool - a wrong answer indistinguishable from a smaller
+bank. Measured 2026-09-11: no bucket exceeds 800, and SM-AI-II's 1,056 secure items
+divide to ~352 per language. **Adding a language and raising a floor are the two ways
+this starts biting.** The query to run first, and the rest of the finding, are in
+`READ-FAILURE-AUDIT.md` section 7.
+
 ---
 
 ## 5. Why this is a 17024 artifact

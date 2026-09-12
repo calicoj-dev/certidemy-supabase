@@ -135,6 +135,19 @@ do not exist yet.
 
 ## Database rules that were paid for
 
+**A DROPPED READ MUST NOT BECOME AN ANSWER**, and the audit of where that could
+still happen is `READ-FAILURE-AUDIT.md`. A Supabase read whose error is
+discarded turns a broken query into a legitimate-looking empty result:
+`count ?? 0` on an errored read reports **zero leaked links**, which is the
+answer that passes. Three instances surfaced on 2026-09-11 - the silent
+`42501` below, a check that skipped instead of failing, and one dropped page
+that reported three confident failures against a healthy 2,160-item bank.
+
+**Sections 4 and 5 of that document are the expensive half: sites that LOOK
+wrong and are not**, with the backstop named per site and confirmed against
+`pg_index`. Read them before "fixing" a pre-check that a unique index already
+guarantees, or an authorisation read that is failing closed on purpose.
+
 **RLS is not a grant.** The table-level grant is checked BEFORE row-level
 security. A table with RLS enabled and no grant is closed; a table with a grant
 and no policies is open. A missing grant produces a silent `42501` that
