@@ -58,24 +58,9 @@ Product Goal. A translated one is a defect.
 
 ## Everything not yet approved — every certification, both tables
 
-### ~SD-AI-I
-
-**Scrum Developer I — AI** — tier 1, available. 2 row(s) awaiting a reader.
-
-### SD-AI-I/2.3
-
-task statement · D2 · 3_apply
-
-    EN       Own and maintain the Sprint Backlog as a living plan
-    en#9c3c9de6
-
-    [ ] es-419   Apropiarse y mantener el Sprint Backlog como un plan vivo
-        NOTE:
-
-    [ ] pt-BR    Ser responsável e manter o Sprint Backlog como um plano vivo
-        NOTE:
-
----
+**Nothing is open.** Every domain title and task statement on every
+certification is approved. This is the generator answering the broad
+question, not a filter returning empty.
 
 ## When you are done
 
@@ -83,5 +68,5 @@ Hand this file back marked up. **It is the evidence**, not a worksheet — `veri
 `i18n.approved` check exists to record that a human compared these translations to the
 current English, and this document is what makes that a fact rather than an assertion.
 
-**2 rows in scope.** Nothing is flipped in the database until a person has read
+**0 rows in scope.** Nothing is flipped in the database until a person has read
 them, and nothing is flipped for a row marked `[!]` at all.

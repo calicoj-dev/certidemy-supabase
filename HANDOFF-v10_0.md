@@ -47,12 +47,26 @@ failure.
   procedure this platform performed.
 - **No candidate has sat SM-AI-II.** It went live in v9.9's session. The
   assembler has still never run against a real seat on it.
-- **"Nothing queued for review" is NOT true**, and I will not write it. Two
-  queues remain open:
-  - `task_translations`: **2 rows** (SD-AI-I, one per language) unreviewed since
-    2026-07-22. Small, real, untouched by this session.
-  - `analysis_findings`: **94 flagged, 0 reviewed** — deliberately left, see §7.
-  What closed is the *module translation* queue specifically.
+- **Every translation review queue is closed**, and this sentence replaced one
+  that said the opposite. The earlier draft of this document recorded two
+  `task_translations` rows as open, because they were — SD-AI-I task 2.3, since
+  2026-07-22. They were read and approved an hour later, which is why this bullet
+  was rewritten rather than left to rot. Measured with COUNTS, not a row fetch:
+
+  | queue | open | total |
+  |---|---:|---:|
+  | `domain_translations` | 0 | 116 |
+  | `module_translations` | 0 | 116 |
+  | `task_translations` | 0 | **1016** |
+
+  **The 1016 matters.** The first verification used a PostgREST `.select()` and
+  reported "0 open of 1000" — the 1,000-row cap, silently truncating the page.
+  Zero open of a truncated read is not zero open, and this document nearly
+  carried a closure claim measured on 1000 of 1016 rows. It is the dropped-page
+  failure `READ-FAILURE-AUDIT.md` §7 records, caught because the total looked
+  round.
+- **`analysis_findings` is still 94 flagged, 0 reviewed** — deliberately left,
+  see §7. It is not a translation queue.
 - **Module headings approved does not mean module headings audited.** A reviewer
   compared each to its English. Nothing checked them against the lessons
   beneath them, which is how the SM-AI-I title defect survived until a human
@@ -384,9 +398,9 @@ remain open.
 | **SM-AI-I's 20 ungrouped items** | Now load-bearing: one of them holds a `retired_vocabulary_intent = 'quoted'` adjudication that is **stored and inert**, because the exemption is read per group and that row has no group. Do **not** make the exemption row-keyed — the group key is what stops a re-translated sibling losing an exemption its siblings keep. Fix the grouping and the flag becomes live. |
 | **AIMS-F `02-04`** | pt-BR renders the clause-5.3 heading as *"Funções, responsabilidades e autoridades"* where the pin is `papéis`. **One lesson, one pass.** Recorded rather than swept, because a sweep is the larger risk. |
 | **AIE-I's ungrouped writer** | Fixed going forward (299 + the function deploy). The **120 existing rows** are untouched by design. Whether to group them is a content decision. |
-| **`task_translations`** | 2 rows, SD-AI-I, unreviewed since 2026-07-22. `gen-translation-review-doc.mjs` already covers this table. |
+| ~~**`task_translations`**~~ | **CLOSED 2026-09-12.** SD-AI-I task 2.3 said `pronóstico vivo` / `previsão viva` against an English reading "living plan" — the 2017 term, in the JTA. Re-translated and approved. Surfaced only because `--pending` asks the question across every certification; the per-cert tiers that hid it for seven weeks would still hide it. |
 | **`analysis_findings`** | 94 flagged, 0 reviewed. Scoped as shakedown residue in the analyzer header. Nothing to do unless the analyzer is picked up again. |
-| **Polish** | Accent notes from the module review; `SGSIA` vs `AIMS` inconsistency in Spanish module descriptions; pt-BR `Responsabilidades de Scrum` where `do Scrum` is more idiomatic. |
+| **Polish** | Accent notes from the module review; `SGSIA` vs `AIMS` inconsistency in Spanish module descriptions; pt-BR `Responsabilidades de Scrum` where `do Scrum` is more idiomatic; and SD-AI-I task 2.3 pt-BR renders "Own and maintain" as `Ser responsável e manter`, which is awkward — the rejected version's `Assumir` was the better verb. Approved as polish, not reversed. |
 | **Carried from v9.9** | The pass mark is adopted by citation, no panel has run, and the assembler has never run against a real SM-AI-II seat. |
 
 ---
