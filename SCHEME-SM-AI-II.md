@@ -435,34 +435,60 @@ does not say" and "the Guide says do it this way."** Their habits usually work. 
 what makes them defensible, and it is what makes them the right author of the
 second-best option.
 
-**What they reliably get right**, and therefore what no distractor may be built on:
-applying a rule the Guide determines; naming an anti-pattern; protecting a timebox and
-holding the Sprint Goal against casual scope pressure.
+**What they reliably get right:** applying a rule the Guide determines; naming an
+anti-pattern; protecting a timebox and holding the Sprint Goal against casual scope
+pressure.
 
-**What they get wrong** — eight named failure modes, each a source for a defensible
-second-best: they over-intervene where developing the team's capacity was available;
+**What they get wrong** — eight named failure modes: they over-intervene where
+developing the team's capacity was available;
 they fix the visible symptom rather than its cause; they import a practice and present
 it as the framework; they absorb accountabilities to keep things moving; they escalate
 at one volume rather than matching the impediment; they treat an artifact as evidence of
 the activity that produced it; they protect the relationship over the transparency; and
 in an AI-augmented team they measure what moved rather than what held.
 
-**What the candidate one level further on does differently** — six contrasting moves,
-each stateable as a one-sentence reason why the best beats the second-best: chooses the
-intervention that leaves the team more capable rather than the one that resolves fastest;
+**What the candidate one level further on does differently** — six contrasting moves:
+chooses the intervention that leaves the team more capable rather than the one that
+resolves fastest;
 separates what the Guide determines from what it leaves open and says which they are
 doing; treats a practice that works as worth keeping *and* as not Scrum; declines work
 that would move an accountability; reads an artifact as a claim to be tested; and says
 the uncomfortable thing to the person who can act on it, at the volume the impediment
 warrants.
 
-> **THIS DEFINITION IS ONE ARTIFACT WITH TWO HOMES, AND THEY MUST NOT DIVERGE.** The
-> text above is the summary; the deployed form is `SCRUM_L2_JUDGMENT` in
-> **`scripts/lib/item-grounding.mjs`** (commit `e3eb533`), which is injected into both
-> the draft and the critique prompts for every Level II Scrum item. **The scheme
-> document and the generation input are the same statement**, and a change to either is
-> a change to both. That is deliberate: it is what stops the published standard and the
-> instrument that produces items from drifting apart.
+> **THIS DEFINITION HAS TWO HOMES AND THEY ARE NO LONGER THE SAME TEXT — 2026-09-12.**
+>
+> They were, deliberately, and the reason was sound: one statement cannot drift from
+> itself. But the shared text carried two different kinds of sentence, and only one of
+> them belongs in a published scheme.
+>
+> **What is above is the CANDIDATE DESCRIPTION** — who this person is, what they
+> reliably get right, the eight failure modes, and what the next level up does
+> differently. All of it describes a professional. A candidate who reads it and stops
+> over-intervening has become better at the job, which is the credential working.
+>
+> **What is NOT above, and now lives only in `SCRUM_L2_JUDGMENT` in
+> `scripts/lib/item-grounding.mjs`, is the ITEM-CONSTRUCTION MAPPING** — that the
+> second-best option is what this candidate would choose, that the best is what the next
+> level up would choose, that the six contrasting moves are the reason the best wins, and
+> that no distractor may be built on what they get right.
+>
+> **That half is an answer-selection strategy, not a competence claim.** A reader who has
+> it does not need to recognise anything: when two options both look defensible, eliminate
+> the faster-resolving one and choose the capacity-building one. Every failure mode has a
+> stated counterpart, so the heuristic covers the whole bank. It would raise a score
+> without changing judgment in a workplace, where nobody presents four labelled options.
+>
+> **THE CUT WAS A DELETION, NOT A SUMMARY.** Three subordinate clauses were removed —
+> "and therefore what no distractor may be built on", "each a source for a defensible
+> second-best", and "each stateable as a one-sentence reason why the best beats the
+> second-best". The lists they were attached to are unchanged, word for word. A summary
+> would have carried the relation through in compressed form, which is exactly how a
+> mapping survives being removed.
+>
+> **The panel gets the full text.** A modified-Angoff panel rates against the complete
+> definition including the mapping, because it is rating items. The panel is not the
+> public, and this split is about what is published, not about what the panel sees.
 
 **Stage 2 is not blocked by candidates.** It is blocked by a panel of independent
 subject-matter experts, which is a recruiting problem. Stage 3 is blocked by live
