@@ -12,6 +12,10 @@ publish.* The row is readable by `anon` and appears on `/certifications` as
 `coming_soon`. **All 98 blueprint translation rows have been read by a human, the four
 rejections repaired, and the repairs re-read and approved on 2026-09-11.**
 
+> **SUPERSEDED FOR CURRENT STATE BY `HANDOFF-v9_9.md` (2026-09-11).** SM-AI-II is now
+> **available** at 53 pass / 0 fail. This document remains the record of the visibility
+> work and of the RLS finding; read v9.9 for where things stand, and its §2 first.
+
 **If you read one section of this document, read §2.** It is the only place the RLS
 finding is written down in prose; everywhere else it exists only in commit messages.
 
