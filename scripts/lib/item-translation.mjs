@@ -110,10 +110,39 @@ still be answering a different question.
   team does Scrum, not that it does Scrum correctly and fails anyway. Prefer a
   verb that keeps the irony.
 
-THE PATTERN IN ALL THREE: the English word was chosen to carry a distinction, and
+  ENGAGEMENT is not COMPROMISO, and this is the dangerous one. compromiso is the
+  CORRECT es-419 rendering of Scrum's COMMITMENT: the Product Goal, the Sprint
+  Goal and the Definition of Done are the three artifact commitments. Using it
+  for "engagement" does not merely pick a weak word - IT SPENDS A TERM THIS
+  CREDENTIAL TESTS BY NAME. Measured on SM-AI-II, 2026-09-11: eleven tasks
+  across D1, D2, D4 and D5 turn on an artifact commitment, so a candidate
+  meeting "pierde el compromiso del Product Owner" in D3 has a real ambiguity
+  and not a stylistic one. Use participacion / involucramiento, or leave
+  ENGAGEMENT in English. pt-BR's engajamento is right and stays.
+
+THE PATTERN IN ALL FOUR: the English word was chosen to carry a distinction, and
 the natural translation drops it. When a term appears in a task STATEMENT it is
 usually load-bearing - check the concept slugs beside it before choosing a
-synonym.`;
+synonym.
+
+ATTACHMENT - WHAT THE PREPOSITION ATTACHES TO. Not a false friend. A structural
+choice that silently moves the SUBJECT of the task while every individual word
+stays correct.
+
+  AN IMPROVEMENT IDENTIFIED AT THE RETROSPECTIVE IS NOT AN IMPROVEMENT OF THE
+  RETROSPECTIVE. "mejora de la Sprint Retrospective" / "melhoria da Sprint
+  Retrospective" reads as improving the EVENT. Task 1.9 is about an improvement
+  the team identified there which would require omitting a Scrum element: the
+  Retrospective is WHERE IT CAME FROM, not what it changes. Use "una mejora
+  identificada en la Sprint Retrospective" / "uma melhoria identificada na
+  Sprint Retrospective".
+
+  THIS ONE FAILED IN BOTH LANGUAGES IDENTICALLY, which is why it is a contract
+  entry and not just a correction. A defect that reproduces across two
+  independent translations is not a slip - it is the shortest natural rendering
+  beating the accurate one, and it will recur wherever an English noun phrase
+  attaches a SOURCE to an object and the target language's default reading is
+  possession.`;
 
 /**
  * The translation system prompt. `kind` is "secure" | "practice" and changes one word.

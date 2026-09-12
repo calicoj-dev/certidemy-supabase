@@ -3,6 +3,14 @@
 **Certification:** Scrum Master II — AI
 **Generated:** 2026-09-11 — regenerate and re-check the hashes if the English has moved.
 **Scope:** tier 3
+**Reviewed:** 2026-09-11 by the scheme owner with Grok, all 70 rows. **67 approved, 3
+rejected.** The marks below were TRANSCRIBED from the reviewers' report rather than typed
+into this file by them; the three rejections carry the reviewers' own reasoning on the
+NOTE lines.
+**The three rejected rows show the text AS REVIEWED.** Their repairs have since been
+written by `retranslate-review-rejection.mjs` and are **provisional pending a re-read** -
+a re-translation has not been reviewed, and the script that writes one cannot clear the
+flag.
 **Languages:** es-419 (Latin American Spanish), pt-BR (Brazilian Portuguese)
 
 ---
@@ -69,10 +77,10 @@ many times — but still every word a candidate reads before paying.
     skills   Applying the threat test to a concrete proposed change
     en#6e10bc07
 
-    [ ] es-419   Determinar si un cambio propuesto a mitad del Sprint amenaza el Sprint Goal
+    [x] es-419   Determinar si un cambio propuesto a mitad del Sprint amenaza el Sprint Goal
         NOTE:
 
-    [ ] pt-BR    Determinar se uma mudança proposta no meio da Sprint ameaça o Sprint Goal
+    [x] pt-BR    Determinar se uma mudança proposta no meio da Sprint ameaça o Sprint Goal
         NOTE:
 
 ### 1.2 · 4_analyze
@@ -83,11 +91,11 @@ many times — but still every word a candidate reads before paying.
     skills   Reading whether the number was imposed, conceded or genuinely contested
     en#d5deaf62
 
-    [ ] es-419   Analizar una situación en la que el tamaño de un elemento ha sido establecido por
+    [x] es-419   Analizar una situación en la que el tamaño de un elemento ha sido establecido por
                  alguien ajeno a los Developers
         NOTE:
 
-    [ ] pt-BR    Analisar uma situação em que o dimensionamento de um item pelos Developers foi
+    [x] pt-BR    Analisar uma situação em que o dimensionamento de um item pelos Developers foi
                  definido por outra pessoa
         NOTE:
 
@@ -99,11 +107,11 @@ many times — but still every word a candidate reads before paying.
     skills   Classifying a proposed change as an addition or a weakening
     en#b1f6809a
 
-    [ ] es-419   Distinguir las adiciones permitidas a la Definition of Done del debilitamiento de un
+    [x] es-419   Distinguir las adiciones permitidas a la Definition of Done del debilitamiento de un
                  estándar organizacional
         NOTE:
 
-    [ ] pt-BR    Distinguir adições permitidas à Definition of Done do enfraquecimento de um padrão
+    [x] pt-BR    Distinguir adições permitidas à Definition of Done do enfraquecimento de um padrão
                  organizacional
         NOTE:
 
@@ -115,11 +123,11 @@ many times — but still every word a candidate reads before paying.
     skills   Separating a planning signal from a delivery failure
     en#6a4da225
 
-    [ ] es-419   Analizar un Sprint en el que se cumplió el Sprint Goal pero no se entregó todo el
+    [x] es-419   Analizar un Sprint en el que se cumplió el Sprint Goal pero no se entregó todo el
                  alcance seleccionado en el Sprint Planning
         NOTE:
 
-    [ ] pt-BR    Analisar uma Sprint na qual o Sprint Goal foi atingido e nem todo o escopo
+    [x] pt-BR    Analisar uma Sprint na qual o Sprint Goal foi atingido e nem todo o escopo
                  selecionado no Sprint Planning foi entregue
         NOTE:
 
@@ -130,11 +138,11 @@ many times — but still every word a candidate reads before paying.
     skills   Locating the boundary in a live decision
     en#096db1bc
 
-    [ ] es-419   Diagnosticar una decisión de autogestión que entra en conflicto con una restricción
+    [x] es-419   Diagnosticar una decisión de autogestión que entra en conflicto con una restricción
                  organizacional
         NOTE:
 
-    [ ] pt-BR    Diagnosticar uma decisão de autogestão que conflita com uma restrição organizacional
+    [x] pt-BR    Diagnosticar uma decisão de autogestão que conflita com uma restrição organizacional
         NOTE:
 
 ### 1.6 · 4_analyze
@@ -144,11 +152,11 @@ many times — but still every word a candidate reads before paying.
     skills   Assessing obsolescence against changed conditions
     en#52ea57e8
 
-    [ ] es-419   Analizar la presión para cancelar un Sprint cuando el Sprint Goal sigue siendo
+    [x] es-419   Analizar la presión para cancelar un Sprint cuando el Sprint Goal sigue siendo
                  alcanzable
         NOTE:
 
-    [ ] pt-BR    Analisar a pressão para cancelar um Sprint enquanto o Sprint Goal permanece
+    [x] pt-BR    Analisar a pressão para cancelar um Sprint enquanto o Sprint Goal permanece
                  alcançável
         NOTE:
 
@@ -160,11 +168,11 @@ many times — but still every word a candidate reads before paying.
     skills   Attributing the cause from Sprint evidence
     en#2d83a033
 
-    [ ] es-419   Determinar si un elemento incompleto al final del Sprint representa una falla en la
+    [x] es-419   Determinar si un elemento incompleto al final del Sprint representa una falla en la
                  Definition of Done o una falla en la previsión
         NOTE:
 
-    [ ] pt-BR    Determinar se um item incompleto ao final do Sprint representa uma falha na
+    [x] pt-BR    Determinar se um item incompleto ao final do Sprint representa uma falha na
                  Definition of Done ou uma falha de previsão
         NOTE:
 
@@ -175,11 +183,11 @@ many times — but still every word a candidate reads before paying.
     skills   Reading a divergence as a transparency, planning or engagement signal
     en#67e7f846
 
-    [ ] es-419   Diagnosticar la divergencia entre el plan diario de los Developers y el Sprint
+    [x] es-419   Diagnosticar la divergencia entre el plan diario de los Developers y el Sprint
                  Backlog
         NOTE:
 
-    [ ] pt-BR    Diagnosticar divergência entre o plano diário dos Developers e o Sprint Backlog
+    [x] pt-BR    Diagnosticar divergência entre o plano diário dos Developers e o Sprint Backlog
         NOTE:
 
 ### 1.9 · 4_analyze
@@ -189,13 +197,13 @@ many times — but still every word a candidate reads before paying.
     skills   Distinguishing a complementary practice from an omission of a Scrum element
     en#453244e8
 
-    [ ] es-419   Analizar una mejora de la Sprint Retrospective que requeriría que el equipo se
+    [!] es-419   Analizar una mejora de la Sprint Retrospective que requeriría que el equipo se
                  aparte de Scrum
-        NOTE:
+        NOTE: "mejora de la Sprint Retrospective" reads as improving the EVENT. The task is an improvement IDENTIFIED AT the Retrospective that would require omitting a Scrum element. Repair: "una mejora identificada en la Sprint Retrospective".
 
-    [ ] pt-BR    Analisar uma melhoria da Sprint Retrospective que exigiria que o time se afastasse
+    [!] pt-BR    Analisar uma melhoria da Sprint Retrospective que exigiria que o time se afastasse
                  do Scrum
-        NOTE:
+        NOTE: Same defect as the es-419 row, same repair: "melhoria da Sprint Retrospective" reads as improving the EVENT. Use "uma melhoria identificada na Sprint Retrospective".
 
 **D2 — Coaching a team performing Scrum and still failing**
 
@@ -206,10 +214,10 @@ many times — but still every word a candidate reads before paying.
     skills   Reading the gap between what a stance can reach and what the dysfunction is costing
     en#33f22909
 
-    [ ] es-419   Determinar qué magnitud de intervención requiere realmente una disfunción del equipo
+    [x] es-419   Determinar qué magnitud de intervención requiere realmente una disfunción del equipo
         NOTE:
 
-    [ ] pt-BR    Determinar o tamanho da intervenção que uma disfunção de equipe realmente requer
+    [x] pt-BR    Determinar o tamanho da intervenção que uma disfunção de equipe realmente requer
         NOTE:
 
 ### 2.2 · 4_analyze
@@ -219,10 +227,10 @@ many times — but still every word a candidate reads before paying.
     skills   Separating a capacity cause from an ownership cause from a safety cause
     en#92f60b00
 
-    [ ] es-419   Diagnosticar por qué una Sprint Retrospective genera acciones que nunca se completan
+    [x] es-419   Diagnosticar por qué una Sprint Retrospective genera acciones que nunca se completan
         NOTE:
 
-    [ ] pt-BR    Diagnosticar por que uma Sprint Retrospective gera ações que nunca são concluídas
+    [x] pt-BR    Diagnosticar por que uma Sprint Retrospective gera ações que nunca são concluídas
         NOTE:
 
 ### 2.3 · 4_analyze
@@ -232,11 +240,11 @@ many times — but still every word a candidate reads before paying.
     skills   Separating form from function across several Sprints
     en#08797dbe
 
-    [ ] es-419   Analizar eventos que se ejecutan correctamente y no producen ningún cambio a lo
+    [x] es-419   Analizar eventos que se ejecutan correctamente y no producen ningún cambio a lo
                  largo de múltiples Sprints
         NOTE:
 
-    [ ] pt-BR    Analisar eventos que são executados corretamente e não produzem nenhuma mudança ao
+    [x] pt-BR    Analisar eventos que são executados corretamente e não produzem nenhuma mudança ao
                  longo de múltiplas Sprints
         NOTE:
 
@@ -248,11 +256,11 @@ many times — but still every word a candidate reads before paying.
     skills   Applying the Sprint Goal and usable Increment threshold to a foreseeable consequence
     en#5055c6c6
 
-    [ ] es-419   Determinar si se debe permitir que la decisión de un equipo autogestionado llegue a
+    [x] es-419   Determinar si se debe permitir que la decisión de un equipo autogestionado llegue a
                  sus consecuencias
         NOTE:
 
-    [ ] pt-BR    Determinar se a decisão de uma equipe autogerenciada deve ter permissão para chegar
+    [x] pt-BR    Determinar se a decisão de uma equipe autogerenciada deve ter permissão para chegar
                  às suas consequências
         NOTE:
 
@@ -264,11 +272,11 @@ many times — but still every word a candidate reads before paying.
     skills   Tracing persistence to attendance, safety, or expectation
     en#59abe104
 
-    [ ] es-419   Diagnosticar por qué un Daily Scrum que cumple todos los requisitos formales
+    [x] es-419   Diagnosticar por qué un Daily Scrum que cumple todos los requisitos formales
                  continúa funcionando como un reporte de estado
         NOTE:
 
-    [ ] pt-BR    Diagnosticar por que um Daily Scrum que atende a todos os requisitos formais
+    [x] pt-BR    Diagnosticar por que um Daily Scrum que atende a todos os requisitos formais
                  continua funcionando como um relatório de status
         NOTE:
 
@@ -281,11 +289,11 @@ many times — but still every word a candidate reads before paying.
              Developers and changing how planning is run
     en#470449ed
 
-    [ ] es-419   Determinar una respuesta proporcional ante un Developer que es excluido
+    [x] es-419   Determinar una respuesta proporcional ante un Developer que es excluido
                  sistemáticamente de la planificación de los Developers
         NOTE:
 
-    [ ] pt-BR    Determinar uma resposta proporcional a um Developer consistentemente excluído do
+    [x] pt-BR    Determinar uma resposta proporcional a um Developer consistentemente excluído do
                  planejamento dos Developers
         NOTE:
 
@@ -296,11 +304,11 @@ many times — but still every word a candidate reads before paying.
     skills   Tracing incoherence to planning, ordering or stakeholder pressure
     en#1c30c8ff
 
-    [ ] es-419   Analizar un equipo cuyos Sprint Goals son sistemáticamente una lista de elementos no
+    [x] es-419   Analizar un equipo cuyos Sprint Goals son sistemáticamente una lista de elementos no
                  relacionados entre sí
         NOTE:
 
-    [ ] pt-BR    Analisar um time cujos Sprint Goals são consistentemente uma lista de itens não
+    [x] pt-BR    Analisar um time cujos Sprint Goals são consistentemente uma lista de itens não
                  relacionados
         NOTE:
 
@@ -312,11 +320,11 @@ many times — but still every word a candidate reads before paying.
     skills   Classifying the operating cause from Sprint evidence
     en#c38c11dd
 
-    [ ] es-419   Determinar si una reducción en la entrega es un impedimento, una brecha de capacidad
+    [x] es-419   Determinar si una reducción en la entrega es un impedimento, una brecha de capacidad
                  o una falla en la autogestión
         NOTE:
 
-    [ ] pt-BR    Determinar se a redução na entrega é um impedimento, uma lacuna de capacidade ou uma
+    [x] pt-BR    Determinar se a redução na entrega é um impedimento, uma lacuna de capacidade ou uma
                  falha de autogestão
         NOTE:
 
@@ -329,11 +337,11 @@ many times — but still every word a candidate reads before paying.
              restoring the element alongside it
     en#2259feb5
 
-    [ ] es-419   Determinar cómo orientar a un equipo que ha adoptado una práctica que funciona y no
+    [x] es-419   Determinar cómo orientar a un equipo que ha adoptado una práctica que funciona y no
                  forma parte de Scrum
         NOTE:
 
-    [ ] pt-BR    Determinar como orientar um time que adotou uma prática que funciona e não faz parte
+    [x] pt-BR    Determinar como orientar um time que adotou uma prática que funciona e não faz parte
                  do Scrum
         NOTE:
 
@@ -347,11 +355,11 @@ many times — but still every word a candidate reads before paying.
     skills   Distinguishing helping from absorbing
     en#bc9ec74c
 
-    [ ] es-419   Determinar la respuesta del Scrum Master cuando el Product Owner le delega la
+    [x] es-419   Determinar la respuesta del Scrum Master cuando el Product Owner le delega la
                  ordenación del Product Backlog
         NOTE:
 
-    [ ] pt-BR    Determinar a resposta do Scrum Master quando o Product Owner delega ao Scrum Master
+    [x] pt-BR    Determinar a resposta do Scrum Master quando o Product Owner delega ao Scrum Master
                  a ordenação do Product Backlog
         NOTE:
 
@@ -363,11 +371,11 @@ many times — but still every word a candidate reads before paying.
     skills   Reading whether the assignment is habit, structure or emergency
     en#3b664bcf
 
-    [ ] es-419   Analizar una situación en la que un gerente funcional asigna trabajo directamente a
+    [x] es-419   Analizar una situación en la que un gerente funcional asigna trabajo directamente a
                  los Developers
         NOTE:
 
-    [ ] pt-BR    Analisar uma situação em que um gerente funcional atribui trabalho diretamente aos
+    [x] pt-BR    Analisar uma situação em que um gerente funcional atribui trabalho diretamente aos
                  Developers
         NOTE:
 
@@ -379,11 +387,11 @@ many times — but still every word a candidate reads before paying.
     skills   Tracing a symptom inside the Sprint to a structure outside it
     en#2fa8b55d
 
-    [ ] es-419   Diagnosticar qué estructura organizacional está generando una falla empírica
+    [x] es-419   Diagnosticar qué estructura organizacional está generando una falla empírica
                  específica que el Scrum Team no puede resolver
         NOTE:
 
-    [ ] pt-BR    Diagnosticar qual estrutura organizacional está produzindo uma falha empírica
+    [x] pt-BR    Diagnosticar qual estrutura organizacional está produzindo uma falha empírica
                  específica que o Scrum Team não consegue resolver
         NOTE:
 
@@ -395,11 +403,11 @@ many times — but still every word a candidate reads before paying.
     skills   Matching an intervention to cost, urgency and standing
     en#76761fa7
 
-    [ ] es-419   Determinar una intervención proporcional para un impedimento que se encuentra fuera
+    [x] es-419   Determinar una intervención proporcional para un impedimento que se encuentra fuera
                  del Scrum Team
         NOTE:
 
-    [ ] pt-BR    Determinar uma intervenção proporcional para um impedimento que está fora do Scrum
+    [x] pt-BR    Determinar uma intervenção proporcional para um impedimento que está fora do Scrum
                  Team
         NOTE:
 
@@ -410,11 +418,11 @@ many times — but still every word a candidate reads before paying.
     skills   Identifying which decisions have diffused
     en#83dcdb85
 
-    [ ] es-419   Analizar una responsabilidad del Product Owner que está siendo ejercida por un
+    [x] es-419   Analizar una responsabilidad del Product Owner que está siendo ejercida por un
                  comité
         NOTE:
 
-    [ ] pt-BR    Analisar uma responsabilidade de Product Owner sendo exercida por um comitê
+    [x] pt-BR    Analisar uma responsabilidade de Product Owner sendo exercida por um comitê
         NOTE:
 
 ### 3.6 · 3_apply
@@ -425,11 +433,11 @@ many times — but still every word a candidate reads before paying.
     skills   Choosing between waiting, escalating and enabling a provisional decision
     en#47b2e9e3
 
-    [ ] es-419   Determinar el siguiente paso del Scrum Master cuando el Product Owner está ausente y
+    [x] es-419   Determinar el siguiente paso del Scrum Master cuando el Product Owner está ausente y
                  los Developers avanzan sin tomar decisiones de ordenamiento
         NOTE:
 
-    [ ] pt-BR    Determinar a próxima ação do Scrum Master quando o Product Owner está ausente e os
+    [x] pt-BR    Determinar a próxima ação do Scrum Master quando o Product Owner está ausente e os
                  Developers estão avançando sem decisões de ordenação
         NOTE:
 
@@ -441,11 +449,11 @@ many times — but still every word a candidate reads before paying.
     skills   Tracing the split to organizational structure, tooling or Product Owner capacity
     en#56e528ac
 
-    [ ] es-419   Diagnosticar una situación de producto compartido en la que dos equipos mantienen
+    [x] es-419   Diagnosticar una situación de producto compartido en la que dos equipos mantienen
                  Product Backlogs separados
         NOTE:
 
-    [ ] pt-BR    Diagnosticar uma situação de produto compartilhado em que dois times mantêm Product
+    [x] pt-BR    Diagnosticar uma situação de produto compartilhado em que dois times mantêm Product
                  Backlogs separados
         NOTE:
 
@@ -457,11 +465,11 @@ many times — but still every word a candidate reads before paying.
     skills   Selecting between capacity, prioritisation and escalation responses
     en#63e29ba6
 
-    [ ] es-419   Determinar la respuesta del Scrum Master cuando uno de los equipos en un producto
+    [!] es-419   Determinar la respuesta del Scrum Master cuando uno de los equipos en un producto
                  compartido pierde el compromiso del Product Owner
-        NOTE:
+        NOTE: "compromiso" is the 2020 Spanish for COMMITMENT; the English is engagement - attention, involvement. Eleven SM-AI-II tasks across D1, D2, D4 and D5 turn on an artifact commitment, so this is a live ambiguity and not a stylistic one. Use participacion / involucramiento, or leave "engagement". pt-BR "engajamento" is right and stays.
 
-    [ ] pt-BR    Determinar a resposta do Scrum Master quando um time em um produto compartilhado
+    [x] pt-BR    Determinar a resposta do Scrum Master quando um time em um produto compartilhado
                  perde o engajamento do Product Owner
         NOTE:
 
@@ -474,10 +482,10 @@ many times — but still every word a candidate reads before paying.
     skills   Distinguishing a demonstration from an inspection
     en#a220eae6
 
-    [ ] es-419   Diagnosticar un Sprint Review que ya no modifica el Product Backlog
+    [x] es-419   Diagnosticar un Sprint Review que ya no modifica el Product Backlog
         NOTE:
 
-    [ ] pt-BR    Diagnosticar uma Sprint Review que não altera mais o Product Backlog
+    [x] pt-BR    Diagnosticar uma Sprint Review que não altera mais o Product Backlog
         NOTE:
 
 ### 4.2 · 4_analyze
@@ -488,11 +496,11 @@ many times — but still every word a candidate reads before paying.
     skills   Testing whether a number still tracks the thing it names
     en#5fbcefc4
 
-    [ ] es-419   Analizar métricas reportadas a la dirección que ya no describen el progreso real del
+    [x] es-419   Analizar métricas reportadas a la dirección que ya no describen el progreso real del
                  equipo
         NOTE:
 
-    [ ] pt-BR    Analisar métricas reportadas à gestão que não descrevem mais o progresso real da
+    [x] pt-BR    Analisar métricas reportadas à gestão que não descrevem mais o progresso real da
                  equipe
         NOTE:
 
@@ -503,10 +511,10 @@ many times — but still every word a candidate reads before paying.
     skills   Applying the transparency test to a live artifact
     en#adb37577
 
-    [ ] es-419   Determinar si la transparencia de un artefacto ha sido comprometida
+    [x] es-419   Determinar si la transparencia de un artefacto ha sido comprometida
         NOTE:
 
-    [ ] pt-BR    Determinar se a transparência de um artefato foi comprometida
+    [x] pt-BR    Determinar se a transparência de um artefato foi comprometida
         NOTE:
 
 ### 4.4 · 4_analyze
@@ -516,10 +524,10 @@ many times — but still every word a candidate reads before paying.
     skills   Detecting ordering driven by age, politics or convenience
     en#7e87dda1
 
-    [ ] es-419   Diagnosticar un Product Backlog cuya ordenación ya no refleja el valor
+    [x] es-419   Diagnosticar un Product Backlog cuya ordenación ya no refleja el valor
         NOTE:
 
-    [ ] pt-BR    Diagnosticar um Product Backlog cuja ordenação não reflete mais valor
+    [x] pt-BR    Diagnosticar um Product Backlog cuja ordenação não reflete mais valor
         NOTE:
 
 ### 4.5 · 4_analyze
@@ -529,11 +537,11 @@ many times — but still every word a candidate reads before paying.
     skills   Locating what the definition fails to require
     en#4be7c181
 
-    [ ] es-419   Analizar una Definition of Done que se satisface mientras el Increment no es
+    [x] es-419   Analizar una Definition of Done que se satisface mientras el Increment no es
                  utilizable
         NOTE:
 
-    [ ] pt-BR    Analisar uma Definition of Done que é satisfeita enquanto o Increment não é
+    [x] pt-BR    Analisar uma Definition of Done que é satisfeita enquanto o Increment não é
                  utilizável
         NOTE:
 
@@ -544,11 +552,11 @@ many times — but still every word a candidate reads before paying.
     skills   Relating feedback latency to the rate of change in the context
     en#7e10fbe3
 
-    [ ] es-419   Diagnosticar una inspección que ocurre con una frecuencia insuficiente para permitir
+    [x] es-419   Diagnosticar una inspección que ocurre con una frecuencia insuficiente para permitir
                  la adaptación
         NOTE:
 
-    [ ] pt-BR    Diagnosticar inspeção que ocorre com frequência insuficiente para permitir adaptação
+    [x] pt-BR    Diagnosticar inspeção que ocorre com frequência insuficiente para permitir adaptação
         NOTE:
 
 ### 4.7 · 3_apply
@@ -559,11 +567,11 @@ many times — but still every word a candidate reads before paying.
     skills   Sequencing re-establishment without stopping the Sprint
     en#0016c12e
 
-    [ ] es-419   Determinar cómo el Scrum Master restablece un compromiso con el que el equipo ha
+    [x] es-419   Determinar cómo el Scrum Master restablece un compromiso con el que el equipo ha
                  estado operando sin él
         NOTE:
 
-    [ ] pt-BR    Determinar como um Scrum Master restabelece um compromisso sem o qual o time tem
+    [x] pt-BR    Determinar como um Scrum Master restabelece um compromisso sem o qual o time tem
                  operado
         NOTE:
 
@@ -574,10 +582,10 @@ many times — but still every word a candidate reads before paying.
     skills   Detecting target-driven estimation
     en#70ff7e56
 
-    [ ] es-419   Analizar una previsión que se ha convertido en un objetivo de desempeño
+    [x] es-419   Analizar una previsión que se ha convertido en un objetivo de desempeño
         NOTE:
 
-    [ ] pt-BR    Analisar uma previsão que se tornou uma meta de desempenho
+    [x] pt-BR    Analisar uma previsão que se tornou uma meta de desempenho
         NOTE:
 
 ### 4.9 · 4_analyze
@@ -587,11 +595,11 @@ many times — but still every word a candidate reads before paying.
     skills   Locating the break between hearing and adapting
     en#44bd5b0f
 
-    [ ] es-419   Diagnosticar la retroalimentación de las partes interesadas que se recopila y nunca
+    [x] es-419   Diagnosticar la retroalimentación de las partes interesadas que se recopila y nunca
                  se actúa sobre ella
         NOTE:
 
-    [ ] pt-BR    Diagnosticar feedback de stakeholders que é coletado e nunca utilizado
+    [x] pt-BR    Diagnosticar feedback de stakeholders que é coletado e nunca utilizado
         NOTE:
 
 ---
