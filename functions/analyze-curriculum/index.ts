@@ -18,6 +18,69 @@
 //
 // Pin it by name either way. Never rely on the default.
 //
+// ================= THE REVIEW QUEUE IS SHAKEDOWN RESIDUE =================
+//
+// Scoped 2026-09-12. READ THIS BEFORE RE-SCOPING IT, because the shape of the
+// table invites a wrong conclusion and costs an hour to reach.
+//
+// A query for "findings awaiting a human" returns 94 rows and reads like a
+// backlog. It is not one.
+//
+//   94 rows are 48 DISTINCT judgements. The 90 concept_match rows are 45
+//   subjects seen twice; the 2 high-severity structural_notes are ONE note
+//   seen twice.
+//
+//   All of it comes from TWO pasted documents, by ONE operator, over two days
+//   (2026-08-18/19), across nine runs at engine_version 0.1.0. By content hash:
+//   one English document of 13,405 words run seven times against SM-AI-I and
+//   SPO-AI-I, and one es-419 document of 642 words run twice. FOUR of the nine
+//   runs produced zero findings.
+//
+//   Every run has owner_company_id NULL, segment NULL and outreach_disposition
+//   NULL. Nothing was ever acted on commercially. is_calibration is false on
+//   all nine, so the flag does not mark them as tests - the CRM columns do.
+//
+// ZERO OF 510 FINDINGS HAVE EVER BEEN REVIEWED. Not one reviewed_at, not one
+// review_outcome, in any category. So there is NO PRECEDENT for what reviewing
+// one means - no worked example to copy, no convention to follow. That is the
+// reason not to start by marking these: a review outcome recorded here would be
+// the first one on the platform and would define the convention, on findings
+// about a document nobody is selling against.
+//
+// requires_human_review IS A PER-FINDING JUDGEMENT, NOT A BLANKET. concepts.ts
+// sets it as `m.band === "ambiguous"`, and SIX high-severity findings are
+// deliberately NOT in the queue - 4 drift and 2 weight_divergence. High
+// severity means "this matters to the prospect"; the flag means "a person must
+// adjudicate this". They are orthogonal, and reading severity as the queue is
+// the second wrong conclusion available here.
+//
+// ================= OPEN: SPANISH SOURCE CANNOT BE MEASURED =================
+//
+// A PRODUCT GAP, NOT A REVIEW TASK, and the only thing in the queue above with
+// standing value.
+//
+// The lexical matcher cannot compare an es-419 source against an en blueprint,
+// so Spanish curriculum analysis is SUPPRESSED rather than answered:
+// coverage_pct null, suppression_reason "language_unsupported", and a
+// high-severity internal structural_note saying the matcher cannot measure it.
+//
+// The engine is behaving correctly. Migration 223 records why the refusal was
+// built and what it prevents: run against the Spanish AulaUtil syllabus the
+// matcher reported 8.9% coverage against a hand score of 35%, and "8.9% would
+// have read as a devastating finding about a competitor rather than as a
+// failure of measurement." Refusing to answer is the right behaviour.
+//
+// WHAT MAKES IT OPEN RATHER THAN CLOSED: this platform sells into LatAm. Every
+// certification ships es-419 lessons, items and module headings, and the
+// analyzer - the tool for looking at a Spanish-speaking prospect's curriculum -
+// returns no number for exactly those prospects. The refusal is honest and the
+// capability is missing.
+//
+// 223 names the two fixes and neither has been done: a multilingual embedding
+// matcher that declares es-419/en support, or translated concept names
+// (public.concepts has no lang column and there is no concept_i18n table). Both
+// close it; neither is scheduled.
+//
 // ============================ WHAT IT DOES NOT DO ============================
 //
 // It does not store the analysed document. URL, content hash, word count and
