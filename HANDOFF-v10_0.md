@@ -391,6 +391,83 @@ remain open.
 
 ---
 
+## 7b. THE ONE OPEN QUESTION THAT IS ALREADY SHARPENED
+
+**SD-AI-I lesson `02-03`, title only.** Recorded 2026-09-12 so the next session
+finds the question framed rather than re-deriving it. **Not acted on.**
+
+### The framing, which is the part worth keeping
+
+The lesson is titled **"The Sprint Backlog Is a Forecast, Not a Contract"**.
+
+That asserts the 2017 term **as current fact, in a title, on a live Level I
+certification.** Three things make it a sharper question than "is forecast the
+wrong word":
+
+1. **Its own subtitle already disagrees with it** — *"A living plan the
+   Developers own and update daily as they learn."* Title and subtitle are on
+   opposite sides of the 2020 change, in the same file.
+2. **The contrast it draws is the 2011 argument.** Forecast-versus-contract was
+   how the community argued the Sprint Backlog is not a commitment you are held
+   to. **The 2020 Guide settled that with a third word: plan.** Framing it as
+   forecast-vs-contract keeps a resolved debate alive as though it were open.
+3. **Two modules later, `05-08` exists to correct exactly this.** It is a
+   terminology-drift lesson teaching that forecast replaced commitment in 2011
+   and that 2020 reintroduced commitment meaning something else entirely.
+
+> **So the title teaches what `05-08` exists to correct, two modules apart.**
+
+`05-08` STAYS — a drift lesson engaging deliberately with retired vocabulary is
+what that lesson type is for, and it is flagged `teaches_retired_vocabulary`.
+The question is only whether a TITLE should assert the retired term as fact.
+
+### The layers, after the 2026-09-12 fix
+
+| layer | says | state |
+|---|---|---|
+| task 2.3 (JTA) | living **plan** | correct, and it governs |
+| module description | living **plan** | **fixed 2026-09-12** |
+| `02-03` subtitle | *"A living **plan** the Developers own"* | correct |
+| `02-03` **title** | *"…Is a **Forecast**, Not a Contract"* | **the open question** |
+| `05-08` | teaches the forecast/commitment distinction | deliberate, keep |
+
+The JTA-to-content disagreement is closed. What remains is content disagreeing
+with itself inside one lesson.
+
+### What changing the title would actually touch
+
+The title alone is one field × 3 languages. **The slug is what makes it
+expensive**, and the two cannot sensibly diverge:
+
+- `lessons.title` × 3 — the visible claim
+- `lessons.slug` × 3 — `02-03-sprint-backlog-living-forecast`
+- `lessons.content_md` × 3 — `lesson_id` sits in frontmatter
+- **`02-04`'s `prerequisites:` array names the old slug** — must change in the
+  same transaction, in all three languages, or the chain breaks SILENTLY. A
+  prerequisite pointing at a slug that no longer exists is exactly the failure
+  class this codebase keeps finding after it ships
+- files: `content/sd-ai-i/02-*/02-03-*.md` plus both `_i18n/` copies — **rename
+  and edit**, because the filename carries the slug
+- `lesson_group_id` must survive the rename or the three languages stop being
+  siblings, which `trilingual.lessons` FAILS on for an `available` cert
+
+`load-lessons-direct.mjs` SKIPS existing rows and therefore cannot perform a
+rename. This needs `update-lesson-content.mjs` or direct SQL, plus a decision on
+whether the old slug gets a redirect.
+
+### The cheap version, if the rename is not wanted
+
+**Change the title and leave the slug.** A slug is an identifier, not a claim; it
+is not rendered to a candidate, and `02-04`'s prerequisite keeps resolving. The
+cost is one field × 3 languages and a slug that no longer describes its lesson —
+which is untidy, and strictly less bad than a title asserting a retired term on a
+live certification.
+
+That option was not obvious before the scope was written down, which is the
+reason to write it down.
+
+---
+
 ## 8. IF YOU READ ONE THING
 
 The four pattern defects, the guard that could not fire, and the rule that could

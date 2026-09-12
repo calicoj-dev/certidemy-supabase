@@ -63,11 +63,47 @@ because they fail differently — a title is a heading a candidate navigates by,
 description is a paragraph they read once. One mark covering both would make a
 rejection ambiguous about which half is wrong.
 
+### ~SD-AI-I
+
+**Scrum Developer I — AI** — tier 1, available. 1 modules, 2 of 2 translation rows never read.
+
+### SD-AI-I/scrum-framework-developers-seat-title
+
+    EN       The Scrum Framework from the Developers' Seat
+    en#6a2349bc
+
+    [ ] es-419   El framework Scrum desde la silla de los Developers
+        NOTE:
+
+    [ ] pt-BR    O framework Scrum a partir da cadeira dos Developers
+        NOTE:
+
+### SD-AI-I/scrum-framework-developers-seat-description
+
+    EN       The Developers' accountabilities, Sprint Planning's how, the Sprint Backlog as a
+             living plan, the Daily Scrum as the Developers' event, participation in Review and
+             Retrospective, estimation with AI as input, and self-management.
+    en#b539b393
+
+    [ ] es-419   Las responsabilidades de los Developers, el cómo del Sprint Planning, el Sprint
+                 Backlog como un pronóstico vivo, el Daily Scrum como el evento de los Developers, la
+                 participación en el Sprint Review y la Sprint Retrospective, la estimación con la IA
+                 como insumo, y la autogestión.
+        NOTE:
+
+    [ ] pt-BR    As responsabilidades dos Developers, o como do Sprint Planning, o Sprint Backlog
+                 como uma previsão viva, o Daily Scrum como o evento dos Developers, a participação
+                 no Sprint Review e na Sprint Retrospective, a estimativa com a IA como insumo, e a
+                 autogestão.
+        NOTE:
+
+---
+
 ## When you are done
 
 Hand this file back marked up. **It is the evidence**, not a worksheet — `verify-cert`'s
 `i18n.approved` check exists to record that a human compared these translations to the
 current English, and this document is what makes that a fact rather than an assertion.
 
-**0 rows in scope.** Nothing is flipped in the database until a person has read
+**4 rows in scope.** Nothing is flipped in the database until a person has read
 them, and nothing is flipped for a row marked `[!]` at all.
