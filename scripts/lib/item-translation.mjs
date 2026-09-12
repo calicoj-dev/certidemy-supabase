@@ -352,6 +352,54 @@ export const ACCOUNTABLE_FALSE_FRIEND = `FALSE FRIEND - ACCOUNTABLE IS NOT RESPO
  * post-condition must assert what the artifact IS, not merely that it moved.
  * That script now carries a wrong-language guard, behaviour-tested in both
  * directions on the exact row it broke.
+ *
+ * ---------------------------------------------------------------------------
+ * OPEN, AND THE NEXT MEMBER OF THIS FAMILY: AN ARTICLE-GENDER ASSERTION
+ * ---------------------------------------------------------------------------
+ *
+ * NOT BUILT. Specified here on 2026-09-12 so it is not re-derived, and placed
+ * beside the language guard because it is the same failure and the same fix.
+ *
+ * THE FAILURE. A repair returned "a Daily Scrum" in pt-BR and "la Daily Scrum"
+ * in es-419. Each would have been the ONLY instance of its form in the
+ * catalogue: es-419 uses "el Daily Scrum" 33 times and "la" zero; pt-BR uses
+ * "o Daily Scrum" 26 times and "a" zero. Every post-condition passed both,
+ * because each asks whether the model CHANGED the text - and a guard set built
+ * around that question has no concept of "changed it into something the corpus
+ * has never said".
+ *
+ * They were caught by eye, then fixed deterministically. The Spanish one was
+ * caught SECOND, after the Portuguese, because the first measurement covered
+ * one language - so this cost two measurements where one lookup would have done.
+ *
+ * WHY IT IS NOT A CONTRACT PARAGRAPH. It already is one, immediately above, with
+ * the counts - and it was IGNORED TWICE after being added. It sits 14% of the
+ * way through a 7,600-character block, far from the generation. A contract entry
+ * that quietly does not work is worse than none, because the next person assumes
+ * it is handling this.
+ *
+ * WHAT IT WOULD LOOK LIKE. A post-condition with a lookup table, not a prompt:
+ *
+ *   const GENDER = {
+ *     "es-419": { masculine: ["Daily Scrum", "Sprint Backlog", "Product Backlog",
+ *                             "Sprint Goal", "Product Goal", "Increment",
+ *                             "Scrum Team", "Sprint Planning"],
+ *                 feminine:  ["Sprint Review", "Sprint Retrospective"] },
+ *     "pt-BR":  { ... same split, o/a instead of el/la },
+ *   };
+ *   // For each frozen noun present in the output, assert the article before it
+ *   // is the one the corpus voted for. ABORT on a mismatch; never auto-fix in
+ *   // place without printing before/after.
+ *
+ * The table is not a judgement call - THE CORPUS HAS ALREADY VOTED, the counts
+ * are in the pin above, and a 33-to-0 split is not a close reading. Anything the
+ * table does not know about is not asserted on, so it fails silent rather than
+ * loud on an unfamiliar noun, which is the right direction for a check that runs
+ * on every repair.
+ *
+ * IT WOULD HAVE CAUGHT BOTH OF TODAY'S WITHOUT A SECOND MEASUREMENT, which is
+ * the argument for it: the cost of the miss was not the wrong article, it was
+ * having to measure each language separately to find out.
  */
 
 /** The framing noun and vocabulary block for a domain. */
