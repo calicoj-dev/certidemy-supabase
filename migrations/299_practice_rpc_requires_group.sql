@@ -394,8 +394,24 @@ order by 2 desc;
 -- nothing.
 --
 -- That is why three quizzes in two languages produced no rows and a fourth
--- produced five: the modes are indistinguishable afterwards, because
--- quiz_sessions.kind records 'practice' for ALL THREE. The session at
+-- produced five.
+--
+-- CORRECTION 2026-09-12, SAME DAY. The paragraph above originally continued:
+-- "the modes are indistinguishable afterwards, because quiz_sessions.kind
+-- records 'practice' for ALL THREE." That is wrong, and it is wrong in the
+-- direction that overstates the problem. kind has FIVE allowed values and
+-- FOUR in use: practice 101, review 31, mock_exam 27, certification_exam 15.
+-- REVIEW HAS ALWAYS BEEN DISTINGUISHABLE. The collapse is two of three -
+-- Practice and Weak concepts both write kind='practice' - not three of three.
+--
+-- The claim was made from reading one session pair rather than the column's
+-- vocabulary, and lib/engine/sessions.ts says so plainly at lines 202 and 348:
+-- "we use kind 'practice' - weak-concepts is a flavour of practice, and the
+-- kind check constraint only allows practice/module_check/mock_exam/review."
+-- It was a deliberate choice against a constraint, not an omission. Reading
+-- either comment, or select distinct kind, would have caught it.
+--
+-- The session at
 -- 18:16:00.355873 is the weak-concepts one - it starts half a second AFTER the
 -- questions it plays were written, which is the ordering fetchWeakConceptPractice
 -- documents: generate + persist, fetch back, create session.
