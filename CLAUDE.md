@@ -469,41 +469,76 @@ The individual scripts:
   function is the console button. If the mint shape changes, both change.
 - `verify-cert.mjs` — the conformance gate. **The baseline is NOT clean.**
 
-  As of 2026-08-25, `--all` reports 43–44 checks per certification (the count
-  varies; some skip) and ends with `1 cert(s) with FAILURES`:
+  **RUN IT FROM ANYWHERE.** Every path is resolved from the script's own
+  location as of 2026-09-12. It used to read `SCHEME-*.md` relative to the
+  working directory, so running it from `scripts/` silently collapsed fourteen
+  scheme-claim checks into one WARN saying the cert "publishes no checkable
+  claims" — true of a cert with no scheme, false of one whose scheme could not
+  be read. SD-AI-I reported 42 pass / 6 warn from `scripts/` and 56 pass /
+  5 warn from the root, and neither run said which had checked less.
+
+  As of **2026-09-12**, `--all` reports 53–57 checks per certification (the
+  count varies; some skip) and ends with `4 cert(s) with FAILURES`:
 
   ```
-  FAIL  AIE-I      39 pass, 1 fail, 3 warn
-  WARN  AIGRM-I    41 pass, 0 fail, 2 warn
-  WARN  AIHR-I     42 pass, 0 fail, 1 warn
-  WARN  AIMS-F     42 pass, 0 fail, 2 warn
-  WARN  AIMS-IA    39 pass, 0 fail, 5 warn
-  WARN  AISM-I     42 pass, 0 fail, 1 warn
-  WARN  ISMS-F     42 pass, 0 fail, 1 warn
-  WARN  ISMS-IA    41 pass, 0 fail, 2 warn
-  WARN  SD-AI-I    40 pass, 0 fail, 2 warn
-  WARN  SM-AI-I    41 pass, 0 fail, 2 warn
-  WARN  SPO-AI-I   40 pass, 0 fail, 2 warn
+  FAIL  AIE-I      51 pass, 2 fail, 3 warn
+  WARN  AIGRM-I    54 pass, 0 fail, 2 warn
+  WARN  AIHR-I     54 pass, 0 fail, 1 warn
+  WARN  AIMS-F     53 pass, 0 fail, 2 warn
+  FAIL  AIMS-IA    49 pass, 1 fail, 4 warn
+  WARN  AISM-I     55 pass, 0 fail, 1 warn
+  WARN  ISMS-F     53 pass, 0 fail, 1 warn
+  WARN  ISMS-IA    53 pass, 0 fail, 2 warn
+  WARN  SD-AI-I    56 pass, 0 fail, 5 warn
+  FAIL  SM-AI-I    56 pass, 1 fail, 5 warn
+  WARN  SM-AI-II   55 pass, 0 fail, 3 warn
+  WARN  SPO-AI-I   57 pass, 0 fail, 4 warn
+  FAIL  ZZ-TEST-I  28 pass, 12 fail, 0 warn
   ```
 
-  **The one failure: AIE-I, §8 "Every item belongs to a question group" — 15
-  ungrouped items.** `question_group_id` is the trilingual sibling key, so an
-  ungrouped item is invisible to the three-language coverage check that groups
-  by that column.
+  **The count of checks rose from 43-44 to 53-57 because invariants were added,
+  not because anything was relaxed.** SM-AI-II and ZZ-TEST-I are in the list now
+  and were not on 2026-08-25.
 
-  What the 15 rows are, established 2026-08-25 and not further investigated:
+  The four failures, and none of them is new work waiting to be found:
+
+  | cert | failure | state |
+  |---|---|---|
+  | AIE-I | 120 ungrouped items | **grew from 15**, see below |
+  | AIE-I | scheme claim: validity 730 vs 365 in the database | **deliberate.** `SCHEME-AIE-I.md` explains why neither side was changed: editing the document retracts a published two-year promise to five holders, setting the column changes what the credential means. It fails on every run until someone decides, which is the correct behaviour for an open question |
+  | AIMS-IA | 40 of 40 lesson groups not fully localized, and the cert is AVAILABLE | surfaced when `trilingual.lessons` became status-aware on 2026-09-11 |
+  | SM-AI-I | 20 ungrouped items | see the ungrouped note below |
+
+  ZZ-TEST-I is a test certification and is expected to fail.
+
+  **AIE-I, §8 "Every item belongs to a question group" — 120 ungrouped items,
+  AND THE NUMBER IS STILL GROWING.** `question_group_id` is the trilingual
+  sibling key, so an ungrouped item is invisible to the three-language coverage
+  check that groups by that column.
+
+  Measured 2026-09-12, active and approved only:
 
   ```
-  pool      language  status    is_exam_scope  retired  n   created
-  practice  es-419    approved  false          no       15  2026-08-20 -> 08-21
+  pool      language  is_exam_scope  n    tasks  created
+  practice  en        false          90   17     2026-08-27 -> 09-11
+  practice  es-419    false          30    4     2026-08-20 -> 09-04
   ```
 
-  So: **none are in the secure pool**, and no certification exam form can
-  contain them. They are Spanish-only practice items with no `question_group_id`
-  and therefore no en/pt-BR siblings — the es-419 simulator and the review queue
-  can serve them, a real exam cannot. They are **not** migration 104 rebuild
-  debris as first assumed; they were written on 20–21 August 2026, which points
-  at a translation or backfill run from that week.
+  **THIS PARAGRAPH SAID 15, SPANISH-ONLY, AND BOTH HALVES ARE NOW WRONG.** It
+  was right on 2026-08-25. Ninety ENGLISH rows have been written since, the most
+  recent on 2026-09-11 — **the day before this was measured.** So whatever
+  writes AIE-I practice items has been emitting ungrouped rows for over two
+  weeks and had not stopped. That is a live defect in a writer, not a pile of
+  old debris, and it is the reason this is worth a look before the next content
+  run rather than after.
+
+  **Still true: none are in the secure pool**, `is_exam_scope` is false on all
+  120, and no certification exam form can contain them. The es-419 simulator and
+  the review queue can serve them; a real exam cannot.
+
+  The original 15 were **not** migration 104 rebuild debris as first assumed;
+  they were written on 20-21 August 2026. What has been adding to them since
+  2026-08-27 has not been identified.
 
   (A separate 20 ungrouped rows exist on AIE-I that the check correctly ignores:
   `rejected` and retired, from 24 July.)

@@ -48,12 +48,29 @@ import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+// EVERY PATH IN THIS FILE IS RESOLVED FROM HERE, NEVER FROM process.cwd().
+//
+// This script used to read SCHEME-*.md relative to the working directory, and
+// said so in a comment that told the reader to run it from the repository root.
+// That is not a mitigation - it is the dropped-read shape sitting in the
+// instrument every other check is trusted through: run from scripts/, the
+// scheme documents were not found, and fourteen scheme-claim checks silently
+// became one WARN reading "publishes no checkable claims". SD-AI-I reported
+// 42 pass / 6 warn from scripts/ and 56 pass / 5 warn from the root, and
+// nothing in either run said which one had checked less.
+//
+// The script lives in <repo>/scripts/, so the root is one level up. Resolved
+// from import.meta.url, this is identical from every working directory.
+const REPO_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 
 // ---------------------------------------------------------------------------
 // env / args
 // ---------------------------------------------------------------------------
 function loadEnv() {
-  for (const p of ["scripts/.env", ".env"]) {
+  for (const p of [join(REPO_ROOT, "scripts", ".env"), join(REPO_ROOT, ".env")]) {
     if (!existsSync(p)) continue;
     for (const line of readFileSync(p, "utf8").split(/\r?\n/)) {
       const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
@@ -1835,12 +1852,17 @@ async function verify(cert) {
   // this script has said so since it was written: "Nothing checked that what a
   // cert SHIPS matches what its scheme document CLAIMS."
   //
-  // THE DEPENDENCY IS REAL AND NEW, and is stated rather than hidden: this
-  // script now behaves differently depending on the working directory, because
-  // SCHEME-*.md must be reachable from it. Run it from the repository root. The
-  // trade is accepted deliberately - a scheme document is the artifact an
-  // auditor reads, and it drifted across three documents for two months without
-  // surfacing precisely because no executable thing ever opened one.
+  // THIS CHECK READS A FILE, AND THE PATH IS RESOLVED FROM THE SCRIPT'S OWN
+  // LOCATION, never from the working directory. It is safe to run from anywhere.
+  //
+  // It did depend on the working directory until 2026-09-12, with a comment
+  // saying the trade was accepted deliberately. It was not a defensible trade:
+  // from scripts/ the documents were simply not found and the fourteen
+  // scheme-claim checks collapsed into a single WARN that said this cert
+  // "publishes no checkable claims" - which is TRUE of a certification with no
+  // scheme and FALSE of one whose scheme could not be read. Conflating those
+  // two is the same failure as `count ?? 0`: the broken state and the
+  // legitimate state produce the same output, and the broken one reads as fine.
   //
   // IT READS A DECLARED BLOCK, NOT PROSE. A prose parser was rejected on
   // measurement: the eleven scheme documents state the task count in five
@@ -1861,10 +1883,15 @@ async function verify(cert) {
   //   a missing key     -> FAIL, not SKIP. A claim nobody declared is a claim
   //                        nobody checked, and a skip would hide that.
   {
-    const schemePath = `SCHEME-${cert.code}.md`;
+    const schemePath = join(REPO_ROOT, `SCHEME-${cert.code}.md`);
     if (!existsSync(schemePath)) {
-      R.warn("scheme.document", "§12", "A scheme document exists for this certification",
-        `${schemePath} not found - this certification publishes no checkable claims`);
+      // FAIL, NOT WARN, AND IT NAMES THE PATH. All twelve real certifications
+      // have a scheme document; an absent one is a missing audit artifact, not
+      // a certification that happens to publish nothing. Naming the resolved
+      // path is what makes a wrong-root failure self-diagnosing instead of
+      // looking like an absent document.
+      R.fail("scheme.document", "§12", "A scheme document exists for this certification",
+        `not found at ${schemePath} - either this certification has no scheme document, or this is the wrong repository root. The path is resolved from the script's own location, so it does not depend on the working directory`);
     } else {
       const md = readFileSync(schemePath, "utf8");
       const block = md.match(/```scheme-claims\r?\n([\s\S]*?)```/);
