@@ -547,6 +547,39 @@ The individual scripts:
   failed, was interrupted, or those items were written outside it. Fixing the
   data is its own change.
 
+  **A LIVE TIER-2 CERTIFICATION IS SERVING A TWO-OPTION GENERATED ITEM, AND
+  THE GATE ONLY WARNS.** Found 2026-09-12, open, not fixed.
+
+  One of the five SM-AI-II practice questions written by
+  `generate-practice-questions` that evening is a `true_false` with **two
+  options**. SM-AI-II is `tier = 2` and `status = 'available'` - a live
+  certification whose whole Level II item contract is *four defensible options
+  with one best*.
+
+  Three things have to line up for that to happen, and they do:
+
+  - `functions/generate-practice-questions` validates `options.length >= 2` and
+    accepts `true_false`. **It reads no tier at all.**
+  - The tier contract lives in `scripts/gen-cert-secure.mjs` (`certTier`, and
+    the comment *"Tier 2 items carry four defensible options with one best"*).
+    **The generation path has never seen it** - nothing shares that rule
+    between the two, which is the mirrored-pair failure in CLAUDE.md's own
+    edge-function section.
+  - `verify-cert` `items.optionfloor` FAILS on secure (*"a guesser scores 50%
+    on a two-option item"*) and only WARNS on practice. The item is practice,
+    so it warns, and a warning on a cert that already carries warnings is
+    invisible.
+
+  **This is the argument for `CERTIDEMY-LEARNER-IA.md` section 5.5 arriving on
+  its own rather than as a doc note.** That section says AI drafts should land
+  `status='pending_review'` before being served, with the gate enforced in the
+  fetch paths, and it has said "wire up next" for some time. This is what
+  "served without review" produces: not a wrong answer, but an item that
+  quietly breaks the tier contract the certification is sold on.
+
+  Not fixed on 2026-09-12, deliberately. The cheap half is teaching
+  `validateQuestion` the tier; the real half is 5.5.
+
   This line previously read *"38 invariants, 0 failures as the baseline"* and
   was wrong on both numbers. That is worse than saying nothing: a clean baseline
   nobody re-checks turns the next real failure into noise someone has already

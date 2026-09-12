@@ -54,6 +54,21 @@
 // questions go live immediately, as before. A real review gate must also be
 // enforced in the fetch paths (fetchConceptPractice / get-review-batch /
 // fetchWeakConceptPractice), so it's tracked separately rather than half-built.
+//
+// THIS FUNCTION READS NO TIER, AND ON 2026-09-12 THAT REACHED A LIVE CERT.
+// validateQuestion below accepts question_type 'true_false' and any
+// options.length >= 2. One of five SM-AI-II questions generated that evening is
+// a true_false with TWO options - on a tier-2, status='available'
+// certification whose item contract is four defensible options with one best.
+//
+// The tier contract lives in scripts/gen-cert-secure.mjs (certTier, "Tier 2
+// items carry four defensible options with one best") and nothing shares it
+// with this path. verify-cert's items.optionfloor FAILS a secure item for this
+// and only WARNS a practice one, so it surfaced as a warning on a cert that
+// already had warnings.
+//
+// Open, not fixed. The cheap half is teaching validateQuestion the tier; the
+// real half is the pending_review queue above.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
