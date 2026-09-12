@@ -47,6 +47,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
+import { buildIndex, analyseText, newSink, sourcesAvailable } from "./lib/citation-index.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -1121,6 +1122,64 @@ async function verify(cert) {
         `${thinPractice.length} practice item(s) below four`, ev(thinPractice));
     else
       R.pass("items.optionfloor", "§8.1", "Every item offers at least four options", `${questions.length} items`);
+  }
+
+  // === 19b. EVERY CITED CLAUSE EXISTS =======================================
+  //
+  // ISMS-IA's secure bank cited ISO 19011:2018 in 63 items while the 2026 PDF
+  // sat in the project folder. Nothing in this file could see it, because every
+  // other invariant here is about structure, coverage, cue neutrality or Bloom -
+  // none of them reads what an item CLAIMS. This one resolves each clause and
+  // annex reference against the actual standard.
+  //
+  // EXISTENCE, NOT MEANING. "Clause 6.7 exists in ISO 19011:2026" is mechanical.
+  // "Clause 6.7 says what this item claims" is not, and a clean result here is
+  // no evidence at all about the second question. A 30-item hand read of ISMS-F
+  // found a claim that is false while every address in it was real.
+  //
+  // A SUPERSEDED EDITION IS A WARN, NEVER A FAIL, AND THAT IS MEASURED. All
+  // three edition hits in the first full run were correct items naming the old
+  // edition in order to dismiss it - "the 114-control figure is from ISO/IEC
+  // 27001:2013". A gate that fails on those is a gate that gets switched off.
+  {
+    if (!sourcesAvailable()) {
+      R.skip("items.citations", "§8.1", "Every cited clause exists in the standard",
+        "the ISO PDFs are not on this machine");
+    } else {
+      let index = null, err = null;
+      try { index = buildIndex(); } catch (e) { err = e.message; }
+      if (!index) {
+        R.skip("items.citations", "§8.1", "Every cited clause exists in the standard",
+          `could not parse the standards: ${err}`);
+      } else {
+        const sink = newSink();
+        const bad = [];
+        for (const q of questions) {
+          const before = sink.missing.length;
+          const opts = Array.isArray(q.options) ? q.options : [];
+          analyseText([q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join(String.fromCharCode(10)), index, sink);
+          for (let i = before; i < sink.missing.length; i++) bad.push({ q, m: sink.missing[i] });
+        }
+        const badSecure = bad.filter((b) => b.q.pool === "secure");
+        const ev = (rows) => rows.slice(0, 8).map((b) => `${b.q.language}/${b.m.ref} - no such address in ISO ${b.m.named}`);
+        if (badSecure.length > 0)
+          R.fail("items.citations", "§8.1", "Every cited clause exists in the standard",
+            `${badSecure.length} secure reference(s) resolve to nothing, of ${sink.checked} checked`, ev(badSecure));
+        else if (bad.length > 0)
+          R.warn("items.citations", "§8.1", "Every cited clause exists in the standard",
+            `${bad.length} practice reference(s) resolve to nothing, of ${sink.checked} checked`, ev(bad));
+        else if (sink.edition.length > 0)
+          R.warn("items.citations", "§8.1", "Every cited clause exists in the standard",
+            `${sink.checked} references all resolve; ${sink.edition.length} name a superseded edition - legitimate when the item exists to dismiss it, read them`,
+            sink.edition.slice(0, 6).map((e) => `${e.raw} (current: ${e.expected})`));
+        else if (sink.checked === 0)
+          R.skip("items.citations", "§8.1", "Every cited clause exists in the standard",
+            "this certification cites no clause of a standard held on disk");
+        else
+          R.pass("items.citations", "§8.1", "Every cited clause exists in the standard",
+            `${sink.checked} references resolved against ISO 19011:2026 / 27001:2022 / 42001:2023`);
+      }
+    }
   }
 
   // === 20. NO UNGROUPED ITEMS ===============================================

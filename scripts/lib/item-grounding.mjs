@@ -823,6 +823,74 @@ provided and in ISO 19011:2026 audit methodology alone.
 
 ${AUDIT_TAIL}`;
 
+/**
+ * FOUNDATION certs on a management-system standard (ISMS-F, AIMS-F).
+ *
+ * WHY THESE ARE NOT THE AUDITOR GROUNDING, AND NOT A SUBSET OF IT EITHER.
+ * ISMS-F and AIMS-F both walk their standard: context and leadership, planning,
+ * support and operation, the Annex A controls, performance evaluation and
+ * improvement. No domain in either JTA covers planning an audit, sampling,
+ * weighing evidence or writing a finding - which is the whole of AUDIT_METHOD.
+ * So the composition keeps the criteria half and the modal tail and drops the
+ * craft, rather than handing a Foundation drafter five thousand characters of
+ * audit methodology it has no use for.
+ *
+ * WHAT THIS FIXED. Before 2026-09-12 both certs resolved to NEUTRAL - 524
+ * characters naming no standard, no edition and no forbidden claim - while
+ * their banks cite an ISO document 394 and 566 times and a clause 164 and 172
+ * times. Neither the grounding nor the concepts supplied that content: 2 of
+ * ISMS-F's 192 concept descriptions name a document at all.
+ *
+ * THE 17021-1 BOUNDARY IS LOAD-BEARING AND IS WHY THIS FRAME EXISTS RATHER
+ * THAN CRITERIA_* ALONE. Both certs have a domain ending "and certification",
+ * and the boundary marker used to live inside AUDIT_METHOD. ISMS-F cites
+ * ISO/IEC 17024 EIGHTEEN TIMES - that is certification of PERSONS, the wrong
+ * document for a domain about certifying an organisation's management system.
+ * Dropping AUDIT_METHOD without restating the boundary would have left that
+ * defect with nothing pointing at it.
+ */
+const FOUNDATION_FRAME = `Ground each question in the work of a professional who WORKS WITHIN a
+management system rather than auditing it - reading what a clause requires,
+recognising what would satisfy it, telling a requirement from a recommendation,
+locating a control, understanding what the organization must decide for itself.
+The candidate implements, operates or is governed by the management system.
+
+THE CANDIDATE DOES NOT AUDIT. Do NOT write scenarios about planning an audit,
+selecting a sample, collecting and verifying evidence, grading a finding,
+running an opening or closing meeting, or following up a corrective action as
+an auditor. Those belong to the Internal Auditor certification. An item MAY
+test what the standard REQUIRES about internal audit (the clause that says the
+organization shall conduct internal audits at planned intervals, and what it
+must retain) - that is a requirement of the standard, not audit craft.
+
+THE CERTIFICATION BOUNDARY - get these three documents the right way round:
+  - The CRITERIA STANDARD below is what an organization conforms to.
+  - ISO/IEC 17021-1 holds the requirements for BODIES that audit and certify
+    management systems - certification cycles, stage 1 and stage 2, surveillance
+    and recertification, certificate validity. It governs the certification
+    body, never the organization and never this candidate. Name it only to mark
+    the boundary, and never cite one of its clauses.
+  - ISO/IEC 17024 is certification of PERSONS. It has NOTHING to do with
+    certifying an organization's management system. Never cite it for anything
+    about an organization being certified - that is a different subject with a
+    confusingly similar name, and it is the single most common wrong document
+    in this area.
+  - ISO 19011 gives guidance on AUDITING management systems. A Foundation
+    candidate may need to know it exists and that it is guidance rather than
+    requirements. Do not build an item on its clauses.`;
+
+/** Compose the Foundation frame with the criteria standard for this cert. */
+function foundationGrounding(criteria) {
+  return `${FOUNDATION_FRAME}
+
+${criteria}
+
+${AUDIT_TAIL}`;
+}
+
+const FOUNDATION_27001 = foundationGrounding(CRITERIA_27001);
+const FOUNDATION_42001 = foundationGrounding(CRITERIA_42001);
+
 /** Fallback for any cert not yet registered - neutral, never Scrum. */
 const NEUTRAL = `Ground each question in the concept(s) provided and in established professional
 practice for this subject area, as described by the concept descriptions
@@ -855,19 +923,39 @@ export function groundingFor(certName, tier = 1) {
   // AI Essentials (literacy tier) - check BEFORE governance, since both say "AI".
   if (/essential/.test(n)) return WORKPLACE;
 
-  // Management-system auditing certs. MUST precede the governance test, which
-  // catches "Internal Auditor" via /audit/ and knows nothing about editions.
-  // Route on the STANDARD, not on the word "auditor": the criteria half differs
-  // per cert and inheriting the wrong one is silent and total.
-  if (/auditor|internal audit/.test(n)) {
-    if (/42001|\baims\b/.test(n)) return AUDIT_42001;
-    if (/27001|\bisms\b/.test(n)) return AUDIT_27001;
-    return AUDIT_METHOD_ONLY;
-  }
+  // ------------------------------------------------------------------
+  // MANAGEMENT-SYSTEM STANDARD CERTS. THE STANDARD IS DECIDED FIRST, THE
+  // ROLE SECOND. Until 2026-09-12 this branch was entered only by
+  // /auditor|internal audit/, so "ISO/IEC 27001:2022 Foundation - AI" and
+  // "ISO/IEC 42001:2023 Foundation" fell through every test and landed in
+  // NEUTRAL - 524 characters naming no standard - while their banks cited
+  // those standards' clauses hundreds of times.
+  //
+  // Matching the role first is what made that silent. A cert named for a
+  // standard belongs to that standard's criteria block whatever the role
+  // word is, and an unrecognised role is a loud fallback rather than a
+  // fall-through to generic practice. A future "ISO/IEC 27001:2022 Lead
+  // Implementer" now gets CRITERIA_27001 instead of nothing.
+  // ------------------------------------------------------------------
+  const standard = /42001|\baims\b/.test(n) ? "42001"
+    : /27001|\bisms\b/.test(n) ? "27001"
+    : null;
+  const audits = /auditor|internal audit/.test(n);
+
+  if (standard === "42001") return audits ? AUDIT_42001 : FOUNDATION_42001;
+  if (standard === "27001") return audits ? AUDIT_27001 : FOUNDATION_27001;
+
+  // An auditing cert whose criteria standard is not registered: method only,
+  // never someone else's editions.
+  if (audits) return AUDIT_METHOD_ONLY;
 
   // AI governance / risk / compliance.
   if (/governance|risk|compliance|audit/.test(n)) return GOVERNANCE;
 
+  // AISM-I and AIHR-I land here deliberately. Neither cites a single ISO
+  // reference across 1,602 rows, so there is no edition or clause exposure to
+  // close. Their grounding is thin, which is a scenario-realism argument with
+  // its own case - not this one.
   return NEUTRAL;
 }
 
@@ -887,6 +975,9 @@ export const GROUNDINGS = {
   AUDIT_27001,
   AUDIT_42001,
   AUDIT_METHOD_ONLY,
+  FOUNDATION_FRAME,
+  FOUNDATION_27001,
+  FOUNDATION_42001,
   /** Back-compat: the old single AUDIT constant was ISMS-IA's grounding. */
   AUDIT: AUDIT_27001,
 };

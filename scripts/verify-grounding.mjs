@@ -42,14 +42,90 @@ const CASES = [
   { certName: "Scrum Master II - AI",                 tier: 1, expect: "SCRUM",
     must: ["Scrum Guide"],
     mustNot: ["second-best", "[derived]", "BORDERLINE", "Only the Product Owner has that authority"] },
+
+  // ---------------------------------------------------------------------
+  // MANAGEMENT-SYSTEM STANDARD CERTS - the standard decides, then the role.
+  //
+  // BOTH DIRECTIONS ON EVERY ROW. Asserting only that a Foundation cert now
+  // gets its criteria would pass on a routing that handed it the whole auditor
+  // grounding as well, which is the failure this split exists to prevent. So
+  // each Foundation row also asserts the ABSENCE of audit craft, and each
+  // auditor row asserts its PRESENCE.
+  //
+  // These two names resolved to NEUTRAL until 2026-09-12 while their banks
+  // cited their standards' clauses 164 and 172 times.
+  { certName: "ISO/IEC 27001:2022 Foundation - AI",   tier: 1, expect: "FOUNDATION_27001",
+    must: ["ISO/IEC 27001:2022", "Amendment 1:2024", "THE CANDIDATE DOES NOT AUDIT",
+           "ISO/IEC 17024 is certification of PERSONS", "ISO/IEC 17021-1", "RISK REGISTER"],
+    mustNot: ["THE AUDIT METHODOLOGY", "ISO/IEC 22989:2022", "Scrum Guide",
+              "A.16 Using remote auditing methods", "judgement-based sampling"] },
+
+  { certName: "ISO/IEC 42001:2023 Foundation",        tier: 1, expect: "FOUNDATION_42001",
+    must: ["ISO/IEC 42001:2023", "ISO/IEC 22989:2022", "THE CANDIDATE DOES NOT AUDIT",
+           "ISO/IEC 17024 is certification of PERSONS", "Annex B (NORMATIVE)", "38 controls"],
+    mustNot: ["THE AUDIT METHODOLOGY", "Scrum Guide",
+              "A.16 Using remote auditing methods", "judgement-based sampling"] },
+
+  // The auditor siblings keep the craft. If either of these ever loses
+  // AUDIT_METHOD the Foundation split has been applied one level too far up.
+  { certName: "ISO/IEC 27001:2022 Internal Auditor - AI", tier: 2, expect: "AUDIT_27001",
+    must: ["THE AUDIT METHODOLOGY", "ISO 19011:2026", "Amendment 1:2024", "A.16 Using remote auditing methods"],
+    mustNot: ["THE CANDIDATE DOES NOT AUDIT", "ISO/IEC 22989:2022", "Scrum Guide"] },
+
+  { certName: "ISO/IEC 42001:2023 Internal Auditor",  tier: 2, expect: "AUDIT_42001",
+    must: ["THE AUDIT METHODOLOGY", "ISO 19011:2026", "ISO/IEC 22989:2022"],
+    mustNot: ["THE CANDIDATE DOES NOT AUDIT", "Scrum Guide"] },
+
+  // THE LEAD IMPLEMENTER TRAP, ASSERTED BEFORE IT EXISTS. Under the old
+  // role-first router this name matched no role and fell to NEUTRAL. It is not
+  // a real certification; the row is here so the fall-through cannot come back.
+  { certName: "ISO/IEC 27001:2022 Lead Implementer",  tier: 1, expect: "FOUNDATION_27001",
+    must: ["ISO/IEC 27001:2022", "Amendment 1:2024"],
+    mustNot: ["THE AUDIT METHODOLOGY", "professional practice for this subject area"] },
+
+  // An auditing cert whose criteria standard is NOT registered still gets the
+  // method and must never inherit someone else's editions.
+  { certName: "ISO 50001 Internal Auditor",           tier: 2, expect: "AUDIT_METHOD_ONLY",
+    must: ["THE AUDIT METHODOLOGY", "not registered in"],
+    mustNot: ["ISO/IEC 27000 for defined terms", "ISO/IEC 22989:2022"] },
+
+  // AISM-I and AIHR-I stay in NEUTRAL DELIBERATELY - zero ISO citations across
+  // 1,602 rows, so no edition or clause exposure. Asserted so that a later
+  // widening of the standard test cannot pull them in unnoticed.
+  { certName: "AI Service Management I",              tier: 1, expect: "NEUTRAL",
+    must: ["professional practice for this subject area"],
+    mustNot: ["THE AUDIT METHODOLOGY", "THE CANDIDATE DOES NOT AUDIT", "ISO/IEC 22989:2022"] },
+  { certName: "AI for Human Resources & Talent I",    tier: 1, expect: "NEUTRAL",
+    must: ["professional practice for this subject area"],
+    mustNot: ["THE AUDIT METHODOLOGY", "THE CANDIDATE DOES NOT AUDIT", "ISO/IEC 22989:2022"] },
 ];
 
 // SCRUM_L2 IS TESTED FIRST. It contains the whole of SCRUM_CORE, so it also
 // contains "2020 Scrum Guide" - the discriminator this function used to lead
 // with, which made SCRUM_L2 label as SCRUM and left the tier branch invisible.
 // The heading below appears in SCRUM_L2_JUDGMENT and in nothing else.
+//
+// ORDER IS LOAD-BEARING TWICE OVER. SCRUM_L2 composes on SCRUM_CORE so it also
+// contains "2020 Scrum Guide"; and both AUDIT_* and FOUNDATION_* embed the same
+// CRITERIA_* block, so the FAMILY must be decided by its own frame marker
+// before the criteria half is used to say WHICH standard.
+// AND THE MARKER MUST NOT BE A PHRASE THE OTHER BLOCK QUOTES IN ORDER TO FORBID
+// IT. The first version of this helper tested "Amendment 1:2024" for 27001 -
+// but CRITERIA_42001 contains that exact string, in the rule that says never to
+// cite it ("unlike ISO/IEC 27001, the climate-change wording is in the published
+// first edition"). Every 42001 cert therefore labelled as 27001, and the two
+// AUDIT_42001/FOUNDATION_42001 rows failed against a router that was correct.
+// Each marker below is a POSITIVE identifier of its own standard's normative
+// reference, which no other block has a reason to name.
+const criteria = (g) =>
+  has(g, "ISO/IEC 22989:2022") ? "42001"
+  : has(g, "ISO/IEC 27000 for defined terms") ? "27001"
+  : "NONE";
+
 const label = (g) =>
   has(g, "WHO THE SECOND-BEST ANSWER MUST BE DEFENSIBLE TO") ? "SCRUM_L2"
+  : has(g, "THE AUDIT METHODOLOGY") ? (criteria(g) === "NONE" ? "AUDIT_METHOD_ONLY" : `AUDIT_${criteria(g)}`)
+  : has(g, "THE CANDIDATE DOES NOT AUDIT") ? `FOUNDATION_${criteria(g)}`
   : has(g, "2020 Scrum Guide") ? "SCRUM"
   : has(g, "NON-TECHNICAL") ? "WORKPLACE"
   : has(g, "AI governance,") ? "GOVERNANCE"
