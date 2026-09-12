@@ -7,10 +7,10 @@ three-state `i18n.approved`
 **Repos:** `supabase` (this one) and `../certidemy-web`
 
 **The one-line state:** `SM-AI-II` went from **46 pass / 5 fail / 2 warn** to
-**52 pass / 1 fail / 3 warn**, and the row is now readable by `anon` — it appears on
-`/certifications` as `coming_soon`. **All 98 blueprint translation rows have now been
-read by a human**; the single remaining failure is the four they rejected, whose repairs
-are written and await a re-read.
+**53 pass / 0 fail / 3 warn** — `verify-cert` reports *All certs conform. Safe to
+publish.* The row is readable by `anon` and appears on `/certifications` as
+`coming_soon`. **All 98 blueprint translation rows have been read by a human, the four
+rejections repaired, and the repairs re-read and approved on 2026-09-11.**
 
 **If you read one section of this document, read §2.** It is the only place the RLS
 finding is written down in prose; everywhere else it exists only in commit messages.
@@ -20,7 +20,7 @@ finding is written down in prose; everywhere else it exists only in commit messa
 ## 1. WHAT `verify-cert --cert SM-AI-II` SAYS NOW
 
 ```
-52 pass · 1 fail · 3 warn · 3 skip
+53 pass · 0 fail · 3 warn · 3 skip      All certs conform. Safe to publish.
 ```
 
 | was, at v9.8 | now |
@@ -30,7 +30,7 @@ finding is written down in prose; everywhere else it exists only in commit messa
 | `catalogue.description` | **fixed**, three languages |
 | `jta.translated` | **fixed** — 5 domains x 44 tasks x 2 languages |
 | `samples.public` | **fixed** — six samples, six distinct tasks |
-| — | **`i18n.approved` FAILS: 4 of 98 rejected.** Was 71 provisional; two review rounds cleared 94. See §5 |
+| — | **`i18n.approved` PASSES: 98 rows, all approved.** Was 71 provisional; two review rounds plus four repairs cleared every one. See §5 |
 
 The three warnings are declared in `SCHEME` §12 and one is new: `items.vocabulary`
 now warns on **42 `ceremony`/`ceremonia`/`cerimonia` hits across three languages**,

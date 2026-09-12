@@ -125,7 +125,9 @@ p();
 p("```");
 p("[ ]   not reviewed");
 p("[x]   approved — the translation says what the English says, in the right register");
-p("[!]   rejected — AND write what is wrong on the NOTE line beneath it");
+p("[!]   rejected — AND write what is wrong on the NOTE line beneath it
+[r]   approved AFTER repair — was [!], re-translated, re-read. Keep the original
+      NOTE so the defect stays on the record; append what the repair changed.");
 p("```");
 p();
 p("**A `[!]` with an empty NOTE is an error, not a rejection.** Say what is wrong, even");

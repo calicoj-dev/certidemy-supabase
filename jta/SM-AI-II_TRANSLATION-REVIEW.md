@@ -227,9 +227,10 @@ sentences carry *generated*, *model* and *estimates*. **~1 hour.**
     skills   Relating the two movements to a single cause
     en#2a0aff99
 
-    [!] es-419   Analizar un aumento en el rendimiento acompañado de una disminución en la usabilidad
-                 del Increment
+    [r] es-419   Analizar el aumento de throughput acompañado de una disminución en la
+                 usabilidad del Increment
         NOTE: REJECTED. "rendimiento" reads as PERFORMANCE in es-419 - how well the thing works - which is the other half of the pair this task exists to separate. The competence is throughput up and usability down; rendimiento collapses them, and a candidate reading the Spanish is answering a different question. pt-BR got it right by leaving "throughput" in English. Re-translate.
+              REPAIRED and approved 2026-09-11. "rendimiento" became "throughput", kept in English exactly as the pt-BR row already did. The two movements the task exists to separate are distinguishable again.
 
     [x] pt-BR    Analisar o aumento de throughput acompanhado pela queda na usabilidade do Increment
         NOTE:

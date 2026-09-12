@@ -136,7 +136,7 @@ for (let i = 0; i < lines.length; i++) {
   if (h) { key = h[1]; hash = null; continue; }
   const hm = l.match(/^ {4}en#([0-9a-f]{8})\s*$/);
   if (hm) { hash = hm[1]; continue; }
-  const rm = l.match(/^ {4}\[([ x!])\] (\S+)\s+(.*)$/);
+  const rm = l.match(/^ {4}\[([ x!r])\] (\S+)\s+(.*)$/);
   if (!rm || !kind || !key) continue;
   // the NOTE belongs to this row; it is the next NOTE: before the next row
   let note = "";
@@ -148,7 +148,12 @@ for (let i = 0; i < lines.length; i++) {
   parsed.push({ kind, key, mark: rm[1], lang: rm[2], text: rm[3], note, hash, line: i + 1 });
 }
 
-const approved = parsed.filter((r) => r.mark === "x");
+// [x] and [r] BOTH clear the flag. They differ in what they record, not in
+// what they authorise: [r] is a row that was rejected, re-translated, and read
+// again. Keeping them distinct is why a future reader can tell a translation
+// that was right first time from one that was repaired - and 4 of 98 were.
+const approved = parsed.filter((r) => r.mark === "x" || r.mark === "r");
+const repaired = parsed.filter((r) => r.mark === "r");
 const rejected = parsed.filter((r) => r.mark === "!");
 const unreviewed = parsed.filter((r) => r.mark === " ");
 console.log(`${IN}`);
@@ -184,7 +189,7 @@ for (const r of [...approved, ...rejected]) {
     fatal++; continue;
   }
   if (!r.hash) { console.error(`  REFUSE line ${r.line}: ${r.key} ${r.lang} carries no hash`); fatal++; continue; }
-  targets.push({ ...r, srcId: src.id, status: r.mark === "x" ? "approved" : "rejected" });
+  targets.push({ ...r, srcId: src.id, status: r.mark === "!" ? "rejected" : "approved" });
 }
 
 if (fatal) { console.error(`\n${fatal} refusal(s). NOTHING WRITTEN - the whole file is refused, because a partial application would record a review that did not happen.`); process.exit(1); }
@@ -194,7 +199,9 @@ for (const r of rejected) console.log(`  [!] ${r.key.padEnd(6)} ${r.lang.padEnd(
 for (const r of unreviewed) console.log(`  [ ] ${r.key.padEnd(6)} ${r.lang.padEnd(7)} left unreviewed — nobody marked it`);
 const nApp = targets.filter((t) => t.status === "approved").length;
 const nRej = targets.filter((t) => t.status === "rejected").length;
-console.log(`\n${APPLY ? "writing" : "[dry] would write"} review_status on ${targets.length} row(s): ${nApp} approved, ${nRej} rejected`);
+const nRep = repaired.length;
+if (nRep) console.log(`  [r] ${nRep} row(s) approved AFTER repair - rejected once, re-translated, re-read`);
+console.log(`\n${APPLY ? "writing" : "[dry] would write"} review_status on ${targets.length} row(s): ${nApp} approved (${nRep} of them after repair), ${nRej} rejected`);
 
 if (APPLY) {
   let wrote = 0;

@@ -197,13 +197,15 @@ many times — but still every word a candidate reads before paying.
     skills   Distinguishing a complementary practice from an omission of a Scrum element
     en#453244e8
 
-    [!] es-419   Analizar una mejora de la Sprint Retrospective que requeriría que el equipo se
-                 aparte de Scrum
+    [r] es-419   Analizar una mejora identificada en la Sprint Retrospective que requeriría
+                 que el equipo se aparte de Scrum
         NOTE: "mejora de la Sprint Retrospective" reads as improving the EVENT. The task is an improvement IDENTIFIED AT the Retrospective that would require omitting a Scrum element. Repair: "una mejora identificada en la Sprint Retrospective".
+              REPAIRED and approved 2026-09-11. "mejora de la Sprint Retrospective" became "mejora identificada en la Sprint Retrospective" - the Retrospective is now where the improvement came FROM, not what it changes. Note the English says "a Retrospective improvement"; the translation names the event in full, which matches the 2020 Guide and was the specified repair.
 
-    [!] pt-BR    Analisar uma melhoria da Sprint Retrospective que exigiria que o time se afastasse
-                 do Scrum
+    [r] pt-BR    Analisar uma melhoria identificada na Sprint Retrospective que exigiria que
+                 o time se afastasse do Scrum
         NOTE: Same defect as the es-419 row, same repair: "melhoria da Sprint Retrospective" reads as improving the EVENT. Use "uma melhoria identificada na Sprint Retrospective".
+              REPAIRED and approved 2026-09-11. "melhoria da Sprint Retrospective" became "melhoria identificada na Sprint Retrospective". Same defect and same repair as the es-419 row - it failed identically in both languages, which is why it became a contract entry rather than a correction.
 
 **D2 — Coaching a team performing Scrum and still failing**
 
@@ -465,9 +467,10 @@ many times — but still every word a candidate reads before paying.
     skills   Selecting between capacity, prioritisation and escalation responses
     en#63e29ba6
 
-    [!] es-419   Determinar la respuesta del Scrum Master cuando uno de los equipos en un producto
-                 compartido pierde el compromiso del Product Owner
+    [r] es-419   Determinar la respuesta del Scrum Master cuando un equipo en un producto
+                 compartido pierde el involucramiento del Product Owner
         NOTE: "compromiso" is the 2020 Spanish for COMMITMENT; the English is engagement - attention, involvement. Eleven SM-AI-II tasks across D1, D2, D4 and D5 turn on an artifact commitment, so this is a live ambiguity and not a stylistic one. Use participacion / involucramiento, or leave "engagement". pt-BR "engajamento" is right and stays.
+              REPAIRED and approved 2026-09-11. "compromiso" became "involucramiento" - compromiso is the correct es-419 rendering of Scrum COMMITMENT, and eleven SM-AI-II tasks across D1, D2, D4 and D5 turn on an artifact commitment. Tightening for a future pass, not a defect: the re-translation also moved "uno de los equipos" to "un equipo"; Grok reads "uno de los equipos" as closer to the English "one team on a shared product". Recorded, not acted on.
 
     [x] pt-BR    Determinar a resposta do Scrum Master quando um time em um produto compartilhado
                  perde o engajamento do Product Owner
