@@ -614,7 +614,11 @@ itself**; one produced a false all-clear that re-reading the rows could not
 catch, because the re-read used the pattern that had the blind spot.
 
 **So: measure a second, independent way.** `READ-FAILURE-AUDIT.md` §7b carries
-the standing rule and the cross-language census query. The two measurements are
+**six rules, each with the instance that bought it**, and the cross-language
+census query. Two of the six are about the REPAIR rather than the detector: a
+vocabulary swap that changes number leaves a verb behind, and no vocabulary
+pattern can see grammar — which is how two SECURE banks passed the check that
+had just demanded the fix that broke them. The two measurements are
 wrong in OPPOSITE directions, which is what makes their agreement meaningful.
 
 **Guards match code shapes, never English words** — a check for `to anon` once

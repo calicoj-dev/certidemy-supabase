@@ -1326,6 +1326,77 @@ async function verify(cert) {
     }
   }
 
+  // === 26. THE DAMAGE A VOCABULARY FIX LEAVES BEHIND =========================
+  //
+  // items.vocabulary (24) and lessons.vocabulary (25) check the WORDS. Nothing
+  // checked what replacing a word DOES to the sentence around it, and on
+  // 2026-09-12 that gap had four rows in it - two of them in SECURE banks that
+  // items.vocabulary had certified clean, correctly, because the vocabulary WAS
+  // clean:
+  //
+  //   SM-AI-I  ef512cb8  "the Developers presents completed work and receives"
+  //   SPO-AI-I 48cee239  "the Developers owns acceptance criteria phrasing"
+  //   SPO-AI-I 062d39d5  "The Developers selects how much work to pull"
+  //   SM-AI-I  4875d8cb  "Developers self-manage and self-manage"
+  //
+  // The first three are one mechanism: "the Development Team" is SINGULAR and
+  // "the Developers" is PLURAL, so a swap that changes the noun must change the
+  // verb, and three sweeps did not. The fourth is a double application of the
+  // same rule - "self-organize and self-manage" swept twice.
+  //
+  // WARN, NEVER FAIL, AND NEVER AUTO-FIX. The subject-versus-object problem is
+  // real: "Delegating review to the Developers is a mistake" takes a singular
+  // verb CORRECTLY, because the subject is "Delegating". Only a human can tell
+  // those apart, so this reports the way the soft vocabulary family does.
+  //
+  // SCOPED TO WHAT THERE IS EVIDENCE FOR, which is narrower than it first looked.
+  // "the Scrum Team" + a singular verb was considered and REJECTED: it is correct
+  // English, a collective singular, and the Scrum Guide itself writes "The Scrum
+  // Team is". The mismatch shape there would be a PLURAL verb - and measuring it
+  // across all four Scrum certs on 2026-09-12 returned 26 hits, EVERY ONE of them
+  // correct: 24 are "What should the Scrum Team do?", where "do" is an auxiliary
+  // in a question and carries no number, plus "What authority does the Scrum Team
+  // have" and "let the Scrum Team decide". Shipping it would have added 26
+  // permanent false warnings, which is how a check becomes one people skim.
+  //
+  // ENGLISH ONLY, also on evidence. Spanish and Portuguese were swept the same
+  // day and are clean of this class, because "el equipo de desarrollo" ->
+  // "los Developers" changes the article along with the noun. The es-419 / pt-BR
+  // hits that looked like this shape all had a singular abstract subject -
+  // "la objeccion de los Developers es" - and were correct.
+  if (!isScrum) {
+    R.skip("items.agreement", "§8.1", "No number mismatch left by a vocabulary fix", "not a Scrum certification");
+  } else {
+    // The plural accountability with a singular verb. The verb list is explicit
+    // rather than morphological: "any word ending in s" would match nouns.
+    const SING = /\bthe Developers (presents|receives|is|was|has|does|decides|selects|commits|delivers|owns|works|takes|makes|needs|creates|holds|requests|adjusts|reviews|executes|recommends|reinterprets|escalates|chooses|defines|plans|estimates)\b/;
+    // The double swap: the same replacement term on both sides of "and".
+    const TAUT = /\b(self-manag\w*|self-organiz\w*|Developers|Scrum Team)\b[ ,]+and[ ,]+\1\b/i;
+    const hits = [];
+    for (const q of questions) {
+      if (q.language !== "en") continue;
+      const fields = [
+        ["stem", q.question_text || ""],
+        ["explanation", q.explanation || ""],
+        ...(Array.isArray(q.options) ? q.options.map((o, i) => [`option ${o.id ?? i}`, o.text || ""]) : []),
+      ];
+      for (const [where, text] of fields) {
+        const m = SING.exec(text) || TAUT.exec(text);
+        if (!m) continue;
+        const i = Math.max(0, m.index - 45);
+        hits.push(`${q.pool} ${(q.question_group_id || "ungrouped").slice(0, 8)} [${where}] ...${text.slice(i, m.index + m[0].length + 45)}...`);
+      }
+    }
+    if (hits.length > 0) {
+      R.warn("items.agreement", "§8.1", "No number mismatch left by a vocabulary fix",
+        `${hits.length} English row(s) where a vocabulary swap changed NUMBER and left the verb behind, or applied twice - READ EACH, DO NOT SWEEP: "Delegating review to the Developers is a mistake" is correct and looks identical to a defect. Two of the four that bought this check sat in SECURE banks items.vocabulary had just passed`,
+        hits.slice(0, 10));
+    } else {
+      R.pass("items.agreement", "§8.1", "No number mismatch left by a vocabulary fix",
+        `${questions.filter((q) => q.language === "en").length} English items`);
+    }
+  }
+
   // === 22. NO DUPLICATE STEMS ===============================================
   // Two items with identical text can both be drawn into one session, so a
   // learner answers the same question twice. Found in AIE-I among the ungrouped

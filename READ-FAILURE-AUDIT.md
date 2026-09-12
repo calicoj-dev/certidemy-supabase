@@ -234,11 +234,110 @@ three different ways in eight days.** Each was found by a different route and
 re-read used the same pattern that had the blind spot. Verifying with the instrument
 under suspicion is not verification.
 
-### THE STANDING RULE THIS EARNED
+### THE RULES THIS EARNED
 
-**Run the census with a SINGLE CROSS-LANGUAGE PATTERN as a second, independent
-measurement — permanently, not as a one-off.** It is what caught defect 3, and it is
-the only reason the numbers dated 2026-09-12 are trustworthy.
+**A PATTERN DEFECT IS INVISIBLE TO THE PATTERN.** Every defect recorded here was
+found by measuring a SECOND WAY. **Not one was found by running the same check
+again more carefully** — and that instinct is the one to distrust, because a
+re-read performed with the instrument under suspicion inherits its blind spot and
+returns the same answer with more confidence than before.
+
+Six rules, each with the instance that bought it.
+
+**1. RUN THE CENSUS WITH A SINGLE CROSS-LANGUAGE PATTERN — permanently, as a
+second independent measurement, not as a one-off.**
+
+> Four secure rows read `"el Development Team insiste en reordenar"`. The Spanish
+> pattern looked for Spanish words; a translator had left the English in place, so
+> `RETIRED_HARD["es-419"]` could not see it. The per-language check reported
+> SPO-AI-I clean, and **a false all-clear was reported on rows that HAD been read
+> back** — because they were read back with the pattern that had the blind spot.
+
+**2. ADD THE OTHER LANGUAGES TO ANY CHECK THAT READS ONE.**
+
+> `SPO-AI-I` was reported at 35 items by a check whose selection was
+> `language = 'en'`. The es-419 and pt-BR rows had never been looked at.
+>
+> On SM-AI-I this was not a rounding error. The English was **already correct in
+> all fourteen affected groups**, and every defect sat in the translations —
+> including one group where English read `self-managing`, Portuguese read
+> `auto-gerenciaveis`, and only the Spanish had drifted. An English-first read
+> reports that certification clean forever.
+
+**3. READ THE HITS BEFORE SWEEPING THEM.**
+
+> `\b` does not stop `equipo de desarrollo` matching inside
+> `sub-equipo de desarrollo`, because a hyphen IS a word boundary. Scenarios about
+> a Scrum Team splitting into a testing sub-team and a development sub-team —
+> **where the sub-team is the misconception under test** — were counted as defects.
+> Thirteen on SPO-AI-I, two on SM-AI-I. Reading nine stems found it; no amount of
+> re-running the count would have.
+
+**4. A DRY RUN MUST PRINT BEFORE AND AFTER ON EVERY KEY IT TOUCHES.**
+
+> A swap proposed `"Replace 'self-organize' with 'self-manage'"` ->
+> `"Replace 'self-manage' with 'self-manage'"`. The item taught the terminology
+> change; the fix for the terminology destroyed the item. **A count of rows changed
+> would have read `1` and been correct.** Only the text shows it.
+>
+> The same defect LANDED where no dry run printed it: SM-AI-I `4875d8cb` read
+> *"Developers self-manage and self-manage"* in the live database until 2026-09-12.
+> Note also what the guard must NOT be — a lexical search for the retired term,
+> since an item that teaches the change quotes it on purpose. Three `1.1` groups
+> were rejected from flagging when what looked like prose quotation marks around a
+> retired term turned out to be **JSON string delimiters** in the serialised
+> `options` column. The property was positional, not lexical.
+
+**5. THE DAMAGE A REPAIR DOES IS INVISIBLE TO THE CHECK THAT DEMANDED THE REPAIR.**
+(2026-09-12)
+
+> Swapping `the Development Team` -> `the Developers` changes NUMBER. Three rows
+> kept their singular verb and shipped ungrammatical: *"the Developers presents
+> completed work and receives"*, *"the Developers owns acceptance criteria
+> phrasing"*, *"The Developers selects how much work to pull into a Sprint"*.
+>
+> **Two of the three were in SECURE banks the vocabulary check had just certified
+> clean — and the check was right. The vocabulary WAS clean.** No vocabulary
+> pattern can see grammar, so the fix passed the only test anyone ran on it.
+>
+> The 2026-09-12 sweep carried an agreement pass that BLOCKED its own write and
+> reported for a human read. It must not auto-fix: *"Delegating review to the
+> Developers is a mistake"* takes a singular verb correctly, because the subject
+> is "Delegating". It caught `the Developers has no authority` on its first run.
+>
+> That pass was part of the sweep script and would have died with it, so it was
+> promoted the same day: **`verify-cert` invariant 26, `items.agreement`**.
+> WARN only, English only, never auto-fixing, and it says in its own output that
+> a human must read each hit.
+>
+> **It is scoped to two shapes because that is all there is evidence for.**
+> `the Developers` + a singular verb, and the double-swap tautology `X and X`.
+> A third was considered and REJECTED: `the Scrum Team` + a singular verb is
+> **correct English** — a collective singular, and the Scrum Guide itself writes
+> "The Scrum Team is". The mismatch shape there would be a PLURAL verb, and
+> measuring it across all four Scrum certs returned **26 hits, every one of them
+> correct** — 24 are "What should the Scrum Team do?", where `do` is an
+> auxiliary carrying no number. Shipping it would have added 26 permanent false
+> warnings, which is precisely how a check becomes one people skim.
+>
+> Run across all thirteen on 2026-09-12: **four Scrum certs PASS over 3,434
+> English items, nine skip as non-Scrum.** No sweep damage survives anywhere
+> else. The check is not vacuous — its two patterns were behaviour-tested
+> against all four original defect strings and against the known false positive
+> *"Delegating review to the Developers is a mistake"* before being committed.
+
+**6. COUNT OCCURRENCES PER FIELD. A FIRST-MATCH SAMPLE IS NOT THE ROW'S CONTENTS.**
+(2026-09-12)
+
+> `regexp_match` returns the FIRST match only. The census printed one context per
+> row, one anchor was built per row, and **eleven rows across six SM-AI-I groups
+> kept a second occurrence in `options`** after their `explanation` was fixed.
+>
+> They were caught only because the rows still failed the check on the next pass.
+> Had the anchor been the last occurrence rather than the first, the pass would
+> have reported done and been wrong. Select
+> `count(*) from regexp_matches(..., 'g')` per field, not a context sample.
+
 
 ```sql
 -- The second measurement. One pattern, every language, no per-language routing.
@@ -259,7 +358,9 @@ where they agree the number is real, and where they differ the difference names 
 pattern bug. Neither alone is evidence.
 
 ```
-CENSUS 2026-09-12, after all three fixes. Secure items, by placement:
+CENSUS 2026-09-12, after all three PATTERN fixes and BEFORE the content work
+that same day. This is the size of the problem as correctly measured, not
+the state of the banks:
 
   cert       pool      rows  groups   key  stem  dist  expl   quoted-in-stem
   SD-AI-I    secure      15       5     3    15     3    12        4
@@ -272,11 +373,77 @@ CENSUS 2026-09-12, after all three fixes. Secure items, by placement:
   SPO-AI-I   practice    99      33     3    18    80    48        0
 ```
 
+```
+CENSUS 2026-09-12, AFTER the content work. Both measurements, all four Scrum certs.
+
+  cert       pool      none  quoted  groups   what the "none" rows are
+  SD-AI-I    secure       0      15       5   -
+  SD-AI-I    practice     0      33      11   -
+  SM-AI-I    secure       2      18       6   sub-equipo / sub-equipe boundary
+  SM-AI-I    practice     1      16     5+1   7a8e3341, ordinary English (adjudicated)
+  SM-AI-II   secure       0       0       0   -
+  SM-AI-II   practice     0       0       0   -
+  SPO-AI-I   secure       3       0       0   sub-equipo / sub-time boundary
+  SPO-AI-I   practice     0       0       0   -
+
+  TOTAL FLAGGED: 82 rows, 27 groups, plus 1 ungrouped orphan row.
+```
+
+**Every remaining `none` row is accounted for**, and none of them is a defect:
+five are the census's own documented over-count (Postgres has no lookbehind, so
+`equipo de desarrollo` matches inside `sub-equipo de desarrollo`), and one is
+the adjudication recorded below. `verify-cert`'s per-language pattern carries
+`(?<![\w-])` and correctly excludes all five — **the two measurements disagree
+by exactly the amount §7b predicts they should**, which is what makes their
+agreement elsewhere mean something.
+
 **`quoted-in-stem` is the terminology-drift signature**: the retired term sits
 immediately after a quotation mark in the stem, which means the item is showing the
 candidate a legacy document rather than asserting the term. Those get
 `retired_vocabulary_intent = 'quoted'` (migration 298), not a fix. The rest are
 defects.
+
+### TWO ADJUDICATIONS FROM 2026-09-12, RECORDED SO THEY ARE NOT RE-LITIGATED
+
+**1. `7a8e3341` (SM-AI-I practice, 5.8) STAYS AS IT IS, AND STAYS A WARN.**
+
+Its stem reads *"Functional silos between QA and development teams cause
+integration delays every Sprint."* That is **ordinary English for two functional
+groups**, not the Scrum accountability the 2020 Guide renamed. It is therefore
+neither `none` in the sense of "a defect" nor `quoted` in the sense migration
+298 defines — the item is not showing anyone a legacy document.
+
+It was left unchanged on purpose. **Rewriting an item so that a checker stops
+complaining is the check editing the content**, which is the same error migration
+290's guard 1 made when it aborted on a note that quoted the phrase it forbade.
+The cost of leaving it is one permanent WARN row on a non-secure pool, which is
+cheap; the cost of rewriting it is a scenario bent around a pattern.
+
+**A THIRD value on `retired_vocabulary_intent` is NOT justified by this row.**
+Migration 298 reserved one for a genuinely new case, and one instance is not a
+case — a value added for a single row is a value nobody will apply consistently.
+**The evidence that would justify it is a SECOND instance.** If ordinary-English
+"development team" turns up again in another certification, add the value then,
+with both rows named in the migration header.
+
+**2. THE ORPHAN FLAG ON `264a4b75` IS STORED AND INERT, DELIBERATELY.**
+
+That row (SM-AI-I practice, 5.7, es-419) is pure terminology drift — a scenario
+about a team that adopted Scrum from 2017 materials, quoting `auto-organizados`
+throughout — so it was set to `retired_vocabulary_intent = 'quoted'`.
+
+**`verify-cert` will not honour it.** The exemption is read per GROUP, and this
+row has `question_group_id = NULL`. The filter is
+`!(q.question_group_id && quotedGroups.has(...))`, so a null group id falls
+through to the FAIL/WARN population whatever the flag says.
+
+This is recorded against **SM-AI-I's standing "20 ungrouped items" FAIL**, not
+treated as a bug in 298. The flag is a stored adjudication that **becomes live the
+moment the item is grouped**, and a written judgement that nothing reads yet is
+better than no record — the next person to fix the grouping inherits the reading
+instead of repeating it. Do not "fix" it by making the exemption row-keyed: the
+group key is what stops a re-translated sibling losing an exemption the other two
+rows keep, which is the whole reason 298 keys on it.
 
 ---
 
