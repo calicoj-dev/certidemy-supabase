@@ -275,6 +275,42 @@ export const ACCOUNTABLE_FALSE_FRIEND = `FALSE FRIEND - ACCOUNTABLE IS NOT RESPO
   not, which is the shape to watch: a short string has less context to
   disambiguate from, so a TITLE is where a false friend lands first.`;
 
+/**
+ * STATE THE TARGET LANGUAGE NEAREST THE GENERATION, NOT ONLY AT THE TOP.
+ *
+ * Read this before writing or editing any prompt that interpolates one of these
+ * blocks. It is a finding about prompt SHAPE, not a scar on one script.
+ *
+ * 2026-09-12: retranslate-module-rejection.mjs wrote fluent SPANISH into a pt-BR
+ * row. Its system prompt opened with "You translate ... into Brazilian
+ * Portuguese", then interpolated a contract block that quotes Spanish and
+ * Portuguese side by side for roughly a hundred lines, then stopped. The target
+ * language was stated once, furthest from the point of generation, and the
+ * bilingual block won on recency. It did this TWICE in a row on the same input.
+ *
+ * The fix was to end the prompt with the target language rather than begin with
+ * it. That worked first try. The contract was not changed.
+ *
+ * ANY prompt that interpolates RETIRED_VOCABULARY, ISO_MS_VOCABULARY or
+ * ACCOUNTABLE_FALSE_FRIEND has this shape, because all three are bilingual by
+ * construction - they teach a distinction by showing both languages. The longer
+ * and better the contract, the more it competes with the instruction that says
+ * which language to produce.
+ *
+ * AND THE HALF THAT GENERALISES BEYOND LANGUAGE: every post-condition on that
+ * script passed the Spanish output. Not identical to the rejected text. Not the
+ * English. Not quoted. Not multi-line. Each of those asks "DID THE MODEL CHANGE
+ * THE TEXT" - and a guard set built around that question has no concept of
+ * "changed it into the wrong thing". The output was a correct, fluent,
+ * non-identical translation of the right source. It was simply not the artifact
+ * that was asked for.
+ *
+ * So when the output is generated rather than transformed, at least one
+ * post-condition must assert what the artifact IS, not merely that it moved.
+ * That script now carries a wrong-language guard, behaviour-tested in both
+ * directions on the exact row it broke.
+ */
+
 /** The framing noun and vocabulary block for a domain. */
 export function contractForDomain(domain) {
   const join = (...parts) => parts.filter(Boolean).join("\n\n");

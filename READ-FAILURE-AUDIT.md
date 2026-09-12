@@ -403,6 +403,50 @@ candidate a legacy document rather than asserting the term. Those get
 `retired_vocabulary_intent = 'quoted'` (migration 298), not a fix. The rest are
 defects.
 
+### A RULE THAT WAS UNREACHABLE, NOT IGNORED (2026-09-12)
+
+The sharpest instance of this family so far, because the rule was not weak, not
+out-competed, and not badly worded. **It never reached the model at all.**
+
+A false-friend entry - `accountable` is not `responsable` / `responsavel` - was
+added to `ISO_MS_VOCABULARY` after a reviewer found AIGRM-I's module title had
+collapsed the distinction in both languages. The repair was run an hour later and
+**the title collapsed again, identically.**
+
+The cause was one word on the dry run's first line:
+
+    AIGRM-I/ai-lifecycle-accountable-deployment title es-419   contract: general
+
+`AIGRM-I` is not in `CERT_DOMAIN`. It resolves to `general`, which at the time
+carried NO vocabulary block. The entry lived inside the ISO block, so it was
+unreachable for the one certification whose entire subject is that distinction -
+and the certification most likely to need it was the one least likely to get it,
+because "governance" is exactly the kind of cert that does not look like an ISO
+management-system cert when you are writing a domain map.
+
+**Fixed structurally rather than by adding one code to the map.** `accountable` is
+a governance distinction, not an ISO one, so it became its own export appended by
+EVERY domain including `general`. Scrum needed it too: the 2020 Guide replaced
+ROLES with ACCOUNTABILITIES, so a contract that cannot say what accountable means
+was missing a 2020 term in both families.
+
+#### WHAT MADE IT FINDABLE IN MINUTES RATHER THAN A SECOND REVIEW CYCLE
+
+**The script printed which contract it resolved.** That is the whole story. A rule
+that silently did not apply announced itself, on the line above the output it
+failed to affect. Without it the evidence would have been "the model ignored the
+rule twice", the fix would have been to re-word the entry, and the re-worded entry
+would have been just as unreachable.
+
+**SO: ANYTHING THAT SELECTS A CONTRACT, PROMPT, PROFILE OR RULESET BY KEY MUST
+PRINT THE KEY IT RESOLVED.** Not the config - the key. A tool that silently falls
+back to a default is indistinguishable from a tool whose rules are being ignored,
+and those two have opposite fixes. This is the resolution-time twin of 7b's rule
+about guards: a guard that cannot fire reports a number, and a rule that cannot
+load reports a model failure.
+
+---
+
 ### FOUR INSTRUMENT DEFECTS ON ONE CHECK IN ONE EVENING (2026-09-12)
 
 The AIMS-IA translation check - 80 files, three parts, ~1,494 assertions - was

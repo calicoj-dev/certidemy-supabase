@@ -193,18 +193,27 @@ if (MODULES) {
   // not reshuffle under a half-finished review.
   const { data: certs } = await db.from("certifications").select("id, code, name, status, tier");
   const { data: mods } = await db.from("modules").select("id, certification_id, slug, title, description, order_index");
-  const { data: modTr } = await db.from("module_translations").select("module_id, language, title, description, is_provisional");
+  const { data: modTr } = await db.from("module_translations").select("module_id, language, title, description, is_provisional, review_status");
   const trFor = (id, l) => (modTr || []).find((r) => r.module_id === id && r.language === l);
 
-  // "Unreviewed" is NOT is_provisional. Migration 153 flipped 30 rows to
-  // is_provisional = false for being live since 2026-07-08 and said in the same
-  // breath that it "is not a claim that a reviewer signed them off". Filtering
-  // on the flag would hide those 30 behind a migration's convenience, so this
-  // document covers EVERY module translation row and says which is which.
+  // SINCE MIGRATION 302 THIS READS review_status, NOT is_provisional.
+  //
+  // The first generation of this document had to infer "unreviewed" from
+  // is_provisional, and could not: migration 153 had flipped 30 rows to false for
+  // being live since 2026-07-08 while saying in the same breath that it "is not a
+  // claim that a reviewer signed them off". So that generation covered every row
+  // and annotated those 30. A human then read all 232 marks on 2026-09-12, which
+  // retired the annotation - those rows are now approved because someone approved
+  // them.
+  //
+  // With a real three-state column the document can do what it could not before:
+  // show ONLY what still needs a reader. A regenerated document that reprints 111
+  // approved rows is a document nobody finishes.
+  const needsReader = (t) => !t || t.review_status !== "approved";
+  const unread = (m) => LANGS.filter((l) => needsReader(trFor(m.id, l))).length;
   const rows = (mods || []).map((m) => ({
     m, cert: (certs || []).find((c) => c.id === m.certification_id),
-  })).filter((r) => r.cert);
-  const unread = (m) => LANGS.filter((l) => { const t = trFor(m.id, l); return !t || t.is_provisional; }).length;
+  })).filter((r) => r.cert && unread(r.m) > 0);
   const byCert = new Map();
   for (const r of rows) {
     if (!byCert.has(r.cert.code)) byCert.set(r.cert.code, { cert: r.cert, mods: [] });
@@ -235,6 +244,7 @@ if (MODULES) {
       for (const field of ["title", "description"]) {
         const en = m[field] ?? "";
         if (!en) continue;
+        if (!LANGS.some((l) => needsReader(trFor(m.id, l)))) continue;
         p(`### ${c.code}/${m.slug}-${field}`);
         p();
         p(`    EN       ${wrap(en, 13)}`);
@@ -246,7 +256,12 @@ if (MODULES) {
           if (!tr) { missing++; p(`    [ ] ${l.padEnd(8)} *** MISSING TRANSLATION ***`); p(`        NOTE:`); p(); continue; }
           const val = tr[field];
           if (!val) { missing++; p(`    [ ] ${l.padEnd(8)} *** MISSING ${field.toUpperCase()} ***`); p(`        NOTE:`); p(); continue; }
-          const state = tr.is_provisional ? "" : "  (live since 2026-07-08, never read — see migration 153)";
+          if (!needsReader(tr)) { rowCount--; continue; }   // approved: not reprinted, and not counted
+          // A REPAIRED row is not a fresh one. retranslate-module-rejection.mjs
+          // leaves it 'unreviewed' because no one has read the new text - but the
+          // reader needs to know this string replaced one they rejected, or they
+          // cannot tell [x] from [r].
+          const state = tr.review_status === "rejected" ? "  (you rejected this; not yet repaired)" : "";
           p(`    [ ] ${l.padEnd(8)} ${wrap(val, 17)}${state}`);
           p(`        NOTE:`);
           p();
