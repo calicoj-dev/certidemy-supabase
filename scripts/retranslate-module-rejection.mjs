@@ -117,13 +117,16 @@ repair came back title-cased.
 
 ${CONTRACT.vocabulary}
 
-OUTPUT LANGUAGE: ${LANG_NAMES[LANG]} (${LANG}). NOTHING ELSE.
+The contract above quotes Spanish and Portuguese side by side, at length, and on
+its first pt-BR run this script got fluent SPANISH back - a correct translation of
+the right English into the wrong language, which every other post-condition passed
+because it was fluent, correct and not identical to the rejected text. So the
+instruction below is genuinely the last thing in this prompt, with nothing after
+it. DO NOT APPEND TO IT - an explanation placed after the instruction puts the
+explanation nearest the generation, which is the mistake this note exists about
+and which was made once while writing it.
 
-This line is last on purpose. The contract above quotes Spanish and Portuguese side
-by side, at length, and on its first pt-BR run this script got fluent SPANISH back -
-a correct translation of the right English into the wrong language, which every other
-post-condition passed because it was fluent, correct and not identical to the
-rejected text. State the target language nearest the generation, not only at the top.`;
+OUTPUT LANGUAGE: ${LANG_NAMES[LANG]} (${LANG}). NOTHING ELSE.`;
 
 console.log(`${CERT}/${MODULE} ${FIELD} ${LANG}   contract: ${DOMAIN}`);
 console.log(`  EN        ${english}`);
@@ -167,8 +170,8 @@ if (out.includes("\n")) { console.error("  ABORT: multi-line output for a headin
 // a Portuguese sentence does not contain " y " or "-cion", and a Spanish one does
 // not contain "-cao" or "nao".
 const WRONG_LANG = {
-  "pt-BR": [/\bci[oó]n(es)?\b|ci[oó]n\s|\by\b|\bal\b|\bla\b|\blos\b|\bsus\b/i, "reads as Spanish"],
-  "es-419": [/[cç][aã]o(es|ões)?\b|\bn[aã]o\b|\bdos?\b|\bda\b|\bpelo\b/i, "reads as Portuguese"],
+  "pt-BR": [/\bci[oó]n(es)?\b|ci[oó]n\s|\by\b|\bal\b|\bla\b|\blos\b|\bsus\b|\bun\b|\bel\b|\buna\b/i, "reads as Spanish"],
+  "es-419": [/[cç][aã]o(es|ões)?\b|\bn[aã]o\b|\bdos?\b|\bda\b|\bpelo\b|\bum\b|\buma\b|\bcom\b/i, "reads as Portuguese"],
 };
 const [wrongRe, wrongWhy] = WRONG_LANG[LANG];
 if (wrongRe.test(out)) {

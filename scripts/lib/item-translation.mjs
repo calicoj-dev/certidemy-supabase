@@ -120,7 +120,25 @@ still be answering a different question.
   and not a stylistic one. Use participacion / involucramiento, or leave
   ENGAGEMENT in English. pt-BR's engajamento is right and stays.
 
-THE PATTERN IN ALL FOUR: the English word was chosen to carry a distinction, and
+  PLAN is not PRONOSTICO / PREVISAO, and this one is a RETIRED CONCEPT wearing a
+  false friend's clothes. The 2017 Guide called the Sprint Backlog a forecast.
+  The 2020 Guide replaced that with PLAN: "The Sprint Backlog is a plan by and
+  for the Developers." So rendering plan as pronostico / previsao does not merely
+  pick a weaker word - it restores the term the edition retired, through a word
+  no retired-vocabulary pattern looks for, because the retired term is in the
+  TARGET language and the English is clean.
+
+  Caught 2026-09-12 on SD-AI-I task 2.3, which had sat unreviewed since
+  2026-07-22: EN "Own and maintain the Sprint Backlog as a living plan",
+  es-419 "como un pronostico vivo", pt-BR "como uma previsao viva". The JTA task
+  statement - the authoritative competence claim - was on the 2020 word and both
+  translations were not.
+
+  Use plan / plano. Never pronostico, never previsao, for the Sprint Backlog.
+  FORECAST as an ordinary English verb elsewhere ("items they forecast they can
+  complete") is fine and is not this.
+
+THE PATTERN IN ALL FIVE: the English word was chosen to carry a distinction, and
 the natural translation drops it. When a term appears in a task STATEMENT it is
 usually load-bearing - check the concept slugs beside it before choosing a
 synonym.
@@ -340,7 +358,14 @@ Rules:
     or question_type.
   - Output strict JSON only, NO prose, NO markdown fences.
 
-${RETIRED_VOCABULARY}`;
+${RETIRED_VOCABULARY}
+
+The contract above quotes Spanish and Portuguese side by side at length. A
+sibling script that named its target only at the TOP produced fluent SPANISH for
+a pt-BR row, twice, on 2026-09-12 - so the instruction below is genuinely the
+last thing in this prompt, with nothing after it. Do not append to it.
+
+OUTPUT LANGUAGE: ${langName}. NOTHING ELSE.`;
 }
 
 /**

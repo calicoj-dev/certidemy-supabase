@@ -115,6 +115,23 @@ let bad = 0;
 const re = RETIRED_HARD[LANG];
 if (re && re.test(next)) { console.error(`ABORT: retired vocabulary in the output`); bad++; }
 if (next === prev) { console.error(`ABORT: the re-translation is identical to the one that was rejected`); bad++; }
+// WRONG-LANGUAGE OUTPUT. This script did not have this guard until 2026-09-12,
+// and its sibling retranslate-module-rejection.mjs wrote fluent SPANISH into a
+// pt-BR row while every other post-condition passed: not identical, not the
+// English, not malformed, not too short. Each of those asks DID THE MODEL CHANGE
+// THE TEXT; none asks what it changed it into.
+//
+// High-confidence function words and orthography, not vocabulary: a Portuguese
+// sentence does not contain " y " or "-cion", a Spanish one does not contain
+// "-cao" or "nao".
+const WRONG_LANG = {
+  "pt-BR": [/\bci[oó]n(es)?\b|ci[oó]n\s|\by\b|\bal\b|\bla\b|\blos\b|\bsus\b|\bun\b|\bel\b|\buna\b/i, "reads as Spanish"],
+  "es-419": [/[cç][aã]o(es|ões)?\b|\bn[aã]o\b|\bdos?\b|\bda\b|\bpelo\b|\bum\b|\buma\b|\bcom\b/i, "reads as Portuguese"],
+}[LANG];
+if (WRONG_LANG && WRONG_LANG[0].test(next)) {
+  console.error(`ABORT: the output ${WRONG_LANG[1]}, but --lang is ${LANG}`);
+  bad++;
+}
 if (next.length < 15) { console.error(`ABORT: too short (${next.length})`); bad++; }
 if (bad) { console.error("NOTHING WRITTEN"); process.exit(1); }
 

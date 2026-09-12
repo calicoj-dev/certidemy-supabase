@@ -69,10 +69,10 @@ task statement · D2 · 3_apply
     EN       Own and maintain the Sprint Backlog as a living plan
     en#9c3c9de6
 
-    [ ] es-419   Asumir y mantener el Sprint Backlog como un pronóstico vivo
+    [ ] es-419   Apropiarse y mantener el Sprint Backlog como un plan vivo
         NOTE:
 
-    [ ] pt-BR    Assumir e manter o Sprint Backlog como uma previsão viva
+    [ ] pt-BR    Ser responsável e manter o Sprint Backlog como um plano vivo
         NOTE:
 
 ---
