@@ -57,7 +57,7 @@ import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 
-const KNOWN = new Set(["--tiers", "--out"]);
+const KNOWN = new Set(["--tiers", "--out", "--modules"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) { console.error(`Unrecognised flag: ${a}`); process.exit(2); }
 }
@@ -71,8 +71,21 @@ for (const p of ["scripts/.env", ".env"]) {
     if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
   }
 }
+// MODULE MODE IS CROSS-CERTIFICATION AND THE OTHER TIERS ARE NOT.
+//
+// Tiers 1-3 are scoped to one CERT_ID because a domain title only means
+// anything beside its own cert's task statements. Module headings are the
+// opposite: 116 rows spread over twelve certifications, nobody has read any of
+// them, and splitting that into twelve documents would tier the work by which
+// file a reviewer opened rather than by consequence.
+//
+// So --modules takes no CERT_ID and emits one document for everything. It
+// reuses this file's preamble, marks, hash convention and wrapping unchanged -
+// the point of extending rather than writing a second generator is that a
+// reviewer learns one format.
+const MODULES = process.argv.includes("--modules");
 const CERT_ID = process.env.CERT_ID;
-if (!CERT_ID) { console.error("Set CERT_ID."); process.exit(2); }
+if (!CERT_ID && !MODULES) { console.error("Set CERT_ID (or pass --modules)."); process.exit(2); }
 const db = createClient(process.env.SUPABASE_URL || "https://pctynukndxnmnxiqpgck.supabase.co",
   process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
 
@@ -85,10 +98,15 @@ const wrap = (s, indent) => {
   return out.map((l, i) => (i === 0 ? l : " ".repeat(indent) + l)).join("\n");
 };
 
-const { data: cert } = await db.from("certifications").select("code, name").eq("id", CERT_ID).single();
-const { data: domains } = await db.from("domains").select("id, code, title, weight_pct, order_index").eq("certification_id", CERT_ID).order("order_index");
+const EMPTY = { data: [] };
+const scoped = (q) => (MODULES ? EMPTY : q);
+
+const { data: cert } = MODULES
+  ? { data: { code: "ALL CERTIFICATIONS", name: "module titles and descriptions" } }
+  : await db.from("certifications").select("code, name").eq("id", CERT_ID).single();
+const { data: domains } = await scoped(db.from("domains").select("id, code, title, weight_pct, order_index").eq("certification_id", CERT_ID).order("order_index"));
 const { data: domTr } = await db.from("domain_translations").select("domain_id, language, title, is_provisional");
-const { data: tasks } = await db.from("tasks").select("id, code, domain_id, statement, skills, bloom_level").eq("certification_id", CERT_ID);
+const { data: tasks } = await scoped(db.from("tasks").select("id, code, domain_id, statement, skills, bloom_level").eq("certification_id", CERT_ID));
 const { data: taskTr } = await db.from("task_translations").select("task_id, language, statement, is_provisional");
 // SCOPED, AND THAT IS LOAD-BEARING. An unfiltered select on task_concepts returns every
 // cert's rows and PostgREST caps the response at 1000, so this cert's rows fell off the end
@@ -96,7 +114,7 @@ const { data: taskTr } = await db.from("task_translations").select("task_id, lan
 // document, which is the argument for reading the artifact before shipping the generator.
 const { data: tcs } = await db.from("task_concepts").select("task_id, concept_id")
   .in("task_id", (tasks || []).map((t) => t.id));
-const { data: concepts } = await db.from("concepts").select("id, slug").eq("certification_id", CERT_ID);
+const { data: concepts } = await scoped(db.from("concepts").select("id, slug").eq("certification_id", CERT_ID));
 
 const conceptSlug = new Map((concepts || []).map((c) => [c.id, c.slug]));
 const slugsFor = (taskId) => (tcs || []).filter((r) => r.task_id === taskId).map((r) => conceptSlug.get(r.concept_id)).filter(Boolean);
@@ -125,9 +143,9 @@ p();
 p("```");
 p("[ ]   not reviewed");
 p("[x]   approved — the translation says what the English says, in the right register");
-p("[!]   rejected — AND write what is wrong on the NOTE line beneath it
-[r]   approved AFTER repair — was [!], re-translated, re-read. Keep the original
-      NOTE so the defect stays on the record; append what the repair changed.");
+p("[!]   rejected — AND write what is wrong on the NOTE line beneath it");
+p("[r]   approved AFTER repair — was [!], re-translated, re-read. Keep the original");
+p("      NOTE so the defect stays on the record; append what the repair changed.");
 p("```");
 p();
 p("**A `[!]` with an empty NOTE is an error, not a rejection.** Say what is wrong, even");
@@ -167,7 +185,78 @@ p();
 p(`---`);
 p();
 
-if (TIERS.has("1")) {
+if (MODULES) {
+  // CONSEQUENCE ORDER. Module headings sit above the lessons a candidate reads,
+  // so they rank with domain titles rather than below task statements. Within
+  // the tier: available certifications first, then by how many rows nobody has
+  // read, then alphabetically - a stable order, so a regenerated document does
+  // not reshuffle under a half-finished review.
+  const { data: certs } = await db.from("certifications").select("id, code, name, status, tier");
+  const { data: mods } = await db.from("modules").select("id, certification_id, slug, title, description, order_index");
+  const { data: modTr } = await db.from("module_translations").select("module_id, language, title, description, is_provisional");
+  const trFor = (id, l) => (modTr || []).find((r) => r.module_id === id && r.language === l);
+
+  // "Unreviewed" is NOT is_provisional. Migration 153 flipped 30 rows to
+  // is_provisional = false for being live since 2026-07-08 and said in the same
+  // breath that it "is not a claim that a reviewer signed them off". Filtering
+  // on the flag would hide those 30 behind a migration's convenience, so this
+  // document covers EVERY module translation row and says which is which.
+  const rows = (mods || []).map((m) => ({
+    m, cert: (certs || []).find((c) => c.id === m.certification_id),
+  })).filter((r) => r.cert);
+  const unread = (m) => LANGS.filter((l) => { const t = trFor(m.id, l); return !t || t.is_provisional; }).length;
+  const byCert = new Map();
+  for (const r of rows) {
+    if (!byCert.has(r.cert.code)) byCert.set(r.cert.code, { cert: r.cert, mods: [] });
+    byCert.get(r.cert.code).mods.push(r.m);
+  }
+  const ordered = [...byCert.values()].sort((a, b) => {
+    const av = a.cert.status === "available" ? 0 : 1, bv = b.cert.status === "available" ? 0 : 1;
+    if (av !== bv) return av - bv;
+    const au = a.mods.reduce((n, m) => n + unread(m), 0), bu = b.mods.reduce((n, m) => n + unread(m), 0);
+    if (au !== bu) return bu - au;
+    return a.cert.code.localeCompare(b.cert.code);
+  });
+
+  p(`## Module headings — every certification`);
+  p();
+  p(`Two blocks per module: the TITLE and the DESCRIPTION are separate rows to mark,`);
+  p(`because they fail differently — a title is a heading a candidate navigates by, a`);
+  p(`description is a paragraph they read once. One mark covering both would make a`);
+  p(`rejection ambiguous about which half is wrong.`);
+  p();
+  for (const { cert: c, mods: ms } of ordered) {
+    const u = ms.reduce((n, m) => n + unread(m), 0);
+    p(`### ~${c.code}`);
+    p();
+    p(`**${c.name}** — tier ${c.tier}, ${c.status}. ${ms.length} modules, ${u} of ${ms.length * LANGS.length} translation rows never read.`);
+    p();
+    for (const m of ms.sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0))) {
+      for (const field of ["title", "description"]) {
+        const en = m[field] ?? "";
+        if (!en) continue;
+        p(`### ${c.code}/${m.slug}-${field}`);
+        p();
+        p(`    EN       ${wrap(en, 13)}`);
+        p(`    en#${h8(en)}`);
+        p();
+        for (const l of LANGS) {
+          const tr = trFor(m.id, l);
+          rowCount++;
+          if (!tr) { missing++; p(`    [ ] ${l.padEnd(8)} *** MISSING TRANSLATION ***`); p(`        NOTE:`); p(); continue; }
+          const val = tr[field];
+          if (!val) { missing++; p(`    [ ] ${l.padEnd(8)} *** MISSING ${field.toUpperCase()} ***`); p(`        NOTE:`); p(); continue; }
+          const state = tr.is_provisional ? "" : "  (live since 2026-07-08, never read — see migration 153)";
+          p(`    [ ] ${l.padEnd(8)} ${wrap(val, 17)}${state}`);
+          p(`        NOTE:`);
+          p();
+        }
+      }
+    }
+    p(`---`);
+    p();
+  }
+} else if (TIERS.has("1")) {
   p(`## Tier 1 — domain titles`);
   p();
   p(`Five headings, both languages. They sit above the task statements, so an error here is`);
