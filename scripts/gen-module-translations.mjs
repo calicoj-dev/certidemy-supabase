@@ -34,7 +34,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync } from "node:fs";
-import { RETIRED_VOCABULARY } from "./lib/item-translation.mjs";
+import { domainForCert, contractForDomain } from "./lib/item-translation.mjs";
 
 const KNOWN = new Set(["--apply", "--lang"]);
 for (const a of process.argv.slice(2)) {
@@ -90,7 +90,22 @@ const todo = modules.filter((m) => !have.has(m.id));
 console.log(`${modules.length} module(s), ${have.size} already translated into ${LANG}, ${todo.length} to do\n`);
 if (todo.length === 0) { console.log("nothing to do"); process.exit(0); }
 
-const system = `You translate certification MODULE headings from English into ${LANG_NAMES[LANG]}.
+// SAME DEFECT AS translate-lessons.mjs HAD, FIXED THE SAME WAY on 2026-09-12.
+// This script interpolated the SCRUM vocabulary contract for every
+// certification. Three of the four certifications with zero module_translations
+// are ISO - AIMS-F, ISMS-IA and AIMS-IA - so the very next run would have
+// translated ISO module headings under Scrum terminology rules.
+//
+// The domain comes from the certification's own code; anything unlisted gets no
+// framework contract rather than the wrong one.
+const { data: certRow, error: cErr } = await db
+  .from("certifications").select("code").eq("id", CERT_ID).single();
+if (cErr || !certRow) { console.error("could not read the certification code"); process.exit(1); }
+const DOMAIN = domainForCert(certRow.code);
+const CONTRACT = contractForDomain(DOMAIN);
+console.log(`Certification ${certRow.code} -> ${DOMAIN} vocabulary contract`);
+
+const system = `You translate ${CONTRACT.subject} MODULE headings from English into ${LANG_NAMES[LANG]}.
 
 Return a JSON array of the SAME length and order as the input. For each module return
 {"title":string,"description":string}.
@@ -106,7 +121,7 @@ Rules:
   - AI is IA in both languages.
   - A module title is a HEADING. Keep it short - do not expand it into a sentence.
 
-${RETIRED_VOCABULARY}
+${CONTRACT.vocabulary}
 
 Return the JSON array now, and nothing else.`;
 

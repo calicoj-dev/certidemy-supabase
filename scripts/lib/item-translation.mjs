@@ -144,6 +144,86 @@ stays correct.
   attaches a SOURCE to an object and the target language's default reading is
   possession.`;
 
+
+/**
+ * ISO management-system vocabulary, for the ISO-family certifications.
+ * MEASURED FROM THE CATALOGUE, NOT AUTHORED.
+ */
+export const ISO_MS_VOCABULARY = `ISO MANAGEMENT-SYSTEM VOCABULARY - THIS IS AN EXISTING CONVENTION, NOT A NEW RULE.
+
+Every rendering below was MEASURED across the three ISO certifications already
+translated in this catalogue - ISMS-F, ISMS-IA and AIMS-F - over 111 lesson
+groups on 2026-09-12. The count after each line is how many of those lesson
+groups use it. They are here so you match the catalogue a candidate is already
+reading, not so you pick the most natural phrase in isolation.
+
+  ENGLISH                     es-419                        pt-BR                         seen
+  Statement of Applicability  Declaracion de Aplicabilidad  Declaracao de Aplicabilidade  43 / 44
+  Annex A                     Anexo A                       Anexo A                       62 / 63
+  management system           sistema de gestion            sistema de gestao             59 / 58
+  nonconformity               no conformidad                nao conformidade              47 / 49
+  documented information      informacion documentada       informacao documentada        44 / 44
+  internal audit              auditoria interna             auditoria interna             41 / 39
+  interested parties          partes interesadas            partes interessadas           39 / 39
+  management review           revision por la direccion     analise critica pela direcao  31 / 28
+  risk treatment              tratamiento del riesgo        tratamento do risco           30 / 28
+  top management              alta direccion                alta direcao                  27 / 28
+  corrective action           accion correctiva             acao corretiva                22 / 23
+  continual improvement       mejora continua               melhoria continua              7 / 7
+
+TWO OF THESE WERE NOT UNANIMOUS, AND THE REASONING IS RECORDED SO IT IS NOT
+RE-LITIGATED:
+
+  nonconformity -> no conformidad, NOT incumplimiento. incumplimiento appears
+  12 times and is the ordinary Spanish for non-compliance - breaking a rule.
+  The ISO term is a DEFINED one: a failure to meet a requirement, which is the
+  thing an auditor raises and tracks to closure. Keep incumplimiento for
+  ordinary prose about breaking rules; never for the defined term.
+
+  documented information -> informacion documentada, NOT documentacion.
+  documentacion appears 33 times as the ordinary word for documentation. The
+  ISO term covers the information AND its medium, and clause 7.5 is about
+  exactly that distinction. A lesson that collapses them loses the clause.
+
+ROLES - PIN. es-419 roles. pt-BR papeis.
+
+  In the ISO clause 5.3 sense - organizational roles, responsibilities and
+  authorities - pt-BR is papeis, following ABNT and the harmonized Annex SL
+  heading. The catalogue currently DISAGREES WITH ITSELF here and is close to
+  evenly split (funcoes 24 lesson groups, papeis 23), so this pins it going
+  forward rather than describing what is there.
+
+  DO NOT collapse it with FUNCTION. An AI governance function, an audit
+  function, an organizational function is a funcion / funcao - a part of the
+  organization, not a role a person holds. Both words are correct; they are
+  correct for different things, which is why both appear and why counting them
+  together says nothing.`;
+
+/**
+ * Which vocabulary contract a certification takes.
+ *
+ * NOT a guess from the code prefix: an explicit map, because the cost of a wrong
+ * answer is a translator told to avoid Scrum terms in an ISO lesson or the
+ * reverse. Anything unlisted gets "general" - NO framework contract at all -
+ * which is the safe default: a missing contract produces a plain translation, a
+ * wrong one produces a confidently mis-termed one.
+ */
+export const CERT_DOMAIN = {
+  "SM-AI-I": "scrum", "SM-AI-II": "scrum", "SPO-AI-I": "scrum", "SD-AI-I": "scrum",
+  "AIMS-F": "iso", "AIMS-IA": "iso", "ISMS-F": "iso", "ISMS-IA": "iso",
+};
+
+export function domainForCert(code) {
+  return CERT_DOMAIN[String(code || "").trim().toUpperCase()] ?? "general";
+}
+
+/** The framing noun and vocabulary block for a domain. */
+export function contractForDomain(domain) {
+  if (domain === "scrum") return { subject: "Scrum certification content", vocabulary: RETIRED_VOCABULARY };
+  if (domain === "iso") return { subject: "ISO management-system certification content", vocabulary: ISO_MS_VOCABULARY };
+  return { subject: "professional certification content", vocabulary: "" };
+}
+
 /**
  * The translation system prompt. `kind` is "secure" | "practice" and changes one word.
  */

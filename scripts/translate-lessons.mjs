@@ -87,7 +87,7 @@ import path from "node:path";
 // The block did not need moving. It was already exported and already shared
 // ground; nothing imported it. The patch-translate-lessons-*.ps1 files are the
 // record of terminology being bolted on here separately each time instead.
-import { RETIRED_VOCABULARY } from "./lib/item-translation.mjs";
+import { domainForCert, contractForDomain } from "./lib/item-translation.mjs";
 
 const MODEL = "claude-sonnet-4-6";
 const API_URL = "https://api.anthropic.com/v1/messages";
@@ -354,9 +354,21 @@ function forceLanguage(text, lang) {
 // ---------------------------------------------------------------------------
 // model call
 // ---------------------------------------------------------------------------
-function systemPrompt(lang) {
+// THIS FILE CALLS ITSELF CERT-AGNOSTIC THREE TIMES AND USED TO HARDCODE "Scrum"
+// HERE, plus the Scrum vocabulary contract, for every certification it ran on.
+// Measured 2026-09-12: inert rather than harmful on the ISO certs, because the
+// retired-term rules scope themselves in their own text ("roles (for the three
+// Scrum accountabilities)") and the model honoured the parenthetical. But a file
+// whose documentation and whose prompt disagree is the mirrored-pair shape one
+// step along, and the next contract added might not scope itself so carefully.
+//
+// The domain comes from the lesson's own certification_code, via an explicit map
+// in lib/item-translation.mjs. An unlisted certification gets NO framework
+// contract rather than the wrong one.
+function systemPrompt(lang, domain = "general") {
   const name = LANG_NAMES[lang];
-  return `You are an expert localizer of Scrum certification content into ${name}.
+  const { subject } = contractForDomain(domain);
+  return `You are an expert localizer of ${subject} into ${name}.
 
 You will receive ONE lesson markdown file written in a strict custom DSL. Return the COMPLETE translated file and NOTHING else — no commentary, no code fences.
 
@@ -394,12 +406,18 @@ Scrum, Sprint, Sprint Planning, Sprint Review, Sprint Retrospective, Sprint Back
 
 "Scrum Guide" IS DELIBERATELY NOT ON THAT LIST ANY MORE. It was, and the model would not honour it: across 88 lesson translations on 2026-09-11 it rendered "the 2020 Scrum Guide" as "la Guia de 2020" / "o Guia de 2020" in six files, and a targeted re-translation pass reproduced five of the six. That is idiomatic, unambiguous in context, and not wrong - and A FROZEN-TERM LIST THAT INCLUDES SOMETHING THE TRANSLATOR WILL NOT HONOUR TEACHES PEOPLE TO IGNORE THE LIST. Two passes showed it; a third would have shown it again. Translate the Guide reference naturally.
 
-${RETIRED_VOCABULARY}
+${contractForDomain(domain).vocabulary}
 
 Return only the full file content.`;
 }
 
+function certCodeOf(text) {
+  const m = String(text).match(/^\s*certification_code:\s*([A-Za-z0-9-]+)\s*$/m);
+  return m ? m[1] : "";
+}
+
 async function callModel(apiKey, lang, fileText, attempt = 0) {
+  const domain = domainForCert(certCodeOf(fileText));
   const res = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -411,14 +429,14 @@ async function callModel(apiKey, lang, fileText, attempt = 0) {
       model: MODEL,
       max_tokens: 8192,
       temperature: 0.2,
-      system: systemPrompt(lang),
+      system: systemPrompt(lang, domain),
       messages: [{ role: "user", content: fileText }],
     }),
   });
   if (!res.ok) {
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       await new Promise((r) => setTimeout(r, 1000 * 2 ** attempt));
-      return callModel(apiKey, lang, fileText, attempt + 1);
+      return callModel(apiKey, lang, fileText, attempt + 1);   // domain is re-derived from the same text
     }
     throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 300)}`);
   }
