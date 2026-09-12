@@ -208,7 +208,7 @@ async function verify(cert) {
     // `!data` below used to mean BOTH "no more pages" and "the query failed".
     // Conflating them is what let one dropped page report an empty bank.
     const { data } = await must(`quiz_questions[${from}]`, db.from("quiz_questions")
-      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation")
+      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation, retired_vocabulary_intent")
       .eq("certification_id", id)
       .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
@@ -1132,7 +1132,32 @@ async function verify(cert) {
     };
     const hard = (q) => { const re = RETIRED_HARD[q.language]; return !!re && re.test(surfaces(q)); };
     const soft = (q) => { const re = RETIRED_SOFT[q.language]; return !!re && re.test(surfaces(q)); };
-    const soSecure = questions.filter((q) => q.pool === "secure" && hard(q));
+    // MIGRATION 298. An item may QUOTE a retired term in order to test that a
+    // candidate recognises it - "A legacy manual calls Developers
+    // 'self-organizing.' The 2020 Scrum Guide replaced that term..." - and
+    // removing the term destroys the item.
+    //
+    // READ PER GROUP, not per row: question_group_id binds the en/es-419/pt-BR
+    // siblings, and a re-translated row must not lose an exemption its siblings
+    // keep. Same reason teaches_retired_vocabulary keys on lesson_group_id.
+    //
+    // IT EXEMPTS THE FAIL, NOT THE WARN. The hits are still reported, because a
+    // reader should see that the term is there; the flag settles only whether it
+    // blocks a release.
+    //
+    // Six SM-AI-I groups carry it as of 2026-09-12, each with a reason recorded
+    // in the commit that set it. TWO OF THE SIX quote the term in a DISTRACTOR
+    // rather than the stem - "self-managing replaced self-organizing in name
+    // only" - so the quoted-in-stem heuristic that first surfaced them missed
+    // two of six. The heuristic is a prompt to read; the flag is the answer.
+    const quotedGroups = new Set(
+      questions.filter((q) => q.retired_vocabulary_intent === "quoted" && q.question_group_id)
+        .map((q) => q.question_group_id),
+    );
+    const exemptRows = questions.filter((q) => q.pool === "secure" && hard(q)
+      && q.question_group_id && quotedGroups.has(q.question_group_id)).length;
+    const soSecure = questions.filter((q) => q.pool === "secure" && hard(q)
+      && !(q.question_group_id && quotedGroups.has(q.question_group_id)));
     const soOther = questions.filter((q) => q.pool !== "secure" && hard(q));
     const cer = questions.filter(soft);
     // PLACEMENT, NOT JUST PRESENCE. Scoping SPO-AI-I by hand on 2026-09-12 took a
@@ -1171,7 +1196,7 @@ async function verify(cert) {
       `${q.language}/${q.pool} [${placementOf(q).join("+")}] ${(q.question_text || "").slice(0, 55)}`);
     if (soSecure.length > 0) {
       R.fail("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
-        `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term - BY PLACEMENT: ${tally(soSecure)}. A key is a defect in what the item asserts; a distractor may be the misconception UNDER TEST and must be read before it is swept`, ev(soSecure));
+        `${soSecure.length} SECURE item(s) across en/es-419/pt-BR carry a retired term - BY PLACEMENT: ${tally(soSecure)}. ${exemptRows} further row(s) are exempt as retired_vocabulary_intent='quoted'. A key is a defect in what the item asserts; a distractor may be the misconception UNDER TEST and must be read before it is swept`, ev(soSecure));
     } else if (soOther.length > 0 || cer.length > 0) {
       R.warn("items.vocabulary", "§8.1", "No prior-edition Scrum vocabulary",
         `${soOther.length} non-secure retired-term item(s), ${cer.length} ceremony/role-family hit(s) across 3 languages - NOISY BY DESIGN, read each: role joined this family 2026-09-11 and roughly quadrupled the count. A hard pattern would fail correct content six times in seven; if this proves unreadable in practice, narrow it THEN, with evidence`,

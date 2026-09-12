@@ -89,7 +89,7 @@ async function claude(system, user) {
 const rows = [];
 for (let from = 0; ; from += 1000) {
   let q = db.from("quiz_questions")
-    .select("id, question_group_id, pool, language, question_text, options, correct_answer, question_type, difficulty, explanation")
+    .select("id, question_group_id, pool, language, question_text, options, correct_answer, question_type, difficulty, explanation, retired_vocabulary_intent")
     .eq("certification_id", CERT_ID).is("retired_at", null).neq("language", "en").order("id").range(from, from + 999);
   if (POOL) q = q.eq("pool", POOL);
   const { data, error } = await q;
@@ -106,7 +106,16 @@ const hit = (r) => {
   const all = [r.question_text || "", ...(Array.isArray(r.options) ? r.options.map((o) => o.text || "") : []), r.explanation || ""].join(" \u0001 ");
   return re.test(all);
 };
-const bad = rows.filter(hit);
+// MIGRATION 298. A group flagged retired_vocabulary_intent = quoted QUOTES the
+// retired term on purpose and must never be swept. Re-translating one is worse
+// than leaving it: the source English still contains the term deliberately, so a
+// faithful translation reproduces it and the row matches again forever - while an
+// UNFAITHFUL one silently corrects the quotation the item exists to show.
+//
+// Found by a dry run, not by reasoning: one SM-AI-I key reads "Replace
+// self-organize with self-manage", and the English swap turned it into "Replace
+// self-manage with self-manage" before anything was written.
+const bad = rows.filter((r) => hit(r) && r.retired_vocabulary_intent !== "quoted");
 console.log(`${rows.length} non-English rows scanned, ${bad.length} carry a retired term${POOL ? ` (pool=${POOL})` : ""}\n`);
 if (!bad.length) process.exit(0);
 
