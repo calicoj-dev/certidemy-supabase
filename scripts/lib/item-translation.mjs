@@ -197,7 +197,31 @@ ROLES - PIN. es-419 roles. pt-BR papeis.
   function, an organizational function is a funcion / funcao - a part of the
   organization, not a role a person holds. Both words are correct; they are
   correct for different things, which is why both appear and why counting them
-  together says nothing.`;
+  together says nothing.
+
+CLAUSE - NEVER "clausula". This rule is here because it was VIOLATED.
+
+  ENGLISH                       es-419                          pt-BR
+  Clause 6 (top-level)          capitulo 6                      Secao 6
+  clause 6.1.3 (numbered sub)   apartado 6.1.3                  Secao 6.1.3
+  clause by clause              apartado por apartado           Secao por Secao
+  the clause cited              el apartado citado              a Secao citada
+
+  "clausula" reads as a CONTRACTUAL clause - a term in an agreement - and an ISO
+  division is not one. This applies whether or not a number follows: "clausula
+  por clausula" and "la clausula citada" are as wrong as "clausula 6.1.3".
+
+  THE ONE EXCEPTION is the grammatical sense. "The causal clause" - a clause of
+  a SENTENCE - is "la clausula causal" and is correct. The test is what the
+  clause belongs to: a standard, or a sentence.
+
+  EVIDENCE, AND THE REASON THIS MOVED HERE. The rule existed, as one bullet in
+  translate-lessons.mjs's prose prompt, and across 40 AIMS-IA lessons it was
+  ignored six times in two es-419 files (clausula 3.5, 3.11, 3.15, 3.16, 3.17)
+  while the twelve terms in the table above were honoured 374 times out of 374
+  in the same run. gen-module-translations.mjs never had the rule AT ALL, and
+  its first AIMS-IA dry run produced "clausula por clausula" and "la clausula
+  citada" - caught in the dry run, before any write.`;
 
 /**
  * Which vocabulary contract a certification takes.
