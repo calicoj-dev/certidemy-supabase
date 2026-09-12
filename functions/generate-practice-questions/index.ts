@@ -34,6 +34,14 @@
 // fan-out can insert siblings into an existing group, which is impossible for a
 // row whose group is null.
 //
+// Each of those groups is EXEMPT from trilingual.items only because this
+// function also stamps item_origin='generated' (migration 300 for the column,
+// 301 to thread it through the RPC). The exemption is narrow on purpose:
+// generated + exactly ONE row is exempt, generated + exactly TWO is a FAIL,
+// because this function writes one language per call and so a pair can only
+// mean a fan-out dropped its third row. If the fan-out is ever built here,
+// that FAIL is what catches it half-working.
+//
 // WHAT A NULL GROUP SILENTLY EXCLUDED A ROW FROM, measured 2026-09-12:
 //   verify-cert trilingual.items          dropped by `g &&`
 //   verify-cert quoted-vocabulary exempt  keyed per group, so the flag is inert
@@ -84,6 +92,11 @@ interface PayloadRow {
   // silently for two weeks - the RPC takes a null group without complaint,
   // unlike task_id, which it raises on.
   question_group_id: string;
+  // REQUIRED for the same reason, and it fails EVEN MORE QUIETLY: the RPC
+  // builds its INSERT from a fixed column list, so before migration 301 this
+  // field was accepted by the jsonb payload and silently dropped, and the row
+  // took the column default 'authored'. There was no error to notice.
+  item_origin: "generated";
   question_text: string;
   question_type: string;
   options: unknown;
@@ -229,6 +242,12 @@ serve(async (req) => {
           // One group per generated question. See the header: a group of one is
           // correct for a single-language item and keeps the row addressable.
           question_group_id: crypto.randomUUID(),
+          // What makes the group of one EXEMPT rather than a failure. Without
+          // this the row reads 'authored', and an authored group of one is a
+          // dropped sibling as far as trilingual.items is concerned - so the
+          // column would be right today and wrong on the next weak-concepts
+          // session. REQUIRES migration 301; before it, this is dropped.
+          item_origin: "generated",
           question_text: q.question_text,
           question_type: q.question_type,
           options: q.options,

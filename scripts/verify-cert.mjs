@@ -225,7 +225,7 @@ async function verify(cert) {
     // `!data` below used to mean BOTH "no more pages" and "the query failed".
     // Conflating them is what let one dropped page report an empty bank.
     const { data } = await must(`quiz_questions[${from}]`, db.from("quiz_questions")
-      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation, retired_vocabulary_intent")
+      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation, retired_vocabulary_intent, item_origin")
       .eq("certification_id", id)
       .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
@@ -644,12 +644,59 @@ async function verify(cert) {
   }
 
   // === 9. TRILINGUAL INTEGRITY ==============================================
+  //
+  // A group of one is not always a defect. Since migration 299,
+  // generate-practice-questions mints a group per generated question and writes
+  // ONE language per call - the trilingual fan-out is unbuilt - so a generated
+  // group of one is single-language BY CONSTRUCTION. Migration 300 records that
+  // as item_origin, because nothing in the other 24 columns could tell the two
+  // cases apart.
+  //
+  // THE EXEMPTION IS DELIBERATELY NARROW, AND THE NARROWNESS IS THE DESIGN:
+  //
+  //   generated + exactly 1   EXEMPT. Nothing was dropped and nothing was
+  //                           fanned out. This is how the item was written.
+  //   generated + exactly 2   FAIL, AND LOUDER THAN ANYTHING ELSE HERE. A
+  //                           generated item is written one language per call,
+  //                           so a PAIR cannot be "how it was written" - it can
+  //                           only be a fan-out that dropped its third row.
+  //   generated + 3           passes, like anything else.
+  //   authored / translated   unchanged. Anything other than 3 fails.
+  //
+  // Written as "generated items are exempt" this would hide a half-failed
+  // fan-out - and it would do it on the day someone ships the fan-out, which is
+  // the single change that makes generated items able to fail this way at all.
+  //
+  // A MIXED group is not exempt: allGen requires EVERY row in the group to be
+  // generated. So a generated English row with one translated sibling and a
+  // missing third falls through to the ordinary failure, which is correct.
   const qGroups = new Map();
-  for (const q of questions) qGroups.set(q.question_group_id, (qGroups.get(q.question_group_id) ?? 0) + 1);
-  const badQ = [...qGroups.entries()].filter(([g, n]) => g && n !== 3);
-  badQ.length === 0
-    ? R.pass("trilingual.items", "§8", "Every question group holds 3 language rows", `${qGroups.size} groups`)
-    : R.fail("trilingual.items", "§8", "Every question group holds 3 language rows", `${badQ.length} groups off`, badQ.slice(0, 5).map(([g, n]) => `${g}=${n}`));
+  for (const q of questions) {
+    if (!q.question_group_id) continue;   // ungrouped is items.grouped's business
+    const e = qGroups.get(q.question_group_id) ?? { n: 0, gen: 0 };
+    e.n++;
+    if (q.item_origin === "generated") e.gen++;
+    qGroups.set(q.question_group_id, e);
+  }
+  {
+    const allGen = (e) => e.gen === e.n;
+    const genSolo = [...qGroups.entries()].filter(([, e]) => allGen(e) && e.n === 1);
+    const genPair = [...qGroups.entries()].filter(([, e]) => allGen(e) && e.n === 2);
+    const otherBad = [...qGroups.entries()].filter(([, e]) => !(allGen(e) && e.n <= 2) && e.n !== 3);
+    const ev = (rows) => rows.slice(0, 5).map(([g, e]) => `${g}=${e.n}`);
+    const edges = `The exemption covers generated groups of EXACTLY ONE (${genSolo.length} here); a generated group of TWO is never exempt and fails louder than an ordinary gap, because for a generated item a pair can only be a dropped sibling`;
+    if (genPair.length > 0) {
+      R.fail("trilingual.items", "§8", "Every question group holds 3 language rows",
+        `${genPair.length} GENERATED group(s) hold exactly 2 language rows - a generated item is written ONE LANGUAGE PER CALL, so a pair is not how it was written: it is a fan-out that dropped its third row. ${otherBad.length} other group(s) off. ${edges}`,
+        [...ev(genPair), ...ev(otherBad)]);
+    } else if (otherBad.length > 0) {
+      R.fail("trilingual.items", "§8", "Every question group holds 3 language rows",
+        `${otherBad.length} group(s) off. ${edges}`, ev(otherBad));
+    } else {
+      R.pass("trilingual.items", "§8", "Every question group holds 3 language rows",
+        `${qGroups.size} groups. ${edges}`);
+    }
+  }
 
   const lGroups = new Map();
   for (const l of lessons) lGroups.set(l.lesson_group_id, (lGroups.get(l.lesson_group_id) ?? 0) + 1);
