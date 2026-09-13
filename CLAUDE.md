@@ -637,6 +637,56 @@ standard**, and no gate in this repo would have said so.
 
 ---
 
+**A DRY RUN OF A GENERATOR IS A SAMPLE, NOT A PREVIEW, AND NOTHING SAYS SO.**
+"Generate, show, approve, land" is the obvious review shape and **it does not
+exist in this repo.** `backfill-practice.mjs` and `gen-cert-secure.mjs` generate
+fresh on every invocation: the dry run prints one item, the live run prints a
+different one, and the output says "Wrote ~3 rows" either way.
+
+Paid for on 2026-09-12. AIMS-F task 4.1's replacement item was dry-run, read in
+full, judged on its cue balance, regenerated once on that judgement, read again,
+approved — and then the live run produced a THIRD item that nobody had read.
+It happened to be sound. The review step had no bearing on what landed.
+
+**What a generate-once-then-persist path would take**, for whoever reaches for
+the step and finds it missing:
+
+- a `--emit <file>` on the generator that writes the accepted batch as JSON
+  after the cue and validation guards pass, and stops before the insert;
+- a `--from <file>` that inserts that exact batch, re-running the guards on the
+  way in so an edited file cannot smuggle a bad item past them;
+- translation staying with the insert, not the emit, since only the English is
+  under review at that point.
+
+Roughly the shape `retranslate-item-rewrite.mjs` already has - a spec file
+authored and read first, applied second. The generators predate it.
+
+**Until it exists, the honest sequence is: land it, then read what landed, and
+retire it if it is wrong.** Reading a dry run and approving on that basis is a
+review of an artefact that will not exist.
+
+---
+
+**THE CUE GUARD'S WORD LIST IS NARROWER THAN THE TELL IT NAMES.**
+`ABS_WORDS` in `scripts/lib/item-cue-guard.mjs` is fifteen words - always,
+never, must, only, all, none, cannot, can't, every, any, impossible,
+guarantee(s|d), without exception. It fires only when **EVERY** distractor
+matches and the key does not.
+
+So "unconditional", "entirely", "each", "regardless", "purely" and "freely"
+are absolutes to a reader and invisible to the guard, and a 2-of-3 asymmetry
+passes however stark it reads.
+
+**This was misdiagnosed first.** The guard was reported as inconsistent - firing
+on one item and passing an identical shape on another - and it was not: the
+first had all three distractors on the list, the second had one. The guard did
+exactly what it says. The inconsistency was in the eye counting by a broader
+definition than the code's, then blaming the code. **Before calling a gate
+unreliable, read the predicate** - a gate wrongly called unreliable is worse
+than a gap in one, because the gap is bounded and the distrust is not.
+
+---
+
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
 ---
