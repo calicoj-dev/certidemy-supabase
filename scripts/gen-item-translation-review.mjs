@@ -50,7 +50,7 @@
  * different hash and the approval is STALE rather than carried forward.
  */
 import { createClient } from "@supabase/supabase-js";
-import { createHash } from "node:crypto";
+import { itemHash8 } from "./lib/item-hash.mjs";
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -102,7 +102,6 @@ const certCode = new Map((certs || []).map((c) => [c.id, c.code]));
 const { data: tasks } = await db.from("tasks").select("id, code");
 const taskCode = new Map((tasks || []).map((t) => [t.id, t.code]));
 
-const h8 = (s) => createHash("sha256").update(s ?? "", "utf8").digest("hex").slice(0, 8);
 const byGroup = new Map();
 for (const r of rows) {
   if (!byGroup.has(r.question_group_id)) byGroup.set(r.question_group_id, {});
@@ -155,7 +154,7 @@ for (const [grp, g] of ordered) {
   const en = g.en;
   n++;
   if (en.pool === "secure") secure++;
-  const hash = h8([en.question_text, JSON.stringify(en.options), en.explanation].join(""));
+  const hash = itemHash8(en);
   const cc = certCode.get(en.certification_id) || "?";
   const tc = taskCode.get(en.task_id) || "?";
   p(`## ${n}. ${cc} ${tc} — **${en.pool.toUpperCase()}** — \`${grp.slice(0, 8)}\` — \`en#${hash}\``);

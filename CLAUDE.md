@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 311. Next free number: 312.** 303-308 have RUN; **309 is written
+**Migration tip: 313. Next free number: 314.** 303-308 have RUN; **309 is written
 and has NOT run** (retiring SM-AI-II's two two-option items). Sequential,
 zero-padded to three digits, `NNN_snake_case_name.sql`.
 

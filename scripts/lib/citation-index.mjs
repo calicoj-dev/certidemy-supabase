@@ -181,7 +181,13 @@ export function newSink() {
 export async function loadExemptions(db) {
   const out = new Map();
   const { data, error } = await db.from("citation_exemptions").select("question_group_id, token");
-  if (error || !data) return out;
+  // A DROPPED READ MUST NOT BECOME AN ANSWER. This returned an empty Map on
+  // error, indistinguishable from "no exemptions exist" - so a broken read would
+  // silently re-flag every correct item the table exists to excuse and the
+  // caller would report those as findings. It cost an afternoon of suspecting a
+  // defect that was not there. THROW instead.
+  if (error) throw new Error(`citation_exemptions unreadable: ${error.message}. Refusing to continue - an empty exemption set is indistinguishable from a failed read.`);
+  if (!data) throw new Error("citation_exemptions returned no data and no error - refusing to treat that as an empty set.");
   for (const r of data) {
     if (!out.has(r.question_group_id)) out.set(r.question_group_id, new Set());
     out.get(r.question_group_id).add(r.token.replace(/\s+/g, " "));

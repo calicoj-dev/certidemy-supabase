@@ -48,6 +48,7 @@ import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
+import { itemHash8 } from "./lib/item-hash.mjs";
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -1184,6 +1185,91 @@ async function verify(cert) {
         else
           R.pass("items.citations", "§8.1", "Every cited clause exists in the standard",
             `${sink.checked} references resolved against ISO 19011:2026 / 27001:2022 / 42001:2023`);
+      }
+    }
+  }
+
+  // === 19c. TRANSLATIONS READ BY A HUMAN ====================================
+  //
+  // item_origin='translated' records how a row was PRODUCED and says nothing
+  // about whether anyone read it. Migration 311 added item_translation_reviews
+  // so there is somewhere to record that; this is the thing that reads it,
+  // because a table nothing consults is a table that does not exist.
+  //
+  // UNREVIEWED AND STALE ARE REPORTED SEPARATELY AND MUST STAY THAT WAY.
+  // Nobody read anything is not the same state as someone read something that
+  // no longer exists. Collapsing them is the is_provisional mistake: one flag
+  // for two facts, and the flag ends up meaning whichever the last writer
+  // thought it meant.
+  //
+  // STALE IS THE SHARPER OF THE TWO. An unreviewed row is honest debt. A stale
+  // row carries a human's approval against English that has since moved, so it
+  // LOOKS done and is not, which is the shape this repo keeps paying for.
+  {
+    const translated = questions.filter((q) => q.language !== "en" && q.item_origin === "translated");
+    if (translated.length === 0) {
+      R.skip("i18n.reviewed", "\u00a78", "Every translated row has been read by a human",
+        "no rows carry item_origin='translated'");
+    } else {
+      const { data: revs, error: rErr } = await db
+        .from("item_translation_reviews")
+        .select("question_id, en_hash, verdict, reviewed_at")
+        .in("question_id", translated.map((q) => q.id));
+
+      // A DROPPED READ MUST NOT BECOME AN ANSWER. An empty result here would
+      // report every row unreviewed, which is a confident content verdict
+      // manufactured by a failed query - and that is exactly how the missing
+      // service_role grant on this table went unnoticed for two migrations.
+      if (rErr) {
+        R.skip("i18n.reviewed", "\u00a78", "Every translated row has been read by a human",
+          `cannot read item_translation_reviews: ${rErr.message} - NOT reporting these rows as unreviewed`);
+      } else {
+        const h8 = (x) => createHash("sha256").update(x ?? "", "utf8").digest("hex").slice(0, 8);
+        const enByGroup = new Map();
+        for (const q of questions) {
+          if (q.language === "en" && q.question_group_id) {
+            enByGroup.set(q.question_group_id, itemHash8(q));
+          }
+        }
+        const approvedBy = new Map();
+        for (const r of (revs || [])) {
+          if (r.verdict !== "approved") continue;
+          const prev = approvedBy.get(r.question_id);
+          if (!prev || r.reviewed_at > prev.reviewed_at) approvedBy.set(r.question_id, r);
+        }
+
+        const unreviewed = [], stale = [];
+        for (const q of translated) {
+          const a = approvedBy.get(q.id);
+          if (!a) { unreviewed.push(q); continue; }
+          const now = enByGroup.get(q.question_group_id);
+          if (now && now !== a.en_hash) stale.push({ q, was: a.en_hash, now });
+        }
+
+        const ev = (rows) => rows.slice(0, 8).map((x) => x.q
+          ? `${x.q.language}/${(x.q.question_text || "").slice(0, 44)} - approved against en#${x.was}, now en#${x.now}`
+          : `${x.language}/${(x.question_text || "").slice(0, 60)}`);
+
+        // THE PATH FROM WARN TO GATE IS STATED IN THE OUTPUT, not left for
+        // someone to rediscover. Every bank has unreviewed rows today, so a
+        // blanket FAIL turns thirteen certifications red on day one and teaches
+        // people to ignore it. It becomes a FAIL for a certification the moment
+        // that bank reaches zero unreviewed - at which point a new unreviewed
+        // row is a regression rather than a backlog.
+        const PATH = "WARN until this bank reaches 0 unreviewed; it becomes a FAIL for this certification from then on, because after that a new unreviewed row is a regression rather than backlog";
+
+        if (stale.length > 0) {
+          R.fail("i18n.reviewed", "\u00a78", "Every translated row has been read by a human",
+            `${stale.length} row(s) approved against English that has since moved - STALE, which is not the same as unreviewed: a human approved something that no longer exists. ${unreviewed.length} others are unreviewed.`,
+            ev(stale));
+        } else if (unreviewed.length > 0) {
+          R.warn("i18n.reviewed", "\u00a78", "Every translated row has been read by a human",
+            `${unreviewed.length} of ${translated.length} translated row(s) unreviewed, 0 stale. ${PATH}`,
+            ev(unreviewed));
+        } else {
+          R.pass("i18n.reviewed", "\u00a78", "Every translated row has been read by a human",
+            `${translated.length} translated row(s), all reviewed against the current English. This bank is at zero unreviewed, so an unreviewed row from here on is a FAIL`);
+        }
       }
     }
   }
