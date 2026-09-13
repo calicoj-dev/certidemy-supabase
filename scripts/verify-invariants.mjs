@@ -41,6 +41,7 @@
 //      competitor's readiness -- the one failure in this engine that looks like
 //      a good result rather than a bug.
 
+import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -177,6 +178,58 @@ Object.assign(fetched, {
 }
 
 // ----------------------------------------------------------------- report
+
+// ---------------------------------------------------------------------------
+// MIGRATION TIP MATCHES THE DISK.
+//
+// CLAUDE.md carries "Migration tip: NNN. Next free number: NNN+1." It has gone
+// stale FOUR recorded times, twice self-inflicted, and once by five. It has
+// never been correct when a later session needed it. The cost is not a wrong
+// number in a document: two sessions once reached for 264 independently and
+// both were right, and a filename collision is cheap to fix and expensive to
+// notice because both files look correct in isolation.
+//
+// FOUR ROUNDS OF RECORDING IT DID NOT HELP, BECAUSE THE GAP IS STRUCTURAL:
+// updating the tip is not part of writing a migration, so it does not happen
+// when a migration is written. This makes it part of something that runs.
+//
+// IT LIVES HERE AND NOT IN verify-cert because the tip is a property of the
+// REPOSITORY, not of any certification. verify-cert --all would print it
+// thirteen times and own it nowhere.
+//
+// IT CHECKS THE NUMBER, NOT THE RUN STATE. The tip also says which migrations
+// have run; nothing on disk knows that. A file is a record of what already ran,
+// and its existence is the only signal available from here.
+{
+  const root = join(HERE, "..");
+  const nums = readdirSync(join(root, "migrations"))
+    .map((f) => /^(\d{3})_/.exec(f))
+    .filter(Boolean)
+    .map((m) => Number(m[1]));
+  const failures = [];
+  let detail = "";
+  if (!nums.length) {
+    failures.push("no NNN_*.sql files found under migrations/");
+  } else {
+    const highest = Math.max(...nums);
+    const md = readFileSync(join(root, "CLAUDE.md"), "utf8");
+    const m = /\*\*Migration tip:\s*(\d{3})\.\s*Next free number:\s*(\d{3})\.\*\*/.exec(md);
+    if (!m) {
+      failures.push("CLAUDE.md has no parseable 'Migration tip: NNN. Next free number: NNN.' line");
+    } else {
+      const tip = Number(m[1]);
+      const next = Number(m[2]);
+      detail = `disk highest ${highest}, tip ${tip}, next free ${next}`;
+      if (tip !== highest) {
+        failures.push(`tip says ${tip}, highest on disk is ${highest} - ${highest - tip} behind`);
+      }
+      if (next !== highest + 1) {
+        failures.push(`next free says ${next}, should be ${highest + 1}`);
+      }
+    }
+  }
+  record("migration tip vs disk", failures, detail || "could not compare");
+}
 
 if (asJson) {
   console.log(JSON.stringify({ pass: results.every((r) => r.pass), results }, null, 2));
