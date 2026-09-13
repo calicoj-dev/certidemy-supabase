@@ -82,16 +82,16 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** Un gerente de proyecto del ISMS argumenta que los alcances parciales no están permitidos y que todos los departamentos deben incluirse. ¿Qué concepto del capítulo 4 representa erróneamente esta postura?
+**Stem.** Un gerente de proyecto del SGSI argumenta que los alcances parciales no están permitidos y que todos los departamentos deben estar incluidos. ¿Qué concepto del capítulo 4 representa erróneamente esta afirmación?
 
 ```
-  **KEY** a) La permisibilidad de un alcance delimitado: el análisis del contexto puede justificar limitar el ISMS a un subconjunto de la organización.
+  **KEY** a) La permisibilidad de un alcance delimitado: el análisis del contexto puede justificar limitar el SGSI a un subconjunto de la organización.
         b) El requisito de que todas las cuestiones internas sean resueltas antes de que un alcance parcial pueda justificarse formalmente.
         c) La distinción entre cuestiones internas y externas, que determina si un departamento está dentro o fuera del alcance.
         d) El requisito de identificar todas las partes interesadas, lo que implica que todos los departamentos quedan automáticamente dentro del alcance.
 ```
 
-**Explanation.** Un alcance delimitado es permisible: el apartado 4.3 de ISO/IEC 27001 exige que la organización determine los límites y la aplicabilidad del ISMS, que es lo que establece su alcance, y requiere que dicha determinación tome en cuenta las cuestiones del apartado 4.1, los requisitos del apartado 4.2, y las interfaces y dependencias con actividades realizadas por otras organizaciones. Nada en el apartado obliga a que el ISMS cubra la totalidad de la organización. Lo que sí obliga es que el límite sea deliberado, defendible a partir del contexto, y esté disponible como información documentada. Exigir una cobertura organizacional completa es un error conceptual frecuente; también lo es tratar el límite como una formalidad administrativa en lugar de una decisión que el apartado exige fundamentar.
+**Explanation.** Un alcance delimitado es permisible: el apartado 4.3 de ISO/IEC 27001 exige que la organización determine los límites y la aplicabilidad del SGSI, que es lo que establece su alcance, y requiere que dicha determinación tome en cuenta las cuestiones del apartado 4.1, los requisitos del apartado 4.2, y las interfaces y dependencias con actividades realizadas por otras organizaciones. Nada en el apartado obliga a que el SGSI cubra toda la organización. Lo que sí obliga es que el límite sea deliberado, defendible a partir del contexto, y esté disponible como información documentada. Exigir una cobertura organizacional total es un concepto erróneo frecuente; también lo es tratar el límite como una formalidad administrativa en lugar de una decisión que el apartado requiere fundamentar.
 
 ### pt-BR  `[ ]`
 
@@ -99,12 +99,12 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ```
   **KEY** a) A permissibilidade de um escopo delimitado: a análise de contexto pode justificar a limitação do SGSI a um subconjunto da organização.
-        b) O requisito de que todas as cuestiones internas sejam resolvidas antes que um escopo parcial possa ser formalmente justificado.
-        c) A distinção entre cuestiones internas e externas, que determina se um departamento está dentro ou fora do escopo.
+        b) O requisito de que todas as questões internas sejam resolvidas antes que um escopo parcial possa ser formalmente justificado.
+        c) A distinção entre questões internas e externas, que determina se um departamento está dentro ou fora do escopo.
         d) O requisito de identificar todas as partes interessadas, o que implica que todos os departamentos estão automaticamente no escopo.
 ```
 
-**Explanation.** Um escopo delimitado é permitido: a Seção 4.3 da ISO/IEC 27001 exige que a organização determine os limites e a aplicabilidade do SGSI, o que é o que estabelece seu escopo, e exige que essa determinação leve em conta as cuestiones da Seção 4.1, os requisitos da Seção 4.2 e as interfaces e dependências com atividades realizadas por outras organizações. Nada na Seção obriga o SGSI a abranger toda a organização. O que ela obriga é que o limite seja deliberado, defensável a partir do contexto e disponível como informação documentada. Exigir cobertura organizacional total é um equívoco comum; também o é tratar o limite como uma formalidade administrativa em vez de uma decisão que a Seção exige fundamentação.
+**Explanation.** Um escopo delimitado é permitido: a Seção 4.3 da ISO/IEC 27001 exige que a organização determine os limites e a aplicabilidade do SGSI, o que estabelece seu escopo, e requer que essa determinação leve em conta as questões da Seção 4.1, os requisitos da Seção 4.2 e as interfaces e dependências com atividades realizadas por outras organizações. Nada na Seção obriga o SGSI a abranger toda a organização. O que ela obriga é que o limite seja deliberado, defensável a partir do contexto e disponível como informação documentada. Exigir cobertura organizacional total é um equívoco comum; também o é tratar o limite como uma formalidade administrativa, em vez de uma decisão que a Seção exige fundamentação.
 
 ---
 
@@ -130,26 +130,26 @@ Every group below is a **repair of a false attribution**. The English was change
 **Stem.** El equipo de revisión del SGSI de una empresa detecta un cambio en el apetito de riesgo tras una fusión. ¿Qué concepto del capítulo 4 se ve afectado de manera más directa por este cambio?
 
 ```
-        a) Solo los requisitos de las partes interesadas, porque una fusión cambia qué partes contractuales debe satisfacer la organización.
+        a) Solo los requisitos de las partes interesadas, porque una fusión modifica qué partes contractuales debe satisfacer la organización.
         b) Ninguno; el apetito de riesgo pertenece a la evaluación de riesgos del capítulo 6 y es independiente del análisis del contexto.
         c) Solo las cuestiones externas, porque una fusión está impulsada por fuerzas de mercado que se originan fuera de la organización.
-  **KEY** d) Las cuestiones internas, porque un cambio en el apetito de riesgo se origina dentro de la organización y redefine cómo esta pondera sus objetivos del SGSI.
+  **KEY** d) Las cuestiones internas, porque un cambio en el apetito de riesgo se origina dentro de la organización y redefine cómo esta pondera los objetivos de su SGSI.
 ```
 
-**Explanation.** Un cambio en el apetito de riesgo tras una fusión surge dentro de la organización y altera la forma en que esta establece y pondera sus objetivos de seguridad, lo que lo convierte en una cuestión interna. Nada en él se origina fuera de la organización. El apartado 4.1 de ISO/IEC 27001 exige que la organización determine las cuestiones externas e internas pertinentes a su propósito y que afectan su capacidad para lograr los resultados previstos del SGSI; no establece categorías ni criterios más allá de eso, por lo que cada cuestión se clasifica según sus propios hechos. Tratar este cambio como externo, o como no relacionado con el SGSI, ubica incorrectamente un factor que incide de manera directa en lo que el SGSI busca lograr.
+**Explanation.** Un cambio en el apetito de riesgo tras una fusión surge dentro de la organización y altera la forma en que esta establece y pondera sus objetivos de seguridad, lo que lo convierte en una cuestión interna. Nada en él se origina fuera de la organización. El apartado 4.1 de ISO/IEC 27001 exige que la organización determine las cuestiones externas e internas pertinentes a su propósito y que afectan su capacidad para lograr los resultados previstos del SGSI; la norma no establece categorías ni criterios más allá de eso, por lo que cada cuestión se clasifica según sus propios hechos. Tratar este cambio como externo, o como ajeno al SGSI, desplaza un factor que incide directamente en lo que el SGSI busca lograr.
 
 ### pt-BR  `[ ]`
 
-**Stem.** A equipe de revisão do ISMS de uma empresa observa uma mudança no apetite ao risco após uma fusão. Qual conceito da Seção 4 essa mudança afeta mais diretamente?
+**Stem.** A equipe de revisão do SGSI de uma empresa observa uma mudança no apetite ao risco após uma fusão. Qual conceito da Seção 4 essa mudança afeta mais diretamente?
 
 ```
         a) Apenas os requisitos das partes interessadas, porque uma fusão altera quais partes contratuais a organização deve satisfazer.
         b) Nenhum; o apetite ao risco pertence à avaliação de riscos da Seção 6 e é independente da análise de contexto.
-        c) Apenas as cuestiones externas, porque uma fusão é impulsionada por forças de mercado originárias de fora da organização.
-  **KEY** d) As cuestiones internas, porque uma mudança no apetite ao risco se origina dentro da organização e reformula a forma como ela pondera os objetivos do seu ISMS.
+        c) Apenas as questões externas, porque uma fusão é impulsionada por forças de mercado originárias fora da organização.
+  **KEY** d) As questões internas, porque uma mudança no apetite ao risco se origina dentro da organização e reformula a forma como ela pondera os objetivos do seu SGSI.
 ```
 
-**Explanation.** Uma mudança no apetite ao risco decorrente de uma fusão surge dentro da organização e altera a forma como ela define e pondera seus objetivos de segurança, o que a caracteriza como uma questão interna. Nada nela se origina externamente. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine as cuestiones externas e internas relevantes para seu propósito e que afetam sua capacidade de alcançar os resultados pretendidos do ISMS; a norma não fornece categorias nem critérios além disso, de modo que cada questão é classificada com base em seus próprios fatos. Tratar essa mudança como externa, ou como não relacionada ao ISMS, equivoca um fator que influencia diretamente o que o ISMS busca alcançar.
+**Explanation.** Uma mudança no apetite ao risco decorrente de uma fusão surge dentro da organização e altera a forma como ela define e pondera seus objetivos de segurança, o que a caracteriza como uma questão interna. Nada nela se origina externamente. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine as questões externas e internas relevantes para sua finalidade e que afetam sua capacidade de alcançar os resultados pretendidos do SGSI; a norma não fornece categorias nem critérios além disso, de modo que cada questão é classificada com base em seus próprios fatos. Tratar essa mudança como externa, ou como não relacionada ao SGSI, equivoca-se quanto a um fator que influencia diretamente o que o SGSI busca alcançar.
 
 ---
 
@@ -176,25 +176,25 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ```
         a) Que el contexto externo es una actividad que se realiza una sola vez, por lo que la empresa no lo revisará cuando cambien las condiciones del mercado.
-  **KEY** b) Que las cuestiones externas son sinónimo de obligaciones legales, sin considerar los factores competitivos, tecnológicos y socioeconómicos.
-        c) Que todas las cuestiones externas deben resolverse antes de que el alcance del ISMS pueda ser aprobado formalmente.
+  **KEY** b) Que las cuestiones externas son sinónimo de obligaciones legales, ignorando factores competitivos, tecnológicos y socioeconómicos.
+        c) Que todas las cuestiones externas deben resolverse antes de que el alcance del SGSI pueda ser aprobado formalmente.
         d) Que las partes interesadas se limitan a los organismos reguladores, ignorando a los clientes y a los organismos del sector como fuentes de requisitos.
 ```
 
-**Explanation.** Interpretar el contexto externo únicamente como obligaciones de cumplimiento es lo que hace incorrecto el razonamiento descrito: una presión puede estar fuera de la organización e incidir en el ISMS sin ser una obligación legal, y tratar ambos conceptos como equivalentes deja esos factores sin examinar. El apartado 4.1 de ISO/IEC 27001 exige que la organización determine las cuestiones externas e internas pertinentes a su propósito y que afectan a los resultados previstos del ISMS. No establece categorías, por lo que la pregunta nunca es si un factor aparece en una lista, sino si está fuera de la organización e incide en dichos resultados.
+**Explanation.** Interpretar el contexto externo únicamente como obligaciones de cumplimiento es lo que hace que el razonamiento sea incorrecto: una presión puede existir fuera de la organización e incidir en el SGSI sin ser una obligación legal, y tratar ambos conceptos como equivalentes deja esos factores sin examinar. El apartado 4.1 de ISO/IEC 27001 exige que la organización determine las cuestiones externas e internas pertinentes a su propósito y que afectan a los resultados previstos del SGSI. No establece categorías, por lo que la pregunta nunca es si un factor aparece en una lista, sino si está fuera de la organización e incide en dichos resultados.
 
 ### pt-BR  `[ ]`
 
-**Stem.** Uma empresa de logística mapeia todas as regulamentações aplicáveis de proteção de dados e segurança no transporte e declara completa a análise de contexto externo. Qual equívoco isso ilustra?
+**Stem.** Uma empresa de logística mapeia todas as regulamentações aplicáveis de proteção de dados e segurança no transporte e declara a análise do contexto externo como concluída. Qual equívoco isso ilustra?
 
 ```
-        a) Que o contexto externo é uma atividade pontual, de modo que a empresa não o revisará quando as condições de mercado mudarem.
-  **KEY** b) Que as cuestiones externas são sinônimas de obrigações legais, desconsiderando fatores competitivos, tecnológicos e socioeconômicos.
-        c) Que todas as cuestiones externas devem ser resolvidas antes que o escopo do ISMS possa ser formalmente aprovado.
+        a) Que o contexto externo é uma atividade realizada uma única vez, de modo que a empresa não o revisará quando as condições de mercado mudarem.
+  **KEY** b) Que as questões externas são sinônimas de obrigações legais, desconsiderando fatores competitivos, tecnológicos e socioeconômicos.
+        c) Que todas as questões externas devem ser resolvidas antes que o escopo do SGSI possa ser formalmente aprovado.
         d) Que as partes interessadas se limitam a órgãos reguladores, ignorando clientes e entidades do setor como fontes de requisitos.
 ```
 
-**Explanation.** Interpretar o contexto externo apenas como obrigações de conformidade é o que torna o raciocínio equivocado: uma pressão pode estar fora da organização e incidir sobre o ISMS sem constituir uma obrigação legal, e tratar os dois conceitos como equivalentes deixa esses fatores sem exame. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine as questões externas e internas relevantes para seu propósito e que afetam os resultados pretendidos do ISMS. Ela não nomeia categorias, portanto a questão nunca é se um fator consta de uma lista, mas sim se ele está fora da organização e incide sobre esses resultados.
+**Explanation.** Interpretar o contexto externo apenas como obrigações de conformidade é o que torna o raciocínio equivocado: uma pressão pode existir fora da organização e incidir sobre o SGSI sem constituir uma obrigação legal, e tratar os dois conceitos como equivalentes deixa esses fatores sem análise. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine as questões externas e internas relevantes para sua finalidade e que afetam os resultados pretendidos do SGSI. A norma não nomeia categorias, portanto a questão nunca é se um fator consta de uma lista, mas sim se ele está fora da organização e incide sobre esses resultados.
 
 ---
 
@@ -217,29 +217,29 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** El equipo legal identifica un nuevo contrato que exige al sistema de IA de la organización evitar ciertos tipos de salida prohibidos. Según el apartado 4.1, ¿cómo debe registrarse esto?
+**Stem.** El equipo legal identifica un nuevo contrato que exige que el sistema de IA de la organización evite ciertos tipos de salidas prohibidas. Según el apartado 4.1, ¿cómo debería registrarse esto?
 
 ```
   **KEY** a) Como una cuestión externa, porque las obligaciones contractuales forman parte del entorno externo que define el contexto del AIMS
-        b) Únicamente como un requisito de partes interesadas, dado que los contratos definen necesidades y expectativas y no cuestiones del contexto
-        c) Como una cuestión interna, porque las obligaciones contractuales se derivan de las propias decisiones comerciales de la organización
-        d) Como una acción de tratamiento del riesgo, omitiendo la documentación del contexto porque la obligación ya tiene carácter jurídicamente vinculante
+        b) Solo como un requisito de las partes interesadas, ya que los contratos definen necesidades y expectativas en lugar de cuestiones del contexto
+        c) Como una cuestión interna, porque las obligaciones contractuales surgen de las propias decisiones comerciales de la organización
+        d) Como una acción de tratamiento del riesgo, omitiendo la documentación del contexto porque la obligación ya es jurídicamente vinculante
 ```
 
-**Explanation.** Una obligación contractual restringe la forma en que la organización puede desarrollar, proveer o utilizar sus sistemas de IA, y tiene origen fuera de la organización; eso es precisamente lo que la ubica entre las cuestiones externas. El apartado 4.1 de ISO/IEC 42001 exige que la organización determine las cuestiones externas e internas pertinentes a su propósito, sin especificar cuáles son, por lo que el juicio se realiza con base en ese criterio y no mediante la consulta de un catálogo. Registrar la obligación únicamente como un elemento de cumplimiento normativo hace perder el propósito del apartado 4.1: establecer el contexto dentro del cual debe operar el AIMS.
+**Explanation.** Una obligación contractual restringe la forma en que la organización puede desarrollar, proporcionar o utilizar sus sistemas de IA, y tiene origen fuera de la organización; eso es lo que la sitúa entre las cuestiones externas. El apartado 4.1 de ISO/IEC 42001 exige que la organización determine las cuestiones externas e internas pertinentes para su propósito, sin especificar cuáles son, por lo que el juicio se realiza con base en ese criterio y no mediante la consulta de un catálogo. Registrar la obligación únicamente como un elemento de cumplimiento normativo hace perder el propósito del apartado 4.1: establecer el contexto dentro del cual debe operar el AIMS.
 
 ### pt-BR  `[ ]`
 
 **Stem.** A equipe jurídica identifica um novo contrato que exige que o sistema de IA da organização evite determinados tipos de saída proibidos. De acordo com a Seção 4.1, como isso deve ser registrado?
 
 ```
-  **KEY** a) Como uma cuestão externa, pois as obrigações contratuais fazem parte do ambiente externo que molda o contexto do AIMS
-        b) Apenas como um requisito de partes interessadas, uma vez que os contratos definem necessidades e expectativas, e não cuestões de contexto
-        c) Como uma cuestão interna, pois as obrigações contratuais decorrem das próprias decisões comerciais da organização
+  **KEY** a) Como uma questão externa, pois as obrigações contratuais fazem parte do ambiente externo que molda o contexto do AIMS
+        b) Apenas como um requisito de parte interessada, uma vez que os contratos definem necessidades e expectativas, e não questões de contexto
+        c) Como uma questão interna, pois as obrigações contratuais decorrem das próprias decisões comerciais da organização
         d) Como uma ação de tratamento do risco, dispensando a documentação de contexto porque a obrigação já é juridicamente vinculante
 ```
 
-**Explanation.** Uma obrigação contratual restringe a forma como esta organização pode desenvolver, fornecer ou utilizar seus sistemas de IA, e tem origem fora da organização — é isso que a classifica entre as cuestões externas. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine as cuestões externas e internas relevantes para o seu propósito, sem especificar quais são, de modo que o julgamento é feito com base nesse critério, e não por consulta a um catálogo. Registrar a obrigação apenas como um item de conformidade perde o objetivo da Seção 4.1: estabelecer o contexto no qual o AIMS deve operar.
+**Explanation.** Uma obrigação contratual restringe a forma como a organização pode desenvolver, fornecer ou utilizar seus sistemas de IA, e tem origem fora da organização — é isso que a classifica entre as questões externas. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine as questões externas e internas relevantes para seu propósito, sem especificar quais são, de modo que o julgamento é feito com base nesse critério, e não por consulta a um catálogo. Registrar a obrigação apenas como um item de conformidade perde o objetivo da Seção 4.1: estabelecer o contexto no qual o AIMS deve operar.
 
 ---
 
@@ -262,7 +262,7 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** Una organización completó su análisis de contexto de AIMS hace 18 meses. Desde entonces se promulgó una nueva regulación nacional sobre IA. ¿Qué debería hacer la organización?
+**Stem.** Una organización completó su análisis de contexto del AIMS hace 18 meses. Desde entonces se ha promulgado una nueva regulación nacional sobre IA. ¿Qué debería hacer la organización?
 
 ```
         a) Registrarlo para la próxima revisión programada del ciclo de certificación trienal.
@@ -271,7 +271,7 @@ Every group below is a **repair of a false attribution**. The English was change
         d) No tomar ninguna acción; el apartado 4.1 es un ejercicio de alcance que se realiza una sola vez al establecer el AIMS.
 ```
 
-**Explanation.** Una regulación recién aplicable constituye un cambio en una cuestión externa, y la determinación del contexto deja de corresponder a la situación de la organización hasta que la incorpora. El apartado 4.1 de ISO/IEC 42001 requiere que la organización determine sus cuestiones externas e internas; el apartado 9.3 requiere que la revisión por la dirección considere los cambios en las cuestiones externas e internas relevantes para el sistema de gestión de IA. Ninguno de los dos apartados establece una cadencia ni convierte la actualización en una actividad de información documentada por derecho propio; tomados en conjunto, son lo que hace que un cambio como este vuelva a ser visible. Tratar el análisis original como definitivo, o esperar al próximo ciclo de certificación, deja el AIMS descrito frente a condiciones que ya han cambiado.
+**Explanation.** Una regulación recién aplicable constituye un cambio en una cuestión externa, y la determinación del contexto deja de corresponder a la situación de la organización hasta que la incorpora. El apartado 4.1 de ISO/IEC 42001 requiere que la organización determine sus cuestiones externas e internas; el apartado 9.3 requiere que la revisión por la dirección considere los cambios en las cuestiones externas e internas pertinentes al sistema de gestión de IA. Ninguno de los dos apartados establece una cadencia ni convierte la actualización en una actividad de información documentada por derecho propio; tomados en conjunto, son lo que hace que un cambio como este vuelva a ser visible. Tratar el análisis original como definitivo, o esperar al próximo ciclo de certificación, deja el AIMS descrito frente a condiciones que ya han cambiado.
 
 ### pt-BR  `[ ]`
 
@@ -280,11 +280,11 @@ Every group below is a **repair of a false attribution**. The English was change
 ```
         a) Registrá-la para revisão no próximo ciclo de certificação trienal programado.
         b) Notificar imediatamente o organismo de certificação, pois uma mudança legal suspende automaticamente a conformidade.
-  **KEY** c) Atualizar a análise de contexto para refletir a regulamentação como uma cuestão externa alterada.
+  **KEY** c) Atualizar a análise de contexto para refletir a regulamentação como uma questão externa alterada.
         d) Não tomar nenhuma ação; a Seção 4.1 é um exercício único de definição de escopo realizado no momento do estabelecimento do AIMS.
 ```
 
-**Explanation.** Uma regulamentação recém-aplicável representa uma mudança em uma cuestão externa, e a determinação do contexto deixa de refletir a situação da organização enquanto não incorporar essa mudança. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine suas cuestões externas e internas; a Seção 9.3 exige que a análise crítica pela direção considere as mudanças nas cuestões externas e internas relevantes para o sistema de gestão de IA. Nenhuma das duas seções estabelece uma periodicidade nem torna a atualização uma atividade de informação documentada por si só — tomadas em conjunto, são elas que trazem uma mudança como essa de volta ao campo de visão. Tratar a análise original como definitiva, ou aguardar o próximo ciclo de certificação, deixa o AIMS descrito com base em condições que já se alteraram.
+**Explanation.** Uma regulamentação recém-aplicável representa uma mudança em uma questão externa, e a determinação do contexto deixa de refletir a situação da organização enquanto não a incorporar. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine suas questões externas e internas; a Seção 9.3 exige que a análise crítica pela direção considere as mudanças nas questões externas e internas relevantes para o sistema de gestão de IA. Nenhuma das seções estabelece uma periodicidade nem torna a atualização uma atividade de informação documentada por si só — tomadas em conjunto, são elas que trazem uma mudança como essa de volta ao campo de visão. Tratar a análise original como definitiva, ou aguardar o próximo ciclo de certificação, mantém o AIMS descrito com base em condições que já se alteraram.
 
 ---
 
@@ -316,20 +316,20 @@ Every group below is a **repair of a false attribution**. The English was change
         d) Reclasificar ambas como cuestiones internas, dado que la confianza pública está moldeada por las propias comunicaciones de la organización.
 ```
 
-**Explanation.** Cada una de estas cuestiones surge fuera de la organización e incide en si el sistema de gestión de IA logra lo que se propone, que es la prueba que las convierte en cuestiones externas en este caso. El apartado 4.1 de ISO/IEC 42001 requiere que la organización determine las cuestiones externas e internas pertinentes a su propósito, que determine si el cambio climático es una cuestión pertinente, y que considere el propósito previsto de sus sistemas de IA y sus propios roles con respecto a ellos. No establece categorías de cuestiones externas, por lo que la clasificación se realiza aplicando esa prueba a los hechos de la organización, y no cotejando un factor con una lista.
+**Explanation.** Cada una de estas cuestiones surge fuera de la organización e incide en si el sistema de gestión de IA logra lo que se propone, que es la prueba que las convierte en cuestiones externas en este caso. El apartado 4.1 de ISO/IEC 42001 requiere que la organización determine las cuestiones externas e internas pertinentes a su propósito, determine si el cambio climático es una cuestión pertinente y considere el propósito previsto de sus sistemas de IA y sus propios roles con respecto a ellos. No establece categorías de cuestiones externas, por lo que la clasificación se realiza conforme a esa prueba según los hechos de la organización, y no mediante la correspondencia de un factor con una lista.
 
 ### pt-BR  `[ ]`
 
-**Stem.** Uma equipe do AIMS lista 'atitudes da sociedade em relação à IA' e 'confiança pública em decisões automatizadas' como cuestiones externas. Um colega argumenta que essas cuestiones estão fora do escopo porque as cuestiones externas devem ser legais ou regulatórias. O que a equipe deve fazer?
+**Stem.** Uma equipe do AIMS lista 'atitudes da sociedade em relação à IA' e 'confiança pública em decisões automatizadas' como questões externas. Um colega argumenta que essas questões estão fora do escopo porque questões externas devem ser legais ou regulatórias. O que a equipe deve fazer?
 
 ```
   **KEY** a) Manter ambas; elas surgem fora da organização e influenciam se o AIMS alcança seus resultados pretendidos, que é o critério estabelecido pela Seção 4.1.
-        b) Remover ambas; a Seção 4.1 limita as cuestiones externas a leis promulgadas, regulamentos e normas vinculantes.
+        b) Remover ambas; a Seção 4.1 limita as questões externas a leis promulgadas, regulamentos e normas vinculantes.
         c) Manter ambas somente se a organização puder demonstrar um impacto financeiro direto de cada tendência.
-        d) Reclassificar ambas como cuestiones internas, uma vez que a confiança pública é moldada pelas próprias comunicações da organização.
+        d) Reclassificar ambas como questões internas, uma vez que a confiança pública é moldada pelas próprias comunicações da organização.
 ```
 
-**Explanation.** Cada uma dessas cuestiones surge fora da organização e influencia se o sistema de gestão de IA alcança o que se pretende, que é o critério que as torna cuestiones externas neste caso. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine as cuestiones externas e internas relevantes para sua finalidade, determine se a mudança climática é uma questão relevante e considere a finalidade pretendida de seus sistemas de IA e seus próprios papéis em relação a eles. Ela não estabelece categorias de cuestiones externas, portanto a classificação é feita com base nesse critério aplicado aos fatos da organização, e não por meio da correspondência de um fator a uma lista.
+**Explanation.** Cada uma dessas questões surge fora da organização e influencia se o sistema de gestão de IA alcança o que se pretende, que é o critério que as torna questões externas neste caso. A Seção 4.1 da ISO/IEC 42001 exige que a organização determine as questões externas e internas relevantes para seu propósito, avalie se as mudanças climáticas constituem uma questão relevante e considere a finalidade pretendida de seus sistemas de IA e seus próprios papéis em relação a eles. A norma não estabelece categorias de questões externas, portanto a classificação é feita com base nesse critério aplicado aos fatos da organização, e não por meio da correspondência de um fator a uma lista predefinida.
 
 ---
 
@@ -406,7 +406,7 @@ Every group below is a **repair of a false attribution**. The English was change
         d) Aceptable, porque el capítulo 4 es una actividad fundacional que se realiza una sola vez; los cambios se capturan en las evaluaciones de riesgos.
 ```
 
-**Explanation.** La situación de la organización cambia, y un ISMS que descansa sobre una imagen desactualizada de ella deja de describir algo real. El apartado 4.1 de ISO/IEC 27001 requiere que la organización determine sus cuestiones externas e internas, y el apartado 9.3.2 requiere que la revisión por la dirección considere los cambios en dichas cuestiones. El apartado 4.1 no impone un proceso de seguimiento continuo ni un intervalo de revisión; es la combinación de ambos apartados lo que hace que la determinación sea algo a lo que la organización debe volver periódicamente. Tratar el análisis inicial como permanente, o revisarlo únicamente tras un incidente, deja el ISMS construido sobre condiciones que pueden ya no ser válidas. El control de versiones y la aprobación de documentos registran el análisis, pero no demuestran que esté vigente.
+**Explanation.** La situación de la organización cambia, y un SGSI que descansa sobre una imagen desactualizada de ella deja de describir algo real. El apartado 4.1 de ISO/IEC 27001 requiere que la organización determine sus cuestiones externas e internas, y el apartado 9.3.2 requiere que la revisión por la dirección considere los cambios en dichas cuestiones. El apartado 4.1 no impone un proceso de seguimiento continuo ni un intervalo de revisión; es la combinación de ambos apartados lo que convierte la determinación en algo a lo que la organización debe volver periódicamente. Tratar el análisis inicial como permanente, o revisarlo únicamente tras un incidente, deja al SGSI construido sobre condiciones que pueden ya no ser válidas. El control de versiones y la aprobación de documentos registran el análisis, pero no demuestran que esté vigente.
 
 ### pt-BR  `[ ]`
 
@@ -414,12 +414,12 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ```
         a) Não conformidade, mas somente se um incidente de segurança significativo tiver ocorrido desde a análise original.
-  **KEY** b) Não conformidade, porque a análise crítica pela direção deve considerar mudanças nas cuestiones internas e externas, e essa análise nunca foi revisada.
+  **KEY** b) Não conformidade, porque a análise crítica pela direção deve considerar mudanças nas questões internas e externas, e essa análise nunca foi revisada.
         c) Aceitável, desde que a análise original tenha sido aprovada pela alta direção e esteja sob controle de versão.
         d) Aceitável, porque a Seção 4 é uma atividade de base realizada uma única vez; as mudanças são capturadas nas avaliações de risco.
 ```
 
-**Explanation.** A situação da organização muda, e um ISMS construído sobre uma visão desatualizada dela deixa de descrever qualquer realidade concreta. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine suas cuestiones externas e internas, e a Seção 9.3.2 exige que a análise crítica pela direção considere mudanças nessas cuestiones. A Seção 4.1 não impõe um processo de monitoramento contínuo nem um intervalo de revisão; é a combinação das duas seções que torna a determinação algo a que a organização deve retornar periodicamente. Tratar a análise inicial como permanente, ou revisá-la somente após um incidente, deixa o ISMS fundamentado em condições que podem não ser mais válidas. O controle de versão e a aprovação de documentos registram a análise, mas não demonstram que ela está atualizada.
+**Explanation.** O contexto da organização muda, e um SGSI baseado em uma visão desatualizada dele deixa de descrever qualquer realidade concreta. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine suas questões externas e internas, e a Seção 9.3.2 exige que a análise crítica pela direção considere mudanças nessas questões. A Seção 4.1 não impõe um processo contínuo de monitoramento nem um intervalo de revisão; é a combinação das duas seções que torna a determinação algo a que a organização deve retornar periodicamente. Tratar a análise inicial como permanente, ou revisá-la somente após um incidente, deixa o SGSI construído sobre condições que podem não ser mais válidas. O controle de versão e a aprovação de documentos registram a análise, mas não demonstram que ela está atualizada.
 
 ---
 
@@ -442,29 +442,29 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** Una empresa completa su análisis de contexto del capítulo 4 al lanzar el ISMS y nunca lo revisa. ¿Por qué esto constituye una no conformidad?
+**Stem.** Una empresa completa su análisis de contexto del capítulo 4 al lanzar el SGSI y nunca lo revisa. ¿Por qué esto constituye una no conformidad?
 
 ```
-        a) El contexto solo necesita actualizarse cuando surge un nuevo requisito legal, ya que las regulaciones son la única cuestión externa que afecta al ISMS.
+        a) El contexto solo necesita actualizarse cuando surge un nuevo requisito legal, ya que las regulaciones son la única cuestión externa que afecta al SGSI.
         b) Un análisis de contexto inicial aprobado por la alta dirección permanece válido indefinidamente una vez registrado formalmente.
         c) La norma exige un ciclo de revisión anual fijo independientemente de si las cuestiones han cambiado realmente.
   **KEY** d) Las cuestiones internas y externas cambian con el tiempo, y la revisión por la dirección debe considerar esos cambios; un contexto que nunca se revisa no puede informarla.
 ```
 
-**Explanation.** Un cambio en las cuestiones internas o externas puede alterar los objetivos de seguridad y la exposición al riesgo, por lo que un contexto establecido una sola vez y abandonado deja de sustentar las decisiones que se basan en él. El apartado 4.1 de ISO/IEC 27001 requiere que la organización determine dichas cuestiones, y el apartado 9.3.2 requiere que la revisión por la dirección considere los cambios en ellas. La norma no prescribe ningún ciclo de revisión ni impone una obligación de seguimiento continuo en el propio apartado 4.1, por lo que un calendario anual fijo es una decisión organizacional y no un requisito, siendo el cambio el factor desencadenante. Sostener que el análisis inicial es permanente implica que el ISMS describe una organización que ya no existe.
+**Explanation.** Un cambio en las cuestiones internas o externas puede alterar los objetivos de seguridad y la exposición al riesgo, por lo que un contexto establecido una sola vez y abandonado deja de sustentar las decisiones que se apoyan en él. El apartado 4.1 de ISO/IEC 27001 requiere que la organización determine dichas cuestiones, y el apartado 9.3.2 requiere que la revisión por la dirección considere los cambios en ellas. La norma no prescribe ningún ciclo de revisión ni impone una obligación de seguimiento continuo en el propio apartado 4.1, por lo que un calendario anual fijo es una decisión y no un requisito, siendo el desencadenante el cambio. Sostener que el análisis inicial es permanente implica que el SGSI describe una organización que ya no existe.
 
 ### pt-BR  `[ ]`
 
 **Stem.** Uma empresa conclui sua análise de contexto da Seção 4 no lançamento do SGSI e nunca a revisita. Por que isso é uma não conformidade?
 
 ```
-        a) O contexto só precisa ser atualizado quando surge um novo requisito legal, pois as regulamentações são a única cuestão externa que afeta o SGSI.
+        a) O contexto só precisa ser atualizado quando surge um novo requisito legal, pois as regulamentações são a única questão externa que afeta o SGSI.
         b) Uma análise de contexto inicial aprovada pela alta direção permanece válida indefinidamente após ser formalmente registrada.
-        c) A norma exige um ciclo de revisão anual fixo, independentemente de as cuestões terem ou não mudado de fato.
-  **KEY** d) As cuestões internas e externas mudam ao longo do tempo, e a análise crítica pela direção deve considerar essas mudanças; um contexto nunca revisitado não pode subsidiá-la.
+        c) A norma exige um ciclo de revisão anual fixo, independentemente de as questões terem ou não mudado de fato.
+  **KEY** d) As questões internas e externas mudam ao longo do tempo, e a análise crítica pela direção deve considerar essas mudanças; um contexto nunca revisitado não pode subsidiá-la.
 ```
 
-**Explanation.** Uma mudança nas cuestões internas ou externas pode alterar os objetivos de segurança e a exposição ao risco, de modo que um contexto definido uma única vez e abandonado deixa de sustentar as decisões nele baseadas. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine essas cuestões, e a Seção 9.3.2 exige que a análise crítica pela direção considere as mudanças nelas. A norma não prescreve nenhum ciclo de revisão nem impõe obrigação de monitoramento contínuo no âmbito da própria Seção 4.1; portanto, um calendário anual fixo é uma escolha, não um requisito, e o gatilho é a mudança. Afirmar que a análise inicial é permanente deixa o SGSI descrevendo uma organização que já não existe.
+**Explanation.** Uma mudança nas questões internas ou externas pode alterar os objetivos de segurança e a exposição ao risco, de modo que um contexto definido uma única vez e abandonado deixa de fundamentar as decisões que dele dependem. A Seção 4.1 da ISO/IEC 27001 exige que a organização determine essas questões, e a Seção 9.3.2 exige que a análise crítica pela direção considere as mudanças nelas ocorridas. A norma não prescreve nenhum ciclo de revisão nem impõe obrigação de monitoramento contínuo no âmbito da própria Seção 4.1; portanto, um calendário anual fixo é uma escolha, não um requisito, e o gatilho é a mudança. Afirmar que a análise inicial é permanente deixa o SGSI descrevendo uma organização que já não existe.
 
 ---
 
@@ -487,7 +487,7 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** ¿Cuál de las siguientes afirmaciones describe mejor lo que debe contener una declaración de alcance de un SGSI conforme?
+**Stem.** ¿Cuál enunciado describe mejor lo que debe contener una declaración de alcance del SGSI que sea conforme?
 
 ```
         a) Un inventario de activos completo a nivel de toda la organización, porque un alcance parcial no puede demostrar mejora continua.
@@ -496,20 +496,20 @@ Every group below is a **repair of a false attribution**. The English was change
         d) Los resultados de la evaluación de riesgos, porque los límites del alcance se determinan según qué activos requieren protección.
 ```
 
-**Explanation.** El apartado 4.3 de ISO/IEC 27001 requiere que la organización determine los límites y la aplicabilidad del SGSI para establecer su alcance, tomando en cuenta los temas del apartado 4.1, los requisitos del apartado 4.2, y las interfaces y dependencias entre las actividades que realiza y las que realizan otras organizaciones; asimismo, requiere que el alcance esté disponible como información documentada. Una declaración que enumera únicamente las actividades incluidas omite dichas interfaces, que es precisamente donde el alcance suele no sostenerse. Cabe señalar que el apartado 4.3 no exige exclusiones ni justificación de las mismas; esa obligación corresponde al apartado 6.1.3 d) y a la Declaracion de Aplicabilidad, y se refiere a los controles, no al alcance. Un inventario de activos es un insumo para la evaluación de riesgos, y el alcance es una decisión de gestión que se toma antes de la evaluación de riesgos, no un resultado de ella.
+**Explanation.** El apartado 4.3 de ISO/IEC 27001 requiere que la organización determine los límites y la aplicabilidad del SGSI para establecer su alcance, teniendo en cuenta las cuestiones del apartado 4.1, los requisitos del apartado 4.2, y las interfaces y dependencias entre las actividades que realiza y las que realizan otras organizaciones; asimismo, requiere que el alcance esté disponible como información documentada. Una declaración que enumera únicamente las actividades incluidas omite esas interfaces, que es donde el alcance con mayor frecuencia deja de sostenerse. Nótese que el apartado 4.3 no exige exclusiones ni justificación de las mismas; esa obligación corresponde al apartado 6.1.3 d) y a la Declaración de Aplicabilidad, y se refiere a los controles, no al alcance. Un inventario de activos es un insumo para la evaluación de riesgos, y el alcance es una decisión de gestión que se toma antes de la evaluación de riesgos, no un resultado de ella.
 
 ### pt-BR  `[ ]`
 
-**Stem.** Qual afirmação descreve melhor o que uma declaração de escopo de ISMS em conformidade deve conter?
+**Stem.** Qual afirmação descreve melhor o que uma declaração de escopo do SGSI em conformidade deve conter?
 
 ```
         a) Um inventário completo de ativos de toda a organização, pois um escopo parcial não pode demonstrar melhoria contínua.
         b) Apenas as atividades e funções incluídas, sem qualquer declaração sobre as interfaces e dependências com outras organizações.
-  **KEY** c) Os limites e a aplicabilidade do ISMS, juntamente com suas interfaces e dependências, como informação documentada.
-        d) Os resultados da avaliação de riscos, pois os limites do escopo são determinados pelos ativos que precisam de proteção.
+  **KEY** c) Os limites e a aplicabilidade do SGSI, juntamente com suas interfaces e dependências, como informação documentada.
+        d) Os resultados da avaliação de riscos, pois os limites do escopo são determinados pelos ativos que necessitam de proteção.
 ```
 
-**Explanation.** A Seção 4.3 da ISO/IEC 27001 exige que a organização determine os limites e a aplicabilidade do ISMS para estabelecer seu escopo, levando em conta as cuestiones da Seção 4.1, os requisitos da Seção 4.2 e as interfaces e dependências entre as atividades que ela realiza e as realizadas por outras organizações, e exige que o escopo esteja disponível como informação documentada. Uma declaração que lista apenas as atividades incluídas deixa de fora essas interfaces, que é onde um escopo mais frequentemente deixa de se sustentar. Observe que a Seção 4.3 não solicita exclusões nem justificativas para elas — essa obrigação é o alínea d) da Seção 6.1.3 e a Declaração de Aplicabilidade, e diz respeito a controles, não ao escopo. Um inventário de ativos é uma entrada para a avaliação de riscos, e o escopo é uma decisão de gestão tomada antes da avaliação de riscos, não um resultado dela.
+**Explanation.** A Seção 4.3 da ISO/IEC 27001 exige que a organização determine os limites e a aplicabilidade do SGSI para estabelecer seu escopo, levando em conta as questões da Seção 4.1, os requisitos da Seção 4.2 e as interfaces e dependências entre as atividades que ela realiza e as realizadas por outras organizações, além de exigir que o escopo esteja disponível como informação documentada. Uma declaração que lista apenas as atividades incluídas omite essas interfaces, que é onde o escopo mais frequentemente deixa de se sustentar. Observe que a Seção 4.3 não solicita exclusões nem justificativas para elas — essa obrigação está na Seção 6.1.3 d) e na Declaração de Aplicabilidade, e diz respeito a controles, não ao escopo. Um inventário de ativos é uma entrada para a avaliação de riscos, e o escopo é uma decisão de gestão tomada antes da avaliação de riscos, não um resultado dela.
 
 ---
 
@@ -532,29 +532,29 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** ¿Qué elemento es obligatorio en una declaración de alcance del SGSI documentada bajo ISO/IEC 27001?
+**Stem.** ¿Qué elemento es requerido en una declaración documentada del alcance del SGSI bajo ISO/IEC 27001?
 
 ```
   **KEY** a) Los límites y la aplicabilidad del SGSI, incluidas las interfaces con las actividades fuera del alcance.
-        b) Una lista de todos los activos de información y sus propietarios en toda la entidad jurídica.
-        c) Solo las inclusiones; las exclusiones y su justificación son complementarias y no están exigidas.
-        d) La declaración de apetito de riesgo, para que las decisiones de alcance puedan rastrearse hasta los niveles de riesgo aceptados.
+        b) Una lista de todos los activos de información y sus propietarios en toda la entidad legal.
+        c) Solo las inclusiones; las exclusiones y su justificación son complementarias y no están mandatadas.
+        d) La declaración del apetito de riesgo, para que las decisiones sobre el alcance puedan trazarse hasta los niveles de riesgo aceptados.
 ```
 
-**Explanation.** Una declaración de alcance conforme debe indicar dónde comienza y dónde termina el SGSI y a qué se aplica, y debe nombrar las interfaces y dependencias entre las actividades propias de la organización y las realizadas por otras organizaciones; un límite que ignora sus propias uniones no describe nada auditable. El apartado 4.3 de ISO/IEC 27001 exige exactamente eso, tomando en cuenta los temas del apartado 4.1 y los requisitos del apartado 4.2, y requiere que el alcance esté disponible como información documentada. No solicita exclusiones ni una justificación para ellas; esa obligación corresponde al apartado 6.1.3 d) y a la Declaración de Aplicabilidad, que trata sobre los controles y no sobre el alcance. Un registro completo de activos es un insumo para la evaluación de riesgos, y una declaración de apetito al riesgo, por útil que sea, no forma parte de lo que el apartado 4.3 exige que contenga el documento de alcance.
+**Explanation.** Una declaración de alcance conforme debe indicar dónde comienza y termina el SGSI y a qué se aplica, y debe nombrar las interfaces y dependencias entre las actividades propias de la organización y las realizadas por otras organizaciones; un límite que ignora sus propias uniones no describe nada auditable. El apartado 4.3 de ISO/IEC 27001 exige exactamente eso, tomando en cuenta las cuestiones del apartado 4.1 y los requisitos del apartado 4.2, y requiere que el alcance esté disponible como información documentada. No solicita exclusiones ni una justificación para ellas; esa obligación corresponde al apartado 6.1.3 d) y a la Declaración de Aplicabilidad, que trata sobre controles y no sobre el alcance. Un registro completo de activos es una entrada para la evaluación de riesgos, y una declaración del apetito de riesgo, por más útil que sea, no forma parte de lo que el apartado 4.3 requiere que contenga el documento de alcance.
 
 ### pt-BR  `[ ]`
 
-**Stem.** Qual elemento é exigido em uma declaração de escopo do SGSI documentada sob a ISO/IEC 27001?
+**Stem.** Qual elemento é obrigatório em uma declaração de escopo do SGSI documentada, conforme a ISO/IEC 27001?
 
 ```
   **KEY** a) Os limites e a aplicabilidade do SGSI, incluindo as interfaces com atividades fora do escopo.
-        b) Uma lista de todos os ativos de informação e seus proprietários em toda a entidade jurídica.
-        c) Apenas inclusões; exclusões e sua justificativa são complementares e não obrigatórias.
+        b) Uma lista de todos os ativos de informação e seus responsáveis em toda a entidade jurídica.
+        c) Apenas as inclusões; as exclusões e sua justificativa são complementares e não obrigatórias.
         d) A declaração de apetite ao risco, para que as decisões de escopo possam ser rastreadas até os níveis de risco aceitos.
 ```
 
-**Explanation.** Uma declaração de escopo em conformidade deve indicar onde o SGSI começa e termina e ao que ele se aplica, e deve nomear as interfaces e dependências entre as atividades da própria organização e aquelas realizadas por outras organizações — um limite que ignora suas próprias fronteiras não descreve nada auditável. A Seção 4.3 da ISO/IEC 27001 exige exatamente isso, levando em conta as cuestiones da Seção 4.1 e os requisitos da Seção 4.2, e exige que o escopo esteja disponível como informação documentada. Ela não solicita exclusões nem uma justificativa para elas; essa obrigação pertence à alínea d) da Seção 6.1.3 e à Declaração de Aplicabilidade, que trata de controles e não de escopo. Um registro completo de ativos é uma entrada para a avaliação de riscos, e uma declaração de apetite ao risco, por mais útil que seja, não faz parte do que a Seção 4.3 exige que o documento de escopo contenha.
+**Explanation.** Uma declaração de escopo em conformidade deve indicar onde o SGSI começa e termina e a que se aplica, e deve nomear as interfaces e dependências entre as atividades da própria organização e aquelas realizadas por outras organizações — um limite que ignora suas próprias fronteiras não descreve nada auditável. A Seção 4.3 da ISO/IEC 27001 exige exatamente isso, levando em conta as questões da Seção 4.1 e os requisitos da Seção 4.2, e requer que o escopo esteja disponível como informação documentada. Ela não solicita exclusões nem uma justificativa para elas; essa obrigação pertence à alínea d) da Seção 6.1.3 e à Declaração de Aplicabilidade, que trata de controles e não de escopo. Um registro completo de ativos é uma entrada para a avaliação de riscos, e uma declaração de apetite ao risco, por mais útil que seja, não faz parte do que a Seção 4.3 exige que o documento de escopo contenha.
 
 ---
 
@@ -622,16 +622,16 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ### es-419  `[ ]`
 
-**Stem.** Después de que el riesgo residual es formalmente aceptado, ¿qué indica ISO/IEC 27001 sobre ese riesgo en adelante?
+**Stem.** Una vez que el riesgo residual es formalmente aceptado, ¿qué indica ISO/IEC 27001 respecto a ese riesgo en adelante?
 
 ```
-        a) Se congela en su nivel aceptado hasta que se inicie formalmente la siguiente evaluación de riesgos completa programada.
+        a) Queda congelado en su nivel aceptado hasta que se inicie formalmente la siguiente evaluación de riesgos completa programada.
         b) Debe ser re-escalado a la alta dirección anualmente, independientemente de si el contexto ha cambiado.
-  **KEY** c) Vuelve a evaluarse en los intervalos planificados y cada vez que ocurre un cambio significativo, no solo después de un incidente relacionado.
+  **KEY** c) Vuelve a evaluarse en los intervalos planificados y cuando ocurre un cambio significativo, no solo tras un incidente relacionado.
         d) Se cierra y se elimina del registro de riesgos, ya que la aceptación pone fin a la obligación de la organización.
 ```
 
-**Explanation.** Aceptar un riesgo es una decisión sobre el presente, no una disposición permanente del mismo: las condiciones que hicieron tolerable el nivel residual pueden cambiar. El apartado 8.2 de ISO/IEC 27001 exige que las evaluaciones de riesgos de seguridad de la información se realicen a intervalos planificados y cuando se proponen o producen cambios significativos, lo que vuelve a poner en consideración los riesgos aceptados junto con todo lo demás. El apartado 9.3.2 exige que la revisión por la dirección considere el estado del tratamiento del riesgo. Tratar la aceptación como el cierre del asunto, o revisarla únicamente cuando un incidente obliga a ello, deja a la organización con una exposición que fue examinada por última vez bajo condiciones que ya no aplican.
+**Explanation.** Aceptar un riesgo es una decisión sobre el presente, no una disposición permanente del mismo: las condiciones que hicieron tolerable el nivel residual pueden cambiar. El apartado 8.2 de ISO/IEC 27001 exige evaluaciones de riesgos de seguridad de la información en intervalos planificados y cuando se proponen o producen cambios significativos, lo que vuelve a poner los riesgos aceptados bajo revisión junto con todo lo demás. El apartado 9.3.2 exige que la revisión por la dirección considere el estado del tratamiento del riesgo. Tratar la aceptación como el cierre del asunto, o revisarlo únicamente cuando un incidente lo obliga, deja a la organización con una exposición que fue examinada por última vez bajo condiciones que ya no aplican.
 
 ### pt-BR  `[ ]`
 
@@ -639,12 +639,12 @@ Every group below is a **repair of a false attribution**. The English was change
 
 ```
         a) Ele é congelado no nível aceito até que a próxima avaliação completa de risco programada seja formalmente iniciada.
-        b) Ele deve ser reescalonado à alta direção anualmente, independentemente de o contexto ter mudado.
-  **KEY** c) Ele retorna para reavaliação nos intervalos planejados e sempre que ocorrer uma mudança significativa, não apenas após um incidente relacionado.
-        d) Ele é encerrado e removido do registro de riscos, pois a aceitação encerra a obrigação da organização.
+        b) Deve ser reencaminhado à alta direção anualmente, independentemente de o contexto ter mudado.
+  **KEY** c) Retorna para reavaliação nos intervalos planejados e sempre que ocorrer uma mudança significativa, não apenas após um incidente relacionado.
+        d) É encerrado e removido do registro de riscos, pois a aceitação encerra a obrigação da organização.
 ```
 
-**Explanation.** Aceitar um risco é uma decisão sobre o momento presente, não uma eliminação permanente dele: as condições que tornaram o nível residual tolerável podem mudar. A Seção 8.2 da ISO/IEC 27001 exige avaliações de risco de segurança da informação em intervalos planejados e quando mudanças significativas são propostas ou ocorrem, o que traz os riscos aceitos de volta à análise junto com tudo o mais. A Seção 9.3.2 exige que a análise crítica pela direção considere o status do tratamento do risco. Tratar a aceitação como encerramento do assunto, ou revisitá-lo somente quando um incidente força a questão, deixa a organização exposta a um risco que foi examinado pela última vez sob condições que já não se aplicam.
+**Explanation.** Aceitar um risco é uma decisão sobre o momento presente, não uma eliminação permanente dele: as condições que tornaram o nível residual tolerável podem mudar. A Seção 8.2 da ISO/IEC 27001 exige avaliações de risco de segurança da informação em intervalos planejados e quando mudanças significativas são propostas ou ocorrem, o que traz os riscos aceitos de volta à análise junto com tudo o mais. A Seção 9.3.2 exige que a análise crítica pela direção considere o status do tratamento do risco. Tratar a aceitação como encerramento da questão, ou revisitá-la somente quando um incidente força o assunto, deixa a organização exposta a uma situação que foi examinada pela última vez sob condições que já não se aplicam.
 
 ---
 

@@ -49,6 +49,45 @@ export const PIN_RULES = [
     ok: /\bSeção\b/u,
     why: "One spelling, Se-c-cedilla-a-tilde-o, per ABNT. Nine groups disagreed with each other.",
   },
+  /**
+   * EVERY PIN NEEDS TWO RULES, NOT ONE, AND THIS FILE SHIPPED WITH ONLY ONE.
+   *
+   * A pin says "use X in language L". That needs a POSITIVE rule - L must not
+   * use the alternatives - AND A LEAK RULE - the OTHER language must not use X.
+   * The first version had the positive half for `cuestiones` and no leak half,
+   * so the pin propagated into Portuguese: ten pt-BR rows came back rendering
+   * clause 4.1 issues as cuestao/cuestoes, which is Spanish. The checker passed
+   * all 42 rows because it asked whether the pinned word was present and never
+   * asked which language it was pinned FOR.
+   *
+   * That is the SAME DEFECT the apartado rule was built to fix, one level down:
+   * a rule about a word rather than about a word in a language. The four leak
+   * rules below close it for every pin that has a language scope.
+   */
+  {
+    id: "cuest-leak-into-pt",
+    langs: ["pt-BR"],
+    re: /\bcuest(?:[\u00e3a]o|[\u00f5o]es|i[\u00f3o]n|iones)\b/i,
+    why: "cuestiones is pinned for es-419. Portuguese is questao / questoes. A Spanish pin leaking into Portuguese is the pin working against itself.",
+  },
+  {
+    id: "alinea-leak-into-es",
+    langs: ["es-419"],
+    re: /\bal[\u00ed i]neas?\b/i,
+    why: "alinea is pinned for pt-BR sub-items. es-419 uses apartado. The mirror of apartado-in-pt.",
+  },
+  {
+    id: "secao-leak-into-es",
+    langs: ["es-419"],
+    re: /\bSe[c\u00e7][a\u00e3]o\b/iu,
+    why: "Secao is the pt-BR spelling. Spanish is Seccion. The mirror of secao-spelling.",
+  },
+  {
+    id: "acronym-language-scope",
+    langs: ["es-419", "pt-BR"],
+    re: /\bISMS\b/,
+    why: "MEASURED ACROSS THE LIVE CATALOGUE, not preferred: en carries ISMS 569 times and SGSI 0; es-419 carries SGSI 567 and ISMS 4; pt-BR carries SGSI 565 and ISMS 4. SGSI is the established acronym in both target languages and the eight ISMS occurrences are the outliers. AIMS is different and keeps its code everywhere, because no established translation exists - which is why SGAI had to be coined and is forbidden.",
+  },
   {
     id: "issues-es419",
     langs: ["es-419"],
@@ -103,6 +142,13 @@ const CASES = [
   ["problemas externos in es-419", "es-419", "El equipo lista la confianza publica como problemas externos relevantes.", "issues-es419"],
   ["asuntos internos in es-419", "es-419", "Determina los asuntos internos y externos pertinentes.", "issues-es419"],
 
+  ["cuestao leaking into pt-BR", "pt-BR", "A organizacao deve determinar as cuestoes internas e externas pertinentes.", "cuest-leak-into-pt"],
+  ["cuestion leaking into pt-BR", "pt-BR", "A cuestao externa mais relevante e a confianca publica.", "cuest-leak-into-pt"],
+  ["alinea leaking into es-419", "es-419", "Conforme la alinea 6.1.3 e) de la norma.", "alinea-leak-into-es"],
+  ["Secao leaking into es-419", "es-419", "Conforme la Secao 4.1 de la norma.", "secao-leak-into-es"],
+  ["ISMS left untranslated in es-419", "es-419", "El alcance del ISMS cubre tres unidades de negocio.", "acronym-language-scope"],
+  ["ISMS left untranslated in pt-BR", "pt-BR", "O escopo do ISMS cobre tres unidades de negocio.", "acronym-language-scope"],
+
   // --- must NOT flag: these are the THREE FALSE POSITIVES the last detector
   // produced, taken from the actual rows, plus the correct spellings ---
   ["435fa154 correct es-419 apartado", "es-419",
@@ -116,6 +162,17 @@ const CASES = [
   ["SGSI is real and must not be flagged", "pt-BR", "O SGSI da organizacao cobre tres unidades de negocio.", null],
   ["ordinary problemas, not the 4.1 collocation", "es-419", "La opcion describe problemas de comunicacion entre equipos.", null],
   ["apartado is not tested in English", "en", "Clause 6.1.3 e) has the organization consider the guidance.", null],
+  // THE PIN ITSELF MUST STILL PASS. A leak rule that also fires on the correct
+  // language would make the pin unsatisfiable in both directions, which is the
+  // failure this whole file exists to avoid.
+  ["cuestiones correct in es-419", "es-419", "La organizacion determina las cuestiones internas y externas pertinentes.", null],
+  ["questoes correct in pt-BR", "pt-BR", "A organizacao determina as questoes internas e externas pertinentes.", null],
+  ["alinea correct in pt-BR", "pt-BR", "Conforme a alinea 6.1.3 e) da norma.", null],
+  ["Secao correct in pt-BR", "pt-BR", "Conforme a Se\u00e7\u00e3o 4.1 da norma.", null],
+  ["SGSI correct in es-419", "es-419", "El alcance del SGSI cubre tres unidades de negocio.", null],
+  ["SGSI correct in pt-BR", "pt-BR", "O escopo do SGSI cobre tres unidades de negocio.", null],
+  ["ISMS correct in English", "en", "The ISMS scope covers three business units.", null],
+  ["AIMS keeps its code in pt-BR", "pt-BR", "O AIMS da organizacao considera o contexto.", null],
 ];
 
 // A file:// comparison does not survive Windows paths - it silently matched

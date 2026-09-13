@@ -238,7 +238,29 @@ a pin that cannot show the glyph it is pinning is not a pin.
      es-419 side - this extends that rule across the language boundary it did
      not previously name.
 
-  4. AIMS AND ISMS KEEP THEIR CODES in every language. Never expand them, and
+  5. "ISSUES" IN PORTUGUESE IS questão / questões, NEVER cuestão / cuestões.
+     Pin 2 fixes es-419 on "cuestiones". Ten pt-BR rows then came back saying
+     "cuestões", which is the Spanish pin leaking across the language boundary -
+     the pin working against itself. A pin names a word AND a language; the word
+     without the language is how es-419's correct term becomes pt-BR's defect.
+
+  7. FALSE FRIEND - "RE-ESCALATE" IS NOT reescalonar.
+     pt-BR reescalonado / reescalonamento means RESCHEDULED. Re-escalating a
+     risk to top management is reencaminhar à alta direção or escalar
+     novamente. The sentence stays fluent and the OBJECT changes, which is the
+     class the language guard cannot see at all - both words are Portuguese.
+     Same shape as rendering "exposure" as vulnerabilidade.
+
+    6. ISMS IS "SGSI" IN es-419 AND pt-BR, AND "ISMS" IN ENGLISH.
+     Measured across the live catalogue rather than preferred: en carries ISMS
+     569 times and SGSI 0; es-419 carries SGSI 567 and ISMS 4; pt-BR carries
+     SGSI 565 and ISMS 4. The convention already exists and the eight ISMS
+     occurrences in translated rows are the outliers.
+     AIMS IS DIFFERENT AND KEEPS ITS CODE EVERYWHERE - no established
+     translation exists, which is exactly why SGAI had to be coined and is
+     forbidden by pin 4. Do not reason by analogy from SGSI to SGAI.
+
+    4. AIMS AND ISMS KEEP THEIR CODES in every language. Never expand them, and
      never coin an expansion. One pt-BR row invented "SGAI" for AIMS - a
      plausible-looking acronym that appears nowhere else in the catalogue, in no
      standard, and in no other item. A coined acronym is worse than an

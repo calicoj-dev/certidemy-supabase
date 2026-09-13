@@ -1,0 +1,288 @@
+[
+  {
+    "group": "0987a554-f0fe-4219-8916-f9445eb5a230",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "An organization completed its clause 4 context analysis three years ago and has not revisited it. Which statement best describes this situation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Non-conformant, but only if a significant security incident has occurred since the original analysis."
+        },
+        {
+          "id": "b",
+          "text": "Non-conformant, because the management review must consider changes in internal and external issues, and this analysis has never been revisited."
+        },
+        {
+          "id": "c",
+          "text": "Acceptable, provided the original analysis was approved by senior management and is version-controlled."
+        },
+        {
+          "id": "d",
+          "text": "Acceptable, because clause 4 is a one-time foundation activity; changes are captured in risk assessments instead."
+        }
+      ],
+      "explanation": "The organization's situation changes, and an ISMS resting on a stale picture of it stops describing anything real. ISO/IEC 27001 clause 4.1 requires the organization to determine its external and internal issues, and clause 9.3.2 requires the management review to consider changes in those issues. Clause 4.1 imposes no standing monitoring process and no review interval; it is the pairing of the two clauses that makes the determination something the organization returns to. Treating the initial analysis as permanent, or revisiting it only after an incident, leaves the ISMS built on conditions that may no longer hold. Version control and document approval record the analysis rather than showing it is current."
+    }
+  },
+  {
+    "group": "0a73efe4-2986-40b1-8a19-c5f1b1bdf079",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "Which statement best describes what a conformant ISMS scope statement must contain?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A complete organisation-wide asset inventory, because a partial scope cannot demonstrate continual improvement."
+        },
+        {
+          "id": "b",
+          "text": "The included activities and functions alone, with no statement of the interfaces and dependencies with other organizations."
+        },
+        {
+          "id": "c",
+          "text": "The boundaries and applicability of the ISMS, together with its interfaces and dependencies, as documented information."
+        },
+        {
+          "id": "d",
+          "text": "The risk assessment results, because scope boundaries are determined by which assets need protection."
+        }
+      ],
+      "explanation": "ISO/IEC 27001 clause 4.3 requires the organization to determine the boundaries and applicability of the ISMS to establish its scope, taking account of the issues from 4.1, the requirements from 4.2, and the interfaces and dependencies between activities it performs and those performed by other organizations, and it requires the scope to be available as documented information. A statement that lists included activities and stops there leaves out those interfaces, which is where a scope most often fails to hold. Note that 4.3 asks for no exclusions and no justification for them - that obligation is clause 6.1.3 d) and the Statement of Applicability, and it concerns controls rather than scope. An asset inventory is an input to the risk assessment, and scope is a management decision taken before the risk assessment rather than an output of it."
+    }
+  },
+  {
+    "group": "435fa154-33c3-416e-b4ce-f56837b2f3d8",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "The legal team identifies a new contract requiring the organisation's AI system to avoid certain prohibited output types. Under clause 4.1, how should this be recorded?",
+      "options": [
+        {
+          "id": "a",
+          "text": "As an external issue, because contractual obligations are part of the external environment shaping the AIMS context"
+        },
+        {
+          "id": "b",
+          "text": "As an interested-party requirement only, since contracts define needs and expectations rather than context issues"
+        },
+        {
+          "id": "c",
+          "text": "As an internal issue, because contractual obligations arise from the organisation's own commercial decisions"
+        },
+        {
+          "id": "d",
+          "text": "As a risk treatment action, bypassing context documentation because the obligation is already legally binding"
+        }
+      ],
+      "explanation": "A contractual obligation constrains how this organization may develop, provide or use its AI systems, and it originates outside the organization - that is what places it among the external issues here. ISO/IEC 42001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose without stating what they are, so the judgement is made against that test rather than by consulting a catalogue. Recording the obligation only as a compliance line item loses what clause 4.1 is for: establishing the context the AIMS has to operate within."
+    }
+  },
+  {
+    "group": "45cdd4c1-e855-4719-87e4-5055c23d61f4",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "An organisation completed its AIMS context analysis 18 months ago. A new national AI regulation has since been enacted. What should the organisation do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Log it for the next scheduled three-year certification cycle review."
+        },
+        {
+          "id": "b",
+          "text": "Notify the certification body immediately, as a legal change automatically suspends conformity."
+        },
+        {
+          "id": "c",
+          "text": "Update the context analysis to reflect the regulation as a changed external issue."
+        },
+        {
+          "id": "d",
+          "text": "Take no action; clause 4.1 is a one-time scoping exercise at AIMS establishment."
+        }
+      ],
+      "explanation": "A newly applicable regulation is a change in an external issue, and the context determination no longer matches the organization's situation until it accounts for that. ISO/IEC 42001 clause 4.1 requires the organization to determine its external and internal issues; clause 9.3 requires the management review to consider changes in the external and internal issues relevant to the AI management system. Neither clause sets a cadence or makes currency a documented activity in its own right - taken together they are what brings a change like this back into view. Treating the original analysis as settled, or waiting for the next certification cycle, leaves the AIMS described against conditions that have already moved."
+    }
+  },
+  {
+    "group": "605f3af1-a901-4dd0-b827-903e8833bcc8",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "An AIMS team lists 'societal attitudes toward AI' and 'public trust in automated decisions' as external issues. A colleague argues these are out of scope because external issues must be legal or regulatory. What should the team do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keep both; they arise outside the organisation and bear on whether the AIMS achieves its intended results, which is the test clause 4.1 sets."
+        },
+        {
+          "id": "b",
+          "text": "Remove both; clause 4.1 limits external issues to enacted laws, regulations, and binding standards."
+        },
+        {
+          "id": "c",
+          "text": "Keep both only if the organisation can demonstrate a direct financial impact from each trend."
+        },
+        {
+          "id": "d",
+          "text": "Reclassify both as internal issues, since public trust is shaped by the organisation's own communications."
+        }
+      ],
+      "explanation": "Each of these arises outside the organization and bears on whether the AI management system achieves what it is meant to, which is the test that makes them external issues in this case. ISO/IEC 42001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose, to determine whether climate change is a relevant issue, and to consider the intended purpose of its AI systems and its own roles with respect to them. It sets out no categories of external issue, so the classification is made against that test on the facts of the organization, not by matching a factor to a list."
+    }
+  },
+  {
+    "group": "87757992-7263-4623-9271-0f77a3c9594b",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "An ISMS project manager argues that partial scopes are not permitted and all departments must be included. Which clause 4 concept does this misrepresent?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The permissibility of a bounded scope: context analysis can justify limiting the ISMS to a subset of the organization."
+        },
+        {
+          "id": "b",
+          "text": "The requirement that all internal issues be resolved before a partial scope can be formally justified."
+        },
+        {
+          "id": "c",
+          "text": "The distinction between internal and external issues, which determines whether a department is inside or outside scope."
+        },
+        {
+          "id": "d",
+          "text": "The requirement to identify all interested parties, which implies all departments are automatically in scope."
+        }
+      ],
+      "explanation": "A bounded scope is permissible: ISO/IEC 27001 clause 4.3 requires the organization to determine the boundaries and applicability of the ISMS, which is what establishes its scope, and it requires that determination to take account of the issues from 4.1, the requirements from 4.2, and the interfaces and dependencies with activities performed by other organizations. Nothing in the clause obliges the ISMS to cover the whole organization. What it does oblige is that the boundary be deliberate, defensible from context, and available as documented information. Mandating full organizational coverage is a common misconception; so is treating the boundary as an administrative formality rather than a decision the clause requires reasoning behind."
+    }
+  },
+  {
+    "group": "97781f5f-7d3f-4b22-8156-4fc2cf90c143",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "A company's ISMS review team notes a shift in risk appetite following a merger. Which clause 4 concept does this shift most directly affect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Interested-party requirements only, because a merger changes which contractual parties the organization must satisfy."
+        },
+        {
+          "id": "b",
+          "text": "Neither; risk appetite belongs to clause 6 risk assessment and is independent of context analysis."
+        },
+        {
+          "id": "c",
+          "text": "External issues only, because a merger is driven by market forces originating outside the organization."
+        },
+        {
+          "id": "d",
+          "text": "Internal issues, because a shift in risk appetite originates inside the organization and reshapes how it weighs its ISMS objectives."
+        }
+      ],
+      "explanation": "A change in risk appetite following a merger arises inside the organization and alters how it sets and weighs its security objectives, which is what makes it an internal issue here. Nothing about it originates outside. ISO/IEC 27001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose and affecting its ability to achieve the intended outcomes of the ISMS; it supplies no categories and no test beyond that, so each issue is classified on its own facts. Treating this change as external, or as unrelated to the ISMS, misplaces a factor that directly shapes what the ISMS is trying to achieve."
+    }
+  },
+  {
+    "group": "a41ce39d-9caa-445a-867d-706aa714022c",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "A logistics firm maps all applicable data-protection and transport-safety regulations and declares its external context analysis complete. Which misconception does this illustrate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "That external context is a one-time activity, so the firm will not revisit it when market conditions change."
+        },
+        {
+          "id": "b",
+          "text": "That external issues are synonymous with legal obligations, overlooking competitive, technological, and socio-economic factors."
+        },
+        {
+          "id": "c",
+          "text": "That all external issues must be resolved before the ISMS scope can be formally approved."
+        },
+        {
+          "id": "d",
+          "text": "That interested parties are limited to regulators, ignoring customers and industry bodies as sources of requirements."
+        }
+      ],
+      "explanation": "Reading external context as compliance obligations alone is what makes the consultant's reasoning wrong: a pressure can sit outside the organization and bear on the ISMS without being a legal duty, and treating the two as the same leaves those unexamined. ISO/IEC 27001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose and affecting the intended outcomes of the ISMS. It names no categories, so the question is never whether a factor appears on a list but whether it sits outside the organization and bears on those outcomes."
+    }
+  },
+  {
+    "group": "baad8ecb-2689-4bf4-a2c1-49abf61993c8",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "Which element is required in a documented ISMS scope statement under ISO/IEC 27001?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The boundaries and applicability of the ISMS, including interfaces with out-of-scope activities."
+        },
+        {
+          "id": "b",
+          "text": "A list of all information assets and their owners across the full legal entity."
+        },
+        {
+          "id": "c",
+          "text": "Inclusions only; exclusions and their rationale are supplementary and not mandated."
+        },
+        {
+          "id": "d",
+          "text": "The risk appetite statement, so that scope decisions can be traced to accepted risk levels."
+        }
+      ],
+      "explanation": "A conformant scope statement has to say where the ISMS starts and stops and what it applies to, and it has to name the interfaces and dependencies between the organization's own activities and those performed by other organizations - a boundary that ignores its own seams does not describe anything auditable. ISO/IEC 27001 clause 4.3 requires exactly that, taking account of the issues from 4.1 and the requirements from 4.2, and requires the scope to be available as documented information. It does not ask for exclusions or a justification for them; that obligation belongs to clause 6.1.3 d) and the Statement of Applicability, which is about controls rather than scope. A full asset register is an input to risk assessment, and a risk appetite statement, however useful, is not part of what 4.3 asks the scope document to contain."
+    }
+  },
+  {
+    "group": "bd22b5bb-733a-47cb-b709-3bcc56d1db8a",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "A company completes its clause 4 context analysis at ISMS launch and never revisits it. Why is this non-conformant?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Context only needs updating when a new legal requirement emerges, since regulations are the sole external issue affecting the ISMS."
+        },
+        {
+          "id": "b",
+          "text": "An initial context analysis approved by senior management remains valid indefinitely once formally recorded."
+        },
+        {
+          "id": "c",
+          "text": "The standard mandates a fixed annual review cycle regardless of whether any issues have actually changed."
+        },
+        {
+          "id": "d",
+          "text": "Internal and external issues change over time, and the management review must consider those changes; a context never revisited cannot inform it."
+        }
+      ],
+      "explanation": "A change in internal or external issues can alter security objectives and risk exposure, so a context settled once and left behind stops supporting the decisions built on it. ISO/IEC 27001 clause 4.1 requires the organization to determine those issues, and clause 9.3.2 requires the management review to consider changes in them. The standard prescribes no review cycle and imposes no continuous monitoring duty under 4.1 itself, so a fixed annual calendar is a choice rather than a requirement and the trigger is change. Claiming the initial analysis is permanent leaves the ISMS describing an organization that no longer exists."
+    }
+  },
+  {
+    "group": "ecac6a36-476e-4db3-bdde-b8ca7dee4ef8",
+    "reason": "pin leak + reviewer defects: English UNCHANGED. Siblings regenerated under the pinned contract with the leak rules now active. Also carries the non-pin rejects: no periodicity may be inserted where the English states none, article gender must agree, and re-escalated is not rescheduled.",
+    "en": {
+      "question_text": "After residual risk is formally accepted, what does ISO/IEC 27001 indicate about that risk going forward?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It is frozen at its accepted level until the next scheduled full risk assessment is formally initiated."
+        },
+        {
+          "id": "b",
+          "text": "It must be re-escalated to top management annually, regardless of whether context has changed."
+        },
+        {
+          "id": "c",
+          "text": "It returns for reassessment at the planned intervals and whenever a significant change occurs, not only after a related incident."
+        },
+        {
+          "id": "d",
+          "text": "It is closed and removed from the risk register, as acceptance ends the organisation's obligation."
+        }
+      ],
+      "explanation": "Accepting a risk is a decision about the present, not a permanent disposal of it: the conditions that made the residual level tolerable can change. ISO/IEC 27001 clause 8.2 requires information security risk assessments at planned intervals and when significant changes are proposed or occur, which brings accepted risks back into view along with everything else. Clause 9.3.2 requires the management review to consider the status of risk treatment. Treating acceptance as closing the matter, or revisiting it only when an incident forces the issue, leaves the organization holding an exposure it last examined under conditions that no longer apply."
+    }
+  }
+]
