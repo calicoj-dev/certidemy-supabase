@@ -1,0 +1,288 @@
+[
+  {
+    "group": "0987a554-f0fe-4219-8916-f9445eb5a230",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "An organization completed its clause 4 context analysis three years ago and has not revisited it. Which statement best describes this situation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Non-conformant, but only if a significant security incident has occurred since the original analysis."
+        },
+        {
+          "id": "b",
+          "text": "Non-conformant, because the management review must consider changes in internal and external issues, and this analysis has never been revisited."
+        },
+        {
+          "id": "c",
+          "text": "Acceptable, provided the original analysis was approved by senior management and is version-controlled."
+        },
+        {
+          "id": "d",
+          "text": "Acceptable, because clause 4 is a one-time foundation activity; changes are captured in risk assessments instead."
+        }
+      ],
+      "explanation": "The organization's situation changes, and an ISMS resting on a stale picture of it stops describing anything real. ISO/IEC 27001 clause 4.1 requires the organization to determine its external and internal issues, and clause 9.3.2 requires the management review to consider changes in those issues. Clause 4.1 imposes no standing monitoring process and no review interval; it is the pairing of the two clauses that makes the determination something the organization returns to. Treating the initial analysis as permanent, or revisiting it only after an incident, leaves the ISMS built on conditions that may no longer hold. Version control and document approval record the analysis rather than showing it is current."
+    }
+  },
+  {
+    "group": "1f0cf2a3-f58e-4f7b-b26c-e66abf93afb6",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A security analyst logs an asset, threat, and vulnerability in the risk register and selects a treatment for a phishing-related database exposure. What should she do next with the register entry?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keep the entry open and review it periodically, updating it if risk status or treatment effectiveness changes."
+        },
+        {
+          "id": "b",
+          "text": "Archive the entry until the next audit cycle, because the risk register is only updated at scheduled audits."
+        },
+        {
+          "id": "c",
+          "text": "Close the entry, because selecting a treatment resolves the risk and further tracking is unnecessary."
+        },
+        {
+          "id": "d",
+          "text": "Transfer ownership to IT, because database risks are technical and IT must maintain all related register entries."
+        }
+      ],
+      "explanation": "Risk records have to be kept current: an entry that reflects conditions from a year ago no longer supports any conclusion about today's exposure. ISO/IEC 27001 clause 8.2 requires the organization to perform information security risk assessments at planned intervals or when significant changes occur, and clause 8.3 requires the risk treatment plan to be implemented, which is what makes the record something maintained rather than filed. The standard names no 'risk register' and prescribes no format - a register is how most organizations meet the requirement, not a thing the standard asks for. Reviewing entries only at audit time inverts that: the audit tests whether the process ran, it is not the occasion on which it runs."
+    }
+  },
+  {
+    "group": "20c4e95d-121e-4b51-b96e-12d819f94e19",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A colleague claims Annex B of ISO/IEC 42001:2023 is informative, so its guidance can be ignored without consequence for the AIMS. Why is this claim incorrect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Annex B is normative and its guidance carries unconditional 'shall' obligations equal in force to clauses 4 to 10."
+        },
+        {
+          "id": "b",
+          "text": "Annex B is normative and restates each Annex A control verbatim, so ignoring it omits required controls entirely."
+        },
+        {
+          "id": "c",
+          "text": "Annex B is normative; clause 6.1.3 requires organizations to consider it when defining their risk treatment process."
+        },
+        {
+          "id": "d",
+          "text": "Annex B is informative but must appear in the Statement of Applicability, requiring written justification for any exclusions."
+        }
+      ],
+      "explanation": "Annex B is normative, not informative, so the colleague's premise is wrong. Its connection to obligation comes from clause 6.1.3, which requires the organization to define a risk treatment process that considers Annex B guidance for controls already determined to apply — the 'shall' attaches to defining that process, not to each guidance sentence independently. The option stating Annex B restates Annex A verbatim is false; Annex B provides implementation guidance, not a word-for-word copy. The option claiming Annex B guidance must appear in the Statement of Applicability is false; B.1 states organizations are not required to document or justify inclusion or exclusion of implementation guidance there. The option asserting unconditional 'shall' obligations equal to the main body is false; Annex B is written in 'should' and its force is scoped to the consideration required by clause 6.1.3."
+    }
+  },
+  {
+    "group": "3df218a1-ec34-4e51-b5b2-1a7ecf5a03d6",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A candidate claims: 'Annex B of ISO/IEC 42001 is normative, so its guidance is a hard requirement organizations must implement without tailoring.' Why is this incorrect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Annex B is normative but only applies to organizations with AI systems above a defined risk threshold."
+        },
+        {
+          "id": "b",
+          "text": "Annex B is normative and lists optional controls that supplement Annex A as an extended catalogue."
+        },
+        {
+          "id": "c",
+          "text": "Annex B is normative and its guidance becomes mandatory only after inclusion in the Statement of Applicability."
+        },
+        {
+          "id": "d",
+          "text": "Annex B is normative, but it is written in 'should' - clause 6.1.3 e) has the organization consider its guidance when implementing the controls it has determined, not implement every sentence of it."
+        }
+      ],
+      "explanation": "The candidate's premise is correct and the inference is not. Annex B is normative, but normative STATUS and requirement MODALITY are different properties. Annex B restates each control under a 'Control' heading using 'should'. What gives it force is clause 6.1.3 e): the organization shall define an AI risk treatment process that considers the guidance in Annex B for the implementation of the controls determined under b) and c). So it binds as an input to be considered when implementing those controls, not as text whose own sentences are requirements, and tailoring is expected. The risk-threshold option invents a threshold the standard does not contain. The extended-catalogue option misreads Annex B's purpose: it provides implementation guidance for the Annex A controls rather than additional controls. The Statement of Applicability option is contradicted by B.1, which states that organizations do not have to document or justify the inclusion or exclusion of implementation guidance in the statement of applicability."
+    }
+  },
+  {
+    "group": "435fa154-33c3-416e-b4ce-f56837b2f3d8",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "The legal team identifies a new contract requiring the organisation's AI system to avoid certain prohibited output types. Under clause 4.1, how should this be recorded?",
+      "options": [
+        {
+          "id": "a",
+          "text": "As an external issue, because contractual obligations are part of the external environment shaping the AIMS context"
+        },
+        {
+          "id": "b",
+          "text": "As an interested-party requirement only, since contracts define needs and expectations rather than context issues"
+        },
+        {
+          "id": "c",
+          "text": "As an internal issue, because contractual obligations arise from the organisation's own commercial decisions"
+        },
+        {
+          "id": "d",
+          "text": "As a risk treatment action, bypassing context documentation because the obligation is already legally binding"
+        }
+      ],
+      "explanation": "A contractual obligation constrains how this organization may develop, provide or use its AI systems, and it originates outside the organization - that is what places it among the external issues here. ISO/IEC 42001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose without stating what they are, so the judgement is made against that test rather than by consulting a catalogue. Recording the obligation only as a compliance line item loses what clause 4.1 is for: establishing the context the AIMS has to operate within."
+    }
+  },
+  {
+    "group": "45cdd4c1-e855-4719-87e4-5055c23d61f4",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "An organisation completed its AIMS context analysis 18 months ago. A new national AI regulation has since been enacted. What should the organisation do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Log it for the next scheduled three-year certification cycle review."
+        },
+        {
+          "id": "b",
+          "text": "Notify the certification body immediately, as a legal change automatically suspends conformity."
+        },
+        {
+          "id": "c",
+          "text": "Update the context analysis to reflect the regulation as a changed external issue."
+        },
+        {
+          "id": "d",
+          "text": "Take no action; clause 4.1 is a one-time scoping exercise at AIMS establishment."
+        }
+      ],
+      "explanation": "A newly applicable regulation is a change in an external issue, and the context determination no longer matches the organization's situation until it accounts for that. ISO/IEC 42001 clause 4.1 requires the organization to determine its external and internal issues; clause 9.3 requires the management review to consider changes in the external and internal issues relevant to the AI management system. Neither clause sets a cadence or makes currency a documented activity in its own right - taken together they are what brings a change like this back into view. Treating the original analysis as settled, or waiting for the next certification cycle, leaves the AIMS described against conditions that have already moved."
+    }
+  },
+  {
+    "group": "605f3af1-a901-4dd0-b827-903e8833bcc8",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "An AIMS team lists 'societal attitudes toward AI' and 'public trust in automated decisions' as external issues. A colleague argues these are out of scope because external issues must be legal or regulatory. What should the team do?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keep both; they arise outside the organisation and bear on whether the AIMS achieves its intended results, which is the test clause 4.1 sets."
+        },
+        {
+          "id": "b",
+          "text": "Remove both; clause 4.1 limits external issues to enacted laws, regulations, and binding standards."
+        },
+        {
+          "id": "c",
+          "text": "Keep both only if the organisation can demonstrate a direct financial impact from each trend."
+        },
+        {
+          "id": "d",
+          "text": "Reclassify both as internal issues, since public trust is shaped by the organisation's own communications."
+        }
+      ],
+      "explanation": "Each of these arises outside the organization and bears on whether the AI management system achieves what it is meant to, which is the test that makes them external issues in this case. ISO/IEC 42001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose, to determine whether climate change is a relevant issue, and to consider the intended purpose of its AI systems and its own roles with respect to them. It sets out no categories of external issue, so the classification is made against that test on the facts of the organization, not by matching a factor to a list."
+    }
+  },
+  {
+    "group": "87757992-7263-4623-9271-0f77a3c9594b",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "An ISMS project manager argues that partial scopes are not permitted and all departments must be included. Which clause 4 concept does this misrepresent?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The permissibility of a bounded scope: context analysis can justify limiting the ISMS to a subset of the organization."
+        },
+        {
+          "id": "b",
+          "text": "The requirement that all internal issues be resolved before a partial scope can be formally justified."
+        },
+        {
+          "id": "c",
+          "text": "The distinction between internal and external issues, which determines whether a department is inside or outside scope."
+        },
+        {
+          "id": "d",
+          "text": "The requirement to identify all interested parties, which implies all departments are automatically in scope."
+        }
+      ],
+      "explanation": "A bounded scope is permissible: ISO/IEC 27001 clause 4.3 requires the organization to determine the boundaries and applicability of the ISMS, which is what establishes its scope, and it requires that determination to take account of the issues from 4.1, the requirements from 4.2, and the interfaces and dependencies with activities performed by other organizations. Nothing in the clause obliges the ISMS to cover the whole organization. What it does oblige is that the boundary be deliberate, defensible from context, and available as documented information. Mandating full organizational coverage is a common misconception; so is treating the boundary as an administrative formality rather than a decision the clause requires reasoning behind."
+    }
+  },
+  {
+    "group": "97781f5f-7d3f-4b22-8156-4fc2cf90c143",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A company's ISMS review team notes a shift in risk appetite following a merger. Which clause 4 concept does this shift most directly affect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Interested-party requirements only, because a merger changes which contractual parties the organization must satisfy."
+        },
+        {
+          "id": "b",
+          "text": "Neither; risk appetite belongs to clause 6 risk assessment and is independent of context analysis."
+        },
+        {
+          "id": "c",
+          "text": "External issues only, because a merger is driven by market forces originating outside the organization."
+        },
+        {
+          "id": "d",
+          "text": "Internal issues, because a shift in risk appetite originates inside the organization and reshapes how it weighs its ISMS objectives."
+        }
+      ],
+      "explanation": "A change in risk appetite following a merger arises inside the organization and alters how it sets and weighs its security objectives, which is what makes it an internal issue here. Nothing about it originates outside. ISO/IEC 27001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose and affecting its ability to achieve the intended outcomes of the ISMS; it supplies no categories and no test beyond that, so each issue is classified on its own facts. Treating this change as external, or as unrelated to the ISMS, misplaces a factor that directly shapes what the ISMS is trying to achieve."
+    }
+  },
+  {
+    "group": "a41ce39d-9caa-445a-867d-706aa714022c",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A logistics firm maps all applicable data-protection and transport-safety regulations and declares its external context analysis complete. Which misconception does this illustrate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "That external context is a one-time activity, so the firm will not revisit it when market conditions change."
+        },
+        {
+          "id": "b",
+          "text": "That external issues are synonymous with legal obligations, overlooking competitive, technological, and socio-economic factors."
+        },
+        {
+          "id": "c",
+          "text": "That all external issues must be resolved before the ISMS scope can be formally approved."
+        },
+        {
+          "id": "d",
+          "text": "That interested parties are limited to regulators, ignoring customers and industry bodies as sources of requirements."
+        }
+      ],
+      "explanation": "Reading external context as compliance obligations alone is what makes the consultant's reasoning wrong: a pressure can sit outside the organization and bear on the ISMS without being a legal duty, and treating the two as the same leaves those unexamined. ISO/IEC 27001 clause 4.1 requires the organization to determine the external and internal issues relevant to its purpose and affecting the intended outcomes of the ISMS. It names no categories, so the question is never whether a factor appears on a list but whether it sits outside the organization and bears on those outcomes."
+    }
+  },
+  {
+    "group": "bd22b5bb-733a-47cb-b709-3bcc56d1db8a",
+    "reason": "pin-compliance re-translation: the English is UNCHANGED; the siblings violated a terminology pin and are regenerated under the pinned contract, with the write path now refusing any that still do.",
+    "en": {
+      "question_text": "A company completes its clause 4 context analysis at ISMS launch and never revisits it. Why is this non-conformant?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Context only needs updating when a new legal requirement emerges, since regulations are the sole external issue affecting the ISMS."
+        },
+        {
+          "id": "b",
+          "text": "An initial context analysis approved by senior management remains valid indefinitely once formally recorded."
+        },
+        {
+          "id": "c",
+          "text": "The standard mandates a fixed annual review cycle regardless of whether any issues have actually changed."
+        },
+        {
+          "id": "d",
+          "text": "Internal and external issues change over time, and the management review must consider those changes; a context never revisited cannot inform it."
+        }
+      ],
+      "explanation": "A change in internal or external issues can alter security objectives and risk exposure, so a context settled once and left behind stops supporting the decisions built on it. ISO/IEC 27001 clause 4.1 requires the organization to determine those issues, and clause 9.3.2 requires the management review to consider changes in them. The standard prescribes no review cycle and imposes no continuous monitoring duty under 4.1 itself, so a fixed annual calendar is a choice rather than a requirement and the trigger is change. Claiming the initial analysis is permanent leaves the ISMS describing an organization that no longer exists."
+    }
+  }
+]

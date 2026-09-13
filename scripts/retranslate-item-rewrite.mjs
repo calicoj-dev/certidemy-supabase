@@ -62,6 +62,7 @@ import { fileURLToPath } from "node:url";
 import {
   ISO_MS_VOCABULARY, ACCOUNTABLE_FALSE_FRIEND, contractForDomain, domainForCert,
 } from "./lib/item-translation.mjs";
+import { checkPins } from "./lib/pin-compliance.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(HERE, "..");
@@ -324,7 +325,20 @@ for (const entry of spec) {
       }
     }
 
-    console.log(`   ${lang.code}  guard ok (${g.want}/${g.avoid})`);
+    // PIN COMPLIANCE, CHECKED ON THE OUTPUT RATHER THAN STATED IN THE PROMPT.
+    // ISO_MS_VOCABULARY pins four terms. On 2026-09-13 one of them was violated
+    // BY THE RUN THAT CARRIED IT - group 20c4e95d came back saying "apartado"
+    // in Portuguese with the apartado pin in its own system prompt. A pin is an
+    // instruction; this is the assertion. Same reason the language guard exists:
+    // the contract is worthless if nothing reads what came back.
+    const pinHits = checkPins(joined, lang.code);
+    if (pinHits.length) {
+      console.error(`   ${lang.code}: PIN VIOLATION - refusing`);
+      for (const h of pinHits) console.error(`     ${h.id}: "${h.hit}" - ${h.why}`);
+      failures++; continue;
+    }
+
+    console.log(`   ${lang.code}  guard ok (${g.want}/${g.avoid}), pins ok`);
     for (const f of toTranslate) {
       const b = f === "options" ? JSON.stringify(row[f]) : String(row[f] ?? "");
       const a = f === "options" ? JSON.stringify(out[f]) : String(out[f] ?? "");
