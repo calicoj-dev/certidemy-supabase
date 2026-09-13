@@ -452,7 +452,25 @@ async function main() {
       }
 
       if (DRY_RUN) {
-        console.log(`    [dry] ${enQs.length} logical ok (sample EN: ${enQs[0].question_text.slice(0, 80)}...)`);
+        // A DRY RUN YOU CANNOT READ IS NOT A REVIEW. This printed the first
+        // 80 characters of one stem, which is enough to see that generation
+        // happened and not enough to judge a single item - no options, no key,
+        // no explanation. The whole point of dry-first is that a human decides
+        // before anything lands.
+        console.log(`    [dry] ${enQs.length} logical ok:`);
+        for (const q of enQs) {
+          console.log(`      STEM: ${q.question_text}`);
+          for (const o of q.options || []) {
+            const isKey = [].concat(q.correct_answer || []).includes(o.id);
+            console.log(`        ${isKey ? "KEY " : "    "}${o.id}) ${o.text}`);
+          }
+          console.log(`      EXPLANATION: ${q.explanation}`);
+          // bloom is NOT on the generated item - it is attached from the TASK
+          // when the insert row is built (see bloomForTask below). Reading it
+          // off q printed "-" and looked like a dropped column; the bank has
+          // zero task/item bloom mismatches.
+          console.log(`      difficulty=${q.difficulty} bloom=${bloomForTask(taskById.get(w.taskId))} type=${q.question_type}`);
+        }
         remaining -= enQs.length;
         continue;
       }
