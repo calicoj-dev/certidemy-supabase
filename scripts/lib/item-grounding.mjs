@@ -646,9 +646,24 @@ CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:
  *     informative.
  *   - Annex B is NORMATIVE - the contents page says so - yet restates each of the
  *     38 controls under a "Control" heading using SHOULD where Table A.1 says
- *     SHALL. The paradox resolves at clause 6.1.3 e): the organization "shall
- *     consider the guidance in Annex B". Annex B binds as an input you must
- *     consider, not as text whose own sentences are requirements.
+ *     SHALL. The paradox resolves at clause 6.1.3 e), quoted exactly below.
+ *     Annex B binds as an input to be considered, not as text whose own
+ *     sentences are requirements.
+ *
+ *     THIS PARAGRAPH USED TO READ: the organization "shall consider the guidance
+ *     in Annex B". THAT COMPRESSED A TWO-LEVEL OBLIGATION INTO ONE. Clause 6.1.3
+ *     opens "the organization shall define an AI risk treatment process to:" and
+ *     e) is "consider the guidance in Annex B for the implementation of controls
+ *     determined in b) and c)". So the shall attaches to DEFINING THE PROCESS,
+ *     and the consideration is SCOPED to the controls already determined - not a
+ *     free-standing duty to consider Annex B at large.
+ *
+ *     FOUND ON 2026-09-12 INSIDE THE REPAIR OF AN ITEM TESTING THIS EXACT
+ *     DISTINCTION. AIMS-F secure 4.1 had a key asserting Annex B is informative;
+ *     the replacement key turns on normative STATUS versus requirement MODALITY,
+ *     and drafting it meant reading 6.1.3 e) off the page, which is when this
+ *     constant's own rendering was caught. A grounding that misstates the clause
+ *     an item turns on reproduces the failure class inside its own fix.
  *   - "risk register" appears zero times, exactly as in 27001.
  *   - The climate-change wording is in the PUBLISHED FIRST EDITION. There is no
  *     amendment to 42001.
@@ -678,10 +693,15 @@ THE MODAL STRUCTURE OF ISO/IEC 42001 - this is what the cert tests:
     Table A.1: 38 controls, each stated with "shall".
   - Annex B (NORMATIVE), "Implementation guidance for AI controls", is written in
     "should". It restates each control under a "Control" heading in the SHOULD
-    form. Clause 6.1.3 e) is what makes it normative: the organization "shall
-    consider the guidance in Annex B". B.1 adds that organizations do not have to
-    document or justify inclusion or exclusion of implementation guidance in the
-    statement of applicability.
+    form. What gives it force is clause 6.1.3 e), and the exact shape matters:
+    clause 6.1.3 reads "the organization shall define an AI risk treatment
+    process to: ... e) consider the guidance in Annex B for the implementation
+    of controls determined in b) and c)". The SHALL attaches to defining the
+    process, and the consideration is SCOPED to the controls already determined.
+    Never write that ISO/IEC 42001 says the organization "shall consider the
+    guidance in Annex B" as a free-standing duty - it does not. B.1 adds that
+    organizations do not have to document or justify inclusion or exclusion of
+    implementation guidance in the statement of applicability.
   - Annexes C and D are INFORMATIVE.
 
 CLAIMS THAT MUST NEVER APPEAR IN A KEY OR AN EXPLANATION:

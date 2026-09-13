@@ -96,5 +96,40 @@
     "en": {
       "explanation": "A newly applicable regulation is a change in an external issue, and the context determination no longer matches the organization's situation until it accounts for that. ISO/IEC 42001 clause 4.1 requires the organization to determine its external and internal issues; clause 9.3 requires the management review to consider changes in the external and internal issues relevant to the AI management system. Neither clause sets a cadence or makes currency a documented activity in its own right - taken together they are what brings a change like this back into view. Treating the original analysis as settled, or waiting for the next certification cycle, leaves the AIMS described against conditions that have already moved."
     }
+  },
+  {
+    "group": "baad8ecb-2689-4bf4-a2c1-49abf61993c8",
+    "reason": "ISMS-F practice 2.4. Explanation: 'any exclusions and the reasoning behind them must also be recorded.' Clause 4.3 never mentions exclusions - it requires the boundaries and applicability, consideration of 4.1 issues, 4.2 requirements and interfaces and dependencies, and that the scope be available as documented information. Exclusions and their justification are clause 6.1.3 d) and the Statement of Applicability, which is about CONTROLS rather than scope. The KEY is correct and untouched: 'interfaces with out-of-scope activities' is 4.3 c). HOLD 2/3 applied: the correction argues from what the clause asks for rather than substituting a second list.",
+    "en": {
+      "explanation": "A conformant scope statement has to say where the ISMS starts and stops and what it applies to, and it has to name the interfaces and dependencies between the organization's own activities and those performed by other organizations - a boundary that ignores its own seams does not describe anything auditable. ISO/IEC 27001 clause 4.3 requires exactly that, taking account of the issues from 4.1 and the requirements from 4.2, and requires the scope to be available as documented information. It does not ask for exclusions or a justification for them; that obligation belongs to clause 6.1.3 d) and the Statement of Applicability, which is about controls rather than scope. A full asset register is an input to risk assessment, and a risk appetite statement, however useful, is not part of what 4.3 asks the scope document to contain."
+    }
+  },
+  {
+    "group": "0a73efe4-2986-40b1-8a19-c5f1b1bdf079",
+    "reason": "ISMS-F practice 2.4, AND THE DEFECT IS IN THE KEY. Key (c) read 'including exclusions and their justification', which clause 4.3 does not require. DISTRACTOR (b) WAS BUILT TO BE WRONG BECAUSE IT CALLS EXCLUSIONS OPTIONAL - so correcting the key alone would have made (b) defensible, which is worse than the original defect. (b) is therefore rewritten to be wrong for a different and real reason: it omits the interfaces and dependencies that 4.3 c) requires. (a) and (d) are untouched and stay wrong - an asset inventory is an input to risk assessment, and scope is determined before the risk assessment rather than by it.",
+    "en": {
+      "options": [
+        {
+          "id": "a",
+          "text": "A complete organisation-wide asset inventory, because a partial scope cannot demonstrate continual improvement."
+        },
+        {
+          "id": "b",
+          "text": "The included activities and functions alone, with no statement of the interfaces and dependencies with other organizations."
+        },
+        {
+          "id": "c",
+          "text": "The boundaries and applicability of the ISMS, together with its interfaces and dependencies, as documented information."
+        },
+        {
+          "id": "d",
+          "text": "The risk assessment results, because scope boundaries are determined by which assets need protection."
+        }
+      ],
+      "correct_answer": [
+        "c"
+      ],
+      "explanation": "ISO/IEC 27001 clause 4.3 requires the organization to determine the boundaries and applicability of the ISMS to establish its scope, taking account of the issues from 4.1, the requirements from 4.2, and the interfaces and dependencies between activities it performs and those performed by other organizations, and it requires the scope to be available as documented information. A statement that lists included activities and stops there leaves out those interfaces, which is where a scope most often fails to hold. Note that 4.3 asks for no exclusions and no justification for them - that obligation is clause 6.1.3 d) and the Statement of Applicability, and it concerns controls rather than scope. An asset inventory is an input to the risk assessment, and scope is a management decision taken before the risk assessment rather than an output of it."
+    }
   }
 ]
