@@ -1,0 +1,67 @@
+[
+  {
+    "group": "605f3af1-a901-4dd0-b827-903e8833bcc8",
+    "reason": "AIMS-F practice 2.1. KEY (a) said 'clause 4.1 requires consideration of social, cultural, and technological factors' while its own explanation says 4.1 sets out no categories. The key asserted the sentence the repair was written to kill. Rewritten to state the TEST 4.1 actually sets - arises outside, bears on the AIMS - which is what the explanation already argues. Distractors unchanged: (b) limits external issues to enacted law, (c) demands financial impact, (d) reclassifies as internal; all three stay wrong and none becomes correct when the key stops naming categories.",
+    "en": {
+      "options": [
+        { "id": "a", "text": "Keep both; they arise outside the organisation and bear on whether the AIMS achieves its intended results, which is the test clause 4.1 sets." },
+        { "id": "b", "text": "Remove both; clause 4.1 limits external issues to enacted laws, regulations, and binding standards." },
+        { "id": "c", "text": "Keep both only if the organisation can demonstrate a direct financial impact from each trend." },
+        { "id": "d", "text": "Reclassify both as internal issues, since public trust is shaped by the organisation's own communications." }
+      ],
+      "correct_answer": ["a"]
+    }
+  },
+  {
+    "group": "0987a554-f0fe-4219-8916-f9445eb5a230",
+    "reason": "ISMS-F practice 2.2. KEY (b) said 'context must be monitored and reviewed as internal and external issues evolve' - the ISO 9001:2015 wording the explanation removes. Rewritten onto the mechanism the explanation already uses: clause 9.3.2 requires the management review to CONSIDER changes in those issues. No cadence is asserted, so distractor (c) - acceptable if approved and version-controlled - and (d) - a one-time foundation activity - both stay wrong, and (a) - non-conformant only after an incident - is still beaten because the trigger is change rather than harm.",
+    "en": {
+      "options": [
+        { "id": "a", "text": "Non-conformant, but only if a significant security incident has occurred since the original analysis." },
+        { "id": "b", "text": "Non-conformant, because the management review must consider changes in internal and external issues, and this analysis has never been revisited." },
+        { "id": "c", "text": "Acceptable, provided the original analysis was approved by senior management and is version-controlled." },
+        { "id": "d", "text": "Acceptable, because clause 4 is a one-time foundation activity; changes are captured in risk assessments instead." }
+      ],
+      "correct_answer": ["b"]
+    }
+  },
+  {
+    "group": "bd22b5bb-733a-47cb-b709-3bcc56d1db8a",
+    "reason": "ISMS-F practice 2.2. KEY (d) said 'the context must be monitored and reviewed on an ongoing basis' - same ISO 9001 import. Rewritten to the 9.3.2 mechanism. IMPORTANT: distractor (c) is 'the standard mandates a fixed annual review cycle', which is wrong precisely because no cadence exists - so the replacement key must NOT imply one either, or (c) stops being distinguishable from it. It says 'must consider those changes' and names no interval.",
+    "en": {
+      "options": [
+        { "id": "a", "text": "Context only needs updating when a new legal requirement emerges, since regulations are the sole external issue affecting the ISMS." },
+        { "id": "b", "text": "An initial context analysis approved by senior management remains valid indefinitely once formally recorded." },
+        { "id": "c", "text": "The standard mandates a fixed annual review cycle regardless of whether any issues have actually changed." },
+        { "id": "d", "text": "Internal and external issues change over time, and the management review must consider those changes; a context never revisited cannot inform it." }
+      ],
+      "correct_answer": ["d"]
+    }
+  },
+  {
+    "group": "ecac6a36-476e-4db3-bdde-b8ca7dee4ef8",
+    "reason": "ISMS-F practice 3.7. KEY (c) said an accepted residual risk 'remains subject to ongoing monitoring and review' - the same import. Rewritten onto clause 8.2, which the explanation already cites: risk assessments at planned intervals AND when significant changes occur. THE DISTRACTOR CHECK MATTERED MOST HERE: (a) says the risk is frozen until the next scheduled assessment is formally initiated, so a key that said only 'returns at planned intervals' would narrow the margin against it. Naming the CHANGE trigger is what beats (a), and it is also what 8.2 actually says. (b) annually regardless and (d) closed and removed stay wrong.",
+    "en": {
+      "options": [
+        { "id": "a", "text": "It is frozen at its accepted level until the next scheduled full risk assessment is formally initiated." },
+        { "id": "b", "text": "It must be re-escalated to top management annually, regardless of whether context has changed." },
+        { "id": "c", "text": "It returns for reassessment at the planned intervals and whenever a significant change occurs, not only after a related incident." },
+        { "id": "d", "text": "It is closed and removed from the risk register, as acceptance ends the organisation's obligation." }
+      ],
+      "correct_answer": ["c"]
+    }
+  },
+  {
+    "group": "97781f5f-7d3f-4b22-8156-4fc2cf90c143",
+    "reason": "ISMS-F SECURE 2.2. CONTESTED BY GROK, AND I AGREE WITH HIM - it is the same defect softer. The stem gives ONE fact: a shift in risk appetite after a merger. Key (d) answered with THREE categories - risk appetite, governance structure, culture - two of which appear nowhere in the scenario. That is a taxonomy substituted for reasoning the scenario already supports, which is exactly what the catalogue hold was about; it is milder only because it does not attribute the list to the clause. Rewritten to reason from the scenario's own fact. Distractors unchanged and all still wrong: (a) interested-party requirements only, (b) belongs to clause 6 and is independent of context, (c) external only because a merger is market-driven.",
+    "en": {
+      "options": [
+        { "id": "a", "text": "Interested-party requirements only, because a merger changes which contractual parties the organization must satisfy." },
+        { "id": "b", "text": "Neither; risk appetite belongs to clause 6 risk assessment and is independent of context analysis." },
+        { "id": "c", "text": "External issues only, because a merger is driven by market forces originating outside the organization." },
+        { "id": "d", "text": "Internal issues, because a shift in risk appetite originates inside the organization and reshapes how it weighs its ISMS objectives." }
+      ],
+      "correct_answer": ["d"]
+    }
+  }
+]

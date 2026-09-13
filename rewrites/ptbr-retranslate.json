@@ -1,0 +1,106 @@
+[
+  {
+    "group": "0a73efe4-2986-40b1-8a19-c5f1b1bdf079",
+    "reason": "packet row 11: pt-BR used the Spanish word apartado inside Portuguese. ABNT is alinea or item. Pin 3.",
+    "en": {
+      "question_text": "Which statement best describes what a conformant ISMS scope statement must contain?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A complete organisation-wide asset inventory, because a partial scope cannot demonstrate continual improvement."
+        },
+        {
+          "id": "b",
+          "text": "The included activities and functions alone, with no statement of the interfaces and dependencies with other organizations."
+        },
+        {
+          "id": "c",
+          "text": "The boundaries and applicability of the ISMS, together with its interfaces and dependencies, as documented information."
+        },
+        {
+          "id": "d",
+          "text": "The risk assessment results, because scope boundaries are determined by which assets need protection."
+        }
+      ],
+      "explanation": "ISO/IEC 27001 clause 4.3 requires the organization to determine the boundaries and applicability of the ISMS to establish its scope, taking account of the issues from 4.1, the requirements from 4.2, and the interfaces and dependencies between activities it performs and those performed by other organizations, and it requires the scope to be available as documented information. A statement that lists included activities and stops there leaves out those interfaces, which is where a scope most often fails to hold. Note that 4.3 asks for no exclusions and no justification for them - that obligation is clause 6.1.3 d) and the Statement of Applicability, and it concerns controls rather than scope. An asset inventory is an input to the risk assessment, and scope is a management decision taken before the risk assessment rather than an output of it."
+    }
+  },
+  {
+    "group": "20c4e95d-121e-4b51-b96e-12d819f94e19",
+    "reason": "packet row 8: pt-BR invented SGAI for AIMS - a coined acronym appearing in no standard, no other item and no part of the catalogue. Pin 4 now forbids expanding or coining an expansion for AIMS/ISMS.",
+    "en": {
+      "question_text": "A colleague claims Annex B of ISO/IEC 42001:2023 is informative, so its guidance can be ignored without consequence for the AIMS. Why is this claim incorrect?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Annex B is normative and its guidance carries unconditional 'shall' obligations equal in force to clauses 4 to 10."
+        },
+        {
+          "id": "b",
+          "text": "Annex B is normative and restates each Annex A control verbatim, so ignoring it omits required controls entirely."
+        },
+        {
+          "id": "c",
+          "text": "Annex B is normative; clause 6.1.3 requires organizations to consider it when defining their risk treatment process."
+        },
+        {
+          "id": "d",
+          "text": "Annex B is informative but must appear in the Statement of Applicability, requiring written justification for any exclusions."
+        }
+      ],
+      "explanation": "Annex B is normative, not informative, so the colleague's premise is wrong. Its connection to obligation comes from clause 6.1.3, which requires the organization to define a risk treatment process that considers Annex B guidance for controls already determined to apply — the 'shall' attaches to defining that process, not to each guidance sentence independently. The option stating Annex B restates Annex A verbatim is false; Annex B provides implementation guidance, not a word-for-word copy. The option claiming Annex B guidance must appear in the Statement of Applicability is false; B.1 states organizations are not required to document or justify inclusion or exclusion of implementation guidance there. The option asserting unconditional 'shall' obligations equal to the main body is false; Annex B is written in 'should' and its force is scoped to the consideration required by clause 6.1.3."
+    }
+  },
+  {
+    "group": "baad8ecb-2689-4bf4-a2c1-49abf61993c8",
+    "reason": "packet row 12: pt-BR used the Spanish word apartado inside Portuguese. ABNT is alinea or item. Pin 3.",
+    "en": {
+      "question_text": "Which element is required in a documented ISMS scope statement under ISO/IEC 27001?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The boundaries and applicability of the ISMS, including interfaces with out-of-scope activities."
+        },
+        {
+          "id": "b",
+          "text": "A list of all information assets and their owners across the full legal entity."
+        },
+        {
+          "id": "c",
+          "text": "Inclusions only; exclusions and their rationale are supplementary and not mandated."
+        },
+        {
+          "id": "d",
+          "text": "The risk appetite statement, so that scope decisions can be traced to accepted risk levels."
+        }
+      ],
+      "explanation": "A conformant scope statement has to say where the ISMS starts and stops and what it applies to, and it has to name the interfaces and dependencies between the organization's own activities and those performed by other organizations - a boundary that ignores its own seams does not describe anything auditable. ISO/IEC 27001 clause 4.3 requires exactly that, taking account of the issues from 4.1 and the requirements from 4.2, and requires the scope to be available as documented information. It does not ask for exclusions or a justification for them; that obligation belongs to clause 6.1.3 d) and the Statement of Applicability, which is about controls rather than scope. A full asset register is an input to risk assessment, and a risk appetite statement, however useful, is not part of what 4.3 asks the scope document to contain."
+    }
+  },
+  {
+    "group": "ecac6a36-476e-4db3-bdde-b8ca7dee4ef8",
+    "reason": "packet row 14: pt-BR rendered exposure as vulnerabilidade. Both words are Portuguese and the sentence is fluent; WHAT MOVED IS THE OBJECT. An exposure is the extent of what is at stake; a vulnerability is the weakness through which it is reached. The language guard cannot see this class at all.",
+    "en": {
+      "question_text": "After residual risk is formally accepted, what does ISO/IEC 27001 indicate about that risk going forward?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It is frozen at its accepted level until the next scheduled full risk assessment is formally initiated."
+        },
+        {
+          "id": "b",
+          "text": "It must be re-escalated to top management annually, regardless of whether context has changed."
+        },
+        {
+          "id": "c",
+          "text": "It returns for reassessment at the planned intervals and whenever a significant change occurs, not only after a related incident."
+        },
+        {
+          "id": "d",
+          "text": "It is closed and removed from the risk register, as acceptance ends the organisation's obligation."
+        }
+      ],
+      "explanation": "Accepting a risk is a decision about the present, not a permanent disposal of it: the conditions that made the residual level tolerable can change. ISO/IEC 27001 clause 8.2 requires information security risk assessments at planned intervals and when significant changes are proposed or occur, which brings accepted risks back into view along with everything else. Clause 9.3.2 requires the management review to consider the status of risk treatment. Treating acceptance as closing the matter, or revisiting it only when an incident forces the issue, leaves the organization holding an exposure it last examined under conditions that no longer apply."
+    }
+  }
+]

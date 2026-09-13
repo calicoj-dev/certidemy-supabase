@@ -214,6 +214,37 @@ reading, not so you pick the most natural phrase in isolation.
   corrective action           accion correctiva             acao corretiva                22 / 23
   continual improvement       mejora continua               melhoria continua              7 / 7
 
+FOUR PINS ADDED 2026-09-13 AFTER A BILINGUAL REVIEW OF 28 REWRITTEN ITEM ROWS.
+Each was a real divergence in the packet, not a hypothetical. THIS BLOCK BREAKS
+THE FILE'S ASCII HABIT ON PURPOSE - three of the four are about ORTHOGRAPHY, and
+a pin that cannot show the glyph it is pinning is not a pin.
+
+  1. SECTION, pt-BR: write "Seção". One spelling, c-cedilla and a-tilde, per ABNT.
+     Nine groups in the packet disagreed with each other - Seção, Secão and Secao
+     all appeared. A candidate reading two items sees two spellings of the same
+     structural word and cannot tell which is the term.
+
+  2. "ISSUES" (clause 4.1), es-419: write "cuestiones". NOT problemas, NOT
+     asuntos. The packet mixed all three. This is not a style preference: the
+     Spanish-language adoptions render clause 4.1 as "cuestiones internas y
+     externas", so cuestiones IS THE STANDARD'S OWN WORD and the other two read
+     as paraphrase. "problemas" is actively wrong - an issue in clause 4.1 is a
+     factor to be determined, not a problem to be solved.
+
+  3. CLAUSE SUB-ITEMS: es-419 "apartado", pt-BR "alínea" or "item".
+     NEVER "apartado" INSIDE PORTUGUESE. Two pt-BR rows in the packet used it;
+     it is a Spanish word and ABNT uses alínea. See also Rule 17 in CLAUDE.md,
+     which pins capítulo for the top level and apartado for subdivisions on the
+     es-419 side - this extends that rule across the language boundary it did
+     not previously name.
+
+  4. AIMS AND ISMS KEEP THEIR CODES in every language. Never expand them, and
+     never coin an expansion. One pt-BR row invented "SGAI" for AIMS - a
+     plausible-looking acronym that appears nowhere else in the catalogue, in no
+     standard, and in no other item. A coined acronym is worse than an
+     untranslated one: it reads as established terminology the candidate has
+     somehow missed.
+
 TWO OF THESE WERE NOT UNANIMOUS, AND THE REASONING IS RECORDED SO IT IS NOT
 RE-LITIGATED:
 
