@@ -14,9 +14,18 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 304. Next free number: 305.** 303 has RUN; **304 is written and
-has NOT run** (the three wrong clause addresses). Sequential, zero-padded to three
-digits, `NNN_snake_case_name.sql`.
+**Migration tip: 309. Next free number: 310.** 303-308 have RUN; **309 is written
+and has NOT run** (retiring SM-AI-II's two two-option items). Sequential,
+zero-padded to three digits, `NNN_snake_case_name.sql`.
+
+**AND IT WENT STALE AGAIN ON 2026-09-12, FIVE BEHIND, IN THE SESSION THAT HAD
+JUST REWRITTEN IT.** The line read *"304 / next free 305"* while 305, 306, 307
+and 308 had all run and 309 was on disk. The same session wrote the tip at 304,
+then created and ran five more migrations over the following hours and never came
+back to it. That is now the SECOND self-inflicted instance and the largest gap
+recorded. The mechanism is not two sessions and it is not forgetfulness about
+someone else's work: **updating the tip is not part of writing a migration, so it
+does not happen when a migration is written.**
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
 
