@@ -331,7 +331,13 @@ for (const entry of spec) {
     // in Portuguese with the apartado pin in its own system prompt. A pin is an
     // instruction; this is the assertion. Same reason the language guard exists:
     // the contract is worthless if nothing reads what came back.
-    const pinHits = checkPins(joined, lang.code);
+    // THE ENGLISH GOES IN TOO. The cadence rule is RELATIVE - a periodicity word
+    // is correct when the source states an interval and a defect when it does
+    // not - so it cannot be decided from the translation alone.
+    const enJoined = toTranslate.map((f) => f === "options"
+      ? (en.options || []).map((o) => o.text).join(" ")
+      : String(en[f] ?? "")).join(" ");
+    const pinHits = checkPins(joined, lang.code, enJoined);
     if (pinHits.length) {
       console.error(`   ${lang.code}: PIN VIOLATION - refusing`);
       for (const h of pinHits) console.error(`     ${h.id}: "${h.hit}" - ${h.why}`);

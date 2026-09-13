@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 309. Next free number: 310.** 303-308 have RUN; **309 is written
+**Migration tip: 310. Next free number: 311.** 303-308 have RUN; **309 is written
 and has NOT run** (retiring SM-AI-II's two two-option items). Sequential,
 zero-padded to three digits, `NNN_snake_case_name.sql`.
 
@@ -713,6 +713,41 @@ Same shape as the join fan-out and the field concatenation with no separator:
 THE QUERY MANUFACTURED AN ADJACENCY THE DATA DOES NOT HAVE. Count
  separately, or add  to the WHERE,
 before reading anything off a grouped result on a nullable column.
+
+**THREE KINDS OF TRANSLATION DEFECT THE GUARDS CANNOT SEE, and they are a
+ladder.** Each is fluent, each survived every automated check that existed when
+it landed, and each was found only by a bilingual reader:
+
+1. **WRONG LANGUAGE.** Fluent Spanish written into a pt-BR row. Every
+   post-condition passed because nothing asserted WHICH language came back. Now
+   caught by the language guard in retranslate-item-rewrite.mjs - decisively for
+   a whole field, and NOT for a code-switched one, which is recorded there.
+
+2. **WRONG OBJECT.** Right language, wrong referent. "exposure" rendered as
+   *vulnerabilidade*; "re-escalate" as *reescalonar*, which means rescheduled.
+   Both words are Portuguese and both sentences read correctly - the language
+   guard is blind to this by construction. Caught only as named false friends,
+   one term at a time, after someone notices.
+
+3. **INSERTED OBLIGATION.** Right language, right objects, and the sentence now
+   REQUIRES something the English does not. Group 0987a554's English said the
+   determination is "something the organization returns to" with no interval;
+   both translations independently added *periodicamente*, across two separate
+   regenerations, while the same paragraph stated two clauses earlier that the
+   clause imposes no review interval. Each contradicts itself. This is the
+   ISO 9001 cadence the English repair removed, coming back in through
+   translation.
+
+**The ladder is what matters: each rung is harder to see than the last, and the
+last one changes what the item TESTS.** A candidate reading group 9 would learn
+that context must be revisited on a schedule - the exact claim the repair was
+written to kill, restored in the only two languages nobody re-read.
+
+scripts/lib/pin-compliance.mjs now carries an inserted-cadence rule, and it is
+the first rule there that is RELATIVE to the source: a periodicity word is
+correct when the English states an interval (clause 8.2's "planned intervals")
+and a defect when it does not. **A rule that cannot see the source abstains
+rather than guessing** - pass no English and it does not run.
 
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 

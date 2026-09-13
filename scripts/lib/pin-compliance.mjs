@@ -104,9 +104,44 @@ export const PIN_RULES = [
  * Check one field-set for one language.
  * @returns {Array<{id,why,hit}>} empty when compliant.
  */
-export function checkPins(text, lang) {
+/**
+ * PERIODICITY MARKERS. The cadence rule is the only one that cannot be decided
+ * from the translation alone - "periodicamente" is correct when the English says
+ * "at planned intervals" and a defect when the English states no interval. So it
+ * is RELATIVE, and needs the source.
+ */
+const CADENCE_TARGET = /\b(peri[\u00f3o]dicamente|regularmente|continuamente|de forma cont[\u00ed i]nua|de forma peri[\u00f3o]dica|anualmente|mensalmente|mensualmente|trimestralmente)\b/i;
+const CADENCE_SOURCE = /\b(planned intervals?|at intervals?|periodic(?:ally)?|regular(?:ly)?|annual(?:ly)?|monthly|quarterly|ongoing|continual(?:ly)?|continuous(?:ly)?|each year|every year)\b/i;
+
+/**
+ * @param {string} text    the translated field-set
+ * @param {string} lang    its language
+ * @param {string} [enText] the ENGLISH the translation was made from. Omit it and
+ *                          the cadence rule does not run - it CANNOT run, and a
+ *                          rule that guesses when it lacks its input is worse
+ *                          than one that abstains.
+ */
+export function checkPins(text, lang, enText) {
   const t = String(text ?? "");
   const out = [];
+
+  // INSERTED OBLIGATION. Group 9's English said the determination is "something
+  // the organization returns to" with no interval - and BOTH translations
+  // independently added one, twice, across two separate regenerations. That is
+  // the ISO 9001 cadence the English repair had just removed, coming back in
+  // through translation. Both explanations even said the clause imposes no
+  // review interval and then inserted one two clauses later.
+  if (lang !== "en" && enText != null) {
+    const m = CADENCE_TARGET.exec(t);
+    if (m && !CADENCE_SOURCE.test(String(enText))) {
+      out.push({
+        id: "inserted-cadence",
+        hit: m[0],
+        why: "The English states no interval and the translation adds one. A periodicity word is correct when the source has one - 8.2's 'planned intervals' is exactly that case - and a defect when it does not. What changes is what the sentence REQUIRES.",
+      });
+    }
+  }
+
   for (const r of PIN_RULES) {
     if (!r.langs.includes(lang)) continue;
     const m = r.re.exec(t);
@@ -162,6 +197,22 @@ const CASES = [
   ["SGSI is real and must not be flagged", "pt-BR", "O SGSI da organizacao cobre tres unidades de negocio.", null],
   ["ordinary problemas, not the 4.1 collocation", "es-419", "La opcion describe problemas de comunicacion entre equipos.", null],
   ["apartado is not tested in English", "en", "Clause 6.1.3 e) has the organization consider the guidance.", null],
+  // --- INSERTED CADENCE, and the case that must NOT fire is the whole point ---
+  ["cadence added where English has none", "es-419",
+   "es algo a lo que la organizacion debe volver peri\u00f3dicamente.",
+   "inserted-cadence", "something the organization returns to."],
+  ["cadence added where English has none, pt", "pt-BR",
+   "e algo a que a organizacao deve retornar periodicamente.",
+   "inserted-cadence", "something the organization returns to."],
+  ["8.2 planned intervals - CORRECT, must not fire", "es-419",
+   "Vuelve para reevaluacion en los intervalos planificados y regularmente cuando cambia algo.",
+   null, "It returns for reassessment at the planned intervals and whenever a significant change occurs."],
+  ["8.2 planned intervals - CORRECT, pt", "pt-BR",
+   "Retorna para reavaliacao nos intervalos planejados, periodicamente conforme definido.",
+   null, "It returns for reassessment at the planned intervals and whenever a significant change occurs."],
+  ["no English supplied - rule abstains rather than guesses", "pt-BR",
+   "A organizacao deve retornar periodicamente a essa determinacao.", null, undefined],
+
   // THE PIN ITSELF MUST STILL PASS. A leak rule that also fires on the correct
   // language would make the pin unsatisfiable in both directions, which is the
   // failure this whole file exists to avoid.
@@ -180,8 +231,8 @@ const CASES = [
 // the worst failure a test file can have. Match on the basename instead.
 if ((process.argv[1] || "").replace(/\\/g, "/").endsWith("lib/pin-compliance.mjs")) {
   let bad = 0;
-  for (const [name, lang, text, expect] of CASES) {
-    const hits = checkPins(text, lang);
+  for (const [name, lang, text, expect, en] of CASES) {
+    const hits = checkPins(text, lang, en);
     const got = hits.length ? hits[0].id : null;
     const ok = got === expect;
     if (!ok) bad++;
