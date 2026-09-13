@@ -131,6 +131,7 @@ serve(async (req) => {
     if (!body.certification_id) throw new HttpError(400, 'certification_id required');
     const n = Math.min(Math.max(body.num_questions ?? 5, 1), 15);
     const language = (body.language && body.language.trim()) || 'en';
+    let certTier = 1;
 
     const svc = getServiceClient();
 
@@ -199,9 +200,10 @@ serve(async (req) => {
     // 5. Cert metadata for prompt context.
     const { data: cert } = await svc
       .from('certifications')
-      .select('code, name, description')
+      .select('code, name, description, tier')
       .eq('id', body.certification_id)
       .single();
+    certTier = Number(cert?.tier ?? 1) || 1;
 
     // 6. Generate PER TASK so task_id is server-decided, then validate.
     const per_task = Math.max(1, Math.ceil(n / task_ids.length));
@@ -250,7 +252,7 @@ serve(async (req) => {
       });
 
       for (const q of generated) {
-        if (!validateQuestion(q)) continue;
+        if (!validateQuestion(q, certTier)) continue;
         payload.push({
           certification_id: body.certification_id,
           task_id,
@@ -278,6 +280,34 @@ serve(async (req) => {
     }
 
     if (payload.length === 0) throw new Error('no valid questions generated');
+
+    // THE EXEMPTION'''S PRECONDITION, MADE CHECKABLE.
+    //
+    // verify-cert'''s trilingual.items exempts a GENERATED group of exactly one
+    // row. That exemption is correct only because this function writes ONE
+    // LANGUAGE PER CALL and mints a fresh question_group_id per question, so a
+    // group of one is the path working rather than a dropped sibling.
+    //
+    // Until now that argument lived in two docblocks and nothing tested it. If a
+    // trilingual fan-out is ever added here, every generated group becomes a
+    // multi-row group, the exemption silently starts covering real gaps, and
+    // trilingual.items keeps reporting clean on the structure it exists to catch.
+    //
+    // So the precondition is asserted at the only place it can be: the batch
+    // about to be written. WHOEVER ADDS THE FAN-OUT MUST DELETE THIS, and cannot
+    // do so without reading why it is here and going to fix the exemption in
+    // scripts/verify-cert.mjs first.
+    {
+      const langs = new Set(payload.map((r) => r.language));
+      if (langs.size !== 1) {
+        throw new Error(
+          `refusing to persist: this function writes ONE language per call, got ${[...langs].join(",")}. ` +
+          `verify-cert trilingual.items exempts generated groups of exactly one row ON THAT BASIS. ` +
+          `If you are adding a trilingual fan-out, narrow that exemption first - otherwise it will ` +
+          `cover dropped siblings instead of single-language items.`,
+        );
+      }
+    }
 
     // 7. Atomic, reachability-safe persist. The RPC inserts each question AND
     //    its task-derived question_concepts in one transaction; it also forces
@@ -387,11 +417,35 @@ Produce the JSON array now.`;
   });
 }
 
-function validateQuestion(q: any): q is GeneratedQuestion {
+/**
+ * THE TIER IS A CORRECTNESS CONSTRAINT, NOT A STYLE PREFERENCE.
+ *
+ * This validator accepted options.length >= 2 and question_type 'true_false'
+ * and READ NO TIER, while the Level II item contract - four defensible options
+ * with one best - lived only in scripts/gen-cert-secure.mjs and had never been
+ * visible from here. On 2026-09-12 that shipped two true_false items with TWO
+ * options onto SM-AI-II, a tier-2 certification with status='available'. A
+ * guesser scores 50% on a two-option item; the whole thing the credential sells
+ * is that the candidate discriminated between four defensible positions.
+ *
+ * verify-cert's items.optionfloor FAILS on secure and only WARNS on practice,
+ * and these were practice, so a warning landed on a certification that already
+ * carried warnings and was invisible.
+ */
+function validateQuestion(q: any, tier: number): q is GeneratedQuestion {
   if (!q || typeof q !== 'object') return false;
   if (typeof q.question_text !== 'string' || q.question_text.length < 10) return false;
   // single_choice / true_false only — the exam has no select-all questions.
   if (!['single_choice', 'true_false'].includes(q.question_type)) return false;
+
+  // TIER 2: four defensible options, one best. No true_false at any bloom level
+  // - the tier-2 contract is about the SPREAD of defensibility, and a two-option
+  // item cannot have a second-best.
+  if (tier >= 2) {
+    if (q.question_type !== 'single_choice') return false;
+    if (!Array.isArray(q.options) || q.options.length !== 4) return false;
+  }
+
   if (!Array.isArray(q.options) || q.options.length < 2) return false;
   // Exactly one correct answer; reject any multi-answer leftovers.
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;

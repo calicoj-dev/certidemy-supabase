@@ -687,6 +687,24 @@ than a gap in one, because the gap is bounded and the distrust is not.
 
 ---
 
+**A GROUP BY OVER A NULLABLE KEY BUCKETS EVERY NULL TOGETHER, AND IT LOOKS LIKE
+A FINDING.** Measuring generated items by question_group_id on 2026-09-12
+returned what read as one defect spanning three certifications:
+
+    AIE-I     2026-08-20   1 group, 120 rows
+    SM-AI-I   2026-08-29   1 group,  20 rows
+    SM-AI-II  2026-09-12  10 groups, 10 rows
+
+The first two are not groups. They are the KNOWN ungrouped-items defects -
+question_group_id IS NULL on every row - collapsing into a single bucket
+because GROUP BY treats all NULLs as one value. Reported as-is it would have
+claimed a 120-row group exists, and invited someone to go looking for it.
+
+Same shape as the join fan-out and the field concatenation with no separator:
+THE QUERY MANUFACTURED AN ADJACENCY THE DATA DOES NOT HAVE. Count
+ separately, or add  to the WHERE,
+before reading anything off a grouped result on a nullable column.
+
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
 ---
