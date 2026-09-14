@@ -10,7 +10,17 @@ enabled = true
 port = 54321
 # Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
 # endpoints. `public` and `graphql_public` schemas are included by default.
-schemas = ["public", "graphql_public"]
+# `mcp` added 2026-09-13 for the courseware MCP pilot (migration 315). PUBLIC
+# STAYS FIRST: PostgREST treats the first entry as the default profile, so
+# reordering this line would silently change which schema an existing caller
+# reaches. A client selects `mcp` explicitly via the Accept-Profile header, or
+# `.schema("mcp")` in supabase-js.
+#
+# Exposure is NOT access. Every object in `mcp` is revoked from anon and
+# authenticated; only mcp_reader and mcp_holder are granted, and only
+# mcp_holder reaches mcp.lesson. Listing the schema here makes the views
+# addressable, not readable.
+schemas = ["public", "graphql_public", "mcp"]
 # Extra schemas to add to the search_path of every request.
 extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
