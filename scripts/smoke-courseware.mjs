@@ -132,6 +132,65 @@ async function expect400(name, body, mustMention) {
   return record(name, true);
 }
 
+/**
+ * A NUMBER, OR A NUMERIC STRING. Postgres `numeric` does not survive as a JSON
+ * number: the deno-postgres driver hands it back as a STRING to preserve exact
+ * precision, so passing_score_pct arrives as "80.00" and not 80. PostgREST
+ * converts it and the driver does not, which is why reading the same column two
+ * ways gives two types.
+ *
+ * The first version of this test asserted `typeof === "number"` and failed on a
+ * healthy deployment -- THE TEST WAS WRONG AND THE FUNCTION WAS RIGHT, which is
+ * the worst way for a smoke test to fail because the obvious repair is to change
+ * the thing being measured.
+ *
+ * So: accept both shapes and reject anything that is neither. `null` here means
+ * "this is not a number in any serialisation", which is a real failure.
+ */
+function asNumber(v) {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string" && /^-?\d+(?:\.\d+)?$/.test(v.trim())) return Number(v);
+  return null;
+}
+
+/**
+ * Every numeric-bearing column the views project, per resource. Enumerated
+ * rather than discovered, so a column that stops being returned fails here
+ * instead of being silently skipped -- and so the list is a readable statement
+ * of what the wire is expected to carry.
+ *
+ * C AND D PASSING SAID NOTHING ABOUT THESE. The vocabulary pin and the
+ * empty-result check never look at a value, so a serialisation change would
+ * leave both green.
+ */
+const NUMERIC_FIELDS = {
+  certification: [
+    "tier", "exam_duration_minutes", "num_questions", "passing_score_pct",
+    "max_exam_attempts", "attempt_window_months", "validity_days",
+  ],
+  task: ["domain_weight_pct"],
+};
+
+/** Reports which columns arrived as strings, so the shape is measured not assumed. */
+function checkNumerics(label, rows, fields) {
+  const row = rows[0];
+  if (!row) return record(`${label}: numeric columns`, false, "no row to inspect");
+  const missing = [];
+  const unparseable = [];
+  const asStrings = [];
+  for (const f of fields) {
+    if (!(f in row)) { missing.push(f); continue; }
+    if (typeof row[f] === "string") asStrings.push(f);
+    if (asNumber(row[f]) === null) unparseable.push(`${f}=${JSON.stringify(row[f])}`);
+  }
+  const detail = [
+    missing.length ? `not returned at all: ${missing.join(", ")}` : "",
+    unparseable.length ? `not numeric in any serialisation: ${unparseable.join(", ")}` : "",
+  ].filter(Boolean).join("; ");
+  record(`${label}: numeric columns parse`, missing.length === 0 && unparseable.length === 0, detail);
+  console.log(`        numeric-as-string: ${asStrings.length ? asStrings.join(", ") : "(none)"}`);
+}
+
 /* -------------------------------------------------------------------- run */
 
 // WRAPPED IN A FUNCTION SO NOTHING CALLS process.exit() WITH A FETCH IN FLIGHT.
@@ -174,15 +233,20 @@ console.log("A. THE FOUR TOOLS, as the wire calls each one makes");
 await expectRows("get_syllabus     -> certification", { resource: "certification" }, 1, (j) => {
   const r = j.rows[0];
   if (r.code !== "AISM-I") return `code is ${r.code}, expected AISM-I`;
-  for (const f of ["exam_duration_minutes", "num_questions", "passing_score_pct", "validity_days"]) {
-    if (typeof r[f] !== "number") return `${f} is not a number (${r[f]})`;
+  for (const f of NUMERIC_FIELDS.certification) {
+    if (asNumber(r[f]) === null) return `${f} is not numeric in any serialisation (${JSON.stringify(r[f])})`;
   }
   return null;
 });
 
 await expectRows("get_syllabus     -> task (en, all)", { resource: "task", language: "en", limit: 200 }, 1, (j) => {
   const domains = new Map();
-  for (const r of j.rows) if (!domains.has(r.domain_code)) domains.set(r.domain_code, Number(r.domain_weight_pct));
+  for (const r of j.rows) {
+    if (domains.has(r.domain_code)) continue;
+    const w = asNumber(r.domain_weight_pct);
+    if (w === null) return `domain_weight_pct is not numeric (${JSON.stringify(r.domain_weight_pct)})`;
+    domains.set(r.domain_code, w);
+  }
   const sum = [...domains.values()].reduce((a, b) => a + b, 0);
   if (domains.size < 2) return `only ${domains.size} domain(s); a blueprint with one domain is a filter that did not lift`;
   if (Math.abs(sum - 100) > 0.01) return `domain weights sum to ${sum}, expected 100`;
@@ -222,6 +286,16 @@ await expectRows("search_blueprint -> en", { resource: "search", query: "inciden
   if (!s.includes("task") || !s.includes("concept")) return `searched=${JSON.stringify(s)}, expected both task and concept in English`;
   return null;
 });
+
+// Which numeric columns arrive as strings, measured rather than assumed. The
+// one that failed first was passing_score_pct; weight_pct is numeric too and
+// nothing in C or D would have noticed it changing shape.
+{
+  const cert = await post({ resource: "certification" });
+  if (cert.status === 200) checkNumerics("certification", cert.json?.rows ?? [], NUMERIC_FIELDS.certification);
+  const task = await post({ resource: "task", language: "en", limit: 5 });
+  if (task.status === 200) checkNumerics("task", task.json?.rows ?? [], NUMERIC_FIELDS.task);
+}
 
 console.log("");
 console.log("B. THE TWO es-419 CALLS, where a thin result must be REPORTED not absorbed");

@@ -489,6 +489,34 @@ Product Owner". A human picks. Do not try it again.
 Node ESM under `scripts/`. Conventions differ between them, so read before
 running.
 
+**IF A HOST IS UNREACHABLE FROM NODE OR THE SUPABASE CLI, SUSPECT IPv6 BEFORE
+ANYTHING ELSE.** Found 2026-09-14, after a whole session of treating it as
+intermittent network trouble.
+
+Node 24's `fetch` (undici) and the Supabase CLI both fail against hosts whose
+DNS answers **AAAA first**, on a machine with no working IPv6 path. The failure
+is a `ConnectTimeoutError` after 10s — it reads as the remote being down, and
+`curl` to the same host succeeds, which makes it look like the host is fine and
+the script is broken.
+
+```
+node --dns-result-order=ipv4first scripts/<whatever>.mjs
+```
+
+**Nothing about any deployment changes.** It is purely local resolution order,
+and it does not affect edge functions, the Worker, or anything running outside
+this machine.
+
+The tell is the pair: **`curl` works and `node` times out against the same
+hostname.** Curl falls back across address families; undici, as configured by
+default in Node 24, does not.
+
+This cost a session's worth of misattribution. `mcp.supabase.com` was
+unreachable throughout and was recorded as "the MCP host is down", so several
+questions that wanted a `pg_catalog` answer were answered from the migration
+record instead and marked as inferences. The inferences were correct and the
+reason for them was wrong.
+
 **THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
 most dangerous thing about this directory.
 
