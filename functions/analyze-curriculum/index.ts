@@ -357,6 +357,8 @@ Deno.serve(async (req) => {
         confidence_band: f.confidenceBand ?? null,
         evidence_excerpt: f.evidenceExcerpt ?? null,
         evidence_locator: f.evidenceLocator ?? null,
+        evidence_match_start: f.evidenceMatchStart ?? null,
+        evidence_match_length: f.evidenceMatchLength ?? null,
         source_weight_pct: f.sourceWeightPct ?? null,
         blueprint_weight_pct: f.blueprintWeightPct ?? null,
         severity: f.severity ?? null,

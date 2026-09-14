@@ -167,6 +167,15 @@ export interface Finding {
   confidenceBand?: ConfidenceBand | null;
   evidenceExcerpt?: string | null;
   evidenceLocator?: string | null;
+  /**
+   * Where the match sits INSIDE evidenceExcerpt, so a renderer highlights it
+   * rather than searching for it -- a search picks the wrong occurrence when
+   * the phrase appears twice in one window, and for the probable and ambiguous
+   * bands there is no phrase in the excerpt to search for at all.
+   * Null together, and only where evidenceExcerpt is null. Migration 314.
+   */
+  evidenceMatchStart?: number | null;
+  evidenceMatchLength?: number | null;
   sourceWeightPct?: number | null;
   blueprintWeightPct?: number | null;
   severity?: Severity | null;

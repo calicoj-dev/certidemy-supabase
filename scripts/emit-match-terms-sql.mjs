@@ -98,6 +98,26 @@ for (const c of doc.concepts ?? []) {
       errors.push(`${c.slug}: "${term}" is ${term.length} chars. A sentence is not a term.`);
       continue;
     }
+    // ASCII, ENFORCED. The emitted migration has always PRINTED
+    // "-- ASCII-only. Editor-first." and never checked it. Candidates come from
+    // lesson headings, and five AISM-I block titles carry an em dash
+    // ("From IT Services to Digital Products - and Now to AI"), so a reviewer
+    // copying a good term into approved_terms carries U+2014 into the SQL
+    // editor, which corrupts multibyte characters on paste (CERT-SCHEMA-GUIDE
+    // section 8). The failure lands in a match term, where a mangled character
+    // means the term silently never matches again -- silent success, the
+    // recurring failure mode of this repo. Offenders are reported as code
+    // points, because the whole problem is characters that look fine.
+    const bad = [...term].filter((ch) => ch.codePointAt(0) > 0x7f);
+    if (bad.length) {
+      const seenCp = [...new Set(bad.map((ch) => ch.codePointAt(0)))];
+      errors.push(
+        `${c.slug}: "${term}" has ${bad.length} non-ASCII character(s) ` +
+          `[${seenCp.map((n) => "U+" + n.toString(16).toUpperCase().padStart(4, "0")).join(" ")}]. ` +
+          `The SQL editor corrupts these on paste. Retype as ASCII.`,
+      );
+      continue;
+    }
 
     const owners = termOwners.get(norm) ?? [];
     owners.push(c.slug);

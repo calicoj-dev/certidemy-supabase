@@ -14,9 +14,19 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 313. Next free number: 314.** 303-308 have RUN; **309 is written
-and has NOT run** (retiring SM-AI-II's two two-option items). Sequential,
-zero-padded to three digits, `NNN_snake_case_name.sql`.
+**Migration tip: 314. Next free number: 315.** 303-311 and 313 have RUN; **314 is
+written and has NOT run** (evidence match span on `analysis_findings`). **There is
+no 312** - the number was claimed and its premise rejected before anything was
+written, so the sequence skips it on purpose. Sequential, zero-padded to three
+digits, `NNN_snake_case_name.sql`.
+
+**ON 2026-09-13 THE NUMBER WAS RIGHT AND THE STATUS WAS STALE**, which is a
+variant this paragraph had not recorded. The line read *"313 / next free 314"* --
+correct -- while the same sentence still said *"309 is written and has NOT run"*
+after 309, 310, 311 and 313 had all run. Every warning below is about the NUMBER
+going stale, so a reader checking `ls migrations/` confirms the number and comes
+away reassured about a sentence the check never touched. **`ls` proves what
+exists on disk. It proves nothing about what has been applied.**
 
 **AND IT WENT STALE AGAIN ON 2026-09-12, FIVE BEHIND, IN THE SESSION THAT HAD
 JUST REWRITTEN IT.** The line read *"304 / next free 305"* while 305, 306, 307
@@ -631,6 +641,40 @@ The individual scripts:
   the PDFs are absent). **It checks EXISTENCE, NEVER MEANING** — "clause 6.7
   exists in ISO 19011:2026" is mechanical, "clause 6.7 says what this item
   claims" is not, and a clean run is no evidence at all about the second.
+
+- `propose-match-terms.mjs` / `emit-match-terms-sql.mjs` — the `concepts.match_terms`
+  pipeline. **`match_terms` is deliberately EMPTY on all 1,730 concepts, platform-wide.
+  That is a decision with an argument, not an unfinished task — read
+  `MATCH-TERMS-DECISION.md` before filling it.** Short version: the proposer can only
+  offer terms sharing a token with the concept name, so the useful synonyms (`SVS`,
+  `CAB`, `XLA`) are structurally unreachable, and our prose does not ground them —
+  AISM-I's 61 lesson bodies define exactly one acronym. A curated list IS groundable
+  if each term carries its authority the way `drift_rules.authority_citation_id` does;
+  the blocker is licence (ITIL, and the still-unverified Scrum Guide) and ~1,730
+  human judgements, **not principle**.
+
+  **Both guards on this pipeline measure a term's LENGTH when the risk is its
+  DOCUMENT FREQUENCY.** `service` is in 34 of AISM-I's 226 concept names; a
+  two-token phrase built on it passes every check and inflates a partner's coverage
+  invisibly — the one failure in this engine that makes the number look BETTER.
+
+- `analyze-local.mjs` — **DEAD SINCE 2026-09-01, AND THAT IS THE ENTRY.** It reads
+  `scripts/calibration-manifest.json`, deleted in `3110eec` by a vendor-reference
+  scrub that said so plainly (*"Deleted with no preservation"*). The deletion was
+  deliberate; **the consequence was not weighed and went unnoticed for twelve days
+  and 160 commits** — found 2026-09-13 during unrelated work. **So the curriculum
+  analyzer has had no local test path across a period in which its engine was
+  edited.** The manifest was the regression baseline: `hand_*` human judgements
+  kept separate from `expect_*` engine values, plus a `sha256_16` per fixture so a
+  pdf-parse upgrade could not present as an engine regression.
+
+  **Restoring it is not "put the file back."** The manifest is keyed by filename
+  and the filenames are competitor names — the baseline and the vendor-scrub
+  policy genuinely conflict. The three resolutions and their costs are in the
+  script's header. **Refuse the tempting one**: re-deriving the baseline from the
+  current engine launders today's behaviour into "expected", including anything
+  that regressed while nobody could run it. A baseline that records the present
+  can never fail.
 
 ---
 

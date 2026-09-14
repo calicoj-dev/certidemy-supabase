@@ -1,5 +1,57 @@
 // scripts/analyze-local.mjs
 //
+// =================== THIS SCRIPT HAS NOT RUN SINCE 2026-09-01 ===================
+//
+// It reads scripts/calibration-manifest.json, and that file was deleted in
+// commit 3110eec on 2026-09-01. Every invocation since has died on ENOENT
+// before reading a single fixture. Noticed 2026-09-13: twelve days and 160
+// commits later, during unrelated work on the excerpt code.
+//
+// SO THE ANALYZER HAS HAD NO LOCAL TEST PATH FOR THAT WHOLE PERIOD, and the
+// engine was edited during it. That is the finding, not the missing file.
+//
+// THE DELETION WAS DELIBERATE AND THE CONSEQUENCE WAS NOT. 3110eec was a
+// vendor-reference scrub; its message says plainly "Deleted with no
+// preservation: scripts/calibration-manifest.json". The reason is visible in
+// the fixture names the manifest indexes -- agileplaza-scrumstudy,
+// aulautil-certiprof, bcs-exin -- which are competitors, named in a committed
+// file. Nothing in that commit weighed what the file was FOR.
+//
+// WHAT WAS LOST. By its own readme it was "our regression baseline and the most
+// valuable artifact in the exercise", holding two deliberately separate kinds
+// of expectation per fixture:
+//
+//   hand_*    what a human judged by reading the document. An anchor, NOT an
+//             oracle -- the tuv-sud hand score is recorded there as the one
+//             that turned out to be wrong.
+//   expect_*  the engine baseline, asserted every run. A change is a REGRESSION
+//             unless a code change deliberately caused it.
+//
+// plus sha256_16 per fixture, guarding against a silent re-extraction: a
+// pdf-parse upgrade that changed the text would otherwise present as an engine
+// regression.
+//
+// RESTORING IT IS NOT "PUT THE FILE BACK", WHICH IS WHY THIS IS A NOTE AND NOT
+// A FIX. The baseline and the vendor-scrub policy genuinely conflict: the
+// manifest is keyed by filename, and the filenames are the vendor names. The
+// conflict is real and has at least three resolutions, none free:
+//
+//   - Key by sha256_16 instead of filename. The manifest stops naming anyone;
+//     the fixtures stay gitignored as they already are. Costs the readability
+//     of knowing which row is which document without resolving a hash.
+//   - Keep the file gitignored beside the fixtures. Preserves everything and
+//     loses the property that made it valuable: it was committed, so a
+//     regression was visible in review rather than on one machine.
+//   - Re-derive the baseline from the current engine. Cheap, and it launders
+//     today's behaviour into "expected" -- including whatever regressed during
+//     the twelve days nobody could run this.
+//
+// The third is the tempting one and it is the one to refuse without a
+// deliberate decision: a baseline that records the present can never fail.
+//
+// Until then this script is dead, and it should be understood as dead rather
+// than as a test that happens to be passing.
+//
 // Local calibration harness. Runs the pure engine against text fixtures on disk
 // and prints a report per document.
 //
@@ -112,7 +164,19 @@ const BLUEPRINT = bpPath
 //
 // Language is now DECLARED, never guessed.
 
-const manifest = JSON.parse(readFileSync(join(HERE, "calibration-manifest.json"), "utf8"));
+const MANIFEST = join(HERE, "calibration-manifest.json");
+if (!existsSync(MANIFEST)) {
+  // Was an ENOENT stack trace, which reads as a path bug in whatever you were
+  // doing. It is not: this harness has been dead since 3110eec. See the header.
+  console.error("calibration-manifest.json is missing, so this harness cannot run.");
+  console.error("It was deleted in 3110eec (2026-09-01) by a vendor-reference scrub.");
+  console.error("The analyzer has had no local test path since. Read the header of");
+  console.error("this file before rebuilding it -- restoring the baseline and the");
+  console.error("vendor-scrub policy genuinely conflict, and re-deriving it from the");
+  console.error("current engine would launder today's behaviour into 'expected'.");
+  process.exit(2);
+}
+const manifest = JSON.parse(readFileSync(MANIFEST, "utf8"));
 const byFile = new Map(manifest.fixtures.map((f) => [f.file, f]));
 
 // ---------------------------------------------------------------------- run

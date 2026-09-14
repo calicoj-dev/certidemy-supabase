@@ -68,6 +68,12 @@ export interface ConceptMatch {
   confidence: number;
   evidence: string | null;
   evidenceIndex: number | null;
+  /**
+   * Where the match sits INSIDE `evidence`, so a renderer can highlight it
+   * without searching for it. Null whenever `evidence` is null.
+   */
+  evidenceMatchStart: number | null;
+  evidenceMatchLength: number | null;
 }
 
 export interface ConceptMatcher {
@@ -90,15 +96,82 @@ export interface ConceptMatcher {
 
 const EXCERPT_MAX = 300;
 
-function excerpt(text: string, index: number, len: number): string {
-  const pad = Math.max(0, Math.floor((EXCERPT_MAX - len) / 2));
-  let start = Math.max(0, index - pad);
-  let end = Math.min(text.length, index + len + pad);
+/**
+ * How much of the excerpt sits BEFORE the match.
+ *
+ * This was 0.5 -- the match was centred -- and centring is what made the
+ * evidence unreadable. Measured against a partner ITIL syllabus on 2026-09-13,
+ * all fifteen strong matches landed between 47% and 51% of their excerpt, so
+ * every one of them OPENED with ~145 characters of whatever preceded the match,
+ * usually the tail of the previous section. "Service Desk" presented as
+ * "**Duration:** 5 days (35 contact hours)..." and a reader stopped there.
+ *
+ * The excerpt was never wrong -- the matched phrase was present in all fifteen
+ * -- it was buried. For a partner-facing tool the difference does not matter:
+ * evidence nobody can locate is evidence nobody can check.
+ */
+const EXCERPT_LEAD_SHARE = 0.3;
+
+interface Excerpt {
+  /** The excerpt as shown, whitespace collapsed. */
+  text: string;
+  /** Offset of the matched span WITHIN `text`, in the same collapsed space. */
+  matchStart: number;
+  /** Length of the matched span within `text`. */
+  matchLength: number;
+}
+
+/**
+ * A window of `text` around a match, plus WHERE THE MATCH IS INSIDE IT.
+ *
+ * The offsets are returned rather than left for a renderer to re-derive.
+ * Re-deriving means searching the excerpt for the phrase, which silently picks
+ * the wrong occurrence whenever the phrase appears twice in one window -- a
+ * highlight pointing at the wrong words is worse than no highlight, because it
+ * asserts something specific and false about a partner's own document.
+ */
+function excerpt(text: string, index: number, len: number): Excerpt {
+  const lead = Math.max(0, Math.floor((EXCERPT_MAX - len) * EXCERPT_LEAD_SHARE));
+  let start = Math.max(0, index - lead);
+  let end = Math.min(text.length, start + EXCERPT_MAX);
+  // Do not begin or end mid-word.
   while (start > 0 && /\S/.test(text[start - 1])) start--;
   while (end < text.length && /\S/.test(text[end])) end++;
-  let out = text.slice(start, end).replace(/\s+/g, " ").trim();
+
+  const slice = text.slice(start, end);
+  const collapsed = slice.replace(/\s+/g, " ");
+  // A match begins on a word character, so the whitespace run before it lies
+  // wholly inside the prefix. Collapsing the prefix alone therefore gives the
+  // same length it has inside `collapsed`.
+  const prefix = slice.slice(0, index - start).replace(/\s+/g, " ");
+  const trimmedFromStart = collapsed.length - collapsed.trimStart().length;
+
+  let out = collapsed.trim();
+  let matchStart = Math.max(0, prefix.length - trimmedFromStart);
+  let matchLength = text.slice(index, index + len).replace(/\s+/g, " ").length;
+
   if (out.length > EXCERPT_MAX) out = out.slice(0, EXCERPT_MAX - 1).trimEnd();
-  return out;
+  // Never report a span that runs past the text actually returned.
+  if (matchStart > out.length) { matchStart = 0; matchLength = 0; }
+  else if (matchStart + matchLength > out.length) matchLength = out.length - matchStart;
+
+  return { text: out, matchStart, matchLength };
+}
+
+/**
+ * Length of the word token beginning exactly at `index`.
+ *
+ * The probable and ambiguous bands anchor on a single TOKEN, not on the whole
+ * surface phrase -- that is what those bands mean. Passing the phrase length as
+ * the match span (or, in the ambiguous case, a hardcoded 20) described a span
+ * that does not exist in the document and would highlight unrelated words
+ * either side of the anchor.
+ */
+function tokenLengthAt(lower: string, index: number): number {
+  const re = /[\p{L}\p{N}]+/uy;
+  re.lastIndex = index;
+  const m = re.exec(lower);
+  return m ? m[0].length : 1;
 }
 
 /**
@@ -202,14 +275,52 @@ export class LexicalMatcher implements ConceptMatcher {
   ): ConceptMatch {
       const phrase = surface.toLowerCase();
 
+      // ============ WHICH OCCURRENCE TO CITE IS AN OPEN DESIGN QUESTION ============
+      //
+      // indexOf takes the FIRST occurrence in the document. That is defensible
+      // and it is not obviously right, so the argument is recorded here rather
+      // than rediscovered.
+      //
+      // Measured against a partner ITIL syllabus on 2026-09-13: "Service Desk"
+      // cites the introductory blurb -- "A programme for service desk leads" --
+      // when the substantive treatment is a module heading further down, "The
+      // service desk as the point of empathy, not merely of logging". Both are
+      // genuine occurrences. The first is the weaker evidence.
+      //
+      // WHY FIRST-MATCH STAYS UNTIL SOMEONE PICKS A RULE. It is the only choice
+      // that needs no judgement about the partner's document. Every alternative
+      // encodes an opinion about what "best" means, and picking wrong is worse
+      // than picking early, because the citation is what a partner checks:
+      //
+      //   - PREFER A HEADING. Assumes the partner's headings are topical. Many
+      //     syllabi head by day or module number, where the heading is the
+      //     least informative line on the page.
+      //   - PREFER THE DENSEST WINDOW. Ranks by how many of the concept's other
+      //     tokens sit nearby. Plausible, and it biases toward summary sections
+      //     that list many concepts shallowly over the section that teaches one
+      //     properly.
+      //   - PREFER THE LAST. Syllabi often open with marketing and close with
+      //     substance. Also often the reverse.
+      //
+      // NOTE WHAT DOES NOT CHANGE. Whichever occurrence is cited, the BAND is
+      // identical -- presence is presence, and coverage is computed from the
+      // band. So this decides evidence quality, never the coverage number. It
+      // cannot inflate a partner's score, which is why it is a design question
+      // and not a defect.
+      //
+      // If the rule is ever picked, it belongs here and the excerpt machinery
+      // below needs no change: it already takes an arbitrary index.
       const idx = lower.indexOf(phrase);
       if (idx !== -1) {
+        const ex = excerpt(text, idx, phrase.length);
         return {
           concept,
           band: "strong" as ConfidenceBand,
           confidence: 1,
-          evidence: excerpt(text, idx, phrase.length),
+          evidence: ex.text,
           evidenceIndex: idx,
+          evidenceMatchStart: ex.matchStart,
+          evidenceMatchLength: ex.matchLength,
         };
       }
 
@@ -221,7 +332,10 @@ export class LexicalMatcher implements ConceptMatcher {
           ? conceptTokens[ci]
           : [...new Set(tokenize(surface, lang).map(stem))];
       if (toks.length === 0) {
-        return { concept, band: "absent", confidence: 0, evidence: null, evidenceIndex: null };
+        return {
+          concept, band: "absent", confidence: 0, evidence: null,
+          evidenceIndex: null, evidenceMatchStart: null, evidenceMatchLength: null,
+        };
       }
 
       const totalWeight = toks.reduce((s, t) => s + idf(t), 0);
@@ -235,7 +349,10 @@ export class LexicalMatcher implements ConceptMatcher {
       if (ratio < LexicalMatcher.PRESENCE_FLOOR) {
         // A distinguishing token is missing. The document may use the shared
         // vocabulary heavily, but it is not evidence of THIS concept.
-        return { concept, band: "absent", confidence: ratio, evidence: null, evidenceIndex: null };
+        return {
+          concept, band: "absent", confidence: ratio, evidence: null,
+          evidenceIndex: null, evidenceMatchStart: null, evidenceMatchLength: null,
+        };
       }
 
       const anchors = positions.find((p) => p.length > 0) ?? [];
@@ -246,23 +363,31 @@ export class LexicalMatcher implements ConceptMatcher {
             p.some((q) => Math.abs(q - a) <= LexicalMatcher.WINDOW),
         );
         if (inWindow) {
+          // The anchor is a single TOKEN; the phrase as a whole is not present
+          // at `a`, which is what distinguishes this band from strong.
+          const ex = excerpt(text, a, tokenLengthAt(lower, a));
           return {
             concept,
             band: "probable",
             confidence: 0.6 + 0.35 * ratio,
-            evidence: excerpt(text, a, phrase.length),
+            evidence: ex.text,
             evidenceIndex: a,
+            evidenceMatchStart: ex.matchStart,
+            evidenceMatchLength: ex.matchLength,
           };
         }
       }
 
       const first = positions.flat().sort((x, y) => x - y)[0] ?? null;
+      const ex = first === null ? null : excerpt(text, first, tokenLengthAt(lower, first));
       return {
         concept,
         band: "ambiguous",
         confidence: 0.5 * ratio,
-        evidence: first === null ? null : excerpt(text, first, 20),
+        evidence: ex === null ? null : ex.text,
         evidenceIndex: first,
+        evidenceMatchStart: ex === null ? null : ex.matchStart,
+        evidenceMatchLength: ex === null ? null : ex.matchLength,
       };
   }
 }
@@ -404,6 +529,8 @@ export function matchConcepts(
       confidenceBand: m.band,
       evidenceExcerpt: m.evidence,
       evidenceLocator: m.evidenceIndex === null ? null : `char ${m.evidenceIndex}`,
+      evidenceMatchStart: m.evidenceMatchStart,
+      evidenceMatchLength: m.evidenceMatchLength,
       severity: "low",
       visibility: "both",
       // The ambiguous band exists because it needs a person. The CHECK in

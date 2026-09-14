@@ -98,13 +98,36 @@ const toks = (s) =>
   s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 2 && !STOP.has(t));
 const stem = (t) => t.replace(/(ings|ing|ies|es|s)$/u, "");
 
-/** Headings and bold spans: the plain-language topic labels in a lesson. */
+/**
+ * The plain-language topic labels in a lesson. TWO FORMATS, AND THE SECOND ONE
+ * IS THE ONE THE PLATFORM ACTUALLY USES.
+ *
+ * This read markdown H2-H4 only, and on 2026-09-13 a run against AISM-I
+ * returned candidates for ZERO of 226 concepts. The cause was not the corpus:
+ * AISM-I lessons have no markdown headings at ALL. They are authored as YAML
+ * frontmatter plus directive blocks -- `::hook`, `::concept title="..."`,
+ * `::checkpoint` -- and `::concept title` is the exact structural analogue of
+ * the H3 this function was written for.
+ *
+ * A census of all 479 English lessons then showed it is not an AISM-I quirk.
+ * EVERY certification is in the directive format; H2-H4 headings survive in
+ * five lessons across three certifications, 14 headings in total, against
+ * 1,565 `::concept` titles. So this extractor has been reading ~1% of the
+ * available labels platform-wide since it was written.
+ *
+ * That also re-reads the D3 history in the comment this replaces. Bold spans
+ * were enabled, found to be "roughly 97% noise", and disabled. Headings alone
+ * gave SM-AI-I four labels in one lesson, so bold spans were not an
+ * enrichment -- they were compensation for an extractor pointed at a format
+ * the corpus had already left. The noise was real; the diagnosis was not.
+ */
 function labelsFrom(md) {
   const out = [];
-  // HEADINGS ONLY. Bold spans mark emphasis mid-sentence in these lessons, not
-  // topic labels, and including them produced candidates like "2020 Scrum Guide
-  // removed that as a requirement." -- roughly 97% noise in the D3 run.
+  // Markdown headings: the original format, still present in five lessons.
   for (const m of md.matchAll(/^#{2,4}\s+(.+?)\s*$/gm)) out.push(m[1]);
+  // Directive blocks: the current format, every certification.
+  for (const m of md.matchAll(/^::concept.*?title="([^"]+)"/gm)) out.push(m[1]);
+  // Bold spans stay OFF. They mark emphasis mid-sentence, not topic labels.
   return out
     .map((s) => s.replace(/[`*_[\]()#]/g, "").replace(/\s+/g, " ").trim())
     .filter((s) => s.length >= 6 && s.length <= 70)
@@ -132,6 +155,12 @@ for (const lc of lessonConcepts) {
 const rows = [];
 let noLessons = 0;
 
+// PARSE-FAILURE INSTRUMENTATION. See the abort below: these separate "this
+// concept has no candidate" from "this script cannot read this format".
+const lessonsRead = new Set();
+const lessonsWithNoLabel = new Set();
+let labelsSeen = 0;
+
 for (const c of concepts) {
   const tids = conceptTasks.get(c.id) ?? [];
   const ts = tids.map((id) => taskById.get(id)).filter(Boolean);
@@ -144,7 +173,18 @@ for (const c of concepts) {
   for (const lid of conceptLessons.get(c.id) ?? []) {
     const lesson = lessonById.get(lid);
     if (!lesson?.content_md) continue;
-    for (const label of labelsFrom(lesson.content_md)) {
+    // COUNT PER DISTINCT LESSON, NOT PER CONCEPT VISIT. A lesson is re-read
+    // once for every concept it teaches, so accumulating here reported AISM-I
+    // as 546 labels from 61 lessons when the true figure is 144 -- the join
+    // fan-out, inflating a diagnostic that exists to be believed.
+    const firstVisit = !lessonsRead.has(lid);
+    lessonsRead.add(lid);
+    const labels = labelsFrom(lesson.content_md);
+    if (firstVisit) {
+      if (labels.length === 0) lessonsWithNoLabel.add(lid);
+      labelsSeen += labels.length;
+    }
+    for (const label of labels) {
       const lt = new Set(toks(label).map(stem));
       if (lt.size === 0) continue;
       let shared = 0;
@@ -182,6 +222,59 @@ for (const c of concepts) {
   });
 }
 
+// =================== ABORT ON A PARSE FAILURE, NOT A WRITE ===================
+//
+// "no candidates" has TWO causes and they need opposite responses:
+//
+//   (a) this concept's lessons carry no label overlapping its name. Normal.
+//       The concept matches on its name alone, which the readme calls a fine
+//       outcome, and it is.
+//   (b) THIS SCRIPT CANNOT READ THIS CERTIFICATION'S LESSON FORMAT. Every
+//       concept reports (a), the summary line reads "no candidates 226", and
+//       nothing anywhere says the extractor never found a single label.
+//
+// (b) happened on AISM-I on 2026-09-13 and printed as a clean run. It is the
+// silent-success shape this repo keeps paying for: the operation completes,
+// returns something plausible, and the emptiness is indistinguishable from a
+// real answer. A reviewer would have concluded AISM-I's lessons teach nothing
+// nameable, which is false -- there are 144 topic labels in those 61 lessons.
+//
+// So the property is asserted on the LESSONS, not on the candidates: a lesson
+// that was successfully read and yielded no label at all is evidence about the
+// PARSER. Nothing is written when that evidence is strong.
+const readCount = lessonsRead.size;
+const blankCount = lessonsWithNoLabel.size;
+const blankNames = [...lessonsWithNoLabel].map((id) => lessonById.get(id)?.slug ?? id);
+
+const say = (...a) => console.error(...a);
+
+if (readCount > 0 && labelsSeen === 0) {
+  say(`PARSE FAILURE -- nothing written.`);
+  say(``);
+  say(`Read ${readCount} lesson(s) for ${certCode} and extracted ZERO labels from`);
+  say(`all of them. That is not a corpus with no topic labels; it is an extractor`);
+  say(`that does not recognise this certification's lesson format.`);
+  say(``);
+  say(`labelsFrom() understands markdown H2-H4 and ::concept title="...".`);
+  say(`Check what these lessons actually use:`);
+  for (const n of blankNames.slice(0, 3)) say(`  ${n}`);
+  say(``);
+  say(`Teach labelsFrom() that format before trusting any output from this run.`);
+  process.exit(1);
+}
+
+if (readCount > 0 && blankCount * 2 > readCount) {
+  say(`PARSE FAILURE -- nothing written.`);
+  say(``);
+  say(`${blankCount} of ${readCount} lesson(s) read for ${certCode} yielded no label.`);
+  say(`A majority of a certification's lessons having no topic label at all means`);
+  say(`the extractor is reading a format it only partly understands -- the`);
+  say(`remaining ${readCount - blankCount} may be the exception, not the rule.`);
+  say(``);
+  for (const n of blankNames.slice(0, 6)) say(`  ${n}`);
+  process.exit(1);
+}
+
 const doc = {
   _readme: [
     "REVIEW FILE. Nothing here is applied until you emit and run the migration.",
@@ -215,6 +308,18 @@ console.log(`wrote ${rows.length} concepts -> ${outPath}`);
 console.log(`  core scope        ${core}`);
 console.log(`  have candidates   ${withCands}`);
 console.log(`  no candidates     ${rows.length - withCands}  (will match on name alone)`);
+console.log(`  lessons read      ${readCount}, ${labelsSeen} labels extracted`);
+
+// The minority case. Not fatal -- a short lesson can legitimately carry no
+// topic label -- but it is the same evidence as the abort above, weaker, and
+// it is how a PARTIALLY unrecognised format would present.
+if (blankCount > 0) {
+  console.log(``);
+  console.log(`  NOTE: ${blankCount} of ${readCount} lesson(s) read yielded no label at all.`);
+  console.log(`  A label-free lesson is possible; a cluster of them means labelsFrom()`);
+  console.log(`  is missing a format this certification uses. Spot-check one:`);
+  for (const n of blankNames.slice(0, 3)) console.log(`    ${n}`);
+}
 if (noLessons > 0) {
   console.log(`\n  WARNING: ${noLessons} concept(s) have no lesson teaching them.`);
   console.log(`  No lesson means no grounded source for a term -- and it may also`);

@@ -33,10 +33,23 @@ const PAGE = 1000;
 /**
  * SUPABASE_SERVICE_ROLE_KEY from the environment, or from a .env beside the
  * supabase folder. It is a secret: never commit it, never print it.
+ *
+ * THE SCRIPT DIRECTORY ITSELF IS FIRST, AND ITS ABSENCE WAS A REAL BUG.
+ * This looked only one and two levels ABOVE scripts/, while the sibling loaders
+ * in audit-quotations.mjs and audit-quotations-unmarked.mjs check `scripts/.env`
+ * AND the parent. The key on this machine lives in `scripts/.env`, so every
+ * _pg.mjs-based script exited 1 with "key not found" on a fresh shell while the
+ * scripts beside it worked -- which reads as a credential problem rather than a
+ * path problem, and sends the reader to Project Settings instead of to this
+ * function. Same list as the siblings now, most specific first.
  */
 export function loadKey(scriptDir) {
   if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-  for (const c of [join(scriptDir, "..", ".env"), join(scriptDir, "..", "..", ".env")]) {
+  for (const c of [
+    join(scriptDir, ".env"),
+    join(scriptDir, "..", ".env"),
+    join(scriptDir, "..", "..", ".env"),
+  ]) {
     if (!existsSync(c)) continue;
     const m = readFileSync(c, "utf8").match(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\n\r]+)"?/m);
     if (m) return m[1].trim();
