@@ -30,6 +30,34 @@ Verified after 315 ran, both directions: reader `false` and holder `true` on
 `config.toml` exposes `mcp` to PostgREST. **Exposure is not access** - the views
 became addressable, not readable, and the grants still decide.
 
+### service_role cannot reach schema mcp either, and that is deliberate
+
+**Stated because a document that understates a boundary is how someone later
+"fixes" it by granting something.**
+
+315 and 316 are the only migrations that touch schema `mcp`, and **neither grants
+`service_role` anything.** 315 creates the schema and grants USAGE to
+`mcp_reader` and `mcp_holder`; 316 adds `authenticator` and revokes `anon` and
+`authenticated` by name. `service_role` appears in 316 exactly once, in a comment.
+`service_role` is not a superuser on Supabase and USAGE is not something
+`BYPASSRLS` sets aside, so on the record it has no path to these views.
+
+**That is an inference from the migration record, not a runtime measurement** -
+the two are usually the same here and the distinction is the point of saying so.
+Confirm it alongside the other post-conditions:
+
+```sql
+select has_schema_privilege('service_role', 'mcp', 'USAGE') as usage,          -- expect f
+       has_table_privilege('service_role', 'mcp.lesson', 'SELECT') as lesson,  -- expect f
+       has_table_privilege('service_role', 'mcp.task', 'SELECT')   as task;    -- expect f
+```
+
+**This is a feature and not an oversight.** It means an edge function holding
+`service_role` cannot read the courseware views at all, so there is no quiet path
+back to the thing section 2 forbids: `courseware-read` must connect as
+`mcp_reader` because nothing else works. The boundary is enforced against the
+credential most likely to be reached for by someone in a hurry.
+
 ---
 
 ## 2. The credential question, and the reversal
@@ -89,13 +117,18 @@ measurement removed the simple path, and once both options cost real mechanism,
 the smaller residual wins on its own merits. Nothing about the original
 reasoning was wrong; its premise was.
 
-**Decision, pending one dashboard fact:**
+**Decided, and the dashboard settled it.** ECC P-256 is the CURRENT key
+(kid 88AAF3F3-...); the legacy HS256 shared secret is the PREVIOUS key - it
+verifies unexpired tokens and does not sign, and the page advises revoking it
+once they expire. A token minted with it would not be accepted, so option three
+was not merely worse, it was **dead**: building on it means building on something
+scheduled for deletion.
 
-- **Legacy secret still copyable** (Settings -> API Keys -> JWT Keys): either
-  works. Prefer `LOGIN` anyway, on the residual.
-- **Legacy secret revoked**: `LOGIN` is the only option that preserves the
-  boundary. 315 stands as written; only `alter role mcp_reader login` is added,
-  **and the password never enters a migration file.**
+**Migration 316 took the LOGIN path.** `alter role mcp_reader login`, with the
+password set separately as a pre-hashed SCRAM verifier
+(`scripts/scram-verifier.mjs`) so the plaintext never reaches the SQL editor,
+whose history is not a secret store. `mcp_holder` stays NOLOGIN until the holder
+path exists. **The password never entered a migration file.**
 
 ### What must never happen
 
@@ -127,9 +160,28 @@ repeat a mistake already made four times.
 name. A second dispatch on the same key inside the edge function puts one
 decision in two repositories.
 
-So the function takes a **resource** - concept, task, syllabus, search - with
-filters. The four tool contracts stay in the Worker beside `verify_credential`'s,
-and each tool's validator produces a resource request directly.
+So the function takes a **resource**. As built, those are
+**`certification`, `task`, `concept`, `search`** - matching
+`functions/courseware-read`, which is the authority on this vocabulary.
+
+**THIS PARAGRAPH SAID "concept, task, syllabus, search" AND THAT WAS THE BUG.**
+`syllabus` is a TOOL, not a resource: `get_syllabus` composes the
+`certification` and `task` resources in the Worker. The first registry sent the
+tool vocabulary over the wire - `syllabus`, `code`, `domain`, plus a
+`certification` field the function does not accept - and **all four tools would
+have 400'd on every call**, surfacing to an agent as "the curriculum service
+could not be reached" because the Worker maps a non-ok response to
+UPSTREAM_UNREACHABLE. A contract mismatch wearing a network fault.
+
+Caught by reading the two vocabularies side by side before deploying, not by
+either half's tests - neither half can see the other. **Two halves in two
+repositories with no shared module is the mirrored-pair failure CLAUDE.md
+reserves that discipline for**, and the translation seam now lives in
+`lib/mcp/registry.ts` so there is exactly one place that changes if the function
+vocabulary moves again.
+
+The four tool contracts stay in the Worker beside `verify_credential`'s, and each
+tool's validator produces a validated tool INTENT which the registry translates.
 
 What this buys: a fifth tool needs no new function, no new deploy, and no new
 `verify_jwt` pin. `mcp.lesson` stays unreachable by construction, because the
