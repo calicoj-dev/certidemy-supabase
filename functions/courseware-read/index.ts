@@ -173,17 +173,38 @@ function assertIdentity(): Promise<void> {
           who: string;
           session_who: string;
           reader_can_read_lessons: boolean;
-          reader_can_insert_log: boolean;
+          writable_relations: number;
         }>({
           text:
             "select current_user::text as who, " +
             "session_user::text as session_who, " +
             "has_table_privilege(current_user, 'mcp.lesson', 'SELECT') as reader_can_read_lessons, " +
-            // mcp_reader holds EXECUTE on mcp.log_request and INSERT on nothing.
-            // Asserted rather than documented: the whole argument for a definer
-            // function over a write grant is that this stays false, so it is
-            // checked at runtime where a migration cannot reach.
-            "has_table_privilege(current_user, 'public.mcp_requests', 'INSERT') as reader_can_insert_log",
+            // BY OID, NOT BY NAME, AND THE DIFFERENCE IS WHY THIS BROKE ONCE.
+            //
+            // This read `has_table_privilege(current_user, 'public.mcp_requests',
+            // 'INSERT')` and every valid request 500'd. Resolving a
+            // SCHEMA-QUALIFIED NAME requires USAGE on that schema before any
+            // privilege is reported -- LookupExplicitNamespace checks ACL_USAGE
+            // and raises 42501 -- and mcp_reader has no USAGE on public, by
+            // design. So the assertion could not even ask its question, and the
+            // function refused to serve on a property that was in fact true.
+            //
+            // The `mcp.lesson` check above survives because mcp_reader DOES have
+            // USAGE on mcp. Same function, same shape, two schemas: the one
+            // without usage is the one that failed.
+            //
+            // The OID form performs no name resolution, so it is answerable by a
+            // role that cannot see the schema. pg_catalog is world-readable, so
+            // the scan itself needs nothing.
+            //
+            // AND IT ASSERTS MORE THAN IT DID BEFORE. The old check said "cannot
+            // insert into the log table"; this says "CANNOT INSERT ANYWHERE",
+            // which is the property actually claimed for this role -- EXECUTE on
+            // one definer function and write access to nothing. 384 relations,
+            // once per cold start.
+            "(select count(*) from pg_class c " +
+            " where c.relkind in ('r','p','v','m','f') " +
+            "   and has_table_privilege(current_user, c.oid, 'INSERT'))::int as writable_relations",
           args: [],
         });
         const row = r.rows[0];
@@ -198,10 +219,10 @@ function assertIdentity(): Promise<void> {
             "this connection can select mcp.lesson; courseware-read is the reader path and must not -- refusing to serve",
           );
         }
-        if (row.reader_can_insert_log) {
+        if (Number(row.writable_relations) !== 0) {
           throw new Error(
-            "this connection can INSERT into public.mcp_requests directly; it must reach the log only " +
-              "through mcp.log_request, whose owner bounds what a defect can write -- refusing to serve",
+            `this connection can INSERT into ${row.writable_relations} relation(s); mcp_reader must reach ` +
+              "the log only through mcp.log_request, whose owner bounds what a defect can write -- refusing to serve",
           );
         }
         // ONCE PER COLD START, AND ONLY AFTER THE ASSERTIONS PASS. The port
@@ -213,6 +234,7 @@ function assertIdentity(): Promise<void> {
           fn: "courseware-read",
           event: "connected",
           shape: CONN_SHAPE,
+          writable_relations: 0,
           host: DB_HOST,
           port: DB_PORT,
           port_explicit: PORT_WAS_SET,
