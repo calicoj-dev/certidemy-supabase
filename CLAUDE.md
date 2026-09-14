@@ -487,36 +487,64 @@ The individual scripts:
   be read. SD-AI-I reported 42 pass / 6 warn from `scripts/` and 56 pass /
   5 warn from the root, and neither run said which had checked less.
 
-  As of **2026-09-12**, `--all` reports 53–57 checks per certification (the
-  count varies; some skip) and ends with `4 cert(s) with FAILURES`:
+  As of **2026-09-13**, `--all` reports 55-58 checks per certification (the count
+  varies; some skip) and ends with `3 cert(s) with FAILURES`:
 
   ```
   FAIL  AIE-I      51 pass, 2 fail, 3 warn
-  WARN  AIGRM-I    54 pass, 0 fail, 2 warn
+  WARN  AIGRM-I    55 pass, 0 fail, 2 warn
   WARN  AIHR-I     54 pass, 0 fail, 1 warn
-  WARN  AIMS-F     53 pass, 0 fail, 2 warn
-  FAIL  AIMS-IA    49 pass, 1 fail, 4 warn
+  WARN  AIMS-F     55 pass, 0 fail, 2 warn
+  WARN  AIMS-IA    51 pass, 0 fail, 4 warn
   WARN  AISM-I     55 pass, 0 fail, 1 warn
-  WARN  ISMS-F     53 pass, 0 fail, 1 warn
-  WARN  ISMS-IA    53 pass, 0 fail, 2 warn
-  WARN  SD-AI-I    56 pass, 0 fail, 5 warn
+  WARN  ISMS-F     55 pass, 0 fail, 1 warn
+  WARN  ISMS-IA    54 pass, 0 fail, 2 warn
+  WARN  SD-AI-I    57 pass, 0 fail, 4 warn
   FAIL  SM-AI-I    56 pass, 1 fail, 5 warn
   WARN  SM-AI-II   55 pass, 0 fail, 3 warn
   WARN  SPO-AI-I   57 pass, 0 fail, 4 warn
   FAIL  ZZ-TEST-I  28 pass, 12 fail, 0 warn
   ```
 
-  **The count of checks rose from 43-44 to 53-57 because invariants were added,
-  not because anything was relaxed.** SM-AI-II and ZZ-TEST-I are in the list now
-  and were not on 2026-08-25.
+  **MEASURED IN ONE `--all` RUN, NOT TRANSCRIBED ROW BY ROW.** The previous table
+  was carried forward by hand between sessions and went stale; these thirteen
+  rows came out of a single invocation on 2026-09-13, so they are consistent with
+  each other by construction. Re-measure the same way or not at all - a baseline
+  assembled from thirteen separate runs on thirteen different days is not a
+  baseline.
 
-  The four failures, and none of them is new work waiting to be found:
+  **AIMS-IA'S FAILURE IS GONE - four certifications with failures became three.**
+  It was `items.citations` on `ISO 19011:2026 clause 6.8`, a clause that does not
+  exist (clause 6 ends at 6.7), in a live tier-2 SECURE bank. Migration 304 fixed
+  the explanation and 306 caught that 304 had missed the same address in an
+  option. Nothing else about AIMS-IA changed.
+
+  **The pass counts rose 1-2 per certification because two invariants were added,
+  not because anything was relaxed:**
+
+  - `items.citations` (§8.1) - resolves every clause and annex reference against
+    ISO 19011:2026, 27001:2022 and 42001:2023 on disk. FAIL on secure, WARN on
+    practice, SKIP where the PDFs are absent or the cert cites nothing. It is why
+    AIGRM-I, AIMS-F, ISMS-F, ISMS-IA and SD-AI-I each gained a pass, and why the
+    Scrum certs did not - they cite no clause of any standard held on disk.
+  - `i18n.reviewed` (§8) - reads `item_translation_reviews` and reports
+    UNREVIEWED and STALE **separately**, because "nobody read anything" and "a
+    human approved something that no longer exists" are different states.
+    Currently PASS on ISMS-F (18 rows) and AIMS-F (10); every other bank SKIPs,
+    having no `item_origin='translated'` rows.
+
+  **SM-AI-II returned to its baseline rather than improving past it.** It read
+  55/0/3 before today, moved to 54/0/4 when `generate-practice-questions` wrote
+  two `true_false` items with two options onto a tier-2 bank, and is back at
+  55/0/3 now that 309 retired them and `validateQuestion` reads the tier. That
+  round trip is the only reason its numbers look unchanged.
+
+  The three remaining failures, and none is new work waiting to be found:
 
   | cert | failure | state |
   |---|---|---|
   | AIE-I | 120 ungrouped items | **grew from 15**, see below |
   | AIE-I | scheme claim: validity 730 vs 365 in the database | **deliberate.** `SCHEME-AIE-I.md` explains why neither side was changed: editing the document retracts a published two-year promise to five holders, setting the column changes what the credential means. It fails on every run until someone decides, which is the correct behaviour for an open question |
-  | AIMS-IA | 40 of 40 lesson groups not fully localized, and the cert is AVAILABLE | surfaced when `trilingual.lessons` became status-aware on 2026-09-11 |
   | SM-AI-I | 20 ungrouped items | see the ungrouped note below |
 
   ZZ-TEST-I is a test certification and is expected to fail.
