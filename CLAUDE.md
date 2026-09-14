@@ -14,7 +14,7 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 315. Next free number: 316.** 303-311 and 313-315 have all RUN;
+**Migration tip: 316. Next free number: 317.** 303-311 and 313-316 have all RUN;
 nothing is pending. **There is no 312** - the number was claimed and its premise
 rejected before anything was written, so the sequence skips it on purpose.
 Sequential, zero-padded to three digits, `NNN_snake_case_name.sql`.
