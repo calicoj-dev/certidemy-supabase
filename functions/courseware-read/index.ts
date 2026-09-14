@@ -402,15 +402,19 @@ serve(async (req) => {
   // success -- a telemetry table that only records successes answers the
   // easiest question and none of the useful ones.
   const logArgs = (status: number, rows: number | null, error: string | null) => [
-    // THE REQUESTED RESOURCE, WHATEVER IT WAS. mcp.log_request normalises an
-    // unrecognised value to 'rejected' and keeps the original in
-    // requested_resource -- one classification, beside the CHECK that enforces
-    // it, rather than two that can disagree.
+    // THE REQUESTED RESOURCE, OR NULL. Never a synthesised value: this is stored
+    // verbatim in requested_resource, and writing 'rejected' there would record
+    // a resource nobody asked for.
     //
-    // This read `args?.resource ?? "log"`, so every rejection was filed under a
-    // resource the caller may genuinely have asked for: indistinguishable from
-    // the truth, which is worse than illegible. See migration 320.
-    args?.resource ?? rawResource() ?? "rejected",
+    // The row's `resource` is NOT this. mcp.log_request classifies by OUTCOME --
+    // 200 serves a resource, 400 is 'rejected', 5xx is 'failed' -- so the
+    // classification lives beside the CHECK that enforces it and cannot drift
+    // from the caller's idea of it. See migrations 320 and 321.
+    //
+    // This once read `args?.resource ?? "log"`, filing every rejection under a
+    // resource a caller may genuinely have asked for: indistinguishable from the
+    // truth, which is worse than illegible.
+    args?.resource ?? rawResource(),
     args?.tool ?? rawTool(),
     args?.language ?? null,
     args?.query ? redactEmails(args.query) : null,
