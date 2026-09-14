@@ -570,20 +570,26 @@ The individual scripts:
   varies; some skip) and ends with `3 cert(s) with FAILURES`:
 
   ```
-  FAIL  AIE-I      51 pass, 2 fail, 3 warn
-  WARN  AIGRM-I    55 pass, 0 fail, 2 warn
-  WARN  AIHR-I     54 pass, 0 fail, 1 warn
-  WARN  AIMS-F     55 pass, 0 fail, 2 warn
-  WARN  AIMS-IA    51 pass, 0 fail, 4 warn
-  WARN  AISM-I     55 pass, 0 fail, 1 warn
-  WARN  ISMS-F     55 pass, 0 fail, 1 warn
-  WARN  ISMS-IA    54 pass, 0 fail, 2 warn
-  WARN  SD-AI-I    57 pass, 0 fail, 4 warn
-  FAIL  SM-AI-I    56 pass, 1 fail, 5 warn
-  WARN  SM-AI-II   55 pass, 0 fail, 3 warn
-  WARN  SPO-AI-I   57 pass, 0 fail, 4 warn
-  FAIL  ZZ-TEST-I  28 pass, 12 fail, 0 warn
+  FAIL  AIE-I      51 pass, 2 fail, 4 warn
+  WARN  AIGRM-I    55 pass, 0 fail, 3 warn
+  WARN  AIHR-I     54 pass, 0 fail, 2 warn
+  WARN  AIMS-F     55 pass, 0 fail, 3 warn
+  WARN  AIMS-IA    51 pass, 0 fail, 5 warn
+  WARN  AISM-I     55 pass, 0 fail, 2 warn
+  WARN  ISMS-F     55 pass, 0 fail, 2 warn
+  WARN  ISMS-IA    54 pass, 0 fail, 3 warn
+  WARN  SD-AI-I    57 pass, 0 fail, 5 warn
+  FAIL  SM-AI-I    56 pass, 1 fail, 6 warn
+  WARN  SM-AI-II   55 pass, 0 fail, 4 warn
+  WARN  SPO-AI-I   57 pass, 0 fail, 5 warn
+  FAIL  ZZ-TEST-I  28 pass, 12 fail, 1 warn
   ```
+
+  **RE-MEASURED IN ONE `--all` RUN ON 2026-09-14.** Every row gained EXACTLY ONE
+  warn against the 09-13 table and no pass or fail count moved. That uniform +1 is
+  `jta.higherOrder`, which reports the share of exam-scope tasks at analyze or
+  above and gates nothing - a floor has not been chosen. A uniform delta across
+  thirteen certifications is also the evidence that nothing else shifted.
 
   **MEASURED IN ONE `--all` RUN, NOT TRANSCRIBED ROW BY ROW.** The previous table
   was carried forward by hand between sessions and went stale; these thirteen

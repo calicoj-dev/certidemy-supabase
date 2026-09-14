@@ -495,6 +495,65 @@ async function verify(cert) {
         `${overCeiling.length} task(s) declared above 4_analyze while in exam scope - MCQ cannot validly assess Evaluate or Create`,
         overCeiling.map((t) => `${t.code} (${t.bloom_level}): ${(t.statement || "").slice(0, 54)}`));
 
+
+  // === 16b. HIGHER-ORDER SHARE ==============================================
+  //
+  // REPORTING, NOT GATING. THE THRESHOLD IS UNDECIDED AND THIS CHECK ASSERTS
+  // NOTHING ABOUT IT.
+  //
+  // The ceiling above says no exam-scope task may sit ABOVE 4_analyze, because
+  // multiple choice cannot validly assess Evaluate or Create. There is no floor,
+  // and nothing anywhere ties a cognitive profile to a tier - `tier` reaches
+  // item GENERATION (item-pipeline.mjs) and never the JTA.
+  //
+  // So a tier-1 credential assessing no higher-order cognition at all passes
+  // every gate in this file. AIE-I does exactly that: 18 tasks, none above
+  // 3_apply, 0.0% at Analyze-or-above. Measured 2026-09-14, the tier-1 range is
+  // 0.0% (AIE-I) to 21.4% (AIHR-I) and the tier-2 range is 63.6% to 70.0% -
+  // sharply separated, with nothing in between.
+  //
+  // EXAM-SCOPE ONLY, WHICH IS NOT THE SAME AS ALL TASKS. SM-AI-I holds the
+  // catalog's single 5_evaluate task and it is out of scope, as the ceiling
+  // requires -- so its share reads 11.5% of 52 here and 13.2% of 53 if every
+  // task is counted. The exam-scope basis is the right one: this figure is about
+  // what the EXAM assesses, not what the JTA describes.
+  //
+  // WHY A NUMBER EVERY RUN RATHER THAN A BAR TODAY. Nine tier-1 certifications
+  // spanning 0.0 to 21.4 is the evidence for choosing a floor, and it is not yet
+  // enough to choose one from. A gate that failed nine certifications on the day
+  // it shipped would be switched off before it taught anyone anything - the
+  // cry-wolf failure CLAUDE.md records elsewhere in this file. So: WARN, with
+  // the figure, on every run, until someone decides.
+  //
+  // WHEN A FLOOR IS CHOSEN this becomes a pass/fail and this comment is the
+  // record of why it was not one first. AIHR-I section 7.3 carries the
+  // corresponding argument on the scheme side.
+  {
+    // cert.tier rather than the `tier` binding above: that one lives in an
+    // earlier block and is not in scope here.
+    const certTier = Number(cert?.tier ?? 0);
+    const scoped = (tasks ?? []).filter((t) => t.is_exam_scope && t.bloom_level);
+    if (scoped.length === 0) {
+      R.skip("jta.higherOrder", "§9", "Higher-order share, reported for a floor not yet set",
+        "no exam-scope task carries a bloom level");
+    } else {
+      const higher = scoped.filter((t) => (BLOOM_RANK[t.bloom_level] ?? 0) >= BLOOM_RANK["4_analyze"]);
+      const pct = (100 * higher.length / scoped.length).toFixed(1);
+      // Per-level shape alongside the headline, because two certifications can
+      // share a higher-order percentage and differ completely underneath.
+      const shape = ["1_remember", "2_understand", "3_apply", "4_analyze", "5_evaluate"]
+        .map((lvl) => [lvl, scoped.filter((t) => t.bloom_level === lvl).length])
+        .filter(([, n]) => n > 0)
+        .map(([lvl, n]) => `${lvl.replace(/^\d_/, "")} ${n}`)
+        .join(" / ");
+      R.warn("jta.higherOrder", "§9", "Higher-order share, reported for a floor not yet set",
+        `tier ${certTier || "?"}: ${pct}% of ${scoped.length} exam-scope tasks at analyze or above (${higher.length}) - REPORTING ONLY, no threshold is set and nothing is gated`,
+        [shape,
+         "tier-1 range over EXAM-SCOPE tasks, measured 2026-09-14: 0.0% (AIE-I) to 21.4% (AIHR-I); tier-2: 63.6% to 70.0%",
+         "a ceiling exists (jta.mcqCeiling); a floor does not. See SCHEME-AIHR-I.md section 7.3"]);
+    }
+  }
+
   // === 17. BLUEPRINT == THE COMPUTED PROFILE ================================
   // The published claim and the database must be mutually verifying. The blueprint is
   // re-derived here from the LIVE tasks (via v_cognitive_profile, the same view the
