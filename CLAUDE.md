@@ -226,6 +226,48 @@ and `update-lti-platform` write the same nine columns, so their rules live in
 to keep in step. Reserve the mirrored-pair discipline for what genuinely spans
 two repos.
 
+**AND THE ONE THAT GENUINELY SPANS TWO REPOS IS THE ONE NOTHING CAN TEST.**
+A pair inside one repo is a refactor away from not being a pair. A pair with a
+REPOSITORY BOUNDARY between its halves cannot share a module at all, so each
+half gets tested against itself and both pass.
+
+`certidemy-web/lib/mcp/registry.ts` sent one wire vocabulary and
+`functions/courseware-read` accepted a different one — `resource: "syllabus"`
+against `certification | task | concept | search`, plus `code` for `task_code`,
+`domain` for `domain_code`, and a `certification` field the function does not
+take. **All four courseware tools would have 400'd on every call.**
+
+**It would not have looked like a mismatch.** The Worker maps any non-ok response
+to `UPSTREAM_UNREACHABLE`, so an agent would have been told *"The curriculum
+service could not be reached"* — a contract error wearing a network fault, which
+sends the next person to check secrets, hosts and deploy logs. The same shape as
+every silent-success defect in this file: the system returns something plausible
+and the wrongness is invisible at the point of failure.
+
+**Neither half's tests could see it, and that is the structural part.** The
+Worker's 47 contract cases assert the Worker against itself; the function
+validates its own input. Both were green. It was caught by putting the two
+vocabularies side by side and reading them — the same move that caught
+`AIMS-F`'s worst defects, and the same move nothing automates.
+
+**THIRD INSTANCE IN ONE DAY, 2026-09-13**, and the family is worth naming
+because the halves look nothing alike:
+
+1. **A CONTRACT AND ITS CHECKER.** `pin-compliance` gained leak rules that were
+   never added to `ISO_MS_VOCABULARY`, so the checker rejected the translator
+   for rules it had never been given — 15 straight refusals.
+2. **A RULE AND THE PATH THAT MUST OBEY IT.** The tier contract lives in
+   `gen-cert-secure.mjs`; `generate-practice-questions` reads no tier at all, so
+   a live tier-2 bank was served a two-option item.
+3. **A WIRE FORMAT AND ITS CALLER**, above, across a repo boundary.
+
+**The cheap half of the fix is always to make ONE side immovable.**
+`scripts/smoke-courseware.mjs` section C pins the function by asserting it
+REFUSES the wrong shapes, so a future mismatch can only originate in the Worker.
+That does not close the gap — the smoke test cannot see the Worker, and it says
+so in its own header — but it halves the surface, and it converts a silent
+disagreement into a named failure on the side that can be tested.
+
 **Use `arrayBuffer()`, never `.text()`, in any pass-through proxy.** `.text()`
 has corrupted PNG bytes twice.
 
