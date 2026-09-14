@@ -14,11 +14,10 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 314. Next free number: 315.** 303-311 and 313 have RUN; **314 is
-written and has NOT run** (evidence match span on `analysis_findings`). **There is
-no 312** - the number was claimed and its premise rejected before anything was
-written, so the sequence skips it on purpose. Sequential, zero-padded to three
-digits, `NNN_snake_case_name.sql`.
+**Migration tip: 314. Next free number: 315.** 303-311, 313 and 314 have all RUN;
+nothing is pending. **There is no 312** - the number was claimed and its premise
+rejected before anything was written, so the sequence skips it on purpose.
+Sequential, zero-padded to three digits, `NNN_snake_case_name.sql`.
 
 **ON 2026-09-13 THE NUMBER WAS RIGHT AND THE STATUS WAS STALE**, which is a
 variant this paragraph had not recorded. The line read *"313 / next free 314"* --
