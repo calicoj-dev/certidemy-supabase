@@ -276,6 +276,7 @@ function assertIdentity(): Promise<void> {
 
 import {
   type Args,
+  TOOLS,
   bad,
   BadRequest,
   buildQuery,
@@ -392,14 +393,25 @@ serve(async (req) => {
   const started = Date.now();
   let args: Args | null = null;
   let caller: string | null = null;
+  // Kept so a REJECTION can still say what was asked for. args is null once
+  // validateArgs throws, and that is precisely when the question matters most.
+  let rawBody: Record<string, unknown> | null = null;
 
   // One row per request, whatever the outcome. Assembled as the request
   // proceeds so the catch below can log a rejection with the same shape as a
   // success -- a telemetry table that only records successes answers the
   // easiest question and none of the useful ones.
   const logArgs = (status: number, rows: number | null, error: string | null) => [
-    args?.resource ?? "log",
-    args?.tool ?? null,
+    // THE REQUESTED RESOURCE, WHATEVER IT WAS. mcp.log_request normalises an
+    // unrecognised value to 'rejected' and keeps the original in
+    // requested_resource -- one classification, beside the CHECK that enforces
+    // it, rather than two that can disagree.
+    //
+    // This read `args?.resource ?? "log"`, so every rejection was filed under a
+    // resource the caller may genuinely have asked for: indistinguishable from
+    // the truth, which is worse than illegible. See migration 320.
+    args?.resource ?? rawResource() ?? "rejected",
+    args?.tool ?? rawTool(),
     args?.language ?? null,
     args?.query ? redactEmails(args.query) : null,
     args?.query ? args.query.length : null,
@@ -417,6 +429,17 @@ serve(async (req) => {
     clientName(req),
   ];
 
+  /** The requested resource as a string, however wrong, or null. */
+  const rawResource = (): string | null => {
+    const v = rawBody?.resource;
+    return typeof v === "string" && v.length > 0 ? v.slice(0, 40) : null;
+  };
+  /** The tool name only if it is one we know; a rejection must not invent one. */
+  const rawTool = (): string | null => {
+    const v = rawBody?.tool;
+    return typeof v === "string" && (TOOLS as readonly string[]).includes(v) ? v : null;
+  };
+
   try {
     if (!PASSWORD || !DB_HOST) {
       // Named without values. Which secret is missing is operational
@@ -426,6 +449,9 @@ serve(async (req) => {
     }
 
     const raw = await req.json().catch(() => bad("body must be valid JSON"));
+    if (raw !== null && typeof raw === "object" && !Array.isArray(raw)) {
+      rawBody = raw as Record<string, unknown>;
+    }
     args = validateArgs(raw);
     caller = await callerHash(req);
 

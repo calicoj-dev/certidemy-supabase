@@ -415,6 +415,37 @@ await expect400("malformed task_code refused", { resource: "task", task_code: "1
 await expect400("query outside search refused", { resource: "task", query: "x" }, "query");
 
 console.log("");
+console.log("C2. THE WORKER'S REFUSAL BODY, VERBATIM");
+{
+  // THE ONE SHAPE NOTHING ELSE PROVES. A certification refusal is decided in the
+  // Worker before any read, so it never appears on a readable resource, and the
+  // Worker's tests stub fetch while this script never sent it. The body below is
+  // copied from reportRefusal() in certidemy-web/lib/mcp/registry.ts.
+  //
+  // THIS PINS THE FUNCTION SIDE ONLY. If the Worker changes what it sends, this
+  // still passes and the refusal telemetry still breaks -- the same residual
+  // section C carries, and the same two-repo pair with no shared module. What it
+  // removes is the other half: the function can no longer stop accepting it
+  // silently.
+  //
+  // IT WRITES ONE ROW. That is what the log resource is for, and it is the only
+  // write this script makes; see the closing line.
+  const body = {
+    resource: "log",
+    event: "certification_refused",
+    tool: "get_syllabus",
+    certification: "ISMS-F",
+  };
+  const { status, json } = await post(body);
+  record("the Worker's refusal body is accepted", status === 200 && json?.ok === true,
+    status !== 200
+      ? `HTTP ${status} ${JSON.stringify(json)?.slice(0, 120)} -- the refusal telemetry would be lost silently`
+      : `ok=${json?.ok}`);
+  record("and the refusal row was written", json?.logged === true,
+    `logged=${json?.logged} -- accepted but not stored is still a lost event`);
+}
+
+console.log("");
 console.log("D. AN EMPTY RESULT IS REPORTED, NOT DISGUISED");
 {
   // A well-formed request that genuinely matches nothing must come back 200
@@ -432,7 +463,9 @@ console.log(`passed: ${passed}`);
 console.log(`failed: ${failures.length}`);
 for (const f of failures) console.log("  X " + f);
 console.log("");
-console.log("READ-ONLY: nothing was written.");
+// Honest rather than slogan: section C2 writes exactly one telemetry row,
+// which is what the log resource exists to do. Nothing else here writes.
+console.log("One telemetry row written by C2; nothing else was written.");
 process.exitCode = failures.length === 0 ? 0 : 1;
 }
 
