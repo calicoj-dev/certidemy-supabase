@@ -42,14 +42,39 @@ became addressable, not readable, and the grants still decide.
 `service_role` is not a superuser on Supabase and USAGE is not something
 `BYPASSRLS` sets aside, so on the record it has no path to these views.
 
-**That is an inference from the migration record, not a runtime measurement** -
-the two are usually the same here and the distinction is the point of saying so.
-Confirm it alongside the other post-conditions:
+**MEASURED 2026-09-14**, against `pg_catalog`. It was recorded as an inference
+from the migration record for a day, because the host carrying the query looked
+down and was not - see the IPv6 note in CLAUDE.md. The inference was right and
+its stated reason was wrong, which is the more dangerous of the two to leave in
+a document.
+
+| role | schema USAGE | certification | task | concept | lesson |
+|---|---|---|---|---|---|
+| `service_role` | **false** | false | false | false | **false** |
+| `anon` | false | false | false | false | false |
+| `authenticated` | false | false | false | false | false |
+| `authenticator` | **true** | false | false | false | false |
+| `mcp_reader` | true | true | true | true | **false** |
+| `mcp_holder` | true | true | true | true | **true** |
+| `postgres` (owner) | true | true | true | true | true |
+
+Two rows carry the design rather than merely passing. **`authenticator` has USAGE
+and no SELECT on anything**: it can see the views exist, which is what PostgREST
+needs to serve them, and cannot read a row from them. And **`mcp_reader` is true
+on three and false on `lesson`** - the paywall, as an absent grant.
+
+Re-run it with:
 
 ```sql
-select has_schema_privilege('service_role', 'mcp', 'USAGE') as usage,          -- expect f
-       has_table_privilege('service_role', 'mcp.lesson', 'SELECT') as lesson,  -- expect f
-       has_table_privilege('service_role', 'mcp.task', 'SELECT')   as task;    -- expect f
+select r as role,
+       has_schema_privilege(r, 'mcp', 'USAGE')               as schema_usage,
+       has_table_privilege(r, 'mcp.certification', 'SELECT') as sel_certification,
+       has_table_privilege(r, 'mcp.task', 'SELECT')          as sel_task,
+       has_table_privilege(r, 'mcp.concept', 'SELECT')       as sel_concept,
+       has_table_privilege(r, 'mcp.lesson', 'SELECT')        as sel_lesson
+from unnest(array['service_role','anon','authenticated','authenticator',
+                  'mcp_reader','mcp_holder','postgres']) r
+order by 1;
 ```
 
 **This is a feature and not an oversight.** It means an edge function holding
