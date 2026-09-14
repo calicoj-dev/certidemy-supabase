@@ -691,3 +691,26 @@ verify_jwt = true
 # every other learner's progress.
 [functions.get-user-cert-overview]
 verify_jwt = true
+
+# Public Edge Function -- the read side of the courseware MCP pilot
+# (migrations 315 and 316, MCP-COURSEWARE.md).
+#
+# verify_jwt MUST be false, and it is pinned here IN THE SAME COMMIT AS THE
+# FUNCTION rather than after it. A plain redeploy dropping --no-verify-jwt has
+# silently re-privatised get-credential-certificate, open-badge,
+# verify-credential and credential-og -- four occasions. The pin existing
+# BEFORE the first deploy is what stops the fifth; a pin added afterwards has
+# already left a window.
+#
+# Matching verify-credential, and for the same reason rather than by analogy:
+# it protects material Certidemy publishes. mcp_reader reaches three views over
+# one certification's published blueprint and NOT mcp.lesson, so requiring the
+# anon key would add a header without adding a boundary -- and a header that
+# looks like authentication where none exists is worse than none, because the
+# next reader takes it for the boundary and stops looking for the real one.
+#
+# The real boundary is an absent grant. The function connects as mcp_reader
+# with MCP_READER_PASSWORD, holds no service_role, and asserts both facts
+# against the database on every cold start.
+[functions.courseware-read]
+verify_jwt = false
