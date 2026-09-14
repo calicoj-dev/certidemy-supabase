@@ -284,6 +284,108 @@ import {
   validateArgs,
 } from "../_shared/courseware-query.ts";
 
+// ===================== THE HOLDER POOL =====================
+//
+// A SECOND CREDENTIAL AND A SECOND ASSERTION, NOT A BRANCH.
+//
+// "No token, no lesson body" is enforced by which pool a request reaches, and
+// the reader pool is provably incapable of the query -- migration 315 gives
+// mcp_reader no grant on mcp.lesson and assertIdentity refuses to serve if that
+// ever becomes false. An `if` here could be inverted by a refactor; a missing
+// grant cannot.
+//
+// THE ASSERTION IS INVERTED, AND BOTH HALVES MATTER:
+//
+//   reader  MUST NOT read mcp.lesson   MUST NOT write anywhere
+//   holder  MUST     read mcp.lesson   MUST NOT write anywhere
+//
+// The holder's positive half is the one that is easy to omit, and omitting it
+// would mean a misconfigured holder pool serving nothing and reading as an empty
+// certification rather than as a broken deployment.
+const HOLDER_PASSWORD = Deno.env.get("MCP_HOLDER_PASSWORD") ?? "";
+
+let holderPool: Pool | null = null;
+function getHolderPool(): Pool {
+  if (!holderPool) {
+    holderPool = new Pool({
+      user: IS_SHARED_POOLER && PROJECT_REF ? `mcp_holder.${PROJECT_REF}` : "mcp_holder",
+      password: HOLDER_PASSWORD,
+      database: "postgres",
+      hostname: DB_HOST,
+      port: DB_PORT,
+      tls: { enabled: true },
+    }, 2, true);
+  }
+  return holderPool;
+}
+
+let holderIdentity: Promise<void> | null = null;
+function assertHolderIdentity(): Promise<void> {
+  if (!holderIdentity) {
+    holderIdentity = (async () => {
+      const conn = await getHolderPool().connect();
+      try {
+        const r = await conn.queryObject<{
+          who: string;
+          session_who: string;
+          can_read_lessons: boolean;
+          writable_relations: number;
+        }>({
+          text:
+            "select current_user::text as who, " +
+            "session_user::text as session_who, " +
+            "has_table_privilege(current_user, 'mcp.lesson', 'SELECT') as can_read_lessons, " +
+            // By OID and excluding schema net, for the same two reasons the
+            // reader's does: a schema-qualified name needs USAGE to RESOLVE, and
+            // pg_net grants write access to PUBLIC. See 319's footer.
+            "(select count(*) from pg_class c " +
+            "   join pg_namespace ns on ns.oid = c.relnamespace " +
+            " where c.relkind in ('r','p','v','m','f') " +
+            "   and ns.nspname <> 'net' " +
+            "   and has_table_privilege(current_user, c.oid, 'INSERT'))::int as writable_relations",
+          args: [],
+        });
+        const row = r.rows[0];
+        if (!row) throw new Error("holder identity check returned no row");
+        if (row.who !== "mcp_holder" || row.session_who !== "mcp_holder") {
+          throw new Error(
+            `holder pool connected as ${row.session_who}/${row.who}, expected mcp_holder -- refusing to serve`,
+          );
+        }
+        // THE POSITIVE HALF. A holder that cannot read a lesson is a broken
+        // deployment, and without this it would present as an empty result.
+        if (!row.can_read_lessons) {
+          throw new Error(
+            "the holder pool cannot select mcp.lesson; it exists to do exactly that -- refusing to serve",
+          );
+        }
+        if (Number(row.writable_relations) !== 0) {
+          throw new Error(
+            `the holder pool can INSERT into ${row.writable_relations} relation(s); it must reach the log ` +
+              "only through mcp.log_request -- refusing to serve",
+          );
+        }
+        console.log(JSON.stringify({
+          fn: "courseware-read",
+          event: "holder-connected",
+          shape: CONN_SHAPE,
+          host: DB_HOST,
+          port: DB_PORT,
+          user: row.who,
+          can_read_lessons: true,
+          writable_relations: 0,
+        }));
+      } finally {
+        conn.release();
+      }
+    })().catch((e) => {
+      holderIdentity = null; // a failed cold start must retry, not cache the failure
+      throw e;
+    });
+  }
+  return holderIdentity;
+}
+
 // ------------------------------------------------------------------ logging
 //
 // ===================== LOGGING MUST NEVER BREAK A READ =====================
