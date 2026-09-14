@@ -154,9 +154,16 @@ console.log("");
     return;
   }
   if (status === 500) {
-    console.error("FAIL  500 on the simplest call. Either the secrets are missing or the identity");
-    console.error("      assertion refused to serve. Check the function logs: it names which secret");
-    console.error("      is absent, and refuses outright if it did not connect as mcp_reader.");
+    console.error("FAIL  500 on the simplest call. Three causes, distinguishable in the function log:");
+    console.error("        'not configured'  -> MCP_READER_PASSWORD or MCP_READER_DB_HOST is unset.");
+    console.error("        no 'connected' line at all -> it never reached Postgres. The port is NOT");
+    console.error("          derivable from the host: db.<ref>.supabase.co is a dedicated pooler on");
+    console.error("          6543 AND a direct connection on 5432, same hostname, same username.");
+    console.error("          Set MCP_READER_DB_PORT.");
+    console.error("        'refusing to serve' -> it connected as the wrong role, or as a role that");
+    console.error("          can read mcp.lesson. That is the paywall asserting itself; do not widen");
+    console.error("          a grant to make it pass.");
+    console.error("      The cold-start log line reports shape, host, port and user.");
     process.exitCode = 1;
     return;
   }

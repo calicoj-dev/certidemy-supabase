@@ -89,15 +89,55 @@ const PASSWORD = Deno.env.get("MCP_READER_PASSWORD") ?? "";
 const DB_HOST = Deno.env.get("MCP_READER_DB_HOST") ?? "";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 
-// Supabase's pooler wants the role qualified with the project ref; a direct
-// connection wants the bare role. Rather than decide which is right from here,
-// build the likelier one and let assertion (3) settle it -- `current_user` is
-// the same in both cases, so a wrong choice fails at the identity check with a
-// clear message instead of half-working.
+// ============ THREE CONNECTION SHAPES, AND THE HOST SETTLES ONE THING ========
+//
+//   shape              host                                  user              port
+//   -----------------  ------------------------------------  ----------------  ----
+//   shared pooler      aws-0-<region>.pooler.supabase.com     mcp_reader.<ref>  6543 txn / 5432 session
+//   DEDICATED pooler   db.<ref>.supabase.co                   mcp_reader        6543
+//   direct             db.<ref>.supabase.co                   mcp_reader        5432
+//
+// THE USERNAME FORM IS DERIVABLE, AND ONLY FROM THE HOST. Only the SHARED
+// pooler qualifies the role with the project ref, because only it multiplexes
+// many projects behind one hostname and needs the ref to route. A dedicated
+// pooler and a direct connection both answer on a host that already names the
+// project, so both take the bare role.
+//
+// THE PORT IS NOT DERIVABLE, AND ASSUMING OTHERWISE WAS THE BUG. This read
+// `IS_POOLER ? 6543 : 5432`, which encodes "a db.<ref> host means a direct
+// connection". THIS PROJECT RUNS A DEDICATED POOLER ON db.<ref>.supabase.co:6543
+// -- same hostname as a direct connection, same bare username, different port.
+// No amount of string inspection separates those two, so the old default sent a
+// dedicated-pooler deployment at 5432 and it only worked because the port had
+// been set by hand.
+//
+// THE SHARED/DEDICATED DISTINCTION IS INVISIBLE IN A CONNECTION STRING except by
+// the ABSENCE of the ref in the username, which is the kind of negative evidence
+// the next reader reconstructs wrongly. It is written down here rather than left
+// to be re-derived from a dashboard.
+//
+// So: 6543 unless told otherwise. Pooled is the right answer for a function that
+// lives for one request, and the shape that is now WRONG by default -- a genuine
+// direct connection -- is the one Supabase steers away from for serverless
+// callers. MCP_READER_DB_PORT overrides for direct or session-mode.
 const PROJECT_REF = (SUPABASE_URL.match(/^https:\/\/([a-z0-9]+)\.supabase\./)?.[1]) ?? "";
-const IS_POOLER = DB_HOST.includes("pooler.supabase.com");
-const CONN_USER = IS_POOLER && PROJECT_REF ? `${DB_USER}.${PROJECT_REF}` : DB_USER;
-const DB_PORT = Number(Deno.env.get("MCP_READER_DB_PORT") ?? (IS_POOLER ? 6543 : 5432));
+const IS_SHARED_POOLER = /(^|\.)pooler\.supabase\.com$/i.test(DB_HOST);
+const CONN_USER = IS_SHARED_POOLER && PROJECT_REF ? `${DB_USER}.${PROJECT_REF}` : DB_USER;
+const PORT_WAS_SET = Deno.env.get("MCP_READER_DB_PORT") !== undefined;
+const DB_PORT = Number(Deno.env.get("MCP_READER_DB_PORT") ?? 6543);
+
+/**
+ * Which shape we believe we are talking to. Reported, never acted on beyond the
+ * two values above -- its whole job is to make a wrong guess ONE LOG LINE rather
+ * than a connect timeout with nothing to read.
+ */
+const CONN_SHAPE = IS_SHARED_POOLER
+  ? `shared pooler (${DB_PORT === 5432 ? "session" : "transaction"} mode)`
+  : DB_PORT === 6543
+    ? "dedicated pooler"
+    : DB_PORT === 5432
+      ? "direct"
+      : "non-standard port";
 
 let pool: Pool | null = null;
 function getPool(): Pool {
@@ -152,6 +192,20 @@ function assertIdentity(): Promise<void> {
             "this connection can select mcp.lesson; courseware-read is the reader path and must not -- refusing to serve",
           );
         }
+        // ONCE PER COLD START, AND ONLY AFTER THE ASSERTIONS PASS. The port
+        // cannot be derived from the host, so the shape below is a BELIEF. This
+        // line is what turns a wrong one into something readable instead of a
+        // connect timeout with nothing attached. No password, and no secret
+        // value -- host, port and role are operational facts.
+        console.log(JSON.stringify({
+          fn: "courseware-read",
+          event: "connected",
+          shape: CONN_SHAPE,
+          host: DB_HOST,
+          port: DB_PORT,
+          port_explicit: PORT_WAS_SET,
+          user: CONN_USER,
+        }));
       } finally {
         conn.release();
       }
