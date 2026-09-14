@@ -323,7 +323,16 @@ form longer than the session token lifetime logs candidates out mid-examination.
 
 ## 7. Pass mark and standard-setting
 
-**Current pass mark:** 75% (38 of 50 items).
+**Minimum passing score: 38 of 50 items (76.0%).** The criterion-referenced
+judgement is 75%, and 76.0% is the nearest value the form can express -- a
+50-item form expresses only even percentages, so no candidate can score 75.0%.
+`score-mock-exam` holds 75 as its threshold and passes at `score_pct >= 75`, so
+37 of 50 scores 74.0% and fails while 38 of 50 scores 76.0% and passes.
+
+**`ISMS-IA` §7 is the tier-2 root** and carries both the argument for 75% and the
+three steps a standard-setting panel follows to keep the judgement and the
+expressible value distinct. Repeating them here would create a copy to keep in
+step.
 
 **Why 75% here and 80% at "I" tier.** The "I"-tier schemes ask which answer is correct
 and set 80%. A Level II item asks which of four defensible answers is *best*; a

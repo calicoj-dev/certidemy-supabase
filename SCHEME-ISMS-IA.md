@@ -281,30 +281,84 @@ can achieve. **Certidemy states this ratio because an auditor will calculate it.
 
 ## 7. Pass mark and standard-setting
 
-**The pass mark is 75% and is provisional.** It is **criterion-referenced** and
-set by **expert judgment**: it expresses the proportion of this examination's
-content a minimally competent internal auditor is expected to answer correctly.
+**This section carries the tier-2 argument for the catalog.** `AIMS-IA` §7 and
+`SM-AI-II` §7 cite it rather than restating it. `AIHR-I` §7 does the same job for
+tier 1.
 
-**Why it is not 80%, the Certidemy Level I convention.** A cut score is a
-statement about expected performance on *these items*. Level II items are
-constructed so that a minimally competent candidate finds the second-best answer
-genuinely attractive — that is the instrument working as designed. Carrying a
-Level I number across a change in item construction would be a figure travelling
-without its reasoning. The bar is not lower; the items are different.
+### 7.1 The operative statement
 
-**The standard is reviewed against evidence as it accumulates.** Every response is
-recorded against the item that produced it, so each item carries its own
-performance record — the proportion answering correctly, the time taken, and how
-the item behaves for candidates who pass overall against those who do not. That
-record is the raw material of a formal standard-setting study, and it is built
-from the first examination sat.
+**The minimum passing score is 38 of 50 items (76.0%). The criterion-referenced
+judgement is 75%, and 76.0% is the nearest value the form can express.**
 
-Once sufficient candidate data exists, a recognised method — modified Angoff or
-bookmark — will be applied by a panel of subject-matter experts and the cut score
-re-derived from that evidence. Any change is versioned and published, and issued
-credentials retain the standard in force when they were earned. **A passing
-standard is set from evidence, and the instrumentation that produces that
-evidence is in place.**
+Both numbers are true and they are not interchangeable. **76.0% is what a
+candidate must reach; 75% is what the body judged and what the scoring engine
+holds as its threshold.** `score-mock-exam` computes a continuous percentage and
+passes a candidate at `score_pct >= 75`, so 37 of 50 scores 74.0% and fails while
+38 of 50 scores 76.0% and passes. **No candidate can score 75.0% on a 50-item
+form**, because a 50-item form expresses only even percentages.
+
+This section previously read *"75% (38 of 50 items)"*, which states both numbers
+and implies they are the same one. They are a point apart, and **the number a
+panel would have derived toward was the unreachable one.**
+
+### 7.2 What this means for a standard-setting panel
+
+A panel convened under §7.4 derives a **judgement**, not a score. The sequence is:
+
+1. Derive the criterion-referenced judgement as a percentage, by modified Angoff,
+   bookmark or equivalent. That value is unconstrained by the form.
+2. **Map it to the nearest value the form can express**, and record the mapping.
+   On a 50-item form the expressible values are even: 72, 74, 76, 78.
+3. **Publish both**, in the order above: the operative minimum first, the
+   judgement second, and the direction of the rounding.
+
+**A recommendation that lands between two expressible values is not implemented
+by choosing one silently.** Either the form length changes so the value becomes
+expressible, or the mapping is stated. Which of the two is a decision for the
+body, and it is a decision that has to be made explicitly rather than absorbed by
+whoever writes the number into the database.
+
+**This is the tier-2 instance of a catalog-wide constraint, not a rule of its
+own.** `AIHR-I` §7.2 states the general form: a cut score can only be expressed
+in whole items, so the achievable values are a function of form length -- 2.0
+percentage points per item at 50 items here, 2.5 at 40, 1.25 at 80, and 4.0 on
+`AIE-I`'s 25-item form, where the gap is wide enough that the same reconciliation
+is harder and a form change is less attractive.
+
+### 7.3 Why 75% and not 80%, the Certidemy Level I convention
+
+A cut score is a statement about expected performance on *these items*. Level II
+items are constructed so that a minimally competent candidate finds the
+second-best answer genuinely attractive -- that is the instrument working as
+designed. Carrying a Level I number across a change in item construction would be
+a figure travelling without its reasoning. **The bar is not lower; the items are
+different.**
+
+`AIHR-I` §7.1 argues the mirror of this for tier 1, where the distractors are
+wrong rather than merely less good and a miss is a syllabus gap rather than a
+disagreement with the item writer. The two thresholds are not a lenient one and a
+strict one. They are two instruments, each carrying the threshold its item type
+supports.
+
+### 7.4 The standard is reviewed against evidence as it accumulates
+
+Every response is recorded against the item that produced it, so each item carries
+its own performance record -- the proportion answering correctly, the time taken,
+and how the item behaves for candidates who pass overall against those who do not.
+That record is the raw material of a formal standard-setting study, and it is
+built from the first examination sat.
+
+Once sufficient candidate data exists, a recognised method -- modified Angoff or
+bookmark -- will be applied by a panel of subject-matter experts and the cut score
+re-derived from that evidence, **following the three steps in §7.2**. Any change
+is versioned and published, and issued credentials retain the standard in force
+when they were earned. **A passing standard is set from evidence, and the
+instrumentation that produces that evidence is in place.**
+
+**As of 2026-09-14 no Level II examination has been sat**, on this scheme or
+either of the other two, and no Level II credential has been issued. The
+reconciliation above therefore changes nothing that has already happened to a
+candidate, and is recorded before the first sitting rather than after it.
 
 ---
 

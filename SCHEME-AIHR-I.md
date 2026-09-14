@@ -303,12 +303,23 @@ change in the number. **This belongs in the scheme that argues the number rather
 than being discovered by whoever runs the panel.**
 
 **The constraint is already live elsewhere in the catalog, which is why it is
-stated rather than anticipated.** The Level II schemes declare 75% on a 50-item
-form. 75% of 50 is 37.5 items, which no candidate can score, and all three state
-the pass as **38 of 50 — which is 76.0%.** The declared number and the operative
-number differ by a point. That is a rounding artefact rather than a decision, and
-it is flagged here for the tier-2 schemes to resolve; recording it is not the
-same as fixing it.
+stated rather than anticipated — and it has been resolved there.** The Level II
+schemes judged 75% on a 50-item form. 75% of 50 is 37.5 items, which no candidate
+can score, and all three previously stated the pass as *"75% (38 of 50 items)"* —
+two numbers a point apart, written as though they were one, with the unreachable
+one leading.
+
+`ISMS-IA` §7 now resolves it and is the tier-2 root: **the operative minimum
+leads, the judgement follows, and the direction of the rounding is stated.** Its
+§7.2 sets out the three steps a panel follows — derive the judgement unconstrained
+by the form, map it to the nearest expressible value, publish both in that order.
+**That is the general remedy; this section states the constraint and the tier-2
+sections are its first worked instance.**
+
+The same reconciliation is available to `AIE-I` and is harder there, because 4.0
+points per item is a wide gap to round across. Whether that scheme states a
+mapping or changes its form length is an open decision — a decision rather than
+an oversight.
 
 ### 7.3 Two facts a reader should hold together
 
