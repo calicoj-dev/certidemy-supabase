@@ -338,13 +338,6 @@ function validateArgs(raw: unknown): Args {
 // Every value is a bound parameter. No identifier and no literal is built from
 // caller input, so there is nothing for a quote to escape out of.
 
-// ILIKE metacharacters are escaped so a query of "100%" searches for the string
-// rather than for everything. The backslash escape is declared explicitly
-// because standard_conforming_strings makes the default non-obvious.
-function likePattern(q: string): string {
-  return "%" + q.replace(/([\\%_])/g, "\\$1") + "%";
-}
-
 type Q = { text: string; args: unknown[] };
 
 function buildQuery(a: Args): { q: Q; searched?: string[] } {
@@ -399,27 +392,103 @@ function buildQuery(a: Args): { q: Q; searched?: string[] } {
       // caller cannot detect is the same defect class as a dropped read.
       const withConcepts = a.language === "en";
       const searched = withConcepts ? ["task", "concept"] : ["task"];
+
+      // ===================== WHY THERE IS A SCORE AT ALL =====================
+      //
+      // This ordered by `kind, key` and truncated at `limit`. 'concept' sorts
+      // before 'task', so a broad query returned CONCEPTS ONLY: on AISM-I, "AI"
+      // matched 92 concepts and 54 tasks, and at the default limit of 20 a
+      // partner received twenty concepts and NOT ONE TASK -- from the tool whose
+      // stated job is what a credential examines. It reported truncated:true
+      // honestly, which made it worse: correct, self-describing and useless.
+      //
+      // ============== AND THE MATCHING WAS WRONG UNDERNEATH IT ==============
+      //
+      // It matched with ILIKE '%term%', which has no notion of a word. "AI"
+      // matched inside "expl-AI-n", "dom-AI-n", "avail-AI-ble" -- so task 1.1,
+      // "Explain why service management exists", counted as a match for AI. The
+      // 92/54 above were themselves inflated: with word boundaries the honest
+      // figures are 60 and 36, and every score component fired on every row, so
+      // the score could not discriminate even once the ordering was fixed.
+      //
+      // Matching is now `~* '\y<term>'`: anchored at a WORD BOUNDARY, with any
+      // suffix allowed. The leading boundary kills "explain"; the open suffix
+      // keeps "incident" matching "incidents" and "AI" matching "AIOps".
+      // Deliberately NOT '\y<term>\y', which would lose the plural -- the same
+      // morphology trap CLAUDE.md records for the vocabulary patterns. Note a
+      // hyphen counts as a boundary, which is wanted here.
+      //
+      // NOT FULL-TEXT SEARCH, AND THAT IS DELIBERATE. tsvector + GIN is the
+      // reflex and buys nothing: a search is CERTIFICATION-SCOPED, so the corpus
+      // is 61 tasks and 226 concepts today and stays a few hundred rows at
+      // twelve certifications -- the scan is microseconds. It would also cost a
+      // per-language regconfig, and to_tsvector(CASE language ...) is not
+      // immutable, so indexing means partial indexes per language per table.
+      // Real machinery for a performance problem that does not exist. This works
+      // identically across en, es-419 and pt-BR and can be replaced by FTS later
+      // without touching the tool contract.
+      //
+      // THE SCALE IS ARBITRARY AND ITS ORDERING IS NOT. A phrase hit in the
+      // primary field outranks any number of scattered term hits, because a task
+      // whose STATEMENT contains the phrase is what was asked for.
+      const rx = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const terms = a.query!.toLowerCase().split(/\s+/).filter((t) => t.length >= 2).slice(0, 8);
+      const phrase = "\\y" + rx(a.query!.trim()).replace(/\s+/g, "\\s+");
+
+      // $1 phrase, $2 language, $3 limit, then one param per term.
+      const args: unknown[] = [phrase, a.language, a.limit];
+      const termParams: string[] = [];
+      for (const t of terms) {
+        args.push("\\y" + rx(t));
+        termParams.push(`$${args.length}`);
+      }
+      const score = (primary: string, secondary: string) => {
+        const parts = [
+          `(case when ${primary} ~* $1 then 100 else 0 end)`,
+          `(case when ${secondary} ~* $1 then 40 else 0 end)`,
+        ];
+        for (const p of termParams) {
+          parts.push(`(case when ${primary} ~* ${p} then 10 else 0 end)`);
+          parts.push(`(case when ${secondary} ~* ${p} then 3 else 0 end)`);
+        }
+        return parts.join(" + ");
+      };
+      const anyOf = (primary: string, secondary: string) =>
+        [`${primary} ~* $1`, `${secondary} ~* $1`]
+          .concat(termParams.flatMap((p) => [`${primary} ~* ${p}`, `${secondary} ~* ${p}`]))
+          .join(" or ");
+
+      const ksa =
+        "coalesce(knowledge,'') || ' ' || coalesce(skills,'') || ' ' || coalesce(abilities,'')";
       const taskPart =
-        "select 'task' as kind, task_code as key, statement as title, " +
-        "coalesce(knowledge,'') || ' ' || coalesce(skills,'') || ' ' || coalesce(abilities,'') as body, " +
-        "domain_code " +
-        "from mcp.task " +
-        "where language = $2 " +
-        "and (statement ilike $1 escape '\\' " +
-        "  or knowledge ilike $1 escape '\\' " +
-        "  or skills ilike $1 escape '\\' " +
-        "  or abilities ilike $1 escape '\\')";
+        "select 'task' as kind, task_code as key, statement as title, domain_code, " +
+        score("statement", ksa) + " as score " +
+        "from mcp.task where language = $2 and (" + anyOf("statement", ksa) + ")";
       const conceptPart =
         " union all " +
-        "select 'concept', slug, name, coalesce(description,''), null::text " +
-        "from mcp.concept " +
-        "where name ilike $1 escape '\\' or description ilike $1 escape '\\'";
+        "select 'concept', slug, name, null::text, " +
+        score("name", "coalesce(description,'')") + " " +
+        "from mcp.concept where (" + anyOf("name", "coalesce(description,'')") + ")";
+
+      // kind_total is a window count over ALL matches of that kind, computed
+      // BEFORE the row_number cut -- so the caller is told how many exist, not
+      // how many came back. Without it "20 results" cannot be told apart from
+      // "20 results out of 60".
+      //
+      // THE ORDER BY IS PART OF THE PUBLISHED CONTRACT: score, then key. LIMIT
+      // over equal scores is unstable in Postgres without a tie-break, and a
+      // partner who runs the same query twice and gets different answers is
+      // right to conclude the tool is broken. Changing this later is a contract
+      // change, not a tidy-up.
       return {
         q: {
           text:
-            "select * from (" + taskPart + (withConcepts ? conceptPart : "") + ") s " +
-            "order by kind, key limit $3",
-          args: [likePattern(a.query!), a.language, a.limit],
+            "with m as (" + taskPart + (withConcepts ? conceptPart : "") + "), " +
+            "r as (select *, count(*) over (partition by kind) as kind_total, " +
+            "row_number() over (partition by kind order by score desc, key asc) as rn from m) " +
+            "select kind, key, title, domain_code, score, kind_total " +
+            "from r where rn <= $3 order by kind, rn",
+          args,
         },
         searched,
       };

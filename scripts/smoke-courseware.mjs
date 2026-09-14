@@ -281,20 +281,85 @@ if (sampleSlug) {
   });
 }
 
-await expectRows("search_blueprint -> en", { resource: "search", query: "incident", language: "en", limit: 50 }, 1, (j) => {
-  const s = j.searched ?? [];
-  if (!s.includes("task") || !s.includes("concept")) return `searched=${JSON.stringify(s)}, expected both task and concept in English`;
-  return null;
-});
+// THE REGRESSION. A BROAD query is the one that exposed the defect: ordering by
+// kind before relevance returned concepts only, because 'concept' < 'task'.
+// The previous version of this check used "incident" -- 15 concepts and 5 tasks,
+// the one query where the bug does NOT appear. Asserting on it was asserting on
+// the hiding place.
+await expectRows("search_blueprint -> broad query returns BOTH kinds",
+  { resource: "search", query: "service", language: "en", limit: 20 }, 1, (j) => {
+    const tasks = j.rows.filter((r) => r.kind === "task");
+    const concepts = j.rows.filter((r) => r.kind === "concept");
+    if (tasks.length === 0) return `zero tasks for a broad query -- ${concepts.length} concepts came back and nothing else. This is the defect.`;
+    if (concepts.length === 0) return "zero concepts for a broad query in English";
+    const s = j.searched ?? [];
+    if (!s.includes("task") || !s.includes("concept")) return `searched=${JSON.stringify(s)}`;
+    return null;
+  });
 
-// Which numeric columns arrive as strings, measured rather than assumed. The
-// one that failed first was passing_score_pct; weight_pct is numeric too and
-// nothing in C or D would have noticed it changing shape.
+// TOTALS, not a boolean. Every row carries kind_total, counted over ALL matches
+// before the per-kind cut, so "20 results" can be told from "20 of 60".
+await expectRows("search_blueprint -> per-kind totals exceed returned",
+  { resource: "search", query: "service", language: "en", limit: 5 }, 1, (j) => {
+    for (const kind of ["task", "concept"]) {
+      const rows = j.rows.filter((r) => r.kind === kind);
+      if (rows.length === 0) continue;
+      const total = Number(rows[0].kind_total);
+      if (!Number.isFinite(total)) return `${kind}: kind_total is not numeric (${rows[0].kind_total})`;
+      if (total < rows.length) return `${kind}: total ${total} < returned ${rows.length}, which is impossible`;
+      if (rows.length > 5) return `${kind}: ${rows.length} rows at limit 5`;
+    }
+    return null;
+  });
+
+// RANKING ACTUALLY RANKS. Bootstrapped from the data rather than hardcoded, the
+// way the concept-slug check already does: pull a real task statement, search a
+// distinctive slice of it, and require that task back FIRST among tasks. This is
+// the assertion that would have caught the original defect -- the shape checks
+// above pass on any ordering, this one does not.
 {
-  const cert = await post({ resource: "certification" });
-  if (cert.status === 200) checkNumerics("certification", cert.json?.rows ?? [], NUMERIC_FIELDS.certification);
-  const task = await post({ resource: "task", language: "en", limit: 5 });
-  if (task.status === 200) checkNumerics("task", task.json?.rows ?? [], NUMERIC_FIELDS.task);
+  const one = await post({ resource: "task", language: "en", task_code: "5.9", limit: 1 });
+  const stmt = one.json?.rows?.[0]?.statement ?? "";
+  // Five consecutive words from the middle: distinctive, and not the opening
+  // phrase that many statements share.
+  const words = String(stmt).split(/\s+/).filter(Boolean);
+  const probe = words.slice(Math.max(0, Math.floor(words.length / 3)), Math.max(5, Math.floor(words.length / 3) + 5)).join(" ");
+  if (!probe || probe.length < 10) {
+    record("search ranking: probe could not be built", false, `statement was ${JSON.stringify(stmt).slice(0, 60)}`);
+  } else {
+    const { status, json } = await post({ resource: "search", query: probe, language: "en", limit: 20 });
+    const tasks = (json?.rows ?? []).filter((r) => r.kind === "task");
+    const first = tasks[0]?.key ?? null;
+    record(`search ranking: "${probe.slice(0, 34)}..." ranks task 5.9 first`,
+      status === 200 && first === "5.9",
+      status !== 200 ? `HTTP ${status}` : `first task was ${first ?? "(none)"} -- a phrase lifted verbatim from 5.9 must outrank everything else`);
+  }
+}
+
+// DETERMINISM IS PART OF THE CONTRACT, not an implementation detail. LIMIT over
+// equal scores is unstable in Postgres without a tie-break, and a partner who
+// runs the same query twice and gets different answers is right to conclude the
+// tool is broken.
+{
+  const body = { resource: "search", query: "service management", language: "en", limit: 20 };
+  const a1 = await post(body);
+  const a2 = await post(body);
+  const key = (j) => (j?.rows ?? []).map((r) => `${r.kind}:${r.key}`).join("|");
+  record("search is deterministic: identical query, identical order",
+    a1.status === 200 && a2.status === 200 && key(a1.json) === key(a2.json) && key(a1.json).length > 0,
+    `run1=${key(a1.json).slice(0, 70)} run2=${key(a2.json).slice(0, 70)}`);
+}
+
+// WORD BOUNDARY, NOT SUBSTRING. "AI" must not match inside "explain" -- that
+// false positive inflated the totals that made the ordering defect look smaller
+// than it was.
+{
+  const { status, json } = await post({ resource: "search", query: "AI", language: "en", limit: 50 });
+  const tasks = (json?.rows ?? []).filter((r) => r.kind === "task");
+  const total = tasks.length ? Number(tasks[0].kind_total) : 0;
+  record("search matches at word boundaries, not inside words",
+    status === 200 && total > 0 && total < 51,
+    status !== 200 ? `HTTP ${status}` : `${total} task matches for "AI" -- 51 means ILIKE substring matching is back and "explain" is counted`);
 }
 
 console.log("");
