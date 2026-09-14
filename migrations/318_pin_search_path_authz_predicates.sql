@@ -74,33 +74,53 @@
 -- Nothing is synthesised to manufacture a true case. Writing rows into
 -- team_members inside an authorization migration to test an authorization
 -- function is a worse trade than an honestly stated gap.
+--
+-- Editor-first, and this file is ONE STATEMENT: paste the whole DO block. It has
+-- no begin/commit because it does not need them -- a DO block is atomic on its
+-- own, and any raise inside it rolls back the function replacements with it.
 
-begin;
+-- ===================== ONE STATEMENT, NO TEMP OBJECTS =====================
+--
+-- The first version kept the probe in a pg_temp table and a pg_temp function and
+-- failed with 42P01, relation "pg_temp.authz_probe" does not exist. Two causes
+-- are plausible -- pg_temp alias resolution inside the probe function, or the
+-- editor not holding one backend across statements, since temp objects are
+-- per-backend -- and I could not reproduce either from a read-only connection.
+--
+-- So the dependency is gone rather than guessed at. The temp table was
+-- incidental to the shape, never part of it. THE SHAPE IS UNCHANGED: sample,
+-- apply, resample, compare, abort on any difference.
+--
+-- Everything now lives in ONE DO block, which is atomic by itself and holds its
+-- state in local variables. Nothing survives between statements because there is
+-- only one statement.
+--
+-- THE PROBE IS STILL WRITTEN ONCE. A `for phase in 1..2` loop runs it twice and
+-- applies the change between the passes. Two hand-written copies could differ,
+-- and a comparison between two different measurements proves nothing.
+--
+-- AND THE SAMPLING CALLS GO THROUGH EXECUTE ON PURPOSE. A plpgsql plan cached in
+-- pass 1 could otherwise be reused in pass 2 and report the OLD function's
+-- answer -- a probe that cannot observe the change would pass unconditionally,
+-- which is worse than no probe at all. EXECUTE plans each call fresh.
 
--- ------------------------------------------------- the probe, defined once
-
-create table if not exists pg_temp.authz_probe (
-  phase  text not null,
-  label  text not null,
-  result text not null,
-  primary key (phase, label)
-);
-
--- ONE definition, called twice. Two hand-written copies could differ, and a
--- before/after comparison between two different measurements proves nothing.
--- OR REPLACE, and the temp table is IF NOT EXISTS, so a failed attempt can be
--- re-run in the same session. 317 needed three attempts; a migration that only
--- works on a fresh connection is a migration that fights the operator.
-create or replace function pg_temp.authz_sample(p_phase text) returns void
-language plpgsql as $probe$
+do $mig$
 declare
-  v_admin uuid;
-  v_non   uuid;
-  r       record;
-  fn      boolean;
-  inline  boolean;
-  n       int := 0;
-  bad     int := 0;
+  phase     int;
+  v_admin   uuid;
+  v_non     uuid;
+  r         record;
+  fn        boolean;
+  inline    boolean;
+  b1        boolean;
+  b2        boolean;
+  b3        boolean;
+  b4        boolean;
+  n         int;
+  bad       int;
+  sample    jsonb;
+  s_before  jsonb;
+  s_after   jsonb;
 begin
   select id into v_admin from public.profiles
    where platform_role = 'platform_admin' limit 1;
@@ -109,141 +129,124 @@ begin
 
   if v_admin is null or v_non is null then
     raise exception 'authz probe cannot run'
-      using detail = 'need at least one platform_admin and one non-admin in public.profiles',
-            hint   = 'without both, this migration cannot prove it changed nothing';
+      using detail = 'need one platform_admin and one non-admin in public.profiles',
+            hint   = 'without both this cannot prove it changed nothing';
   end if;
 
-  -- is_platform_admin, both directions.
-  perform set_config('request.jwt.claims', json_build_object('sub', v_admin)::text, true);
-  insert into pg_temp.authz_probe values (p_phase, 'admin_reads_true', public.is_platform_admin()::text);
+  for phase in 1..2 loop
 
-  perform set_config('request.jwt.claims', json_build_object('sub', v_non)::text, true);
-  insert into pg_temp.authz_probe values (p_phase, 'non_admin_reads_false', public.is_platform_admin()::text);
+    -- ---------------------------------------------------- apply, between passes
+    if phase = 2 then
+      execute $ddl$
+        create or replace function public.is_platform_admin()
+        returns boolean
+        language sql
+        stable
+        security definer
+        set search_path = ''
+        as $fn$
+          select exists (
+            select 1
+              from public.profiles
+             where id = auth.uid()
+               and platform_role = 'platform_admin'::public.platform_role
+          );
+        $fn$
+      $ddl$;
 
-  perform set_config('request.jwt.claims', '', true);
-  insert into pg_temp.authz_probe values (p_phase, 'no_jwt_reads_false', public.is_platform_admin()::text);
+      execute $ddl$
+        create or replace function public.is_team_admin_of(target_user uuid)
+        returns boolean
+        language sql
+        stable
+        security definer
+        set search_path = ''
+        as $fn$
+          select exists (
+            select 1
+              from public.team_members me
+              join public.team_members them on them.company_id = me.company_id
+             where me.user_id = auth.uid()
+               and me.role = 'team_admin'::public.team_role
+               and them.user_id = target_user
+          );
+        $fn$
+      $ddl$;
+    end if;
 
-  -- is_team_admin_of: does the function agree with the predicate it wraps, for
-  -- every caller/target pair that exists? All are false in this database, so
-  -- this proves the false branch and not the true one.
-  for r in
-    select me.user_id as caller, them.user_id as target
-      from public.team_members me
-     cross join public.team_members them
-  loop
-    perform set_config('request.jwt.claims', json_build_object('sub', r.caller)::text, true);
-    fn := public.is_team_admin_of(r.target);
-    select exists (
-      select 1
-        from public.team_members a
-        join public.team_members b on b.company_id = a.company_id
-       where a.user_id = r.caller
-         and a.role = 'team_admin'
-         and b.user_id = r.target
-    ) into inline;
-    n := n + 1;
-    if fn is distinct from inline then bad := bad + 1; end if;
+    -- -------------------------------------------------------- the probe, once
+    perform set_config('request.jwt.claims', json_build_object('sub', v_admin)::text, true);
+    execute 'select public.is_platform_admin()' into b1;
+
+    perform set_config('request.jwt.claims', json_build_object('sub', v_non)::text, true);
+    execute 'select public.is_platform_admin()' into b2;
+
+    perform set_config('request.jwt.claims', '', true);
+    execute 'select public.is_platform_admin()' into b3;
+
+    n := 0;
+    bad := 0;
+    for r in
+      select me.user_id as caller, them.user_id as target
+        from public.team_members me
+       cross join public.team_members them
+    loop
+      perform set_config('request.jwt.claims', json_build_object('sub', r.caller)::text, true);
+      execute 'select public.is_team_admin_of($1)' into fn using r.target;
+      select exists (
+        select 1
+          from public.team_members a
+          join public.team_members b on b.company_id = a.company_id
+         where a.user_id = r.caller
+           and a.role = 'team_admin'
+           and b.user_id = r.target
+      ) into inline;
+      n := n + 1;
+      if fn is distinct from inline then bad := bad + 1; end if;
+    end loop;
+
+    perform set_config('request.jwt.claims', '', true);
+    execute 'select public.is_team_admin_of($1)' into b4
+      using '00000000-0000-0000-0000-000000000000'::uuid;
+
+    sample := jsonb_build_object(
+      'admin_reads_true',          b1,
+      'non_admin_reads_false',     b2,
+      'no_jwt_reads_false',        b3,
+      'team_pairs_probed',         n,
+      'team_disagreements',        bad,
+      'team_unknown_target_false', b4
+    );
+
+    if phase = 1 then s_before := sample; else s_after := sample; end if;
   end loop;
 
-  perform set_config('request.jwt.claims', '', true);
-  insert into pg_temp.authz_probe values (p_phase, 'team_pairs_probed', n::text);
-  insert into pg_temp.authz_probe values (p_phase, 'team_disagreements', bad::text);
-  insert into pg_temp.authz_probe values
-    (p_phase, 'team_unknown_target_false', public.is_team_admin_of('00000000-0000-0000-0000-000000000000')::text);
-end
-$probe$;
-
-delete from pg_temp.authz_probe;
-select pg_temp.authz_sample('before');
-
--- ------------------------------------------------------------- the change
-
-create or replace function public.is_platform_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = ''
-as $fn$
-  select exists (
-    select 1
-      from public.profiles
-     where id = auth.uid()
-       and platform_role = 'platform_admin'::public.platform_role
-  );
-$fn$;
-
-create or replace function public.is_team_admin_of(target_user uuid)
-returns boolean
-language sql
-stable
-security definer
-set search_path = ''
-as $fn$
-  select exists (
-    select 1
-      from public.team_members me
-      join public.team_members them on them.company_id = me.company_id
-     where me.user_id = auth.uid()
-       and me.role = 'team_admin'::public.team_role
-       and them.user_id = target_user
-  );
-$fn$;
-
--- ------------------------------------------------------ resample and compare
-
-select pg_temp.authz_sample('after');
-
-do $$
-declare
-  d int;
-  detail text;
-begin
-  select count(*), string_agg(coalesce(label, '(missing)') || ': ' ||
-                              coalesce(b_result, 'absent') || ' -> ' ||
-                              coalesce(a_result, 'absent'), '; ')
-    into d, detail
-  from (
-    select coalesce(b.label, a.label) as label,
-           b.result as b_result,
-           a.result as a_result
-      from (select label, result from pg_temp.authz_probe where phase = 'before') b
-      full outer join
-           (select label, result from pg_temp.authz_probe where phase = 'after') a
-        on a.label = b.label
-     where a.result is distinct from b.result
-  ) x;
-
-  if d > 0 then
+  -- ------------------------------------------------------------- the verdict
+  if s_before is distinct from s_after then
     raise exception 'authz behaviour changed'
-      using detail = detail,
+      using detail = 'before ' || s_before::text || ' after ' || s_after::text,
             hint   = 'the pin altered an answer; nothing is committed';
   end if;
-end
-$$;
 
--- The probe must have actually run rather than silently measuring nothing.
-do $$
-declare n int; pairs int;
-begin
-  select count(*) into n from pg_temp.authz_probe where phase = 'after';
-  select result::int into pairs from pg_temp.authz_probe
-   where phase = 'after' and label = 'team_pairs_probed';
-  if n < 6 then
-    raise exception 'authz probe recorded too few rows'
-      using detail = 'expected 6 labels per phase', hint = 'a vacuous probe proves nothing';
-  end if;
-  if pairs < 1 then
+  -- A probe that measured nothing must not read as a pass.
+  if (s_after ->> 'team_pairs_probed')::int < 1 then
     raise exception 'authz probe covered no team pairs'
       using hint = 'team_members is empty; the agreement check proved nothing';
   end if;
+  if (s_after ->> 'team_disagreements')::int <> 0 then
+    raise exception 'is_team_admin_of disagrees with its own predicate'
+      using detail = s_after::text;
+  end if;
+  if (s_after ->> 'admin_reads_true') <> 'true'
+     or (s_after ->> 'non_admin_reads_false') <> 'false'
+     or (s_after ->> 'no_jwt_reads_false') <> 'false' then
+    raise exception 'is_platform_admin does not read as expected'
+      using detail = s_after::text;
+  end if;
+
+  raise notice 'authz unchanged: %', s_after::text;
 end
-$$;
-
-drop function pg_temp.authz_sample(text);
-drop table pg_temp.authz_probe;
-
-commit;
+$mig$;
 
 -- ===================== VERIFICATION =====================
 --
