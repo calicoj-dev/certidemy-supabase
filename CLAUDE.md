@@ -14,8 +14,17 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 316. Next free number: 317.** 303-311 and 313-316 have all RUN;
-nothing is pending. **There is no 312** - the number was claimed and its premise
+**Migration tip: 321. Next free number: 322.** 303-311, 313-317 and 319-321 have
+RUN; **318 is written and has NOT run** (pinning search_path on the two
+authorization predicates).
+
+**AND IT WENT STALE BY FIVE ON 2026-09-14, in the session that wrote all five.**
+The line read *"316 / next free 317"* while 317, 319, 320 and 321 had run and 318
+was on disk. Same session, same author, no handover involved -- the third
+self-inflicted instance recorded here, and the largest since the 2026-09-12 gap.
+The mechanism is the one already named at the top of this section: updating the
+tip is not part of writing a migration, so it does not happen when one is
+written. It was caught only because a handoff asked the disk what had run. **There is no 312** - the number was claimed and its premise
 rejected before anything was written, so the sequence skips it on purpose.
 Sequential, zero-padded to three digits, `NNN_snake_case_name.sql`.
 
