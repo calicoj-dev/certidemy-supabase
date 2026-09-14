@@ -87,6 +87,50 @@ comment on role mcp_logger is
   'Owns mcp.log_request and holds INSERT on public.mcp_requests. Never connects, '
   'has no password, and cannot read the log it writes.';
 
+-- ============ THE EXECUTING ROLE MUST BE ABLE TO SET ROLE mcp_logger ============
+--
+-- Without this, `alter function ... owner to mcp_logger` fails with
+--   ERROR 42501: must be able to SET ROLE "mcp_logger"
+-- even though this transaction just created the role.
+--
+-- MEASURED RATHER THAN ASSUMED, on Postgres 17.6. Supabase's `postgres` is NOT a
+-- superuser but does hold CREATEROLE. Since PG16, creating a role grants the
+-- creator ADMIN OPTION and NOT the SET option:
+--
+--   role        granted_to    admin  inherit  set
+--   mcp_reader  postgres      true   false    FALSE   <- why the owner change failed
+--   mcp_reader  authenticator false  false    true    <- an explicit GRANT defaults to SET TRUE
+--
+-- So the creator can administer the role and cannot become it. An explicit
+-- GRANT supplies what CREATE ROLE withheld, and ADMIN OPTION is exactly the
+-- privilege that permits it -- no superuser required.
+--
+-- WHY THIS DIRECTION AND NOT THE OTHER TWO:
+--
+--   Creating the function as owner-by-default and altering afterwards is what
+--   this migration already did. The ALTER is the failing step, so it is not an
+--   alternative.
+--
+--   Creating it while SET ROLE mcp_logger is active would avoid the ALTER
+--   entirely, and needs the SAME grant to do the SET ROLE -- plus CREATE on
+--   schema mcp for mcp_logger, which is more privilege for a role whose whole
+--   point is that it has almost none. Rejected.
+--
+-- So: grant, create as the schema owner, transfer. mcp_logger never needs CREATE
+-- anywhere.
+--
+-- INHERIT is deliberately NOT granted. The executing role must SET ROLE
+-- explicitly to act as mcp_logger rather than silently acquiring its INSERT,
+-- which is the same reason the owner matters at all. The grant is left in place
+-- afterwards so a future migration can re-own the function; ADMIN OPTION means
+-- the creator could re-grant it at any time regardless, so removing it would buy
+-- nothing and cost the next author a confusing failure.
+do $$
+begin
+  execute format('grant mcp_logger to %I with set true', current_user);
+end
+$$;
+
 -- ------------------------------------------------------------------ table
 
 create table if not exists public.mcp_requests (
@@ -220,6 +264,16 @@ commit;
 --   join pg_namespace n on n.oid = p.pronamespace
 --   join pg_language  l on l.oid = p.prolang
 --  where n.nspname = 'mcp' and p.proname = 'log_request';
+--
+-- 1b. The grant that made the owner change possible. Expect set_option t.
+--     If this is f, the owner assertion above will have failed too -- they are
+--     the same fact seen from two sides.
+--
+-- select g.rolname as granted_to, m.admin_option, m.inherit_option, m.set_option
+--   from pg_auth_members m
+--   join pg_roles r on r.oid = m.roleid
+--   join pg_roles g on g.oid = m.member
+--  where r.rolname = 'mcp_logger';
 --
 -- 2. mcp_reader CAN EXECUTE AND CANNOT INSERT. Expect t, then f.
 --    The second half is re-asserted at runtime by courseware-read's cold-start
