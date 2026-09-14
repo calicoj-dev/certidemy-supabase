@@ -88,18 +88,53 @@ function runsIn(text, floor) {
   return out;
 }
 
-/** Markdown blockquote state, lazy continuation included. */
+/**
+ * IS THIS LINE PRESENTED AS QUOTATION? THREE CONVENTIONS, NOT ONE.
+ *
+ * A first version recognised only markdown blockquotes and reported 24 unmarked
+ * runs. Reading them showed the corpus quotes three ways, all attributed and all
+ * visibly set off:
+ *
+ *   > **When it is not possible for internal auditors...**      blockquote
+ *   - **When it is not possible for internal auditors...**      bulleted + bold
+ *   - b) **determine all controls that are necessary** to ...   clause enumeration
+ *
+ * The mask reset on "- " and so counted the last two as prose. TWO OF THE THREE
+ * CONVENTIONS THE CORPUS USES WERE INVISIBLE TO THE CHECK, which made the corpus
+ * look worse than it is and would have put properly-quoted lines on a rewrite
+ * list. Bold-span coverage is measured per line; a line whose ISO run sits
+ * mostly inside ** ** is marked, whatever bullet carries it.
+ */
+function boldCoverage(raw) {
+  const spans = [...String(raw).matchAll(/\*\*([^*]+)\*\*/g)].map((m) => m[1]);
+  if (!spans.length) return 0;
+  const plain = String(raw).replace(/[*>`\-]/g, " ").replace(/\s+/g, " ").trim();
+  const inBold = spans.join(" ").replace(/\s+/g, " ").trim();
+  return plain.length ? inBold.length / plain.length : 0;
+}
+
 function quoteMask(lines) {
   const mask = [];
   let inQ = false;
-  for (const raw of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     const t = raw.trim();
     if (/^>/.test(t)) inQ = true;
     else if (t === "") inQ = false;
-    else if (/^(#{1,6}\s|::|\||[-*+]\s|\d+\.\s|```)/.test(t)) inQ = false;
-    // otherwise: non-blank, non-block-start, immediately after a quote -> lazy
-    // continuation, inQ stays as it is.
-    mask.push(inQ);
+    else if (/^(#{1,6}\s|::|\||```)/.test(t)) inQ = false;
+    else if (/^([-*+]\s|\d+\.\s)/.test(t)) inQ = false;
+
+    // A list item that is mostly bold is a quotation in this corpus's house
+    // style, and so is one introduced by a line naming a clause and ending in a
+    // colon - "clause 6.1.3 requires the organization to:" followed by a), b).
+    const prev = (lines[i - 1] || "").trim();
+    const prev2 = (lines[i - 2] || "").trim();
+    const leadIn = /(clause|annex)\s*[\dA-B][^.]{0,80}:\s*$/i;
+    const enumerated = /^[-*+]\s*[a-h]\)/.test(t);
+    const marked = inQ
+      || boldCoverage(raw) >= 0.5
+      || (enumerated && (leadIn.test(prev) || leadIn.test(prev2)));
+    mask.push(marked);
   }
   return mask;
 }
