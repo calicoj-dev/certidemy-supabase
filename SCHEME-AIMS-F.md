@@ -128,6 +128,8 @@ criterion-referenced expert judgement before any candidate had taken the
 examination. A standard-setting study using candidate performance data is owed
 once volume permits, and this section will be revised when it exists.
 
+**80% is adopted by citation, not argued fresh.** `AIHR-I` §7 carries the tier-1 argument -- why a tier-1 item, whose distractors are wrong rather than merely less good, supports a higher threshold than Level II's 75%, and why not 85% -- together with the whole-item granularity constraint a standard-setting panel must be given. Repeating it here would create a second copy to keep in step.
+
 **5.3 Item statistics do not yet exist.** No difficulty or discrimination indices,
 no distractor analysis. These follow candidate volume.
 

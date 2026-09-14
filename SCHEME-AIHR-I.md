@@ -247,23 +247,94 @@ reviewed after the first cohort.
 
 **Pass mark: 80% (32 of 40 items).**
 
-**This cut score is provisional and is stated as such.** It is the catalog's
-house convention, applied for consistency across credentials. It has **not** been
+**This section carries the tier-1 argument for the whole catalog.** The other
+"I"-tier schemes cite it rather than restating it, the way `SM-AI-II` §7 cites
+`ISMS-IA` §7 for tier 2. One copy, in one place, so there is nothing to keep in
+step.
+
+**This cut score is provisional and is stated as such.** It has **not** been
 derived from a formal standard-setting study, because standard-setting requires
-candidate performance data that does not yet exist for this scheme. Certidemy states
-this plainly rather than implying psychometric derivation.
+candidate performance data that does not yet exist for this scheme. Certidemy
+states this plainly rather than implying psychometric derivation.
 
-Two facts a reader should hold together: the cut score is nominally identical to
-AIE-I's, and this examination is materially harder per item, because its cognitive
-profile is weighted to Apply and Analyze rather than Remember and Understand. That
-difference is intentional and reflects the competence claimed. It is also the first
-place to investigate if early pass rates prove unreasonable.
+### 7.1 Why 80%, in terms of what a tier-1 item is
 
-**Committed:** a formal standard-setting study (modified Angoff or equivalent
-criterion-referenced method, with a panel of qualified subject-matter experts) once
-sufficient live candidate data exists, and adjustment of the cut score if that study
-indicates it. Item difficulty and discrimination statistics will be computed from the
-same data and used to retire or repair items that do not perform.
+**A tier-1 item asks which answer is correct.** The key is right and the
+distractors are wrong — not less good, wrong. A candidate who misses one has a
+gap in the published syllabus, not a disagreement with the item writer.
+
+That is the whole of the difference from Level II, and it runs in the opposite
+direction. `ISMS-IA` §7 argues 75% for tier 2 precisely because a Level II item
+asks which of four *defensible* answers is best, so a competent candidate can
+choose a defensible second-best and be wrong without being incompetent. **The
+two numbers are not a lenient one and a strict one. They are two different
+instruments, each with the threshold its item type can support.**
+
+**Why not lower.** A foundation credential claims coverage of a stated syllabus.
+At 75% a candidate may be wrong about a quarter of it — on these form lengths,
+roughly a whole domain's worth — and still be certified as having covered it.
+The claim on the certificate and the threshold behind it would not describe the
+same person.
+
+**Why not higher.** At 85% on a 40-item form a candidate may miss six items
+rather than eight. Forms in this catalog run from 25 to 80 items, and the
+measurement error of a criterion-referenced form at those lengths is not small
+relative to a five-point move. Raising the bar would buy a precision the
+instrument cannot deliver, and would convert item-writing noise — an ambiguous
+distractor, one unlucky sampling of the bank — into pass/fail outcomes. **A
+threshold finer than the form can resolve is a false claim about the exam's
+accuracy, not a higher standard.**
+
+**And 80% is exactly expressible at every tier-1 form length**, which 75% is
+not: 20 of 25, 32 of 40, 64 of 80. No rounding, no gap between the declared
+number and the achievable one. See 7.2, because that property does not hold
+everywhere in this catalog.
+
+### 7.2 The granularity constraint, recorded before a panel meets it
+
+**A cut score can only be expressed in whole items.** On a 40-item form one item
+is 2.5 percentage points; on an 80-item form, 1.25; **on `AIE-I`'s 25-item form,
+4.0.**
+
+So on `AIE-I` the achievable cut scores around the bar are **76% (19/25) and 80%
+(20/25). There is no 78%.** A standard-setting study can return a finding the
+form is unable to express, and the remedy is then a change in form length, not a
+change in the number. **This belongs in the scheme that argues the number rather
+than being discovered by whoever runs the panel.**
+
+**The constraint is already live elsewhere in the catalog, which is why it is
+stated rather than anticipated.** The Level II schemes declare 75% on a 50-item
+form. 75% of 50 is 37.5 items, which no candidate can score, and all three state
+the pass as **38 of 50 — which is 76.0%.** The declared number and the operative
+number differ by a point. That is a rounding artefact rather than a decision, and
+it is flagged here for the tier-2 schemes to resolve; recording it is not the
+same as fixing it.
+
+### 7.3 Two facts a reader should hold together
+
+The cut score is nominally identical to `AIE-I`'s, and **this examination is
+materially harder per item**, because its cognitive profile is weighted to Apply
+and Analyze rather than Remember and Understand. That difference is intentional
+and reflects the competence claimed. It is also the first place to investigate if
+early pass rates prove unreasonable.
+
+**Measured 2026-09-14**, and the gap is wider than "materially": the share of
+tasks at Analyze or above is **21.4% for `AIHR-I` and 0.0% for `AIE-I`** — the
+top and the bottom of the tier-1 range, carrying the same threshold. The catalog
+holds no minimum for that share, only a ceiling (`jta.mcqCeiling`: no exam-scope
+task above Analyze, because multiple choice cannot validly assess Evaluate or
+Create). `verify-cert`'s `jta.higherOrder` reports the figure on every run and
+gates nothing, pending a decision on whether a tier-1 floor should exist.
+
+### 7.4 Committed
+
+A formal standard-setting study (modified Angoff or equivalent
+criterion-referenced method, with a panel of qualified subject-matter experts)
+once sufficient live candidate data exists, and adjustment of the cut score if
+that study indicates it. Item difficulty and discrimination statistics will be
+computed from the same data and used to retire or repair items that do not
+perform. **The panel is to be given 7.2 as an input**, so that a recommendation
+lands on a value the form can express.
 
 ---
 

@@ -222,6 +222,13 @@ reflects the level of mastery the body judges necessary to certify competence, n
 curve relative to other candidates. The current 80% threshold is a **provisional,
 expert-judgment cut score** set at the literacy-tier standard.
 
+**80% is adopted by citation, not argued fresh.** `AIHR-I` §7 carries the tier-1 argument -- why a tier-1 item, whose distractors are wrong rather than merely less good, supports a higher threshold than Level II's 75%, and why not 85% -- together with the whole-item granularity constraint a standard-setting panel must be given. Repeating it here would create a second copy to keep in step.
+
+**AIE-I is the form the granularity constraint bites hardest.** At 25 items one
+item is 4.0 percentage points, so the achievable cut scores around the bar are 76%
+and 80% and there is no 78%. `AIHR-I` §7.2 states it; it is repeated here because
+this is the scheme it constrains.
+
 It has **not yet** been validated by a formal standard-setting study, because
 defensible standard-setting (e.g., a modified-Angoff panel and statistical
 confirmation against candidate performance) **requires real candidate data that does

@@ -253,6 +253,8 @@ reflects the level of mastery the body judges necessary to certify competence, n
 curve relative to other candidates. The current 80% threshold is a **provisional,
 expert-judgment cut score**.
 
+**80% is adopted by citation, not argued fresh.** `AIHR-I` §7 carries the tier-1 argument -- why a tier-1 item, whose distractors are wrong rather than merely less good, supports a higher threshold than Level II's 75%, and why not 85% -- together with the whole-item granularity constraint a standard-setting panel must be given. Repeating it here would create a second copy to keep in step.
+
 It has **not yet** been validated by a formal standard-setting study, because
 defensible standard-setting (e.g., a modified-Angoff panel and statistical
 confirmation against candidate performance) **requires real candidate data that does
