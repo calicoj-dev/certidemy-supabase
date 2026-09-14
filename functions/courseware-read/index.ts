@@ -202,8 +202,29 @@ function assertIdentity(): Promise<void> {
             // which is the property actually claimed for this role -- EXECUTE on
             // one definer function and write access to nothing. 384 relations,
             // once per cold start.
+            // SCHEMA net IS EXCLUDED BY NAME, AND THAT IS A RECORDED EXCEPTION
+            // RATHER THAN A LOOSENED CHECK.
+            //
+            // The assertion fired for real on 2026-09-14: mcp_reader could write
+            // to TWO relations, net.http_request_queue and net._http_response.
+            // pg_net grants ALL on both to PUBLIC and USAGE on schema net to
+            // PUBLIC, so every role on this database can enqueue outbound HTTP.
+            // The property "mcp_reader can write nothing" was never true and the
+            // check was right to refuse.
+            //
+            // It is not fixed by widening this predicate. pg_net is load-bearing
+            // -- dispatch-webhooks and dispatch-emails both call net.http_post
+            // every minute -- so revoking PUBLIC is its own migration with its
+            // own blast radius. See 319's footer.
+            //
+            // Excluding ONE NAMED SCHEMA keeps everything this check was for: a
+            // grant appearing in public, mcp, or any schema that does not exist
+            // yet still refuses to serve. What it no longer does is block on a
+            // platform default that is now written down in two places.
             "(select count(*) from pg_class c " +
+            "   join pg_namespace ns on ns.oid = c.relnamespace " +
             " where c.relkind in ('r','p','v','m','f') " +
+            "   and ns.nspname <> 'net' " +
             "   and has_table_privilege(current_user, c.oid, 'INSERT'))::int as writable_relations",
           args: [],
         });
