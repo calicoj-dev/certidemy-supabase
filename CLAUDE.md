@@ -271,6 +271,36 @@ disagreement into a named failure on the side that can be tested.
 **Use `arrayBuffer()`, never `.text()`, in any pass-through proxy.** `.text()`
 has corrupted PNG bytes twice.
 
+**`count(*)` AND `row_number()` RETURN BIGINT, AND `JSON.stringify` THROWS ON
+BIGINT.** `deno-postgres` maps Postgres `bigint` to a JS `BigInt`, which has no
+JSON representation, so an aggregate or window function in an edge-function query
+produces `TypeError: Do not know how to serialize a BigInt` at response time.
+
+**The tell is that the QUERY SUCCEEDED.** `courseware-read` logged
+`rows:86, ms:75` with both corpora searched, and the caller got
+`500 {"error":"read failed"}`. The failure was entirely in serialising a correct
+result, so every instinct that reaches for the SQL is aimed at the wrong half.
+
+**Cast at the SOURCE -- `count(*) over (...)::int` -- not in a serialiser.** A
+serialiser that special-cases `BigInt` pushes the knowledge into every consumer
+and is still wrong the next time someone adds a count.
+
+**No COLUMN can do this**, checked against `information_schema` for the `mcp`
+views: every integer there is `smallint` or `integer`. Only the aggregate and
+window functions produce bigint, which is why only `search` failed and the other
+three resources passed. `row_number()` was safe purely by omission -- it is
+filtered on and not selected -- and is now cast anyway, because "safe because
+nobody returns it" is one edit away from false.
+
+**`db.<ref>.supabase.co` IS AAAA-ONLY.** No A record at all. The edge runtime
+reaches it; a workstation without working IPv6 cannot, and the failure is a
+connect timeout that reads as the database being down -- the same misattribution
+as the Node `fetch` note above, through a different door. The shared pooler
+`aws-0-<region>.pooler.supabase.com` has A records in every region and is the
+IPv4 path to the same database. The username form follows the host: the shared
+pooler wants `<role>.<ref>`, a dedicated pooler and a direct connection want the
+bare role.
+
 **Set `autoRefreshToken: false`** on service-role Supabase clients in scripts.
 
 ---

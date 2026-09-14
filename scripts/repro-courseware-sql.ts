@@ -93,6 +93,29 @@ if (!PASSWORD || !DB_HOST) {
   console.error("Use --sql-only to print the statement without connecting.");
   Deno.exit(2);
 }
+
+// ============ DO NOT USE THE FUNCTION'S OWN HOST FROM A WORKSTATION ============
+//
+// db.<ref>.supabase.co resolves AAAA-ONLY -- no A record at all. The edge
+// runtime has IPv6 and reaches it; a workstation without a working IPv6 path
+// cannot, and the failure is a connect timeout that reads as the database being
+// down. That is the same misattribution recorded in CLAUDE.md for Node's fetch,
+// arriving through a different door.
+//
+// The SHARED pooler is IPv4: aws-0-<region>.pooler.supabase.com has A records in
+// every region. Point MCP_READER_DB_HOST there for local runs. The username form
+// follows the host automatically -- the shared pooler needs the project ref
+// appended, a dedicated pooler and a direct connection do not -- so nothing else
+// changes, and the SQL, the role and the driver are identical either way.
+//
+// The region is in the dashboard: Settings -> Database -> Connection string.
+if (/^db\.[a-z0-9]+\.supabase\.co$/i.test(DB_HOST)) {
+  console.warn("");
+  console.warn(`NOTE: ${DB_HOST} is IPv6-only. If this times out, it is DNS, not the database.`);
+  console.warn("      Use the shared pooler instead: aws-0-<region>.pooler.supabase.com");
+  console.warn("      The username form adjusts itself; nothing else changes.");
+  console.warn("");
+}
 const IS_SHARED_POOLER = /(^|\.)pooler\.supabase\.com$/i.test(DB_HOST);
 const PROJECT_REF = "pctynukndxnmnxiqpgck";
 const CONN_USER = IS_SHARED_POOLER ? `mcp_reader.${PROJECT_REF}` : "mcp_reader";
@@ -124,6 +147,7 @@ try {
   // endpoint and is why the failure was undiagnosable from the smoke test.
   console.error("");
   console.error("QUERY FAILED -- the error the function swallows:");
+  console.error("(a connect timeout here is the IPv6 note above, not a query defect)");
   console.error("");
   const err = e as { message?: string; fields?: Record<string, unknown> };
   console.error("  " + (err.message ?? String(e)));

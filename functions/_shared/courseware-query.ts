@@ -286,8 +286,23 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
         q: {
           text:
             "with m as (" + taskPart + (withConcepts ? conceptPart : "") + "), " +
-            "r as (select *, count(*) over (partition by kind) as kind_total, " +
-            "row_number() over (partition by kind order by score desc, key asc) as rn from m) " +
+            // ::int ON BOTH, AND THE CAST IS THE FIX RATHER THAN A TIDY-UP.
+            // count(*) and row_number() return BIGINT; deno-postgres maps bigint
+            // to a JS BigInt; JSON.stringify THROWS on BigInt. So the query
+            // succeeded -- rows:86, ms:75, both kinds searched -- and the caller
+            // got 500 "read failed" purely in serialising a correct result.
+            //
+            // Cast at the SOURCE so nothing downstream has to know. A serialiser
+            // that special-cases BigInt would push the knowledge into every
+            // consumer and would still be wrong the next time a count is added.
+            //
+            // rn is cast too although it is NOT selected: it is safe today only
+            // by omission, and adding it to the output later would reproduce this
+            // exactly. No column in any of the four views is bigint -- checked
+            // against information_schema, they are all smallint or integer -- so
+            // these two functions are the only bigint sources that exist here.
+            "r as (select *, count(*) over (partition by kind)::int as kind_total, " +
+            "row_number() over (partition by kind order by score desc, key asc)::int as rn from m) " +
             "select kind, key, title, domain_code, score, kind_total " +
             "from r where rn <= $3 order by kind, rn",
           args,
