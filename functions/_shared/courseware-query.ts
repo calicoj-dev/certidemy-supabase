@@ -21,7 +21,7 @@
 // after one. If this module and the function ever disagree, the function is
 // importing this file -- there is no second copy to drift.
 
-export const RESOURCES = ["certification", "task", "concept", "search"] as const;
+export const RESOURCES = ["certification", "task", "concept", "search", "log"] as const;
 export type Resource = typeof RESOURCES[number];
 
 // mcp.task and mcp.lesson carry these three; mcp.concept and mcp.certification
@@ -44,10 +44,15 @@ const DEFAULT_LIMIT = 50;
 // function is not, which is the failure mode a permissive parser produces
 // silently.
 const ALLOWED: Record<Resource, string[]> = {
-  certification: ["resource"],
-  task: ["resource", "language", "domain_code", "task_code", "limit"],
-  concept: ["resource", "slug", "task_code", "limit"],
-  search: ["resource", "query", "language", "limit"],
+  certification: ["resource", "tool"],
+  task: ["resource", "language", "domain_code", "task_code", "limit", "tool"],
+  concept: ["resource", "slug", "task_code", "limit", "tool"],
+  search: ["resource", "query", "language", "limit", "tool"],
+  // The Worker's telemetry-only call. A certification refusal is decided in the
+  // Worker's validator, BEFORE any read is attempted, so it never reaches a
+  // readable resource -- and "which certifications do partners ask for and get
+  // refused" is the most commercially interesting event on this endpoint.
+  log: ["resource", "event", "tool", "certification", "language"],
 };
 
 export type Args = {
@@ -58,7 +63,33 @@ export type Args = {
   slug?: string;
   query?: string;
   limit: number;
+  tool?: string;
+  event?: string;
+  certification?: string;
 };
+
+/** The four tools, so `tool` is a closed vocabulary rather than free text. */
+export const TOOLS = ["search_blueprint", "get_concept", "get_syllabus", "explain_task"] as const;
+export const LOG_EVENTS = ["certification_refused"] as const;
+const CERT_CODE_RE = /^[A-Z0-9-]{2,20}$/;
+
+/**
+ * EMAIL REDACTION, APPLIED BEFORE ANYTHING IS STORED.
+ *
+ * Narrow on purpose. A fuzzy "looks like a person" filter would silently eat
+ * legitimate queries and corrupt the very signal the log exists to capture.
+ * This one case is not hypothetical: this repo's own instrument wrote
+ * someone@example.com to disk from a tool whose entire design is that it refuses
+ * email addresses, and a search box is the obvious place for someone to type
+ * "find John Smith's certification".
+ *
+ * Migration 317 carries the same pattern as a CHECK constraint, so the redaction
+ * is a property of the table and not a habit of one caller.
+ */
+export const EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+export function redactEmails(s: string): string {
+  return s.replace(EMAIL_RE, "[email redacted]");
+}
 
 export function bad(msg: string): never {
   throw new BadRequest(msg);
@@ -132,6 +163,28 @@ export function validateArgs(raw: unknown): Args {
     bad(`query is only valid for resource 'search'`);
   }
 
+  if (b.tool !== undefined) {
+    if (typeof b.tool !== "string" || !(TOOLS as readonly string[]).includes(b.tool)) {
+      bad(`tool must be one of: ${TOOLS.join(", ")}`);
+    }
+    out.tool = b.tool;
+  }
+
+  if (res === "log") {
+    if (typeof b.event !== "string" || !(LOG_EVENTS as readonly string[]).includes(b.event)) {
+      bad(`event must be one of: ${LOG_EVENTS.join(", ")}`);
+    }
+    out.event = b.event;
+    if (b.certification !== undefined) {
+      if (typeof b.certification !== "string" || !CERT_CODE_RE.test(b.certification)) {
+        bad("certification must look like a certification code");
+      }
+      out.certification = b.certification;
+    }
+  } else if (b.event !== undefined || b.certification !== undefined) {
+    bad("event and certification are only valid for resource 'log'");
+  }
+
   return out;
 }
 
@@ -144,6 +197,11 @@ export type Q = { text: string; args: unknown[] };
 
 export function buildQuery(a: Args): { q: Q; searched?: string[] } {
   switch (a.resource) {
+    // Telemetry only; the handler returns before reaching here. Present so the
+    // switch stays exhaustive and a future caller cannot fall through silently.
+    case "log":
+      bad("log is not a readable resource");
+      break;
     case "certification":
       return {
         q: {

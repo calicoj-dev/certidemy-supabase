@@ -173,11 +173,17 @@ function assertIdentity(): Promise<void> {
           who: string;
           session_who: string;
           reader_can_read_lessons: boolean;
+          reader_can_insert_log: boolean;
         }>({
           text:
             "select current_user::text as who, " +
             "session_user::text as session_who, " +
-            "has_table_privilege(current_user, 'mcp.lesson', 'SELECT') as reader_can_read_lessons",
+            "has_table_privilege(current_user, 'mcp.lesson', 'SELECT') as reader_can_read_lessons, " +
+            // mcp_reader holds EXECUTE on mcp.log_request and INSERT on nothing.
+            // Asserted rather than documented: the whole argument for a definer
+            // function over a write grant is that this stays false, so it is
+            // checked at runtime where a migration cannot reach.
+            "has_table_privilege(current_user, 'public.mcp_requests', 'INSERT') as reader_can_insert_log",
           args: [],
         });
         const row = r.rows[0];
@@ -190,6 +196,12 @@ function assertIdentity(): Promise<void> {
         if (row.reader_can_read_lessons) {
           throw new Error(
             "this connection can select mcp.lesson; courseware-read is the reader path and must not -- refusing to serve",
+          );
+        }
+        if (row.reader_can_insert_log) {
+          throw new Error(
+            "this connection can INSERT into public.mcp_requests directly; it must reach the log only " +
+              "through mcp.log_request, whose owner bounds what a defect can write -- refusing to serve",
           );
         }
         // ONCE PER COLD START, AND ONLY AFTER THE ASSERTIONS PASS. The port
@@ -224,8 +236,109 @@ import {
   bad,
   BadRequest,
   buildQuery,
+  redactEmails,
   validateArgs,
 } from "../_shared/courseware-query.ts";
+
+// ------------------------------------------------------------------ logging
+//
+// ===================== LOGGING MUST NEVER BREAK A READ =====================
+//
+// Telemetry is not worth a 500 on a working query. Every failure path here
+// returns false rather than throwing, and the caller's response is built from
+// the read result regardless.
+//
+// BUT A SILENTLY FAILING LOGGER PRODUCES AN EMPTY TABLE NOBODY QUESTIONS, which
+// is the same silent-success family as everything else in this repo. So a
+// swallowed error is visible in two places, not one:
+//
+//   1. a distinct, greppable line -- "courseware-read LOG WRITE FAILED"
+//   2. `logged: false` on the REQUEST line itself, every time
+//
+// The second is what makes an empty table answerable: if the table is empty and
+// every request line says logged:true, the write is landing somewhere else; if
+// they say logged:false, the reason is on the line above. A counter of
+// consecutive failures rides along so a persistent outage is one glance rather
+// than a scroll.
+//
+// It is also TIME-BOUNDED. A hung logger would otherwise delay the response,
+// which is "logging breaking a read" by latency rather than by error.
+let logFailStreak = 0;
+
+const LOG_SQL =
+  "select mcp.log_request($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)";
+
+async function writeLogRow(args: unknown[]): Promise<boolean> {
+  try {
+    const conn = await getPool().connect();
+    try {
+      await conn.queryObject({ text: LOG_SQL, args });
+    } finally {
+      conn.release();
+    }
+    logFailStreak = 0;
+    return true;
+  } catch (e) {
+    logFailStreak++;
+    // Named, not silent. This is the line that explains an empty table.
+    console.error(
+      `courseware-read LOG WRITE FAILED (${logFailStreak} consecutive): ` +
+        (e instanceof Error ? e.message : String(e)),
+    );
+    return false;
+  }
+}
+
+/** 1.5s ceiling: past that the telemetry is abandoned, never the response. */
+function boundedLog(args: unknown[]): Promise<boolean> {
+  return Promise.race([
+    writeLogRow(args),
+    new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 1500)),
+  ]);
+}
+
+/**
+ * The caller identity, weakly and on purpose.
+ *
+ * NEVER A RAW IP. An HMAC keyed on MCP_LOG_SALT over `ip|YYYY-MM` gives
+ * distinct-caller counts within a month and no re-identification across months
+ * or from the table alone. Rotating the PERIOD inside the message rotates the
+ * hash without rotating the secret.
+ *
+ * With no salt configured this returns null rather than falling back to
+ * something weaker -- a hash with a guessable key is worse than no hash,
+ * because it looks like protection.
+ *
+ * Note what this can and cannot see: courseware-read is called by the Worker,
+ * which forwards no client address, so for MCP traffic this hashes CLOUDFLARE'S
+ * egress IP. It is only a real caller identity for direct callers of this
+ * endpoint. Partner attribution needs the token flow, not this field.
+ */
+async function callerHash(req: Request): Promise<string | null> {
+  const salt = Deno.env.get("MCP_LOG_SALT") ?? "";
+  if (!salt) return null;
+  const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+  if (!ip) return null;
+  const period = new Date().toISOString().slice(0, 7);
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(salt),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${ip}|${period}`));
+  return Array.from(new Uint8Array(sig).slice(0, 16))
+    .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/** Self-reported by the Worker; display only, never a behaviour decision. */
+function clientName(req: Request): string | null {
+  const raw = req.headers.get("x-mcp-client");
+  if (!raw) return null;
+  const clean = raw.replace(/[^\x20-\x7E]/g, "").slice(0, 80).trim();
+  return clean.length ? clean : null;
+}
 
 // ------------------------------------------------------------------ handler
 
@@ -235,6 +348,31 @@ serve(async (req) => {
 
   const started = Date.now();
   let args: Args | null = null;
+  let caller: string | null = null;
+
+  // One row per request, whatever the outcome. Assembled as the request
+  // proceeds so the catch below can log a rejection with the same shape as a
+  // success -- a telemetry table that only records successes answers the
+  // easiest question and none of the useful ones.
+  const logArgs = (status: number, rows: number | null, error: string | null) => [
+    args?.resource ?? "log",
+    args?.tool ?? null,
+    args?.language ?? null,
+    args?.query ? redactEmails(args.query) : null,
+    args?.query ? args.query.length : null,
+    args?.slug ?? null,
+    args?.task_code ?? null,
+    args?.domain_code ?? null,
+    args?.limit ?? null,
+    null, // contract_version: the Worker's concern, not this function's
+    status,
+    rows,
+    Date.now() - started,
+    error,
+    args?.resource === "log" ? (args.certification ?? null) : null,
+    caller,
+    clientName(req),
+  ];
 
   try {
     if (!PASSWORD || !DB_HOST) {
@@ -246,8 +384,28 @@ serve(async (req) => {
 
     const raw = await req.json().catch(() => bad("body must be valid JSON"));
     args = validateArgs(raw);
+    caller = await callerHash(req);
 
     await assertIdentity();
+
+    // TELEMETRY-ONLY. A certification refusal is decided in the Worker's
+    // validator before any read is attempted, so it can never appear on a
+    // readable resource -- and it is the most commercially interesting event
+    // this endpoint sees. It gets the same row shape and the same
+    // never-break-the-caller treatment; there is simply nothing to read.
+    if (args.resource === "log") {
+      const logged = await boundedLog(logArgs(200, null, null));
+      console.log(JSON.stringify({
+        fn: "courseware-read",
+        resource: "log",
+        event: args.event,
+        tool: args.tool ?? null,
+        refused: args.certification ?? null,
+        logged,
+        ms: Date.now() - started,
+      }));
+      return jsonResponse({ ok: true, logged });
+    }
 
     const { q, searched } = buildQuery(args);
     const conn = await getPool().connect();
@@ -259,37 +417,55 @@ serve(async (req) => {
       conn.release();
     }
 
-    // THE QUERY IS NEVER HERE. Its length is.
-    console.log(JSON.stringify({
-      fn: "courseware-read",
-      resource: args.resource,
-      language: args.language,
-      ...(args.resource === "search" ? { q_len: args.query!.length, searched } : {}),
-      rows: rows.length,
-      ms: Date.now() - started,
-    }));
-
-    return jsonResponse({
+    // THE RESPONSE IS BUILT BEFORE THE LOG IS ATTEMPTED, so nothing below can
+    // change what the caller receives.
+    const body = {
       resource: args.resource,
       language: args.language,
       certification: "AISM-I",
       ...(searched ? { searched } : {}),
       count: rows.length,
       rows,
-    });
+    };
+
+    const logged = await boundedLog(logArgs(200, rows.length, null));
+
+    // THE QUERY IS NEVER HERE. Its length is. `logged` rides on every line so an
+    // empty telemetry table is answerable from the function log alone.
+    console.log(JSON.stringify({
+      fn: "courseware-read",
+      resource: args.resource,
+      language: args.language,
+      ...(args.resource === "search" ? { q_len: args.query!.length, searched } : {}),
+      rows: rows.length,
+      logged,
+      ms: Date.now() - started,
+    }));
+
+    return jsonResponse(body);
   } catch (e) {
     if (e instanceof BadRequest) {
+      // A rejection is logged too: what callers get WRONG is as much of the
+      // feedback loop as what they get right.
+      const logged = await boundedLog(logArgs(400, null, e.message));
       console.log(JSON.stringify({
         fn: "courseware-read",
         resource: args?.resource ?? null,
         rejected: e.message,
+        logged,
         ms: Date.now() - started,
       }));
       return jsonResponse({ error: e.message }, 400);
     }
     // The caller gets no internals. A failed identity assertion in particular
     // must not tell an unauthenticated caller which role the function holds.
-    console.error("courseware-read failed:", e instanceof Error ? e.message : String(e));
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("courseware-read failed:", msg);
+    // Best-effort, and deliberately last: if the failure WAS the connection,
+    // this will fail too and say so on its own line rather than masking the
+    // original error.
+    const logged = await boundedLog(logArgs(500, null, msg));
+    console.log(JSON.stringify({ fn: "courseware-read", resource: args?.resource ?? null, status: 500, logged }));
     return jsonResponse({ error: "read failed" }, 500);
   }
 });
