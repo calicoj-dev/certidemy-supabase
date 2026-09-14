@@ -197,6 +197,13 @@ revoke all on public.mcp_requests from anon, authenticated;
 -- INSERT only. Not SELECT: the logging identity cannot read the log back.
 grant insert on public.mcp_requests to mcp_logger;
 
+-- REQUIRED AT RUNTIME. The function body inserts into public.mcp_requests while
+-- running as mcp_logger, and reaching a table requires USAGE on its schema.
+-- USAGE on a schema is not access to anything in it: every object's own ACL
+-- still decides, and mcp_logger holds INSERT on exactly one table and nothing
+-- else anywhere.
+grant usage on schema public to mcp_logger;
+
 -- ------------------------------------------------------------------ function
 
 create or replace function mcp.log_request(
@@ -236,12 +243,46 @@ as $$
   );
 $$;
 
+-- ============ AND THE NEW OWNER NEEDS CREATE ON THE FUNCTION'S SCHEMA ============
+--
+-- Second 42501, this time "permission denied for schema mcp". ALTER FUNCTION
+-- OWNER requires the NEW OWNER to hold CREATE on the function's schema -- the
+-- rule exists so that changing an owner cannot achieve what dropping and
+-- recreating could not. 316 granted USAGE on mcp to authenticator, mcp_reader
+-- and mcp_holder by name and to nobody else, so mcp_logger has neither.
+--
+-- WHY NOT MOVE THE FUNCTION TO public INSTEAD, which is the obvious reading --
+-- it writes to a public table and reads nothing from mcp. MEASURED, and it is
+-- the more expensive option:
+--
+--   role         mcp_usage  public_usage
+--   mcp_reader     true       FALSE
+--   mcp_holder     true       false
+--   anon           false      true
+--
+-- USAGE on public is NOT granted to PUBLIC on this database -- it is explicit,
+-- and the mcp roles never received it. They are confined to schema mcp
+-- entirely. So putting the function in public would require granting mcp_reader
+-- USAGE ON THE WHOLE OF public in order to call it, opening every object there
+-- whose ACL permits, to the role whose confinement is the boundary. That is a
+-- far larger widening than the grant below, and in the wrong direction: it
+-- loosens the READER, not the logger.
+--
+-- So the function stays in mcp, and CREATE is granted TEMPORARILY and REVOKED IN
+-- THIS SAME TRANSACTION. Ownership persists; the privilege does not. mcp_logger
+-- ends holding INSERT on one table, USAGE on public, ownership of one function,
+-- and nothing in mcp at all -- not even USAGE, which an owner does not need.
+grant create on schema mcp to mcp_logger;
+
 -- THE OWNER IS THE SAFETY ARGUMENT. Asserted below.
 alter function mcp.log_request(text, text, text, text, int, text, text, text, int, int, int, int, int, text, text, text, text)
   owner to mcp_logger;
 
 revoke all on function mcp.log_request(text, text, text, text, int, text, text, text, int, int, int, int, int, text, text, text, text) from public;
 grant execute on function mcp.log_request(text, text, text, text, int, text, text, text, int, int, int, int, int, text, text, text, text) to mcp_reader;
+
+-- Handed back immediately. It existed only to satisfy the ownership transfer.
+revoke create on schema mcp from mcp_logger;
 
 commit;
 
@@ -283,6 +324,18 @@ commit;
 --          'mcp.log_request(text,text,text,text,int,text,text,text,int,int,int,int,int,text,text,text,text)',
 --          'EXECUTE')                                          as reader_can_execute,
 --        has_table_privilege('mcp_reader', 'public.mcp_requests', 'INSERT') as reader_can_insert;
+--
+-- 2b. THE TEMPORARY GRANT WAS HANDED BACK, and the reader was not widened.
+--     Expect mcp_logger: f, f, t, f  and mcp_reader: t, f, f, f.
+--     The mcp_reader row is the one that matters -- this migration must not have
+--     loosened the role whose confinement is the boundary.
+--
+-- select r as role,
+--        has_schema_privilege(r, 'mcp', 'USAGE')     as mcp_usage,
+--        has_schema_privilege(r, 'mcp', 'CREATE')    as mcp_create,
+--        has_schema_privilege(r, 'public', 'USAGE')  as public_usage,
+--        has_schema_privilege(r, 'public', 'CREATE') as public_create
+--   from unnest(array['mcp_logger','mcp_reader']) r;
 --
 -- 3. mcp_logger CAN INSERT AND CANNOT READ. Expect t, then f, f, f.
 --
