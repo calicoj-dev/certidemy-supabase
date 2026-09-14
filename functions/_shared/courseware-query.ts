@@ -21,7 +21,7 @@
 // after one. If this module and the function ever disagree, the function is
 // importing this file -- there is no second copy to drift.
 
-export const RESOURCES = ["certification", "task", "concept", "search", "log"] as const;
+export const RESOURCES = ["certification", "task", "concept", "search", "log", "lesson", "lesson_index"] as const;
 export type Resource = typeof RESOURCES[number];
 
 // mcp.task and mcp.lesson carry these three; mcp.concept and mcp.certification
@@ -53,6 +53,13 @@ const ALLOWED: Record<Resource, string[]> = {
   // readable resource -- and "which certifications do partners ask for and get
   // refused" is the most commercially interesting event on this endpoint.
   log: ["resource", "event", "tool", "certification", "language"],
+  // THE ONLY RESOURCE SERVED BY THE HOLDER POOL. mcp_reader has no grant on
+  // mcp.lesson, so a misrouted request fails in the database rather than on a
+  // branch here.
+  lesson: ["resource", "lesson_slug", "language", "tool"],
+  // The catalogue. mcp.lesson_index does not project content_md, so this is
+  // readable by mcp_reader and there is no body to withhold.
+  lesson_index: ["resource", "language", "module_slug", "limit", "tool"],
 };
 
 export type Args = {
@@ -66,6 +73,8 @@ export type Args = {
   tool?: string;
   event?: string;
   certification?: string;
+  lesson_slug?: string;
+  module_slug?: string;
 };
 
 /** The four tools, so `tool` is a closed vocabulary rather than free text. */
@@ -150,6 +159,21 @@ export function validateArgs(raw: unknown): Args {
     }
     out.slug = b.slug;
   }
+  if (b.lesson_slug !== undefined) {
+    if (typeof b.lesson_slug !== "string" || b.lesson_slug.length > MAX_SLUG || !SLUG_RE.test(b.lesson_slug)) {
+      bad("lesson_slug must be lowercase kebab-case");
+    }
+    out.lesson_slug = b.lesson_slug;
+  }
+  if (b.module_slug !== undefined) {
+    if (typeof b.module_slug !== "string" || b.module_slug.length > MAX_SLUG || !SLUG_RE.test(b.module_slug)) {
+      bad("module_slug must be lowercase kebab-case");
+    }
+    out.module_slug = b.module_slug;
+  }
+  if (res === "lesson" && out.lesson_slug === undefined) {
+    bad("lesson_slug is required for resource 'lesson'");
+  }
   if (res === "search") {
     if (typeof b.query !== "string") bad("query is required for resource 'search'");
     const q = b.query.trim();
@@ -227,6 +251,30 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
             "order by domain_order, task_order " +
             "limit $4",
           args: [a.language, a.domain_code ?? null, a.task_code ?? null, a.limit],
+        },
+      };
+
+    case "lesson":
+      return {
+        q: {
+          text:
+            "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
+            "language, lesson_group_id, lesson_order, estimated_minutes, content_md " +
+            "from mcp.lesson where lesson_slug = $1 and language = $2",
+          args: [a.lesson_slug, a.language],
+        },
+      };
+
+    case "lesson_index":
+      return {
+        q: {
+          text:
+            "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
+            "language, lesson_group_id, lesson_order, estimated_minutes " +
+            "from mcp.lesson_index " +
+            "where language = $1 and ($2::text is null or module_slug = $2) " +
+            "order by module_order, lesson_order limit $3",
+          args: [a.language, a.module_slug ?? null, a.limit],
         },
       };
 

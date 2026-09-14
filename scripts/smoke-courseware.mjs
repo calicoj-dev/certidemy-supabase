@@ -404,6 +404,61 @@ await expectRows("search_blueprint -> es-419", { resource: "search", query: "inc
 });
 
 console.log("");
+console.log("B2. THE PAYWALL, PROVED AGAINST WHAT IS DEPLOYED");
+{
+  // 322 proves this ONCE, at apply time, by setting role and attempting the
+  // read. That is a statement about the database on that day. THIS proves it on
+  // every run against the deployed function -- the thing a partner actually
+  // reaches -- and the two can diverge: a redeploy that pointed the lesson
+  // branch at the reader pool, or a grant added by hand, would leave the
+  // migration's proof true and the service wrong.
+  const idx = await post({ resource: "lesson_index", language: "en", limit: 5 });
+  record("list_lessons: the catalogue is readable without a credential",
+    idx.status === 200 && (idx.json?.count ?? 0) > 0,
+    idx.status !== 200 ? `HTTP ${idx.status}` : `count ${idx.json?.count}`);
+
+  const slug = idx.json?.rows?.[0]?.lesson_slug ?? null;
+  if (!slug) {
+    record("lesson body check: no slug to probe with", false, "lesson_index returned nothing");
+  } else {
+    const body = await post({ resource: "lesson", lesson_slug: slug, language: "en" });
+
+    // 503 means the holder password is unset -- a deployment state, not a
+    // paywall failure, and it must not read as one.
+    if (body.status === 503) {
+      record(`get_lesson: MCP_HOLDER_PASSWORD is not set (${slug})`, false,
+        "503 not configured -- the holder pool has no credential, so the paywall is untested rather than proven");
+    } else {
+      record(`get_lesson: a body is served for "${slug}"`,
+        body.status === 200 && (body.json?.count ?? 0) === 1,
+        body.status !== 200 ? `HTTP ${body.status} ${JSON.stringify(body.json)?.slice(0, 100)}` : `count ${body.json?.count}`);
+
+      const row = body.json?.rows?.[0] ?? {};
+      // THE RAW MARKDOWN MUST NOT CROSS THE WIRE. If content_md is present the
+      // parser has been bypassed, and checkpoints and answer keys came with it.
+      record("get_lesson: content_md is absent", !("content_md" in row),
+        "raw markdown crossed the wire -- the parser was bypassed");
+      record("get_lesson: blocks were parsed", Array.isArray(row.blocks) && row.blocks.length > 0,
+        `blocks=${Array.isArray(row.blocks) ? row.blocks.length : typeof row.blocks}`);
+
+      const shown = JSON.stringify(row);
+      for (const k of ["correct", "correct_order", "best_path", "reflection_answer",
+                       "is_correct", "minimum_correct"]) {
+        record(`get_lesson: no ${k} in the response`, !shown.includes(`"${k}"`), k);
+      }
+      record("get_lesson: no checkpoint or interactive block",
+        !(row.blocks ?? []).some((b) => b.type === "checkpoint" || b.type === "interactive"));
+      record("get_lesson: what was withheld is reported",
+        Number(row.omitted?.checkpoint ?? 0) >= 1 && Number(row.omitted?.interactive ?? 0) >= 1,
+        JSON.stringify(row.omitted));
+      record("get_lesson: draft status and authors are withheld",
+        !("status" in (row.frontmatter ?? {})) && !("authors" in (row.frontmatter ?? {})),
+        JSON.stringify(Object.keys(row.frontmatter ?? {})));
+    }
+  }
+}
+
+console.log("");
 console.log("C. THE VOCABULARY PIN -- the function must REFUSE the wrong shapes");
 
 await expect400('resource "syllabus" refused', { resource: "syllabus", language: "en" }, "resource");

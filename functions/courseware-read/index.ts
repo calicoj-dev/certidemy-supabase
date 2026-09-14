@@ -64,6 +64,7 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { Pool } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
+import { parseLesson } from "../_shared/lesson-blocks.ts";
 
 // --------------------------------------------------------------- (2) scrub
 //
@@ -561,7 +562,10 @@ serve(async (req) => {
     args = validateArgs(raw);
     caller = await callerHash(req);
 
-    await assertIdentity();
+    // The holder pool asserts the INVERSE of the reader's -- must read lessons,
+    // must still write nowhere -- and only when a lesson is actually asked for,
+    // so a project with no holder password serves the other resources normally.
+    await (args.resource === "lesson" ? assertHolderIdentity() : assertIdentity());
 
     // TELEMETRY-ONLY. A certification refusal is decided in the Worker's
     // validator before any read is attempted, so it can never appear on a
@@ -582,14 +586,36 @@ serve(async (req) => {
       return jsonResponse({ ok: true, logged });
     }
 
+    // WHICH POOL, DECIDED BY THE RESOURCE AND ENFORCED BY THE DATABASE.
+    // mcp_reader holds no grant on mcp.lesson, so a lesson routed to the reader
+    // pool fails in Postgres rather than on this line. The line chooses the
+    // credential; it does not decide who may read a body.
+    const needsHolder = args.resource === "lesson";
+    if (needsHolder && !HOLDER_PASSWORD) {
+      console.error("courseware-read: lesson requested but MCP_HOLDER_PASSWORD is unset");
+      return jsonResponse({ error: "lesson access not configured" }, 503);
+    }
+
     const { q, searched } = buildQuery(args);
-    const conn = await getPool().connect();
+    const conn = await (needsHolder ? getHolderPool() : getPool()).connect();
     let rows: Record<string, unknown>[];
     try {
       const r = await conn.queryObject<Record<string, unknown>>(q);
       rows = r.rows;
     } finally {
       conn.release();
+    }
+
+    // THE RAW MARKDOWN NEVER LEAVES THIS FUNCTION. content_md is replaced by the
+    // parsed shape here, not filtered downstream, so there is no path on which a
+    // caller receives the directive source -- and therefore no path on which a
+    // ::checkpoint or an ::interactive answer key travels with it.
+    if (args.resource === "lesson") {
+      rows = rows.map((r) => {
+        const { content_md, ...rest } = r as { content_md?: unknown };
+        const parsed = parseLesson(String(content_md ?? ""));
+        return { ...rest, ...parsed };
+      });
     }
 
     // THE RESPONSE IS BUILT BEFORE THE LOG IS ATTEMPTED, so nothing below can
