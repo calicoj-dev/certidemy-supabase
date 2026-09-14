@@ -214,6 +214,16 @@ reading, not so you pick the most natural phrase in isolation.
   corrective action           accion correctiva             acao corretiva                22 / 23
   continual improvement       mejora continua               melhoria continua              7 / 7
 
+OPEN FOR THE NEXT BILINGUAL PASS - 16 LESSON PASSAGES, NOT ITEMS.
+The quotation audit (IP-POSITION.md) found 16 runs of 20+ words of ISO text in
+LESSON prose that are attributed but not visually set off as quotation, while 34
+others are. They are presentational, not a licence problem - every one names its
+clause. Marking them is a judgement per passage, because several cross a
+sentence boundary mid-line, and it has to be mirrored into es-419 and pt-BR,
+which cannot be checked against any source held here - the ISO PDFs are English
+editions only. WHOEVER IS ALREADY READING TRANSLATIONS IS THE RIGHT PERSON TO
+DO IT. Run scripts/audit-quotations-unmarked.mjs --min 20 for the list.
+
 FOUR PINS ADDED 2026-09-13 AFTER A BILINGUAL REVIEW OF 28 REWRITTEN ITEM ROWS.
 Each was a real divergence in the packet, not a hypothetical. THIS BLOCK BREAKS
 THE FILE'S ASCII HABIT ON PURPOSE - three of the four are about ORTHOGRAPHY, and
