@@ -245,3 +245,74 @@ task statements and KSAs but not concepts. The tool reports which corpora it
 actually searched rather than silently returning a thinner result, for the same
 reason `mcp.task` exposes `domain_title_is_fallback`: a reduction the caller
 cannot detect is the same defect class as a dropped read.
+
+---
+
+## 6. `courseware-read` is public on purpose
+
+**Decided 2026-09-14. This is a decision, not an oversight, and the point of
+writing it down is that "nobody has chosen" was the actual state before.**
+
+`functions/courseware-read` is pinned `verify_jwt = false` and inherits
+`Access-Control-Allow-Origin: *`, so it is callable by anyone from anywhere,
+including a browser page. There is no obscurity to lose: the project ref reaches
+every visitor's browser by construction, since that is the host the app uses for
+auth and PostgREST.
+
+**Its response shape carries no stability promise. The supported interface is the
+MCP tools.**
+
+### 6.1 The two surfaces return different documents, and only one is versioned
+
+This is not a duplicate of the tool path. It is a divergent one:
+
+| | MCP tool | `courseware-read` direct |
+|---|---|---|
+| shape | `tasks[]`, `concepts[]`, `totals{}`, `returned{}` | `rows[]` with `kind`, `key`, `score`, `kind_total` |
+| per-kind floor | applied | absent |
+| `contractVersion` | present | **absent** |
+| max rows | 50 | 200 |
+
+**`score` and `kind_total` are internals the tool contract deliberately hides.**
+`score` is the relevance expression, and `functions/_shared/courseware-query.ts`
+records in terms that it can be replaced by full-text search later "without
+touching the tool contract" -- which is only true because the tool contract never
+exposed it. `kind_total` is a window function over the match set.
+
+**A caller building on either is building on something we reserved the right to
+change**, and the contract versioning added on 2026-09-14 does not protect them:
+there is no version field on this path at all.
+
+### 6.2 Why not the alternatives
+
+**Not a shared secret from the Worker.** It would make the function private and
+give one chokepoint for rate limiting, versioning and telemetry. It would also
+cost the single security property the Worker currently has -- section 2 records
+that the Worker "is the exposed surface and it holds nothing" -- and it buys a
+chokepoint the function needs regardless of who calls it, since rate limiting has
+to live there anyway. Bad trade.
+
+**Not a documented public API, yet.** That means owning a shape never designed as
+a contract: versioning it, adding the floor and totals, and hiding or promising
+`score`. The only version worth building moves the response shaping INTO the
+function and leaves the Worker a thin pass-through -- duplicating output shaping
+across the repository boundary is the failure this project hit three times in one
+day. It is real design work for zero known consumers.
+
+### 6.3 The trigger for revisiting
+
+**`tool IS NULL` in `public.mcp_requests` is direct traffic.** The Worker sends a
+`tool` on every wire call; nothing else does. So:
+
+```sql
+select date_trunc('day', at) as day,
+       count(*) filter (where tool is null)     as direct,
+       count(*) filter (where tool is not null) as via_tools
+  from public.mcp_requests
+ group by 1 order by 1 desc;
+```
+
+Today every direct row is our own smoke test. **When that column shows callers
+who are not us, designing a documented surface becomes worth it** -- and at that
+point the shape question is answered by what they are already using, which is a
+better input than a guess made now.
