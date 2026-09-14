@@ -536,6 +536,7 @@ and its current, queryable state in a single view.
 items: 40
 duration_minutes: 60
 passing_score_pct: 80
+min_passing_items: 32
 validity_days: 365
 domains: 5
 tasks_total: 49

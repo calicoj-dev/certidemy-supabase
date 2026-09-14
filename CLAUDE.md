@@ -861,6 +861,50 @@ THE QUERY MANUFACTURED AN ADJACENCY THE DATA DOES NOT HAVE. Count
  separately, or add  to the WHERE,
 before reading anything off a grouped result on a nullable column.
 
+**`count(*) filter (...)` OVER A LEFT JOIN COUNTS THE UNMATCHED LEFT ROWS, so a
+filtered count and an unfiltered one in the same query can contradict each
+other.** Same family as the GROUP BY above: the query manufactures a number the
+data does not contain.
+
+Measured 2026-09-14, and both halves were printed side by side:
+
+```
+tier | credentials | real_awards
+   2 |           0 |           3
+```
+
+`count(cr.id)` is 0 because the LEFT JOIN matched nothing. `count(*) filter
+(where not coalesce(cr.is_specimen,false))` is 3 because **`count(*)` counts the
+three unmatched CERTIFICATION rows**, and `not coalesce(NULL,false)` is `true` on
+every one of them. Read alone, "3 real awards" is a finding about credentials
+that do not exist.
+
+The fix is to make every filter reject the unmatched row explicitly -
+`count(*) filter (where cr.id is not null and not cr.is_specimen)` - or to count
+the joined column rather than the star.
+
+---
+
+**AND THE DEFENCE, WHICH IS CHEAPER THAN THE CARE: SELECT THE FIELD THAT WOULD
+CONTRADICT THE NUMBER.** It worked twice on 2026-09-14 and neither defect was
+visible from its own number alone.
+
+- An all-zero Bloom distribution across every certification looked like "no
+  cognitive data exists on this platform". It was caught because the same query
+  also selected `unset`, which was **also zero** - every task has a level and
+  none matched, which cannot both be true. The enum labels are prefixed
+  (`1_remember`, not `remember`) and the query was asking for names that do not
+  exist.
+- The credential count above was caught because `credentials: 0` sat in the same
+  row as `real_awards: 3`.
+
+**A single count has nothing to disagree with.** So when a query is going to
+produce a number someone will act on, select a second field whose value is
+determined by the first - a total beside a filtered subset, a null count beside a
+matched count, a distinct count beside a row count. The pair is the check. This
+is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
+rather than to a write.
+
 **THREE KINDS OF TRANSLATION DEFECT THE GUARDS CANNOT SEE, and they are a
 ladder.** Each is fluent, each survived every automated check that existed when
 it landed, and each was found only by a bilingual reader:

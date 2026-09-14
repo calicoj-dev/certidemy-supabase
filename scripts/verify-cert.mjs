@@ -2238,6 +2238,35 @@ async function verify(cert) {
         cmp("items", "§6", "Scheme claim: items per form", () => num(cert.num_questions));
         cmp("duration_minutes", "§6", "Scheme claim: examination duration", () => num(cert.exam_duration_minutes));
         cmp("passing_score_pct", "§7", "Scheme claim: pass mark", () => num(cert.passing_score_pct));
+        // THE OPERATIVE NUMBER, DERIVED RATHER THAN DECLARED TWICE.
+        //
+        // `passing_score_pct` is the JUDGEMENT. The number a candidate is
+        // actually judged against is the smallest whole count that clears it,
+        // and until 2026-09-14 that number lived only in scheme prose where
+        // nothing checked it: change num_questions to 60 and all three Level II
+        // documents would still have read "38 of 50".
+        //
+        // Derived here from two columns this same block already gates, so there
+        // is no third source of truth. The predicate is score-mock-exam's:
+        // `passed = (correct / total) * 100 >= passing_score_pct`, so the
+        // minimum k is the smallest integer satisfying it -- computed by
+        // iteration rather than by ceil(), because ceil(50 * 75 / 100) is exact
+        // at 37.5 and the floating-point edge is not worth being clever about.
+        //
+        // This is what caught nothing yet and will catch the next form-length
+        // change. 75% of 50 is 37.5 items, which nobody can score: ISMS-IA §7
+        // carries the reconciliation and this is its machine-checked half.
+        cmp("min_passing_items", "§7", "Scheme claim: minimum passing items", () => {
+          // Raw fields, NOT num(): that helper returns a STRING for display,
+          // so Number.isFinite() on its output is always false. cmp() compares
+          // strings, so this returns one too.
+          const n = Number(cert.num_questions);
+          const p = Number(cert.passing_score_pct);
+          if (!Number.isFinite(n) || !Number.isFinite(p) || n <= 0) return "null";
+          let k = 0;
+          while ((k / n) * 100 < p) k++;
+          return String(k);
+        });
         cmp("validity_days", "§9", "Scheme claim: credential validity", () => num(certFull?.validity_days));
         cmp("domains", "§4", "Scheme claim: domain count", () => num((domains ?? []).length));
         cmp("tasks_total", "§4", "Scheme claim: task count", () => num((tasks ?? []).length));

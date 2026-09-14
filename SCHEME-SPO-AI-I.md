@@ -360,6 +360,7 @@ achieved.
 items: 80
 duration_minutes: 120
 passing_score_pct: 80
+min_passing_items: 64
 validity_days: 365
 domains: 5
 tasks_total: 46

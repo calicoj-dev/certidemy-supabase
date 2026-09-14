@@ -564,6 +564,7 @@ framework* and never *accredited*.
 items: 50
 duration_minutes: 165
 passing_score_pct: 75
+min_passing_items: 38
 validity_days: 730
 domains: 5
 tasks_total: 40

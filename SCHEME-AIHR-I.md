@@ -659,6 +659,7 @@ task_concepts, modules — followed immediately by the JTA translation wave per 
 items: 40
 duration_minutes: 60
 passing_score_pct: 80
+min_passing_items: 32
 validity_days: 365
 domains: 4
 tasks_total: 28

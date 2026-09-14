@@ -226,6 +226,7 @@ CertiGlobal. Built to ISO/IEC 17024:2026. Not accredited.*
 items: 40
 duration_minutes: 60
 passing_score_pct: 80
+min_passing_items: 32
 validity_days: 365
 domains: 5
 tasks_total: 35

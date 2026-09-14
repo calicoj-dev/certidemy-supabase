@@ -510,6 +510,7 @@ sees both the contract and its current, queryable state in a single view.
 items: 25
 duration_minutes: 45
 passing_score_pct: 80
+min_passing_items: 20
 validity_days: 730
 domains: 3
 tasks_total: 18
