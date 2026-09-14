@@ -345,9 +345,17 @@ await expectRows("search_blueprint -> per-kind totals exceed returned",
   const a1 = await post(body);
   const a2 = await post(body);
   const key = (j) => (j?.rows ?? []).map((r) => `${r.kind}:${r.key}`).join("|");
-  record("search is deterministic: identical query, identical order",
-    a1.status === 200 && a2.status === 200 && key(a1.json) === key(a2.json) && key(a1.json).length > 0,
-    `run1=${key(a1.json).slice(0, 70)} run2=${key(a2.json).slice(0, 70)}`);
+  // THE FAILURE MESSAGE MUST NAME THE CAUSE. The guards below are right --
+  // status and non-emptiness are both required, so this cannot pass on two
+  // empty results -- but the first version printed only "run1= run2=", an
+  // equality that READS AS SATISFIED while the assertion failed. A check whose
+  // output suggests the opposite of its verdict is worse than a bare fail.
+  const why =
+    a1.status !== 200 || a2.status !== 200 ? `HTTP ${a1.status}/${a2.status} -- not a determinism failure, the query did not run`
+    : key(a1.json).length === 0 ? "both runs returned zero rows, so order proves nothing"
+    : key(a1.json) !== key(a2.json) ? `ORDER DIFFERS: run1=${key(a1.json).slice(0, 60)} run2=${key(a2.json).slice(0, 60)}`
+    : "";
+  record("search is deterministic: identical query, identical order", why === "", why);
 }
 
 // WORD BOUNDARY, NOT SUBSTRING. "AI" must not match inside "explain" -- that
