@@ -24,6 +24,32 @@
 export const RESOURCES = ["certification", "task", "concept", "search", "log", "lesson", "lesson_index"] as const;
 export type Resource = typeof RESOURCES[number];
 
+/**
+ * WHICH RESOURCES COST A SCOPE, AND THE DEFAULT IS "NONE".
+ *
+ * A map rather than an `if (resource === "lesson")` at the gate, because the
+ * question "what does this resource require" is then answerable by reading one
+ * object instead of by auditing the handler -- and a resource added to RESOURCES
+ * without an entry here is PUBLIC, which is the correct default only because
+ * RESOURCES is a closed list reviewed in the same file.
+ *
+ * lesson_index is deliberately absent. Migration 322: the catalogue is public so
+ * a partner can see what exists before paying for it, and it cannot leak a body
+ * because the view does not project content_md.
+ *
+ * MIRRORED IN ../certidemy-web/lib/mcp/courseware-contract.ts, which needs the
+ * same map to decide whether to demand a key before calling. Two repos, so no
+ * shared module is possible; the pair is named at both ends.
+ */
+export const SCOPE_FOR_RESOURCE: Readonly<Partial<Record<Resource, string>>> = {
+  lesson: "courseware:lessons",
+};
+
+/** The scope a resource costs, or null if it is public. */
+export function requiredScope(resource: Resource): string | null {
+  return SCOPE_FOR_RESOURCE[resource] ?? null;
+}
+
 // mcp.task and mcp.lesson carry these three; mcp.concept and mcp.certification
 // are English-only, which is a fact about the data and not about this list.
 // MCP-COURSEWARE.md section 5.
@@ -77,8 +103,15 @@ export type Args = {
   module_slug?: string;
 };
 
-/** The four tools, so `tool` is a closed vocabulary rather than free text. */
-export const TOOLS = ["search_blueprint", "get_concept", "get_syllabus", "explain_task"] as const;
+/** The tools, so `tool` is a closed vocabulary rather than free text. */
+export const TOOLS = [
+  "search_blueprint", "get_concept", "get_syllabus", "explain_task",
+  // Added with the lesson path. Without them a certification refusal from
+  // get_lesson logged tool=null and became indistinguishable from a refusal by
+  // a tool that does not exist -- the telemetry table's whole purpose is to say
+  // WHICH tool a partner reached for and was turned away from.
+  "get_lesson", "list_lessons",
+] as const;
 export const LOG_EVENTS = ["certification_refused"] as const;
 const CERT_CODE_RE = /^[A-Z0-9-]{2,20}$/;
 

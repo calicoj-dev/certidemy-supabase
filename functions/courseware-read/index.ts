@@ -282,8 +282,105 @@ import {
   BadRequest,
   buildQuery,
   redactEmails,
+  requiredScope,
   validateArgs,
 } from "../_shared/courseware-query.ts";
+
+// ===================== AUTHORIZATION =====================
+//
+// THIS FUNCTION IS PUBLIC. The Worker is A CALLER OF IT, not a gate in front of
+// it: `verify_jwt = false`, and the smoke test has always reached it with curl.
+//
+// So a design where the Worker checks the key and sends `scope:
+// "courseware:lessons"` in the body gives this function NOTHING IT CAN CHECK. A
+// field naming a permission is worth exactly what the least trustworthy party
+// who can set it is worth, and that party is anyone who can type a JSON object.
+// Signing the assertion would only move the question to "who holds the signing
+// key", and the answer would be a static secret in two deployments.
+//
+// SO NO SCOPE IS ACCEPTED FROM ANY CALLER. The presented key is hashed here and
+// the DATABASE says what it authorises (migration 323). The answer comes from a
+// row keyed by a secret only a real key holder has, which is the only form of
+// this that does not reduce to trusting the sender.
+//
+// THE ORDERING IS PART OF THE PROPERTY. Authorization resolves on the
+// mcp_reader pool, which provably cannot select mcp.lesson -- so the credential
+// in hand while the decision is being made cannot fetch a body even if the
+// decision goes wrong. Only after it passes does the holder pool get used.
+//
+// The header is x-certidemy-key, matching issue-partner-credential, for the
+// reason recorded there: Authorization on this platform means a Supabase JWT
+// everywhere else, and the gateway has opinions about it.
+
+class Unauthorized extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = "Unauthorized";
+    this.status = status;
+  }
+}
+
+async function sha256Hex(text: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+interface KeyRow {
+  key_id: string;
+  issuer_id: string;
+  scopes: string[];
+  key_status: string;
+}
+
+/**
+ * ON THE READER POOL, DELIBERATELY. See the ordering note above.
+ *
+ * Returns null for an unknown hash. A revoked or expired key comes back WITH a
+ * status so the reason reaches the log -- while the caller gets one message for
+ * every failure, because distinguishing "no such key" from "revoked key" tells
+ * a prober which of their guesses was once real.
+ */
+async function resolveKey(presented: string): Promise<KeyRow | null> {
+  const conn = await getPool().connect();
+  try {
+    const r = await conn.queryObject<KeyRow>({
+      text:
+        "select key_id::text as key_id, issuer_id::text as issuer_id, " +
+        "       scopes, key_status " +
+        "  from mcp.resolve_api_key($1)",
+      args: [await sha256Hex(presented)],
+    });
+    return r.rows[0] ?? null;
+  } finally {
+    conn.release();
+  }
+}
+
+/**
+ * The Worker resolves the same key and sends what it found. THIS IS NOT THE
+ * GATE and must never become one -- the gate is `derived` above, and it would
+ * still hold with the Worker deleted. This compares the two answers.
+ *
+ * What it catches is drift between two repositories that read the same table:
+ * if the Worker starts computing scopes differently, lessons stop being served
+ * loudly instead of being served on the wrong basis quietly. A forged header is
+ * caught too, but only incidentally -- forging it changes nothing, because the
+ * derivation already decided.
+ *
+ * ABSENT IS FINE. A direct caller holding a real key sends no such header, and
+ * that path must keep working; the Worker is a convenience, not a requirement.
+ */
+function crossCheckAssertedScope(req: Request, derived: string[]): void {
+  const asserted = req.headers.get("x-certidemy-scope");
+  if (asserted === null) return;
+  const a = asserted.split(/[\s,]+/).filter(Boolean).sort().join(" ");
+  const d = [...derived].sort().join(" ");
+  if (a !== d) {
+    throw new Unauthorized(403, "the presented scope does not match the key");
+  }
+}
 
 // ===================== THE HOLDER POOL =====================
 //
@@ -496,6 +593,10 @@ serve(async (req) => {
   const started = Date.now();
   let args: Args | null = null;
   let caller: string | null = null;
+  // Why a key failed, for the LOG only. The caller gets one message for every
+  // authorization failure; the operator needs to know it was a revoked key
+  // rather than a typo, and that difference must not cross the wire.
+  let keyStatus: string | null = null;
   // Kept so a REJECTION can still say what was asked for. args is null once
   // validateArgs throws, and that is precisely when the question matters most.
   let rawBody: Record<string, unknown> | null = null;
@@ -562,10 +663,54 @@ serve(async (req) => {
     args = validateArgs(raw);
     caller = await callerHash(req);
 
+    // ============ AUTHORIZATION, DERIVED AND NOT ACCEPTED ============
+    //
+    // requiredScope is a map in the shared module, so "what does this resource
+    // cost" is answered by reading one object rather than by auditing this
+    // handler -- and lesson_index is absent from it on purpose: migration 322
+    // makes the catalogue public so a partner can see what exists before paying
+    // for it.
+    const need = requiredScope(args.resource);
+
+    // THE READER POOL ASSERTS FIRST, ON EVERY PATH INCLUDING THE PAID ONE.
+    // It is the connection that asks the authorization question, and it is
+    // provably unable to act on the answer: 315 and 322 leave mcp_reader with
+    // no grant on mcp.lesson. So the credential in hand while the decision is
+    // being made cannot fetch a body even if the decision is wrong.
+    await assertIdentity();
+
+    if (need) {
+      const presented = req.headers.get("x-certidemy-key")?.trim() ?? "";
+      if (!presented) {
+        throw new Unauthorized(401, "x-certidemy-key header required");
+      }
+      const key = await resolveKey(presented);
+      keyStatus = key ? key.key_status : "unknown";
+      // ONE ANSWER FOR FOUR CAUSES -- unknown, revoked, expired, malformed.
+      // keyStatus carries the difference to the log and no further.
+      if (!key || key.key_status !== "active") {
+        throw new Unauthorized(401, "invalid API key");
+      }
+      // Checked before the scope test, so a header that disagrees with the key
+      // is refused whether or not it would have granted anything.
+      crossCheckAssertedScope(req, key.scopes ?? []);
+      if (!key.scopes?.includes(need)) {
+        throw new Unauthorized(403, `this key is not scoped for ${need}`);
+      }
+      // A REAL PARTNER IDENTITY. caller_hash was an HMAC of the client IP, which
+      // for all MCP traffic is Cloudflare's egress address -- the field's own
+      // comment says partner attribution needs the token flow. This is it.
+      // Namespaced `key:` so the two kinds of value cannot be read as one.
+      //
+      // Only on the paid path: resolving a key on every public read would add a
+      // round trip to the free tier to attribute traffic that is free.
+      caller = `key:${key.key_id}`;
+    }
+
     // The holder pool asserts the INVERSE of the reader's -- must read lessons,
-    // must still write nowhere -- and only when a lesson is actually asked for,
-    // so a project with no holder password serves the other resources normally.
-    await (args.resource === "lesson" ? assertHolderIdentity() : assertIdentity());
+    // must still write nowhere -- and is reached only after authorization has
+    // passed, so a project with no holder password serves the rest normally.
+    if (args.resource === "lesson") await assertHolderIdentity();
 
     // TELEMETRY-ONLY. A certification refusal is decided in the Worker's
     // validator before any read is attempted, so it can never appear on a
@@ -645,6 +790,25 @@ serve(async (req) => {
 
     return jsonResponse(body);
   } catch (e) {
+    if (e instanceof Unauthorized) {
+      // Logged like any other outcome. WHO WAS TURNED AWAY FROM THE PAID
+      // RESOURCE is the most commercially interesting row this table can hold,
+      // and a telemetry table that records only successes answers the easiest
+      // question and none of the useful ones.
+      const detail = keyStatus ? `${e.message} [${keyStatus}]` : e.message;
+      const logged = await boundedLog(logArgs(e.status, null, detail));
+      console.log(JSON.stringify({
+        fn: "courseware-read",
+        resource: args?.resource ?? null,
+        status: e.status,
+        auth: detail,
+        logged,
+        ms: Date.now() - started,
+      }));
+      // The body carries e.message, never `detail`: the caller learns that the
+      // key did not work, not which of the four reasons applied.
+      return jsonResponse({ error: e.message }, e.status);
+    }
     if (e instanceof BadRequest) {
       // A rejection is logged too: what callers get WRONG is as much of the
       // feedback loop as what they get right.
