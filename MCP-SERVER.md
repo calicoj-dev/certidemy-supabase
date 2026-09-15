@@ -521,6 +521,25 @@ endpoint. **A learner's browser session is presentable at `/mcp`.**
 > hypothetical here: the same project issues both tokens, to the same users,
 > signed by the same key.
 
+**AND RESOLVING THE ISSUER BINDING SERVER-SIDE DOES NOT CLOSE THIS.** Stated
+here, in the measurement, rather than only in the document that argues for that
+design -- because the two findings will be read by the same person on the same
+evening and the second one is reassuring.
+
+`MCP-AUTH-OPTIONS.md` §1 proposes that the Worker resolve the binding from `sub`
+per call instead of trusting an injected claim. That is the right design and it
+is orthogonal to this. It answers *which issuer does this caller read as*. It
+says nothing about *was this token issued for `/mcp`*.
+
+Worked through: a learner with no binding row resolves to no issuer and reads
+nothing. **A partner admin who has a binding row resolves to their partner's
+issuer -- from their ordinary browser session, on any surface of this platform
+that can obtain their token.** The lookup is doing exactly what it should; the
+token simply should never have been accepted at the resource server, and `aud`
+is the field that was supposed to say so.
+
+**So §13 is a blocker in its own right. Nothing downstream retires it.**
+
 ### What IS checkable, and what it does not cover
 
 Two real properties survive, and neither is the audience:

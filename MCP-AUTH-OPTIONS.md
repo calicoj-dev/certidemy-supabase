@@ -255,7 +255,82 @@ to remove them.
 
 ---
 
-## 5. Not decided
+## 5. THE CONFIG DIVERGENCE -- the reason nobody noticed section 4
+
+**`config.toml`'s `[auth]` block is the stock CLI template. It has never
+described this project.** Not "drifted": the only thing anyone ever added is the
+`[auth.oauth_server]` section, and both of its lines are wrong. The other 53
+settings are defaults nobody chose.
+
+That is the finding, and §4 is a symptom of it. **Anyone reading this repo to
+learn the project's auth surface would conclude there is no OAuth server** --
+which is exactly why an open, unauthenticated registration endpoint sat there
+being used by our own scripts for a day without anyone reading it as a finding.
+A configuration file that describes nothing cannot be audited, and nobody audits
+it twice.
+
+### The sweep, measured 2026-09-15
+
+Established from evidence already in hand -- the decoded access token, the
+authorize redirect, and `auth.oauth_clients` -- not from a read of production
+config, which needs a Management API token this machine does not have.
+
+| setting | `config.toml` | production | how known |
+|---|---|---|---|
+| `site_url` | `http://127.0.0.1:3000` | `https://certidemy.com` | authorize returned `302` to `https://certidemy.com/oauth/consent` |
+| `[auth.oauth_server] enabled` | `false` | **true** | discovery `200`, authorize `302`, token exchange `200` |
+| `allow_dynamic_registration` | `false` | **true** | 5 clients, all `registration_type = 'dynamic'`, none manual |
+| `[auth.external.google]` | **section absent** | **enabled** | decoded token `app_metadata.providers: ["email","google"]` |
+| `additional_redirect_urls` | `["https://127.0.0.1:3000"]` | at least `certidemy.com` | same `302` |
+| `authorization_url_path` | `/oauth/consent` | `/oauth/consent` | matches |
+| `jwt_expiry` | `3600` | `3600` | decoded token, `exp - iat` |
+
+**Five disagree, two agree, forty-eight unverified.** The two that agree are the
+two that were ever deliberately set.
+
+### THE OBVIOUS REMEDY IS THE DISASTER
+
+`supabase config push` **has no dry-run flag** -- `supabase config --help` lists
+exactly one subcommand, `push`, and it writes immediately. Run against this repo
+it would:
+
+- set `site_url` to `http://127.0.0.1:3000`, breaking every auth redirect and
+  every link in every transactional email;
+- set `[auth.oauth_server] enabled = false`, so `/oauth/consent` has nothing to
+  approve and every row 326 was built to hold stops being written;
+- disable Google sign-in, which an absent provider section means by omission.
+
+**Someone who notices the divergence reaches for the command named after fixing
+it, and that command takes production down in three places in order to close one
+flag.** This is the same shape as the destructive-verification rule in CLAUDE.md
+-- *never propose a destructive statement as a way to verify a hypothesis* --
+except the destructive action here is the one labelled "fix".
+
+`config.toml` now carries that warning in its own first lines, because a hazard
+recorded only in a markdown file is not in front of the person typing the
+command.
+
+### What to do, in order
+
+1. **Close DCR in the dashboard**, not by pushing config. Authentication ->
+   OAuth Server -> disable dynamic client registration. One toggle, nothing else
+   touched.
+2. **Reconcile `config.toml` against a real read of production** before any
+   `config push` is ever contemplated: `supabase login`, then
+   `GET /v1/projects/{ref}/config/auth` on the Management API, and correct this
+   file from the answer. Until then the file is a record of defaults, and the
+   banner says so.
+3. **Delete the five probe clients and let the stale authorizations expire.**
+
+**What is genuinely authoritative in `config.toml` and must stay correct:** the
+`[functions.*]` `verify_jwt` pins. Those are applied by
+`supabase functions deploy`, not by `config push`, and CLAUDE.md's recurring
+defect class depends on them being right. The banner says this too, so that
+"this file is not authoritative" is never read as "this file does not matter."
+
+---
+
+## 6. Not decided
 
 Waiting on the `client_id` answer (§2), which is one decoded token from a free
 staging environment and gates the per-client question underneath everything else.

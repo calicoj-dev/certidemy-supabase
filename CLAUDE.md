@@ -230,6 +230,21 @@ silently re-privatizes a public endpoint. It has happened to
 `get-credential-certificate`, `open-badge`, `verify-credential` and
 `credential-og`. The flag belongs to one command; the pin belongs to the repo.
 
+**AND `config.toml` IS AUTHORITATIVE FOR `[functions.*]` AND FOR NOTHING ELSE.**
+The `verify_jwt` pins above are real: they are applied by `supabase functions
+deploy`. **The `[auth]` block is the stock CLI template and has never described
+the live project** -- measured 2026-09-15, five settings disagree with production
+and three are outages, including `site_url = "http://127.0.0.1:3000"`, an absent
+`[auth.external.google]` section against a live Google provider, and
+`[auth.oauth_server] enabled = false` against a running OAuth server.
+
+**`supabase config push` HAS NO DRY RUN.** One subcommand, writes immediately,
+all of it. So the command named after fixing the divergence is the one that takes
+production down in three places. Change auth settings in the DASHBOARD, one at a
+time. `config.toml` carries this in its own first lines, because a hazard
+recorded only in markdown is not in front of the person typing the command.
+Details and the sweep: `MCP-AUTH-OPTIONS.md` §5.
+
 Type check with:
 
 ```

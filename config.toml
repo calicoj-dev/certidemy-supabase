@@ -1,3 +1,33 @@
+# =====================================================================
+# DO NOT RUN `supabase config push` AGAINST THIS PROJECT.
+#
+# The [auth] block below is the STOCK CLI TEMPLATE. It has never described
+# the live project, and `config push` HAS NO DRY RUN -- it writes, immediately,
+# all of it. Measured 2026-09-15, five settings disagree with production and
+# three of them are outages:
+#
+#   site_url                        here http://127.0.0.1:3000
+#                                   live https://certidemy.com
+#                                   -> every auth redirect and email link breaks
+#   [auth.oauth_server] enabled     here false / live true
+#                                   -> /oauth/consent has nothing to approve
+#   [auth.external.google]          ABSENT here / enabled live
+#                                   -> Google sign-in stops
+#   allow_dynamic_registration      here false / live true  (the one we WANT)
+#   additional_redirect_urls        here 127.0.0.1 only
+#
+# THE TRAP IS THAT THE OBVIOUS REMEDY IS THE DISASTER. Someone who notices the
+# divergence reaches for the command named after fixing it, and that command
+# takes production down in three places to close one flag.
+#
+# Close settings in the DASHBOARD one at a time until this file has been
+# reconciled against a real read of production. See MCP-AUTH-OPTIONS.md section 5.
+#
+# What IS authoritative here: [functions.*] verify_jwt pins, which are applied
+# by `supabase functions deploy` rather than by `config push`, and the api
+# schema list. Those are real and must stay correct.
+# =====================================================================
+
 # For detailed configuration reference documentation, visit:
 # https://supabase.com/docs/guides/local-development/cli/config
 # A string used to distinguish different Supabase projects on the same host. Defaults to the
