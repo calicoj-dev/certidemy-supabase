@@ -238,7 +238,11 @@ AISM-I"* — where the threshold said "116".
   scripts/revoke-issuer-key.mjs --key … --key … --apply`.
 - **`cdk_live_2008b3e8` holds `courseware:lessons`.** A live key with lesson
   access and `last_used_at` null.
-- **318 is still written and not run.**
+- **318 is still written and not run.** [CLOSED 2026-09-15: it has run.
+  `is_platform_admin` and `is_team_admin_of` carry `proconfig {search_path=""}`,
+  are still `stable`, and their bodies match 318 including the
+  `::public.platform_role` cast it introduced. 323, 324 and 325 have run too.
+  Nothing here is outstanding; do not re-run it.]
 
 **Carried:** `mcp.resolve_api_key` does not touch `last_used_at`, so courseware
 keys look dormant to anyone pruning; no rate limiting on `courseware-read`;

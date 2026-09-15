@@ -91,6 +91,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { analyze } from "../_shared/analyzer/engine.ts";
 import { BlueprintReader } from "../_shared/analyzer/reader.ts";
+import { requireCompanyFeature } from "../_shared/authorize.ts";
 import { buildReadinessReport, buildPlan } from "../_shared/analyzer/report.ts";
 import type { DriftRule, Lang } from "../_shared/analyzer/types.ts";
 
@@ -109,20 +110,22 @@ const json = (body: unknown, status = 200) =>
     headers: { ...CORS, "Content-Type": "application/json" },
   });
 
-/**
- * profiles.platform_role values that grant full internal access.
+/*
+ * ROLE RESOLUTION MOVED TO _shared/authorize.ts. The local allowlist that used
+ * to live here was deleted with the branch that read it -- a second copy of
+ * "who is an admin" beside requireCompanyFeature is the drift this repo keeps
+ * paying for. The two things it knew, kept because they were expensive:
  *
- * The enum is exactly: learner | platform_admin | marketing. Verified against
- * pg_enum, not assumed -- an earlier version of this function checked
- * profiles.role, which does not exist, and that comparison would have evaluated
- * false for EVERY caller: an admin 403-ed out of their own tool with nothing in
- * the logs to explain why.
- *
- * `marketing` is deliberately excluded. This endpoint returns competitor
- * intelligence and internal-only findings; that is a narrower audience than
- * everyone with a staff login.
+ *   - The enum is exactly learner | platform_admin | marketing, verified
+ *     against pg_enum. An earlier version of this function compared
+ *     profiles.role, WHICH DOES NOT EXIST, and that comparison evaluated false
+ *     for every caller: an admin 403-ed out of their own tool with nothing in
+ *     the logs to explain why.
+ *   - `marketing` is excluded deliberately, not by omission. This endpoint
+ *     returns competitor intelligence and internal-only findings; that is a
+ *     narrower audience than everyone with a staff login. requireCompanyFeature
+ *     names it and refuses it there.
  */
-const PLATFORM_ADMIN_ROLES = ["platform_admin"];
 
 /** Source text cap. A 78-page manual is ~13k words / ~90KB; 2MB is generous. */
 const MAX_CHARS = 2_000_000;
@@ -182,37 +185,45 @@ Deno.serve(async (req) => {
   // Two ways in, and they are NOT the same permission.
   //
   //   platform admin  -> any certification, full internal detail
-  //   partner company -> requires the curriculum_coverage feature grant
+  //   partner company -> team_admin of a company holding curriculum_coverage
   //
   // A partner without the grant gets 403 and NO DATA -- not hidden data. A
   // control a renderer can forget is not a control, so it lives here.
-  // profiles.platform_role, NOT profiles.role -- the latter does not exist, and
-  // the first version of this function checked it. That comparison would have
-  // silently evaluated false for EVERY caller, 403-ing an admin out of their
-  // own tool with no error to explain why.
   //
-  // PLATFORM_ADMIN_ROLES is a list rather than a constant because the column is
-  // an enum and an unmatched string fails silently in exactly the same way.
-  const { data: profile, error: profileErr } = await admin
-    .from("profiles")
-    .select("platform_role")
-    .eq("id", userId)
-    .maybeSingle();
-  if (profileErr) return json({ error: `profile: ${profileErr.message}` }, 500);
-
-  const isPlatformAdmin =
-    profile?.platform_role != null && PLATFORM_ADMIN_ROLES.includes(profile.platform_role);
-
-  let ownerCompanyId: string | null = null;
-  if (!isPlatformAdmin) {
-    if (!body.company_id) return json({ error: "forbidden" }, 403);
-    const { data: granted } = await admin.rpc("company_has_feature", {
-      p_company_id: body.company_id,
-      p_feature_key: "curriculum_coverage",
-    });
-    if (granted !== true) return json({ error: "forbidden" }, 403);
-    ownerCompanyId = body.company_id;
+  // ============ THE COMPANY IS RESOLVED, NEVER ACCEPTED ============
+  //
+  // This block used to take body.company_id and pass it straight to
+  // company_has_feature, which is a pure lookup over company_features and says
+  // nothing about who is asking. Any authenticated learner JWT plus a granted
+  // company's id was a complete authorization, and the run was then persisted
+  // with owner_company_id set to whatever arrived in the body.
+  //
+  // requireCompanyFeature resolves the caller's team_admin memberships from
+  // team_members FIRST. body.company_id is a SELECTOR among those and is
+  // refused when it names one the caller does not administer.
+  //
+  // THE OLD BRANCH WAS NEVER EXPLOITED AND COULD NOT HAVE BEEN: company_features
+  // has been empty platform-wide since it was created, so company_has_feature
+  // answered false for every argument and every partner call 403-ed. That is
+  // the reason it survived review -- a branch that cannot execute because a
+  // precondition is unmet reads exactly like one that works. The first row
+  // written to company_features would have been the thing that opened it.
+  // See scripts/smoke-analyzer-access.mjs, which is the branch's first run.
+  let access;
+  try {
+    access = await requireCompanyFeature(
+      admin,
+      userId,
+      "curriculum_coverage",
+      body.company_id ?? null,
+    );
+  } catch (e) {
+    const he = e as { status?: number; message?: string };
+    return json({ error: he.message ?? "forbidden" }, he.status ?? 403);
   }
+
+  const isPlatformAdmin = access.role === "platform_admin";
+  const ownerCompanyId: string | null = access.companyId;
 
   // ---- ruleset ---------------------------------------------------------
   const { data: ruleRows, error: ruleErr } = await admin
@@ -283,7 +294,12 @@ Deno.serve(async (req) => {
         framework_detected: probe.gates.frameworkDetected,
         drift_findings: probe.findings.filter((f) => f.findingType === "drift").length,
         results,
-        tables_read: [...new Set(reader.accessLog)],
+        // INTERNAL TABLE NAMES ARE NOT A PARTNER'S BUSINESS. Same class as an
+        // editorial note left in a concept description: correct, useful
+        // internally, and nothing a customer's response should carry. Dropped
+        // by OMITTING the key rather than sending an empty array, so a partner
+        // cannot tell how many tables an answer touched either.
+        ...(isPlatformAdmin ? { tables_read: [...new Set(reader.accessLog)] } : {}),
       });
     }
 
@@ -387,7 +403,8 @@ Deno.serve(async (req) => {
       content_hash: contentHash,
       report: visibleReport,
       build_plan: plan,
-      tables_read: [...new Set(reader.accessLog)],
+      // Admin-only, as in the fit response above.
+      ...(isPlatformAdmin ? { tables_read: [...new Set(reader.accessLog)] } : {}),
     });
   } catch (err) {
     return json({ error: (err as Error).message }, 500);

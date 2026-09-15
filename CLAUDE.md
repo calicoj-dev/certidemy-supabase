@@ -14,13 +14,25 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 325. Next free number: 326.** 303-311, 313-317 and 319-322 have
-RUN; **318, 323, 324 and 325 are written and have NOT run** -- 318 pins search_path on
-the two authorization predicates, 323 adds `mcp.resolve_api_key` so the edge
-function derives a partner's scopes instead of being told them, 324 teaches
-`mcp.log_request` that the lesson resources exist, and 325 widens the MCP from
-one certification to four with the held eight kept out by the views WHERE clause
-rather than by a predicate in TypeScript.
+**Migration tip: 325. Next free number: 326. Nothing is outstanding.** 303-311
+and 313-325 have all RUN. Verified 2026-09-15 against `pg_catalog`, not against
+this line: `is_platform_admin` / `is_team_admin_of` carry `proconfig
+{search_path=""}`, are still `stable`, and their bodies match 318 byte for byte
+including the `::public.platform_role` cast 318 introduced (318); `mcp.resolve_api_key`
+exists (323); `mcp.log_request` admits `lesson` and `lesson_index` (324); and all
+five `mcp` views carry `code = any ('{AISM-I,AIE-I,AIHR-I,AIGRM-I}')` (325).
+
+**AND ON 2026-09-15 THE STATUS WAS STALE BY FOUR WITH THE NUMBER RIGHT -- the
+2026-09-13 variant, recurring.** The line above read *"318, 323, 324 and 325 are
+written and have NOT run"* after all four had run, and `HANDOFF-v12_4-addendum.md`
+section 4 still listed *"318 is still written and not run"* under decisions
+waiting. A session opened on that sentence and carried it forward as fact. The
+number was correct, so `ls migrations/` confirmed it and said nothing about the
+four. **This is the second recorded instance of the status half going stale under
+a correct number, and it is the more dangerous half**: a wrong number collides
+loudly at `create`, a wrong status sends someone to re-run a migration that has
+already run, or to build on the belief that a pin, a function or a widened view
+is not there yet.
 
 **AND IT WENT STALE BY FIVE ON 2026-09-14, in the session that wrote all five.**
 The line read *"316 / next free 317"* while 317, 319, 320 and 321 had run and 318
@@ -762,6 +774,25 @@ The individual scripts:
   exists in ISO 19011:2026" is mechanical, "clause 6.7 says what this item
   claims" is not, and a clean run is no evidence at all about the second.
 
+- `smoke-analyzer-access.mjs` — who may pull a curriculum coverage report.
+  **THE ONLY SCRIPT HERE THAT CREATES ITS OWN IDENTITIES**, because the three it
+  needs exist nowhere on the platform: a team_admin of a company holding
+  `curriculum_coverage`, a plain team_member of that same company, and a
+  team_admin of a different one. `--apply` to write, dry by default, unknown
+  flags exit 2. Signs in with the ANON key, never service-role — the property is
+  what a browser session can do.
+
+  **The grant it inserts carries `expires_at = now() + 15 min`**, so a teardown
+  that dies halfway leaves an entitlement that closes itself rather than a live
+  one. Teardown reads the grant back rather than trusting that `delete` returned
+  no error, and prints recovery SQL when it cannot.
+
+  Its GRANTED control is the one to keep: it asserts `company_has_feature` is
+  TRUE for the granted company and FALSE for the other, read back after the
+  insert. Without it every refusal is equally consistent with the fixture never
+  landing — which is the state `analyze-curriculum`'s partner branch was in for
+  its entire deployed life.
+
 - `propose-match-terms.mjs` / `emit-match-terms-sql.mjs` — the `concepts.match_terms`
   pipeline. **`match_terms` is deliberately EMPTY on all 1,730 concepts, platform-wide.
   That is a decision with an argument, not an unfinished task — read
@@ -1171,6 +1202,57 @@ system own credentials measures what the system can do, never what a stranger
 can. `scripts/smoke-paywall.mjs` is the worked example, and its two controls are
 the other half: a refusal proves nothing unless something PROVES THE ENDPOINT
 STILL SERVES, because a broken deployment refuses everything.
+
+**AND THE SAME THING IS TRUE OF CODE: A BRANCH THAT HAS NEVER EXECUTED BECAUSE
+A PRECONDITION IS UNMET READS EXACTLY LIKE ONE THAT WORKS.** The rule above is
+about an instrument that cannot fire. This is about a code path that cannot
+RUN, and it is worse, because the thing holding it shut is usually data rather
+than code -- so it opens when someone inserts a row, not when someone edits a
+file, and nobody reviews an insert.
+
+`analyze-curriculum`'s partner branch, found 2026-09-15, deployed since v7.4:
+
+```
+if (!body.company_id) return 403;
+const granted = await rpc("company_has_feature", {p_company_id: body.company_id, ...});
+if (granted !== true) return 403;
+ownerCompanyId = body.company_id;                 // <- now the run's owner
+```
+
+`company_has_feature(company_id, feature_key)` is a pure lookup over
+`company_features`. **It says nothing about who is asking.** So the check proved
+that SOME company holds the grant and then attributed the analysis to whatever
+company id arrived in the request body -- the exact shape `requireIssuerAccess`
+exists to prevent on the issuing path, one table over. A grant, a membership and
+a role are three different facts and only the first was checked.
+
+**It had never been exploited and could not have been.** `public.company_features`
+has been EMPTY platform-wide since it was created -- zero rows, zero distinct
+feature keys -- so `company_has_feature` answered false for every argument and
+every partner call 403-ed before reaching anything. **An empty table was the
+entire access control.** The branch survived review because nothing could reach
+it, and the review that would have caught it is the one nobody performs on
+`insert into company_features`.
+
+**"Leave the table empty" is not the fix, because the first row ever written to
+it is also the moment the feature is sold to its first partner.** The gap and
+the launch are the same event. That is the property that makes this worth its
+own entry: the safety was not a decision, it was a side effect of having no
+customers yet.
+
+**So the test had to create the state that had never existed.**
+`scripts/smoke-analyzer-access.mjs` builds three identities that exist nowhere on
+this platform -- a team_admin of a granted company, a plain team_member of THAT
+SAME company, and a team_admin of a different one -- and its GRANTED control
+reads `company_has_feature` back before asserting anything, because otherwise
+every refusal it records is equally consistent with the fixture never having
+landed, which is the state the function spent its whole life in.
+
+**Run it against the old code first. It is the only proof the test can fire.**
+Done before the fix was deployed: the plain team_member received a full report,
+and the team_admin of the other company passed the granted company's id and
+received one too. Six failures, and the two that mattered were the leak
+executing rather than a description of it.
 
 **A POST-CONDITION MUST BE ABLE TO TELL ITS FAILURE MODES APART.** If it cannot,
 it reports the most alarming one it can describe. Migration 323 raised "a live
