@@ -19,3 +19,9 @@ TRANSLATION-REVIEW-*.md
 
 fixtures/
 scripts/anchor/node_modules/
+
+# Local MCP connector config. Machine-specific, and the shape invites a
+# credential: the file is where a url with an embedded token or a headers block
+# would live. Untracked all session on purpose; now enforced rather than
+# remembered.
+.mcp.json
