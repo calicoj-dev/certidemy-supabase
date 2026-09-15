@@ -3,8 +3,9 @@
 **The courseware MCP pilot: what the boundary is, how the route authenticates
 across it, and why that decision was reversed once.**
 
-Started 2026-09-13. AISM-I only. Migration 315 created the roles and the views;
-this document is the reasoning that is not expressible in SQL.
+Started 2026-09-13 with AISM-I only. **Four certifications as of 2026-09-15**
+(migration 325): AISM-I, AIE-I, AIHR-I, AIGRM-I. Migration 315 created the roles
+and the views; this document is the reasoning that is not expressible in SQL.
 
 ---
 
@@ -219,13 +220,27 @@ schema is documentation, the validator is the enforcement.
 
 ---
 
-## 4. Why AISM-I is the pilot
+## 4. Why AISM-I was the pilot, and what widened
 
 `IP-POSITION.md` section 6: an MCP returns Certidemy's prose and clause
 **addresses**, never clause **text**. **AISM-I cites no ISO standard at all** -
 226 concepts, zero citations - so the address-not-text rule has nothing to bite
-on. Extending these views to any of the four ISO-derived certifications requires
-that rule enforced in code first, not in a prompt.
+on. That is why it went first.
+
+**Migration 325 added AIE-I, AIHR-I and AIGRM-I**, on the same ground: none of
+the three carries an IP question this document has to answer.
+
+**EIGHT ARE HELD, AND THE WHERE CLAUSE IS WHAT HOLDS THEM.** The views name the
+four served; a held certification is not reachable through them at all, which is
+why the filter stayed in SQL rather than moving to the query builder where a
+parameter would have been more convenient. If the builder's predicate were
+dropped tomorrow the worst case is the wrong *permitted* syllabus, never a held
+one.
+
+| held | pending |
+|---|---|
+| ISMS-F, ISMS-IA, AIMS-F, AIMS-IA | the clause-text leak detector section 6 requires, enforced in code rather than in a prompt |
+| SM-AI-I, SM-AI-II, SPO-AI-I, SD-AI-I | a quotation-marking pass. Measured 2026-09-15: **24 verbatim 2020 Scrum Guide phrases across 21 English lessons sit in blocks that travel**, plus 6 `concepts.description` and 6 `tasks` rows that no allowlist protects. The Guide is CC BY-SA 4.0, so attribution is satisfiable by marking; ShareAlike is open |
 
 ---
 

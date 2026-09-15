@@ -14,11 +14,13 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 324. Next free number: 325.** 303-311, 313-317 and 319-322 have
-RUN; **318, 323 and 324 are written and have NOT run** -- 318 pins search_path on
+**Migration tip: 325. Next free number: 326.** 303-311, 313-317 and 319-322 have
+RUN; **318, 323, 324 and 325 are written and have NOT run** -- 318 pins search_path on
 the two authorization predicates, 323 adds `mcp.resolve_api_key` so the edge
-function derives a partner's scopes instead of being told them, and 324 teaches
-`mcp.log_request` that the lesson resources exist.
+function derives a partner's scopes instead of being told them, 324 teaches
+`mcp.log_request` that the lesson resources exist, and 325 widens the MCP from
+one certification to four with the held eight kept out by the views WHERE clause
+rather than by a predicate in TypeScript.
 
 **AND IT WENT STALE BY FIVE ON 2026-09-14, in the session that wrote all five.**
 The line read *"316 / next free 317"* while 317, 319, 320 and 321 had run and 318

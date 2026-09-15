@@ -175,6 +175,7 @@ function assertIdentity(): Promise<void> {
           session_who: string;
           reader_can_read_lessons: boolean;
           writable_relations: number;
+          served: string | null;
         }>({
           text:
             "select current_user::text as who, " +
@@ -226,7 +227,15 @@ function assertIdentity(): Promise<void> {
             "   join pg_namespace ns on ns.oid = c.relnamespace " +
             " where c.relkind in ('r','p','v','m','f') " +
             "   and ns.nspname <> 'net' " +
-            "   and has_table_privilege(current_user, c.oid, 'INSERT'))::int as writable_relations",
+            "   and has_table_privilege(current_user, c.oid, 'INSERT'))::int as writable_relations, " +
+            // WHAT THE DATABASE ACTUALLY SERVES, asked of the database.
+            // CERTIFICATIONS in the shared module is a THIRD copy of a list that
+            // lives in migration 325's view definitions and in the Worker's
+            // contract. Two languages and a repository boundary, so no shared
+            // module can close it -- but this half can ask the authority and
+            // refuse to serve on a difference, which converts a silent drift
+            // into a named failure on the side that can be tested.
+            "(select string_agg(code, ',' order by code) from mcp.certification) as served",
           args: [],
         });
         const row = r.rows[0];
@@ -252,9 +261,21 @@ function assertIdentity(): Promise<void> {
         // line is what turns a wrong one into something readable instead of a
         // connect timeout with nothing attached. No password, and no secret
         // value -- host, port and role are operational facts.
+        // Compared as a SET, sorted on both sides, so neither declaration order
+        // nor a future ORDER BY can make two identical lists look different.
+        const expected = [...CERTIFICATIONS].sort().join(",");
+        const served = (row.served ?? "").split(",").filter(Boolean).sort().join(",");
+        if (served !== expected) {
+          throw new Error(
+            `mcp.certification serves [${served}] and this function expects ` +
+              `[${expected}] -- refusing to serve on a certification-set mismatch`,
+          );
+        }
+
         console.log(JSON.stringify({
           fn: "courseware-read",
           event: "connected",
+          certifications: served,
           shape: CONN_SHAPE,
           writable_relations: 0,
           host: DB_HOST,
@@ -277,6 +298,7 @@ function assertIdentity(): Promise<void> {
 
 import {
   type Args,
+  CERTIFICATIONS,
   TOOLS,
   bad,
   BadRequest,
@@ -768,7 +790,10 @@ serve(async (req) => {
     const body = {
       resource: args.resource,
       language: args.language,
-      certification: "AISM-I",
+      // FROM THE REQUEST, not a literal. This read `"AISM-I"` while the views
+      // were scoped to one certification, which was true and is now the kind of
+      // true that stops being true without anything failing.
+      certification: args.certification,
       ...(searched ? { searched } : {}),
       count: rows.length,
       rows,

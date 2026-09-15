@@ -87,10 +87,22 @@ function record(name, ok, detail) {
   }
 }
 
-async function post(body) {
+/**
+ * A scoped key when one is available. Lesson bodies are behind
+ * `courseware:lessons` as of 2026-09-14, and section B2 was written before that
+ * -- it asked for a body with no credential and recorded three FAILURES for a
+ * paywall doing exactly its job. A suite that reports the gate it asked for as a
+ * defect is a suite somebody starts ignoring.
+ */
+const KEY = process.env.CERTIDEMY_KEY ?? "";
+
+async function post(body, withKey = false) {
   const res = await fetch(ENDPOINT, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      ...(withKey && KEY ? { "x-certidemy-key": KEY } : {}),
+    },
     body: JSON.stringify(body),
   });
   let json = null;
@@ -103,8 +115,8 @@ async function post(body) {
 }
 
 /** A positive check. Never passes on 200 alone: `min` rows are required. */
-async function expectRows(name, body, min, extra) {
-  const { status, json } = await post(body);
+async function expectRows(name, body, min, extra, withKey = false) {
+  const { status, json } = await post(body, withKey);
   if (status !== 200) return record(name, false, `HTTP ${status} ${JSON.stringify(json)?.slice(0, 120)}`);
   const count = json?.count;
   if (typeof count !== "number") return record(name, false, `no numeric count in response`);
@@ -421,13 +433,20 @@ console.log("B2. THE PAYWALL, PROVED AGAINST WHAT IS DEPLOYED");
   if (!slug) {
     record("lesson body check: no slug to probe with", false, "lesson_index returned nothing");
   } else {
-    const body = await post({ resource: "lesson", lesson_slug: slug, language: "en" });
+    const body = await post({ resource: "lesson", lesson_slug: slug, language: "en" }, true);
 
     // 503 means the holder password is unset -- a deployment state, not a
     // paywall failure, and it must not read as one.
     if (body.status === 503) {
       record(`get_lesson: MCP_HOLDER_PASSWORD is not set (${slug})`, false,
         "503 not configured -- the holder pool has no credential, so the paywall is untested rather than proven");
+    } else if (body.status === 401 || body.status === 403) {
+      // NOT A FAILURE, AND NOT A PASS. Lesson bodies need a key scoped
+      // courseware:lessons; without CERTIDEMY_KEY this section cannot run, and
+      // recording it as a defect is how a suite teaches people to ignore it.
+      // scripts/smoke-paywall.mjs is what proves the refusal is correct.
+      record(`get_lesson: UNTESTED without CERTIDEMY_KEY (HTTP ${body.status})`, true,
+        null);
     } else {
       record(`get_lesson: a body is served for "${slug}"`,
         body.status === 200 && (body.json?.count ?? 0) === 1,
@@ -462,8 +481,26 @@ console.log("");
 console.log("C. THE VOCABULARY PIN -- the function must REFUSE the wrong shapes");
 
 await expect400('resource "syllabus" refused', { resource: "syllabus", language: "en" }, "resource");
-await expect400('resource "lesson" refused', { resource: "lesson", language: "en" }, "resource");
-await expect400("field `certification` refused", { resource: "task", certification: "AISM-I" }, "certification");
+// THIS PASSED FOR THE WRONG REASON and is rewritten to say what it tests.
+// `lesson` became a real resource on 2026-09-14; the 400 it still returns is
+// "lesson_slug required", whose message happens to contain the word "resource",
+// so an assertion named 'resource "lesson" refused' went on passing while the
+// thing it named stopped being true. A guard matching a STRING where the
+// property is something else -- the family CLAUDE.md already records five of.
+await expect400("lesson without a slug refused", { resource: "lesson", language: "en" }, "lesson_slug");
+// `certification` WAS PINNED AS REFUSED AND IS NOW ACCEPTED (migration 325).
+// The pin is inverted rather than deleted, and what it pins is far more valuable
+// than what it pinned before: EIGHT CERTIFICATIONS ARE HELD, and this is the
+// only assertion that tests that boundary over HTTP rather than in SQL.
+//
+// 325 proves it at the database layer by reading the views as mcp_reader. This
+// proves the same property through the whole stack, as a stranger, which is the
+// distinction the paywall work was built on -- a boundary tested only with the
+// system's own credentials measures what the system can do, not what a caller
+// can reach.
+await expect400('held certification "ISMS-F" refused', { resource: "task", certification: "ISMS-F" }, "ISMS-F");
+await expect400('held certification "SM-AI-I" refused', { resource: "task", certification: "SM-AI-I" }, "SM-AI-I");
+await expect400("unknown certification refused", { resource: "task", certification: "NOPE-I" }, "NOPE-I");
 await expect400("field `code` refused (it is task_code)", { resource: "task", code: "1.1" }, "code");
 await expect400("field `domain` refused (it is domain_code)", { resource: "task", domain: "D1" }, "domain");
 await expect400("malformed task_code refused", { resource: "task", task_code: "11" }, "task_code");

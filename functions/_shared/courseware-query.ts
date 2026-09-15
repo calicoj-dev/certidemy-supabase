@@ -53,6 +53,29 @@ export function requiredScope(resource: Resource): string | null {
 // mcp.task and mcp.lesson carry these three; mcp.concept and mcp.certification
 // are English-only, which is a fact about the data and not about this list.
 // MCP-COURSEWARE.md section 5.
+/**
+ * THE CERTIFICATIONS SERVED, AND THE DATABASE IS THE AUTHORITY.
+ *
+ * Migration 325 names the same four in the WHERE clause of all five mcp views.
+ * Eight are NOT served -- the four ISO-derived ones pending the clause-text leak
+ * detector IP-POSITION section 6 requires, and the four Scrum ones pending a
+ * quotation-marking pass.
+ *
+ * THIS LIST IS NOT THE BOUNDARY. The views are. A held certification is absent
+ * from them, so if this array were widened by mistake the query would simply
+ * return nothing -- the failure is empty, not a leak. What this buys is a 400
+ * naming the vocabulary instead of a silent empty result.
+ *
+ * And it is CHECKED rather than trusted: courseware-read asserts at cold start
+ * that `select distinct code from mcp.certification` equals this array, and
+ * refuses to serve on a difference. Three copies of a list across two languages
+ * and a repository boundary is a mirrored pair; this is the half that can be
+ * tested against the database, so it is the half that tests it.
+ */
+export const CERTIFICATIONS = ["AISM-I", "AIE-I", "AIHR-I", "AIGRM-I"] as const;
+export type Certification = typeof CERTIFICATIONS[number];
+export const DEFAULT_CERTIFICATION: Certification = "AISM-I";
+
 export const LANGUAGES = ["en", "es-419", "pt-BR"] as const;
 type Language = typeof LANGUAGES[number];
 
@@ -69,11 +92,16 @@ const DEFAULT_LIMIT = 50;
 // a shrug: an unknown key means the caller believes it is filtering and this
 // function is not, which is the failure mode a permissive parser produces
 // silently.
+// `certification` NOW MEANS TWO THINGS AND THE RESOURCES ARE DISJOINT.
+// On the five readable resources it names WHICH certification to read. On `log`
+// it names the one a caller asked for and was REFUSED, which is stored in
+// mcp_requests.refused_certification and never read back as a selector. Same
+// word, different question, and no request carries both readings.
 const ALLOWED: Record<Resource, string[]> = {
-  certification: ["resource", "tool"],
-  task: ["resource", "language", "domain_code", "task_code", "limit", "tool"],
-  concept: ["resource", "slug", "task_code", "limit", "tool"],
-  search: ["resource", "query", "language", "limit", "tool"],
+  certification: ["resource", "tool", "certification"],
+  task: ["resource", "language", "domain_code", "task_code", "limit", "tool", "certification"],
+  concept: ["resource", "slug", "task_code", "limit", "tool", "certification"],
+  search: ["resource", "query", "language", "limit", "tool", "certification"],
   // The Worker's telemetry-only call. A certification refusal is decided in the
   // Worker's validator, BEFORE any read is attempted, so it never reaches a
   // readable resource -- and "which certifications do partners ask for and get
@@ -82,10 +110,10 @@ const ALLOWED: Record<Resource, string[]> = {
   // THE ONLY RESOURCE SERVED BY THE HOLDER POOL. mcp_reader has no grant on
   // mcp.lesson, so a misrouted request fails in the database rather than on a
   // branch here.
-  lesson: ["resource", "lesson_slug", "language", "tool"],
+  lesson: ["resource", "lesson_slug", "language", "tool", "certification"],
   // The catalogue. mcp.lesson_index does not project content_md, so this is
   // readable by mcp_reader and there is no body to withhold.
-  lesson_index: ["resource", "language", "module_slug", "limit", "tool"],
+  lesson_index: ["resource", "language", "module_slug", "limit", "tool", "certification"],
 };
 
 export type Args = {
@@ -238,8 +266,38 @@ export function validateArgs(raw: unknown): Args {
       }
       out.certification = b.certification;
     }
-  } else if (b.event !== undefined || b.certification !== undefined) {
-    bad("event and certification are only valid for resource 'log'");
+    // The log branch keeps CERT_CODE_RE and NOT the served list: a refusal is
+    // interesting precisely when it names something we do not serve, so
+    // validating it against what we serve would reject every row worth having.
+  } else {
+    if (b.event !== undefined) {
+      bad("event is only valid for resource 'log'");
+    }
+    // THE SERVED CERTIFICATION. Defaulted, never substituted: an unknown code is
+    // refused by name rather than quietly answered with AISM-I, which would hand
+    // a caller another certification's syllabus under the code they asked for.
+    let cert: Certification = DEFAULT_CERTIFICATION;
+    if (b.certification !== undefined) {
+      if (typeof b.certification !== "string") {
+        bad(`certification must be one of: ${CERTIFICATIONS.join(", ")}`);
+      }
+      const want = (b.certification as string).trim().toUpperCase();
+      if (!(CERTIFICATIONS as readonly string[]).includes(want)) {
+        // THE MESSAGE NAMES WHAT WAS ASKED FOR, and the echo is gated on shape.
+        // A refusal that only lists what IS served cannot be told apart from a
+        // refusal of the FIELD -- which is what this endpoint did until 325, and
+        // a smoke assertion written against the old message went on passing
+        // against the new behaviour for the wrong reason.
+        //
+        // Echoed only when it looks like a certification code. Arbitrary caller
+        // input reaches mcp_requests.error, and a log is not the place to
+        // discover that someone sent 400 characters of something else.
+        const safe = /^[A-Z0-9-]{1,20}$/.test(want) ? want : "that value";
+        bad(`certification ${safe} is not served here; must be one of: ${CERTIFICATIONS.join(", ")}`);
+      }
+      cert = want as Certification;
+    }
+    out.certification = cert;
   }
 
   return out;
@@ -265,8 +323,8 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
           text:
             "select code, name, description, tier, status, exam_duration_minutes, " +
             "passing_score_pct, num_questions, max_exam_attempts, attempt_window_months, validity_days " +
-            "from mcp.certification",
-          args: [],
+            "from mcp.certification where code = $1",
+          args: [a.certification!],
         },
       };
 
@@ -278,12 +336,13 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
             "task_code, language, statement, knowledge, skills, abilities, bloom_level, " +
             "is_exam_scope, scope_tag " +
             "from mcp.task " +
-            "where language = $1 " +
-            "and ($2::text is null or domain_code = $2) " +
-            "and ($3::text is null or task_code = $3) " +
+            "where certification = $1 " +
+            "and language = $2 " +
+            "and ($3::text is null or domain_code = $3) " +
+            "and ($4::text is null or task_code = $4) " +
             "order by domain_order, task_order " +
-            "limit $4",
-          args: [a.language, a.domain_code ?? null, a.task_code ?? null, a.limit],
+            "limit $5",
+          args: [a.certification!, a.language, a.domain_code ?? null, a.task_code ?? null, a.limit],
         },
       };
 
@@ -293,8 +352,8 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
           text:
             "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
             "language, lesson_group_id, lesson_order, estimated_minutes, content_md " +
-            "from mcp.lesson where lesson_slug = $1 and language = $2",
-          args: [a.lesson_slug, a.language],
+            "from mcp.lesson where certification = $1 and lesson_slug = $2 and language = $3",
+          args: [a.certification!, a.lesson_slug, a.language],
         },
       };
 
@@ -305,9 +364,10 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
             "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
             "language, lesson_group_id, lesson_order, estimated_minutes " +
             "from mcp.lesson_index " +
-            "where language = $1 and ($2::text is null or module_slug = $2) " +
-            "order by module_order, lesson_order limit $3",
-          args: [a.language, a.module_slug ?? null, a.limit],
+            "where certification = $1 and language = $2 " +
+            "and ($3::text is null or module_slug = $3) " +
+            "order by module_order, lesson_order limit $4",
+          args: [a.certification!, a.language, a.module_slug ?? null, a.limit],
         },
       };
 
@@ -317,11 +377,12 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
           text:
             "select slug, name, description, task_codes " +
             "from mcp.concept " +
-            "where ($1::text is null or slug = $1) " +
-            "and ($2::text is null or $2 = any(task_codes)) " +
+            "where certification = $1 " +
+            "and ($2::text is null or slug = $2) " +
+            "and ($3::text is null or $3 = any(task_codes)) " +
             "order by slug " +
-            "limit $3",
-          args: [a.slug ?? null, a.task_code ?? null, a.limit],
+            "limit $4",
+          args: [a.certification!, a.slug ?? null, a.task_code ?? null, a.limit],
         },
       };
 
