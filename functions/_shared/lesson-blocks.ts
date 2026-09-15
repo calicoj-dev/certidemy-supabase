@@ -74,8 +74,29 @@ export const PUBLISHED_FRONTMATTER = [
 /**
  * Block types a partner receives. `checkpoint` AND `interactive` are absent on
  * purpose; see the note below on why the second one changed.
+ *
+ * ===================== deep-dive JOINED IN v2 =====================
+ *
+ * It is prose. `::deep-dive title="Where these definitions live now"` is
+ * structurally identical to ::concept -- a titled body of teaching text, with no
+ * key, no widget config and no answer anywhere in it. Withholding it was never a
+ * decision: the allowlist was built against AISM-I, which has none.
+ *
+ * Measured 2026-09-15 across all twelve corpora: SM-AI-II 132, AIMS-IA 120,
+ * AIMS-F 105, ISMS-F 105, ISMS-IA 93, SPO-AI-I 12, SM-AI-I 6, and ZERO in
+ * AISM-I, AIE-I, AIHR-I and AIGRM-I.
+ *
+ * So SM-AI-II carried one per lesson, 132 of 132, and every one of its lessons
+ * would have been served with a whole teaching block missing -- reported in
+ * `omitted`, which is the only reason it was visible rather than invisible.
+ *
+ * TIMING IS NOT NEUTRAL HERE. Ten of the twenty-four verbatim 2020 Scrum Guide
+ * phrases measured in publishable positions sit inside ::deep-dive. Publishing
+ * it moves those ten from withheld to served, so this lands BEFORE the Scrum
+ * certifications are opened and their quotations marked, never after. It changes
+ * nothing for the four opened first, which have none.
  */
-export const PUBLISHED_BLOCKS = ["hook", "concept", "callout", "summary"] as const;
+export const PUBLISHED_BLOCKS = ["hook", "concept", "callout", "summary", "deep-dive"] as const;
 
 export interface LessonBlock {
   type: string;
@@ -162,7 +183,22 @@ export function parseLesson(contentMd: string): ParsedLesson {
   const omitted: Record<string, number> = {};
   const blocks: LessonBlock[] = [];
 
-  const fmMatch = src.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  // LEADING NEWLINES ARE TOLERATED, AND THE BOUND IS MEASURED RATHER THAN LOOSE.
+  //
+  // This anchored at `^---` and 50 of SM-AI-I's 93 lessons begin with a blank
+  // line before the fence, so the match failed and they parsed with EMPTY
+  // frontmatter -- no title, no preview, no task_codes. Not a leak: the YAML
+  // sits outside every directive and the block loop never emits it. Just
+  // silently less than the lesson actually has.
+  //
+  // `[\r\n]*` and NOT `\s*`. Measured across all 1,437 lessons on 2026-09-15:
+  // 1,387 open at character 0, 1,435 open after optional whitespace, and in
+  // every one of those 48 the whitespace is NEWLINES ONLY -- zero lessons indent
+  // the fence. The 2 with no frontmatter at all keep returning {}, and a `---`
+  // horizontal rule further down cannot be mistaken for a fence because it is
+  // not at the top. `\s*` would have been true here and wrong on the first
+  // lesson that opens with an indented line.
+  const fmMatch = src.match(/^[\r\n]*---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
   const frontmatter = fmMatch ? parseFrontmatter(fmMatch[1]) : {};
   const rest = fmMatch ? src.slice(fmMatch[0].length) : src;
 
