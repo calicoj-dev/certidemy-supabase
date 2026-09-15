@@ -539,6 +539,13 @@ other purpose on this project from being replayed at `/mcp` if its client id is
 on the list. **Dynamic client registration is open on this project** -- five
 probe clients were registered by a script, unauthenticated, in a day.
 
+### Where the decision lives
+
+`MCP-AUTH-OPTIONS.md` -- the options this measurement opened, led by the reframe
+that removes claim injection from the requirements list entirely, plus the open
+dynamic-registration endpoint, which is true today regardless of which way the
+auth decision goes.
+
 ### Still open, and it is one probe
 
 Whether the TOKEN endpoint rejects a `resource` that does not match the one
