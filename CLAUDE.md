@@ -1125,6 +1125,38 @@ were the guard's fault, and a guard that cries wolf gets loosened next time.**
 The tell is uniform: every one of them searched for a STRING when the property
 was a PLACE.
 
+**A GREEN RESULT CARRIES NO INFORMATION UNLESS SOMETHING PROVES THE CHECK RAN.**
+A check that CANNOT fire is indistinguishable from one that fired and found
+nothing. Three instances on 2026-09-15: eslint had not run on certidemy-web for
+as long as eslint has been on 9.x, because the repo had only .eslintrc.json and
+9.x reads flat config -- every invocation exited with a migration notice; the
+proconfig predicate in 323 matched no correctly pinned function anywhere in the
+database and never had; and check-mcp fragment extractor split literals on
+embedded quotes and compared against text that appears nowhere.
+
+The eslint one cost something concrete. A missing `+` in a string concatenation
+let AUTOMATIC SEMICOLON INSERTION close the assignment early and turn the
+remaining 635 characters into a dead expression statement -- legal JavaScript
+that means something other than what it looks like. tsc passed it, the build
+passed it, no test failed, and `no-unused-expressions` IS the rule for it, behind
+a config the linter would not open. A tool description shipped truncated
+mid-phrase and the discarded tail was the only sentence saying the tool needs a
+key.
+
+**So give every instrument a positive control**, the way a smoke test is owed one
+for an empty result set: something that must FAIL when the check is broken.
+smoke-paywall refuses to report a pass without proving an authorised caller gets
+a body; the fragment check asserts it would catch a known-missing sentence. **An
+instrument that has never failed is not evidence that nothing is wrong. It is an
+untested instrument.**
+
+**AND RANK YOUR CLAIMS: TEST THE ONE THAT OUTRANKS THE OTHERS.** An MCP
+`SERVER_INSTRUCTIONS` string is read before any tool description and believed
+over it. Six correct, versioned, asserted tool descriptions lost to one stale
+sentence there, and an agent declined to call a working server because the server
+told it not to bother. It was the only string with authority over the others and
+the only one with no version, no test, and no place in any checklist.
+
 **RUN THE CHECK AS THE PARTY THE PROPERTY IS ABOUT.** Exercising behaviour is
 not enough on its own -- `smoke-courseware` fetched a real lesson, parsed it,
 and passed 37 of 37 while the paywall did not exist, because it called the
