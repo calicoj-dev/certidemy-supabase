@@ -65,29 +65,25 @@
  *   SUPABASE_EMAIL + SUPABASE_PASSWORD   a password grant, exchanged for the
  *                                   same kind of token.
  */
-import { readFileSync, existsSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import {
+  ANON,
+  AUTH_HELP,
+  AUTH_SOURCE,
+  SUPABASE_URL,
+  UUID_RE,
+  anonMissing,
+  callFunction,
+  getAccessToken,
+} from "./lib/fn-auth.mjs";
 
-const HERE = dirname(fileURLToPath(import.meta.url));
 
 /**
- * ONE VARIABLE, NAMED, FROM A NAMED FILE -- not the whole-file loader the other
- * scripts in here use.
- *
- * The anon key lives in ../certidemy-web/.env.local. So does SUPABASE_SECRET_KEY.
- * Slurping that file would pull a service-role credential into the memory of a
- * script that has no use for one, and leave it available to every later edit of
- * this file. This needs exactly one value and takes exactly one.
+ * MIRRORED from functions/_shared/api-scopes.ts, which is itself mirrored by the
+ * issuer_api_keys_scope_vocab CHECK from migration 322. Three copies in three
+ * languages and the database is the authority -- this one exists only so a typo
+ * fails here instead of as a 500 from the function.
  */
-function readVar(file, key) {
-  if (!existsSync(file)) return null;
-  for (const l of readFileSync(file, "utf8").split(/\r?\n/)) {
-    const m = l.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-    if (m && m[1] === key) return m[2].replace(/^["']|["']$/g, "");
-  }
-  return null;
-}
+const SCOPES = ["credentials:issue", "courseware:lessons"];
 
 const KNOWN = new Set(["--issuer", "--name", "--scopes", "--env", "--expires-days", "--apply"]);
 for (const a of process.argv.slice(2)) {
@@ -104,62 +100,11 @@ const arg = (k, d = null) => {
 };
 const APPLY = process.argv.includes("--apply");
 
-const PROJECT_REF = "pctynukndxnmnxiqpgck";
-const SUPABASE_URL = process.env.SUPABASE_URL ?? `https://${PROJECT_REF}.supabase.co`;
-const ANON =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-  process.env.SUPABASE_ANON_KEY ??
-  readVar(join(HERE, ".env"), "NEXT_PUBLIC_SUPABASE_ANON_KEY") ??
-  readVar(join(HERE, "..", "..", "certidemy-web", ".env.local"), "NEXT_PUBLIC_SUPABASE_ANON_KEY") ??
-  "";
-
-/* ------------------------------------------------------------------ auth */
-
-const ENV_FILE = join(HERE, ".env");
-/** Environment first, then scripts/.env. Never a prompt, never a flag: a
- *  credential passed as an argument is a credential in the history file. */
-const fromEnvOrFile = (k) => process.env[k] ?? readVar(ENV_FILE, k) ?? null;
-
-const USER_JWT = fromEnvOrFile("SUPABASE_USER_JWT");
-const EMAIL = fromEnvOrFile("SUPABASE_EMAIL");
-const PASSWORD = fromEnvOrFile("SUPABASE_PASSWORD");
-
-const AUTH_SOURCE = USER_JWT
-  ? "SUPABASE_USER_JWT"
-  : EMAIL && PASSWORD
-  ? `password grant as ${EMAIL}`
-  : null;
-
-const AUTH_HELP = [
-  "No usable credential. create-issuer-api-key needs a USER token -- a",
-  "platform_admin, or a team_admin of a company tied to this issuer.",
-  "",
-  "Put ONE of these in scripts/.env, which is gitignored:",
-  "",
-  "  SUPABASE_USER_JWT=eyJ...          preferred; expires on its own",
-  "",
-  "  SUPABASE_EMAIL=you@example.com",
-  "  SUPABASE_PASSWORD=...",
-  "",
-  "The environment is read first if you would rather export them, but a secret",
-  "typed on a command line reaches the shell history file and the .env does not.",
-].join("\n");
-
-/**
- * MIRRORED from functions/_shared/api-scopes.ts, which is itself mirrored by the
- * issuer_api_keys_scope_vocab CHECK from migration 322. Three copies in three
- * languages and the database is the authority -- this one exists only so a typo
- * fails here instead of as a 500 from the function.
- */
-const SCOPES = ["credentials:issue", "courseware:lessons"];
-
 const issuer = arg("issuer");
 const name = arg("name");
 const environment = arg("env", "live");
 const expiresDays = arg("expires-days");
 const scopes = (arg("scopes", "credentials:issue")).split(",").map((s) => s.trim()).filter(Boolean);
-
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /* --------------------------------------------------- validate before writing */
 
@@ -169,12 +114,8 @@ if (!name) problems.push('--name is required (how the key is identified in the c
 if (environment !== "live" && environment !== "test") problems.push('--env must be live or test');
 if (expiresDays !== null && !/^\d+$/.test(expiresDays)) problems.push("--expires-days must be a whole number");
 for (const s of scopes) if (!SCOPES.includes(s)) problems.push(`unknown scope "${s}" -- valid: ${SCOPES.join(", ")}`);
-if (!ANON) {
-  problems.push(
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY not found. Looked in the environment, " +
-    "scripts/.env, and ../certidemy-web/.env.local."
-  );
-}
+const anonProblem = anonMissing();
+if (anonProblem) problems.push(anonProblem);
 // ONLY WHEN WRITING. A dry run must work with no credential at all -- it exists
 // to show what would be sent, and refusing to show that for want of a password
 // makes the safe half of the script depend on the secret the unsafe half needs.
@@ -237,48 +178,23 @@ async function run() {
 
   console.log(`auth: ${AUTH_SOURCE}`);
 
-  let accessToken = USER_JWT;
-  if (!accessToken) {
-    const tokenRes = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-      method: "POST",
-      headers: { apikey: ANON, "content-type": "application/json" },
-      body: JSON.stringify({ email: EMAIL.trim(), password: PASSWORD }),
-    });
-    const tokenJson = await tokenRes.json().catch(() => ({}));
-    if (!tokenRes.ok || !tokenJson.access_token) {
-      // The message, never the credential. A failed sign-in that echoes what was
-      // sent writes the password into the terminal that was avoiding it.
-      const why = tokenJson.error_description ?? tokenJson.msg ?? "";
-      console.error(`sign-in failed: HTTP ${tokenRes.status} ${why}`);
-      if (/invalid login/i.test(why)) {
-        console.error("");
-        console.error("Check that SUPABASE_PASSWORD holds the password itself and not an");
-        console.error("empty value -- an unset variable reaches this point as the empty");
-        console.error("string and the server rejects it exactly like a wrong one.");
-      }
-      process.exitCode = 1;
-      return;
-    }
-    accessToken = tokenJson.access_token;
+  const auth = await getAccessToken();
+  if (auth.error) {
+    console.error(auth.error);
+    process.exitCode = 1;
+    return;
   }
 
-  /* ----------------------------------------------------------------- the mint */
+  const { status, ok, json: out } = await callFunction(
+    "create-issuer-api-key",
+    body,
+    auth.token
+  );
 
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/create-issuer-api-key`, {
-    method: "POST",
-    headers: {
-      apikey: ANON,
-      authorization: `Bearer ${accessToken}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  const out = await res.json().catch(() => ({}));
-
-  if (!res.ok || !out.api_key) {
-    console.error(`mint failed: HTTP ${res.status}`);
+  if (!ok || !out.api_key) {
+    console.error(`mint failed: HTTP ${status}`);
     console.error(JSON.stringify(out, null, 2));
-    if (res.status === 400 && String(out.error ?? "").includes("unknown scope")) {
+    if (status === 400 && String(out.error ?? "").includes("unknown scope")) {
       console.error("");
       console.error("If the scope is courseware:lessons, create-issuer-api-key has not been");
       console.error("redeployed since it learned that scope. Deploy it and re-run.");
