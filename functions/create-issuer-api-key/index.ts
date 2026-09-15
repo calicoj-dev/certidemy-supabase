@@ -35,6 +35,11 @@ import {
   HttpError,
 } from "../_shared/supabase.ts";
 import { requireIssuerAccess } from "../_shared/authorize.ts";
+import {
+  DEFAULT_API_SCOPES,
+  isApiScope,
+  rejectScope,
+} from "../_shared/api-scopes.ts";
 
 interface Body {
   issuer_id?: string;
@@ -47,7 +52,16 @@ interface Body {
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const SCOPES = new Set(["credentials:issue", "credentials:read", "achievements:read"]);
+// ============================== THE SCOPE VOCABULARY =======================
+//
+// WAS A THIRD HAND-TYPED LIST, and it disagreed with the CHECK constraint that
+// migration 322 put on the column. courseware:lessons could not be minted at
+// all -- 400 unknown scope -- while credentials:read and achievements:read were
+// accepted here and then refused by the database as a 23514, which this function
+// reports as 500 "failed to create API key".
+//
+// It now imports the one list. See _shared/api-scopes.ts for why the two read
+// scopes were not restored.
 
 function hex(bytes: Uint8Array): string {
   return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -87,7 +101,7 @@ serve(async (req) => {
     const environment = (body.environment ?? "live").trim();
     const scopes = Array.isArray(body.scopes) && body.scopes.length > 0
       ? body.scopes.map((s) => String(s).trim())
-      : ["credentials:issue"];
+      : [...DEFAULT_API_SCOPES];
     const expiresInDays = body.expires_in_days ?? null;
 
     if (!issuerId || !UUID_RE.test(issuerId)) {
@@ -97,8 +111,8 @@ serve(async (req) => {
     if (environment !== "live" && environment !== "test") {
       throw new HttpError(400, 'environment must be "live" or "test"');
     }
-    const badScope = scopes.find((s) => !SCOPES.has(s));
-    if (badScope) throw new HttpError(400, `unknown scope "${badScope}"`);
+    const badScope = scopes.find((s) => !isApiScope(s));
+    if (badScope) throw new HttpError(400, rejectScope(badScope));
     if (
       expiresInDays !== null &&
       (!Number.isInteger(expiresInDays) || expiresInDays < 1)
@@ -198,10 +212,26 @@ serve(async (req) => {
         created_at: created.created_at,
       },
       issuer: { id: issuer.id, slug: issuer.slug, name: issuer.name },
-      usage: {
-        endpoint: "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/issue-partner-credential",
-        header: "x-certidemy-key",
-      },
+      // DERIVED FROM THE SCOPES GRANTED. This was a fixed pair naming the
+      // issuing endpoint, which for a courseware-only key is a wrong
+      // instruction printed at the one moment the credential is on screen.
+      // Nothing consumes this field -- the console reads api_key alone -- so
+      // its only reader is a human copying a key, which is who it is for.
+      usage: scopes.map((s) =>
+        s === "courseware:lessons"
+          ? {
+            scope: s,
+            endpoint: "https://certidemy.com/mcp",
+            header: "Authorization: Bearer <key>",
+            note: "MCP tools/call get_lesson. list_lessons needs no key.",
+          }
+          : {
+            scope: s,
+            endpoint: "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/issue-partner-credential",
+            header: "x-certidemy-key: <key>",
+            note: null,
+          }
+      ),
     });
   } catch (err) {
     if (err instanceof HttpError) {
