@@ -370,16 +370,66 @@ await expectRows("search_blueprint -> per-kind totals exceed returned",
   record("search is deterministic: identical query, identical order", why === "", why);
 }
 
-// WORD BOUNDARY, NOT SUBSTRING. "AI" must not match inside "explain" -- that
-// false positive inflated the totals that made the ordering defect look smaller
-// than it was.
-{
-  const { status, json } = await post({ resource: "search", query: "AI", language: "en", limit: 50 });
+// ===================== TWO PROPERTIES, NO MAGIC NUMBERS =====================
+//
+// This asserted `0 < total < 51` for the query "AI", calibrated when AISM-I was
+// the only corpus and 36 was the answer. Widening to four made it 116 and the
+// assertion failed -- CORRECTLY, but not for the reason it named.
+//
+// Measured: 116 is 36 + 44 + 20 + 16, one per certification, with AISM-I's own
+// figure unchanged at 36. Nothing had regressed about word boundaries. SEARCH
+// WAS IGNORING THE CERTIFICATION PARAMETER: it validated it and then searched
+// all four corpora, because the search branch builds its SQL separately and the
+// widening missed it.
+//
+// A threshold cannot tell those two apart. It fires on any change to the corpus
+// -- a new task, a new certification, a reworded statement -- and it fires with
+// the same message whatever moved, which is how a real defect arrives wearing
+// "the number needs updating". Both properties are now asserted directly, and
+// neither depends on how much content exists.
+const searchTasks = async (body) => {
+  const { status, json } = await post({ resource: "search", language: "en", limit: 50, ...body });
   const tasks = (json?.rows ?? []).filter((r) => r.kind === "task");
-  const total = tasks.length ? Number(tasks[0].kind_total) : 0;
-  record("search matches at word boundaries, not inside words",
-    status === 200 && total > 0 && total < 51,
-    status !== 200 ? `HTTP ${status}` : `${total} task matches for "AI" -- 51 means ILIKE substring matching is back and "explain" is counted`);
+  return { status, n: tasks.length ? Number(tasks[0].kind_total) : 0 };
+};
+
+// 1. THE WORD BOUNDARY, proved by a term that exists ONLY inside other words.
+//    "xplain" occurs in 34 AISM-I task statements and never at a word boundary,
+//    so the correct answer is zero. Under the ILIKE substring matching this
+//    replaced, it would return all 34.
+{
+  const r = await searchTasks({ query: "xplain", certification: "AISM-I" });
+  record('search: "xplain" matches nothing -- it exists only inside "explain"',
+    r.status === 200 && r.n === 0,
+    r.status !== 200 ? `HTTP ${r.status}` : `${r.n} task matches; substring matching is back`);
+}
+
+// 2. AND THE ZERO ABOVE IS NOT AN OUTAGE. The same 34 statements, searched for
+//    the word that actually starts there. Without this, a search returning
+//    nothing at all would pass check 1.
+{
+  const r = await searchTasks({ query: "explain", certification: "AISM-I" });
+  record('search: "explain" does match -- the zero above is a boundary, not an outage',
+    r.status === 200 && r.n > 0,
+    r.status !== 200 ? `HTTP ${r.status}` : `${r.n} task matches, expected at least 1`);
+}
+
+// 3. THE SCOPE, proved by a term that exists in exactly one of the four.
+//    "candidate" is in 14 AIHR-I tasks and zero in AISM-I, AIE-I and AIGRM-I.
+{
+  const mine = await searchTasks({ query: "candidate", certification: "AIHR-I" });
+  record('search: "candidate" is found in AIHR-I',
+    mine.status === 200 && mine.n > 0,
+    mine.status !== 200 ? `HTTP ${mine.status}` : `${mine.n} task matches, expected at least 1`);
+}
+
+// 4. AND IT DOES NOT LEAK ACROSS. This is the check that would have caught the
+//    unscoped search: before the fix it returned AIHR-I's 14 under AISM-I.
+{
+  const other = await searchTasks({ query: "candidate", certification: "AISM-I" });
+  record('search: "candidate" is NOT found in AISM-I -- the scope is real',
+    other.status === 200 && other.n === 0,
+    other.status !== 200 ? `HTTP ${other.status}` : `${other.n} AIHR-I task(s) returned under AISM-I`);
 }
 
 console.log("");

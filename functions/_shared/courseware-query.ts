@@ -422,7 +422,7 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       //
       // NOT FULL-TEXT SEARCH, AND THAT IS DELIBERATE. tsvector + GIN is the
       // reflex and buys nothing: a search is CERTIFICATION-SCOPED, so the corpus
-      // is 61 tasks and 226 concepts today and stays a few hundred rows at
+      // is one certification's tasks and concepts and stays a few hundred rows at
       // twelve certifications -- the scan is microseconds. It would also cost a
       // per-language regconfig, and to_tsvector(CASE language ...) is not
       // immutable, so indexing means partial indexes per language per table.
@@ -438,7 +438,28 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       const phrase = "\\y" + rx(a.query!.trim()).replace(/\s+/g, "\\s+");
 
       // $1 phrase, $2 language, $3 limit, then one param per term.
-      const args: unknown[] = [phrase, a.language, a.limit];
+      // ===================== $4 IS THE CERTIFICATION =====================
+      //
+      // SEARCH WAS THE ONE RESOURCE THE WIDENING MISSED. Migration 325 put a
+      // certification predicate on certification, task, concept, lesson and
+      // lesson_index; this branch builds its SQL separately and was not touched,
+      // so `search_blueprint` ACCEPTED the parameter, validated it, and then
+      // searched all four corpora regardless.
+      //
+      // It surfaced as a smoke assertion that looked stale: "116 task matches
+      // for AI" against a calibrated 36. Measured, the 116 is 36 + 44 + 20 + 16
+      // -- one per certification, AISM-I's own figure unchanged. THE COUNT WAS
+      // RIGHT FOR AN UNSCOPED SEARCH AND WRONG FOR WHAT THE TOOL PROMISES: its
+      // description says "the examined blueprint of ONE Certidemy
+      // certification".
+      //
+      // A partner would have received another certification's tasks under the
+      // code they asked for -- the exact substitution readCertification refuses
+      // to make at the front door.
+      //
+      // Pushed BEFORE the per-term params so termParams, which number themselves
+      // from args.length, stay correct without being touched.
+      const args: unknown[] = [phrase, a.language, a.limit, a.certification!];
       const termParams: string[] = [];
       for (const t of terms) {
         args.push("\\y" + rx(t));
@@ -465,12 +486,14 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       const taskPart =
         "select 'task' as kind, task_code as key, statement as title, domain_code, " +
         score("statement", ksa) + " as score " +
-        "from mcp.task where language = $2 and (" + anyOf("statement", ksa) + ")";
+        "from mcp.task where certification = $4 and language = $2 " +
+        "and (" + anyOf("statement", ksa) + ")";
       const conceptPart =
         " union all " +
         "select 'concept', slug, name, null::text, " +
         score("name", "coalesce(description,'')") + " " +
-        "from mcp.concept where (" + anyOf("name", "coalesce(description,'')") + ")";
+        "from mcp.concept where certification = $4 " +
+        "and (" + anyOf("name", "coalesce(description,'')") + ")";
 
       // kind_total is a window count over ALL matches of that kind, computed
       // BEFORE the row_number cut -- so the caller is told how many exist, not
