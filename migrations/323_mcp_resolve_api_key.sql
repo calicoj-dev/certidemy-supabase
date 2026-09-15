@@ -219,6 +219,10 @@ declare
   v_status  text;
   n         int;
   n_keys    int := 0;
+  fn_owner  text;
+  fn_secdef boolean;
+  fn_lang   text;
+  fn_config text[];
   n_null    int := 0;
   n_wrong   int := 0;
   rec       record;
@@ -367,18 +371,82 @@ begin
     raise exception 'resolve_api_key returns key_hash';
   end if;
 
-  -- 7. DEFINER, PINNED, AND OWNED BY THE NARROW ROLE.
-  select count(*) into n
+  -- 7. FOUR PROPERTIES, FOUR EXCEPTIONS -- ONE ROW READ, THEN TESTED APART.
+  --
+  --    This was a single count over five conjoined predicates raising one
+  --    message that named three of them. It failed, and the message could not
+  --    say which half had moved -- the same defect as the id comparison one
+  --    probe up, on the same day, in the same block.
+  --
+  --    THE HALF THAT HAD MOVED WAS NONE OF THEM. The predicate read
+  --
+  --      p.proconfig::text like '%search_path=""%'
+  --
+  --    and proconfig is a text[] whose element is `search_path=""`. Rendering
+  --    that array as text QUOTES the element, because it contains quotes, and
+  --    backslash-escapes the inner pair:
+  --
+  --      element         search_path=""          (14 characters)
+  --      ::text          {"search_path=\"\""}
+  --
+  --    So the literal `search_path=""` does not occur in the rendering and the
+  --    pattern MATCHES NOTHING -- not here, and not on any correctly pinned
+  --    function anywhere in this database. Measured 2026-09-14 against three
+  --    that are definitively pinned: mcp.log_request, public.is_platform_admin
+  --    and public.is_team_admin_of all return false for this pattern and true
+  --    for `= any(proconfig)`. THE ASSERTION WAS UNCONDITIONALLY FALSE and had
+  --    never once been satisfied by anything.
+  --
+  --    Same family as the five recorded in CLAUDE.md: it searched a STRING when
+  --    the property was an ARRAY ELEMENT. The array is tested directly below,
+  --    so no rendering sits between the property and the check.
+  --
+  --    NOT the owner. 323 carries 317's grant-create-transfer dance, and a
+  --    failed `alter function ... owner to` raises 42501 at that statement --
+  --    it could not have arrived here quietly.
+
+  select r.rolname, p.prosecdef, l.lanname, p.proconfig
+    into fn_owner, fn_secdef, fn_lang, fn_config
     from pg_proc p
     join pg_namespace ns on ns.oid = p.pronamespace
-    join pg_roles r on r.oid = p.proowner
+    join pg_roles r      on r.oid = p.proowner
+    join pg_language l   on l.oid = p.prolang
    where ns.nspname = 'mcp'
-     and p.proname = 'resolve_api_key'
-     and p.prosecdef
-     and r.rolname = 'mcp_authz'
-     and p.proconfig::text like '%search_path=""%';
-  if n <> 1 then
-    raise exception 'resolve_api_key is not a pinned definer owned by mcp_authz';
+     and p.proname = 'resolve_api_key';
+
+  if not found then
+    raise exception 'mcp.resolve_api_key does not exist';
+  end if;
+
+  if fn_owner is distinct from 'mcp_authz' then
+    raise exception 'resolve_api_key is owned by %', coalesce(fn_owner, 'nobody')
+      using detail = 'the definer would run with that role privileges instead',
+            hint   = 'the owner transfer needs grant mcp_authz to the migration role with set true';
+  end if;
+
+  if not coalesce(fn_secdef, false) then
+    raise exception 'resolve_api_key is not SECURITY DEFINER'
+      using detail = 'it would run as mcp_reader, which cannot read the table',
+            hint   = 'every key would resolve to no row and the paywall would close on everyone';
+  end if;
+
+  if fn_lang is distinct from 'sql' then
+    raise exception 'resolve_api_key is language %', coalesce(fn_lang, 'none')
+      using hint = 'the body committed here is a single sql statement';
+  end if;
+
+  -- THE PIN, IN TWO HALVES. "No pin at all" and "pinned to the wrong thing" are
+  -- different repairs, and a reader who sees only the second goes looking for a
+  -- setting that is not there.
+  if fn_config is null
+     or not exists (select 1 from unnest(fn_config) c where c like 'search_path=%') then
+    raise exception 'resolve_api_key has no search_path pin'
+      using detail = 'a definer without one resolves names through the caller search_path';
+  end if;
+
+  if not ('search_path=""' = any(fn_config)) then
+    raise exception 'search_path is pinned to %', array_to_string(fn_config, ',')
+      using hint = 'expected the empty pin, stored as the element search_path=""';
   end if;
 
   raise notice 'reader refused the table; % key(s) each resolved to themselves', n_keys;
@@ -411,6 +479,16 @@ commit;
 --     where schemaname='public' and tablename='issuer_api_keys'
 --       and policyname='issuer_api_keys_mcp_authz_read')     as policy_exists,
 --   (select rolbypassrls from pg_roles where rolname='mcp_authz') as bypasses_rls;
+--
+-- 1c. THE PIN, TESTED ON THE ARRAY AND NOT ON ITS RENDERING. Expect t, f --
+--     and the second column is why: `proconfig::text` escapes the inner quotes,
+--     so a LIKE against it matches no correctly pinned function anywhere.
+--
+-- select
+--   ('search_path=""' = any(proconfig))          as pinned,
+--   (proconfig::text like '%search_path=""%')    as pinned_by_the_old_predicate
+--   from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+--  where n.nspname = 'mcp' and p.proname = 'resolve_api_key';
 --
 -- 2. WHO MAY ASK. Expect mcp_reader t, everyone else f.
 --

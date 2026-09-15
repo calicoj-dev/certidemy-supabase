@@ -265,7 +265,7 @@ $mig$;
 --        p.provolatile              as volatility,   -- expect s
 --        p.prosecdef                as is_definer,   -- expect t
 --        pg_get_userbyid(p.proowner) as owner,       -- expect postgres
---        p.proconfig::text          as settings      -- expect {search_path=""}
+--        array_to_string(p.proconfig, ',') as settings   -- expect search_path=""
 --   from pg_proc p join pg_namespace n on n.oid = p.pronamespace
 --  where n.nspname = 'public'
 --    and p.proname in ('is_platform_admin','is_team_admin_of')

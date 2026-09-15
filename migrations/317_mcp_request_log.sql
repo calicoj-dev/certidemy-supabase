@@ -300,7 +300,7 @@ commit;
 --        pg_get_userbyid(p.proowner) as owner,       -- expect mcp_logger
 --        l.lanname                   as language,    -- expect sql
 --        p.prosecdef                 as is_definer,  -- expect t
---        p.proconfig::text           as settings     -- expect {search_path=""}
+--        array_to_string(p.proconfig, ',') as settings   -- expect search_path=""
 --   from pg_proc p
 --   join pg_namespace n on n.oid = p.pronamespace
 --   join pg_language  l on l.oid = p.prolang
