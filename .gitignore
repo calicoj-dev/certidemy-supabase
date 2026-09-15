@@ -25,3 +25,7 @@ scripts/anchor/node_modules/
 # would live. Untracked all session on purpose; now enforced rather than
 # remembered.
 .mcp.json
+
+# PKCE verifier + client id for the audience probe. Single-use and short-lived,
+# but a credential for the ten minutes it matters.
+scripts/.probe-mcp-audience.json

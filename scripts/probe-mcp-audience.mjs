@@ -39,6 +39,42 @@
  * keep-alive socket trips a libuv assertion on Windows (src\win\async.c:76).
  */
 import { createHash, randomBytes } from "node:crypto";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+/*
+ * ===================== WHY THE STATE FILE EXISTS =====================
+ *
+ * THE VERIFIER USED TO LIVE ONLY IN TERMINAL SCROLLBACK, AND A CODE LIVES TEN
+ * MINUTES. Paid for on 2026-09-15: an approved code arrived for exchange with
+ * no verifier beside it, the verifier was in another session's output, and the
+ * code expired while that was being worked out. It cannot be recovered -- the
+ * challenge is a SHA-256 of it and the database stores only the challenge.
+ *
+ * So --apply now persists {client_id, verifier} and --code reads them back.
+ * Explicit flags still win; the file is the fallback, and the resume leg
+ * becomes `--code <code>` alone.
+ *
+ * Gitignored. A PKCE verifier is single-use and bound to one authorization, but
+ * it is still a credential for the ten minutes it matters.
+ */
+const HERE = dirname(fileURLToPath(import.meta.url));
+const STATE = join(HERE, ".probe-mcp-audience.json");
+
+const saveState = (o) => {
+  try {
+    writeFileSync(STATE, JSON.stringify(o, null, 2) + "\n", "utf8");
+    return true;
+  } catch (e) {
+    console.error(`could not write ${STATE}: ${e.message}`);
+    return false;
+  }
+};
+const loadState = () => {
+  if (!existsSync(STATE)) return null;
+  try { return JSON.parse(readFileSync(STATE, "utf8")); } catch { return null; }
+};
 
 const KNOWN = new Set(["--apply", "--code", "--verifier", "--client-id", "--redirect"]);
 for (const a of process.argv.slice(2)) {
@@ -84,13 +120,19 @@ async function run() {
   /* ---------------------------------------------------- step 3, if resuming */
   const code = arg("code");
   if (code) {
-    const verifier = arg("verifier");
-    const clientId = arg("client-id");
+    const saved = loadState();
+    const verifier = arg("verifier") ?? saved?.verifier ?? null;
+    const clientId = arg("client-id") ?? saved?.client_id ?? null;
     if (!verifier || !clientId) {
-      console.error("--code needs --verifier and --client-id from the --apply run.");
+      console.error("--code needs a verifier and a client id.");
+      console.error(`Neither was given and ${STATE} has neither.`);
+      console.error("");
+      console.error("THE VERIFIER CANNOT BE RECOVERED. The database stores the code_challenge,");
+      console.error("which is a SHA-256 of it. Re-run with --apply for a fresh pair.");
       process.exitCode = 2;
       return;
     }
+    if (!arg("verifier")) console.log(`verifier and client id: ${STATE}`);
     const body = new URLSearchParams({
       grant_type: "authorization_code",
       code,
@@ -195,6 +237,15 @@ async function run() {
   const verifier = b64url(randomBytes(32));
   const challenge = b64url(createHash("sha256").update(verifier).digest());
 
+  // WRITTEN BEFORE THE URL IS PRINTED, not after. If the write fails the run
+  // stops here -- printing an authorization URL whose verifier was not saved is
+  // how a ten-minute code arrives with nothing to exchange it with.
+  if (!saveState({ client_id: clientId, verifier, challenge, resource: RESOURCE, redirect: REDIRECT })) {
+    console.error("state not saved; not printing an authorization URL");
+    process.exitCode = 1;
+    return;
+  }
+
   const url =
     `${AUTH}/oauth/authorize?response_type=code` +
     `&client_id=${encodeURIComponent(clientId)}` +
@@ -212,8 +263,13 @@ async function run() {
   console.log("");
   console.log("2. You land on the redirect with ?code=... in the URL. Run:");
   console.log("");
-  console.log(`   node scripts/probe-mcp-audience.mjs --client-id ${clientId} \\`);
-  console.log(`     --verifier ${verifier} --code <the code>`);
+  console.log("   node scripts/probe-mcp-audience.mjs --code <the code>");
+  console.log("");
+  console.log(`   (client id and verifier come from ${STATE};`);
+  console.log("    --client-id and --verifier still override it.)");
+  console.log("");
+  console.log("THE CODE LIVES TEN MINUTES from the moment you open the URL, and the");
+  console.log("verifier cannot be re-derived if it is lost. Run step 2 immediately.");
   console.log("");
   console.log("The probe client stays registered. Remove it from the dashboard when done.");
 }

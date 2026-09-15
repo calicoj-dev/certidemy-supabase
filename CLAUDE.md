@@ -14,8 +14,19 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 325. Next free number: 326. Nothing is outstanding.** 303-311
-and 313-325 have all RUN. Verified 2026-09-15 against `pg_catalog`, not against
+**Migration tip: 326. Next free number: 327. Nothing is outstanding.** 303-311
+and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
+against `pg_catalog` rather than against a report that it had: the table exists
+with `relrowsecurity`, both policies are present, `can_bind_issuer` carries
+`proconfig {search_path=""}`, and **`oauth_issuer_bindings` holds one row** --
+written by the consent screen through the policy, which is the only evidence
+that the authenticated INSERT path actually works.
+
+That last clause is the point. 326's own probes ran inside its transaction and
+committed; the row is the separate, after-the-fact proof, and it is the kind a
+migration cannot give itself.
+
+303-311 and 313-325 have all RUN. Verified 2026-09-15 against `pg_catalog`, not against
 this line: `is_platform_admin` / `is_team_admin_of` carry `proconfig
 {search_path=""}`, are still `stable`, and their bodies match 318 byte for byte
 including the `::public.platform_role` cast 318 introduced (318); `mcp.resolve_api_key`
