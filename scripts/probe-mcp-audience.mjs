@@ -279,10 +279,16 @@ async function run() {
       console.error("IF DYNAMIC REGISTRATION IS OFF, THIS IS EXPECTED AND NOT A FAULT.");
       console.error("Register one client manually, once, with the service role key:");
       console.error("");
+      console.error("BOTH HEADERS, SAME VALUE. apikey AND Authorization. With only");
+      console.error("Authorization the gateway answers \"No API key found in request\",");
+      console.error("which reads as a wrong or missing CREDENTIAL and sends you to check");
+      console.error("the key. The key is fine; the header is absent. Every other script in");
+      console.error("this repo sends the pair -- see scripts/lib/fn-auth.mjs.");
+      console.error("");
       console.error("One line on purpose -- a wrapped paste is how this repo has already");
       console.error("corrupted a copied command:");
       console.error("");
-      console.error(`  curl -sS -4 -X POST "${AUTH}/admin/oauth/clients" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" -H "content-type: application/json" -d '{"client_name":"certidemy-audience-probe","redirect_uris":["${REDIRECT}"],"grant_types":["authorization_code"],"response_types":["code"],"token_endpoint_auth_method":"none"}'`);
+      console.error(`  curl -sS -4 -X POST "${AUTH}/admin/oauth/clients" -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" -H "content-type: application/json" -d '{"client_name":"certidemy-audience-probe","redirect_uris":["${REDIRECT}"],"grant_types":["authorization_code"],"response_types":["code"],"token_endpoint_auth_method":"none"}'`);
       console.error("");
       console.error("then re-run this with --client-id <the id>. It lands as");
       console.error("registration_type = 'manual' and is reused from the state file after that.");

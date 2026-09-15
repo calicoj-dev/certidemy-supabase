@@ -251,18 +251,24 @@ and prints the one-line manual registration with the service role key:
 
 ```
 POST {SUPABASE_URL}/auth/v1/admin/oauth/clients
+apikey:        <service role key>
 Authorization: Bearer <service role key>
 ```
 
-which lands as `registration_type = 'manual'`. The consent screen, migration 326
+**BOTH HEADERS, SAME VALUE.** With only `Authorization` the gateway answers
+*"No API key found in request"*, which reads as a wrong credential and sends the
+reader to check a key that is fine. Recorded in CLAUDE.md under Scripts; the
+first version of this note carried the one-header form and was wrong.
+
+It lands as `registration_type = 'manual'`. The consent screen, migration 326
 and the whole OAuth path are untouched by the toggle.
 
-**ORDERING MATTERS WHEN THE FIVE CLIENTS ARE DELETED.** The state file points at
-`8b4326bb-...`, which is one of them. Delete all five and the next `--apply`
-reuses a dead id and fails at authorize rather than at registration. Either
-register one manual client first and put its id in the state file, or delete
-`scripts/.probe-mcp-audience.json` along with the clients so the script asks for
-a fresh one.
+**DONE 2026-09-15:** a manual client, `d5c0cf68-...`, is registered and is what
+the state file now points at, so the probe survives both the toggle and the
+deletion of all five dynamic clients. The saved verifier and challenge were
+dropped with the old client id rather than carried over -- they belonged to an
+authorization on a client that no longer exists, and `--apply` mints a fresh
+pair every run anyway.
 
 **The residual risk if it stays open is not theoretical.** Under the §1 design
 the Worker resolves a binding from `sub`, so a self-registered client obtains a

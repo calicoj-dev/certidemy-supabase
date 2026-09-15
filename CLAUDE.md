@@ -598,6 +598,28 @@ questions that wanted a `pg_catalog` answer were answered from the migration
 record instead and marked as inferences. The inferences were correct and the
 reason for them was wrong.
 
+**EVERY SUPABASE API CALL NEEDS BOTH `apikey` AND `Authorization`, SAME VALUE.**
+Send only `Authorization: Bearer <key>` and the gateway answers
+
+```
+{"message":"No API key found in request"}
+```
+
+**which reads as a wrong or missing CREDENTIAL and is a missing HEADER.** The key
+in your hand is correct. Whoever reads that message goes and checks the key,
+rotates it, re-copies it from the dashboard, and none of that is the problem.
+Same family as the IPv6 note above: the error names the wrong half of the system.
+
+Every script here already sends the pair -- `scripts/lib/fn-auth.mjs`, `_pg.mjs`,
+the loaders. **It is one-off `curl` that drops it**, which is exactly when nobody
+has a working example in front of them. Found 2026-09-15 on
+`POST /auth/v1/admin/oauth/clients`, against a curl written into this file's own
+notes with only one of the two.
+
+```
+-H "apikey: $KEY" -H "Authorization: Bearer $KEY"
+```
+
 **THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
 most dangerous thing about this directory.
 
