@@ -105,6 +105,56 @@ grant usage on schema public to mcp_authz;
 grant select (id, issuer_id, scopes, key_hash, expires_at, revoked_at)
   on public.issuer_api_keys to mcp_authz;
 
+-- ============ AND RLS, WHICH THE GRANT DOES NOT SATISFY ============
+--
+-- issuer_api_keys has RLS ENABLED, with one policy -- `issuer_api_keys_read`,
+-- SELECT, to `authenticated`. mcp_authz is not authenticated, does not own the
+-- table (postgres does), and has no BYPASSRLS. So the grant lets it address the
+-- table and RLS returns none of the rows.
+--
+-- THIS SUBSYSTEM HAD NOT MET RLS BEFORE, which is why it was not anticipated.
+-- Every other object in schema mcp is OWNED BY POSTGRES -- all five views
+-- included, none of them security_invoker -- and postgres has BYPASSRLS. The
+-- views ARE the bypass, by owner. mcp_authz is the first definer owner here that
+-- RLS actually applies to, and it exists precisely because it is narrow. THE
+-- NARROWING IS WHAT TRIPPED IT.
+--
+-- AND IT FAILS BY RETURNING NOTHING. Not 42501, not an error of any kind: the
+-- grant is present, the query plans, the query succeeds, and the rows are
+-- filtered away. CLAUDE.md's own line -- "a table with RLS enabled and no grant
+-- is closed; a table with a grant and no policies is open" -- names the two ends
+-- and not this middle: a grant AND a policy that does not name you.
+--
+-- THE FIRST VERSION OF THIS MIGRATION ABORTED ON ITS OWN POSITIVE CONTROL with
+-- `a live key resolved to the wrong id` -- the catastrophic reading of a benign
+-- fact. It was the probe, not the function: EXECUTE INTO leaves its targets NULL
+-- on an empty result, and the probe compared ids without first asking how many
+-- rows came back. Both halves are repaired, and the probe half matters more.
+-- See the note above check 4.
+--
+-- SECOND INSTANCE IN THIS SUBSYSTEM. 317 gave mcp_logger INSERT on mcp_requests
+-- and the write was refused by RLS; 319 exists to add that policy. Same trap,
+-- one statement type along, four migrations apart.
+--
+-- A POLICY, NOT `alter role mcp_authz bypassrls`. BYPASSRLS is a ROLE
+-- ATTRIBUTE: global, permanent, and applied to every table this role ever
+-- touches, including tables that do not exist yet. A policy is one table, one
+-- role, SELECT only, and it shows up in pg_policies for anyone auditing who can
+-- read this table.
+--
+-- `using (true)` is correct and is not where the narrowing lives. The resolver
+-- must be able to match ANY partner key. What bounds it is the column grant
+-- above, the fact that this function is the only path to it, and the need to
+-- hold the key in order to compute the hash that selects a row.
+
+drop policy if exists issuer_api_keys_mcp_authz_read on public.issuer_api_keys;
+
+create policy issuer_api_keys_mcp_authz_read
+  on public.issuer_api_keys
+  for select
+  to mcp_authz
+  using (true);
+
 -- ------------------------------------------------------------ the function
 
 create or replace function mcp.resolve_api_key(p_key_hash text)
@@ -168,6 +218,10 @@ declare
   v_got     uuid;
   v_status  text;
   n         int;
+  n_keys    int := 0;
+  n_null    int := 0;
+  n_wrong   int := 0;
+  rec       record;
   blocked   boolean := false;
 begin
   execute format('grant mcp_reader to %I with set true', current_user);
@@ -211,8 +265,60 @@ begin
     raise exception 'a null hash resolved to % row(s)', n;
   end if;
 
-  -- 4. A LIVE KEY RESOLVES TO ITSELF, ACTIVE. The positive half: without it
-  --    every check above passes on a function that always returns nothing.
+  -- 4. THE POSITIVE HALF, AND IT IS WHAT CAUGHT THE RLS FILTER.
+  --
+  --    Checks 2 and 3 above ALL PASSED against a function that returned nothing
+  --    for every input, because "no rows" is the answer they are written to
+  --    expect. Three negative assertions agreeing for the wrong reason is the
+  --    whole argument for a positive control.
+  --
+  --    TWO FAILURES ARE POSSIBLE HERE AND THEY ARE NOT THE SAME EVENT:
+  --
+  --      no row      a closed door. Nobody gets in. Safe, and wrong.
+  --      wrong row   one key resolving to another key row, which is one partner
+  --                  reading under another partner scopes.
+  --
+  --    The first version compared ids and reported any difference as 'the wrong
+  --    id'. EXECUTE INTO leaves its targets NULL on an empty result, so a closed
+  --    door raised the message that means a cross-partner leak. COUNT FIRST,
+  --    COMPARE SECOND: a post-condition that cannot tell its two failure modes
+  --    apart will name the wrong one, and it will name the scarier one, because
+  --    that is the one worth writing a message about.
+
+  select count(*) into n from public.issuer_api_keys where revoked_at is null;
+  if n = 0 then
+    raise exception 'no live key to test against'
+      using hint = 'the positive half cannot be proven; nothing is committed';
+  end if;
+
+  -- EVERY KEY, NOT THE FIRST ONE. A policy matching some rows and not others
+  -- would satisfy a single-key check and refuse a real partner later.
+  for rec in select k.id, k.key_hash from public.issuer_api_keys k loop
+    execute 'set local role mcp_reader';
+    execute 'select key_id from mcp.resolve_api_key($1)' into v_got using rec.key_hash;
+    execute 'reset role';
+    if v_got is null then
+      n_null := n_null + 1;
+    elsif v_got <> rec.id then
+      n_wrong := n_wrong + 1;
+    end if;
+    n_keys := n_keys + 1;
+  end loop;
+
+  -- NAMED SEPARATELY, AND THE LEAK IS NAMED FIRST because it is the one that
+  -- must never arrive wearing another failure message.
+  if n_wrong <> 0 then
+    raise exception '% key(s) resolved to a DIFFERENT key', n_wrong
+      using detail = 'a key is returning another key row',
+            hint   = 'do not deploy; this is a cross-partner authorization leak';
+  end if;
+  if n_null <> 0 then
+    raise exception '% key(s) resolved to no row', n_null
+      using detail = 'the grant is present and the read returned nothing',
+            hint   = 'that is what RLS does; check pg_policies for mcp_authz';
+  end if;
+
+  -- AND THE STATUS IS RIGHT ON A LIVE ONE.
   select k.key_hash, k.id into v_hash, v_id
     from public.issuer_api_keys k
    where k.revoked_at is null
@@ -220,21 +326,12 @@ begin
    order by k.created_at
    limit 1;
 
-  if v_hash is null then
-    raise exception 'no live key to test against'
-      using hint = 'the positive half cannot be proven; nothing is committed';
-  end if;
-
   execute 'set local role mcp_reader';
-  execute 'select key_id, key_status from mcp.resolve_api_key($1)'
-    into v_got, v_status using v_hash;
+  execute 'select key_status from mcp.resolve_api_key($1)' into v_status using v_hash;
   execute 'reset role';
 
-  if v_got is distinct from v_id then
-    raise exception 'a live key resolved to the wrong id';
-  end if;
-  if v_status <> 'active' then
-    raise exception 'a live key resolved as %', v_status;
+  if v_status is distinct from 'active' then
+    raise exception 'a live key resolved as %', coalesce(v_status, 'nothing');
   end if;
 
   -- 5. A REVOKED KEY RESOLVES, AND SAYS SO. The row is returned so the caller
@@ -284,7 +381,7 @@ begin
     raise exception 'resolve_api_key is not a pinned definer owned by mcp_authz';
   end if;
 
-  raise notice 'reader refused the table, resolved a live key, and cannot see a hash';
+  raise notice 'reader refused the table; % key(s) each resolved to themselves', n_keys;
 end
 $mig$;
 
@@ -304,6 +401,16 @@ commit;
 --    name_col must be f for mcp_authz: the grant listed six columns and `name`
 --    is not one of them, which is what proves the grant is column-scoped rather
 --    than table-wide with a decorative list.
+--
+-- 1b. RLS IS SATISFIED, NOT BYPASSED. Expect the policy to exist and
+--     mcp_authz to have NO bypassrls -- the second half is the point, because a
+--     role attribute would have made this work while widening every table.
+--
+-- select
+--   (select count(*) from pg_policies
+--     where schemaname='public' and tablename='issuer_api_keys'
+--       and policyname='issuer_api_keys_mcp_authz_read')     as policy_exists,
+--   (select rolbypassrls from pg_roles where rolname='mcp_authz') as bypasses_rls;
 --
 -- 2. WHO MAY ASK. Expect mcp_reader t, everyone else f.
 --
