@@ -1123,6 +1123,30 @@ were the guard's fault, and a guard that cries wolf gets loosened next time.**
 The tell is uniform: every one of them searched for a STRING when the property
 was a PLACE.
 
+**RUN THE CHECK AS THE PARTY THE PROPERTY IS ABOUT.** Exercising behaviour is
+not enough on its own -- `smoke-courseware` fetched a real lesson, parsed it,
+and passed 37 of 37 while the paywall did not exist, because it called the
+function the same way an attacker would AND THE FUNCTION HOLDS BOTH CREDENTIALS.
+It could not distinguish "the paywall works" from "there is no paywall": both
+return a body when the caller is the system itself.
+
+A paywall is a claim about strangers, so only a stranger can test it. A grant is
+a claim about a role, so the role must attempt it (322 does this). **The
+credential the test holds IS the hypothesis**, and a suite running with the
+system own credentials measures what the system can do, never what a stranger
+can. `scripts/smoke-paywall.mjs` is the worked example, and its two controls are
+the other half: a refusal proves nothing unless something PROVES THE ENDPOINT
+STILL SERVES, because a broken deployment refuses everything.
+
+**A POST-CONDITION MUST BE ABLE TO TELL ITS FAILURE MODES APART.** If it cannot,
+it reports the most alarming one it can describe. Migration 323 raised "a live
+key resolved to the wrong id" -- a cross-partner authorization leak -- when it
+had measured a closed door: `EXECUTE ... INTO` leaves targets NULL on an empty
+result, and `is distinct from` is true for a wrong uuid and for no uuid. Count
+first, compare second, and give each failure its own exception. The same file
+then raised one message naming three properties for a compound condition, and
+the half that had moved was none of them.
+
 **The recurring failure mode of this system is silent success.** It is caught
 only by asserting a specific expected value, never by the absence of an error.
 
