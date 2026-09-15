@@ -192,6 +192,29 @@ async function run() {
   console.log(`  oauth-authorization-server  HTTP ${asMeta.status} ${asMeta.json?.error_code ?? ""}`);
   console.log(`  openid-configuration        HTTP ${oidc.status}`);
 
+  // A TRANSPORT FAILURE IS NOT A CONFIGURATION FINDING, and this script asserted
+  // one. `get()` returns status 0 when the host was never reached, and the
+  // branch below read that as "the OAuth server is not enabled on this project"
+  // -- a confident, specific, wrong diagnosis, printed while the server was in
+  // fact running. Observed 2026-09-15, minutes after a successful token
+  // exchange against the same endpoint.
+  //
+  // Same misattribution as the IPv6 note in CLAUDE.md, one layer up: the remote
+  // is fine and the local path is not. smoke-paywall.mjs carries `reached` for
+  // exactly this reason; this script had the field and did not check it.
+  if (!asMeta.reached) {
+    console.log("");
+    console.log(`NOT REACHED (${asMeta.why}). This says nothing about the OAuth server.`);
+    console.log("");
+    console.log("curl the same URL before believing anything about configuration:");
+    console.log(`  curl -sS -4 -i "${AUTH}/.well-known/oauth-authorization-server"`);
+    console.log("");
+    console.log("If curl succeeds and this does not, it is node/undici and the address");
+    console.log("family, not the project. CLAUDE.md, Scripts.");
+    process.exitCode = 1;
+    return;
+  }
+
   if (asMeta.status !== 200) {
     console.log("");
     console.log("BLOCKED AT DISCOVERY. The OAuth server is not enabled on this project.");
@@ -216,24 +239,64 @@ async function run() {
     return;
   }
 
-  /* --------------------------------------------- step 2, register + authorize */
-  const reg = await get(registration, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      client_name: "certidemy-audience-probe",
-      redirect_uris: [REDIRECT],
-      grant_types: ["authorization_code"],
-      response_types: ["code"],
-      token_endpoint_auth_method: "none",
-    }),
-  });
-  if (reg.status !== 200 && reg.status !== 201) {
-    console.error(`registration failed: HTTP ${reg.status} ${reg.text.slice(0, 300)}`);
-    process.exitCode = 1;
-    return;
+  /* --------------------------------------------- step 2, a client + authorize */
+  //
+  // ============ THIS SCRIPT NO LONGER ASSUMES IT MAY REGISTER ============
+  //
+  // Dynamic client registration is being turned off on this project -- it was
+  // open and unauthenticated, and this script is the evidence of that: it
+  // registered five clients in a day sending no credential. See
+  // MCP-AUTH-OPTIONS.md section 4.
+  //
+  // So a client id is RESOLVED, in order: an explicit --client-id, then the one
+  // already in the state file, and only then a registration attempt. Reusing a
+  // known client is also the fix for the client sprawl this script caused.
+  //
+  // --client-id WAS ALREADY A DECLARED FLAG AND THIS LEG IGNORED IT. It was
+  // read only by the --code branch, so passing it here did nothing and said
+  // nothing -- a flag that is accepted and then not used, which is the defect
+  // class CLAUDE.md names for parameters. It is honoured now.
+  const saved = loadState();
+  let clientId = arg("client-id") ?? saved?.client_id ?? null;
+
+  if (clientId) {
+    console.log(`client: ${clientId} (${arg("client-id") ? "--client-id" : STATE})`);
+  } else {
+    const reg = await get(registration, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        client_name: "certidemy-audience-probe",
+        redirect_uris: [REDIRECT],
+        grant_types: ["authorization_code"],
+        response_types: ["code"],
+        token_endpoint_auth_method: "none",
+      }),
+    });
+    if (reg.status !== 200 && reg.status !== 201) {
+      console.error(`registration failed: HTTP ${reg.status} ${reg.text.slice(0, 300)}`);
+      console.error("");
+      console.error("IF DYNAMIC REGISTRATION IS OFF, THIS IS EXPECTED AND NOT A FAULT.");
+      console.error("Register one client manually, once, with the service role key:");
+      console.error("");
+      console.error("One line on purpose -- a wrapped paste is how this repo has already");
+      console.error("corrupted a copied command:");
+      console.error("");
+      console.error(`  curl -sS -4 -X POST "${AUTH}/admin/oauth/clients" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" -H "content-type: application/json" -d '{"client_name":"certidemy-audience-probe","redirect_uris":["${REDIRECT}"],"grant_types":["authorization_code"],"response_types":["code"],"token_endpoint_auth_method":"none"}'`);
+      console.error("");
+      console.error("then re-run this with --client-id <the id>. It lands as");
+      console.error("registration_type = 'manual' and is reused from the state file after that.");
+      process.exitCode = 1;
+      return;
+    }
+    clientId = reg.json?.client_id;
   }
-  const clientId = reg.json?.client_id;
+
+  // A FRESH PAIR EVERY RUN, never reused from the state file. The verifier is
+  // bound to ONE authorization through its challenge; replaying a saved one
+  // against a new authorize request is a PKCE failure at exchange time, ten
+  // minutes later, with a misleading error. The state file carries enough to
+  // RESUME an exchange, and deliberately not enough to START one.
   const verifier = b64url(randomBytes(32));
   const challenge = b64url(createHash("sha256").update(verifier).digest());
 
@@ -255,7 +318,7 @@ async function run() {
     `&resource=${encodeURIComponent(RESOURCE)}`;
 
   console.log("");
-  console.log(`registered client: ${clientId}`);
+  console.log(`client in use: ${clientId}`);
   console.log("");
   console.log("1. Open this, sign in with a real Certidemy account, approve:");
   console.log("");
@@ -271,7 +334,8 @@ async function run() {
   console.log("THE CODE LIVES TEN MINUTES from the moment you open the URL, and the");
   console.log("verifier cannot be re-derived if it is lost. Run step 2 immediately.");
   console.log("");
-  console.log("The probe client stays registered. Remove it from the dashboard when done.");
+  console.log("The client is reused from the state file on the next run, so this");
+  console.log("script registers at most one. Remove it from the dashboard when done.");
 }
 
 await run();

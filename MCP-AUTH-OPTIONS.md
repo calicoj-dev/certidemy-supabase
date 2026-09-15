@@ -237,11 +237,32 @@ screen.
 | the authorize and token endpoints | nothing else in either repo |
 | every row 326 was built to hold | |
 
-So closing DCR costs **one flag on one probe script.** Clients can still be
-registered manually with the service_role key, landing as
-`registration_type = 'manual'`; the probe would take a `--client-id` for a
-pre-registered client instead of registering its own. The consent screen,
-migration 326, and the whole OAuth path are untouched.
+So closing DCR costs **nothing that is not already done.** Fixed 2026-09-15,
+before the toggle: `--apply` now resolves a client id from `--client-id`, then
+from the state file, and only registers if it has neither. Verified against the
+live server -- it reused the saved client and the client count stayed at five.
+
+`--client-id` was ALREADY a declared flag and the `--apply` leg ignored it; it
+was read only by the `--code` branch, so passing it did nothing and said
+nothing. The defect class CLAUDE.md names for parameters, in our own script.
+
+If registration is refused the script now says so is EXPECTED when DCR is off,
+and prints the one-line manual registration with the service role key:
+
+```
+POST {SUPABASE_URL}/auth/v1/admin/oauth/clients
+Authorization: Bearer <service role key>
+```
+
+which lands as `registration_type = 'manual'`. The consent screen, migration 326
+and the whole OAuth path are untouched by the toggle.
+
+**ORDERING MATTERS WHEN THE FIVE CLIENTS ARE DELETED.** The state file points at
+`8b4326bb-...`, which is one of them. Delete all five and the next `--apply`
+reuses a dead id and fails at authorize rather than at registration. Either
+register one manual client first and put its id in the state file, or delete
+`scripts/.probe-mcp-audience.json` along with the clients so the script asks for
+a fresh one.
 
 **The residual risk if it stays open is not theoretical.** Under the §1 design
 the Worker resolves a binding from `sub`, so a self-registered client obtains a
