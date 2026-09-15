@@ -405,6 +405,9 @@ scope. **Supabase's own documentation says MCP auth on edge functions is
 hosting question**, and `WEBMCP.md` §8 already says why: it is a security design
 question, not a discoverability one.
 
+[2026-09-15: the one question that decides whether that authorization server can
+be Supabase has been measured. It is §13, and the answer is no.]
+
 ---
 
 ## 12. The line worth carrying
@@ -436,3 +439,124 @@ wasted. It is narrower and more useful: **when a claim is about what a running
 system will do with your bytes, the specification is a hypothesis and the wire
 is the measurement.** Build the instrument first, and do not retire it until
 something has actually succeeded.
+
+
+---
+
+## 13. THE AUDIENCE ANSWER, MEASURED 2026-09-15
+
+`scripts/probe-mcp-audience.mjs` exists to answer one question, and this section
+is the answer it was built to hold. A real authorization code was exchanged at
+`/auth/v1/oauth/token` and the token was decoded. **Supabase-issued access
+tokens cannot satisfy the MCP audience requirement, and the reason is not a
+missing feature.**
+
+The MCP authorization spec, 2026-07-28:
+
+> *"MCP servers MUST validate that access tokens were issued specifically for
+> them as the intended audience, according to RFC 8707 Section 2."*
+
+### Fact 1: `aud` is the Postgres role name
+
+```
+aud:        "authenticated"
+iss:        https://pctynukndxnmnxiqpgck.supabase.co/auth/v1
+client_id:  8b4326bb-10a5-47ca-a5b0-bccc19eac49d
+scope:      "openid email"
+sub:        9bec43f7-...
+amr:        [{ method: "oauth_provider/authorization_code" }]
+alg / kid:  ES256 / 88aaf3f3-...
+```
+
+Not the resource. **And not the weaker "project-scoped, at least ours" case the
+probe's own header anticipated as the middle verdict** -- `authenticated` is the
+role every ordinary Supabase user token carries on every Supabase project in
+existence. It distinguishes nothing. There is no value in that claim to validate
+against.
+
+### Fact 2: `resource` is accepted at BOTH legs and changes nothing
+
+RFC 8707's `resource` parameter was sent on the authorization request and again
+on the token request. Measured separately, because *stored-not-validated* and
+*validated-then-ignored* are different facts about a vendor:
+
+| leg | what happens |
+|---|---|
+| authorize | **accepted and stored verbatim, unvalidated.** `resource=https://totally-not-ours.example/nope` returned `302` to the consent screen and landed in `auth.oauth_authorizations.resource` exactly as sent. Omitting it entirely also returns `302`, storing NULL. |
+| token | **accepted, `HTTP 200`, no error, no warning, and no effect on `aud`.** |
+
+**So it is both, at different legs: stored without validation, then honoured
+nowhere.** A reader inspecting `auth.oauth_authorizations` finds
+`resource = https://certidemy.com/mcp` on every row and concludes RFC 8707 is
+supported. It is recorded, not implemented.
+
+This is CLAUDE.md's own rule landing on a vendor rather than on our code:
+**a parameter validated and then not transmitted is worse than one never
+accepted, because the error surface says it worked.** There is no error surface
+here at all -- the only way to learn this is to decode a token.
+
+### Fact 3: the SAME response binds the id_token correctly
+
+```
+id_token.aud:  "8b4326bb-10a5-47ca-a5b0-bccc19eac49d"   <- the client
+```
+
+**The capability exists and is not applied to the token that needs it.** This is
+the fact that makes the first two a decision rather than a complaint: this is not
+an OAuth server that cannot express an audience. It expresses one correctly, per
+OIDC, on the identity token, in the same HTTP response, signed by the same key --
+and leaves a constant on the access token, which is the one presented to a
+resource server.
+
+### The consequence, plainly
+
+**Every token this project issues carries `aud: "authenticated"` and our `iss`.**
+A learner's browser session. An edge function's caller token. Any other OAuth
+client registered on this project, by anyone, through dynamic registration.
+
+All of them are indistinguishable, by audience, from a token minted for the MCP
+endpoint. **A learner's browser session is presentable at `/mcp`.**
+
+> **That is the confused-deputy case the MUST exists to prevent**, and it is not
+> hypothetical here: the same project issues both tokens, to the same users,
+> signed by the same key.
+
+### What IS checkable, and what it does not cover
+
+Two real properties survive, and neither is the audience:
+
+- **`iss` + JWKS.** One ES256 P-256 key, `kid` matching the token header,
+  published at `/auth/v1/.well-known/jwks.json`. Asymmetric verification pins a
+  token to THIS PROJECT. That is the boundary `aud` was supposed to draw, drawn
+  one level too wide.
+- **the `client_id` claim.** Present on the access token, so trust becomes an
+  **allowlist of client ids** rather than an audience check.
+
+Write down what that does not protect, because it is the whole gap: a client id
+is a claim inside a token we sign, checked against a list we keep. It is not an
+audience the token was ISSUED FOR, and it does not stop a token minted for any
+other purpose on this project from being replayed at `/mcp` if its client id is
+on the list. **Dynamic client registration is open on this project** -- five
+probe clients were registered by a script, unauthenticated, in a day.
+
+### Still open, and it is one probe
+
+Whether the TOKEN endpoint rejects a `resource` that does not match the one
+stored on the authorization. The mismatch case was not tested: it needs a fresh
+authorization code, and the code from this measurement was consumed by the
+exchange that produced the facts above. The authorize leg is settled -- it
+validates nothing.
+
+### Method
+
+Measured, not read. `node scripts/probe-mcp-audience.mjs --apply`, approved in a
+browser by a real account, exchanged with `curl`, decoded. **The node exchange
+failed twice with `UND_ERR_CONNECT_TIMEOUT` despite
+`--dns-result-order=ipv4first`, on a POST whose GET counterpart had succeeded
+through node minutes earlier**; `curl -4` succeeded instantly on the same URL.
+The documented IPv6 mitigation in CLAUDE.md does not cover this case.
+
+This section is §12's own rule applied to an authorization server: **the
+specification is a hypothesis and the wire is the measurement.** Supabase's
+OAuth documentation does not mention RFC 8707 either way. Nothing here could have
+been inferred from it, and the authorization row would have actively misled.
