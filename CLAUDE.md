@@ -14,7 +14,14 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 330. Next free number: 331. 330 is WRITTEN AND HAS NOT RUN.**
+**Migration tip: 330. Next free number: 331. Nothing is outstanding.** 303-311
+and 313-330 have all RUN, and the OAuth path served its first lesson on
+2026-09-16: 8 blocks, 5,002 characters, on `x-certidemy-token` with no API key.
+The same user's ordinary browser session, against the same lesson, was refused
+401 -- which is the confused-deputy case `MCP-SERVER.md` 13 named, closed and
+measured rather than argued.
+
+[Superseded: the line below was written while 330 was pending.] **Migration tip: 330. Next free number: 331. 330 is WRITTEN AND HAS NOT RUN.**
 303-311, 313-328 and 329 have all RUN. **330 fixes a grant 329 got wrong**:
 `mcp.resolve_oauth_caller` was granted to `service_role` because 329 was written
 while the open question was whether the Worker or the function resolves the

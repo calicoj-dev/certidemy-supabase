@@ -65,13 +65,39 @@ if (res) {
   try { json = JSON.parse(text); } catch { /* keep the text */ }
   console.log(`HTTP ${res.status}`);
   if (res.ok && json) {
-    const blocks = json?.rows?.[0]?.blocks ?? json?.blocks ?? null;
-    console.log(`  blocks: ${Array.isArray(blocks) ? blocks.length : "(shape?)"}`);
-    if (Array.isArray(blocks)) {
-      for (const b of blocks) console.log(`    ::${b.type}  ${String(b.text ?? "").slice(0, 70).replace(/\s+/g, " ")}`);
+    // ============ 200 IS NOT THE ANSWER. A BODY IS. ============
+    //
+    // The first version of this check printed "A LESSON BODY, ON AN OAUTH
+    // TOKEN. The second way in works." on a response of `rows: 0` -- an empty
+    // result for a lesson slug that does not exist. The authorization had in
+    // fact succeeded, so the message was accidentally true and entirely
+    // unearned: it would have said the same thing if the gate were open, if the
+    // corpus were empty, or if the query were wrong.
+    //
+    // This is the silent-success failure this repository is largely about,
+    // built into the tool written to detect it. So the success path now asserts
+    // CONTENT: one row, a non-empty block array, and enough characters that an
+    // empty string cannot pass for a lesson.
+    const rows = Array.isArray(json?.rows) ? json.rows : [];
+    const blocks = Array.isArray(rows[0]?.blocks) ? rows[0].blocks : [];
+    const chars = blocks.reduce((n, b) => n + String(b?.text ?? "").length, 0);
+
+    console.log(`  rows: ${rows.length}   blocks: ${blocks.length}   body characters: ${chars}`);
+    for (const b of blocks) {
+      console.log(`    ::${b.type}  ${String(b.text ?? "").slice(0, 66).replace(/\s+/g, " ")}`);
     }
     console.log("");
-    console.log("A LESSON BODY, ON AN OAUTH TOKEN. The second way in works.");
+
+    if (rows.length === 1 && blocks.length > 0 && chars > 200) {
+      console.log("A LESSON BODY, ON AN OAUTH TOKEN. The second way in works.");
+    } else {
+      console.log("HTTP 200 AND NO BODY. This is NOT a pass.");
+      console.log("  The gate let the request through and the read returned nothing.");
+      console.log("  Almost always a lesson_slug that does not exist for this");
+      console.log("  certification -- pass a real one as the first argument. It is");
+      console.log("  not evidence about authorization in either direction.");
+      process.exitCode = 1;
+    }
   } else {
     console.log(`  ${text.slice(0, 300)}`);
     console.log("");
