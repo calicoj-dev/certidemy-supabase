@@ -291,7 +291,14 @@ async function run() {
       body: JSON.stringify({
         client_name: "certidemy-audience-probe",
         redirect_uris: [REDIRECT],
-        grant_types: ["authorization_code"],
+        // REFRESH_TOKEN IS NOT OPTIONAL FOR A CONNECTOR, and leaving it out is
+        // how this script registered a client that could never refresh.
+        // Measured 2026-09-16: the OAuth token endpoint answers
+        //   unsupported_grant_type: Client is not allowed to use grant type: refresh_token
+        // An access token lives an hour, so a client without this re-runs the
+        // whole consent flow every hour -- which a partner experiences as "the
+        // connector keeps asking me to sign in", not as a missing grant type.
+        grant_types: ["authorization_code", "refresh_token"],
         response_types: ["code"],
         token_endpoint_auth_method: "none",
       }),
@@ -311,7 +318,7 @@ async function run() {
       console.error("One line on purpose -- a wrapped paste is how this repo has already");
       console.error("corrupted a copied command:");
       console.error("");
-      console.error(`  curl -sS -4 -X POST "${AUTH}/admin/oauth/clients" -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" -H "content-type: application/json" -d '{"client_name":"certidemy-audience-probe","redirect_uris":["${REDIRECT}"],"grant_types":["authorization_code"],"response_types":["code"],"token_endpoint_auth_method":"none"}'`);
+      console.error(`  curl -sS -4 -X POST "${AUTH}/admin/oauth/clients" -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" -H "content-type: application/json" -d '{"client_name":"certidemy-audience-probe","redirect_uris":["${REDIRECT}"],"grant_types":["authorization_code","refresh_token"],"response_types":["code"],"token_endpoint_auth_method":"none"}'`);
       console.error("");
       console.error("then re-run this with --client-id <the id>. It lands as");
       console.error("registration_type = 'manual' and is reused from the state file after that.");

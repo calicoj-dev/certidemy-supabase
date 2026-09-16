@@ -14,7 +14,18 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 329. Next free number: 330. 329 is WRITTEN AND HAS NOT RUN.**
+**Migration tip: 330. Next free number: 331. 330 is WRITTEN AND HAS NOT RUN.**
+303-311, 313-328 and 329 have all RUN. **330 fixes a grant 329 got wrong**:
+`mcp.resolve_oauth_caller` was granted to `service_role` because 329 was written
+while the open question was whether the Worker or the function resolves the
+token. The function won, resolves on its own reader pool as `mcp_reader`, and the
+first OAuth lesson read ever attempted answered `500 read failed` with
+`permission denied for function resolve_oauth_caller` in the request log.
+
+**329's post-conditions passed while the path could not run**, because they
+asserted `service_role` -- a role that never calls it. Run the check as the party
+the property is about; 330 calls it `set role mcp_reader`.
+
 303-311 and 313-328 have all RUN. 329 adds `issuers.mcp_scopes` (default `{}`,
 so it entitles nobody) and `mcp.resolve_oauth_caller`, the OAuth twin of
 `resolve_api_key`. It also grants `service_role` USAGE on schema `mcp`, without
