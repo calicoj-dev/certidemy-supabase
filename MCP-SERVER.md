@@ -540,6 +540,19 @@ is the field that was supposed to say so.
 
 **So §13 is a blocker in its own right. Nothing downstream retires it.**
 
+[Corrected 2026-09-16, and this is the sentence that was wrong. Something did
+retire it, and it was on the token the whole time. **`client_id` is PRESENT on an
+OAuth access token and ABSENT from an ordinary password-grant session token** --
+both decoded from this project on the same day. A learner's browser session
+cannot be made to carry it, because the password grant does not mint one.
+
+The measurements above are unchanged: `aud` is `"authenticated"` on both and
+separates nothing, `resource` is still accepted and ignored at both legs, and the
+id_token is still correctly bound while the access token is not. **What was wrong
+was the leap from "aud cannot discriminate" to "nothing can."** The gate is
+`iss` + `client_id` against an approved-client list + an entitlements row, and it
+does not read `aud` at all. `MCP-AUTH-OPTIONS.md` §8.]
+
 ### What IS checkable, and what it does not cover
 
 Two real properties survive, and neither is the audience:
@@ -560,10 +573,11 @@ probe clients were registered by a script, unauthenticated, in a day.
 
 ### Where the decision lives
 
-`MCP-AUTH-OPTIONS.md` -- the options this measurement opened, led by the reframe
-that removes claim injection from the requirements list entirely, plus the open
-dynamic-registration endpoint, which is true today regardless of which way the
-auth decision goes.
+`MCP-AUTH-OPTIONS.md`, and it was **decided on 2026-09-16: stay on Supabase.**
+The gate is `iss` + `client_id` + entitlements, `aud` is never read, and
+`authorization_servers` points at this project. Section 8 carries the reversal
+and the reason; sections 3 and 7 are the WorkOS road not taken, kept for the
+named triggers that would re-open it.
 
 ### Still open, and it is one probe
 

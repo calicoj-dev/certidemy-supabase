@@ -1,7 +1,10 @@
 # MCP-AUTH-OPTIONS.md
 
-**2026-09-15. Undecided on purpose.** What the MCP endpoint's authorization can
-be built on, now that `MCP-SERVER.md` §13 has measured what Supabase issues.
+**DECIDED 2026-09-16: stay on Supabase, gate on `iss` + `client_id` + entitlements.
+Section 8 is the decision and the reason. Sections 3 and 7 are the road not taken.**
+
+Originally written 2026-09-15 as an open comparison, after `MCP-SERVER.md` §13
+measured what Supabase issues.
 
 Read §13 first. The short form: a Supabase access token carries
 `aud: "authenticated"` -- the Postgres role name, identical on every Supabase
@@ -114,7 +117,12 @@ decision, not a probe.
 
 ---
 
-## 3. WORKOS, IF THE ANSWER IS "GO"
+## 3. WORKOS AS IT WAS SCOPED -- SUPERSEDED BY SECTION 8
+
+[Reversed 2026-09-16. The comparison below is accurate and the conclusion is
+not taken. Read section 8 first; this is kept because it is what section 8
+decided against, and because the WorkOS facts in it stay true if a revisit
+trigger fires.]
 
 Premises confirmed: [Resource Indicators are a Dashboard field](https://workos.com/docs/authkit/mcp)
 (Connect -> Configuration), `aud` is set to the requested resource, one indicator
@@ -459,12 +467,21 @@ losing anything anyone has. `oauth_issuer_bindings` keeps its primary key of
 `(user_id, client_id)` -- there is no reason to narrow a column -- and the
 resolver keys on `user_id` where a client id is unavailable.
 
-**Take WorkOS.** Re-open this only if a partner appears with two issuers, or a
-second `platform_admin` needs two live agents at once.
+The measurement above stands. [The conclusion drawn from it on 2026-09-16 was
+"take WorkOS"; that was reversed the same day for the reason in section 8. The
+data is unchanged -- what changed is that the gap closes without a vendor.]
+
+Re-open the multi-issuer question only if a partner appears with two issuers,
+or a second `platform_admin` needs two live agents at once.
 
 ---
 
-## 7. THE BUILD, IN ORDER, AND WHAT BREAKS AT EACH STEP
+## 7. THE WORKOS BUILD AS IT WAS PLANNED -- NOT BEING BUILT
+
+[Reversed 2026-09-16, before any of it started. Nothing here is scheduled.
+It is kept as the costed plan a revisit trigger would re-open, and because
+its final rule -- accept both issuers during a transition, never flip -- is
+general and outlived the decision.]
 
 Shape: WorkOS for MCP tokens only. Supabase stays the application's identity. The
 binding resolves at the resource server from `sub` (section 1), so no
@@ -532,7 +549,121 @@ observable, and reversible at every point.
 
 ---
 
-## 8. Not decided
+## 8. REVERSED 2026-09-16: STAY ON SUPABASE
+
+Sections 3 and 7 argued for WorkOS and section 6 cleared the last product
+blocker. **The decision went the other way, on an argument neither side had
+made.**
+
+### The argument that decided it
+
+**The Supabase path is already built.** The consent screen is live. Protected
+Resource Metadata is deployed. `oauth_issuer_bindings` exists and has rows
+written through its policy. Dynamic registration worked, was found open, and was
+closed deliberately. A real authorization code was exchanged and decoded.
+
+WorkOS would discard all of that to close ONE gap -- and the gap closes without
+it. Section 7 is a week of work whose deliverable is a property we can get for a
+predicate.
+
+**This is not sunk cost.** Sunk cost would be keeping a path because it was
+expensive. This is the opposite: the built path MEETS THE REQUIREMENT once the
+requirement is stated correctly, and the requirement was overstated.
+
+### What was overstated, and the measurement that showed it
+
+Section 13 of `MCP-SERVER.md` is right that `aud: "authenticated"` provides no
+audience binding. The leap was concluding that nothing else could separate a
+learner's browser session from an agent's token.
+
+Measured 2026-09-16, both decoded from this project:
+
+| claim | ordinary password session | OAuth access token |
+|---|---|---|
+| `aud` | `"authenticated"` | `"authenticated"` |
+| `iss` | this project | this project |
+| **`client_id`** | **ABSENT** | **PRESENT** |
+| `amr` | `["password"]` | `["oauth_provider/authorization_code"]` |
+
+**`client_id` is absent from an ordinary session token and present on an OAuth
+access token.** It is not a claim a browser session can be made to carry -- the
+password grant does not mint one. So the confused-deputy case section 13 named
+is discriminable after all, by a claim that was on the token the whole time.
+
+Note the two jobs, because they are different and both are needed: PRESENCE of
+`client_id` separates an agent from a browser session; its VALUE against an
+allowlist separates one agent from another.
+
+### The gate
+
+```
+iss == this project's auth issuer          (pins the token to us)
+AND client_id is present                   (it came through the OAuth flow)
+AND client_id is an APPROVED client        (we let that agent in)
+AND an entitlements row covers the request (this partner may read this)
+```
+
+**`aud` is not trusted and must not be read.** It is the same constant on every
+token this project issues; a check against it would pass on everything and look
+like a control. Publish `authorization_servers` pointing at Supabase.
+
+`amr` is corroboration, not a gate. Ranked below `client_id` deliberately: one
+load-bearing claim, checked properly, beats two checked loosely.
+
+### THE ALLOWLIST AND THE REGISTRATION FLAG DEPEND ON EACH OTHER
+
+**This is the coupling to write down, because nothing in either place mentions
+the other.**
+
+"An approved client id" means something only because approval is MANUAL. Dynamic
+client registration was open and unauthenticated until 2026-09-15; our own probe
+script registered five clients in a day sending no credential. **If the gate
+tests membership in `auth.oauth_clients` rather than a curated list, then turning
+dynamic registration back on silently converts it from "an approved agent" to
+"anyone who asked"** -- with no code change, no deploy, and nothing to review.
+
+Two ways to hold it, and the second is better:
+
+1. Keep a curated allowlist of client ids, independent of what is registered.
+   Robust to the flag, and another list to keep in step -- and this repo has
+   already taken an outage from a list kept in three places.
+2. **Assert the property in the database rather than reading the flag.** Every
+   live client must be manually registered:
+
+   ```sql
+   select count(*) from auth.oauth_clients
+    where deleted_at is null and registration_type <> 'manual';
+   -- must be 0
+   ```
+
+   That is checkable, it is about the state rather than the setting, and it fails
+   the moment somebody re-enables the flag AND a client self-registers -- which
+   is the moment it starts to matter, not before.
+
+Prefer (2), and assert it where the gate lives, not in a runbook.
+
+### REVISIT WORKOS ON A NAMED TRIGGER
+
+Written down so the next person knows what would change the answer, rather than
+re-deriving it from a feeling:
+
+1. **A client we care about that supports only CIMD.** Client ID Metadata
+   Documents identify a client by URL instead of pre-registration. A client that
+   cannot be manually registered cannot be on a manual allowlist, and the gate
+   above loses its second term. Manual approval is what makes this work, so the
+   first agent that cannot be manually approved is the trigger.
+2. **A second resource URL on this project.** The moment two protected resources
+   exist, only `aud` can separate them -- `client_id` cannot, because the same
+   agent may legitimately reach both. Supabase cannot set `aud` per resource.
+   That is the case this design genuinely does not cover.
+3. Either trigger from section 6: a partner with two issuers, or a second
+   platform_admin needing two live agents at once.
+
+Absent one of those, this section stands and sections 3 and 7 are history.
+
+---
+
+## 9. Not decided
 
 Waiting on the `client_id` answer (§2), which is one decoded token from a free
 staging environment and gates the per-client question underneath everything else.
