@@ -14,6 +14,31 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
+**Migration tip: 331. Next free number: 332. 331 is WRITTEN AND HAS NOT RUN.**
+331 turns partner features from grant-by-exception into GRANT BY DEFAULT,
+REVOKE BY EXCEPTION: `public.mcp_features` is the vocabulary, and a row in
+`public.company_feature_disables` means REVOKED. A new partner works because the
+disables table has no row for them, not because anyone remembered a step.
+
+**TWO POLARITIES NOW COEXIST AND THE NAMES ARE THE ONLY GUARD.**
+`company_features` = a row means GRANTED; `company_feature_disables` = a row
+means REVOKED. Deliberate: `curriculum_coverage` returns competitor intelligence
+and stays grant-shaped, because default-on for every partner is a product
+decision and not a refactor. 331 puts that warning in a `comment on table` on the
+OLD table, which is the place the mistake would be made.
+
+**AND THE READ FAILS OPEN, WHICH IS THE OPPOSITE OF BEFORE.** "Is the scope
+present" fails closed; "is it disabled" fails open, because every way of failing
+to learn the truth reads as "not disabled". So `mcp.feature_status` returns a
+STATUS -- ok / company_unknown / unknown_feature -- and a caller that cannot get
+`ok` must refuse. A typo in `feature_key` is rejected by a foreign key rather
+than silently failing to revoke, which under this polarity is the defect nobody
+would ever look for.
+
+331 also DROPS `issuers.mcp_scopes`, added by 329 hours earlier: grant-by-default
+retires it, and an ignored grant column beside a disable table is two mechanisms
+for one question.
+
 **Migration tip: 330. Next free number: 331. Nothing is outstanding.** 303-311
 and 313-330 have all RUN, and the OAuth path served its first lesson on
 2026-09-16: 8 blocks, 5,002 characters, on `x-certidemy-token` with no API key.

@@ -8,7 +8,7 @@
  * presented an issuer API key. This presents `x-certidemy-token` and nothing
  * else, so the whole chain under test is new: verifyPartnerToken (ES256, iss,
  * exp, client_id required), mcp.resolve_oauth_caller (329), and the scope check
- * against issuers.mcp_scopes rather than a key's scopes.
+ * against the feature model rather than a key's scopes.
  *
  * It prints the refusal as loudly as the success, because a 401 here has five
  * distinguishable causes and the point is which one.
@@ -116,7 +116,7 @@ if (res) {
     console.log("Refused. The cause is in mcp_requests.error for this request:");
     console.log("  invalid token        -> signature, iss, exp, or client_id absent");
     console.log("  invalid token + log  -> resolve_oauth_caller said client_not_approved / no_binding / issuer_inactive");
-    console.log("  not scoped for       -> the binding resolved but issuers.mcp_scopes lacks courseware:lessons");
+    console.log("  not scoped for       -> the binding resolved, but courseware:lessons is");    console.log("                          DISABLED for this partner (331) -- a row in");                                                console.log("                          company_feature_disables, not a missing grant");
     process.exitCode = 1;
   }
 }
