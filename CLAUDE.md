@@ -14,20 +14,17 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 328. Next free number: 329. 328 is WRITTEN AND HAS NOT RUN.**
-303-311 and 313-327 have all RUN. 328 widens the MCP views from four
-certifications to eight, adding the Scrum four; it is 325's body with the
-`allowed` array changed and nothing else, because 325 already paid for the
-drop-and-create and the ten-cell grant assertion. Editor-first.
+**Migration tip: 329. Next free number: 330. 329 is WRITTEN AND HAS NOT RUN.**
+303-311 and 313-328 have all RUN. 329 adds `issuers.mcp_scopes` (default `{}`,
+so it entitles nobody) and `mcp.resolve_oauth_caller`, the OAuth twin of
+`resolve_api_key`. It also grants `service_role` USAGE on schema `mcp`, without
+which the Worker's RPC answers 42501 -- measured against the live project before
+the file was written, not discovered afterwards.
 
-**AND 328 ALONE CHANGES NOTHING A CALLER CAN SEE.** `SUPPORTED_CERTIFICATIONS`,
-`CERTIFICATION_CATALOGUE` and `SERVER_INSTRUCTIONS` live in `../certidemy-web`
-and still name four. The views opening is the safe half of a two-repo change and
-the inert one.
-
-303-311 and 313-327 have all RUN. 327 ran 2026-09-15 and was verified by reading the nine
-rows back: eight rewritten, and `SD-AI-I / daily-scrum` carrying its original
-wording, which is the negative half the migration asserted rather than trusted.
+328 ran on 2026-09-16 after its first attempt aborted on a post-condition that
+had kept 325's literal `4` while the views were built from the new array. The
+counts now derive from `allowed`, so a view and its assertion cannot disagree by
+construction.
 
 303-311 and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
 against `pg_catalog` rather than against a report that it had: the table exists
