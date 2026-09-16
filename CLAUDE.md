@@ -14,8 +14,18 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 327. Next free number: 328. Nothing is outstanding.** 303-311
-and 313-327 have all RUN. 327 ran 2026-09-15 and was verified by reading the nine
+**Migration tip: 328. Next free number: 329. 328 is WRITTEN AND HAS NOT RUN.**
+303-311 and 313-327 have all RUN. 328 widens the MCP views from four
+certifications to eight, adding the Scrum four; it is 325's body with the
+`allowed` array changed and nothing else, because 325 already paid for the
+drop-and-create and the ten-cell grant assertion. Editor-first.
+
+**AND 328 ALONE CHANGES NOTHING A CALLER CAN SEE.** `SUPPORTED_CERTIFICATIONS`,
+`CERTIFICATION_CATALOGUE` and `SERVER_INSTRUCTIONS` live in `../certidemy-web`
+and still name four. The views opening is the safe half of a two-repo change and
+the inert one.
+
+303-311 and 313-327 have all RUN. 327 ran 2026-09-15 and was verified by reading the nine
 rows back: eight rewritten, and `SD-AI-I / daily-scrum` carrying its original
 wording, which is the negative half the migration asserted rather than trusted.
 
