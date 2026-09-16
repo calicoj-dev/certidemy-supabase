@@ -1026,13 +1026,41 @@ serve(async (req) => {
     // this endpoint sees. It gets the same row shape and the same
     // never-break-the-caller treatment; there is simply nothing to read.
     if (args.resource === "log") {
-      const logged = await boundedLog(logArgs(200, null, null));
+      // ============ THE OUTCOME IS THE CLASSIFIER, SO THE STATUS IS THE WRITE ============
+      //
+      // mcp.log_request derives `resource` from the STATUS, not from the body:
+      // 200 stores the resource asked for, anything else stores 'rejected', 5xx
+      // stores 'failed'. So the difference between these two events is a number.
+      //
+      //   certification_refused  200 -> a 'log' row. A partner asked for a
+      //                          certification we do not serve. Telemetry about
+      //                          demand, not a fault, and it stays what it was.
+      //
+      //   auth_refused           401 -> a 'rejected' row, with the resolution in
+      //                          `error`. A call the Worker turned away before
+      //                          this function was ever reached.
+      //
+      // WHY THIS EVENT EXISTS AT ALL. An auth short-circuit in the Worker wrote
+      // nothing anywhere queryable: courseware-read was never called, so
+      // mcp_requests had no row, and the only record was a Cloudflare log line.
+      // Diagnosing one connector took several rounds of indirect elimination to
+      // establish a fact one field states. It is also the one event that matters
+      // for a PARTNER, whose Worker logs nobody here will ever read.
+      //
+      // `event` ALONE WOULD HAVE RECORDED NOTHING. It reaches console.log and no
+      // column; adding a name to LOG_EVENTS without changing the status writes a
+      // 200 'log' row indistinguishable from a certification refusal.
+      const isAuth = args.event === "auth_refused";
+      const logged = await boundedLog(
+        isAuth ? logArgs(401, null, `auth:${args.auth}`) : logArgs(200, null, null),
+      );
       console.log(JSON.stringify({
         fn: "courseware-read",
         resource: "log",
         event: args.event,
         tool: args.tool ?? null,
         refused: args.certification ?? null,
+        auth: args.auth ?? null,
         logged,
         ms: Date.now() - started,
       }));

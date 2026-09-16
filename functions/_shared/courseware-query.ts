@@ -116,7 +116,7 @@ const ALLOWED: Record<Resource, string[]> = {
   // Worker's validator, BEFORE any read is attempted, so it never reaches a
   // readable resource -- and "which certifications do partners ask for and get
   // refused" is the most commercially interesting event on this endpoint.
-  log: ["resource", "event", "tool", "certification", "language"],
+  log: ["resource", "event", "tool", "certification", "language", "auth"],
   // THE ONLY RESOURCE SERVED BY THE HOLDER POOL. mcp_reader has no grant on
   // mcp.lesson, so a misrouted request fails in the database rather than on a
   // branch here.
@@ -136,6 +136,7 @@ export type Args = {
   limit: number;
   tool?: string;
   event?: string;
+  auth?: string;
   certification?: string;
   lesson_slug?: string;
   module_slug?: string;
@@ -150,7 +151,22 @@ export const TOOLS = [
   // WHICH tool a partner reached for and was turned away from.
   "get_lesson", "list_lessons",
 ] as const;
-export const LOG_EVENTS = ["certification_refused"] as const;
+export const LOG_EVENTS = ["certification_refused", "auth_refused"] as const;
+
+/**
+ * The auth resolutions the Worker may report on an `auth_refused` event.
+ *
+ * A VOCABULARY, BECAUSE THIS ENDPOINT IS PUBLIC. Anyone can POST a telemetry
+ * body; without this, `auth` is a free text field a stranger writes into a table
+ * operators read to decide whether a partner's credential is arriving. Bounding
+ * it to four values makes a forged row useless rather than misleading.
+ *
+ * `ok` and `unavailable` are here even though neither short-circuits today --
+ * `unavailable` forwards and `ok` serves -- because the Worker sends what it
+ * resolved, and a vocabulary that can only express failure would force a future
+ * caller to lie or to be rejected.
+ */
+export const AUTH_KINDS = ["absent", "invalid", "unavailable", "ok"] as const;
 const CERT_CODE_RE = /^[A-Z0-9-]{2,20}$/;
 
 /**
@@ -270,6 +286,20 @@ export function validateArgs(raw: unknown): Args {
       bad(`event must be one of: ${LOG_EVENTS.join(", ")}`);
     }
     out.event = b.event;
+
+    // REQUIRED FOR auth_refused AND REFUSED EVERYWHERE ELSE. The event exists to
+    // record WHICH resolution refused the call; without the kind it is a row
+    // saying only that something went wrong, which is what the Worker log
+    // already said and the reason this event was added.
+    if (b.event === "auth_refused") {
+      if (typeof b.auth !== "string" || !(AUTH_KINDS as readonly string[]).includes(b.auth)) {
+        bad(`auth must be one of: ${AUTH_KINDS.join(", ")}`);
+      }
+      out.auth = b.auth;
+    } else if (b.auth !== undefined) {
+      bad("auth is only valid for event 'auth_refused'");
+    }
+
     if (b.certification !== undefined) {
       if (typeof b.certification !== "string" || !CERT_CODE_RE.test(b.certification)) {
         bad("certification must look like a certification code");
@@ -282,6 +312,9 @@ export function validateArgs(raw: unknown): Args {
   } else {
     if (b.event !== undefined) {
       bad("event is only valid for resource 'log'");
+    }
+    if (b.auth !== undefined) {
+      bad("auth is only valid for resource 'log'");
     }
     // THE SERVED CERTIFICATION. Defaulted, never substituted: an unknown code is
     // refused by name rather than quietly answered with AISM-I, which would hand
