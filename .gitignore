@@ -33,3 +33,6 @@ scripts/.probe-mcp-audience.json
 # Management API read of the live auth config. Carries provider settings and
 # secret-shaped fields. Local reference for reconciling config.toml, never committed.
 auth-config.json
+
+# Regenerable marking spec - build artifact, read then applied, never a source.
+scrum-marking-spec.json

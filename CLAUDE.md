@@ -14,12 +14,10 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 327. Next free number: 328. 327 is WRITTEN AND HAS NOT RUN.**
-303-311 and 313-326 have all RUN. 327 rewrites eight `concepts.description`
-rows on the Scrum certifications where the 2020 Scrum Guide's sentence WAS the
-definition, plus one editorial note that was sitting in a partner-facing field.
-Editor-first as always; the MCP connection is a read-only transaction and cannot
-run it.
+**Migration tip: 327. Next free number: 328. Nothing is outstanding.** 303-311
+and 313-327 have all RUN. 327 ran 2026-09-15 and was verified by reading the nine
+rows back: eight rewritten, and `SD-AI-I / daily-scrum` carrying its original
+wording, which is the negative half the migration asserted rather than trusted.
 
 303-311 and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
 against `pg_catalog` rather than against a report that it had: the table exists
