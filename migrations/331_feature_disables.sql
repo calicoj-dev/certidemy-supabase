@@ -98,6 +98,9 @@ declare
   v_status   text;
   v_when     timestamptz;
   rejected   boolean := false;
+  rec        record;
+  n_on       integer := 0;
+  n_off      integer := 0;
 begin
 
   -- -------------------------------------------------------- the vocabulary
@@ -286,18 +289,49 @@ begin
       raise exception 'a disabled feature resolved enabled=% at=% status=%', v_enabled, v_when, v_status;
     end if;
 
-    -- 4. AND THE OAUTH SCOPES DROP IT, rather than the disable being a fact
-    --    nothing reads. The positive half is that the OTHER feature survives.
-    execute 'set local role mcp_reader';
-    select count(*) into n
-      from public.mcp_features f
-     where not exists (
-             select 1 from public.company_feature_disables d
-              where d.company_id = v_company and d.feature_key = f.feature_key
-                and d.restored_at is null);
-    execute 'reset role';
-    if n <> (select count(*) - 1 from public.mcp_features) then
-      raise exception 'disabling one feature left % of % enabled', n, (select count(*) from public.mcp_features);
+    -- 4. EXACTLY ONE FEATURE GOES OFF AND THE OTHERS SURVIVE.
+    --
+    -- ASKED THROUGH THE FUNCTION, AS THE ROLE THAT WILL ASK IT. The first
+    -- version of this block ran `select ... from public.mcp_features` under
+    -- `set local role mcp_reader` and aborted the migration with
+    --
+    --     42501 permission denied for schema public
+    --
+    -- mcp_reader has NO USAGE on public and is not supposed to: 315 and 316
+    -- confine it to the `mcp` schema, and every other post-condition here works
+    -- because `mcp.feature_status` is SECURITY DEFINER owned by postgres -- its
+    -- body reaches `public`, the caller never does. Reaching past the function
+    -- was the mistake, and it tested a privilege nobody is claiming.
+    --
+    -- So: ENUMERATE as the migration runner, which owns the data, and ASSERT as
+    -- mcp_reader, which is the party the property is about. It also says WHICH
+    -- feature is off rather than counting how many are on.
+    n_on := 0;
+    n_off := 0;
+    for rec in select f.feature_key from public.mcp_features f order by f.feature_key loop
+      execute 'set local role mcp_reader';
+      select s.enabled into v_enabled from mcp.feature_status(v_issuer, rec.feature_key) s;
+      execute 'reset role';
+
+      if rec.feature_key = 'courseware:lessons' then
+        if v_enabled then
+          raise exception 'the disabled feature % still reads enabled', rec.feature_key;
+        end if;
+        n_off := n_off + 1;
+      else
+        if not v_enabled then
+          raise exception 'disabling courseware:lessons also disabled %', rec.feature_key
+            using hint = 'one disable row must affect exactly one feature';
+        end if;
+        n_on := n_on + 1;
+      end if;
+    end loop;
+
+    if n_off <> 1 then
+      raise exception 'expected exactly 1 disabled feature, saw %', n_off;
+    end if;
+    if n_on < 1 then
+      raise notice 'UNPROVEN: only one feature in the vocabulary, so "the others survive" did not run';
     end if;
 
     -- 5. RESTORING RE-ENABLES AND KEEPS THE RECORD. The state that must not be
