@@ -14,8 +14,14 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 326. Next free number: 327. Nothing is outstanding.** 303-311
-and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
+**Migration tip: 327. Next free number: 328. 327 is WRITTEN AND HAS NOT RUN.**
+303-311 and 313-326 have all RUN. 327 rewrites eight `concepts.description`
+rows on the Scrum certifications where the 2020 Scrum Guide's sentence WAS the
+definition, plus one editorial note that was sitting in a partner-facing field.
+Editor-first as always; the MCP connection is a read-only transaction and cannot
+run it.
+
+303-311 and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
 against `pg_catalog` rather than against a report that it had: the table exists
 with `relrowsecurity`, both policies are present, `can_bind_issuer` carries
 `proconfig {search_path=""}`, and **`oauth_issuer_bindings` holds one row** --
