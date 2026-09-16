@@ -101,6 +101,8 @@ async function post(body, withKey = false) {
     method: "POST",
     headers: {
       "content-type": "application/json",
+      // Marks these rows as synthetic in mcp_requests. See probe-oauth-lesson.
+      "x-mcp-client": "probe:smoke-courseware",
       ...(withKey && KEY ? { "x-certidemy-key": KEY } : {}),
     },
     body: JSON.stringify(body),

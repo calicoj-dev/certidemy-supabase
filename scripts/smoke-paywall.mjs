@@ -171,7 +171,7 @@ async function post(url, body, headers = {}) {
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "content-type": "application/json", ...headers },
+      headers: { "content-type": "application/json", "x-mcp-client": "probe:smoke-paywall", ...headers },
       body: JSON.stringify(body),
       signal: AbortSignal.timeout(20000),
     });

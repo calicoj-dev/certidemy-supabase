@@ -50,7 +50,19 @@ let res;
 try {
   res = await fetch(EP, {
     method: "POST",
-    headers: { "content-type": "application/json", "x-certidemy-token": token },
+    headers: {
+      "content-type": "application/json",
+      "x-certidemy-token": token,
+      // MARK SYNTHETIC TRAFFIC. These rows land in mcp_requests beside real
+      // partner traffic and were distinguishable only by a null `tool` and an
+      // IP hash -- which got probe rows read as real evidence three separate
+      // times in one session, including a fabricated `kid: "nope"` that was
+      // reported back as a JWKS fault.
+      //
+      // `select ... where client_name is null` is now the filter for real
+      // traffic, and it costs one header.
+      "x-mcp-client": "probe:oauth-lesson",
+    },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(45000),
   });

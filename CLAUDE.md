@@ -319,6 +319,44 @@ and `update-lti-platform` write the same nine columns, so their rules live in
 to keep in step. Reserve the mirrored-pair discipline for what genuinely spans
 two repos.
 
+**THREE INSTANCES NOW, AND THERE IS FINALLY A MECHANICAL CHECK.**
+`scripts/check-cross-repo-vocabulary.mjs` reads BOTH repos' source and compares
+the word lists they send each other: auth labels, certifications, log events,
+languages, and the telemetry body keys against the field allowlist. Read-only,
+no network, no credential.
+
+The three it was built from, all the same shape -- one side emits a set, the
+other validates a set, both sides tested against themselves, nothing compared
+them:
+
+1. **The wire vocabulary** -- `resource: "syllabus"` against
+   `certification|task|concept|search`. All four tools would have 400'd.
+2. **The certification list** -- 328 widened the views to eight while
+   `CERTIFICATIONS` said four, and the cold-start equality took the curriculum
+   surface down.
+3. **The auth labels** -- the Worker sends `auth?.kind ?? "unresolved"`, five
+   strings; `AUTH_KINDS` was built from the union's four `kind` values and never
+   saw the fallback. Every auth refusal with no resolution answered 400, so the
+   event added to make refusals visible was silent for the one refusal hardest
+   to diagnose without it.
+
+**THE EXTRACTOR IS THE WEAK PART AND IT IS CONTROLLED.** Every comparison asserts
+its own extraction was non-empty, because a regex that matches nothing turns the
+whole script green -- the failure this file already records against check-mcp's
+fragment extractor. There is also a SELF-TEST that feeds the comparator a known
+mismatch and fails if it does not fire.
+
+**And it cried wolf once, in its first run, which is worth more than the pass.**
+It reported `auth_refusal_telemetry_rejected` as an unaccepted event: that is a
+`console.warn` line in the Worker, not a body posted to the function. The
+extractor now reads only `event:` inside `body: JSON.stringify(...)` blocks. A
+guard that over-reports gets loosened next time, and this one is meant to be
+believed once every few months.
+
+**What it cannot do:** it reads SOURCE, not behaviour, so a list assembled at
+runtime is invisible; and it cannot see two lists that agree on strings and
+disagree on meaning. That is still a human reading both files.
+
 **AND THE ONE THAT GENUINELY SPANS TWO REPOS IS THE ONE NOTHING CAN TEST.**
 A pair inside one repo is a refactor away from not being a pair. A pair with a
 REPOSITORY BOUNDARY between its halves cannot share a module at all, so each

@@ -193,6 +193,13 @@ export const AUTH_KINDS = [
   // `unresolved` is not merely tolerated. It is worth a row of its own: it means
   // the resolution never ran, which is a different fault from a missing header.
   "unresolved",
+  // A REAL MEMBER OF THE UNION, and today unreachable at the refusal call site:
+  // the pre-flight short-circuits on absent / invalid / undefined, so a `token`
+  // resolution never reports a refusal. It is accepted anyway because the cost
+  // of being wrong is asymmetric -- an unknown label is a 400 and a silent event,
+  // which is precisely how `unresolved` hid, and this list is cheaper to widen
+  // than to rediscover.
+  "token",
 ] as const;
 const CERT_CODE_RE = /^[A-Z0-9-]{2,20}$/;
 
