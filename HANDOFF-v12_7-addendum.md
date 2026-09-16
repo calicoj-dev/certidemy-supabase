@@ -237,41 +237,94 @@ logged) and received no credential; headers attach only on `ok`; `absent` and
 `invalid` short-circuit before the call; therefore `unavailable`. The instrument
 that answered it was the request log, not the key column — see below.
 
-### AND GREEN DID NOT ESTABLISH THAT THE READ WAS ATTRIBUTABLE
+### ATTRIBUTION: it already works, in a column nobody looked at
 
-The success row above carries `api_key_id: null`. Measured afterwards, and this is
-the finding the green run hid:
+**[Corrected 2026-09-16. This section first claimed that "a partner's licensed
+lesson read is served and leaves no record of which partner." That was wrong, and
+it was wrong in the way this whole document is about: a null column was measured,
+and the absence of attribution was inferred from it.]**
 
-- **`mcp_requests.api_key_id` has never been set on any row, ever.** The column
-  was created by 317 and carries its own `comment on column`. But
-  `mcp.log_request` takes seventeen parameters and **the key id is not one of
-  them** — so the column is unwritable through the only function that writes the
-  table.
-- **`issuer_api_keys.last_used_at` is still `(never)`** on every key except one
-  from 2026-08-20, written by the credentials path. The courseware path has never
-  touched it; `mcp.resolve_api_key` does not.
+`mcp_requests.api_key_id` is indeed null on every row ever written, and
+`mcp.log_request` indeed cannot write it — seventeen parameters and the key id is
+not one. Both facts are correct. **The conclusion was not**, because attribution
+is carried somewhere else:
 
-**So a partner's licensed lesson read is served and leaves no record of which
-partner.** Both columns that would answer it exist, are documented, and are empty
-— and one of them cannot be filled without changing the function's signature.
+```ts
+// courseware-read, on the authorised path, after the scope check
+caller = `key:${key.key_id}`;
+```
 
-This is the third instance in two days of a field built for a question and never
-wired: `retired_vocabulary_intent` read `'none'` on all 35 items until one
-judgement was recorded on 2026-09-16, and `last_used_at` has been flagged since
-323. **A column with a comment explaining what it is for reads, to anyone
-checking, exactly like a column that works.**
+`caller_hash` does double duty, namespaced so the two kinds cannot be read as
+one: an HMAC of the client IP for free traffic, and `key:<uuid>` for a paid read.
+Every lesson read since the change carries the key id, and today's green run is
+among them:
 
-It is not an outage and it is not urgent. It is the difference between "the
-paywall works" and "we can say who came through it", and only the first is true
-today.
+```
+2026-09-15 00:00  ip hmac                      <- before the change
+2026-09-15 00:06  ip hmac
+2026-09-15 03:26  key:c14795d3-...             <- after
+2026-09-16 04:55  key:c14795d3-...             <- today's green run
+```
 
-### Waiting on a deploy in the other repo
+`c14795d3-...` is `cdk_test_5da292df`, the key mcp:check presented. **The read was
+attributed, correctly, to the right key, at the moment it was called
+unattributable.**
 
-`SUPPORTED_CERTIFICATIONS`, `CERTIFICATION_CATALOGUE`, `DEFAULT_CERTIFICATION`
-and `SERVER_INSTRUCTIONS` all still name four. Until they ship, the Scrum four
-are reachable through `courseware-read` and not through the MCP — and
-`SERVER_INSTRUCTIONS`, which v12.4 established is read first and believed over
-six correct tool descriptions, will actively tell agents they do not exist.
+### What is actually left, and it is two comments
+
+Both column comments describe a world that has ended:
+
+- `api_key_id` — *"Null until the lesson token flow exists. There is no
+  authentication on the courseware path today, so MCP traffic cannot be
+  attributed to a partner."* The lesson token flow shipped in 322 and 323 and
+  served a body today. **The column reads as deliberately empty for a reason that
+  expired.**
+- `caller_hash` — *"HMAC of the caller IP with a monthly salt. Never a raw
+  address."* True of free traffic and half the story: it is also where partner
+  identity lives.
+
+**Fixing those two comments is a one-statement migration.** No function, no owner
+dance, no redeploy. It converts a capability that works and looks absent into one
+that is documented — which is the entire defect.
+
+### And what a real `api_key_id` column would cost, if it is ever wanted
+
+Scoped, not built. It is a **signature change on a SECURITY DEFINER function**,
+and `create or replace` cannot do it: a different argument list makes an
+OVERLOAD, not a replacement. So:
+
+1. `create` the 18-argument function;
+2. `alter function mcp.log_request(<18 types>) owner to mcp_logger`;
+3. `grant execute on function mcp.log_request(<18 types>) to mcp_reader, mcp_holder`;
+4. **`drop function` the 17-argument one**;
+5. change `courseware-read` and redeploy.
+
+317 and 324 both restate the owner and both grants with the full type list spelled
+out, which is the shape of this dance every time it is done.
+
+**Two failure modes, and both are silent.** Skip step 4 and the edge function's
+seventeen-argument call binds to the surviving overload and keeps writing null —
+indistinguishable from today. Do step 4 before step 5 and logging stops
+altogether, because `boundedLog` is deliberately never-break-the-caller: it would
+not error, it would simply record nothing.
+
+**Recommendation: do not build it now.** `api_key_id` is the better QUESTION than
+`last_used_at` — a key id on the row says what was read and by whom, while
+`last_used_at` says only that a key was used somewhere — but the answer to that
+question already exists in `caller_hash`. A typed uuid with a foreign key is
+worth having; it is worth having *the next time something else forces a
+`log_request` signature change*, so the dance is paid once rather than twice.
+
+`issuer_api_keys.last_used_at` stays unwritten by the courseware path, and stays
+the weaker question.
+
+### CLOSED: the web half shipped
+
+`df85b73` deployed. mcp:check section H passes with **all eight certifications
+named in the deployed `SERVER_INSTRUCTIONS`**, and D2 proves each returns its own
+domains. The string v12.4 established is read first and believed over six correct
+tool descriptions is now correct in production, and was verified there rather
+than in a repository.
 
 **The `SM-AI-I` / `SM-AI-II` prefix bug is web-side only.** Swept this repo:
 every `includes()` here is array membership, the views use `code = any (array)`,
@@ -310,8 +363,9 @@ unmeasurable by the analyzer.
 - **v12.7:** and a correct measurement can still carry a wrong conclusion out of
   the room.
 
-Three things in this document were decided by reading one more field than the
-question required:
+Four things in this document were decided by reading one more field than the
+question required — and the fourth was this document's own correction, made after
+the section claiming it had already been written:
 
 > `aud` cannot discriminate — measured, and true. **Nothing can** — inferred, and
 > false, with `client_id` sitting on the token throughout.
@@ -323,6 +377,10 @@ question required:
 > The views serve eight and the function expects four — measured, and true.
 > **Therefore refuse** — inferred, and it took production down, when serving the
 > intersection was available the whole time.
+>
+> `api_key_id` is null on every row and `log_request` cannot write it — measured,
+> and true. **Therefore the read is unattributable** — inferred, and false, with
+> the key id in `caller_hash` on the very row being examined.
 
 The pattern is not bad measurement. Every number above was right. It is that **a
 measurement answers exactly what it was asked, and the sentence that leaves the
