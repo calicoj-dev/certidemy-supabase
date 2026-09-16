@@ -421,7 +421,118 @@ defect class depends on them being right. The banner says this too, so that
 
 ---
 
-## 6. Not decided
+## 6. THE PRODUCT QUESTION, SETTLED FROM THE DATA -- 2026-09-16
+
+**Does one person ever need two agents bound to two different issuers?**
+
+**No. Nobody today, and no arrangement requires it.** Measured, not reasoned:
+
+| | |
+|---|---|
+| team_admin memberships, total | **2** (two distinct people) |
+| people holding team_admin at MORE THAN ONE company | **0** |
+| companies owning more than one issuer | **0** |
+| users with an oauth binding to more than one issuer | **0** |
+| issuers | 3 -- `certidemy` (no company), `durgical`, `test-partner-02` |
+
+`durgical` is the only real partner with an administrator, and that person
+administers exactly one company. `test-partner-02` is a fixture with no
+team_admin and all four live API keys. `certidemy` has no company at all, so no
+team_admin can reach it by construction.
+
+### The one person for whom it is even expressible is the platform admin
+
+There is ONE `platform_admin` on the platform, and `can_bind_issuer` (326)
+returns true for that role against every issuer. So they alone could want one
+agent reading as `certidemy` and another as `durgical`.
+
+**That is an operator convenience, not a customer requirement**, and it does not
+gate the vendor: it needs a re-bind, not two simultaneous bindings. If it ever
+becomes simultaneous, WorkOS models it natively -- organization-scoped sessions,
+re-authenticated with a different `organization_id`, with `org_id` on the token.
+No `client_id` claim is required for it.
+
+### Consequence
+
+**The `client_id` probe is not a blocker.** The binding can be per-USER without
+losing anything anyone has. `oauth_issuer_bindings` keeps its primary key of
+`(user_id, client_id)` -- there is no reason to narrow a column -- and the
+resolver keys on `user_id` where a client id is unavailable.
+
+**Take WorkOS.** Re-open this only if a partner appears with two issuers, or a
+second `platform_admin` needs two live agents at once.
+
+---
+
+## 7. THE BUILD, IN ORDER, AND WHAT BREAKS AT EACH STEP
+
+Shape: WorkOS for MCP tokens only. Supabase stays the application's identity. The
+binding resolves at the resource server from `sub` (section 1), so no
+claim-injection is required from any vendor.
+
+**1. Decode a WorkOS token before building on one.** Free staging environment,
+register a client, point `scripts/probe-mcp-audience.mjs` at AuthKit (its `AUTH`
+constant needs parameterising) and read `aud`.
+*Breaks if skipped:* you build on a dashboard claim instead of a decoded token,
+which is what section 13 exists to warn against. The Resource Indicator is a
+config field with no deploy, and a config field nobody decoded is the
+dynamic-registration flag all over again.
+
+**2. The identity mapping, and it is the dangerous step.** WorkOS `sub` is not
+`auth.users.id`. A mapping table is needed, and it must be established by an
+explicit link action in the console while the partner holds a Supabase session --
+not by matching email addresses.
+*Breaks if wrong:* trusting an email assertion from a second identity provider
+moves the confused-deputy problem from tokens to identities, where it is
+persistent rather than hourly. If email is used at all it must require WorkOS
+`email_verified` AND a deliberate link.
+
+**3. Protected Resource Metadata.** `.well-known/oauth-protected-resource`
+already exists; point `authorization_servers` at WorkOS and configure the
+Resource Indicator as `https://certidemy.com/mcp`.
+*Breaks if wrong:* with no indicator configured, `aud` silently becomes the
+WorkOS ENVIRONMENT's client id -- the documented default -- so every token
+carries an audience that is neither the resource nor an error.
+
+**4. The Worker verifies.** Fetch the WorkOS JWKS, verify the signature, assert
+`iss`, **assert `aud` equals the resource URL**, take `sub`, resolve the binding.
+*Breaks if wrong:* omit the `aud` assertion and nothing has changed -- the work is
+done and the vulnerability is intact. That one line is the entire point.
+
+**5. Consent moves.** AuthKit hosts its own prompt, so `/oauth/consent` loses its
+reason to exist. Given section 6 -- one issuer per company, nobody with two --
+make issuer selection a per-user setting in the partner console. No WorkOS
+organizations needed, and it is the only option that does not care which vendor
+issues tokens.
+
+**6. Retire the Supabase OAuth server.** It issues `aud: "authenticated"` from an
+endpoint that had open dynamic registration until 2026-09-15.
+*Breaks if wrong:* leave it running and section 13's finding stays live -- two
+authorization servers for one resource, one of which fails the MUST, and the
+attacker picks. Do NOT retire it before step 4 works, or there is no auth at all.
+
+**7. The instruments, and `SERVER_INSTRUCTIONS` first.** It outranks every tool
+description (v12.4). Then `smoke-paywall` against the new flow, and a positive
+control that a token from the OLD server is now REJECTED -- the both-directions
+half everyone skips.
+
+### The ordering rule, learned the hard way on 2026-09-16
+
+**Accept both token issuers during the transition. Do not flip.**
+
+The curriculum outage that day was an equality assertion across a deploy
+boundary: the views said eight, the function said four, and no ordering avoided
+an outage because either side moving first broke it. An `aud` flip has the
+identical shape -- clients cannot switch issuers at the same instant the Worker
+changes what it accepts.
+
+So: accept WorkOS tokens AND Supabase tokens, log every Supabase one as
+`legacy_issuer_token`, wait until that count is zero, then remove. Asymmetric,
+observable, and reversible at every point.
+
+---
+
+## 8. Not decided
 
 Waiting on the `client_id` answer (§2), which is one decoded token from a free
 staging environment and gates the per-client question underneath everything else.
