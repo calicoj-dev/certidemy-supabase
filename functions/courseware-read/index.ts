@@ -474,6 +474,30 @@ interface TokenClaims {
   client_id: string;
 }
 
+/**
+ * WHY a token was refused. LOG ONLY -- the caller still gets one message.
+ *
+ * The first version returned `null` for nine distinct causes and the row said
+ * `token_invalid` for all of them. Asked "which check rejected it -- signature,
+ * iss, exp, or client_id?", the log could not answer, and the answer is the
+ * whole point of having the row.
+ *
+ * The one-message-to-the-caller rule is about what a PROBER learns, and this
+ * value never reaches a response body. resolveKey already works this way:
+ * keyStatus carries revoked / expired / unknown into the log while the caller
+ * gets "invalid API key" for all three. This is the same split, applied to the
+ * credential that has nine ways to be wrong instead of three.
+ */
+type TokenRefusal =
+  | "malformed"        // not three segments, or the header/claims are not JSON
+  | "bad_alg"          // alg is not ES256, or no kid
+  | "unknown_kid"      // kid is absent from the JWKS even after a refetch
+  | "bad_signature"    // the signature does not verify against that key
+  | "wrong_issuer"     // iss is not this project's auth server
+  | "expired"          // exp is missing or in the past
+  | "no_client_id"     // an ordinary session token: the discriminator is absent
+  | "no_sub";          // no subject to resolve a binding for
+
 interface CallerRow {
   caller_id: string;
   issuer_id: string;
@@ -522,9 +546,11 @@ const b64url = (seg: string): Uint8Array<ArrayBuffer> => {
  * for the reason resolveKey gives: distinguishing "bad signature" from "expired"
  * from "no client_id" tells a prober which guess was closest.
  */
-async function verifyPartnerToken(jwt: string): Promise<TokenClaims | null> {
+async function verifyPartnerToken(
+  jwt: string,
+): Promise<{ claims: TokenClaims } | { refusal: TokenRefusal }> {
   const parts = jwt.split(".");
-  if (parts.length !== 3) return null;
+  if (parts.length !== 3) return { refusal: "malformed" };
 
   let header: { alg?: string; kid?: string };
   let claims: Record<string, unknown>;
@@ -532,11 +558,11 @@ async function verifyPartnerToken(jwt: string): Promise<TokenClaims | null> {
     header = JSON.parse(new TextDecoder().decode(b64url(parts[0])));
     claims = JSON.parse(new TextDecoder().decode(b64url(parts[1])));
   } catch {
-    return null;
+    return { refusal: "malformed" };
   }
   // ES256 ONLY, AND THE ALGORITHM IS NOT NEGOTIATED BY THE TOKEN. Accepting
   // whatever `alg` says is how a signed token becomes an unsigned one.
-  if (header.alg !== "ES256" || !header.kid) return null;
+  if (header.alg !== "ES256" || !header.kid) return { refusal: "bad_alg" };
 
   let keyset = await jwks();
   let jwk = keyset.find((k) => k.kid === header.kid);
@@ -544,7 +570,7 @@ async function verifyPartnerToken(jwt: string): Promise<TokenClaims | null> {
     keyset = await jwks(true); // a rotation is not a forgery; refetch once
     jwk = keyset.find((k) => k.kid === header.kid);
   }
-  if (!jwk) return null;
+  if (!jwk) return { refusal: "unknown_kid" };
 
   const key = await crypto.subtle.importKey(
     "jwk",
@@ -559,18 +585,19 @@ async function verifyPartnerToken(jwt: string): Promise<TokenClaims | null> {
     b64url(parts[2]),
     new TextEncoder().encode(`${parts[0]}.${parts[1]}`),
   );
-  if (!ok) return null;
+  if (!ok) return { refusal: "bad_signature" };
 
-  if (claims.iss !== AUTH_ISS) return null;
+  if (claims.iss !== AUTH_ISS) return { refusal: "wrong_issuer" };
   const exp = typeof claims.exp === "number" ? claims.exp : 0;
-  if (!exp || exp * 1000 <= Date.now()) return null;
+  if (!exp || exp * 1000 <= Date.now()) return { refusal: "expired" };
 
   // THE DISCRIMINATOR. Absent means a browser session, not an agent.
   const clientId = typeof claims.client_id === "string" ? claims.client_id : "";
   const sub = typeof claims.sub === "string" ? claims.sub : "";
-  if (!clientId || !sub) return null;
+  if (!clientId) return { refusal: "no_client_id" };
+  if (!sub) return { refusal: "no_sub" };
 
-  return { sub, client_id: clientId };
+  return { claims: { sub, client_id: clientId } };
 }
 
 /**
@@ -970,9 +997,9 @@ serve(async (req) => {
         // VERIFY BEFORE RESOLVING. An unverified token must never reach a
         // database lookup keyed on claims it carries: `sub` and `client_id` are
         // attacker-controlled until the signature says otherwise.
-        let claims: TokenClaims | null = null;
+        let verdict: { claims: TokenClaims } | { refusal: TokenRefusal };
         try {
-          claims = await verifyPartnerToken(presentedTok);
+          verdict = await verifyPartnerToken(presentedTok);
         } catch (e) {
           // A JWKS FETCH THAT FAILED IS NOT A FORGED TOKEN. Refusing is right --
           // we cannot verify -- but the reason belongs in the log, or the next
@@ -985,12 +1012,13 @@ serve(async (req) => {
           }));
           throw new Unauthorized(401, "invalid token");
         }
-        if (!claims) {
-          keyStatus = "token_invalid";
+        if ("refusal" in verdict) {
+          // The REASON reaches the log; the caller still gets one message.
+          keyStatus = `token_${verdict.refusal}`;
           throw new Unauthorized(401, "invalid token");
         }
 
-        const c = await resolveOauthCaller(claims);
+        const c = await resolveOauthCaller(verdict.claims);
         keyStatus = c ? c.status : "unknown";
         // A STATUS, NOT AN EMPTY ROW -- 329 answers client_not_approved,
         // no_binding, issuer_inactive or active for the same reason
