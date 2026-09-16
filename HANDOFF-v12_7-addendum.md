@@ -1,9 +1,13 @@
 # HANDOFF v12.7 — addendum to v12.0
 
 **2026-09-15 into 2026-09-16.** The Scrum four shipped, the curriculum surface
-went down and came back, and the auth decision was made and then reversed on an
-argument nobody had made yet. One outage, two migrations, and a measurement that
-retired a blocker this repository had spent two days building around.
+went down and came back, `get_lesson` served a licensed lesson body for the first
+time, and the auth decision was made and then reversed on an argument nobody had
+made yet. One outage, two migrations, and a measurement that retired a blocker
+this repository had spent two days building around.
+
+**Nothing is broken at the close.** What is open is listed in section 5 and is
+all observability, scope or judgement.
 
 ---
 
@@ -203,32 +207,63 @@ client self-registers — rather than at the moment somebody changes a setting.
 
 ## 5. Open
 
-### Live, and the only thing actually broken
+### CLOSED the same day: get_lesson serves
 
-**`get_lesson` refuses a correctly scoped key.** Measured from `mcp_requests`,
-which is how the function logs its own refusals:
+**Nothing in this repository is broken as of 2026-09-16.** `get_lesson` refused a
+correctly scoped key for most of the day; both halves are fixed and a real lesson
+body has been served.
+
+`mcp_requests` tells the whole story, because the function logs its own refusals
+and its own successes:
 
 ```
-tool: get_lesson   status: 401   error: "x-certidemy-key header required"   api_key_id: null
+04:25:59  status 401  "x-certidemy-key header required"   <- the Worker sent no key
+04:45:40  status 401  "invalid API key [unknown]"         <- key arriving, not yet resolving
+04:55:33  status 200  rows 1                              <- a lesson body, first time ever
 ```
 
-The function was reached and received **no credential**. Credential headers
-attach only when the Worker's own key lookup returns `ok`, and `absent` /
-`invalid` short-circuit before the call — so by elimination the Worker's lookup
-returned **`unavailable`**: a missing `SUPABASE_SECRET_KEY` / `NEXT_PUBLIC_SUPABASE_URL`
-in the deployed environment, or a failed PostgREST fetch.
+**Root cause: `SUPABASE_SECRET_KEY` was absent from the Cloudflare Worker**, so
+its own key lookup returned `unavailable`. **Second defect: the code did not do
+what its comment said** — `registry.ts:665` documents that `unavailable` is
+deliberately not short-circuited because *"the key is forwarded and the function
+decides"*, while the ternary building the headers yielded `{}` for anything that
+was not `ok`. So the fallback written to survive a broken lookup did not survive
+it, and our missing configuration was reported to the partner as their key being
+bad. Both halves closed by the web session.
 
-**And `registry.ts:665` documents a fallback the code does not implement.** The
-comment says `unavailable` is deliberately not short-circuited because *"the key
-is forwarded and the function decides"* — but the ternary that builds the headers
-yields `{}` for anything that is not `ok`. So the fallback written to survive a
-broken lookup does not survive it, the function correctly refuses, and the
-envelope reports it as the partner's key being bad. **Our configuration is absent
-and the partner gets blamed.**
+**The diagnosis is worth keeping as method.** It was reached with no access to
+Worker logs, purely by elimination from one row: the function was reached (it
+logged) and received no credential; headers attach only on `ok`; `absent` and
+`invalid` short-circuit before the call; therefore `unavailable`. The instrument
+that answered it was the request log, not the key column — see below.
 
-Fixing the forwarding alone restores service even with the lookup still broken,
-because the function resolves the key itself — which is the whole stated reason
-the gate lives there.
+### AND GREEN DID NOT ESTABLISH THAT THE READ WAS ATTRIBUTABLE
+
+The success row above carries `api_key_id: null`. Measured afterwards, and this is
+the finding the green run hid:
+
+- **`mcp_requests.api_key_id` has never been set on any row, ever.** The column
+  was created by 317 and carries its own `comment on column`. But
+  `mcp.log_request` takes seventeen parameters and **the key id is not one of
+  them** — so the column is unwritable through the only function that writes the
+  table.
+- **`issuer_api_keys.last_used_at` is still `(never)`** on every key except one
+  from 2026-08-20, written by the credentials path. The courseware path has never
+  touched it; `mcp.resolve_api_key` does not.
+
+**So a partner's licensed lesson read is served and leaves no record of which
+partner.** Both columns that would answer it exist, are documented, and are empty
+— and one of them cannot be filled without changing the function's signature.
+
+This is the third instance in two days of a field built for a question and never
+wired: `retired_vocabulary_intent` read `'none'` on all 35 items until one
+judgement was recorded on 2026-09-16, and `last_used_at` has been flagged since
+323. **A column with a comment explaining what it is for reads, to anyone
+checking, exactly like a column that works.**
+
+It is not an outage and it is not urgent. It is the difference between "the
+paywall works" and "we can say who came through it", and only the first is true
+today.
 
 ### Waiting on a deploy in the other repo
 
