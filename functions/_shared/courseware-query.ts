@@ -166,7 +166,34 @@ export const LOG_EVENTS = ["certification_refused", "auth_refused"] as const;
  * resolved, and a vocabulary that can only express failure would force a future
  * caller to lie or to be rejected.
  */
-export const AUTH_KINDS = ["absent", "invalid", "unavailable", "ok"] as const;
+export const AUTH_KINDS = [
+  "absent",
+  "invalid",
+  "unavailable",
+  "ok",
+  // THE FIFTH LABEL, AND THE ONE THAT MADE THE TELEMETRY SILENT.
+  //
+  // This list was derived from the `kind` values of the Worker's AuthResolution
+  // union: four. But the Worker does not send `kind` -- it sends
+  // `authKindLabel(auth)`, which is `auth?.kind ?? "unresolved"`. The FIFTH
+  // value exists only in that function, for the case where the tool handler was
+  // given no resolution at all, and it is a case the pre-flight explicitly
+  // short-circuits on.
+  //
+  // So a refusal with `auth === undefined` posted `auth: "unresolved"`, this
+  // validator answered 400, and the event that exists to make auth refusals
+  // visible was the one kind of auth refusal that stayed invisible.
+  //
+  // A MIRRORED PAIR ACROSS A REPOSITORY BOUNDARY, exactly as CLAUDE.md describes
+  // it: each half tested against itself and both green. check-mcp-forwarding
+  // exercises the Worker's side, these field rules are exercised here, and
+  // NOTHING compared the two vocabularies -- the one thing that would have
+  // caught it is reading them side by side, which is what finally did.
+  //
+  // `unresolved` is not merely tolerated. It is worth a row of its own: it means
+  // the resolution never ran, which is a different fault from a missing header.
+  "unresolved",
+] as const;
 const CERT_CODE_RE = /^[A-Z0-9-]{2,20}$/;
 
 /**
