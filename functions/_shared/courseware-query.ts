@@ -57,9 +57,16 @@ export function requiredScope(resource: Resource): string | null {
  * THE CERTIFICATIONS SERVED, AND THE DATABASE IS THE AUTHORITY.
  *
  * Migration 325 names the same four in the WHERE clause of all five mcp views.
- * Eight are NOT served -- the four ISO-derived ones pending the clause-text leak
- * detector IP-POSITION section 6 requires, and the four Scrum ones pending a
- * quotation-marking pass.
+ * Four are NOT served -- the ISO-derived ones, pending the clause-text leak
+ * detector IP-POSITION section 6 requires. The four Scrum certifications were
+ * held pending a quotation-marking pass and joined on 2026-09-16 (migration 328).
+ *
+ * THIS LIST TOOK THE CURRICULUM SURFACE DOWN ON 2026-09-16. 328 widened the views
+ * to eight; this array still said four; and the cold-start assertion below --
+ * which exists to catch exactly that disagreement -- did what it was built to do
+ * and REFUSED TO SERVE ANYTHING. Not the four new ones. All eight. A guard whose
+ * failure mode is total is correct and is also an outage, and the ordering that
+ * avoids it is: widen this FIRST, deploy, then widen the views.
  *
  * THIS LIST IS NOT THE BOUNDARY. The views are. A held certification is absent
  * from them, so if this array were widened by mistake the query would simply
@@ -72,7 +79,10 @@ export function requiredScope(resource: Resource): string | null {
  * and a repository boundary is a mirrored pair; this is the half that can be
  * tested against the database, so it is the half that tests it.
  */
-export const CERTIFICATIONS = ["AISM-I", "AIE-I", "AIHR-I", "AIGRM-I"] as const;
+export const CERTIFICATIONS = [
+  "AISM-I", "AIE-I", "AIHR-I", "AIGRM-I",
+  "SM-AI-I", "SM-AI-II", "SPO-AI-I", "SD-AI-I",
+] as const;
 export type Certification = typeof CERTIFICATIONS[number];
 export const DEFAULT_CERTIFICATION: Certification = "AISM-I";
 
