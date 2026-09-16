@@ -136,6 +136,53 @@ function parseAttrs(rest: string): Record<string, string> {
  * A general YAML parser would accept shapes the corpus does not contain and
  * would have to be trusted on them. This handles what is measured to be there.
  */
+/**
+ * Strip ONE matched pair of surrounding quotes. Lifted from
+ * `certidemy-web/lib/lessons/parser.ts`, which has had it all along.
+ *
+ * ============ WHAT THIS WAS DOING ============
+ *
+ * `task_codes: ["1.1"]` served as `["\"1.1\""]`. Every one of SM-AI-II's 132
+ * lessons -- the only certification in the affected set that is actually served
+ * -- carried a quoted task code, so an agent matching a task code against a
+ * blueprint got nothing and had no way to see why.
+ *
+ * And the quoting is REQUIRED, not stylistic: every affected title contains a
+ * colon (`"Impedimentos: identificarlos y eliminarlos"`), which YAML cannot hold
+ * unquoted. The content is correct and the parser was wrong.
+ *
+ * ============ WHY ONLY THIS ONE BEHAVIOUR WAS LIFTED ============
+ *
+ * The two parsers disagree on five more things, and on three of them THIS one is
+ * the better behaviour. Taking the other parser wholesale would have been a
+ * regression wearing a bug fix:
+ *
+ *   NUMBERS   it returns `"13"` for `duration_minutes: 13`; this returns `13`,
+ *             and duration_minutes is a PUBLISHED field on a JSON API. Lifting
+ *             theirs changes a served field's type.
+ *   ERRORS    it throws LessonParseError on a malformed line; this skips. In an
+ *             edge function a throw turns one bad lesson into a 500 for a
+ *             request that could have been served.
+ *   BLOCKS    it strips ALL leading whitespace from a block scalar; this strips
+ *             exactly two, so indentation inside a `preview: |` survives.
+ *
+ * Genuinely still wrong here, and left alone because nothing published reaches
+ * them: `true`/`false` stay strings, `null`/`~` stays the string "null", and a
+ * key outside /^[a-z_]+$/ is skipped SILENTLY. None is in
+ * PUBLISHED_FRONTMATTER today; `teaches_retired_vocabulary: true` is the one to
+ * watch, because it would arrive as the string "true" the day it is published.
+ *
+ * Neither parser handles a comma inside a quoted inline-array item. `["a, b"]`
+ * splits in both, and lifting did not fix it.
+ */
+function stripQuotes(s: string): string {
+  if (s.length >= 2 &&
+      ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'")))) {
+    return s.slice(1, -1);
+  }
+  return s;
+}
+
 function parseFrontmatter(src: string): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   const allowed = new Set<string>(PUBLISHED_FRONTMATTER as readonly string[]);
@@ -161,16 +208,24 @@ function parseFrontmatter(src: string): Record<string, unknown> {
       if (inline === "|" || inline === ">") {
         out[key] = body.map((l) => l.replace(/^\s{2}/, "")).join("\n").trim();
       } else if (inline.startsWith("[") && inline.endsWith("]")) {
-        out[key] = inline.slice(1, -1).split(",").map((s) => s.trim()).filter(Boolean);
+        out[key] = inline.slice(1, -1).split(",")
+          .map((s) => stripQuotes(s.trim())).filter(Boolean);
       } else if (inline === "") {
         const items = body
           .map((l) => l.match(/^\s*-\s*(.+?)\s*$/))
           .filter((x): x is RegExpMatchArray => x !== null)
-          .map((x) => x[1]);
+          .map((x) => stripQuotes(x[1]));
         out[key] = items;
       } else {
-        const n = Number(inline);
-        out[key] = inline !== "" && Number.isFinite(n) && /^-?\d+(\.\d+)?$/.test(inline) ? n : inline;
+        // QUOTES COME OFF BEFORE THE NUMBER TEST, and the order matters: `"13"`
+        // is a quoted string in YAML and must stay a string, while `13` is a
+        // number. Stripping after the test would have made them identical.
+        const bare = stripQuotes(inline);
+        const wasQuoted = bare !== inline;
+        const n = Number(bare);
+        out[key] = !wasQuoted && bare !== "" && Number.isFinite(n) && /^-?\d+(\.\d+)?$/.test(bare)
+          ? n
+          : bare;
       }
     }
     i = consumedTo;
