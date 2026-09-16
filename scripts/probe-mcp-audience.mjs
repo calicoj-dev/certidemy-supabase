@@ -155,6 +155,29 @@ async function run() {
       return;
     }
     const at = tok.json?.access_token;
+
+    // SAVED, BECAUSE THE CODE IS SPENT THE MOMENT THIS RUNS.
+    //
+    // Third time this file has learned the same lesson. The PKCE verifier lived
+    // only in scrollback and a code expired while it was hunted for; the client
+    // id lived only in scrollback and a manual client had to be registered; now
+    // the ACCESS TOKEN itself was decoded, printed as claims, and thrown away --
+    // and an authorization code is single-use, so wanting the token five minutes
+    // later means another browser round.
+    //
+    // Decoding a token is not the only reason to obtain one. Calling something
+    // with it is.
+    const prior = loadState() ?? {};
+    saveState({
+      ...prior,
+      access_token: at ?? null,
+      refresh_token: tok.json?.refresh_token ?? null,
+      token_expires_at: tok.json?.expires_in
+        ? new Date(Date.now() + Number(tok.json.expires_in) * 1000).toISOString()
+        : null,
+    });
+    console.log(`token saved to ${STATE} (expires in ${tok.json?.expires_in ?? "?"}s)`);
+
     const c = claims(at);
     console.log("");
     console.log("access token claims:");
