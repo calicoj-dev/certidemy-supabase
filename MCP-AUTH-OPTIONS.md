@@ -276,9 +276,19 @@ token for a real user and reads as whatever issuer that user is bound to. The
 audience claim that would have stopped it is the one §13 measured as
 `"authenticated"`.
 
-**Also pending regardless: five probe clients and three expired-or-expiring
-authorizations are registered and undeleted.** The probe script's own footer says
-to remove them.
+**Done 2026-09-15: the five dynamic clients are deleted** -- 1 client live, 0
+dynamic, 1 manual.
+
+**AND DELETING THEM LEFT THEIR BINDINGS BEHIND.** Both `oauth_issuer_bindings`
+rows point at clients that no longer exist. The table has no foreign key on
+`client_id` -- deliberate, recorded in 326's header, because `auth.oauth_clients`
+is soft-deleted and an FK would only fire on a hard delete. So the clients were
+soft-deleted, the rows survived, and nothing prunes them.
+
+Inert: a resolver keyed on `(sub, client_id)` can never match an orphan, since
+client ids are uuids and are not reissued. But the table grows a row per dead
+client forever, and a future reader counting rows finds bindings that reach
+nothing. **A cleanup path is unbuilt and unowned.**
 
 ---
 
