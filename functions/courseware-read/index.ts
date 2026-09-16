@@ -261,21 +261,78 @@ function assertIdentity(): Promise<void> {
         // line is what turns a wrong one into something readable instead of a
         // connect timeout with nothing attached. No password, and no secret
         // value -- host, port and role are operational facts.
-        // Compared as a SET, sorted on both sides, so neither declaration order
-        // nor a future ORDER BY can make two identical lists look different.
-        const expected = [...CERTIFICATIONS].sort().join(",");
-        const served = (row.served ?? "").split(",").filter(Boolean).sort().join(",");
-        if (served !== expected) {
+        // ============ ASYMMETRIC, AND THE SYMMETRY IS WHAT BROKE PRODUCTION ============
+        //
+        // This was an equality: `served !== expected` threw. On 2026-09-16
+        // migration 328 widened mcp.certification to eight while CERTIFICATIONS
+        // still said four, and this line refused to serve ALL EIGHT. The four
+        // that had worked for weeks went down with the four being added.
+        //
+        // AND THERE WAS NO ORDERING THAT AVOIDED IT. Views first: served(8) !=
+        // expected(4). Function first: served(4) != expected(8). An equality
+        // across a deploy boundary makes a two-copy list unshippable in either
+        // direction. The ordering was never the mistake; the predicate was.
+        //
+        // The two differences are not the same risk and must not share a
+        // consequence:
+        //
+        //   served SUPERSET of expected -- somebody widened the views and this
+        //     function has not been deployed yet. The extra certifications are
+        //     simply not offered; every one this function knows about still
+        //     works. Safe. Log it so nobody hunts for it.
+        //
+        //   expected NOT SUBSET of served -- this function believes it serves a
+        //     certification the views do not carry. Every request for it would
+        //     reach a view that filters it out and return an empty result that
+        //     looks like an answer. That is the silent-success failure this
+        //     repository exists to avoid. REFUSE.
+        //
+        // What survives from the old check: CERTIFICATIONS stays a literal, so
+        // `Certification` stays a compile-time type and parse() keeps returning a
+        // narrowed value. Deriving the list from the database would have cost
+        // that and bought a widening nobody reviewed.
+        const expectedList = [...CERTIFICATIONS].sort();
+        const servedList = (row.served ?? "").split(",").map((c) => c.trim()).filter(Boolean).sort();
+        const servedSet = new Set(servedList);
+
+        // COMPUTED, NOT ASSUMED. Both directions are named, by code.
+        const usable = expectedList.filter((c) => servedSet.has(c));
+        const missing = expectedList.filter((c) => !servedSet.has(c));
+        const expectedSet = new Set<string>(expectedList);
+        const notDeployed = servedList.filter((c) => !expectedSet.has(c));
+
+        if (missing.length > 0) {
           throw new Error(
-            `mcp.certification serves [${served}] and this function expects ` +
-              `[${expected}] -- refusing to serve on a certification-set mismatch`,
+            `this function expects to serve [${missing.join(", ")}] but mcp.certification ` +
+              `does not carry ${missing.length === 1 ? "it" : "them"} -- refusing to serve. ` +
+              `A request for ${missing.length === 1 ? "that code" : "those codes"} would read a ` +
+              `view that filters it out and return an empty result that looks like an answer. ` +
+              `The views serve [${servedList.join(", ")}].`,
           );
+        }
+
+        if (notDeployed.length > 0) {
+          // Written to be read at 3am by somebody asking why a new certification
+          // returns nothing. It names the cause, the effect and the fix, and it
+          // does not use the word "mismatch".
+          console.warn(JSON.stringify({
+            fn: "courseware-read",
+            event: "views_widened_function_not_deployed",
+            summary:
+              `mcp.certification now serves ${notDeployed.length} certification(s) this ` +
+              `deployment has never heard of. They are NOT being served and every request ` +
+              `for them returns 400. Nothing is broken; this function is behind.`,
+            not_served_until_redeploy: notDeployed,
+            serving: usable,
+            fix: "widen CERTIFICATIONS in functions/_shared/courseware-query.ts and redeploy courseware-read",
+          }));
         }
 
         console.log(JSON.stringify({
           fn: "courseware-read",
           event: "connected",
-          certifications: served,
+          certifications: usable,
+          behind_by: notDeployed.length ? notDeployed : undefined,
           shape: CONN_SHAPE,
           writable_relations: 0,
           host: DB_HOST,
