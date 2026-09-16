@@ -290,8 +290,27 @@ begin
 
   -- ============ PROVEN BY READING THEM, AS THE ROLES THAT WILL ============
   --
+  -- NO LITERAL COUNTS BELOW. This migration is 325's body with `allowed` changed,
+  -- and the first run aborted with
+  --
+  --     P0001: mcp.certification serves 8 certification(s), expected 4
+  --
+  -- because two assertions carried 325's literal 4 while the views were built
+  -- from the new array. The views were correct and the check was stale -- a guard
+  -- reporting a defect that was its own.
+  --
+  -- So the counts are derived from `allowed` itself. The view and the assertion
+  -- now cannot disagree by construction, which is the same reason 325 checks its
+  -- list against the database at cold start rather than trusting it. A literal
+  -- here is a second copy of the list, and the second copy is always the one that
+  -- goes stale.
+  --
+  -- The abort cost nothing: P0001 inside the block rolls the transaction back, so
+  -- the eight it reported never existed outside that transaction. Confirmed after
+  -- the fact -- all five views still carried the four-cert list.
+  --
   -- The positive half alone passes on a view that serves everything. The
-  -- NEGATIVE half is the one that matters: eight certifications are held, and
+  -- NEGATIVE half is the one that matters: four certifications are held, and
   -- the WHERE clause above is the only thing holding them.
 
   execute format('grant mcp_reader to %I with set true', current_user);
@@ -307,12 +326,14 @@ begin
       into n_held using held;
     execute 'reset role';
 
-    if n <> 4 then
-      raise exception 'mcp.% serves % certification(s), expected 4', rec.v, n;
+    if n <> array_length(allowed, 1) then
+      raise exception 'mcp.% serves % certification(s), expected %',
+        rec.v, n, array_length(allowed, 1)
+        using hint = 'the view and this check must both come from `allowed`';
     end if;
     if n_held <> 0 then
       raise exception 'mcp.% exposes % row(s) from a HELD certification', rec.v, n_held
-        using hint = 'the ISO and Scrum corpora are not cleared to be served';
+        using hint = 'the four ISO-derived corpora are not cleared to be served';
     end if;
   end loop;
 
@@ -322,8 +343,9 @@ begin
     into n_held using held;
   execute 'reset role';
 
-  if n <> 4 then
-    raise exception 'mcp.lesson serves % certification(s), expected 4', n;
+  if n <> array_length(allowed, 1) then
+    raise exception 'mcp.lesson serves % certification(s), expected %',
+      n, array_length(allowed, 1);
   end if;
   if n_held <> 0 then
     raise exception 'mcp.lesson exposes % held lesson row(s)', n_held
