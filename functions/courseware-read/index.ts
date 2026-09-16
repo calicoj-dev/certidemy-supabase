@@ -437,6 +437,170 @@ async function resolveKey(presented: string): Promise<KeyRow | null> {
   }
 }
 
+/* ===================== THE SECOND WAY IN: AN OAUTH TOKEN =====================
+ *
+ * A partner connecting from a chat client holds no API key. They hold a Supabase
+ * OAuth access token, obtained through the consent screen that writes
+ * `oauth_issuer_bindings` (326).
+ *
+ * THE GATE STAYS HERE. The Worker forwards the bearer and resolves nothing: it
+ * cannot, because 315 and 316 put the boundary in the grant rather than in an
+ * `if`, and moving it to application code for one class of caller would undo
+ * that. Two ways in, one code path after resolution -- the scope check below is
+ * the same check for both.
+ *
+ * ===================== WHY A DEDICATED HEADER =====================
+ *
+ * `x-certidemy-token`, sibling to `x-certidemy-key`. NOT `Authorization`: this
+ * function is pinned `verify_jwt = false` so the platform would pass one
+ * through, but a credential that looks like the platform's own is a credential
+ * somebody will eventually validate twice or not at all. The two ways in are
+ * visibly two headers.
+ *
+ * ===================== aud IS NEVER READ =====================
+ *
+ * `aud` is `"authenticated"` on every token this project issues -- an ordinary
+ * browser session and an agent's token carry the identical value, so a check
+ * against it passes on everything and LOOKS like a control. MCP-SERVER.md 13.
+ *
+ * What discriminates is `client_id`: measured 2026-09-16, PRESENT on an OAuth
+ * access token and ABSENT from a password-grant session. The password grant does
+ * not mint one, so a learner's browser session cannot be presented here as an
+ * agent. That claim is required below, and its absence is a refusal.
+ */
+
+interface TokenClaims {
+  sub: string;
+  client_id: string;
+}
+
+interface CallerRow {
+  caller_id: string;
+  issuer_id: string;
+  scopes: string[];
+  status: string;
+}
+
+const AUTH_ISS = `${Deno.env.get("SUPABASE_URL") ?? ""}/auth/v1`;
+const JWKS_URL = `${AUTH_ISS}/.well-known/jwks.json`;
+
+// deno-lint-ignore no-explicit-any
+let jwksCache: { at: number; keys: any[] } | null = null;
+
+// deno-lint-ignore no-explicit-any
+async function jwks(force = false): Promise<any[]> {
+  // A COLD CACHE IS NOT AN EMPTY KEY SET. A failed fetch throws rather than
+  // returning [], because [] would make every token unverifiable and read as
+  // every token being forged.
+  if (!force && jwksCache && Date.now() - jwksCache.at < 10 * 60 * 1000) {
+    return jwksCache.keys;
+  }
+  const res = await fetch(JWKS_URL, { signal: AbortSignal.timeout(5000) });
+  if (!res.ok) throw new Error(`jwks ${res.status}`);
+  const body = await res.json();
+  const keys = Array.isArray(body?.keys) ? body.keys : [];
+  if (keys.length === 0) throw new Error("jwks returned no keys");
+  jwksCache = { at: Date.now(), keys };
+  return keys;
+}
+
+// `Uint8Array<ArrayBuffer>`, NOT `Uint8Array`. The bare annotation widens the
+// buffer to ArrayBufferLike and crypto.subtle rejects it (TS2769). CLAUDE.md
+// records this trap under Edge functions; it caught this helper on the first
+// type check anyway, which is the difference between a rule being written down
+// and being remembered.
+const b64url = (seg: string): Uint8Array<ArrayBuffer> => {
+  const pad = seg.replace(/-/g, "+").replace(/_/g, "/");
+  const bin = atob(pad + "=".repeat((4 - (pad.length % 4)) % 4));
+  return Uint8Array.from(bin, (ch) => ch.charCodeAt(0));
+};
+
+/**
+ * Verify a Supabase OAuth access token and return the two claims that matter.
+ *
+ * Returns null for anything that does not verify. ONE ANSWER FOR EVERY CAUSE,
+ * for the reason resolveKey gives: distinguishing "bad signature" from "expired"
+ * from "no client_id" tells a prober which guess was closest.
+ */
+async function verifyPartnerToken(jwt: string): Promise<TokenClaims | null> {
+  const parts = jwt.split(".");
+  if (parts.length !== 3) return null;
+
+  let header: { alg?: string; kid?: string };
+  let claims: Record<string, unknown>;
+  try {
+    header = JSON.parse(new TextDecoder().decode(b64url(parts[0])));
+    claims = JSON.parse(new TextDecoder().decode(b64url(parts[1])));
+  } catch {
+    return null;
+  }
+  // ES256 ONLY, AND THE ALGORITHM IS NOT NEGOTIATED BY THE TOKEN. Accepting
+  // whatever `alg` says is how a signed token becomes an unsigned one.
+  if (header.alg !== "ES256" || !header.kid) return null;
+
+  let keyset = await jwks();
+  let jwk = keyset.find((k) => k.kid === header.kid);
+  if (!jwk) {
+    keyset = await jwks(true); // a rotation is not a forgery; refetch once
+    jwk = keyset.find((k) => k.kid === header.kid);
+  }
+  if (!jwk) return null;
+
+  const key = await crypto.subtle.importKey(
+    "jwk",
+    { kty: jwk.kty, crv: jwk.crv, x: jwk.x, y: jwk.y, ext: true },
+    { name: "ECDSA", namedCurve: "P-256" },
+    false,
+    ["verify"],
+  );
+  const ok = await crypto.subtle.verify(
+    { name: "ECDSA", hash: "SHA-256" },
+    key,
+    b64url(parts[2]),
+    new TextEncoder().encode(`${parts[0]}.${parts[1]}`),
+  );
+  if (!ok) return null;
+
+  if (claims.iss !== AUTH_ISS) return null;
+  const exp = typeof claims.exp === "number" ? claims.exp : 0;
+  if (!exp || exp * 1000 <= Date.now()) return null;
+
+  // THE DISCRIMINATOR. Absent means a browser session, not an agent.
+  const clientId = typeof claims.client_id === "string" ? claims.client_id : "";
+  const sub = typeof claims.sub === "string" ? claims.sub : "";
+  if (!clientId || !sub) return null;
+
+  return { sub, client_id: clientId };
+}
+
+/**
+ * The OAuth twin of resolveKey, on the same reader pool and for the same reason.
+ * Approval IS manual registration; mcp.resolve_oauth_caller (329) decides.
+ */
+async function resolveOauthCaller(t: TokenClaims): Promise<CallerRow | null> {
+  const conn = await getPool().connect();
+  try {
+    const r = await conn.queryObject<
+      { issuer_id: string | null; scopes: string[] | null; caller_status: string }
+    >({
+      text:
+        "select issuer_id::text as issuer_id, scopes, caller_status " +
+        "  from mcp.resolve_oauth_caller($1::uuid, $2::uuid)",
+      args: [t.sub, t.client_id],
+    });
+    const row = r.rows[0];
+    if (!row) return null;
+    return {
+      caller_id: t.sub,
+      issuer_id: row.issuer_id ?? "",
+      scopes: row.scopes ?? [],
+      status: row.caller_status === "active" ? "active" : row.caller_status,
+    };
+  } finally {
+    conn.release();
+  }
+}
+
 /**
  * The Worker resolves the same key and sends what it found. THIS IS NOT THE
  * GATE and must never become one -- the gate is `derived` above, and it would
@@ -759,31 +923,96 @@ serve(async (req) => {
     await assertIdentity();
 
     if (need) {
-      const presented = req.headers.get("x-certidemy-key")?.trim() ?? "";
-      if (!presented) {
-        throw new Unauthorized(401, "x-certidemy-key header required");
-      }
-      const key = await resolveKey(presented);
-      keyStatus = key ? key.key_status : "unknown";
-      // ONE ANSWER FOR FOUR CAUSES -- unknown, revoked, expired, malformed.
-      // keyStatus carries the difference to the log and no further.
-      if (!key || key.key_status !== "active") {
-        throw new Unauthorized(401, "invalid API key");
-      }
-      // Checked before the scope test, so a header that disagrees with the key
-      // is refused whether or not it would have granted anything.
-      crossCheckAssertedScope(req, key.scopes ?? []);
-      if (!key.scopes?.includes(need)) {
-        throw new Unauthorized(403, `this key is not scoped for ${need}`);
-      }
-      // A REAL PARTNER IDENTITY. caller_hash was an HMAC of the client IP, which
-      // for all MCP traffic is Cloudflare's egress address -- the field's own
-      // comment says partner attribution needs the token flow. This is it.
-      // Namespaced `key:` so the two kinds of value cannot be read as one.
+      // ============ TWO WAYS IN, ONE PATH AFTER RESOLUTION ============
       //
-      // Only on the paid path: resolving a key on every public read would add a
-      // round trip to the free tier to attribute traffic that is free.
-      caller = `key:${key.key_id}`;
+      // An API key (a partner's own automation) or an OAuth access token (a
+      // partner in a chat client). They are resolved by different functions and
+      // then STOP BEING DIFFERENT: the scope check, the cross-check and the
+      // refusal below are one piece of code, so a way in cannot acquire a
+      // weaker gate by being newer.
+      const presentedKey = req.headers.get("x-certidemy-key")?.trim() ?? "";
+      const presentedTok = req.headers.get("x-certidemy-token")?.trim() ?? "";
+
+      if (!presentedKey && !presentedTok) {
+        throw new Unauthorized(
+          401,
+          "x-certidemy-key or x-certidemy-token header required",
+        );
+      }
+      // BOTH IS A REFUSAL, NOT A PREFERENCE. Picking one silently would make
+      // which credential was honoured invisible to the caller and to the log,
+      // and a caller who sends two does not know what they are asking for.
+      if (presentedKey && presentedTok) {
+        throw new Unauthorized(401, "send one credential, not two");
+      }
+
+      let grantedScopes: string[];
+
+      if (presentedKey) {
+        const key = await resolveKey(presentedKey);
+        keyStatus = key ? key.key_status : "unknown";
+        // ONE ANSWER FOR FOUR CAUSES -- unknown, revoked, expired, malformed.
+        // keyStatus carries the difference to the log and no further.
+        if (!key || key.key_status !== "active") {
+          throw new Unauthorized(401, "invalid API key");
+        }
+        grantedScopes = key.scopes ?? [];
+        // A REAL PARTNER IDENTITY. caller_hash was an HMAC of the client IP,
+        // which for all MCP traffic is Cloudflare's egress address -- the
+        // field's own comment says partner attribution needs the token flow.
+        // Namespaced `key:` so the two kinds of value cannot be read as one.
+        //
+        // Only on the paid path: resolving a credential on every public read
+        // would add a round trip to the free tier to attribute traffic that is
+        // free.
+        caller = `key:${key.key_id}`;
+      } else {
+        // VERIFY BEFORE RESOLVING. An unverified token must never reach a
+        // database lookup keyed on claims it carries: `sub` and `client_id` are
+        // attacker-controlled until the signature says otherwise.
+        let claims: TokenClaims | null = null;
+        try {
+          claims = await verifyPartnerToken(presentedTok);
+        } catch (e) {
+          // A JWKS FETCH THAT FAILED IS NOT A FORGED TOKEN. Refusing is right --
+          // we cannot verify -- but the reason belongs in the log, or the next
+          // outage reads as every partner's token going bad at once.
+          keyStatus = "jwks_unavailable";
+          console.error(JSON.stringify({
+            fn: "courseware-read",
+            event: "token_verification_unavailable",
+            detail: String((e as Error)?.message ?? e),
+          }));
+          throw new Unauthorized(401, "invalid token");
+        }
+        if (!claims) {
+          keyStatus = "token_invalid";
+          throw new Unauthorized(401, "invalid token");
+        }
+
+        const c = await resolveOauthCaller(claims);
+        keyStatus = c ? c.status : "unknown";
+        // A STATUS, NOT AN EMPTY ROW -- 329 answers client_not_approved,
+        // no_binding, issuer_inactive or active for the same reason
+        // resolve_api_key answers revoked and expired. The caller still gets one
+        // message; the difference reaches the log.
+        if (!c || c.status !== "active") {
+          throw new Unauthorized(401, "invalid token");
+        }
+        grantedScopes = c.scopes ?? [];
+        caller = `oauth:${c.caller_id}`;
+      }
+
+      // Checked before the scope test, so a header that disagrees with what was
+      // resolved is refused whether or not it would have granted anything. It is
+      // absent on the token path -- the Worker forwards the bearer and resolves
+      // nothing -- and ABSENT IS FINE by construction.
+      crossCheckAssertedScope(req, grantedScopes);
+      if (!grantedScopes.includes(need)) {
+        // The message names the scope and not the credential, because by here
+        // the two ways in have stopped being different.
+        throw new Unauthorized(403, `this credential is not scoped for ${need}`);
+      }
     }
 
     // The holder pool asserts the INVERSE of the reader's -- must read lessons,
