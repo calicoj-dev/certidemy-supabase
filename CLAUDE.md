@@ -230,20 +230,33 @@ silently re-privatizes a public endpoint. It has happened to
 `get-credential-certificate`, `open-badge`, `verify-credential` and
 `credential-og`. The flag belongs to one command; the pin belongs to the repo.
 
-**AND `config.toml` IS AUTHORITATIVE FOR `[functions.*]` AND FOR NOTHING ELSE.**
-The `verify_jwt` pins above are real: they are applied by `supabase functions
-deploy`. **The `[auth]` block is the stock CLI template and has never described
-the live project** -- measured 2026-09-15, five settings disagree with production
-and three are outages, including `site_url = "http://127.0.0.1:3000"`, an absent
-`[auth.external.google]` section against a live Google provider, and
-`[auth.oauth_server] enabled = false` against a running OAuth server.
+**`config.toml` IS APPLIED FOR `[functions.*]` AND FOR NOTHING ELSE.** The
+`verify_jwt` pins above are real -- `supabase functions deploy` writes them. The
+`[auth]` block was the stock CLI template and had never described the live
+project; it was **reconciled 2026-09-15** against a Management API read
+(`GET /v1/projects/{ref}/config/auth`). Of 55 settings, 35 agreed, 10 were
+corrected, and 10 are marked `UNVERIFIABLE` inline because the API does not cover
+them.
 
-**`supabase config push` HAS NO DRY RUN.** One subcommand, writes immediately,
-all of it. So the command named after fixing the divergence is the one that takes
-production down in three places. Change auth settings in the DASHBOARD, one at a
-time. `config.toml` carries this in its own first lines, because a hazard
+**RECONCILED IS NOT SAFE TO PUSH, and that distinction is the rule.**
+`supabase config push` has no dry run -- one subcommand, writes immediately, all
+of it, including the ten nothing has ever verified and the `[db]`, `[storage]`,
+`[realtime]` and `[analytics]` blocks the reconciliation did not touch. **Change
+auth settings in the DASHBOARD, one at a time, then re-read and update the file.**
+
+**THREE MANAGEMENT API FIELDS ARE POLARITY-INVERTED** against the keys here:
+`disable_signup`, `mailer_autoconfirm`, `sms_autoconfirm`. Reading them
+positionally records divergences backwards **as matches** -- it would have done so
+for two of the ten. Map, never assume, and mark what the API does not cover as
+unverifiable rather than confirmed.
+
+The reconciliation found two things nobody knew, both of which a push would have
+changed silently: **MFA TOTP is live** while the file said off, and **email
+confirmation is live** while the file said off -- the second lets anyone sign up
+as an address they do not own, which is a security change wearing a config diff.
+`config.toml` carries all of this in its own first lines, because a hazard
 recorded only in markdown is not in front of the person typing the command.
-Details and the sweep: `MCP-AUTH-OPTIONS.md` §5.
+Full mapping: `MCP-AUTH-OPTIONS.md` §5.
 
 Type check with:
 

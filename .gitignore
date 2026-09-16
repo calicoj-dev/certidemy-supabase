@@ -29,3 +29,7 @@ scripts/anchor/node_modules/
 # PKCE verifier + client id for the audience probe. Single-use and short-lived,
 # but a credential for the ten minutes it matters.
 scripts/.probe-mcp-audience.json
+
+# Management API read of the live auth config. Carries provider settings and
+# secret-shaped fields. Local reference for reconciling config.toml, never committed.
+auth-config.json

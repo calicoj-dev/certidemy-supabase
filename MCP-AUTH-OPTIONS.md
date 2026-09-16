@@ -315,6 +315,60 @@ config, which needs a Management API token this machine does not have.
 **Five disagree, two agree, forty-eight unverified.** The two that agree are the
 two that were ever deliberately set.
 
+### The forty-eight, resolved -- Management API read, 2026-09-15
+
+`GET /v1/projects/{ref}/config/auth` on a project-scoped PAT with Auth Config:
+Read. 243 fields returned, 73 relevant. **Of 55 `config.toml` settings: 35 agree,
+10 diverge, 10 cannot be checked.**
+
+| `config.toml` | said | production | API field |
+|---|---|---|---|
+| `site_url` | `http://127.0.0.1:3000` | `https://certidemy.com` | `site_url` |
+| `additional_redirect_urls` | 1 entry | **8**, incl. `certidemy.com/**` and `certidemy.pages.dev` | `uri_allow_list` |
+| `[auth.oauth_server] enabled` | `false` | **true** | `oauth_server_enabled` |
+| `[auth.email] enable_confirmations` | `false` | **true** | `mailer_autoconfirm: false` (inverted) |
+| `[auth.email] otp_length` | `6` | **8** | `mailer_otp_length` |
+| `[auth.email] max_frequency` | `1s` | **60s** | `smtp_max_frequency` |
+| `[auth.rate_limit] email_sent` | `2` | **30** | `rate_limit_email_sent` |
+| `[auth.mfa.totp] enroll_enabled` | `false` | **true** | `mfa_totp_enroll_enabled` |
+| `[auth.mfa.totp] verify_enabled` | `false` | **true** | `mfa_totp_verify_enabled` |
+| `[auth.sms] enable_confirmations` | `false` | true (moot) | `sms_autoconfirm: false` (inverted) |
+
+`allow_dynamic_registration` is no longer on this list: the dashboard toggle
+landed and the API now reads `false`, so the file and production agree.
+
+**TWO OF THESE WERE UNKNOWN AND BOTH ARE MORE THAN BOOKKEEPING.** MFA TOTP is
+enrolled and verifying in production while the file said off -- a push would have
+disabled a second factor people already use. And email confirmation is ON while
+the file said off -- a push would have let anyone sign up as an address they do
+not own. **That one is a security change wearing a config diff**, and it is the
+fourth production consequence of the command named after fixing the divergence.
+
+**THE INVERSION HAZARD WAS REAL.** Three API fields are polarity-inverted against
+the keys here -- `disable_signup`, `mailer_autoconfirm`, `sms_autoconfirm`.
+`disable_signup` happens to agree; the other two are two of the ten divergences,
+and reading them positionally would have recorded both backwards **as matches**.
+Each is commented at its key in `config.toml`.
+
+**The ten that cannot be checked, marked `UNVERIFIABLE` inline rather than
+silently confirmed:** `[auth] enabled` (no counterpart), `sign_in_sign_ups`
+(absent from the payload), Apple's `redirect_uri` / `url` / `skip_nonce_check`
+(the field exists for Google, not Apple), `[auth.sms.twilio] enabled` (only an
+`sms_provider` selector, reading `"twilio"` with every credential null and phone
+auth off), and the four `[auth.third_party.*]` blocks, **which a different
+Management API endpoint serves**.
+
+**And one section was missing entirely rather than wrong:**
+`[auth.external.google]` did not exist in this file, while Google is live with a
+real client id. That is why the first sweep could only call it "absent" -- a push
+disables it by omission, which no reader of the file could have seen. It now
+exists, with the client id and secret as `env()` references; the live secret was
+read during reconciliation and deliberately not written down.
+
+**One thing the read confirmed for §13:** `hook_custom_access_token_enabled` is
+`false`. No hook is installed, exactly consistent with the decoded token carrying
+no issuer claim.
+
 ### THE OBVIOUS REMEDY IS THE DISASTER
 
 `supabase config push` **has no dry-run flag** -- `supabase config --help` lists

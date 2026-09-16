@@ -1,31 +1,41 @@
 # =====================================================================
-# DO NOT RUN `supabase config push` AGAINST THIS PROJECT.
+# RECONCILED 2026-09-15. STILL DO NOT RUN `supabase config push`.
 #
-# The [auth] block below is the STOCK CLI TEMPLATE. It has never described
-# the live project, and `config push` HAS NO DRY RUN -- it writes, immediately,
-# all of it. Measured 2026-09-15, five settings disagree with production and
-# three of them are outages:
+# The [auth] block below now DESCRIBES PRODUCTION, mapped field by field against
+# a Management API read (GET /v1/projects/{ref}/config/auth). Of 55 settings:
+# 35 already agreed, 10 were corrected, 10 are marked UNVERIFIABLE inline
+# because the API does not cover them. Corrected values carry a [reconciled]
+# marker so the next reader can tell measurement from template default.
 #
-#   site_url                        here http://127.0.0.1:3000
-#                                   live https://certidemy.com
-#                                   -> every auth redirect and email link breaks
-#   [auth.oauth_server] enabled     here false / live true
-#                                   -> /oauth/consent has nothing to approve
-#   [auth.external.google]          ABSENT here / enabled live
-#                                   -> Google sign-in stops
-#   allow_dynamic_registration      here false / live true  (the one we WANT)
-#   additional_redirect_urls        here 127.0.0.1 only
+# RECONCILED IS NOT SAFE TO PUSH. `config push` has no dry run -- one
+# subcommand, writes immediately, all of it, including the 10 settings nothing
+# has ever verified and the [db], [storage], [realtime] and [analytics] blocks
+# this reconciliation did not touch. It stays a reference, not a source.
 #
-# THE TRAP IS THAT THE OBVIOUS REMEDY IS THE DISASTER. Someone who notices the
-# divergence reaches for the command named after fixing it, and that command
-# takes production down in three places to close one flag.
+# WHAT THE RECONCILIATION FOUND THAT NOBODY KNEW, and what a push would have
+# done before today:
 #
-# Close settings in the DASHBOARD one at a time until this file has been
-# reconciled against a real read of production. See MCP-AUTH-OPTIONS.md section 5.
+#   [auth.mfa.totp]         live TRUE, this file said false
+#                           -> would have disabled a second factor already in use
+#   [auth.email]            confirmations live ON, this file said off
+#                           -> would have let anyone sign up as an address they
+#                              do not own. A security change, not an outage.
+#   [auth.external.google]  live, and this file had NO SECTION AT ALL
+#                           -> disabled by omission, which no reader could see
+#   site_url                live https://certidemy.com, this file said 127.0.0.1
+#                           -> every auth redirect and email link
 #
-# What IS authoritative here: [functions.*] verify_jwt pins, which are applied
-# by `supabase functions deploy` rather than by `config push`, and the api
-# schema list. Those are real and must stay correct.
+# THREE API FIELDS ARE POLARITY-INVERTED against the keys here:
+# `disable_signup`, `mailer_autoconfirm` and `sms_autoconfirm`. Reading them
+# positionally records two of the ten divergences backwards, AS MATCHES. They
+# are commented at the keys themselves.
+#
+# Change auth settings in the DASHBOARD, one at a time, then re-read and update
+# this file. Details and the full mapping: MCP-AUTH-OPTIONS.md section 5.
+#
+# What IS applied from here: [functions.*] verify_jwt pins, written by
+# `supabase functions deploy` rather than by `config push`. Those are real and
+# must stay correct.
 # =====================================================================
 
 # For detailed configuration reference documentation, visit:
@@ -188,14 +198,23 @@ max_indexes = 5
 # [storage.vector.buckets.documents-openai]
 
 [auth]
-enabled = true
+enabled = true  # UNVERIFIABLE: no Management API counterpart
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "http://127.0.0.1:3000"
+site_url = "https://certidemy.com"  # [reconciled 2026-09-15 from the Management API read]
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = [
+  "https://certidemy.com/**",
+  "https://certidemy.pages.dev/en/auth/callback",
+  "https://certidemy.pages.dev/es-419/auth/callback",
+  "https://certidemy.pages.dev/pt-BR/auth/callback",
+  "http://localhost:3000/**",
+  "http://localhost:3000/en/auth/callback",
+  "http://localhost:3000/es-419/auth/callback",
+  "http://localhost:3000/pt-BR/auth/callback",
+]  # [reconciled 2026-09-15 from the Management API read]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -231,7 +250,7 @@ password_requirements = ""
 
 [auth.rate_limit]
 # Number of emails that can be sent per hour. Requires auth.email.smtp to be enabled.
-email_sent = 2
+email_sent = 30  # [reconciled 2026-09-15 from the Management API read]
 # Number of SMS messages that can be sent per hour. Requires auth.sms to be enabled.
 sms_sent = 30
 # Number of anonymous sign-ins that can be made per hour per IP address. Requires enable_anonymous_sign_ins = true.
@@ -239,7 +258,7 @@ anonymous_users = 30
 # Number of sessions that can be refreshed in a 5 minute interval per IP address.
 token_refresh = 150
 # Number of sign up and sign-in requests that can be made in a 5 minute interval per IP address (excludes anonymous users).
-sign_in_sign_ups = 30
+sign_in_sign_ups = 30  # UNVERIFIABLE: absent from the auth config payload
 # Number of OTP / Magic link verifications that can be made in a 5 minute interval per IP address.
 token_verifications = 30
 # Number of Web3 logins that can be made in a 5 minute interval per IP address.
@@ -258,13 +277,15 @@ enable_signup = true
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
 # If enabled, users need to confirm their email address before signing in.
-enable_confirmations = false
+# INVERTED IN THE API: this is `mailer_autoconfirm = false`. Reading that field
+# positionally records this setting backwards, AS A MATCH.
+enable_confirmations = true  # [reconciled 2026-09-15 from the Management API read]
 # If enabled, users will need to reauthenticate or have logged in recently to change their password.
 secure_password_change = false
 # Controls the minimum amount of time that must pass before sending another signup confirmation or password reset email.
-max_frequency = "1s"
+max_frequency = "60s"  # [reconciled 2026-09-15 from the Management API read]
 # Number of characters used in the email OTP.
-otp_length = 6
+otp_length = 8  # [reconciled 2026-09-15 from the Management API read]
 # Number of seconds before the email OTP expires (defaults to 1 hour).
 otp_expiry = 3600
 
@@ -293,7 +314,8 @@ otp_expiry = 3600
 # Allow/disallow new user signups via SMS to your project.
 enable_signup = false
 # If enabled, users need to confirm their phone number before signing in.
-enable_confirmations = false
+# INVERTED IN THE API (`sms_autoconfirm = false`). Moot while phone auth is off.
+enable_confirmations = true  # [reconciled 2026-09-15 from the Management API read]
 # Template for sending OTP to users
 template = "Your code is {{ .Code }}"
 # Controls the minimum amount of time that must pass before sending another sms otp.
@@ -322,6 +344,8 @@ max_frequency = "5s"
 
 # Configure one of the supported SMS providers: `twilio`, `twilio_verify`, `messagebird`, `textlocal`, `vonage`.
 [auth.sms.twilio]
+# UNVERIFIABLE: no `sms_twilio_enabled` field. The API has only `sms_provider`,
+# which reads "twilio" while every Twilio credential is null and phone auth is off.
 enabled = false
 account_sid = ""
 message_service_sid = ""
@@ -335,8 +359,10 @@ max_enrolled_factors = 10
 
 # Control MFA via App Authenticator (TOTP)
 [auth.mfa.totp]
-enroll_enabled = false
-verify_enabled = false
+# LIVE IN PRODUCTION. This file said false for both until 2026-09-15; a push
+# would have disabled a second factor people are already enrolled in.
+enroll_enabled = true  # [reconciled 2026-09-15 from the Management API read]
+verify_enabled = true  # [reconciled 2026-09-15 from the Management API read]
 
 # Configure MFA via Phone Messaging
 [auth.mfa.phone]
@@ -360,21 +386,37 @@ client_id = ""
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
 # Overrides the default auth callback URL derived from auth.external_url.
-redirect_uri = ""
+redirect_uri = ""  # UNVERIFIABLE: no Apple field in the auth config payload
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
 # or any other third-party OIDC providers.
 url = ""
 # If enabled, the nonce check will be skipped. Required for local sign in with Google auth.
-skip_nonce_check = false
+skip_nonce_check = false  # UNVERIFIABLE: exists for Google, not for Apple
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
 
 # Allow Solana wallet holders to sign in to your project via the Sign in with Solana (SIWS, EIP-4361) standard.
 # You can configure "web3" rate limit in the [auth.rate_limit] section and set up [auth.captcha] if self-hosting.
+# Google is LIVE. This section did not exist in this file until 2026-09-15, which is
+# why the earlier sweep called it "absent" rather than "false": a push would have
+# disabled Google sign-in BY OMISSION rather than by a setting anyone could read.
+#
+# THE SECRET IS AN env() REFERENCE AND MUST STAY ONE. The live value was read during
+# reconciliation and deliberately not written here.
+[auth.external.google]
+enabled = true  # [reconciled 2026-09-15 from the Management API read]
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+skip_nonce_check = false  # [reconciled 2026-09-15 from the Management API read]
+email_optional = false  # [reconciled 2026-09-15 from the Management API read]
+
 [auth.web3.solana]
 enabled = false
 
 # Use Firebase Auth as a third-party provider alongside Supabase Auth.
+# UNVERIFIABLE, ALL FOUR: third-party auth integrations are served by a DIFFERENT
+# Management API endpoint, not /config/auth. Left at the template default; nothing
+# here confirms or denies them.
 [auth.third_party.firebase]
 enabled = false
 # project_id = "my-firebase-project"
@@ -399,12 +441,17 @@ enabled = false
 
 # OAuth server configuration
 [auth.oauth_server]
-# Enable OAuth server functionality
-enabled = false
+# Enable OAuth server functionality.
+# TRUE IN PRODUCTION and false here since the block was added. Discovery, authorize
+# and a token exchange all succeed. See MCP-SERVER.md section 13.
+enabled = true  # [reconciled 2026-09-15 from the Management API read]
 # Path for OAuth consent flow UI
 authorization_url_path = "/oauth/consent"
-# Allow dynamic client registration
-allow_dynamic_registration = false
+# Allow dynamic client registration.
+# Was TRUE in production -- open and unauthenticated, five clients registered by a
+# script sending no credential. Turned off in the dashboard 2026-09-15, so this
+# line and production now agree. MCP-AUTH-OPTIONS.md section 4.
+allow_dynamic_registration = false  # [reconciled 2026-09-15 from the Management API read]
 
 [edge_runtime]
 enabled = true
