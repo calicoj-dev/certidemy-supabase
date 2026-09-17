@@ -3,10 +3,17 @@
 Written 2026-09-17. Everything below was measured against the live endpoint, not
 inferred from the code.
 
-**Read this first: the Spanish courseware depends on tonight's queue.** The
-syllabi are ready in every language right now. The AIMS-F lesson bodies in
-Spanish are not, and the **32 Spanish rows** in `BILINGUAL-QUEUE.json` are
-exactly what unlocks them. Nothing else on this page is contingent.
+**Read this first: English is complete on three certifications; every
+non-English lesson body is held pending a bilingual read.** The syllabi are
+ready in all three languages right now. The lesson BODIES in Spanish and
+Portuguese are held by a review gate nobody has worked yet. That is the one
+contingency on this page, and it is a decision you already took: withhold
+rather than guess.
+
+[Updated 2026-09-17 evening. The paragraph this replaces named 32 Spanish rows
+in `BILINGUAL-QUEUE.json` as the unlock. That queue was superseded: the
+paragraphs were RE-TRANSLATED from repaired English rather than reviewed, which
+is a different and better answer to the same problem.]
 
 ---
 
@@ -62,30 +69,56 @@ Measured, per language, right now:
 
 | | English | Spanish | Portuguese |
 |---|---:|---:|---:|
-| **ISMS-F** (49 lessons) | **49 of 49** | 46 of 49 | 46 of 49 |
-| **AIMS-F** (35 lessons) | **30 of 35** | **1 of 35** | 1 of 35 |
+| **ISMS-F** (49 lessons) | **49 of 49** | 43 of 49 | 43 of 49 |
+| **AIMS-F** (35 lessons) | **35 of 35** | 1 of 35 | 1 of 35 |
+| **AIMS-IA** (40 lessons) | 40 of 40 *(not reachable yet)* | 1 of 40 | 1 of 40 |
+| **ISMS-IA** (38 lessons) | 7 of 38 | 7 of 38 | 7 of 38 |
 
-**ISMS-F is effectively complete.** Three lessons are held in Spanish and
-Portuguese pending your read; everything else serves.
+**Three certifications are complete in English.** ISMS-F, AIMS-F and AIMS-IA
+serve every lesson body to a key holder. AIMS-F module 4, the visible stop
+described in the version of this page written earlier today, is gone. Six ISMS-F
+lessons are held in Spanish and Portuguese pending your read.
 
-**AIMS-F English is four modules complete out of five:**
+**AIMS-IA IS REPAIRED BUT NOT YET REACHABLE, and the table above says
+`40 of 40` about the CONTENT, not about what a partner can pull today.** It is a
+40-lesson ISO/IEC 42001 internal-auditor certification, every lesson measured
+clean this evening, and if Hexasec's interest is auditing rather than
+foundation-level awareness it is the most valuable thing here. Three changes
+have to land before anyone can pull it, in this order:
 
-| module | lessons | serve |
-|---|---|---|
-| 1. AI management systems and the AI landscape | 6 | **all 6** |
-| 2. Context, leadership and planning | 8 | **all 8** |
-| 3. Support and operation | 8 | **all 8** |
-| 4. Annex A controls: structure and selection | 7 | 2 of 7 |
-| 5. Performance evaluation, improvement and certification | 6 | **all 6** |
+1. **Migration 336** admits AIMS-IA to the mcp views. Written, NOT RUN. Until it
+   runs the certification is invisible: no record, no blueprint, no catalogue,
+   no bodies, even though every one of its 120 lesson rows is marked servable.
+2. **Deploy `courseware-read`** so the function accepts `AIMS-IA`. Edited, not
+   deployed. Migration first: deploying ahead of it makes the function accept
+   the code and the view return nothing, so a partner is told the certification
+   has no lessons.
+3. **A web session** to add `AIMS-IA` to `certidemy-web/lib/mcp/registry.ts`.
+   The Worker currently emits ten certifications and would refuse AIMS-IA before
+   the request ever reaches the function.
 
-A partner clicking into modules 1, 2, 3 or 5 sees a complete module. Module 4 is
-the visible stop.
+Until all three land, AIMS-IA behaves exactly as it did this morning: a request
+for it is refused rather than answered from a neighbour. **That refusal is
+correct and safe to demo.** What is not safe is saying AIMS-IA is available and
+having it refuse in the room.
 
-**AIMS-F Spanish is 1 of 35 until the queue is worked.** Not because the Spanish
-is wrong — because 29 lessons had their English repaired this week and the
-system refuses to serve a translation nobody has re-read. That is the gate
-working as designed, and it is the single biggest thing standing between now and
-a Spanish demo.
+**ISMS-IA is the one that still stops.** 7 of 38. It quotes clause text inside
+blockquotes 48 times, and unlike the other three that cannot be fixed by
+rewording: it needs a display change in the web app so the MCP can mark those
+passages rather than reproduce them. Not this week.
+
+**Spanish and Portuguese bodies are 1 of 35 and 1 of 40 because of the gate, not
+because of the translations.** Every repaired paragraph HAS been re-translated
+from the repaired English and mechanically checked for dropped obligations,
+wrong language, changed glossary keys and altered emphasis. What has not
+happened is a human who reads both languages confirming it. The system refuses
+to serve a translation nobody has re-read, which is the decision you took, and
+it is the single thing standing between now and a Spanish demo.
+
+About twenty paragraphs could not be re-translated cleanly and are held
+separately: short list items the language check cannot decide either way, and a
+Portuguese construction where a list's obligation sits in its lead-in rather
+than in each bullet. They are named in `HANDOFF-v12_9.md` section 8.
 
 ---
 

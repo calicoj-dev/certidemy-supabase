@@ -14,7 +14,30 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 335. Next free number: 336. 332-335 have all RUN (2026-09-17).**
+**Migration tip: 336. Next free number: 337. 336 is WRITTEN AND HAS NOT RUN.**
+336 admits AIMS-IA to the mcp views and keeps ISMS-IA held. **`courseware-read`
+is edited to match and MUST NOT be deployed first**: ahead of the migration the
+function accepts `AIMS-IA` while the view returns nothing, so a partner is told
+the certification has no lessons. Migration, then deploy, then a web session for
+`certidemy-web/lib/mcp/registry.ts`, which still emits ten.
+
+**AND 336 EXISTS BECAUSE THE WORK WAS DONE AND THE DOOR WAS STILL SHUT.**
+AIMS-IA's 40 lessons were repaired and scanned clean on 2026-09-17 -- 120 rows,
+0 refused, longest run 9w -- and every one of them was UNREACHABLE, because 334
+put AIMS-IA in `held` and every mcp view filters on `code = any (allowed)`.
+
+**`mcp_servable` is a statement about a LESSON. `allowed` is a statement about a
+CERTIFICATION. Nothing in this repo compares them** -- the leak scanner has no
+idea what `allowed` contains, and its six post-conditions are all about
+measurement. A clean scan says nothing about whether anyone can reach the thing
+it measured. This was one sentence from shipping as "AIMS-IA now serves
+completely in English" in a partner-facing note.
+
+So 336's post-conditions assert REACHABILITY -- what comes back from the views,
+as the role that asks -- rather than servability, which would have passed before
+the migration existed.
+
+[Superseded 2026-09-17 evening: the line below was correct when 335 ran.] **Migration tip: 335. Next free number: 336. 332-335 have all RUN (2026-09-17).**
 332 added `lessons.mcp_servable` and the trigger that clears it on any
 `content_md` change; 333 put the predicate in `mcp.lesson`; 334 widened the MCP
 views to TEN certifications, adding ISMS-F and AIMS-F; 335 made the gate

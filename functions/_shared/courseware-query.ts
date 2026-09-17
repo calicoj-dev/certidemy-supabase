@@ -87,6 +87,19 @@ export const CERTIFICATIONS = [
   // withheld by lessons.mcp_servable -- being in this list is being offered,
   // not being complete, and the two are gated in different places on purpose.
   "ISMS-F", "AIMS-F",
+  // ==================== LANDS ONLY AFTER MIGRATION 336 ====================
+  // AIMS-IA's forty lessons measured clean on 2026-09-17 (0 refused, longest
+  // run 9w) but 334 put it in `held`, so every mcp view filtered it out and the
+  // certification was unreachable while every one of its rows said servable.
+  // 336 admits it.
+  //
+  // THE ORDER IS NOT INTERCHANGEABLE. Migration first, then this deploy.
+  // Deploying this ahead of 336 makes the function ACCEPT `AIMS-IA` and the
+  // view return nothing, so a partner is told the certification has no lessons
+  // -- a plausible empty answer, which is the failure mode this repo keeps
+  // paying for. The other order gives a clean "not served" refusal until the
+  // migration lands, which is true at the time it is said.
+  "AIMS-IA",
 ] as const;
 export type Certification = typeof CERTIFICATIONS[number];
 export const DEFAULT_CERTIFICATION: Certification = "AISM-I";
