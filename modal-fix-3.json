@@ -1,0 +1,44 @@
+{
+ "generated": "fix-modal-inflation.mjs",
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "modal inflation",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "1735aee7-2c90-491e-8158-f98bc488bcc4",
+     "line_abs": 57,
+     "before": "Essas são duas competências distintas, e a segunda é a mais difícil. Um auditor que sabe operar uma ferramenta de análise de logs, mas não consegue dizer o que seu resultado estabelece, possui apenas metade do que a norma exige. Você abordará isso adequadamente no Módulo 3, onde se torna a questão do que um processo de evidências assistido por IA efetivamente verificou.",
+     "after": "Essas são duas competências distintas, e a segunda é a mais difícil. Um auditor que sabe operar uma ferramenta de análise de logs, mas não consegue dizer o que seu resultado estabelece, possui apenas metade do que a norma recomenda. Você abordará isso adequadamente no Módulo 3, onde se torna a questão do que um processo de evidências assistido por IA efetivamente verificou."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-06-closing-it-properly",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "modal inflation",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "90465051-139a-4926-97c0-cec626f5dd0f",
+     "line_abs": 78,
+     "before": "Um auditor que examina constatações encerradas deve observar o intervalo entre a implementação e o encerramento. **Um padrão de encerramentos em poucos dias após a implementação indica que o rastreador encerra na implementação independentemente do rótulo do campo.**",
+     "after": "Um auditor que examina constatações encerradas convém que observe o intervalo entre a implementação e o encerramento. **Um padrão de encerramentos em poucos dias após a implementação indica que o rastreador encerra na implementação independentemente do rótulo do campo.**"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

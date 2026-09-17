@@ -1,0 +1,225 @@
+{
+ "total": 1016,
+ "per": [
+  {
+   "key": "AIMS-F / es-419",
+   "n": 35,
+   "now": 35,
+   "ksaProv": 35,
+   "withKsa": 35,
+   "lost": 35,
+   "lostWithKsa": 35
+  },
+  {
+   "key": "SM-AI-II / es-419",
+   "n": 44,
+   "now": 44,
+   "ksaProv": 44,
+   "withKsa": 44,
+   "lost": 44,
+   "lostWithKsa": 44
+  },
+  {
+   "key": "ISMS-F / es-419",
+   "n": 49,
+   "now": 49,
+   "ksaProv": 49,
+   "withKsa": 49,
+   "lost": 49,
+   "lostWithKsa": 49
+  },
+  {
+   "key": "SPO-AI-I / pt-BR",
+   "n": 46,
+   "now": 46,
+   "ksaProv": 0,
+   "withKsa": 46,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "ISMS-IA / es-419",
+   "n": 38,
+   "now": 38,
+   "ksaProv": 38,
+   "withKsa": 0,
+   "lost": 38,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "ISMS-F / pt-BR",
+   "n": 49,
+   "now": 49,
+   "ksaProv": 49,
+   "withKsa": 49,
+   "lost": 49,
+   "lostWithKsa": 49
+  },
+  {
+   "key": "SM-AI-II / pt-BR",
+   "n": 44,
+   "now": 44,
+   "ksaProv": 44,
+   "withKsa": 44,
+   "lost": 44,
+   "lostWithKsa": 44
+  },
+  {
+   "key": "SM-AI-I / pt-BR",
+   "n": 53,
+   "now": 53,
+   "ksaProv": 0,
+   "withKsa": 53,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIGRM-I / es-419",
+   "n": 51,
+   "now": 51,
+   "ksaProv": 0,
+   "withKsa": 51,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "SD-AI-I / es-419",
+   "n": 45,
+   "now": 45,
+   "ksaProv": 0,
+   "withKsa": 45,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIMS-F / pt-BR",
+   "n": 35,
+   "now": 35,
+   "ksaProv": 35,
+   "withKsa": 35,
+   "lost": 35,
+   "lostWithKsa": 35
+  },
+  {
+   "key": "AIHR-I / es-419",
+   "n": 28,
+   "now": 28,
+   "ksaProv": 0,
+   "withKsa": 28,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AISM-I / es-419",
+   "n": 61,
+   "now": 61,
+   "ksaProv": 0,
+   "withKsa": 61,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "SPO-AI-I / es-419",
+   "n": 46,
+   "now": 46,
+   "ksaProv": 0,
+   "withKsa": 46,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "ISMS-IA / pt-BR",
+   "n": 38,
+   "now": 38,
+   "ksaProv": 38,
+   "withKsa": 0,
+   "lost": 38,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "SD-AI-I / pt-BR",
+   "n": 45,
+   "now": 45,
+   "ksaProv": 0,
+   "withKsa": 45,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIGRM-I / pt-BR",
+   "n": 51,
+   "now": 51,
+   "ksaProv": 0,
+   "withKsa": 51,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIMS-IA / es-419",
+   "n": 40,
+   "now": 40,
+   "ksaProv": 40,
+   "withKsa": 0,
+   "lost": 40,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "SM-AI-I / es-419",
+   "n": 53,
+   "now": 53,
+   "ksaProv": 0,
+   "withKsa": 53,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIMS-IA / pt-BR",
+   "n": 40,
+   "now": 40,
+   "ksaProv": 40,
+   "withKsa": 0,
+   "lost": 40,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AISM-I / pt-BR",
+   "n": 61,
+   "now": 61,
+   "ksaProv": 0,
+   "withKsa": 61,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIE-I / es-419",
+   "n": 18,
+   "now": 18,
+   "ksaProv": 0,
+   "withKsa": 18,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIE-I / pt-BR",
+   "n": 18,
+   "now": 18,
+   "ksaProv": 0,
+   "withKsa": 18,
+   "lost": 0,
+   "lostWithKsa": 0
+  },
+  {
+   "key": "AIHR-I / pt-BR",
+   "n": 28,
+   "now": 28,
+   "ksaProv": 0,
+   "withKsa": 28,
+   "lost": 0,
+   "lostWithKsa": 0
+  }
+ ],
+ "served_today": 1016,
+ "would_lose": 412,
+ "would_lose_with_ksa": 256,
+ "column_only_affected": 256
+}

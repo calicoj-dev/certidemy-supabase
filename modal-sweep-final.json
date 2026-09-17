@@ -1,0 +1,149 @@
+{
+ "count": 8,
+ "findings": [
+  {
+   "cert": "ISMS-F",
+   "slug": "02-08-acceptable-ai-use",
+   "language": "pt-BR",
+   "lesson_id": "d289f8cf-5544-40e4-920d-28141ebf1be6",
+   "block": 4,
+   "line": 3,
+   "english": "The alternative is not to abandon the rule. It is to write one whose compliance is visible, and to accept that a narrower enforceable rule beats a broader unenforceable one. \"Use only the enterprise assistant for any work information; personal accounts are not to be used for work purposes\" is narrower, and a person can tell whether they are complying.",
+   "translation": "A alternativa não é abandonar a regra. É escrever uma cujo cumprimento seja visível, e aceitar que uma regra mais estreita e aplicável supera uma mais ampla e inaplicável. \"Use apenas o assistente empresarial para qualquer informação de trabalho; contas pessoais não devem ser usadas para fins profissionais\" é mais estreita, e uma pessoa consegue dizer se está cumprindo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "02-07-roles-and-authorities",
+   "language": "pt-BR",
+   "lesson_id": "7f76a094-76b9-45cf-8772-d7b7b323b0c9",
+   "block": 3,
+   "line": 4,
+   "english": "Domain 3 develops the mechanics. What matters here is the principle: **the person who accepts a risk should be the person the consequence lands on.**",
+   "translation": "O Domínio 3 desenvolve a mecânica. O que importa aqui é o princípio: **a pessoa que aceita um risco deve ser aquela sobre quem recai a consequência.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-06-certification-and-accreditation",
+   "language": "es-419",
+   "lesson_id": "66144a76-ec10-4408-a66d-01d5a8aa2077",
+   "block": 1,
+   "line": 3,
+   "english": "Two consequences a practitioner should be able to state.",
+   "translation": "Dos consecuencias que un profesional debe ser capaz de enunciar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-06-certification-and-accreditation",
+   "language": "pt-BR",
+   "lesson_id": "e57a2ea3-9f29-4104-af7a-00ec2106ea4c",
+   "block": 1,
+   "line": 3,
+   "english": "Two consequences a practitioner should be able to state.",
+   "translation": "Duas consequências que um profissional deve ser capaz de enunciar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-03-governing-apparatus-controls",
+   "language": "es-419",
+   "lesson_id": "0a3d54b9-ddec-44f5-9e93-b1b89404c715",
+   "block": 2,
+   "line": 3,
+   "english": "The guidance lists seven properties this mechanism should have, and they read like a whistleblowing standard because that is essentially what it is:",
+   "translation": "La guía enumera siete propiedades que debe tener este mecanismo, y se leen como un estándar de denuncia porque eso es esencialmente lo que es:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "pt-BR",
+   "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+   "block": 5,
+   "line": 0,
+   "english": "Clause 4.5 describes confidentiality as the security and privacy of information. Auditors should use **discretion in handling and protecting what they learn while auditing**, audit information should not be turned to personal gain or used in ways that damage the auditee's legitimate interests, and the principle covers the **proper handling of sensitive or confidential material**.",
+   "translation": "A Cláusula 4.5 descreve a confidencialidade como segurança e privacidade das informações. Os auditores devem exercer **discrição no manuseio e na proteção do que aprendem durante a auditoria**, as informações de auditoria não devem ser usadas para ganho pessoal ou de maneira prejudicial aos interesses legítimos do auditado, e o princípio inclui o **manuseio adequado de material sensível ou confidencial**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 1,
+   "line": 2,
+   "english": "What it should still achieve, however brief:",
+   "translation": "Lo que debe lograr, por breve que sea:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 1,
+   "line": 2,
+   "english": "What it should still achieve, however brief:",
+   "translation": "O que ela ainda deve alcançar, por mais breve que seja:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  }
+ ]
+}
