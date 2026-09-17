@@ -14,7 +14,18 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 337. Next free number: 338. 336 HAS RUN; 337 is WRITTEN AND
+**Migration tip: 338. Next free number: 339. 336 HAS RUN; 337 AND 338 ARE
+WRITTEN AND HAVE NOT RUN. RUN 337 FIRST -- 338 aborts if it has not.**
+338 gates `ksa_is_provisional` on the COLUMNS rather than the row: every task
+statement keeps serving and only unreviewed KSA text is withheld, with a new
+`mcp.task.ksa_withheld` so a null can be told from an absence.
+
+**338 IS THE FIRST mcp MIGRATION TO USE `create or replace view`** instead of
+drop-and-create, which preserves ownership, privileges and comments -- so it
+restates none of them and then ASSERTS all three survived. A new column is
+allowed only if appended LAST, which is why `ksa_withheld` is at the end.
+
+[Superseded 2026-09-17 late: 338 now exists and 337 still has not run.] **Migration tip: 337. Next free number: 338. 336 HAS RUN; 337 is WRITTEN AND
 HAS NOT RUN.** 337 admits ISMS-IA and empties the held set -- every ISO-derived
 certification now scans 0 refused. **`courseware-read` is edited to match and
 MUST NOT be deployed first**, same ordering as 336. The web session for
@@ -777,6 +788,51 @@ notes with only one of the two.
 ```
 -H "apikey: $KEY" -H "Authorization: Bearer $KEY"
 ```
+
+**A POSTGREST READ WITHOUT PAGINATION AND A COUNT ASSERTION IS A FLOOR, NOT A
+TOTAL.** PostgREST caps a response at 1,000 rows. It does not error, it does not
+warn, and it does not care what `limit` you asked for. `?limit=10000` returns
+1,000 rows and HTTP 200, and the number you print is the cap wearing the costume
+of an answer.
+
+**TWICE IN EIGHT DAYS, AND BOTH TIMES A FLOOR WAS PRINTED AS A TOTAL:**
+
+- **2026-09-09**, the leak scan: `limit=5000` per certification returned 10,838
+  rows of SM-AI-I's 12,637 and hid an entire lesson group. A clean verdict on a
+  corpus two thousand rows of which were never read.
+- **2026-09-17**, `task_translations`: `limit=10000` printed *"1000 rows"*. Every
+  per-certification figure derived from it was short -- ISMS-F/pt-BR read 47
+  where it is 49, SM-AI-I/es-419 read 45 where it is 53 -- and those figures were
+  about to decide which of three options to take on what a partner is served.
+
+**Both were caught by an assertion. Neither was caught by re-reading**, because
+a truncated read looks exactly like a complete one: the rows present are all
+correct, the request succeeded, and nothing in the response says how much was
+left behind.
+
+So every read that feeds a number:
+
+1. **Page to exhaustion.** `Range: from-to` headers, loop until a short page.
+2. **Then ask the server for the count** -- `Prefer: count=exact`, read
+   `content-range` -- and **assert your row count equals it.**
+3. **Throw on mismatch.** Not a warning. A short read must not be able to
+   produce a report.
+
+**A PAGE LOOP WITH NO COUNT ASSERTION IS THE SAME BUG WITH MORE CODE.** The loop
+exits on the first short page, and a dropped page in the middle -- one retry that
+returned 499 rows instead of 500 -- ends it early and silently. The count is what
+makes the loop mean something.
+
+Worked examples, both read-only: `scripts/measure-ksa-provisional.mjs` and
+`scripts/triage-held-paragraphs.mjs` carry the loop and the assertion in six
+lines. `scripts/scan-iso-leaks.mjs` has carried it since the 2026-09-09
+instance. Copy one of those rather than writing a fourth.
+
+**And the same shape bites outside PostgREST.** A per-LINE run count read as the
+gate's per-SEGMENT count under-reported ISMS-IA's runs by thirteen on
+2026-09-17, and the missing ones surfaced only as a refusal with no line
+attached. **The question is never "did the read succeed" -- it is "did the read
+answer the question I am about to print".**
 
 **THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
 most dangerous thing about this directory.
