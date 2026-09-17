@@ -14,7 +14,30 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 338. Next free number: 339. 336 HAS RUN; 337 AND 338 ARE
+**Migration tip: 339. Next free number: 340. 336, 337 AND 338 HAVE ALL RUN;
+339 is WRITTEN AND HAS NOT RUN.** Verified against the live endpoint rather than
+against this line: `courseware-read` returns rows for ISMS-IA and AIMS-IA, so
+`allowed` holds twelve, and it returns `ksa_withheld: true` for ISMS-F 2.1
+es-419, so 338 ran and the function was redeployed.
+
+339 adds `public.task_translation_reviews` on 335's pattern and clears ISMS-F's
+98 KSA translations THROUGH it. **`ksa_is_provisional` STAYS TRUE** -- it is a
+true statement about a machine translation -- and an approved review whose
+`en_hash` still matches the English is what opens the gate, so a later English
+edit re-closes it with nobody remembering to.
+
+**THE HASH IS A FUNCTION SO IT CAN BE TESTED.** `public.ksa_en_hash(text, text,
+text)` is pure, and 339 exercises it on literals before inserting anything: each
+field is LENGTH-PREFIXED because plain concatenation makes `(ab,c,)` and
+`(a,bc,)` the same string, which is the field-concatenation-without-a-separator
+defect this file already records.
+
+**AND IT PROVES STALENESS BEFORE RELYING ON IT.** The migration inserts a review
+with a deliberately wrong hash on an AIMS-F row, asserts the gate stays shut,
+and deletes the probe -- so the mechanism the 98 rows rest on is tested rather
+than assumed.
+
+[Superseded 2026-09-17 late: 337 and 338 have since run.] **Migration tip: 338. Next free number: 339. 336 HAS RUN; 337 AND 338 ARE
 WRITTEN AND HAVE NOT RUN. RUN 337 FIRST -- 338 aborts if it has not.**
 338 gates `ksa_is_provisional` on the COLUMNS rather than the row: every task
 statement keeps serving and only unreviewed KSA text is withheld, with a new

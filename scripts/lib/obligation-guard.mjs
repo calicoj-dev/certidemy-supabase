@@ -89,6 +89,56 @@
 const LETTER = "0-9A-Za-z_À-ɏ";
 const w = (src) => new RegExp("(?<![" + LETTER + "])(?:" + src + ")(?![" + LETTER + "])", "gi");
 
+/* ============ TWO KNOWN GAPS, RECORDED AND DELIBERATELY NOT PATCHED ========
+ *
+ * Found 2026-09-17 while measuring ISMS-F's task KSA translations. Both produce
+ * FALSE REFUSALS of faithful translations. Neither is fixed here, and the reason
+ * is the count: NINE vocabulary entries were added to these lists in a single
+ * day -- `requirement`, `obligations`, `could`, `requisito`/`requerimiento`, the
+ * es and pt participles `exigido`/`requerido`, the subjunctives `pueda`/`possa`,
+ * and `deverao`, which was not even in its character class. A tenth stacked on
+ * the same day would be a change nobody measured on top of nine others.
+ *
+ * ---- 1. COMPOUND FORMS OF `poder` ARE ON NO WEAK LIST ----
+ *
+ * `pode`, `podem`, `poderia`, `poderiam`, `possa`, `possam` are here.
+ * `podido` and `poduto`-style participles are not, so a perfect construction
+ * scores zero:
+ *
+ *     en  "identifies why the monitoring could not have surfaced it"
+ *     es  "identifica por que el monitoreo no habria podido evidenciarlo"
+ *     pt  "identifica por que o monitoramento nao teria conseguido detecta-lo"
+ *
+ * `habria podido` and `teria conseguido` both carry the English `could`, and
+ * both score weak 0. Two of the eleven flags on ISMS-F were this.
+ *
+ * A patch is not one word: it is `haber`/`ter` + participle as a construction,
+ * and `conseguido` is a different verb standing in for the same modality. That
+ * needs measuring across the corpus before it is written.
+ *
+ * ---- 2. `required` vs `necesario`, AND THIS ONE IS BY DESIGN ----
+ *
+ * The bare-adjective narrowing above is correct and was paid for: "cuando sean
+ * necesarios controles" is DESCRIPTIVE, and matching it produced two false
+ * refusals. So `necesario` counts only in an impersonal construction.
+ *
+ * But English `required` and `requires` ARE on the strong list unconditionally.
+ * So a faithful rendering of an English requirement as a Spanish or Portuguese
+ * adjective scores 1 -> 0 and is refused:
+ *
+ *     en  "what a treatment plan contains, and whose approval is required"
+ *     pt  "o que um plano de tratamento contem, e de quem e a aprovacao necessaria"
+ *
+ * THIS IS NOT A MISSING WORD. It is the two sides of one property measured by
+ * different rules -- exactly the cross-language disagreement this file already
+ * treats as its most reliable detector, appearing by DESIGN rather than by
+ * omission. Four of the eleven ISMS-F flags were this.
+ *
+ * Fixing it means choosing: narrow English `required` the way the targets are
+ * narrowed, or widen the targets the way English is. Either changes verdicts
+ * across four certifications, and the decision wants its own measurement --
+ * which is the whole reason it is written down here instead of applied.
+ */
 const MODALS = {
   en: {
     /* `requirement(s)` was MISSING here, and the gap was found the way gaps in
