@@ -1,10 +1,10 @@
 {
  "purpose": "rows needing a bilingual read before they can be served. SPANISH FIRST -- es-419 is what the Mexican partner pulls. No instrument here can check these: the leak index is English ISO text, so every row below scores zero before and after. What is being looked for is ISO's own Spanish or Portuguese sentence reproduced in a translation, which only a reader with the standard can see.",
- "spanish_rows": 33,
- "portuguese_rows": 33,
- "lesson_rows": 32,
+ "spanish_rows": 42,
+ "portuguese_rows": 42,
+ "lesson_rows": 50,
  "blueprint_rows": 34,
- "total": 66,
+ "total": 84,
  "entries": [
   {
    "kind": "lesson",
@@ -34,6 +34,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "01-03-the-ai-system-life-cycle",
+   "language": "es-419",
+   "lesson_id": "aec278df-7085-46dd-80ba-7992f9fa1c82",
+   "en_hash": "b61d13f7",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('aec278df-7085-46dd-80ba-7992f9fa1c82', 'juan', 'b61d13f7', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-04-harmonised-structure",
+   "language": "es-419",
+   "lesson_id": "373a0e9e-256f-440e-92d4-01a3504e8ae5",
+   "en_hash": "f8495391",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('373a0e9e-256f-440e-92d4-01a3504e8ae5', 'juan', 'f8495391', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "01-05-drivers-and-what-certification-means",
    "language": "es-419",
    "lesson_id": "738711ca-3807-4708-a0f4-cf567ace87f1",
@@ -41,6 +65,30 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('738711ca-3807-4708-a0f4-cf567ace87f1', 'juan', '72e10954', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-06-what-an-aims-is-not",
+   "language": "es-419",
+   "lesson_id": "f1b41ad3-21ca-4a4c-8004-99fff9f8c057",
+   "en_hash": "23129431",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('f1b41ad3-21ca-4a4c-8004-99fff9f8c057', 'juan', '23129431', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-01-context-and-interested-parties",
+   "language": "es-419",
+   "lesson_id": "d5331e22-5981-4d79-b2fa-0d89405b5c69",
+   "en_hash": "2eb6426c",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('d5331e22-5981-4d79-b2fa-0d89405b5c69', 'juan', '2eb6426c', 'approved');"
   },
   {
    "kind": "lesson",
@@ -58,6 +106,18 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "02-04-roles-responsibilities-authorities",
+   "language": "es-419",
+   "lesson_id": "19eeacc9-ee98-4fbe-a5f1-f97c29355977",
+   "en_hash": "13797f07",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('19eeacc9-ee98-4fbe-a5f1-f97c29355977', 'juan', '13797f07', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "02-05-the-ai-risk-assessment",
    "language": "es-419",
    "lesson_id": "a2fbc32d-fc80-47f1-94d4-de7e8ae81b67",
@@ -65,6 +125,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('a2fbc32d-fc80-47f1-94d4-de7e8ae81b67', 'juan', '70c0e8ed', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-06-the-ai-system-impact-assessment",
+   "language": "es-419",
+   "lesson_id": "34bfa6c5-ff70-48ff-826b-bf051d2ca20f",
+   "en_hash": "fb30c64f",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('34bfa6c5-ff70-48ff-826b-bf051d2ca20f', 'juan', 'fb30c64f', 'approved');"
   },
   {
    "kind": "lesson",
@@ -130,6 +202,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "05-01-aims-monitoring-and-measurement",
+   "language": "es-419",
+   "lesson_id": "fa4148c4-e724-45b3-aefe-8ed8fff35694",
+   "en_hash": "eadde431",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('fa4148c4-e724-45b3-aefe-8ed8fff35694', 'juan', 'eadde431', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-02-aims-internal-audit",
+   "language": "es-419",
+   "lesson_id": "f19a7d13-7d22-49b7-9209-403107b43890",
+   "en_hash": "35f8368f",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('f19a7d13-7d22-49b7-9209-403107b43890', 'juan', '35f8368f', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "05-03-aims-management-review",
    "language": "es-419",
    "lesson_id": "48cdfd05-1b68-4402-9764-bcf61be44a49",
@@ -137,6 +233,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('48cdfd05-1b68-4402-9764-bcf61be44a49', 'juan', 'a7e2cd9e', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-04-nonconformity-and-corrective-action",
+   "language": "es-419",
+   "lesson_id": "8e975e2e-bffc-459e-975f-d9ad1f9b35a1",
+   "en_hash": "1885a348",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('8e975e2e-bffc-459e-975f-d9ad1f9b35a1', 'juan', '1885a348', 'approved');"
   },
   {
    "kind": "lesson",
@@ -547,6 +655,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "01-03-the-ai-system-life-cycle",
+   "language": "pt-BR",
+   "lesson_id": "30abfa2d-946f-4de0-b21a-940da0a7b336",
+   "en_hash": "b61d13f7",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('30abfa2d-946f-4de0-b21a-940da0a7b336', 'juan', 'b61d13f7', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-04-harmonised-structure",
+   "language": "pt-BR",
+   "lesson_id": "a8c44d43-9f48-4a8b-ad9f-ee6570084417",
+   "en_hash": "f8495391",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('a8c44d43-9f48-4a8b-ad9f-ee6570084417', 'juan', 'f8495391', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "01-05-drivers-and-what-certification-means",
    "language": "pt-BR",
    "lesson_id": "187d96b1-9d34-4807-81d7-8a6e62b9bd85",
@@ -554,6 +686,30 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('187d96b1-9d34-4807-81d7-8a6e62b9bd85', 'juan', '72e10954', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-06-what-an-aims-is-not",
+   "language": "pt-BR",
+   "lesson_id": "8a12095b-272a-4432-aabd-2ede241a072c",
+   "en_hash": "23129431",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('8a12095b-272a-4432-aabd-2ede241a072c', 'juan', '23129431', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-01-context-and-interested-parties",
+   "language": "pt-BR",
+   "lesson_id": "0796c547-df76-4373-93f3-de31c6572aac",
+   "en_hash": "2eb6426c",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0796c547-df76-4373-93f3-de31c6572aac', 'juan', '2eb6426c', 'approved');"
   },
   {
    "kind": "lesson",
@@ -571,6 +727,18 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "02-04-roles-responsibilities-authorities",
+   "language": "pt-BR",
+   "lesson_id": "7b238715-7ebf-4753-88da-fc7f2cea9f27",
+   "en_hash": "13797f07",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('7b238715-7ebf-4753-88da-fc7f2cea9f27', 'juan', '13797f07', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "02-05-the-ai-risk-assessment",
    "language": "pt-BR",
    "lesson_id": "9d5e0007-e94f-4c8f-be49-0e69f0e3bbab",
@@ -578,6 +746,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('9d5e0007-e94f-4c8f-be49-0e69f0e3bbab', 'juan', '70c0e8ed', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-06-the-ai-system-impact-assessment",
+   "language": "pt-BR",
+   "lesson_id": "86f08a69-e97e-4145-beef-95df68cd7135",
+   "en_hash": "fb30c64f",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('86f08a69-e97e-4145-beef-95df68cd7135', 'juan', 'fb30c64f', 'approved');"
   },
   {
    "kind": "lesson",
@@ -643,6 +823,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "05-01-aims-monitoring-and-measurement",
+   "language": "pt-BR",
+   "lesson_id": "37b1f8d2-c651-4009-9ff8-0da4beb0f188",
+   "en_hash": "eadde431",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('37b1f8d2-c651-4009-9ff8-0da4beb0f188', 'juan', 'eadde431', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-02-aims-internal-audit",
+   "language": "pt-BR",
+   "lesson_id": "b7485a23-f394-4280-9c3d-2b9c64a8ccdd",
+   "en_hash": "35f8368f",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b7485a23-f394-4280-9c3d-2b9c64a8ccdd', 'juan', '35f8368f', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "05-03-aims-management-review",
    "language": "pt-BR",
    "lesson_id": "e6b5037e-8e4a-4e76-843d-f176f5c7c3d4",
@@ -650,6 +854,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('e6b5037e-8e4a-4e76-843d-f176f5c7c3d4', 'juan', 'a7e2cd9e', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-04-nonconformity-and-corrective-action",
+   "language": "pt-BR",
+   "lesson_id": "b6850a7a-39e0-4b48-bfa9-1f1e2494356d",
+   "en_hash": "1885a348",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b6850a7a-39e0-4b48-bfa9-1f1e2494356d', 'juan', '1885a348', 'approved');"
   },
   {
    "kind": "lesson",

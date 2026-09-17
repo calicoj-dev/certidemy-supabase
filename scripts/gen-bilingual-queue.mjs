@@ -7,26 +7,37 @@ for (const line of readFileSync("scripts/.env","utf8").split(/\r?\n/)) {
 const K=process.env.SUPABASE_SERVICE_ROLE_KEY, H={apikey:K,Authorization:"Bearer "+K};
 async function g(p){for(let i=0;i<12;i++){try{const r=await fetch("https://pctynukndxnmnxiqpgck.supabase.co/rest/v1/"+p,{headers:H,signal:AbortSignal.timeout(60000)});return JSON.parse(await r.text());}catch{}}throw new Error(p)}
 const md5=s=>ch("md5").update(s,"utf8").digest("hex").slice(0,8);
-const LESSONS={"ISMS-F":["02-09-pdca-and-improvement","05-02-internal-audit","02-03-amendment-1-2024"],
- "AIMS-F":["05-06-integrated-audit-programme","01-02-determining-your-roles","04-07-control-overlap-with-27001","03-08-clause-8-operational-duties","01-05-drivers-and-what-certification-means","05-05-the-certification-route","02-07-risk-versus-impact","02-02-determining-the-scope","02-05-the-ai-risk-assessment","01-01-what-an-aims-is","02-08-risk-treatment-and-the-soa","05-03-aims-management-review","04-02-annex-a-and-the-soa"]};
+/* THE LIST COMES FROM THE FLAG, NOT FROM A HAND-MAINTAINED ARRAY.
+ *
+ * This held sixteen slugs and was edited by hand after every batch. It went
+ * stale once already -- regenerated at 66 while the committed file still said
+ * 54 -- and a queue that undercounts is worse than no queue, because the
+ * reviewer finishes it and believes they are done.
+ *
+ * `mcp_translation_review_required` is set by a database trigger at the moment
+ * an English leak repair lands, so reading it cannot lag the work. */
+const flagged = await g("lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.true");
+const groupIds = [...new Set(flagged.map(r => r.lesson_group_id))].filter(Boolean);
 const certs=await g("certifications?select=id,code");
 const out=[];
-for(const [code,slugs] of Object.entries(LESSONS)){
-  const id=certs.find(c=>c.code===code).id;
-  const mods=await g("modules?select=id&certification_id=eq."+id);
-  const rows=await g("lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("+mods.map(m=>m.id).join(",")+")");
-  for(const slug of slugs){
-    const grp=rows.filter(r=>r.slug===slug);
-    const en=grp.find(r=>r.language==="en");
-    for(const lang of ["es-419","pt-BR"]){
-      const r=grp.find(x=>x.language===lang); if(!r) continue;
-      out.push({kind:"lesson",surface:"lessons.content_md",cert:code,slug,language:lang,
-        lesson_id:r.id,en_hash:md5(en.content_md),
-        english_now:en.content_md.length>4000?"(long -- read the row)":en.content_md,
-        translation_now:r.content_md.length>4000?"(long -- read the row)":r.content_md,
-        clear_sql:"insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('"+r.id+"', 'juan', '"+md5(en.content_md)+"', 'approved');"});
-    }
-  }
+const certs2 = await g("certifications?select=id,code");
+const mods2  = await g("modules?select=id,certification_id");
+const modCert = new Map(mods2.map(m => [m.id, (certs2.find(c => c.id === m.certification_id) || {}).code]));
+// The English sibling of each flagged group, for the hash and the diff.
+const ens = {};
+for (const gid of groupIds) {
+  const r = await g("lessons?select=id,slug,content_md,module_id,lesson_group_id&language=eq.en&lesson_group_id=eq." + gid);
+  if (r[0]) ens[gid] = r[0];
+}
+for (const r of flagged) {
+  const en = ens[r.lesson_group_id];
+  if (!en) continue;
+  out.push({kind:"lesson", surface:"lessons.content_md",
+    cert: modCert.get(en.module_id) || "?", slug: r.slug, language: r.language,
+    lesson_id: r.id, en_hash: md5(en.content_md),
+    english_now: en.content_md.length > 4000 ? "(long -- read the row)" : en.content_md,
+    translation_now: r.content_md.length > 4000 ? "(long -- read the row)" : r.content_md,
+    clear_sql: "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('" + r.id + "', 'juan', '" + md5(en.content_md) + "', 'approved');"});
 }
 const bp=JSON.parse(readFileSync("BILINGUAL-QUEUE-blueprint.json","utf8"));
 for(const e of bp.entries) out.push({kind:"blueprint",surface:"tasks.knowledge",...e});
