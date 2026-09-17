@@ -57,6 +57,26 @@
  *   $env:ONLY="domains"; $env:FORCE="1"; $env:DRY_RUN="1"; node scripts\gen-jta-translations.mjs
  *   Remove-Item Env:\DRY_RUN; node scripts\gen-jta-translations.mjs
  *
+ * ============ CHUNK=25 IS TOO LARGE FOR ONLY=ksa ON SOME CERTS ============
+ *
+ * Measured 2026-09-17 on AIMS-F. The default CHUNK of 25 sends 25 tasks x 3
+ * fields in one call and the response comes back TRUNCATED:
+ *
+ *     SyntaxError: Unterminated string in JSON at position 24037
+ *
+ * It is an output-length ceiling, not a model error, and it depends entirely on
+ * how long the source fields are. AIMS-F's knowledge fields average ~95 words;
+ * AISM-I's are a fraction of that, which is why this never surfaced on the
+ * eight certifications where the pass has been run.
+ *
+ * CHUNK=5 completes both languages. Anything with long knowledge fields needs
+ * it; a statement-only pass does not, since statements are one line each.
+ *
+ * THE FAILURE IS LOUD, which is the only reason this is a note and not an
+ * incident: parseJsonArray throws rather than writing a partial batch. A
+ * truncated response that had parsed would have written half a certification's
+ * KSAs and reported success.
+ *
  * Knobs: CERT_ID (REQUIRED - no default; the script exits if unset),
  * ONLY (all | domains | tasks | ksa), CHUNK (25 statements/call), DRY_RUN,
  * FORCE, RETRANSLATE_TITLES. Needs @supabase/supabase-js and Node 18+.
