@@ -1,0 +1,331 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 31,
+     "before": "Clause 6.1.3 d) requires the organization to produce a Statement of Applicability that contains:",
+     "after": "Clause 6.1.3 d) requires a Statement of Applicability holding:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 33,
+     "before": "- **the necessary controls** (see 6.1.3 b) and c))",
+     "after": "- **the controls determined necessary** (6.1.3 b) and c))"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 34,
+     "before": "- **justification for their inclusion**",
+     "after": "- **why each is included**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 35,
+     "before": "- **whether the necessary controls are implemented or not**",
+     "after": "- **whether each necessary control is implemented**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 36,
+     "before": "- **the justification for excluding any of the Annex A controls**",
+     "after": "- **why any Annex A control is excluded**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 40,
+     "before": "Notice what the first element points at. *The necessary controls, see 6.1.3 b) and c)* - the controls determined from the treatment options and checked against Annex A. **The SoA is downstream of a decision**, and its first element is a reference to where that decision was made.",
+     "after": "Notice what the first element points at. *The controls determined necessary, 6.1.3 b) and c)* - the controls determined from the treatment options and checked against Annex A. **The SoA is downstream of a decision**, and its first element is a reference to where that decision was made."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 176,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "30f106a7-1b88-4747-9ff5-6ebcf823d97e",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"Nonconformity: clause 6.1.3 d) requires the SoA to contain the justification for excluding any of the Annex A controls, and that element is absent.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Nonconformity: clause 6.1.3 d) requires the SoA to say why any Annex A control is excluded, and that element is absent.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 34,
+     "before": "- b) **ensure these persons are competent** on the basis of appropriate education, training, or experience",
+     "after": "- b) **ensure those people are competent**, on the strength of suitable education, training or experience"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 35,
+     "before": "- c) where applicable, **take actions to acquire** the necessary competence, **and evaluate the effectiveness** of the actions taken",
+     "after": "- c) where applicable, **act to acquire the competence needed, and evaluate how well those actions worked**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 44,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 44,
+     "before": "**c) has a second half people miss: evaluate the effectiveness of the actions taken.** Sending someone on a course is the action. Establishing that it worked is the requirement.",
+     "after": "**c) has a second half people miss: evaluating how well those actions worked.** Sending someone on a course is the action. Establishing that it worked is the requirement."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 54,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 54,
+     "before": "Clause 7.3 requires that **persons doing work under the organization's control** shall be aware of:",
+     "after": "Clause 7.3 requires that **anyone working under the organization's control** shall be aware of the following:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 57,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 57,
+     "before": "- b) their **contribution to the effectiveness** of the ISMS, including the benefits of improved information security performance",
+     "after": "- b) how they **contribute to the ISMS's effectiveness**, including the benefits of better information security performance"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 62,
+     "before": "**Who is covered.** *Persons doing work under the organization's control* is wider than employees. Contractors, temporary staff and - depending on the arrangement - some supplier personnel do work under the organization's control. An awareness programme covering only the payroll is narrower than the clause.",
+     "after": "**Who is covered.** *Anyone working under the organization's control* is wider than employees. Contractors, temporary staff and - depending on the arrangement - some supplier personnel do work under the organization's control. An awareness programme covering only the payroll is narrower than the clause."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 78,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "5340987b-392f-4467-bad0-21c97a753159",
+     "line_abs": 78,
+     "before": "**And one sentence people skip:**",
+     "after": "**And one sentence of clause 7.5 people skip:**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-07-two-sentences",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "27001:2022, the climate-change additions to 4.1 and 4.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "895a2139-75cf-4215-9a41-b8432f8a7d19",
+     "line_abs": 33,
+     "before": "Its normative body, in full:",
+     "after": "Its normative body, in full, as ISO/IEC 27001:2022 now carries it:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-07-two-sentences",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 57,
+   "run_words": 0,
+   "run": "27001:2022, the climate-change additions to 4.1 and 4.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "895a2139-75cf-4215-9a41-b8432f8a7d19",
+     "line_abs": 57,
+     "before": "**The organization shall determine whether climate change is a relevant issue.**",
+     "after": "**The organization shall determine whether climate change is, for it, a relevant issue.**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-08-assets-nobody-registered",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 237,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.9",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1827bb3e-ccfd-457a-b7e6-79e23c96c09f",
+     "line_abs": 237,
+     "before": "- Annex A 5.9 requires an inventory of information and other associated assets, including owners.",
+     "after": "- Annex A 5.9 requires an inventory of information and associated assets, with their owners."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-10-one-word-apart",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 108,
+   "run_words": 0,
+   "run": "42001:2023 clause 9.2.2 a)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "af27fb53-c727-4aec-9107-d0c2a0a56754",
+     "line_abs": 108,
+     "before": "    { \"id\": \"r2\", \"text\": \"The organization must define the audit objectives, criteria and scope for each audit.\" },",
+     "after": "    { \"id\": \"r2\", \"text\": \"The organization must set the objectives, criteria and scope of each individual audit.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
