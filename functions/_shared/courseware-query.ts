@@ -440,6 +440,23 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
           text:
             "select domain_code, domain_title, domain_title_is_fallback, domain_weight_pct, " +
             "task_code, language, statement, knowledge, skills, abilities, bloom_level, " +
+            // ============ WITHHELD IS NOT ABSENT, AND A NULL CANNOT SAY WHICH ==========
+            // Migration 338 nulls knowledge/skills/abilities where
+            // `ksa_is_provisional` is true: the statement keeps serving and only
+            // unreviewed KSA text is withheld. Without this column a caller sees
+            // three nulls and cannot tell "never translated" from "translated and
+            // held pending review" -- the exact confusion
+            // `mcp.lesson_index.body_available` exists to prevent, which this repo
+            // has already paid for once.
+            //
+            // MEASURED CONSEQUENCE, 2026-09-17: ISMS-F serves 49 Spanish and 49
+            // Portuguese task rows whose KSAs went null on 338, ~15,700 characters
+            // per language, and a partner's agent had been using the Spanish D2 and
+            // D3 KSAs days earlier. It now gets nulls with no explanation.
+            //
+            // Safe to add only because 338 HAS RUN -- ahead of it this column does
+            // not exist and every task query would fail.
+            "ksa_withheld, " +
             "is_exam_scope, scope_tag " +
             "from mcp.task " +
             "where certification = $1 " +
