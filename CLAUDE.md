@@ -14,7 +14,21 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 331. Next free number: 332. 331 is WRITTEN AND HAS NOT RUN.**
+**Migration tip: 335. Next free number: 336. 332-335 have all RUN (2026-09-17).**
+332 added `lessons.mcp_servable` and the trigger that clears it on any
+`content_md` change; 333 put the predicate in `mcp.lesson`; 334 widened the MCP
+views to TEN certifications, adding ISMS-F and AIMS-F; 335 made the gate
+per-language with `lesson_translation_reviews` on 311's en_hash pattern.
+
+**334 IS THE FIRST WIDENING SINCE THE 328 OUTAGE AND IT EXERCISED THE FIX.** The
+cold-start check was rewritten asymmetric after 328 refused to serve all eight
+certifications, and had never run in the safe direction since. Running 334 before
+deploying the function produced `behind_by: ["AIMS-F","ISMS-F"]` in the
+courseware-read log -- serving the intersection rather than refusing. That line
+was READ BEFORE DEPLOYING, because the opposite direction (function ahead of
+views) still refuses everything. The log was the decision, not the reassurance.
+
+[Superseded: the line below was written while 331 was pending.] **Migration tip: 331. Next free number: 332. 331 is WRITTEN AND HAS NOT RUN.**
 331 turns partner features from grant-by-exception into GRANT BY DEFAULT,
 REVOKE BY EXCEPTION: `public.mcp_features` is the vocabulary, and a row in
 `public.company_feature_disables` means REVOKED. A new partner works because the
