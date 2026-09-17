@@ -1,0 +1,133 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-01-whose-scheme-is-it",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 184,
+   "run_words": 0,
+   "run": "19011:2026 NOTE 1 to 3.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d3280f90-3067-4782-8663-4a45b8c5d8b6",
+     "line_abs": 184,
+     "before": "      { \"id\": \"b\", \"text\": \"When the audit criteria are legal, including statutory or regulatory, requirements.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"When the audit criteria are legal ones -- statutory or regulatory requirements.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-03-the-statement-that-survives",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 185,
+   "run_words": 0,
+   "run": "19011:2026 clause 6.5.1 j)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "84a51fb9-dd39-4d14-ade9-ca24a82acba1",
+     "line_abs": 185,
+     "before": "      { \"id\": \"b\", \"text\": \"Unresolved diverging opinions between the audit team and the auditee should be reported.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Any disagreement between the audit team and the auditee that was left unresolved should be reported.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-04-what-the-report-must-disclose",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 118,
+   "run_words": 0,
+   "run": "19011:2026 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6f36209d-d611-466b-ad68-6c0f348fa9c1",
+     "line_abs": 118,
+     "before": "Disclosure of AI-assisted method is not yet a requirement of any standard an internal auditor works to. ISO 19011:2026 requires - or rather, recommends, since it states guidance - that the report provide a complete, accurate, concise and clear record of the audit. Whether that includes naming the tools is a matter of judgement today.",
+     "after": "Disclosure of AI-assisted method is not yet a requirement of any standard an internal auditor works to. ISO 19011:2026 requires - or rather, recommends, since it states guidance - that the report be a complete, accurate, concise and clear record of what was done. Whether that includes naming the tools is a matter of judgement today."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "27001:2022 clause 10.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "69031478-c95f-41a0-8e3e-1a6fa89e3a68",
+     "line_abs": 31,
+     "before": "Short, and it does more than most people use:",
+     "after": "Clause 10.2 is short, and it does more than most people use:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 182,
+   "run_words": 0,
+   "run": "27001:2022 clause 10.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "69031478-c95f-41a0-8e3e-1a6fa89e3a68",
+     "line_abs": 182,
+     "before": "      { \"id\": \"c\", \"text\": \"3) determining if similar nonconformities exist, or could potentially occur.\" },",
+     "after": "      { \"id\": \"c\", \"text\": \"3) asking whether similar nonconformities exist, or could arise.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 115,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.3.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4189288d-9065-4b62-8b30-b9e9702ce89a",
+     "line_abs": 115,
+     "before": "      \"feedback\": \"Clause 9.3.3 requires the results to include decisions related to continual improvement opportunities and any need for changes. A conclusion that no changes are needed can be a decision - but only if it is recorded as one, with what was considered. As written this records an absence.\"",
+     "after": "      \"feedback\": \"Clause 9.3.3 requires the results to include decisions on opportunities for continual improvement and on any need for change. A conclusion that no changes are needed can be a decision - but only if it is recorded as one, with what was considered. As written this records an absence.\""
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 176,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.3.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4189288d-9065-4b62-8b30-b9e9702ce89a",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"Decisions related to continual improvement opportunities and any need for changes - a conclusion that no change is needed must be recorded as a decision with what was considered.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Decisions on opportunities for continual improvement and on any need for change - a conclusion that no change is needed must be recorded as a decision with what was considered.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

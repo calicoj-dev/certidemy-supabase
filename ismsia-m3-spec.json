@@ -1,0 +1,79 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 41,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and 6.4.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a8cf2485-1f07-414d-aeda-c9d51306e0fe",
+     "line_abs": 41,
+     "before": "The standard's own definition of *audit* uses the wider term - a systematic, independent and documented process for obtaining **objective evidence** and evaluating it objectively to determine the extent to which the audit criteria are fulfilled.",
+     "after": "The standard's own definition of *audit* uses the wider term - a systematic, independent and documented process for obtaining **objective evidence** and weighing it objectively to judge how far the audit criteria have been met."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 177,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and 6.4.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a8cf2485-1f07-414d-aeda-c9d51306e0fe",
+     "line_abs": 177,
+     "before": "      { \"id\": \"c\", \"text\": \"Use professional judgement to determine the degree of reliance that can be placed on it as evidence.\" },",
+     "after": "      { \"id\": \"c\", \"text\": \"Use professional judgement about how far it can be relied on as evidence.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-03-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 80,
+   "run_words": 0,
+   "run": "19011:2026 Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd46e8f2-ea20-41a7-95a6-b8a4181f7009",
+     "line_abs": 80,
+     "before": "ISO 19011:2026 states that using remote auditing methods **can introduce additional risks and opportunities to the audit process**, and Annex A.16 carries the detail. Three considerations it names are worth holding, because they are the ones organizations skip:",
+     "after": "ISO 19011:2026 states that using remote auditing methods **can bring additional risks and opportunities into the audit process**, and Annex A.16 carries the detail. Three considerations it names are worth holding, because they are the ones organizations skip:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-07-where-the-audit-stops",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 132,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 8.34",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6afef841-b7a3-4021-ac74-ad76e8798383",
+     "line_abs": 132,
+     "before": "      { \"id\": \"b\", \"text\": \"8.34 protection of information systems during audit testing, which requires audit tests involving assessment of operational systems to be planned and agreed between the tester and appropriate management.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"8.34 protection of information systems during audit testing, which requires audit tests on operational systems to be planned and agreed with appropriate management, not merely notified to it.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
