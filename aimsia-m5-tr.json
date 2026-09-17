@@ -1,0 +1,1564 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 38,
+     "before": "El apartado 6.4.8 lo plantea de forma operativa: la evidencia de auditoría debe evaluarse frente a los criterios de auditoría para determinar los hallazgos de auditoría, y cuando el plan de auditoría lo especifique, los hallazgos deben incluir la conformidad y las buenas prácticas con evidencia de respaldo, las oportunidades de mejora y cualquier recomendación al auditado.",
+     "after": "La cláusula 6.4.8 lo plantea de forma operativa: la evidencia de auditoría debería ponderarse frente a los criterios de auditoría para que puedan determinarse los hallazgos de auditoría, y cuando el plan de auditoría así lo indique, los hallazgos deberían incluir la conformidad y las buenas prácticas con la evidencia que las respalda, las oportunidades de mejora y cualquier recomendación formulada al auditado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 62,
+     "before": "- una **declaración de no conformidad**, que incluya una descripción que explique **por qué no se cumplen los criterios de auditoría**;",
+     "after": "- una **declaración de no conformidad**, con una descripción que establezca **dónde los criterios de auditoría no se cumplen**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 88,
+     "before": "ISO/IEC 42001 utiliza únicamente el término **no conformidad** y no define ningún esquema de gravedad. Los términos mayor y menor provienen de la práctica de certificación por terceros bajo ISO/IEC 17021-1. El apartado 6.4.8 de ISO 19011:2026 establece que las no conformidades **pueden** clasificarse según el contexto de la organización y sus riesgos, que la clasificación puede ser cuantitativa o cualitativa, y que **cuando se utilice clasificación, los criterios empleados por la organización auditora deben estar definidos y comunicados.**",
+     "after": "ISO/IEC 42001 utiliza únicamente el término **no conformidad** y no define ningún esquema de gravedad. Los términos mayor y menor provienen de la práctica de certificación por terceros bajo ISO/IEC 17021-1. La cláusula 6.4.8 de ISO 19011:2026 registra que las no conformidades **pueden** clasificarse según el contexto de la organización y sus riesgos, que la clasificación puede ser cuantitativa o cualitativa, y que **cuando se utilice clasificación, los criterios que emplee la organización auditora deberían estar definidos y comunicados.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 96,
+     "before": "**¿Está permitida la clasificación?** Sí. El apartado 6.4.8 establece que las no conformidades pueden clasificarse según el contexto de la organización y sus riesgos, de forma cuantitativa (por ejemplo, del uno al cinco) o cualitativa (por ejemplo, menor, mayor).",
+     "after": "**¿Está permitida la clasificación?** Sí. La cláusula 6.4.8 establece que las no conformidades pueden clasificarse según el contexto de la organización y sus riesgos, de forma cuantitativa (por ejemplo, del uno al cinco) o cualitativa (por ejemplo, menor, mayor)."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4d575e3c-606f-4da3-9968-f766825f421a",
+     "line_abs": 32,
+     "before": "Un enunciado de no conformidad contiene un criterio, evidencia y la brecha entre ambos. El Anexo A.18.3 solicita que un registro considere una descripción o referencia a los criterios de auditoría, la evidencia de auditoría y una declaración de no conformidad **que incluya una descripción que explique por qué no se cumplen los criterios de auditoría**.",
+     "after": "Un enunciado de no conformidad contiene un criterio, evidencia y la brecha entre ambos. El Anexo A.18.3 solicita que un registro considere una descripción o referencia a los criterios de auditoría, la evidencia de auditoría y una declaración de no conformidad **con una descripción que establezca en qué medida los criterios de auditoría no se cumplen**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4d575e3c-606f-4da3-9968-f766825f421a",
+     "line_abs": 68,
+     "before": "El apartado 6.7 de la norma ISO 19011:2026 establece que el resultado de una auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora, y que **tales acciones generalmente son decididas y emprendidas por el auditado** dentro de un plazo acordado.",
+     "after": "La cláusula 6.7 de la norma ISO 19011:2026 registra que el resultado de una auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora, y que **tales acciones normalmente son acordadas y llevadas a cabo por el auditado** dentro de un plazo acordado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 32,
+     "before": "La norma ISO/IEC 42001:2023, capítulo 10.2, establece que cuando ocurre una no conformidad, la organización debe:",
+     "after": "La norma ISO/IEC 42001:2023, cláusula 10.2, establece que cuando surge una no conformidad, la organización debe:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 34,
+     "before": "- a) **reaccionar ante la no conformidad** y, según corresponda, tomar medidas para controlarla y corregirla, y hacer frente a las consecuencias;",
+     "after": "- a) **reaccionar ante la no conformidad** y, según corresponda, actuar para controlarla y corregirla, y manejar lo que se derive de ella;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 35,
+     "before": "- b) **evaluar la necesidad de tomar medidas para eliminar las causas** de la no conformidad, a fin de que no vuelva a ocurrir ni ocurra en otro lugar, mediante la revisión de la no conformidad, la determinación de sus causas y la determinación de si existen no conformidades similares o si estas podrían producirse;",
+     "after": "- b) **evaluar la necesidad de tomar medidas para eliminar las causas** de la no conformidad, a fin de que no vuelva a ocurrir ni ocurra en otro lugar, mediante su revisión, la determinación de sus causas y la pregunta de si existen no conformidades similares o si estas podrían producirse;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 36,
+     "before": "- c) **implementar cualquier medida necesaria**;",
+     "after": "- c) **tomar las medidas que sean necesarias**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 37,
+     "before": "- d) **revisar la eficacia** de cualquier acción correctiva tomada;",
+     "after": "- d) **revisar qué tan efectiva** fue cualquier acción correctiva;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 38,
+     "before": "- e) **realizar cambios en el sistema de gestión de IA**, si fuera necesario.",
+     "after": "- e) **cambiar el sistema de gestión de IA**, si fuera necesario."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 40,
+     "before": "Además: **las acciones correctivas deben ser apropiadas a los efectos de las no conformidades encontradas.** Y debe estar disponible información documentada como evidencia de la naturaleza de las no conformidades y de cualquier medida tomada posteriormente, así como de los resultados de cualquier acción correctiva.",
+     "after": "Luego: **la acción correctiva deberá ser adecuada a los efectos de las no conformidades encontradas.** Y deberá conservarse información documentada como evidencia de cuáles fueron las no conformidades y qué se hizo posteriormente, y de lo que logró cualquier acción correctiva."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 81,
+     "before": "La obligación d) exige que la organización **revise la eficacia de cualquier acción correctiva tomada**. La norma ISO 19011:2026, apartado 6.7, añade la perspectiva de la auditoría: el resultado de la auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora; tales medidas generalmente son decididas y llevadas a cabo por el auditado dentro de un plazo acordado; el auditado debe mantener informada a la persona que gestiona el programa de auditoría o al equipo auditor sobre el estado de las mismas; y **la finalización y eficacia de estas medidas deben verificarse. Esta verificación puede ser parte de una auditoría posterior.**",
+     "after": "La obligación d) exige que la organización **revise la eficacia de cualquier acción correctiva tomada**. La norma ISO 19011:2026, clausula 6.7, añade la perspectiva de la auditoría: el resultado de la auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora; tales medidas generalmente son decididas y llevadas a cabo por el auditado dentro de un plazo acordado; el auditado debe mantener informada a la persona que gestiona el programa de auditoría, o al equipo auditor, sobre el estado de las mismas; y **si dichas medidas fueron completadas y resultaron eficaces debe verificarse, y esa verificación puede formar parte de una auditoría posterior.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1d2c2c92-9700-49e6-a897-ff67f9171b84",
+     "line_abs": 224,
+     "before": "- El capítulo 10.2 tiene cinco obligaciones, y las acciones correctivas deben ser apropiadas a los efectos de las no conformidades encontradas.",
+     "after": "- La cláusula 10.2 tiene cinco apartados, y la acción correctiva debe ser adecuada a los efectos de las no conformidades encontradas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 38,
+     "before": "A Seção 6.4.8 coloca isso de forma operacional: as evidências de auditoria devem ser avaliadas em relação aos critérios de auditoria para determinar as constatações de auditoria e, quando o plano de auditoria especificar, as constatações devem incluir conformidade e boas práticas com evidências de suporte, oportunidades de melhoria e quaisquer recomendações ao auditado.",
+     "after": "A Cláusula 6.4.8 coloca isso de forma operacional: as evidências de auditoria devem ser ponderadas em relação aos critérios de auditoria para que as constatações de auditoria possam ser determinadas e, quando o plano de auditoria assim o indicar, as constatações devem abranger a conformidade e as boas práticas com as evidências que as fundamentam, as oportunidades de melhoria e quaisquer recomendações feitas ao auditado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 62,
+     "before": "- uma **declaração de não conformidade**, incluindo uma descrição que explique **por que os critérios de auditoria não são atendidos**;",
+     "after": "- uma **declaração de não conformidade**, com uma descrição que explique **onde os critérios de auditoria ficam aquém**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 88,
+     "before": "A ISO/IEC 42001 usa apenas o termo **não conformidade** e não define nenhum esquema de severidade. Maior e menor vêm da prática de certificação por terceira parte sob a ISO/IEC 17021-1. A Seção 6.4.8 da ISO 19011:2026 registra que as não conformidades **podem** ser classificadas dependendo do contexto da organização e de seus riscos, que a classificação pode ser quantitativa ou qualitativa, e que **quando a classificação for utilizada, os critérios usados pela organização de auditoria devem ser definidos e comunicados.**",
+     "after": "A ISO/IEC 42001 usa apenas o termo **não conformidade** e não define nenhum esquema de severidade. Maior e menor vêm da prática de certificação por terceira parte sob a ISO/IEC 17021-1. A cláusula 6.4.8 da ISO 19011:2026 registra que as não conformidades **podem** ser classificadas de acordo com o contexto da organização e seus riscos, que a classificação pode ser quantitativa ou qualitativa, e que **quando a classificação for utilizada, os critérios usados pela organização de auditoria devem ser definidos e comunicados.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 96,
+     "before": "**A classificação é permitida?** Sim. A Seção 6.4.8 estabelece que as não conformidades podem ser classificadas dependendo do contexto da organização e de seus riscos, quantitativamente (por exemplo, de um a cinco) ou qualitativamente (por exemplo, menor, maior).",
+     "after": "**A classificação é permitida?** Sim. A cláusula 6.4.8 estabelece que as não conformidades podem ser classificadas de acordo com o contexto da organização e seus riscos, quantitativamente (por exemplo, de um a cinco) ou qualitativamente (por exemplo, menor, maior)."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 31,
+     "before": "A Seção 6.5.1 da ISO 19011:2026 estabelece que o líder da equipe de auditoria deve relatar as conclusões da auditoria em conformidade com o programa de auditoria, e que o relatório deve fornecer um **registro completo, preciso, conciso e claro** da auditoria. Ele deve incluir ou referenciar:",
+     "after": "A cláusula 6.5.1 da ISO 19011:2026 estabelece que o líder da equipe de auditoria deve relatar as conclusões da auditoria conforme previsto pelo programa de auditoria, e que o relatório deve ser um **registro completo, preciso, conciso e claro** do que foi realizado. Ele deve incluir ou referenciar:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 33,
+     "before": "- a) **objetivos** da auditoria;",
+     "after": "- a) os **objetivos** da auditoria;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 34,
+     "before": "- b) **escopo** da auditoria, especialmente a identificação da organização e das funções ou processos auditados;",
+     "after": "- b) o **escopo** da auditoria, nomeando em particular a organização e quais funções ou processos foram auditados;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 36,
+     "before": "- d) identificação da **equipe de auditoria** e dos participantes do auditado;",
+     "after": "- d) quem fazia parte da **equipe de auditoria** e quem participou pelo auditado;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 37,
+     "before": "- e) **datas e locais** onde as atividades de auditoria foram realizadas;",
+     "after": "- e) as **datas e locais** em que a auditoria foi realizada;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 38,
+     "before": "- f) **critérios** da auditoria;",
+     "after": "- f) os **critérios** da auditoria;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 39,
+     "before": "- g) **constatações da auditoria e evidências de auditoria relacionadas**;",
+     "after": "- g) as **constatações e as evidências que as fundamentam**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 40,
+     "before": "- h) **conclusões** da auditoria;",
+     "after": "- h) as **conclusões** da auditoria;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 42,
+     "before": "- j) quaisquer **opiniões divergentes não resolvidas** entre a equipe de auditoria e o auditado;",
+     "after": "- j) quaisquer **divergências entre a equipe de auditoria e o auditado que não foram resolvidas**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 11,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 43,
+     "before": "- k) uma declaração de que **auditorias são, por natureza, um exercício de amostragem**, e que, como tal, existe o risco de que as evidências de auditoria examinadas não sejam representativas.",
+     "after": "- k) uma declaração de que **auditorias são, por natureza, um exercício de amostragem**, e que, portanto, as evidências examinadas carregam o risco de não serem representativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 45,
+     "before": "Ele também pode incluir ou referenciar o plano de auditoria com seu cronograma, um resumo do processo de auditoria incluindo quaisquer obstáculos encontrados que possam diminuir a confiabilidade das conclusões, e a confirmação de que os objetivos da auditoria foram alcançados, entre outras coisas.",
+     "after": "Ele também pode incluir ou referenciar o plano de auditoria e seu cronograma, um relato de como a auditoria foi conduzida, incluindo tudo o que interferiu e poderia enfraquecer as conclusões, e a confirmação de que os objetivos da auditoria foram alcançados, entre outras coisas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 65,
+     "before": "A Seção 4.3 da ISO 19011:2026 descreve a apresentação justa como a obrigação de relatar com veracidade e precisão. Ela estabelece que as constatações, conclusões e relatórios de auditoria devem refletir com veracidade e precisão as atividades de auditoria, que **obstáculos significativos encontrados durante a auditoria e opiniões divergentes não resolvidas entre a equipe de auditoria e o auditado devem ser relatados**, e que a comunicação deve ser **verdadeira, precisa, objetiva, oportuna, clara e completa**.",
+     "after": "A Seção 4.3 da ISO 19011:2026 descreve a apresentação justa como a obrigação de relatar com veracidade e precisão. Ela estabelece que as constatações, conclusões e relatórios de auditoria devem refletir com veracidade e precisão as atividades de auditoria, que **obstáculos significativos encontrados durante a auditoria devem ser relatados, assim como quaisquer divergências não resolvidas entre a equipe de auditoria e o auditado**, e que a comunicação deve ser **verdadeira, precisa, objetiva, oportuna, clara e completa**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 85,
+     "before": "A Seção 4.5 descreve a confidencialidade como segurança e privacidade das informações. Os auditores devem exercer **discrição no uso e na proteção das informações adquiridas no curso de suas atividades de auditoria**, as informações de auditoria não devem ser usadas de forma inadequada para ganho pessoal ou de maneira prejudicial aos interesses legítimos do auditado, e o princípio inclui o **manuseio adequado de informações sensíveis ou confidenciais**.",
+     "after": "A Cláusula 4.5 descreve a confidencialidade como segurança e privacidade das informações. Os auditores devem exercer **discrição no manuseio e na proteção do que aprendem durante a auditoria**, as informações de auditoria não devem ser usadas para ganho pessoal ou de maneira prejudicial aos interesses legítimos do auditado, e o princípio inclui o **manuseio adequado de material sensível ou confidencial**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 138,
+     "before": "A Seção 6.5.1 h) pede conclusões de auditoria e i) pede **uma declaração sobre o grau em que os critérios de auditoria foram atendidos**. São coisas diferentes e a segunda é ignorada quase universalmente.",
+     "after": "A Cláusula 6.5.1 h) pede conclusões de auditoria e i) pede **uma declaração sobre o grau em que os critérios de auditoria foram atendidos**. São coisas diferentes e a segunda é ignorada quase universalmente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 31,
+     "before": "El apartado 9.3.1 de la norma ISO/IEC 42001:2023 establece que **la alta dirección debe revisar el sistema de gestión de IA de la organización, a intervalos planificados, para asegurarse de su conveniencia, adecuación y eficacia continuas.**",
+     "after": "La cláusula 9.3.1 de la norma ISO/IEC 42001:2023 establece que **la alta dirección debe revisar el sistema de gestión de IA a intervalos planificados, de modo que se mantenga conveniente, adecuado y eficaz.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 44,
+     "before": "El apartado 9.3.2 establece que la revisión por la dirección **debe incluir**:",
+     "after": "La cláusula 9.3.2 establece que la revisión por la dirección **debe incluir**:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 47,
+     "before": "- b) **los cambios en las cuestiones externas e internas** pertinentes al sistema de gestión de IA;",
+     "after": "- b) **los cambios en las cuestiones externas e internas** que inciden en el sistema de gestión de IA;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 48,
+     "before": "- c) **los cambios en las necesidades y expectativas de las partes interesadas** pertinentes al sistema de gestión de IA;",
+     "after": "- c) **los cambios en lo que las partes interesadas necesitan y esperan** del AIMS;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 51,
+     "before": "  - 2) **resultados de seguimiento y medición**;",
+     "after": "- 2) **lo que el seguimiento y la medición han mostrado**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 69,
+     "before": "El apartado 9.3.3 establece que los **resultados de la revisión por la dirección deben incluir decisiones relacionadas con oportunidades de mejora continua y cualquier necesidad de cambios en el sistema de gestión de IA**, y que **la información documentada debe estar disponible como evidencia de los resultados de las revisiones por la dirección**.",
+     "after": "La cláusula 9.3.3 establece que los **resultados de la revisión por la dirección deberán incluir decisiones sobre oportunidades de mejora continua y sobre cualquier necesidad de cambiar el sistema de gestión de IA**, y que **se deberá conservar información documentada como evidencia de lo que producen las revisiones por la dirección**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 73,
+     "before": "**El debate no es una decisión.** El apartado solicita decisiones relacionadas con oportunidades de mejora continua y cualquier necesidad de cambios en el sistema de gestión de IA. Un registro que muestra que se revisó el desempeño y que no se tomó ninguna decisión no ha producido resultados en el sentido que describe el apartado 9.3.3.",
+     "after": "**El debate no es una decisión.** La cláusula solicita decisiones sobre las oportunidades de mejora continua y sobre cualquier necesidad de cambiar el AIMS. Un registro que muestra que se revisó el desempeño y que no se tomó ninguna decisión no ha producido resultados en el sentido que describe el apartado 9.3.3."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 94,
+     "before": "Esto también conecta con el requisito de mejora continua del capítulo 10.1: la organización debe mejorar continuamente la conveniencia, adecuación y eficacia del sistema de gestión de IA. La revisión por la dirección es el mecanismo que la norma proporciona para hacerlo de manera deliberada, y una revisión que no produce decisiones deja el capítulo 10.1 sin evidencia más allá del simple paso del tiempo.",
+     "after": "Esto también conecta con el requisito de mejora continua de la cláusula 10.1: la organización debe mejorar continuamente la conveniencia, adecuación y eficacia del sistema de gestión de IA. La revisión por la dirección es el mecanismo que la norma proporciona para hacerlo de manera deliberada, y una revisión que no produce decisiones deja la cláusula 10.1 sin evidencia más allá del simple paso del tiempo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "8f77278d-5623-4683-bf94-835d1e367408",
+     "line_abs": 30,
+     "before": "O Anexo A.18.4 da ISO 19011:2026 aborda o **tratamento de constatações de auditoria relacionadas a múltiplos critérios**. Durante uma auditoria, é possível identificar constatações relacionadas a mais de um critério e, quando um auditor identifica uma constatação relacionada a um critério, ele deve considerar o possível efeito sobre os critérios correspondentes ou similares dos outros sistemas de gestão.",
+     "after": "O Anexo A.18.4 da ISO 19011:2026 aborda **constatações que envolvem mais de um conjunto de critérios**. Uma auditoria pode revelar constatações relacionadas a vários critérios ao mesmo tempo e, quando uma constatação recai sobre um critério, o auditor deveria considerar o que isso pode significar para os critérios correspondentes ou similares dos outros sistemas de gestão."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "8f77278d-5623-4683-bf94-835d1e367408",
+     "line_abs": 32,
+     "before": "Dependendo dos acordos com o cliente da auditoria, o auditor pode registrar **constatações separadas para cada critério ou uma única constatação combinando as referências a múltiplos critérios.**",
+     "after": "Conforme os acordos estabelecidos com o cliente da auditoria, o auditor pode registrar **tanto constatações separadas para cada critério quanto uma única constatação combinando as referências a múltiplos critérios.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 34,
+     "before": "- a) **reagir à não conformidade** e, conforme aplicável, tomar ação para controlá-la e corrigi-la, e tratar as consequências;",
+     "after": "- a) **reagir à não conformidade** e, onde aplicável, agir para controlá-la e corrigi-la, e tratar o que se segue;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 35,
+     "before": "- b) **avaliar a necessidade de ação para eliminar as causas** da não conformidade, para que ela não se repita ou ocorra em outro lugar, por meio de: análise da não conformidade, determinação de suas causas e determinação se não conformidades semelhantes existem ou podem potencialmente ocorrer;",
+     "after": "- b) **avaliar a necessidade de ação para eliminar as causas** da não conformidade, para que ela não se repita nem ocorra em outro lugar, por meio de sua análise, identificação de suas causas e verificação se não conformidades semelhantes existem ou podem surgir;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 36,
+     "before": "- c) **implementar qualquer ação necessária**;",
+     "after": "- c) **tomar qualquer ação necessária**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 40,
+     "before": "Em seguida: **as ações corretivas devem ser apropriadas aos efeitos das não conformidades encontradas.** E informação documentada deve estar disponível como evidência da natureza das não conformidades e de quaisquer ações subsequentes tomadas, bem como dos resultados de qualquer ação corretiva.",
+     "after": "Em seguida: **as ações corretivas devem ser apropriadas aos efeitos das não conformidades encontradas.** E informação documentada deve ser mantida como evidência do que foram as não conformidades e do que foi feito posteriormente, e do que qualquer ação corretiva alcançou."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 81,
+     "before": "A obrigação d) exige que a organização **analise a eficácia de qualquer ação corretiva tomada**. A Seção 6.7 da ISO 19011:2026 acrescenta a perspectiva do lado da auditoria: o resultado da auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria; tais ações são geralmente decididas e realizadas pelo auditado dentro de um prazo acordado; o auditado deve manter o responsável pelo programa de auditoria ou a equipe de auditoria informados sobre o status; e **a conclusão e a eficácia dessas ações devem ser verificadas. Essa verificação pode ser parte de uma auditoria subsequente.**",
+     "after": "A alínea d) exige que a organização **analise a eficácia de qualquer ação corretiva tomada**. A Seção 6.7 da ISO 19011:2026 acrescenta a perspectiva do lado da auditoria: o resultado da auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria; tais ações são geralmente decididas e realizadas pelo auditado dentro de um prazo acordado; o auditado deve manter o responsável pelo programa de auditoria, ou a equipe de auditoria, informados sobre o andamento das atividades; e **se essas ações foram concluídas e surtiram efeito deve ser verificado, e essa verificação pode fazer parte de uma auditoria posterior.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9c89c0d5-0952-49ce-b0a9-c252732c3429",
+     "line_abs": 224,
+     "before": "- A Seção 10.2 tem cinco obrigações, e as ações corretivas devem ser apropriadas aos efeitos das não conformidades encontradas.",
+     "after": "- A Cláusula 10.2 tem cinco obrigações, e a ação corretiva deve ser adequada aos efeitos das não conformidades encontradas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 30,
+     "before": "A Seção 9.3.1 da ISO/IEC 42001:2023 estabelece que **a alta direção deve analisar criticamente o sistema de gestão de IA da organização, em intervalos planejados, para assegurar sua contínua pertinência, adequação e eficácia.**",
+     "after": "A cláusula 9.3.1 da ISO/IEC 42001:2023 estabelece que **a alta direção deve analisar criticamente o sistema de gestão de IA em intervalos planejados, de forma que ele permaneça pertinente, adequado e eficaz.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 43,
+     "before": "A Seção 9.3.2 estabelece que a análise crítica pela direção **deve incluir**:",
+     "after": "A Seção 9.3.2 estabelece que a análise crítica pela direção **deve abranger**:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 45,
+     "before": "- a) o status das **ações de análises críticas anteriores pela direção**;",
+     "after": "- a) onde estão as **ações de análises críticas anteriores pela direção**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 46,
+     "before": "- b) **mudanças em questões externas e internas** relevantes para o sistema de gestão de IA;",
+     "after": "- b) **mudanças em questões externas e internas** que influenciam o sistema de gestão de IA;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 47,
+     "before": "- c) **mudanças nas necessidades e expectativas das partes interessadas** relevantes para o sistema de gestão de IA;",
+     "after": "- c) **mudanças no que as partes interessadas precisam e esperam** do AIMS;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 50,
+     "before": "  - 2) **resultados de monitoramento e medição**;",
+     "after": "- 2) **o que o monitoramento e a medição demonstraram**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 68,
+     "before": "A Seção 9.3.3 estabelece que os **resultados da análise crítica pela direção devem incluir decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças no sistema de gestão de IA**, e que **informação documentada deve estar disponível como evidência dos resultados das análises críticas pela direção**.",
+     "after": "A Seção 9.3.3 estabelece que os **resultados da análise crítica pela direção devem incluir decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças no sistema de gestão de IA**, e que **informação documentada deve ser mantida como evidência do que as análises críticas pela direção produzem**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 72,
+     "before": "**Discussão não é decisão.** A Seção exige decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças no sistema de gestão de IA. Um registro que mostra que o desempenho foi analisado e nenhuma decisão foi tomada não produziu resultados no sentido descrito pela Seção 9.3.3.",
+     "after": "**Discussão não é decisão.** A cláusula exige decisões sobre oportunidades de melhoria contínua e sobre qualquer necessidade de mudança no AIMS. Um registro que mostra que o desempenho foi analisado e nenhuma decisão foi tomada não produziu resultados no sentido que a Seção 9.3.3 descreve."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 93,
+     "before": "Isso também se conecta ao requisito de melhoria contínua da Seção 10.1: a organização deve melhorar continuamente a pertinência, a adequação e a eficácia do sistema de gestão de IA. A análise crítica pela direção é o mecanismo que a norma fornece para fazê-lo de forma deliberada, e uma análise crítica que não produz decisões deixa a Seção 10.1 sem evidências além da passagem do tempo.",
+     "after": "Isso também se conecta ao requisito de melhoria contínua da cláusula 10.1: a organização deve continuar melhorando a pertinência, a adequação e a eficácia do sistema de gestão de IA. A análise crítica pela direção é o mecanismo que a norma fornece para fazê-lo de forma deliberada, e uma análise crítica que não produz decisões deixa a cláusula 10.1 sem evidências além da passagem do tempo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "387dc7c6-0583-45a0-a0a2-47af492f3b8d",
+     "line_abs": 32,
+     "before": "A Seção 3.16 da ISO/IEC 42001:2023 define **não conformidade** como o não atendimento de um requisito, e a Seção 3.14 define **requisito** como uma necessidade ou expectativa que é declarada, geralmente implícita ou obrigatória. A Seção 3.15 define conformidade como o atendimento de um requisito.",
+     "after": "A cláusula 3.16 da ISO/IEC 42001:2023 define **não conformidade** como o não atendimento de um requisito, e a cláusula 3.14 define **requisito** como uma necessidade ou expectativa que é declarada, geralmente implícita ou obrigatória. A cláusula 3.15 define conformidade como o atendimento de um requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "387dc7c6-0583-45a0-a0a2-47af492f3b8d",
+     "line_abs": 59,
+     "before": "**O `should` dentro de um controle da Tabela A.1.** Dois controles contêm um. O A.6.2.6 exige que a organização defina e documente os elementos necessários para a operação contínua do sistema de IA, e declara que, no mínimo, isso **should** incluir monitoramento de sistema e desempenho, reparos, atualizações e suporte. O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de eventos **should** ser habilitado, no mínimo quando o sistema estiver em uso. Em cada caso, a obrigação do controle está no `shall` e o conteúdo enumerado é consultivo.",
+     "after": "**O `should` dentro de um controle da Tabela A.1.** Dois controles contêm um. O A.6.2.6 exige que a organização defina e documente os elementos necessários para a operação contínua do sistema de IA, e declara que, no mínimo, isso **should** abranger o monitoramento do sistema e seu desempenho, reparos, atualizações e suporte. O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de eventos **should** ser habilitado, no mínimo quando o sistema estiver em uso. Em cada caso, a obrigação do controle está no `shall` e o conteúdo enumerado é consultivo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "387dc7c6-0583-45a0-a0a2-47af492f3b8d",
+     "line_abs": 70,
+     "before": "- a NOTA na Seção 4.2, de que partes interessadas relevantes podem ter requisitos relacionados às mudanças climáticas;",
+     "after": "- a NOTA na cláusula 4.2, de que partes interessadas podem ter requisitos relacionados às mudanças climáticas;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "387dc7c6-0583-45a0-a0a2-47af492f3b8d",
+     "line_abs": 75,
+     "before": "**A anomalia**, declarada para que nenhuma constatação seja construída sobre ela: **a Nota 2 ao verbete sob a Seção 3.26** — a definição de Declaração de Aplicabilidade — contém `shall`. Ela afirma que todos os riscos identificados e as medidas de tratamento de riscos estabelecidas para tratá-los devem ser refletidos na Declaração de Aplicabilidade. Um `shall` dentro de uma nota a uma definição é uma redação incomum, e um auditor que o cita abre espaço para um debate sobre se notas são normativas.",
+     "after": "**A anomalia**, declarada para que nenhuma constatação seja construída sobre ela: **a Nota 2 ao verbete sob a cláusula 3.26** — a definição de Statement of Applicability — contém `shall`. Ela afirma que todos os riscos identificados e as medidas de gestão de riscos estabelecidas para tratá-los devem constar no Statement of Applicability. Um `shall` dentro de uma nota a uma definição é uma redação incomum, e um auditor que o cita abre espaço para um debate sobre se notas são normativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "7de37431-809e-44b9-98fa-1da3ac61e0a3",
+     "line_abs": 30,
+     "before": "El Anexo A.18.4 de ISO 19011:2026 trata el **manejo de hallazgos de auditoría relacionados con múltiples criterios**. Durante una auditoría es posible identificar hallazgos que se relacionan con más de un criterio, y cuando un auditor identifica un hallazgo relacionado con un criterio, debe considerar el posible efecto sobre los criterios correspondientes o similares de los otros sistemas de gestión.",
+     "after": "El Anexo A.18.4 de ISO 19011:2026 cubre los **hallazgos que afectan a más de un conjunto de criterios**. Una auditoría puede revelar hallazgos que se relacionan con varios criterios a la vez, y cuando un hallazgo recae sobre un criterio, el auditor debería considerar qué puede significar para los criterios correspondientes o similares de los otros sistemas de gestión."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "7de37431-809e-44b9-98fa-1da3ac61e0a3",
+     "line_abs": 32,
+     "before": "Dependiendo de los acuerdos con el cliente de la auditoría, el auditor puede levantar **hallazgos separados contra cada criterio, o un único hallazgo que combine las referencias a múltiples criterios.**",
+     "after": "Según los acuerdos establecidos con el cliente de la auditoría, el auditor puede levantar **ya sea hallazgos separados contra cada criterio, o un único hallazgo que combine las referencias a múltiples criterios.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "99ff0cc9-398c-4210-8823-0deac7af61de",
+     "line_abs": 32,
+     "before": "Uma declaração de não conformidade contém um critério, uma evidência e a lacuna entre eles. O Anexo A.18.3 solicita que um registro considere uma descrição ou referência aos critérios de auditoria, às evidências de auditoria e uma declaração de não conformidade **incluindo uma descrição que explique por que os critérios de auditoria não são atendidos**.",
+     "after": "Uma declaração de não conformidade contém um critério, uma evidência e a lacuna entre eles. O Anexo A.18.3 solicita que um registro considere uma descrição ou referência aos critérios de auditoria, às evidências de auditoria e uma declaração de não conformidade **com uma descrição que indique onde os critérios de auditoria não são atendidos**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "99ff0cc9-398c-4210-8823-0deac7af61de",
+     "line_abs": 68,
+     "before": "A Seção 6.7 da ISO 19011:2026 registra que o resultado de uma auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria, e que **tais ações são geralmente decididas e executadas pelo auditado** dentro de um prazo acordado.",
+     "after": "A cláusula 6.7 da ISO 19011:2026 registra que o resultado de uma auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria, e que **tais ações são geralmente decididas e executadas pelo auditado** dentro de um prazo acordado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b5a77eb2-670d-4b8a-94da-1c2bb43b22f4",
+     "line_abs": 32,
+     "before": "El apartado 3.16 de ISO/IEC 42001:2023 define **no conformidad** como el incumplimiento de un requisito, y el apartado 3.14 define **requisito** como una necesidad o expectativa establecida, generalmente implícita u obligatoria. El apartado 3.15 define conformidad como el cumplimiento de un requisito.",
+     "after": "El apartado 3.16 de ISO/IEC 42001:2023 define **no conformidad** como el incumplimiento de un requisito, y el apartado 3.14 define un **requisito** como una necesidad o expectativa, ya sea establecida, generalmente implícita u obligatoria. El apartado 3.15 define conformidad como el cumplimiento de un requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b5a77eb2-670d-4b8a-94da-1c2bb43b22f4",
+     "line_abs": 59,
+     "before": "**El `should` dentro de un control de la Tabla A.1.** Dos controles incluyen uno. El control A.6.2.6 exige que la organización defina y documente los elementos necesarios para la operación continua del sistema de IA, y establece que como mínimo esto **should** incluir el monitoreo del sistema y del desempeño, las reparaciones, las actualizaciones y el soporte. El control A.6.2.8 exige que la organización determine en qué fases del ciclo de vida **should** habilitarse el registro de eventos, como mínimo cuando el sistema está en uso. En cada caso, la obligación del control es el `shall` y el contenido enumerado es orientativo.",
+     "after": "**El `should` dentro de un control de la Tabla A.1.** Dos controles incluyen uno. El control A.6.2.6 exige que la organización defina y documente los elementos necesarios para la operación continua del sistema de IA, y establece que como mínimo esto **should** cubrir el monitoreo del sistema y su desempeño, las reparaciones, las actualizaciones y el soporte. El control A.6.2.8 exige que la organización determine en qué fases del ciclo de vida **should** habilitarse el registro de eventos en el log, como mínimo cuando el sistema está en uso. En cada caso, la obligación del control es el `shall` y el contenido enumerado es orientativo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b5a77eb2-670d-4b8a-94da-1c2bb43b22f4",
+     "line_abs": 70,
+     "before": "- la NOTA del apartado 4.2, que indica que las partes interesadas pertinentes pueden tener requisitos relacionados con el cambio climático;",
+     "after": "- la NOTA de la cláusula 4.2, que las partes interesadas pueden tener requisitos relacionados con el cambio climático;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b5a77eb2-670d-4b8a-94da-1c2bb43b22f4",
+     "line_abs": 75,
+     "before": "**La anomalía**, mencionada para que ningún hallazgo se base en ella: **la Nota 2 a la entrada del apartado 3.26** —la definición de declaración de aplicabilidad— contiene `shall`. Establece que todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos deberán reflejarse en la declaración de aplicabilidad. Un `shall` dentro de una nota a una definición es una redacción inusual, y un auditor que lo cite se expone a un debate sobre si las notas son normativas.",
+     "after": "**La anomalía**, mencionada para que ningún hallazgo se base en ella: **la Nota 2 a la entrada de la cláusula 3.26** —la definición de Statement of Applicability— contiene `shall`. Establece que todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos deberán aparecer en el Statement of Applicability. Un `shall` dentro de una nota a una definición es una redacción inusual, y un auditor que lo cite se expone a un debate sobre si las notas son normativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 32,
+     "before": "El apartado 6.5.1 de la norma ISO 19011:2026 establece que el líder del equipo auditor debe informar las conclusiones de la auditoría de acuerdo con el programa de auditoría, y que el informe debe proporcionar un **registro completo, preciso, conciso y claro** de la auditoría. Debe incluir o hacer referencia a:",
+     "after": "La cláusula 6.5.1 de la norma ISO 19011:2026 establece que el líder del equipo auditor debería informar las conclusiones de la auditoría según lo previsto en el programa de auditoría, y que el informe debería ser un **registro completo, preciso, conciso y claro** de lo que se realizó. Debería incluir o hacer referencia a:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 35,
+     "before": "- b) el **alcance** de la auditoría, en particular la identificación de la organización y las funciones o procesos auditados;",
+     "after": "- b) el **alcance** de la auditoría, nombrando en particular la organización y qué funciones o procesos fueron auditados;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 36,
+     "before": "- c) la identificación del **cliente de la auditoría**;",
+     "after": "- c) quién es el **cliente de la auditoría**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 37,
+     "before": "- d) la identificación del **equipo auditor** y de los participantes del auditado;",
+     "after": "- d) quiénes formaban parte del **equipo auditor** y quiénes participaron por parte del auditado;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 38,
+     "before": "- e) las **fechas y ubicaciones** donde se realizaron las actividades de auditoría;",
+     "after": "- e) las **fechas y ubicaciones** en las que tuvo lugar la auditoría;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 40,
+     "before": "- g) los **hallazgos de auditoría y la evidencia de auditoría relacionada**;",
+     "after": "- g) los **hallazgos y la evidencia que los respalda**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 9,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 42,
+     "before": "- i) una declaración sobre el **grado en que se han cumplido los criterios de auditoría**;",
+     "after": "- i) una declaración sobre **hasta qué punto se han cumplido los criterios de auditoría**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 43,
+     "before": "- j) cualquier **opinión divergente no resuelta** entre el equipo auditor y el auditado;",
+     "after": "- j) cualquier **desacuerdo entre el equipo auditor y el auditado que quedó sin resolver**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 11,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 44,
+     "before": "- k) una declaración de que **las auditorías son por naturaleza un ejercicio de muestreo**, y que, como tal, existe el riesgo de que la evidencia de auditoría examinada no sea representativa.",
+     "after": "- k) una declaración de que **la auditoría es por su naturaleza un ejercicio de muestreo**, y por lo tanto la evidencia examinada conlleva el riesgo de no ser representativa."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 46,
+     "before": "También puede incluir o hacer referencia al plan de auditoría con su cronograma, un resumen del proceso de auditoría que incluya los obstáculos encontrados que puedan disminuir la confiabilidad de las conclusiones, y la confirmación de que se lograron los objetivos de la auditoría, entre otras cosas.",
+     "after": "También puede incluir o hacer referencia al plan de auditoría y su cronograma, un relato de cómo se llevó a cabo la auditoría incluyendo cualquier cosa que haya interferido y pudiera debilitar las conclusiones, y la confirmación de que se cumplieron los objetivos de la auditoría, entre otras cosas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 66,
+     "before": "El apartado 4.3 de la norma ISO 19011:2026 describe la presentación justa como la obligación de informar de manera veraz y precisa. Establece que los hallazgos, conclusiones e informes de auditoría deben reflejar de manera veraz y precisa las actividades de auditoría, que **los obstáculos significativos encontrados durante la auditoría y las opiniones divergentes no resueltas entre el equipo auditor y el auditado deben ser informados**, y que la comunicación debe ser **veraz, precisa, objetiva, oportuna, clara y completa**.",
+     "after": "El apartado 4.3 de la norma ISO 19011:2026 describe la presentación justa como la obligación de informar de manera veraz y precisa. Establece que los hallazgos, conclusiones e informes de auditoría deben reflejar de manera veraz y precisa las actividades de auditoría, que **los obstáculos significativos encontrados durante la auditoría deben ser informados, al igual que cualquier opinión divergente no resuelta entre el equipo auditor y el auditado**, y que la comunicación debe ser **veraz, precisa, objetiva, oportuna, clara y completa**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 86,
+     "before": "El apartado 4.5 describe la confidencialidad como la seguridad y privacidad de la información. Los auditores deben ejercer **discreción en el uso y la protección de la información adquirida en el curso de sus actividades de auditoría**, la información de auditoría no debe usarse de manera inapropiada para beneficio personal ni de una manera perjudicial para los intereses legítimos del auditado, y el principio incluye el **manejo adecuado de información sensible o confidencial**.",
+     "after": "El apartado 4.5 describe la confidencialidad como la seguridad y privacidad de la información. Los auditores deberían ejercer **discreción en el manejo y la protección de lo que aprenden durante la auditoría**, la información de auditoría no debería usarse para beneficio personal ni de maneras que perjudiquen los intereses legítimos del auditado, y el principio incluye el **manejo adecuado de material sensible o confidencial**."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

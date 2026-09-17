@@ -159,6 +159,7 @@ const BATCHES = [
   "./lesson-repairs-aimsia-m1.mjs", "./lesson-repairs-aimsia-m2.mjs",
   "./lesson-repairs-aimsia-m3.mjs", "./lesson-repairs-aimsia-m4a.mjs", "./lesson-repairs-aimsia-m4a-fix.mjs",
   "./lesson-repairs-aimsia-m4b.mjs", "./lesson-repairs-aimsia-m4c.mjs",
+  "./lesson-repairs-aimsia-m5.mjs",
 ];
 const spansBySlug = new Map();
 for (const b of BATCHES) {

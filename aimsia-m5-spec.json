@@ -1,0 +1,961 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 38,
+     "before": "Clause 6.4.8 puts it operationally: audit evidence should be evaluated against the audit criteria in order to determine audit findings, and where the audit plan specifies, findings should include conformity and good practices with supporting evidence, opportunities for improvement, and any recommendations to the auditee.",
+     "after": "Clause 6.4.8 puts it operationally: audit evidence should be weighed against the audit criteria so that audit findings can be determined, and where the audit plan says so, findings should cover conformity and good practice with the evidence behind them, chances to improve, and any recommendation made to the auditee."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 62,
+     "before": "- a **declaration of nonconformity**, including a description explaining **why the audit criteria are not fulfilled**;",
+     "after": "- a **declaration of nonconformity**, with a description setting out **where the audit criteria fall short**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 88,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 88,
+     "before": "ISO/IEC 42001 uses only the term **nonconformity** and defines no severity scheme. Major and minor come from third-party certification practice under ISO/IEC 17021-1. ISO 19011:2026 clause 6.4.8 records that nonconformities **can** be graded depending on the context of the organization and its risks, that grading can be quantitative or qualitative, and that **where grading is used, the criteria used by the auditing organization should be defined and communicated.**",
+     "after": "ISO/IEC 42001 uses only the term **nonconformity** and defines no severity scheme. Major and minor come from third-party certification practice under ISO/IEC 17021-1. ISO 19011:2026 clause 6.4.8 records that nonconformities **can** be graded according to the organization's context and its risks, that grading can be quantitative or qualitative, and that **where grading is used, the criteria the auditing organization uses should be defined and communicated.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 96,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 96,
+     "before": "**Is grading permitted?** Yes. Clause 6.4.8 states that nonconformities can be graded depending on the context of the organization and its risks, quantitatively (for example one to five) or qualitatively (for example minor, major).",
+     "after": "**Is grading permitted?** Yes. Clause 6.4.8 states that nonconformities can be graded according to the organization's context and its risks, quantitatively (for example one to five) or qualitatively (for example minor, major)."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 160,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 160,
+     "before": "        \"text\": \"A nonconformity in the audit programme itself: ISO 19011 clause 6.4.8 states that where grading is used, the criteria used by the auditing organization should be defined and communicated.\"",
+     "after": "        \"text\": \"A nonconformity in the audit programme itself: ISO 19011 clause 6.4.8 states that where grading is used, the criteria the auditing organization uses should be defined and communicated.\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 225,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "df3b9cec-3265-4306-91e2-7ed24ee29fd6",
+     "line_abs": 225,
+     "before": "        \"text\": \"The declaration of nonconformity including a description explaining why the audit criteria are not fulfilled.\"",
+     "after": "        \"text\": \"The declaration of nonconformity with a description setting out where the audit criteria fall short.\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "14d7ccad-e09e-45ce-a11e-19a2396d0c4a",
+     "line_abs": 31,
+     "before": "A nonconformity statement contains a criterion, evidence, and the gap between them. Annex A.18.3 asks a record to consider a description of or reference to the audit criteria, the audit evidence, and a declaration of nonconformity **including a description explaining why the audit criteria are not fulfilled**.",
+     "after": "A nonconformity statement contains a criterion, evidence, and the gap between them. Annex A.18.3 asks a record to consider a description of or reference to the audit criteria, the audit evidence, and a declaration of nonconformity **with a description setting out where the audit criteria fall short**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-02-criterion-evidence-gap",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 67,
+   "run_words": 0,
+   "run": "19011 Annex A.18.3, clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "14d7ccad-e09e-45ce-a11e-19a2396d0c4a",
+     "line_abs": 67,
+     "before": "ISO 19011:2026 clause 6.7 records that the outcome of an audit can indicate the need for corrections, corrective actions or opportunities for improvement, and that **such actions are usually decided and undertaken by the auditee** within an agreed time frame.",
+     "after": "ISO 19011:2026 clause 6.7 records that the outcome of an audit can indicate the need for corrections, corrective actions or opportunities for improvement, and that **such actions are normally settled and carried out by the auditee** inside an agreed time frame."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 30,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "81abc5f0-9cba-462b-a12f-8e212fa98fa9",
+     "line_abs": 30,
+     "before": "ISO 19011:2026 Annex A.18.4 covers **dealing with audit findings related to multiple criteria**. During an audit it is possible to identify findings relating to more than one criterion, and where an auditor identifies a finding relating to one criterion, the auditor should consider the possible effect on the corresponding or similar criteria of the other management systems.",
+     "after": "ISO 19011:2026 Annex A.18.4 covers **findings that touch more than one set of criteria**. An audit may turn up findings bearing on several criteria at once, and when a finding lands against one criterion, the auditor should think about what it may mean for the matching or similar criteria of the other management systems."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "19011 Annex A.18.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "81abc5f0-9cba-462b-a12f-8e212fa98fa9",
+     "line_abs": 32,
+     "before": "Depending on the arrangements with the audit client, the auditor can raise **either separate findings against each criterion, or a single finding combining the references to multiple criteria.**",
+     "after": "Under the arrangements made with the audit client, the auditor can raise **either separate findings against each criterion, or a single finding combining the references to multiple criteria.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "ba40443c-c582-420a-828f-d7aa828409f3",
+     "line_abs": 32,
+     "before": "ISO/IEC 42001:2023 clause 3.16 defines **nonconformity** as non-fulfilment of a requirement, and clause 3.14 defines a **requirement** as a need or expectation that is stated, generally implied or obligatory. Clause 3.15 defines conformity as fulfilment of a requirement.",
+     "after": "ISO/IEC 42001:2023 clause 3.16 defines **nonconformity** as non-fulfilment of a requirement, and clause 3.14 defines a **requirement** as a need or expectation, whether stated, generally implied or obligatory. Clause 3.15 defines conformity as fulfilment of a requirement."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 59,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "ba40443c-c582-420a-828f-d7aa828409f3",
+     "line_abs": 59,
+     "before": "**The `should` inside a Table A.1 control.** Two controls carry one. A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** include system and performance monitoring, repairs, updates and support. A.6.2.8 requires the organization to determine at which life cycle phases event log record keeping **should** be enabled, at the minimum when the system is in use. In each, the control obligation is the `shall` and the enumerated content is advisory.",
+     "after": "**The `should` inside a Table A.1 control.** Two controls carry one. A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** cover monitoring of the system and its performance, repairs, updates and support. A.6.2.8 requires the organization to determine at which life cycle phases event log record keeping **should** be enabled, at the minimum when the system is in use. In each, the control obligation is the `shall` and the enumerated content is advisory."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 70,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "ba40443c-c582-420a-828f-d7aa828409f3",
+     "line_abs": 70,
+     "before": "- the NOTE at clause 4.2, that relevant interested parties can have requirements related to climate change;",
+     "after": "- the NOTE at clause 4.2, that interested parties may have requirements that relate to climate change;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-04-can-this-finding-stand",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 75,
+   "run_words": 0,
+   "run": "42001 clauses 3.14, 3.16, 3.26, controls A.6.2.6, A.6.2.8; 4.2 NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "ba40443c-c582-420a-828f-d7aa828409f3",
+     "line_abs": 75,
+     "before": "**The anomaly**, stated so no finding is built on it: **Note 2 to entry under clause 3.26** - the definition of statement of applicability - contains `shall`. It says all identified risks and the risk management measures established to address them shall be reflected in the statement of applicability. A `shall` inside a note to a definition is unusual drafting, and an auditor who cites it invites an argument about whether notes are normative.",
+     "after": "**The anomaly**, stated so no finding is built on it: **Note 2 to entry under clause 3.26** - the definition of statement of applicability - contains `shall`. It says all identified risks and the risk management measures established to address them shall appear in the statement of applicability. A `shall` inside a note to a definition is unusual drafting, and an auditor who cites it invites an argument about whether notes are normative."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 clause 6.5.1 states that the audit team leader should report the audit conclusions in accordance with the audit programme, and that the report should provide a **complete, accurate, concise and clear record** of the audit. It should include or refer to:",
+     "after": "ISO 19011:2026 clause 6.5.1 states that the audit team leader should report the audit conclusions as the audit programme provides, and that the report should be a **complete, accurate, concise and clear record** of what was done. It should include or refer to:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 33,
+     "before": "- a) audit **objectives**;",
+     "after": "- a) the audit's **objectives**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 34,
+     "before": "- b) audit **scope**, particularly identification of the organization and the functions or processes audited;",
+     "after": "- b) the audit's **scope**, naming in particular the organization and which functions or processes were audited;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 35,
+     "before": "- c) identification of the **audit client**;",
+     "after": "- c) who the **audit client** is;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 36,
+     "before": "- d) identification of the **audit team** and auditee's participants;",
+     "after": "- d) who was on the **audit team**, and who took part for the auditee;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 37,
+     "before": "- e) **dates and locations** where auditing activities were conducted;",
+     "after": "- e) the **dates and locations** at which auditing took place;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 38,
+     "before": "- f) audit **criteria**;",
+     "after": "- f) the audit **criteria**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 39,
+     "before": "- g) audit **findings and related audit evidence**;",
+     "after": "- g) the **findings and the evidence behind them**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 40,
+     "before": "- h) audit **conclusions**;",
+     "after": "- h) the audit **conclusions**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 41,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 41,
+     "before": "- i) a statement on the **degree to which the audit criteria have been fulfilled**;",
+     "after": "- i) a statement of **how far the audit criteria have been fulfilled**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 42,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 42,
+     "before": "- j) any **unresolved diverging opinions** between the audit team and the auditee;",
+     "after": "- j) any **disagreement between the audit team and the auditee that was left unresolved**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 43,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 43,
+     "before": "- k) a statement that **audits are by nature a sampling exercise**, and that as such there is a risk that the audit evidence examined is not representative.",
+     "after": "- k) a statement that **auditing is by its nature a sampling exercise**, and so the evidence examined carries a risk of not being representative."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 45,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 45,
+     "before": "It can also include or refer to the audit plan with its time schedule, a summary of the audit process including any obstacles encountered that can decrease the reliability of the conclusions, and confirmation that the audit objectives were achieved, among other things.",
+     "after": "It can also include or refer to the audit plan and its schedule, an account of how the audit ran including anything that got in the way and could weaken the conclusions, and confirmation that the audit objectives were met, among other things."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 65,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 65,
+     "before": "ISO 19011:2026 clause 4.3 describes fair presentation as the obligation to report truthfully and accurately. It states that audit findings, conclusions and reports should reflect truthfully and accurately the auditing activities, that **significant obstacles encountered during the audit and unresolved diverging opinions between the audit team and the auditee should be reported**, and that the communication should be **truthful, accurate, objective, timely, clear and complete**.",
+     "after": "ISO 19011:2026 clause 4.3 describes fair presentation as the obligation to report truthfully and accurately. It states that audit findings, conclusions and reports should reflect truthfully and accurately the auditing activities, that **significant obstacles met during the audit should be reported, as should any disagreement left unresolved between the audit team and the auditee**, and that the communication should be **truthful, accurate, objective, prompt, clear and complete**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 85,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 85,
+     "before": "Clause 4.5 describes confidentiality as security and privacy of information. Auditors should exercise **discretion in the use and protection of information acquired in the course of their auditing activities**, audit information should not be used inappropriately for personal gain or in a manner detrimental to the legitimate interests of the auditee, and the principle includes the **proper handling of sensitive or confidential information**.",
+     "after": "Clause 4.5 describes confidentiality as the security and privacy of information. Auditors should use **discretion in handling and protecting what they learn while auditing**, audit information should not be turned to personal gain or used in ways that damage the auditee's legitimate interests, and the principle covers the **proper handling of sensitive or confidential material**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 133,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 133,
+     "before": "  \"explanation\": \"The third is the one that looks like diligence. Attaching the evidence feels like completeness and fails clause 4.5's requirement to exercise discretion in the use and protection of information acquired during auditing. Completeness under 4.3 is about the reader understanding the finding, which a description achieves - the records belong in the audit record, protected under clause 5.5.7.\"",
+     "after": "  \"explanation\": \"The third is the one that looks like diligence. Attaching the evidence feels like completeness and fails clause 4.5's requirement to use discretion in handling and protecting what was learned during auditing. Completeness under 4.3 is about the reader understanding the finding, which a description achieves - the records belong in the audit record, protected under clause 5.5.7.\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 138,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3db2b5f0-4943-414c-bb64-30e8a33c11b5",
+     "line_abs": 138,
+     "before": "Clause 6.5.1 h) asks for audit conclusions and i) asks for **a statement on the degree to which the audit criteria have been fulfilled**. They are different things and the second is skipped almost universally.",
+     "after": "Clause 6.5.1 h) asks for audit conclusions and i) asks for **a statement of how far the audit criteria have been fulfilled**. They are different things and the second is skipped almost universally."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 31,
+     "before": "ISO/IEC 42001:2023 clause 10.2 states that when a nonconformity occurs, the organization shall:",
+     "after": "ISO/IEC 42001:2023 clause 10.2 states that where a nonconformity arises, the organization shall:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 33,
+     "before": "- a) **react to the nonconformity** and, as applicable, take action to control and correct it, and deal with the consequences;",
+     "after": "- a) **react to the nonconformity** and, where applicable, act to control and correct it, and handle what follows;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 34,
+     "before": "- b) **evaluate the need for action to eliminate the causes** of the nonconformity, so that it does not recur or occur elsewhere, by reviewing the nonconformity, determining its causes, and determining if similar nonconformities exist or can potentially occur;",
+     "after": "- b) **evaluate the need for action to remove the causes** of the nonconformity, so it neither recurs nor appears elsewhere, by reviewing it, working out its causes, and asking whether similar nonconformities exist or could arise;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 35,
+     "before": "- c) **implement any action needed**;",
+     "after": "- c) **take whatever action is needed**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 36,
+     "before": "- d) **review the effectiveness** of any corrective action taken;",
+     "after": "- d) **review how effective** any corrective action was;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 37,
+     "before": "- e) **make changes to the AI management system**, if necessary.",
+     "after": "- e) **change the AI management system**, if that is necessary."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 39,
+     "before": "Then: **corrective actions shall be appropriate to the effects of the nonconformities encountered.** And documented information shall be available as evidence of the nature of the nonconformities and any subsequent actions taken, and of the results of any corrective action.",
+     "after": "Then: **corrective action shall fit the effects of the nonconformities met.** And documented information shall be kept as evidence of what the nonconformities were and what was done afterwards, and of what any corrective action achieved."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 80,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 80,
+     "before": "Limb d) requires the organization to **review the effectiveness of any corrective action taken**. ISO 19011:2026 clause 6.7 adds the audit-side view: the outcome of the audit can indicate the need for corrections, corrective actions or opportunities for improvement; such actions are usually decided and undertaken by the auditee within an agreed time frame; the auditee should keep the individual managing the audit programme or the audit team informed of the status; and **the completion and effectiveness of these actions should be verified. This verification can be part of a subsequent audit.**",
+     "after": "Limb d) requires the organization to **review the effectiveness of any corrective action taken**. ISO 19011:2026 clause 6.7 adds the audit-side view: the outcome of the audit can indicate the need for corrections, corrective action or chances to improve; such actions are normally settled and carried out by the auditee inside an agreed time frame; the auditee should keep whoever manages the audit programme, or the audit team, informed of where things stand; and **whether those actions were completed and worked should be verified, and that verification can form part of a later audit.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-06-correction-is-not-corrective-action",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 223,
+   "run_words": 0,
+   "run": "42001 clause 10.2; 19011 clause 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "b24659b4-bccd-40b9-b3d8-fc104a3f3afc",
+     "line_abs": 223,
+     "before": "- Clause 10.2 has five limbs, and corrective actions shall be appropriate to the effects of the nonconformities encountered.",
+     "after": "- Clause 10.2 has five limbs, and corrective action shall fit the effects of the nonconformities met."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 30,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 30,
+     "before": "ISO/IEC 42001:2023 clause 9.3.1 states that **top management shall review the organization's AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.**",
+     "after": "ISO/IEC 42001:2023 clause 9.3.1 states that **top management shall review the AI management system at planned intervals, so that it stays suitable, adequate and effective.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 43,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 43,
+     "before": "Clause 9.3.2 states that the management review **shall include**:",
+     "after": "Clause 9.3.2 states that the management review **shall cover**:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 45,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 45,
+     "before": "- a) the status of **actions from previous management reviews**;",
+     "after": "- a) where **actions from earlier management reviews** stand;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 46,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 46,
+     "before": "- b) **changes in external and internal issues** relevant to the AI management system;",
+     "after": "- b) **changes in external and internal issues** bearing on the AI management system;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 47,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 47,
+     "before": "- c) **changes in needs and expectations of interested parties** relevant to the AIMS;",
+     "after": "- c) **changes in what interested parties need and expect** of the AIMS;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 48,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 48,
+     "before": "- d) **information on AI management system performance**, including **trends in**:",
+     "after": "- d) **information on how the AI management system is performing**, including **trends in**:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 50,
+     "before": "  - 2) **monitoring and measurement results**;",
+     "after": "  - 2) **what monitoring and measurement have shown**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 68,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 68,
+     "before": "Clause 9.3.3 states that the **results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the AI management system**, and that **documented information shall be available as evidence of the results of management reviews**.",
+     "after": "Clause 9.3.3 states that the **management review's results shall include decisions on opportunities for continual improvement and on any need to change the AI management system**, and that **documented information shall be kept as evidence of what management reviews produce**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 72,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 72,
+     "before": "**Discussion is not a decision.** The clause asks for decisions related to continual improvement opportunities and any need for changes to the AIMS. A record showing that performance was reviewed and nothing was decided has produced no results in the sense 9.3.3 describes.",
+     "after": "**Discussion is not a decision.** The clause asks for decisions on opportunities for continual improvement and on any need to change the AIMS. A record showing that performance was reviewed and nothing was decided has produced no results in the sense 9.3.3 describes."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 93,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 93,
+     "before": "That also connects back to clause 10.1's continual improvement requirement: the organization shall continually improve the suitability, adequacy and effectiveness of the AI management system. Management review is the mechanism the standard provides for doing it deliberately, and a review producing no decisions leaves 10.1 unevidenced by anything except the passage of time.",
+     "after": "That also connects back to clause 10.1's continual improvement requirement: the organization shall keep improving how suitable, adequate and effective the AI management system is. Management review is the mechanism the standard provides for doing it deliberately, and a review producing no decisions leaves 10.1 unevidenced by anything except the passage of time."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 116,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 116,
+     "before": "  \"explanation\": \"The third is included because the requirement is easily over-read. Clause 9.3.3 asks for decisions related to continual improvement opportunities and any need for changes - and a recorded conclusion that no change is needed, reached on the evidence, is a decision. What fails the clause is a record showing discussion and no conclusion at all.\"",
+     "after": "  \"explanation\": \"The third is included because the requirement is easily over-read. Clause 9.3.3 asks for decisions on opportunities for continual improvement and on any need for change - and a recorded conclusion that no change is needed, reached on the evidence, is a decision. What fails the clause is a record showing discussion and no conclusion at all.\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 140,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 140,
+     "before": "      { \"id\": \"b\", \"text\": \"A clause 9.3.3 finding: the results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the AI management system, and discussion is not a decision.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"A clause 9.3.3 finding: the management review's results shall include decisions on opportunities for continual improvement and on any need to change the AI management system, and discussion is not a decision.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 193,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "08f0b840-b4a5-4455-b958-f7b27e593271",
+     "line_abs": 193,
+     "before": "    \"explanation\": \"Clause 9.3.3 asks for decisions related to continual improvement opportunities and any need for changes, and a recorded conclusion either way satisfies it. Option a is close and stops short - the discretion is over what to decide, not over whether to reach a conclusion. Option c may be true and needs its own evidence, and option d prescribes a remedy.\",",
+     "after": "    \"explanation\": \"Clause 9.3.3 asks for decisions on opportunities for continual improvement and on any need for change, and a recorded conclusion either way satisfies it. Option a is close and stops short - the discretion is over what to decide, not over whether to reach a conclusion. Option c may be true and needs its own evidence, and option d prescribes a remedy.\","
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
