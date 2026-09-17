@@ -1,0 +1,1222 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+     "line_abs": 32,
+     "before": "El apartado 7.5.1 de la norma ISO/IEC 42001:2023 requiere que el sistema de gestión de IA de la organización incluya:",
+     "after": "La cláusula 7.5.1 de la norma ISO/IEC 42001:2023 requiere que el sistema de gestión de IA contenga:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+     "line_abs": 34,
+     "before": "- a) **información documentada requerida por este documento**;",
+     "after": "- a) **la información documentada que este documento requiere**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+     "line_abs": 35,
+     "before": "- b) **información documentada que la organización determine como necesaria para la eficacia** del sistema de gestión de IA.",
+     "after": "- b) **cualquier información documentada que la organización considere necesaria** para la eficacia del sistema de gestión de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+     "line_abs": 67,
+     "before": "El apartado 7.5.3 requiere que la información documentada esté **disponible y sea adecuada para su uso donde y cuando se necesite**, y que esté **protegida de manera adecuada** — frente a pérdida de confidencialidad, uso indebido o pérdida de integridad.",
+     "after": "La cláusula 7.5.3 requiere que la información documentada esté **disponible y sea apta para su uso, donde y cuando se necesite**, y que esté **adecuadamente protegida** — frente a pérdida de confidencialidad, uso indebido o pérdida de integridad."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+     "line_abs": 69,
+     "before": "Para su control, la organización deberá abordar, según corresponda: distribución, acceso, recuperación y uso; almacenamiento y preservación, incluida la preservación de la legibilidad; control de cambios, como el control de versiones; y retención y disposición. La información documentada de origen externo que se determine necesaria deberá identificarse de manera apropiada y controlarse.",
+     "after": "Para su control, la organización deberá abordar, según corresponda: cómo se distribuye, accede, recupera y utiliza; cómo se almacena y preserva, incluida la legibilidad; cómo se controlan los cambios, como por versión; y cómo se retiene y dispone. La información documentada de origen externo que se considere necesaria deberá identificarse de manera apropiada y controlarse."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 36,
+     "before": "- La organización **deberá definir un proceso para evaluar las posibles consecuencias para individuos o grupos de individuos, o ambos, y para las sociedades** que puedan derivarse del desarrollo, la provisión o el uso de sistemas de IA.",
+     "after": "- La organización **deberá definir un proceso para evaluar lo que puede derivarse para individuos, para grupos de ellos, o ambos, y para las sociedades** del desarrollo, la provisión o el uso de sistemas de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 37,
+     "before": "- La evaluación de impacto del sistema de IA **deberá determinar las posibles consecuencias** que el **despliegue, el uso previsto y el uso indebido previsible** del sistema de IA tienen sobre individuos o grupos de individuos, o ambos, y sobre las sociedades.",
+     "after": "- La evaluación de impacto del sistema de IA **deberá determinar las posibles consecuencias** que el **despliegue, el uso previsto y el uso indebido previsible** de un sistema de IA conllevan para los individuos, para grupos de ellos, o ambos, y para las sociedades."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 38,
+     "before": "- La evaluación **deberá tener en cuenta el contexto técnico y social específico** en el que se despliega el sistema de IA **y las jurisdicciones aplicables**.",
+     "after": "- La evaluación **deberá tener en cuenta el contexto técnico y social específico** del lugar donde se despliega el sistema de IA, **y las jurisdicciones que apliquen**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 40,
+     "before": "- La organización **deberá considerar los resultados** de la evaluación de impacto del sistema de IA **en la evaluación del riesgo** a la que se hace referencia en el apartado 6.1.2.",
+     "after": "- La organización **deberá trasladar los resultados** de la evaluación de impacto del sistema de IA **a la evaluación del riesgo** del apartado 6.1.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 42,
+     "before": "Cuando corresponda, el resultado **puede** ponerse a disposición de las partes interesadas pertinentes según las defina la organización — un «puede», y el único elemento permisivo del apartado.",
+     "after": "Cuando corresponda, el resultado **puede** compartirse con las partes interesadas que la organización designe — un `can`, y el único elemento permisivo de la cláusula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+     "line_abs": 130,
+     "before": "El último elemento del apartado 6.1.4 es el más difícil de auditar y el más valioso cuando se concreta: la organización deberá **considerar los resultados** de la evaluación de impacto del sistema de IA en la evaluación del riesgo.",
+     "after": "El último elemento de la cláusula 6.1.4 es el más difícil de auditar y el más valioso cuando se concreta: la organización deberá **trasladar los resultados** de la evaluación de impacto del sistema de IA a la evaluación del riesgo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 31,
+     "before": "El apartado 6.1.3 de la norma ISO/IEC 42001:2023 requiere que la organización defina un proceso de tratamiento del riesgo de IA para:",
+     "after": "La cláusula 6.1.3 de la norma ISO/IEC 42001:2023 requiere que la organización establezca un proceso para el tratamiento del riesgo de IA que:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 33,
+     "before": "- a) **seleccionar las opciones apropiadas de tratamiento del riesgo de IA**, teniendo en cuenta los resultados de la evaluación del riesgo;",
+     "after": "- a) **seleccionar las opciones apropiadas de tratamiento del riesgo de IA**, a la luz de lo que encontró la evaluación del riesgo;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 34,
+     "before": "- b) **determinar todos los controles que sean necesarios** para implementar las opciones de tratamiento del riesgo de IA elegidas, **y comparar los controles con los del Anexo A** para verificar que no se haya omitido ningún control necesario;",
+     "after": "- b) **determinar todos los controles que sean necesarios** para implementar las opciones de tratamiento elegidas, **y comparar esos controles con los del Anexo A** para verificar que no se haya omitido ningún control necesario;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 35,
+     "before": "- c) **considerar los controles del Anexo A** que sean pertinentes para la implementación de las opciones de tratamiento del riesgo de IA;",
+     "after": "- c) **considerar los controles del Anexo A** que sean pertinentes para la implementación de las opciones de tratamiento;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 36,
+     "before": "- d) **identificar si se necesitan controles adicionales** más allá de los del Anexo A para implementar todas las opciones de tratamiento del riesgo;",
+     "after": "- d) **identificar si se necesitan controles adicionales** más allá de los del Anexo A, de modo que cada opción de tratamiento pueda implementarse;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 37,
+     "before": "- e) **considerar la orientación del Anexo B** para la implementación de los controles determinados en b) y c);",
+     "after": "- e) **considerar la orientación del Anexo B** al implementar los controles establecidos en b) y c);"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 38,
+     "before": "- f) **producir una declaración de aplicabilidad** que contenga los controles necesarios y proporcione justificación para las inclusiones y exclusiones.",
+     "after": "- f) **producir un Statement of Applicability** que enumere los controles necesarios, con una justificación de lo que está incluido y lo que está excluido."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 40,
+     "before": "La acompañan dos notas. La NOTA 1 registra que el Anexo A proporciona controles de referencia para cumplir los objetivos organizacionales y abordar los riesgos relacionados con el diseño y uso de sistemas de IA. La NOTA 2 registra que los objetivos de control y los controles no son exhaustivos y que pueden necesitarse controles adicionales, que la organización puede diseñar sus propios controles o tomarlos de fuentes existentes, y que la gestión del riesgo de IA puede integrarse en otros sistemas de gestión.",
+     "after": "La acompañan dos notas. La NOTA 1 registra que el Anexo A ofrece controles de referencia para cumplir los objetivos organizacionales y gestionar los riesgos que surgen del diseño y uso de sistemas de IA. La NOTA 2 registra que los objetivos de control y los controles no son exhaustivos y que pueden necesitarse controles adicionales, que la organización puede diseñar sus propios controles o tomarlos de fuentes existentes, y que la gestión del riesgo de IA puede integrarse en otros sistemas de gestión."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 64,
+     "before": "El apartado 6.1.3 d) requiere que la organización identifique si **se necesitan controles adicionales más allá de los del Anexo A**. La NOTA 2 confirma que la lista no es exhaustiva y que la organización puede diseñar los suyos propios o tomarlos de otras fuentes.",
+     "after": "La cláusula 6.1.3 d) requiere que la organización identifique si **se necesitan controles más allá de los del Anexo A**. La NOTA 2 confirma que la lista no es exhaustiva y que la organización puede diseñar los suyos propios o tomarlos de otras fuentes."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 83,
+     "before": "**Registra lo que se decidió, no lo que se hizo.** Un control declarado como incluido y no implementado es un hallazgo del **apartado 8.1** —la organización debe implementar los controles determinados conforme al apartado 6.1.3 que se relacionan con la operación del sistema de gestión de IA— y no un hallazgo contra la Tabla A.1 ni contra la declaración de aplicabilidad. La lección 04-12 desarrolla esto correctamente.",
+     "after": "**Registra lo que se decidió, no lo que se hizo.** Un control declarado como incluido y no implementado es un hallazgo del **apartado 8.1** —la organización debe implementar los controles determinados conforme al apartado 6.1.3 que inciden en la operación del AIMS— y no un hallazgo contra la Tabla A.1 ni contra la declaración de aplicabilidad. La lección 04-12 desarrolla esto correctamente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 87,
+     "before": "Una nota que vale la pena recordar: la Nota 2 a la entrada del apartado 3.26 establece que todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos deben reflejarse en la declaración de aplicabilidad. Eso es un `shall` dentro de una nota a una definición, lo cual es una redacción inusual. **Cite el apartado 6.1.3 f) para el requisito de la declaración de aplicabilidad**, no la nota; la lección 04-09 explica por qué una nota no es donde debe descansar un hallazgo.",
+     "after": "Una nota que vale la pena recordar: la Nota 2 a la entrada de la cláusula 3.26 establece que todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos deberán aparecer en la declaración de aplicabilidad. Eso es un `shall` dentro de una nota a una definición, lo cual es una redacción inusual. **Cite la cláusula 6.1.3 f) para el requisito de la declaración de aplicabilidad**, no la nota; la lección 04-09 explica por qué una nota no es donde debe descansar un hallazgo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 131,
+     "before": "La relación corre en una sola dirección y a través de la evaluación del riesgo. La NOTA bajo el apartado 6.1.2 d) 1) registra que al evaluar las consecuencias la organización **puede utilizar una evaluación de impacto del sistema de IA tal como se indica en el apartado 6.1.4**. Y el propio apartado 6.1.4 requiere que la organización **considere los resultados de la evaluación de impacto del sistema de IA en la evaluación del riesgo**.",
+     "after": "La relación corre en una sola dirección y a través de la evaluación del riesgo. La NOTA bajo la cláusula 6.1.2 d) 1) registra que al evaluar las consecuencias la organización **puede apoyarse en una evaluación de impacto del sistema de IA, tal como indica la cláusula 6.1.4**. Y la propia cláusula 6.1.4 requiere que la organización **incorpore lo que la evaluación de impacto del sistema de IA encontró en la evaluación del riesgo**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 32,
+     "before": "El apartado 8.1 de ISO/IEC 42001:2023 requiere que la organización planifique, implemente y controle los procesos necesarios para cumplir los requisitos y para implementar las acciones determinadas en el capítulo 6, mediante:",
+     "after": "La cláusula 8.1 de ISO/IEC 42001:2023 requiere que la organización planifique, ejecute y controle los procesos que necesita para cumplir los requisitos y para llevar a cabo lo que la cláusula 6 determinó, mediante:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 34,
+     "before": "- **el establecimiento de criterios para los procesos**;",
+     "after": "- **el establecimiento de criterios para esos procesos**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 35,
+     "before": "- **la implementación del control de los procesos de acuerdo con los criterios**.",
+     "after": "- **el control de los procesos en función de dichos criterios**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 39,
+     "before": "> La organización **deberá implementar los controles determinados conforme al apartado 6.1.3** que estén relacionados con la operación del sistema de gestión de IA — por ejemplo, controles relacionados con el ciclo de vida del desarrollo y uso del sistema de IA. **La eficacia de estos controles deberá monitorearse y deberán considerarse acciones correctivas** si no se logran los resultados previstos.",
+     "after": "La organización **deberá implementar los controles establecidos conforme al apartado 6.1.3** que estén relacionados con la operación del sistema de gestión de IA — por ejemplo, controles vinculados al ciclo de vida del desarrollo y uso del sistema de IA. **La eficacia de dichos controles deberá monitorearse y deberán considerarse acciones correctivas** cuando los resultados previstos no se obtengan."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 41,
+     "before": "Y el apartado continúa con el control de los cambios, la revisión de las consecuencias de los cambios no previstos, y la garantía de que **los procesos, productos o servicios provistos externamente que sean pertinentes para el sistema de gestión de IA estén controlados**. La información documentada deberá estar disponible en la medida necesaria para tener confianza en que los procesos se han llevado a cabo según lo planificado.",
+     "after": "Y la cláusula continúa con el control de los cambios, la revisión de las consecuencias de los cambios no previstos, y la garantía de que **los procesos, productos o servicios proporcionados externamente que sean pertinentes para el sistema de gestión de IA estén controlados**. Se deberá conservar información documentada en la medida en que sea necesario para dar confianza en que los procesos se ejecutaron según lo planificado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 53,
+     "before": "| Evaluación del riesgo de IA | 6.1.2 | **8.2** — a intervalos planificados o cuando se proponen o producen cambios significativos; conservar información documentada de los resultados |",
+     "after": "| Evaluación del riesgo de IA | 6.1.2 | **8.2** - a intervalos planificados y siempre que se proponga o se produzca un cambio significativo; conservar información documentada de los resultados |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 60,
+     "before": "**Nótese que los disparadores difieren ligeramente entre los apartados 8.2 y 8.4.** El apartado 8.2 dice a intervalos planificados o cuando se proponen o producen cambios significativos; el apartado 8.4 dice en momentos planificados y cuando se producen cambios significativos. Un auditor que verifica si se activó una reevaluación debe leer el apartado que corresponde en lugar de asumir que coinciden.",
+     "after": "**Nótese que los disparadores difieren ligeramente entre los apartados 8.2 y 8.4.** El apartado 8.2 dice a intervalos planificados y cuando se propone o se produce un cambio significativo; el apartado 8.4 dice en momentos planificados y cuando se producen cambios significativos. Un auditor que verifica si se activó una reevaluación debe leer el apartado que corresponde en lugar de asumir que coinciden."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 85,
+     "before": "La oración del apartado 8.1 merece repetirse porque se omite con tanta consistencia: **la eficacia de estos controles deberá monitorearse y deberán considerarse acciones correctivas si no se logran los resultados previstos.**",
+     "after": "La oración de la cláusula 8.1 merece repetirse porque se omite con tanta consistencia: **la eficacia de esos controles deberá monitorearse, y deberán considerarse acciones correctivas cuando los resultados previstos no se produzcan.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 139,
+     "before": "El apartado 8.1 cierra con un requisito que es fácil de pasar por alto: **la información documentada deberá estar disponible en la medida necesaria para tener confianza en que los procesos se han llevado a cabo según lo planificado.**",
+     "after": "La cláusula 8.1 cierra con un requisito que es fácil de pasar por alto: **la información documentada debe conservarse en la medida necesaria para tener confianza en que los procesos se llevaron a cabo según lo planificado.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 141,
+     "before": "Dos frases hacen trabajo. *En la medida necesaria* significa que la norma no prescribe volumen, lo que conecta con la NOTA del apartado 7.5.1 y con la advertencia de la lección 04-07 contra auditar conjuntos de documentos por impresión. *Confianza en que los procesos se han llevado a cabo según lo planificado* nombra la prueba: ¿podría alguien establecer, a partir de lo que existe, que el proceso se ejecutó de la manera en que debía?",
+     "after": "Dos frases hacen trabajo. *En la medida necesaria* significa que la norma no prescribe volumen, lo que conecta con la NOTA de la clausula 7.5.1 y con la advertencia de la lección 04-07 contra auditar conjuntos de documentos por impresión. *Confianza en que los procesos se ejecutaron según lo planificado* nombra la prueba: ¿podría alguien establecer, a partir de lo que existe, que el proceso se ejecutó de la manera en que debía?"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 31,
+     "before": "A Seção 8.1 da ISO/IEC 42001:2023 exige que a organização planeje, implemente e controle os processos necessários para atender aos requisitos e para implementar as ações determinadas na Seção 6, mediante:",
+     "after": "A cláusula 8.1 da ISO/IEC 42001:2023 exige que a organização planeje, execute e controle os processos de que necessita para atender aos requisitos e para realizar o que a Cláusula 6 determinou, mediante:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 34,
+     "before": "- **implementação do controle dos processos de acordo com os critérios**.",
+     "after": "- **controle dos processos em relação a esses critérios**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 38,
+     "before": "> A organização **deve implementar os controles determinados de acordo com 6.1.3** que estejam relacionados à operação do sistema de gestão de IA — por exemplo, controles relacionados ao ciclo de vida de desenvolvimento e uso do sistema de IA. **A eficácia desses controles deve ser monitorada e ações corretivas devem ser consideradas** se os resultados pretendidos não forem alcançados.",
+     "after": "A organização **deve implementar os controles estabelecidos de acordo com 6.1.3** que estejam relacionados à operação do sistema de gestão de IA — por exemplo, controles relacionados ao ciclo de vida de desenvolvimento e uso do sistema de IA. **A eficácia desses controles deve ser monitorada e ações corretivas devem ser consideradas** quando os resultados pretendidos não forem alcançados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 40,
+     "before": "A seção continua com o controle de mudanças, a análise das consequências de mudanças não intencionais e a garantia de que **processos, produtos ou serviços fornecidos externamente e relevantes para o sistema de gestão de IA sejam controlados**. Informação documentada deve estar disponível na medida necessária para ter confiança de que os processos foram executados conforme planejado.",
+     "after": "A cláusula continua com o controle de mudanças, a análise das consequências de mudanças não intencionais e a garantia de que **processos, produtos ou serviços fornecidos externamente e relevantes para o sistema de gestão de IA sejam controlados**. Informação documentada deve ser mantida na medida necessária para ter confiança de que os processos foram executados conforme planejado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 52,
+     "before": "| Processo de avaliação de riscos de IA | 6.1.2 | **8.2** — em intervalos planejados ou quando mudanças significativas são propostas ou ocorrem; reter informação documentada dos resultados |",
+     "after": "| Avaliação de riscos de IA | 6.1.2 | **8.2** — em intervalos planejados e sempre que uma mudança significativa for proposta ou ocorrer; reter informação documentada dos resultados |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 59,
+     "before": "**Observe que os gatilhos diferem ligeiramente entre 8.2 e 8.4.** A Seção 8.2 diz em intervalos planejados ou quando mudanças significativas são propostas ou ocorrem; a Seção 8.4 diz em momentos planejados e quando mudanças significativas ocorrem. Um auditor que verifica se uma reavaliação foi acionada deve ler a seção aplicável em vez de presumir que são iguais.",
+     "after": "**Observe que os gatilhos diferem ligeiramente entre 8.2 e 8.4.** A cláusula 8.2 diz em intervalos planejados e sempre que uma mudança significativa é proposta ou ocorre; a cláusula 8.4 diz em momentos planejados e quando mudanças significativas ocorrem. Um auditor que verifica se uma reavaliação foi acionada deve ler a cláusula aplicável em vez de presumir que são iguais."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 84,
+     "before": "A frase da Seção 8.1 merece ser repetida porque é ignorada com tanta frequência: **a eficácia desses controles deve ser monitorada e ações corretivas devem ser consideradas se os resultados pretendidos não forem alcançados.**",
+     "after": "A frase da Cláusula 8.1 merece ser repetida porque é ignorada com tanta frequência: **a eficácia desses controles deve ser monitorada, e ações corretivas devem ser consideradas onde os resultados pretendidos não se seguirem.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 138,
+     "before": "A Seção 8.1 encerra com um requisito fácil de ignorar: **informação documentada deve estar disponível na medida necessária para ter confiança de que os processos foram executados conforme planejado.**",
+     "after": "A Cláusula 8.1 encerra com um requisito fácil de ignorar: **informação documentada deve ser mantida na medida necessária para que se tenha confiança de que os processos foram executados conforme planejado.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 140,
+     "before": "Duas expressões fazem trabalho importante. *Na medida necessária* significa que a norma não está prescrevendo volume, o que se conecta à NOTA da Seção 7.5.1 e ao aviso da lição 04-07 contra auditar conjuntos de documentos por impressão. *Confiança de que os processos foram executados conforme planejado* nomeia o teste: alguém poderia estabelecer, a partir do que existe, que o processo foi executado da forma como deveria?",
+     "after": "Duas expressões fazem trabalho importante. *Na medida necessária* significa que a norma não está prescrevendo volume, o que se conecta à NOTA da cláusula 7.5.1 e ao aviso da lição 04-07 contra auditar conjuntos de documentos por impressão. *Confiança de que os processos foram executados conforme planejado* nomeia o teste: alguém poderia estabelecer, a partir do que existe, que o processo foi executado da forma como deveria?"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 33,
+     "before": "- a) **selecionar opções adequadas de tratamento de riscos de IA**, levando em conta os resultados do processo de avaliação de riscos;",
+     "after": "- a) **selecionar opções adequadas de tratamento de riscos de IA**, à luz do que a avaliação de riscos identificou;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 34,
+     "before": "- b) **determinar todos os controles necessários** para implementar as opções de tratamento de riscos de IA escolhidas, **e comparar os controles com os do Anexo A** para verificar que nenhum controle necessário foi omitido;",
+     "after": "- b) **determinar todos os controles necessários** para colocar em efeito as opções de tratamento escolhidas, **e comparar esses controles com o Anexo A** para verificar que nenhum controle necessário foi omitido;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 35,
+     "before": "- c) **considerar os controles do Anexo A** que sejam relevantes para a implementação das opções de tratamento de riscos de IA;",
+     "after": "- c) **considerar os controles do Anexo A** que incidem sobre como as opções de tratamento serão implementadas;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 36,
+     "before": "- d) **identificar se controles adicionais são necessários** além dos do Anexo A para implementar todas as opções de tratamento de riscos;",
+     "after": "- d) **identificar se controles adicionais são necessários** além dos do Anexo A, para que cada opção de tratamento possa ser implementada;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 37,
+     "before": "- e) **considerar as orientações do Anexo B** para a implementação dos controles determinados em b) e c);",
+     "after": "- e) **considerar as orientações do Anexo B** ao implementar os controles definidos em b) e c);"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 38,
+     "before": "- f) **produzir uma declaração de aplicabilidade** que contenha os controles necessários e forneça justificativa para inclusões e exclusões.",
+     "after": "- f) **produzir uma Statement of Applicability** listando os controles necessários, com uma justificativa para o que está incluído e o que está excluído."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 40,
+     "before": "Duas notas a acompanham. A NOTA 1 registra que o Anexo A fornece controles de referência para atender aos objetivos organizacionais e tratar os riscos relacionados ao design e ao uso de sistemas de IA. A NOTA 2 registra que os objetivos de controle e os controles não são exaustivos e que outros podem ser necessários, que a organização pode projetar seus próprios controles ou obtê-los de fontes existentes, e que a gestão de riscos de IA pode ser integrada a outros sistemas de gestão.",
+     "after": "Duas notas a acompanham. A NOTA 1 registra que o Anexo A oferece controles de referência para atender aos objetivos organizacionais e tratar os riscos que surgem do design e do uso de sistemas de IA. A NOTA 2 registra que os objetivos de controle e os controles não são exaustivos e que outros adicionais podem ser necessários, que a organização pode projetar seus próprios controles ou obtê-los de fontes existentes, e que a gestão de riscos de IA pode estar integrada a outros sistemas de gestão."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 64,
+     "before": "A Seção 6.1.3 d) exige que a organização identifique se **controles adicionais são necessários além dos do Anexo A**. A NOTA 2 confirma que a lista não é exaustiva e que a organização pode projetar os seus próprios ou obtê-los de outras fontes.",
+     "after": "A Seção 6.1.3 d) exige que a organização identifique se **controles além dos do Anexo A são necessários**. A NOTA 2 confirma que a lista não é exaustiva e que a organização pode projetar os seus próprios ou obtê-los de outras fontes."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 83,
+     "before": "**Ela registra o que foi decidido, não o que foi feito.** Um controle declarado como incluído e não implementado é uma constatação da **Seção 8.1** — a organização deve implementar os controles determinados conforme a 6.1.3 que se relacionam à operação do sistema de gestão de IA — e não uma constatação contra a Tabela A.1 ou contra a declaração de aplicabilidade. A lição 04-12 trata disso adequadamente.",
+     "after": "**Ela registra o que foi decidido, não o que foi feito.** Um controle declarado como incluído e não implementado é uma constatação da **cláusula 8.1** — a organização deve implementar os controles definidos conforme a 6.1.3 que incidem sobre a operação do AIMS — e não uma constatação contra a Tabela A.1 ou contra a Statement of Applicability. A lição 04-12 trata disso adequadamente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 87,
+     "before": "Uma nota que vale guardar: a Nota 2 à entrada da Seção 3.26 afirma que todos os riscos identificados e as medidas de gestão de riscos estabelecidas para endereçá-los devem ser refletidos na declaração de aplicabilidade. Trata-se de um `deve` dentro de uma nota a uma definição, o que é uma redação incomum. **Cite a Seção 6.1.3 f) para o requisito da declaração de aplicabilidade**, não a nota — a lição 04-09 explica por que uma nota não é onde uma constatação deve se apoiar.",
+     "after": "Uma nota que vale guardar: a Nota 2 à entrada da cláusula 3.26 afirma que todos os riscos identificados e as medidas de gestão de riscos estabelecidas para endereçá-los devem aparecer no Statement of Applicability. Trata-se de um `deve` dentro de uma nota a uma definição, o que é uma redação incomum. **Cite a cláusula 6.1.3 f) para o requisito do Statement of Applicability**, não a nota — a lição 04-09 explica por que uma nota não é onde uma constatação deve se apoiar."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 131,
+     "before": "A relação corre em uma direção e passa pelo processo de avaliação de riscos. A NOTA sob a Seção 6.1.2 d) 1) registra que, ao avaliar consequências, a organização **pode utilizar uma avaliação de impacto do sistema de IA conforme indicado na 6.1.4**. E a própria Seção 6.1.4 exige que a organização **considere os resultados da avaliação de impacto do sistema de IA no processo de avaliação de riscos**.",
+     "after": "A relação corre em uma direção e passa pela avaliação de riscos. A NOTA sob a cláusula 6.1.2 d) 1) registra que, ao avaliar consequências, a organização **pode se basear em uma avaliação de impacto do sistema de IA, conforme a 6.1.4 indica**. E a própria cláusula 6.1.4 exige que a organização **incorpore o que a avaliação de impacto do sistema de IA constatou à avaliação de riscos**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+     "line_abs": 33,
+     "before": "- a) **informação documentada exigida por este documento**;",
+     "after": "- a) **a informação documentada que este documento requer**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+     "line_abs": 34,
+     "before": "- b) **informação documentada determinada pela organização como necessária para a eficácia** do sistema de gestão de IA.",
+     "after": "- b) **qualquer informação documentada que a organização julgue necessária** para a eficácia do sistema de gestão de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+     "line_abs": 66,
+     "before": "A Seção 7.5.3 exige que a informação documentada esteja **disponível e adequada para uso onde e quando necessária**, e **adequadamente protegida** — contra perda de confidencialidade, uso indevido ou perda de integridade.",
+     "after": "A Cláusula 7.5.3 exige que a informação documentada esteja **disponível e adequada para uso, onde e quando for necessária**, e **adequadamente protegida** — contra perda de confidencialidade, uso indevido ou perda de integridade."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 7.5.1, 7.5.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+     "line_abs": 68,
+     "before": "Para seu controle, a organização deve tratar, conforme aplicável: distribuição, acesso, recuperação e uso; armazenamento e preservação, incluindo preservação da legibilidade; controle de alterações, como controle de versão; e retenção e descarte. A informação documentada de origem externa determinada como necessária deve ser identificada conforme apropriado e controlada.",
+     "after": "Para seu controle, a organização deve tratar, conforme aplicável: como ela é distribuída, acessada, recuperada e utilizada; como é armazenada e preservada, incluindo a legibilidade; como as alterações são controladas, por exemplo por versão; e como é retida e descartada. A informação documentada de origem externa considerada necessária deve ser identificada conforme apropriado e controlada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 36,
+     "before": "- A organização **deve definir um processo para avaliar as potenciais consequências para indivíduos ou grupos de indivíduos, ou ambos, e para a sociedade** que podem resultar do desenvolvimento, fornecimento ou uso de sistemas de IA.",
+     "after": "- A organização **deve definir um processo para avaliar o que pode resultar para indivíduos, para grupos deles, ou ambos, e para as sociedades** do desenvolvimento, fornecimento ou uso de sistemas de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 37,
+     "before": "- A avaliação de impacto do sistema de IA **deve determinar as potenciais consequências** que a **implantação, o uso pretendido e o uso indevido previsível** do sistema de IA têm sobre indivíduos ou grupos de indivíduos, ou ambos, e sobre a sociedade.",
+     "after": "- A avaliação de impacto do sistema de IA **deve determinar as potenciais consequências** que a **implantação, o uso pretendido e o uso indevido previsível** de um sistema de IA têm para indivíduos, para grupos deles, ou ambos, e para as sociedades."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 38,
+     "before": "- A avaliação **deve levar em conta o contexto técnico e social específico** em que o sistema de IA é implantado **e as jurisdições aplicáveis**.",
+     "after": "- A avaliação **deve levar em conta o contexto técnico e social específico** do local em que o sistema de IA é implantado, **e as jurisdições que se aplicam**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 39,
+     "before": "- O **resultado** da avaliação de impacto do sistema de IA **deve ser documentado**.",
+     "after": "- O **resultado da avaliação deve ser documentado**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 40,
+     "before": "- A organização **deve considerar os resultados** da avaliação de impacto do sistema de IA **no processo de avaliação de riscos** referido em 6.1.2.",
+     "after": "- A organização **deve transferir os resultados** da avaliação de impacto do sistema de IA **para a avaliação de riscos** em 6.1.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 42,
+     "before": "Quando apropriado, o resultado **pode** ser disponibilizado às partes interessadas relevantes, conforme definido pela organização — um \"pode\", e o único elemento permissivo da seção.",
+     "after": "Quando apropriado, o resultado **pode** ser compartilhado com as partes interessadas que a organização nomear — um `pode`, e o único elemento permissivo da cláusula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-06-two-assessments-not-one",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 6.1.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+     "line_abs": 130,
+     "before": "A parte final da Seção 6.1.4 é a mais difícil de auditar e a mais valiosa quando se confirma: a organização deve **considerar os resultados** da avaliação de impacto do sistema de IA no processo de avaliação de riscos.",
+     "after": "A parte final da Cláusula 6.1.4 é a mais difícil de auditar e a mais valiosa quando se confirma: a organização deve **transferir os resultados** da avaliação de impacto do sistema de IA para a avaliação de riscos."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
