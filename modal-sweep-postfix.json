@@ -1,0 +1,2417 @@
+{
+ "count": 134,
+ "findings": [
+  {
+   "cert": "ISMS-F",
+   "slug": "02-08-acceptable-ai-use",
+   "language": "pt-BR",
+   "lesson_id": "d289f8cf-5544-40e4-920d-28141ebf1be6",
+   "block": 4,
+   "line": 3,
+   "english": "The alternative is not to abandon the rule. It is to write one whose compliance is visible, and to accept that a narrower enforceable rule beats a broader unenforceable one. \"Use only the enterprise assistant for any work information; personal accounts are not to be used for work purposes\" is narrower, and a person can tell whether they are complying.",
+   "translation": "A alternativa não é abandonar a regra. É escrever uma cujo cumprimento seja visível, e aceitar que uma regra mais estreita e aplicável supera uma mais ampla e inaplicável. \"Use apenas o assistente empresarial para qualquer informação de trabalho; contas pessoais não devem ser usadas para fins profissionais\" é mais estreita, e uma pessoa consegue dizer se está cumprindo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "02-07-roles-and-authorities",
+   "language": "pt-BR",
+   "lesson_id": "7f76a094-76b9-45cf-8772-d7b7b323b0c9",
+   "block": 3,
+   "line": 4,
+   "english": "Domain 3 develops the mechanics. What matters here is the principle: **the person who accepts a risk should be the person the consequence lands on.**",
+   "translation": "O Domínio 3 desenvolve a mecânica. O que importa aqui é o princípio: **a pessoa que aceita um risco deve ser aquela sobre quem recai a consequência.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-06-certification-and-accreditation",
+   "language": "es-419",
+   "lesson_id": "66144a76-ec10-4408-a66d-01d5a8aa2077",
+   "block": 1,
+   "line": 3,
+   "english": "Two consequences a practitioner should be able to state.",
+   "translation": "Dos consecuencias que un profesional debe ser capaz de enunciar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-06-certification-and-accreditation",
+   "language": "pt-BR",
+   "lesson_id": "e57a2ea3-9f29-4104-af7a-00ec2106ea4c",
+   "block": 1,
+   "line": 3,
+   "english": "Two consequences a practitioner should be able to state.",
+   "translation": "Duas consequências que um profissional deve ser capaz de enunciar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-03-governing-apparatus-controls",
+   "language": "es-419",
+   "lesson_id": "0a3d54b9-ddec-44f5-9e93-b1b89404c715",
+   "block": 2,
+   "line": 3,
+   "english": "The guidance lists seven properties this mechanism should have, and they read like a whistleblowing standard because that is essentially what it is:",
+   "translation": "La guía enumera siete propiedades que debe tener este mecanismo, y se leen como un estándar de denuncia porque eso es esencialmente lo que es:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "pt-BR",
+   "lesson_id": "33f84788-8ca0-48dd-8044-a0e22065ab08",
+   "block": 1,
+   "line": 11,
+   "english": "**a) and b) are different things.** a) deals with this instance. b) asks whether the cause should be eliminated so it does not happen again or elsewhere.",
+   "translation": "**a) e b) são coisas diferentes.** a) trata desta ocorrência. b) pergunta se a causa deve ser eliminada para que não aconteça novamente ou em outro lugar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "language": "es-419",
+   "lesson_id": "8bdb947b-1ff0-4975-b5ea-a02b6b8e2fd6",
+   "block": 4,
+   "line": 1,
+   "english": "The only person who understands the access management process well enough to audit it competently is the person who helped design it. Independence says the auditor should be independent of the activity being audited wherever practicable. Due professional care says only undertake work you are competent to perform, and exercise diligence and judgement throughout.",
+   "translation": "La única persona que entiende el proceso de gestión de accesos lo suficientemente bien como para auditarlo con competencia es quien ayudó a diseñarlo. La independencia dice que el auditor debe ser independiente de la actividad auditada siempre que sea practicable. El debido cuidado profesional dice que solo se deben asumir trabajos para los que se es competente, y que se debe ejercer diligencia y juicio en todo momento.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "language": "pt-BR",
+   "lesson_id": "0070bf0e-730c-4453-b4e2-faf5056b5a06",
+   "block": 4,
+   "line": 1,
+   "english": "The only person who understands the access management process well enough to audit it competently is the person who helped design it. Independence says the auditor should be independent of the activity being audited wherever practicable. Due professional care says only undertake work you are competent to perform, and exercise diligence and judgement throughout.",
+   "translation": "A única pessoa que entende o processo de gestão de acessos bem o suficiente para auditá-lo com competência é a mesma que ajudou a projetá-lo. A independência diz que o auditor deve ser independente da atividade auditada sempre que praticável. O devido cuidado profissional diz para realizar apenas trabalhos para os quais você seja competente e para exercer diligência e julgamento ao longo de todo o processo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "language": "pt-BR",
+   "lesson_id": "0070bf0e-730c-4453-b4e2-faf5056b5a06",
+   "block": 7,
+   "line": 1,
+   "english": "That is a claim about reproducibility. Two competent auditors, given the same evidence and the same criteria, should arrive at broadly the same place. Without shared principles they would not - each would weigh evidence by personal instinct, and an audit conclusion would say more about who conducted it than about the system examined.",
+   "translation": "Isso é uma afirmação sobre reprodutibilidade. Dois auditores competentes, diante das mesmas evidências e dos mesmos critérios, devem chegar aproximadamente ao mesmo lugar. Sem princípios compartilhados, isso não aconteceria — cada um pesaria as evidências pelo instinto pessoal, e uma conclusão de auditoria diria mais sobre quem a conduziu do que sobre o sistema examinado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+   "language": "es-419",
+   "lesson_id": "c1999f95-0c4b-412d-8a54-a339cc32d586",
+   "block": 5,
+   "line": 5,
+   "english": "- **What happens to extracts.** Records pulled from production systems into a working paper set have left their normal handling arrangements. That is legitimate and it should be deliberate.",
+   "translation": "- **Qué ocurre con los extractos.** Los registros extraídos de sistemas de producción hacia un conjunto de papeles de trabajo han salido de sus disposiciones habituales de manejo. Eso es legítimo y debe ser deliberado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+   "language": "pt-BR",
+   "lesson_id": "8319b5c4-c32e-4a25-a746-cd0fe5dedb9d",
+   "block": 1,
+   "line": 1,
+   "english": "> **Audit evidence leading to audit findings should be recorded.**",
+   "translation": "> **As evidências de auditoria que levam a constatações de auditoria devem ser registradas.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+   "language": "pt-BR",
+   "lesson_id": "8319b5c4-c32e-4a25-a746-cd0fe5dedb9d",
+   "block": 4,
+   "line": 4,
+   "english": "The same applies to leads that went nowhere. Lesson 03-05's uncorroborated interview statement, recorded as a lead and then not pursued, should show why - time, access, or a judgement that it was not material. **\"We did not follow this up because\" is a defensible sentence. Silence is not.**",
+   "translation": "O mesmo se aplica a pistas que não levaram a nada. A declaração não corroborada de uma entrevista da lição 03-05, registrada como pista e depois não investigada, deve mostrar o motivo — tempo, acesso ou um julgamento de que não era relevante. **\"Não demos seguimento a isso porque\" é uma frase defensável. O silêncio não é.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+   "language": "pt-BR",
+   "lesson_id": "8319b5c4-c32e-4a25-a746-cd0fe5dedb9d",
+   "block": 5,
+   "line": 5,
+   "english": "- **What happens to extracts.** Records pulled from production systems into a working paper set have left their normal handling arrangements. That is legitimate and it should be deliberate.",
+   "translation": "- **O que acontece com os extratos.** Registros extraídos de sistemas de produção para um conjunto de papéis de trabalho saíram de seus procedimentos normais de tratamento. Isso é legítimo e deve ser deliberado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "lesson_id": "941b043c-ea5f-416a-885e-80bb85104f00",
+   "block": 3,
+   "line": 1,
+   "english": "> Auditors should be independent of the activity being audited **wherever practicable** and should in all cases act in a manner that is free from bias and conflict of interest.",
+   "translation": "> Los auditores deben ser independientes de la actividad que se audita **siempre que sea practicable** y, en todos los casos, deben actuar de manera libre de sesgos y conflictos de interés.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "lesson_id": "941b043c-ea5f-416a-885e-80bb85104f00",
+   "block": 3,
+   "line": 2,
+   "english": "> **When it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity.**",
+   "translation": "> **Cuando no sea posible que los auditores internos sean independientes de la actividad que se audita, se debe hacer todo lo posible para eliminar el sesgo y fomentar la objetividad.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "lesson_id": "941b043c-ea5f-416a-885e-80bb85104f00",
+   "block": 8,
+   "line": 1,
+   "english": "- ISO 19011 says auditors should be independent of the audited activity wherever practicable.",
+   "translation": "- ISO 19011 establece que los auditores deben ser independientes de la actividad auditada siempre que sea practicable.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "lesson_id": "59455ac6-b0cf-499d-907f-49b4d1571bec",
+   "block": 3,
+   "line": 1,
+   "english": "> Auditors should be independent of the activity being audited **wherever practicable** and should in all cases act in a manner that is free from bias and conflict of interest.",
+   "translation": "> Os auditores devem ser independentes da atividade sendo auditada **sempre que praticável** e devem, em todos os casos, agir de forma livre de viés e conflito de interesses.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "lesson_id": "59455ac6-b0cf-499d-907f-49b4d1571bec",
+   "block": 3,
+   "line": 2,
+   "english": "> **When it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity.**",
+   "translation": "> **Quando não for possível que auditores internos sejam independentes da atividade sendo auditada, todo esforço deve ser feito para eliminar o viés e promover a objetividade.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "lesson_id": "59455ac6-b0cf-499d-907f-49b4d1571bec",
+   "block": 8,
+   "line": 1,
+   "english": "- ISO 19011 says auditors should be independent of the audited activity wherever practicable.",
+   "translation": "- A ISO 19011 afirma que os auditores devem ser independentes da atividade auditada sempre que praticável.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "language": "es-419",
+   "lesson_id": "cead82af-4fd6-4557-9865-cfe20f3bb253",
+   "block": 4,
+   "line": 5,
+   "english": "An auditor examining a programme should be able to trace at least one design decision back to a previous result. If the programme is identical to last year's and last year produced findings, the input was not considered - it was received and filed.",
+   "translation": "Un auditor que examina un programa debe poder rastrear al menos una decisión de diseño hasta un resultado anterior. Si el programa es idéntico al del año pasado y el año pasado produjo hallazgos, la entrada no se consideró: se recibió y se archivó.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "language": "pt-BR",
+   "lesson_id": "af25b91b-5d19-4655-9646-8c849d513d9a",
+   "block": 4,
+   "line": 5,
+   "english": "An auditor examining a programme should be able to trace at least one design decision back to a previous result. If the programme is identical to last year's and last year produced findings, the input was not considered - it was received and filed.",
+   "translation": "Um auditor que examina um programa deve ser capaz de rastrear pelo menos uma decisão de design até um resultado anterior. Se o programa é idêntico ao do ano passado e o ano passado produziu constatações, a entrada não foi considerada — foi recebida e arquivada.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "language": "pt-BR",
+   "lesson_id": "13659c6e-3f22-45bd-bf78-b6584e5cb2b0",
+   "block": 1,
+   "line": 1,
+   "english": "> The risk-based approach should substantively influence the planning and implementation of the audit programme, and the planning, conducting and reporting of audits.",
+   "translation": "> A abordagem baseada em risco deve influenciar de forma substancial o planejamento e a implementação do programa de auditoria, bem como o planejamento, a condução e o relato das auditorias.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "language": "pt-BR",
+   "lesson_id": "13659c6e-3f22-45bd-bf78-b6584e5cb2b0",
+   "block": 7,
+   "line": 0,
+   "english": "- ISO 19011 says the risk-based approach should substantively influence programme planning.",
+   "translation": "- A ISO 19011 afirma que a abordagem baseada em risco deve influenciar de forma substancial o planejamento do programa.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "es-419",
+   "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+   "block": 5,
+   "line": 1,
+   "english": "Not annual. Not three-yearly. Not once per certification cycle. The standard leaves the interval to the organization, and it names what should inform it: the importance of the processes concerned and the results of previous audits.",
+   "translation": "No anual. No trienal. No una vez por ciclo de certificación. La norma deja el intervalo a la organización y nombra lo que debe orientarlo: la importancia de los procesos involucrados y los resultados de auditorías previas.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "pt-BR",
+   "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+   "block": 5,
+   "line": 1,
+   "english": "Not annual. Not three-yearly. Not once per certification cycle. The standard leaves the interval to the organization, and it names what should inform it: the importance of the processes concerned and the results of previous audits.",
+   "translation": "Não é anual. Não é a cada três anos. Não é uma vez por ciclo de certificação. A norma deixa o intervalo a cargo da organização e nomeia o que deve orientá-lo: a importância dos processos envolvidos e os resultados de auditorias anteriores.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-07-when-the-scope-acquires-ai",
+   "language": "pt-BR",
+   "lesson_id": "a52bd899-eb97-4c77-a1f1-53e309b257d0",
+   "block": 2,
+   "line": 4,
+   "english": "An auditor reviewing the programme should ask whether the interval for AI-bearing areas was re-derived after the AI arrived, or inherited from when the area was something else.",
+   "translation": "Um auditor que revisa o programa deve perguntar se o intervalo para áreas com IA foi rederivado após a chegada da IA, ou se foi herdado de quando a área era outra coisa.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-07-when-the-scope-acquires-ai",
+   "language": "pt-BR",
+   "lesson_id": "a52bd899-eb97-4c77-a1f1-53e309b257d0",
+   "block": 6,
+   "line": 1,
+   "english": "It is unusual in shape. It produces few conformity findings, because its purpose is to determine what the criteria should later be applied to. Its output is an input to the programme rather than a conclusion about the ISMS.",
+   "translation": "Ela tem uma forma incomum. Produz poucas constatações de conformidade, pois seu propósito é determinar a quais critérios as auditorias posteriores devem ser aplicadas. Seu resultado é uma entrada para o programa, e não uma conclusão sobre o SGSI.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-02-what-the-sample-supports",
+   "language": "es-419",
+   "lesson_id": "833e849d-f2b0-4c09-b241-2c2fb186f093",
+   "block": 1,
+   "line": 5,
+   "english": "Clause 6.4.7 reinforces it: information should be collected **by means of appropriate sampling** and verified as far as practicable. The detailed guidance sits in **Annex A.6**.",
+   "translation": "El apartado 6.4.7 lo refuerza: la información debe recopilarse **mediante un muestreo apropiado** y verificarse en la medida de lo practicable. La orientación detallada se encuentra en el **Anexo A.6**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-02-what-the-sample-supports",
+   "language": "es-419",
+   "lesson_id": "833e849d-f2b0-4c09-b241-2c2fb186f093",
+   "block": 5,
+   "line": 5,
+   "english": "- **Where a finding rests on a single instance, say so.** One exception found is a fact. Whether it is isolated or systemic is a different question, and lesson 05-02 handles it - but the report should not blur which one the evidence established.",
+   "translation": "- **Cuando un hallazgo se basa en una sola instancia, dígalo.** Una excepción encontrada es un hecho. Si es aislada o sistémica es una pregunta diferente, y la lección 05-02 la aborda, pero el informe no debe difuminar cuál de las dos estableció la evidencia.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-02-what-the-sample-supports",
+   "language": "pt-BR",
+   "lesson_id": "6f2c42b4-6b5f-46b9-9b10-e104b91e79ba",
+   "block": 1,
+   "line": 5,
+   "english": "Clause 6.4.7 reinforces it: information should be collected **by means of appropriate sampling** and verified as far as practicable. The detailed guidance sits in **Annex A.6**.",
+   "translation": "A Seção 6.4.7 reforça isso: as informações devem ser coletadas **por meio de amostragem apropriada** e verificadas na medida do praticável. A orientação detalhada está no **Anexo A.6**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-02-what-the-sample-supports",
+   "language": "pt-BR",
+   "lesson_id": "6f2c42b4-6b5f-46b9-9b10-e104b91e79ba",
+   "block": 5,
+   "line": 5,
+   "english": "- **Where a finding rests on a single instance, say so.** One exception found is a fact. Whether it is isolated or systemic is a different question, and lesson 05-02 handles it - but the report should not blur which one the evidence established.",
+   "translation": "- **Quando uma constatação repousa sobre uma única instância, diga isso.** Uma exceção encontrada é um fato. Se ela é isolada ou sistêmica é uma questão diferente, e a lição 05-02 trata disso — mas o relatório não deve confundir qual das duas o evidência estabeleceu.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-08-what-the-tool-verified",
+   "language": "es-419",
+   "lesson_id": "3f0bc91e-2c5b-46dd-8197-2cffe52f9fc0",
+   "block": 1,
+   "line": 1,
+   "english": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+   "translation": "ISO 19011:2026 incluye, entre los conocimientos y habilidades genéricos que debe tener un auditor, la capacidad de:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-08-what-the-tool-verified",
+   "language": "pt-BR",
+   "lesson_id": "fb20d982-d513-4cc2-9328-2249c6dd0259",
+   "block": 1,
+   "line": 1,
+   "english": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+   "translation": "A ISO 19011:2026 lista, entre os conhecimentos e habilidades genéricos que um auditor deve ter, a capacidade de:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "language": "es-419",
+   "lesson_id": "952a434f-4811-45a3-8619-ec25dfdd96e0",
+   "block": 3,
+   "line": 0,
+   "english": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+   "translation": "ISO 19011:2026 incluye, entre los conocimientos y habilidades genéricos que debe tener un auditor, la capacidad de:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "language": "pt-BR",
+   "lesson_id": "1735aee7-2c90-491e-8158-f98bc488bcc4",
+   "block": 3,
+   "line": 0,
+   "english": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+   "translation": "A ISO 19011:2026 lista, entre o conhecimento e as habilidades genéricos que um auditor deve possuir, a capacidade de:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "language": "pt-BR",
+   "lesson_id": "1735aee7-2c90-491e-8158-f98bc488bcc4",
+   "block": 3,
+   "line": 4,
+   "english": "Those are two different competences, and the second one is the harder one. An auditor who can drive a log-analysis tool but cannot say what its output establishes has half of what the standard asks for. You will meet this properly in Module 3, where it becomes the question of what an AI-assisted evidence process actually verified.",
+   "translation": "Essas são duas competências distintas, e a segunda é a mais difícil. Um auditor que sabe operar uma ferramenta de análise de logs, mas não consegue dizer o que seu resultado estabelece, possui apenas metade do que a norma exige. Você abordará isso adequadamente no Módulo 3, onde se torna a questão do que um processo de evidências assistido por IA efetivamente verificou.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "language": "pt-BR",
+   "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+   "block": 5,
+   "line": 6,
+   "english": "Most audits should use both. Hybrid is not a compromise between two methods; it is the arrangement that lets each part of the audit use the method that suits it.",
+   "translation": "A maioria das auditorias deve usar ambos. O híbrido não é um compromisso entre dois métodos; é o arranjo que permite que cada parte da auditoria use o método que melhor se adapta a ela.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "language": "es-419",
+   "lesson_id": "66cc8bbe-62ed-443e-bc95-ec82a01ba636",
+   "block": 2,
+   "line": 5,
+   "english": "**Record the role.** If a technical expert contributed, the audit record should say so and say what they contributed. It is transparency about method, and it is the kind of thing an auditee is entitled to know.",
+   "translation": "**Registre el rol.** Si un experto técnico contribuyó, el registro de la auditoría debe indicarlo y señalar qué aportó. Es transparencia sobre el método, y es el tipo de información a la que el auditado tiene derecho.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "language": "pt-BR",
+   "lesson_id": "96cfeb41-07d9-44fe-b180-7e75811d197d",
+   "block": 2,
+   "line": 5,
+   "english": "**Record the role.** If a technical expert contributed, the audit record should say so and say what they contributed. It is transparency about method, and it is the kind of thing an auditee is entitled to know.",
+   "translation": "**Registre o papel.** Se um especialista técnico contribuiu, o registro da auditoria deve indicar isso e descrever o que ele contribuiu. É transparência sobre o método, e é o tipo de informação a que um auditado tem direito de saber.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-03-what-a-screen-share-establishes",
+   "language": "pt-BR",
+   "lesson_id": "edaf97a5-f84e-4843-9efc-4d51c41bbf82",
+   "block": 4,
+   "line": 6,
+   "english": "And where none of those is available, the honest position is the one from lesson 03-01: **the evidence is usable, its degree of verification is low, and the reliance placed on it is a judgement you should be able to state.**",
+   "translation": "E onde nenhuma dessas opções está disponível, a posição honesta é a da lição 03-01: **a evidência é utilizável, seu grau de verificação é baixo, e a confiança depositada nela é um julgamento que você deve ser capaz de declarar.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+   "block": 3,
+   "line": 14,
+   "english": "Note b)'s standard: methods should produce **comparable and reproducible results** to be considered valid. A metric whose definition changed mid-year is not producing comparable results.",
+   "translation": "Nótese el estándar del punto b): los métodos deben producir **resultados comparables y reproducibles** para considerarse válidos. Una métrica cuya definición cambió a mitad de año no está produciendo resultados comparables.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+   "block": 3,
+   "line": 14,
+   "english": "Note b)'s standard: methods should produce **comparable and reproducible results** to be considered valid. A metric whose definition changed mid-year is not producing comparable results.",
+   "translation": "Observe o padrão de b): os métodos devem produzir **resultados comparáveis e reproduzíveis** para serem considerados válidos. Uma métrica cuja definição mudou no meio do ano não está produzindo resultados comparáveis.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-06-closing-it-properly",
+   "language": "es-419",
+   "lesson_id": "f83eb12e-37af-4664-aa94-5cb4845740ac",
+   "block": 4,
+   "line": 7,
+   "english": "An auditor examining closed findings should look at the interval between implementation and closure. **A pattern of closures within days of implementation tells you the tracker closes on implementation regardless of what the field is labelled.**",
+   "translation": "Un auditor que examine hallazgos cerrados debe observar el intervalo entre la implementación y el cierre. **Un patrón de cierres a los pocos días de la implementación indica que el rastreador cierra en la implementación independientemente de cómo esté etiquetado el campo.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-06-closing-it-properly",
+   "language": "pt-BR",
+   "lesson_id": "90465051-139a-4926-97c0-cec626f5dd0f",
+   "block": 4,
+   "line": 7,
+   "english": "An auditor examining closed findings should look at the interval between implementation and closure. **A pattern of closures within days of implementation tells you the tracker closes on implementation regardless of what the field is labelled.**",
+   "translation": "Um auditor que examina constatações encerradas deve observar o intervalo entre a implementação e o encerramento. **Um padrão de encerramentos em poucos dias após a implementação indica que o rastreador encerra na implementação independentemente do rótulo do campo.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-05-04-what-the-report-must-disclose",
+   "language": "pt-BR",
+   "lesson_id": "39995d23-a5e0-4a54-974b-d2b73dfc7829",
+   "block": 6,
+   "line": 1,
+   "english": "Two things suggest the judgement should lean toward disclosure.",
+   "translation": "Dois fatores sugerem que o julgamento deve pender para a divulgação.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-07-two-sentences",
+   "language": "pt-BR",
+   "lesson_id": "3b725623-792e-4409-a23e-b893c8857bab",
+   "block": 5,
+   "line": 3,
+   "english": "**If relevant, did it flow?** A 4.1 issue determined relevant should appear where 4.1 issues go - the scope consideration under 4.3, and the risks and opportunities under 6.1.1. An issue determined relevant and then never mentioned again is an inconsistency worth raising.",
+   "translation": "**Se relevante, ela fluiu?** Uma questão da Seção 4.1 determinada relevante deve aparecer onde as questões da Seção 4.1 vão — na consideração do escopo sob a Seção 4.3 e nos riscos e oportunidades sob a Seção 6.1.1. Uma questão determinada relevante e nunca mais mencionada é uma inconsistência que vale levantar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "language": "pt-BR",
+   "lesson_id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+   "block": 2,
+   "line": 1,
+   "english": "A review considers whether the programme's objectives remain appropriate to a context that has moved, what the results across audits show when read together, whether resourcing and competence proved adequate, and what should be done differently. Its output is change to the programme.",
+   "translation": "Uma análise crítica considera se os objetivos do programa permanecem adequados a um contexto que mudou, o que os resultados das auditorias revelam quando lidos em conjunto, se os recursos e a competência se mostraram adequados e o que deve ser feito de forma diferente. Seu resultado é a mudança no programa.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-05-inside-and-outside-the-remit",
+   "language": "es-419",
+   "lesson_id": "966aeab5-7058-452f-87d1-3207125bf7c1",
+   "block": 4,
+   "line": 1,
+   "english": "**Make a certification decision.** Granting, refusing, suspending or withdrawing a certificate is a certification body function under ISO/IEC 17021-1. An internal audit report should not say the AIMS is ready for certification, because the auditor is not the person who decides that and has not applied the criteria that decision uses.",
+   "translation": "**Tomar una decisión de certificación.** Otorgar, rechazar, suspender o retirar un certificado es una función del organismo de certificación bajo ISO/IEC 17021-1. Un informe de auditoría interna no debe afirmar que el sistema de gestión de IA está listo para la certificación, porque el auditor no es quien decide eso y no ha aplicado los criterios que esa decisión utiliza.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-05-inside-and-outside-the-remit",
+   "language": "pt-BR",
+   "lesson_id": "44e4d2ba-a99e-4849-a6a7-6e81dc9f4532",
+   "block": 4,
+   "line": 1,
+   "english": "**Make a certification decision.** Granting, refusing, suspending or withdrawing a certificate is a certification body function under ISO/IEC 17021-1. An internal audit report should not say the AIMS is ready for certification, because the auditor is not the person who decides that and has not applied the criteria that decision uses.",
+   "translation": "**Tomar uma decisão de certificação.** Conceder, recusar, suspender ou retirar um certificado é uma função do organismo de certificação, nos termos da ISO/IEC 17021-1. Um relatório de auditoria interna não deve afirmar que o sistema de gestão de IA está pronto para certificação, porque o auditor não é a pessoa que decide isso e não aplicou os critérios que essa decisão utiliza.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "language": "es-419",
+   "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+   "block": 1,
+   "line": 2,
+   "english": "Clause 5.1 adds that the extent of a programme should follow from how large the auditee is and what kind of body it is, and on the functionality, complexity, type of risks and opportunities, scope, and level of maturity of the management systems to be audited. A programme that would fit any organization of similar size has not been based on the nature of this one.",
+   "translation": "El apartado 5.1 añade que el alcance de un programa debe derivarse del tamaño del auditado y del tipo de organismo que es, así como de la funcionalidad, la complejidad, el tipo de riesgos y oportunidades, el alcance y el nivel de madurez de los sistemas de gestión que se van a auditar. Un programa que encajaría en cualquier organización de tamaño similar no se ha basado en la naturaleza de esta en particular.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "language": "es-419",
+   "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+   "block": 7,
+   "line": 3,
+   "english": "- Programme extent should reflect this auditee's size, nature, complexity, risks and maturity.",
+   "translation": "- El alcance del programa debe reflejar el tamaño, la naturaleza, la complejidad, los riesgos y la madurez de este auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "language": "pt-BR",
+   "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+   "block": 1,
+   "line": 2,
+   "english": "Clause 5.1 adds that the extent of a programme should follow from how large the auditee is and what kind of body it is, and on the functionality, complexity, type of risks and opportunities, scope, and level of maturity of the management systems to be audited. A programme that would fit any organization of similar size has not been based on the nature of this one.",
+   "translation": "A Seção 5.1 acrescenta que a extensão de um programa deve decorrer do tamanho do auditado e do tipo de organismo que ele é, bem como da funcionalidade, complexidade, tipo de riscos e oportunidades, escopo e nível de maturidade dos sistemas de gestão a serem auditados. Um programa que se encaixaria em qualquer organização de tamanho semelhante não foi baseado na natureza desta organização específica.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "language": "pt-BR",
+   "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+   "block": 2,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 5.2 places responsibility precisely: the **audit client** should ensure that programme objectives are set so they steer how audits are planned and run, and should ensure the programme is implemented effectively.",
+   "translation": "A cláusula 5.2 da ISO 19011:2026 atribui a responsabilidade com precisão: o **cliente da auditoria** deve assegurar que os objetivos do programa sejam estabelecidos de forma a orientar o planejamento e a condução das auditorias, e deve assegurar que o programa seja implementado de forma eficaz.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "language": "pt-BR",
+   "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+   "block": 7,
+   "line": 3,
+   "english": "- Programme extent should reflect this auditee's size, nature, complexity, risks and maturity.",
+   "translation": "- A extensão do programa deve refletir o tamanho, a natureza, a complexidade, os riscos e a maturidade deste auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-02-when-two-principles-disagree",
+   "language": "pt-BR",
+   "lesson_id": "daefe218-f21e-4ac8-9189-642188f1937f",
+   "block": 3,
+   "line": 1,
+   "english": "**Evidence-based (4.7) against risk-based (4.8).** Clause 4.8 says the risk-based approach should *substantively influence* how the audit programme is planned and carried out, so effort concentrates where it matters. Clause 4.7 says evidence should be verifiable and based on appropriate sampling, because confidence in the conclusions depends on it. Concentrating hours on a high-risk AI system means sampling another area too thinly to conclude anything about it.",
+   "translation": "**Baseado em evidências (4.7) contra baseado em riscos (4.8).** A cláusula 4.8 diz que a abordagem baseada em riscos deve *influenciar substancialmente* como o programa de auditoria é planejado e executado, de modo que o esforço se concentre onde é mais relevante. A cláusula 4.7 diz que as evidências devem ser verificáveis e baseadas em amostragem adequada, pois a confiança nas conclusões depende disso. Concentrar horas em um sistema de IA de alto risco significa amostrar outra área de forma insuficiente para tirar qualquer conclusão sobre ela.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "language": "es-419",
+   "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+   "block": 6,
+   "line": 0,
+   "english": "Clause 6.1.3 sits between two things an auditor should keep separate: the risk assessment at 6.1.2, which precedes it, and the AI system impact assessment at 6.1.4, which does not.",
+   "translation": "El apartado 6.1.3 se sitúa entre dos cosas que un auditor debe mantener separadas: la evaluación del riesgo en el apartado 6.1.2, que lo precede, y la evaluación de impacto del sistema de IA en el apartado 6.1.4, que no lo hace.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "language": "pt-BR",
+   "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+   "block": 6,
+   "line": 0,
+   "english": "Clause 6.1.3 sits between two things an auditor should keep separate: the risk assessment at 6.1.2, which precedes it, and the AI system impact assessment at 6.1.4, which does not.",
+   "translation": "A Seção 6.1.3 situa-se entre duas coisas que um auditor deve manter separadas: o processo de avaliação de riscos na 6.1.2, que a precede, e a avaliação de impacto do sistema de IA na 6.1.4, que não a precede.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "language": "es-419",
+   "lesson_id": "9fc864df-8512-49b8-8fe9-d41dcbdb3dec",
+   "block": 2,
+   "line": 2,
+   "english": "Annex A.5 supplies the relevant caution directly. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed.** A curated demonstration in place of direct examination is exactly a change in the manner of provision.",
+   "translation": "El Anexo A.5 ofrece la advertencia pertinente de manera directa. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **debe evaluarse la integridad de la evidencia de auditoría.** Una demostración curada en lugar de un examen directo es exactamente un cambio en la manera de proporcionar la información.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "language": "pt-BR",
+   "lesson_id": "4c983ea1-94dc-4e8f-b8f9-54587c3b8c51",
+   "block": 2,
+   "line": 2,
+   "english": "Annex A.5 supplies the relevant caution directly. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed.** A curated demonstration in place of direct examination is exactly a change in the manner of provision.",
+   "translation": "O Anexo A.5 fornece a ressalva pertinente diretamente. Quando a informação é fornecida de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade da evidência de auditoria deve ser avaliada.** Uma demonstração curada no lugar de um exame direto é exatamente uma mudança na forma de fornecimento.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-12-declared-and-operated",
+   "language": "es-419",
+   "lesson_id": "c84b2210-6dde-4a74-b526-360f7cbe596a",
+   "block": 5,
+   "line": 0,
+   "english": "**Family A.6, AI system life cycle**, covers management guidance for AI system development and controls across the life cycle, including AI system technical documentation (A.6.2.7) and recording of event logs (A.6.2.8), which addresses at which phases log record keeping should be enabled and states at the minimum when the AI system is in use.",
+   "translation": "**La familia A.6, ciclo de vida del sistema de IA**, cubre la orientación de gestión para el desarrollo de sistemas de IA y los controles a lo largo del ciclo de vida, incluida la documentación técnica del sistema de IA (A.6.2.7) y el registro de logs de eventos (A.6.2.8), que aborda en qué fases debe habilitarse el registro de eventos y establece como mínimo cuándo el sistema de IA está en uso.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-12-declared-and-operated",
+   "language": "pt-BR",
+   "lesson_id": "b550eaba-04cf-4d27-b58b-d2f017091f58",
+   "block": 5,
+   "line": 0,
+   "english": "**Family A.6, AI system life cycle**, covers management guidance for AI system development and controls across the life cycle, including AI system technical documentation (A.6.2.7) and recording of event logs (A.6.2.8), which addresses at which phases log record keeping should be enabled and states at the minimum when the AI system is in use.",
+   "translation": "**A família A.6, ciclo de vida do sistema de IA**, cobre orientações de gestão para o desenvolvimento de sistemas de IA e controles ao longo do ciclo de vida, incluindo documentação técnica do sistema de IA (A.6.2.7) e registro de logs de eventos (A.6.2.8), que aborda em quais fases o registro de logs deve ser habilitado e estabelece no mínimo quando o sistema de IA está em uso.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "language": "es-419",
+   "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, to be carried out in a manner adapted to the situation and the individual interviewed, face-to-face or by other means of communication. It then lists what the auditor should consider:",
+   "translation": "El Anexo A.17 de la norma ISO 19011:2026 trata las entrevistas como un medio importante para recopilar información, que debe llevarse a cabo de manera adaptada a la situación y a la persona entrevistada, ya sea de forma presencial o a través de otros medios de comunicación. A continuación, enumera lo que el auditor debe considerar:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "language": "pt-BR",
+   "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, to be carried out in a manner adapted to the situation and the individual interviewed, face-to-face or by other means of communication. It then lists what the auditor should consider:",
+   "translation": "A ISO 19011:2026, Anexo A.17, trata as entrevistas como um meio importante de coleta de informações, a serem realizadas de forma adaptada à situação e ao indivíduo entrevistado, presencialmente ou por outros meios de comunicação. Em seguida, lista o que o auditor deve considerar:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "language": "es-419",
+   "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+   "block": 3,
+   "line": 1,
+   "english": "Where the audit is **not feasible**, the clause says an alternative should be proposed to the audit client, in agreement with the auditee.",
+   "translation": "Cuando la auditoría **no es viable**, el apartado indica que debe proponerse una alternativa al cliente de la auditoría, de acuerdo con el auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "language": "pt-BR",
+   "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+   "block": 3,
+   "line": 1,
+   "english": "Where the audit is **not feasible**, the clause says an alternative should be proposed to the audit client, in agreement with the auditee.",
+   "translation": "Quando a auditoria **não é viável**, a Seção determina que uma alternativa deve ser proposta ao cliente da auditoria, em acordo com o auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "language": "es-419",
+   "lesson_id": "7de37431-809e-44b9-98fa-1da3ac61e0a3",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 Annex A.18.4 covers **dealing with audit findings related to multiple criteria**. During an audit it is possible to identify findings relating to more than one criterion, and where an auditor identifies a finding relating to one criterion, the auditor should consider the possible effect on the corresponding or similar criteria of the other management systems.",
+   "translation": "El Anexo A.18.4 de ISO 19011:2026 trata el **manejo de hallazgos de auditoría relacionados con múltiples criterios**. Durante una auditoría es posible identificar hallazgos que se relacionan con más de un criterio, y cuando un auditor identifica un hallazgo relacionado con un criterio, debe considerar el posible efecto sobre los criterios correspondientes o similares de los otros sistemas de gestión.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-03-one-finding-or-several",
+   "language": "pt-BR",
+   "lesson_id": "8f77278d-5623-4683-bf94-835d1e367408",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 Annex A.18.4 covers **dealing with audit findings related to multiple criteria**. During an audit it is possible to identify findings relating to more than one criterion, and where an auditor identifies a finding relating to one criterion, the auditor should consider the possible effect on the corresponding or similar criteria of the other management systems.",
+   "translation": "O Anexo A.18.4 da ISO 19011:2026 aborda o **tratamento de constatações de auditoria relacionadas a múltiplos critérios**. Durante uma auditoria, é possível identificar constatações relacionadas a mais de um critério e, quando um auditor identifica uma constatação relacionada a um critério, ele deve considerar o possível efeito sobre os critérios correspondentes ou similares dos outros sistemas de gestão.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-04-when-you-cannot-be-independent",
+   "language": "pt-BR",
+   "lesson_id": "e5365885-df75-4d31-83fe-0a6f3aa9dee0",
+   "block": 1,
+   "line": 1,
+   "english": "- Auditors **should stand apart from whatever they audit, wherever that is practicable**, and should in every case act in a way free of bias and of conflicting interest.",
+   "translation": "- Os auditores **devem se manter apartados de tudo aquilo que auditam, sempre que isso for praticável**, e devem em todos os casos agir de forma livre de viés e de conflito de interesses.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-04-when-you-cannot-be-independent",
+   "language": "pt-BR",
+   "lesson_id": "e5365885-df75-4d31-83fe-0a6f3aa9dee0",
+   "block": 1,
+   "line": 2,
+   "english": "- Auditors should stay objective throughout, so that findings and conclusions rest **only on the audit evidence**.",
+   "translation": "- Os auditores devem manter a objetividade ao longo de todo o processo, de modo que as constatações e conclusões se baseiem **apenas nas evidências de auditoria**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-04-when-you-cannot-be-independent",
+   "language": "pt-BR",
+   "lesson_id": "e5365885-df75-4d31-83fe-0a6f3aa9dee0",
+   "block": 1,
+   "line": 3,
+   "english": "- **Where internal auditors cannot stand apart from what they audit, every effort should go into stripping out bias and fostering objectivity.**",
+   "translation": "- **Quando os auditores internos não conseguem se distanciar do que auditam, todos os esforços devem ser direcionados para eliminar o viés e promover a objetividade.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-01-04-when-you-cannot-be-independent",
+   "language": "pt-BR",
+   "lesson_id": "e5365885-df75-4d31-83fe-0a6f3aa9dee0",
+   "block": 6,
+   "line": 1,
+   "english": "- Where independence is not possible, every effort should go into stripping out bias and fostering objectivity.",
+   "translation": "- Onde a independência não for possível, todos os esforços devem ser direcionados para eliminar o viés e promover a objetividade.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "language": "es-419",
+   "lesson_id": "6336028b-096e-4cbb-9d84-0dbc894a2472",
+   "block": 1,
+   "line": 3,
+   "english": "Clause 7.3 adds that auditor evaluation criteria should be both qualitative - demonstrating behaviour, knowledge or the performance of skills - and quantitative, such as years of experience, education, number of audits conducted, hours of audit training. Clause 7.4 asks that evaluation use two or more of the methods in its Table 2, because methods differ in reliability.",
+   "translation": "El apartado 7.3 añade que los criterios de evaluación del auditor deben ser tanto cualitativos —demostración de comportamientos, conocimientos o desempeño de habilidades— como cuantitativos, por ejemplo años de experiencia, formación, número de auditorías realizadas u horas de capacitación en auditoría. El apartado 7.4 pide que la evaluación utilice dos o más de los métodos de su Tabla 2, porque los métodos difieren en fiabilidad.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "language": "es-419",
+   "lesson_id": "6336028b-096e-4cbb-9d84-0dbc894a2472",
+   "block": 4,
+   "line": 2,
+   "english": "**For competence:** the expert closes a knowledge gap. They explain what the evaluation report shows, what the provenance record omits, what a retraining trail should contain. The auditor still forms the conclusion, and still needs enough competence to judge whether the explained evidence supports it. The arrangement does not transfer audit judgement, so clause 4.2 b) continues to apply to the auditors.",
+   "translation": "**Para la competencia:** el experto cierra una brecha de conocimiento. Explica qué muestra el informe de evaluación, qué omite el registro de procedencia, qué debe contener un rastro de reentrenamiento. El auditor sigue formando la conclusión y necesita suficiente competencia para juzgar si la evidencia explicada la respalda. El acuerdo no transfiere el juicio de auditoría, por lo que el apartado 4.2 b) sigue aplicándose a los auditores.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "language": "pt-BR",
+   "lesson_id": "8a1223a1-2611-4ba2-908c-e6a3ed939739",
+   "block": 1,
+   "line": 3,
+   "english": "Clause 7.3 adds that auditor evaluation criteria should be both qualitative - demonstrating behaviour, knowledge or the performance of skills - and quantitative, such as years of experience, education, number of audits conducted, hours of audit training. Clause 7.4 asks that evaluation use two or more of the methods in its Table 2, because methods differ in reliability.",
+   "translation": "A Seção 7.3 acrescenta que os critérios de avaliação do auditor devem ser tanto qualitativos — demonstração de comportamento, conhecimento ou desempenho de habilidades — quanto quantitativos, como anos de experiência, formação acadêmica, número de auditorias realizadas e horas de treinamento em auditoria. A Seção 7.4 exige que a avaliação utilize dois ou mais métodos da Tabela 2, pois os métodos diferem em confiabilidade.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "language": "pt-BR",
+   "lesson_id": "8a1223a1-2611-4ba2-908c-e6a3ed939739",
+   "block": 4,
+   "line": 2,
+   "english": "**For competence:** the expert closes a knowledge gap. They explain what the evaluation report shows, what the provenance record omits, what a retraining trail should contain. The auditor still forms the conclusion, and still needs enough competence to judge whether the explained evidence supports it. The arrangement does not transfer audit judgement, so clause 4.2 b) continues to apply to the auditors.",
+   "translation": "**Para a competência:** o especialista preenche uma lacuna de conhecimento. Ele explica o que o relatório de avaliação mostra, o que o registro de proveniência omite, o que uma trilha de retreinamento deve conter. O auditor ainda forma a conclusão e ainda precisa de competência suficiente para julgar se a evidência explicada a sustenta. O arranjo não transfere o julgamento de auditoria, portanto a Seção 4.2 b) continua se aplicando aos auditores.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "es-419",
+   "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+   "block": 2,
+   "line": 0,
+   "english": "Clause 6.3.1 states what happens when the review shows the documentation is inadequate: the audit team leader should inform the audit client, the individual(s) managing the audit programme and the auditee, and a decision should be made whether the audit should be continued or suspended until documentation concerns are resolved.",
+   "translation": "El apartado 6.3.1 establece qué ocurre cuando la revisión muestra que la documentación es inadecuada: el líder del equipo auditor debe informar al cliente de la auditoría, a la(s) persona(s) que gestionan el programa de auditoría y al auditado, y debe tomarse una decisión sobre si la auditoría debe continuar o suspenderse hasta que se resuelvan las preocupaciones sobre la documentación.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "es-419",
+   "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+   "block": 4,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.3.2 covers audit planning. The audit plan describes the activities and arrangements for the audit and provides the basis for agreement among the audit client, the audit team and the auditee. Its detail should reflect the scope and complexity of the audit, and the risks and opportunities associated with it.",
+   "translation": "El apartado 6.3.2 de la norma ISO 19011:2026 regula la planificación de la auditoría. El plan de auditoría describe las actividades y los arreglos para la auditoría y proporciona la base para el acuerdo entre el cliente de la auditoría, el equipo auditor y el auditado. Su nivel de detalle debe reflejar el alcance y la complejidad de la auditoría, así como los riesgos y las oportunidades asociados a ella.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "es-419",
+   "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+   "block": 4,
+   "line": 1,
+   "english": "Because it is a basis for agreement, the plan is where later disputes are settled or created. For an AIMS audit it should name:",
+   "translation": "Dado que es una base para el acuerdo, el plan es donde las disputas posteriores se resuelven o se crean. Para una auditoría del sistema de gestión de IA, debe nombrar:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "es-419",
+   "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+   "block": 5,
+   "line": 0,
+   "english": "Clause 6.4.7 records that where the audit team becomes aware of new or changed circumstances, or of risks or opportunities, these should be addressed by the audit team accordingly. A plan is a design, not a commitment to ignore what the evidence shows.",
+   "translation": "El apartado 6.4.7 establece que cuando el equipo auditor tome conocimiento de circunstancias nuevas o modificadas, o de riesgos y oportunidades, estos deben ser abordados por el equipo auditor en consecuencia. Un plan es un diseño, no un compromiso de ignorar lo que muestra la evidencia.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "es-419",
+   "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+   "block": 5,
+   "line": 3,
+   "english": "**Agree it.** The plan was a basis for agreement among the audit client, audit team and auditee. A material change should be communicated, not made unilaterally in the auditor's notebook.",
+   "translation": "**Acuérdelo.** El plan fue una base para el acuerdo entre el cliente de la auditoría, el equipo auditor y el auditado. Un cambio material debe comunicarse, no realizarse unilateralmente en el cuaderno del auditor.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "pt-BR",
+   "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+   "block": 2,
+   "line": 0,
+   "english": "Clause 6.3.1 states what happens when the review shows the documentation is inadequate: the audit team leader should inform the audit client, the individual(s) managing the audit programme and the auditee, and a decision should be made whether the audit should be continued or suspended until documentation concerns are resolved.",
+   "translation": "A Seção 6.3.1 estabelece o que acontece quando a revisão mostra que a documentação é inadequada: o líder da equipe de auditoria deve informar o cliente da auditoria, o(s) indivíduo(s) que gerencia(m) o programa de auditoria e o auditado, e uma decisão deve ser tomada sobre se a auditoria deve continuar ou ser suspensa até que as questões de documentação sejam resolvidas.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "pt-BR",
+   "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+   "block": 4,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.3.2 covers audit planning. The audit plan describes the activities and arrangements for the audit and provides the basis for agreement among the audit client, the audit team and the auditee. Its detail should reflect the scope and complexity of the audit, and the risks and opportunities associated with it.",
+   "translation": "A Seção 6.3.2 da ISO 19011:2026 trata do planejamento da auditoria. O plano de auditoria descreve as atividades e os arranjos para a auditoria e fornece a base para o acordo entre o cliente da auditoria, a equipe de auditoria e o auditado. Seu nível de detalhe deve refletir o escopo e a complexidade da auditoria, bem como os riscos e oportunidades a ela associados.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "pt-BR",
+   "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+   "block": 4,
+   "line": 1,
+   "english": "Because it is a basis for agreement, the plan is where later disputes are settled or created. For an AIMS audit it should name:",
+   "translation": "Por ser uma base para acordo, o plano é onde disputas futuras são resolvidas ou criadas. Para uma auditoria do sistema de gestão de IA, ele deve nomear:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "pt-BR",
+   "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+   "block": 5,
+   "line": 0,
+   "english": "Clause 6.4.7 records that where the audit team becomes aware of new or changed circumstances, or of risks or opportunities, these should be addressed by the audit team accordingly. A plan is a design, not a commitment to ignore what the evidence shows.",
+   "translation": "A Seção 6.4.7 registra que, quando a equipe de auditoria toma conhecimento de circunstâncias novas ou alteradas, ou de riscos e oportunidades, estes devem ser tratados pela equipe de auditoria de forma adequada. Um plano é um projeto, não um compromisso de ignorar o que as evidências mostram.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "language": "pt-BR",
+   "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+   "block": 5,
+   "line": 3,
+   "english": "**Agree it.** The plan was a basis for agreement among the audit client, audit team and auditee. A material change should be communicated, not made unilaterally in the auditor's notebook.",
+   "translation": "**Acorde-o.** O plano era uma base para acordo entre o cliente da auditoria, a equipe de auditoria e o auditado. Uma alteração relevante deve ser comunicada, não feita unilateralmente no caderno do auditor.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "language": "es-419",
+   "lesson_id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+   "block": 6,
+   "line": 0,
+   "english": "Annex A.6.1's final step is evaluating and reporting the results, and clause 6.5.1 k) states what the report should include or refer to: **a statement that audits are by nature a sampling exercise; as such there is a risk that the audit evidence examined is not representative.**",
+   "translation": "El último paso del Anexo A.6.1 es evaluar e informar los resultados, y el apartado 6.5.1 k) establece lo que el informe debe incluir o referenciar: **una declaración de que las auditorías son por naturaleza un ejercicio de muestreo; como tal, existe el riesgo de que la evidencia de auditoría examinada no sea representativa.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "language": "pt-BR",
+   "lesson_id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+   "block": 6,
+   "line": 0,
+   "english": "Annex A.6.1's final step is evaluating and reporting the results, and clause 6.5.1 k) states what the report should include or refer to: **a statement that audits are by nature a sampling exercise; as such there is a risk that the audit evidence examined is not representative.**",
+   "translation": "A etapa final do Anexo A.6.1 é avaliar e reportar os resultados, e a Seção 6.5.1 k) estabelece o que o relatório deve incluir ou referenciar: **uma declaração de que as auditorias são, por natureza, um exercício de amostragem; como tal, há um risco de que as evidências de auditoria examinadas não sejam representativas.**",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "language": "es-419",
+   "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+   "block": 4,
+   "line": 10,
+   "english": "Annex A.5 adds two further points. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed**. And specific care should be taken for the security of data, particularly information lying outside the audit scope but contained in documented information the auditor is given.",
+   "translation": "El Anexo A.5 añade dos puntos adicionales. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, debe evaluarse la **integridad de la evidencia de auditoría**. Y debe prestarse especial atención a la seguridad de los datos, en particular la información que queda fuera del alcance de la auditoría pero que está contenida en la información documentada que se entrega al auditor.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "language": "es-419",
+   "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+   "block": 7,
+   "line": 2,
+   "english": "- A description of a process establishes what the speaker believes, not that the process ran - but a statement of fact is evidence and should not be discarded.",
+   "translation": "- La descripción de un proceso establece lo que el interlocutor cree, no que el proceso se haya ejecutado; pero una declaración de hechos es evidencia y no debe descartarse.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "language": "pt-BR",
+   "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+   "block": 4,
+   "line": 10,
+   "english": "Annex A.5 adds two further points. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed**. And specific care should be taken for the security of data, particularly information lying outside the audit scope but contained in documented information the auditor is given.",
+   "translation": "O Anexo A.5 acrescenta dois pontos adicionais. Quando as informações são fornecidas de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade da evidência de auditoria deve ser avaliada**. E deve-se ter cuidado especial com a segurança dos dados, particularmente das informações que estão fora do escopo da auditoria, mas contidas na informação documentada fornecida ao auditor.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "language": "pt-BR",
+   "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+   "block": 7,
+   "line": 2,
+   "english": "- A description of a process establishes what the speaker believes, not that the process ran - but a statement of fact is evidence and should not be discarded.",
+   "translation": "- A descrição de um processo estabelece o que o interlocutor acredita, não que o processo foi executado — mas uma declaração de fato é evidência e não deve ser descartada.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "language": "es-419",
+   "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+   "block": 2,
+   "line": 8,
+   "english": "**Note the triggers differ slightly between 8.2 and 8.4.** Clause 8.2 says at planned intervals or when significant changes are proposed or occur; clause 8.4 says at planned times and when significant changes occur. An auditor testing whether reassessment was triggered should read the clause that applies rather than assume they match.",
+   "translation": "**Nótese que los disparadores difieren ligeramente entre los apartados 8.2 y 8.4.** El apartado 8.2 dice a intervalos planificados o cuando se proponen o producen cambios significativos; el apartado 8.4 dice en momentos planificados y cuando se producen cambios significativos. Un auditor que verifica si se activó una reevaluación debe leer el apartado que corresponde en lugar de asumir que coinciden.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "language": "pt-BR",
+   "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+   "block": 2,
+   "line": 8,
+   "english": "**Note the triggers differ slightly between 8.2 and 8.4.** Clause 8.2 says at planned intervals or when significant changes are proposed or occur; clause 8.4 says at planned times and when significant changes occur. An auditor testing whether reassessment was triggered should read the clause that applies rather than assume they match.",
+   "translation": "**Observe que os gatilhos diferem ligeiramente entre 8.2 e 8.4.** A Seção 8.2 diz em intervalos planejados ou quando mudanças significativas são propostas ou ocorrem; a Seção 8.4 diz em momentos planejados e quando mudanças significativas ocorrem. Um auditor que verifica se uma reavaliação foi acionada deve ler a seção aplicável em vez de presumir que são iguais.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "language": "es-419",
+   "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+   "block": 7,
+   "line": 5,
+   "english": "- Existence and evidencing of a determination are auditable by anyone; whether its content is adequate needs domain competence, and a finding should say what was tested.",
+   "translation": "- La existencia y la evidenciación de una determinación son auditables por cualquier persona; si su contenido es adecuado requiere competencia en el dominio, y un hallazgo debe indicar qué se verificó.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "language": "pt-BR",
+   "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+   "block": 5,
+   "line": 9,
+   "english": "**And the reverse case matters too.** An auditor who does hold the domain competence, and who concludes the standard is inadequate, should say so - and should be clear that this is a judgement about content rather than about records, so that a reader can weigh it accordingly.",
+   "translation": "**E o caso inverso também importa.** Um auditor que possui competência no domínio e conclui que o padrão é inadequado deve dizê-lo — e deve deixar claro que se trata de um julgamento sobre conteúdo, e não sobre registros, para que o leitor possa ponderá-lo adequadamente.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "language": "pt-BR",
+   "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+   "block": 7,
+   "line": 5,
+   "english": "- Existence and evidencing of a determination are auditable by anyone; whether its content is adequate needs domain competence, and a finding should say what was tested.",
+   "translation": "- A existência e a evidenciação de uma determinação são auditáveis por qualquer pessoa; se seu conteúdo é adequado requer competência no domínio, e uma constatação deve declarar o que foi verificado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "es-419",
+   "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+   "block": 1,
+   "line": 4,
+   "english": "Clause 6.4.8 puts it operationally: audit evidence should be evaluated against the audit criteria in order to determine audit findings, and where the audit plan specifies, findings should include conformity and good practices with supporting evidence, opportunities for improvement, and any recommendations to the auditee.",
+   "translation": "El apartado 6.4.8 lo plantea de forma operativa: la evidencia de auditoría debe evaluarse frente a los criterios de auditoría para determinar los hallazgos de auditoría, y cuando el plan de auditoría lo especifique, los hallazgos deben incluir la conformidad y las buenas prácticas con evidencia de respaldo, las oportunidades de mejora y cualquier recomendación al auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "es-419",
+   "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+   "block": 2,
+   "line": 5,
+   "english": "Recording conformities matters more in an internal audit than an external one. The certification body's report is about whether a certificate should issue; yours is information for management, and *this area was examined and found sound, on this evidence* is information. It also distinguishes an area examined and passed from an area never opened - which lesson 03-03's sampling statement addresses from the other direction.",
+   "translation": "Registrar las conformidades importa más en una auditoría interna que en una externa. El informe del organismo de certificación trata sobre si debe emitirse un certificado; el informe interno es información para la dirección, y *esta área fue examinada y se encontró en buen estado, con esta evidencia* es información. También distingue un área examinada y aprobada de un área que nunca se abrió, algo que la declaración de muestreo de la lección 03-03 aborda desde la otra dirección.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "es-419",
+   "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+   "block": 6,
+   "line": 5,
+   "english": "The AIMS-specific temptation is to import a certification body's scale, because the organization has seen one. A certification body's major and minor criteria were designed for a certification decision - whether a certificate should issue, be withheld or be suspended - which is not a decision the internal programme makes. Borrowing the labels without the decision they serve produces grades that mean nothing operationally.",
+   "translation": "La tentación específica en sistemas de gestión de IA es importar la escala de un organismo de certificación, porque la organización ha visto una. Los criterios de mayor y menor de un organismo de certificación fueron diseñados para una decisión de certificación —si un certificado debe emitirse, retenerse o suspenderse—, que no es una decisión que tome el programa interno. Tomar prestadas las etiquetas sin la decisión a la que sirven produce clasificaciones que no tienen ningún significado operativo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "pt-BR",
+   "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+   "block": 1,
+   "line": 4,
+   "english": "Clause 6.4.8 puts it operationally: audit evidence should be evaluated against the audit criteria in order to determine audit findings, and where the audit plan specifies, findings should include conformity and good practices with supporting evidence, opportunities for improvement, and any recommendations to the auditee.",
+   "translation": "A Seção 6.4.8 coloca isso de forma operacional: as evidências de auditoria devem ser avaliadas em relação aos critérios de auditoria para determinar as constatações de auditoria e, quando o plano de auditoria especificar, as constatações devem incluir conformidade e boas práticas com evidências de suporte, oportunidades de melhoria e quaisquer recomendações ao auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "pt-BR",
+   "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+   "block": 2,
+   "line": 5,
+   "english": "Recording conformities matters more in an internal audit than an external one. The certification body's report is about whether a certificate should issue; yours is information for management, and *this area was examined and found sound, on this evidence* is information. It also distinguishes an area examined and passed from an area never opened - which lesson 03-03's sampling statement addresses from the other direction.",
+   "translation": "Registrar conformidades importa mais em uma auditoria interna do que em uma externa. O relatório do organismo de certificação trata de saber se um certificado deve ser emitido; o seu é informação para a gestão, e *esta área foi examinada e considerada adequada, com base nestas evidências* é informação. Isso também distingue uma área examinada e aprovada de uma área que nunca foi aberta — o que a declaração de amostragem da lição 03-03 aborda pelo outro ângulo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "language": "pt-BR",
+   "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+   "block": 6,
+   "line": 5,
+   "english": "The AIMS-specific temptation is to import a certification body's scale, because the organization has seen one. A certification body's major and minor criteria were designed for a certification decision - whether a certificate should issue, be withheld or be suspended - which is not a decision the internal programme makes. Borrowing the labels without the decision they serve produces grades that mean nothing operationally.",
+   "translation": "A tentação específica do sistema de gestão de IA é importar a escala de um organismo de certificação, porque a organização já viu uma. Os critérios de maior e menor de um organismo de certificação foram concebidos para uma decisão de certificação — se um certificado deve ser emitido, retido ou suspenso — que não é uma decisão que o programa interno toma. Tomar emprestado os rótulos sem a decisão que eles servem produz classificações que não significam nada operacionalmente.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "es-419",
+   "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.5.1 states that the audit team leader should report the audit conclusions in accordance with the audit programme, and that the report should provide a **complete, accurate, concise and clear record** of the audit. It should include or refer to:",
+   "translation": "El apartado 6.5.1 de la norma ISO 19011:2026 establece que el líder del equipo auditor debe informar las conclusiones de la auditoría de acuerdo con el programa de auditoría, y que el informe debe proporcionar un **registro completo, preciso, conciso y claro** de la auditoría. Debe incluir o hacer referencia a:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "es-419",
+   "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+   "block": 5,
+   "line": 0,
+   "english": "Clause 4.5 describes confidentiality as security and privacy of information. Auditors should exercise **discretion in the use and protection of information acquired in the course of their auditing activities**, audit information should not be used inappropriately for personal gain or in a manner detrimental to the legitimate interests of the auditee, and the principle includes the **proper handling of sensitive or confidential information**.",
+   "translation": "El apartado 4.5 describe la confidencialidad como la seguridad y privacidad de la información. Los auditores deben ejercer **discreción en el uso y la protección de la información adquirida en el curso de sus actividades de auditoría**, la información de auditoría no debe usarse de manera inapropiada para beneficio personal ni de una manera perjudicial para los intereses legítimos del auditado, y el principio incluye el **manejo adecuado de información sensible o confidencial**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "es-419",
+   "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+   "block": 6,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.5.2 covers distributing the audit report: it should be issued within an agreed period, and to the recipients defined in the audit programme or the audit plan.",
+   "translation": "El apartado 6.5.2 de la norma ISO 19011:2026 cubre la distribución del informe de auditoría: debe emitirse dentro de un período acordado y a los destinatarios definidos en el programa de auditoría o en el plan de auditoría.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "pt-BR",
+   "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.5.1 states that the audit team leader should report the audit conclusions in accordance with the audit programme, and that the report should provide a **complete, accurate, concise and clear record** of the audit. It should include or refer to:",
+   "translation": "A Seção 6.5.1 da ISO 19011:2026 estabelece que o líder da equipe de auditoria deve relatar as conclusões da auditoria em conformidade com o programa de auditoria, e que o relatório deve fornecer um **registro completo, preciso, conciso e claro** da auditoria. Ele deve incluir ou referenciar:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "pt-BR",
+   "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+   "block": 5,
+   "line": 0,
+   "english": "Clause 4.5 describes confidentiality as security and privacy of information. Auditors should exercise **discretion in the use and protection of information acquired in the course of their auditing activities**, audit information should not be used inappropriately for personal gain or in a manner detrimental to the legitimate interests of the auditee, and the principle includes the **proper handling of sensitive or confidential information**.",
+   "translation": "A Seção 4.5 descreve a confidencialidade como segurança e privacidade das informações. Os auditores devem exercer **discrição no uso e na proteção das informações adquiridas no curso de suas atividades de auditoria**, as informações de auditoria não devem ser usadas de forma inadequada para ganho pessoal ou de maneira prejudicial aos interesses legítimos do auditado, e o princípio inclui o **manuseio adequado de informações sensíveis ou confidenciais**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "language": "pt-BR",
+   "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+   "block": 6,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 6.5.2 covers distributing the audit report: it should be issued within an agreed period, and to the recipients defined in the audit programme or the audit plan.",
+   "translation": "A Seção 6.5.2 da ISO 19011:2026 trata da distribuição do relatório de auditoria: ele deve ser emitido dentro de um período acordado e para os destinatários definidos no programa de auditoria ou no plano de auditoria.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "language": "es-419",
+   "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+   "block": 6,
+   "line": 3,
+   "english": "Clause 5.5.3 asks that methods be selected depending on the defined objectives, scope and criteria. In a combined audit there are two sets of those, and the method should be chosen against both.",
+   "translation": "El apartado 5.5.3 pide que los métodos se seleccionen en función de los objetivos, el alcance y los criterios definidos. En una auditoría combinada hay dos conjuntos de estos, y el método debe elegirse considerando ambos.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "language": "pt-BR",
+   "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 5.5.3 states that the individual managing the audit programme should choose and settle the methods for running an audit effectively and efficiently, **according to the audit objectives, scope and criteria already defined**.",
+   "translation": "A cláusula 5.5.3 da ISO 19011:2026 estabelece que o indivíduo responsável pela gestão do programa de auditoria deve escolher e definir os métodos para conduzir uma auditoria de forma eficaz e eficiente, **de acordo com os objetivos, o escopo e os critérios de auditoria já definidos**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "language": "pt-BR",
+   "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+   "block": 6,
+   "line": 3,
+   "english": "Clause 5.5.3 asks that methods be selected depending on the defined objectives, scope and criteria. In a combined audit there are two sets of those, and the method should be chosen against both.",
+   "translation": "A Seção 5.5.3 solicita que os métodos sejam selecionados dependendo dos objetivos, do escopo e dos critérios definidos. Em uma auditoria combinada, há dois conjuntos desses elementos, e o método deve ser escolhido em relação a ambos.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-07-controlled-not-merely-present",
+   "language": "pt-BR",
+   "lesson_id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+   "block": 6,
+   "line": 4,
+   "english": "The external limb is where an AIMS differs. Where the organization is a provider, Table A.1 family A.8 addresses information for interested parties - external reporting, communication of incidents, information for interested parties - and clause 7.4's determination should be consistent with whatever those controls, where selected, commit the organization to.",
+   "translation": "O aspecto externo é onde um sistema de gestão de IA se diferencia. Quando a organização é provedora, a família A.8 da Tabela A.1 trata das informações para partes interessadas — relatórios externos, comunicação de incidentes, informações para partes interessadas — e a determinação da Seção 7.4 deve ser consistente com o que esses controles, quando selecionados, comprometem a organização a fazer.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "es-419",
+   "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+   "block": 2,
+   "line": 0,
+   "english": "An auditor testing this should not carry a fixed expectation of the right answer, and should know what a considered *yes* would look like so that a considered *no* is recognisable as considered.",
+   "translation": "Un auditor que evalúe este punto no debe llevar una expectativa fija sobre la respuesta correcta, y debe saber cómo sería un *sí* razonado para poder reconocer un *no* razonado como tal.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "es-419",
+   "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+   "block": 4,
+   "line": 7,
+   "english": "**For the audit of a combined management system.** An organization operating both will have made the climate determination once, and it should be checked that the determination addresses the AI management system's own relevance rather than being inherited wholesale from the ISMS determination. The considerations differ - computing resource consumption is an AIMS-specific route that an ISMS determination has no reason to have examined.",
+   "translation": "**Para la auditoría de un sistema de gestión combinado.** Una organización que opera ambos habrá realizado la determinación climática una sola vez, y debe verificarse que la determinación aborda la relevancia propia del sistema de gestión de IA y no se hereda íntegramente de la determinación del SGSI. Las consideraciones difieren — el consumo de recursos informáticos es una vía específica del sistema de gestión de IA que una determinación del SGSI no tiene razón de haber examinado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "pt-BR",
+   "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+   "block": 2,
+   "line": 0,
+   "english": "An auditor testing this should not carry a fixed expectation of the right answer, and should know what a considered *yes* would look like so that a considered *no* is recognisable as considered.",
+   "translation": "Um auditor que testa esse ponto não deve ter uma expectativa fixa sobre a resposta correta, e deve saber como seria um *sim* fundamentado para que um *não* fundamentado seja reconhecível como tal.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 2
+   },
+   "target_profile": {
+    "strong": 2,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "pt-BR",
+   "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+   "block": 4,
+   "line": 7,
+   "english": "**For the audit of a combined management system.** An organization operating both will have made the climate determination once, and it should be checked that the determination addresses the AI management system's own relevance rather than being inherited wholesale from the ISMS determination. The considerations differ - computing resource consumption is an AIMS-specific route that an ISMS determination has no reason to have examined.",
+   "translation": "**Para a auditoria de um sistema de gestão combinado.** Uma organização que opera ambos terá feito a determinação climática uma única vez, e deve-se verificar se a determinação aborda a relevância específica do sistema de gestão de IA, em vez de ser herdada integralmente da determinação do SGSI. As considerações diferem — o consumo de recursos computacionais é um caminho específico do sistema de gestão de IA que uma determinação do SGSI não tem razão para ter examinado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "language": "pt-BR",
+   "lesson_id": "b98a8846-6456-433a-bbed-d7debf127b39",
+   "block": 5,
+   "line": 5,
+   "english": "So an auditor testing clause 4.1 should ask what the organization says each system is *for*, and then carry that answer into the assessment of 6.1.4 in a later lesson. A system whose intended purpose was never stated will have an impact assessment that cannot distinguish misuse from use, and the defect originates here.",
+   "translation": "Portanto, ao auditar a Seção 4.1, o auditor deve perguntar para que cada sistema serve, segundo a organização, e então levar essa resposta para a avaliação da Seção 6.1.4 em uma lição posterior. Um sistema cujo propósito pretendido nunca foi declarado terá uma avaliação de impacto que não consegue distinguir uso indevido de uso regular, e a falha tem origem aqui.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 1,
+   "line": 2,
+   "english": "What it should still achieve, however brief:",
+   "translation": "Lo que debe lograr, por breve que sea:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 1,
+   "line": 3,
+   "english": "- **Confirming the plan** - scope, objectives, criteria, systems, period. Anything the auditee disputes should be disputed now, not when a finding lands.",
+   "translation": "- **Confirmar el plan**: alcance, objetivos, criterios, sistemas, período. Cualquier punto que el auditado cuestione debe cuestionarse ahora, no cuando llegue un hallazgo.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 1,
+   "line": 5,
+   "english": "- **Confirming how findings will be communicated** - during the audit or at the end, and what the auditee should expect.",
+   "translation": "- **Confirmar cómo se comunicarán los hallazgos**: durante la auditoría o al final, y qué debe esperar el auditado.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 2,
+   "line": 2,
+   "english": "**A guide** accompanies the audit team, assists in arranging access and interviews, arranges visits to locations, ensures rules on safety and security are known and respected, witnesses the audit on behalf of the auditee, and provides clarification or assists in collecting information. The clause is clear that a guide should not influence or interfere with the conduct of the audit.",
+   "translation": "**Un guía** acompaña al equipo auditor, ayuda a gestionar el acceso y las entrevistas, organiza las visitas a las instalaciones, garantiza que se conozcan y respeten las normas de seguridad, atestigua la auditoría en nombre del auditado y proporciona aclaraciones o asiste en la recopilación de información. El apartado es claro en que el guía no debe influir ni interferir en el desarrollo de la auditoría.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 4,
+   "line": 0,
+   "english": "Clause 6.4.10 covers the closing meeting, whose purpose is to present the audit findings and conclusions so that they are **understood and acknowledged**. Like the opening, its formality varies with the type of audit, and attendance and records should be considered.",
+   "translation": "El apartado 6.4.10 regula la reunión de cierre, cuyo propósito es presentar los hallazgos y conclusiones de la auditoría para que sean **comprendidos y reconocidos**. Al igual que la apertura, su formalidad varía según el tipo de auditoría, y deben considerarse la asistencia y los registros.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 4,
+   "line": 2,
+   "english": "Clause 6.4.8 sets out what happens then. Nonconformities should be **reviewed with the auditee to obtain acknowledgement that the audit evidence is accurate and that the nonconformities are understood**. Every attempt should be made to resolve any diverging opinions concerning the audit evidence or audit findings, and **unresolved issues should be recorded in the audit report**.",
+   "translation": "El apartado 6.4.8 establece qué ocurre entonces. Las no conformidades deben **revisarse con el auditado para obtener el reconocimiento de que la evidencia de auditoría es exacta y de que las no conformidades son comprendidas**. Deben hacerse todos los intentos posibles por resolver cualquier opinión divergente sobre la evidencia o los hallazgos de auditoría, y **los asuntos no resueltos deben registrarse en el informe de auditoría**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "es-419",
+   "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+   "block": 4,
+   "line": 3,
+   "english": "That is the answer to the disagreement in the hook. Not that the auditor prevails, and not that the finding is dropped. The attempt at resolution is made, and what remains is recorded. Clause 6.5.1 j) includes unresolved diverging opinions among what the report should contain, and clause 4.3 asks that they be reported.",
+   "translation": "Esa es la respuesta al desacuerdo planteado al inicio. No que el auditor prevalezca, ni que el hallazgo se retire. Se hace el intento de resolución, y lo que queda se registra. El apartado 6.5.1 j) incluye las opiniones divergentes no resueltas entre lo que debe contener el informe, y el apartado 4.3 pide que se informen.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 1,
+   "line": 2,
+   "english": "What it should still achieve, however brief:",
+   "translation": "O que ela ainda deve alcançar, por mais breve que seja:",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 1,
+   "line": 3,
+   "english": "- **Confirming the plan** - scope, objectives, criteria, systems, period. Anything the auditee disputes should be disputed now, not when a finding lands.",
+   "translation": "- **Confirmar o plano** - escopo, objetivos, critérios, sistemas, período. Qualquer ponto que o auditado conteste deve ser contestado agora, não quando uma constatação for apresentada.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 1,
+   "line": 5,
+   "english": "- **Confirming how findings will be communicated** - during the audit or at the end, and what the auditee should expect.",
+   "translation": "- **Confirmar como as constatações serão comunicadas** - durante a auditoria ou ao final, e o que o auditado deve esperar.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 2,
+   "line": 2,
+   "english": "**A guide** accompanies the audit team, assists in arranging access and interviews, arranges visits to locations, ensures rules on safety and security are known and respected, witnesses the audit on behalf of the auditee, and provides clarification or assists in collecting information. The clause is clear that a guide should not influence or interfere with the conduct of the audit.",
+   "translation": "**Um guia** acompanha a equipe de auditoria, auxilia na organização do acesso e das entrevistas, providencia visitas a locais, garante que as regras de segurança e proteção sejam conhecidas e respeitadas, testemunha a auditoria em nome do auditado e fornece esclarecimentos ou auxilia na coleta de informações. A Seção é clara ao afirmar que um guia não deve influenciar nem interferir na condução da auditoria.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 4,
+   "line": 0,
+   "english": "Clause 6.4.10 covers the closing meeting, whose purpose is to present the audit findings and conclusions so that they are **understood and acknowledged**. Like the opening, its formality varies with the type of audit, and attendance and records should be considered.",
+   "translation": "A Seção 6.4.10 trata da reunião de encerramento, cujo propósito é apresentar as constatações e conclusões da auditoria para que sejam **compreendidas e reconhecidas**. Assim como a abertura, sua formalidade varia com o tipo de auditoria, e a presença e os registros devem ser considerados.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 4,
+   "line": 2,
+   "english": "Clause 6.4.8 sets out what happens then. Nonconformities should be **reviewed with the auditee to obtain acknowledgement that the audit evidence is accurate and that the nonconformities are understood**. Every attempt should be made to resolve any diverging opinions concerning the audit evidence or audit findings, and **unresolved issues should be recorded in the audit report**.",
+   "translation": "A Seção 6.4.8 estabelece o que acontece então. As não conformidades devem ser **revisadas com o auditado para obter o reconhecimento de que as evidências de auditoria são precisas e de que as não conformidades são compreendidas**. Todos os esforços devem ser feitos para resolver quaisquer opiniões divergentes sobre as evidências ou constatações de auditoria, e **as questões não resolvidas devem ser registradas no relatório de auditoria**.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 3
+   },
+   "target_profile": {
+    "strong": 3,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "language": "pt-BR",
+   "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+   "block": 4,
+   "line": 3,
+   "english": "That is the answer to the disagreement in the hook. Not that the auditor prevails, and not that the finding is dropped. The attempt at resolution is made, and what remains is recorded. Clause 6.5.1 j) includes unresolved diverging opinions among what the report should contain, and clause 4.3 asks that they be reported.",
+   "translation": "Essa é a resposta ao desacordo apresentado no início. Não que o auditor prevaleça, e não que a constatação seja descartada. A tentativa de resolução é feita, e o que permanece é registrado. A Seção 6.5.1 j) inclui opiniões divergentes não resolvidas entre o que o relatório deve conter, e a Seção 4.3 pede que sejam reportadas.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "language": "es-419",
+   "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+   "block": 7,
+   "line": 5,
+   "english": "- Individual audit objectives should be consistent with programme objectives, or the year answers nothing.",
+   "translation": "- Los objetivos de la auditoría individual deben ser coherentes con los objetivos del programa, o el año no responde nada.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "language": "pt-BR",
+   "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+   "block": 1,
+   "line": 0,
+   "english": "ISO 19011:2026 clause 5.5.2 states that each audit should rest on objectives, scope and criteria that have been defined, consistent with the overall programme objectives. That is guidance.",
+   "translation": "A cláusula 5.5.2 da ISO 19011:2026 estabelece que cada auditoria deve ser baseada em objetivos, escopo e critérios que tenham sido definidos, consistentes com os objetivos gerais do programa. Isso é orientação.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "language": "pt-BR",
+   "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+   "block": 7,
+   "line": 5,
+   "english": "- Individual audit objectives should be consistent with programme objectives, or the year answers nothing.",
+   "translation": "- Os objetivos de auditoria individuais devem ser consistentes com os objetivos do programa, ou o ano não responde nada.",
+   "english_profile": {
+    "strong": 0,
+    "weak": 1
+   },
+   "target_profile": {
+    "strong": 1,
+    "weak": 0
+   }
+  }
+ ]
+}

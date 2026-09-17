@@ -1,0 +1,158 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.16, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9fc864df-8512-49b8-8fe9-d41dcbdb3dec",
+     "line_abs": 45,
+     "before": "El Anexo A.5 ofrece la advertencia pertinente de manera directa. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **debería evaluarse la integridad de esa evidencia.** Una demostración curada en lugar de un examen directo es exactamente un cambio en la manera de proporcionar la información.",
+     "after": "El Anexo A.5 suministra la advertencia pertinente de manera directa. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **debería evaluarse la integridad de esa evidencia.** Una demostración curada en lugar de un examen directo es exactamente un cambio en la manera de provisión."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 45,
+     "before": "El Anexo A.17 a) solicita que las entrevistas se realicen con personas de **los niveles y funciones que efectivamente llevan a cabo el trabajo dentro del alcance de la auditoría**. En una auditoría de AIMS, esa frase tiene peso real.",
+     "after": "El Anexo A.17 a) solicita que las entrevistas se realicen con personas de **los niveles y funciones que efectivamente llevan a cabo el trabajo dentro del alcance de la auditoría**. Para una auditoría de AIMS, esa frase tiene peso real."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 78,
+     "before": "O Anexo A.5 acrescenta dois pontos adicionais. Quando as informações são fornecidas de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade dessa evidência deve ser avaliada**. E deve-se ter cuidado especial com a segurança dos dados, particularmente das informações que estão fora do escopo da auditoria, mas contidas na informação documentada fornecida ao auditor.",
+     "after": "O Anexo A.5 acrescenta dois pontos adicionais. Quando as informações são fornecidas de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade dessa evidência deve ser avaliada**. E deve-se ter cuidado especial em manter os dados seguros, particularmente as informações que estão fora do escopo da auditoria, mas contidas na informação documentada fornecida ao auditor."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 31,
+     "before": "A ISO 19011:2026, Anexo A.17, trata as entrevistas como um meio importante de coleta de informações, a serem realizadas de forma adaptada à situação e ao indivíduo entrevistado, presencialmente ou por outros meios de comunicação. Em seguida, lista o que o auditor deve considerar:",
+     "after": "A ISO 19011:2026, Anexo A.17, trata as entrevistas como um meio importante de coleta de informações, a serem realizadas de forma adaptada à situação e à pessoa entrevistada, presencialmente ou por outros meios de comunicação. Em seguida, lista o que o auditor deve considerar:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 47,
+     "before": "O Anexo A.17 a) solicita que as entrevistas sejam realizadas com indivíduos de **níveis e funções que efetivamente realizam o trabalho dentro do escopo da auditoria**. Em uma auditoria de sistema de gestão de IA, essa frase tem peso real.",
+     "after": "O Anexo A.17 a) solicita que as entrevistas sejam realizadas com pessoas de **níveis e funções que efetivamente realizam o trabalho dentro do escopo da auditoria**. Em uma auditoria de SGAI, essa frase tem peso real."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 65,
+     "before": "- **coherente** — concuerda consigo misma y con la información documentada relacionada;",
+     "after": "- **consistente** — concuerda consigo misma y con la información documentada relacionada con ella;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 78,
+     "before": "El Anexo A.5 añade dos puntos adicionales. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **la integridad de esa evidencia debería evaluarse**. Y debe prestarse especial atención a mantener los datos seguros, en particular la información que queda fuera del alcance de la auditoría pero que está contenida en la información documentada que se entrega al auditor.",
+     "after": "El Anexo A.5 añade dos puntos adicionales. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **la integridad de esa evidencia debería evaluarse**. Y debe prestarse especial cuidado en mantener los datos seguros, en particular la información que queda fuera del alcance de la auditoría pero que está contenida en la información documentada que se entrega al auditor."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 82,
+     "before": "La cláusula 4.7 describe el enfoque basado en evidencia como el método racional para alcanzar conclusiones de auditoría **fiables y reproducibles** dentro de un proceso sistemático.",
+     "after": "La cláusula 4.7 describe el enfoque basado en evidencia como la forma racional de alcanzar conclusiones de auditoría **fiables y reproducibles** dentro de un proceso sistemático."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

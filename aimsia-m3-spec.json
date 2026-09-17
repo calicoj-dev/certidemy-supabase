@@ -1,0 +1,619 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "f48ffbca-ba24-48fd-b2d4-7089c38e8217",
+     "line_abs": 62,
+     "before": "Clause 6.2.3 asks whether the audit can be conducted at all, and it names what confidence depends on: sufficient and appropriate information for planning and conducting the audit, adequate cooperation from the auditee, and adequate time and resources.",
+     "after": "Clause 6.2.3 asks whether the audit can be conducted at all, and it names what confidence depends on: enough suitable information to plan and conduct the audit, adequate cooperation from the auditee, and adequate time and resources."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 64,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "f48ffbca-ba24-48fd-b2d4-7089c38e8217",
+     "line_abs": 64,
+     "before": "Where the audit is **not feasible**, the clause says an alternative should be proposed to the audit client, in agreement with the auditee.",
+     "after": "Where the audit is **not feasible**, the clause says an alternative should be put to the audit client, agreed with the auditee."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 82,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "f48ffbca-ba24-48fd-b2d4-7089c38e8217",
+     "line_abs": 82,
+     "before": "Clause 6.6 covers completing the audit: the audit is complete when all planned audit activities have been carried out, or as otherwise agreed with the audit client. It also addresses retention and disposition of documents, confidentiality, and lessons learned feeding the programme's improvement under clause 5.7.",
+     "after": "Clause 6.6 covers completing the audit: the audit is complete once every planned audit activity has been done, or when the audit client agrees otherwise. It also addresses retention and disposition of documents, confidentiality, and lessons learned feeding the programme's improvement under clause 5.7."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 84,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "f48ffbca-ba24-48fd-b2d4-7089c38e8217",
+     "line_abs": 84,
+     "before": "Clause 6.7 covers **audit follow-up**, and it sits after completion for a reason. The outcome of the audit can indicate the need for corrections, corrective actions or opportunities for improvement, and these are usually decided and undertaken by the auditee within an agreed time frame. The completion and effectiveness of those actions should be verified, and that verification **can be part of a subsequent audit**.",
+     "after": "Clause 6.7 covers **audit follow-up**, and it sits after completion for a reason. The outcome of the audit can indicate the need for corrections, corrective actions or opportunities for improvement, and these are normally settled and carried out by the auditee inside a time frame both have agreed. The completion and effectiveness of those actions should be verified, and that verification **can be part of a subsequent audit**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 154,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "f48ffbca-ba24-48fd-b2d4-7089c38e8217",
+     "line_abs": 154,
+     "before": "    \"explanation\": \"Completion and follow-up are separate stages. Clause 6.7 notes that actions are usually decided and undertaken by the auditee within an agreed time frame and that verification can be part of a subsequent audit. Acknowledgement of findings is sought at the closing meeting under 6.4.10; unresolved diverging opinions are recorded rather than blocking completion.\",",
+     "after": "    \"explanation\": \"Completion and follow-up are separate stages. Clause 6.7 notes that actions are normally settled and carried out by the auditee inside an agreed time frame and that verification can be part of a subsequent audit. Acknowledgement of findings is sought at the closing meeting under 6.4.10; unresolved diverging opinions are recorded rather than blocking completion.\","
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 clause 6.3.1 covers performing the review of documented information. Its purposes are stated: to understand the management system and its operations, to gather information to prepare audit activities and applicable working documents, and to establish an overview of the extent of the documented information relative to the audit objectives, scope and criteria.",
+     "after": "ISO 19011:2026 clause 6.3.1 covers performing the review of documented information. Its purposes are stated: to understand the management system and its operations, to gather information to prepare audit activities and applicable working documents, and to build an overall picture of how much documented information there is relative to the audit objectives, scope and criteria."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 48,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 48,
+     "before": "Clause 6.3.1 states what happens when the review shows the documentation is inadequate: the audit team leader should inform the audit client, the individual(s) managing the audit programme and the auditee, and a decision should be made whether the audit should be continued or suspended until documentation concerns are resolved.",
+     "after": "Clause 6.3.1 states what happens when the review shows the documentation is inadequate: the audit team leader should tell the audit client, whoever manages the audit programme, and the auditee, and a decision should be made whether the audit should be continued or suspended until documentation concerns are resolved."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 62,
+     "before": "ISO 19011:2026 clause 6.3.2 covers audit planning. The audit plan describes the activities and arrangements for the audit and provides the basis for agreement among the audit client, the audit team and the auditee. Its detail should reflect the scope and complexity of the audit, and the risks and opportunities associated with it.",
+     "after": "ISO 19011:2026 clause 6.3.2 covers audit planning. The audit plan describes the activities and arrangements for the audit and provides what the audit client, the audit team and the auditee then agree on. Its detail should match the audit's scope and complexity, and the risks and opportunities that go with it."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 77,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 77,
+     "before": "Clause 6.4.7 records that where the audit team becomes aware of new or changed circumstances, or of risks or opportunities, these should be addressed by the audit team accordingly. A plan is a design, not a commitment to ignore what the evidence shows.",
+     "after": "Clause 6.4.7 records that where the audit team becomes aware of new or changed circumstances, or of risks or opportunities, the audit team should deal with them accordingly. A plan is a design, not a commitment to ignore what the evidence shows."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 129,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 129,
+     "before": "Annex A.13 carries a caution worth taking literally: working documents **should not restrict the audit activities**, which can change as a result of information collected during the audit.",
+     "after": "Annex A.13 carries a caution worth taking literally: working documents **should not restrict the audit activities**, since those may change with what the audit turns up."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 194,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6742e59c-e0e6-490a-8d9b-4f78e04bb82c",
+     "line_abs": 194,
+     "before": "      { \"id\": \"b\", \"text\": \"Working documents should not restrict the audit activities, which can change as a result of information collected. This checklist has pre-decided what the evidence will be, so an auditor completing it will not notice a current procedure describing a process the organization abandoned.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Working documents should not restrict the audit activities, since those may change with what the audit turns up. This checklist has pre-decided what the evidence will be, so an auditor completing it will not notice a current procedure describing a process the organization abandoned.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4f0b695b-0df5-4a78-8475-f8be2390262f",
+     "line_abs": 32,
+     "before": "ISO 19011:2026 Annex A.6.1 defines audit sampling plainly: it takes place when it is not practical or cost-effective to examine all available information - records too numerous, or too dispersed, to justify examining every item. It is the process of selecting **less than one hundred per cent** of the items within the population to obtain and evaluate evidence about some characteristic of that population, in order to form a conclusion concerning the population.",
+     "after": "ISO 19011:2026 Annex A.6.1 defines audit sampling plainly: it is used where examining all the available information is impractical or too costly - records too numerous, or too dispersed, to justify examining every item. It is the process of selecting **less than one hundred per cent** of the items in a population, so that evidence about some characteristic of it can be gathered and weighed, and a conclusion about the whole drawn."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4f0b695b-0df5-4a78-8475-f8be2390262f",
+     "line_abs": 34,
+     "before": "Then it states the risk without softening it: **the samples are not necessarily representative** of the population from which they are selected, so the auditor's conclusion can differ from the one the whole population would have produced. Other risks depend on the variability within the population and the method chosen.",
+     "after": "Then it states the risk without softening it: **the samples are not necessarily representative** of the population they came from, so the auditor's conclusion can differ from the one the whole population would have produced. Other risks depend on the variability within the population and the method chosen."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4f0b695b-0df5-4a78-8475-f8be2390262f",
+     "line_abs": 36,
+     "before": "Clause 4.7 connects this to the principles: audit evidence should be verifiable and based on samples of the information available, since an audit runs for a specified duration with finite resources, and appropriate sampling should be applied because this is closely related to the confidence that can be placed in the conclusions.",
+     "after": "Clause 4.7 connects this to the principles: audit evidence should be verifiable and drawn from samples of what is available, because an audit runs for a set time on finite resources, and sampling should be done appropriately, since how much confidence the conclusions can carry turns on it."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 100,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4f0b695b-0df5-4a78-8475-f8be2390262f",
+     "line_abs": 100,
+     "before": "  \"explanation\": \"The first catches people because sampling feels like what auditors do. Annex A.6.1 says sampling takes place when it is not practical or cost-effective to examine all available information - four systems is not that population. The fourth is the failure mode the other three exist to prevent: a conclusion about the organization drawn from an unstated population by an unstated method.\"",
+     "after": "  \"explanation\": \"The first catches people because sampling feels like what auditors do. Annex A.6.1 says sampling is used where examining all the available information is impractical or too costly - four systems is not that population. The fourth is the failure mode the other three exist to prevent: a conclusion about the organization drawn from an unstated population by an unstated method.\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 105,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4f0b695b-0df5-4a78-8475-f8be2390262f",
+     "line_abs": 105,
+     "before": "Annex A.6.1's final step is evaluating and reporting the results, and clause 6.5.1 k) states what the report should include or refer to: **a statement that audits are by nature a sampling exercise; as such there is a risk that the audit evidence examined is not representative.**",
+     "after": "Annex A.6.1's final step is evaluating and reporting the results, and clause 6.5.1 k) states what the report should include or refer to: **a statement that auditing is by its nature a sampling exercise, and so the evidence examined carries a risk of not being representative.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 clause 3.10 defines **audit evidence** as records, statements of fact or other information which are relevant to the audit criteria and verifiable. Clause 3.9 defines **objective evidence** as data supporting the existence or verity of something, obtainable through observation, measurement, test or other means.",
+     "after": "ISO 19011:2026 clause 3.10 defines **audit evidence** as records, statements of fact or other information that bears on the audit criteria and can be verified. Clause 3.9 defines **objective evidence** as data supporting the existence or verity of something, obtainable through observation, measurement, test or other means."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 33,
+     "before": "Clause 6.4.7 turns the definition into a rule: **only information that can be subject to some degree of verification should be accepted as audit evidence.** Where the degree of verification is low, the auditor should use professional judgement to determine the degree of reliance that can be placed on it. Evidence leading to audit findings should be recorded.",
+     "after": "Clause 6.4.7 turns the definition into a rule: **nothing should be accepted as audit evidence unless it can be verified to some degree.** Where that degree is low, the auditor should judge professionally how far it can be relied on. Evidence leading to audit findings should be recorded."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 62,
+     "before": "- **complete** - all expected content is contained in the documented information;",
+     "after": "- **complete** - the documented information holds everything expected of it;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 63,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 63,
+     "before": "- **correct** - the content conforms to other reliable sources such as standards and regulations;",
+     "after": "- **correct** - its content squares with standards, regulations and other reliable sources;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 64,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 64,
+     "before": "- **consistent** - the documented information is consistent in itself and with related documented information;",
+     "after": "- **consistent** - it agrees with itself and with the documented information related to it;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 77,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 77,
+     "before": "Annex A.5 adds two further points. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed**. And specific care should be taken for the security of data, particularly information lying outside the audit scope but contained in documented information the auditor is given.",
+     "after": "Annex A.5 adds two further points. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of that evidence should be assessed**. And particular care should go to keeping the data secure, particularly information lying outside the audit scope but contained in documented information the auditor is given."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 81,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 81,
+     "before": "Clause 4.7 describes the evidence-based approach as the rational method for reaching **reliable and reproducible** audit conclusions in a systematic audit process.",
+     "after": "Clause 4.7 describes the evidence-based approach as the rational way to reach **reliable and reproducible** audit conclusions within a systematic process."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 171,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "bb69152f-f449-470d-b845-db5d9751f355",
+     "line_abs": 171,
+     "before": "    \"explanation\": \"Annex A.5 asks whether documented information is consistent in itself and with related documented information, which is exactly what two records disagreeing on sequence fails. The records are complete and their content may be entirely correct; what they cannot both be is true. Dates are what make the sequence testable.\",",
+     "after": "    \"explanation\": \"Annex A.5 asks whether documented information agrees with itself and with the information related to it, which is exactly what two records disagreeing on sequence fails. The records are complete and their content may be entirely correct; what they cannot both be is true. Dates are what make the sequence testable.\","
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a662c330-e36c-4132-9959-8e9d0493a58d",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, to be carried out in a manner adapted to the situation and the individual interviewed, face-to-face or by other means of communication. It then lists what the auditor should consider:",
+     "after": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, to be conducted in a way suited to the situation and to the person interviewed, face-to-face or by other means of communication. It then lists what the auditor should consider:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a662c330-e36c-4132-9959-8e9d0493a58d",
+     "line_abs": 33,
+     "before": "- interviews **held with individuals from appropriate levels and functions** performing activities or tasks within the audit scope;",
+     "after": "- interviews **held with people at the levels and functions that fit** who carry out work inside the audit scope;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a662c330-e36c-4132-9959-8e9d0493a58d",
+     "line_abs": 34,
+     "before": "- conducted **during the interviewees' defined working hours** and, where practical, at their normal workplace;",
+     "after": "- conducted **within the interviewee's defined working hours** and, where practical, at their normal workplace;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 47,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a662c330-e36c-4132-9959-8e9d0493a58d",
+     "line_abs": 47,
+     "before": "Annex A.17 a) asks that interviews be held with individuals from **appropriate levels and functions performing activities or tasks within the audit scope**. For an AIMS audit that phrase has teeth.",
+     "after": "Annex A.17 a) asks that interviews be held with people at **the levels and functions that actually carry out work inside the audit scope**. For an AIMS audit that phrase has teeth."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 192,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a662c330-e36c-4132-9959-8e9d0493a58d",
+     "line_abs": 192,
+     "before": "- Annex A.17 asks that interviews be held with individuals from appropriate levels and functions performing activities within the audit scope.",
+     "after": "- Annex A.17 asks that interviews be held with people at the levels and functions that carry out work inside the audit scope."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 Annex A.16, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6e1c2470-03f9-4bbc-b6b4-498b843a4d53",
+     "line_abs": 33,
+     "before": "ISO 19011:2026 Annex A.16 describes an audit using remote methods as one that **uses technology during the audit process** - for observing, interviewing and verifying objective evidence. It records that remote methods can bring benefits for auditor and auditee, that they can be **necessary for the audit of virtual locations**, and that they can introduce **additional risks and opportunities** to the audit process.",
+     "after": "ISO 19011:2026 Annex A.16 describes an audit using remote methods as one that **uses technology during the audit process** - for observing, interviewing and verifying objective evidence. It records that remote methods can bring benefits for auditor and auditee, that they can be **necessary for the audit of virtual locations**, and that they can bring **additional risks and opportunities** into the audit process."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 45,
+   "run_words": 0,
+   "run": "19011 Annex A.16, Annex A.5",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6e1c2470-03f9-4bbc-b6b4-498b843a4d53",
+     "line_abs": 45,
+     "before": "Annex A.5 supplies the relevant caution directly. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of the audit evidence should be assessed.** A curated demonstration in place of direct examination is exactly a change in the manner of provision.",
+     "after": "Annex A.5 supplies the relevant caution directly. Where information is provided in a manner other than expected - by different individuals, or in alternate media - the **integrity of that evidence should be assessed.** A curated demonstration in place of direct examination is exactly a change in the manner of provision."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 49,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a2ebbdc9-fae5-49aa-ada0-a71b95bb9180",
+     "line_abs": 49,
+     "before": "**A guide** accompanies the audit team, assists in arranging access and interviews, arranges visits to locations, ensures rules on safety and security are known and respected, witnesses the audit on behalf of the auditee, and provides clarification or assists in collecting information. The clause is clear that a guide should not influence or interfere with the conduct of the audit.",
+     "after": "**A guide** accompanies the audit team, assists in arranging access and interviews, arranges visits to locations, ensures rules on safety and security are known and respected, witnesses the audit on behalf of the auditee, and provides clarification or assists in collecting information. The clause is clear that a guide should neither sway nor obstruct how the audit is run."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 69,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a2ebbdc9-fae5-49aa-ada0-a71b95bb9180",
+     "line_abs": 69,
+     "before": "Clause 6.4.8 sets out what happens then. Nonconformities should be **reviewed with the auditee to obtain acknowledgement that the audit evidence is accurate and that the nonconformities are understood**. Every attempt should be made to resolve any diverging opinions concerning the audit evidence or audit findings, and **unresolved issues should be recorded in the audit report**.",
+     "after": "Clause 6.4.8 sets out what happens then. Nonconformities should be **gone through with the auditee until they acknowledge that the evidence is accurate and that they understand the nonconformities**. Every effort should go into settling any disagreement about the evidence or the findings, and **whatever stays unresolved should be recorded in the audit report**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 140,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a2ebbdc9-fae5-49aa-ada0-a71b95bb9180",
+     "line_abs": 140,
+     "before": "      { \"id\": \"b\", \"text\": \"A guide accompanies and clarifies and should not influence or interfere with the conduct of the audit; answering displaces the account of the person actually performing the activity, which is what Annex A.17 a) directs the auditor to obtain.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"A guide accompanies and clarifies and should neither sway nor obstruct how the audit is run; answering displaces the account of the person actually performing the activity, which is what Annex A.17 a) directs the auditor to obtain.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

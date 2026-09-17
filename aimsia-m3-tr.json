@@ -1,0 +1,994 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.16, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9fc864df-8512-49b8-8fe9-d41dcbdb3dec",
+     "line_abs": 45,
+     "before": "El Anexo A.5 ofrece la advertencia pertinente de manera directa. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **debe evaluarse la integridad de la evidencia de auditoría.** Una demostración curada en lugar de un examen directo es exactamente un cambio en la manera de proporcionar la información.",
+     "after": "El Anexo A.5 ofrece la advertencia pertinente de manera directa. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **debería evaluarse la integridad de esa evidencia.** Una demostración curada en lugar de un examen directo es exactamente un cambio en la manera de proporcionar la información."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 29,
+     "before": "El Anexo A.17 de la norma ISO 19011:2026 trata las entrevistas como un medio importante para recopilar información, que debe llevarse a cabo de manera adaptada a la situación y a la persona entrevistada, ya sea de forma presencial o a través de otros medios de comunicación. A continuación, enumera lo que el auditor debe considerar:",
+     "after": "El Anexo A.17 de la norma ISO 19011:2026 trata las entrevistas como un medio importante para recopilar información, que debe llevarse a cabo de manera adaptada a la situación y a la persona entrevistada, ya sea de forma presencial o a través de otros medios de comunicación. A continuación, enumera lo que el auditor debería considerar:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 31,
+     "before": "- entrevistas **realizadas con personas de los niveles y funciones apropiados** que ejecutan actividades o tareas dentro del alcance de la auditoría;",
+     "after": "- entrevistas **realizadas con personas de los niveles y funciones que corresponden** que llevan a cabo trabajo dentro del alcance de la auditoría;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 32,
+     "before": "- realizadas **durante el horario laboral definido de los entrevistados** y, cuando sea práctico, en su lugar de trabajo habitual;",
+     "after": "- realizadas **dentro del horario laboral definido de los entrevistados** y, cuando sea práctico, en su lugar de trabajo habitual;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 45,
+     "before": "El Anexo A.17 a) solicita que las entrevistas se realicen con personas de **los niveles y funciones apropiados que ejecutan actividades o tareas dentro del alcance de la auditoría**. En una auditoría de sistema de gestión de IA, esa frase tiene peso real.",
+     "after": "El Anexo A.17 a) solicita que las entrevistas se realicen con personas de **los niveles y funciones que efectivamente llevan a cabo el trabajo dentro del alcance de la auditoría**. En una auditoría de AIMS, esa frase tiene peso real."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9bba3873-814f-42dc-8a21-4b26b42dcab8",
+     "line_abs": 190,
+     "before": "- El Anexo A.17 solicita que las entrevistas se realicen con personas de los niveles y funciones apropiados que ejecutan actividades dentro del alcance de la auditoría.",
+     "after": "- El Anexo A.17 solicita que las entrevistas se realicen con personas de los niveles y funciones que llevan a cabo trabajo dentro del alcance de la auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+     "line_abs": 63,
+     "before": "A Seção 6.2.3 questiona se a auditoria pode ser realizada e nomeia aquilo de que depende a confiança: informações suficientes e apropriadas para planejar e conduzir a auditoria, cooperação adequada do auditado e tempo e recursos adequados.",
+     "after": "A Cláusula 6.2.3 questiona se a auditoria pode ser realizada e nomeia aquilo de que depende a confiança: informações suficientes e apropriadas para planejar e conduzir a auditoria, cooperação adequada do auditado e tempo e recursos adequados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+     "line_abs": 65,
+     "before": "Quando a auditoria **não é viável**, a Seção determina que uma alternativa deve ser proposta ao cliente da auditoria, em acordo com o auditado.",
+     "after": "Quando a auditoria **não é viável**, a cláusula determina que uma alternativa deve ser proposta ao cliente da auditoria, em acordo com o auditado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+     "line_abs": 83,
+     "before": "A Seção 6.6 abrange a conclusão da auditoria: a auditoria está concluída quando todas as atividades de auditoria planejadas foram realizadas, ou conforme acordado de outra forma com o cliente da auditoria. Ela também trata da retenção e descarte de documentos, confidencialidade e lições aprendidas que alimentam a melhoria contínua do programa conforme a Seção 5.7.",
+     "after": "A Seção 6.6 abrange a conclusão da auditoria: a auditoria está concluída quando todas as atividades de auditoria planejadas foram realizadas, ou quando o cliente da auditoria concordar de outra forma. Ela também trata da retenção e descarte de documentos, confidencialidade e lições aprendidas que alimentam a melhoria do programa conforme a Seção 5.7."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+     "line_abs": 85,
+     "before": "A Seção 6.7 abrange o **acompanhamento da auditoria**, e está posicionada após a conclusão por uma razão. O resultado da auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria, e estas são geralmente decididas e implementadas pelo auditado dentro de um prazo acordado. A conclusão e a eficácia dessas ações devem ser verificadas, e essa verificação **pode fazer parte de uma auditoria subsequente**.",
+     "after": "A Seção 6.7 abrange o **acompanhamento da auditoria**, e está posicionada após a conclusão por uma razão. O resultado da auditoria pode indicar a necessidade de correções, ações corretivas ou oportunidades de melhoria, e estas são normalmente decididas e implementadas pelo auditado dentro de um prazo acordado entre ambas as partes. A conclusão e a eficácia dessas ações devem ser verificadas, e essa verificação **pode fazer parte de uma auditoria subsequente**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+     "line_abs": 34,
+     "before": "Luego enuncia el riesgo sin atenuarlo: **las muestras no son necesariamente representativas** de la población de la que se seleccionan, por lo que la conclusión del auditor puede diferir de la que habría producido la población completa. Otros riesgos dependen de la variabilidad dentro de la población y del método elegido.",
+     "after": "Luego enuncia el riesgo sin atenuarlo: **las muestras no son necesariamente representativas** de la población de la que provienen, por lo que la conclusión del auditor puede diferir de la que habría producido la población completa. Otros riesgos dependen de la variabilidad dentro de la población y del método elegido."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+     "line_abs": 36,
+     "before": "El apartado 4.7 vincula esto con los principios: la evidencia de auditoría debe ser verificable y estar basada en muestras de la información disponible, ya que una auditoría se desarrolla durante un período determinado con recursos finitos, y debe aplicarse un muestreo apropiado porque esto está estrechamente relacionado con la confianza que puede depositarse en las conclusiones.",
+     "after": "La cláusula 4.7 conecta esto con los principios: la evidencia de auditoría debería ser verificable y obtenerse a partir de muestras de lo que está disponible, ya que una auditoría se lleva a cabo durante un tiempo determinado con recursos finitos, y el muestreo debería realizarse de manera apropiada, dado que el nivel de confianza que pueden sustentar las conclusiones depende de ello."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+     "line_abs": 105,
+     "before": "El último paso del Anexo A.6.1 es evaluar e informar los resultados, y el apartado 6.5.1 k) establece lo que el informe debe incluir o referenciar: **una declaración de que las auditorías son por naturaleza un ejercicio de muestreo; como tal, existe el riesgo de que la evidencia de auditoría examinada no sea representativa.**",
+     "after": "El último paso del Anexo A.6.1 es evaluar e informar los resultados, y la cláusula 6.5.1 k) establece lo que el informe debería incluir o referenciar: **una declaración de que la auditoría es por naturaleza un ejercicio de muestreo, y por lo tanto la evidencia examinada conlleva el riesgo de no ser representativa.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+     "line_abs": 34,
+     "before": "Em seguida, a norma enuncia o risco sem amenizá-lo: **as amostras não são necessariamente representativas** da população da qual foram selecionadas, de modo que a conclusão do auditor pode diferir daquela que a população inteira teria produzido. Outros riscos dependem da variabilidade dentro da população e do método escolhido.",
+     "after": "Em seguida, a norma enuncia o risco sem amenizá-lo: **as amostras não são necessariamente representativas** da população da qual provieram, de modo que a conclusão do auditor pode diferir daquela que a população inteira teria produzido. Outros riscos dependem da variabilidade dentro da população e do método escolhido."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+     "line_abs": 36,
+     "before": "A Seção 4.7 conecta isso aos princípios: as evidências de auditoria devem ser verificáveis e baseadas em amostras das informações disponíveis, uma vez que uma auditoria ocorre em duração determinada com recursos finitos, e a amostragem adequada deve ser aplicada porque está diretamente relacionada à confiança que se pode depositar nas conclusões.",
+     "after": "A Cláusula 4.7 conecta isso aos princípios: as evidências de auditoria devem ser verificáveis e extraídas de amostras do que está disponível, uma vez que uma auditoria ocorre em duração determinada com recursos finitos, e a amostragem deve ser realizada de forma adequada, pois o grau de confiança que as conclusões podem sustentar depende disso."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+     "line_abs": 105,
+     "before": "A etapa final do Anexo A.6.1 é avaliar e reportar os resultados, e a Seção 6.5.1 k) estabelece o que o relatório deve incluir ou referenciar: **uma declaração de que as auditorias são, por natureza, um exercício de amostragem; como tal, há um risco de que as evidências de auditoria examinadas não sejam representativas.**",
+     "after": "A etapa final do Anexo A.6.1 é avaliar e reportar os resultados, e a cláusula 6.5.1 k) estabelece o que o relatório deve incluir ou referenciar: **uma declaração de que a auditoria é, por natureza, um exercício de amostragem e, portanto, as evidências examinadas apresentam um risco de não serem representativas.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 32,
+     "before": "A Seção 3.10 da ISO 19011:2026 define **evidência de auditoria** como registros, declarações de fatos ou outras informações relevantes para os critérios de auditoria e verificáveis. A Seção 3.9 define **evidência objetiva** como dados que sustentam a existência ou a veracidade de algo, obtidos por meio de observação, medição, teste ou outros meios.",
+     "after": "A cláusula 3.10 da ISO 19011:2026 define **evidência de auditoria** como registros, declarações de fatos ou outras informações que se relacionam com os critérios de auditoria e podem ser verificadas. A cláusula 3.9 define **evidência objetiva** como dados que sustentam a existência ou a veracidade de algo, obtidos por meio de observação, medição, teste ou outros meios."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 34,
+     "before": "A Seção 6.4.7 transforma a definição em uma regra: **somente informações que possam ser submetidas a algum grau de verificação devem ser aceitas como evidência de auditoria.** Quando o grau de verificação for baixo, o auditor deve usar o julgamento profissional para determinar o grau de confiança que pode ser depositado nelas. As evidências que levam a constatações de auditoria devem ser registradas.",
+     "after": "A cláusula 6.4.7 transforma a definição em uma regra: **nada deve ser aceito como evidência de auditoria a menos que possa ser verificado em algum grau.** Quando esse grau for baixo, o auditor deve julgar profissionalmente até que ponto pode confiar nela. As evidências que levam a constatações de auditoria devem ser registradas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 63,
+     "before": "- **completas** — todo o conteúdo esperado está contido na informação documentada;",
+     "after": "- **completa** — a informação documentada contém tudo o que se espera dela;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 64,
+     "before": "- **corretas** — o conteúdo está em conformidade com outras fontes confiáveis, como normas e regulamentos;",
+     "after": "- **correta** — seu conteúdo está em conformidade com normas, regulamentos e outras fontes confiáveis;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 65,
+     "before": "- **consistentes** — a informação documentada é consistente em si mesma e com as informações documentadas relacionadas;",
+     "after": "- **consistente** — concorda consigo mesma e com as informações documentadas relacionadas a ela;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 78,
+     "before": "O Anexo A.5 acrescenta dois pontos adicionais. Quando as informações são fornecidas de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade da evidência de auditoria deve ser avaliada**. E deve-se ter cuidado especial com a segurança dos dados, particularmente das informações que estão fora do escopo da auditoria, mas contidas na informação documentada fornecida ao auditor.",
+     "after": "O Anexo A.5 acrescenta dois pontos adicionais. Quando as informações são fornecidas de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade dessa evidência deve ser avaliada**. E deve-se ter cuidado especial com a segurança dos dados, particularmente das informações que estão fora do escopo da auditoria, mas contidas na informação documentada fornecida ao auditor."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 33,
+     "before": "- entrevistas **realizadas com indivíduos de níveis e funções apropriados** que executam atividades ou tarefas dentro do escopo da auditoria;",
+     "after": "- entrevistas **realizadas com pessoas nos níveis e funções que se enquadram** que executam trabalho dentro do escopo da auditoria;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 34,
+     "before": "- conduzidas **durante o horário de trabalho definido dos entrevistados** e, quando praticável, em seu local de trabalho habitual;",
+     "after": "- conduzidas **dentro do horário de trabalho definido dos entrevistados** e, quando praticável, em seu local de trabalho habitual;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 47,
+     "before": "O Anexo A.17 a) solicita que as entrevistas sejam realizadas com indivíduos de **níveis e funções apropriados que executam atividades ou tarefas dentro do escopo da auditoria**. Em uma auditoria de sistema de gestão de IA, essa frase tem peso real.",
+     "after": "O Anexo A.17 a) solicita que as entrevistas sejam realizadas com indivíduos de **níveis e funções que efetivamente realizam o trabalho dentro do escopo da auditoria**. Em uma auditoria de sistema de gestão de IA, essa frase tem peso real."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-05-the-question-that-finds-evidence",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 Annex A.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a1428e4c-15a5-4ea6-97fc-3d070c012ba3",
+     "line_abs": 192,
+     "before": "- O Anexo A.17 solicita que as entrevistas sejam realizadas com indivíduos de níveis e funções apropriados que executam atividades dentro do escopo da auditoria.",
+     "after": "- O Anexo A.17 solicita que as entrevistas sejam realizadas com pessoas dos níveis e funções que executam trabalhos dentro do escopo da auditoria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+     "line_abs": 48,
+     "before": "**Un guía** acompaña al equipo auditor, ayuda a gestionar el acceso y las entrevistas, organiza las visitas a las instalaciones, garantiza que se conozcan y respeten las normas de seguridad, atestigua la auditoría en nombre del auditado y proporciona aclaraciones o asiste en la recopilación de información. El apartado es claro en que el guía no debe influir ni interferir en el desarrollo de la auditoría.",
+     "after": "**Un guía** acompaña al equipo auditor, ayuda a gestionar el acceso y las entrevistas, organiza las visitas a las instalaciones, garantiza que se conozcan y respeten las normas de seguridad, atestigua la auditoría en nombre del auditado y proporciona aclaraciones o asiste en la recopilación de información. La cláusula es clara en que el guía no debe influir ni obstaculizar la manera en que se lleva a cabo la auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+     "line_abs": 68,
+     "before": "El apartado 6.4.8 establece qué ocurre entonces. Las no conformidades deben **revisarse con el auditado para obtener el reconocimiento de que la evidencia de auditoría es exacta y de que las no conformidades son comprendidas**. Deben hacerse todos los intentos posibles por resolver cualquier opinión divergente sobre la evidencia o los hallazgos de auditoría, y **los asuntos no resueltos deben registrarse en el informe de auditoría**.",
+     "after": "El apartado 6.4.8 establece qué ocurre entonces. Las no conformidades deben **revisarse con el auditado hasta que este reconozca que la evidencia es exacta y que comprende las no conformidades**. Deben hacerse todos los esfuerzos posibles por resolver cualquier desacuerdo sobre la evidencia o los hallazgos, y **todo lo que permanezca sin resolver debe registrarse en el informe de auditoría**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-06-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 Annex A.16, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4c983ea1-94dc-4e8f-b8f9-54587c3b8c51",
+     "line_abs": 45,
+     "before": "O Anexo A.5 fornece a ressalva pertinente diretamente. Quando a informação é fornecida de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade da evidência de auditoria deve ser avaliada.** Uma demonstração curada no lugar de um exame direto é exatamente uma mudança na forma de fornecimento.",
+     "after": "O Anexo A.5 fornece a ressalva pertinente diretamente. Quando a informação é fornecida de maneira diferente da esperada — por indivíduos diferentes ou em mídias alternativas — **a integridade dessa evidência deve ser avaliada.** Uma demonstração curada no lugar de um exame direto é exatamente uma mudança na forma de fornecimento."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 32,
+     "before": "A Seção 6.3.1 da ISO 19011:2026 trata da realização da revisão de informações documentadas. Seus propósitos são declarados: compreender o sistema de gestão e suas operações, coletar informações para preparar as atividades de auditoria e os documentos de trabalho aplicáveis, e estabelecer uma visão geral da extensão das informações documentadas em relação aos objetivos, escopo e critérios da auditoria.",
+     "after": "A cláusula 6.3.1 da ISO 19011:2026 abrange a realização da revisão de informações documentadas. Seus propósitos são declarados: compreender o sistema de gestão e suas operações, coletar informações para preparar as atividades de auditoria e os documentos de trabalho aplicáveis, e estabelecer uma visão geral de quanta informação documentada existe em relação aos objetivos, escopo e critérios da auditoria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 49,
+     "before": "A Seção 6.3.1 estabelece o que acontece quando a revisão mostra que a documentação é inadequada: o líder da equipe de auditoria deve informar o cliente da auditoria, o(s) indivíduo(s) que gerencia(m) o programa de auditoria e o auditado, e uma decisão deve ser tomada sobre se a auditoria deve continuar ou ser suspensa até que as questões de documentação sejam resolvidas.",
+     "after": "A cláusula 6.3.1 estabelece o que acontece quando a revisão mostra que a documentação é inadequada: o líder da equipe de auditoria deve informar o cliente da auditoria, quem gerencia o programa de auditoria e o auditado, e uma decisão deve ser tomada sobre se a auditoria deve continuar ou ser suspensa até que as questões de documentação sejam resolvidas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 63,
+     "before": "A Seção 6.3.2 da ISO 19011:2026 trata do planejamento da auditoria. O plano de auditoria descreve as atividades e os arranjos para a auditoria e fornece a base para o acordo entre o cliente da auditoria, a equipe de auditoria e o auditado. Seu nível de detalhe deve refletir o escopo e a complexidade da auditoria, bem como os riscos e oportunidades a ela associados.",
+     "after": "A cláusula 6.3.2 da ISO 19011:2026 abrange o planejamento da auditoria. O plano de auditoria descreve as atividades e os arranjos para a auditoria e fornece aquilo sobre o que o cliente da auditoria, a equipe de auditoria e o auditado então concordam. Seu nível de detalhe deve corresponder ao escopo e à complexidade da auditoria, bem como aos riscos e oportunidades a ela associados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 78,
+     "before": "A Seção 6.4.7 registra que, quando a equipe de auditoria toma conhecimento de circunstâncias novas ou alteradas, ou de riscos e oportunidades, estes devem ser tratados pela equipe de auditoria de forma adequada. Um plano é um projeto, não um compromisso de ignorar o que as evidências mostram.",
+     "after": "A Seção 6.4.7 registra que, quando a equipe de auditoria toma conhecimento de circunstâncias novas ou alteradas, ou de riscos ou oportunidades, estes devem ser tratados pela equipe de auditoria de forma adequada. Um plano é um projeto, não um compromisso de ignorar o que as evidências mostram."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 130,
+     "before": "O Anexo A.13 traz uma advertência que vale ser tomada literalmente: os documentos de trabalho **não devem restringir as atividades de auditoria**, que podem mudar em decorrência das informações coletadas durante a auditoria.",
+     "after": "O Anexo A.13 traz uma advertência que vale ser tomada literalmente: os documentos de trabalho **não devem restringir as atividades de auditoria**, pois estas podem mudar de acordo com o que a auditoria revelar."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+     "line_abs": 49,
+     "before": "**Um guia** acompanha a equipe de auditoria, auxilia na organização do acesso e das entrevistas, providencia visitas a locais, garante que as regras de segurança e proteção sejam conhecidas e respeitadas, testemunha a auditoria em nome do auditado e fornece esclarecimentos ou auxilia na coleta de informações. A Seção é clara ao afirmar que um guia não deve influenciar nem interferir na condução da auditoria.",
+     "after": "**Um guia** acompanha a equipe de auditoria, auxilia na organização do acesso e das entrevistas, providencia visitas a locais, garante que as regras de segurança e proteção sejam conhecidas e respeitadas, testemunha a auditoria em nome do auditado e fornece esclarecimentos ou auxilia na coleta de informações. A cláusula é clara ao afirmar que um guia não deve influenciar nem interferir na condução da auditoria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+     "line_abs": 69,
+     "before": "A Seção 6.4.8 estabelece o que acontece então. As não conformidades devem ser **revisadas com o auditado para obter o reconhecimento de que as evidências de auditoria são precisas e de que as não conformidades são compreendidas**. Todos os esforços devem ser feitos para resolver quaisquer opiniões divergentes sobre as evidências ou constatações de auditoria, e **as questões não resolvidas devem ser registradas no relatório de auditoria**.",
+     "after": "A Seção 6.4.8 estabelece o que acontece então. As não conformidades devem ser **revisadas com o auditado até que ele reconheça que as evidências são precisas e que compreende as não conformidades**. Todos os esforços devem ser feitos para resolver quaisquer opiniões divergentes sobre as evidências ou constatações, e **o que permanecer sem resolução deve ser registrado no relatório de auditoria**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 32,
+     "before": "El apartado 3.10 de la norma ISO 19011:2026 define la **evidencia de auditoría** como registros, declaraciones de hechos u otra información que son pertinentes a los criterios de auditoría y verificables. El apartado 3.9 define la **evidencia objetiva** como datos que respaldan la existencia o veracidad de algo, obtenibles mediante observación, medición, ensayo u otros medios.",
+     "after": "El apartado 3.10 de la norma ISO 19011:2026 define la **evidencia de auditoría** como registros, declaraciones de hechos u otra información que es pertinente a los criterios de auditoría y puede verificarse. El apartado 3.9 define la **evidencia objetiva** como datos que respaldan la existencia o veracidad de algo, obtenibles mediante observación, medición, ensayo u otros medios."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 34,
+     "before": "El apartado 6.4.7 convierte la definición en una regla: **solo debe aceptarse como evidencia de auditoría la información que pueda ser objeto de algún grado de verificación.** Cuando el grado de verificación es bajo, el auditor debe aplicar su juicio profesional para determinar el grado de confianza que puede depositarse en ella. La evidencia que conduce a hallazgos de auditoría debe quedar registrada.",
+     "after": "La cláusula 6.4.7 convierte la definición en una regla: **nada debería aceptarse como evidencia de auditoría a menos que pueda verificarse en algún grado.** Cuando ese grado es bajo, el auditor debería juzgar de manera profesional hasta qué punto puede depender de ella. La evidencia que conduce a hallazgos de auditoría debe quedar registrada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 63,
+     "before": "- **completa** — la información documentada contiene todo el contenido esperado;",
+     "after": "- **completa** — la información documentada contiene todo lo que se espera de ella;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 64,
+     "before": "- **correcta** — el contenido es conforme con otras fuentes fiables, como normas y reglamentos;",
+     "after": "- **correcta** — su contenido concuerda con normas, reglamentos y otras fuentes fiables;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 65,
+     "before": "- **coherente** — la información documentada es coherente en sí misma y con la información documentada relacionada;",
+     "after": "- **coherente** — concuerda consigo misma y con la información documentada relacionada;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 78,
+     "before": "El Anexo A.5 añade dos puntos adicionales. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, debe evaluarse la **integridad de la evidencia de auditoría**. Y debe prestarse especial atención a la seguridad de los datos, en particular la información que queda fuera del alcance de la auditoría pero que está contenida en la información documentada que se entrega al auditor.",
+     "after": "El Anexo A.5 añade dos puntos adicionales. Cuando la información se proporciona de una manera distinta a la esperada —por personas diferentes o en medios alternativos—, **la integridad de esa evidencia debería evaluarse**. Y debe prestarse especial atención a mantener los datos seguros, en particular la información que queda fuera del alcance de la auditoría pero que está contenida en la información documentada que se entrega al auditor."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 82,
+     "before": "El apartado 4.7 describe el enfoque basado en evidencia como el método racional para alcanzar conclusiones de auditoría **fiables y reproducibles** en un proceso de auditoría sistemático.",
+     "after": "La cláusula 4.7 describe el enfoque basado en evidencia como el método racional para alcanzar conclusiones de auditoría **fiables y reproducibles** dentro de un proceso sistemático."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 32,
+     "before": "El apartado 6.3.1 de la norma ISO 19011:2026 regula la realización de la revisión de la información documentada. Sus propósitos están establecidos: comprender el sistema de gestión y sus operaciones, recopilar información para preparar las actividades de auditoría y los documentos de trabajo aplicables, y establecer una visión general del alcance de la información documentada en relación con los objetivos, el alcance y los criterios de la auditoría.",
+     "after": "La cláusula 6.3.1 de la norma ISO 19011:2026 abarca la realización de la revisión de la información documentada. Sus propósitos están establecidos: comprender el sistema de gestión y sus operaciones, recopilar información para preparar las actividades de auditoría y los documentos de trabajo aplicables, y construir una visión general de cuánta información documentada existe en relación con los objetivos, el alcance y los criterios de la auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 49,
+     "before": "El apartado 6.3.1 establece qué ocurre cuando la revisión muestra que la documentación es inadecuada: el líder del equipo auditor debe informar al cliente de la auditoría, a la(s) persona(s) que gestionan el programa de auditoría y al auditado, y debe tomarse una decisión sobre si la auditoría debe continuar o suspenderse hasta que se resuelvan las preocupaciones sobre la documentación.",
+     "after": "La cláusula 6.3.1 establece qué ocurre cuando la revisión muestra que la documentación es inadecuada: el líder del equipo auditor debería informar al cliente de la auditoría, a quien gestione el programa de auditoría y al auditado, y debería tomarse una decisión sobre si la auditoría debe continuar o suspenderse hasta que se resuelvan las preocupaciones sobre la documentación."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 63,
+     "before": "El apartado 6.3.2 de la norma ISO 19011:2026 regula la planificación de la auditoría. El plan de auditoría describe las actividades y los arreglos para la auditoría y proporciona la base para el acuerdo entre el cliente de la auditoría, el equipo auditor y el auditado. Su nivel de detalle debe reflejar el alcance y la complejidad de la auditoría, así como los riesgos y las oportunidades asociados a ella.",
+     "after": "El apartado 6.3.2 de la norma ISO 19011:2026 regula la planificación de la auditoría. El plan de auditoría describe las actividades y los arreglos para la auditoría y proporciona aquello sobre lo que el cliente de la auditoría, el equipo auditor y el auditado acuerdan. Su nivel de detalle debe reflejar el alcance y la complejidad de la auditoría, así como los riesgos y las oportunidades asociados a ella."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 78,
+     "before": "El apartado 6.4.7 establece que cuando el equipo auditor tome conocimiento de circunstancias nuevas o modificadas, o de riesgos y oportunidades, estos deben ser abordados por el equipo auditor en consecuencia. Un plan es un diseño, no un compromiso de ignorar lo que muestra la evidencia.",
+     "after": "La cláusula 6.4.7 registra que cuando el equipo auditor tome conocimiento de circunstancias nuevas o modificadas, o de riesgos u oportunidades, el equipo auditor debería tratarlos en consecuencia. Un plan es un diseño, no un compromiso de ignorar lo que muestra la evidencia."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 130,
+     "before": "El Anexo A.13 incluye una advertencia que vale la pena tomar literalmente: los documentos de trabajo **no deben restringir las actividades de auditoría**, que pueden cambiar como resultado de la información recopilada durante la auditoría.",
+     "after": "El Anexo A.13 incluye una advertencia que vale la pena tomar literalmente: los documentos de trabajo **no deberían restringir las actividades de auditoría**, ya que estas pueden cambiar según lo que la auditoría vaya revelando."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+     "line_abs": 63,
+     "before": "El apartado 6.2.3 pregunta si la auditoría puede realizarse en absoluto, y nombra de qué depende esa confianza: información suficiente y apropiada para planificar y realizar la auditoría, cooperación adecuada del auditado, y tiempo y recursos suficientes.",
+     "after": "El apartado 6.2.3 pregunta si la auditoría puede realizarse en absoluto, y nombra de qué depende esa confianza: información suficiente y apropiada para planificar y realizar la auditoría, cooperación adecuada del auditado, y tiempo y recursos adecuados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+     "line_abs": 65,
+     "before": "Cuando la auditoría **no es viable**, el apartado indica que debe proponerse una alternativa al cliente de la auditoría, de acuerdo con el auditado.",
+     "after": "Cuando la auditoría **no es factible**, la cláusula indica que debería proponerse una alternativa al cliente de la auditoría, acordada con el auditado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+     "line_abs": 83,
+     "before": "El apartado 6.6 cubre la conclusión de la auditoría: la auditoría se completa cuando todas las actividades de auditoría planificadas se han llevado a cabo, o según lo acordado de otro modo con el cliente de la auditoría. También aborda la retención y disposición de documentos, la confidencialidad y las lecciones aprendidas que alimentan la mejora del programa conforme al apartado 5.7.",
+     "after": "El apartado 6.6 cubre la conclusión de la auditoría: la auditoría se completa una vez que todas las actividades de auditoría planificadas se han llevado a cabo, o cuando el cliente de la auditoría acuerda lo contrario. También aborda la retención y disposición de documentos, la confidencialidad y las lecciones aprendidas que alimentan la mejora del programa conforme al apartado 5.7."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+     "line_abs": 85,
+     "before": "El apartado 6.7 cubre el **seguimiento de la auditoría**, y se sitúa después de la conclusión por una razón. El resultado de la auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora, y estas generalmente son decididas y ejecutadas por el auditado dentro de un plazo acordado. La conclusión y la eficacia de esas acciones deben verificarse, y esa verificación **puede ser parte de una auditoría posterior**.",
+     "after": "El apartado 6.7 cubre el **seguimiento de la auditoría**, y se sitúa después de la conclusión por una razón. El resultado de la auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora, y estas normalmente son acordadas y llevadas a cabo por el auditado dentro de un plazo que ambas partes han acordado. La conclusión y la eficacia de esas acciones deberían verificarse, y esa verificación **puede ser parte de una auditoría posterior**."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
