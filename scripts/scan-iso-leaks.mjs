@@ -512,9 +512,42 @@ if (ctlFailed.length) {
   chk("no currently-served lesson was refused", servedRefused.length === 0,
     servedRefused.length ? servedRefused.length + " REFUSED -- this would take the live surface down" : "0 of the served eight");
 
+  /* ============ THIS CHECK USED TO NAME TWO CERTIFICATIONS ============
+   *
+   * It asserted that ISMS-IA and AIMS-IA "DID produce refusals", as evidence
+   * that the gate can still refuse anything at all. On 2026-09-17 both reached
+   * zero refusals -- the work finished -- and the check FAILED on a clean
+   * corpus, blocking a scan whose every verdict was correct.
+   *
+   * Same defect as the positive control replaced earlier the same day: a check
+   * whose subject is CONTENT is disarmed by finishing the content. There it went
+   * quiet and passed; here it went loud and failed. Loud is luckier and no more
+   * correct.
+   *
+   * WHAT IT WAS ACTUALLY FOR was never those two certifications. It was
+   * "prove the refusal path still works" -- measure, compare to the threshold,
+   * mark unservable. So it now asserts that against a SYNTHETIC body built from
+   * the canary sentences, which no editorial decision can repair.
+   *
+   * This is strictly stronger than the version it replaces. The old one proved
+   * some lesson somewhere was refused; this one proves the decision itself:
+   * that a body over the threshold is refused, AND that a body under it is not.
+   * Both directions, because a gate stuck at "refuse" would have passed the old
+   * check too. */
+  const OVER = Object.values(CANARIES).join(" ");
+  const UNDER = "Certidemy's own prose about auditing, which reproduces nothing.";
+  const overRun = longestMeasured(OVER).best;
+  const underRun = longestMeasured(UNDER).best;
+  chk("SYNTHETIC: a body over the threshold is refused",
+    overRun >= THRESHOLD, overRun + "w measured, threshold " + THRESHOLD);
+  chk("SYNTHETIC: a body under the threshold is not refused",
+    underRun < THRESHOLD, underRun + "w measured, threshold " + THRESHOLD);
+
+  /* And report what the ISO certifications actually came to, as information
+   * rather than as an assertion. Zero is now the expected state. */
   const isoRefused = after.filter((r) => ["ISMS-IA", "AIMS-IA"].includes(certOf.get(r.id)) && !r.mcp_servable);
-  chk("the two heavily-quoting certifications DID produce refusals", isoRefused.length > 0,
-    isoRefused.length + " refused across ISMS-IA and AIMS-IA");
+  console.log("  --    ISMS-IA and AIMS-IA: " + isoRefused.length + " row(s) refused" +
+    (isoRefused.length === 0 ? "  (both fully repaired 2026-09-17)" : ""));
 
   /* THE TRILINGUAL HALF. A group must be servable in all three languages or in
    * none -- the state this gate would otherwise produce on every ISO lesson. */

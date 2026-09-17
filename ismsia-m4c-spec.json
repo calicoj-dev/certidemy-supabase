@@ -1,0 +1,349 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 37,
+     "before": "| 6.1.2 - define and apply a risk assessment process | **8.2** - perform assessments at planned intervals or when significant changes are proposed or occur |",
+     "after": "| 6.1.2 - define and apply a risk assessment process | **8.2** - perform assessments at planned intervals, and whenever significant change is proposed or happens |"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 44,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 44,
+     "before": "**8.2's trigger is worth reading precisely:** at planned intervals **or when significant changes are proposed or occur**. Two triggers. An organization that assesses annually and had a major system migration in June has an 8.2 question that annual scheduling does not answer.",
+     "after": "**8.2's trigger is worth reading precisely:** at planned intervals **and whenever significant change is proposed or happens**. Two triggers. An organization that assesses annually and had a major system migration in June has an 8.2 question that annual scheduling does not answer."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 48,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 48,
+     "before": "Clause 8.1 requires the organization to plan, implement and control the processes needed to meet requirements and implement the clause 6 actions, by:",
+     "after": "Clause 8.1 requires the organization to plan, run and control the processes it needs in order to meet requirements and carry out the clause 6 actions, by:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 50,
+     "before": "- **establishing criteria for the processes**",
+     "after": "- **setting criteria for those processes**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 51,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 51,
+     "before": "- **implementing control of the processes in accordance with the criteria**",
+     "after": "- **controlling the processes against those criteria**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 55,
+     "before": "- **Documented information shall be available** to the extent necessary to have confidence the processes have been carried out as planned.",
+     "after": "- **Documented information shall be kept** so far as is needed to give confidence that the processes ran the way they were planned to."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 56,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 56,
+     "before": "- The organization shall **control planned changes and review the consequences of unintended changes**, taking action to mitigate adverse effects as necessary.",
+     "after": "- The organization shall **control planned changes and review what unintended changes bring about**, acting to soften adverse effects as needed."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 57,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 57,
+     "before": "- The organization shall ensure that **externally provided processes, products or services** relevant to the ISMS **are controlled.**",
+     "after": "- The organization shall see that **externally provided processes, products or services** bearing on the ISMS **are controlled.**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 65,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 65,
+     "before": "**And note the confidence standard for documentation:** *to the extent necessary to have confidence the processes have been carried out as planned.* That is a purposive test, not a volume one - which cuts both ways in an audit.",
+     "after": "**And note the confidence standard for documentation:** *so far as is needed to give confidence that the processes ran as planned.* That is a purposive test, not a volume one - which cuts both ways in an audit."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 71,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 71,
+     "before": "- a) **what needs to be monitored and measured**, including information security processes and controls",
+     "after": "- a) **what is to be monitored and measured**, information security processes and controls included"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 72,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 72,
+     "before": "- b) the **methods** for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results",
+     "after": "- b) the **methods** used to monitor, measure, analyse and evaluate, as applicable, so results are valid"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 73,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 73,
+     "before": "- c) **when** the monitoring and measuring shall be performed",
+     "after": "- c) **when** monitoring and measuring shall be done"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 75,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 75,
+     "before": "- e) **when** the results shall be analysed and evaluated",
+     "after": "- e) **when** those results shall be analysed and evaluated"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 76,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 76,
+     "before": "- f) **who shall analyse and evaluate** these results",
+     "after": "- f) **who shall do that analysis and evaluation**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 84,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 84,
+     "before": "**Two more sentences close the clause:**",
+     "after": "**Two more sentences close clause 9.1:**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 90,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 90,
+     "before": "Note b)'s standard: methods should produce **comparable and reproducible results** to be considered valid. A metric whose definition changed mid-year is not producing comparable results.",
+     "after": "Note b)'s standard: methods should give **comparable and reproducible results** if they are to count as valid. A metric whose definition changed mid-year is not producing comparable results."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 106,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 106,
+     "before": "      \"feedback\": \"Clause 8.2 requires risk assessments at planned intervals OR when significant changes are proposed or occur. A platform migration to a new provider is a significant change, and the annual cycle does not discharge the second trigger.\"",
+     "after": "      \"feedback\": \"Clause 8.2 requires risk assessments at planned intervals, AND whenever significant change is proposed or happens. A platform migration to a new provider is a significant change, and the annual cycle does not discharge the second trigger.\""
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 167,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 167,
+     "before": "      { \"id\": \"b\", \"text\": \"Assessments at planned intervals or when significant changes are proposed or occur; the migration triggers the second condition and no assessment followed it.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Assessments at planned intervals, and whenever significant change is proposed or happens; the migration triggers the second condition and no assessment followed it.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 233,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "aaa78c42-1c36-456e-a3c7-3100b20bdfe2",
+     "line_abs": 233,
+     "before": "- Methods must produce comparable and reproducible results to be considered valid.",
+     "after": "- Methods must give comparable and reproducible results if they are to count as valid."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
