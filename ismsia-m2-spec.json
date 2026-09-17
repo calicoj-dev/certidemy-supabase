@@ -1,0 +1,367 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 56,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "8861204c-19bd-4936-bdea-d45846446409",
+     "line_abs": 56,
+     "before": "\"Consider the importance of the processes concerned and the results of previous audits\" is the sentence to know. It converts programme design from good practice into a requirement with two named inputs.",
+     "after": "Clause 9.2.2's two named inputs -- process importance and earlier audit results -- are the thing to know. It converts programme design from good practice into a requirement with two named inputs."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 136,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "8861204c-19bd-4936-bdea-d45846446409",
+     "line_abs": 136,
+     "before": "      { \"id\": \"b\", \"text\": \"The importance of the processes concerned and the results of previous audits.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"How important the audited processes are, and what earlier audits found.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "19011:2026 clause 4.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "69d22f6c-e8de-48b1-91fb-5d519b86ce01",
+     "line_abs": 38,
+     "before": "The purpose is stated too: so that audits focus on matters that are significant for the audit client and for achieving the audit programme objectives.",
+     "after": "The purpose is stated too: so that audits stay focused on what matters to the audit client and on meeting the programme's objectives."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 46,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1eb2d9ae-cc68-4169-9262-a6b3c186b6a3",
+     "line_abs": 46,
+     "before": "ISO 19011:2026 defines **audit criteria** as the set of requirements used as a reference against which objective evidence is compared. Its notes make the breadth explicit - criteria may include policies, procedures, work instructions, legal requirements, contractual obligations and industry standards.",
+     "after": "ISO 19011:2026 defines **audit criteria** as the set of requirements used as a reference against which objective evidence is compared. Its notes make the breadth explicit - criteria may be policies, procedures or work instructions, legal requirements and contractual obligations and industry standards."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 70,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1eb2d9ae-cc68-4169-9262-a6b3c186b6a3",
+     "line_abs": 70,
+     "before": "The comparison makes it unmistakable. **ISO/IEC 42001 clause 9.2.2 a) requires the organization to define the audit *objectives*, criteria and scope for each audit.** Same harmonized structure, same clause number, one extra word. An auditor working across both standards who carries the 42001 wording into a 27001 audit will raise a finding the standard does not support.",
+     "after": "The comparison makes it unmistakable. **ISO/IEC 42001 clause 9.2.2 a) requires the organization to set the *objectives*, criteria and scope of each individual audit.** Same harmonized structure, same clause number, one extra word. An auditor working across both standards who carries the 42001 wording into a 27001 audit will raise a finding the standard does not support."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 128,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1eb2d9ae-cc68-4169-9262-a6b3c186b6a3",
+     "line_abs": 128,
+     "before": "Do not confuse this with the exclusion that is not permitted. **ISO/IEC 27001 Clause 1 states that excluding any of the requirements specified in Clauses 4 to 10 is not acceptable when an organization claims conformity.** That governs the ISMS, not your audit.",
+     "after": "Do not confuse this with the exclusion that is not permitted. **ISO/IEC 27001 Clause 1 states that leaving out any requirement of Clauses 4 to 10 is not acceptable where an organization claims conformity.** That governs the ISMS, not your audit."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 199,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1eb2d9ae-cc68-4169-9262-a6b3c186b6a3",
+     "line_abs": 199,
+     "before": "    \"explanation\": \"Clause 1 states that excluding any of the requirements specified in Clauses 4 to 10 is not acceptable when an organization claims conformity. It governs which requirements the ISMS must meet, not which parts of the ISMS a given audit examines. An audit scope may cover any stated subset, with the cycle providing full coverage over time.\",",
+     "after": "    \"explanation\": \"Clause 1 states that leaving out any requirement of Clauses 4 to 10 is not acceptable where an organization claims conformity. It governs which requirements the ISMS must meet, not which parts of the ISMS a given audit examines. An audit scope may cover any stated subset, with the cycle providing full coverage over time.\","
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 50,
+     "before": "Three notes follow. Remote methods can be combined with on-site methods to achieve a full and effective audit. They can be used for **virtual locations**. And they can be used by an auditor at one site of the auditee to audit another site.",
+     "after": "Three notes follow. Remote methods can be mixed with on-site ones to make an audit full and effective. They can be used for **virtual locations**. And they can be used by an auditor at one of the auditee's sites to audit a different one."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 58,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 58,
+     "before": "The second note defines what a virtual location is:",
+     "after": "ISO 19011:2026's second note defines what a virtual location is:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 90,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 90,
+     "before": "Annex A.16 is explicit that using remote auditing methods **can introduce additional risks and opportunities to the audit process**. These are audit risks in the sense of lesson 02-02 - conditions affecting whether the audit can do its job.",
+     "after": "Annex A.16 is explicit that using remote auditing methods **can bring additional risks and opportunities into the audit process**. These are audit risks in the sense of lesson 02-02 - conditions affecting whether the audit can do its job."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 150,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 150,
+     "before": "    \"explanation\": \"ISO 19011:2026 defines a remote auditing method as one used for conducting audit activities from any place other than the location of the auditee, and a note states explicitly that remote methods can be used by an auditor at one site to audit another. The definition turns on distance from what is audited.\",",
+     "after": "    \"explanation\": \"ISO 19011:2026 defines a remote auditing method as one used to carry out audit activities from anywhere other than where the auditee is, and a note states explicitly that remote methods can be used by an auditor at one site to audit another. The definition turns on distance from what is audited.\","
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 193,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 193,
+     "before": "      { \"id\": \"b\", \"text\": \"As a virtual location within the scope - a place where the organization performs work using an online environment.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"As a virtual location within the scope - a place where the organization does work through an online environment.\" },"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 198,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "651e301e-707b-4d00-97d3-6d5c54fedb12",
+     "line_abs": 198,
+     "before": "    \"explanation\": \"ISO 19011:2026 defines a virtual location as one where an organization performs work or provides a service using an online environment, and includes virtual locations in what an audit scope generally covers. The platform may also involve a supplier relationship, but that is a separate question. The method used to audit it does not determine whether it is in scope.\",",
+     "after": "    \"explanation\": \"ISO 19011:2026 defines a virtual location as one where an organization does work or delivers a service through an online environment, and includes virtual locations in what an audit scope generally covers. The platform may also involve a supplier relationship, but that is a separate question. The method used to audit it does not determine whether it is in scope.\","
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 65,
+   "run_words": 0,
+   "run": "19011:2026 clause 5.5.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "ec0688cc-06eb-4a00-9dc0-63d6686ec4a8",
+     "line_abs": 65,
+     "before": "ISO 19011:2026 treats assigning responsibility for an individual audit to the audit team leader as a distinct step, separate from selecting the team.",
+     "after": "ISO 19011:2026 treats handing an individual audit to its team leader as a distinct step, separate from selecting the team."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 51,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 51,
+     "before": "The second subclause governs the programme itself:",
+     "after": "Clause 9.2.2, the second subclause, governs the programme itself:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 63,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 63,
+     "before": "Then the sentence from lesson 02-01, and three lettered requirements:",
+     "after": "Then the sentence from lesson 02-01, and clause 9.2.2's three lettered requirements:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 71,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 71,
+     "before": "**And the closing requirement:**",
+     "after": "**And clause 9.2.2's closing requirement:**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 89,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 89,
+     "before": "Not annual. Not three-yearly. Not once per certification cycle. The standard leaves the interval to the organization, and it names what should inform it: the importance of the processes concerned and the results of previous audits.",
+     "after": "Not annual. Not three-yearly. Not once per certification cycle. The standard leaves the interval to the organization, and it names what should inform it: how important the audited processes are, and what earlier audits found."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 151,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 151,
+     "before": "The clause requires documented information as evidence of **the implementation of the audit programme and the audit results.** Two things, and organizations often have only the second.",
+     "after": "The clause requires documented information showing **both that the programme was implemented and what the audits found.** Two things, and organizations often have only the second."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 173,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "99c053c3-63ce-477d-96fe-91fc25a5f59e",
+     "line_abs": 173,
+     "before": "      { \"id\": \"b\", \"text\": \"Nonconformity: clause 9.2.2 requires the importance of the processes concerned and the results of previous audits to be considered when establishing the programme, and no evidence of that consideration exists.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Nonconformity: clause 9.2.2 requires how important the audited processes are and what earlier audits found to be considered when establishing the programme, and no evidence of that consideration exists.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

@@ -105,7 +105,7 @@ const MODALS = {
      * refuse the softening that prompted this file. */
     strong: [w("shall"), w("must"), w("is required to"), w("are required to"),
              w("requires?"), w("required"), w("requirements?"), w("has to"), w("have to"),
-             w("obligation"), w("mandator(y|ily)")],
+             w("obligations?"), w("mandator(y|ily)")],
     /* `could` was missing while `can` and `might` were both here -- the same
      * arbitrary gap as `requirement` on the strong list above, found the same
      * way. Two AIMS-IA module 5 recasts wrote "could weaken the conclusions"
@@ -525,6 +525,10 @@ export function checkFaithful() {
     ["es-419", "de forma que puedan producir resultados consistentes.", "weak", "puedan"],
     ["en", "The controls are required to be used.", "strong", "are required to (counted once, not twice)"],
     ["en", "Obstacles that could weaken the conclusions.", "weak", "could"],
+    /* Sixth gap of the same family, found 2026-09-17 on ISMS-IA 02-03:
+     * `obligation` was on the list and `obligations` was not, so "legal
+     * requirements, contractual obligations" scored one where it holds two. */
+    ["en", "Criteria may be legal requirements and contractual obligations.", "strong", "obligations"],
     ["pt-BR",  "de forma que possam produzir resultados consistentes.", "weak", "possam"],
   ];
   for (const [lang, text, side, label] of seen) {
