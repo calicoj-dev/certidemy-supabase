@@ -47,6 +47,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable } from "./lib/citation-index.mjs";
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
@@ -164,7 +165,10 @@ const SOURCES = srcParts.join(" ");
 console.log("  " + grams.size + " distinct " + SEED + "-grams");
 console.log("  sources: " + SOURCES);
 
-/** Longest contiguous run in `text` also present in the standards. */
+/**
+ * Longest contiguous run in ONE stretch of text also present in the standards.
+ * Callers pass a segment, not a whole document -- see `longestMeasured`.
+ */
 function longestRun(text) {
   const w = norm(text).split(" ").filter(Boolean);
   let best = 0, bestText = "";
@@ -174,6 +178,30 @@ function longestRun(text) {
     while (i + n + 1 <= w.length && grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
     if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); }
     i += n - 1;
+  }
+  return { best, bestText };
+}
+
+/**
+ * The measured longest run of a LESSON BODY, with attributed quotations exempt.
+ *
+ * IP-POSITION section 6, amended 2026-09-17, permits clause text that is quoted
+ * and attributed. Exempt lines CUT the body into segments and each is measured
+ * alone; they are never deleted, because deleting them would join the line
+ * before to the line after and measure a run across a junction the document
+ * does not contain.
+ *
+ * THE EXEMPTION IS IN CODE, NOT IN `mcp_leak_policy`, and that is deliberate.
+ * The threshold lives in the table because it is a number someone may tune. The
+ * exemption is not a tunable -- it IS the position, and it should move only when
+ * IP-POSITION section 6 moves. If it ever has to differ per deployment, that is
+ * the moment it earns a column.
+ */
+function longestMeasured(md) {
+  let best = 0, bestText = "";
+  for (const seg of segments(md, attributedQuote)) {
+    const r = longestRun(seg);
+    if (r.best > best) { best = r.best; bestText = r.bestText; }
   }
   return { best, bestText };
 }
@@ -201,7 +229,7 @@ const lessons = await all("lessons?select=id,slug,language,lesson_group_id,modul
 console.log("  " + lessons.length + " lesson row(s)");
 
 const measured = lessons.map((l) => {
-  const { best, bestText } = longestRun(l.content_md);
+  const { best, bestText } = longestMeasured(l.content_md);
   return { ...l, cert: modCert.get(l.module_id) ?? "?", run: best, runText: bestText };
 });
 
@@ -246,6 +274,40 @@ const controls = [];
 const ctl = (n, ok, d) => { controls.push({ n, ok, d }); console.log("  " + (ok ? "ok  " : "FAIL") + "  " + n + "  -- " + d); };
 
 ctl("the index is populated", grams.size > 10000, grams.size + " " + SEED + "-grams");
+
+/* ============ THE SEGMENTATION MUST CHANGE NOTHING BUT THE EXEMPTION ======
+ *
+ * Two controls, because they answer different questions.
+ *
+ * FIXTURES: is the segmenter correct? Six cases in iso-segments.mjs, including
+ * the manufactured-adjacency case -- text either side of a cut must never land
+ * in one segment.
+ *
+ * IDENTITY ON EVERY ROW: does the corpus contain a shape the segmenter
+ * mishandles? With NOTHING exempt, segments() must return each body unchanged,
+ * one segment, byte for byte. This is a string comparison rather than a second
+ * measurement, which is both cheaper and a stronger claim: if the text going in
+ * is the text coming out, the measurement cannot have moved. A drift here would
+ * mean a drop in refusals was the segmentation losing runs rather than the
+ * exemption permitting quotations -- the two are indistinguishable from the
+ * verdict alone. */
+const segBad = segControl();
+ctl("segmenter fixtures", segBad.length === 0,
+  segBad.length ? segBad[0] : "7 case(s) including manufactured adjacency and CRLF");
+
+let identityBad = 0, identityEg = null;
+for (const l of lessons) {
+  const whole = String(l.content_md || "");
+  const parts = segments(whole, () => false);
+  if (parts.length !== 1 || parts[0] !== whole) {
+    identityBad++;
+    if (!identityEg) identityEg = l.slug + "/" + l.language + " -> " + parts.length + " segment(s)";
+  }
+}
+ctl("IDENTITY: with nothing exempt the body is returned unchanged",
+  identityBad === 0,
+  identityBad ? identityBad + " row(s) differ, e.g. " + identityEg
+              : "all " + lessons.length + " bodies byte-identical");
 
 /* NEGATIVE: a corpus known to cite no ISO standard must come out clean. */
 const aism = scored.filter((s) => s.cert === "AISM-I");
