@@ -1,0 +1,25 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 132,
+   "run_words": 0,
+   "run": "42001 clause 6.1.2 d) 1)",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 132,
+     "before": "Clause 6.1.2 d) 1) asks the analysis to weigh what would follow **for the organization, for individuals and for societies** should an identified risk come about.",
+     "after": "Clause 6.1.2 d) 1) asks the analysis to weigh what might follow **for the organization, for individuals and for societies** if an identified risk came about."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

@@ -140,14 +140,20 @@ const MODALS = {
               * construction, not the word. */
              w("(es|sea|era|fuera|ser[áa]) necesario"), w("necesario que"),
              w("hace falta"),
-             w("obligaci[óo]n"), w("obligatori[oa]s?"), w("exigencia")],
+             w("obligaci[óo]n"), w("obligatori[oa]s?"), w("exigencia"),
+             /* THIRD FORM OF THE SAME RULE. The file already says every verb on a
+              * strong list needs its NOUN beside it. These two instances add the
+              * PARTICIPLE and the SUBJUNCTIVE: `exigen` was here and `exigido`
+              * was not, so "provided, not required" -> "fornecidos, nao exigidos"
+              * scored strong 0 and a faithful translation was refused. */
+             w("exigid[oa]s?"), w("requerid[oa]s?")],
     /* `conviene` BELONGS HERE and was only in the inflation check's own list.
      * Two vocabularies for one idea is how they drift: the fixer was told to
      * render `should` as `conviene`, did so correctly, and the profile then
      * scored weak 0 because THIS list had never heard of it -- so the
      * weak-loss rule refused a faithful translation. Fourth gap of this family
      * today, and the first caused by having two lists rather than one. */
-    weak:   [w("puede[n]?"), w("podr[íi]an?"), w("deber[íi]an?"),
+    weak:   [w("puede[n]?"), w("pueda[n]?"), w("podr[íi]an?"), w("deber[íi]an?"),
              w("conviene"), w("convendr[íi]a"), w("es recomendable"),
              w("opcional(es)?"), w("recomien[dz]a[n]?"), w("se recomienda")],
   },
@@ -162,10 +168,11 @@ const MODALS = {
              /* Same impersonal necessity as es-419 above, and the same
               * narrowing: the construction, never the bare adjective. */
              w("[ée] necess[áa]rio"), w("seja necess[áa]rio"), w("necess[áa]rio que"),
-             w("obrigat[óo]ri[oa]s?"), w("obriga[çc][ãa]o"), w("exig[êe]ncia")],
+             w("obrigat[óo]ri[oa]s?"), w("obriga[çc][ãa]o"), w("exig[êe]ncia"),
+             w("exigid[oa]s?"), w("requerid[oa]s?")],
     /* Same as es-419: the ABNT rendering of `should` lives HERE, not only in
      * the inflation check. */
-    weak:   [w("pode[m]?"), w("poderiam?"), w("deveriam?"),
+    weak:   [w("pode[m]?"), w("possa[m]?"), w("poderiam?"), w("deveriam?"),
              w("conv[ée]m"), w("[ée] recomend[áa]vel"),
              w("opcional(is|es)?"), w("recomenda[m]?"), w("recomenda-se")],
   },
@@ -478,6 +485,12 @@ export function checkFaithful() {
     ["es-419", "La organización podría documentarlos.", "weak", "podria"],
     ["pt-BR",  "Convém que a organização considere os resultados.", "weak", "convem"],
     ["es-419", "Esto crea una obligación para la organización.", "strong", "obligacion"],
+    /* The participle and the subjunctive, both found 2026-09-17 in AIMS-IA
+     * module 4 translations that the guard refused as faithful. */
+    ["es-419", "Son proporcionados, no exigidos.", "strong", "exigidos"],
+    ["pt-BR",  "São fornecidos, não exigidos.", "strong", "exigidos"],
+    ["es-419", "de forma que puedan producir resultados consistentes.", "weak", "puedan"],
+    ["pt-BR",  "de forma que possam produzir resultados consistentes.", "weak", "possam"],
   ];
   for (const [lang, text, side, label] of seen) {
     if (modalProfile(text, lang)[side] < 1) {

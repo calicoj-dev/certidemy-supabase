@@ -1,0 +1,637 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "43d7efeb-8044-445d-9062-2bedc6e6d731",
+     "line_abs": 34,
+     "before": "- The organization **shall determine external and internal issues** relevant to its purpose that affect its ability to achieve the intended results of its AI management system.",
+     "after": "- The organization **shall determine external and internal issues** bearing on its purpose which affect whether it can reach what its AI management system is meant to achieve."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "43d7efeb-8044-445d-9062-2bedc6e6d731",
+     "line_abs": 35,
+     "before": "- The organization **shall determine whether climate change is a relevant issue.**",
+     "after": "- It **shall determine whether climate change is a relevant issue** as well."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "43d7efeb-8044-445d-9062-2bedc6e6d731",
+     "line_abs": 36,
+     "before": "- The organization **shall consider the intended purpose** of the AI systems that are developed, provided or used by the organization.",
+     "after": "- The organization **shall consider the intended purpose** of whatever AI systems it develops, provides or uses."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "43d7efeb-8044-445d-9062-2bedc6e6d731",
+     "line_abs": 37,
+     "before": "- The organization **shall determine its roles** with respect to these AI systems.",
+     "after": "- The organization **shall determine its roles** in relation to those systems."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "13437310-de5d-4f5a-acab-e0365f086b8a",
+     "line_abs": 32,
+     "before": "ISO/IEC 42001:2023 clause 4.3 requires the organization to determine the **boundaries and applicability** of the AI management system to establish its scope. When determining the scope it shall consider the external and internal issues from 4.1 and the requirements of interested parties from 4.2. The scope shall be available as documented information.",
+     "after": "ISO/IEC 42001:2023 clause 4.3 requires the organization to settle the **boundaries and applicability** of its AI management system, and so its scope. In settling that scope it shall take account of the external and internal issues from 4.1 and the interested-party requirements from 4.2. The scope shall be held as documented information."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 44,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "13437310-de5d-4f5a-acab-e0365f086b8a",
+     "line_abs": 44,
+     "before": "Clause 4.3 requires the scope to be determined **considering the issues referred to in 4.1** and the requirements referred to in 4.2. Lesson 04-01 audited the 4.1 determination. This lesson audits what was built on it.",
+     "after": "Clause 4.3 requires the scope to be settled **with the 4.1 issues in view** and with the 4.2 requirements. Lesson 04-01 audited the 4.1 determination. This lesson audits what was built on it."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 176,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "13437310-de5d-4f5a-acab-e0365f086b8a",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"The third element of clause 4.2 is missing: the organization shall determine which of those requirements will be addressed through the AI management system, and it is the element that connects 4.2 to the scope in 4.3.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"The third element of clause 4.2 is missing: the organization shall determine which of those requirements the AI management system will address, and it is the element that connects 4.2 to the scope in 4.3.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 32,
+     "before": "ISO/IEC 42001:2023 clause 5.1 requires top management to demonstrate leadership and commitment with respect to the AI management system by:",
+     "after": "ISO/IEC 42001:2023 clause 5.1 requires top management to show leadership and commitment for the AI management system by:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 34,
+     "before": "- ensuring the **AI policy and AI objectives are established** and compatible with the strategic direction of the organization;",
+     "after": "- ensuring the **AI policy and AI objectives are established** and sit well with where the organization is strategically headed;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 36,
+     "before": "- ensuring the **resources needed** for the AIMS are available;",
+     "after": "- ensuring the **resources needed** for the AIMS are in place;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 37,
+     "before": "- **communicating the importance** of effective AI management and of conforming to AIMS requirements;",
+     "after": "- **communicating the importance** of effective AI management and of meeting what the AIMS requires;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 39,
+     "before": "- **directing and supporting persons** to contribute to the effectiveness of the AIMS;",
+     "after": "- **directing and supporting persons** so they contribute to how well the AIMS works;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 41,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 41,
+     "before": "- **supporting other relevant management roles** to demonstrate their leadership as it applies to their areas of responsibility.",
+     "after": "- **supporting other relevant management roles** in showing leadership within the areas they are responsible for."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 63,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 63,
+     "before": "- a) is **appropriate to the purpose** of the organization;",
+     "after": "- a) **suits the organization's purpose**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 65,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 65,
+     "before": "- c) includes a **commitment to meet applicable requirements**;",
+     "after": "- c) carries a **commitment to meet applicable requirements**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 66,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 66,
+     "before": "- d) includes a **commitment to continual improvement** of the AIMS.",
+     "after": "- d) carries a **commitment to continually improve** the AIMS."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 70,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 70,
+     "before": "- be available as **documented information**;",
+     "after": "- be held as **documented information**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 71,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 71,
+     "before": "- **refer as relevant to other organizational policies**;",
+     "after": "- **point to other organizational policies where relevant**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 73,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 73,
+     "before": "- be **available to interested parties, as appropriate**.",
+     "after": "- be **open to interested parties where appropriate**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 79,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 79,
+     "before": "Clause 5.2 itself points at the relationship: control objectives and controls for establishing an AI policy are provided in A.2 in Table A.1, with implementation guidance in B.2. Provided, not required.",
+     "after": "Clause 5.2 itself points at the relationship: the control objectives and controls for an AI policy sit at A.2 of Table A.1, with implementation guidance at B.2. Provided, not required."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 89,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 89,
+     "before": "**A.2.2, AI policy** - the organization shall document a policy for the development or use of AI systems. This substantially overlaps clause 5.2, which is why an organization sometimes excludes it as already covered. That is a defensible position on the control and changes nothing about the clause.",
+     "after": "**A.2.2, the AI policy control** - the organization shall document a policy covering how AI systems are developed or used. This substantially overlaps clause 5.2, which is why an organization sometimes excludes it as already covered. That is a defensible position on the control and changes nothing about the clause."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 91,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 91,
+     "before": "**A.2.3, alignment with other organizational policies** - the organization shall determine where other policies can be affected by, or apply to, the organization's objectives with respect to AI systems. Clause 5.2's requirement that the policy refer as relevant to other organizational policies is narrower: the clause asks the AI policy to point outward, the control asks the organization to work out which other policies are engaged.",
+     "after": "**A.2.3, alignment with other organizational policies** - the organization shall work out which other policies can affect, or be affected by, its AI-related objectives. Clause 5.2's requirement that the policy refer as relevant to other organizational policies is narrower: the clause asks the AI policy to point outward, the control asks the organization to work out which other policies are engaged."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 93,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 93,
+     "before": "**A.2.4, review of the AI policy** - the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness. **Clause 5.2 contains no review requirement at all.** Periodic review of the AI policy comes from here, and only where the control was selected.",
+     "after": "**A.2.4, reviewing the AI policy** - it shall be reviewed at planned intervals, and at other times as needed, so that it stays suitable, adequate and effective. **Clause 5.2 contains no review requirement at all.** Periodic review of the AI policy comes from here, and only where the control was selected."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 99,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "7d273606-c68a-46aa-aee8-cb857c2b8dda",
+     "line_abs": 99,
+     "before": "Clause 5.3 requires top management to ensure that responsibilities and authorities for relevant roles are assigned and communicated within the organization. Then it names two that must be assigned:",
+     "after": "Clause 5.3 requires top management to see that responsibilities and authorities for the relevant roles are assigned and made known across the organization. Then it names two that must be assigned:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 32,
+     "before": "ISO/IEC 42001:2023 clause 6.1.2 requires the organization to **define and establish an AI risk assessment process** that:",
+     "after": "ISO/IEC 42001:2023 clause 6.1.2 requires the organization to **set up and define a process for assessing AI risk** that:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 34,
+     "before": "- a) is **informed by and aligned with the AI policy** (5.2) and **AI objectives** (6.2);",
+     "after": "- a) is **shaped by and consistent with the AI policy** (5.2) and the **AI objectives** (6.2);"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 35,
+     "before": "- b) is designed such that **repeated AI risk assessments can produce consistent, valid and comparable results**;",
+     "after": "- b) is designed so that **assessments repeated over time can give consistent, valid and comparable results**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 36,
+     "before": "- c) **identifies risks** that aid or prevent achieving its AI objectives;",
+     "after": "- c) **identifies risks** that help or hinder the AI objectives;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 37,
+     "before": "- d) **analyses** the AI risks, to assess the potential consequences to the organization, individuals and societies that would result if the identified risks materialized; to assess where applicable the realistic likelihood; and to determine the levels of risk;",
+     "after": "- d) **analyses** the AI risks - what would follow for the organization, for individuals and for societies if an identified risk came about; how likely that realistically is, where that applies; and what the resulting risk levels are;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 40,
+     "before": "A NOTE under d) records that when assessing consequences the organization **can utilize an AI system impact assessment as indicated in 6.1.4**. That is a `can` - permission, not a requirement, and lesson 04-06 relies on the distinction.",
+     "after": "A NOTE under d) records that when assessing consequences the organization **can draw on an AI system impact assessment, as 6.1.4 indicates**. That is a `can` - permission, not a requirement, and lesson 04-06 relies on the distinction."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 48,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 48,
+     "before": "It is testable in one move: **take the organization's AI objectives from clause 6.2 and ask whether the risk process identifies risks to them.** Clause 6.1.2 c) makes this explicit - the process identifies risks that aid or prevent achieving its AI objectives.",
+     "after": "It is testable in one move: **take the organization's AI objectives from clause 6.2 and ask whether the risk process identifies risks to them.** Clause 6.1.2 c) makes this explicit - the process identifies risks that help or hinder the AI objectives."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 56,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 56,
+     "before": "Clause 6.1.2 b) requires the process to be designed such that **repeated AI risk assessments can produce consistent, valid and comparable results**. This is the most directly testable requirement in the clause and the least often tested.",
+     "after": "Clause 6.1.2 b) requires the process to be designed so that **assessments repeated over time can give consistent, valid and comparable results**. This is the most directly testable requirement in the clause and the least often tested."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 82,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 82,
+     "before": "| Clause 8.2 | The **results** - the organization shall perform AI risk assessments at planned intervals or when significant changes are proposed or occur, and **retain documented information of the results**. |",
+     "after": "| Clause 8.2 | The **results** - the organization shall perform AI risk assessments at planned intervals, and whenever significant change is proposed or happens, and **retain documented information of the results**. |"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 132,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 132,
+     "before": "Clause 6.1.2 d) 1) asks the analysis to assess the potential consequences **to the organization, individuals and societies** that would result if the identified risks materialized.",
+     "after": "Clause 6.1.2 d) 1) asks the analysis to weigh what would follow **for the organization, for individuals and for societies** should an identified risk come about."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 138,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "d029cda1-c1dd-4e8d-8b3c-d0d51792bc3c",
+     "line_abs": 138,
+     "before": "**Societies** is broader still and is the requirement organizations most often leave unaddressed, usually because it feels unmeasurable. It is not asking for a philosophical treatment. Control A.5.5, where selected, addresses assessing societal impacts of AI systems, and clause 6.1.4 requires the impact assessment to determine consequences for individuals or groups of individuals, or both, and societies.",
+     "after": "**Societies** is broader still and is the requirement organizations most often leave unaddressed, usually because it feels unmeasurable. It is not asking for a philosophical treatment. Control A.5.5, where selected, addresses assessing societal impacts of AI systems, and clause 6.1.4 requires the impact assessment to determine what follows for individuals, for groups of them, or for both, and for societies."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

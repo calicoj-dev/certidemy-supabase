@@ -1,0 +1,1165 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "36ae021b-05b2-45e5-931d-917588a858c0",
+     "line_abs": 32,
+     "before": "El capítulo 4.3 de ISO/IEC 42001:2023 requiere que la organización determine los **límites y la aplicabilidad** del sistema de gestión de IA para establecer su alcance. Al determinar el alcance, deberá considerar los asuntos externos e internos del apartado 4.1 y los requisitos de las partes interesadas del apartado 4.2. El alcance deberá estar disponible como información documentada.",
+     "after": "La cláusula 4.3 de ISO/IEC 42001:2023 requiere que la organización determine los **límites y la aplicabilidad** de su sistema de gestión de IA y, por lo tanto, su alcance. Al determinar dicho alcance, deberá tener en cuenta los asuntos externos e internos del apartado 4.1 y los requisitos de las partes interesadas del apartado 4.2. El alcance deberá mantenerse como información documentada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "36ae021b-05b2-45e5-931d-917588a858c0",
+     "line_abs": 44,
+     "before": "El capítulo 4.3 requiere que el alcance se determine **considerando los asuntos referidos en el apartado 4.1** y los requisitos referidos en el apartado 4.2. La lección 04-01 auditó la determinación del apartado 4.1. Esta lección audita lo que se construyó sobre ella.",
+     "after": "El capítulo 4.3 requiere que el alcance se establezca **considerando los asuntos del apartado 4.1** y los requisitos del apartado 4.2. La lección 04-01 auditó la determinación del apartado 4.1. Esta lección audita lo que se construyó sobre ella."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 32,
+     "before": "El apartado 5.1 de la norma ISO/IEC 42001:2023 requiere que la alta dirección demuestre liderazgo y compromiso con respecto al sistema de gestión de IA mediante:",
+     "after": "La cláusula 5.1 de la norma ISO/IEC 42001:2023 requiere que la alta dirección demuestre liderazgo y compromiso con respecto al sistema de gestión de IA mediante:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 34,
+     "before": "- asegurar que **la política de IA y los objetivos de IA se establezcan** y sean compatibles con la dirección estratégica de la organización;",
+     "after": "- asegurar que **la política de IA y los objetivos de IA se establezcan** y estén alineados con la dirección estratégica de la organización;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 36,
+     "before": "- asegurar que los **recursos necesarios** para el sistema de gestión de IA estén disponibles;",
+     "after": "- asegurar que los **recursos necesarios** para el AIMS estén disponibles;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 37,
+     "before": "- **comunicar la importancia** de una gestión eficaz de la IA y de la conformidad con los requisitos del sistema de gestión de IA;",
+     "after": "- **comunicar la importancia** de una gestión eficaz de la IA y de cumplir con lo que el AIMS requiere;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 39,
+     "before": "- **dirigir y apoyar a las personas** para que contribuyan a la eficacia del sistema de gestión de IA;",
+     "after": "- **dirigir y apoyar a las personas** para que contribuyan al buen funcionamiento del AIMS;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 41,
+     "before": "- **apoyar a otros roles de gestión relevantes** para que demuestren su liderazgo en sus áreas de responsabilidad.",
+     "after": "- **apoyar a otros roles de gestión relevantes** para que demuestren liderazgo dentro de las áreas de las que son responsables."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 65,
+     "before": "- c) incluya un **compromiso de cumplir los requisitos aplicables**;",
+     "after": "- c) incluye un **compromiso de cumplir los requisitos aplicables**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 66,
+     "before": "- d) incluya un **compromiso de mejora continua** del sistema de gestión de IA.",
+     "after": "- d) incluya un **compromiso de mejora continua** del AIMS."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 70,
+     "before": "- estar disponible como **información documentada**;",
+     "after": "- mantenerse como **información documentada**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 73,
+     "before": "- estar **disponible para las partes interesadas, según corresponda**.",
+     "after": "- estar **abierto a las partes interesadas donde sea apropiado**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 13,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 79,
+     "before": "El propio apartado 5.2 señala la relación: los objetivos de control y los controles para establecer una política de IA se proporcionan en A.2 de la Tabla A.1, con orientación de implementación en B.2. Se proporcionan, no se requieren.",
+     "after": "La propia cláusula 5.2 señala la relación: los objetivos de control y los controles para una política de IA se encuentran en A.2 de la Tabla A.1, con orientación de implementación en B.2. Se proporcionan, no se requieren."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 89,
+     "before": "**A.2.2, política de IA** — la organización deberá documentar una política para el desarrollo o uso de sistemas de IA. Esto se superpone sustancialmente con el apartado 5.2, razón por la cual una organización a veces lo excluye por considerarlo ya cubierto. Esa es una posición defendible respecto al control y no cambia nada sobre el apartado.",
+     "after": "**A.2.2, el control de política de IA** — la organización deberá documentar una política que cubra cómo se desarrollan o utilizan los sistemas de IA. Esto se superpone sustancialmente con la cláusula 5.2, razón por la cual una organización a veces lo excluye por considerarlo ya cubierto. Esa es una posición defendible respecto al control y no cambia nada sobre la cláusula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 91,
+     "before": "**A.2.3, alineación con otras políticas organizacionales** — la organización deberá determinar en qué casos otras políticas pueden verse afectadas por, o aplicarse a, los objetivos de la organización con respecto a los sistemas de IA. El requisito del apartado 5.2 de que la política haga referencia a otras políticas organizacionales según corresponda es más acotado: el apartado pide que la política de IA apunte hacia afuera; el control pide que la organización determine qué otras políticas están involucradas.",
+     "after": "**A.2.3, alineación con otras políticas organizacionales** — la organización deberá determinar qué otras políticas pueden afectar, o verse afectadas por, sus objetivos relacionados con la IA. El requisito de la cláusula 5.2 de que la política haga referencia a otras políticas organizacionales según corresponda es más acotado: la cláusula pide que la política de IA apunte hacia afuera; el control pide que la organización determine qué otras políticas están involucradas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 93,
+     "before": "**A.2.4, revisión de la política de IA** — la política de IA deberá revisarse a intervalos planificados o adicionalmente según sea necesario para asegurar su continua idoneidad, adecuación y eficacia. **El apartado 5.2 no contiene ningún requisito de revisión.** La revisión periódica de la política de IA proviene de aquí, y solo cuando el control fue seleccionado.",
+     "after": "**A.2.4, revisión de la política de IA** — deberá revisarse a intervalos planificados y en otros momentos según sea necesario, para que se mantenga idónea, adecuada y eficaz. **La cláusula 5.2 no contiene ningún requisito de revisión en absoluto.** La revisión periódica de la política de IA proviene de aquí, y solo cuando el control fue seleccionado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+     "line_abs": 99,
+     "before": "El apartado 5.3 requiere que la alta dirección asegure que las responsabilidades y autoridades para los roles relevantes sean asignadas y comunicadas dentro de la organización. Luego nombra dos que deben ser asignadas:",
+     "after": "La cláusula 5.3 requiere que la alta dirección se asegure de que las responsabilidades y autoridades para los roles relevantes sean asignadas y dadas a conocer en toda la organización. Luego nombra dos que deben ser asignadas:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 32,
+     "before": "El apartado 6.1.2 de la norma ISO/IEC 42001:2023 exige que la organización **defina y establezca un proceso de evaluación del riesgo de IA** que:",
+     "after": "El apartado 6.1.2 de la norma ISO/IEC 42001:2023 exige que la organización **establezca y defina un proceso de evaluación del riesgo de IA** que:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 34,
+     "before": "- a) esté **informado por la política de IA** (5.2) y los **objetivos de IA** (6.2), y alineado con ellos;",
+     "after": "- a) esté **moldeado por la política de IA** (5.2) y los **objetivos de IA** (6.2), y sea coherente con ellos;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 35,
+     "before": "- b) esté diseñado de modo que **las evaluaciones del riesgo de IA repetidas puedan producir resultados coherentes, válidos y comparables**;",
+     "after": "- b) esté diseñado de modo que **las evaluaciones repetidas a lo largo del tiempo puedan producir resultados coherentes, válidos y comparables**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 36,
+     "before": "- c) **identifique los riesgos** que contribuyen a alcanzar sus objetivos de IA o que los impiden;",
+     "after": "- c) **identifica los riesgos** que ayudan u obstaculizan los objetivos de IA;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 37,
+     "before": "- d) **analice** los riesgos de IA para evaluar las posibles consecuencias para la organización, las personas y las sociedades que se derivarían si los riesgos identificados se materializaran; para evaluar, cuando corresponda, la probabilidad realista; y para determinar los niveles de riesgo;",
+     "after": "- d) **analiza** los riesgos de IA: qué consecuencias tendría para la organización, para las personas y para las sociedades si un riesgo identificado se materializara; qué tan probable es eso de manera realista, cuando corresponda; y cuáles son los niveles de riesgo resultantes;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 40,
+     "before": "Una NOTA bajo el apartado d) indica que, al evaluar las consecuencias, la organización **puede utilizar una evaluación del impacto del sistema de IA conforme a lo indicado en el apartado 6.1.4**. Se trata de un `puede` — un permiso, no un requisito, y la lección 04-06 se apoya en esa distinción.",
+     "after": "Una NOTA bajo el apartado d) registra que, al evaluar las consecuencias, la organización **puede apoyarse en una evaluación del impacto del sistema de IA, tal como indica el apartado 6.1.4**. Se trata de un `puede` — un permiso, no un requisito, y la lección 04-06 se basa en esa distinción."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 48,
+     "before": "Es verificable en un solo paso: **tomar los objetivos de IA de la organización del apartado 6.2 y preguntar si el proceso de riesgo identifica los riesgos que los afectan.** El apartado 6.1.2 c) lo hace explícito: el proceso identifica los riesgos que contribuyen a alcanzar los objetivos de IA o que los impiden.",
+     "after": "Es verificable en un solo paso: **tomar los objetivos de IA de la organización de la cláusula 6.2 y preguntar si el proceso de riesgo identifica los riesgos que los afectan.** La cláusula 6.1.2 c) lo hace explícito: el proceso identifica los riesgos que contribuyen a alcanzar los objetivos de IA o que los impiden."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 56,
+     "before": "El apartado 6.1.2 b) exige que el proceso esté diseñado de modo que **las evaluaciones del riesgo de IA repetidas puedan producir resultados coherentes, válidos y comparables**. Este es el requisito más directamente verificable del apartado y el que menos se verifica.",
+     "after": "La cláusula 6.1.2 b) exige que el proceso esté diseñado de modo que **las evaluaciones repetidas a lo largo del tiempo puedan producir resultados coherentes, válidos y comparables**. Este es el requisito más directamente verificable de la cláusula y el que menos se verifica."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 82,
+     "before": "| Apartado 8.2 | Los **resultados** — la organización debe realizar evaluaciones del riesgo de IA a intervalos planificados o cuando se propongan o produzcan cambios significativos, y **conservar información documentada de los resultados**. |",
+     "after": "| Apartado 8.2 | Los **resultados** — la organización debe realizar evaluaciones del riesgo de IA a intervalos planificados, y siempre que se proponga o produzca un cambio significativo, y **conservar información documentada de los resultados**. |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+     "line_abs": 138,
+     "before": "**Las sociedades** es un concepto más amplio y es el requisito que las organizaciones con mayor frecuencia dejan sin abordar, generalmente porque parece imposible de medir. No se pide un tratamiento filosófico. El control A.5.5, cuando se selecciona, aborda la evaluación de los impactos sociales de los sistemas de IA, y el apartado 6.1.4 exige que la evaluación del impacto determine las consecuencias para personas o grupos de personas, o ambos, y para las sociedades.",
+     "after": "**Las sociedades** es un concepto aún más amplio y es el requisito que las organizaciones con mayor frecuencia dejan sin abordar, generalmente porque parece imposible de medir. No se pide un tratamiento filosófico. El control A.5.5, cuando se selecciona, aborda la evaluación de los impactos sociales de los sistemas de IA, y la cláusula 6.1.4 exige que la evaluación del impacto determine qué se desprende de ello para las personas, para grupos de ellas, o para ambos, y para las sociedades."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "b98a8846-6456-433a-bbed-d7debf127b39",
+     "line_abs": 34,
+     "before": "- A organização **deve determinar as questões externas e internas** relevantes para seu propósito que afetam sua capacidade de alcançar os resultados pretendidos de seu sistema de gestão de IA.",
+     "after": "- A organização **deve determinar as questões externas e internas** relevantes para seu propósito que afetam se ela pode alcançar o que seu sistema de gestão de IA pretende atingir."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "b98a8846-6456-433a-bbed-d7debf127b39",
+     "line_abs": 35,
+     "before": "- A organização **deve determinar se as mudanças climáticas são uma questão relevante.**",
+     "after": "- A organização **deve determinar se as mudanças climáticas também são uma questão relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "b98a8846-6456-433a-bbed-d7debf127b39",
+     "line_abs": 36,
+     "before": "- A organização **deve considerar o propósito pretendido** dos sistemas de IA desenvolvidos, fornecidos ou utilizados por ela.",
+     "after": "- A organização **deve considerar o propósito pretendido** de qualquer sistema de IA que ela desenvolva, forneça ou utilize."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "b98a8846-6456-433a-bbed-d7debf127b39",
+     "line_abs": 37,
+     "before": "- A organização **deve determinar seus papéis** em relação a esses sistemas de IA.",
+     "after": "- A organização **deve determinar seus papéis** em relação a esses sistemas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "1d94b22a-ff13-4518-8d1b-74fb4f8c7dba",
+     "line_abs": 32,
+     "before": "A Seção 4.3 da ISO/IEC 42001:2023 exige que a organização determine os **limites e a aplicabilidade** do sistema de gestão de IA para estabelecer seu escopo. Ao determinar o escopo, ela deve considerar as questões externas e internas da Seção 4.1 e os requisitos das partes interessadas da Seção 4.2. O escopo deve estar disponível como informação documentada.",
+     "after": "A cláusula 4.3 da ISO/IEC 42001:2023 exige que a organização determine os **limites e a aplicabilidade** do seu sistema de gestão de IA e, portanto, o seu escopo. Ao determinar esse escopo, ela deve considerar as questões externas e internas da cláusula 4.1 e os requisitos das partes interessadas da cláusula 4.2. O escopo deve ser mantido como informação documentada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "1d94b22a-ff13-4518-8d1b-74fb4f8c7dba",
+     "line_abs": 44,
+     "before": "A Seção 4.3 exige que o escopo seja determinado **considerando as questões referidas na Seção 4.1** e os requisitos referidos na Seção 4.2. A lição 04-01 auditou a determinação da Seção 4.1. Esta lição audita o que foi construído sobre ela.",
+     "after": "A cláusula 4.3 exige que o escopo seja determinado **considerando as questões da cláusula 4.1** e os requisitos da cláusula 4.2. A lição 04-01 auditou a determinação da cláusula 4.1. Esta lição audita o que foi construído sobre ela."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 34,
+     "before": "- garantindo que a **política de IA e os objetivos de IA sejam estabelecidos** e compatíveis com a direção estratégica da organização;",
+     "after": "- garantindo que a **política de IA e os objetivos de IA sejam estabelecidos** e estejam alinhados com os rumos estratégicos da organização;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 36,
+     "before": "- garantindo que os **recursos necessários** para o sistema de gestão de IA estejam disponíveis;",
+     "after": "- garantindo que os **recursos necessários** para o AIMS estejam disponíveis;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 37,
+     "before": "- **comunicando a importância** da gestão eficaz de IA e da conformidade com os requisitos do sistema de gestão de IA;",
+     "after": "- **comunicando a importância** da gestão eficaz de IA e do atendimento ao que o AIMS requer;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 39,
+     "before": "- **direcionando e apoiando pessoas** para contribuir com a eficácia do sistema de gestão de IA;",
+     "after": "- **direcionando e apoiando pessoas** para que contribuam com o bom funcionamento do AIMS;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 41,
+     "before": "- **apoiando outros papéis relevantes da gestão** para demonstrar sua liderança conforme aplicável às suas áreas de responsabilidade.",
+     "after": "- **apoiando outros papéis relevantes da gestão** em demonstrar liderança dentro das áreas pelas quais são responsáveis."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 63,
+     "before": "- a) seja **apropriada ao propósito** da organização;",
+     "after": "- a) **seja adequada ao propósito** da organização;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 65,
+     "before": "- c) inclua um **comprometimento em atender os requisitos aplicáveis**;",
+     "after": "- c) inclui um **comprometimento em atender os requisitos aplicáveis**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 66,
+     "before": "- d) inclua um **comprometimento com a melhoria contínua** do sistema de gestão de IA.",
+     "after": "- d) inclua um **comprometimento com a melhoria contínua** do AIMS."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 70,
+     "before": "- estar disponível como **informação documentada**;",
+     "after": "- ser mantida como **informação documentada**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 13,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 79,
+     "before": "A própria Seção 5.2 aponta para o relacionamento: objetivos de controle e controles para o estabelecimento de uma política de IA são fornecidos em A.2 na Tabela A.1, com orientação de implementação em B.2. Fornecidos, não exigidos.",
+     "after": "A própria cláusula 5.2 aponta para o relacionamento: os objetivos de controle e controles para uma política de IA estão em A.2 da Tabela A.1, com orientação de implementação em B.2. Fornecidos, não exigidos."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 89,
+     "before": "**A.2.2, política de IA** — a organização deve documentar uma política para o desenvolvimento ou uso de sistemas de IA. Isso se sobrepõe substancialmente à Seção 5.2, razão pela qual uma organização às vezes o exclui por já estar coberto. Essa é uma posição defensável sobre o controle e não altera nada em relação à Seção.",
+     "after": "**A.2.2, o controle de política de IA** — a organização deve documentar uma política que abranja como os sistemas de IA são desenvolvidos ou utilizados. Isso se sobrepõe substancialmente à cláusula 5.2, razão pela qual uma organização às vezes o exclui por já estar coberto. Essa é uma posição defensável sobre o controle e não altera nada em relação à cláusula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 91,
+     "before": "**A.2.3, alinhamento com outras políticas organizacionais** — a organização deve determinar onde outras políticas podem ser afetadas pelos, ou se aplicar aos, objetivos da organização em relação aos sistemas de IA. O requisito da Seção 5.2 de que a política faça referência, conforme pertinente, a outras políticas organizacionais é mais restrito: a Seção pede que a política de IA aponte para fora, enquanto o controle pede que a organização identifique quais outras políticas estão envolvidas.",
+     "after": "**A.2.3, alinhamento com outras políticas organizacionais** — a organização deve determinar quais outras políticas podem afetar, ou ser afetadas por, seus objetivos relacionados à IA. O requisito da cláusula 5.2 de que a política faça referência, conforme pertinente, a outras políticas organizacionais é mais restrito: a cláusula pede que a política de IA aponte para fora, enquanto o controle pede que a organização identifique quais outras políticas estão envolvidas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 93,
+     "before": "**A.2.4, revisão da política de IA** — a política de IA deve ser revisada em intervalos planejados ou adicionalmente conforme necessário para garantir sua contínua adequação, pertinência e eficácia. **A Seção 5.2 não contém nenhum requisito de revisão.** A revisão periódica da política de IA vem daqui, e somente onde o controle foi selecionado.",
+     "after": "**A.2.4, revisão da política de IA** — ela deve ser revisada em intervalos planejados e em outros momentos conforme necessário, para que permaneça adequada, pertinente e eficaz. **A Cláusula 5.2 não contém nenhum requisito de revisão.** A revisão periódica da política de IA vem daqui, e somente onde o controle foi selecionado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-03-leadership-in-artifacts",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+     "line_abs": 99,
+     "before": "A Seção 5.3 exige que a alta direção garanta que as responsabilidades e autoridades para os papéis relevantes sejam atribuídas e comunicadas dentro da organização. Em seguida, nomeia duas que devem ser atribuídas:",
+     "after": "A cláusula 5.3 exige que a alta direção se certifique de que as responsabilidades e autoridades para os papéis relevantes sejam atribuídas e tornadas conhecidas em toda a organização. Em seguida, nomeia duas que devem ser atribuídas:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "372de6c6-c87a-40e3-b260-c64fded6ce23",
+     "line_abs": 34,
+     "before": "- La organización **deberá determinar las cuestiones externas e internas** relevantes para su propósito que afectan su capacidad de lograr los resultados previstos de su sistema de gestión de IA.",
+     "after": "- La organización **deberá determinar las cuestiones externas e internas** relevantes para su propósito que afectan si puede alcanzar lo que su sistema de gestión de IA tiene como objetivo lograr."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "372de6c6-c87a-40e3-b260-c64fded6ce23",
+     "line_abs": 35,
+     "before": "- La organización **deberá determinar si el cambio climático es una cuestión relevante.**",
+     "after": "- También **deberá determinar si el cambio climático es una cuestión relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "372de6c6-c87a-40e3-b260-c64fded6ce23",
+     "line_abs": 36,
+     "before": "- La organización **deberá considerar el propósito previsto** de los sistemas de IA que desarrolla, proporciona o utiliza.",
+     "after": "- La organización **deberá considerar el propósito previsto** de cualquier sistema de IA que desarrolle, proporcione o utilice."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-01-a-determination-or-an-assertion",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 4.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "372de6c6-c87a-40e3-b260-c64fded6ce23",
+     "line_abs": 37,
+     "before": "- La organización **deberá determinar sus roles** con respecto a dichos sistemas de IA.",
+     "after": "- La organización **deberá determinar sus roles** en relación con dichos sistemas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 32,
+     "before": "A Seção 6.1.2 da ISO/IEC 42001:2023 exige que a organização **defina e estabeleça um processo de avaliação de riscos de IA** que:",
+     "after": "A cláusula 6.1.2 da ISO/IEC 42001:2023 exige que a organização **estabeleça e defina um processo de avaliação de riscos de IA** que:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 34,
+     "before": "- a) seja **informado e alinhado com a política de IA** (5.2) e os **objetivos de IA** (6.2);",
+     "after": "- a) seja **moldado e consistente com a política de IA** (5.2) e os **objetivos de IA** (6.2);"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 35,
+     "before": "- b) seja projetado de forma que **avaliações de riscos de IA repetidas possam produzir resultados consistentes, válidos e comparáveis**;",
+     "after": "- b) seja projetado de forma que **avaliações repetidas ao longo do tempo possam produzir resultados consistentes, válidos e comparáveis**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 36,
+     "before": "- c) **identifique riscos** que auxiliem ou impeçam o alcance dos objetivos de IA;",
+     "after": "- c) **identifica riscos** que auxiliam ou impedem os objetivos de IA;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 37,
+     "before": "- d) **analise** os riscos de IA, para avaliar as potenciais consequências para a organização, para indivíduos e para a sociedade que resultariam caso os riscos identificados se materializassem; para avaliar, quando aplicável, a probabilidade realista; e para determinar os níveis de risco;",
+     "after": "- d) **analisa** os riscos de IA – o que decorreria para a organização, para indivíduos e para as sociedades caso um risco identificado se concretizasse; qual a probabilidade realista disso ocorrer, quando aplicável; e quais são os níveis de risco resultantes;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 40,
+     "before": "Uma NOTA abaixo de d) registra que, ao avaliar as consequências, a organização **pode utilizar uma avaliação de impacto do sistema de IA conforme indicado em 6.1.4**. Trata-se de um `pode` — permissão, não requisito — e a lição 04-06 depende dessa distinção.",
+     "after": "Uma NOTA abaixo de d) registra que, ao avaliar as consequências, a organização **pode se basear em uma avaliação de impacto do sistema de IA, conforme indicado em 6.1.4**. Trata-se de um `pode` — permissão, não requisito — e a lição 04-06 depende dessa distinção."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 48,
+     "before": "É testável em um único movimento: **tome os objetivos de IA da organização previstos na Seção 6.2 e pergunte se o processo de risco identifica riscos a eles.** A Seção 6.1.2 c) torna isso explícito — o processo identifica riscos que auxiliam ou impedem o alcance dos objetivos de IA.",
+     "after": "É testável em um único movimento: **tome os objetivos de IA da organização previstos na cláusula 6.2 e pergunte se o processo de risco identifica riscos a eles.** A cláusula 6.1.2 c) torna isso explícito — o processo identifica riscos que auxiliam ou impedem os objetivos de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 56,
+     "before": "A Seção 6.1.2 b) exige que o processo seja projetado de forma que **avaliações de riscos de IA repetidas possam produzir resultados consistentes, válidos e comparáveis**. Este é o requisito mais diretamente testável da seção e o menos frequentemente testado.",
+     "after": "A cláusula 6.1.2 b) exige que o processo seja projetado de forma que **avaliações repetidas ao longo do tempo possam produzir resultados consistentes, válidos e comparáveis**. Este é o requisito mais diretamente testável da cláusula e o menos frequentemente testado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 82,
+     "before": "| Seção 8.2 | Os **resultados** — a organização deve realizar avaliações de riscos de IA em intervalos planejados ou quando mudanças significativas forem propostas ou ocorrerem, e **reter informação documentada dos resultados**. |",
+     "after": "| Cláusula 8.2 | Os **resultados** — a organização deve realizar avaliações de riscos de IA em intervalos planejados, e sempre que uma mudança significativa for proposta ou ocorrer, e **reter informação documentada dos resultados**. |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-04-criteria-before-assessment",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.2, 6.1.4, 8.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+     "line_abs": 138,
+     "before": "**Sociedade** é ainda mais amplo e é o requisito que as organizações mais frequentemente deixam sem resposta, geralmente porque parece impossível de mensurar. A norma não está pedindo um tratamento filosófico. O Controle A.5.5, quando selecionado, aborda a avaliação dos impactos sociais dos sistemas de IA, e a Seção 6.1.4 exige que a avaliação de impacto determine as consequências para indivíduos ou grupos de indivíduos, ou ambos, e para a sociedade.",
+     "after": "**Sociedades** é ainda mais amplo e é o requisito que as organizações mais frequentemente deixam sem resposta, geralmente porque parece impossível de mensurar. A norma não está pedindo um tratamento filosófico. O Controle A.5.5, quando selecionado, aborda a avaliação dos impactos sociais dos sistemas de IA, e a cláusula 6.1.4 exige que a avaliação de impacto determine o que decorre disso para indivíduos, para grupos deles, ou para ambos, e para as sociedades."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
