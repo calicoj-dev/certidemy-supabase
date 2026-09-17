@@ -1,0 +1,388 @@
+#!/usr/bin/env node
+/**
+ * scan-iso-leaks.mjs - measure every lesson against the three ISO standards and
+ * write the verdict into `lessons.mcp_servable`.
+ *
+ * WRITES. `--apply`; dry by default. Unknown flags exit 2.
+ *
+ *   node scripts/scan-iso-leaks.mjs                    # dry, full report
+ *   node scripts/scan-iso-leaks.mjs --cert ISMS-F      # one certification
+ *   node scripts/scan-iso-leaks.mjs --apply
+ *
+ * ============ THE FAILURE MODE THIS SCRIPT IS BUILT AROUND ============
+ *
+ * If `pdftotext` is missing, or a PDF moves, or the extraction returns an empty
+ * string, THE INDEX IS EMPTY -- and an empty index matches nothing, so every
+ * lesson scores a longest run of zero and EVERY LESSON BECOMES SERVABLE.
+ *
+ * That is a total failure that looks exactly like a total pass. It is the
+ * silent-success shape this repository is largely about, pointed at the one
+ * mechanism whose whole purpose is to withhold text.
+ *
+ * So this script refuses to write unless BOTH controls fire:
+ *
+ *   NEGATIVE CONTROL -- AISM-I must come out clean. It cites no ISO standard
+ *       at all (IP-POSITION section 6), 183 lessons, longest shared run 8 words.
+ *       If AISM-I starts tripping, the index has become too loose or the
+ *       normaliser has changed, and the verdicts are noise.
+ *
+ *   POSITIVE CONTROL -- a named lesson known to quote a standard at length must
+ *       trip, and by at least the run length recorded here. If it does not, the
+ *       index is empty or broken and a clean sweep means nothing.
+ *
+ * A check that cannot fail is not evidence that nothing is wrong. It is an
+ * untested instrument, and here it is an untested instrument guarding a
+ * redistribution rule.
+ *
+ * ============ THE THRESHOLD IS READ, NEVER HARDCODED ============
+ *
+ * It lives in `public.mcp_leak_policy`, one row, migration 332. The evidence
+ * (`mcp_iso_longest_run`) and the verdict (`mcp_servable`) are stored
+ * separately, so moving the policy is an UPDATE plus a re-derivation rather
+ * than three PDFs against two thousand lessons again.
+ */
+import { readFileSync, existsSync, mkdtempSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
+import { PDFS, sourcesAvailable } from "./lib/citation-index.mjs";
+
+const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
+for (const a of process.argv.slice(2)) {
+  if (a.startsWith("--") && !KNOWN.has(a)) {
+    console.error("Unrecognised flag: " + a + ".");
+    console.error("This is the --apply family: dry by default. Known: --apply, --cert, --verbose, --seed.");
+    process.exit(2);
+  }
+}
+const arg = (k, d) => {
+  const i = process.argv.indexOf("--" + k);
+  return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
+};
+const APPLY = process.argv.includes("--apply");
+const VERBOSE = process.argv.includes("--verbose");
+const ONLY = arg("cert", "");
+/* The SEED is the n-gram length used to FIND a run, not the threshold used to
+ * judge it. Runs are then extended greedily, so the reported length is the real
+ * one. Five matches audit-quotations.mjs, which is where this method comes from. */
+const SEED = Number(arg("seed", "5"));
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
+  if (!existsSync(p)) continue;
+  for (const line of readFileSync(p, "utf8").split(/\r?\n/)) {
+    const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+}
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set"); process.exit(2); }
+const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
+const H = { apikey: KEY, Authorization: "Bearer " + KEY, "content-type": "application/json" };
+
+async function rest(path, init) {
+  let last;
+  for (let i = 0; i < 12; i++) {
+    try {
+      const r = await fetch(BASE + "/" + path, { ...init, headers: { ...H, ...(init?.headers ?? {}) }, signal: AbortSignal.timeout(60000) });
+      const t = await r.text();
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + t.slice(0, 220));
+      return { body: t ? JSON.parse(t) : null, range: r.headers.get("content-range") };
+    } catch (e) { last = e; }
+  }
+  throw new Error(path + ": " + last?.message);
+}
+const get = async (p) => (await rest(p)).body;
+
+/** Page to exhaustion and prove it against a server-side count. */
+async function all(path) {
+  const PAGE = 500;
+  const out = [];
+  for (let from = 0; ; from += PAGE) {
+    const { body } = await rest(path + "&order=id&offset=" + from + "&limit=" + PAGE);
+    out.push(...body);
+    if (body.length < PAGE) break;
+  }
+  const { range } = await rest(path + "&limit=1", { headers: { Prefer: "count=exact" } });
+  const total = range ? Number(range.split("/")[1]) : NaN;
+  if (Number.isFinite(total) && total !== out.length) {
+    throw new Error("PAGING INCOMPLETE: fetched " + out.length + ", server says " + total);
+  }
+  return out;
+}
+
+const norm = (s) => String(s || "").toLowerCase()
+  .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
+
+function pdfText(p) {
+  const o = join(mkdtempSync(join(tmpdir(), "iso-")), "t.txt");
+  execFileSync("pdftotext", ["-layout", p, o]);
+  return readFileSync(o, "utf8");
+}
+
+/* ------------------------------------------------------------- the index */
+
+if (!sourcesAvailable()) {
+  console.error("");
+  console.error("THE STANDARDS ARE NOT ON DISK. Refusing to scan.");
+  console.error("An absent source yields an empty index, an empty index matches nothing,");
+  console.error("and every lesson would be marked servable. Expected:");
+  for (const [k, p] of Object.entries(PDFS)) console.error("  " + k.padEnd(12) + p + (existsSync(p) ? "" : "   MISSING"));
+  process.exit(2);
+}
+
+console.log("");
+console.log("building the index from " + Object.keys(PDFS).length + " standards");
+const grams = new Set();
+const srcParts = [];
+for (const [label, path] of Object.entries(PDFS)) {
+  const raw = pdfText(path);
+  const w = norm(raw).split(" ").filter(Boolean);
+  if (w.length < 1000) {
+    console.error("  " + label + " extracted only " + w.length + " words. Refusing: a short");
+    console.error("  extraction is an empty index wearing a success.");
+    process.exit(1);
+  }
+  for (let i = 0; i + SEED <= w.length; i++) grams.add(w.slice(i, i + SEED).join(" "));
+  srcParts.push(label + ":" + createHash("sha256").update(raw).digest("hex").slice(0, 8));
+  console.log("  " + label.padEnd(12) + String(w.length).padStart(7) + " words");
+}
+const SOURCES = srcParts.join(" ");
+console.log("  " + grams.size + " distinct " + SEED + "-grams");
+console.log("  sources: " + SOURCES);
+
+/** Longest contiguous run in `text` also present in the standards. */
+function longestRun(text) {
+  const w = norm(text).split(" ").filter(Boolean);
+  let best = 0, bestText = "";
+  for (let i = 0; i + SEED <= w.length; i++) {
+    if (!grams.has(w.slice(i, i + SEED).join(" "))) continue;
+    let n = SEED;
+    while (i + n + 1 <= w.length && grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+    if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); }
+    i += n - 1;
+  }
+  return { best, bestText };
+}
+
+/* ------------------------------------------------------------ the policy */
+
+const policy = await get("mcp_leak_policy?select=threshold_words,standards");
+if (!policy || policy.length !== 1) {
+  console.error("mcp_leak_policy holds " + (policy?.length ?? 0) + " rows, expected 1. Run migration 332.");
+  process.exit(2);
+}
+const THRESHOLD = policy[0].threshold_words;
+console.log("  threshold: " + THRESHOLD + " words (from mcp_leak_policy, not from this file)");
+
+/* -------------------------------------------------------------- the scan */
+
+const certs = await get("certifications?select=id,code");
+const byId = new Map(certs.map((c) => [c.id, c.code]));
+const mods = await all("modules?select=id,certification_id");
+const modCert = new Map(mods.map((m) => [m.id, byId.get(m.certification_id)]));
+
+console.log("");
+console.log("scanning lessons");
+const lessons = await all("lessons?select=id,slug,language,lesson_group_id,module_id,content_md,mcp_servable,mcp_iso_longest_run");
+console.log("  " + lessons.length + " lesson row(s)");
+
+const measured = lessons.map((l) => {
+  const { best, bestText } = longestRun(l.content_md);
+  return { ...l, cert: modCert.get(l.module_id) ?? "?", run: best, runText: bestText };
+});
+
+/* ============ THE VERDICT IS PER GROUP, THE MEASUREMENT IS PER ROW ============
+ *
+ * THE INDEX IS ENGLISH ISO TEXT, so an es-419 or pt-BR row scores ZERO by
+ * construction -- measured: 484 English runs of >=10 words across the four ISO
+ * certifications, and exactly 0 in either translation.
+ *
+ * Deriving `mcp_servable` per ROW would therefore serve the Spanish and
+ * Portuguese bodies of a lesson whose English body is withheld. That is not a
+ * conservative outcome dressed up as a gap: THE TRANSLATION OF A QUOTED CLAUSE
+ * IS STILL A REPRODUCTION OF ISO'S EXPRESSION. It is simply one this index
+ * cannot see, because we hold the English editions.
+ *
+ * So the verdict is taken over `lesson_group_id` -- the same key the marking
+ * pass and the item exemptions use, and the same trilingual constraint
+ * IP-POSITION section 3 records. If any sibling leaks, none is servable.
+ *
+ * A row with no group falls back to itself, and is COUNTED AND REPORTED rather
+ * than silently treated as its own group: an ungrouped lesson is exactly where
+ * this reasoning stops holding. */
+const groupMax = new Map();
+let ungrouped = 0;
+for (const m of measured) {
+  const k = m.lesson_group_id ?? ("SOLO:" + m.id);
+  if (!m.lesson_group_id) ungrouped++;
+  groupMax.set(k, Math.max(groupMax.get(k) ?? 0, m.run));
+}
+const scored = measured.map((m) => {
+  const k = m.lesson_group_id ?? ("SOLO:" + m.id);
+  const groupRun = groupMax.get(k);
+  return { ...m, groupRun, servable: groupRun < THRESHOLD };
+});
+console.log("  " + groupMax.size + " lesson group(s); " + ungrouped + " row(s) carry no group and are judged alone");
+
+/* =================== THE CONTROLS. NO WRITE WITHOUT THEM =================== */
+
+console.log("");
+console.log("CONTROLS -- a clean sweep means nothing without these");
+const controls = [];
+const ctl = (n, ok, d) => { controls.push({ n, ok, d }); console.log("  " + (ok ? "ok  " : "FAIL") + "  " + n + "  -- " + d); };
+
+ctl("the index is populated", grams.size > 10000, grams.size + " " + SEED + "-grams");
+
+/* NEGATIVE: a corpus known to cite no ISO standard must come out clean. */
+const aism = scored.filter((s) => s.cert === "AISM-I");
+const aismMax = aism.reduce((a, s) => Math.max(a, s.run), 0);
+ctl("NEGATIVE: AISM-I (cites no ISO) stays under the threshold",
+  aism.length > 100 && aismMax < THRESHOLD,
+  aism.length + " lessons, longest run " + aismMax + "w, threshold " + THRESHOLD);
+
+/* POSITIVE: something known to quote a standard at length must trip. Without
+ * this, an empty index passes every other check in this file. */
+const CANARY = "isms-ia-05-05-fixing-it-and-fixing-it";
+const CANARY_MIN = 40;
+const canary = scored.filter((s) => s.slug === CANARY && s.language === "en");
+ctl("POSITIVE: " + CANARY + " trips at >=" + CANARY_MIN + "w",
+  canary.length === 1 && canary[0].run >= CANARY_MIN,
+  canary.length ? canary[0].run + "w" : "LESSON NOT FOUND -- cannot prove the index works");
+
+const ctlFailed = controls.filter((c) => !c.ok);
+
+/* ------------------------------------------------------------- the report */
+
+const shown = ONLY ? scored.filter((s) => s.cert === ONLY) : scored;
+const byCert = {};
+for (const s of shown) {
+  const b = (byCert[s.cert] ||= { n: 0, refused: 0, max: 0, worst: null });
+  b.n++;
+  if (!s.servable) b.refused++;
+  if (s.run > b.max) { b.max = s.run; b.worst = s; }
+}
+console.log("");
+console.log("VERDICTS at >=" + THRESHOLD + " words");
+console.log("  cert         rows   refused   longest");
+for (const [c, b] of Object.entries(byCert).sort()) {
+  console.log("  " + c.padEnd(12) + String(b.n).padStart(4) + "   " + String(b.refused).padStart(7) +
+    "   " + String(b.max).padStart(4) + "w" + (b.refused ? "   " + b.worst.slug + "/" + b.worst.language : ""));
+}
+if (VERBOSE) {
+  console.log("");
+  for (const s of shown.filter((x) => !x.servable).sort((a, b) => b.run - a.run)) {
+    console.log("  " + String(s.run).padStart(3) + "w  " + s.cert + "  " + s.slug + "/" + s.language);
+    console.log("        \"" + s.runText.slice(0, 120) + "\"");
+  }
+}
+
+if (ctlFailed.length) {
+  console.log("");
+  console.log(ctlFailed.length + " CONTROL(S) FAILED. NOT WRITING.");
+  console.log("Every verdict above is unreliable: an index that matches nothing marks");
+  console.log("every lesson servable, which is the exact failure this gate prevents.");
+  process.exitCode = 1;
+} else if (!APPLY) {
+  console.log("");
+  console.log("Dry run. Nothing written. Re-run with --apply.");
+} else {
+  console.log("");
+  console.log("writing verdicts");
+  const now = new Date().toISOString();
+  let wrote = 0;
+  /* Batched by verdict, so this is two statements per page rather than one per
+   * lesson. The trigger only fires on a content_md change, so these updates do
+   * not clear what they are setting. */
+  for (const group of [true, false]) {
+    const ids = scored.filter((s) => s.servable === group).map((s) => s.id);
+    for (let i = 0; i < ids.length; i += 100) {
+      const chunk = ids.slice(i, i + 100);
+      /* Per-lesson run length differs, so servable=true rows still need their
+       * own value; batch by run length within the group. */
+      /* The GROUP's run is stored, not the row's, so the post-condition
+       * `servable == (stored < threshold)` holds for a Spanish row withheld
+       * because of its English sibling. Storing the row's own zero there would
+       * make every translation look individually incoherent. */
+      const byRun = {};
+      for (const id of chunk) {
+        const s = scored.find((x) => x.id === id);
+        (byRun[s.groupRun] ||= []).push(id);
+      }
+      for (const [run, rids] of Object.entries(byRun)) {
+        await rest("lessons?id=in.(" + rids.join(",") + ")", {
+          method: "PATCH",
+          headers: { Prefer: "return=minimal" },
+          body: JSON.stringify({
+            mcp_iso_longest_run: Number(run),
+            mcp_scanned_at: now,
+            mcp_scan_sources: SOURCES,
+            mcp_servable: group,
+          }),
+        });
+        wrote += rids.length;
+      }
+    }
+  }
+  console.log("  " + wrote + " row(s) written");
+
+  /* ===================== POST-CONDITIONS, BOTH DIRECTIONS ===================== */
+  console.log("");
+  console.log("POST-CONDITIONS");
+  const checks = [];
+  const chk = (n, ok, d) => { checks.push({ n, ok, d }); console.log("  " + (ok ? "ok  " : "FAIL") + "  " + n + "  -- " + d); };
+
+  const after = await all("lessons?select=id,mcp_servable,mcp_iso_longest_run,mcp_scanned_at,mcp_scan_sources");
+  const unscanned = after.filter((r) => r.mcp_iso_longest_run === null);
+  chk("every lesson carries a measurement", unscanned.length === 0,
+    unscanned.length ? unscanned.length + " still NULL" : after.length + " scanned");
+
+  const map = new Map(scored.map((s) => [s.id, s]));
+  const wrong = after.filter((r) => {
+    const s = map.get(r.id);
+    return !s || r.mcp_iso_longest_run !== s.groupRun || r.mcp_servable !== s.servable;
+  });
+  chk("every stored verdict matches what was measured", wrong.length === 0,
+    wrong.length ? wrong.length + " disagree" : after.length + " agree");
+
+  /* THE DERIVATION, RE-CHECKED AGAINST THE POLICY rather than against this run's
+   * variable -- the two could only differ if the threshold moved mid-scan, which
+   * is precisely the thing a single-count check cannot see. */
+  const pol = (await get("mcp_leak_policy?select=threshold_words"))[0].threshold_words;
+  const incoherent = after.filter((r) => r.mcp_servable !== (r.mcp_iso_longest_run < pol));
+  chk("servable == (longest_run < policy threshold)", incoherent.length === 0,
+    incoherent.length ? incoherent.length + " incoherent" : "threshold " + pol);
+
+  /* THE NEGATIVE HALF NAMED, not inferred from a total: the four ISO
+   * certifications must contain refusals, and the served eight must not. */
+  const certOf = new Map(scored.map((s) => [s.id, s.cert]));
+  const SERVED8 = new Set(["AISM-I", "AIE-I", "AIHR-I", "AIGRM-I", "SM-AI-I", "SM-AI-II", "SPO-AI-I", "SD-AI-I"]);
+  const servedRefused = after.filter((r) => SERVED8.has(certOf.get(r.id)) && !r.mcp_servable);
+  chk("no currently-served lesson was refused", servedRefused.length === 0,
+    servedRefused.length ? servedRefused.length + " REFUSED -- this would take the live surface down" : "0 of the served eight");
+
+  const isoRefused = after.filter((r) => ["ISMS-IA", "AIMS-IA"].includes(certOf.get(r.id)) && !r.mcp_servable);
+  chk("the two heavily-quoting certifications DID produce refusals", isoRefused.length > 0,
+    isoRefused.length + " refused across ISMS-IA and AIMS-IA");
+
+  /* THE TRILINGUAL HALF. A group must be servable in all three languages or in
+   * none -- the state this gate would otherwise produce on every ISO lesson. */
+  const groupOf = new Map(scored.map((s) => [s.id, s.lesson_group_id ?? ("SOLO:" + s.id)]));
+  const seen = new Map();
+  for (const r of after) {
+    const k = groupOf.get(r.id);
+    if (!seen.has(k)) seen.set(k, new Set());
+    seen.get(k).add(r.mcp_servable);
+  }
+  const split = [...seen.entries()].filter(([, v]) => v.size > 1);
+  chk("no lesson group is servable in one language and not another", split.length === 0,
+    split.length ? split.length + " SPLIT group(s)" : seen.size + " group(s) coherent");
+
+  const failed = checks.filter((c) => !c.ok);
+  console.log("");
+  console.log("passed " + (checks.length - failed.length) + "   failed " + failed.length);
+  console.log(failed.length ? "POST-CONDITIONS FAILED." : "Verdicts written and coherent with the policy.");
+  process.exitCode = failed.length ? 1 : 0;
+}
