@@ -1,0 +1,58 @@
+{
+ "gated_rows": 208,
+ "confirmed": 476,
+ "stale": 58,
+ "stale_rows": [
+  "AIMS-IA|aims-ia-02-07-the-programme-audits-itself|es-419",
+  "ISMS-IA|isms-ia-02-04-choosing-the-method|es-419",
+  "ISMS-IA|isms-ia-04-06-defined-versus-running|es-419",
+  "ISMS-IA|isms-ia-04-04-tracing-the-soa-back|es-419",
+  "AIMS-IA|aims-ia-03-06-what-a-screen-share-establishes|es-419",
+  "AIMS-IA|aims-ia-05-06-correction-is-not-corrective-action|pt-BR",
+  "ISMS-IA|isms-ia-01-02-principles-in-tension|pt-BR",
+  "ISMS-IA|isms-ia-02-06-testing-the-programme|pt-BR",
+  "ISMS-IA|isms-ia-04-06-defined-versus-running|pt-BR",
+  "ISMS-IA|isms-ia-04-02-demonstrated-not-stated|pt-BR",
+  "ISMS-IA|isms-ia-04-07-two-sentences|pt-BR",
+  "ISMS-IA|isms-ia-02-04-choosing-the-method|pt-BR",
+  "ISMS-IA|isms-ia-04-04-tracing-the-soa-back|pt-BR",
+  "AIMS-IA|aims-ia-03-03-what-the-sample-supports|es-419",
+  "AIMS-IA|aims-ia-04-04-criteria-before-assessment|es-419",
+  "AIMS-IA|aims-ia-04-06-two-assessments-not-one|es-419",
+  "AIMS-IA|aims-ia-04-09-normative-and-should|es-419",
+  "AIMS-IA|aims-ia-04-10-justifying-both-directions|es-419",
+  "AIMS-IA|aims-ia-04-03-leadership-in-artifacts|es-419",
+  "AIMS-IA|aims-ia-04-03-leadership-in-artifacts|pt-BR",
+  "AIMS-IA|aims-ia-04-08-defined-versus-running|pt-BR",
+  "AIMS-IA|aims-ia-04-10-justifying-both-directions|pt-BR",
+  "AIMS-IA|aims-ia-04-05-controls-first-annex-a-second|pt-BR",
+  "AIMS-IA|aims-ia-04-09-normative-and-should|pt-BR",
+  "AIMS-IA|aims-ia-03-03-what-the-sample-supports|pt-BR",
+  "AIMS-IA|aims-ia-05-07-where-the-audit-lands|es-419",
+  "AIMS-IA|aims-ia-03-04-demonstrated-not-described|pt-BR",
+  "AIMS-IA|aims-ia-05-05-a-report-for-someone-not-in-the-room|pt-BR",
+  "AIMS-IA|aims-ia-05-07-where-the-audit-lands|pt-BR",
+  "AIMS-IA|aims-ia-03-06-what-a-screen-share-establishes|pt-BR",
+  "AIMS-IA|aims-ia-04-07-controlled-not-merely-present|pt-BR",
+  "ISMS-IA|isms-ia-04-07-two-sentences|es-419",
+  "AIMS-IA|aims-ia-04-04-criteria-before-assessment|pt-BR",
+  "AIMS-IA|aims-ia-04-13-competence-the-organization-claims|pt-BR",
+  "AIMS-IA|aims-ia-05-05-a-report-for-someone-not-in-the-room|es-419"
+ ],
+ "by_cert": [
+  [
+   "AIMS-IA",
+   {
+    "rows": 24,
+    "paras": 39
+   }
+  ],
+  [
+   "ISMS-IA",
+   {
+    "rows": 11,
+    "paras": 19
+   }
+  ]
+ ]
+}
