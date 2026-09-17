@@ -1,0 +1,169 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-01-audit-parties",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 98,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.35",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "8430e126-f76f-43a8-a14a-d9a43bc37191",
+     "line_abs": 98,
+     "before": "**Annex A control 5.35** requires the organization's approach to managing information security - its people, its processes and its technologies - to be reviewed independently at planned intervals, or when significant changes occur.",
+     "after": "**Annex A control 5.35** requires the organization's approach to managing information security - its people, its processes and its technologies - to be reviewed independently at planned intervals, and whenever significant change occurs."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3b5081b3-1f64-43eb-9857-a4d2bb839136",
+     "line_abs": 38,
+     "before": "- **Independence** - the basis for the impartiality of the audit and the objectivity of its conclusions.",
+     "after": "- **Independence** - the ground on which the audit's impartiality and its conclusions' objectivity both rest."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 48,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3b5081b3-1f64-43eb-9857-a4d2bb839136",
+     "line_abs": 48,
+     "before": "**ISO 19011:2026 states no ranking among the seven.** There is no numbered priority, no \"in case of conflict, X prevails\", no tie-breaker. Clause 4.1 says only that adherence to these principles is fundamental to providing audit conclusions that are relevant and sufficient, and to enabling auditors working independently of one another to reach similar conclusions in similar circumstances.",
+     "after": "**ISO 19011:2026 states no ranking among the seven.** There is no numbered priority, no \"in case of conflict, X prevails\", no tie-breaker. Clause 4.1 says only that adherence to these principles is fundamental to providing audit conclusions that are relevant and sufficient, and to letting auditors who work separately arrive at comparable conclusions in comparable situations."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 62,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3b5081b3-1f64-43eb-9857-a4d2bb839136",
+     "line_abs": 62,
+     "before": "The only person who understands the access management process well enough to audit it competently is the person who helped design it. Independence says the auditor should be independent of the activity being audited wherever practicable. Due professional care says only undertake work you are competent to perform, and exercise diligence and judgement throughout.",
+     "after": "The only person who understands the access management process well enough to audit it competently is the person who helped design it. Independence says the auditor should stand apart from the activity audited, wherever that is practicable. Due professional care says only undertake work you are competent to perform, and exercise diligence and judgement throughout."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 158,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3b5081b3-1f64-43eb-9857-a4d2bb839136",
+     "line_abs": 158,
+     "before": "Clause 4.1 gives a reason that is easy to skip past: adherence to the principles is what enables **auditors working independently of one another to reach similar conclusions in similar circumstances**.",
+     "after": "Clause 4.1 gives a reason that is easy to skip past: adherence to the principles is what lets **auditors who work separately arrive at comparable conclusions in comparable situations**."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 181,
+   "run_words": 0,
+   "run": "19011:2026 clause 4.6",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "68033421-931b-4e9b-bfc5-adee1223a537",
+     "line_abs": 181,
+     "before": "    \"explanation\": \"ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. A certification body's audit is a third-party audit and does not discharge clause 9.2. Size grants no exemption. A declaration records intent and changes no relationship.\",",
+     "after": "    \"explanation\": \"ISO 19011:2026 clause 4.6 states that where internal auditors cannot stand apart from what they audit, every effort should go into stripping out bias and encouraging objectivity. A certification body's audit is a third-party audit and does not discharge clause 9.2. Size grants no exemption. A declaration records intent and changes no relationship.\","
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "19011:2026 clause 7.2.3, generic competence",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "6e978924-8769-4d02-ba93-571659bbe01c",
+     "line_abs": 39,
+     "before": "The generic half is what makes someone an auditor. It includes applying audit principles and methods, planning and organising work, prioritising matters of significance, collecting information through effective interviewing, listening, observing and reviewing documented information, understanding the appropriateness and consequences of sampling, verifying the relevance and accuracy of collected information, and confirming that the evidence is sufficient and appropriate to support the findings.",
+     "after": "The generic half is what makes someone an auditor. It includes applying audit principles and methods, planning and organising work, prioritising matters of significance, collecting information through interviews, listening, observation and the review of documented information, understanding the appropriateness and consequences of sampling, verifying the relevance and accuracy of collected information, and confirming that the evidence is sufficient and appropriate to support the findings."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 58,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "548cba88-75f6-434c-8426-4dda73bf3df4",
+     "line_abs": 58,
+     "before": "ISO 19011's own introduction states this - that ISO/IEC 17021-1 provides requirements for auditing management systems for third-party certification, while ISO 19011 concentrates on first- and second-party audits.",
+     "after": "ISO 19011's own introduction states this - that ISO/IEC 17021-1 sets the requirements a body must meet to audit and certify management systems, while ISO 19011 concentrates on first- and second-party audits."
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 185,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "548cba88-75f6-434c-8426-4dda73bf3df4",
+     "line_abs": 185,
+     "before": "    \"explanation\": \"Clause 3 states that the terms and definitions given in ISO/IEC 27000 apply, and the reference is undated - so the current edition governs. Annex A holds controls, not definitions. ISO 19011 defines audit terms for its own purposes.\",",
+     "after": "    \"explanation\": \"Clause 3 states that ISO/IEC 27000's terms and definitions apply, and the reference is undated - so the current edition governs. Annex A holds controls, not definitions. ISO 19011 defines audit terms for its own purposes.\","
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
