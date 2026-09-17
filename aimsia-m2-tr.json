@@ -1,0 +1,1051 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "434802a1-07e8-4c86-b3d1-de750f5370e2",
+     "line_abs": 60,
+     "before": "El apartado 9.2.2 de ISO/IEC 42001 establece la versión de requisito: **deberá estar disponible información documentada como evidencia de la implementación del programa de auditoría y de los resultados de la auditoría.** Ambas partes, y son cosas diferentes. Los resultados de la auditoría son los informes y hallazgos. La evidencia de la implementación del programa es el registro de que el programa se ejecutó según lo diseñado: cronogramas, alcances, asignaciones de auditores, lo que se difirió y por qué.",
+     "after": "La cláusula 9.2.2 de ISO/IEC 42001 establece la versión de requisito: **se deberá conservar información documentada que demuestre tanto que el programa de auditoría fue implementado como lo que las auditorías encontraron.** Ambas partes, y son cosas diferentes. Los resultados de la auditoría son los informes y hallazgos. La evidencia de la implementación del programa es el registro de que el programa se ejecutó según lo diseñado: cronogramas, alcances, asignaciones de auditores, lo que se difirió y por qué."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "09cbcee0-6eac-4dd0-89fd-1a86dc2ae6c5",
+     "line_abs": 34,
+     "before": "A Seção 5.3 da ISO 19011:2026 aborda **riscos e oportunidades relacionados ao contexto do auditado que podem afetar o alcance dos objetivos do programa de auditoria**. Não se trata de saber se o sistema de IA pode prejudicar alguém — mas sim se a auditoria deixará de descobrir isso.",
+     "after": "A cláusula 5.3 da ISO 19011:2026 aborda **riscos e oportunidades decorrentes do contexto do auditado que podem afetar o alcance dos objetivos do programa de auditoria**. Não se trata de saber se o sistema de IA pode prejudicar alguém — mas sim se a auditoria deixará de descobrir isso."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "09cbcee0-6eac-4dd0-89fd-1a86dc2ae6c5",
+     "line_abs": 36,
+     "before": "A seção pede ao indivíduo que gerencia o programa que identifique esses riscos e os apresente ao cliente da auditoria ao desenvolver o programa e seus requisitos de recursos, para que possam ser tratados. As fontes que ela menciona incluem:",
+     "after": "A cláusula pede ao indivíduo que gerencia o programa que identifique esses elementos e os apresente ao cliente da auditoria ao desenvolver o programa e seus requisitos de recursos, para que possam ser tratados. As fontes que ela menciona incluem:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "09cbcee0-6eac-4dd0-89fd-1a86dc2ae6c5",
+     "line_abs": 50,
+     "before": "A Seção 4.8 da ISO 19011:2026 descreve a abordagem baseada em risco como aquela que considera riscos e oportunidades, e afirma que ela **deve influenciar substancialmente** o planejamento e a implementação do programa de auditoria, bem como o planejamento, a condução e o relato das auditorias, de modo que as auditorias se concentrem em assuntos significativos para o cliente da auditoria e para o alcance dos objetivos do programa.",
+     "after": "A cláusula 4.8 da ISO 19011:2026 descreve a abordagem baseada em risco como aquela que considera riscos e oportunidades, e afirma que ela **deveria influenciar substancialmente** o planejamento e a condução do programa de auditoria, bem como o planejamento, a condução e o relato das auditorias individuais, de modo que as auditorias se concentrem em assuntos significativos para o cliente da auditoria e para o alcance dos objetivos do programa."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "09cbcee0-6eac-4dd0-89fd-1a86dc2ae6c5",
+     "line_abs": 58,
+     "before": "A Seção 9.2.2 da ISO/IEC 42001 exige que a organização, ao estabelecer o programa de auditoria, **considere a importância dos processos envolvidos e os resultados de auditorias anteriores**. Essa é a versão da abordagem baseada em risco na norma de critérios, e ao contrário da Seção 4.8, trata-se de um `shall`. Um programa que dispensou a mesma atenção a um sistema de alto impacto voltado ao cliente e a uma ferramenta interna de sumarização, sem nenhum raciocínio registrado, pode ser testado contra a Seção 9.2.2 — não contra a Seção 4.8.",
+     "after": "A Seção 9.2.2 da ISO/IEC 42001 exige que a organização, ao estabelecer o programa de auditoria, **pondere a importância dos processos auditados e o que auditorias anteriores constataram**. Essa é a versão da abordagem baseada em risco na norma de critérios, e ao contrário da Seção 4.8, trata-se de um `shall`. Um programa que dispensou a mesma atenção a um sistema de alto impacto voltado ao cliente e a uma ferramenta interna de sumarização, sem nenhum raciocínio registrado, pode ser testado contra a Seção 9.2.2 — não contra a Seção 4.8."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 31,
+     "before": "A Seção 3.5 da ISO 19011:2026 define **programa de auditoria** como disposições para um conjunto de uma ou mais auditorias planejadas para um período de tempo específico e direcionadas a um propósito específico.",
+     "after": "A cláusula 3.5 da ISO 19011:2026 define **programa de auditoria** como disposições para um conjunto de uma ou mais auditorias planejadas para um período determinado e direcionadas a um propósito específico."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 35,
+     "before": "A Seção 5.1 acrescenta que a extensão de um programa deve ser baseada no tamanho e na natureza do auditado, bem como na funcionalidade, complexidade, tipo de riscos e oportunidades, escopo e nível de maturidade dos sistemas de gestão a serem auditados. Um programa que se encaixaria em qualquer organização de tamanho semelhante não foi baseado na natureza desta organização específica.",
+     "after": "A Seção 5.1 acrescenta que a extensão de um programa deve decorrer do tamanho do auditado e do tipo de organismo que ele é, bem como da funcionalidade, complexidade, tipo de riscos e oportunidades, escopo e nível de maturidade dos sistemas de gestão a serem auditados. Um programa que se encaixaria em qualquer organização de tamanho semelhante não foi baseado na natureza desta organização específica."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 39,
+     "before": "A Seção 5.2 da ISO 19011:2026 atribui a responsabilidade com precisão: o **cliente da auditoria** deve assegurar que os objetivos do programa sejam estabelecidos para orientar o planejamento e a condução das auditorias, e deve assegurar que o programa seja implementado de forma eficaz.",
+     "after": "A cláusula 5.2 da ISO 19011:2026 atribui a responsabilidade com precisão: o **cliente da auditoria** deve assegurar que os objetivos do programa sejam estabelecidos de forma a orientar o planejamento e a condução das auditorias, e deve assegurar que o programa seja implementado de forma eficaz."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 41,
+     "before": "Em seguida, indica de onde eles vêm. Os objetivos devem ser consistentes com a **direção estratégica** e o **contexto** do cliente da auditoria, e apoiar as políticas e os objetivos do seu sistema de gestão. A seção lista no que eles podem ser baseados, incluindo:",
+     "after": "Em seguida, indica de onde eles vêm. Os objetivos devem estar alinhados com a **direção estratégica** e o **contexto** do cliente da auditoria, e apoiar as políticas e os objetivos do seu sistema de gestão. A cláusula lista no que eles podem ser baseados, incluindo:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 44,
+     "before": "- características e requisitos de processos, produtos, serviços e projetos, e mudanças neles;",
+     "after": "- as características e requisitos de processos, produtos, serviços e projetos, e como esses mudam;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.15, 3.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "6336028b-096e-4cbb-9d84-0dbc894a2472",
+     "line_abs": 62,
+     "before": "El apartado 3.15 de ISO 19011:2026 define el **equipo auditor** como una o más personas que realizan una auditoría, apoyadas si es necesario por **expertos técnicos**, y señala que un auditor es designado líder del equipo auditor y que el equipo puede incluir auditores en formación. El apartado 3.17 define al **experto técnico** como la persona que aporta conocimiento o experiencia específicos al equipo auditor.",
+     "after": "El apartado 3.15 de ISO 19011:2026 define el **equipo auditor** como una o más personas que realizan una auditoría, apoyadas si es necesario por **expertos técnicos**, y señala que un auditor es designado líder del equipo auditor y que el equipo puede incluir auditores en formación. El apartado 3.17 define al **experto técnico** como la persona que aporta conocimiento o experiencia específicos al equipo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 32,
+     "before": "El apartado 5.5.3 de ISO 19011:2026 establece que la persona que gestiona el programa de auditoría debe seleccionar y determinar los métodos para llevar a cabo una auditoría de manera eficaz y eficiente, **en función de los objetivos, el alcance y los criterios de auditoría definidos**.",
+     "after": "El apartado 5.5.3 de ISO 19011:2026 establece que la persona que gestiona el programa de auditoría debería elegir y establecer los métodos para llevar a cabo una auditoría de manera eficaz y eficiente, **en función de los objetivos, el alcance y los criterios de auditoría ya definidos**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 36,
+     "before": "El apartado añade que las auditorías pueden realizarse **de forma presencial, remota o como una combinación**, y que el uso de estos métodos debe estar **adecuadamente equilibrado, basándose en la consideración de los riesgos y oportunidades asociados**. También aborda las auditorías conjuntas realizadas por dos organizaciones auditoras, y las auditorías combinadas en las que el auditado opera sistemas de gestión de distintas disciplinas, lo cual es relevante cuando un sistema de gestión de IA coexiste con un SGSI o un SGC.",
+     "after": "El apartado añade que las auditorías pueden realizarse **de forma presencial, remota o como una combinación de ambas**, y que la combinación elegida debería estar **adecuadamente equilibrada, basándose en los riesgos y oportunidades que cada una conlleva**. También aborda las auditorías conjuntas realizadas por dos organizaciones auditoras, y las auditorías combinadas en las que el auditado opera sistemas de gestión de distintas disciplinas, lo cual es relevante cuando un sistema de gestión de IA coexiste con un SGSI o un SGC."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 42,
+     "before": "- ampliación de la orientación sobre **métodos de auditoría remota**, mediante la incorporación de la guía contenida en ISO/IEC TS 17012;",
+     "after": "- ampliación de la orientación sobre **métodos de auditoría remota**, incorporando lo que establece ISO/IEC TS 17012;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 43,
+     "before": "- ampliación del **Anexo A** para proporcionar orientación sobre métodos de auditoría remota y ubicaciones virtuales.",
+     "after": "- un **Anexo A** más amplio, que ahora cubre los métodos de auditoría remota y las ubicaciones virtuales."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 47,
+     "before": "El Anexo A.16 establece que la auditoría remota puede aportar beneficios para el auditor y el auditado, que una auditoría que utiliza métodos remotos emplea tecnología durante el proceso de auditoría para observar, entrevistar y verificar evidencia objetiva, y que **los métodos remotos pueden ser necesarios para la auditoría de ubicaciones virtuales**. También establece que garantizar que la auditoría se lleve a cabo de manera eficaz y que se alcancen sus objetivos es una **responsabilidad conjunta del auditado y los auditores**, y que los métodos remotos pueden introducir riesgos y oportunidades adicionales.",
+     "after": "El Anexo A.16 establece que la auditoría remota puede aportar beneficios para el auditor y el auditado, que una auditoría que utiliza métodos remotos emplea tecnología durante el proceso de auditoría para observar, entrevistar y verificar evidencia objetiva, y que **los métodos remotos pueden ser necesarios para la auditoría de una ubicación virtual**. También establece que garantizar que la auditoría se lleve a cabo de manera eficaz y que se alcancen sus objetivos es una **responsabilidad conjunta del auditado y los auditores**, y que los métodos remotos pueden introducir riesgos y oportunidades adicionales."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 51,
+     "before": "ISO 19011:2026 describe una **ubicación virtual** como aquella en la que una organización realiza trabajo o presta un servicio mediante un entorno en línea, lo que permite a las personas ejecutar procesos con independencia de su ubicación física. Una nota añade que los métodos de auditoría remota pueden ser utilizados por un auditor en un sitio del auditado para auditar otro sitio.",
+     "after": "ISO 19011:2026 describe una **ubicación virtual** como aquella en la que una organización realiza trabajo o presta un servicio mediante un entorno en línea, lo que permite a las personas ejecutar procesos independientemente de dónde se encuentren físicamente. Una nota añade que los métodos de auditoría remota pueden ser utilizados por un auditor en uno de los sitios del auditado para auditar un sitio diferente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f92d7c18-fcba-4815-a9ca-b420f7a883ad",
+     "line_abs": 106,
+     "before": "El apartado 5.5.3 señala que, cuando un auditado opera dos o más sistemas de gestión de distintas disciplinas, las auditorías combinadas pueden incluirse en el programa. Muchas organizaciones que incorporan un sistema de gestión de IA ya cuentan con un SGSI, y combinar las auditorías resulta atractivo: reunión de apertura compartida, entrevistas compartidas, una sola interrupción en lugar de dos.",
+     "after": "El apartado 5.5.3 señala que, cuando un auditado opera dos o más sistemas de gestión de distintas disciplinas, las auditorías combinadas pueden incluirse en el programa. Muchas organizaciones que añaden un sistema de gestión de IA ya cuentan con un SGSI, y combinar las auditorías resulta atractivo: reunión de apertura compartida, entrevistas compartidas, una sola interrupción en lugar de dos."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 31,
+     "before": "El apartado 3.5 de ISO 19011:2026 define un **programa de auditoría** como los acuerdos para un conjunto de una o más auditorías planificadas para un período de tiempo específico y orientadas hacia un propósito específico.",
+     "after": "El apartado 3.5 de ISO 19011:2026 define un **programa de auditoría** como los acuerdos para un conjunto de una o más auditorías planificadas para un período determinado y orientadas hacia un propósito particular."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 35,
+     "before": "El apartado 5.1 añade que el alcance de un programa debe basarse en el tamaño y la naturaleza del auditado, así como en la funcionalidad, la complejidad, el tipo de riesgos y oportunidades, el alcance y el nivel de madurez de los sistemas de gestión que se van a auditar. Un programa que encajaría en cualquier organización de tamaño similar no se ha basado en la naturaleza de esta organización en particular.",
+     "after": "El apartado 5.1 añade que el alcance de un programa debe derivarse del tamaño del auditado y del tipo de organismo que es, así como de la funcionalidad, la complejidad, el tipo de riesgos y oportunidades, el alcance y el nivel de madurez de los sistemas de gestión que se van a auditar. Un programa que encajaría en cualquier organización de tamaño similar no se ha basado en la naturaleza de esta en particular."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 39,
+     "before": "El apartado 5.2 de ISO 19011:2026 asigna la responsabilidad con precisión: el **cliente de la auditoría** debe asegurarse de que se establezcan objetivos del programa para orientar la planificación y la realización de las auditorías, y debe garantizar que el programa se implemente de manera eficaz.",
+     "after": "La cláusula 5.2 de ISO 19011:2026 asigna la responsabilidad con precisión: el **cliente de la auditoría** debería asegurarse de que los objetivos del programa se establezcan de modo que orienten la forma en que las auditorías se planifican y se llevan a cabo, y debería asegurarse de que el programa se implemente de manera eficaz."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 41,
+     "before": "Luego establece de dónde provienen. Los objetivos deben ser coherentes con la **dirección estratégica** y el **contexto** del cliente de la auditoría, y apoyar las políticas y los objetivos de su sistema de gestión. El apartado enumera en qué pueden basarse, incluyendo:",
+     "after": "Luego establece de dónde provienen. Los objetivos deben alinearse con la **dirección estratégica** y el **contexto** del cliente de la auditoría, y apoyar las políticas y los objetivos de su sistema de gestión. La cláusula enumera en qué pueden basarse, incluyendo:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 44,
+     "before": "- las características y los requisitos de los procesos, productos, servicios y proyectos, y los cambios en ellos;",
+     "after": "- las características y los requisitos de los procesos, productos, servicios y proyectos, y cómo estos cambian;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ae15921b-d33e-482d-81d9-785e2215e7f7",
+     "line_abs": 34,
+     "before": "El apartado 5.3 de ISO 19011:2026 aborda los **riesgos y oportunidades relacionados con el contexto del auditado que pueden afectar el logro de los objetivos del programa de auditoría**. No si el sistema de IA podría perjudicar a alguien, sino si la auditoría fallará en averiguarlo.",
+     "after": "La cláusula 5.3 de ISO 19011:2026 aborda los **riesgos y oportunidades derivados del contexto del auditado que pueden afectar el logro de los objetivos del programa de auditoría**. No si el sistema de IA podría perjudicar a alguien, sino si la auditoría fallará en averiguarlo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ae15921b-d33e-482d-81d9-785e2215e7f7",
+     "line_abs": 36,
+     "before": "El apartado le pide a quien gestiona el programa que identifique estos riesgos y los presente al cliente de la auditoría al desarrollar el programa y sus requisitos de recursos, para que puedan abordarse. Las fuentes que menciona incluyen:",
+     "after": "La cláusula le pide a quien gestiona el programa que identifique estos y los presente al cliente de la auditoría al desarrollar el programa y sus requisitos de recursos, para que puedan abordarse. Las fuentes que menciona incluyen:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ae15921b-d33e-482d-81d9-785e2215e7f7",
+     "line_abs": 50,
+     "before": "El apartado 4.8 de ISO 19011:2026 describe el enfoque basado en riesgos como aquel que considera riesgos y oportunidades, y establece que **debería influir sustancialmente** en la planificación e implementación del programa de auditoría, así como en la planificación, realización e informe de las auditorías, de modo que estas se centren en los asuntos significativos para el cliente de la auditoría y para el logro de los objetivos del programa.",
+     "after": "El apartado 4.8 de ISO 19011:2026 describe el enfoque basado en riesgos como aquel que considera riesgos y oportunidades, y establece que **debería influir sustancialmente** en la forma en que el programa de auditoría es planificado y gestionado, y en la forma en que las auditorías individuales son planificadas, realizadas e informadas, de modo que las auditorías se centren en los asuntos significativos para el cliente de la auditoría y para el logro de los objetivos del programa."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ae15921b-d33e-482d-81d9-785e2215e7f7",
+     "line_abs": 58,
+     "before": "El apartado 9.2.2 de ISO/IEC 42001 exige que la organización, al establecer el programa de auditoría, **considere la importancia de los procesos involucrados y los resultados de auditorías anteriores**. Esa es la versión del enfoque basado en riesgos en la norma de criterios, y a diferencia del apartado 4.8, es un `debe`. Un programa que prestara la misma atención a un sistema de alto impacto orientado al cliente y a una herramienta interna de resumen, sin razonamiento registrado, puede evaluarse frente al apartado 9.2.2, no frente al 4.8.",
+     "after": "El apartado 9.2.2 de ISO/IEC 42001 exige que la organización, al establecer el programa de auditoría, **sopese la importancia de los procesos auditados y lo que revelaron auditorías anteriores**. Esa es la versión del enfoque basado en riesgos en la norma de criterios, y a diferencia del apartado 4.8, es un `debe`. Un programa que prestara la misma atención a un sistema de alto impacto orientado al cliente y a una herramienta interna de resumen, sin razonamiento registrado, puede evaluarse frente al apartado 9.2.2, no frente al 4.8."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "54a47b9d-45ca-4f66-b35d-e47d200832a9",
+     "line_abs": 35,
+     "before": "- La organización **deberá considerar el propósito previsto** de los sistemas de IA que desarrolla, provee o utiliza.",
+     "after": "- La organización **deberá considerar el propósito previsto** de cualquier sistema de IA que desarrolle, provea o utilice."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "54a47b9d-45ca-4f66-b35d-e47d200832a9",
+     "line_abs": 36,
+     "before": "- La organización **deberá determinar sus roles** con respecto a estos sistemas de IA.",
+     "after": "- La organización **deberá determinar sus roles** en relación con dichos sistemas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "54a47b9d-45ca-4f66-b35d-e47d200832a9",
+     "line_abs": 74,
+     "before": "El apartado 4.3 de ISO/IEC 42001 exige que la organización determine los límites y la aplicabilidad del sistema de gestión de IA para establecer su alcance, considerando los asuntos del apartado 4.1 y los requisitos de las partes interesadas del apartado 4.2.",
+     "after": "La cláusula 4.3 de ISO/IEC 42001 exige que la organización determine dónde comienza y termina el sistema de gestión de IA, y por tanto su alcance, considerando los asuntos del apartado 4.1 y los requisitos de las partes interesadas del apartado 4.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "54a47b9d-45ca-4f66-b35d-e47d200832a9",
+     "line_abs": 119,
+     "before": "El apartado 6.3 de ISO/IEC 42001 exige que cuando la organización determine la necesidad de cambios en el sistema de gestión de IA, estos se lleven a cabo de manera planificada. Un cambio de rol es precisamente ese tipo de cambio, porque altera lo que el sistema de gestión debe cubrir.",
+     "after": "El apartado 6.3 de ISO/IEC 42001 exige que cuando la organización determine que el sistema de gestión de IA necesita cambios, dichos cambios se realicen de manera planificada. Un cambio de rol es precisamente ese tipo de cambio, porque altera lo que el sistema de gestión debe cubrir."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "54a47b9d-45ca-4f66-b35d-e47d200832a9",
+     "line_abs": 121,
+     "before": "Para el programa de auditoría, esto es un insumo de alcance en cada ciclo. **El apartado 9.2.2 exige que la organización considere la importancia de los procesos involucrados y los resultados de auditorías anteriores al establecer el programa.** Un inventario cuyos roles cambiaron desde el último ciclo es el caso más claro de que la importancia ha variado, y un programa que no se ajustó a ello puede evaluarse frente a ese requisito.",
+     "after": "Para el programa de auditoría, esto es un insumo de alcance en cada ciclo. **El apartado 9.2.2 exige que la organización, al establecer el programa, sopese la importancia de los procesos auditados y lo que encontraron auditorías anteriores.** Un inventario cuyos roles cambiaron desde el último ciclo es el caso más claro de que la importancia ha variado, y un programa que no se ajustó a ello puede evaluarse frente a ese requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "fd43b701-d716-4428-8e7c-41fbea66b3a2",
+     "line_abs": 35,
+     "before": "- A organização **deve considerar a finalidade pretendida** dos sistemas de IA desenvolvidos, fornecidos ou utilizados por ela.",
+     "after": "- A organização **deve considerar a finalidade pretendida** de todos os sistemas de IA que desenvolve, fornece ou utiliza."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "fd43b701-d716-4428-8e7c-41fbea66b3a2",
+     "line_abs": 36,
+     "before": "- A organização **deve determinar seus papéis** em relação a esses sistemas de IA.",
+     "after": "- A organização **deve determinar seus papéis** em relação a esses sistemas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "fd43b701-d716-4428-8e7c-41fbea66b3a2",
+     "line_abs": 74,
+     "before": "A Seção 4.3 da ISO/IEC 42001 exige que a organização determine os limites e a aplicabilidade do sistema de gestão de IA para estabelecer seu escopo, considerando as questões da Seção 4.1 e os requisitos das partes interessadas da Seção 4.2.",
+     "after": "A cláusula 4.3 da ISO/IEC 42001 exige que a organização determine onde o sistema de gestão de IA começa e termina, e portanto seu escopo, considerando as questões da cláusula 4.1 e os requisitos das partes interessadas da cláusula 4.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "fd43b701-d716-4428-8e7c-41fbea66b3a2",
+     "line_abs": 119,
+     "before": "A Seção 6.3 da ISO/IEC 42001 exige que, quando a organização determinar a necessidade de mudanças no sistema de gestão de IA, essas mudanças sejam realizadas de forma planejada. Uma mudança de papel é precisamente esse tipo de mudança, pois altera o que o sistema de gestão deve cobrir.",
+     "after": "A cláusula 6.3 da ISO/IEC 42001 exige que, quando a organização identificar que o sistema de gestão de IA precisa de mudanças, essas mudanças sejam realizadas de forma planejada. Uma mudança de papel é precisamente esse tipo de mudança, pois altera o que o sistema de gestão deve cobrir."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "fd43b701-d716-4428-8e7c-41fbea66b3a2",
+     "line_abs": 121,
+     "before": "Para o programa de auditoria, isso é uma entrada de escopo a cada ciclo. **A Seção 9.2.2 exige que a organização considere a importância dos processos envolvidos e os resultados de auditorias anteriores ao estabelecer o programa.** Um inventário cujos papéis mudaram desde o último ciclo é o caso mais claro de importância alterada, e um programa que não se ajustou a isso pode ser testado em relação a esse requisito.",
+     "after": "Para o programa de auditoria, isso é uma entrada de escopo a cada ciclo. **A cláusula 9.2.2 exige que a organização, ao estabelecer o programa, considere a importância dos processos auditados e o que auditorias anteriores constataram.** Um patrimônio cujos papéis mudaram desde o último ciclo é o caso mais claro de importância alterada, e um programa que não se ajustou a isso pode ser testado em relação a esse requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.15, 3.17",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "8a1223a1-2611-4ba2-908c-e6a3ed939739",
+     "line_abs": 62,
+     "before": "A Seção 3.15 da ISO 19011:2026 define a **equipe de auditoria** como uma ou mais pessoas que conduzem uma auditoria, apoiadas quando necessário por **especialistas técnicos**, e observa que um auditor é designado líder da equipe e que a equipe pode incluir auditores em treinamento. A Seção 3.17 define **especialista técnico** como a pessoa que fornece conhecimento ou expertise específicos à equipe de auditoria.",
+     "after": "A cláusula 3.15 da ISO 19011:2026 define a **equipe de auditoria** como uma ou mais pessoas que conduzem uma auditoria, apoiadas quando necessário por **especialistas técnicos**, e observa que um auditor é designado líder da equipe de auditoria e que a equipe pode incluir auditores em treinamento. A cláusula 3.17 define **especialista técnico** como a pessoa que traz conhecimento ou expertise específicos à equipe."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+     "line_abs": 50,
+     "before": "A Seção 9.2.2 da ISO/IEC 42001 torna a conexão com o próximo ciclo um requisito: ao estabelecer o programa de auditoria, a organização **deve considerar a importância dos processos envolvidos e os resultados de auditorias anteriores**. Uma análise crítica que não produz nenhuma mudança no programa seguinte não foi utilizada.",
+     "after": "A cláusula 9.2.2 da ISO/IEC 42001 torna a conexão com o próximo ciclo um requisito: ao estabelecer o programa de auditoria, a organização **deve ponderar o quão importantes são os processos auditados e o que auditorias anteriores constataram**. Uma análise crítica que não produz nenhuma mudança no programa seguinte não foi utilizada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+     "line_abs": 60,
+     "before": "A Seção 9.2.2 da ISO/IEC 42001 estabelece a versão de requisito: **informação documentada deve estar disponível como evidência da implementação do programa de auditoria e dos resultados da auditoria.** Ambas as partes, e são coisas diferentes. Os resultados da auditoria são os relatórios e as constatações. A evidência da implementação do programa é o registro de que o programa foi executado conforme projetado — cronogramas, escopos, atribuições de auditores, o que foi adiado e por quê.",
+     "after": "A cláusula 9.2.2 da ISO/IEC 42001 estabelece a versão de requisito: **informação documentada deve ser mantida demonstrando tanto que o programa de auditoria foi implementado quanto o que as auditorias constataram.** Ambas as partes, e são coisas diferentes. Os resultados da auditoria são os relatórios e as constatações. A evidência da implementação do programa é o registro de que o programa foi executado conforme projetado — cronogramas, escopos, atribuições de auditores, o que foi adiado e por quê."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+     "line_abs": 31,
+     "before": "A Seção 5.5.2 da ISO 19011:2026 estabelece que cada auditoria individual deve ser baseada em objetivos, escopo e critérios de auditoria definidos, consistentes com os objetivos gerais do programa. Isso é orientação.",
+     "after": "A cláusula 5.5.2 da ISO 19011:2026 estabelece que cada auditoria deve ser baseada em objetivos, escopo e critérios que tenham sido definidos, consistentes com os objetivos gerais do programa. Isso é orientação."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+     "line_abs": 33,
+     "before": "A Seção 9.2.2 a) da ISO/IEC 42001:2023 estabelece que a organização **deve definir os objetivos, critérios e escopo da auditoria para cada auditoria**. Isso é um requisito, e é nele que uma constatação se fundamenta.",
+     "after": "A cláusula 9.2.2 a) da ISO/IEC 42001:2023 estabelece que a organização **deve definir os objetivos, critérios e escopo de cada auditoria individual**. Isso é um requisito, e é nele que uma constatação se fundamenta."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+     "line_abs": 45,
+     "before": "- avaliar a **eficácia** do sistema de gestão no alcance de seus resultados pretendidos;",
+     "after": "- avaliar a **eficácia** com que o sistema de gestão alcança o que se propôs a fazer;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+     "line_abs": 55,
+     "before": "A Seção 3.6 da ISO 19011:2026 define **escopo da auditoria** como a extensão e os limites de uma auditoria, com uma nota de que geralmente inclui uma descrição dos **locais físicos e virtuais**, funções, unidades organizacionais, atividades e processos, bem como o **período de tempo coberto**.",
+     "after": "A Seção 3.6 da ISO 19011:2026 define **escopo da auditoria** como a extensão e os limites de uma auditoria, com uma nota de que geralmente descreve os **locais físicos e virtuais**, funções, unidades organizacionais, atividades e processos, bem como o **período de tempo coberto**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 31,
+     "before": "A Seção 5.5.3 da ISO 19011:2026 estabelece que o indivíduo responsável pela gestão do programa de auditoria deve selecionar e determinar os métodos para conduzir uma auditoria de forma eficaz e eficiente, **dependendo dos objetivos, do escopo e dos critérios de auditoria definidos**.",
+     "after": "A cláusula 5.5.3 da ISO 19011:2026 estabelece que o indivíduo responsável pela gestão do programa de auditoria deve escolher e definir os métodos para conduzir uma auditoria de forma eficaz e eficiente, **de acordo com os objetivos, o escopo e os critérios de auditoria já definidos**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 35,
+     "before": "A seção acrescenta que as auditorias podem ser realizadas **presencialmente, remotamente ou de forma combinada**, e que o uso desses métodos deve ser **adequadamente equilibrado, com base na consideração dos riscos e oportunidades associados**. Ela também aborda auditorias conjuntas realizadas por duas organizações de auditoria, e auditorias combinadas em que o auditado opera sistemas de gestão de diferentes disciplinas — relevante quando um sistema de gestão de IA coexiste com um SGSI ou um SGQ.",
+     "after": "A cláusula acrescenta que as auditorias podem ser realizadas **presencialmente, remotamente ou de forma combinada**, e que a combinação escolhida deve ser **adequadamente equilibrada, com base nos riscos e oportunidades que cada uma apresenta**. Ela também aborda auditorias conjuntas realizadas por duas organizações de auditoria, e auditorias combinadas em que o auditado opera sistemas de gestão de diferentes disciplinas — relevante quando um sistema de gestão de IA coexiste com um SGSI ou um SGQ."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 41,
+     "before": "- ampliação das orientações sobre **métodos de auditoria remota**, por meio da introdução de orientações contidas na ISO/IEC TS 17012;",
+     "after": "- orientações mais abrangentes sobre **métodos de auditoria remota**, incorporando o que a ISO/IEC TS 17012 estabelece;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 42,
+     "before": "- ampliação do **Anexo A** para fornecer orientações sobre métodos de auditoria remota e localizações virtuais.",
+     "after": "- um **Anexo A** mais amplo, agora cobrindo métodos de auditoria remota e localizações virtuais."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 46,
+     "before": "O Anexo A.16 afirma que a auditoria remota pode trazer benefícios para o auditor e para o auditado, que uma auditoria que utiliza métodos remotos emprega tecnologia durante o processo de auditoria para observar, entrevistar e verificar evidências objetivas, e que **os métodos remotos podem ser necessários para a auditoria de localizações virtuais**. Também afirma que garantir a condução eficaz da auditoria e o alcance de seus objetivos é **responsabilidade conjunta do auditado e dos auditores**, e que os métodos remotos podem introduzir riscos e oportunidades adicionais.",
+     "after": "O Anexo A.16 afirma que a auditoria remota pode trazer benefícios para o auditor e para o auditado, que uma auditoria que utiliza métodos remotos emprega tecnologia durante o processo de auditoria para observar, entrevistar e verificar evidências objetivas, e que **os métodos remotos podem ser necessários para a auditoria de uma localização virtual**. Também afirma que garantir a condução eficaz da auditoria e o alcance de seus objetivos é **responsabilidade conjunta do auditado e dos auditores**, e que os métodos remotos podem introduzir riscos e oportunidades adicionais."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 50,
+     "before": "A ISO 19011:2026 descreve uma **localização virtual** como aquela em que uma organização realiza trabalho ou presta um serviço utilizando um ambiente online, permitindo que indivíduos executem processos independentemente de sua localização física. Uma nota acrescenta que os métodos de auditoria remota podem ser usados por um auditor em um local do auditado para auditar outro local.",
+     "after": "A ISO 19011:2026 descreve uma **localização virtual** como aquela em que uma organização realiza trabalho ou presta um serviço por meio de um ambiente online, permitindo que as pessoas executem processos onde quer que estejam fisicamente. Uma nota acrescenta que os métodos de auditoria remota podem ser usados por um auditor em um dos locais do auditado para auditar um local diferente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "9bdd95c2-20d9-42ca-a924-3e023a95afac",
+     "line_abs": 105,
+     "before": "A Seção 5.5.3 observa que, quando um auditado opera dois ou mais sistemas de gestão de diferentes disciplinas, auditorias combinadas podem ser incluídas no programa. Muitas organizações que estão adicionando um sistema de gestão de IA já possuem um SGSI, e combinar as auditorias é atraente: reunião de abertura compartilhada, entrevistas compartilhadas, uma interrupção em vez de duas.",
+     "after": "A cláusula 5.5.3 observa que, quando um auditado opera dois ou mais sistemas de gestão de diferentes disciplinas, auditorias combinadas podem ser incluídas no programa. Muitas organizações que estão adicionando um SGIA já possuem um SGSI, e combinar as auditorias é atraente: reunião de abertura compartilhada, entrevistas compartilhadas, uma interrupção em vez de duas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+     "line_abs": 32,
+     "before": "El apartado 5.5.2 de la norma ISO 19011:2026 establece que cada auditoría individual debe basarse en objetivos, alcance y criterios de auditoría definidos, coherentes con los objetivos generales del programa. Eso es orientación.",
+     "after": "La cláusula 5.5.2 de la norma ISO 19011:2026 establece que cada auditoría debería basarse en objetivos, alcance y criterios que hayan sido definidos, coherentes con los objetivos generales del programa. Eso es orientación."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+     "line_abs": 34,
+     "before": "El apartado 9.2.2 a) de la norma ISO/IEC 42001:2023 establece que la organización **debe definir los objetivos, los criterios y el alcance de cada auditoría**. Eso es un requisito, y es el que sustenta un hallazgo.",
+     "after": "La cláusula 9.2.2 a) de la norma ISO/IEC 42001:2023 establece que la organización **debe definir los objetivos, los criterios y el alcance de cada auditoría individual**. Eso es un requisito, y es el que sustenta un hallazgo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+     "line_abs": 46,
+     "before": "- evaluar la **eficacia** del sistema de gestión para alcanzar sus resultados previstos;",
+     "after": "- evaluar la **eficacia** con la que el sistema de gestión alcanza lo que se propuso lograr;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+     "line_abs": 56,
+     "before": "El apartado 3.6 de la norma ISO 19011:2026 define el **alcance de la auditoría** como la extensión y los límites de una auditoría, con una nota que indica que generalmente incluye una descripción de las **ubicaciones físicas y virtuales**, las funciones, las unidades organizativas, las actividades y los procesos, así como el **período de tiempo cubierto**.",
+     "after": "La cláusula 3.6 de la norma ISO 19011:2026 define el **alcance de la auditoría** como la extensión y los límites de una auditoría, con una nota que indica que generalmente describe las **ubicaciones físicas y virtuales**, las funciones, las unidades organizativas, las actividades y los procesos, así como el **período de tiempo cubierto**."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

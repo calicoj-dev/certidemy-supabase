@@ -1,0 +1,601 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 30,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 30,
+     "before": "ISO 19011:2026 clause 3.5 defines an **audit programme** as arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose.",
+     "after": "ISO 19011:2026 clause 3.5 defines an **audit programme** as arrangements for a set of one or more audits planned for a set period and aimed at a particular purpose."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 34,
+     "before": "Clause 5.1 adds that the extent of a programme should be based on the size and nature of the auditee, and on the functionality, complexity, type of risks and opportunities, scope, and level of maturity of the management systems to be audited. A programme that would fit any organization of similar size has not been based on the nature of this one.",
+     "after": "Clause 5.1 adds that the extent of a programme should follow from how large the auditee is and what kind of body it is, and on the functionality, complexity, type of risks and opportunities, scope, and level of maturity of the management systems to be audited. A programme that would fit any organization of similar size has not been based on the nature of this one."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 38,
+     "before": "ISO 19011:2026 clause 5.2 places responsibility precisely: the **audit client** should ensure that programme objectives are established to direct the planning and conducting of audits, and should ensure the programme is implemented effectively.",
+     "after": "ISO 19011:2026 clause 5.2 places responsibility precisely: the **audit client** should ensure that programme objectives are set so they steer how audits are planned and run, and should ensure the programme is implemented effectively."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 40,
+     "before": "It then states where they come from. Objectives should be consistent with the audit client's **strategic direction** and **context**, and support its management system policies and objectives. The clause lists what they can be based on, including:",
+     "after": "It then states where they come from. Objectives should line up with the audit client's **strategic direction** and **context**, and support its management system policies and objectives. The clause lists what they can be based on, including:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 43,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 43,
+     "before": "- characteristics of and requirements for processes, products, services and projects, and changes to them;",
+     "after": "- the characteristics and requirements of processes, products, services and projects, and how those change;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 162,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "2a9e8b1a-2ba9-4d39-a13a-6bc668c0b635",
+     "line_abs": 162,
+     "before": "    \"question\": \"Why does ISO 19011:2026 clause 5.1 say the extent of an audit programme should be based on the size and nature of the auditee and the maturity of its management systems?\",",
+     "after": "    \"question\": \"Why does ISO 19011:2026 clause 5.1 say the extent of an audit programme should follow from the auditee's size and character and the maturity of its management systems?\","
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a314e6f7-4511-4c3f-a701-aeffa289bebf",
+     "line_abs": 33,
+     "before": "ISO 19011:2026 clause 5.3 addresses **risks and opportunities related to the context of the auditee that can affect the achievement of the audit programme's objectives**. Not whether the AI system might harm someone - whether the audit will fail to find out.",
+     "after": "ISO 19011:2026 clause 5.3 addresses **risks and opportunities arising from the auditee's context that can affect the achievement of the audit programme's objectives**. Not whether the AI system might harm someone - whether the audit will fail to find out."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a314e6f7-4511-4c3f-a701-aeffa289bebf",
+     "line_abs": 35,
+     "before": "The clause asks the individual managing the programme to identify these and present them to the audit client when developing the programme and its resource requirements, so they can be addressed. The sources it names include:",
+     "after": "The clause asks the individual managing the programme to identify these and put them to the audit client while developing the programme and its resource requirements, so they can be addressed. The sources it names include:"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 49,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a314e6f7-4511-4c3f-a701-aeffa289bebf",
+     "line_abs": 49,
+     "before": "ISO 19011:2026 clause 4.8 describes the risk-based approach as one that considers risks and opportunities, and states that it **should substantively influence** the planning and implementation of the audit programme, and the planning, conducting and reporting of audits, so that audits focus on matters significant for the audit client and for achieving the programme objectives.",
+     "after": "ISO 19011:2026 clause 4.8 describes the risk-based approach as one that considers risks and opportunities, and states that it **should substantively influence** how the audit programme is planned and run, and how individual audits are planned, conducted and reported, so that audits focus on matters significant for the audit client and for achieving the programme objectives."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 57,
+   "run_words": 0,
+   "run": "19011 clauses 4.8, 5.3; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a314e6f7-4511-4c3f-a701-aeffa289bebf",
+     "line_abs": 57,
+     "before": "ISO/IEC 42001 clause 9.2.2 requires the organization, when establishing the audit programme, to **consider the importance of the processes concerned and the results of previous audits**. That is the criteria-standard version of the risk-based approach, and unlike clause 4.8 it is a `shall`. A programme that gave the same attention to a high-impact customer-facing system and an internal summarisation tool, with no recorded reasoning, can be tested against 9.2.2 - not against 4.8.",
+     "after": "ISO/IEC 42001 clause 9.2.2 requires the organization, when establishing the audit programme, to **weigh how important the audited processes are and what earlier audits found**. That is the criteria-standard version of the risk-based approach, and unlike clause 4.8 it is a `shall`. A programme that gave the same attention to a high-impact customer-facing system and an internal summarisation tool, with no recorded reasoning, can be tested against 9.2.2 - not against 4.8."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-03-competence-the-team-needs",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 61,
+   "run_words": 0,
+   "run": "19011 clauses 3.15, 3.17",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "e44d263a-6e4b-4407-971f-5f57ba21e4f2",
+     "line_abs": 61,
+     "before": "ISO 19011:2026 clause 3.15 defines the **audit team** as one or more persons conducting an audit, supported if needed by **technical experts**, and notes that one auditor is appointed audit team leader and that the team can include auditors-in-training. Clause 3.17 defines a **technical expert** as a person who provides specific knowledge or expertise to the audit team.",
+     "after": "ISO 19011:2026 clause 3.15 defines the **audit team** as one or more persons conducting an audit, supported if needed by **technical experts**, and notes that one auditor is appointed audit team leader and that the team can include auditors-in-training. Clause 3.17 defines a **technical expert** as a person who brings particular knowledge or expertise to the team."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 34,
+     "before": "- The organization **shall consider the intended purpose** of the AI systems that are developed, provided or used by the organization.",
+     "after": "- The organization **shall consider the intended purpose** of whatever AI systems it develops, provides or uses."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 35,
+     "before": "- The organization **shall determine its roles** with respect to these AI systems.",
+     "after": "- The organization **shall determine its roles** in relation to those systems."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 73,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 73,
+     "before": "ISO/IEC 42001 clause 4.3 requires the organization to determine the boundaries and applicability of the AI management system to establish its scope, considering the issues from 4.1 and the interested-party requirements from 4.2.",
+     "after": "ISO/IEC 42001 clause 4.3 requires the organization to settle where the AI management system starts and stops, and so its scope, considering the issues from 4.1 and the interested-party requirements from 4.2."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 118,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 118,
+     "before": "ISO/IEC 42001 clause 6.3 requires that when the organization determines the need for changes to the AI management system, the changes be carried out in a planned manner. A role change is precisely such a change, because it alters what the management system must cover.",
+     "after": "ISO/IEC 42001 clause 6.3 requires that where the organization finds the AI management system needs changing, those changes are made in a planned way. A role change is precisely such a change, because it alters what the management system must cover."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 120,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 120,
+     "before": "For the audit programme this is a scoping input every cycle. **Clause 9.2.2 requires the organization to consider the importance of the processes concerned and the results of previous audits when establishing the programme.** An estate whose roles moved since the last cycle is the clearest case of importance having shifted, and a programme that did not adjust for it can be tested against that requirement.",
+     "after": "For the audit programme this is a scoping input every cycle. **Clause 9.2.2 requires the organization, when establishing the programme, to weigh how important the audited processes are and what earlier audits found.** An estate whose roles moved since the last cycle is the clearest case of importance having shifted, and a programme that did not adjust for it can be tested against that requirement."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-04-what-roles-the-organization-holds",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 179,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.3, 6.3, 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "0384ce36-db22-48e9-a9b7-c051b0d34c8a",
+     "line_abs": 179,
+     "before": "      { \"id\": \"b\", \"text\": \"ISO/IEC 42001 clause 9.2.2 requires the organization to consider the importance of the processes concerned and the results of previous audits when establishing the programme, and a new provider role is a material change in importance.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"ISO/IEC 42001 clause 9.2.2 requires the organization, when establishing the programme, to weigh how important the audited processes are and what earlier audits found, and a new provider role is a material change in importance.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4af630b3-b087-49a6-8114-9b5921a54ff1",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 clause 5.5.2 states that each individual audit should be based on defined audit objectives, scope and criteria, consistent with the overall programme objectives. That is guidance.",
+     "after": "ISO 19011:2026 clause 5.5.2 states that each audit should rest on objectives, scope and criteria that have been defined, consistent with the overall programme objectives. That is guidance."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4af630b3-b087-49a6-8114-9b5921a54ff1",
+     "line_abs": 33,
+     "before": "ISO/IEC 42001:2023 clause 9.2.2 a) states that the organization **shall define the audit objectives, criteria and scope for each audit**. That is a requirement, and it is the one a finding rests on.",
+     "after": "ISO/IEC 42001:2023 clause 9.2.2 a) states that the organization **shall set the objectives, criteria and scope of each individual audit**. That is a requirement, and it is the one a finding rests on."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 45,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4af630b3-b087-49a6-8114-9b5921a54ff1",
+     "line_abs": 45,
+     "before": "- evaluating the **effectiveness** of the management system in meeting its intended results;",
+     "after": "- evaluating the **effectiveness** with which the management system reaches what it set out to do;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4af630b3-b087-49a6-8114-9b5921a54ff1",
+     "line_abs": 55,
+     "before": "ISO 19011:2026 clause 3.6 defines **audit scope** as the extent and boundaries of an audit, with a note that it generally includes a description of the **physical and virtual locations**, functions, organizational units, activities and processes, as well as the **time period covered**.",
+     "after": "ISO 19011:2026 clause 3.6 defines **audit scope** as the extent and boundaries of an audit, with a note that it usually describes the **physical and virtual locations**, functions, organizational units, activities and processes, as well as the **time period covered**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 142,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "4af630b3-b087-49a6-8114-9b5921a54ff1",
+     "line_abs": 142,
+     "before": "      { \"id\": \"b\", \"text\": \"A nonconformity against ISO/IEC 42001 clause 9.2.2 a), which requires the organization to define the audit objectives, criteria and scope for each audit.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"A nonconformity against ISO/IEC 42001 clause 9.2.2 a), which requires the organization to set the objectives, criteria and scope of each individual audit.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 31,
+     "before": "ISO 19011:2026 clause 5.5.3 states that the individual managing the audit programme should select and determine the methods for conducting an audit effectively and efficiently, **depending on the defined audit objectives, scope and criteria**.",
+     "after": "ISO 19011:2026 clause 5.5.3 states that the individual managing the audit programme should choose and settle the methods for running an audit effectively and efficiently, **according to the audit objectives, scope and criteria already defined**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 35,
+     "before": "The clause adds that audits can be performed **on-site, remotely, or as a combination**, and that the use of these methods should be **suitably balanced, based on consideration of associated risks and opportunities**. It also addresses joint audits by two auditing organizations, and combined audits where the auditee operates management systems of different disciplines - relevant where an AIMS sits alongside an ISMS or a QMS.",
+     "after": "The clause adds that audits may be run **on site, remotely, or as a mix of both**, and that the mix chosen should be **suitably balanced, resting on the risks and opportunities each carries**. It also addresses joint audits by two auditing organizations, and combined audits where the auditee operates management systems of different disciplines - relevant where an AIMS sits alongside an ISMS or a QMS."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 41,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 41,
+     "before": "- expansion of guidance on **remote auditing methods**, through the introduction of guidance contained in ISO/IEC TS 17012;",
+     "after": "- wider guidance on **remote auditing methods**, drawing in what ISO/IEC TS 17012 sets out;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 42,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 42,
+     "before": "- expansion of **Annex A** to provide guidance on remote auditing methods and virtual locations.",
+     "after": "- a wider **Annex A**, now covering remote auditing methods and virtual locations."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 46,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 46,
+     "before": "Annex A.16 states that remote auditing can bring benefits for auditor and auditee, that an audit using remote methods uses technology during the audit process for observing, interviewing and verifying objective evidence, and that **remote methods can be necessary for the audit of virtual locations**. It also states that ensuring the audit is effectively conducted and its objectives achieved is a **joint responsibility of the auditee and the auditors**, and that remote methods can introduce additional risks and opportunities.",
+     "after": "Annex A.16 states that remote auditing can bring benefits for auditor and auditee, that an audit using remote methods uses technology during the audit process for observing, interviewing and verifying objective evidence, and that **remote methods may be needed when auditing a virtual location**. It also states that ensuring the audit is effectively conducted and its objectives achieved is a **joint responsibility of the auditee and the auditors**, and that remote methods can introduce additional risks and opportunities."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 50,
+     "before": "ISO 19011:2026 describes a **virtual location** as one where an organization performs work or provides a service using an online environment, enabling individuals to execute processes irrespective of physical location. A note adds that remote auditing methods can be used by an auditor at one site of the auditee to audit another site.",
+     "after": "ISO 19011:2026 describes a **virtual location** as one where an organization does work or delivers a service through an online environment, letting people carry out processes wherever they physically are. A note adds that remote auditing methods can be used by an auditor at one of the auditee's sites to audit a different one."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-06-choosing-the-method",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 105,
+   "run_words": 0,
+   "run": "19011 clause 5.5.3, Annex A.16, virtual locations",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "be365ef1-cc8a-4447-bedd-b2928325dcb5",
+     "line_abs": 105,
+     "before": "Clause 5.5.3 notes that where an auditee operates two or more management systems of different disciplines, combined audits can be included in the programme. Many organizations adding an AIMS already hold an ISMS, and combining the audits is attractive: shared opening meeting, shared interviews, one disruption instead of two.",
+     "after": "Clause 5.5.3 notes that where an auditee runs two or more management systems in different disciplines, combined audits may go into the programme. Many organizations adding an AIMS already hold an ISMS, and combining the audits is attractive: shared opening meeting, shared interviews, one disruption instead of two."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "26babb13-cf7d-4e81-8264-86569a6c9f74",
+     "line_abs": 50,
+     "before": "ISO/IEC 42001 clause 9.2.2 makes the connection to the next cycle a requirement: when establishing the audit programme, the organization **shall consider the importance of the processes concerned and the results of previous audits**. A review that produces no change to the following programme has not been used.",
+     "after": "ISO/IEC 42001 clause 9.2.2 makes the connection to the next cycle a requirement: when establishing the audit programme, the organization **shall weigh how important the audited processes are and what earlier audits found**. A review that produces no change to the following programme has not been used."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "26babb13-cf7d-4e81-8264-86569a6c9f74",
+     "line_abs": 60,
+     "before": "ISO/IEC 42001 clause 9.2.2 states the requirement version: **documented information shall be available as evidence of the implementation of the audit programme and the audit results.** Both limbs, and they are different things. Audit results are the reports and findings. Evidence of the programme's implementation is the record that the programme ran as designed - schedules, scopes, auditor assignments, what was deferred and why.",
+     "after": "ISO/IEC 42001 clause 9.2.2 states the requirement version: **documented information shall be kept showing both that the audit programme was implemented and what the audits found.** Both limbs, and they are different things. Audit results are the reports and findings. Evidence of the programme's implementation is the record that the programme ran as designed - schedules, scopes, auditor assignments, what was deferred and why."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 139,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "26babb13-cf7d-4e81-8264-86569a6c9f74",
+     "line_abs": 139,
+     "before": "      { \"id\": \"b\", \"text\": \"Clause 5.7 offers guidance on reviewing and improving the programme; clause 9.2.2 requires the organization to consider the importance of the processes concerned and the results of previous audits when establishing the programme.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Clause 5.7 offers guidance on reviewing and improving the programme; clause 9.2.2 requires the organization, when establishing the programme, to weigh how important the audited processes are and what earlier audits found.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 176,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "26babb13-cf7d-4e81-8264-86569a6c9f74",
+     "line_abs": 176,
+     "before": "    \"explanation\": \"No standard sets a longer retention period for AIMS records or specifies one at all. Clause 4.5 asks auditors to exercise discretion in the use and protection of information acquired during auditing, including proper handling of sensitive or confidential information - and evidence gathered from data stores and model records can be exactly that. What is shared with a certification body is the organization's decision, not the auditor's.\",",
+     "after": "    \"explanation\": \"No standard sets a longer retention period for AIMS records or specifies one at all. Clause 4.5 asks auditors to use discretion in handling and protecting information obtained during auditing, including proper handling of sensitive or confidential information - and evidence gathered from data stores and model records can be exactly that. What is shared with a certification body is the organization's decision, not the auditor's.\","
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

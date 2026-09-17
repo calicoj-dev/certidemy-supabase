@@ -156,7 +156,7 @@ const BATCHES = [
   "./lesson-repairs-aimsf-m1.mjs", "./lesson-repairs-aimsf-m2.mjs",
   "./lesson-repairs-aimsf-m3.mjs", "./lesson-repairs-aimsf-m4.mjs",
   "./lesson-repairs-aimsf-m5.mjs",
-  "./lesson-repairs-aimsia-m1.mjs",
+  "./lesson-repairs-aimsia-m1.mjs", "./lesson-repairs-aimsia-m2.mjs",
 ];
 const spansBySlug = new Map();
 for (const b of BATCHES) {
@@ -248,11 +248,18 @@ const NAME = { "es-419": "Latin American Spanish", "pt-BR": "Brazilian Portugues
  * that double-counts is a count nobody can act on. */
 const jobs = [];
 const seen = new Set();
+/* A FILTER THAT SELECTS NOTHING MUST NOT READ AS "NOTHING TO DO". `--slug
+ * aims-ia-02` matched no row under exact equality and the run reported
+ * "translated 0 of 0   problems 0   nothing to write" -- the same output a
+ * genuinely finished batch produces. Prefix match, and abort when a filter the
+ * caller supplied hit no row at all. */
+let slugFilterHit = false;
 for (const row of flagged) {
   if (!LANGS.includes(row.language)) continue;
   const en = ens[row.lesson_group_id];
   if (!en) continue;
-  if (ONLY_SLUGS.length && !ONLY_SLUGS.includes(row.slug)) continue;
+  if (ONLY_SLUGS.length && !ONLY_SLUGS.some((p) => row.slug === p || row.slug.startsWith(p))) continue;
+  slugFilterHit = true;
   for (const sp of spansBySlug.get(row.slug) ?? []) {
     const at = coordOf(en.content_md, sp.after);
     if (!at) continue;
@@ -267,6 +274,10 @@ for (const row of flagged) {
       english: at.text, before: cell.text,
     });
   }
+}
+if (ONLY_SLUGS.length && !slugFilterHit) {
+  console.error("--slug " + ONLY_SLUGS.join(",") + " matched no flagged lesson row. Nothing was attempted.");
+  process.exit(2);
 }
 console.log("distinct paragraphs to re-translate: " + jobs.length +
   "   (" + LANGS.map((l) => l + " " + jobs.filter((j) => j.language === l).length).join(", ") + ")");

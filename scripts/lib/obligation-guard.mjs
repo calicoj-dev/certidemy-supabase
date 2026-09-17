@@ -58,6 +58,37 @@
  * Ordered longest-first within each language so "deberá" is not counted as
  * "debe" plus a suffix; matching is on word boundaries anyway, but the order
  * documents the intent. */
+/* ============ `` IS ASCII-ONLY, AND FIVE PATTERNS COULD NOT FIRE ==========
+ *
+ * JavaScript defines `` over [A-Za-z0-9_]. An accented letter is NOT a word
+ * character to it, so a boundary between `a` and a space is no boundary at all
+ * and `/deber[aa]n?/` never matched `debera` with the accent -- the ISO
+ * rendering of `shall`, and the form real Spanish actually writes.
+ *
+ * Found 2026-09-17 when the guard refused two correct AIMS-IA translations as
+ * dropped obligations. The refusal was the lucky half. The silent half is that
+ * an INSERTED obligation and an INFLATED modal both score zero on a form the
+ * guard cannot see, and `noModalInflation` is built on exactly these lists --
+ * so every should-became-must sweep run before this date undercounted.
+ *
+ * Exactly five patterns were affected, and the rule is mechanical: only a match
+ * that BEGINS or ENDS on an accented character is invisible. An accent in the
+ * middle is fine, which is why `obligacion`, `podria` and `convem` all worked
+ * and hid the family.
+ *
+ *     es strong   debera            ISO's `shall`
+ *     pt strong   devera            same
+ *     pt strong   deverao           not even in the character class -- separate gap
+ *     pt strong   e necessario      leading vowel
+ *     pt weak     e recomendavel    leading vowel
+ *
+ * So no pattern here is written with `` any more. `w()` builds the boundary
+ * from an explicit Latin range, and `checkFaithful` asserts the accented forms
+ * are seen -- the control that would have caught this on the day it was written.
+ */
+const LETTER = "0-9A-Za-z_À-ɏ";
+const w = (src) => new RegExp("(?<![" + LETTER + "])(?:" + src + ")(?![" + LETTER + "])", "gi");
+
 const MODALS = {
   en: {
     /* `requirement(s)` was MISSING here, and the gap was found the way gaps in
@@ -72,11 +103,11 @@ const MODALS = {
      * modal that BOTH translated lists already carried. Adding it closes an
      * asymmetry; it does not loosen the guard, and the controls below still
      * refuse the softening that prompted this file. */
-    strong: [/\bshall\b/gi, /\bmust\b/gi, /\bis required to\b/gi, /\bare required to\b/gi,
-             /\brequires?\b/gi, /\brequired\b/gi, /\brequirements?\b/gi, /\bhas to\b/gi, /\bhave to\b/gi,
-             /\bobligation\b/gi, /\bmandator(y|ily)\b/gi],
-    weak:   [/\bmay\b/gi, /\bcan\b/gi, /\bshould\b/gi, /\bmight\b/gi, /\boptional(ly)?\b/gi,
-             /\brecommend(s|ed)?\b/gi],
+    strong: [w("shall"), w("must"), w("is required to"), w("are required to"),
+             w("requires?"), w("required"), w("requirements?"), w("has to"), w("have to"),
+             w("obligation"), w("mandator(y|ily)")],
+    weak:   [w("may"), w("can"), w("should"), w("might"), w("optional(ly)?"),
+             w("recommend(s|ed)?")],
   },
   "es-419": {
     /* `requisito(s)` and `requerimiento(s)` WERE MISSING, and their absence is
@@ -90,9 +121,9 @@ const MODALS = {
      * THE RULE THE TWO INSTANCES TEACH: every verb on a strong list needs its
      * noun beside it, because a paraphrase or a translation moves freely
      * between the two and the guard cannot see that they are the same duty. */
-    strong: [/\bdeber[áa]n?\b/gi, /\bdeben\b/gi, /\bdebe\b/gi, /\bexigen?\b/gi,
-             /\brequieren?\b/gi, /\brequisitos?\b/gi, /\brequerimientos?\b/gi,
-             /\btiene que\b/gi, /\btienen que\b/gi,
+    strong: [w("deberán?"), w("deberan?"), w("deben"), w("debe"), w("exigen?"),
+             w("requieren?"), w("requisitos?"), w("requerimientos?"),
+             w("tiene que"), w("tienen que"),
              /* IMPERSONAL NECESSITY ONLY -- "es necesario", never bare
               * "necesarios".
               *
@@ -107,33 +138,36 @@ const MODALS = {
               * THE RULE: a bare adjective is not a modal. "es necesario hacer X"
               * imposes; "los controles necesarios" describes. Match the
               * construction, not the word. */
-             /\b(es|sea|era|fuera|ser[áa]) necesario\b/gi, /\bnecesario que\b/gi,
-             /\bhace falta\b/gi,
-             /\bobligaci[óo]n\b/gi, /\bobligatori[oa]s?\b/gi, /\bexigencia\b/gi],
+             w("(es|sea|era|fuera|ser[áa]) necesario"), w("necesario que"),
+             w("hace falta"),
+             w("obligaci[óo]n"), w("obligatori[oa]s?"), w("exigencia")],
     /* `conviene` BELONGS HERE and was only in the inflation check's own list.
      * Two vocabularies for one idea is how they drift: the fixer was told to
      * render `should` as `conviene`, did so correctly, and the profile then
      * scored weak 0 because THIS list had never heard of it -- so the
      * weak-loss rule refused a faithful translation. Fourth gap of this family
      * today, and the first caused by having two lists rather than one. */
-    weak:   [/\bpuede[n]?\b/gi, /\bpodr[íi]an?\b/gi, /\bdeber[íi]an?\b/gi,
-             /\bconviene\b/gi, /\bconvendr[íi]a\b/gi, /\bes recomendable\b/gi,
-             /\bopcional(es)?\b/gi, /\brecomien[dz]a[n]?\b/gi, /\bse recomienda\b/gi],
+    weak:   [w("puede[n]?"), w("podr[íi]an?"), w("deber[íi]an?"),
+             w("conviene"), w("convendr[íi]a"), w("es recomendable"),
+             w("opcional(es)?"), w("recomien[dz]a[n]?"), w("se recomienda")],
   },
   "pt-BR": {
-    /* Same nominalisation rule as es-419 above: `requisito(s)` beside `requer`. */
-    strong: [/\bdever[áa]o?\b/gi, /\bdevem\b/gi, /\bdeve\b/gi, /\bexigem?\b/gi,
-             /\brequer(em)?\b/gi, /\brequisitos?\b/gi,
-             /\btem que\b/gi, /\bt[êe]m que\b/gi,
+    /* Same nominalisation rule as es-419 above: `requisito(s)` beside `requer`.
+     * `deverao` was missing outright -- the class held only [aa], so the plural
+     * future of the single most common Portuguese obligation was unmatched
+     * whether or not the boundary worked. */
+    strong: [w("dever[áa]"), w("dever[ãa]o"), w("devem"), w("deve"), w("exigem?"),
+             w("requer(em)?"), w("requisitos?"),
+             w("tem que"), w("t[êe]m que"),
              /* Same impersonal necessity as es-419 above, and the same
               * narrowing: the construction, never the bare adjective. */
-             /\b[ée] necess[áa]rio\b/gi, /\bseja necess[áa]rio\b/gi, /\bnecess[áa]rio que\b/gi,
-             /\bobrigat[óo]ri[oa]s?\b/gi, /\bobriga[çc][ãa]o\b/gi, /\bexig[êe]ncia\b/gi],
+             w("[ée] necess[áa]rio"), w("seja necess[áa]rio"), w("necess[áa]rio que"),
+             w("obrigat[óo]ri[oa]s?"), w("obriga[çc][ãa]o"), w("exig[êe]ncia")],
     /* Same as es-419: the ABNT rendering of `should` lives HERE, not only in
      * the inflation check. */
-    weak:   [/\bpode[m]?\b/gi, /\bpoderiam?\b/gi, /\bdeveriam?\b/gi,
-             /\bconv[ée]m\b/gi, /\b[ée] recomend[áa]vel\b/gi,
-             /\bopcional(is|es)?\b/gi, /\brecomenda[m]?\b/gi, /\brecomenda-se\b/gi],
+    weak:   [w("pode[m]?"), w("poderiam?"), w("deveriam?"),
+             w("conv[ée]m"), w("[ée] recomend[áa]vel"),
+             w("opcional(is|es)?"), w("recomenda[m]?"), w("recomenda-se")],
   },
 };
 
@@ -421,6 +455,42 @@ export function checkFaithful() {
   for (const [en, tgt, lang, want] of inflation) {
     const got = noModalInflation(en, tgt, lang).ok;
     if (got !== want) bad.push(`inflation ${lang}: ${JSON.stringify(tgt.slice(0, 46))} -> got ok=${got}, want ${want}`);
+  }
+
+  /* ============ THE ACCENTED FORMS, WHICH NOTHING ABOVE EXERCISES ==========
+   *
+   * EVERY case above is written in unaccented Spanish and Portuguese -- `debe`,
+   * `deberia`, `Convem`, `necessarios`. That is house style for this repo and it
+   * is why an accent bug in the vocabulary was structurally unreachable: the
+   * controls could not have caught it, because they never wrote an accent.
+   *
+   * So these assert the vocabulary DIRECTLY, in the orthography the translations
+   * actually use, and each one names the modal it is about. `debera` with the
+   * accent is ISO's rendering of `shall` and scored zero for as long as this
+   * file has existed. */
+  const seen = [
+    ["es-419", "La organización deberá considerar el propósito previsto.", "strong", "debera"],
+    ["es-419", "Las organizaciones deberán determinar sus roles.", "strong", "deberan"],
+    ["pt-BR",  "A organização deverá considerar a finalidade pretendida.", "strong", "devera"],
+    ["pt-BR",  "As organizações deverão determinar seus papéis.", "strong", "deverao"],
+    ["pt-BR",  "É necessário que a direção analise criticamente.", "strong", "e necessario"],
+    ["pt-BR",  "É recomendável que a direção analise criticamente.", "weak", "e recomendavel"],
+    ["es-419", "La organización podría documentarlos.", "weak", "podria"],
+    ["pt-BR",  "Convém que a organização considere os resultados.", "weak", "convem"],
+    ["es-419", "Esto crea una obligación para la organización.", "strong", "obligacion"],
+  ];
+  for (const [lang, text, side, label] of seen) {
+    if (modalProfile(text, lang)[side] < 1) {
+      bad.push(`vocabulary ${lang}: "${label}" is invisible to the ${side} list`);
+    }
+  }
+  /* And the negative half: an accented word that is NOT a modal must stay
+   * unseen, or the boundary was widened into a substring match. */
+  for (const [lang, text] of [["es-419", "Los deberes del auditor están descritos."],
+                              ["pt-BR",  "Os deveres do auditor estão descritos."]]) {
+    if (modalProfile(text, lang).strong > 0) {
+      bad.push(`vocabulary ${lang}: "deberes/deveres" is being counted as a modal`);
+    }
   }
   return bad;
 }
