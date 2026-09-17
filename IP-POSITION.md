@@ -201,7 +201,16 @@ endpoint that returns that lesson on demand, in bulk, to any caller, is
 redistribution** — and the fact that a human would have been within their rights
 to read it does not settle what a machine may be served.
 
-The operating rule:
+The operating rule, **amended 2026-09-17**:
+
+> **An MCP returns Certidemy's prose, clause ADDRESSES, and clause text that is
+> QUOTED AND ATTRIBUTED. It never returns clause text in bulk, and never
+> unattributed.**
+
+[Superseded 2026-09-17. The rule below was the operating rule from this
+document's first version until that date, and the paragraphs after it explain
+why it moved. It is preserved because the repairs made under it are still in the
+corpus and a reader needs to know what they were made for.]
 
 > **An MCP returns Certidemy's prose and clause ADDRESSES. It never returns
 > clause TEXT.**
@@ -209,6 +218,51 @@ The operating rule:
 *Address* means the identifier — `ISO/IEC 42001:2023 clause 6.1.3 e)`, `Annex A`,
 `A.5.19`. An address is a fact and a citation; it is how a reader finds the
 authoritative source, which they must hold themselves.
+
+### Why the rule moved, recorded as reasoning rather than as a change
+
+**Quoting a clause with attribution, in material that teaches that standard, is
+normal practice across the industry.** Training providers, textbooks and
+certification bodies do it routinely and openly. A rule that forbids what every
+comparable publisher does is not a conservative reading of the risk; it is a
+different rule from the one the field operates under, adopted without saying so.
+
+**The address-not-text rule was written before anything had been measured.** It
+was drafted in this document's section 6 as an a-priori boundary, at a point
+where the corpus had not been scanned and nobody knew whether the quotations
+were eight words or eighty, attributed or bare, two lessons or two hundred. The
+measurements in sections 2 and 3 arrived afterwards and were run against a rule
+that had already been fixed.
+
+**Measured, it was stricter than the risk warrants.** Section 3 found that of
+the long runs, all were attributed — the corpus was already doing the thing the
+industry considers acceptable, and the rule was refusing it anyway.
+
+### What stays
+
+- **No bulk reproduction.** An endpoint that reassembles a standard from its
+  quotations is redistribution however each fragment is marked. The argument at
+  the top of this section is unchanged and is the reason the rule has a shape at
+  all rather than being dropped.
+- **No unattributed clause text.** A quotation without its source is a
+  reproduction, and this half is now the operative constraint rather than an
+  incidental property of the corpus.
+- **Attribution on every quotation.** Not merely set off — *named*. A
+  blockquote is a typographic choice; an attribution is a claim about whose
+  words these are.
+
+### What changes
+
+A marked, attributed blockquote is acceptable MCP output. The bullet below that
+said otherwise is struck.
+
+### The 271 repairs already made stay made
+
+They were made under the stricter rule and they are better prose than what they
+replaced. Reverting them would be work spent to make the corpus worse. **This
+amendment is not a finding that the repairs were wrong** — it is a finding that
+they were not all necessary, which is a different thing and only visible from
+the far side of having done them.
 
 This is machine-checkable. `scripts/lib/citation-index.mjs` already parses the
 three standards into the set of addresses that exist, and `items.citations` in
@@ -218,12 +272,47 @@ into a leak detector for any MCP response.
 **What follows from the rule:**
 
 - Lesson prose is returnable. It is Certidemy's expression.
-- Quoted clause text inside a lesson is **not** returnable through an MCP, even
-  though it is defensible inside the lesson. Same words, different act.
+- [Struck 2026-09-17 by the amendment above.] ~~Quoted clause text inside a
+  lesson is **not** returnable through an MCP, even though it is defensible
+  inside the lesson. Same words, different act.~~ Quoted clause text IS
+  returnable when it is attributed and not bulk.
 - The Bodies of Knowledge are the safest content in the corpus, measured.
 - **AISM-I cites no ISO standard at all** — 226 concepts, 1,098 items, zero
   citations — and is wholly original. It carries no question this document needs
   to answer.
+
+### What the amended rule costs the detector, measured before adopting it
+
+The old rule was cheap to enforce because it did not need to know where in a
+lesson a run sat. `scan-iso-leaks.mjs` normalises the whole `content_md` into one
+word stream, and `norm()` turns `>` into a space — **the blockquote marker is
+destroyed before anything is measured.** A scanner in that shape cannot tell a
+quotation from prose, and a rule it cannot express would mean withholding
+lessons this position now permits, which is worse than the rule just relaxed.
+
+It is expressible, and the change is smaller than it looks: exempt lines **CUT**
+the stream into segments rather than being deleted from it, and each segment is
+measured alone. Deleting them would make the line before and the line after
+adjacent and could measure a run across a junction that does not exist in the
+document — the same manufactured adjacency as a `GROUP BY` over a nullable key.
+`scripts/measure-blockquote-exemption.mjs` carries the control that matters:
+with **nothing** exempt, segmented measurement reproduces the current number on
+every row. Anything else would mean the segmentation, not the exemption, was
+changing the verdict.
+
+**Attribution is detectable here for a reason that will not generalise.** An ISO
+attribution is a DESIGNATION — `ISO/IEC 27001:2022`, `9.2.2`, `Annex A` — written
+identically in all three languages. The Scrum Guide attribution is a TITLE that
+translates, and `guide-runs.mjs` records what that cost: an English-only pattern
+reported 54 trilingual violations that did not exist. Do not read this section as
+evidence that attribution detection is generally tractable.
+
+**And the detector cannot police attribution in translations at all.** The index
+is English ISO text, so an es-419 or pt-BR row measures zero by construction and
+the verdict is taken over the lesson group. That was sound under a rule that
+refused all clause text. Under a rule whose operative half is *attributed*, it
+means **"attribution on every quotation" is machine-enforced in English and
+editorial everywhere else.** Stated here rather than discovered later.
 
 ---
 

@@ -1,0 +1,273 @@
+{
+ "cert": "ISMS-IA",
+ "threshold": 10,
+ "blockquotes": {
+  "total": 58,
+  "attributed": 39,
+  "bare": 19
+ },
+ "servable": {
+  "today": 21,
+  "exempted": 30,
+  "of": 114
+ },
+ "still_refused": [
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "words": 87,
+   "text": "in order that it does not recur or occur elsewhere by 1 reviewing the nonconformity 2 determining the causes of the nonconformity 3 determining if similar nonconformities exist or could potentially occur c implement any action needed d review the effectiveness of any corrective action taken e make changes to the information security management system if necessary corrective actions shall be appropriate to the effects of the nonconformities encountered documented information shall be available as evidence of the nature of the nonconformities and any subsequent actions taken"
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "words": 39,
+   "text": "a define the audit criteria and scope for each audit b select auditors and conduct audits that ensure objectivity and the impartiality of the audit process c ensure that the results of the audits are reported to relevant management"
+  },
+  {
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "words": 31,
+   "text": "these persons are competent on the basis of appropriate education training or experience c where applicable take actions to acquire the necessary competence and evaluate the effectiveness of the actions taken"
+  },
+  {
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "words": 30,
+   "text": "determine a what needs to be monitored and measured including information security processes and controls b the methods for monitoring measurement analysis and evaluation as applicable to ensure valid results"
+  },
+  {
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "words": 28,
+   "text": "the organization shall determine what will be done what resources will be required who will be responsible when it will be completed how the results will be evaluated"
+  },
+  {
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "words": 26,
+   "text": "it is not possible for internal auditors to be independent of the activity being audited every effort should be made to remove bias and encourage objectivity"
+  },
+  {
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "words": 26,
+   "text": "the organization shall determine the boundaries and applicability of the information security management system to establish its scope when determining this scope the organization shall consider"
+  },
+  {
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "words": 21,
+   "text": "shall e be available as documented information f be communicated within the organization g be available to interested parties as appropriate"
+  },
+  {
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "words": 19,
+   "text": "excluding any of the requirements specified in clauses 4 to 10 is not acceptable when an organization claims conformity"
+  },
+  {
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "words": 18,
+   "text": "where an organization performs work or provides a service using an online environment enabling individuals to execute processes"
+  },
+  {
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "words": 17,
+   "text": "produce a statement of applicability that contains the necessary controls see 6 1 3 b and c"
+  },
+  {
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "words": 16,
+   "text": "on matters that are significant for the audit client and for achieving the audit programme objectives"
+  },
+  {
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "words": 16,
+   "text": "evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled"
+  },
+  {
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "words": 14,
+   "text": "iso iec 17021 1 provides requirements for auditing management systems for third party certification"
+  },
+  {
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "words": 13,
+   "text": "consider the importance of the processes concerned and the results of previous audits"
+  },
+  {
+   "slug": "isms-ia-05-03-the-statement-that-survives",
+   "words": 13,
+   "text": "unresolved diverging opinions between the audit team and the auditee should be reported"
+  },
+  {
+   "slug": "isms-ia-03-03-what-a-screen-share-establishes",
+   "words": 13,
+   "text": "remote auditing methods can introduce additional risks and opportunities to the audit process"
+  },
+  {
+   "slug": "isms-ia-05-07-where-the-audit-lands",
+   "words": 12,
+   "text": "include decisions related to continual improvement opportunities and any need for changes"
+  },
+  {
+   "slug": "isms-ia-01-01-audit-parties",
+   "words": 11,
+   "text": "be reviewed independently at planned intervals or when significant changes occur"
+  },
+  {
+   "slug": "isms-ia-04-07-two-sentences",
+   "words": 11,
+   "text": "the organization shall determine whether climate change is a relevant issue"
+  },
+  {
+   "slug": "isms-ia-05-04-what-the-report-must-disclose",
+   "words": 11,
+   "text": "provide a complete accurate concise and clear record of the audit"
+  },
+  {
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "words": 11,
+   "text": "assigning responsibility for an individual audit to the audit team leader"
+  },
+  {
+   "slug": "isms-ia-05-01-whose-scheme-is-it",
+   "words": 10,
+   "text": "the audit criteria are legal including statutory or regulatory requirements"
+  },
+  {
+   "slug": "isms-ia-04-10-one-word-apart",
+   "words": 10,
+   "text": "define the audit objectives criteria and scope for each audit"
+  },
+  {
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "words": 10,
+   "text": "the basis for the impartiality of the audit and the"
+  },
+  {
+   "slug": "isms-ia-03-07-where-the-audit-stops",
+   "words": 10,
+   "text": "be planned and agreed between the tester and appropriate management"
+  },
+  {
+   "slug": "isms-ia-04-08-assets-nobody-registered",
+   "words": 10,
+   "text": "an inventory of information and other associated assets including owners"
+  },
+  {
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "words": 10,
+   "text": "information through effective interviewing listening observing and reviewing documented information"
+  }
+ ],
+ "incoherent_groups": 0,
+ "bare": [
+  {
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "language": "en",
+   "lead_in": "The second note defines what a virtual location is:",
+   "quote": "> where an organization performs work or provides a service using an online environment, enabling individuals "
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "The second subclause governs the programme itself:",
+   "quote": "> The organization shall plan, establish, implement and maintain an audit programme(s), including the frequenc"
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "Then the sentence from lesson 02-01, and three lettered requirements:",
+   "quote": "> When establishing the internal audit programme(s), the organization shall consider the importance of the pro"
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "Then the sentence from lesson 02-01, and three lettered requirements:",
+   "quote": "> a) define the audit criteria and scope for each audit;"
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "Then the sentence from lesson 02-01, and three lettered requirements:",
+   "quote": "> b) select auditors and conduct audits that ensure objectivity and the impartiality of the audit process;"
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "Then the sentence from lesson 02-01, and three lettered requirements:",
+   "quote": "> c) ensure that the results of the audits are reported to relevant management."
+  },
+  {
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "language": "en",
+   "lead_in": "**And the closing requirement:**",
+   "quote": "> Documented information shall be available as evidence of the implementation of the audit programme(s) and th"
+  },
+  {
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "en",
+   "lead_in": "The scope is not a boundary somebody drew. It is a determination the standard requires to ",
+   "quote": "> The organization shall determine the boundaries and applicability of the information security management sys"
+  },
+  {
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "en",
+   "lead_in": "The scope is not a boundary somebody drew. It is a determination the standard requires to ",
+   "quote": "> c) **interfaces and dependencies between activities performed by the organization, and those that are perfor"
+  },
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "en",
+   "lead_in": "Short, and it does more than most people use:",
+   "quote": "> a) react to the nonconformity and, as applicable: 1) take action to control and correct it; 2) deal with the"
+  },
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "en",
+   "lead_in": "Short, and it does more than most people use:",
+   "quote": "> b) evaluate the need for action to eliminate the cause(s) of the nonconformity, in order that it does not re"
+  },
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "en",
+   "lead_in": "Short, and it does more than most people use:",
+   "quote": "> e) make changes to the information security management system, if necessary."
+  },
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "en",
+   "lead_in": "Short, and it does more than most people use:",
+   "quote": "> Corrective actions shall be **appropriate to the effects** of the nonconformities encountered."
+  },
+  {
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "language": "en",
+   "lead_in": "Short, and it does more than most people use:",
+   "quote": "> Documented information shall be available as evidence of the nature of the nonconformities and any subsequen"
+  },
+  {
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "language": "en",
+   "lead_in": "**And one sentence people skip:**",
+   "quote": "> Documented information **of external origin**, determined by the organization to be necessary for the planni"
+  },
+  {
+   "slug": "isms-ia-04-07-two-sentences",
+   "language": "en",
+   "lead_in": "Its normative body, in full:",
+   "quote": "> *The organization shall determine whether climate change is a relevant issue.*"
+  },
+  {
+   "slug": "isms-ia-04-07-two-sentences",
+   "language": "en",
+   "lead_in": "Its normative body, in full:",
+   "quote": "> *NOTE 2 &nbsp; Relevant interested parties can have requirements related to climate change.*"
+  },
+  {
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "en",
+   "lead_in": "**Two more sentences close the clause:**",
+   "quote": "> Documented information shall be available as evidence of the results."
+  },
+  {
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "en",
+   "lead_in": "**Two more sentences close the clause:**",
+   "quote": "> The organization shall **evaluate the information security performance and the effectiveness** of the inform"
+  }
+ ]
+}
