@@ -93,25 +93,47 @@ const MODALS = {
     strong: [/\bdeber[áa]n?\b/gi, /\bdeben\b/gi, /\bdebe\b/gi, /\bexigen?\b/gi,
              /\brequieren?\b/gi, /\brequisitos?\b/gi, /\brequerimientos?\b/gi,
              /\btiene que\b/gi, /\btienen que\b/gi,
-             /* IMPERSONAL NECESSITY. Spanish states a duty with "es necesario"
-              * where English uses "has to be done" -- no modal verb, same
-              * force. Found the same way as the nominalisations: a faithful
-              * translation refused as a dropped obligation. */
-             /\bnecesari[oa]s?\b/gi, /\bhace falta\b/gi, /\bprecisa[n]? de\b/gi,
+             /* IMPERSONAL NECESSITY ONLY -- "es necesario", never bare
+              * "necesarios".
+              *
+              * The first version matched the bare adjective and immediately
+              * produced two false refusals: "Cuando sean necesarios controles
+              * diferentes" is DESCRIPTIVE -- where different controls are
+              * necessary -- and its English counterpart `necessary` is not on
+              * the English list either. Same word, two verdicts, which is the
+              * cross-language disagreement that has now surfaced three times in
+              * this file.
+              *
+              * THE RULE: a bare adjective is not a modal. "es necesario hacer X"
+              * imposes; "los controles necesarios" describes. Match the
+              * construction, not the word. */
+             /\b(es|sea|era|fuera|ser[áa]) necesario\b/gi, /\bnecesario que\b/gi,
+             /\bhace falta\b/gi,
              /\bobligaci[óo]n\b/gi, /\bobligatori[oa]s?\b/gi, /\bexigencia\b/gi],
+    /* `conviene` BELONGS HERE and was only in the inflation check's own list.
+     * Two vocabularies for one idea is how they drift: the fixer was told to
+     * render `should` as `conviene`, did so correctly, and the profile then
+     * scored weak 0 because THIS list had never heard of it -- so the
+     * weak-loss rule refused a faithful translation. Fourth gap of this family
+     * today, and the first caused by having two lists rather than one. */
     weak:   [/\bpuede[n]?\b/gi, /\bpodr[íi]an?\b/gi, /\bdeber[íi]an?\b/gi,
-             /\bopcional(es)?\b/gi, /\brecomien[dz]a[n]?\b/gi],
+             /\bconviene\b/gi, /\bconvendr[íi]a\b/gi, /\bes recomendable\b/gi,
+             /\bopcional(es)?\b/gi, /\brecomien[dz]a[n]?\b/gi, /\bse recomienda\b/gi],
   },
   "pt-BR": {
     /* Same nominalisation rule as es-419 above: `requisito(s)` beside `requer`. */
     strong: [/\bdever[áa]o?\b/gi, /\bdevem\b/gi, /\bdeve\b/gi, /\bexigem?\b/gi,
              /\brequer(em)?\b/gi, /\brequisitos?\b/gi,
              /\btem que\b/gi, /\bt[êe]m que\b/gi,
-             /* Same impersonal necessity as es-419 above. */
-             /\bnecess[áa]ri[oa]s?\b/gi, /\bpreciso\b/gi,
+             /* Same impersonal necessity as es-419 above, and the same
+              * narrowing: the construction, never the bare adjective. */
+             /\b[ée] necess[áa]rio\b/gi, /\bseja necess[áa]rio\b/gi, /\bnecess[áa]rio que\b/gi,
              /\bobrigat[óo]ri[oa]s?\b/gi, /\bobriga[çc][ãa]o\b/gi, /\bexig[êe]ncia\b/gi],
+    /* Same as es-419: the ABNT rendering of `should` lives HERE, not only in
+     * the inflation check. */
     weak:   [/\bpode[m]?\b/gi, /\bpoderiam?\b/gi, /\bdeveriam?\b/gi,
-             /\bopcional(is|es)?\b/gi, /\brecomenda[m]?\b/gi],
+             /\bconv[ée]m\b/gi, /\b[ée] recomend[áa]vel\b/gi,
+             /\bopcional(is|es)?\b/gi, /\brecomenda[m]?\b/gi, /\brecomenda-se\b/gi],
   },
 };
 
@@ -218,6 +240,68 @@ export function preservesObligationAcross(source, sourceLang, target, targetLang
   return { ok: true, inserted: false, before: b, after: a, reason: "obligation force carried across" };
 }
 
+/* ============ INFLATION IS ITS OWN DEFECT AND NEEDS ITS OWN CHECK ============
+ *
+ * `preservesObligationAcross` catches a DROPPED obligation. This catches the
+ * opposite: English says SHOULD and the translation says MUST.
+ *
+ * It is deliberately NOT folded into the other function, and `should` is
+ * deliberately NOT made a same-strength match for `debe`. Those would both blur
+ * the two directions together, and they are different defects with different
+ * causes -- one loses a requirement, the other invents one.
+ *
+ * ============ WHY THE DISTINCTION FROM THE IDIOMATIC CASE IS CLEAN ==========
+ *
+ * The 0 -> 1 direction was downgraded to a flag because English encodes
+ * obligation in syntax: "what not to do" is "lo que no se debe hacer", and a
+ * faithful translation of an English infinitive acquires a modal. That case has
+ * NO MODAL AT ALL in the English -- strong 0 and weak 0.
+ *
+ * Inflation is different and unambiguous: the English states a WEAK modal
+ * explicitly. `should` is not an infinitive that Spanish must render with a
+ * modal; it is a word with a Spanish counterpart, and choosing `debe` over
+ * `deberia` changes what the clause requires.
+ *
+ * ============ AND IT IS SUBSTANTIVE ON THESE CERTIFICATIONS ============
+ *
+ * AIMS-F teaches the shall/should distinction outright -- lesson 02-06's
+ * Spanish says "lo importante es que se trata de un deberá". Explaining the
+ * difference in English and collapsing it in translation is precisely what an
+ * ISO shop reads for a living.
+ *
+ * ABNT renders `should` as "convém que"; Spanish practice uses "debería" or
+ * "conviene". Measured across this corpus before the check was written:
+ * `conviene` 0 occurrences, `convém` 0, and Portuguese `deveria` once against
+ * `deve`/`devem` 31 times.
+ */
+/* DERIVED, NOT DUPLICATED. This was a second hand-written vocabulary and it
+ * immediately diverged from MODALS[lang].weak -- `convem` was in one and not
+ * the other, so the fixer produced the correct ABNT rendering and the profile
+ * scored it as no modal at all. One list. */
+const weakFormsOf = (lang) => MODALS[lang]?.weak ?? [];
+
+/**
+ * Did a WEAK English modal become a STRONG one in translation?
+ *
+ * { ok, reason, english, target } -- ok === false is a refusal.
+ */
+export function noModalInflation(english, target, targetLang) {
+  const e = modalProfile(english, "en");
+  const t = modalProfile(target, targetLang);
+  // Only fires when the English SAYS should/may/can and says no shall/must.
+  if (e.weak === 0 || e.strong > 0) return { ok: true, english: e, target: t, reason: "no weak-only English modal" };
+  if (t.strong === 0) return { ok: true, english: e, target: t, reason: "target is not strong" };
+  const softInTarget = weakFormsOf(targetLang)
+    .reduce((n, re) => n + ((String(target).match(re) || []).length), 0);
+  if (softInTarget > 0) {
+    return { ok: true, english: e, target: t,
+      reason: "target carries a weak form alongside; the strong one is elsewhere in the sentence" };
+  }
+  return { ok: false, english: e, target: t,
+    reason: "the English says should/may and the translation states a requirement -- " +
+            "use deberia / conviene (es) or convem que / deveria (pt), not debe / deve" };
+}
+
 /**
  * POSITIVE CONTROL. A guard that cannot fire is indistinguishable from one that
  * fired and found nothing, and this one guards a rule whose violations score
@@ -304,6 +388,39 @@ export function checkFaithful() {
       "Awareness programmes consist entirely of what not to do.", "en",
       "Los programas consisten enteramente en lo que no se debe hacer.", "es-419");
     if (!f.ok || !f.inserted) bad.push("0->1 across languages should be ok with inserted=true");
+  }
+
+  /* INFLATION. The four cases that matter, and the two it must NOT fire on. */
+  const inflation = [
+    // REAL: English should -> target must.
+    ["The organization should consider the results.",
+     "La organizacion debe considerar los resultados.", "es-419", false],
+    ["The organization should consider the results.",
+     "A organizacao deve considerar os resultados.", "pt-BR", false],
+    // CORRECT renderings of the same English.
+    ["The organization should consider the results.",
+     "La organizacion deberia considerar los resultados.", "es-419", true],
+    ["The organization should consider the results.",
+     "Convem que a organizacao considere os resultados.", "pt-BR", true],
+    // MUST NOT FIRE: English carries a shall, so a strong target is right even
+    // though a `may` sits beside it.
+    ["The organization shall consider the results and may document them.",
+     "La organizacion debe considerar los resultados y puede documentarlos.", "es-419", true],
+    // MUST NOT FIRE: no English modal at all -- the idiomatic case.
+    ["Awareness programmes consist entirely of what not to do.",
+     "Los programas consisten enteramente en lo que no se debe hacer.", "es-419", true],
+    // MUST NOT FIRE: `necesarios` as a BARE ADJECTIVE is descriptive, and its
+    // English counterpart `necessary` is not on the English list either. This
+    // case produced two false refusals before the Spanish pattern was narrowed
+    // to the impersonal construction.
+    ["Where different or additional controls are necessary, the organization can design them itself.",
+     "Cuando sean necesarios controles diferentes o adicionales, la organizacion puede disenarlos ella misma.", "es-419", true],
+    ["Where different or additional controls are necessary, the organization can design them itself.",
+     "Quando forem necessarios controles diferentes ou adicionais, a organizacao pode projeta-los ela mesma.", "pt-BR", true],
+  ];
+  for (const [en, tgt, lang, want] of inflation) {
+    const got = noModalInflation(en, tgt, lang).ok;
+    if (got !== want) bad.push(`inflation ${lang}: ${JSON.stringify(tgt.slice(0, 46))} -> got ok=${got}, want ${want}`);
   }
   return bad;
 }
