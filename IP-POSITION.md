@@ -329,8 +329,13 @@ So, plainly, for anyone acting on this section:
 | | English | es-419 / pt-BR |
 |---|---|---|
 | clause text detected | by the scanner | **not at all** |
-| quotation set off | by the scanner | **not at all** |
-| attribution present | by the scanner | **by a human, or not at all** |
+| quotation set off | by the scanner | ~~not at all~~ **by `check-attribution-parity.mjs`** |
+| attribution present | by the scanner | ~~by a human, or not at all~~ **by `check-attribution-parity.mjs`** |
+
+[Rows 2 and 3 corrected 2026-09-17 late. They read "not at all" for one day, and
+in that day the gap produced 25 real defects. See "two thirds of it closed" below
+-- `>` and a clause designation are both language-invariant, so both are
+checkable without holding a translated edition of anything.]
 
 **A clean scan is evidence about the English and about nothing else.** The
 constraint the amended rule adds — attribution on every quotation — is carried
@@ -338,9 +343,37 @@ in the other two languages by whoever writes and reviews them. Anyone who reads
 a green result as covering all three languages has read it wrong, and this
 paragraph exists so that is not discoverable only after it matters.
 
-Closing it would mean indexing the Spanish and Portuguese editions of ISO 19011,
-27001 and 42001. We do not hold them. That is the whole reason, and it is a
+Closing it *for the wording* would mean indexing the Spanish and Portuguese
+editions of ISO 19011, 27001 and 42001. We do not hold them. That is a
 purchasing decision rather than an engineering one.
+
+### But two thirds of it closed the same day, and cheaply
+
+[Added 2026-09-17 late.] The argument above is about the detector not being able
+to read translated ISO text. That is true of the WORDING and false of the two
+things the amended rule actually turns on, because **neither is ISO text**:
+
+| property | invariant? | now checked by |
+|---|---|---|
+| is the quotation **set off**? | `>` is markup | `check-attribution-parity.mjs` |
+| is it **attributed**? | `9.2.2`, `ISO/IEC 27001:2022` are designations | same |
+| does the translation **say what the English says**? | no | still a human |
+
+**It was not theoretical for a single day.** Fourteen translated lines had lost
+a clause designation and **eleven had lost the `>` altogether** — quoted and
+attributed in English, ordinary unattributed prose in Spanish or Portuguese,
+which is precisely what this section does not permit. They were introduced by
+the re-translation pass itself: its prompt enumerated three marker kinds to
+preserve (`**bold**`, `*italic*`, glossary annotations) and omitted the
+blockquote.
+
+All 25 are repaired, and the cause is closed at both ends — the prompt now names
+the marker and the designation, and `retranslate-repaired-passages.mjs` refuses
+a completion that drops either, because **a prompt is not a guard.**
+
+So the honest statement of the gap is narrower than it was: *the reader is
+mechanically guaranteed to be shown that these words are someone else's, and
+whose. Whether the rendering is faithful is still editorial.*
 
 ---
 

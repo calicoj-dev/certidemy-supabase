@@ -1,0 +1,276 @@
+{
+ "groups": 479,
+ "quotes": 104,
+ "findings": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 11,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 11,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 12,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 12,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 13,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 13,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "block": 3,
+   "line": 2,
+   "missing": [
+    "STD:19011:2026"
+   ],
+   "en_lead": "ISO 19011:2026 addresses this under **independence**, one of its seven principles. Two sentences carry the weight:",
+   "sib_lead": "Los auditores deberían ser independientes de la actividad que se audita **siempre que sea practicable** y, en todos los casos, deb"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 2,
+   "missing": [
+    "STD:19011:2026"
+   ],
+   "en_lead": "ISO 19011:2026 addresses this under **independence**, one of its seven principles. Two sentences carry the weight:",
+   "sib_lead": "Os auditores deveriam ser independentes da atividade sendo auditada **sempre que praticável** e deveriam, em todos os casos, agir "
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 1,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 2,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 3,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 4,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 5,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 6,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  }
+ ],
+ "markers_checked": 243,
+ "marker_findings": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 1,
+   "en": "> The risk-based approach should substantively influence the planning and implementation of the audit programm",
+   "sib": "A abordagem baseada em risco convém que influencie de forma substancial o planejamento e a implementação do pr"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "block": 3,
+   "line": 1,
+   "en": "> Auditors should be independent of the activity being audited **wherever practicable** and should in all case",
+   "sib": "Los auditores deberían ser independientes de la actividad que se audita **siempre que sea practicable** y, en "
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 1,
+   "en": "> Auditors should be independent of the activity being audited **wherever practicable** and should in all case",
+   "sib": "Os auditores deveriam ser independentes da atividade sendo auditada **sempre que praticável** e deveriam, em t"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "es-419",
+   "block": 3,
+   "line": 2,
+   "en": "> **When it is not possible for internal auditors to be independent of the activity being audited, every effor",
+   "sib": "**Cuando no sea posible que los auditores internos sean independientes de la actividad que se audita, se deber"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 2,
+   "en": "> **When it is not possible for internal auditors to be independent of the activity being audited, every effor",
+   "sib": "**Quando não for possível que auditores internos sejam independentes da atividade sendo auditada, convém que t"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 1,
+   "en": "> **Audit evidence leading to audit findings should be recorded.**",
+   "sib": "**As evidências de auditoria que levam a constatações de auditoria deveriam ser registradas.**"
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "language": "es-419",
+   "block": 1,
+   "line": 4,
+   "en": "> The organization **shall implement the controls settled under 6.1.3** that bear on operating the AI manageme",
+   "sib": "La organización **deberá implementar los controles establecidos conforme al apartado 6.1.3** que estén relacio"
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 4,
+   "en": "> The organization **shall implement the controls settled under 6.1.3** that bear on operating the AI manageme",
+   "sib": "A organização **deve implementar os controles estabelecidos de acordo com 6.1.3** que estejam relacionados à o"
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "language": "es-419",
+   "block": 2,
+   "line": 1,
+   "en": "> The controls set out in Table A.1 give the organization a reference for meeting its objectives and handling ",
+   "sib": "Los controles establecidos en la Tabla A.1 proporcionan a la organización una referencia para cumplir sus obje"
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "es-419",
+   "block": 1,
+   "line": 1,
+   "en": "> The organization **shall determine whether climate change is, for it, a relevant issue.**",
+   "sib": "La organización **deberá determinar si el cambio climático es, para ella, un tema relevante.**"
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 1,
+   "en": "> The organization **shall determine whether climate change is, for it, a relevant issue.**",
+   "sib": "A organização **deve determinar se as mudanças climáticas são, para ela, uma questão relevante.**"
+  }
+ ]
+}

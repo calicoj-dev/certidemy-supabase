@@ -1,0 +1,152 @@
+{
+ "groups": 479,
+ "quotes": 104,
+ "findings": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 11,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 11,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 12,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 12,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "es-419",
+   "block": 3,
+   "line": 13,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Dos oraciones más cierran el apartado:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "language": "pt-BR",
+   "block": 3,
+   "line": 13,
+   "missing": [
+    "CL:9.1"
+   ],
+   "en_lead": "**Two more sentences close clause 9.1:**",
+   "sib_lead": "**Mais duas frases encerram a seção:**"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 1,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 2,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 3,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 4,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 5,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "language": "pt-BR",
+   "block": 1,
+   "line": 6,
+   "missing": [
+    "CL:4.3"
+   ],
+   "en_lead": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+   "sib_lead": "O escopo não é uma fronteira que alguém traçou. É uma determinação que a norma exige que seja feita a partir de entradas declarada"
+  }
+ ],
+ "markers_checked": 243,
+ "marker_findings": []
+}

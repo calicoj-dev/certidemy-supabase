@@ -114,9 +114,15 @@ async function translate(english, current, langName) {
     "1. Translate the ENGLISH PARAGRAPH. An existing translation is supplied only so you " +
     "match its register and its terminology decisions. It is being REPLACED because it " +
     "renders an older English text. Do not copy it where the English has changed.\n" +
-    "2. Reproduce every markdown marker exactly: **bold**, *italic*, and glossary " +
+    "2. Reproduce every markdown marker exactly. A line beginning with `> ` is a " +
+    "BLOCKQUOTE and your line must begin with `> ` too -- dropping it turns a quotation " +
+    "into ordinary prose. Also list markers, **bold**, *italic*, and glossary " +
     "annotations of the form [visible text]{glossary=\"key\"}. Translate the visible text " +
     "inside the brackets; NEVER translate or alter the key.\n" +
+    "2b. IF THE ENGLISH NAMES A STANDARD OR A CLAUSE -- ISO/IEC 27001:2022, clause 9.2.2, " +
+    "Annex A -- THE SAME DESIGNATION MUST APPEAR IN YOURS. Render the noun (clause / " +
+    "clausula / secao) however the register requires, but never drop the number or the " +
+    "standard: it is what attributes the quotation.\n" +
     "3. FOLLOW THE EXISTING TRANSLATION'S TERMINOLOGY IN BOTH DIRECTIONS. Keep in English " +
     "whatever it keeps in English (Sprint, Product Backlog, Scrum Team, Definition of Done, " +
     "Statement of Applicability). And keep TRANSLATED whatever it translates: if it writes " +
@@ -325,6 +331,34 @@ for (const j of todo) {
   }
   if (boldCount(j.english) !== boldCount(after)) {
     problems.push(j.slug + "/" + j.language + ": bold markers " + boldCount(j.english) + " -> " + boldCount(after)); continue;
+  }
+  /* ============ THE MARKER AND THE DESIGNATION, BOTH STRUCTURAL ============
+   *
+   * The prompt above now names the blockquote marker. THE PROMPT IS NOT THE
+   * GUARD: eleven lines lost their `>` while the prompt listed three marker
+   * kinds and omitted the fourth, the applier spliced them in as given, and a
+   * quotation set off in English became ordinary prose in Spanish or
+   * Portuguese. Nothing here noticed; a separate script found it later.
+   *
+   * Both checks compare the ENGLISH to the completion on a property that is
+   * language-invariant -- markup, and a standard's designation -- so neither can
+   * be wrong about a faithful translation. */
+  if (/^\s*>/.test(j.english) && !/^\s*>/.test(after)) {
+    problems.push(j.slug + "/" + j.language + ": LOST THE BLOCKQUOTE MARKER -- a quotation became prose"); continue;
+  }
+  const addrOf = (t) => {
+    const out = new Set();
+    for (const m of String(t).matchAll(/ISO(?:\/IEC)?\s*(\d{4,5})(?:\s*:\s*(\d{4}))?/gi)) {
+      out.add("STD:" + m[1] + (m[2] ? ":" + m[2] : ""));
+    }
+    for (const m of String(t).matchAll(/\b(\d+(?:\.\d+)+)\b/g)) out.add("CL:" + m[1]);
+    return out;
+  };
+  const haveAddr = addrOf(after);
+  const missingAddr = [...addrOf(j.english)].filter((a) => !haveAddr.has(a));
+  if (missingAddr.length) {
+    problems.push(j.slug + "/" + j.language + ": DROPPED THE DESIGNATION " + missingAddr.join(", ") +
+      " -- the English attributes this quotation and the translation would not"); continue;
   }
   const lost = terminologyHeld(j.before, after, j.language);
   if (lost.length) { problems.push(j.slug + "/" + j.language + ": TERMINOLOGY reverted to English -- " + lost.join(", ")); continue; }
