@@ -1,0 +1,426 @@
+{
+ "cert": "ISMS-F",
+ "threshold": 10,
+ "premise": {
+  "english_fields_scanned": 147,
+  "fields_with_run": 0,
+  "hits": []
+ },
+ "volume": {
+  "rows": 98,
+  "fields": 294,
+  "characters": 31500,
+  "words": 5133,
+  "per_language": [
+   {
+    "language": "es-419",
+    "rows": 49,
+    "fields": 147,
+    "chars": 15981,
+    "words": 2605
+   },
+   {
+    "language": "pt-BR",
+    "rows": 49,
+    "fields": 147,
+    "chars": 15519,
+    "words": 2528
+   }
+  ],
+  "fragment_words": {
+   "min": 6,
+   "p50": 17,
+   "p90": 26,
+   "max": 32
+  },
+  "short_fragments": 260
+ },
+ "clearing_records_nothing": true,
+ "guard_prepass": [
+  {
+   "domain": "D4",
+   "task": "4.4",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "obligation INSERTED"
+   ],
+   "english": "given a described AI deployment, determines which components belong on the asset inventory and states what each holds or exposes.",
+   "translation": "dada uma implantação de IA descrita, determina quais componentes devem constar no inventário de ativos e indica o que cada um armazena ou expõe."
+  },
+  {
+   "domain": "D2",
+   "task": "2.5",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "recognizes that a documented boundary and an actual boundary can diverge without anyone acting improperly.",
+   "translation": "reconoce que un límite documentado y un límite real pueden divergir sin que nadie haya actuado de manera incorrecta."
+  },
+  {
+   "domain": "D2",
+   "task": "2.3",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "explains what the amendment requires and what it does not require.",
+   "translation": "explica qué exige la enmienda y qué no exige."
+  },
+  {
+   "domain": "D3",
+   "task": "3.2",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "obligation INSERTED"
+   ],
+   "english": "given stated criteria and a risk with stated likelihood and consequence, determines the risk level and classifies it as acceptable, retained, or requiring treatment.",
+   "translation": "ante criterios establecidos y un riesgo con probabilidad y consecuencia definidas, determina el nivel de riesgo y lo clasifica como aceptable, retenido o que requiere tratamiento."
+  },
+  {
+   "domain": "D4",
+   "task": "4.12",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "explains what each control family addresses and how they interact.",
+   "translation": "explica o que cada família de controles aborda e como elas interagem entre si."
+  },
+  {
+   "domain": "D5",
+   "task": "5.3",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "recognizes review as a decision-making event rather than a status report.",
+   "translation": "reconoce la revisión como un evento de toma de decisiones y no como un informe de estado."
+  },
+  {
+   "domain": "D4",
+   "task": "4.3",
+   "field": "abilities",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "locates a governance-shaped control problem in the right theme.",
+   "translation": "localiza um problema de controle de natureza governamental no tema correto."
+  },
+  {
+   "domain": "D4",
+   "task": "4.7",
+   "field": "knowledge",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "supplier controls, agreements, supply-chain reach, and delivery monitoring.",
+   "translation": "controles de fornecedores, acordos, alcance da cadeia de suprimentos e monitoramento de entrega."
+  },
+  {
+   "domain": "D1",
+   "task": "1.4",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "knows where to look rather than assuming one standard contains everything.",
+   "translation": "sabe dónde buscar en lugar de asumir que un solo estándar contiene todo."
+  },
+  {
+   "domain": "D2",
+   "task": "2.1",
+   "field": "knowledge",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/1"
+   ],
+   "english": "what an ISMS is, and the common management-system structure of policy, objectives, process and improvement.",
+   "translation": "qué es un SGSI y la estructura común de un sistema de gestión: política, objetivos, procesos y mejora."
+  },
+  {
+   "domain": "D2",
+   "task": "2.1",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "explains what a management system adds over a set of security measures.",
+   "translation": "explica qué aporta un sistema de gestión más allá de un conjunto de medidas de seguridad."
+  },
+  {
+   "domain": "D2",
+   "task": "2.1",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "thinks of security as a managed system rather than a toolset.",
+   "translation": "concibe la seguridad como un sistema gestionado y no como un conjunto de herramientas."
+  },
+  {
+   "domain": "D4",
+   "task": "4.4",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "obligation INSERTED"
+   ],
+   "english": "given a described AI deployment, determines which components belong on the asset inventory and states what each holds or exposes.",
+   "translation": "dado un despliegue de IA descrito, determina qué componentes deben figurar en el inventario de activos e indica qué contiene o expone cada uno."
+  },
+  {
+   "domain": "D4",
+   "task": "4.8",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "distinguishes assurance obtained from assurance assumed.",
+   "translation": "distingue la garantía obtenida de la garantía asumida."
+  },
+  {
+   "domain": "D4",
+   "task": "4.10",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "responds to non-compliance by diagnosing the need behind it.",
+   "translation": "responde al incumplimiento diagnosticando la necesidad que lo origina."
+  },
+  {
+   "domain": "D4",
+   "task": "4.12",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "explains what each control family addresses and how they interact.",
+   "translation": "explica qué aborda cada familia de controles y cómo interactúan entre sí."
+  },
+  {
+   "domain": "D2",
+   "task": "2.5",
+   "field": "abilities",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "recognizes that a documented boundary and an actual boundary can diverge without anyone acting improperly.",
+   "translation": "reconhece que um limite documentado e um limite real podem divergir sem que ninguém tenha agido de forma inadequada."
+  },
+  {
+   "domain": "D4",
+   "task": "4.8",
+   "field": "abilities",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "distinguishes assurance obtained from assurance assumed.",
+   "translation": "distingue garantia obtida de garantia presumida."
+  },
+  {
+   "domain": "D5",
+   "task": "5.9",
+   "field": "abilities",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "situates the ISMS within a wider management-system landscape.",
+   "translation": "situa o SGSI dentro de um panorama mais amplo de sistemas de gestão."
+  },
+  {
+   "domain": "D5",
+   "task": "5.5",
+   "field": "knowledge",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 2/2"
+   ],
+   "english": "the two audit stages, surveillance, and the three-year cycle.",
+   "translation": "las dos etapas de auditoría, la vigilancia y el ciclo de tres años."
+  },
+  {
+   "domain": "D5",
+   "task": "5.5",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "states what happens at each stage and the sequence they occur in.",
+   "translation": "indica qué ocurre en cada etapa y la secuencia en que se producen."
+  },
+  {
+   "domain": "D5",
+   "task": "5.5",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "states what happens at each stage and the sequence they occur in.",
+   "translation": "descreve o que ocorre em cada estágio e a sequência em que acontecem."
+  },
+  {
+   "domain": "D5",
+   "task": "5.8",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "OBLIGATION: the English permits something and the translation says nothing about it"
+   ],
+   "english": "given an AI-related incident that went undetected, identifies why the monitoring in place could not have surfaced it.",
+   "translation": "dado un incidente relacionado con IA que no fue detectado, identifica por qué el monitoreo implementado no habría podido evidenciarlo."
+  },
+  {
+   "domain": "D5",
+   "task": "5.8",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "recognizes that absence of alerts is not evidence of absence of incident.",
+   "translation": "reconoce que la ausencia de alertas no es evidencia de ausencia de incidente."
+  },
+  {
+   "domain": "D5",
+   "task": "5.8",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "OBLIGATION: the English permits something and the translation says nothing about it"
+   ],
+   "english": "given an AI-related incident that went undetected, identifies why the monitoring in place could not have surfaced it.",
+   "translation": "dado um incidente relacionado à IA que passou despercebido, identifica por que o monitoramento existente não teria conseguido detectá-lo."
+  },
+  {
+   "domain": "D2",
+   "task": "2.1",
+   "field": "knowledge",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "what an ISMS is, and the common management-system structure of policy, objectives, process and improvement.",
+   "translation": "o que é um SGSI e a estrutura comum de sistema de gestão composta por política, objetivos, processos e melhoria."
+  },
+  {
+   "domain": "D4",
+   "task": "4.11",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "distinguishes a control genuinely affected by a technology shift from one merely adjacent to it.",
+   "translation": "distingue un control genuinamente afectado por un cambio tecnológico de uno que simplemente es adyacente a él."
+  },
+  {
+   "domain": "D5",
+   "task": "5.1",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "explains why measuring activity is not measuring effectiveness, and what makes an indicator useful.",
+   "translation": "explica por qué medir la actividad no equivale a medir la efectividad, y qué hace útil a un indicador."
+  },
+  {
+   "domain": "D3",
+   "task": "3.7",
+   "field": "knowledge",
+   "language": "pt-BR",
+   "reasons": [
+    "OBLIGATION: the English imposes a requirement and the translation does not"
+   ],
+   "english": "what a treatment plan contains, what residual risk is, and whose approval is required.",
+   "translation": "o que um plano de tratamento contém, o que é risco residual, e de quem é a aprovação necessária."
+  },
+  {
+   "domain": "D3",
+   "task": "3.11",
+   "field": "skills",
+   "language": "es-419",
+   "reasons": [
+    "OBLIGATION: the English permits something and the translation says nothing about it"
+   ],
+   "english": "given an assessment that returned a clean result against an estate with known AI exposure, identifies the mechanism by which the method could not see the exposure.",
+   "translation": "dada una evaluación que arrojó un resultado limpio frente a un entorno con exposición conocida a IA, identifica el mecanismo por el cual el método no pudo detectar dicha exposición."
+  },
+  {
+   "domain": "D3",
+   "task": "3.11",
+   "field": "abilities",
+   "language": "es-419",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "distrusts a clean result whose method was never tested against the thing in question.",
+   "translation": "desconfía de un resultado limpio cuyo método nunca fue probado frente al elemento en cuestión."
+  },
+  {
+   "domain": "D3",
+   "task": "3.11",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "OBLIGATION: the English permits something and the translation says nothing about it"
+   ],
+   "english": "given an assessment that returned a clean result against an estate with known AI exposure, identifies the mechanism by which the method could not see the exposure.",
+   "translation": "dada uma avaliação que retornou resultado limpo em relação a um ambiente com exposição conhecida à IA, identifica o mecanismo pelo qual o método não conseguiu detectar essa exposição."
+  },
+  {
+   "domain": "D3",
+   "task": "3.11",
+   "field": "abilities",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "distrusts a clean result whose method was never tested against the thing in question.",
+   "translation": "desconfia de um resultado limpo cujo método jamais foi testado contra o objeto em questão."
+  },
+  {
+   "domain": "D4",
+   "task": "4.2",
+   "field": "knowledge",
+   "language": "pt-BR",
+   "reasons": [
+    "LANGUAGE 0/0"
+   ],
+   "english": "the attribute set and what each attribute expresses.",
+   "translation": "o conjunto de atributos e o que cada atributo expressa."
+  },
+  {
+   "domain": "D4",
+   "task": "4.5",
+   "field": "skills",
+   "language": "pt-BR",
+   "reasons": [
+    "OBLIGATION: the English imposes a requirement and the translation does not"
+   ],
+   "english": "given a described access arrangement, determines whether the rights exceed what the role requires and identifies what would change.",
+   "translation": "dado um arranjo de acesso descrito, determina se os direitos excedem o necessário para a função e identifica o que precisaria ser alterado."
+  }
+ ]
+}
