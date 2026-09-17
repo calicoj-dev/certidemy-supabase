@@ -5,8 +5,8 @@ inferred from the code.
 
 **Read this first: the Spanish courseware depends on tonight's queue.** The
 syllabi are ready in every language right now. The AIMS-F lesson bodies in
-Spanish are not, and the 49 Spanish rows in `BILINGUAL-QUEUE.json` are exactly
-what unlocks them. Nothing else on this page is contingent.
+Spanish are not, and the **32 Spanish rows** in `BILINGUAL-QUEUE.json` are
+exactly what unlocks them. Nothing else on this page is contingent.
 
 ---
 
@@ -138,8 +138,7 @@ AIMS-F Spanish is thin today and why it will not be thin for long.
 ## 5. If the queue gets worked tonight
 
 `BILINGUAL-QUEUE.json`, 64 rows and 222 passages, Spanish first. Working the
-**32 Spanish rows**
-moves the table above to:
+**32 Spanish rows** moves the table above to:
 
 | | English | Spanish |
 |---|---:|---:|
