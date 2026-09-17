@@ -33,7 +33,7 @@
 -- ===================== THE PROVENANCE ARGUMENT, AND ITS LIMIT =====================
 --
 -- This migration flags ONLY the translations of lessons whose English was
--- repaired -- 20 rows behind 10 lessons -- rather than every non-English row on
+-- repaired -- 32 rows behind 16 lessons -- rather than every non-English row on
 -- the platform. The argument is:
 --
 --   A translation's exposure is bounded by its English source's exposure.
@@ -60,7 +60,7 @@
 -- ===================== NO PRODUCTION IMPACT AT INSTALL =====================
 --
 -- The column defaults FALSE, so this migration changes nothing on its own. The
--- 20 rows are flagged by a separate statement below, named individually.
+-- 32 rows are flagged by a separate statement below, named individually.
 
 begin;
 
@@ -153,10 +153,19 @@ create trigger trg_lessons_flag_translation_review
   for each row
   execute function public.flag_translation_review();
 
--- ------------------------------------------------- the 20 rows, retroactively
+-- ------------------------------------------------- the 32 rows, retroactively
 --
--- The ten lessons repaired on 2026-09-17, before the trigger existed. Named by
--- slug rather than swept, so this statement says what it did.
+-- The SIXTEEN lessons repaired on 2026-09-17, before the trigger existed. Named
+-- by slug rather than swept, so this statement says what it did.
+--
+-- IT SAID TEN UNTIL BATCH 2 LANDED. Six more AIMS-F lessons were repaired after
+-- this migration was written and before it was run, and a list written into a
+-- migration does not notice work done beside it. Had it shipped at ten, the six
+-- newest repairs would have opened their Spanish -- which is the exact defect
+-- this migration exists to close, reintroduced by the migration that closes it.
+--
+-- The trigger is why this only had to be caught once: from here the flag is set
+-- by the database at the moment of repair, and no list has to keep up.
 
 update public.lessons l
    set mcp_translation_review_required = true
@@ -169,10 +178,15 @@ update public.lessons l
         '02-09-pdca-and-improvement', '05-02-internal-audit', '02-03-amendment-1-2024'))
      or
      (c.code = 'AIMS-F' and l.slug in (
+        -- batch 1: one passage each
         '05-06-integrated-audit-programme', '01-02-determining-your-roles',
         '04-07-control-overlap-with-27001', '03-08-clause-8-operational-duties',
         '01-05-drivers-and-what-certification-means', '05-05-the-certification-route',
-        '02-07-risk-versus-impact'))
+        '02-07-risk-versus-impact',
+        -- batch 2: two passages each
+        '02-02-determining-the-scope', '02-05-the-ai-risk-assessment',
+        '01-01-what-an-aims-is', '02-08-risk-treatment-and-the-soa',
+        '05-03-aims-management-review', '04-02-annex-a-and-the-soa'))
    );
 
 -- --------------------------------------------------------------- the view
@@ -230,15 +244,15 @@ begin
 
   -- 1. EXACTLY 20 ROWS FLAGGED, and they are the ones named.
   select count(*) into n_flag from public.lessons where mcp_translation_review_required;
-  if n_flag <> 20 then
-    raise exception 'flagged % rows, expected 20', n_flag;
+  if n_flag <> 32 then
+    raise exception 'flagged % rows, expected 32 (16 lessons x 2 translations)', n_flag;
   end if;
   select count(*) into n_en from public.lessons
    where mcp_translation_review_required and language = 'en';
   if n_en <> 0 then
     raise exception '% English row(s) flagged; the flag is for translations', n_en;
   end if;
-  raise notice '20 translation rows flagged, no English row touched';
+  raise notice '32 translation rows flagged, no English row touched';
 
   -- 2. THE FLAGGED ROWS ARE OUT OF THE VIEW. The point of the migration.
   select count(*) into n_body
@@ -279,10 +293,10 @@ begin
      and exists (select 1 from public.lessons s
                   where s.lesson_group_id = l.lesson_group_id
                     and s.mcp_translation_review_required);
-  if n_en <> 10 then
-    raise exception 'expected 10 English rows from flagged groups, found %', n_en;
+  if n_en <> 16 then
+    raise exception 'expected 16 English rows from flagged groups, found %', n_en;
   end if;
-  raise notice 'all 10 repaired lessons still serve English';
+  raise notice 'all 16 repaired lessons still serve English';
 
   -- 5. THE REVIEW PATH ACTUALLY OPENS THE DOOR. Attempted, not inferred: a
   --    predicate nobody has satisfied is indistinguishable from one that can
@@ -358,12 +372,12 @@ commit;
 --
 --   select language, count(*) from public.lessons
 --    where mcp_translation_review_required group by 1;
---   -- expect es-419 10, pt-BR 10
+--   -- expect es-419 16, pt-BR 16
 --
 --   select certification, language, count(*) from mcp.lesson
 --    where certification in ('ISMS-F','AIMS-F') group by 1,2 order by 1,2;
 --   -- expect ISMS-F en 49 / es-419 46 / pt-BR 46
---   --        AIMS-F en  8 / es-419  1 / pt-BR  1
+--   --        AIMS-F en 14 / es-419  1 / pt-BR  1
 --
 -- TO CLEAR A ROW after reading it:
 --

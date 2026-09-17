@@ -4,7 +4,11 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PDFS, sourcesAvailable } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lib/citation-index.mjs";
 import { preservesObligation, checkFaithful } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lib/obligation-guard.mjs";
-import { REPAIRS } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lesson-repairs-aimsf.mjs";
+/* The batch is a parameter: `node gen-lesson-repair-spec-aimsf.mjs <out.json>
+ * <repairs-module>`. One generator, one applier, one data file per batch -- so
+ * a batch can be re-read on its own without the machinery around it. */
+const MOD = process.argv[3] ?? "./lesson-repairs-aimsf.mjs";
+const { REPAIRS } = await import(new URL(MOD, "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/").href);
 for (const line of readFileSync("scripts/.env","utf8").split(/\r?\n/)) {
   const m=/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
   if (m && !process.env[m[1]]) process.env[m[1]]=m[2].replace(/^["']|["']$/g,"");
@@ -34,7 +38,10 @@ for(const r of REPAIRS){
   for(const sp of spans){
     if(!md.includes(sp.before)){ if(md.includes(sp.after)){touched.push("(done)");continue;} fail="span not present: \""+sp.before.slice(0,50)+"...\""; break; }
     const ob=preservesObligation(sp.before,sp.after,"en");
-    if(!ob.ok){fail="OBLIGATION -- "+ob.reason+" ("+ob.before.strong+"/"+ob.before.weak+" -> "+ob.after.strong+"/"+ob.after.weak+")";break;}
+    /* An override is a RECORDED JUDGEMENT, not a switch: it carries its reason,
+     * it prints loudly, and it excuses only the entry it sits on. */
+    if(!ob.ok && !r.obligation_override){fail="OBLIGATION -- "+ob.reason+" ("+ob.before.strong+"/"+ob.before.weak+" -> "+ob.after.strong+"/"+ob.after.weak+")";break;}
+    if(!ob.ok) console.log("      [OVERRIDE] "+r.slug+": "+r.obligation_override);
     md=md.replace(sp.before,sp.after);
     touched.push(ob.before.strong+"/"+ob.before.weak+"->"+ob.after.strong+"/"+ob.after.weak);
   }
