@@ -601,6 +601,56 @@ async function verifyPartnerToken(
 }
 
 /**
+ * Has the platform revoked this feature for the company behind this issuer?
+ *
+ * ============ TWO GATES, AND THE SECOND IS NOT THE FIRST ============
+ *
+ * The credential answering "I am scoped for this" and the platform answering
+ * "this partner may have it" are different questions with different owners. An
+ * API key's `scopes` are the PARTNER narrowing their own automation, chosen at
+ * mint time. A disable row is CERTIDEMY revoking a feature, written by a
+ * superadmin.
+ *
+ * Without this call, disabling courseware for a partner leaves every API key
+ * they already hold working -- a revocation that appears to succeed and does
+ * not, which is the exact failure 331 is shaped around. The superadmin sees the
+ * row, the partner keeps reading lessons, and nobody looks again.
+ *
+ * ============ IT FAILS CLOSED, BECAUSE THE QUESTION FAILS OPEN ============
+ *
+ * 331's header states the inversion: "is the scope present" fails closed, "is it
+ * disabled" fails OPEN, since every way of failing to learn the truth reads as
+ * "not disabled". So `mcp.feature_status` returns a STATUS and never an empty
+ * row, and this refuses on anything that is not `ok` -- an unknown issuer, an
+ * unknown feature, or no row at all. A throw from the query propagates for the
+ * same reason; it is never caught into a default of "enabled".
+ */
+interface FeatureRow {
+  enabled: boolean;
+  disabled_at: string | null;
+  feature_status: string;
+}
+
+async function featureEnabled(
+  issuerId: string,
+  feature: string,
+): Promise<{ row: FeatureRow | null; ms: number }> {
+  const started = Date.now();
+  const conn = await getPool().connect();
+  try {
+    const r = await conn.queryObject<FeatureRow>({
+      text:
+        "select enabled, disabled_at::text as disabled_at, feature_status " +
+        "  from mcp.feature_status($1::uuid, $2)",
+      args: [issuerId, feature],
+    });
+    return { row: r.rows[0] ?? null, ms: Date.now() - started };
+  } finally {
+    conn.release();
+  }
+}
+
+/**
  * The OAuth twin of resolveKey, on the same reader pool and for the same reason.
  * Approval IS manual registration; mcp.resolve_oauth_caller (329) decides.
  */
@@ -867,6 +917,12 @@ serve(async (req) => {
   // authorization failure; the operator needs to know it was a revoked key
   // rather than a typo, and that difference must not cross the wire.
   let keyStatus: string | null = null;
+  // THE COST OF THE SECOND GATE, ON EVERY PAID REQUEST. Logged rather than
+  // assumed to be free: it is an extra query on an already-open pooled
+  // connection, and a number in the log is the only thing that will notice it
+  // becoming expensive.
+  let featureMs: number | null = null;
+  let featureStatus: string | null = null;
   // Kept so a REJECTION can still say what was asked for. args is null once
   // validateArgs throws, and that is precisely when the question matters most.
   let rawBody: Record<string, unknown> | null = null;
@@ -974,6 +1030,9 @@ serve(async (req) => {
       }
 
       let grantedScopes: string[];
+      // Set by whichever branch resolves; the second gate needs it and both
+      // resolvers already return it.
+      let grantedIssuer = "";
 
       if (presentedKey) {
         const key = await resolveKey(presentedKey);
@@ -984,6 +1043,7 @@ serve(async (req) => {
           throw new Unauthorized(401, "invalid API key");
         }
         grantedScopes = key.scopes ?? [];
+        grantedIssuer = key.issuer_id;
         // A REAL PARTNER IDENTITY. caller_hash was an HMAC of the client IP,
         // which for all MCP traffic is Cloudflare's egress address -- the
         // field's own comment says partner attribution needs the token flow.
@@ -1028,6 +1088,7 @@ serve(async (req) => {
           throw new Unauthorized(401, "invalid token");
         }
         grantedScopes = c.scopes ?? [];
+        grantedIssuer = c.issuer_id;
         caller = `oauth:${c.caller_id}`;
       }
 
@@ -1040,6 +1101,28 @@ serve(async (req) => {
         // The message names the scope and not the credential, because by here
         // the two ways in have stopped being different.
         throw new Unauthorized(403, `this credential is not scoped for ${need}`);
+      }
+
+      // ============ THE SECOND GATE ============
+      //
+      // Asked for BOTH ways in, after they have converged, so a revocation
+      // cannot be escaped by choosing a credential. `grantedIssuer` is set by
+      // whichever branch resolved above.
+      const feat = await featureEnabled(grantedIssuer, need);
+      featureMs = feat.ms;
+      featureStatus = feat.row ? feat.row.feature_status : "no_row";
+
+      if (!feat.row || feat.row.feature_status !== "ok") {
+        // NOT a 403 about the credential. The credential was fine; we could not
+        // establish the platform's answer, and the question fails open, so the
+        // only safe reading of "could not establish" is refuse.
+        throw new Unauthorized(403, `${need} is unavailable for this issuer`);
+      }
+      if (!feat.row.enabled) {
+        // Deliberately the same message. A partner learns the feature is off,
+        // not whether it was never enabled or revoked this morning -- the
+        // disable row carries that, for the operator.
+        throw new Unauthorized(403, `${need} is unavailable for this issuer`);
       }
     }
 
@@ -1152,6 +1235,9 @@ serve(async (req) => {
       ...(args.resource === "search" ? { q_len: args.query!.length, searched } : {}),
       rows: rows.length,
       logged,
+      // Null on the free tier -- the second gate runs only where a scope is
+      // needed, so a public read pays nothing for it.
+      ...(featureMs !== null ? { feature_ms: featureMs, feature_status: featureStatus } : {}),
       ms: Date.now() - started,
     }));
 
