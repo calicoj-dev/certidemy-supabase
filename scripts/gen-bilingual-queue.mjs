@@ -39,6 +39,26 @@
  * or abilities at all, so their Spanish and Portuguese syllabi are thinner than
  * the English. That is a content gap, not an IP gap, and it needs its own work.
  *
+ * ============ AND THEN THE JOB TURNED OUT TO BE A DIFFERENT JOB ============
+ *
+ * This file asked a reader to check whether each translation reproduced a
+ * sentence of ISO's Spanish edition. Reading the 32 Spanish rows showed that
+ * was the wrong question: EVERY passage tracked the PRE-repair English, because
+ * that is what it was translated from. They did not need checking. They needed
+ * replacing.
+ *
+ * THE PROOF WAS A LIST REORDER. `01-02-determining-your-roles` was repaired by
+ * resequencing "the organization, its partners, suppliers, customers and third
+ * parties". The Spanish still read "sus socios, proveedores, clientes y
+ * terceros" -- ISO's order, untouched. If the repair WAS the ordering, an
+ * unchanged ordering is an unchanged run.
+ *
+ * `retranslate-repaired-passages.mjs` replaced 169 of the 180 paragraphs from
+ * the repaired English. What remains for a human is the OUTPUT of that pass --
+ * does a fresh translation of known-clean English say what the English says --
+ * which is a smaller and more answerable question than hunting ISO's Spanish
+ * edition by eye.
+ *
  * ============ WHAT A REVIEWER ACTUALLY NEEDS ============
  *
  * Not the whole lesson. The PASSAGE that was repaired, and the paragraph in the

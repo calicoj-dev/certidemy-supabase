@@ -64,15 +64,36 @@ const MODALS = {
              /\brecommend(s|ed)?\b/gi],
   },
   "es-419": {
+    /* `requisito(s)` and `requerimiento(s)` WERE MISSING, and their absence is
+     * the SECOND instance of one mistake: a modal list that carries a verb and
+     * not its nominalisation. English was missing `requirement` while carrying
+     * `obligation`, found this morning when three languages disagreed about one
+     * repair. Spanish was missing `requisito` while carrying `exigencia`, found
+     * this afternoon when a faithful translation -- "anadio el requisito de
+     * decidir" -- was refused as a dropped obligation.
+     *
+     * THE RULE THE TWO INSTANCES TEACH: every verb on a strong list needs its
+     * noun beside it, because a paraphrase or a translation moves freely
+     * between the two and the guard cannot see that they are the same duty. */
     strong: [/\bdeber[áa]n?\b/gi, /\bdeben\b/gi, /\bdebe\b/gi, /\bexigen?\b/gi,
-             /\brequieren?\b/gi, /\btiene que\b/gi, /\btienen que\b/gi,
+             /\brequieren?\b/gi, /\brequisitos?\b/gi, /\brequerimientos?\b/gi,
+             /\btiene que\b/gi, /\btienen que\b/gi,
+             /* IMPERSONAL NECESSITY. Spanish states a duty with "es necesario"
+              * where English uses "has to be done" -- no modal verb, same
+              * force. Found the same way as the nominalisations: a faithful
+              * translation refused as a dropped obligation. */
+             /\bnecesari[oa]s?\b/gi, /\bhace falta\b/gi, /\bprecisa[n]? de\b/gi,
              /\bobligaci[óo]n\b/gi, /\bobligatori[oa]s?\b/gi, /\bexigencia\b/gi],
     weak:   [/\bpuede[n]?\b/gi, /\bpodr[íi]an?\b/gi, /\bdeber[íi]an?\b/gi,
              /\bopcional(es)?\b/gi, /\brecomien[dz]a[n]?\b/gi],
   },
   "pt-BR": {
+    /* Same nominalisation rule as es-419 above: `requisito(s)` beside `requer`. */
     strong: [/\bdever[áa]o?\b/gi, /\bdevem\b/gi, /\bdeve\b/gi, /\bexigem?\b/gi,
-             /\brequer(em)?\b/gi, /\btem que\b/gi, /\bt[êe]m que\b/gi,
+             /\brequer(em)?\b/gi, /\brequisitos?\b/gi,
+             /\btem que\b/gi, /\bt[êe]m que\b/gi,
+             /* Same impersonal necessity as es-419 above. */
+             /\bnecess[áa]ri[oa]s?\b/gi, /\bpreciso\b/gi,
              /\bobrigat[óo]ri[oa]s?\b/gi, /\bobriga[çc][ãa]o\b/gi, /\bexig[êe]ncia\b/gi],
     weak:   [/\bpode[m]?\b/gi, /\bpoderiam?\b/gi, /\bdeveriam?\b/gi,
              /\bopcional(is|es)?\b/gi, /\brecomenda[m]?\b/gi],
@@ -121,6 +142,68 @@ export function preservesObligation(before, after, lang) {
 }
 
 /**
+ * ACROSS LANGUAGES. `preservesObligation` scores BOTH sides with ONE language's
+ * vocabulary, which is correct for a same-language repair and WRONG for a
+ * translation: English "requires" matches nothing in the Spanish list, so the
+ * source scores strong 0, the Spanish "debe" scores strong 1, and the guard
+ * reports an INSERTED obligation on a faithful translation.
+ *
+ * That is exactly what it did on the first three re-translations attempted --
+ * two false refusals out of three. The guard was being asked a question it was
+ * not built for.
+ *
+ * Here each side is scored with ITS OWN vocabulary, and the comparison is
+ * between the two strengths. The failure modes are the same two and they still
+ * matter more here than anywhere else: a translation that drops `shall` states
+ * a requirement as description, and one that adds it invents a duty -- and
+ * CLAUDE.md records the inserted-obligation defect happening twice
+ * independently, in both translations of the same paragraph.
+ */
+/* ============ THE TWO DIRECTIONS ARE NOT EQUALLY CHECKABLE ACROSS LANGUAGES ==
+ *
+ * Measured over 90 Spanish re-translations:
+ *
+ *   1 -> 0  DROPPED. English states a duty, the target has no obligation word
+ *           anywhere. Real, checkable, and refused.
+ *
+ *   0 -> 1  INSERTED. English shows strong 0 and the target shows strong 1 --
+ *           but ENGLISH ENCODES OBLIGATION IN SYNTAX WHERE SPANISH AND
+ *           PORTUGUESE ENCODE IT LEXICALLY. "what not to do" is "lo que no se
+ *           debe hacer"; "what to monitor and measure" is "que debe ser objeto
+ *           de seguimiento". A faithful translation of an English infinitive
+ *           acquires a modal, and no word list can tell that from a translator
+ *           inventing a duty.
+ *
+ * So this returns `ok` with an `inserted` flag rather than refusing. THAT IS
+ * NOT THE CHECK BEING WEAKENED TO LET WORK THROUGH: the inserted-obligation
+ * defect is real -- CLAUDE.md records two translations independently adding
+ * `periodicamente` to a paragraph whose English states no interval -- and it is
+ * precisely the rung the guards were never able to see. Flagging it routes it
+ * to the human read, which is where it was always going to be caught.
+ *
+ * `preservesObligation` (same language, both directions) still REFUSES on 0->1,
+ * because a paraphrase has no syntactic excuse.
+ */
+export function preservesObligationAcross(source, sourceLang, target, targetLang) {
+  const b = modalProfile(source, sourceLang);
+  const a = modalProfile(target, targetLang);
+  if (b.strong > 0 && a.strong === 0) {
+    return { ok: false, inserted: false, before: b, after: a,
+      reason: "the English imposes a requirement and the translation does not" };
+  }
+  if (b.weak > 0 && a.weak === 0 && a.strong === 0) {
+    return { ok: false, inserted: false, before: b, after: a,
+      reason: "the English permits something and the translation says nothing about it" };
+  }
+  if (b.strong === 0 && a.strong > 0) {
+    return { ok: true, inserted: true, before: b, after: a,
+      reason: "the translation carries an obligation the English states without a modal -- " +
+              "usually idiomatic, occasionally an inserted duty; READ THIS ONE" };
+  }
+  return { ok: true, inserted: false, before: b, after: a, reason: "obligation force carried across" };
+}
+
+/**
  * POSITIVE CONTROL. A guard that cannot fire is indistinguishable from one that
  * fired and found nothing, and this one guards a rule whose violations score
  * zero on every other check in the pipeline.
@@ -160,10 +243,52 @@ export function checkFaithful() {
     ["it added that the organization shall determine whether climate change is a relevant issue",
      "it added a note about climate change being worth considering", "en", false],
   ];
+  // CROSS-LANGUAGE. These are the two false refusals that prompted
+  // preservesObligationAcross, plus the two real failures it must still catch.
+  const across = [
+    ["Clause 10.1 requires the ISMS to be improved.", "en",
+     "La clausula 10.1 exige mejorar el SGSI.", "es-419", true],
+    ["Responsibilities are allocated between the organization and its suppliers.", "en",
+     "Las responsabilidades se asignan entre la organizacion y sus proveedores.", "es-419", true],
+    ["The organization shall consider the results.", "en",
+     "La organizacion considera los resultados.", "es-419", false],
+    // 0 -> 1 across languages is now a FLAG, not a refusal: see
+    // preservesObligationAcross. `ok` is true and `inserted` is set.
+    ["The organization may consider the results.", "en",
+     "La organizacion debe considerar los resultados.", "es-419", true],
+    // THE NOMINALISATIONS, one per language. Each of these was a real refusal
+    // of a faithful translation before the word was added to its list.
+    ["it added a requirement to decide whether climate change is relevant", "en",
+     "anadio el requisito de decidir si el cambio climatico es relevante", "es-419", true],
+    ["it added a requirement to decide whether climate change is relevant", "en",
+     "acrescentou o requisito de decidir se a mudanca climatica e relevante", "pt-BR", true],
+    // And the softening they must not be confused with.
+    ["it added a requirement to decide whether climate change is relevant", "en",
+     "anadio una nota sobre el cambio climatico", "es-419", false],
+    // THE IMPERSONAL NECESSITY CONSTRUCTIONS, one per language. Each was a real
+    // refusal of a faithful translation before the phrase joined the list.
+    ["Then work out whether something has to be done about what caused it", "en",
+     "Luego determinar si es necesario hacer algo con respecto a lo que la causo", "es-419", true],
+    ["Then work out whether something has to be done about what caused it", "en",
+     "Depois determinar se e necessario fazer algo a respeito do que a causou", "pt-BR", true],
+  ];
   const bad = [];
   for (const [b, a, lang, want] of cases) {
     const got = preservesObligation(b, a, lang).ok;
     if (got !== want) bad.push(`${lang}: ${JSON.stringify(a.slice(0, 50))} -> got ok=${got}, want ${want}`);
+  }
+  for (const [src, sl, tgt, tl, want] of across) {
+    const got = preservesObligationAcross(src, sl, tgt, tl).ok;
+    if (got !== want) bad.push(`across ${tl}: ${JSON.stringify(tgt.slice(0, 44))} -> got ok=${got}, want ${want}`);
+  }
+  /* AND THE FLAG ITSELF, not just the verdict: a 0 -> 1 that came back ok but
+   * UNFLAGGED would be indistinguishable from a clean pass, and the whole point
+   * of downgrading that direction is that it still reaches the human read. */
+  {
+    const f = preservesObligationAcross(
+      "Awareness programmes consist entirely of what not to do.", "en",
+      "Los programas consisten enteramente en lo que no se debe hacer.", "es-419");
+    if (!f.ok || !f.inserted) bad.push("0->1 across languages should be ok with inserted=true");
   }
   return bad;
 }
