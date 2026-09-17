@@ -224,6 +224,36 @@ after that array had already gone stale once.
   cross-repo check reports this as SAFE and passes, because a validator may
   know more than any sender. Read it as a to-do, not a green light.
 - **Concepts have no translation table** — English-only over MCP, pre-existing.
+- **`mcp.task` FILTERS ON `is_provisional`, NOT ON `ksa_is_provisional`, SO
+  UNREVIEWED MACHINE TRANSLATION IS SERVED TODAY ON EVERY CERTIFICATION.**
+  Recorded 2026-09-17 as a decision, not a discovery.
+
+  The two columns exist because migration 165 separated them: writing
+  `is_provisional = true` during a K/S/A pass would have marked 302
+  already-reviewed task STATEMENTS unreviewed across two languages, and every
+  generated document would have silently fallen back to English. So the K/S/A
+  pass writes `ksa_is_provisional` and leaves `is_provisional` alone.
+
+  The view then only ever learned about the first one. A task translation whose
+  statement is approved is served in full, knowledge and skills and abilities
+  included, whatever their review state.
+
+  **It is not confined to the two certifications translated today.** ISMS-F's 98
+  K/S/A rows are `ksa_is_provisional = true` and have been served since it went
+  live; AISM-I and SM-AI-I are `false` because someone reviewed them. So the
+  served corpus is a mix of reviewed and unreviewed translation with nothing
+  distinguishing them at the point of service.
+
+  **Why it is being left:** the alternative is filtering on it, which would
+  withhold ISMS-F's entire Spanish and Portuguese K/S/A the day before a partner
+  meeting, and withhold it for a property nobody has ever asserted about the
+  eight certifications already live. The honest position is that this is the
+  standard already shipped, and moving it is a content-quality decision with its
+  own review programme behind it — not a gate to tighten quietly.
+
+  **What would close it:** review the provisional rows and set the flag false,
+  or add the predicate and accept what it withholds. Either is a decision; the
+  current state is also a decision, and this entry is here so it reads as one.
 
 **Carried:** `environment` is a label and not a boundary; per-certification
 scope for `courseware:lessons`; `mcp.resolve_api_key` does not touch

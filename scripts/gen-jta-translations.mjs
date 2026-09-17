@@ -65,9 +65,19 @@
  *     SyntaxError: Unterminated string in JSON at position 24037
  *
  * It is an output-length ceiling, not a model error, and it depends entirely on
- * how long the source fields are. AIMS-F's knowledge fields average ~95 words;
- * AISM-I's are a fraction of that, which is why this never surfaced on the
- * eight certifications where the pass has been run.
+ * how long the source fields are. THE FIGURES THAT BROKE IT, so the next person
+ * can predict it rather than hit it:
+ *
+ *     AIMS-F    35 tasks   4,001 words of K/S/A   ~95 words per knowledge field
+ *     SM-AI-II  44 tasks   1,597 words            ~20 words per knowledge field
+ *
+ * CHUNK=25 sends 25 tasks x 3 fields in one call. On AIMS-F that is roughly
+ * 2,400 source words asking for 2,400 back, and the response stops mid-string.
+ * SM-AI-II completed at CHUNK=8 without trouble.
+ *
+ * A DEFAULT THAT WORKS IS NOT A DEFAULT THAT WORKS GENERALLY. This one has run
+ * cleanly on eight certifications and was never wrong; the ninth simply writes
+ * longer knowledge fields, and nothing in the script knows that.
  *
  * CHUNK=5 completes both languages. Anything with long knowledge fields needs
  * it; a statement-only pass does not, since statements are one line each.

@@ -18,7 +18,7 @@ A prospect with no key and no account can pull all of this today:
 |---|---|---|
 | certification record | yes | yes |
 | domains, weights, tasks | yes | yes |
-| task knowledge / skills / abilities | yes | **English only** |
+| task knowledge / skills / abilities | yes | yes |
 | concepts and what they attach to | yes | yes |
 | lesson catalogue (titles, order, duration) | yes | yes |
 | search across tasks and concepts | yes | yes |
@@ -26,24 +26,29 @@ A prospect with no key and no account can pull all of this today:
 Available in **English, Spanish (es-419) and Portuguese (pt-BR)** for task
 statements, domain titles and the lesson catalogue.
 
-**CORRECTION, 2026-09-17: an earlier draft of this page said the task knowledge,
-skills and abilities were available in all three languages. They are not, for
-AIMS-F.** Measured: `task_translations.knowledge`, `.skills` and `.abilities`
-are NULL on all 70 AIMS-F rows and all 88 SM-AI-II rows -- only `statement` is
-translated. Every other certification, ISMS-F included, is fully translated on
-all four fields (702 of 860 rows platform-wide).
+**CORRECTED AND THEN FIXED, 2026-09-17.** An earlier draft of this page said the
+task knowledge, skills and abilities were available in all three languages. They
+were not: `task_translations.knowledge`, `.skills` and `.abilities` were NULL on
+all 70 AIMS-F rows and all 88 SM-AI-II rows.
 
-So a Spanish pull of the AIMS-F syllabus returns the task statements and domain
-titles, and nulls where the knowledge, skills and abilities would be. **ISMS-F
-does not have this problem.**
+**They were translated the same afternoon and now serve.** Verified against the
+live view: a Spanish pull of AIMS-F task 5.3 returns `knowledge`, `skills` and
+`abilities` where it returned nulls that morning. 35 tasks x 3 fields x 2
+languages for AIMS-F, 44 x 3 x 2 for SM-AI-II.
 
-It is a content gap, not an IP gap, and it predates this week's work -- but it
-is what a Spanish-speaking partner sees, so it belongs on this page. If Hexasec
-compares the two certifications side by side in Spanish, AIMS-F will look
-thinner and the reason is translation coverage, not curriculum depth.
+Nothing had broken. The tool has an `ONLY=ksa` mode that is deliberately NOT
+part of `ONLY=all`, so it is a separate pass that has to be run per
+certification — it had been run for eight and skipped for two.
 
-Concepts are English-only across every certification -- there is no concept
-translation table at all. Also pre-existing.
+**The ordering mattered and is worth knowing if anyone asks.** The translation
+was made from the REPAIRED English, so the Spanish carries our recasts rather
+than ISO's sentences. Spot-checked on three clauses: the Spanish for clause 10.2
+reads *"de modo que el mismo fallo no se repita"*, which is our rewrite, not
+ISO's phrasing. Doing this a week ago would have translated ISO's sentences into
+Spanish and put them somewhere no instrument here can see.
+
+Concepts are English-only across every certification — there is no concept
+translation table at all. Pre-existing, and unchanged.
 
 **This is the part of the demo that cannot go wrong.** It needs no credential,
 it is complete, and it is the surface a partner actually uses to decide whether
@@ -165,9 +170,13 @@ correction.
   lesson bodies quote far more heavily and their repair is a programme, not a
   batch.
 - **Concepts are English-only** across every certification. Pre-existing.
-- **AIMS-F and SM-AI-II have no translated task knowledge, skills or
-  abilities** — 158 of 860 `task_translations` rows. Pre-existing, and the
-  largest content gap a Spanish-speaking partner will notice.
+- **The translated KSAs are machine translation nobody has reviewed.** They
+  carry `ksa_is_provisional = true`, and so do ISMS-F's 98 rows, which have
+  been served since it went live. `mcp.task` filters on `is_provisional`, not
+  on `ksa_is_provisional`, so unreviewed translation is served across every
+  certification — AIMS-F now meets the bar already shipped rather than a new
+  one. An open item with its own review programme, not a Friday one. Recorded
+  in HANDOFF-v12_8 section 6 as a decision.
 - **The connector's tool list** is widened by the web-side change; if that has
   not been deployed, the two new certifications are accepted by the API but not
   yet advertised in the tool descriptions.
