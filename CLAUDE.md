@@ -14,7 +14,23 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 336. Next free number: 337. 336 is WRITTEN AND HAS NOT RUN.**
+**Migration tip: 337. Next free number: 338. 336 HAS RUN; 337 is WRITTEN AND
+HAS NOT RUN.** 337 admits ISMS-IA and empties the held set -- every ISO-derived
+certification now scans 0 refused. **`courseware-read` is edited to match and
+MUST NOT be deployed first**, same ordering as 336. The web session for
+`certidemy-web/lib/mcp/registry.ts` now needs TWELVE, not eleven.
+
+**AND THE LINE BELOW WENT STALE WITHIN HOURS OF BEING WRITTEN, WHICH IS THE
+SEVENTH RECORDED INSTANCE.** It said "336 is WRITTEN AND HAS NOT RUN" and 336
+had run. Caught on 2026-09-17 by querying `pg_catalog` before writing 337:
+`mcp.certification`'s own comment read *"Eleven as of 336"* and the view
+returned eleven codes with ISMS-IA absent. **The status half went stale under a
+correct number again** -- the variant this section already calls the more
+dangerous one -- and this time the number was correct because the file existed,
+so `ls migrations/` would have confirmed it and said nothing about whether it
+ran.
+
+[Superseded 2026-09-17 evening: 336 has since run. The line below was correct when written.] **Migration tip: 336. Next free number: 337. 336 is WRITTEN AND HAS NOT RUN.**
 336 admits AIMS-IA to the mcp views and keeps ISMS-IA held. **`courseware-read`
 is edited to match and MUST NOT be deployed first**: ahead of the migration the
 function accepts `AIMS-IA` while the view returns nothing, so a partner is told

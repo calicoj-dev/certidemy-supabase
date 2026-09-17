@@ -100,6 +100,17 @@ export const CERTIFICATIONS = [
   // paying for. The other order gives a clean "not served" refusal until the
   // migration lands, which is true at the time it is said.
   "AIMS-IA",
+  // ==================== LANDS ONLY AFTER MIGRATION 337 ====================
+  // ISMS-IA was the last held certification. 336 kept it out "pending a display
+  // mechanism for its 48 blockquoted clause passages"; that mechanism was never
+  // needed, because IP-POSITION section 6 was amended to permit clause text
+  // that is quoted AND attributed. Its 79 prose runs were recast and its 19
+  // bare blockquotes were given a clause address. 0 refused, longest run 9w.
+  //
+  // SAME ORDER AS 336, for the same reason: migration first, then this deploy.
+  // Ahead of the migration the function accepts `ISMS-IA` and the view returns
+  // nothing, so a partner is told the certification has no lessons.
+  "ISMS-IA",
 ] as const;
 export type Certification = typeof CERTIFICATIONS[number];
 export const DEFAULT_CERTIFICATION: Certification = "AISM-I";

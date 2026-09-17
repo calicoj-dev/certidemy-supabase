@@ -72,7 +72,7 @@ Measured, per language, right now:
 | **ISMS-F** (49 lessons) | **49 of 49** | 43 of 49 | 43 of 49 |
 | **AIMS-F** (35 lessons) | **35 of 35** | 1 of 35 | 1 of 35 |
 | **AIMS-IA** (40 lessons) | 40 of 40 *(not reachable yet)* | 1 of 40 | 1 of 40 |
-| **ISMS-IA** (38 lessons) | 7 of 38 | 7 of 38 | 7 of 38 |
+| **ISMS-IA** (38 lessons) | 38 of 38 *(needs 337)* | 1 of 38 | 1 of 38 |
 
 **Three certifications are complete in English.** ISMS-F, AIMS-F and AIMS-IA
 serve every lesson body to a key holder. AIMS-F module 4, the visible stop
@@ -102,10 +102,17 @@ for it is refused rather than answered from a neighbour. **That refusal is
 correct and safe to demo.** What is not safe is saying AIMS-IA is available and
 having it refuse in the room.
 
-**ISMS-IA is the one that still stops.** 7 of 38. It quotes clause text inside
-blockquotes 48 times, and unlike the other three that cannot be fixed by
-rewording: it needs a display change in the web app so the MCP can mark those
-passages rather than reproduce them. Not this week.
+**ISMS-IA no longer stops.** 38 of 38 in English, and the display change it
+was waiting on turned out not to be needed. The position was amended instead:
+clause text that is quoted AND attributed is permitted output, so its 48
+blockquotes stay exactly as written. Its 79 prose runs were recast and its 19
+bare blockquotes -- quoted but not attributed -- were given a clause address.
+
+**Every ISO-derived certification on the platform now measures 0 refused.**
+
+Like AIMS-IA, it needs migration 337 run and `courseware-read` deployed before
+a partner can pull it, plus `AIMS-IA` and `ISMS-IA` both present in the web
+Worker's list. 337 is written and has not run.
 
 **Spanish and Portuguese bodies are 1 of 35 and 1 of 40 because of the gate, not
 because of the translations.** Every repaired paragraph HAS been re-translated
