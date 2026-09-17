@@ -270,7 +270,51 @@ into a leak detector for any MCP response.
    2026-09-17, and were verified clean immediately afterwards. That is a fact
    about that moment and about nothing since.
 
-6. **The Scrum Guide's licence has not been verified.** The BoK states the Scrum
+6. **THE TRANSLATIONS ARE COVERED BY AN ARGUMENT, NOT BY A MEASUREMENT, AND A
+   READER NEEDS TO KNOW WHICH.** Recorded 2026-09-17 with migration 335.
+
+   The leak index is built from the ENGLISH editions of ISO 19011, 27001 and
+   42001. We hold no Spanish or Portuguese editions. So every es-419 and pt-BR
+   row on this platform scores ZERO against it, before and after any repair --
+   not because it is clean, but because there is nothing to compare it with.
+
+   Migration 335 therefore withholds a translation whose English was repaired
+   until a human reads it. It withholds only those -- 20 rows behind 10 lessons
+   -- rather than every non-English row, and the reason it can is this:
+
+   > A translation's exposure is bounded by its English source's exposure.
+   > These rows are translations of OUR English lessons, not independent
+   > renderings from ISO's Spanish or Portuguese editions. Where the English
+   > never carried a run of ten words or more, there was never an ISO sentence
+   > for a translator to render.
+
+   Measured, and it is what makes the whole approach affordable: the longest
+   English ISO run across the eight already-live certifications is **eight
+   words** (AISM-I). None of their translations is suspect; none is withheld.
+   Without this argument the alternative was withholding two thirds of the
+   served corpus.
+
+   **IT IS REASONING ABOUT PROVENANCE. It holds because of HOW these rows were
+   produced, and nothing in the database records that.** It is not a property
+   anyone has checked; it is an inference from a pipeline.
+
+   **It fails the day someone translates a lesson from a Spanish or Portuguese
+   ISO text rather than from our English, and it fails SILENTLY** -- there is no
+   instrument that would notice, because there is no Spanish index to notice
+   with. A reviewer would see a clean scan and a green gate over a translated
+   clause.
+
+   Two things would change its status. Acquiring the translated editions turns
+   it into a measurement. Recording, per translated row, what it was translated
+   FROM turns it into a checkable fact about provenance rather than an
+   assumption about all of them at once. Neither has been done.
+
+   Until one is, this is a belief with a good reason behind it. It is written
+   here, and in 335's own header, so that it is read as one -- the failure this
+   document exists to prevent is a sentence that sounds measured being treated
+   as though it were.
+
+7. **The Scrum Guide's licence has not been verified.** The BoK states the Scrum
    work ran under the same facts-not-expression discipline, which would make the
    licence inapplicable — there is no derivative work to license. That reasoning
    is sound and unconfirmed.

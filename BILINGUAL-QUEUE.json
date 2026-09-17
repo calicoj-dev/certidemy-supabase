@@ -1,0 +1,892 @@
+{
+ "purpose": "54 rows needing a bilingual read before they can be served. SPANISH FIRST -- es-419 is what the Mexican partner pulls. No instrument here can check these: the leak index is English ISO text, so every row below scores zero before and after. What is being looked for is ISO's own Spanish or Portuguese sentence reproduced in a translation, which only a reader with the standard can see.",
+ "spanish_rows": 27,
+ "portuguese_rows": 27,
+ "lesson_rows": 20,
+ "blueprint_rows": 34,
+ "total": 54,
+ "entries": [
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-02-determining-your-roles",
+   "language": "es-419",
+   "lesson_id": "13746f41-b663-49fe-88f4-17e96f439e58",
+   "en_hash": "0f570ba7",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('13746f41-b663-49fe-88f4-17e96f439e58', 'juan', '0f570ba7', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-05-drivers-and-what-certification-means",
+   "language": "es-419",
+   "lesson_id": "738711ca-3807-4708-a0f4-cf567ace87f1",
+   "en_hash": "72e10954",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('738711ca-3807-4708-a0f4-cf567ace87f1', 'juan', '72e10954', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-07-risk-versus-impact",
+   "language": "es-419",
+   "lesson_id": "cf0eb50e-af7d-407e-8ef0-45b6e96caead",
+   "en_hash": "4c7be5b8",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('cf0eb50e-af7d-407e-8ef0-45b6e96caead', 'juan', '4c7be5b8', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "03-08-clause-8-operational-duties",
+   "language": "es-419",
+   "lesson_id": "5cc68006-e56f-49f0-b630-67901de1cefb",
+   "en_hash": "8b7691a0",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('5cc68006-e56f-49f0-b630-67901de1cefb', 'juan', '8b7691a0', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "04-07-control-overlap-with-27001",
+   "language": "es-419",
+   "lesson_id": "b41f37f2-e700-4015-956d-0180a32d4429",
+   "en_hash": "3519f0a1",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b41f37f2-e700-4015-956d-0180a32d4429', 'juan', '3519f0a1', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-05-the-certification-route",
+   "language": "es-419",
+   "lesson_id": "ebe1a4f0-c746-4746-847d-6f68e183e007",
+   "en_hash": "e7b11cca",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('ebe1a4f0-c746-4746-847d-6f68e183e007', 'juan', 'e7b11cca', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-06-integrated-audit-programme",
+   "language": "es-419",
+   "lesson_id": "95aa0430-3c51-43f3-991f-92a7d6c6d51d",
+   "en_hash": "0c885144",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('95aa0430-3c51-43f3-991f-92a7d6c6d51d', 'juan', '0c885144', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "02-03-amendment-1-2024",
+   "language": "es-419",
+   "lesson_id": "0fbca1f3-098e-41d9-b345-76e701515cdc",
+   "en_hash": "d425cffa",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0fbca1f3-098e-41d9-b345-76e701515cdc', 'juan', 'd425cffa', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "02-09-pdca-and-improvement",
+   "language": "es-419",
+   "lesson_id": "66072f1d-17c7-4efd-8624-9ffcc4a0c7ee",
+   "en_hash": "ba250cdb",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('66072f1d-17c7-4efd-8624-9ffcc4a0c7ee', 'juan', 'ba250cdb', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "05-02-internal-audit",
+   "language": "es-419",
+   "lesson_id": "645a1fc0-bdc0-4af6-98b5-3609f7abdcb5",
+   "en_hash": "7963ed16",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('645a1fc0-bdc0-4af6-98b5-3609f7abdcb5', 'juan', '7963ed16', 'approved');"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "1.4",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "is essential for responsible development and use of an AI system, and names",
+     "after": "is essential to developing and using an AI system responsibly, and names"
+    }
+   ],
+   "translated_now": null,
+   "note": "restatement of Annex D.2"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "1.5",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Conformity generates evidence of the organization's responsibility and accountability regarding its role with respect to AI systems, which is",
+     "after": "Conformity generates evidence that the organization is responsible and accountable for whatever role it holds around AI systems, which is"
+    }
+   ],
+   "translated_now": null,
+   "note": "the conformity-evidence phrasing, which recurs at 5.5"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "2.4",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "span risk management, impact assessment, resource management, security, safety, privacy, development, performance, human oversight, supplier relationships and data quality across",
+     "after": "span impact assessment, security, privacy, safety, data quality, development, performance, supplier relationships, resource management, risk management and human oversight across"
+    }
+   ],
+   "translated_now": null,
+   "note": "A LIST. The run was ISO's ordering and nothing else; reordering changes no meaning."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "2.7",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "clause 6.1.4 states that the organization shall consider the results of the AI system impact assessment in the risk assessment, with",
+     "after": "clause 6.1.4 requires the impact assessment's results to be taken into account when risk is assessed, with"
+    }
+   ],
+   "translated_now": null,
+   "note": "clause 6.1.4 quoted with `shall`; the modal is held as `requires`"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.4",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Documented information must be available to the extent necessary to have confidence that processes were carried out as planned.",
+     "after": "Documented information must be kept to whatever extent gives confidence that the processes ran as planned."
+    }
+   ],
+   "translated_now": null,
+   "note": "clause 7.5 documented-information phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.5",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "or an entire AI system for use on its own or as part of another product.",
+     "after": "or an entire AI system, whether it is used standalone or embedded in another product."
+    }
+   ],
+   "translated_now": null,
+   "note": "the supplier-scope phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.8",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "AI risk assessments are performed at planned intervals or when significant changes are proposed or occur. The",
+     "after": "AI risk assessments are performed at planned intervals, and again whenever a significant change is proposed or occurs. The"
+    },
+    {
+     "before": "AI system impact assessments are performed at planned intervals or when significant changes are proposed to occur.",
+     "after": "AI system impact assessments run on the same trigger: planned intervals, plus any significant change that is proposed."
+    }
+   ],
+   "translated_now": null,
+   "note": "the planned-intervals phrasing, TWICE -- once for risk assessments, once for impact assessments"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.1",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "not all are required to be used, and the organization can design and implement its own.",
+     "after": "not every control must be used, and an organization may design and implement its own."
+    },
+    {
+     "before": "though organizations do not have to document or justify inclusion or exclusion of the implementation guidance in the Statement of Applicability",
+     "after": "though an organization is not required to document or justify which parts of that guidance it adopted in the Statement of Applicability"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the Annex A optionality sentence and the Annex B documentation sentence"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.2",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Organizations may not require all controls listed in Annex A, and may exceed that list with",
+     "after": "An organization may need only some of the Annex A controls, and may go beyond that list with"
+    }
+   ],
+   "translated_now": null,
+   "note": "the SoA scope phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.3",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "documenting a policy for the development or use of AI systems, determining",
+     "after": "documenting a policy covering how AI systems get developed or used, determining"
+    },
+    {
+     "before": "putting in place a process to report concerns about the organization's role with respect to an AI system, and",
+     "after": "putting in place a route for raising concerns about whatever role the organization holds around a given AI system, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the AI policy phrase and control A.3.3's concern-reporting route"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.4",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "determine at which phases of the life cycle record keeping of event logs should be enabled, with",
+     "after": "determine at which life-cycle phases event logs should be kept, with"
+    }
+   ],
+   "translated_now": null,
+   "note": "ISO says logging SHOULD be enabled. The first draft wrote `must`, which invents an obligation. The weak modal is held."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.6",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "between the organization, its partners, suppliers, customers and third parties, establish",
+     "after": "between the organization and its suppliers, partners, customers and other third parties, establish"
+    }
+   ],
+   "translated_now": null,
+   "note": "A LIST. Reordered; no meaning changes."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.1",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "It must evaluate the performance and the effectiveness of the AI management system.",
+     "after": "It must evaluate how well the AI management system performs and how effective it is."
+    },
+    {
+     "before": "records that performance refers both to results achieved by using AI systems and results related to the management system itself, and",
+     "after": "records that performance covers two things at once: what using the AI systems achieves, and how the management system itself is doing, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the clause 9.1 evaluation duty and the note to the performance definition"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.2",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "and considers the importance of the processes concerned and the results of previous audits. The organization defines",
+     "after": "and weighs how important the processes under audit are, together with what earlier audits found. The organization defines"
+    },
+    {
+     "before": "selects auditors and conducts audits to ensure objectivity and the impartiality of the audit process, and ensures",
+     "after": "selects auditors and runs audits in a way that keeps the process objective and impartial, and ensures"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the audit-programme inputs and the auditor-selection sentence"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.3",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Top management reviews the AIMS at planned intervals to ensure its continuing suitability, adequacy and effectiveness.",
+     "after": "Top management reviews the AIMS at planned intervals, checking that it still suits the organization, is still adequate and still works."
+    },
+    {
+     "before": "Results include decisions related to continual improvement opportunities and any need for changes to the AIMS, and",
+     "after": "Results record what was decided about improvement opportunities and about any changes the AIMS needs, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the review trigger and the management-review outputs"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.4",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "to eliminate the causes so that it does not recur or occur elsewhere, by reviewing",
+     "after": "to eliminate the causes, so the same failure does not come back or turn up somewhere else, by reviewing"
+    },
+    {
+     "before": "documented information must be available as evidence of the nature of the nonconformities, subsequent actions taken and the results of corrective action",
+     "after": "documented information must be kept showing what the nonconformities were, what was done about them, and what the corrective action achieved"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: clause 10.2's recurrence phrase and its documented-information phrase"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.5",
+   "language": "es-419",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "ISO/IEC 17021-1, the generic requirements for bodies providing audit and certification of management systems.",
+     "after": "ISO/IEC 17021-1, which states the requirements a certification body must meet when it audits and certifies management systems."
+    },
+    {
+     "before": "conforming with its requirements can generate evidence of its responsibility and accountability regarding its role with respect to AI systems, which is",
+     "after": "conforming with its requirements can produce evidence that it is responsible and accountable for whatever role it holds around AI systems, which is"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the 17021-1 title and the same conformity-evidence phrasing as 1.5"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-02-determining-your-roles",
+   "language": "pt-BR",
+   "lesson_id": "1d0d0d8d-037f-4e83-9088-ec61ce9e491d",
+   "en_hash": "0f570ba7",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('1d0d0d8d-037f-4e83-9088-ec61ce9e491d', 'juan', '0f570ba7', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-05-drivers-and-what-certification-means",
+   "language": "pt-BR",
+   "lesson_id": "187d96b1-9d34-4807-81d7-8a6e62b9bd85",
+   "en_hash": "72e10954",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('187d96b1-9d34-4807-81d7-8a6e62b9bd85', 'juan', '72e10954', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-07-risk-versus-impact",
+   "language": "pt-BR",
+   "lesson_id": "0ef1f324-c5f9-404e-ab77-2e5ee727f517",
+   "en_hash": "4c7be5b8",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0ef1f324-c5f9-404e-ab77-2e5ee727f517', 'juan', '4c7be5b8', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "03-08-clause-8-operational-duties",
+   "language": "pt-BR",
+   "lesson_id": "f65ff47d-094f-4e7a-86d2-e03c49f4d5c1",
+   "en_hash": "8b7691a0",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('f65ff47d-094f-4e7a-86d2-e03c49f4d5c1', 'juan', '8b7691a0', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "04-07-control-overlap-with-27001",
+   "language": "pt-BR",
+   "lesson_id": "5a04759d-015c-4c42-a155-1e57568aa05e",
+   "en_hash": "3519f0a1",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('5a04759d-015c-4c42-a155-1e57568aa05e', 'juan', '3519f0a1', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-05-the-certification-route",
+   "language": "pt-BR",
+   "lesson_id": "a2678859-2d8c-42d5-8d04-cad4d764677a",
+   "en_hash": "e7b11cca",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('a2678859-2d8c-42d5-8d04-cad4d764677a', 'juan', 'e7b11cca', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-06-integrated-audit-programme",
+   "language": "pt-BR",
+   "lesson_id": "6b1defbf-141e-45ad-9aa2-acf882279540",
+   "en_hash": "0c885144",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('6b1defbf-141e-45ad-9aa2-acf882279540', 'juan', '0c885144', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "02-03-amendment-1-2024",
+   "language": "pt-BR",
+   "lesson_id": "99163614-e23d-4b21-9700-92ef2d884c59",
+   "en_hash": "d425cffa",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('99163614-e23d-4b21-9700-92ef2d884c59', 'juan', 'd425cffa', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "02-09-pdca-and-improvement",
+   "language": "pt-BR",
+   "lesson_id": "1ebc6d35-45bc-484c-9eff-3f5186472240",
+   "en_hash": "ba250cdb",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('1ebc6d35-45bc-484c-9eff-3f5186472240', 'juan', 'ba250cdb', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "ISMS-F",
+   "slug": "05-02-internal-audit",
+   "language": "pt-BR",
+   "lesson_id": "5e2d785a-aec2-41ff-8697-dd548e17b1d5",
+   "en_hash": "7963ed16",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('5e2d785a-aec2-41ff-8697-dd548e17b1d5', 'juan', '7963ed16', 'approved');"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "1.4",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "is essential for responsible development and use of an AI system, and names",
+     "after": "is essential to developing and using an AI system responsibly, and names"
+    }
+   ],
+   "translated_now": null,
+   "note": "restatement of Annex D.2"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "1.5",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Conformity generates evidence of the organization's responsibility and accountability regarding its role with respect to AI systems, which is",
+     "after": "Conformity generates evidence that the organization is responsible and accountable for whatever role it holds around AI systems, which is"
+    }
+   ],
+   "translated_now": null,
+   "note": "the conformity-evidence phrasing, which recurs at 5.5"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "2.4",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "span risk management, impact assessment, resource management, security, safety, privacy, development, performance, human oversight, supplier relationships and data quality across",
+     "after": "span impact assessment, security, privacy, safety, data quality, development, performance, supplier relationships, resource management, risk management and human oversight across"
+    }
+   ],
+   "translated_now": null,
+   "note": "A LIST. The run was ISO's ordering and nothing else; reordering changes no meaning."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "2.7",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "clause 6.1.4 states that the organization shall consider the results of the AI system impact assessment in the risk assessment, with",
+     "after": "clause 6.1.4 requires the impact assessment's results to be taken into account when risk is assessed, with"
+    }
+   ],
+   "translated_now": null,
+   "note": "clause 6.1.4 quoted with `shall`; the modal is held as `requires`"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.4",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Documented information must be available to the extent necessary to have confidence that processes were carried out as planned.",
+     "after": "Documented information must be kept to whatever extent gives confidence that the processes ran as planned."
+    }
+   ],
+   "translated_now": null,
+   "note": "clause 7.5 documented-information phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.5",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "or an entire AI system for use on its own or as part of another product.",
+     "after": "or an entire AI system, whether it is used standalone or embedded in another product."
+    }
+   ],
+   "translated_now": null,
+   "note": "the supplier-scope phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "3.8",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "AI risk assessments are performed at planned intervals or when significant changes are proposed or occur. The",
+     "after": "AI risk assessments are performed at planned intervals, and again whenever a significant change is proposed or occurs. The"
+    },
+    {
+     "before": "AI system impact assessments are performed at planned intervals or when significant changes are proposed to occur.",
+     "after": "AI system impact assessments run on the same trigger: planned intervals, plus any significant change that is proposed."
+    }
+   ],
+   "translated_now": null,
+   "note": "the planned-intervals phrasing, TWICE -- once for risk assessments, once for impact assessments"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.1",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "not all are required to be used, and the organization can design and implement its own.",
+     "after": "not every control must be used, and an organization may design and implement its own."
+    },
+    {
+     "before": "though organizations do not have to document or justify inclusion or exclusion of the implementation guidance in the Statement of Applicability",
+     "after": "though an organization is not required to document or justify which parts of that guidance it adopted in the Statement of Applicability"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the Annex A optionality sentence and the Annex B documentation sentence"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.2",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Organizations may not require all controls listed in Annex A, and may exceed that list with",
+     "after": "An organization may need only some of the Annex A controls, and may go beyond that list with"
+    }
+   ],
+   "translated_now": null,
+   "note": "the SoA scope phrasing"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.3",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "documenting a policy for the development or use of AI systems, determining",
+     "after": "documenting a policy covering how AI systems get developed or used, determining"
+    },
+    {
+     "before": "putting in place a process to report concerns about the organization's role with respect to an AI system, and",
+     "after": "putting in place a route for raising concerns about whatever role the organization holds around a given AI system, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the AI policy phrase and control A.3.3's concern-reporting route"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.4",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "determine at which phases of the life cycle record keeping of event logs should be enabled, with",
+     "after": "determine at which life-cycle phases event logs should be kept, with"
+    }
+   ],
+   "translated_now": null,
+   "note": "ISO says logging SHOULD be enabled. The first draft wrote `must`, which invents an obligation. The weak modal is held."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "4.6",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "between the organization, its partners, suppliers, customers and third parties, establish",
+     "after": "between the organization and its suppliers, partners, customers and other third parties, establish"
+    }
+   ],
+   "translated_now": null,
+   "note": "A LIST. Reordered; no meaning changes."
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.1",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "It must evaluate the performance and the effectiveness of the AI management system.",
+     "after": "It must evaluate how well the AI management system performs and how effective it is."
+    },
+    {
+     "before": "records that performance refers both to results achieved by using AI systems and results related to the management system itself, and",
+     "after": "records that performance covers two things at once: what using the AI systems achieves, and how the management system itself is doing, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the clause 9.1 evaluation duty and the note to the performance definition"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.2",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "and considers the importance of the processes concerned and the results of previous audits. The organization defines",
+     "after": "and weighs how important the processes under audit are, together with what earlier audits found. The organization defines"
+    },
+    {
+     "before": "selects auditors and conducts audits to ensure objectivity and the impartiality of the audit process, and ensures",
+     "after": "selects auditors and runs audits in a way that keeps the process objective and impartial, and ensures"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the audit-programme inputs and the auditor-selection sentence"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.3",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "Top management reviews the AIMS at planned intervals to ensure its continuing suitability, adequacy and effectiveness.",
+     "after": "Top management reviews the AIMS at planned intervals, checking that it still suits the organization, is still adequate and still works."
+    },
+    {
+     "before": "Results include decisions related to continual improvement opportunities and any need for changes to the AIMS, and",
+     "after": "Results record what was decided about improvement opportunities and about any changes the AIMS needs, and"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the review trigger and the management-review outputs"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.4",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "to eliminate the causes so that it does not recur or occur elsewhere, by reviewing",
+     "after": "to eliminate the causes, so the same failure does not come back or turn up somewhere else, by reviewing"
+    },
+    {
+     "before": "documented information must be available as evidence of the nature of the nonconformities, subsequent actions taken and the results of corrective action",
+     "after": "documented information must be kept showing what the nonconformities were, what was done about them, and what the corrective action achieved"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: clause 10.2's recurrence phrase and its documented-information phrase"
+  },
+  {
+   "kind": "blueprint",
+   "surface": "tasks.knowledge",
+   "cert": "AIMS-F",
+   "task": "5.5",
+   "language": "pt-BR",
+   "review_status": "approved",
+   "is_provisional": false,
+   "english_spans": [
+    {
+     "before": "ISO/IEC 17021-1, the generic requirements for bodies providing audit and certification of management systems.",
+     "after": "ISO/IEC 17021-1, which states the requirements a certification body must meet when it audits and certifies management systems."
+    },
+    {
+     "before": "conforming with its requirements can generate evidence of its responsibility and accountability regarding its role with respect to AI systems, which is",
+     "after": "conforming with its requirements can produce evidence that it is responsible and accountable for whatever role it holds around AI systems, which is"
+    }
+   ],
+   "translated_now": null,
+   "note": "two runs: the 17021-1 title and the same conformity-evidence phrasing as 1.5"
+  }
+ ]
+}
