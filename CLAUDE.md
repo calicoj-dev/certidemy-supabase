@@ -1286,6 +1286,43 @@ pattern can see grammar — which is how two SECURE banks passed the check that
 had just demanded the fix that broke them. The two measurements are
 wrong in OPPOSITE directions, which is what makes their agreement meaningful.
 
+**A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
+DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by
+the guard disagreeing with itself rather than by anyone reviewing it:
+
+1. **The English list was missing `requirement`** while carrying `obligation`.
+   Found because ONE repair, in THREE languages, scored strong 1->1 in Spanish
+   (`exigencia`) and Portuguese (`exigencia`) and 1->0 in English.
+2. **The Spanish list was missing `requisito`** while carrying `exigencia` --
+   the same gap, mirrored, found when a faithful translation was refused.
+3. **`necesario` matched a bare adjective.** "Cuando sean necesarios controles"
+   is descriptive, and English `necessary` is on no list -- one word, two
+   verdicts.
+4. **`convem` was in the inflation check's vocabulary and not in the weak list
+   the profile reads**, so the correct ABNT rendering scored as no modal at all.
+
+**The mechanism is that the same property, measured three ways, must agree.**
+Each language is an independent implementation of one judgement, so a
+disagreement is a defect in an implementation -- and unlike a green result, a
+disagreement cannot be produced by a check that is silently not running.
+
+**So when a check exists per language, per surface or per repository, RUN ALL OF
+THEM AND COMPARE, and treat a difference as the finding.** It is the same move
+as READ-FAILURE-AUDIT section 7b's "measure a second, independent way", and the
+same move that caught the cross-repo wire vocabulary -- but cheaper, because the
+second measurement already exists and nobody is looking at it side by side.
+
+**And the disagreement names WHICH side is wrong more often than not.** Three of
+the four above were vocabulary gaps in the guard, not defects in the content:
+the content was right in all three languages and one list had not heard of a
+word. A single-language run would have reported a content defect and someone
+would have "fixed" correct text.
+
+**Derive, never duplicate, when two lists mean one thing.** Defect 4 existed only
+because a second vocabulary was written beside the first; it is now computed from
+it. Two hand-written lists of the same idea will diverge, and the divergence
+shows up as a refusal of correct work.
+
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."
 

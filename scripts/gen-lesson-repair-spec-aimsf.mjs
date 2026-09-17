@@ -25,7 +25,17 @@ function lr(t){const w=norm(t).split(" ").filter(Boolean);let b=0,bt="";for(let 
 function lineSpans(md){const s=[];const re=/\r?\n/g;let st=0,m;while((m=re.exec(md))!==null){s.push([st,m.index]);st=m.index+m[0].length;}s.push([st,md.length]);return s;}
 const T=(await g("mcp_leak_policy?select=threshold_words"))[0].threshold_words;
 const certs=await g("certifications?select=id,code");
-const id=certs.find(c=>c.code==="AIMS-F").id;
+/* THE CERTIFICATION COMES FROM THE BATCH FILE, not from this script's name.
+ * Every repair entry already carries `cert`, and hardcoding AIMS-F here meant
+ * the first AIMS-IA batch reported "lesson not found" five times -- a message
+ * that names the lesson when the lesson was there and the CERTIFICATION was
+ * wrong. Same shape as the tasks.knowledge type error this morning. */
+const CERT_CODE = REPAIRS[0]?.cert || "AIMS-F";
+if (REPAIRS.some(r => r.cert !== CERT_CODE)) {
+  console.error("this batch mixes certifications: " + [...new Set(REPAIRS.map(r=>r.cert))].join(", "));
+  process.exit(2);
+}
+const id=certs.find(c=>c.code===CERT_CODE).id;
 const mods=await g("modules?select=id&certification_id=eq."+id);
 const rows=await g("lessons?select=id,slug,language,content_md&language=eq.en&module_id=in.("+mods.map(m=>m.id).join(",")+")");
 const entries=[],problems=[];
@@ -58,7 +68,7 @@ for(const r of REPAIRS){
     if(a!==b){ langs["en"+(n?"_"+n:"")]={lesson_id:row.id,line_abs:i,before:a,after:b}; n++; }
   }
   if(!n){problems.push(r.slug+": nothing changed");continue;}
-  for(const [k,v] of Object.entries(langs)) entries.push({cert:"AIMS-F",slug:r.slug,block:"-",block_index:-1,line_index:v.line_abs,run_words:0,run:r.address,needs_authoring:false,languages:{en:v}});
+  for(const [k,v] of Object.entries(langs)) entries.push({cert:CERT_CODE,slug:r.slug,block:"-",block_index:-1,line_index:v.line_abs,run_words:0,run:r.address,needs_authoring:false,languages:{en:v}});
   console.log("  "+r.slug.padEnd(44)+spans.length+" span  leak "+String(b4).padStart(2)+"w -> "+String(af.b).padStart(2)+"w  oblig "+touched.join(" ")+"  ("+n+" line(s))");
 }
 console.log("");
