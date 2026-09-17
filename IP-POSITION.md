@@ -237,7 +237,40 @@ into a leak detector for any MCP response.
 3. **If an MCP is built, the address-not-text rule is enforced in code**, not in
    a prompt. A rule stated in an instruction is advisory; this repository has
    already paid for that distinction more than once.
-4. **The Scrum Guide's licence has not been verified.** The BoK states the Scrum
+5. **THE BLUEPRINT SURFACES ARE UNGATED, AND THAT IS AN ACCEPTED RISK WITH A
+   DATE ON IT.** Decided 2026-09-17, deliberately, to make a partner meeting.
+
+   `lessons.mcp_servable` (migration 332) gates lesson bodies: default false, a
+   CHECK that makes servable-without-evidence impossible, and a trigger that
+   clears the flag whenever `content_md` changes. **`concepts` and `tasks` have
+   no equivalent.** No column, no trigger, no scan record.
+
+   So `concepts.description` and `tasks.knowledge` -- which `get_syllabus`,
+   `explain_task`, `get_concept` and `search_blueprint` all return, to callers
+   holding no lesson licence -- are clean because they were *measured clean on a
+   particular afternoon*, not because anything prevents them from stopping being
+   clean. **A future content edit can reintroduce an ISO quotation into a
+   partner-facing surface silently.** Nothing would fail, nothing would log, and
+   the next measurement is whenever someone thinks to take one.
+
+   This is the exact shape the rest of this document exists to close: a property
+   that holds by circumstance rather than by construction, indistinguishable
+   from one that holds by design right up until it does not. It is recorded here
+   so it is not rediscovered as a novelty.
+
+   **What closing it looks like**, for whoever picks it up: the same three
+   pieces as 332 -- a `mcp_servable` column on `concepts` and on `tasks`, a
+   trigger clearing it when `description` / `knowledge` / `statement` changes,
+   and the predicate in `mcp.concept` and `mcp.task`. The scanner already knows
+   how to measure these fields; `scripts/apply-blueprint-repairs.mjs` measures
+   both certifications end to end in its own post-conditions.
+
+   **Until then the honest statement is narrow**: ISMS-F and AIMS-F blueprints
+   carried 26 runs of 10+ words between them (1 and 25), all repaired on
+   2026-09-17, and were verified clean immediately afterwards. That is a fact
+   about that moment and about nothing since.
+
+6. **The Scrum Guide's licence has not been verified.** The BoK states the Scrum
    work ran under the same facts-not-expression discipline, which would make the
    licence inapplicable — there is no derivative work to license. That reasoning
    is sound and unconfirmed.
