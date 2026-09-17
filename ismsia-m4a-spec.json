@@ -1,0 +1,241 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 31,
+   "run_words": 0,
+   "run": "27001:2022 clauses 1 and 4.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a7a6588c-ce54-49a6-8404-99021d8aef87",
+     "line_abs": 31,
+     "before": "The scope is not a boundary somebody drew. It is a determination the standard requires to be made from stated inputs:",
+     "after": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 151,
+   "run_words": 0,
+   "run": "27001:2022 clauses 1 and 4.3",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "a7a6588c-ce54-49a6-8404-99021d8aef87",
+     "line_abs": 151,
+     "before": "    \"explanation\": \"Clause 1 states that excluding any of the requirements specified in Clauses 4 to 10 is not acceptable when conformity is claimed. Clause 4.3 concerns determining boundaries and applicability, which is a different mechanism. Clause 6.1.3 governs Annex A control exclusions, which are a third mechanism again.\",",
+     "after": "    \"explanation\": \"Clause 1 states that leaving out any requirement of Clauses 4 to 10 is not acceptable where conformity is claimed. Clause 4.3 concerns determining boundaries and applicability, which is a different mechanism. Clause 6.1.3 governs Annex A control exclusions, which are a third mechanism again.\","
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 38,
+     "before": "- a) ensuring the policy and objectives are established and **compatible with the strategic direction** of the organization",
+     "after": "- a) ensuring the policy and objectives are established and **fitting the organization's strategic direction**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 40,
+     "before": "- c) ensuring the **resources** needed are available",
+     "after": "- c) ensuring the **resources** needed are in place"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 41,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 41,
+     "before": "- d) **communicating** the importance of effective information security management and of conforming",
+     "after": "- d) **communicating** the importance of managing information security effectively, and of conforming"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 43,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 43,
+     "before": "- f) **directing and supporting persons** to contribute to the effectiveness of the ISMS",
+     "after": "- f) **directing and supporting persons** so they contribute to how well the ISMS works"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 45,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 45,
+     "before": "- h) **supporting other relevant management roles** to demonstrate their leadership in their areas of responsibility",
+     "after": "- h) **supporting other relevant management roles** in showing leadership within the areas they are responsible for"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 87,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 87,
+     "before": "- e) be **available as documented information**",
+     "after": "- e) be **held as documented information**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 88,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 88,
+     "before": "- f) be **communicated within** the organization",
+     "after": "- f) be **made known across** the organization"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 89,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "1172de3b-3afa-4149-bd87-5c865d0a525a",
+     "line_abs": 89,
+     "before": "- g) be **available to interested parties, as appropriate**",
+     "after": "- g) be **open to interested parties where appropriate**"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 38,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "474d8ba5-770e-465b-8803-59af6bc55670",
+     "line_abs": 38,
+     "before": "- b) ensures repeated assessments produce **consistent, valid and comparable** results",
+     "after": "- b) ensures assessments repeated over time give **consistent, valid and comparable** results"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 82,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "474d8ba5-770e-465b-8803-59af6bc55670",
+     "line_abs": 82,
+     "before": "a) be consistent with the policy · b) be **measurable, if practicable** · c) take into account applicable requirements and the results of risk assessment and treatment · d) be **monitored** · e) be **communicated** · f) be **updated as appropriate** · g) be available as documented information",
+     "after": "a) sit consistently with the policy · b) be **measurable, where practicable** · c) reflect applicable requirements and what risk assessment and treatment produced · d) be **monitored** · e) be **communicated** · f) be **revised as appropriate** · g) be held as documented information"
+    }
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 86,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "474d8ba5-770e-465b-8803-59af6bc55670",
+     "line_abs": 86,
+     "before": "**what will be done · what resources will be required · who will be responsible · when it will be completed · how the results will be evaluated**",
+     "after": "**what is to be done · what resources are required · who is answerable · by when · and how the results get evaluated**"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
