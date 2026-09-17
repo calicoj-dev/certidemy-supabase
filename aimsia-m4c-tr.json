@@ -1,0 +1,842 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-12-declared-and-operated",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 control A.6.2.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "c84b2210-6dde-4a74-b526-360f7cbe596a",
+     "line_abs": 80,
+     "before": "**La familia A.6, ciclo de vida del sistema de IA**, cubre la orientación de gestión para el desarrollo de sistemas de IA y los controles a lo largo del ciclo de vida, incluida la documentación técnica del sistema de IA (A.6.2.7) y el registro de logs de eventos (A.6.2.8), que aborda en qué fases debe habilitarse el registro de eventos y establece como mínimo cuándo el sistema de IA está en uso.",
+     "after": "**La familia A.6, ciclo de vida del sistema de IA**, cubre la orientación de gestión para el desarrollo de sistemas de IA y los controles a lo largo del ciclo de vida, incluida la documentación técnica del sistema de IA (A.6.2.7) y el registro de logs de eventos (A.6.2.8), que aborda en qué fases debe habilitarse el registro de logs y establece que en cualquier caso esto cubre el tiempo en que el sistema de IA está en uso."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 51,
+     "before": "**Tabla A.1, control A.2.2:** *La organización shall documentar una política para el desarrollo o uso de sistemas de IA.*",
+     "after": "**Tabla A.1, control A.2.2:** *La organización debe documentar una política que abarque cómo se desarrollan o utilizan los sistemas de IA.*"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 53,
+     "before": "**Anexo B, control B.2.2:** *La organización should documentar una política para el desarrollo o uso de sistemas de IA.*",
+     "after": "**Anexo B, control B.2.2:** *La organización debería documentar una política que cubra cómo se desarrollan o utilizan los sistemas de IA.*"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 63,
+     "before": "El apartado 6.1.3 e) requiere que el proceso de tratamiento del riesgo de IA **considere la guía del Anexo B para la implementación de los controles determinados en b) y c)**.",
+     "after": "La cláusula 6.1.3 e) requiere que el proceso de tratamiento del riesgo de IA **considere la guía del Anexo B al implementar los controles establecidos en b) y c)**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 69,
+     "before": "- se relaciona con los controles enumerados en la Tabla A.1 y apoya su implementación y el cumplimiento del objetivo de control;",
+     "after": "- se relaciona con los controles enumerados en la Tabla A.1, respaldando cómo se implementan y cómo se cumple el objetivo de control;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 70,
+     "before": "- **pero las organizaciones no tienen que documentar ni justificar la inclusión o exclusión de la guía de implementación en la declaración de aplicabilidad** (véase 6.1.3);",
+     "after": "- **pero ninguna organización tiene que documentar ni justificar la inclusión o exclusión de la guía de implementación en su declaración de aplicabilidad** (véase 6.1.3);"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 73,
+     "before": "- **puede considerarse un punto de partida** para desarrollar una implementación específica de la organización.",
+     "after": "- **puede tratarse como un punto de partida** para desarrollar una implementación propia de la organización."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 81,
+     "before": "Tres hallazgos que no pueden sostenerse, y la razón de cada uno. **\"El Anexo B requiere X\"** — el Anexo B está redactado en `should` y B.1 establece que no siempre es adecuado ni suficiente. **\"La organización debe justificar apartarse del Anexo B\"** — B.1 establece expresamente que las organizaciones no tienen que documentar ni justificar la inclusión o exclusión de la guía de implementación en la declaración de aplicabilidad. **\"El Anexo B es informativo, por lo tanto es irrelevante\"** — es normativo, y el apartado 6.1.3 e) obliga a considerarlo.",
+     "after": "Tres hallazgos que no pueden sostenerse, y la razón de cada uno. **\"El Anexo B requiere X\"** — el Anexo B está redactado en `should` y B.1 establece que no siempre es adecuado ni suficiente. **\"La organización debe justificar apartarse del Anexo B\"** — B.1 establece expresamente que ninguna organización tiene que documentar ni justificar la inclusión o exclusión de la guía de implementación en su declaración de aplicabilidad. **\"El Anexo B es informativo, por lo tanto es irrelevante\"** — es normativo, y la cláusula 6.1.3 e) obliga a considerarlo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 87,
+     "before": "**`shall` es un requisito.** En los capítulos 4 a 10 se aplica de manera incondicional. En la Tabla A.1 se aplica a los controles que la organización determinó necesarios y declaró — el Anexo A.1 registra que no todos los objetivos de control y controles enumerados en la Tabla A.1 son de uso obligatorio.",
+     "after": "**`shall` es un requisito.** En las cláusulas 4 a 10 se aplica de manera incondicional. En la Tabla A.1 se aplica a los controles que la organización determinó necesarios y declaró — el Anexo A.1 registra que no todos los objetivos de control y controles de la Tabla A.1 deben utilizarse."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 95,
+     "before": "**La anomalía**, mencionada para que ningún ítem dependa de ella: la Nota 2 a la entrada del apartado **3.26**, la definición de declaración de aplicabilidad, contiene `shall` — todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos shall reflejarse en la declaración de aplicabilidad. Un `shall` dentro de una nota a una definición es una redacción inusual. Cuando la declaración de aplicabilidad esté en cuestión, **cite el apartado 6.1.3 f)**, que establece el requisito en el texto del requisito y no necesita ningún argumento sobre si las notas son normativas.",
+     "after": "**La anomalía**, mencionada para que ningún ítem dependa de ella: la Nota 2 a la entrada de la cláusula **3.26**, la definición de Statement of Applicability, contiene `shall` — todos los riesgos identificados y las medidas de gestión del riesgo establecidas para abordarlos shall aparecer en la Statement of Applicability. Un `shall` dentro de una nota a una definición es una redacción inusual. Cuando la Statement of Applicability esté en cuestión, **cite la cláusula 6.1.3 f)**, que establece el requisito en el texto del requisito y no necesita ningún argumento sobre si las notas son normativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 99,
+     "before": "- **Dos controles de la Tabla A.1 contienen un `should` interno.** A.6.2.6 requiere que la organización defina y documente los elementos necesarios para la operación continua del sistema de IA, y establece que como mínimo esto **should** incluir monitoreo del sistema y del desempeño, reparaciones, actualizaciones y soporte. A.6.2.8 requiere que la organización determine en qué fases del ciclo de vida el registro de eventos **should** estar habilitado, pero como mínimo cuando el sistema de IA esté en uso. En cada caso, la obligación del control es el `shall` y el contenido enumerado es orientador.",
+     "after": "- **Dos controles de la Tabla A.1 contienen un `should` interno.** A.6.2.6 requiere que la organización defina y documente los elementos necesarios para la operación continua del sistema de IA, y establece que como mínimo esto **should** cubrir el monitoreo del sistema y su desempeño, reparaciones, actualizaciones y soporte. A.6.2.8 requiere que la organización determine en qué fases del ciclo de vida el registro de eventos **should** estar habilitado, y en todo caso mientras el sistema de IA esté en uso. En cada caso, la obligación del control es el `shall` y el contenido enumerado es orientador."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 34,
+     "before": "- **determinar la competencia necesaria** de las personas que realizan trabajo bajo su control y que afecta a su desempeño en IA;",
+     "after": "- **determinar la competencia necesaria** de cualquier persona que trabaje bajo su control y cuyo trabajo afecte el desempeño de la IA;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 35,
+     "before": "- **asegurarse de que estas personas sean competentes** sobre la base de educación, formación o experiencia apropiadas;",
+     "after": "- **asegurarse de que estas personas sean competentes**, sobre la base de educación, formación o experiencia apropiadas;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 36,
+     "before": "- cuando sea aplicable, **tomar acciones para adquirir la competencia necesaria y evaluar la eficacia** de las acciones tomadas;",
+     "after": "- cuando sea aplicable, **actuar para adquirir la competencia necesaria y evaluar qué tan bien funcionaron esas acciones**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 37,
+     "before": "- y que **deberá estar disponible información documentada apropiada como evidencia de competencia**.",
+     "after": "- y que **se deberá conservar información documentada apropiada como evidencia de competencia**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 39,
+     "before": "Una nota registra que las acciones aplicables pueden incluir proporcionar formación, tutoría o reasignación de personas actualmente empleadas, o contratar personas competentes. Una nota adicional remite a la guía de implementación para recursos humanos, incluida la consideración de la experiencia necesaria en B.4.6.",
+     "after": "Una nota registra que las acciones aplicables pueden incluir proporcionar formación, tutoría o reasignación de personas actualmente empleadas, o la contratación de personas competentes. Una nota adicional remite a la guía de implementación sobre recursos humanos en B.4.6, que abarca la experiencia necesaria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+     "line_abs": 73,
+     "before": "El control **A.4.6, recursos humanos**, de la Tabla A.1, establece que como parte de la identificación de recursos la organización deberá documentar información sobre los recursos humanos y sus competencias utilizados para el desarrollo, despliegue, operación, gestión del cambio, mantenimiento y transferencia de sistemas de IA.",
+     "after": "El control **A.4.6, recursos humanos**, de la Tabla A.1, establece que como parte de la identificación de recursos la organización deberá documentar qué recursos humanos y competencias se utilizan para el desarrollo, despliegue, operación, gestión del cambio, mantenimiento y transferencia de sistemas de IA."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f4c610e2-c807-4569-83a8-54f28591c41c",
+     "line_abs": 40,
+     "before": "Por lo tanto, una justificación de inclusión que diga *aplicable* o *requerido por la norma* ha aportado una palabra en lugar de una justificación — y la segunda es peor que la primera, porque el apartado A.1 establece que no todos los controles enumerados en la Tabla A.1 son de uso obligatorio.",
+     "after": "Por lo tanto, una justificación de inclusión que diga *aplicable* o *requerido por la norma* ha aportado una palabra en lugar de una justificación — y la segunda es peor que la primera, porque el Anexo A.1 establece que no todos los controles de la Tabla A.1 tienen que utilizarse."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f4c610e2-c807-4569-83a8-54f28591c41c",
+     "line_abs": 46,
+     "before": "> Los controles detallados en la Tabla A.1 proporcionan a la organización una referencia para cumplir los objetivos organizacionales y abordar los riesgos relacionados con el diseño y la operación de sistemas de IA. **No todos los objetivos de control y controles enumerados en la Tabla A.1 son de uso obligatorio, y la organización puede diseñar e implementar sus propios controles (véase 6.1.3).**",
+     "after": "Los controles establecidos en la Tabla A.1 proporcionan a la organización una referencia para cumplir sus objetivos y gestionar los riesgos que surgen del diseño y la operación de sistemas de IA. **No es obligatorio utilizar todos los objetivos de control y controles de la Tabla A.1, y una organización puede diseñar e implementar sus propios controles (véase 6.1.3).**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "f4c610e2-c807-4569-83a8-54f28591c41c",
+     "line_abs": 133,
+     "before": "Eso no es una no conformidad y nunca debe redactarse como tal. Es el tipo de cosa para la que existen las conclusiones de auditoría del apartado 6.5.1 — una declaración sobre el grado en que se han cumplido los criterios de auditoría, y el informe puede señalar la forma de lo que se cumplió.",
+     "after": "Eso no es una no conformidad y nunca debe redactarse como tal. Es el tipo de cosa para la que existen las conclusiones de auditoría de la cláusula 6.5.1 — una declaración sobre el grado en que se han cumplido los criterios de auditoría, y el informe puede señalar la forma de lo que se cumplió."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+     "line_abs": 34,
+     "before": "> La organización **deberá determinar si el cambio climático es un tema relevante.**",
+     "after": "La organización **deberá determinar si el cambio climático es, para ella, un tema relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+     "line_abs": 65,
+     "before": "La disposición del apartado 4.2 es una **NOTA** — las partes interesadas pertinentes pueden tener requisitos relacionados con el cambio climático. Una nota no es ni un requisito ni una orientación en el sentido que lleva un `debería`, y ningún hallazgo se basa en ella. Lo que hace es señalar dónde surge el tema cuando se determinan los requisitos de las partes interesadas conforme a los requisitos reales del apartado 4.2.",
+     "after": "La disposición de la cláusula 4.2 es una **NOTA** — las partes interesadas pueden tener requisitos relacionados con el cambio climático. Una nota no es ni un requisito ni una orientación en el sentido que lleva un `debería`, y ningún hallazgo se basa en ella. Lo que hace es señalar dónde surge el tema cuando se determinan los requisitos de las partes interesadas conforme a los requisitos reales de la cláusula 4.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+     "line_abs": 199,
+     "before": "- El apartado 4.2 lleva una NOTA de que las partes interesadas pertinentes pueden tener requisitos relacionados con el cambio climático — una nota no genera ningún hallazgo.",
+     "after": "- La cláusula 4.2 lleva una NOTA de que las partes interesadas pueden tener requisitos relacionados con el cambio climático — una nota no genera ningún hallazgo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 51,
+     "before": "**Tabela A.1, controle A.2.2:** *A organização shall documentar uma política para o desenvolvimento ou uso de sistemas de IA.*",
+     "after": "**Tabela A.1, controle A.2.2:** *A organização deve documentar uma política que abranja como os sistemas de IA são desenvolvidos ou utilizados.*"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 53,
+     "before": "**Anexo B, controle B.2.2:** *A organização should documentar uma política para o desenvolvimento ou uso de sistemas de IA.*",
+     "after": "**Anexo B, controle B.2.2:** *A organização deve documentar uma política que abranja como os sistemas de IA são desenvolvidos ou utilizados.*"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 63,
+     "before": "A Seção 6.1.3 e) exige que o processo de tratamento de riscos de IA **considere a orientação do Anexo B para a implementação dos controles determinados em b) e c)**.",
+     "after": "A Cláusula 6.1.3 e) exige que o processo de tratamento de riscos de IA **considere a orientação do Anexo B ao implementar os controles estabelecidos em b) e c)**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 69,
+     "before": "- relaciona-se aos controles listados na Tabela A.1 e apoia sua implementação e o atendimento do objetivo de controle;",
+     "after": "- relaciona-se aos controles listados na Tabela A.1, apoiando como eles são implementados e como o objetivo de controle é atendido;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 73,
+     "before": "- **pode ser considerada um ponto de partida** para o desenvolvimento de implementação específica da organização.",
+     "after": "- **pode ser considerada um ponto de partida** para o desenvolvimento da própria implementação de uma organização."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 81,
+     "before": "Três constatações que não se sustentam, e o motivo de cada uma. **\"O Anexo B exige X\"** - o Anexo B é escrito em `should` e a Seção B.1 afirma que nem sempre é adequado ou suficiente. **\"A organização deve justificar o afastamento do Anexo B\"** - a Seção B.1 declara expressamente que as organizações não precisam documentar ou justificar a inclusão ou exclusão de orientações de implementação na declaração de aplicabilidade. **\"O Anexo B é informativo, portanto irrelevante\"** - ele é normativo, e a Seção 6.1.3 e) obriga sua consideração.",
+     "after": "Três constatações que não se sustentam, e o motivo de cada uma. **\"O Anexo B exige X\"** - o Anexo B é escrito em `should` e a Seção B.1 afirma que nem sempre é adequado ou suficiente. **\"A organização deve justificar o afastamento do Anexo B\"** - a Seção B.1 declara expressamente que nenhuma organização precisa documentar ou justificar a inclusão ou exclusão de orientações de implementação em sua declaração de aplicabilidade. **\"O Anexo B é informativo, portanto irrelevante\"** - ele é normativo, e a Seção 6.1.3 e) obriga sua consideração."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 87,
+     "before": "**`shall` é um requisito.** Nas Seções 4 a 10, aplica-se incondicionalmente. Na Tabela A.1, aplica-se aos controles que a organização determinou necessários e declarou - o Anexo A.1 registra que nem todos os objetivos de controle e controles listados na Tabela A.1 precisam ser utilizados.",
+     "after": "**`shall` é um requisito.** Nas cláusulas 4 a 10, aplica-se incondicionalmente. Na Tabela A.1, aplica-se aos controles que a organização determinou necessários e declarou - o Anexo A.1 registra que nem todos os objetivos de controle e controles da Tabela A.1 precisam ser utilizados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 95,
+     "before": "**A anomalia**, declarada para que nenhum item dependa dela: a Nota 2 à entrada sob a Seção **3.26**, a definição de declaração de aplicabilidade, contém `shall` - todos os riscos identificados e as medidas de gestão de riscos estabelecidas para tratá-los shall ser refletidos na declaração de aplicabilidade. Um `shall` dentro de uma nota a uma definição é uma redação incomum. Quando a declaração de aplicabilidade estiver em questão, **cite a Seção 6.1.3 f)**, que declara o requisito no texto do requisito e não precisa de nenhum argumento sobre se as notas são normativas.",
+     "after": "**A anomalia**, declarada para que nenhum item dependa dela: a Nota 2 à entrada sob a cláusula **3.26**, a definição de Statement of Applicability, contém `shall` - todos os riscos identificados e as medidas de gestão de riscos estabelecidas para tratá-los devem aparecer no Statement of Applicability. Um `shall` dentro de uma nota a uma definição é uma redação incomum. Quando o Statement of Applicability estiver em questão, **cite a cláusula 6.1.3 f)**, que declara o requisito no texto do requisito e não precisa de nenhum argumento sobre se as notas são normativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 99,
+     "before": "- **Dois controles da Tabela A.1 contêm um `should` interno.** O A.6.2.6 exige que a organização defina e documente os elementos necessários para a operação contínua do sistema de IA, e declara que no mínimo isso **should** incluir monitoramento de sistema e desempenho, reparos, atualizações e suporte. O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de eventos **should** ser habilitado, mas no mínimo quando o sistema de IA estiver em uso. Em cada caso, a obrigação do controle é o `shall` e o conteúdo enumerado é consultivo.",
+     "after": "- **Dois controles da Tabela A.1 contêm um `should` interno.** O A.6.2.6 exige que a organização defina e documente os elementos necessários para a operação contínua do sistema de IA, e declara que no mínimo isso **should** abranger o monitoramento do sistema e seu desempenho, reparos, atualizações e suporte. O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de eventos **should** ser habilitado, e em todo caso enquanto o sistema de IA estiver em uso. Em cada caso, a obrigação do controle é o `shall` e o conteúdo enumerado é consultivo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-12-declared-and-operated",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 control A.6.2.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "b550eaba-04cf-4d27-b58b-d2f017091f58",
+     "line_abs": 80,
+     "before": "**A família A.6, ciclo de vida do sistema de IA**, cobre orientações de gestão para o desenvolvimento de sistemas de IA e controles ao longo do ciclo de vida, incluindo documentação técnica do sistema de IA (A.6.2.7) e registro de logs de eventos (A.6.2.8), que aborda em quais fases o registro de logs deve ser habilitado e estabelece no mínimo quando o sistema de IA está em uso.",
+     "after": "**A família A.6, ciclo de vida do sistema de IA**, cobre orientações de gestão para o desenvolvimento de sistemas de IA e controles ao longo do ciclo de vida, incluindo documentação técnica do sistema de IA (A.6.2.7) e registro de logs de eventos (A.6.2.8), que aborda em quais fases o registro de logs deve ser habilitado e estabelece que em qualquer caso isso cobre o período em que o sistema de IA está em uso."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c0a8bec6-5fb1-4ea7-9ee0-2f9212fee1c8",
+     "line_abs": 31,
+     "before": "A Seção 6.1.3 f) da ISO/IEC 42001:2023 exige que a organização produza uma Declaração de Aplicabilidade que **contenha os controles necessários** e **forneça justificativa para inclusões e exclusões**.",
+     "after": "A Seção 6.1.3 f) da ISO/IEC 42001:2023 exige que a organização produza uma Statement of Applicability **contendo os controles necessários** e **justificando tanto as inclusões quanto as exclusões**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c0a8bec6-5fb1-4ea7-9ee0-2f9212fee1c8",
+     "line_abs": 39,
+     "before": "Portanto, uma justificativa de inclusão que diz *aplicável* ou *exigido pela norma* forneceu uma palavra, não uma justificativa — e a segunda é pior do que a primeira, porque o Anexo A.1 afirma que nem todos os controles listados na Tabela A.1 precisam ser utilizados.",
+     "after": "Portanto, uma justificativa de inclusão que diz *aplicável* ou *exigido pela norma* forneceu uma palavra, não uma justificativa — e a segunda é pior do que a primeira, porque o Anexo A.1 afirma que nem todos os controles da Tabela A.1 precisam ser utilizados."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c0a8bec6-5fb1-4ea7-9ee0-2f9212fee1c8",
+     "line_abs": 52,
+     "before": "- **Correto:** *Onde A.2.2 é selecionado, a organização shall documentar uma política para o desenvolvimento ou uso de sistemas de IA.*",
+     "after": "- **Correto:** *Onde A.2.2 é selecionado, a organização deve documentar uma política que cubra como os sistemas de IA são desenvolvidos ou utilizados.*"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c0a8bec6-5fb1-4ea7-9ee0-2f9212fee1c8",
+     "line_abs": 132,
+     "before": "Isso não é uma não conformidade e nunca deve ser escrito como tal. É o tipo de coisa para o qual existem as conclusões de auditoria da Seção 6.5.1 — uma declaração sobre o grau em que os critérios de auditoria foram atendidos, e o relatório pode registrar o perfil do que foi atendido.",
+     "after": "Isso não é uma não conformidade e nunca deve ser escrito como tal. É o tipo de coisa para o qual existem as conclusões de auditoria da cláusula 6.5.1 — uma declaração sobre o grau em que os critérios de auditoria foram atendidos, e o relatório pode registrar o perfil do que foi atendido."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+     "line_abs": 33,
+     "before": "> A organização **deve determinar se as mudanças climáticas são uma questão relevante.**",
+     "after": "A organização **deve determinar se as mudanças climáticas são, para ela, uma questão relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+     "line_abs": 64,
+     "before": "A disposição na Seção 4.2 é uma **NOTA** — partes interessadas relevantes podem ter requisitos relacionados a mudanças climáticas. Uma nota não é um requisito nem orientação no sentido que um `deve` carrega, e nenhuma constatação se baseia nela. O que ela faz é sinalizar onde o tema surge quando os requisitos das partes interessadas são determinados sob os requisitos efetivos da Seção 4.2.",
+     "after": "A disposição na cláusula 4.2 é uma **NOTA** — partes interessadas podem ter requisitos relacionados a mudanças climáticas. Uma nota não é um requisito nem orientação no sentido que um `should` carrega, e nenhuma constatação se baseia nela. O que ela faz é sinalizar onde o tema surge quando os requisitos das partes interessadas são determinados sob os requisitos efetivos da cláusula 4.2."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+     "line_abs": 198,
+     "before": "- A Seção 4.2 traz uma NOTA de que partes interessadas relevantes podem ter requisitos relacionados a mudanças climáticas — uma nota não gera constatação.",
+     "after": "- A Seção 4.2 traz uma NOTA de que partes interessadas podem ter requisitos relacionados a mudanças climáticas — uma nota não gera constatação."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+     "line_abs": 35,
+     "before": "- **assegure que essas pessoas sejam competentes** com base em educação, treinamento ou experiência adequados;",
+     "after": "- **assegurar que essas pessoas sejam competentes**, com base em educação, treinamento ou experiência adequados;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+     "line_abs": 36,
+     "before": "- quando aplicável, **tome ações para adquirir a competência necessária e avalie a eficácia** das ações tomadas;",
+     "after": "- quando aplicável, **aja para adquirir a competência necessária e avalie quão bem essas ações funcionaram**;"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+     "line_abs": 39,
+     "before": "Uma nota registra que as ações aplicáveis podem incluir o fornecimento de treinamento, mentoria ou reatribuição de pessoas atualmente empregadas, ou a contratação de pessoas competentes. Uma nota adicional remete às orientações de implementação para recursos humanos, incluindo a consideração da expertise necessária em B.4.6.",
+     "after": "Uma nota registra que as ações aplicáveis podem incluir o fornecimento de treinamento, mentoria ou reatribuição de pessoas atualmente empregadas, ou a contratação de pessoas competentes. Uma nota adicional remete às orientações de implementação sobre recursos humanos em B.4.6, que abrange a expertise necessária."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+     "line_abs": 73,
+     "before": "O controle **A.4.6, recursos humanos**, da Tabela A.1, estabelece que, como parte da identificação de recursos, a organização deve documentar informação sobre os recursos humanos e suas competências utilizados para o desenvolvimento, implantação, operação, gestão de mudanças, manutenção e transferência de sistemas de IA.",
+     "after": "O controle **A.4.6, recursos humanos**, da Tabela A.1, estabelece que, como parte da identificação de recursos, a organização deve documentar quais recursos humanos e competências são utilizados para o desenvolvimento, implantação, operação, gestão de mudanças, manutenção e transferência de sistemas de IA."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

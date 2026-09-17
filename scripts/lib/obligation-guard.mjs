@@ -178,8 +178,37 @@ const MODALS = {
   },
 };
 
-const countAll = (text, patterns) =>
-  patterns.reduce((n, re) => n + ((String(text).match(re) || []).length), 0);
+/* ============ OVERLAPPING PATTERNS WERE DOUBLE-COUNTING ============
+ *
+ * `are required to` and `required` both match the same four words, so "are
+ * required to be used" scored strong 2 for ONE obligation. Recasting it as "has
+ * to be used" -- one obligation, one match -- printed 2 -> 1 and read as a
+ * dropped `shall`.
+ *
+ * It never changed a VERDICT, because every rule here turns on reaching zero.
+ * It changed what the printed numbers MEAN, and those numbers are read: a real
+ * dropped `shall` in AIMS-IA 04-08 was caught on 2026-09-17 by noticing 3 -> 2
+ * in this very column. An instrument used for that has to be trustworthy at
+ * values above zero too.
+ *
+ * So matches are merged by POSITION and counted once per span of text. Two
+ * patterns covering the same words are one modal; two separate modals remain
+ * two. */
+const countAll = (text, patterns) => {
+  const t = String(text);
+  const spans = [];
+  for (const re of patterns) {
+    re.lastIndex = 0;
+    for (const m of t.matchAll(re)) spans.push([m.index, m.index + m[0].length]);
+  }
+  spans.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  let n = 0, end = -1;
+  for (const [s0, e0] of spans) {
+    if (s0 >= end) { n++; end = e0; }          // disjoint: a new modal
+    else if (e0 > end) end = e0;               // overlapping: same modal, extend
+  }
+  return n;
+};
 
 /** Strong and weak modal counts for one string. */
 export function modalProfile(text, lang) {
@@ -490,12 +519,22 @@ export function checkFaithful() {
     ["es-419", "Son proporcionados, no exigidos.", "strong", "exigidos"],
     ["pt-BR",  "São fornecidos, não exigidos.", "strong", "exigidos"],
     ["es-419", "de forma que puedan producir resultados consistentes.", "weak", "puedan"],
+    ["en", "The controls are required to be used.", "strong", "are required to (counted once, not twice)"],
     ["pt-BR",  "de forma que possam produzir resultados consistentes.", "weak", "possam"],
   ];
   for (const [lang, text, side, label] of seen) {
     if (modalProfile(text, lang)[side] < 1) {
       bad.push(`vocabulary ${lang}: "${label}" is invisible to the ${side} list`);
     }
+  }
+  /* OVERLAP MERGING, both directions. One obligation spelled by two patterns is
+   * ONE; two genuinely separate obligations are still TWO. Without the second
+   * case the merge could silently collapse a real pair. */
+  if (modalProfile("The controls are required to be used.", "en").strong !== 1) {
+    bad.push('overlap: "are required to" + "required" is counted more than once');
+  }
+  if (modalProfile("It shall be monitored and corrective action shall be considered.", "en").strong !== 2) {
+    bad.push("overlap: two separate `shall`s are not counted as two");
   }
   /* And the negative half: an accented word that is NOT a modal must stay
    * unseen, or the boundary was widened into a substring match. */

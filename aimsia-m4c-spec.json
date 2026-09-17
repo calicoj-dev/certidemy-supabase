@@ -1,0 +1,601 @@
+{
+ "generated": "aimsf-lessons-batch1",
+ "threshold_words": 10,
+ "entries": [
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 39,
+     "before": "| D | Use of the AI management system across domains or sectors | informative | `should`, `can` |",
+     "after": "| D | Using the AI management system across domains or sectors | informative | `should`, `can` |"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 51,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 51,
+     "before": "**Table A.1, control A.2.2:** *The organization shall document a policy for the development or use of AI systems.*",
+     "after": "**Table A.1, control A.2.2:** *The organization shall document a policy covering how AI systems are developed or used.*"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 53,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 53,
+     "before": "**Annex B, control B.2.2:** *The organization should document a policy for the development or use of AI systems.*",
+     "after": "**Annex B, control B.2.2:** *The organization should document a policy covering how AI systems are developed or used.*"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 63,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 63,
+     "before": "Clause 6.1.3 e) requires the AI risk treatment process to **consider the guidance in Annex B for the implementation of controls determined in b) and c)**.",
+     "after": "Clause 6.1.3 e) requires the AI risk treatment process to **consider the guidance in Annex B when implementing the controls settled at b) and c)**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 69,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 69,
+     "before": "- relates to the controls listed in Table A.1 and supports their implementation and the meeting of the control objective;",
+     "after": "- bears on the controls listed in Table A.1, supporting how they are implemented and the control objective met;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 70,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 70,
+     "before": "- **but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability** (see 6.1.3);",
+     "after": "- **but no organization has to document or justify including or excluding implementation guidance in its statement of applicability** (see 6.1.3);"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 71,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 71,
+     "before": "- **is not always suitable or sufficient in all situations** and does not always fulfil an organization's specific control requirements;",
+     "after": "- **is not always suitable or sufficient in every situation** and does not always meet an organization's specific control requirements;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 73,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 73,
+     "before": "- **can be regarded as a starting point** for developing organization-specific implementation.",
+     "after": "- **can be treated as a starting point** for developing an organization's own implementation."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 81,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 81,
+     "before": "Three findings that cannot stand, and the reason for each. **\"Annex B requires X\"** - Annex B is written in `should` and B.1 says it is not always suitable or sufficient. **\"The organization must justify departing from Annex B\"** - B.1 states expressly that organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability. **\"Annex B is informative so it is irrelevant\"** - it is normative, and clause 6.1.3 e) obliges consideration of it.",
+     "after": "Three findings that cannot stand, and the reason for each. **\"Annex B requires X\"** - Annex B is written in `should` and B.1 says it is not always suitable or sufficient. **\"The organization must justify departing from Annex B\"** - B.1 states expressly that no organization has to document or justify including or excluding implementation guidance in its statement of applicability. **\"Annex B is informative so it is irrelevant\"** - it is normative, and clause 6.1.3 e) obliges consideration of it."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 87,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 87,
+     "before": "**`shall` is a requirement.** In clauses 4 to 10 it applies unconditionally. In Table A.1 it applies to controls the organization determined necessary and declared - Annex A.1 records that not all control objectives and controls listed in Table A.1 are required to be used.",
+     "after": "**`shall` is a requirement.** In clauses 4 to 10 it applies unconditionally. In Table A.1 it applies to controls the organization determined necessary and declared - Annex A.1 records that not every control objective and control in Table A.1 has to be used."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 95,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 95,
+     "before": "**The anomaly**, stated so no item turns on it: Note 2 to entry under clause **3.26**, the definition of statement of applicability, contains `shall` - all identified risks and the risk management measures established to address them shall be reflected in the statement of applicability. A `shall` inside a note to a definition is unusual drafting. Where the statement of applicability is at issue, **cite clause 6.1.3 f)**, which states the requirement in the requirement text and needs no argument about whether notes are normative.",
+     "after": "**The anomaly**, stated so no item turns on it: Note 2 to entry under clause **3.26**, the definition of statement of applicability, contains `shall` - all identified risks and the risk management measures established to address them shall appear in the statement of applicability. A `shall` inside a note to a definition is unusual drafting. Where the statement of applicability is at issue, **cite clause 6.1.3 f)**, which states the requirement in the requirement text and needs no argument about whether notes are normative."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 99,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 99,
+     "before": "- **Two Table A.1 controls contain an internal `should`.** A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** include system and performance monitoring, repairs, updates and support. A.6.2.8 requires the organization to determine at which life cycle phases event log record keeping **should** be enabled, but at the minimum when the AI system is in use. In each, the control obligation is the `shall` and the enumerated content is advisory.",
+     "after": "- **Two Table A.1 controls contain an internal `should`.** A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** cover monitoring of the system and its performance, repairs, updates and support. A.6.2.8 requires the organization to determine at which life cycle phases event log record keeping **should** be enabled, and in any case while the AI system is in use. In each, the control obligation is the `shall` and the enumerated content is advisory."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 151,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 151,
+     "before": "      { \"id\": \"b\", \"text\": \"No finding: clause B.1 states that organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability, and that the organization can extend, modify or define its own implementation.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"No finding: clause B.1 states that no organization has to document or justify including or excluding implementation guidance in its statement of applicability, and that the organization can extend, modify or define its own implementation.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 163,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 163,
+     "before": "    \"question\": \"An auditor drafts: \\\"Nonconformity against Annex B.2.2 - the organization should document a policy for the development or use of AI systems and has not done so.\\\" What is wrong?\",",
+     "after": "    \"question\": \"An auditor drafts: \\\"Nonconformity against Annex B.2.2 - the organization should document a policy covering how AI systems are developed or used and has not done so.\\\" What is wrong?\","
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 183,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "3d77dcb8-d90f-4c01-9dae-2d6044def894",
+     "line_abs": 183,
+     "before": "      { \"id\": \"b\", \"text\": \"A clause 6.1.3 e) finding: the treatment process shall consider the guidance in Annex B for the implementation of controls determined in b) and c), and no consideration occurred.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"A clause 6.1.3 e) finding: the treatment process shall consider the guidance in Annex B when implementing the controls settled at b) and c), and no consideration occurred.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 32,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "565ea24d-acae-4720-a479-ecb60bac7bbd",
+     "line_abs": 32,
+     "before": "ISO/IEC 42001:2023 clause 6.1.3 f) requires the organization to produce a statement of applicability that **contains the necessary controls** and **provides justification for inclusions and exclusions**.",
+     "after": "ISO/IEC 42001:2023 clause 6.1.3 f) requires the organization to produce a statement of applicability **holding the necessary controls** and **justifying both inclusions and exclusions**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "565ea24d-acae-4720-a479-ecb60bac7bbd",
+     "line_abs": 40,
+     "before": "So an inclusion justification reading *applicable* or *required by the standard* has provided a word rather than a justification - and the second is worse than the first, because Annex A.1 states that not all controls listed in Table A.1 are required to be used.",
+     "after": "So an inclusion justification reading *applicable* or *required by the standard* has provided a word rather than a justification - and the second is worse than the first, because Annex A.1 states that not every control in Table A.1 has to be used."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 46,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "565ea24d-acae-4720-a479-ecb60bac7bbd",
+     "line_abs": 46,
+     "before": "> The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems. **Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).**",
+     "after": "> The controls set out in Table A.1 give the organization a reference for meeting its objectives and handling risks that arise from designing and operating AI systems. **Not every control objective and control in Table A.1 has to be used, and an organization can design and implement controls of its own (see 6.1.3).**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 53,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "565ea24d-acae-4720-a479-ecb60bac7bbd",
+     "line_abs": 53,
+     "before": "- **Right:** *Where A.2.2 is selected, the organization shall document a policy for the development or use of AI systems.*",
+     "after": "- **Right:** *Where A.2.2 is selected, the organization shall document a policy covering how AI systems are developed or used.*"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-10-justifying-both-directions",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 133,
+   "run_words": 0,
+   "run": "42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "565ea24d-acae-4720-a479-ecb60bac7bbd",
+     "line_abs": 133,
+     "before": "That is not a nonconformity and should never be written as one. It is the kind of thing clause 6.5.1's audit conclusions exist for - a statement on the degree to which the audit criteria have been fulfilled, and the report can note the shape of what was fulfilled.",
+     "after": "That is not a nonconformity and should never be written as one. It is the kind of thing clause 6.5.1's audit conclusions exist for - a statement of how far the audit criteria have been fulfilled, and the report can note the shape of what was fulfilled."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 33,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "dac6dc66-4ddd-4baf-9e88-f047525e95f9",
+     "line_abs": 33,
+     "before": "> The organization **shall determine whether climate change is a relevant issue.**",
+     "after": "> The organization **shall determine whether climate change is, for it, a relevant issue.**"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 64,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "dac6dc66-4ddd-4baf-9e88-f047525e95f9",
+     "line_abs": 64,
+     "before": "The provision at clause 4.2 is a **NOTE** - relevant interested parties can have requirements related to climate change. A note is neither a requirement nor guidance in the sense a `should` carries, and no finding rests on it. What it does is signal where the topic surfaces when interested-party requirements are determined under 4.2's actual requirements.",
+     "after": "The provision at clause 4.2 is a **NOTE** - interested parties may have requirements that relate to climate change. A note is neither a requirement nor guidance in the sense a `should` carries, and no finding rests on it. What it does is signal where the topic surfaces when interested-party requirements are determined under 4.2's actual requirements."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 165,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "dac6dc66-4ddd-4baf-9e88-f047525e95f9",
+     "line_abs": 165,
+     "before": "      { \"id\": \"b\", \"text\": \"Clause 4.2: the organization shall determine which of the identified interested party requirements will be addressed through the AI management system, and that third limb is missing.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"Clause 4.2: the organization shall determine which of the identified interested party requirements the AI management system will address, and that third limb is missing.\" },"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 198,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "dac6dc66-4ddd-4baf-9e88-f047525e95f9",
+     "line_abs": 198,
+     "before": "- Clause 4.2 carries a NOTE that relevant interested parties can have requirements related to climate change - a note carries no finding.",
+     "after": "- Clause 4.2 carries a NOTE that interested parties may have requirements that relate to climate change - a note carries no finding."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-12-declared-and-operated",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 80,
+   "run_words": 0,
+   "run": "42001 control A.6.2.8",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "25ecbe8b-8a80-4975-b267-f5015926f76d",
+     "line_abs": 80,
+     "before": "**Family A.6, AI system life cycle**, covers management guidance for AI system development and controls across the life cycle, including AI system technical documentation (A.6.2.7) and recording of event logs (A.6.2.8), which addresses at which phases log record keeping should be enabled and states at the minimum when the AI system is in use.",
+     "after": "**Family A.6, AI system life cycle**, covers management guidance for AI system development and controls across the life cycle, including AI system technical documentation (A.6.2.7) and recording of event logs (A.6.2.8), which addresses at which phases log record keeping should be enabled and says that in any case this covers the time the AI system is in use."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 34,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 34,
+     "before": "- **determine the necessary competence** of persons doing work under its control that affects its AI performance;",
+     "after": "- **determine the necessary competence** of anyone working under its control whose work affects AI performance;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 35,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 35,
+     "before": "- **ensure that these persons are competent** on the basis of appropriate education, training or experience;",
+     "after": "- **ensure those people are competent**, on the strength of suitable education, training or experience;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 36,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 36,
+     "before": "- where applicable, **take actions to acquire the necessary competence, and evaluate the effectiveness** of the actions taken;",
+     "after": "- where applicable, **act to acquire the competence needed, and evaluate how well those actions worked**;"
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 37,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 37,
+     "before": "- and **appropriate documented information shall be available as evidence of competence**.",
+     "after": "- and **appropriate documented information shall be kept as evidence of competence**."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 39,
+     "before": "A note records that applicable actions can include providing training to, mentoring of, or reassigning currently employed persons, or hiring or contracting competent persons. A further note points to implementation guidance for human resources including consideration of necessary expertise at B.4.6.",
+     "after": "A note records that applicable actions can include providing training to, mentoring of, or reassigning currently employed persons, or hiring or contracting competent persons. A further note points to implementation guidance on human resources at B.4.6, which covers the expertise needed."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 50,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 50,
+     "before": "::concept title=\"Persons doing work under its control that affects its AI performance\"",
+     "after": "::concept title=\"Persons whose work under the organization's control affects AI performance\""
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 73,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 73,
+     "before": "Table A.1 control **A.4.6, human resources**, states that as part of resource identification the organization shall document information about the human resources and their competences used for the development, deployment, operation, change management, maintenance and transfer of AI systems.",
+     "after": "Table A.1 control **A.4.6, human resources**, states that as part of identifying resources the organization shall document which human resources and competences are used for developing, deploying, operating, change-managing, maintaining and transferring AI systems."
+    }
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "slug": "aims-ia-04-13-competence-the-organization-claims",
+   "block": "-",
+   "block_index": -1,
+   "line_index": 149,
+   "run_words": 0,
+   "run": "42001 clause 7.2",
+   "needs_authoring": false,
+   "languages": {
+    "en": {
+     "lesson_id": "fd9783c2-1180-4b7e-a9aa-7f8bf336cae7",
+     "line_abs": 149,
+     "before": "      { \"id\": \"b\", \"text\": \"A clause 7.2 finding: appropriate documented information shall be available as evidence of competence, and job titles and start dates evidence employment rather than competence on the basis of education, training or experience.\" },",
+     "after": "      { \"id\": \"b\", \"text\": \"A clause 7.2 finding: appropriate documented information shall be kept as evidence of competence, and job titles and start dates evidence employment rather than competence on the basis of education, training or experience.\" },"
+    }
+   }
+  }
+ ],
+ "blocked": []
+}
