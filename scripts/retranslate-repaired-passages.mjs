@@ -58,7 +58,7 @@ import { blocks, solid } from "./lib/guide-runs.mjs";
 import { looksLikeLanguage, checkFaithful as langControl } from "./lib/language-guard.mjs";
 import { preservesObligationAcross, checkFaithful as obControl } from "./lib/obligation-guard.mjs";
 
-const KNOWN = new Set(["--apply", "--out", "--lang", "--limit", "--verbose"]);
+const KNOWN = new Set(["--apply", "--out", "--lang", "--limit", "--verbose", "--slug"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
     console.error("Unrecognised flag: " + a + ".");
@@ -75,6 +75,9 @@ const VERBOSE = process.argv.includes("--verbose");
 const OUT = arg("out", "retranslate-spec.json");
 const ONLY_LANG = arg("lang", "");
 const LIMIT = Number(arg("limit", "0"));
+/* --slug scopes a run to one batch, so a batch's Spanish lands with its English
+ * instead of accumulating into a queue that grows faster than it is read. */
+const ONLY_SLUGS = (arg("slug", "") || "").split(",").filter(Boolean);
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
@@ -151,7 +154,8 @@ async function translate(english, current, langName) {
 const BATCHES = [
   "./lesson-repairs-aimsf.mjs", "./lesson-repairs-aimsf-b2.mjs",
   "./lesson-repairs-aimsf-m1.mjs", "./lesson-repairs-aimsf-m2.mjs",
-  "./lesson-repairs-aimsf-m3.mjs", "./lesson-repairs-aimsf-m5.mjs",
+  "./lesson-repairs-aimsf-m3.mjs", "./lesson-repairs-aimsf-m4.mjs",
+  "./lesson-repairs-aimsf-m5.mjs",
 ];
 const spansBySlug = new Map();
 for (const b of BATCHES) {
@@ -247,6 +251,7 @@ for (const row of flagged) {
   if (!LANGS.includes(row.language)) continue;
   const en = ens[row.lesson_group_id];
   if (!en) continue;
+  if (ONLY_SLUGS.length && !ONLY_SLUGS.includes(row.slug)) continue;
   for (const sp of spansBySlug.get(row.slug) ?? []) {
     const at = coordOf(en.content_md, sp.after);
     if (!at) continue;

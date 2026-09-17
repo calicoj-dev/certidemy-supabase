@@ -37,6 +37,21 @@
  * It cannot see a paraphrase that keeps the obligation and changes its object,
  * which is rung two of the ladder and still needs a human with the standard
  * open. It is a floor, not a review.
+ *
+ * AND A NOUN CAN MASK A LOST MODAL. The weak-loss rule only fires when the
+ * STRONG count is also zero, so a repair that drops `should` while the sentence
+ * still contains `requirements` reads as weak 1 -> 0, strong 1 -> 1, and
+ * passes. That happened on AIMS-F 04-05: "but SHOULD be aware of unique
+ * requirements" became "while staying alert to requirements unique", turning
+ * ISO's advice into a description of what happens, and nothing refused it.
+ *
+ * It is a consequence of adding nominalisations to the strong lists -- a noun
+ * that is not the modal holds the strong count up while the modal leaves. The
+ * rule was NOT tightened to `a.weak === 0` alone, because a genuine
+ * weak-to-strong repair (`can be needed` -> `may be needed` alongside a `shall`)
+ * would then be refused for no reason. What closes it is reading the profile
+ * when weak drops at all, which is why the per-span profile is printed on every
+ * line the generators emit rather than only on refusals.
  */
 
 /* STRONG = the clause imposes a requirement. WEAK = it permits or advises.
