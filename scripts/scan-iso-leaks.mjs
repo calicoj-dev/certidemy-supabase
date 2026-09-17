@@ -136,6 +136,11 @@ if (!sourcesAvailable()) {
 console.log("");
 console.log("building the index from " + Object.keys(PDFS).length + " standards");
 const grams = new Set();
+/* Per-source indices exist ONLY for the positive controls below. The scan
+ * itself uses the combined index; a run is a run whichever standard it came
+ * from. Keeping them separate is what lets the control say WHICH source failed
+ * to load rather than only that something did. */
+const perSource = new Map();
 const srcParts = [];
 for (const [label, path] of Object.entries(PDFS)) {
   const raw = pdfText(path);
@@ -145,7 +150,13 @@ for (const [label, path] of Object.entries(PDFS)) {
     console.error("  extraction is an empty index wearing a success.");
     process.exit(1);
   }
-  for (let i = 0; i + SEED <= w.length; i++) grams.add(w.slice(i, i + SEED).join(" "));
+  const own = new Set();
+  for (let i = 0; i + SEED <= w.length; i++) {
+    const gram = w.slice(i, i + SEED).join(" ");
+    grams.add(gram);
+    own.add(gram);
+  }
+  perSource.set(label, own);
   srcParts.push(label + ":" + createHash("sha256").update(raw).digest("hex").slice(0, 8));
   console.log("  " + label.padEnd(12) + String(w.length).padStart(7) + " words");
 }
@@ -243,14 +254,90 @@ ctl("NEGATIVE: AISM-I (cites no ISO) stays under the threshold",
   aism.length > 100 && aismMax < THRESHOLD,
   aism.length + " lessons, longest run " + aismMax + "w, threshold " + THRESHOLD);
 
-/* POSITIVE: something known to quote a standard at length must trip. Without
- * this, an empty index passes every other check in this file. */
-const CANARY = "isms-ia-05-05-fixing-it-and-fixing-it";
-const CANARY_MIN = 40;
-const canary = scored.filter((s) => s.slug === CANARY && s.language === "en");
-ctl("POSITIVE: " + CANARY + " trips at >=" + CANARY_MIN + "w",
-  canary.length === 1 && canary[0].run >= CANARY_MIN,
-  canary.length ? canary[0].run + "w" : "LESSON NOT FOUND -- cannot prove the index works");
+/* ============ POSITIVE: THREE SYNTHETIC CANARIES, ONE PER SOURCE ============
+ *
+ * Without a positive control an empty index passes every other check here and
+ * marks the whole platform servable.
+ *
+ * THIS CONTROL USED TO BE A LESSON, AND A CONTENT DECISION COULD DISARM IT.
+ * It asserted that `isms-ia-05-05-fixing-it-and-fixing-it` tripped at >=40
+ * words. Measured 2026-09-17: those 87 words are ENTIRELY inside blockquotes,
+ * and the lesson's prose measures 10. So the control survived only because
+ * those particular quotes happened to carry no attribution -- and IP-POSITION
+ * section 6, as amended the same day, REQUIRES attribution on every quotation.
+ * Complying with our own rule would have retired the only check proving this
+ * index is not empty, silently, as an editorial edit.
+ *
+ * A control whose subject is content someone may legitimately change is not a
+ * control. These are literals in this file: nothing in the database, and no
+ * decision about the corpus, can move them.
+ *
+ * ONE PER STANDARD, ASSERTED AGAINST THAT STANDARD'S OWN INDEX. A single
+ * combined-index canary proves only that SOMETHING loaded. It would pass with
+ * 42001 missing entirely -- and measured, the 27001 sentence below scores 27
+ * words against 42001's text on its own, because Annex SL gives the two
+ * standards near-identical clause 4.1 wording. Per-source is what makes the
+ * check able to name the source that failed.
+ *
+ * AND THE ASSERTION IS FULL LENGTH, NOT A THRESHOLD, WHICH IS THE HALF THAT
+ * ACTUALLY BITES. Measured by dropping each source and re-indexing: with 27001
+ * absent, its canary still scores 27 of 31 words against 42001 alone. A control
+ * written as ">= 10w", or ">= 20w", would have passed with an entire standard
+ * missing. Only "all 31 words" fires.
+ *
+ * A partial match also means the extraction changed -- a new edition, a
+ * different pdftotext -- and that is exactly when every number this script
+ * produces stops being comparable with yesterday's.
+ *
+ * These are short excerpts held as test fixtures. The standards themselves are
+ * already on disk; this adds no reproduction that was not already there, and
+ * IP-POSITION section 6 governs what is SERVED, not what a control asserts. */
+const CANARIES = {
+  "19011:2026":
+    "the risk-based approach should substantively influence the planning and " +
+    "implementation of the audit programme, and the planning, conducting and " +
+    "reporting of audits",
+  "27001:2022":
+    "the organization shall determine external and internal issues that are " +
+    "relevant to its purpose and that affect its ability to achieve the intended " +
+    "outcome(s) of its information security management system",
+  "42001:2023":
+    "policies, guidelines and decisions from regulators that have an impact on " +
+    "the interpretation or enforcement of legal requirements in the development " +
+    "and use of AI systems",
+};
+
+/** Longest run of `text` within one source's own gram set. */
+function longestIn(text, own) {
+  const w = norm(text).split(" ").filter(Boolean);
+  let best = 0;
+  for (let i = 0; i + SEED <= w.length; i++) {
+    if (!own.has(w.slice(i, i + SEED).join(" "))) continue;
+    let n = SEED;
+    while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+    if (n > best) best = n;
+    i += n - 1;
+  }
+  return best;
+}
+
+for (const [label, sentence] of Object.entries(CANARIES)) {
+  const want = norm(sentence).split(" ").filter(Boolean).length;
+  const own = perSource.get(label);
+  const got = own ? longestIn(sentence, own) : 0;
+  ctl("POSITIVE: " + label + " indexed its own text",
+    got === want,
+    own ? got + "w of " + want + "w matched" : "SOURCE NOT INDEXED -- label mismatch with PDFS");
+}
+
+/* And the combined index must carry them too, which is the set the scan
+ * actually queries. Cheap, and it catches a merge that dropped a source. */
+for (const [label, sentence] of Object.entries(CANARIES)) {
+  const want = norm(sentence).split(" ").filter(Boolean).length;
+  ctl("POSITIVE: " + label + " reachable in the combined index",
+    longestRun(sentence).best === want,
+    longestRun(sentence).best + "w of " + want + "w");
+}
 
 const ctlFailed = controls.filter((c) => !c.ok);
 
