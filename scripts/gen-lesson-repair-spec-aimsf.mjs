@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PDFS, sourcesAvailable } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lib/citation-index.mjs";
 import { preservesObligation, checkFaithful } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lib/obligation-guard.mjs";
+import { segments, attributedQuote } from "file:///C:/Users/Juan/Documents/certidemy/supabase/scripts/lib/iso-segments.mjs";
 /* The batch is a parameter: `node gen-lesson-repair-spec-aimsf.mjs <out.json>
  * <repairs-module>`. One generator, one applier, one data file per batch -- so
  * a batch can be re-read on its own without the machinery around it. */
@@ -56,7 +57,19 @@ for(const r of REPAIRS){
     touched.push(ob.before.strong+"/"+ob.before.weak+"->"+ob.after.strong+"/"+ob.after.weak);
   }
   if(fail){problems.push(r.slug+": "+fail);console.log("  REFUSED "+r.slug+": "+fail);continue;}
-  const b4=lr(row.content_md).b, af=lr(md);
+  /* MEASURE SEGMENTS, LIKE THE GATE DOES.
+   *
+   * `lr` scores one stretch of text. Scoring a whole BODY with it counted the
+   * attributed quotations that IP-POSITION 6 exempts, so this generator refused
+   * every ISMS-IA repair -- including the attribution edits, whose entire
+   * purpose is to make those quotations exempt. The gate would have accepted
+   * what the generator would not let anyone write.
+   *
+   * A generator stricter than the gate is not the safe direction. It is a
+   * second, undocumented rule that nothing tests and that blocks compliant
+   * work. */
+  const meas=(t)=>{let b=0,bt="";for(const seg of segments(t,attributedQuote)){const r=lr(seg);if(r.b>b){b=r.b;bt=r.bt;}}return{b,bt};};
+  const b4=meas(row.content_md).b, af=meas(md);
   if(af.b>=T){problems.push(r.slug+": still leaks "+af.b+"w -- \""+af.bt.slice(0,64)+"\"");console.log("  REFUSED "+r.slug+": still leaks "+af.b+"w");continue;}
   // emit as line entries for apply-marking-spec
   const oldS=lineSpans(row.content_md), newS=lineSpans(md);

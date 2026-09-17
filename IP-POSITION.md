@@ -307,12 +307,40 @@ translates, and `guide-runs.mjs` records what that cost: an English-only pattern
 reported 54 trilingual violations that did not exist. Do not read this section as
 evidence that attribution detection is generally tractable.
 
-**And the detector cannot police attribution in translations at all.** The index
-is English ISO text, so an es-419 or pt-BR row measures zero by construction and
-the verdict is taken over the lesson group. That was sound under a rule that
-refused all clause text. Under a rule whose operative half is *attributed*, it
-means **"attribution on every quotation" is machine-enforced in English and
-editorial everywhere else.** Stated here rather than discovered later.
+### Which half is checked and which half is trust
+
+**Attribution is machine-enforced in English. In Spanish and Portuguese it is
+editorial.**
+
+The index is built from the English editions of the three standards. An es-419
+or pt-BR row therefore measures zero by construction — not because its
+quotations are attributed, and not because it has none, but because nothing in
+the detector can see translated ISO text at all. The verdict is taken over the
+lesson group, so a translation is served or withheld on the strength of what its
+**English sibling** measured.
+
+That was sound under the old rule, which refused all clause text: if the English
+was clean the translation had nothing to quote. It is not sound under a rule
+whose operative half is *attributed*, because attribution is a property of each
+rendering, and a translator can drop a lead-in without the gate noticing.
+
+So, plainly, for anyone acting on this section:
+
+| | English | es-419 / pt-BR |
+|---|---|---|
+| clause text detected | by the scanner | **not at all** |
+| quotation set off | by the scanner | **not at all** |
+| attribution present | by the scanner | **by a human, or not at all** |
+
+**A clean scan is evidence about the English and about nothing else.** The
+constraint the amended rule adds — attribution on every quotation — is carried
+in the other two languages by whoever writes and reviews them. Anyone who reads
+a green result as covering all three languages has read it wrong, and this
+paragraph exists so that is not discoverable only after it matters.
+
+Closing it would mean indexing the Spanish and Portuguese editions of ISO 19011,
+27001 and 42001. We do not hold them. That is the whole reason, and it is a
+purchasing decision rather than an engineering one.
 
 ---
 
