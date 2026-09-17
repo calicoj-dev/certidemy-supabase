@@ -18,15 +18,32 @@ A prospect with no key and no account can pull all of this today:
 |---|---|---|
 | certification record | yes | yes |
 | domains, weights, tasks | yes | yes |
-| task knowledge / skills / abilities | yes | yes |
+| task knowledge / skills / abilities | yes | **English only** |
 | concepts and what they attach to | yes | yes |
 | lesson catalogue (titles, order, duration) | yes | yes |
 | search across tasks and concepts | yes | yes |
 
-Available in **English, Spanish (es-419) and Portuguese (pt-BR)** for tasks and
-the lesson catalogue. Concepts are English-only — there is no concept
-translation table, and that is a pre-existing gap, not something this work
-introduced.
+Available in **English, Spanish (es-419) and Portuguese (pt-BR)** for task
+statements, domain titles and the lesson catalogue.
+
+**CORRECTION, 2026-09-17: an earlier draft of this page said the task knowledge,
+skills and abilities were available in all three languages. They are not, for
+AIMS-F.** Measured: `task_translations.knowledge`, `.skills` and `.abilities`
+are NULL on all 70 AIMS-F rows and all 88 SM-AI-II rows -- only `statement` is
+translated. Every other certification, ISMS-F included, is fully translated on
+all four fields (702 of 860 rows platform-wide).
+
+So a Spanish pull of the AIMS-F syllabus returns the task statements and domain
+titles, and nulls where the knowledge, skills and abilities would be. **ISMS-F
+does not have this problem.**
+
+It is a content gap, not an IP gap, and it predates this week's work -- but it
+is what a Spanish-speaking partner sees, so it belongs on this page. If Hexasec
+compares the two certifications side by side in Spanish, AIMS-F will look
+thinner and the reason is translation coverage, not curriculum depth.
+
+Concepts are English-only across every certification -- there is no concept
+translation table at all. Also pre-existing.
 
 **This is the part of the demo that cannot go wrong.** It needs no credential,
 it is complete, and it is the surface a partner actually uses to decide whether
@@ -120,7 +137,8 @@ AIMS-F Spanish is thin today and why it will not be thin for long.
 
 ## 5. If the queue gets worked tonight
 
-`BILINGUAL-QUEUE.json`, 98 rows, Spanish first. Working the **49 Spanish rows**
+`BILINGUAL-QUEUE.json`, 64 rows and 222 passages, Spanish first. Working the
+**32 Spanish rows**
 moves the table above to:
 
 | | English | Spanish |
@@ -131,9 +149,12 @@ moves the table above to:
 Re-running `node scripts/gen-bilingual-queue.mjs` refreshes the file; rows you
 have cleared drop out of it.
 
-The 34 blueprint rows are lower priority — the syllabus already serves in
-Spanish, and those rows are a consistency pass on task knowledge fields rather
-than something blocking the demo.
+**The 34 blueprint rows that were in this queue are gone**, for two independent
+reasons: `task_translations.knowledge` is NULL on every AIMS-F row, so there was
+nothing to compare the English against; and `lesson_translation_reviews` is keyed
+on `lesson_id`, so no table could have held a verdict on them even once read.
+They had no clearing path. The real finding underneath them is section 1's
+correction.
 
 ---
 
@@ -145,6 +166,9 @@ than something blocking the demo.
   lesson bodies quote far more heavily and their repair is a programme, not a
   batch.
 - **Concepts are English-only** across every certification. Pre-existing.
+- **AIMS-F and SM-AI-II have no translated task knowledge, skills or
+  abilities** — 158 of 860 `task_translations` rows. Pre-existing, and the
+  largest content gap a Spanish-speaking partner will notice.
 - **The connector's tool list** is widened by the web-side change; if that has
   not been deployed, the two new certifications are accepted by the API but not
   yet advertised in the tool descriptions.
