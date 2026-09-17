@@ -82,6 +82,11 @@ export function requiredScope(resource: Resource): string | null {
 export const CERTIFICATIONS = [
   "AISM-I", "AIE-I", "AIHR-I", "AIGRM-I",
   "SM-AI-I", "SM-AI-II", "SPO-AI-I", "SD-AI-I",
+  // Joined 2026-09-17 with migration 334, once both blueprints measured clean
+  // of reproduced ISO clause text. AIMS-F's LESSON BODIES are still mostly
+  // withheld by lessons.mcp_servable -- being in this list is being offered,
+  // not being complete, and the two are gated in different places on purpose.
+  "ISMS-F", "AIMS-F",
 ] as const;
 export type Certification = typeof CERTIFICATIONS[number];
 export const DEFAULT_CERTIFICATION: Certification = "AISM-I";

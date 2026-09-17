@@ -1191,11 +1191,95 @@ serve(async (req) => {
     const { q, searched } = buildQuery(args);
     const conn = await (needsHolder ? getHolderPool() : getPool()).connect();
     let rows: Record<string, unknown>[];
+    let withheld: { reason: string; message: string } | null = null;
     try {
       const r = await conn.queryObject<Record<string, unknown>>(q);
       rows = r.rows;
+
+      // ============ A WITHHELD BODY IS NOT AN ABSENT ONE ============
+      //
+      // `mcp.lesson` excludes a lesson whose body reproduces ISO clause text
+      // (332/333) and a translation whose English was repaired but which nobody
+      // has read yet (335). Both come back as ZERO ROWS -- byte-identical to a
+      // slug that does not exist, a language that was never written, or a typo.
+      //
+      // That is the silent-success shape aimed at the one surface where it costs
+      // a partner the most: they ask for a lesson that IS in the catalogue, get
+      // an empty result, and conclude the curriculum is thinner than it is.
+      //
+      // `mcp.lesson_index` carries every lesson with no body and a
+      // `body_available` flag, so the three states are distinguishable with one
+      // extra query ON THE MISS PATH ONLY. A hit never pays for it.
+      //
+      //   no index row          -> the lesson genuinely does not exist
+      //   body_available false  -> the body reproduces standard text
+      //   body_available true   -> mcp.lesson still refused it, which after 335
+      //                            can only mean this TRANSLATION is unreviewed
+      if (args.resource === "lesson" && rows.length === 0) {
+        const probe = await conn.queryObject<{ body_available: boolean }>({
+          text:
+            "select body_available from mcp.lesson_index " +
+            "where certification = $1 and lesson_slug = $2 and language = $3",
+          args: [args.certification!, args.lesson_slug, args.language],
+        });
+        const found = probe.rows[0];
+        if (!found) {
+          withheld = {
+            reason: "not_found",
+            message:
+              `No lesson '${args.lesson_slug}' in ${args.certification} for ${args.language}. ` +
+              "Use list_lessons for the catalogue; it needs no credential.",
+          };
+        } else if (found.body_available === false) {
+          withheld = {
+            reason: "body_withheld_standard_text",
+            message:
+              `The lesson '${args.lesson_slug}' exists and its body is NOT available through this API. ` +
+              "It reproduces clause text from an ISO standard, which Certidemy may teach from but may not " +
+              "redistribute. This is not a problem with your credential and retrying will not change it. " +
+              "The syllabus, tasks and concepts for this certification are fully available.",
+          };
+        } else {
+          withheld = {
+            reason: "translation_pending_review",
+            message:
+              `The lesson '${args.lesson_slug}' exists and its ${args.language} body is not available YET. ` +
+              "Its English was recently edited to remove reproduced standard text, and the translation is " +
+              "held until a human has confirmed the same text is not present in it. This is not a problem " +
+              "with your credential. The English body is available now; the translation will follow.",
+          };
+        }
+      }
     } finally {
       conn.release();
+    }
+
+    // ============ THE STATUS IS CHOSEN AROUND THE WORKER, DELIBERATELY ============
+    //
+    // NOT 403. `certidemy-web/lib/mcp/registry.ts` DISCARDS the function's
+    // detail on 401 and 403 and substitutes a fixed message about issuer API
+    // keys ending "If a key was sent, it may have just been revoked." A partner
+    // whose Spanish translation is pending review would be sent to check, rotate
+    // and re-copy a credential that is perfectly fine -- the same misattribution
+    // that file already records twice, arriving through a third door.
+    //
+    // Any other 4xx keeps `http.detail` and puts it in front of the agent. 404
+    // is the closest honest reading: the BODY is not available at this address.
+    //
+    // THE WRAPPER IS STILL WRONG AND THE FIX IS NOT MINE. The Worker will frame
+    // this as "The curriculum service rejected this request ... a fault in the
+    // server, not in the question", which a withheld body is not. The substance
+    // survives; the framing needs a web-side change.
+    if (withheld) {
+      console.log(JSON.stringify({
+        fn: "courseware-read",
+        resource: args.resource,
+        language: args.language,
+        withheld: withheld.reason,
+        lesson_slug: args.lesson_slug,
+        ms: Date.now() - started,
+      }));
+      return jsonResponse({ error: withheld.message, reason: withheld.reason }, 404);
     }
 
     // THE RAW MARKDOWN NEVER LEAVES THIS FUNCTION. content_md is replaced by the
