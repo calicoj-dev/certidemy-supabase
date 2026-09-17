@@ -1,0 +1,2248 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011:2026 clause 7.2.3, generic competence",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "952a434f-4811-45a3-8619-ec25dfdd96e0",
+     "line_abs": 40,
+     "before": "La mitad genérica es lo que hace de alguien un auditor. Incluye aplicar principios y métodos de auditoría, planificar y organizar el trabajo, priorizar los asuntos de importancia, recopilar información mediante entrevistas eficaces, escucha activa, observación y revisión de información documentada, comprender la pertinencia y las consecuencias del muestreo, verificar la relevancia y exactitud de la información recopilada, y confirmar que la evidencia es suficiente y apropiada para respaldar los hallazgos.",
+     "after": "La mitad genérica es lo que hace de alguien un auditor. Incluye aplicar principios y métodos de auditoría, planificar y organizar el trabajo, priorizar los asuntos de importancia, recopilar información mediante entrevistas, escucha, observación y revisión de información documentada, comprender la pertinencia y las consecuencias del muestreo, verificar la relevancia y exactitud de la información recopilada, y confirmar que la evidencia es suficiente y apropiada para respaldar los hallazgos."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-08-assets-nobody-registered",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.9",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "79c3e118-d9b1-4cca-8e74-3f23c1abe8b8",
+     "line_abs": 238,
+     "before": "- O Anexo A 5.9 exige um inventário de informações e outros ativos associados, incluindo proprietários.",
+     "after": "- O Anexo A 5.9 exige um inventário de informações e ativos associados, com seus proprietários."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9804e42e-61d8-49cc-9b6a-d64069f423f5",
+     "line_abs": 47,
+     "before": "ISO 19011:2026 define los **criterios de auditoría** como el conjunto de requisitos utilizados como referencia contra la cual se compara la evidencia objetiva. Sus notas hacen explícita la amplitud del término: los criterios pueden incluir políticas, procedimientos, instrucciones de trabajo, requisitos legales, obligaciones contractuales y normas del sector.",
+     "after": "ISO 19011:2026 define los **criterios de auditoría** como el conjunto de requisitos utilizados como referencia contra la cual se compara la evidencia objetiva. Sus notas hacen explícita la amplitud del término: los criterios pueden ser políticas, procedimientos o instrucciones de trabajo, requisitos legales y obligaciones contractuales y normas del sector."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9804e42e-61d8-49cc-9b6a-d64069f423f5",
+     "line_abs": 71,
+     "before": "La comparación lo hace inequívoco. **El apartado 9.2.2 a) de ISO/IEC 42001 exige que la organización defina los *objetivos* de auditoría, los criterios y el alcance para cada auditoría.** Misma estructura armonizada, mismo número de apartado, una palabra adicional. Un auditor que trabaja con ambas normas y traslada la redacción de la 42001 a una auditoría de la 27001 levantará un hallazgo que la norma no respalda.",
+     "after": "La comparación lo hace inequívoco. **La cláusula 9.2.2 a) de ISO/IEC 42001 exige que la organización establezca los *objetivos*, los criterios y el alcance de cada auditoría individual.** Misma estructura armonizada, mismo número de cláusula, una palabra adicional. Un auditor que trabaja con ambas normas y traslada la redacción de la 42001 a una auditoría de la 27001 levantará un hallazgo que la norma no respalda."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9804e42e-61d8-49cc-9b6a-d64069f423f5",
+     "line_abs": 129,
+     "before": "No hay que confundir esto con la exclusión que no está permitida. **El Capítulo 1 de ISO/IEC 27001 establece que excluir cualquiera de los requisitos especificados en los capítulos 4 a 10 no es aceptable cuando una organización declara conformidad.** Eso rige el SGSI, no su auditoría.",
+     "after": "No hay que confundir esto con la exclusión que no está permitida. **La cláusula 1 de ISO/IEC 27001 establece que omitir cualquier requisito de las cláusulas 4 a 10 no es aceptable cuando una organización declara conformidad.** Eso rige el SGSI, no su auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0120f8c3-5519-4b6e-b9f1-b2afdf429733",
+     "line_abs": 59,
+     "before": "La segunda nota define qué es una ubicación virtual:",
+     "after": "La segunda nota de ISO 19011:2026 define qué es una ubicación virtual:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0120f8c3-5519-4b6e-b9f1-b2afdf429733",
+     "line_abs": 51,
+     "before": "A continuación se presentan tres notas. Los métodos remotos pueden combinarse con métodos presenciales para lograr una auditoría completa y eficaz. Pueden utilizarse para **ubicaciones virtuales**. Y pueden ser empleados por un auditor en un sitio del auditado para auditar otro sitio.",
+     "after": "A continuación se presentan tres notas. Los métodos remotos pueden combinarse con métodos presenciales para lograr una auditoría completa y eficaz. Pueden utilizarse para **ubicaciones virtuales**. Y pueden ser empleados por un auditor en uno de los sitios del auditado para auditar otro sitio diferente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 36,
+     "before": "| 6.1.2 - definir y aplicar un proceso de evaluación del riesgo | **8.2** - realizar evaluaciones en intervalos planificados o cuando se proponen o producen cambios significativos |",
+     "after": "| 6.1.2 - definir y aplicar un proceso de evaluación del riesgo | **8.2** - realizar evaluaciones en intervalos planificados, y siempre que se proponga o produzca un cambio significativo |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 43,
+     "before": "**Vale la pena leer con precisión el disparador del apartado 8.2:** en intervalos planificados **o cuando se proponen o producen cambios significativos**. Dos disparadores. Una organización que evalúa anualmente y tuvo una migración importante de sistemas en junio tiene una pregunta del apartado 8.2 que la programación anual no responde.",
+     "after": "**Vale la pena leer con precisión el disparador del apartado 8.2:** en intervalos planificados **y siempre que se proponga o produzca un cambio significativo**. Dos disparadores. Una organización que evalúa anualmente y tuvo una migración importante de sistemas en junio tiene una pregunta del apartado 8.2 que la programación anual no responde."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 47,
+     "before": "El apartado 8.1 exige que la organización planifique, implemente y controle los procesos necesarios para cumplir los requisitos y ejecutar las acciones del capítulo 6, mediante:",
+     "after": "La cláusula 8.1 exige que la organización planifique, ejecute y controle los procesos que necesita para cumplir los requisitos y llevar a cabo las acciones de la cláusula 6, mediante:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 49,
+     "before": "- **el establecimiento de criterios para los procesos**",
+     "after": "- **el establecimiento de criterios para esos procesos**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 50,
+     "before": "- **la implementación del control de los procesos de acuerdo con los criterios**",
+     "after": "- **el control de los procesos con base en dichos criterios**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 54,
+     "before": "- **La información documentada deberá estar disponible** en la medida necesaria para tener confianza en que los procesos se han llevado a cabo según lo planificado.",
+     "after": "- **La información documentada deberá conservarse** en la medida en que sea necesario para generar confianza en que los procesos se ejecutaron según lo planificado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 55,
+     "before": "- La organización deberá **controlar los cambios planificados y revisar las consecuencias de los cambios no previstos**, tomando las acciones necesarias para mitigar los efectos adversos.",
+     "after": "- La organización deberá **controlar los cambios planificados y revisar lo que producen los cambios no previstos**, actuando para mitigar los efectos adversos según sea necesario."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 56,
+     "before": "- La organización deberá asegurarse de que los **procesos, productos o servicios proporcionados externamente** que sean relevantes para el SGSI **estén controlados.**",
+     "after": "- La organización deberá asegurarse de que los **procesos, productos o servicios proporcionados externamente** que incidan en el SGSI **estén controlados.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 64,
+     "before": "**Y nótese el estándar de confianza para la documentación:** *en la medida necesaria para tener confianza en que los procesos se han llevado a cabo según lo planificado.* Se trata de una prueba de propósito, no de volumen, lo que tiene implicaciones en ambas direcciones durante una auditoría.",
+     "after": "**Y nótese el estándar de confianza para la documentación:** *en la medida necesaria para tener confianza en que los procesos se ejecutaron según lo planificado.* Se trata de una prueba de propósito, no de volumen, lo que tiene implicaciones en ambas direcciones durante una auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 70,
+     "before": "- a) **qué necesita ser monitoreado y medido**, incluidos los procesos y controles de seguridad de la información",
+     "after": "- a) **qué debe ser monitoreado y medido**, incluidos los procesos y controles de seguridad de la información"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 71,
+     "before": "- b) los **métodos** de monitoreo, medición, análisis y evaluación, según corresponda, para asegurar resultados válidos",
+     "after": "- b) los **métodos** utilizados para monitorear, medir, analizar y evaluar, según corresponda, de modo que los resultados sean válidos"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 14,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 89,
+     "before": "Nótese el estándar del punto b): los métodos deben producir **resultados comparables y reproducibles** para considerarse válidos. Una métrica cuya definición cambió a mitad de año no está produciendo resultados comparables.",
+     "after": "Nótese la norma del punto b): los métodos deberían producir **resultados comparables y reproducibles** para considerarse válidos. Una métrica cuya definición cambió a mitad de año no está produciendo resultados comparables."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 75,
+     "before": "- f) **quién deberá analizar y evaluar** estos resultados",
+     "after": "- f) **quién deberá realizar ese análisis y evaluación**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aef66cd5-78ea-4227-ae09-5498e27b932b",
+     "line_abs": 32,
+     "before": "El apartado 6.1.3 d) requiere que la organización produzca una Declaración de Aplicabilidad que contenga:",
+     "after": "La cláusula 6.1.3 d) requiere una Statement of Applicability que contenga:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aef66cd5-78ea-4227-ae09-5498e27b932b",
+     "line_abs": 34,
+     "before": "- **los controles necesarios** (véase 6.1.3 b) y c))",
+     "after": "- **los controles determinados como necesarios** (6.1.3 b) y c))"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aef66cd5-78ea-4227-ae09-5498e27b932b",
+     "line_abs": 37,
+     "before": "- **la justificación para excluir cualquiera de los controles del Anexo A**",
+     "after": "- **por qué se excluye cualquier control del Anexo A**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aef66cd5-78ea-4227-ae09-5498e27b932b",
+     "line_abs": 41,
+     "before": "Nótese a qué apunta el primer elemento. *Los controles necesarios, véase 6.1.3 b) y c)* — los controles determinados a partir de las opciones de tratamiento y verificados contra el Anexo A. **La Declaración de Aplicabilidad es posterior a una decisión**, y su primer elemento es una referencia al lugar donde se tomó esa decisión.",
+     "after": "Nótese a qué apunta el primer elemento. *Los controles determinados como necesarios, 6.1.3 b) y c)* — los controles determinados a partir de las opciones de tratamiento y verificados contra el Anexo A. **El SoA es posterior a una decisión**, y su primer elemento es una referencia al lugar donde se tomó esa decisión."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "43fd34ff-284b-4dec-b055-59fcee84c0c5",
+     "line_abs": 39,
+     "before": "- b) asegura que las evaluaciones repetidas produzcan resultados **coherentes, válidos y comparables**",
+     "after": "- b) asegura que las evaluaciones repetidas a lo largo del tiempo produzcan resultados **coherentes, válidos y comparables**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "43fd34ff-284b-4dec-b055-59fcee84c0c5",
+     "line_abs": 83,
+     "before": "a) ser coherentes con la política · b) ser **medibles, si es factible** · c) tener en cuenta los requisitos aplicables y los resultados de la evaluación y el tratamiento del riesgo · d) ser **monitoreados** · e) ser **comunicados** · f) ser **actualizados según corresponda** · g) estar disponibles como información documentada",
+     "after": "a) ser coherentes con la política · b) ser **medibles, donde sea factible** · c) reflejar los requisitos aplicables y lo que produjo la evaluación y el tratamiento del riesgo · d) ser **monitoreados** · e) ser **comunicados** · f) ser **revisados según corresponda** · g) mantenerse como información documentada"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "43fd34ff-284b-4dec-b055-59fcee84c0c5",
+     "line_abs": 87,
+     "before": "**qué se hará · qué recursos se requerirán · quién será responsable · cuándo se completará · cómo se evaluarán los resultados**",
+     "after": "**qué se debe hacer · qué recursos se requieren · quién es responsable · para cuándo · y cómo se evalúan los resultados**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011:2026 clause 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "71c3c845-69da-436a-af00-113da14d56b2",
+     "line_abs": 39,
+     "before": "El propósito también se declara: para que las auditorías se centren en los asuntos que son significativos para el cliente de la auditoría y para alcanzar los objetivos del programa de auditoría.",
+     "after": "El propósito también se declara: para que las auditorías se mantengan enfocadas en lo que es importante para el cliente de la auditoría y en el cumplimiento de los objetivos del programa."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 51,
+     "before": "El segundo subapartado regula el programa en sí:",
+     "after": "La cláusula 9.2.2, el segundo subapartado, regula el programa en sí:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 63,
+     "before": "A continuación, la frase de la lección 02-01 y tres requisitos con letras:",
+     "after": "Luego, la frase de la lección 02-01 y los tres requisitos con letras de la cláusula 9.2.2:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 14,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 71,
+     "before": "**Y el requisito de cierre:**",
+     "after": "**Y el requisito de cierre de la cláusula 9.2.2:**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 89,
+     "before": "No anual. No trienal. No una vez por ciclo de certificación. La norma deja el intervalo a la organización y nombra lo que debe orientarlo: la importancia de los procesos involucrados y los resultados de auditorías previas.",
+     "after": "No anual. No trienal. No una vez por ciclo de certificación. La norma deja el intervalo a la organización, y nombra lo que debería orientarlo: qué tan importantes son los procesos auditados y qué encontraron las auditorías anteriores."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 151,
+     "before": "El apartado exige información documentada como evidencia de **la implementación del programa de auditoría y de los resultados de las auditorías.** Dos cosas, y las organizaciones a menudo solo tienen la segunda.",
+     "after": "La cláusula exige información documentada que evidencie **tanto que el programa fue implementado como los hallazgos de las auditorías.** Dos cosas, y las organizaciones a menudo solo tienen la segunda."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 10.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "d234a69b-8292-4044-926f-0d61ad853248",
+     "line_abs": 32,
+     "before": "Breve, y hace más de lo que la mayoría de las personas aprovecha:",
+     "after": "La cláusula 10.2 es breve, y hace más de lo que la mayoría de las personas aprovecha:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "cead82af-4fd6-4557-9865-cfe20f3bb253",
+     "line_abs": 57,
+     "before": "\"Considerar la importancia de los procesos involucrados y los resultados de auditorías previas\" es la oración que hay que conocer. Convierte el diseño del programa de buena práctica en un requisito con dos entradas nombradas.",
+     "after": "Los dos insumos nombrados de la cláusula 9.2.2 —la importancia de los procesos y los resultados de auditorías previas— son lo que hay que conocer. Convierte el diseño del programa de buena práctica en un requisito con dos entradas nombradas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 39,
+     "before": "- a) asegurar que la política y los objetivos se establezcan y sean **compatibles con la dirección estratégica** de la organización",
+     "after": "- a) asegurar que la política y los objetivos se establezcan y sean **acordes con la dirección estratégica** de la organización"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 41,
+     "before": "- c) asegurar que los **recursos** necesarios estén disponibles",
+     "after": "- c) asegurar que los **recursos** necesarios estén en su lugar"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 42,
+     "before": "- d) **comunicar** la importancia de una gestión eficaz de la seguridad de la información y de la conformidad con ella",
+     "after": "- d) **comunicar** la importancia de gestionar eficazmente la seguridad de la información y de conformarse"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 44,
+     "before": "- f) **dirigir y apoyar a las personas** para que contribuyan a la eficacia del SGSI",
+     "after": "- f) **dirigir y apoyar a las personas** para que contribuyan al buen funcionamiento del SGSI"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 46,
+     "before": "- h) **apoyar a otros roles de gestión relevantes** para que demuestren su liderazgo en sus áreas de responsabilidad",
+     "after": "- h) **apoyar a otros roles de gestión relevantes** para demostrar liderazgo dentro de las áreas de las que son responsables"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 88,
+     "before": "- e) estar **disponible como información documentada**",
+     "after": "- e) **conservarse como información documentada**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 89,
+     "before": "- f) estar **comunicada dentro** de la organización",
+     "after": "- f) ser **difundida** en toda la organización"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 9,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+     "line_abs": 90,
+     "before": "- g) estar **disponible para las partes interesadas, según corresponda**",
+     "after": "- g) estar **abierta a las partes interesadas, según corresponda**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 78,
+     "before": "**Y una oración que la gente omite:**",
+     "after": "**Y una oración de la cláusula 7.5 que la gente omite:**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 34,
+     "before": "- b) **se asegure de que estas personas sean competentes** sobre la base de educación, formación o experiencia apropiadas",
+     "after": "- b) **asegurarse de que esas personas sean competentes**, sobre la base de educación, formación o experiencia apropiadas"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 35,
+     "before": "- c) cuando sea aplicable, **tome acciones para adquirir** la competencia necesaria **y evalúe la eficacia** de las acciones tomadas",
+     "after": "- c) cuando sea aplicable, **actuar para adquirir la competencia necesaria y evaluar qué tan bien funcionaron esas acciones**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 44,
+     "before": "**c) tiene una segunda parte que la gente pasa por alto: evaluar la eficacia de las acciones tomadas.** Enviar a alguien a un curso es la acción. Establecer que funcionó es el requisito.",
+     "after": "**c) tiene una segunda parte que la gente pasa por alto: evaluar qué tan bien funcionaron esas acciones.** Enviar a alguien a un curso es la acción. Establecer que funcionó es el requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 54,
+     "before": "El apartado 7.3 requiere que **las personas que realizan trabajo bajo el control de la organización** sean conscientes de:",
+     "after": "La cláusula 7.3 requiere que **cualquier persona que trabaje bajo el control de la organización** sea consciente de lo siguiente:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 57,
+     "before": "- b) su **contribución a la eficacia** del SGSI, incluidos los beneficios de un mejor desempeño de la seguridad de la información",
+     "after": "- b) cómo **contribuyen a la eficacia del SGSI**, incluidos los beneficios de un mejor desempeño de la seguridad de la información"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+     "line_abs": 62,
+     "before": "**Quiénes están cubiertos.** *Las personas que realizan trabajo bajo el control de la organización* es más amplio que los empleados. Los contratistas, el personal temporal y, dependiendo del acuerdo, algunos proveedores de servicios realizan trabajo bajo el control de la organización. Un programa de concientización que cubre solo la nómina es más restringido que el apartado.",
+     "after": "**Quiénes están cubiertos.** *Cualquier persona que trabaje bajo el control de la organización* es más amplio que los empleados. Los contratistas, el personal temporal y, dependiendo del acuerdo, algunos miembros del personal de proveedores realizan trabajo bajo el control de la organización. Un programa de concientización que cubre únicamente la nómina es más restringido que la cláusula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "8bdb947b-1ff0-4975-b5ea-a02b6b8e2fd6",
+     "line_abs": 38,
+     "before": "- **Independencia** - la base de la imparcialidad de la auditoría y la objetividad de sus conclusiones.",
+     "after": "- **Independencia** - el fundamento sobre el cual descansan tanto la imparcialidad de la auditoría como la objetividad de sus conclusiones."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "8bdb947b-1ff0-4975-b5ea-a02b6b8e2fd6",
+     "line_abs": 62,
+     "before": "La única persona que entiende el proceso de gestión de accesos lo suficientemente bien como para auditarlo con competencia es quien ayudó a diseñarlo. La independencia dice que el auditor debe ser independiente de la actividad auditada siempre que sea practicable. El debido cuidado profesional dice que solo se deben asumir trabajos para los que se es competente, y que se debe ejercer diligencia y juicio en todo momento.",
+     "after": "La única persona que entiende el proceso de gestión de accesos lo suficientemente bien como para auditarlo con competencia es quien ayudó a diseñarlo. La independencia establece que el auditor debe mantenerse apartado de la actividad auditada, siempre que esto sea practicable. El debido cuidado profesional establece que solo se debe asumir trabajo para el que se es competente, y ejercer diligencia y juicio en todo momento."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "8bdb947b-1ff0-4975-b5ea-a02b6b8e2fd6",
+     "line_abs": 48,
+     "before": "**ISO 19011:2026 no establece ningún orden de jerarquía entre los siete.** No hay prioridad numerada, no hay un \"en caso de conflicto, prevalece X\", no hay desempate. El apartado 4.1 solo indica que la adhesión a estos principios es fundamental para obtener conclusiones de auditoría que sean pertinentes y suficientes, y para que auditores que trabajan de forma independiente entre sí lleguen a conclusiones similares en circunstancias similares.",
+     "after": "**ISO 19011:2026 no establece ningún orden de jerarquía entre los siete.** No hay prioridad numerada, no hay un \"en caso de conflicto, prevalece X\", no hay desempate. La cláusula 4.1 solo indica que la adhesión a estos principios es fundamental para obtener conclusiones de auditoría que sean pertinentes y suficientes, y para que auditores que trabajan de forma separada lleguen a conclusiones comparables en situaciones comparables."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "8bdb947b-1ff0-4975-b5ea-a02b6b8e2fd6",
+     "line_abs": 158,
+     "before": "El apartado 4.1 ofrece una razón que es fácil de pasar por alto: la adhesión a los principios es lo que permite que **auditores que trabajan de forma independiente entre sí lleguen a conclusiones similares en circunstancias similares**.",
+     "after": "La cláusula 4.1 ofrece una razón que es fácil de pasar por alto: la adhesión a los principios es lo que permite que **auditores que trabajan de forma separada lleguen a conclusiones comparables en situaciones comparables**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and 6.4.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "41136e29-e65a-4cfa-9494-5922dcc72e5a",
+     "line_abs": 41,
+     "before": "A própria definição de *auditoria* na norma utiliza o termo mais amplo — um processo sistemático, independente e documentado para obter **evidências objetivas** e avaliá-las objetivamente, a fim de determinar em que medida os critérios de auditoria são atendidos.",
+     "after": "A própria definição de *auditoria* da norma utiliza o termo mais amplo — um processo sistemático, independente e documentado para obter **evidências objetivas** e ponderá-las objetivamente, a fim de determinar em que medida os critérios de auditoria foram atendidos."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and 6.4.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "432a5f1a-f545-49e9-8b17-eaab2571ae2e",
+     "line_abs": 41,
+     "before": "La propia definición de *auditoría* de la norma utiliza el término más amplio: un proceso sistemático, independiente y documentado para obtener **evidencia objetiva** y evaluarla objetivamente a fin de determinar en qué medida se cumplen los criterios de auditoría.",
+     "after": "La propia definición de *auditoría* de la norma utiliza el término más amplio: un proceso sistemático, independiente y documentado para obtener **evidencia objetiva** y ponderarla objetivamente a fin de determinar en qué medida se han cumplido los criterios de auditoría."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clauses 1 and 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "67f04805-9460-462a-9388-89f1c26c7442",
+     "line_abs": 32,
+     "before": "El alcance no es un límite que alguien trazó. Es una determinación que la norma exige realizar a partir de entradas declaradas:",
+     "after": "El alcance no es un límite que alguien trazó. Es una determinación que la cláusula 4.3 exige realizar a partir de entradas declaradas:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 5.5.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "66cc8bbe-62ed-443e-bc95-ec82a01ba636",
+     "line_abs": 65,
+     "before": "La norma ISO 19011:2026 trata la asignación de la responsabilidad de una auditoría individual al líder del equipo auditor como un paso diferenciado, separado de la selección del equipo.",
+     "after": "La norma ISO 19011:2026 trata la asignación de una auditoría individual a su líder del equipo auditor como un paso diferenciado, separado de la selección del equipo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "83a1eefa-b05e-4f4b-b162-6de75ceb56c7",
+     "line_abs": 58,
+     "before": "La propia introducción de ISO 19011 lo establece: ISO/IEC 17021-1 proporciona los requisitos para auditar sistemas de gestión con fines de certificación de tercera parte, mientras que ISO 19011 se concentra en las auditorías de primera y segunda parte.",
+     "after": "La propia introducción de ISO 19011 establece esto: que ISO/IEC 17021-1 establece los requisitos que un organismo debe cumplir para auditar y certificar sistemas de gestión, mientras que ISO 19011 se concentra en las auditorías de primera y segunda parte."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-08-assets-nobody-registered",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.9",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "2de3c12c-51ad-4a70-a11c-7fa7deeab41c",
+     "line_abs": 238,
+     "before": "- El Anexo A 5.9 requiere un inventario de información y otros activos asociados, incluidos los propietarios.",
+     "after": "- El Anexo A 5.9 requiere un inventario de información y activos asociados, con sus propietarios."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0070bf0e-730c-4453-b4e2-faf5056b5a06",
+     "line_abs": 62,
+     "before": "A única pessoa que entende o processo de gestão de acessos bem o suficiente para auditá-lo com competência é a mesma que ajudou a projetá-lo. A independência diz que o auditor deve ser independente da atividade auditada sempre que praticável. O devido cuidado profissional diz para realizar apenas trabalhos para os quais você seja competente e para exercer diligência e julgamento ao longo de todo o processo.",
+     "after": "A única pessoa que entende o processo de gestão de acessos bem o suficiente para auditá-lo com competência é a mesma que ajudou a projetá-lo. A independência diz que o auditor deve manter-se apartado da atividade auditada, sempre que isso for praticável. O devido cuidado profissional diz para realizar apenas trabalhos para os quais você seja competente e para exercer diligência e julgamento ao longo de todo o processo."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0070bf0e-730c-4453-b4e2-faf5056b5a06",
+     "line_abs": 48,
+     "before": "**A ISO 19011:2026 não estabelece nenhuma hierarquia entre os sete.** Não há prioridade numerada, nenhum \"em caso de conflito, X prevalece\", nenhum critério de desempate. A Seção 4.1 afirma apenas que a adesão a esses princípios é fundamental para fornecer conclusões de auditoria que sejam relevantes e suficientes, e para permitir que auditores que trabalham de forma independente uns dos outros cheguem a conclusões semelhantes em circunstâncias semelhantes.",
+     "after": "**A ISO 19011:2026 não estabelece nenhuma hierarquia entre os sete.** Não há prioridade numerada, nenhum \"em caso de conflito, X prevalece\", nenhum critério de desempate. A cláusula 4.1 afirma apenas que a adesão a esses princípios é fundamental para fornecer conclusões de auditoria que sejam relevantes e suficientes, e para permitir que auditores que trabalham de forma independente cheguem a conclusões comparáveis em situações comparáveis."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-02-principles-in-tension",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clauses 4.2 to 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0070bf0e-730c-4453-b4e2-faf5056b5a06",
+     "line_abs": 158,
+     "before": "A Seção 4.1 apresenta uma razão que é fácil de ignorar: a adesão aos princípios é o que permite que **auditores que trabalham de forma independente uns dos outros cheguem a conclusões semelhantes em circunstâncias semelhantes**.",
+     "after": "A Cláusula 4.1 apresenta uma razão que é fácil de ignorar: a adesão aos princípios é o que permite que **auditores que trabalham separadamente cheguem a conclusões comparáveis em situações comparáveis**."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 78,
+     "before": "**E uma frase que as pessoas ignoram:**",
+     "after": "**E uma frase da clausula 7.5 que as pessoas ignoram:**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 34,
+     "before": "- b) **assegure que essas pessoas sejam competentes** com base em educação, treinamento ou experiência apropriados",
+     "after": "- b) **assegure que essas pessoas sejam competentes**, com base em educação, treinamento ou experiência adequados"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 35,
+     "before": "- c) quando aplicável, **tome ações para adquirir** a competência necessária e **avalie a eficácia das ações tomadas**",
+     "after": "- c) quando aplicável, **agir para adquirir a competência necessária e avaliar quão bem essas ações funcionaram**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 44,
+     "before": "**c) tem uma segunda parte que as pessoas ignoram: avaliar a eficácia das ações tomadas.** Enviar alguém a um curso é a ação. Verificar que funcionou é o requisito.",
+     "after": "**c) tem uma segunda parte que as pessoas ignoram: avaliar quão bem essas ações funcionaram.** Enviar alguém a um curso é a ação. Comprovar que funcionou é o requisito."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 54,
+     "before": "A Seção 7.3 exige que **as pessoas que realizam trabalho sob o controle da organização** estejam conscientes:",
+     "after": "A Cláusula 7.3 exige que **qualquer pessoa que trabalhe sob o controle da organização** esteja ciente do seguinte:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 57,
+     "before": "- b) de sua **contribuição para a eficácia** do SGSI, incluindo os benefícios do desempenho aprimorado da segurança da informação",
+     "after": "- b) como eles **contribuem para a eficácia do SGSI**, incluindo os benefícios do melhor desempenho da segurança da informação"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-05-competence-awareness-documents",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "27001:2022 clauses 7.2, 7.3, 7.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+     "line_abs": 62,
+     "before": "**Quem está coberto.** *Pessoas que realizam trabalho sob o controle da organização* é mais amplo do que empregados. Prestadores de serviço, pessoal temporário e — dependendo do arranjo — alguns funcionários de fornecedores realizam trabalho sob o controle da organização. Um programa de conscientização que cobre apenas a folha de pagamento é mais restrito do que a seção.",
+     "after": "**Quem está coberto.** *Qualquer pessoa que trabalhe sob o controle da organização* é mais amplo do que empregados. Prestadores de serviço, pessoal temporário e — dependendo do arranjo — alguns funcionários de fornecedores realizam trabalho sob o controle da organização. Um programa de conscientização que cobre apenas a folha de pagamento é mais restrito do que a clausula."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-05-who-does-the-audit",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 5.5.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "96cfeb41-07d9-44fe-b180-7e75811d197d",
+     "line_abs": 66,
+     "before": "A ISO 19011:2026 trata a atribuição da responsabilidade por uma auditoria individual ao líder da equipe de auditoria como uma etapa distinta, separada da seleção da equipe.",
+     "after": "A ISO 19011:2026 trata a atribuição de uma auditoria individual ao seu líder de equipe como uma etapa distinta, separada da seleção da equipe."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "af25b91b-5d19-4655-9646-8c849d513d9a",
+     "line_abs": 57,
+     "before": "\"Considerar a importância dos processos envolvidos e os resultados de auditorias anteriores\" é a frase a conhecer. Ela converte o design do programa de boa prática em um requisito com duas entradas nomeadas.",
+     "after": "As duas entradas nomeadas da cláusula 9.2.2 -- a importância dos processos e os resultados de auditorias anteriores -- são o que se deve conhecer. Ela converte o design do programa de boa prática em um requisito com duas entradas nomeadas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-02-where-the-effort-goes",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011:2026 clause 4.8",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "13659c6e-3f22-45bd-bf78-b6584e5cb2b0",
+     "line_abs": 38,
+     "before": "O propósito também está declarado: para que as auditorias se concentrem em assuntos que são significativos para o cliente da auditoria e para o alcance dos objetivos do programa de auditoria.",
+     "after": "O propósito também está declarado: para que as auditorias permaneçam concentradas no que é relevante para o cliente da auditoria e no atendimento dos objetivos do programa."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-05-04-what-the-report-must-disclose",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "39995d23-a5e0-4a54-974b-d2b73dfc7829",
+     "line_abs": 119,
+     "before": "A divulgação do método assistido por IA ainda não é um requisito de nenhuma norma à qual um auditor interno esteja sujeito. A ISO 19011:2026 recomenda — e não exige, pois fornece orientação — que o relatório apresente um registro completo, preciso, conciso e claro da auditoria. Se isso inclui nomear as ferramentas é uma questão de julgamento hoje.",
+     "after": "A divulgação do método assistido por IA ainda não é um requisito de nenhuma norma à qual um auditor interno esteja sujeito. A ISO 19011:2026 exige — ou melhor, recomenda, uma vez que fornece orientação — que o relatório seja um registro completo, preciso, conciso e claro do que foi feito. Se isso inclui nomear as ferramentas é uma questão de julgamento hoje."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+     "line_abs": 51,
+     "before": "A segunda subseção rege o próprio programa:",
+     "after": "A cláusula 9.2.2, a segunda subseção, rege o próprio programa:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+     "line_abs": 63,
+     "before": "Em seguida, a frase da lição 02-01 e três requisitos com letras:",
+     "after": "Em seguida, a frase da lição 02-01 e os três requisitos com letras da cláusula 9.2.2:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+     "line_abs": 89,
+     "before": "Não é anual. Não é a cada três anos. Não é uma vez por ciclo de certificação. A norma deixa o intervalo a cargo da organização e nomeia o que deve orientá-lo: a importância dos processos envolvidos e os resultados de auditorias anteriores.",
+     "after": "Não é anual. Não é a cada três anos. Não é uma vez por ciclo de certificação. A norma deixa o intervalo a cargo da organização e nomeia o que deve orientá-lo: a importância dos processos auditados e o que auditorias anteriores revelaram."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+     "line_abs": 151,
+     "before": "A seção exige informação documentada como evidência de **implementação do programa de auditoria e dos resultados das auditorias.** Duas coisas — e as organizações frequentemente possuem apenas a segunda.",
+     "after": "A cláusula exige informação documentada que demonstre **tanto que o programa foi implementado quanto o que as auditorias constataram.** Duas coisas — e as organizações frequentemente possuem apenas a segunda."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-03-03-what-a-screen-share-establishes",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "edaf97a5-f84e-4843-9efc-4d51c41bbf82",
+     "line_abs": 80,
+     "before": "A ISO 19011:2026 afirma que o uso de métodos de auditoria remota **pode introduzir riscos e oportunidades adicionais ao processo de auditoria**, e o Anexo A.16 traz os detalhes. Três considerações que ele nomeia merecem atenção, pois são as que as organizações costumam ignorar:",
+     "after": "A ISO 19011:2026 afirma que o uso de métodos de auditoria remota **pode introduzir riscos e oportunidades adicionais ao processo de auditoria**, e o Anexo A.16 traz os detalhes. Três considerações que ele nomeia merecem ser destacadas, pois são exatamente as que as organizações costumam ignorar:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 37,
+     "before": "| 6.1.2 - definir e aplicar um processo de avaliação de riscos | **8.2** - realizar avaliações em intervalos planejados ou quando mudanças significativas são propostas ou ocorrem |",
+     "after": "| 6.1.2 - definir e aplicar um processo de avaliação de riscos | **8.2** - realizar avaliações em intervalos planejados e sempre que uma mudança significativa for proposta ou ocorrer |"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 44,
+     "before": "**Vale a pena ler com precisão o gatilho da Seção 8.2:** em intervalos planejados **ou quando mudanças significativas são propostas ou ocorrem**. Dois gatilhos. Uma organização que avalia anualmente e passou por uma grande migração de sistema em junho tem uma questão de 8.2 que o agendamento anual não responde.",
+     "after": "**Vale a pena ler com precisão o gatilho da 8.2:** em intervalos planejados **e sempre que uma mudança significativa é proposta ou ocorre**. Dois gatilhos. Uma organização que avalia anualmente e passou por uma grande migração de sistema em junho tem uma questão de 8.2 que o agendamento anual não responde."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 48,
+     "before": "A Seção 8.1 exige que a organização planeje, implemente e controle os processos necessários para atender aos requisitos e implementar as ações da Seção 6, mediante:",
+     "after": "A Cláusula 8.1 exige que a organização planeje, execute e controle os processos necessários para atender aos requisitos e realizar as ações da Cláusula 6, mediante:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 51,
+     "before": "- **implementação do controle dos processos de acordo com os critérios**",
+     "after": "- **controle dos processos em relação a esses critérios**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 55,
+     "before": "- **Informação documentada deverá estar disponível** na medida necessária para ter confiança de que os processos foram executados conforme planejado.",
+     "after": "- **Informação documentada deve ser mantida** na medida necessária para ter confiança de que os processos foram executados conforme planejado."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 5,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 56,
+     "before": "- A organização deverá **controlar as mudanças planejadas e analisar as consequências de mudanças não intencionais**, tomando ações para mitigar efeitos adversos quando necessário.",
+     "after": "- A organização deverá **controlar as mudanças planejadas e analisar o que as mudanças não intencionais provocam**, tomando ações para suavizar efeitos adversos quando necessário."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 57,
+     "before": "- A organização deverá garantir que **processos, produtos ou serviços fornecidos externamente** relevantes para o SGSI **sejam controlados.**",
+     "after": "- A organização deve garantir que **processos, produtos ou serviços fornecidos externamente** relevantes para o SGSI **sejam controlados.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 65,
+     "before": "**E observe o padrão de confiança para a documentação:** *na medida necessária para ter confiança de que os processos foram executados conforme planejado.* Trata-se de um teste de finalidade, não de volume — o que funciona nos dois sentidos em uma auditoria.",
+     "after": "**E observe o padrão de confiança para a documentação:** *na medida necessária para dar confiança de que os processos foram executados conforme planejado.* Trata-se de um teste de finalidade, não de volume — o que funciona nos dois sentidos em uma auditoria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 71,
+     "before": "- a) **o que precisa ser monitorado e medido**, incluindo processos e controles de segurança da informação",
+     "after": "- a) **o que deve ser monitorado e medido**, incluindo processos e controles de segurança da informação"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 72,
+     "before": "- b) os **métodos** de monitoramento, medição, análise e avaliação, conforme aplicável, para garantir resultados válidos",
+     "after": "- b) os **métodos** utilizados para monitorar, medir, analisar e avaliar, conforme aplicável, para que os resultados sejam válidos"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 73,
+     "before": "- c) **quando** o monitoramento e a medição deverão ser realizados",
+     "after": "- c) **quando** o monitoramento e a medição devem ser realizados"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 76,
+     "before": "- f) **quem deverá analisar e avaliar** esses resultados",
+     "after": "- f) **quem deverá realizar essa análise e avaliação**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 38,
+     "before": "- a) assegurar que a política e os objetivos de segurança da informação sejam estabelecidos e **compatíveis com a direção estratégica** da organização",
+     "after": "- a) assegurar que a política e os objetivos sejam estabelecidos e **compatíveis com a direção estratégica** da organização"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 41,
+     "before": "- d) **comunicar** a importância da gestão eficaz da segurança da informação e da conformidade com os requisitos do SGSI",
+     "after": "- d) **comunicar** a importância de gerir eficazmente a segurança da informação e de conformar"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 43,
+     "before": "- f) **dirigir e apoiar pessoas** para contribuir com a eficácia do SGSI",
+     "after": "- f) **dirigir e apoiar pessoas** para que contribuam com o bom funcionamento do SGSI"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 10,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 45,
+     "before": "- h) **apoiar outros papéis de gestão relevantes** para demonstrar sua liderança nas suas áreas de responsabilidade",
+     "after": "- h) **apoiar outros papéis de gestão relevantes** para demonstrar liderança nas áreas pelas quais são responsáveis"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 87,
+     "before": "- e) estar **disponível como informação documentada**",
+     "after": "- e) ser **mantida como informação documentada**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-02-demonstrated-not-stated",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 5.1 and 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+     "line_abs": 88,
+     "before": "- f) ser **comunicada dentro** da organização",
+     "after": "- f) ser **tornada conhecida em toda** a organização"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bceab53a-4aba-4c84-b214-fffaac768543",
+     "line_abs": 46,
+     "before": "A ISO 19011:2026 define **critérios de auditoria** como o conjunto de requisitos usados como referência contra os quais as evidências objetivas são comparadas. Suas notas tornam a abrangência explícita - os critérios podem incluir políticas, procedimentos, instruções de trabalho, requisitos legais, obrigações contratuais e normas do setor.",
+     "after": "A ISO 19011:2026 define **critérios de auditoria** como o conjunto de requisitos usados como referência contra os quais as evidências objetivas são comparadas. Suas notas tornam a abrangência explícita - os critérios podem ser políticas, procedimentos ou instruções de trabalho, requisitos legais e obrigações contratuais e normas do setor."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bceab53a-4aba-4c84-b214-fffaac768543",
+     "line_abs": 70,
+     "before": "A comparação torna isso inequívoco. **A Seção 9.2.2 a) da ISO/IEC 42001 exige que a organização defina os *objetivos*, critérios e escopo de auditoria para cada auditoria.** Mesma estrutura harmonizada, mesmo número de seção, uma palavra a mais. Um auditor que trabalha com ambas as normas e leva a redação da 42001 para uma auditoria da 27001 levantará um achado que a norma não sustenta.",
+     "after": "A comparação torna isso inequívoco. **A cláusula 9.2.2 a) da ISO/IEC 42001 exige que a organização defina os *objetivos*, critérios e escopo de cada auditoria individual.** Mesma estrutura harmonizada, mesmo número de cláusula, uma palavra a mais. Um auditor que trabalha com ambas as normas e leva a redação da 42001 para uma auditoria da 27001 levantará um achado que a norma não sustenta."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bceab53a-4aba-4c84-b214-fffaac768543",
+     "line_abs": 128,
+     "before": "Não confunda isso com a exclusão que não é permitida. **A Seção 1 da ISO/IEC 27001 declara que excluir qualquer um dos requisitos especificados nas Seções 4 a 10 não é aceitável quando uma organização reivindica conformidade.** Isso rege o SGSI, não sua auditoria.",
+     "after": "Não confunda isso com a exclusão que não é permitida. **A Cláusula 1 da ISO/IEC 27001 declara que deixar de fora qualquer requisito das Cláusulas 4 a 10 não é aceitável quando uma organização reivindica conformidade.** Isso rege o SGSI, não sua auditoria."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-04-competence-of-the-team",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "19011:2026 clause 7.2.3, generic competence",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "1735aee7-2c90-491e-8158-f98bc488bcc4",
+     "line_abs": 39,
+     "before": "A metade genérica é o que faz alguém ser um auditor. Ela inclui a aplicação de princípios e métodos de auditoria, planejamento e organização do trabalho, priorização de assuntos relevantes, coleta de informações por meio de entrevistas eficazes, escuta ativa, observação e análise de informação documentada, compreensão da adequação e das consequências da amostragem, verificação da relevância e exatidão das informações coletadas e confirmação de que as evidências são suficientes e adequadas para embasar as constatações.",
+     "after": "A metade genérica é o que faz alguém ser um auditor. Ela inclui a aplicação de princípios e métodos de auditoria, planejamento e organização do trabalho, priorização de assuntos relevantes, coleta de informações por meio de entrevistas, escuta, observação e análise de informação documentada, compreensão da adequação e das consequências da amostragem, verificação da relevância e exatidão das informações coletadas e confirmação de que as evidências são suficientes e adequadas para embasar as constatações."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 10.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "33f84788-8ca0-48dd-8044-a0e22065ab08",
+     "line_abs": 31,
+     "before": "Curta, e faz mais do que a maioria das pessoas utiliza:",
+     "after": "A cláusula 10.2 é curta, e faz mais do que a maioria das pessoas utiliza:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-07-two-sentences",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022, the climate-change additions to 4.1 and 4.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "3b725623-792e-4409-a23e-b893c8857bab",
+     "line_abs": 57,
+     "before": "**A organização deve determinar se a mudança climática é uma questão relevante.**",
+     "after": "**A organização deve determinar se a mudança climática é, para ela, uma questão relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "88635da3-1168-4b22-8d46-42a0ee9f921a",
+     "line_abs": 38,
+     "before": "- b) garante que avaliações repetidas produzam resultados **consistentes, válidos e comparáveis**",
+     "after": "- b) garante que avaliações repetidas ao longo do tempo produzam resultados **consistentes, válidos e comparáveis**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "88635da3-1168-4b22-8d46-42a0ee9f921a",
+     "line_abs": 82,
+     "before": "a) ser consistentes com a política · b) ser **mensuráveis, quando praticável** · c) levar em conta os requisitos aplicáveis e os resultados da avaliação e do tratamento de riscos · d) ser **monitorados** · e) ser **comunicados** · f) ser **atualizados conforme apropriado** · g) estar disponíveis como informação documentada",
+     "after": "a) ser consistentes com a política · b) ser **mensuráveis, quando praticável** · c) refletir os requisitos aplicáveis e o que a avaliação e o tratamento de riscos produziram · d) ser **monitorados** · e) ser **comunicados** · f) ser **revisados conforme apropriado** · g) estar disponíveis como informação documentada"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-03-the-whole-of-clause-6",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 3,
+   "run_words": 0,
+   "run": "27001:2022 clauses 6.1.2 and 6.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "88635da3-1168-4b22-8d46-42a0ee9f921a",
+     "line_abs": 86,
+     "before": "**o que será feito · quais recursos serão necessários · quem será responsável · quando será concluído · como os resultados serão avaliados**",
+     "after": "**o que deve ser feito · quais recursos são necessários · quem é responsável · até quando · e como os resultados serão avaliados**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 3,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+     "line_abs": 58,
+     "before": "A segunda nota define o que é uma localização virtual:",
+     "after": "A segunda nota da ISO 19011:2026 define o que é uma localização virtual:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+     "line_abs": 50,
+     "before": "Três notas se seguem. Os métodos remotos podem ser combinados com métodos presenciais para realizar uma auditoria completa e eficaz. Eles podem ser usados para **localizações virtuais**. E podem ser usados por um auditor em um local do auditado para auditar outro local.",
+     "after": "Três notas se seguem. Os métodos remotos podem ser combinados com métodos presenciais para tornar uma auditoria completa e eficaz. Eles podem ser usados para **localizações virtuais**. E podem ser usados por um auditor em um dos locais do auditado para auditar um local diferente."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 31,
+     "before": "A Seção 6.1.3 d) exige que a organização produza uma Declaração de Aplicabilidade que contenha:",
+     "after": "A Seção 6.1.3 d) exige um Statement of Applicability contendo:"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 33,
+     "before": "- **os controles necessários** (ver 6.1.3 b) e c))",
+     "after": "- **os controles determinados como necessários** (6.1.3 b) e c))"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 34,
+     "before": "- **a justificativa para sua inclusão**",
+     "after": "- **o motivo pelo qual cada um está incluído**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 4,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 36,
+     "before": "- **a justificativa para excluir quaisquer controles do Anexo A**",
+     "after": "- **por que qualquer controle do Anexo A é excluído**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 1,
+   "line_index": 6,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 40,
+     "before": "Observe o que o primeiro elemento aponta. *Os controles necessários, ver 6.1.3 b) e c)* — os controles determinados a partir das opções de tratamento e verificados em relação ao Anexo A. **A Declaração de Aplicabilidade é consequência de uma decisão**, e seu primeiro elemento é uma referência ao local onde essa decisão foi tomada.",
+     "after": "Observe o que o primeiro elemento aponta. *Os controles determinados como necessários, 6.1.3 b) e c)* — os controles determinados a partir das opções de tratamento e verificados em relação ao Anexo A. **O Statement of Applicability é consequência de uma decisão**, e seu primeiro elemento é uma referência ao local onde essa decisão foi tomada."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": 4,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ece6f43a-be45-4ac2-8a4d-ffeb175a6149",
+     "line_abs": 59,
+     "before": "A própria introdução da ISO 19011 afirma isso - que a ISO/IEC 17021-1 fornece requisitos para auditar sistemas de gestão para certificação de terceira parte, enquanto a ISO 19011 se concentra em auditorias de primeira e segunda partes.",
+     "after": "A própria introdução da ISO 19011 afirma isso - que a ISO/IEC 17021-1 estabelece os requisitos que um organismo deve atender para auditar e certificar sistemas de gestão, enquanto a ISO 19011 se concentra em auditorias de primeira e segunda partes."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-05-04-what-the-report-must-disclose",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 0,
+   "run_words": 0,
+   "run": "19011:2026 clause 6.5.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "c7013ce9-a1e7-47e3-aa27-5ef7ab678316",
+     "line_abs": 119,
+     "before": "La revelación del método asistido por IA no es aún un requisito de ninguna norma a la que trabaje un auditor interno. ISO 19011:2026 requiere —o más bien recomienda, dado que establece orientación— que el informe proporcione un registro completo, preciso, conciso y claro de la auditoría. Si eso incluye nombrar las herramientas es hoy una cuestión de criterio.",
+     "after": "La divulgación del método asistido por IA no es aún un requisito de ninguna norma a la que trabaje un auditor interno. ISO 19011:2026 requiere —o más bien recomienda, dado que establece orientación— que el informe sea un registro completo, preciso, conciso y claro de lo que se realizó. Si eso incluye nombrar las herramientas es hoy una cuestión de criterio."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-01-audit-parties",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.35",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d0a0b224-efd7-49b8-af46-ceb0f2a396fa",
+     "line_abs": 98,
+     "before": "**O controle 5.35 do Anexo A** exige que a abordagem da organização para gerenciar a segurança da informação — suas pessoas, seus processos e suas tecnologias — seja analisada de forma independente em intervalos planejados, ou quando ocorrerem mudanças significativas.",
+     "after": "**O controle 5.35 do Anexo A** exige que a abordagem da organização para gerenciar a segurança da informação — suas pessoas, seus processos e suas tecnologias — seja analisada de forma independente em intervalos planejados, e sempre que ocorrerem mudanças significativas."
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-07-two-sentences",
+   "block": "-",
+   "block_index": 2,
+   "line_index": 1,
+   "run_words": 0,
+   "run": "27001:2022, the climate-change additions to 4.1 and 4.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "53fc0077-476e-4be8-ab26-7b76ac25206d",
+     "line_abs": 57,
+     "before": "**La organización debe determinar si el cambio climático es un tema relevante.**",
+     "after": "**La organización debe determinar si el cambio climático es, para ella, un tema relevante.**"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-01-audit-parties",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 2,
+   "run_words": 0,
+   "run": "27001:2022 Annex A control 5.35",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aac82636-7716-4635-8635-45cb2ef3cc52",
+     "line_abs": 98,
+     "before": "**El control 5.35 del Anexo A** requiere que el enfoque de la organización para gestionar la seguridad de la información — sus personas, sus procesos y sus tecnologías — sea revisado de forma independiente a intervalos planificados, o cuando se produzcan cambios significativos.",
+     "after": "**El control 5.35 del Anexo A** requiere que el enfoque de la organización para gestionar la seguridad de la información — sus personas, sus procesos y sus tecnologías — sea revisado de forma independiente a intervalos planificados, y cuando se produzcan cambios significativos."
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

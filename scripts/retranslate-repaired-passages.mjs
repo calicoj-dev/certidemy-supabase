@@ -160,6 +160,16 @@ const BATCHES = [
   "./lesson-repairs-aimsia-m3.mjs", "./lesson-repairs-aimsia-m4a.mjs", "./lesson-repairs-aimsia-m4a-fix.mjs",
   "./lesson-repairs-aimsia-m4b.mjs", "./lesson-repairs-aimsia-m4c.mjs",
   "./lesson-repairs-aimsia-m5.mjs",
+  /* ISMS-IA, 2026-09-17 evening. These batches carry TWO kinds of entry:
+   * prose recasts, which the translations must follow, and ATTRIBUTION edits to
+   * a lead-in. An attribution edit changes a lead-in and nothing else, so its
+   * translation is an ordinary sentence -- there is no ISO text in it to get
+   * wrong, and the paragraph still needs re-rendering because its English
+   * moved. */
+  "./lesson-repairs-ismsia-m1.mjs", "./lesson-repairs-ismsia-m2.mjs",
+  "./lesson-repairs-ismsia-m3.mjs", "./lesson-repairs-ismsia-m4a.mjs",
+  "./lesson-repairs-ismsia-m4b.mjs", "./lesson-repairs-ismsia-m4c.mjs",
+  "./lesson-repairs-ismsia-m5.mjs",
 ];
 const spansBySlug = new Map();
 for (const b of BATCHES) {
