@@ -2,10 +2,10 @@
  "purpose": "Translations withheld until a human reads them. Each passage below is one place the ENGLISH was repaired to remove reproduced ISO clause text. The translation was NOT repaired and still says what the clause said. WHAT TO LOOK FOR: not whether the translation matches the English, but whether the translation reproduces a sentence of ISO's own Spanish or Portuguese edition. No instrument here can check that -- the leak index is built from the English editions only.",
  "how_to_clear": "Run the row's clear_sql once you have read every passage in it. The en_hash pins the review to the English as it reads now, so a later English edit makes the review stale and the translation is withheld again automatically.",
  "spanish_first": true,
- "rows": 64,
- "spanish_rows": 32,
- "portuguese_rows": 32,
- "total_passages": 222,
+ "rows": 74,
+ "spanish_rows": 37,
+ "portuguese_rows": 37,
+ "total_passages": 266,
  "blueprint_rows_removed": "34 task-knowledge rows were in an earlier version of this file and are gone. task_translations.knowledge is NULL on every AIMS-F row -- only `statement` is translated -- so there was nothing to read; and lesson_translation_reviews is keyed on lesson_id, so there was nowhere to record a verdict. See FRIDAY-READINESS.md for the content gap underneath that.",
  "entries": [
   {
@@ -815,6 +815,38 @@
   },
   {
    "cert": "AIMS-F",
+   "slug": "04-01-annex-a-structure",
+   "language": "es-419",
+   "lesson_id": "c6869264-6b91-4e86-bf15-5296f0b0f55c",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 1, line 0",
+     "english_after_repair": "[Annex A]{glossary=\"annex-a-structure\"} is normative and provides a reference set of controls that serve organizational objectives and address the risks arising in how AI systems are designed and run.",
+     "translation_now": "[El Anexo A]{glossary=\"annex-a-structure\"} es normativo y proporciona un conjunto de referencia de controles que sirven a los objetivos organizacionales y abordan los riesgos que surgen en la forma en que los sistemas de IA son diseñados y operados."
+    },
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "What confuses people is a genuine subtlety. Annex B's general clause states that an organization is **not required to document or justify which parts of that guidance it adopted** in the Statement of Applicability. So the guidance itself is not subject to the SoA discipline that applies to the controls.",
+     "translation_now": "Lo que genera confusión es una sutileza genuina. El apartado general del Anexo B establece que las organizaciones **no tienen que documentar ni justificar la inclusión o exclusión de la orientación para la implementación** en la Declaración de Aplicabilidad. Por lo tanto, la orientación en sí no está sujeta a la disciplina de la Declaración de Aplicabilidad que aplica a los controles."
+    },
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 4, line 1",
+     "english_after_repair": "**Not every listed control objective and control must be used**, and an organization may design and implement its own.",
+     "translation_now": "**No es necesario utilizar todos los objetivos de control y controles listados**, y una organización puede diseñar e implementar los propios."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('c6869264-6b91-4e86-bf15-5296f0b0f55c', 'juan', '8a51293e', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
    "slug": "04-02-annex-a-and-the-soa",
    "language": "es-419",
    "lesson_id": "b60b5185-dc4f-4fbb-a96f-2571850acb2a",
@@ -837,6 +869,183 @@
     }
    ],
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b60b5185-dc4f-4fbb-a96f-2571850acb2a', 'juan', 'b736a780', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-03-governing-apparatus-controls",
+   "language": "es-419",
+   "lesson_id": "0a3d54b9-ddec-44f5-9e93-b1b89404c715",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Documenting a policy** covering how AI systems get developed or used. This is the Annex A companion to clause 5.2, and the guidance adds what the clause does not: the policy should be informed by business strategy, by organizational values and culture, by how much risk the organization is prepared to carry, by the level of risk the systems themselves pose, by legal requirements including contracts, and by impact on relevant interested parties.",
+     "translation_now": "**Documentar una política** que contemple cómo se desarrollan o utilizan los sistemas de IA. Este es el complemento del Anexo A a la cláusula 5.2, y la guía agrega lo que la cláusula no incluye: la política debe estar informada por la estrategia de negocio, por los valores y la cultura organizacional, por la cantidad de riesgo que la organización está dispuesta a asumir, por el nivel de riesgo que los propios sistemas representan, por los requisitos legales incluidos los contratos, y por el impacto en las partes interesadas relevantes."
+    },
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Documenting a policy** covering how AI systems get developed or used. This is the Annex A companion to clause 5.2, and the guidance adds what the clause does not: the policy should be informed by business strategy, by organizational values and culture, by how much risk the organization is prepared to carry, by the level of risk the systems themselves pose, by legal requirements including contracts, and by impact on relevant interested parties.",
+     "translation_now": "**Documentar una política** que contemple cómo se desarrollan o utilizan los sistemas de IA. Este es el complemento del Anexo A a la cláusula 5.2, y la guía agrega lo que la cláusula no incluye: la política debe estar informada por la estrategia de negocio, por los valores y la cultura organizacional, por la cantidad de riesgo que la organización está dispuesta a asumir, por el nivel de riesgo que los propios sistemas representan, por los requisitos legales incluidos los contratos, y por el impacto en las partes interesadas relevantes."
+    },
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 2, line 2",
+     "english_after_repair": "**[Reporting of concerns]{glossary=\"reporting-of-concerns\"}.** The organization defines and puts in place a route for people to raise concerns about whatever role the organization holds around an AI system, at any point in its life.",
+     "translation_now": "**[Reporte de inquietudes]{glossary=\"reporting-of-concerns\"}.** La organización define e implementa un canal para que las personas planteen inquietudes sobre cualquier rol que la organización desempeñe en relación con un sistema de IA, en cualquier momento de su ciclo de vida."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0a3d54b9-ddec-44f5-9e93-b1b89404c715', 'juan', '53014729', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-04-impact-and-life-cycle-controls",
+   "language": "es-419",
+   "lesson_id": "884cedf4-b64d-485f-9b79-830de7cee97c",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Establish a process** for working out what a system could do to individuals or to groups, and societies, that can result from the AI system across its life cycle.",
+     "translation_now": "**Establecer un proceso** para determinar qué podría hacerle un sistema a individuos o a grupos, y a las sociedades, como resultado del sistema de IA a lo largo de su ciclo de vida."
+    },
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "**Documentation of design and development**, grounded in organizational objectives, the documented requirements and the specification criteria.",
+     "translation_now": "**Documentación del diseño y desarrollo**, fundamentada en los objetivos organizacionales, los requisitos documentados y los criterios de especificación."
+    },
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "The [event log control]{glossary=\"event-log-controls\"} asks the organization to **determine at which life-cycle phases event logs should be kept**, with in-use as the stated minimum. That is a determination duty with a floor, not a blanket logging mandate. An organization that logs everything has not satisfied it any more than one that logs nothing — the requirement is that a decision was made, per phase, and can be explained.",
+     "translation_now": "El [control de registro de eventos]{glossary=\"event-log-controls\"} pide a la organización **determinar en qué fases del ciclo de vida deben conservarse los registros de eventos**, siendo el uso en producción el mínimo establecido. Se trata de un deber de determinación con un umbral mínimo, no de un mandato de registro indiscriminado. Una organización que registra todo no lo ha satisfecho mejor que una que no registra nada — el requisito es que se haya tomado una decisión, por fase, y que pueda explicarse."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('884cedf4-b64d-485f-9b79-830de7cee97c', 'juan', 'e6f9a689', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-05-data-and-information-controls",
+   "language": "es-419",
+   "lesson_id": "198ce8d6-76ed-44f0-83a9-c4a7d03951a6",
+   "passages_to_read": 8,
+   "passages_that_gate_the_body": 8,
+   "passages": [
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 1, line 0",
+     "english_after_repair": "Lesson 3.6 covered the substance; here is the shape. Category A.7 holds five [data controls]{glossary=\"data-controls\"} whose objective is that the organization grasps what data does, and does to people, across its AI systems and their life cycles.",
+     "translation_now": "La lección 3.6 cubrió el contenido; aquí se presenta la estructura. La categoría A.7 contiene cinco [controles de datos]{glossary=\"data-controls\"} cuyo objetivo es que la organización comprenda qué hacen los datos, y qué hacen a las personas, en sus sistemas de IA y a lo largo de sus ciclos de vida."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 1, line 2",
+     "english_after_repair": "**Acquisition of data** — settling and recording how the data it uses was acquired and chosen.",
+     "translation_now": "**Adquisición de datos** — establecer y registrar cómo se adquirieron y seleccionaron los datos que utiliza."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "Category A.8's objective is that relevant interested parties have the information they need to grasp and weigh the risks and what those risks do, **good and bad alike.**",
+     "translation_now": "El objetivo de la categoría A.8 es que las partes interesadas relevantes tengan la información que necesitan para comprender y sopesar los riesgos y lo que esos riesgos implican, **tanto los buenos como los malos.**"
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 1",
+     "english_after_repair": "**[System documentation and information for users]{glossary=\"information-for-users\"}.** The guidance's list is long and much of it maps onto regulatory expectation: the system's purpose; **that they are dealing with an AI system at all**; how to work with it and how to override it; technical requirements, limitations and expected lifetime; oversight needs; accuracy and performance; relevant impact assessment findings including benefits and harms in specific contexts or demographic groups; revisions to benefit claims; updates and maintenance; contact information; and educational materials.",
+     "translation_now": "**[Documentación del sistema e información para los usuarios]{glossary=\"information-for-users\"}.** La lista de la guía es extensa y gran parte de ella se corresponde con las expectativas regulatorias: el propósito del sistema; **que están interactuando con un sistema de IA en absoluto**; cómo trabajar con él y cómo anularlo; requisitos técnicos, limitaciones y vida útil esperada; necesidades de supervisión; exactitud y rendimiento; hallazgos relevantes de la evaluación de impacto, incluidos beneficios y daños en contextos específicos o grupos demográficos; revisiones a las afirmaciones de beneficios; actualizaciones y mantenimiento; información de contacto; y materiales educativos."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 3",
+     "english_after_repair": "**[External reporting]{glossary=\"external-reporting-control\"}.** Ways for interested parties to flag harm the system has done. Note the audience — interested parties, not only users. Lesson 2.1's point about AI subjects lands here: a person the system acted on may have no account, no contract, and no obvious way to reach the organization.",
+     "translation_now": "**[Reporte externo]{glossary=\"external-reporting-control\"}.** Formas para que las partes interesadas señalen el daño que el sistema ha causado. Nótese el destinatario: partes interesadas, no solo usuarios. El punto de la lección 2.1 sobre los sujetos de la IA aplica aquí: una persona sobre la que el sistema actuó puede no tener cuenta, contrato ni una forma obvia de comunicarse con la organización."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 4, line 2",
+     "english_after_repair": "Legal requirements and regulatory activity can specify the types of incident that must be communicated, how quickly notification must happen, and which authorities if any must hear of it, and the details required.",
+     "translation_now": "Los requisitos legales y la actividad regulatoria pueden especificar los tipos de incidentes que deben comunicarse, con qué rapidez debe producirse la notificación, qué autoridades, si las hay, deben ser informadas, y los detalles requeridos."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 4, line 3",
+     "english_after_repair": "And the practical guidance: the organization can integrate AI incident response into its broader incident management activities, **but should stay alert to requirements unique** to AI systems or to their individual components — the example given is a breach of personal information in training data, which may carry different privacy reporting requirements than a breach elsewhere.",
+     "translation_now": "Y la guía práctica: la organización puede integrar la respuesta a incidentes de IA en sus actividades más amplias de gestión de incidentes, **pero debe mantenerse alerta a los requisitos únicos** de los sistemas de IA o de sus componentes individuales — el ejemplo dado es una filtración de información personal en datos de entrenamiento, que puede conllevar requisitos de reporte de privacidad diferentes a los de una filtración en otro contexto."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 5, line 6",
+     "english_after_repair": "The guidance's own framing is that AI systems may be complex, but it matters greatly that users understand when they are interacting with one, how it works, its intended purpose and uses, and its potential to cause harm or benefit. **Understandability is the target, and the guidance says the organization should understand what understandability means for each interested party** — which is a harder standard than completeness, and a better one.",
+     "translation_now": "El propio enfoque de la guía es que los sistemas de IA pueden ser complejos, pero importa enormemente que los usuarios comprendan cuándo están interactuando con uno, cómo funciona, su propósito e usos previstos, y su potencial de causar daño o beneficio. **La comprensibilidad es el objetivo, y la guía señala que la organización debería entender qué significa la comprensibilidad para cada parte interesada** — lo cual es un estándar más exigente que la exhaustividad, y uno mejor."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('198ce8d6-76ed-44f0-83a9-c4a7d03951a6', 'juan', 'af643986', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-06-use-and-third-party-controls",
+   "language": "es-419",
+   "lesson_id": "3541b92d-81cd-4339-889d-60738f44603e",
+   "passages_to_read": 5,
+   "passages_that_gate_the_body": 5,
+   "passages": [
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "The familiar responsible-AI vocabulary — fairness, accountability, transparency and explainability, reliability, safety, robustness, redundancy, privacy, security and accessibility — sits in the **guidance** for the responsible-use objectives control, introduced as examples an organization might identify. Annex B is normative, so it is not optional reading. But *should* and *some objectives include* are not *shall* and *must comprise*. Teaching that list as a required set overstates what the standard says.",
+     "translation_now": "El vocabulario familiar de IA responsable — equidad, responsabilidad, transparencia y explicabilidad, confiabilidad, seguridad, robustez, redundancia, privacidad, seguridad y accesibilidad — se encuentra en la **orientación** del control de objetivos de uso responsable, presentado como ejemplos que una organización podría identificar. El Anexo B es normativo, por lo que no es lectura opcional. Pero *debería* y *algunos objetivos incluyen* no equivalen a *debe* y *debe comprender*. Enseñar esa lista como un conjunto requerido exagera lo que dice la norma."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "Involving human reviewers to check the system's outputs, **including the authority to overturn what the AI system decided**. Ensuring oversight is included where required for acceptable use according to the system's instructions or documentation. Monitoring performance including the accuracy of outputs. Reporting concerns about outputs and their impact on relevant interested parties. Reporting concerns about changes in the system's performance or its ability to produce correct outputs on production data. And considering whether automated decision-making is appropriate at all for the intended use.",
+     "translation_now": "Involucrar a revisores humanos para verificar los resultados del sistema, **incluyendo la autoridad para anular lo que el sistema de IA decidió**. Garantizar que la supervisión se incluya donde sea necesaria para un uso aceptable según las instrucciones o documentación del sistema. Monitorear el rendimiento, incluida la precisión de los resultados. Reportar preocupaciones sobre los resultados y su impacto en las partes interesadas pertinentes. Reportar preocupaciones sobre cambios en el rendimiento del sistema o su capacidad para producir resultados correctos con datos de producción. Y considerar si la toma de decisiones automatizada es apropiada para el uso previsto."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "Category A.10's objective is that the organization knows what it is responsible for and stays accountable, and that risk is shared out properly wherever third parties take part at any point in the life cycle.",
+     "translation_now": "El objetivo de la categoría A.10 es que la organización sepa de qué es responsable y continúe siendo accountable, y que el riesgo se distribuya adecuadamente en todos los casos en que terceros participen en cualquier punto del ciclo de vida."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 4, line 1",
+     "english_after_repair": "**Allocating responsibilities** across the organization, its partners, suppliers, customers and third parties. The guidance notes responsibilities may be split between whoever supplies the data, whoever supplies algorithms and models, and parties developing or using the system while remaining accountable to interested parties — and that the organization should document all parties intervening in the life cycle, their roles, and their responsibilities.",
+     "translation_now": "**Asignación de responsabilidades** en toda la organización, sus socios, proveedores, clientes y terceros. La orientación señala que las responsabilidades pueden dividirse entre quienes suministran los datos, quienes suministran los algoritmos y modelos, y las partes que desarrollan o utilizan el sistema mientras siguen siendo responsables ante las partes interesadas — y que la organización debe documentar todas las partes que intervienen en el ciclo de vida, sus roles y sus responsabilidades."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 5, line 0",
+     "english_after_repair": "Buried in a list of oversight examples is the most consequential sentence in category A.9: consider whether automating a decision at all fits a responsible approach to using the system for its intended purpose.",
+     "translation_now": "Enterrada en una lista de ejemplos de supervisión se encuentra la oración más consecuente de la categoría A.9: considerar si automatizar una decisión en absoluto se ajusta a un enfoque responsable del uso del sistema para su propósito previsto."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('3541b92d-81cd-4339-889d-60738f44603e', 'juan', '76aacee2', 'approved');"
   },
   {
    "cert": "AIMS-F",
@@ -1944,6 +2153,38 @@
   },
   {
    "cert": "AIMS-F",
+   "slug": "04-01-annex-a-structure",
+   "language": "pt-BR",
+   "lesson_id": "9e9c80c9-13b3-4204-b4e9-b962d90bafa7",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 1, line 0",
+     "english_after_repair": "[Annex A]{glossary=\"annex-a-structure\"} is normative and provides a reference set of controls that serve organizational objectives and address the risks arising in how AI systems are designed and run.",
+     "translation_now": "O [Anexo A]{glossary=\"annex-a-structure\"} é normativo e fornece um conjunto de referência de controles que atendem aos objetivos organizacionais e tratam os riscos decorrentes da forma como os sistemas de IA são projetados e operados."
+    },
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "What confuses people is a genuine subtlety. Annex B's general clause states that an organization is **not required to document or justify which parts of that guidance it adopted** in the Statement of Applicability. So the guidance itself is not subject to the SoA discipline that applies to the controls.",
+     "translation_now": "O que confunde as pessoas é uma sutileza genuína. A seção geral do Anexo B estabelece que as organizações **não precisam documentar nem justificar a inclusão ou exclusão das orientações de implementação** na Declaração de Aplicabilidade. Portanto, as orientações em si não estão sujeitas à disciplina da Declaração de Aplicabilidade que se aplica aos controles."
+    },
+    {
+     "clause": "42001 Annex A intro, Annex B general clause",
+     "served": true,
+     "aligned_by": "block 4, line 1",
+     "english_after_repair": "**Not every listed control objective and control must be used**, and an organization may design and implement its own.",
+     "translation_now": "**Não é necessário utilizar todos os objetivos de controle e controles listados**, e uma organização pode projetar e implementar os seus próprios."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('9e9c80c9-13b3-4204-b4e9-b962d90bafa7', 'juan', '8a51293e', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
    "slug": "04-02-annex-a-and-the-soa",
    "language": "pt-BR",
    "lesson_id": "0cb3b2ee-f156-4129-ac57-da86fa917879",
@@ -1966,6 +2207,183 @@
     }
    ],
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0cb3b2ee-f156-4129-ac57-da86fa917879', 'juan', 'b736a780', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-03-governing-apparatus-controls",
+   "language": "pt-BR",
+   "lesson_id": "04d41f27-6dae-44ca-bcac-380377b3d9d9",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Documenting a policy** covering how AI systems get developed or used. This is the Annex A companion to clause 5.2, and the guidance adds what the clause does not: the policy should be informed by business strategy, by organizational values and culture, by how much risk the organization is prepared to carry, by the level of risk the systems themselves pose, by legal requirements including contracts, and by impact on relevant interested parties.",
+     "translation_now": "**Documentar uma política** que abranja como os sistemas de IA são desenvolvidos ou utilizados. Este é o complemento do Anexo A à cláusula 5.2, e a orientação acrescenta o que a cláusula não diz: a política deve ser informada pela estratégia de negócios, pelos valores e pela cultura organizacional, pelo nível de risco que a organização está disposta a assumir, pelo nível de risco que os próprios sistemas representam, pelos requisitos legais incluindo contratos, e pelo impacto sobre as partes interessadas relevantes."
+    },
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Documenting a policy** covering how AI systems get developed or used. This is the Annex A companion to clause 5.2, and the guidance adds what the clause does not: the policy should be informed by business strategy, by organizational values and culture, by how much risk the organization is prepared to carry, by the level of risk the systems themselves pose, by legal requirements including contracts, and by impact on relevant interested parties.",
+     "translation_now": "**Documentar uma política** que abranja como os sistemas de IA são desenvolvidos ou utilizados. Este é o complemento do Anexo A à cláusula 5.2, e a orientação acrescenta o que a cláusula não diz: a política deve ser informada pela estratégia de negócios, pelos valores e pela cultura organizacional, pelo nível de risco que a organização está disposta a assumir, pelo nível de risco que os próprios sistemas representam, pelos requisitos legais incluindo contratos, e pelo impacto sobre as partes interessadas relevantes."
+    },
+    {
+     "clause": "42001 A.2, A.3.3",
+     "served": true,
+     "aligned_by": "block 2, line 2",
+     "english_after_repair": "**[Reporting of concerns]{glossary=\"reporting-of-concerns\"}.** The organization defines and puts in place a route for people to raise concerns about whatever role the organization holds around an AI system, at any point in its life.",
+     "translation_now": "**[Reporte de preocupações]{glossary=\"reporting-of-concerns\"}.** A organização define e implementa um canal para que as pessoas possam levantar preocupações sobre qualquer papel que a organização desempenhe em relação a um sistema de IA, em qualquer momento de seu ciclo de vida."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('04d41f27-6dae-44ca-bcac-380377b3d9d9', 'juan', '53014729', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-04-impact-and-life-cycle-controls",
+   "language": "pt-BR",
+   "lesson_id": "2d7f9910-a511-4b78-ab28-4a3bce8ce3c5",
+   "passages_to_read": 3,
+   "passages_that_gate_the_body": 3,
+   "passages": [
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "**Establish a process** for working out what a system could do to individuals or to groups, and societies, that can result from the AI system across its life cycle.",
+     "translation_now": "**Estabelecer um processo** para determinar o que um sistema poderia fazer a indivíduos ou a grupos, e a sociedades, que pode resultar do sistema de IA ao longo de seu ciclo de vida."
+    },
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "**Documentation of design and development**, grounded in organizational objectives, the documented requirements and the specification criteria.",
+     "translation_now": "**Documentação do design e desenvolvimento**, fundamentada nos objetivos organizacionais, nos requisitos documentados e nos critérios de especificação."
+    },
+    {
+     "clause": "42001 A.5, A.6",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "The [event log control]{glossary=\"event-log-controls\"} asks the organization to **determine at which life-cycle phases event logs should be kept**, with in-use as the stated minimum. That is a determination duty with a floor, not a blanket logging mandate. An organization that logs everything has not satisfied it any more than one that logs nothing — the requirement is that a decision was made, per phase, and can be explained.",
+     "translation_now": "O [controle de registro de eventos]{glossary=\"event-log-controls\"} pede que a organização **determine em quais fases do ciclo de vida os registros de eventos devem ser mantidos**, sendo o uso em operação o mínimo declarado. Trata-se de um dever de determinação com um piso, não de um mandato de registro irrestrito. Uma organização que registra tudo não satisfaz esse requisito mais do que uma que não registra nada — o que se exige é que uma decisão tenha sido tomada, por fase, e possa ser explicada."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('2d7f9910-a511-4b78-ab28-4a3bce8ce3c5', 'juan', 'e6f9a689', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-05-data-and-information-controls",
+   "language": "pt-BR",
+   "lesson_id": "808e40fe-67c7-4619-bca4-b6c450fcfcab",
+   "passages_to_read": 8,
+   "passages_that_gate_the_body": 8,
+   "passages": [
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 1, line 0",
+     "english_after_repair": "Lesson 3.6 covered the substance; here is the shape. Category A.7 holds five [data controls]{glossary=\"data-controls\"} whose objective is that the organization grasps what data does, and does to people, across its AI systems and their life cycles.",
+     "translation_now": "A Lição 3.6 cobriu a substância; aqui está a forma. A categoria A.7 contém cinco [controles de dados]{glossary=\"data-controls\"} cujo objetivo é que a organização compreenda o que os dados fazem, e fazem às pessoas, nos seus sistemas de IA e em seus ciclos de vida."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 1, line 2",
+     "english_after_repair": "**Acquisition of data** — settling and recording how the data it uses was acquired and chosen.",
+     "translation_now": "**Aquisição de dados** — estabelecer e registrar como os dados utilizados foram adquiridos e escolhidos."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "Category A.8's objective is that relevant interested parties have the information they need to grasp and weigh the risks and what those risks do, **good and bad alike.**",
+     "translation_now": "O objetivo da categoria A.8 é que as partes interessadas relevantes tenham as informações de que precisam para compreender e avaliar os riscos e o que esses riscos fazem, **tanto os bons quanto os ruins.**"
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 1",
+     "english_after_repair": "**[System documentation and information for users]{glossary=\"information-for-users\"}.** The guidance's list is long and much of it maps onto regulatory expectation: the system's purpose; **that they are dealing with an AI system at all**; how to work with it and how to override it; technical requirements, limitations and expected lifetime; oversight needs; accuracy and performance; relevant impact assessment findings including benefits and harms in specific contexts or demographic groups; revisions to benefit claims; updates and maintenance; contact information; and educational materials.",
+     "translation_now": "**[Documentação do sistema e informações para usuários]{glossary=\"information-for-users\"}.** A lista do guia é longa e grande parte dela corresponde às expectativas regulatórias: a finalidade do sistema; **que estão interagindo com um sistema de IA**; como interagir com ele e como substituí-lo; requisitos técnicos, limitações e vida útil esperada; necessidades de supervisão; precisão e desempenho; resultados relevantes de avaliação de impacto, incluindo benefícios e danos em contextos específicos ou grupos demográficos; revisões de alegações de benefícios; atualizações e manutenção; informações de contato; e materiais educacionais."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 2, line 3",
+     "english_after_repair": "**[External reporting]{glossary=\"external-reporting-control\"}.** Ways for interested parties to flag harm the system has done. Note the audience — interested parties, not only users. Lesson 2.1's point about AI subjects lands here: a person the system acted on may have no account, no contract, and no obvious way to reach the organization.",
+     "translation_now": "**[Reporte externo]{glossary=\"external-reporting-control\"}.** Formas para que partes interessadas sinalizem danos causados pelo sistema. Observe o público — partes interessadas, não apenas usuários. O ponto da Lição 2.1 sobre sujeitos de IA se aplica aqui: uma pessoa sobre a qual o sistema agiu pode não ter conta, contrato ou forma óbvia de contatar a organização."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 4, line 2",
+     "english_after_repair": "Legal requirements and regulatory activity can specify the types of incident that must be communicated, how quickly notification must happen, and which authorities if any must hear of it, and the details required.",
+     "translation_now": "Requisitos legais e atividade regulatória podem especificar os tipos de incidente que devem ser comunicados, com que rapidez a notificação deve ocorrer, quais autoridades, se houver, devem ser informadas e os detalhes exigidos."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 4, line 3",
+     "english_after_repair": "And the practical guidance: the organization can integrate AI incident response into its broader incident management activities, **but should stay alert to requirements unique** to AI systems or to their individual components — the example given is a breach of personal information in training data, which may carry different privacy reporting requirements than a breach elsewhere.",
+     "translation_now": "E o guia prático: a organização pode integrar a resposta a incidentes de IA em suas atividades mais amplas de gestão de incidentes, **mas deve permanecer atenta aos requisitos exclusivos** de sistemas de IA ou de seus componentes individuais — o exemplo dado é uma violação de informações pessoais em dados de treinamento, que pode ter requisitos de reporte de privacidade diferentes de uma violação em outro contexto."
+    },
+    {
+     "clause": "42001 A.7, A.8",
+     "served": true,
+     "aligned_by": "block 5, line 6",
+     "english_after_repair": "The guidance's own framing is that AI systems may be complex, but it matters greatly that users understand when they are interacting with one, how it works, its intended purpose and uses, and its potential to cause harm or benefit. **Understandability is the target, and the guidance says the organization should understand what understandability means for each interested party** — which is a harder standard than completeness, and a better one.",
+     "translation_now": "O próprio enquadramento do guia é que os sistemas de IA podem ser complexos, mas é fundamental que os usuários entendam quando estão interagindo com um, como ele funciona, sua finalidade e usos pretendidos e seu potencial de causar danos ou benefícios. **A compreensibilidade é o objetivo, e o guia afirma que a organização deve entender o que compreensibilidade significa para cada parte interessada** — o que é um padrão mais exigente do que completude, e melhor."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('808e40fe-67c7-4619-bca4-b6c450fcfcab', 'juan', 'af643986', 'approved');"
+  },
+  {
+   "cert": "AIMS-F",
+   "slug": "04-06-use-and-third-party-controls",
+   "language": "pt-BR",
+   "lesson_id": "b8974701-ae67-4343-9d1d-667c2eed36c0",
+   "passages_to_read": 5,
+   "passages_that_gate_the_body": 5,
+   "passages": [
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "The familiar responsible-AI vocabulary — fairness, accountability, transparency and explainability, reliability, safety, robustness, redundancy, privacy, security and accessibility — sits in the **guidance** for the responsible-use objectives control, introduced as examples an organization might identify. Annex B is normative, so it is not optional reading. But *should* and *some objectives include* are not *shall* and *must comprise*. Teaching that list as a required set overstates what the standard says.",
+     "translation_now": "O vocabulário familiar de IA responsável — justiça, responsabilização, transparência e explicabilidade, confiabilidade, segurança, robustez e redundância, privacidade e segurança, acessibilidade — está na **orientação** do controle de objetivos de uso responsável, apresentado como exemplos que uma organização pode identificar. O Anexo B é normativo, portanto não é leitura opcional. Mas *deve* e *alguns objetivos incluem* não são *deve obrigatoriamente* e *deve compreender*. Ensinar essa lista como um conjunto obrigatório exagera o que a norma estabelece."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 3, line 2",
+     "english_after_repair": "Involving human reviewers to check the system's outputs, **including the authority to overturn what the AI system decided**. Ensuring oversight is included where required for acceptable use according to the system's instructions or documentation. Monitoring performance including the accuracy of outputs. Reporting concerns about outputs and their impact on relevant interested parties. Reporting concerns about changes in the system's performance or its ability to produce correct outputs on production data. And considering whether automated decision-making is appropriate at all for the intended use.",
+     "translation_now": "Envolver revisores humanos para verificar as saídas do sistema, **incluindo a autoridade para substituir o que o sistema de IA decidiu**. Garantir que a supervisão seja incluída onde necessária para uso aceitável de acordo com as instruções ou documentação do sistema. Monitorar o desempenho, incluindo a precisão das saídas. Reportar preocupações sobre as saídas e seu impacto sobre as partes interessadas relevantes. Reportar preocupações sobre mudanças no desempenho do sistema ou em sua capacidade de produzir saídas corretas sobre dados de produção. E considerar se a tomada de decisão automatizada é adequada para o uso pretendido."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "Category A.10's objective is that the organization knows what it is responsible for and stays accountable, and that risk is shared out properly wherever third parties take part at any point in the life cycle.",
+     "translation_now": "O objetivo da categoria A.10 é que a organização saiba pelo que é responsável e permaneça accountable, e que o risco seja adequadamente distribuído sempre que terceiros participem em qualquer ponto do ciclo de vida."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 4, line 1",
+     "english_after_repair": "**Allocating responsibilities** across the organization, its partners, suppliers, customers and third parties. The guidance notes responsibilities may be split between whoever supplies the data, whoever supplies algorithms and models, and parties developing or using the system while remaining accountable to interested parties — and that the organization should document all parties intervening in the life cycle, their roles, and their responsibilities.",
+     "translation_now": "**Alocação de responsabilidades** entre a organização, seus parceiros, fornecedores, clientes e terceiros. As notas de orientação observam que as responsabilidades podem ser divididas entre quem fornece os dados, quem fornece algoritmos e modelos, e as partes que desenvolvem ou utilizam o sistema enquanto permanecem responsáveis perante as partes interessadas — e que a organização deve documentar todas as partes que intervêm no ciclo de vida, seus papéis e suas responsabilidades."
+    },
+    {
+     "clause": "42001 A.9, A.10",
+     "served": true,
+     "aligned_by": "block 5, line 0",
+     "english_after_repair": "Buried in a list of oversight examples is the most consequential sentence in category A.9: consider whether automating a decision at all fits a responsible approach to using the system for its intended purpose.",
+     "translation_now": "Enterrada em uma lista de exemplos de supervisão está a frase mais consequente da categoria A.9: considerar se automatizar uma decisão é adequado a uma abordagem responsável ao uso do sistema para sua finalidade pretendida."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b8974701-ae67-4343-9d1d-667c2eed36c0', 'juan', '76aacee2', 'approved');"
   },
   {
    "cert": "AIMS-F",

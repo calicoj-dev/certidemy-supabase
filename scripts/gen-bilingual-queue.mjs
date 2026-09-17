@@ -128,6 +128,7 @@ const BATCHES = [
   "./lesson-repairs-aimsf-m1.mjs",
   "./lesson-repairs-aimsf-m2.mjs",
   "./lesson-repairs-aimsf-m3.mjs",
+  "./lesson-repairs-aimsf-m4.mjs",
   "./lesson-repairs-aimsf-m5.mjs",
 ];
 /** slug -> [{after, address, note}] */
