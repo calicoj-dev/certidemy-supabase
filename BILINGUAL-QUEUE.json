@@ -1,11 +1,23 @@
 {
- "purpose": "54 rows needing a bilingual read before they can be served. SPANISH FIRST -- es-419 is what the Mexican partner pulls. No instrument here can check these: the leak index is English ISO text, so every row below scores zero before and after. What is being looked for is ISO's own Spanish or Portuguese sentence reproduced in a translation, which only a reader with the standard can see.",
- "spanish_rows": 27,
- "portuguese_rows": 27,
- "lesson_rows": 20,
+ "purpose": "rows needing a bilingual read before they can be served. SPANISH FIRST -- es-419 is what the Mexican partner pulls. No instrument here can check these: the leak index is English ISO text, so every row below scores zero before and after. What is being looked for is ISO's own Spanish or Portuguese sentence reproduced in a translation, which only a reader with the standard can see.",
+ "spanish_rows": 33,
+ "portuguese_rows": 33,
+ "lesson_rows": 32,
  "blueprint_rows": 34,
- "total": 54,
+ "total": 66,
  "entries": [
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "01-01-what-an-aims-is",
+   "language": "es-419",
+   "lesson_id": "66afe9f4-c046-4d1c-9771-a1a45d7fcc6c",
+   "en_hash": "92832971",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('66afe9f4-c046-4d1c-9771-a1a45d7fcc6c', 'juan', '92832971', 'approved');"
+  },
   {
    "kind": "lesson",
    "surface": "lessons.content_md",
@@ -34,6 +46,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "02-02-determining-the-scope",
+   "language": "es-419",
+   "lesson_id": "ebac88af-3262-49e8-9150-23dd92e1a27b",
+   "en_hash": "c80d7593",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('ebac88af-3262-49e8-9150-23dd92e1a27b', 'juan', 'c80d7593', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-05-the-ai-risk-assessment",
+   "language": "es-419",
+   "lesson_id": "a2fbc32d-fc80-47f1-94d4-de7e8ae81b67",
+   "en_hash": "70c0e8ed",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('a2fbc32d-fc80-47f1-94d4-de7e8ae81b67', 'juan', '70c0e8ed', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "02-07-risk-versus-impact",
    "language": "es-419",
    "lesson_id": "cf0eb50e-af7d-407e-8ef0-45b6e96caead",
@@ -41,6 +77,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('cf0eb50e-af7d-407e-8ef0-45b6e96caead', 'juan', '4c7be5b8', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-08-risk-treatment-and-the-soa",
+   "language": "es-419",
+   "lesson_id": "bffc0581-90db-47c5-a849-4ae1e2902c3c",
+   "en_hash": "8a6df143",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('bffc0581-90db-47c5-a849-4ae1e2902c3c', 'juan', '8a6df143', 'approved');"
   },
   {
    "kind": "lesson",
@@ -58,6 +106,18 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "04-02-annex-a-and-the-soa",
+   "language": "es-419",
+   "lesson_id": "b60b5185-dc4f-4fbb-a96f-2571850acb2a",
+   "en_hash": "b736a780",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b60b5185-dc4f-4fbb-a96f-2571850acb2a', 'juan', 'b736a780', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "04-07-control-overlap-with-27001",
    "language": "es-419",
    "lesson_id": "b41f37f2-e700-4015-956d-0180a32d4429",
@@ -65,6 +125,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('b41f37f2-e700-4015-956d-0180a32d4429', 'juan', '3519f0a1', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-03-aims-management-review",
+   "language": "es-419",
+   "lesson_id": "48cdfd05-1b68-4402-9764-bcf61be44a49",
+   "en_hash": "a7e2cd9e",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('48cdfd05-1b68-4402-9764-bcf61be44a49', 'juan', 'a7e2cd9e', 'approved');"
   },
   {
    "kind": "lesson",
@@ -451,6 +523,18 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "01-01-what-an-aims-is",
+   "language": "pt-BR",
+   "lesson_id": "1d55b154-1a4c-43b5-9921-819d30bca4b8",
+   "en_hash": "92832971",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('1d55b154-1a4c-43b5-9921-819d30bca4b8', 'juan', '92832971', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "01-02-determining-your-roles",
    "language": "pt-BR",
    "lesson_id": "1d0d0d8d-037f-4e83-9088-ec61ce9e491d",
@@ -475,6 +559,30 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "02-02-determining-the-scope",
+   "language": "pt-BR",
+   "lesson_id": "69dbae8f-0f93-4c4a-8ed4-96e7ec984a47",
+   "en_hash": "c80d7593",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('69dbae8f-0f93-4c4a-8ed4-96e7ec984a47', 'juan', 'c80d7593', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-05-the-ai-risk-assessment",
+   "language": "pt-BR",
+   "lesson_id": "9d5e0007-e94f-4c8f-be49-0e69f0e3bbab",
+   "en_hash": "70c0e8ed",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('9d5e0007-e94f-4c8f-be49-0e69f0e3bbab', 'juan', '70c0e8ed', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "02-07-risk-versus-impact",
    "language": "pt-BR",
    "lesson_id": "0ef1f324-c5f9-404e-ab77-2e5ee727f517",
@@ -482,6 +590,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0ef1f324-c5f9-404e-ab77-2e5ee727f517', 'juan', '4c7be5b8', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "02-08-risk-treatment-and-the-soa",
+   "language": "pt-BR",
+   "lesson_id": "572ad287-bd2b-4396-96e5-e5e0aa364e75",
+   "en_hash": "8a6df143",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('572ad287-bd2b-4396-96e5-e5e0aa364e75', 'juan', '8a6df143', 'approved');"
   },
   {
    "kind": "lesson",
@@ -499,6 +619,18 @@
    "kind": "lesson",
    "surface": "lessons.content_md",
    "cert": "AIMS-F",
+   "slug": "04-02-annex-a-and-the-soa",
+   "language": "pt-BR",
+   "lesson_id": "0cb3b2ee-f156-4129-ac57-da86fa917879",
+   "en_hash": "b736a780",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0cb3b2ee-f156-4129-ac57-da86fa917879', 'juan', 'b736a780', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
    "slug": "04-07-control-overlap-with-27001",
    "language": "pt-BR",
    "lesson_id": "5a04759d-015c-4c42-a155-1e57568aa05e",
@@ -506,6 +638,18 @@
    "english_now": "(long -- read the row)",
    "translation_now": "(long -- read the row)",
    "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('5a04759d-015c-4c42-a155-1e57568aa05e', 'juan', '3519f0a1', 'approved');"
+  },
+  {
+   "kind": "lesson",
+   "surface": "lessons.content_md",
+   "cert": "AIMS-F",
+   "slug": "05-03-aims-management-review",
+   "language": "pt-BR",
+   "lesson_id": "e6b5037e-8e4a-4e76-843d-f176f5c7c3d4",
+   "en_hash": "a7e2cd9e",
+   "english_now": "(long -- read the row)",
+   "translation_now": "(long -- read the row)",
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('e6b5037e-8e4a-4e76-843d-f176f5c7c3d4', 'juan', 'a7e2cd9e', 'approved');"
   },
   {
    "kind": "lesson",
