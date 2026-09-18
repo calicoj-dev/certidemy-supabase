@@ -61,39 +61,54 @@
 // it refuses a bad row whatever code wrote it, and this list exists so the
 // refusal arrives as a 400 naming the scope instead of a 23514 wearing a 500.
 //
-// ===================== "THE DATABASE" IS THREE OBJECTS, NOT ONE ==============
+// ===================== "THE DATABASE" IS TWO OBJECTS, NOT ONE ================
 //
 // [CORRECTED 2026-09-18.] The paragraph above is right and understates it. The
-// authority is not one constraint; it is three, and they answer three different
+// authority is not one constraint; it is two, and they answer two different
 // questions:
 //
-//   issuer_api_keys_scope_vocab   what may be MINTED                    (322)
-//   issuers_mcp_scopes_vocab      what may be BOUND to an OAuth caller  (329)
-//   public.mcp_features           what may be USED at request time      (331)
+//   issuer_api_keys_scope_vocab   what may be MINTED                (322)
+//   public.mcp_features           what may be USED at request time  (331),
+//                                 on the API-key route AND the OAuth one
 //
-// A scope must be in ALL THREE. Missing one fails in a different and
-// distinguishable way, and only the first looks like a scope problem:
+// A scope must be in BOTH. They fail differently, and only the first looks like
+// a scope problem:
 //
-//   missing from the mint CHECK    400 at key creation, naming the scope.
-//   missing from the OAuth CHECK   API keys work; chat clients do not. Reads as
-//                                  an OAuth fault.
-//   missing from mcp_features      THE KEY MINTS AND EVERY CALL IS REFUSED.
-//                                  mcp.feature_status returns 'unknown_feature'
-//                                  and courseware-read refuses anything but
-//                                  'ok'. Reads as an entitlement bug, and the
-//                                  scope string is spelled correctly in every
-//                                  place a human would think to look.
+//   missing from the mint CHECK   400 at key creation, naming the scope.
+//   missing from mcp_features     THE KEY MINTS AND EVERY CALL IS REFUSED.
+//                                 mcp.feature_status returns 'unknown_feature'
+//                                 and courseware-read refuses anything but
+//                                 'ok'. Reads as an entitlement bug, and the
+//                                 scope string is spelled correctly in every
+//                                 place a human would think to look.
 //
-// The third fails CLOSED, which is right, and is the one nobody goes looking
-// for. Migration 347 widens all three in one statement for that reason, and
-// proves each by attempting a write rather than by reading a constraint's text.
+// The second fails CLOSED, which is right, and is the one nobody goes looking
+// for. Migration 347 widens both and proves each by attempting a write rather
+// than by reading a constraint's text.
 //
-// SO: adding a scope is not "add it here and widen the CHECK". It is four
-// places in this repository -- this file, SCOPE_FOR_RESOURCE in
-// courseware-query.ts, scripts/mint-issuer-key.mjs, and one migration touching
-// all three database objects -- plus the console mirror and its locale strings
-// in certidemy-web. scripts/check-cross-repo-vocabulary.mjs now compares the
-// two repositories' lists, which is the half that used to be unguarded.
+// ============ AND THIS SECTION SAID THREE, FOR AN HOUR, FOR THE REASON THE
+// ============ FILE ABOVE IS ABOUT.
+//
+// It named `issuers_mcp_scopes_vocab` (329) as a third. THAT CONSTRAINT AND ITS
+// COLUMN ARE GONE: migration 331 retired `issuers.mcp_scopes` when
+// grant-by-default replaced it, and Postgres dropped the CHECK with the column.
+// Confirmed against pg_catalog -- no matching pg_constraint row, no matching
+// pg_attribute row -- and `mcp.resolve_oauth_caller` in pg_proc references the
+// feature tables and mentions mcp_scopes nowhere.
+//
+// The claim came from READING MIGRATION 329 AND INFERRING THE COLUMN STILL
+// EXISTED. A migration records an intention at a moment; pg_catalog records the
+// database. Writing an inventory of the schema from its migration history is
+// the same defect as reading the next free migration number from a note instead
+// of the folder, and 347 aborted on it.
+//
+// SO: adding a scope is FOUR places in this repository -- this file,
+// SCOPE_FOR_RESOURCE in courseware-query.ts, scripts/mint-issuer-key.mjs, and
+// one migration touching both database objects -- plus the console mirror and
+// its locale strings in certidemy-web.
+// scripts/check-cross-repo-vocabulary.mjs now compares the two repositories'
+// lists, which is the half that used to be unguarded. Nothing there can see
+// either database object; only the migration can.
 
 /**
  * Every scope that may be granted to an issuer API key, with the single thing

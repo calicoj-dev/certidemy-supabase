@@ -45,6 +45,48 @@ superseded line in it is marked. **None of them is a live instruction.**
 
 ---
 
+**AND A MIGRATION IS NOT A SCHEMA. IT IS AN INTENTION, DATED.** The probe above
+answers *has it run*. This answers a different question that fails the same way:
+**what does the database currently look like** -- and reading that off migration
+files is the identical defect with a longer fuse.
+
+Paid for 2026-09-18. An inventory of the scope vocabulary was assembled by
+reading migrations 322, 329 and 331, and named three enforcing objects. Migration
+347 was written against all three and **aborted**:
+
+```
+column "mcp_scopes" of relation "issuers" does not exist
+```
+
+331 had retired that column when grant-by-default replaced it, recording the
+reason -- *"a column that must stay empty to be correct is a trap for whoever
+sets it next"* -- and Postgres dropped `issuers_mcp_scopes_vocab` with it,
+because a CHECK does not outlive the column it depends on. **Migration 329 still
+describes the constraint perfectly. It was true when written and had been false
+for weeks.**
+
+`pg_catalog` answers in one query and disagreed immediately: no matching
+`pg_constraint` row, no matching `pg_attribute` row, and `mcp.resolve_oauth_caller`
+in `pg_proc` referencing the feature tables and mentioning `mcp_scopes` nowhere.
+**The inventory was two, not three**, which is also the better answer -- one
+entitlement vocabulary covering both the API-key and the OAuth routes.
+
+So: **never describe the current schema from the migration folder.** A migration
+says what someone meant to do on a day. Ask `pg_catalog` what is there:
+
+```sql
+select conname, pg_get_constraintdef(oid) from pg_constraint where conrelid = 'public.<t>'::regclass;
+select attname, format_type(atttypid, atttypmod) from pg_attribute
+ where attrelid = 'public.<t>'::regclass and attnum > 0 and not attisdropped;
+select proname, prosrc from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'mcp';
+```
+
+**The mechanism, not the rule** -- 347 now ASSERTS its own inventory as a
+pre-condition: it refuses to run if `issuers.mcp_scopes` ever exists again,
+because that would mean a third vocabulary it does not widen. A file that
+describes the schema should fail when the schema moves under it, rather than
+being read once and believed.
+
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
 
 ```

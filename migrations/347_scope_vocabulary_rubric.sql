@@ -1,47 +1,63 @@
 -- 347_scope_vocabulary_rubric.sql
 --
--- Admit `courseware:rubric` to the scope vocabulary. ALL THREE of it.
+-- Admit `courseware:rubric` to the scope vocabulary. BOTH of it.
 --
--- ============ THERE ARE THREE DATABASE VOCABULARIES, NOT ONE ============
+-- ============ THIS FILE ABORTED ONCE, AND THE INVENTORY WAS WRONG ==========
 --
--- functions/_shared/api-scopes.ts says "THE DATABASE IS THE AUTHORITY" as
--- though that names one object. It names three, and they govern three different
--- questions:
+-- The first version widened THREE things and died on
 --
---   issuer_api_keys_scope_vocab   what may be MINTED          (322)
---   issuers_mcp_scopes_vocab      what may be BOUND to an     (329)
---                                 OAuth caller
---   public.mcp_features           what may be USED at         (331)
---                                 request time
+--   column "mcp_scopes" of relation "issuers" does not exist
 --
--- A scope must be in all three, and missing one fails in a DIFFERENT AND
--- DISTINGUISHABLE way:
+-- It does not. Migration 331 retired it when grant-by-default replaced it, and
+-- recorded why: "a column that must stay empty to be correct is a trap for
+-- whoever sets it next." The constraint `issuers_mcp_scopes_vocab` went with
+-- the column, as Postgres drops a CHECK when the column it depends on is
+-- dropped -- confirmed against pg_catalog, not inferred:
 --
---   missing from the mint CHECK     -> 400 at key creation. Looks like a scope
---                                      problem, and is the only one that does.
---   missing from the OAuth CHECK    -> keys work, chat clients do not. Looks
---                                      like an OAuth problem.
---   missing from mcp_features       -> the key mints, and every call is refused
---                                      because mcp.feature_status returns
---                                      'unknown_feature' and courseware-read
---                                      refuses anything but 'ok'. Looks like an
---                                      entitlement bug.
+--   pg_constraint on public.issuers matching '%scope%'   -> nothing
+--   pg_attribute  on public.issuers matching '%scope%'   -> nothing
+--   issuer_api_keys_scope_vocab                          -> CHECK ((scopes <@
+--                                                           ARRAY['credentials:issue',
+--                                                           'courseware:lessons']))
 --
--- The third fails CLOSED, which is correct, and is the one nobody would think
--- to look for: the key exists, the console shows it, and the scope string is
--- spelled right everywhere a human would check.
+-- THE MISS WAS READING 329 AND INFERRING THE COLUMN. A migration describes an
+-- INTENTION at a moment; pg_catalog describes the database. That is the same
+-- shape as reading the next-free migration number from a note instead of the
+-- folder, and the same answer: ask the catalog.
 --
--- ============ THE ASSERTION IS AN INSERT, NOT THE CONSTRAINT TEXT ============
+-- ============ SO THERE ARE TWO VOCABULARIES, NOT THREE ============
+--
+--   issuer_api_keys_scope_vocab   what may be MINTED           (322)
+--   public.mcp_features           what may be USED at request  (331)
+--                                 time, on BOTH routes
+--
+-- The second covers the OAuth route as well as the API-key route, checked
+-- against pg_proc rather than assumed: `mcp.resolve_oauth_caller` references
+-- the feature tables and mentions `mcp_scopes` nowhere. So the entitlement
+-- question has ONE answer for both ways in, which is a better design than the
+-- three-way split this file first described.
+--
+-- The two still fail differently, and only the first looks like a scope problem:
+--
+--   missing from the mint CHECK   400 at key creation, naming the scope.
+--   missing from mcp_features     THE KEY MINTS AND EVERY CALL IS REFUSED.
+--                                 mcp.feature_status returns 'unknown_feature',
+--                                 courseware-read refuses anything but 'ok'.
+--                                 Reads as an entitlement bug, and the scope
+--                                 string is spelled correctly everywhere a
+--                                 human would think to look.
+--
+-- ============ THE ASSERTION IS A WRITE, NOT THE CONSTRAINT TEXT ============
 --
 -- A rewritten CHECK that admits the new value and silently drops an old one
--- passes any test that only tries the new one. Reading the constraint's text
--- back would only prove what it SAYS.
+-- passes any test that only tries the new one, and reading the constraint back
+-- would only prove what it SAYS. So every scope is probed by attempting a real
+-- insert inside a sub-block that rolls itself back by raising, before and
+-- after, and the verdict is whether the write was refused.
 --
--- So every scope is probed by attempting a real write inside a sub-block that
--- rolls itself back by raising, and the verdict is whether the write was
--- refused. Measured BEFORE and AFTER, and the assertion is that every scope
--- accepted before is still accepted after -- derived from the before-state,
--- never from a list typed here, because a list typed here is the fifth copy.
+-- The negative half is DERIVED from the before-state rather than from a list
+-- typed here, because a list typed here would be one more copy of the
+-- vocabulary and would go stale the next time a scope is added.
 --
 -- ASCII only. One statement. Run in the SQL editor.
 
@@ -50,14 +66,32 @@ declare
   probes   text[] := array['credentials:issue', 'courseware:lessons', 'courseware:rubric'];
   s        text;
   ok       boolean;
-  before_k text[] := '{}';   -- accepted by the MINT check, before
-  before_o text[] := '{}';   -- accepted by the OAUTH check, before
+  before_k text[] := '{}';
   after_k  text[] := '{}';
-  after_o  text[] := '{}';
   v_issuer uuid;
   lost     text[];
-  n_feat   int;
+  n        int;
 begin
+
+  -- ------------------------------------------------- pre-conditions
+  -- THE INVENTORY IS ASSERTED, NOT ASSUMED. If `issuers.mcp_scopes` ever comes
+  -- back there is a third vocabulary again and this file's header is wrong;
+  -- whoever re-adds it should be told by this migration rather than by a
+  -- partner whose chat client cannot read a lesson.
+  select count(*) into n
+    from information_schema.columns
+   where table_schema = 'public' and table_name = 'issuers' and column_name = 'mcp_scopes';
+  if n <> 0 then
+    raise exception 'issuers.mcp_scopes exists again -- there is a third scope vocabulary and this migration does not widen it'
+      using hint = 'Re-read the header. 331 retired this column; if it is back, its CHECK needs the new scope too.';
+  end if;
+
+  select count(*) into n
+    from information_schema.tables
+   where table_schema = 'public' and table_name = 'mcp_features';
+  if n <> 1 then
+    raise exception 'public.mcp_features does not exist -- 331 has not run';
+  end if;
 
   select id into v_issuer from public.issuers order by created_at limit 1;
   if v_issuer is null then
@@ -66,7 +100,6 @@ begin
 
   -- ------------------------------------------------- BEFORE
   foreach s in array probes loop
-    -- MINT vocabulary.
     begin
       insert into public.issuer_api_keys (issuer_id, name, key_prefix, key_hash, scopes)
       values (v_issuer, 'scope probe 347', 'probe_347_' || s, 'probe347hash_' || s, array[s]);
@@ -76,23 +109,8 @@ begin
       when check_violation then ok := false;
     end;
     if ok then before_k := before_k || s; end if;
-
-    -- OAUTH vocabulary.
-    begin
-      update public.issuers set mcp_scopes = array[s] where id = v_issuer;
-      raise exception 'probe rollback' using errcode = 'ZZ999';
-    exception
-      when sqlstate 'ZZ999' then ok := true;
-      when check_violation then ok := false;
-    end;
-    if ok then before_o := before_o || s; end if;
   end loop;
-
-  raise notice 'before -- mint accepts %, oauth accepts %', before_k, before_o;
-
-  if 'courseware:rubric' = any (before_k) and 'courseware:rubric' = any (before_o) then
-    raise notice 'courseware:rubric already admitted by both CHECKs; widening is a no-op';
-  end if;
+  raise notice 'before -- the mint CHECK accepts %', before_k;
 
   -- ------------------------------------------------- the widening
   alter table public.issuer_api_keys drop constraint if exists issuer_api_keys_scope_vocab;
@@ -100,20 +118,14 @@ begin
     add constraint issuer_api_keys_scope_vocab
     check (scopes <@ array['credentials:issue', 'courseware:lessons', 'courseware:rubric']::text[]);
 
-  alter table public.issuers drop constraint if exists issuers_mcp_scopes_vocab;
-  alter table public.issuers
-    add constraint issuers_mcp_scopes_vocab
-    check (mcp_scopes <@ array['credentials:issue', 'courseware:lessons', 'courseware:rubric']::text[]);
-
-  -- THE THIRD VOCABULARY. Without this row the key mints and every call is
-  -- refused, which is the failure that does not look like a scope problem.
+  -- THE SECOND VOCABULARY. Without this row the key mints and every call is
+  -- refused, on both the API-key route and the OAuth one.
   insert into public.mcp_features (feature_key, description) values
     ('courseware:rubric', 'Read the item-writing rubric for one task over the MCP. The partner''s own model writes the items; nothing is generated here and nothing is posted back.')
   on conflict (feature_key) do nothing;
 
   -- ===================== POST-CONDITIONS =====================
 
-  -- ------------------------------------------------- AFTER
   foreach s in array probes loop
     begin
       insert into public.issuer_api_keys (issuer_id, name, key_prefix, key_hash, scopes)
@@ -124,44 +136,24 @@ begin
       when check_violation then ok := false;
     end;
     if ok then after_k := after_k || s; end if;
-
-    begin
-      update public.issuers set mcp_scopes = array[s] where id = v_issuer;
-      raise exception 'probe rollback' using errcode = 'ZZ999';
-    exception
-      when sqlstate 'ZZ999' then ok := true;
-      when check_violation then ok := false;
-    end;
-    if ok then after_o := after_o || s; end if;
   end loop;
+  raise notice 'after  -- the mint CHECK accepts %', after_k;
 
-  raise notice 'after  -- mint accepts %, oauth accepts %', after_k, after_o;
-
-  -- 1. POSITIVE. The new scope is admitted by both.
+  -- 1. POSITIVE.
   if not ('courseware:rubric' = any (after_k)) then
     raise exception 'courseware:rubric is still refused by issuer_api_keys_scope_vocab';
   end if;
-  if not ('courseware:rubric' = any (after_o)) then
-    raise exception 'courseware:rubric is still refused by issuers_mcp_scopes_vocab';
-  end if;
 
-  -- 2. NEGATIVE, AND THE ONE THAT WAS ASKED FOR. Nothing that validated before
-  --    stopped validating. DERIVED from the before-state: a list of the old
-  --    scopes typed here would be a fifth copy of the vocabulary, and would go
-  --    stale the next time one is added.
+  -- 2. NEGATIVE. Nothing that validated before stopped validating, derived from
+  --    the before-state.
   select array_agg(x) into lost from unnest(before_k) x where not (x = any (after_k));
   if lost is not null then
     raise exception 'the mint CHECK no longer accepts: %', lost
       using detail = 'A rewritten constraint dropped a scope it used to admit.';
   end if;
-  select array_agg(x) into lost from unnest(before_o) x where not (x = any (after_o));
-  if lost is not null then
-    raise exception 'the oauth CHECK no longer accepts: %', lost;
-  end if;
 
-  -- 3. AND THE PROBE ITSELF CAN FAIL. If every scope were accepted by a
-  --    constraint that had been dropped rather than rewritten, checks 1 and 2
-  --    would both pass. A value outside the vocabulary must still be refused.
+  -- 3. AND THE PROBE CAN FAIL. A constraint that had been DROPPED rather than
+  --    rewritten would satisfy 1 and 2 -- every scope accepted, none lost.
   begin
     insert into public.issuer_api_keys (issuer_id, name, key_prefix, key_hash, scopes)
     values (v_issuer, 'scope probe 347', 'probe_347c', 'probe347chash', array['courseware:not-a-scope']);
@@ -171,44 +163,24 @@ begin
     when check_violation then ok := false;
   end;
   if ok then
-    raise exception 'issuer_api_keys_scope_vocab accepted an invented scope -- the constraint is missing, not widened';
+    raise exception 'the mint CHECK accepted an invented scope -- the constraint is missing, not widened';
   end if;
 
-  begin
-    update public.issuers set mcp_scopes = array['courseware:not-a-scope'] where id = v_issuer;
-    raise exception 'probe rollback' using errcode = 'ZZ999';
-  exception
-    when sqlstate 'ZZ999' then ok := true;
-    when check_violation then ok := false;
-  end;
-  if ok then
-    raise exception 'issuers_mcp_scopes_vocab accepted an invented scope -- the constraint is missing, not widened';
-  end if;
-
-  -- 4. THE THIRD VOCABULARY, and it is a different table with a different
-  --    failure. Both old keys must still be present: mcp_features is a primary
-  --    key table and an ON CONFLICT DO NOTHING cannot remove one, but asserting
-  --    it is what makes that a fact rather than an expectation.
-  select count(*) into n_feat
+  -- 4. THE SECOND VOCABULARY, and both old keys must survive it.
+  select count(*) into n
     from public.mcp_features
    where feature_key in ('credentials:issue', 'courseware:lessons', 'courseware:rubric');
-  if n_feat <> 3 then
-    raise exception 'mcp_features holds % of the 3 expected feature key(s)', n_feat;
+  if n <> 3 then
+    raise exception 'mcp_features holds % of the 3 expected feature key(s)', n;
   end if;
 
-  -- 5. NOTHING WAS LEFT BEHIND BY THE PROBES. Every insert and update above
-  --    rolled itself back by raising; prove it, because a probe that persisted
-  --    would have written a fake API key against a real issuer.
-  select count(*) into n_feat
-    from public.issuer_api_keys where name = 'scope probe 347';
-  if n_feat <> 0 then
-    raise exception '% probe key(s) survived -- a savepoint did not roll back', n_feat;
-  end if;
-  if exists (select 1 from public.issuers
-              where id = v_issuer and mcp_scopes @> array['courseware:not-a-scope']::text[]) then
-    raise exception 'a probe left an invented scope on the issuer';
+  -- 5. THE PROBES LEFT NOTHING. Each rolled itself back by raising; a probe
+  --    that persisted would have written a fake API key against a real issuer.
+  select count(*) into n from public.issuer_api_keys where name = 'scope probe 347';
+  if n <> 0 then
+    raise exception '% probe key(s) survived -- a sub-block did not roll back', n;
   end if;
 
-  raise notice '347 ok: mint %, oauth %, mcp_features seeded, probes left nothing', after_k, after_o;
+  raise notice '347 ok: mint accepts %, mcp_features seeded, probes left nothing', after_k;
 end
 $mig$;

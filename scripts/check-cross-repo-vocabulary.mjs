@@ -198,12 +198,16 @@ const partnerAuth = read(WEB, "lib/mcp/partner-auth.ts");
     "scripts/mint-issuer-key", minterList);
 
   /* WHAT THIS CANNOT SEE, stated because a green run here is not a clean bill.
-   * The three DATABASE vocabularies -- issuer_api_keys_scope_vocab,
-   * issuers_mcp_scopes_vocab and public.mcp_features -- are the actual
-   * authority, and this script reads source with no credential. A scope present
-   * in every file above and absent from mcp_features mints correctly and is
-   * refused on every call. Migration 347 asserts that half by attempting a
-   * write; nothing here can. */
+   * The TWO database vocabularies -- issuer_api_keys_scope_vocab (what may be
+   * minted) and public.mcp_features (what may be used, on both routes) -- are
+   * the actual authority, and this script reads source with no credential. A
+   * scope present in every file above and absent from mcp_features mints
+   * correctly and is refused on every call. Migration 347 asserts that half by
+   * attempting a write; nothing here can.
+   *
+   * It was written as THREE for an hour, naming issuers_mcp_scopes_vocab, which
+   * migration 331 dropped along with its column. Read from migration 329's text
+   * rather than from pg_catalog. */
 }
 
 // 1. AUTH LABELS -- instance 3.
