@@ -550,8 +550,29 @@ await expect400("lesson without a slug refused", { resource: "lesson", language:
 // distinction the paywall work was built on -- a boundary tested only with the
 // system's own credentials measures what the system can do, not what a caller
 // can reach.
-await expect400('held certification "ISMS-F" refused', { resource: "task", certification: "ISMS-F" }, "ISMS-F");
-await expect400('held certification "SM-AI-I" refused', { resource: "task", certification: "SM-AI-I" }, "SM-AI-I");
+//
+// THESE TWO NAMED ISMS-F AND SM-AI-I, AND `held` IS NOW EMPTY. 334 admitted
+// ISMS-F, 336 admitted AIMS-IA, 337 emptied the set -- so both assertions
+// outlived their own subject by three days, failing on a platform that was
+// behaving correctly. Nobody was wrong and the suite was red the whole time.
+//
+// That is the cost, and it is not the two lines: a suite that is red by default
+// cannot report a new red. On the night 339 broke the es-419 task branch, the
+// section B call that would have caught it sat three lines above two failures
+// everyone had learned to expect. CLAUDE.md says a guard that cries wolf gets
+// loosened next time; it does not have to be loosened by an edit, and nothing
+// in a failing run separates the stale half from the live half.
+//
+// ZZ-TEST-I is the replacement because it is the one certification that exists
+// and is refused -- measured 2026-09-17, 13 on the platform, 12 served, 1
+// refused. It is also the one whose refusal should never become stale: a test
+// certification reaching a partner is a defect in either direction.
+//
+// Two cases rather than one, on two RESOURCES rather than two names, so the
+// pair tests something the single case does not: the boundary is enforced per
+// resource, not only on the path anyone thinks to try.
+await expect400('unserved certification refused (task)', { resource: "task", certification: "ZZ-TEST-I" }, "ZZ-TEST-I");
+await expect400('unserved certification refused (concept)', { resource: "concept", certification: "ZZ-TEST-I" }, "ZZ-TEST-I");
 await expect400("unknown certification refused", { resource: "task", certification: "NOPE-I" }, "NOPE-I");
 await expect400("field `code` refused (it is task_code)", { resource: "task", code: "1.1" }, "code");
 await expect400("field `domain` refused (it is domain_code)", { resource: "task", domain: "D1" }, "domain");

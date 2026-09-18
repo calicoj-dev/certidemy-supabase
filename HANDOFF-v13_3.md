@@ -130,6 +130,21 @@ is the one thing that suite is *about* (*"the credential the test holds IS the
 hypothesis"*). That is a design decision, not a mechanical edit, and it is not one
 to take the night before a partner meeting.
 
+> **[CORRECTED 2026-09-17, later the same day — "there is no credential-free one"
+> is false.]** The refusal body itself enumerates the served set:
+> `"certification ZZ-TEST-I is not served here; must be one of: AISM-I, AIE-I,
+> AIHR-I, ..."`. That is credential-free, comes from the deployed function, and
+> is exactly the list a derived assertion would need. I had measured three
+> candidate sources and reported the absence as a property of the system when it
+> was a property of where I looked — **the same shape as every other finding in
+> this file: a search that came back empty, read as an answer.**
+>
+> It does not change what was done — the block below is repaired with the literal
+> code, on your instruction, and the literal code is the better choice here
+> anyway: ZZ-TEST-I's refusal is the one that should never go stale in either
+> direction. It does change the open item, which claimed a blocker that is not
+> there.
+
 **The measured partition, for whoever takes it:** 13 certifications exist, **12
 served, 1 refused** (`ZZ-TEST-I`). So the boundary is real and the two failing
 assertions are simply naming the wrong certifications.
@@ -187,13 +202,15 @@ Modal inflation 1, the known false positive. ISMS-F's 98 task KSAs and the 35
 lesson rows you reviewed are cleared through recorded reviews, hash-gated, and
 re-close automatically on an English edit.
 
-**Nothing is written and unrun.**
+**Nothing is written and unrun. `smoke-courseware.mjs` is green: 31 pass, 0 fail.**
 
 **Open:**
 
-1. **Section C of `smoke-courseware.mjs` is red on two stale expectations.**
-   Highest value item here — it is the suite that would have caught 339, and it
-   is disabled by attrition until those two are fixed. Partition measured in §3.
+1. ~~**Section C of `smoke-courseware.mjs` is red on two stale expectations.**~~
+   **DONE the same day.** ISMS-F and SM-AI-I replaced with ZZ-TEST-I, on two
+   resources rather than two names, and the line records what they named before.
+   **The suite is 31 pass, 0 fail.** It is the suite that would have caught 339,
+   and it can report a new red again.
 2. **123 paragraphs across 68 rows** in `BILINGUAL-QUEUE-2.json`; 58 worked.
 3. **3 refusals** from the last re-translation run, and the ~20 held paragraphs.
 4. **Two guard gaps recorded and not patched**: compound `poder`
@@ -222,7 +239,7 @@ test, and §3 explains why it needs a decision rather than an edit.
 
 ```
 node --dns-result-order=ipv4first scripts/check-migration-state.mjs
-node --dns-result-order=ipv4first scripts/smoke-courseware.mjs      # 2 stale FAILs, see section 2c
+node --dns-result-order=ipv4first scripts/smoke-courseware.mjs      # 31 pass, 0 fail
 node --dns-result-order=ipv4first scripts/scan-iso-leaks.mjs
 node --dns-result-order=ipv4first scripts/audit-review-gate.mjs
 node --dns-result-order=ipv4first scripts/check-attribution-parity.mjs
