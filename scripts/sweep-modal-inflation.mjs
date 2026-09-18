@@ -35,7 +35,7 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { blocks, solid } from "./lib/guide-runs.mjs";
+import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 import { noModalInflation, modalProfile, checkFaithful } from "./lib/obligation-guard.mjs";
 
 const KNOWN = new Set(["--json", "--cert", "--lang", "--verbose"]);

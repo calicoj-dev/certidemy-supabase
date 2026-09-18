@@ -50,7 +50,7 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { blocks, solid } from "./lib/guide-runs.mjs";
+import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 import { isQuoteLine, isAttributed } from "./lib/iso-segments.mjs";
 
 const KNOWN = new Set(["--cert", "--json", "--verbose"]);

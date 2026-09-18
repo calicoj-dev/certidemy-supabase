@@ -44,7 +44,7 @@
 import { readFileSync, existsSync, writeFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { blocks, solid } from "./lib/guide-runs.mjs";
+import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 
 const KNOWN = new Set(["--json", "--queue", "--verbose"]);
 for (const a of process.argv.slice(2)) {
@@ -125,7 +125,14 @@ for (const f of specFiles) {
   try { j = JSON.parse(readFileSync(join(ROOT, f), "utf8")); } catch { continue; }
   for (const e of j.entries ?? []) {
     for (const [, v] of Object.entries(e.languages ?? {})) {
-      if (v?.lesson_id != null) fresh.add(v.lesson_id + "|" + e.block_index + "|" + e.line_index);
+      /* KEYED ON line_abs, NOT block/line. Including ::checkpoint and
+       * ::interactive shifts every block index, so a coordinate written by an
+       * earlier run means a different paragraph now. `line_abs` is an absolute
+       * line number and is immune to the block scope -- which is exactly why
+       * apply-marking-spec splices on it. Keying on the shifting pair would
+       * have made every spec entry miss and reported the whole corpus as
+       * never re-translated, loudly and wrongly. */
+      if (v?.lesson_id != null && v?.line_abs != null) fresh.add(v.lesson_id + "|" + v.line_abs);
     }
   }
 }
@@ -152,10 +159,33 @@ function coordOf(md, needle) {
   const key = norm(needle).slice(0, 60);
   for (let bi = 0; bi < bs.length; bi++) {
     const sol = solid(bs[bi]);
-    for (let li = 0; li < sol.length; li++) if (norm(sol[li].text).includes(key)) return { bi, li, text: sol[li].text };
+    for (let li = 0; li < sol.length; li++) {
+      if (norm(sol[li].text).includes(key)) return { bi, li, abs: sol[li].abs, text: sol[li].text };
+    }
   }
   return null;
 }
+function rawCoordOf(md, needle) {
+  /* RAW FALLBACK. Two things sit outside every block BODY and were unlocatable
+   * even after the scope widened: a block's own opening line -- blocks() starts
+   * the body on the line AFTER `::concept title="..."`, and aims-ia-04-13's
+   * repair edited a title -- and anything between blocks. The SAME defect as
+   * the checkpoint one, surfaced by the locatability assertion within a minute
+   * of that assertion existing. The fix is not another widening: it is to stop
+   * requiring a paragraph to live in a block at all. apply-marking-spec already
+   * splices on absolute line, so absolute line is the coordinate that always
+   * exists. */
+  const ls = String(md || "").split(/\r?\n/);
+  const key = norm(needle).slice(0, 60);
+  const i = ls.findIndex((L) => norm(L).includes(key));
+  return i < 0 ? null : { bi: -1, li: -1, abs: i, text: ls[i] };
+}
+
+const cellAt = (md, bi, li) => {
+  const bs = blocks(md);
+  if (!bs[bi]) return null;
+  return solid(bs[bi])[li] ?? null;
+};
 
 /* Which lesson rows any surviving spec covers at all. A row absent from every
  * spec is not evidence of anything: `retranslate-repaired-passages.mjs` writes
@@ -171,6 +201,21 @@ for (const f of specFiles) {
   }
 }
 
+/* A SPAN THAT CANNOT BE LOCATED IS THE DEFECT THIS SCRIPT EXISTS TO PREVENT,
+ * so it is counted and it fails the run. It used to `continue` silently, which
+ * is how 54 repaired paragraphs sat outside every review for a week: the audit
+ * reported on what it could see and said nothing about what it could not. */
+/* Every `before` any batch uses. A span whose `after` appears here was replaced
+ * by a later repair, so its absence is expected rather than a blind spot. */
+const supersededAfters = new Set();
+for (const f of batchFiles) {
+  const mod = await import(new URL("./" + f, "file:///" + HERE.replace(/\\/g, "/") + "/").href);
+  for (const r of mod.REPAIRS ?? []) {
+    for (const sp of [r.en, ...(r.also ?? [])]) if (sp?.before) supersededAfters.add(norm(sp.before));
+  }
+}
+let superseded = 0;
+const unlocatable = [];
 const stale = [];        // covered by a spec, and this paragraph is absent from it
 const confirmed = [];    // recorded as re-translated from repaired English
 const unknown = [];      // no surviving spec covers this row
@@ -179,8 +224,22 @@ for (const row of gated) {
   if (!en) continue;
   const seen = new Set();
   for (const after of repaired.get(row.slug) ?? []) {
-    const at = coordOf(en.content_md, after);
-    if (!at) continue;
+    let at = coordOf(en.content_md, after);
+    if (!at) at = rawCoordOf(en.content_md, after);
+    if (!at) {
+      /* SUPERSEDED, NOT MISSING: a later batch replaced this span's `after`
+       * (m4a-fix rewrote m4a's clause 6.1.2 recast), so the text is
+       * legitimately gone. Told apart by asking whether any batch uses it
+       * as a `before`. */
+      /* CONTAINMENT, not equality. m4a-fix's `before` is a SUBSTRING of m4a's
+       * `after` -- a correction usually re-anchors on part of what it replaces,
+       * not all of it -- so an exact-match check found nothing and reported a
+       * superseded span as an invisible one. */
+      const na = norm(after);
+      if ([...supersededAfters].some((b) => na.includes(b) || b.includes(na))) { superseded++; continue; }
+      unlocatable.push({ slug: row.slug, language: row.language, after: after.slice(0, 90) });
+      continue;
+    }
     const ck = at.bi + "|" + at.li;
     if (seen.has(ck)) continue;
     seen.add(ck);
@@ -188,10 +247,21 @@ for (const row of gated) {
       cert: certOfMod.get(row.module_id), slug: row.slug, language: row.language,
       lesson_id: row.id, block: at.bi, line: at.li,
     };
-    if (fresh.has(row.id + "|" + at.bi + "|" + at.li)) confirmed.push(rec);
+    const cell = cellAt(row.content_md, at.bi, at.li);
+    if (cell && fresh.has(row.id + "|" + cell.abs)) confirmed.push(rec);
     else if (coveredRows.has(row.id)) stale.push(rec);
     else unknown.push(rec);
   }
+}
+
+console.log("");
+console.log("LOCATABILITY -- a repaired span the audit cannot find is a paragraph no review reaches");
+if (unlocatable.length === 0) {
+  console.log("  ok    every repaired span was located (" + superseded + " superseded by a later repair)");
+} else {
+  console.log("  FAIL  " + unlocatable.length + " repaired span(s) could not be located:");
+  for (const u of unlocatable.slice(0, 10)) console.log("    " + u.slug + "/" + u.language + "  " + u.after);
+  process.exitCode = 1;
 }
 
 console.log("");

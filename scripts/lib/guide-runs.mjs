@@ -36,7 +36,7 @@ export const norm = (s) =>
     .trim();
 
 /** Parse a lesson body into published blocks, keeping each line's absolute index. */
-export function blocks(md) {
+export function blocks(md, { scope = "published" } = {}) {
   const src = String(md || "");
   let rest = src;
   let offset = 0;
@@ -59,10 +59,41 @@ export function blocks(md) {
     }
     const start = i;
     i = j;
-    if (PUBLISHED_BLOCKS.has(type)) out.push({ type, body, openAbs: offset + start });
+    if (scope === "all" || PUBLISHED_BLOCKS.has(type)) {
+      out.push({ type, body, openAbs: offset + start });
+    }
   }
   return out;
 }
+
+/**
+ * Every block, including the ones the MCP never publishes.
+ *
+ * ============ TWO QUESTIONS WERE SHARING ONE LIST ============
+ *
+ * `PUBLISHED_BLOCKS` answers "what does a partner receive". It is correct, it
+ * is duplicated deliberately in `functions/_shared/lesson-blocks.ts`, and
+ * ::checkpoint and ::interactive are absent from it because they carry answer
+ * keys.
+ *
+ * It was ALSO answering "what must a human review", and those are not the same
+ * question. Measured 2026-09-17: 54 repaired English spans across 44 lessons sit
+ * in ::checkpoint or ::interactive, so their translations were never
+ * re-translated, never classified and never queued -- while the English half of
+ * the pipeline reached them perfectly, because `gen-lesson-repair-spec` uses its
+ * own line scan and `apply-marking-spec` splices by ABSOLUTE line index. Neither
+ * goes through here. That is why the gap was invisible: every English repair
+ * looked complete because it WAS complete.
+ *
+ * The exposure was bounded -- unpublished blocks cannot reach a partner -- but a
+ * learner reads them, and an English paragraph that says one thing while its
+ * Spanish says another is a defect on the surface that actually renders it.
+ *
+ * SO: `blocks()` keeps its meaning for anything modelling MCP output, and
+ * anything deciding what a human must look at, or rewriting a translation, calls
+ * `reviewBlocks()` instead.
+ */
+export const reviewBlocks = (md) => blocks(md, { scope: "all" });
 
 /** Non-empty lines only - the unit trilingual alignment is measured in. */
 export const solid = (b) => b.body.filter((l) => l.text.trim().length > 0);

@@ -54,11 +54,11 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { blocks, solid } from "./lib/guide-runs.mjs";
+import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 import { looksLikeLanguage, checkFaithful as langControl } from "./lib/language-guard.mjs";
 import { preservesObligationAcross, checkFaithful as obControl } from "./lib/obligation-guard.mjs";
 
-const KNOWN = new Set(["--apply", "--out", "--lang", "--limit", "--verbose", "--slug"]);
+const KNOWN = new Set(["--apply", "--out", "--lang", "--limit", "--verbose", "--slug", "--only"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
     console.error("Unrecognised flag: " + a + ".");
@@ -78,6 +78,21 @@ const LIMIT = Number(arg("limit", "0"));
 /* --slug scopes a run to one batch, so a batch's Spanish lands with its English
  * instead of accumulating into a queue that grows faster than it is read. */
 const ONLY_SLUGS = (arg("slug", "") || "").split(",").filter(Boolean);
+/* --only <queue.json> restricts the run to the exact paragraphs that file names,
+ * by (slug, language, ENGLISH TEXT). Scoping by slug alone would re-translate
+ * every repaired paragraph in those lessons -- including ones a human has
+ * already hand-corrected, replacing settled wording with a fresh completion.
+ * That is not a hypothetical: 15 paragraphs were hand-edited on 2026-09-17 and
+ * sit inside the same lessons as the paragraphs that still need work. */
+const ONLY_FILE = arg("only", "");
+const onlyKeys = new Set();
+if (ONLY_FILE) {
+  if (!existsSync(ONLY_FILE)) { console.error(ONLY_FILE + " not found"); process.exit(2); }
+  for (const it of JSON.parse(readFileSync(ONLY_FILE, "utf8")).items ?? []) {
+    onlyKeys.add(it.slug + "|" + it.language + "|" + String(it.english_now || "").trim());
+  }
+  if (onlyKeys.size === 0) { console.error(ONLY_FILE + " names no paragraphs"); process.exit(2); }
+}
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
@@ -293,6 +308,8 @@ for (const row of flagged) {
     const key = row.id + "|" + at.bi + "|" + at.li;
     if (seen.has(key)) continue;
     seen.add(key);
+    if (onlyKeys.size &&
+        !onlyKeys.has(row.slug + "|" + row.language + "|" + at.text.trim())) continue;
     const cell = cellAt(row.content_md, at.bi, at.li);
     if (!cell) continue;
     jobs.push({

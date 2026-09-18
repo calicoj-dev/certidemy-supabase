@@ -1,0 +1,1146 @@
+{
+ "generated": "retranslate-repaired-passages.mjs",
+ "entries": [
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "434802a1-07e8-4c86-b3d1-de750f5370e2",
+     "line_abs": 139,
+     "before": "      { \"id\": \"b\", \"text\": \"El apartado 5.7 ofrece orientación sobre la revisión y mejora del programa; el apartado 9.2.2 requiere que la organización considere la importancia de los procesos involucrados y los resultados de auditorías anteriores al establecer el programa.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"El apartado 5.7 ofrece orientación sobre la revisión y mejora del programa; el apartado 9.2.2 requiere que la organización, al establecer el programa, considere cuán importantes son los procesos auditados y qué encontraron las auditorías anteriores.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "434802a1-07e8-4c86-b3d1-de750f5370e2",
+     "line_abs": 176,
+     "before": "    \"explanation\": \"Ninguna norma establece un período de retención más largo para los registros del sistema de gestión de IA ni especifica ninguno. El apartado 4.5 pide a los auditores que ejerzan discreción en el uso y la protección de la información obtenida durante las auditorías, incluido el manejo adecuado de información sensible o confidencial — y la evidencia recopilada de almacenes de datos y registros de modelos puede ser exactamente eso. Lo que se comparte con un organismo de certificación es decisión de la organización, no del auditor.\",",
+     "after": "\"explanation\": \"Ninguna norma establece un período de retención más largo para los registros del sistema de gestión de IA ni especifica ninguno. La cláusula 4.5 pide a los auditores que ejerzan discreción en el manejo y la protección de la información obtenida durante las auditorías, incluido el manejo adecuado de información sensible o confidencial — y la evidencia recopilada de almacenes de datos y registros de modelos puede ser exactamente eso. Lo que se comparte con un organismo de certificación es decisión de la organización, no del auditor.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 51,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ddc33833-5d5c-486b-a1c4-53ca284cdd7f",
+     "line_abs": 163,
+     "before": "    \"question\": \"Por que a Seção 5.1 da ISO 19011:2026 afirma que a extensão de um programa de auditoria deve ser baseada no tamanho e na natureza do auditado e na maturidade de seus sistemas de gestão?\",",
+     "after": "\"question\": \"Por que a cláusula 5.1 da ISO 19011:2026 afirma que a extensão de um programa de auditoria convém que siga o tamanho e as características do auditado e a maturidade de seus sistemas de gestão?\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "9804e42e-61d8-49cc-9b6a-d64069f423f5",
+     "line_abs": 200,
+     "before": "    \"explanation\": \"El Capítulo 1 establece que excluir cualquiera de los requisitos especificados en los capítulos 4 a 10 no es aceptable cuando una organización declara conformidad. Rige qué requisitos debe cumplir el SGSI, no qué partes del SGSI examina una auditoría determinada. Un alcance de auditoría puede cubrir cualquier subconjunto declarado, con el ciclo proporcionando cobertura total a lo largo del tiempo.\",",
+     "after": "\"explanation\": \"La cláusula 1 establece que omitir cualquier requisito de las cláusulas 4 a 10 no es aceptable cuando una organización declara conformidad. Rige qué requisitos debe cumplir el SGSI, no qué partes del SGSI examina una auditoría determinada. Un alcance de auditoría puede cubrir cualquier subconjunto declarado, con el ciclo proporcionando cobertura total a lo largo del tiempo.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0120f8c3-5519-4b6e-b9f1-b2afdf429733",
+     "line_abs": 199,
+     "before": "    \"explanation\": \"ISO 19011:2026 define una ubicación virtual como aquella donde una organización realiza trabajo o presta un servicio utilizando un entorno en línea, e incluye las ubicaciones virtuales dentro de lo que el alcance de una auditoría generalmente cubre. La plataforma también puede implicar una relación con un proveedor, pero eso es una cuestión aparte. El método utilizado para auditarla no determina si está dentro del alcance.\",",
+     "after": "\"explanation\": \"ISO 19011:2026 define una ubicación virtual como aquella donde una organización realiza trabajo o presta un servicio a través de un entorno en línea, e incluye las ubicaciones virtuales dentro de lo que el alcance de una auditoría generalmente cubre. La plataforma también puede implicar una relación con un proveedor, pero eso es una cuestión aparte. El método utilizado para auditarla no determina si está dentro del alcance.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0120f8c3-5519-4b6e-b9f1-b2afdf429733",
+     "line_abs": 194,
+     "before": "      { \"id\": \"b\", \"text\": \"Como una ubicación virtual dentro del alcance: un lugar donde la organización realiza trabajo utilizando un entorno en línea.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Como una ubicación virtual dentro del alcance: un lugar donde la organización realiza trabajo a través de un entorno en línea.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0120f8c3-5519-4b6e-b9f1-b2afdf429733",
+     "line_abs": 151,
+     "before": "    \"explanation\": \"ISO 19011:2026 define el método de auditoría remota como aquel utilizado para llevar a cabo actividades de auditoría desde cualquier lugar distinto a la ubicación del auditado, y una nota establece explícitamente que los métodos remotos pueden ser empleados por un auditor en un sitio para auditar otro. La definición gira en torno a la distancia respecto a lo que se audita.\",",
+     "after": "\"explanation\": \"ISO 19011:2026 define el método de auditoría remota como aquel utilizado para llevar a cabo actividades de auditoría desde cualquier lugar distinto a donde se encuentra el auditado, y una nota establece explícitamente que los métodos remotos pueden ser empleados por un auditor en un sitio para auditar otro. La definición gira en torno a la distancia respecto a lo que se audita.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+     "line_abs": 105,
+     "before": "      \"feedback\": \"El apartado 8.2 exige evaluaciones del riesgo en intervalos planificados O cuando se proponen o producen cambios significativos. La migración de la plataforma a un nuevo proveedor es un cambio significativo, y el ciclo anual no satisface el segundo disparador.\"",
+     "after": "\"feedback\": \"La cláusula 8.2 exige evaluaciones del riesgo en intervalos planificados, Y también cuando se propone o produce un cambio significativo. La migración de la plataforma a un nuevo proveedor es un cambio significativo, y el ciclo anual no satisface el segundo disparador.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "aef66cd5-78ea-4227-ae09-5498e27b932b",
+     "line_abs": 177,
+     "before": "      { \"id\": \"b\", \"text\": \"No conformidad: el apartado 6.1.3 d) requiere que la Declaración de Aplicabilidad contenga la justificación para excluir cualquiera de los controles del Anexo A, y ese elemento está ausente.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"No conformidad: la clausula 6.1.3 d) requiere que la Declaración de Aplicabilidad indique el motivo por el que se excluye cualquier control del Anexo A, y ese elemento está ausente.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+     "line_abs": 173,
+     "before": "      { \"id\": \"b\", \"text\": \"No conformidad: el apartado 9.2.2 exige que al establecer el programa se considere la importancia de los procesos involucrados y los resultados de auditorías previas, y no existe evidencia de esa consideración.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"No conformidad: la cláusula 9.2.2 exige que al establecer el programa se considere qué tan importantes son los procesos auditados y qué encontraron auditorías anteriores, y no existe evidencia de esa consideración.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-03-01-degree-of-verification",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 56,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and 6.4.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "432a5f1a-f545-49e9-8b17-eaab2571ae2e",
+     "line_abs": 177,
+     "before": "      { \"id\": \"c\", \"text\": \"Usar el juicio profesional para determinar el grado de confiabilidad que puede otorgársele como evidencia.\" },",
+     "after": "{ \"id\": \"c\", \"text\": \"Usar el juicio profesional para determinar hasta qué punto se puede confiar en él como evidencia.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "cead82af-4fd6-4557-9865-cfe20f3bb253",
+     "line_abs": 137,
+     "before": "      { \"id\": \"b\", \"text\": \"La importancia de los procesos involucrados y los resultados de auditorías previas.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Qué tan importantes son los procesos auditados y qué encontraron las auditorías anteriores.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-01-what-the-scope-left-out",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 28,
+   "run_words": 0,
+   "run": "27001:2022 clauses 1 and 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "67f04805-9460-462a-9388-89f1c26c7442",
+     "line_abs": 152,
+     "before": "    \"explanation\": \"El Capítulo 1 establece que excluir cualquiera de los requisitos especificados en los capítulos 4 a 10 no es aceptable cuando se declara conformidad. El apartado 4.3 se refiere a la determinación de límites y aplicabilidad, que es un mecanismo diferente. El apartado 6.1.3 regula las exclusiones de controles del Anexo A, que constituyen un tercer mecanismo distinto.\",",
+     "after": "\"explanation\": \"La cláusula 1 establece que omitir cualquier requisito de las cláusulas 4 a 10 no es aceptable cuando se declara conformidad. La cláusula 4.3 se refiere a la determinación de límites y aplicabilidad, que es un mecanismo diferente. La cláusula 6.1.3 regula las exclusiones de controles del Anexo A, que constituyen un tercer mecanismo distinto.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 28,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "277653a2-83d6-4d1c-991b-15862abbb02b",
+     "line_abs": 155,
+     "before": "    \"explanation\": \"Conclusão e acompanhamento são etapas separadas. A Seção 6.7 observa que as ações são geralmente decididas e implementadas pelo auditado dentro de um prazo acordado e que a verificação pode fazer parte de uma auditoria subsequente. O reconhecimento das constatações é solicitado na reunião de encerramento prevista na Seção 6.4.10; opiniões divergentes não resolvidas são registradas em vez de bloquear a conclusão.\",",
+     "after": "\"explanation\": \"Conclusão e acompanhamento são etapas separadas. A cláusula 6.7 observa que as ações são normalmente acordadas e executadas pelo auditado dentro de um prazo acordado e que a verificação pode fazer parte de uma auditoria subsequente. O reconhecimento das constatações é solicitado na reunião de encerramento prevista na cláusula 6.4.10; opiniões divergentes não resolvidas são registradas em vez de bloquear a conclusão.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 44,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "83a1eefa-b05e-4f4b-b162-6de75ceb56c7",
+     "line_abs": 185,
+     "before": "    \"explanation\": \"El apartado 3 establece que se aplican los términos y definiciones de ISO/IEC 27000, y la referencia es sin fecha, por lo que rige la edición vigente. El Anexo A contiene controles, no definiciones. ISO 19011 define términos de auditoría para sus propios fines.\",",
+     "after": "\"explanation\": \"La cláusula 3 establece que se aplican los términos y definiciones de ISO/IEC 27000, y la referencia es sin fecha, por lo que rige la edición vigente. El Anexo A contiene controles, no definiciones. ISO 19011 define términos de auditoría para sus propios fines.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-01-what-the-programme-is-for",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "af25b91b-5d19-4655-9646-8c849d513d9a",
+     "line_abs": 137,
+     "before": "      { \"id\": \"b\", \"text\": \"A importância dos processos envolvidos e os resultados de auditorias anteriores.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"A importância dos processos auditados e o que auditorias anteriores constataram.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-06-testing-the-programme",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clause 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+     "line_abs": 173,
+     "before": "      { \"id\": \"b\", \"text\": \"Não conformidade: a Seção 9.2.2 exige que a importância dos processos envolvidos e os resultados de auditorias anteriores sejam considerados ao estabelecer o programa, e não existe evidência dessa consideração.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Não conformidade: a cláusula 9.2.2 exige que a importância dos processos auditados e os resultados de auditorias anteriores sejam considerados ao estabelecer o programa, e não existe evidência dessa consideração.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-06-defined-versus-running",
+   "block": "-",
+   "block_index": 5,
+   "line_index": 8,
+   "run_words": 0,
+   "run": "27001:2022 clauses 8.1, 8.2, 9.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+     "line_abs": 106,
+     "before": "      \"feedback\": \"A Seção 8.2 exige avaliações de riscos em intervalos planejados OU quando mudanças significativas são propostas ou ocorrem. A migração de plataforma para um novo fornecedor é uma mudança significativa, e o ciclo anual não satisfaz o segundo gatilho.\"",
+     "after": "\"feedback\": \"A Cláusula 8.2 exige avaliações de riscos em intervalos planejados E sempre que uma mudança significativa for proposta ou ocorrer. A migração de plataforma para um novo fornecedor é uma mudança significativa, e o ciclo anual não satisfaz o segundo gatilho.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-03-scope-criteria-objectives",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011:2026 clause 3, 42001 9.2.2 a), 27001 Clause 1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bceab53a-4aba-4c84-b214-fffaac768543",
+     "line_abs": 199,
+     "before": "    \"explanation\": \"A Seção 1 declara que excluir qualquer um dos requisitos especificados nas Seções 4 a 10 não é aceitável quando uma organização reivindica conformidade. Ela rege quais requisitos o SGSI deve atender, não quais partes do SGSI uma determinada auditoria examina. Um escopo de auditoria pode cobrir qualquer subconjunto declarado, com o ciclo proporcionando cobertura total ao longo do tempo.\",",
+     "after": "\"explanation\": \"A Cláusula 1 declara que omitir qualquer requisito das Cláusulas 4 a 10 não é aceitável quando uma organização reivindica conformidade. Ela rege quais requisitos o SGSI deve atender, não quais partes do SGSI uma determinada auditoria examina. Um escopo de auditoria pode cobrir qualquer subconjunto declarado, com o ciclo proporcionando cobertura total ao longo do tempo.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 40,
+   "run_words": 0,
+   "run": "27001:2022 clause 10.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "33f84788-8ca0-48dd-8044-a0e22065ab08",
+     "line_abs": 182,
+     "before": "      { \"id\": \"c\", \"text\": \"3) determinação se não conformidades semelhantes existem ou poderiam potencialmente ocorrer.\" },",
+     "after": "{ \"id\": \"c\", \"text\": \"3) verificando se não conformidades semelhantes existem ou poderiam surgir.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+     "line_abs": 198,
+     "before": "    \"explanation\": \"A ISO 19011:2026 define localização virtual como aquela onde uma organização realiza trabalho ou presta um serviço usando um ambiente online, e inclui localizações virtuais no que o escopo de uma auditoria geralmente abrange. A plataforma pode também envolver uma relação com fornecedor, mas essa é uma questão separada. O método utilizado para auditá-la não determina se ela está no escopo.\",",
+     "after": "\"explanation\": \"A ISO 19011:2026 define localização virtual como aquela onde uma organização realiza trabalho ou presta um serviço por meio de um ambiente online, e inclui localizações virtuais no que o escopo de uma auditoria geralmente abrange. A plataforma pode também envolver uma relação com fornecedor, mas essa é uma questão separada. O método utilizado para auditá-la não determina se ela está no escopo.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+     "line_abs": 193,
+     "before": "      { \"id\": \"b\", \"text\": \"Como uma localização virtual dentro do escopo — um lugar onde a organização realiza trabalho usando um ambiente online.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Como uma localização virtual dentro do escopo — um lugar onde a organização realiza trabalho por meio de um ambiente online.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-02-04-choosing-the-method",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011:2026 clause 3 and Annex A.16",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "bd7a7617-c4f4-4cd3-9bab-f21cccb666f1",
+     "line_abs": 150,
+     "before": "    \"explanation\": \"A ISO 19011:2026 define método de auditoria remota como aquele utilizado para conduzir atividades de auditoria a partir de qualquer lugar que não seja a localização do auditado, e uma nota afirma explicitamente que métodos remotos podem ser usados por um auditor em um local para auditar outro. A definição gira em torno da distância em relação ao que está sendo auditado.\",",
+     "after": "\"explanation\": \"A ISO 19011:2026 define método de auditoria remota como aquele utilizado para conduzir atividades de auditoria a partir de qualquer lugar que não seja onde o auditado está, e uma nota afirma explicitamente que métodos remotos podem ser usados por um auditor em um local para auditar outro. A definição gira em torno da distância em relação ao que está sendo auditado.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-04-04-tracing-the-soa-back",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "27001:2022 clause 6.1.3 d)",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "93f36722-81e9-4399-9c67-84af3ec8ed68",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"Não conformidade: a Seção 6.1.3 d) exige que a Declaração de Aplicabilidade contenha a justificativa para excluir quaisquer controles do Anexo A, e esse elemento está ausente.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Não conformidade: a cláusula 6.1.3 d) exige que a Declaração de Aplicabilidade indique o motivo pelo qual qualquer controle do Anexo A é excluído, e esse elemento está ausente.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "isms-ia-01-05-which-document-says-what",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 44,
+   "run_words": 0,
+   "run": "19011:2026 introduction and clause 3; 27001:2022 clause 3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "ece6f43a-be45-4ac2-8a4d-ffeb175a6149",
+     "line_abs": 186,
+     "before": "    \"explanation\": \"A Seção 3 estabelece que se aplicam os termos e definições constantes da ISO/IEC 27000, e a referência é sem data - portanto, a edição vigente rege. O Anexo A contém controles, não definições. A ISO 19011 define termos de auditoria para seus próprios fins.\",",
+     "after": "\"explanation\": \"A Cláusula 3 estabelece que se aplicam os termos e definições da ISO/IEC 27000, e a referência é sem data - portanto, a edição vigente rege. O Anexo A contém controles, não definições. A ISO 19011 define termos de auditoria para seus próprios fins.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "4964bec1-f772-45a9-9578-3992e9f34f88",
+     "line_abs": 166,
+     "before": "      { \"id\": \"b\", \"text\": \"Apartado 4.2: la organización deberá determinar cuáles de los requisitos identificados de las partes interesadas serán abordados por el sistema de gestión de IA, y ese tercer elemento está ausente.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Cláusula 4.2: la organización debe determinar cuáles de los requisitos de las partes interesadas identificadas abordará el sistema de gestión de IA, y ese tercer elemento está ausente.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 160,
+     "before": "        \"text\": \"Una no conformidad en el propio programa de auditoría: el apartado 6.4.8 de ISO 19011 establece que cuando se utilice clasificación, los criterios empleados por la organización auditora deben estar definidos y comunicados.\"",
+     "after": "\"text\": \"Una no conformidad en el propio programa de auditoría: la cláusula 6.4.8 de ISO 19011 establece que cuando se utilice graduación, los criterios que la organización auditora utilice deberían estar definidos y comunicados.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 77,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "bb24810a-aa01-436a-8bb3-5f321a6387e5",
+     "line_abs": 225,
+     "before": "        \"text\": \"La declaración de no conformidad que incluye una descripción que explica por qué no se cumplen los criterios de auditoría.\"",
+     "after": "\"text\": \"La declaración de no conformidad con una descripción que establece en qué aspectos los criterios de auditoría no se cumplen.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+     "line_abs": 100,
+     "before": "  \"explanation\": \"El primero confunde a las personas porque el muestreo parece lo que hacen los auditores. El Anexo A.6.1 indica que el muestreo se aplica cuando no es práctico ni rentable examinar toda la información disponible — cuatro sistemas no constituyen esa población. El cuarto es el modo de fallo que los otros tres existen para prevenir: una conclusión sobre la organización extraída de una población no declarada mediante un método no declarado.\"",
+     "after": "\"explanation\": \"El primero confunde a las personas porque el muestreo parece lo que hacen los auditores. El Anexo A.6.1 indica que el muestreo se utiliza cuando examinar toda la información disponible es poco práctico o demasiado costoso — cuatro sistemas no constituyen esa población. El cuarto es el modo de fallo que los otros tres existen para prevenir: una conclusión sobre la organización extraída de una población no declarada mediante un método no declarado.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 51,
+   "run_words": 0,
+   "run": "19011 clauses 3.5, 5.1, 5.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "a925fb1b-f3a5-461e-9e48-9edd47129ce3",
+     "line_abs": 163,
+     "before": "    \"question\": \"¿Por qué el apartado 5.1 de ISO 19011:2026 establece que el alcance de un programa de auditoría debe basarse en el tamaño y la naturaleza del auditado y en la madurez de sus sistemas de gestión?\",",
+     "after": "\"question\": \"¿Por qué la cláusula 5.1 de ISO 19011:2026 establece que el alcance de un programa de auditoría debería derivarse del tamaño y las características del auditado y de la madurez de sus sistemas de gestión?\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+     "line_abs": 198,
+     "before": "      { \"id\": \"b\", \"text\": \"Contra el apartado 8.1, que requiere que la organización implemente los controles determinados conforme al apartado 6.1.3 que se relacionan con la operación del sistema de gestión de IA.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Contra la cláusula 8.1, que requiere que la organización implemente los controles establecidos conforme a la cláusula 6.1.3 que se relacionan con la operación del sistema de gestión de IA.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 151,
+     "before": "      { \"id\": \"b\", \"text\": \"Sin hallazgo: el apartado B.1 establece que las organizaciones no tienen que documentar ni justificar la inclusión o exclusión de la guía de implementación en la declaración de aplicabilidad, y que la organización puede ampliar, modificar o definir su propia implementación.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Sin hallazgo: la clausula B.1 establece que ninguna organización tiene que documentar ni justificar la inclusión o exclusión de la guía de implementación en su declaración de aplicabilidad, y que la organización puede ampliar, modificar o definir su propia implementación.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "e6544376-890d-4d89-b797-e8d33befee06",
+     "line_abs": 183,
+     "before": "      { \"id\": \"b\", \"text\": \"Un hallazgo del apartado 6.1.3 e): el proceso de tratamiento shall considerar la guía del Anexo B para la implementación de los controles determinados en b) y c), y no hubo ninguna consideración.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Un hallazgo de la cláusula 6.1.3 e): el proceso de tratamiento debe considerar la guía del Anexo B al implementar los controles establecidos en b) y c), y no se realizó ninguna consideración.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0c0d70e8-8a8f-4273-96d8-b059dad5ce90",
+     "line_abs": 158,
+     "before": "      { \"id\": \"b\", \"text\": \"Contra el apartado 8.1, que requiere que la organización implemente los controles determinados conforme al apartado 6.1.3 que se relacionan con la operación del sistema de gestión de IA.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Contra la cláusula 8.1, que requiere que la organización implemente los controles establecidos conforme a la cláusula 6.1.3 que inciden en la operación del sistema de gestión de IA.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "36ae021b-05b2-45e5-931d-917588a858c0",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"Falta el tercer elemento del apartado 4.2: la organización deberá determinar cuáles de esos requisitos serán atendidos a través del sistema de gestión de IA, y es el elemento que lo conecta con el alcance en el capítulo 4.3.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Falta el tercer elemento de la cláusula 4.2: la organización debe determinar cuáles de esos requisitos abordará el sistema de gestión de IA, y es el elemento que conecta el 4.2 con el alcance en el 4.3.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-02-boundaries-and-applicability",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clauses 4.2, 4.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "1d94b22a-ff13-4518-8d1b-74fb4f8c7dba",
+     "line_abs": 176,
+     "before": "      { \"id\": \"b\", \"text\": \"O terceiro elemento da Seção 4.2 está ausente: a organização deve determinar quais desses requisitos serão atendidos por meio do sistema de gestão de IA, e é o elemento que conecta a Seção 4.2 ao escopo na Seção 4.3.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"O terceiro elemento da cláusula 4.2 está ausente: a organização deve determinar quais desses requisitos o sistema de gestão de IA abordará, e é o elemento que conecta a cláusula 4.2 ao escopo na cláusula 4.3.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 12,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 160,
+     "before": "        \"text\": \"Uma não conformidade no próprio programa de auditoria: a Seção 6.4.8 da ISO 19011 estabelece que, quando a classificação for utilizada, os critérios usados pela organização de auditoria devem ser definidos e comunicados.\"",
+     "after": "\"text\": \"Uma não conformidade no próprio programa de auditoria: a cláusula 6.4.8 da ISO 19011 estabelece que, quando a classificação for utilizada, convém que os critérios usados pela organização de auditoria sejam definidos e comunicados.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+   "block": "-",
+   "block_index": 9,
+   "line_index": 77,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.8, Annex A.18.3",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "31a70446-9cae-41d8-954f-976d6a654171",
+     "line_abs": 225,
+     "before": "        \"text\": \"A declaração de não conformidade, incluindo uma descrição que explique por que os critérios de auditoria não são atendidos.\"",
+     "after": "\"text\": \"A declaração de não conformidade com uma descrição que indica onde os critérios de auditoria não são atendidos.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-03-what-the-sample-supports",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "19011 Annex A.6.1, clauses 4.7, 6.5.1 k",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+     "line_abs": 100,
+     "before": "  \"explanation\": \"O primeiro pega as pessoas de surpresa porque a amostragem parece ser o que os auditores fazem. O Anexo A.6.1 diz que a amostragem ocorre quando não é prático ou economicamente viável examinar todas as informações disponíveis — quatro sistemas não é essa população. O quarto é o modo de falha que os outros três existem para prevenir: uma conclusão sobre a organização extraída de uma população não declarada por um método não declarado.\"",
+     "after": "\"explanation\": \"O primeiro pega as pessoas de surpresa porque a amostragem parece ser o que os auditores fazem. O Anexo A.6.1 diz que a amostragem é utilizada quando examinar todas as informações disponíveis não é prático ou é demasiadamente custoso — quatro sistemas não é essa população. O quarto é o modo de falha que os outros três existem para prevenir: uma conclusão sobre a organização extraída de uma população não declarada por um método não declarado.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-05-controls-first-annex-a-second",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "42001 clauses 6.1.3, 6.1.4, 8.1, 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+     "line_abs": 198,
+     "before": "      { \"id\": \"b\", \"text\": \"Contra a Seção 8.1, que exige que a organização implemente os controles determinados conforme a 6.1.3 que se relacionam à operação do sistema de gestão de IA.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Contra a cláusula 8.1, que exige que a organização implemente os controles estabelecidos conforme a 6.1.3 que se relacionam à operação do sistema de gestão de IA.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 117,
+     "before": "  \"explanation\": \"El tercero se incluye porque el requisito es fácil de interpretar de forma excesiva. El apartado 9.3.3 solicita decisiones relacionadas con oportunidades de mejora continua y cualquier necesidad de cambios, y una conclusión registrada de que no se necesita ningún cambio, alcanzada con base en la evidencia, es una decisión. Lo que no satisface el apartado es un registro que muestra debate pero ninguna conclusión.\"",
+     "after": "\"explanation\": \"El tercero se incluye porque el requisito es fácil de interpretar de forma excesiva. La cláusula 9.3.3 solicita decisiones sobre oportunidades de mejora continua y sobre cualquier necesidad de cambio, y una conclusión registrada de que no se necesita ningún cambio, alcanzada con base en la evidencia, es una decisión. Lo que no satisface la cláusula es un registro que muestra debate y ninguna conclusión en absoluto.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "685f87d3-fd3e-4a09-8dd4-56d5cd02b49c",
+     "line_abs": 141,
+     "before": "      { \"id\": \"b\", \"text\": \"Un hallazgo del apartado 9.3.3: los resultados de la revisión por la dirección deben incluir decisiones relacionadas con oportunidades de mejora continua y cualquier necesidad de cambios en el sistema de gestión de IA, y el debate no es una decisión.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Un hallazgo de la clausula 9.3.3: los resultados de la revisión por la dirección deben incluir decisiones sobre oportunidades de mejora continua y sobre cualquier necesidad de cambiar el sistema de gestión de IA, y el debate no es una decisión.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-09-normative-and-should",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d1f3d742-3155-4341-b4a2-c7501077dd83",
+     "line_abs": 183,
+     "before": "      { \"id\": \"b\", \"text\": \"Uma constatação da Seção 6.1.3 e): o processo de tratamento shall considerar a orientação do Anexo B para a implementação dos controles determinados em b) e c), e nenhuma consideração ocorreu.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Uma constatação da cláusula 6.1.3 e): o processo de tratamento deve considerar a orientação do Anexo B ao implementar os controles definidos em b) e c), e nenhuma consideração ocorreu.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+     "line_abs": 139,
+     "before": "      { \"id\": \"b\", \"text\": \"A Seção 5.7 oferece orientação sobre análise crítica e melhoria do programa; a Seção 9.2.2 exige que a organização considere a importância dos processos envolvidos e os resultados de auditorias anteriores ao estabelecer o programa.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"A Cláusula 5.7 oferece orientação sobre análise crítica e melhoria do programa; a Cláusula 9.2.2 exige que a organização, ao estabelecer o programa, pondere a importância dos processos auditados e o que auditorias anteriores constataram.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-07-the-programme-audits-itself",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 60,
+   "run_words": 0,
+   "run": "19011 clauses 4.5, 5.7; 42001 9.2.2",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+     "line_abs": 176,
+     "before": "    \"explanation\": \"Nenhuma norma estabelece um período de retenção mais longo para registros do sistema de gestão de IA nem especifica um período algum. A Seção 4.5 pede que os auditores exerçam discrição no uso e na proteção das informações obtidas durante as auditorias, incluindo o tratamento adequado de informações sensíveis ou confidenciais — e as evidências coletadas de repositórios de dados e registros de modelos podem ser exatamente isso. O que é compartilhado com um organismo de certificação é decisão da organização, não do auditor.\",",
+     "after": "\"explanation\": \"Nenhuma norma estabelece um período de retenção mais longo para registros do SGAI nem especifica período algum. A cláusula 4.5 pede que os auditores exerçam discrição no tratamento e na proteção das informações obtidas durante as auditorias, incluindo o tratamento adequado de informações sensíveis ou confidenciais — e as evidências coletadas de repositórios de dados e registros de modelos podem ser exatamente isso. O que é compartilhado com um organismo de certificação é decisão da organização, não do auditor.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+     "line_abs": 133,
+     "before": "  \"explanation\": \"O terceiro é o que parece diligência. Anexar a evidência parece completude e viola o requisito da Seção 4.5 de exercer discrição no uso e na proteção das informações adquiridas durante a auditoria. Completude sob a Seção 4.3 diz respeito ao leitor compreender a constatação, o que uma descrição alcança — os registros pertencem ao registro de auditoria, protegidos sob a Seção 5.5.7.\"",
+     "after": "\"explanation\": \"O terceiro é o que parece diligência. Anexar a evidência parece completude e falha no requisito da cláusula 4.5 de usar discrição no manuseio e na proteção do que foi aprendido durante a auditoria. Completude sob a cláusula 4.3 diz respeito ao leitor compreender a constatação, o que uma descrição alcança — os registros pertencem ao registro de auditoria, protegidos sob a cláusula 5.5.7.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-08-defined-versus-running",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 8.1, 8.2, 8.4",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "a8487dfa-75bf-4dac-bcab-fc5c6b8770d9",
+     "line_abs": 157,
+     "before": "      { \"id\": \"b\", \"text\": \"Contra a Seção 8.1, que exige que a organização implemente os controles determinados de acordo com 6.1.3 que se relacionam à operação do sistema de gestão de IA.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Contra a cláusula 8.1, que exige que a organização implemente os controles definidos sob a cláusula 6.1.3 que se relacionam à operação do sistema de gestão de IA.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 28,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+     "line_abs": 172,
+     "before": "    \"explanation\": \"O Anexo A.5 pergunta se a informação documentada é consistente em si mesma e com as informações documentadas relacionadas, que é exatamente o que dois registros em desacordo quanto à sequência não conseguem ser. Os registros são completos e seu conteúdo pode estar inteiramente correto; o que ambos não podem ser é verdadeiros. As datas são o que torna a sequência testável.\",",
+     "after": "\"explanation\": \"O Anexo A.5 pergunta se a informação documentada concorda consigo mesma e com as informações a ela relacionadas, que é exatamente o que dois registros em desacordo quanto à sequência não conseguem ser. Os registros são completos e seu conteúdo pode estar inteiramente correto; o que ambos não podem ser é verdadeiros. As datas são o que torna a sequência testável.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 6,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 116,
+     "before": "  \"explanation\": \"O terceiro está incluído porque o requisito é facilmente interpretado de forma excessiva. A Seção 9.3.3 pede decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças — e uma conclusão registrada de que nenhuma mudança é necessária, alcançada com base nas evidências, é uma decisão. O que não atende à Seção é um registro que mostra discussão e nenhuma conclusão.\"",
+     "after": "\"explanation\": \"O terceiro está incluído porque o requisito é facilmente lido de forma superficial. A cláusula 9.3.3 solicita decisões sobre oportunidades de melhoria contínua e sobre qualquer necessidade de mudança — e uma conclusão registrada de que nenhuma mudança é necessária, alcançada com base nas evidências, é uma decisão. O que não atende à cláusula é um registro que apresenta discussão e nenhuma conclusão.\""
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-07-where-the-audit-lands",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "42001 clauses 9.3.1, 9.3.2, 9.3.3, 10.1",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "6c6b607a-960f-4663-a0f9-3eac0e33ec7d",
+     "line_abs": 140,
+     "before": "      { \"id\": \"b\", \"text\": \"Uma constatação relativa à Seção 9.3.3: os resultados da análise crítica pela direção devem incluir decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças no sistema de gestão de IA, e discussão não é decisão.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Uma constatação relativa à cláusula 9.3.3: os resultados da análise crítica pela direção devem incluir decisões relacionadas a oportunidades de melhoria contínua e a qualquer necessidade de mudanças no sistema de gestão de IA, e discussão não é decisão.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+     "line_abs": 139,
+     "before": "      { \"id\": \"b\", \"text\": \"Un guía acompaña y aclara, y no debe influir ni interferir en el desarrollo de la auditoría; responder desplaza el relato de la persona que realmente realiza la actividad, que es lo que el Anexo A.17 a) indica al auditor que debe obtener.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Un guía acompaña y aclara, y no debería influir ni obstaculizar la manera en que se lleva a cabo la auditoría; responder desplaza el relato de la persona que realmente realiza la actividad, que es lo que el Anexo A.17 a) indica al auditor que debe obtener.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-04-11-a-determination-not-an-answer",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 39,
+   "run_words": 0,
+   "run": "42001 clauses 4.1, 4.2 and its NOTE",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "2661f070-5847-4801-ad4a-057e1462044b",
+     "line_abs": 165,
+     "before": "      { \"id\": \"b\", \"text\": \"Seção 4.2: a organização deve determinar quais dos requisitos identificados das partes interessadas serão abordados pelo sistema de gestão de IA, e esse terceiro elemento está ausente.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Cláusula 4.2: a organização deve determinar quais dos requisitos identificados das partes interessadas serão abordados pelo sistema de gestão de IA, e esse terceiro elemento está ausente.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aadd3746-e3d1-4dfa-8232-da30b79ffa6a",
+     "line_abs": 142,
+     "before": "      { \"id\": \"b\", \"text\": \"Uma não conformidade contra a Seção 9.2.2 a) da ISO/IEC 42001, que exige que a organização defina os objetivos, critérios e escopo da auditoria para cada auditoria.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Uma não conformidade contra a cláusula 9.2.2 a) da ISO/IEC 42001, que exige que a organização defina os objetivos, critérios e escopo de cada auditoria individual.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "aec6cafd-b76e-45d8-9e8d-d641b733288f",
+     "line_abs": 195,
+     "before": "      { \"id\": \"b\", \"text\": \"Os documentos de trabalho não devem restringir as atividades de auditoria, que podem mudar em decorrência das informações coletadas. Esta lista de verificação decidiu antecipadamente qual será a evidência, portanto um auditor que a percorre não perceberá que um procedimento atual descreve um processo que a organização abandonou.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Os documentos de trabalho convém que não restrinjam as atividades de auditoria, uma vez que estas podem mudar de acordo com o que a auditoria revelar. Esta lista de verificação decidiu antecipadamente qual será a evidência, portanto um auditor que a preencher não perceberá um procedimento atual descrevendo um processo que a organização abandonou.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-08-opening-and-closing",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 23,
+   "run_words": 0,
+   "run": "19011 clauses 6.4.2, 6.4.8, 6.4.10",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "pt-BR": {
+     "lesson_id": "12e14131-b9f2-4482-84a3-5849738944fb",
+     "line_abs": 140,
+     "before": "      { \"id\": \"b\", \"text\": \"Um guia acompanha e esclarece e não deve influenciar nem interferir na condução da auditoria; responder desloca o relato da pessoa que efetivamente executa a atividade, que é o que o Anexo A.17 a) orienta o auditor a obter.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Um guia acompanha e esclarece e convém que não influencie nem interfira na condução da auditoria; responder desloca o relato da pessoa que efetivamente executa a atividade, que é o que o Anexo A.17 a) orienta o auditor a obter.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-04-demonstrated-not-described",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 28,
+   "run_words": 0,
+   "run": "19011 clauses 3.9, 3.10, 4.7, 6.4.7, Annex A.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+     "line_abs": 172,
+     "before": "    \"explanation\": \"El Anexo A.5 pregunta si la información documentada es coherente en sí misma y con la información documentada relacionada, que es exactamente lo que falla cuando dos registros se contradicen en cuanto a la secuencia. Los registros son completos y su contenido puede ser enteramente correcto; lo que no pueden ser ambos es verdaderos. Las fechas son lo que hace que la secuencia sea comprobable.\",",
+     "after": "\"explanation\": \"El Anexo A.5 pregunta si la información documentada concuerda consigo misma y con la información relacionada con ella, que es exactamente lo que falla cuando dos registros discrepan en cuanto a la secuencia. Los registros son completos y su contenido puede ser enteramente correcto; lo que no pueden ser ambos es verdaderos. Las fechas son lo que hace que la secuencia sea comprobable.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-02-enough-to-plan-against",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 55,
+   "run_words": 0,
+   "run": "19011 clauses 6.3.1, 6.3.2, 6.4.7, Annex A.13",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "48afe9ff-90fb-4396-a654-55b0b5c16030",
+     "line_abs": 195,
+     "before": "      { \"id\": \"b\", \"text\": \"Los documentos de trabajo no deben restringir las actividades de auditoría, que pueden cambiar como resultado de la información recopilada. Esta lista ha predecidido cuál será la evidencia, por lo que un auditor que la complete no notará que un procedimiento vigente describe un proceso que la organización abandonó.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Los documentos de trabajo no deberían restringir las actividades de auditoría, ya que estas pueden cambiar según lo que la auditoría revele. Esta lista ha predecidido cuál será la evidencia, por lo que un auditor que la complete no notará un procedimiento vigente que describe un proceso que la organización abandonó.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-02-05-defining-one-audit",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 7,
+   "run_words": 0,
+   "run": "19011 clauses 3.6, 5.5.2; 42001 9.2.2 a",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "0efe245e-04c3-40e5-a30f-0629521350b6",
+     "line_abs": 143,
+     "before": "      { \"id\": \"b\", \"text\": \"Una no conformidad frente al apartado 9.2.2 a) de la norma ISO/IEC 42001, que exige que la organización defina los objetivos, los criterios y el alcance de cada auditoría.\" },",
+     "after": "{ \"id\": \"b\", \"text\": \"Una no conformidad frente a la cláusula 9.2.2 a) de la norma ISO/IEC 42001, que exige que la organización establezca los objetivos, los criterios y el alcance de cada auditoría individual.\" },"
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-03-01-the-order-of-an-audit",
+   "block": "-",
+   "block_index": 8,
+   "line_index": 28,
+   "run_words": 0,
+   "run": "19011 clauses 6.2.3, 6.6, 6.7",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "eafe396d-c219-4c08-aaa5-a03f9bc5663e",
+     "line_abs": 155,
+     "before": "    \"explanation\": \"La conclusión y el seguimiento son etapas separadas. El apartado 6.7 señala que las acciones generalmente son decididas y ejecutadas por el auditado dentro de un plazo acordado, y que la verificación puede ser parte de una auditoría posterior. El reconocimiento de los hallazgos se busca en la reunión de cierre conforme al apartado 6.4.10; las opiniones divergentes no resueltas se registran en lugar de bloquear la conclusión.\",",
+     "after": "\"explanation\": \"La conclusión y el seguimiento son etapas separadas. La cláusula 6.7 señala que las acciones normalmente son acordadas y llevadas a cabo por el auditado dentro de un plazo convenido, y que la verificación puede ser parte de una auditoría posterior. El reconocimiento de los hallazgos se busca en la reunión de cierre conforme a la cláusula 6.4.10; las opiniones divergentes no resueltas se registran en lugar de bloquear la conclusión.\","
+    }
+   }
+  },
+  {
+   "cert": "-",
+   "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+   "block": "-",
+   "block_index": 7,
+   "line_index": 19,
+   "run_words": 0,
+   "run": "19011 clauses 6.5.1, 4.3, 4.5",
+   "needs_authoring": false,
+   "needs_bilingual_read": true,
+   "languages": {
+    "es-419": {
+     "lesson_id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+     "line_abs": 134,
+     "before": "  \"explanation\": \"El tercero es el que parece diligente. Adjuntar la evidencia se siente como integridad y viola el requisito del apartado 4.5 de ejercer discreción en el uso y la protección de la información adquirida durante la auditoría. La integridad según el apartado 4.3 se refiere a que el lector comprenda el hallazgo, lo cual se logra con una descripción — los registros pertenecen al registro de auditoría, protegido bajo el apartado 5.5.7.\"",
+     "after": "\"explanation\": \"El tercero es el que parece diligente. Adjuntar la evidencia da la sensación de integridad y no cumple el requisito del apartado 4.5 de ejercer discreción en el manejo y la protección de lo aprendido durante la auditoría. La integridad según el apartado 4.3 se refiere a que el lector comprenda el hallazgo, lo cual se logra con una descripción — los registros pertenecen al registro de auditoría, protegido bajo el apartado 5.5.7.\""
+    }
+   }
+  }
+ ],
+ "blocked": []
+}

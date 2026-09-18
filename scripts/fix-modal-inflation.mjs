@@ -40,7 +40,7 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { blocks, solid } from "./lib/guide-runs.mjs";
+import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 import { looksLikeLanguage, checkFaithful as langControl } from "./lib/language-guard.mjs";
 import { noModalInflation, preservesObligationAcross, checkFaithful as obControl } from "./lib/obligation-guard.mjs";
 
