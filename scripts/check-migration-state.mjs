@@ -276,6 +276,20 @@ const FINGERPRINTS = {
           unmoved.length + "/3, provisional on " + provisional.length + ", false density claim on " + falseClaim.length,
     };
   },
+  345: async () => {
+    /* BOTH DIRECTIONS: none live, and the history still there. A retirement
+     * that took the attempt rows with it would satisfy the first half. */
+    const rows = await rest("quiz_questions?select=id,retired_at&item_origin=eq.generated&pool=eq.practice");
+    if (!rows) return { ran: null, why: "could not read quiz_questions" };
+    const live = rows.filter((r) => !r.retired_at).length;
+    const att = await count("quiz_attempts");
+    const ok = rows.length === 160 && live === 0 && att >= 2249;
+    return {
+      ran: ok,
+      why: ok ? "160 generated practice items, 0 live, " + att + " attempt row(s) preserved"
+              : live + " of " + rows.length + " generated practice item(s) still live; quiz_attempts " + att,
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

@@ -76,7 +76,25 @@ serve(async (req) => {
         // Practice pool ONLY — never serve a secure (exam) item as "new".
         .eq('pool', 'practice')
         // Match the learner's language.
-        .eq('language', language);
+        .eq('language', language)
+        // ============ ADDED 2026-09-18, AND THIS PATH HAD NEITHER ============
+        //
+        // This query filtered certification, pool, language and
+        // not-already-seen, and NOTHING ELSE. So every item anybody had ever
+        // withdrawn was still reachable as a "new" item here: measured before
+        // the fix, 132 of them -- 122 rejected-and-retired, 10
+        // approved-and-retired.
+        //
+        // `generate-mock-exam` has filtered `retired_at` since migration 089
+        // ("retiring removes an item from circulation for future forms"). This
+        // path never did, so a retirement was only ever half-effective and the
+        // half that leaked was the one a learner meets first.
+        //
+        // Found while retiring the 158 pre-consolidation generated items
+        // (migration 345). Without these two predicates that migration is
+        // cosmetic here and the items keep arriving as "new".
+        .eq('status', 'approved')
+        .is('retired_at', null);
 
       // Exclude already-seen questions in the query itself. PostgREST's
       // `not in` wants a (a,b,c) list; build it from the seen IDs.
