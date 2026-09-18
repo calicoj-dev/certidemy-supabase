@@ -35,7 +35,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const KNOWN = new Set(["--apply", "--verbose"]);
+const KNOWN = new Set(["--apply", "--verbose", "--from"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
     console.error("Unrecognised flag: " + a + ".");
@@ -44,6 +44,18 @@ for (const a of process.argv.slice(2)) {
   }
 }
 const APPLY = process.argv.includes("--apply");
+/* --from <file>: a JSON array of {slug, language, before, after}.
+ *
+ * The list below is the 58-paragraph review of 2026-09-17 and is FINISHED.
+ * Later reviews supply a spec file instead of extending it -- same shape as
+ * retranslate-item-rewrite.mjs, where the spec is authored and read first and
+ * applied second. Every guard in this file applies either way; only the source
+ * of the anchors changes. */
+const argOf = (k, d) => {
+  const i = process.argv.indexOf("--" + k);
+  return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
+};
+const FROM = argOf("from", "");
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
@@ -158,15 +170,36 @@ const EDITS = [
     "estar **aberta às partes interessadas, quando for pertinente**"),
 ];
 
-const rowsTouched = new Set(EDITS.map((e) => e.slug + "|" + e.language));
+let EDIT_LIST = EDITS;
+if (FROM) {
+  if (!existsSync(FROM)) { console.error(FROM + " not found"); process.exit(2); }
+  const spec = JSON.parse(readFileSync(FROM, "utf8"));
+  const list = Array.isArray(spec) ? spec : (spec.edits ?? []);
+  if (!list.length) { console.error("NOT APPLYING: " + FROM + " carries no edits"); process.exit(2); }
+  for (const e of list) {
+    for (const k of ["slug", "language", "before", "after"]) {
+      if (typeof e[k] !== "string" || !e[k]) {
+        console.error("NOT APPLYING: an entry in " + FROM + " is missing " + k);
+        process.exit(2);
+      }
+    }
+    if (e.before === e.after) {
+      console.error("NOT APPLYING: before equals after for " + e.slug + "/" + e.language);
+      process.exit(2);
+    }
+  }
+  EDIT_LIST = list.map((e) => E(e.slug, e.language, e.before, e.after));
+  console.log("source: " + FROM + " (" + EDIT_LIST.length + " substitution(s))");
+}
+const rowsTouched = new Set(EDIT_LIST.map((e) => e.slug + "|" + e.language));
 console.log("");
 console.log("QUEUE EDITS -- literal strings from the worked queue, no model");
-console.log("  substitutions " + EDITS.length + "   rows " + rowsTouched.size);
+console.log("  substitutions " + EDIT_LIST.length + "   rows " + rowsTouched.size);
 console.log("  mode: " + (APPLY ? "APPLY" : "DRY"));
 console.log("");
 
 const byRow = new Map();
-for (const e of EDITS) {
+for (const e of EDIT_LIST) {
   const k = e.slug + "|" + e.language;
   byRow.set(k, (byRow.get(k) ?? []).concat([e]));
 }
@@ -230,6 +263,6 @@ for (const [k, list] of byRow) {
   }
 }
 console.log(bad === 0
-  ? "readback: all " + EDITS.length + " substitution(s) present in the stored rows"
+  ? "readback: all " + EDIT_LIST.length + " substitution(s) present in the stored rows"
   : "READBACK FAILED on " + bad + " check(s)");
 process.exitCode = bad === 0 ? 0 : 1;
