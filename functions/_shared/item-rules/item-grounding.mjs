@@ -170,8 +170,8 @@ and none is in the text:
     or delivery. The Product Owner is accountable for the Product Backlog; the
     Scrum Master for the Scrum Team's effectiveness. THE INCREMENT BELONGS TO
     THE ENTIRE SCRUM TEAM - see the Increment pair below. This entry used to say
-    the Developers were accountable for it, which is the claim migration 289
-    retired from five sites in the job-task analysis on 2026-09-10.
+    the Developers were accountable for it; that claim was found in five places
+    in this scheme's own job-task analysis and removed.
   - That a Sprint may be extended, paused, or its timebox varied once begun. It
     may not. A fixed length is what makes the Sprint a container that bounds
     risk to one Sprint.
@@ -198,8 +198,8 @@ and none is in the text:
     "Scrum Teams are cross-functional... They are also self-managing, meaning
     they internally decide who does what, when, and how." Write the provision,
     never the prohibition, and do not narrow it to the Developers. This entry
-    used to do both; migration 285 retired the same two errors from task 3.2 and
-    from work-assignment-boundary.
+    used to do both; the same two errors were found in this scheme's task 3.2 and
+    in its work-assignment-boundary concept, and removed.
   - That a group of people may collectively be "the Product Owner". The Product
     Owner is ONE PERSON. A committee may advise; it may not hold the
     accountability.
@@ -240,8 +240,8 @@ and none is in the text:
     old vocabulary is the misconception being tested; nothing else may.
 
   ---- ADDED 2026-09-10. Every entry below is a claim that reached THIS
-  ---- scheme's job-task analysis and was retired by migration 285, 287, 288 or
-  ---- 289. The list was written before all four. A never-assert list assembled
+  ---- scheme's job-task analysis and was removed from it. The list was written
+  ---- before those corrections. A never-assert list assembled
   ---- from general knowledge catches the errors everyone makes; these are the
   ---- errors this credential actually made, which is a different set.
 

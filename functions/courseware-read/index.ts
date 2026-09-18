@@ -370,6 +370,15 @@ import {
   requiredScope,
   validateArgs,
 } from "../_shared/courseware-query.ts";
+/* THE ITEM RULES, FROM THE ONE PLACE THEY LIVE.
+ *
+ * The same modules gen-cert-secure.mjs, backfill-practice.mjs and
+ * generate-practice-questions read. scripts/check-prompt-parity.mjs asserts
+ * that what a partner receives here is BYTE-IDENTICAL to what the generators
+ * use -- without that this endpoint becomes a fourth copy of the item rules,
+ * and it is the copy partners would quote back at us. */
+import { draftSystem } from "../_shared/item-rules/item-pipeline.mjs";
+import { taskBlock } from "../_shared/item-rules/item-task-context.mjs";
 
 // ===================== AUTHORIZATION =====================
 //
@@ -1182,6 +1191,121 @@ serve(async (req) => {
         ms: Date.now() - started,
       }));
       return jsonResponse({ ok: true, logged });
+    }
+
+    if (args.resource === "rubric") {
+      // ============ WHAT THIS RETURNS, AND WHAT IT DELIBERATELY DOES NOT ======
+      //
+      // The item-writing rubric for ONE task: the rules a Certidemy item is
+      // written against, plus the job-task-analysis unit it must measure. The
+      // partner's own model writes the items; nothing is generated here.
+      //
+      // NO POST-BACK IN v1, and that is the design rather than a limitation.
+      // Items written from this rubric live in the partner's system. There is
+      // no route by which they enter this bank: quiz_questions records no
+      // author, `pool` carries no CHECK constraint, and `status` defaults to
+      // 'approved' -- so an accepted item would be indistinguishable from a
+      // reviewed one. `post_back: false` says so in the payload rather than
+      // leaving a caller to infer a round trip that does not exist.
+      //
+      // READ FROM mcp.task, NEVER public.tasks. That view already applies the
+      // served-certification gate, the language dimension and 338's KSA
+      // withholding, so a certification whose translations are unreviewed
+      // yields a rubric with null KSA automatically and the gate extends to
+      // this surface without a line of new code. The base table bypasses all three.
+      const taskArgs = { ...args, resource: "task" as const, limit: 1 };
+      const { q: taskQ } = buildQuery(taskArgs);
+
+      const rconn = await getPool().connect();
+      let taskRow: Record<string, unknown> | undefined;
+      let certRow: Record<string, unknown> | undefined;
+      try {
+        taskRow = (await rconn.queryObject<Record<string, unknown>>({
+          text: taskQ.text,
+          args: taskQ.args as unknown[],
+        })).rows[0];
+        certRow = (await rconn.queryObject<Record<string, unknown>>({
+          text: "select code, name, tier from mcp.certification where code = $1 and language = $2",
+          args: [args.certification!, args.language],
+        })).rows[0];
+      } finally {
+        rconn.release();
+      }
+
+      if (!taskRow || !certRow) {
+        const missLogged = await boundedLog(logArgs(404, null, null));
+        return jsonResponse({
+          error: `No task '${args.task_code}' in ${args.certification} for ${args.language}.`,
+          logged: missLogged,
+        }, 404);
+      }
+
+      // The shape the shared assembler expects: taskBlock reads `code`, and
+      // mcp.task names it task_code. Everything else passes through unchanged.
+      // `any` because the rule modules are plain .mjs and Deno infers
+      // draftSystem's task parameter as `null` from its default value. The same
+      // cast exists in generate-practice-questions for the same reason; typing
+      // the modules is the real fix and belongs with them, not here.
+      // deno-lint-ignore no-explicit-any
+      const rubricTask: any = {
+        code: taskRow.task_code,
+        statement: taskRow.statement,
+        bloom_level: taskRow.bloom_level,
+        criticality: taskRow.criticality ?? null,
+        knowledge: taskRow.knowledge,
+        skills: taskRow.skills,
+        abilities: taskRow.abilities,
+      };
+      const tier = Number(certRow.tier ?? 1) || 1;
+      // PRACTICE, ALWAYS. See the note on ALLOWED.rubric: the secure profile is
+      // a different difficulty contract and must not be purchasable by adding
+      // a field to the request.
+      const rules = draftSystem("practice", String(certRow.name ?? ""), rubricTask, tier);
+      const task_block = taskBlock(rubricTask);
+
+      const rubricLogged = await boundedLog(logArgs(200, null, null));
+      console.log(JSON.stringify({
+        fn: "courseware-read",
+        resource: "rubric",
+        certification: args.certification,
+        task_code: args.task_code,
+        language: args.language,
+        tier,
+        rules_chars: rules.length,
+        logged: rubricLogged,
+        ms: Date.now() - started,
+      }));
+      return jsonResponse({
+        resource: "rubric",
+        certification: certRow.code,
+        certification_name: certRow.name,
+        tier,
+        kind: "practice",
+        task_code: taskRow.task_code,
+        language: args.language,
+        // The two assembled halves: `rules` is what an item must satisfy,
+        // `task_block` is what it must measure.
+        rules,
+        task_block,
+        // The same unit, structured, so a caller need not parse prose.
+        // ksa_withheld carries 338's meaning -- the KSA fields are null because
+        // the translation is unreviewed, not because the task has none.
+        task: {
+          task_code: taskRow.task_code,
+          statement: taskRow.statement,
+          bloom_level: taskRow.bloom_level,
+          criticality: taskRow.criticality ?? null,
+          knowledge: taskRow.knowledge,
+          skills: taskRow.skills,
+          abilities: taskRow.abilities,
+          ksa_withheld: taskRow.ksa_withheld,
+          domain_code: taskRow.domain_code,
+          domain_title: taskRow.domain_title,
+          domain_weight_pct: taskRow.domain_weight_pct,
+          is_exam_scope: taskRow.is_exam_scope,
+        },
+        post_back: false,
+      });
     }
 
     // WHICH POOL, DECIDED BY THE RESOURCE AND ENFORCED BY THE DATABASE.

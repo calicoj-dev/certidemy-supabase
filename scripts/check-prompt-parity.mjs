@@ -347,6 +347,107 @@ if (!RUNTIME) {
 
   }
 
+/* ===================================================================== D
+ * THE RUBRIC SURFACE. Same property as stage C, one step further out: what a
+ * PARTNER receives must be byte-identical to what the generators use. Without
+ * this the rubric resource is a fourth copy of the item rules, and it is the
+ * copy that gets quoted back at us.
+ */
+console.log("");
+console.log("D. RUBRIC -- is what a partner receives the same rules the generators use?");
+{
+  const EP = "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/courseware-read";
+  const post = async (body, headers = {}) => {
+    for (let i = 0; i < 8; i++) {
+      try {
+        const r = await fetch(EP, {
+          method: "POST",
+          headers: { "content-type": "application/json", "x-mcp-client": "check:rubric-parity", ...headers },
+          body: JSON.stringify(body), signal: AbortSignal.timeout(60000),
+        });
+        const t = await r.text();
+        let j = null; try { j = JSON.parse(t); } catch { /* not json */ }
+        return { status: r.status, json: j, text: t };
+      } catch { /* retry */ }
+    }
+    return { status: "ERR", json: null, text: "" };
+  };
+
+  /* D1 -- NO CREDENTIAL NEEDED, so it always runs. The gate must exist and the
+   * secure profile must not be purchasable by adding a field. */
+  const noKey = await post({ resource: "rubric", certification: "ISMS-F", task_code: "2.1" });
+  record("rubric REFUSES without a key (courseware:rubric)", noKey.status === 401,
+    "HTTP " + noKey.status + " -- the scope gate is not wired: " + String(noKey.text).slice(0, 160));
+
+  const withKind = await post({ resource: "rubric", certification: "ISMS-F", task_code: "2.1", kind: "secure" });
+  record("rubric REFUSES an unknown `kind` field", withKind.status === 400 &&
+    /unknown field/i.test(String(withKind.text)),
+    "HTTP " + withKind.status + " -- `kind` must not be accepted, or the secure " +
+    "difficulty contract becomes purchasable: " + String(withKind.text).slice(0, 160));
+
+  const noTask = await post({ resource: "rubric", certification: "ISMS-F" });
+  /* NAMES THE FIELD, so this cannot pass for the wrong reason. Against a
+   * deployment that does not know the resource it 400s on `resource must be one
+   * of`, which is a refusal about something else entirely -- the shape that let
+   * 'resource "lesson" refused' go on passing after `lesson` became real. */
+  record("rubric REFUSES without task_code, naming task_code",
+    noTask.status === 400 && /task_code/.test(String(noTask.text)),
+    "HTTP " + noTask.status + " refusing for another reason: " + String(noTask.text).slice(0, 160));
+
+  /* D2 -- THE BYTE COMPARISON. Needs a key carrying courseware:rubric. */
+  const RKEY = process.env.CERTIDEMY_RUBRIC_KEY ?? "";
+  if (!RKEY) {
+    skip("rubric byte-parity with the generators",
+      "CERTIDEMY_RUBRIC_KEY is not set. D1 proves the gate refuses; it CANNOT " +
+      "prove what the gate serves. Mint a key scoped courseware:rubric and " +
+      "re-run -- until then the byte-identical property is UNTESTED, not passing.");
+  } else if (!assemble) {
+    skip("rubric byte-parity with the generators", "no single rule source to compare against");
+  } else {
+    const r = await post({ resource: "rubric", certification: "ISMS-F", task_code: "2.1", language: "en" },
+      { "x-certidemy-key": RKEY });
+    const d = (r && r.json) || {};
+    const served = r.status === 200 && typeof d.rules === "string" && typeof d.task_block === "string";
+    record("the rubric resource serves with a scoped key", served,
+      "HTTP " + r.status + ": " + String(r.text).slice(0, 200));
+
+    if (served) {
+      const { draftSystem } = await import("../functions/_shared/item-rules/item-pipeline.mjs");
+      const { taskBlock } = await import("../functions/_shared/item-rules/item-task-context.mjs");
+      /* Assemble from the task the DEPLOYMENT reports it used, not one chosen
+       * here -- stage C's lesson, where comparing two different tasks produced
+       * a failure that looked like a parity break. */
+      const t = d.task ?? {};
+      const mine = {
+        code: t.task_code, statement: t.statement, bloom_level: t.bloom_level,
+        criticality: t.criticality ?? null, knowledge: t.knowledge,
+        skills: t.skills, abilities: t.abilities,
+      };
+      const rules = draftSystem("practice", d.certification_name, mine, Number(d.tier ?? 1) || 1);
+      record("served `rules` are BYTE-IDENTICAL to the generators' draftSystem", rules === d.rules,
+        "served " + md5(d.rules) + " (" + d.rules.length + ") vs generated " +
+        md5(rules) + " (" + rules.length + ")");
+      record("served `task_block` is BYTE-IDENTICAL to the generators' taskBlock",
+        taskBlock(mine) === d.task_block,
+        "served " + md5(d.task_block) + " vs generated " + md5(taskBlock(mine)));
+      record("the served rubric declares post_back false", d.post_back === false,
+        "post_back is " + JSON.stringify(d.post_back) + " -- v1 has no post-back route");
+      record("the served rubric is the PRACTICE kind", d.kind === "practice",
+        "kind is " + JSON.stringify(d.kind));
+
+      /* NO INTERNAL REFERENCE MAY REACH A PARTNER. The three migration numbers
+       * in SCRUM_GUIDE_FACTS were rewritten in source rather than filtered at
+       * serve time; this asserts the source stayed clean. */
+      const INTERNAL = /\bmigration\s+[0-9]{2,3}\b|\b(?:scripts|functions|migrations)\/[a-z0-9_\-\/]+\.(?:mjs|ts|sql)\b|CLAUDE\.md|verify-cert|bank_revision/gi;
+      const leaked = (d.rules + " " + d.task_block).match(INTERNAL) ?? [];
+      record("no internal reference in the served payload", leaked.length === 0,
+        "leaked: " + JSON.stringify([...new Set(leaked)]));
+      record("that leak check can fire", ("migration 289 in scripts/lib/x.mjs".match(INTERNAL) ?? []).length === 2,
+        "the internal-reference pattern matches nothing, so the assertion above is vacuous");
+    }
+  }
+}
+
 console.log("");
 console.log("passed: " + pass + "   failed: " + fails.length + "   skipped: " + skips.length);
 for (const f of fails) console.log("  X " + f);
