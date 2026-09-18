@@ -788,6 +788,32 @@ cannot be misread, and migration 344 renamed it for that reason rather than
 leaving a comment beside it. A number whose name does not say what it is
 measured over is half a fact.
 
+**AND IT HAPPENED AGAIN IN THE NEXT MIGRATION, BY THE AUTHOR WHO HAD JUST
+WRITTEN THAT.** 345 asserted `secure pool ... expected 12637` and aborted on its
+own negative post-condition: **12637 was the TOTAL secure rows, read off a query
+with no `retired_at` predicate, and asserted of LIVE rows.** 126 secure items
+have been retired since 2026-08-10 -- a deliberate trilingual two-option pass,
+42 groups x 3 languages -- so live is 12511 and the database was right.
+
+**Nothing was written, which is the assertion working.** But note what the rule
+above did NOT do: it was in this file, written that same evening, by the same
+author, and it did not prevent the fifth instance. **Reading a number off one
+query and asserting it of another is not a lapse of care. It is the default.**
+
+So the mechanical rule, which is the only part that transfers:
+
+> **AN ASSERTION ABOUT A COUNT MUST NOT CONTAIN A COUNT.** Capture it before
+> the change, compare after, and assert *unchanged*. A literal is a second copy
+> of a fact that lives in the database -- the same defect as the migration tip,
+> with the same half-life, and it fails CLOSED in a migration and OPEN in a
+> report.
+
+This is the second time in one session that writing a rule down failed to stop
+its own recurrence -- the first was "run the check as the party the property is
+about", broken by the author who had documented it. **Both were fixed by a
+mechanism, not a sentence:** a probe that asks the database, and a before/after
+comparison that has no number to go stale.
+
 **THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
 most dangerous thing about this directory.
 

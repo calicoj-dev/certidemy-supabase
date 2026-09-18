@@ -68,33 +68,73 @@
 -- the same change. Without it this migration is cosmetic for that path and the
 -- 158 keep arriving as "new" items.
 --
+-- ============ THIS FILE ABORTED ONCE, ON ITS OWN NEGATIVE ASSERTION ========
+--
+-- The first run raised "secure pool is now 12511 live item(s), expected 12637"
+-- and wrote nothing. The pool had not moved. THE LITERAL WAS THE WRONG
+-- POPULATION: 12637 is the TOTAL number of secure rows, measured earlier that
+-- day with no `retired_at` predicate, and it was written into an assertion
+-- about LIVE rows. 126 secure items have been retired since 2026-08-10, so
+-- 12637 - 126 = 12511 and the database was right.
+--
+-- Those 126 are a deliberate pass, checked rather than assumed: one batch on
+-- 2026-08-10, status rejected, bank_revision v2-jta, no supersedes_id, one
+-- reason on all of them -- "Two-option item: a guesser scores 50%. No minimum
+-- option count existed in LESSON_AUTHORING_SPEC or in any verifier". Perfectly
+-- trilingual: 11/11/11 SD-AI-I, 11/11/11 SM-AI-I, 8/8/8 SPO-AI-I, 5/5/5
+-- AIHR-I, 3/3/3 ISMS-F, 2/2/2 AIE-I and AISM-I. 42 sibling groups x 3
+-- languages.
+--
+-- SO EVERY COUNT IN THIS FILE IS NOW CAPTURED BEFORE AND COMPARED AFTER. The
+-- property is "unchanged", never "equals a number somebody wrote down
+-- yesterday" -- a literal in an assertion is a second copy of a fact that
+-- lives in the database, which is the whole argument for the migration probe.
+-- It also means a weak-concepts click between writing this and running it
+-- cannot abort it: the set is "all live generated practice items", not 158.
+--
+-- FIFTH INSTANCE of the population error, and the sharpest: written into 345
+-- by the author who had just recorded the fourth in CLAUDE.md as part of 344.
+-- Reading a number off one query and asserting it of another is not a lapse of
+-- care, it is what happens by default.
+--
 -- ASCII only. One statement. Run in the SQL editor.
 
 do $mig$
 declare
-  n_live_before int;
-  n_att_before  int;
-  n_live_after  int;
-  n_ret_after   int;
-  n_att_after   int;
-  n_auth_ret    int;
-  n_secure      int;
-  breaches      text;
+  n_live_before   int;
+  n_ret_before    int;
+  n_att_before    int;
+  n_secure_before int;
+  n_live_after    int;
+  n_ret_after     int;
+  n_att_after     int;
+  n_auth_ret      int;
+  n_secure_after  int;
+  breaches        text;
 begin
 
   -- ----------------------------------------------- pre-conditions
+  -- CAPTURED, NOT ASSERTED. The set is "every live generated practice item",
+  -- whatever that number is when this runs. 158 on 2026-09-18; a single
+  -- weak-concepts click adds five more, and that must not abort the migration.
   select count(*) into n_live_before
     from public.quiz_questions
    where item_origin = 'generated' and pool = 'practice' and retired_at is null;
-  if n_live_before <> 158 then
-    raise exception 'expected 158 live generated practice items, found %', n_live_before
-      using hint = 'Re-measure before retiring. A different number means the pool moved.';
-  end if;
-
+  select count(*) into n_ret_before
+    from public.quiz_questions
+   where item_origin = 'generated' and pool = 'practice' and retired_at is not null;
   select count(*) into n_att_before from public.quiz_attempts;
-  if n_att_before <> 2249 then
-    raise notice 'quiz_attempts is % rows, not the 2249 measured on 2026-09-18', n_att_before;
+  select count(*) into n_secure_before
+    from public.quiz_questions where pool = 'secure' and retired_at is null;
+
+  -- The only thing worth refusing: nothing to do. A migration that retires
+  -- zero rows and reports success is the silent-success failure.
+  if n_live_before = 0 then
+    raise exception 'no live generated practice items to retire'
+      using hint = 'Already run, or item_origin is not being stamped.';
   end if;
+  raise notice 'retiring % live generated practice item(s); % already retired; % attempt row(s); % live secure',
+    n_live_before, n_ret_before, n_att_before, n_secure_before;
 
   -- THE FLOOR, BEFORE. Every task that carries a generated item must keep at
   -- least 10 approved live practice items per language WITHOUT them. Asserted
@@ -139,8 +179,9 @@ begin
   select count(*) into n_ret_after
     from public.quiz_questions
    where item_origin = 'generated' and pool = 'practice' and retired_at is not null;
-  if n_ret_after <> 160 then
-    raise exception '% generated practice item(s) are retired, expected 160 (158 now + 2 from 309)', n_ret_after;
+  if n_ret_after <> n_ret_before + n_live_before then
+    raise exception 'retired count is % , expected % (% already + % just now)',
+      n_ret_after, n_ret_before + n_live_before, n_ret_before, n_live_before;
   end if;
 
   -- 2. NEGATIVE, AND IT IS THE POINT: NOTHING WAS DELETED. A retirement that
@@ -163,11 +204,13 @@ begin
   end if;
 
   -- 4. NEGATIVE. The secure pool was not touched at all.
-  select count(*) into n_secure
+  select count(*) into n_secure_after
     from public.quiz_questions where pool = 'secure' and retired_at is null;
-  if n_secure <> 12637 then
-    raise exception 'secure pool is now % live item(s), expected 12637', n_secure;
+  if n_secure_after <> n_secure_before then
+    raise exception 'live secure items moved from % to % -- this migration must not touch the secure pool',
+      n_secure_before, n_secure_after;
   end if;
+  raise notice 'ok: secure pool unchanged at % live item(s)', n_secure_after;
 
   -- 5. AND THE FLOOR HOLDS AFTER THE FACT, measured on the live rows rather
   --    than predicted from the ones about to move.
