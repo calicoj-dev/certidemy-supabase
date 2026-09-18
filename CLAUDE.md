@@ -14,222 +14,36 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 340. Next free number: 341. 336, 337 AND 338 HAVE ALL RUN;
-339 AND 340 ARE WRITTEN AND HAVE NOT RUN. They are independent -- 339 is task
-KSAs, 340 is lesson translations -- and either order works.**
+**THERE IS NO MIGRATION TIP IN THIS FILE ANY MORE. Run the probe.**
 
-340 records the bilingual review of 35 lesson translations through
-`lesson_translation_reviews`. **THE FLAG IS NOT CLEARED**:
-`mcp_translation_review_required` stays true because it records that these rows
-were once withheld by a repair, and the REVIEW is what opens the gate -- only
-while its `en_hash` still matches, so a later English edit closes it again.
+```
+node --dns-result-order=ipv4first scripts/check-migration-state.mjs
+```
 
-**THE HASH IS COMPUTED IN SQL AND THAT WAS NOT THE FIRST PLAN.** Node was going
-to do it, and the attempt to validate that came up empty twice:
-`lesson_translation_reviews` had zero rows to reproduce, and
-`item_translation_reviews` uses a different definition -- sha256 over
-`question_text || options::text || explanation` with NO SEPARATOR, the defect
-339's length-prefixed hash exists to avoid. With nothing to validate against,
-the computation moved to where the question does not arise.
+It prints the next free number from the FOLDER and, for every migration
+carrying a fingerprint, whether it has RUN -- read from the database and from
+the deployed function, because the `mcp` schema is not reachable through
+PostgREST. Add a fingerprint in the same commit as a new migration; one without
+a fingerprint reports "no probe" rather than "not run", because silence about a
+thing is not a claim about it.
 
-[Superseded 2026-09-17 late: 340 now exists.] **Migration tip: 339. Next free number: 340. 336, 337 AND 338 HAVE ALL RUN;
-339 is WRITTEN AND HAS NOT RUN.** Verified against the live endpoint rather than
-against this line: `courseware-read` returns rows for ISMS-IA and AIMS-IA, so
-`allowed` holds twelve, and it returns `ksa_withheld: true` for ISMS-F 2.1
-es-419, so 338 ran and the function was redeployed.
+**WHY THE NUMBER WAS REMOVED RATHER THAN CORRECTED AGAIN.** This line was wrong
+EIGHT times on 2026-09-17 alone, and the number was almost never the wrong half
+-- the STATUS was. *"336 is written and has not run"* while 336 had run.
+*"339 and 340 are written and have not run"* while both had, reported by an
+assistant that had itself written the rule about checking `pg_catalog` instead
+of a note.
 
-339 adds `public.task_translation_reviews` on 335's pattern and clears ISMS-F's
-98 KSA translations THROUGH it. **`ksa_is_provisional` STAYS TRUE** -- it is a
-true statement about a machine translation -- and an approved review whose
-`en_hash` still matches the English is what opens the gate, so a later English
-edit re-closes it with nobody remembering to.
+A sentence here is a SECOND COPY of a fact that lives in the database, and a
+second copy goes stale by default. The folder was never the problem: `ls
+migrations/` has always answered "what number is free" correctly, because the
+folder IS that fact. Nothing answered "has it run", so somebody wrote it down,
+and writing it down is the defect.
 
-**THE HASH IS A FUNCTION SO IT CAN BE TESTED.** `public.ksa_en_hash(text, text,
-text)` is pure, and 339 exercises it on literals before inserting anything: each
-field is LENGTH-PREFIXED because plain concatenation makes `(ab,c,)` and
-`(a,bc,)` the same string, which is the field-concatenation-without-a-separator
-defect this file already records.
+The history below is kept because it is the record of that failure, and every
+superseded line in it is marked. **None of them is a live instruction.**
 
-**AND IT PROVES STALENESS BEFORE RELYING ON IT.** The migration inserts a review
-with a deliberately wrong hash on an AIMS-F row, asserts the gate stays shut,
-and deletes the probe -- so the mechanism the 98 rows rest on is tested rather
-than assumed.
-
-[Superseded 2026-09-17 late: 337 and 338 have since run.] **Migration tip: 338. Next free number: 339. 336 HAS RUN; 337 AND 338 ARE
-WRITTEN AND HAVE NOT RUN. RUN 337 FIRST -- 338 aborts if it has not.**
-338 gates `ksa_is_provisional` on the COLUMNS rather than the row: every task
-statement keeps serving and only unreviewed KSA text is withheld, with a new
-`mcp.task.ksa_withheld` so a null can be told from an absence.
-
-**338 IS THE FIRST mcp MIGRATION TO USE `create or replace view`** instead of
-drop-and-create, which preserves ownership, privileges and comments -- so it
-restates none of them and then ASSERTS all three survived. A new column is
-allowed only if appended LAST, which is why `ksa_withheld` is at the end.
-
-[Superseded 2026-09-17 late: 338 now exists and 337 still has not run.] **Migration tip: 337. Next free number: 338. 336 HAS RUN; 337 is WRITTEN AND
-HAS NOT RUN.** 337 admits ISMS-IA and empties the held set -- every ISO-derived
-certification now scans 0 refused. **`courseware-read` is edited to match and
-MUST NOT be deployed first**, same ordering as 336. The web session for
-`certidemy-web/lib/mcp/registry.ts` now needs TWELVE, not eleven.
-
-**AND THE LINE BELOW WENT STALE WITHIN HOURS OF BEING WRITTEN, WHICH IS THE
-SEVENTH RECORDED INSTANCE.** It said "336 is WRITTEN AND HAS NOT RUN" and 336
-had run. Caught on 2026-09-17 by querying `pg_catalog` before writing 337:
-`mcp.certification`'s own comment read *"Eleven as of 336"* and the view
-returned eleven codes with ISMS-IA absent. **The status half went stale under a
-correct number again** -- the variant this section already calls the more
-dangerous one -- and this time the number was correct because the file existed,
-so `ls migrations/` would have confirmed it and said nothing about whether it
-ran.
-
-[Superseded 2026-09-17 evening: 336 has since run. The line below was correct when written.] **Migration tip: 336. Next free number: 337. 336 is WRITTEN AND HAS NOT RUN.**
-336 admits AIMS-IA to the mcp views and keeps ISMS-IA held. **`courseware-read`
-is edited to match and MUST NOT be deployed first**: ahead of the migration the
-function accepts `AIMS-IA` while the view returns nothing, so a partner is told
-the certification has no lessons. Migration, then deploy, then a web session for
-`certidemy-web/lib/mcp/registry.ts`, which still emits ten.
-
-**AND 336 EXISTS BECAUSE THE WORK WAS DONE AND THE DOOR WAS STILL SHUT.**
-AIMS-IA's 40 lessons were repaired and scanned clean on 2026-09-17 -- 120 rows,
-0 refused, longest run 9w -- and every one of them was UNREACHABLE, because 334
-put AIMS-IA in `held` and every mcp view filters on `code = any (allowed)`.
-
-**`mcp_servable` is a statement about a LESSON. `allowed` is a statement about a
-CERTIFICATION. Nothing in this repo compares them** -- the leak scanner has no
-idea what `allowed` contains, and its six post-conditions are all about
-measurement. A clean scan says nothing about whether anyone can reach the thing
-it measured. This was one sentence from shipping as "AIMS-IA now serves
-completely in English" in a partner-facing note.
-
-So 336's post-conditions assert REACHABILITY -- what comes back from the views,
-as the role that asks -- rather than servability, which would have passed before
-the migration existed.
-
-[Superseded 2026-09-17 evening: the line below was correct when 335 ran.] **Migration tip: 335. Next free number: 336. 332-335 have all RUN (2026-09-17).**
-332 added `lessons.mcp_servable` and the trigger that clears it on any
-`content_md` change; 333 put the predicate in `mcp.lesson`; 334 widened the MCP
-views to TEN certifications, adding ISMS-F and AIMS-F; 335 made the gate
-per-language with `lesson_translation_reviews` on 311's en_hash pattern.
-
-**334 IS THE FIRST WIDENING SINCE THE 328 OUTAGE AND IT EXERCISED THE FIX.** The
-cold-start check was rewritten asymmetric after 328 refused to serve all eight
-certifications, and had never run in the safe direction since. Running 334 before
-deploying the function produced `behind_by: ["AIMS-F","ISMS-F"]` in the
-courseware-read log -- serving the intersection rather than refusing. That line
-was READ BEFORE DEPLOYING, because the opposite direction (function ahead of
-views) still refuses everything. The log was the decision, not the reassurance.
-
-[Superseded: the line below was written while 331 was pending.] **Migration tip: 331. Next free number: 332. 331 is WRITTEN AND HAS NOT RUN.**
-331 turns partner features from grant-by-exception into GRANT BY DEFAULT,
-REVOKE BY EXCEPTION: `public.mcp_features` is the vocabulary, and a row in
-`public.company_feature_disables` means REVOKED. A new partner works because the
-disables table has no row for them, not because anyone remembered a step.
-
-**TWO POLARITIES NOW COEXIST AND THE NAMES ARE THE ONLY GUARD.**
-`company_features` = a row means GRANTED; `company_feature_disables` = a row
-means REVOKED. Deliberate: `curriculum_coverage` returns competitor intelligence
-and stays grant-shaped, because default-on for every partner is a product
-decision and not a refactor. 331 puts that warning in a `comment on table` on the
-OLD table, which is the place the mistake would be made.
-
-**AND THE READ FAILS OPEN, WHICH IS THE OPPOSITE OF BEFORE.** "Is the scope
-present" fails closed; "is it disabled" fails open, because every way of failing
-to learn the truth reads as "not disabled". So `mcp.feature_status` returns a
-STATUS -- ok / company_unknown / unknown_feature -- and a caller that cannot get
-`ok` must refuse. A typo in `feature_key` is rejected by a foreign key rather
-than silently failing to revoke, which under this polarity is the defect nobody
-would ever look for.
-
-331 also DROPS `issuers.mcp_scopes`, added by 329 hours earlier: grant-by-default
-retires it, and an ignored grant column beside a disable table is two mechanisms
-for one question.
-
-**Migration tip: 330. Next free number: 331. Nothing is outstanding.** 303-311
-and 313-330 have all RUN, and the OAuth path served its first lesson on
-2026-09-16: 8 blocks, 5,002 characters, on `x-certidemy-token` with no API key.
-The same user's ordinary browser session, against the same lesson, was refused
-401 -- which is the confused-deputy case `MCP-SERVER.md` 13 named, closed and
-measured rather than argued.
-
-[Superseded: the line below was written while 330 was pending.] **Migration tip: 330. Next free number: 331. 330 is WRITTEN AND HAS NOT RUN.**
-303-311, 313-328 and 329 have all RUN. **330 fixes a grant 329 got wrong**:
-`mcp.resolve_oauth_caller` was granted to `service_role` because 329 was written
-while the open question was whether the Worker or the function resolves the
-token. The function won, resolves on its own reader pool as `mcp_reader`, and the
-first OAuth lesson read ever attempted answered `500 read failed` with
-`permission denied for function resolve_oauth_caller` in the request log.
-
-**329's post-conditions passed while the path could not run**, because they
-asserted `service_role` -- a role that never calls it. Run the check as the party
-the property is about; 330 calls it `set role mcp_reader`.
-
-303-311 and 313-328 have all RUN. 329 adds `issuers.mcp_scopes` (default `{}`,
-so it entitles nobody) and `mcp.resolve_oauth_caller`, the OAuth twin of
-`resolve_api_key`. It also grants `service_role` USAGE on schema `mcp`, without
-which the Worker's RPC answers 42501 -- measured against the live project before
-the file was written, not discovered afterwards.
-
-328 ran on 2026-09-16 after its first attempt aborted on a post-condition that
-had kept 325's literal `4` while the views were built from the new array. The
-counts now derive from `allowed`, so a view and its assertion cannot disagree by
-construction.
-
-303-311 and 313-326 have all RUN. 326 ran on 2026-09-15 and was verified the same day
-against `pg_catalog` rather than against a report that it had: the table exists
-with `relrowsecurity`, both policies are present, `can_bind_issuer` carries
-`proconfig {search_path=""}`, and **`oauth_issuer_bindings` holds one row** --
-written by the consent screen through the policy, which is the only evidence
-that the authenticated INSERT path actually works.
-
-That last clause is the point. 326's own probes ran inside its transaction and
-committed; the row is the separate, after-the-fact proof, and it is the kind a
-migration cannot give itself.
-
-303-311 and 313-325 have all RUN. Verified 2026-09-15 against `pg_catalog`, not against
-this line: `is_platform_admin` / `is_team_admin_of` carry `proconfig
-{search_path=""}`, are still `stable`, and their bodies match 318 byte for byte
-including the `::public.platform_role` cast 318 introduced (318); `mcp.resolve_api_key`
-exists (323); `mcp.log_request` admits `lesson` and `lesson_index` (324); and all
-five `mcp` views carry `code = any ('{AISM-I,AIE-I,AIHR-I,AIGRM-I}')` (325).
-
-**AND ON 2026-09-15 THE STATUS WAS STALE BY FOUR WITH THE NUMBER RIGHT -- the
-2026-09-13 variant, recurring.** The line above read *"318, 323, 324 and 325 are
-written and have NOT run"* after all four had run, and `HANDOFF-v12_4-addendum.md`
-section 4 still listed *"318 is still written and not run"* under decisions
-waiting. A session opened on that sentence and carried it forward as fact. The
-number was correct, so `ls migrations/` confirmed it and said nothing about the
-four. **This is the second recorded instance of the status half going stale under
-a correct number, and it is the more dangerous half**: a wrong number collides
-loudly at `create`, a wrong status sends someone to re-run a migration that has
-already run, or to build on the belief that a pin, a function or a widened view
-is not there yet.
-
-**AND IT WENT STALE BY FIVE ON 2026-09-14, in the session that wrote all five.**
-The line read *"316 / next free 317"* while 317, 319, 320 and 321 had run and 318
-was on disk. Same session, same author, no handover involved -- the third
-self-inflicted instance recorded here, and the largest since the 2026-09-12 gap.
-The mechanism is the one already named at the top of this section: updating the
-tip is not part of writing a migration, so it does not happen when one is
-written. It was caught only because a handoff asked the disk what had run. **There is no 312** - the number was claimed and its premise
-rejected before anything was written, so the sequence skips it on purpose.
-Sequential, zero-padded to three digits, `NNN_snake_case_name.sql`.
-
-**ON 2026-09-13 THE NUMBER WAS RIGHT AND THE STATUS WAS STALE**, which is a
-variant this paragraph had not recorded. The line read *"313 / next free 314"* --
-correct -- while the same sentence still said *"309 is written and has NOT run"*
-after 309, 310, 311 and 313 had all run. Every warning below is about the NUMBER
-going stale, so a reader checking `ls migrations/` confirms the number and comes
-away reassured about a sentence the check never touched. **`ls` proves what
-exists on disk. It proves nothing about what has been applied.**
-
-**AND IT WENT STALE AGAIN ON 2026-09-12, FIVE BEHIND, IN THE SESSION THAT HAD
-JUST REWRITTEN IT.** The line read *"304 / next free 305"* while 305, 306, 307
-and 308 had all run and 309 was on disk. The same session wrote the tip at 304,
-then created and ran five more migrations over the following hours and never came
-back to it. That is now the SECOND self-inflicted instance and the largest gap
-recorded. The mechanism is not two sessions and it is not forgetfulness about
-someone else's work: **updating the tip is not part of writing a migration, so it
-does not happen when a migration is written.**
+---
 
 **THE DISK IS AUTHORITATIVE, NOT THIS LINE.** Check before you claim a number:
 
