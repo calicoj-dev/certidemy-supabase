@@ -86,6 +86,20 @@ async function count(table) {
   }
   throw last;
 }
+/** Full rows from a public table, or null. For fingerprints that need CONTENT
+ *  rather than a count -- 344 checks what a blueprint asserts about itself. */
+async function rest(path) {
+  let last;
+  for (let i = 0; i < 8; i++) {
+    try {
+      const r = await fetch(REST + "/" + path, { headers: H, signal: AbortSignal.timeout(45000) });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch (e) { last = e; }
+  }
+  throw last;
+}
+
 /** Does a public table have a column? */
 async function hasColumn(table, col) {
   let last;
@@ -236,6 +250,30 @@ const FINGERPRINTS = {
       effective: !!routes,
       effectiveWhy: routes ? "es-419 description differs from en -- the language reaches the view"
                            : "es-419 and en descriptions are identical -- language is accepted and ignored",
+    };
+  },
+  344: async () => {
+    /* BOTH DIRECTIONS, because check 1 alone passes on a migration that deleted
+     * the provisional marker and added no measurement. */
+    const rows = await rest("certifications?select=code,tier,exam_blueprint");
+    if (!rows) return { ran: null, why: "could not read certifications" };
+    const im = rows.filter((r) => r.exam_blueprint && r.exam_blueprint.item_model);
+    const provisional = rows.filter((r) => JSON.stringify(r.exam_blueprint ?? {}).includes("PROVISIONAL"));
+    const measured = im.filter((r) => r.exam_blueprint.item_model.cue_tolerance?.measured_over);
+    const falseClaim = rows.filter((r) =>
+      JSON.stringify(r.exam_blueprint ?? {}).includes("qualification density across options"));
+    const unmoved = im.filter((r) => {
+      const t = r.exam_blueprint.item_model.cue_tolerance ?? {};
+      return t.key_len_margin === 25 && t.key_len_pct === 15 && t.len_spread_max === 100;
+    });
+    const ok = provisional.length === 0 && falseClaim.length === 0 &&
+      im.length === 3 && measured.length === 3 && unmoved.length === 3;
+    return {
+      ran: ok,
+      why: ok
+        ? "3 item_model(s), all measured, no provisional marker, no false density claim, tolerance still 25/15/100"
+        : "item_model " + im.length + "/3, measured " + measured.length + "/3, tolerance unmoved " +
+          unmoved.length + "/3, provisional on " + provisional.length + ", false density claim on " + falseClaim.length,
     };
   },
 };
