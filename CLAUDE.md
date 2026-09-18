@@ -14,7 +14,25 @@ Project ref: `pctynukndxnmnxiqpgck`. The sibling repo is `../certidemy-web`.
 
 ## Migrations
 
-**Migration tip: 339. Next free number: 340. 336, 337 AND 338 HAVE ALL RUN;
+**Migration tip: 340. Next free number: 341. 336, 337 AND 338 HAVE ALL RUN;
+339 AND 340 ARE WRITTEN AND HAVE NOT RUN. They are independent -- 339 is task
+KSAs, 340 is lesson translations -- and either order works.**
+
+340 records the bilingual review of 35 lesson translations through
+`lesson_translation_reviews`. **THE FLAG IS NOT CLEARED**:
+`mcp_translation_review_required` stays true because it records that these rows
+were once withheld by a repair, and the REVIEW is what opens the gate -- only
+while its `en_hash` still matches, so a later English edit closes it again.
+
+**THE HASH IS COMPUTED IN SQL AND THAT WAS NOT THE FIRST PLAN.** Node was going
+to do it, and the attempt to validate that came up empty twice:
+`lesson_translation_reviews` had zero rows to reproduce, and
+`item_translation_reviews` uses a different definition -- sha256 over
+`question_text || options::text || explanation` with NO SEPARATOR, the defect
+339's length-prefixed hash exists to avoid. With nothing to validate against,
+the computation moved to where the question does not arise.
+
+[Superseded 2026-09-17 late: 340 now exists.] **Migration tip: 339. Next free number: 340. 336, 337 AND 338 HAVE ALL RUN;
 339 is WRITTEN AND HAS NOT RUN.** Verified against the live endpoint rather than
 against this line: `courseware-read` returns rows for ISMS-IA and AIMS-IA, so
 `allowed` holds twelve, and it returns `ksa_withheld: true` for ISMS-F 2.1
