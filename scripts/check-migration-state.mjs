@@ -142,8 +142,27 @@ const FINGERPRINTS = {
     return { ran: !!has, why: "mcp.task.ksa_withheld returned by the function: " + !!has };
   },
   339: async () => {
+    /* RAN and EFFECTIVE are different questions, and 339 is why the distinction
+     * is here. Its DDL was in the database and its 98 rows were written -- it
+     * RAN -- while every non-English blueprint read answered 500, because the
+     * functions it created were not SECURITY DEFINER. For two hours nothing
+     * said so: the migration's own post-conditions had passed, as a superuser.
+     *
+     * So a fingerprint may report both. `ran` asks whether the artifact exists.
+     * `effective` asks whether the thing it was FOR works for the party it was
+     * for, and it is measured through the deployed endpoint because that queries
+     * as mcp_reader. */
     const n = await count("task_translation_reviews");
-    return { ran: n === 98, why: "task_translation_reviews = " + n + " row(s), expected 98" };
+    const r = await fn({ resource: "task", certification: "ISMS-F", task_code: "2.1", language: "es-419" });
+    const served = r.status === 200 && r.json?.rows?.[0]?.knowledge != null;
+    return {
+      ran: n === 98,
+      why: "task_translation_reviews = " + n + " row(s), expected 98",
+      effective: served,
+      effectiveWhy: served
+        ? "ISMS-F 2.1 es-419 returns knowledge to mcp_reader"
+        : "ISMS-F 2.1 es-419 returns HTTP " + r.status + " / knowledge null -- the reviews exist but nothing reaches a partner",
+    };
   },
   340: async () => {
     const n = await count("lesson_translation_reviews");
@@ -181,6 +200,9 @@ for (const num of nums.filter((x) => FINGERPRINTS[x]).sort((a, b) => a - b)) {
   results[num] = r;
   const mark = r.ran === true ? "RAN    " : r.ran === false ? "NOT RUN" : "UNKNOWN";
   console.log("    " + num + "  " + mark + "  " + r.why);
+  if ("effective" in r) {
+    console.log("         " + (r.effective ? "EFFECTIVE" : "NOT EFFECTIVE") + "  " + r.effectiveWhy);
+  }
 }
 const unprobed = nums.filter((x) => !FINGERPRINTS[x] && x >= 330);
 if (unprobed.length) {
@@ -189,10 +211,15 @@ if (unprobed.length) {
 }
 
 const notRun = Object.entries(results).filter(([, r]) => r.ran === false).map(([k]) => k);
+const ranButDead = Object.entries(results)
+  .filter(([, r]) => r.ran === true && r.effective === false).map(([k]) => k);
 console.log("");
-console.log(notRun.length
-  ? "  OUTSTANDING: " + notRun.join(", ")
-  : "  Every probed migration has run.");
+console.log(notRun.length ? "  OUTSTANDING: " + notRun.join(", ")
+                          : "  Every probed migration has run.");
+if (ranButDead.length) {
+  console.log("  RAN BUT NOT EFFECTIVE: " + ranButDead.join(", ") +
+    "   <- the artifact exists and the thing it was for does not work");
+}
 
 if (JSON_OUT) {
   writeFileSync(join(ROOT, JSON_OUT), JSON.stringify({ highest, next_free: highest + 1, results, unprobed }, null, 1) + "\n");
