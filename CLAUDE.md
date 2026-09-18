@@ -190,6 +190,41 @@ failure-tolerant loaders swallow.
 use the `firstOf()` normaliser. Browser clients get arrays; service-role clients
 get objects.
 
+**TRANSLATION TABLES USE TWO NAMING CONVENTIONS, AND A PROBE FOR ONE PROVES
+NOTHING ABOUT THE OTHER.**
+
+| table | key column |
+|---|---|
+| `module_translations`, `domain_translations`, `task_translations` | `language` |
+| `certification_i18n`, `cert_categories_i18n` | **`lang`** |
+
+Both the name and the key column differ. Found 2026-09-17, measuring three
+English surfaces a Spanish demo had surfaced.
+
+**The cost of guessing one convention is a report that inverts the answer.**
+`certification_translations` returns a PostgREST 404, and that was one step from
+*"certifications have no translation table"* -- which would have costed a
+translation pass for **text already written, complete, in three languages** and
+already rendered by the public site. The actual defect was the opposite shape:
+the copy existed and `mcp.certification` had no language dimension to serve it
+through, so the resource answered `400 unknown field 'language'` rather than
+English-in-preference-to-Spanish. **A missing probe and a missing column produce
+the same symptom and need opposite fixes.**
+
+Same day, the same shape twice more: an artifact enumeration reported absent
+because three candidate sources were checked and the fourth (a refusal body)
+was not, and 35 review hashes reported stale because an 8-character stored
+prefix was compared to a full md5 with `===`. **All three are one rule: AN
+EMPTY RESULT IS A FACT ABOUT THE PROBE UNTIL SOMETHING PROVES THE PROBE COULD
+HAVE FOUND IT.** Same family as the green-result rule below -- a probe that
+cannot match is indistinguishable from a thing that does not exist.
+
+So before reporting that a translation surface is absent: probe **both**
+conventions, and check the key column is the one you filtered on. `concepts`
+genuinely has neither (`concept_translations` and `concept_i18n` both absent,
+checked), which is why `mcp.concept` is English-only and why 1,730 concepts is a
+project rather than a pass.
+
 **A concatenated PostgREST select string collapses the row type to
 `GenericStringError`.** Keep every select as a single unbroken literal.
 

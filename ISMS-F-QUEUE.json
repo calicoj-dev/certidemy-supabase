@@ -1,0 +1,120 @@
+{
+ "purpose": "Translations withheld until a human reads them. Each passage below is one place the ENGLISH was repaired to remove reproduced ISO clause text. The translation was NOT repaired and still says what the clause said. WHAT TO LOOK FOR: not whether the translation matches the English, but whether the translation reproduces a sentence of ISO's own Spanish or Portuguese edition. No instrument here can check that -- the leak index is built from the English editions only.",
+ "how_to_clear": "Run the row's clear_sql once you have read every passage in it. The en_hash pins the review to the English as it reads now, so a later English edit makes the review stale and the translation is withheld again automatically.",
+ "spanish_first": true,
+ "rows": 6,
+ "spanish_rows": 3,
+ "portuguese_rows": 3,
+ "total_passages": 6,
+ "blueprint_rows_removed": "34 task-knowledge rows were in an earlier version of this file and are gone. task_translations.knowledge is NULL on every AIMS-F row -- only `statement` is translated -- so there was nothing to read; and lesson_translation_reviews is keyed on lesson_id, so there was nowhere to record a verdict. See FRIDAY-READINESS.md for the content gap underneath that.",
+ "entries": [
+  {
+   "cert": "ISMS-F",
+   "slug": "02-03-amendment-1-2024",
+   "language": "es-419",
+   "lesson_id": "0fbca1f3-098e-41d9-b345-76e701515cdc",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 Amd.1:2024 to clause 4.1",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "To **4.1**, on internal and external issues, it added a requirement to decide whether climate change is relevant to the organisation.",
+     "translation_now": "Al **4.1**, sobre cuestiones internas y externas, añadió el requisito de decidir si el cambio climático es relevante para la organización."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('0fbca1f3-098e-41d9-b345-76e701515cdc', 'juan', 'd425cffa', 'approved');"
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "02-09-pdca-and-improvement",
+   "language": "es-419",
+   "lesson_id": "66072f1d-17c7-4efd-8624-9ffcc4a0c7ee",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 clause 10.1",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "[Continual improvement]{glossary=\"continual-improvement\"} is an obligation in the standard, not an aspiration. Clause 10.1 requires the ISMS itself to be improved on three counts: how well it fits the organisation, whether it is sufficient, and whether it works.",
+     "translation_now": "La [mejora continua]{glossary=\"continual-improvement\"} es una obligación en la norma, no una aspiración. La cláusula 10.1 exige que el propio SGSI sea mejorado en tres aspectos: qué tan bien se ajusta a la organización, si es suficiente y si funciona."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('66072f1d-17c7-4efd-8624-9ffcc4a0c7ee', 'juan', 'ba250cdb', 'approved');"
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-02-internal-audit",
+   "language": "es-419",
+   "lesson_id": "645a1fc0-bdc0-4af6-98b5-3609f7abdcb5",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 clause 9.2.2 b",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "The standard requires audits to be run so the process stays [objective and impartial]{glossary=\"auditor-objectivity\"} (clause 9.2.2 b). It does not spell out how. Audit practice does, and the rule it arrives at is the obvious one: **an auditor does not audit their own work.**",
+     "translation_now": "La norma exige que las auditorías se lleven a cabo de modo que el proceso se mantenga [objetivo e imparcial]{glossary=\"auditor-objectivity\"} (cláusula 9.2.2 b). No especifica cómo. La práctica de auditoría sí lo hace, y la regla a la que llega es la obvia: **un auditor no audita su propio trabajo.**"
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('645a1fc0-bdc0-4af6-98b5-3609f7abdcb5', 'juan', '7963ed16', 'approved');"
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "02-03-amendment-1-2024",
+   "language": "pt-BR",
+   "lesson_id": "99163614-e23d-4b21-9700-92ef2d884c59",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 Amd.1:2024 to clause 4.1",
+     "served": true,
+     "aligned_by": "block 1, line 1",
+     "english_after_repair": "To **4.1**, on internal and external issues, it added a requirement to decide whether climate change is relevant to the organisation.",
+     "translation_now": "À **4.1**, sobre questões internas e externas, foi acrescentado um requisito para decidir se a mudança climática é relevante para a organização."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('99163614-e23d-4b21-9700-92ef2d884c59', 'juan', 'd425cffa', 'approved');"
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "02-09-pdca-and-improvement",
+   "language": "pt-BR",
+   "lesson_id": "1ebc6d35-45bc-484c-9eff-3f5186472240",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 clause 10.1",
+     "served": true,
+     "aligned_by": "block 2, line 0",
+     "english_after_repair": "[Continual improvement]{glossary=\"continual-improvement\"} is an obligation in the standard, not an aspiration. Clause 10.1 requires the ISMS itself to be improved on three counts: how well it fits the organisation, whether it is sufficient, and whether it works.",
+     "translation_now": "A [melhoria contínua]{glossary=\"continual-improvement\"} é uma obrigação na norma, não uma aspiração. A cláusula 10.1 exige que o próprio SGSI seja melhorado em três aspectos: o quanto ele se ajusta à organização, se é suficiente e se funciona."
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('1ebc6d35-45bc-484c-9eff-3f5186472240', 'juan', 'ba250cdb', 'approved');"
+  },
+  {
+   "cert": "ISMS-F",
+   "slug": "05-02-internal-audit",
+   "language": "pt-BR",
+   "lesson_id": "5e2d785a-aec2-41ff-8697-dd548e17b1d5",
+   "passages_to_read": 1,
+   "passages_that_gate_the_body": 1,
+   "passages": [
+    {
+     "clause": "27001 clause 9.2.2 b",
+     "served": true,
+     "aligned_by": "block 4, line 0",
+     "english_after_repair": "The standard requires audits to be run so the process stays [objective and impartial]{glossary=\"auditor-objectivity\"} (clause 9.2.2 b). It does not spell out how. Audit practice does, and the rule it arrives at is the obvious one: **an auditor does not audit their own work.**",
+     "translation_now": "A norma exige que as auditorias sejam conduzidas de modo que o processo permaneça [objetivo e imparcial]{glossary=\"auditor-objectivity\"} (cláusula 9.2.2 b). Ela não especifica como. A prática de auditoria o faz, e a regra a que chega é a óbvia: **um auditor não audita o próprio trabalho.**"
+    }
+   ],
+   "clear_sql": "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('5e2d785a-aec2-41ff-8697-dd548e17b1d5', 'juan', '7963ed16', 'approved');"
+  }
+ ]
+}

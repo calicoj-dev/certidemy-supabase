@@ -235,7 +235,13 @@ function assertIdentity(): Promise<void> {
             // module can close it -- but this half can ask the authority and
             // refuse to serve on a difference, which converts a silent drift
             // into a named failure on the side that can be tested.
-            "(select string_agg(code, ',' order by code) from mcp.certification) as served",
+            // DISTINCT since 343. mcp.certification is now one row per
+            // (certification, language), so a bare string_agg names every code
+            // three times. The subset logic below is set-based and absorbs that,
+            // which is the only reason this was not an outage -- the equality it
+            // replaced on 2026-09-16 would have refused to serve on deploy, the
+            // same way 328 did.
+            "(select string_agg(distinct code, ',') from mcp.certification) as served",
           args: [],
         });
         const row = r.rows[0];

@@ -50,8 +50,12 @@ export function requiredScope(resource: Resource): string | null {
   return SCOPE_FOR_RESOURCE[resource] ?? null;
 }
 
-// mcp.task and mcp.lesson carry these three; mcp.concept and mcp.certification
-// are English-only, which is a fact about the data and not about this list.
+// mcp.task, mcp.lesson, mcp.lesson_index and -- since migration 343 --
+// mcp.certification carry these three. mcp.concept is English-only, and that
+// is a fact about the DATA and not about this list: there is no concept
+// translation table under either naming convention here
+// (`concept_translations` and `concept_i18n` both absent, measured
+// 2026-09-17), and 1,730 concepts is a project rather than a pass.
 // MCP-COURSEWARE.md section 5.
 /**
  * THE CERTIFICATIONS SERVED, AND THE DATABASE IS THE AUTHORITY.
@@ -137,7 +141,10 @@ const DEFAULT_LIMIT = 50;
 // mcp_requests.refused_certification and never read back as a selector. Same
 // word, different question, and no request carries both readings.
 const ALLOWED: Record<Resource, string[]> = {
-  certification: ["resource", "tool", "certification"],
+  // `language` added by migration 343. Before it, mcp.certification had no
+  // language dimension at all, so a Spanish request was REFUSED rather than
+  // answered in English -- a 400 that reads as a bad field name.
+  certification: ["resource", "language", "tool", "certification"],
   task: ["resource", "language", "domain_code", "task_code", "limit", "tool", "certification"],
   concept: ["resource", "slug", "task_code", "limit", "tool", "certification"],
   search: ["resource", "query", "language", "limit", "tool", "certification"],
@@ -427,10 +434,15 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       return {
         q: {
           text:
-            "select code, name, description, tier, status, exam_duration_minutes, " +
+            "select code, language, name, description, description_is_fallback, " +
+            "tier, status, exam_duration_minutes, " +
             "passing_score_pct, num_questions, max_exam_attempts, attempt_window_months, validity_days " +
-            "from mcp.certification where code = $1",
-          args: [a.certification!],
+            // LANGUAGE IS FILTERED, NOT MERELY ACCEPTED. Adding it to ALLOWED
+            // without adding it here would take a language, return English,
+            // and report 200 -- the "accepted and ignored" failure
+            // smoke-courseware pins for `task` ("language actually routes").
+            "from mcp.certification where code = $1 and language = $2",
+          args: [a.certification!, a.language],
         },
       };
 
@@ -473,7 +485,8 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       return {
         q: {
           text:
-            "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
+            "select module_slug, module_title, module_title_is_fallback, module_order, " +
+            "lesson_slug, lesson_title, " +
             "language, lesson_group_id, lesson_order, estimated_minutes, content_md " +
             "from mcp.lesson where certification = $1 and lesson_slug = $2 and language = $3",
           args: [a.certification!, a.lesson_slug, a.language],
@@ -484,7 +497,10 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       return {
         q: {
           text:
-            "select module_slug, module_title, module_order, lesson_slug, lesson_title, " +
+            // module_title_is_fallback added by 342: module_title is now the
+            // translation where one is approved, and this says when it is not.
+            "select module_slug, module_title, module_title_is_fallback, module_order, " +
+            "lesson_slug, lesson_title, " +
             "language, lesson_group_id, lesson_order, estimated_minutes " +
             "from mcp.lesson_index " +
             "where certification = $1 and language = $2 " +

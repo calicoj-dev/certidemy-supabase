@@ -82,10 +82,10 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { blocks, solid } from "./lib/guide-runs.mjs";
 
-const KNOWN = new Set(["--out"]);
+const KNOWN = new Set(["--out", "--only"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
-    console.error("Unrecognised flag: " + a + ". READ-ONLY. Known: --out.");
+    console.error("Unrecognised flag: " + a + ". READ-ONLY. Known: --out, --only.");
     process.exit(2);
   }
 }
@@ -94,6 +94,13 @@ const arg = (k, d) => {
   return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
 };
 const OUT = arg("out", "BILINGUAL-QUEUE.json");
+/* --only <CERT>. The controls below are GLOBAL and abort the whole run, so
+ * 134 AIMS-IA and ISMS-IA rows with no surviving spec record suppressed the
+ * output for every other certification too. ISMS-F's three gated lessons have
+ * inline spans in this file and located cleanly on 2026-09-17 -- and reached no
+ * queue file, because the abort is all-or-nothing. Scoping narrows what is
+ * EMITTED and therefore what is CHECKED; it does not loosen a control. */
+const ONLY = arg("only", "");
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
@@ -254,7 +261,7 @@ function lineAtBlock(md, bi, li) {
   return sol[li] ? sol[li].text : null;
 }
 
-const out = [];
+let out = [];   // reassigned by --only below
 let unlocated = 0;
 for (const row of flagged) {
   const en = ens[row.lesson_group_id];
@@ -296,6 +303,20 @@ for (const row of flagged) {
     clear_sql: "insert into public.lesson_translation_reviews (lesson_id, reviewed_by, en_hash, verdict) values ('" +
       row.id + "', 'juan', '" + md5(en.content_md) + "', 'approved');",
   });
+}
+
+/* Scope, and SAY WHAT WAS DROPPED. A bounded run that reports a clean queue
+ * is the silent-cap failure CLAUDE.md names; the count has to be visible. */
+if (ONLY) {
+  const before = out.length;
+  const dropped = [...new Set(out.filter((r) => r.cert !== ONLY).map((r) => r.cert))].sort();
+  out = out.filter((r) => r.cert === ONLY);
+  console.log("--only " + ONLY + ": kept " + out.length + " of " + before +
+    " row(s); dropped certifications: " + (dropped.join(", ") || "(none)"));
+  if (!out.length) {
+    console.error("NOT WRITING: --only " + ONLY + " matched no gated row. Check the code.");
+    process.exit(1);
+  }
 }
 
 /* Spanish first, then by certification and slug. */
