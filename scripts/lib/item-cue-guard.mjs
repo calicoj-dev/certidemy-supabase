@@ -1,278 +1,69 @@
 /**
- * item-cue-guard.mjs — the single, shared answer-cue neutrality control.
+ * item-cue-guard.mjs - the ENV OVERRIDE for the shared cue guard. No rules here.
  *
- * WHY THIS EXISTS
- * ---------------
- * Both generators (gen-cert-secure.mjs, backfill-practice.mjs) let the model
- * choose which option is correct and write it however it liked. The result was
- * a bank where the correct answer could be found WITHOUT knowing the material,
- * via three independent surface cues measured across the live pools:
- *   - LENGTH: the correct option was the longest ~75% (practice) / ~82% (secure)
- *             of the time, against a 25% chance baseline.
- *   - POSITION: the correct id was "b" ~70-74% of the time and "d" ~0.2%.
- *   - SEMANTIC: the correct option was disproportionately the "balanced /
- *               inspect-and-adapt" phrasing; distractors the "rigid / absolute"
- *               phrasing — pickable by rhetoric, not knowledge.
+ * ============ WHAT THIS FILE IS, AND WHAT IT DELIBERATELY IS NOT ============
  *
- * A multiple-choice item must be answerable ONLY by knowing the content. This
- * module is the one place that enforces that, so the secure generator, the
- * practice generator, and every future cert use byte-identical rules.
+ * The guard itself -- CUE_CFG, CUE_NEUTRALITY_RULES, auditItem, shuffleOptions,
+ * remapGroupOrder, keyIsStrictLongest, and the blueprint-resolved cueConfigFor --
+ * lives in `functions/_shared/item-rules/item-cue-guard.mjs`, where the edge
+ * runtime can read it. This file adds ONE thing: the `LEN_SPREAD_MAX` /
+ * `KEY_LEN_MARGIN` / `KEY_LEN_PCT` environment override, which is a local
+ * debugging affordance for the generator scripts and not a property of any
+ * certification.
  *
- * WHAT IT DOES
- * ------------
- *   CUE_NEUTRALITY_RULES   prompt fragment injected verbatim into BOTH system
- *                          prompts (length parity, no positional habit, no
- *                          rhetorical tell).
- *   auditItem(q)           returns {ok, reason} — drops items whose KEY is
- *                          dominantly the longest, whose options are not
- *                          length-homogeneous, or that show the absolute-word
- *                          tell. Run on the ENGLISH skeleton before translation.
- *   shuffleOptions(q)      Fisher-Yates reorder + id relabel + correct_answer
- *                          remap. Lands the correct answer in a uniformly random
- *                          slot. Pure structural transform; the correct TEXT is
- *                          preserved. Run before translation so all languages
- *                          inherit the same neutral layout.
- *   remapGroupOrder(rows)  the in-place remediation primitive: one permutation
- *                          per question_group_id applied to every language row,
- *                          so a stored item's languages stay aligned.
+ * THIS IS NOT A SECOND COPY OF THE RULES, and the distinction is the point of
+ * the whole consolidation. Every threshold, every predicate and every string is
+ * imported. If this file ever contains a number, it has become the thing it was
+ * written to remove.
  *
- * Design note (the trap we deliberately avoid): we do NOT enforce "the correct
- * answer is never the longest." That would drive correct-is-longest to 0% — also
- * non-chance — and create a reverse cue ("never pick the longest"). Instead we
- * enforce option-length HOMOGENEITY (tight spread) plus a small margin: the key
- * may be marginally longest, never dominantly. Length stops carrying signal
- * without inverting it.
+ * ============ WHY THE ENV READ HAD TO COME OUT OF THE SHARED MODULE ============
+ *
+ * It was three `process.env` reads AT MODULE SCOPE, so they fired on IMPORT --
+ * breaking a Deno caller that never touched the cue config. Measured 2026-09-18:
+ * `deno check` passed on all five rule modules and `deno run` died on that one
+ * line. It was the only thing between the rules and the edge runtime.
+ *
+ * An env-tunable threshold is also something an edge function must NOT have:
+ * a partner-facing generator whose item guard loosens because of a deployment
+ * variable is a guard nobody can reason about. Scripts get the dial; the
+ * deployed path gets the declaration.
+ *
+ * Existing importers are unchanged: `debias-positions.mjs`, `verify-cert.mjs`,
+ * `gen-cert-secure.mjs` and `backfill-practice.mjs` all still import
+ * `./lib/item-cue-guard.mjs` and still get env support.
  */
+import {
+  CUE_CFG,
+  cueConfigFor as sharedCueConfigFor,
+} from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 
-// ---------------------------------------------------------------------------
-// Tunable thresholds (env-overridable). Defaults chosen against the observed
-// bias: biased items had the key 40-80 chars longer than its rivals and option
-// spreads of 90+ chars; clean homogeneous items sit well inside these.
-// ---------------------------------------------------------------------------
+export {
+  CUE_CFG,
+  CUE_NEUTRALITY_RULES,
+  auditItem,
+  shuffleOptions,
+  remapGroupOrder,
+  keyIsStrictLongest,
+} from "../../functions/_shared/item-rules/item-cue-guard.mjs";
+
 function int(v, d) {
   const n = parseInt(v ?? "", 10);
   return Number.isFinite(n) ? n : d;
 }
-export const CUE_CFG = {
-  // Reject if (longest option − shortest option) exceeds this many characters.
-  LEN_SPREAD_MAX: int(process.env.LEN_SPREAD_MAX, 70),
-  // The KEY may exceed its longest rival by the LARGER of:
-  //   - KEY_LEN_MARGIN chars (a small absolute floor, so short options are
-  //     judged on chars), or
-  //   - KEY_LEN_PCT % of the rival length (so long options are judged on
-  //     proportion).
-  // Tightened from the original gross-violation backstop (12 / 25%) to a MODERATE
-  // PARITY gate: a key that leads by more than a small margin is sent to the
-  // normalization escalation (item-pipeline.mjs), not shipped. Items that fail
-  // here are repaired, not just dropped, so tightening doesn't starve generation
-  // or create a reverse cue — the key still lands marginally longest sometimes.
-  KEY_LEN_MARGIN: int(process.env.KEY_LEN_MARGIN, 5),
-  KEY_LEN_PCT: int(process.env.KEY_LEN_PCT, 10),
-};
 
-const ABS_WORDS =
-  /\b(always|never|must|only|all|none|cannot|can't|every|any|impossible|guarantees?|guaranteed|without exception)\b/i;
-
-const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
-// ---------------------------------------------------------------------------
-// Prompt fragment — injected identically into both generators' system prompts.
-// ---------------------------------------------------------------------------
-export const CUE_NEUTRALITY_RULES = `
-ANSWER-CUE NEUTRALITY (critical — the answer must be findable ONLY by knowing the content):
-  - LENGTH PARITY: All options must be close in length, and the correct answer
-    must NOT be the single longest option. Concretely: make at least one
-    DISTRACTOR as long as, or longer than, the correct answer. Write every
-    distractor as fully and specifically as the key; never pair an elaborated,
-    fully-qualified correct answer with short, clipped distractors. Keep every
-    option within roughly 25% character-length of the others.
-  - NO POSITIONAL HABIT: Do not favor any option id for the correct answer. Spread
-    the correct id across a/b/c/d. (The system reshuffles positions after you
-    write, but do not lean on "b" or "c".)
-  - NO RHETORICAL TELL: Do not make the correct answer always the "balanced,
-    flexible, inspect-and-adapt" option with the distractors always the "rigid,
-    absolute" option. Vary the stance: sometimes the correct answer is the
-    specific, decisive choice and a distractor is the vague "it depends" hedge.
-    Do not cluster absolute words (always, never, must, only, all, none) in the
-    distractors as a giveaway.
-  - Distractors must be wrong ON THE MERITS to someone who knows the material —
-    not subtly-worse-but-defensible. This is an entry ("I") tier exam: test
-    knowledge plainly, do not set traps and do not reward test-wiseness.
-`;
-
-// ---------------------------------------------------------------------------
-// Audit (run on the English skeleton, single_choice with >=3 options).
-// true_false and <3-option items are exempt (no length/position cue surface).
-// ---------------------------------------------------------------------------
 /**
- * Resolve the cue tolerance a BANK was built under, from its own blueprint.
+ * The blueprint-resolved config, with the env override applied on top.
  *
- * WHY THIS EXISTS. The tolerance was a module-level constant read from env, and
- * verify-cert HARDCODED A COPY of the L1 values (5 / 10). ISMS-IA generated its
- * 912 secure items at 25 / 15 by env override, then failed its own audit with
- * "guard escapes 8.6%" - 26 items sitting between the tolerance they were built
- * under and the tolerance they were judged by. Measured at 25/15 the bank has
- * zero escapes. Not one of those items was defective. The checker and the
- * generator disagreed about the number and neither could tell.
- *
- * A cue tolerance is a property of the SCHEME, not of whoever's shell last ran a
- * script. A Level II option carries a qualifying clause a Level I option does
- * not - "provided the sample is representative of the period under audit" - so
- * its key is legitimately a few characters longer, and one global number cannot
- * be right for both tiers. Stamping it on the cert means:
- *
- *   - the audit is REPRODUCIBLE. Re-running verify-cert in two years judges the
- *     bank against the tolerance it was built under, not against whatever the
- *     defaults have become. That is what 17024 asks of an examination record.
- *   - each new cert declares its tolerance ONCE, with a stated reason. AIMS-IA
- *     and any Lead Auditor scheme inherit the mechanism rather than rediscover
- *     the argument.
- *   - an assessor asking "why does this bank allow 25 characters" gets an answer
- *     from the data.
- *
- * Absent from the blueprint -> the Level I defaults, so every existing cert is
- * unaffected and nothing needs backfilling. Env still overrides, for
- * experiments, but the resolved source is reported so a loosened setting can
- * never pass silently.
+ * `source` keeps its old shape -- "blueprint", "default", or either with
+ * "+env(...)" appended -- because callers print it, and a guard that reports
+ * "blueprint" while an env var is silently overriding it would be the
+ * source-attribution defect this repo has paid for elsewhere.
  */
 export function cueConfigFor(examBlueprint) {
-  const t = examBlueprint?.item_model?.cue_tolerance ?? null;
-  const envSet = ["LEN_SPREAD_MAX", "KEY_LEN_MARGIN", "KEY_LEN_PCT"]
-    .filter((k) => process.env[k] !== undefined && process.env[k] !== "");
-  const base = t
-    ? {
-        LEN_SPREAD_MAX: int(t.len_spread_max, CUE_CFG.LEN_SPREAD_MAX),
-        KEY_LEN_MARGIN: int(t.key_len_margin, CUE_CFG.KEY_LEN_MARGIN),
-        KEY_LEN_PCT: int(t.key_len_pct, CUE_CFG.KEY_LEN_PCT),
-        source: "blueprint",
-        rationale: t.rationale || null,
-      }
-    : { ...CUE_CFG, source: "default", rationale: null };
+  const base = sharedCueConfigFor(examBlueprint);
+  const keys = ["LEN_SPREAD_MAX", "KEY_LEN_MARGIN", "KEY_LEN_PCT"];
+  const envSet = keys.filter((k) => process.env[k] !== undefined && process.env[k] !== "");
   for (const k of envSet) base[k] = int(process.env[k], base[k]);
   if (envSet.length) base.source = base.source + "+env(" + envSet.join(",") + ")";
   return base;
-}
-
-export function auditItem(q, cfg = CUE_CFG) {
-  if (!q || !Array.isArray(q.options) || q.options.length < 3) return { ok: true };
-  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return { ok: true };
-
-  const correctId = q.correct_answer[0];
-  const byId = new Map(q.options.map((o) => [o.id, (o.text || "").trim()]));
-  const correct = byId.get(correctId);
-  if (typeof correct !== "string") return { ok: true };
-
-  const lens = [...byId.values()].map((t) => t.length);
-  const max = Math.max(...lens);
-  const min = Math.min(...lens);
-  if (max - min > cfg.LEN_SPREAD_MAX) {
-    return { ok: false, reason: `length spread ${max - min} > ${cfg.LEN_SPREAD_MAX} (min ${min}, max ${max})` };
-  }
-
-  const others = [...byId.entries()]
-    .filter(([id]) => id !== correctId)
-    .map(([, t]) => t.length);
-  const maxOther = Math.max(...others);
-  const allowed = Math.max(cfg.KEY_LEN_MARGIN, Math.round((cfg.KEY_LEN_PCT / 100) * maxOther));
-  if (correct.length - maxOther > allowed) {
-    return { ok: false, reason: `key dominates on length (key ${correct.length} vs rival ${maxOther}, allowed +${allowed})` };
-  }
-
-  // Absolute-word tell: every distractor uses an absolute, the key does not.
-  const distractors = [...byId.entries()].filter(([id]) => id !== correctId).map(([, t]) => t);
-  const keyAbs = ABS_WORDS.test(correct);
-  if (!keyAbs && distractors.length >= 2 && distractors.every((d) => ABS_WORDS.test(d))) {
-    return { ok: false, reason: "absolute-word tell: every distractor uses an absolute, key does not" };
-  }
-
-  return { ok: true };
-}
-
-// ---------------------------------------------------------------------------
-// Position de-bias for a SINGLE item (generation path). Reorders option texts,
-// relabels ids a.., remaps correct_answer. Correct TEXT is tracked through the
-// shuffle by flag, so identical option texts can't break it.
-// ---------------------------------------------------------------------------
-export function shuffleOptions(q, rng = Math.random) {
-  if (!q || !Array.isArray(q.options) || q.options.length < 3) return q;
-  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return q;
-
-  const correctId = q.correct_answer[0];
-  const arr = q.options.map((o) => ({ oldId: o.id, text: o.text, correct: o.id === correctId }));
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  const options = arr.map((o, i) => ({ id: LETTERS[i], text: o.text }));
-  const correctIdx = arr.findIndex((o) => o.correct);
-  const out = { ...q, options, correct_answer: [LETTERS[correctIdx]] };
-
-  // Any "(option a)" letter references in the explanation were written against
-  // the PRE-shuffle order; remap them through the permutation so they stay
-  // correct. (Explanations should reference content, not letters - this is a
-  // safety net for any that slip through.)
-  if (typeof q.explanation === "string" && /\boption\s+[a-h]\b/i.test(q.explanation)) {
-    const oldToNew = new Map(arr.map((o, i) => [o.oldId, LETTERS[i]]));
-    out.explanation = q.explanation.replace(/\boption\s+([a-h])\b/gi, (m, L) => {
-      const n = oldToNew.get(L.toLowerCase());
-      return n ? `option ${n}` : m;
-    });
-  }
-  return out;
-}
-
-// ---------------------------------------------------------------------------
-// Position de-bias for a GROUP of stored rows sharing one question_group_id
-// (remediation path). One permutation per group, applied identically to every
-// language row, so es-419 / pt-BR stay aligned with en. Rows must share the same
-// option-id set and the same correct_answer (they do, by construction).
-//
-// Returns [{ id, options, correct_answer }] ready to write back per row.
-// ---------------------------------------------------------------------------
-export function remapGroupOrder(rows, rng = Math.random) {
-  const base = rows.find((r) => Array.isArray(r.options) && r.options.length >= 3);
-  if (!base) return null; // nothing shuffleable in this group
-
-  const oldIds = base.options.map((o) => o.id);
-  if (oldIds.length < 3) return null;
-
-  // Permute positions, then assign new letters by new position.
-  const order = [...oldIds];
-  for (let i = order.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    [order[i], order[j]] = [order[j], order[i]];
-  }
-  const oldToNew = new Map();
-  order.forEach((oldId, i) => oldToNew.set(oldId, LETTERS[i]));
-
-  const out = [];
-  for (const r of rows) {
-    if (!Array.isArray(r.options) || !Array.isArray(r.correct_answer)) return null;
-    // every row must carry exactly the same id set
-    if (r.options.length !== oldIds.length) return null;
-    const newOptions = r.options
-      .map((o) => {
-        const nid = oldToNew.get(o.id);
-        if (nid === undefined) return null;
-        return { id: nid, text: o.text };
-      });
-    if (newOptions.some((o) => o === null)) return null;
-    newOptions.sort((a, b) => a.id.localeCompare(b.id));
-    const newCorrect = oldToNew.get(r.correct_answer[0]);
-    if (newCorrect === undefined) return null;
-    out.push({ id: r.id, options: newOptions, correct_answer: [newCorrect] });
-  }
-  return out;
-}
-
-// Convenience: is the keyed option the strict longest? (for reporting only)
-export function keyIsStrictLongest(q) {
-  if (!q || !Array.isArray(q.options) || q.options.length < 3) return false;
-  if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
-  const correctId = q.correct_answer[0];
-  const byId = new Map(q.options.map((o) => [o.id, (o.text || "").trim().length]));
-  const cl = byId.get(correctId);
-  if (cl === undefined) return false;
-  const others = [...byId.entries()].filter(([id]) => id !== correctId).map(([, l]) => l);
-  return cl > Math.max(...others);
 }

@@ -74,6 +74,25 @@ import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 import { callClaudeJSON } from "../_shared/claude.ts";
+/* THE ITEM RULES, FROM THE ONE PLACE THEY LIVE.
+ *
+ * This function used to build its own system prompt: the Level I difficulty
+ * curve hardcoded for EVERY certification, Scrum proper nouns for every
+ * subject, no grounding, no task block, no cognitive-level directive and no
+ * Level II contract. A tier-2 ISO auditing certification was generated against
+ * Scrum-flavoured Level I instructions.
+ *
+ * scripts/check-prompt-parity.mjs asserts this function and the script
+ * generators emit the SAME rules for the same inputs, and stage C asks THIS
+ * DEPLOYMENT rather than the source -- an import proves the bundler was asked,
+ * only a live response proves it answered. */
+import { draftSystem } from "../_shared/item-rules/item-pipeline.mjs";
+/* taskBlock is the OTHER half, and leaving it out was a real gap that the
+ * parity check found: draftSystem() carries the rules and depends only on
+ * (kind, certName, tier, bloom_level), so the task STATEMENT, criticality and
+ * KSA reach the model through the USER prompt or not at all. Without this the
+ * function asked for items "measuring this task" and never said which task. */
+import { taskBlock } from "../_shared/item-rules/item-task-context.mjs";
 
 const MAX_TASKS = 4;
 const MAX_REF = 4;
@@ -83,6 +102,16 @@ interface Body {
   num_questions?: number;
   target_concept_slugs?: string[];
   language?: string;
+  /* Returns the prompt this function WOULD send and writes nothing. It exists
+   * for scripts/check-prompt-parity.mjs, which cannot otherwise tell "the
+   * shared module is imported" from "the shared module is reached at runtime".
+   *
+   * It returns the rules, so it returns the grounding -- including the 35-entry
+   * list of claims the 2020 Scrum Guide does not make. That is a deliberate
+   * decision (2026-09-18): the list is the expertise, not a secret, and a
+   * partner's model without it writes the myths. It is still behind
+   * authenticate(), because JWT-gated is not the same as public. */
+  dry_run?: boolean;
 }
 
 interface GeneratedQuestion {
@@ -197,6 +226,17 @@ serve(async (req) => {
       slugsByTask.get(r.task_id)!.push(r.concepts.slug);
     }
 
+    // 4b. THE TASK ROWS. draftSystem puts the job-task analysis into the prompt:
+    //     statement, declared cognitive level, criticality and the KSA. Without
+    //     them `taskBlock` emits nothing and `bloomDirective` falls back to the
+    //     per-cert difficulty line -- which is the trapdoor item-profile.mjs
+    //     documents, firing exactly when a task has lost its level.
+    const { data: task_rows } = await svc
+      .from('tasks')
+      .select('id, code, statement, bloom_level, criticality, knowledge, skills, abilities')
+      .in('id', task_ids);
+    const taskById = new Map<string, any>((task_rows ?? []).map((t: any) => [t.id, t]));
+
     // 5. Cert metadata for prompt context.
     const { data: cert } = await svc
       .from('certifications')
@@ -235,7 +275,10 @@ serve(async (req) => {
           .limit(MAX_REF)
         : { data: [] as any[] };
 
-      const generated = await generateWithClaude({
+      const generated_or_dry = await generateWithClaude({
+        task: taskById.get(task_id) ?? null,
+        tier: certTier,
+        dry_run: body.dry_run === true,
         cert_code: cert?.code ?? '',
         cert_name: cert?.name ?? '',
         cert_description: cert?.description ?? '',
@@ -250,6 +293,29 @@ serve(async (req) => {
         })),
         n: per_task,
       });
+
+      /* DRY RUN STOPS HERE, before validation and before the insert RPC. It
+       * returns the FIRST task's prompt rather than all of them: the parity
+       * check compares one (certification, task) pair, and returning a dozen
+       * 24KB prompts would make the response the largest thing this function
+       * has ever sent for the least reason. */
+      if (body.dry_run === true) {
+        const d = generated_or_dry as { dry_run: true; system: string; rules: string; prompt: string };
+        return jsonResponse({
+          dry_run: true,
+          certification_id: body.certification_id,
+          cert_name: cert?.name ?? null,
+          tier: certTier,
+          task_id,
+          task_code: taskById.get(task_id)?.code ?? null,
+          language,
+          rules: d.rules,
+          system: d.system,
+          prompt: d.prompt,
+          wrote_nothing: true,
+        });
+      }
+      const generated = generated_or_dry as GeneratedQuestion[];
 
       for (const q of generated) {
         if (!validateQuestion(q, certTier)) continue;
@@ -353,42 +419,45 @@ async function generateWithClaude(ctx: {
     difficulty: number;
   }>;
   n: number;
-}): Promise<GeneratedQuestion[]> {
+  task: any;
+  tier: number;
+  dry_run?: boolean;
+}): Promise<GeneratedQuestion[] | { dry_run: true; system: string; rules: string; prompt: string }> {
   const langName = ({
     'en': 'English',
     'es-419': 'Latin American Spanish',
     'pt-BR': 'Brazilian Portuguese',
   } as Record<string, string>)[ctx.language] ?? ctx.language;
 
-  const system = `You are a certification exam question writer for Certidemy. You write
-practice questions in ${langName} that match the style and rigor of the source certification.
+  /* THE RULES COME FROM THE SHARED MODULE. Everything about what a good item
+   * is -- the option floor, the defensibility contract, distractor quality,
+   * attribution, the length ceiling, the cognitive-level directive, the
+   * grounding and the output schema -- is draftSystem(). Nothing about it is
+   * restated here, because a restatement is the third copy coming back. */
+  const rules = draftSystem("practice", ctx.cert_name, ctx.task, ctx.tier);
 
-Strict requirements for every question:
-  - Write ALL learner-facing text (question_text, options, explanation) in ${langName}.
-  - Keep Scrum proper nouns in English, untranslated: Sprint, Scrum Master, Product
-    Owner, Daily Scrum, Definition of Done, Sprint Backlog, Sprint Goal, Product Backlog,
-    Product Goal, Increment, Sprint Review, Sprint Retrospective, Sprint Planning, INVEST.
-  - question_type is ONLY "single_choice" or "true_false". The real exam has no
-    select-all-that-apply questions, so never produce more than one correct answer.
-  - Exactly ONE unambiguous correct answer.
-  - 4 options for single_choice, 2 for true_false.
-  - Option IDs are "a", "b", "c", "d" (or "a", "b" for true_false).
-  - correct_answer is an array with exactly one option ID.
-  - Explanation is 1-3 sentences and references the underlying concept.
-  - Difficulty 1=trivial recall, 5=tricky multi-step reasoning. Favor Apply/Analyze
-    (difficulty 3-4) over recall: aim ~40% level 2, ~40% level 3, ~20% level 4.
+  /* THE ONE THING THAT IS NOT AN ITEM RULE, AND IS KEPT SEPARATE ON PURPOSE.
+   *
+   * The script generators write English and translate afterwards through
+   * item-translation.mjs. This path writes directly in the target language, so
+   * it needs an instruction the shared rules do not carry and must not carry --
+   * draftSystem() has no language concept at all.
+   *
+   * It is appended rather than interleaved so the parity check can assert
+   * `system === rules + LANGUAGE_APPENDIX` and prove this is the ONLY addition.
+   * Interleaved, "the rules are shared" would be unfalsifiable.
+   *
+   * The Scrum noun list is gone from here. It was applied to every
+   * certification, so an ISO 42001 auditing item was told to keep "Sprint" and
+   * "Definition of Done" in English. Per-certification vocabulary belongs with
+   * the translation rules, not in a language footer. */
+  const languageAppendix = `
 
-Output schema (strict JSON, top level is an array; NO prose, NO markdown fences):
-[
-  {
-    "question_text": string,
-    "question_type": "single_choice" | "true_false",
-    "options": [{"id": "a", "text": string}, ...],
-    "correct_answer": [string],
-    "explanation": string,
-    "difficulty": 1 | 2 | 3 | 4 | 5
-  }
-]`;
+LANGUAGE: write ALL learner-facing text -- question_text, every option, and the
+explanation -- in ${langName}. Write it as a native ${langName} certification
+would be written, not as a translation of an English item.`;
+
+  const system = rules + languageAppendix;
 
   const ref_block = ctx.reference_questions.length > 0
     ? `Style reference (existing PRACTICE questions in this cert — match tone, length, rigor):
@@ -399,8 +468,16 @@ ${ctx.reference_questions.map((q, i) => `[${i + 1}] ${q.question_text}
     Difficulty: ${q.difficulty}`).join('\n\n')}`
     : '(no practice reference questions yet — write to the style of typical professional certification exams)';
 
+  /* THE JOB-TASK ANALYSIS, from the shared module. The task is the target and
+   * the concepts are the material -- taskBlock says exactly that, in the wording
+   * the secure generator uses, so a practice item and a secure item are written
+   * against the same statement of what is being measured. */
+  const task_block = taskBlock(ctx.task);
+
   const prompt = `Certification: ${ctx.cert_name} (${ctx.cert_code})
 ${ctx.cert_description}
+
+${task_block}
 
 Generate ${ctx.n} new practice questions that TEST the following concept(s):
 
@@ -409,6 +486,10 @@ ${ctx.concepts.map(c => `  - ${c.name}: ${c.description}`).join('\n')}
 ${ref_block}
 
 Produce the JSON array now.`;
+
+  /* BEFORE the model call and before any write. A dry run that reached Claude
+   * would cost money to answer a question about a string. */
+  if (ctx.dry_run) return { dry_run: true, system, rules, prompt };
 
   return await callClaudeJSON<GeneratedQuestion[]>(prompt, {
     system,

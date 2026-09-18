@@ -15,7 +15,7 @@
  * strings was rejected because their hashes are the regression baseline that
  * proves the three shipped Level I Scrum banks still generate identically.
  */
-import { groundingFor } from "./lib/item-grounding.mjs";
+import { groundingFor } from "../functions/_shared/item-rules/item-grounding.mjs";
 
 /** Collapse every run of whitespace to one space, so a line wrap cannot hide a phrase. */
 const norm = (s) => String(s).replace(/\s+/g, " ");

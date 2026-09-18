@@ -16,8 +16,8 @@
  * .includes() on a fragment. And AIE-I is asserted to still reach LITERACY, because a
  * `tier >= 2` branch is one line away from swallowing every name branch beneath it.
  */
-import { profileFor, difficultyLineFor, bloomForCert, PROFILES } from "./lib/item-profile.mjs";
-import { validateEnglish, validationFault } from "./lib/item-pipeline.mjs";
+import { profileFor, difficultyLineFor, bloomForCert, PROFILES } from "../functions/_shared/item-rules/item-profile.mjs";
+import { validateEnglish, validationFault } from "../functions/_shared/item-rules/item-pipeline.mjs";
 
 const flat = (s) => (s || "").replace(/\s+/g, " ");
 let fail = 0;

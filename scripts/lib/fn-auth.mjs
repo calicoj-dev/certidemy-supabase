@@ -106,15 +106,42 @@ export function anonMissing() {
  * what was sent -- a failed sign-in that prints its own input writes the
  * password into the terminal that was avoiding it.
  */
+/**
+ * CONNECT-ERROR RETRY, and it is not optional on this machine.
+ *
+ * Node 24 undici times out connecting to *.supabase.co intermittently here --
+ * the failure CLAUDE.md records, whose tell is that curl succeeds against the
+ * same host while node reports UND_ERR_CONNECT_TIMEOUT. Measured 2026-09-18:
+ * curl got HTTP 401 from /auth/v1/health and three consecutive bare node
+ * fetches to the same URL timed out. Every other script in this repository
+ * carries a retry loop for exactly this; this module never did, so it was the
+ * one credentialled path that could not get off the ground.
+ */
+async function fetchRetry(url, init, attempts) {
+  let last;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fetch(url, init);
+    } catch (e) {
+      last = e;
+      /* Only a TRANSPORT failure is retried. An HTTP response -- including a
+       * 401 or a 500 -- is an answer and is returned to the caller. */
+    }
+  }
+  throw last;
+}
+
 export async function getAccessToken() {
   if (USER_JWT) return { token: USER_JWT };
   if (!EMAIL || !PASSWORD) return { error: AUTH_HELP };
 
-  const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+  /* Retried freely: a password grant is idempotent. Issuing two tokens because
+   * the first response was lost costs nothing. */
+  const res = await fetchRetry(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
     method: "POST",
     headers: { apikey: ANON, "content-type": "application/json" },
     body: JSON.stringify({ email: EMAIL.trim(), password: PASSWORD }),
-  });
+  }, 8);
   const json = await res.json().catch(() => ({}));
   if (!res.ok || !json.access_token) {
     const why = json.error_description ?? json.msg ?? "";
@@ -130,9 +157,22 @@ export async function getAccessToken() {
   return { token: json.access_token };
 }
 
-/** POST a JSON body to an edge function as the authenticated user. */
-export async function callFunction(name, body, token) {
-  const res = await fetch(`${SUPABASE_URL}/functions/v1/${name}`, {
+/**
+ * POST a JSON body to an edge function as the authenticated user.
+ *
+ * RETRY IS OPT-IN AND DEFAULTS TO OFF, DELIBERATELY. The callers of this module
+ * are `mint-issuer-key` and `revoke-issuer-key` -- writes. A connect timeout
+ * cannot be distinguished from a request that arrived, was executed, and whose
+ * response was lost, so a blind retry on a mint could mint a SECOND key. That
+ * is the failure `lti-mint-key.mjs` refuses by design ("two accidental mints
+ * both land in the JWKS"), and a retry here would reintroduce it one layer up.
+ *
+ * Pass `{ retry: n }` only when the call is a READ. `dry_run: true` on
+ * generate-practice-questions is one, and it is why this option exists.
+ */
+export async function callFunction(name, body, token, opts = {}) {
+  const attempts = Number(opts.retry) > 0 ? Number(opts.retry) : 1;
+  const res = await fetchRetry(`${SUPABASE_URL}/functions/v1/${name}`, {
     method: "POST",
     headers: {
       apikey: ANON,
@@ -140,7 +180,7 @@ export async function callFunction(name, body, token) {
       "content-type": "application/json",
     },
     body: JSON.stringify(body),
-  });
+  }, attempts);
   const json = await res.json().catch(() => ({}));
   return { status: res.status, ok: res.ok, json };
 }

@@ -657,6 +657,39 @@ questions that wanted a `pg_catalog` answer were answered from the migration
 record instead and marked as inferences. The inferences were correct and the
 reason for them was wrong.
 
+**THE SUPABASE CLI HAS ITS OWN FLAG FOR THIS, AND IT IS NOT THE NODE ONE.**
+`--dns-result-order=ipv4first` is a NODE flag and does nothing for the CLI. Twice
+on 2026-09-18 `supabase functions deploy` failed with
+
+```
+failed to dial native: dial tcp: lookup api.supabase.com: no such host
+```
+
+while `nslookup api.supabase.com` answered normally. The first time it succeeded
+on a blind retry, which is the worst outcome -- it reads as flakiness and teaches
+nothing. The flag is:
+
+```
+supabase functions deploy <name> --dns-resolver https
+```
+
+It resolved first time, both times. `--dns-resolver [ native | https ]` is a
+GLOBAL CLI flag and applies to every subcommand.
+
+**AND `scripts/lib/fn-auth.mjs` WAS THE ONE CREDENTIALLED PATH WITH NO RETRY.**
+Every other script here wraps `fetch` in a loop because of the note above. This
+module did not, so it could not sign in at all while bare `node -e` fetches to
+`*.supabase.co` were timing out and `curl` to the same URL returned HTTP 401.
+Fixed 2026-09-18.
+
+**The retry is OPT-IN on `callFunction` and defaults to OFF, deliberately.** Its
+callers are `mint-issuer-key` and `revoke-issuer-key` -- WRITES. A connect
+timeout cannot be distinguished from a request that arrived, executed, and lost
+its response, so a blind retry on a mint could mint a SECOND key and both would
+land in the JWKS. That is the failure `lti-mint-key.mjs` refuses by design, and
+a retry one layer up would have reintroduced it. Pass `{ retry: n }` only for a
+read.
+
 **EVERY SUPABASE API CALL NEEDS BOTH `apikey` AND `Authorization`, SAME VALUE.**
 Send only `Authorization: Bearer <key>` and the gateway answers
 
@@ -723,6 +756,37 @@ gate's per-SEGMENT count under-reported ISMS-IA's runs by thirteen on
 2026-09-17, and the missing ones surfaced only as a refusal with no line
 attached. **The question is never "did the read succeed" -- it is "did the read
 answer the question I am about to print".**
+
+**AND THE FOURTH INSTANCE IS A POPULATION, NOT A UNIT: THE SAME NUMBER OVER A
+DIFFERENT SET OF ROWS.** Found 2026-09-18, measuring the cue-tolerance
+declaration before publishing it.
+
+ISMS-IA's blueprint declares *"mean key margin 13 characters"*. Measured over
+the bank it names, the mean is **-1.8**. Both are correct:
+
+| population | ISMS-IA | AIMS-IA | SM-AI-II |
+|---|---|---|---|
+| all items | -1.8 | -1.9 | +0.8 |
+| **items where the key IS longest** | **13.1** | **13.7** | **12.9** |
+
+The key is SHORTER than the longest distractor about half the time, so averaging
+all items cancels most of the signal. The declaration meant the second
+population; reading it as the first turns a sound declaration into an apparent
+two-day-old lie -- and the next move after "the declared number is wrong" is to
+edit the declaration, which would have replaced a correct figure with a
+meaningless one.
+
+**Same family as the per-LINE run count read as the gate's per-SEGMENT count,
+and it is now FOUR:** a page cap read as a total, a per-line count read as
+per-segment, a census taken before the pass it described, and a mean over the
+wrong population. Every one was a real measurement of something nobody asked
+about.
+
+**The defence is not more care, it is naming the population IN THE KEY.**
+`mean_key_margin` invites the error; `mean_key_margin_when_key_longest_chars`
+cannot be misread, and migration 344 renamed it for that reason rather than
+leaving a comment beside it. A number whose name does not say what it is
+measured over is half a fact.
 
 **THERE ARE TWO FLAG CONVENTIONS AND THEY ARE OPPOSITES.** This is the single
 most dangerous thing about this directory.
