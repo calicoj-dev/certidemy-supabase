@@ -469,6 +469,16 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
             // Safe to add only because 338 HAS RUN -- ahead of it this column does
             // not exist and every task query would fail.
             "ksa_withheld, " +
+            // criticality: added by migration 346. It is the last field of the
+            // JTA unit and the only one explain_task could not answer --
+            // /our-standard renders it beside statement, KSA and Bloom level,
+            // so a model that read the specimen and came here next looked for
+            // it and found nothing. 509 of 509 tasks populated, no nulls.
+            //
+            // ORDERING: 346 MUST RUN FIRST. Ahead of it this column does not
+            // exist on mcp.task and every task read fails -- the same hazard
+            // 338 recorded for ksa_withheld and 343 for language.
+            "criticality, " +
             "is_exam_scope, scope_tag " +
             "from mcp.task " +
             "where certification = $1 " +

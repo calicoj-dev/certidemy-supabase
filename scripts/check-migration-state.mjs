@@ -290,6 +290,24 @@ const FINGERPRINTS = {
               : live + " of " + rows.length + " generated practice item(s) still live; quiz_attempts " + att,
     };
   },
+  346: async () => {
+    /* ALL THREE LANGUAGES. A field added to one arm of the union answers in
+     * English and vanishes in Spanish, which reads as a translation defect
+     * that does not exist -- so an English-only probe would report RAN on the
+     * exact failure this migration was written to avoid. */
+    const out = {};
+    for (const lang of ["en", "es-419", "pt-BR"]) {
+      const r = await fn({ resource: "task", certification: "ISMS-F", task_code: "2.1", language: lang });
+      out[lang] = r.status === 200 ? (r.json?.rows?.[0]?.criticality ?? null) : "HTTP " + r.status;
+    }
+    const ok = ["en", "es-419", "pt-BR"].every((l) => typeof out[l] === "string" && !out[l].startsWith("HTTP "));
+    return {
+      ran: ok,
+      why: ok ? "criticality served in all three languages (" +
+                [...new Set(Object.values(out))].join(", ") + ")"
+              : "criticality per language: " + JSON.stringify(out),
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
