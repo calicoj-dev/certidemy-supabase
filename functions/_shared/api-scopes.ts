@@ -60,6 +60,40 @@
 // pair and both halves are named at both ends. THE DATABASE IS THE AUTHORITY:
 // it refuses a bad row whatever code wrote it, and this list exists so the
 // refusal arrives as a 400 naming the scope instead of a 23514 wearing a 500.
+//
+// ===================== "THE DATABASE" IS THREE OBJECTS, NOT ONE ==============
+//
+// [CORRECTED 2026-09-18.] The paragraph above is right and understates it. The
+// authority is not one constraint; it is three, and they answer three different
+// questions:
+//
+//   issuer_api_keys_scope_vocab   what may be MINTED                    (322)
+//   issuers_mcp_scopes_vocab      what may be BOUND to an OAuth caller  (329)
+//   public.mcp_features           what may be USED at request time      (331)
+//
+// A scope must be in ALL THREE. Missing one fails in a different and
+// distinguishable way, and only the first looks like a scope problem:
+//
+//   missing from the mint CHECK    400 at key creation, naming the scope.
+//   missing from the OAuth CHECK   API keys work; chat clients do not. Reads as
+//                                  an OAuth fault.
+//   missing from mcp_features      THE KEY MINTS AND EVERY CALL IS REFUSED.
+//                                  mcp.feature_status returns 'unknown_feature'
+//                                  and courseware-read refuses anything but
+//                                  'ok'. Reads as an entitlement bug, and the
+//                                  scope string is spelled correctly in every
+//                                  place a human would think to look.
+//
+// The third fails CLOSED, which is right, and is the one nobody goes looking
+// for. Migration 347 widens all three in one statement for that reason, and
+// proves each by attempting a write rather than by reading a constraint's text.
+//
+// SO: adding a scope is not "add it here and widen the CHECK". It is four
+// places in this repository -- this file, SCOPE_FOR_RESOURCE in
+// courseware-query.ts, scripts/mint-issuer-key.mjs, and one migration touching
+// all three database objects -- plus the console mirror and its locale strings
+// in certidemy-web. scripts/check-cross-repo-vocabulary.mjs now compares the
+// two repositories' lists, which is the half that used to be unguarded.
 
 /**
  * Every scope that may be granted to an issuer API key, with the single thing
@@ -68,6 +102,7 @@
 export const API_SCOPES = {
   "credentials:issue": "functions/issue-partner-credential -- mint a credential",
   "courseware:lessons": "functions/courseware-read -- read AISM-I lesson bodies",
+  "courseware:rubric": "functions/courseware-read -- read the item-writing rubric for one task",
 } as const;
 
 export type ApiScope = keyof typeof API_SCOPES;

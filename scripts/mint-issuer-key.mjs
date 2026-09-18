@@ -83,7 +83,11 @@ import {
  * languages and the database is the authority -- this one exists only so a typo
  * fails here instead of as a 500 from the function.
  */
-const SCOPES = ["credentials:issue", "courseware:lessons"];
+/* MIRROR of API_SCOPES in functions/_shared/api-scopes.ts, which a Node script
+ * cannot import from a Deno module. See that file's header: the authority is
+ * THREE database objects, and a scope missing from any one of them fails in a
+ * way that does not look like a scope problem. */
+const SCOPES = ["credentials:issue", "courseware:lessons", "courseware:rubric"];
 
 const KNOWN = new Set(["--issuer", "--name", "--scopes", "--env", "--expires-days", "--apply"]);
 for (const a of process.argv.slice(2)) {

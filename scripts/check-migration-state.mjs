@@ -308,6 +308,24 @@ const FINGERPRINTS = {
               : "criticality per language: " + JSON.stringify(out),
     };
   },
+  347: async () => {
+    /* mcp_features is the only one of the three scope vocabularies a read-only
+     * probe can see. The two CHECK constraints are asserted inside 347 itself,
+     * by attempting a write and rolling it back -- the constraint's text is a
+     * description and the insert is the behaviour. So this fingerprint proves
+     * one third and says so rather than implying all three. */
+    const rows = await rest("mcp_features?select=feature_key");
+    if (!rows) return { ran: null, why: "could not read mcp_features" };
+    const keys = rows.map((r) => r.feature_key);
+    const want = ["credentials:issue", "courseware:lessons", "courseware:rubric"];
+    const missing = want.filter((k) => !keys.includes(k));
+    return {
+      ran: missing.length === 0,
+      why: missing.length === 0
+        ? "mcp_features holds all 3 scope keys (the CHECK constraints are asserted inside 347)"
+        : "mcp_features is missing " + JSON.stringify(missing),
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

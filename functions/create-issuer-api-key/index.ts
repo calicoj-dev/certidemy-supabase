@@ -35,6 +35,29 @@ import {
   HttpError,
 } from "../_shared/supabase.ts";
 import { requireIssuerAccess } from "../_shared/authorize.ts";
+/**
+ * How a human uses a key carrying each scope. One entry per scope in
+ * API_SCOPES; a scope absent here prints "no usage note" rather than
+ * inheriting another scope's endpoint.
+ */
+const SCOPE_USAGE = {
+  "courseware:lessons": {
+    endpoint: "https://certidemy.com/mcp",
+    header: "Authorization: Bearer <key>",
+    note: "MCP tools/call get_lesson. list_lessons needs no key.",
+  },
+  "courseware:rubric": {
+    endpoint: "https://certidemy.com/mcp",
+    header: "Authorization: Bearer <key>",
+    note: "MCP tools/call get_rubric. Items written from it stay in your system; there is no post-back.",
+  },
+  "credentials:issue": {
+    endpoint: "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/issue-partner-credential",
+    header: "x-certidemy-key: <key>",
+    note: null,
+  },
+} as const;
+
 import {
   DEFAULT_API_SCOPES,
   isApiScope,
@@ -217,21 +240,25 @@ serve(async (req) => {
       // instruction printed at the one moment the credential is on screen.
       // Nothing consumes this field -- the console reads api_key alone -- so
       // its only reader is a human copying a key, which is who it is for.
-      usage: scopes.map((s) =>
-        s === "courseware:lessons"
-          ? {
-            scope: s,
-            endpoint: "https://certidemy.com/mcp",
-            header: "Authorization: Bearer <key>",
-            note: "MCP tools/call get_lesson. list_lessons needs no key.",
-          }
-          : {
-            scope: s,
-            endpoint: "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/issue-partner-credential",
-            header: "x-certidemy-key: <key>",
-            note: null,
-          }
-      ),
+      //
+      // ============ KEYED, NOT AN IF/ELSE, AND THAT WAS THE BUG =============
+      //
+      // The fix above replaced ONE wrong default with a two-branch test whose
+      // else arm was still "assume issuing". So `courseware:rubric` -- the
+      // third scope, added 2026-09-18 -- would have been handed the credential
+      // endpoint and the wrong header, which is the identical defect one scope
+      // later, in the code written to remove it.
+      //
+      // A map has no else arm. An unknown scope now prints a null endpoint and
+      // says so, which is visibly unfinished rather than confidently wrong: a
+      // partner who reads "no usage note for this scope" asks; a partner who
+      // reads a working-looking POST to the wrong endpoint does not.
+      usage: scopes.map((s) => {
+        const u = SCOPE_USAGE[s as keyof typeof SCOPE_USAGE];
+        return u
+          ? { scope: s, ...u }
+          : { scope: s, endpoint: null, header: null, note: "No usage note for this scope yet." };
+      }),
     });
   } catch (err) {
     if (err instanceof HttpError) {

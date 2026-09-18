@@ -141,6 +141,71 @@ const contract = read(WEB, "lib/mcp/courseware-contract.ts");
 const telemetry = read(WEB, "lib/mcp/telemetry.ts");
 const partnerAuth = read(WEB, "lib/mcp/partner-auth.ts");
 
+// 0. THE SCOPE VOCABULARY -- instance 4, and it stayed silent for three of them.
+//
+// This checker was built from three pairs and none of them was the scope list,
+// although `functions/_shared/api-scopes.ts` and
+// `certidemy-web/lib/console/api-scopes.ts` are exactly the shape it exists for:
+// one list a console offers, another the API accepts, no shared module possible
+// across the repository boundary, and each side tested against itself.
+//
+// It surfaced on 2026-09-18 when `courseware:rubric` was added: minting failed
+// with `unknown scope`, and the vocabulary turned out to live in SEVEN places
+// across two repositories and three database objects.
+//
+// DIRECTION MATTERS HERE, and it is the opposite of the others. The console
+// EMITS a scope (a human ticks a box and the request carries that string) and
+// the function ACCEPTS it, so an extra value in the console is the defect: a
+// scope a partner can select and the API refuses. A scope the API knows and the
+// console does not offer is merely unexposed, which is how every new scope
+// begins -- including this one, today.
+{
+  const apiScopes = read(SUPA, "functions/_shared/api-scopes.ts");
+  const consoleScopes = read(WEB, "lib/console/api-scopes.ts");
+  const minter = read(SUPA, "scripts/mint-issuer-key.mjs");
+
+  /* Anchored on the DECLARATION, not on any occurrence of a scope-shaped
+   * string: both files discuss scopes in prose, and a bare /"[a-z]+:[a-z]+"/g
+   * would harvest comments and turn the comparison into noise. */
+  const apiList = [...(apiScopes.match(/export const API_SCOPES = \{([\s\S]*?)\} as const;/) ?? [])[1]
+    ?.matchAll(/"([a-z]+:[a-z]+)"\s*:/g) ?? []].map((m) => m[1]);
+  const consoleList = [...(consoleScopes.match(/export const API_SCOPE_NAMES = \[([\s\S]*?)\]/) ?? [])[1]
+    ?.matchAll(/"([a-z]+:[a-z]+)"/g) ?? []].map((m) => m[1]);
+  const minterList = [...(minter.match(/const SCOPES = \[([\s\S]*?)\];/) ?? [])[1]
+    ?.matchAll(/"([a-z]+:[a-z]+)"/g) ?? []].map((m) => m[1]);
+
+  compare("SCOPES (console -> API)", "console/api-scopes", consoleList,
+    "functions/_shared/api-scopes", apiList);
+
+  /* AND THE LAG, DELIBERATELY LOUD. The direction above is the HAZARD -- a
+   * scope a partner can tick and the API refuses. This one is the LAG: a scope
+   * the API accepts and the console cannot offer. It is not a safety defect and
+   * it is the normal state of every scope for the minutes or days between the
+   * two repositories landing, which is exactly why it must be visible: the
+   * alternative is that the console half is simply forgotten and the scope is
+   * mintable only by script forever.
+   *
+   * It is RED right now, on purpose. courseware:rubric exists here and not in
+   * the console, and this line is how that gets closed rather than remembered. */
+  compare("SCOPES (API -> console, lag)", "functions/_shared/api-scopes", apiList,
+    "console/api-scopes", consoleList);
+
+  /* Same repository, so this one is a plain mirror and BOTH directions are
+   * defects: the minting script and the function must agree exactly. */
+  compare("SCOPES (minter -> API)", "scripts/mint-issuer-key", minterList,
+    "functions/_shared/api-scopes", apiList);
+  compare("SCOPES (API -> minter)", "functions/_shared/api-scopes", apiList,
+    "scripts/mint-issuer-key", minterList);
+
+  /* WHAT THIS CANNOT SEE, stated because a green run here is not a clean bill.
+   * The three DATABASE vocabularies -- issuer_api_keys_scope_vocab,
+   * issuers_mcp_scopes_vocab and public.mcp_features -- are the actual
+   * authority, and this script reads source with no credential. A scope present
+   * in every file above and absent from mcp_features mints correctly and is
+   * refused on every call. Migration 347 asserts that half by attempting a
+   * write; nothing here can. */
+}
+
 // 1. AUTH LABELS -- instance 3.
 // The Worker's emitted set is the union's `kind` values PLUS the `??` fallback
 // in authKindLabel, which is the member that was missed. Extracted separately
