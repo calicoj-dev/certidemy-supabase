@@ -128,9 +128,17 @@ async function translate(english, current, langName) {
     "Statement of Applicability). And keep TRANSLATED whatever it translates: if it writes " +
     "Anexo A, write Anexo A and not Annex A; if it writes clausula, do not write clause; if " +
     "it writes norma, do not write standard.\n" +
-    "4. Preserve modal force exactly. If the English says shall or must, the translation " +
-    "imposes a requirement. If it says should or may, it does not. Never add an obligation " +
-    "the English does not state, and never soften one it does.\n" +
+    "4. Preserve modal force exactly, and RENDER EACH MODAL THE WAY THE STANDARD IS " +
+    "RENDERED IN THAT LANGUAGE:\n" +
+    "     English SHALL or MUST -> es: debe / deben / debera.   pt: deve / devem / devera.\n" +
+    "     English SHOULD        -> es: conviene que + subjunctive, or deberia.\n" +
+    "                              pt: CONVEM QUE + subjunctive, or deveria. NEVER deve.\n" +
+    "     English MAY or CAN    -> es: puede / pueden.          pt: pode / podem.\n" +
+    "   `convem que` is the ABNT rendering of `should` and is PREFERRED over `deveria` " +
+    "in Brazilian Portuguese. A paragraph may carry both a shall and a should; render each " +
+    "one according to what the English says at that point and do not flatten them together " +
+    "in either direction. Never add an obligation the English does not state, and never " +
+    "soften one it does.\n" +
     "5. Do not add, remove or reorder content. One paragraph in, one paragraph out.\n\n" +
     "Reply with the translated paragraph and nothing else. No preamble, no quotes around it.";
   const user =
