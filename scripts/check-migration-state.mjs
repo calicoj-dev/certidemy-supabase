@@ -154,10 +154,11 @@ const FINGERPRINTS = {
      * as mcp_reader. */
     const n = await count("task_translation_reviews");
     const r = await fn({ resource: "task", certification: "ISMS-F", task_code: "2.1", language: "es-419" });
+    /* AT LEAST, NOT EXACTLY. See the note on 340. */
     const served = r.status === 200 && r.json?.rows?.[0]?.knowledge != null;
     return {
-      ran: n === 98,
-      why: "task_translation_reviews = " + n + " row(s), expected 98",
+      ran: n !== null && n !== undefined && n >= 98,
+      why: "task_translation_reviews = " + n + " row(s), 339 wrote 98",
       effective: served,
       effectiveWhy: served
         ? "ISMS-F 2.1 es-419 returns knowledge to mcp_reader"
@@ -165,8 +166,27 @@ const FINGERPRINTS = {
     };
   },
   340: async () => {
+    /* AT LEAST 35, NOT EXACTLY 35 -- AND THIS FILE GOT IT WRONG FIRST.
+     *
+     * The fingerprint read `n === 35`. Six more reviews were recorded the same
+     * evening, clearing ISMS-F to 49/49, and 340 immediately reported NOT RUN
+     * -- a migration that had run, failing its own probe because later work
+     * landed in the table it wrote to.
+     *
+     * That is the stale-number failure this whole file exists to retire,
+     * reintroduced inside the replacement. A count written into a check is a
+     * second copy of a fact exactly like a count written into CLAUDE.md; the
+     * only difference is that this one runs.
+     *
+     * A migration that APPENDS is proved by "its rows are there", never by "the
+     * table has not grown". An exact count is right only for a table nothing
+     * else ever writes to, and this table is written every time somebody
+     * reviews a translation -- which is the point of it. */
     const n = await count("lesson_translation_reviews");
-    return { ran: n === 35, why: "lesson_translation_reviews = " + n + " row(s), expected 35" };
+    return {
+      ran: n !== null && n !== undefined && n >= 35,
+      why: "lesson_translation_reviews = " + n + " row(s), 340 wrote 35 of them",
+    };
   },
   341: async () => {
     const r = await fn({ resource: "task", certification: "ISMS-F", task_code: "2.1", language: "es-419" });
@@ -176,6 +196,46 @@ const FINGERPRINTS = {
       ran: ok,
       why: ok ? "non-English task reads HTTP 200, ISMS-F knowledge " + (ksa ? "served" : "NULL")
               : "non-English task reads HTTP " + r.status + " -- 339's functions are still not SECURITY DEFINER",
+    };
+  },
+  342: async () => {
+    /* The fingerprint is BEHAVIOURAL, and for this migration it had to be:
+     * 342 only changes two view columns, so nothing in `public` moves. The
+     * probe that answered "has it run" before the deploy was the OLD function
+     * reading the NEW view -- module_title came back Spanish while the
+     * function had no knowledge of the join. */
+    const r = await fn({ resource: "lesson_index", certification: "ISMS-F", language: "es-419", limit: 200 });
+    const rows = r.json?.rows ?? [];
+    const fb = rows.filter((x) => x.module_title_is_fallback).length;
+    const col = rows.length > 0 && "module_title_is_fallback" in rows[0];
+    return {
+      ran: col,
+      why: col ? "lesson_index projects module_title_is_fallback" : "module_title_is_fallback absent -- 342 has not run, or courseware-read is not deployed",
+      effective: col && rows.length > 0 && fb === 0,
+      effectiveWhy: fb === 0 ? "ISMS-F es-419: " + rows.length + " row(s), 0 falling back to the English module title"
+                             : fb + " of " + rows.length + " es-419 row(s) still serve an English module title",
+    };
+  },
+  343: async () => {
+    /* BOTH DIRECTIONS. A language dimension that is accepted and ignored looks
+     * identical to one that works, so Spanish must differ from English -- and
+     * the no-language default must still return ONE row, because between 343
+     * and the deploy the old query returned three. */
+    const es = await fn({ resource: "certification", certification: "ISMS-F", language: "es-419" });
+    const en = await fn({ resource: "certification", certification: "ISMS-F", language: "en" });
+    const bare = await fn({ resource: "certification", certification: "ISMS-F" });
+    const accepted = es.status === 200;
+    const one = bare.json?.count === 1;
+    const routes = accepted && es.json?.rows?.[0]?.description &&
+      es.json.rows[0].description !== en.json?.rows?.[0]?.description;
+    return {
+      ran: accepted && one,
+      why: !accepted ? "certification refuses `language`: HTTP " + es.status + " -- 343 has not run or the function is not deployed"
+         : !one ? "no-language read returns " + bare.json?.count + " rows, expected 1 -- the view has a language dimension and the deployed function does not filter on it"
+         : "certification accepts language and returns one row per language",
+      effective: !!routes,
+      effectiveWhy: routes ? "es-419 description differs from en -- the language reaches the view"
+                           : "es-419 and en descriptions are identical -- language is accepted and ignored",
     };
   },
 };

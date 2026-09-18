@@ -1168,6 +1168,60 @@ correct when the English states an interval (clause 8.2's "planned intervals")
 and a defect when it does not. **A rule that cannot see the source abstains
 rather than guessing** - pass no English and it does not run.
 
+**THE TRANSLATION REVIEW GATE WATCHES THE ENGLISH AND IS BLIND TO THE
+TRANSLATION.** Found 2026-09-17. Not fixed, and it is not a content defect --
+it is a hole in the mechanism that certifies content.
+
+Both review tables key on a hash of the **English**:
+
+| table | hash over | rows |
+|---|---|---|
+| `lesson_translation_reviews.en_hash` | `left(md5(en.content_md), 8)` | 41 |
+| `task_translation_reviews.en_hash` | the English KSA fields, via `task_ksa_en_hash` | 98 |
+
+So the gate asks *"is this review still about the current English"* and it
+works: an English edit moves the hash, the approval goes stale, and the
+translation is withheld again with no human action. That was 335's design goal
+and it is the reason the reviews are worth recording.
+
+**It never asks whether the review is still about the current TRANSLATION.**
+Nothing pins the reviewed side. A reviewed Spanish paragraph can be rewritten
+to say something else entirely and the approval still stands, because the hash
+is over the other document. **139 approvals are in that state**, and they are
+exactly the rows the gate lets through -- an unreviewed row is withheld and
+cannot be silently altered, so the hole opens only on the text a human has
+signed off. The signature is what makes it reachable.
+
+**AND IT IS NOT HYPOTHETICAL: THIS REPOSITORY USED THE PROPERTY THE DAY IT WAS
+FOUND.** A pt-BR paragraph in `02-03-amendment-1-2024` was edited from passive
+to active voice, and the six `en_hash` values for that batch were re-verified
+against the live English and were unchanged -- correctly, because only a
+translation had moved. That is the same mechanism, used deliberately and
+benignly, and nothing anywhere would have distinguished it from a rewrite that
+changed the meaning.
+
+**Four scripts write translations and none of them touches a review row:**
+`retranslate-repaired-passages.mjs`, `fix-modal-inflation.mjs`,
+`restore-quote-markers.mjs` and `apply-queue-edits.mjs`. So the realistic path
+is not malice, it is a sweep: a modal or terminology pass over a reviewed
+corpus invalidates every approval it edits and leaves all of them marked
+`approved`. **The 252-reference `clausula` sweep would do this to ISMS-F's
+newly cleared rows on its first run.**
+
+**The fix is symmetry, and it is small:** store a second hash over the
+translation as reviewed (`tr_hash`), and have the gate require BOTH to match.
+Then a translation edit re-closes the gate exactly the way an English edit
+does, re-approval is one insert, and a sweep announces itself by withholding
+what it touched rather than by nothing happening. **Deferred deliberately on
+2026-09-17** -- it changes the gate on a live demo path and must not be done
+under time pressure. Anything that edits a reviewed translation before it lands
+must re-review the rows it touched, by hand, and there is no instrument that
+will remind you.
+
+**The general rule: A HASH GATE PROVES ONLY THE SIDE IT HASHES.** Two documents
+and one hash is half a check, and the missing half is invisible because the
+present half works.
+
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
 ---
