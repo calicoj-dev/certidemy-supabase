@@ -279,15 +279,29 @@ const FINGERPRINTS = {
   345: async () => {
     /* BOTH DIRECTIONS: none live, and the history still there. A retirement
      * that took the attempt rows with it would satisfy the first half. */
+    /* RAN asks what 345 DID. EFFECTIVE asks what is true now, and they are
+     * different because the writer is still live: weak-concepts persists five
+     * items per click, so "zero live generated items" is a state 345 created
+     * and the product breaks by design.
+     *
+     * The first version asserted `live === 0` and `length === 160`, and reported
+     * NOT RUN the moment two learners used the feature. That is 340's exact
+     * mistake -- a count of an append-only population -- made again two days
+     * later, in the fingerprint written by the author who fixed 340's. */
     const rows = await rest("quiz_questions?select=id,retired_at&item_origin=eq.generated&pool=eq.practice");
     if (!rows) return { ran: null, why: "could not read quiz_questions" };
-    const live = rows.filter((r) => !r.retired_at).length;
+    const retired = rows.filter((r) => r.retired_at).length;
+    const live = rows.length - retired;
     const att = await count("quiz_attempts");
-    const ok = rows.length === 160 && live === 0 && att >= 2249;
     return {
-      ran: ok,
-      why: ok ? "160 generated practice items, 0 live, " + att + " attempt row(s) preserved"
-              : live + " of " + rows.length + " generated practice item(s) still live; quiz_attempts " + att,
+      ran: retired >= 160 && att >= 2249,
+      why: retired + " generated practice item(s) retired (345 retired 158 of them), " +
+           att + " attempt row(s) preserved",
+      effective: live === 0,
+      effectiveWhy: live === 0
+        ? "no live generated items"
+        : live + " generated item(s) written since, by the live weak-concepts route -- " +
+          "expected, and they land status='approved' with no review (CERTIDEMY-LEARNER-IA 5.5)",
     };
   },
   346: async () => {

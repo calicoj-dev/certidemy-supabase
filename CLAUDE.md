@@ -1556,6 +1556,61 @@ a body; the fragment check asserts it would catch a known-missing sentence. **An
 instrument that has never failed is not evidence that nothing is wrong. It is an
 untested instrument.**
 
+**A COVERAGE GAP IN A CHECK READS AS A PASS, NOT AS A GAP.** This is the
+sharpest form of the green-result rule and it is worth separating: an
+instrument that cannot fire reports nothing, but an instrument that fires on
+HALF ITS SUBJECT reports success.
+
+Measured 2026-09-19. `check-prompt-parity` stage D asserts that the rubric a
+partner receives is byte-identical to the rubric the generators use. It
+exercised **ISMS-F, which is tier 1**. A tier-2-only change to the shared rules
+went undeployed, and:
+
+```
+stage C (tests AIMS-IA, tier 2)   FAIL   21807 vs 21979 chars
+stage D (tests ISMS-F,  tier 1)   PASS   against the same stale deployment
+```
+
+**Both were correct.** D compared a part of the prompt that had not changed, and
+said so honestly. Nothing in its output suggested it had only looked at one
+tier, because a check does not report the variants it did not try.
+
+So: **when the thing under test branches, the check must exercise every branch,
+and the branch list is the part to write down.** These rules branch on tier in a
+dozen places; D now runs ISMS-F and SM-AI-II, and the tier-2 certification
+reported the same 172-character delta immediately. The gap was closed by the
+defect it missed rather than by a synthetic case, which is the only evidence
+worth having that it is closed.
+
+**AND THE CHECK SHAPE THAT FOUND THE DEFECT UNDERNEATH IT IS NEW HERE: COMPARE A
+SHARED BLOCK AGAINST ITSELF, AT TWO VARIANTS.**
+
+Every other comparison in this repository asks whether **two implementations
+agree** -- two repositories' vocabularies, Node against Deno, the deployed
+function against the generators, a guard against the same guard in another
+language. This one asks whether **one implementation says the same thing to two
+audiences it should not**.
+
+`CUE_NEUTRALITY_RULES` ended *"This is an entry (\"I\") tier exam: test knowledge
+plainly, do not set traps"* and shipped identically to every tier-2
+certification, a few hundred words below *"never acceptable at this tier"*. The
+clause before it -- *"not subtly-worse-but-defensible"* -- is the exact inversion
+of `L2_CONTRACT`, which requires the second-best option to be a defensible call
+rather than a mistake. **The prompt instructed a tier-2 generator to do the one
+thing the tier-2 contract forbids, in the same document as the contract.**
+
+**The tier ternaries everywhere else are what made it invisible.** `draftSystem`
+branches on tier in a dozen places and each branch is correct, so reading the
+file gives every impression that tier is handled. One unconditional string in a
+sibling module is not visible from there, and no test compared the two outputs.
+
+It was found by a human reading a tier-2 payload after a tier-1 one.
+`check-prompt-parity` stage E now assembles both tiers per certification and
+fails on any sentence that asserts a tier and appears in both. **Generalise it:
+wherever a prompt, a policy or a message is assembled for several audiences from
+one source, diff the assembled outputs -- not the source.** The source shows the
+branches that exist; only the outputs show the text that did not branch.
+
 **AND RANK YOUR CLAIMS: TEST THE ONE THAT OUTRANKS THE OTHERS.** An MCP
 `SERVER_INSTRUCTIONS` string is read before any tool description and believed
 over it. Six correct, versioned, asserted tool descriptions lost to one stale
