@@ -466,5 +466,5 @@ lesson_groups: 44
 domain_weights: D1=12.5, D2=15.0, D3=20.0, D4=30.0, D5=22.5
 domain_tasks: D1=7, D2=8, D3=10, D4=12, D5=8
 secure_per_language: 360, 360, 360
-practice_per_language: 450, 450, 450
+practice_floor_per_task: 10
 ```

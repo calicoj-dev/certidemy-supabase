@@ -113,13 +113,13 @@ async function hasColumn(table, col) {
   throw last;
 }
 /** Ask the deployed function. */
-async function fn(body) {
+async function fn(body, extraHeaders = {}) {
   let last;
   for (let i = 0; i < 8; i++) {
     try {
       const r = await fetch(FN, {
         method: "POST",
-        headers: { "content-type": "application/json", "x-mcp-client": "probe:migration-state" },
+        headers: { "content-type": "application/json", "x-mcp-client": "probe:migration-state", ...extraHeaders },
         body: JSON.stringify(body), signal: AbortSignal.timeout(45000),
       });
       const t = await r.text();
@@ -133,6 +133,77 @@ async function fn(body) {
 
 /* ------------------------------------------------------------ fingerprints */
 const FINGERPRINTS = {
+  330: async () => {
+    /* 329 granted mcp.resolve_oauth_caller to the wrong role and the first
+     * OAuth lesson read ever attempted answered 500. 330 fixed the grant.
+     *
+     * PROBED BEHAVIOURALLY, as a REFUSAL. A bad token must be turned away by
+     * the resolver -- 401 -- and not by the resolver failing to run, which is
+     * what 329 produced: a 500 wearing a read error. This cannot prove a VALID
+     * token resolves (that needs one), and says so rather than implying it. */
+    const r = await fn({ resource: "lesson", certification: "AISM-I", lesson_slug: "x" },
+      { "x-certidemy-token": "not-a-real-token" });
+    const ok = r.status === 401 || r.status === 403;
+    return {
+      ran: ok,
+      why: ok
+        ? "an invalid OAuth token is refused " + r.status + " by the resolver, not 500 by a missing grant"
+        : "HTTP " + r.status + " -- 329's symptom was a 500 here; the grant may be wrong again",
+    };
+  },
+  331: async () => {
+    /* Grant by default, revoke by exception. The vocabulary table and the
+     * disables table are both public and readable. */
+    const feats = await count("mcp_features");
+    const dis = await count("company_feature_disables");
+    const ok = feats !== null && feats !== undefined && feats >= 2 &&
+      dis !== null && dis !== undefined;
+    return {
+      ran: ok,
+      why: ok ? "mcp_features holds " + feats + " key(s); company_feature_disables exists (" + dis + " row(s))"
+              : "mcp_features=" + feats + ", company_feature_disables=" + dis,
+    };
+  },
+  333: async () => {
+    /* 332 added mcp_servable and left the views alone; 333 made them enforce
+     * it. So the tell is not the column (332 owns that) but that the CATALOGUE
+     * reports body_available and that it is not uniformly true -- a gate that
+     * admits everything is indistinguishable from no gate. */
+    const r = await fn({ resource: "lesson_index", certification: "AIMS-F", language: "es-419", limit: 200 });
+    const rows = r.json?.rows ?? [];
+    const has = rows.length > 0 && "body_available" in rows[0];
+    /* NO `effective` HALF, and the reason is a finding rather than a gap.
+     *
+     * The first version expected some lesson to report body_available:false and
+     * called its absence "the predicate is not being applied". That was wrong
+     * twice over. `body_available` is `l.mcp_servable` alone, and every lesson
+     * on the platform is currently servable because every corpus passed the ISO
+     * leak scan -- so there is nothing for 333's gate to withhold today, which
+     * is a clean bill and not a silent failure.
+     *
+     * It also revealed that `body_available` does NOT mean what its own view
+     * comment says it means ("whether mcp.lesson will return this one"): the
+     * review gate is in mcp.lesson and not in this column, so 167 lessons are
+     * advertised available and refused. That is tracked as its own open item in
+     * check-open-items.mjs, not smuggled in here as a migration probe. */
+    return {
+      ran: has,
+      why: has ? "lesson_index projects body_available across " + rows.length + " AIMS-F es-419 row(s)"
+               : "body_available absent from lesson_index",
+    };
+  },
+  334: async () => {
+    /* ISMS-F and AIMS-F joined here. Both, not one: a widening that admitted
+     * only the certification someone tested is the shape 328 and 336 both had. */
+    const a = await fn({ resource: "certification", certification: "ISMS-F" });
+    const b = await fn({ resource: "certification", certification: "AIMS-F" });
+    const ok = a.status === 200 && b.status === 200;
+    return {
+      ran: ok,
+      why: ok ? "ISMS-F and AIMS-F both reachable"
+              : "ISMS-F HTTP " + a.status + ", AIMS-F HTTP " + b.status,
+    };
+  },
   332: async () => {
     const p = await count("mcp_leak_policy");
     const c = await hasColumn("lessons", "mcp_servable");
@@ -338,6 +409,27 @@ const FINGERPRINTS = {
       why: missing.length === 0
         ? "mcp_features holds all 3 scope keys (the CHECK constraints are asserted inside 347)"
         : "mcp_features is missing " + JSON.stringify(missing),
+    };
+  },
+  348: async () => {
+    /* Over EVERY certification, not the three 348 touched. The defect it fixes
+     * came from a leak audit scoped to the prompt surface while the author had
+     * hand-written a path into a different public column days earlier. */
+    const rows = await rest("certifications?select=code,exam_blueprint");
+    if (!rows) return { ran: null, why: "could not read certifications" };
+    const withBp = rows.filter((r) => r.exam_blueprint);
+    if (!withBp.length) return { ran: null, why: "no blueprints -- extractor broken" };
+    const PATH = /(scripts|functions|migrations)\/[a-z0-9_./-]+\.(mjs|ts|sql)/i;
+    const INTERNAL = /migration [0-9]{2,3}|CLAUDE\.md|verify-cert|auditItem|bank_revision v/i;
+    const bad = withBp.filter((r) => {
+      const t = JSON.stringify(r.exam_blueprint);
+      return PATH.test(t) || INTERNAL.test(t);
+    }).map((r) => r.code);
+    return {
+      ran: bad.length === 0,
+      why: bad.length === 0
+        ? withBp.length + " blueprint(s) scanned, none names a repository internal"
+        : "repository internals in the blueprint of: " + bad.join(", "),
     };
   },
 };

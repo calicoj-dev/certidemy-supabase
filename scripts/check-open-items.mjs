@@ -127,56 +127,40 @@ const ITEMS = {
     };
   },
 
-  "SCHEME-SM-AI-I practice counts": async () => {
-    /* verify-cert owns this as a scheme claim; the probe here is the same
-     * comparison so the LIST can answer without a 13-certification run.
+  "no scheme doc claims a traffic-dependent count": async () => {
+    /* GENERALISED FROM ONE DOCUMENT TO THE PROPERTY. The first version compared
+     * SCHEME-SM-AI-I's numbers to the database, which is what verify-cert
+     * already does and which would go stale the same way the document did.
      *
-     * ============ AND THE FIX IS NOT TO UPDATE THE NUMBER ============
+     * The durable question is not "is this number right today" but "is this the
+     * kind of number that can be right tomorrow". A per-language practice TOTAL
+     * changes when a learner presses weak-concepts -- SM-AI-I's es-419 went
+     * 520 -> 525 between two runs of the gate, both readings correct. Three
+     * documents carried that shape; all three now claim
+     * `practice_floor_per_task: 10`, which the platform maintains and traffic
+     * cannot move.
      *
-     * verify-cert read 520/520/520 on 2026-09-19 and this read 520/525/520 a
-     * day later. Both were right: 520 authored per language, plus FIVE
-     * generated items written into es-419 by two learner clicks on
-     * weak-concepts in between.
-     *
-     * So a per-language practice TOTAL in a scheme document is a number that
-     * changes when a learner presses a button. It cannot be kept true by
-     * editing it, and "update the doc to today's figure" -- which a handoff
-     * recommended -- would have been stale on arrival.
-     *
-     * The scheme should claim what is STABLE and actually promised: the floor
-     * of 10 practice items per task per language. That is a property the
-     * platform maintains; the total is an artifact of traffic. Until the
-     * document changes, this stays OPEN and says why. */
-    const doc = readFile(join(ROOT, "SCHEME-SM-AI-I.md"));
-    if (doc === null) return { open: null, why: "SCHEME-SM-AI-I.md not found" };
-    /* ANCHORED ON THE CLAIM LINE the scheme documents carry for verify-cert --
-     * `practice_per_language: 525, 535, 520` -- not on prose. The first version
-     * scanned for "<number> items", extracted nothing, and reported UNKNOWN
-     * rather than "closed". That is the control doing its job. */
-    const line = /^practice_per_language:\s*([0-9,\s]+)$/m.exec(doc);
-    const claimed = line ? line[1].split(",").map((x) => Number(x.trim())).filter(Number.isFinite) : [];
-    const certs = await all("certifications?select=id,code");
-    const cid = certs.find((c) => c.code === "SM-AI-I")?.id;
-    const tasks = await all("tasks?select=id,certification_id");
-    const ids = new Set(tasks.filter((t) => t.certification_id === cid).map((t) => t.id));
-    const q = await all("quiz_questions?select=task_id,language,pool,status,retired_at");
-    const live = {};
-    for (const r of q) {
-      if (!ids.has(r.task_id) || r.pool !== "practice" || r.status !== "approved" || r.retired_at) continue;
-      live[r.language] = (live[r.language] ?? 0) + 1;
+     * `secure_per_language` is deliberately NOT flagged. The secure bank does
+     * not grow with traffic, and generated items are excluded from it by pool
+     * and now by predicate, so a secure total is a claim that can stay true. */
+    const { readdirSync } = await import("node:fs");
+    const docs = readdirSync(ROOT).filter((f) => /^SCHEME-.*\.md$/.test(f));
+    if (!docs.length) return { open: null, why: "no SCHEME-*.md found -- extractor broken" };
+    const bad = [];
+    let sawAnyClaim = false;
+    for (const f of docs) {
+      const t = readFile(join(ROOT, f)) ?? "";
+      if (/^(secure_per_language|practice_floor_per_task):/m.test(t)) sawAnyClaim = true;
+      if (/^practice_per_language:/m.test(t)) bad.push(f);
     }
-    const actual = ["en", "es-419", "pt-BR"].map((l) => live[l] ?? 0);
-    /* CONTROL: if the document yielded no numbers the comparison is vacuous. */
-    if (!claimed.length) return { open: null, why: "no counts extracted from the document -- extractor is broken" };
-    /* ORDERED comparison: the claim is en, es-419, pt-BR in that order, and a
-     * set comparison would pass on a document carrying the right numbers
-     * against the wrong languages. */
-    const stale = claimed.length !== actual.length || claimed.some((v, i) => v !== actual[i]);
+    /* CONTROL: if no document carries ANY claim line the scan proves nothing --
+     * it would report clean against a directory of prose. */
+    if (!sawAnyClaim) return { open: null, why: "no machine-readable claim line in any document -- extractor broken" };
     return {
-      open: stale,
-      why: "document claims " + claimed.join("/") + "; database has " + actual.join("/") +
-           " (en, es-419, pt-BR). A practice TOTAL drifts with learner traffic -- " +
-           "claim the per-task floor instead of updating this number",
+      open: bad.length > 0,
+      why: bad.length
+        ? bad.length + " doc(s) still claim a per-language practice TOTAL: " + bad.join(", ")
+        : docs.length + " scheme doc(s) scanned; none claims a count traffic can move",
     };
   },
 
@@ -189,6 +173,47 @@ const ITEMS = {
     const fires = ("la cláusula 10.1 exige".match(numbered) ?? []).length === 1;
     if (!fires) return { open: null, why: "the pattern cannot match a known instance -- extractor broken" };
     return { open: n > 0, why: n + " numbered `clausula` reference(s) across all lesson bodies" };
+  },
+
+  "a caller can tell a withheld lesson from an absent one": async () => {
+    /* FOUND 2026-09-20 while writing a fingerprint for 333. TWO DEFECTS STACKED.
+     *
+     * 1. `mcp.lesson_index.body_available` is never served. courseware-read's
+     *    buildQuery names its lesson_index columns explicitly and omits it, so
+     *    no partner has ever received the field. Both the view comment and
+     *    certidemy-web's courseware-contract.ts refer to it as the thing that
+     *    prevents this confusion; neither noticed it does not arrive.
+     *
+     * 2. It would be WRONG if it were served. It is `l.mcp_servable` alone,
+     *    while mcp.lesson also requires the per-language review gate -- so it
+     *    would report available for 167 lessons that get_lesson refuses
+     *    (AIMS-F 34+34, AIMS-IA 29+25, ISMS-IA 24+21, measured).
+     *
+     * So the property is the CALLER'S, not the column's: can list_lessons tell
+     * a partner which bodies they will actually get? Today: no. */
+    const r = await (async () => {
+      for (let i = 0; i < 6; i++) {
+        try {
+          const res = await fetch("https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/courseware-read", {
+            method: "POST",
+            headers: { "content-type": "application/json", "x-mcp-client": "probe:open-items" },
+            body: JSON.stringify({ resource: "lesson_index", certification: "AIMS-F", language: "es-419", limit: 5 }),
+            signal: AbortSignal.timeout(45000),
+          });
+          return await res.json();
+        } catch { /* retry */ }
+      }
+      return null;
+    })();
+    const rows = r?.rows ?? [];
+    if (!rows.length) return { open: null, why: "lesson_index returned no rows -- cannot tell" };
+    const served = "body_available" in rows[0];
+    return {
+      open: !served,
+      why: served
+        ? "list_lessons returns body_available (check it reflects the REVIEW gate, not just mcp_servable)"
+        : "list_lessons does not return body_available at all; 167 lessons are withheld with nothing saying so",
+    };
   },
 
   "concepts have a translation table": async () => {

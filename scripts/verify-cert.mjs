@@ -2190,6 +2190,50 @@ async function verify(cert) {
           return Object.keys(by).sort().map((l) => by[l]).join(", ");
         };
 
+        /* THE PRACTICE FLOOR: the minimum live approved practice items on any
+         * EXAM-SCOPE task, in any language. Returns the minimum, so a claim of
+         * `10` means "at least ten everywhere".
+         *
+         * ============ WHY THIS REPLACED practice_per_language ============
+         *
+         * A per-language TOTAL changes when a learner presses a button. The
+         * weak-concepts route persists five items per click, so SM-AI-I's
+         * es-419 total went 520 -> 525 between two runs of the conformance gate
+         * and both readings were correct. A scheme document cannot carry a
+         * number the product moves; editing it to today's figure makes it stale
+         * on arrival.
+         *
+         * The FLOOR is what the platform actually maintains and what the scheme
+         * actually promises. It does not move when the pool grows.
+         *
+         * EXAM-SCOPE ONLY, and that scoping is load-bearing. SM-AI-I task 5.11
+         * is `5_evaluate`, which invariant 16 forces out of exam scope, and it
+         * correctly holds zero items. Counting it would report a floor of 0 on
+         * a certification that meets the floor everywhere it applies.
+         *
+         * ZERO IS COUNTED, NOT SKIPPED. The first measurement of this property
+         * iterated the items and skipped tasks with none, so a task with no
+         * bank at all read as absent rather than as below the floor -- and
+         * reported "0 pairs below 10" while three pairs held zero. Iterate the
+         * TASKS and look the count up; do not iterate the counts. */
+        const practiceFloorPerTask = () => {
+          const scoped = tasks.filter((t) => t.is_exam_scope);
+          if (!scoped.length) return "no exam-scope tasks";
+          const langs = [...new Set(questions.map((q) => q.language))].filter(Boolean).sort();
+          if (!langs.length) return "no languages";
+          const n = new Map();
+          for (const q of questions) {
+            if (q.pool !== "practice") continue;
+            const k = q.task_id + "|" + q.language;
+            n.set(k, (n.get(k) ?? 0) + 1);
+          }
+          let min = Infinity;
+          for (const t of scoped) {
+            for (const l of langs) min = Math.min(min, n.get(t.id + "|" + l) ?? 0);
+          }
+          return String(min);
+        };
+
         // COMPARE VALUES, NOT FORMATTING. `D1=40.0` and `D1=40` are the same
         // weight, and a checker that fails on the trailing zero is a checker
         // someone silences. Both sides go through one canonicaliser: a
@@ -2295,6 +2339,13 @@ async function verify(cert) {
         if ("practice_per_language" in claims)
           cmp("practice_per_language", "§8", "Scheme claim: practice items per language",
             () => poolPerLanguage("practice"));
+        /* The stable replacement for the above. A document should carry one or
+         * the other; carrying the total is not an error, it just cannot stay
+         * true, so both are accepted and only the floor is recommended. */
+        if ("practice_floor_per_task" in claims)
+          cmp("practice_floor_per_task", "§8",
+            "Scheme claim: practice floor per exam-scope task per language",
+            practiceFloorPerTask);
       }
     }
   }
