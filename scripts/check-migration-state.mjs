@@ -186,11 +186,23 @@ const FINGERPRINTS = {
      * review gate is in mcp.lesson and not in this column, so 167 lessons are
      * advertised available and refused. That is tracked as its own open item in
      * check-open-items.mjs, not smuggled in here as a migration probe. */
-    return {
-      ran: has,
-      why: has ? "lesson_index projects body_available across " + rows.length + " AIMS-F es-419 row(s)"
-               : "body_available absent from lesson_index",
-    };
+    /* UNKNOWN, NOT "NOT RUN". 333 made the views enforce `mcp_servable`, and
+     * that is not observable from outside today: every corpus passed the leak
+     * scan, so the predicate has nothing to exclude, and `body_available` --
+     * the column that would carry the answer -- is not projected by
+     * courseware-read at all (its own open item).
+     *
+     * Reporting NOT RUN would be a claim that 333 did not run, which is false.
+     * Silence about a thing is not a claim about it, and that distinction is
+     * the reason this file is trusted where the prose tip was not. */
+    if (!has) {
+      return {
+        ran: null,
+        why: "cannot be observed: nothing is currently non-servable, and courseware-read " +
+             "does not project body_available. Probeable once that field is served.",
+      };
+    }
+    return { ran: true, why: "lesson_index projects body_available across " + rows.length + " row(s)" };
   },
   334: async () => {
     /* ISMS-F and AIMS-F joined here. Both, not one: a widening that admitted
