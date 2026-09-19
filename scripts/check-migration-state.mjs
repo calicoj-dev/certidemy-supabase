@@ -444,6 +444,43 @@ const FINGERPRINTS = {
         : "repository internals in the blueprint of: " + bad.join(", "),
     };
   },
+  349: async () => {
+    /* READ AS anon OVER HTTP, which is the only thing this file can do that
+     * the migration could not: 349 asserts with `set local role anon`, and
+     * that proves the GRANT. This proves the SURFACE. A grant is not exposure
+     * and neither is its absence.
+     *
+     * BOTH DIRECTIONS. "notes is refused" alone passes on a revoke that took
+     * the whole table and emptied four pages. */
+    const { ANON, SUPABASE_URL } = await import("./lib/fn-auth.mjs");
+    const asAnon = async (path) => {
+      for (let i = 0; i < 6; i++) {
+        try {
+          const r = await fetch(SUPABASE_URL + "/rest/v1/" + path, {
+            headers: { apikey: ANON, Authorization: "Bearer " + ANON },
+            signal: AbortSignal.timeout(45000),
+          });
+          return { ok: r.ok, status: r.status, body: await r.text() };
+        } catch { /* retry */ }
+      }
+      return { ok: false, status: 0, body: "" };
+    };
+    const notes = await asAnon("tasks?select=notes&limit=1");
+    const keep = await asAnon("tasks?select=id,code,statement,knowledge,skills,abilities,bloom_level,criticality&limit=1");
+    const snap = await asAnon("jta_versions?select=blueprint_snapshot&limit=1");
+    const notesGone = !notes.ok;
+    const keepWorks = keep.ok && (JSON.parse(keep.body || "[]").length > 0);
+    const snapGone = !snap.ok;
+    const ok = notesGone && keepWorks && snapGone;
+    return {
+      ran: ok,
+      why: ok
+        ? "as anon over HTTP: notes refused, jta_versions refused, the blueprint columns still read"
+        : "notes refused=" + notesGone + " (HTTP " + notes.status + "), " +
+          "blueprint columns readable=" + keepWorks + " (HTTP " + keep.status + "), " +
+          "jta_versions refused=" + snapGone + " (HTTP " + snap.status + ")",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

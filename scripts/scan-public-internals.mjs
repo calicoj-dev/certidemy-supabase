@@ -103,6 +103,40 @@ for (const [label, re] of Object.entries(PATTERNS)) {
 }
 if (controlFailed) process.exit(1);
 
+/* Column-by-column, for a table whose star is refused. Discovers the column
+ * names from a service-free source -- PostgREST's own error text names the
+ * offending column, but only one at a time, so this asks for each candidate
+ * and keeps the ones that answer. The candidate list is the union of keys seen
+ * on any row anywhere, which is empty on the first table, so it falls back to
+ * asking PostgREST for the definition via a HEAD on a bogus column. Simpler and
+ * honest: try the columns the scan cares about. */
+async function fetchByColumn(table) {
+  const rows = [];
+  const readable = [];
+  const denied = [];
+  /* Candidates: every column name this scan has ever seen on this table, plus
+   * the ones known to carry prose. A column absent here is a column unscanned,
+   * so the caller is told which. */
+  const CANDIDATES = {
+    tasks: ["id", "code", "statement", "knowledge", "skills", "abilities",
+            "notes", "scope_tag", "criticality", "bloom_level"],
+  }[table] ?? [];
+  if (!CANDIDATES.length) return { denied: true, rows: [], note: "star refused and no per-column candidates known" };
+  for (const col of CANDIDATES) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${col}&limit=1000`, {
+        headers: { apikey: ANON, Authorization: "Bearer " + ANON },
+        signal: AbortSignal.timeout(45000),
+      });
+      if (!r.ok) { denied.push(col); continue; }
+      readable.push(col);
+      const page = await r.json();
+      page.forEach((v, i) => { rows[i] = { ...(rows[i] ?? {}), ...v }; });
+    } catch { denied.push(col); }
+  }
+  return { rows, readable, deniedCols: denied, partial: true };
+}
+
 async function fetchAll(table) {
   const rows = []; let from = 0, total = null;
   for (;;) {
@@ -114,7 +148,19 @@ async function fetchAll(table) {
                      Range: `${from}-${from + 499}`, Prefer: "count=exact" },
           signal: AbortSignal.timeout(45000),
         });
-        if (r.status === 401 || r.status === 403) return { denied: true, rows: [] };
+        /* 403 ON `select=*` IS NOT "anon cannot read this table".
+         *
+         * A COLUMN-scoped grant makes the star fail while every granted column
+         * still reads -- which is exactly what 349 does to `tasks`. Reporting
+         * that as denied would be an empty result read as an all-clear, on the
+         * one table the scan was widened to cover.
+         *
+         * So a refusal on `*` is retried per column, and the table is only
+         * DENIED if every column is. The columns that do read are scanned. */
+        if (r.status === 401 || r.status === 403) {
+          if (from === 0) return await fetchByColumn(table);
+          return { denied: true, rows: [] };
+        }
         if (!r.ok) { last = `HTTP ${r.status}`; continue; }
         total = Number(String(r.headers.get("content-range") || "").split("/")[1]);
         page = await r.json(); break;
@@ -141,7 +187,14 @@ let scanned = 0, reachable = 0;
 for (const table of SURFACES) {
   const res = await fetchAll(table);
   scanned++;
-  if (res.denied) { console.log(`  ${table.padEnd(24)} anon cannot read it (RLS or grant)`); continue; }
+  if (res.denied) {
+    console.log(`  ${table.padEnd(24)} anon cannot read it (RLS or grant)${res.note ? " -- " + res.note : ""}`);
+    continue;
+  }
+  if (res.partial) {
+    console.log(`  ${table.padEnd(24)} star refused; column-scoped grant. ` +
+      `anon reads [${res.readable.join(", ")}], refused [${res.deniedCols.join(", ") || "none"}]`);
+  }
   if (res.error) { console.log(`  ${table.padEnd(24)} READ FAILED: ${res.error}`); continue; }
   reachable++;
   let hits = 0;
