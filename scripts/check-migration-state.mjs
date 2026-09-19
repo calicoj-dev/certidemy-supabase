@@ -550,7 +550,16 @@ const FINGERPRINTS = {
     const l = await rest("lesson_translation_reviews?select=tr_hash,tr_hash_basis");
     const t = await rest("task_translation_reviews?select=tr_hash,tr_hash_basis");
     const i = await rest("item_translation_reviews?select=tr_hash,tr_hash_basis");
-    if (!l || !t || !i) return { ran: null, why: "could not read the review tables" };
+    if (!l || !t || !i) {
+      /* DISTINGUISH "the column is not there yet" from "the read failed". A
+       * PostgREST select naming an absent column 400s exactly like a broken
+       * read, and reporting UNKNOWN for a migration that simply has not run
+       * sends the reader to check credentials. */
+      const plain = await rest("lesson_translation_reviews?select=lesson_id&limit=1");
+      return plain
+        ? { ran: false, why: "tr_hash does not exist on the review tables -- 352 has not run" }
+        : { ran: null, why: "could not read the review tables at all" };
+    }
     const nulls = [...l, ...t, ...i].filter((r) => !r.tr_hash).length;
     const bases = [...new Set([...l, ...t, ...i].map((r) => r.tr_hash_basis))].filter(Boolean).sort();
     const total = l.length + t.length + i.length;
