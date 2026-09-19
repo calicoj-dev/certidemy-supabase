@@ -41,6 +41,19 @@
 -- longest_chars and the rest -- already carry the substance; this field only
 -- ever needed to say what population they were taken over.
 --
+-- ============ AND ITS OWN POST-CONDITION FOUND MORE ============
+--
+-- The first version rewrote `measurement_method` and aborted on its own check:
+-- `measured_over` carries "ISMS-IA secure/en, 304 items, bank_revision v3-l2",
+-- and `bank_revision` is an internal column name with a tag that means nothing
+-- to a reader outside this repository. Also 344's. Both are rewritten here.
+--
+-- A full scan then found this was the smaller half. scan-public-internals.mjs
+-- reads every table anon holds SELECT on, AS anon, and reports 106 genuine hits
+-- across THREE columns -- exam_blueprint (12, all mine), tasks.notes (36) and
+-- jta_versions.blueprint_snapshot (58). The other two are named in the
+-- post-conditions with their counts and with why neither is a text rewrite.
+--
 -- ASCII only. One statement. Run in the SQL editor.
 
 do $mig$
@@ -62,11 +75,23 @@ begin
   raise notice '% blueprint(s) name a repository path', n_before;
 
   -- ----------------------------------------------- the rewrite
+  -- TWO FIELDS, not one. The first version fixed `measurement_method` and its
+  -- own post-condition caught `measured_over` carrying `bank_revision v3-l2` --
+  -- an internal column name and a revision tag that mean nothing outside this
+  -- repository. Both were written by 344; narrowing the check to pass on the
+  -- field I already knew about would have been the same failure again.
   update public.certifications
      set exam_blueprint = jsonb_set(
-           exam_blueprint,
-           '{item_model,cue_tolerance,measurement_method}',
-           to_jsonb('Every secure item in this language, approved and not retired, measured with the same character-based cue guard the generator applies before an item is accepted.'::text)
+           jsonb_set(
+             exam_blueprint,
+             '{item_model,cue_tolerance,measurement_method}',
+             to_jsonb('Every secure item in this language, approved and not retired, measured with the same character-based cue guard the generator applies before an item is accepted.'::text)
+           ),
+           '{item_model,cue_tolerance,measured_over}',
+           to_jsonb(
+             (exam_blueprint #>> '{item_model,cue_tolerance,measured_items}') ||
+             ' secure items in English on this certification'
+           )
          )
    where exam_blueprint ? 'item_model';
 
@@ -115,6 +140,36 @@ begin
     raise exception '% blueprint(s) carry cognitive_profile and difficulty_mix, expected 12', n_keys;
   end if;
 
-  raise notice '348 ok: % blueprint(s) rewritten, no repository internals on a public column', n_before;
+  -- 5. THE SURFACES THIS DOES NOT FIX, NAMED WITH THEIR COUNTS.
+  --
+  -- `scripts/scan-public-internals.mjs` reads every table anon holds SELECT on,
+  -- AS anon, and found 106 genuine hits across THREE columns. This migration
+  -- fixes one. Reporting the other two here rather than leaving them to a note
+  -- is the whole lesson: a leak audit is as wide as its list, and a migration
+  -- that silently fixes its own column re-creates that.
+  --
+  -- NEITHER IS A TEXT REWRITE, which is why they are not in this statement:
+  --
+  --   tasks.notes -- 63 rows anon can read, 18 naming a migration ("Rebuilt by
+  --     migration 104 after the 6666 UUID collision"). The CONTENT is correct
+  --     and internal; the defect is that anon can read the column at all.
+  --     Nothing public reads it. The fix is a column-scoped grant, and
+  --     CLAUDE.md warns that a table-wide GRANT SELECT silently overrides a
+  --     column-level REVOKE -- so it needs its own migration naming every
+  --     column anon KEEPS.
+  --
+  --   jta_versions.blueprint_snapshot -- 52 migration numbers and 6 source
+  --     paths across 13 snapshots. A SNAPSHOT IS EVIDENCE: rewriting it
+  --     destroys the record of what the JTA was, which is the thing it exists
+  --     to preserve. Only the console reads it, authenticated. The fix is to
+  --     take anon off the table, not to edit history.
+  select count(*) into n_paths from public.tasks
+   where notes ~* 'migration [0-9]{2,3}';
+  raise notice 'NOT FIXED HERE: tasks.notes names a migration on % row(s) -- needs a column-scoped grant', n_paths;
+  select count(*) into n_paths from public.jta_versions
+   where blueprint_snapshot::text ~* '(migration [0-9]{2,3}|scripts/)';
+  raise notice 'NOT FIXED HERE: jta_versions.blueprint_snapshot on % row(s) -- a snapshot is evidence; revoke anon, do not edit', n_paths;
+
+  raise notice '348 ok: % blueprint(s) rewritten, exam_blueprint clean', n_before;
 end
 $mig$;

@@ -216,6 +216,28 @@ const ITEMS = {
     };
   },
 
+  "no repository internal is readable by anon": async () => {
+    /* DELEGATED to scripts/scan-public-internals.mjs, which derives its
+     * surfaces from anon's SELECT grants and reads AS anon. This probe asserts
+     * the SCANNER EXISTS and still narrows `is_exam_scope` out -- the public
+     * field name that produced 552 of its first run's 610 hits. A scanner that
+     * lost that narrowing would report a platform-wide leak and get ignored. */
+    const src = readFile(join(HERE, "scan-public-internals.mjs"));
+    if (src === null) return { open: null, why: "scan-public-internals.mjs not found" };
+    const narrowed = /is_exam_scope` WAS IN THIS LIST AND IS NOT INTERNAL/.test(src);
+    const derives = /has_table_privilege|anon holds SELECT|SURFACES/.test(src);
+    if (!narrowed || !derives) {
+      return { open: null, why: "the scanner lost its narrowing or its surface list -- run it directly" };
+    }
+    return {
+      open: true,
+      why: "106 genuine hits across 3 columns as of 2026-09-20: exam_blueprint 12 " +
+           "(348 fixes), tasks.notes 36 (needs a column-scoped grant), " +
+           "jta_versions.blueprint_snapshot 58 (a snapshot is evidence -- revoke anon, " +
+           "do not edit). Run scripts/scan-public-internals.mjs for the live figure.",
+    };
+  },
+
   "concepts have a translation table": async () => {
     const a = await exists("concept_translations");
     const b = await exists("concept_i18n");
