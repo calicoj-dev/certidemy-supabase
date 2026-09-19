@@ -238,6 +238,52 @@ const ITEMS = {
     };
   },
 
+  "contractVersion is read, not only echoed": async () => {
+    /* RECORDED, NOT ACTED ON, 2026-09-20. Seven tool descriptions say "omit
+     * contract_version to receive the latest shape, or PIN IT IF YOU PARSE THE
+     * RESPONSE PROGRAMMATICALLY. An unsupported version is refused, never
+     * substituted."
+     *
+     * HALF OF THAT IS KEPT AND HALF IS NOT, which is the useful distinction:
+     *
+     *   refused, never substituted   TRUE. readContractVersion rejects any
+     *                                value outside `supported`.
+     *   pin it and the shape holds   NOT TRUE. Nothing branches on the value.
+     *                                Every occurrence in registry.ts is
+     *                                `contractVersion: request.contractVersion`
+     *                                -- echoed back, never read.
+     *
+     * So pinning a SUPPORTED version buys nothing: today's additive field
+     * changed the shape for all three supported versions equally. An agent
+     * that followed the advice is no better protected than one that ignored it.
+     *
+     * NOT A DEFECT TONIGHT -- additive changes are what the versions have seen,
+     * and additive is the safe direction. It becomes one the first time a field
+     * is REMOVED or RETYPED, and at that moment seven descriptions will have
+     * been promising protection nobody built. */
+    const web = join(ROOT, "..", "certidemy-web", "lib", "mcp");
+    const contract = readFile(join(web, "courseware-contract.ts"));
+    const registry = readFile(join(web, "registry.ts"));
+    if (contract === null || registry === null) {
+      return { open: null, why: "certidemy-web/lib/mcp not found" };
+    }
+    const promises = (contract.match(/pin it if you parse the response programmatically/g) ?? []).length;
+    /* A BRANCH, not a mention. `contractVersion: request.contractVersion` is an
+     * echo; a comparison or a switch is a read. */
+    const branches = [...registry.matchAll(/contractVersion[^\n]*?(===|!==|switch|>=|<=|> |< )/g)].length +
+      [...contract.matchAll(/\bversion\s*(===|!==|>=|<=)\s*\d/g)].length;
+    if (promises === 0) {
+      return { open: null, why: "the pin sentence is gone from the descriptions -- re-read this entry" };
+    }
+    return {
+      open: branches === 0,
+      why: branches === 0
+        ? promises + " tool description(s) promise that pinning protects a parser, and nothing " +
+          "branches on the value -- the refusal half is real, the pinning half is not"
+        : branches + " branch(es) on contractVersion now exist",
+    };
+  },
+
   "concepts have a translation table": async () => {
     const a = await exists("concept_translations");
     const b = await exists("concept_i18n");
