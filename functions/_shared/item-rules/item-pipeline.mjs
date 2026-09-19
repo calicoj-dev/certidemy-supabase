@@ -41,7 +41,7 @@
  * Pure of secrets: callClaude is injected by the caller.
  */
 
-import { CUE_NEUTRALITY_RULES, auditItem, shuffleOptions } from "./item-cue-guard.mjs";
+import { cueNeutralityRules, auditItem, shuffleOptions } from "./item-cue-guard.mjs";
 
 // ---------------------------------------------------------------------------
 // ATTRIBUTION - for certs whose subject matter is a published standard or
@@ -400,7 +400,7 @@ The correct answer must
     options are reshuffled after writing, so letter references would be wrong.
   - ${bloomDirective(task, kind, difficultyLineFor(kind, certName, tier))}
   - ${groundingFor(certName, tier)}
-${CUE_NEUTRALITY_RULES}
+${cueNeutralityRules(tier)}
 ${l2 ? `\n${L2_CONTRACT}\n` : ""}
 Output strict JSON, top level an array, NO prose, NO markdown fences:
 [{"question_text":string,"question_type":"single_choice"|"true_false","options":[{"id":"a","text":string}],"correct_answer":[string],"explanation":string,"difficulty":1|2|3|4|5}]`;

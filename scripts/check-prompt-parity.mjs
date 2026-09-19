@@ -404,11 +404,17 @@ console.log("D. RUBRIC -- is what a partner receives the same rules the generato
   } else if (!assemble) {
     skip("rubric byte-parity with the generators", "no single rule source to compare against");
   } else {
-    const r = await post({ resource: "rubric", certification: "ISMS-F", task_code: "2.1", language: "en" },
+    /* BOTH TIERS. This tested ISMS-F alone -- tier 1 -- and on 2026-09-19 it
+     * PASSED against a stale deployment while stage C failed, because the
+     * change that day was tier-2 only. A parity check that exercises one tier
+     * cannot see a change to the other, and the rules branch on tier in a
+     * dozen places. ISMS-F is tier 1, SM-AI-II is tier 2. */
+    for (const [cert, task] of [["ISMS-F", "2.1"], ["SM-AI-II", "1.1"]]) {
+    const r = await post({ resource: "rubric", certification: cert, task_code: task, language: "en" },
       { "x-certidemy-key": RKEY });
     const d = (r && r.json) || {};
     const served = r.status === 200 && typeof d.rules === "string" && typeof d.task_block === "string";
-    record("the rubric resource serves with a scoped key", served,
+    record(`${cert}: the rubric resource serves with a scoped key`, served,
       "HTTP " + r.status + ": " + String(r.text).slice(0, 200));
 
     if (served) {
@@ -424,15 +430,15 @@ console.log("D. RUBRIC -- is what a partner receives the same rules the generato
         skills: t.skills, abilities: t.abilities,
       };
       const rules = draftSystem("practice", d.certification_name, mine, Number(d.tier ?? 1) || 1);
-      record("served `rules` are BYTE-IDENTICAL to the generators' draftSystem", rules === d.rules,
+      record(`${cert}: served \`rules\` are BYTE-IDENTICAL to the generators' draftSystem`, rules === d.rules,
         "served " + md5(d.rules) + " (" + d.rules.length + ") vs generated " +
         md5(rules) + " (" + rules.length + ")");
-      record("served `task_block` is BYTE-IDENTICAL to the generators' taskBlock",
+      record(`${cert}: served \`task_block\` is BYTE-IDENTICAL to the generators' taskBlock`,
         taskBlock(mine) === d.task_block,
         "served " + md5(d.task_block) + " vs generated " + md5(taskBlock(mine)));
-      record("the served rubric declares post_back false", d.post_back === false,
+      record(`${cert}: the served rubric declares post_back false`, d.post_back === false,
         "post_back is " + JSON.stringify(d.post_back) + " -- v1 has no post-back route");
-      record("the served rubric is the PRACTICE kind", d.kind === "practice",
+      record(`${cert}: the served rubric is the PRACTICE kind`, d.kind === "practice",
         "kind is " + JSON.stringify(d.kind));
 
       /* NO INTERNAL REFERENCE MAY REACH A PARTNER. The three migration numbers
@@ -440,11 +446,67 @@ console.log("D. RUBRIC -- is what a partner receives the same rules the generato
        * serve time; this asserts the source stayed clean. */
       const INTERNAL = /\bmigration\s+[0-9]{2,3}\b|\b(?:scripts|functions|migrations)\/[a-z0-9_\-\/]+\.(?:mjs|ts|sql)\b|CLAUDE\.md|verify-cert|bank_revision/gi;
       const leaked = (d.rules + " " + d.task_block).match(INTERNAL) ?? [];
-      record("no internal reference in the served payload", leaked.length === 0,
+      record(`${cert}: no internal reference in the served payload`, leaked.length === 0,
         "leaked: " + JSON.stringify([...new Set(leaked)]));
-      record("that leak check can fire", ("migration 289 in scripts/lib/x.mjs".match(INTERNAL) ?? []).length === 2,
+      record(`${cert}: that leak check can fire`, ("migration 289 in scripts/lib/x.mjs".match(INTERNAL) ?? []).length === 2,
         "the internal-reference pattern matches nothing, so the assertion above is vacuous");
     }
+    }
+  }
+}
+
+/* ===================================================================== E
+ * TIER LEAKAGE. A sentence that ASSERTS a tier and ships at BOTH tiers.
+ *
+ * Found by a human on 2026-09-19, reading a tier-2 rubric payload after a
+ * tier-1 one: CUE_NEUTRALITY_RULES ended "This is an entry ("I") tier exam:
+ * test knowledge plainly, do not set traps and do not reward test-wiseness",
+ * and shipped identically to SM-AI-II -- a few hundred words below "never
+ * acceptable at this tier" and a candidate profile of two to five years.
+ *
+ * The clause before it was worse: "not subtly-worse-but-defensible" is the
+ * exact inversion of L2_CONTRACT, which requires the second-best to be a
+ * defensible call rather than a mistake. The prompt contradicted itself.
+ *
+ * NOTHING IN THE SUITE MADE THIS COMPARISON. Every other check asks whether
+ * two IMPLEMENTATIONS agree. This asks whether one implementation says the
+ * same thing to two audiences -- and the tier ternaries in item-pipeline mean
+ * most of the file is already correct, which is exactly why the one
+ * unconditional string was invisible.
+ */
+console.log("");
+console.log("E. TIER LEAKAGE -- does a tier claim ship at both tiers?");
+if (!assemble) {
+  skip("tier leakage", "no single rule source to assemble from");
+} else {
+  const { draftSystem } = await import("../functions/_shared/item-rules/item-pipeline.mjs");
+  /* A sentence that makes a claim ABOUT A TIER. Not merely one containing the
+   * word: "at this tier" inside a tier-gated ternary is correct and common. */
+  const TIER_CLAIM = /\bentry\s*\(?["'\u201c\u201d]?\s*I\s*["'\u201c\u201d]?\)?\s*[- ]?tier\b|\bentry[- ]level\b|\bLevel I\b|\bLevel II\b|\btier [12]\b|\btest-wiseness\b|\bsubtly-worse-but-defensible\b/i;
+  const sentences = (t) => String(t).split(/(?<=[.!?])\s+|\n\s*[-*]\s+/).map((x) => x.replace(/\s+/g, " ").trim()).filter((x) => x.length > 25);
+
+  /* CONTROL: the pattern must fire on a known claim and not on ordinary prose. */
+  const canFire = TIER_CLAIM.test('This is an entry ("I") tier exam: test knowledge plainly.');
+  const wontOverfire = !TIER_CLAIM.test("Keep every option within roughly 25% character-length of the others.");
+  record("the tier-claim pattern fires, and not on ordinary prose", canFire && wontOverfire,
+    "fires=" + canFire + " overfires=" + !wontOverfire);
+
+  const leaks = new Map();
+  for (const { certName } of MATRIX) {
+    for (const kind of ["practice", "secure"]) {
+      const t1 = new Set(sentences(draftSystem(kind, certName, { code: "1.1", statement: "x", bloom_level: "3_apply" }, 1)));
+      const t2 = sentences(draftSystem(kind, certName, { code: "1.1", statement: "x", bloom_level: "3_apply" }, 2));
+      for (const sent of t2) {
+        if (t1.has(sent) && TIER_CLAIM.test(sent)) {
+          leaks.set(sent, (leaks.get(sent) ?? new Set()).add(certName + "/" + kind));
+        }
+      }
+    }
+  }
+  record("no sentence asserting a tier ships at BOTH tiers", leaks.size === 0,
+    leaks.size + " leaked sentence(s)");
+  for (const [sent, where] of leaks) {
+    console.log("        LEAK (" + where.size + " cert/kind): " + JSON.stringify(sent.slice(0, 150)));
   }
 }
 

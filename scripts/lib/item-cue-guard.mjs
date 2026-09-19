@@ -3,7 +3,7 @@
  *
  * ============ WHAT THIS FILE IS, AND WHAT IT DELIBERATELY IS NOT ============
  *
- * The guard itself -- CUE_CFG, CUE_NEUTRALITY_RULES, auditItem, shuffleOptions,
+ * The guard itself -- CUE_CFG, cueNeutralityRules, auditItem, shuffleOptions,
  * remapGroupOrder, keyIsStrictLongest, and the blueprint-resolved cueConfigFor --
  * lives in `functions/_shared/item-rules/item-cue-guard.mjs`, where the edge
  * runtime can read it. This file adds ONE thing: the `LEN_SPREAD_MAX` /
@@ -39,7 +39,7 @@ import {
 
 export {
   CUE_CFG,
-  CUE_NEUTRALITY_RULES,
+  cueNeutralityRules,
   auditItem,
   shuffleOptions,
   remapGroupOrder,

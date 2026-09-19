@@ -93,7 +93,37 @@ const LETTERS = ["a", "b", "c", "d", "e", "f", "g", "h"];
 // ---------------------------------------------------------------------------
 // Prompt fragment — injected identically into both generators' system prompts.
 // ---------------------------------------------------------------------------
-export const CUE_NEUTRALITY_RULES = `
+/**
+ * The cue-neutrality fragment, injected verbatim into both system prompts.
+ *
+ * ============ WHY THIS TAKES A TIER ============
+ *
+ * It did not, and the last bullet asserted one. Every certification received
+ * `This is an entry ("I") tier exam: test knowledge plainly, do not set traps`
+ * -- including SM-AI-II, where it sat a few hundred words below "never
+ * acceptable at this tier" and a candidate profile of two to five years.
+ *
+ * The clause before it was the sharper defect: "not
+ * subtly-worse-but-defensible" is the exact INVERSION of L2_CONTRACT, which
+ * requires the second-best option to be a defensible call rather than a
+ * mistake. The prompt told a tier-2 generator to do the one thing the tier-2
+ * contract forbids, in the same breath as the contract.
+ *
+ * FOUND BY A HUMAN READING A TIER-2 PAYLOAD AFTER A TIER-1 ONE, 2026-09-19 --
+ * a comparison nothing in the suite made. Every other check asks whether two
+ * implementations agree; this needed one implementation compared against
+ * itself at two tiers. scripts/check-prompt-parity.mjs stage E now makes it.
+ *
+ * EVERYTHING ELSE IN THE BLOCK HOLDS AT BOTH TIERS -- length parity, positional
+ * habit, rhetorical tell -- so this is one bullet, not a rewrite. Note that
+ * length parity and the Level II "the key MAY be longest" allowance are not in
+ * conflict: parity is about writing distractors as fully as the key, and the
+ * allowance is about not shortening a qualification to win a character count.
+ *
+ * @param {number} [tier=1] the certification's tier. Defaults to 1 so an
+ *   existing caller that has not been updated keeps its exact previous text.
+ */
+export const cueNeutralityRules = (tier = 1) => `
 ANSWER-CUE NEUTRALITY (critical — the answer must be findable ONLY by knowing the content):
   - LENGTH PARITY: All options must be close in length, and the correct answer
     must NOT be the single longest option. Concretely: make at least one
@@ -110,9 +140,15 @@ ANSWER-CUE NEUTRALITY (critical — the answer must be findable ONLY by knowing 
     specific, decisive choice and a distractor is the vague "it depends" hedge.
     Do not cluster absolute words (always, never, must, only, all, none) in the
     distractors as a giveaway.
-  - Distractors must be wrong ON THE MERITS to someone who knows the material —
+  - ${tier >= 2
+    ? `Distractors must be DEFENSIBLE, not wrong. See the Level II item contract:
+    every option is a position a competent practitioner could hold, and the best
+    one is better than the second-best for a statable reason. Do not set traps and
+    do not reward test-wiseness -- an item that turns on noticing a qualifier
+    rather than on weighing two real positions is a trick, not an analyze item.`
+    : `Distractors must be wrong ON THE MERITS to someone who knows the material —
     not subtly-worse-but-defensible. This is an entry ("I") tier exam: test
-    knowledge plainly, do not set traps and do not reward test-wiseness.
+    knowledge plainly, do not set traps and do not reward test-wiseness.`}
 `;
 
 // ---------------------------------------------------------------------------
