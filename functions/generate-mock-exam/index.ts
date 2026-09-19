@@ -249,7 +249,36 @@ serve(async (req) => {
       .eq("status", "approved")
       // Migration 089: retiring removes an item from circulation for future
       // forms. Its response history is preserved; it is never served again.
-      .is("retired_at", null);
+      .is("retired_at", null)
+      // ============ GENERATED ITEMS ARE PRACTICE, NOT A READINESS SIGNAL ====
+      //
+      // DECIDED 2026-09-19, closing CERTIDEMY-LEARNER-IA section 5.5.
+      //
+      // An AI-drafted item is acceptable for PRACTICE on architecture: it is
+      // written against the job-task analysis, to the tier's item contract and
+      // grounding, and through the cue guard. The ten written since the rule
+      // modules were consolidated score 0 percent cue-guard failure against an
+      // authored baseline of 9.5. That is good enough to help a learner
+      // practise.
+      //
+      // A SIMULATED CERTIFICATION EXAM IS A DIFFERENT CLAIM. score-mock-exam
+      // grades it against certifications.passing_score_pct -- the real
+      // threshold -- and a learner decides whether they are ready on the
+      // result. Under ISO/IEC 17024 "no human reviewed these items" is the
+      // question an auditor asks about anything carrying a readiness judgement.
+      // Architecture is enough for practice and is not enough for that.
+      //
+      // APPLIED TO BOTH MODES, not just the simulator. mode='exam' reads
+      // pool='secure' and every generated row is pool='practice', so this
+      // changes nothing there today -- which is exactly why it belongs on both:
+      // the predicate costs nothing and stops depending on a second column to
+      // stay true.
+      //
+      // MEASURED BEFORE SHIPPING: 0 domain/language pairs fall below their
+      // quota without generated items, 0 newly short, and 0 task/language pairs
+      // drop below the practice floor of 10. There are 10 live generated items
+      // against 15,220 live practice items.
+      .neq("item_origin", "generated");
 
     if (mode === "exam") {
       questionQuery = questionQuery.eq("is_exam_scope", true);

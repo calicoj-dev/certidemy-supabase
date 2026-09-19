@@ -653,6 +653,47 @@ a decision before the console UI ships: either surface "this will notify
 
 ---
 
+## Generated items: practice, not a readiness signal
+
+**DECIDED 2026-09-19. This closes CERTIDEMY-LEARNER-IA section 5.5.**
+
+> **Generated items are practice, reviewed by architecture. The examination
+> bank is authored and reviewed by people.**
+
+`generate-mock-exam` excludes `item_origin = 'generated'` on both modes. The
+position, because the reasoning is the durable part:
+
+**Practice is acceptable on architecture.** An AI-drafted item is written
+against the job-task analysis, to its tier's item contract and grounding, and
+through the cue guard. The ten written after the rule modules were consolidated
+score **0 percent cue-guard failure against an authored baseline of 9.5**, all
+grouped, no tier violations. That is good enough to help a learner practise.
+
+**A readiness judgement is a different claim.** The simulator is graded against
+`certifications.passing_score_pct` -- the real threshold -- and a learner
+decides whether to sit the exam on the result. Under ISO/IEC 17024 *"no human
+reviewed these items"* is the question an auditor asks about anything carrying
+that judgement. Architecture is enough for the first and not for the second.
+
+**Cost measured before shipping, not asserted after:** 0 domain/language pairs
+fall below their quota, 0 newly short, 0 task/language pairs below the practice
+floor of 10. Ten live generated items against 15,220 live practice items.
+
+**AND THERE IS A SECOND READINESS SIGNAL, WHICH THIS DOES NOT TOUCH.**
+`certidemy-web/lib/console/readiness.ts` computes per-learner exam readiness
+from `user_concept_mastery` -- updated by every practice and review answer --
+rolled concept to task to domain, weighted by `weight_pct`, and compared against
+the same `passing_score_pct`. **It is shown to a partner's team_admin on the
+roster**, who decides whether to buy someone an exam seat.
+
+So a generated item still influences a readiness number, through mastery rather
+than through a form, on a surface the learner does not see. That is a separate
+decision and is deliberately **not** taken here: excluding generated items from
+mastery would mean a learner practising on them gets no credit for it, which is
+a worse answer than the one it fixes. Recorded so the next person does not
+discover it as a surprise, and so "5.5 is closed" is not read as "nothing
+AI-written reaches a readiness number".
+
 ## The claims discipline
 
 Certidemy hosts credentials for partners. **The platform must never assert
