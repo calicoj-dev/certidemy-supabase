@@ -514,6 +514,35 @@ const FINGERPRINTS = {
           "alone before 350, which was true everywhere; check 350 ran",
     };
   },
+  351: async () => {
+    /* RAN asks whether the two rows were repaired. EFFECTIVE asks the question
+     * that actually matters -- whether the WRITER works now -- and those are
+     * different, because 351 is the cleanup and the deploy was the fix.
+     *
+     * The writer cannot be proved until someone sits an exam. Until then this
+     * says so rather than letting a green row imply it. An unrecorded row
+     * appearing later means score-mock-exam regressed or was rolled back, and
+     * that is the signal worth catching. */
+    const att = await rest("exam_attempts?select=id,submitted_at,jta_version_status,company_id_status");
+    const cred = await rest("credentials?select=credential_code,jta_version_status");
+    if (!att || !cred) return { ran: null, why: "could not read exam_attempts or credentials" };
+    const bad = att.filter((r) => r.jta_version_status === "unrecorded" || r.company_id_status === "unrecorded")
+      .map((r) => String(r.id).slice(0, 8))
+      .concat(cred.filter((r) => r.jta_version_status === "unrecorded").map((r) => r.credential_code));
+    const since = att.filter((r) => r.submitted_at >= "2026-09-20");
+    const sinceBad = since.filter((r) => r.jta_version_status === "unrecorded").length;
+    return {
+      ran: bad.length === 0,
+      why: bad.length === 0
+        ? att.length + " attempt(s) and " + cred.length + " credential(s), none unrecorded"
+        : "still unrecorded: " + bad.join(", "),
+      effective: since.length > 0 && sinceBad === 0,
+      effectiveWhy: since.length === 0
+        ? "no exam sat since the 2026-09-20 redeploy, so the WRITER is still unproven -- " +
+          "351 repaired the rows, the deploy is the fix, and nothing has exercised it yet"
+        : sinceBad + " of " + since.length + " attempt(s) since the redeploy are unrecorded",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
