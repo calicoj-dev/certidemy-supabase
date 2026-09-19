@@ -501,7 +501,12 @@ const FINGERPRINTS = {
       why: projected
         ? "lesson_index projects body_available; AIMS-F es-419 reports " + withheld +
           " of " + rows.length + " withheld"
-        : "body_available still not projected -- 350 ran but courseware-read was not deployed",
+        /* SAYS WHICH OF TWO THINGS IS UNKNOWN, rather than picking one. An
+         * absent column means 350 has not run, or it has and courseware-read
+         * was not deployed; this probe cannot see the view and must not claim
+         * to. */
+        : "body_available not projected -- either 350 has not run, or it has and " +
+          "courseware-read was not redeployed",
       effective: projected && spans,
       effectiveWhy: spans
         ? "both states present, so the field distinguishes rather than being constant"
