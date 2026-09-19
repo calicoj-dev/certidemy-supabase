@@ -191,6 +191,54 @@ is unmeasured.
 > attribution. It establishes nothing about paraphrase, about the other
 > languages, or about the rest of the family.
 
+### What buying the translations would and would not buy
+
+Recorded 2026-09-19 while scoping a trilingual index, so the purchase is made
+for the right reason or not at all.
+
+**A Spanish index catches copying from ISO's Spanish edition. It does not catch
+a Spanish rendering of ISO's English.** Those are different acts and only the
+first is visible to a contiguous-run detector. AENOR's translators and ours made
+independent word choices from the same source, so the runs do not line up and
+the corpus sees nothing.
+
+**The defect this project actually repaired would have scored zero against a
+purchased Spanish index.** The inserted-obligation family -- *periodicamente*
+added to a clause that imposes no review interval -- was produced by translating
+our own repaired English. There was no ISO Spanish text anywhere in its history
+for a corpus to match. It was caught by provenance and by a bilingual reader,
+and it always will be.
+
+**So the case for buying is forward-looking, and it is about client-authored
+content rather than our own translations.** If a partner authors a JTA, a lesson
+or an item directly in Spanish, the English index checks nothing they wrote --
+and a first-language author working from a first-language standard is exactly
+the person who might reproduce one. That gap is real and a Spanish corpus closes
+it. Our own es-419 and pt-BR rows, which are translations of English we control
+and have already scanned, are the case it does not close.
+
+**And an outdated translation is worse than none.** The held editions are
+19011:2026, 27001:2022 and 42001:2023. A national adoption of an earlier edition
+would index text the corpus does not cite -- producing runs against a document
+no lesson quotes while leaving the cited edition unmeasured. That is a green
+result from an instrument aimed at the wrong target.
+
+### Four certifications have no held source in any language
+
+Measured 2026-09-19. `PDFS` holds three ISO editions and nothing else, so
+SM-AI-I, SM-AI-II, SPO-AI-I and SD-AI-I -- 163 lesson groups, 489 rows across
+three languages -- are scanned against standards they do not teach. Their
+recorded runs (worst 5w) are incidental management vocabulary, not evidence of
+anything, and `mcp_servable` is true for all of them on that basis.
+
+The Scrum Guide 2020 is free and officially translated into both shipped
+languages, so this is the cheapest coverage available to this repository. It is
+also a DIFFERENT obligation: the Scrum Guide is CC BY-SA, not all-rights-
+reserved, so reproduction is permitted with attribution and the risk being
+measured is a share-alike obligation rather than infringement. Detection is
+still worth having; the verdict it feeds should not be assumed to be the same
+verdict.
+
 ---
 
 ## 6. The MCP boundary
