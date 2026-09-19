@@ -13,11 +13,12 @@
 --
 -- ============ HOW ONE ROW HID A DEAD WRITER ============
 --
---   attempts submitted before 2026-09-11   13    unrecorded: 0
---   attempts submitted since               1     unrecorded: 1
+--   attempts before 2026-09-11   13   stamped 11, not_applicable 2, unrecorded 0
+--   attempts since                1   unrecorded 1
 --
--- The thirteen read `stamped` because 296's BACKFILL stamped them, not because
--- any code set them. The single attempt since is the first evidence the writer
+-- The thirteen carry a status because 296's BACKFILL wrote one, not because any
+-- code set it -- eleven `stamped`, and two `not_applicable` for ZZ-TEST-I,
+-- which has no published JTA version. Both values are correct. The single attempt since is the first evidence the writer
 -- had ever produced, and it was wrong. 100 percent of post-296 attempts were
 -- defective and the sample size was one, which is why nine days passed.
 --
@@ -71,6 +72,19 @@
 -- the alternative is a permanently failing conformance check on a defect that
 -- is understood, which trains the next reader to ignore §12.
 --
+-- ============ AND ITS FIRST VERSION ABORTED ON A LITERAL ============
+--
+-- It asserted "13 pre-296 attempts read stamped" and failed against a correct
+-- database: 11 read stamped and 2 read not_applicable, the two being
+-- ZZ-TEST-I, which has no published JTA version -- so 296's backfill wrote
+-- exactly the right value. The 13 came from a query counting attempts BEFORE
+-- 296 and was asserted of a different population, those that READ STAMPED.
+--
+-- Every "did not touch" assertion here is now a BEFORE/AFTER CHECKSUM over the
+-- rows the migration is not authorised to change. No number, nothing to go
+-- stale, and stronger than a count -- a count passes on two rows swapping
+-- values.
+--
 -- ASCII only. One statement. Run in the SQL editor.
 
 do $mig$
@@ -84,6 +98,10 @@ declare
   n_cred_hit  int;
   v_jta       uuid;
   v_company   uuid;
+  rest_att_before   text;
+  rest_att_after    text;
+  rest_cred_before  text;
+  rest_cred_after   text;
 begin
 
   -- ----------------------------------------------- pre-conditions
@@ -138,6 +156,30 @@ begin
     raise exception 'the holder has % team_members row(s) -- not_applicable is no longer defensible', n_members;
   end if;
 
+  -- ----------------------------------------------- what must not move
+  -- A CHECKSUM OF EVERY OTHER ROW, not a count of one of its states.
+  --
+  -- The first version asserted "13 pre-296 attempts read stamped" and aborted
+  -- on a correct database: 11 read stamped and 2 read not_applicable, because
+  -- ZZ-TEST-I has no published JTA version and 296's backfill wrote the right
+  -- value for it. The 13 came from a query that counted attempts BEFORE 296,
+  -- and was then asserted of a different population -- attempts that READ
+  -- STAMPED. Third time this week a remembered count failed against reality
+  -- being right, and a failure like that cannot be told from a real one.
+  --
+  -- So: hash the state of every row this migration is not allowed to touch,
+  -- and require the hash to be identical afterwards. It carries no number, it
+  -- cannot go stale, and it is strictly stronger than any count -- a count
+  -- passes on two rows swapping values.
+  select md5(coalesce(string_agg(
+           id::text || ':' || jta_version_status || ':' || company_id_status, ',' order by id), ''))
+    into rest_att_before
+    from public.exam_attempts where id <> ATTEMPT;
+  select md5(coalesce(string_agg(
+           credential_code || ':' || jta_version_status, ',' order by credential_code), ''))
+    into rest_cred_before
+    from public.credentials where credential_code <> CRED;
+
   -- ----------------------------------------------- the repair
   update public.exam_attempts
      set jta_version_status = 'stamped',
@@ -177,13 +219,24 @@ begin
     raise exception '% attempt(s) and % credential(s) are still unrecorded', n_att_all, n_cred_all;
   end if;
 
-  -- 4. NEGATIVE. The thirteen backfilled rows are untouched. A repair keyed on
-  --    a status value rather than an id would have rewritten them all, and
-  --    every one would still have passed checks 2 and 3.
-  select count(*) into n_att_all
-    from public.exam_attempts where submitted_at < '2026-09-11' and jta_version_status = 'stamped';
-  if n_att_all <> 13 then
-    raise exception '% pre-296 attempt(s) read stamped, expected 13 -- this migration reached beyond its rows', n_att_all;
+  -- 4. NEGATIVE, AND IT IS THE ONE THE AUTHORISATION WAS ABOUT. Every row this
+  --    migration was not asked to touch is byte-identical. A repair keyed on a
+  --    status value rather than an id would have rewritten the backfilled rows
+  --    and still passed checks 2 and 3.
+  select md5(coalesce(string_agg(
+           id::text || ':' || jta_version_status || ':' || company_id_status, ',' order by id), ''))
+    into rest_att_after
+    from public.exam_attempts where id <> ATTEMPT;
+  select md5(coalesce(string_agg(
+           credential_code || ':' || jta_version_status, ',' order by credential_code), ''))
+    into rest_cred_after
+    from public.credentials where credential_code <> CRED;
+  if rest_att_before is distinct from rest_att_after then
+    raise exception 'an exam_attempt other than % changed', ATTEMPT
+      using detail = 'This migration is authorised for one attempt and one credential.';
+  end if;
+  if rest_cred_before is distinct from rest_cred_after then
+    raise exception 'a credential other than % changed', CRED;
   end if;
 
   -- 5. NEGATIVE. The credential itself is unchanged in every way that matters

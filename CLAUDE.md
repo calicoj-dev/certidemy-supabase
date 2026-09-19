@@ -903,6 +903,19 @@ query and asserting it of another is not a lapse of care. It is the default.**
 
 So the mechanical rule, which is the only part that transfers:
 
+> **AND AN ASSERTION ABOUT WHAT A MIGRATION DID *NOT* TOUCH IS ALWAYS A
+> BEFORE/AFTER COMPARISON, NEVER A LITERAL.** Three instances in one week --
+> 340's `n === 35`, 345's `expected 12637`, 351's `expected 13` -- and all
+> three aborted against a database that was RIGHT. That is the expensive part:
+> a literal that fails cannot be told from a real defect, so every one costs a
+> round trip of diagnosis before anyone discovers the assertion was the
+> problem.
+>
+> The strongest form is a CHECKSUM of the rows the migration is not authorised
+> to change, captured before and compared after. It carries no number, cannot
+> go stale, and is stronger than any count -- **a count passes on two rows
+> swapping values.** 351 hashes every `exam_attempt` except the one it repairs.
+
 > **AN ASSERTION ABOUT A COUNT MUST NOT CONTAIN A COUNT.** Capture it before
 > the change, compare after, and assert *unchanged*. A literal is a second copy
 > of a fact that lives in the database -- the same defect as the migration tip,
