@@ -543,6 +543,41 @@ const FINGERPRINTS = {
         : sinceBad + " of " + since.length + " attempt(s) since the redeploy are unrecorded",
     };
   },
+  352: async () => {
+    /* BOTH HALVES. "every review carries a tr_hash" passes on a migration that
+     * added the column and never wired the gate; "ISMS-F still serves 49/49"
+     * passes on one that wired nothing at all. The pair is the check. */
+    const l = await rest("lesson_translation_reviews?select=tr_hash,tr_hash_basis");
+    const t = await rest("task_translation_reviews?select=tr_hash,tr_hash_basis");
+    const i = await rest("item_translation_reviews?select=tr_hash,tr_hash_basis");
+    if (!l || !t || !i) return { ran: null, why: "could not read the review tables" };
+    const nulls = [...l, ...t, ...i].filter((r) => !r.tr_hash).length;
+    const bases = [...new Set([...l, ...t, ...i].map((r) => r.tr_hash_basis))].filter(Boolean).sort();
+    const total = l.length + t.length + i.length;
+    if (nulls > 0) {
+      return { ran: false, why: nulls + " of " + total + " review(s) have no tr_hash" };
+    }
+    /* The gate half, over the endpoint: ISMS-F's translated bodies stay
+     * served, and AIMS-F's stay withheld. If the backfilled hash did not match
+     * the stored translation, ISMS-F would have gone dark. */
+    const ok = await fn({ resource: "lesson_index", certification: "ISMS-F", language: "es-419", limit: 200 });
+    const dark = await fn({ resource: "lesson_index", certification: "AIMS-F", language: "es-419", limit: 200 });
+    const okRows = ok.json?.rows ?? [], darkRows = dark.json?.rows ?? [];
+    const okAvail = okRows.filter((x) => x.body_available).length;
+    const darkAvail = darkRows.filter((x) => x.body_available).length;
+    const gateHolds = okAvail === okRows.length && okRows.length > 0 &&
+      darkAvail > 0 && darkAvail < darkRows.length;
+    return {
+      ran: true,
+      why: total + " review(s) carry tr_hash; bases " + JSON.stringify(bases),
+      effective: gateHolds,
+      effectiveWhy: gateHolds
+        ? "ISMS-F " + okAvail + "/" + okRows.length + " still available, AIMS-F " +
+          darkAvail + "/" + darkRows.length + " -- the backfill matched and the gate still withholds"
+        : "ISMS-F " + okAvail + "/" + okRows.length + ", AIMS-F " + darkAvail + "/" + darkRows.length +
+          " -- a backfilled hash that does not match would show as ISMS-F going dark",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
