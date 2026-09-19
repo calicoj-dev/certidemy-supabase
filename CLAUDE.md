@@ -687,12 +687,30 @@ the same `passing_score_pct`. **It is shown to a partner's team_admin on the
 roster**, who decides whether to buy someone an exam seat.
 
 So a generated item still influences a readiness number, through mastery rather
-than through a form, on a surface the learner does not see. That is a separate
-decision and is deliberately **not** taken here: excluding generated items from
-mastery would mean a learner practising on them gets no credit for it, which is
-a worse answer than the one it fixes. Recorded so the next person does not
-discover it as a surprise, and so "5.5 is closed" is not read as "nothing
-AI-written reaches a readiness number".
+than through a form, on a surface the learner does not see. **That is correct
+and stays**, and the reason is the distinction worth carrying:
+
+> **The simulator is a PROXY for the examination and is read as one, so the
+> items in it carry the exam's claim. Readiness is a learning-progress signal
+> compared against a threshold, and practice is what it is supposed to
+> measure.**
+
+Different claims. Only the first needed the predicate. Excluding generated items
+from mastery would also mean a learner who practises on them earns no credit for
+it, which is a worse answer than the one it fixes.
+
+**The test for the next surface that shows a number against
+`passing_score_pct`**: does it stand in for the examination, or does it report
+what the learner has done? A proxy inherits the exam's evidentiary bar; a
+progress signal does not. Recorded so "5.5 is closed" is never read as "nothing
+AI-written reaches a readiness number" -- it does, by design, and the design has
+a reason.
+
+**AND THE PREDICATE IS ON BOTH MODES FOR THE SAME KIND OF REASON.**
+`mode='exam'` reads `pool='secure'`, where no generated row exists, so the
+exclusion changes nothing there today. It is there because **a guarantee that
+depends on a second column staying true is not a guarantee** -- the same
+argument as naming every writer of a table rather than backfilling its rows.
 
 ## The claims discipline
 
