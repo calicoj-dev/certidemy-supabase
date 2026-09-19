@@ -210,6 +210,43 @@ const partnerAuth = read(WEB, "lib/mcp/partner-auth.ts");
    * rather than from pg_catalog. */
 }
 
+// 0b. THE TOOL NAMES -- instance 5, and this is the vocabulary that decides
+// whether a tool WORKS AT ALL.
+//
+// `TOOLS` in courseware-query.ts is a closed vocabulary for the `tool` field,
+// and the Worker names its tools in courseware-contract.ts as `*_NAME`
+// constants. Neither can import the other. Nothing compared them.
+//
+// It went wrong on 2026-09-19, the day the rubric shipped: RESOURCES, ALLOWED,
+// SCOPE_FOR_RESOURCE and the handler all gained `rubric`, TOOLS did not, and
+// the Worker sent `tool: "get_rubric"`. Every keyed call answered
+// `400 tool must be one of` -- the resource was live, correct and unreachable.
+//
+// WORSE THAN A SILENT MISMATCH, because the refusal names the wrong thing. A
+// partner reads "tool must be one of" and concludes the tool does not exist;
+// the truth is that it exists, is deployed, and one allowlist in the other
+// repository had not heard of it.
+//
+// DIRECTIONS. Worker -> function is the HAZARD: a tool the Worker sends and the
+// function refuses is a dead tool. function -> Worker is the LAG: an accepted
+// tool nobody calls yet, which is how every tool begins.
+{
+  const contract = read(WEB, "lib/mcp/courseware-contract.ts");
+  const qsrc = read(SUPA, "functions/_shared/courseware-query.ts");
+
+  /* Anchored on the DECLARATION. Both files mention tool names in prose -- this
+   * one does, three paragraphs up -- so a bare scan for get_[a-z]+ would
+   * harvest comments and compare noise. */
+  const workerTools = [...contract.matchAll(/export const [A-Z_]*NAME = "([a-z_]+)"/g)].map((m) => m[1]);
+  const fnTools = [...(qsrc.match(/export const TOOLS = \[([\s\S]*?)\] as const;/) ?? [])[1]
+    ?.matchAll(/"([a-z_]+)"/g) ?? []].map((m) => m[1]);
+
+  compare("TOOLS (worker -> function)", "web/courseware-contract", workerTools,
+    "courseware-query TOOLS", fnTools);
+  compare("TOOLS (function -> worker, lag)", "courseware-query TOOLS", fnTools,
+    "web/courseware-contract", workerTools);
+}
+
 // 1. AUTH LABELS -- instance 3.
 // The Worker's emitted set is the union's `kind` values PLUS the `??` fallback
 // in authKindLabel, which is the member that was missed. Extracted separately

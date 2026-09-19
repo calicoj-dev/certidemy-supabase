@@ -200,6 +200,13 @@ export const TOOLS = [
   // a tool that does not exist -- the telemetry table's whole purpose is to say
   // WHICH tool a partner reached for and was turned away from.
   "get_lesson", "list_lessons",
+  // Added with the rubric resource, 2026-09-19, AND IT WAS MISSED WHEN THAT
+  // RESOURCE SHIPPED. RESOURCES, ALLOWED, SCOPE_FOR_RESOURCE and the handler
+  // all gained `rubric`; this list did not, so every keyed call 400'd with
+  // "tool must be one of" -- the resource worked and the tool could not reach
+  // it. TOOLS is a mirrored pair with the Worker's registry across a repository
+  // boundary, and nothing compared them until this.
+  "get_rubric",
 ] as const;
 export const LOG_EVENTS = ["certification_refused", "auth_refused"] as const;
 

@@ -625,6 +625,14 @@ verify_jwt = true
 # Revokes an API key. platform_admin or the owning company's team_admin.
 [functions.revoke-issuer-api-key]
 verify_jwt = true
+
+# Console-only: changes the scopes on an existing key, which can add
+# credentials:issue. Pinned true because the default is true and a pin is the
+# only thing that survives a redeploy -- the recurring defect this file
+# records is a --no-verify-jwt flag lost on a plain deploy, and the inverse is
+# just as available: an unpinned privilege endpoint is one command from public.
+[functions.update-issuer-key-scopes]
+verify_jwt = true
 # Edits, archives or deletes a partner achievement.
 [functions.update-partner-achievement]
 verify_jwt = true
