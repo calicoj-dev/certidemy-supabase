@@ -481,6 +481,34 @@ const FINGERPRINTS = {
           "jta_versions refused=" + snapGone + " (HTTP " + snap.status + ")",
     };
   },
+  350: async () => {
+    /* THE FIELD IS CHECKABLE AGAINST ONE THING: the query it describes.
+     * Over HTTP that means comparing the catalogue's claim against what
+     * get_lesson does -- which needs a courseware:lessons key. Without one,
+     * this probes the half it can and SAYS the other half is untested rather
+     * than implying the field is correct.
+     *
+     * The equality itself is asserted inside 350, as mcp_holder, over every
+     * row. This is the surface check, not a second copy of that. */
+    const r = await fn({ resource: "lesson_index", certification: "AIMS-F", language: "es-419", limit: 200 });
+    const rows = r.json?.rows ?? [];
+    if (!rows.length) return { ran: null, why: "lesson_index returned no rows" };
+    const projected = "body_available" in rows[0];
+    const withheld = rows.filter((x) => x.body_available === false).length;
+    const spans = withheld > 0 && withheld < rows.length;
+    return {
+      ran: projected,
+      why: projected
+        ? "lesson_index projects body_available; AIMS-F es-419 reports " + withheld +
+          " of " + rows.length + " withheld"
+        : "body_available still not projected -- 350 ran but courseware-read was not deployed",
+      effective: projected && spans,
+      effectiveWhy: spans
+        ? "both states present, so the field distinguishes rather than being constant"
+        : "body_available is constant across " + rows.length + " row(s) -- it was mcp_servable " +
+          "alone before 350, which was true everywhere; check 350 ran",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

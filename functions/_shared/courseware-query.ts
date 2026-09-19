@@ -542,6 +542,20 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
             // translation where one is approved, and this says when it is not.
             "select module_slug, module_title, module_title_is_fallback, module_order, " +
             "lesson_slug, lesson_title, " +
+            // body_available: THE COLUMN EXISTED AND WAS NEVER PROJECTED.
+            //
+            // mcp.lesson_index has carried it since 333, its own comment calls
+            // it the thing that lets a caller tell a withheld lesson from an
+            // absent one, and this select omitted it -- so the distinction it
+            // exists for has never reached anyone. Found 2026-09-20 while
+            // writing a fingerprint for 333.
+            //
+            // 350 MUST RUN FIRST, and not only for the column. Until 350 the
+            // value was `mcp_servable` alone while mcp.lesson also applies the
+            // review gate, so projecting it earlier would have advertised 167
+            // lessons that get_lesson refuses -- worse than omitting it. 350
+            // makes both views call one predicate.
+            "body_available, " +
             "language, lesson_group_id, lesson_order, estimated_minutes " +
             "from mcp.lesson_index " +
             "where certification = $1 and language = $2 " +
