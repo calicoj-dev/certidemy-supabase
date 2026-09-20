@@ -978,10 +978,12 @@ The individual scripts:
   5 warn from the root, and neither run said which had checked less.
 
   As of **2026-09-19**, `--all` reports 56-59 checks per certification (the count
-  varies; some skip) and ends with `2 cert(s) with FAILURES`:
+  varies; some skip) and ends with `1 cert(s) with FAILURES` -- ZZ-TEST-I, the test
+  certification. **Every real certification passes.** These thirteen rows were
+  pasted from one run's output, not transcribed:
 
   ```
-  FAIL  AIE-I      55 pass, 1 fail, 3 warn
+  WARN  AIE-I      56 pass, 0 fail, 3 warn
   WARN  AIGRM-I    57 pass, 0 fail, 3 warn
   WARN  AIHR-I     56 pass, 0 fail, 2 warn
   WARN  AIMS-F     57 pass, 0 fail, 3 warn
@@ -996,25 +998,25 @@ The individual scripts:
   FAIL  ZZ-TEST-I  28 pass, 12 fail, 1 warn
   ```
 
-  **THREE CERTIFICATIONS WITH FAILURES BECAME TWO, AND ONE OF THE THREE MOVEMENTS
-  IS A NEW CHECK RATHER THAN A FIX.** Measured in one `--all` run on 2026-09-19,
-  not transcribed row by row:
+  **THREE CERTIFICATIONS WITH FAILURES BECAME ONE, AND THAT ONE IS THE TEST
+  CERTIFICATION.** Three movements got there and only one was a fix to content:
 
   - **+1 on every certification with lessons** is `lessons.scanned` (§11), added
     2026-09-19. ZZ-TEST-I is unchanged at 28 because it has no lessons and the
-    check SKIPs, which is the evidence that nothing else moved.
-  - **AIE-I lost a failure and gained two more passes** (52/2 -> 55/1). The 120
-    ungrouped items are gone: they were written by `generate-practice-questions`
-    and were retired, which also cleared the §8 group check.
-  - **SM-AI-I lost its only failure** (57/1 -> 59/0) for the same reason. Its 20
-    ungrouped items were from the same writer.
+    check SKIPs -- a uniform delta with one principled exception is the evidence
+    that nothing else moved.
+  - **AIE-I and SM-AI-I lost their ungrouped-items failures.** The rows were
+    written by `generate-practice-questions` and were retired, which cleared the
+    §8 group check on both.
+  - **AIE-I's validity claim closed.** `SCHEME-AIE-I.md` now declares 365,
+    matching the column and matching every credential ever issued under it.
 
-  The remaining failures, and neither is new work waiting to be found:
+  The only remaining failure is ZZ-TEST-I, a test certification expected to fail.
 
-  | cert | failure | state |
-  |---|---|---|
-  | AIE-I | scheme claim: validity 730 vs 365 in the database | **deliberate.** `SCHEME-AIE-I.md` explains why neither side was changed: editing the document retracts a published two-year promise to five holders, setting the column changes what the credential means. It fails on every run until someone decides, which is the correct behaviour for an open question |
-  | ZZ-TEST-I | 12 failures | a test certification, expected to fail |
+  **"EVERY REAL CERTIFICATION PASSES" IS NOT "EVERY REAL CERTIFICATION IS CLEAN."**
+  All twelve still WARN, so green is not the bar -- compare against the table and
+  investigate anything that moved. AIMS-IA carries five warnings and the lowest
+  pass count on the platform; SM-AI-I carries six.
 
   **The ungrouped-items entry below is kept as the record of a live writer defect
   that was found, measured and closed** -- it is no longer a description of the
@@ -1487,6 +1489,63 @@ test is whether a reader could act on the sentence today and be wrong:
   present-tense description of behaviour that names the exact SQL. **Marker.**
 - *"`supports_deep_linking` now reads `true, 4`"* was true when written and
   reads as history. **No marker** — dating it is what it already does.
+
+**AND A STALE CLAIM AND A CLAIM THAT WAS NEVER TRUE ARE DIFFERENT DEFECTS WITH
+DIFFERENT ANSWERS.** Everything above is about DECAY — a sentence true when
+written that rotted. The whole of this file's machinery is aimed at decay:
+probes instead of notes, before/after instead of literals, derive instead of
+copy. None of it touches the other one.
+
+Both appeared in a single sentence on 2026-09-19, in `SCHEME-AIE-I.md`, in a
+note arguing against an edit:
+
+> *"Editing this section to say one year would silently retract a published
+> two-year promise to five holders."*
+
+**"five holders" ROTTED.** True on 2026-09-08 when it was written; a sixth
+credential was issued on 2026-09-19 and nobody went back. Ordinary decay, and
+the mechanisms above are the answer.
+
+**"a published two-year promise" WAS NEVER TRUE.** `SCHEME-AIE-I.md` has never
+been served by anything: no route in `certidemy-web` reads any `SCHEME-*.md`,
+the public certification page passes `validityDays={null}` and renders no
+validity at all, and the string "2 years" appears nowhere in that repository.
+The sentence was wrong the moment it was typed.
+
+**THE SECOND IS WORSE AND IT IS WORSE FOR A STRUCTURAL REASON: IT HAS NO
+BEFORE.** A stale claim can be dated — you can point at when it turned, and a
+re-read that asks "is this still true" will eventually catch it. A claim that
+was false on arrival was never fresh, so nothing about it ever looks stale. It
+survives every re-read, because re-reading checks currency and currency was
+never the problem.
+
+**Where it came from is the part to generalise.** `SCHEME-AIE-I.md`'s own
+About section opens *"This is the certification scheme: the published contract
+describing what the credential certifies."* The document asserted its own
+distribution status, and the note inherited the word "published" from it
+instead of asking what serves the file. Nothing does.
+
+> **A CLAIM ABOUT WHAT A SYSTEM DOES — SERVES, PUBLISHES, SENDS, DISPLAYS,
+> REFUSES — MUST NAME THE PATH THAT CARRIES IT.** If you cannot name the route,
+> the endpoint, the file or the grep, you have a belief. "Published" is not a
+> property a document can have by describing itself; it is a property of
+> something serving it, and that something is either in the repository or it is
+> not.
+
+**AND A COMPOUND CLAIM INHERITS THE CREDIBILITY OF ITS MOST-VERIFIED PART.**
+That sentence had one measured half and one assumed half welded together. The
+measured half is genuinely impressive — it names a count, a date range and the
+mechanism by which expiry is stamped at issue — and it made the assumed half
+read as though it had been measured too. **Splitting a sentence into what was
+checked and what was assumed is worth doing at the moment of writing**, because
+afterwards the two are indistinguishable.
+
+The cost was real. The note argued against the edit that turned out to be
+correct, the argument rested entirely on the false half, and it came within one
+measurement of deciding the question. What caught it was asking the database
+what the six credentials actually say, which is the move this whole file is
+about — and which nobody had applied to the sentence because it did not look
+like the kind of sentence that needed it.
 
 **A HEADING IS A CLAIM TOO, and it is the highest-traffic place a stale one can
 sit.** Marking a body under a stale heading leaves the most-read part wrong: a

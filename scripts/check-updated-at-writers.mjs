@@ -432,10 +432,16 @@ console.log("");
 
 for (const r of report) {
   if (r.state === "no-writers" && !VERBOSE) continue;
-  const tag = r.state === "MIXED" ? "FAIL " : r.state === "all-set" ? "ok   " : "info ";
+  /* A MIXED table that is trigger-maintained is cosmetic, not a failure, and
+   * must not print FAIL above a summary saying nothing disagrees -- a reader
+   * scanning tags would see a failure the verdict then denies, which is how a
+   * gate trains people to ignore it. */
+  const cosmeticHere = r.state === "MIXED" && TRIG && TRIG.has(r.table);
+  const tag = r.state === "MIXED" ? (cosmeticHere ? "cosm " : "FAIL ")
+            : r.state === "all-set" ? "ok   " : "info ";
   console.log("  " + tag + r.table.padEnd(30) +
     r.sets.length + " set, " + r.omits.length + " omit, " + r.unresolved.length + " unresolved");
-  if (r.state === "MIXED" || VERBOSE) {
+  if ((r.state === "MIXED" && !cosmeticHere) || VERBOSE) {
     for (const s of r.omits) console.log("         OMITS  " + s.where + "  ." + s.method + "()");
     for (const s of r.sets) if (VERBOSE) console.log("         sets   " + s.where);
   }
