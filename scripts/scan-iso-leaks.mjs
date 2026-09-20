@@ -48,7 +48,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
-import { PDFS, sourcesAvailable } from "./lib/citation-index.mjs";
+import { PDFS, sourcesAvailable, pdftotextAvailable } from "./lib/citation-index.mjs";
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
 for (const a of process.argv.slice(2)) {
@@ -124,6 +124,24 @@ function pdfText(p) {
 }
 
 /* ------------------------------------------------------------- the index */
+
+/* PDFTOTEXT IS A HARD DEPENDENCY AND IS CHECKED FIRST, because it is the one
+ * that makes this script unrunnable on a fresh checkout -- and this script is
+ * the remedy for a lesson the edit trigger withheld. Without the check it dies
+ * inside pdfText() with a spawn error naming no remedy, which is how a re-scan
+ * comes to be "something nobody got round to". */
+if (!pdftotextAvailable()) {
+  console.error("");
+  console.error("pdftotext IS NOT ON PATH. Refusing to scan.");
+  console.error("");
+  console.error("  It ships with poppler-utils and is NOT installed by npm:");
+  console.error("    Windows   choco install poppler   (or scoop install poppler)");
+  console.error("    macOS     brew install poppler");
+  console.error("    Debian    apt-get install poppler-utils");
+  console.error("");
+  console.error("Every lesson body's leak verdict comes from text this binary extracts.");
+  process.exit(2);
+}
 
 if (!sourcesAvailable()) {
   console.error("");

@@ -49,6 +49,33 @@ export const PDFS = {
  * unavailable on a machine where they were all present. A missing pdftotext
  * surfaces as a throw from buildIndex(), which callers already handle.
  */
+/**
+ * Is the `pdftotext` binary callable at all?
+ *
+ * NOT `exit code === 0`. The mingw build exits 99 on `-v`, and an earlier
+ * version of this file recorded that an exit-code probe "reported the sources
+ * unavailable on a machine where they were all present" -- which is why the
+ * check below was skipped entirely for months.
+ *
+ * The distinction that actually holds is ENOENT (the binary is not on PATH)
+ * against ANY exit code (it ran). execFileSync throws in both cases; only the
+ * first sets `code === 'ENOENT'`.
+ *
+ * WHY THIS IS DECLARED RATHER THAN LEFT TO THROW. An undeclared dependency is
+ * why a re-scan does not happen: scan-iso-leaks is the remedy for a lesson
+ * withheld by an edit, and on a fresh checkout it dies inside pdfText with a
+ * spawn error that names no remedy. Bought 2026-09-19, after a body sat
+ * withheld for two days.
+ */
+export function pdftotextAvailable() {
+  try {
+    execFileSync("pdftotext", ["-v"], { stdio: "ignore" });
+    return true;
+  } catch (e) {
+    return e && e.code === "ENOENT" ? false : true;
+  }
+}
+
 export function sourcesAvailable() {
   return Object.values(PDFS).every((p) => existsSync(p));
 }

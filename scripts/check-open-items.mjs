@@ -164,6 +164,52 @@ const ITEMS = {
     };
   },
 
+  "every lesson body has been measured by the leak scan": async () => {
+    /* NULL AND FALSE ARE DIFFERENT FACTS AND NOTHING TOLD THEM APART.
+     *
+     * NOT the column you would reach for. `mcp_servable` is NOT NULL DEFAULT
+     * false, so it can never be null -- a probe counting `mcp_servable IS NULL`
+     * returns 0 forever and is a check that cannot fire. `mcp_scanned_at` is
+     * the one that carries the distinction:
+     *
+     *   scanned_at NULL              NEVER MEASURED, or measured and then
+     *                                INVALIDATED by an edit. servable is false
+     *                                because trg_lessons_clear_mcp_servable set
+     *                                it false, not because anything read the text.
+     *   scanned_at set, not servable MEASURED AND REFUSED. A real leak, and the
+     *                                scanner working.
+     *
+     * Only the first is an open item. The second is reported beside it so a
+     * reader cannot mistake one for the other, which is the whole point.
+     *
+     * BOUGHT 2026-09-19. A passive-to-active voice edit on
+     * 02-03-amendment-1-2024 pt-BR fired the trigger, which nulls the scan
+     * fields on any content_md change. That body was withheld from the MCP
+     * surface for two days. The fix was one command. Nothing anywhere reported
+     * it; it surfaced only because migration 352 asserted an unrelated literal
+     * and was wrong for an unrelated reason. */
+    const rows = await all("lessons?select=id,slug,language,mcp_servable,mcp_scanned_at");
+    /* CONTROL. An empty read reports "0 unscanned", which is indistinguishable
+     * from a pass. all() throws on a short read and PostgREST 400s on a column
+     * that does not exist, so the remaining hole is an empty table -- named
+     * here rather than left to produce a green. */
+    if (!rows.length) return { open: null, why: "read 0 lesson rows -- the probe cannot see the table" };
+    const unscanned = rows.filter((r) => r.mcp_scanned_at === null);
+    const refused = rows.filter((r) => r.mcp_scanned_at !== null && r.mcp_servable === false);
+    const tally =
+      unscanned.length + " unscanned, " + refused.length + " measured and refused, of " +
+      rows.length + " row(s)";
+    if (!unscanned.length) return { open: false, why: tally };
+    const named = unscanned.slice(0, 5).map((r) => r.slug + "/" + r.language).join(", ");
+    return {
+      open: true,
+      why: tally + " -- UNSCANNED: " + named +
+        (unscanned.length > 5 ? " +" + (unscanned.length - 5) + " more" : "") +
+        ". These are withheld and were never read. Re-run scripts/scan-iso-leaks.mjs" +
+        " (requires pdftotext on PATH and the ISO PDFs on disk).",
+    };
+  },
+
   "clausula terminology sweep": async () => {
     const LETTER = "0-9A-Za-z_À-ɏ";
     const numbered = new RegExp("(?<![" + LETTER + "])cláusulas?\\s+\\*{0,2}[0-9]+(?:\\.[0-9]+)*", "gi");
