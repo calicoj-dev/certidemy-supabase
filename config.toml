@@ -777,6 +777,14 @@ verify_jwt = true
 [functions.get-user-cert-overview]
 verify_jwt = true
 
+# Pinned 2026-09-20 while redeploying the badges.ts consumers. It was the only
+# one in that set with no block, so its auth state rested on the deploy default
+# happening to match its intent. Probed as a stranger before pinning:
+# unauthenticated POST answered 401, so true is what is live and this records
+# rather than changes it.
+[functions.regenerate-certificate]
+verify_jwt = true
+
 # Public Edge Function -- the read side of the courseware MCP pilot
 # (migrations 315 and 316, MCP-COURSEWARE.md).
 #
