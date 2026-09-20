@@ -263,7 +263,7 @@ async function verify(cert) {
 
   let lessons = [];
   if (modIds.length) {
-    const { data } = await must("lessons", db.from("lessons").select("id, module_id, language, slug, lesson_group_id, content_md").in("module_id", modIds));
+    const { data } = await must("lessons", db.from("lessons").select("id, module_id, language, slug, lesson_group_id, content_md, mcp_servable, mcp_scanned_at").in("module_id", modIds));
     lessons = data ?? [];
   }
 
@@ -799,6 +799,51 @@ async function verify(cert) {
     R.warn("trilingual.lessons", "§11", "Every lesson group holds 3 language rows",
       `${badL.length} groups not fully localized - a WARN only because this certification is '${cert.status ?? "draft"}'; it becomes a FAIL at 'available'`,
       badL.slice(0, 5).map(([g, n]) => `${g}=${n}`));
+
+  // === LEAK SCAN FRESHNESS =================================================
+  //
+  // UNSCANNED IS NOT REFUSED, and nothing told them apart until 2026-09-19.
+  //
+  // `trg_lessons_clear_mcp_servable` nulls mcp_scanned_at and sets
+  // mcp_servable = false on ANY content_md change, so EVERY EDIT TO A LESSON
+  // BODY WITHHOLDS IT FROM THE MCP SURFACE until scan-iso-leaks runs again.
+  // That is fail-closed and correct. It is also silent: no error, no log line,
+  // no queue, and no consumer can exist server-side because the scan needs
+  // pdftotext and the ISO PDFs on an operator's machine.
+  //
+  // A passive-to-active voice edit withheld 02-03-amendment-1-2024 pt-BR for
+  // two days. The fix was one command. It surfaced only because migration 352
+  // asserted an unrelated literal and happened to be wrong. THIS is the check
+  // that catches it within a day, because this is the thing that gets run per
+  // certification.
+  //
+  // NOT `mcp_servable IS NULL` -- that column is NOT NULL DEFAULT false and can
+  // never be null, so a probe on it returns 0 forever and cannot fire.
+  // mcp_scanned_at is what carries the distinction:
+  //   null                          never measured, or invalidated by an edit
+  //   set, with servable = false    measured and REFUSED. A real leak.
+  // Only the first is this check's business; the second is items.citations and
+  // the leak threshold doing their job, and is reported beside it so the two
+  // are never confused.
+  //
+  // FAIL on 'available' and WARN otherwise, mirroring trilingual.lessons above:
+  // an unscanned body on a draft cert is work in progress, and on a live one it
+  // is a lesson a paying partner cannot fetch.
+  const unscannedL = lessons.filter((l) => l.mcp_scanned_at === null);
+  const refusedL = lessons.filter((l) => l.mcp_scanned_at !== null && l.mcp_servable === false);
+  if (lessons.length === 0)
+    R.skip("lessons.scanned", "§11", "Every lesson body has been leak-scanned", "no lessons");
+  else if (unscannedL.length === 0)
+    R.pass("lessons.scanned", "§11", "Every lesson body has been leak-scanned",
+      `${lessons.length} row(s) measured, ${refusedL.length} refused by the scan`);
+  else if (liveCert)
+    R.fail("lessons.scanned", "§11", "Every lesson body has been leak-scanned",
+      `${unscannedL.length} of ${lessons.length} lesson row(s) were never measured, or were invalidated by an edit, and are WITHHELD from the MCP surface right now - this certification is AVAILABLE. This is NOT a leak; it is an unrun scan. Run scripts/scan-iso-leaks.mjs (needs pdftotext on PATH)`,
+      unscannedL.slice(0, 5).map((l) => `${l.slug}/${l.language}`));
+  else
+    R.warn("lessons.scanned", "§11", "Every lesson body has been leak-scanned",
+      `${unscannedL.length} of ${lessons.length} lesson row(s) unscanned and withheld - a WARN only because this certification is '${cert.status ?? "draft"}'; it becomes a FAIL at 'available'. Run scripts/scan-iso-leaks.mjs`,
+      unscannedL.slice(0, 5).map((l) => `${l.slug}/${l.language}`));
 
   // === 10. ENCODING INTEGRITY ===============================================
   const mojibake = lessons.filter((l) => (l.content_md || "").includes("\u00e2\u20ac"));
