@@ -84,13 +84,38 @@
 -- so the gate withholds. No branch is needed and none is written: the
 -- comparison already fails in the safe direction.
 --
--- ASCII only. One statement. Run in the SQL editor.
+-- ============ ITS FIRST RUN ABORTED ON A LITERAL, AND THE DATABASE WAS RIGHT ============
+--
+-- It asserted `ISMS-F serves 98 non-English bodies` and found 97, with a DETAIL
+-- blaming a tr_hash mismatch -- a cause the check had never measured. The count
+-- was the assertion; the detail was a guess attached to it.
+--
+-- The missing row is `02-03-amendment-1-2024` pt-BR. Measured before changing
+-- anything: its review is fine (en_hash matches the live English, verdict
+-- approved) and no translation had drifted. It is withheld because a voice edit
+-- fired `trg_lessons_clear_mcp_servable`, which nulls mcp_servable and the scan
+-- fields on any content_md change, and scan-iso-leaks has not run since. Its two
+-- siblings still read the 2026-09-18 scan; this row reads NEVER SCANNED.
+--
+-- So 98 was measured before that edit and 352 never touched it. FOURTH literal
+-- in a week to abort against a correct database -- after 328s expected 4, 345s
+-- 12637 and 351s 13, and after the rule those produced. The rule was written and
+-- then broken by its author, which is the same shape CLAUDE.md already records
+-- twice. Only the mechanism transfers: checks 2 and 3 now capture the served set
+-- BEFORE and compare AFTER, with no number in either.
+--
+-- AND THE WITHHELD LESSON IS A REAL FINDING, LEFT AS FOUND. A translation edit
+-- silently removes a body from the MCP surface until someone re-runs the scan,
+-- and nothing reports it. Fail-closed and correct; invisible and unowned.
+---- ASCII only. One statement. Run in the SQL editor.
 
 do $mig$
 declare
   n_lesson int; n_task int; n_item int;
   n_l_after int; n_t_after int; n_i_after int;
-  n_drift int; n_servable int; n_dark int;
+  n_drift int;
+  served_before text; served_after text;
+  n_serv_before int; n_serv_after int; n_noneng int;
 begin
 
   -- ----------------------------------------------- pre-conditions
@@ -110,6 +135,28 @@ begin
     raise exception '% task translation(s) changed after review -- backfilling them would launder drift into an approval', n_drift
       using hint = 'Those rows need re-reading, not a backfilled hash.';
   end if;
+
+  -- ----------------------------------------------- what must not move
+  -- CAPTURED BEFORE THE BACKFILL, COMPARED AFTER, CARRYING NO NUMBER.
+  --
+  -- The first version asserted `ISMS-F serves 98` and aborted against a correct
+  -- database that served 97. The missing row was `02-03-amendment-1-2024` pt-BR,
+  -- withheld since a voice edit fired trg_lessons_clear_mcp_servable and no scan
+  -- has run since -- nothing to do with this migration, and the DETAIL blamed a
+  -- tr_hash mismatch the check had never measured.
+  --
+  -- Fourth literal in a week to abort against a database that was right. The
+  -- servable set is the property; its size is a fact about a day.
+  execute 'set local role mcp_holder';
+  select count(*),
+         md5(coalesce(string_agg(certification || '/' || lesson_slug || '/' || language,
+                                 ',' order by certification, lesson_slug, language), ''))
+    into n_serv_before, served_before
+    from mcp.lesson where language <> 'en';
+  select count(*) into n_noneng
+    from mcp.lesson_index where language <> 'en';
+  execute 'reset role';
+  raise notice 'before -- % of % non-English bod(ies) served', n_serv_before, n_noneng;
 
   -- ----------------------------------------------- the hash, one definition
   -- Length-prefixed, delegating to ksa_en_hash so field boundaries cannot be
@@ -219,19 +266,37 @@ begin
       n_l_after, n_t_after, n_i_after;
   end if;
 
-  -- 2. POSITIVE. The gates did not close on work already reviewed. ISMS-F was
-  --    49/49 in both translated languages before this and must still be -- the
-  --    whole point of backfilling rather than treating null as unverified.
+  -- 2. THE SERVED SET IS BYTE-IDENTICAL. Not its size -- the set. This migration
+  --    backfills tr_hash from the CURRENT translation, so by construction every
+  --    gate that was open stays open and no closed one opens. A count would pass
+  --    on one lesson closing while another opened.
   execute 'set local role mcp_holder';
-  select count(*) into n_servable
-    from mcp.lesson where certification = 'ISMS-F' and language <> 'en';
+  select count(*),
+         md5(coalesce(string_agg(certification || '/' || lesson_slug || '/' || language,
+                                 ',' order by certification, lesson_slug, language), ''))
+    into n_serv_after, served_after
+    from mcp.lesson where language <> 'en';
   execute 'reset role';
-  if n_servable <> 98 then
-    raise exception 'ISMS-F serves % non-English bod(ies), expected 98', n_servable
-      using detail = 'The backfilled tr_hash does not match the stored translation.';
+  if served_before is distinct from served_after then
+    raise exception 'the set of served non-English bodies changed (% before, % after)',
+      n_serv_before, n_serv_after
+      using detail = 'tr_hash is backfilled from the current translation, so nothing should move.',
+            hint  = 'Diff mcp.lesson before and after. Do NOT backfill anything to make this pass.';
   end if;
 
-  -- 3. NEGATIVE. The gate can still close. A stored hash that matches anything
+  -- 3. AND THE COMPARISON WAS NOT VACUOUS. Two empty sets have equal checksums,
+  --    and so do two complete ones. Check 2 means something only where the gate
+  --    is both serving and withholding.
+  if n_serv_before = 0 then
+    raise exception 'no non-English body was served before this ran -- check 2 is vacuous';
+  end if;
+  if n_noneng <= n_serv_before then
+    raise exception 'all % non-English bod(ies) are served -- the gate withholds nothing, so check 2 could not see it open',
+      n_noneng;
+  end if;
+  raise notice 'ok: served set unchanged (% served, % withheld)', n_serv_after, n_noneng - n_serv_after;
+
+  -- 4. NEGATIVE. The gate can still close. A stored hash that matches anything
   --    is indistinguishable from no gate, so mutate the text and require the
   --    comparison to fail.
   if exists (
@@ -240,17 +305,6 @@ begin
     where r.tr_hash = public.translation_hash(l.content_md || ' ')
   ) then
     raise exception 'a mutated translation still matches its stored hash -- the hash is not sensitive';
-  end if;
-
-  -- 4. NEGATIVE. Certifications with no approved review are still dark.
-  execute 'set local role mcp_holder';
-  select count(*) into n_dark
-    from mcp.lesson
-   where language <> 'en' and certification = 'AIMS-F';
-  execute 'reset role';
-  if n_dark <> 2 then
-    raise exception 'AIMS-F serves % non-English bod(ies), expected 2', n_dark
-      using detail = '34 of 35 per language are unreviewed and must stay withheld.';
   end if;
 
   -- 5. AND THE BASIS IS RECORDED, so a backfilled claim is never mistaken for
