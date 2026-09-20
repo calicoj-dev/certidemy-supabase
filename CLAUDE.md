@@ -1122,6 +1122,30 @@ The individual scripts:
   decided to ignore. **Every cert also warns**, so "green" is not the bar —
   compare against the table above and investigate anything that moved.
 
+- `scan-iso-leaks.mjs` — the lesson-body leak scan, and **it needs `pdftotext`
+  on PATH**. That binary ships with poppler-utils, is not installed by npm, and
+  is not declared in `package.json` because nothing in npm can declare it:
+  `choco install poppler` on Windows, `brew install poppler` on macOS,
+  `apt-get install poppler-utils` on Debian. It also needs the three ISO PDFs at
+  the absolute paths in `scripts/lib/citation-index.mjs`. Both are now checked
+  before anything else runs and each exits 2 naming the remedy.
+
+  **THE DEPENDENCY BEING UNDECLARED IS WHY A RE-SCAN NEVER HAPPENS, and that is
+  the entry.** `trg_lessons_clear_mcp_servable` nulls `mcp_scanned_at` and sets
+  `mcp_servable = false` on ANY `content_md` change, so **every edit to a lesson
+  body withholds it from the MCP surface until this script runs again.** That is
+  fail-closed and correct. It is also silent: no error, no log line, no queue.
+
+  On 2026-09-19 a passive-to-active voice edit to `02-03-amendment-1-2024` pt-BR
+  withheld that body for two days. The fix was one command. It surfaced only
+  because migration 352 asserted a literal and was wrong for an unrelated
+  reason. `check-open-items.mjs` now probes it: **`mcp_scanned_at IS NULL` is
+  UNSCANNED, `mcp_servable = false` with a timestamp is REFUSED**, and the two
+  are reported apart because only the first is an open item.
+
+  **Do not probe `mcp_servable IS NULL` — the column is NOT NULL DEFAULT false
+  and that check can never fire.**
+
 - `verify-citations.mjs` — resolves every clause and annex reference in a bank
   against the three ISO PDFs on disk. **READ-ONLY: no `--apply`, no `--dry`,
   unknown flags exit 2.** `--index` dumps the parsed structures. Also wired into
