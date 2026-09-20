@@ -977,78 +977,58 @@ The individual scripts:
   be read. SD-AI-I reported 42 pass / 6 warn from `scripts/` and 56 pass /
   5 warn from the root, and neither run said which had checked less.
 
-  As of **2026-09-13**, `--all` reports 55-58 checks per certification (the count
-  varies; some skip) and ends with `3 cert(s) with FAILURES`:
+  As of **2026-09-19**, `--all` reports 56-59 checks per certification (the count
+  varies; some skip) and ends with `2 cert(s) with FAILURES`:
 
   ```
-  FAIL  AIE-I      52 pass, 2 fail, 4 warn
-  WARN  AIGRM-I    56 pass, 0 fail, 3 warn
-  WARN  AIHR-I     55 pass, 0 fail, 2 warn
-  WARN  AIMS-F     56 pass, 0 fail, 3 warn
-  WARN  AIMS-IA    52 pass, 0 fail, 5 warn
-  WARN  AISM-I     56 pass, 0 fail, 2 warn
-  WARN  ISMS-F     56 pass, 0 fail, 2 warn
-  WARN  ISMS-IA    55 pass, 0 fail, 3 warn
-  WARN  SD-AI-I    58 pass, 0 fail, 5 warn
-  FAIL  SM-AI-I    57 pass, 1 fail, 6 warn
-  WARN  SM-AI-II   56 pass, 0 fail, 4 warn
-  WARN  SPO-AI-I   58 pass, 0 fail, 5 warn
+  FAIL  AIE-I      55 pass, 1 fail, 3 warn
+  WARN  AIGRM-I    57 pass, 0 fail, 3 warn
+  WARN  AIHR-I     56 pass, 0 fail, 2 warn
+  WARN  AIMS-F     57 pass, 0 fail, 3 warn
+  WARN  AIMS-IA    53 pass, 0 fail, 5 warn
+  WARN  AISM-I     57 pass, 0 fail, 2 warn
+  WARN  ISMS-F     57 pass, 0 fail, 2 warn
+  WARN  ISMS-IA    56 pass, 0 fail, 3 warn
+  WARN  SD-AI-I    59 pass, 0 fail, 5 warn
+  WARN  SM-AI-I    59 pass, 0 fail, 6 warn
+  WARN  SM-AI-II   57 pass, 0 fail, 4 warn
+  WARN  SPO-AI-I   59 pass, 0 fail, 5 warn
   FAIL  ZZ-TEST-I  28 pass, 12 fail, 1 warn
   ```
 
-  **RE-MEASURED IN ONE `--all` RUN ON 2026-09-14, twice.** First every row gained
-  EXACTLY ONE warn and no pass or fail count moved; then every row except
-  ZZ-TEST-I (which has no scheme document) gained EXACTLY ONE pass, again with
-  nothing else moving. The second delta is `min_passing_items`. That uniform +1 is
-  `jta.higherOrder`, which reports the share of exam-scope tasks at analyze or
-  above and gates nothing - a floor has not been chosen. A uniform delta across
-  thirteen certifications is also the evidence that nothing else shifted.
+  **THREE CERTIFICATIONS WITH FAILURES BECAME TWO, AND ONE OF THE THREE MOVEMENTS
+  IS A NEW CHECK RATHER THAN A FIX.** Measured in one `--all` run on 2026-09-19,
+  not transcribed row by row:
 
-  **MEASURED IN ONE `--all` RUN, NOT TRANSCRIBED ROW BY ROW.** The previous table
-  was carried forward by hand between sessions and went stale; these thirteen
-  rows came out of a single invocation on 2026-09-13, so they are consistent with
-  each other by construction. Re-measure the same way or not at all - a baseline
-  assembled from thirteen separate runs on thirteen different days is not a
-  baseline.
+  - **+1 on every certification with lessons** is `lessons.scanned` (§11), added
+    2026-09-19. ZZ-TEST-I is unchanged at 28 because it has no lessons and the
+    check SKIPs, which is the evidence that nothing else moved.
+  - **AIE-I lost a failure and gained two more passes** (52/2 -> 55/1). The 120
+    ungrouped items are gone: they were written by `generate-practice-questions`
+    and were retired, which also cleared the §8 group check.
+  - **SM-AI-I lost its only failure** (57/1 -> 59/0) for the same reason. Its 20
+    ungrouped items were from the same writer.
 
-  **AIMS-IA'S FAILURE IS GONE - four certifications with failures became three.**
-  It was `items.citations` on `ISO 19011:2026 clause 6.8`, a clause that does not
-  exist (clause 6 ends at 6.7), in a live tier-2 SECURE bank. Migration 304 fixed
-  the explanation and 306 caught that 304 had missed the same address in an
-  option. Nothing else about AIMS-IA changed.
-
-  **The pass counts rose 1-2 per certification because two invariants were added,
-  not because anything was relaxed:**
-
-  - `items.citations` (§8.1) - resolves every clause and annex reference against
-    ISO 19011:2026, 27001:2022 and 42001:2023 on disk. FAIL on secure, WARN on
-    practice, SKIP where the PDFs are absent or the cert cites nothing. It is why
-    AIGRM-I, AIMS-F, ISMS-F, ISMS-IA and SD-AI-I each gained a pass, and why the
-    Scrum certs did not - they cite no clause of any standard held on disk.
-  - `i18n.reviewed` (§8) - reads `item_translation_reviews` and reports
-    UNREVIEWED and STALE **separately**, because "nobody read anything" and "a
-    human approved something that no longer exists" are different states.
-    Currently PASS on ISMS-F (18 rows) and AIMS-F (10); every other bank SKIPs,
-    having no `item_origin='translated'` rows.
-
-  **SM-AI-II returned to its baseline rather than improving past it.** It read
-  55/0/3 before today, moved to 54/0/4 when `generate-practice-questions` wrote
-  two `true_false` items with two options onto a tier-2 bank, and is back at
-  55/0/3 now that 309 retired them and `validateQuestion` reads the tier. That
-  round trip is the only reason its numbers look unchanged.
-
-  The three remaining failures, and none is new work waiting to be found:
+  The remaining failures, and neither is new work waiting to be found:
 
   | cert | failure | state |
   |---|---|---|
-  | AIE-I | 120 ungrouped items | **grew from 15**, see below |
   | AIE-I | scheme claim: validity 730 vs 365 in the database | **deliberate.** `SCHEME-AIE-I.md` explains why neither side was changed: editing the document retracts a published two-year promise to five holders, setting the column changes what the credential means. It fails on every run until someone decides, which is the correct behaviour for an open question |
-  | SM-AI-I | 20 ungrouped items | see the ungrouped note below |
+  | ZZ-TEST-I | 12 failures | a test certification, expected to fail |
 
-  ZZ-TEST-I is a test certification and is expected to fail.
+  **The ungrouped-items entry below is kept as the record of a live writer defect
+  that was found, measured and closed** -- it is no longer a description of the
+  current state, and the counts in it are historical.
 
-  **AIE-I, §8 "Every item belongs to a question group" — 120 ungrouped items,
-  AND THE NUMBER IS STILL GROWING.** `question_group_id` is the trilingual
+
+  **AIE-I, §8 "Every item belongs to a question group" — CLOSED 2026-09-19.
+  The writer was `generate-practice-questions`; its rows were retired and the
+  check passes. The measurements below are the record of finding it.**
+
+  [SUPERSEDED 2026-09-19 — every count in this section is historical. AIE-I
+  now reports 1 ungrouped row, not 120, and §8 no longer fails on it. The
+  section is kept because the writer defect it documents was live for over
+  two weeks and nothing noticed.] `question_group_id` is the trilingual
   sibling key, so an ungrouped item is invisible to the three-language coverage
   check that groups by that column.
 
