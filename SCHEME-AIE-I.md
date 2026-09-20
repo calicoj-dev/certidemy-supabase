@@ -38,7 +38,7 @@ the time of writing and is reproducible by re-running the queries named in §12.
 | Credential family | AI Workplace (founding member) |
 | Credential type | Knowledge-and-application certification (literacy / entry "I" tier) |
 | Languages offered | English, Latin American Spanish (es-419), Brazilian Portuguese (pt-BR) |
-| Credential validity | 2 years from issuance (see §9, Recertification) |
+| Credential validity | 1 year from issuance (see §9, Recertification) |
 | Delivery | Online secure examination |
 
 ---
@@ -328,35 +328,62 @@ authenticity, holder, issue date, and validity status.
 
 ## 9. Recertification
 
-AIE-I credentials are valid for **2 years** from issuance.
+AIE-I credentials are valid for **1 year** from issuance.
 
-**Rationale.** The credential certifies literacy in the use of everyday AI tools — a
-domain whose tools and norms change quickly, but whose *foundational* competencies
-(what a model is, why it hallucinates, why output must be verified, why a human stays
-accountable) are more durable than the tooling. A 2-year cycle is set longer than the
-1-year cycle used for the practitioner-tier Scrum credentials, reflecting that
-durability, while remaining short enough that a current credential is a genuine signal
-of current literacy. Recertification re-tests against the then-current body of
-knowledge.
+**Rationale.** A validity period is how long the certification body vouches for a
+holder *without re-measuring them*. The question is therefore not how long the
+knowledge lasts in the abstract, but how long the assertion stays safe to make.
 
-> **UNRESOLVED CONFLICT, RECORDED 2026-09-08. THE DATABASE ISSUES ONE YEAR.**
-> `certifications.validity_days` for AIE-I is **365**, not 730, and **no migration
-> has ever set it to 730** -- every file was checked. 365 is the house default that
-> migration 202 calls exactly that when it moves ISMS-IA to 730 and verifies
-> *"every other cert still sits at the house default"*.
+**The durability argument was considered and answered, not discarded.** It ran: the
+credential certifies literacy in the use of everyday AI tools — a domain whose tools
+and norms change quickly, but whose *foundational* competencies (what a model is, why
+it hallucinates, why output must be verified, why a human stays accountable) are more
+durable than the tooling; so a cycle longer than the 1-year practitioner-tier Scrum
+credentials is warranted.
+
+That reasons on the right axis and reaches the wrong end of it. The durable core is
+real, but it is not what the credential asserts on its own. AIE-I asserts that its
+holder can work with *today's* tools, verify *today's* outputs and recognise *today's*
+failure modes — and **currency is the credential's whole claim**. Two years is a long
+time to keep asserting current literacy in the least stable subject this platform
+teaches, in a field whose tooling turns over in months.
+
+The comparison to the Scrum credentials also cuts the other way. That body of
+knowledge is considerably more stable than AI tooling, so parity at one year is
+already the generous reading; the durability argument, followed honestly, would put
+AIE-I *below* a Scrum practitioner cycle rather than above it. One year holds the two
+concerns together: long enough to be worth earning, short enough that the assertion is
+still true when a verifier resolves it.
+
+Recertification re-tests against the then-current body of knowledge.
+
+> **RESOLVED 2026-09-19. The document was wrong; the database was right.**
+> `certifications.validity_days` for AIE-I is **365** and has never been anything
+> else — no migration ever set it to 730. 365 is the house default that migration
+> 202 names as such when it moves ISMS-IA to 730.
 >
-> **Five AIE-I credentials have been issued**, between 2026-07-28 and 2026-09-04,
-> and every one carries a stamped `expires_at` exactly 365 days after its
-> `issued_at`. Expiry is written at issue, so those five are fixed at one year
-> whatever the column is set to later.
+> **The note that stood here until today argued against editing this section, and
+> its premise was false on both halves.** It said that changing the text would
+> "silently retract a published two-year promise to five holders". Measured before
+> deciding:
 >
-> **Neither side has been changed, deliberately.** Editing this section to say one
-> year would silently retract a published two-year promise to five holders;
-> setting the column to 730 would change what the credential means going forward.
-> Both are decisions with a credential consequence and neither is a documentation
-> fix. The `scheme-claims` block below still declares 730, so `verify-cert` reports
-> this as a failure on every run until someone decides -- which is the correct
-> behaviour for an open question, and the reason it is not quietly reconciled.
+> - **No holder ever received a two-year credential.** All six AIE-I credentials —
+>   five real awards and one specimen, the most recent issued 2026-09-19, after the
+>   note was written — carry a stamped `expires_at` exactly 365 days after
+>   `issued_at`. Zero carry a two-year shape. Expiry is written at issue, so every
+>   holder was told one year, on their own credential.
+> - **Nothing ever published a two-year claim.** The public certification page
+>   passes `validityDays={null}` and renders no validity at all; no route in
+>   `certidemy-web` reads any `SCHEME-*.md`; the string "2 years" appears nowhere in
+>   that repository. The Open Badges document an external verifier resolves carries
+>   `expiresAt` — one year.
+>
+> So there was no promise to retract and no publication to retract it from. **The
+> sentence asserting otherwise nearly changed the decision it was describing**, which
+> is the reason this paragraph replaces it rather than sitting beside it: it was a
+> claim about the present state of the world, written once, never re-measured, and
+> wrong about "published" from the day it was written and about "five" within
+> eleven days.
 
 
 ---
@@ -511,7 +538,7 @@ items: 25
 duration_minutes: 45
 passing_score_pct: 80
 min_passing_items: 20
-validity_days: 730
+validity_days: 365
 domains: 3
 tasks_total: 18
 concepts: 47
