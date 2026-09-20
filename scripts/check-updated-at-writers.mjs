@@ -43,10 +43,17 @@
  * THE PROPERTY, AND WHY IT NEEDS NO LIST OF TRIGGERS
  * ===========================================================================
  *
- * The naive rule -- "every writer must set updated_at" -- is wrong. 17 of
+ * The naive rule -- "every writer must set updated_at" -- is wrong. 19 of
  * these tables have a trigger that maintains the column, and on those a writer
  * that omits it is correct. Applying the naive rule would flag a large amount
  * of correct code on day one.
+ *
+ * "HAS A TRIGGER" MEANS THE TRIGGER ASSIGNS new.updated_at, NOT THAT ITS BODY
+ * MENTIONS THE WORD. Migration 354's first version matched the substring and
+ * caught `material_updated_at` -- the Open Badges freshness column -- pulling
+ * in credentials, achievement_alignments and achievement_results, none of which
+ * carries an updated_at column at all. It also matched guards that merely READ
+ * the column. 25 substring matches across 22 tables against 19 real ones.
  *
  * Knowing which tables have triggers would fix that, and IT CANNOT BE KNOWN
  * FROM HERE: pg_catalog is not reachable through PostgREST, no RPC on this
