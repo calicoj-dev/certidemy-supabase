@@ -4,6 +4,10 @@
 // Source: certidemy-web/public/badges/<CODE>.png
 // Regenerate: node scripts/gen-badges-module.mjs   (from certidemy-web)
 // Last generated: 2026-09-20
+// SCAN: a42fb74eeb290db2
+//   The same id appears in certidemy-web/lib/badges/codes.ts. One directory
+//   scan wrote both files; if the two ids differ, one of them was written by
+//   something else and the pair has drifted.
 //
 // Certification badge artwork, base64-embedded, for the edge renderers.
 //

@@ -432,14 +432,52 @@ broke the badge panel — which destructured it as an object — on a live payin
 customer's credential. The grep that found the one affected consumer took four
 seconds and ran after the deploy rather than before.
 
-### 6.6 A new certification needs its badge in TWO places
+### 6.6 A new certification needs its badge in ONE place, then one command
 
-`public/badges/<CODE>.png` in the web repo, AND the `BADGE_CODES` set in
-`app/[locale]/(marketing)/certifications/[code]/page.tsx`, AND regenerated into
-`_shared/badges.ts` via `gen-badges-module.mjs`.
+Commit `public/badges/<CODE>.png` in the web repo, then from `certidemy-web`:
 
-Three lists, one truth. Miss the first and the cert page renders a broken image;
-miss the third and `?doc=baked` 404s.
+```
+node scripts/gen-badges-module.mjs --dry     # always first
+node scripts/gen-badges-module.mjs
+```
+
+**That is the whole step.** The command writes both consumers from one scan of
+that directory: `supabase/functions/_shared/badges.ts` (the base64 artwork the
+edge renderers bake in) and `certidemy-web/lib/badges/codes.ts` (which codes
+have artwork, for the marketing page's guard). Both files carry the same `SCAN`
+id and the script reads them back and compares the ids, so a run that produced
+only one of them fails rather than shipping a half-updated pair.
+
+The flag is `--dry`, not `--dry-run`, and unknown flags are ignored silently --
+so a typo runs it LIVE.
+
+**THIS SECTION USED TO SAY THREE PLACES, AND ITS OWN HEADING SAID TWO.** The
+third was a `BADGE_CODES` set literal inside
+`app/[locale]/(marketing)/certifications/[code]/page.tsx`. It had been DERIVED
+from `public/badges` by `patch-cert-page-badge.mjs` and then frozen into the
+page -- the correct value, computed once from the authoritative source and
+transcribed.
+
+It went stale the first time it was tested. SM-AI-II shipped with a PNG, a
+payload in `badges.ts`, and no badge on its own certification page. Nothing
+failed: the PNG served 200, the edge side verified, and the page simply
+rendered no image, because a hand-maintained list cannot notice a file nobody
+told it about. Re-running the generator was necessary and silently incomplete,
+and the missing step was unwritten -- it survived as something one person
+happened to know.
+
+The page now imports `hasBadge()` from the generated file. The guard is
+unchanged and still right: a certification can reach `available` before design
+delivers its badge, and an unconditional `<Image>` renders a broken-image icon
+on a public page. Absence still means no badge -- it is now a fact about the
+directory rather than about someone remembering.
+
+A PNG in `public/badges` that `CODES` in the generator does not name is now a
+LOUD failure rather than a silent omission. `CODES` still fixes the order,
+because programme order is curated and a filesystem cannot know it.
+
+Miss the PNG and the cert page renders nothing where the badge goes; miss the
+command and `?doc=baked` 404s AND the page renders nothing.
 
 ### 6.7 A new certification has NO achievement until you insert one
 
