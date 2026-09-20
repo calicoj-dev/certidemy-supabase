@@ -41,9 +41,12 @@
 -- which is a convention rather than a guarantee. A column that looks maintained
 -- and is not is worse than an absent one, because a reader believes it.
 --
--- So the trigger is not a follow-up. Post-conditions 4 and 5 EXERCISE it inside
--- a rolled-back savepoint rather than checking that it exists, because 16
--- tables in this database prove that existence is not the property.
+-- So the trigger is not a follow-up. Post-conditions 4 and 5 EXERCISE it on a
+-- real row rather than checking that it exists, because 16 tables in this
+-- database prove that existence is not the property. Each probe undoes itself
+-- by raising inside a sub-block, the way 347 and 351 do -- `rollback to
+-- savepoint` is not a plpgsql statement, and the first draft of this file
+-- aborted at line 169 for exactly that reason.
 --
 -- ============ NO TABLE REWRITE, AND THE ORDER IS WHY ============
 --
@@ -80,6 +83,8 @@ declare
   probe_id      uuid;
   probe_before  timestamptz;
   probe_after   timestamptz;
+  ok            boolean;
+  probe_err     text;
 begin
 
   -- ----------------------------------------------- pre-conditions
@@ -158,38 +163,71 @@ begin
   end if;
 
   -- 4. THE TRIGGER FIRES. Not "the trigger exists" -- 16 tables in this
-  --    database carry an updated_at that nothing maintains, so existence is
-  --    demonstrably not the property. Exercise it on a real row, then roll the
-  --    write back so the migration changes no content.
-  select id, updated_at into probe_id, probe_before from public.lessons limit 1;
-  savepoint probe_lesson;
-  update public.lessons set title = title where id = probe_id;
-  select updated_at into probe_after from public.lessons where id = probe_id;
+  --    database carry an updated_at that no trigger maintains, so existence is
+  --    demonstrably not the property.
+  --
+  --    THE SUB-BLOCK ROLLS ITSELF BACK BY RAISING, which is the only way to
+  --    undo a write inside plpgsql: `rollback to savepoint` is not a plpgsql
+  --    statement and is a syntax error here. A begin/exception block IS the
+  --    savepoint, and catching the raise discards every database change made
+  --    inside it. Variable assignments are not database state and survive, so
+  --    probe_after still holds what the trigger wrote. Same shape as 347 and
+  --    351.
+  --
+  --    The probe touches `title`, never `content_md`, so
+  --    trg_lessons_clear_mcp_servable cannot fire and no lesson can be
+  --    withheld by this migration.
+  select id, updated_at into probe_id, probe_before
+    from public.lessons order by id limit 1;
+  begin
+    update public.lessons set title = title where id = probe_id;
+    select updated_at into probe_after from public.lessons where id = probe_id;
+    raise exception 'probe rollback' using errcode = 'ZZ999';
+  exception
+    when sqlstate 'ZZ999' then ok := true;
+    when others then ok := false; probe_err := sqlstate || ' ' || sqlerrm;
+  end;
+  if not ok then
+    raise exception 'the lessons probe update failed: %', probe_err
+      using detail = 'The trigger could not be exercised, so this migration cannot prove updated_at is maintained.';
+  end if;
   if probe_after is null or probe_after <= probe_before then
-    rollback to savepoint probe_lesson;
     raise exception 'the lessons trigger did not move updated_at (% -> %)', probe_before, probe_after
       using detail = 'The column was added but nothing maintains it -- the defect this migration exists to avoid.';
   end if;
-  rollback to savepoint probe_lesson;
 
   -- 5. AND THE SAME FOR THE ITEM BANK. A trigger created on one table says
   --    nothing about the other.
-  select id, updated_at into probe_id, probe_before from public.quiz_questions limit 1;
-  savepoint probe_item;
-  update public.quiz_questions set question_text = question_text where id = probe_id;
-  select updated_at into probe_after from public.quiz_questions where id = probe_id;
+  select id, updated_at into probe_id, probe_before
+    from public.quiz_questions order by id limit 1;
+  begin
+    update public.quiz_questions set question_text = question_text where id = probe_id;
+    select updated_at into probe_after from public.quiz_questions where id = probe_id;
+    raise exception 'probe rollback' using errcode = 'ZZ999';
+  exception
+    when sqlstate 'ZZ999' then ok := true;
+    when others then ok := false; probe_err := sqlstate || ' ' || sqlerrm;
+  end;
+  if not ok then
+    raise exception 'the quiz_questions probe update failed: %', probe_err
+      using detail = 'The trigger could not be exercised, so this migration cannot prove updated_at is maintained.';
+  end if;
   if probe_after is null or probe_after <= probe_before then
-    rollback to savepoint probe_item;
     raise exception 'the quiz_questions trigger did not move updated_at (% -> %)', probe_before, probe_after;
   end if;
-  rollback to savepoint probe_item;
 
-  -- 6. NEGATIVE. Both rollbacks took. No probe row is left modified, so the
-  --    invariant asserted in check 2 still holds at the end.
+  -- 6. THE PROBES LEFT NOTHING, and for an UPDATE probe that is the same
+  --    assertion as check 2 re-run: every row must still read created_at. A
+  --    sub-block that failed to roll back would have edited real content -- a
+  --    lesson title or a live exam item -- and exactly one row would now carry
+  --    updated_at > created_at. This is stronger than counting a marker row,
+  --    because it covers both tables entirely rather than the two rows probed.
   select count(*) filter (where updated_at <> created_at) into n_l_moved from public.lessons;
   select count(*) filter (where updated_at <> created_at) into n_i_moved from public.quiz_questions;
   if n_l_moved <> 0 or n_i_moved <> 0 then
-    raise exception 'a probe write survived its rollback (% lesson(s), % item(s))', n_l_moved, n_i_moved;
+    raise exception '% lesson(s) and % item(s) carry updated_at > created_at -- a probe sub-block did not roll back',
+      n_l_moved, n_i_moved
+      using detail = 'Real content was edited by a post-condition. Inspect those rows before re-running.';
   end if;
 
   raise notice '353 ok: updated_at on % lesson(s) and % item(s), both triggers exercised', n_lessons, n_items;
