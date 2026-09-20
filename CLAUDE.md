@@ -883,6 +883,60 @@ per-segment, a census taken before the pass it described, and a mean over the
 wrong population. Every one was a real measurement of something nobody asked
 about.
 
+
+**AND THE SIXTH IS ONE-SIDED: A REPLACEMENT IS A COMPARISON, AND ONLY ONE TERM
+WAS COUNTED.** Found 2026-09-20, scoping the `clausula` sweep. Nothing was
+written, and what stopped it was the person who asked for it, not the census.
+
+The census counted `cláusula` across every translated surface, derived the
+column list from the catalogue rather than typing it, paginated with a count
+assertion, and found ~18,000 occurrences. Every one of those precautions is in
+this file. **It never counted `apartado`, `capítulo` or `seção`** -- the terms
+it proposed to install. Measured afterwards:
+
+| corpus | cláusula | apartado / capítulo / seção | |
+|---|---|---|---|
+| item bank | **14,837** | 142 | cláusula dominant **104 : 1** |
+| lessons | 257 | **4,382** | alternative dominant **17 : 1** |
+
+**The two corpora use OPPOSITE conventions and the sweep was scoped from the
+smaller one.** Lessons are 2 percent of the surface. The proposal was to
+rewrite 10,470 occurrences -- 476 of them in live secure exam items -- so that
+the 98 percent would match the 2 percent, and the report presented that as a
+consistency fix.
+
+**Worse: the lesson corpus was misread too, by the same omission.** "~240
+lesson occurrences of cláusula" is correct and reads as "lessons use
+cláusula". Lessons are overwhelmingly `apartado`/`seção` already; the 257 are
+the minority form there. Counting one term told the truth about that term and
+nothing about the corpus.
+
+> **WHEN A CHANGE REPLACES A WITH B, COUNT B FIRST.** A census of A alone
+> cannot distinguish "A is an inconsistency" from "A is the house form". The
+> ratio is the finding and it needs both sides; one side is a number with
+> nothing to disagree with, which is the same defect as a single count with no
+> field beside it, applied to a plan instead of a query.
+
+**Two things the second count also settled, neither of which was guessable:**
+
+- **101 lessons already contain BOTH forms** -- AIMS-IA 57, AIMS-F 21, ISMS-IA
+  19, ISMS-F 4. So "lessons are internally consistent" was false before any
+  sweep, and nothing has gone wrong. That is the strongest argument for
+  leaving both alone: a candidate reading `apartado` in a lesson and
+  `cláusula` in an exam is not misled about anything.
+- **It is not one week's prompt.** The four ISO certifications were generated
+  on four separate days spanning five weeks -- ISMS-F 2026-08-05, AIMS-F
+  08-07, ISMS-IA 08-12, AIMS-IA 09-12 -- and each independently used
+  `apartado`/`seção`. A convention that survives four independent runs is a
+  standing prompt convention, not an accident, even though nothing anywhere
+  records it as a decision.
+
+**And the premise under all of it was wrong in a way no counting would have
+caught.** `apartado`/`capítulo` is AENOR's convention, which is SPAIN. Our
+Spanish is es-419, and `cláusula` is common in Latin American ISO practice.
+"Match the published national adoption" does not name one adoption for Latin
+America, so the rule the sweep was built to enforce does not exist.
+
 **The defence is not more care, it is naming the population IN THE KEY.**
 `mean_key_margin` invites the error; `mean_key_margin_when_key_longest_chars`
 cannot be misread, and migration 344 renamed it for that reason rather than

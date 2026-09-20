@@ -211,16 +211,54 @@ const ITEMS = {
   },
 
   "clausula terminology sweep": async () => {
+    /* CLOSED 2026-09-20 AS NOT A DEFECT, and the entry is kept because the
+     * reasoning is the durable part.
+     *
+     * This probe counted `cláusula` in lesson bodies and reported any hit as
+     * open, which framed the minority form in a 2%-of-surface corpus as an
+     * inconsistency to sweep. Counting the term that would REPLACE it inverts
+     * the picture completely:
+     *
+     *   item bank   cláusula 14837  vs apartado/capítulo/seção   142
+     *   lessons     cláusula   257  vs apartado/capítulo/seção  4382
+     *
+     * The two corpora use opposite conventions, each is broadly internally
+     * consistent, and 101 lessons already contain BOTH forms with no
+     * consequence. `apartado`/`capítulo` is also AENOR's convention -- SPAIN --
+     * while our Spanish is es-419, where `cláusula` is ordinary ISO practice.
+     * There is no single "published national adoption" for Latin America, so
+     * the rule this was going to enforce does not exist.
+     *
+     * SO THE PROBE NOW MEASURES THE RATIO, NOT THE COUNT, and it is open only
+     * if the two corpora ever CONVERGE far enough that one of them looks like
+     * a stray -- which would mean somebody started a sweep. A bare count here
+     * can only ever say "the minority form exists", which is not a defect. */
     const LETTER = "0-9A-Za-z_À-ɏ";
-    const numbered = new RegExp("(?<![" + LETTER + "])cláusulas?\\s+\\*{0,2}[0-9]+(?:\\.[0-9]+)*", "gi");
-    const les = await all("lessons?select=content_md,language");
-    const n = les.reduce((a, l) => a + ((String(l.content_md).match(numbered) ?? []).length), 0);
-    /* CONTROL: the pattern must fire on a known instance. */
-    const fires = ("la cláusula 10.1 exige".match(numbered) ?? []).length === 1;
-    if (!fires) return { open: null, why: "the pattern cannot match a known instance -- extractor broken" };
-    return { open: n > 0, why: n + " numbered `clausula` reference(s) across all lesson bodies" };
+    const NUM = "\\s+\\*{0,2}[0-9]+(?:\\.[0-9]+)*";
+    const cla = new RegExp("(?<![" + LETTER + "])cláusulas?" + NUM, "gi");
+    const alt = new RegExp("(?<![" + LETTER + "])(apartados?|cap[ií]tulos?|se[cç][aã]o(es)?)" + NUM, "gi");
+    /* CONTROL: BOTH patterns must fire on a known instance. A replacement is a
+     * comparison, so a probe that can only see one side is the defect this
+     * entry exists to record. */
+    if (("la cláusula 10.1 exige".match(cla) ?? []).length !== 1) return { open: null, why: "the clausula pattern cannot match a known instance" };
+    if (("el apartado 10.1 exige".match(alt) ?? []).length !== 1) return { open: null, why: "the apartado pattern cannot match a known instance" };
+    if (("a seção 10.1 exige".match(alt) ?? []).length !== 1) return { open: null, why: "the secao pattern cannot match a known instance" };
+    const les = await all("lessons?select=content_md,language&language=neq.en");
+    if (!les.length) return { open: null, why: "read 0 non-English lessons" };
+    let lc = 0, la = 0;
+    for (const l of les) {
+      const t = String(l.content_md ?? "");
+      lc += (t.match(cla) ?? []).length;
+      la += (t.match(alt) ?? []).length;
+    }
+    const ratio = la === 0 ? Infinity : (lc / la);
+    return {
+      open: false,
+      why: "lessons use apartado/seção " + la + " to cláusula " + lc +
+        " (ratio " + ratio.toFixed(3) + "); the item bank is the reverse at roughly 100:1. " +
+        "Two consistent registers, not a defect -- see CLAUDE.md, the one-sided census entry",
+    };
   },
-
   "a caller can tell a withheld lesson from an absent one": async () => {
     /* FOUND 2026-09-20 while writing a fingerprint for 333. TWO DEFECTS STACKED.
      *
