@@ -1,0 +1,151 @@
+{
+  "what": "The ISO corpus the leak scanners index. The PDFs are licensed per seat and gitignored; this manifest is the committed, auditable record of what they are.",
+  "corpus_dir": "../iso-corpus (gitignored)",
+  "built": "2026-09-21",
+  "counts": {
+    "files": 10,
+    "indexed": 9,
+    "excluded": 1
+  },
+  "open_coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "entries": [
+    {
+      "file": "iso-19011-2026.pdf",
+      "standard": "ISO 19011:2026",
+      "title": "Guidelines for auditing management systems",
+      "edition": "Fourth edition",
+      "date": "2026-05",
+      "key": "19011:2026",
+      "indexed": true,
+      "sha256": "3918585282e1a35ebc38dfdd7ff07efb7efcab69372416d145735456db2c4e18",
+      "bytes": 902019,
+      "pages": 56,
+      "extracted_words": 20299
+    },
+    {
+      "file": "iso-iec-22989-2022.pdf",
+      "standard": "ISO/IEC 22989:2022",
+      "title": "Information technology - Artificial intelligence - Artificial intelligence concepts and terminology",
+      "edition": "First edition",
+      "date": "2022-07",
+      "key": "22989:2022",
+      "indexed": true,
+      "note": "Title page bears a single-user licence naming a third party, not this seat.",
+      "sha256": "15eb9c7e724f9ff91d51d59051e6ec2369008b45834080c2de5d299cfbb56c44",
+      "bytes": 3225650,
+      "pages": 70,
+      "extracted_words": 29194
+    },
+    {
+      "file": "iso-iec-27000-2018.pdf",
+      "standard": "ISO/IEC 27000:2018",
+      "title": "Information technology - Security techniques - Information security management systems - Overview and vocabulary",
+      "edition": "Fifth edition",
+      "date": "2018-02",
+      "key": "27000:2018",
+      "indexed": true,
+      "note": "The undated normative reference from ISO/IEC 27001:2022 clause 2.",
+      "sha256": "879b1e279c9b86401a46a2335600ac700ccb18ec5191bf59f318a75357a6e6ce",
+      "bytes": 631470,
+      "pages": 34,
+      "extracted_words": 11540
+    },
+    {
+      "file": "iso-iec-27001-2022-amd1-2024.pdf",
+      "standard": "ISO/IEC 27001:2022/Amd 1:2024",
+      "title": "Information security management systems - Requirements - AMENDMENT 1: Climate action changes",
+      "edition": "Amendment 1 to the third edition",
+      "date": "2024-02",
+      "key": "27001:2022/Amd1",
+      "indexed": true,
+      "sha256": "dda8f8167ed9693a56fc3fd7fe181fca8239eb469b58d3a14f452ad356ca54be",
+      "bytes": 1131450,
+      "pages": 6,
+      "extracted_words": 903
+    },
+    {
+      "file": "iso-iec-27001-2022.pdf",
+      "standard": "ISO/IEC 27001:2022",
+      "title": "Information security, cybersecurity and privacy protection - Information security management systems - Requirements",
+      "edition": "Third edition",
+      "date": "2022-10",
+      "key": "27001:2022",
+      "indexed": true,
+      "sha256": "d9d0d227bd9aaacaf713998df33bc5d234d9b17e689c7c339fd5df5d4f574e42",
+      "bytes": 987119,
+      "pages": 26,
+      "extracted_words": 7543
+    },
+    {
+      "file": "iso-iec-27002-2022.pdf",
+      "standard": "ISO/IEC 27002:2022",
+      "title": "Information security, cybersecurity and privacy protection - Information security controls",
+      "edition": "Third edition",
+      "date": "2022-02",
+      "key": "27002:2022",
+      "indexed": true,
+      "sha256": "1da41b305cce13c7d9150e8ceb520eb13d082d8a80080f9768a5dc9f2900b7e2",
+      "bytes": 1752777,
+      "pages": 164,
+      "extracted_words": 60749
+    },
+    {
+      "file": "iso-iec-27004-2016.pdf",
+      "standard": "ISO/IEC 27004:2016",
+      "title": "Information technology - Security techniques - Information security management - Monitoring, measurement, analysis and evaluation",
+      "edition": "Second edition",
+      "date": "2016-12-15",
+      "key": "27004:2016",
+      "indexed": true,
+      "note": "Title page bears a university library watermark, not a single-seat purchase.",
+      "sha256": "c7029654721040850794eb42e30958d7303b7806e0684dcf2624b42a0bd59341",
+      "bytes": 3022858,
+      "pages": 66,
+      "extracted_words": 17263
+    },
+    {
+      "file": "iso-iec-27005-2022.pdf",
+      "standard": "ISO/IEC 27005:2022",
+      "title": "Information security, cybersecurity and privacy protection - Guidance on managing information security risks",
+      "edition": "Fourth edition",
+      "date": "2022-10",
+      "key": "27005:2022",
+      "indexed": true,
+      "sha256": "63aebf0276bf7c8046ebdee6e0f1b22af82c3cf2a40bf2e492f4b211aa017def",
+      "bytes": 3824907,
+      "pages": 70,
+      "extracted_words": 27489
+    },
+    {
+      "file": "iso-iec-42001-2023.pdf",
+      "standard": "ISO/IEC 42001:2023",
+      "title": "Information technology - Artificial intelligence - Management system",
+      "edition": "First edition",
+      "date": "2023-12",
+      "key": "42001:2023",
+      "indexed": true,
+      "sha256": "920fb93a1ab9281c11c6a9dfa0c4d0a53a8e14ee744c7f7a09b549c6be54b621",
+      "bytes": 1950734,
+      "pages": 62,
+      "extracted_words": 20798
+    },
+    {
+      "file": "iso-iec-42006-PREVIEW-ONLY.pdf",
+      "standard": "SS ISO/IEC 42006:2025 (Singapore Standard, identical adoption)",
+      "title": "Information technology - Artificial intelligence - Requirements for bodies providing audit and certification of artificial intelligence management systems",
+      "edition": "Preview extract",
+      "date": "2025",
+      "key": "42006:2025-PREVIEW",
+      "indexed": false,
+      "why": "PREVIEW ONLY: cover, scope and contents, not the requirements. It is also a Singapore Standard adoption rather than the ISO document. Indexing it would make 42006 read as covered while holding none of its text.",
+      "sha256": "f3f2bb225886c4f613102b9a28b6faea1cf018f09c4591836803462221bb6172",
+      "bytes": 547488,
+      "pages": 10,
+      "extracted_words": 2163
+    }
+  ]
+}

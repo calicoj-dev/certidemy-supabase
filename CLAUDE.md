@@ -2137,6 +2137,45 @@ pattern can see grammar — which is how two SECURE banks passed the check that
 had just demanded the fix that broke them. The two measurements are
 wrong in OPPOSITE directions, which is what makes their agreement meaningful.
 
+**A COMBINED INDEX MANUFACTURES A RUN THAT EXISTS IN NO DOCUMENT.** Found
+2026-09-21, the first time the ISO corpus went from three standards to nine.
+
+`scan-iso-leaks` extended a matched run greedily against the UNION of every
+source's n-grams. A run can therefore chain out of one document and into another
+across a junction present in neither, and the reported length becomes a property
+of the INDEX rather than of any standard.
+
+Measured on the lesson corpus the moment the corpus widened: of eight groups the
+union-based measure refused, **four held no contiguous match in any single
+standard**.
+
+```
+reported 14w   longest real fragment  9w  (27001 and 42001, both under the threshold)
+reported 10w   longest real fragment  7w  (42001)
+reported 10w   longest real fragment  7w  (42001)
+reported 10w   longest real fragment  9w  (19011)
+```
+
+**TWELVE OF TWENTY-FOUR REFUSALS WERE ARTIFACTS** -- four lesson groups in three
+languages would have been withheld from the MCP surface for reproducing nothing.
+
+**The defect was always there and the corpus size is what exposed it.** Three
+standards rarely chain; nine management-system standards sharing harmonised
+boilerplate chain constantly. So this is not a bug the widening introduced --
+it is a bug the widening made frequent enough to see, which is the more
+dangerous kind, because the narrow index had been quietly producing a small
+number of the same artifacts all along.
+
+> **MECHANISM: a reproduction is a reproduction OF A DOCUMENT, so measure per
+> source and take the maximum afterwards.** Never score against a union. Report
+> WHICH source carries the run, because a run with no source is the tell.
+
+Same family as the join fan-out and the separator-free concatenation already
+recorded here: **the query manufactured an adjacency the data does not have.**
+It is also the same shape as the segmenter's own fixture case -- text either
+side of a cut must never land in one segment -- applied one level up, to
+documents rather than to lines.
+
 **A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
 DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by
 the guard disagreeing with itself rather than by anyone reviewing it:
@@ -2315,9 +2354,22 @@ control   <risk> measure that MAINTAINS AND/OR modifies risk
 
 `security-control` copied the earlier ISO/IEC 27000 wording, *"a measure that
 modifies risk"*. **Three words apart, no n-gram match, and the scanner reported
-0 against a document it had indexed.** Holding every standard would not have
+0 against a document it had indexed.** ~~Holding every standard would not have
 caught it, because the gloss was near-wording of an edition we do not hold of a
-term we do.
+term we do.~~
+
+> **[FALSIFIED 2026-09-21, THE NEXT DAY, BY MEASUREMENT.]** ISO/IEC 27000:2018
+> was purchased and indexed, and `security-control` immediately scored **4w/5,
+> coverage 0.80, against 27000:2018**. Holding the right standard caught it.
+> The strikethrough sentence was an INFERENCE I could not test, welded to a
+> measured half -- the scanner really did report 0 -- and CLAUDE.md's own rule
+> about compound claims says the measured half makes the assumed half read as
+> measured. It did.
+>
+> **The rule above it survives and is narrower: an indexed standard is not a
+> covered standard, so the remedy is to index THE EDITION THAT WAS COPIED.**
+> That is a purchasing decision, not a threshold decision, and it is tractable.
+> What is not tractable by any index is the monolingual gap.
 
 > **MECHANISM: for a DEFINED TERM, no n-gram instrument is the defence -- the
 > anti-gloss rule is.** The scanner's report NAMES WHICH EDITIONS IT INDEXED and

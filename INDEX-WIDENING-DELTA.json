@@ -1,0 +1,96 @@
+{
+  "measured": "2026-09-21",
+  "narrow_sources": [
+    "19011:2026",
+    "27001:2022",
+    "42001:2023"
+  ],
+  "added_sources": [
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022"
+  ],
+  "grams": {
+    "narrow": 37944,
+    "wide": 153135
+  },
+  "gate": {
+    "seed": 4,
+    "min_run": 6,
+    "min_cov": 0.6
+  },
+  "live": {
+    "rows": 1729,
+    "fired_narrow": 4,
+    "fired_wide": 9,
+    "newly": [
+      {
+        "cert": "ISMS-F",
+        "slug": "iso-27005-risk",
+        "description": "guidance on information security risk management",
+        "run": 6,
+        "words": 6,
+        "cov": 1,
+        "matched": "guidance on information security risk management",
+        "source": "27002:2022",
+        "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "threat",
+        "description": "a potential cause of an unwanted incident",
+        "run": 6,
+        "words": 7,
+        "cov": 0.8571428571428571,
+        "matched": "potential cause of an unwanted incident",
+        "source": "27000:2018",
+        "predicted_tier": "A"
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "availability",
+        "description": "information is accessible and usable on demand by an authorized entity",
+        "run": 9,
+        "words": 11,
+        "cov": 0.8181818181818182,
+        "matched": "accessible and usable on demand by an authorized entity",
+        "source": "22989:2022",
+        "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "avoid-risk",
+        "description": "not undertaking the activity that gives rise to the risk",
+        "run": 8,
+        "words": 10,
+        "cov": 0.8,
+        "matched": "the activity that gives rise to the risk",
+        "source": "27000:2018",
+        "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "risk-criteria",
+        "description": "the terms of reference against which risk significance is judged",
+        "run": 6,
+        "words": 10,
+        "cov": 0.6,
+        "matched": "the terms of reference against which",
+        "source": "27005:2022",
+        "predicted_tier": "A"
+      }
+    ]
+  },
+  "proposed": {
+    "rows": 154,
+    "newly": []
+  },
+  "tier_a_prediction": {
+    "named": 23,
+    "firing": 2,
+    "firing_unpredicted": 7
+  }
+}

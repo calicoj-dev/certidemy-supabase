@@ -48,7 +48,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
-import { PDFS, sourcesAvailable, pdftotextAvailable } from "./lib/citation-index.mjs";
+import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
 for (const a of process.argv.slice(2)) {
@@ -164,9 +164,9 @@ const srcParts = [];
 for (const [label, path] of Object.entries(PDFS)) {
   const raw = pdfText(path);
   const w = norm(raw).split(" ").filter(Boolean);
-  if (w.length < 1000) {
-    console.error("  " + label + " extracted only " + w.length + " words. Refusing: a short");
-    console.error("  extraction is an empty index wearing a success.");
+  if (w.length !== expectedWords(label)) {
+    console.error("  " + label + " extracted " + w.length + " words, manifest says " + expectedWords(label) + ".");
+    console.error("  Refusing: the source or the extractor moved, and no verdict below is comparable.");
     process.exit(1);
   }
   const own = new Set();
@@ -184,20 +184,49 @@ console.log("  " + grams.size + " distinct " + SEED + "-grams");
 console.log("  sources: " + SOURCES);
 
 /**
- * Longest contiguous run in ONE stretch of text also present in the standards.
+ * Longest contiguous run in ONE stretch of text also present in ONE standard.
+ *
+ * ============ MEASURED PER SOURCE, NOT AGAINST THE UNION ============
+ *
+ * This used to run the greedy extension against the COMBINED gram set, and the
+ * combined set manufactures adjacency: a run can chain from one document into
+ * another across a junction that exists in neither. The reported length is then
+ * a property of the index rather than of any standard.
+ *
+ * FOUND 2026-09-21, ON THE RUN THAT WIDENING THE CORPUS FROM THREE SOURCES TO
+ * NINE PRODUCED. Of eight lesson groups the union-based measure refused, FOUR
+ * held no contiguous match in any single standard:
+ *
+ *   reported 14w  longest real fragment 9w  (27001 and 42001, each below 10)
+ *   reported 10w  longest real fragment 7w  (42001)
+ *   reported 10w  longest real fragment 7w  (42001)
+ *   reported 10w  longest real fragment 9w  (19011)
+ *
+ * TWELVE OF TWENTY-FOUR REFUSALS WERE ARTIFACTS, and they would have withheld
+ * four lesson groups in three languages for reproducing nothing. The defect was
+ * always latent and three overlapping standards rarely triggered it; nine
+ * management-system standards sharing harmonised boilerplate trigger it often.
+ *
+ * Same family as the join fan-out and the separator-free concatenation already
+ * recorded in CLAUDE.md: THE QUERY MANUFACTURED AN ADJACENCY THE DATA DOES NOT
+ * HAVE. A reproduction is a reproduction OF A DOCUMENT, so the measurement has
+ * to be per document and the maximum taken afterwards.
+ *
  * Callers pass a segment, not a whole document -- see `longestMeasured`.
  */
 function longestRun(text) {
   const w = norm(text).split(" ").filter(Boolean);
-  let best = 0, bestText = "";
-  for (let i = 0; i + SEED <= w.length; i++) {
-    if (!grams.has(w.slice(i, i + SEED).join(" "))) continue;
-    let n = SEED;
-    while (i + n + 1 <= w.length && grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
-    if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); }
-    i += n - 1;
+  let best = 0, bestText = "", bestSrc = "";
+  for (const [label, own] of perSource) {
+    for (let i = 0; i + SEED <= w.length; i++) {
+      if (!own.has(w.slice(i, i + SEED).join(" "))) continue;
+      let n = SEED;
+      while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+      if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); bestSrc = label; }
+      i += n - 1;
+    }
   }
-  return { best, bestText };
+  return { best, bestText, bestSrc };
 }
 
 /**
@@ -216,12 +245,12 @@ function longestRun(text) {
  * the moment it earns a column.
  */
 function longestMeasured(md) {
-  let best = 0, bestText = "";
+  let best = 0, bestText = "", bestSrc = "";
   for (const seg of segments(md, attributedQuote)) {
     const r = longestRun(seg);
-    if (r.best > best) { best = r.best; bestText = r.bestText; }
+    if (r.best > best) { best = r.best; bestText = r.bestText; bestSrc = r.bestSrc; }
   }
-  return { best, bestText };
+  return { best, bestText, bestSrc };
 }
 
 /* ------------------------------------------------------------ the policy */
@@ -247,8 +276,8 @@ const lessons = await all("lessons?select=id,slug,language,lesson_group_id,modul
 console.log("  " + lessons.length + " lesson row(s)");
 
 const measured = lessons.map((l) => {
-  const { best, bestText } = longestMeasured(l.content_md);
-  return { ...l, cert: modCert.get(l.module_id) ?? "?", run: best, runText: bestText };
+  const { best, bestText, bestSrc } = longestMeasured(l.content_md);
+  return { ...l, cert: modCert.get(l.module_id) ?? "?", run: best, runText: bestText, runSrc: bestSrc };
 });
 
 /* ============ THE VERDICT IS PER GROUP, THE MEASUREMENT IS PER ROW ============
@@ -442,7 +471,7 @@ if (VERBOSE) {
   console.log("");
   for (const s of shown.filter((x) => !x.servable).sort((a, b) => b.run - a.run)) {
     console.log("  " + String(s.run).padStart(3) + "w  " + s.cert + "  " + s.slug + "/" + s.language);
-    console.log("        \"" + s.runText.slice(0, 120) + "\"");
+    console.log("        \"" + s.runText.slice(0, 120) + "\"   [" + s.runSrc + "]");
   }
 }
 

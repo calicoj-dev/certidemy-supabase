@@ -1,4 +1,4 @@
-﻿.env
+.env
 .env.local
 .branches/
 .temp/
@@ -36,3 +36,7 @@ auth-config.json
 
 # Regenerable marking spec - build artifact, read then applied, never a source.
 scrum-marking-spec.json
+# Purchased ISO standards - licensed per seat, copying prohibited.
+# The manifest at iso-corpus-manifest.json records what the index holds.
+iso-corpus/
+../iso-corpus/

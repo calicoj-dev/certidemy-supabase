@@ -67,7 +67,7 @@ import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PDFS, pdftotextAvailable } from "./lib/citation-index.mjs";
+import { PDFS, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 
 const KNOWN = new Set(["--out"]);
 for (const a of process.argv.slice(2)) {
@@ -147,7 +147,12 @@ const idx = new Map();
 for (const s of SEEDS) idx.set(s, new Set());
 for (const [label, path] of Object.entries(PDFS)) {
   const w = words(pdfText(path));
-  if (w.length < 1000) { console.error(label + " extracted " + w.length + " words. Refusing."); process.exit(1); }
+  const want = expectedWords(label);
+  if (w.length !== want) {
+    console.error(label + " extracted " + w.length + " words, manifest says " + want + ".");
+    console.error("Refusing: the source or the extractor moved, and no number below is comparable.");
+    process.exit(1);
+  }
   srcWords[label] = w;
   for (const s of SEEDS) {
     const set = idx.get(s);

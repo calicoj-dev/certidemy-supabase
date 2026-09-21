@@ -38,7 +38,7 @@ import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PDFS, pdftotextAvailable } from "./lib/citation-index.mjs";
+import { PDFS, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 
 const KNOWN = new Set(["--file", "--cert"]);
 for (const a of process.argv.slice(2)) {
@@ -86,26 +86,38 @@ const norm = (s) => String(s || "").toLowerCase()
   .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
 const W = (s) => norm(s).split(" ").filter(Boolean);
 
-const idx = new Set();
+const perSource = new Map();
 for (const p of Object.values(PDFS)) {
   const o = join(mkdtempSync(join(tmpdir(), "iso-")), "t.txt");
   execFileSync("pdftotext", ["-layout", p, o]);
   const w = W(readFileSync(o, "utf8"));
-  if (w.length < 1000) { console.error("short extraction from " + p); process.exit(1); }
-  for (let i = 0; i + SEED <= w.length; i++) idx.add(w.slice(i, i + SEED).join(" "));
+  const key = Object.entries(PDFS).find(([, v]) => v === p)[0];
+  if (w.length !== expectedWords(key)) {
+    console.error(key + " extracted " + w.length + " words, manifest says " + expectedWords(key) + ". Refusing.");
+    process.exit(1);
+  }
+  const set = new Set();
+  for (let i = 0; i + SEED <= w.length; i++) set.add(w.slice(i, i + SEED).join(" "));
+  perSource.set(key, set);
 }
 
+/* PER SOURCE. A combined gram set chains a run across two documents through a
+ * junction present in neither, which inflates the length into a property of the
+ * index rather than of any standard. Measured on the lesson corpus 2026-09-21:
+ * four of eight refused groups held no contiguous match in any one standard. */
 function score(t) {
   const w = W(t);
-  let best = 0, bestText = "";
-  for (let i = 0; i + SEED <= w.length; i++) {
-    if (!idx.has(w.slice(i, i + SEED).join(" "))) continue;
-    let n = SEED;
-    while (i + n + 1 <= w.length && idx.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
-    if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); }
-    i += n - 1;
+  let best = 0, bestText = "", src = "";
+  for (const [key, set] of perSource) {
+    for (let i = 0; i + SEED <= w.length; i++) {
+      if (!set.has(w.slice(i, i + SEED).join(" "))) continue;
+      let n = SEED;
+      while (i + n + 1 <= w.length && set.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+      if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); src = key; }
+      i += n - 1;
+    }
   }
-  return { run: best, tot: w.length, cov: w.length ? best / w.length : 0, hit: bestText };
+  return { run: best, tot: w.length, cov: w.length ? best / w.length : 0, hit: bestText, src };
 }
 
 /* POSITIVE CONTROL. A known reproduction must fire, or the index is empty and

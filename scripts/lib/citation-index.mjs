@@ -34,14 +34,94 @@
  */
 import { readFileSync, existsSync, mkdtempSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-export const PDFS = {
-  "19011:2026": "C:/Users/Juan/Documents/iso-19011-2026.pdf",
-  "27001:2022": "C:/Users/Juan/Documents/ISO_IEC-270012022-ed.3.pdf",
-  "42001:2023": "C:/Users/Juan/Documents/iso42001.pdf",
-};
+/* ============ ONE LOCATION, AND THE MANIFEST IS THE RECORD ============
+ *
+ * The corpus lives at ../iso-corpus and is GITIGNORED: every standard in it is
+ * licensed per seat and says "copying and networking prohibited" on its pages.
+ * The only PDF this repository tracks is reference/scrum-guide-2020.pdf, which
+ * is CC BY-SA 4.0.
+ *
+ * `iso-corpus-manifest.json` IS committed, and it is the auditable record of
+ * what the index holds: standard, title, edition, date, SHA-256, page count.
+ * Paths are DERIVED from it, never typed here -- three PDFs previously sat
+ * loose in C:/Users/Juan/Documents under three different naming conventions,
+ * and a hardcoded path is a second copy of a fact that lives on disk.
+ *
+ * `indexed: false` entries are EXCLUDED here, by the manifest's own field.
+ * iso-iec-42006-PREVIEW-ONLY.pdf is a preview extract of a Singapore Standard
+ * adoption; indexing it would make 42006 read as covered while holding none of
+ * its requirements.
+ */
+const MANIFEST_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "iso-corpus-manifest.json");
+export const MANIFEST = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
+const CORPUS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "iso-corpus");
+
+/** key -> absolute path, for every manifest entry marked `indexed`. */
+export const PDFS = Object.fromEntries(
+  MANIFEST.entries.filter((e) => e.indexed).map((e) => [e.key, join(CORPUS_DIR, e.file)]),
+);
+
+/* ============ THE LEAK INDEX AND THE CITATION INDEX ARE NOT THE SAME ======
+ *
+ * PDFS is every indexed source and it is what the LEAK scanners hash into
+ * grams: a reproduction of 27002 matters whether or not any certification
+ * cites it.
+ *
+ * CITATION_SOURCES is deliberately NARROWER. buildIndex() parses clause and
+ * annex structures to answer "does this address exist", and that check flags
+ * only when an address exists in NO indexed standard. Widening it would make
+ * previously-flagged addresses resolve, which silently changes verify-cert's
+ * items.citations on every certification. Widening the leak index MUST NOT
+ * widen the citation index by side effect; they answer different questions and
+ * a change to the second is a content decision, not a corpus decision.
+ */
+export const CITATION_SOURCES = ["19011:2026", "27001:2022", "42001:2023"];
+
+/**
+ * Every indexed source is present AND byte-identical to what the manifest
+ * describes. This is the per-source POSITIVE CONTROL, and it replaces adding
+ * one hand-typed canary sentence per standard -- six more verbatim excerpts of
+ * licensed text in a tracked file is the thing the gitignore exists to prevent.
+ * A missing, truncated or swapped PDF fails here, before any verdict exists,
+ * and no content is reproduced to achieve it.
+ */
+/** Manifest facts by index key, so a script can assert what it extracted. */
+export const MANIFEST_BY_KEY = Object.fromEntries(MANIFEST.entries.map((e) => [e.key, e]));
+
+/**
+ * EXACT expected word count for an indexed source, from the manifest.
+ *
+ * THIS REPLACES A FLAT 1000-WORD FLOOR THAT LIVED IN THREE SCRIPTS AND FIRED
+ * ON A HEALTHY FILE. ISO/IEC 27001:2022/Amd 1:2024 is six pages and 903 words
+ * because an amendment is short -- the floor was asserting a document size
+ * nobody had agreed to, and it aborted three separate scanners on arrival.
+ *
+ * Equality is strictly stronger than any floor. It catches a truncated
+ * extraction, a swapped file, AND a pdftotext version change -- which is
+ * exactly when every number a scanner produces stops being comparable with
+ * yesterday's, and is the one condition a floor can never see.
+ */
+export function expectedWords(key) {
+  const e = MANIFEST_BY_KEY[key];
+  if (!e) throw new Error("no manifest entry for index key " + key);
+  return e.extracted_words;
+}
+
+export function verifyCorpus() {
+  const bad = [];
+  for (const e of MANIFEST.entries.filter((x) => x.indexed)) {
+    const p = join(CORPUS_DIR, e.file);
+    if (!existsSync(p)) { bad.push(e.file + ": absent"); continue; }
+    const sha = createHash("sha256").update(readFileSync(p)).digest("hex");
+    if (sha !== e.sha256) bad.push(e.file + ": sha256 " + sha.slice(0, 12) + " != manifest " + e.sha256.slice(0, 12));
+  }
+  return bad;
+}
 
 /**
  * True when every PDF is on disk. Does NOT probe pdftotext: that binary exits
@@ -117,7 +197,7 @@ function withAncestors(set) {
 
 let CACHE = null;
 
-/** Parse all three PDFs. Throws if a structure check fails - never widens silently. */
+/** Parse the CITATION_SOURCES. Throws if a structure check fails - never widens silently. */
 export function buildIndex() {
   if (CACHE) return CACHE;
   const t19011 = pdfText(PDFS["19011:2026"]);
