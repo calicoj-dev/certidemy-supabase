@@ -365,6 +365,26 @@ function forceLanguage(text, lang) {
 // The domain comes from the lesson's own certification_code, via an explicit map
 // in lib/item-translation.mjs. An unlisted certification gets NO framework
 // contract rather than the wrong one.
+/* THE CLAUSE-WORD RULE BELOW IS HALF OF A DELIBERATE PAIR. Recorded 2026-09-20;
+ * before that date only this half was written down anywhere.
+ *
+ *   LESSONS  capítulo / apartado / Seção   <- the rule inside this prompt
+ *   ITEMS    cláusula                       <- pin 8 in lib/item-translation.mjs
+ *
+ * Lessons follow the NATIONAL-ADOPTION REGISTER A READER STUDIES FROM. Items
+ * follow the WORKING REGISTER A CANDIDATE IS EXAMINED IN. Measured 2026-09-20,
+ * numbered references: lessons carry apartado/capítulo/Seção 4382 against
+ * cláusula 257; the item bank is the reverse, cláusula 14837 against 142.
+ *
+ * SO THE PROMPT'S "NEVER cláusula in either language" IS SCOPED TO LESSONS and
+ * is not a platform rule. It is left worded as-is on purpose: it is correct for
+ * this prompt, it is the wording four generation runs honoured, and softening a
+ * live instruction to make a comment tidy is how a rule stops being obeyed.
+ *
+ * Do not sweep either corpus toward the other. 101 lessons already carry both
+ * forms with no consequence, and apartado/capítulo is AENOR's convention --
+ * Spain -- while this corpus is es-419, where cláusula is ordinary ISO practice.
+ * "Match the national adoption" names no single answer for Latin America. */
 function systemPrompt(lang, domain = "general") {
   const name = LANG_NAMES[lang];
   const { subject } = contractForDomain(domain);

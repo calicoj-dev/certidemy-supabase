@@ -480,6 +480,23 @@ export function contractForDomain(domain) {
 /**
  * The translation system prompt. `kind` is "secure" | "practice" and changes one word.
  */
+/* THE CLAUSE-WORD RULE BELOW IS PINNED HERE, NOT IN ISO_MS_VOCABULARY, AND THE
+ * NEAR-MISS IS THE REASON IT SAYS SO. Added 2026-09-20.
+ *
+ * ISO_MS_VOCABULARY reaches a model only through contractForDomain(), which
+ * feeds the LESSON prompt, and through retranslate-item-rewrite. It is NOT
+ * interpolated here -- so a clause pin written into that block would have
+ * missed the generator that produced all 14,837 occurrences, AND injected
+ * "use cláusula" into translate-lessons.mjs, whose own rule says "NEVER
+ * cláusula in either language". One shared block, two audiences, opposite
+ * instructions in a single prompt -- the tier-leakage shape CLAUDE.md records.
+ *
+ * Until today this was an UNSTATED DEFAULT: the prompt named clause SUB-ITEMS
+ * and the pt-BR spelling of Seção, and never the top-level word, so the model
+ * reached for the strongest cognate 14,837 times. translate-lessons.mjs
+ * predicted exactly that. A default is a convention nobody can see changing:
+ * the next edit here that happens to mention clauses could flip live exam text,
+ * 476 items of it secure, with no reviewer aware a convention had moved. */
 export function translateSystem(langName, kind = "practice") {
   const what = kind === "secure" ? "certification exam questions" : "certification practice questions";
   return `You translate ${what} from English to ${langName}.
@@ -493,6 +510,17 @@ Rules:
   - Do NOT add, drop, or merge options. Do NOT include correct_answer, difficulty,
     or question_type.
   - Output strict JSON only, NO prose, NO markdown fences.
+
+CLAUSE WORD. A top-level numbered ISO clause reference is "cláusula" in BOTH
+es-419 and pt-BR: "cláusula 9.2", "cláusula 4", "las cláusulas 4 a 10". Do not
+render it as capítulo or seção. Sub-items within a clause are unaffected and keep
+the existing rule (es-419 apartado, pt-BR alínea).
+Measured in this bank on 2026-09-20, numbered references:
+  es-419  cláusula 7430   apartado 86   capítulo 7
+  pt-BR   cláusula 7407   seção 49
+This is the working register a candidate is EXAMINED in. It is deliberately NOT
+the lesson register, which uses capítulo / apartado / Seção because a learner
+studies from the national adoption. Both are correct on their own surface.
 
 ${RETIRED_VOCABULARY}
 
