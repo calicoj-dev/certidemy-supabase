@@ -54,13 +54,22 @@ export function requiredScope(resource: Resource): string | null {
   return SCOPE_FOR_RESOURCE[resource] ?? null;
 }
 
-// mcp.task, mcp.lesson, mcp.lesson_index and -- since migration 343 --
-// mcp.certification carry these three. mcp.concept is English-only, and that
-// is a fact about the DATA and not about this list: there is no concept
-// translation table under either naming convention here
-// (`concept_translations` and `concept_i18n` both absent, measured
-// 2026-09-17), and 1,730 concepts is a project rather than a pass.
-// MCP-COURSEWARE.md section 5.
+// mcp.task, mcp.lesson, mcp.lesson_index, mcp.certification (343) and --
+// since migration 355 -- mcp.concept all carry these three.
+//
+// THE CONCEPT LINE HERE SAID "English-only" UNTIL 2026-09-20 AND WAS A FACT
+// ABOUT THE DATA, correctly measured: `concept_translations` and
+// `concept_i18n` were both absent. 355 created the first of those, so the
+// sentence is gone rather than marked -- a reader scanning this list acts on
+// it, and a marked-but-present claim about a resource's language support is
+// the kind that gets half-read.
+//
+// WHAT IS STILL TRUE, AND IS DIFFERENT: the table is EMPTY. Every non-English
+// concept row comes back as English with `description_is_fallback = true`
+// until translations land AND are cleared -- 355 serves only
+// `is_provisional = false`. So a Spanish caller gets English and now KNOWS
+// it, which is the whole change. 1,730 concepts x 2 languages is still a
+// project rather than a pass. MCP-COURSEWARE.md section 5.
 /**
  * THE CERTIFICATIONS SERVED, AND THE DATABASE IS THE AUTHORITY.
  *
@@ -150,7 +159,8 @@ const ALLOWED: Record<Resource, string[]> = {
   // answered in English -- a 400 that reads as a bad field name.
   certification: ["resource", "language", "tool", "certification"],
   task: ["resource", "language", "domain_code", "task_code", "limit", "tool", "certification"],
-  concept: ["resource", "slug", "task_code", "limit", "tool", "certification"],
+  // `language` added by 355, the same shape 343 gave certification.
+  concept: ["resource", "language", "slug", "task_code", "limit", "tool", "certification"],
   search: ["resource", "query", "language", "limit", "tool", "certification"],
   // The Worker's telemetry-only call. A certification refusal is decided in the
   // Worker's validator, BEFORE any read is attempted, so it never reaches a
@@ -569,23 +579,36 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       return {
         q: {
           text:
-            "select slug, name, description, task_codes " +
+            "select slug, name, description, description_is_fallback, language, task_codes " +
             "from mcp.concept " +
             "where certification = $1 " +
-            "and ($2::text is null or slug = $2) " +
-            "and ($3::text is null or $3 = any(task_codes)) " +
+            "and language = $2 " +
+            "and ($3::text is null or slug = $3) " +
+            "and ($4::text is null or $4 = any(task_codes)) " +
             "order by slug " +
-            "limit $4",
-          args: [a.certification!, a.slug ?? null, a.task_code ?? null, a.limit],
+            "limit $5",
+          args: [a.certification!, a.language, a.slug ?? null, a.task_code ?? null, a.limit],
         },
       };
 
     case "search": {
-      // MCP-COURSEWARE.md section 5: there is no concept_translations table, so
-      // a non-English search covers tasks and KSAs and NOT concepts. That
-      // reduction is REPORTED rather than absorbed, for the same reason
-      // mcp.task exposes domain_title_is_fallback -- a thinner result the
+      // A non-English search covers tasks and KSAs and NOT concepts, and the
+      // reduction is REPORTED rather than absorbed -- a thinner result the
       // caller cannot detect is the same defect class as a dropped read.
+      //
+      // THE REASON CHANGED ON 2026-09-20 AND THE BEHAVIOUR DID NOT. It used to
+      // be "there is no concept_translations table". 355 created it, and it is
+      // EMPTY: mcp.concept returns English for every non-English caller with
+      // description_is_fallback true. Searching that would match English text
+      // for a Spanish query and return concept hits the caller would read as
+      // Spanish results -- hiding the fallback inside a result set, which is
+      // worse than the reduction it replaces.
+      //
+      // SO THIS MUST BECOME A DATA QUESTION, NOT A LANGUAGE ONE, the moment any
+      // translation is cleared: "are there cleared concept translations for
+      // this certification and language". Left as a language test deliberately
+      // -- it is correct while the table is empty, and a predicate that reads
+      // the table would be a branch nothing can exercise until it is not.
       const withConcepts = a.language === "en";
       const searched = withConcepts ? ["task", "concept"] : ["task"];
 

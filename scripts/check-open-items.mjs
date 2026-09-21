@@ -210,6 +210,65 @@ const ITEMS = {
     };
   },
 
+  "concepts are gated for ISO leaks": async () => {
+    /* OPEN, AND NOT A CONSEQUENCE OF THE TRANSLATION WORK. Recorded 2026-09-20
+     * so nobody discovers it the way it was discovered -- sideways, while
+     * measuring something else.
+     *
+     * CONCEPT DESCRIPTIONS ARE SERVED UNDER NO LEAK POLICY AT ALL.
+     * `lessons` carries mcp_servable, mcp_iso_longest_run, mcp_scanned_at and
+     * mcp_scan_sources, a trigger clearing all four on any content_md change,
+     * and lesson_body_is_servable() which mcp.lesson filters on. `concepts`
+     * has none of it, and scan-iso-leaks reads lessons only. All 1,730
+     * descriptions reach mcp.concept ungated.
+     *
+     * 90 of them carry ISO runs at or above the threshold that would withhold
+     * a lesson. All 90 were read and all 90 resolve to KEEP under the
+     * IP-POSITION section 6 ruling of 2026-09-20 -- they are attributed. So
+     * there is no known defect here. THE ABSENCE OF A GATE IS STILL NOT A
+     * GATE THAT PASSED, and the next 90 will not be read by anyone.
+     *
+     * THE BLOCKER IS THE THRESHOLD, AND IT IS WHY THIS WAS NOT BOLTED ONTO
+     * 355. `mcp_leak_policy.threshold_words` is 10, calibrated against lesson
+     * bodies of 10,000+ characters. The median concept description is NINE
+     * WORDS. A 10-word run there is the entire description, so one threshold
+     * across both surfaces either withholds most of AIMS-IA -- median 72
+     * words, 58 over -- or gates nothing anywhere else. That is a measurement
+     * question, not a migration.
+     *
+     * AND A SECOND PROBLEM THE LESSON GATE DOES NOT HAVE: the attribution
+     * exemption is detected in markdown by lines beginning `>`. A text column
+     * has no such marker, so recognising attribution would mean matching for
+     * "does this name a standard or a clause" -- a lexical guard standing in
+     * for a property, which is the shape CLAUDE.md records five instances of.
+     *
+     * This probe asserts the STATE, so it closes itself when the columns
+     * appear rather than waiting to be remembered. */
+    /* A raw fetch, NOT all(): that helper asserts the page against the server's
+     * total and a one-row shape probe trips its short-read guard, correctly.
+     * This wants the column list, not the rows. */
+    let cols = null;
+    for (let i = 0; i < 6 && !cols; i++) {
+      try {
+        const r = await fetch(REST + "/concepts?select=*&limit=1", { headers: H, signal: AbortSignal.timeout(30000) });
+        if (r.ok) cols = await r.json();
+      } catch { /* retry */ }
+    }
+    if (!cols || !cols.length) return { open: null, why: "could not read a concept row -- cannot inspect the shape" };
+    const has = Object.keys(cols[0]);
+    /* CONTROL: the probe must be looking at the right table. */
+    if (!has.includes("description") || !has.includes("slug")) {
+      return { open: null, why: "concepts does not look like concepts -- extractor broken" };
+    }
+    const gated = has.includes("mcp_servable");
+    return {
+      open: !gated,
+      why: gated
+        ? "concepts carries mcp_servable -- a gate exists; check scan-iso-leaks actually scans it"
+        : "concepts has no mcp_servable and scan-iso-leaks reads lessons only, so all 1,730 descriptions are served under NO leak policy. 90 carry ISO runs at or above the lesson threshold; all 90 read and kept as attributed (IP-POSITION s6, 2026-09-20). Blocker is the threshold: 10w is calibrated for 10,000-char lesson bodies and the median description is 9 words",
+    };
+  },
+
   "clausula terminology sweep": async () => {
     /* CLOSED 2026-09-20 AS NOT A DEFECT, and the entry is kept because the
      * reasoning is the durable part.

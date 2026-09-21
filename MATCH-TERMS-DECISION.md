@@ -176,3 +176,35 @@ Any future coverage number must say which of the two it is measuring.
 **Do not fill `match_terms` from a generator.** If someone reaches for this
 column again, the question to answer first is not "what terms" but "what
 authority", and the answer has to survive section 3.
+
+---
+
+## 6. The multiplier changed on 2026-09-20. The decision did not.
+
+Migration 355 created `public.concept_translations` and gave `mcp.concept` a
+language dimension. **`match_terms` is not on the new table, deliberately.**
+
+Nothing in sections 1-5 is reopened by this. The argument against filling the
+column is about AUTHORITY -- a term needs a citable source the way
+`drift_rules.authority_citation_id` carries one -- and adding two more
+languages does not supply authority, it multiplies the requirement.
+
+**What changed is only the size of the job this document declines:**
+
+| | before 355 | after 355 |
+|---|---|---|
+| rows a populated matcher would need | 1,730 | **5,190** |
+| human judgements, at one per row | 1,730 | **5,190** |
+| licences to clear | ITIL, Scrum Guide | the same, **per language** |
+
+And a third cost that did not exist before: **a term list in three languages is
+three lists of one idea, which section 3 of CLAUDE.md's own guidance says
+diverge.** `service` appearing in 34 of AISM-I's concept names is the document
+frequency problem section 2 records; `servicio` and `serviço` would each carry
+their own version of it, and a coverage number computed across all three could
+not say which language inflated it.
+
+**So the instruction at the end of section 5 stands unchanged and now applies
+three times over.** If someone reaches for this column, the question is still
+"what authority", and the answer now has to survive section 3 in Spanish and
+Portuguese as well as English.

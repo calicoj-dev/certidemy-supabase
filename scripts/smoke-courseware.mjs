@@ -457,9 +457,17 @@ await expectRows("get_syllabus     -> task (es-419)", { resource: "task", langua
 
 await expectRows("search_blueprint -> es-419", { resource: "search", query: "incidente", language: "es-419", limit: 50 }, 1, (j) => {
   const s = j.searched ?? [];
-  // There is no concept_translations table, so a non-English search covers
-  // tasks only -- and must SAY so. Absorbing the reduction is the dropped-read
-  // defect class.
+  // A non-English search covers tasks only -- and must SAY so. Absorbing the
+  // reduction is the dropped-read defect class.
+  //
+  // THE REASON CHANGED 2026-09-20, THE ASSERTION DID NOT. It used to be "there
+  // is no concept_translations table"; 355 created it and it is EMPTY, so
+  // mcp.concept serves English to a Spanish caller with
+  // description_is_fallback true. Searching that would return English hits a
+  // caller would read as Spanish results. THIS ASSERTION MUST BE REVISITED, not
+  // deleted, the first time a concept translation is cleared -- at that point
+  // searched SHOULD include "concept" for that certification and this test
+  // starts failing for the right reason.
   if (s.includes("concept")) return `searched=${JSON.stringify(s)}: claims to have searched concepts, which have no translations`;
   if (!s.includes("task")) return `searched=${JSON.stringify(s)}, expected ["task"]`;
   const concepts = j.rows.filter((r) => r.kind === "concept").length;

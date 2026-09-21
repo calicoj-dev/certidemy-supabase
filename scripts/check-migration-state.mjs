@@ -587,6 +587,88 @@ const FINGERPRINTS = {
           " -- a backfilled hash that does not match would show as ISMS-F going dark",
     };
   },
+  353: async () => {
+    /* RAN vs EFFECTIVE. "the column exists" passes on a migration that added
+     * it and no trigger -- which 16 tables in this database demonstrate. The
+     * trigger is the property, so EFFECTIVE asks whether any row has actually
+     * moved off its created_at, and says UNPROVEN rather than false while no
+     * row has been edited since. */
+    /* ONE ROW, THE MOST RECENTLY UPDATED. An unpaginated select here returned
+     * 1000 and printed it as a total against 1,437 lessons -- the PostgREST cap
+     * wearing the costume of an answer, in a fingerprint written the same day
+     * that rule was being applied elsewhere. The property is "has the trigger
+     * ever fired", and the newest updated_at answers it without a count. */
+    const l = await rest("lessons?select=id,created_at,updated_at&order=updated_at.desc&limit=1");
+    if (!l) {
+      const plain = await rest("lessons?select=id&limit=1");
+      return plain
+        ? { ran: false, why: "lessons.updated_at does not exist -- 353 has not run" }
+        : { ran: null, why: "could not read lessons at all" };
+    }
+    const q = await rest("quiz_questions?select=id,created_at,updated_at&limit=1");
+    if (!q) return { ran: false, why: "quiz_questions.updated_at does not exist -- 353 is half applied" };
+    const moved = l.filter((r) => r.updated_at && r.created_at && r.updated_at > r.created_at).length;
+    return {
+      ran: true,
+      why: "lessons and quiz_questions both carry updated_at",
+      effective: moved > 0 ? true : null,
+      effectiveWhy: moved > 0
+        ? "the most recently updated lesson reads updated_at > created_at, so the trigger has fired"
+        : "no lesson has been edited since 353, so the TRIGGER is unproven from data -- " +
+          "353's own post-condition exercised it in a rolled-back sub-block",
+    };
+  },
+  354: async () => {
+    /* The function is granted to service_role only, so this key can call it.
+     * BOTH DIRECTIONS: it must return a table that has a trigger AND omit one
+     * that carries updated_at without one, or the calling script exempts
+     * everything and its gate cannot fire. */
+    const rows = await rest("rpc/tables_with_updated_at_trigger", { method: "POST", body: "{}" });
+    if (!rows) return { ran: false, why: "tables_with_updated_at_trigger does not exist -- 354 has not run" };
+    const names = rows.map((r) => (typeof r === "string" ? r : r.table_name));
+    const hasProfiles = names.includes("profiles");
+    const omitsUserCerts = !names.includes("user_certifications");
+    const omitsMaterial = !names.includes("credentials");
+    const ok = hasProfiles && omitsUserCerts && omitsMaterial;
+    return {
+      ran: true,
+      why: names.length + " table(s) reported trigger-maintained",
+      effective: ok,
+      effectiveWhy: ok
+        ? "profiles in, user_certifications out, credentials out -- the assignment predicate holds"
+        : "profiles=" + hasProfiles + " user_certifications_omitted=" + omitsUserCerts +
+          " credentials_omitted=" + omitsMaterial + " -- credentials present means it matched the substring again",
+    };
+  },
+  355: async () => {
+    /* RAN is the table. EFFECTIVE is the view, and the two halves of the view
+     * that matter are opposite: nothing vanishes, and nothing uncleared is
+     * served. A view driven off the translations would satisfy neither. */
+    const t = await rest("concept_translations?select=concept_id,language,is_provisional");
+    if (!t) return { ran: false, why: "public.concept_translations does not exist -- 355 has not run" };
+    const three = await fn({ resource: "concept", certification: "ISMS-F", language: "es-419", limit: 300 });
+    const en = await fn({ resource: "concept", certification: "ISMS-F", language: "en", limit: 300 });
+    const esRows = three.json?.rows ?? [], enRows = en.json?.rows ?? [];
+    /* NOTHING VANISHES is the property this table exists for. */
+    const sameCount = esRows.length > 0 && esRows.length === enRows.length;
+    const flagged = esRows.filter((r) => r.description_is_fallback).length;
+    const cleared = t.filter((r) => !r.is_provisional).length;
+    /* While the table is empty every non-English row must be a fallback. Once
+     * rows are cleared that stops being true, which is why this compares
+     * against the CLEARED COUNT rather than asserting a literal. */
+    const consistent = cleared === 0 ? flagged === esRows.length : flagged <= esRows.length;
+    return {
+      ran: true,
+      why: t.length + " translation row(s), " + cleared + " cleared",
+      effective: sameCount && consistent,
+      effectiveWhy: !sameCount
+        ? "es-419 returns " + esRows.length + " concept(s) and en returns " + enRows.length +
+          " -- a concept VANISHES in Spanish, which is the defect 355 exists to prevent"
+        : cleared === 0
+          ? "es-419 returns all " + esRows.length + " concept(s), every one flagged description_is_fallback"
+          : cleared + " cleared translation(s); " + flagged + " of " + esRows.length + " still fall back",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

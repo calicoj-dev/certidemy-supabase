@@ -76,10 +76,19 @@
 // returns no number for exactly those prospects. The refusal is honest and the
 // capability is missing.
 //
-// 223 names the two fixes and neither has been done: a multilingual embedding
-// matcher that declares es-419/en support, or translated concept names
-// (public.concepts has no lang column and there is no concept_i18n table). Both
-// close it; neither is scheduled.
+// 223 names the two fixes: a multilingual embedding matcher that declares
+// es-419/en support, or translated concept names.
+//
+// THE SECOND ONE IS NOW HALF DONE AND THE HALF MATTERS. This comment said
+// "public.concepts has no lang column and there is no concept_i18n table",
+// which was measured and true. Migration 355 created
+// public.concept_translations -- the *_translations convention, keyed
+// `language`, not the *_i18n one this line went looking for.
+//
+// THE TABLE IS EMPTY, SO THIS ANALYZER GAINS NOTHING YET. It matches against
+// concept NAMES, and every non-English name still resolves to English until
+// translations land and are cleared. What changed is that the gap now has
+// somewhere to be fixed rather than being structural.
 //
 // ============================ WHAT IT DOES NOT DO ============================
 //
