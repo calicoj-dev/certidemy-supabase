@@ -194,14 +194,39 @@ begin
     raise exception 'a translation outside the seven changed';
   end if;
 
-  -- 5. THE PIN TOOK, BOTH DIRECTIONS. idoneidad present, pertinencia gone,
-  --    on exactly the two rows -- and pertinencia must not survive anywhere in
-  --    es-419 concept text, since the corpus carried it only on these two.
+  -- 5. THE PIN TOOK, ON THE TWO ROWS THIS MIGRATION TOUCHED.
+  --
+  --    NARROWED. The first version asserted pertinencia appears in ZERO
+  --    es-419 concept rows -- a corpus-wide literal over 1,729 rows this
+  --    migration has no authority over, which aborts against a correct
+  --    database the moment anyone uses the word legitimately somewhere else.
+  --    That is the 328 / 345 / 351 / 352 shape.
+  --
+  --    A POST-CONDITION GUARDS A WRITE. A CHECK SCRIPT WATCHES A PROPERTY.
+  --    The corpus-wide term consistency moved to
+  --    scripts/sql/check-term-consistency.sql, where a new legitimate use is
+  --    a report rather than a failed migration.
   select count(*) into n_bad
-    from public.concept_translations
-   where language = 'es-419' and description ~* '\mpertinencia\M';
+    from public.concept_translations ct
+    join public.concepts cp on cp.id = ct.concept_id
+    join public.certifications c on c.id = cp.certification_id
+   where c.code = 'ISMS-IA' and ct.language = 'es-419'
+     and cp.slug in ('ia-ai-evaluation-tools-in-auditor-competence-7-2-3',
+                     'ia-ict-and-emerging-technology-competence-7-2-3')
+     and ct.description ~* '\mpertinencia\M';
   if n_bad <> 0 then
-    raise exception '% es-419 concept row(s) still say pertinencia', n_bad;
+    raise exception '% of the two pinned row(s) still say pertinencia', n_bad;
+  end if;
+  select count(*) into n_bad
+    from public.concept_translations ct
+    join public.concepts cp on cp.id = ct.concept_id
+    join public.certifications c on c.id = cp.certification_id
+   where c.code = 'ISMS-IA' and ct.language = 'es-419'
+     and cp.slug in ('ia-ai-evaluation-tools-in-auditor-competence-7-2-3',
+                     'ia-ict-and-emerging-technology-competence-7-2-3')
+     and ct.description ~* '\midoneidad\M';
+  if n_bad <> 2 then
+    raise exception 'only % of the two pinned row(s) say idoneidad', n_bad;
   end if;
 
   -- 6. THE CHURN REVERTS TOOK.

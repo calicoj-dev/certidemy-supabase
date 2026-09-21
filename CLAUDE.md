@@ -1437,6 +1437,46 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A PRIVILEGE CHECK ASKS WHAT IS TRUE, NOT WHAT WAS GRANTED.** The sharpest
+instance of tonight's recurring shape, because the instrument was wrong in a
+way that exonerated the exact role running it.
+
+`aclexplode(relacl)` against `aclexplode(proacl)` reported **zero gap on four
+views**, while `supabase_read_only_user` -- the role executing the query -- was
+sitting in the gap on all four. It reads through **membership of
+`pg_read_all_data`**, which confers SELECT and appears in no ACL anywhere.
+
+> **MECHANISM: every privilege assertion uses the `has_*_privilege` family.**
+> `has_table_privilege` and `has_function_privilege` resolve membership,
+> inheritance and defaults; an ACL comparison sees only what someone typed.
+
+Same instrument, two ways, on the same database, in the same minute: **"no
+gap"** and **"eight gaps"**. The ACL form is the obvious way to write it --
+it reads like the question -- which is why that note sits at the TOP of
+`scripts/sql/check-view-function-grant-gap.sql` rather than in a commit nobody
+will open.
+
+**AND A POST-CONDITION GUARDS A WRITE; A CHECK SCRIPT WATCHES A PROPERTY.**
+This is the distinction underneath the four aborts, and it is worth stating
+separately from "do not use literals".
+
+A post-condition asserts what THIS statement did and what it left alone.
+Failing means *do not commit*, and its scope is the rows the migration is
+authorised to touch. A check script asks whether a property holds across a
+corpus nobody is writing to right now. Failing means *go and look*.
+
+360's fifth post-condition asserted that `pertinencia` appears in **zero**
+es-419 concept rows -- a corpus-wide claim over 1,729 rows that migration had
+no authority over, which would abort against a perfectly correct database the
+first time anyone used the word legitimately somewhere else. It is narrowed to
+the two rows 360 changes, and the corpus property moved to
+`scripts/sql/check-term-consistency.sql`, which reports and does not fail.
+
+**Every one of the four aborts is this confusion.** 328's `expected 4`, 345's
+`12637`, 351's `13` and 352's `98` were all facts about a CORPUS being asserted
+inside a gate that guards a WRITE. The literal was the symptom; the misplaced
+question was the cause.
+
 **A VIEW'S GRANT LIST MUST NOT BE WIDER THAN THE GRANT LIST OF THE FUNCTION IT
 CALLS.** 339's defect, written as a standing assertion instead of something to
 remember. `scripts/sql/check-view-function-grant-gap.sql`.
