@@ -1,0 +1,395 @@
+{
+ "seed": "2026-09-20-concepts",
+ "reviewed_on": "2026-09-21",
+ "reviewed_by": "claude-director",
+ "rule": "A meaning defect in a certification+language draw blocks THAT certification+language and triggers a full read of it. Register and style issues do not block.",
+ "clearance_claim_wording": "Approved on a sample of 20 rows per certification per language (480 of 3460 read). NOT a full read, and NOT a uniform percentage: draws ranged from 9% (AISM-I, 20 of 226) to 43% (AIE-I, 20 of 47) of a certification. Never state this clearance as a percentage of the corpus.",
+ "clear": [
+  {
+   "certification": "AIE-I",
+   "language": "es-419",
+   "population": 47,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 2
+  },
+  {
+   "certification": "AIGRM-I",
+   "language": "es-419",
+   "population": 165,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "AIGRM-I",
+   "language": "pt-BR",
+   "population": 165,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "AIHR-I",
+   "language": "es-419",
+   "population": 114,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 2
+  },
+  {
+   "certification": "AIHR-I",
+   "language": "pt-BR",
+   "population": 114,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "es-419",
+   "population": 158,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "AISM-I",
+   "language": "es-419",
+   "population": 226,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "AISM-I",
+   "language": "pt-BR",
+   "population": 226,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "ISMS-F",
+   "language": "pt-BR",
+   "population": 192,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "ISMS-IA",
+   "language": "pt-BR",
+   "population": 169,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0
+  },
+  {
+   "certification": "SD-AI-I",
+   "language": "es-419",
+   "population": 135,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "SD-AI-I",
+   "language": "pt-BR",
+   "population": 135,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "es-419",
+   "population": 107,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 3
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "pt-BR",
+   "population": 107,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "es-419",
+   "population": 131,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 3
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "pt-BR",
+   "population": 131,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "SPO-AI-I",
+   "language": "es-419",
+   "population": 132,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  },
+  {
+   "certification": "SPO-AI-I",
+   "language": "pt-BR",
+   "population": 132,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1
+  }
+ ],
+ "block": [
+  {
+   "certification": "AIE-I",
+   "language": "pt-BR",
+   "population": 47,
+   "sampled": 20,
+   "wrong": 1,
+   "reword": 2,
+   "blocking_rows": [
+    {
+     "slug": "genai-limitations",
+     "note": "'quotations' rendered 'transcricoes' (transcriptions). Wrong referent: the model invents fake QUOTES, not transcripts. The es-419 draw of the same concept says 'textos citados' correctly."
+    }
+   ],
+   "full_read_rows": 47
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "pt-BR",
+   "population": 158,
+   "sampled": 20,
+   "wrong": 1,
+   "reword": 3,
+   "blocking_rows": [
+    {
+     "slug": "aia-ai-policy-requirements",
+     "note": "'Este e um requisito de Secao' - mechanical clause->Secao substitution landed on a generic use of 'clause'. The concept exists to contrast a CLAUSE requirement (mandatory) with an Annex A control (selected); that contrast is destroyed. Suggest: 'Este e um requisito das secoes normativas e se aplica independentemente de o controle A.2.2 ser ou nao selecionado.'"
+    }
+   ],
+   "full_read_rows": 158
+  },
+  {
+   "certification": "ISMS-F",
+   "language": "es-419",
+   "population": 192,
+   "sampled": 20,
+   "wrong": 1,
+   "reword": 1,
+   "blocking_rows": [
+    {
+     "slug": "risk-acceptance-criteria",
+     "note": "'los umbrales A PARTIR DE LOS CUALES un riesgo puede retenerse' states the inverse. Acceptance criteria define the level at or BELOW which a risk may be retained; 'a partir de' means from the threshold upward. Suggest: 'los umbrales dentro de los cuales'."
+    }
+   ],
+   "full_read_rows": 192
+  },
+  {
+   "certification": "ISMS-IA",
+   "language": "es-419",
+   "population": 169,
+   "sampled": 20,
+   "wrong": 1,
+   "reword": 1,
+   "blocking_rows": [
+    {
+     "slug": "ia-awareness-clause-7-3",
+     "note": "'las implicaciones de LA NO CONFORMIDAD' collapses the English 'not conforming' (the act) into the ISO defined term nonconformity (the finding). In an auditor certification that distinction is examinable. The pt-BR draw of this same concept renders it correctly as 'nao estar em conformidade'. Suggest: 'las implicaciones de no cumplir los requisitos'."
+    }
+   ],
+   "full_read_rows": 169
+  }
+ ],
+ "hold": [
+  {
+   "certification": "AIMS-F",
+   "language": "es-419",
+   "population": 154,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0,
+   "reason": "HELD: English source descriptions are placeholder boilerplate. Translation is faithful to a stub. Clearing would put review provenance behind text that teaches nothing."
+  },
+  {
+   "certification": "AIMS-F",
+   "language": "pt-BR",
+   "population": 154,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0,
+   "reason": "HELD: English source descriptions are placeholder boilerplate. Translation is faithful to a stub. Clearing would put review provenance behind text that teaches nothing."
+  }
+ ],
+ "totals": {
+  "draws_clear": 18,
+  "draws_blocked": 4,
+  "draws_held": 2,
+  "rows_to_clear": 2586,
+  "rows_to_full_read": 566,
+  "rows_held": 308
+ },
+ "rewords": [
+  {
+   "certification": "AIE-I",
+   "language": "es-419",
+   "slug": "human-oversight",
+   "note": "'las decisiones que un sistema de IA fundamenta' - 'fundamenta' says the AI GROUNDS the decision, stronger than 'informs'. Suggest 'en las que interviene un sistema de IA'."
+  },
+  {
+   "certification": "AIE-I",
+   "language": "es-419",
+   "slug": "right-tool-for-task",
+   "note": "'La IA calza cuando' - 'calzar' is regional (Chile/Peru). Neutral es-419 wants 'encaja' / 'es adecuada'."
+  },
+  {
+   "certification": "AIE-I",
+   "language": "pt-BR",
+   "slug": "foundation-model",
+   "note": "'Modelo de Fundacao' reads as a model belonging to a foundation (the institution). Standard pt-BR is 'modelo fundacional' or the English term. AISM-I es-419 renders the same term 'modelo fundacional' correctly."
+  },
+  {
+   "certification": "AIE-I",
+   "language": "pt-BR",
+   "slug": "hallucination",
+   "note": "'Saida confiante' attributes confidence to the output. The es-419 draw handles it better: 'Salida expresada con seguridad'."
+  },
+  {
+   "certification": "AIGRM-I",
+   "language": "pt-BR",
+   "slug": "override-and-escalation",
+   "note": "'Sobreposicao' means overlapping. Override in a governance control is 'anular' / 'revogar'. Description ('sobreponham decisoes') is recoverable; the name is not."
+  },
+  {
+   "certification": "AIHR-I",
+   "language": "es-419",
+   "slug": "audit-is-not-indemnity",
+   "note": "'indemnizacion' is a compensation payment. The English 'indemnity' here means a transfer of liability. The description recovers it ('no es una transferencia de responsabilidad'), so the name alone is wrong. Suggest: 'La auditoria no exonera de responsabilidad'."
+  },
+  {
+   "certification": "AIHR-I",
+   "language": "es-419",
+   "slug": "institution-proxy",
+   "note": "'background' narrowed to 'origen social'. The English covers educational and socioeconomic background both."
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "es-419",
+   "slug": "aia-nonconformity-needs-a-shall",
+   "note": "'Los controles del Anexo A aplican cuando' and 'aplican integramente' - missing reflexive, twice in one row."
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "pt-BR",
+   "slug": "aia-climate-native-not-amendment",
+   "note": "should -> 'deve'. Non-normative should (the courseware advising the auditor), so not a shall/should error, but in an ISO auditor certification 'deve' invites the wrong reading. Suggest 'convem que ... mantenha clara'."
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "pt-BR",
+   "slug": "aia-sample-defensibility",
+   "note": "'cartoes de modelo' translates a term left in English one row earlier in the same draw ('um model card', aia-creating-updating-control) and glossed a third way in AIGRM-I ('Model Card (Ficha do Modelo)'). Pin one."
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "pt-BR",
+   "slug": "aia-role-changes-obligations",
+   "note": "should -> 'deve esperar'. Same class as above."
+  },
+  {
+   "certification": "ISMS-F",
+   "language": "es-419",
+   "slug": "tool-misuse",
+   "note": "Attachment ambiguity: '...resultados destructivos o no previstos POR UN AGENTE COMPROMETIDO' reads on nearest attachment as 'unforeseen BY a compromised agent'. Intended: the agent does the bending. Suggest: 'herramientas legitimas que un agente comprometido desvia hacia resultados destructivos o no previstos'."
+  },
+  {
+   "certification": "ISMS-IA",
+   "language": "es-419",
+   "slug": "ia-disclosure-proportionality",
+   "note": "'La divulgacion aplica a' - missing reflexive. Spanish requires 'se aplica a'."
+  },
+  {
+   "certification": "SD-AI-I",
+   "language": "es-419",
+   "slug": "replanning-toward-goal",
+   "note": "Name 'Replanificar hacia el Goal' leaves a bare English noun. The description correctly says 'Sprint Goal'. Pinned-term list applied to a bare 'the Goal'."
+  },
+  {
+   "certification": "SD-AI-I",
+   "language": "pt-BR",
+   "slug": "ai-pair-programming",
+   "note": "'parceira de pareamento' - pt-BR practice says 'pair programming' or 'programacao em par'."
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "es-419",
+   "slug": "coaching-self-management",
+   "note": "'asumir mayor apropiacion' is awkward for 'take more ownership'. Suggest 'asumir mas responsabilidad sobre su trabajo'."
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "es-419",
+   "slug": "agile-values",
+   "note": "\"la logica de prioridad de 'sobre'\" is opaque. The Spanish Manifesto uses 'por encima de'."
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "es-419",
+   "slug": "dod-applies-to-ai-output",
+   "note": "'La Definition of Done aplica a' - missing reflexive; same defect."
+  },
+  {
+   "certification": "SM-AI-I",
+   "language": "pt-BR",
+   "slug": "ai-as-tool-not-team-member",
+   "note": "'responsabilidades do Scrum' for 'Scrum accountabilities'. Defensible (it is the official pt-BR Scrum Guide term) but this sample renders accountability as 'prestacao de contas' in 8 other rows across SD-AI-I, SM-AI-II, SPO-AI-I and AIHR-I. Pin one convention."
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "es-419",
+   "slug": "provenance-in-done",
+   "note": "'Procedencia en el Done' - same bare-English-noun artifact."
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "es-419",
+   "slug": "complementary-practice",
+   "note": "'que lo suma' is ungrammatical for 'adds to it'. Suggest 'que se le suma' or 'que le anade'."
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "es-419",
+   "slug": "done-failure",
+   "note": "'Falla de Done' - same bare-English-noun artifact."
+  },
+  {
+   "certification": "SM-AI-II",
+   "language": "pt-BR",
+   "slug": "developer-accountability-for-generated-work",
+   "note": "'sao comprometidos a criar' is awkward. Suggest 'comprometem-se a criar' / 'tem o compromisso de criar'."
+  },
+  {
+   "certification": "SPO-AI-I",
+   "language": "es-419",
+   "slug": "value-from-team-work",
+   "note": "leaves 'output' in English inside Spanish; AISM-I es-419 renders the same word 'salida'."
+  },
+  {
+   "certification": "SPO-AI-I",
+   "language": "pt-BR",
+   "slug": "ai-drafted-pbis",
+   "note": "'itens de backlog que o PO faz a curadoria' is ungrammatical. Suggest 'dos quais o PO faz a curadoria' or 'que o PO cura'."
+  }
+ ]
+}
