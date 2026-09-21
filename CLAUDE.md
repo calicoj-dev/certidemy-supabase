@@ -420,6 +420,46 @@ That does not close the gap — the smoke test cannot see the Worker, and it say
 so in its own header — but it halves the surface, and it converts a silent
 disagreement into a named failure on the side that can be tested.
 
+**A VIEW THAT CHANGES ITS ROW COUNT HAS A LIVE-DEFECT WINDOW IN BOTH DEPLOY
+ORDERS, AND 355 PROVED IT BY WARNING ABOUT ONLY ONE.** Recorded 2026-09-20,
+second instance -- 343 did the same thing and the note it left was read as
+being about the order it happened to hit.
+
+355 gave `mcp.concept` a language dimension: one row per concept became three.
+Its header warned that the function must ship the new field, which is the
+FUNCTION-FIRST hazard -- deploy a function selecting `language` before the view
+has it and every call 400s. That warning is correct and it is half the problem.
+
+**The half it missed is the one that happened.** The migration ran first, and
+the deployed function queried `mcp.concept` with no language filter -- which was
+harmless while the view had one row per concept and became a 3x fan-out the
+moment it had three. `search_blueprint "incident"` on AISM-I returned 45 concept
+rows where 15 exist, each key three times, to whoever called it in that window.
+
+| order | what breaks | how it looks |
+|---|---|---|
+| view first | the old function's unfiltered reads fan out | **wrong answers, HTTP 200** |
+| function first | the new function selects a column that is not there | 400, loud |
+
+**The function-first failure is the safe one.** It is loud, it is total, and
+nobody mistakes it for data. The view-first failure returns 200 with plausible
+rows and a caller has no way to tell -- the silent-success class this file
+opens with.
+
+**So the rule is not an order, it is a shape:**
+
+> **A view change that multiplies rows must be deployed with its readers, not
+> before them and not after them** -- and where that is impossible, ship the
+> function FIRST and accept a short loud outage over a short silent one.
+
+**AND THE READER LIST IS NOT THE RESOURCE MAP.** 355's readers were enumerated
+from the four places that *declared* concepts English-only, and all four were
+updated. `courseware-query` reads `mcp.concept` in TWO places -- the `concept`
+resource and the `search` union -- and only the first was on any list. The
+second sat beside a `mcp.task` read that has always carried `and language = $2`,
+which made the omission look like symmetry. **Grep `from mcp.` before changing
+any view**; the resource map enumerates resources, not call sites.
+
 **Use `arrayBuffer()`, never `.text()`, in any pass-through proxy.** `.text()`
 has corrupted PNG bytes twice.
 

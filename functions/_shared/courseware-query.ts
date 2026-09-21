@@ -705,11 +705,22 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
         score("statement", ksa) + " as score " +
         "from mcp.task where certification = $4 and language = $2 " +
         "and (" + anyOf("statement", ksa) + ")";
+      // `and language = $2` MATTERS HERE AND DID NOT BEFORE 355. mcp.concept
+      // had one row per concept, so omitting the filter was harmless and this
+      // line sat beside taskPart, which has always carried it, looking
+      // symmetric. 355 gave the view three languages and the omission became a
+      // 3x fan-out on a live endpoint: search_blueprint "incident" on AISM-I
+      // returned 45 concept rows where 15 exist, each key three times.
+      //
+      // The `concept` RESOURCE was updated for 355 and this was not, because a
+      // resource and a search over the same view are two call sites and only
+      // one of them was on the list. Grep `from mcp.` before changing any view
+      // -- the resource map is not the reader list.
       const conceptPart =
         " union all " +
         "select 'concept', slug, name, null::text, " +
         score("name", "coalesce(description,'')") + " " +
-        "from mcp.concept where certification = $4 " +
+        "from mcp.concept where certification = $4 and language = $2 " +
         "and (" + anyOf("name", "coalesce(description,'')") + ")";
 
       // kind_total is a window count over ALL matches of that kind, computed

@@ -646,13 +646,44 @@ const FINGERPRINTS = {
      * served. A view driven off the translations would satisfy neither. */
     const t = await rest("concept_translations?select=concept_id,language,is_provisional");
     if (!t) return { ran: false, why: "public.concept_translations does not exist -- 355 has not run" };
-    const three = await fn({ resource: "concept", certification: "ISMS-F", language: "es-419", limit: 300 });
-    const en = await fn({ resource: "concept", certification: "ISMS-F", language: "en", limit: 300 });
+    const cleared = t.filter((r) => !r.is_provisional).length;
+    /* LIMIT 200. The first version passed 300, which the function refuses --
+     * "limit must be an integer between 1 and 200" -- and then read `rows ??
+     * []` off the 400 body, so BOTH languages came back as zero rows and the
+     * check reported "a concept VANISHES in Spanish". Nothing vanished: the
+     * call never succeeded. A dropped read became an answer, and the message
+     * named the most alarming failure it could describe rather than the one it
+     * measured -- migration 323 exactly. */
+    const three = await fn({ resource: "concept", certification: "ISMS-F", language: "es-419", limit: 200 });
+    const en = await fn({ resource: "concept", certification: "ISMS-F", language: "en", limit: 200 });
+    /* fn() returns { status, json } and NO `ok` -- checking a field the
+     * helper does not return made this branch fire on two successful 200s.
+     * Read the envelope that exists, not the one you remember. */
+    if (three.status !== 200 || en.status !== 200) {
+      return {
+        ran: true,
+        why: t.length + " translation row(s), " + cleared + " cleared",
+        effective: null,
+        effectiveWhy: "could not read mcp.concept over the wire (es " + three.status +
+          ", en " + en.status + ") -- this says nothing about the view",
+      };
+    }
     const esRows = three.json?.rows ?? [], enRows = en.json?.rows ?? [];
+    /* AND A FAN-OUT IS ITS OWN FAILURE, NAMED SEPARATELY. 355 tripled the
+     * view's rows; a caller that omits the language filter sees each concept
+     * three times, which is what search_blueprint did on a live endpoint. */
+    const esDistinct = new Set(esRows.map((r) => r.slug)).size;
+    if (esDistinct !== esRows.length) {
+      return {
+        ran: true,
+        why: t.length + " translation row(s), " + cleared + " cleared",
+        effective: false,
+        effectiveWhy: esRows.length + " row(s) for " + esDistinct + " distinct concept(s) -- a caller is",
+      };
+    }
     /* NOTHING VANISHES is the property this table exists for. */
     const sameCount = esRows.length > 0 && esRows.length === enRows.length;
     const flagged = esRows.filter((r) => r.description_is_fallback).length;
-    const cleared = t.filter((r) => !r.is_provisional).length;
     /* While the table is empty every non-English row must be a fallback. Once
      * rows are cleared that stops being true, which is why this compares
      * against the CLEARED COUNT rather than asserting a literal. */
