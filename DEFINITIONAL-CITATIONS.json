@@ -1,0 +1,48 @@
+{
+  "measured": "2026-09-21",
+  "premise": {
+    "ISO/IEC 27001:2022 clause 3": "defines nothing; reads only that the terms and definitions given in ISO/IEC 27000 apply. Confirmed against the PDF before reporting.",
+    "ISO/IEC 42001:2023 clause 3": "defines 26 terms of its own AND delegates the rest to ISO/IEC 22989."
+  },
+  "terms_42001": [
+    "3.1 organization",
+    "3.2 interested party",
+    "3.3 top management",
+    "3.4 management system",
+    "3.5 policy",
+    "3.6 objective",
+    "3.7 risk",
+    "3.8 process",
+    "3.9 competence",
+    "3.10 documented information",
+    "3.11 performance",
+    "3.12 continual improvement",
+    "3.13 effectiveness",
+    "3.14 requirement",
+    "3.15 conformity",
+    "3.16 nonconformity",
+    "3.17 corrective action",
+    "3.18 audit",
+    "3.19 measurement",
+    "3.20 monitoring",
+    "3.21 control",
+    "3.22 governing body",
+    "3.23 information security",
+    "3.24 AI system impact assessment",
+    "3.25 data quality",
+    "3.26 statement of applicability"
+  ],
+  "documents": 9725,
+  "counts": {
+    "invalid_27001": 0,
+    "valid_42001": 12,
+    "check_42001": 0
+  },
+  "limits": [
+    "Detects a DEFINITIONAL claim by verb proximity. A definition attributed in some other phrasing is not reached.",
+    "English only.",
+    "Item distractors are excluded: only stems, correct options and explanations are scanned."
+  ],
+  "invalid": [],
+  "check": []
+}

@@ -131,6 +131,33 @@ const NEG = [" does not ", " do not ", " never ", " no requirement", " nothing i
   " is not ", " are not ", " without ", " neither ", " nowhere ", " does nt ", " cannot "];
 const isNegative = (claim) => { const c = " " + norm(claim) + " "; return NEG.some((n) => c.includes(norm(n).length ? n.split("").join("") : n) || c.includes(n.trim() + " ")); };
 
+/* ============ HUMAN VERDICTS SURVIVE REGENERATION ============
+ *
+ * A reader who checks a candidate against the PDF and settles it must not have
+ * that work discarded the next time this script runs. Each entry names the
+ * cited standard, a distinctive fragment of the claim, the verdict and the
+ * EVIDENCE -- the clause that settles it -- so the next reader can check the
+ * adjudication rather than inherit it.
+ *
+ * Both of these were verified by a human against ISO 19011:2026 on 2026-09-21.
+ */
+const ADJUDICATED = [
+  {
+    standard: "19011",
+    fragment: "define audit criteria and scope for each audit",
+    verdict: "CORRECT",
+    evidence: "ISO 19011:2026 clause 5.5.2 is titled \"Defining the objectives, scope and "
+      + "criteria for an individual audit\". The citation is sound; the automatic split was wrong.",
+  },
+  {
+    standard: "42001",
+    fragment: "risk-based approach should substantively influence",
+    verdict: "REAL",
+    evidence: "ISO 19011:2026 clause 4.8. ISO/IEC 42001 has no equivalent, so crediting 42001 "
+      + "is a genuine misattribution. Confirms the automatic split.",
+  },
+];
+
 const SUBSTANCE_FLOOR = 0.85;
 for (const f of cross) {
   const k = HELD[f.standard];
@@ -140,12 +167,26 @@ for (const f of cross) {
     : f.cited_carries.coverage >= SUBSTANCE_FLOOR ? "WORDING (attribution fine)"
     : f.negative ? "NEGATIVE CLAIM (test inverts)" : "REAL MISATTRIBUTION";
 }
+/* Human verdicts override the automatic split, and are announced. */
+let adjCorrect = 0, adjConfirmed = 0;
+for (const f of cross) {
+  const a = ADJUDICATED.find((x) => x.standard === f.standard && norm(f.claim).includes(norm(x.fragment)));
+  if (!a) continue;
+  f.adjudicated = a;
+  if (a.verdict === "CORRECT") { f.klass = "ADJUDICATED CORRECT (human)"; adjCorrect++; }
+  else { adjConfirmed++; }
+}
+
 const wording = cross.filter((f) => f.klass.startsWith("WORDING"));
 const real = cross.filter((f) => f.klass === "REAL MISATTRIBUTION");
 console.log("");
 console.log("SPLIT OF " + cross.length + " CROSS-FAMILY CANDIDATES, at substance floor " + SUBSTANCE_FLOOR);
 console.log("  cited standard DOES carry the substance -> WORDING defect   " + String(wording.length).padStart(3));
 console.log("  cited standard does NOT                 -> REAL             " + String(real.length).padStart(3));
+if (adjCorrect || adjConfirmed) {
+  console.log("  HUMAN ADJUDICATED: " + adjCorrect + " removed as CORRECT, " + adjConfirmed + " confirmed REAL");
+  for (const a of ADJUDICATED) console.log("     " + a.verdict.padEnd(8) + "ISO " + a.standard + "  " + a.fragment);
+}
 const negs = cross.filter((f) => f.klass.startsWith("NEGATIVE"));
 console.log("  claim is NEGATIVE about the cited standard -> undecidable  " + String(negs.length).padStart(3));
 console.log("     (a true negative claim and a false attribution look identical to a");
@@ -173,6 +214,7 @@ const rows = top.map((f, i) => ({
   actual_source: f.best_source,
   actual_source_says: sourceContext(f.best_source, f.hit) || "(context not recoverable; the match is the n-gram score)",
   matched_span: f.hit,
+  human_adjudication: f.adjudicated ? f.adjudicated.evidence : null,
   your_verdict: "", your_note: "",
 }));
 

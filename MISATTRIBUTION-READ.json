@@ -7,7 +7,7 @@
     "cross_family": 43,
     "wording_defect_attribution_fine": 23,
     "negative_claim_undecidable": 7,
-    "real_misattribution": 13
+    "real_misattribution": 11
   },
   "second_test": "Contiguity asks who wrote the words. Distinctive-term coverage over the whole cited document asks whether it says the thing at all, at any address, in any wording. Rows here FAILED that second test: the cited standard does not carry the substance. The 23 rows that passed it are wording defects with a defensible citation and are excluded.",
   "why_cross_family_only": "42001, 27001, 27000 and 27002 share clause text by design, so a sibling overlap means very little. These pairs share no harmonised text.",
@@ -40,6 +40,7 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
@@ -66,6 +67,7 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": "ISO 19011:2026 clause 4.8. ISO/IEC 42001 has no equivalent, so crediting 42001 is a genuine misattribution. Confirms the automatic split.",
       "your_verdict": "",
       "your_note": ""
     },
@@ -98,6 +100,7 @@
       "actual_source": "27004:2016",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
@@ -126,37 +129,12 @@
       "actual_source": "27004:2016",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
       "rank": 5,
-      "run_words_in_actual_source": 7,
-      "where": {
-        "corpus": "item",
-        "certification": "ISMS-IA",
-        "ref": "9a10bafe-f9e0-4cb5-b9aa-5e90e8b8e603"
-      },
-      "cited": {
-        "standard": "ISO 19011",
-        "address": null,
-        "verb": "requires",
-        "contiguous_words_found_there": 0
-      },
-      "attributed_text": "the organisation to define audit criteria and scope for each audit;",
-      "cited_standard_carries_substance": false,
-      "substance_coverage_in_cited": 0.8,
-      "terms_absent_from_cited": [
-        "organisation"
-      ],
-      "actual_source": "27001:2022",
-      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
-      "matched_span": "",
-      "your_verdict": "",
-      "your_note": ""
-    },
-    {
-      "rank": 6,
       "run_words_in_actual_source": 7,
       "where": {
         "corpus": "item",
@@ -181,11 +159,12 @@
       "actual_source": "27005:2022",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 7,
+      "rank": 6,
       "run_words_in_actual_source": 6,
       "where": {
         "corpus": "item",
@@ -209,11 +188,12 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 8,
+      "rank": 7,
       "run_words_in_actual_source": 6,
       "where": {
         "corpus": "item",
@@ -236,11 +216,12 @@
       "actual_source": "27005:2022",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 9,
+      "rank": 8,
       "run_words_in_actual_source": 6,
       "where": {
         "corpus": "item",
@@ -265,11 +246,12 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 10,
+      "rank": 9,
       "run_words_in_actual_source": 5,
       "where": {
         "corpus": "item",
@@ -295,11 +277,12 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 11,
+      "rank": 10,
       "run_words_in_actual_source": 5,
       "where": {
         "corpus": "item",
@@ -324,11 +307,12 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     },
     {
-      "rank": 12,
+      "rank": 11,
       "run_words_in_actual_source": 5,
       "where": {
         "corpus": "item",
@@ -351,6 +335,7 @@
       "actual_source": "19011:2026",
       "actual_source_says": "(context not recoverable; the match is the n-gram score)",
       "matched_span": "",
+      "human_adjudication": null,
       "your_verdict": "",
       "your_note": ""
     }
