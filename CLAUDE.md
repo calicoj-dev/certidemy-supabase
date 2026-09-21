@@ -1437,6 +1437,58 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A VIEW'S GRANT LIST MUST NOT BE WIDER THAN THE GRANT LIST OF THE FUNCTION IT
+CALLS.** 339's defect, written as a standing assertion instead of something to
+remember. `scripts/sql/check-view-function-grant-gap.sql`.
+
+A `security_barrier` view is not `security_invoker`, so tables it queries
+directly are checked as the view OWNER -- but a FUNCTION called inside it runs
+with the CALLER's privileges. So a role holding SELECT on the view and lacking
+EXECUTE on the function gets a 500, and **the gap is invisible from any role
+that holds both**, which is every role anyone tests with.
+
+**Measured 2026-09-21. All four function-calling mcp views have a gap:**
+
+```
+mcp.concept       concept_row_en_hash       supabase_etl_admin, supabase_read_only_user
+mcp.lesson        lesson_body_is_servable   supabase_etl_admin, supabase_read_only_user
+mcp.lesson_index  lesson_body_is_servable   supabase_etl_admin, supabase_read_only_user
+mcp.task          task_ksa_is_withheld      supabase_etl_admin, supabase_read_only_user
+```
+
+The lesson and task gaps have been there since 350 and 341. Production is
+unaffected -- `courseware-read` uses `mcp_reader`, which holds both -- so this
+is dashboard SQL and ETL, not partner traffic.
+
+**AND THE FIRST VERSION OF THIS CHECK REPORTED ZERO GAP WHILE THE ROLE RUNNING
+IT WAS IN THE GAP.** It read `aclexplode(relacl)` against `aclexplode(proacl)`
+and compared the explicit grant lists. `supabase_read_only_user` reads through
+**membership of `pg_read_all_data`**, which never appears in `relacl` at all.
+
+> **The property is EFFECTIVE privilege, so the check must ask
+> `has_table_privilege` and `has_function_privilege` per role.** An ACL
+> comparison measures what was typed; those functions measure what is true.
+
+The same instrument, run two ways, gave "no gap" and "eight gaps" -- and the
+one that said no gap was being run BY a role it should have named. That is the
+closest this file has to a self-demonstrating check failure.
+
+**AN UNREPRODUCIBLE COUNT IS COMMENTARY, NOT MEASUREMENT.** Three careful
+counts of one 14-row batch gave **6, 8 and 10** -- the review's figure, the
+review's own enumeration, and a line-by-line diff. None is wrong. "Span" was
+never defined, so the three counts are answers to three different questions.
+
+**A FIGURE IN A COMMIT IMPLIES A METHOD.** If the method is not stated, the
+figure is decoration: nobody can reproduce it, nobody can check it later, and
+it will be quoted as though it were measured.
+
+> **MECHANISM: a check reports the ENUMERATION it counted, not only the count,
+> and any number in a commit names the predicate that produced it.**
+
+This is the same family as "a number whose name does not say what it is
+measured over is half a fact", one level up: there the KEY had to name the
+population, here the COMMIT has to name the predicate.
+
 **A RETRANSLATION TRIGGERED BY AN ENGLISH EDIT CHANGES ONLY WHAT THE EDIT
 CHANGED.** Paid for 2026-09-21, on the 14 rows regenerated after 358.
 
