@@ -1,0 +1,163 @@
+{
+  "why": "Regenerated after migration 358 changed the English. 7 concepts x 2 languages.",
+  "concepts": 7,
+  "rows_regenerated": 14,
+  "all_provisional": true,
+  "note": "Every regenerated row lands is_provisional=true, so none of this is served until cleared. was_* is the rendering of the OLD English, kept so the change is readable.",
+  "rows": [
+    {
+      "certification": "ISMS-F",
+      "slug": "tool-misuse",
+      "en_name": "Tool misuse",
+      "en_description": "legitimate tools that a compromised agent bends toward destructive or unintended outputs",
+      "es-419": {
+        "was_name": "uso indebido de herramientas",
+        "now_name": "Uso indebido de herramientas",
+        "was_description": "herramientas legítimas desviadas hacia resultados destructivos o no previstos por un agente comprometido",
+        "now_description": "herramientas legítimas que un agente comprometido desvía hacia resultados destructivos o no previstos",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "uso indevido de ferramentas",
+        "now_name": "Uso indevido de ferramentas",
+        "was_description": "ferramentas legítimas desviadas para saídas destrutivas ou não pretendidas por um agente comprometido",
+        "now_description": "ferramentas legítimas que um agente comprometido direciona para saídas destrutivas ou não intencionais",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "SM-AI-II",
+      "slug": "complementary-practice",
+      "en_name": "Complementary practice",
+      "en_description": "A practice wrapped around Scrum that supplements it without replacing any of its elements.",
+      "es-419": {
+        "was_name": "Práctica complementaria",
+        "now_name": "Práctica complementaria",
+        "was_description": "Una práctica que se envuelve alrededor de Scrum y que lo suma sin reemplazar ninguno de sus elementos.",
+        "now_description": "Una práctica que se integra alrededor de Scrum y lo complementa sin reemplazar ninguno de sus elementos.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Prática complementar",
+        "now_name": "Prática complementar",
+        "was_description": "Uma prática aplicada em torno do Scrum que o acrescenta sem substituir nenhum de seus elementos.",
+        "now_description": "Uma prática aplicada em torno do Scrum que o complementa sem substituir nenhum de seus elementos.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "AIHR-I",
+      "slug": "institution-proxy",
+      "en_name": "Institution proxy",
+      "en_description": "School, university or employer name functioning as a proxy for educational or socioeconomic background, or for protected status.",
+      "es-419": {
+        "was_name": "Proxy institucional",
+        "now_name": "Proxy institucional",
+        "was_description": "El nombre de la escuela, universidad o empleador que funciona como proxy del origen social o de una condición protegida.",
+        "now_description": "Nombre de una escuela, universidad o empleador que funciona como proxy del origen educativo o socioeconómico, o de una condición protegida.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Proxy institucional",
+        "now_name": "Proxy institucional",
+        "was_description": "Nome de escola, universidade ou empregador funcionando como proxy de origem social ou de condição protegida.",
+        "now_description": "Nome de escola, universidade ou empregador que funciona como proxy de origem educacional ou socioeconômica, ou de status protegido.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "SD-AI-I",
+      "slug": "daily-backlog-update",
+      "en_name": "Daily Sprint Backlog Update",
+      "en_description": "Keeping the plan transparent and current.",
+      "es-419": {
+        "was_name": "Actualización diaria del backlog",
+        "now_name": "Actualización diaria del Sprint Backlog",
+        "was_description": "Mantener el plan transparente y actualizado.",
+        "now_description": "Mantener el plan transparente y actualizado.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Atualização Diária do Backlog",
+        "now_name": "Atualização Diária do Sprint Backlog",
+        "was_description": "Manter o plano transparente e atualizado.",
+        "now_description": "Manter o plano transparente e atualizado.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "ISMS-IA",
+      "slug": "ia-ai-evaluation-tools-in-auditor-competence-7-2-3",
+      "en_name": "AI evaluation tools in auditor competence",
+      "en_description": "ISO 19011:2026 clause 7.2.3 item 10 gives artificial-intelligence-based evaluation tools as its example of the technology an auditor must understand the appropriateness and consequences of using. The competence is about the AI tool in the auditor's own hands, not about auditing AI.",
+      "es-419": {
+        "was_name": "Herramientas de evaluación con IA en la competencia del auditor",
+        "now_name": "Herramientas de evaluación con IA en la competencia del auditor",
+        "was_description": "El punto 10 del apartado 7.2.3 de ISO 19011:2026 requiere que los auditores comprendan la idoneidad y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, y tecnología emergente, para realizar auditorías, y da como ejemplo las herramientas de evaluación basadas en inteligencia artificial.",
+        "now_description": "El apartado 7.2.3, ítem 10, de la norma ISO 19011:2026 presenta las herramientas de evaluación basadas en inteligencia artificial como su ejemplo de la tecnología cuya pertinencia y consecuencias de uso el auditor debe comprender. La competencia se refiere a la herramienta de IA en manos del propio auditor, no a auditar la IA.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Ferramentas de avaliação baseadas em IA na competência do auditor",
+        "now_name": "Ferramentas de avaliação baseadas em IA na competência do auditor",
+        "was_description": "O item 10 da Seção 7.2.3 da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologias emergentes, para conduzir auditorias — dando como exemplo ferramentas de avaliação baseadas em inteligência artificial.",
+        "now_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 apresenta as ferramentas de avaliação baseadas em inteligência artificial como seu exemplo da tecnologia cuja adequação e consequências de uso o auditor deve compreender. A competência trata da ferramenta de IA nas mãos do próprio auditor, e não de auditar IA.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "ISMS-IA",
+      "slug": "ia-ict-and-emerging-technology-competence-7-2-3",
+      "en_name": "ICT and emerging technology competence",
+      "en_description": "ISO 19011:2026 clause 7.2.3 item 10 requires auditors to understand the appropriateness and consequences of using information and communications technology tools, and emerging technology, to conduct audits. The requirement is general: it covers remote-audit tooling, sampling and analysis software, and whatever arrives next.",
+      "es-419": {
+        "was_name": "Competencia en TIC y tecnologías emergentes",
+        "now_name": "Competencia en TIC y tecnologías emergentes",
+        "was_description": "El apartado 7.2.3, ítem 10, de ISO 19011:2026 exige que los auditores comprendan la idoneidad y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, y tecnología emergente, para realizar auditorías, y nombra como ejemplo las herramientas de evaluación basadas en inteligencia artificial.",
+        "now_description": "El apartado 7.2.3, ítem 10, de la norma ISO 19011:2026 exige que los auditores comprendan la pertinencia y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, así como tecnologías emergentes, para realizar auditorías. El requisito es general: abarca las herramientas para auditorías remotas, el software de muestreo y análisis, y lo que llegue después.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Competência em TIC e tecnologia emergente",
+        "now_name": "Competência em TIC e tecnologias emergentes",
+        "was_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologia emergente, para conduzir auditorias — citando como exemplo as ferramentas de avaliação baseadas em inteligência artificial.",
+        "now_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologias emergentes, para conduzir auditorias. O requisito é geral: abrange ferramentas de auditoria remota, softwares de amostragem e análise, e o que quer que venha a surgir.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "certification": "AISM-I",
+      "slug": "keep-it-simple-and-practical",
+      "en_name": "Keep it simple and practical",
+      "en_description": "use the minimum steps to accomplish the objective; eliminate what adds no value.",
+      "es-419": {
+        "was_name": "Mantenerlo simple y práctico",
+        "now_name": "Mantenerlo simple y práctico",
+        "was_description": "usar la cantidad mínima de pasos para lograr el objetivo; eliminar lo que no agrega valor.",
+        "now_description": "usar la mínima cantidad de pasos para lograr el objetivo; eliminar lo que no aporta valor.",
+        "is_provisional": true
+      },
+      "pt-BR": {
+        "was_name": "Mantenha a Simplicidade e a Praticidade",
+        "now_name": "Mantenha simples e prático",
+        "was_description": "use o mínimo de etapas para atingir o objetivo; elimine o que não agrega valor.",
+        "now_description": "use o mínimo de etapas para alcançar o objetivo; elimine o que não agrega valor.",
+        "is_provisional": true
+      },
+      "your_verdict": "",
+      "your_note": ""
+    }
+  ]
+}
