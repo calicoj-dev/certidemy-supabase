@@ -1,0 +1,265 @@
+#!/usr/bin/env node
+/**
+ * gate-concept-descriptions.mjs - score a batch of proposed concept
+ * descriptions against the concept-scale leak gate, and prove the batch is
+ * complete before reporting anything about it.
+ *
+ * READ-ONLY. No --apply, no --dry, unknown flags exit 2.
+ *
+ *   node --dns-result-order=ipv4first scripts/gate-concept-descriptions.mjs \
+ *     --file AIMS-F-CONCEPT-DESCRIPTIONS.json --cert AIMS-F
+ *
+ * ============ THE RULE THIS GATE DOES NOT ENFORCE ============
+ *
+ * A one-line description of a DEFINED TERM must say something the definition
+ * does not. THIS SCRIPT CANNOT CHECK THAT, and it must not be read as though it
+ * could. A glossary gloss scores 0 here and is still a defect -- ISMS-F's
+ * `security-control` read "a measure that modifies risk" and scored 0 on every
+ * seed and every threshold.
+ *
+ * What this measures is reproduction of INDEXED ENGLISH EDITIONS. See the
+ * coverage gaps printed at the top of every report: they are the point.
+ *
+ * ============ THE ANTI-GLOSS RULE CANNOT BE SATISFIED IN SIX WORDS ==========
+ *
+ * You cannot state what a definition omits in less space than the definition.
+ * That is why these descriptions run 160-258 characters where ISMS-F's run 28
+ * to 131, and it is the reason rather than an excuse: the terse house style is
+ * what produced 14 tier-A gloss candidates in ISMS-F alone.
+ *
+ * ============ EXEMPTIONS ARE NAMED, JUSTIFIED AND CAPPED ============
+ *
+ * An exemption records a REASON, not a suppression. Each carries a ceiling, so
+ * a future edit cannot smuggle a longer reproduction in under a slug that was
+ * exempted for four words. An exempt row is still printed with its score.
+ */
+import { readFileSync, existsSync, mkdtempSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { PDFS, pdftotextAvailable } from "./lib/citation-index.mjs";
+
+const KNOWN = new Set(["--file", "--cert"]);
+for (const a of process.argv.slice(2)) {
+  if (a.startsWith("--") && !KNOWN.has(a)) {
+    console.error("Unrecognised flag: " + a + ".");
+    console.error("This script is READ-ONLY. It has no --apply and no --dry. Known: --file, --cert.");
+    process.exit(2);
+  }
+}
+const argOf = (k, d) => {
+  const i = process.argv.indexOf("--" + k);
+  return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
+};
+
+/* ======================= THE EXEMPTION REGISTRY =======================
+ *
+ * Keyed by slug. `maxRun` is a CEILING, not a waiver: the row is exempt up to
+ * that run length and fails above it. `why` is the justification, and it is
+ * printed every run so nobody inherits an exemption without its argument.
+ *
+ * RESTRUCTURING CONTENT TO SATISFY AN INSTRUMENT IS BACKWARDS. Where a
+ * description is worse for scoring lower, the instrument yields and records
+ * why -- which is the opposite of quietly editing the content until the number
+ * comes down, and leaves the decision visible to the next reader.
+ */
+const EXEMPTIONS = {
+  "clauses-four-to-ten": {
+    maxRun: 8,
+    why: "The seven clause titles ARE the concept. A standard's clause titles are its table of contents -- published in ISO's free online preview and in every catalogue entry -- so they are address labels rather than expression. Paraphrasing them would leave a learner unable to match the description to the headings they will actually meet.",
+  },
+  "ai-partner-role": {
+    maxRun: 6,
+    why: "Four words naming a role category: system integrators and data providers. The category names are the taxonomy the standard establishes and an auditor will use; rewording them would make the description worse at the one job it has.",
+  },
+};
+
+const MIN_RUN = 6, MIN_COV = 0.60, SEED = 4;
+
+/* ------------------------------------------------------------- the index */
+
+if (!pdftotextAvailable()) { console.error("pdftotext is not on PATH."); process.exit(2); }
+for (const [k, p] of Object.entries(PDFS)) if (!existsSync(p)) { console.error("MISSING " + k + " at " + p); process.exit(2); }
+
+const norm = (s) => String(s || "").toLowerCase()
+  .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
+const W = (s) => norm(s).split(" ").filter(Boolean);
+
+const idx = new Set();
+for (const p of Object.values(PDFS)) {
+  const o = join(mkdtempSync(join(tmpdir(), "iso-")), "t.txt");
+  execFileSync("pdftotext", ["-layout", p, o]);
+  const w = W(readFileSync(o, "utf8"));
+  if (w.length < 1000) { console.error("short extraction from " + p); process.exit(1); }
+  for (let i = 0; i + SEED <= w.length; i++) idx.add(w.slice(i, i + SEED).join(" "));
+}
+
+function score(t) {
+  const w = W(t);
+  let best = 0, bestText = "";
+  for (let i = 0; i + SEED <= w.length; i++) {
+    if (!idx.has(w.slice(i, i + SEED).join(" "))) continue;
+    let n = SEED;
+    while (i + n + 1 <= w.length && idx.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+    if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); }
+    i += n - 1;
+  }
+  return { run: best, tot: w.length, cov: w.length ? best / w.length : 0, hit: bestText };
+}
+
+/* POSITIVE CONTROL. A known reproduction must fire, or the index is empty and
+ * every clean verdict below is worthless. */
+const CANARY = "the organization shall determine external and internal issues that are relevant to its purpose";
+const cs = score(CANARY);
+if (!(cs.run >= MIN_RUN && cs.cov >= MIN_COV)) {
+  console.error("POSITIVE CONTROL FAILED: the 27001 clause 4.1 canary scored " + cs.run + "w/" + cs.cov.toFixed(2) + ".");
+  console.error("The index is empty or broken. A clean report would mean nothing.");
+  process.exit(1);
+}
+
+/* ------------------------------------------------------------- the batch */
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
+  if (!existsSync(p)) continue;
+  for (const line of readFileSync(p, "utf8").split(/\r?\n/)) {
+    const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/.exec(line);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+}
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set"); process.exit(2); }
+const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
+const H = { apikey: KEY, Authorization: "Bearer " + KEY };
+const get = async (p) => {
+  let last;
+  for (let i = 0; i < 10; i++) {
+    try {
+      const r = await fetch(BASE + "/" + p, { headers: H, signal: AbortSignal.timeout(60000) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    } catch (e) { last = e; }
+  }
+  throw new Error(p + ": " + last?.message);
+};
+
+const CERT = argOf("cert", "AIMS-F");
+const FILE = argOf("file", join(HERE, "..", "AIMS-F-CONCEPT-DESCRIPTIONS.json"));
+const batch = JSON.parse(readFileSync(FILE, "utf8"));
+const rows = batch.rows.map(([task, slug, name, term, desc]) => ({ task, slug, name, term, desc }));
+
+console.log("");
+console.log("INDEX -- " + Object.keys(PDFS).join(", "));
+console.log("COVERAGE GAPS -- reproductions of these are UNREACHABLE at any threshold:");
+console.log("  ISO/IEC 27000   delegated to by 27001:2022 cl.3 (undated reference)   NOT ON DISK");
+console.log("  ISO/IEC 22989   delegated to by 42001:2023 cl.3                       NOT ON DISK");
+console.log("  every non-English edition  -- this index is MONOLINGUAL, so a Spanish or");
+console.log("  Portuguese rendering of a defined term scores 0 and always has");
+console.log("  near-wording from OTHER EDITIONS of an indexed standard is also out of reach");
+console.log("");
+
+/* ============ COMPLETENESS, BOTH DIRECTIONS, BEFORE ANY VERDICT ============
+ *
+ * A batch that silently omits a concept reports a clean run on the rows it
+ * happens to contain. Assert the slug sets are EQUAL, not that the batch is
+ * non-empty -- a per-subject count says nothing about which subjects. */
+const cert = (await get("certifications?select=id,code&code=eq." + CERT))[0];
+if (!cert) { console.error(CERT + " not found"); process.exit(2); }
+const live = (await get("concepts?select=slug,retired_at&certification_id=eq." + cert.id + "&limit=1000"))
+  .filter((c) => c.retired_at === null).map((c) => c.slug);
+const liveSet = new Set(live), batchSet = new Set(rows.map((r) => r.slug));
+const missing = live.filter((s) => !batchSet.has(s));
+const extra = [...batchSet].filter((s) => !liveSet.has(s));
+const dup = rows.length - batchSet.size;
+
+console.log("COMPLETENESS");
+console.log("  live concepts   " + live.length);
+console.log("  batch rows      " + rows.length + (dup ? "   " + dup + " DUPLICATE slug(s)" : ""));
+console.log("  missing         " + missing.length + (missing.length ? "   " + missing.slice(0, 8).join(", ") : ""));
+console.log("  not live        " + extra.length + (extra.length ? "   " + extra.slice(0, 8).join(", ") : ""));
+if (missing.length || extra.length || dup) {
+  console.error("");
+  console.error("BATCH IS NOT THE CORPUS. Refusing to report a verdict on a partial set.");
+  process.exit(1);
+}
+
+/* ---------------------------------------------------------------- scoring */
+
+const bad = [], exempt = [], fired = [];
+let maxRun = 0, minLen = 1e9, maxLenc = 0;
+for (const r of rows) {
+  r.s = score(r.desc);
+  maxRun = Math.max(maxRun, r.s.run);
+  minLen = Math.min(minLen, r.desc.length);
+  maxLenc = Math.max(maxLenc, r.desc.length);
+  if (!/^[\x20-\x7e]*$/.test(r.desc) || !/^[\x20-\x7e]*$/.test(r.name)) bad.push(r);
+  const hits = r.s.run >= MIN_RUN && r.s.cov >= MIN_COV;
+  const ex = EXEMPTIONS[r.slug];
+  if (hits && ex && r.s.run <= ex.maxRun) exempt.push(r);
+  else if (hits) fired.push(r);
+}
+
+console.log("");
+console.log("GATE  seed " + SEED + ", refuse when run >= " + MIN_RUN + " AND coverage >= " + MIN_COV.toFixed(2));
+console.log("  positive control   " + cs.run + "w/" + cs.cov.toFixed(2) + "  (27001 cl.4.1 canary fires as it must)");
+console.log("  longest run in batch   " + maxRun + "w");
+console.log("  description length     " + minLen + "-" + maxLenc + " chars");
+console.log("  non-ascii rows         " + bad.length);
+console.log("  FIRES                  " + fired.length);
+console.log("  exempt (named below)   " + exempt.length);
+
+/* Exemptions are PRINTED WITH THEIR REASON on every run. An exemption nobody
+ * re-reads is a suppression with extra steps. */
+for (const r of exempt) {
+  const ex = EXEMPTIONS[r.slug];
+  console.log("");
+  console.log("  EXEMPT  " + r.slug + "   " + r.s.run + "w/" + r.s.tot + " cov " + r.s.cov.toFixed(2) + "   ceiling " + ex.maxRun + "w");
+  console.log("     matched: \"" + r.s.hit + "\"");
+  console.log("     why: " + ex.why);
+}
+for (const r of fired) {
+  console.log("");
+  console.log("  FIRES   " + r.slug + "   " + r.s.run + "w/" + r.s.tot + " cov " + r.s.cov.toFixed(2));
+  console.log("     matched: \"" + r.s.hit + "\"");
+  console.log("     " + r.desc);
+}
+for (const r of bad) console.log("  NON-ASCII  " + r.slug);
+
+/* ============ DORMANT IS NOT STALE, AND THE DIFFERENCE MATTERS ============
+ *
+ * STALE   the slug is not in the batch at all. The entry protects nothing.
+ * DORMANT the row IS in the batch and does not currently fire. The policy
+ *         stands and would become load-bearing if the threshold tightened, so
+ *         the reasoning is kept and printed -- but nobody should believe the
+ *         exemption is doing work today.
+ *
+ * Conflating them either deletes a recorded decision or lets a dead entry look
+ * like an active waiver. Measured on this script's first run: BOTH registry
+ * entries are DORMANT, because those two rows pass on COVERAGE (0.25 and 0.16
+ * against a 0.60 floor) rather than on run length. The exemptions were written
+ * for a refusal that never happened, and saying so is the honest report.
+ */
+for (const slug of Object.keys(EXEMPTIONS)) {
+  const r = rows.find((x) => x.slug === slug);
+  if (!r) { console.log("");
+            console.log("  STALE EXEMPTION   " + slug + " is not in this batch. Remove it."); continue; }
+  if (!(r.s.run >= MIN_RUN && r.s.cov >= MIN_COV)) {
+    console.log("");
+    console.log("  DORMANT EXEMPTION  " + slug + "   scores " + r.s.run + "w/" + r.s.tot + " cov " + r.s.cov.toFixed(2)
+      + ", under the " + MIN_COV.toFixed(2) + " floor, so the gate does not refuse it");
+    console.log("     matched: \"" + r.s.hit + "\"");
+    console.log("     policy kept: " + EXEMPTIONS[slug].why);
+  }
+}
+
+console.log("");
+const defined = rows.filter((r) => r.term !== "no").length;
+console.log("DEFINED TERMS  " + defined + " of " + rows.length + " name a term defined in an indexed or delegated standard.");
+console.log("  Those are the rows where the anti-gloss rule does the work the gate cannot.");
+console.log("  NOTHING HERE CHECKS THAT RULE. It is a human read, and this script says so");
+console.log("  rather than letting a clean score be mistaken for a clean batch.");
+
+console.log("");
+console.log(fired.length || bad.length ? "NOT CLEAR." : "Clear on the gate. The anti-gloss judgement is still outstanding.");
+process.exitCode = fired.length || bad.length ? 1 : 0;

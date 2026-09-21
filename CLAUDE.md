@@ -2094,6 +2094,32 @@ This mostly codifies existing practice — the iframe paragraph, §6 item 1 and
 one place with a banner and nothing inline, which is exactly where the two wrong
 assertions came from.
 
+**THE ANTI-GLOSS RULE CANNOT BE SATISFIED IN SIX WORDS, AND THAT RETIRES THE
+HOUSE STYLE THAT ASKED FOR SIX.** Ruled 2026-09-21.
+
+A one-line description of a DEFINED TERM must say something the definition does
+not -- the consequence, the distinction, or what a practitioner does with it. A
+description that could serve as a glossary gloss has failed **even at a gate
+score of 0**, because at this length no n-gram instrument can see the category.
+
+**The reason it retires the terse style is arithmetic, not taste: you cannot
+state what a definition omits in less space than the definition.** ISMS-F's
+one-liners run 28 to 131 characters; the AIMS-F descriptions written under this
+rule run 160 to 258, and the extra space is where the omission gets stated.
+
+**So ISMS-F's terse descriptions are now the SUSPECT ones**, which inverts how
+they were read for months -- they were held up as the house style to copy.
+`scripts/list-defined-term-glosses.mjs` finds **14 of the 23 tier-A candidates
+in ISMS-F alone**: `residual-risk`, `risk-identification`, `risk-analysis`,
+`risk-evaluation`, `risk-criteria`, `risk-owner`, `threat`, `vulnerability`,
+`nonconformity`, `access-control`, `audit-criteria`, `top-management`,
+`continual-improvement`, `statement-of-applicability`. Every one is short, and
+the shortness is the mechanism.
+
+**A gate score of 0 on a corpus of one-liners is not evidence of anything**, and
+`gate-concept-descriptions.mjs` prints that sentence in its own output rather
+than letting a clean run be mistaken for a clean batch.
+
 **A PATTERN DEFECT IS THE SAME CLASS AS A DROPPED READ, and the vocabulary
 pattern has been wrong THREE ways in eight days** — a single-language
 undercount, a boundary bug (`\b` does not stop `equipo de desarrollo`
@@ -2275,6 +2301,56 @@ hold"; it is also "the edition we do not hold of a source we do".
 > or the instrument is blind, delegated ones print as a named gap. Mixed, the
 > control could never pass, and a control that can never pass is one the next
 > reader loosens.
+
+**AND AN INDEXED STANDARD IS NOT A COVERED STANDARD.** Recorded 2026-09-21,
+and it is stronger than the finding it corrects.
+
+The first report of this said the miss was caused by ISO/IEC 27000 being
+absent. Half true. **ISO/IEC 42001:2023 clause 3.21 IS on disk and DOES define
+the term** -- read off the PDF:
+
+```
+control   <risk> measure that MAINTAINS AND/OR modifies risk
+```
+
+`security-control` copied the earlier ISO/IEC 27000 wording, *"a measure that
+modifies risk"*. **Three words apart, no n-gram match, and the scanner reported
+0 against a document it had indexed.** Holding every standard would not have
+caught it, because the gloss was near-wording of an edition we do not hold of a
+term we do.
+
+> **MECHANISM: for a DEFINED TERM, no n-gram instrument is the defence -- the
+> anti-gloss rule is.** The scanner's report NAMES WHICH EDITIONS IT INDEXED and
+> states that near-wording from other editions is out of its reach.
+> `scripts/list-defined-term-glosses.mjs` therefore matches on the TERM NAME,
+> which is stable across editions, never on definition text, which is exactly
+> what was shown here not to be.
+
+**AND THE GATE IS MONOLINGUAL, WHICH IS THE LARGEST GAP OF THE THREE.** It
+indexes English editions only. `security-control`'s own translations read *"una
+medida que modifica el riesgo"* and *"uma medida que modifica o risco"* -- the
+same definition in Spanish and Portuguese, invisible to every leak instrument in
+this repository and always have been. **That is 3,460 translated concept rows
+outside any leak gate at all**, plus every translated lesson body: the lesson
+scanner's own header records that an es-419 or pt-BR row scores zero by
+construction, and takes its verdict from the English sibling instead. Concepts
+have no such sibling rule.
+
+So the coverage-gap list a report must print has three entries, not one:
+
+| gap | why it is unreachable |
+|---|---|
+| ISO/IEC 27000 | 27001:2022 cl.3 delegates its whole vocabulary to it; **undated reference**, so the latest edition applies and the gap tracks forward on its own |
+| ISO/IEC 22989 | 42001:2023 cl.3 delegates to it before adding its own terms |
+| **every non-English edition** | the index is English-only, so a translated defined term scores 0 |
+
+**The undated reference is worth its own line.** 27001:2022 clause 2 reads
+`ISO/IEC 27000, Information technology -- Security techniques -- Information
+security management systems -- Overview and vocabulary` with **no year**, under
+boilerplate saying *"For undated references, the latest edition of the
+referenced document (including any amendments) applies."* So there is nothing
+newer to chase today -- and the gap can WIDEN with no change to anything in this
+repository, because a future edition of 27000 becomes applicable automatically.
 
 **And where the gate cannot see the category, the RULE has to do the work
 instead.** A one-line description of a defined term must say something the
