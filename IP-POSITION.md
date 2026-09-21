@@ -304,6 +304,59 @@ industry considers acceptable, and the rule was refusing it anyway.
 A marked, attributed blockquote is acceptable MCP output. The bullet below that
 said otherwise is struck.
 
+### The blockquote was the mechanism, not the requirement
+
+**RULED 2026-09-20.** Section 6 permits attributed quotation. A markdown
+blockquote is how attribution is *marked* in a markdown surface; it is not the
+thing being required. **Inline prose attribution satisfies the rule on a surface
+that has no blockquote.**
+
+A description reading
+
+> ISO/IEC 42001:2023 clause 6.1.4 requires the organization to define a process
+> for assessing the potential consequences...
+
+is **more** explicitly attributed than a blockquote, not less. It names the
+standard, the clause and the reporting verb inside the served string itself,
+where a blockquote marker names none of the three and relies on a nearby
+lead-in that the consumer may not render.
+
+**The surface forced the question.** `concepts.description` is a plain text
+column and `mcp.concept` serves it as a bare string. There is no blockquote to
+write and no parser that would honour one, so reading section 6 as requiring
+the *markup* would make the exemption unreachable on every non-markdown surface
+this platform has — and would convert 90 correctly attributed technical
+definitions into a rewrite job.
+
+**Measured before ruling, not after.** Of the 90 concept descriptions at or
+above the leak threshold:
+
+| | |
+|---|---|
+| name the standard, the clause AND a reporting verb | 54 |
+| name a standard, not all three | 11 |
+| name a clause or annex but not the standard | 22 |
+| carry attribution in the `name` field instead | 2 |
+| **unattributed in the served object** | **0** |
+
+`mcp.concept` serves `certification, slug, name, description, task_codes`
+together, so attribution anywhere in that object reaches the consumer.
+`ia-clause-9-2-1-requirements` carries the bare description "Requires internal
+audits at planned intervals..." and the name **"ISO/IEC 27001 clause 9.2.1"** --
+a sentence fragment continuing from its own title, which is attributed as
+served and would read as unattributed to anyone measuring the description
+column alone.
+
+**So the concept repair job is zero rows**, and the queue stands as the record
+of having checked rather than as work outstanding.
+
+**WHAT THIS RULING DOES NOT SAY.** It is about ATTRIBUTION, not about quantity
+or about whether quoting was the right editorial choice. A description that is
+mostly the standard's words is a weak definition even when perfectly
+attributed, and `aia-clause-6-1-4-impact-assessment` at a 31-word run is close
+to that line. That is an editorial judgement for whoever owns the curriculum,
+and it is not what section 6 governs.
+
 ### The 271 repairs already made stay made
 
 They were made under the stricter rule and they are better prose than what they
