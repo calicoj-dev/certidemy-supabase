@@ -435,7 +435,7 @@
       "slug": "role-determination-requirement",
       "claim": "role determination has no counterpart in ISO/IEC 27001",
       "verdict": "OK",
-      "evidence": "27001 clause 4.1 does not mention roles"
+      "evidence": "27001 clause 4.1 does not mention roles  [extraction 992 chars, non-empty]"
     },
     {
       "slug": "scope-boundary-decision",

@@ -236,9 +236,34 @@ const CLAUSES = [
     ["continual improvement", "suitab", "adequa", "effective"]],
   ["nonconformity", "10.2", "nonconformity and corrective action", ["nonconformity", "corrective action"]],
 ];
+/* ============ AN EMPTY EXTRACTION IS A FAILURE, NOT A PASS ============
+ *
+ * ISO/IEC 27001:2022 extracts as "4.1Understanding the organization" -- no
+ * space after the number, behind a licence-watermark column -- so clauseText
+ * returned NULL for every clause of that document and the check consuming it
+ * scored OK against an empty string. "27001 clause 4.1 does not mention roles"
+ * passed because it asked nothing.
+ *
+ * So every content check now asserts its extraction is non-empty BEFORE
+ * evaluating it, and reports EMPTY EXTRACTION as its own verdict. A check that
+ * cannot see its subject must never report on it. */
+function evaluated(slug, claim, key, addr, fn) {
+  const t = addr ? clauseText(key, addr) : RAW.get(key);
+  if (t === null || t === undefined) {
+    add(slug, claim, "EMPTY EXTRACTION", "clauseText(" + key + ", " + addr + ") returned null -- nothing was examined");
+    return null;
+  }
+  if (String(t).trim().length === 0) {
+    add(slug, claim, "EMPTY EXTRACTION", "extraction is empty -- nothing was examined");
+    return null;
+  }
+  return fn(t);
+}
+
 for (const [slug, addr, what, terms] of CLAUSES) {
   const t = clauseText("42001:2023", addr);
   if (!t) { add(slug, "42001 clause " + addr + " = " + what, "FAIL", "address NOT FOUND in 42001:2023"); continue; }
+  if (!t.trim()) { add(slug, "42001 clause " + addr + " = " + what, "EMPTY EXTRACTION", "nothing was examined"); continue; }
   const flat = " " + norm(t) + " ";
   const missing = terms.filter((x) => !flat.includes(norm(x)));
   add(slug, "42001 clause " + addr + " = " + what, missing.length ? "READ" : "OK",
@@ -343,11 +368,16 @@ for (const [slug, claim, key, phrase] of [
     found ? "DISPROVED: the phrase occurs in " + key : "no occurrence of that phrase in " + key);
 }
 
-const c27001_41 = clauseText("27001:2022", "4.1") || "";
-add("role-determination-requirement", "role determination has no counterpart in ISO/IEC 27001",
-  c27001_41.toLowerCase().includes("role") ? "READ" : "OK",
-  c27001_41.toLowerCase().includes("role") ? "27001 clause 4.1 mentions role -- read it"
-    : "27001 clause 4.1 does not mention roles");
+/* THE CLAIM THAT WAS SCORED ON AN EMPTY STRING. It now goes through
+ * evaluated(), so a null extraction is EMPTY EXTRACTION rather than OK. */
+evaluated("role-determination-requirement", "role determination has no counterpart in ISO/IEC 27001",
+  "27001:2022", "4.1", (t) => {
+    const hit = t.toLowerCase().includes("role");
+    add("role-determination-requirement", "role determination has no counterpart in ISO/IEC 27001",
+      hit ? "READ" : "OK",
+      (hit ? "27001 clause 4.1 mentions role -- read it" : "27001 clause 4.1 does not mention roles")
+        + "  [extraction " + t.trim().length + " chars, non-empty]");
+  });
 add("iso-42001-27001-integration", "the AI system impact assessment has no 27001 counterpart",
   has("27001:2022", "impact assessment") ? "READ" : "OK",
   has("27001:2022", "impact assessment") ? "27001 contains the phrase impact assessment -- read it"
@@ -391,12 +421,13 @@ add("management-system-certification-basis", "42001 itself references ISO/IEC 42
     : "confirmed: 42001 never mentions 42006, so every 42006 claim is uncorroborated from both sides");
 
 /* ============================== REPORT ============================== */
-const order = { FAIL: 0, READ: 1, UNVERIFIABLE: 2, OK: 3 };
+const order = { FAIL: 0, "EMPTY EXTRACTION": 1, READ: 2, UNVERIFIABLE: 3, OK: 4 };
 R.sort((a, b) => order[a.verdict] - order[b.verdict] || a.slug.localeCompare(b.slug));
 const tally = R.reduce((m, r) => ((m[r.verdict] = (m[r.verdict] || 0) + 1), m), {});
 console.log("");
 console.log("AUDIT OF THE 154 -- " + R.length + " checkable claims");
 console.log("  OK " + (tally.OK || 0) + "   FAIL " + (tally.FAIL || 0)
+  + "   EMPTY " + (tally["EMPTY EXTRACTION"] || 0)
   + "   READ " + (tally.READ || 0) + "   UNVERIFIABLE " + (tally.UNVERIFIABLE || 0));
 let cur = "";
 for (const r of R) {

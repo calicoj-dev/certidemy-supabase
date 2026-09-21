@@ -2303,6 +2303,64 @@ lessons still over the threshold. The explanation copies word it differently
 ("may be conducted"), so an anchor asserted on the prose wording found exactly
 one occurrence and was right to. **Two anchors, never a looser one.**
 
+**AN EXPRESSION-MATCHING INSTRUMENT FINDS REPRODUCTION, NEVER ATTRIBUTION.**
+Recorded 2026-09-21, and it is the correction to the rule recorded beside it
+the same day.
+
+"Cited the wrong standard" and "cited the right standard, reproduced another
+standard's wording" produce an IDENTICAL signal from a contiguity scan. 77
+misattributions were read off one, and the first escalated was a WORDING defect
+with a defensible citation: ISO 19011:2026 was called a false attribution
+because it contains neither half of the reproduced string, while its clause 3.1
+Note 1 carries the same substance in its own words.
+
+> **MECHANISM: every misattribution finding carries a SECOND test answered by a
+> DIFFERENT instrument -- does the cited source carry the substance at any
+> address, in any wording -- and the two results are reported separately.**
+> Contiguity asks who wrote the words; distinctive-term coverage over the whole
+> cited document asks whether it says the thing at all.
+
+**Measured over 43 cross-family candidates:** 23 are WORDING defects with a
+sound citation, 13 are real, and **7 are undecidable because the claim is
+NEGATIVE about the cited standard** -- "an AI impact assessment that ISO/IEC
+27001 does not mandate" is correct, and low coverage is exactly what a true
+negative claim and a false attribution both look like. Three classes, not two.
+
+**AND THE ADDRESS MUST BIND TO THE RIGHT STANDARD.** Both entries in the
+real-defect bucket were the extractor binding a clause number to the NEAREST
+preceding standard token across an intervening different one: a heading reading
+*"what ISO 19011 suggests and what ISO/IEC 42001 requires"* gave 42001 the
+following sentence's `clause 5.5.7`, which 42001 does not have and 19011 does.
+**The bucket was 2 and is 0.** An address may not be claimed by a standard when
+another standard token sits between them.
+
+**A CHECK THAT ASKS NOTHING PASSES.** The sharpest instance in this file, and
+it was found only because someone asked whether a figure was measured before or
+after a parser fix.
+
+ISO/IEC 27001:2022 extracts as `4.1Understanding the organization` -- **no space
+after the number** -- behind a licence-watermark column. `clauseText` required a
+space, so it returned NULL for every clause of that document, and the check
+consuming it scored **OK against an empty string**: *"27001 clause 4.1 does not
+mention roles"* passed because nothing was examined.
+
+> **MECHANISM: an extractor returning empty for an input known to be present is
+> a FAILURE, not a pass.** Every content check asserts its extraction is
+> non-empty BEFORE evaluating it, and reports EMPTY EXTRACTION as its own result
+> class, counted beside OK and FAIL. The audit now prints the extraction length
+> next to the verdict, so a vacuous pass cannot look like a real one.
+
+**Three further extractor defects surfaced in the same pass, all of them
+turning correct content into a failure report:** reading the table of contents
+instead of the body (20 false failures), a shell heredoc collapsing every double
+backslash so a tab class arrived as a literal tab (28 more), and a stop
+condition that read `split(" ")[0]` as the heading number and therefore never
+stopped in 27001, sweeping clause 5 into clause 4.1.
+
+**The count moved 147 -> 179 -> 130 -> 129 across those fixes, and only the last
+is a fact about the content.** A defect list is not a defect list until the
+instrument that produced it has been made to fail on something known.
+
 **A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
 DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by
 the guard disagreeing with itself rather than by anyone reviewing it:

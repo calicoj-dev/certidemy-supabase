@@ -159,7 +159,27 @@ function extract(text) {
     const tail = src.slice(m.index + m[0].length, m.index + m[0].length + 400);
     /* An address may follow: "clause 9.2", "Annex A", "A.6.2" */
     const addrM = /^[^.]{0,40}?\bclause\s+(\d+(?:\.\d+)*)/i.exec(tail);
-    const address = addrM ? addrM[1] : null;
+    /* ============ AN ADDRESS BOUND TO THE NEAREST STANDARD, AND THAT WAS
+     * THE WRONG RULE ============
+     *
+     * A heading reading "what ISO 19011 suggests and what ISO/IEC 42001
+     * requires", followed by "ISO 19011:2026 clause 5.5.7 covers...", bound
+     * 5.5.7 to 42001: it was the nearest token and no period intervened.
+     * 42001 has no 5.5.7, so this reported a nonexistent address. ISO
+     * 19011:2026 DOES have 5.5.7, Managing audit related records, which is
+     * exactly what the sentence says.
+     *
+     * BOTH entries in the real-defect bucket were this. The bucket was 2 and
+     * is 0. An address may not be claimed by a standard when ANOTHER standard
+     * token sits between them. */
+    let address = addrM ? addrM[1] : null;
+    if (address) {
+      const between = tail.slice(0, addrM.index + addrM[0].length);
+      /* No regex here: shell transports have collapsed escapes in this file
+       * twice today. A plain scan for the token cannot be mangled. */
+      const other = between.indexOf("ISO ") >= 0 || between.indexOf("ISO/") >= 0;
+      if (other) address = null;
+    }
     /* An attribution verb makes the following text a CLAIM ABOUT the standard. */
     const vm = new RegExp("\\b(" + VERBS.join("|") + ")\\b", "i").exec(tail.slice(0, 90));
     if (!vm) continue;

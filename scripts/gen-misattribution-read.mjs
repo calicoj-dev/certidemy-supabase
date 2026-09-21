@@ -70,6 +70,36 @@ function sourceContext(key, hit) {
   return flatWords.slice(Math.max(0, bestAt - 18), bestAt + hitWords.length + 22).join(" ");
 }
 
+/* ============ THE SECOND TEST: DOES THE CITED SOURCE CARRY THE SUBSTANCE ==
+ *
+ * An expression-matching instrument finds REPRODUCTION, never ATTRIBUTION.
+ * "Cited the wrong standard" and "cited the right standard, reproduced another
+ * standards wording" produce an IDENTICAL signal -- which is exactly the
+ * mistake already paid for: ISO 19011:2026 was called a false attribution
+ * because it contains neither half of the reproduced string, while its clause
+ * 3.1 Note 1 carries the same substance in its own words.
+ *
+ * So every candidate gets a second, DIFFERENT question, answered by a
+ * different instrument. Contiguity asks who wrote the words. Distinctive-term
+ * coverage over the WHOLE cited document asks whether that document says the
+ * thing at all, at any address, in any wording.
+ *
+ * The two results are reported SEPARATELY and never merged into one verdict.
+ */
+const STOP = new Set(("the a an and or of to in for on by with that this it is are be as at from its their which"
+  + " not no than then when where what who whom whose how why can could may might must shall should will would"
+  + " one two three four five six seven eight nine ten first second third has have had was were been being do does"
+  + " did done more most other others some any all each every both either neither such same own only just also"
+  + " there here they them these those you your our we us").split(" "));
+
+function carriesSubstance(key, claim) {
+  const terms = [...new Set(norm(claim).split(" ").filter((w) => w.length >= 5 && !STOP.has(w)))];
+  if (!terms.length) return { coverage: null, terms: 0, missing: [] };
+  const hay = " " + norm(RAW.get(key)) + " ";
+  const missing = terms.filter((w) => !hay.includes(" " + w));
+  return { coverage: (terms.length - missing.length) / terms.length, terms: terms.length, missing };
+}
+
 const HELD = {
   "42001": "42001:2023", "27001": "27001:2022", "19011": "19011:2026",
   "22989": "22989:2022", "27000": "27000:2018", "27002": "27002:2022",
@@ -83,14 +113,51 @@ const mis = data.findings.filter((f) => f.verdict === "MISATTRIBUTED");
 const cross = mis.filter((f) => !(HARM.has(HELD[f.standard]) && HARM.has(f.best_source)));
 
 /* Dedupe: the same sentence quoted in two places is one thing to read. */
+/* Score EVERY cross-family candidate, then split. The top-10 slice comes
+ * after the split, not before it -- ranking by run length would have put
+ * wording defects at the top of a list titled misattributions. */
+/* ============ A NEGATIVE CLAIM INVERTS THE SUBSTANCE TEST ============
+ *
+ * "an AI impact assessment that ISO/IEC 27001 does not mandate" is a claim
+ * that the cited standard does NOT carry the substance. The coverage test then
+ * agrees with the sentence and the classifier reads that agreement as a defect,
+ * so a CORRECT negative statement lands in a list titled real misattributions.
+ *
+ * Found by reading the output rather than the number -- four of the first
+ * twenty were this shape. They are reported in their own class, because the
+ * instrument genuinely cannot decide them: low coverage is what a true
+ * negative claim and a false attribution both look like. */
+const NEG = [" does not ", " do not ", " never ", " no requirement", " nothing in ",
+  " is not ", " are not ", " without ", " neither ", " nowhere ", " does nt ", " cannot "];
+const isNegative = (claim) => { const c = " " + norm(claim) + " "; return NEG.some((n) => c.includes(norm(n).length ? n.split("").join("") : n) || c.includes(n.trim() + " ")); };
+
+const SUBSTANCE_FLOOR = 0.85;
+for (const f of cross) {
+  const k = HELD[f.standard];
+  f.cited_carries = k ? carriesSubstance(k, f.claim) : { coverage: null, terms: 0, missing: [] };
+  f.negative = isNegative(f.claim);
+  f.klass = f.cited_carries.coverage === null ? "UNSCORED"
+    : f.cited_carries.coverage >= SUBSTANCE_FLOOR ? "WORDING (attribution fine)"
+    : f.negative ? "NEGATIVE CLAIM (test inverts)" : "REAL MISATTRIBUTION";
+}
+const wording = cross.filter((f) => f.klass.startsWith("WORDING"));
+const real = cross.filter((f) => f.klass === "REAL MISATTRIBUTION");
+console.log("");
+console.log("SPLIT OF " + cross.length + " CROSS-FAMILY CANDIDATES, at substance floor " + SUBSTANCE_FLOOR);
+console.log("  cited standard DOES carry the substance -> WORDING defect   " + String(wording.length).padStart(3));
+console.log("  cited standard does NOT                 -> REAL             " + String(real.length).padStart(3));
+const negs = cross.filter((f) => f.klass.startsWith("NEGATIVE"));
+console.log("  claim is NEGATIVE about the cited standard -> undecidable  " + String(negs.length).padStart(3));
+console.log("     (a true negative claim and a false attribution look identical to a");
+console.log("      coverage test, so these are neither passed nor failed here)");
+
 const seen = new Set();
 const top = [];
-for (const f of cross.sort((a, b) => b.best_run - a.best_run)) {
+for (const f of real.sort((a, b) => b.best_run - a.best_run)) {
   const k = f.standard + "|" + norm(f.claim).slice(0, 80);
   if (seen.has(k)) continue;
   seen.add(k);
   top.push(f);
-  if (top.length >= 10) break;
 }
 
 const rows = top.map((f, i) => ({
@@ -100,6 +167,9 @@ const rows = top.map((f, i) => ({
   cited: { standard: "ISO " + f.standard, address: f.address || null, verb: f.verb,
     contiguous_words_found_there: f.run },
   attributed_text: f.claim,
+  cited_standard_carries_substance: false,
+  substance_coverage_in_cited: f.cited_carries.coverage,
+  terms_absent_from_cited: f.cited_carries.missing,
   actual_source: f.best_source,
   actual_source_says: sourceContext(f.best_source, f.hit) || "(context not recoverable; the match is the n-gram score)",
   matched_span: f.hit,
@@ -109,7 +179,11 @@ const rows = top.map((f, i) => ({
 writeFileSync(join(HERE, "..", "MISATTRIBUTION-READ.json"), JSON.stringify({
   what: "Top 10 cross-family misattribution candidates, by how verbatim the passage is in a standard OTHER than the one cited.",
   measured: "2026-09-21",
-  population: { all_misattributed: mis.length, harmonised_siblings_excluded: mis.length - cross.length, cross_family: cross.length },
+  population: { all_misattributed: mis.length, harmonised_siblings_excluded: mis.length - cross.length,
+    cross_family: cross.length, wording_defect_attribution_fine: wording.length,
+    negative_claim_undecidable: cross.filter((f) => f.klass.startsWith("NEGATIVE")).length,
+    real_misattribution: real.length },
+  second_test: "Contiguity asks who wrote the words. Distinctive-term coverage over the whole cited document asks whether it says the thing at all, at any address, in any wording. Rows here FAILED that second test: the cited standard does not carry the substance. The " + wording.length + " rows that passed it are wording defects with a defensible citation and are excluded.",
   why_cross_family_only: "42001, 27001, 27000 and 27002 share clause text by design, so a sibling overlap means very little. These pairs share no harmonised text.",
   not_a_verdict: "The instrument sees reproduced EXPRESSION. A sentence can be a fair paraphrase of the cited clause and still share wording with another standard that says something similar. Fixed nothing.",
   rows,

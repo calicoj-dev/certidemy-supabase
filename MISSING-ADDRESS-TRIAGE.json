@@ -2,19 +2,11 @@
   "measured": "2026-09-21",
   "total": 129,
   "buckets": {
-    "a_real": 2,
+    "a_real": 1,
     "b_unverifiable": 0,
-    "c_artifact_or_subitem": 127
+    "c_artifact_or_subitem": 128
   },
   "a": [
-    {
-      "corpus": "lesson",
-      "cert": "AIMS-IA",
-      "ref": "aims-ia-02-07-the-programme-audits-itself",
-      "standard": "42001",
-      "address": "5.5.7",
-      "claim": "\" ISO 19011:2026 clause 5.5.7 covers managing audit related records - what is kept, for how long, how it is protected, and who may see it."
-    },
     {
       "corpus": "item",
       "cert": "AIMS-IA",
