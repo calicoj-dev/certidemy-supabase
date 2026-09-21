@@ -83,7 +83,7 @@ async function all(path) {
 const norm = (s) => String(s || "").toLowerCase()
   .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
 const W = (s) => norm(s).split(" ").filter(Boolean);
-const SEED = 4, MIN_RUN = 6, MIN_COV = 0.60;
+const SEED = 4, MIN_RUN = 4, MIN_COV = 0.60;  /* floor lowered 6 -> 4; see gate-concept-descriptions.mjs */
 
 if (!pdftotextAvailable()) { console.error("pdftotext is not on PATH."); process.exit(2); }
 const corruption = verifyCorpus();

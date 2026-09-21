@@ -2137,6 +2137,23 @@ pattern can see grammar — which is how two SECURE banks passed the check that
 had just demanded the fix that broke them. The two measurements are
 wrong in OPPOSITE directions, which is what makes their agreement meaningful.
 
+**AN INSTRUMENT'S ERROR MODES CAN BE A FUNCTION OF ITS INPUT SIZE, SO WIDENING
+AN INDEX IS A RE-CALIBRATION AND NOT A CONFIGURATION CHANGE.** This is the
+general form of the entry below, and it is the sharpest thing the corpus
+expansion produced.
+
+Nothing about the scanner changed when the ISO corpus went from three standards
+to nine. Its threshold, its seed, its segmenter and its controls were all
+untouched, and its FALSE-POSITIVE RATE went from invisible to fifty percent --
+12 artifacts in 24 refusals, one reporting 14 words where the longest real
+fragment was 9. The defect was not introduced by the widening; it was made
+frequent enough to see.
+
+**A rate measured at one input size does not transfer to another**, and the
+calibration that justified a threshold is void the moment the corpus behind it
+changes. Treat adding a source the way you would treat changing the threshold:
+re-measure, re-read the fires, and expect the error modes to move.
+
 **A COMBINED INDEX MANUFACTURES A RUN THAT EXISTS IN NO DOCUMENT.** Found
 2026-09-21, the first time the ISO corpus went from three standards to nine.
 
@@ -2175,6 +2192,50 @@ recorded here: **the query manufactured an adjacency the data does not have.**
 It is also the same shape as the segmenter's own fixture case -- text either
 side of a cut must never land in one segment -- applied one level up, to
 documents rather than to lines.
+
+**COVERAGE IS THE INSTRUMENT; THE RUN FLOOR IS ONLY A NOISE FILTER.** Ruled
+2026-09-21, and the instance is disqualifying for the floor that allowed it.
+
+The concept gate refused at `run >= 6 AND coverage >= 0.60`. ISMS-F
+`risk-identification` reads *"finding, recognizing and describing risks"* --
+**five words, all five present verbatim in an indexed standard, coverage
+1.00.** The entire description is a reproduction and the gate said nothing,
+because 5 is one short of 6.
+
+**A threshold that lets a COMPLETE reproduction pass because the thing
+reproduced is short is the scale defect the instrument was built to escape,
+reintroduced one level down.** Floor moved to 4. Coverage carries the
+judgement -- a run that is most of the text IS the text -- and the floor exists
+only to stop a four-word commonplace in a six-word description reading as a
+finding.
+
+Measured: 9 fires at floor 6, **16 at floor 4**, and the seven the old floor hid
+include the two completest reproductions in the corpus. **13 of the 16 are
+ISMS-F.**
+
+**AND A FILTER CHOSEN TO MATCH THE EXPECTED SHAPE OF A DEFECT FINDS ONLY
+DEFECTS OF THAT SHAPE.** `list-defined-term-glosses` filtered to descriptions
+of ten words or fewer, on the reasoning that a gloss is short. ISMS-F
+`availability` -- *"information is accessible and usable on demand by an
+authorized entity"* -- is ELEVEN words, is ISO/IEC 27000's definition
+near-verbatim, and scored 9w/11 coverage 0.82 the moment 27000 was indexed.
+**The cutoff hid it, and the cutoff was a guess.** Removed; the corpus
+considered went 688 -> 1,729 and tier A went 23 -> 52. The TIERS do the
+narrowing now, which puts the generosity in a number instead of in a silent
+exclusion.
+
+**AND A LESSON CAN CITE THE WRONG STANDARD FOR A SENTENCE IT REPRODUCES
+CORRECTLY.** Found in the same pass, by attributing each run to its source
+rather than only measuring it. Three lessons carry ISO/IEC 27000's note on
+`audit` verbatim; **two of them credit it to ISO 19011:2026, which does not
+contain either half of the sentence.** One of the two sits inside a checkpoint
+EXPLANATION, so the misattribution is taught as an answer.
+
+> **This is the defect class no gate in this repository can reach** -- a true
+> statement filed against the wrong source, in prose that reads correct. It
+> surfaced only because the scanner now PRINTS THE ATTRIBUTED SOURCE with every
+> fire. A run with no source is the tell for a manufactured adjacency; a run
+> whose source disagrees with the prose around it is the tell for this.
 
 **A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
 DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by

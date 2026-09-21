@@ -70,7 +70,20 @@ const argOf = (k, d) => {
   const i = process.argv.indexOf("--" + k);
   return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
 };
-const MAX_WORDS = Number(argOf("max-words", "10"));
+/* ============ NO LENGTH CUTOFF. IT WAS A GUESS AND IT HID A REAL ONE ======
+ *
+ * This filtered to descriptions of 10 words or fewer, on the reasoning that a
+ * gloss is short. ISMS-F `availability` -- "information is accessible and
+ * usable on demand by an authorized entity" -- is ELEVEN words, is ISO/IEC
+ * 27000's definition near-verbatim, and scored 9w/11 coverage 0.82 the moment
+ * 27000 was indexed. The cutoff hid it, and the cutoff was a guess.
+ *
+ * A filter chosen to match the expected shape of the defect can only find
+ * defects of the expected shape. Every live description is now considered, and
+ * the TIERS do the narrowing -- tier C is where the generosity shows up as a
+ * number instead of as a silent exclusion.
+ */
+const MAX_WORDS = Number(argOf("max-words", "0")) || Infinity;
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
@@ -230,7 +243,7 @@ const concepts = (await all("concepts?select=id,certification_id,slug,name,descr
 const short = concepts.filter((c) => norm(c.description).split(" ").filter(Boolean).length <= MAX_WORDS
   && norm(c.description).length > 0);
 console.log("");
-console.log("  " + concepts.length + " live concept(s); " + short.length + " with a description of " + MAX_WORDS + " words or fewer");
+console.log("  " + concepts.length + " live concept(s); " + short.length + " with a non-empty description" + (Number.isFinite(MAX_WORDS) ? " of " + MAX_WORDS + " words or fewer" : " (NO length cutoff)"));
 
 /* MATCH ON THE NAME, NOT THE DESCRIPTION. The name is stable across editions;
  * the definition text is exactly what was shown above not to be. */

@@ -75,7 +75,24 @@ const EXEMPTIONS = {
   },
 };
 
-const MIN_RUN = 6, MIN_COV = 0.60, SEED = 4;
+/* ============ COVERAGE IS THE INSTRUMENT; THE RUN FLOOR IS NOISE ============
+ *
+ * MIN_RUN was 6 and is now 4, measured 2026-09-21. The floor of 6 let
+ * ISMS-F `risk-identification` through at COVERAGE 1.00 -- "finding,
+ * recognizing and describing risks" is five words and all five are present
+ * verbatim in an indexed standard. The ENTIRE description is a reproduction,
+ * and the gate said nothing because 5 < 6.
+ *
+ * That is disqualifying for a floor. A threshold that lets a complete
+ * reproduction pass because the thing reproduced is short is the scale defect
+ * this whole instrument was built to escape, reintroduced one level down.
+ *
+ * Coverage is what carries the judgement: a run that is most of the text is
+ * the text. The run floor exists only to stop a four-word commonplace in a
+ * six-word description reading as a finding, and 4 is where it stops being
+ * noise rather than where it starts being evidence.
+ */
+const MIN_RUN = 4, MIN_COV = 0.60, SEED = 4;
 
 /* ------------------------------------------------------------- the index */
 

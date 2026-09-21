@@ -306,10 +306,39 @@ for (const m of measured) {
   if (!m.lesson_group_id) ungrouped++;
   groupMax.set(k, Math.max(groupMax.get(k) ?? 0, m.run));
 }
+/* ======================= NAMED LESSON EXEMPTIONS =======================
+ *
+ * Keyed by lesson slug; the exemption covers that slug's whole group, because
+ * the verdict is per group. `maxRun` is a CEILING, not a waiver: exempt up to
+ * that length, refused above it, so a later edit cannot smuggle a longer
+ * reproduction in under a slug exempted for a category list.
+ *
+ * AN EXEMPTION RECORDS A REASON AND IS PRINTED ON EVERY RUN. An exemption
+ * nobody re-reads is a suppression with extra steps, and one whose argument
+ * lives in a commit message is one the next reader deletes.
+ *
+ * RESTRUCTURING CONTENT TO SATISFY AN INSTRUMENT IS BACKWARDS. Where the
+ * description is worse for scoring lower, the instrument yields and says so.
+ */
+const LESSON_EXEMPTIONS = {
+  "04-02-control-attributes": {
+    maxRun: 14,
+    why: "The ISO/IEC 27002 control-attribute CATEGORY NAMES. A certification cannot teach a taxonomy without naming its categories, and naming categories is not reproducing the prose that defines them -- the same distinction that lets a description name clause titles. The run is a list of attribute values, carries none of the guidance text around them, and a learner who cannot match our words to the attribute names they will meet has been taught nothing.",
+  },
+};
+
+/* A slug's exemption covers its whole group, since the verdict is per group. */
+const exemptGroups = new Map();
+for (const m of measured) {
+  const ex = LESSON_EXEMPTIONS[m.slug];
+  if (ex) exemptGroups.set(m.lesson_group_id ?? ("SOLO:" + m.id), { ...ex, slug: m.slug });
+}
 const scored = measured.map((m) => {
   const k = m.lesson_group_id ?? ("SOLO:" + m.id);
   const groupRun = groupMax.get(k);
-  return { ...m, groupRun, servable: groupRun < THRESHOLD };
+  const ex = exemptGroups.get(k);
+  const exempt = !!ex && groupRun >= THRESHOLD && groupRun <= ex.maxRun;
+  return { ...m, groupRun, exempt, servable: groupRun < THRESHOLD || exempt };
 });
 console.log("  " + groupMax.size + " lesson group(s); " + ungrouped + " row(s) carry no group and are judged alone");
 
@@ -467,6 +496,22 @@ for (const [c, b] of Object.entries(byCert).sort()) {
   console.log("  " + c.padEnd(12) + String(b.n).padStart(4) + "   " + String(b.refused).padStart(7) +
     "   " + String(b.max).padStart(4) + "w" + (b.refused ? "   " + b.worst.slug + "/" + b.worst.language : ""));
 }
+/* EXEMPTIONS ARE PRINTED WITH THEIR SCORE AND THEIR REASON, EVERY RUN, and
+ * DORMANT is distinguished from STALE: dormant means the group is present and
+ * does not currently trip the threshold, so the policy stands but is not
+ * load-bearing; stale means the slug is gone and the entry protects nothing. */
+console.log("");
+console.log("NAMED EXEMPTIONS");
+for (const [slug, ex] of Object.entries(LESSON_EXEMPTIONS)) {
+  const row = scored.find((x) => x.slug === slug);
+  if (!row) { console.log("  STALE   " + slug + " is not in the corpus. Remove it."); continue; }
+  const state = row.exempt ? "ACTIVE " : "DORMANT";
+  console.log("  " + state + " " + slug + "   group run " + row.groupRun + "w, ceiling " + ex.maxRun +
+    "w, threshold " + THRESHOLD + (row.exempt ? "" : "  -- under the threshold, so the exemption is not load-bearing"));
+  if (row.runText) console.log("     matched: \"" + row.runText.slice(0, 100) + "\"   [" + row.runSrc + "]");
+  console.log("     why: " + ex.why);
+}
+
 if (VERBOSE) {
   console.log("");
   for (const s of shown.filter((x) => !x.servable).sort((a, b) => b.run - a.run)) {

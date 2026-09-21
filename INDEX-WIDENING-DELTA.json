@@ -19,14 +19,25 @@
   },
   "gate": {
     "seed": 4,
-    "min_run": 6,
+    "min_run": 4,
     "min_cov": 0.6
   },
   "live": {
     "rows": 1729,
-    "fired_narrow": 4,
-    "fired_wide": 9,
+    "fired_narrow": 5,
+    "fired_wide": 16,
     "newly": [
+      {
+        "cert": "ISMS-F",
+        "slug": "risk-identification",
+        "description": "finding, recognizing and describing risks",
+        "run": 5,
+        "words": 5,
+        "cov": 1,
+        "matched": "finding recognizing and describing risks",
+        "source": "27000:2018",
+        "predicted_tier": "A"
+      },
       {
         "cert": "ISMS-F",
         "slug": "iso-27005-risk",
@@ -62,6 +73,17 @@
       },
       {
         "cert": "ISMS-F",
+        "slug": "cryptographic-controls",
+        "description": "use and management of cryptography",
+        "run": 4,
+        "words": 5,
+        "cov": 0.8,
+        "matched": "use and management of",
+        "source": "27002:2022",
+        "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
         "slug": "avoid-risk",
         "description": "not undertaking the activity that gives rise to the risk",
         "run": 8,
@@ -70,6 +92,50 @@
         "matched": "the activity that gives rise to the risk",
         "source": "27000:2018",
         "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "security-control",
+        "description": "a measure that modifies risk",
+        "run": 4,
+        "words": 5,
+        "cov": 0.8,
+        "matched": "a measure that modifies",
+        "source": "27002:2022",
+        "predicted_tier": "B"
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "supplier-controls",
+        "description": "controls governing information security in supplier relationships",
+        "run": 5,
+        "words": 7,
+        "cov": 0.7142857142857143,
+        "matched": "information security in supplier relationships",
+        "source": "27002:2022",
+        "predicted_tier": null
+      },
+      {
+        "cert": "ISMS-F",
+        "slug": "iso-27002-controls",
+        "description": "implementation guidance for the reference controls",
+        "run": 4,
+        "words": 6,
+        "cov": 0.6666666666666666,
+        "matched": "implementation guidance for the",
+        "source": "27000:2018",
+        "predicted_tier": null
+      },
+      {
+        "cert": "AIGRM-I",
+        "slug": "technical-documentation-requirement",
+        "description": "Documentation demonstrating the system meets requirements.",
+        "run": 4,
+        "words": 6,
+        "cov": 0.6666666666666666,
+        "matched": "the system meets requirements",
+        "source": "22989:2022",
+        "predicted_tier": "B"
       },
       {
         "cert": "ISMS-F",
@@ -90,7 +156,7 @@
   },
   "tier_a_prediction": {
     "named": 23,
-    "firing": 2,
-    "firing_unpredicted": 7
+    "firing": 3,
+    "firing_unpredicted": 11
   }
 }
