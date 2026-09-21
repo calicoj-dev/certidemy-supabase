@@ -1437,6 +1437,40 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A PROPOSED GUARD IS MEASURED AGAINST THE CORPUS BEFORE IT IS RECORDED.**
+Fourth time in one night that a proposal was wrong in this exact way, which is
+why it is a rule and not a note.
+
+The slug-derived-name guard -- *no concept name equals its slug with hyphens
+replaced by spaces and the first letter capitalised* -- **fires on 653 of 1,730
+names.** Slug-derived names are the CONVENTION, not the defect. ISMS-F's actual
+defect is narrower and the narrow form fires on **192, all of them ISMS-F, none
+elsewhere**.
+
+**A GUARD THAT FIRES ON THE NORMAL CASE IS DELETED BY THE FIRST PERSON IT
+INCONVENIENCES, AND ITS DELETION TAKES THE REAL ASSERTION WITH IT.** That is
+the cost: not the noise, but the assertion that leaves with it.
+
+> **MECHANISM: every new check reports its firing count on the current corpus
+> in the same commit that adds it, and a count above a stated threshold is a
+> DESIGN ERROR, not a backlog of fixes.**
+
+**AND THE SAME RULE CAUGHT THE OPPOSITE FAILURE IN THE SAME MIGRATION.** 358's
+duplicate-description guard was first written as exact normalised equality, and
+measured **ZERO fires -- including on the ISMS-IA pair it was written for**,
+whose descriptions differ by one word (`giving` against `naming`).
+
+**A guard that cannot catch its own motivating instance is worse than one that
+fires too often:** it reports clean and retires the question. Comparing the
+first 100 normalised characters fires on 3 pairs, catches the ISMS-IA one, and
+surfaced two nobody had seen -- `aia-clause-4-1-context` with
+`aia-organizational-roles-4-1`, and `aia-clause-4-3-scope` with
+`aia-scope-follows-roles`.
+
+**So the count is checked in BOTH directions.** Too many fires is a design
+error; zero fires against a known instance is a broken instrument. Neither is
+visible without running it, and both look like success in a commit message.
+
 **A BARE ENGLISH NOUN IN A TRANSLATED NAME IS A DEFECT WHEN IT IS A TRUNCATION
 AND CORRECT WHEN IT IS A LOAN.** Ruled 2026-09-21 on a corpus census of 31
 translated concept names carrying a target-language article in front of a bare
