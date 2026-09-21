@@ -1437,6 +1437,70 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A SAMPLING GATE IS SCOPED TO WHAT THE SAMPLE CAN SEE, AND A CLEAN SAMPLE OVER
+A HOLLOW SOURCE IS THE SHARPEST FORM OF THAT.** Paid for 2026-09-21, on the
+concept translation clearance.
+
+AIMS-F returned a **perfectly clean 40-row draw** -- 20 rows in each of two
+languages, zero wrong, zero reword. Every mechanical check agreed: no empty
+translations, nothing byte-identical to its English, no number drift, no dropped
+term, the language guard silent.
+
+**All 154 of its English concept descriptions are the concept's own name
+followed by a fixed tail**, byte-exact, measured:
+
+```
+AIMS-F      154 of 154 are `<name> as required or described by
+            ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.`
+every other largest shared 45-character description suffix is 1 or 2 rows
+```
+
+The translations were faithful. **A translation-fidelity sample cannot clear
+source adequacy, because a faithful rendering of a stub is a correct
+translation.** The sample was not wrong; it was answering a different question
+from the one the clearance needed answered.
+
+It is also not a general hollowness. AIMS-F's 35 tasks carry knowledge, skills
+and abilities on all 35 (655 characters of knowledge on average), its 35 English
+lessons average 13,696 characters, and it has 631 English items. **The concept
+layer is the only hollow one**, which is exactly why nothing caught it: every
+neighbouring surface is real.
+
+**THE MECHANISM, because the rule alone would not have stopped this.** Before a
+certification enters any translation queue, a source-adequacy check runs on the
+ENGLISH: *a description that is its own name plus a tail shared by more than 20
+rows in the same certification is a stub, and that certification does not enter
+the queue.* The threshold is data, not taste -- no other certification has a
+shared suffix group above 2.
+
+And **every review row records whether a source gate ran**.
+`concept_translation_reviews.source_gate_ran` is FALSE on all 24 rows written by
+356, which is the truth: no such gate existed when these were translated. A
+review table whose provenance column is absent reads as if the question was
+never relevant; one that says FALSE says the question was asked and answered
+badly.
+
+**TEMPLATE-GENERATED ENGLISH MUST BE TEMPLATE-GENERATED IN TRANSLATION.** Same
+incident, second finding, and it is what a clean sample looked like up close.
+
+AIMS-F's es-419 draw rendered ONE fixed English tail **four different ways
+across 20 rows** -- `blueprint AIMS-F`, `temario de AIMS-F`, `plan de estudios
+AIMS-F`, `temario AIMS-F` -- plus three variants of `as required or described
+by`. Every one is defensible Spanish. Together they are four translations of a
+string that occurs 154 times and means one thing, which is a glossary
+inconsistency a reader meets as four different structural phrases for the same
+scaffolding.
+
+**The mechanism:** where more than 20 English rows in one certification share a
+description suffix, **that suffix is translated ONCE and substituted**, never
+translated per row. A per-row translator cannot see that it has produced a
+variant, because each call sees one row.
+
+**The guard is a count and it belongs with the pass:** assert that the number of
+DISTINCT translated suffixes is exactly 1 per language. That fires on a corpus
+of 154 as loudly as on one of 3, and it is the kind of check a sample can never
+be, because the defect is only visible across rows.
+
 **THREE KINDS OF TRANSLATION DEFECT THE GUARDS CANNOT SEE, and they are a
 ladder.** Each is fluent, each survived every automated check that existed when
 it landed, and each was found only by a bilingual reader:
