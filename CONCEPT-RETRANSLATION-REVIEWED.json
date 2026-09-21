@@ -1,0 +1,167 @@
+{
+ "why": "Regenerated after migration 358 changed the English. 7 concepts x 2 languages.",
+ "concepts": 7,
+ "rows_regenerated": 14,
+ "all_provisional": true,
+ "note": "Every regenerated row lands is_provisional=true, so none of this is served until cleared. was_* is the rendering of the OLD English, kept so the change is readable.",
+ "rows": [
+  {
+   "certification": "ISMS-F",
+   "slug": "tool-misuse",
+   "en_name": "Tool misuse",
+   "en_description": "legitimate tools that a compromised agent bends toward destructive or unintended outputs",
+   "es-419": {
+    "was_name": "uso indebido de herramientas",
+    "now_name": "Uso indebido de herramientas",
+    "was_description": "herramientas legítimas desviadas hacia resultados destructivos o no previstos por un agente comprometido",
+    "now_description": "herramientas legítimas que un agente comprometido desvía hacia resultados destructivos o no previstos",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "uso indevido de ferramentas",
+    "now_name": "Uso indevido de ferramentas",
+    "was_description": "ferramentas legítimas desviadas para saídas destrutivas ou não pretendidas por um agente comprometido",
+    "now_description": "ferramentas legítimas que um agente comprometido direciona para saídas destrutivas ou não intencionais",
+    "is_provisional": true
+   },
+   "your_verdict": "approve-with-fix",
+   "your_note": "Restructure landed in both: agent is now the grammatical subject and the attachment ambiguity is gone. ONE FIX FIRST: es renders 'unintended' as 'no previstos' (unforeseen) while pt renders it 'nao intencionais' (unintended). Same English word, two meanings, and 'no previstos' is about anticipation rather than intent. Carried over unchanged from the old row - the restructure never revisited it. Change es to 'no intencionados' before clearing."
+  },
+  {
+   "certification": "SM-AI-II",
+   "slug": "complementary-practice",
+   "en_name": "Complementary practice",
+   "en_description": "A practice wrapped around Scrum that supplements it without replacing any of its elements.",
+   "es-419": {
+    "was_name": "Práctica complementaria",
+    "now_name": "Práctica complementaria",
+    "was_description": "Una práctica que se envuelve alrededor de Scrum y que lo suma sin reemplazar ninguno de sus elementos.",
+    "now_description": "Una práctica que se integra alrededor de Scrum y lo complementa sin reemplazar ninguno de sus elementos.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Prática complementar",
+    "now_name": "Prática complementar",
+    "was_description": "Uma prática aplicada em torno do Scrum que o acrescenta sem substituir nenhum de seus elementos.",
+    "now_description": "Uma prática aplicada em torno do Scrum que o complementa sem substituir nenhum de seus elementos.",
+    "is_provisional": true
+   },
+   "your_verdict": "approve",
+   "your_note": "'lo complementa' / 'o complementa' - both unambiguous, both correct. The English fix did the work. Minor unrequested drift in es ('se envuelve alrededor' -> 'se integra alrededor'); harmless, see the churn note."
+  },
+  {
+   "certification": "AIHR-I",
+   "slug": "institution-proxy",
+   "en_name": "Institution proxy",
+   "en_description": "School, university or employer name functioning as a proxy for educational or socioeconomic background, or for protected status.",
+   "es-419": {
+    "was_name": "Proxy institucional",
+    "now_name": "Proxy institucional",
+    "was_description": "El nombre de la escuela, universidad o empleador que funciona como proxy del origen social o de una condición protegida.",
+    "now_description": "Nombre de una escuela, universidad o empleador que funciona como proxy del origen educativo o socioeconómico, o de una condición protegida.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Proxy institucional",
+    "now_name": "Proxy institucional",
+    "was_description": "Nome de escola, universidade ou empregador funcionando como proxy de origem social ou de condição protegida.",
+    "now_description": "Nome de escola, universidade ou empregador que funciona como proxy de origem educacional ou socioeconômica, ou de status protegido.",
+    "is_provisional": true
+   },
+   "your_verdict": "approve-with-fix",
+   "your_note": "es names both senses correctly: 'origen educativo o socioeconomico'. ONE FIX FIRST: pt changed 'condicao protegida' to 'status protegido', introducing a divergence from es 'condicion protegida' that did not exist in the old rows. The English change touched 'background', not 'protected status'. Revert pt to 'condicao protegida'."
+  },
+  {
+   "certification": "SD-AI-I",
+   "slug": "daily-backlog-update",
+   "en_name": "Daily Sprint Backlog Update",
+   "en_description": "Keeping the plan transparent and current.",
+   "es-419": {
+    "was_name": "Actualización diaria del backlog",
+    "now_name": "Actualización diaria del Sprint Backlog",
+    "was_description": "Mantener el plan transparente y actualizado.",
+    "now_description": "Mantener el plan transparente y actualizado.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Atualização Diária do Backlog",
+    "now_name": "Atualização Diária do Sprint Backlog",
+    "was_description": "Manter o plano transparente e atualizado.",
+    "now_description": "Manter o plano transparente e atualizado.",
+    "is_provisional": true
+   },
+   "your_verdict": "approve",
+   "your_note": "The cleanest of the seven. Name gained 'Sprint' in both, descriptions untouched because the English description did not change. This is what a scoped retranslation should look like."
+  },
+  {
+   "certification": "ISMS-IA",
+   "slug": "ia-ai-evaluation-tools-in-auditor-competence-7-2-3",
+   "en_name": "AI evaluation tools in auditor competence",
+   "en_description": "ISO 19011:2026 clause 7.2.3 item 10 gives artificial-intelligence-based evaluation tools as its example of the technology an auditor must understand the appropriateness and consequences of using. The competence is about the AI tool in the auditor's own hands, not about auditing AI.",
+   "es-419": {
+    "was_name": "Herramientas de evaluación con IA en la competencia del auditor",
+    "now_name": "Herramientas de evaluación con IA en la competencia del auditor",
+    "was_description": "El punto 10 del apartado 7.2.3 de ISO 19011:2026 requiere que los auditores comprendan la idoneidad y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, y tecnología emergente, para realizar auditorías, y da como ejemplo las herramientas de evaluación basadas en inteligencia artificial.",
+    "now_description": "El apartado 7.2.3, ítem 10, de la norma ISO 19011:2026 presenta las herramientas de evaluación basadas en inteligencia artificial como su ejemplo de la tecnología cuya pertinencia y consecuencias de uso el auditor debe comprender. La competencia se refiere a la herramienta de IA en manos del propio auditor, no a auditar la IA.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Ferramentas de avaliação baseadas em IA na competência do auditor",
+    "now_name": "Ferramentas de avaliação baseadas em IA na competência do auditor",
+    "was_description": "O item 10 da Seção 7.2.3 da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologias emergentes, para conduzir auditorias — dando como exemplo ferramentas de avaliação baseadas em inteligência artificial.",
+    "now_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 apresenta as ferramentas de avaliação baseadas em inteligência artificial como seu exemplo da tecnologia cuja adequação e consequências de uso o auditor deve compreender. A competência trata da ferramenta de IA nas mãos do próprio auditor, e não de auditar IA.",
+    "is_provisional": true
+   },
+   "your_verdict": "hold",
+   "your_note": "The differentiation survived translation - 'en manos del propio auditor, no a auditar la IA' and 'nas maos do proprio auditor, e nao de auditar IA' both carry the distinction, which is the whole point of 358's 1.6. HELD ON ONE QUESTION: es changed 'idoneidad' to 'pertinencia' for 'appropriateness'. pt kept 'adequacao'. Nothing in the English change required it. I do not know which term the Spanish ISO 19011 edition uses and I am not going to assert it - check the Spanish edition, pin one, apply it to both ISMS-IA rows and anywhere else 'appropriateness' renders."
+  },
+  {
+   "certification": "ISMS-IA",
+   "slug": "ia-ict-and-emerging-technology-competence-7-2-3",
+   "en_name": "ICT and emerging technology competence",
+   "en_description": "ISO 19011:2026 clause 7.2.3 item 10 requires auditors to understand the appropriateness and consequences of using information and communications technology tools, and emerging technology, to conduct audits. The requirement is general: it covers remote-audit tooling, sampling and analysis software, and whatever arrives next.",
+   "es-419": {
+    "was_name": "Competencia en TIC y tecnologías emergentes",
+    "now_name": "Competencia en TIC y tecnologías emergentes",
+    "was_description": "El apartado 7.2.3, ítem 10, de ISO 19011:2026 exige que los auditores comprendan la idoneidad y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, y tecnología emergente, para realizar auditorías, y nombra como ejemplo las herramientas de evaluación basadas en inteligencia artificial.",
+    "now_description": "El apartado 7.2.3, ítem 10, de la norma ISO 19011:2026 exige que los auditores comprendan la pertinencia y las consecuencias de usar herramientas de tecnología de la información y las comunicaciones, así como tecnologías emergentes, para realizar auditorías. El requisito es general: abarca las herramientas para auditorías remotas, el software de muestreo y análisis, y lo que llegue después.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Competência em TIC e tecnologia emergente",
+    "now_name": "Competência em TIC e tecnologias emergentes",
+    "was_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologia emergente, para conduzir auditorias — citando como exemplo as ferramentas de avaliação baseadas em inteligência artificial.",
+    "now_description": "A Seção 7.2.3, item 10, da ISO 19011:2026 exige que os auditores compreendam a adequação e as consequências do uso de ferramentas de tecnologia da informação e comunicação, e de tecnologias emergentes, para conduzir auditorias. O requisito é geral: abrange ferramentas de auditoria remota, softwares de amostragem e análise, e o que quer que venha a surgir.",
+    "is_provisional": true
+   },
+   "your_verdict": "hold",
+   "your_note": "Descriptions now properly general vs specific - the collision is resolved and the resolution survived translation. HELD on the same 'idoneidad'/'pertinencia' question. Also: pt name changed from 'tecnologia emergente' (singular) to 'tecnologias emergentes' (plural) while the English name is unchanged and singular. Revert or justify."
+  },
+  {
+   "certification": "AISM-I",
+   "slug": "keep-it-simple-and-practical",
+   "en_name": "Keep it simple and practical",
+   "en_description": "use the minimum steps to accomplish the objective; eliminate what adds no value.",
+   "es-419": {
+    "was_name": "Mantenerlo simple y práctico",
+    "now_name": "Mantenerlo simple y práctico",
+    "was_description": "usar la cantidad mínima de pasos para lograr el objetivo; eliminar lo que no agrega valor.",
+    "now_description": "usar la mínima cantidad de pasos para lograr el objetivo; eliminar lo que no aporta valor.",
+    "is_provisional": true
+   },
+   "pt-BR": {
+    "was_name": "Mantenha a Simplicidade e a Praticidade",
+    "now_name": "Mantenha simples e prático",
+    "was_description": "use o mínimo de etapas para atingir o objetivo; elimine o que não agrega valor.",
+    "now_description": "use o mínimo de etapas para alcançar o objetivo; elimine o que não agrega valor.",
+    "is_provisional": true
+   },
+   "your_verdict": "approve-with-fix",
+   "your_note": "pt name 'Mantenha simples e pratico' tracks the corrected English name. REVERT THE CHURN: the English description did not change at all, yet es moved 'cantidad minima' -> 'minima cantidad' and 'agrega valor' -> 'aporta valor', and pt moved 'atingir' -> 'alcancar'. Three unreviewed edits on a row whose source was untouched."
+  }
+ ],
+ "reviewed_by": "claude-director",
+ "reviewed_on": "2026-09-21",
+ "headline": "5 of 7 concepts clear (4 of them after one named fix). 2 held on a term question. Separately: 4 of 7 concepts drifted in text the English edit never touched - see churn_finding.",
+ "churn_finding": "A retranslation triggered by an English edit regenerated the WHOLE row, so words the edit never touched moved too: institution-proxy pt condicao->status (introduced a divergence), ISMS-IA es idoneidad->pertinencia x2, ICT pt name singular->plural, keep-it-simple es x2 and pt x1 on a row whose English description did not change at all, complementary-practice es envuelve->integra. Every regenerated word is an unreviewed word: the clearance is granted for the requested change and silently covers the rest."
+}
