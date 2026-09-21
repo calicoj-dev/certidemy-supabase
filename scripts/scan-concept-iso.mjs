@@ -22,7 +22,7 @@ import { readFileSync, existsSync, mkdtempSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { PDFS, sourcesAvailable, pdftotextAvailable } from "./lib/citation-index.mjs";
 
 for (const a of process.argv.slice(2)) {
@@ -89,7 +89,10 @@ function pdfText(p) {
   return readFileSync(o, "utf8");
 }
 
-const grams = new Set();
+/* Exported so gen-concept-repair-queue reuses THIS index and THIS measure.
+ * A second implementation would be a mirrored pair and the two would
+ * disagree eventually -- the failure this repository keeps paying for. */
+export const grams = new Set();
 for (const [label, path] of Object.entries(PDFS)) {
   const w = norm(pdfText(path)).split(" ").filter(Boolean);
   if (w.length < 1000) { console.error("  " + label + " extracted " + w.length + " words -- refusing"); process.exit(1); }
@@ -102,7 +105,7 @@ for (const [label, path] of Object.entries(PDFS)) {
  * a literal standing in for a property, again. */
 if (grams.size < 5000) { console.error("index holds only " + grams.size + " grams -- not credible"); process.exit(2); }
 
-function longestRun(text) {
+export function longestRun(text) {
   const w = norm(text).split(" ").filter(Boolean);
   let best = 0, bestText = "";
   for (let i = 0; i + SEED <= w.length; i++) {
@@ -128,6 +131,11 @@ if (canary < THRESHOLD) {
   process.exit(2);
 }
 
+export { all, THRESHOLD };
+
+/* Only report when executed directly; importing must not run the scan. */
+const IS_MAIN = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (!IS_MAIN) { /* imported for grams/longestRun/THRESHOLD */ } else {
 const certs = Object.fromEntries((await all("certifications?select=id,code")).map((c) => [c.id, c.code]));
 const rows = await all("concepts?select=id,slug,name,description,certification_id");
 if (!rows.length) { console.error("read 0 concepts -- the probe cannot see the table"); process.exit(2); }
@@ -168,4 +176,5 @@ for (let i = 0; i < dist.length; i++) {
   const lo = dist[i], hi = dist[i + 1] ?? 999;
   const n = scored.filter((r) => r.run >= lo && r.run < hi).length;
   console.log("    " + String(lo).padStart(3) + "-" + String(hi === 999 ? "+" : hi - 1).padEnd(4) + String(n).padStart(6));
+}
 }
