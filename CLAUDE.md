@@ -1437,6 +1437,44 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A RETRANSLATION TRIGGERED BY AN ENGLISH EDIT CHANGES ONLY WHAT THE EDIT
+CHANGED.** Paid for 2026-09-21, on the 14 rows regenerated after 358.
+
+The English repairs landed in both languages and did their job. **5 of 7
+concepts also drifted in text the source edit never touched** -- including one
+whose English description did not change at all, where three spans moved across
+two languages anyway.
+
+| | |
+|---|---|
+| `keep-it-simple` es | `cantidad minima` -> `minima cantidad`, `agrega valor` -> `aporta valor` |
+| `keep-it-simple` pt | `atingir o objetivo` -> `alcancar o objetivo` |
+| `institution-proxy` pt | `condicao protegida` -> `status protegido` -- **introduced a divergence from es that did not exist before** |
+| `ia-ai-evaluation` es, `ia-ict` es | `idoneidad` -> `pertinencia`, against a corpus running 96 to 6 the other way |
+| `ia-ict` pt name | singular -> plural, against a singular English name |
+| `complementary-practice` es | `se envuelve alrededor` -> `se integra alrededor` |
+
+**EVERY REGENERATED WORD IS AN UNREVIEWED WORD.** The reviewer clears the
+requested change and silently clears everything that came with it. That is how
+a term the corpus had settled 96 to 6 gets replaced in two rows, inside a
+clearance granted for something else entirely.
+
+> **MECHANISM: diff the old translation against the new, assert the changed
+> span corresponds to the changed English span, and report all other drift as a
+> SEPARATE LIST requiring its own verdict.**
+
+**AND THE SPAN COUNT IS NOT STABLE, WHICH IS ITSELF THE FINDING.** The review
+reported *"6 spans across 4 concepts"*; its own `churn_finding` enumerates 8
+across 5; a line-by-line diff gives **10 across 5**. Nothing is wrong with any
+of those readings -- "span" was never defined, so three careful counts of the
+same batch disagree.
+
+**So the mechanism reports the ENUMERATION, not a number.** A drift count is
+only reproducible once a span has a definition, and until it does, the list is
+the artifact and the count is commentary. The two concepts with no drift at all
+-- `tool-misuse` and `daily-backlog-update` -- are what a scoped retranslation
+looks like, and both changed exactly where their English changed.
+
 **A PROPOSED GUARD IS MEASURED AGAINST THE CORPUS BEFORE IT IS RECORDED.**
 Fourth time in one night that a proposal was wrong in this exact way, which is
 why it is a rule and not a note.
