@@ -64,15 +64,28 @@ const argOf = (k, d) => {
  * why -- which is the opposite of quietly editing the content until the number
  * comes down, and leaves the decision visible to the next reader.
  */
+const TITLE_CLASS = "A TITLE, NOT ITS TEXT. The name of a standard or of a control is catalogue metadata -- it appears in ISO free previews, in every catalogue entry and in any bibliography -- so naming one reproduces nothing that defines it. Same distinction that lets a description name clause titles: a certification cannot teach a control set without saying what the controls are called.";
+
 const EXEMPTIONS = {
   "clauses-four-to-ten": {
-    maxRun: 8,
+    cert: "AIMS-F", maxRun: 8,
     why: "The seven clause titles ARE the concept. A standard's clause titles are its table of contents -- published in ISO's free online preview and in every catalogue entry -- so they are address labels rather than expression. Paraphrasing them would leave a learner unable to match the description to the headings they will actually meet.",
   },
   "ai-partner-role": {
-    maxRun: 6,
+    cert: "AIMS-F", maxRun: 6,
     why: "Four words naming a role category: system integrators and data providers. The category names are the taxonomy the standard establishes and an auditor will use; rewording them would make the description worse at the one job it has.",
   },
+  /* ---- TITLE CLASS. A name is catalogue metadata, not the text it labels. ----
+   * A standard title and a control title appear in ISO free previews, in every
+   * catalogue entry and in any bibliography. Naming one reproduces nothing that
+   * DEFINES it -- the same distinction that lets a description name clause
+   * titles. A certification cannot teach a control set without saying what the
+   * controls are called. */
+  "iso-27005-risk": { cert: "ISMS-F", maxRun: 8, why: TITLE_CLASS + " The run IS the title of ISO/IEC 27005." },
+  "iso-27002-controls": { cert: "ISMS-F", maxRun: 6, why: TITLE_CLASS + " The run is how ISO/IEC 27002 names what it provides." },
+  "iso-42005-impact-assessment": { cert: "AIGRM-I", maxRun: 6, why: TITLE_CLASS + " The run is the subject of ISO/IEC 42005." },
+  "cryptographic-controls": { cert: "ISMS-F", maxRun: 6, why: TITLE_CLASS + " The run is the ISO/IEC 27002 control title for cryptography." },
+  "supplier-controls": { cert: "ISMS-F", maxRun: 7, why: TITLE_CLASS + " The run is the ISO/IEC 27002 control-theme name for supplier relationships." },
 };
 
 /* ============ COVERAGE IS THE INSTRUMENT; THE RUN FLOOR IS NOISE ============
@@ -271,8 +284,20 @@ for (const r of bad) console.log("  NON-ASCII  " + r.slug);
  */
 for (const slug of Object.keys(EXEMPTIONS)) {
   const r = rows.find((x) => x.slug === slug);
-  if (!r) { console.log("");
-            console.log("  STALE EXEMPTION   " + slug + " is not in this batch. Remove it."); continue; }
+  if (!r) {
+    /* AN ENTRY FOR ANOTHER CERTIFICATION IS NOT STALE. The registry is
+     * corpus-wide and this gate runs one batch at a time; reporting the five
+     * ISMS-F and AIGRM-I entries as stale while gating AIMS-F would invite
+     * someone to delete five live exemptions -- a guard that cries wolf gets
+     * loosened, and its loosening takes the real assertion with it. Only an
+     * entry owned by the certification under test can be stale. */
+    if (EXEMPTIONS[slug].cert && EXEMPTIONS[slug].cert !== CERT) {
+      console.log("  elsewhere         " + slug + "  (owned by " + EXEMPTIONS[slug].cert + ", not under test in this batch)");
+    } else {
+      console.log("  STALE EXEMPTION   " + slug + " is not in this batch. Remove it.");
+    }
+    continue;
+  }
   if (!(r.s.run >= MIN_RUN && r.s.cov >= MIN_COV)) {
     console.log("");
     console.log("  DORMANT EXEMPTION  " + slug + "   scores " + r.s.run + "w/" + r.s.tot + " cov " + r.s.cov.toFixed(2)

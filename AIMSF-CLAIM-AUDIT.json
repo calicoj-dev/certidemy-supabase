@@ -1,0 +1,495 @@
+{
+  "measured": "2026-09-21",
+  "tally": {
+    "UNVERIFIABLE": 14,
+    "OK": 67
+  },
+  "claims": [
+    {
+      "slug": "accreditation-vs-certification",
+      "claim": "management system certification is not personnel certification",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 17024 is not on disk"
+    },
+    {
+      "slug": "aims-vs-ethics-framework",
+      "claim": "ISO/IEC 23894 gives AI risk management guidance",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 23894 is not on disk"
+    },
+    {
+      "slug": "auditor-competence-limit",
+      "claim": "ISO/IEC 42006 sets competence requirements for certification bodies",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "PREVIEW ONLY -- cover, scope and contents of a SINGAPORE STANDARD adoption (SS ISO/IEC 42006:2025, IDT). The scope page names the subject; nothing about its requirements is checkable here."
+    },
+    {
+      "slug": "eu-ai-act-overview",
+      "claim": "the EU AI Act is risk-tiered, extraterritorial by market placement and phased",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "not a standard; no corpus here"
+    },
+    {
+      "slug": "eu-ai-act-overview",
+      "claim": "its timetable has already been amended once",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "not a standard; no corpus here"
+    },
+    {
+      "slug": "harmonised-structure",
+      "claim": "the harmonised structure is shared with ISO 9001",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO 9001 is not on disk"
+    },
+    {
+      "slug": "iso-42006-role",
+      "claim": "42006 sets competence, impartiality and audit-time requirements",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "PREVIEW ONLY -- cover, scope and contents of a SINGAPORE STANDARD adoption (SS ISO/IEC 42006:2025, IDT). The scope page names the subject; nothing about its requirements is checkable here."
+    },
+    {
+      "slug": "life-cycle-stages",
+      "claim": "ISO/IEC 5338 offers a life cycle process model",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 5338 is not on disk"
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "ISO/IEC 42006 governs the bodies that certify an AIMS",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "PREVIEW ONLY -- cover, scope and contents of a SINGAPORE STANDARD adoption (SS ISO/IEC 42006:2025, IDT). The scope page names the subject; nothing about its requirements is checkable here."
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "ISO/IEC 17021-1 carries the two-stage audit and surveillance cycle",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 17021-1 is not on disk"
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "42001 itself references ISO/IEC 42006",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "confirmed: 42001 never mentions 42006, so every 42006 claim is uncorroborated from both sides"
+    },
+    {
+      "slug": "nist-ai-rmf-relationship",
+      "claim": "NIST AI RMF describes role types across the life cycle",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "the NIST AI RMF is not on disk"
+    },
+    {
+      "slug": "stage-one-stage-two",
+      "claim": "stage 1 examines design, stage 2 examines operation",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 17021-1 is not on disk"
+    },
+    {
+      "slug": "surveillance-and-recertification",
+      "claim": "surveillance and recertification come from ISO/IEC 17021-1",
+      "verdict": "UNVERIFIABLE",
+      "evidence": "ISO/IEC 17021-1 is not on disk"
+    },
+    {
+      "slug": "ai-objectives",
+      "claim": "42001 clause 6.2 = AI objectives and planning to achieve them",
+      "verdict": "OK",
+      "evidence": "address exists and carries: objective, measurable, monitored"
+    },
+    {
+      "slug": "ai-objectives",
+      "claim": "clause 6.2 lists 7 properties of an AI objective",
+      "verdict": "OK",
+      "evidence": "items parsed in 6.2: 7"
+    },
+    {
+      "slug": "ai-producer-role",
+      "claim": "six role categories",
+      "verdict": "OK",
+      "evidence": "42001 names: ai provider, ai producer, ai customer, ai partner, ai subject, relevant authorit"
+    },
+    {
+      "slug": "ai-risk-assessment",
+      "claim": "42001 clause 6.1.2 = AI risk assessment process",
+      "verdict": "OK",
+      "evidence": "address exists and carries: risk assessment, consequence"
+    },
+    {
+      "slug": "ai-risk-criteria",
+      "claim": "42001 clause 6.1.1 = AI risk criteria",
+      "verdict": "OK",
+      "evidence": "address exists and carries: criteria"
+    },
+    {
+      "slug": "ai-risk-treatment",
+      "claim": "42001 clause 6.1.3 = AI risk treatment",
+      "verdict": "OK",
+      "evidence": "address exists and carries: treatment, statement of applicability"
+    },
+    {
+      "slug": "ai-system-impact-assessment",
+      "claim": "42001 clause 6.1.4 = AI system impact assessment",
+      "verdict": "OK",
+      "evidence": "address exists and carries: impact"
+    },
+    {
+      "slug": "ai-system-impact-assessment-84",
+      "claim": "42001 clause 8.4 = impact assessment performed at planned intervals",
+      "verdict": "OK",
+      "evidence": "address exists and carries: impact"
+    },
+    {
+      "slug": "aims-vs-ethics-framework",
+      "claim": "42001 itself references ISO/IEC 23894",
+      "verdict": "OK",
+      "evidence": "42001 mentions ISO/IEC 23894"
+    },
+    {
+      "slug": "aims-vs-model-assurance",
+      "claim": "42001 specifies no model architecture",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "annex-a-structure",
+      "claim": "nine categories numbered A.2 to A.10",
+      "verdict": "OK",
+      "evidence": "categories: A.2, A.3, A.4, A.5, A.6, A.7, A.8, A.9, A.10"
+    },
+    {
+      "slug": "annex-a-structure",
+      "claim": "A.1 is the annex general clause, not a control group",
+      "verdict": "OK",
+      "evidence": "no A.1 control category; numbering starts at A.2"
+    },
+    {
+      "slug": "annex-a-structure",
+      "claim": "Annex A is normative",
+      "verdict": "OK",
+      "evidence": "the heading declares (normative)"
+    },
+    {
+      "slug": "annex-b-normative",
+      "claim": "Annex B is normative",
+      "verdict": "OK",
+      "evidence": "the heading declares (normative)"
+    },
+    {
+      "slug": "annex-b-normative",
+      "claim": "Annex C is informative",
+      "verdict": "OK",
+      "evidence": "the heading declares (informative)"
+    },
+    {
+      "slug": "awareness-requirement",
+      "claim": "42001 clause 7.3 = awareness",
+      "verdict": "OK",
+      "evidence": "address exists and carries: aware"
+    },
+    {
+      "slug": "awareness-requirement",
+      "claim": "clause 7.3 lists 3 awareness items",
+      "verdict": "OK",
+      "evidence": "items parsed in 7.3: 3"
+    },
+    {
+      "slug": "clause-eight-operation",
+      "claim": "42001 clause 8.2 = AI risk assessment is performed",
+      "verdict": "OK",
+      "evidence": "address exists and carries: risk assessment"
+    },
+    {
+      "slug": "climate-change-relevance",
+      "claim": "determining whether climate change is a relevant issue is a shall",
+      "verdict": "OK",
+      "evidence": "42001 mentions climate change: true; 27001 Amd 1 (the climate action amendment) mentions it: true"
+    },
+    {
+      "slug": "communication-planning",
+      "claim": "42001 clause 7.4 = communication",
+      "verdict": "OK",
+      "evidence": "address exists and carries: communicat"
+    },
+    {
+      "slug": "communication-planning",
+      "claim": "clause 7.4 lists 4 communication decisions",
+      "verdict": "OK",
+      "evidence": "items parsed in 7.4: 4"
+    },
+    {
+      "slug": "competence-does-not-carry",
+      "claim": "42001 clause 7.2 = competence",
+      "verdict": "OK",
+      "evidence": "address exists and carries: competence"
+    },
+    {
+      "slug": "conformance-authority",
+      "claim": "42001 clause 5.3 = roles, responsibilities and authorities",
+      "verdict": "OK",
+      "evidence": "address exists and carries: authorit, conform"
+    },
+    {
+      "slug": "conformance-authority",
+      "claim": "clause 5.3 lists 2 named assignments",
+      "verdict": "OK",
+      "evidence": "items parsed in 5.3: 2"
+    },
+    {
+      "slug": "continual-improvement",
+      "claim": "42001 clause 10.1 = continual improvement of suitability, adequacy, effectiveness",
+      "verdict": "OK",
+      "evidence": "address exists and carries: continual improvement, suitab, adequa, effective"
+    },
+    {
+      "slug": "control-count",
+      "claim": "Annex A holds 38 controls",
+      "verdict": "OK",
+      "evidence": "parsed 38 controls; an id that is a strict prefix of another is a header, not a control"
+    },
+    {
+      "slug": "control-count",
+      "claim": "A.6 subdivides into A.6.1 and A.6.2, so nine categories carry ten objectives",
+      "verdict": "OK",
+      "evidence": "A.6.1 present, A.6.2 present"
+    },
+    {
+      "slug": "control-count",
+      "claim": "the life cycle category holds nine controls across its two subdivisions",
+      "verdict": "OK",
+      "evidence": "A.6 controls parsed: 9"
+    },
+    {
+      "slug": "data-controls",
+      "claim": "A.7 holds 5 controls",
+      "verdict": "OK",
+      "evidence": "parsed 5"
+    },
+    {
+      "slug": "documented-information",
+      "claim": "42001 clause 7.5.1 = documented information",
+      "verdict": "OK",
+      "evidence": "address exists and carries: documented information"
+    },
+    {
+      "slug": "impact-assessment-controls",
+      "claim": "A.5 holds 4 controls",
+      "verdict": "OK",
+      "evidence": "parsed 4"
+    },
+    {
+      "slug": "impact-feeds-risk",
+      "claim": "42001 clause 6.1.4 = impact results feed the risk assessment",
+      "verdict": "OK",
+      "evidence": "address exists and carries: risk assessment"
+    },
+    {
+      "slug": "internal-organization-controls",
+      "claim": "A.3 holds 2 controls",
+      "verdict": "OK",
+      "evidence": "parsed 2"
+    },
+    {
+      "slug": "iso-42001-27001-integration",
+      "claim": "the AI system impact assessment has no 27001 counterpart",
+      "verdict": "OK",
+      "evidence": "27001 does not contain the phrase impact assessment"
+    },
+    {
+      "slug": "life-cycle-stage-controls",
+      "claim": "A.6.2 holds 7 controls",
+      "verdict": "OK",
+      "evidence": "parsed 7"
+    },
+    {
+      "slug": "life-cycle-stages",
+      "claim": "42001 itself references ISO/IEC 5338",
+      "verdict": "OK",
+      "evidence": "42001 mentions ISO/IEC 5338"
+    },
+    {
+      "slug": "life-cycle-stages",
+      "claim": "42001 itself references ISO/IEC 22989",
+      "verdict": "OK",
+      "evidence": "42001 mentions ISO/IEC 22989"
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "42001 clause 9.2 = internal audit",
+      "verdict": "OK",
+      "evidence": "address exists and carries: internal audit"
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "42001 does not describe surveillance audits",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "management-system-certification-basis",
+      "claim": "42001 does not describe a stage 1 audit",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "management-system-standard",
+      "claim": "42001 mandates no fairness metric",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "monitoring-and-measurement",
+      "claim": "42001 clause 9.1 = monitoring, measurement, analysis and evaluation",
+      "verdict": "OK",
+      "evidence": "address exists and carries: monitor, measure"
+    },
+    {
+      "slug": "monitoring-and-measurement",
+      "claim": "clause 9.1 lists 4 determinations",
+      "verdict": "OK",
+      "evidence": "items parsed in 9.1: 4"
+    },
+    {
+      "slug": "nist-ai-rmf-relationship",
+      "claim": "42001 itself references the NIST AI RMF",
+      "verdict": "OK",
+      "evidence": "42001 mentions the NIST AI RMF"
+    },
+    {
+      "slug": "nonconformity",
+      "claim": "42001 clause 10.2 = nonconformity and corrective action",
+      "verdict": "OK",
+      "evidence": "address exists and carries: nonconformity, corrective action"
+    },
+    {
+      "slug": "operational-planning-and-control",
+      "claim": "42001 clause 8.1 = operational planning and control",
+      "verdict": "OK",
+      "evidence": "address exists and carries: process, control"
+    },
+    {
+      "slug": "organizational-context",
+      "claim": "42001 clause 9.3 = management review",
+      "verdict": "OK",
+      "evidence": "address exists and carries: management review"
+    },
+    {
+      "slug": "pdca-cycle",
+      "claim": "42001 never uses the phrase plan-do-check-act",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "pdca-cycle",
+      "claim": "42001 never uses PDCA",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "planned-intervals",
+      "claim": "42001 names no frequency for planned intervals",
+      "verdict": "OK",
+      "evidence": "no occurrence of that phrase in 42001:2023"
+    },
+    {
+      "slug": "planning-of-changes",
+      "claim": "42001 clause 6.3 = planning of changes",
+      "verdict": "OK",
+      "evidence": "address exists and carries: change"
+    },
+    {
+      "slug": "policy-controls",
+      "claim": "A.2 holds 3 controls",
+      "verdict": "OK",
+      "evidence": "parsed 3"
+    },
+    {
+      "slug": "resource-controls",
+      "claim": "A.4 holds 5 controls",
+      "verdict": "OK",
+      "evidence": "parsed 5"
+    },
+    {
+      "slug": "review-inputs",
+      "claim": "42001 clause 9.3.2 = management review inputs",
+      "verdict": "OK",
+      "evidence": "address exists and carries: input"
+    },
+    {
+      "slug": "review-inputs",
+      "claim": "clause 9.3.2 lists 5 management review inputs",
+      "verdict": "OK",
+      "evidence": "items parsed in 9.3.2: 5"
+    },
+    {
+      "slug": "review-results",
+      "claim": "42001 clause 9.3.3 = management review results",
+      "verdict": "OK",
+      "evidence": "address exists and carries: result"
+    },
+    {
+      "slug": "role-determination-requirement",
+      "claim": "42001 clause 4.1 = the organization determines its roles",
+      "verdict": "OK",
+      "evidence": "address exists and carries: role"
+    },
+    {
+      "slug": "role-determination-requirement",
+      "claim": "role determination has no counterpart in ISO/IEC 27001",
+      "verdict": "OK",
+      "evidence": "27001 clause 4.1 does not mention roles"
+    },
+    {
+      "slug": "scope-boundary-decision",
+      "claim": "42001 clause 4.3 = determining the scope",
+      "verdict": "OK",
+      "evidence": "address exists and carries: scope"
+    },
+    {
+      "slug": "sector-application-annex-d",
+      "claim": "Annex D is informative",
+      "verdict": "OK",
+      "evidence": "the heading declares (informative)"
+    },
+    {
+      "slug": "sector-application-annex-d",
+      "claim": "42001 itself references ISO/IEC 27001",
+      "verdict": "OK",
+      "evidence": "42001 mentions ISO/IEC 27001"
+    },
+    {
+      "slug": "third-party-controls",
+      "claim": "A.10 holds 3 controls",
+      "verdict": "OK",
+      "evidence": "parsed 3"
+    },
+    {
+      "slug": "top-management-commitment",
+      "claim": "42001 clause 5.1 = leadership and commitment",
+      "verdict": "OK",
+      "evidence": "address exists and carries: leadership, commitment"
+    },
+    {
+      "slug": "top-management-commitment",
+      "claim": "clause 5.1 lists 8 demonstrations of leadership",
+      "verdict": "OK",
+      "evidence": "items parsed in 5.1: 8"
+    },
+    {
+      "slug": "treatment-options",
+      "claim": "42001 clause 6.1.3 = treatment options are selected",
+      "verdict": "OK",
+      "evidence": "address exists and carries: option"
+    },
+    {
+      "slug": "treatment-plan",
+      "claim": "42001 clause 8.3 = treatment implemented and effectiveness verified",
+      "verdict": "OK",
+      "evidence": "address exists and carries: treatment"
+    },
+    {
+      "slug": "use-of-ai-controls",
+      "claim": "A.9 holds 3 controls",
+      "verdict": "OK",
+      "evidence": "parsed 3"
+    }
+  ]
+}

@@ -592,9 +592,28 @@ if (ctlFailed.length) {
    * variable -- the two could only differ if the threshold moved mid-scan, which
    * is precisely the thing a single-count check cannot see. */
   const pol = (await get("mcp_leak_policy?select=threshold_words"))[0].threshold_words;
-  const incoherent = after.filter((r) => r.mcp_servable !== (r.mcp_iso_longest_run < pol));
-  chk("servable == (longest_run < policy threshold)", incoherent.length === 0,
-    incoherent.length ? incoherent.length + " incoherent" : "threshold " + pol);
+  /* ============ THE COHERENCE RULE HAS TO KNOW ABOUT EXEMPTIONS =========
+   *
+   * This asserted servable == (run < threshold) and FAILED on 3 rows the
+   * moment a named exemption started doing work -- the ISMS-F control-attribute
+   * group is 11w over a 10w threshold and servable on purpose.
+   *
+   * The verdict logic learned about exemptions and this post-condition did not:
+   * a guard and the path that must obey it, out of step, which is the mirrored
+   * -pair defect CLAUDE.md already records. The stored run stays the REAL
+   * measurement -- evidence and verdict are separate columns -- so the
+   * exemption lives only here, where it can be printed. */
+  const exemptIds = new Set(scored.filter((x) => x.exempt).map((x) => x.id));
+  const incoherent = after.filter((r) => r.mcp_servable !== (r.mcp_iso_longest_run < pol || exemptIds.has(r.id)));
+  chk("servable == (run < threshold) OR named exemption", incoherent.length === 0,
+    incoherent.length ? incoherent.length + " incoherent" : "threshold " + pol + "; " + exemptIds.size + " row(s) servable by exemption");
+
+  /* AND THE EXEMPTION MUST BE VISIBLE AS A NUMBER, not only as a pass. A row
+   * served because someone wrote a justification is a different fact from a row
+   * served because it reproduces nothing. */
+  const byExemption = after.filter((r) => exemptIds.has(r.id) && r.mcp_iso_longest_run >= pol);
+  chk("every exempted row is genuinely over the threshold", byExemption.length === exemptIds.size,
+    byExemption.length + " of " + exemptIds.size + " exempted row(s) actually exceed " + pol + "w");
 
   /* THE NEGATIVE HALF NAMED, not inferred from a total: the four ISO
    * certifications must contain refusals, and the served eight must not. */

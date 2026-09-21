@@ -2237,6 +2237,72 @@ EXPLANATION, so the misattribution is taught as an answer.
 > fire. A run with no source is the tell for a manufactured adjacency; a run
 > whose source disagrees with the prose around it is the tell for this.
 
+**POSSESSION IS NOT VERIFICATION, AND A CHECK THAT PASSES IS A CLAIM ABOUT THE
+QUESTION IT ASKED.** Paid for 2026-09-21, and it is the sharpest instance in
+this file of a green check meaning nothing.
+
+`citation-index.mjs` verifies that a cited clause ADDRESS EXISTS. Its own header
+says so -- *"it checks EXISTENCE, NEVER MEANING"* -- and that was accepted for
+months as a known limit. Meanwhile three lessons reproduced a 17-word sentence
+from ISO/IEC 27000:2018 and TWO credited it to ISO 19011:2026, which contains
+neither half of it. All three standards were on disk. The checker was green.
+Every address named was real.
+
+> **MECHANISM: a citation check verifies ADDRESS EXISTENCE and CONTENT
+> CORRESPONDENCE, and reports them as TWO SEPARATE RESULTS**, because passing
+> one while failing the other is the normal case. Collapsing them into one
+> verdict rebuilds the defect.
+
+**A MISATTRIBUTION IS PROVED BY COMPARISON, NOT BY ABSENCE.** A fair paraphrase
+shares no contiguous wording with the clause it describes, so "not found in the
+cited standard" is weak on its own -- 1,117 of 1,483 citations score that way
+and almost all are correct. What is strong is scoring the passage against EVERY
+indexed standard and asking which carries it best: a passage appearing verbatim
+in a standard OTHER than the one cited is a misattribution with the right answer
+attached. Same move as "a run with no source is the tell", turned around.
+
+**MEASURED over 479 lessons and 9,246 live English items: 1,483 explicit
+citations, 77 misattributions, 5.4 percent of what is checkable.** And the rate
+needs two subtractions before anyone acts on it:
+
+| confound | count | why it is weak evidence |
+|---|---|---|
+| harmonised siblings | 37 | 42001, 27001, 27000 and 27002 share clause text BY DESIGN, so "best source is the other one" fires constantly between them |
+| item distractors | -- | a wrong option is SUPPOSED to be wrong; scanning all options flagged deliberate falsehoods as defects until only the stem, the CORRECT option and the explanation were scanned |
+
+That leaves **40 cross-family candidates**, of which the strongest are
+unambiguous: 19011 credited for 27000's audit note (17w), for 27001 clause 9.2.2
+(15w), and 27001 credited for 19011's definition of audit finding (11w).
+
+**AND THE SAME AUDIT CLEARED THE 154.** Eighty-one checkable claims in the
+AIMS-F concept descriptions: **0 failures**, 67 verified, 14 unverifiable
+because the standard is not held. Every claim the audit first reported as broken
+was the audit's own parser -- see below.
+
+**THE AUDIT SCRIPT WAS WRONG TWICE BEFORE THE CONTENT WAS WRONG ONCE.** First it
+read the TABLE OF CONTENTS instead of the body, because a heading regex matches
+the contents entry first, and produced twenty false failures against correct
+descriptions. Then the FIX was applied through a shell heredoc, which COLLAPSED
+EVERY DOUBLE BACKSLASH -- a tab class arrived as a literal tab, a non-space
+class as a bare S -- and every address reported NOT FOUND, 28 failures, none
+about content.
+
+> **A TRANSPORT CAN CORRUPT A CHECK.** That is the mojibake and truncated-paste
+> family already in this file, pointed at CODE instead of at SQL. Parsers here
+> now use NO REGEX ESCAPES AT ALL -- line scanning with trimStart() and
+> startsWith() cannot be mangled in transit -- and every extractor carries a
+> SELF-TEST that finds something known to be present before any verdict is
+> reported. An over-firing extractor turns correct content into a failure report
+> and sends someone to fix twenty accurate rows.
+
+**AND FIXING THE PROSE IS NOT FIXING THE LESSON.** Each of the three lessons
+carried the sentence TWICE -- once in prose and once inside a CHECKPOINT
+EXPLANATION, where a misattribution is taught as the answer. The first pass
+rewrote the prose and read as finished; the leak scan immediately reported two
+lessons still over the threshold. The explanation copies word it differently
+("may be conducted"), so an anchor asserted on the prose wording found exactly
+one occurrence and was right to. **Two anchors, never a looser one.**
+
 **A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
 DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by
 the guard disagreeing with itself rather than by anyone reviewing it:
