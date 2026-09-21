@@ -1,0 +1,3641 @@
+{
+  "measured": "2026-09-21",
+  "max_words": 10,
+  "vocabularies": {
+    "indexed": {
+      "ISO/IEC 42001:2023": [
+        "3.1 organization",
+        "3.2 interested party",
+        "3.3 top management",
+        "3.4 management system",
+        "3.5 policy",
+        "3.6 objective",
+        "3.7 risk",
+        "3.8 process",
+        "3.9 competence",
+        "3.10 documented information",
+        "3.11 performance",
+        "3.12 continual improvement",
+        "3.13 effectiveness",
+        "3.14 requirement",
+        "3.15 conformity",
+        "3.16 nonconformity",
+        "3.17 corrective action",
+        "3.18 audit",
+        "3.19 measurement",
+        "3.20 monitoring",
+        "3.21 control",
+        "3.22 governing body",
+        "3.23 information security",
+        "3.24 AI system impact assessment",
+        "3.25 data quality",
+        "3.26 statement of applicability"
+      ],
+      "ISO 19011:2026": [
+        "3.1 audit",
+        "3.2 combined audit",
+        "3.3 joint audit",
+        "3.4 remote auditing method",
+        "3.5 audit programme",
+        "3.6 audit scope",
+        "3.7 audit plan",
+        "3.8 audit criteria",
+        "3.9 objective evidence",
+        "3.10 audit evidence",
+        "3.11 audit finding",
+        "3.12 audit conclusion",
+        "3.13 audit client",
+        "3.14 auditee",
+        "3.15 audit team",
+        "3.16 auditor",
+        "3.17 technical expert",
+        "3.18 observer",
+        "3.19 management system",
+        "3.20 risk",
+        "3.21 conformity",
+        "3.22 nonconformity",
+        "3.23 competence",
+        "3.24 requirement",
+        "3.25 process",
+        "3.26 performance",
+        "3.27 effectiveness"
+      ]
+    },
+    "knowledge_not_on_disk": {
+      "ISO/IEC 27000 (NOT INDEXED)": [
+        "access control",
+        "attack",
+        "attribute",
+        "authentication",
+        "authenticity",
+        "availability",
+        "confidentiality",
+        "conformity",
+        "consequence",
+        "continual improvement",
+        "control",
+        "control objective",
+        "correction",
+        "corrective action",
+        "documented information",
+        "effectiveness",
+        "event",
+        "executive management",
+        "governance of information security",
+        "information need",
+        "information processing facilities",
+        "information security",
+        "information security continuity",
+        "information security event",
+        "information security incident",
+        "information security incident management",
+        "information system",
+        "integrity",
+        "interested party",
+        "internal audit",
+        "level of risk",
+        "likelihood",
+        "management system",
+        "measure",
+        "measurement",
+        "monitoring",
+        "non-repudiation",
+        "nonconformity",
+        "objective",
+        "organization",
+        "outsource",
+        "performance",
+        "policy",
+        "process",
+        "reliability",
+        "requirement",
+        "residual risk",
+        "review",
+        "risk",
+        "risk acceptance",
+        "risk analysis",
+        "risk assessment",
+        "risk criteria",
+        "risk evaluation",
+        "risk identification",
+        "risk management",
+        "risk owner",
+        "risk treatment",
+        "threat",
+        "top management",
+        "validation",
+        "verification",
+        "vulnerability"
+      ],
+      "ISO/IEC 22989 (NOT INDEXED)": [
+        "AI agent",
+        "AI component",
+        "AI customer",
+        "AI partner",
+        "AI producer",
+        "AI provider",
+        "AI stakeholder",
+        "AI subject",
+        "AI system",
+        "AI system life cycle",
+        "algorithmic bias",
+        "artificial intelligence",
+        "autonomy",
+        "bias",
+        "classification",
+        "concept drift",
+        "continuous learning",
+        "controllability",
+        "data drift",
+        "deep learning",
+        "explainability",
+        "fairness",
+        "feature",
+        "ground truth",
+        "heteronomy",
+        "inference",
+        "interpretability",
+        "label",
+        "machine learning",
+        "model",
+        "neural network",
+        "overfitting",
+        "predictability",
+        "prediction",
+        "regression",
+        "reinforcement learning",
+        "relevant authority",
+        "robustness",
+        "supervised learning",
+        "test data",
+        "training data",
+        "transfer learning",
+        "transparency",
+        "unsupervised learning",
+        "validation data"
+      ]
+    },
+    "ISO/IEC 27001:2022": "clause 3 defines no terms; it delegates to ISO/IEC 27000"
+  },
+  "corpus": {
+    "live_concepts": 1729,
+    "short_descriptions": 688
+  },
+  "counts": {
+    "indexed": 86,
+    "knowledge_only": 55,
+    "tier_a": 23,
+    "tier_b": 21,
+    "tier_c": 97
+  },
+  "rows": [
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-evaluation",
+      "name": "Risk Evaluation",
+      "description": "Judging acceptability against tolerance.",
+      "words": 4,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk evaluation",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "residual-risk",
+      "name": "Residual Risk",
+      "description": "The risk remaining after treatment.",
+      "words": 5,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "residual risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "measure-function",
+      "name": "Measure",
+      "description": "Assess, analyze, and track identified risks.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "measure",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-analysis",
+      "name": "Risk Analysis",
+      "description": "Understanding a risk's nature, likelihood, and severity.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk analysis",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-identification",
+      "name": "Risk Identification",
+      "description": "Determining what could go wrong and to whom.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk identification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-treatment",
+      "name": "Risk Treatment",
+      "description": "Acting to modify a risk to an acceptable level.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk treatment",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "governing-body",
+      "name": "Governing Body",
+      "description": "the group accountable for the organization's direction and control.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "governing body",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.22",
+          "indexed": true,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "residual-risk",
+      "name": "Residual risk",
+      "description": "the risk remaining after treatment",
+      "words": 5,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "residual risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-identification",
+      "name": "Risk identification",
+      "description": "finding, recognizing and describing risks",
+      "words": 5,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk identification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "nonconformity",
+      "name": "Nonconformity",
+      "description": "a failure to meet a requirement",
+      "words": 6,
+      "terms": [
+        {
+          "term": "nonconformity",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.16",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "nonconformity",
+          "source": "ISO 19011:2026",
+          "ref": "3.22",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "nonconformity",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "access-control",
+      "name": "Access control",
+      "description": "restricting access to information and processing facilities",
+      "words": 7,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "access control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "audit-criteria",
+      "name": "Audit criteria",
+      "description": "the requirements against which conformity is judged",
+      "words": 7,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "audit criteria",
+          "source": "ISO 19011:2026",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "threat",
+      "name": "Threat",
+      "description": "a potential cause of an unwanted incident",
+      "words": 7,
+      "terms": [
+        {
+          "term": "threat",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-evaluation",
+      "name": "Risk evaluation",
+      "description": "comparing analysis results against criteria to decide significance",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk evaluation",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "top-management",
+      "name": "Top management",
+      "description": "the level at which ISMS accountability ultimately sits",
+      "words": 8,
+      "terms": [
+        {
+          "term": "top management",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.3",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "top management",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "continual-improvement",
+      "name": "Continual improvement",
+      "description": "the ongoing obligation to improve suitability, adequacy and effectiveness",
+      "words": 9,
+      "terms": [
+        {
+          "term": "continual improvement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.12",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "continual improvement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "vulnerability",
+      "name": "Vulnerability",
+      "description": "a weakness that can be exploited by a threat",
+      "words": 9,
+      "terms": [
+        {
+          "term": "vulnerability",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-analysis",
+      "name": "Risk analysis",
+      "description": "understanding the nature of a risk and determining its level",
+      "words": 10,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk analysis",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-criteria",
+      "name": "Risk criteria",
+      "description": "the terms of reference against which risk significance is judged",
+      "words": 10,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk criteria",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-owner",
+      "name": "Risk owner",
+      "description": "the person accountable for a specific risk and its treatment",
+      "words": 10,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk owner",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "statement-of-applicability",
+      "name": "Statement of applicability",
+      "description": "the documented record of which controls are necessary and why",
+      "words": 10,
+      "terms": [
+        {
+          "term": "statement of applicability",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.26",
+          "indexed": true,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "transparency",
+      "name": "Transparency",
+      "description": "Making the true state of the work visible.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "transparency",
+      "name": "Transparency",
+      "description": "First pillar of empirical process control; the prerequisite for inspection.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "technical-documentation-requirement",
+      "name": "Technical-Documentation Requirement",
+      "description": "Documentation demonstrating the system meets requirements.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.14",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO 19011:2026",
+          "ref": "3.24",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "meaningful-human-control",
+      "name": "Meaningful Human Control",
+      "description": "Retaining genuine control over consequential autonomous action.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "acceptable-vs-unacceptable-risk",
+      "name": "Acceptable vs Unacceptable Risk",
+      "description": "The threshold separating risks borne from those refused.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "harmful-bias",
+      "name": "Harmful Bias",
+      "description": "Outputs systematically and unfairly disadvantaging individuals or groups.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "bias",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "harmful-content-risk",
+      "name": "Harmful-Content Risk",
+      "description": "Generation of dangerous, violent, abusive, or harmful material.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "limited-risk-transparency",
+      "name": "Limited Risk (Transparency)",
+      "description": "Systems subject mainly to transparency and disclosure duties.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "minimal-risk",
+      "name": "Minimal Risk",
+      "description": "The majority of AI systems; no specific obligations.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "systemic-risk-model",
+      "name": "Systemic-Risk Model",
+      "description": "The most capable GPAI models carrying additional obligations.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "model",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "ai-policy",
+      "name": "AI Policy",
+      "description": "The organization's documented commitment and rules for AI.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "data-governance-requirement",
+      "name": "Data-Governance Requirement",
+      "description": "Training, validation, and test data quality and governance requirements.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.14",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO 19011:2026",
+          "ref": "3.24",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "information-integrity",
+      "name": "Information Integrity",
+      "description": "Generative AI's effect on the information ecosystem (misinformation, deepfakes).",
+      "words": 10,
+      "terms": [
+        {
+          "term": "integrity",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "post-market-monitoring",
+      "name": "Post-Market Monitoring",
+      "description": "Ongoing surveillance of a deployed system's real-world performance.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "meaningful-human-control",
+      "name": "Meaningful Human Control",
+      "description": "retaining genuine control over consequential autonomous action.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "data-availability-for-prediction",
+      "name": "Data Availability for Prediction",
+      "description": "whether enough quality historical/operational data exists to predict reliably.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "prediction",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "security-control",
+      "name": "Security control",
+      "description": "a measure that modifies risk",
+      "words": 5,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "information-classification",
+      "name": "Information classification",
+      "description": "assigning and handling information by sensitivity",
+      "words": 6,
+      "terms": [
+        {
+          "term": "classification",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "internal-audit-programme",
+      "name": "Internal audit programme",
+      "description": "the planned programme of internal audits",
+      "words": 6,
+      "terms": [
+        {
+          "term": "audit programme",
+          "source": "ISO 19011:2026",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "internal audit",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "ai-risk-identification",
+      "name": "Ai risk identification",
+      "description": "surfacing information risks specific to an AI deployment",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk identification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "security-event",
+      "name": "Security event",
+      "description": "an identified occurrence indicating a possible security-relevant state",
+      "words": 9,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "security-property-attribute",
+      "name": "Security property attribute",
+      "description": "which of confidentiality, integrity or availability a control serves",
+      "words": 9,
+      "terms": [
+        {
+          "term": "attribute",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "ai-code-review",
+      "name": "AI Code Review",
+      "description": "The extra scrutiny AI-authored code demands.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "AIE-I",
+      "slug": "fairness-awareness",
+      "name": "Fairness Awareness",
+      "description": "Noticing where AI output could produce unfair treatment.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "fairness",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIE-I",
+      "slug": "disclosure-and-transparency",
+      "name": "Disclosure and Transparency",
+      "description": "Telling people when AI was materially used to produce work.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "bias-mitigation",
+      "name": "Bias Mitigation",
+      "description": "Measuring and reducing harmful bias.",
+      "words": 5,
+      "terms": [
+        {
+          "term": "bias",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "explainability-for-stakeholders",
+      "name": "Explainability for Stakeholders",
+      "description": "Providing explanations appropriate to the audience.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "explainability",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "fairness-in-ai",
+      "name": "Fairness in AI",
+      "description": "Equitable treatment across individuals and groups.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "fairness",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "iso-23894-risk",
+      "name": "ISO/IEC 23894 (Risk)",
+      "description": "Companion guidance on AI risk management.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "control-selection",
+      "name": "Control Selection",
+      "description": "Choosing controls proportionate to likelihood and severity.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "human-oversight-requirement",
+      "name": "Human-Oversight Requirement",
+      "description": "High-risk systems must enable effective human oversight.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.14",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO 19011:2026",
+          "ref": "3.24",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "ip-and-provenance-risk",
+      "name": "IP and Provenance Risk",
+      "description": "Infringement, attribution, and origin issues in generated content.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "management-system-standard",
+      "name": "Management-System Standard",
+      "description": "A certifiable standard defining an auditable organizational system.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-management-system-requirement",
+      "name": "Risk-Management-System Requirement",
+      "description": "A documented, ongoing risk-management process is required.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "requirement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.14",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "requirement",
+          "source": "ISO 19011:2026",
+          "ref": "3.24",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk management",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-treatment-options",
+      "name": "Risk-Treatment Options",
+      "description": "The set of possible responses to a risk.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk treatment",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "iterative-risk-process",
+      "name": "Iterative Risk Process",
+      "description": "The process repeats across the lifecycle as context changes.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "policy-to-practice",
+      "name": "Policy to Practice",
+      "description": "How policy translates into day-to-day AI decisions.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-prioritization",
+      "name": "Risk Prioritization",
+      "description": "Ranking risks so effort targets the most significant first.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "sources-of-bias",
+      "name": "Sources of Bias",
+      "description": "How bias enters AI via data, design, and deployment.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "bias",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "data-quality-representativeness",
+      "name": "Data Quality and Representativeness",
+      "description": "Data fit for purpose and representative of the affected population.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "data quality",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "management-system-certification",
+      "name": "Management-System Certification",
+      "description": "What independent third-party certification to a management standard signals.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "risk-tolerance",
+      "name": "Risk Tolerance",
+      "description": "The level of risk an organization accepts to pursue objectives.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "transparency-duty",
+      "name": "Transparency Duty",
+      "description": "The obligation to be open about AI use and behavior.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIHR-I",
+      "slug": "audit-recency",
+      "name": "Audit recency",
+      "description": "That model or configuration updates can invalidate a prior audit.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "audit",
+          "source": "ISO 19011:2026",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "bounded-autonomy",
+      "name": "Bounded Autonomy",
+      "description": "granting autonomy only within explicit, safe limits.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "autonomy",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "pattern-to-control",
+      "name": "Pattern to Control",
+      "description": "translating an identified pattern into a preventive control.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "ci-baseline-measurement",
+      "name": "CI Baseline Measurement",
+      "description": "measuring the starting point so improvement can be shown.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "measurement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "measurement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "continual-improvement-model",
+      "name": "Continual Improvement Model",
+      "description": "a structured, repeatable approach to improving services and practices.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "continual improvement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.12",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "continual improvement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        },
+        {
+          "term": "model",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "do-not-automate-a-broken-process",
+      "name": "Do not Automate a Broken Process",
+      "description": "fix or retire a flawed process before automating it.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "failure-prediction",
+      "name": "Failure Prediction",
+      "description": "forecasting a likely failure from patterns in operational data.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "prediction",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "model-drift",
+      "name": "Model Drift",
+      "description": "degradation of a deployed model's performance as conditions shift.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "model",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "monitoring-and-event-management",
+      "name": "Monitoring and Event Management",
+      "description": "observing services and managing the events (state changes) they emit.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "effectiveness-check",
+      "name": "Effectiveness check",
+      "description": "verifying that corrective action worked",
+      "words": 5,
+      "terms": [
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.13",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO 19011:2026",
+          "ref": "3.27",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "policy-communication",
+      "name": "Policy communication",
+      "description": "making policy available and understood",
+      "words": 5,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "retain-risk",
+      "name": "Retain risk",
+      "description": "accepting a risk within criteria",
+      "words": 5,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "iso-27005-risk",
+      "name": "Iso 27005 risk",
+      "description": "guidance on information security risk management",
+      "words": 6,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "logging-and-monitoring",
+      "name": "Logging and monitoring",
+      "description": "recording and reviewing security-relevant activity",
+      "words": 6,
+      "terms": [
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "policy-controls",
+      "name": "Policy controls",
+      "description": "controls establishing and reviewing security policy",
+      "words": 6,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "review-inputs",
+      "name": "Review inputs",
+      "description": "the information the review must consider",
+      "words": 6,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-treatment-plan",
+      "name": "Risk treatment plan",
+      "description": "the plan for implementing selected treatment",
+      "words": 6,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk treatment",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "stage-1-audit",
+      "name": "Stage 1 audit",
+      "description": "the readiness and documentation review stage",
+      "words": 6,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "audit",
+          "source": "ISO 19011:2026",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "stage-2-audit",
+      "name": "Stage 2 audit",
+      "description": "the implementation and effectiveness audit stage",
+      "words": 6,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "audit",
+          "source": "ISO 19011:2026",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "correction-vs-corrective-action",
+      "name": "Correction vs corrective action",
+      "description": "fixing the instance against removing the cause",
+      "words": 7,
+      "terms": [
+        {
+          "term": "corrective action",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.17",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "corrective action",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "disciplinary-process",
+      "name": "Disciplinary process",
+      "description": "the process following a security policy violation",
+      "words": 7,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "effectiveness-evaluation",
+      "name": "Effectiveness evaluation",
+      "description": "judging whether controls achieve their intended outcome",
+      "words": 7,
+      "terms": [
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.13",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO 19011:2026",
+          "ref": "3.27",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "information-security-policy",
+      "name": "Information security policy",
+      "description": "the documented statement of intent and direction",
+      "words": 7,
+      "terms": [
+        {
+          "term": "information security",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.23",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "information security",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "management-system-maturity",
+      "name": "Management system maturity",
+      "description": "the progression from documented to genuinely operating",
+      "words": 7,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "modify-risk",
+      "name": "Modify risk",
+      "description": "applying controls to change likelihood or consequence",
+      "words": 7,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "review-cadence",
+      "name": "Review cadence",
+      "description": "the planned interval at which review occurs",
+      "words": 7,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "service-delivery-monitoring",
+      "name": "Service delivery monitoring",
+      "description": "ongoing monitoring of supplier performance against requirements",
+      "words": 7,
+      "terms": [
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "monitoring",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "share-risk",
+      "name": "Share risk",
+      "description": "transferring or sharing risk with another party",
+      "words": 7,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "surveillance-audit",
+      "name": "Surveillance audit",
+      "description": "periodic audits during the certification validity period",
+      "words": 7,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "audit",
+          "source": "ISO 19011:2026",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "audit-findings",
+      "name": "Audit findings",
+      "description": "conformities, nonconformities and observations arising from an audit",
+      "words": 8,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "audit",
+          "source": "ISO 19011:2026",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "classification-in-practice",
+      "name": "Classification in practice",
+      "description": "applying classification to real content in the moment",
+      "words": 8,
+      "terms": [
+        {
+          "term": "classification",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "control-selection-is-risk-driven",
+      "name": "Control selection is risk driven",
+      "description": "controls are selected because risk treatment requires them",
+      "words": 8,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "control-type",
+      "name": "Control type",
+      "description": "whether a control is preventive, detective or corrective",
+      "words": 8,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "incident-response-process",
+      "name": "Incident response process",
+      "description": "the planned process for responding to security incidents",
+      "words": 8,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "management-review",
+      "name": "Management review",
+      "description": "top management's periodic review of the ISMS",
+      "words": 8,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "policy-to-practice",
+      "name": "Policy to practice",
+      "description": "how a written provision becomes a daily decision",
+      "words": 8,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "review-outputs",
+      "name": "Review outputs",
+      "description": "the decisions and actions the review must produce",
+      "words": 8,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-treatment-options",
+      "name": "Risk treatment options",
+      "description": "the four available responses to an evaluated risk",
+      "words": 8,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk treatment",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "compensating-control",
+      "name": "Compensating control",
+      "description": "a control applied where the preferred one is unavailable",
+      "words": 9,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "concentration-risk",
+      "name": "Concentration risk",
+      "description": "exposure arising from many services depending on one provider",
+      "words": 9,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "management-system-integration",
+      "name": "Management system integration",
+      "description": "operating more than one management system on shared processes",
+      "words": 9,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-acceptance-criteria",
+      "name": "Risk acceptance criteria",
+      "description": "the thresholds at which a risk may be retained",
+      "words": 9,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk acceptance",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "what-to-measure",
+      "name": "What to measure",
+      "description": "selecting indicators that reflect security performance rather than activity",
+      "words": 9,
+      "terms": [
+        {
+          "term": "measure",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "auditor-objectivity",
+      "name": "Auditor objectivity",
+      "description": "the requirement that auditors do not audit their own work",
+      "words": 10,
+      "terms": [
+        {
+          "term": "auditor",
+          "source": "ISO 19011:2026",
+          "ref": "3.16",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "avoid-risk",
+      "name": "Avoid risk",
+      "description": "not undertaking the activity that gives rise to the risk",
+      "words": 10,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "likelihood-and-consequence",
+      "name": "Likelihood and consequence",
+      "description": "the two dimensions from which a risk level is derived",
+      "words": 10,
+      "terms": [
+        {
+          "term": "consequence",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "review-feedback-craft",
+      "name": "Review Feedback Craft",
+      "description": "Specific, kind, actionable feedback.",
+      "words": 4,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "plan-implement-test-review",
+      "name": "Plan-Implement-Test-Review",
+      "description": "The agentic loop's stages.",
+      "words": 5,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "review-integration-debt",
+      "name": "Review/Integration Debt",
+      "description": "Debt from generation outpacing verification.",
+      "words": 5,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "surface-debt-transparency",
+      "name": "Surface Debt (Transparency)",
+      "description": "Making debt visible and negotiating paydown.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "developer-owns-verification",
+      "name": "Developer Owns Verification",
+      "description": "The Developer owns verification, not the tool.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "verification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "skill-atrophy-risk",
+      "name": "Skill Atrophy Risk",
+      "description": "Over-reliance on AI can erode fundamentals.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "code-review",
+      "name": "Code Review",
+      "description": "A collaboration practice that spreads ownership and quality.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "resist-command-control",
+      "name": "Resist Command-and-Control",
+      "description": "Guarding self-management against re-imposed task assignment.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "developers-event",
+      "name": "The Developers' Event",
+      "description": "For and by the Developers, not a status report.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "empirical-process",
+      "name": "Empirical Process",
+      "description": "Empiricism as the basis for engineering decisions under uncertainty.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SD-AI-I",
+      "slug": "velocity-outpacing-verification",
+      "name": "Velocity Outpacing Verification",
+      "description": "AI output arriving faster than it can be verified.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "verification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "refinement-not-event",
+      "name": "Refinement is not a Scrum event",
+      "description": "Common misconception clarified.",
+      "words": 3,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "empirical-process",
+      "name": "Empirical process control",
+      "description": "Knowledge from experience and decisions from observation.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "empirical-vs-predictive",
+      "name": "Empirical vs predictive process",
+      "description": "Choosing between iterative and plan-driven approaches.",
+      "words": 7,
+      "terms": [
+        {
+          "term": "process",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO 19011:2026",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "process",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "org-coaching",
+      "name": "Coaching the organization",
+      "description": "SM serves the organization through training and coaching.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "organization",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "organization",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "artifact-transparency",
+      "name": "Artifact transparency",
+      "description": "Artifacts must be visible to support inspection and adaptation.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "refinement-as-activity",
+      "name": "Refinement as activity (not event)",
+      "description": "Ongoing activity; not one of the five Scrum events.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "sm-serves-org",
+      "name": "Scrum Master serves the organization",
+      "description": "Leading, training, coaching Scrum adoption; planning implementations; removing barriers.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "organization",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.1",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "organization",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "sm-accountability-team-effectiveness",
+      "name": "Scrum Master accountability for team effectiveness",
+      "description": "The central accountability of the Scrum Master per 2020 Guide.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.13",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO 19011:2026",
+          "ref": "3.27",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "sprint-review",
+      "name": "Sprint Review",
+      "description": "Event to inspect the Increment and adapt the Product Backlog.",
+      "words": 10,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-II",
+      "slug": "artifact-integrity",
+      "name": "Artifact integrity",
+      "description": "An artifact that is maintained but no longer truthful.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "integrity",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SM-AI-II",
+      "slug": "transparency-erosion",
+      "name": "Transparency erosion",
+      "description": "Transparency lost gradually rather than by any single decision.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "stakeholder-transparency",
+      "name": "Stakeholder Transparency",
+      "description": "Being transparent with stakeholders about progress.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "transparency-inspection-adaptation",
+      "name": "Transparency, Inspection, Adaptation",
+      "description": "The three empirical pillars of Scrum.",
+      "words": 6,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "feature-waiter-anti-pattern",
+      "name": "Feature Waiter Anti-Pattern",
+      "description": "The order-taker PO who only relays requests.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "feature",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "refinement-not-event",
+      "name": "Refinement Is Not an Event",
+      "description": "An ongoing activity, not a formal Scrum event.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "review-not-demo",
+      "name": "Review Is Not a Demo",
+      "description": "A working session, not a one-way demo.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "transparency-breakdown",
+      "name": "Transparency Breakdown",
+      "description": "Detecting and correcting low transparency in the backlog.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "transparency-for-agents",
+      "name": "Transparency for Agents",
+      "description": "Transparency now serves machines as well as people.",
+      "words": 8,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "artifact-transparency",
+      "name": "Artifact Transparency",
+      "description": "Artifacts must be transparent for inspection to be meaningful.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "transparency",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "sprint-review",
+      "name": "Sprint Review",
+      "description": "Inspecting the Increment and adapting the backlog with stakeholders.",
+      "words": 9,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    }
+  ]
+}

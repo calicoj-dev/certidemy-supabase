@@ -924,6 +924,41 @@ wrong population. Every one was a real measurement of something nobody asked
 about.
 
 
+**AND A TWO-POINT COMPARISON CANNOT SAY WHICH POINT IS UNUSUAL.** Paid for
+2026-09-21, measuring whether a bank drafted from stub concept text looked
+different from one drafted from real text.
+
+AIMS-F echoes a linked concept's name verbatim in 17.2 percent of links;
+ISMS-F, the chosen control, in 28.3 percent. Read as a pair that is an
+11-point deficit and a finding. Measured across all twelve certifications,
+length-controlled:
+
+```
+SD-AI-I 12.9   AIHR-I 14.7   AIE-I 16.8   AIMS-F 17.2   AIMS-IA 17.4
+SPO-AI-I 18.0  SM-AI-II 23.2 AISM-I 23.2  AIGRM-I 24.3  ISMS-IA 25.4
+ISMS-F 28.3    SM-AI-I 31.2
+```
+
+**AIMS-F is fourth from the bottom of twelve and unremarkable. ISMS-F is
+second from the TOP.** The control was the outlier, and against a population
+the deficit is nothing.
+
+**A control is one sample, and n=2 has no variance.** Two numbers always differ,
+and nothing in the pair says which of them is the strange one -- so the
+difference can be read as a fact about either point, and it will be read as a
+fact about whichever one is under suspicion. That is not a sampling error; it
+is the arithmetic of having two points.
+
+> **MECHANISM: any finding stated as a difference from a control is
+> re-measured against the FULL POPULATION before it is reported, and the
+> population figure is what goes in the report.** The control keeps its job --
+> it is what makes the signal worth measuring at all -- but it does not get to
+> be the baseline.
+
+Same family as the mean over the wrong population, one level up: there a
+number was measured over a set nobody asked about, here it was measured
+against a comparator nobody had placed.
+
 **AND THE SIXTH IS ONE-SIDED: A REPLACEMENT IS A COMPARISON, AND ONLY ONE TERM
 WAS COUNTED.** Found 2026-09-20, scoping the `clausula` sweep. Nothing was
 written, and what stopped it was the person who asked for it, not the census.
@@ -2200,6 +2235,54 @@ dozen places; D now runs ISMS-F and SM-AI-II, and the tier-2 certification
 reported the same 172-character delta immediately. The gap was closed by the
 defect it missed rather than by a synthetic case, which is the only evidence
 worth having that it is closed.
+
+**A GATE IS BLIND TO WHAT IS NOT INDEXED, AND THAT BLINDNESS IS INVISIBLE IN
+ITS OUTPUT.** The sharpest form of the coverage rule above, because here the
+gap is not in the CHECK, it is in the CORPUS the check is measured against.
+
+`scan-iso-leaks` holds three PDFs. **ISO/IEC 27001:2022 clause 3 defines
+nothing** -- *"the terms and definitions given in ISO/IEC 27000 apply"* -- and
+**ISO/IEC 42001:2023 clause 3 delegates to ISO/IEC 22989** before adding its
+own. Neither 27000 nor 22989 is on disk. So every ISMS defined term and every
+AI defined term is unreachable at any threshold and any seed.
+
+**The evidence that the parameter was not the variable is that it did not
+move.** A calibration over 48 candidate rules scored named defined-term
+definitions at a FLAT 33 percent -- the same two of six at every seed and every
+threshold. A constant across a whole parameter space is the tell that the
+parameter is the wrong knob.
+
+**AND AN EDITION VARIANT OF A SOURCE WE DO HOLD FAILS THE SAME WAY.** ISMS-F's
+`security-control` read *"a measure that modifies risk"* -- live,
+unauthenticated, five words. ISO/IEC 42001:2023 clause 3.21 IS indexed and DOES
+define the term:
+
+```
+control   <risk> measure that MAINTAINS AND/OR modifies risk
+```
+
+Three inserted words, and no n-gram matches. **The scanner reported 0 against a
+document it had indexed.** So the blindness is not only "sources we do not
+hold"; it is also "the edition we do not hold of a source we do".
+
+> **A corpus score of 0 means "no reproduction of the indexed documents",
+> never "no reproduction".**
+>
+> **MECHANISM: the scanner NAMES ITS INDEX in every report, and every standard
+> that an indexed standard DELEGATES to is listed as a coverage gap until it is
+> indexed.** `measure-concept-leak-sensitivity.mjs` splits its own positive
+> control on exactly that line -- indexed definitions must fire at 100 percent
+> or the instrument is blind, delegated ones print as a named gap. Mixed, the
+> control could never pass, and a control that can never pass is one the next
+> reader loosens.
+
+**And where the gate cannot see the category, the RULE has to do the work
+instead.** A one-line description of a defined term must say something the
+definition does not -- the consequence, the distinction, or what a practitioner
+does with it. A glossary gloss has failed at a score of 0.
+`scripts/list-defined-term-glosses.mjs` matches on the TERM NAME, which is
+stable across editions, rather than on definition text, which is exactly what
+was shown above not to be.
 
 **AND THE CHECK SHAPE THAT FOUND THE DEFECT UNDERNEATH IT IS NEW HERE: COMPARE A
 SHARED BLOCK AGAINST ITSELF, AT TWO VARIANTS.**
