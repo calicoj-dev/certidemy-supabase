@@ -51,6 +51,24 @@
 -- post-conditions and must still be refused, because for THEM the definer
 -- really would be a way to read what they were not granted.
 --
+-- ============ ITS FIRST RUN ABORTED, AND NOT ON PRIVILEGES ============
+--
+--     ERROR: relation "mcp.pg_stat_statements_info" does not exist
+--
+-- The pre-condition built a text identifier -- has_table_privilege(role,
+-- 'mcp.' || c.relname, 'SELECT') -- and the planner may evaluate that on rows
+-- the n.nspname = 'mcp' filter would have excluded, so a relname from another
+-- schema got 'mcp.' prefixed onto it and the lookup failed. The function side
+-- already passed p.oid, which is exactly why only the table side broke.
+--
+-- Every privilege call here now passes the OBJECT -- an oid, or a regclass /
+-- regprocedure literal resolved at parse time. A CONSTRUCTED IDENTIFIER
+-- INSIDE A WHERE CLAUSE IS A LOOKUP WAITING FOR A ROW YOU DID NOT INTEND.
+--
+-- Confirmed the aborted run granted nothing: all four gate functions still
+-- read false for both roles. The DO block aborted the whole transaction, as
+-- it should, and that was checked rather than assumed.
+--
 -- ASCII only. One statement. Run in the SQL editor.
 
 do $mig$
@@ -71,7 +89,7 @@ begin
            where c.relkind = 'v'
              and p.proname in ('concept_row_en_hash','lesson_body_is_servable','task_ksa_is_withheld')
              and pg_get_viewdef(c.oid, true) ~ ('\m' || p.proname || '\s*\(')
-             and has_table_privilege('supabase_read_only_user', 'mcp.' || c.relname, 'SELECT')
+             and has_table_privilege('supabase_read_only_user', c.oid, 'SELECT')
              and not has_function_privilege('supabase_read_only_user', p.oid, 'EXECUTE')) t;
   if n_gap = 0 then
     raise exception 'no gap for supabase_read_only_user -- already closed, or the measurement was wrong';
@@ -104,9 +122,9 @@ begin
             join pg_namespace pn on pn.oid = p.pronamespace and pn.nspname = 'public'
            where c.relkind = 'v' and p.prokind = 'f'
              and pg_get_viewdef(c.oid, true) ~ ('\m' || p.proname || '\s*\(')
-             and (has_table_privilege('supabase_read_only_user', 'mcp.' || c.relname, 'SELECT')
+             and (has_table_privilege('supabase_read_only_user', c.oid, 'SELECT')
                   and not has_function_privilege('supabase_read_only_user', p.oid, 'EXECUTE')
-                  or has_table_privilege('supabase_etl_admin', 'mcp.' || c.relname, 'SELECT')
+                  or has_table_privilege('supabase_etl_admin', c.oid, 'SELECT')
                   and not has_function_privilege('supabase_etl_admin', p.oid, 'EXECUTE'))) t;
   if n_gap <> 0 then
     raise exception '% view/function pair(s) still gap', n_gap;
@@ -115,22 +133,22 @@ begin
   -- 2. NEGATIVE, AND IT IS THE ONE THAT MATTERS. anon and authenticated must
   --    still be refused. For them a SECURITY DEFINER function IS a way to read
   --    tables they hold no grant on, which is the reason it is definer at all.
-  if has_function_privilege('anon', 'public.concept_row_en_hash(uuid)', 'EXECUTE')
-     or has_function_privilege('anon', 'public.lesson_body_is_servable(uuid)', 'EXECUTE')
-     or has_function_privilege('anon', 'public.task_ksa_is_withheld(uuid)', 'EXECUTE') then
+  if has_function_privilege('anon', 'public.concept_row_en_hash(uuid)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('anon', 'public.lesson_body_is_servable(uuid)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('anon', 'public.task_ksa_is_withheld(uuid)'::regprocedure, 'EXECUTE') then
     raise exception 'anon can execute a gate predicate';
   end if;
-  if has_function_privilege('authenticated', 'public.concept_row_en_hash(uuid)', 'EXECUTE')
-     or has_function_privilege('authenticated', 'public.lesson_body_is_servable(uuid)', 'EXECUTE')
-     or has_function_privilege('authenticated', 'public.task_ksa_is_withheld(uuid)', 'EXECUTE') then
+  if has_function_privilege('authenticated', 'public.concept_row_en_hash(uuid)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('authenticated', 'public.lesson_body_is_servable(uuid)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('authenticated', 'public.task_ksa_is_withheld(uuid)'::regprocedure, 'EXECUTE') then
     raise exception 'authenticated can execute a gate predicate';
   end if;
 
   -- 3. NEGATIVE. The serving roles kept theirs. A revoke-and-regrant typo here
   --    would take the MCP surface down, which is 339 exactly.
-  if not has_function_privilege('mcp_reader', 'public.concept_row_en_hash(uuid)', 'EXECUTE')
-     or not has_function_privilege('mcp_holder', 'public.lesson_body_is_servable(uuid)', 'EXECUTE')
-     or not has_function_privilege('mcp_reader', 'public.task_ksa_is_withheld(uuid)', 'EXECUTE') then
+  if not has_function_privilege('mcp_reader', 'public.concept_row_en_hash(uuid)'::regprocedure, 'EXECUTE')
+     or not has_function_privilege('mcp_holder', 'public.lesson_body_is_servable(uuid)'::regprocedure, 'EXECUTE')
+     or not has_function_privilege('mcp_reader', 'public.task_ksa_is_withheld(uuid)'::regprocedure, 'EXECUTE') then
     raise exception 'a serving role lost EXECUTE on a gate predicate';
   end if;
 
@@ -138,10 +156,13 @@ begin
   --    already readable by both roles, which is what made this a repair --
   --    asserted here rather than left in the header.
   select count(*) into n_bad
-    from (values ('concepts'),('lessons'),('lesson_translation_reviews'),
-                 ('task_translations'),('task_translation_reviews'),('tasks')) v(t)
-   where not has_table_privilege('supabase_read_only_user', 'public.' || v.t, 'SELECT')
-      or not has_table_privilege('supabase_etl_admin', 'public.' || v.t, 'SELECT');
+    from (values ('public.concepts'::regclass), ('public.lessons'::regclass),
+                 ('public.lesson_translation_reviews'::regclass),
+                 ('public.task_translations'::regclass),
+                 ('public.task_translation_reviews'::regclass),
+                 ('public.tasks'::regclass)) v(t)
+   where not has_table_privilege('supabase_read_only_user', v.t, 'SELECT')
+      or not has_table_privilege('supabase_etl_admin', v.t, 'SELECT');
   if n_bad <> 0 then
     raise exception '% input table(s) were NOT already readable -- this grant widens access', n_bad
       using detail = 'Stop. This is an access decision, not a repair.';

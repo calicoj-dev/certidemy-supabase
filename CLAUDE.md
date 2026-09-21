@@ -1437,6 +1437,40 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A PRIVILEGE CHECK PASSES THE OBJECT, NOT ITS NAME.** The same lesson one
+layer down, and it broke the fix for the layer above.
+
+The ACL form measured what was TYPED instead of what is TRUE. The correction
+used `has_table_privilege`, which was right -- and reached for the TEXT-NAME
+overload, which reintroduced a lookup the OID overload does not need:
+
+```
+has_table_privilege('supabase_read_only_user', 'mcp.' || c.relname, 'SELECT')
+
+    ERROR: relation "mcp.pg_stat_statements_info" does not exist
+```
+
+**The planner is free to evaluate that constructed identifier on rows a later
+predicate would have excluded.** `n.nspname = 'mcp'` was in the same WHERE
+clause, and it did not protect the expression: a `relname` from another schema
+got `mcp.` prefixed onto it and the lookup failed. The FUNCTION side of the
+same query already passed `p.oid`, which is exactly why only the table side
+broke.
+
+> **MECHANISM: `has_table_privilege(role, oid, priv)` and
+> `has_function_privilege(role, oid, priv)` take the object directly and cannot
+> be misresolved.** Inside a migration, `'public.x'::regclass` and
+> `'public.f(uuid)'::regprocedure` resolve at parse time and are equally safe.
+
+**A CONSTRUCTED IDENTIFIER INSIDE A WHERE CLAUSE IS A LOOKUP WAITING FOR A ROW
+YOU DID NOT INTEND.** It is not a privilege bug and it is not a filter bug; it
+is an evaluation-order assumption that SQL does not owe you.
+
+The two rules together are the whole shape: **ask what is true, and ask it
+about the object.** Getting the first right and the second wrong turned a
+silent wrong answer into a loud abort, which is the better failure -- but it
+was still a second run.
+
 **A PRIVILEGE CHECK ASKS WHAT IS TRUE, NOT WHAT WAS GRANTED.** The sharpest
 instance of tonight's recurring shape, because the instrument was wrong in a
 way that exonerated the exact role running it.
