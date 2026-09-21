@@ -176,8 +176,14 @@ export function taskBlock(task) {
     lines.push(``);
   }
 
-  lines.push(`Every item must measure THIS task. The concepts below are the material the`);
-  lines.push(`task draws on - they are the substance, but the TASK is the target.`);
+  /* NO FORWARD REFERENCE. This used to end "the concepts below are the material
+   * the task draws on", which is true inside the generator -- draftUser appends
+   * the concept list directly after. get_rubric serves this block ON ITS OWN, so
+   * a paying partner received a sentence pointing at content the payload does
+   * not carry. The task is the target either way, which is what the sentence was
+   * for; the pointer was scaffolding from the one caller that has a list. */
+  lines.push(`Every item must measure THIS task: the statement above is the target,`);
+  lines.push(`and the knowledge, skills and abilities are what it draws on.`);
   return lines.join("\n");
 }
 

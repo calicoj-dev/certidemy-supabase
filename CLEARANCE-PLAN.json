@@ -2,7 +2,7 @@
  "seed": "2026-09-20-concepts",
  "reviewed_on": "2026-09-21",
  "reviewed_by": "claude-director",
- "rule": "A meaning defect in a certification+language draw blocks THAT certification+language and triggers a full read of it. Register and style issues do not block.",
+ "rule": "A meaning defect in a certification+language blocks that certification+language and triggers a full read of it, however the defect was found - the 20-row draw is one instrument, not the only one. Register and style issues do not block. SUPERSEDES the 2026-09-21 refinement, which reasoned from 3 both-languages observations that defects are per-row; a targeted sibling check on the 4 blocking slugs returned 2 hits, so a defect rooted in the English traps both languages about half the time.",
  "clearance_claim_wording": "Approved on a sample of 20 rows per certification per language (480 of 3460 read). NOT a full read, and NOT a uniform percentage: draws ranged from 9% (AISM-I, 20 of 226) to 43% (AIE-I, 20 of 47) of a certification. Never state this clearance as a percentage of the corpus.",
  "clear": [
   {
@@ -46,14 +46,6 @@
    "reword": 0
   },
   {
-   "certification": "AIMS-IA",
-   "language": "es-419",
-   "population": 158,
-   "sampled": 20,
-   "wrong": 0,
-   "reword": 1
-  },
-  {
    "certification": "AISM-I",
    "language": "es-419",
    "population": 226,
@@ -65,14 +57,6 @@
    "certification": "AISM-I",
    "language": "pt-BR",
    "population": 226,
-   "sampled": 20,
-   "wrong": 0,
-   "reword": 0
-  },
-  {
-   "certification": "ISMS-F",
-   "language": "pt-BR",
-   "population": 192,
    "sampled": 20,
    "wrong": 0,
    "reword": 0
@@ -210,6 +194,38 @@
     }
    ],
    "full_read_rows": 169
+  },
+  {
+   "certification": "AIMS-IA",
+   "language": "es-419",
+   "population": 158,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 1,
+   "blocking_rows": [
+    {
+     "slug": "aia-ai-policy-requirements",
+     "note": "SIBLING DEFECT, found after clearance. es-419 'Este es un requisito de apartado' carries the identical mechanical clause-substitution that blocked pt-BR, destroying the same normative-clause vs selected-control contrast. Not sampled in the es-419 draw. Was cleared and SERVING until re-provisioned."
+    }
+   ],
+   "full_read_rows": 158,
+   "found_by": "targeted sibling check, not the 20-row draw"
+  },
+  {
+   "certification": "ISMS-F",
+   "language": "pt-BR",
+   "population": 192,
+   "sampled": 20,
+   "wrong": 0,
+   "reword": 0,
+   "blocking_rows": [
+    {
+     "slug": "risk-acceptance-criteria",
+     "note": "SIBLING DEFECT, found after clearance. pt-BR 'os limiares A PARTIR DOS QUAIS um risco pode ser retido' carries the identical inversion that blocked es-419. Not sampled in the pt-BR draw. Was cleared and SERVING until re-provisioned."
+    }
+   ],
+   "full_read_rows": 192,
+   "found_by": "targeted sibling check, not the 20-row draw"
   }
  ],
  "hold": [
@@ -233,11 +249,11 @@
   }
  ],
  "totals": {
-  "draws_clear": 18,
-  "draws_blocked": 4,
+  "draws_clear": 16,
+  "draws_blocked": 6,
   "draws_held": 2,
-  "rows_to_clear": 2586,
-  "rows_to_full_read": 566,
+  "rows_to_clear": 2236,
+  "rows_to_full_read": 916,
   "rows_held": 308
  },
  "rewords": [
@@ -391,5 +407,6 @@
    "slug": "ai-drafted-pbis",
    "note": "'itens de backlog que o PO faz a curadoria' is ungrammatical. Suggest 'dos quais o PO faz a curadoria' or 'que o PO cura'."
   }
- ]
+ ],
+ "revision": "2026-09-21b - two draws moved clear -> blocked on sibling defects"
 }

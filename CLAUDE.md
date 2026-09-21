@@ -1437,6 +1437,64 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A DEFECT ROOTED IN THE ENGLISH TRAPS BOTH LANGUAGES, SO A BLOCKING SLUG'S
+SIBLING IS CHECKED BEFORE ANY DRAW CONTAINING IT IS CLEARED.** Paid for
+2026-09-21, and the withdrawn inference is the interesting half.
+
+~~The 2026-09-21 clearance blocked per certification+language, on the ground
+that a meaning defect is a property of one rendering rather than of the
+English.~~ **[WITHDRAWN 2026-09-21 by migration 357.]** That inference came
+from 3 observations: for 3 of the reviewer's 4 findings the same concept had
+also landed in the OTHER language's draw, and all 3 siblings were correct.
+
+**Those 3 were the concepts that happened to fall in both independent draws.**
+That is a sample of what the draw OVERLAPPED ON, not a sample of the question
+being asked. A targeted check of all 4 blocking slugs against their sibling
+returned **2 hits**, and both sat in draws that had been CLEARED and were
+serving:
+
+| | |
+|---|---|
+| `ISMS-F` / pt-BR | *"os limiares a partir dos quais um risco pode ser retido"* -- the threshold inversion that blocked es-419 |
+| `AIMS-IA` / es-419 | *"Este es un requisito de apartado"* -- the clause substitution that blocked pt-BR, same contrast destroyed |
+
+**Mechanism:** for every row a review marks `wrong` or `reword`, the same slug
+in the other language is pulled and read in the same pass. Measured yield on
+the first four: **2 of 4**. `scripts/gen-sibling-check.mjs` does it, and its
+first run across all 29 flagged rows found 29 siblings present, 26 of them
+serving.
+
+**A SAMPLE CANNOT FIND THIS ON ITS OWN**, which is why the mechanism is a
+separate pass rather than a better sampler: independent per-language draws are
+structurally blind to it, because the entire point of an independent draw is
+that the two languages see different concepts.
+
+**CROSS-LANGUAGE CONTRAST IS THE INSTRUMENT, SO FUTURE CONCEPT DRAWS ARE
+PAIRED, NOT INDEPENDENT.** Same incident, and it is the correction to the
+sampler rather than to the rule.
+
+The 2026-09-20 sample drew each language independently, which maximised
+distinct-slug coverage -- about 35 concepts per certification instead of 20.
+**Every one of the reviewer's four findings was confirmed or refuted by looking
+at the same concept in the other language.** That contrast did the work, and an
+independent draw supplies it only BY ACCIDENT, on whatever the two draws happen
+to overlap: 5 of 20 in AIMS-F and similar elsewhere.
+
+**Mechanism:** the next sampler draws N concept slugs per certification and
+emits BOTH languages of each, so every row read carries its own control.
+
+**The trade-off is explicit and belongs in the sampler, not here**, so nobody
+"fixes" it back to independent draws for the coverage number:
+
+| | independent | paired |
+|---|---|---|
+| distinct slugs seen | ~35 | N |
+| evidence per slug | one rendering | two, each the other's control |
+| defect rooted in English | found by luck | found by construction |
+
+Coverage halves; evidence per slug doubles. The first design bought breadth and
+paid for it with two cleared draws serving a defect.
+
 **A SAMPLING GATE IS SCOPED TO WHAT THE SAMPLE CAN SEE, AND A CLEAN SAMPLE OVER
 A HOLLOW SOURCE IS THE SHARPEST FORM OF THAT.** Paid for 2026-09-21, on the
 concept translation clearance.

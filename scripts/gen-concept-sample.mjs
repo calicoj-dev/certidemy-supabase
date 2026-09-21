@@ -42,6 +42,26 @@
  * THE DRAW
  * ===========================================================================
  *
+ * SUPERSEDED FOR FUTURE DRAWS, 2026-09-21. THE NEXT SAMPLER PAIRS THE
+ * LANGUAGES. Read this before "fixing" the draw back to independent for the
+ * coverage number.
+ *
+ * Independent draws maximise distinct slugs -- about 35 per certification
+ * instead of 20. But every one of the reviewer's four meaning findings was
+ * confirmed or refuted by looking at the SAME concept in the other language,
+ * and an independent draw supplies that contrast only by accident, on whatever
+ * the two draws overlap: 5 of 20 in AIMS-F.
+ *
+ * The inference drawn from those accidental overlaps -- 3 correct siblings, so
+ * defects are per-row -- cleared two draws that were serving a defect. A
+ * targeted sibling check on all 4 blocking slugs returned 2 hits.
+ *
+ *     independent   ~35 slugs, one rendering each, contrast by luck
+ *     paired          N slugs, two renderings each, contrast by construction
+ *
+ * Coverage halves. Evidence per slug doubles. The first design bought breadth
+ * and paid for it with two cleared draws serving a defect.
+ *
  * mulberry32 over a seed derived from (seed, certification, language), so the
  * three draws for one certification are independent rather than the same
  * indices in three languages. Drawing the same slugs in every language would
