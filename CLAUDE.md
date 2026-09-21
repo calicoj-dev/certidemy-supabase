@@ -1437,6 +1437,76 @@ matched count, a distinct count beside a row count. The pair is the check. This
 is the same rule as "assert BOTH DIRECTIONS of the property", applied to a read
 rather than to a write.
 
+**A BARE ENGLISH NOUN IN A TRANSLATED NAME IS A DEFECT WHEN IT IS A TRUNCATION
+AND CORRECT WHEN IT IS A LOAN.** Ruled 2026-09-21 on a corpus census of 31
+translated concept names carrying a target-language article in front of a bare
+English noun. **Only 11 are defects.**
+
+`el Goal` is not shorthand a Spanish-speaking practitioner uses. It is `Sprint
+Goal` with a word missing, and **the missing word is the one that says WHICH
+goal.** `el backlog` is what practitioners actually say in both languages, and
+expanding it would be correcting the register rather than the meaning.
+
+**THE TEST IS THE MISSING WORD, NOT THE ENGLISHNESS.** Both classes are English
+inside a Spanish or Portuguese sentence; only one of them loses information.
+That is why a lexical check for "English word after an article" cannot decide
+this and the list has to be split by hand, once.
+
+**The mechanism is the split list in `scripts/lib/item-translation.mjs`:**
+
+| | |
+|---|---|
+| `PIN_LOAN` may stand bare | backlog, sprint, story points, velocity, timebox |
+| `PIN_FULL` never truncated | Sprint Goal, Product Goal, Sprint Backlog, Product Backlog, Definition of Done, Sprint Review, Sprint Retrospective, Daily Scrum |
+
+Every `PIN_FULL` entry is two words where **the first disambiguates**: Sprint
+Goal and Product Goal are different objects, as are Sprint Backlog and Product
+Backlog. Dropping the first word is a meaning change, not a register choice.
+
+**AN ABBREVIATION TAKES THE GENDER OF THE TERM IT ABBREVIATES.** `DoD` is a
+LOAN, not a truncation, and it is feminine in both languages because
+*Definicion de Terminado* and *Definicao de Pronto* are -- even though the
+letters look masculine. Measured across all 3,460 translated concepts: **10
+feminine renderings in es-419, 10 in pt-BR, ZERO masculine in either**, names
+and descriptions alike. `PIN_ABBREV_GENDER` records a convention that already
+exists and is unanimous, so it cannot drift.
+
+**AND THE CENSUS THAT FOUND THESE OVER-REPORTED BY 28 BEFORE ANYONE READ IT.**
+The first run said 59. Two false-positive shapes, both found by reading the
+output rather than the number: the article may precede the FULL term
+(*"Trabajar con el Scrum Master"*), and bare `Scrum` is the framework's name
+rather than a truncation of `Daily Scrum` (*"Valores do Scrum"*). A count of a
+lexical class is a draft until someone reads its members.
+
+**A PER-SUBJECT COMPLETENESS COUNT SAYS NOTHING ABOUT PER-FIELD
+COMPLETENESS.** Paid for 2026-09-21, and it is the sharpest completeness
+failure in this file because the check looked complete by its own strongest
+signal.
+
+`gen-sibling-check` reported **29 rows in, 29 rows out, every row carrying a
+sibling**. Nothing was missing, nothing was short, no read was dropped. It
+emitted `description` and not `name` -- and **6 of the 29 flagged defects lived
+in the name**, so six siblings were unexamined and all six were serving.
+
+**A check that emits one row per subject looks complete whatever it put IN the
+row.** The completeness signal was on the wrong axis: row count answers "did I
+see every subject", and the question was "did I see every field a review can
+flag". A concept has two translated fields; the check carried one.
+
+> **MECHANISM: a check that extracts a subject asserts on EVERY FIELD A REVIEW
+> CAN FLAG, not on the row count.** `gen-sibling-check` now refuses to write
+> unless every flagged row carries an English name as well as a description.
+
+**The other four check scripts were audited for the same shape, and one had
+it:**
+
+| script | verdict |
+|---|---|
+| `scan-public-internals` | **immune by construction** -- derives "every text, jsonb and text[] column" from anon's grants rather than naming fields |
+| `check-updated-at-writers` | different shape -- the subject is a write SITE and the field is its payload, which it reads |
+| `check-migration-state` | different shape -- fingerprints assert named properties per migration |
+| `check-open-items` | **HAD IT.** The clausula probe read `lessons.content_md` and a lesson also has a `title`. Fixed: reading both moved the count 4,382 -> 4,390 and left cláusula at 252, so the gap was LATENT, not live -- which is exactly when it is cheap to close |
+
 **A DEFECT ROOTED IN THE ENGLISH TRAPS BOTH LANGUAGES, SO A BLOCKING SLUG'S
 SIBLING IS CHECKED BEFORE ANY DRAW CONTAINING IT IS CLEARED.** Paid for
 2026-09-21, and the withdrawn inference is the interesting half.

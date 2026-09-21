@@ -62,6 +62,58 @@ export const SCRUM_NOUNS = [
 ];
 
 /**
+ * THE SAME LIST SPLIT BY WHETHER A BARE ENGLISH NOUN IS A DEFECT.
+ *
+ * RULED 2026-09-21, after a corpus census found 31 translated concept NAMES
+ * carrying a target-language article in front of a bare English noun. They are
+ * two classes and only 11 are defects:
+ *
+ *   A bare English noun in a translated name is DEFECTIVE when it is a
+ *   TRUNCATION of a multi-word Scrum Guide term. It is CORRECT when it is an
+ *   established untranslated LOAN in the target language's professional
+ *   register.
+ *
+ * `el Goal` is not shorthand a Spanish-speaking practitioner uses; it is
+ * `Sprint Goal` with a word missing, and the missing word is the one that says
+ * WHICH goal. `el backlog` is what practitioners actually say, in both
+ * languages, and expanding it would be correcting the register rather than the
+ * meaning.
+ *
+ * THE TEST IS THE MISSING WORD, NOT THE ENGLISHNESS. Both classes are English
+ * inside a Spanish or Portuguese sentence; only one of them loses information.
+ */
+
+/** May stand bare after an article. Established loans, not truncations. */
+export const PIN_LOAN = [
+  "backlog", "sprint", "story points", "velocity", "timebox",
+];
+
+/**
+ * Never truncated. The first word is the one that disambiguates, so dropping
+ * it is a meaning change: Sprint Goal and Product Goal are different objects,
+ * as are Sprint Backlog and Product Backlog.
+ */
+export const PIN_FULL = [
+  "Sprint Goal", "Product Goal", "Sprint Backlog", "Product Backlog",
+  "Definition of Done", "Sprint Review", "Sprint Retrospective", "Daily Scrum",
+];
+
+/**
+ * `DoD` IS A LOAN, NOT A TRUNCATION, and it keeps FEMININE gender in both.
+ * Measured across all 3,460 translated concepts on 2026-09-21: 10 feminine
+ * renderings in es-419 and 10 in pt-BR, and ZERO masculine in either, in names
+ * and descriptions alike. The convention already exists and is unanimous; this
+ * records it so it cannot drift.
+ *
+ *   es-419   la DoD      (Definicion de Terminado -- feminine head noun)
+ *   pt-BR    a DoD / a DoD  (Definicao de Pronto  -- feminine head noun)
+ *
+ * An abbreviation takes the gender of the term it abbreviates, which is why
+ * `el DoD` and `o DoD` are wrong even though the letters look masculine.
+ */
+export const PIN_ABBREV_GENDER = { "es-419": "f", "pt-BR": "f" };
+
+/**
  * The vocabulary the 2020 edition changed, stated as a prohibition plus a replacement.
  * Interpolated into the translation prompt for Spanish and Portuguese.
  */

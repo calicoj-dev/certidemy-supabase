@@ -302,11 +302,16 @@ const ITEMS = {
     if (("la cláusula 10.1 exige".match(cla) ?? []).length !== 1) return { open: null, why: "the clausula pattern cannot match a known instance" };
     if (("el apartado 10.1 exige".match(alt) ?? []).length !== 1) return { open: null, why: "the apartado pattern cannot match a known instance" };
     if (("a seção 10.1 exige".match(alt) ?? []).length !== 1) return { open: null, why: "the secao pattern cannot match a known instance" };
-    const les = await all("lessons?select=content_md,language&language=neq.en");
+    /* BOTH TRANSLATED FIELDS. A lesson has a title as well as a body, and this
+     * read `content_md` alone -- the same shape that let gen-sibling-check
+     * report 29 of 29 rows while omitting the field 6 of 29 flagged defects
+     * lived in. Currently zero title hits, so this is a latent gap rather than
+     * a live one, which is exactly when it is cheap to close. */
+    const les = await all("lessons?select=content_md,title,language&language=neq.en");
     if (!les.length) return { open: null, why: "read 0 non-English lessons" };
     let lc = 0, la = 0;
     for (const l of les) {
-      const t = String(l.content_md ?? "");
+      const t = String(l.content_md ?? "") + "\n" + String(l.title ?? "");
       lc += (t.match(cla) ?? []).length;
       la += (t.match(alt) ?? []).length;
     }
