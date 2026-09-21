@@ -109,20 +109,72 @@ const NOT_HELD = {
   "NIST": "not on disk", "EUAIACT": "not a standard in this corpus",
 };
 
-/** Text of one clause, from its heading to the next same-or-higher heading. */
-export function clauseText(key, addr) {
-  const raw = RAW.get(key);
-  if (!raw) return null;
-  const esc = addr.replace(/\./g, "\\.");
-  const re = new RegExp("^[ \\t]*" + esc + "[ \\t]+\\S", "m");
-  const m = re.exec(raw);
-  if (!m) return null;
-  const start = m.index;
+/** Body text at one clause address.
+ *
+ * ============ THE FIRST VERSION READ THE TABLE OF CONTENTS ============
+ *
+ * It took the FIRST regex match of the address at line start, and in an ISO
+ * PDF that is the contents entry, not the body heading. Every clause this
+ * script pulled was therefore a line of dot leaders plus whatever followed it
+ * in the contents -- and an address absent from the contents but present in
+ * the body read as ADDRESS NOT FOUND.
+ *
+ * That defect sat underneath a reported count of 147 missing addresses, which
+ * is why the count was rebuilt before it was triaged rather than after.
+ *
+ * No regex escapes: a shell heredoc collapsed the double backslashes in the
+ * sibling copy of this function today, turning a tab class into a literal tab
+ * and reporting 28 addresses missing that were all present. */
+const NL = String.fromCharCode(10);
+function clauseText(key, addr) {
+  const lines = RAW.get(key).split(NL);
+  let at = -1;
+  for (let i = 0; i < lines.length; i++) {
+    /* ============ A HEADING NEED NOT HAVE A SPACE AFTER ITS NUMBER =======
+     * ISO/IEC 27001:2022 extracts as "4.1Understanding the organization" --
+     * no space -- behind a wide licence-watermark column. Requiring "4.1 "
+     * made clauseText return NULL for every clause of that document, and the
+     * audit check that consumed it passed on an EMPTY STRING: "27001 clause
+     * 4.1 does not mention roles" was a vacuous OK. A check that asks nothing
+     * cannot fail. Accept a space OR an immediate capital, and reject a digit
+     * or dot so 9.2 does not swallow 9.21. */
+    const t = lines[i].trim();
+    if (!t.startsWith(addr)) continue;
+    const c = t[addr.length];
+    if (c === undefined) continue;
+    if ((c >= "0" && c <= "9") || c === ".") continue;
+    if (!(c === " " || (c >= "A" && c <= "Z"))) continue;
+    if (t.includes("....")) continue;
+    at = i;
+  }
+  if (at < 0) return null;
   const depth = addr.split(".").length;
-  const after = raw.slice(start + m[0].length);
-  /* stop at the next heading of the same depth or shallower */
-  const stop = new RegExp("^[ \\t]*(?:\\d+(?:\\.\\d+){0," + Math.max(0, depth - 1) + "})[ \\t]+[A-Z]", "m").exec(after);
-  return raw.slice(start, start + m[0].length + (stop ? stop.index : 4000));
+  const out = [lines[at]];
+  for (let i = at + 1; i < lines.length && out.length < 140; i++) {
+    /* ============ THE STOP CONDITION HAD THE SAME BLIND SPOT ============
+     * It took split(" ")[0] as the heading number, which for 27001s
+     * "4.2Understanding..." is the whole phrase and therefore not numeric --
+     * so the extractor never stopped, ran 140 lines past the clause, and swept
+     * clause 5 into clause 4.1. That is how "27001 clause 4.1 mentions role"
+     * came out of a clause whose body contains no such word. Scan the leading
+     * digits and dots directly instead of trusting a space to be there. */
+    const t = lines[i].trim();
+    let hl = 0;
+    while (hl < t.length && ((t[hl] >= "0" && t[hl] <= "9") || t[hl] === ".")) hl++;
+    const head = t.slice(0, hl);
+    /* The char after the number must be a CAPITAL, whether or not a space
+     * intervenes. Allowing a bare space broke on page furniture like
+     * "10            (c) ISO/IEC 2023" -- a page number read as clause 10,
+     * which truncated 6.2 to one item and cut role out of 4.1. */
+    let k = hl;
+    while (k < t.length && t[k] === " ") k++;
+    const nx = t[k];
+    const numeric = hl > 0 && head !== ".";
+    const nextOk = nx !== undefined && nx >= "A" && nx <= "Z";
+    if (numeric && nextOk && head.replace(/.$/, "").split(".").length <= depth && !t.includes("....")) break;
+    out.push(lines[i]);
+  }
+  return out.join(NL);
 }
 
 const STOP = new Set(("the a an and or of to in for on by with that this it is are be as at from its their which "

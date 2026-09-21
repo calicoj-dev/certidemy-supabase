@@ -89,25 +89,50 @@ const has = (key, phrase) => FLAT.get(key).includes(" " + norm(phrase));
 /** Body text at a clause address. No regex escapes; see the header. */
 function clauseText(key, addr) {
   const lines = RAW.get(key).split(NL);
-  const prefix = addr + " ";
   let at = -1;
   for (let i = 0; i < lines.length; i++) {
-    const t = lines[i].trimStart();
-    if (!t.startsWith(prefix)) continue;
+    /* ============ A HEADING NEED NOT HAVE A SPACE AFTER ITS NUMBER =======
+     * ISO/IEC 27001:2022 extracts as "4.1Understanding the organization" --
+     * no space -- behind a wide licence-watermark column. Requiring "4.1 "
+     * made clauseText return NULL for every clause of that document, and the
+     * audit check that consumed it passed on an EMPTY STRING: "27001 clause
+     * 4.1 does not mention roles" was a vacuous OK. A check that asks nothing
+     * cannot fail. Accept a space OR an immediate capital, and reject a digit
+     * or dot so 9.2 does not swallow 9.21. */
+    const t = lines[i].trim();
+    if (!t.startsWith(addr)) continue;
+    const c = t[addr.length];
+    if (c === undefined) continue;
+    if ((c >= "0" && c <= "9") || c === ".") continue;
+    if (!(c === " " || (c >= "A" && c <= "Z"))) continue;
     if (t.includes("....")) continue;
-    if (t.length <= prefix.length) continue;
     at = i;
   }
   if (at < 0) return null;
   const depth = addr.split(".").length;
   const out = [lines[at]];
   for (let i = at + 1; i < lines.length && out.length < 140; i++) {
-    const t = lines[i].trimStart();
-    const head = t.split(" ")[0];
-    const numeric = head.length > 0 && [...head].every((c) => (c >= "0" && c <= "9") || c === ".");
-    const nextIsCap = t.length > head.length + 1 && t[head.length] === " "
-      && t[head.length + 1] >= "A" && t[head.length + 1] <= "Z";
-    if (numeric && nextIsCap && head.split(".").length <= depth && !t.includes("....")) break;
+    /* ============ THE STOP CONDITION HAD THE SAME BLIND SPOT ============
+     * It took split(" ")[0] as the heading number, which for 27001s
+     * "4.2Understanding..." is the whole phrase and therefore not numeric --
+     * so the extractor never stopped, ran 140 lines past the clause, and swept
+     * clause 5 into clause 4.1. That is how "27001 clause 4.1 mentions role"
+     * came out of a clause whose body contains no such word. Scan the leading
+     * digits and dots directly instead of trusting a space to be there. */
+    const t = lines[i].trim();
+    let hl = 0;
+    while (hl < t.length && ((t[hl] >= "0" && t[hl] <= "9") || t[hl] === ".")) hl++;
+    const head = t.slice(0, hl);
+    /* The char after the number must be a CAPITAL, whether or not a space
+     * intervenes. Allowing a bare space broke on page furniture like
+     * "10            (c) ISO/IEC 2023" -- a page number read as clause 10,
+     * which truncated 6.2 to one item and cut role out of 4.1. */
+    let k = hl;
+    while (k < t.length && t[k] === " ") k++;
+    const nx = t[k];
+    const numeric = hl > 0 && head !== ".";
+    const nextOk = nx !== undefined && nx >= "A" && nx <= "Z";
+    if (numeric && nextOk && head.replace(/.$/, "").split(".").length <= depth && !t.includes("....")) break;
     out.push(lines[i]);
   }
   return out.join(NL);

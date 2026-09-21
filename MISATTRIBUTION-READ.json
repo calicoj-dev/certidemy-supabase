@@ -1,0 +1,223 @@
+{
+  "what": "Top 10 cross-family misattribution candidates, by how verbatim the passage is in a standard OTHER than the one cited.",
+  "measured": "2026-09-21",
+  "population": {
+    "all_misattributed": 80,
+    "harmonised_siblings_excluded": 37,
+    "cross_family": 43
+  },
+  "why_cross_family_only": "42001, 27001, 27000 and 27002 share clause text by design, so a sibling overlap means very little. These pairs share no harmonised text.",
+  "not_a_verdict": "The instrument sees reproduced EXPRESSION. A sentence can be a fair paraphrase of the cited clause and still share wording with another standard that says something similar. Fixed nothing.",
+  "rows": [
+    {
+      "rank": 1,
+      "run_words_in_actual_source": 15,
+      "where": {
+        "corpus": "lesson",
+        "certification": "ISMS-IA",
+        "ref": "isms-ia-01-03-objectivity-of-the-assignment"
+      },
+      "cited": {
+        "standard": "ISO 19011",
+        "address": null,
+        "verb": "requires",
+        "contiguous_words_found_there": 5
+      },
+      "attributed_text": "\" Clause 9.2.2 b) is one sentence, and it is the whole of what ISO/IEC 27001 says about who may audit: > select auditors and conduct audits that ensure objectivity and the impartiality of the audit process That is the requirement.",
+      "actual_source": "27001:2022",
+      "actual_source_says": "the audit criteria and scope for each audit b select auditors and conduct audits that ensure objectivity and the impartiality of the audit process c ensure that the results of the audits are reported to relevant management documented information shall be available as evidence of",
+      "matched_span": "the impartiality of the audit",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 2,
+      "run_words_in_actual_source": 11,
+      "where": {
+        "corpus": "lesson",
+        "certification": "ISMS-IA",
+        "ref": "isms-ia-05-01-whose-scheme-is-it"
+      },
+      "cited": {
+        "standard": "ISO 27001",
+        "address": null,
+        "verb": "defines",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "it: > **audit finding** - results of the evaluation of the collected audit evidence against the audit criteria Three things in one sentence, and each has been a lesson in this credential.",
+      "actual_source": "19011:2026",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 3,
+      "run_words_in_actual_source": 8,
+      "where": {
+        "corpus": "item",
+        "certification": "AIMS-IA",
+        "ref": "006140a2-f895-4e68-838e-71ecfdbe9ea2"
+      },
+      "cited": {
+        "standard": "ISO 42001",
+        "address": null,
+        "verb": "defines",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "audit criteria as requirements used as a reference against which objective evidence is compared.",
+      "actual_source": "19011:2026",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 4,
+      "run_words_in_actual_source": 8,
+      "where": {
+        "corpus": "item",
+        "certification": "AIMS-F",
+        "ref": "0cfd25ba-49e1-4c5b-ac4d-b5f7715b6274"
+      },
+      "cited": {
+        "standard": "ISO 42001",
+        "address": null,
+        "verb": "requires",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "designated management to approve the risk treatment plan and the acceptance of residual AI risks.",
+      "actual_source": "27005:2022",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 5,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "lesson",
+        "certification": "AIMS-IA",
+        "ref": "aims-ia-01-03-which-document-can-carry-a-finding"
+      },
+      "cited": {
+        "standard": "ISO 19011",
+        "address": null,
+        "verb": "note",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "to entry under clause 3.18, observing that *audit evidence* and *audit criteria* are defined there.",
+      "actual_source": "27000:2018",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 6,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "lesson",
+        "certification": "AIMS-IA",
+        "ref": "aims-ia-02-05-defining-one-audit"
+      },
+      "cited": {
+        "standard": "ISO 19011",
+        "address": null,
+        "verb": "requires",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "the audit programme to cover frequency, methods, responsibilities, planning requirements and reporting;",
+      "actual_source": "27001:2022",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 7,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "lesson",
+        "certification": "AIMS-IA",
+        "ref": "aims-ia-02-02-where-the-effort-goes"
+      },
+      "cited": {
+        "standard": "ISO 42001",
+        "address": null,
+        "verb": "says",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "the risk-based approach should substantively influence planning;",
+      "actual_source": "19011:2026",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 8,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "item",
+        "certification": "AIMS-F",
+        "ref": "1080ad8f-e2eb-4711-858d-8d932cd46420"
+      },
+      "cited": {
+        "standard": "ISO 42001",
+        "address": null,
+        "verb": "requires",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "the organisation to review the effectiveness of corrective actions, meaning it must confirm the root cause was eliminated and recurrence prevented, not merely that steps were executed.",
+      "actual_source": "27004:2016",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 9,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "item",
+        "certification": "ISMS-IA",
+        "ref": "9851c655-4b73-49da-9362-1faaf1f336f1"
+      },
+      "cited": {
+        "standard": "ISO 27001",
+        "address": "10.2",
+        "verb": "requires",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "the organisation to review the effectiveness of corrective actions — meaning the auditor must see evidence of the changed arrangement operating, not only evidence that it was established.",
+      "actual_source": "27004:2016",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    },
+    {
+      "rank": 10,
+      "run_words_in_actual_source": 7,
+      "where": {
+        "corpus": "item",
+        "certification": "ISMS-IA",
+        "ref": "9a10bafe-f9e0-4cb5-b9aa-5e90e8b8e603"
+      },
+      "cited": {
+        "standard": "ISO 19011",
+        "address": null,
+        "verb": "requires",
+        "contiguous_words_found_there": 0
+      },
+      "attributed_text": "the organisation to define audit criteria and scope for each audit;",
+      "actual_source": "27001:2022",
+      "actual_source_says": "(context not recoverable; the match is the n-gram score)",
+      "matched_span": "",
+      "your_verdict": "",
+      "your_note": ""
+    }
+  ]
+}
