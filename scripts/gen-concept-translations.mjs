@@ -68,6 +68,7 @@
  */
 
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contractForDomain, domainForCert } from "./lib/item-translation.mjs";
@@ -264,6 +265,30 @@ if (!APPLY) {
   process.exit(0);
 }
 
+/* ============ en_hash: THIS WRITER PREDATES THE GATE THAT NEEDS IT ========
+ *
+ * Migration 359 keyed `concept_translations.en_hash` to
+ * `concept_row_en_hash(concept_id)` and `mcp.concept` joins on it. This script
+ * was written before that and inserted no en_hash at all, so every row it
+ * wrote landed NULL and COULD NEVER PASS THE GATE -- it would fall back to
+ * English forever, silently, with the row present and looking translated.
+ *
+ * The same shape as "a migration that adds a column must name every writer",
+ * except the column is nullable, so nothing failed. Found while regenerating
+ * AIMS-F and fixed here rather than worked around there.
+ *
+ * The function is one line of SQL and is reproduced exactly:
+ *   left(md5(coalesce(name,'') without CR || '|' || coalesce(description,'')
+ *            without CR), 16)
+ * A control below checks this JS against the database's own answer rather than
+ * trusting that the reproduction is faithful. */
+/* Escape-free: shell transports have collapsed backslashes in this repo all day. */
+const CR = String.fromCharCode(13);
+const enHash = (name, description) =>
+  createHash("md5")
+    .update(String(name ?? "").split(CR).join("") + "|" + String(description ?? "").split(CR).join(""))
+    .digest("hex").slice(0, 16);
+
 /* ------------------------------------------------------------------ apply */
 let wrote = 0, failed = 0, guardFail = 0;
 const problems = [];
@@ -303,6 +328,7 @@ for (let i = 0; i < plan.length; i++) {
       concept_id: c.id, language: p.lang,
       name: t.name ?? null, description: t.description ?? null,
       is_provisional: true, review_status: "unreviewed",
+      en_hash: enHash(c.name, c.description),
     });
   }
   if (bad) { failed++; continue; }
@@ -324,12 +350,29 @@ const after = await all("concept_translations?select=concept_id,language,is_prov
 console.log("");
 console.log("  wrote " + wrote + " row(s), " + failed + " batch(es) failed");
 console.log("  table now holds " + after.length + " row(s)");
-const served = after.filter((r) => !r.is_provisional).length;
-if (served !== 0) {
-  console.error("  " + served + " row(s) are NOT provisional -- these are live to partners now");
+
+/* ============ THIS POST-CONDITION WAS CORPUS-WIDE AND IS NOT ANY MORE ====
+ *
+ * It asserted that NO row in the whole table is non-provisional. That was true
+ * the day it was written, when nothing had been cleared. 2,236 rows have since
+ * been reviewed and cleared on purpose, so the assertion now fires on a
+ * perfectly correct database and reports legitimately-serving content as
+ * "live to partners now".
+ *
+ * A post-condition guards THIS WRITE. A corpus-wide property belongs in a
+ * check script -- CLAUDE.md's own distinction, and the same misplacement as
+ * the four migrations that aborted on literals about rows they never touched.
+ *
+ * Scoped to the rows this run actually wrote. */
+const writtenIds = new Set(plan.slice(0, LIMIT_BATCHES || plan.length).flatMap((p) => p.batch.map((c) => c.id)));
+const mineServed = after.filter((r) => writtenIds.has(r.concept_id) && r.is_provisional === false);
+if (mineServed.length !== 0) {
+  console.error("  " + mineServed.length + " row(s) THIS RUN WROTE are not provisional -- they would serve immediately");
   process.exit(1);
 }
-console.log("  0 rows are non-provisional, so nothing is served yet");
+console.log("  0 of the " + writtenIds.size + " concept(s) this run touched are non-provisional");
+const clearedElsewhere = after.filter((r) => !writtenIds.has(r.concept_id) && r.is_provisional === false).length;
+console.log("  " + clearedElsewhere + " row(s) elsewhere in the table are cleared and serving, which is expected");
 if (problems.length) {
   console.log("");
   console.log("  " + problems.length + " language-guard concern(s):");

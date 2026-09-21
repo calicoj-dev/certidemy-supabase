@@ -1,0 +1,58 @@
+{
+  "measured": "2026-09-21",
+  "concepts": 154,
+  "rows": 308,
+  "address_occurrences_checked": 238,
+  "addresses_lost": 0,
+  "checks": [
+    {
+      "check": "every concept has both languages",
+      "ok": true
+    },
+    {
+      "check": "es-419: one row per concept",
+      "ok": true
+    },
+    {
+      "check": "es-419: no empty name or description",
+      "ok": true
+    },
+    {
+      "check": "es-419: no suffix shared by more than 20 rows",
+      "ok": true
+    },
+    {
+      "check": "es-419: en_hash matches the live English",
+      "ok": true
+    },
+    {
+      "check": "es-419: nothing serves yet",
+      "ok": true
+    },
+    {
+      "check": "pt-BR: one row per concept",
+      "ok": true
+    },
+    {
+      "check": "pt-BR: no empty name or description",
+      "ok": true
+    },
+    {
+      "check": "pt-BR: no suffix shared by more than 20 rows",
+      "ok": true
+    },
+    {
+      "check": "pt-BR: en_hash matches the live English",
+      "ok": true
+    },
+    {
+      "check": "pt-BR: nothing serves yet",
+      "ok": true
+    },
+    {
+      "check": "every clause address, annex reference and control id survives translation",
+      "ok": true
+    }
+  ],
+  "losses": []
+}

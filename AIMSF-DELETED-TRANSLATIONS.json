@@ -1,0 +1,22 @@
+{
+  "deleted": "2026-09-21",
+  "rows": 308,
+  "why": "placeholder renderings of the template stub",
+  "sample": [
+    {
+      "language": "es-419",
+      "name": "Evidencia que no se puede compartir",
+      "description": "Evidencia que no se puede compartir según lo exige o describe la norma ISO/IEC 42001:2023 y lo enseña el blueprint AIMS-F."
+    },
+    {
+      "language": "es-419",
+      "name": "Sistema de gestión de IA",
+      "description": "Sistema de gestión de IA según lo requerido o descrito por la norma ISO/IEC 42001:2023 y lo enseñado en el temario de AIMS-F."
+    },
+    {
+      "language": "es-419",
+      "name": "Norma de sistema de gestión",
+      "description": "Norma de sistema de gestión según lo requerido o descrito por la norma ISO/IEC 42001:2023 y lo enseñado en el temario de AIMS-F."
+    }
+  ]
+}
