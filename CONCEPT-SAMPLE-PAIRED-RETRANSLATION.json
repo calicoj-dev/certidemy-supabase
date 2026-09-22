@@ -1,0 +1,718 @@
+{
+  "generated": "2026-09-22",
+  "seed": "2026-09-22-aims-ia-retranslation",
+  "paired": true,
+  "certifications": [
+    "AIMS-IA",
+    "ISMS-IA"
+  ],
+  "slugs": 40,
+  "renderings": 80,
+  "method": "PAIRED. One seeded draw of N concept slugs per certification; BOTH languages of each slug are emitted, so every rendering has the other as its control. Coverage halves against an independent draw (N distinct slugs instead of about 2N); evidence per slug doubles. The 2026-09-20 independent draw cleared two draws that were serving a defect rooted in the ENGLISH, which an independent draw can only find by luck.",
+  "fields": "Every row carries en_name, en_description, and name + description in each language. gen-sibling-check emitted descriptions only and was blind to 6 of 29 flagged defects, all of which lived in the NAME.",
+  "what_this_sample_may_claim": "Translation fidelity against the English shown beside it. It cannot clear SOURCE adequacy: a faithful rendering of a poor English description is a correct translation. AIMS-F's English was rewritten in migration 363 and audited separately (AIMSF-CLAIM-AUDIT.json, 67 OK / 0 FAIL).",
+  "how_to_work_this_file": "Read a row as a triple. Put a verdict on the ROW: ok | wrong | reword. Use note to say which language and which field. A defect that appears in both languages is rooted in the English and is the one this shape exists to surface.",
+  "status": "ALL regenerated rows are PROVISIONAL and withheld. Nothing is cleared by this file existing; the loop closes on your read.",
+  "limits": [
+    "The leak index is ENGLISH-ONLY. Spanish and Portuguese editions of these standards exist and are not held, so a translated row coinciding with ISO own official rendering is UNMEASURABLE. The ordering protects in practice - these translations were made from clean English rather than from reproductions - but no instrument here can demonstrate it.",
+    "ISO/IEC 27000 is the 2018 edition, against a 2022 standard that references it undated.",
+    "ISO/IEC 42006 is not indexed and must not be reported as covered.",
+    "A score of 0 means no reproduction of the INDEXED documents, never no reproduction."
+  ],
+  "draws": [
+    {
+      "certification": "AIMS-IA",
+      "population": 158,
+      "sample_size": 20,
+      "rows": [
+        {
+          "slug": "aia-documented-information-review",
+          "en_name": "Reviewing documented information",
+          "en_description": "ISO 19011:2026 clause 6.3.1 covers performing the review of documented information before fieldwork: understanding the management system, gathering information to prepare audit activities and working documents, and forming a view of the extent of documentation relative to the audit objectives, scope and criteria. If what is supplied is inadequate the audit team leader should inform those responsible, and decide whether to continue or to suspend until the matter is resolved.",
+          "es-419": {
+            "name": "Revisar la información documentada",
+            "description": "El apartado 6.3.1 de ISO 19011:2026 cubre la realización de la revisión de la información documentada antes del trabajo de campo: comprender el sistema de gestión, reunir información para preparar las actividades de auditoría y los documentos de trabajo, y formarse una visión del alcance de la documentación en relación con los objetivos, el alcance y los criterios de la auditoría. Si lo suministrado es inadecuado, el líder del equipo auditor debería informar a los responsables y decidir si continuar o suspender hasta que el asunto se resuelva.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Analisar a informação documentada",
+            "description": "A Seção 6.3.1 da ISO 19011:2026 trata da realização da análise da informação documentada antes do trabalho de campo: compreender o sistema de gestão, reunir informações para preparar as atividades de auditoria e os documentos de trabalho, e formar uma visão sobre a extensão da documentação em relação aos objetivos, ao escopo e aos critérios da auditoria. Se o que for fornecido for inadequado, convém que o líder da equipe de auditoria informe os responsáveis e decida se continua ou se suspende até que a questão seja resolvida.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-climate-change-4-1",
+          "en_name": "Climate change in clause 4.1",
+          "en_description": "Clause 4.1 obliges a determination, not an answer. An organization that considers climate change, concludes it is not relevant and records why has met the requirement; one that never asked has not, whatever its actual exposure turns out to be.",
+          "es-419": {
+            "name": "El cambio climático en el apartado 4.1",
+            "description": "El apartado 4.1 obliga a una determinación, no a una respuesta. Una organización que considera el cambio climático, concluye que no es pertinente y registra por qué, ha cumplido el requisito; una que nunca se lo preguntó, no, sea cual sea su exposición real.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Mudança climática na Seção 4.1",
+            "description": "A Seção 4.1 obriga uma determinação, não uma resposta. Uma organização que considera a mudança climática, conclui que ela não é relevante e registra o porquê atendeu ao requisito; a que nunca perguntou não atendeu, qualquer que seja sua exposição real.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-confidentiality-in-reporting",
+          "en_name": "Confidentiality against completeness",
+          "en_description": "Clause 4.5 asks for discretion over information acquired during the audit, which pulls against the completeness clause 4.3 wants - sharply where evidence holds personal data or commercially sensitive model detail. Nothing in the text ranks the two. The usual resolution is to state the finding fully and keep the underlying evidence in the audit record rather than the distributed report.",
+          "es-419": {
+            "name": "Confidencialidad frente a exhaustividad",
+            "description": "El apartado 4.5 pide discreción sobre la información obtenida durante la auditoría, lo que tira en contra de la exhaustividad que quiere el apartado 4.3, y de forma aguda cuando la evidencia contiene datos personales o detalles del modelo comercialmente sensibles. Nada en el texto jerarquiza a una sobre la otra. La resolución habitual es enunciar el hallazgo por completo y mantener la evidencia subyacente en el registro de la auditoría y no en el informe distribuido.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Confidencialidade diante da completude",
+            "description": "A Seção 4.5 pede discrição quanto às informações obtidas durante a auditoria, o que puxa contra a completude que a Seção 4.3 quer — de forma aguda quando a evidência contém dados pessoais ou detalhes de modelo comercialmente sensíveis. Nada no texto hierarquiza as duas. A resolução usual é declarar o achado integralmente e manter a evidência subjacente no registro da auditoria, e não no relatório distribuído.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-19011-is-guidance-only",
+          "en_name": "ISO 19011 states no requirements",
+          "en_description": "ISO 19011:2026 clause 1 states that the document gives guidance on auditing management systems. It contains 264 instances of should and one of shall, which is boilerplate about ISO patent rights and not an audit requirement. Clause 2 records that there are no normative references in the document. An auditor may therefore write that ISO 19011 recommends, advises or calls for something, and may quote a clause and its modal, but never that ISO 19011 requires or mandates anything.",
+          "es-419": {
+            "name": "La norma ISO 19011 no establece requisitos",
+            "description": "El capítulo 1 de la norma ISO 19011:2026 indica que el documento brinda orientación sobre la auditoría de sistemas de gestión. Contiene 264 apariciones de «should» (debería) y una de «shall» (debe), que es texto estándar sobre los derechos de patente de ISO y no un requisito de auditoría. El capítulo 2 registra que no hay referencias normativas en el documento. Por lo tanto, un auditor puede escribir que la norma ISO 19011 recomienda, aconseja o propone algo, y puede citar un apartado y su modal, pero nunca que la norma ISO 19011 exige u obliga a algo.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "A ISO 19011 não estabelece requisitos",
+            "description": "A Seção 1 da ISO 19011:2026 declara que o documento dá orientação sobre auditoria de sistemas de gestão. Ele contém 264 ocorrências de should (convém que) e uma de shall (deve), que é texto padronizado sobre direitos de patente da ISO e não um requisito de auditoria. A Seção 2 registra que não há referências normativas no documento. Um auditor pode, portanto, escrever que a ISO 19011 recomenda, aconselha ou preconiza algo, e pode citar uma seção e seu verbo modal, mas nunca que a ISO 19011 exige ou obriga a qualquer coisa.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-evidence-requirement-link",
+          "en_name": "Linking evidence to requirement",
+          "en_description": "The link is what a finding is. Evidence with no requirement behind it is an observation; a requirement with no evidence is an assertion. Annex A.18.3 c) asks for the explanation of why the criteria are not met to be written out, which is the link made explicit rather than left for the reader to construct.",
+          "es-419": {
+            "name": "Vincular la evidencia con el requisito",
+            "description": "El vínculo es lo que constituye un hallazgo. Evidencia sin un requisito detrás es una observación; un requisito sin evidencia es una afirmación. El Anexo A.18.3 c) pide que se escriba la explicación de por qué no se cumplen los criterios, que es el vínculo hecho explícito en lugar de dejado al lector para que lo construya.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Ligar a evidência ao requisito",
+            "description": "A ligação é o que um achado é. Evidência sem um requisito por trás é uma observação; um requisito sem evidência é uma afirmação. O Anexo A.18.3 c) pede que a explicação de por que os critérios não são atendidos seja escrita, o que é a ligação tornada explícita em vez de deixada para o leitor construir.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-climate-note-4-2",
+          "en_name": "The climate note in clause 4.2",
+          "en_description": "Clause 4.2 carries this as a note, which puts it below even a should - no finding can rest on it. It marks where the topic surfaces when interested-party requirements are determined, and knowing that a note cannot carry a nonconformity is the examinable point.",
+          "es-419": {
+            "name": "La nota sobre el clima en el apartado 4.2",
+            "description": "El apartado 4.2 lo trae como una nota, lo que la sitúa por debajo incluso de un «debería»: ningún hallazgo puede sustentarse en ella. Señala dónde aparece el tema cuando se determinan los requisitos de las partes interesadas, y saber que una nota no puede sustentar una no conformidad es el punto examinable.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "A nota climática na Seção 4.2",
+            "description": "A Seção 4.2 traz isso como uma nota, o que a coloca abaixo até de um \"convém que\" — nenhum achado pode se apoiar nela. Ela marca onde o tema aparece quando os requisitos das partes interessadas são determinados, e saber que uma nota não pode sustentar uma não conformidade é o ponto examinável.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-programme-monitoring",
+          "en_name": "Monitoring the audit programme",
+          "en_description": "ISO 19011:2026 clause 5.6 covers monitoring the audit programme, and clause 5.5.6 the managing of audit programme results. Monitoring asks whether the programme is being implemented as planned and whether it is achieving its objectives, which is a different question from whether any individual audit was conducted well.",
+          "es-419": {
+            "name": "Seguimiento del programa de auditoría",
+            "description": "El apartado 5.6 de ISO 19011:2026 aborda el seguimiento del programa de auditoría, y el apartado 5.5.6, la gestión de los resultados del programa de auditoría. El seguimiento pregunta si el programa se está implementando según lo planificado y si está logrando sus objetivos, lo cual es una pregunta distinta de si una auditoría individual se condujo bien.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Monitoramento do programa de auditoria",
+            "description": "A Seção 5.6 da ISO 19011:2026 trata do monitoramento do programa de auditoria, e a Seção 5.5.6, da gestão dos resultados do programa de auditoria. O monitoramento pergunta se o programa está sendo implementado conforme planejado e se está atingindo seus objetivos, o que é uma questão diferente de saber se alguma auditoria individual foi bem conduzida.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-finding-against-a-note",
+          "en_name": "Findings and notes",
+          "en_description": "A note is neither a requirement nor guidance in the sense a should carries, and no finding rests on one. One drafting anomaly is worth knowing rather than turning into an exam point: Note 2 to entry under ISO/IEC 42001:2023 clause 3.26 contains a shall. Where the statement of applicability is at issue, clause 6.1.3 f) is the requirement text to cite.",
+          "es-419": {
+            "name": "Hallazgos y notas",
+            "description": "Una nota no es un requisito ni una orientación en el sentido que tiene un «debería», y ningún hallazgo se apoya en una nota. Vale la pena conocer una anomalía de redacción, más que convertirla en punto de examen: la Nota 2 a la entrada del apartado 3.26 de ISO/IEC 42001:2023 contiene un «debe». Cuando lo que está en cuestión es la Declaración de Aplicabilidad, el texto de requisito que debe citarse es el apartado 6.1.3 f).",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Constatações e notas",
+            "description": "Uma nota não é nem requisito nem orientação no sentido que um \"should\" carrega, e nenhuma constatação se apoia em uma nota. Vale conhecer uma anomalia de redação, em vez de transformá-la em ponto de prova: a Nota 2 de entrada da Seção 3.26 da ISO/IEC 42001:2023 contém um \"shall\". Quando a Declaração de Aplicabilidade está em questão, a Seção 6.1.3 f) é o texto de requisito a ser citado.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-remote-audit-methods",
+          "en_name": "Remote auditing methods",
+          "en_description": "ISO 19011:2026 Annex A.16 addresses remote auditing methods: an audit using technology during the audit process for observing, interviewing and verifying objective evidence. It records that remote methods can be necessary for auditing virtual locations, that ensuring the audit is effectively conducted is a joint responsibility of auditee and auditors, and that remote methods can introduce additional risks and opportunities. The fourth edition expanded this guidance from ISO/IEC TS 17012.",
+          "es-419": {
+            "name": "Métodos de auditoría remota",
+            "description": "El Anexo A.16 de ISO 19011:2026 aborda los métodos de auditoría remota: una auditoría que usa tecnología durante el proceso de auditoría para observar, entrevistar y verificar evidencia objetiva. Consigna que los métodos remotos pueden ser necesarios para auditar ubicaciones virtuales, que asegurar que la auditoría se lleve a cabo eficazmente es una responsabilidad conjunta del auditado y de los auditores, y que los métodos remotos pueden introducir riesgos y oportunidades adicionales. La cuarta edición amplió esta orientación a partir de ISO/IEC TS 17012.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Métodos de auditoria remota",
+            "description": "A ISO 19011:2026, Anexo A.16, trata dos métodos de auditoria remota: uma auditoria que usa tecnologia durante o processo de auditoria para observar, entrevistar e verificar evidências objetivas. Registra que métodos remotos podem ser necessários para auditar locais virtuais, que assegurar que a auditoria seja conduzida eficazmente é uma responsabilidade conjunta do auditado e dos auditores, e que métodos remotos podem introduzir riscos e oportunidades adicionais. A quarta edição expandiu essa orientação a partir da ISO/IEC TS 17012.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-opportunity-for-improvement",
+          "en_name": "Opportunities for improvement",
+          "en_description": "Not a weak nonconformity. Clause 3.11 Note 2 and clause 6.4.8 treat it as what an auditor records when the criteria ARE met and something could still be better. Grading a finding down to an opportunity because it would be awkward to raise is the misuse the distinction exists to prevent.",
+          "es-419": {
+            "name": "Oportunidades de mejora",
+            "description": "No es una no conformidad débil. El apartado 3.11 Nota 2 y el apartado 6.4.8 la tratan como lo que un auditor registra cuando los criterios SÍ se cumplen y algo aún podría estar mejor. Degradar un hallazgo a oportunidad porque sería incómodo levantarlo es el mal uso que la distinción existe para evitar.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Oportunidades de melhoria",
+            "description": "Não é uma não conformidade fraca. A Seção 3.11, Nota 2, e a Seção 6.4.8 a tratam como aquilo que um auditor registra quando os critérios SÃO atendidos e algo ainda poderia ser melhor. Rebaixar um achado a uma oportunidade porque seria incômodo levantá-lo é o mau uso que a distinção existe para evitar.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-climate-native-not-amendment",
+          "en_name": "Climate wording is in the first edition",
+          "en_description": "The climate change wording is present in the published first edition of ISO/IEC 42001:2023. There is no amendment to the standard, and a citation to ISO/IEC 42001:2023/Amd 1 refers to a document that does not exist. This differs from ISO/IEC 27001:2022, which acquired the same two additions through Amendment 1:2024, and it is a distinction an auditor working across both standards should keep straight.",
+          "es-419": {
+            "name": "La redacción sobre el clima está en la primera edición",
+            "description": "La redacción sobre el cambio climático está presente en la primera edición publicada de la norma ISO/IEC 42001:2023. No hay ninguna enmienda a la norma, y una cita a ISO/IEC 42001:2023/Amd 1 remite a un documento que no existe. Esto difiere de la norma ISO/IEC 27001:2022, que adquirió las mismas dos incorporaciones mediante la Enmienda 1:2024, y es una distinción que un auditor que trabaja con ambas normas debería tener clara.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "A redação sobre clima está na primeira edição",
+            "description": "A redação sobre mudança climática está presente na primeira edição publicada da ISO/IEC 42001:2023. Não há emenda à norma, e uma citação a ISO/IEC 42001:2023/Amd 1 remete a um documento que não existe. Isso difere da ISO/IEC 27001:2022, que adquiriu as mesmas duas adições por meio da Emenda 1:2024, e é uma distinção que um auditor que trabalha com ambas as normas deve manter clara.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-finding-against-annex-b",
+          "en_name": "Findings and Annex B",
+          "en_description": "No nonconformity can be raised because an organization implemented a control differently from Annex B. The annex is normative in status but written as should, and clause B.1 says its guidance is not always suitable or sufficient. Clause 6.1.3 e) requires consideration, so consideration is what the evidence has to show.",
+          "es-419": {
+            "name": "Los hallazgos y el Anexo B",
+            "description": "No puede levantarse ninguna no conformidad porque una organización haya implementado un control de forma distinta a la del Anexo B. El anexo es normativo por su condición, pero está redactado con «debería», y el apartado B.1 señala que su orientación no siempre es adecuada ni suficiente. El apartado 6.1.3 e) exige consideración, así que la consideración es lo que la evidencia tiene que mostrar.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Constatações e o Anexo B",
+            "description": "Nenhuma não conformidade pode ser levantada porque uma organização implementou um controle de forma diferente do Anexo B. O anexo tem status normativo, mas é redigido com “convém que”, e a Seção B.1 diz que sua orientação nem sempre é adequada ou suficiente. A alínea e) da Seção 6.1.3 exige consideração, então é a consideração que a evidência tem de demonstrar.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-technical-expert-vs-auditor",
+          "en_name": "Technical expert on the audit team",
+          "en_description": "Clauses 3.15 and 3.17 keep these apart: the team conducts the audit, a technical expert supplies knowledge to it. Bringing a data scientist in to read model evaluation evidence is the intended use; letting that person audit their own team's work is not, and the definitions are where the line sits.",
+          "es-419": {
+            "name": "El experto técnico en el equipo auditor",
+            "description": "Los apartados 3.15 y 3.17 los mantienen separados: el equipo realiza la auditoría, un experto técnico le aporta conocimiento. Traer a un científico de datos para leer la evidencia de evaluación de modelos es el uso previsto; dejar que esa persona audite el trabajo de su propio equipo no lo es, y las definiciones son donde está la línea.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Especialista técnico na equipe de auditoria",
+            "description": "As Seções 3.15 e 3.17 mantêm os dois separados: a equipe conduz a auditoria, o especialista técnico fornece conhecimento a ela. Trazer um cientista de dados para interpretar evidências de avaliação de modelos é o uso pretendido; deixar essa pessoa auditar o trabalho da própria equipe não é, e é nas definições que está a linha.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-organizational-vs-auditor-competence",
+          "en_name": "Two different competence questions",
+          "en_description": "Clause 7.2 concerns the competence of the organization's own people doing work that affects AI performance. ISO 19011:2026 clause 7 concerns the competence of the auditors. They are separate questions with separate sources, and an internal auditor can hold one while raising a finding about the other.",
+          "es-419": {
+            "name": "Dos cuestiones distintas de competencia",
+            "description": "El apartado 7.2 se refiere a la competencia del personal propio de la organización que realiza trabajo que afecta el desempeño de IA. El capítulo 7 de ISO 19011:2026 se refiere a la competencia de los auditores. Son cuestiones separadas con fuentes separadas, y un auditor interno puede poseer una mientras plantea un hallazgo sobre la otra.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Duas questões distintas de competência",
+            "description": "A Seção 7.2 trata da competência das próprias pessoas da organização que realizam trabalho que afeta o desempenho de IA. A Seção 7 da ISO 19011:2026 trata da competência dos auditores. São questões separadas, com fontes separadas, e um auditor interno pode deter uma delas enquanto levanta uma constatação sobre a outra.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-no-certification-to-19011",
+          "en_name": "No organization is certified to ISO 19011",
+          "en_description": "Because ISO 19011:2026 states no requirements, there is nothing for an organization to conform to and nothing to certify against. It is written for auditors and audit programme managers rather than for the organizations they audit. A claim that an audit programme is compliant with, or certified to, ISO 19011 misdescribes what the document is.",
+          "es-419": {
+            "name": "Ninguna organización se certifica conforme a la norma ISO 19011",
+            "description": "Dado que la norma ISO 19011:2026 no establece requisitos, no hay nada con lo que una organización pueda conformarse ni nada contra lo cual certificarse. Está escrita para auditores y para quienes gestionan programas de auditoría, y no para las organizaciones que estos auditan. Afirmar que un programa de auditoría cumple con la norma ISO 19011 o está certificado conforme a ella describe erróneamente lo que el documento es.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Nenhuma organização é certificada na ISO 19011",
+            "description": "Como a ISO 19011:2026 não estabelece requisitos, não há nada a que uma organização possa se conformar e nada contra o que certificar. Ela é escrita para auditores e gestores de programas de auditoria, e não para as organizações que eles auditam. A alegação de que um programa de auditoria está em conformidade com, ou certificado na, ISO 19011 descreve erroneamente o que o documento é.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-clause-6-1-2-risk-assessment",
+          "en_name": "Clause 6.1.2 AI risk assessment",
+          "en_description": "Clause 6.1.2 obliges a defined AI risk assessment process with named properties: aligned to the AI policy and objectives, repeatable enough to give consistent and comparable results, and able to identify, analyse and evaluate risks to the AI objectives. The requirement is on the process, not on any one assessment.",
+          "es-419": {
+            "name": "Apartado 6.1.2: evaluación de riesgos de IA",
+            "description": "El apartado 6.1.2 obliga a contar con un proceso definido de evaluación de riesgos de IA con propiedades nombradas: alineado con la política y los objetivos de IA, lo bastante repetible como para dar resultados consistentes y comparables, y capaz de identificar, analizar y valorar los riesgos para los objetivos de IA. El requisito recae sobre el proceso, no sobre ninguna evaluación en particular.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Seção 6.1.2 avaliação de riscos de IA",
+            "description": "A Seção 6.1.2 obriga um processo definido de avaliação de riscos de IA com propriedades nomeadas: alinhado à política e aos objetivos de IA, repetível o bastante para dar resultados consistentes e comparáveis, e capaz de identificar, analisar e avaliar riscos aos objetivos de IA. O requisito recai sobre o processo, não sobre qualquer avaliação isolada.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-clause-7-5-documented-information",
+          "en_name": "Clause 7.5 documented information",
+          "en_description": "ISO/IEC 42001:2023 clause 7.5.1 requires the AI management system to include the documented information required by the standard and that determined by the organization as necessary for the system's effectiveness. Clause 7.5.2 covers creating and updating it, and 7.5.3 covers its control. A note in 7.5.1 records that the extent can differ between organizations according to size, complexity of processes and competence of persons, so volume is not itself a measure of conformity.",
+          "es-419": {
+            "name": "Apartado 7.5 información documentada",
+            "description": "El apartado 7.5.1 de la norma ISO/IEC 42001:2023 exige que el sistema de gestión de IA incluya la información documentada requerida por la norma y la que la organización determine como necesaria para la eficacia del sistema. El apartado 7.5.2 cubre su creación y actualización, y el 7.5.3 cubre su control. Una nota en 7.5.1 registra que la extensión puede diferir entre organizaciones según el tamaño, la complejidad de los procesos y la competencia de las personas, por lo que el volumen no es en sí mismo una medida de conformidad.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Seção 7.5 informação documentada",
+            "description": "A Seção 7.5.1 da ISO/IEC 42001:2023 exige que o sistema de gestão de IA inclua a informação documentada requerida pela norma e aquela determinada pela organização como necessária para a eficácia do sistema. A Seção 7.5.2 trata de sua criação e atualização, e a 7.5.3 trata de seu controle. Uma nota em 7.5.1 registra que a extensão pode diferir entre organizações conforme o porte, a complexidade dos processos e a competência das pessoas, de modo que o volume não é, em si, uma medida de conformidade.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-closing-meeting",
+          "en_name": "The closing meeting",
+          "en_description": "ISO 19011:2026 clause 6.4.10 covers the closing meeting, at which the audit findings and conclusions are presented so that they are understood and acknowledged. It is where diverging opinions between the audit team and the auditee are discussed and, where possible, resolved, and where any unresolved difference is recorded rather than smoothed over.",
+          "es-419": {
+            "name": "La reunión de cierre",
+            "description": "El apartado 6.4.10 de la norma ISO 19011:2026 cubre la reunión de cierre, en la que se presentan los hallazgos y las conclusiones de la auditoría de modo que se comprendan y se reconozcan. Es donde se discuten y, cuando es posible, se resuelven las opiniones divergentes entre el equipo auditor y el auditado, y donde toda diferencia no resuelta se registra en lugar de disimularse.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "A reunião de encerramento",
+            "description": "A Seção 6.4.10 da ISO 19011:2026 trata da reunião de encerramento, na qual as constatações e as conclusões da auditoria são apresentadas de modo que sejam compreendidas e reconhecidas. É onde opiniões divergentes entre a equipe de auditoria e o auditado são discutidas e, quando possível, resolvidas, e onde qualquer diferença não resolvida é registrada em vez de ser dissimulada.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-scope-exclusion-justification",
+          "en_name": "Testing an exclusion",
+          "en_description": "Clause 4.3 does not require the organization to justify exclusions in the way clause 6.1.3 f) requires justification for controls, but an exclusion still has to be consistent with the issues, interested-party requirements and roles that clauses 4.1 and 4.2 produced. An AI system the organization develops, sitting outside a scope that claims to cover development, is an inconsistency the auditor can evidence from the organization's own determinations.",
+          "es-419": {
+            "name": "Comprobar una exclusión",
+            "description": "El apartado 4.3 no exige que la organización justifique las exclusiones del modo en que el apartado 6.1.3 f) exige la justificación de los controles, pero una exclusión igualmente tiene que ser coherente con las cuestiones, los requisitos de las partes interesadas y los roles que produjeron los apartados 4.1 y 4.2. Un sistema de IA que la organización desarrolla, situado fuera de un alcance que dice cubrir el desarrollo, es una incoherencia que el auditor puede evidenciar a partir de las propias determinaciones de la organización.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Testando uma exclusão",
+            "description": "A Seção 4.3 não exige que a organização justifique exclusões da forma como a Seção 6.1.3 f) exige justificativa para os controles, mas uma exclusão ainda precisa ser consistente com as questões, os requisitos das partes interessadas e os papéis que as Seções 4.1 e 4.2 produziram. Um sistema de IA que a organização desenvolve, situado fora de um escopo que afirma cobrir desenvolvimento, é uma inconsistência que o auditor pode evidenciar a partir das próprias determinações da organização.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "aia-method-vs-criteria",
+          "en_name": "Audit methodology and audit criteria are different documents",
+          "en_description": "ISO 19011:2026 supplies the method: how to manage an audit programme, conduct an audit and evaluate auditor competence. ISO/IEC 42001:2023 supplies the criteria: the requirements an AI management system is examined against. A finding is raised against criteria, never against the method. Confusing the two produces a finding that cannot stand, because a guidance document contains no requirement capable of being unfulfilled.",
+          "es-419": {
+            "name": "La metodología de auditoría y los criterios de auditoría son documentos distintos",
+            "description": "La norma ISO 19011:2026 aporta el método: cómo gestionar un programa de auditoría, realizar una auditoría y evaluar la competencia del auditor. La norma ISO/IEC 42001:2023 aporta los criterios: los requisitos frente a los cuales se examina un sistema de gestión de IA. Un hallazgo se plantea contra los criterios, nunca contra el método. Confundir ambos produce un hallazgo que no se sostiene, porque un documento de orientación no contiene ningún requisito susceptible de quedar incumplido.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Metodologia de auditoria e critérios de auditoria são documentos diferentes",
+            "description": "A ISO 19011:2026 fornece o método: como gerenciar um programa de auditoria, conduzir uma auditoria e avaliar a competência do auditor. A ISO/IEC 42001:2023 fornece os critérios: os requisitos contra os quais um sistema de gestão de IA é examinado. Uma constatação é levantada contra critérios, nunca contra o método. Confundir os dois produz uma constatação que não se sustenta, porque um documento de orientação não contém requisito algum passível de não ser atendido.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "certification": "ISMS-IA",
+      "population": 169,
+      "sample_size": 20,
+      "rows": [
+        {
+          "slug": "ia-control-design-versus-operating-effectiveness",
+          "en_name": "Design against operating effectiveness",
+          "en_description": "A control can be well designed and documented yet not operate, or operate for part of the period. Evidence that a control exists is not evidence that it ran.",
+          "es-419": {
+            "name": "Diseño frente a eficacia operativa",
+            "description": "Un control puede estar bien diseñado y documentado y aun así no operar, u operar solo durante parte del periodo. La evidencia de que un control existe no es evidencia de que se ejecutó.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Concepção versus eficácia operacional",
+            "description": "Um controle pode estar bem concebido e documentado e ainda assim não operar, ou operar durante parte do período. Evidência de que um controle existe não é evidência de que ele funcionou.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-objective-evidence-versus-audit-evidence",
+          "en_name": "Objective evidence is not audit evidence",
+          "en_description": "Two distinct defined terms. Objective evidence (3.9) is data supporting the existence or verity of something; audit evidence (3.10) is objective evidence that is relevant to the audit criteria and verifiable. The clause 3.1 definition of audit uses the former.",
+          "es-419": {
+            "name": "La evidencia objetiva no es evidencia de auditoría",
+            "description": "Dos términos definidos distintos. La evidencia objetiva (3.9) son datos que respaldan la existencia o la veracidad de algo; la evidencia de auditoría (3.10) es evidencia objetiva que es pertinente para los criterios de auditoría y verificable. La definición de auditoría del apartado 3.1 utiliza la primera.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Evidência objetiva não é evidência de auditoria",
+            "description": "São dois termos definidos distintos. Evidência objetiva (3.9) são dados que apoiam a existência ou a veracidade de algo; evidência de auditoria (3.10) é evidência objetiva que é pertinente aos critérios de auditoria e verificável. A definição de auditoria da Seção 3.1 usa a primeira.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-policy-availability-and-communication",
+          "en_name": "Policy availability and communication",
+          "en_description": "Clause 5.2 separately requires the policy to be available as documented information, communicated within the organization, and available to interested parties as appropriate.",
+          "es-419": {
+            "name": "Disponibilidad y comunicación de la política",
+            "description": "El apartado 5.2 requiere por separado que la política esté disponible como información documentada, se comunique dentro de la organización y esté disponible para las partes interesadas, según corresponda.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Disponibilidade e comunicação da política",
+            "description": "A Seção 5.2 exige separadamente que a política esteja disponível como informação documentada, seja comunicada dentro da organização e esteja disponível para as partes interessadas, conforme apropriado.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-planning-of-changes-clause-6-3",
+          "en_name": "Planning of changes",
+          "en_description": "Clause 6.3 says that once the organization decides the ISMS needs changing, the change has to be carried out in a planned manner. It is routinely missed because it does not appear on the standard's own contents page.",
+          "es-419": {
+            "name": "Planificación de los cambios",
+            "description": "El apartado 6.3 dice que, una vez que la organización determina que el SGSI necesita cambios, el cambio debe llevarse a cabo de manera planificada. Se pasa por alto habitualmente porque no aparece en el índice de contenidos de la propia norma.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Planejamento de mudanças",
+            "description": "A Seção 6.3 diz que, uma vez que a organização determina que o SGSI precisa ser mudado, a mudança tem de ser realizada de forma planejada. É rotineiramente esquecida porque não aparece no sumário da própria norma.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-judgement-based-sampling",
+          "en_name": "Judgement-based sampling",
+          "en_description": "Selection driven by the auditor's knowledge of the process, its risks and where failure is most likely, rather than by a statistical model. Its adequacy rests on the reasoning behind the selection.",
+          "es-419": {
+            "name": "Muestreo basado en el juicio",
+            "description": "Selección guiada por el conocimiento que el auditor tiene del proceso, de sus riesgos y de dónde es más probable la falla, y no por un modelo estadístico. Su adecuación descansa en el razonamiento detrás de la selección.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Amostragem baseada em julgamento",
+            "description": "Seleção conduzida pelo conhecimento do auditor sobre o processo, seus riscos e onde a falha é mais provável, em vez de por um modelo estatístico. Sua adequação repousa no raciocínio por trás da seleção.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-audit-team-selection-5-5-4",
+          "en_name": "Selecting audit team members",
+          "en_description": "ISO 19011:2026 clause 5.5.4 covers composing the team so that the competence needed for the audit's scope and criteria is present across it.",
+          "es-419": {
+            "name": "Selección de los miembros del equipo auditor",
+            "description": "El apartado 5.5.4 de ISO 19011:2026 trata la composición del equipo de modo que la competencia necesaria para el alcance y los criterios de la auditoría esté presente en él.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Seleção dos membros da equipe de auditoria",
+            "description": "A Seção 5.5.4 da ISO 19011:2026 trata da composição da equipe de modo que a competência necessária para o escopo e os critérios da auditoria esteja presente no conjunto dela.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-clauses-4-to-10-not-excludable",
+          "en_name": "Clauses 4 to 10 cannot be excluded",
+          "en_description": "Clause 1 Scope, not clause 4, is where this sits: an organization claiming conformity cannot exclude any requirement from clauses 4 to 10. Activities, locations and assets can fall outside a scope boundary; requirements cannot, and confusing the two is the usual error.",
+          "es-419": {
+            "name": "Los capítulos 4 a 10 no se pueden excluir",
+            "description": "Esto está en el capítulo 1, Objeto y campo de aplicación, no en el capítulo 4: una organización que declare conformidad no puede excluir ningún requisito de los capítulos 4 a 10. Las actividades, las ubicaciones y los activos pueden quedar fuera del límite de un alcance; los requisitos no, y confundir ambas cosas es el error habitual.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "As Seções 4 a 10 não podem ser excluídas",
+            "description": "É na Seção 1 Escopo, e não na Seção 4, que isso se encontra: uma organização que reivindica conformidade não pode excluir nenhum requisito das Seções 4 a 10. Atividades, locais e ativos podem ficar fora de um limite de escopo; requisitos não, e confundir os dois é o erro habitual.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-documented-information-on-the-programme",
+          "en_name": "Evidence of the programme",
+          "en_description": "Clause 9.2.2 wants proof the programme ran and proof of what the audits found - two separate records. An organization holding reports but no evidence the schedule was followed satisfies half of it.",
+          "es-419": {
+            "name": "Evidencia del programa",
+            "description": "El apartado 9.2.2 quiere prueba de que el programa se ejecutó y prueba de lo que encontraron las auditorías: dos registros distintos. Una organización que conserva informes pero ninguna evidencia de que se siguió el calendario cumple la mitad.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Evidência do programa",
+            "description": "A Seção 9.2.2 quer prova de que o programa foi executado e prova do que as auditorias constataram - dois registros distintos. Uma organização que mantém relatórios mas nenhuma evidência de que a programação foi seguida satisfaz metade disso.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-annex-a-5-35-independent-review",
+          "en_name": "Annex A 5.35 independent review",
+          "en_description": "An ISO/IEC 27001 Annex A control requiring the organization's approach to managing information security - people, processes and technologies - to be reviewed independently at planned intervals or on significant change.",
+          "es-419": {
+            "name": "Revisión independiente del Anexo A 5.35",
+            "description": "Un control del Anexo A de ISO/IEC 27001 que exige que el enfoque de la organización para gestionar la seguridad de la información —personas, procesos y tecnologías— se revise de forma independiente a intervalos planificados o ante cambios significativos.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Análise crítica independente do Anexo A 5.35",
+            "description": "Controle do Anexo A da ISO/IEC 27001 que exige que a abordagem da organização para gerenciar a segurança da informação — pessoas, processos e tecnologias — seja analisada criticamente de forma independente a intervalos planejados ou quando ocorrerem mudanças significativas.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-climate-change-as-a-4-1-issue",
+          "en_name": "Climate change as a 4.1 issue",
+          "en_description": "The determination is required of every organization; the answer may be that it is not relevant, but the determination itself must have been made and be evidenced.",
+          "es-419": {
+            "name": "El cambio climático como cuestión del apartado 4.1",
+            "description": "La determinación se exige a toda organización; la respuesta puede ser que no es pertinente, pero la determinación misma debe haberse realizado y estar evidenciada.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Mudança climática como questão da 4.1",
+            "description": "A determinação é exigida de toda organização; a resposta pode ser que não é pertinente, mas a determinação em si deve ter sido feita e ser evidenciada.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-management-review-input-divergence",
+          "en_name": "Management review inputs diverge",
+          "en_description": "ISO/IEC 27001 clause 9.3.2 additionally requires fulfilment of information security objectives, feedback from interested parties, and risk assessment results and treatment plan status. ISO/IEC 42001 requires none of these three. Carrying the 27001 list into a 42001 audit raises findings that are not requirements.",
+          "es-419": {
+            "name": "Las entradas de la revisión por la dirección divergen",
+            "description": "El apartado 9.3.2 de ISO/IEC 27001 requiere adicionalmente el cumplimiento de los objetivos de seguridad de la información, la retroalimentación de las partes interesadas, y los resultados de la evaluación de riesgos y el estado del plan de tratamiento. ISO/IEC 42001 no requiere ninguna de estas tres. Llevar la lista de 27001 a una auditoría de 42001 genera hallazgos que no son requisitos.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "As entradas da análise crítica pela direção divergem",
+            "description": "A Seção 9.3.2 da ISO/IEC 27001 exige adicionalmente o cumprimento dos objetivos de segurança da informação, o retorno das partes interessadas, e os resultados da avaliação de riscos e a situação do plano de tratamento. A ISO/IEC 42001 não exige nenhum desses três. Levar a lista da 27001 para uma auditoria da 42001 gera constatações que não são requisitos.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-evidence-retention-and-confidentiality",
+          "en_name": "Retention and confidentiality",
+          "en_description": "Audit records carry information the confidentiality principle protects, and their retention period and handling are determined rather than left to the auditor.",
+          "es-419": {
+            "name": "Conservación y confidencialidad",
+            "description": "Los registros de auditoría contienen información que el principio de confidencialidad protege, y su periodo de conservación y su manejo se determinan en lugar de dejarse al criterio del auditor.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Retenção e confidencialidade",
+            "description": "Os registros de auditoria contêm informações que o princípio da confidencialidade protege, e seu período de retenção e seu tratamento são determinados, e não deixados a critério do auditor.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-prompt-and-inference-logs",
+          "en_name": "Prompt and inference logs",
+          "en_description": "Records of what was submitted to and returned by an AI system. They can contain information at any classification and are often retained by default without an owner.",
+          "es-419": {
+            "name": "Registros de prompts e inferencias",
+            "description": "Registros de lo que se envió a un sistema de IA y de lo que este devolvió. Pueden contener información de cualquier clasificación y a menudo se conservan por defecto sin un propietario.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Logs de prompts e de inferência",
+            "description": "Registros do que foi submetido a um sistema de IA e do que por ele foi retornado. Podem conter informações de qualquer classificação e frequentemente são retidos por padrão sem um proprietário.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-ai-summary-is-not-verified-information",
+          "en_name": "An AI summary is not verified information",
+          "en_description": "A summary produced by a tool from a document the auditor did not open carries a low degree of verification under clause 6.4.7, so professional judgement must set the reliance placed on it rather than the summary being accepted as evidence.",
+          "es-419": {
+            "name": "Un resumen generado por IA no es información verificada",
+            "description": "Un resumen producido por una herramienta a partir de un documento que el auditor no abrió tiene un grado bajo de verificación conforme al apartado 6.4.7, por lo que el juicio profesional debe fijar la confianza depositada en él, en lugar de aceptar el resumen como evidencia.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Um resumo gerado por IA não é informação verificada",
+            "description": "Um resumo produzido por uma ferramenta a partir de um documento que o auditor não abriu carrega um grau baixo de verificação segundo a Seção 6.4.7, de modo que o julgamento profissional deve definir a confiança nele depositada, em vez de o resumo ser aceito como evidência.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-ai-change-velocity-and-audit-frequency",
+          "en_name": "Change velocity against audit interval",
+          "en_description": "An interval set on the assumption that changes pass through change control does not hold for a system whose behaviour changes on model update or continued training.",
+          "es-419": {
+            "name": "Velocidad de cambio frente al intervalo de auditoría",
+            "description": "Un intervalo establecido bajo el supuesto de que los cambios pasan por el control de cambios no se sostiene para un sistema cuyo comportamiento cambia al actualizar el modelo o al continuar su entrenamiento.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Velocidade de mudança frente ao intervalo de auditoria",
+            "description": "Um intervalo definido sob a suposição de que as mudanças passam pelo controle de mudanças não se sustenta para um sistema cujo comportamento muda na atualização do modelo ou no treinamento contínuo.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-degree-of-verification",
+          "en_name": "Degree of verification",
+          "en_description": "Clause 6.4.7 sets a floor rather than a gate: information has to be checkable to some degree before it counts as evidence. Degree, not a binary - which is why the next question is always how much weight it can carry, never whether to accept it at all.",
+          "es-419": {
+            "name": "Grado de verificación",
+            "description": "El apartado 6.4.7 fija un mínimo, no una compuerta de paso: la información tiene que ser verificable en algún grado antes de contar como evidencia. Grado, no algo binario, y por eso la pregunta siguiente es siempre cuánto peso puede soportar, nunca si aceptarla o no.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Grau de verificação",
+            "description": "A Seção 6.4.7 estabelece um piso, não um portão: a informação precisa ser verificável em algum grau antes de contar como evidência. Grau, não um binário - por isso a pergunta seguinte é sempre quanto peso ela pode carregar, nunca se deve ou não ser aceita.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-control-of-documented-information",
+          "en_name": "Control of documented information",
+          "en_description": "Clause 7.5.3 requires documented information to be available and suitable for use and adequately protected, addressing distribution, storage, control of changes, and retention and disposition.",
+          "es-419": {
+            "name": "Control de la información documentada",
+            "description": "El apartado 7.5.3 requiere que la información documentada esté disponible y sea idónea para su uso, y esté protegida adecuadamente, abordando la distribución, el almacenamiento, el control de cambios, y la retención y disposición.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Controle da informação documentada",
+            "description": "A Seção 7.5.3 exige que a informação documentada esteja disponível e adequada para uso e adequadamente protegida, tratando de distribuição, armazenamento, controle de alterações, e retenção e disposição.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-virtual-locations",
+          "en_name": "Virtual locations",
+          "en_description": "Where an organization performs work or provides a service in an online environment, allowing individuals to execute processes irrespective of physical location. Remote auditing methods can be used to audit them.",
+          "es-419": {
+            "name": "Ubicaciones virtuales",
+            "description": "Donde una organización realiza trabajo o presta un servicio en un entorno en línea, lo que permite a las personas ejecutar procesos con independencia de la ubicación física. Los métodos de auditoría remota pueden usarse para auditarlas.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Locais virtuais",
+            "description": "Onde uma organização realiza trabalho ou presta um serviço em um ambiente on-line, permitindo que indivíduos executem processos independentemente da localização física. Métodos de auditoria remota podem ser usados para auditá-los.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-interested-party-climate-requirements-4-2",
+          "en_name": "Interested party climate requirements",
+          "en_description": "Amendment 1:2024 adds a second note to clause 4.2 recording that interested parties can have climate-related requirements; the existing note becomes NOTE 1. A note is not a requirement, so nothing can be raised against it.",
+          "es-419": {
+            "name": "Requisitos de las partes interesadas relacionados con el clima",
+            "description": "La Enmienda 1:2024 agrega una segunda nota al apartado 4.2 que deja constancia de que las partes interesadas pueden tener requisitos relacionados con el clima; la nota existente pasa a ser la NOTA 1. Una nota no es un requisito, por lo que no se puede levantar nada contra ella.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Requisitos climáticos das partes interessadas",
+            "description": "A Emenda 1:2024 acrescenta uma segunda nota à Seção 4.2 registrando que as partes interessadas podem ter requisitos relacionados ao clima; a nota existente passa a ser NOTA 1. Uma nota não é um requisito, portanto nada pode ser levantado contra ela.",
+            "is_provisional": true
+          },
+          "verdict": "",
+          "note": ""
+        },
+        {
+          "slug": "ia-second-party-audit-context",
+          "en_name": "Second-party audit",
+          "en_description": "An audit conducted by a party with an interest in the organization, such as a customer, or by another party on their behalf - including audits an organization conducts on its own external providers.",
+          "es-419": {
+            "name": "Auditoría de segunda parte",
+            "description": "Una auditoría realizada por una parte que tiene un interés en la organización, como un cliente, o por otra parte en su nombre, incluidas las auditorías que una organización realiza a sus propios proveedores externos.",
+            "is_provisional": true
+          },
+          "pt-BR": {
+            "name": "Auditoria de segunda parte",
+            "description": "Auditoria conduzida por uma parte que tem interesse na organização, como um cliente, ou por outra parte em nome dela — incluindo auditorias que uma organização conduz em seus próprios provedores externos.",
+            "is_provisional": false
+          },
+          "verdict": "",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

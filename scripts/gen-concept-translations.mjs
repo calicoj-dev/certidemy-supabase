@@ -75,6 +75,7 @@ import { contractForDomain, domainForCert } from "./lib/item-translation.mjs";
 import { looksLikeLanguage } from "./lib/language-guard.mjs";
 
 let APPLY = false, ONLY_CERT = null, ONLY_LANG = null, BUDGET = 1200, LIMIT_BATCHES = 0, ROWCAP = 40;
+let STALE = false;
 for (let i = 2; i < process.argv.length; i++) {
   const a = process.argv[i];
   if (a === "--apply") APPLY = true;
@@ -83,10 +84,15 @@ for (let i = 2; i < process.argv.length; i++) {
   else if (a === "--budget") BUDGET = Number(process.argv[++i]);
   else if (a === "--rowcap") ROWCAP = Number(process.argv[++i]);
   else if (a === "--batches") LIMIT_BATCHES = Number(process.argv[++i]);
+  /* RETRANSLATE ROWS WHOSE ENGLISH MOVED. Without this the generator is
+   * insert-only: it skips any concept that already has a translation, which is
+   * right for a first pass and useless after an English rewrite. The en_hash
+   * gate withholds those rows precisely so they get regenerated. */
+  else if (a === "--stale") STALE = true;
   else {
     console.error("unknown flag: " + a);
     console.error("DRY BY DEFAULT; --apply writes. `--dry` is NOT a flag here.");
-    console.error("Also: --cert <CODE> --lang <es-419|pt-BR> --budget <words> --rowcap <n> --batches <n>");
+    console.error("Also: --cert <CODE> --lang <es-419|pt-BR> --budget <words> --rowcap <n> --batches <n> --stale");
     process.exit(2);
   }
 }
@@ -123,6 +129,21 @@ if (!lessonSrc.includes(probe) && !lessonSrc.includes("es-419 uses capítulo for
 }
 
 /* --------------------------------------------------------------- db access */
+async function rpc(fn, args) {
+  let last;
+  for (let i = 0; i < 8; i++) {
+    try {
+      const r = await fetch(REST + "/rpc/" + fn, {
+        method: "POST", headers: { ...H, "Content-Type": "application/json" },
+        body: JSON.stringify(args), signal: AbortSignal.timeout(60000),
+      });
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 140));
+      return await r.json();
+    } catch (e) { last = e; }
+  }
+  throw last;
+}
+
 async function all(path) {
   const rows = []; let from = 0, total = null;
   for (;;) {
@@ -210,11 +231,30 @@ async function callModel(system, user) {
   throw last;
 }
 
+
+const CR = String.fromCharCode(13);
+/* The English a translation is made FROM. Declared here because the plan
+ * below needs it to tell a stale row from a present one. */
+const enHash = (name, description) =>
+  createHash("md5")
+    .update(String(name ?? "").split(CR).join("") + "|" + String(description ?? "").split(CR).join(""))
+    .digest("hex").slice(0, 16);
+
 /* ------------------------------------------------------------------- plan */
 const certs = Object.fromEntries((await all("certifications?select=id,code")).map((c) => [c.id, c.code]));
 const concepts = await all("concepts?select=id,slug,name,description,certification_id");
-const existing = await all("concept_translations?select=concept_id,language");
-const have = new Set(existing.map((r) => r.concept_id + "|" + r.language));
+const existing = await all("concept_translations?select=concept_id,language,en_hash");
+const enOf = new Map(concepts.map((c) => [c.id, enHash(c.name, c.description)]));
+/* A row counts as PRESENT only if its stored en_hash still matches the English
+ * it was translated from. Under --stale a mismatch makes it absent again, so
+ * the planner picks it up and the write below replaces it. */
+const have = new Set(existing
+  .filter((r) => !STALE || r.en_hash === enOf.get(r.concept_id))
+  .map((r) => r.concept_id + "|" + r.language));
+if (STALE) {
+  const n = existing.filter((r) => r.en_hash !== enOf.get(r.concept_id)).length;
+  console.log("  --stale: " + n + " existing row(s) carry an en_hash that no longer matches");
+}
 
 const plan = [];
 for (const lang of Object.keys(LANGS)) {
@@ -283,11 +323,6 @@ if (!APPLY) {
  * A control below checks this JS against the database's own answer rather than
  * trusting that the reproduction is faithful. */
 /* Escape-free: shell transports have collapsed backslashes in this repo all day. */
-const CR = String.fromCharCode(13);
-const enHash = (name, description) =>
-  createHash("md5")
-    .update(String(name ?? "").split(CR).join("") + "|" + String(description ?? "").split(CR).join(""))
-    .digest("hex").slice(0, 16);
 
 /* ------------------------------------------------------------------ apply */
 let wrote = 0, failed = 0, guardFail = 0;
@@ -324,17 +359,41 @@ for (let i = 0; i < plan.length; i++) {
       problems.push(p.code + "/" + p.lang + " " + c.slug + ": description does not read as " + p.lang);
       guardFail++;
     }
+    /* ============ tr_hash IS NOT NULL SINCE MIGRATION 364 ============
+     *
+     * This generator predates it, so an upsert over an existing row failed
+     * 23502 on the first --stale run. The column records the translated text
+     * AS WRITTEN, and the generator is the one caller entitled to stamp it --
+     * it holds the text it just produced, which is exactly what the hash is a
+     * record of.
+     *
+     * Computed by calling public.translation_hash rather than reimplementing
+     * it: a second hand-written copy of one idea diverges, and the divergence
+     * would surface as rows withheld for a mismatch that is an arithmetic
+     * difference rather than an edit. */
+    const trHash = await rpc("translation_hash", { p_a: t.name ?? null, p_b: t.description ?? null });
     rows.push({
       concept_id: c.id, language: p.lang,
       name: t.name ?? null, description: t.description ?? null,
       is_provisional: true, review_status: "unreviewed",
       en_hash: enHash(c.name, c.description),
+      tr_hash: trHash,
     });
   }
   if (bad) { failed++; continue; }
-  const r = await fetch(REST + "/concept_translations", {
+  /* THE CONFLICT TARGET HAS TO BE NAMED. merge-duplicates resolves against the
+   * PRIMARY KEY unless told otherwise, and the primary key here is `id` -- so
+   * an upsert keyed on the natural unique (concept_id, language) came back
+   * 23505 with the row it was trying to replace named in the error. */
+  const url = REST + "/concept_translations" + (STALE ? "?on_conflict=concept_id,language" : "");
+  const r = await fetch(url, {
     method: "POST",
-    headers: { ...H, "Content-Type": "application/json", Prefer: "return=minimal" },
+    /* MERGE-DUPLICATES under --stale, because the row already exists and a
+     * plain insert would collide. The generator is the ONLY thing allowed to
+     * write en_hash -- it holds the English it translated from, which is what
+     * the hash records. */
+    headers: { ...H, "Content-Type": "application/json",
+      Prefer: STALE ? "return=minimal,resolution=merge-duplicates" : "return=minimal" },
     body: JSON.stringify(rows),
   });
   if (!r.ok) {

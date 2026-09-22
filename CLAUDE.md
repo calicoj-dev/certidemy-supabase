@@ -2216,6 +2216,78 @@ what clause 4.1 requires while avoiding the words *determine external and
 internal issues*. Naming the clause and restating the requirement is allowed
 and encouraged; copying the sentence is not.
 
+**A SIMILARITY THRESHOLD IN ABSOLUTE TERMS SELECTS BY LENGTH, NOT BY MEANING.**
+Recorded 2026-09-22. **Third instrument this week whose scoring turned out to
+be arithmetic wearing the costume of judgement**, after coverage-as-a-ratio and
+run-of-4-on-a-short-description.
+
+The contradiction sweep required FOUR shared distinctive terms, returned 50
+candidates, and missed its own founding case. `auditor-objectivity` is seven
+words; once `auditor`, `audit` and `requirement` are stopworded as
+corpus-frequent, TWO distinctive terms remain. A seven-word row can never reach
+four, **so the threshold excluded by length what it was meant to select by
+meaning** -- and the exclusion is silent, because a row that cannot clear the
+bar simply never appears.
+
+> **MECHANISM: a similarity threshold is expressed RELATIVE to the smaller of
+> the two things compared.** Half its distinctive terms, floor two. A long row
+> still needs real overlap; a short row is judged on the terms it actually has.
+> Candidates fell 50 to 3 -- the long rows sharing four terms out of forty were
+> never a signal.
+
+**And the regression control has to run on a FIXTURE, not on live data.** Its
+first version asserted the founding contradiction was present in the LIVE
+corpus. That worked once, then failed -- because the row had been FIXED. **A
+control that depends on a defect remaining in production forbids repairing
+it**, which is the `migration tip vs disk` shape. The fixture holds the
+original text of both rows and keeps working after the repair; the live status
+is reported separately, as a different question.
+
+**THE GENERATOR IS THE ONLY CALLER THAT MAY STAMP A HASH, AND IT HAD TO LEARN
+TWO NEW THINGS TO DO IT.** Recorded from the retranslation run.
+
+`gen-concept-translations` was INSERT-ONLY: it skipped any concept that already
+had a translation. Correct for a first pass and useless after an English
+rewrite, which is exactly when the en_hash gate has withheld rows so they can
+be regenerated. `--stale` treats a row whose stored `en_hash` no longer matches
+as ABSENT, so the planner picks it up.
+
+Two failures on the way, both worth keeping:
+
+- **`23502`.** Migration 364 made `tr_hash` NOT NULL and the generator predates
+  it, so the first upsert failed on a column it had never written. It now calls
+  `public.translation_hash` rather than reimplementing it -- a second
+  hand-written copy of one idea diverges, and the divergence would surface as
+  rows withheld for an arithmetic difference rather than an edit.
+- **`23505`.** `merge-duplicates` resolves against the PRIMARY KEY unless told
+  otherwise, and the key here is `id`. The natural unique is
+  `(concept_id, language)`, so the conflict target has to be named explicitly.
+  The error helpfully printed the row it was trying to replace.
+
+**AND SIX ROWS CAME BACK tr_hash-STALE AFTER A GENERATOR THAT HAD JUST STAMPED
+THEM**, which reads as an instrument contradicting itself. It is not. All six
+were edited by the `evaluacion` and `Secao` pins, which deliberately do NOT
+re-stamp -- the stale hash IS the withholding signal -- and all six had a
+CURRENT `en_hash`, so `--stale` correctly left them alone. **Attributed row by
+row against the pin plans before the cause was asserted**, because "the
+generator is broken" and "the pins did this on purpose" produce the identical
+observation.
+
+**THE LIMITS ON WHAT THE TRANSLATION CLEARANCE CAN CLAIM.** Recorded beside
+the clearance so the claim made is the claim supportable:
+
+- **The leak index is ENGLISH-ONLY.** Spanish and Portuguese editions of these
+  standards exist and are not held, so whether a translated row coincides with
+  ISO's own official rendering is **unmeasurable**. The ORDERING protects in
+  practice -- these translations were made from clean English rather than from
+  reproductions -- but no instrument here can demonstrate it, and the
+  difference between those two statements is the whole point.
+- **ISO/IEC 27000 is the 2018 edition**, against a 2022 standard that
+  references it undated.
+- **ISO/IEC 42006 is not indexed** and must never be reported as covered.
+- **A score of 0 means "no reproduction of the INDEXED documents"**, never
+  "no reproduction".
+
 **A NEGATIVE CLAIM CARRIES A POSITIVE CONTROL, ALWAYS.** Adopted 2026-09-22 as
 the standing mechanism, replacing declared-citation-rows.
 
