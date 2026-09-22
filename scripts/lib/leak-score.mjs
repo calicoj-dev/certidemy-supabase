@@ -67,6 +67,25 @@ import { PDFS, expectedWords } from "./citation-index.mjs";
 export const SEED = 4;
 export const MIN_RUN = 4;
 export const MIN_COV = 0.60;
+/* ============ AND AN ABSOLUTE FLOOR, BECAUSE COVERAGE IS A RATIO ==========
+ *
+ * The rule was a CONJUNCTION -- run >= MIN_RUN AND coverage >= MIN_COV -- and
+ * coverage is matched-words over description-words. So a LONGER description
+ * dilutes a reproduction until it disappears. Four more words of our own
+ * around a verbatim ISO sentence takes it under the floor and the gate goes
+ * quiet.
+ *
+ * ISMS-IA `ia-independence-of-the-activity-audited-4-6` carries a SINGLE
+ * CONTIGUOUS 17-WORD RUN of ISO 19011:2026 cl.4.6 at coverage 0.548, and did
+ * not fire. Seventeen words is not a commonplace and no ratio should be able
+ * to excuse it.
+ *
+ * ABS_RUN = 10 is not a new number: it is the LESSON-SCALE threshold, and a
+ * description long enough to dilute a 17-word run is sitting at lesson scale.
+ * The concept-scale gate replaced the lesson gate and dropped the floor on the
+ * way.
+ */
+export const ABS_RUN = 10;
 export const DESC_GAP_MAX = 0;
 export const SRC_GAP_MAX = 3;
 
@@ -92,7 +111,25 @@ export function buildSources() {
       if (!at.has(g)) at.set(g, []);
       at.get(g).push(i);
     }
-    out.set(key, { words, grams, at });
+    /* Where Annex A begins, as a WORD offset. A run landing beyond it
+     * reproduces annex structure -- control titles, objective names -- rather
+     * than clause text, and that is the title-class question, not a leak. */
+    /* LAST OCCURRENCE, NEVER THE FIRST. The first "annex a normative" in any
+     * of these PDFs is the TABLE OF CONTENTS entry -- measured: it put 27001's
+     * boundary 6 percent into the document and 42001's at 2 percent, so almost
+     * every clause-text match downstream was classified as annex structure.
+     * The same table-of-contents defect that `clauseText` already carries a
+     * dot-leader guard against, in a second instrument.
+     *
+     * Also accept "informative": not every Annex A is normative, and a
+     * locator that only knows one word reports NO ANNEX for the rest, which
+     * is silent under-classification rather than loud failure. */
+    let annexAt = words.length;
+    for (let i = 0; i + 3 <= words.length; i++) {
+      if (words[i] === "annex" && words[i + 1] === "a" &&
+          (words[i + 2] === "normative" || words[i + 2] === "informative")) annexAt = i;
+    }
+    out.set(key, { words, grams, at, annexAt });
   }
   return out;
 }
@@ -121,7 +158,9 @@ function runsAgainst(text, src) {
     let n = SEED;
     while (i + n + 1 <= w.length && src.grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
     const words = w.slice(i, i + n);
-    out.push({ start: i, len: n, text: words.join(" "), sourceAt: sourcePositions(src, words) });
+    const sourceAt = sourcePositions(src, words);
+    const inAnnex = sourceAt.length > 0 && sourceAt.every((p) => p >= src.annexAt);
+    out.push({ start: i, len: n, text: words.join(" "), sourceAt, inAnnex });
     i += n - 1;
   }
   return out;
@@ -164,8 +203,10 @@ export function scoreAgainst(text, key, src) {
 
   const longest = runs.reduce((m, r) => Math.max(m, r.len), 0);
   const longestMerged = merged.reduce((m, r) => Math.max(m, r.len), 0);
+  /* A row is ANNEX-STRUCTURE when every contributing run sits inside Annex A. */
+  const annexStructure = runs.length > 0 && runs.every((r) => r.inAnnex);
   return {
-    source: key, words: w.length, runs, merges, merged,
+    source: key, words: w.length, runs, merges, merged, annexStructure,
     maxRun: longest,
     maxCov: w.length ? longest / w.length : 0,
     unionRun: longestMerged,
@@ -182,11 +223,28 @@ export function score(text, sources) {
     if (!best || s.unionCov > best.unionCov || (s.unionCov === best.unionCov && s.maxRun > best.maxRun)) best = s;
   }
   return best || { source: "", words: W(text).length, runs: [], merges: [], merged: [],
-                   maxRun: 0, maxCov: 0, unionRun: 0, unionCov: 0 };
+                   annexStructure: false, maxRun: 0, maxCov: 0, unionRun: 0, unionCov: 0 };
 }
 
 export const firesCurrent = (s) => s.maxRun >= MIN_RUN && s.maxCov >= MIN_COV;
-export const firesUnion = (s) => s.unionRun >= MIN_RUN && s.unionCov >= MIN_COV;
+/* The ratio arm. */
+export const firesRatio = (s) => s.unionRun >= MIN_RUN && s.unionCov >= MIN_COV;
+/* The absolute arm -- length alone, whatever the ratio says. */
+export const firesAbsolute = (s) => s.unionRun >= ABS_RUN;
+/* THE RULE: (run >= 4 AND coverage >= 0.60) OR (run >= 10). */
+export const firesUnion = (s) => firesRatio(s) || firesAbsolute(s);
+
+/* ============ ARITHMETIC, NOT REPRODUCTION ============
+ *
+ * A 5-word description gives 4/5 = 0.80 for free. A 4-word run on a short
+ * description clears the coverage floor by arithmetic rather than by
+ * reproducing anything -- `cryptographic-controls` fired on "use and
+ * management of", four words that sit at 27002 cl.5.16 IDENTITY MANAGEMENT
+ * and not at any cryptography control title.
+ *
+ * Reported as its own class rather than filtered out: the rows may still be
+ * bad descriptions, and they are, but they are not evidence of copying. */
+export const isArithmetic = (s) => s.unionRun <= 5 && s.words < 8;
 
 /** A known reproduction must fire, or the index is empty and every clean
  *  verdict is worthless. */

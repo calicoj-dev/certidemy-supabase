@@ -26,42 +26,22 @@
   },
   "length": {
     "min": 34,
-    "median": 61,
-    "max": 192,
-    "one_sentence": 180,
-    "multi_sentence": 12
+    "median": 67,
+    "max": 226,
+    "one_sentence": 145,
+    "multi_sentence": 47
   },
   "addresses": {
-    "rows_with": 3,
-    "citation": 2,
+    "rows_with": 10,
+    "citation": 9,
     "bare": 1
   },
   "shape": {
-    "definition_shaped": 163,
-    "explanation_shaped": 29
+    "definition_shaped": 143,
+    "explanation_shaped": 49
   },
   "shared_openings": 0,
   "fires": [
-    {
-      "slug": "confidentiality",
-      "name": "Confidentiality",
-      "words": 11,
-      "source": "27000:2018",
-      "max_run": 6,
-      "max_cov": 0.545,
-      "union_run": 11,
-      "union_cov": 1,
-      "fires_current": false,
-      "fires_union": true,
-      "clause": "3 Terms and definitions",
-      "matched": [
-        {
-          "len": 11,
-          "text": "information is not made available to unauthorized individuals entities or processes"
-        }
-      ],
-      "description": "information is not made available to unauthorized individuals, entities or processes"
-    },
     {
       "slug": "iso-27005-risk",
       "name": "ISO 27005 risk",
@@ -81,26 +61,6 @@
         }
       ],
       "description": "guidance on information security risk management"
-    },
-    {
-      "slug": "isms-scope",
-      "name": "ISMS scope",
-      "words": 7,
-      "source": "27001:2022",
-      "max_run": 6,
-      "max_cov": 0.857,
-      "union_run": 6,
-      "union_cov": 0.857,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "4.3 Determining the scope of the information secur",
-      "matched": [
-        {
-          "len": 6,
-          "text": "the boundaries and applicability of the"
-        }
-      ],
-      "description": "the boundaries and applicability of the ISMS"
     },
     {
       "slug": "availability",
@@ -143,66 +103,6 @@
       "description": "use and management of cryptography"
     },
     {
-      "slug": "climate-change-relevance",
-      "name": "Climate change relevance",
-      "words": 11,
-      "source": "27001:2022/Amd1",
-      "max_run": 8,
-      "max_cov": 0.727,
-      "union_run": 8,
-      "union_cov": 0.727,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "(no heading above the match)",
-      "matched": [
-        {
-          "len": 8,
-          "text": "determine whether climate change is a relevant issue"
-        }
-      ],
-      "description": "the requirement to determine whether climate change is a relevant issue"
-    },
-    {
-      "slug": "supplier-controls",
-      "name": "Supplier controls",
-      "words": 7,
-      "source": "27002:2022",
-      "max_run": 5,
-      "max_cov": 0.714,
-      "union_run": 5,
-      "union_cov": 0.714,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "5.19 Information security in supplier relationships",
-      "matched": [
-        {
-          "len": 5,
-          "text": "information security in supplier relationships"
-        }
-      ],
-      "description": "controls governing information security in supplier relationships"
-    },
-    {
-      "slug": "iso-27002-controls",
-      "name": "ISO 27002 controls",
-      "words": 6,
-      "source": "27000:2018",
-      "max_run": 4,
-      "max_cov": 0.667,
-      "union_run": 4,
-      "union_cov": 0.667,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "5.5.6 ISO 27799",
-      "matched": [
-        {
-          "len": 4,
-          "text": "implementation guidance for the"
-        }
-      ],
-      "description": "implementation guidance for the reference controls"
-    },
-    {
       "slug": "risk-criteria",
       "name": "Risk criteria",
       "words": 10,
@@ -227,19 +127,13 @@
     "climate-change-relevance",
     "planned-change",
     "pdca-cycle",
-    "confidentiality",
-    "integrity",
     "availability",
     "cia-triad",
+    "integrity",
     "risk-criteria",
-    "supporting-properties",
-    "information-asset",
-    "risk-relationship",
-    "security-event",
-    "security-incident",
-    "data-breach",
     "security-control",
     "iso-27000-family",
+    "security-incident",
     "model-as-asset",
     "prompt-as-data",
     "model-level-risk",
@@ -251,61 +145,40 @@
     "tool-misuse",
     "management-system-model",
     "systematic-vs-ad-hoc",
-    "organizational-context",
-    "internal-external-issues",
-    "interested-parties",
     "party-requirements",
     "amendment-1-2024",
     "documented-non-applicability",
-    "scope-boundaries",
-    "interfaces-and-dependencies",
     "boundary-erosion",
     "third-party-processing",
     "scope-failure-modes",
-    "leadership-commitment",
-    "information-security-policy",
     "assigned-authority",
-    "risk-owner",
     "top-management",
     "sanctioned-vs-unsanctioned-tools",
     "policy-enforceability",
     "policy-to-practice",
     "ai-attack-surface",
-    "isms-definition",
     "isms-roles",
-    "isms-scope",
     "iso-27001-requirements",
-    "iso-27002-controls",
+    "risk-owner",
     "iso-27005-risk",
     "saas-ai-in-scope",
     "threat-taxonomy-ai",
-    "continual-improvement",
     "management-system-maturity",
     "risk-assessment-process",
-    "risk-analysis",
-    "risk-evaluation",
-    "risk-acceptance-criteria",
     "likelihood-and-consequence",
     "asset-threat-vulnerability-mapping",
     "risk-register",
     "risk-treatment-options",
-    "modify-risk",
-    "share-risk",
-    "statement-of-applicability",
     "inclusion-justification",
     "exclusion-justification",
     "implementation-status",
     "annex-a-as-reference",
-    "risk-treatment-plan",
-    "risk-owner-approval",
     "treatment-vs-plan",
     "context-leakage",
     "training-data-confidentiality",
     "output-trust",
     "prompt-data-egress",
     "retention-by-provider",
-    "treatment-selection",
-    "compensating-control",
     "proportionality",
     "treatment-and-appetite",
     "invisible-adoption",
@@ -314,6 +187,9 @@
     "people-controls",
     "physical-controls",
     "soa-is-justification",
+    "risk-analysis",
+    "treatment-selection",
+    "risk-owner-approval",
     "technological-controls",
     "control-attributes",
     "control-type",
@@ -330,7 +206,6 @@
     "privileged-access",
     "agent-credentials",
     "standing-vs-just-in-time-authority",
-    "supplier-controls",
     "supplier-agreements",
     "service-delivery-monitoring",
     "foundation-model-supplier",
@@ -355,10 +230,8 @@
     "monitoring-and-measurement",
     "effectiveness-evaluation",
     "internal-audit-programme",
-    "audit-criteria",
     "auditor-objectivity",
     "audit-findings",
-    "management-review",
     "review-cadence",
     "correction-vs-corrective-action",
     "root-cause",
@@ -386,6 +259,13 @@
     "ai-risk-identification",
     "unchanged-by-ai",
     "nonconformity",
-    "retain-risk"
+    "retain-risk",
+    "isms-scope",
+    "continual-improvement",
+    "risk-evaluation",
+    "isms-definition",
+    "organizational-context",
+    "risk-relationship",
+    "risk-acceptance-criteria"
   ]
 }

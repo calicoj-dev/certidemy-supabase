@@ -1,0 +1,52 @@
+{
+  "batch": "2-returned",
+  "written": "2026-09-22",
+  "rows": 4,
+  "verification": {
+    "instrument": "direct phrase search over the indexed PDFs, with a self-test that a known-present phrase is found first - otherwise every ABSENT is a fact about the search rather than about the standard",
+    "top-management": {
+      "claim": "Several clause 5 duties cannot be delegated away from them.",
+      "verdict": "UNSUPPORTED - claim dropped",
+      "corpus_says": "delegate, delegated, delegation: ABSENT from ISO/IEC 27001:2022 entirely. The standard never says anything cannot be delegated. What it does is address clause 5 to top management by name - 5.1 'Top management shall demonstrate', 5.2 'Top management shall establish', 5.3 'Top management shall ensure'.",
+      "class": "an INFERENCE stated as a fact about the standard. It is a reasonable reading and it is not what the text says.",
+      "note": "You were right to pull it. The scoped-top-management sentence survives unchanged, and the replacement second sentence states only what is on the page."
+    },
+    "pdca-cycle": {
+      "claim": "clauses 6 and 7 plan, 8 does, 9 checks, 10 acts",
+      "verdict": "UNSUPPORTED - mapping dropped entirely",
+      "corpus_says": "plan-do-check-act and PDCA: ABSENT from ISO/IEC 27001:2022 and ABSENT from ISO/IEC 42001:2023. Present in ISO 19011:2026 only.",
+      "class": "NEITHER mapping is a citation. Mine named 6 and 7; your alternative names 4 through 7. Both are conventions from the 2013 edition's introduction, which 2022 removed - so there is no clause mapping in the standard to be right or wrong about.",
+      "note": "This is the better outcome than picking 4-7: a mapping presented as if the standard endorsed it would have been a second undeclared claim wearing a correction. The continuity point is kept, which you identified as the real teaching move."
+    }
+  },
+  "rows_detail": [
+    {
+      "slug": "top-management",
+      "change": "drop the unsupported non-delegation claim; keep the scoped definition",
+      "was": "Whoever can direct resources and set direction at the top of the scope - not necessarily the board, and not necessarily the whole company. Several clause 5 duties cannot be delegated away from them.",
+      "proposed": "Whoever can direct resources and set direction at the top of the scope - not necessarily the board, and not necessarily the whole company. Clause 5 writes its obligations as 'top management shall', so they attach to that level and not to the ISMS in general.",
+      "verifiable": "5.1 'Top management shall demonstrate', 5.2 'Top management shall establish', 5.3 'Top management shall ensure'. Read off the indexed PDF."
+    },
+    {
+      "slug": "pdca-cycle",
+      "change": "drop the clause mapping; keep the continuity point",
+      "was": "Plan, do, check, act as the rhythm the whole standard is built on - clauses 6 and 7 plan, 8 does, 9 checks, 10 acts. The point is that improvement runs continuously instead of arriving as a phase at the end.",
+      "proposed": "Plan, do, check, act as the rhythm a management system runs on. Checking and improving are inside the cycle rather than bolted on at the end, so an organization that only ever plans and does has not built one.",
+      "note": "No clause numbers, because none are defensible. Asserts nothing about what the standard names."
+    },
+    {
+      "slug": "planned-change",
+      "change": "undocumented -> unplanned, as ruled",
+      "was": "Changes to the ISMS are meant to be carried out deliberately rather than noticed afterwards. The requirement is about the manner of the change, which is why an undocumented improvement can still be a nonconformity.",
+      "proposed": "Changes to the ISMS are meant to be carried out deliberately rather than noticed afterwards. The requirement is about the manner of the change, which is why an unplanned improvement can still be a nonconformity.",
+      "note": "You are right that the two are not the same, and that a candidate who learns the second answers the first wrongly. Unplanned is what the clause is about."
+    },
+    {
+      "slug": "access-control",
+      "change": "different teaching move - the scope dimension, not the staleness one",
+      "was": "Deciding who may reach which information, and enforcing it. The control most often right on the day it is granted and wrong six months later, because roles move and permissions rarely follow.",
+      "proposed": "Deciding who may reach which information, and enforcing it. Least privilege narrows how much a person gets; this decides what there is to get at in the first place, which is why classification has to be settled before it can be applied.",
+      "note": "The staleness move belongs to least-privilege, which is applied and correct. This one takes the dimension where the two genuinely differ - scope of the information rather than extent of the grant - and names the dependency on classification, which is examinable."
+    }
+  ]
+}

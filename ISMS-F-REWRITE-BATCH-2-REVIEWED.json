@@ -1,0 +1,75 @@
+{
+  "batch": 2,
+  "reviewed": "2026-09-22",
+  "reviewer": "director",
+  "read": "5 declared citation rows in full, plus 12 spot-read",
+  "verdict": { "apply": 37, "return": 3, "keep_on_read_returned": 0, "keep_on_read_accepted": true },
+  "citation_rows_verified_by_the_session_and_accepted": [
+    "information-security-policy - cl.5.2 b) objectives or the framework for setting them",
+    "leadership-commitment - cl.5.1 a) to h), eight",
+    "internal-external-issues - cl.4.1 plus Amd 1:2024 climate change",
+    "interfaces-and-dependencies - cl.4.3 c)",
+    "management-review - cl.9.3.2 inputs, 9.3.3 decisions"
+  ],
+  "returned": [
+    {
+      "slug": "top-management",
+      "class": "UNDECLARED CITATION CLAIM",
+      "claim": "Several clause 5 duties cannot be delegated away from them.",
+      "note": "Not on the declared citation list, so it passed unverified. Verify against the indexed 27001 or drop the sentence. The rest of the row is the best statement of scoped top management in either batch - 'not necessarily the board, and not necessarily the whole company' - and must survive whatever happens to the last sentence."
+    },
+    {
+      "slug": "pdca-cycle",
+      "class": "UNDECLARED CITATION CLAIM, and read as incomplete",
+      "claim": "clauses 6 and 7 plan, 8 does, 9 checks, 10 acts",
+      "note": "The conventional mapping puts clauses 4 THROUGH 7 on Plan, so naming 6 and 7 drops context and leadership out of the Plan half. FLAGGED NOT ASSERTED - verify against the corpus. Either say 4-7 or drop the mapping and keep the continuity point, which is the real teaching move."
+    },
+    {
+      "slug": "planned-change",
+      "class": "substantive wording",
+      "claim": "an undocumented improvement can still be a nonconformity",
+      "note": "The requirement is that changes be carried out IN A PLANNED MANNER. Unplanned and undocumented are not the same thing, and a candidate who learns the second answers the first wrongly. Change 'undocumented' to 'unplanned'."
+    }
+  ],
+  "overlap_not_a_defect": {
+    "slugs": ["access-control", "least-privilege"],
+    "note": "access-control's 'right on the day it is granted and wrong six months later, because roles move and permissions rarely follow' is the same teaching move as batch 1's least-privilege, 'correct at hire is usually wrong after the first role change'. Two adjacent concepts carrying one insight. Give access-control a different move - the scope point, WHICH information, is where it differs from least privilege.",
+    "action": "reword access-control only; least-privilege is applied and correct"
+  },
+  "best_in_batch": [
+    "confidentiality - the permanence contrast (availability comes back after an outage, nothing un-discloses) is a real teaching move and appears in no standard",
+    "share-risk - 'what transfers is the cost; the accountability never does' is exactly what an item would test",
+    "climate-change-relevance - 'answering no is permitted; not answering is the nonconformity' is the sharpest sentence in either batch",
+    "statement-of-applicability - 'an entry carrying no justification is itself the finding'"
+  ],
+  "gate_findings": {
+    "absolute_run_floor": {
+      "severity": "HIGHEST - outranks the batch",
+      "evidence": "ia-independence-of-the-activity-audited-4-6 (ISMS-IA) carries a SINGLE CONTIGUOUS 17-WORD RUN of ISO 19011:2026 cl.4.6 - 'auditors should be independent of the activity being audited wherever practicable and should in all cases act' - at coverage 0.548, and DOES NOT FIRE.",
+      "cause": "The concept-scale rule is a CONJUNCTION: run >= 4 AND coverage >= 0.60. Coverage is a ratio, so a longer description dilutes a reproduction until it vanishes. Four more words of our own around a verbatim ISO sentence makes it invisible. The lesson-scale gate had a 10-word ABSOLUTE threshold; the concept-scale gate replaced it and removed the floor.",
+      "ruling": "Fire on (run >= 4 AND coverage >= 0.60) OR (run >= 10). The 10 is not a new number - it is the lesson-scale threshold, and a long description sits at lesson scale.",
+      "required": "Measure the corpus impact and report per certification. Annex-A-structure rows are expected to need the title-class exemption widened rather than rewriting; report those separately."
+    },
+    "arithmetic_false_positives": {
+      "evidence": [
+        "cryptographic-controls fires on 'use and management of' - 4 words, located at 27002 cl.5.16 IDENTITY MANAGEMENT, not at any cryptography control title",
+        "iso-27002-controls fires on 'implementation guidance for the', located at 27000 cl.5.5.6 ISO 27799",
+        "technical-documentation-requirement fires on 'the system meets requirements', 22989 cl.6.2.2"
+      ],
+      "cause": "A 5-word description gives 4/5 = 0.80 for free. Run >= 4 on a short description satisfies the coverage floor by arithmetic, not by reproduction.",
+      "correction_to_the_record": "The earlier characterisation - that cryptographic-controls' 0.800 was the ISO/IEC 27002 control title 'use and management of cryptography' - was WRONG. The matched span sits elsewhere in the standard. The row needed rewriting on gloss grounds regardless, so nothing changes, but the fire list has been carrying false positives uncounted.",
+      "required": "Report how many of the 15 are runs of 4-5 words on descriptions under 8 words. Label them as arithmetic rather than counting them as reproductions."
+    },
+    "attributed_quotation_class": {
+      "evidence": "Four rows in CONCEPT-UNION-FIRES.json are built as 'ISO 19011:2026 clause 3.5 defines it as ...' followed by the definition: ia-audit-programme-3-5 (21-word merged span), ia-internal-and-external-issues-clause-4-1 (17), ia-independence-of-the-activity-audited-4-6 (17+7), ia-policy-availability-and-communication (9+6).",
+      "note": "Attribution answers the plagiarism question and does nothing about the reproduction one. 21 words of a copyrighted standard served unauthenticated is the same 21 words whether or not it says where they came from. This is a HOUSE STYLE in ISMS-IA, not four accidents.",
+      "required": "Census it - how many ISMS-IA and AIMS-IA descriptions follow the 'clause N.N defines/requires/states ...' shape, and the longest run in each. DO NOT REWRITE ANY YET. ISMS-IA is cleared and serving; I want the size before deciding."
+    }
+  },
+  "keep_on_read": {
+    "returned": 0,
+    "accepted_for_this_batch": true,
+    "why": "The selection was 5 gate fires, 9 tier-A defined terms and 26 core clause-4-to-10 concepts - the block a candidate meets first. Every one gained something real: interested-parties gaining 'determined before the scope, because what they require feeds into what the scope has to cover' is an addition, not length.",
+    "expectation_for_batch_3": "Batch 3 is the tail - screening, correction-vs-corrective-action, awareness-vs-prohibition, well-intentioned-noncompliance. Those already carry their move in seven words. ZERO keep-on-read in batch 3 will be read as reflexive rewriting rather than as a clean batch."
+  }
+}
