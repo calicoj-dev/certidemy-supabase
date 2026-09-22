@@ -182,11 +182,11 @@
     "short_descriptions": 1729
   },
   "counts": {
-    "indexed": 284,
+    "indexed": 285,
     "knowledge_only": 140,
     "tier_a": 52,
     "tier_b": 37,
-    "tier_c": 335
+    "tier_c": 336
   },
   "rows": [
     {
@@ -473,10 +473,121 @@
     },
     {
       "cert": "AIMS-F",
+      "slug": "documented-information",
+      "name": "Documented information",
+      "description": "What the standard requires plus what the organization judges necessary, with its extent varying by size, process complexity and the competence of people. More documentation is not better documentation.",
+      "words": 29,
+      "terms": [
+        {
+          "term": "documented information",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.10",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "documented information",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-system-life-cycle",
+      "name": "AI system life cycle",
+      "description": "The span obligations attach to, reaching from development through transfer and decommissioning. It is why throughout its life cycle recurs across the control objectives, and why deployment is not the finish line.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "AI system life cycle",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "audit-programme",
+      "name": "Audit programme",
+      "description": "Covers methods, frequency, responsibilities, reporting and planning, and considers the importance of the processes audited and what earlier audits found. Evidence is required of the programme's implementation as well as of its results.",
+      "words": 34,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "audit programme",
+          "source": "ISO 19011:2026",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-system-impact-assessment",
+      "name": "AI system impact assessment",
+      "description": "Reaches past intended use into foreseeable misuse, and past the organization into societies. Its results are a required input to the risk assessment, and clause 8.4 requires it performed at planned intervals and on significant change.",
+      "words": 37,
+      "terms": [
+        {
+          "term": "AI system impact assessment",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.24",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "AI system",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "data-quality",
+      "name": "Data quality",
+      "description": "Defined requirements the data used to develop and operate the system must meet, with the effect of bias on performance and fairness weighed and the model or data adjusted. Distinct from integrity, which only says nobody unauthorised altered it.",
+      "words": 39,
+      "terms": [
+        {
+          "term": "data quality",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.25",
+          "indexed": true,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "AIMS-F",
       "slug": "nonconformity",
       "name": "Nonconformity",
-      "description": "Nonconformity as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 17,
+      "description": "Includes failing the organization's own policy, objectives and documented processes, and requirements that are generally implied rather than written. In a young field much of what is reasonably expected has not been written down and is a requirement anyway.",
+      "words": 40,
       "terms": [
         {
           "term": "nonconformity",
@@ -505,35 +616,10 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "audit-programme",
-      "name": "Audit programme",
-      "description": "Audit programme as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "audit",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.18",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "audit programme",
-          "source": "ISO 19011:2026",
-          "ref": "3.5",
-          "indexed": true,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "AIMS-F",
       "slug": "continual-improvement",
       "name": "Continual improvement",
-      "description": "Continual improvement as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Clause 10.1's obligation, covering the system's suitability, adequacy and effectiveness. Three separate paths lead from this is not working back to a decision, and using none of them means waiting for internal audit, the slowest instrument there is.",
+      "words": 41,
       "terms": [
         {
           "term": "continual improvement",
@@ -555,53 +641,10 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "data-quality",
-      "name": "Data quality",
-      "description": "Data quality as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "data quality",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.25",
-          "indexed": true,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "documented-information",
-      "name": "Documented information",
-      "description": "Documented information as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "documented information",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.10",
-          "indexed": true,
-          "how": "is"
-        },
-        {
-          "term": "documented information",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "AIMS-F",
       "slug": "statement-of-applicability",
       "name": "Statement of applicability",
-      "description": "Statement of applicability as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "Not a control register: all identified risks and the measures addressing them must be reflected in it, which makes each entry traceable to the risk that required it. Every Annex A control must be addressed, and absence is neither inclusion nor exclusion.",
+      "words": 42,
       "terms": [
         {
           "term": "statement of applicability",
@@ -612,49 +655,6 @@
         }
       ],
       "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-system-impact-assessment",
-      "name": "AI system impact assessment",
-      "description": "AI system impact assessment as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "AI system impact assessment",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.24",
-          "indexed": true,
-          "how": "is"
-        },
-        {
-          "term": "AI system",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-system-life-cycle",
-      "name": "AI system life cycle",
-      "description": "AI system life cycle as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "AI system life cycle",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": false,
       "tier": "A"
     },
     {
@@ -1888,35 +1888,10 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "ai-policy",
-      "name": "AI policy",
-      "description": "AI policy as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "policy",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.5",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "policy",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "B"
-    },
-    {
-      "cert": "AIMS-F",
       "slug": "ai-management-system",
       "name": "AI management system",
-      "description": "AI management system as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "What ISO/IEC 42001 actually places requirements on. It governs how an organization decides, documents and checks its use of AI, and says nothing about what a model must do.",
+      "words": 30,
       "terms": [
         {
           "term": "management system",
@@ -1947,8 +1922,8 @@
       "cert": "AIMS-F",
       "slug": "ai-risk-assessment",
       "name": "AI risk assessment",
-      "description": "AI risk assessment as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "Anchored to the AI policy and objectives, and its analysis assesses consequences to the organization, individuals and societies - all three. It is not the organization-only half of a pair with the impact assessment.",
+      "words": 34,
       "terms": [
         {
           "term": "risk assessment",
@@ -1965,8 +1940,8 @@
       "cert": "AIMS-F",
       "slug": "ai-risk-criteria",
       "name": "AI risk criteria",
-      "description": "AI risk criteria as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "Established before any assessment runs, and required to support four things: separating acceptable from unacceptable, running assessments, treating the result, and assessing risk impacts. The fourth wires clause 6.1.4 in before it appears.",
+      "words": 35,
       "terms": [
         {
           "term": "risk criteria",
@@ -1981,53 +1956,10 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "ai-risk-treatment",
-      "name": "AI risk treatment",
-      "description": "AI risk treatment as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "risk treatment",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "B"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "external-reporting-control",
-      "name": "External reporting control",
-      "description": "External reporting control as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "control",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.21",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "control",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "B"
-    },
-    {
-      "cert": "AIMS-F",
       "slug": "internal-audit-requirement",
       "name": "Internal audit requirement",
-      "description": "Internal audit requirement as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "Tests conformity against the organization's own requirements as well as the standard's, and whether the system is effectively implemented and maintained. A finding can be entirely legitimate without pointing at any clause of the standard.",
+      "words": 37,
       "terms": [
         {
           "term": "requirement",
@@ -2052,6 +1984,74 @@
         }
       ],
       "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-policy",
+      "name": "AI policy",
+      "description": "Frames the objectives, commits to meeting requirements and to continual improvement, and must reference the other policies AI intersects. One referencing none describes an organization that has none; one with no exception route is ignored at a deadline.",
+      "words": 38,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "external-reporting-control",
+      "name": "External reporting control",
+      "description": "A route for interested parties to flag harm the system has done - interested parties, not only users. A person the system acted on may have no account, no contract, and no obvious way to reach the organization at all.",
+      "words": 39,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "B"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-risk-treatment",
+      "name": "AI risk treatment",
+      "description": "Controls are determined first from the chosen treatment options, and Annex A enters afterwards as a comparison to catch what was missed. Opening the annex first inverts the logic and leaves no link from risk to control for an auditor to test.",
+      "words": 42,
+      "terms": [
+        {
+          "term": "risk treatment",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
       "tier": "B"
     },
     {
@@ -2188,31 +2188,6 @@
     },
     {
       "cert": "ISMS-F",
-      "slug": "security-control",
-      "name": "Security control",
-      "description": "a measure that modifies risk",
-      "words": 5,
-      "terms": [
-        {
-          "term": "control",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.21",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "control",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "B"
-    },
-    {
-      "cert": "ISMS-F",
       "slug": "information-classification",
       "name": "Information classification",
       "description": "assigning and handling information by sensitivity",
@@ -2306,6 +2281,31 @@
         }
       ],
       "any_indexed": false,
+      "tier": "B"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "security-control",
+      "name": "Security control",
+      "description": "An answer to a risk the organization chose not to accept; judged by whether the risk moved, not by whether the control is present.",
+      "words": 24,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
       "tier": "B"
     },
     {
@@ -3611,17 +3611,67 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "auditor-objectivity",
-      "name": "Auditor objectivity",
-      "description": "Auditor objectivity as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "slug": "ai-customer-role",
+      "name": "AI customer role",
+      "description": "The organization obtaining and using AI, end users included. Holding it exempts you from nothing: a customer for one system is routinely a producer for another.",
+      "words": 26,
       "terms": [
         {
-          "term": "auditor",
-          "source": "ISO 19011:2026",
-          "ref": "3.16",
-          "indexed": true,
+          "term": "AI customer",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
           "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-subject-role",
+      "name": "AI subject role",
+      "description": "Those the system acts on, data subjects among them. The one role an organization does not choose, and the reason impact assessment reaches people who never interact with the system.",
+      "words": 30,
+      "terms": [
+        {
+          "term": "AI subject",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "integrated-management-system",
+      "name": "Integrated management system",
+      "description": "Reusing the machinery, one audit programme and one management review and one documented-information control, after checking what it now governs. Reusing it without checking is assumption rather than integration.",
+      "words": 30,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
         }
       ],
       "any_indexed": true,
@@ -3629,10 +3679,46 @@
     },
     {
       "cert": "AIMS-F",
+      "slug": "review-records",
+      "name": "Review records",
+      "description": "Evidence of the results, which means the decisions rather than the discussion. An auditor asking what the review decided and receiving a narrative of what was presented has found something.",
+      "words": 30,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-partner-role",
+      "name": "AI partner role",
+      "description": "System integrators and data providers, alongside the system rather than in it. The category exists because responsibilities have to be allocated to parties who are neither the supplier nor the user.",
+      "words": 31,
+      "terms": [
+        {
+          "term": "AI partner",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
       "slug": "awareness-requirement",
       "name": "Awareness requirement",
-      "description": "Awareness requirement as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Three items: the policy, what you contribute to making the system effective including what better performance buys, and the implications of not conforming. The second is the one awareness material routinely drops.",
+      "words": 32,
       "terms": [
         {
           "term": "requirement",
@@ -3661,10 +3747,128 @@
     },
     {
       "cert": "AIMS-F",
+      "slug": "integrated-audit-programme",
+      "name": "Integrated audit programme",
+      "description": "The standard's definition of audit contemplates a combined audit across two or more disciplines, so one programme, one review cycle, one nonconformity process and one reporting route can serve both systems.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "audit programme",
+          "source": "ISO 19011:2026",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "management-system-standard",
+      "name": "Management system standard",
+      "description": "A standard specifying what an organization must decide and be able to show, not what its technology must do. It is why no fairness metric is mandated anywhere in ISO/IEC 42001.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "management system",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.4",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO 19011:2026",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "management system",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "monitoring-and-measurement",
+      "name": "Monitoring and measurement",
+      "description": "Four determinations: what, which methods, when it happens, and when results are analysed. Data collected continuously and looked at annually is being collected rather than monitored, and the two are separate decisions.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "measurement",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.19",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "measurement",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "policy-controls",
+      "name": "Policy controls",
+      "description": "Document the policy, align it with the other policies AI intersects, and review it at planned intervals. The review consumes management review results, which closes a loop back to clause 9.3.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-provider-role",
+      "name": "AI provider role",
+      "description": "The organization supplying AI to others, as a platform or as a product or service. Controls about supplying documentation to third parties land here, and an organization that supplies nothing may exclude them.",
+      "words": 33,
+      "terms": [
+        {
+          "term": "AI provider",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
       "slug": "competence-evidence",
       "name": "Competence evidence",
-      "description": "Competence evidence as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Documented information must be available to show it. Sending people on a course is the action; establishing that they can now do the thing is the requirement, and only the second is evidence.",
+      "words": 33,
       "terms": [
         {
           "term": "competence",
@@ -3686,10 +3890,178 @@
     },
     {
       "cert": "AIMS-F",
+      "slug": "residual-risk-approval",
+      "name": "Residual risk approval",
+      "description": "Designated management approves the treatment plan and accepts what remains. Where assurance is simply unobtainable, as with a foundation model, the honest treatment records the limit and has someone with authority accept it.",
+      "words": 33,
+      "terms": [
+        {
+          "term": "residual risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "risk-analysis-and-evaluation",
+      "name": "Risk analysis and evaluation",
+      "description": "Analysis determines consequences, likelihood where applicable, and levels; evaluation compares against the criteria and prioritizes for treatment. Likelihood is the wrong instrument for some AI risks, so the criteria must handle consequence alone.",
+      "words": 33,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk analysis",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "impact-feeds-risk",
+      "name": "Impact feeds risk",
+      "description": "Clause 6.1.4 requires the impact assessment's results to be taken into account when risk is assessed. It is an input rather than a parallel process, and considering it is a shall.",
+      "words": 34,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "continuous-learning-behaviour",
+      "name": "Continuous learning behaviour",
+      "description": "Behaviour that moves by design, because output and production data are fed back into training. Where it is in use, monitoring has to confirm the system still meets its design goals on real production data.",
+      "words": 35,
+      "terms": [
+        {
+          "term": "continuous learning",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "policy-vs-objective",
+      "name": "Policy vs objective",
+      "description": "A policy states intent and direction; an objective is a result to be achieved. We will use AI responsibly is a policy statement and cannot be an objective, because nothing about it can be monitored.",
+      "words": 35,
+      "terms": [
+        {
+          "term": "objective",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.6",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "objective",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "review-results",
+      "name": "Review results",
+      "description": "Decisions about improvement opportunities and about any changes the system needs. Both are decisions rather than summaries of discussion, and where a change is decided, clause 6.3 governs carrying it out in a planned manner.",
+      "words": 36,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "top-management-commitment",
+      "name": "Top management commitment",
+      "description": "Clause 5.1 lists eight demonstrations and each is testable, including integrating AIMS requirements into business processes and supporting other roles to lead within their own areas. A statement of support is not among the eight.",
+      "words": 36,
+      "terms": [
+        {
+          "term": "top management",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.3",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "top management",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
       "slug": "control-categories",
       "name": "Control categories",
-      "description": "Control categories as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Policies, internal organization, resources, impact assessment, life cycle, data, information for interested parties, use, and third-party and customer relationships. They do not map onto ISO/IEC 27001's four themes, and mapping them is the error.",
+      "words": 37,
       "terms": [
         {
           "term": "control",
@@ -3713,8 +4085,8 @@
       "cert": "AIMS-F",
       "slug": "control-count",
       "name": "Control count",
-      "description": "Control count as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Thirty-eight controls, distributed unevenly, with the life cycle category holding nine across its two subdivisions. Nine categories carry ten objectives because A.6 subdivides and each half states its own, which is why published summaries disagree.",
+      "words": 37,
       "terms": [
         {
           "term": "control",
@@ -3738,8 +4110,8 @@
       "cert": "AIMS-F",
       "slug": "control-overlap",
       "name": "Control overlap",
-      "description": "Control overlap as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Largest where an AI control is really an information security control applied to an AI asset: protecting models and datasets, records governance, incident machinery, named AI security threats. Smallest where security has no concept of the thing.",
+      "words": 37,
       "terms": [
         {
           "term": "control",
@@ -3761,10 +4133,160 @@
     },
     {
       "cert": "AIMS-F",
+      "slug": "management-review",
+      "name": "Management review",
+      "description": "Top management, not a working group reporting to them, confirming the system is still suitable, adequate and effective. Those three are not synonyms, and a review that does not separate them has usually answered only the last.",
+      "words": 37,
+      "terms": [
+        {
+          "term": "review",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "work-under-organizational-control",
+      "name": "Work under organizational control",
+      "description": "The scope of both competence and awareness, and it is wider than the payroll. Contractors, agency staff and consultants operating a system on the organization's behalf are all inside it if they can affect AI performance.",
+      "words": 37,
+      "terms": [
+        {
+          "term": "control",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.21",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "control",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "aims-effectiveness-vs-system-performance",
+      "name": "AIMS effectiveness vs system performance",
+      "description": "Performance carries both senses here: what using the AI systems achieves, and how the management system itself is doing. A diagnostic - if every model performed perfectly for a year, would your monitoring show whether the management system worked?",
+      "words": 38,
+      "terms": [
+        {
+          "term": "performance",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.11",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "performance",
+          "source": "ISO 19011:2026",
+          "ref": "3.26",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "performance",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "audit-criteria-and-scope",
+      "name": "Audit criteria and scope",
+      "description": "Defined per audit, not once for the programme. An audit without a stated scope produces findings nobody can situate, and a combined audit plan listing only information security criteria has not covered the AIMS whatever else it examined.",
+      "words": 38,
+      "terms": [
+        {
+          "term": "audit",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.18",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "audit criteria",
+          "source": "ISO 19011:2026",
+          "ref": "3.8",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "competence-does-not-carry",
+      "name": "Competence does not carry",
+      "description": "Clause 7.2 is identical in both standards and the competence it requires is not. A security team's records evidence security competence and say nothing about whether anyone can tell that a model's output is wrong.",
+      "words": 38,
+      "terms": [
+        {
+          "term": "competence",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.9",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "competence",
+          "source": "ISO 19011:2026",
+          "ref": "3.23",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "correction-vs-corrective-action",
+      "name": "Correction vs corrective action",
+      "description": "Correction contains the instance and deals with the consequences; corrective action removes what caused it. The clause requires both, and asks not only whether the failure will recur here but whether similar ones exist or could occur elsewhere.",
+      "words": 38,
+      "terms": [
+        {
+          "term": "corrective action",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.17",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "corrective action",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
       "slug": "effectiveness-review",
       "name": "Effectiveness review",
-      "description": "Effectiveness review as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "The effectiveness of any corrective action taken must be reviewed, and actions must be appropriate to the effects encountered. Over-responding degrades the system by making it expensive to follow, which is the less obvious half of proportionality.",
+      "words": 38,
       "terms": [
         {
           "term": "effectiveness",
@@ -3793,17 +4315,17 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "management-review",
-      "name": "Management review",
-      "description": "Management review as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "slug": "model-supply-chain",
+      "name": "Model supply chain",
+      "description": "For a foundation model reached as a service, several assurance questions have no available mechanism: training data and rights, what was filtered, pre-release evaluation, what the provider retains. No clause creates a capability that does not exist.",
+      "words": 38,
       "terms": [
         {
-          "term": "review",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "term": "model",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
-          "how": "tail"
+          "how": "head"
         }
       ],
       "any_indexed": false,
@@ -3811,24 +4333,24 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "policy-controls",
-      "name": "Policy controls",
-      "description": "Policy controls as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "slug": "operational-planning-and-control",
+      "name": "Operational planning and control",
+      "description": "Controls selected during treatment must be implemented, their effectiveness monitored, and corrective action considered where results do not follow. A control chosen, deployed and never looked at again satisfies clause 6.1.3 and fails clause 8.1.",
+      "words": 38,
       "terms": [
         {
-          "term": "policy",
+          "term": "control",
           "source": "ISO/IEC 42001:2023",
-          "ref": "3.5",
+          "ref": "3.21",
           "indexed": true,
-          "how": "head"
+          "how": "tail"
         },
         {
-          "term": "policy",
+          "term": "control",
           "source": "ISO/IEC 27000 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
-          "how": "head"
+          "how": "tail"
         }
       ],
       "any_indexed": true,
@@ -3838,8 +4360,8 @@
       "cert": "AIMS-F",
       "slug": "process-criteria",
       "name": "Process criteria",
-      "description": "Process criteria as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "The answer to how would we know this process ran properly: which approvals, what validation evidence, what acceptable ranges, who signs off. Without them, control degenerates into an experienced person forming a view, which no auditor can test.",
+      "words": 38,
       "terms": [
         {
           "term": "process",
@@ -3870,8 +4392,8 @@
       "cert": "AIMS-F",
       "slug": "review-inputs",
       "name": "Review inputs",
-      "description": "Review inputs as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
+      "description": "Prior actions, changes in issues, changes in interested-party needs, performance including trends, and improvement opportunities. Trends is the word doing the work: a single period's figures cannot show movement, which is what determines whether to act.",
+      "words": 38,
       "terms": [
         {
           "term": "review",
@@ -3882,533 +4404,14 @@
         }
       ],
       "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "review-records",
-      "name": "Review records",
-      "description": "Review records as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "review",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "review-results",
-      "name": "Review results",
-      "description": "Review results as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 18,
-      "terms": [
-        {
-          "term": "review",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-customer-role",
-      "name": "AI customer role",
-      "description": "AI customer role as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "AI customer",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-partner-role",
-      "name": "AI partner role",
-      "description": "AI partner role as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "AI partner",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-producer-role",
-      "name": "AI producer role",
-      "description": "AI producer role as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "AI producer",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-provider-role",
-      "name": "AI provider role",
-      "description": "AI provider role as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "AI provider",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "ai-subject-role",
-      "name": "AI subject role",
-      "description": "AI subject role as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "AI subject",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "auditor-competence-limit",
-      "name": "Auditor competence limit",
-      "description": "Auditor competence limit as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "auditor",
-          "source": "ISO 19011:2026",
-          "ref": "3.16",
-          "indexed": true,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "competence-requirements-ai",
-      "name": "Competence requirements ai",
-      "description": "Competence requirements ai as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "competence",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.9",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "competence",
-          "source": "ISO 19011:2026",
-          "ref": "3.23",
-          "indexed": true,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "continuous-learning-behaviour",
-      "name": "Continuous learning behaviour",
-      "description": "Continuous learning behaviour as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "continuous learning",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "event-log-controls",
-      "name": "Event log controls",
-      "description": "Event log controls as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "event",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "impact-feeds-risk",
-      "name": "Impact feeds risk",
-      "description": "Impact feeds risk as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "incident-communication-control",
-      "name": "Incident communication control",
-      "description": "Incident communication control as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "control",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.21",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "control",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "integrated-audit-programme",
-      "name": "Integrated audit programme",
-      "description": "Integrated audit programme as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "audit programme",
-          "source": "ISO 19011:2026",
-          "ref": "3.5",
-          "indexed": true,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "integrated-management-system",
-      "name": "Integrated management system",
-      "description": "Integrated management system as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "management system",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.4",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "management system",
-          "source": "ISO 19011:2026",
-          "ref": "3.19",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "management system",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "intended-use-control",
-      "name": "Intended use control",
-      "description": "Intended use control as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "control",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.21",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "control",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "management-system-standard",
-      "name": "Management system standard",
-      "description": "Management system standard as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "management system",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.4",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "management system",
-          "source": "ISO 19011:2026",
-          "ref": "3.19",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "management system",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "model-supply-chain",
-      "name": "Model supply chain",
-      "description": "Model supply chain as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "model",
-          "source": "ISO/IEC 22989 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "monitoring-and-measurement",
-      "name": "Monitoring and measurement",
-      "description": "Monitoring and measurement as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "measurement",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.19",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "measurement",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "performance-reporting-authority",
-      "name": "Performance reporting authority",
-      "description": "Performance reporting authority as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "performance",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.11",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "performance",
-          "source": "ISO 19011:2026",
-          "ref": "3.26",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "performance",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "policy-vs-objective",
-      "name": "Policy vs objective",
-      "description": "Policy vs objective as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "objective",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.6",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "objective",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "residual-risk-approval",
-      "name": "Residual risk approval",
-      "description": "Residual risk approval as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "residual risk",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": false,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "risk-identification-ai",
-      "name": "Risk identification ai",
-      "description": "Risk identification ai as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk identification",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
       "tier": "C"
     },
     {
       "cert": "AIMS-F",
       "slug": "role-determination-requirement",
       "name": "Role determination requirement",
-      "description": "Role determination requirement as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "description": "Clause 4.1 says shall, not should, and the answer is per AI system rather than per organization. It has no counterpart in ISO/IEC 27001, where how you relate to an asset does not change your obligations.",
+      "words": 38,
       "terms": [
         {
           "term": "requirement",
@@ -4437,23 +4440,16 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "top-management-commitment",
-      "name": "Top management commitment",
-      "description": "Top management commitment as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "slug": "soa-annex-a-relationship",
+      "name": "Statement of Applicability and Annex A",
+      "description": "Runs in one direction: controls are determined from the treatment options, then compared against the annex to verify nothing necessary was omitted. The inverted approach produces a document of similar length with no link from risk to control.",
+      "words": 38,
       "terms": [
         {
-          "term": "top management",
+          "term": "statement of applicability",
           "source": "ISO/IEC 42001:2023",
-          "ref": "3.3",
+          "ref": "3.26",
           "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "top management",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
           "how": "head"
         }
       ],
@@ -4462,14 +4458,14 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "verification-validation-controls",
-      "name": "Verification validation controls",
-      "description": "Verification validation controls as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 19,
+      "slug": "ai-producer-role",
+      "name": "AI producer role",
+      "description": "The widest of the six categories: developers, designers, testers, deployers, procurers, impact assessors and oversight professionals all sit inside it. Treating developer as a peer category is how an organization concludes a role does not apply when it does.",
+      "words": 39,
       "terms": [
         {
-          "term": "verification",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "term": "AI producer",
+          "source": "ISO/IEC 22989 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
           "how": "head"
@@ -4480,22 +4476,15 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "audit-criteria-and-scope",
-      "name": "Audit criteria and scope",
-      "description": "Audit criteria and scope as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "slug": "auditor-competence-limit",
+      "name": "Auditor competence limit",
+      "description": "An ISMS auditor is not automatically competent to audit an AIMS, and that same limit is why ISO/IEC 42006 sets competence requirements for certification bodies. The gap applies to the certifier exactly as it applies to the organization.",
+      "words": 39,
       "terms": [
         {
-          "term": "audit",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.18",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "audit criteria",
+          "term": "auditor",
           "source": "ISO 19011:2026",
-          "ref": "3.8",
+          "ref": "3.16",
           "indexed": true,
           "how": "head"
         }
@@ -4505,70 +4494,20 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "competence-does-not-carry",
-      "name": "Competence does not carry",
-      "description": "Competence does not carry as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "slug": "intended-use-control",
+      "name": "Intended use control",
+      "description": "The system is used according to its instructions and documentation, and the data it runs on aligns with them. Where correct deployment still causes concern about impact or legal requirements, the guidance directs raising it with the supplier too.",
+      "words": 39,
       "terms": [
         {
-          "term": "competence",
+          "term": "control",
           "source": "ISO/IEC 42001:2023",
-          "ref": "3.9",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "competence",
-          "source": "ISO 19011:2026",
-          "ref": "3.23",
-          "indexed": true,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "control-of-documented-information",
-      "name": "Control of documented information",
-      "description": "Control of documented information as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "documented information",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.10",
+          "ref": "3.21",
           "indexed": true,
           "how": "tail"
         },
         {
-          "term": "documented information",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "correction-vs-corrective-action",
-      "name": "Correction vs corrective action",
-      "description": "Correction vs corrective action as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "corrective action",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.17",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "corrective action",
+          "term": "control",
           "source": "ISO/IEC 27000 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
@@ -4582,8 +4521,8 @@
       "cert": "AIMS-F",
       "slug": "management-system-certification-basis",
       "name": "Management system certification basis",
-      "description": "Management system certification basis as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "description": "Not in ISO/IEC 42001 at all. ISO/IEC 42006 governs the bodies that certify an AIMS and ISO/IEC 17021-1 carries the two-stage audit and surveillance cycle; clause 9.2 is internal audit, a different activity.",
+      "words": 39,
       "terms": [
         {
           "term": "management system",
@@ -4612,67 +4551,10 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "operational-planning-and-control",
-      "name": "Operational planning and control",
-      "description": "Operational planning and control as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "control",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.21",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "control",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
-      "slug": "risk-analysis-and-evaluation",
-      "name": "Risk analysis and evaluation",
-      "description": "Risk analysis and evaluation as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk analysis",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "AIMS-F",
       "slug": "risk-vs-impact-assessment",
       "name": "Risk vs impact assessment",
-      "description": "Risk vs impact assessment as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "description": "The intuitive split - risk to us, impact to them - is contradicted by the text twice. An organization that believes the two are parallel builds two disconnected processes, and the impact work never reaches the decisions the risk work drives.",
+      "words": 39,
       "terms": [
         {
           "term": "risk",
@@ -4690,6 +4572,88 @@
         },
         {
           "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "verification-validation-controls",
+      "name": "Verification validation controls",
+      "description": "Measures and the criteria for using them, covering test data and how well it represents the intended domain, release criteria and acceptable error rates. The guidance anticipates a system that cannot meet its criteria and directs a deliberate decision.",
+      "words": 39,
+      "terms": [
+        {
+          "term": "verification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "performance-reporting-authority",
+      "name": "Performance reporting authority",
+      "description": "The second named assignment, and it exists so leadership cannot be uninformed by accident. Top management must ensure the AIMS achieves its results and must review it, and neither is possible if news arrives only after something has gone wrong.",
+      "words": 40,
+      "terms": [
+        {
+          "term": "performance",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.11",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "performance",
+          "source": "ISO 19011:2026",
+          "ref": "3.26",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "performance",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "risk-identification-ai",
+      "name": "Risk identification AI",
+      "description": "Annex C's risk sources reach what a conventional IT assessment does not, because that assessment asks what could go wrong with a system behaving as specified. Several of these concern one behaving exactly as built and still doing harm.",
+      "words": 40,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk identification",
           "source": "ISO/IEC 27000 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
@@ -4703,8 +4667,8 @@
       "cert": "AIMS-F",
       "slug": "scope-as-documented-information",
       "name": "Scope as documented information",
-      "description": "Scope as documented information as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "description": "Define the boundary by criteria a reader could apply to a system they encountered, not by a list of systems, because the estate moves faster than the document. Exclusions are where an auditor looks first, since the reasoning is testable.",
+      "words": 40,
       "terms": [
         {
           "term": "documented information",
@@ -4726,10 +4690,53 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "work-under-organizational-control",
-      "name": "Work under organizational control",
-      "description": "Work under organizational control as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 20,
+      "slug": "auditor-objectivity",
+      "name": "Auditor objectivity",
+      "description": "The requirement attaches to the process rather than to the character of the individuals, so asserting it does not achieve it. An internal audit may be conducted by an external party on the organization's behalf, which the standard contemplates directly.",
+      "words": 41,
+      "terms": [
+        {
+          "term": "auditor",
+          "source": "ISO 19011:2026",
+          "ref": "3.16",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "competence-requirements-ai",
+      "name": "Competence requirements AI",
+      "description": "Scoped to persons doing work under the organization's control rather than to employees, so a contractor labelling data or an agency operating a deployed system is inside it. Where action is taken to acquire competence, its effectiveness must be evaluated.",
+      "words": 41,
+      "terms": [
+        {
+          "term": "competence",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.9",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "competence",
+          "source": "ISO 19011:2026",
+          "ref": "3.23",
+          "indexed": true,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "incident-communication-control",
+      "name": "Incident communication control",
+      "description": "A determined and documented plan for telling users. AI incidents can be specific to the system or be information security or privacy events, and integrating them into existing incident management works only if what is unique to AI stays in view.",
+      "words": 41,
       "terms": [
         {
           "term": "control",
@@ -4751,27 +4758,20 @@
     },
     {
       "cert": "AIMS-F",
-      "slug": "aims-effectiveness-vs-system-performance",
-      "name": "AIMS effectiveness vs system performance",
-      "description": "AIMS effectiveness vs system performance as required or described by ISO/IEC 42001:2023 and taught in the AIMS-F blueprint.",
-      "words": 21,
+      "slug": "control-of-documented-information",
+      "name": "Control of documented information",
+      "description": "Available and fit to use where needed, and protected against lost confidentiality, misuse and lost integrity. Permission to view and authority to change are different grants, and conflating them is how a record gets edited by someone meant only to read it.",
+      "words": 42,
       "terms": [
         {
-          "term": "performance",
+          "term": "documented information",
           "source": "ISO/IEC 42001:2023",
-          "ref": "3.11",
+          "ref": "3.10",
           "indexed": true,
           "how": "tail"
         },
         {
-          "term": "performance",
-          "source": "ISO 19011:2026",
-          "ref": "3.26",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "performance",
+          "term": "documented information",
           "source": "ISO/IEC 27000 (NOT INDEXED)",
           "ref": null,
           "indexed": false,
@@ -4779,6 +4779,24 @@
         }
       ],
       "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "event-log-controls",
+      "name": "Event log controls",
+      "description": "A determination duty with a floor: decide at which life cycle phases logs are kept, with in-use as the stated minimum. Logging everything satisfies it no better than logging nothing, because what is required is a decision per phase that can be explained.",
+      "words": 44,
+      "terms": [
+        {
+          "term": "event",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": false,
       "tier": "C"
     },
     {

@@ -193,12 +193,28 @@ const rows = batch.rows.map(([task, slug, name, term, desc]) => ({ task, slug, n
 
 console.log("");
 console.log("INDEX -- " + Object.keys(PDFS).join(", "));
+/* ============ THE GAP LIST IS DERIVED, AND IT WAS STALE ============
+ *
+ * These six lines were hardcoded `console.log`s, and on 2026-09-22 they still
+ * read "ISO/IEC 27000 ... NOT ON DISK" and "ISO/IEC 22989 ... NOT ON DISK" --
+ * printed DIRECTLY BENEATH an INDEX line naming 27000:2018 and 22989:2022 as
+ * indexed. Both were purchased and indexed on 2026-09-21. The gate contradicted
+ * itself in adjacent lines of its own output and had done since the corpus
+ * widened.
+ *
+ * A hardcoded gap list is a second copy of a fact that lives in the manifest,
+ * and a second copy goes stale by default -- the defect CLAUDE.md opens with,
+ * inside the instrument that reports coverage. Worse than a stale note: a
+ * report of a gap that has been CLOSED argues against buying something already
+ * owned, and invites a reader to discount a real fire as unreachable.
+ *
+ * Derived from `iso-corpus-manifest.json`, which is the committed record of
+ * what is actually indexed. Derive, never duplicate. */
 console.log("COVERAGE GAPS -- reproductions of these are UNREACHABLE at any threshold:");
-console.log("  ISO/IEC 27000   delegated to by 27001:2022 cl.3 (undated reference)   NOT ON DISK");
-console.log("  ISO/IEC 22989   delegated to by 42001:2023 cl.3                       NOT ON DISK");
-console.log("  every non-English edition  -- this index is MONOLINGUAL, so a Spanish or");
-console.log("  Portuguese rendering of a defined term scores 0 and always has");
-console.log("  near-wording from OTHER EDITIONS of an indexed standard is also out of reach");
+for (const g of MANIFEST.open_coverage_gaps) {
+  const wrapped = g.match(/.{1,74}(\s|$)/g) || [g];
+  console.log("  " + wrapped.map((l) => l.trim()).join("\n    "));
+}
 console.log("");
 
 /* ============ COMPLETENESS, BOTH DIRECTIONS, BEFORE ANY VERDICT ============
