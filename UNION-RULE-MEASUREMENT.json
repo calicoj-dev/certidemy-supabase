@@ -1,0 +1,41 @@
+{
+  "measured": "2026-09-22",
+  "params": {
+    "SEED": 4,
+    "MIN_RUN": 4,
+    "MIN_COV": 0.6,
+    "DESC_GAP_MAX": 0,
+    "SRC_GAP_MAX": 3
+  },
+  "index": [
+    "19011:2026",
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27001:2022",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022",
+    "42001:2023"
+  ],
+  "coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "corpus": 1729,
+  "fires_current": 12,
+  "fires_union": 15,
+  "newly_visible": 3,
+  "dropped_by_source_conditions": 3,
+  "per_certification": {
+    "ISMS-F": 9,
+    "AIGRM-I": 3,
+    "AISM-I": 1,
+    "ISMS-IA": 2
+  },
+  "newly_visible_per_certification": {
+    "ISMS-F": 1,
+    "ISMS-IA": 2
+  }
+}

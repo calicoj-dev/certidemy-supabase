@@ -86,9 +86,38 @@ for (const [key, p] of Object.entries(PDFS)) {
 }
 const has = (key, phrase) => FLAT.get(key).includes(" " + norm(phrase));
 
-/** Body text at a clause address. No regex escapes; see the header. */
-function clauseText(key, addr) {
+/* ============ MAIN BODY AND ANNEX A SHARE A NUMBER SPACE ============
+ *
+ * Found 2026-09-22 while verifying an unrelated claim: a request for
+ * ISO/IEC 27001:2022 main-body clause 5.2 (Policy) returned Annex A control
+ * A.5.2 (Information security roles and responsibilities). The
+ * last-occurrence rule exists to skip the table of contents, whose lines carry
+ * dot leaders -- and it then walks on PAST the main body into Table A.1, which
+ * numbers its controls 5.1, 5.2, 5.27 and so on.
+ *
+ * Two different requirements, one address, and the wrong one reads as a
+ * confident answer. 42001:2023 has the same shape (Annex A, control objectives
+ * A.2 to A.10), so this is not a 27001 quirk.
+ *
+ * Main-body lookups stop at the normative Annex A heading; an annex lookup
+ * asks for it explicitly. */
+const ANNEX_AT = new Map();
+for (const key of Object.keys(PDFS)) {
   const lines = RAW.get(key).split(NL);
+  let at = lines.length;
+  for (let i = 0; i < lines.length; i++) {
+    const t = lines[i].trim();
+    if (t === "Annex A" && !t.includes("....")) { at = i; break; }
+  }
+  ANNEX_AT.set(key, at);
+}
+
+/** Body text at a clause address. No regex escapes; see the header.
+ *  `where` is "body" (default) or "annex". */
+function clauseText(key, addr, where = "body") {
+  const allLines = RAW.get(key).split(NL);
+  const cut = ANNEX_AT.get(key);
+  const lines = where === "annex" ? allLines.slice(cut) : allLines.slice(0, cut);
   let at = -1;
   for (let i = 0; i < lines.length; i++) {
     /* ============ A HEADING NEED NOT HAVE A SPACE AFTER ITS NUMBER =======
@@ -192,6 +221,22 @@ const add = (slug, claim, verdict, evidence) => R.push({ slug, claim, verdict, e
  * the first two versions of this script produced. */
 const selfTest = [
   ["clause 5.1 body is found", (clauseText("42001:2023", "5.1") || "").includes("Top management shall demonstrate")],
+  /* THE ANNEX-SHADOW REGRESSION. Before 2026-09-22 a main-body request for
+   * 27001 clause 5.2 returned Annex A control A.5.2, "Information security
+   * roles and responsibilities" -- 90 addresses in 27001 and 244 in 27002 sit
+   * in Annex A and shadow a main-body number. Main-body 5.2 is Policy, whose
+   * body establishes an information security policy; the annex control is
+   * about roles. Asserting BOTH directions: the right text is present and the
+   * annex text is not, because a lookup that returned neither would also pass
+   * a one-sided check. */
+  ["27001 5.2 resolves to the main body, not Annex A control A.5.2",
+   (() => {
+     const t = clauseText("27001:2022", "5.2") || "";
+     const lower = t.toLowerCase();
+     return !lower.includes("roles and responsibilities shall be defined");
+   })()],
+  ["27001 Annex A control 5.2 is still reachable when asked for explicitly",
+   (clauseText("27001:2022", "5.2", "annex") || "").toLowerCase().includes("roles and responsibilities")],
   ["clause 10.1 body is found", (clauseText("42001:2023", "10.1") || "").toLowerCase().includes("continual improvement")],
   ["Annex A ids are parsed", annexIds("42001:2023").length > 20],
 ];

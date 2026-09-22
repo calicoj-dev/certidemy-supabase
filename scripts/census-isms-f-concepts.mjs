@@ -27,7 +27,9 @@ import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PDFS, pdftotextAvailable, expectedWords, MANIFEST } from "./lib/citation-index.mjs";
+import { PDFS, pdftotextAvailable, MANIFEST } from "./lib/citation-index.mjs";
+import { buildSources, score, firesCurrent, firesUnion, assertCanary,
+         SEED, MIN_RUN, MIN_COV, DESC_GAP_MAX, SRC_GAP_MAX, norm, W } from "./lib/leak-score.mjs";
 
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--")) { console.error("Unrecognised flag: " + a + ". READ-ONLY, no flags."); process.exit(2); }
@@ -72,7 +74,6 @@ async function allRows(path) {
 }
 
 /* ------------------------------------------------------------- the index */
-const MIN_RUN = 4, MIN_COV = 0.60, SEED = 4;
 
 if (!pdftotextAvailable()) {
   console.error("pdftotext is not on PATH. choco install poppler / brew install poppler.");
@@ -80,50 +81,8 @@ if (!pdftotextAvailable()) {
 }
 for (const [k, p] of Object.entries(PDFS)) if (!existsSync(p)) { console.error("MISSING " + k + " at " + p); process.exit(2); }
 
-const norm = (s) => String(s || "").toLowerCase()
-  .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
-const W = (s) => norm(s).split(" ").filter(Boolean);
-
-const perSource = new Map();
-for (const [key, p] of Object.entries(PDFS)) {
-  const o = join(mkdtempSync(join(tmpdir(), "iso-")), "t.txt");
-  execFileSync("pdftotext", ["-layout", p, o]);
-  const w = W(readFileSync(o, "utf8"));
-  if (w.length !== expectedWords(key)) {
-    console.error(key + " extracted " + w.length + " words, manifest says " + expectedWords(key) + ". Refusing.");
-    process.exit(1);
-  }
-  const set = new Set();
-  for (let i = 0; i + SEED <= w.length; i++) set.add(w.slice(i, i + SEED).join(" "));
-  perSource.set(key, set);
-}
-
-/* PER SOURCE, never a union: a combined gram set chains a run across two
- * documents through a junction present in neither, which makes the length a
- * property of the index rather than of any standard. */
-function score(t) {
-  const w = W(t);
-  let best = 0, bestText = "", src = "";
-  for (const [key, set] of perSource) {
-    for (let i = 0; i + SEED <= w.length; i++) {
-      if (!set.has(w.slice(i, i + SEED).join(" "))) continue;
-      let n = SEED;
-      while (i + n + 1 <= w.length && set.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
-      if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); src = key; }
-      i += n - 1;
-    }
-  }
-  return { run: best, tot: w.length, cov: w.length ? best / w.length : 0, hit: bestText, src };
-}
-
-/* POSITIVE CONTROL. A known reproduction must fire, or the index is empty and
- * every clean verdict here is worthless. */
-const CANARY = "the organization shall determine external and internal issues that are relevant to its purpose";
-const cs = score(CANARY);
-if (!(cs.run >= MIN_RUN && cs.cov >= MIN_COV)) {
-  console.error("POSITIVE CONTROL FAILED: 27001 cl.4.1 canary scored " + cs.run + "w/" + cs.cov.toFixed(2));
-  process.exit(1);
-}
+const sources = buildSources();
+const cs = assertCanary(sources);
 
 /** Which clause of the named source carries a span. Reported per fire, because
  *  a run with no locatable source is the tell for a manufactured adjacency. */
@@ -270,19 +229,25 @@ console.log("   ISMS-F rows sharing a 100-char opening with AIMS-F or ISMS-IA: "
 /* ------------------------------------------------------- 6. the leak gate */
 console.log("");
 console.log("6. LEAK GATE  seed " + SEED + ", refuse when run >= " + MIN_RUN + " AND coverage >= " + MIN_COV.toFixed(2));
-console.log("   positive control  " + cs.run + "w/" + cs.cov.toFixed(2) + "  (27001 cl.4.1 canary fires as it must)");
-const scored = rows.map((r) => ({ ...r, s: score(r.description) }));
-const fired = scored.filter((r) => r.s.run >= MIN_RUN && r.s.cov >= MIN_COV)
-  .sort((a, b) => b.s.cov - a.s.cov || b.s.run - a.s.run);
+console.log("   positive control  " + cs.maxRun + "w/" + cs.maxCov.toFixed(2) + "  (27001 cl.4.1 canary fires as it must)");
+console.log("   union rule: desc gap<=" + DESC_GAP_MAX + ", same source, source gap<=" + SRC_GAP_MAX);
+const scored = rows.map((r) => ({ ...r, s: score(r.description, sources) }));
+/* THE UNION RULE IS THE GATE NOW. firesCurrent is kept beside it so a row
+ * visible only under the union is reported as such rather than silently
+ * appearing -- the difference is the finding. */
+const fired = scored.filter((r) => firesUnion(r.s) || firesCurrent(r.s))
+  .sort((a, b) => b.s.unionCov - a.s.unionCov || b.s.unionRun - a.s.unionRun);
 console.log("   rows scored       " + scored.length);
 console.log("   FIRES             " + fired.length);
 console.log("");
 for (const r of fired) {
   console.log("   FIRE  " + r.slug);
   console.log("      name        " + r.name);
-  console.log("      run " + r.s.run + "w of " + r.s.tot + "   coverage " + r.s.cov.toFixed(2) + "   source " + r.s.src);
-  console.log("      clause      " + locate(r.s.src, r.s.hit));
-  console.log("      matched     \"" + r.s.hit + "\"");
+  console.log("      longest run " + r.s.maxRun + "w of " + r.s.words + "  cov " + r.s.maxCov.toFixed(3) +
+              "   union " + r.s.unionRun + "w  cov " + r.s.unionCov.toFixed(3) + "   source " + r.s.source);
+  console.log("      fires: " + (firesCurrent(r.s) ? "current" : "-") + " / " + (firesUnion(r.s) ? "union" : "-"));
+  console.log("      clause      " + locate(r.s.source, r.s.merged[0] ? r.s.merged[0].text : ""));
+  for (const m of r.s.merged) console.log("      matched     " + String(m.len).padStart(2) + "w  \"" + m.text + "\"");
   console.log("      full text   " + r.description);
   console.log("");
 }
@@ -292,16 +257,19 @@ writeFileSync(join(HERE, "..", "ISMS-F-CENSUS.json"), JSON.stringify({
   live_concepts: rows.length,
   index: Object.keys(PDFS),
   coverage_gaps: MANIFEST.open_coverage_gaps,
-  gate: { seed: SEED, min_run: MIN_RUN, min_cov: MIN_COV, canary: cs },
+  gate: { seed: SEED, min_run: MIN_RUN, min_cov: MIN_COV, desc_gap_max: DESC_GAP_MAX, src_gap_max: SRC_GAP_MAX },
   length: { min: lens[0], median: lens[Math.floor(lens.length / 2)], max: lens[lens.length - 1],
             one_sentence: oneLiner.length, multi_sentence: rows.length - oneLiner.length },
   addresses: { rows_with: withAddr, citation: cited, bare },
   shape: { definition_shaped: definitional.length, explanation_shaped: rows.length - definitional.length },
   shared_openings: shared,
   fires: fired.map((r) => ({
-    slug: r.slug, name: r.name, run: r.s.run, words: r.s.tot,
-    coverage: Number(r.s.cov.toFixed(3)), source: r.s.src,
-    clause: locate(r.s.src, r.s.hit), matched: r.s.hit, description: r.description,
+    slug: r.slug, name: r.name, words: r.s.words, source: r.s.source,
+    max_run: r.s.maxRun, max_cov: Number(r.s.maxCov.toFixed(3)),
+    union_run: r.s.unionRun, union_cov: Number(r.s.unionCov.toFixed(3)),
+    fires_current: firesCurrent(r.s), fires_union: firesUnion(r.s),
+    clause: locate(r.s.source, r.s.merged[0] ? r.s.merged[0].text : ""),
+    matched: r.s.merged.map((m) => ({ len: m.len, text: m.text })), description: r.description,
   })),
   definition_shaped_slugs: definitional.map((r) => r.slug),
 }, null, 2), "utf8");

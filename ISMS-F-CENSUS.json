@@ -21,13 +21,8 @@
     "seed": 4,
     "min_run": 4,
     "min_cov": 0.6,
-    "canary": {
-      "run": 14,
-      "tot": 14,
-      "cov": 1,
-      "hit": "the organization shall determine external and internal issues that are relevant to its purpose",
-      "src": "27001:2022"
-    }
+    "desc_gap_max": 0,
+    "src_gap_max": 3
   },
   "length": {
     "min": 34,
@@ -48,91 +43,183 @@
   "shared_openings": 0,
   "fires": [
     {
+      "slug": "confidentiality",
+      "name": "Confidentiality",
+      "words": 11,
+      "source": "27000:2018",
+      "max_run": 6,
+      "max_cov": 0.545,
+      "union_run": 11,
+      "union_cov": 1,
+      "fires_current": false,
+      "fires_union": true,
+      "clause": "3 Terms and definitions",
+      "matched": [
+        {
+          "len": 11,
+          "text": "information is not made available to unauthorized individuals entities or processes"
+        }
+      ],
+      "description": "information is not made available to unauthorized individuals, entities or processes"
+    },
+    {
       "slug": "iso-27005-risk",
       "name": "ISO 27005 risk",
-      "run": 6,
       "words": 6,
-      "coverage": 1,
       "source": "27002:2022",
+      "max_run": 6,
+      "max_cov": 1,
+      "union_run": 6,
+      "union_cov": 1,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "(span not located in the layout text)",
-      "matched": "guidance on information security risk management",
+      "matched": [
+        {
+          "len": 6,
+          "text": "guidance on information security risk management"
+        }
+      ],
       "description": "guidance on information security risk management"
     },
     {
       "slug": "isms-scope",
       "name": "ISMS scope",
-      "run": 6,
       "words": 7,
-      "coverage": 0.857,
       "source": "27001:2022",
+      "max_run": 6,
+      "max_cov": 0.857,
+      "union_run": 6,
+      "union_cov": 0.857,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "4.3 Determining the scope of the information secur",
-      "matched": "the boundaries and applicability of the",
+      "matched": [
+        {
+          "len": 6,
+          "text": "the boundaries and applicability of the"
+        }
+      ],
       "description": "the boundaries and applicability of the ISMS"
     },
     {
       "slug": "availability",
       "name": "Availability",
-      "run": 9,
       "words": 11,
-      "coverage": 0.818,
       "source": "22989:2022",
+      "max_run": 9,
+      "max_cov": 0.818,
+      "union_run": 9,
+      "union_cov": 0.818,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "3.5 Terms related to trustworthiness",
-      "matched": "accessible and usable on demand by an authorized entity",
+      "matched": [
+        {
+          "len": 9,
+          "text": "accessible and usable on demand by an authorized entity"
+        }
+      ],
       "description": "information is accessible and usable on demand by an authorized entity"
     },
     {
       "slug": "cryptographic-controls",
       "name": "Cryptographic controls",
-      "run": 4,
       "words": 5,
-      "coverage": 0.8,
       "source": "27002:2022",
+      "max_run": 4,
+      "max_cov": 0.8,
+      "union_run": 4,
+      "union_cov": 0.8,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "5.16 Identity management",
-      "matched": "use and management of",
+      "matched": [
+        {
+          "len": 4,
+          "text": "use and management of"
+        }
+      ],
       "description": "use and management of cryptography"
     },
     {
       "slug": "climate-change-relevance",
       "name": "Climate change relevance",
-      "run": 8,
       "words": 11,
-      "coverage": 0.727,
       "source": "27001:2022/Amd1",
+      "max_run": 8,
+      "max_cov": 0.727,
+      "union_run": 8,
+      "union_cov": 0.727,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "(no heading above the match)",
-      "matched": "determine whether climate change is a relevant issue",
+      "matched": [
+        {
+          "len": 8,
+          "text": "determine whether climate change is a relevant issue"
+        }
+      ],
       "description": "the requirement to determine whether climate change is a relevant issue"
     },
     {
       "slug": "supplier-controls",
       "name": "Supplier controls",
-      "run": 5,
       "words": 7,
-      "coverage": 0.714,
       "source": "27002:2022",
+      "max_run": 5,
+      "max_cov": 0.714,
+      "union_run": 5,
+      "union_cov": 0.714,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "5.19 Information security in supplier relationships",
-      "matched": "information security in supplier relationships",
+      "matched": [
+        {
+          "len": 5,
+          "text": "information security in supplier relationships"
+        }
+      ],
       "description": "controls governing information security in supplier relationships"
     },
     {
       "slug": "iso-27002-controls",
       "name": "ISO 27002 controls",
-      "run": 4,
       "words": 6,
-      "coverage": 0.667,
       "source": "27000:2018",
+      "max_run": 4,
+      "max_cov": 0.667,
+      "union_run": 4,
+      "union_cov": 0.667,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "5.5.6 ISO 27799",
-      "matched": "implementation guidance for the",
+      "matched": [
+        {
+          "len": 4,
+          "text": "implementation guidance for the"
+        }
+      ],
       "description": "implementation guidance for the reference controls"
     },
     {
       "slug": "risk-criteria",
       "name": "Risk criteria",
-      "run": 6,
       "words": 10,
-      "coverage": 0.6,
       "source": "27005:2022",
+      "max_run": 6,
+      "max_cov": 0.6,
+      "union_run": 6,
+      "union_cov": 0.6,
+      "fires_current": true,
+      "fires_union": true,
       "clause": "(span not located in the layout text)",
-      "matched": "the terms of reference against which",
+      "matched": [
+        {
+          "len": 6,
+          "text": "the terms of reference against which"
+        }
+      ],
       "description": "the terms of reference against which risk significance is judged"
     }
   ],

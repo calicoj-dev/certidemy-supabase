@@ -2186,6 +2186,103 @@ rendering, so editing es-419 must leave pt-BR serving. 364's proof asserts
 exactly that: one edit, one row withheld, the sibling language still serving.
 A per-concept tr_hash would have passed every count assertion and been wrong.
 
+**A SPLIT RUN IS ONE REPRODUCTION ONLY IF THE SOURCE AGREES IT IS.** Adopted
+2026-09-22, and it is the coverage rule's missing half.
+
+`confidentiality` read *"information is not made available to unauthorized
+individuals, entities or processes"* -- ISO/IEC 27000's definition with **two
+words omitted**. That omission splits one total reproduction into runs of 5 and
+6, so longest-run coverage is 6/11 = 0.545 and the gate said nothing. The row
+was live and unauthenticated. Union coverage is 11/11 = **1.00**.
+
+**A RAW UNION IS NOT THE FIX.** It re-creates the cross-document chaining
+defect from the other end: `pdca-cycle` scores 0.667 by summing *"plan do check
+act"* and *"of a management system"*, two commonplaces four words apart that no
+source ever joined. Summing spans the source never joined is the same
+manufactured adjacency, one level up.
+
+> **MECHANISM: two runs merge only when ALL THREE hold --**
+> **(1)** they abut in the DESCRIPTION, gap <= 0;
+> **(2)** they come from the SAME SOURCE DOCUMENT;
+> **(3)** they are near-contiguous IN THE SOURCE, forward gap <= 3 words,
+> which is what an interpolation costs.
+>
+> Condition 3 is the one that cannot be dropped. Without it a description that
+> happens to abut two unrelated commonplaces scores as a total reproduction,
+> and we manufacture the finding rather than measure it.
+
+**`confidentiality` satisfies all three, and the source-side gap is 2** -- the
+exact cost of the omitted "or disclosed". That is what a reproduction with one
+edit looks like, measured rather than asserted.
+
+**THE CONDITIONS ARE A FILTER, NOT INSURANCE: THEY DROPPED 3 OF 6.** Abutting
+alone would have added six rows corpus-wide; the source-side tests reject half
+of them:
+
+```
+ia-independence-of-the-activity-audited-4-6   source gap 5     rejected
+ia-policy-availability-and-communication      no forward gap   rejected
+aia-control-objectives-a-2-to-a-10            gaps 96, 82, 389, 3078   rejected
+```
+
+The last is the argument in one row: a description that ENUMERATES control
+objectives naturally abuts phrases scattered across an annex. Every pair abuts
+in our text and none is contiguous in the standard.
+
+**Final fire set, 1,729 live concepts:** 15 -- ISMS-F 9, AIGRM-I 3, ISMS-IA 2,
+AISM-I 1. Three newly visible: ISMS-F 1, ISMS-IA 2.
+
+The scorer is `scripts/lib/leak-score.mjs`, shared, so the gate and every
+report cannot drift apart.
+
+**MAIN-BODY CLAUSES AND ANNEX A CONTROLS SHARE A NUMBER SPACE, AND THE
+EXTRACTOR RESOLVED THE WRONG ONE.** Found 2026-09-22 while verifying an
+unrelated claim.
+
+A request for ISO/IEC 27001:2022 main-body clause **5.2 (Policy)** returned
+**Annex A control A.5.2 (Information security roles and responsibilities)**.
+The last-occurrence rule exists to skip the table of contents, whose lines
+carry dot leaders -- and it then walks on past the main body into Table A.1,
+which numbers its controls 5.1, 5.2, 5.27. Two different requirements, one
+address, and the wrong one reads as a confident answer.
+
+**Measured shadowing, per indexed standard:**
+
+```
+27002:2022   244 addresses in Annex A shadow a main-body number
+27001:2022    90
+27004:2016    10
+42001:2023     0   -- its annex uses A.2, A.3 ... so it shadows NOTHING
+```
+
+**That last line is why the AIMS-F claim audit was unaffected, and it is the
+part worth stating rather than the reassurance.** Re-run after the fix: **81
+claims, 67 OK, 0 FAIL, 14 UNVERIFIABLE -- identical, no verdict moved.** Not
+luck: the audit's claims are about 42001, whose annex cannot shadow, and it
+makes exactly ONE 27001 clause lookup -- 4.1 -- while 27001's Annex A controls
+begin at 5.1. Nothing it asked could have resolved wrongly.
+
+**An identical result after a real fix is only reassuring once you can say why
+it is identical.** A no-op fix produces the same output as a fix that mattered.
+
+**AND IT IS THE SECOND TIME THIS PDF HAS DEFEATED A TEXT TEST.** The first was
+`4.1Understanding` extracting with no space behind a licence-watermark column,
+so `clauseText` returned null for every clause of 27001 and *"clause 4.1 does
+not mention roles"* scored OK against an empty string. The 5.2 heading is
+unreachable by any line test for the same reason -- it extracts as
+`SNV / licensed to ... / ISO/IEC 27001:2022  5.2Po`.
+
+> **RULE - A CLAUSE THE EXTRACTOR CANNOT LOCATE IS UNRESOLVABLE AND LOUD,
+> NEVER EMPTY AND SILENT.** An extraction returning nothing must FAIL the check
+> that requested it, not satisfy it. Mechanism: the caller treats "not found"
+> as a failure of the check rather than as an empty haystack, and EMPTY
+> EXTRACTION is counted as its own verdict class beside OK and FAIL.
+
+Both directions are asserted as regression controls: main-body 5.2 must not
+return the annex text, **and** the annex control must still be reachable when
+asked for explicitly. A one-sided check passes on a lookup that returns
+nothing at all.
+
 **A GATE'S STORED VALUE IS WRITTEN ONLY BY THE THING THAT CAN PROVE IT.**
 Recorded 2026-09-22, and it is the sharpest instance in this file of an
 instrument reporting success while not looking at anything -- because here the
@@ -2574,6 +2671,21 @@ in ISMS-F alone**: `residual-risk`, `risk-identification`, `risk-analysis`,
 `nonconformity`, `access-control`, `audit-criteria`, `top-management`,
 `continual-improvement`, `statement-of-applicability`. Every one is short, and
 the shortness is the mechanism.
+
+**[WITHDRAWN AS A TEXT MEASURE 2026-09-22.** The tier-A count reads concept
+NAMES against a list of ISO defined terms; it never looks at the description.
+It therefore CANNOT FALL when a description is rewritten -- measured directly:
+ISMS-F rewrote five tier-A rows in batch 1 and the count stayed at 17.
+
+It is a CANDIDATE LIST derived from the blueprint, useful as that and only
+that. Every use of it as evidence about description quality is struck,
+including the overlap figure computed against the leak fires as though both
+instruments read the same input. **They do not: one reads names, the other
+reads text.**
+
+The scope ruling it partly rested on SURVIVES on its other two legs, which are
+real text measures -- median 59 characters, and 192 of 192 one sentence or
+fewer. 152 rewrite / 18 keep / 0 trim stands.**]**
 
 **A gate score of 0 on a corpus of one-liners is not evidence of anything**, and
 `gate-concept-descriptions.mjs` prints that sentence in its own output rather
