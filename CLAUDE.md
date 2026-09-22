@@ -378,6 +378,32 @@ believed once every few months.
 runtime is invisible; and it cannot see two lists that agree on strings and
 disagree on meaning. That is still a human reading both files.
 
+**`contractVersion` HAS NEVER SERVED A SECOND SHAPE, AND THE RESPONSE SAYS IT
+HAS.** Measured 2026-09-22 against the live server, before widening
+`get_concept`. Not a rule yet -- a fact, recorded so it is not rediscovered.
+
+```
+list_lessons contract_version=1  ->  contractVersion=1, and the v3 payload
+list_lessons contract_version=2  ->  contractVersion=2, and the v3 payload
+list_lessons contract_version=3  ->  contractVersion=3, and the v3 payload
+```
+
+No tool in `certidemy-web/lib/mcp/registry.ts` branches on
+`request.contractVersion` anywhere. It is validated against `supported`, echoed
+into the payload, and never consulted again. **That is worse than having no
+versioning**, because the response ASSERTS a version it is not: a partner who
+pins 1 to protect themselves is told they received 1.
+
+**The structural reason it cannot simply be fixed by branching:** MCP
+advertises ONE `outputSchema` per tool, and these schemas are
+`additionalProperties: false`. Two genuinely different shapes cannot both be
+legal under one advertised schema, so the only safe evolution is
+**additive-with-optional** -- and then `contractVersion` can mean "which fields
+you may receive", never "a different shape".
+
+`get_lesson` is the exception and the precedent: `{ current: 2, supported: [2] }`
+REFUSES the old pin instead of lying about it. Every other tool accepts it.
+
 **AND THE ONE THAT GENUINELY SPANS TWO REPOS IS THE ONE NOTHING CAN TEST.**
 A pair inside one repo is a refactor away from not being a pair. A pair with a
 REPOSITORY BOUNDARY between its halves cannot share a module at all, so each
