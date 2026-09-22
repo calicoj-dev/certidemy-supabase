@@ -1,0 +1,129 @@
+{
+  "batch": 1,
+  "written": "2026-09-22",
+  "selection": "ADVERSARIAL, not representative. All 4 rows firing both instruments, both coverage-1.00 reproductions, and the 13 shortest rows in the census. If the style cannot carry these it cannot carry the corpus.",
+  "template": "security-control :: An answer to a risk the organization chose not to accept; judged by whether the risk moved, not by whether the control is present.",
+  "test": "A candidate who reads it knows something the ISO definition does not tell them: what the thing is FOR, when it applies, or what it is contrasted AGAINST.",
+  "rows": [
+    {
+      "slug": "risk-identification",
+      "why_selected": "both instruments; coverage 1.00 - the whole description is ISO/IEC 27000 cl.3",
+      "current": "finding, recognizing and describing risks",
+      "proposed": "The stage that produces the list everything later works from, so a risk missed here is never analysed, never treated, and invisible to anyone reviewing the register afterwards."
+    },
+    {
+      "slug": "iso-27005-risk",
+      "why_selected": "coverage 1.00 - the description IS the standard's title. Exempt from the leak gate as title class, which does not make it teach.",
+      "current": "guidance on information security risk management",
+      "proposed": "What you reach for when 27001 requires risk assessment but does not say how to do one. It offers method and examples, and no organization is ever audited against it."
+    },
+    {
+      "slug": "threat",
+      "why_selected": "both instruments; 0.857 against ISO/IEC 27000 cl.3",
+      "current": "a potential cause of an unwanted incident",
+      "proposed": "The actor or event that could cause harm, named separately from the weakness it would need. Pairing the two is what turns a vague worry into something that can be assessed."
+    },
+    {
+      "slug": "risk-criteria",
+      "why_selected": "both instruments; 0.600 against ISO/IEC 27005",
+      "current": "the terms of reference against which risk significance is judged",
+      "proposed": "Fixed before assessment begins, never after the results arrive. Deciding what counts as acceptable once you can see which risks would fail it is how a register gets tuned to a wanted answer."
+    },
+    {
+      "slug": "availability",
+      "why_selected": "both instruments; 0.818 against ISO/IEC 22989 cl.3.5",
+      "current": "information is accessible and usable on demand by an authorized entity",
+      "proposed": "The property that fails with no attacker involved. An outage, a lost key or a ransomware lock denies information to the people entitled to it as completely as theft would."
+    },
+    {
+      "slug": "avoid-risk",
+      "why_selected": "leak fire 0.800 against ISO/IEC 27000 cl.3",
+      "current": "not undertaking the activity that gives rise to the risk",
+      "proposed": "The only option that removes a risk rather than shrinking it, and the only one that gives up the activity's benefit as well. That trade is why it is rarely as cheap as it looks."
+    },
+    {
+      "slug": "cryptographic-controls",
+      "why_selected": "leak fire 0.800 against ISO/IEC 27002; also among the shortest at 34 chars",
+      "current": "use and management of cryptography",
+      "proposed": "Both halves matter and the second is where implementations fail. Choosing an algorithm is easy; key custody, rotation and recovery decide whether the protection actually holds."
+    },
+    {
+      "slug": "physical-perimeter",
+      "why_selected": "shortest description in the corpus at 28 chars",
+      "current": "physical security boundaries",
+      "proposed": "Where control passes to walls, doors and locks rather than to configuration. A perimeter drawn on a floor plan is only real if it matches where information is actually handled."
+    },
+    {
+      "slug": "nonconformity",
+      "why_selected": "31 chars; bare ISO gloss; tier-A",
+      "current": "a failure to meet a requirement",
+      "proposed": "Three things have to hold together: a requirement exists, the evidence relates to that requirement, and it shows the requirement unmet. Miss any one and the finding is an observation."
+    },
+    {
+      "slug": "roles-segregation",
+      "why_selected": "32 chars",
+      "current": "separation of conflicting duties",
+      "proposed": "Splits a task so no one person can both act and approve their own action. The aim is removing the opportunity, which is why it applies to trusted people exactly as much as to anyone else."
+    },
+    {
+      "slug": "retain-risk",
+      "why_selected": "32 chars; one of the four treatment options",
+      "current": "accepting a risk within criteria",
+      "proposed": "A decision, not an omission. Retention means someone with the authority to accept it looked at the risk and judged it tolerable against stated criteria; anything else is a risk nobody treated."
+    },
+    {
+      "slug": "scope-statement",
+      "why_selected": "34 chars",
+      "current": "the documented expression of scope",
+      "proposed": "Read afterwards as the promise of what the certificate covers, so whatever it leaves ambiguous is resolved against the organization. Interfaces and dependencies are where it usually fails."
+    },
+    {
+      "slug": "residual-risk",
+      "why_selected": "34 chars; bare ISO gloss; tier-A",
+      "current": "the risk remaining after treatment",
+      "proposed": "What remains once the controls work as intended, which is not the same as what remains because they were never finished. The risk owner has to accept it explicitly before treatment is done."
+    },
+    {
+      "slug": "lessons-learned",
+      "why_selected": "35 chars",
+      "current": "using incidents to improve the ISMS",
+      "proposed": "The step that turns an incident from a pure cost into information. Skipped, the organization pays for the same failure twice, and clause 10 reads the omission as a gap in improvement."
+    },
+    {
+      "slug": "least-privilege",
+      "why_selected": "37 chars",
+      "current": "granting the minimum access necessary",
+      "proposed": "Minimum for the work being done now, which makes it a review obligation rather than a joining-day one. Access that was correct at hire is usually wrong after the first role change."
+    },
+    {
+      "slug": "clear-desk-clear-screen",
+      "why_selected": "37 chars",
+      "current": "the control on unattended information",
+      "proposed": "Aimed at the visitor, the contractor and the person walking past rather than at a determined attacker, which is why it reaches home and shared workspaces and not only an office floor."
+    },
+    {
+      "slug": "policy-communication",
+      "why_selected": "38 chars",
+      "current": "making policy available and understood",
+      "proposed": "Clause 5.2 asks three separate things: documented, communicated inside the organization, and available to interested parties where appropriate. Publishing a file satisfies only the first."
+    },
+    {
+      "slug": "effectiveness-check",
+      "why_selected": "39 chars",
+      "current": "verifying that corrective action worked",
+      "proposed": "Asks whether the cause has stopped producing the failure, which needs enough elapsed time or volume to show. Closing a finding the day the fix ships proves only that it was applied."
+    },
+    {
+      "slug": "proportionality",
+      "why_selected": "39 chars",
+      "current": "matching treatment effort to risk level",
+      "proposed": "Cuts both ways. Over-treating a minor risk spends the effort a serious one needed, so this defends the credibility of the assessment and is not merely a way of controlling cost."
+    },
+    {
+      "slug": "vulnerability",
+      "why_selected": "44 chars; bare ISO gloss; tier-A",
+      "current": "a weakness that can be exploited by a threat",
+      "proposed": "Usually the half of a risk you can actually change. The threat rarely goes away, so treatment almost always works by closing or narrowing the weakness it would have to use."
+    }
+  ]
+}

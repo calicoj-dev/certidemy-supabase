@@ -1,0 +1,182 @@
+{
+  "measured": "2026-09-22",
+  "rows": 21,
+  "tokens": 22,
+  "untouchedHash": "cb39faad49cb4a50",
+  "plan": [
+    {
+      "id": "22a1e3d8-7b32-464d-a44d-5ac2a8e5d399",
+      "cert": "ISMS-F",
+      "slug": "acceptable-use-ai",
+      "before": "Acceptable use ai",
+      "after": "Acceptable use AI",
+      "tokens": 1
+    },
+    {
+      "id": "9b32796f-6619-4202-a1e4-0e7682032e8f",
+      "cert": "ISMS-F",
+      "slug": "ai-asset-inventory",
+      "before": "Ai asset inventory",
+      "after": "AI asset inventory",
+      "tokens": 1
+    },
+    {
+      "id": "e7548669-0e65-4df9-846f-956831f9766b",
+      "cert": "ISMS-F",
+      "slug": "ai-attack-surface",
+      "before": "Ai attack surface",
+      "after": "AI attack surface",
+      "tokens": 1
+    },
+    {
+      "id": "edd23383-e248-4326-96f1-989f7274f612",
+      "cert": "ISMS-F",
+      "slug": "ai-incident-classes",
+      "before": "Ai incident classes",
+      "after": "AI incident classes",
+      "tokens": 1
+    },
+    {
+      "id": "c4246aa1-c63c-438f-98c6-a126036f79c0",
+      "cert": "ISMS-F",
+      "slug": "ai-risk-identification",
+      "before": "Ai risk identification",
+      "after": "AI risk identification",
+      "tokens": 1
+    },
+    {
+      "id": "c4f6d51f-1a65-468d-b49d-314a97064bf7",
+      "cert": "ISMS-F",
+      "slug": "cia-triad",
+      "before": "Cia triad",
+      "after": "CIA triad",
+      "tokens": 1
+    },
+    {
+      "id": "e103bc68-9ce9-42e3-ad7b-97e3aed2ddbb",
+      "cert": "ISMS-F",
+      "slug": "isms-definition",
+      "before": "Isms definition",
+      "after": "ISMS definition",
+      "tokens": 1
+    },
+    {
+      "id": "d3ab3d77-639a-4190-95e7-45c88a2ae9eb",
+      "cert": "ISMS-F",
+      "slug": "isms-roles",
+      "before": "Isms roles",
+      "after": "ISMS roles",
+      "tokens": 1
+    },
+    {
+      "id": "3a55fde3-1176-43c3-bc26-63a97414441a",
+      "cert": "ISMS-F",
+      "slug": "isms-scope",
+      "before": "Isms scope",
+      "after": "ISMS scope",
+      "tokens": 1
+    },
+    {
+      "id": "38ab30fc-8315-4f65-a39d-cda2f4d5e1f3",
+      "cert": "ISMS-F",
+      "slug": "iso-17021-vs-17024",
+      "before": "Iso 17021 vs 17024",
+      "after": "ISO 17021 vs 17024",
+      "tokens": 1
+    },
+    {
+      "id": "7dfd496a-26a1-4b94-922c-3ede60a05cb2",
+      "cert": "ISMS-F",
+      "slug": "iso-27000-family",
+      "before": "Iso 27000 family",
+      "after": "ISO 27000 family",
+      "tokens": 1
+    },
+    {
+      "id": "a4c80e52-a73f-4556-8aa7-dd2198eee644",
+      "cert": "ISMS-F",
+      "slug": "iso-27001-requirements",
+      "before": "Iso 27001 requirements",
+      "after": "ISO 27001 requirements",
+      "tokens": 1
+    },
+    {
+      "id": "1af66043-2983-4ab0-8cd4-f01f25ac51e4",
+      "cert": "ISMS-F",
+      "slug": "iso-27002-controls",
+      "before": "Iso 27002 controls",
+      "after": "ISO 27002 controls",
+      "tokens": 1
+    },
+    {
+      "id": "dffdd7a9-0454-4ce1-b975-11fed2bac7b1",
+      "cert": "ISMS-F",
+      "slug": "iso-27005-risk",
+      "before": "Iso 27005 risk",
+      "after": "ISO 27005 risk",
+      "tokens": 1
+    },
+    {
+      "id": "c2560741-9057-4814-905c-b5ecd93b2461",
+      "cert": "ISMS-F",
+      "slug": "iso-42001-aims",
+      "before": "Iso 42001 aims",
+      "after": "ISO 42001 aims",
+      "tokens": 1
+    },
+    {
+      "id": "601f3c2a-324f-4fb9-a225-3b067d270235",
+      "cert": "ISMS-F",
+      "slug": "pdca-cycle",
+      "before": "Pdca cycle",
+      "after": "PDCA cycle",
+      "tokens": 1
+    },
+    {
+      "id": "0a88ab77-a6b6-4a38-861a-5a81ac2662d9",
+      "cert": "ISMS-F",
+      "slug": "saas-ai-in-scope",
+      "before": "Saas ai in scope",
+      "after": "SaaS AI in scope",
+      "tokens": 2
+    },
+    {
+      "id": "8f6cdaba-23f6-46ba-99ef-43e0a1ea9087",
+      "cert": "ISMS-F",
+      "slug": "shadow-ai",
+      "before": "Shadow ai",
+      "after": "Shadow AI",
+      "tokens": 1
+    },
+    {
+      "id": "0003a3da-f6c4-4ccd-a82b-ea89f2c45e6a",
+      "cert": "ISMS-F",
+      "slug": "soa-is-justification",
+      "before": "Soa is justification",
+      "after": "SoA is justification",
+      "tokens": 1
+    },
+    {
+      "id": "197396b2-48b9-484c-91c4-a1e31dcac252",
+      "cert": "ISMS-F",
+      "slug": "threat-taxonomy-ai",
+      "before": "Threat taxonomy ai",
+      "after": "Threat taxonomy AI",
+      "tokens": 1
+    },
+    {
+      "id": "be594d8f-c44e-48dc-890e-17cbe644303e",
+      "cert": "ISMS-F",
+      "slug": "unchanged-by-ai",
+      "before": "Unchanged by ai",
+      "after": "Unchanged by AI",
+      "tokens": 1
+    }
+  ],
+  "adjacent_not_applied": [
+    {
+      "slug": "iso-42001-aims",
+      "name": "Iso 42001 aims"
+    }
+  ]
+}

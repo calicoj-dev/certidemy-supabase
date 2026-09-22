@@ -2186,6 +2186,115 @@ rendering, so editing es-419 must leave pt-BR serving. 364's proof asserts
 exactly that: one edit, one row withheld, the sibling language still serving.
 A per-concept tr_hash would have passed every count assertion and been wrong.
 
+**A CLAIM THAT A CHECK "FIRES ON X AND NOWHERE ELSE" IS A CLAIM ABOUT THE
+POPULATION, AND NEEDS A POPULATION MEASUREMENT.** Recorded 2026-09-22.
+
+The slug-derived-name guard was recorded here as firing on ISMS-F's 192 names
+"and on nothing else in 1,730". Measured: the narrow form as described fires on
+**0 rows corpus-wide**, and the form that yields 192 fires on **521 rows across
+ten certifications**. The figure was read off one certification and asserted of
+the corpus, and nobody had run it against the other eleven.
+
+> **MECHANISM: a guard's firing count is recorded PER CERTIFICATION WITH ITS
+> DENOMINATOR, never as a single number** -- and a guard whose count is
+> distinctive only on one certification is a guard fitted to its training set,
+> not a detector.
+
+`pin-initialism-case.mjs` prints that table before it writes anything, and
+refuses when its own count disagrees with the census.
+
+**Fourth instance this week of a conclusion drawn from a partial read**:
+per-language blocking (inferred from 3 overlaps, real rate 2 of 4), the
+description-collision guard (0 fires against its own motivating instance), the
+`en_hash` grain, and this.
+
+**AN UNREPRODUCIBLE NUMBER IS WITHDRAWN, NOT CARRIED.** *"13 of 16
+concept-scale gate fires are ISMS-F"* could not be reconstructed. The measured
+figure is **11 of 15 over 1,729 live concepts**; part of the difference is the
+`security-control` repair and part is unknown.
+
+A number that cannot be re-derived from the corpus is commentary, and it will
+be quoted back as evidence by the next reader -- this file's whole thesis,
+applied to its own counts.
+
+> **MECHANISM: a recorded count names the script that produces it, and a count
+> that no longer reproduces is STRUCK, with its replacement beside it**, rather
+> than footnoted or quietly updated.
+
+**AND THE SECOND WITHDRAWAL IS SHARPER, BECAUSE THE INSTRUMENT FAILED ON ITS
+OWN EXEMPLAR.** The ISMS-F census reported *"174 of 192 carry no teaching
+move"*, and that number was about to scope a 192-row rewrite.
+
+It was measured with a list of teaching words. Run against the text whose
+verdict is already settled -- `security-control` as ratified, the house style
+precisely because it teaches -- **both the census detector and an independent
+second detector call it a GLOSS.** One wants "but" after a negation and gets
+"not by whether"; the other wants "not a" and gets "not to accept". The row
+performs the clearest teaching move in the corpus using none of the words
+either list contains.
+
+> **A LEXICAL DETECTOR CANNOT MEASURE WHETHER PROSE TEACHES.** The 174 is a
+> fact about a word list. Withdrawn, not refined -- and the 134 the two
+> detectors agree on is withdrawn with it, because agreement between two
+> instruments that both fail the exemplar is not evidence.
+
+**What survives the withdrawal is the MECHANICAL half of the census**, which
+needs no judgement and no vocabulary: **192 of 192 are one sentence or fewer**,
+median 59 characters, max 131. That alone justifies treating the description
+set as the unit of repair, and it is a stronger argument than the one the
+detector was supplying.
+
+**A HARDCODED FACT INSIDE AN INSTRUMENT GOES STALE BY DEFAULT.** The concept
+gate printed
+
+```
+ISO/IEC 27000   delegated to by 27001:2022 cl.3   NOT ON DISK
+ISO/IEC 22989   delegated to by 42001:2023 cl.3   NOT ON DISK
+```
+
+directly beneath an INDEX line naming `27000:2018` and `22989:2022` as indexed.
+Both were purchased and indexed on 2026-09-21; the gate contradicted itself in
+adjacent lines of its own output and had done since.
+
+**A reported gap that has been CLOSED is worse than a stale note**: it argues
+against buying something already owned, and it invites a reader to discount a
+real fire as unreachable. Two of the eleven ISMS-F fires are against exactly
+those two standards.
+
+> **MECHANISM: coverage facts DERIVE from `iso-corpus-manifest.json`. An
+> instrument never carries a second copy of what it reports on.**
+
+**AND THE TWO WITHHOLDING MECHANISMS ARE INDISTINGUISHABLE IN THE OUTPUT,
+WHICH IS WHERE THE RISK IS.** Measured 2026-09-22 on ISMS-F, answering whether
+a row can be both blocked-by-review and withheld-by-`en_hash`.
+
+**It can, and 22 rows per language are in that state right now.** `mcp.concept`
+gates on `is_provisional = false AND en_hash = live AND tr_hash = live` -- and
+**does not read `concept_translation_reviews` at all**. A review verdict is not
+a gate; `is_provisional` is the gate, and the review table is the record of why.
+
+| | |
+|---|---|
+| **The gate is safe.** | The three predicates are ANDed, so clearing a block cannot release a row whose English has moved. Neither mechanism masks the other. |
+| **The PROCEDURE is not.** | Every clearance script here RE-STAMPS `en_hash` and `tr_hash` rather than verifying them. A clearance that re-stamps releases an English-stale row without anyone reading it -- the gate never gets consulted. |
+
+So the defect is not in the view, it is in the shape of every clearance written
+so far. **A clearance must verify the hash it is about to write, and refuse the
+rows where the English moved since the review**, rather than stamping current
+content over a stale approval.
+
+Both states also render identically -- `description_is_fallback = true` -- so
+nothing a caller sees distinguishes *"withheld pending review"* from *"withheld
+because the source changed"*, and nothing in the view can.
+
+**A trivial English edit creates real re-read debt.** The 21 initialism casing
+fixes moved `concept_row_en_hash`, which is `md5(name || '|' || description)`,
+on 22 rows -- so 44 translated rows now look like they need re-reading when
+only the capitalisation of an initialism in the English name moved. Nothing was
+withheld that was not already withheld, because ISMS-F is blocked in both
+languages. **Had it not been, a casing pass would have withheld 44 serving
+rows.**
+
 **AND A TRANSLATED FIELD STRUCTURALLY RICHER THAN ITS ENGLISH IS A CANDIDATE
 ENGLISH DEFECT.** Paid for on the AIMS-F concept names: 11 English names were
 raw slugs with hyphens swapped for spaces (`SoA annex a relationship`), and

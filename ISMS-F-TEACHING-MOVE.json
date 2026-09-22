@@ -1,0 +1,844 @@
+{
+  "measured": "2026-09-22",
+  "total": 192,
+  "both_teach": 4,
+  "both_gloss": 134,
+  "detector1_only": 14,
+  "detector2_only": 40,
+  "census_figure": 174,
+  "agreed_gloss_figure": 134,
+  "detector2_only_rows": [
+    {
+      "slug": "absent-log-signal",
+      "description": "activity that generates no conventional log entry"
+    },
+    {
+      "slug": "ai-attack-surface",
+      "description": "the exposure introduced by AI systems beyond conventional application surface"
+    },
+    {
+      "slug": "annex-a-as-reference",
+      "description": "Annex A as a reference set to check against, not a mandatory list"
+    },
+    {
+      "slug": "audit-criteria",
+      "description": "the requirements against which conformity is judged"
+    },
+    {
+      "slug": "autonomy-and-blast-radius",
+      "description": "how the scope of possible damage widens with the degree of autonomy"
+    },
+    {
+      "slug": "awareness-vs-prohibition",
+      "description": "why prohibition alone drives adoption underground"
+    },
+    {
+      "slug": "boundary-erosion",
+      "description": "the way ubiquitous tooling makes a drawn boundary stop describing reality"
+    },
+    {
+      "slug": "confidentiality",
+      "description": "information is not made available to unauthorized individuals, entities or processes"
+    },
+    {
+      "slug": "correction-vs-corrective-action",
+      "description": "fixing the instance against removing the cause"
+    },
+    {
+      "slug": "data-leakage-prevention",
+      "description": "controls limiting unauthorized information egress"
+    },
+    {
+      "slug": "detection-gaps",
+      "description": "conditions under which an incident produces no monitored signal"
+    },
+    {
+      "slug": "documented-non-applicability",
+      "description": "the obligation to record a determination that a consideration does not apply"
+    },
+    {
+      "slug": "exclusion-justification",
+      "description": "the stated reason a control is not necessary"
+    },
+    {
+      "slug": "inspectability-limits",
+      "description": "the limits of what a customer can verify about a model provider"
+    },
+    {
+      "slug": "invisible-adoption",
+      "description": "tooling adopted individually and never recorded"
+    },
+    {
+      "slug": "isms-scope",
+      "description": "the boundaries and applicability of the ISMS"
+    },
+    {
+      "slug": "iso-17021-vs-17024",
+      "description": "certification of management systems against certification of persons, requiring separate accreditation"
+    },
+    {
+      "slug": "physical-perimeter",
+      "description": "physical security boundaries"
+    },
+    {
+      "slug": "policy-to-practice",
+      "description": "how a written provision becomes a daily decision"
+    },
+    {
+      "slug": "prompt-data-egress",
+      "description": "organizational information leaving the boundary through a prompt"
+    },
+    {
+      "slug": "retention-by-provider",
+      "description": "what a model provider retains and for how long"
+    },
+    {
+      "slug": "risk-criteria",
+      "description": "the terms of reference against which risk significance is judged"
+    },
+    {
+      "slug": "risk-evaluation",
+      "description": "comparing analysis results against criteria to decide significance"
+    },
+    {
+      "slug": "risk-relationship",
+      "description": "how a threat exploiting a vulnerability against an asset produces risk, and how a control modifies it"
+    },
+    {
+      "slug": "saas-ai-in-scope",
+      "description": "how browser-accessible AI tools land inside a scope written for managed systems"
+    },
+    {
+      "slug": "sanctioned-vs-unsanctioned-tools",
+      "description": "the distinction between approved tooling and what people actually use"
+    },
+    {
+      "slug": "scope-boundaries",
+      "description": "what is inside and outside the system being managed"
+    },
+    {
+      "slug": "scope-failure-modes",
+      "description": "the characteristic ways a scope statement stops being true"
+    },
+    {
+      "slug": "separate-certifications",
+      "description": "why one certificate does not confer the other"
+    },
+    {
+      "slug": "service-delivery-monitoring",
+      "description": "ongoing monitoring of supplier performance against requirements"
+    },
+    {
+      "slug": "shadow-ai",
+      "description": "unsanctioned AI tooling adopted outside the approval process"
+    },
+    {
+      "slug": "soa-is-justification",
+      "description": "the SoA records reasoning, not a yes/no column against a list"
+    },
+    {
+      "slug": "standing-vs-just-in-time-authority",
+      "description": "persistent authority against authority granted per action"
+    },
+    {
+      "slug": "statement-of-applicability",
+      "description": "the documented record of which controls are necessary and why"
+    },
+    {
+      "slug": "systematic-vs-ad-hoc",
+      "description": "why a managed system differs from a collection of security measures"
+    },
+    {
+      "slug": "third-party-processing",
+      "description": "organizational information processed on infrastructure the organization does not control"
+    },
+    {
+      "slug": "time-to-discovery",
+      "description": "the interval between compromise and detection, and why it widens here"
+    },
+    {
+      "slug": "treatment-vs-plan",
+      "description": "the distinction between deciding treatment and planning its implementation"
+    },
+    {
+      "slug": "unchanged-by-ai",
+      "description": "the explicit recognition that some controls are not materially affected by AI"
+    },
+    {
+      "slug": "what-a-certificate-signals",
+      "description": "what a certificate does and does not assert"
+    }
+  ],
+  "agreed_gloss_rows": [
+    {
+      "slug": "climate-change-relevance",
+      "description": "the requirement to determine whether climate change is a relevant issue",
+      "chars": 71
+    },
+    {
+      "slug": "planned-change",
+      "description": "the requirement that a determined change to the ISMS be carried out in a planned manner",
+      "chars": 87
+    },
+    {
+      "slug": "cia-triad",
+      "description": "confidentiality, integrity and availability as the three core properties of information security",
+      "chars": 96
+    },
+    {
+      "slug": "integrity",
+      "description": "information is accurate and complete and has not been altered without authorization",
+      "chars": 83
+    },
+    {
+      "slug": "availability",
+      "description": "information is accessible and usable on demand by an authorized entity",
+      "chars": 70
+    },
+    {
+      "slug": "supporting-properties",
+      "description": "authenticity, non-repudiation, accountability and reliability as properties supporting the triad",
+      "chars": 96
+    },
+    {
+      "slug": "information-asset",
+      "description": "anything of value to the organization that holds or processes information",
+      "chars": 73
+    },
+    {
+      "slug": "threat",
+      "description": "a potential cause of an unwanted incident",
+      "chars": 41
+    },
+    {
+      "slug": "vulnerability",
+      "description": "a weakness that can be exploited by a threat",
+      "chars": 44
+    },
+    {
+      "slug": "security-event",
+      "description": "an identified occurrence indicating a possible security-relevant state",
+      "chars": 70
+    },
+    {
+      "slug": "security-incident",
+      "description": "one or more events that compromise operations or threaten information security",
+      "chars": 78
+    },
+    {
+      "slug": "data-breach",
+      "description": "an incident resulting in unauthorized disclosure of information",
+      "chars": 63
+    },
+    {
+      "slug": "iso-27000-family",
+      "description": "the family of standards supporting information security management",
+      "chars": 66
+    },
+    {
+      "slug": "security-control",
+      "description": "An answer to a risk the organization chose not to accept; judged by whether the risk moved, not by whether the control is present.",
+      "chars": 130
+    },
+    {
+      "slug": "iso-27001-requirements",
+      "description": "the certifiable requirements standard for an ISMS",
+      "chars": 49
+    },
+    {
+      "slug": "iso-27002-controls",
+      "description": "implementation guidance for the reference controls",
+      "chars": 50
+    },
+    {
+      "slug": "iso-27005-risk",
+      "description": "guidance on information security risk management",
+      "chars": 48
+    },
+    {
+      "slug": "model-as-asset",
+      "description": "a model, its weights and its access path as an information asset in their own right",
+      "chars": 83
+    },
+    {
+      "slug": "prompt-as-data",
+      "description": "prompt and context content as information that carries classification and can leave the organization",
+      "chars": 100
+    },
+    {
+      "slug": "model-level-risk",
+      "description": "risks arising from a model treated as input-in, output-out",
+      "chars": 58
+    },
+    {
+      "slug": "delegated-authority",
+      "description": "the authority an agent holds to act on behalf of a principal",
+      "chars": 60
+    },
+    {
+      "slug": "threat-taxonomy-ai",
+      "description": "published catalogues of AI-specific threats and their role as shared vocabulary",
+      "chars": 79
+    },
+    {
+      "slug": "prompt-injection",
+      "description": "instructions embedded in input or retrieved content that redirect a model's behaviour",
+      "chars": 85
+    },
+    {
+      "slug": "training-data-poisoning",
+      "description": "manipulation of training or fine-tuning data to alter model behaviour",
+      "chars": 69
+    },
+    {
+      "slug": "insecure-output-handling",
+      "description": "downstream systems trusting model output without validation",
+      "chars": 59
+    },
+    {
+      "slug": "tool-misuse",
+      "description": "legitimate tools that a compromised agent bends toward destructive or unintended outputs",
+      "chars": 88
+    },
+    {
+      "slug": "isms-definition",
+      "description": "a systematic, documented approach to managing information security risk",
+      "chars": 71
+    },
+    {
+      "slug": "management-system-model",
+      "description": "the common structure of policy, objectives, processes and improvement shared across ISO management system standards",
+      "chars": 115
+    },
+    {
+      "slug": "organizational-context",
+      "description": "the internal and external setting in which the ISMS operates",
+      "chars": 60
+    },
+    {
+      "slug": "internal-external-issues",
+      "description": "the factors that affect the organization's ability to achieve its security objectives",
+      "chars": 85
+    },
+    {
+      "slug": "interested-parties",
+      "description": "the persons and organizations with a stake in the ISMS",
+      "chars": 54
+    },
+    {
+      "slug": "party-requirements",
+      "description": "the security-relevant requirements those parties impose",
+      "chars": 55
+    },
+    {
+      "slug": "amendment-1-2024",
+      "description": "the 2024 amendment adding a climate-change consideration to clauses 4.1 and 4.2",
+      "chars": 79
+    },
+    {
+      "slug": "interfaces-and-dependencies",
+      "description": "the points where in-scope activities meet out-of-scope ones",
+      "chars": 59
+    },
+    {
+      "slug": "scope-statement",
+      "description": "the documented expression of scope",
+      "chars": 34
+    },
+    {
+      "slug": "leadership-commitment",
+      "description": "top management's demonstrable ownership of the ISMS",
+      "chars": 51
+    },
+    {
+      "slug": "information-security-policy",
+      "description": "the documented statement of intent and direction",
+      "chars": 48
+    },
+    {
+      "slug": "policy-communication",
+      "description": "making policy available and understood",
+      "chars": 38
+    },
+    {
+      "slug": "isms-roles",
+      "description": "the defined roles that carry ISMS responsibilities",
+      "chars": 50
+    },
+    {
+      "slug": "assigned-authority",
+      "description": "the authority granted to fulfil an assigned responsibility",
+      "chars": 58
+    },
+    {
+      "slug": "risk-owner",
+      "description": "the person accountable for a specific risk and its treatment",
+      "chars": 60
+    },
+    {
+      "slug": "top-management",
+      "description": "the level at which ISMS accountability ultimately sits",
+      "chars": 54
+    },
+    {
+      "slug": "acceptable-use-ai",
+      "description": "rules defining permissible AI use within the organization",
+      "chars": 57
+    },
+    {
+      "slug": "policy-enforceability",
+      "description": "whether a stated rule can be observed, measured and acted on",
+      "chars": 60
+    },
+    {
+      "slug": "pdca-cycle",
+      "description": "plan-do-check-act as the improvement rhythm of a management system",
+      "chars": 66
+    },
+    {
+      "slug": "continual-improvement",
+      "description": "the ongoing obligation to improve suitability, adequacy and effectiveness",
+      "chars": 73
+    },
+    {
+      "slug": "management-system-maturity",
+      "description": "the progression from documented to genuinely operating",
+      "chars": 54
+    },
+    {
+      "slug": "risk-assessment-process",
+      "description": "the defined process for identifying, analysing and evaluating information security risk",
+      "chars": 87
+    },
+    {
+      "slug": "risk-identification",
+      "description": "finding, recognizing and describing risks",
+      "chars": 41
+    },
+    {
+      "slug": "risk-analysis",
+      "description": "understanding the nature of a risk and determining its level",
+      "chars": 60
+    },
+    {
+      "slug": "risk-acceptance-criteria",
+      "description": "the thresholds at which a risk may be retained",
+      "chars": 46
+    },
+    {
+      "slug": "likelihood-and-consequence",
+      "description": "the two dimensions from which a risk level is derived",
+      "chars": 53
+    },
+    {
+      "slug": "asset-threat-vulnerability-mapping",
+      "description": "relating a described situation to the three components of a risk",
+      "chars": 64
+    },
+    {
+      "slug": "risk-register",
+      "description": "the record in which identified risks and their treatment are held",
+      "chars": 65
+    },
+    {
+      "slug": "risk-treatment-options",
+      "description": "the four available responses to an evaluated risk",
+      "chars": 49
+    },
+    {
+      "slug": "modify-risk",
+      "description": "applying controls to change likelihood or consequence",
+      "chars": 53
+    },
+    {
+      "slug": "retain-risk",
+      "description": "accepting a risk within criteria",
+      "chars": 32
+    },
+    {
+      "slug": "avoid-risk",
+      "description": "not undertaking the activity that gives rise to the risk",
+      "chars": 56
+    },
+    {
+      "slug": "share-risk",
+      "description": "transferring or sharing risk with another party",
+      "chars": 47
+    },
+    {
+      "slug": "inclusion-justification",
+      "description": "the stated reason a control is necessary",
+      "chars": 40
+    },
+    {
+      "slug": "implementation-status",
+      "description": "whether a necessary control is implemented",
+      "chars": 42
+    },
+    {
+      "slug": "risk-treatment-plan",
+      "description": "the plan for implementing selected treatment",
+      "chars": 44
+    },
+    {
+      "slug": "residual-risk",
+      "description": "the risk remaining after treatment",
+      "chars": 34
+    },
+    {
+      "slug": "risk-owner-approval",
+      "description": "the risk owner's acceptance of residual risk and the treatment plan",
+      "chars": 67
+    },
+    {
+      "slug": "ai-risk-identification",
+      "description": "surfacing information risks specific to an AI deployment",
+      "chars": 56
+    },
+    {
+      "slug": "context-leakage",
+      "description": "organizational information exposed through prompt or retrieved context",
+      "chars": 70
+    },
+    {
+      "slug": "training-data-confidentiality",
+      "description": "the confidentiality exposure of data used to train or fine-tune",
+      "chars": 63
+    },
+    {
+      "slug": "output-trust",
+      "description": "the risk of downstream systems acting on unvalidated model output",
+      "chars": 65
+    },
+    {
+      "slug": "treatment-selection",
+      "description": "choosing a defensible treatment for an identified risk",
+      "chars": 54
+    },
+    {
+      "slug": "compensating-control",
+      "description": "a control applied where the preferred one is unavailable",
+      "chars": 56
+    },
+    {
+      "slug": "proportionality",
+      "description": "matching treatment effort to risk level",
+      "chars": 39
+    },
+    {
+      "slug": "treatment-and-appetite",
+      "description": "aligning a treatment decision with stated appetite and criteria",
+      "chars": 63
+    },
+    {
+      "slug": "annex-a-themes",
+      "description": "the four themes into which the reference controls are organized",
+      "chars": 63
+    },
+    {
+      "slug": "organizational-controls",
+      "description": "controls concerning policy, roles, assets and supplier relationships",
+      "chars": 68
+    },
+    {
+      "slug": "people-controls",
+      "description": "controls concerning individuals and their employment lifecycle",
+      "chars": 62
+    },
+    {
+      "slug": "physical-controls",
+      "description": "controls concerning premises, equipment and physical access",
+      "chars": 59
+    },
+    {
+      "slug": "technological-controls",
+      "description": "controls concerning systems, networks, development and data",
+      "chars": 59
+    },
+    {
+      "slug": "control-attributes",
+      "description": "the attribute set that allows controls to be filtered and reported by different views",
+      "chars": 85
+    },
+    {
+      "slug": "control-type",
+      "description": "whether a control is preventive, detective or corrective",
+      "chars": 56
+    },
+    {
+      "slug": "security-property-attribute",
+      "description": "which of confidentiality, integrity or availability a control serves",
+      "chars": 68
+    },
+    {
+      "slug": "operational-capability",
+      "description": "the operational area a control belongs to",
+      "chars": 41
+    },
+    {
+      "slug": "policy-controls",
+      "description": "controls establishing and reviewing security policy",
+      "chars": 51
+    },
+    {
+      "slug": "roles-segregation",
+      "description": "separation of conflicting duties",
+      "chars": 32
+    },
+    {
+      "slug": "asset-management",
+      "description": "inventory, ownership and acceptable use of assets",
+      "chars": 49
+    },
+    {
+      "slug": "nonconformity",
+      "description": "a failure to meet a requirement",
+      "chars": 31
+    },
+    {
+      "slug": "information-classification",
+      "description": "assigning and handling information by sensitivity",
+      "chars": 49
+    },
+    {
+      "slug": "ai-asset-inventory",
+      "description": "extending the asset inventory to AI components",
+      "chars": 46
+    },
+    {
+      "slug": "vector-store-as-asset",
+      "description": "an embedding store as a repository of organizational information",
+      "chars": 64
+    },
+    {
+      "slug": "agent-as-asset",
+      "description": "an autonomous agent as an asset with an owner and an acceptable use",
+      "chars": 67
+    },
+    {
+      "slug": "prompt-log-as-asset",
+      "description": "retained prompt and completion history as an information store",
+      "chars": 62
+    },
+    {
+      "slug": "access-control",
+      "description": "restricting access to information and processing facilities",
+      "chars": 59
+    },
+    {
+      "slug": "identity-lifecycle",
+      "description": "provisioning, review and de-provisioning of identities",
+      "chars": 54
+    },
+    {
+      "slug": "least-privilege",
+      "description": "granting the minimum access necessary",
+      "chars": 37
+    },
+    {
+      "slug": "privileged-access",
+      "description": "elevated rights and their additional controls",
+      "chars": 45
+    },
+    {
+      "slug": "agent-credentials",
+      "description": "the credentials under which an agent acts",
+      "chars": 41
+    },
+    {
+      "slug": "supplier-controls",
+      "description": "controls governing information security in supplier relationships",
+      "chars": 65
+    },
+    {
+      "slug": "supplier-agreements",
+      "description": "security requirements expressed in supplier contracts",
+      "chars": 53
+    },
+    {
+      "slug": "foundation-model-supplier",
+      "description": "a model provider treated as a supplier within the ISMS",
+      "chars": 54
+    },
+    {
+      "slug": "assurance-by-attestation",
+      "description": "reliance on third-party attestation where direct inspection is unavailable",
+      "chars": 74
+    },
+    {
+      "slug": "concentration-risk",
+      "description": "exposure arising from many services depending on one provider",
+      "chars": 61
+    },
+    {
+      "slug": "screening",
+      "description": "background verification proportionate to the role",
+      "chars": 49
+    },
+    {
+      "slug": "terms-and-conditions",
+      "description": "security responsibilities expressed in employment terms",
+      "chars": 55
+    },
+    {
+      "slug": "awareness-education-training",
+      "description": "ensuring people know their security responsibilities",
+      "chars": 52
+    },
+    {
+      "slug": "disciplinary-process",
+      "description": "the process following a security policy violation",
+      "chars": 49
+    },
+    {
+      "slug": "well-intentioned-noncompliance",
+      "description": "policy breach by people trying to do their job well",
+      "chars": 51
+    },
+    {
+      "slug": "equipment-security",
+      "description": "protection of equipment on and off premises",
+      "chars": 43
+    },
+    {
+      "slug": "clear-desk-clear-screen",
+      "description": "the control on unattended information",
+      "chars": 37
+    },
+    {
+      "slug": "logging-and-monitoring",
+      "description": "recording and reviewing security-relevant activity",
+      "chars": 50
+    },
+    {
+      "slug": "cryptographic-controls",
+      "description": "use and management of cryptography",
+      "chars": 34
+    },
+    {
+      "slug": "secure-development",
+      "description": "security within the development lifecycle",
+      "chars": 41
+    },
+    {
+      "slug": "classification-in-practice",
+      "description": "applying classification to real content in the moment",
+      "chars": 53
+    },
+    {
+      "slug": "handling-rules",
+      "description": "what a classification requires of the person holding the information",
+      "chars": 68
+    },
+    {
+      "slug": "paste-boundary",
+      "description": "the moment classified content is entered into an external tool",
+      "chars": 62
+    },
+    {
+      "slug": "monitoring-and-measurement",
+      "description": "determining what needs to be monitored and measured, and by what methods",
+      "chars": 72
+    },
+    {
+      "slug": "effectiveness-evaluation",
+      "description": "judging whether controls achieve their intended outcome",
+      "chars": 55
+    },
+    {
+      "slug": "internal-audit-programme",
+      "description": "the planned programme of internal audits",
+      "chars": 40
+    },
+    {
+      "slug": "auditor-objectivity",
+      "description": "the requirement that auditors do not audit their own work",
+      "chars": 57
+    },
+    {
+      "slug": "audit-findings",
+      "description": "conformities, nonconformities and observations arising from an audit",
+      "chars": 68
+    },
+    {
+      "slug": "management-review",
+      "description": "top management's periodic review of the ISMS",
+      "chars": 44
+    },
+    {
+      "slug": "review-cadence",
+      "description": "the planned interval at which review occurs",
+      "chars": 43
+    },
+    {
+      "slug": "root-cause",
+      "description": "the underlying reason a nonconformity occurred",
+      "chars": 46
+    },
+    {
+      "slug": "effectiveness-check",
+      "description": "verifying that corrective action worked",
+      "chars": 39
+    },
+    {
+      "slug": "stage-1-audit",
+      "description": "the readiness and documentation review stage",
+      "chars": 44
+    },
+    {
+      "slug": "stage-2-audit",
+      "description": "the implementation and effectiveness audit stage",
+      "chars": 48
+    },
+    {
+      "slug": "surveillance-audit",
+      "description": "periodic audits during the certification validity period",
+      "chars": 56
+    },
+    {
+      "slug": "recertification-cycle",
+      "description": "the three-year cycle of certificate validity and renewal",
+      "chars": 56
+    },
+    {
+      "slug": "certification-body",
+      "description": "the body that assesses and certifies an organization's ISMS",
+      "chars": 59
+    },
+    {
+      "slug": "accreditation-body",
+      "description": "the body that assesses the competence of certification bodies",
+      "chars": 61
+    },
+    {
+      "slug": "incident-response-process",
+      "description": "the planned process for responding to security incidents",
+      "chars": 56
+    },
+    {
+      "slug": "ai-incident-classes",
+      "description": "incident types specific to AI systems, such as injection and context exposure",
+      "chars": 77
+    },
+    {
+      "slug": "lessons-learned",
+      "description": "using incidents to improve the ISMS",
+      "chars": 35
+    },
+    {
+      "slug": "iso-42001-aims",
+      "description": "ISO/IEC 42001 as the AI management system standard",
+      "chars": 50
+    },
+    {
+      "slug": "management-system-integration",
+      "description": "operating more than one management system on shared processes",
+      "chars": 61
+    },
+    {
+      "slug": "overlapping-controls",
+      "description": "controls that satisfy requirements in more than one standard",
+      "chars": 60
+    }
+  ]
+}
