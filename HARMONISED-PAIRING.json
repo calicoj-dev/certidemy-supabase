@@ -1,0 +1,2231 @@
+{
+  "measured": "2026-09-22",
+  "rule": {
+    "MIN_RUN": 4,
+    "MIN_COV": 0.6,
+    "ABS_RUN": 10
+  },
+  "index": [
+    "19011:2026",
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27001:2022",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022",
+    "42001:2023"
+  ],
+  "coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "harmonised": {
+    "clause_text_rows": 101,
+    "multi_source": 12,
+    "single_source": 89,
+    "co_occurrence": {
+      "27001:2022 + 42001:2023": 9,
+      "27001:2022 + 27005:2022": 2,
+      "27000:2018 + 42001:2023": 1
+    }
+  },
+  "pairing": {
+    "rows_considered": 91,
+    "pairing_addresses": 17,
+    "paired_rows": 47,
+    "unpaired_rows": 44,
+    "paired_per_certification": {
+      "ISMS-IA": 22,
+      "AIMS-IA": 25
+    },
+    "unpaired_per_certification": {
+      "AIGRM-I": 1,
+      "ISMS-IA": 11,
+      "AIMS-IA": 32
+    }
+  },
+  "pairs": [
+    {
+      "address": "4.1",
+      "ISMS-IA": [
+        {
+          "slug": "ia-internal-and-external-issues-clause-4-1",
+          "run": 17,
+          "sources": []
+        },
+        {
+          "slug": "ia-amendment-1-2024-climate-change",
+          "run": 12,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "ia-principles-carry-no-precedence",
+          "run": 11,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-principles-carry-no-precedence",
+          "run": 17,
+          "sources": []
+        },
+        {
+          "slug": "aia-clause-4-1-context",
+          "run": 17,
+          "sources": []
+        },
+        {
+          "slug": "aia-climate-change-4-1",
+          "run": 12,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "9.2.2",
+      "ISMS-IA": [
+        {
+          "slug": "ia-previous-audit-results-as-input",
+          "run": 13,
+          "sources": [
+            "27001:2022",
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "ia-documented-information-on-the-programme",
+          "run": 11,
+          "sources": [
+            "27001:2022",
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "ia-reporting-results-to-relevant-management",
+          "run": 12,
+          "sources": [
+            "27001:2022"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-42001-impartiality-clause",
+          "run": 15,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-42001-9-2-2-a",
+          "run": 16,
+          "sources": [
+            "27001:2022",
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-audit-records",
+          "run": 14,
+          "sources": [
+            "27001:2022",
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "4.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-statement-objectivity",
+          "run": 11,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-scope-follows-roles",
+          "run": 13,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-clause-4-3-scope",
+          "run": 13,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-fair-presentation-in-reporting",
+          "run": 14,
+          "sources": [
+            "19011:2026"
+          ]
+        },
+        {
+          "slug": "aia-confidentiality-in-reporting",
+          "run": 10,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "6.1.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-soa-four-required-elements",
+          "run": 13,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-statement-of-applicability",
+          "run": 13,
+          "sources": []
+        },
+        {
+          "slug": "aia-control-comparison-annex-a",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-annex-b-binds-via-6-1-3-e",
+          "run": 19,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-finding-against-annex-b",
+          "run": 19,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "Annex A",
+      "ISMS-IA": [
+        {
+          "slug": "ia-annex-a-8-34-audit-testing-agreement",
+          "run": 11,
+          "sources": [
+            "27002:2022"
+          ]
+        },
+        {
+          "slug": "ia-soa-four-required-elements",
+          "run": 13,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-statement-of-applicability",
+          "run": 13,
+          "sources": []
+        },
+        {
+          "slug": "aia-control-comparison-annex-a",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        },
+        {
+          "slug": "aia-annex-a-normative-shall",
+          "run": 15,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "4",
+      "ISMS-IA": [
+        {
+          "slug": "ia-clauses-4-to-10-not-excludable",
+          "run": 19,
+          "sources": [
+            "27001:2022"
+          ]
+        },
+        {
+          "slug": "ia-statement-objectivity",
+          "run": 11,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-risk-based-approach",
+          "run": 19,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "4.7",
+      "ISMS-IA": [
+        {
+          "slug": "ia-sampling-and-confidence-in-conclusions",
+          "run": 14,
+          "sources": [
+            "19011:2026"
+          ]
+        },
+        {
+          "slug": "ia-ai-selection-bias-in-evidence-sampling",
+          "run": 11,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-evidence-based-approach",
+          "run": 15,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "5.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-roles-responsibilities-authorities-clause-5-3",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-programme-risks",
+          "run": 10,
+          "sources": [
+            "19011:2026"
+          ]
+        },
+        {
+          "slug": "aia-roles-responsibilities-authorities",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "6.4.7",
+      "ISMS-IA": [
+        {
+          "slug": "ia-degree-of-verification",
+          "run": 12,
+          "sources": [
+            "19011:2026"
+          ]
+        },
+        {
+          "slug": "ia-professional-judgement-on-reliance",
+          "run": 13,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-plan-adjustment",
+          "run": 11,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "4.2",
+      "ISMS-IA": [
+        {
+          "slug": "ia-interested-party-climate-requirements-4-2",
+          "run": 11,
+          "sources": [
+            "27001:2022/Amd1"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-climate-note-4-2",
+          "run": 11,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "4.6",
+      "ISMS-IA": [
+        {
+          "slug": "ia-independence-of-the-activity-audited-4-6",
+          "run": 17,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-42001-impartiality-clause",
+          "run": 15,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "4.8",
+      "ISMS-IA": [
+        {
+          "slug": "ia-risk-based-audit-programme",
+          "run": 15,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-risk-based-approach",
+          "run": 19,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "6.5.1",
+      "ISMS-IA": [
+        {
+          "slug": "ia-audit-report-content-6-5-1",
+          "run": 11,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-audit-report-content",
+          "run": 12,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "8.1",
+      "ISMS-IA": [
+        {
+          "slug": "ia-operational-planning-and-control-clause-8-1",
+          "run": 11,
+          "sources": [
+            "27001:2022",
+            "42001:2023"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-outsourced-processes",
+          "run": 16,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "8.2",
+      "ISMS-IA": [
+        {
+          "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
+          "run": 12,
+          "sources": [
+            "27001:2022",
+            "27005:2022"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-clause-8-2-8-3-operational-risk",
+          "run": 13,
+          "sources": [
+            "27001:2022",
+            "27005:2022"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "8.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
+          "run": 12,
+          "sources": [
+            "27001:2022",
+            "27005:2022"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-clause-8-2-8-3-operational-risk",
+          "run": 13,
+          "sources": [
+            "27001:2022",
+            "27005:2022"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "Annex A.16",
+      "ISMS-IA": [
+        {
+          "slug": "ia-remote-method-risks-annex-a-16",
+          "run": 14,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-remote-evidence-sufficiency",
+          "run": 15,
+          "sources": []
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-previous-audit-results-as-input",
+      "run": 13,
+      "coverage": 0.433,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "9.2.2"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "consider the importance of the processes concerned and the results of previous audits",
+      "description": "ISO/IEC 27001 clause 9.2.2 requires the organization, when establishing the internal audit programme, to consider the importance of the processes concerned and the results of previous audits."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-risk-based-audit-programme",
+      "run": 15,
+      "coverage": 0.395,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.8"
+      ],
+      "clause": "4.8 Risk-based approach",
+      "longest_span": "the risk based approach should substantively influence the planning and implementation of the audit programme",
+      "description": "ISO 19011:2026 clause 4.8 states the risk-based approach should substantively influence the planning and implementation of the audit programme, so that audits focus on matters significant to the audit client and to the programme objectives."
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "technical-documentation-requirement",
+      "run": 4,
+      "coverage": 0.667,
+      "sources_matching_the_span": [
+        "22989:2022"
+      ],
+      "named_by_scorer": "22989:2022",
+      "harmonised": false,
+      "addresses_cited": [],
+      "clause": "6.2.2 Inception",
+      "longest_span": "the system meets requirements",
+      "description": "Documentation demonstrating the system meets requirements."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clause-9-2-2-objectivity-requirement",
+      "run": 15,
+      "coverage": 0.455,
+      "sources_matching_the_span": [
+        "27001:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [],
+      "clause": "8 � ISO/IEC 2022 � All rights reserved",
+      "longest_span": "select auditors and conduct audits that ensure objectivity and the impartiality of the audit process",
+      "description": "Requires the organization to select auditors and conduct audits that ensure objectivity and the impartiality of the audit process. This sentence is the whole of what ISO/IEC 27001 states on auditor independence."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-independence-of-the-activity-audited-4-6",
+      "run": 17,
+      "coverage": 0.548,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.6"
+      ],
+      "clause": "4.6 Independence",
+      "longest_span": "auditors should be independent of the activity being audited wherever practicable and should in all cases act",
+      "description": "ISO 19011:2026 clause 4.6 states auditors should be independent of the activity being audited wherever practicable, and should in all cases act free from bias and conflict of interest."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-internal-auditor-limited-independence-remedy",
+      "run": 26,
+      "coverage": 0.441,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.6"
+      ],
+      "clause": "4.6 Independence",
+      "longest_span": "it is not possible for internal auditors to be independent of the activity being audited every effort should be made to remove bias and encourage objectivity",
+      "description": "ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work - that formulation is practice convention."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-remote-auditing-method-3-4",
+      "run": 15,
+      "coverage": 0.366,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.4"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "for conducting audit activities from any place other than the location of the auditee the",
+      "description": "ISO 19011:2026 clause 3.4 defines it as a method for conducting audit activities from any place other than the location of the auditee. The definition is sourced from ISO/IEC TS 17012:2024, whose guidance the 2026 edition imports."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-remote-method-risks-annex-a-16",
+      "run": 14,
+      "coverage": 0.438,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.16"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "using remote auditing methods can introduce additional risks and opportunities to the audit process",
+      "description": "Annex A.16 states that using remote auditing methods can introduce additional risks and opportunities to the audit process, naming data security, confidentiality and contingency planning for technology failure among the considerations."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-programme-resources-5-4-4",
+      "run": 10,
+      "coverage": 0.455,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.4.4"
+      ],
+      "clause": "6.2.3 Determining the feasibility of the audit",
+      "longest_span": "include access to adequate and appropriate information and communication technology",
+      "description": "ISO 19011:2026 clause 5.4.4 covers determining programme resources, which include access to adequate and appropriate information and communication technology."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clause-9-2-1-requirements",
+      "run": 11,
+      "coverage": 0.344,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [],
+      "clause": "9.2.1 General",
+      "longest_span": "internal audits at planned intervals to provide information on whether the",
+      "description": "Requires internal audits at planned intervals to provide information on whether the ISMS conforms to the organization's own requirements and to the requirements of the standard, and is effectively implemented and maintained."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-programme-3-5",
+      "run": 21,
+      "coverage": 0.7,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.5"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose",
+      "description": "ISO 19011:2026 clause 3.5 defines it as arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-documented-information-on-the-programme",
+      "run": 11,
+      "coverage": 0.407,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "9.2.2"
+      ],
+      "clause": "9.1 Monitoring, measurement, analysis and evalua",
+      "longest_span": "be available as evidence of the implementation of the audit programme",
+      "description": "ISO/IEC 27001 clause 9.2.2 requires documented information to be available as evidence of the implementation of the audit programme and of the audit results."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-evidence-3-10",
+      "run": 15,
+      "coverage": 0.577,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.10"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "records statements of fact or other information which are relevant to the audit criteria and",
+      "description": "ISO 19011:2026 clause 3.10 defines audit evidence as records, statements of fact or other information which are relevant to the audit criteria and verifiable."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-degree-of-verification",
+      "run": 12,
+      "coverage": 0.364,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.7"
+      ],
+      "clause": "6.4.7 Collecting and verifying information",
+      "longest_span": "subject to some degree of verification should be accepted as audit evidence",
+      "description": "ISO 19011:2026 clause 6.4.7 states that only information subject to some degree of verification should be accepted as audit evidence. Verification is a matter of degree, not a binary test."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-professional-judgement-on-reliance",
+      "run": 13,
+      "coverage": 0.394,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.7"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "professional judgement to determine the degree of reliance that can be placed on",
+      "description": "Where the degree of verification is low, clause 6.4.7 requires the auditor to use professional judgement to determine the degree of reliance that can be placed on the information as evidence."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-sampling-and-confidence-in-conclusions",
+      "run": 14,
+      "coverage": 0.311,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.7"
+      ],
+      "clause": "4.7 Evidence-based approach",
+      "longest_span": "is closely related to the confidence that can be placed in the audit conclusions",
+      "description": "ISO 19011:2026 clause 4.7 states audit evidence should be based on samples because an audit runs for a specified duration with finite resources, and that appropriate use of sampling is closely related to the confidence that can be placed in the audit conclusions."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-annex-a-8-34-audit-testing-agreement",
+      "run": 11,
+      "coverage": 0.367,
+      "sources_matching_the_span": [
+        "27002:2022"
+      ],
+      "named_by_scorer": "27002:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A"
+      ],
+      "clause": "8.34 Protection of information systems during aud",
+      "longest_span": "audit tests and other assurance activities involving assessment of operational systems",
+      "description": "An ISO/IEC 27001 Annex A control requiring audit tests and other assurance activities involving assessment of operational systems to be planned and agreed between the tester and appropriate management."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-ai-selection-bias-in-evidence-sampling",
+      "run": 11,
+      "coverage": 0.344,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.7"
+      ],
+      "clause": "4.7 Evidence-based approach",
+      "longest_span": "to the confidence that can be placed in the audit conclusions",
+      "description": "Where a tool decides which records the auditor examines, it has made a sampling decision - which clause 4.7 ties directly to the confidence that can be placed in the audit conclusions."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-isms-scope-clause-4-3",
+      "run": 10,
+      "coverage": 0.278,
+      "sources_matching_the_span": [
+        "27001:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "other organizations the scope shall be available as documented information",
+      "description": "Requires the organization to determine the boundaries and applicability of the ISMS, considering the 4.1 issues, the 4.2 requirements, and interfaces and dependencies with other organizations. The scope shall be available as documented information."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clauses-4-to-10-not-excludable",
+      "run": 19,
+      "coverage": 0.487,
+      "sources_matching_the_span": [
+        "27001:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "1",
+        "4"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "excluding any of the requirements specified in clauses 4 to 10 is not acceptable when an organization claims conformity",
+      "description": "Stated in Clause 1 Scope, not clause 4: excluding any of the requirements specified in Clauses 4 to 10 is not acceptable when an organization claims conformity. Activities, locations and assets can fall outside a scope boundary; requirements cannot."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-internal-and-external-issues-clause-4-1",
+      "run": 17,
+      "coverage": 0.607,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "4.1 Understanding the organization and its conte",
+      "longest_span": "determine external and internal issues relevant to its purpose that affect its ability to achieve the intended",
+      "description": "Clause 4.1 requires the organization to determine external and internal issues relevant to its purpose that affect its ability to achieve the intended outcomes of its ISMS."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-roles-responsibilities-authorities-clause-5-3",
+      "run": 10,
+      "coverage": 0.313,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.3"
+      ],
+      "clause": "5.3 Roles, responsibilities and authorities",
+      "longest_span": "responsibilities and authorities for relevant roles are assigned and communicated",
+      "description": "Clause 5.3 requires top management to ensure responsibilities and authorities for relevant roles are assigned and communicated, and to assign authority for ISMS conformity and for reporting performance to top management."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-planning-of-changes-clause-6-3",
+      "run": 10,
+      "coverage": 0.233,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "6.3"
+      ],
+      "clause": "6.3 Planning of changes",
+      "longest_span": "the changes shall be carried out in a planned manner",
+      "description": "Clause 6.3 requires that where the organization determines the need for changes to the ISMS, the changes shall be carried out in a planned manner. It does not appear on the standard's own contents page, which is how it is routinely missed."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-soa-four-required-elements",
+      "run": 13,
+      "coverage": 0.371,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.3",
+        "Annex A"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "implemented or not and justification for excluding any of the annex a controls",
+      "description": "Clause 6.1.3 d) requires the Statement of Applicability to contain the necessary controls, justification for their inclusion, whether each is implemented or not, and justification for excluding any of the Annex A controls."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-competence-clause-7-2",
+      "run": 11,
+      "coverage": 0.344,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [],
+      "clause": "7.2 Competence",
+      "longest_span": "persons are competent on the basis of education training or experience",
+      "description": "Requires determining necessary competence, ensuring persons are competent on the basis of education, training or experience, taking action where applicable and evaluating its effectiveness, and retaining documented information as evidence of competence."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-operational-planning-and-control-clause-8-1",
+      "run": 11,
+      "coverage": 0.239,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "8.1",
+        "6"
+      ],
+      "clause": "8.1 Operational planning and control",
+      "longest_span": "plan implement and control the processes needed to meet requirements and",
+      "description": "Clause 8.1 requires the organization to plan, implement and control the processes needed to meet requirements and implement the clause 6 actions, by establishing criteria and controlling the processes in accordance with them, with documented information available to have confidence the processes ran as planned."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
+      "run": 12,
+      "coverage": 0.364,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "27005:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "8.2",
+        "8.3"
+      ],
+      "clause": "8.2 Information security risk assessment",
+      "longest_span": "assessments at planned intervals or when significant changes are proposed or occur",
+      "description": "Clause 8.2 requires assessments at planned intervals or when significant changes are proposed or occur; clause 8.3 requires the treatment plan to be implemented. Both require documented information of the results."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-interested-party-climate-requirements-4-2",
+      "run": 11,
+      "coverage": 0.239,
+      "sources_matching_the_span": [
+        "27001:2022/Amd1"
+      ],
+      "named_by_scorer": "27001:2022/Amd1",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.2"
+      ],
+      "clause": "(no heading above the match)",
+      "longest_span": "2 relevant interested parties can have requirements related to climate change",
+      "description": "Amendment 1:2024 adds NOTE 2 at the end of clause 4.2: relevant interested parties can have requirements related to climate change. It is a second note - the existing note on legal, regulatory and contractual requirements becomes NOTE 1. A note is not a requirement."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-combined-audit-3-2",
+      "run": 13,
+      "coverage": 0.52,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.2"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "carried out together at a single auditee on two or more management systems",
+      "description": "ISO 19011:2026 clause 3.2 defines a combined audit as one carried out together at a single auditee on two or more management systems."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-compliance-versus-conformity-language",
+      "run": 12,
+      "coverage": 0.333,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.8"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "the audit criteria are legal statutory or regulatory requirements the words compliance",
+      "description": "ISO 19011:2026 clause 3.8 Note 1 records that where the audit criteria are legal, statutory or regulatory requirements, the words compliance and non-compliance are often used in a finding rather than conformity language."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-report-content-6-5-1",
+      "run": 11,
+      "coverage": 0.355,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.5.1"
+      ],
+      "clause": "6.5.1 Preparing the audit report",
+      "longest_span": "a complete accurate concise and clear record of the audit including",
+      "description": "ISO 19011:2026 clause 6.5.1 covers preparing the audit report, which provides a complete, accurate, concise and clear record of the audit including its scope, criteria, findings and conclusions."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-reporting-results-to-relevant-management",
+      "run": 12,
+      "coverage": 0.5,
+      "sources_matching_the_span": [
+        "27001:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "9.2.2"
+      ],
+      "clause": "8 � ISO/IEC 2022 � All rights reserved",
+      "longest_span": "ensure that the results of the audits are reported to relevant management",
+      "description": "ISO/IEC 27001 clause 9.2.2 c) requires the organization to ensure that the results of the audits are reported to relevant management."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-amendment-1-2024-climate-change",
+      "run": 12,
+      "coverage": 0.245,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "4.1 Understanding the organization and its conte",
+      "longest_span": "the organization shall determine whether climate change is a relevant issue the",
+      "description": "ISO/IEC 27001:2022/Amd 1:2024, Climate action changes, adds one sentence to clause 4.1: the organization shall determine whether climate change is a relevant issue. The amendment is one page and adds nothing else to clause 4.1. It names climate change specifically, not environmental conditions."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-principles-carry-no-precedence",
+      "run": 11,
+      "coverage": 0.141,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "based on the seven outlined in 4 2 to 4 8",
+      "description": "ISO 19011:2026 presents the seven principles without ranking them: clause 4.1 says only that adherence to them is fundamental, and that Clauses 5 to 7 are based on the seven outlined in 4.2 to 4.8. It states nothing about precedence in either direction - the words precedence, hierarchy and rank do not appear in the document. Where two principles engage a situation differently, nothing in the text decides between them and the auditor weighs them."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-statement-objectivity",
+      "run": 11,
+      "coverage": 0.139,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.3",
+        "4"
+      ],
+      "clause": "4.3 Fair presentation",
+      "longest_span": "the communication should be truthful accurate objective timely clear and complete",
+      "description": "The fair presentation principle in ISO 19011:2026 clause 4.3 says audit findings, conclusions and reports should reflect the auditing activities truthfully and accurately, and that the communication should be truthful, accurate, objective, timely, clear and complete. Like every principle in clause 4 it is expressed as a should, not a shall - ISO 19011 is a guidance document and contains no requirements. The statement records what was found; it does not prescribe the remedy or characterise the auditee."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-internal-audit-definition",
+      "run": 17,
+      "coverage": 0.198,
+      "sources_matching_the_span": [
+        "27000:2018",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27000:2018",
+      "harmonised": true,
+      "addresses_cited": [
+        "3.1"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled note",
+      "description": "ISO 19011:2026 clause 3.1 defines an audit as a systematic, independent and documented process for obtaining objective evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled. Note 2 to entry adds that an internal audit is conducted by, or on behalf of, the organization itself. An organization may therefore engage a contracted auditor and the audit remains a first-party audit; what makes it internal is whose management system is being examined, not who holds the pen."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-client-vs-auditee",
+      "run": 10,
+      "coverage": 0.111,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.13",
+        "3.14"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "internal audit the audit client can also be the auditee",
+      "description": "ISO 19011:2026 clause 3.13 defines the audit client as the organization or person requesting the audit, and clause 3.14 defines the auditee as the organization or the parts of it being audited. A note to 3.13 records that in an internal audit the audit client can also be the auditee, or the individual managing the audit programme. The roles stay distinct even when one organization fills all of them, and identifying who requested the audit is how the auditor knows to whom the report is owed."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-principles-carry-no-precedence",
+      "run": 17,
+      "coverage": 0.17,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "4.1 General",
+      "longest_span": "in clauses 5 to 7 is based on the seven outlined in 4 2 to 4 8",
+      "description": "ISO 19011:2026 presents the seven principles without ranking them. Clause 4.1 says only that adherence to them is fundamental and that the guidance in Clauses 5 to 7 is based on the seven outlined in 4.2 to 4.8. It says nothing about precedence in either direction; the words precedence, hierarchy and rank do not appear in the document. Where two principles engage a situation differently, nothing in the text decides between them and the auditor weighs them. The absence of a ranking rule is an observation about the text, not a stated rule of no ranking."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-professional-judgement",
+      "run": 10,
+      "coverage": 0.122,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.4",
+        "Annex A.3"
+      ],
+      "clause": "4.4 Due professional care",
+      "longest_span": "the ability to make reasoned judgements in all audit situations",
+      "description": "ISO 19011:2026 clause 4.4 describes due professional care as the application of diligence and judgement in auditing, and names the ability to make reasoned judgements in all audit situations as an important factor in exercising it. Because the document offers guidance rather than requirements, and because it ranks no principle above another, the resolution of a genuine tension is the auditor's reasoned judgement rather than a rule the auditor can cite. Annex A.3 gives further guidance on professional judgement."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-independence-wherever-practicable",
+      "run": 27,
+      "coverage": 0.303,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.6"
+      ],
+      "clause": "4.6 Independence",
+      "longest_span": "auditors should be independent of the activity being audited wherever practicable and should in all cases act in a manner free from bias and conflict of interest",
+      "description": "ISO 19011:2026 clause 4.6 states that auditors should be independent of the activity being audited wherever practicable, and should in all cases act in a manner free from bias and conflict of interest. It adds that when it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. The principle is therefore conditional by its own wording, and neither ISO 19011 nor ISO/IEC 42001 forbids auditing work one has contributed to."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-42001-impartiality-clause",
+      "run": 15,
+      "coverage": 0.188,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "9.2.2",
+        "4.6"
+      ],
+      "clause": "14 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "select auditors and conduct audits to ensure objectivity and the impartiality of the audit process",
+      "description": "ISO/IEC 42001:2023 clause 9.2.2 b) states that the organization shall select auditors and conduct audits to ensure objectivity and the impartiality of the audit process. That is the whole of the standard's requirement on the point: it names no independence rule, no separation of duties and no prohibition on auditing one's own area. The detail of how objectivity is achieved is left to the organization, and ISO 19011 clause 4.6 is where the guidance sits."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-programme-objectives",
+      "run": 19,
+      "coverage": 0.226,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.2"
+      ],
+      "clause": "5.2 Establishing audit programme objectives",
+      "longest_span": "the audit client should ensure audit programme objectives are established to direct the planning and conducting of audits and",
+      "description": "ISO 19011:2026 clause 5.2 states that the audit client should ensure audit programme objectives are established to direct the planning and conducting of audits, and that those objectives should be consistent with the audit client's strategic direction and context and support its management system policies and objectives. The clause lists what they can be based on, including the needs and expectations of interested parties, management system requirements, the auditee's level of performance, and the need to evaluate organizations in the supply chain."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-programme-risks",
+      "run": 10,
+      "coverage": 0.119,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.3"
+      ],
+      "clause": "5.3 Determining and evaluating audit programme r",
+      "longest_span": "and present them to the audit client when developing the",
+      "description": "ISO 19011:2026 clause 5.3 records that risks and opportunities related to the auditee's context can affect the achievement of the audit programme's objectives, and that the individual managing the programme should identify them and present them to the audit client when developing the programme and its resource requirements. The clause lists risk sources including planning, resources, selection of the audit team, communication, implementation, records and their control, and monitoring and review. These are risks to the audit, not the auditee's own risks."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-risk-based-approach",
+      "run": 19,
+      "coverage": 0.226,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.8",
+        "4"
+      ],
+      "clause": "4.8 Risk-based approach",
+      "longest_span": "should substantively influence the planning and implementation of the audit programme and the planning conducting and reporting of audits",
+      "description": "ISO 19011:2026 clause 4.8 describes the risk-based approach as one that considers risks and opportunities, and states that it should substantively influence the planning and implementation of the audit programme and the planning, conducting and reporting of audits, so that audits focus on matters significant for the audit client and for achieving the programme objectives. It is expressed as a should, like every principle in clause 4, and it directs where effort concentrates rather than authorising an area to go unexamined."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-technical-expert-vs-auditor",
+      "run": 13,
+      "coverage": 0.153,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.15",
+        "3.17"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "one or more persons conducting an audit supported if needed by technical experts",
+      "description": "ISO 19011:2026 clause 3.15 defines the audit team as one or more persons conducting an audit, supported if needed by technical experts, and clause 3.17 defines a technical expert as a person who provides specific knowledge or expertise to the audit team. A technical expert supplies subject-matter understanding and does not act as an auditor. Bringing a data scientist onto the team to interpret model evaluation evidence is the intended use; having that person audit their own team's work is not."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-scope-follows-roles",
+      "run": 13,
+      "coverage": 0.159,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.3"
+      ],
+      "clause": "4.3 Determining the scope of the AI management s",
+      "longest_span": "the boundaries and applicability of the ai management system to establish its scope",
+      "description": "ISO/IEC 42001:2023 clause 4.3 requires the organization to determine the boundaries and applicability of the AI management system to establish its scope, considering the issues in 4.1 and the requirements in 4.2. Because 4.1 includes the determination of roles, the scope is downstream of that determination. An auditor testing scope therefore tests the role determination first: a scope that excludes an activity the organization performs in a role it holds is an exclusion that needs justification."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-individual-audit-objectives",
+      "run": 17,
+      "coverage": 0.254,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.5.2"
+      ],
+      "clause": "5.5.2 Defining the objectives, scope and criteria ",
+      "longest_span": "each individual audit should be based on defined audit objectives scope and criteria consistent with the overall",
+      "description": "ISO 19011:2026 clause 5.5.2 states that each individual audit should be based on defined audit objectives, scope and criteria, consistent with the overall programme objectives. It lists what the objectives can include: determining the extent of conformity to the criteria, evaluating the management system's capability to meet statutory, regulatory and other requirements, evaluating its effectiveness in meeting intended results, and finding opportunities for improvement."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-scope-definition",
+      "run": 10,
+      "coverage": 0.127,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.6"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "generally includes a description of the physical and virtual locations",
+      "description": "ISO 19011:2026 clause 3.6 defines audit scope as the extent and boundaries of an audit, with a note that it generally includes a description of the physical and virtual locations, functions, organizational units, activities and processes, and the time period covered. For an AI management system audit the virtual locations and the specific AI systems in scope matter as much as the organizational units, and a scope that names neither cannot later be tested against a finding."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-42001-9-2-2-a",
+      "run": 16,
+      "coverage": 0.16,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "9.2.2"
+      ],
+      "clause": "8 � ISO/IEC 2022 � All rights reserved",
+      "longest_span": "the organization shall consider the importance of the processes concerned and the results of previous audits",
+      "description": "ISO/IEC 42001:2023 clause 9.2.2 states that the organization shall plan, establish, implement and maintain an audit programme including frequency, methods, responsibilities, planning requirements and reporting; that when establishing it the organization shall consider the importance of the processes concerned and the results of previous audits; and that the organization shall define the audit objectives, criteria and scope for each audit, select auditors and conduct audits so as to ensure objectivity and impartiality, and ensure results are reported to relevant managers. Documented information shall be available as evidence of the programme's implementation and of the audit results."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-auditing-methods",
+      "run": 13,
+      "coverage": 0.191,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.5.3",
+        "Annex A.1"
+      ],
+      "clause": "5.5.6 Managing audit programme results",
+      "longest_span": "the individual managing the audit programme should select and determine the methods for",
+      "description": "ISO 19011:2026 clause 5.5.3 states that the individual managing the audit programme should select and determine the methods for conducting an audit effectively and efficiently, depending on the defined objectives, scope and criteria, and that audits can be performed on-site, remotely or as a combination, suitably balanced with consideration of associated risks and opportunities. Annex A.1 gives further guidance on applying auditing methods."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-virtual-location",
+      "run": 18,
+      "coverage": 0.261,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.6"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "where an organization performs work or provides a service using an online environment enabling individuals to execute processes",
+      "description": "ISO 19011:2026 describes a virtual location as one where an organization performs work or provides a service using an online environment, enabling individuals to execute processes irrespective of physical location. Much of an AI management system's evidence lives in exactly such places: model registries, pipelines, cloud environments and logging platforms. Clause 3.6 notes that audit scope generally includes a description of virtual as well as physical locations."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-records",
+      "run": 14,
+      "coverage": 0.215,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "5.5.7",
+        "9.2.2"
+      ],
+      "clause": "8.1 Operational planning and control",
+      "longest_span": "documented information shall be available as evidence of the implementation of the audit programme",
+      "description": "ISO 19011:2026 clause 5.5.7 addresses managing audit related records. ISO/IEC 42001:2023 clause 9.2.2 separately requires that documented information shall be available as evidence of the implementation of the audit programme and of the audit results. The standard's requirement is the one a nonconformity can be raised against; the ISO 19011 guidance describes what good record management looks like."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-plan-adjustment",
+      "run": 11,
+      "coverage": 0.167,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.7"
+      ],
+      "clause": "6.4.7 Collecting and verifying information",
+      "longest_span": "the audit team becomes aware of new or changed circumstances or",
+      "description": "ISO 19011:2026 clause 6.4.7 records that where the audit team becomes aware of new or changed circumstances, or of risks or opportunities, these should be addressed accordingly. A plan is a design, not a commitment to ignore what the evidence shows. Changes are agreed with the audit client and auditee and recorded, so that the report describes the audit that was actually conducted."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-working-documents",
+      "run": 13,
+      "coverage": 0.213,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.3.4",
+        "Annex A.13"
+      ],
+      "clause": "6.3.4 Preparing documented information for the aud",
+      "longest_span": "activities which can change as a result of information collected during the audit",
+      "description": "ISO 19011:2026 clause 6.3.4 covers preparing documented information for the audit, and Annex A.13 gives guidance on working documents such as checklists, sampling plans and forms for recording evidence and findings. Annex A.13 also cautions that working documents should not restrict the audit activities, which can change as a result of information collected during the audit."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-collecting-verifying-information",
+      "run": 29,
+      "coverage": 0.362,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.7"
+      ],
+      "clause": "6.4.7 Collecting and verifying information",
+      "longest_span": "can be subject to some degree of verification should be accepted as audit evidence where the degree of verification is low the auditor should use professional judgement to determine",
+      "description": "ISO 19011:2026 clause 6.4.7 states that information relevant to the audit objectives, scope and criteria should be collected by appropriate sampling and should be verified as far as practicable, and that only information which can be subject to some degree of verification should be accepted as audit evidence. Where the degree of verification is low, the auditor should use professional judgement to determine how much reliance to place on it. Evidence leading to findings should be recorded."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-evidence-based-approach",
+      "run": 15,
+      "coverage": 0.195,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.7"
+      ],
+      "clause": "4.7 Evidence-based approach",
+      "longest_span": "the rational method for reaching reliable and reproducible audit conclusions in a systematic audit process",
+      "description": "ISO 19011:2026 clause 4.7 describes the evidence-based approach as the rational method for reaching reliable and reproducible audit conclusions in a systematic audit process. It states that audit evidence should be verifiable and should be based on samples of the information available, since an audit runs for a specified duration with finite resources, and that appropriate sampling should be applied because this bears directly on the confidence that can be placed in the conclusions."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-conducting-interviews",
+      "run": 22,
+      "coverage": 0.262,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.17"
+      ],
+      "clause": "100 % of the items within the total available da",
+      "longest_span": "an important means of collecting information carried out in a manner adapted to the situation and the individual face to face or",
+      "description": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, carried out in a manner adapted to the situation and the individual, face-to-face or by other means. It asks that interviews be held with individuals from appropriate levels and functions performing activities within the audit scope, normally during working hours and where practical at the normal workplace, that the interviewee be put at ease, and that the reason for the interview and any note taking be explained."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-interview-selection-of-persons",
+      "run": 10,
+      "coverage": 0.139,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.17"
+      ],
+      "clause": "100 % of the items within the total available da",
+      "longest_span": "be held with individuals from appropriate levels and functions performing",
+      "description": "ISO 19011:2026 Annex A.17 a) asks that interviews be held with individuals from appropriate levels and functions performing the activities or tasks within the audit scope. For an AI management system this means the people who actually prepare data, evaluate models or operate the system, not only the manager who can describe the intended process. Interviewing only upward produces a description of the design rather than evidence of the practice."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-remote-evidence-sufficiency",
+      "run": 15,
+      "coverage": 0.217,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.16",
+        "Annex A.5"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "an audit using remote methods uses technology during the audit process for observing interviewing and",
+      "description": "ISO 19011:2026 Annex A.16 records that an audit using remote methods uses technology during the audit process for observing, interviewing and verifying objective evidence, and that remote methods can introduce additional risks and opportunities. The verification test in Annex A.5 does not change with the method: the auditor still asks whether the information is complete, correct, consistent and current, and whether its integrity can be assessed."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-sources-of-information",
+      "run": 10,
+      "coverage": 0.182,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.14"
+      ],
+      "clause": "(no heading above the match)",
+      "longest_span": "the scope and complexity of the audit and can include",
+      "description": "ISO 19011:2026 Annex A.14 addresses selecting sources of information, which vary with the scope and complexity of the audit and can include interviews, observation, documented information, records, data summaries and reports from other sources. The choice follows from the question being asked: a summary answers a different question from the record it summarises."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-opening-meeting",
+      "run": 11,
+      "coverage": 0.155,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.3"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "to the audit plan introduce the audit team and their roles",
+      "description": "ISO 19011:2026 clause 6.4.3 covers the opening meeting, whose purpose is to confirm the agreement of all parties to the audit plan, introduce the audit team and their roles, and ensure that the planned activities can be performed. Its degree of formality varies with the type of audit; for a routine internal audit it can be simply communicating that the audit is being conducted and explaining its nature."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-guides-and-observers",
+      "run": 11,
+      "coverage": 0.196,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.2"
+      ],
+      "clause": "6.4.2 Assigning the roles and responsibilities of ",
+      "longest_span": "should not influence or interfere with the conduct of the audit",
+      "description": "ISO 19011:2026 clause 6.4.2 covers assigning the roles and responsibilities of guides and observers. A guide accompanies the audit team, arranges access and interviews and provides clarification; an observer attends without auditing. Neither acts as an auditor, and the presence of either should not influence or interfere with the conduct of the audit."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-4-1-context",
+      "run": 17,
+      "coverage": 0.218,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "4.1 Understanding the organization and its conte",
+      "longest_span": "determine external and internal issues relevant to its purpose that affect its ability to achieve the intended",
+      "description": "ISO/IEC 42001:2023 clause 4.1 requires the organization to determine external and internal issues relevant to its purpose that affect its ability to achieve the intended results of its AI management system, to consider the intended purpose of the AI systems it develops, provides or uses, and to determine its roles with respect to those systems. It also requires the organization to determine whether climate change is a relevant issue. All four are stated as shall."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-4-3-scope",
+      "run": 13,
+      "coverage": 0.271,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.3"
+      ],
+      "clause": "4.3 Determining the scope of the AI management s",
+      "longest_span": "the boundaries and applicability of the ai management system to establish its scope",
+      "description": "ISO/IEC 42001:2023 clause 4.3 requires the organization to determine the boundaries and applicability of the AI management system to establish its scope, considering the external and internal issues from 4.1 and the requirements of interested parties from 4.2. The scope is documented information."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-5-leadership",
+      "run": 13,
+      "coverage": 0.163,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.1"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "are available communicating the importance of effective ai management and of conforming to",
+      "description": "ISO/IEC 42001:2023 clause 5.1 requires top management to demonstrate leadership and commitment by ensuring the AI policy and AI objectives are established and compatible with the strategic direction, ensuring integration of AIMS requirements into business processes, ensuring resources are available, communicating the importance of effective AI management and of conforming to AIMS requirements, ensuring the system achieves its intended results, directing and supporting persons, and promoting continual improvement. Each is auditable through artifacts rather than through attitude."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-ai-policy-requirements",
+      "run": 20,
+      "coverage": 0.233,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.2",
+        "A.2.2"
+      ],
+      "clause": "5.2 AI policy",
+      "longest_span": "establish an ai policy that is appropriate to the purpose of the organization provides a framework for setting ai objectives",
+      "description": "ISO/IEC 42001:2023 clause 5.2 requires top management to establish an AI policy that is appropriate to the purpose of the organization, provides a framework for setting AI objectives, and includes commitments to meet applicable requirements and to continual improvement. The policy shall be available as documented information, refer as relevant to other organizational policies, be communicated within the organization, and be available to interested parties as appropriate. This is a clause requirement and applies whether or not control A.2.2 is selected."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-policy-review-a-2-4",
+      "run": 22,
+      "coverage": 0.289,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "A.1",
+        "A.2.4",
+        "6.1.3",
+        "5.2"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "that the ai policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability adequacy and effectiveness",
+      "description": "Table A.1 control A.2.4 states that the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness. Like every Table A.1 control it applies where the organization has selected it under clause 6.1.3 and declared it in the statement of applicability. Clause 5.2 requires the policy to exist; A.2.4 is where periodic review of it comes from."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-roles-responsibilities-authorities",
+      "run": 10,
+      "coverage": 0.154,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "5.3",
+        "A.3.2"
+      ],
+      "clause": "5.3 Roles, responsibilities and authorities",
+      "longest_span": "responsibilities and authorities for relevant roles are assigned and communicated",
+      "description": "ISO/IEC 42001:2023 clause 5.3 requires top management to ensure responsibilities and authorities for relevant roles are assigned and communicated, and specifically to assign responsibility and authority for ensuring the AIMS conforms to the requirements of the standard and for reporting on its performance to top management. A note points to control A.3.2 for defining and allocating AI roles and responsibilities."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-6-1-2-risk-assessment",
+      "run": 18,
+      "coverage": 0.257,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.2"
+      ],
+      "clause": "6.1.2 AI risk assessment",
+      "longest_span": "define and establish an ai risk assessment process that is informed by and aligned with the ai policy",
+      "description": "ISO/IEC 42001:2023 clause 6.1.2 requires the organization to define and establish an AI risk assessment process that is informed by and aligned with the AI policy and AI objectives, is designed so that repeated assessments produce consistent, valid and comparable results, identifies risks that aid or prevent achieving the AI objectives, analyses those risks, and evaluates them. The requirement is on the process and its properties."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-repeatable-comparable-results",
+      "run": 14,
+      "coverage": 0.194,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.2"
+      ],
+      "clause": "6.1.2 AI risk assessment",
+      "longest_span": "designed such that repeated ai risk assessments can produce consistent valid and comparable results",
+      "description": "ISO/IEC 42001:2023 clause 6.1.2 b) requires the process to be designed such that repeated AI risk assessments can produce consistent, valid and comparable results. This is testable: two assessments of similar systems, performed by different people, that reach materially different conclusions on the same facts indicate a process that does not meet 6.1.2 b), and the evidence for the finding is the organization's own assessment records."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-statement-of-applicability",
+      "run": 13,
+      "coverage": 0.186,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.26",
+        "6.1.3",
+        "Annex A",
+        "A.1"
+      ],
+      "clause": "4 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "documentation of all necessary controls and justification for inclusion or exclusion of controls",
+      "description": "ISO/IEC 42001:2023 clause 3.26 defines the statement of applicability as documentation of all necessary controls and justification for inclusion or exclusion of controls. Clause 6.1.3 f) is the requirement that produces it. It is the document that converts the reference controls of Annex A into this organization's obligations, which is why a Table A.1 control becomes auditable only once it appears there as included."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-control-comparison-annex-a",
+      "run": 10,
+      "coverage": 0.118,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.3",
+        "Annex A",
+        "A.1"
+      ],
+      "clause": "6.1.3 AI risk treatment",
+      "longest_span": "with those in annex a to verify that no necessary",
+      "description": "Clause 6.1.3 b) requires the organization to determine all controls necessary to implement the chosen treatment options and to compare them with those in Annex A to verify that no necessary control has been omitted. The direction matters: controls are determined from the risks first and Annex A is then used as a completeness check. An organization that started from Table A.1 and worked backwards has performed a different exercise, and the audit evidence for the comparison is what shows which happened."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-6-1-4-impact-assessment",
+      "run": 37,
+      "coverage": 0.398,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.4"
+      ],
+      "clause": "6.1.4 AI system impact assessment",
+      "longest_span": "define a process for assessing the potential consequences for individuals or groups of individuals or both and societies that can result from the development provision or use of ai systems the assessment shall determine the potential consequences",
+      "description": "ISO/IEC 42001:2023 clause 6.1.4 requires the organization to define a process for assessing the potential consequences for individuals or groups of individuals, or both, and societies, that can result from the development, provision or use of AI systems. The assessment shall determine the potential consequences of the system's deployment, intended use and foreseeable misuse; shall take into account the specific technical and societal context and applicable jurisdictions; and its result shall be documented. The organization shall consider the results in the risk assessment referred to in 6.1.2."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-impact-results-into-risk-assessment",
+      "run": 16,
+      "coverage": 0.242,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.1.4"
+      ],
+      "clause": "4.1 Understanding the organization and its conte",
+      "longest_span": "the organization shall consider the results of the ai system impact assessment in the risk assessment",
+      "description": "Clause 6.1.4 states that the organization shall consider the results of the AI system impact assessment in the risk assessment. The requirement is directional and it is a shall. Evidence that satisfies it shows the impact findings appearing in the risk assessment record; an impact assessment filed separately and never referenced leaves this requirement unevidenced even where both documents exist and are individually sound."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-creating-updating-control",
+      "run": 13,
+      "coverage": 0.194,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "7.5.2",
+        "7.5.3"
+      ],
+      "clause": "7.5.2 Creating and updating documented information",
+      "longest_span": "when creating and updating documented information the organization ensure appropriate identification and description",
+      "description": "Clause 7.5.2 requires that when creating and updating documented information the organization ensure appropriate identification and description, format and media, and review and approval for suitability and adequacy. Clause 7.5.3 requires it to be available and suitable for use where needed, and adequately protected. Existence is not control: a current model card that nobody approved and that anyone can overwrite satisfies neither subclause."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-awareness-and-communication",
+      "run": 13,
+      "coverage": 0.206,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "7.3",
+        "7.4"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "be aware of the ai policy their contribution to the effectiveness of the",
+      "description": "ISO/IEC 42001:2023 clause 7.3 requires persons doing work under the organization's control to be aware of the AI policy, their contribution to the effectiveness of the AIMS, and the implications of not conforming to its requirements. Clause 7.4 requires the organization to determine the internal and external communications relevant to the AIMS, including what, when, with whom and how."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-8-1-operational-control",
+      "run": 25,
+      "coverage": 0.287,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "8.1",
+        "6"
+      ],
+      "clause": "8.1 Operational planning and control",
+      "longest_span": "plan implement and control the processes needed to meet requirements and to implement the actions determined in clause 6 by establishing criteria for the processes",
+      "description": "ISO/IEC 42001:2023 clause 8.1 requires the organization to plan, implement and control the processes needed to meet requirements and to implement the actions determined in Clause 6, by establishing criteria for the processes and implementing control in accordance with those criteria. It further requires the organization to implement the controls determined according to 6.1.3 that relate to the operation of the AIMS, and requires that the effectiveness of those controls be monitored and corrective actions considered where intended results are not achieved."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-outsourced-processes",
+      "run": 16,
+      "coverage": 0.235,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "8.1",
+        "A.1",
+        "A.10"
+      ],
+      "clause": "8.1 Operational planning and control",
+      "longest_span": "ensure that externally provided processes products or services relevant to the ai management system are controlled",
+      "description": "Clause 8.1 requires the organization to control planned changes and review the consequences of unintended changes, and to ensure that externally provided processes, products or services relevant to the AI management system are controlled. For an AI management system this reaches third-party models, datasets and hosted services, which is where Table A.1 family A.10 on third-party and customer relationships becomes relevant if selected."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-planned-changes-control",
+      "run": 23,
+      "coverage": 0.319,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.3",
+        "8.1"
+      ],
+      "clause": "6.3 Planning of changes",
+      "longest_span": "when the organization determines the need for changes to the ai management system the changes shall be carried out in a planned manner",
+      "description": "ISO/IEC 42001:2023 clause 6.3 requires that when the organization determines the need for changes to the AI management system, the changes shall be carried out in a planned manner. Clause 8.1 adds control of planned changes and review of the consequences of unintended ones. A change to an AI system's purpose, data or deployment context is where role determination and impact assessment can both fall out of date."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-8-2-8-3-operational-risk",
+      "run": 13,
+      "coverage": 0.169,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "27005:2022"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "8.2",
+        "8.3"
+      ],
+      "clause": "8.2 Information security risk assessment",
+      "longest_span": "risk assessments at planned intervals or when significant changes are proposed or occur",
+      "description": "Clause 8.2 requires the organization to perform AI risk assessments at planned intervals or when significant changes are proposed or occur, and to retain documented information of the results. Clause 8.3 requires it to implement the AI risk treatment plan and retain documented information of the results. Where 6.1.2 and 6.1.3 require the processes to be defined, 8.2 and 8.3 require them to be run and the results kept."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-a-normative-shall",
+      "run": 15,
+      "coverage": 0.231,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A",
+        "A.1"
+      ],
+      "clause": "16 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "the organization shall document a policy for the development or use of ai systems the",
+      "description": "Annex A of ISO/IEC 42001:2023 is designated normative and carries Table A.1, whose 38 reference controls are each stated with shall, for example that the organization shall document a policy for the development or use of AI systems. The modal is real, and it operates on the controls the organization has determined to be necessary and declared in its statement of applicability."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-b-binds-via-6-1-3-e",
+      "run": 19,
+      "coverage": 0.235,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex B",
+        "6.1.3",
+        "B.1"
+      ],
+      "clause": "20 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability",
+      "description": "Annex B is normative because clause 6.1.3 e) requires the organization to consider the guidance in Annex B for the implementation of the controls it has determined. What binds is the act of considering, not the content of any particular sentence. Clause B.1 makes the limit explicit: organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability, and the guidance is not always suitable or sufficient in all situations."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-c-d-informative",
+      "run": 10,
+      "coverage": 0.213,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex C",
+        "Annex D"
+      ],
+      "clause": "48 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "use of the ai management system across domains or sectors",
+      "description": "Annex C of ISO/IEC 42001:2023, on potential AI-related organizational objectives and risk sources, and Annex D, on use of the AI management system across domains or sectors, are both designated informative. They inform and they impose nothing, and no finding can rest on them."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-controls-not-all-required",
+      "run": 18,
+      "coverage": 0.202,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex A.1",
+        "A.1",
+        "A.2.2"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "not all the control objectives and controls listed in table a 1 are required to be used and",
+      "description": "Annex A.1 of ISO/IEC 42001:2023 states that not all the control objectives and controls listed in Table A.1 are required to be used, and that the organization can design and implement its own controls. A Table A.1 shall therefore operates conditionally: it applies to the organization that has determined the control necessary and declared it. Writing that ISO/IEC 42001 requires an AI policy control misstates this; writing that where A.2.2 is selected the organization shall document an AI policy does not."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-control-objectives-a-2-to-a-10",
+      "run": 11,
+      "coverage": 0.122,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "A.1",
+        "A.2",
+        "A.3",
+        "A.4",
+        "A.5",
+        "A.6",
+        "A.7",
+        "A.8",
+        "A.9",
+        "A.10"
+      ],
+      "clause": "18 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "a 8 information for interested parties of ai systems a 9",
+      "description": "Table A.1 organises its controls under nine families, each with a stated objective: A.2 policies related to AI, A.3 internal organization, A.4 resources for AI systems, A.5 assessing impacts of AI systems, A.6 AI system life cycle, A.7 data for AI systems, A.8 information for interested parties of AI systems, A.9 use of AI systems, and A.10 third-party and customer relationships. The objective states what the family is for, which is what an exclusion has to be justified against."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-climate-change-4-1",
+      "run": 12,
+      "coverage": 0.218,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.1"
+      ],
+      "clause": "4.1 Understanding the organization and its conte",
+      "longest_span": "the organization shall determine whether climate change is a relevant issue the",
+      "description": "ISO/IEC 42001:2023 clause 4.1 states that the organization shall determine whether climate change is a relevant issue. The requirement is to make and record the determination; the standard does not prescribe the answer, and an organization that determines climate change is not a relevant issue and records why has met the requirement."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-climate-note-4-2",
+      "run": 11,
+      "coverage": 0.193,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.2"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "that relevant interested parties can have requirements related to climate change",
+      "description": "Clause 4.2 carries a note recording that relevant interested parties can have requirements related to climate change. It is a note, which makes it neither a requirement nor guidance in the sense a should carries, and no finding can be raised on it. It signals where the topic can surface when interested-party requirements are determined."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-a-6-life-cycle-controls",
+      "run": 12,
+      "coverage": 0.14,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "A.1",
+        "A.6",
+        "A.6.2.6"
+      ],
+      "clause": "18 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "minimum this should include system and performance monitoring repairs updates and support",
+      "description": "Table A.1 family A.6 addresses the AI system life cycle, including management guidance for AI system development and controls across life cycle stages. Its controls reach objectives for responsible development, life cycle processes, verification and validation, deployment, operation and monitoring, technical documentation and event logging. Some carry an internal qualifier: A.6.2.6 asks that the organization define and document the necessary elements for ongoing operation, and states that at a minimum this should include system and performance monitoring, repairs, updates and support."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-7-2-competence",
+      "run": 12,
+      "coverage": 0.171,
+      "sources_matching_the_span": [
+        "27001:2022",
+        "42001:2023"
+      ],
+      "named_by_scorer": "27001:2022",
+      "harmonised": true,
+      "addresses_cited": [
+        "7.2"
+      ],
+      "clause": "7.2 Competence",
+      "longest_span": "persons are competent on the basis of appropriate education training or experience",
+      "description": "ISO/IEC 42001:2023 clause 7.2 requires the organization to determine the necessary competence of persons doing work under its control that affects its AI performance, to ensure those persons are competent on the basis of appropriate education, training or experience, and where applicable to take action to acquire the necessary competence and evaluate the effectiveness of those actions. Appropriate documented information shall be available as evidence of competence."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-a-4-6-human-resources",
+      "run": 17,
+      "coverage": 0.283,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "A.1",
+        "A.4.6",
+        "7.2"
+      ],
+      "clause": "16 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "as part of resource identification the organization shall document information about the human resources and their competences",
+      "description": "Table A.1 control A.4.6 states that, as part of resource identification, the organization shall document information about the human resources and their competences used across the AI system life cycle, covering development, deployment, operation, change management, maintenance and transfer. Where selected, it produces a record that can be read against the competence determined under clause 7.2."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-opportunity-for-improvement",
+      "run": 13,
+      "coverage": 0.178,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "3.11",
+        "6.4.8"
+      ],
+      "clause": "3 Terms and definitions",
+      "longest_span": "audit findings can lead to the identification of risks opportunities for improvement or",
+      "description": "ISO 19011:2026 clause 3.11 Note 2 records that audit findings can lead to the identification of risks, opportunities for improvement, or the recording of good practices, and clause 6.4.8 provides for recording opportunities for improvement and any recommendations where the audit plan specifies. An opportunity for improvement is not a weak nonconformity: it is what an auditor records when the criteria are met and something could still be better."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-classification-scheme-is-an-organizational-choice",
+      "run": 14,
+      "coverage": 0.121,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.4.8",
+        "3.16"
+      ],
+      "clause": "6.4.8 Generating the audit findings",
+      "longest_span": "nonconformities can be graded depending on the context of the organization and its risks",
+      "description": "ISO/IEC 42001 uses only the term nonconformity and defines no severity scheme. A major and minor distinction comes from third-party certification practice under ISO/IEC 17021-1. ISO 19011:2026 clause 6.4.8 records that nonconformities can be graded depending on the context of the organization and its risks, that grading can be quantitative or qualitative, and that where grading is used the criteria should be defined and communicated by the auditing organization. Unlike ISO/IEC 27001, which relies on ISO/IEC 27000 for the term, ISO/IEC 42001 defines nonconformity itself at clause 3.16 as non-fulfilment of a requirement, alongside conformity at 3.15 and corrective action at 3.17."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-finding-against-annex-b",
+      "run": 19,
+      "coverage": 0.224,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "Annex B",
+        "B.1",
+        "6.1.3"
+      ],
+      "clause": "20 � ISO/IEC 2023 � All rights reserved",
+      "longest_span": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability",
+      "description": "Annex B of ISO/IEC 42001:2023 is normative but its content is written as should, and clause B.1 states that organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability, and that the guidance is not always suitable or sufficient in all situations. A nonconformity therefore cannot be raised because an organization implemented a control differently from the Annex B guidance. What clause 6.1.3 e) requires is that the guidance be considered."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-report-content",
+      "run": 12,
+      "coverage": 0.136,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "6.5.1"
+      ],
+      "clause": "6.5.1 Preparing the audit report",
+      "longest_span": "provide a complete accurate concise and clear record of the audit and",
+      "description": "ISO 19011:2026 clause 6.5.1 asks that the audit report provide a complete, accurate, concise and clear record of the audit, and that it include or refer to the audit objectives, scope, audit client, audit team and auditee participants, dates and locations, audit criteria, findings with related evidence, conclusions, a statement of the degree to which the criteria have been fulfilled, any unresolved diverging opinions, and a statement that audits are by nature a sampling exercise carrying a risk that the evidence examined is not representative."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-fair-presentation-in-reporting",
+      "run": 14,
+      "coverage": 0.197,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.3"
+      ],
+      "clause": "4.3 Fair presentation",
+      "longest_span": "and unresolved diverging opinions between the audit team and the auditee should be reported",
+      "description": "ISO 19011:2026 clause 4.3 states that audit findings, conclusions and reports should reflect the auditing activities truthfully and accurately, that significant obstacles encountered and unresolved diverging opinions between the audit team and the auditee should be reported, and that communication should be truthful, accurate, objective, timely, clear and complete. Omitting an obstacle that weakened the audit is a failure of the principle even when every finding recorded is correct."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-confidentiality-in-reporting",
+      "run": 10,
+      "coverage": 0.12,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "4.5",
+        "4.3"
+      ],
+      "clause": "4.5 Confidentiality",
+      "longest_span": "exercise discretion in the use and protection of information acquired",
+      "description": "ISO 19011:2026 clause 4.5 asks auditors to exercise discretion in the use and protection of information acquired during auditing, including proper handling of sensitive or confidential information. This can pull against the completeness that clause 4.3 asks for, particularly where evidence includes personal data or commercially sensitive model details. Nothing in the text ranks the two, and the usual resolution is to state the finding fully while holding the underlying evidence in the audit record rather than the distributed report."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-10-2-corrective-action",
+      "run": 17,
+      "coverage": 0.173,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "27001:2022",
+      "harmonised": false,
+      "addresses_cited": [
+        "10.2"
+      ],
+      "clause": "(span not located in the layout text)",
+      "longest_span": "implement any action needed review the effectiveness of any corrective action taken and make changes to the",
+      "description": "ISO/IEC 42001:2023 clause 10.2 requires that when a nonconformity occurs the organization shall react to it, taking action to control and correct it and dealing with the consequences as applicable; evaluate the need for action to eliminate the causes so it does not recur or occur elsewhere, by reviewing the nonconformity, determining its causes and determining whether similar nonconformities exist or could occur; implement any action needed; review the effectiveness of any corrective action taken; and make changes to the AIMS if necessary. Corrective actions shall be appropriate to the effects of the nonconformities encountered."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-9-3-management-review",
+      "run": 17,
+      "coverage": 0.298,
+      "sources_matching_the_span": [
+        "42001:2023"
+      ],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "9.3.1",
+        "9.3.2"
+      ],
+      "clause": "9.3.1 General",
+      "longest_span": "review the organization's ai management system at planned intervals to ensure its continuing suitability adequacy and effectiveness",
+      "description": "ISO/IEC 42001:2023 clause 9.3.1 requires top management to review the organization's AI management system at planned intervals to ensure its continuing suitability, adequacy and effectiveness. Clause 9.3.2 lists the required inputs and 9.3.3 the required outputs. Documented information shall be available as evidence of the results of management reviews."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-results-as-review-input",
+      "run": 11,
+      "coverage": 0.145,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "9.3.2"
+      ],
+      "clause": "9.3.2 Management review inputs",
+      "longest_span": "ai management system performance including trends in nonconformities and corrective actions",
+      "description": "ISO/IEC 42001:2023 clause 9.3.2 requires the management review to include, among its inputs, information on AI management system performance including trends in nonconformities and corrective actions, in monitoring and measurement results, and in audit results. Internal audit output is therefore not an end in itself: it is a named input to the review, and a management review record that does not reflect audit results leaves that element of 9.3.2 unevidenced."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-review-results-9-3-3",
+      "run": 18,
+      "coverage": 0.3,
+      "sources_matching_the_span": [],
+      "named_by_scorer": "42001:2023",
+      "harmonised": false,
+      "addresses_cited": [
+        "9.3.3"
+      ],
+      "clause": "9.3.3 Management review results",
+      "longest_span": "include decisions related to continual improvement opportunities and any need for changes to the ai management system and",
+      "description": "Clause 9.3.3 requires the results of the management review to include decisions related to continual improvement opportunities and any need for changes to the AI management system, and requires documented information to be available as evidence of those results. A review that records attendance and discussion but no decisions has not produced what 9.3.3 asks for."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-ict-and-emerging-technology-competence-7-2-3",
+      "run": 18,
+      "coverage": 0.383,
+      "sources_matching_the_span": [
+        "19011:2026"
+      ],
+      "named_by_scorer": "19011:2026",
+      "harmonised": false,
+      "addresses_cited": [
+        "7.2.3"
+      ],
+      "clause": "7.2.3.2 Generic knowledge and skills of management s",
+      "longest_span": "understand the appropriateness and consequences of using information and communications technology tools and emerging technology to conduct audits",
+      "description": "ISO 19011:2026 clause 7.2.3 item 10 requires auditors to understand the appropriateness and consequences of using information and communications technology tools, and emerging technology, to conduct audits. The requirement is general: it covers remote-audit tooling, sampling and analysis software, and whatever arrives next."
+    }
+  ]
+}

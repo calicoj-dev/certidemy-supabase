@@ -1,0 +1,31 @@
+{
+  "batch": "A-revised",
+  "written": "2026-09-22",
+  "rows": 2,
+  "3.2_verification": {
+    "question": "Name the row that carries 'evidence leading to findings should be recorded', or it is a loss.",
+    "my_original_claim": "carried by ia-evidence-requirement-link",
+    "verdict": "THE NAMED ROW WAS WRONG, AND THE ANSWER IS SPLIT",
+    "what_that_row_actually_says": "aia-evidence-requirement-link is about the link between evidence and requirement - 'evidence without a requirement is an observation; a requirement without evidence is an assertion' - and cites Annex A.18.3 c). It says nothing about recording.",
+    "the_row_that_does_carry_it": "ia-audit-records-5-5-7 (ISMS-IA): 'ISO 19011:2026 clause 5.5.7 covers managing audit-related records. Clause 6.4.7 requires audit evidence leading to audit findings to be recorded.' Explicit, same clause.",
+    "but": "THAT ROW IS ISMS-IA. The lost sentence was in an AIMS-IA row, and NO AIMS-IA row carries the obligation. The nearest, aia-recording-conformities, cites 6.4.8 and covers conformity findings specifically.",
+    "conclusion": "For ISMS-IA it is genuinely carried elsewhere. For AIMS-IA it is a LOSS, so the row comes back with it restored. Your rule produced the right outcome and my claim was doing two wrong things at once - naming a row that does not carry it, and reasoning across a certification boundary a candidate never crosses."
+  },
+  "rows_detail": [
+    {
+      "slug": "aia-clause-6-1-4-impact-assessment", "cert": "AIMS-IA",
+      "change": "3.1 - documentation restored as the AUDIT CONSEQUENCE, not as an obligation",
+      "was": "A mandatory process for working out what an AI system could do to people and to society, rather than to the organization. Clause 6.1.4 fixes its inputs - deployment, intended use and foreseeable misuse, read against the technical and societal setting and the jurisdictions involved - and sends the result into the 6.1.2 risk assessment. The outward direction is what separates it from risk assessment, and that is what items test.",
+      "proposed": "A mandatory process for working out what an AI system could do to people and to society, rather than to the organization. Clause 6.1.4 fixes its inputs - deployment, intended use and foreseeable misuse, read against the technical and societal setting and the jurisdictions involved - and sends the result into the 6.1.2 risk assessment. The outward direction is what separates it from risk assessment. An assessment that happened only as a conversation cannot be evidenced, so an auditor looks for its result before asking anything about its quality.",
+      "note": "The clause's own words were 'its result shall be documented'. This says why that matters instead of restating it: an unevidenced assessment fails the audit before its content is ever examined. Keeps what was lost and adds a teaching move, as ruled."
+    },
+    {
+      "slug": "aia-collecting-verifying-information", "cert": "AIMS-IA",
+      "change": "3.2 - recording obligation RESTORED; it is a loss for AIMS-IA, not an absorbed one",
+      "was": "Only information that can be checked counts as audit evidence, and clause 6.4.7 says should rather than shall throughout - 19011 guides, it does not require. Where checking is weak the auditor has to decide what weight it can carry and be able to say why. An unverifiable assertion is not evidence, however confidently it was offered.",
+      "proposed": "Only information that can be checked counts as audit evidence, and clause 6.4.7 says should rather than shall throughout - 19011 guides, it does not require. The same clause asks that evidence leading to a finding be recorded, which is what lets a second auditor retrace the conclusion. Where checking is weak the auditor decides what weight it can carry and has to be able to say why; an unverifiable assertion is not evidence, however confidently it was offered.",
+      "note": "Restored as the reason rather than the sentence - recording exists so a finding is reproducible, which is the examinable point and is not in the standard's wording."
+    }
+  ],
+  "3.3": "Drop of 'refer as relevant to other organizational policies' accepted, no change."
+}

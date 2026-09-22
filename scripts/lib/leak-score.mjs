@@ -247,3 +247,40 @@ export function assertCanary(sources) {
   }
   return s;
 }
+
+/* ============ A SPAN CAN BE REAL AGAINST SEVERAL STANDARDS AT ONCE ========
+ *
+ * ISO management system standards share HARMONISED STRUCTURE text verbatim --
+ * clause 8.1's operational-control sentence is the same in 27001 and 42001 by
+ * design. `score()` returns the best single source, and which one wins is an
+ * artefact of index iteration order, not a finding about provenance.
+ *
+ * Reporting one source as THE source invites the misattribution reading the
+ * reverse-check work exists to prevent: it looks like the row copied from a
+ * standard it does not cite. It did not copy from either in particular; the
+ * sentence is common to both.
+ *
+ * So every fire names EVERY indexed standard its span matches. */
+export function matchingSources(spanText, sources) {
+  const w = W(spanText);
+  if (w.length < SEED) return [];
+  const out = [];
+  for (const [key, src] of sources) {
+    let found = false;
+    for (let i = 0; i + w.length <= src.words.length && !found; i++) {
+      if (src.words[i] !== w[0]) continue;
+      let ok = true;
+      for (let k = 1; k < w.length; k++) if (src.words[i + k] !== w[k]) { ok = false; break; }
+      if (ok) found = true;
+    }
+    if (found) out.push(key);
+  }
+  return out;
+}
+
+/** True when the longest span is common to more than one indexed standard. */
+export function isHarmonised(s, sources) {
+  if (!s.merged.length) return false;
+  const longest = s.merged.slice().sort((a, b) => b.len - a.len)[0];
+  return matchingSources(longest.text, sources).length > 1;
+}
