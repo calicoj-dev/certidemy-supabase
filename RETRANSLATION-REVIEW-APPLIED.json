@@ -1,0 +1,134 @@
+{
+  "applied": "2026-09-22",
+  "edits": 18,
+  "renderings": 14,
+  "rows": [
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "slug": "aia-confidentiality-in-reporting",
+      "was_serving": false,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-confidentiality-in-reporting",
+      "was_serving": false,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "es-419",
+      "slug": "ia-degree-of-verification",
+      "was_serving": false,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "pt-BR",
+      "slug": "ia-degree-of-verification",
+      "was_serving": false,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "pt-BR",
+      "slug": "ia-control-design-versus-operating-effectiveness",
+      "was_serving": true,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-evidence-requirement-link",
+      "was_serving": false,
+      "groups": [
+        "reword"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-finding-against-a-note",
+      "was_serving": false,
+      "groups": [
+        "modal"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-finding-against-should-text",
+      "was_serving": false,
+      "groups": [
+        "modal"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-nonconformity-needs-a-shall",
+      "was_serving": false,
+      "groups": [
+        "modal"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "pt-BR",
+      "slug": "ia-planned-intervals-carries-no-fixed-value",
+      "was_serving": true,
+      "groups": [
+        "quotes"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-finding-against-annex-b",
+      "was_serving": false,
+      "groups": [
+        "quotes"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-collecting-verifying-information",
+      "was_serving": false,
+      "groups": [
+        "quotes"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "slug": "aia-clause-8-1-operational-control",
+      "was_serving": false,
+      "groups": [
+        "quotes"
+      ]
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "slug": "aia-clause-6-1-2-risk-assessment",
+      "was_serving": false,
+      "groups": [
+        "evaluar"
+      ]
+    }
+  ],
+  "untouchedHash": "de77cad87938532b"
+}

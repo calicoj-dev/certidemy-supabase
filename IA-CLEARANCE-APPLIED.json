@@ -1,0 +1,41 @@
+{
+  "applied": "2026-09-22",
+  "seed": "2026-09-22-aims-ia-retranslation",
+  "pairs": [
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "rows": 158,
+      "cleared": 158,
+      "refused": []
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "rows": 158,
+      "cleared": 156,
+      "refused": [
+        "aia-principle-interaction-in-practice",
+        "aia-annex-a-5-impact-controls"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "es-419",
+      "rows": 169,
+      "cleared": 166,
+      "refused": [
+        "ia-risk-acceptance-criteria",
+        "ia-management-review-inputs-clause-9-3-2",
+        "ia-risk-assessment-process-clause-6-1-2"
+      ]
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "pt-BR",
+      "rows": 169,
+      "cleared": 169,
+      "refused": []
+    }
+  ]
+}

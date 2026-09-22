@@ -1,0 +1,120 @@
+{
+  "seed": "2026-09-22-aims-ia-retranslation",
+  "reviewed": "2026-09-22",
+  "reviewer": "director",
+  "read": "all 40 slugs, 80 renderings, in full",
+  "verdict": {
+    "ok": 36,
+    "reword": 4,
+    "wrong": 0,
+    "renderings_affected": 6,
+    "ruling": "CLEAR AIMS-IA and ISMS-IA in both languages, after the four rewords and the modal pin are applied."
+  },
+  "basis_for_clearing": "4 rewords in 80 renderings is 5.0%, against 5.2% in the 480-row sample that cleared sixteen draws. ZERO meaning defects, against four in that sample. The paired shape earned itself twice: two of the four are one defect appearing in both languages, which an independent draw finds only by luck.",
+
+  "rooted_in_the_english_both_languages": [
+    {
+      "slug": "aia-confidentiality-in-reporting",
+      "verdict": "reword",
+      "defect": "idiom calque, both languages",
+      "english": "which pulls against the completeness clause 4.3 wants",
+      "es_current": "lo que tira en contra de la exhaustividad que quiere el apartado 4.3",
+      "pt_current": "o que puxa contra a completude que a Seção 4.3 quer",
+      "note": "Both are calques of 'pulls against'. Neither reads as Spanish or Portuguese; 'tirar en contra' is not idiomatic and 'puxar contra' reads as physical force.",
+      "es_fix": "lo que se contrapone a la exhaustividad que quiere el apartado 4.3",
+      "pt_fix": "o que se contrapõe à completude que a Seção 4.3 quer",
+      "english_unchanged": true
+    },
+    {
+      "slug": "ia-degree-of-verification",
+      "verdict": "reword",
+      "defect": "metaphor does not survive the crossing, both languages",
+      "english": "sets a floor rather than a gate",
+      "es_current": "fija un mínimo, no una compuerta de paso",
+      "pt_current": "estabelece um piso, não um portão",
+      "note": "A portao is a garden gate. The English metaphor is fine in English and carries nothing in either target language. Replace the metaphor rather than translate it.",
+      "es_fix": "fija un mínimo, no un filtro de sí o no",
+      "pt_fix": "estabelece um piso, não um filtro de sim ou não",
+      "english_unchanged": true
+    }
+  ],
+
+  "single_language": [
+    {
+      "slug": "ia-control-design-versus-operating-effectiveness",
+      "language": "pt-BR",
+      "verdict": "reword",
+      "defect": "MEANING DRIFT in the one row whose job is this exact distinction",
+      "english": "Evidence that a control exists is not evidence that it ran.",
+      "pt_current": "Evidência de que um controle existe não é evidência de que ele funcionou.",
+      "note": "'funcionou' is WORKED, not RAN. The row separates design from OPERATION; the Portuguese collapses operation into EFFECTIVENESS, which is a third thing. es-419 got it right with 'se ejecutó'.",
+      "pt_fix": "Evidência de que um controle existe não é evidência de que ele operou."
+    },
+    {
+      "slug": "aia-evidence-requirement-link",
+      "language": "pt-BR",
+      "verdict": "reword",
+      "defect": "word-order calque",
+      "english": "The link is what a finding is.",
+      "pt_current": "A ligação é o que um achado é.",
+      "note": "es-419 handled it correctly with 'El vínculo es lo que constituye un hallazgo'.",
+      "pt_fix": "A ligação é o que constitui um achado."
+    }
+  ],
+
+  "convention_defect": {
+    "what": "THREE conventions for quoting a modal, across two languages, inside one 40-slug sample.",
+    "evidence": [
+      "aia-19011-is-guidance-only pt-BR: 'should (convém que)' and 'shall (deve)' - glossed, correct",
+      "aia-finding-against-a-note pt-BR: 'um \"should\" carrega' and 'contém um \"shall\"' - RAW ENGLISH, four rows later",
+      "both rows es-419: «debería» and «debe» - localised throughout, consistent"
+    ],
+    "history": "PROMPT-2 section 3.4 flagged exactly this and asked for one convention to be pinned. It was not applied to these rows.",
+    "ruling": "LOCALISE the modal, with the English in parentheses on first mention in any row that is ABOUT the modal. Spanish is already correct and does not change. Portuguese follows 'convém que (should)' / 'deve (shall)'. A reader working from an ABNT edition meets convém que, not should.",
+    "apply_to": "aia-finding-against-a-note pt-BR, and sweep the corpus for the raw-English form"
+  },
+
+  "pin_in_the_same_pass": [
+    {
+      "item": "Portuguese quoting",
+      "observed": "«…», \"…\" and \"…\" all appear within this sample",
+      "action": "pin one form and sweep"
+    },
+    {
+      "item": "Spanish rendering of 'evaluate'",
+      "observed": "aia-clause-6-1-2-risk-assessment renders it 'valorar'; check what the corpus uses elsewhere for risk-evaluation",
+      "action": "check and pin one; both are defensible, so this is a decision not a defect"
+    },
+    {
+      "item": "'logs'",
+      "observed": "ia-prompt-and-inference-logs: es 'Registros de prompts', pt 'Logs de prompts'",
+      "action": "defensible in both, but should be a decision rather than an accident"
+    }
+  ],
+
+  "what_held_up": {
+    "note": "Stated because it is the expensive part and it is what the clearance actually rests on.",
+    "spanish_two_tier_clause_register": "Correct in every row that exercises it. aia-organizational-vs-auditor-competence carries 'El capítulo 7 de ISO 19011:2026' for a top-level division beside 'El apartado 7.2' for a sub-numbered one, INSIDE ONE DESCRIPTION. ia-clauses-4-to-10-not-excludable uses 'Los capítulos 4 a 10' and 'el capítulo 1, Objeto y campo de aplicación' - the official Spanish clause title. Zero occurrences of 'cláusula'.",
+    "portuguese": "Flat 'Seção' throughout, matching ABNT. 'Análise crítica' for review, correctly, in both ia-annex-a-5-35-independent-review and ia-management-review-input-divergence.",
+    "modals_outside_the_defect": "aia-documented-information-review renders 'should inform' as 'debería informar' (es) and 'convém que ... informe' (pt). Both correct. aia-climate-note-4-2 and aia-finding-against-annex-b both handle «debería» / «convém que» correctly.",
+    "drift": "ZERO clause-number, Annex-letter or control-ID drift across 80 renderings.",
+    "mixed_provisional_states": "Several ISMS-IA pt-BR rows show is_provisional false - already-cleared rows whose English did not change and which were therefore not regenerated. Correct, and worth stating so the mixed column is not read as an inconsistency."
+  },
+
+  "minor_not_blocking": [
+    "aia-climate-change-4-1 pt: 'obriga uma determinação' wants 'obriga a uma determinação' or 'exige uma determinação'.",
+    "aia-19011-is-guidance-only es: 'calls for' rendered 'propone'; pt's 'preconiza' is stronger and closer.",
+    "aia-finding-against-annex-b es: 'normativo por su condición' is awkward; pt's 'tem status normativo' is better."
+  ],
+
+  "clearance_instruction": {
+    "order": [
+      "Apply the four rewords and the modal pin.",
+      "Sweep the corpus for the raw-English modal form and for the three pin items.",
+      "Re-run the leak instruments - none of these fixes should move any score, and a change would mean something else moved.",
+      "THEN clear AIMS-IA and ISMS-IA in both languages: write review rows recording seed, sample size, date and this verdict, and flip is_provisional for those certification+language pairs only.",
+      "Confirm on the wire, per row, that the cleared rows serve rather than fall back - report what the endpoint returned, not what the migration intended."
+    ],
+    "do_not": "Do not clear anything else on the strength of this file. The sample covers AIMS-IA and ISMS-IA and claims nothing about any other certification."
+  }
+}
