@@ -892,6 +892,85 @@ Worked examples, both read-only: `scripts/measure-ksa-provisional.mjs` and
 lines. `scripts/scan-iso-leaks.mjs` has carried it since the 2026-09-09
 instance. Copy one of those rather than writing a fourth.
 
+**THIRD INSTANCE, 2026-09-21, AND IT WAS INSIDE THE PROBE BUILT TO REPLACE A
+STALE NOTE.** The two above were reports. This one was a GATE: a sweep asked
+which translated rows were already CLEARED, so it could avoid editing reviewed
+content, read `limit=4000`, got 1,000 rows and HTTP 200, and reported **"0
+cleared rows held"**. Three cleared, serving ISMS-IA rows were in the 730 it
+never saw. The cap answered the question of whether a sweep was safe.
+
+**AND THE AUDIT THAT FOLLOWED FOUND THE SAME DEFECT IN `check-migration-state`
+ITSELF** -- the script CLAUDE.md tells everyone to run *instead of* trusting a
+written number. Fingerprint 355 fetched `concept_translations` to count it:
+
+```
+rows returned                                1000
+server says total                            3460
+cleared, as the fingerprint counted it        271
+cleared, true                                2544
+```
+
+**The instrument written to kill a stale number was printing one.** It is the
+sharpest form of this file's own thesis: replacing prose with a probe removes
+the decay, and removes nothing else. A probe is code, and code has defects that
+prose does not -- this one is off by 2,273 and has never looked wrong.
+
+> **AND THE FIX WAS NOT TO PAGE IT. NEITHER FIGURE EVER NEEDED THE ROWS.**
+> `countWhere()` asks the server with `Prefer: count=exact` and reads
+> `content-range`. **Fetching rows in order to count them is the defect one
+> level up from failing to page them** -- paging correctly would have been 7
+> round trips to compute a number the server had all along.
+
+**The audit is `scripts/audit-unpaged-reads.mjs`** -- read-only, no network, no
+credential, unknown flags exit 2. It classifies every PostgREST read literal in
+`scripts/` as SAFE-PAGED (goes through a helper that pages AND asserts a
+count), SAFE-SCALAR (bounded by an equality or an `in.()` list), CAPPED (an
+explicit limit at or under 1,000) or UNSAFE. Measured 2026-09-21, over 230
+files and 189 reads:
+
+```
+UNSAFE   46      of which 14 against a table that exceeds 1,000 rows TODAY
+CAPPED    8      of which  4 against such a table
+SAFE-SCALAR  66
+SAFE-PAGED   69
+```
+
+Full enumeration in `UNPAGED-READ-AUDIT.json`, and the enumeration is the
+artifact -- the count is commentary until someone reads the members.
+
+**ITS OWN CLASSIFIER HAD THIS FILE'S DEFECT FOUR TIMES BEFORE IT WAS RIGHT, AND
+THAT IS THE ENTRY.** Every one over-reported, and an over-reporting guard is
+the kind that gets deleted:
+
+1. **It knew only `offset=` paging** and not the `Range:` header idiom this
+   file actually recommends. Four correctly paged scripts reported UNSAFE.
+2. **It credited paging PER FILE.** A file with a good helper and one raw
+   `fetch` beside it reported clean -- which is the live shape in
+   `apply-paired-review-fixes.mjs`. Credit is now per read: the helper's name
+   must appear immediately before the literal.
+3. **It read the LITERAL, not the STATEMENT.** A concatenated query carries its
+   limit and its filters in later fragments, so a bounded read looked
+   unbounded. **The instrument committed the half-a-read defect it exists to
+   find.**
+4. **It required the paging plumbing and the count assertion in one function
+   body.** Three helpers here split the fetch into a callee. The ASSERTION is
+   the discriminator, so that must be in the helper; the plumbing is accepted
+   from anywhere in the file.
+
+It also scanned itself and counted its own positive-control strings as five
+real reads.
+
+**The positive control is what makes the number worth anything.** Five
+synthetic sources with known verdicts, one of which MUST come back UNSAFE; if
+any verdict is wrong the script prints nothing and exits 2, because a broken
+classifier reports clean.
+
+**What it cannot do**, stated so nobody reads its silence as coverage: it is
+static analysis of string literals, so a query assembled from variables at
+runtime is invisible to it, and `BIG` is a hand-maintained list of table
+populations -- a table that crosses 1,000 rows without being added there moves
+from harmless to silent with no output change.
+
 **And the same shape bites outside PostgREST.** A per-LINE run count read as the
 gate's per-SEGMENT count under-reported ISMS-IA's runs by thirteen on
 2026-09-17, and the missing ones surfaced only as a refusal with no line
@@ -1950,6 +2029,57 @@ will remind you.
 **The general rule: A HASH GATE PROVES ONLY THE SIDE IT HASHES.** Two documents
 and one hash is half a check, and the missing half is invisible because the
 present half works.
+
+**AND THE HALF THAT WAS MISSING MADE REVIEWED CONTENT UNMAINTAINABLE, WHICH IS
+WORSE THAN THE DRIFT IT GUARDED.** Migration 364 closes the concept-grain side
+of that gate, and the reason it got written is the part to generalise.
+
+Twice in one session the honest answer to *"may I edit this cleared
+translation"* was to decline -- 4 bare capitalised `Seção` in three CLEARED
+ISMS-IA rows, and the `apreciación`/`evaluación` pin across three
+certifications. Both are correct fixes. Both were held because **nothing would
+re-open the review afterwards**, so landing them would have left content marked
+`approved` that no human had read in its current form.
+
+> **RULE - A TRANSLATED-SIDE EDIT MUST INVALIDATE ITS OWN REVIEW.** Store a
+> hash of the translation as reviewed, and have the gate require it alongside
+> the English hash. Then a sweep announces itself by withholding what it
+> touched, re-approval is one insert, and correcting reviewed text stops being
+> a thing you have to refuse.
+
+**A GATE THAT CANNOT BE RE-CLOSED IS A GATE THAT FORBIDS MAINTENANCE.** That is
+the cost nobody prices when the second hash is deferred: not drift, but a
+growing set of known-correct fixes that everyone declines to make. The backlog
+looks like discipline and is actually paralysis.
+
+**The gate is PER ROW, and that distinguishes it from the one above it.** 359's
+English hash is per concept -- an English edit withholds both languages, which
+is right, because the source moved for both. A translation edit moves one
+rendering, so editing es-419 must leave pt-BR serving. 364's proof asserts
+exactly that: one edit, one row withheld, the sibling language still serving.
+A per-concept tr_hash would have passed every count assertion and been wrong.
+
+**AND A TRANSLATED FIELD STRUCTURALLY RICHER THAN ITS ENGLISH IS A CANDIDATE
+ENGLISH DEFECT.** Paid for on the AIMS-F concept names: 11 English names were
+raw slugs with hyphens swapped for spaces (`SoA annex a relationship`), and
+both translations rendered them as real phrases. **The translators had silently
+repaired the source**, in two languages independently, for weeks.
+
+Nothing reported it, because every check ran down one side. A translation
+review asks *is this faithful*; a source-adequacy check asks *is the English
+good*. Neither asks *why is the translation better than what it translates*.
+
+> **RULE - MAKE THE COMPARISON AN ASSERTION.** Where a translated field is
+> systematically richer than its English -- more words, real syntax where the
+> source has none, punctuation the source lacks -- that is evidence about the
+> ENGLISH. Assert it mechanically and report the enumeration, because a
+> translator repairing a defect in passing hides it from every gate pointed at
+> the translation.
+
+Same family as the hollow-source finding one section up, inverted: there a
+faithful rendering of a stub cleared a stub, here a generous rendering of a
+stub hid one. **In both, the translation is the only surface anybody looked at
+and the defect is upstream of it.**
 
 Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 

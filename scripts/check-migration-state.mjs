@@ -71,6 +71,30 @@ const REST = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
 const FN = "https://pctynukndxnmnxiqpgck.supabase.co/functions/v1/courseware-read";
 const H = { apikey: KEY, Authorization: "Bearer " + KEY };
 
+/** Row count of an arbitrary FILTERED path, or null if the table is absent.
+ *
+ *  THE SERVER COUNTS; THIS SCRIPT DOES NOT. Fetching rows in order to count
+ *  them is how fingerprint 355 came to report "271 cleared" against a true
+ *  2,544: PostgREST capped the read at 1,000 of 3,460 rows and returned HTTP
+ *  200. A count is never worth a row. */
+async function countWhere(path) {
+  let last;
+  for (let i = 0; i < 8; i++) {
+    try {
+      const r = await fetch(REST + "/" + path + "&limit=1",
+        { headers: { ...H, Prefer: "count=exact" }, signal: AbortSignal.timeout(45000) });
+      if (r.status === 404) return null;
+      const body = await r.text();
+      if (!r.ok) return body.includes("does not exist") ? null : undefined;
+      const n = Number(String(r.headers.get("content-range") || "").split("/")[1]);
+      /* A count read that yields no count is a dropped read, not a zero. */
+      if (!Number.isFinite(n)) throw new Error("no content-range on " + path);
+      return n;
+    } catch (e) { last = e; }
+  }
+  throw last;
+}
+
 /** Row count of a public table, or null if it does not exist. */
 async function count(table) {
   let last;
@@ -644,9 +668,19 @@ const FINGERPRINTS = {
     /* RAN is the table. EFFECTIVE is the view, and the two halves of the view
      * that matter are opposite: nothing vanishes, and nothing uncleared is
      * served. A view driven off the translations would satisfy neither. */
-    const t = await rest("concept_translations?select=concept_id,language,is_provisional");
-    if (!t) return { ran: false, why: "public.concept_translations does not exist -- 355 has not run" };
-    const cleared = t.filter((r) => !r.is_provisional).length;
+    /* THIS READ WAS TRUNCATED AND THE NUMBER IT PRINTED WAS A FLOOR.
+     * It fetched every row to count them: 1,000 of 3,460 came back, HTTP 200,
+     * and "271 cleared" was reported against a true 2,544. Measured
+     * 2026-09-21. The defect sat inside the probe CLAUDE.md tells everyone to
+     * run INSTEAD of trusting a written number -- so the instrument built to
+     * replace a stale note was itself printing a wrong one.
+     *
+     * Neither figure ever needed the rows. Ask the server for both counts. */
+    const nRows = await countWhere("concept_translations?select=concept_id");
+    if (nRows === null || nRows === undefined) {
+      return { ran: false, why: "public.concept_translations does not exist -- 355 has not run" };
+    }
+    const cleared = await countWhere("concept_translations?select=concept_id&is_provisional=is.false");
     /* LIMIT 200. The first version passed 300, which the function refuses --
      * "limit must be an integer between 1 and 200" -- and then read `rows ??
      * []` off the 400 body, so BOTH languages came back as zero rows and the
@@ -662,7 +696,7 @@ const FINGERPRINTS = {
     if (three.status !== 200 || en.status !== 200) {
       return {
         ran: true,
-        why: t.length + " translation row(s), " + cleared + " cleared",
+        why: nRows + " translation row(s), " + cleared + " cleared",
         effective: null,
         effectiveWhy: "could not read mcp.concept over the wire (es " + three.status +
           ", en " + en.status + ") -- this says nothing about the view",
@@ -676,7 +710,7 @@ const FINGERPRINTS = {
     if (esDistinct !== esRows.length) {
       return {
         ran: true,
-        why: t.length + " translation row(s), " + cleared + " cleared",
+        why: nRows + " translation row(s), " + cleared + " cleared",
         effective: false,
         effectiveWhy: esRows.length + " row(s) for " + esDistinct + " distinct concept(s) -- a caller is",
       };
@@ -690,7 +724,7 @@ const FINGERPRINTS = {
     const consistent = cleared === 0 ? flagged === esRows.length : flagged <= esRows.length;
     return {
       ran: true,
-      why: t.length + " translation row(s), " + cleared + " cleared",
+      why: nRows + " translation row(s), " + cleared + " cleared",
       effective: sameCount && consistent,
       effectiveWhy: !sameCount
         ? "es-419 returns " + esRows.length + " concept(s) and en returns " + enRows.length +
