@@ -1,0 +1,108 @@
+{
+  "applied": "2026-09-22",
+  "rows": 21,
+  "slugs": [
+    {
+      "slug": "iso-27005-risk",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "risk-criteria",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "availability",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "cryptographic-controls",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "proportionality",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "lessons-learned",
+      "from": "ISMS-F-REWRITE-BATCH-1-REVISED.json"
+    },
+    {
+      "slug": "top-management",
+      "from": "ISMS-F-BATCH-2-RETURNED.json"
+    },
+    {
+      "slug": "pdca-cycle",
+      "from": "ISMS-F-BATCH-2-RETURNED.json"
+    },
+    {
+      "slug": "planned-change",
+      "from": "ISMS-F-BATCH-2-RETURNED.json"
+    },
+    {
+      "slug": "access-control",
+      "from": "ISMS-F-BATCH-2-RETURNED.json"
+    },
+    {
+      "slug": "screening",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "terms-and-conditions",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "awareness-education-training",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "disciplinary-process",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "root-cause",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "effectiveness-evaluation",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "shadow-ai",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "time-to-discovery",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "absent-log-signal",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "invisible-adoption",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    },
+    {
+      "slug": "policy-to-practice",
+      "from": "ISMS-F-REWRITE-BATCH-3.json"
+    }
+  ],
+  "keep_on_read_untouched": [
+    "correction-vs-corrective-action",
+    "awareness-vs-prohibition",
+    "well-intentioned-noncompliance",
+    "assessment-blind-spots",
+    "false-assurance",
+    "boundary-erosion",
+    "reporting-culture",
+    "policy-enforceability",
+    "sanctioned-vs-unsanctioned-tools",
+    "inference-boundary",
+    "semantic-vs-syntactic-detection",
+    "detection-gaps",
+    "paste-boundary"
+  ],
+  "withheld_translations": 172,
+  "serving_withheld": 0,
+  "untouchedHash": "a1d81cbf3ad02ce4"
+}

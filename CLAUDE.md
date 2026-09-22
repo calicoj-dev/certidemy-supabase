@@ -2216,6 +2216,40 @@ what clause 4.1 requires while avoiding the words *determine external and
 internal issues*. Naming the clause and restating the requirement is allowed
 and encouraged; copying the sentence is not.
 
+**AN EXEMPTION IS DEFINED BY WHAT THE THING IS, NOT BY WHAT IT LOOKS LIKE IN
+THE EXTRACTION.** Recorded 2026-09-22. Third exemption in this corpus to need
+narrowing after adoption.
+
+The title-class exemption's first definition accepted *"a short line with no
+terminal punctuation"*, because that is what a control title looks like in
+Table A.1. **It is also what a terms-and-definitions entry looks like.**
+ISO/IEC 22989's definition of `availability` extracts as one 73-character line
+with no full stop, so the exemption fired on a genuine nine-word reproduction
+of a defined term and **excused the exact thing the gate exists to catch.**
+
+**A SHAPE-BASED EXEMPTION WILL LET A DIFFERENT THING PAST**, because two
+unrelated constructs share a shape once a PDF has been flattened to text. The
+flattening is what destroys the distinction: in the document a control title
+and a definition entry look nothing alike.
+
+> **MECHANISM: an exemption states the PROPERTY it exempts** -- here, the span
+> is a heading or contents entry AND the description carries no sentence from
+> the clause body -- **and its firing count is read ROW BY ROW before it is
+> adopted.** A count alone would have shown "2 exempted" and looked reasonable;
+> reading the two showed one of them was `availability`.
+
+**AND THE PREDICTION THAT THE 8 ANNEX ROWS NEEDED A WIDER EXEMPTION WAS WRONG,
+FOR A REASON WORTH KEEPING.** It was reasoned from the LABEL -- these rows sit
+inside Annex A, Annex A is full of control titles, therefore they reproduce
+titles. They do not. They reproduce annex BODY prose: *"Audit sampling takes
+place when it is not practical or cost-effective to examine all available
+information"* is a sentence, not a name.
+
+**INSIDE ANNEX A and IS A TITLE are different properties**, and the first does
+not imply the second. Same family as every other instance in this file where a
+category was inferred from a name instead of measured from the members --
+reasoning from the label rather than from the spans.
+
 **THE TABLE OF CONTENTS IS A DECOY IN EVERY INDEXED PDF.** Three instruments
 have now been written against these documents and **all three hit it on the
 first attempt**:

@@ -1,0 +1,110 @@
+{
+  "batch": "A",
+  "written": "2026-09-22",
+  "scope": "The 20+ bucket: the ten worst reproductions in the system.",
+  "ordering_note": "You ruled unattributed rows first within a bucket. ALL TEN name a clause, so that rule does not reorder this bucket and the order below is run length descending. The 22 unattributed rows all sit at 18 words or below and will lead batch B.",
+  "policy_applied": "Name the clause, state the obligation in our own words, keep the modal distinction explicit where it is examinable, add the teaching move. The clause number is the citation; the sentence is not.",
+  "what_i_think_is_lost": [
+    {
+      "slug": "aia-clause-6-1-4-impact-assessment",
+      "lost": "The original lists three inputs the assessment shall take into account - technical context, societal context, and applicable jurisdictions - and states that the result shall be documented.",
+      "judgement": "JURISDICTIONS IS EXAMINABLE AND I KEPT IT. Documentation I dropped: 42001 requires documented information in so many clauses that an item testing it here would not discriminate. If you disagree, the sentence to add is 'and its result is documented information'."
+    },
+    {
+      "slug": "aia-collecting-verifying-information",
+      "lost": "'Evidence leading to findings should be recorded.'",
+      "judgement": "Dropped deliberately. It is a separate obligation from the verification point the row is about, and it is carried by ia-evidence-requirement-link. Flagging rather than losing it quietly, as asked."
+    },
+    {
+      "slug": "aia-ai-policy-requirements",
+      "lost": "'refer as relevant to other organizational policies'",
+      "judgement": "Dropped. It is the least examinable item in 5.2's list and the only one with no counterpart in 27001's clause 5.2, so an item built on it would test recall of a single standard's phrasing rather than a principle."
+    }
+  ],
+  "confound_flagged": {
+    "slug": "aia-clause-8-1-operational-control",
+    "note": "Its 25-word span matches ISO/IEC 27001:2022 clause 8.1, while the description cites ISO/IEC 42001:2023 clause 8.1. That is the HARMONISED-SIBLING confound, not a misattribution: the two standards share harmonised clause 8.1 wording by design, which is exactly why the reverse-check work discounts 37 of 77 candidates. The citation is correct; the reproduction is real against both."
+  },
+  "rows_detail": [
+    {
+      "slug": "aia-clause-6-1-4-impact-assessment", "cert": "AIMS-IA",
+      "run": 37, "coverage": 0.398, "source": "42001:2023", "clause": "6.1.4 AI system impact assessment",
+      "content_class": "definition", "names_a_clause": true,
+      "matched_run": "define a process for assessing the potential consequences for individuals or groups of individuals or both and societies that can result from the development provision or use of ai systems the assessment shall determine the potential consequences",
+      "current": "ISO/IEC 42001:2023 clause 6.1.4 requires the organization to define a process for assessing the potential consequences for individuals or groups of individuals, or both, and societies, that can result from the development, provision or use of AI systems. The assessment shall determine the potential consequences of the system's deployment, intended use and foreseeable misuse; shall take into account the specific technical and societal context and applicable jurisdictions; and its result shall be documented. The organization shall consider the results in the risk assessment referred to in 6.1.2.",
+      "proposed": "A mandatory process for working out what an AI system could do to people and to society, rather than to the organization. Clause 6.1.4 fixes its inputs - deployment, intended use and foreseeable misuse, read against the technical and societal setting and the jurisdictions involved - and sends the result into the 6.1.2 risk assessment. The outward direction is what separates it from risk assessment, and that is what items test."
+    },
+    {
+      "slug": "aia-collecting-verifying-information", "cert": "AIMS-IA",
+      "run": 29, "coverage": 0.362, "source": "19011:2026", "clause": "6.4.7 Collecting and verifying information",
+      "content_class": "guidance", "names_a_clause": true,
+      "matched_run": "can be subject to some degree of verification should be accepted as audit evidence where the degree of verification is low the auditor should use professional judgement to determine",
+      "current": "ISO 19011:2026 clause 6.4.7 states that information relevant to the audit objectives, scope and criteria should be collected by appropriate sampling and should be verified as far as practicable, and that only information which can be subject to some degree of verification should be accepted as audit evidence. Where the degree of verification is low, the auditor should use professional judgement to determine how much reliance to place on it. Evidence leading to findings should be recorded.",
+      "proposed": "Only information that can be checked counts as audit evidence, and clause 6.4.7 says should rather than shall throughout - 19011 guides, it does not require. Where checking is weak the auditor has to decide what weight it can carry and be able to say why. An unverifiable assertion is not evidence, however confidently it was offered."
+    },
+    {
+      "slug": "aia-independence-wherever-practicable", "cert": "AIMS-IA",
+      "run": 27, "coverage": 0.303, "source": "19011:2026", "clause": "4.6 Independence",
+      "content_class": "guidance", "names_a_clause": true,
+      "matched_run": "auditors should be independent of the activity being audited wherever practicable and should in all cases act in a manner free from bias and conflict of interest",
+      "current": "ISO 19011:2026 clause 4.6 states that auditors should be independent of the activity being audited wherever practicable, and should in all cases act in a manner free from bias and conflict of interest. It adds that when it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. The principle is therefore conditional by its own wording, and neither ISO 19011 nor ISO/IEC 42001 forbids auditing work one has contributed to.",
+      "proposed": "Clause 4.6 attaches two different strengths to one principle: independence from the audited activity where that is practicable, and freedom from bias and conflict of interest in every case. The first is conditional and the second is not. Neither ISO 19011 nor ISO/IEC 42001 forbids auditing work you contributed to - that rule is practice convention, and reading it as a requirement is the trap."
+    },
+    {
+      "slug": "ia-internal-auditor-limited-independence-remedy", "cert": "ISMS-IA",
+      "run": 26, "coverage": 0.441, "source": "19011:2026", "clause": "4.6 Independence",
+      "content_class": "guidance", "names_a_clause": true,
+      "matched_run": "it is not possible for internal auditors to be independent of the activity being audited every effort should be made to remove bias and encourage objectivity",
+      "current": "ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work - that formulation is practice convention.",
+      "proposed": "Clause 4.6 accepts that an internal auditor may not be able to stand outside the activity, and asks for bias to be actively countered rather than for the audit to be abandoned. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work; that formulation is practice convention."
+    },
+    {
+      "slug": "aia-clause-8-1-operational-control", "cert": "AIMS-IA",
+      "run": 25, "coverage": 0.287, "source": "27001:2022 (harmonised sibling - see confound_flagged)", "clause": "8.1 Operational planning and control",
+      "content_class": "requirement", "names_a_clause": true,
+      "matched_run": "plan implement and control the processes needed to meet requirements and to implement the actions determined in clause 6 by establishing criteria for the processes",
+      "current": "ISO/IEC 42001:2023 clause 8.1 requires the organization to plan, implement and control the processes needed to meet requirements and to implement the actions determined in Clause 6, by establishing criteria for the processes and implementing control in accordance with those criteria. It further requires the organization to implement the controls determined according to 6.1.3 that relate to the operation of the AIMS, and requires that the effectiveness of those controls be monitored and corrective actions considered where intended results are not achieved.",
+      "proposed": "Clause 8.1 turns clause 6's plans into running processes: criteria are set, the work is controlled against them, and the controls selected under 6.1.3 are actually operated. It also puts a shall on watching whether those controls work and acting when they do not - which is why an AIMS that plans well and operates nothing fails here rather than at clause 6."
+    },
+    {
+      "slug": "aia-planned-changes-control", "cert": "AIMS-IA",
+      "run": 23, "coverage": 0.319, "source": "42001:2023", "clause": "6.3 Planning of changes",
+      "content_class": "requirement", "names_a_clause": true,
+      "matched_run": "when the organization determines the need for changes to the ai management system the changes shall be carried out in a planned manner",
+      "current": "ISO/IEC 42001:2023 clause 6.3 requires that when the organization determines the need for changes to the AI management system, the changes shall be carried out in a planned manner. Clause 8.1 adds control of planned changes and review of the consequences of unintended ones. A change to an AI system's purpose, data or deployment context is where role determination and impact assessment can both fall out of date.",
+      "proposed": "Clause 6.3 puts a shall on the MANNER of a change, not on its paperwork: once the organization decides the AIMS needs changing, that change has to be planned rather than improvised. Clause 8.1 adds control of planned changes and review of unintended ones. A shift in an AI system's purpose, data or deployment context is where role determination and impact assessment both go stale."
+    },
+    {
+      "slug": "aia-conducting-interviews", "cert": "AIMS-IA",
+      "run": 22, "coverage": 0.262, "source": "19011:2026", "clause": "Annex A.17",
+      "content_class": "guidance", "names_a_clause": true,
+      "matched_run": "an important means of collecting information carried out in a manner adapted to the situation and the individual face to face or",
+      "current": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, carried out in a manner adapted to the situation and the individual, face-to-face or by other means. It asks that interviews be held with individuals from appropriate levels and functions performing activities within the audit scope, normally during working hours and where practical at the normal workplace, that the interviewee be put at ease, and that the reason for the interview and any note taking be explained.",
+      "proposed": "Annex A.17 treats the interview as a collection method with method rules of its own: held with people who actually perform the work in scope, at their normal workplace and in working hours where practical, with the purpose and any note-taking explained first. The guidance exists to reduce distortion in what the auditor is told, not as courtesy."
+    },
+    {
+      "slug": "aia-policy-review-a-2-4", "cert": "AIMS-IA",
+      "run": 22, "coverage": 0.289, "source": "42001:2023", "clause": "Table A.1 control A.2.4",
+      "content_class": "requirement", "names_a_clause": true,
+      "matched_run": "that the ai policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability adequacy and effectiveness",
+      "current": "Table A.1 control A.2.4 states that the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness. Like every Table A.1 control it applies where the organization has selected it under clause 6.1.3 and declared it in the statement of applicability. Clause 5.2 requires the policy to exist; A.2.4 is where periodic review of it comes from.",
+      "proposed": "Control A.2.4 is where periodic review of the AI policy comes from: clause 5.2 requires the policy to exist and says nothing about revisiting it. Being a Table A.1 control, it binds only once selected under 6.1.3 and declared in the Statement of Applicability - which is the whole difference between a clause requirement and a control."
+    },
+    {
+      "slug": "ia-audit-programme-3-5", "cert": "ISMS-IA",
+      "run": 21, "coverage": 0.700, "source": "19011:2026", "clause": "3.5 audit programme",
+      "content_class": "definition", "names_a_clause": true,
+      "matched_run": "arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose",
+      "current": "ISO 19011:2026 clause 3.5 defines it as arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose.",
+      "proposed": "The plan above the audits: several of them scheduled across a period and pointed at one purpose, rather than a single engagement. Clause 3.5. The distinction carries weight because ISO/IEC 27001 clause 9.2 requires a programme, not an audit."
+    },
+    {
+      "slug": "aia-ai-policy-requirements", "cert": "AIMS-IA",
+      "run": 20, "coverage": 0.233, "source": "42001:2023", "clause": "5.2 AI policy",
+      "content_class": "requirement", "names_a_clause": true,
+      "matched_run": "establish an ai policy that is appropriate to the purpose of the organization provides a framework for setting ai objectives",
+      "current": "ISO/IEC 42001:2023 clause 5.2 requires top management to establish an AI policy that is appropriate to the purpose of the organization, provides a framework for setting AI objectives, and includes commitments to meet applicable requirements and to continual improvement. The policy shall be available as documented information, refer as relevant to other organizational policies, be communicated within the organization, and be available to interested parties as appropriate. This is a clause requirement and applies whether or not control A.2.2 is selected.",
+      "proposed": "Clause 5.2 puts the AI policy on top management and fixes what it has to carry: fitness for the organization's purpose, a frame for setting AI objectives, and commitments to applicable requirements and to improving. It must also be documented, communicated inside the organization, and available to interested parties. A clause requirement, so it holds whether or not control A.2.2 is selected."
+    }
+  ]
+}

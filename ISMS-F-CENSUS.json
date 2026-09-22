@@ -25,108 +25,28 @@
     "src_gap_max": 3
   },
   "length": {
-    "min": 34,
-    "median": 67,
-    "max": 226,
-    "one_sentence": 145,
-    "multi_sentence": 47
+    "min": 37,
+    "median": 73,
+    "max": 281,
+    "one_sentence": 124,
+    "multi_sentence": 68
   },
   "addresses": {
-    "rows_with": 10,
-    "citation": 9,
+    "rows_with": 11,
+    "citation": 10,
     "bare": 1
   },
   "shape": {
-    "definition_shaped": 143,
-    "explanation_shaped": 49
+    "definition_shaped": 130,
+    "explanation_shaped": 62
   },
   "shared_openings": 0,
-  "fires": [
-    {
-      "slug": "iso-27005-risk",
-      "name": "ISO 27005 risk",
-      "words": 6,
-      "source": "27002:2022",
-      "max_run": 6,
-      "max_cov": 1,
-      "union_run": 6,
-      "union_cov": 1,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "(span not located in the layout text)",
-      "matched": [
-        {
-          "len": 6,
-          "text": "guidance on information security risk management"
-        }
-      ],
-      "description": "guidance on information security risk management"
-    },
-    {
-      "slug": "availability",
-      "name": "Availability",
-      "words": 11,
-      "source": "22989:2022",
-      "max_run": 9,
-      "max_cov": 0.818,
-      "union_run": 9,
-      "union_cov": 0.818,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "3.5 Terms related to trustworthiness",
-      "matched": [
-        {
-          "len": 9,
-          "text": "accessible and usable on demand by an authorized entity"
-        }
-      ],
-      "description": "information is accessible and usable on demand by an authorized entity"
-    },
-    {
-      "slug": "cryptographic-controls",
-      "name": "Cryptographic controls",
-      "words": 5,
-      "source": "27002:2022",
-      "max_run": 4,
-      "max_cov": 0.8,
-      "union_run": 4,
-      "union_cov": 0.8,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "5.16 Identity management",
-      "matched": [
-        {
-          "len": 4,
-          "text": "use and management of"
-        }
-      ],
-      "description": "use and management of cryptography"
-    },
-    {
-      "slug": "risk-criteria",
-      "name": "Risk criteria",
-      "words": 10,
-      "source": "27005:2022",
-      "max_run": 6,
-      "max_cov": 0.6,
-      "union_run": 6,
-      "union_cov": 0.6,
-      "fires_current": true,
-      "fires_union": true,
-      "clause": "(span not located in the layout text)",
-      "matched": [
-        {
-          "len": 6,
-          "text": "the terms of reference against which"
-        }
-      ],
-      "description": "the terms of reference against which risk significance is judged"
-    }
-  ],
+  "fires": [],
   "definition_shaped_slugs": [
     "climate-change-relevance",
-    "planned-change",
-    "pdca-cycle",
+    "access-control",
+    "invisible-adoption",
+    "terms-and-conditions",
     "availability",
     "cia-triad",
     "integrity",
@@ -152,15 +72,12 @@
     "third-party-processing",
     "scope-failure-modes",
     "assigned-authority",
-    "top-management",
     "sanctioned-vs-unsanctioned-tools",
     "policy-enforceability",
-    "policy-to-practice",
     "ai-attack-surface",
     "isms-roles",
     "iso-27001-requirements",
     "risk-owner",
-    "iso-27005-risk",
     "saas-ai-in-scope",
     "threat-taxonomy-ai",
     "management-system-maturity",
@@ -179,9 +96,7 @@
     "output-trust",
     "prompt-data-egress",
     "retention-by-provider",
-    "proportionality",
     "treatment-and-appetite",
-    "invisible-adoption",
     "annex-a-themes",
     "organizational-controls",
     "people-controls",
@@ -197,12 +112,13 @@
     "operational-capability",
     "policy-controls",
     "asset-management",
+    "cryptographic-controls",
     "information-classification",
     "vector-store-as-asset",
     "agent-as-asset",
     "prompt-log-as-asset",
-    "access-control",
     "identity-lifecycle",
+    "disciplinary-process",
     "privileged-access",
     "agent-credentials",
     "standing-vs-just-in-time-authority",
@@ -212,29 +128,21 @@
     "inspectability-limits",
     "assurance-by-attestation",
     "concentration-risk",
-    "screening",
-    "terms-and-conditions",
-    "awareness-education-training",
-    "disciplinary-process",
     "well-intentioned-noncompliance",
     "awareness-vs-prohibition",
     "equipment-security",
     "logging-and-monitoring",
-    "cryptographic-controls",
     "secure-development",
     "data-leakage-prevention",
     "classification-in-practice",
-    "shadow-ai",
     "handling-rules",
     "paste-boundary",
     "monitoring-and-measurement",
-    "effectiveness-evaluation",
     "internal-audit-programme",
     "auditor-objectivity",
     "audit-findings",
     "review-cadence",
     "correction-vs-corrective-action",
-    "root-cause",
     "stage-1-audit",
     "stage-2-audit",
     "surveillance-audit",
@@ -243,13 +151,11 @@
     "accreditation-body",
     "what-a-certificate-signals",
     "incident-response-process",
-    "lessons-learned",
     "detection-gaps",
-    "absent-log-signal",
-    "time-to-discovery",
     "management-system-integration",
     "overlapping-controls",
     "separate-certifications",
+    "effectiveness-evaluation",
     "ai-incident-classes",
     "iso-17021-vs-17024",
     "iso-42001-aims",
