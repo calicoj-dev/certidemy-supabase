@@ -1,0 +1,117 @@
+{
+  "applied": "2026-09-22",
+  "batch": "D",
+  "rows": 26,
+  "slugs": [
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-classification-scheme-is-an-organizational-choice"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-professional-judgement-on-reliance"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-combined-audit-3-2"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-technical-expert-vs-auditor"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-scope-follows-roles"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-auditing-methods"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-working-documents"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-4-3-scope"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-5-leadership"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-awareness-and-communication"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-opportunity-for-improvement"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-compliance-versus-conformity-language"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-7-2-competence"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-ai-selection-bias-in-evidence-sampling"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-opening-meeting"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-guides-and-observers"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-results-as-review-input"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-programme-resources-5-4-4"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-client-vs-auditee"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-professional-judgement"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-programme-risks"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-scope-definition"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-interview-selection-of-persons"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-sources-of-information"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-c-d-informative"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-confidentiality-in-reporting"
+    }
+  ],
+  "withheld": {
+    "ISMS-IA": 10,
+    "AIMS-IA": 42
+  },
+  "serving_withheld": 5,
+  "untouchedHash": "468582a46ac601ed"
+}

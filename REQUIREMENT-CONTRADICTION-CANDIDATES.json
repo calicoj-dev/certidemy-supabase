@@ -4,9 +4,9 @@
   "occasion": "ISMS-F served 'the requirement that auditors do not audit their own work' while AIMS-IA and ISMS-IA both denied any such rule exists. Nothing checked a row against another row.",
   "totals": {
     "live": 1729,
-    "denials": 27,
+    "denials": 30,
     "assertions": 153,
-    "candidate_pairs": 3
+    "candidate_pairs": 1
   },
   "candidates": [
     {
@@ -29,40 +29,6 @@
         "cert": "AIMS-IA",
         "slug": "aia-42001-9-2-2-a",
         "description": "ISO/IEC 42001:2023 clause 9.2.2 states that the organization shall plan, establish, implement and maintain an audit programme including frequency, methods, responsibilities, planning requirements and reporting; that when establishing it the organization shall consider the importance of the processes concerned and the results of previous audits; and that the organization shall define the audit objectives, criteria and scope for each audit, select auditors and conduct audits so as to ensure objectivity and impartiality, and ensure results are reported to relevant managers. Documented information shall be available as evidence of the programme's implementation and of the audit results."
-      }
-    },
-    {
-      "shared_terms": 2,
-      "common": [
-        "objectivity",
-        "work"
-      ],
-      "denial": {
-        "cert": "ISMS-IA",
-        "slug": "ia-internal-auditor-limited-independence-remedy",
-        "description": "ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work - that formulation is practice convention."
-      },
-      "assertion": {
-        "cert": "ISMS-F",
-        "slug": "auditor-objectivity",
-        "description": "the requirement that auditors do not audit their own work"
-      }
-    },
-    {
-      "shared_terms": 2,
-      "common": [
-        "objectivity",
-        "work"
-      ],
-      "denial": {
-        "cert": "AIMS-IA",
-        "slug": "aia-independence-wherever-practicable",
-        "description": "ISO 19011:2026 clause 4.6 states that auditors should be independent of the activity being audited wherever practicable, and should in all cases act in a manner free from bias and conflict of interest. It adds that when it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. The principle is therefore conditional by its own wording, and neither ISO 19011 nor ISO/IEC 42001 forbids auditing work one has contributed to."
-      },
-      "assertion": {
-        "cert": "ISMS-F",
-        "slug": "auditor-objectivity",
-        "description": "the requirement that auditors do not audit their own work"
       }
     }
   ]

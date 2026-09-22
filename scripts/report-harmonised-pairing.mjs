@@ -132,17 +132,45 @@ const rest = clause.filter((r) => !BATCH_A.has(r.slug));
 console.log("");
 console.log("1. PAIRING -- the " + rest.length + " rows in buckets B, C and D");
 
+/* ============ THE KEY IS (STANDARD, ADDRESS), NOT ADDRESS ============
+ *
+ * ISO 19011 numbers its own clauses 4.x and 5.x in the same space as the
+ * harmonised management-system clauses. Keyed on the address alone, clause
+ * 4.1 merges CONTEXT OF THE ORGANIZATION (27001, 42001) with PRINCIPLES
+ * (19011), and clause 5.3 merges ROLES AND RESPONSIBILITIES with AUDIT
+ * PROGRAMME RISKS. Four of seventeen groups held two unrelated subjects.
+ *
+ * AN UNQUALIFIED CLAUSE REFERENCE MEANS THE CERTIFICATION'S OWN STANDARD.
+ * ISMS-IA writing "Clause 8.2 requires" means 27001; AIMS-IA means 42001.
+ * Without that default the detector returned unknown for eight of seventeen
+ * groups and manufactured a collision that does not exist.
+ *
+ * 27001 and 42001 are treated as ONE key for a shared address, because that
+ * is the harmonised pair the whole exercise is built on -- their clause 8.1 is
+ * the same requirement in two standards, and pairing them is the point. */
+const OWN = { "ISMS-IA": "27001", "AIMS-IA": "42001" };
+const HARMONISED = new Set(["27001", "42001"]);
+function standardFor(cert, desc, addr) {
+  const d = String(desc || ""), i = d.indexOf(addr);
+  const head = i >= 0 ? d.slice(Math.max(0, i - 90), i + addr.length) : d.slice(0, 120);
+  for (const k of ["19011", "42001", "27001", "27002", "27000", "22989"]) if (head.includes(k)) return k;
+  return OWN[cert] || "?";
+}
+const keyFor = (std, addr) => (HARMONISED.has(std) ? "MSS" : std) + " " + addr;
+
 const byAddr = new Map();
 for (const r of rest) {
   for (const a of addresses(r.description)) {
-    if (!byAddr.has(a)) byAddr.set(a, { "ISMS-IA": [], "AIMS-IA": [], other: [] });
-    const e = byAddr.get(a);
+    const std = standardFor(r.cert, r.description, a);
+    const k = keyFor(std, a);
+    if (!byAddr.has(k)) byAddr.set(k, { key: k, addr: a, std, "ISMS-IA": [], "AIMS-IA": [], other: [] });
+    const e = byAddr.get(k);
     (e[r.cert] || e.other).push(r);
   }
 }
 const pairs = [];
-for (const [addr, e] of byAddr) {
-  if (e["ISMS-IA"].length && e["AIMS-IA"].length) pairs.push({ addr, isms: e["ISMS-IA"], aims: e["AIMS-IA"] });
+for (const [k, e] of byAddr) {
+  if (e["ISMS-IA"].length && e["AIMS-IA"].length) pairs.push({ addr: k, address: e.addr, standard: e.std, isms: e["ISMS-IA"], aims: e["AIMS-IA"] });
 }
 /* A row can carry several addresses, so pair COUNT is not row count. Report
  * both -- a pair count read as a row count would overstate the saving. */

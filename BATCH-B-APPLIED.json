@@ -1,0 +1,165 @@
+{
+  "applied": "2026-09-22",
+  "batch": "B",
+  "rows": 38,
+  "slugs": [
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-previous-audit-results-as-input"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-documented-information-on-the-programme"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-reporting-results-to-relevant-management"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-42001-impartiality-clause"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-42001-9-2-2-a"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-records"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-soa-four-required-elements"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-statement-of-applicability"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-control-comparison-annex-a"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-b-binds-via-6-1-3-e"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-finding-against-annex-b"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-annex-a-8-34-audit-testing-agreement"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-annex-a-normative-shall"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-internal-and-external-issues-clause-4-1"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-amendment-1-2024-climate-change"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-4-1-context"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-climate-change-4-1"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-statement-objectivity"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-fair-presentation-in-reporting"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-principles-carry-no-precedence"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-principles-carry-no-precedence"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-independence-of-the-activity-audited-4-6"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-sampling-and-confidence-in-conclusions"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-evidence-based-approach"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-risk-based-audit-programme"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-risk-based-approach"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-degree-of-verification"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-plan-adjustment"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-report-content-6-5-1"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-audit-report-content"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-interested-party-climate-requirements-4-2"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-climate-note-4-2"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-roles-responsibilities-authorities-clause-5-3"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-roles-responsibilities-authorities"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-operational-planning-and-control-clause-8-1"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-outsourced-processes"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-8-2-8-3-operational-risk"
+    }
+  ],
+  "withheld": {
+    "ISMS-IA": 36,
+    "AIMS-IA": 40
+  },
+  "serving_withheld": 18,
+  "untouchedHash": "08c5c402fc7c3d40"
+}

@@ -1,0 +1,25 @@
+{
+  "batch": "E",
+  "written": "2026-09-22",
+  "rows": 8,
+  "why_this_batch_exists": "These 8 sat in the annex-structure bucket and were excluded from the clause-text count. Every one is heading-span FALSE: annex BODY prose, not control titles. 'Audit sampling takes place when it is not practical...' is a sentence. The bucket was excusing genuine reproductions of 8 to 16 words, and a report of zero clause-text reproductions would have been true only of a category that excluded them. Decided rather than escalated, taking the reading that asserts less: a reproduction that happens to live in an annex is still a reproduction.",
+  "two_are_the_arithmetic_class": "ai-interaction-disclosure in AIGRM-I and AISM-I run 8 words on a 9-word description, so they clear the coverage floor by arithmetic rather than by length. Rewritten anyway - a one-line gloss of a 42001 control is poor regardless of why the gate noticed it.",
+  "rows_detail": [
+    { "cert": "AIMS-IA", "slug": "aia-sampling-general",
+      "proposed": "Looking at part of a population instead of all of it, because examining everything is rarely practical or worth the cost. Annex A.6.1. The risk comes with it: what the sample shows need not be what the whole would have shown, so a conclusion is always bounded by how the selection was made." },
+    { "cert": "ISMS-IA", "slug": "ia-remote-method-additional-risks",
+      "proposed": "Annex A.16 names three things auditing remotely brings with it: keeping the evidence secure, keeping it confidential, and having a plan for the technology failing mid-audit. Considerations to weigh when choosing the method, not grounds for rejecting it." },
+    { "cert": "AIMS-IA", "slug": "aia-evidence-requirement-link",
+      "proposed": "The link is what a finding is. Evidence with no requirement behind it is an observation; a requirement with no evidence is an assertion. Annex A.18.3 c) asks for the explanation of why the criteria are not met to be written out, which is the link made explicit rather than left for the reader to construct." },
+    { "cert": "AIMS-IA", "slug": "aia-recording-nonconformities",
+      "proposed": "Annex A.18.3 lists what a nonconformity record should carry: the criteria, the evidence, the statement of nonconformity with its reasoning, any related findings, and a grade where grading is used. Three of those are load-bearing - the criterion, the evidence, and why the one does not meet the other. The rest is filing." },
+    { "cert": "ISMS-IA", "slug": "ia-shadow-ai-discovery",
+      "proposed": "AI tools running inside the scope that never passed procurement, change control or the asset register, and so appear in no ISMS record at all. Annex A control 5.9 asks for an inventory of assets with owners - which is precisely the record these are missing from, and why an inventory-based assessment cannot see them." },
+    { "cert": "AIMS-IA", "slug": "aia-verifying-information",
+      "proposed": "Annex A.5 gives the auditor four tests to apply so far as practicable: is the information complete, is it correct against other reliable sources, is it consistent in itself and with related records, and is it current. It adds a fifth condition for when information arrives in an unexpected form - then the integrity of the evidence itself has to be assessed." },
+    { "cert": "AIGRM-I", "slug": "ai-interaction-disclosure",
+      "proposed": "Telling people they are dealing with a machine rather than a person, at the point it matters to them. A transparency obligation aimed at the person on the other side, which is why it survives even where the system performs well." },
+    { "cert": "AISM-I", "slug": "ai-interaction-disclosure",
+      "proposed": "Making it clear to someone that the thing answering them is a system and not a colleague. The duty is owed to the person interacting, so it does not lapse because the interaction went smoothly or because disclosure was inconvenient." }
+  ]
+}

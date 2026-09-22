@@ -34,62 +34,21 @@
   "pairing": {
     "rows_considered": 91,
     "pairing_addresses": 17,
-    "paired_rows": 47,
-    "unpaired_rows": 44,
+    "paired_rows": 38,
+    "unpaired_rows": 53,
     "paired_per_certification": {
-      "ISMS-IA": 22,
-      "AIMS-IA": 25
+      "ISMS-IA": 18,
+      "AIMS-IA": 20
     },
     "unpaired_per_certification": {
       "AIGRM-I": 1,
-      "ISMS-IA": 11,
-      "AIMS-IA": 32
+      "ISMS-IA": 15,
+      "AIMS-IA": 37
     }
   },
   "pairs": [
     {
-      "address": "4.1",
-      "ISMS-IA": [
-        {
-          "slug": "ia-internal-and-external-issues-clause-4-1",
-          "run": 17,
-          "sources": []
-        },
-        {
-          "slug": "ia-amendment-1-2024-climate-change",
-          "run": 12,
-          "sources": [
-            "42001:2023"
-          ]
-        },
-        {
-          "slug": "ia-principles-carry-no-precedence",
-          "run": 11,
-          "sources": []
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-principles-carry-no-precedence",
-          "run": 17,
-          "sources": []
-        },
-        {
-          "slug": "aia-clause-4-1-context",
-          "run": 17,
-          "sources": []
-        },
-        {
-          "slug": "aia-climate-change-4-1",
-          "run": 12,
-          "sources": [
-            "42001:2023"
-          ]
-        }
-      ]
-    },
-    {
-      "address": "9.2.2",
+      "address": "MSS 9.2.2",
       "ISMS-IA": [
         {
           "slug": "ia-previous-audit-results-as-input",
@@ -142,49 +101,7 @@
       ]
     },
     {
-      "address": "4.3",
-      "ISMS-IA": [
-        {
-          "slug": "ia-statement-objectivity",
-          "run": 11,
-          "sources": [
-            "19011:2026"
-          ]
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-scope-follows-roles",
-          "run": 13,
-          "sources": [
-            "42001:2023"
-          ]
-        },
-        {
-          "slug": "aia-clause-4-3-scope",
-          "run": 13,
-          "sources": [
-            "42001:2023"
-          ]
-        },
-        {
-          "slug": "aia-fair-presentation-in-reporting",
-          "run": 14,
-          "sources": [
-            "19011:2026"
-          ]
-        },
-        {
-          "slug": "aia-confidentiality-in-reporting",
-          "run": 10,
-          "sources": [
-            "19011:2026"
-          ]
-        }
-      ]
-    },
-    {
-      "address": "6.1.3",
+      "address": "MSS 6.1.3",
       "ISMS-IA": [
         {
           "slug": "ia-soa-four-required-elements",
@@ -222,7 +139,7 @@
       ]
     },
     {
-      "address": "Annex A",
+      "address": "MSS Annex A",
       "ISMS-IA": [
         {
           "slug": "ia-annex-a-8-34-audit-testing-agreement",
@@ -258,15 +175,39 @@
       ]
     },
     {
-      "address": "4",
+      "address": "MSS 4.1",
       "ISMS-IA": [
         {
-          "slug": "ia-clauses-4-to-10-not-excludable",
-          "run": 19,
-          "sources": [
-            "27001:2022"
-          ]
+          "slug": "ia-internal-and-external-issues-clause-4-1",
+          "run": 17,
+          "sources": []
         },
+        {
+          "slug": "ia-amendment-1-2024-climate-change",
+          "run": 12,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-clause-4-1-context",
+          "run": 17,
+          "sources": []
+        },
+        {
+          "slug": "aia-climate-change-4-1",
+          "run": 12,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "19011 4",
+      "ISMS-IA": [
         {
           "slug": "ia-statement-objectivity",
           "run": 11,
@@ -286,108 +227,45 @@
       ]
     },
     {
-      "address": "4.7",
+      "address": "19011 4.1",
       "ISMS-IA": [
         {
-          "slug": "ia-sampling-and-confidence-in-conclusions",
+          "slug": "ia-principles-carry-no-precedence",
+          "run": 11,
+          "sources": []
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-principles-carry-no-precedence",
+          "run": 17,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "19011 4.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-statement-objectivity",
+          "run": 11,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-fair-presentation-in-reporting",
           "run": 14,
           "sources": [
             "19011:2026"
           ]
-        },
-        {
-          "slug": "ia-ai-selection-bias-in-evidence-sampling",
-          "run": 11,
-          "sources": [
-            "19011:2026"
-          ]
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-evidence-based-approach",
-          "run": 15,
-          "sources": [
-            "19011:2026"
-          ]
         }
       ]
     },
     {
-      "address": "5.3",
-      "ISMS-IA": [
-        {
-          "slug": "ia-roles-responsibilities-authorities-clause-5-3",
-          "run": 10,
-          "sources": [
-            "42001:2023"
-          ]
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-programme-risks",
-          "run": 10,
-          "sources": [
-            "19011:2026"
-          ]
-        },
-        {
-          "slug": "aia-roles-responsibilities-authorities",
-          "run": 10,
-          "sources": [
-            "42001:2023"
-          ]
-        }
-      ]
-    },
-    {
-      "address": "6.4.7",
-      "ISMS-IA": [
-        {
-          "slug": "ia-degree-of-verification",
-          "run": 12,
-          "sources": [
-            "19011:2026"
-          ]
-        },
-        {
-          "slug": "ia-professional-judgement-on-reliance",
-          "run": 13,
-          "sources": [
-            "19011:2026"
-          ]
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-plan-adjustment",
-          "run": 11,
-          "sources": []
-        }
-      ]
-    },
-    {
-      "address": "4.2",
-      "ISMS-IA": [
-        {
-          "slug": "ia-interested-party-climate-requirements-4-2",
-          "run": 11,
-          "sources": [
-            "27001:2022/Amd1"
-          ]
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-climate-note-4-2",
-          "run": 11,
-          "sources": []
-        }
-      ]
-    },
-    {
-      "address": "4.6",
+      "address": "19011 4.6",
       "ISMS-IA": [
         {
           "slug": "ia-independence-of-the-activity-audited-4-6",
@@ -408,7 +286,28 @@
       ]
     },
     {
-      "address": "4.8",
+      "address": "19011 4.7",
+      "ISMS-IA": [
+        {
+          "slug": "ia-sampling-and-confidence-in-conclusions",
+          "run": 14,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-evidence-based-approach",
+          "run": 15,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "19011 4.8",
       "ISMS-IA": [
         {
           "slug": "ia-risk-based-audit-programme",
@@ -429,7 +328,26 @@
       ]
     },
     {
-      "address": "6.5.1",
+      "address": "19011 6.4.7",
+      "ISMS-IA": [
+        {
+          "slug": "ia-degree-of-verification",
+          "run": 12,
+          "sources": [
+            "19011:2026"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-plan-adjustment",
+          "run": 11,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "19011 6.5.1",
       "ISMS-IA": [
         {
           "slug": "ia-audit-report-content-6-5-1",
@@ -446,7 +364,47 @@
       ]
     },
     {
-      "address": "8.1",
+      "address": "MSS 4.2",
+      "ISMS-IA": [
+        {
+          "slug": "ia-interested-party-climate-requirements-4-2",
+          "run": 11,
+          "sources": [
+            "27001:2022/Amd1"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-climate-note-4-2",
+          "run": 11,
+          "sources": []
+        }
+      ]
+    },
+    {
+      "address": "MSS 5.3",
+      "ISMS-IA": [
+        {
+          "slug": "ia-roles-responsibilities-authorities-clause-5-3",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ],
+      "AIMS-IA": [
+        {
+          "slug": "aia-roles-responsibilities-authorities",
+          "run": 10,
+          "sources": [
+            "42001:2023"
+          ]
+        }
+      ]
+    },
+    {
+      "address": "MSS 8.1",
       "ISMS-IA": [
         {
           "slug": "ia-operational-planning-and-control-clause-8-1",
@@ -466,7 +424,7 @@
       ]
     },
     {
-      "address": "8.2",
+      "address": "MSS 8.2",
       "ISMS-IA": [
         {
           "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
@@ -489,7 +447,7 @@
       ]
     },
     {
-      "address": "8.3",
+      "address": "MSS 8.3",
       "ISMS-IA": [
         {
           "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
@@ -508,23 +466,6 @@
             "27001:2022",
             "27005:2022"
           ]
-        }
-      ]
-    },
-    {
-      "address": "Annex A.16",
-      "ISMS-IA": [
-        {
-          "slug": "ia-remote-method-risks-annex-a-16",
-          "run": 14,
-          "sources": []
-        }
-      ],
-      "AIMS-IA": [
-        {
-          "slug": "aia-remote-evidence-sufficiency",
-          "run": 15,
-          "sources": []
         }
       ]
     }

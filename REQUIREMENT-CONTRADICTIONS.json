@@ -1,0 +1,36 @@
+{
+  "generated": "2026-09-22",
+  "instrument": "scripts/sweep-requirement-contradictions.mjs",
+  "what_this_is": "Rows where one certification ASSERTS a requirement another DENIES. The only defect class in the corpus no other instrument covers: every gate here checks a row against a STANDARD, nothing checked a row against another ROW.",
+  "headline": "ONE candidate, and it is NOT a contradiction. Zero real contradictions remain.",
+  "why_it_is_not_three": "The sweep found three before batch A. Batch A rewrote aia-independence-wherever-practicable and ia-internal-auditor-limited-independence-remedy, and the ISMS-F fix replaced auditor-objectivity, which resolved two of the three. The survivor is the one below.",
+  "candidates": [
+    {
+      "id": "audit-objectives-9-2-2",
+      "shared_terms": 7,
+      "common": ["objectives", "requires", "define", "criteria", "scope", "each", "42001"],
+      "denial": {
+        "cert": "ISMS-IA", "slug": "ia-audit-objectives-are-practice-not-a-27001-requirement",
+        "says": "ISO/IEC 27001 clause 9.2.2 a) requires the organization to define the audit criteria and scope for each audit. It does not require audit objectives."
+      },
+      "assertion": {
+        "cert": "AIMS-IA", "slug": "aia-42001-9-2-2-a",
+        "says": "ISO/IEC 42001:2023 clause 9.2.2 ... the organization shall define the audit objectives, criteria and scope for each audit"
+      },
+      "verdict": "NOT A CONTRADICTION. Both rows are correct and the STANDARDS differ.",
+      "verification": {
+        "self_test": "27001:2022 contains 'internal audit' -- the search was working before any absence was reported.",
+        "27001:2022": "PRESENT: 'define the audit criteria and scope for each audit'. ABSENT from the whole standard: 'audit objectives'. Only one line in 27001 mentions 'for each audit' and it is clause 9.2.2 a), without objectives.",
+        "42001:2023": "clause 9.2.2 a) read off the PDF: 'define the audit objectives, criteria and scope for each audit'. Objectives present.",
+        "note_on_method": "A clause-address extraction of 27001 cl.9.2.2 returned ZERO characters -- the licence-watermark column defeats a heading match on that document. An empty extraction is a FAILURE and not an answer, so nothing was concluded from it and the question was settled by phrase search with a self-test instead."
+      },
+      "action": "NONE. This is a real divergence between two harmonised siblings, at exactly the kind of point an auditor finds examinable: 42001 adds audit objectives where 27001 does not. Both certifications report their own standard accurately.",
+      "worth_noting": "This is the valuable kind of false positive. It fires because the vocabulary genuinely overlaps and the claims genuinely differ, and reading it confirms both the instrument and the content. A sweep that never surfaced anything like this would be one nobody could trust."
+    }
+  ],
+  "instrument_notes": {
+    "regression_control_moved_to_a_fixture": "Its first version asserted that auditor-objectivity was surfaced from the LIVE corpus. That worked once and failed on the next run -- because the row had been FIXED, so the contradiction no longer existed. A control that depends on a defect remaining in production forbids repairing it, which is the shape of the `migration tip vs disk` invariant. The control now runs the matcher against a fixture holding the original text of both rows, and reports the live status separately.",
+    "length_bias": "The first threshold required four shared distinctive terms and returned 50 candidates, none of them the founding case. auditor-objectivity is seven words; once auditor, audit and requirement are stopworded as corpus-frequent, two distinctive terms remain. The threshold is now relative to the shorter row, floor two.",
+    "what_it_cannot_do": "It matches vocabulary. Two rows can share vocabulary and not contradict -- this candidate is exactly that -- and two rows can contradict sharing none. It generates candidates and decides nothing."
+  }
+}

@@ -145,21 +145,52 @@ for (const c of cands) {
 }
 console.log("  candidate pairs (relative threshold, cross-certification)  " + top.length);
 
-/* ============ REGRESSION CONTROL -- THE INSTANCE THAT BOUGHT THIS =========
- * The sweep must surface `auditor-objectivity` against an independence row.
- * If it does not, the sweep reports NOTHING: a clean list from a guard that
- * cannot see its own founding case is worse than no list. */
-const MUST_FIND = { denialCerts: ["AIMS-IA", "ISMS-IA"], assertionSlug: "auditor-objectivity" };
-const caught = top.some((c) => c.assertion.slug === MUST_FIND.assertionSlug &&
-                               MUST_FIND.denialCerts.includes(c.denial.cert));
-if (!caught) {
-  console.error("");
-  console.error("REGRESSION CONTROL FAILED: the sweep did not surface auditor-objectivity");
-  console.error("against an independence row -- the instance it was built for. No list is");
-  console.error("reported, because a clean list from a blind guard retires the question.");
-  process.exit(2);
+/* ============ THE REGRESSION CONTROL RUNS ON A FIXTURE, NOT ON LIVE DATA ===
+ *
+ * Its first version asserted that `auditor-objectivity` was surfaced from the
+ * LIVE corpus. That worked exactly once. The next run failed -- because the
+ * row had been FIXED, so the contradiction it was calibrated against no longer
+ * existed.
+ *
+ * A control that depends on a defect remaining in production is a control that
+ * forbids repairing it. Same shape as the `migration tip vs disk` invariant,
+ * which asserted the continued presence of a line whose deletion was the fix.
+ *
+ * So the control runs the matcher against a FIXTURE holding the original text
+ * of both rows. It proves the instrument can still see that contradiction
+ * whatever the live corpus now says, and it keeps working after the repair. */
+const FIXTURE = {
+  assertion: { cert: "FIXTURE-A", slug: "auditor-objectivity",
+    name: "Auditor objectivity",
+    description: "the requirement that auditors do not audit their own work" },
+  denial: { cert: "FIXTURE-B", slug: "independence-remedy",
+    name: "Internal auditor independence",
+    description: "ISO 19011:2026 clause 4.6 states that where it is not possible for internal " +
+      "auditors to be independent of the activity being audited, every effort should be made to " +
+      "remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule " +
+      "that an auditor may not audit their own work - that formulation is practice convention." },
+};
+{
+  const d = { ...FIXTURE.denial, t: terms(FIXTURE.denial.name + " " + FIXTURE.denial.description) };
+  const a = { ...FIXTURE.assertion, t: terms(FIXTURE.assertion.name + " " + FIXTURE.assertion.description) };
+  const isDenial = DENIAL.test(d.description), isAssertion = ASSERTION.test(a.description);
+  let shared = 0;
+  for (const w of d.t) if (a.t.has(w)) shared++;
+  const need = Math.max(2, Math.ceil(0.5 * Math.min(d.t.size, a.t.size)));
+  if (!isDenial || !isAssertion || shared < need) {
+    console.error("");
+    console.error("REGRESSION CONTROL FAILED on the fixture: denial=" + isDenial +
+                  " assertion=" + isAssertion + " shared=" + shared + " need=" + need);
+    console.error("The matcher can no longer see the contradiction it was built for.");
+    console.error("No list is reported -- a clean list from a blind guard retires the question.");
+    process.exit(2);
+  }
+  console.log("  regression control: the founding contradiction is still detectable (fixture, shared " +
+              shared + " >= " + need + ")");
 }
-console.log("  regression control: auditor-objectivity IS surfaced");
+/* And report whether it still exists LIVE, which is a different question. */
+const stillLive = top.some((c) => c.assertion.slug === "auditor-objectivity");
+console.log("  the founding contradiction in the LIVE corpus: " + (stillLive ? "STILL PRESENT" : "resolved"));
 
 console.log("");
 console.log("TOP CANDIDATES -- read these; the count means nothing until you do:");

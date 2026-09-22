@@ -75,8 +75,22 @@ const scored = live.map((c) => ({ cert: codeOf.get(c.certification_id), slug: c.
   description: c.description, s: score(c.description, sources) }));
 const fires = scored.filter((r) => firesUnion(r.s));
 const exempt = fires.filter((r) => titleClass(r.s));
-const annex = fires.filter((r) => !titleClass(r.s) && r.s.annexStructure);
-const clause = fires.filter((r) => !titleClass(r.s) && !r.s.annexStructure);
+/* ============ INSIDE ANNEX A IS NOT THE SAME AS BEING ANNEX STRUCTURE =====
+ *
+ * `annexStructure` means every matched run sits past the Annex A boundary. It
+ * was reported as its own bucket and excluded from the clause-text count -- and
+ * all 8 rows in it turned out to be HEADING-SPAN FALSE: annex BODY prose, not
+ * control titles. "Audit sampling takes place when it is not practical..." is a
+ * sentence; "obtain and evaluate evidence about some characteristic of that
+ * population" is a sentence.
+ *
+ * So the bucket was quietly excusing 8 genuine reproductions of 8 to 16 words,
+ * and a report of "0 clause-text reproductions" would have been true only of a
+ * category that excluded them. A row is annex STRUCTURE only when its spans are
+ * headings; otherwise it is a reproduction that happens to live in an annex. */
+const annex = fires.filter((r) => !titleClass(r.s) && r.s.annexStructure &&
+  r.s.runs.every((x) => isHeadingSpan(RAW.get(r.s.source) || "", norm(x.text), norm)));
+const clause = fires.filter((r) => !titleClass(r.s) && !annex.includes(r));
 
 /* Rows already rewritten in any batch. Overlap should be zero. */
 const done = new Set();

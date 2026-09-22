@@ -1,0 +1,99 @@
+{
+  "batch": "B",
+  "written": "2026-09-22",
+  "rows": 38,
+  "shape": "One analysis per (standard, address) group, N texts from it where N is the group size. A row appearing under two addresses is written once from its primary group; the second group records the cross-reference.",
+  "key_correction": "Keyed on (standard, address). ISO 19011 numbers its clauses 4.x and 5.x in the same space as the harmonised management-system clauses, so the address alone merged context-of-the-organization with principles, and roles-and-responsibilities with audit-programme-risks. Re-keying moved 9 rows from paired to unpaired: 47 became 38.",
+  "rows_detail": [
+    { "group": "MSS 9.2.2", "cert": "ISMS-IA", "slug": "ia-previous-audit-results-as-input",
+      "proposed": "When the programme is built, two things must weigh on it: how much the processes matter, and what earlier audits found. Clause 9.2.2. A programme that schedules the same areas at the same frequency every year has considered neither." },
+    { "group": "MSS 9.2.2", "cert": "ISMS-IA", "slug": "ia-documented-information-on-the-programme",
+      "proposed": "Clause 9.2.2 wants proof the programme ran and proof of what the audits found - two separate records. An organization holding reports but no evidence the schedule was followed satisfies half of it." },
+    { "group": "MSS 9.2.2", "cert": "ISMS-IA", "slug": "ia-reporting-results-to-relevant-management",
+      "proposed": "Clause 9.2.2 c) makes reporting an obligation of the organization rather than a courtesy of the auditor, and it says relevant management, not top management. Reporting into a queue nobody owns does not discharge it." },
+    { "group": "MSS 9.2.2", "cert": "AIMS-IA", "slug": "aia-42001-impartiality-clause",
+      "proposed": "Clause 9.2.2 b) asks only that auditors be chosen and audits run so that objectivity and impartiality hold. That is the whole requirement: no independence rule, no separation of duties, no bar on auditing your own area. How objectivity is achieved is left to the organization, and ISO 19011 clause 4.6 is where the guidance sits." },
+    { "group": "MSS 9.2.2", "cert": "AIMS-IA", "slug": "aia-42001-9-2-2-a",
+      "proposed": "The clause that makes internal audit auditable. It obliges a maintained programme stating frequency, methods, responsibilities and reporting; objectives, criteria and scope defined per audit; auditors chosen for objectivity; results reported to relevant managers; and records of both the programme and its results. Clause 9.2.2. Note the objectives: ISO/IEC 27001 does not ask for them and ISO/IEC 42001 does." },
+    { "group": "MSS 9.2.2", "cert": "AIMS-IA", "slug": "aia-audit-records",
+      "proposed": "Clause 9.2.2 requires records of both the programme and the audit results; ISO 19011 clause 5.5.7 describes what managing them well looks like. Only the first can carry a nonconformity - the second is guidance, and confusing the two is how an auditor raises a finding against advice." },
+
+    { "group": "MSS 6.1.3", "cert": "ISMS-IA", "slug": "ia-soa-four-required-elements",
+      "proposed": "Four things belong in it: the necessary controls, why each is included, whether it is implemented, and why any Annex A control was left out. Clause 6.1.3 d). Three of the four are reasoning rather than record, which is why a Statement of Applicability that is only a tick-list fails on its own terms." },
+    { "group": "MSS 6.1.3", "cert": "AIMS-IA", "slug": "aia-statement-of-applicability",
+      "proposed": "The document that turns Annex A's reference controls into this organization's obligations, with inclusion and exclusion both justified. Clause 6.1.3 f) produces it and clause 3.26 defines it. A Table A.1 control becomes auditable only once it appears here as included; before that it is a suggestion." },
+    { "group": "MSS 6.1.3", "cert": "AIMS-IA", "slug": "aia-control-comparison-annex-a",
+      "proposed": "Clause 6.1.3 b) runs one way only: work out the controls the treatment needs, then check Annex A to see whether anything necessary was missed. Starting from Table A.1 and working backwards is a different exercise, and the comparison evidence is what shows which one happened." },
+    { "group": "MSS 6.1.3", "cert": "AIMS-IA", "slug": "aia-annex-b-binds-via-6-1-3-e",
+      "proposed": "Annex B binds through clause 6.1.3 e), and what binds is the ACT of considering it rather than any sentence inside it. Clause B.1 sets the limit explicitly: the guidance need not be justified in the Statement of Applicability and is not always suitable. Considered and then departed from is still conformity." },
+    { "group": "MSS 6.1.3", "cert": "AIMS-IA", "slug": "aia-finding-against-annex-b",
+      "proposed": "No nonconformity can be raised because an organization implemented a control differently from Annex B. The annex is normative in status but written as should, and clause B.1 says its guidance is not always suitable or sufficient. Clause 6.1.3 e) requires consideration, so consideration is what the evidence has to show." },
+
+    { "group": "MSS Annex A", "cert": "ISMS-IA", "slug": "ia-annex-a-8-34-audit-testing-agreement",
+      "proposed": "Testing that touches live systems has to be planned and agreed with whoever owns them before it runs. An audit that degrades the service it is examining has created the incident it went looking for, which is why the agreement is the control rather than the caution." },
+    { "group": "MSS Annex A", "cert": "AIMS-IA", "slug": "aia-annex-a-normative-shall",
+      "proposed": "Annex A is normative and each of its 38 controls is written with shall - but that shall reaches only the controls the organization determined necessary and declared in its Statement of Applicability. Normative status and universal application are different things, and the declaration is what connects them." },
+
+    { "group": "MSS 4.1", "cert": "ISMS-IA", "slug": "ia-internal-and-external-issues-clause-4-1",
+      "proposed": "Clause 4.1 asks what inside and outside the organization bears on whether the ISMS can do what it is meant to do. It comes first because everything downstream - scope, interested parties, risk - is calibrated against the answer." },
+    { "group": "MSS 4.1", "cert": "ISMS-IA", "slug": "ia-amendment-1-2024-climate-change",
+      "proposed": "Amendment 1:2024 adds a single sentence to clause 4.1 obliging the organization to decide whether climate change is a relevant issue. One page, one addition, and it names climate change specifically rather than environmental conditions generally." },
+    { "group": "MSS 4.1", "cert": "AIMS-IA", "slug": "aia-clause-4-1-context",
+      "proposed": "Clause 4.1 carries four obligations for an AIMS, every one of them a shall: the issues bearing on intended results, the intended purpose of the AI systems involved, the organization's roles with respect to them, and whether climate change is relevant. The role determination is the one with no counterpart in ISO/IEC 27001." },
+    { "group": "MSS 4.1", "cert": "AIMS-IA", "slug": "aia-climate-change-4-1",
+      "proposed": "Clause 4.1 obliges a determination, not an answer. An organization that considers climate change, concludes it is not relevant and records why has met the requirement; one that never asked has not, whatever its actual exposure turns out to be." },
+
+    { "group": "19011 4.3", "cert": "ISMS-IA", "slug": "ia-statement-objectivity",
+      "proposed": "Clause 4.3 asks that findings, conclusions and reports reflect the audit truthfully, and that communication be accurate, objective, timely, clear and complete. A should, like every clause 4 principle - ISO 19011 carries no requirements at all. The statement records what was found; it prescribes no remedy and characterises nobody." },
+    { "group": "19011 4.3", "cert": "AIMS-IA", "slug": "aia-fair-presentation-in-reporting",
+      "proposed": "Fair presentation reaches past the findings themselves: clause 4.3 also asks that significant obstacles and unresolved disagreements between team and auditee be reported. Omitting an obstacle that weakened the audit fails the principle even when every finding recorded is correct." },
+
+    { "group": "19011 4.1", "cert": "ISMS-IA", "slug": "ia-principles-carry-no-precedence",
+      "proposed": "ISO 19011 lists seven principles and ranks none of them. Clause 4.1 says only that adhering to them is fundamental; precedence, hierarchy and rank appear nowhere in the document. Where two pull against each other the auditor weighs them, because nothing in the text does it for you." },
+    { "group": "19011 4.1", "cert": "AIMS-IA", "slug": "aia-principles-carry-no-precedence",
+      "proposed": "Seven principles, no ordering. Clause 4.1 calls adherence fundamental and says the guidance in clauses 5 to 7 rests on them, and nowhere ranks one above another. Where two engage a situation differently the auditor decides. Note what that is: an observation about what the text omits, not a stated rule that no ranking exists." },
+
+    { "group": "19011 4.6", "cert": "ISMS-IA", "slug": "ia-independence-of-the-activity-audited-4-6",
+      "proposed": "Clause 4.6 sets two strengths in one sentence: independence from the audited activity where that is practicable, and freedom from bias and conflict of interest always. Only the second is unconditional, and the conditional half is what internal audit usually has to work within." },
+
+    { "group": "19011 4.7", "cert": "ISMS-IA", "slug": "ia-sampling-and-confidence-in-conclusions",
+      "proposed": "Clause 4.7 ties sampling directly to how much weight a conclusion can carry: an audit has finite time, so evidence comes from samples, and how well the sample was chosen is how far the conclusion reaches. A conclusion stated more broadly than its sample supports fails here." },
+    { "group": "19011 4.7", "cert": "AIMS-IA", "slug": "aia-evidence-based-approach",
+      "proposed": "Clause 4.7 is what makes an audit conclusion reproducible rather than an opinion: verifiable evidence, drawn by sampling because time is finite, with the sampling chosen so the conclusion can bear weight. Two auditors working the same method over the same estate should land in the same place." },
+
+    { "group": "19011 4.8", "cert": "ISMS-IA", "slug": "ia-risk-based-audit-programme",
+      "proposed": "Clause 4.8 directs audit effort toward what matters to the client and to the programme's objectives. It is a should, and it concentrates effort rather than licensing an area to go unexamined - a distinction an audit under time pressure has to keep hold of." },
+    { "group": "19011 4.8", "cert": "AIMS-IA", "slug": "aia-risk-based-approach",
+      "proposed": "Clause 4.8 asks that risk and opportunity shape the programme and each audit within it, so effort lands where it counts. Expressed as a should, like every clause 4 principle. It concentrates effort; it does not authorise leaving an area unexamined, and the two get confused under deadline." },
+
+    { "group": "19011 6.4.7", "cert": "ISMS-IA", "slug": "ia-degree-of-verification",
+      "proposed": "Clause 6.4.7 sets a floor rather than a gate: information has to be checkable to some degree before it counts as evidence. Degree, not a binary - which is why the next question is always how much weight it can carry, never whether to accept it at all." },
+    { "group": "19011 6.4.7", "cert": "AIMS-IA", "slug": "aia-plan-adjustment",
+      "proposed": "Clause 6.4.7 expects the plan to move when the evidence does: new circumstances, risks or opportunities get addressed rather than deferred. Changes are agreed with client and auditee and recorded, so the report describes the audit that happened rather than the one that was designed." },
+
+    { "group": "19011 6.5.1", "cert": "ISMS-IA", "slug": "ia-audit-report-content-6-5-1",
+      "proposed": "Clause 6.5.1 asks the report to be a complete, accurate, concise and clear record - four qualities that pull against one another, which is the whole difficulty of writing one. Scope, criteria, findings and conclusions all belong in it." },
+    { "group": "19011 6.5.1", "cert": "AIMS-IA", "slug": "aia-audit-report-content",
+      "proposed": "Clause 6.5.1 lists what the report carries: objectives, scope, client, team and participants, dates and locations, criteria, findings with their evidence, conclusions, how far the criteria were met, unresolved disagreements, and a statement that an audit samples and the sample may not represent the whole. That last item is the one most often dropped." },
+
+    { "group": "MSS 4.2", "cert": "ISMS-IA", "slug": "ia-interested-party-climate-requirements-4-2",
+      "proposed": "Amendment 1:2024 adds a second note to clause 4.2 recording that interested parties can have climate-related requirements; the existing note becomes NOTE 1. A note is not a requirement, so nothing can be raised against it." },
+    { "group": "MSS 4.2", "cert": "AIMS-IA", "slug": "aia-climate-note-4-2",
+      "proposed": "Clause 4.2 carries this as a note, which puts it below even a should - no finding can rest on it. It marks where the topic surfaces when interested-party requirements are determined, and knowing that a note cannot carry a nonconformity is the examinable point." },
+
+    { "group": "MSS 5.3", "cert": "ISMS-IA", "slug": "ia-roles-responsibilities-authorities-clause-5-3",
+      "proposed": "Clause 5.3 puts two specific assignments on top management: someone accountable for the ISMS conforming to the standard, and someone reporting its performance upward. Roles assigned but never communicated do not satisfy it." },
+    { "group": "MSS 5.3", "cert": "AIMS-IA", "slug": "aia-roles-responsibilities-authorities",
+      "proposed": "Clause 5.3 obliges top management to assign and communicate roles, and names two in particular: conformity of the AIMS, and reporting on its performance. A note points to control A.3.2 for defining AI roles - the clause is the requirement, the control is where the detail lives if it is selected." },
+
+    { "group": "MSS 8.1", "cert": "ISMS-IA", "slug": "ia-operational-planning-and-control-clause-8-1",
+      "proposed": "Clause 8.1 is where clause 6's plans become running processes: criteria set, processes controlled against them, and enough documented information to be confident they ran as intended. Planning well and operating nothing fails here, not at clause 6." },
+    { "group": "MSS 8.1", "cert": "AIMS-IA", "slug": "aia-outsourced-processes",
+      "proposed": "Clause 8.1 reaches outside the organization: externally provided processes, products and services relevant to the AIMS have to be controlled too. For an AI management system that means third-party models, datasets and hosted services, and Table A.1 family A.10 is where the detail sits if selected." },
+
+    { "group": "MSS 8.2", "cert": "ISMS-IA", "slug": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
+      "proposed": "Clause 6 requires the processes to exist; clauses 8.2 and 8.3 require them to be run - assessments at planned intervals or when something significant changes, the treatment plan implemented, and records of both. A defined process that never executes fails at 8, not at 6." },
+    { "group": "MSS 8.2", "cert": "AIMS-IA", "slug": "aia-clause-8-2-8-3-operational-risk",
+      "proposed": "The operating half of risk management: AI risk assessments at planned intervals or on significant change, the treatment plan actually implemented, and documented results of each. Where 6.1.2 and 6.1.3 ask for the processes to be defined, 8.2 and 8.3 ask for them to have run." }
+  ]
+}

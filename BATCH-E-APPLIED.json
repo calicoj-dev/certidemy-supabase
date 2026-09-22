@@ -1,0 +1,47 @@
+{
+  "applied": "2026-09-22",
+  "batch": "E",
+  "rows": 8,
+  "slugs": [
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-sampling-general"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-remote-method-additional-risks"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-evidence-requirement-link"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-recording-nonconformities"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-shadow-ai-discovery"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-verifying-information"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "ai-interaction-disclosure"
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "ai-interaction-disclosure"
+    }
+  ],
+  "withheld": {
+    "ISMS-IA": 4,
+    "AIGRM-I": 2,
+    "AIMS-IA": 8,
+    "AISM-I": 2
+  },
+  "serving_withheld": 6,
+  "untouchedHash": "180ad87f54c493c6"
+}

@@ -1,0 +1,122 @@
+{
+  "applied": "2026-09-22",
+  "batch": "C",
+  "rows": 27,
+  "slugs": [
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-virtual-location"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-review-results-9-3-3"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-impact-results-into-risk-assessment"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clause-9-2-2-objectivity-requirement"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-creating-updating-control"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-a-6-life-cycle-controls"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clause-9-2-1-requirements"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-competence-clause-7-2"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-control-objectives-a-2-to-a-10"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-isms-scope-clause-4-3"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-planning-of-changes-clause-6-3"
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "technical-documentation-requirement"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-clauses-4-to-10-not-excludable"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-programme-objectives"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-6-1-2-risk-assessment"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-controls-not-all-required"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-ict-and-emerging-technology-competence-7-2-3"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-internal-audit-definition"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-individual-audit-objectives"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-a-4-6-human-resources"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-10-2-corrective-action"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-9-3-management-review"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-remote-auditing-method-3-4"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-evidence-3-10"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-remote-evidence-sufficiency"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-remote-method-risks-annex-a-16"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-repeatable-comparable-results"
+    }
+  ],
+  "withheld": {
+    "ISMS-IA": 20,
+    "AIMS-IA": 32,
+    "AIGRM-I": 2
+  },
+  "serving_withheld": 11,
+  "untouchedHash": "4c4833eefd8d1b3e"
+}
