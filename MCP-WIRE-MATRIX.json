@@ -1,5 +1,5 @@
 {
-  "measured": "2026-09-22T22:10:23.687Z",
+  "measured": "2026-09-22T22:26:32.663Z",
   "examined": 75,
   "cells": [
     {
@@ -7,6 +7,7 @@
       "view": "mcp.certification",
       "lang": "en",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -15,6 +16,7 @@
       "view": "mcp.certification",
       "lang": "en",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -23,6 +25,7 @@
       "view": "mcp.certification",
       "lang": "en",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -31,6 +34,7 @@
       "view": "mcp.certification",
       "lang": "en",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -39,6 +43,7 @@
       "view": "mcp.certification",
       "lang": "en",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -47,6 +52,7 @@
       "view": "mcp.certification",
       "lang": "es-419",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -55,6 +61,7 @@
       "view": "mcp.certification",
       "lang": "es-419",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -63,6 +70,7 @@
       "view": "mcp.certification",
       "lang": "es-419",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -71,6 +79,7 @@
       "view": "mcp.certification",
       "lang": "es-419",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -79,6 +88,7 @@
       "view": "mcp.certification",
       "lang": "es-419",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -87,6 +97,7 @@
       "view": "mcp.certification",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -95,6 +106,7 @@
       "view": "mcp.certification",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -103,6 +115,7 @@
       "view": "mcp.certification",
       "lang": "pt-BR",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -111,6 +124,7 @@
       "view": "mcp.certification",
       "lang": "pt-BR",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -119,6 +133,7 @@
       "view": "mcp.certification",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 1
     },
@@ -127,6 +142,7 @@
       "view": "mcp.task",
       "lang": "en",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -135,6 +151,7 @@
       "view": "mcp.task",
       "lang": "en",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -143,6 +160,7 @@
       "view": "mcp.task",
       "lang": "en",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -151,6 +169,7 @@
       "view": "mcp.task",
       "lang": "en",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -159,6 +178,7 @@
       "view": "mcp.task",
       "lang": "en",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -167,6 +187,7 @@
       "view": "mcp.task",
       "lang": "es-419",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -175,6 +196,7 @@
       "view": "mcp.task",
       "lang": "es-419",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -183,6 +205,7 @@
       "view": "mcp.task",
       "lang": "es-419",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -191,6 +214,7 @@
       "view": "mcp.task",
       "lang": "es-419",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -199,6 +223,7 @@
       "view": "mcp.task",
       "lang": "es-419",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -207,6 +232,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -215,6 +241,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -223,6 +250,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -231,6 +259,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -239,6 +268,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
+      "attempts": 2,
       "ok": true,
       "rows": 50
     },
@@ -247,6 +277,7 @@
       "view": "mcp.concept",
       "lang": "en",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -255,6 +286,7 @@
       "view": "mcp.concept",
       "lang": "en",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -263,6 +295,7 @@
       "view": "mcp.concept",
       "lang": "en",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -271,6 +304,7 @@
       "view": "mcp.concept",
       "lang": "en",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -279,6 +313,7 @@
       "view": "mcp.concept",
       "lang": "en",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -287,6 +322,7 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-IA",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -295,6 +331,7 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "ISMS-IA",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -303,6 +340,7 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-F",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -311,6 +349,7 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AISM-I",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -319,6 +358,7 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIGRM-I",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -327,6 +367,7 @@
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -335,6 +376,7 @@
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -343,6 +385,7 @@
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-F",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -351,6 +394,7 @@
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AISM-I",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -359,6 +403,7 @@
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
+      "attempts": 4,
       "ok": false,
       "why": "HTTP 500 read failed"
     },
@@ -367,6 +412,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "en",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 80
     },
@@ -375,6 +421,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "en",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 78
     },
@@ -383,6 +430,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "en",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 23
     },
@@ -391,6 +439,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "en",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -399,6 +448,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "en",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 5
     },
@@ -407,6 +457,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -415,6 +466,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "es-419",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -423,6 +475,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -431,6 +484,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "es-419",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -439,6 +493,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "es-419",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -447,6 +502,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 20
     },
@@ -455,6 +511,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 14
     },
@@ -463,6 +520,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 2
     },
@@ -471,6 +529,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "pt-BR",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -479,6 +538,7 @@
       "view": "mcp.task + mcp.concept",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 0
     },
@@ -487,6 +547,7 @@
       "view": "mcp.lesson_index",
       "lang": "en",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -495,6 +556,7 @@
       "view": "mcp.lesson_index",
       "lang": "en",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -503,6 +565,7 @@
       "view": "mcp.lesson_index",
       "lang": "en",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -511,6 +574,7 @@
       "view": "mcp.lesson_index",
       "lang": "en",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -519,6 +583,7 @@
       "view": "mcp.lesson_index",
       "lang": "en",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 49
     },
@@ -527,6 +592,7 @@
       "view": "mcp.lesson_index",
       "lang": "es-419",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -535,6 +601,7 @@
       "view": "mcp.lesson_index",
       "lang": "es-419",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -543,6 +610,7 @@
       "view": "mcp.lesson_index",
       "lang": "es-419",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -551,6 +619,7 @@
       "view": "mcp.lesson_index",
       "lang": "es-419",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -559,6 +628,7 @@
       "view": "mcp.lesson_index",
       "lang": "es-419",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 49
     },
@@ -567,6 +637,7 @@
       "view": "mcp.lesson_index",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 40
     },
@@ -575,6 +646,7 @@
       "view": "mcp.lesson_index",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
+      "attempts": 1,
       "ok": true,
       "rows": 38
     },
@@ -583,6 +655,7 @@
       "view": "mcp.lesson_index",
       "lang": "pt-BR",
       "cert": "AIMS-F",
+      "attempts": 1,
       "ok": true,
       "rows": 35
     },
@@ -591,6 +664,7 @@
       "view": "mcp.lesson_index",
       "lang": "pt-BR",
       "cert": "AISM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -599,6 +673,7 @@
       "view": "mcp.lesson_index",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
+      "attempts": 1,
       "ok": true,
       "rows": 49
     }

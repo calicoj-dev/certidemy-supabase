@@ -61,12 +61,41 @@ const GENERATORS = {
  * to say how the two halves are kept apart.
  */
 const DUAL_ROLE = {
+  "apply-retranslation-review.mjs":
+    "AUTHORS 19 translated edits across 14 renderings and stamps tr_hash for THOSE ROWS ONLY, " +
+    "from the text it just wrote -- the one moment a hash records something rather than restating it. " +
+    "It ASSERTS en_hash is unchanged rather than writing it, because an English-side hash is not its " +
+    "to vouch for. Rows it did not edit are not touched.",
   "apply-reread-clearance.mjs":
     "AUTHORS three translated rewords and CLEARS twelve rows. The halves are separated " +
     "in code: rows this run wrote are stamped from the text it wrote (provable); every " +
     "other row is READ, COMPARED and REFUSED on mismatch, and a refusal exits non-zero. " +
     "Before the split it stamped all twelve from current content, so the gate was never " +
     "consulted for the nine it had no business vouching for.",
+};
+
+/* ============ REVIEW-ROW RECORDERS ============
+ *
+ * `concept_translations.en_hash` is THE GATE'S STORED VALUE. Writing it is the
+ * defect. `concept_translation_reviews.en_hash` is THE RECORD OF A REVIEW --
+ * writing it is the entire point of writing a review row. Same column name,
+ * opposite meanings, and the classifier gets the target from the nearest
+ * preceding table reference, which is a 900-character heuristic.
+ *
+ * DECLARED RATHER THAN INFERRED, for the reason the rest of this file exists:
+ * a heuristic that silently reclassifies a gate write as a record is exactly
+ * the failure mode, and it would be invisible. An entry here is a claim that
+ * the script writes hashes ONLY into a review table, and each one names how
+ * it treats the gate's copy.
+ */
+const REVIEW_RECORDERS = {
+  "clear-ia-translations.mjs":
+    "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on " +
+    "mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. " +
+    "Carries the post-condition 'no hash was written by this run' over every row in scope.",
+  "release-aimsf-translations.mjs":
+    "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS " +
+    "the gate's copy and never assigns it. Writes the pair into the review row it records.",
 };
 
 /* Migrations are reviewed SQL, run once, under a named number, and several
@@ -247,7 +276,8 @@ console.log("HASH-COLUMN WRITE POSITIONS -- " + positions + " candidate(s) exami
 console.log("  script writers     " + scriptWriters.length);
 console.log("  migration writers  " + migWriters.length);
 
-const undeclaredScripts = scriptWriters.filter((w) => !GENERATORS[w.name] && !DUAL_ROLE[w.name]);
+const undeclaredScripts = scriptWriters.filter((w) =>
+  !GENERATORS[w.name] && !DUAL_ROLE[w.name] && !REVIEW_RECORDERS[w.name]);
 const undeclaredMigs = migWriters.filter((w) => !MIGRATION_WRITERS[w.name]);
 
 console.log("");
@@ -294,6 +324,7 @@ writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
   positions_examined: positions,
   generators: GENERATORS,
   dual_role: DUAL_ROLE,
+  review_recorders: REVIEW_RECORDERS,
   migration_writers: MIGRATION_WRITERS,
   script_writers: scriptWriters,
   migration_writers_found: migWriters,

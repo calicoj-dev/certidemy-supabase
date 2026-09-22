@@ -96,12 +96,33 @@ const VIEW_FOR = {
  * lesson_index and search assert transport only. */
 const MUST_HAVE_ROWS = new Set(["certification", "task", "concept"]);
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* ============ THE ENDPOINT RETURNS ONE STRING FOR TWO CAUSES ============
+ *
+ * {"error":"read failed"} is what courseware-read answers for BOTH
+ *
+ *   permission denied for schema public          -- deterministic, a real defect
+ *   no more connections allowed (max_client_conn) -- transient, load
+ *
+ * The first run of this script produced the second and it was read as the
+ * first: lesson_index was reported broken in three languages on a resource
+ * that is fine. THE INSTRUMENT CAUSED IT -- 75 sequential calls, each waking
+ * an isolate that takes a pooler connection, run twice in close succession.
+ *
+ * A guard that manufactures the failure it reports is worse than no guard, so
+ * the two are separated the only way a black-box caller can: BY PERSISTENCE.
+ * A permission failure is deterministic and survives any backoff. Exhaustion
+ * clears. A cell is only called failed if it fails every attempt with the
+ * delay growing between them.
+ *
+ * Paced, too. Measuring a surface must not be the heaviest thing that surface
+ * has seen.
+ */
 async function call(body, headers = {}) {
-  let last;
-  /* Retry is for the IPv6/undici connect timeout this repo records, not for
-   * masking a real failure: every attempt is a READ, so a retry cannot
-   * duplicate a side effect. */
-  for (let i = 0; i < 6; i++) {
+  let last = null, lastRes = null;
+  for (let i = 0; i < 4; i++) {
+    if (i > 0) await sleep(1200 * i * i);
     try {
       const r = await fetch(FN, {
         method: "POST",
@@ -112,10 +133,12 @@ async function call(body, headers = {}) {
       const text = await r.text();
       let json = null;
       try { json = JSON.parse(text); } catch { /* reported as unparseable below */ }
-      return { status: r.status, json, text };
+      lastRes = { status: r.status, json, text, attempts: i + 1 };
+      /* 5xx is the only retryable status. A 400 or a 401 is an answer. */
+      if (r.status < 500) return lastRes;
     } catch (e) { last = e; }
   }
-  return { status: 0, json: null, text: String(last?.message || last) };
+  return lastRes ?? { status: 0, json: null, text: String(last?.message || last), attempts: 4 };
 }
 
 function verdict(res, resource) {
@@ -191,7 +214,8 @@ for (const resource of ["certification", "task", "concept", "search", "lesson_in
       if (resource !== "certification") body.limit = 50;
       const res = await call(body);
       const v = verdict(res, resource);
-      cells.push({ resource, view: VIEW_FOR[resource], lang, cert, ...v });
+      cells.push({ resource, view: VIEW_FOR[resource], lang, cert, attempts: res.attempts, ...v });
+      await sleep(250);
     }
   }
 }
@@ -225,17 +249,22 @@ if (!QUIET) {
       console.log("  " + resource.padEnd(16) + VIEW_FOR[resource].padEnd(24) + lang.padEnd(10) + marks);
     }
   }
-  if (failed.length) {
-    console.log("");
-    console.log("  FAILING CELLS");
-    for (const f of failed) {
-      console.log("    " + f.resource.padEnd(15) + f.lang.padEnd(8) + f.cert.padEnd(10) + f.why);
-    }
-  }
   if (skipped.length) {
     console.log("");
     console.log("  NOT EXERCISED -- reported, never counted as a pass");
     for (const s of skipped) console.log("    " + s.resource.padEnd(15) + s.lang.padEnd(8) + s.why);
+  }
+}
+
+/* A FAILING CELL IS PRINTED UNDER --quiet TOO. Quiet suppresses the MATRIX,
+ * which is 75 lines of context; it must never suppress the finding. The
+ * invariant suite runs this with --quiet and parses these lines, so hiding
+ * them here would make the suite report a bare exit code with no cell named. */
+if (failed.length) {
+  console.log("");
+  console.log("  FAILING CELLS");
+  for (const f of failed) {
+    console.log("    " + f.resource.padEnd(15) + f.lang.padEnd(8) + f.cert.padEnd(10) + f.why);
   }
 }
 

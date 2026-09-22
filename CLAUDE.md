@@ -1833,6 +1833,38 @@ unmet reads exactly like one that works", with the precondition being the
 ABSENCE of data rather than its presence. A test corpus that cannot reach the
 call site is not a weak test; it is not a test.
 
+**ONE ERROR STRING FOR TWO CAUSES, AND THE INSTRUMENT MANUFACTURED THE SECOND
+ONE.** Found 2026-09-22, minutes after the wire check was written.
+
+`courseware-read` answers `{"error":"read failed"}` for BOTH:
+
+```
+permission denied for schema public             deterministic -- a real defect
+no more connections allowed (max_client_conn)   transient -- load
+```
+
+The matrix fires 75 sequential calls, each waking an isolate that takes a
+pooler connection, and the invariant suite ran it a second time immediately.
+`lesson_index` came back 500 in three languages and **was read as the same
+defect as `concept`**. It is not broken; the check exhausted the pooler and
+then reported the wreckage as a finding. English failed too, which is the tell
+-- the real defect cannot touch English.
+
+> **MECHANISM: where the endpoint gives one string to two causes, a black-box
+> check separates them BY PERSISTENCE.** A permission failure survives any
+> backoff; exhaustion clears. A cell fails only after every attempt fails with
+> a growing delay, and the check paces itself -- **measuring a surface must not
+> be the heaviest thing that surface has seen.**
+
+Same family as the IPv6 note and the missing `apikey` header: **the error names
+the wrong half of the system**, and here it names the same half for two
+unrelated halves. The endpoint should distinguish them; until it does, the
+caller has to.
+
+**A GUARD THAT MANUFACTURES THE FAILURE IT REPORTS IS WORSE THAN NO GUARD**,
+because the report is indistinguishable from a real one and arrives with the
+authority of an instrument.
+
 **THE VIEW IS NOT THE ENDPOINT, AND ONLY ONE OF THEM IS THE CLAIM.** Querying
 `mcp.concept` as an admin reported **158 of 158 serving**, correctly -- the
 gate had done its work and the rows were there. The claim being made was that

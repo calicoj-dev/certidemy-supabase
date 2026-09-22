@@ -244,6 +244,50 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 8. THE DEPLOYED ENDPOINT SERVES EVERY VIEW IN EVERY LANGUAGE.
+//
+// Every other invariant here reads the DATABASE with an admin credential. That
+// is the right instrument for the properties they assert and it is the wrong
+// one for this: mcp.concept reported 158 of 158 serving while every non-English
+// read of it answered HTTP 500 from migration 359 onward. The gate was right.
+// The claim was that an unauthenticated partner receives the rows, and only the
+// deployed function can answer that.
+//
+// THE CREDENTIAL THE TEST HOLDS IS THE HYPOTHESIS, so this one holds none.
+//
+// NETWORK, AND THEREFORE VACUOUS WHEN OFFLINE RATHER THAN FAILING. A suite that
+// goes red on a train teaches people to read red as normal. Zero cells examined
+// is exactly what VACUOUS means and it is the honest rendering: no cell was
+// looked at, so nothing is claimed either way.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  const read = (out) => {
+    const m = /denominator: (\d+) cell\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) {
+      if (/^\s{4}\S+\s+(en|es-419|pt-BR)\s+\S+\s+\S/.test(line)) failures.push(line.trim());
+    }
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, ["--dns-result-order=ipv4first", join(HERE, "check-mcp-wire.mjs"), "--quiet"], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000,
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    // A control failure means the matrix never ran, so there is nothing to
+    // report as a pass OR as a fail -- examined stays 0 and this reads VACUOUS.
+    if (!failures.length && examined > 0) {
+      failures.push("check-mcp-wire.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("every mcp view serves on the wire", failures,
+         "deployed endpoint, no credential, view x language", examined);
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable

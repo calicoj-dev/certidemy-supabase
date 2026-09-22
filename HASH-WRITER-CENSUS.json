@@ -1,11 +1,16 @@
 {
   "measured": "2026-09-22",
-  "positions_examined": 30,
+  "positions_examined": 34,
   "generators": {
     "gen-concept-translations.mjs": "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. This is the only moment the hash is a record of something rather than a restatement."
   },
   "dual_role": {
+    "apply-retranslation-review.mjs": "AUTHORS 19 translated edits across 14 renderings and stamps tr_hash for THOSE ROWS ONLY, from the text it just wrote -- the one moment a hash records something rather than restating it. It ASSERTS en_hash is unchanged rather than writing it, because an English-side hash is not its to vouch for. Rows it did not edit are not touched.",
     "apply-reread-clearance.mjs": "AUTHORS three translated rewords and CLEARS twelve rows. The halves are separated in code: rows this run wrote are stamped from the text it wrote (provable); every other row is READ, COMPARED and REFUSED on mismatch, and a refusal exits non-zero. Before the split it stamped all twelve from current content, so the gate was never consulted for the nine it had no business vouching for."
+  },
+  "review_recorders": {
+    "clear-ia-translations.mjs": "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. Carries the post-condition 'no hash was written by this run' over every row in scope.",
+    "release-aimsf-translations.mjs": "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS the gate's copy and never assigns it. Writes the pair into the review row it records."
   },
   "migration_writers": {
     "352_translation_side_hash.sql": "backfill, with tr_hash_basis recording measured vs assumed per row",
@@ -36,11 +41,11 @@
       ]
     },
     {
-      "name": "gen-concept-translations.mjs",
+      "name": "apply-retranslation-review.mjs",
       "sql": false,
       "positions": 1,
       "targets": [
-        "unknown"
+        "concept_translations"
       ],
       "hows": [
         "js-body"
