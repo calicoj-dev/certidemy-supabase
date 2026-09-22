@@ -1,0 +1,318 @@
+#!/usr/bin/env node
+/**
+ * check-hash-writers.mjs - only a generator may write a gate's stored hash.
+ *
+ * READ-ONLY. No network, no credential, no flags. Exits non-zero on an
+ * unclassified writer, so it can gate a build.
+ *
+ * ============ THE DEFECT THIS EXISTS FOR ============
+ *
+ * `en_hash` records the English a translation was generated FROM. `tr_hash`
+ * records the translated text as reviewed. `mcp.concept` compares both on
+ * every read and withholds the row when either has moved.
+ *
+ * The gate is sound. Every clearance script in this repository walked around
+ * it: they RECOMPUTED the hash from the row's current source and wrote it.
+ * That makes every row fresh by construction -- including a row whose English
+ * moved after the translation was generated -- because the value the gate is
+ * about to compare against was just overwritten with the answer it wanted.
+ *
+ * The gate is never consulted. It is intact and blindfolded.
+ *
+ * ============ THE RULE, AND WHY IT IS A WRITER LIST ============
+ *
+ * Stamping is legitimate in exactly one place: the moment a translation is
+ * generated, where the caller HOLDS the English it translated from and the
+ * hash is a record of that fact. A backfill in a reviewed migration counts,
+ * because it is a one-time deliberate assertion with a proof attached.
+ *
+ * Everywhere else the hash is READ, COMPARED, and the row REFUSED on
+ * mismatch. So the check is a writer list: anything that writes and is not
+ * declared here has to be classified by a human before the suite goes green.
+ */
+import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+for (const a of process.argv.slice(2)) {
+  if (a.startsWith("--")) { console.error("Unrecognised flag: " + a + ". READ-ONLY, no flags."); process.exit(2); }
+}
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(HERE, "..");
+
+/* ============ THE GENERATOR LIST, DECLARED IN ONE PLACE ============
+ *
+ * Every entry names WHY it may write. A file added here without a reason is
+ * the next instance of the defect, so the reason is required by the check
+ * itself -- an entry with an empty justification fails. */
+const GENERATORS = {
+  "gen-concept-translations.mjs":
+    "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. " +
+    "This is the only moment the hash is a record of something rather than a restatement.",
+};
+
+/* ============ DUAL ROLE -- NAMED, NOT HIDDEN ============
+ *
+ * A script that AUTHORS translated text and also CLEARS rows is the defect in
+ * its purest form, because the authoring half supplies an excuse for the
+ * clearing half to stamp. Folding one into GENERATORS would hide exactly the
+ * shape that needs to stay visible, so it gets its own list and the entry has
+ * to say how the two halves are kept apart.
+ */
+const DUAL_ROLE = {
+  "apply-reread-clearance.mjs":
+    "AUTHORS three translated rewords and CLEARS twelve rows. The halves are separated " +
+    "in code: rows this run wrote are stamped from the text it wrote (provable); every " +
+    "other row is READ, COMPARED and REFUSED on mismatch, and a refusal exits non-zero. " +
+    "Before the split it stamped all twelve from current content, so the gate was never " +
+    "consulted for the nine it had no business vouching for.",
+};
+
+/* Migrations are reviewed SQL, run once, under a named number, and several
+ * carry a rolled-back proof that the gate can fire. A backfill there is a
+ * deliberate one-time assertion, not a caller walking around the gate. They
+ * are listed rather than blanket-exempted so a new one is still visible. */
+const MIGRATION_WRITERS = {
+  "352_translation_side_hash.sql": "backfill, with tr_hash_basis recording measured vs assumed per row",
+  "359_concept_per_row_gate.sql": "backfill of en_hash so the gate withholds 0 on first run; proves it can fire in a rolled-back block",
+  "364_concept_translation_tr_hash.sql": "backfill of tr_hash at concept grain; same proof shape",
+  "356_concept_clearance.sql": "writes review rows, which carry their own hash columns by design",
+  "357_concept_clearance_correction.sql": "correction to 356's review rows",
+  "360_retranslation_fixes_and_clearance.sql": "writes review rows",
+  "358_english_concept_repair.sql": "repairs English and re-stamps the rows it repaired, in one reviewed statement",
+  "362_security_control_is_not_a_glossary.sql": "repairs one English row and re-stamps it",
+  "363_aimsf_concept_descriptions.sql": "lands 154 English descriptions and re-stamps them",
+  "311_item_translation_reviews.sql": "creates the review table",
+  "335_lesson_translation_reviews.sql": "creates the review table",
+  "339_task_translation_reviews.sql": "creates the review table",
+  "340_bilingual_queue_reviews.sql": "creates review rows",
+  "313_canonical_item_hash.sql": "item canonical hash, a different column family",
+};
+
+/* ============ WHAT COUNTS AS A WRITE ============
+ *
+ * A write is the column name in a POSITION THAT ASSIGNS: a key in a JS object
+ * literal being sent as a body, or a SQL `set`/insert column list. A read --
+ * `row.en_hash`, `select=en_hash`, a comparison -- is not.
+ *
+ * Distinguishing these is the whole job. Matching the bare column name would
+ * report every reader as a writer, which is the over-reporting failure that
+ * gets a guard deleted. */
+const COLS = ["en_hash", "tr_hash"];
+
+function writePositions(src, isSql) {
+  const hits = [];
+  for (const col of COLS) {
+    if (isSql) {
+      /* AN ASSIGNMENT TARGET CARRIES NO TABLE ALIAS. `set en_hash = x` writes;
+       * `r.en_hash = x` compares, wherever it sits. The first version of this
+       * matcher looked for `set ... en_hash =` across a whole statement and
+       * reported two false positives -- 341 and 350 -- because a plpgsql body
+       * opens with `set search_path = ''` and compares `r.en_hash` further
+       * down with no semicolon between them. It reported a VIEW PREDICATE as a
+       * write, which is the over-reporting that gets a guard deleted.
+       *
+       * So: the column must be bare (no `alias.`), and must be preceded by a
+       * `set` or `,` with no intervening `select`/`where`/`and`/`join`. */
+      const re = new RegExp("(?:^|[\\s,])(?:set\\s+|,\\s*)(?<![.\\w])" + col + "\\s*=(?!=)", "gim");
+      for (const m of src.matchAll(re)) {
+        const before = src.slice(Math.max(0, m.index - 200), m.index).toLowerCase();
+        /* `set search_path` then a later comparison is not a set-list. A real
+         * set-list has `update` upstream and no `where`/`and` between. */
+        const lastUpdate = before.lastIndexOf("update ");
+        const lastWhere = Math.max(before.lastIndexOf(" where "), before.lastIndexOf("\n   and "), before.lastIndexOf(" and "));
+        if (lastUpdate === -1 || lastWhere > lastUpdate) continue;
+        hits.push({ col, at: m.index, how: "sql-assign" });
+      }
+      const ins = new RegExp("insert\\s+into[^;()]*\\(([^)]*\\b" + col + "\\b[^)]*)\\)", "gis");
+      for (const m of src.matchAll(ins)) hits.push({ col, at: m.index, how: "sql-insert" });
+    } else {
+      /* A JS object key: `en_hash:` or `"en_hash":`, but NOT `.en_hash` and
+       * NOT inside a select string. */
+      const re = new RegExp("(?<![.\\w])[\"']?" + col + "[\"']?\\s*:", "g");
+      for (const m of src.matchAll(re)) {
+        const before = src.slice(Math.max(0, m.index - 120), m.index);
+        /* A key inside a `select=` literal is a read projection, not a write.
+         * A key in a `.map(` building a report object is also not a write --
+         * require a body/JSON.stringify/insert nearby. */
+        if (/select=[^"'`]*$/.test(before)) continue;
+        const ctx = src.slice(Math.max(0, m.index - 400), m.index + 200);
+        const isBody = /JSON\.stringify\s*\(\s*\{|body:\s*JSON\.stringify|method:\s*["'](POST|PATCH|PUT)/i.test(ctx);
+        /* ============ THE TARGET TABLE IS THE CLASSIFICATION ============
+         *
+         * `concept_translation_reviews.en_hash` is the RECORD OF A REVIEW: it
+         * says which English a human read. Writing it is the whole point of
+         * writing a review row, and a clearance that did not write it would
+         * record nothing.
+         *
+         * `concept_translations.en_hash` is the GATE'S STORED VALUE. Writing
+         * that outside a generator is the defect.
+         *
+         * Same column name, opposite meanings, and a classifier blind to the
+         * table reports a correct recorder as a defect. That misfire happened
+         * on the first run: release-aimsf-translations.mjs clears via
+         * is_provisional alone and writes only review rows -- it is clean, and
+         * it was reported alongside two scripts that genuinely re-stamp. */
+        /* BACKWARDS ONLY. A forward window catches the NEXT statement's table:
+         * release-aimsf writes review rows and then PATCHes
+         * concept_translations three lines later, so a +300 window resolved the
+         * review write to the content table and reported a clean recorder as a
+         * defect. The target is fixed by the nearest PRECEDING reference. */
+        const near = src.slice(Math.max(0, m.index - 900), m.index);
+        const tbl = [...near.matchAll(/(concept_translation_reviews|concept_translations|lesson_translation_reviews|task_translation_reviews|item_translation_reviews)/g)].pop();
+        const target = tbl ? tbl[1] : "unknown";
+        const isReviewRow = target.endsWith("_reviews");
+        hits.push({ col, at: m.index, target, how: isBody ? (isReviewRow ? "review-record" : "js-body") : "js-object" });
+      }
+    }
+  }
+  return hits;
+}
+
+/* ------------------------------------------------------------------ scan */
+const files = [];
+for (const f of readdirSync(HERE)) if (f.endsWith(".mjs")) files.push({ path: join(HERE, f), name: f, sql: false });
+const migDir = join(ROOT, "migrations");
+if (existsSync(migDir)) for (const f of readdirSync(migDir)) if (f.endsWith(".sql")) files.push({ path: join(migDir, f), name: f, sql: true });
+
+const writers = [];
+const recorders = [];
+let positions = 0;
+for (const f of files) {
+  if (f.name === "check-hash-writers.mjs") continue;
+  const src = readFileSync(f.path, "utf8");
+  const hits = writePositions(src, f.sql);
+  const real = hits.filter((h) => h.how !== "js-object" && h.how !== "review-record");
+  positions += hits.length;
+  const recs = hits.filter((h) => h.how === "review-record");
+  if (real.length) writers.push({ name: f.name, sql: f.sql, positions: real.length, targets: [...new Set(real.map((h) => h.target))], hows: [...new Set(real.map((h) => h.how))] });
+  else if (recs.length) recorders.push({ name: f.name, positions: recs.length, targets: [...new Set(recs.map((h) => h.target))] });
+}
+
+/* ============ POSITIVE CONTROL ============
+ * A matcher that silently stopped matching would report zero writers and read
+ * as a clean bill of health -- the exact failure this repository keeps
+ * finding. Known sources, known verdicts, including two that must NOT count. */
+const CONTROL = [
+  ['await fetch(u, { method: "PATCH", body: JSON.stringify({ tr_hash: h }) });', false, 1],
+  ['const rows = await rest("concept_translations?select=id,en_hash,tr_hash");', false, 0],
+  ['if (row.en_hash !== live) refuse(row);', false, 0],
+  ['update public.concept_translations set tr_hash = public.translation_hash(name, description);', true, 1],
+  ['select ct.en_hash from public.concept_translations ct where ct.tr_hash is not null;', true, 0],
+];
+for (const [src, isSql, want] of CONTROL) {
+  const got = writePositions(src, isSql).filter((h) => h.how !== "js-object").length;
+  if (got !== want) {
+    console.error("POSITIVE CONTROL FAILED on: " + src.slice(0, 64));
+    console.error("  detected " + got + " write position(s), expected " + want);
+    console.error("A broken matcher reports no writers, which reads as clean. Refusing.");
+    process.exit(2);
+  }
+}
+console.log("positive control: " + CONTROL.length + "/" + CONTROL.length +
+            " known sources classified correctly (2 readers must NOT count)");
+
+/* ============ AND A NEGATIVE CONTROL AGAINST THE REAL CORPUS ============
+ *
+ * The synthetic cases above prove the matcher fires. These two prove it does
+ * NOT fire where it must not, and they use the actual files rather than a
+ * hand-written imitation -- because the imitation is what a careless author
+ * gets wrong, and these two are exactly what the first matcher got wrong.
+ *
+ * 341 defines task_ksa_en_hash; 350 defines a view predicate. Both open with
+ * `set search_path = ''` and compare `r.en_hash` downstream with no semicolon
+ * between, which is why a statement-wide `set ... en_hash =` search called
+ * them writes. Neither writes anything. */
+const MUST_NOT_FIRE = ["341_ksa_functions_security_definer.sql", "350_body_available_one_predicate.sql"];
+for (const name of MUST_NOT_FIRE) {
+  const fp = join(ROOT, "migrations", name);
+  if (!existsSync(fp)) continue;
+  const n = writePositions(readFileSync(fp, "utf8"), true).length;
+  if (n !== 0) {
+    console.error("NEGATIVE CONTROL FAILED: " + name + " reported " + n + " write position(s).");
+    console.error("It defines a predicate and writes nothing. The matcher is over-firing again.");
+    process.exit(2);
+  }
+}
+console.log("negative control: " + MUST_NOT_FIRE.length + "/" + MUST_NOT_FIRE.length +
+            " real predicate-only migrations correctly report NO write");
+
+/* ---------------------------------------------------------------- verdict */
+const scriptWriters = writers.filter((w) => !w.sql);
+const migWriters = writers.filter((w) => w.sql);
+
+console.log("");
+console.log("HASH-COLUMN WRITE POSITIONS -- " + positions + " candidate(s) examined across " + files.length + " file(s)");
+console.log("  script writers     " + scriptWriters.length);
+console.log("  migration writers  " + migWriters.length);
+
+const undeclaredScripts = scriptWriters.filter((w) => !GENERATORS[w.name] && !DUAL_ROLE[w.name]);
+const undeclaredMigs = migWriters.filter((w) => !MIGRATION_WRITERS[w.name]);
+
+console.log("");
+console.log("DECLARED GENERATORS (may write):");
+for (const [n, why] of Object.entries(GENERATORS)) {
+  if (!why || !why.trim()) { console.error("  " + n + " has no justification. Every entry must say why."); process.exit(1); }
+  const present = scriptWriters.find((w) => w.name === n);
+  console.log("  " + (present ? "writes  " : "NO WRITE") + "  " + n);
+  console.log("      " + why);
+  if (!present) {
+    console.log("      ^ declared but writes nothing today. Not an error -- but if it never");
+    console.log("        writes again the declaration should go, or it protects nothing.");
+  }
+}
+
+console.log("");
+console.log("DUAL ROLE (authors text AND clears -- must keep the halves apart):");
+for (const [n, why] of Object.entries(DUAL_ROLE)) {
+  if (!why || !why.trim()) { console.error("  " + n + " has no justification."); process.exit(1); }
+  console.log("  " + n);
+  console.log("      " + why);
+}
+
+if (recorders.length) {
+  console.log("");
+  console.log("REVIEW-ROW RECORDERS (write a *_reviews hash -- legitimate, this is the record):");
+  for (const r of recorders) console.log("  " + r.name.padEnd(42) + r.positions + " position(s)  " + r.targets.join(","));
+}
+
+if (undeclaredScripts.length) {
+  console.log("");
+  console.log("UNDECLARED SCRIPT WRITERS -- classify each before this passes:");
+  for (const w of undeclaredScripts) console.log("  " + w.name.padEnd(42) + w.positions + " position(s)  " + w.hows.join(","));
+}
+
+if (undeclaredMigs.length) {
+  console.log("");
+  console.log("UNDECLARED MIGRATION WRITERS:");
+  for (const w of undeclaredMigs) console.log("  " + w.name.padEnd(42) + w.positions + " position(s)");
+}
+
+writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
+  measured: "2026-09-22",
+  positions_examined: positions,
+  generators: GENERATORS,
+  dual_role: DUAL_ROLE,
+  migration_writers: MIGRATION_WRITERS,
+  script_writers: scriptWriters,
+  migration_writers_found: migWriters,
+  undeclared_scripts: undeclaredScripts.map((w) => w.name),
+  undeclared_migrations: undeclaredMigs.map((w) => w.name),
+}, null, 2), "utf8");
+
+console.log("");
+console.log("wrote HASH-WRITER-CENSUS.json");
+if (positions === 0) {
+  console.error("VACUOUS: zero write positions examined. The matcher is wrong, not the corpus.");
+  process.exit(2);
+}
+if (undeclaredScripts.length || undeclaredMigs.length) {
+  console.error("");
+  console.error("FAIL: " + (undeclaredScripts.length + undeclaredMigs.length) + " undeclared hash writer(s).");
+  console.error("A hash is written only by something that can PROVE the value -- a generator");
+  console.error("holding the source it translated from. Any other caller must READ, COMPARE");
+  console.error("and REFUSE the row on mismatch.");
+  process.exit(1);
+}
+console.log("PASS: every hash writer is declared. " + positions + " position(s) examined.");

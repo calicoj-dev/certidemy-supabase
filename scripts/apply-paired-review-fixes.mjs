@@ -238,21 +238,52 @@ for (const s of secPlan) {
 console.log("");
 console.log("  wrote " + namePlan.length + " name(s), " + textPlan.length + " text edit(s), " + secPlan.length + " pt row(s)");
 
-/* ---- D. RE-SYNC en_hash. Names moved, so every AIMS-F row's hash must be
- * recomputed or the gate stays shut on rows whose translation is unchanged. */
+/* ---- D. REPORT WHAT THE GATE NOW WITHHOLDS. IT DOES NOT RE-SYNC.
+ *
+ * THIS SECTION USED TO WRITE `en_hash`, AND THAT WAS THE DEFECT IN ITS PUREST
+ * FORM. Its own comment justified it: "Names moved, so every AIMS-F row's hash
+ * must be recomputed or the gate stays shut on rows whose translation is
+ * unchanged."
+ *
+ * The gate is SUPPOSED to stay shut. `en_hash` records the English a
+ * translation was generated from; recomputing it from the English this script
+ * has just CHANGED makes every row fresh by construction, and the comparison
+ * mcp.concept performs on every read is then against a value that was
+ * overwritten with the answer it wanted. The gate is intact and blindfolded.
+ *
+ * A row withheld here is not a failure of this script. It is the gate doing
+ * its job, and the correct next step is RETRANSLATION -- a generator holding
+ * the new English and stamping from it. Do not add a flag to force past this.
+ */
 const after = await rest("concepts?select=id,slug,name,description,retired_at&certification_id=eq." + cert.id + "&limit=1000");
 const liveAfter = after.filter((c) => c.retired_at === null);
 const want = new Map(liveAfter.map((c) => [c.id, enHash(c.name, c.description)]));
-const trAfter = await rest("concept_translations?select=concept_id,language,en_hash&concept_id=in.(" + ids.join(",") + ")&limit=2000");
-let resynced = 0;
+const slugOf = new Map(liveAfter.map((c) => [c.id, c.slug]));
+const trAfter = await rest("concept_translations?select=concept_id,language,en_hash,is_provisional&concept_id=in.(" + ids.join(",") + ")&limit=2000");
+
+const withheld = [];
 for (const t of trAfter) {
   const w = want.get(t.concept_id);
   if (!w || t.en_hash === w) continue;
-  await rest("concept_translations?concept_id=eq." + t.concept_id + "&language=eq." + t.language,
-    { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ en_hash: w }) });
-  resynced++;
+  withheld.push({ slug: slugOf.get(t.concept_id), language: t.language, stored: t.en_hash, computed: w, serving: !t.is_provisional });
 }
-console.log("  re-synced en_hash on " + resynced + " row(s)");
+
+console.log("");
+console.log("D. WHAT THE en_hash GATE NOW WITHHOLDS");
+console.log("   rows examined   " + trAfter.length);
+console.log("   withheld        " + withheld.length);
+/* A refusal that prints only a count is a refusal nobody acts on. */
+for (const w of withheld) {
+  console.log("     " + (w.serving ? "WAS SERVING " : "provisional ") + w.slug.padEnd(30) + w.language.padEnd(8) +
+              "stored " + w.stored + "  computed " + w.computed);
+}
+if (withheld.length) {
+  console.log("");
+  console.log("   These rows are withheld because their ENGLISH changed in this run.");
+  console.log("   That is correct. Resolve by RETRANSLATING them, which lets a generator");
+  console.log("   stamp en_hash from the English it actually translated. This script will");
+  console.log("   never write that hash, and no flag here will make it.");
+}
 
 /* --------------------------------------------------- post-conditions */
 const chk = [];
@@ -274,4 +305,14 @@ const stillBare = final.filter((t) => /Seção(?!\s+[0-9])/.test(String(t.name |
 add("no bare capitalised Secao remains in AIMS-F", stillBare.length === 0, stillBare.length + " remaining");
 console.log("");
 console.log("  passed " + chk.filter(Boolean).length + "   failed " + chk.filter((x) => !x).length);
-process.exitCode = chk.every(Boolean) ? 0 : 1;
+/* A PARTIAL APPLICATION MUST NOT READ AS A SUCCESS. Rows withheld by the
+ * en_hash gate are real outstanding work -- the translations no longer match
+ * their English -- so the run exits non-zero even when every post-condition
+ * passed. Green here would mean "done", and it is not done until those rows
+ * are retranslated. */
+if (withheld.length) {
+  console.log("");
+  console.log("EXIT 1: " + withheld.length + " row(s) withheld by the en_hash gate, listed above.");
+  console.log("Not an error in this script. Retranslate them; do not force past it.");
+}
+process.exitCode = (chk.every(Boolean) && withheld.length === 0) ? 0 : 1;

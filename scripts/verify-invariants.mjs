@@ -42,6 +42,7 @@
 //      a good result rather than a bug.
 
 import { readFileSync, readdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -206,6 +207,41 @@ Object.assign(fetched, {
 }
 
 // ----------------------------------------------------------------- report
+
+// ------------------------------------------- 7. hash writers are declared
+//
+// A GATE'S STORED VALUE IS WRITTEN ONLY BY THE THING THAT CAN PROVE IT.
+// `en_hash` records the English a translation was generated from; `tr_hash`
+// records the translated text as reviewed. Every clearance script in this
+// repository recomputed them from current source and wrote them, which makes
+// every row fresh by construction and means mcp.concept compares against a
+// value that was just overwritten with the answer it wanted. The gate stayed
+// intact and was never consulted.
+//
+// The writer set is DECLARED in check-hash-writers.mjs rather than inferred,
+// so a new writer fails here and has to be classified deliberately.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  try {
+    const out = execFileSync(process.execPath, [join(HERE, "check-hash-writers.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+    });
+    const m = /(\d+) candidate\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+  } catch (err) {
+    const out = String(err.stdout || "") + String(err.stderr || "");
+    const m = /(\d+) candidate\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) {
+      if (/^\s{2}\S+\.(mjs|sql)\s+\d+ position/.test(line)) failures.push(line.trim());
+    }
+    if (!failures.length) failures.push("check-hash-writers.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-4).join(" | "));
+  }
+  record("hash writers declared", failures,
+         "only declared generators write en_hash/tr_hash", examined);
+}
 
 // ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.

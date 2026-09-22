@@ -2186,6 +2186,99 @@ rendering, so editing es-419 must leave pt-BR serving. 364's proof asserts
 exactly that: one edit, one row withheld, the sibling language still serving.
 A per-concept tr_hash would have passed every count assertion and been wrong.
 
+**A GATE'S STORED VALUE IS WRITTEN ONLY BY THE THING THAT CAN PROVE IT.**
+Recorded 2026-09-22, and it is the sharpest instance in this file of an
+instrument reporting success while not looking at anything -- because here the
+instrument is SOUND and the caller blindfolds it.
+
+`en_hash` records the English a translation was generated FROM. `tr_hash`
+records the translated text as reviewed. `mcp.concept` compares both on every
+read and withholds the row when either has moved. **Every clearance script in
+this repository recomputed the hash from the row's CURRENT source and wrote
+it.** That makes every row fresh by construction -- including a row whose
+English moved after the translation was generated -- because the value the
+gate is about to compare against was just overwritten with the answer it
+wanted.
+
+**The gate is never consulted. It is intact and blindfolded.** No amount of
+reading the view would find this; the defect is entirely in the callers.
+
+`apply-paired-review-fixes.mjs` carried the justification in its own comment:
+
+> *"Names moved, so every AIMS-F row's hash must be recomputed or the gate
+> stays shut on rows whose translation is unchanged."*
+
+**The gate is supposed to stay shut.** That sentence is the defect arguing for
+itself, and it reads as maintenance.
+
+> **MECHANISM: hash columns are written ONLY from the generator path, declared
+> in one explicit list. Every other caller READS, COMPARES, and REFUSES the row
+> on mismatch; a refusal names the slug, the stored hash and the computed hash,
+> and the run exits non-zero so a partial clearance cannot read as a success.**
+
+`scripts/check-hash-writers.mjs` enforces it and is invariant 7 in
+`verify-invariants`. Measured the day it was written: **30 write positions
+examined**, 1 generator, 1 dual-role, 1 review-row recorder, 0 undeclared.
+
+**THE EXPOSURE WAS ZERO, AND THE DENOMINATOR IS WHAT MAKES THAT WORTH SAYING.**
+Recomputed every stored hash against current source: **0 of 2,544 cleared
+concept rows**, 0 of 41 lesson reviews, 0 of 98 task reviews, 0 of 30 item
+reviews. The defect was LATENT -- the re-stamps happened to write values that
+were already correct. **Latent is not safe; it is unobserved.**
+
+**AND THE FIRST MEASUREMENT OF IT WAS WRONG IN THE USUAL DIRECTION.** The
+lesson check first reported **41 of 41 stale**, because it recomputed with
+`left(md5(content_md),8)` while 352 stores `translation_hash(content_md)`,
+which concatenates with separators. **A false alarm across an entire corpus,
+from using a different instrument than the one that wrote the value.** Caught
+by reading 352, not by re-running. **Recompute with the FUNCTION THAT WROTE
+IT**, never with a formula that looks equivalent.
+
+**A SCRIPT THAT AUTHORS AND CLEARS IS THE DEFECT IN ITS PUREST FORM**, because
+the authoring half supplies the excuse for the clearing half to stamp.
+`apply-reread-clearance.mjs` did both: it wrote three translated rewords and
+cleared twelve rows, stamping all twelve from current content -- so the gate
+was never consulted for the nine it had no business vouching for. It is now
+split in code and **named as DUAL ROLE in the census rather than folded into
+the generator list**, because folding it in would hide exactly the shape that
+needs to stay visible.
+
+**AND THE SAME COLUMN NAME MEANS OPPOSITE THINGS IN TWO TABLES.**
+`concept_translation_reviews.en_hash` is the RECORD OF A REVIEW -- writing it
+is the whole point of writing a review row. `concept_translations.en_hash` is
+the gate's stored value. A classifier blind to the target table reported a
+correct recorder as a defect on its first run, and a guard that cries wolf gets
+loosened.
+
+**A COSMETIC FIX TO A NAME IS A SOURCE CHANGE.** `concept_row_en_hash` is
+`md5(name` + separator + `description)`, so **21 capitalisation fixes
+invalidated 44 translations.** That is the gate behaving correctly -- the
+translated names really did render the old casing -- but it means **no edit to
+a concept row is ever cosmetic downstream.** Nothing was exposed only because
+both ISMS-F draws are blocked; had they been serving, a capitalisation pass
+would have withheld 44 live rows with no warning.
+
+**`description_is_fallback` RENDERS BOTH WITHHOLDING REASONS IDENTICALLY.**
+Recorded as a finding 2026-09-22. **The contract is NOT changed** --
+contractVersion 2 is partner-facing and this is not the week to move it.
+
+Two different states produce the same field:
+
+| state | why the row is withheld |
+|---|---|
+| **not yet reviewed** | `is_provisional = true`; a human has never cleared it |
+| **source moved** | cleared, but `en_hash` or `tr_hash` no longer matches |
+
+A caller sees `description_is_fallback: true` and an English description in
+both cases, and **cannot distinguish "not translated yet" from "the translation
+went stale"** -- which are different things to tell a partner. The first is a
+roadmap question; the second is a freshness question about content they may
+already have seen.
+
+A contractVersion 3 would add a reason: `fallback_reason: "unreviewed" |
+"source_changed" | null`, computed in the view from whichever predicate failed.
+It is additive and cheap; the cost is a contract version, not the field.
+
 **A CLAIM THAT A CHECK "FIRES ON X AND NOWHERE ELSE" IS A CLAIM ABOUT THE
 POPULATION, AND NEEDS A POPULATION MEASUREMENT.** Recorded 2026-09-22.
 

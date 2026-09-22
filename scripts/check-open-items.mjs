@@ -32,6 +32,7 @@
  * this repository keeps paying for. It checks THAT THE GUARD STILL EXISTS.
  * A closed item whose keeper was deleted is an item that will reopen silently.
  */
+import { createHash } from "node:crypto";
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -65,6 +66,15 @@ const REST = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
 const H = { apikey: KEY, Authorization: "Bearer " + KEY };
 
 /** Page to exhaustion and assert against the server's count. A floor is not a total. */
+/* Mirrors public.concept_row_en_hash exactly: md5 of name|description with
+ * CRs stripped, first 16 chars. Recomputed here rather than called over RPC so
+ * this probe needs no function grant. */
+const enHash = (name, description) =>
+  createHash("md5")
+    .update(String(name ?? "").replaceAll(String.fromCharCode(13), "") + "|" +
+            String(description ?? "").replaceAll(String.fromCharCode(13), ""))
+    .digest("hex").slice(0, 16);
+
 async function all(path) {
   const rows = []; let from = 0, total = null;
   for (;;) {
@@ -501,6 +511,39 @@ const ITEMS = {
         : "every migration from 330 on has a fingerprint",
     };
   },
+};
+
+/* ISMS-F's en_hash-stale translations. PROBED, not stated -- the count is
+ * read from the database so it cannot go stale in this file. Disposition:
+ * DO NOTHING. They are stale, correctly so, and both ISMS-F draws are blocked
+ * so nothing is exposed. They resolve at retranslation, when a generator
+ * legitimately stamps them from the English it translated. */
+ITEMS["ISMS-F en_hash-stale translations"] = async () => {
+  const rows = await all(
+    "concept_translations?select=concept_id,language,en_hash,is_provisional");
+  const cons = await all("concepts?select=id,slug,certification_id,name,description");
+  const certs = await all("certifications?select=id,code");
+  const isms = new Set(certs.filter((c) => c.code === "ISMS-F").map((c) => c.id));
+  const conBy = new Map(cons.map((c) => [c.id, c]));
+  let stale = 0, serving = 0;
+  for (const r of rows) {
+    const c = conBy.get(r.concept_id);
+    if (!c || !isms.has(c.certification_id)) continue;
+    const live = enHash(c.name, c.description);
+    if (r.en_hash === live) continue;
+    stale++;
+    if (!r.is_provisional) serving++;
+  }
+  return {
+    open: serving > 0,
+    why: serving > 0
+      ? serving + " ISMS-F row(s) are SERVING with a stale en_hash -- that is exposure, not debt"
+      : stale + " ISMS-F row(s) carry a stale en_hash, all provisional/blocked. " +
+        "Correct to be stale: a cosmetic name fix IS a source change, because " +
+        "concept_row_en_hash is md5(name||'|'||description). Do NOT clear them on the " +
+        "way past -- they resolve at retranslation, when a generator stamps from the " +
+        "English it actually translated.",
+  };
 };
 
 /* Items nothing can check. They stay prose, and this says so rather than

@@ -1,0 +1,164 @@
+{
+  "measured": "2026-09-22",
+  "positions_examined": 30,
+  "generators": {
+    "gen-concept-translations.mjs": "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. This is the only moment the hash is a record of something rather than a restatement."
+  },
+  "dual_role": {
+    "apply-reread-clearance.mjs": "AUTHORS three translated rewords and CLEARS twelve rows. The halves are separated in code: rows this run wrote are stamped from the text it wrote (provable); every other row is READ, COMPARED and REFUSED on mismatch, and a refusal exits non-zero. Before the split it stamped all twelve from current content, so the gate was never consulted for the nine it had no business vouching for."
+  },
+  "migration_writers": {
+    "352_translation_side_hash.sql": "backfill, with tr_hash_basis recording measured vs assumed per row",
+    "359_concept_per_row_gate.sql": "backfill of en_hash so the gate withholds 0 on first run; proves it can fire in a rolled-back block",
+    "364_concept_translation_tr_hash.sql": "backfill of tr_hash at concept grain; same proof shape",
+    "356_concept_clearance.sql": "writes review rows, which carry their own hash columns by design",
+    "357_concept_clearance_correction.sql": "correction to 356's review rows",
+    "360_retranslation_fixes_and_clearance.sql": "writes review rows",
+    "358_english_concept_repair.sql": "repairs English and re-stamps the rows it repaired, in one reviewed statement",
+    "362_security_control_is_not_a_glossary.sql": "repairs one English row and re-stamps it",
+    "363_aimsf_concept_descriptions.sql": "lands 154 English descriptions and re-stamps them",
+    "311_item_translation_reviews.sql": "creates the review table",
+    "335_lesson_translation_reviews.sql": "creates the review table",
+    "339_task_translation_reviews.sql": "creates the review table",
+    "340_bilingual_queue_reviews.sql": "creates review rows",
+    "313_canonical_item_hash.sql": "item canonical hash, a different column family"
+  },
+  "script_writers": [
+    {
+      "name": "apply-reread-clearance.mjs",
+      "sql": false,
+      "positions": 1,
+      "targets": [
+        "concept_translations"
+      ],
+      "hows": [
+        "js-body"
+      ]
+    },
+    {
+      "name": "gen-concept-translations.mjs",
+      "sql": false,
+      "positions": 1,
+      "targets": [
+        "unknown"
+      ],
+      "hows": [
+        "js-body"
+      ]
+    }
+  ],
+  "migration_writers_found": [
+    {
+      "name": "311_item_translation_reviews.sql",
+      "sql": true,
+      "positions": 4,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "313_canonical_item_hash.sql",
+      "sql": true,
+      "positions": 1,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-assign"
+      ]
+    },
+    {
+      "name": "335_lesson_translation_reviews.sql",
+      "sql": true,
+      "positions": 3,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "339_task_translation_reviews.sql",
+      "sql": true,
+      "positions": 2,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "340_bilingual_queue_reviews.sql",
+      "sql": true,
+      "positions": 1,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "352_translation_side_hash.sql",
+      "sql": true,
+      "positions": 3,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-assign"
+      ]
+    },
+    {
+      "name": "356_concept_clearance.sql",
+      "sql": true,
+      "positions": 2,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "357_concept_clearance_correction.sql",
+      "sql": true,
+      "positions": 2,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-insert"
+      ]
+    },
+    {
+      "name": "359_concept_per_row_gate.sql",
+      "sql": true,
+      "positions": 1,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-assign"
+      ]
+    },
+    {
+      "name": "364_concept_translation_tr_hash.sql",
+      "sql": true,
+      "positions": 1,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-assign"
+      ]
+    }
+  ],
+  "undeclared_scripts": [],
+  "undeclared_migrations": []
+}

@@ -261,22 +261,76 @@ for (const e of edits) {
   console.log("  reworded " + e.cert + " " + e.language + " " + e.slug);
 }
 
-/* RE-STAMP tr_hash. This is the clearance: the row content is now what a
- * human has read, so the stored hash may record it again. Each row is stamped
- * from ITS OWN current content, read back from the database after the edits --
- * never from the value this script computed before writing. */
-const fresh = await allRows("concept_translations?select=id,name,description");
+/* ============ THIS SCRIPT DOES BOTH, AND THAT IS THE DEFECT NAMED ============
+ *
+ * It AUTHORS translated text (the three rewords) and it CLEARS rows (flips
+ * is_provisional). A script that generates and clears is the purest form of
+ * the hash-writer defect, because the generating half supplies an excuse for
+ * the clearing half to stamp.
+ *
+ * The two halves are now separated explicitly:
+ *
+ *   AUTHORED rows -- this run wrote their translated text, so it HOLDS that
+ *     text and a tr_hash stamped from it records something. Legitimate.
+ *
+ *   UNCHANGED rows -- this run did not touch them. It cannot prove anything
+ *     about their hashes, so it READS, COMPARES, and REFUSES on mismatch.
+ *     It never writes their tr_hash.
+ *
+ * The old code stamped ALL of them from current content, which made every row
+ * fresh by construction and meant the gate was never consulted for the nine it
+ * had no business vouching for.
+ */
+const fresh = await allRows("concept_translations?select=id,name,description,tr_hash");
 const freshBy = new Map(fresh.map((r) => [r.id, r]));
+const authored = new Set(edits.map((e) => e.id));
+
+const refused = [];
+let stamped = 0, cleared = 0;
 for (const t of toClear) {
   const row = freshBy.get(t.id);
-  const h = await rpc("translation_hash", { p_a: row.name, p_b: row.description });
+  const computed = await rpc("translation_hash", { p_a: row.name, p_b: row.description });
+
+  if (authored.has(t.id)) {
+    /* GENERATOR HALF: this run wrote that text. Stamp, then clear. */
+    const back = await rest("concept_translations?id=eq." + t.id, {
+      method: "PATCH", headers: { Prefer: "return=representation" },
+      body: JSON.stringify({ tr_hash: computed, is_provisional: false }),
+    });
+    if (!back?.[0] || back[0].tr_hash !== computed) throw new Error("tr_hash did not land on " + t.slug);
+    stamped++; cleared++;
+    continue;
+  }
+
+  /* CLEARANCE HALF: verify, never write. */
+  if (row.tr_hash !== computed) {
+    refused.push({ slug: t.slug, language: t.language, stored: row.tr_hash, computed });
+    continue;
+  }
   const back = await rest("concept_translations?id=eq." + t.id, {
     method: "PATCH", headers: { Prefer: "return=representation" },
-    body: JSON.stringify({ tr_hash: h, is_provisional: false }),
+    body: JSON.stringify({ is_provisional: false }),
   });
-  if (!back?.[0] || back[0].tr_hash !== h) throw new Error("tr_hash did not land on " + t.slug + " " + t.language);
+  if (!back?.[0]) throw new Error("clear failed on " + t.slug);
+  cleared++;
 }
-console.log("  re-stamped tr_hash on " + toClear.length + " row(s)");
+
+console.log("  authored and stamped   " + stamped);
+console.log("  verified and cleared   " + (cleared - stamped));
+console.log("  REFUSED                " + refused.length);
+/* A refusal that prints only a count is a refusal nobody will act on. */
+for (const r of refused) {
+  console.log("     " + r.slug.padEnd(34) + r.language.padEnd(8) +
+              "stored " + r.stored + "  computed " + r.computed);
+}
+if (refused.length) {
+  console.log("");
+  console.log("  A REFUSED ROW IS THE GATE WORKING, NOT AN ERROR IN THIS SCRIPT.");
+  console.log("  Its translated text no longer matches what was reviewed. The next step is");
+  console.log("  RETRANSLATION by a generator that holds the source, never a flag to force");
+  console.log("  past this. If you are reading this while adding --force, that is the");
+  console.log("  defect this whole mechanism exists to prevent.");
+}
 
 /* -------------------------------------------------- the review rows */
 /* The review table is certification+language grained, so every affected pair
@@ -366,4 +420,10 @@ ok("exactly one live review row per affected pair",
 
 console.log("");
 if (fail) { console.error(fail + " post-condition(s) FAILED."); process.exit(1); }
+/* A CLEARANCE THAT PARTIALLY APPLIED MUST NOT READ AS ONE THAT SUCCEEDED. */
+if (refused.length) {
+  console.error("");
+  console.error("EXIT 1: " + refused.length + " row(s) refused by the tr_hash gate and NOT cleared.");
+  process.exit(1);
+}
 console.log("Cleared. " + toClear.length + " row(s) re-stamped, " + PAIRS.length + " review row(s) written.");
