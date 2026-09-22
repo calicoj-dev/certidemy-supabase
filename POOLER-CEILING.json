@@ -1,0 +1,77 @@
+{
+  "phaseA": {
+    "calls": 120,
+    "first": null,
+    "statuses": {
+      "200": 120
+    }
+  },
+  "phaseB": {
+    "calls": 180,
+    "seconds": 197,
+    "statuses": {
+      "0": 2,
+      "200": 141,
+      "503": 37
+    },
+    "failures": [
+      "lesson_index/en/ISMS-IA -> 503",
+      "task/es-419/ISMS-IA -> 503",
+      "concept/es-419/ISMS-IA -> 503",
+      "lesson_index/es-419/ISMS-IA -> 503",
+      "concept/pt-BR/ISMS-IA -> 503",
+      "certification/en/SD-AI-I -> 503",
+      "task/en/SD-AI-I -> 503",
+      "search/en/SD-AI-I -> 503",
+      "lesson_index/en/SD-AI-I -> 503",
+      "certification/es-419/SD-AI-I -> 503",
+      "task/es-419/SD-AI-I -> 503",
+      "concept/es-419/SD-AI-I -> 503",
+      "search/es-419/SD-AI-I -> 503",
+      "certification/pt-BR/SD-AI-I -> 503",
+      "task/pt-BR/SD-AI-I -> 503",
+      "concept/pt-BR/SD-AI-I -> 503",
+      "lesson_index/pt-BR/SD-AI-I -> 503",
+      "certification/en/SM-AI-I -> 503",
+      "search/en/SM-AI-I -> 503",
+      "lesson_index/en/SM-AI-I -> 503",
+      "certification/es-419/SM-AI-I -> 503",
+      "concept/es-419/SM-AI-I -> 503",
+      "search/es-419/SM-AI-I -> 503",
+      "lesson_index/es-419/SM-AI-I -> 503",
+      "certification/pt-BR/SM-AI-I -> 503",
+      "task/pt-BR/SM-AI-I -> 503",
+      "concept/pt-BR/SM-AI-I -> 503",
+      "search/pt-BR/SM-AI-I -> 503",
+      "lesson_index/pt-BR/SM-AI-I -> 503",
+      "certification/en/SM-AI-II -> 503",
+      "task/en/SM-AI-II -> 503",
+      "concept/en/SM-AI-II -> 503",
+      "search/en/SM-AI-II -> 503",
+      "certification/es-419/SM-AI-II -> 503",
+      "task/es-419/SM-AI-II -> 503",
+      "search/es-419/SM-AI-II -> 503",
+      "lesson_index/es-419/SM-AI-II -> 503",
+      "certification/pt-BR/SM-AI-II -> 0",
+      "concept/en/SPO-AI-I -> 0"
+    ]
+  },
+  "phaseC": [
+    {
+      "after_ms": 0,
+      "status": 200
+    },
+    {
+      "after_ms": 5000,
+      "status": 200
+    },
+    {
+      "after_ms": 15000,
+      "status": 0
+    },
+    {
+      "after_ms": 30000,
+      "status": 200
+    }
+  ]
+}

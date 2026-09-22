@@ -1873,6 +1873,58 @@ the deployed function answering an unauthenticated request. `.mjs` against
 PostgREST with the service-role key is the same mistake in a different
 costume: **the credential the test holds IS the hypothesis.**
 
+**AND A TOOL DESCRIPTION READ THROUGH A CONNECTOR IS A CLAIM ABOUT THAT
+CONNECTOR'S CACHE, NOT ABOUT THE SERVER.** Recorded 2026-09-22. A contract
+defect was reported, a fix was nearly written, and neither existed.
+
+`list_lessons` was reported as returning fields its own output schema forbids,
+from a real client-side validation failure. Measured against the LIVE server --
+its `tools/list` schema against its `tools/call` payload, level by level --
+**every key matches and zero tools return an undeclared field.** The rejection
+came from a stale registered copy: that copy advertised four certifications
+where the live server advertises twelve, and carried a `get_concept`
+description the live server no longer serves.
+
+> **MECHANISM: anything asserted from a connector's tool list is verified
+> against the live server's declared schema before it becomes work.**
+
+Same family as reporting serving from a view, one layer out: **the artifact the
+observer holds is the hypothesis.** The tell was available the whole time -- a
+description that disagrees with the live server about something as coarse as
+how many certifications exist is not describing the live server.
+
+**REST IS PART OF THE METHOD, AND A PHASE THAT INHERITS THE PREVIOUS PHASE'S
+PRESSURE IS MEASURING ITS PREDECESSOR.** Recorded 2026-09-22, and it is the
+two-point rule applied to a live service rather than to a corpus.
+
+The pooler ceiling was first measured as: 120 unpaced calls fine, then a
+180-call catalogue sweep failing 39 times. The conclusion drawn was that
+PACING was the variable and that a partner could not read the whole catalogue.
+Both halves were wrong. The phases differed in pacing AND resource mix AND --
+the one nobody had written down -- **the sweep began 45 seconds after the
+burst, while every later run got 90.**
+
+```
+same 180-call mix, UNPACED, 90s rest    180/180
+same 180-call mix, 250ms,   90s rest    180/180
+same 180-call mix, 250ms,   90s rest    180/180   repeat
+same 180-call mix, 250ms,   45s rest    141/180, 37 x 503
+```
+
+**The sweep completes, paced or not.** What it cannot do is start while a
+previous burst is still draining: the bound is LIVE ISOLATES x the pool size
+of 2, and an evicted isolate's connections linger about 100 seconds.
+
+> **AND THE FIX THE WRONG FINDING IMPLIED WAS THE OPPOSITE OF A FIX.** "Ask
+> partners to slow down" would have been the recommendation. A slower client
+> keeps an isolate idle between calls, and an evicted isolate's replacement
+> opens a fresh pool -- so pacing can cost more connections rather than fewer.
+> Measured, it changed nothing at 180 calls.
+
+The exact recovery threshold is between 45s and 90s and **is not recorded here,
+because the run that would have narrowed it exceeded the time budget.** An
+unmeasured number left blank is worth more than a plausible one.
+
 **AN UNREPRODUCIBLE COUNT IS COMMENTARY, NOT MEASUREMENT.** Three careful
 counts of one 14-row batch gave **6, 8 and 10** -- the review's figure, the
 review's own enumeration, and a line-by-line diff. None is wrong. "Span" was
