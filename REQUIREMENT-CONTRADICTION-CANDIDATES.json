@@ -1,0 +1,69 @@
+{
+  "measured": "2026-09-22",
+  "what_this_is": "CANDIDATES for a human. A denial and an assertion from two certifications sharing at least four distinctive terms. Two rows can share vocabulary and not contradict; two rows can contradict sharing none. It decides nothing.",
+  "occasion": "ISMS-F served 'the requirement that auditors do not audit their own work' while AIMS-IA and ISMS-IA both denied any such rule exists. Nothing checked a row against another row.",
+  "totals": {
+    "live": 1729,
+    "denials": 27,
+    "assertions": 153,
+    "candidate_pairs": 3
+  },
+  "candidates": [
+    {
+      "shared_terms": 7,
+      "common": [
+        "objectives",
+        "requires",
+        "define",
+        "criteria",
+        "scope",
+        "each",
+        "42001"
+      ],
+      "denial": {
+        "cert": "ISMS-IA",
+        "slug": "ia-audit-objectives-are-practice-not-a-27001-requirement",
+        "description": "ISO/IEC 27001 clause 9.2.2 a) requires the organization to define the audit criteria and scope for each audit. It does not require audit objectives. ISO/IEC 42001's own 9.2.2 a) adds objectives where ISO/IEC 27001 does not."
+      },
+      "assertion": {
+        "cert": "AIMS-IA",
+        "slug": "aia-42001-9-2-2-a",
+        "description": "ISO/IEC 42001:2023 clause 9.2.2 states that the organization shall plan, establish, implement and maintain an audit programme including frequency, methods, responsibilities, planning requirements and reporting; that when establishing it the organization shall consider the importance of the processes concerned and the results of previous audits; and that the organization shall define the audit objectives, criteria and scope for each audit, select auditors and conduct audits so as to ensure objectivity and impartiality, and ensure results are reported to relevant managers. Documented information shall be available as evidence of the programme's implementation and of the audit results."
+      }
+    },
+    {
+      "shared_terms": 2,
+      "common": [
+        "objectivity",
+        "work"
+      ],
+      "denial": {
+        "cert": "ISMS-IA",
+        "slug": "ia-internal-auditor-limited-independence-remedy",
+        "description": "ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work - that formulation is practice convention."
+      },
+      "assertion": {
+        "cert": "ISMS-F",
+        "slug": "auditor-objectivity",
+        "description": "the requirement that auditors do not audit their own work"
+      }
+    },
+    {
+      "shared_terms": 2,
+      "common": [
+        "objectivity",
+        "work"
+      ],
+      "denial": {
+        "cert": "AIMS-IA",
+        "slug": "aia-independence-wherever-practicable",
+        "description": "ISO 19011:2026 clause 4.6 states that auditors should be independent of the activity being audited wherever practicable, and should in all cases act in a manner free from bias and conflict of interest. It adds that when it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. The principle is therefore conditional by its own wording, and neither ISO 19011 nor ISO/IEC 42001 forbids auditing work one has contributed to."
+      },
+      "assertion": {
+        "cert": "ISMS-F",
+        "slug": "auditor-objectivity",
+        "description": "the requirement that auditors do not audit their own work"
+      }
+    }
+  ]
+}

@@ -24,11 +24,11 @@
   ],
   "totals": {
     "live": 1729,
-    "fires": 114,
+    "fires": 100,
     "title_class_exempt": 1,
     "annex_structure": 8,
-    "clause_text": 105,
-    "below_absolute_floor": 5
+    "clause_text": 91,
+    "below_absolute_floor": 1
   },
   "buckets": [
     {
@@ -37,7 +37,6 @@
       "per_certification": {
         "AIGRM-I": 0,
         "AIMS-IA": 20,
-        "ISMS-F": 0,
         "ISMS-IA": 19
       }
     },
@@ -47,7 +46,6 @@
       "per_certification": {
         "AIGRM-I": 0,
         "AIMS-IA": 19,
-        "ISMS-F": 0,
         "ISMS-IA": 10
       }
     },
@@ -57,187 +55,48 @@
       "per_certification": {
         "AIGRM-I": 0,
         "AIMS-IA": 18,
-        "ISMS-F": 0,
         "ISMS-IA": 4
       }
     },
     {
       "bucket": "20-24",
-      "count": 5,
+      "count": 0,
       "per_certification": {
         "AIGRM-I": 0,
-        "AIMS-IA": 4,
-        "ISMS-F": 0,
-        "ISMS-IA": 1
+        "AIMS-IA": 0,
+        "ISMS-IA": 0
       }
     },
     {
       "bucket": "25-29",
-      "count": 4,
+      "count": 0,
       "per_certification": {
         "AIGRM-I": 0,
-        "AIMS-IA": 3,
-        "ISMS-F": 0,
-        "ISMS-IA": 1
+        "AIMS-IA": 0,
+        "ISMS-IA": 0
       }
     },
     {
       "bucket": "30+",
-      "count": 1,
+      "count": 0,
       "per_certification": {
         "AIGRM-I": 0,
-        "AIMS-IA": 1,
-        "ISMS-F": 0,
+        "AIMS-IA": 0,
         "ISMS-IA": 0
       }
     }
   ],
   "attribution": {
-    "names_a_clause": 83,
-    "unattributed": 22
+    "names_a_clause": 73,
+    "unattributed": 18
   },
   "what_is_reproduced": {
-    "definition": 14,
-    "requirement": 46,
-    "neither": 45
+    "definition": 12,
+    "requirement": 42,
+    "neither": 37
   },
-  "overlap_with_rewritten": [
-    "availability",
-    "risk-criteria",
-    "iso-27005-risk",
-    "cryptographic-controls"
-  ],
+  "overlap_with_rewritten": [],
   "rows": [
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-clause-6-1-4-impact-assessment",
-      "run": 37,
-      "coverage": 0.398,
-      "source": "42001:2023",
-      "clause": "6.1.4 AI system impact assessment",
-      "description_chars": 600,
-      "names_a_clause": true,
-      "shape": "definition",
-      "longest_span": "define a process for assessing the potential consequences for individuals or groups of individuals or both and societies that can result from the development provision or use of ai systems the assessment shall determine the potential consequences",
-      "description": "ISO/IEC 42001:2023 clause 6.1.4 requires the organization to define a process for assessing the potential consequences for individuals or groups of individuals, or both, and societies, that can result from the development, provision or use of AI systems. The assessment shall determine the potential consequences of the system's deployment, intended use and foreseeable misuse; shall take into account the specific technical and societal context and applicable jurisdictions; and its result shall be documented. The organization shall consider the results in the risk assessment referred to in 6.1.2."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-collecting-verifying-information",
-      "run": 29,
-      "coverage": 0.362,
-      "source": "19011:2026",
-      "clause": "6.4.7 Collecting and verifying information",
-      "description_chars": 493,
-      "names_a_clause": true,
-      "shape": "neither",
-      "longest_span": "can be subject to some degree of verification should be accepted as audit evidence where the degree of verification is low the auditor should use professional judgement to determine",
-      "description": "ISO 19011:2026 clause 6.4.7 states that information relevant to the audit objectives, scope and criteria should be collected by appropriate sampling and should be verified as far as practicable, and that only information which can be subject to some degree of verification should be accepted as audit evidence. Where the degree of verification is low, the auditor should use professional judgement to determine how much reliance to place on it. Evidence leading to findings should be recorded."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-independence-wherever-practicable",
-      "run": 27,
-      "coverage": 0.303,
-      "source": "19011:2026",
-      "clause": "4.6 Independence",
-      "description_chars": 524,
-      "names_a_clause": true,
-      "shape": "neither",
-      "longest_span": "auditors should be independent of the activity being audited wherever practicable and should in all cases act in a manner free from bias and conflict of interest",
-      "description": "ISO 19011:2026 clause 4.6 states that auditors should be independent of the activity being audited wherever practicable, and should in all cases act in a manner free from bias and conflict of interest. It adds that when it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. The principle is therefore conditional by its own wording, and neither ISO 19011 nor ISO/IEC 42001 forbids auditing work one has contributed to."
-    },
-    {
-      "cert": "ISMS-IA",
-      "slug": "ia-internal-auditor-limited-independence-remedy",
-      "run": 26,
-      "coverage": 0.441,
-      "source": "19011:2026",
-      "clause": "4.6 Independence",
-      "description_chars": 343,
-      "names_a_clause": true,
-      "shape": "neither",
-      "longest_span": "it is not possible for internal auditors to be independent of the activity being audited every effort should be made to remove bias and encourage objectivity",
-      "description": "ISO 19011:2026 clause 4.6 states that where it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity. Neither ISO 19011 nor ISO/IEC 27001 contains a rule that an auditor may not audit their own work - that formulation is practice convention."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-clause-8-1-operational-control",
-      "run": 25,
-      "coverage": 0.287,
-      "source": "27001:2022",
-      "clause": "8.1 Operational planning and control",
-      "description_chars": 561,
-      "names_a_clause": true,
-      "shape": "requirement",
-      "longest_span": "plan implement and control the processes needed to meet requirements and to implement the actions determined in clause 6 by establishing criteria for the processes",
-      "description": "ISO/IEC 42001:2023 clause 8.1 requires the organization to plan, implement and control the processes needed to meet requirements and to implement the actions determined in Clause 6, by establishing criteria for the processes and implementing control in accordance with those criteria. It further requires the organization to implement the controls determined according to 6.1.3 that relate to the operation of the AIMS, and requires that the effectiveness of those controls be monitored and corrective actions considered where intended results are not achieved."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-planned-changes-control",
-      "run": 23,
-      "coverage": 0.319,
-      "source": "42001:2023",
-      "clause": "6.3 Planning of changes",
-      "description_chars": 414,
-      "names_a_clause": true,
-      "shape": "requirement",
-      "longest_span": "when the organization determines the need for changes to the ai management system the changes shall be carried out in a planned manner",
-      "description": "ISO/IEC 42001:2023 clause 6.3 requires that when the organization determines the need for changes to the AI management system, the changes shall be carried out in a planned manner. Clause 8.1 adds control of planned changes and review of the consequences of unintended ones. A change to an AI system's purpose, data or deployment context is where role determination and impact assessment can both fall out of date."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-conducting-interviews",
-      "run": 22,
-      "coverage": 0.262,
-      "source": "19011:2026",
-      "clause": "100 % of the items within the total available da",
-      "description_chars": 510,
-      "names_a_clause": true,
-      "shape": "neither",
-      "longest_span": "an important means of collecting information carried out in a manner adapted to the situation and the individual face to face or",
-      "description": "ISO 19011:2026 Annex A.17 treats interviews as an important means of collecting information, carried out in a manner adapted to the situation and the individual, face-to-face or by other means. It asks that interviews be held with individuals from appropriate levels and functions performing activities within the audit scope, normally during working hours and where practical at the normal workplace, that the interviewee be put at ease, and that the reason for the interview and any note taking be explained."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-policy-review-a-2-4",
-      "run": 22,
-      "coverage": 0.289,
-      "source": "42001:2023",
-      "clause": "(span not located in the layout text)",
-      "description_chars": 419,
-      "names_a_clause": true,
-      "shape": "requirement",
-      "longest_span": "that the ai policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability adequacy and effectiveness",
-      "description": "Table A.1 control A.2.4 states that the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness. Like every Table A.1 control it applies where the organization has selected it under clause 6.1.3 and declared it in the statement of applicability. Clause 5.2 requires the policy to exist; A.2.4 is where periodic review of it comes from."
-    },
-    {
-      "cert": "ISMS-IA",
-      "slug": "ia-audit-programme-3-5",
-      "run": 21,
-      "coverage": 0.7,
-      "source": "19011:2026",
-      "clause": "3 Terms and definitions",
-      "description_chars": 159,
-      "names_a_clause": true,
-      "shape": "definition",
-      "longest_span": "arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose",
-      "description": "ISO 19011:2026 clause 3.5 defines it as arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose."
-    },
-    {
-      "cert": "AIMS-IA",
-      "slug": "aia-ai-policy-requirements",
-      "run": 20,
-      "coverage": 0.233,
-      "source": "42001:2023",
-      "clause": "5.2 AI policy",
-      "description_chars": 558,
-      "names_a_clause": true,
-      "shape": "requirement",
-      "longest_span": "establish an ai policy that is appropriate to the purpose of the organization provides a framework for setting ai objectives",
-      "description": "ISO/IEC 42001:2023 clause 5.2 requires top management to establish an AI policy that is appropriate to the purpose of the organization, provides a framework for setting AI objectives, and includes commitments to meet applicable requirements and to continual improvement. The policy shall be available as documented information, refer as relevant to other organizational policies, be communicated within the organization, and be available to interested parties as appropriate. This is a clause requirement and applies whether or not control A.2.2 is selected."
-    },
     {
       "cert": "ISMS-IA",
       "slug": "ia-clauses-4-to-10-not-excludable",
@@ -1409,45 +1268,6 @@
       "description": "ISO 19011:2026 clause 4.5 asks auditors to exercise discretion in the use and protection of information acquired during auditing, including proper handling of sensitive or confidential information. This can pull against the completeness that clause 4.3 asks for, particularly where evidence includes personal data or commercially sensitive model details. Nothing in the text ranks the two, and the usual resolution is to state the finding fully while holding the underlying evidence in the audit record rather than the distributed report."
     },
     {
-      "cert": "ISMS-F",
-      "slug": "availability",
-      "run": 9,
-      "coverage": 0.818,
-      "source": "22989:2022",
-      "clause": "3.5 Terms related to trustworthiness",
-      "description_chars": 70,
-      "names_a_clause": false,
-      "shape": "neither",
-      "longest_span": "accessible and usable on demand by an authorized entity",
-      "description": "information is accessible and usable on demand by an authorized entity"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "risk-criteria",
-      "run": 6,
-      "coverage": 0.6,
-      "source": "27005:2022",
-      "clause": "(span not located in the layout text)",
-      "description_chars": 64,
-      "names_a_clause": false,
-      "shape": "neither",
-      "longest_span": "the terms of reference against which",
-      "description": "the terms of reference against which risk significance is judged"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "iso-27005-risk",
-      "run": 6,
-      "coverage": 1,
-      "source": "27002:2022",
-      "clause": "(span not located in the layout text)",
-      "description_chars": 48,
-      "names_a_clause": false,
-      "shape": "neither",
-      "longest_span": "guidance on information security risk management",
-      "description": "guidance on information security risk management"
-    },
-    {
       "cert": "AIGRM-I",
       "slug": "technical-documentation-requirement",
       "run": 4,
@@ -1459,19 +1279,6 @@
       "shape": "neither",
       "longest_span": "the system meets requirements",
       "description": "Documentation demonstrating the system meets requirements."
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "cryptographic-controls",
-      "run": 4,
-      "coverage": 0.8,
-      "source": "27002:2022",
-      "clause": "5.16 Identity management",
-      "description_chars": 34,
-      "names_a_clause": false,
-      "shape": "neither",
-      "longest_span": "use and management of",
-      "description": "use and management of cryptography"
     }
   ]
 }

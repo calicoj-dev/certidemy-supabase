@@ -2216,6 +2216,86 @@ what clause 4.1 requires while avoiding the words *determine external and
 internal issues*. Naming the clause and restating the requirement is allowed
 and encouraged; copying the sentence is not.
 
+**A NEGATIVE CLAIM CARRIES A POSITIVE CONTROL, ALWAYS.** Adopted 2026-09-22 as
+the standing mechanism, replacing declared-citation-rows.
+
+A positive claim is verified by FINDING text. A negative claim -- *"27001 does
+not say X"* -- can only be verified by FAILING to find it, **and failing to
+find something is exactly what a broken search does.** That is the vacuous-pass
+shape this file already records three times over.
+
+> **MECHANISM: every negative claim names a POSITIVE CONTROL -- a phrase from
+> the same document, ideally the same clause, that MUST be found. If the
+> control fails the absence result is DISCARDED, not reported.** A search that
+> cannot find what is there says nothing about what is not.
+
+**And absence is bounded by the index, so every negative verdict names what it
+searched.** *"Absent from the indexed standards"* is not *"absent from ISO"*:
+ISO/IEC 17021 and 17024 are not on disk, and 17021 is where the rule this was
+all about actually lives.
+
+`scripts/verify-claims.mjs` is the instrument. First run: 6 claims, 0 control
+failures, 0 claim failures.
+
+**WHY IT REPLACED DECLARED-CITATION-ROWS.** That mechanism asked the author to
+declare which rows made citation claims, on the assumption they were a
+minority. In AIMS-IA and ISMS-IA **every row cites a clause**, so the
+declaration selected everything and therefore nothing. A filter that matches
+the whole population is not a filter.
+
+**ONE CERTIFICATION CAN ASSERT WHAT ANOTHER DENIES, AND NOTHING WAS CHECKING.**
+Found 2026-09-22 and it is a new defect class.
+
+ISMS-F served **`auditor-objectivity :: the requirement that auditors do not
+audit their own work`** while AIMS-IA and ISMS-IA both stated that no such rule
+exists in any of the standards and named reading it as a requirement as the
+trap. **Three certifications, one unauthenticated endpoint, opposite claims
+about what a standard says.** A partner pulling `get_concept` across the
+catalogue -- which is what an ISO practice does -- meets all three together.
+
+Verified with controls before anything was changed: the phrases are **ABSENT**
+from 19011:2026, 27001:2022, 42001:2023 and 27002:2022, with four positive
+controls found; and 27001 cl.9.2.2 **does** require auditors to be selected and
+audits conducted so as to ensure objectivity and impartiality. ISMS-F's row was
+the wrong one and was reopened for one row, because a contradiction is worse
+than either version of it.
+
+> **EVERY GATE HERE CHECKS A ROW AGAINST A STANDARD. NOTHING CHECKED A ROW
+> AGAINST ANOTHER ROW.** `scripts/sweep-requirement-contradictions.mjs` pairs a
+> DENIAL in one certification against an ASSERTION in another on shared
+> distinctive vocabulary. It generates candidates and decides nothing.
+
+**ITS FIRST VERSION COULD NOT SEE ITS OWN FOUNDING CASE.** It required four
+shared distinctive terms, returned 50 candidates, and **none of them was
+`auditor-objectivity`**. That row's entire description is seven words; once
+`auditor`, `audit` and `requirement` are stopworded as corpus-frequent, TWO
+distinctive terms remain. **The threshold excluded by LENGTH what it was meant
+to select by MEANING.**
+
+The threshold is now relative to the shorter row -- half its distinctive terms,
+floor two -- and **a regression control refuses to print any list unless
+`auditor-objectivity` is surfaced.** Candidates fell from 50 to 3, because a
+long row sharing four terms out of forty was never a signal.
+
+**A CLAUSE ADDRESS IS NOT A KEY. THE KEY IS (STANDARD, ADDRESS).** Recorded
+2026-09-22, before it cost anything.
+
+Pairing ISMS-IA against AIMS-IA by clause address found 17 addresses covering
+47 rows -- and **ISO 19011's clause 4.x and 5.x numbers collide with the
+harmonised management-system clause 4.x and 5.x.** Clause 4.1 is *context of
+the organization* in 27001 and 42001, and *principles* in ISO 19011. Clause 5.3
+is *roles and responsibilities* in the management-system standards and *audit
+programme risks* in 19011.
+
+So four of the seventeen groups hold two unrelated subjects, and "one analysis
+per clause address" would have merged them. Keyed on (standard, address) the
+collisions separate.
+
+**An unqualified clause reference means the certification's OWN standard** --
+ISMS-IA writing *"Clause 8.2 requires"* means 27001, AIMS-IA means 42001 -- and
+a detector without that default returned "unknown" for eight of seventeen and
+manufactured one collision that does not exist.
+
 **AN EXEMPTION IS DEFINED BY WHAT THE THING IS, NOT BY WHAT IT LOOKS LIKE IN
 THE EXTRACTION.** Recorded 2026-09-22. Third exemption in this corpus to need
 narrowing after adoption.

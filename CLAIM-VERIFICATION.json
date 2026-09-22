@@ -1,0 +1,211 @@
+{
+  "measured": "2026-09-22",
+  "index": [
+    "19011:2026",
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27001:2022",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022",
+    "42001:2023"
+  ],
+  "not_indexed": [
+    "ISO/IEC 17021",
+    "ISO/IEC 17024"
+  ],
+  "coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "rule": "Every NEGATIVE claim carries a positive control from the same document, ideally the same clause. If the control fails the absence result is DISCARDED, because a search that cannot find what is there says nothing about what is not.",
+  "claims": [
+    {
+      "id": "auditor-objectivity-contradiction",
+      "row": "ISMS-F / auditor-objectivity",
+      "claim": "NEGATIVE: no indexed standard states that auditors may not audit their own work.",
+      "kind": "negative",
+      "searched": [
+        "19011:2026",
+        "27001:2022",
+        "42001:2023",
+        "27002:2022"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "control": true,
+          "source": "19011:2026",
+          "phrase": "independent of the activity being audited",
+          "found": true
+        },
+        {
+          "control": true,
+          "source": "27001:2022",
+          "phrase": "ensure objectivity and the impartiality of the audit process",
+          "found": true
+        },
+        {
+          "control": true,
+          "source": "42001:2023",
+          "phrase": "internal audits at planned intervals",
+          "found": true
+        },
+        {
+          "control": true,
+          "source": "27002:2022",
+          "phrase": "information security",
+          "found": true
+        },
+        {
+          "searched_for_absence": [
+            "audit their own work",
+            "auditors shall not audit",
+            "not audit their own",
+            "shall not audit their own work",
+            "auditing their own work"
+          ],
+          "unexpectedly_found": []
+        }
+      ],
+      "verdict": "VERIFIED ABSENT"
+    },
+    {
+      "id": "objectivity-impartiality-9-2-2",
+      "row": "ISMS-F / auditor-objectivity (replacement basis)",
+      "claim": "POSITIVE: ISO/IEC 27001:2022 clause 9.2.2 requires the selection of auditors and conduct of audits to ensure objectivity and impartiality.",
+      "kind": "positive",
+      "searched": [
+        "27001:2022"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "phrase": "select auditors and conduct audits that ensure objectivity and the impartiality of the audit process",
+          "found_in": [
+            "27001:2022"
+          ]
+        }
+      ],
+      "verdict": "VERIFIED"
+    },
+    {
+      "id": "policy-review-5-2",
+      "row": "AIMS-IA / aia-policy-review-a-2-4",
+      "claim": "NEGATIVE: ISO/IEC 42001:2023 clause 5.2 says nothing about reviewing the AI policy.",
+      "kind": "negative-clause-scoped",
+      "searched": [
+        "42001:2023"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "control": true,
+          "source": "42001:2023",
+          "phrase": "establish an ai policy",
+          "found": true
+        },
+        {
+          "searched_for_absence": [
+            "reviewed at planned intervals",
+            "shall be reviewed",
+            "review the ai policy",
+            "policy shall be reviewed"
+          ],
+          "unexpectedly_found": []
+        }
+      ],
+      "verdict": "VERIFIED ABSENT"
+    },
+    {
+      "id": "independence-no-prohibition-19011",
+      "row": "AIMS-IA / aia-independence-wherever-practicable",
+      "claim": "NEGATIVE: ISO 19011:2026 does not forbid auditing work one has contributed to.",
+      "kind": "negative",
+      "searched": [
+        "19011:2026"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "control": true,
+          "source": "19011:2026",
+          "phrase": "auditors should be independent of the activity being audited",
+          "found": true
+        },
+        {
+          "searched_for_absence": [
+            "shall not audit",
+            "must not audit",
+            "may not audit",
+            "prohibited from auditing",
+            "audit their own work",
+            "auditing work they have"
+          ],
+          "unexpectedly_found": []
+        }
+      ],
+      "verdict": "VERIFIED ABSENT"
+    },
+    {
+      "id": "independence-no-prohibition-42001-27001",
+      "row": "AIMS-IA and ISMS-IA independence rows",
+      "claim": "NEGATIVE: neither ISO/IEC 42001:2023 nor ISO/IEC 27001:2022 forbids auditing work one has contributed to.",
+      "kind": "negative",
+      "searched": [
+        "42001:2023",
+        "27001:2022"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "control": true,
+          "source": "42001:2023",
+          "phrase": "internal audits at planned intervals",
+          "found": true
+        },
+        {
+          "control": true,
+          "source": "27001:2022",
+          "phrase": "internal audits at planned intervals",
+          "found": true
+        },
+        {
+          "searched_for_absence": [
+            "shall not audit",
+            "must not audit",
+            "may not audit",
+            "audit their own work",
+            "prohibited from auditing",
+            "own work"
+          ],
+          "unexpectedly_found": []
+        }
+      ],
+      "verdict": "VERIFIED ABSENT"
+    },
+    {
+      "id": "programme-not-audit-9-2",
+      "row": "ISMS-IA / ia-audit-programme-3-5",
+      "claim": "POSITIVE: ISO/IEC 27001:2022 clause 9.2 requires an audit PROGRAMME, not a single audit.",
+      "kind": "positive",
+      "searched": [
+        "27001:2022"
+      ],
+      "index_note": "absence is bounded by the index below",
+      "evidence": [
+        {
+          "phrase": "plan establish implement and maintain an audit programme",
+          "found_in": [
+            "27001:2022"
+          ]
+        }
+      ],
+      "verdict": "VERIFIED"
+    }
+  ],
+  "control_failures": 0,
+  "claim_failures": 0
+}

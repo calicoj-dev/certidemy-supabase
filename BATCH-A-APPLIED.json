@@ -1,0 +1,79 @@
+{
+  "applied": "2026-09-22",
+  "rows": 11,
+  "slugs": [
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-6-1-4-impact-assessment",
+      "revised": true,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-collecting-verifying-information",
+      "revised": true,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-independence-wherever-practicable",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-internal-auditor-limited-independence-remedy",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-clause-8-1-operational-control",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-planned-changes-control",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-conducting-interviews",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-policy-review-a-2-4",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "ia-audit-programme-3-5",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aia-ai-policy-requirements",
+      "revised": false,
+      "contradiction_fix": false
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "auditor-objectivity",
+      "revised": false,
+      "contradiction_fix": true
+    }
+  ],
+  "withheld_per_certification": {
+    "ISMS-IA": 4,
+    "AIMS-IA": 16,
+    "ISMS-F": 2
+  },
+  "serving_withheld": 2,
+  "untouchedHash": "4ecb7786004052f2"
+}

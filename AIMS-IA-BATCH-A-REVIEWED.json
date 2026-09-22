@@ -1,0 +1,53 @@
+{
+  "batch": "A",
+  "reviewed": "2026-09-22",
+  "reviewer": "director",
+  "read": "all ten in full, plus both revised rows",
+  "verdict": { "apply": 10, "return": 0, "revised_rows_approved": 2 },
+  "result_on_the_question_batch_A_existed_to_answer": {
+    "question": "Can a requirement statement keep its normative force without the standard's sentence?",
+    "answer": "YES, and the modal distinction gets SHARPER when restated. The standard's sentence CARRIES the modal; it does not EXPLAIN it. aia-collecting-verifying-information now says outright that 6.4.7 is should and not shall because 19011 guides rather than requires - the reproduction never said that at all. aia-planned-changes-control now says the shall attaches to the MANNER of a change rather than its paperwork, which the original carried implicitly and a candidate could miss.",
+    "consequence": "The policy stands for the remaining 91. 37 words to 6, ten for ten, none firing, none introduced."
+  },
+  "best_in_batch": [
+    "aia-policy-review-a-2-4 - 'binds only once selected under 6.1.3 and declared in the Statement of Applicability, which is the whole difference between a clause requirement and a control'. The core AIMS-IA teaching point, stated better than the clause states it.",
+    "aia-independence-wherever-practicable - 'two different strengths to one principle: independence where practicable, freedom from bias in every case. The first is conditional and the second is not.' The verbatim sentence obscures exactly this.",
+    "aia-clause-8-1-operational-control - 'an AIMS that plans well and operates nothing fails HERE rather than at clause 6'",
+    "aia-clause-6-1-4-impact-assessment revised - 'an assessment that happened only as a conversation cannot be evidenced, so an auditor looks for its result before asking anything about its quality'"
+  ],
+  "on_3_2": {
+    "note": "You named a row, I asked you to verify it, and it turned out you had named the WRONG ROW and reasoned across a certification boundary a candidate never crosses. Both halves wrong, reported as both halves wrong. aia-evidence-requirement-link cites Annex A.18.3 c) and says nothing about recording; ia-audit-records-5-5-7 carries it, and that row is ISMS-IA. Carried elsewhere for ISMS-IA; a loss for AIMS-IA. Restored as the reason - recording exists so a finding is reproducible - rather than as the sentence."
+  },
+  "cross_certification_contradiction": {
+    "severity": "HIGHEST - outranks the batch",
+    "isms_f_says": "auditor-objectivity :: the requirement that auditors do not audit their own work",
+    "aims_ia_and_isms_ia_say": "Neither ISO 19011 nor ISO/IEC 42001 [27001] forbids auditing work you contributed to - that rule is practice convention, and reading it as a requirement is the trap.",
+    "why_it_matters": "One certification teaches as a requirement the exact thing two others teach as NOT a requirement and specifically name as the trap. All three serve English from the same unauthenticated endpoint. A partner pulling get_concept across the catalogue - which is what an ISO practice does - finds us contradicting ourselves about what a standard says.",
+    "my_reading_which_goes_through_the_instrument_like_everything_else": "The auditor rows are right and ISMS-F is wrong. 27001 cl.9.2.2 asks for objectivity and impartiality; 'shall not audit their own work' is ISO/IEC 17021 language about CERTIFICATION BODIES, not internal audit.",
+    "required": [
+      "Verify, with a positive control, then fix ISMS-F's auditor-objectivity row. This is a ONE-ROW EXCEPTION to ISMS-F being closed and it is worth reopening for - a contradiction is worse than either version.",
+      "Then sweep the class: any concept whose description asserts a requirement that another certification's description denies. Nothing currently performs that check and the corpus now spans four standards."
+    ]
+  },
+  "declared_citation_rows_has_stopped_working": {
+    "observation": "All ten rows name a clause. The mechanism I set - you declare the citation rows, I read those in full - assumed citation rows were a minority. In AIMS-IA and ISMS-IA they are the population.",
+    "replacement": "Each row reports the CLAIMS it makes and what verified each one, positive and negative alike.",
+    "negative_claims_need_a_positive_control": "A negative claim cannot be verified by finding text, only by failing to find it, which is the vacuous-pass shape. You already did this right once: top-management's 'delegate is absent from 27001' was checked with a self-test proving the search would have found the phrase if it were there. That becomes the rule for every negative claim rather than a thing done on one row.",
+    "three_in_this_batch_needing_it": [
+      "aia-policy-review-a-2-4 - 'clause 5.2 requires the policy to exist and says nothing about revisiting it'",
+      "aia-independence-wherever-practicable and ia-internal-auditor-limited-independence-remedy - 'neither ISO 19011 nor ISO/IEC 42001 [27001] forbids auditing work you contributed to'",
+      "ia-audit-programme-3-5 - 'ISO/IEC 27001 clause 9.2 requires a programme, not an audit' (positive, but unverified)"
+    ]
+  },
+  "pairing_ruling": {
+    "measured": "17 clause addresses, 47 rows in at least one pair, 44 unpaired",
+    "note": "Giving the pair count and the row count separately was right - reading 17 as rows understates the saving, reading 47 as pairs overstates it. Effective work drops from 91 units to about 61. Not the halving I floated.",
+    "batch_B": "ALL 17 PAIRS, 47 rows, written as 17 ANALYSES. One analysis per clause address, two texts from it - the AI framing and the security framing.",
+    "assert": "The paired texts are NOT byte-identical and do not share an opening clause. The description-collision guard exists for exactly this situation: two rows written from one analysis.",
+    "batches_C_and_D": "the 44 unpaired, by run length descending"
+  },
+  "harmonised_source_naming": {
+    "accepted": "12 of 101 spans appear in more than one indexed standard; 11 were named 27001:2022 and 5 of those are AIMS-IA rows citing 42001. Naming every matching standard is correct - the single name pointed at a document the row does not cite, which reads as misattribution and is not one.",
+    "note": "Pairing by the address the row CITES rather than by where its span MATCHES was the right call, and for the right reason: using the span's source would have built the report on the artefact the naming fix exists to correct."
+  }
+}
