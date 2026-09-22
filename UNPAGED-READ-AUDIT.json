@@ -5,11 +5,11 @@
   "counts": {
     "UNSAFE": 44,
     "CAPPED": 7,
-    "PAGED-NO-ASSERT": 11,
+    "PAGED-NO-ASSERT": 0,
     "DYNAMIC": 0,
     "SAFE-SCALAR": 61,
     "SAFE-COUNT": 6,
-    "SAFE-PAGED": 75
+    "SAFE-PAGED": 86
   },
   "unsafe_against_big_table": 10,
   "capped_against_big_table": 3,
@@ -1407,7 +1407,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "certifications",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1416,7 +1416,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "domains",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1425,7 +1425,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "tasks",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1434,7 +1434,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "concepts",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1794,7 +1794,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "certifications",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1803,7 +1803,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "concepts",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1812,7 +1812,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "tasks",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1821,7 +1821,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "domains",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1830,7 +1830,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "task_concepts",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1839,7 +1839,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "lesson_concepts",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1848,7 +1848,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "drift_rules",
-      "klass": "PAGED-NO-ASSERT",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",

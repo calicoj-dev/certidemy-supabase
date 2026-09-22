@@ -58,8 +58,36 @@ const results = [];
  * truncation would otherwise present as a wall of plausible-looking failures.
  */
 const fetched = {};
-const record = (name, failures, detail) =>
-  results.push({ name, pass: failures.length === 0, failures, detail });
+/**
+ * EVERY INVARIANT REPORTS WHAT IT EXAMINED, and a zero denominator is not a
+ * pass.
+ *
+ * `match term uniqueness` printed PASS for as long as it has existed while
+ * looking at NOTHING: `match_terms` is deliberately empty platform-wide, so
+ * the check has never had a term to collide. It rendered identically to the
+ * six invariants beside it, which between them cover 5,000+ rows, and it
+ * inflated the apparent coverage of the suite by one seventh.
+ *
+ * A pass is a claim that something was examined and held. When the denominator
+ * is zero, nothing was examined and the claim is empty -- so it gets its own
+ * status rather than borrowing the one that means "checked, and fine".
+ *
+ * VACUOUS does not fail the suite. A check with nothing to look at is not a
+ * defect; reporting it as success is.
+ */
+const record = (name, failures, detail, examined) => {
+  if (!Number.isFinite(examined)) {
+    throw new Error(`invariant "${name}" reported no denominator -- every check must say what it examined`);
+  }
+  results.push({
+    name,
+    pass: failures.length === 0,
+    vacuous: examined === 0,
+    examined,
+    failures,
+    detail,
+  });
+};
 
 // ------------------------------------------------------------------- pull
 
@@ -91,7 +119,7 @@ Object.assign(fetched, {
   const failures = concepts
     .filter((c) => !taught.has(c.id))
     .map((c) => `${certById.get(c.certification_id)?.code ?? "?"} / ${c.slug}`);
-  record("concept coverage", failures, `${concepts.length} concepts across ${certs.length} certifications`);
+  record("concept coverage", failures, `${concepts.length} concepts across ${certs.length} certifications`, concepts.length);
 }
 
 // ---------------------------------------- 2 & 3. drift rule health
@@ -121,12 +149,12 @@ Object.assign(fetched, {
       dead.push(`${r.lang} "${r.legacy_term}": ${err.message}`);
     }
   }
-  record("drift rule self-match", dead, `${rules.filter((r) => r.is_active).length} active rules`);
+  record("drift rule self-match", dead, `${rules.filter((r) => r.is_active).length} active rules`, rules.filter((r) => r.is_active).length);
 
   const ungrounded = rules
     .filter((r) => r.is_active && !r.authority_citation_id)
     .map((r) => `${r.lang} "${r.legacy_term}"`);
-  record("drift rule grounding", ungrounded, "every rule cites actual standard text");
+  record("drift rule grounding", ungrounded, "every rule cites actual standard text", rules.filter((r) => r.is_active).length);
 }
 
 // ------------------------------------------------- 4. blueprint weights
@@ -142,7 +170,7 @@ Object.assign(fetched, {
       failures.push(`${certById.get(certId)?.code ?? certId}: weights sum to ${sum}, not 100`);
     }
   }
-  record("blueprint weights", failures, `${byCert.size} certifications`);
+  record("blueprint weights", failures, `${byCert.size} certifications`, byCert.size);
 }
 
 // ------------------------------------------------- 5. orphan concepts
@@ -152,7 +180,7 @@ Object.assign(fetched, {
   const failures = concepts
     .filter((c) => !linked.has(c.id))
     .map((c) => `${certById.get(c.certification_id)?.code ?? "?"} / ${c.slug}`);
-  record("concept reachability", failures, "every concept reachable from a task");
+  record("concept reachability", failures, "every concept reachable from a task", concepts.length);
 }
 
 // --------------------------------------------- 6. match term collisions
@@ -174,65 +202,42 @@ Object.assign(fetched, {
     }
   }
   const termCount = concepts.reduce((n, c) => n + (c.match_terms?.length ?? 0), 0);
-  record("match term uniqueness", failures, `${termCount} terms authored`);
+  record("match term uniqueness", failures, `${termCount} terms authored`, termCount);
 }
 
 // ----------------------------------------------------------------- report
 
 // ---------------------------------------------------------------------------
-// MIGRATION TIP MATCHES THE DISK.
+// MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
-// CLAUDE.md carries "Migration tip: NNN. Next free number: NNN+1." It has gone
-// stale FOUR recorded times, twice self-inflicted, and once by five. It has
-// never been correct when a later session needed it. The cost is not a wrong
-// number in a document: two sessions once reached for 264 independently and
-// both were right, and a filename collision is cheap to fix and expensive to
-// notice because both files look correct in isolation.
+// This asserted that CLAUDE.md carried a parseable
+// "Migration tip: NNN. Next free number: NNN." line matching the highest file
+// on disk. That line was DELIBERATELY REMOVED from CLAUDE.md, which now says
+// so in its own first section: a sentence in a document is a second copy of a
+// fact that lives elsewhere, and a second copy goes stale by default. The tip
+// was wrong eight times on 2026-09-17 alone.
 //
-// FOUR ROUNDS OF RECORDING IT DID NOT HELP, BECAUSE THE GAP IS STRUCTURAL:
-// updating the tip is not part of writing a migration, so it does not happen
-// when a migration is written. This makes it part of something that runs.
+// So the invariant outlived its subject. It asserted the continued presence of
+// a line whose deletion WAS the fix, and it failed -- exiting the suite
+// non-zero -- against a repository in exactly the intended state. A suite that
+// is permanently red teaches people to read red as normal, which costs more
+// than this check ever returned.
 //
-// IT LIVES HERE AND NOT IN verify-cert because the tip is a property of the
-// REPOSITORY, not of any certification. verify-cert --all would print it
-// thirteen times and own it nowhere.
-//
-// IT CHECKS THE NUMBER, NOT THE RUN STATE. The tip also says which migrations
-// have run; nothing on disk knows that. A file is a record of what already ran,
-// and its existence is the only signal available from here.
-{
-  const root = join(HERE, "..");
-  const nums = readdirSync(join(root, "migrations"))
-    .map((f) => /^(\d{3})_/.exec(f))
-    .filter(Boolean)
-    .map((m) => Number(m[1]));
-  const failures = [];
-  let detail = "";
-  if (!nums.length) {
-    failures.push("no NNN_*.sql files found under migrations/");
-  } else {
-    const highest = Math.max(...nums);
-    const md = readFileSync(join(root, "CLAUDE.md"), "utf8");
-    const m = /\*\*Migration tip:\s*(\d{3})\.\s*Next free number:\s*(\d{3})\.\*\*/.exec(md);
-    if (!m) {
-      failures.push("CLAUDE.md has no parseable 'Migration tip: NNN. Next free number: NNN.' line");
-    } else {
-      const tip = Number(m[1]);
-      const next = Number(m[2]);
-      detail = `disk highest ${highest}, tip ${tip}, next free ${next}`;
-      if (tip !== highest) {
-        failures.push(`tip says ${tip}, highest on disk is ${highest} - ${highest - tip} behind`);
-      }
-      if (next !== highest + 1) {
-        failures.push(`next free says ${next}, should be ${highest + 1}`);
-      }
-    }
-  }
-  record("migration tip vs disk", failures, detail || "could not compare");
-}
+// REPLACED BY `scripts/check-migration-state.mjs`, which does strictly more:
+// `ls migrations/` answers the number, and a per-migration fingerprint probed
+// against the live database AND the deployed function answers HAS IT RUN --
+// the half no file on disk has ever known. A migration with no fingerprint
+// reports "no probe" rather than "not run", because silence about a thing is
+// not a claim about it.
 
 if (asJson) {
-  console.log(JSON.stringify({ pass: results.every((r) => r.pass), results }, null, 2));
+  console.log(JSON.stringify({
+    pass: results.every((r) => r.pass),
+    held: results.filter((r) => r.pass && !r.vacuous).length,
+    vacuous: results.filter((r) => r.vacuous).length,
+    failed: results.filter((r) => !r.pass).length,
+    results,
+  }, null, 2));
 } else {
   console.log("PLATFORM INVARIANTS\n");
   console.log(
@@ -241,14 +246,24 @@ if (asJson) {
       "\n",
   );
   for (const r of results) {
-    console.log(`  ${r.pass ? "pass" : "FAIL"}  ${r.name.padEnd(24)} ${r.detail}`);
+    const status = !r.pass ? "FAIL   " : r.vacuous ? "VACUOUS" : "pass   ";
+    console.log(`  ${status}  ${r.name.padEnd(24)} ${r.detail}  (${r.examined} examined)`);
     // Failures are listed in full up to a limit. A truncated failure list makes
     // people fix the visible ones and re-run, which is slower than showing them.
     for (const f of r.failures.slice(0, 25)) console.log(`          - ${f}`);
     if (r.failures.length > 25) console.log(`          ... ${r.failures.length - 25} more`);
   }
   const failed = results.filter((r) => !r.pass);
-  console.log(`\n${results.length - failed.length}/${results.length} invariants hold`);
+  const vacuous = results.filter((r) => r.pass && r.vacuous);
+  const held = results.length - failed.length - vacuous.length;
+  // THREE COUNTS, NEVER TWO. "6/7 invariants hold" cannot say whether the
+  // sixth looked at anything, and that is exactly what this suite was getting
+  // wrong: one of the six examined zero rows.
+  console.log(`\n${held} pass, ${vacuous.length} vacuous, ${failed.length} fail`);
+  if (vacuous.length) {
+    console.log("\n  VACUOUS -- examined nothing, so the pass claims nothing:");
+    for (const v of vacuous) console.log(`    - ${v.name}: ${v.detail}`);
+  }
 }
 
 process.exit(results.every((r) => r.pass) ? 0 : 1);

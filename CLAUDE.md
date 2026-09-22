@@ -965,6 +965,78 @@ calling it UNSAFE sends someone to fix a working reader. It also never asks
 the server for a count, so calling it SAFE-PAGED claims a check nobody ran --
 it ends on the FIRST short page, whatever caused the page to be short.
 
+**A PAGING LOOP ASSERTS ITS TOTAL, AND DOES NOT REASON ABOUT THE SERVER'S ROW
+CAP.** Recorded 2026-09-22, and it is the general form of every instance above.
+
+`_pg.mjs`'s `getAll` terminated on `page.length < PAGE`, with `PAGE = 1000` --
+exactly the PostgREST cap. **It was correct only because two numbers in two
+different systems happened to be equal**, and nothing in the program stated
+the dependency. Lower `db-max-rows` to 500 and every request returns 500, the
+loop sees `500 < 1000`, stops, and **seven tables truncate silently at once**
+-- including the 1,730-row concept corpus that five platform invariants are
+computed over.
+
+**LOWERING `PAGE` IS NOT THE FIX. It moves the coincidence.** A loop that is
+safe because 500 is under 1,000 depends on the same unstated fact as one that
+is safe because 1,000 equals 1,000. Any reasoning of the form *"the page size
+is small enough"* is reasoning about a number in a config file Postgres does
+not know about.
+
+> **MECHANISM: `Prefer: count=exact`, terminate on REACHING THE TOTAL, throw on
+> mismatch.** Termination stops being "this page looked short" -- a short page
+> is what a lowered cap, a dropped page and a finished read all look like.
+> Page size becomes a throughput choice, and its comment must say so, or the
+> next reader "optimises" it and believes they had to think about the cap.
+
+**And the assertion was made to fail before it was believed.**
+`_PG_TRUNCATE_AFTER_PAGES=1` cuts the loop after one page:
+
+```
+Error: SHORT READ on concepts?select=...: collected 1000 row(s), server says 1730
+```
+
+That is the exact sentence the defect needed and never produced. **A count
+assertion nobody has watched fail is the same object as a gate nobody has
+watched fire.**
+
+**A CHECK THAT PASSES OVER AN EMPTY INPUT REPORTS VACUOUS, NOT PASS.** Same
+day, and it is the green-result rule pointed at a suite's own arithmetic.
+
+`verify-invariants`' `match term uniqueness` has printed **pass** for its whole
+life while examining **nothing**: `match_terms` is deliberately empty on all
+1,730 concepts, so no term has ever been available to collide. It rendered
+identically to the five invariants beside it, which cover 5,000+ rows between
+them.
+
+**A pass is a claim that something was examined and held.** With a zero
+denominator nothing was examined, the claim is empty, and it inflates the
+apparent coverage of every suite it sits in -- here by one sixth.
+
+> **MECHANISM: every check returns the COUNT OF THINGS IT EXAMINED, the runner
+> renders a zero denominator as its own status, and the summary carries three
+> numbers rather than two.** `6/7 invariants hold` cannot say whether the sixth
+> looked at anything. `5 pass, 1 vacuous, 0 fail` can.
+
+The denominator must be the thing the check actually iterates. `match term
+uniqueness` iterates TERMS, so its denominator is 0 -- using `concepts.length`
+would report 1,730 examined and hide the exact vacuity this exists to show.
+
+**Measured on the day it was added: 1 of 6 vacuous, and it is alone.** The
+other five examine 1730, 12, 12, 13 and 1730.
+
+**AND AN INVARIANT CAN OUTLIVE ITS SUBJECT.** `migration tip vs disk` asserted
+that CLAUDE.md still carried a parseable `Migration tip: NNN` line. That line
+was **deliberately deleted** -- it is the defect this file opens with -- so the
+invariant asserted the continued presence of something whose removal was the
+fix, and failed, exiting the suite non-zero against a repository in exactly
+the intended state.
+
+**A suite that is permanently red teaches people to read red as normal**,
+which costs more than the check ever returned. Deleted, and the deletion is a
+SUCCESSION: `check-migration-state.mjs` answers the number from the folder and
+*has it run* from the database and the deployed function -- the half no file
+on disk has ever known.
+
 Full enumeration in `UNPAGED-READ-AUDIT.json`, and the enumeration is the
 artifact -- the count is commentary until someone reads the members.
 

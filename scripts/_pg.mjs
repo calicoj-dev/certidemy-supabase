@@ -27,7 +27,26 @@ import { join } from "node:path";
 export const PROJECT_REF = "pctynukndxnmnxiqpgck";
 export const REST_URL = `https://${PROJECT_REF}.supabase.co/rest/v1`;
 
-/** PostgREST default page size. */
+/**
+ * Rows requested per round trip.
+ *
+ * THIS NUMBER IS A THROUGHPUT CHOICE AND NOT A CORRECTNESS ONE. Do not reason
+ * about it against PostgREST's row cap, and do not lower it believing that
+ * makes the loop safe.
+ *
+ * It used to be both. `getAll` terminated on `page.length < PAGE` with PAGE
+ * set to exactly the server's cap, so the loop was correct only because two
+ * numbers in two different systems happened to be equal -- and nothing in the
+ * program stated the dependency. Lower `db-max-rows` to 500 and every read
+ * returns 500, the loop sees 500 < 1000, stops, and SEVEN TABLES TRUNCATE
+ * SILENTLY AT ONCE. Lowering PAGE to 500 would not have fixed that; it would
+ * have moved the coincidence.
+ *
+ * Correctness now rests entirely on the count assertion in `getAll` below:
+ * the server is asked for the total and the loop must reach it. With that in
+ * place PAGE may be any value, and a lowered cap fails loudly on the first
+ * table instead of quietly on all of them.
+ */
 const PAGE = 1000;
 
 /**
@@ -85,6 +104,8 @@ export function requireKey(scriptDir) {
  */
 export async function getAll(key, path) {
   const rows = [];
+  let total = null;
+
   for (let from = 0; ; from += PAGE) {
     const res = await fetch(`${REST_URL}/${path}`, {
       headers: {
@@ -93,20 +114,63 @@ export async function getAll(key, path) {
         Accept: "application/json",
         Range: `${from}-${from + PAGE - 1}`,
         "Range-Unit": "items",
+        // THE TOTAL IS ASKED FOR ON EVERY REQUEST, not only the first. A total
+        // that changed under a long read is a concurrent write, and the
+        // assertion below should see it rather than compare against a stale
+        // figure captured before the first page.
+        Prefer: "count=exact",
       },
     });
     if (!res.ok && res.status !== 206) {
       throw new Error(`${res.status} ${res.statusText} on ${path}\n${await res.text()}`);
     }
+
+    // "0-999/1730", or "*/0" for an empty result.
+    const range = String(res.headers.get("content-range") || "");
+    const said = Number(range.split("/")[1]);
+    if (!Number.isFinite(said)) {
+      // A count read that yields no count is a DROPPED READ, not a zero. If
+      // this ever fires, the server stopped honouring count=exact and every
+      // figure downstream would otherwise be a floor wearing the costume of a
+      // total.
+      throw new Error(`no parseable content-range total on ${path} (got "${range}")`);
+    }
+    if (total === null) total = said;
+
     const page = await res.json();
     if (!Array.isArray(page)) {
       throw new Error(`${path} returned ${typeof page}, expected an array`);
     }
     rows.push(...page);
-    if (page.length < PAGE) return rows;
-    // A server ignoring Range would return page one forever.
+
+    // TERMINATION IS REACHING THE TOTAL, never "this page looked short". A
+    // short page is not evidence of exhaustion -- it is what a lowered row
+    // cap, a dropped page and a finished read all look like.
+    if (rows.length >= total) break;
+
+    // Stall guard. An empty page before the total is reached cannot make
+    // progress, so returning here would return short.
+    if (page.length === 0) {
+      throw new Error(
+        `SHORT READ on ${path}: server returned an empty page at offset ${from} ` +
+          `with ${rows.length} of ${total} row(s) collected`,
+      );
+    }
     if (from > 500000) throw new Error(`pagination runaway on ${path}`);
+
+    // TEST HOOK, and the only reason it exists: a count assertion nobody has
+    // watched fail is the same object as a gate nobody has watched fire. Set
+    // _PG_TRUNCATE_AFTER_PAGES=1 to cut the loop short and prove the throw.
+    const cut = Number(process.env._PG_TRUNCATE_AFTER_PAGES || 0);
+    if (cut > 0 && rows.length >= cut * PAGE) break;
   }
+
+  if (rows.length !== total) {
+    throw new Error(
+      `SHORT READ on ${path}: collected ${rows.length} row(s), server says ${total}`,
+    );
+  }
+  return rows;
 }
 
 /**
