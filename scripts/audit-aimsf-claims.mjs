@@ -56,6 +56,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFS, pdftotextAvailable, expectedWords, verifyCorpus } from "./lib/citation-index.mjs";
+import { clauseText as sharedClauseText } from "./lib/iso-locator.mjs";
 
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--")) { console.error("Unrecognised flag: " + a + ". READ-ONLY, no flags."); process.exit(2); }
@@ -86,86 +87,9 @@ for (const [key, p] of Object.entries(PDFS)) {
 }
 const has = (key, phrase) => FLAT.get(key).includes(" " + norm(phrase));
 
-/* ============ MAIN BODY AND ANNEX A SHARE A NUMBER SPACE ============
- *
- * Found 2026-09-22 while verifying an unrelated claim: a request for
- * ISO/IEC 27001:2022 main-body clause 5.2 (Policy) returned Annex A control
- * A.5.2 (Information security roles and responsibilities). The
- * last-occurrence rule exists to skip the table of contents, whose lines carry
- * dot leaders -- and it then walks on PAST the main body into Table A.1, which
- * numbers its controls 5.1, 5.2, 5.27 and so on.
- *
- * Two different requirements, one address, and the wrong one reads as a
- * confident answer. 42001:2023 has the same shape (Annex A, control objectives
- * A.2 to A.10), so this is not a 27001 quirk.
- *
- * Main-body lookups stop at the normative Annex A heading; an annex lookup
- * asks for it explicitly. */
-const ANNEX_AT = new Map();
-for (const key of Object.keys(PDFS)) {
-  const lines = RAW.get(key).split(NL);
-  let at = lines.length;
-  for (let i = 0; i < lines.length; i++) {
-    const t = lines[i].trim();
-    if (t === "Annex A" && !t.includes("....")) { at = i; break; }
-  }
-  ANNEX_AT.set(key, at);
-}
-
-/** Body text at a clause address. No regex escapes; see the header.
- *  `where` is "body" (default) or "annex". */
-function clauseText(key, addr, where = "body") {
-  const allLines = RAW.get(key).split(NL);
-  const cut = ANNEX_AT.get(key);
-  const lines = where === "annex" ? allLines.slice(cut) : allLines.slice(0, cut);
-  let at = -1;
-  for (let i = 0; i < lines.length; i++) {
-    /* ============ A HEADING NEED NOT HAVE A SPACE AFTER ITS NUMBER =======
-     * ISO/IEC 27001:2022 extracts as "4.1Understanding the organization" --
-     * no space -- behind a wide licence-watermark column. Requiring "4.1 "
-     * made clauseText return NULL for every clause of that document, and the
-     * audit check that consumed it passed on an EMPTY STRING: "27001 clause
-     * 4.1 does not mention roles" was a vacuous OK. A check that asks nothing
-     * cannot fail. Accept a space OR an immediate capital, and reject a digit
-     * or dot so 9.2 does not swallow 9.21. */
-    const t = lines[i].trim();
-    if (!t.startsWith(addr)) continue;
-    const c = t[addr.length];
-    if (c === undefined) continue;
-    if ((c >= "0" && c <= "9") || c === ".") continue;
-    if (!(c === " " || (c >= "A" && c <= "Z"))) continue;
-    if (t.includes("....")) continue;
-    at = i;
-  }
-  if (at < 0) return null;
-  const depth = addr.split(".").length;
-  const out = [lines[at]];
-  for (let i = at + 1; i < lines.length && out.length < 140; i++) {
-    /* ============ THE STOP CONDITION HAD THE SAME BLIND SPOT ============
-     * It took split(" ")[0] as the heading number, which for 27001s
-     * "4.2Understanding..." is the whole phrase and therefore not numeric --
-     * so the extractor never stopped, ran 140 lines past the clause, and swept
-     * clause 5 into clause 4.1. That is how "27001 clause 4.1 mentions role"
-     * came out of a clause whose body contains no such word. Scan the leading
-     * digits and dots directly instead of trusting a space to be there. */
-    const t = lines[i].trim();
-    let hl = 0;
-    while (hl < t.length && ((t[hl] >= "0" && t[hl] <= "9") || t[hl] === ".")) hl++;
-    const head = t.slice(0, hl);
-    /* The char after the number must be a CAPITAL, whether or not a space
-     * intervenes. Allowing a bare space broke on page furniture like
-     * "10            (c) ISO/IEC 2023" -- a page number read as clause 10,
-     * which truncated 6.2 to one item and cut role out of 4.1. */
-    let k = hl;
-    while (k < t.length && t[k] === " ") k++;
-    const nx = t[k];
-    const numeric = hl > 0 && head !== ".";
-    const nextOk = nx !== undefined && nx >= "A" && nx <= "Z";
-    if (numeric && nextOk && head.replace(/.$/, "").split(".").length <= depth && !t.includes("....")) break;
-    out.push(lines[i]);
-  }
-  return out.join(NL);
-}
+/* THE LOCATOR IS SHARED. It used to be a private copy here, and the private
+ * copy is how the table-of-contents decoy got rediscovered three times. */
+const clauseText = (key, addr, where = "body") => sharedClauseText(RAW.get(key), addr, where);
 
 /** ISO uses lettered items and dash bullets interchangeably. */
 function itemCount(text) {

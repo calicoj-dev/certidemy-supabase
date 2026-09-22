@@ -63,6 +63,7 @@ import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PDFS, expectedWords } from "./citation-index.mjs";
+import { annexBoundaryWord } from "./iso-locator.mjs";
 
 export const SEED = 4;
 export const MIN_RUN = 4;
@@ -114,21 +115,10 @@ export function buildSources() {
     /* Where Annex A begins, as a WORD offset. A run landing beyond it
      * reproduces annex structure -- control titles, objective names -- rather
      * than clause text, and that is the title-class question, not a leak. */
-    /* LAST OCCURRENCE, NEVER THE FIRST. The first "annex a normative" in any
-     * of these PDFs is the TABLE OF CONTENTS entry -- measured: it put 27001's
-     * boundary 6 percent into the document and 42001's at 2 percent, so almost
-     * every clause-text match downstream was classified as annex structure.
-     * The same table-of-contents defect that `clauseText` already carries a
-     * dot-leader guard against, in a second instrument.
-     *
-     * Also accept "informative": not every Annex A is normative, and a
-     * locator that only knows one word reports NO ANNEX for the rest, which
-     * is silent under-classification rather than loud failure. */
-    let annexAt = words.length;
-    for (let i = 0; i + 3 <= words.length; i++) {
-      if (words[i] === "annex" && words[i + 1] === "a" &&
-          (words[i + 2] === "normative" || words[i + 2] === "informative")) annexAt = i;
-    }
+    /* The annex boundary comes from the SHARED locator. Three instruments
+     * independently rediscovered the table-of-contents decoy here; there is
+     * one copy now. */
+    const annexAt = annexBoundaryWord(words);
     out.set(key, { words, grams, at, annexAt });
   }
   return out;

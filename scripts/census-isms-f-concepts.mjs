@@ -28,6 +28,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFS, pdftotextAvailable, MANIFEST } from "./lib/citation-index.mjs";
+import { clauseForSpan } from "./lib/iso-locator.mjs";
 import { buildSources, score, firesCurrent, firesUnion, assertCanary,
          SEED, MIN_RUN, MIN_COV, DESC_GAP_MAX, SRC_GAP_MAX, norm, W } from "./lib/leak-score.mjs";
 
@@ -92,20 +93,7 @@ for (const [key, p] of Object.entries(PDFS)) {
   execFileSync("pdftotext", ["-layout", p, o]);
   rawText.set(key, readFileSync(o, "utf8"));
 }
-function locate(src, span) {
-  const txt = rawText.get(src);
-  if (!txt) return "";
-  const lines = txt.split(/\r?\n/);
-  const needle = W(span).slice(0, 5).join(" ");
-  let heading = "";
-  for (const line of lines) {
-    const t = line.trimStart();
-    const m = /^(\d+(?:\.\d+)*)\s*([A-Z])/.exec(t);
-    if (m) heading = m[1] + " " + t.slice(m[1].length).trim().slice(0, 46);
-    if (norm(line).includes(needle)) return heading || "(no heading above the match)";
-  }
-  return "(span not located in the layout text)";
-}
+const locate = (key, span) => clauseForSpan(RAWTXT.get(key) || rawText.get(key) || "", span, norm, W);
 
 /* ------------------------------------------------------------------ read */
 const certs = await allRows("certifications?select=id,code");

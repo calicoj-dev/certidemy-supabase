@@ -2186,6 +2186,122 @@ rendering, so editing es-419 must leave pt-BR serving. 364's proof asserts
 exactly that: one edit, one row withheld, the sibling language still serving.
 A per-concept tr_hash would have passed every count assertion and been wrong.
 
+**THE REPRODUCTION POLICY, AND THE INSTRUMENT ENFORCES IT EXACTLY.** Adopted
+2026-09-22, beside the gate parameters because a policy kept somewhere else is
+a second copy of a fact.
+
+> **A description may NAME a clause and state what it requires IN OUR OWN
+> WORDS. It may quote a short distinctive phrase where the wording itself is
+> the examinable thing. It may NOT reproduce a contiguous span of the
+> standard's own sentence at or beyond TEN WORDS.**
+
+The 10 is `ABS_RUN` in `scripts/lib/leak-score.mjs`, so the gate enforces the
+policy rather than approximating it.
+
+**WHY ATTRIBUTION IS NOT THE ANSWER.** 137 of AIMS-IA's 158 descriptions --
+**87 percent** -- are shaped *"clause N.N defines/requires/states ..."*
+followed by the text. At that rate it is not drift, it is the pedagogy of an
+internal-auditor certification, where the thing taught genuinely is the
+requirement as written.
+
+**Attribution answers the plagiarism question and does nothing about the
+reproduction one.** Twenty-one words of a copyrighted standard served
+unauthenticated are the same twenty-one words whether or not the row says
+where they came from, and **an accreditation assessor reads the second
+question, not the first.**
+
+So the instruction is not *rewrite until the gate is quiet* -- that pushes
+toward paraphrase that loses the examinable point. You cannot teach an auditor
+what clause 4.1 requires while avoiding the words *determine external and
+internal issues*. Naming the clause and restating the requirement is allowed
+and encouraged; copying the sentence is not.
+
+**THE TABLE OF CONTENTS IS A DECOY IN EVERY INDEXED PDF.** Three instruments
+have now been written against these documents and **all three hit it on the
+first attempt**:
+
+1. `clauseText` asked for 27001 clause 5.2 and got `5.2Policy........ 3`.
+2. The fix -- last occurrence -- then walked PAST the body into Table A.1,
+   where 27001 numbers its controls 5.1, 5.2, 5.27, so a main-body request
+   returned **Annex A control A.5.2**.
+3. The annex-boundary locator took the FIRST `annex a normative`, which is the
+   contents entry: 27001's boundary landed **6 percent** into the document and
+   42001's at **2 percent**, misclassifying nearly every clause-text match as
+   annex structure -- while finding no boundary at all in seven other
+   standards, so under-reporting there at the same moment.
+
+> **MECHANISM: ONE shared locator, `scripts/lib/iso-locator.mjs`, used by every
+> instrument that addresses a clause or an annex boundary.** A new locator
+> inherits the existing one's defences -- dot-leader reject, last occurrence,
+> the watermark-merged heading allowance -- or states why it does not need
+> them. `leak-score`, `audit-aimsf-claims`, the census and the union-fire
+> report all point at it; there are no private copies.
+
+**AND A SHORT LINE IS NOT A HEADING.** The title-class test first accepted *"a
+short line with no terminal punctuation"*, which is what a control title looks
+like in Table A.1 -- and **also what a terms-and-definitions entry looks
+like.** ISO/IEC 22989's definition of availability extracts as one 73-character
+line with no full stop, so the exemption fired on `availability`: a genuine
+nine-word reproduction of a defined term, **excused by the rule written to let
+titles past**. An exemption that excuses the thing it exists to catch is worse
+than no exemption, because nothing in its output says so.
+
+**A DESCRIPTION MAY NOT POINT AT A REASON IT DOES NOT GIVE.** Survived three
+batches, so it is a rule rather than an observation.
+
+`time-to-discovery` ended *"and why it widens here"* and never said why. Batch
+1 carried *"both halves matter"* -- which halves? -- and *"cuts both ways"*,
+followed by one way.
+
+> **MECHANISM: a description containing *why*, *both*, *the second*, *that
+> distinction* or any similar pointer must be readable STANDING ALONE, with no
+> antecedent outside itself.** It is served alone, and the description it
+> replaced is not there to supply the referent.
+
+Same family as the taskBlock defect: a sentence pointing at content the payload
+does not carry.
+
+**WHERE A COUNT AND AN INSTRUCTION CONFLICT, THE INSTRUCTION GOVERNS AND THE
+CONFLICT IS REPORTED.** Recorded 2026-09-22. A review's verdict block read
+*apply 37 / return 3* while the instruction below it also returned a fourth
+row. 40 minus 4 is 36, and the two cannot both hold.
+
+Taking the instruction is right because a count is a summary of intentions and
+an instruction IS one. **Reporting the conflict is the other half**: silently
+resolving it either way leaves the next reader with a number that does not
+reconcile and no record of why.
+
+**AND A CORRECTION CAN CARRY THE DEFECT IT CORRECTS.** The sharpest instance
+in this file of that shape.
+
+`pdca-cycle` was returned for an undeclared citation claim -- *"clauses 6 and 7
+plan, 8 does, 9 checks, 10 acts"* -- with the correction that the conventional
+mapping puts clauses 4 THROUGH 7 on Plan. Measured: **`plan-do-check-act` and
+`PDCA` appear in NEITHER ISO/IEC 27001:2022 NOR ISO/IEC 42001:2023.** Only in
+ISO 19011:2026.
+
+So **both** mappings were unsupported: the original naming 6 and 7, and the
+correction naming 4 through 7. An undeclared citation claim was corrected with
+another undeclared citation claim, **inside a ruling whose entire subject was
+unverified claims.** Dropping the mapping was the only move that did not add a
+third.
+
+The general form: **a correction is a claim, and it is not exempt from the
+verification the thing it corrects just failed.**
+
+**NOT WITHHOLDING THE AIMS-IA REPRODUCTIONS -- DECIDED 2026-09-22, EXPIRES
+2026-09-25 (THURSDAY).** Recorded with its expiry so it is never read as a
+judgement that the rows are fine.
+
+69 AIMS-IA rows reproduce clause text and are cleared and serving. They are NOT
+being re-provisioned: serving fallback for 69 concepts makes the certification
+look half-built to exactly the partner being courted, which is a worse Friday
+than three days of reproduction risk.
+
+**This is a timing judgement, not a content one.** Revisited Thursday: if the
+20-plus-word buckets are not clear by then, **the longest rows get withheld
+rather than shipped.**
+
 **A SPLIT RUN IS ONE REPRODUCTION ONLY IF THE SOURCE AGREES IT IS.** Adopted
 2026-09-22, and it is the coverage rule's missing half.
 

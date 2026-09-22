@@ -1,0 +1,53 @@
+{
+  "measured": "2026-09-22",
+  "definition": [
+    "the span matches a HEADING or table-of-contents entry in the source",
+    "AND the description contains no sentence from the clause body"
+  ],
+  "rule": {
+    "MIN_RUN": 4,
+    "MIN_COV": 0.6,
+    "ABS_RUN": 10
+  },
+  "index": [
+    "19011:2026",
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27001:2022",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022",
+    "42001:2023"
+  ],
+  "coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "fires_before": 114,
+  "exempted": 1,
+  "fires_after": 113,
+  "annex_structure_rows": 8,
+  "exempted_beyond_those": 1,
+  "exempted_rows": [
+    {
+      "cert": "AIGRM-I",
+      "slug": "iso-42005-impact-assessment",
+      "run": 4,
+      "cov": 0.667,
+      "source": "42001:2023",
+      "spans": [
+        "ai system impact assessment"
+      ],
+      "description": "Guidance on AI system impact assessment."
+    }
+  ],
+  "per_certification_after": {
+    "ISMS-IA": 37,
+    "AIGRM-I": 2,
+    "AISM-I": 1,
+    "ISMS-F": 4,
+    "AIMS-IA": 69
+  }
+}
