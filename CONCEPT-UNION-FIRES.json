@@ -1,0 +1,933 @@
+{
+  "measured": "2026-09-22",
+  "rule": {
+    "seed": 4,
+    "min_run": 4,
+    "min_cov": 0.6,
+    "union_conditions": [
+      "description-side gap <= 0",
+      "same source document",
+      "source-side forward gap <= 3"
+    ]
+  },
+  "index": [
+    "19011:2026",
+    "22989:2022",
+    "27000:2018",
+    "27001:2022/Amd1",
+    "27001:2022",
+    "27002:2022",
+    "27004:2016",
+    "27005:2022",
+    "42001:2023"
+  ],
+  "limit": "The index is ENGLISH-ONLY and holds the editions listed. ISO/IEC 27000 is the 2018 edition against a 2022 standard that references it UNDATED. A span that does not match is NOT thereby original -- it may come from an edition or a standard not on disk. A score of 0 means 'no reproduction of the indexed documents', never 'no reproduction'.",
+  "coverage_gaps": [
+    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
+    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index."
+  ],
+  "counts": {
+    "reported": 18,
+    "fires_adopted_rule": 15,
+    "rejected_by_source_conditions": 3
+  },
+  "per_certification": {
+    "ISMS-F": 9,
+    "AIGRM-I": 3,
+    "AISM-I": 1,
+    "ISMS-IA": 2
+  },
+  "rows": [
+    {
+      "slug": "confidentiality",
+      "certification": "ISMS-F",
+      "description": "information is not made available to unauthorized individuals, entities or processes",
+      "words": 11,
+      "source": "27000:2018",
+      "fires_current_rule": false,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under the UNION rule only",
+      "longest_run_coverage": 0.545,
+      "union_coverage": 1,
+      "raw_abutting_coverage": 1,
+      "runs": [
+        {
+          "words": "information is not made available",
+          "length": 5,
+          "position_in_description": 0,
+          "position_in_source": [
+            1665
+          ],
+          "clause": "3 Terms and definitions"
+        },
+        {
+          "words": "to unauthorized individuals entities or processes",
+          "length": 6,
+          "position_in_description": 5,
+          "position_in_source": [
+            1672
+          ],
+          "clause": "3 Terms and definitions"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "information is not made available",
+          "to": "to unauthorized individuals entities or processes",
+          "description_side_gap": 0,
+          "source_side_gap": 2,
+          "same_source": true,
+          "merged": true,
+          "why": "abuts in the description and is near-contiguous in the source"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 11,
+          "words": "information is not made available to unauthorized individuals entities or processes"
+        }
+      ]
+    },
+    {
+      "slug": "iso-27005-risk",
+      "certification": "ISMS-F",
+      "description": "guidance on information security risk management",
+      "words": 6,
+      "source": "27002:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 1,
+      "union_coverage": 1,
+      "raw_abutting_coverage": 1,
+      "runs": [
+        {
+          "words": "guidance on information security risk management",
+          "length": 6,
+          "position_in_description": 0,
+          "position_in_source": null,
+          "clause": "(span not located in the layout text)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 6,
+          "words": "guidance on information security risk management"
+        }
+      ]
+    },
+    {
+      "slug": "isms-scope",
+      "certification": "ISMS-F",
+      "description": "the boundaries and applicability of the ISMS",
+      "words": 7,
+      "source": "27001:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.857,
+      "union_coverage": 0.857,
+      "raw_abutting_coverage": 0.857,
+      "runs": [
+        {
+          "words": "the boundaries and applicability of the",
+          "length": 6,
+          "position_in_description": 0,
+          "position_in_source": [
+            1812
+          ],
+          "clause": "4.3 Determining the scope of the information sec"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 6,
+          "words": "the boundaries and applicability of the"
+        }
+      ]
+    },
+    {
+      "slug": "availability",
+      "certification": "ISMS-F",
+      "description": "information is accessible and usable on demand by an authorized entity",
+      "words": 11,
+      "source": "22989:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.818,
+      "union_coverage": 0.818,
+      "raw_abutting_coverage": 0.818,
+      "runs": [
+        {
+          "words": "accessible and usable on demand by an authorized entity",
+          "length": 9,
+          "position_in_description": 2,
+          "position_in_source": [
+            6119
+          ],
+          "clause": "3.5 Terms related to trustworthiness"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 9,
+          "words": "accessible and usable on demand by an authorized entity"
+        }
+      ]
+    },
+    {
+      "slug": "ai-interaction-disclosure",
+      "certification": "AIGRM-I",
+      "description": "Informing people when they are interacting with an AI system.",
+      "words": 10,
+      "source": "42001:2023",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.8,
+      "union_coverage": 0.8,
+      "raw_abutting_coverage": 0.8,
+      "runs": [
+        {
+          "words": "when they are interacting with an ai system",
+          "length": 8,
+          "position_in_description": 2,
+          "position_in_source": [
+            16366
+          ],
+          "clause": "(span not located in the layout text)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 8,
+          "words": "when they are interacting with an ai system"
+        }
+      ]
+    },
+    {
+      "slug": "ai-interaction-disclosure",
+      "certification": "AISM-I",
+      "description": "informing people when they are interacting with an AI system.",
+      "words": 10,
+      "source": "42001:2023",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.8,
+      "union_coverage": 0.8,
+      "raw_abutting_coverage": 0.8,
+      "runs": [
+        {
+          "words": "when they are interacting with an ai system",
+          "length": 8,
+          "position_in_description": 2,
+          "position_in_source": [
+            16366
+          ],
+          "clause": "(span not located in the layout text)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 8,
+          "words": "when they are interacting with an ai system"
+        }
+      ]
+    },
+    {
+      "slug": "cryptographic-controls",
+      "certification": "ISMS-F",
+      "description": "use and management of cryptography",
+      "words": 5,
+      "source": "27002:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.8,
+      "union_coverage": 0.8,
+      "raw_abutting_coverage": 0.8,
+      "runs": [
+        {
+          "words": "use and management of",
+          "length": 4,
+          "position_in_description": 0,
+          "position_in_source": [
+            13270,
+            18246
+          ],
+          "clause": "5.16 Identity management"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 4,
+          "words": "use and management of"
+        }
+      ]
+    },
+    {
+      "slug": "climate-change-relevance",
+      "certification": "ISMS-F",
+      "description": "the requirement to determine whether climate change is a relevant issue",
+      "words": 11,
+      "source": "27001:2022/Amd1",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.727,
+      "union_coverage": 0.727,
+      "raw_abutting_coverage": 0.727,
+      "runs": [
+        {
+          "words": "determine whether climate change is a relevant issue",
+          "length": 8,
+          "position_in_description": 3,
+          "position_in_source": [
+            819
+          ],
+          "clause": "(no heading above the match)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 8,
+          "words": "determine whether climate change is a relevant issue"
+        }
+      ]
+    },
+    {
+      "slug": "supplier-controls",
+      "certification": "ISMS-F",
+      "description": "controls governing information security in supplier relationships",
+      "words": 7,
+      "source": "27002:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.714,
+      "union_coverage": 0.714,
+      "raw_abutting_coverage": 0.714,
+      "runs": [
+        {
+          "words": "information security in supplier relationships",
+          "length": 5,
+          "position_in_description": 2,
+          "position_in_source": [
+            345,
+            14922,
+            14983,
+            15890,
+            16747,
+            57412,
+            59419
+          ],
+          "clause": "5.19 Information security in supplier relationshi"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 5,
+          "words": "information security in supplier relationships"
+        }
+      ]
+    },
+    {
+      "slug": "ia-audit-programme-3-5",
+      "certification": "ISMS-IA",
+      "description": "ISO 19011:2026 clause 3.5 defines it as arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose.",
+      "words": 30,
+      "source": "19011:2026",
+      "fires_current_rule": false,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under the UNION rule only",
+      "longest_run_coverage": 0.4,
+      "union_coverage": 0.7,
+      "raw_abutting_coverage": 0.7,
+      "runs": [
+        {
+          "words": "arrangements for a set of one or more audits",
+          "length": 9,
+          "position_in_description": 9,
+          "position_in_source": [
+            2330
+          ],
+          "clause": "3 Terms and definitions"
+        },
+        {
+          "words": "planned for a specific time frame and directed towards a specific purpose",
+          "length": 12,
+          "position_in_description": 18,
+          "position_in_source": [
+            2341
+          ],
+          "clause": "3 Terms and definitions"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "arrangements for a set of one or more audits",
+          "to": "planned for a specific time frame and directed towards a specific purpose",
+          "description_side_gap": 0,
+          "source_side_gap": 2,
+          "same_source": true,
+          "merged": true,
+          "why": "abuts in the description and is near-contiguous in the source"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 21,
+          "words": "arrangements for a set of one or more audits planned for a specific time frame and directed towards a specific purpose"
+        }
+      ]
+    },
+    {
+      "slug": "technical-documentation-requirement",
+      "certification": "AIGRM-I",
+      "description": "Documentation demonstrating the system meets requirements.",
+      "words": 6,
+      "source": "22989:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.667,
+      "union_coverage": 0.667,
+      "raw_abutting_coverage": 0.667,
+      "runs": [
+        {
+          "words": "the system meets requirements",
+          "length": 4,
+          "position_in_description": 2,
+          "position_in_source": [
+            19588
+          ],
+          "clause": "6.2.2 Inception"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 4,
+          "words": "the system meets requirements"
+        }
+      ]
+    },
+    {
+      "slug": "iso-42005-impact-assessment",
+      "certification": "AIGRM-I",
+      "description": "Guidance on AI system impact assessment.",
+      "words": 6,
+      "source": "42001:2023",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.667,
+      "union_coverage": 0.667,
+      "raw_abutting_coverage": 0.667,
+      "runs": [
+        {
+          "words": "ai system impact assessment",
+          "length": 4,
+          "position_in_description": 2,
+          "position_in_source": [
+            273,
+            364,
+            3112,
+            4883,
+            5398,
+            5436,
+            5466,
+            5493,
+            5530,
+            6698,
+            7855,
+            10886,
+            11027,
+            11107,
+            11162,
+            11169,
+            11479,
+            13372
+          ],
+          "clause": "6.1.4 AI system impact assessment................."
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 4,
+          "words": "ai system impact assessment"
+        }
+      ]
+    },
+    {
+      "slug": "iso-27002-controls",
+      "certification": "ISMS-F",
+      "description": "implementation guidance for the reference controls",
+      "words": 6,
+      "source": "27000:2018",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.667,
+      "union_coverage": 0.667,
+      "raw_abutting_coverage": 0.667,
+      "runs": [
+        {
+          "words": "implementation guidance for the",
+          "length": 4,
+          "position_in_description": 0,
+          "position_in_source": [
+            11031
+          ],
+          "clause": "5.5.6 ISO 27799"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 4,
+          "words": "implementation guidance for the"
+        }
+      ]
+    },
+    {
+      "slug": "ia-internal-and-external-issues-clause-4-1",
+      "certification": "ISMS-IA",
+      "description": "Clause 4.1 requires the organization to determine external and internal issues relevant to its purpose that affect its ability to achieve the intended outcomes of its ISMS.",
+      "words": 28,
+      "source": "27001:2022",
+      "fires_current_rule": false,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under the UNION rule only",
+      "longest_run_coverage": 0.286,
+      "union_coverage": 0.607,
+      "raw_abutting_coverage": 0.714,
+      "runs": [
+        {
+          "words": "determine external and internal issues",
+          "length": 5,
+          "position_in_description": 7,
+          "position_in_source": [
+            1646
+          ],
+          "clause": "4.1 Understanding the organization and its conte"
+        },
+        {
+          "words": "relevant to its purpose",
+          "length": 4,
+          "position_in_description": 12,
+          "position_in_source": [
+            1653
+          ],
+          "clause": "4.1 Understanding the organization and its conte"
+        },
+        {
+          "words": "that affect its ability to achieve the intended",
+          "length": 8,
+          "position_in_description": 16,
+          "position_in_source": [
+            1658
+          ],
+          "clause": "(span not located in the layout text)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "determine external and internal issues",
+          "to": "relevant to its purpose",
+          "description_side_gap": 0,
+          "source_side_gap": 2,
+          "same_source": true,
+          "merged": true,
+          "why": "abuts in the description and is near-contiguous in the source"
+        },
+        {
+          "from": "relevant to its purpose",
+          "to": "that affect its ability to achieve the intended",
+          "description_side_gap": 0,
+          "source_side_gap": 1,
+          "same_source": true,
+          "merged": true,
+          "why": "abuts in the description and is near-contiguous in the source"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 17,
+          "words": "determine external and internal issues relevant to its purpose that affect its ability to achieve the intended"
+        }
+      ]
+    },
+    {
+      "slug": "risk-criteria",
+      "certification": "ISMS-F",
+      "description": "the terms of reference against which risk significance is judged",
+      "words": 10,
+      "source": "27005:2022",
+      "fires_current_rule": true,
+      "fires_union_rule": true,
+      "fires_raw_abutting_union": true,
+      "verdict": "fires under BOTH",
+      "longest_run_coverage": 0.6,
+      "union_coverage": 0.6,
+      "raw_abutting_coverage": 0.6,
+      "runs": [
+        {
+          "words": "the terms of reference against which",
+          "length": 6,
+          "position_in_description": 0,
+          "position_in_source": null,
+          "clause": "(span not located in the layout text)"
+        }
+      ],
+      "gaps_between_consecutive_runs": [],
+      "merged_spans": [
+        {
+          "length": 6,
+          "words": "the terms of reference against which"
+        }
+      ]
+    },
+    {
+      "slug": "ia-independence-of-the-activity-audited-4-6",
+      "certification": "ISMS-IA",
+      "description": "ISO 19011:2026 clause 4.6 states auditors should be independent of the activity being audited wherever practicable, and should in all cases act free from bias and conflict of interest.",
+      "words": 31,
+      "source": "19011:2026",
+      "fires_current_rule": false,
+      "fires_union_rule": false,
+      "fires_raw_abutting_union": true,
+      "verdict": "REJECTED by the source-side conditions",
+      "longest_run_coverage": 0.548,
+      "union_coverage": 0.548,
+      "raw_abutting_coverage": 0.774,
+      "runs": [
+        {
+          "words": "auditors should be independent of the activity being audited wherever practicable and should in all cases act",
+          "length": 17,
+          "position_in_description": 7,
+          "position_in_source": [
+            3839
+          ],
+          "clause": "4.6 Independence"
+        },
+        {
+          "words": "free from bias and conflict of interest",
+          "length": 7,
+          "position_in_description": 24,
+          "position_in_source": [
+            3861
+          ],
+          "clause": "4.6 Independence"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "auditors should be independent of the activity being audited wherever practicable and should in all cases act",
+          "to": "free from bias and conflict of interest",
+          "description_side_gap": 0,
+          "source_side_gap": 5,
+          "same_source": true,
+          "merged": false,
+          "why": "source-side gap 5 exceeds 3"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 17,
+          "words": "auditors should be independent of the activity being audited wherever practicable and should in all cases act"
+        },
+        {
+          "length": 7,
+          "words": "free from bias and conflict of interest"
+        }
+      ]
+    },
+    {
+      "slug": "ia-policy-availability-and-communication",
+      "certification": "ISMS-IA",
+      "description": "Clause 5.2 separately requires the policy to be available as documented information, communicated within the organization, and available to interested parties as appropriate.",
+      "words": 24,
+      "source": "42001:2023",
+      "fires_current_rule": false,
+      "fires_union_rule": false,
+      "fires_raw_abutting_union": true,
+      "verdict": "REJECTED by the source-side conditions",
+      "longest_run_coverage": 0.375,
+      "union_coverage": 0.375,
+      "raw_abutting_coverage": 0.667,
+      "runs": [
+        {
+          "words": "be available as documented information communicated within the organization",
+          "length": 9,
+          "position_in_description": 8,
+          "position_in_source": null,
+          "clause": "4.3 Determining the scope of the AI management s"
+        },
+        {
+          "words": "available to interested parties as appropriate",
+          "length": 6,
+          "position_in_description": 18,
+          "position_in_source": [
+            4267,
+            5377
+          ],
+          "clause": "5.2 AI policy"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "be available as documented information communicated within the organization",
+          "to": "available to interested parties as appropriate",
+          "description_side_gap": 1,
+          "source_side_gap": "no forward occurrence",
+          "same_source": true,
+          "merged": false,
+          "why": "description-side gap exceeds 0"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 9,
+          "words": "be available as documented information communicated within the organization"
+        },
+        {
+          "length": 6,
+          "words": "available to interested parties as appropriate"
+        }
+      ]
+    },
+    {
+      "slug": "aia-control-objectives-a-2-to-a-10",
+      "certification": "AIMS-IA",
+      "description": "Table A.1 organises its controls under nine families, each with a stated objective: A.2 policies related to AI, A.3 internal organization, A.4 resources for AI systems, A.5 assessing impacts of AI systems, A.6 AI system life cycle, A.7 data for AI systems, A.8 information for interested parties of AI systems, A.9 use of AI systems, and A.10 third-party and customer relationships. The objective states what the family is for, which is what an exclusion has to be justified against.",
+      "words": 90,
+      "source": "42001:2023",
+      "fires_current_rule": false,
+      "fires_union_rule": false,
+      "fires_raw_abutting_union": true,
+      "verdict": "REJECTED by the source-side conditions",
+      "longest_run_coverage": 0.122,
+      "union_coverage": 0.122,
+      "raw_abutting_coverage": 0.644,
+      "runs": [
+        {
+          "words": "a 2 policies related to ai",
+          "length": 6,
+          "position_in_description": 14,
+          "position_in_source": [
+            7422
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "a 3 internal organization",
+          "length": 4,
+          "position_in_description": 20,
+          "position_in_source": [
+            7524
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "a 4 resources for ai systems",
+          "length": 6,
+          "position_in_description": 24,
+          "position_in_source": [
+            7610
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "a 5 assessing impacts of ai systems a",
+          "length": 8,
+          "position_in_description": 30,
+          "position_in_source": null,
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "6 ai system life cycle a",
+          "length": 6,
+          "position_in_description": 38,
+          "position_in_source": [
+            7988
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "7 data for ai systems",
+          "length": 5,
+          "position_in_description": 44,
+          "position_in_source": [
+            8383,
+            15322
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "a 8 information for interested parties of ai systems a 9",
+          "length": 11,
+          "position_in_description": 49,
+          "position_in_source": null,
+          "clause": "10.2 Nonconformity and corrective action"
+        },
+        {
+          "words": "use of ai systems and",
+          "length": 5,
+          "position_in_description": 60,
+          "position_in_source": [
+            5737
+          ],
+          "clause": "6.2 AI objectives and planning to achieve them"
+        },
+        {
+          "words": "a 10 third party and customer relationships",
+          "length": 7,
+          "position_in_description": 65,
+          "position_in_source": [
+            8820
+          ],
+          "clause": "10.2 Nonconformity and corrective action"
+        }
+      ],
+      "gaps_between_consecutive_runs": [
+        {
+          "from": "a 2 policies related to ai",
+          "to": "a 3 internal organization",
+          "description_side_gap": 0,
+          "source_side_gap": 96,
+          "same_source": true,
+          "merged": false,
+          "why": "source-side gap 96 exceeds 3"
+        },
+        {
+          "from": "a 3 internal organization",
+          "to": "a 4 resources for ai systems",
+          "description_side_gap": 0,
+          "source_side_gap": 82,
+          "same_source": true,
+          "merged": false,
+          "why": "source-side gap 82 exceeds 3"
+        },
+        {
+          "from": "a 4 resources for ai systems",
+          "to": "a 5 assessing impacts of ai systems a",
+          "description_side_gap": 0,
+          "source_side_gap": "no forward occurrence",
+          "same_source": true,
+          "merged": false,
+          "why": "the two spans never occur in that order in the source"
+        },
+        {
+          "from": "a 5 assessing impacts of ai systems a",
+          "to": "6 ai system life cycle a",
+          "description_side_gap": 0,
+          "source_side_gap": "no forward occurrence",
+          "same_source": true,
+          "merged": false,
+          "why": "the two spans never occur in that order in the source"
+        },
+        {
+          "from": "6 ai system life cycle a",
+          "to": "7 data for ai systems",
+          "description_side_gap": 0,
+          "source_side_gap": 389,
+          "same_source": true,
+          "merged": false,
+          "why": "source-side gap 389 exceeds 3"
+        },
+        {
+          "from": "7 data for ai systems",
+          "to": "a 8 information for interested parties of ai systems a 9",
+          "description_side_gap": 0,
+          "source_side_gap": "no forward occurrence",
+          "same_source": true,
+          "merged": false,
+          "why": "the two spans never occur in that order in the source"
+        },
+        {
+          "from": "a 8 information for interested parties of ai systems a 9",
+          "to": "use of ai systems and",
+          "description_side_gap": 0,
+          "source_side_gap": "no forward occurrence",
+          "same_source": true,
+          "merged": false,
+          "why": "the two spans never occur in that order in the source"
+        },
+        {
+          "from": "use of ai systems and",
+          "to": "a 10 third party and customer relationships",
+          "description_side_gap": 0,
+          "source_side_gap": 3078,
+          "same_source": true,
+          "merged": false,
+          "why": "source-side gap 3078 exceeds 3"
+        }
+      ],
+      "merged_spans": [
+        {
+          "length": 6,
+          "words": "a 2 policies related to ai"
+        },
+        {
+          "length": 4,
+          "words": "a 3 internal organization"
+        },
+        {
+          "length": 6,
+          "words": "a 4 resources for ai systems"
+        },
+        {
+          "length": 8,
+          "words": "a 5 assessing impacts of ai systems a"
+        },
+        {
+          "length": 6,
+          "words": "6 ai system life cycle a"
+        },
+        {
+          "length": 5,
+          "words": "7 data for ai systems"
+        },
+        {
+          "length": 11,
+          "words": "a 8 information for interested parties of ai systems a 9"
+        },
+        {
+          "length": 5,
+          "words": "use of ai systems and"
+        },
+        {
+          "length": 7,
+          "words": "a 10 third party and customer relationships"
+        }
+      ]
+    }
+  ]
+}
