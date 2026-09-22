@@ -1517,6 +1517,47 @@ serve(async (req) => {
     // must not tell an unauthenticated caller which role the function holds.
     const msg = e instanceof Error ? e.message : String(e);
     console.error("courseware-read failed:", msg);
+
+    // ============ TWO CAUSES MUST NOT SHARE ONE STATUS ============
+    //
+    // {"error":"read failed"} answered BOTH of these:
+    //
+    //   permission denied for schema public            a defect -- retrying never helps
+    //   no more connections allowed (max_client_conn)  load -- retrying is the fix
+    //
+    // They need opposite responses from the caller and they were indis-
+    // tinguishable from outside. It cost a session: a wire check exhausted the
+    // pooler, read its own wreckage as the permission defect, and reported
+    // three working views as broken.
+    //
+    // NEITHER IS A SECRET. That the service is busy is not sensitive, and that
+    // a role lacks a grant is our defect rather than our threat model. What
+    // stays hidden is the DETAIL -- the 500 body is unchanged, so nothing tells
+    // an unauthenticated caller which role this function holds.
+    //
+    // Matched on the message because that is all the driver gives us. The list
+    // is deliberately narrow: an unrecognised failure falls through to 500,
+    // because calling a real defect "busy" invites an infinite retry against
+    // something that will never recover.
+    const EXHAUSTED = [
+      "max_client_conn",
+      "no more connections",
+      "too many clients",
+      "remaining connection slots",
+    ];
+    const lower = msg.toLowerCase();
+    if (EXHAUSTED.some((s) => lower.includes(s))) {
+      const logged = await boundedLog(logArgs(503, null, msg));
+      console.log(JSON.stringify({
+        fn: "courseware-read", resource: args?.resource ?? null, status: 503,
+        cause: "pool_exhausted", logged,
+      }));
+      return jsonResponse(
+        { error: "service busy", retry_after_seconds: 2 },
+        503,
+        { "Retry-After": "2" },
+      );
+    }
     // Best-effort, and deliberately last: if the failure WAS the connection,
     // this will fail too and say so on its own line rather than masking the
     // original error.

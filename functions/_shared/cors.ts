@@ -4,9 +4,15 @@ export const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
 };
 
-export function jsonResponse(body: unknown, status = 200): Response {
+/**
+ * `extra` is optional and additive, so no existing caller changes. It exists
+ * for Retry-After on a 503: a status that says "try again" without saying WHEN
+ * leaves the caller to guess, and a guessing client retries too fast and
+ * deepens the exhaustion it is reacting to.
+ */
+export function jsonResponse(body: unknown, status = 200, extra?: Record<string, string>): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    headers: { ...corsHeaders, 'Content-Type': 'application/json', ...(extra ?? {}) },
   });
 }

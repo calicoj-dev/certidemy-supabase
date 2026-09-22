@@ -1,5 +1,5 @@
 {
-  "measured": "2026-09-22T22:26:32.663Z",
+  "measured": "2026-09-22T22:38:54.364Z",
   "examined": 75,
   "cells": [
     {
@@ -268,7 +268,7 @@
       "view": "mcp.task",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
-      "attempts": 2,
+      "attempts": 1,
       "ok": true,
       "rows": 50
     },
@@ -322,90 +322,90 @@
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-IA",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "ISMS-IA",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIMS-F",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AISM-I",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "es-419",
       "cert": "AIGRM-I",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-IA",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "ISMS-IA",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIMS-F",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AISM-I",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "concept",
       "view": "mcp.concept",
       "lang": "pt-BR",
       "cert": "AIGRM-I",
-      "attempts": 4,
-      "ok": false,
-      "why": "HTTP 500 read failed"
+      "attempts": 1,
+      "ok": true,
+      "rows": 50
     },
     {
       "resource": "search",

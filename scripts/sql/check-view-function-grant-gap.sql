@@ -25,74 +25,106 @@
 --    A CONSTRUCTED IDENTIFIER INSIDE A WHERE CLAUSE IS A LOOKUP WAITING FOR A
 --    ROW YOU DID NOT INTEND.
 --
+-- 3. THE KEY IS (SCHEMA, PRONAME), NOT PRONAME. Matching a bare function name
+--    anywhere in the view definition made `mcp.concept_row_en_hash(...)` match
+--    the PUBLIC function of the same name too, so 365's fix was reported as
+--    two fresh gaps against functions the view had stopped calling. Same shape
+--    as a clause address that is only a key once the standard is attached.
+--
+-- 4. SCHEMA USAGE IS NOT A GATE ON A STORED VIEW'S CALL, and an earlier version
+--    of this file asserted that it was. MEASURED: mcp_reader holds no USAGE on
+--    public and reads mcp.lesson_index, which SELECTS the public function
+--    lesson_body_is_servable and returns its values. A view's rewrite rule
+--    holds the function by OID -- already resolved -- so no name lookup happens
+--    at read time.
+--
+--    That version reported mcp.lesson, mcp.lesson_index and mcp.task as gaps.
+--    All three answer 200 in all three languages. THE GUARD OVER-REPORTED ON
+--    THREE WORKING PARTNER-FACING VIEWS, which is how a guard gets deleted.
+--
+--    What actually broke mcp.concept was SECURITY INVOKER, one level in:
+--    public.translation_hash runs as the CALLER and its body resolves
+--    public.ksa_en_hash by name at runtime, and THAT lookup needs USAGE on
+--    public. The three SECURITY DEFINER functions never needed it.
+--
+--        A SECURITY DEFINER FUNCTION IS REACHABLE BY ANYONE HOLDING EXECUTE.
+--        A SECURITY INVOKER FUNCTION IS ONLY AS REACHABLE AS EVERYTHING ITS
+--        BODY TOUCHES.
+--
+--    So EXECUTE is the hard gap below, and SECURITY INVOKER is reported
+--    separately as an ADVISORY -- a static reader cannot follow a function body
+--    to every schema it resolves, and claiming otherwise would be the same
+--    over-reporting again.
+--
 -- Reports. Does not fail. Empty output means no gap.
+
+-- ============================ A. HARD GAPS ============================
+-- A role that can SELECT the view and cannot EXECUTE a function it calls.
+-- This is a 500 waiting for that role to read the view.
 with views as (
   select c.oid as view_oid, c.relname, pg_get_viewdef(c.oid, true) as def
     from pg_class c join pg_namespace n on n.oid = c.relnamespace and n.nspname = 'mcp'
    where c.relkind = 'v'
 ), fns as (
-  select p.oid as fn_oid, p.proname
-    from pg_proc p join pg_namespace n on n.oid = p.pronamespace and n.nspname = 'public'
-   where p.prokind = 'f'
+  select p.oid as fn_oid, p.proname, n.nspname, p.prosecdef
+    from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+   where p.prokind = 'f' and n.nspname in ('public', 'mcp')
 ), pairs as (
-  select v.relname as view_name, v.view_oid, f.proname as fn_name, f.fn_oid
-    from views v join fns f on v.def ~ ('\m' || f.proname || '\s*\(')
+  -- (schema, proname). An mcp call is written `mcp.f(`; a public call is the
+  -- bare name, so it must NOT be preceded by `mcp.`.
+  select v.relname as view_name, v.view_oid,
+         f.nspname || '.' || f.proname as fn_name, f.fn_oid, f.nspname, f.prosecdef
+    from views v
+    join fns f
+      on case when f.nspname = 'mcp'
+              then v.def ~ ('\mmcp\.' || f.proname || '\s*\(')
+              else v.def ~ ('(?<!mcp\.)\m' || f.proname || '\s*\(')
+         end
 ), roles as (
   select rolname from pg_roles
    where rolname not like 'pg\_%' and rolname not like 'supabase\_admin%'
 )
--- ============================================================================
--- REACHING A FUNCTION IS TWO GATES AND THIS ASKED ABOUT ONE.
---
--- Until 365 the join below read only
---
---     and not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
---
--- and this file reported NO GAP on mcp.concept while every non-English read of
--- it answered HTTP 500 with "permission denied for schema public". mcp_reader
--- holds EXECUTE on both functions the view calls and has no USAGE on the schema
--- they live in, so the call is refused at the door before the function ACL is
--- ever consulted.
---
--- That is one rung below the note at the top of this file. There, an ACL
--- comparison measured what was TYPED and has_function_privilege measured what
--- is TRUE. Here has_function_privilege IS true and the call still fails --
--- because it answers "may this role execute this function", and the property
--- is "can this role reach it". The check named after the gap could not see it.
---
--- WHICH_GATE is reported rather than a bare verdict, because the two failures
--- need opposite fixes: a missing EXECUTE is a grant, and a missing schema USAGE
--- must NOT be fixed by granting schema USAGE (that would expose 217 public
--- functions to the partner read role). It is fixed by moving the call site into
--- a schema the role already reaches. 365 is the worked example.
--- ============================================================================
-select p.view_name, p.fn_name,
-       case when not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
-            then 'EXECUTE on the function'
-            else 'USAGE on schema public' end as which_gate,
+select 'HARD GAP' as class, p.view_name, p.fn_name,
        string_agg(r.rolname, ', ' order by r.rolname) as roles_that_would_500
   from pairs p
   join roles r
     on has_table_privilege(r.rolname, p.view_oid, 'SELECT')
-   and (not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
-        or not has_schema_privilege(r.rolname, 'public', 'USAGE'))
- group by p.view_name, p.fn_name,
-          case when not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
-               then 'EXECUTE on the function'
-               else 'USAGE on schema public' end
+   and not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
+ group by p.view_name, p.fn_name
  order by p.view_name, p.fn_name;
 
--- ---------------------------------------------------------------------------
--- POSITIVE CONTROL. An empty report above means "no gap" only if this query can
--- produce a row at all; a check that cannot fire is indistinguishable from one
--- that fired and found nothing. This asserts the instrument still sees a gap it
--- is KNOWN to have: mcp_reader against public.lesson_body_is_servable, which
--- 365 deliberately left unfixed.
+-- ====================== B. SECURITY INVOKER ADVISORY ======================
+-- Not a gap by itself. A function called by an mcp view that runs as the
+-- CALLER is only as reachable as its own body, and no static check here can
+-- follow it. Each one needs a human to confirm every reader can reach what it
+-- touches -- which is exactly what nobody did for translation_hash.
+select 'INVOKER -- body must be reachable by every reader' as class,
+       c.relname as view_name,
+       n.nspname || '.' || p.proname as fn_name,
+       coalesce(array_to_string(p.proconfig, ' '), '(no search_path pin)') as config
+  from pg_class c
+  join pg_namespace cn on cn.oid = c.relnamespace and cn.nspname = 'mcp'
+  join pg_proc p on true
+  join pg_namespace n on n.oid = p.pronamespace and n.nspname in ('public', 'mcp')
+ where c.relkind = 'v'
+   and not p.prosecdef
+   and case when n.nspname = 'mcp'
+            then pg_get_viewdef(c.oid, true) ~ ('\mmcp\.' || p.proname || '\s*\(')
+            else pg_get_viewdef(c.oid, true) ~ ('(?<!mcp\.)\m' || p.proname || '\s*\(')
+       end
+ order by 2, 3;
+
+-- ============================ C. POSITIVE CONTROL ============================
+-- TWO-SIDED, ON THE PREDICATE ITSELF, AND IT STAYS TRUE AFTER THE GAPS CLOSE.
 --
--- If this returns no row, the check above proves nothing and must not be read
--- as clean.
-select 'POSITIVE CONTROL' as check,
-       case when has_table_privilege('mcp_reader', 'mcp.lesson'::regclass, 'SELECT')
-             and not has_schema_privilege('mcp_reader', 'public', 'USAGE')
-            then 'FIRES -- the report above is meaningful'
-            else 'DID NOT FIRE -- the report above proves nothing' end as verdict;
+-- The previous control asserted a gap that 365/366 were about to fix, which is
+-- the shape already recorded here as a defect: a control depending on a defect
+-- remaining in production forbids repairing it. This asserts instead that
+-- has_function_privilege can still answer BOTH ways on this database --
+-- postgres owns and may execute the wrapper, anon may not. If either half
+-- stops holding, the report above is not evidence of anything.
+select 'POSITIVE CONTROL' as class,
+       case when has_function_privilege('postgres', 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
+             and not has_function_privilege('anon', 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
+            then 'FIRES BOTH WAYS -- the report above is meaningful'
+            else 'BROKEN -- the predicate no longer discriminates; ignore the report' end as verdict;

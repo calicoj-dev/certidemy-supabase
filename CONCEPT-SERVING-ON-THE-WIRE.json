@@ -1,0 +1,198 @@
+{
+  "measured": "2026-09-22T22:45:58.549Z",
+  "source": "courseware-read, unauthenticated",
+  "rows": [
+    {
+      "cert": "AIE-I",
+      "lang": "es-419",
+      "concepts": 47,
+      "translated": 47,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "pt-BR",
+      "concepts": 47,
+      "translated": 0,
+      "fallback": 47,
+      "serving_pct": 0
+    },
+    {
+      "cert": "AIGRM-I",
+      "lang": "es-419",
+      "concepts": 165,
+      "translated": 163,
+      "fallback": 2,
+      "serving_pct": 98.8
+    },
+    {
+      "cert": "AIGRM-I",
+      "lang": "pt-BR",
+      "concepts": 165,
+      "translated": 163,
+      "fallback": 2,
+      "serving_pct": 98.8
+    },
+    {
+      "cert": "AIHR-I",
+      "lang": "es-419",
+      "concepts": 114,
+      "translated": 114,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIHR-I",
+      "lang": "pt-BR",
+      "concepts": 114,
+      "translated": 114,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIMS-F",
+      "lang": "es-419",
+      "concepts": 154,
+      "translated": 154,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIMS-F",
+      "lang": "pt-BR",
+      "concepts": 154,
+      "translated": 154,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "concepts": 158,
+      "translated": 158,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "concepts": 158,
+      "translated": 156,
+      "fallback": 2,
+      "serving_pct": 98.7
+    },
+    {
+      "cert": "AISM-I",
+      "lang": "es-419",
+      "concepts": 226,
+      "translated": 225,
+      "fallback": 1,
+      "serving_pct": 99.6
+    },
+    {
+      "cert": "AISM-I",
+      "lang": "pt-BR",
+      "concepts": 226,
+      "translated": 225,
+      "fallback": 1,
+      "serving_pct": 99.6
+    },
+    {
+      "cert": "ISMS-F",
+      "lang": "es-419",
+      "concepts": 192,
+      "translated": 1,
+      "fallback": 191,
+      "serving_pct": 0.5
+    },
+    {
+      "cert": "ISMS-F",
+      "lang": "pt-BR",
+      "concepts": 192,
+      "translated": 1,
+      "fallback": 191,
+      "serving_pct": 0.5
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "es-419",
+      "concepts": 169,
+      "translated": 166,
+      "fallback": 3,
+      "serving_pct": 98.2
+    },
+    {
+      "cert": "ISMS-IA",
+      "lang": "pt-BR",
+      "concepts": 169,
+      "translated": 169,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "es-419",
+      "concepts": 135,
+      "translated": 135,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "pt-BR",
+      "concepts": 135,
+      "translated": 135,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "concepts": 107,
+      "translated": 107,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "concepts": 107,
+      "translated": 107,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SM-AI-II",
+      "lang": "es-419",
+      "concepts": 131,
+      "translated": 131,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SM-AI-II",
+      "lang": "pt-BR",
+      "concepts": 131,
+      "translated": 131,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SPO-AI-I",
+      "lang": "es-419",
+      "concepts": 131,
+      "translated": 131,
+      "fallback": 0,
+      "serving_pct": 100
+    },
+    {
+      "cert": "SPO-AI-I",
+      "lang": "pt-BR",
+      "concepts": 131,
+      "translated": 131,
+      "fallback": 0,
+      "serving_pct": 100
+    }
+  ]
+}
