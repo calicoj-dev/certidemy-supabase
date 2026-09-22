@@ -1,0 +1,363 @@
+{
+ "seed": "2026-09-21-aims-f",
+ "sample_size_per_draw": 20,
+ "drawn_on": "2026-09-21",
+ "method": "PAIRED. One seeded draw of N concept slugs per certification; BOTH languages of each slug are emitted, so every rendering has the other as its control. Coverage halves against an independent draw (N distinct slugs instead of about 2N); evidence per slug doubles. The 2026-09-20 independent draw cleared two draws that were serving a defect rooted in the ENGLISH, which an independent draw can only find by luck.",
+ "fields": "Every row carries en_name, en_description, and name + description in each language. gen-sibling-check emitted descriptions only and was blind to 6 of 29 flagged defects, all of which lived in the NAME.",
+ "what_this_sample_may_claim": "Translation fidelity against the English shown beside it. It cannot clear SOURCE adequacy: a faithful rendering of a poor English description is a correct translation. AIMS-F's English was rewritten in migration 363 and audited separately (AIMSF-CLAIM-AUDIT.json, 67 OK / 0 FAIL).",
+ "how_to_work_this_file": "Read a row as a triple. Put a verdict on the ROW: ok | wrong | reword. Use note to say which language and which field. A defect that appears in both languages is rooted in the English and is the one this shape exists to surface.",
+ "draws": [
+  {
+   "certification": "AIMS-F",
+   "population": 154,
+   "sample_size": 20,
+   "rows": [
+    {
+     "slug": "foreseeable-misuse",
+     "en_name": "Foreseeable misuse",
+     "en_description": "The requirement most often quietly dropped, because assessing intended use is natural while imagining your own product turned against its purpose does not come up unless someone asks. The clause asks.",
+     "es-419": {
+      "name": "Mal uso previsible",
+      "description": "El requisito que más a menudo se abandona en silencio, porque evaluar el uso previsto es natural, mientras que imaginar el propio producto vuelto contra su propósito no surge a menos que alguien lo pregunte. El apartado lo pregunta.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Uso indevido previsível",
+      "description": "O requisito mais frequentemente abandonado em silêncio, porque avaliar o uso pretendido é natural, enquanto imaginar o próprio produto voltado contra a sua finalidade não surge a menos que alguém pergunte. A Seção pergunta.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "es 'Mal uso previsible' vs pt 'Uso indevido previsivel'. The corpus already renders misuse as 'uso indebido' (ISMS-F tool-misuse). es should match: 'Uso indebido previsible'. Also pt 'A Secao pergunta' - bare, capitalised; see the capitalisation rule below."
+    },
+    {
+     "slug": "internal-audit-requirement",
+     "en_name": "Internal audit requirement",
+     "en_description": "Tests conformity against the organization's own requirements as well as the standard's, and whether the system is effectively implemented and maintained. A finding can be entirely legitimate without pointing at any clause of the standard.",
+     "es-419": {
+      "name": "Requisito de auditoría interna",
+      "description": "Verifica la conformidad con los requisitos propios de la organización además de los de la norma, y si el sistema está implementado y mantenido de manera eficaz. Un hallazgo puede ser totalmente legítimo sin señalar ningún apartado de la norma.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Requisito de auditoria interna",
+      "description": "Testa a conformidade com os requisitos da própria organização, além dos da norma, e se o sistema está implementado e mantido de forma eficaz. Uma constatação pode ser inteiramente legítima sem apontar para qualquer Seção da norma.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "Content clean both. pt 'qualquer Secao da norma' - bare occurrence capitalised."
+    },
+    {
+     "slug": "disclosure-difference",
+     "en_name": "Disclosure difference",
+     "en_description": "The risk assessment is internal and retained; the impact assessment's result may be made available to interested parties. A record a regulator or an affected individual might read is a different document from one that stops inside.",
+     "es-419": {
+      "name": "Diferencia de divulgación",
+      "description": "La apreciación de riesgos es interna y se conserva; el resultado de la evaluación de impacto puede ponerse a disposición de las partes interesadas. Un registro que podría leer un regulador o una persona afectada es un documento distinto de uno que se detiene puertas adentro.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Diferença de divulgação",
+      "description": "A avaliação de riscos é interna e retida; o resultado da avaliação de impacto pode ser disponibilizado às partes interessadas. Um registro que um regulador ou uma pessoa afetada possa ler é um documento diferente de um que para dentro de casa.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "pt 'um que para dentro de casa' is clunky and informal for a normative register - 'dentro de casa' reads domestic. es 'puertas adentro' is the better idiom. Suggest pt 'um que nao sai do ambiente interno'."
+    },
+    {
+     "slug": "jurisdictional-context",
+     "en_name": "Jurisdictional context",
+     "en_description": "The assessment takes into account the particular technical and social setting a system is deployed into, and the applicable jurisdictions. Deploying the same system into a new market is a significant change, not a copy of one already done.",
+     "es-419": {
+      "name": "Contexto jurisdiccional",
+      "description": "La evaluación toma en cuenta el entorno técnico y social particular en el que se despliega un sistema, y las jurisdicciones aplicables. Desplegar el mismo sistema en un mercado nuevo es un cambio significativo, no una copia de uno ya realizado.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Contexto jurisdicional",
+      "description": "A avaliação leva em conta o contexto técnico e social específico em que um sistema é implantado, e as jurisdições aplicáveis. Implantar o mesmo sistema em um novo mercado é uma mudança significativa, não uma cópia de algo já feito.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "impact-on-individuals",
+     "en_name": "Impact on individuals",
+     "en_description": "Legal standing and life chances, physical and psychological well-being, human rights, with protection needs named for children, impaired and elderly persons and workers. It covers expectations, so a system can meet every specification and still breach them.",
+     "es-419": {
+      "name": "Impacto en las personas",
+      "description": "Situación jurídica y oportunidades de vida, bienestar físico y psicológico, derechos humanos, con necesidades de protección nombradas para niños, personas con discapacidad, personas mayores y trabajadores. Abarca las expectativas, de modo que un sistema puede cumplir todas las especificaciones y aun así vulnerarlas.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Impacto sobre indivíduos",
+      "description": "Situação jurídica e oportunidades de vida, bem-estar físico e psicológico, direitos humanos, com necessidades de proteção nomeadas para crianças, pessoas com deficiência, idosos e trabalhadores. Abrange expectativas, de modo que um sistema pode atender a todas as especificações e ainda assim violá-las.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": "Both handled 'impaired persons' correctly and respectfully - 'personas con discapacidad' / 'pessoas com deficiencia'."
+    },
+    {
+     "slug": "certification-is-not-compliance",
+     "en_name": "Certification is not compliance",
+     "en_description": "Conformity supports a claim about evidence, scoped to the organization's role. A certified organization may still be in breach and an uncertified one fully compliant, because the two assessments have different criteria and different assessors.",
+     "es-419": {
+      "name": "La certificación no es cumplimiento legal",
+      "description": "La conformidad respalda una afirmación sobre evidencia, acotada al rol de la organización. Una organización certificada puede seguir estando en infracción y una no certificada cumplir plenamente, porque las dos evaluaciones tienen criterios distintos y evaluadores distintos.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Certificação não é conformidade legal",
+      "description": "A conformidade sustenta uma alegação sobre evidências, delimitada ao papel da organização. Uma organização certificada pode ainda estar em descumprimento e uma não certificada estar plenamente em conformidade, porque as duas avaliações têm critérios diferentes e avaliadores diferentes.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": "BOTH languages independently added 'legal' to the name where the English says bare 'compliance'. That is correct, not a defect: English distinguishes compliance from conformity lexically and neither target language does, so the disambiguation is required. This is the paired draw doing its job - two independent renderings agreeing points at the SOURCE. Note for the English: 'compliance' bare is under-specified for translation."
+    },
+    {
+     "slug": "life-cycle-stage-controls",
+     "en_name": "Life cycle stage controls",
+     "en_description": "Seven controls running from requirements and specification through design, verification and validation, deployment, operation and monitoring, technical documentation, and event logging. Read in order they describe a system's whole existence.",
+     "es-419": {
+      "name": "Controles de las etapas del ciclo de vida",
+      "description": "Siete controles que van desde los requisitos y la especificación hasta el diseño, la verificación y validación, el despliegue, la operación y el monitoreo, la documentación técnica y el registro de eventos. Leídos en orden, describen toda la existencia de un sistema.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Controles de estágios do ciclo de vida",
+      "description": "Sete controles que vão de requisitos e especificação, passando por projeto, verificação e validação, implantação, operação e monitoramento, documentação técnica e registro de eventos. Lidos em ordem, descrevem toda a existência de um sistema.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "impact-assessment-controls",
+     "en_name": "Impact assessment controls",
+     "en_description": "Establish the process, document and retain results, assess impacts on individuals or groups, and assess societal impacts. The last two are separate controls, so an organization can be complete on one and absent on the other - societal is usually the gap.",
+     "es-419": {
+      "name": "Controles de evaluación de impacto",
+      "description": "Establecer el proceso, documentar y conservar los resultados, evaluar los impactos en personas o grupos, y evaluar los impactos sociales. Los dos últimos son controles separados, así que una organización puede estar completa en uno y ausente en el otro: el social suele ser la brecha.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Controles de avaliação de impacto",
+      "description": "Estabelecer o processo, documentar e reter os resultados, avaliar os impactos sobre indivíduos ou grupos, e avaliar os impactos societais. Os dois últimos são controles separados, de modo que uma organização pode estar completa em um e ausente no outro — o societal costuma ser a lacuna.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "es 'impactos sociales' for 'societal impacts'. The corpus elsewhere renders it 'para las sociedades' (AIMS-IA impact-on-societies). 'Sociales' collapses societal into social. pt 'societais' is right. Align es."
+    },
+    {
+     "slug": "stage-one-stage-two",
+     "en_name": "Stage one stage two",
+     "en_description": "Stage 1 examines whether the system is designed to meet the requirements; stage 2 examines whether it is actually operating. An organization with excellent documentation and no operating history struggles at the second.",
+     "es-419": {
+      "name": "Etapa uno, etapa dos",
+      "description": "La etapa 1 examina si el sistema está diseñado para cumplir los requisitos; la etapa 2 examina si realmente está operando. Una organización con documentación excelente y sin historial de operación tiene dificultades en la segunda.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Etapa um e etapa dois",
+      "description": "A etapa 1 examina se o sistema está projetado para atender aos requisitos; a etapa 2 examina se ele está de fato operando. Uma organização com documentação excelente e sem histórico operacional tem dificuldade na segunda.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "soa-annex-a-relationship",
+     "en_name": "SoA annex a relationship",
+     "en_description": "Runs in one direction: controls are determined from the treatment options, then compared against the annex to verify nothing necessary was omitted. The inverted approach produces a document of similar length with no link from risk to control.",
+     "es-419": {
+      "name": "Relación entre la Declaración de Aplicabilidad y el Anexo A",
+      "description": "Va en una sola dirección: los controles se determinan a partir de las opciones de tratamiento y luego se comparan con el anexo para verificar que no se omitió nada necesario. El enfoque invertido produce un documento de extensión similar sin vínculo alguno entre el riesgo y el control.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Relação entre a Declaração de Aplicabilidade e o Anexo A",
+      "description": "Funciona em uma direção: os controles são determinados a partir das opções de tratamento e depois comparados com o anexo para verificar que nada necessário foi omitido. A abordagem invertida produz um documento de extensão semelhante sem nenhum vínculo do risco ao controle.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "ENGLISH DEFECT, not a translation one. en_name 'SoA annex a relationship' is raw slug text - lowercase 'annex a' where 'Annex A' belongs. Both translations repaired it into full correct names. Same class as ISMS-F's 192, now found in AIMS-F. Fix the English name."
+    },
+    {
+     "slug": "intended-use-control",
+     "en_name": "Intended use control",
+     "en_description": "The system is used according to its instructions and documentation, and the data it runs on aligns with them. Where correct deployment still causes concern about impact or legal requirements, the guidance directs raising it with the supplier too.",
+     "es-419": {
+      "name": "Control de uso previsto",
+      "description": "El sistema se usa conforme a sus instrucciones y documentación, y los datos con los que opera se alinean con ellas. Cuando un despliegue correcto aun así genera inquietud sobre el impacto o los requisitos legales, la guía orienta a plantearlo también al proveedor.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Controle de uso pretendido",
+      "description": "O sistema é usado conforme suas instruções e documentação, e os dados sobre os quais ele opera estão alinhados a elas. Quando a implantação correta ainda causa preocupação quanto ao impacto ou a requisitos legais, a orientação direciona que isso também seja levantado com o fornecedor.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "audit-criteria-and-scope",
+     "en_name": "Audit criteria and scope",
+     "en_description": "Defined per audit, not once for the programme. An audit without a stated scope produces findings nobody can situate, and a combined audit plan listing only information security criteria has not covered the AIMS whatever else it examined.",
+     "es-419": {
+      "name": "Criterios y alcance de la auditoría",
+      "description": "Se definen para cada auditoría, no una sola vez para el programa. Una auditoría sin un alcance declarado produce hallazgos que nadie puede situar, y un plan de auditoría combinada que solo enumera criterios de seguridad de la información no ha cubierto el AIMS, sin importar qué otra cosa haya examinado.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Critérios e escopo da auditoria",
+      "description": "Definidos por auditoria, e não uma única vez para o programa. Uma auditoria sem escopo declarado produz constatações que ninguém consegue situar, e um plano de auditoria combinada que lista apenas critérios de segurança da informação não cobriu o AIMS, por mais que tenha examinado outras coisas.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "data-for-ai-systems",
+     "en_name": "Data for AI systems",
+     "en_description": "A control category of its own, because representativeness, labelling accuracy and preparation method have no information security counterpart. A dataset can be perfectly confidential, intact and available, and completely unfit.",
+     "es-419": {
+      "name": "Datos para sistemas de IA",
+      "description": "Una categoría de control propia, porque la representatividad, la exactitud del etiquetado y el método de preparación no tienen contraparte en la seguridad de la información. Un conjunto de datos puede ser perfectamente confidencial, íntegro y disponible, y completamente inadecuado.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Dados para sistemas de IA",
+      "description": "Uma categoria de controle própria, porque representatividade, exatidão da rotulagem e método de preparação não têm contrapartida em segurança da informação. Um conjunto de dados pode ser perfeitamente confidencial, íntegro e disponível, e completamente inadequado.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "documented-information",
+     "en_name": "Documented information",
+     "en_description": "What the standard requires plus what the organization judges necessary, with its extent varying by size, process complexity and the competence of people. More documentation is not better documentation.",
+     "es-419": {
+      "name": "Información documentada",
+      "description": "Lo que exige la norma más lo que la organización juzga necesario, con una extensión que varía según el tamaño, la complejidad de los procesos y la competencia de las personas. Más documentación no es mejor documentación.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Informação documentada",
+      "description": "O que a norma exige mais o que a organização julga necessário, com sua extensão variando conforme o porte, a complexidade dos processos e a competência das pessoas. Mais documentação não é documentação melhor.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "ai-risk-assessment",
+     "en_name": "AI risk assessment",
+     "en_description": "Anchored to the AI policy and objectives, and its analysis assesses consequences to the organization, individuals and societies - all three. It is not the organization-only half of a pair with the impact assessment.",
+     "es-419": {
+      "name": "Apreciación de riesgos de IA",
+      "description": "Anclada a la política y a los objetivos de IA, y su análisis evalúa las consecuencias para la organización, las personas y las sociedades: las tres. No es la mitad centrada solo en la organización de un par con la evaluación de impacto.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Avaliação de riscos de IA",
+      "description": "Ancorada na política e nos objetivos de IA, e sua análise avalia as consequências para a organização, para os indivíduos e para as sociedades — as três. Não é a metade voltada apenas à organização de um par formado com a avaliação de impacto.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "es 'Apreciacion de riesgos de IA'. Used consistently three times inside this sample, but it collides with AIMS-IA's es rendering 'evaluacion de riesgos'. Both are valid Spanish for risk assessment - ISO 31000 es uses apreciacion, ISO 27001 es uses evaluacion - and using both across two certifications on the same standard family is the collision class. Pin one and apply corpus-wide."
+    },
+    {
+     "slug": "impact-feeds-risk",
+     "en_name": "Impact feeds risk",
+     "en_description": "Clause 6.1.4 requires the impact assessment's results to be taken into account when risk is assessed. It is an input rather than a parallel process, and considering it is a shall.",
+     "es-419": {
+      "name": "El impacto alimenta al riesgo",
+      "description": "El apartado 6.1.4 exige que los resultados de la evaluación de impacto se tomen en cuenta al apreciar el riesgo. Es una entrada y no un proceso paralelo, y considerarla es un «debe».",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "O impacto alimenta o risco",
+      "description": "A Seção 6.1.4 exige que os resultados da avaliação de impacto sejam levados em conta quando o risco é avaliado. É uma entrada, e não um processo paralelo, e considerá-los é um \"deve\".",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": "es uses guillemets for the quoted modal, pt uses straight quotes. Typographic only; same observation as AIMS-IA."
+    },
+    {
+     "slug": "incident-communication-control",
+     "en_name": "Incident communication control",
+     "en_description": "A determined and documented plan for telling users. AI incidents can be specific to the system or be information security or privacy events, and integrating them into existing incident management works only if what is unique to AI stays in view.",
+     "es-419": {
+      "name": "Control de comunicación de incidentes",
+      "description": "Un plan determinado y documentado para informar a los usuarios. Los incidentes de IA pueden ser específicos del sistema o ser eventos de seguridad de la información o de privacidad, e integrarlos en la gestión de incidentes existente funciona solo si lo que es propio de la IA permanece a la vista.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Controle de comunicação de incidentes",
+      "description": "Um plano determinado e documentado para informar os usuários. Incidentes de IA podem ser específicos do sistema ou ser eventos de segurança da informação ou de privacidade, e integrá-los à gestão de incidentes existente só funciona se o que é único da IA permanecer à vista.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    },
+    {
+     "slug": "continuous-learning-behaviour",
+     "en_name": "Continuous learning behaviour",
+     "en_description": "Behaviour that moves by design, because output and production data are fed back into training. Where it is in use, monitoring has to confirm the system still meets its design goals on real production data.",
+     "es-419": {
+      "name": "Comportamiento de aprendizaje continuo",
+      "description": "Comportamiento que se desplaza por diseño, porque las salidas y los datos de producción se realimentan al entrenamiento. Donde está en uso, el monitoreo tiene que confirmar que el sistema sigue cumpliendo sus objetivos de diseño sobre datos reales de producción.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Comportamento de aprendizado contínuo",
+      "description": "Comportamento que muda por concepção, porque os dados de saída e de produção são realimentados no treinamento. Onde ele está em uso, o monitoramento tem de confirmar que o sistema continua atendendo a seus objetivos de projeto com dados reais de produção.",
+      "is_provisional": true
+     },
+     "verdict": "reword",
+     "note": "es 'Comportamiento que se desplaza por diseno' - 'desplazarse' is to shift position, not to change. The English 'moves' means changes. pt 'muda por concepcao' is correct. Suggest es 'que cambia por diseno'."
+    },
+    {
+     "slug": "organizational-context",
+     "en_name": "Organizational context",
+     "en_description": "Determined before scope, before policy and before risk, because everything downstream is calibrated to it. Clause 9.3 then requires management review to revisit it, so context written once at implementation describes only the moment the programme started.",
+     "es-419": {
+      "name": "Contexto de la organización",
+      "description": "Se determina antes del alcance, antes de la política y antes del riesgo, porque todo lo que sigue se calibra a partir de él. El apartado 9.3 exige después que la revisión por la dirección lo retome, así que un contexto escrito una sola vez en la implementación describe únicamente el momento en que comenzó el programa.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Contexto organizacional",
+      "description": "Determinado antes do escopo, antes da política e antes do risco, porque tudo o que vem depois é calibrado por ele. A Seção 9.3 então exige que a análise crítica pela direção o revisite, de modo que um contexto escrito uma única vez na implementação descreve apenas o momento em que o programa começou.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": "es 'apartado 9.3' lowercase, pt 'Secao 9.3' capitalised - both correct for their own conventions when the word carries a number."
+    },
+    {
+     "slug": "objectives-measurable",
+     "en_name": "Objectives measurable",
+     "en_description": "Measurable where practicable, because the standard accepts that some objectives resist quantification. The hedge is not a general exemption: the other six properties still bind, and monitoring becomes harder rather than optional.",
+     "es-419": {
+      "name": "Objetivos medibles",
+      "description": "Medibles cuando sea factible, porque la norma acepta que algunos objetivos se resisten a la cuantificación. Esa salvedad no es una exención general: las otras seis propiedades siguen obligando, y el monitoreo se vuelve más difícil, no opcional.",
+      "is_provisional": true
+     },
+     "pt-BR": {
+      "name": "Objetivos mensuráveis",
+      "description": "Mensuráveis quando praticável, porque a norma aceita que alguns objetivos resistem à quantificação. A ressalva não é uma isenção geral: as outras seis propriedades continuam valendo, e o monitoramento fica mais difícil, não opcional.",
+      "is_provisional": true
+     },
+     "verdict": "ok",
+     "note": ""
+    }
+   ]
+  }
+ ],
+ "reviewed_by": "claude-director",
+ "reviewed_on": "2026-09-21",
+ "headline": "20 rows, 0 meaning defects, 5 rewords, 1 English-side name defect. AIMS-F clears after the rewords.",
+ "capitalisation_ruling": "pt-BR: capitalise Secao ONLY when a number follows it. \"A Secao 6.1.4 exige\" is correct; \"A Secao pergunta\" and \"qualquer Secao da norma\" are not - bare, it is a common noun and takes lowercase. es-419 already lowercases in both positions, which is correct Spanish convention, so this is a pt-only fix. Mechanisable: assert no capitalised Secao/Apartado/Clausula is followed by anything other than a digit.",
+ "paired_draw_verdict": "The shape worked on its first run. certification-is-not-compliance: both languages independently added \"legal\" to a name the English leaves bare. Two independent renderings agreeing is the signal an independent draw cannot produce, and here it correctly pointed at an under-specified SOURCE rather than at either translation."
+}

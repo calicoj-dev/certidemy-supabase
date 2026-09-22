@@ -2361,6 +2361,52 @@ stopped in 27001, sweeping clause 5 into clause 4.1.
 is a fact about the content.** A defect list is not a defect list until the
 instrument that produced it has been made to fail on something known.
 
+**THE TRANSLATION PASS IS A DETECTOR FOR ENGLISH DEFECTS, AND NOTHING WAS
+READING IT THAT WAY.** Found 2026-09-21, in the AIMS-F paired review.
+
+`soa-annex-a-relationship` read **"SoA annex a relationship"** in English --
+raw slug text with a lowercase annex letter. Both translations render it
+correctly and in full: *"Relacion entre la Declaracion de Aplicabilidad y el
+Anexo A"*. Checked across the certification, **ELEVEN AIMS-F names carry the
+same defect and ALL ELEVEN are correct in both languages** -- `Anexo A`, `IA`,
+`Declaracion de Aplicabilidad`.
+
+A translator working from a defective English name silently repaired it eleven
+times, and no instrument recorded the disagreement. **A translation that
+departs from its source is either a translation defect or a SOURCE defect, and
+only a human comparing the two has ever decided which.**
+
+> **MECHANISM: where a translated name is structurally richer than its English
+> -- expands an initialism, capitalises a proper noun, spells out a term the
+> English left raw -- that is a candidate ENGLISH defect and belongs in the
+> review as one.** The paired sampler already puts both renderings beside the
+> source; what was missing was reading the disagreement in that direction.
+
+**AND 358's GUARD DID NOT MISS THIS -- IT WAS DEFERRED.** The guard tests
+`name = replace(slug, '-', ' ')`, byte-equal to the RAW slug, and "SoA" is not
+"soa". 358's own header says why:
+
+> *"The lowercase `ai` (9 ISMS-F + 5 AIMS-F) and `annex a` (2 + 2) initialism
+> pass is deliberately NOT here. It is a separate step on a separate rule."*
+
+The guard was correctly scoped and the follow-up step was never picked up.
+**A deferral recorded in a migration header is invisible to everyone who was
+not reading that migration.** Measured now across all twelve: 10 lowercase
+standalone `ai`, 8 lowercase annex letters, 1 miscased `Soa` -- AIMS-F's 11
+fixed, ISMS-F's 7 left to the 192-row pass.
+
+**AND THE CAP CAME BACK, IN THE SCRIPT CHECKING WHETHER A SWEEP WAS SAFE.**
+The `Secao` ruling needed to know which rows were already cleared. The script
+fetched `concept_translations?...&limit=4000` and got **1,000 rows and HTTP
+200**, then reported **"0 cleared rows held"** -- on the exact question of
+whether the sweep would edit reviewed content. Three ISMS-IA rows, cleared and
+serving, sat in the 730 that were dropped.
+
+Same defect this file opens with, in a new place: **the question was not "did
+the read succeed" but "could the read have seen the rows that would have
+changed the answer".** A paging helper with a count assertion already exists in
+four scripts here and was simply not used.
+
 **A GUARD THAT CONTRADICTS ITSELF ACROSS LANGUAGES IS THE MOST RELIABLE
 DETECTOR IN THIS REPOSITORY.** Four defects on 2026-09-17, every one found by
 the guard disagreeing with itself rather than by anyone reviewing it:
