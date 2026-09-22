@@ -378,9 +378,11 @@ believed once every few months.
 runtime is invisible; and it cannot see two lists that agree on strings and
 disagree on meaning. That is still a human reading both files.
 
-**`contractVersion` HAS NEVER SERVED A SECOND SHAPE, AND THE RESPONSE SAYS IT
-HAS.** Measured 2026-09-22 against the live server, before widening
-`get_concept`. Not a rule yet -- a fact, recorded so it is not rediscovered.
+**`contractVersion` SAID WHAT WAS PINNED, NOT WHAT WAS SERVED. FIXED AND
+VERIFIED ON THE WIRE 2026-09-22.** Measured before widening `get_concept`, and
+it is the most serious defect found in the week -- an outage is visible and
+never tells anyone something false; this told a partner who pinned version 1
+that they had received version 1.
 
 ```
 list_lessons contract_version=1  ->  contractVersion=1, and the v3 payload
@@ -402,7 +404,49 @@ legal under one advertised schema, so the only safe evolution is
 you may receive", never "a different shape".
 
 `get_lesson` is the exception and the precedent: `{ current: 2, supported: [2] }`
-REFUSES the old pin instead of lying about it. Every other tool accepts it.
+REFUSES the old pin instead of lying about it. Every other tool accepted it.
+
+**AND THE BUMPS WERE NOT COSMETIC, WHICH IS WHAT MADE IT LIVE RATHER THAN
+UNTIDY.** Read out of the history rather than assumed:
+
+| | | |
+|---|---|---|
+| `list_lessons` v2 -> v3 | `f93a3ab` | added `lessonAccess` to the top-level `required` list -- its own comment says *"a new REQUIRED field in the output"* |
+| `list_lessons` | `9289a25` | added `bodyAvailable` to the per-lesson `required` list **with no version bump at all** |
+| five tools -> v2 | `54e2a0c` | widened `supported` while changing the shape |
+
+**A REQUIRED FIELD IS A BREAKING CHANGE EVEN THOUGH ADDING A FIELD LOOKS
+ADDITIVE**, because the schema is `additionalProperties: false` and the caller
+validates against the version they pinned. Not hypothetical -- that is exactly
+how a stale client-side copy of these schemas failed this week, and it was
+misread as a server defect.
+
+**FIXED.** `supported` now lists only what the server can emit
+(`search_blueprint` [2,3]->[3], `get_concept` [1,2]->[2], `get_syllabus`
+[1,2]->[2], `explain_task` [1,2]->[2], `list_lessons` [1,2,3]->[3]); a pin to
+anything else is refused by name; the seven hand-written copies of the
+description sentence are derived from one helper; and a **module-load guard**
+refuses any tool listing more than one supported version unless it is declared
+in `BRANCHES_ON_CONTRACT_VERSION`, which is empty. Verified on the wire: the
+advertised `supportedContractVersions` matches per tool, v1 and v2 are refused
+by name, v3 serves.
+
+> **THE SEMANTICS, AND IT IS FORCED RATHER THAN CHOSEN: evolution is
+> ADDITIVE-ONLY, and `contractVersion` is the MINIMUM VERSION WHOSE VALIDATOR
+> ACCEPTS THE PAYLOAD.** An optional field does not move it; a required field
+> does, and retires the version before it. It is written into the tool
+> descriptions, not only into a comment, because a partner reads the
+> description.
+
+**AND A CHECK CAN PIN A DEFECT.** `certidemy-web/scripts/check-mcp.mjs`
+asserted *"es-419 reports tasks only, not concepts"*. That was correct when
+written and false the moment the concept translations cleared -- so the check
+would have **argued against serving 2,542 rows it was never about**. It is now
+asserted in both directions: a language WITH cleared concepts must report them,
+one WITHOUT must not and must still answer. Same family as the regression
+control that depended on a defect staying in production, and the same fix:
+**a check whose subject can legitimately change must say which direction is
+the finding.**
 
 **AND THE ONE THAT GENUINELY SPANS TWO REPOS IS THE ONE NOTHING CAN TEST.**
 A pair inside one repo is a refactor away from not being a pair. A pair with a
