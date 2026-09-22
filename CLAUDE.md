@@ -2639,6 +2639,30 @@ only a human comparing the two has ever decided which.**
 > review as one.** The paired sampler already puts both renderings beside the
 > source; what was missing was reading the disagreement in that direction.
 
+**[MEASURED 2026-09-22 AND BOTH HALVES OF THE GUARD CLAIM ARE FALSE.** The
+narrow form as described here -- `name = replace(slug, '-', ' ')`, byte-equal
+to the RAW lowercase slug -- fires on **0 rows in the entire corpus**, because
+every slug-derived name is sentence-cased. The form that actually yields 192
+is `name = slug-with-spaces with the first letter capitalised`, and it fires on
+**521 rows across ten certifications**, not on ISMS-F alone:
+
+```
+ISMS-F   192 of 192  100%      SM-AI-I    27 of 107   25%
+AIHR-I    96 of 114   84%      SD-AI-I     5 of 135    4%
+AIMS-F   114 of 154   74%      AISM-I      4 of 226    2%
+SM-AI-II  76 of 131   58%      ISMS-IA     0 of 169    0%
+```
+
+**The distinctive fact about ISMS-F is a RATE, not a count: it is the only
+certification at 100 percent**, and ISMS-IA and AIMS-IA are at 0. The property
+itself is the house convention on 30 percent of the corpus, so a guard on it is
+the BROAD form wearing a narrow number -- exactly what this section warns
+against. The 192 was never evidence that ISMS-F was alone; nobody had measured
+the other eleven.
+
+Same defect as the AIMS-F/ISMS-F control pair: a figure read off one
+certification and asserted of the population.**]**
+
 **AND 358's GUARD DID NOT MISS THIS -- IT WAS DEFERRED.** The guard tests
 `name = replace(slug, '-', ' ')`, byte-equal to the RAW slug, and "SoA" is not
 "soa". 358's own header says why:
@@ -2651,6 +2675,14 @@ The guard was correctly scoped and the follow-up step was never picked up.
 not reading that migration.** Measured now across all twelve: 10 lowercase
 standalone `ai`, 8 lowercase annex letters, 1 miscased `Soa` -- AIMS-F's 11
 fixed, ISMS-F's 7 left to the 192-row pass.
+
+**[RE-MEASURED 2026-09-22: ISMS-F's share is 21 ROWS, NOT 7.** The earlier
+figure counted lowercase `ai` and lowercase annex letters only. Scanning for
+every initialism that is not fully uppercase -- `Iso`, `Isms`, `Cia`, `Pdca`,
+`Soa`, `Saas`, `Ai` -- returns 21 rows, one of which (`Saas ai in scope`)
+carries two defects, so 22 corrections. **A census of one spelling told the
+truth about that spelling and nothing about the class** -- the same shape as
+counting `clausula` without counting `apartado`.**]**
 
 **AND THE CAP CAME BACK, IN THE SCRIPT CHECKING WHETHER A SWEEP WAS SAFE.**
 The `Secao` ruling needed to know which rows were already cleared. The script
