@@ -1,14 +1,15 @@
 {
   "measured": "2026-09-21",
-  "files_scanned": 232,
-  "reads_found": 198,
+  "files_scanned": 233,
+  "reads_found": 204,
   "counts": {
-    "UNSAFE": 42,
+    "UNSAFE": 44,
     "CAPPED": 7,
+    "PAGED-NO-ASSERT": 11,
     "DYNAMIC": 0,
-    "SAFE-SCALAR": 59,
-    "SAFE-COUNT": 13,
-    "SAFE-PAGED": 77
+    "SAFE-SCALAR": 61,
+    "SAFE-COUNT": 6,
+    "SAFE-PAGED": 75
   },
   "unsafe_against_big_table": 10,
   "capped_against_big_table": 3,
@@ -243,6 +244,60 @@
       "query": "lessons?select=content_md&slug=eq."
     },
     {
+      "file": "apply-reread-clearance.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-reread-clearance.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id,retired_at"
+    },
+    {
+      "file": "apply-reread-clearance.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "apply-reread-clearance.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,name,description"
+    },
+    {
+      "file": "apply-reread-clearance.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "apply-reread-clearance.mjs",
+      "table": "concept_translation_reviews",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translation_reviews?select=certification,language,verdict,seed,superseded_at&superseded_"
+    },
+    {
       "file": "audit-review-gate.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -317,7 +372,7 @@
     {
       "file": "check-citation-correspondence.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -353,7 +408,7 @@
     {
       "file": "check-definitional-citations.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -740,7 +795,7 @@
     {
       "file": "gen-concept-repair-queue.mjs",
       "table": "certifications",
-      "klass": "UNSAFE",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -749,7 +804,7 @@
     {
       "file": "gen-concept-repair-queue.mjs",
       "table": "concepts",
-      "klass": "UNSAFE",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -758,7 +813,7 @@
     {
       "file": "gen-concept-sample-paired.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -776,7 +831,7 @@
     {
       "file": "gen-concept-sample-paired.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
       "purpose": "rows",
@@ -1073,7 +1128,7 @@
     {
       "file": "list-defined-term-glosses.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1154,7 +1209,7 @@
     {
       "file": "measure-concept-leak-sensitivity.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1172,7 +1227,7 @@
     {
       "file": "measure-index-widening.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1352,7 +1407,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "certifications",
-      "klass": "SAFE-SCALAR",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1361,7 +1416,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "domains",
-      "klass": "SAFE-SCALAR",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1370,7 +1425,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "tasks",
-      "klass": "SAFE-SCALAR",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1379,7 +1434,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "concepts",
-      "klass": "SAFE-SCALAR",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1388,7 +1443,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "certifications",
-      "klass": "SAFE-COUNT",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1397,7 +1452,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concepts",
-      "klass": "SAFE-COUNT",
+      "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
       "purpose": "rows",
@@ -1406,7 +1461,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-COUNT",
+      "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
       "purpose": "rows",
@@ -1415,7 +1470,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translation_reviews",
-      "klass": "SAFE-COUNT",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1433,7 +1488,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-COUNT",
+      "klass": "SAFE-SCALAR",
       "limit": 1,
       "dynamic": false,
       "purpose": "rows",
@@ -1442,7 +1497,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-COUNT",
+      "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
       "purpose": "rows",
@@ -1460,7 +1515,7 @@
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translation_reviews",
-      "klass": "SAFE-COUNT",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "COUNT-ONLY",
@@ -1568,7 +1623,7 @@
     {
       "file": "scan-iso-leaks.mjs",
       "table": "mcp_leak_policy",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1577,7 +1632,7 @@
     {
       "file": "scan-iso-leaks.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1613,7 +1668,7 @@
     {
       "file": "scan-iso-leaks.mjs",
       "table": "mcp_leak_policy",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1739,7 +1794,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "certifications",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1748,7 +1803,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "concepts",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1757,7 +1812,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "tasks",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1766,7 +1821,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "domains",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1775,7 +1830,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "task_concepts",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1784,7 +1839,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "lesson_concepts",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1793,7 +1848,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "drift_rules",
-      "klass": "UNSAFE",
+      "klass": "PAGED-NO-ASSERT",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",

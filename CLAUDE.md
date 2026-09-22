@@ -929,12 +929,41 @@ explicit limit at or under 1,000) or UNSAFE. Measured 2026-09-21, over 230
 files and 189 reads:
 
 ```
-UNSAFE   42      of which 10 against a table that exceeds 1,000 rows TODAY
-CAPPED    7      of which  4 against such a table
-SAFE-SCALAR  59
-SAFE-COUNT   13
-SAFE-PAGED   77
+UNSAFE           44
+CAPPED            7
+PAGED-NO-ASSERT  11
+SAFE-SCALAR      61
+SAFE-COUNT        6
+SAFE-PAGED       75
 ```
+
+**AND THE CLASSIFIER AIMED ITS WORST FALSE POSITIVE AT THE INVARIANT
+CHECKER.** `verify-invariants.mjs` reads seven tables through `getAll()`, which
+lives in `_pg.mjs` and is reached through a one-line local alias
+(`const get = (path) => getAll(KEY, path)`). Scanning one file at a time, the
+audit saw seven bare literals and reported **SEVEN UNSAFE READS against the
+platform invariant checker** -- inviting the conclusion that every "invariants
+hold" ever printed was about 1,000 of 1,730 concepts.
+
+**It pages. Measured: 1730/1730 concepts, 2984/2984 lesson_concepts, and every
+other read exact against `count(*)`.** Nothing was ever short.
+
+This is the same defect in its third form: the audit read the LITERAL and not
+the statement, then the FILE and not the program. A guard pointed at the
+invariant checker is the worst place for it, because the alarm is big enough
+to act on before anyone verifies it.
+
+> **A STATIC CLASSIFIER MUST FOLLOW THE PROGRAM, NOT THE FILE** -- local
+> imports and one hop of aliasing. And **a helper body ends at the next
+> helper**: a fixed character window spills into the function below, so a
+> plain `fetch()` wrapper above a real paging helper inherits machinery it
+> does not have.
+
+**PAGED-NO-ASSERT IS A THIRD STATE AND FOLDING IT EITHER WAY IS A LIE.**
+A loop that walks `Range` until a short page cannot be truncated at 1,000, so
+calling it UNSAFE sends someone to fix a working reader. It also never asks
+the server for a count, so calling it SAFE-PAGED claims a check nobody ran --
+it ends on the FIRST short page, whatever caused the page to be short.
 
 Full enumeration in `UNPAGED-READ-AUDIT.json`, and the enumeration is the
 artifact -- the count is commentary until someone reads the members.

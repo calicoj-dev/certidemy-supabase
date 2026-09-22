@@ -1,0 +1,90 @@
+{
+  "generated": "2026-09-22",
+  "rewords": [
+    {
+      "cert": "AIMS-F",
+      "slug": "ai-risk-criteria",
+      "language": "es-419",
+      "field": "description",
+      "kind": "pre-existing, surfaced by the re-read",
+      "anchor": "deben soportar cuatro cosas",
+      "replace": "deben sustentar cuatro cosas",
+      "id": "f725358f-8643-4611-a729-0cf2b31d0e01",
+      "after": "Se establecen antes de que se ejecute cualquier evaluación, y deben sustentar cuatro cosas: separar lo aceptable de lo inaceptable, realizar las evaluaciones, tratar el resultado y evaluar los impactos del riesgo. La cuarta conecta el apartado 6.1.4 antes de que este aparezca.",
+      "tr_hash": "a5c0ca61"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "consistent-repeatable-results",
+      "language": "es-419",
+      "field": "description",
+      "kind": "SOURCE-SHAPED: en 'turn X from Y into Z' has no Romance equivalent",
+      "anchor": "Esto es lo que convierte a la evaluación de una opinión en un método",
+      "replace": "Esto es lo que hace que la evaluación deje de ser una opinión y pase a ser un método",
+      "id": "9aa73ef8-8485-4ae2-9c04-d989b161989c",
+      "after": "El proceso debe diseñarse de modo que volver a ejecutarlo produzca respuestas que coincidan, que se sostengan y que puedan ponerse lado a lado. Esto es lo que hace que la evaluación deje de ser una opinión y pase a ser un método, y es la propiedad que más a menudo no se cumple.",
+      "tr_hash": "d6cd1bed"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "consistent-repeatable-results",
+      "language": "pt-BR",
+      "field": "description",
+      "kind": "SOURCE-SHAPED: the same misparse, independently produced",
+      "anchor": "É isso que transforma a avaliação de uma opinião em um método",
+      "replace": "É isso que faz a avaliação deixar de ser uma opinião e passar a ser um método",
+      "id": "64153d09-3c72-4cc2-992d-057ce84db33f",
+      "after": "O processo deve ser projetado de modo que executá-lo novamente produza respostas que concordem entre si, se sustentem e possam ser colocadas lado a lado. É isso que faz a avaliação deixar de ser uma opinião e passar a ser um método, e é a propriedade que mais frequentemente não é atendida.",
+      "tr_hash": "1c8ec7d5"
+    }
+  ],
+  "clearedUnchanged": [
+    [
+      "AIMS-F",
+      "es-419",
+      "ai-risk-assessment"
+    ],
+    [
+      "AIMS-F",
+      "es-419",
+      "ai-system-impact-assessment"
+    ],
+    [
+      "AIMS-F",
+      "es-419",
+      "aims-scope"
+    ],
+    [
+      "AIMS-F",
+      "es-419",
+      "disclosure-difference"
+    ],
+    [
+      "AIMS-F",
+      "es-419",
+      "risk-identification-ai"
+    ],
+    [
+      "AIMS-F",
+      "es-419",
+      "risk-vs-impact-assessment"
+    ],
+    [
+      "ISMS-IA",
+      "pt-BR",
+      "ia-clause-order-carries-no-priority"
+    ],
+    [
+      "ISMS-IA",
+      "pt-BR",
+      "ia-requirement-to-evidence-link"
+    ],
+    [
+      "ISMS-IA",
+      "pt-BR",
+      "ia-who-monitors-and-who-evaluates"
+    ]
+  ],
+  "toClear": 12,
+  "untouchedHash": "2b758858ef2daf7a"
+}

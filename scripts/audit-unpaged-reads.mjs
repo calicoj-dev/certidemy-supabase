@@ -67,6 +67,19 @@ const READ = /["'`]([a-z_][a-z0-9_]*\?select=[^"'`]*)["'`]/gi;
  * SAFE-PAGED only if the helper's name appears immediately before it. */
 const HELPER = /(?:async\s+function|const)\s+([A-Za-z_$][\w$]*)\s*(?:=\s*async\s*)?\(/g;
 
+
+/* A HELPER BODY ENDS AT THE NEXT HELPER. A fixed 1400-character window spills
+ * into the function below, so a plain fetch() wrapper sitting above a real
+ * paging helper inherits its machinery and is credited for paging it does not
+ * do. Bound the slice at the next definition. */
+function bodyOf(src, start) {
+  HELPER.lastIndex = start + 1;
+  const next = HELPER.exec(src);
+  HELPER.lastIndex = 0;
+  const end = next ? next.index : src.length;
+  return src.slice(start, Math.min(end, start + 2400));
+}
+
 const ASSERTS = /SHORT READ|PAGING INCOMPLETE|!==\s*total|<>\s*total|!=\s*total|length\s*!==\s*\w*[Tt]otal/;
 
 function pagingHelpers(src) {
@@ -84,7 +97,30 @@ function pagingHelpers(src) {
   const names = new Set();
   if (!(pages && counts)) return names;
   for (const h of src.matchAll(HELPER)) {
-    if (ASSERTS.test(src.slice(h.index, h.index + 1400))) names.add(h[1]);
+    if (ASSERTS.test(bodyOf(src, h.index))) names.add(h[1]);
+  }
+  return names;
+}
+
+/* PAGES, BUT DOES NOT ASSERT. A loop that walks Range or offset until a
+ * short page cannot be truncated at 1,000 -- but it ends on the FIRST short
+ * page, so a page that comes back short for any other reason ends it early
+ * and silently. CLAUDE.md: "a page loop with no count assertion is the same
+ * bug with more code."
+ *
+ * This is a THIRD state and it matters that it is not folded into either
+ * neighbour. Calling it UNSAFE says it truncates today, which is false and
+ * sends someone to fix a working reader. Calling it SAFE-PAGED says the count
+ * was checked, which is also false. */
+function loosePagingHelpers(src) {
+  const names = new Set();
+  for (const h of src.matchAll(HELPER)) {
+    const body = bodyOf(src, h.index);
+    const pages = body.includes("Range:") || body.includes("Range`") || body.includes("offset=");
+    const loops = (body.includes("for (") || body.includes("for(") ||
+                   body.includes("while (") || body.includes("while(")) &&
+                  (body.includes("push(...") || body.includes("push(page"));
+    if (pages && loops) names.add(h[1]);
   }
   return names;
 }
@@ -99,7 +135,7 @@ function pagingHelpers(src) {
 function countHelpers(src) {
   const names = new Set();
   for (const h of src.matchAll(HELPER)) {
-    const body = src.slice(h.index, h.index + 900);
+    const body = bodyOf(src, h.index);
     const asksCount = /count=exact/.test(body) && /content-range/.test(body);
     const keepsRows = /\.push\(\.\.\.|\.push\(page|out\.push|rows\.push/.test(body);
     if (asksCount && !keepsRows) names.add(h[1]);
@@ -107,10 +143,51 @@ function countHelpers(src) {
   return names;
 }
 
-function scan(src, name) {
+/* ============ A HELPER MAY LIVE IN ANOTHER MODULE ============
+ *
+ * `verify-invariants.mjs` imports getAll() from `_pg.mjs` and every one of its
+ * seven reads goes through it. Scanning one file at a time, the classifier saw
+ * seven bare literals and reported SEVEN UNSAFE READS against the platform
+ * invariant checker -- which pages correctly and was measured fetching all
+ * 1,730 concepts.
+ *
+ * That is this audit's own recurring defect in a third form: it read the
+ * LITERAL and not the statement, then the FILE and not the program. An
+ * over-reporting guard aimed at the invariant checker is the worst possible
+ * false positive, because the conclusion it invites -- "every invariant ever
+ * printed was about a subset" -- is alarming enough to act on immediately.
+ *
+ * So resolve local imports and look for the helper there too. */
+function resolveImports(src, fromDir) {
+  let extra = "";
+  for (const m of src.matchAll(/import\s*\{[^}]*\}\s*from\s*["'](\.[^"']+)["']/g)) {
+    try { extra += "\n" + readFileSync(join(fromDir, m[1]), "utf8"); } catch { /* not local */ }
+  }
+  return extra;
+}
+
+/* AND THE CALL SITE MAY NAME AN ALIAS, NOT THE HELPER. verify-invariants does
+ *   const get = (path) => getAll(KEY, path);
+ * and every read is `get("...")`. Neither the import resolution above nor the
+ * helper detector sees that: `get` has no paging body of its own, and the
+ * literal is preceded by a name that appears in no helper set.
+ *
+ * One hop is enough for every alias in this repo, and one hop is all that is
+ * offered -- a chain long enough to need two is a thing a human should read. */
+function withAliases(src, names) {
+  const out = new Set(names);
+  for (const m of src.matchAll(/const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>\s*([A-Za-z_$][\w$]*)\s*\(/g)) {
+    if (out.has(m[2])) out.add(m[1]);
+  }
+  return out;
+}
+
+function scan(src, name, dir) {
   const out = [];
-  const helpers = pagingHelpers(src);
-  const counters = countHelpers(src);
+  const withImports = src + (dir ? resolveImports(src, dir) : "");
+  const helpers  = withAliases(src, pagingHelpers(withImports));
+  const loose    = withAliases(src, loosePagingHelpers(withImports));
+  const counters = withAliases(src, countHelpers(withImports));
 
   for (const m of src.matchAll(READ)) {
     const q = m[1];
@@ -118,6 +195,7 @@ function scan(src, name) {
     const before = src.slice(Math.max(0, m.index - 40), m.index);
     const safePaged = [...helpers].some((h) => before.includes(h + "("));
     const safeCount = [...counters].some((h) => before.includes(h + "("));
+    const loosePaged = [...loose].some((h) => before.includes(h + "("));
 
     /* THE QUERY IS THE STATEMENT, NOT THE LITERAL. A read assembled by
      * concatenation carries its limit and its filters in later fragments:
@@ -136,6 +214,7 @@ function scan(src, name) {
     let klass;
     if (safeCount) klass = "SAFE-COUNT";
     else if (safePaged) klass = "SAFE-PAGED";
+    else if (loosePaged) klass = "PAGED-NO-ASSERT";
     else if (limN !== null && limN > 1000) klass = "UNSAFE";
     else if (scalar) klass = "SAFE-SCALAR";
     else if (limN !== null) klass = "CAPPED";
@@ -242,12 +321,12 @@ console.log("purpose control:  " + PURPOSE_CONTROL.length + "/" + PURPOSE_CONTRO
             " known uses classified correctly");
 
 const rows = [];
-for (const f of files) rows.push(...scan(readFileSync(f, "utf8"), f.slice(Math.max(f.lastIndexOf("/"), f.lastIndexOf(String.fromCharCode(92))) + 1)));
+for (const f of files) rows.push(...scan(readFileSync(f, "utf8"), f.slice(Math.max(f.lastIndexOf("/"), f.lastIndexOf(String.fromCharCode(92))) + 1), f.slice(0, Math.max(f.lastIndexOf("/"), f.lastIndexOf(String.fromCharCode(92))))));
 
 const by = (k) => rows.filter((r) => r.klass === k);
 console.log("");
 console.log("POSTGREST READS IN scripts/  -- " + rows.length + " read(s) across " + files.length + " file(s)");
-for (const k of ["UNSAFE", "CAPPED", "DYNAMIC", "SAFE-SCALAR", "SAFE-COUNT", "SAFE-PAGED"]) {
+for (const k of ["UNSAFE", "CAPPED", "PAGED-NO-ASSERT", "DYNAMIC", "SAFE-SCALAR", "SAFE-COUNT", "SAFE-PAGED"]) {
   console.log("  " + k.padEnd(12) + String(by(k).length).padStart(4));
 }
 
@@ -314,7 +393,7 @@ for (const r of cappedBig.sort((a, b) => a.file.localeCompare(b.file))) {
 writeFileSync(join(HERE, "..", "UNPAGED-READ-AUDIT.json"), JSON.stringify({
   measured: "2026-09-21",
   files_scanned: files.length, reads_found: rows.length,
-  counts: Object.fromEntries(["UNSAFE", "CAPPED", "DYNAMIC", "SAFE-SCALAR", "SAFE-COUNT", "SAFE-PAGED"].map((k) => [k, by(k).length])),
+  counts: Object.fromEntries(["UNSAFE", "CAPPED", "PAGED-NO-ASSERT", "DYNAMIC", "SAFE-SCALAR", "SAFE-COUNT", "SAFE-PAGED"].map((k) => [k, by(k).length])),
   unsafe_against_big_table: unsafeBig.length,
   capped_against_big_table: cappedBig.length,
   limits: [
