@@ -17,6 +17,32 @@
 -- mcp_reader holds EXECUTE on both and has no USAGE on schema public, so the
 -- call is refused at the schema door before the function ACL is ever consulted.
 --
+-- ##########################################################################
+-- [WRONG, AND CORRECTED BY 366 ON THE SAME DAY. Kept because the wrong
+-- diagnosis produced a correct fix, and the reason it did is the useful part.
+--
+-- A stored view holds its functions BY OID in the rewrite rule. No name
+-- resolution happens at read time, so schema USAGE is never consulted.
+-- MEASURED: mcp_reader, with no USAGE on public, reads mcp.lesson_index --
+-- which SELECTS public.lesson_body_is_servable -- and gets its values back.
+--
+-- The gate was one level in. public.translation_hash is SECURITY INVOKER with
+-- search_path = '', so its BODY resolves public.ksa_en_hash at runtime in the
+-- CALLER's context, and that lookup needs USAGE on public. The other three
+-- functions are SECURITY DEFINER and never needed it.
+--
+-- The wrapper below is SECURITY DEFINER, which is why this migration worked:
+-- the whole chain runs as postgres. The header stated that only in a side
+-- comment at the wrapper, and stated the wrong cause here in the headline.
+--
+-- CONSEQUENCES OF THE CORRECTION:
+--   - the outage dates to 364, not 359
+--   - the three views this file calls "latent" below are NOT latent and need
+--     no migration; all three call SECURITY DEFINER functions and answer 200
+--   - check-view-function-grant-gap.sql asked has_schema_privilege and
+--     over-reported those three working views; corrected with 366]
+-- ##########################################################################
+--
 -- WHY ENGLISH KEPT WORKING, which is the reason nobody saw it. There are no
 -- concept_translations rows with language 'en'. The LEFT JOIN finds no candidate
 -- row, the predicate is never evaluated, and no function is ever called. Every
@@ -54,6 +80,11 @@
 -- whole gate exists to make impossible.
 --
 -- ============ SCOPE: ONE VIEW, DELIBERATELY ============
+--
+-- [THE WHOLE OF THIS SECTION IS SUPERSEDED BY 366. The three views are not
+-- latent, were never latent, and are not a deferral. See the correction above.
+-- Every sentence below is preserved as written and none of it is a live
+-- instruction.]
 --
 -- Three other mcp views call a public function the same way:
 --

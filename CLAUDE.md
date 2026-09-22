@@ -1815,8 +1815,12 @@ one that said no gap was being run BY a role it should have named. That is the
 closest this file has to a self-demonstrating check failure.
 
 **AND THEN THE FIXED CHECK REPORTED CLEAN WHILE THE ENDPOINT WAS DOWN, BECAUSE
-REACHING A FUNCTION IS TWO GATES AND IT ASKED ABOUT ONE.** Found 2026-09-22 by
-the wire check, one rung below the rule above it.
+A SECURITY INVOKER FUNCTION IS ONLY AS REACHABLE AS ITS OWN BODY.** Found
+2026-09-22 by the wire check. **The heading and the diagnosis below it said
+"reaching a function is two gates" and named schema USAGE as the second gate.
+That was wrong and is corrected at the end of this entry; the text is kept
+because the wrong diagnosis produced a correct fix and that is the part worth
+seeing.**
 
 `has_function_privilege('mcp_reader', fn, 'EXECUTE')` is **true** for both
 functions `mcp.concept` calls. Every non-English read of that view answers:
@@ -1827,7 +1831,10 @@ courseware-read failed: permission denied for schema public
 ```
 
 `mcp_reader` has **no USAGE on schema `public`**, so the call is refused at the
-schema door *before the function ACL is ever consulted*. The previous rule
+schema door *before the function ACL is ever consulted*. **[WRONG, corrected
+below 2026-09-22: a stored view holds its functions by OID and no name
+resolution happens at read time. The refusal came from INSIDE
+`translation_hash`.]** The previous rule
 replaced `aclexplode` with `has_*_privilege` because one measures what was
 TYPED and the other what is TRUE. Both of those measure **the function**. The
 property is **reachability**, and the function grant is only half of it.
@@ -1837,6 +1844,10 @@ property is **reachability**, and the function grant is only half of it.
 > WHICH gate is shut** -- because the two need opposite fixes. A missing
 > EXECUTE is a grant. A missing schema USAGE **must not** be fixed by granting
 > schema USAGE.
+
+> **[SUPERSEDED 2026-09-22. `has_schema_privilege` is the WRONG predicate here
+> and it over-reported three working partner-facing views -- see the correction
+> at the end of this entry.]**
 
 **Measured before choosing, rather than argued:** granting `USAGE ON SCHEMA
 public` to `mcp_reader` would expose **217 public functions** (16 of them
@@ -1898,6 +1909,62 @@ a partner's agent would receive them, and the only thing that can test that is
 the deployed function answering an unauthenticated request. `.mjs` against
 PostgREST with the service-role key is the same mistake in a different
 costume: **the credential the test holds IS the hypothesis.**
+
+**THE CORRECTION, 2026-09-22: IT WAS NEVER SCHEMA USAGE, AND THE DATE WAS
+WRONG TOO.** Everything above diagnosed a gate that does not exist on this
+path. Measured, as `mcp_reader`, holding no USAGE on `public`:
+
+```
+POST courseware-read {resource: lesson_index, language: es-419}  ->  200
+aims-ia-01-01-who-commissioned-it   body_available=false
+```
+
+`mcp.lesson_index` SELECTS `public.lesson_body_is_servable(l.id)` and the values
+came back. **A stored view holds its functions by OID in the rewrite rule, so no
+name lookup happens at read time and schema USAGE is never consulted.**
+
+The real gate was one level in:
+
+| function | security | body runs as | verdict |
+|---|---|---|---|
+| `public.concept_row_en_hash` | DEFINER | postgres | fine |
+| `public.lesson_body_is_servable` | DEFINER | postgres | fine |
+| `public.task_ksa_is_withheld` | DEFINER | postgres | fine |
+| **`public.translation_hash`** | **INVOKER** | **mcp_reader** | **BROKEN** |
+
+`translation_hash` is `SET search_path = ''`, so its body resolves
+`public.ksa_en_hash` **at runtime, in the caller's privilege context** -- and
+THAT lookup needs USAGE on `public`.
+
+> **A SECURITY DEFINER FUNCTION IS REACHABLE BY ANYONE HOLDING EXECUTE. A
+> SECURITY INVOKER FUNCTION IS ONLY AS REACHABLE AS EVERYTHING ITS BODY
+> TOUCHES**, and a `search_path` of `''` makes every one of those touches a
+> fully-qualified runtime lookup the CALLER must be able to perform.
+
+**So the outage dates to 364**, which put `translation_hash` into the predicate
+-- not to 359, whose predicate used only the DEFINER function. And
+**`mcp.lesson`, `mcp.lesson_index` and `mcp.task` were never latent**: all three
+call DEFINER functions, `mcp.lesson` calls its one in a WHERE clause where
+nothing can prune it, and all three answer 200 in all three languages.
+
+**The check is corrected to ask EXECUTE as the hard gap and to report SECURITY
+INVOKER separately as an advisory**, because a static reader cannot follow a
+function body to every schema it resolves. Firing count 7 -> 2.
+
+**AND A GRANT MIGRATION ENUMERATES EVERY ROLE THAT HELD THE PRIVILEGE BEFORE.**
+365 granted its new wrappers to `mcp_reader` and `mcp_holder` and silently took
+`mcp.concept` away from `supabase_read_only_user` and `supabase_etl_admin`,
+which held the PUBLIC originals. Nothing on the partner path noticed, because
+nothing on the partner path uses those roles.
+
+> **MECHANISM: before changing what a view calls, enumerate the roles holding
+> EXECUTE on the OUTGOING function; grant the incoming one to exactly that set,
+> and assert in a post-condition that the set is unchanged.** 366 derives the
+> assertion from the originals' grant list rather than typing the role names,
+> so it cannot drift from the thing it is restoring.
+
+Second time in a week that a change aimed at the partner path moved something
+adjacent -- the first was a casing fix invalidating 44 translations.
 
 **AND A TOOL DESCRIPTION READ THROUGH A CONNECTOR IS A CLAIM ABOUT THAT
 CONNECTOR'S CACHE, NOT ABOUT THE SERVER.** Recorded 2026-09-22. A contract
