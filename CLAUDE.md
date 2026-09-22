@@ -1788,6 +1788,59 @@ The same instrument, run two ways, gave "no gap" and "eight gaps" -- and the
 one that said no gap was being run BY a role it should have named. That is the
 closest this file has to a self-demonstrating check failure.
 
+**AND THEN THE FIXED CHECK REPORTED CLEAN WHILE THE ENDPOINT WAS DOWN, BECAUSE
+REACHING A FUNCTION IS TWO GATES AND IT ASKED ABOUT ONE.** Found 2026-09-22 by
+the wire check, one rung below the rule above it.
+
+`has_function_privilege('mcp_reader', fn, 'EXECUTE')` is **true** for both
+functions `mcp.concept` calls. Every non-English read of that view answers:
+
+```
+POST courseware-read {resource: concept, language: es-419}  ->  500
+courseware-read failed: permission denied for schema public
+```
+
+`mcp_reader` has **no USAGE on schema `public`**, so the call is refused at the
+schema door *before the function ACL is ever consulted*. The previous rule
+replaced `aclexplode` with `has_*_privilege` because one measures what was
+TYPED and the other what is TRUE. Both of those measure **the function**. The
+property is **reachability**, and the function grant is only half of it.
+
+> **MECHANISM: a view/function gap check asks `has_function_privilege` AND
+> `has_schema_privilege(role, <the function's schema>, 'USAGE')`, and reports
+> WHICH gate is shut** -- because the two need opposite fixes. A missing
+> EXECUTE is a grant. A missing schema USAGE **must not** be fixed by granting
+> schema USAGE.
+
+**Measured before choosing, rather than argued:** granting `USAGE ON SCHEMA
+public` to `mcp_reader` would expose **217 public functions** (16 of them
+SECURITY DEFINER, running as `postgres`) to the partner-facing read role, which
+today can select **zero** public relations. That isolation IS the schema grant.
+365 moves the call site instead -- thin `mcp.` wrappers that **delegate to the
+public originals rather than reimplementing them**, because a second copy of a
+hash diverges and the divergence surfaces as rows withheld for an arithmetic
+difference rather than for an edit.
+
+**AND THE REASON NOBODY SAW IT IS THE SHARPEST PART: THE ONLY LANGUAGE THAT
+CANNOT EXERCISE THE BROKEN PATH IS THE ONE EVERYTHING WAS TESTED IN.** No
+`concept_translations` row has `language = 'en'`, so an English read finds no
+candidate row, never evaluates the join predicate, and never calls either
+function. **English passed for the entire life of the defect** -- four
+migrations, two of which touched this predicate.
+
+Same family as "a branch that has never executed because a precondition is
+unmet reads exactly like one that works", with the precondition being the
+ABSENCE of data rather than its presence. A test corpus that cannot reach the
+call site is not a weak test; it is not a test.
+
+**THE VIEW IS NOT THE ENDPOINT, AND ONLY ONE OF THEM IS THE CLAIM.** Querying
+`mcp.concept` as an admin reported **158 of 158 serving**, correctly -- the
+gate had done its work and the rows were there. The claim being made was that
+a partner's agent would receive them, and the only thing that can test that is
+the deployed function answering an unauthenticated request. `.mjs` against
+PostgREST with the service-role key is the same mistake in a different
+costume: **the credential the test holds IS the hypothesis.**
+
 **AN UNREPRODUCIBLE COUNT IS COMMENTARY, NOT MEASUREMENT.** Three careful
 counts of one 14-row batch gave **6, 8 and 10** -- the review's figure, the
 review's own enumeration, and a line-by-line diff. None is wrong. "Span" was
