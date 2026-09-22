@@ -929,14 +929,40 @@ explicit limit at or under 1,000) or UNSAFE. Measured 2026-09-21, over 230
 files and 189 reads:
 
 ```
-UNSAFE   46      of which 14 against a table that exceeds 1,000 rows TODAY
-CAPPED    8      of which  4 against such a table
-SAFE-SCALAR  66
-SAFE-PAGED   69
+UNSAFE   42      of which 10 against a table that exceeds 1,000 rows TODAY
+CAPPED    7      of which  4 against such a table
+SAFE-SCALAR  59
+SAFE-COUNT   13
+SAFE-PAGED   77
 ```
 
 Full enumeration in `UNPAGED-READ-AUDIT.json`, and the enumeration is the
 artifact -- the count is commentary until someone reads the members.
+
+**AND THE MORE USEFUL COLUMN IS PURPOSE, NOT SAFETY.** Of the 49 at-risk
+reads, the audit asks how many are computing a COUNT by fetching rows -- the
+355 shape. Those do not need paging; they need to stop fetching. **Paging a
+read that should never have fetched is fixing the wrong layer**, and it is
+precisely the fix a careful reading of the paging rule produces.
+
+**The answer was ONE, and that is the finding.** 355 was an instance, not a
+family: the other 48 genuinely use their rows -- names, descriptions,
+`content_md`, `match_terms`. The one was a post-condition in
+`delete-aimsf-concept-translations.mjs` asserting a deletion by fetching rows
+to check `.length` was zero. It was bounded by an `in.()` list and never
+wrong; it is now `countWhere()`, because **a post-condition that CANNOT be
+truncated is worth more than one that merely is not.**
+
+A negative result is worth recording at the same weight as a positive one.
+Had this gone unmeasured, "the 355 shape is everywhere" would have been the
+natural assumption and 49 reads would have been rewritten to fix one.
+
+**AND THE AUDIT FLAGGED ITS OWN FIX.** `countWhere()` appends `&limit=1` at
+runtime, so the static classifier saw an unbounded literal and reported
+`check-migration-state` UNSAFE on the next run -- the repair for the
+truncation, marked as the defect. A read passed to a helper that asks for a
+count and never accumulates rows is now SAFE-COUNT, which is a different fact
+from SAFE-PAGED: it is not bounded, it fetches nothing.
 
 **ITS OWN CLASSIFIER HAD THIS FILE'S DEFECT FOUR TIMES BEFORE IT WAS RIGHT, AND
 THAT IS THE ENTRY.** Every one over-reported, and an over-reporting guard is

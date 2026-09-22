@@ -1,16 +1,17 @@
 {
   "measured": "2026-09-21",
-  "files_scanned": 230,
-  "reads_found": 190,
+  "files_scanned": 232,
+  "reads_found": 198,
   "counts": {
-    "UNSAFE": 47,
-    "CAPPED": 8,
+    "UNSAFE": 42,
+    "CAPPED": 7,
     "DYNAMIC": 0,
-    "SAFE-SCALAR": 66,
-    "SAFE-PAGED": 69
+    "SAFE-SCALAR": 59,
+    "SAFE-COUNT": 13,
+    "SAFE-PAGED": 77
   },
-  "unsafe_against_big_table": 15,
-  "capped_against_big_table": 4,
+  "unsafe_against_big_table": 10,
+  "capped_against_big_table": 3,
   "limits": [
     "Static analysis of string literals. A query assembled at runtime from variables is not seen.",
     "SAFE-PAGED is per FILE: a file that pages correctly somewhere is credited everywhere, so it can hide a second unpaged read."
@@ -22,6 +23,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&language=eq.en&slug=eq."
     },
     {
@@ -30,6 +32,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md,mcp_servable,mcp_scanned_at&id=eq."
     },
     {
@@ -38,6 +41,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -46,6 +50,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -54,6 +59,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,description&certification_id=eq."
     },
     {
@@ -62,6 +68,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "tasks?select=id,code,knowledge&certification_id=eq."
     },
     {
@@ -70,6 +77,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=description&id=eq."
     },
     {
@@ -78,6 +86,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "tasks?select=knowledge&id=eq."
     },
     {
@@ -86,6 +95,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "tasks?select=code,knowledge,statement,skills,abilities&certification_id=eq."
     },
     {
@@ -94,6 +104,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=slug,name,description&certification_id=eq."
     },
     {
@@ -102,6 +113,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "COUNT-ONLY",
       "query": "concepts?select=slug,description&certification_id=eq."
     },
     {
@@ -110,6 +122,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "tasks?select=id&certification_id=eq."
     },
     {
@@ -118,6 +131,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "task_translations?select=language,knowledge,review_status,is_provisional&task_id=eq."
     },
     {
@@ -126,6 +140,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&slug=eq."
     },
     {
@@ -134,6 +149,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md&slug=eq."
     },
     {
@@ -142,6 +158,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,content_md&id=eq."
     },
     {
@@ -150,6 +167,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id&code=eq.AIMS-F"
     },
     {
@@ -158,6 +176,7 @@
       "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,retired_at&certification_id=eq."
     },
     {
@@ -166,6 +185,7 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional"
     },
     {
@@ -174,6 +194,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,is_provisional&language=eq.pt-B"
     },
     {
@@ -182,6 +203,7 @@
       "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,retired_at&certification_id=eq."
     },
     {
@@ -190,6 +212,7 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,en_hash&concept_id=in.("
     },
     {
@@ -198,6 +221,7 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,en_hash,name,description&concept_id=in.("
     },
     {
@@ -206,6 +230,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,content_md&slug=eq."
     },
     {
@@ -214,6 +239,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md&slug=eq."
     },
     {
@@ -222,6 +248,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -230,6 +257,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -238,6 +266,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,module_id,lesson_group_id,content_md,mcp_servable,mcp_translatio"
     },
     {
@@ -246,6 +275,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -254,6 +284,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -262,6 +293,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("
     },
     {
@@ -270,6 +302,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -278,6 +311,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("
     },
     {
@@ -286,6 +320,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -294,6 +329,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -302,6 +338,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,module_id,content_md&language=eq.en"
     },
     {
@@ -310,6 +347,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "quiz_questions?select=id,certification_id,question_text,options,correct_answer,explanation,langu"
     },
     {
@@ -318,6 +356,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -326,6 +365,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -334,6 +374,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,module_id,content_md&language=eq.en"
     },
     {
@@ -342,6 +383,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "quiz_questions?select=id,certification_id,question_text,options,correct_answer,explanation,langu"
     },
     {
@@ -350,6 +392,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=code,tier,exam_blueprint"
     },
     {
@@ -358,6 +401,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "quiz_questions?select=id,retired_at&item_origin=eq.generated&pool=eq.practice"
     },
     {
@@ -366,6 +410,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_features?select=feature_key"
     },
     {
@@ -374,6 +419,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=code,exam_blueprint"
     },
     {
@@ -382,6 +428,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=notes&limit=1"
     },
     {
@@ -390,6 +437,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,code,statement,knowledge,skills,abilities,bloom_level,criticality&limit=1"
     },
     {
@@ -398,6 +446,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "jta_versions?select=blueprint_snapshot&limit=1"
     },
     {
@@ -406,6 +455,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "exam_attempts?select=id,submitted_at,jta_version_status,company_id_status"
     },
     {
@@ -414,6 +464,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "credentials?select=credential_code,jta_version_status"
     },
     {
@@ -422,6 +473,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lesson_translation_reviews?select=tr_hash,tr_hash_basis"
     },
     {
@@ -430,6 +482,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "task_translation_reviews?select=tr_hash,tr_hash_basis"
     },
     {
@@ -438,6 +491,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "item_translation_reviews?select=tr_hash,tr_hash_basis"
     },
     {
@@ -446,6 +500,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lesson_translation_reviews?select=lesson_id&limit=1"
     },
     {
@@ -454,6 +509,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,created_at,updated_at&order=updated_at.desc&limit=1"
     },
     {
@@ -462,6 +518,7 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id&limit=1"
     },
     {
@@ -470,22 +527,25 @@
       "klass": "CAPPED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "quiz_questions?select=id,created_at,updated_at&limit=1"
     },
     {
       "file": "check-migration-state.mjs",
       "table": "concept_translations",
-      "klass": "UNSAFE",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id"
     },
     {
       "file": "check-migration-state.mjs",
       "table": "concept_translations",
-      "klass": "UNSAFE",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id&is_provisional=is.false"
     },
     {
@@ -494,6 +554,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,mcp_servable,mcp_scanned_at"
     },
     {
@@ -502,6 +563,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=content_md,title,language&language=neq.en"
     },
     {
@@ -510,6 +572,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,certification_id,code,bloom_level,is_exam_scope"
     },
     {
@@ -518,6 +581,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lesson_translation_reviews?select=*"
     },
     {
@@ -526,6 +590,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "COUNT-ONLY",
       "query": "task_translation_reviews?select=task_translation_id"
     },
     {
@@ -534,6 +599,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -542,6 +608,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,certification_id"
     },
     {
@@ -550,6 +617,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,is_provisional"
     },
     {
@@ -558,6 +626,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code&code=eq.AIMS-F"
     },
     {
@@ -566,6 +635,7 @@
       "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,retired_at&certification_id=eq."
     },
     {
@@ -574,23 +644,26 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional"
     },
     {
       "file": "delete-aimsf-concept-translations.mjs",
       "table": "concept_translations",
-      "klass": "UNSAFE",
-      "limit": 2000,
+      "klass": "SAFE-COUNT",
+      "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id&concept_id=in.("
     },
     {
       "file": "delete-aimsf-concept-translations.mjs",
       "table": "concept_translations",
-      "klass": "CAPPED",
-      "limit": 1,
+      "klass": "SAFE-COUNT",
+      "limit": null,
       "dynamic": false,
-      "query": "concept_translations?select=concept_id&limit=1"
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id"
     },
     {
       "file": "dump-drift-rules.mjs",
@@ -598,6 +671,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "drift_rules?select=${cols}&is_active=eq.true&order=severity,legacy_term"
     },
     {
@@ -606,6 +680,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,content_md&id=eq."
     },
     {
@@ -614,6 +689,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "certifications?select=id,code&code=eq."
     },
     {
@@ -622,6 +698,7 @@
       "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=slug,retired_at&certification_id=eq."
     },
     {
@@ -630,6 +707,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.tr"
     },
     {
@@ -638,6 +716,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,content_md,module_id,lesson_group_id&language=eq.en&lesson_group_id=eq."
     },
     {
@@ -646,6 +725,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -654,6 +734,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -662,6 +743,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -670,6 +752,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id"
     },
     {
@@ -678,6 +761,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -686,6 +770,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
     },
     {
@@ -694,6 +779,7 @@
       "klass": "SAFE-PAGED",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,is_provisional"
     },
     {
@@ -702,6 +788,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -710,6 +797,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id"
     },
     {
@@ -718,6 +806,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,is_provisional,review_status"
     },
     {
@@ -726,6 +815,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -734,6 +824,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id"
     },
     {
@@ -742,6 +833,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language"
     },
     {
@@ -750,6 +842,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,is_provisional"
     },
     {
@@ -758,6 +851,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -766,6 +860,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -774,6 +869,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -782,6 +878,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&slug=eq."
     },
     {
@@ -790,6 +887,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -798,6 +896,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -806,6 +905,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -814,6 +914,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&language=eq.en&module_id=in.("
     },
     {
@@ -822,6 +923,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -830,6 +932,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -838,6 +941,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
@@ -846,6 +950,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -854,6 +959,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -862,6 +968,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
@@ -870,6 +977,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -878,6 +986,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id"
     },
     {
@@ -886,6 +995,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,is_provisional"
     },
     {
@@ -894,6 +1004,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translation_reviews?select=certification,language,verdict,superseded_at"
     },
     {
@@ -902,6 +1013,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translation_reviews?select=certification,language,verdict"
     },
     {
@@ -910,6 +1022,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -918,6 +1031,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -926,6 +1040,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,content_md&language=eq."
     },
     {
@@ -934,6 +1049,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -942,6 +1058,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -950,6 +1067,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
@@ -958,6 +1076,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -966,6 +1085,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
     },
     {
@@ -974,6 +1094,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -982,6 +1103,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -990,6 +1112,7 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md,mcp_servable,mcp_iso_longest_run&modu"
     },
     {
@@ -998,6 +1121,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -1006,6 +1130,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1014,6 +1139,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -1022,6 +1148,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,mcp_servable,content_md&language=eq.en&module_id=in.("
     },
     {
@@ -1030,6 +1157,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1038,6 +1166,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
     },
     {
@@ -1046,6 +1175,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1054,6 +1184,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
     },
     {
@@ -1062,6 +1193,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1070,6 +1202,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,certification_id,is_exam_scope"
     },
     {
@@ -1078,6 +1211,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "task_translations?select=task_id,language,is_provisional,ksa_is_provisional,review_status,statem"
     },
     {
@@ -1086,6 +1220,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -1094,6 +1229,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "certifications?select=id,code&code=eq."
     },
     {
@@ -1102,6 +1238,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "domains?select=id,code&certification_id=eq."
     },
     {
@@ -1110,6 +1247,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,code,domain_id,knowledge,skills,abilities,certification_id"
     },
     {
@@ -1118,6 +1256,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "task_translations?select=task_id,language,knowledge,skills,abilities,ksa_is_provisional,is_provi"
     },
     {
@@ -1126,6 +1265,7 @@
       "klass": "SAFE-PAGED",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lesson_translation_reviews?select=lesson_id&limit=1"
     },
     {
@@ -1134,7 +1274,80 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&language=eq.en"
+    },
+    {
+      "file": "pin-evaluacion.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "pin-evaluacion.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id,retired_at"
+    },
+    {
+      "file": "pin-evaluacion.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "pin-evaluacion.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
+    },
+    {
+      "file": "pin-secao-case.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "pin-secao-case.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id"
+    },
+    {
+      "file": "pin-secao-case.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
+    },
+    {
+      "file": "pin-secao-case.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
     },
     {
       "file": "propose-match-terms.mjs",
@@ -1142,6 +1355,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code&code=eq.${encodeURIComponent(certCode)}"
     },
     {
@@ -1150,6 +1364,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "domains?select=id,code,title&certification_id=eq.${cert.id}"
     },
     {
@@ -1158,6 +1373,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,domain_id,scope_tag&certification_id=eq.${cert.id}"
     },
     {
@@ -1166,78 +1382,88 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,match_terms&certification_id=eq.${cert.id}&order=slug"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "certifications",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id&code=eq.AIMS-F"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concepts",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,retired_at&certification_id=eq."
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "UNSAFE",
+      "klass": "SAFE-COUNT",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional,review_s"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translation_reviews",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translation_reviews?select=id,language,verdict,superseded_at&certification=eq.AIMS-F"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id&is_provisional=eq.false"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": 1,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=review_status&is_provisional=eq.false&limit=1"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "UNSAFE",
+      "klass": "SAFE-COUNT",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,is_provisional,en_hash&concept_id=in.("
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id&is_provisional=eq.false"
     },
     {
       "file": "release-aimsf-translations.mjs",
       "table": "concept_translation_reviews",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-COUNT",
       "limit": null,
       "dynamic": false,
+      "purpose": "COUNT-ONLY",
       "query": "concept_translation_reviews?select=language,verdict,seed,source_gate_ran,superseded_at&certifica"
     },
     {
@@ -1246,6 +1472,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,content_md&slug=eq."
     },
     {
@@ -1254,6 +1481,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md&slug=eq."
     },
     {
@@ -1262,6 +1490,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&language=eq."
     },
     {
@@ -1270,6 +1499,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md,mcp_servable&id=eq."
     },
     {
@@ -1278,6 +1508,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.tr"
     },
     {
@@ -1286,6 +1517,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,content_md,lesson_group_id&language=eq.en&lesson_group_id=eq."
     },
     {
@@ -1294,6 +1526,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,language,content_md&slug=eq."
     },
     {
@@ -1302,6 +1535,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=content_md,mcp_servable&id=eq."
     },
     {
@@ -1310,6 +1544,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -1318,6 +1553,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1326,6 +1562,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id"
     },
     {
@@ -1334,6 +1571,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words,standards"
     },
     {
@@ -1342,6 +1580,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1350,6 +1589,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -1358,6 +1598,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,module_id,content_md,mcp_servable,mcp_iso_longes"
     },
     {
@@ -1366,6 +1607,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,mcp_servable,mcp_iso_longest_run,mcp_scanned_at,mcp_scan_sources"
     },
     {
@@ -1374,6 +1616,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
@@ -1382,6 +1625,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1390,6 +1634,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -1398,6 +1643,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
@@ -1406,6 +1652,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1414,6 +1661,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "modules?select=id,certification_id"
     },
     {
@@ -1422,6 +1670,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code"
     },
     {
@@ -1430,6 +1679,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "modules?select=id&certification_id=eq."
     },
     {
@@ -1438,6 +1688,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("
     },
     {
@@ -1446,6 +1697,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.tr"
     },
     {
@@ -1454,6 +1706,7 @@
       "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,content_md,lesson_group_id&language=eq.en&lesson_group_id=eq."
     },
     {
@@ -1462,6 +1715,7 @@
       "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id&code=eq.AIMS-F"
     },
     {
@@ -1470,6 +1724,7 @@
       "klass": "SAFE-SCALAR",
       "limit": 1000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,retired_at&certification_id=eq."
     },
     {
@@ -1478,6 +1733,7 @@
       "klass": "UNSAFE",
       "limit": 2000,
       "dynamic": true,
+      "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional,review_s"
     },
     {
@@ -1486,6 +1742,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "certifications?select=id,code,status&order=code"
     },
     {
@@ -1494,6 +1751,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "concepts?select=id,slug,name,certification_id,match_terms&order=id"
     },
     {
@@ -1502,6 +1760,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "tasks?select=id,certification_id,domain_id&order=id"
     },
     {
@@ -1510,6 +1769,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "domains?select=id,code,certification_id,weight_pct&order=id"
     },
     {
@@ -1518,6 +1778,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "task_concepts?select=task_id,concept_id&order=concept_id"
     },
     {
@@ -1526,6 +1787,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "lesson_concepts?select=concept_id&order=concept_id"
     },
     {
@@ -1534,6 +1796,7 @@
       "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
+      "purpose": "rows",
       "query": "drift_rules?select=id,legacy_term,match_mode,pattern,lang,is_active,authority_citation_id"
     }
   ]

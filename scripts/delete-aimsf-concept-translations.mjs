@@ -126,10 +126,25 @@ await rest("concept_translations?concept_id=in.(" + ids.join(",") + ")", {
   method: "DELETE", headers: { Prefer: "return=minimal" },
 });
 
-/* POST-CONDITION: read back rather than trust that DELETE returned no error. */
-const after = await rest("concept_translations?select=concept_id&concept_id=in.(" + ids.join(",") + ")&limit=2000");
-const others = await rest("concept_translations?select=concept_id&limit=1");
+/* POST-CONDITION: read back rather than trust that DELETE returned no error.
+ *
+ * ASK THE SERVER FOR THE COUNT; DO NOT FETCH ROWS TO COUNT THEM. This read
+ * used `select=concept_id ... limit=2000` and reported `after.length`, which
+ * is the shape that made fingerprint 355 report 271 cleared rows against a
+ * true 2,544. It was bounded here by the `in.()` list and so never wrong --
+ * but a post-condition that CANNOT be truncated is worth more than one that
+ * merely is not, and paging it would have been fixing the wrong layer. */
+async function countWhere(p) {
+  const r = await fetch(BASE + "/" + p + "&limit=1", { headers: { ...H, Prefer: "count=exact" } });
+  if (!r.ok) throw new Error("HTTP " + r.status + " on count " + p);
+  await r.text();
+  const n = Number(String(r.headers.get("content-range") || "").split("/")[1]);
+  if (!Number.isFinite(n)) throw new Error("no content-range on count " + p);
+  return n;
+}
+const after = await countWhere("concept_translations?select=concept_id&concept_id=in.(" + ids.join(",") + ")");
+const others = await countWhere("concept_translations?select=concept_id");
 console.log("");
-console.log("  AIMS-F translation rows remaining    " + after.length + (after.length === 0 ? "  (all removed)" : "  FAIL"));
-console.log("  table still holds rows for others    " + (others.length > 0 ? "yes" : "NO -- something deleted too much"));
+console.log("  AIMS-F translation rows remaining    " + after + (after === 0 ? "  (all removed)" : "  FAIL"));
+console.log("  table still holds rows for others    " + (others > 0 ? "yes, " + others : "NO -- something deleted too much"));
 process.exitCode = after.length === 0 && others.length > 0 ? 0 : 1;

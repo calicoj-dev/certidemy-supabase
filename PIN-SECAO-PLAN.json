@@ -1,0 +1,69 @@
+{
+  "measured": "2026-09-22",
+  "keptNumbered": 314,
+  "heldInitial": 1,
+  "totalOcc": 7,
+  "untouchedHash": "7b21cbf85e7e3728",
+  "plan": [
+    {
+      "id": "e72cf323-c422-44af-8df7-9b3694a3afbf",
+      "slug": "aia-annex-a-5-impact-controls",
+      "cert": "AIMS-IA",
+      "cleared": false,
+      "occurrences": 1,
+      "tr_hash": "cbd20426",
+      "name_before": "Controles do Anexo A.5 para avaliar impactos",
+      "name_after": "Controles do Anexo A.5 para avaliar impactos",
+      "description_before": "A família de controles A.5 da Tabela A.1, avaliação de impactos de sistemas de IA, contém os controles de referência que apoiam as Seções 6.1.4 e 8.4, incluindo A.5.2 sobre um processo de avaliação de impacto do sistema de IA e A.5.5 sobre a avaliação de impactos societais de sistemas de IA. Quando a organização selecionou esses controles, eles são declarados na declaração de aplicabilidade e sua implementação é auditável; os requisitos das Seções aplicam-se independentemente da seleção.",
+      "description_after": "A família de controles A.5 da Tabela A.1, avaliação de impactos de sistemas de IA, contém os controles de referência que apoiam as Seções 6.1.4 e 8.4, incluindo A.5.2 sobre um processo de avaliação de impacto do sistema de IA e A.5.5 sobre a avaliação de impactos societais de sistemas de IA. Quando a organização selecionou esses controles, eles são declarados na declaração de aplicabilidade e sua implementação é auditável; os requisitos das seções aplicam-se independentemente da seleção."
+    },
+    {
+      "id": "f40893a6-c7b9-4a8f-a3e7-1f1cdafdd308",
+      "slug": "aia-principle-interaction-in-practice",
+      "cert": "AIMS-IA",
+      "cleared": false,
+      "occurrences": 1,
+      "tr_hash": "5e7a7084",
+      "name_before": "Princípios em tensão",
+      "name_after": "Princípios em tensão",
+      "description_before": "Uma única situação de auditoria pode acionar vários princípios ao mesmo tempo. O auditor primeiro determina quais estão de fato em jogo, já que nem todo princípio incide sobre toda situação, e então raciocina até uma resolução defensável. Os pares que realmente colidem derivam do texto das Seções: abordagem baseada em evidência (4.7, verificabilidade e amostragem) contra abordagem baseada em risco (4.8, que convém que influencie substantivamente o planejamento e a implementação); independência (4.6) contra devido cuidado profissional (4.4); integridade (4.2) contra apresentação justa (4.3); e apresentação justa (4.3, completude) contra confidencialidade (4.5, discrição).",
+      "description_after": "Uma única situação de auditoria pode acionar vários princípios ao mesmo tempo. O auditor primeiro determina quais estão de fato em jogo, já que nem todo princípio incide sobre toda situação, e então raciocina até uma resolução defensável. Os pares que realmente colidem derivam do texto das seções: abordagem baseada em evidência (4.7, verificabilidade e amostragem) contra abordagem baseada em risco (4.8, que convém que influencie substantivamente o planejamento e a implementação); independência (4.6) contra devido cuidado profissional (4.4); integridade (4.2) contra apresentação justa (4.3); e apresentação justa (4.3, completude) contra confidencialidade (4.5, discrição)."
+    },
+    {
+      "id": "5eb4ef94-4c97-480c-9401-13055fd39a79",
+      "slug": "ia-clause-order-carries-no-priority",
+      "cert": "ISMS-IA",
+      "cleared": true,
+      "occurrences": 3,
+      "tr_hash": "c1e0cf78",
+      "name_before": "A ordem das Seções não é ordem de prioridade",
+      "name_after": "A ordem das seções não é ordem de prioridade",
+      "description_before": "A Introdução da ISO/IEC 27001 afirma que a ordem em que seus requisitos são apresentados não reflete a importância deles. Auditar Seção por Seção em sequência numérica importa uma prioridade que a norma nega.",
+      "description_after": "A Introdução da ISO/IEC 27001 afirma que a ordem em que seus requisitos são apresentados não reflete a importância deles. Auditar seção por seção em sequência numérica importa uma prioridade que a norma nega."
+    },
+    {
+      "id": "7437d2ee-b6d6-4118-9bc1-f323125b3210",
+      "slug": "ia-requirement-to-evidence-link",
+      "cert": "ISMS-IA",
+      "cleared": true,
+      "occurrences": 1,
+      "tr_hash": "10b9b902",
+      "name_before": "O vínculo requisito-evidência",
+      "name_after": "O vínculo requisito-evidência",
+      "description_before": "A Seção, o controle ou o requisito organizacional específico que a evidência deixa de atender, declarado explicitamente. Uma declaração sem isso descreve um problema, e não uma não conformidade.",
+      "description_after": "A seção, o controle ou o requisito organizacional específico que a evidência deixa de atender, declarado explicitamente. Uma declaração sem isso descreve um problema, e não uma não conformidade."
+    },
+    {
+      "id": "6f07b77a-8887-4eba-886e-5476511fc06b",
+      "slug": "ia-who-monitors-and-who-evaluates",
+      "cert": "ISMS-IA",
+      "cleared": true,
+      "occurrences": 1,
+      "tr_hash": "bf1e9e73",
+      "name_before": "O quem nomeado",
+      "name_after": "O quem nomeado",
+      "description_before": "A Seção 9.1 da ISO/IEC 27001 aponta a responsabilidade pelo monitoramento e pela avaliação como coisas que a organização deve determinar. Um arranjo em que ninguém é nomeado não satisfaz a Seção mesmo que a medição ocorra.",
+      "description_after": "A Seção 9.1 da ISO/IEC 27001 aponta a responsabilidade pelo monitoramento e pela avaliação como coisas que a organização deve determinar. Um arranjo em que ninguém é nomeado não satisfaz a seção mesmo que a medição ocorra."
+    }
+  ]
+}
