@@ -3,6 +3,26 @@
 Written 2026-09-17. Everything below was measured against the live endpoint, not
 inferred from the code.
 
+> **[CORRECTION 2026-09-22 — THE CONCEPT ROWS DO NOT SERVE IN SPANISH OR
+> PORTUGUESE, AND HAVE NOT SINCE MIGRATION 359.]**
+>
+> Every non-English read of `mcp.concept` answers **HTTP 500**
+> (`permission denied for schema public`). Measured against the deployed
+> endpoint, unauthenticated, across five certifications and both languages:
+> 10 of 10 cells fail. English is unaffected and every other resource —
+> certification, task, search, lesson catalogue — is unaffected.
+>
+> **The sentence above this box is what made it possible.** "Measured against
+> the live endpoint" was true of the resources on this page in September. The
+> concept-translation work that followed was measured by querying the VIEW as
+> an admin, which reports what the gate decided and not what a partner
+> receives. The gate was right; the claim was about the endpoint.
+>
+> Migration 365 fixes it. `scripts/check-mcp-wire.mjs` is the instrument that
+> should have existed: every view, every language, against the deployed
+> function, holding no credential. **Nothing on this page should be restated
+> as serving until that matrix is green.**
+
 **Read this first: English is complete on three certifications; every
 non-English lesson body is held pending a bilingual read.** The syllabi are
 ready in all three languages right now. The lesson BODIES in Spanish and
@@ -26,7 +46,7 @@ A prospect with no key and no account can pull all of this today:
 | certification record | yes | yes |
 | domains, weights, tasks | yes | yes |
 | task knowledge / skills / abilities | yes | yes |
-| concepts and what they attach to | yes | yes |
+| concepts and what they attach to | yes | yes |  <!-- [CORRECTED 2026-09-22: English only. es-419 and pt-BR answer HTTP 500 until migration 365 runs. See the correction at the top.] -->
 | lesson catalogue (titles, order, duration) | yes | yes |
 | search across tasks and concepts | yes | yes |
 
@@ -56,6 +76,14 @@ Spanish and put them somewhere no instrument here can see.
 
 Concepts are English-only across every certification — there is no concept
 translation table at all. Pre-existing, and unchanged.
+
+> **[SUPERSEDED 2026-09-22, IN BOTH DIRECTIONS.]** `concept_translations`
+> exists and carries **2,542 gate-passing rows** across twelve certifications.
+> So this paragraph understates what has been written. It also, by accident,
+> describes what a partner actually receives today: the rows exist and the
+> endpoint answers 500 for every non-English concept read, so concepts are
+> English-only ON THE WIRE for a different reason than the one given here.
+> Both halves change when 365 runs.
 
 **This is the part of the demo that cannot go wrong.** It needs no credential,
 it is complete, and it is the surface a partner actually uses to decide whether
@@ -149,6 +177,10 @@ Three different refusals, three different messages. None of them says
 > which Certidemy may teach from but may not redistribute. This is not a problem
 > with your credential and retrying will not change it. The syllabus, tasks and
 > concepts for this certification are fully available.
+
+**[The last clause of that refusal body is currently false for a non-English
+caller — concepts are not available at all until 365 runs. The refusal text
+lives in the function and needs no change once it does.]**
 
 **A lesson that genuinely does not exist:**
 

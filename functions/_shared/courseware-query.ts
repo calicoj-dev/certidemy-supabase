@@ -457,7 +457,13 @@ export function validateArgs(raw: unknown): Args {
 
 export type Q = { text: string; args: unknown[] };
 
-export function buildQuery(a: Args): { q: Q; searched?: string[] } {
+/**
+ * `clearedConcepts` answers "does this certification and language have cleared
+ * concept translations". It is only consulted for resource `search`, and only
+ * for a non-English language. Omitting it is SAFE-NARROW: the search covers
+ * tasks alone, which is what it did before any translation cleared.
+ */
+export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched?: string[] } {
   switch (a.resource) {
     // Telemetry only; the handler returns before reaching here. Present so the
     // switch stays exhaustive and a future caller cannot fall through silently.
@@ -609,7 +615,25 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
       // this certification and language". Left as a language test deliberately
       // -- it is correct while the table is empty, and a predicate that reads
       // the table would be a branch nothing can exercise until it is not.
-      const withConcepts = a.language === "en";
+      // ===== IT IS NOW A DATA QUESTION, WHICH IS WHAT THE NOTE ABOVE ASKED FOR.
+      //
+      // The condition the note named has arrived: AIMS-IA, ISMS-IA and ten
+      // other certifications have cleared concept translations. A language
+      // test would now exclude a corpus that exists.
+      //
+      // `clearedConcepts` is supplied by the caller, which asks the database
+      // once per search. It is NOT defaulted to true: a caller that does not
+      // ask gets the old, narrower behaviour, because the failure of omitting
+      // the probe must be a thinner result and never a Spanish query matching
+      // English text.
+      //
+      // ENGLISH IS THE EXCEPTION AND IT IS NOT A SPECIAL CASE FOR ITS OWN
+      // SAKE. No concept_translations row has language 'en', so every English
+      // row of mcp.concept has description_is_fallback = true. The fallback
+      // filter below is correct for a translated language and would exclude
+      // the ENTIRE English corpus -- which is the same asymmetry that hid the
+      // 359 defect for four migrations, arriving from the other direction.
+      const withConcepts = a.language === "en" ? true : clearedConcepts === true;
       const searched = withConcepts ? ["task", "concept"] : ["task"];
 
       // ===================== WHY THERE IS A SCORE AT ALL =====================
@@ -721,6 +745,16 @@ export function buildQuery(a: Args): { q: Q; searched?: string[] } {
         "select 'concept', slug, name, null::text, " +
         score("name", "coalesce(description,'')") + " " +
         "from mcp.concept where certification = $4 and language = $2 " +
+        // A cleared language still has uncleared rows, and mcp.concept serves
+        // those as ENGLISH with description_is_fallback true. Matching them
+        // against a Spanish query returns English hits the caller reads as
+        // Spanish results -- the hazard the original note named, which the
+        // language test used to avoid by excluding the corpus wholesale.
+        // Excluded here per row instead, so the cleared rows are reachable and
+        // the uncleared ones are still not.
+        //
+        // Never applied to English: every English row IS a fallback row.
+        (a.language === "en" ? "" : "and not description_is_fallback ") +
         "and (" + anyOf("name", "coalesce(description,'')") + ")";
 
       // kind_total is a window count over ALL matches of that kind, computed

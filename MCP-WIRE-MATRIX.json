@@ -1,0 +1,638 @@
+{
+  "measured": "2026-09-22T22:10:23.687Z",
+  "examined": 75,
+  "cells": [
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "en",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "en",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "en",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "en",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "en",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "es-419",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "es-419",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "es-419",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "es-419",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "es-419",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "pt-BR",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "pt-BR",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "pt-BR",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "pt-BR",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "certification",
+      "view": "mcp.certification",
+      "lang": "pt-BR",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "en",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "en",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "en",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "en",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "en",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "es-419",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "es-419",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "es-419",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "es-419",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "es-419",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "pt-BR",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "pt-BR",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "pt-BR",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "pt-BR",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "task",
+      "view": "mcp.task",
+      "lang": "pt-BR",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "en",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "en",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "en",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "en",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "en",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "es-419",
+      "cert": "AIMS-IA",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "es-419",
+      "cert": "ISMS-IA",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "es-419",
+      "cert": "AIMS-F",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "es-419",
+      "cert": "AISM-I",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "es-419",
+      "cert": "AIGRM-I",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIMS-IA",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "pt-BR",
+      "cert": "ISMS-IA",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIMS-F",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AISM-I",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "concept",
+      "view": "mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIGRM-I",
+      "ok": false,
+      "why": "HTTP 500 read failed"
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "en",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 80
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "en",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 78
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "en",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 23
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "en",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "en",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 5
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "es-419",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "es-419",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "es-419",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "es-419",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "es-419",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 20
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "pt-BR",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 14
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 2
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "search",
+      "view": "mcp.task + mcp.concept",
+      "lang": "pt-BR",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 0
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "en",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "en",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "en",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "en",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "en",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 49
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "es-419",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "es-419",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "es-419",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "es-419",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "es-419",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 49
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "pt-BR",
+      "cert": "AIMS-IA",
+      "ok": true,
+      "rows": 40
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "pt-BR",
+      "cert": "ISMS-IA",
+      "ok": true,
+      "rows": 38
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "pt-BR",
+      "cert": "AIMS-F",
+      "ok": true,
+      "rows": 35
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "pt-BR",
+      "cert": "AISM-I",
+      "ok": true,
+      "rows": 50
+    },
+    {
+      "resource": "lesson_index",
+      "view": "mcp.lesson_index",
+      "lang": "pt-BR",
+      "cert": "AIGRM-I",
+      "ok": true,
+      "rows": 49
+    }
+  ],
+  "skipped": [
+    {
+      "resource": "lesson",
+      "view": "mcp.lesson",
+      "lang": "en",
+      "why": "no CERTIDEMY_LESSONS_KEY in this environment"
+    },
+    {
+      "resource": "lesson",
+      "view": "mcp.lesson",
+      "lang": "es-419",
+      "why": "no CERTIDEMY_LESSONS_KEY in this environment"
+    },
+    {
+      "resource": "lesson",
+      "view": "mcp.lesson",
+      "lang": "pt-BR",
+      "why": "no CERTIDEMY_LESSONS_KEY in this environment"
+    }
+  ],
+  "controls": [
+    {
+      "name": "POSITIVE -- the endpoint serves at all",
+      "pass": true,
+      "detail": "certification/en/AISM-I returned rows"
+    },
+    {
+      "name": "NEGATIVE -- the instrument can see a failure",
+      "pass": true,
+      "detail": "unauthenticated lesson answered HTTP 401"
+    }
+  ]
+}

@@ -37,5 +37,12 @@
       "cleared": 169,
       "refused": []
     }
-  ]
+  ],
+  "correction_2026_09_22": {
+    "what_this_file_does_NOT_say": "that any cleared row reached a caller",
+    "measured_on_the_wire": "every non-English read of mcp.concept answered HTTP 500 (permission denied for schema public) from migration 359 until 365 runs",
+    "why_the_clearance_still_stands": "the gate decided correctly, per row, and refused the five rows whose hashes were stale. Clearing is a statement about review state, not about delivery.",
+    "the_error_to_not_repeat": "serving was reported from a view query run as an admin. The view reports what the gate decided; the claim was that an unauthenticated partner receives the rows. Only the deployed endpoint can answer that.",
+    "instrument": "scripts/check-mcp-wire.mjs"
+  }
 }

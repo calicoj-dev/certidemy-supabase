@@ -134,6 +134,14 @@ on the concept side too. **Do not clear AIMS-F concepts.** Clearing them would p
 1,730-row provenance behind text that teaches nothing, and `get_concept` would start
 serving it in three languages.
 
+> **[THE SECOND HALF WAS NEVER TRUE, 2026-09-22.]** `get_concept` could not have
+> served it in three languages. The tool takes **no language argument** and its
+> live description says concepts are English-only; and `mcp.concept` has
+> answered HTTP 500 for every non-English read since migration 359. The
+> *ruling* stands on its first half, which is the one that matters -- clearing
+> a stub is wrong whatever reaches a caller. The consequence named to justify
+> it was a belief about a path nobody had exercised.
+
 Second-order: the es-419 rendering of that **fixed** English template varies four
 ways across 20 rows — `blueprint AIMS-F` / `temario de AIMS-F` / `plan de estudios
 AIMS-F` / `temario AIMS-F`, and `según lo exige o describe` / `según lo requerido o

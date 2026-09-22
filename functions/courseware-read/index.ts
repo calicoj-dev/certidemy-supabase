@@ -1318,12 +1318,36 @@ serve(async (req) => {
       return jsonResponse({ error: "lesson access not configured" }, 503);
     }
 
-    const { q, searched } = buildQuery(args);
     const conn = await (needsHolder ? getHolderPool() : getPool()).connect();
     let rows: Record<string, unknown>[];
     let withheld: { reason: string; message: string } | null = null;
+    let searched: string[] | undefined;
     try {
-      const r = await conn.queryObject<Record<string, unknown>>(q);
+      // ============ WHETHER THE CONCEPT CORPUS IS SEARCHABLE IS A FACT ============
+      //
+      // It used to be `a.language === "en"`, with a comment saying it had to
+      // become a data question the moment any translation cleared. That moment
+      // was 2026-09-22.
+      //
+      // ON THE MISS PATH ONLY in the sense that matters: one `exists` per
+      // SEARCH, on the same connection, and no other resource pays for it.
+      // Asking per search rather than caching is deliberate -- a cache would
+      // make the answer a property of when the isolate booted, and a
+      // clearance would take effect at no particular time.
+      let clearedConcepts: boolean | undefined;
+      if (args.resource === "search" && args.language !== "en") {
+        const probe = await conn.queryObject<{ has: boolean }>({
+          text:
+            "select exists(select 1 from mcp.concept " +
+            "where certification = $1 and language = $2 and not description_is_fallback) as has",
+          args: [args.certification!, args.language],
+        });
+        clearedConcepts = probe.rows[0]?.has === true;
+      }
+
+      const built = buildQuery(args, clearedConcepts);
+      searched = built.searched;
+      const r = await conn.queryObject<Record<string, unknown>>(built.q);
       rows = r.rows;
 
       // ============ A WITHHELD BODY IS NOT AN ABSENT ONE ============
