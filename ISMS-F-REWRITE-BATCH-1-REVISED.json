@@ -1,0 +1,70 @@
+{
+  "batch": "1-revised",
+  "written": "2026-09-22",
+  "note": "SIX rows, not five. lessons-learned was a verify-citation row and it FAILED verification, so it joins the send-back rather than the apply list.",
+  "citation_verification": {
+    "instrument": "direct extraction from the indexed ISO/IEC 27001:2022, with an extractor self-test (cl.5.1 body must be found) before any verdict",
+    "policy-communication": {
+      "claim": "Clause 5.2 asks three separate things: documented, communicated inside the organization, available to interested parties where appropriate",
+      "verdict": "PASSES",
+      "corpus_says": "27001:2022 cl.5.2 ends: e) be available as documented information; f) be communicated within the organization; g) be available to interested parties, as appropriate.",
+      "correction_to_the_review": "You read these as 5.2 d, e and f. They are e, f and g - d is the continual-improvement commitment. The substance of the claim is exactly right; only the letters were off, and the proposal does not cite letters."
+    },
+    "lessons-learned": {
+      "claim": "clause 10 reads the omission as a gap in improvement",
+      "verdict": "FAILS - you were right",
+      "corpus_says": "27001:2022 cl.10.1 is Continual improvement (generic, no mention of incidents); cl.10.2 is Nonconformity and corrective action. The obligation to learn from incidents is Annex A.5.27, 'Learning from information security incidents': knowledge gained from information security incidents shall be used to strengthen and improve the information security controls.",
+      "class": "MISATTRIBUTION, not a wording defect. The cited clause carries the general substance (improvement) but not the specific claim (learning from incidents), which is the distinction the reverse-check family exists to draw.",
+      "revised_below": true
+    }
+  },
+  "extractor_defect_found_while_verifying": {
+    "what": "A request for main-body clause 5.2 returned Annex A control A.5.2, 'Information security roles and responsibilities'.",
+    "why": "The last-occurrence rule that skips the table of contents walks on past the main body into Table A.1, which numbers its controls 5.1, 5.2, 5.27. Two different requirements share an address and the wrong one reads as a confident answer.",
+    "also": "27001's main-body 5.2 heading is unreachable by any line test: the licence watermark column swallows it, so the line reads 'SNV / licensed to ... / ISO/IEC 27001:2022  5.2Po'. Same watermark defect CLAUDE.md already records for 4.1. The claim was verified from clause BODY TEXT, not from a heading match.",
+    "status": "Found in a throwaway verifier, not in a committed instrument. Worth fixing in audit-aimsf-claims.mjs and check-citation-correspondence.mjs before the next citation pass - flagged, not done."
+  },
+  "rows": [
+    {
+      "slug": "iso-27005-risk",
+      "change": "wording, as ruled",
+      "was": "What you reach for when 27001 requires risk assessment but does not say how to do one. It offers method and examples, and no organization is ever audited against it.",
+      "proposed": "What you reach for when 27001 requires risk assessment but does not say how to do one. It offers method and examples, and no organization is ever certified against it."
+    },
+    {
+      "slug": "risk-criteria",
+      "change": "add the definitional half, per the style ruling",
+      "was": "Fixed before assessment begins, never after the results arrive. Deciding what counts as acceptable once you can see which risks would fail it is how a register gets tuned to a wanted answer.",
+      "proposed": "The organization's own thresholds for what counts as significant and what it is willing to tolerate. Fixed before assessment begins, never after the results arrive: deciding what is acceptable once you can see which risks would fail is how a register gets tuned to a wanted answer.",
+      "note": "Definitional half written from scratch - it does not reuse 'terms of reference against which risk significance is judged', which was the 0.600 fire."
+    },
+    {
+      "slug": "availability",
+      "change": "defect - internal contradiction and overclaim; also add the definitional half",
+      "was": "The property that fails with no attacker involved. An outage, a lost key or a ransomware lock denies information to the people entitled to it as completely as theft would.",
+      "proposed": "Information usable by the people entitled to it, at the moment they need it. The one property of the three routinely lost with no adversary at all - an outage or a lost key denies access as completely as an attacker would.",
+      "note": "Ransomware dropped: it is an attacker, which is the contradiction you named. 'Routinely lost with no adversary' replaces the absolute - a DDoS is still availability, and the claim no longer denies it."
+    },
+    {
+      "slug": "cryptographic-controls",
+      "change": "defect - pointer with no antecedent",
+      "was": "Both halves matter and the second is where implementations fail. Choosing an algorithm is easy; key custody, rotation and recovery decide whether the protection actually holds.",
+      "proposed": "Two halves - how cryptography is used, and how its keys are managed - and the second is where implementations fail. Choosing an algorithm is easy; custody, rotation and recovery decide whether the protection actually holds.",
+      "note": "Names the halves WITHOUT restoring the reproduced span. The 0.800 fire was the ISO/IEC 27002 control title 'use and management of cryptography'; quoting it back and padding around it is what the style ruling forbids, so the halves are named in our own words."
+    },
+    {
+      "slug": "proportionality",
+      "change": "defect - pointer with no antecedent",
+      "was": "Cuts both ways. Over-treating a minor risk spends the effort a serious one needed, so this defends the credibility of the assessment and is not merely a way of controlling cost.",
+      "proposed": "Matching treatment effort to risk level in both directions: under-treat a serious risk and it stays live, over-treat a minor one and it consumes the effort the serious one needed. It defends the credibility of the assessment, not only the budget.",
+      "note": "Under-treatment is now stated rather than implied by 'cuts both ways'. The credibility-not-cost point survives, as ruled."
+    },
+    {
+      "slug": "lessons-learned",
+      "change": "MISATTRIBUTION - citation corrected from clause 10 to Annex A.5.27",
+      "was": "The step that turns an incident from a pure cost into information. Skipped, the organization pays for the same failure twice, and clause 10 reads the omission as a gap in improvement.",
+      "proposed": "The step that turns an incident from a pure cost into information. Annex A.5.27 makes it a control in its own right, so skipping it is not merely wasteful - it leaves a control unimplemented and the same failure paid for twice.",
+      "note": "Clause 10 is continual improvement (10.1) and nonconformity (10.2); neither mentions incidents. A.5.27 is where the obligation lives, and being a CONTROL rather than a clause is the sharper examinable point - it appears in the Statement of Applicability."
+    }
+  ]
+}

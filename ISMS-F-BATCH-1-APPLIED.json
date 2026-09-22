@@ -1,0 +1,23 @@
+{
+  "applied": "2026-09-22",
+  "rows": 14,
+  "approved": [
+    "risk-identification",
+    "threat",
+    "avoid-risk",
+    "physical-perimeter",
+    "nonconformity",
+    "roles-segregation",
+    "retain-risk",
+    "scope-statement",
+    "residual-risk",
+    "least-privilege",
+    "clear-desk-clear-screen",
+    "effectiveness-check",
+    "vulnerability",
+    "policy-communication"
+  ],
+  "withheld_translations": 72,
+  "serving_withheld": 0,
+  "untouchedHash": "3f4a284ef2a27d82"
+}

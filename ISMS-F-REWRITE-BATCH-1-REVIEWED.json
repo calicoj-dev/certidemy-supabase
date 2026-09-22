@@ -1,0 +1,153 @@
+{
+  "batch": 1,
+  "reviewed": "2026-09-22",
+  "reviewer": "director",
+  "read": "all 20, full",
+  "summary": {
+    "approve": 14,
+    "defect": 3,
+    "verify_citation": 2,
+    "wording": 1,
+    "note": "approve + defect + verify + wording exceeds 20 because risk-identification and scope-statement are approved AND carry the missing-first-half note; risk-criteria and availability carry it as well and availability is also a defect."
+  },
+  "style_ruling": {
+    "rule": "The ratified template carries BOTH halves: what the thing IS, then the teaching move. Four proposals in this batch are teaching-move-only.",
+    "applies_to": "ISO defined terms an exam item can test on the definition - availability, risk-criteria, threat, vulnerability, nonconformity, residual-risk, confidentiality, integrity.",
+    "exempt": "Terms whose name reads in plain English - risk-identification, scope-statement, lessons-learned. Teaching-move-only is acceptable there.",
+    "leak_consequence": "Coverage is matched run divided by description length, so stating the definitional content IN OUR OWN WORDS and adding a teaching move dilutes coverage mechanically. This is a more robust failure mode than avoiding the definition, which loses the content. IT IS NOT A LICENCE TO PAD AROUND REPRODUCED TEXT - the definitional half is still written from scratch."
+  },
+  "rows": [
+    {
+      "slug": "risk-identification",
+      "verdict": "approve",
+      "note": "Teaching move is strong - the consequence of omission propagating through the whole process. Missing the first half: never says what identification IS. Acceptable because the name reads in plain English. No change required."
+    },
+    {
+      "slug": "iso-27005-risk",
+      "verdict": "wording",
+      "note": "Best in batch alongside nonconformity. One change: 'no organization is ever audited against it' -> 'certified against it'. An auditor may consult 27005; nobody is certified to it. More precise and more examinable."
+    },
+    {
+      "slug": "threat",
+      "verdict": "approve",
+      "note": "Both halves present. 'actor or event' is a real addition over the ISO definition - threats are agents or events, and candidates conflate threat with vulnerability. Pairs correctly with the vulnerability row."
+    },
+    {
+      "slug": "risk-criteria",
+      "verdict": "approve-with-fix",
+      "note": "The timing point is the right teaching move and it is the failure an auditor actually sees. But risk-criteria is an ISO defined term and this never says what criteria ARE. Add the definitional half in our own words, per the style ruling."
+    },
+    {
+      "slug": "availability",
+      "verdict": "defect",
+      "defect": "internal contradiction, and an overclaim",
+      "note": "'The property that fails with no attacker involved' is followed by 'a ransomware lock'. Ransomware is an attacker. Availability also fails WITH an attacker routinely - a DDoS is the textbook case. The insight underneath is right and worth keeping: availability is the property most often lost without an adversary. State that, not the absolute. Also add the definitional half - availability is an examinable defined term."
+    },
+    {
+      "slug": "avoid-risk",
+      "verdict": "approve",
+      "note": "Correct that avoidance is the only one of the four that removes rather than shrinks or shifts. The benefit-forgone trade is the examinable point and it is not in the ISO definition."
+    },
+    {
+      "slug": "cryptographic-controls",
+      "verdict": "defect",
+      "defect": "pointer with no antecedent",
+      "note": "'Both halves matter' - which halves? They were named by the description this replaces. Same class as the taskBlock defect from PROMPT-1B section 5: a sentence pointing at content the payload does not carry. Name them: use and management."
+    },
+    {
+      "slug": "physical-perimeter",
+      "verdict": "approve",
+      "note": "Good contrast - where control passes from configuration to physical means. The floor-plan-versus-reality point is the examinable one."
+    },
+    {
+      "slug": "nonconformity",
+      "verdict": "approve",
+      "note": "Best in batch. The three-part test is examinable, teachable, and appears in no standard's definition. 'Observation' is consistent with the corpus's own audit-findings row."
+    },
+    {
+      "slug": "roles-segregation",
+      "verdict": "approve",
+      "note": "Both halves. 'Removing the opportunity, which is why it applies to trusted people' is the point candidates miss - they read segregation as a statement about distrust."
+    },
+    {
+      "slug": "retain-risk",
+      "verdict": "approve",
+      "note": "'A decision, not an omission' is the whole concept in four words, and the contrast with an untreated risk is exactly what an item would test."
+    },
+    {
+      "slug": "scope-statement",
+      "verdict": "approve",
+      "note": "Missing the first half but the name reads in plain English, so acceptable. 'Resolved against the organization' is a claim about audit practice rather than about the standard - defensible and useful at Foundation tier. Interfaces and dependencies is the right failure mode to name."
+    },
+    {
+      "slug": "residual-risk",
+      "verdict": "approve",
+      "note": "Both halves, plus the contrast that carries the examinable distinction - what remains because controls worked versus what remains because they were never finished. The explicit-acceptance point is 6.1.3."
+    },
+    {
+      "slug": "lessons-learned",
+      "verdict": "verify-citation",
+      "claim": "clause 10 reads the omission as a gap in improvement",
+      "note": "I read this as A.5.27, Learning from information security incidents. Clause 10 is nonconformity and corrective action. FLAGGED, NOT ASSERTED - I got ISO 19011 wrong on exactly this kind of claim. Run it through check-citation-correspondence.mjs and report what the corpus says before applying."
+    },
+    {
+      "slug": "least-privilege",
+      "verdict": "approve",
+      "note": "'A review obligation rather than a joining-day one' is the examinable reframe and it is not in the control text."
+    },
+    {
+      "slug": "clear-desk-clear-screen",
+      "verdict": "approve",
+      "note": "Naming the threat model it is NOT for is the teaching move, and it explains the scope extension to home and shared workspaces without asserting a clause."
+    },
+    {
+      "slug": "policy-communication",
+      "verdict": "verify-citation",
+      "claim": "Clause 5.2 asks three separate things: documented, communicated inside the organization, available to interested parties where appropriate",
+      "note": "I read this as correct - 5.2 d, e and f. But it is a citation claim and every citation claim in this corpus goes through the instrument. Verify, then apply. 'Publishing a file satisfies only the first' is the examinable point."
+    },
+    {
+      "slug": "effectiveness-check",
+      "verdict": "approve",
+      "note": "'Closing a finding the day the fix ships proves only that it was applied' is the sharpest sentence in the batch after nonconformity."
+    },
+    {
+      "slug": "proportionality",
+      "verdict": "defect",
+      "defect": "pointer with no antecedent",
+      "note": "'Cuts both ways' and then one way is given. Under-treatment is never stated. Either state both or drop the opener. The credibility-not-cost point is correct and should survive the fix."
+    },
+    {
+      "slug": "vulnerability",
+      "verdict": "approve",
+      "note": "'The half of a risk you can actually change' is the treatment-selection insight and it pairs correctly with the threat row. Good that the pair was written together."
+    }
+  ],
+  "gate_finding_outside_the_batch": {
+    "slug": "confidentiality",
+    "current": "information is not made available to unauthorized individuals, entities or processes",
+    "iso_27000": "property that information is not made available or disclosed to unauthorized individuals, entities, or processes",
+    "observation": "Near-verbatim against an INDEXED standard, and the gate reported nothing. availability - same shape, same source family - fired at 0.818.",
+    "hypothesis_to_test_not_to_assume": "The interpolated 'or disclosed' splits the match into runs of roughly 5 and 4, and coverage is computed PER RUN rather than summed across runs in one description. If so, the 0.60 floor is defeated by a single interpolated word and every near-verbatim-with-one-edit reproduction in the corpus is invisible.",
+    "required": "Run confidentiality and integrity through the gate with per-run detail printed. Report whether summed coverage across runs would have fired them. If it would, the fire list changes before batch 2 and possibly the scope.",
+    "note": "This is a hypothesis from a director who has been wrong about mechanism four times this week. Test it and discard it if wrong."
+  },
+  "scope_refinement": {
+    "ruling": "The 192 is the population to REVIEW, not the population to rewrite.",
+    "dispositions": ["rewrite", "keep", "trim"],
+    "keep_examples_from_the_gloss_list": [
+      "amendment-1-2024 - the fact IS the content; there is no teaching move to add",
+      "annex-a-themes",
+      "iso-27000-family",
+      "control-attributes"
+    ],
+    "reason": "Forcing 165-192 chars onto a pointer row produces padding, which is the AIMS-F stub problem approached from the other direction.",
+    "required": "Report the disposition split before writing batch 2."
+  },
+  "pace_ruling": {
+    "from": "every row read by the director",
+    "to": "ten spot-read per batch",
+    "unconditional_exception": "EVERY row whose description makes a clause, Annex or control-ID citation is read in full, regardless of the spot-read count. Both verification flags in this batch are citation claims, and that is where a defect is invisible to every mechanical check available.",
+    "basis": "14 of 20 clean on a deliberately adversarial selection."
+  }
+}

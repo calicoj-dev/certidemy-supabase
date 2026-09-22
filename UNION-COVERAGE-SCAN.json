@@ -1,0 +1,56 @@
+{
+  "measured": "2026-09-22",
+  "seed": 4,
+  "min_run": 4,
+  "min_cov": 0.6,
+  "isms_f": {
+    "rows": 192,
+    "fires_today": 11,
+    "fires_union": 13,
+    "newly_visible": 2
+  },
+  "corpus": {
+    "live": 1729,
+    "today": 15,
+    "union": 45
+  },
+  "newly_visible": [
+    {
+      "slug": "confidentiality",
+      "source": "27000:2018",
+      "max_cov": 0.545,
+      "union_cov": 1,
+      "words": 11,
+      "description": "information is not made available to unauthorized individuals, entities or processes",
+      "runs": [
+        {
+          "len": 6,
+          "text": "to unauthorized individuals entities or processes"
+        },
+        {
+          "len": 5,
+          "text": "information is not made available"
+        }
+      ]
+    },
+    {
+      "slug": "pdca-cycle",
+      "source": "19011:2026",
+      "max_cov": 0.333,
+      "union_cov": 0.667,
+      "words": 12,
+      "description": "plan-do-check-act as the improvement rhythm of a management system",
+      "runs": [
+        {
+          "len": 4,
+          "text": "plan do check act"
+        },
+        {
+          "len": 4,
+          "text": "of a management system"
+        }
+      ]
+    }
+  ],
+  "proposals_firing_union": 0
+}

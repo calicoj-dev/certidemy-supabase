@@ -1,0 +1,1358 @@
+{
+  "measured": "2026-09-22",
+  "total": 192,
+  "counts": {
+    "done": 16,
+    "done-pending-read": 6,
+    "rewrite": 152,
+    "trim": 0,
+    "keep": 18
+  },
+  "caveat": "The classifier is ADVISORY. Both lexical detectors in this repo fail on the ratified exemplar, so no row is decided by a score. Leak-gate and tier-A membership are mechanical; POINTER is a lexical guess and the KEEP list is the one to read first.",
+  "rows": [
+    {
+      "slug": "climate-change-relevance",
+      "disposition": "rewrite",
+      "why": "fires the leak gate",
+      "chars": 71,
+      "description": "the requirement to determine whether climate change is a relevant issue"
+    },
+    {
+      "slug": "planned-change",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 87,
+      "description": "the requirement that a determined change to the ISMS be carried out in a planned manner"
+    },
+    {
+      "slug": "pdca-cycle",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 66,
+      "description": "plan-do-check-act as the improvement rhythm of a management system"
+    },
+    {
+      "slug": "confidentiality",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 84,
+      "description": "information is not made available to unauthorized individuals, entities or processes"
+    },
+    {
+      "slug": "integrity",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 83,
+      "description": "information is accurate and complete and has not been altered without authorization"
+    },
+    {
+      "slug": "availability",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 70,
+      "description": "information is accessible and usable on demand by an authorized entity"
+    },
+    {
+      "slug": "cia-triad",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 96,
+      "description": "confidentiality, integrity and availability as the three core properties of information security"
+    },
+    {
+      "slug": "risk-criteria",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 64,
+      "description": "the terms of reference against which risk significance is judged"
+    },
+    {
+      "slug": "supporting-properties",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 96,
+      "description": "authenticity, non-repudiation, accountability and reliability as properties supporting the triad"
+    },
+    {
+      "slug": "information-asset",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 73,
+      "description": "anything of value to the organization that holds or processes information"
+    },
+    {
+      "slug": "risk-relationship",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 101,
+      "description": "how a threat exploiting a vulnerability against an asset produces risk, and how a control modifies it"
+    },
+    {
+      "slug": "security-event",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 70,
+      "description": "an identified occurrence indicating a possible security-relevant state"
+    },
+    {
+      "slug": "security-incident",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 78,
+      "description": "one or more events that compromise operations or threaten information security"
+    },
+    {
+      "slug": "data-breach",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "an incident resulting in unauthorized disclosure of information"
+    },
+    {
+      "slug": "security-control",
+      "disposition": "done",
+      "why": "already in house style - security-control is the ratified template",
+      "chars": 130,
+      "description": "An answer to a risk the organization chose not to accept; judged by whether the risk moved, not by whether the control is present."
+    },
+    {
+      "slug": "iso-27000-family",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 66,
+      "description": "the family of standards supporting information security management"
+    },
+    {
+      "slug": "vulnerability",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 172,
+      "description": "Usually the half of a risk you can actually change. The threat rarely goes away, so treatment almost always works by closing or narrowing the weakness it would have to use."
+    },
+    {
+      "slug": "model-as-asset",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 83,
+      "description": "a model, its weights and its access path as an information asset in their own right"
+    },
+    {
+      "slug": "prompt-as-data",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 100,
+      "description": "prompt and context content as information that carries classification and can leave the organization"
+    },
+    {
+      "slug": "inference-boundary",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 85,
+      "description": "the point at which organizational information crosses into a model provider's control"
+    },
+    {
+      "slug": "model-level-risk",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 58,
+      "description": "risks arising from a model treated as input-in, output-out"
+    },
+    {
+      "slug": "agentic-risk",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 69,
+      "description": "risks arising when a system plans, holds memory, calls tools and acts"
+    },
+    {
+      "slug": "delegated-authority",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 60,
+      "description": "the authority an agent holds to act on behalf of a principal"
+    },
+    {
+      "slug": "autonomy-and-blast-radius",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 67,
+      "description": "how the scope of possible damage widens with the degree of autonomy"
+    },
+    {
+      "slug": "prompt-injection",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 85,
+      "description": "instructions embedded in input or retrieved content that redirect a model's behaviour"
+    },
+    {
+      "slug": "training-data-poisoning",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 69,
+      "description": "manipulation of training or fine-tuning data to alter model behaviour"
+    },
+    {
+      "slug": "insecure-output-handling",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 59,
+      "description": "downstream systems trusting model output without validation"
+    },
+    {
+      "slug": "tool-misuse",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 88,
+      "description": "legitimate tools that a compromised agent bends toward destructive or unintended outputs"
+    },
+    {
+      "slug": "management-system-model",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 115,
+      "description": "the common structure of policy, objectives, processes and improvement shared across ISO management system standards"
+    },
+    {
+      "slug": "systematic-vs-ad-hoc",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 67,
+      "description": "why a managed system differs from a collection of security measures"
+    },
+    {
+      "slug": "organizational-context",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 60,
+      "description": "the internal and external setting in which the ISMS operates"
+    },
+    {
+      "slug": "internal-external-issues",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 85,
+      "description": "the factors that affect the organization's ability to achieve its security objectives"
+    },
+    {
+      "slug": "interested-parties",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 54,
+      "description": "the persons and organizations with a stake in the ISMS"
+    },
+    {
+      "slug": "party-requirements",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 55,
+      "description": "the security-relevant requirements those parties impose"
+    },
+    {
+      "slug": "amendment-1-2024",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 79,
+      "description": "the 2024 amendment adding a climate-change consideration to clauses 4.1 and 4.2"
+    },
+    {
+      "slug": "documented-non-applicability",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 76,
+      "description": "the obligation to record a determination that a consideration does not apply"
+    },
+    {
+      "slug": "scope-boundaries",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 51,
+      "description": "what is inside and outside the system being managed"
+    },
+    {
+      "slug": "interfaces-and-dependencies",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 59,
+      "description": "the points where in-scope activities meet out-of-scope ones"
+    },
+    {
+      "slug": "boundary-erosion",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 73,
+      "description": "the way ubiquitous tooling makes a drawn boundary stop describing reality"
+    },
+    {
+      "slug": "third-party-processing",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 88,
+      "description": "organizational information processed on infrastructure the organization does not control"
+    },
+    {
+      "slug": "scope-failure-modes",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 58,
+      "description": "the characteristic ways a scope statement stops being true"
+    },
+    {
+      "slug": "leadership-commitment",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 51,
+      "description": "top management's demonstrable ownership of the ISMS"
+    },
+    {
+      "slug": "information-security-policy",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 48,
+      "description": "the documented statement of intent and direction"
+    },
+    {
+      "slug": "assigned-authority",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 58,
+      "description": "the authority granted to fulfil an assigned responsibility"
+    },
+    {
+      "slug": "risk-owner",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 60,
+      "description": "the person accountable for a specific risk and its treatment"
+    },
+    {
+      "slug": "top-management",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 54,
+      "description": "the level at which ISMS accountability ultimately sits"
+    },
+    {
+      "slug": "sanctioned-vs-unsanctioned-tools",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 69,
+      "description": "the distinction between approved tooling and what people actually use"
+    },
+    {
+      "slug": "policy-enforceability",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 60,
+      "description": "whether a stated rule can be observed, measured and acted on"
+    },
+    {
+      "slug": "policy-to-practice",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 48,
+      "description": "how a written provision becomes a daily decision"
+    },
+    {
+      "slug": "ai-attack-surface",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 77,
+      "description": "the exposure introduced by AI systems beyond conventional application surface"
+    },
+    {
+      "slug": "isms-definition",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 71,
+      "description": "a systematic, documented approach to managing information security risk"
+    },
+    {
+      "slug": "isms-roles",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 50,
+      "description": "the defined roles that carry ISMS responsibilities"
+    },
+    {
+      "slug": "isms-scope",
+      "disposition": "rewrite",
+      "why": "fires the leak gate",
+      "chars": 44,
+      "description": "the boundaries and applicability of the ISMS"
+    },
+    {
+      "slug": "iso-27001-requirements",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "the certifiable requirements standard for an ISMS"
+    },
+    {
+      "slug": "iso-27002-controls",
+      "disposition": "rewrite",
+      "why": "fires the leak gate",
+      "chars": 50,
+      "description": "implementation guidance for the reference controls"
+    },
+    {
+      "slug": "iso-27005-risk",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 48,
+      "description": "guidance on information security risk management"
+    },
+    {
+      "slug": "saas-ai-in-scope",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 79,
+      "description": "how browser-accessible AI tools land inside a scope written for managed systems"
+    },
+    {
+      "slug": "threat-taxonomy-ai",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 79,
+      "description": "published catalogues of AI-specific threats and their role as shared vocabulary"
+    },
+    {
+      "slug": "scope-statement",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 188,
+      "description": "Read afterwards as the promise of what the certificate covers, so whatever it leaves ambiguous is resolved against the organization. Interfaces and dependencies are where it usually fails."
+    },
+    {
+      "slug": "continual-improvement",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 73,
+      "description": "the ongoing obligation to improve suitability, adequacy and effectiveness"
+    },
+    {
+      "slug": "management-system-maturity",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 54,
+      "description": "the progression from documented to genuinely operating"
+    },
+    {
+      "slug": "risk-assessment-process",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 87,
+      "description": "the defined process for identifying, analysing and evaluating information security risk"
+    },
+    {
+      "slug": "risk-analysis",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 60,
+      "description": "understanding the nature of a risk and determining its level"
+    },
+    {
+      "slug": "risk-evaluation",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 66,
+      "description": "comparing analysis results against criteria to decide significance"
+    },
+    {
+      "slug": "risk-acceptance-criteria",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 46,
+      "description": "the thresholds at which a risk may be retained"
+    },
+    {
+      "slug": "likelihood-and-consequence",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 53,
+      "description": "the two dimensions from which a risk level is derived"
+    },
+    {
+      "slug": "asset-threat-vulnerability-mapping",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 64,
+      "description": "relating a described situation to the three components of a risk"
+    },
+    {
+      "slug": "scenario-based-identification",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 70,
+      "description": "deriving risks from described situations rather than from a fixed list"
+    },
+    {
+      "slug": "risk-register",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 65,
+      "description": "the record in which identified risks and their treatment are held"
+    },
+    {
+      "slug": "risk-treatment-options",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 49,
+      "description": "the four available responses to an evaluated risk"
+    },
+    {
+      "slug": "modify-risk",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 53,
+      "description": "applying controls to change likelihood or consequence"
+    },
+    {
+      "slug": "share-risk",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 47,
+      "description": "transferring or sharing risk with another party"
+    },
+    {
+      "slug": "statement-of-applicability",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 61,
+      "description": "the documented record of which controls are necessary and why"
+    },
+    {
+      "slug": "inclusion-justification",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 40,
+      "description": "the stated reason a control is necessary"
+    },
+    {
+      "slug": "exclusion-justification",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 44,
+      "description": "the stated reason a control is not necessary"
+    },
+    {
+      "slug": "implementation-status",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 42,
+      "description": "whether a necessary control is implemented"
+    },
+    {
+      "slug": "annex-a-as-reference",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 65,
+      "description": "Annex A as a reference set to check against, not a mandatory list"
+    },
+    {
+      "slug": "control-selection-is-risk-driven",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 58,
+      "description": "controls are selected because risk treatment requires them"
+    },
+    {
+      "slug": "risk-treatment-plan",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 44,
+      "description": "the plan for implementing selected treatment"
+    },
+    {
+      "slug": "risk-owner-approval",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 67,
+      "description": "the risk owner's acceptance of residual risk and the treatment plan"
+    },
+    {
+      "slug": "treatment-vs-plan",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 74,
+      "description": "the distinction between deciding treatment and planning its implementation"
+    },
+    {
+      "slug": "context-leakage",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 70,
+      "description": "organizational information exposed through prompt or retrieved context"
+    },
+    {
+      "slug": "training-data-confidentiality",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "the confidentiality exposure of data used to train or fine-tune"
+    },
+    {
+      "slug": "output-trust",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 65,
+      "description": "the risk of downstream systems acting on unvalidated model output"
+    },
+    {
+      "slug": "prompt-data-egress",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 64,
+      "description": "organizational information leaving the boundary through a prompt"
+    },
+    {
+      "slug": "retention-by-provider",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 46,
+      "description": "what a model provider retains and for how long"
+    },
+    {
+      "slug": "classification-survival",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 73,
+      "description": "whether a classification label persists when content is retyped or pasted"
+    },
+    {
+      "slug": "treatment-selection",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 54,
+      "description": "choosing a defensible treatment for an identified risk"
+    },
+    {
+      "slug": "compensating-control",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 56,
+      "description": "a control applied where the preferred one is unavailable"
+    },
+    {
+      "slug": "proportionality",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 39,
+      "description": "matching treatment effort to risk level"
+    },
+    {
+      "slug": "treatment-and-appetite",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "aligning a treatment decision with stated appetite and criteria"
+    },
+    {
+      "slug": "assessment-blind-spots",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 41,
+      "description": "risks a method cannot see by construction"
+    },
+    {
+      "slug": "asset-register-gaps",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 68,
+      "description": "assets absent from the register and therefore absent from assessment"
+    },
+    {
+      "slug": "invisible-adoption",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 47,
+      "description": "tooling adopted individually and never recorded"
+    },
+    {
+      "slug": "false-assurance",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 70,
+      "description": "a clean result that reflects method limits rather than a secure estate"
+    },
+    {
+      "slug": "annex-a-themes",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 63,
+      "description": "the four themes into which the reference controls are organized"
+    },
+    {
+      "slug": "organizational-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 68,
+      "description": "controls concerning policy, roles, assets and supplier relationships"
+    },
+    {
+      "slug": "people-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 62,
+      "description": "controls concerning individuals and their employment lifecycle"
+    },
+    {
+      "slug": "physical-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 59,
+      "description": "controls concerning premises, equipment and physical access"
+    },
+    {
+      "slug": "soa-is-justification",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 61,
+      "description": "the SoA records reasoning, not a yes/no column against a list"
+    },
+    {
+      "slug": "avoid-risk",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 177,
+      "description": "The only option that removes a risk rather than shrinking it, and the only one that gives up the activity's benefit as well. That trade is why it is rarely as cheap as it looks."
+    },
+    {
+      "slug": "residual-risk",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 189,
+      "description": "What remains once the controls work as intended, which is not the same as what remains because they were never finished. The risk owner has to accept it explicitly before treatment is done."
+    },
+    {
+      "slug": "technological-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 59,
+      "description": "controls concerning systems, networks, development and data"
+    },
+    {
+      "slug": "control-attributes",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 85,
+      "description": "the attribute set that allows controls to be filtered and reported by different views"
+    },
+    {
+      "slug": "control-type",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 56,
+      "description": "whether a control is preventive, detective or corrective"
+    },
+    {
+      "slug": "security-property-attribute",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 68,
+      "description": "which of confidentiality, integrity or availability a control serves"
+    },
+    {
+      "slug": "operational-capability",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 41,
+      "description": "the operational area a control belongs to"
+    },
+    {
+      "slug": "policy-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 51,
+      "description": "controls establishing and reviewing security policy"
+    },
+    {
+      "slug": "asset-management",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "inventory, ownership and acceptable use of assets"
+    },
+    {
+      "slug": "information-classification",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "assigning and handling information by sensitivity"
+    },
+    {
+      "slug": "vector-store-as-asset",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 64,
+      "description": "an embedding store as a repository of organizational information"
+    },
+    {
+      "slug": "agent-as-asset",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 67,
+      "description": "an autonomous agent as an asset with an owner and an acceptable use"
+    },
+    {
+      "slug": "prompt-log-as-asset",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 62,
+      "description": "retained prompt and completion history as an information store"
+    },
+    {
+      "slug": "access-control",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 59,
+      "description": "restricting access to information and processing facilities"
+    },
+    {
+      "slug": "identity-lifecycle",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 54,
+      "description": "provisioning, review and de-provisioning of identities"
+    },
+    {
+      "slug": "privileged-access",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 45,
+      "description": "elevated rights and their additional controls"
+    },
+    {
+      "slug": "non-human-identity",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 58,
+      "description": "an identity held by a system or agent rather than a person"
+    },
+    {
+      "slug": "agent-credentials",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 41,
+      "description": "the credentials under which an agent acts"
+    },
+    {
+      "slug": "standing-vs-just-in-time-authority",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 57,
+      "description": "persistent authority against authority granted per action"
+    },
+    {
+      "slug": "attribution-gap",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 83,
+      "description": "the difficulty of attributing an action to a responsible person when an agent acted"
+    },
+    {
+      "slug": "supplier-controls",
+      "disposition": "rewrite",
+      "why": "fires the leak gate",
+      "chars": 65,
+      "description": "controls governing information security in supplier relationships"
+    },
+    {
+      "slug": "supplier-agreements",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 53,
+      "description": "security requirements expressed in supplier contracts"
+    },
+    {
+      "slug": "supply-chain-security",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 68,
+      "description": "security across the chain of providers, not only the direct supplier"
+    },
+    {
+      "slug": "service-delivery-monitoring",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "ongoing monitoring of supplier performance against requirements"
+    },
+    {
+      "slug": "foundation-model-supplier",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 54,
+      "description": "a model provider treated as a supplier within the ISMS"
+    },
+    {
+      "slug": "inspectability-limits",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "the limits of what a customer can verify about a model provider"
+    },
+    {
+      "slug": "assurance-by-attestation",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 74,
+      "description": "reliance on third-party attestation where direct inspection is unavailable"
+    },
+    {
+      "slug": "concentration-risk",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 61,
+      "description": "exposure arising from many services depending on one provider"
+    },
+    {
+      "slug": "screening",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "background verification proportionate to the role"
+    },
+    {
+      "slug": "terms-and-conditions",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 55,
+      "description": "security responsibilities expressed in employment terms"
+    },
+    {
+      "slug": "awareness-education-training",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 52,
+      "description": "ensuring people know their security responsibilities"
+    },
+    {
+      "slug": "disciplinary-process",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "the process following a security policy violation"
+    },
+    {
+      "slug": "well-intentioned-noncompliance",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 51,
+      "description": "policy breach by people trying to do their job well"
+    },
+    {
+      "slug": "awareness-vs-prohibition",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "why prohibition alone drives adoption underground"
+    },
+    {
+      "slug": "reporting-culture",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 67,
+      "description": "conditions under which people disclose rather than conceal tool use"
+    },
+    {
+      "slug": "equipment-security",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 43,
+      "description": "protection of equipment on and off premises"
+    },
+    {
+      "slug": "logging-and-monitoring",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 50,
+      "description": "recording and reviewing security-relevant activity"
+    },
+    {
+      "slug": "cryptographic-controls",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 34,
+      "description": "use and management of cryptography"
+    },
+    {
+      "slug": "secure-development",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 41,
+      "description": "security within the development lifecycle"
+    },
+    {
+      "slug": "data-leakage-prevention",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "controls limiting unauthorized information egress"
+    },
+    {
+      "slug": "classification-in-practice",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 53,
+      "description": "applying classification to real content in the moment"
+    },
+    {
+      "slug": "shadow-ai",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 60,
+      "description": "unsanctioned AI tooling adopted outside the approval process"
+    },
+    {
+      "slug": "physical-perimeter",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 176,
+      "description": "Where control passes to walls, doors and locks rather than to configuration. A perimeter drawn on a floor plan is only real if it matches where information is actually handled."
+    },
+    {
+      "slug": "roles-segregation",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 187,
+      "description": "Splits a task so no one person can both act and approve their own action. The aim is removing the opportunity, which is why it applies to trusted people exactly as much as to anyone else."
+    },
+    {
+      "slug": "handling-rules",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 68,
+      "description": "what a classification requires of the person holding the information"
+    },
+    {
+      "slug": "paste-boundary",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 62,
+      "description": "the moment classified content is entered into an external tool"
+    },
+    {
+      "slug": "monitoring-and-measurement",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 72,
+      "description": "determining what needs to be monitored and measured, and by what methods"
+    },
+    {
+      "slug": "what-to-measure",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 75,
+      "description": "selecting indicators that reflect security performance rather than activity"
+    },
+    {
+      "slug": "effectiveness-evaluation",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 55,
+      "description": "judging whether controls achieve their intended outcome"
+    },
+    {
+      "slug": "internal-audit-programme",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 40,
+      "description": "the planned programme of internal audits"
+    },
+    {
+      "slug": "audit-criteria",
+      "disposition": "rewrite",
+      "why": "tier-A: the name is an ISO defined term, so an item can test the definition",
+      "chars": 51,
+      "description": "the requirements against which conformity is judged"
+    },
+    {
+      "slug": "auditor-objectivity",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 57,
+      "description": "the requirement that auditors do not audit their own work"
+    },
+    {
+      "slug": "audit-findings",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 68,
+      "description": "conformities, nonconformities and observations arising from an audit"
+    },
+    {
+      "slug": "management-review",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 44,
+      "description": "top management's periodic review of the ISMS"
+    },
+    {
+      "slug": "review-inputs",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 40,
+      "description": "the information the review must consider"
+    },
+    {
+      "slug": "review-outputs",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "the decisions and actions the review must produce"
+    },
+    {
+      "slug": "review-cadence",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 43,
+      "description": "the planned interval at which review occurs"
+    },
+    {
+      "slug": "correction-vs-corrective-action",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 46,
+      "description": "fixing the instance against removing the cause"
+    },
+    {
+      "slug": "root-cause",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 46,
+      "description": "the underlying reason a nonconformity occurred"
+    },
+    {
+      "slug": "stage-1-audit",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 44,
+      "description": "the readiness and documentation review stage"
+    },
+    {
+      "slug": "stage-2-audit",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 48,
+      "description": "the implementation and effectiveness audit stage"
+    },
+    {
+      "slug": "surveillance-audit",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 56,
+      "description": "periodic audits during the certification validity period"
+    },
+    {
+      "slug": "recertification-cycle",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 56,
+      "description": "the three-year cycle of certificate validity and renewal"
+    },
+    {
+      "slug": "certification-body",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 59,
+      "description": "the body that assesses and certifies an organization's ISMS"
+    },
+    {
+      "slug": "accreditation-body",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 61,
+      "description": "the body that assesses the competence of certification bodies"
+    },
+    {
+      "slug": "what-a-certificate-signals",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 43,
+      "description": "what a certificate does and does not assert"
+    },
+    {
+      "slug": "incident-response-process",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 56,
+      "description": "the planned process for responding to security incidents"
+    },
+    {
+      "slug": "containment-with-agents",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 57,
+      "description": "containment when the affected component acts autonomously"
+    },
+    {
+      "slug": "lessons-learned",
+      "disposition": "done-pending-read",
+      "why": "batch 1 revised, awaiting your read",
+      "chars": 35,
+      "description": "using incidents to improve the ISMS"
+    },
+    {
+      "slug": "detection-gaps",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 63,
+      "description": "conditions under which an incident produces no monitored signal"
+    },
+    {
+      "slug": "absent-log-signal",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 49,
+      "description": "activity that generates no conventional log entry"
+    },
+    {
+      "slug": "semantic-vs-syntactic-detection",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 37,
+      "description": "detecting meaning rather than pattern"
+    },
+    {
+      "slug": "time-to-discovery",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 69,
+      "description": "the interval between compromise and detection, and why it widens here"
+    },
+    {
+      "slug": "management-system-integration",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 61,
+      "description": "operating more than one management system on shared processes"
+    },
+    {
+      "slug": "overlapping-controls",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 60,
+      "description": "controls that satisfy requirements in more than one standard"
+    },
+    {
+      "slug": "separate-certifications",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 45,
+      "description": "why one certificate does not confer the other"
+    },
+    {
+      "slug": "risk-appetite",
+      "disposition": "done",
+      "why": "already in house style - security-control is the ratified template",
+      "chars": 131,
+      "description": "How much risk an organization is prepared to seek out or to hold on to, decided deliberately rather than discovered after the fact."
+    },
+    {
+      "slug": "ai-incident-classes",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 77,
+      "description": "incident types specific to AI systems, such as injection and context exposure"
+    },
+    {
+      "slug": "iso-17021-vs-17024",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 102,
+      "description": "certification of management systems against certification of persons, requiring separate accreditation"
+    },
+    {
+      "slug": "effectiveness-check",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 181,
+      "description": "Asks whether the cause has stopped producing the failure, which needs enough elapsed time or volume to show. Closing a finding the day the fix ships proves only that it was applied."
+    },
+    {
+      "slug": "iso-42001-aims",
+      "disposition": "keep",
+      "why": "pointer row - the fact IS the content; a teaching move would be padding",
+      "chars": 50,
+      "description": "ISO/IEC 42001 as the AI management system standard"
+    },
+    {
+      "slug": "ai-asset-inventory",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 46,
+      "description": "extending the asset inventory to AI components"
+    },
+    {
+      "slug": "threat",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 172,
+      "description": "The actor or event that could cause harm, named separately from the weakness it would need. Pairing the two is what turns a vague worry into something that can be assessed."
+    },
+    {
+      "slug": "acceptable-use-ai",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 57,
+      "description": "rules defining permissible AI use within the organization"
+    },
+    {
+      "slug": "ai-risk-identification",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 56,
+      "description": "surfacing information risks specific to an AI deployment"
+    },
+    {
+      "slug": "unchanged-by-ai",
+      "disposition": "rewrite",
+      "why": "one-line label on a teachable concept",
+      "chars": 77,
+      "description": "the explicit recognition that some controls are not materially affected by AI"
+    },
+    {
+      "slug": "risk-identification",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 176,
+      "description": "The stage that produces the list everything later works from, so a risk missed here is never analysed, never treated, and invisible to anyone reviewing the register afterwards."
+    },
+    {
+      "slug": "nonconformity",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 183,
+      "description": "Three things have to hold together: a requirement exists, the evidence relates to that requirement, and it shows the requirement unmet. Miss any one and the finding is an observation."
+    },
+    {
+      "slug": "retain-risk",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 192,
+      "description": "A decision, not an omission. Retention means someone with the authority to accept it looked at the risk and judged it tolerable against stated criteria; anything else is a risk nobody treated."
+    },
+    {
+      "slug": "least-privilege",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 180,
+      "description": "Minimum for the work being done now, which makes it a review obligation rather than a joining-day one. Access that was correct at hire is usually wrong after the first role change."
+    },
+    {
+      "slug": "clear-desk-clear-screen",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 183,
+      "description": "Aimed at the visitor, the contractor and the person walking past rather than at a determined attacker, which is why it reaches home and shared workspaces and not only an office floor."
+    },
+    {
+      "slug": "policy-communication",
+      "disposition": "done",
+      "why": "batch 1, applied",
+      "chars": 187,
+      "description": "Clause 5.2 asks three separate things: documented, communicated inside the organization, and available to interested parties where appropriate. Publishing a file satisfies only the first."
+    }
+  ]
+}

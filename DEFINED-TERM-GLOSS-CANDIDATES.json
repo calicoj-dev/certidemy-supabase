@@ -791,102 +791,6 @@
     },
     {
       "cert": "ISMS-F",
-      "slug": "residual-risk",
-      "name": "Residual risk",
-      "description": "the risk remaining after treatment",
-      "words": 5,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "residual risk",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "risk-identification",
-      "name": "Risk identification",
-      "description": "finding, recognizing and describing risks",
-      "words": 5,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "risk identification",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "nonconformity",
-      "name": "Nonconformity",
-      "description": "a failure to meet a requirement",
-      "words": 6,
-      "terms": [
-        {
-          "term": "nonconformity",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.16",
-          "indexed": true,
-          "how": "is"
-        },
-        {
-          "term": "nonconformity",
-          "source": "ISO 19011:2026",
-          "ref": "3.22",
-          "indexed": true,
-          "how": "is"
-        },
-        {
-          "term": "nonconformity",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "ISMS-F",
       "slug": "access-control",
       "name": "Access control",
       "description": "restricting access to information and processing facilities",
@@ -933,24 +837,6 @@
         }
       ],
       "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "threat",
-      "name": "Threat",
-      "description": "a potential cause of an unwanted incident",
-      "words": 7,
-      "terms": [
-        {
-          "term": "threat",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": false,
       "tier": "A"
     },
     {
@@ -1033,24 +919,6 @@
         }
       ],
       "any_indexed": true,
-      "tier": "A"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "vulnerability",
-      "name": "Vulnerability",
-      "description": "a weakness that can be exploited by a threat",
-      "words": 9,
-      "terms": [
-        {
-          "term": "vulnerability",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "is"
-        }
-      ],
-      "any_indexed": false,
       "tier": "A"
     },
     {
@@ -1219,6 +1087,138 @@
         }
       ],
       "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "risk-identification",
+      "name": "Risk identification",
+      "description": "The stage that produces the list everything later works from, so a risk missed here is never analysed, never treated, and invisible to anyone reviewing the register afterwards.",
+      "words": 28,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "risk identification",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "nonconformity",
+      "name": "Nonconformity",
+      "description": "Three things have to hold together: a requirement exists, the evidence relates to that requirement, and it shows the requirement unmet. Miss any one and the finding is an observation.",
+      "words": 30,
+      "terms": [
+        {
+          "term": "nonconformity",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.16",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "nonconformity",
+          "source": "ISO 19011:2026",
+          "ref": "3.22",
+          "indexed": true,
+          "how": "is"
+        },
+        {
+          "term": "nonconformity",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "threat",
+      "name": "Threat",
+      "description": "The actor or event that could cause harm, named separately from the weakness it would need. Pairing the two is what turns a vague worry into something that can be assessed.",
+      "words": 31,
+      "terms": [
+        {
+          "term": "threat",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "vulnerability",
+      "name": "Vulnerability",
+      "description": "Usually the half of a risk you can actually change. The threat rarely goes away, so treatment almost always works by closing or narrowing the weakness it would have to use.",
+      "words": 31,
+      "terms": [
+        {
+          "term": "vulnerability",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": false,
+      "tier": "A"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "residual-risk",
+      "name": "Residual risk",
+      "description": "What remains once the controls work as intended, which is not the same as what remains because they were never finished. The risk owner has to accept it explicitly before treatment is done.",
+      "words": 33,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "residual risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "is"
+        }
+      ],
+      "any_indexed": true,
       "tier": "A"
     },
     {
@@ -2232,7 +2232,7 @@
     {
       "cert": "ISMS-F",
       "slug": "ai-risk-identification",
-      "name": "Ai risk identification",
+      "name": "AI risk identification",
       "description": "surfacing information risks specific to an AI deployment",
       "words": 8,
       "terms": [
@@ -6735,97 +6735,8 @@
     },
     {
       "cert": "ISMS-F",
-      "slug": "effectiveness-check",
-      "name": "Effectiveness check",
-      "description": "verifying that corrective action worked",
-      "words": 5,
-      "terms": [
-        {
-          "term": "effectiveness",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.13",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "effectiveness",
-          "source": "ISO 19011:2026",
-          "ref": "3.27",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "effectiveness",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "policy-communication",
-      "name": "Policy communication",
-      "description": "making policy available and understood",
-      "words": 5,
-      "terms": [
-        {
-          "term": "policy",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.5",
-          "indexed": true,
-          "how": "head"
-        },
-        {
-          "term": "policy",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "head"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "ISMS-F",
-      "slug": "retain-risk",
-      "name": "Retain risk",
-      "description": "accepting a risk within criteria",
-      "words": 5,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "ISMS-F",
       "slug": "iso-27005-risk",
-      "name": "Iso 27005 risk",
+      "name": "ISO 27005 risk",
       "description": "guidance on information security risk management",
       "words": 6,
       "terms": [
@@ -7659,38 +7570,6 @@
     },
     {
       "cert": "ISMS-F",
-      "slug": "avoid-risk",
-      "name": "Avoid risk",
-      "description": "not undertaking the activity that gives rise to the risk",
-      "words": 10,
-      "terms": [
-        {
-          "term": "risk",
-          "source": "ISO/IEC 42001:2023",
-          "ref": "3.7",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO 19011:2026",
-          "ref": "3.20",
-          "indexed": true,
-          "how": "tail"
-        },
-        {
-          "term": "risk",
-          "source": "ISO/IEC 27000 (NOT INDEXED)",
-          "ref": null,
-          "indexed": false,
-          "how": "tail"
-        }
-      ],
-      "any_indexed": true,
-      "tier": "C"
-    },
-    {
-      "cert": "ISMS-F",
       "slug": "likelihood-and-consequence",
       "name": "Likelihood and consequence",
       "description": "the two dimensions from which a risk level is derived",
@@ -8006,7 +7885,7 @@
     {
       "cert": "ISMS-F",
       "slug": "threat-taxonomy-ai",
-      "name": "Threat taxonomy ai",
+      "name": "Threat taxonomy AI",
       "description": "published catalogues of AI-specific threats and their role as shared vocabulary",
       "words": 12,
       "terms": [
@@ -8180,6 +8059,127 @@
           "ref": null,
           "indexed": false,
           "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "policy-communication",
+      "name": "Policy communication",
+      "description": "Clause 5.2 asks three separate things: documented, communicated inside the organization, and available to interested parties where appropriate. Publishing a file satisfies only the first.",
+      "words": 26,
+      "terms": [
+        {
+          "term": "policy",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.5",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "policy",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "effectiveness-check",
+      "name": "Effectiveness check",
+      "description": "Asks whether the cause has stopped producing the failure, which needs enough elapsed time or volume to show. Closing a finding the day the fix ships proves only that it was applied.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.13",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO 19011:2026",
+          "ref": "3.27",
+          "indexed": true,
+          "how": "head"
+        },
+        {
+          "term": "effectiveness",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "head"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "retain-risk",
+      "name": "Retain risk",
+      "description": "A decision, not an omission. Retention means someone with the authority to accept it looked at the risk and judged it tolerable against stated criteria; anything else is a risk nobody treated.",
+      "words": 32,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
+        }
+      ],
+      "any_indexed": true,
+      "tier": "C"
+    },
+    {
+      "cert": "ISMS-F",
+      "slug": "avoid-risk",
+      "name": "Avoid risk",
+      "description": "The only option that removes a risk rather than shrinking it, and the only one that gives up the activity's benefit as well. That trade is why it is rarely as cheap as it looks.",
+      "words": 36,
+      "terms": [
+        {
+          "term": "risk",
+          "source": "ISO/IEC 42001:2023",
+          "ref": "3.7",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO 19011:2026",
+          "ref": "3.20",
+          "indexed": true,
+          "how": "tail"
+        },
+        {
+          "term": "risk",
+          "source": "ISO/IEC 27000 (NOT INDEXED)",
+          "ref": null,
+          "indexed": false,
+          "how": "tail"
         }
       ],
       "any_indexed": true,
