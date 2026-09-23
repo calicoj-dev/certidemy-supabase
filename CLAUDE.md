@@ -2112,6 +2112,107 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**AN ENUMERATION IS NOT A SLOWER COUNT.** A count reports MAGNITUDE; an
+enumeration reports IDENTITY, and identity is what tells you whether a row was
+ever in the state the change is supposed to move it out of.
+
+> **MECHANISM: where a change is described by what it MOVES, the report names
+> the rows. A number is accepted only where the rows' identity provably does
+> not matter.**
+
+Occasion: twenty released rows that turned out to be zero released rows. They
+were over the floor in `leak-score`'s seed-4 view and the production gate at
+seed 5 had never withheld them -- a fact no count of affected rows can even
+represent.
+
+**THE FLOOR STAYS AT 10, AND THE REASON IS THE DISTRIBUTION RATHER THAN
+PRECEDENT.** Ruled 2026-09-23 from the first clean measurement the threshold
+has ever had.
+
+```
+             4w    5w   6w   7w   8w   9w  10w  11+
+concept     263    93   44   34   19   15    0    0
+lesson     3234   747  384  263  152  134    1    3
+```
+
+**There is no cliff at 9.** Nothing is bunched just under the line, which is
+what deliberate copying would look like; it is a smooth decay curve -- the
+collision rate of technical English written about the same subject as the
+standard. Lowering to 8 would fire 286 more lesson spans and spend the
+programme's remaining attention on the part of the corpus least likely to be
+wrong.
+
+> **AND THE FLOOR IN WORDS: the corpus may carry NINE contiguous unattributed
+> words of ISO anywhere, with no limit on how many times.** That is a different
+> sentence from *we do not reproduce ISO text*, and it is now a decision rather
+> than an accident.
+
+**BELOW THE FLOOR, REPETITION IS THE SIGNAL.** A run appearing ONCE is
+collision. The same nine words in FIVE lessons is a phrase that was written
+once and carried, and whatever carried it will carry it again. A per-span floor
+can no more see a repetition than it can see a sum.
+
+Measured, unattributed, 6w and over: **839 distinct runs, 204 in more than one
+row**, worst at 8. Three classes, separated only by reading:
+
+| | |
+|---|---|
+| OUR SENTENCE, REUSED | one sentence of ours pasted across lessons. A style problem |
+| A TERM OF ART | `persons doing work under the organization's control` -- 8 rows, and we carry a glossary entry for it. Our prose must contain it to teach at all |
+| A CARRIED QUOTATION | the standard's wording, lifted once and spread. The only finding |
+
+**Two false-positive classes fall out mechanically: 24 of the 204 are NESTED
+inside a longer reported run** -- the same phrase counted twice because two
+standards carry it at different lengths -- **and 19 contain a CLAUSE OR CONTROL
+NUMBER**: `6 1 3 f requires the`, `8 1 operational planning and control`. Those
+are our own citations colliding with ISO's numbering, not reproduced prose.
+
+**Proposed report threshold: 3 or more rows AND 8w or more, nested and numbered
+runs excluded. 19 runs today.** Three rather than two because n=2 has no
+variance -- two occurrences of an eight-word technical phrase is well inside
+collision, which is this file's own two-point rule. Eight rather than seven
+because the term-of-art rate climbs sharply at 7w. A report, not a gate, and
+its firing count is stated in the same breath, because a guard firing on 204 is
+deleted by the first person it inconveniences.
+
+**A PERCENTAGE IS A CLAIM ABOUT ITS DENOMINATOR, AND THE FIRST ONE WAS THE
+WRONG FRACTION.** *716 quoted words, 9.36 percent of ISO/IEC 27001:2022*
+divides by the whole extracted document -- foreword, scope, terms, and Annex
+A's 93 controls, which are the bulk of the pages. An internal-auditor course
+quotes the normative clauses. Split by where each span actually sits:
+
+```
+                      words   norm  annex  front   % of WHOLE   % of CLAUSES 4-10
+27001:2022 ISMS-IA      706    634     34     38       9.36%          21.80%
+42001:2023 ISMS-IA       79     79      0      0       0.38%           1.95%
+```
+
+**A tenth of the standard is a fifth of its normative core**, and those are
+different sentences to put in front of a decision.
+
+**AND THE DENOMINATOR ITSELF NEEDED A SOUNDNESS TEST, WHICH THE STRUCTURAL ONE
+WAS NOT.** ISO 19011 passed *clause 4 found, before the annex, core non-empty*
+**twice, with two different wrong anchors**, reporting a confident 1.27 percent
+and then a confident 2.52 percent. Its clause 4 is *Principles of auditing*,
+not the harmonised context phrase, and the needle kept landing in later
+guidance.
+
+> **A DENOMINATOR THAT IS STRUCTURALLY PLAUSIBLE AND SEMANTICALLY WRONG IS
+> WORSE THAN ONE THAT FAILS**, because nothing about it looks broken -- and
+> tuning the needle until the number looks reasonable is fitting the instrument
+> to the expected answer. The clause-4 anchor is therefore DECLARED per
+> standard and verified by hand; everything else reports UNSOUND, which is a
+> smaller claim and a true one.
+
+**THE SEED IS UNIFIED AT 4, BY IMPORT.** `scan-iso-leaks` took
+`Number(arg("seed", "5"))` while `leak-score` used 4. Setting both to the same
+literal would leave two constants that agree today, and a gate agreeing with
+its sibling by coincidence is one edit away from not doing so -- this file's
+own rule that a computation with a stated invariant has exactly one
+implementation. The scanner now imports `SEED`. `--seed` survives as a
+measurement override and **refuses `--apply`**, because a stored run written
+under a flag is a fact about the flag.
+
 **A LARGE DISAGREEMENT BETWEEN TWO INSTRUMENTS IS A DEFECT IN ONE OF THEM
 UNTIL IDENTIFIED, NEVER A PARAMETER TO BE TUNED.** A factor of four is not a
 seed, a threshold or a window; it is a difference in WHAT IS BEING MEASURED.

@@ -1,0 +1,874 @@
+{
+  "measured": "2026-09-23T14:38:40.688Z",
+  "structure": {
+    "19011:2026": {
+      "total": 20299,
+      "annexAt": 15682,
+      "c4": 13701,
+      "normStart": 13701,
+      "normEnd": 15682,
+      "normWords": 1981,
+      "sound": false
+    },
+    "22989:2022": {
+      "total": 29194,
+      "annexAt": 27933,
+      "c4": null,
+      "normStart": 0,
+      "normEnd": 27933,
+      "normWords": 27933,
+      "sound": false
+    },
+    "27000:2018": {
+      "total": 11540,
+      "annexAt": null,
+      "c4": null,
+      "normStart": 0,
+      "normEnd": 11540,
+      "normWords": 11540,
+      "sound": false
+    },
+    "27001:2022/Amd1": {
+      "total": 903,
+      "annexAt": null,
+      "c4": null,
+      "normStart": 0,
+      "normEnd": 903,
+      "normWords": 903,
+      "sound": false
+    },
+    "27001:2022": {
+      "total": 7543,
+      "annexAt": 4593,
+      "c4": 1685,
+      "normStart": 1685,
+      "normEnd": 4593,
+      "normWords": 2908,
+      "sound": true
+    },
+    "27002:2022": {
+      "total": 60749,
+      "annexAt": 53937,
+      "c4": null,
+      "normStart": 0,
+      "normEnd": 53937,
+      "normWords": 53937,
+      "sound": false
+    },
+    "27004:2016": {
+      "total": 17263,
+      "annexAt": 7471,
+      "c4": null,
+      "normStart": 0,
+      "normEnd": 7471,
+      "normWords": 7471,
+      "sound": false
+    },
+    "27005:2022": {
+      "total": 27489,
+      "annexAt": 19181,
+      "c4": 17737,
+      "normStart": 17737,
+      "normEnd": 19181,
+      "normWords": 1444,
+      "sound": false
+    },
+    "42001:2023": {
+      "total": 20798,
+      "annexAt": 7330,
+      "c4": 3288,
+      "normStart": 3288,
+      "normEnd": 7330,
+      "normWords": 4042,
+      "sound": true
+    }
+  },
+  "aggregate": [
+    {
+      "src": "19011:2026",
+      "cert": "ISMS-IA",
+      "spans": 20,
+      "words": 448,
+      "norm": 50,
+      "annex": 0,
+      "front": 398,
+      "longest": 52
+    },
+    {
+      "src": "27005:2022",
+      "cert": "ISMS-IA",
+      "spans": 1,
+      "words": 4,
+      "norm": 0,
+      "annex": 0,
+      "front": 4,
+      "longest": 4
+    },
+    {
+      "src": "27001:2022",
+      "cert": "ISMS-IA",
+      "spans": 52,
+      "words": 706,
+      "norm": 634,
+      "annex": 34,
+      "front": 38,
+      "longest": 30
+    },
+    {
+      "src": "27001:2022",
+      "cert": "AIMS-IA",
+      "spans": 2,
+      "words": 10,
+      "norm": 6,
+      "annex": 0,
+      "front": 4,
+      "longest": 6
+    },
+    {
+      "src": "42001:2023",
+      "cert": "ISMS-IA",
+      "spans": 4,
+      "words": 79,
+      "norm": 79,
+      "annex": 0,
+      "front": 0,
+      "longest": 27
+    },
+    {
+      "src": "27001:2022/Amd1",
+      "cert": "ISMS-IA",
+      "spans": 5,
+      "words": 51,
+      "norm": 51,
+      "annex": 0,
+      "front": 0,
+      "longest": 11
+    },
+    {
+      "src": "27001:2022/Amd1",
+      "cert": "AIMS-IA",
+      "spans": 1,
+      "words": 8,
+      "norm": 8,
+      "annex": 0,
+      "front": 0,
+      "longest": 8
+    },
+    {
+      "src": "42001:2023",
+      "cert": "AIMS-IA",
+      "spans": 3,
+      "words": 17,
+      "norm": 7,
+      "annex": 10,
+      "front": 0,
+      "longest": 7
+    }
+  ],
+  "quotes": [
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+      "run": 9,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "audit evidence leading to audit findings should be recorded"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+      "run": 4,
+      "src": "27005:2022",
+      "zone": "front",
+      "text": "included in the soa"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-05-which-document-says-what",
+      "run": 16,
+      "src": "27001:2022",
+      "zone": "front",
+      "text": "for the purposes of this document the terms and definitions given in iso iec 27000 apply"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 16,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "top management shall demonstrate leadership and commitment with respect to the information security management system by"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 22,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "top management shall ensure that the responsibilities and authorities for roles relevant to information security are assigned and communicated within the organization"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 9,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "top management shall assign the responsibility and authority for"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 7,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "conforms to the requirements of this document"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 7,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "b reporting on the performance of the"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-08-assets-nobody-registered",
+      "run": 15,
+      "src": "27001:2022",
+      "zone": "annex",
+      "text": "an inventory of information and other associated assets including owners shall be developed and maintained"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "run": 4,
+      "src": "27001:2022",
+      "zone": "front",
+      "text": "clauses 4 to 10"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-01-what-the-programme-is-for",
+      "run": 23,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "when establishing the internal audit programme s the organization shall consider the importance of the processes concerned and the results of previous audits"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 15,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "select auditors and conduct audits that ensure objectivity and the impartiality of the audit process"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 29,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "auditors should be independent of the activity being audited wherever practicable and should in all cases act in a manner that is free from bias and conflict of interest"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 27,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "when it is not possible for internal auditors to be independent of the activity being audited every effort should be made to remove bias and encourage objectivity"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-08-what-the-tool-verified",
+      "run": 25,
+      "src": "19011:2026",
+      "zone": "normative",
+      "text": "understand the appropriateness and consequences of using information and communications technology tools and emerging technology to conduct audits e g artificial intelligence based evaluation tools"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-08-what-the-tool-verified",
+      "run": 24,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "an appropriate use of sampling should be applied since this is closely related to the confidence that can be placed in the audit conclusions"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "run": 52,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "audit evidence should be verifiable it should be based on samples of the information available since an audit is conducted during a specified duration and with finite resources an appropriate use of sampling should be applied since this is closely related to the confidence that can be placed in the audit conclusions"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 26,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the organization shall determine the boundaries and applicability of the information security management system to establish its scope when determining this scope the organization shall consider"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 11,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "a the external and internal issues referred to in 4 1"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 8,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "b the requirements referred to in 4 2"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 18,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "c interfaces and dependencies between activities performed by the organization and those that are performed by other organizations"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 8,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the scope shall be available as documented information"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 22,
+      "src": "27001:2022",
+      "zone": "front",
+      "text": "excluding any of the requirements specified in clauses 4 to 10 is not acceptable when an organization claims conformity to this document"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 12,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "ensure that the results of the audits are reported to relevant management"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 10,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "d feedback on the information security performance including trends in"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 5,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "1 nonconformities and corrective actions"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 5,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "2 monitoring and measurement results"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 6,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "4 fulfilment of information security objectives"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 21,
+      "src": "42001:2023",
+      "zone": "normative",
+      "text": "the results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 11,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "documented information shall be available as evidence of the results of"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 7,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "when a nonconformity occurs the organization shall"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 21,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "a react to the nonconformity and as applicable 1 take action to control and correct it 2 deal with the consequences"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 27,
+      "src": "42001:2023",
+      "zone": "normative",
+      "text": "that it does not recur or occur elsewhere by 1 reviewing the nonconformity 2 determining the causes of the nonconformity 3 determining if similar nonconformities exist or"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 5,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "c implement any action needed"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 9,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "d review the effectiveness of any corrective action taken"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 11,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "e make changes to the information security management system if necessary"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 12,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "corrective actions shall be appropriate to the effects of the nonconformities encountered"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 18,
+      "src": "42001:2023",
+      "zone": "normative",
+      "text": "documented information shall be available as evidence of the nature of the nonconformities and any subsequent actions taken"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-10-one-word-apart",
+      "run": 7,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "carried out together at a single auditee"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-02-criterion-evidence-gap",
+      "run": 6,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "retain documented information of the results"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-02-where-the-effort-goes",
+      "run": 23,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "the risk based approach should substantively influence the planning and implementation of the audit programme and the planning conducting and reporting of audits"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 18,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "expansion of guidance on remote auditing methods through the introduction of guidance contained in iso iec ts 17012"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 14,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "expansion of annex a to provide guidance on remote auditing methods and virtual locations"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 19,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "remote auditing method method used for conducting audit activities from any place other than the location of the auditee"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 18,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "where an organization performs work or provides a service using an online environment enabling individuals to execute processes"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 19,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the organization shall conduct internal audits at planned intervals to provide information on whether the information security management system"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 14,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "a conforms to 1 the organization's own requirements for its information security management system"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 6,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "b is effectively implemented and maintained"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 21,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the organization shall plan establish implement and maintain an audit programme s including the frequency methods responsibilities planning requirements and reporting"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 23,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "when establishing the internal audit programme s the organization shall consider the importance of the processes concerned and the results of previous audits"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 10,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "a define the audit criteria and scope for each audit"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 16,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "b select auditors and conduct audits that ensure objectivity and the impartiality of the audit process"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 13,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "c ensure that the results of the audits are reported to relevant management"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 19,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "documented information shall be available as evidence of the implementation of the audit programme s and the audit results"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-01-whose-scheme-is-it",
+      "run": 11,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "audit finding results of the evaluation of the collected audit evidence"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-01-whose-scheme-is-it",
+      "run": 24,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "if the audit criteria are legal including statutory or regulatory requirements the words compliance or non compliance are often used in an audit finding"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "run": 45,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "fair presentation is the obligation to report truthfully and accurately audit findings audit conclusions and audit reports should reflect truthfully and accurately the auditing activities significant obstacles encountered during the audit and unresolved diverging opinions between the audit team and the auditee should be reported"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "run": 7,
+      "src": "27001:2022",
+      "zone": "annex",
+      "text": "control 5 19 information security in supplier"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 13,
+      "src": "42001:2023",
+      "zone": "normative",
+      "text": "evaluate the need for action to eliminate the cause s of the nonconformity"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 4,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "1 reviewing the nonconformity"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 7,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "2 determining the causes of the nonconformity"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 10,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "3 determining if similar nonconformities exist or could potentially occur"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 10,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "objective evidence data supporting the existence or verity of something"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 16,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "audit evidence records statements of fact or other information which are relevant to the audit criteria"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 45,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "only information that can be subject to some degree of verification should be accepted as audit evidence where the degree of verification is low the auditor should use their professional judgement to determine the degree of reliance that can be placed on it as evidence"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "add the following sentence at the end of the subclause"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 11,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "the organization shall determine whether climate change is a relevant issue"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "add the following note at the end of the subclause"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "relevant interested parties can have requirements related to climate change"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "relevant interested parties can have requirements related to climate change"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "run": 10,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "documented information shall be available as evidence of the results"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "run": 17,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the organization shall evaluate the information security performance and the effectiveness of the information security management system"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-11-a-determination-not-an-answer",
+      "run": 8,
+      "src": "27001:2022/Amd1",
+      "zone": "normative",
+      "text": "the organization shall determine whether climate change is"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-10-justifying-both-directions",
+      "run": 5,
+      "src": "42001:2023",
+      "zone": "annex",
+      "text": "organization can design and implement"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 29,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "annex a contains a list of possible information security controls users of this document are directed to annex a to ensure that no necessary information security controls are overlooked"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 21,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the information security controls listed in annex a are not exhaustive and additional information security controls can be included if needed"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 27,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "planning of changes when the organization determines the need for changes to the information security management system the changes shall be carried out in a planned manner"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-05-competence-awareness-documents",
+      "run": 30,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "documented information of external origin determined by the organization to be necessary for the planning and operation of the information security management system shall be identified as appropriate and controlled"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-03-one-finding-or-several",
+      "run": 5,
+      "src": "42001:2023",
+      "zone": "annex",
+      "text": "in the statement of applicability"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-06-testing-the-claim",
+      "run": 8,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "whether the necessary controls are implemented or not"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-07-where-the-audit-stops",
+      "run": 12,
+      "src": "27001:2022",
+      "zone": "annex",
+      "text": "systems shall be planned and agreed between the tester and appropriate management"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-08-defined-versus-running",
+      "run": 7,
+      "src": "42001:2023",
+      "zone": "normative",
+      "text": "ai system development and usage life cycle"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-06-closing-it-properly",
+      "run": 8,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "review the effectiveness of any corrective action taken"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-04-competence-of-the-team",
+      "run": 25,
+      "src": "19011:2026",
+      "zone": "normative",
+      "text": "understand the appropriateness and consequences of using information and communications technology tools and emerging technology to conduct audits e g artificial intelligence based evaluation tools"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 7,
+      "src": "19011:2026",
+      "zone": "front",
+      "text": "as well as the time period covered"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 10,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "the organization's own requirements for its information security management system"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 9,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "define the audit criteria and scope for each audit"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-04-tracing-the-soa-back",
+      "run": 19,
+      "src": "27001:2022",
+      "zone": "normative",
+      "text": "obtain risk owners' approval of the information security risk treatment plan and acceptance of the residual information security risks"
+    }
+  ]
+}

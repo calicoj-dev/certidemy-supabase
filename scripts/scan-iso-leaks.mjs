@@ -49,7 +49,7 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
-import { runUnits } from "./lib/leak-score.mjs";
+import { runUnits, SEED as LEAK_SEED } from "./lib/leak-score.mjs";
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
 for (const a of process.argv.slice(2)) {
@@ -66,10 +66,41 @@ const arg = (k, d) => {
 const APPLY = process.argv.includes("--apply");
 const VERBOSE = process.argv.includes("--verbose");
 const ONLY = arg("cert", "");
-/* The SEED is the n-gram length used to FIND a run, not the threshold used to
- * judge it. Runs are then extended greedily, so the reported length is the real
- * one. Five matches audit-quotations.mjs, which is where this method comes from. */
-const SEED = Number(arg("seed", "5"));
+/* ============ ONE SEED, IMPORTED, NOT A SECOND CONSTANT ============
+ *
+ * This read `Number(arg("seed", "5"))` while `lib/leak-score.mjs` used 4, and
+ * the two gates disagreed for the whole life of the programme: seed 5 refused
+ * 9 lesson rows where seed 4 refused 60.
+ *
+ * That was never a sensitivity choice. Both scorers extended a run while the
+ * TRAILING seed-gram existed anywhere in the document, so the extension hopped
+ * between unrelated places -- and a longer gram is arithmetically harder to
+ * chain, so seed 5 chained LESS. It was not more correct, it was less wrong,
+ * and it paid for that by missing genuine short runs.
+ *
+ * With extension by POSITION the two produce IDENTICAL verdicts on every
+ * certification, measured. So they unify at 4: sensitivity now costs nothing,
+ * because chaining was the only thing that made the extra matches worthless.
+ *
+ * Unified by IMPORT rather than by setting both to the same number. Two
+ * parameters that agree today can diverge tomorrow, and a gate that agrees
+ * with its sibling by coincidence is one edit away from not doing so -- which
+ * is this file's own rule about a computation with a stated invariant having
+ * exactly one implementation.
+ *
+ * `--seed` survives as a MEASUREMENT override for comparing instruments. It
+ * does not change the shared constant and a scan run with it is not a verdict. */
+const SEED = Number(arg("seed", String(LEAK_SEED)));
+if (SEED !== LEAK_SEED) {
+  console.log("  SEED OVERRIDDEN to " + SEED + " (shared constant is " + LEAK_SEED + ").");
+  console.log("  This is a measurement, not a verdict. --apply is refused.");
+  if (APPLY) {
+    console.error("");
+    console.error("REFUSING: --seed with --apply. A verdict is written at the shared seed or");
+    console.error("not at all, or the stored run becomes a fact about a flag somebody passed.");
+    process.exit(2);
+  }
+}
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 for (const p of [join(HERE, ".env"), join(HERE, "..", ".env")]) {
