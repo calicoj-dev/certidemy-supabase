@@ -1,77 +1,122 @@
 -- 366: 365 closed the partner path and shut the door on two other roles.
 --
--- AND IT CORRECTS 365'S OWN ACCOUNT OF WHY IT WORKED. That account is in
--- CLAUDE.md and in 365's header, it is wrong in its top-level claim, and the
--- correction changes what the next person does about three other views.
+-- ############ v2. THE FIRST VERSION ABORTED ON ITS OWN POST-CONDITION ############
 --
--- ============ 1. THE REGRESSION, WHICH IS THE ONLY THING THIS CHANGES ============
+--     ERROR: P0001: 1 role(s) can read mcp.concept and cannot call its wrapper
+--
+-- and a read-only query afterwards found TWO failing roles, not one. That is an
+-- instrument disagreeing with the corpus, so nothing was granted until it was
+-- explained. It is explained, and neither number was wrong.
+--
+-- THE MIGRATION AND THE QUERY WERE LOOKING AT DIFFERENT DATABASES.
+-- Everything here runs inside one transaction. When the DO block executed, its
+-- own grants had already applied IN THAT TRANSACTION, so both named roles
+-- already held the wrapper and were correctly excluded. The exception then
+-- aborted the transaction and rolled the grants back, so the query run
+-- afterwards saw a database where neither had it. Same predicate, two states.
+--
+-- THE ROLE IT FOUND WAS A THIRD ONE. Measured:
+--
+--   role                      selects mcp.concept via   wrap_en  wrap_tr
+--   mcp_reader                direct grant              true     true
+--   mcp_holder                direct grant              true     true
+--   postgres                  direct grant              true     true
+--   supabase_admin            pg_read_all_data          true     true
+--   supabase_read_only_user   pg_read_all_data          FALSE    FALSE
+--   supabase_etl_admin        pg_read_all_data          FALSE    FALSE
+--   pg_read_all_data          (is the role itself)      FALSE    FALSE
+--
+-- The 1 was `pg_read_all_data`. The 2 were the named roles, measured after the
+-- rollback. Three roles are in the gap, and the standing check reported only
+-- two of them because `check-view-function-grant-gap.sql` filters
+-- `rolname not like 'pg\_%'`.
+--
+-- SO THE MIGRATION'S ROLE SET WAS WIDER THAN THE STANDING CHECK'S, not
+-- narrower. The check could not see the role that three others inherit from.
+--
+-- ############ WHAT COMMITTED: NOTHING ############
+--
+-- Measured rather than reasoned from the file: both named roles are still
+-- FALSE on both wrappers. An error inside a transaction block makes a
+-- subsequent COMMIT behave as ROLLBACK, so the grants pasted before the DO
+-- block did not survive it. 365's wrappers and view are present and unchanged.
+--
+-- ############ AND pg_read_all_data IS NOT A CALLER ############
+--
+-- THE ASSERTION IS NOT NARROWED TO MAKE THIS PASS. It is scoped to the
+-- property it was always about, and there is evidence rather than an argument.
+--
+-- `pg_read_all_data` is NOLOGIN. Nobody starts a session as it; it is a
+-- privilege-bearing group, not a principal. It holds SELECT on every mcp view
+-- and EXECUTE on none of the four functions those views call -- INCLUDING
+-- `lesson_body_is_servable` and `task_ksa_is_withheld`, which have been in
+-- exactly this state since 341 and 350.
+--
+-- So if a NOLOGIN role sitting in the gap were a defect, mcp.lesson,
+-- mcp.lesson_index and mcp.task would have been broken for months. They answer
+-- 200 in all three languages. The gap is inert because there is no session to
+-- be refused.
+--
+-- What is NOT inert is a role that can log in and reaches the view through
+-- membership -- which is precisely the two this migration restores. So the
+-- assertion below covers `rolcanlogin` roles, and it still catches a future
+-- member of `pg_read_all_data`, because such a member could log in.
+--
+-- NOT granted to `pg_read_all_data` itself, deliberately. That would close the
+-- class permanently and is the tempting answer; it also extends what a builtin
+-- role means for our schema, to fix a gap that three other view/function pairs
+-- prove causes nothing. Recorded as the alternative rather than taken.
+--
+-- ############ 1. THE REGRESSION ############
 --
 -- 365 created mcp.concept_row_en_hash and mcp.translation_hash and granted
--- EXECUTE to mcp_reader and mcp_holder. The view now calls those wrappers.
--- The PUBLIC originals had also been granted to supabase_read_only_user and
--- supabase_etl_admin; the wrappers were not, so those two roles lost
--- mcp.concept entirely:
+-- EXECUTE to mcp_reader and mcp_holder. The view now calls those wrappers. The
+-- PUBLIC originals were also executable by supabase_read_only_user and
+-- supabase_etl_admin; the wrappers were not, so both lost mcp.concept:
 --
 --     select ... from mcp.concept  ->  42501 permission denied for function translation_hash
 --
--- That is dashboard SQL and ETL, not partner traffic -- but it is a surface
--- somebody uses, it broke silently, and it was found by a query that happened
--- to touch the view rather than by anything watching. The grant list of a
--- wrapper must match the grant list of the original it replaces, or the
--- replacement is a narrowing wearing the shape of a fix.
+-- Neither ever held a deliberate grant on an mcp function. They reached the
+-- view because it called the PUBLIC originals, which they could execute. 365
+-- moved the call site and took it away. `supabase_read_only_user` is the role
+-- the read-only dashboard runs as; it is the instrument that measured this
+-- entire week, including the outage that produced 365. Losing it is losing the
+-- observability that found the defect.
 --
--- ============ 2. THE CORRECTION: SCHEMA USAGE WAS NOT THE GATE ============
+-- BY NAME, never to PUBLIC.
 --
--- 365 said the call was "refused at the schema door before the function ACL is
--- ever consulted", and generalised that into a rule about reachability being
--- two gates. The rule is real. IT IS NOT WHAT HAPPENED HERE.
+-- ############ 2. THE CORRECTION TO 365'S ACCOUNT OF ITSELF ############
 --
--- MEASURED, on the deployed endpoint, as mcp_reader, holding no USAGE on
--- public:
+-- 365 said the call was refused "at the schema door before the function ACL is
+-- ever consulted" and generalised that into a rule about two gates. The rule is
+-- real elsewhere. IT IS NOT WHAT HAPPENED.
+--
+-- MEASURED, as mcp_reader, holding no USAGE on public:
 --
 --     POST courseware-read {resource: lesson_index, language: es-419}  ->  200
 --     aims-ia-01-01-who-commissioned-it   body_available=false
 --
--- mcp.lesson_index selects `lesson_body_is_servable(l.id)`, a PUBLIC function,
--- and the value came back. So a stored view calling a public function does NOT
--- require the reader to hold USAGE on public: the view's rewrite rule holds the
--- function by OID, already resolved, and no name lookup happens at read time.
+-- mcp.lesson_index SELECTS public.lesson_body_is_servable and the value came
+-- back. A stored view holds its functions BY OID; no name lookup happens at
+-- read time, so schema USAGE is never consulted.
 --
--- The difference is INSIDE the function:
+-- The gate was one level in:
 --
---   public.concept_row_en_hash    SECURITY DEFINER   body runs as postgres   fine
---   public.lesson_body_is_servable SECURITY DEFINER  body runs as postgres   fine
---   public.task_ksa_is_withheld   SECURITY DEFINER   body runs as postgres   fine
---   public.translation_hash       SECURITY INVOKER   body runs as mcp_reader BROKEN
+--   public.concept_row_en_hash     DEFINER   runs as postgres     fine
+--   public.lesson_body_is_servable DEFINER   runs as postgres     fine
+--   public.task_ksa_is_withheld    DEFINER   runs as postgres     fine
+--   public.translation_hash        INVOKER   runs as mcp_reader   BROKEN
 --
--- translation_hash is `SET search_path = ''` and its body calls
--- public.ksa_en_hash by qualified name. That name is resolved AT RUNTIME, in
--- the caller's privilege context, and THAT lookup needs USAGE on public.
+-- translation_hash is SET search_path = '' and its body calls
+-- public.ksa_en_hash by qualified name, resolved AT RUNTIME in the caller's
+-- context. THAT lookup needs USAGE on public.
 --
--- > **A SECURITY DEFINER FUNCTION IS REACHABLE BY ANYONE HOLDING EXECUTE. A
--- > SECURITY INVOKER FUNCTION IS ONLY AS REACHABLE AS EVERYTHING ITS BODY
--- > TOUCHES**, and a search_path of '' makes every one of those touches a
--- > fully-qualified runtime lookup that the CALLER must be able to perform.
+--   A SECURITY DEFINER FUNCTION IS REACHABLE BY ANYONE HOLDING EXECUTE.
+--   A SECURITY INVOKER FUNCTION IS ONLY AS REACHABLE AS EVERYTHING ITS BODY
+--   TOUCHES.
 --
--- 365's wrapper is SECURITY DEFINER, so the whole chain runs as postgres. It
--- fixed the defect for a reason its own header stated only in a side comment.
---
--- ============ 3. SO THE THREE "LATENT" VIEWS ARE NOT LATENT ============
---
--- 365 recorded mcp.lesson, mcp.lesson_index and mcp.task as one planner
--- decision away from the same 500, and deferred them. That was wrong and this
--- migration does NOT touch them. All three call SECURITY DEFINER functions,
--- all three are evaluated today -- mcp.lesson calls its function in the WHERE
--- clause, where nothing can prune it -- and all three answer 200 in all three
--- languages on the wire.
---
--- The dating was wrong too. The outage began at 364, which put translation_hash
--- into the predicate, NOT at 359: 359's predicate used only
--- concept_row_en_hash, and that one has always been callable.
---
--- check-view-function-grant-gap.sql reported those three because it asks
--- has_schema_privilege about a stored view's already-resolved call. That
--- predicate is wrong for this shape and is corrected in the same commit.
+-- Consequences: the outage dates to 364, not 359; and mcp.lesson,
+-- mcp.lesson_index and mcp.task were never latent and are not touched here.
 
 begin;
 
@@ -79,22 +124,31 @@ grant execute on function mcp.concept_row_en_hash(uuid)          to supabase_rea
 grant execute on function mcp.translation_hash(text, text, text) to supabase_read_only_user, supabase_etl_admin;
 
 do $post$
-declare n_rel int; n_gap int;
+declare bad text; n_rel int;
 begin
-  -- POSITIVE: every role that could read mcp.concept before 365 can again.
-  -- Derived from the PUBLIC originals' grant list rather than typed, so the
-  -- assertion cannot drift from the thing it is restoring.
-  select count(*) into n_gap
+  -- POSITIVE, AND THE ASSERTION IS THE ONE THAT CAUGHT THIS: any role that can
+  -- start a session and SELECT this view must be able to call what it calls.
+  --
+  -- It NAMES the offenders rather than counting them. v1 raised "1 role(s)"
+  -- and the number could not be reconciled with a query run in another state;
+  -- a name can. A count is a summary of a set, and the set is what the next
+  -- person needs.
+  select string_agg(r.rolname || ' -> ' || f.fn, ', ' order by r.rolname)
+    into bad
     from pg_roles r
-   where has_function_privilege(r.rolname, 'public.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
-     and not has_function_privilege(r.rolname, 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
-     and has_table_privilege(r.rolname, 'mcp.concept'::regclass, 'SELECT');
-  if n_gap <> 0 then
-    raise exception '% role(s) can read mcp.concept and cannot call its wrapper', n_gap;
+   cross join (values ('mcp.concept_row_en_hash(uuid)'),
+                      ('mcp.translation_hash(text,text,text)')) f(fn)
+   where r.rolcanlogin
+     and has_table_privilege(r.rolname, 'mcp.concept'::regclass, 'SELECT')
+     and not has_function_privilege(r.rolname, f.fn::regprocedure, 'EXECUTE');
+  if bad is not null then
+    raise exception 'a login role can read mcp.concept and cannot call its wrapper'
+      using detail = bad,
+            hint   = 'grant the wrapper to that role BY NAME; do not narrow this assertion';
   end if;
 
-  -- NEGATIVE, both halves. Widening the wrapper must not widen the ROLE, and
-  -- must not hand the wrapper to anyone who could not read the view anyway.
+  -- NEGATIVE, both halves. The fix must not widen the mcp roles, and must not
+  -- reach a role that could not read the view in the first place.
   if has_schema_privilege('mcp_reader', 'public', 'USAGE')
      or has_schema_privilege('mcp_holder', 'public', 'USAGE') then
     raise exception 'an mcp role gained USAGE on public';
@@ -108,12 +162,13 @@ begin
     raise exception 'mcp_reader can now select % public relation(s)', n_rel;
   end if;
 
-  if has_function_privilege('anon', 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
-     or has_function_privilege('authenticated', 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE') then
-    raise exception 'a browser role can call an mcp wrapper';
+  if has_function_privilege('anon',          'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('authenticated', 'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE')
+     or has_function_privilege('service_role',  'mcp.translation_hash(text,text,text)'::regprocedure, 'EXECUTE') then
+    raise exception 'a browser or service role can call an mcp wrapper';
   end if;
 
-  raise notice '366: mcp.concept readable again by every role that held the originals.';
+  raise notice '366: mcp.concept readable again by every login role that could read it before 365.';
 end $post$;
 
 commit;

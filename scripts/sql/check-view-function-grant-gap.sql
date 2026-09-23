@@ -80,18 +80,34 @@ with views as (
               then v.def ~ ('\mmcp\.' || f.proname || '\s*\(')
               else v.def ~ ('(?<!mcp\.)\m' || f.proname || '\s*\(')
          end
-), roles as (
-  select rolname from pg_roles
-   where rolname not like 'pg\_%' and rolname not like 'supabase\_admin%'
 )
-select 'HARD GAP' as class, p.view_name, p.fn_name,
+-- NO ROLE FILTER. It used to exclude `pg\_%`, which hid `pg_read_all_data` --
+-- the role THREE others reach these views through. 366's post-condition found
+-- it and this file could not, so the two disagreed on the same property and
+-- the migration was blamed. A filter that removes a whole class of role is not
+-- noise reduction; it is a coverage gap that reports as clean.
+-- TWO CLASSES, BECAUSE ONLY ONE OF THEM IS A DEFECT.
+--
+-- A NOLOGIN role cannot start a session, so it cannot be refused. It is a
+-- privilege-bearing group, not a principal. `pg_read_all_data` holds SELECT on
+-- every mcp view and EXECUTE on none of the four functions they call -- and has
+-- been in exactly that state for `lesson_body_is_servable` and
+-- `task_ksa_is_withheld` since 341 and 350, while both views answered 200 in
+-- all three languages for months. The gap is inert, and the proof is that it
+-- has already been sitting there harmlessly.
+--
+-- It is still REPORTED, because a NOLOGIN group is how a future login role will
+-- inherit SELECT without inheriting EXECUTE, and the previous version of this
+-- file made that invisible by filtering it out.
+select case when r.rolcanlogin then 'HARD GAP' else 'INERT (nologin group)' end as class,
+       p.view_name, p.fn_name,
        string_agg(r.rolname, ', ' order by r.rolname) as roles_that_would_500
   from pairs p
-  join roles r
+  join pg_roles r
     on has_table_privilege(r.rolname, p.view_oid, 'SELECT')
    and not has_function_privilege(r.rolname, p.fn_oid, 'EXECUTE')
- group by p.view_name, p.fn_name
- order by p.view_name, p.fn_name;
+ group by r.rolcanlogin, p.view_name, p.fn_name
+ order by r.rolcanlogin desc, p.view_name, p.fn_name;
 
 -- ====================== B. SECURITY INVOKER ADVISORY ======================
 -- Not a gap by itself. A function called by an mcp view that runs as the

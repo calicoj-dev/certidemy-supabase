@@ -1995,6 +1995,59 @@ nothing can prune it, and all three answer 200 in all three languages.
 INVOKER separately as an advisory**, because a static reader cannot follow a
 function body to every schema it resolves. Firing count 7 -> 2.
 
+**TWO INSTRUMENTS DISAGREED AND BOTH WERE RIGHT, BECAUSE THEY WERE LOOKING AT
+DIFFERENT DATABASES.** Recorded 2026-09-22 from 366's first run.
+
+The post-condition aborted with `1 role(s) can read mcp.concept and cannot call
+its wrapper`. A read-only query straight afterwards found **two**. Same
+predicate, same database, different answers -- which reads as an instrument
+defect and is a stop condition.
+
+**It is a STATE difference.** The whole migration is one transaction, so when
+the DO block ran, its own grants had already applied *in that transaction* and
+both named roles were correctly excluded. The exception then aborted the
+transaction and rolled the grants back, so the query afterwards saw a database
+where neither had it.
+
+> **A POST-CONDITION SEES ITS OWN WRITES. A QUERY AFTER AN ABORT SEES NONE OF
+> THEM.** Before concluding that two instruments disagree, establish that they
+> ran against the same state.
+
+**AND THE ROLE IT FOUND WAS A THIRD ONE NEITHER NUMBER NAMED.** The 1 was
+`pg_read_all_data`; the 2 were the named roles post-rollback. Three roles are
+in that gap, and `check-view-function-grant-gap.sql` reported only two because
+it filtered `rolname not like 'pg\_%'` -- hiding **the role the other three
+reach the view through**.
+
+> **A ROLE FILTER IN A PRIVILEGE CHECK IS A COVERAGE GAP THAT REPORTS CLEAN.**
+> The migration's role set was WIDER than the standing check's, which is the
+> opposite of what a failing migration usually means.
+
+**AND A COUNT CANNOT BE RECONCILED ACROSS STATES. A NAME CAN.** `1 role(s)` is
+unreconcilable with a query returning two; `pg_read_all_data -> mcp.translation_hash`
+would have ended the question in one line. Post-conditions here now emit the
+offending set via `string_agg`, not its cardinality -- the same rule as
+*report the enumeration, not the count*, applied to a gate rather than a report.
+
+**A NOLOGIN ROLE IS NOT A CALLER, AND THE PROOF IS THAT IT HAS ALREADY BEEN
+HARMLESS.** `pg_read_all_data` holds SELECT on every `mcp` view and EXECUTE on
+none of the four functions they call -- including `lesson_body_is_servable` and
+`task_ksa_is_withheld`, **in exactly that state since 341 and 350**, while both
+views answered 200 in all three languages throughout. A gap that has sat open
+for months without a single refusal is not a pending defect; there is no
+session to refuse.
+
+So the check reports **two classes**: HARD GAP for roles that can log in, INERT
+for NOLOGIN groups. Inert is still printed, because a NOLOGIN group is how a
+future login role inherits SELECT without inheriting EXECUTE -- and filtering it
+out is what made this invisible the first time. Measured now: **2 hard, 5
+inert.**
+
+**Granting to `pg_read_all_data` itself was the tempting fix and was not
+taken.** It would close the class permanently and it extends what a builtin
+role means for our schema, to fix something three other view/function pairs
+demonstrate causes nothing. Recorded as the alternative rather than adopted.
+
 **AND A GRANT MIGRATION ENUMERATES EVERY ROLE THAT HELD THE PRIVILEGE BEFORE.**
 365 granted its new wrappers to `mcp_reader` and `mcp_holder` and silently took
 `mcp.concept` away from `supabase_read_only_user` and `supabase_etl_admin`,
