@@ -1,5 +1,5 @@
 {
-  "measured": "2026-09-23T02:40:52.466Z",
+  "measured": "2026-09-23T03:31:45.577Z",
   "spans": 471,
   "counts": {
     "self_contradiction": 12,
@@ -38,6 +38,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -66,6 +68,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -94,6 +98,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -115,6 +121,8 @@
         "relevant",
         "determine"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -138,6 +146,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -168,6 +178,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP",
         "SELF-CONTRADICTION"
@@ -188,6 +200,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -215,6 +229,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -247,6 +263,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -275,6 +293,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "MODAL-SHIFT"
       ]
@@ -296,6 +316,8 @@
         "relevant",
         "determine"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -319,6 +341,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -338,6 +362,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -361,6 +387,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -380,6 +408,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -399,6 +429,8 @@
       "contradiction": [
         "implement"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -420,6 +452,8 @@
         "available",
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -449,6 +483,8 @@
         "relevant",
         "ensure"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -473,6 +509,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -501,6 +539,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -552,6 +592,8 @@
       "contradiction": [
         "required"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "TERM-SUBSTITUTION",
@@ -577,6 +619,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -600,6 +644,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -623,6 +669,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -653,6 +701,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -688,6 +738,8 @@
         "appropriate",
         "and"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -718,6 +770,8 @@
       "contradiction": [
         "ensure"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "TERM-SUBSTITUTION",
@@ -743,6 +797,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -768,6 +824,8 @@
         "appropriate"
       ],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -790,6 +848,8 @@
       "contradiction": [
         "ensure"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "TERM-SUBSTITUTION",
         "SELF-CONTRADICTION"
@@ -813,6 +873,8 @@
       "contradiction": [
         "ensure"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "TERM-SUBSTITUTION",
         "SELF-CONTRADICTION"
@@ -837,6 +899,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -869,6 +933,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -889,6 +955,8 @@
       "contradiction": [
         "determine"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -917,6 +985,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -940,6 +1010,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -972,6 +1044,8 @@
       "contradiction": [
         "independent"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1000,6 +1074,8 @@
       "contradiction": [
         "independent"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1023,6 +1099,8 @@
       "contradiction": [
         "ensure"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "TERM-SUBSTITUTION",
         "SELF-CONTRADICTION"
@@ -1053,6 +1131,8 @@
         "determine",
         "establish"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1093,6 +1173,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1125,6 +1207,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1152,6 +1236,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1180,6 +1266,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1208,6 +1296,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1231,6 +1321,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1250,6 +1342,8 @@
       "contradiction": [
         "establish"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1273,6 +1367,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1296,6 +1392,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1323,6 +1421,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1348,6 +1448,8 @@
       ],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1371,6 +1473,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -1398,6 +1502,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1425,6 +1531,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1457,6 +1565,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1490,6 +1600,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1514,6 +1626,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "MODAL-SHIFT"
       ]
@@ -1541,6 +1655,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1572,6 +1688,8 @@
         "determine",
         "establish"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1591,6 +1709,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1610,6 +1730,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1629,6 +1751,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1650,6 +1774,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "TERM-SUBSTITUTION",
         "SELF-CONTRADICTION"
@@ -1688,6 +1814,8 @@
         "review",
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP",
         "TERM-SUBSTITUTION",
@@ -1709,6 +1837,8 @@
       "contradiction": [
         "ensure"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1728,6 +1858,8 @@
       "contradiction": [
         "establish"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1747,6 +1879,8 @@
       "contradiction": [
         "determine"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1775,6 +1909,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:table",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -1798,6 +1934,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "UNKNOWN",
+      "quoted": false,
       "classes": [
         "MODAL-SHIFT"
       ]
@@ -1832,6 +1970,8 @@
         "implement",
         "verify"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1872,6 +2012,8 @@
       "contradiction": [
         "implement"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -1893,6 +2035,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1912,6 +2056,8 @@
       "contradiction": [
         "required"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1931,6 +2077,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1950,6 +2098,8 @@
       "contradiction": [
         "implement"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1971,6 +2121,8 @@
         "available",
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -1999,6 +2151,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:table",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -2027,6 +2181,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -2048,6 +2204,8 @@
         "available",
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2076,6 +2234,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2104,6 +2264,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2132,6 +2294,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2166,6 +2330,8 @@
       "contradiction": [
         "required"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "TERM-SUBSTITUTION",
@@ -2198,6 +2364,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2226,6 +2394,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2249,6 +2419,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2281,6 +2453,8 @@
       "contradiction": [
         "required"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -2316,6 +2490,8 @@
       "contradiction": [
         "required"
       ],
+      "shape": "QUOTATION:blockquote",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "TERM-SUBSTITUTION",
@@ -2350,6 +2526,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2382,6 +2560,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2405,6 +2585,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2424,6 +2606,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2443,6 +2627,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2462,6 +2648,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2481,6 +2669,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2500,6 +2690,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2523,6 +2715,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2546,6 +2740,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2569,6 +2765,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2606,6 +2804,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2643,6 +2843,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "MODAL-SHIFT",
         "QUANTIFIER"
@@ -2681,6 +2883,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2708,6 +2912,8 @@
       "contradiction": [
         "implement"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -2738,6 +2944,8 @@
         "available",
         "appropriate"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -2758,6 +2966,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2777,6 +2987,8 @@
         "adequate"
       ],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "TERM-SUBSTITUTION"
       ]
@@ -2796,6 +3008,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2815,6 +3029,8 @@
       "contradiction": [
         "relevant"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2835,6 +3051,8 @@
       "contradiction": [
         "review"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2854,6 +3072,8 @@
       "contradiction": [
         "review"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2884,6 +3104,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP",
         "SELF-CONTRADICTION"
@@ -2908,6 +3130,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -2927,6 +3151,8 @@
       "contradiction": [
         "independent"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -2954,6 +3180,8 @@
       "contradiction": [
         "independent"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -2978,6 +3206,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -3001,6 +3231,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "QUANTIFIER"
       ]
@@ -3020,6 +3252,8 @@
       "contradiction": [
         "determine"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3039,6 +3273,8 @@
       "contradiction": [
         "determine"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3069,6 +3305,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -3088,6 +3326,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3107,6 +3347,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3128,6 +3370,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "TERM-SUBSTITUTION",
         "SELF-CONTRADICTION"
@@ -3148,6 +3392,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3171,6 +3417,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]
@@ -3208,6 +3456,8 @@
       "contradiction": [
         "or"
       ],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER",
         "SELF-CONTRADICTION"
@@ -3228,6 +3478,8 @@
       "contradiction": [
         "appropriate"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3247,6 +3499,8 @@
       "contradiction": [
         "necessary"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3266,6 +3520,8 @@
       "contradiction": [
         "evaluate"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3294,6 +3550,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:table",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -3322,6 +3580,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -3350,6 +3610,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -3378,6 +3640,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "CONJUNCTION-FLIP"
       ]
@@ -3397,6 +3661,8 @@
       "contradiction": [
         "implement"
       ],
+      "shape": "QUOTATION:self-introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3417,6 +3683,8 @@
       "contradiction": [
         "available"
       ],
+      "shape": "QUOTATION:introduced",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3437,6 +3705,8 @@
         "evaluate"
       ],
       "contradiction": [],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "TERM-SUBSTITUTION"
       ]
@@ -3456,6 +3726,8 @@
       "contradiction": [
         "evaluate"
       ],
+      "shape": "QUOTATION:lettered",
+      "quoted": true,
       "classes": [
         "SELF-CONTRADICTION"
       ]
@@ -3479,6 +3751,8 @@
       "droppedTerms": [],
       "addedTerms": [],
       "contradiction": [],
+      "shape": "EXPLANATION",
+      "quoted": false,
       "classes": [
         "QUANTIFIER"
       ]

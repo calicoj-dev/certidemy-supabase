@@ -48,6 +48,7 @@
 import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { reviewBlocks, solid } from "./lib/guide-runs.mjs";
 
 const KNOWN = new Set(["--json", "--verbose"]);
 const argv = process.argv.slice(2);
@@ -138,6 +139,10 @@ for (const s of spans) {
 /* ---------------------------------------------- B. self-contradiction */
 const lessons = await allRows("lessons?select=slug,language,content_md");
 const enBody = new Map(lessons.filter((l) => l.language === "en").map((l) => [l.slug, lc(l.content_md)]));
+/* RAW, not lowercased. lc() strips >, * and _ -- the very markers the shape
+ * test reads. Using the normalised body for structure would make every
+ * blockquote look like prose. */
+const enRaw = new Map(lessons.filter((l) => l.language === "en").map((l) => [l.slug, l.content_md || ""]));
 
 for (const s of spans) {
   s.contradiction = [];
@@ -152,6 +157,77 @@ for (const s of spans) {
     const re = new RegExp("(^|[^a-z])" + t + "([^a-z]|$)");
     if (re.test(rest)) s.contradiction.push(t);
   }
+}
+
+/* ============ SHAPE: IS THE SPAN A QUOTATION OR OUR EXPLANATION? ============
+ *
+ * THIS IS THE PRIMARY FILTER AND IT REPLACES THE WORD LISTS AS THE TRIAGE.
+ *
+ * In something presented as the clause's own words -- blockquoted, lettered
+ * "- a)", or introduced by "Clause 8.2 says:" -- every word is ISO's, and
+ * changing one is a MISQUOTATION whether or not the meaning survives. In our
+ * own prose, plain English is the point and `relevant` -> `bears on` is good
+ * writing, not drift.
+ *
+ * That single distinction sorts the candidate list: the same substitution is a
+ * defect in the first shape and an improvement in the second.
+ *
+ * Determined STRUCTURALLY from the live English body, never from the wording:
+ *
+ *   blockquote     the line begins with ">"
+ *   lettered       the line begins with "- a)" / "a)" / "- 1)" -- the shape ISO
+ *                  uses for the sub-requirements of a clause
+ *   introduced     the PRECEDING solid line names a clause and ends in a colon,
+ *                  or says "says / reads / requires / states" about one
+ *
+ * Anything else is EXPLANATION-SHAPED. Where the span cannot be located the
+ * shape is UNKNOWN and the row says so rather than defaulting to either. */
+const CITES = /\b(clause|annex|section|se[cç][aã]o|apartado|cl[aá]usula)\b/i;
+const INTROVERB = /\b(says|reads|requires|states|obliges|sets out|lists|defines)\b/i;
+
+const shapeOf = (body, needle) => {
+  const bs = reviewBlocks(body);
+  for (let bi = 0; bi < bs.length; bi++) {
+    const sol = solid(bs[bi]);
+    for (let li = 0; li < sol.length; li++) {
+      const t = sol[li].text;
+      if (!t.replace(/\s+/g, " ").includes(needle)) continue;
+      const trimmed = t.trimStart();
+      if (trimmed.startsWith(">")) return "QUOTATION:blockquote";
+      if (/^-?\s*(?:\*\*)?[a-z0-9]\)/.test(trimmed)) return "QUOTATION:lettered";
+
+      /* ============ THREE SHAPES THE FIRST VERSION MISSED ============
+       *
+       * It under-reported quotation by 30 spans, and every miss was a real
+       * quotation: it looked for the citation on the PRECEDING line only, and
+       * required a closing paren for a list item.
+       *
+       * TABLE ROW keyed by a clause number -- "| 6.1.2 - define and apply ... |"
+       * is a requirements table, which is the clause's words in a grid. */
+      if (trimmed.startsWith("|") && /(?:\*\*)?\d+(?:\.\d+)+/.test(trimmed)) return "QUOTATION:table";
+
+      /* CLAUSE-NUMBER ITEM -- "**8.2** - at planned intervals". Same function as
+       * a lettered item and no paren anywhere in it. */
+      if (/^[-*|]?\s*(?:\*\*)?\d+(?:\.\d+)+(?:\*\*)?\s*[-–—:]/.test(trimmed)) return "QUOTATION:clause-item";
+
+      /* SELF-INTRODUCED -- "Clause 8.2 says at planned intervals ...". The
+       * introduction is INSIDE the span, so looking at the previous line finds
+       * prose and calls the whole thing explanation. */
+      const head = trimmed.slice(0, 90);
+      if (CITES.test(head) && INTROVERB.test(head)) return "QUOTATION:self-introduced";
+
+      const prev = li > 0 ? sol[li - 1].text : "";
+      if (CITES.test(prev) && (/:\s*$/.test(prev.trim()) || INTROVERB.test(prev))) return "QUOTATION:introduced";
+      return "EXPLANATION";
+    }
+  }
+  return "UNKNOWN";
+};
+
+for (const s of spans) {
+  const body = enRaw.get(s.slug);
+  s.shape = body ? shapeOf(body, s.after.replace(/\s+/g, " ").trim()) : "UNKNOWN";
+  s.quoted = s.shape.startsWith("QUOTATION");
 }
 
 /* ---------------------------------------------- rank */
@@ -216,6 +292,17 @@ console.log("");
 console.log("NORMATIVE DRIFT -- candidates, not defects");
 console.log("");
 console.log("  repair spans examined            " + spans.length);
+console.log("");
+console.log("  SHAPE -- the primary filter. In a quotation every word is ISO's, so");
+console.log("  changing one is a MISQUOTATION whether or not the meaning survives.");
+console.log("  In our own prose, plain English is the point.");
+{
+  const t = {};
+  for (const s of spans) t[s.shape] = (t[s.shape] || 0) + 1;
+  for (const k of Object.keys(t).sort()) console.log("    " + k.padEnd(24) + t[k]);
+  const q = spans.filter((s) => s.quoted).length;
+  console.log("    QUOTATION-SHAPED total   " + q + "   EXPLANATION-SHAPED " + spans.filter((s) => s.shape === "EXPLANATION").length);
+}
 console.log("");
 console.log("  SELF-CONTRADICTION, narrowed (strongest)        " + withContra.length);
 console.log("    the broad form fired on " + broadContra.length + " -- kept visible because the");

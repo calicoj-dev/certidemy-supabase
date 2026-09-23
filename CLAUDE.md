@@ -2112,6 +2112,58 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A REPAIR IS VERIFIED AGAINST WHAT IT WAS SUPPOSED TO PRESERVE, NOT ONLY
+AGAINST WHAT IT WAS SUPPOSED TO REMOVE.** Ruled 2026-09-23. It is the positive
+form of the whole week.
+
+Every gate here is subtractive -- does it reproduce, does the citation resolve,
+does the hash still match. A repair also has a POSITIVE obligation: the modal,
+the conjunction, the quantifier and the defined term it inherited must survive
+it. Nothing asked.
+
+**AND THE TRIAGE TURNS ON ONE DISTINCTION: IS THE SPAN A QUOTATION OF THE
+CLAUSE, OR OUR EXPLANATION OF IT?** In something presented as the clause's own
+words -- blockquoted, lettered, or introduced by *"Clause 8.2 says"* -- every
+word is ISO's, and changing one is a MISQUOTATION whether or not the meaning
+survives. In our own prose, *relevant* becoming *bears on* is good writing.
+**The same substitution is a defect in the first shape and an improvement in
+the second**, which is why shape is the primary filter and the word lists are
+secondary. Measured: **179 quotation-shaped, 290 explanation-shaped** of 471.
+
+> **THE STRUCTURAL RULE, WHICH IS WHAT CLOSES THIS: WE SHOULD NOT PRESENT
+> PARAPHRASES AS QUOTATIONS AT ALL.** That is how it happened -- the lesson
+> quotes the clause, the quote reproduces ISO, the repair paraphrases the quote
+> to avoid reproduction, and the result LOOKS like a quotation, ISN'T one, and
+> is wrong in exactly the details a quotation exists to preserve.
+>
+> Two honest shapes, and every repaired span becomes one of them: **accurately
+> quoted, marked as a quotation, under the reproduction threshold**; or **our
+> own explanation, not wearing the clause's voice.** Name the clause, state the
+> obligation in our own words, never wear the clause's voice.
+
+**This is the concept layer's ruling arriving at the lesson layer.** The
+anti-gloss rule said a description must say something the definition does not.
+This says a lesson must not impersonate the clause it teaches.
+
+**AND THE SHAPE CLASSIFIER WAS WRONG BEFORE IT WAS RIGHT, CAUGHT BY DISAGREEING
+WITH A HUMAN READ.** It reported 97 quotation-shaped; a reading of 22
+candidates said several of its EXPLANATION calls were plainly quotations. Three
+blind spots, all real quotations: the citation phrase **inside** the span, so
+only the previous line was read; a **clause-number item** where the lettered
+test demanded a closing paren; and a requirements **table** keyed by clause
+number. Fixed, the count went **97 to 179**.
+
+A classifier that under-reports the category it exists to protect is the same
+defect as a guard that cannot fire -- and it was found by a person reading the
+output, not by the instrument.
+
+**AND TWENTY SPANS DROP THE DEFINED TERM `available`, WHICH IS A DIFFERENT
+SEVERITY AND DOES NOT TURN ON SHAPE.** ISO MSS drafting distinguishes *shall be
+available as documented information* from *shall be retained as documented
+information*. An auditor taught *kept* looks for retention where the clause
+asks for availability, and that is an examinable point on every management
+system certification we sell.
+
 **A REPAIR THAT AVOIDS REPRODUCTION CAN ALTER WHAT THE STANDARD REQUIRES, AND
 NOTHING CHECKED FOR IT.** Recorded 2026-09-23. It is the inverse of everything
 else in this file: not a claim that decayed, but a claim that was changed ON
