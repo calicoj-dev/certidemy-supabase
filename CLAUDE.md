@@ -2112,6 +2112,81 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A DELTA MEASUREMENT CHANGES ONE THING.** Ruled 2026-09-23, and it is a class
+rather than a post-mortem because it has two occasions in one week.
+
+When an instrument is fixed and the input is also changed, the difference is
+unattributable -- and the natural reading, that it is all the fix, is the
+flattering one and usually wrong.
+
+| | confound | the wrong reading it produced |
+|---|---|---|
+| the pooler alarm | one run had 45s of rest, the others 90 | *pacing* causes exhaustion |
+| the concept re-score | the NAME was scored alongside the description | the skip fix raised fires 15 to 63 |
+
+Both confounds were introduced by the MEASURER, not present in the subject.
+Isolated, the concept answer was 2 description fires -- and the drop from the
+recorded 15 was **the batch rewrites working**, not the scorer.
+
+> **MECHANISM: run the new instrument on the OLD input first, report that
+> delta, and only then change the input.**
+
+Reporting 63 would have sent someone to rewrite sixty-one correct concept
+names.
+
+**A SELECTION AMONG CANDIDATES IS MADE BY THE PREDICATE THE GATE ACTS ON,
+NEVER BY A COMPONENT OF IT.** The gate fires on `(ratio) OR (absolute run)`.
+Selecting the "best" unit by coverage alone discards precisely the case the
+absolute floor exists for: a long sentence of ours carrying a ten-word
+reproduction dilutes to 0.17, and a short defined term at coverage 1.00 wins a
+comparison it should never have been in.
+
+**FILE IT WITH "A GATE IMPLEMENTED AS A FUNCTION IS NOT THE COLUMN IT READS."**
+Two instances, one class, different clothing: *the thing that decides must be
+the thing that decides.* A column that feeds a gate is not the gate; a
+component of a disjunction is not the disjunction.
+
+**THE 8-OR-9 MARGIN IS KEPT, ON DIFFERENT GROUND.** It was hedging against an
+instrument known to measure low. The instrument no longer does, so that reason
+has expired. It stays because a draft at 9w is one word from a refusal, the
+floor is a policy choice rather than a law, and a redraft costs minutes -- a
+DRAFTING margin, not instrument distrust. **A rule kept for a reason that has
+expired is a rule nobody can argue with later.**
+
+**AND THE FRAME HYPOTHESIS IS REFUTED BY ITS OWN POPULATION.** `determine the
+___ relevant to the ___` reproduced twice in one evening -- clause 4.2 and
+clause 7.4 -- which looked like harmonised boilerplate we keep reaching for.
+Surveyed across 2,208 English bodies: 4,355 distinct matched runs, 13,701
+occurrences.
+
+```
+the TOP TWENTY frames account for 4% of occurrences
+the top 60 are 53 four-word runs -- the seed floor
+of the four frames predicted, NONE appears in the top 60
+```
+
+The head of the distribution is ordinary English and ISO front matter -- *in
+the context of*, *the effectiveness of the*, *note 2 to entry*, *iso online
+browsing platform*. **A frame list is not worth having.** Same shape as the
+two-point rule one level up: a pattern read off two instances, re-measured
+against the population, and the population disagrees.
+
+**A CONCEPT NAME AND A CONCEPT DESCRIPTION ARE DIFFERENT OBJECTS UNDER
+DIFFERENT RULES, AND NO MAXIMUM IS TAKEN ACROSS THEM.** A name SHOULD be the
+defined term; one that avoided ISO's wording to escape a leak score would be
+worse curriculum. A description must not reproduce. The description's verdict
+is the gate; the name's is informational.
+
+Measured after the split and after the one real repair: **1 description fire,
+62 name fires.**
+
+**AND THE TITLE-CLASS EXEMPTION IS ENCODED, BUT NOT WHERE IT WAS ASSUMED TO
+BE.** `isHeadingSpan` lives in `iso-locator.mjs` and is real.
+`gate-concept-descriptions` does NOT call it -- it carries a per-slug exemption
+list where each entry has a REASON and a `maxRun` CEILING, and an exempt row is
+still printed with its score. That is the right shape. The 62 names were never
+exempt by anybody's decision, because names were never scored at all.
+
 **THE ENUMERATION REQUIREMENT ATTACHES TO RELEASE, NOT TO CHANGE.** Ruled
 2026-09-23 after two gate deploys an hour apart, one of each kind.
 

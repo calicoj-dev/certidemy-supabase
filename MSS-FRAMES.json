@@ -1,0 +1,1134 @@
+{
+  "measured": "2026-09-23T05:21:00.023Z",
+  "bodies": 2208,
+  "distinctRuns": 4355,
+  "totalOccurrences": 13701,
+  "frames": 2210,
+  "coveredOccurrences": 11556,
+  "top": [
+    {
+      "text": "in the iso iec",
+      "len": 4,
+      "uses": 16,
+      "where": [
+        "lesson:03-07-companion-iso-standards",
+        "lesson:isms-ia-05-07-where-the-audit-lands"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27001:2022/Amd1",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "in the context of",
+      "len": 4,
+      "uses": 16,
+      "where": [
+        "lesson:03-01-protecting-data-and-privacy",
+        "lesson:05-06-sustaining-skill-learning",
+        "lesson:05-01-impediments"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27001:2022/Amd1",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "iso online browsing platform",
+      "len": 4,
+      "uses": 16,
+      "where": [
+        "lesson:01-01-core-security-properties",
+        "lesson:01-04-the-27000-family"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "iso iec jtc 1",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:isms-ia-04-07-two-sentences"
+      ],
+      "docs": [
+        "22989:2022",
+        "27000:2018",
+        "27001:2022/Amd1",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of this document the",
+      "len": 4,
+      "uses": 1,
+      "where": [
+        "lesson:isms-ia-01-05-which-document-says-what"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the effectiveness of the",
+      "len": 4,
+      "uses": 70,
+      "where": [
+        "lesson:aims-ia-05-05-a-report-for-someone-not-in-the-room",
+        "lesson:03-02-awareness-and-communication",
+        "lesson:03-01-resources-and-competence",
+        "lesson:aims-ia-04-07-controlled-not-merely-present",
+        "lesson:03-04-operational-planning-and-control",
+        "lesson:aims-ia-05-06-correction-is-not-corrective-action",
+        "lesson:aims-ia-04-13-competence-the-organization-claims",
+        "lesson:isms-ia-04-06-defined-versus-running",
+        "lesson:05-04-nonconformity-and-correction",
+        "lesson:isms-ia-04-05-competence-awareness-documents",
+        "lesson:aims-ia-04-08-defined-versus-running",
+        "lesson:isms-ia-05-06-closing-it-properly",
+        "concept:ia-awareness-clause-7-3"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "to ensure that the",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:02-04-roles-responsibilities-authorities"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "for the purposes of this document the",
+      "len": 7,
+      "uses": 3,
+      "where": [
+        "lesson:isms-ia-01-05-which-document-says-what"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the context of the",
+      "len": 4,
+      "uses": 1,
+      "where": [
+        "lesson:05-01-impediments"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "an information security management system",
+      "len": 5,
+      "uses": 59,
+      "where": [
+        "lesson:05-05-the-certification-route",
+        "lesson:03-06-data-for-ai-systems",
+        "lesson:01-04-the-27000-family",
+        "lesson:03-03-documented-information",
+        "lesson:aims-ia-04-11-a-determination-not-an-answer",
+        "lesson:05-06-integrated-audit-programme",
+        "lesson:02-01-context-and-interested-parties",
+        "lesson:02-04-roles-responsibilities-authorities",
+        "lesson:01-02-determining-your-roles",
+        "lesson:01-04-harmonised-structure"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the results of the",
+      "len": 4,
+      "uses": 57,
+      "where": [
+        "lesson:isms-ia-02-01-what-the-programme-is-for",
+        "lesson:isms-ia-05-07-where-the-audit-lands",
+        "lesson:aims-ia-04-06-two-assessments-not-one",
+        "lesson:aims-ia-03-05-the-question-that-finds-evidence",
+        "lesson:aims-ia-05-01-three-things-a-finding-can-be",
+        "lesson:aims-ia-05-07-where-the-audit-lands",
+        "lesson:isms-ia-02-06-testing-the-programme",
+        "lesson:02-07-risk-versus-impact",
+        "lesson:05-02-aims-internal-audit",
+        "lesson:02-02-determining-the-scope"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "iso iec 27001 and",
+      "len": 4,
+      "uses": 54,
+      "where": [
+        "lesson:isms-ia-01-01-audit-parties",
+        "lesson:isms-ia-01-05-which-document-says-what",
+        "lesson:isms-ia-04-02-demonstrated-not-stated",
+        "lesson:isms-ia-01-03-objectivity-of-the-assignment",
+        "lesson:isms-ia-05-07-where-the-audit-lands",
+        "lesson:isms-ia-04-10-one-word-apart",
+        "lesson:05-09-two-management-systems",
+        "lesson:01-03-event-incident-breach",
+        "lesson:isms-ia-02-06-testing-the-programme",
+        "lesson:03-07-what-carries-over-from-an-isms",
+        "lesson:aims-ia-04-04-criteria-before-assessment",
+        "lesson:isms-ia-02-03-scope-criteria-objectives",
+        "concept:harmonised-structure"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022/Amd1",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the scope of the",
+      "len": 4,
+      "uses": 51,
+      "where": [
+        "lesson:isms-ia-01-03-objectivity-of-the-assignment",
+        "lesson:isms-ia-04-01-what-the-scope-left-out",
+        "lesson:sm-ai-ii-01-06-obsolete-or-inconvenient",
+        "lesson:sm-ai-ii-01-02-who-moved",
+        "lesson:sm-ai-ii-04-03-the-same-basis",
+        "lesson:sm-ai-ii-01-04-met-and-missed"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "information security management system",
+      "len": 4,
+      "uses": 42,
+      "where": [
+        "lesson:isms-ia-01-01-audit-parties",
+        "lesson:isms-ia-04-02-demonstrated-not-stated",
+        "lesson:isms-ia-04-01-what-the-scope-left-out",
+        "lesson:isms-ia-05-07-where-the-audit-lands",
+        "lesson:isms-ia-05-05-fixing-it-and-fixing-it",
+        "lesson:isms-ia-02-06-testing-the-programme",
+        "lesson:isms-ia-04-06-defined-versus-running",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6",
+        "lesson:isms-ia-04-05-competence-awareness-documents",
+        "lesson:isms-ia-02-03-scope-criteria-objectives"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "note 2 to entry",
+      "len": 4,
+      "uses": 40,
+      "where": [
+        "lesson:aims-ia-04-09-normative-and-should",
+        "lesson:aims-ia-04-05-controls-first-annex-a-second",
+        "lesson:aims-ia-05-04-can-this-finding-stand",
+        "concept:aia-finding-against-a-note"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the nature of the",
+      "len": 4,
+      "uses": 32,
+      "where": [
+        "lesson:05-05-the-certification-route",
+        "lesson:aims-ia-05-05-a-report-for-someone-not-in-the-room",
+        "lesson:isms-ia-05-05-fixing-it-and-fixing-it",
+        "lesson:03-04-how-a-role-changes",
+        "lesson:05-04-nonconformity-and-corrective-action",
+        "lesson:03-04-the-sprint-review"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "with respect to the",
+      "len": 4,
+      "uses": 25,
+      "where": [
+        "lesson:aims-ia-02-04-what-roles-the-organization-holds",
+        "lesson:isms-ia-04-02-demonstrated-not-stated",
+        "lesson:01-02-determining-your-roles",
+        "lesson:02-02-determining-the-scope"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "as a result of",
+      "len": 4,
+      "uses": 10,
+      "where": [
+        "lesson:02-04-daily-scrum-developers-event",
+        "lesson:05-09-sprint-review"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of the results of",
+      "len": 4,
+      "uses": 8,
+      "where": [
+        "lesson:isms-ia-05-07-where-the-audit-lands",
+        "lesson:isms-ia-05-05-fixing-it-and-fixing-it",
+        "lesson:aims-ia-04-04-criteria-before-assessment"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "be the subject of",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:04-04-what-you-cannot-delegate"
+      ],
+      "docs": [
+        "22989:2022",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "will be in the",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:02-08-acceptable-ai-use"
+      ],
+      "docs": [
+        "22989:2022",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "in the introduction and",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:02-01-context-and-interested-parties"
+      ],
+      "docs": [
+        "22989:2022",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "deviation from the expected",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:02-05-the-ai-risk-assessment"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "and availability of information",
+      "len": 4,
+      "uses": 4,
+      "where": [
+        "lesson:isms-ia-04-10-one-word-apart",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "in iso iec 27001",
+      "len": 4,
+      "uses": 88,
+      "where": [
+        "lesson:isms-ia-01-05-which-document-says-what",
+        "lesson:03-01-resources-and-competence",
+        "lesson:isms-ia-05-05-fixing-it-and-fixing-it",
+        "lesson:05-09-two-management-systems",
+        "lesson:01-01-core-security-properties",
+        "lesson:isms-ia-02-02-where-the-effort-goes",
+        "lesson:isms-ia-05-01-whose-scheme-is-it",
+        "lesson:02-01-context-and-interested-parties",
+        "lesson:02-04-roles-responsibilities-authorities",
+        "lesson:01-02-determining-your-roles",
+        "lesson:01-04-harmonised-structure",
+        "concept:ia-opportunity-for-improvement",
+        "concept:aia-clause-4-1-context",
+        "concept:role-determination-requirement"
+      ],
+      "docs": [
+        "27000:2018",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the purpose of the",
+      "len": 4,
+      "uses": 73,
+      "where": [
+        "lesson:isms-ia-04-02-demonstrated-not-stated",
+        "lesson:aims-ia-04-03-leadership-in-artifacts",
+        "lesson:03-05-the-sprint-retrospective",
+        "lesson:sm-ai-ii-05-05-nobody-noticed-it-first",
+        "lesson:sm-ai-ii-04-01-nothing-came-back",
+        "lesson:sm-ai-ii-05-03-somebody-accepted-it",
+        "lesson:02-04-daily-scrum-developers-event",
+        "lesson:aims-ia-02-01-a-programme-is-designed-not-scheduled",
+        "lesson:02-02-purpose-of-guiding-principles",
+        "lesson:04-09-people-controls",
+        "lesson:aims-ia-04-02-boundaries-and-applicability",
+        "lesson:sm-ai-ii-05-02-more-than-can-be-looked-at",
+        "lesson:aims-ia-04-01-a-determination-or-an-assertion"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27001:2022",
+        "27002:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "to iso iec 27001",
+      "len": 4,
+      "uses": 62,
+      "where": [
+        "lesson:isms-ia-01-05-which-document-says-what",
+        "lesson:isms-ia-01-03-objectivity-of-the-assignment",
+        "lesson:isms-ia-04-10-one-word-apart",
+        "lesson:05-06-certification-and-accreditation",
+        "lesson:01-01-what-an-aims-is",
+        "lesson:isms-ia-05-01-whose-scheme-is-it",
+        "lesson:isms-ia-04-07-two-sentences",
+        "concept:ia-27001-42001-scope-overlap"
+      ],
+      "docs": [
+        "27000:2018",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "should be able to",
+      "len": 4,
+      "uses": 57,
+      "where": [
+        "lesson:isms-ia-02-01-what-the-programme-is-for",
+        "lesson:01-03-how-a-ranking-score-happens",
+        "lesson:03-08-service-request-and-desk",
+        "lesson:sm-ai-ii-02-08-the-convenient-explanation",
+        "lesson:03-04-the-four-treatment-options",
+        "lesson:05-06-certification-and-accreditation",
+        "lesson:04-06-non-human-identity",
+        "lesson:04-07-content-provenance",
+        "lesson:sm-ai-ii-02-04-watching-it-happen",
+        "lesson:03-02-applying-risk-criteria",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6",
+        "lesson:isms-ia-03-03-what-a-screen-share-establishes"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27002:2022",
+        "27004:2016",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of iso iec 27001",
+      "len": 4,
+      "uses": 46,
+      "where": [
+        "lesson:01-02-asset-threat-vulnerability-risk",
+        "lesson:isms-ia-01-05-which-document-says-what",
+        "lesson:isms-ia-02-02-where-the-effort-goes",
+        "lesson:isms-ia-02-06-testing-the-programme",
+        "lesson:isms-ia-05-03-the-statement-that-survives",
+        "lesson:isms-ia-04-07-two-sentences",
+        "lesson:02-06-leadership-and-policy",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6"
+      ],
+      "docs": [
+        "27000:2018",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "as well as the",
+      "len": 4,
+      "uses": 33,
+      "where": [
+        "lesson:isms-ia-01-01-audit-parties",
+        "lesson:sm-ai-ii-01-01-the-threat-test",
+        "lesson:05-02-aims-internal-audit",
+        "lesson:aims-ia-01-05-inside-and-outside-the-remit",
+        "lesson:isms-ia-02-03-scope-criteria-objectives",
+        "lesson:04-03-governing-apparatus-controls",
+        "lesson:aims-ia-02-05-defining-one-audit",
+        "concept:internal-audit-requirement"
+      ],
+      "docs": [
+        "19011:2026",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "at planned intervals or",
+      "len": 4,
+      "uses": 33,
+      "where": [
+        "lesson:03-08-clause-8-operational-duties",
+        "lesson:05-05-the-certification-route",
+        "lesson:05-06-integrated-audit-programme",
+        "lesson:05-02-aims-internal-audit",
+        "lesson:04-03-governing-apparatus-controls",
+        "concept:ia-annex-a-5-35-independent-review",
+        "concept:aia-clause-8-2-8-3-operational-risk"
+      ],
+      "docs": [
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the level of risk",
+      "len": 4,
+      "uses": 33,
+      "where": [
+        "lesson:02-04-risk-tolerance",
+        "lesson:01-05-drivers-and-what-certification-means",
+        "lesson:03-05-third-party-ai-supply",
+        "lesson:04-03-governing-apparatus-controls",
+        "concept:risk-tolerance"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "as part of the",
+      "len": 4,
+      "uses": 32,
+      "where": [
+        "lesson:03-11-the-clean-result",
+        "lesson:03-06-data-for-ai-systems",
+        "lesson:03-12-supplier-and-ai-dependency",
+        "lesson:isms-ia-05-03-the-statement-that-survives"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "suitability adequacy and effectiveness",
+      "len": 4,
+      "uses": 32,
+      "where": [
+        "lesson:aims-ia-05-07-where-the-audit-lands",
+        "lesson:01-01-what-an-aims-is",
+        "lesson:02-09-pdca-and-improvement",
+        "lesson:05-03-aims-management-review",
+        "concept:aia-clause-9-3-management-review",
+        "concept:continual-improvement"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "confidentiality integrity and availability",
+      "len": 4,
+      "uses": 28,
+      "where": [
+        "lesson:isms-ia-04-08-assets-nobody-registered",
+        "lesson:01-05-ai-attack-surface",
+        "lesson:01-01-core-security-properties",
+        "lesson:aims-ia-04-04-criteria-before-assessment",
+        "concept:cia-triad",
+        "concept:ia-model-weights-and-training-data-as-assets"
+      ],
+      "docs": [
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "information security risk assessment",
+      "len": 4,
+      "uses": 22,
+      "where": [
+        "lesson:isms-ia-04-10-one-word-apart",
+        "lesson:aims-ia-04-06-two-assessments-not-one",
+        "lesson:05-06-integrated-audit-programme",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6",
+        "lesson:aims-ia-04-04-criteria-before-assessment"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "the information security policy",
+      "len": 4,
+      "uses": 15,
+      "where": [
+        "lesson:02-04-scope",
+        "lesson:isms-ia-02-01-what-the-programme-is-for",
+        "lesson:02-06-leadership-and-policy",
+        "lesson:isms-ia-04-05-competence-awareness-documents"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "confidentiality integrity and availability of information",
+      "len": 6,
+      "uses": 14,
+      "where": [
+        "lesson:isms-ia-04-10-one-word-apart",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6"
+      ],
+      "docs": [
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "take into account the",
+      "len": 4,
+      "uses": 12,
+      "where": [
+        "lesson:02-06-the-ai-system-impact-assessment",
+        "lesson:aims-ia-04-04-criteria-before-assessment"
+      ],
+      "docs": [
+        "19011:2026",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the organization's information security",
+      "len": 4,
+      "uses": 11,
+      "where": [
+        "lesson:isms-ia-01-01-audit-parties",
+        "concept:ia-isms-objectives-as-programme-input",
+        "concept:interested-parties"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "there are no normative references in",
+      "len": 6,
+      "uses": 10,
+      "where": [
+        "lesson:aims-ia-01-03-which-document-can-carry-a-finding",
+        "concept:aia-19011-is-guidance-only"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27004:2016"
+      ]
+    },
+    {
+      "text": "monitoring measurement analysis and evaluation",
+      "len": 5,
+      "uses": 10,
+      "where": [
+        "lesson:05-01-monitoring-and-measurement",
+        "lesson:aims-ia-04-08-defined-versus-running"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "can be based on",
+      "len": 4,
+      "uses": 10,
+      "where": [
+        "lesson:aims-ia-02-01-a-programme-is-designed-not-scheduled"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "be carried out in",
+      "len": 4,
+      "uses": 9,
+      "where": [
+        "lesson:aims-ia-04-03-leadership-in-artifacts",
+        "lesson:02-09-pdca-and-improvement",
+        "lesson:isms-ia-04-03-the-whole-of-clause-6",
+        "lesson:02-03-leadership-policy-objectives",
+        "lesson:aims-ia-04-08-defined-versus-running",
+        "lesson:05-03-aims-management-review",
+        "concept:ia-planning-of-changes-clause-6-3"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the implementation of the",
+      "len": 4,
+      "uses": 7,
+      "where": [
+        "lesson:isms-ia-02-06-testing-the-programme",
+        "lesson:aims-ia-02-07-the-programme-audits-itself",
+        "lesson:05-02-aims-internal-audit"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "for the purpose of",
+      "len": 4,
+      "uses": 7,
+      "where": [
+        "lesson:isms-ia-03-06-testing-the-claim",
+        "lesson:sm-ai-ii-05-02-more-than-can-be-looked-at"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "planned intervals or when",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:03-08-clause-8-operational-duties",
+        "lesson:02-06-the-ai-system-impact-assessment"
+      ],
+      "docs": [
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the terms and definitions",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:isms-ia-01-05-which-document-says-what",
+        "lesson:01-04-the-27000-family"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "the performance of the",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:isms-ia-04-02-demonstrated-not-stated",
+        "lesson:aims-ia-04-03-leadership-in-artifacts"
+      ],
+      "docs": [
+        "19011:2026",
+        "22989:2022",
+        "27001:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of the information security",
+      "len": 4,
+      "uses": 6,
+      "where": [
+        "lesson:isms-ia-04-01-what-the-scope-left-out",
+        "lesson:isms-ia-04-06-defined-versus-running",
+        "lesson:isms-ia-04-05-competence-awareness-documents",
+        "lesson:isms-ia-04-04-tracing-the-soa-back"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "and the effectiveness of the",
+      "len": 5,
+      "uses": 5,
+      "where": [
+        "lesson:aims-ia-05-05-a-report-for-someone-not-in-the-room",
+        "lesson:isms-ia-04-06-defined-versus-running"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "in the form of",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:sm-ai-ii-04-06-too-late-to-turn"
+      ],
+      "docs": [
+        "22989:2022",
+        "27000:2018",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of the organization's information",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:isms-ia-02-02-where-the-effort-goes"
+      ],
+      "docs": [
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "of the organization the",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:isms-ia-02-04-choosing-the-method"
+      ],
+      "docs": [
+        "19011:2026",
+        "27000:2018",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022"
+      ]
+    },
+    {
+      "text": "context of the organization",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:isms-ia-04-07-two-sentences"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "of the organization and",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "lesson:03-06-iso-42001"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27002:2022",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "can be used to",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "concept:ia-virtual-locations"
+      ],
+      "docs": [
+        "22989:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "defined by the organization",
+      "len": 4,
+      "uses": 5,
+      "where": [
+        "concept:ia-opportunity-for-improvement"
+      ],
+      "docs": [
+        "19011:2026",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "at planned intervals or when",
+      "len": 5,
+      "uses": 4,
+      "where": [
+        "lesson:01-03-the-ai-system-life-cycle",
+        "concept:ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3"
+      ],
+      "docs": [
+        "27001:2022",
+        "27002:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    },
+    {
+      "text": "for the effectiveness of",
+      "len": 4,
+      "uses": 4,
+      "where": [
+        "lesson:aims-ia-03-07-going-to-the-record"
+      ],
+      "docs": [
+        "19011:2026",
+        "27001:2022",
+        "27004:2016",
+        "27005:2022",
+        "42001:2023"
+      ]
+    }
+  ]
+}

@@ -80,19 +80,32 @@ const trs = await allRows("concept_translations?select=concept_id,language,name,
 
 const sources = buildSources();
 
-/* NAME AND DESCRIPTION TOGETHER, as the row is served. The concept gate scores
- * the description; a caller receives both, and a reproduction in a name is a
- * reproduction. They are separate units, so nothing joins across them. */
+/* ============ NAME AND DESCRIPTION ARE SCORED APART ============
+ *
+ * The first version scored them together and produced 63 fires, 61 of which
+ * came from the NAME. Every one was a clause title or a defined term --
+ * `human in the loop`, `roles responsibilities and authorities`, `8 1
+ * operational planning and control`. Reporting that as a finding would have
+ * sent someone to rewrite sixty-one correct names.
+ *
+ * They are different objects under different rules. **A concept name SHOULD be
+ * the defined term**; a name that avoided ISO's wording to escape a leak score
+ * would be worse curriculum. A description must not reproduce.
+ *
+ * So both are scored, both are reported, and NO MAXIMUM IS TAKEN ACROSS THEM.
+ * The description's verdict is the gate; the name's is informational and
+ * belongs in a title-class report nobody acts on without reading. */
 const rows = [];
 for (const c of concepts) {
-  rows.push({ cert: codeOf.get(c.certification_id), slug: c.slug, lang: "en",
-              text: String(c.name || "") + "\n" + String(c.description || "") });
+  const cert = codeOf.get(c.certification_id);
+  rows.push({ cert, slug: c.slug, lang: "en", field: "description", text: String(c.description || "") });
+  rows.push({ cert, slug: c.slug, lang: "en", field: "name", text: String(c.name || "") });
 }
 for (const t of trs) {
   const c = concepts.find((x) => x.id === t.concept_id);
   if (!c) continue;
   rows.push({ cert: codeOf.get(c.certification_id), slug: c.slug, lang: t.language,
-              text: String(t.name || "") + "\n" + String(t.description || "") });
+              field: "description", text: String(t.description || "") });
 }
 
 const scored = [];
@@ -104,7 +117,8 @@ for (const r of rows) {
                 srcs: lg ? matchingSources(lg.text, sources) : [], hit: lg ? lg.text : "" });
 }
 
-const en = scored.filter((r) => r.lang === "en");
+const en = scored.filter((r) => r.lang === "en" && r.field === "description");
+const names = scored.filter((r) => r.field === "name");
 const tr = scored.filter((r) => r.lang !== "en");
 const fires = en.filter((r) => r.fires);
 
@@ -115,7 +129,9 @@ console.log("");
 console.log("  English rows scored      " + en.length);
 console.log("  translated rows scored   " + tr.length + "   (see the note below)");
 console.log("");
-console.log("  ENGLISH FIRES            " + fires.length);
+console.log("  ENGLISH DESCRIPTION FIRES  " + fires.length + "    <- THE GATE");
+console.log("  concept NAME fires         " + names.filter((r) => r.fires).length + "   <- INFORMATIONAL. A name should BE the defined term;");
+console.log("                                   a name avoiding ISO wording to escape a score is worse curriculum.");
 console.log("    by ratio only          " + fires.filter((r) => r.ratio && !r.abs).length);
 console.log("    by absolute run        " + fires.filter((r) => r.abs).length);
 console.log("");
