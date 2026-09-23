@@ -19,7 +19,8 @@ state.
 | **375 of 479** non-English lessons per language serve with **no review required at all** | the bilingual gate was only ever armed on 104 |
 | `domain_translations` and `module_translations` — 232 rows — are **100% cleared** | **no review table exists** for either; nothing can ever have read them |
 | AIMS-F's item bank was generated from the stub concept descriptions | the descriptions were rewritten 2026-09-21; **the bank was last written 2026-09-13** |
-| `open-badge` returns the **same 622 bytes** for a real code, a bogus code, and no code | HTTP 200 every time |
+| ~~`open-badge` returns the same 622 bytes for any code~~ | **WITHDRAWN** — its parameter is `doc`; it verifies, a bogus code gets 404 |
+| The paid surfaces had never been exercised from outside | **DONE** — key minted, used, revoked in 17s; paywall and tools both proven |
 
 ---
 
@@ -120,14 +121,17 @@ column, or a hash gate. They are served by the public site.
 
 | surface | status | note |
 |---|---|---|
-| `get_lesson` / `mcp.lesson` | **NEVER EXERCISED** | needs a `courseware:lessons` key; none in this environment. The wire matrix reports these three cells as NOT EXERCISED rather than passing |
-| `get_rubric` | **NEVER EXERCISED** | needs `courseware:rubric` |
+| `get_lesson` / `mcp.lesson` | **EXERCISED 2026-09-22** | key minted, used, revoked 17s later. 401 without, 200 with: 6 blocks in en, es-419 and pt-BR |
+| `get_rubric` | **partly** | the paid rubric path answers 200 with a key through `courseware-read`; the MCP tool is still unexercised -- I sent `task_code` and it accepts `code` |
 | the credential path | **checked today, first time from outside** | below |
 
-**The paid surfaces are the untested ones.** Every refusal the suites record is
-equally consistent with a working paywall and with a tool that serves nobody —
-`check-mcp.mjs` says so in its own output and has said so for as long as it has
-run. **[REORDER]**
+**The paid surfaces were the untested ones. They are now tested.** Every
+refusal the suites recorded was equally consistent with a working paywall and
+with a tool that serves nobody — `check-mcp.mjs` said so in its own output for
+as long as it has run. A key minted, used and revoked within 17 seconds settled
+it: **401 without, 200 with, in all three languages, and the Spanish lesson
+body is real text.** The cells return to NOT EXERCISED now the key is revoked,
+which is correct — the measurement is recorded here, not asserted by the suite.
 
 ### 2.3 The credential path — checked from outside, today
 
@@ -144,12 +148,16 @@ than from documentation:
 
 **All five resolve. The credential identity path is healthy.**
 
-**But CLAUDE.md documents the wrong paths.** Its "Credential identity —
-immovable" section lists `/issuer`, `/achievements/[code]`, `/status/[N]`.
-Those return **404 "not an Open Badges identifier on this host"**. The live
-paths are all under `/issuers/certidemy/`. Anyone following that section to
-check the most safety-critical URLs on the platform gets three 404s and
-concludes the host is broken. **[REORDER]**
+**CLAUDE.md paired the right paths with the wrong host — CORRECTED.** Its
+"Credential identity — immovable" section lists `/issuer`,
+`/achievements/[code]`, `/status/[N]` on `credentials.certidemy.com`. Those
+three 404 there. **They are real paths on `certidemy.com`**, which proxies the
+same bytes through `lib/openbadge/proxy.ts`; the authoritative host nests them
+under `/issuers/[slug]/`.
+
+So neither half was wrong on its own and the combination 404s — which is worse
+than a plainly wrong note, because each half survives a spot check. Corrected,
+with the method recorded: read the URLs out of the signed document.
 
 **The mandated byte-hash passes — on a different object than the instruction
 names.** CLAUDE.md says to byte-hash before and after any `open-badge` deploy,
@@ -157,7 +165,25 @@ expecting `366981ac…`. That hash is the **credentials.certidemy.com**
 document, measured today and matching exactly. The `open-badge` function
 returns 622 bytes hashing to `cac1a733…`.
 
-**And `open-badge` ignores its input:**
+**~~And `open-badge` ignores its input~~ -- WITHDRAWN 2026-09-22, same day.**
+
+The three observations below are real; the conclusion drawn from them was
+wrong. **The function's parameter is `doc`, not `code`, and `doc` defaults to
+`issuer`** -- so all three requests asked for the issuer profile and correctly
+got it. Tested properly: `doc=credential` with a bogus code returns **404 not
+found**, an empty code **400 code required**, an unknown doc **400**. It
+verifies; nothing to fix.
+
+Third time this week a probe's own malformed request was reported as a defect
+in the thing probed, after `list_lessons` (a stale connector schema) and
+`lesson_index` (a pooler I had exhausted myself). The shape is identical every
+time: **the instrument was mis-aimed and the target was blamed.**
+
+One small real item survives: a non-existent issuer slug answers **503 `issuer
+not configured`**, which says *try again* about something that will never
+exist. A 404 is the honest status.
+
+The original, wrong finding:
 
 ```
 open-badge?code=SM-AI-I-ZZMV-JPC8   HTTP 200   622B

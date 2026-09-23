@@ -569,15 +569,64 @@ bare role.
 
 ## Credential identity — immovable
 
-The four Open Badges 3.0 identifier URLs live on `credentials.certidemy.com`
-(a separate Cloudflare Worker repo, `calicoj-dev/certidemy-credentials`):
+**[CORRECTED 2026-09-22. The block below paired certidemy.com's PATHS with
+credentials.certidemy.com's HOST. Neither half was wrong on its own; the
+combination 404s, and following it during an incident produces three 404s on
+the platform's most safety-critical URLs and the conclusion that the host is
+down. Measured, both hosts, every path.]**
+
+**THERE ARE TWO HOSTS AND BOTH SERVE.** The authoritative identifiers -- the
+ones written inside signed documents -- are on `credentials.certidemy.com`
+(a separate Cloudflare Worker repo, `calicoj-dev/certidemy-credentials`), and
+the issuer, achievement and status documents are nested under the issuer slug:
 
 ```
-/issuer
-/achievements/[code]
-/credentials/[code]
-/status/[N]
+https://credentials.certidemy.com/credentials/[code]                   200
+https://credentials.certidemy.com/issuers/[slug]                       200
+https://credentials.certidemy.com/issuers/[slug]/achievements/[code]   200
+https://credentials.certidemy.com/issuers/[slug]/status/[N]            200
 ```
+
+`certidemy.com` serves the same bytes at the shorter paths, by proxying the
+`open-badge` edge function through `lib/openbadge/proxy.ts`: `/issuer`,
+`/achievements/[code]`, `/credentials/[code]`, `/status/[N]`, and the nested
+`/issuers/[slug]` forms as well.
+
+**The unnested paths exist ONLY on certidemy.com.** On
+`credentials.certidemy.com` they answer
+`404 not an Open Badges identifier on this host`.
+
+> **METHOD, because guessing these is what produced the error above: read the
+> URLs OUT OF THE SIGNED DOCUMENT and resolve those.** `id`, `issuer.id`,
+> `credentialSubject.achievement.id`, `credentialStatus.id` and
+> `credentialStatus.statusListCredential` are the five that must answer. A
+> document is the only thing that knows which URLs it promised; a note about it
+> is a second copy, and this one went stale exactly as this file says second
+> copies do.
+
+**Measured 2026-09-22, all five, from outside with no credential: 200.**
+`SM-AI-I-ZZMV-JPC8` resolves at 55,527 bytes and its sha256 matches the
+expected hash below -- **and that hash is of the WORKER's document, not of the
+`open-badge` function's response.** The function answers 622 bytes to a bare
+`?code=`, because its parameter is `doc` and `doc` defaults to `issuer`.
+
+**`open-badge` VERIFIES, checked rather than assumed:**
+
+```
+doc=credential&code=SM-AI-I-ZZMV-JPC8   200   the credential
+doc=credential&code=TOTALLY-BOGUS-CODE  404   not found
+doc=credential&code=                    400   code required
+doc=nonsense                            400   unknown doc
+```
+
+An earlier note reported it returning identical bytes for a real code, a bogus
+code and no code. **That was the probe omitting `doc`, not the function
+failing**, and it is recorded because the wrong version was written first.
+
+Each issuer resolves to its OWN profile -- `certidemy`, `durgical` and
+`test-partner-02` all return their own name. A slug that does not exist answers
+**503 `issuer not configured`**, which says *try again* about something that
+will never exist; a 404 is the honest status and it is a small open item.
 
 These are `id`, `issuer.id`, `achievement.id` and `credentialStatus.id` inside
 cryptographically signed documents. An external verifier resolves them. **That
