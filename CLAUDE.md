@@ -2112,6 +2112,191 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A REPAIR THAT AVOIDS REPRODUCTION CAN ALTER WHAT THE STANDARD REQUIRES, AND
+NOTHING CHECKED FOR IT.** Recorded 2026-09-23. It is the inverse of everything
+else in this file: not a claim that decayed, but a claim that was changed ON
+PURPOSE by the act of protecting us.
+
+The leak gate checks that we do not REPRODUCE. The claims verifier checks that
+a citation RESOLVES. **Neither asks whether the paraphrase still says what the
+clause says** -- and a repair is written under pressure to differ from ISO's
+words, which is exactly the pressure that moves meaning.
+
+Two landed in English and were faithfully carried into BOTH translations:
+
+| clause | was | became |
+|---|---|---|
+| 27001 5.2 g) | be **available to** interested parties | be **open to** interested parties |
+| 27001 8.2 | at planned intervals **OR** when | at planned intervals **AND** when |
+
+*Available to* is a passive obligation to furnish on request; *open to* is a
+different claim. Clause 8.2 gives two INDEPENDENT triggers, and  makes
+them joint -- while the surrounding prose still says *two triggers*.
+
+**BOTH LESSONS THEN CONTRADICT THEMSELVES, AND THAT IS DETECTABLE WITH NO INDEX
+AT ALL.** The quoted clause carries the new word; the explanation beside it
+still carries the old one. The lesson disagrees with itself, in English and in
+both translations, and no ISO text is needed to see it.
+
+> **MECHANISM: a repair is checked against the clause it paraphrases for MODAL,
+> CONJUNCTION, QUANTIFIER and DEFINED-TERM preservation; and a lesson whose
+> quoted text disagrees with its own explanation of the same clause is a
+> candidate regardless of what any index says.**
+> 
+  POSITIVE CONTROL -- the two instances a human found
+    FIRES  isms-ia-04-02-demonstrated-not-stated   SELF-CONTRADICTION, TERM-SUBSTITUTION
+    FIRES  isms-ia-04-06-defined-versus-running   CONJUNCTION-FLIP, SELF-CONTRADICTION, TERM-SUBSTITUTION
+
+NORMATIVE DRIFT -- candidates, not defects
+
+  repair spans examined            471
+
+  SELF-CONTRADICTION, narrowed (strongest)        12
+    the broad form fired on 82 -- kept visible because the
+    narrowing is a judgement, not a measurement
+  CONJUNCTION-FLIP   (and <-> or)                  13
+  MODAL-SHIFT        (shall / should count moved)  4
+  QUANTIFIER         (all/every/any/no/not moved)  59
+  TERM-SUBSTITUTION  (a listed term swapped)       12
+
+  A high count in the lower three is EXPECTED -- a repair rephrases, and
+  rephrasing moves these tokens. They are ranked, never a defect list.
+
+  ===== SELF-CONTRADICTION =====
+
+  AIMS-F  02-06-the-ai-system-impact-assessment   [42001 clause 6.1.4, clause 8.4, Annex B.5]
+    still used elsewhere in the lesson: or
+    conj: and 0->1  or 1->0
+    before: assessments are performed at planned intervals, or when significant changes are proposed to occur
+    after : assessments are performed at planned intervals, and again whenever a significant change is proposed
+
+  AIMS-F  04-01-annex-a-structure   [42001 Annex A intro, Annex B general clause]
+    still used elsewhere in the lesson: required
+    modal: must 0->1  may 0->1  can 1->0
+    dropped: required   added: objective
+    before: **Not all the control objectives and controls listed are required to be used**, and the organization can design and implement its own controls.
+    after : **Not every listed control objective and control must be used**, and an organization may design and implement its own.
+
+  AIMS-F  05-01-aims-monitoring-and-measurement   [42001 clause 9.1, A.6.2.6]
+    still used elsewhere in the lesson: ensure
+    dropped: ensure   added: monitor
+    before: **What needs to be monitored and measured.** **The methods** for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results. **When** the monitoring and measuri
+    after : **What to monitor and measure.** **Which methods** to use for monitoring, measurement, analysis and evaluation, so far as each applies, so that the results are valid. **When** monitoring and
+
+  AIMS-F  05-02-aims-internal-audit   [42001 clauses 9.2.1 and 9.2.2]
+    still used elsewhere in the lesson: ensure
+    dropped: ensure   added: objective, impartial
+    before: **Select auditors and conduct audits to ensure objectivity and the impartiality of the audit process.**
+    after : **Select auditors and run audits in a way that keeps the process objective and impartial.**
+
+  AIMS-F  05-02-aims-internal-audit   [42001 clauses 9.2.1 and 9.2.2]
+    still used elsewhere in the lesson: ensure
+    dropped: ensure   added: objective, impartial
+    before: conducted so as to ensure objectivity and the impartiality of the audit process
+    after : conducted so that the process stays objective and impartial
+
+  AIMS-IA  aims-ia-01-04-when-you-cannot-be-independent   [19011 clause 4.6, 42001 clause 9.2.2 b]
+    still used elsewhere in the lesson: ensure
+    dropped: ensure   added: objective, impartial
+    before: **select auditors and conduct audits to ensure objectivity and the impartiality of the audit process**
+    after : **select auditors and run audits in a way that keeps the process objective and impartial**
+
+  AIMS-IA  aims-ia-04-03-leadership-in-artifacts   [42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4]
+    still used elsewhere in the lesson: available
+    dropped: available   added: open
+    before: - be **available to interested parties, as appropriate**.
+    after : - be **open to interested parties where appropriate**.
+
+  AIMS-IA  aims-ia-04-03-leadership-in-artifacts   [42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4]
+    still used elsewhere in the lesson: ensure, review, or
+    conj: and 1->2  or 1->0
+    dropped: ensure, review   added: adequate
+    before: **A.2.4, review of the AI policy** - the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness
+    after : **A.2.4, reviewing the AI policy** - it shall be reviewed at planned intervals, and at other times as needed, so that it stays suitable, adequate and effective
+
+  AIMS-IA  aims-ia-04-09-normative-and-should   [42001 Annex A.1, Table A.1, Annex B.1, clause 6.1.3 e), 3.26]
+    still used elsewhere in the lesson: required
+    dropped: required   added: objective
+    before: Annex A.1 records that not all control objectives and controls listed in Table A.1 are required to be used.
+    after : Annex A.1 records that not every control objective and control in Table A.1 has to be used.
+
+  AIMS-IA  aims-ia-04-10-justifying-both-directions   [42001 clause 6.1.3 f), Annex A.1, 19011 clause 6.5.1]
+    still used elsewhere in the lesson: required
+    dropped: required   added: objective
+    before: > The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems. *
+    after : > The controls set out in Table A.1 give the organization a reference for meeting its objectives and handling risks that arise from designing and operating AI systems. **Not every control ob
+
+    ... and 2 more (--verbose)
+
+  ===== CONJUNCTION-FLIP =====
+
+  AIMS-F  01-03-the-ai-system-life-cycle   [42001 A.4 resources, clause 8]
+    conj: and 0->1  or 2->1
+    before: assessments at planned intervals, or when significant changes are proposed or occur
+    after : assessments at planned intervals, and again whenever a significant change is proposed or occurs
+
+  AIMS-F  01-03-the-ai-system-life-cycle   [42001 A.4 resources, clause 8]
+    conj: and 0->1  or 2->1
+    before: performed at planned intervals or when significant changes are proposed or occur.
+    after : performed at planned intervals, and again whenever a significant change is proposed or occurs.
+
+  AIMS-F  02-06-the-ai-system-impact-assessment   [42001 clause 6.1.4, clause 8.4, Annex B.5]
+    still used elsewhere in the lesson: or
+    conj: and 0->1  or 1->0
+    before: assessments are performed at planned intervals, or when significant changes are proposed to occur
+    after : assessments are performed at planned intervals, and again whenever a significant change is proposed
+
+  AIMS-F  03-06-data-for-ai-systems   [42001 A.7 data controls]
+    conj: and 0->1  or 2->1
+    before: known or potential biases or other systematic errors**. Prior handling
+    after : biases known or suspected, and other systematic errors**. Prior handling
+
+  AIMS-IA  aims-ia-04-03-leadership-in-artifacts   [42001 clauses 5.1, 5.2, 5.3, controls A.2.2 to A.2.4]
+    still used elsewhere in the lesson: ensure, review, or
+    conj: and 1->2  or 1->0
+    dropped: ensure, review   added: adequate
+    before: **A.2.4, review of the AI policy** - the AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness
+    after : **A.2.4, reviewing the AI policy** - it shall be reviewed at planned intervals, and at other times as needed, so that it stays suitable, adequate and effective
+
+  AIMS-IA  aims-ia-04-04-criteria-before-assessment   [42001 clauses 6.1.2, 6.1.4, 8.2]
+    conj: and 0->1  or 2->1
+    before: the organization shall perform AI risk assessments at planned intervals or when significant changes are proposed or occur
+    after : the organization shall perform AI risk assessments at planned intervals, and whenever significant change is proposed or happens
+
+  AIMS-IA  aims-ia-04-08-defined-versus-running   [42001 clauses 8.1, 8.2, 8.4]
+    conj: and 0->1  or 2->1
+    before: **8.2** - at planned intervals or when significant changes are proposed or occur; retain documented information of the results
+    after : **8.2** - at planned intervals, and whenever significant change is proposed or happens; retain documented information of the results
+
+  AIMS-IA  aims-ia-04-08-defined-versus-running   [42001 clauses 8.1, 8.2, 8.4]
+    conj: and 0->1  or 2->1
+    before: Clause 8.2 says at planned intervals or when significant changes are proposed or occur; clause 8.4 says
+    after : Clause 8.2 says at planned intervals, and whenever significant change is proposed or happens; clause 8.4 says
+
+  ISMS-IA  isms-ia-01-01-audit-parties   [27001:2022 Annex A control 5.35]
+    still used elsewhere in the lesson: or
+    conj: and 0->1  or 1->0
+    before: to be reviewed independently at planned intervals, or when significant changes occur
+    after : to be reviewed independently at planned intervals, and whenever significant change occurs
+
+  ISMS-IA  isms-ia-04-06-defined-versus-running   [27001:2022 clauses 8.1, 8.2, 9.1]
+    conj: and 1->2  or 2->1
+    before: | 6.1.2 - define and apply a risk assessment process | **8.2** - perform assessments at planned intervals or when significant changes are proposed or occur |
+    after : | 6.1.2 - define and apply a risk assessment process | **8.2** - perform assessments at planned intervals, and whenever significant change is proposed or happens |
+
+    ... and 3 more (--verbose).
+
+**AND ITS FIRST VERSION FIRED ON 82 OF 471 SPANS.** Any dropped term still used
+somewhere in a 13,000-character lesson counted -- which is not a contradiction,
+it is English. Narrowed to spans that ALSO flipped a conjunction or substituted
+a listed term: **12**, plus 13 conjunction flips. **The broad count is printed
+beside the narrow one**, because the narrowing is a judgement and hiding the
+number it replaced would hide that.
+
+**The control is the pair of instances a human found.** Both must fire or the
+script prints no list -- which is what stops a detector being tuned until it is
+quiet.
+
 **AND THERE IS NO THROWAWAY MEASUREMENT WHOSE NUMBER REACHES A REPORT.**
 Recorded 2026-09-22, and it is the paging rule's missing clause.
 
