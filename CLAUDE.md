@@ -2112,6 +2112,98 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**PLAUSIBILITY IS NOT EVIDENCE, AND A NUMBER THAT LOOKS REASONABLE IS THE ONE
+THAT SHIPS.** Three instances in two days, filed as ONE rule because they are
+one mechanism wearing three costumes:
+
+| the number | it looked like | it was |
+|---|---|---|
+| 27 percent of fires manufactured | a plausible artifact rate | 69 real reproductions about to be cleared |
+| 1.27 percent of 19011 quoted | a plausible quotation fraction | a wrong clause-4 anchor, twice |
+| nine-word runs | plausible collisions | some were chained through text no document contains |
+
+> **MECHANISM: where an instrument's output is a number whose correct value
+> nobody knows, the instrument is validated against a case whose answer is
+> KNOWN BEFORE the number is read -- and a parameter is never adjusted after
+> seeing the result it produced.**
+
+**AND UNSOUND IS A RESULT.** It belongs in the report beside the numbers, not
+as an absence. `measure-quotation-denominator` prints UNSOUND for every
+standard whose clause-4 anchor nobody has verified, which is a smaller claim
+than a percentage and a true one.
+
+**A MEASUREMENT OVERRIDE MAY NOT WRITE.** A parameter that exists so a
+measurement can be varied is refused on any path that PERSISTS a result,
+because a stored value carries no record of the flag that produced it and will
+be read later as the instrument's own answer.
+
+> **MECHANISM: override flags are accepted only by read-only paths; a write
+> path that sees one exits non-zero.**
+
+Occasion: `--seed` on `scan-iso-leaks`, retained deliberately after unification
+so the seed comparison stays reproducible, and refusing `--apply`.
+
+**THE TERM-OF-ART EXEMPTION IS A LOOKUP, NOT A JUDGEMENT, BECAUSE THE GLOSSARY
+IS `concepts`.** There is no glossary table: a `{glossary=<slug>}` annotation
+in a lesson body resolves to a CONCEPT SLUG. The concept layer IS the declared
+vocabulary, which makes the exemption machine-checkable:
+
+> **A phrase with a concept behind it is a defined term the curriculum is
+> obliged to use verbatim. A phrase without one is prose that happens to match
+> the standard.** Exempt rows are reported WITH THE ENTRY that excuses them,
+> never omitted.
+
+**AND THE FIRST VERSION OF THAT LOOKUP EXCUSED NINE RUNS, MOST OF THEM
+NONSENSE.** It accepted containment in either direction at any length, so a
+short declared term sitting anywhere inside a long clause fragment exempted the
+whole fragment:
+
+```
+additional control objectives and controls can be needed
+    -> control-of-documented-information
+requirements may include policies procedures work instructions legal requirements
+    -> awareness-requirement
+```
+
+That is the `availability` shape again -- an exemption written to let defined
+terms past, excusing the thing it exists to catch. **The declared term must
+ACCOUNT FOR the run**: it covers the run, or the run exceeds it by at most one
+word. A clause fragment that merely CONTAINS a defined term is prose carrying a
+term, not a term.
+
+With both directions asserted -- a glossary-annotated phrase MUST be exempt, a
+clause fragment containing a term MUST NOT be -- the rule fires 19 and exempts
+**zero**, because the declared terms cluster at 6 to 7 words, below the rule.
+The exemption is real, checkable, and currently excuses nothing.
+
+**AND THE DE FACTO VOCABULARY IS NOT THE DECLARED ONE.** 19 phrases recur in
+four or more rows with no concept behind them -- `be carried out in a planned
+manner` in seven, `based only on the audit evidence` in six. A phrase behaving
+as a defined term across seven lessons either deserves an entry or should stop
+being used as one, and **both are deliberate acts, unlike the present state,
+which is neither.**
+
+> This matters more than the leak score: **a curriculum whose de facto defined
+> terms are not its declared ones teaches an auditor vocabulary the exam does
+> not test.**
+
+**AND THE ATTRIBUTED-QUOTATION EXEMPTION IS KEYED ON MARKDOWN FORM, NOT ON
+ATTRIBUTION.** Found by reading the 19. A blockquote with a lead-in is exempt
+at ANY length -- 52 words stands. An INLINE quotation carrying an explicit
+citation in its own sentence gets no exemption at all:
+
+```
+ISO 19011:2026 clause 3.8 defines audit criteria as the set of requirements
+used as a reference against which objective evidence is compared.
+```
+
+That is more precisely attributed than most blockquotes and is scored as
+unattributed prose. **18 of the 19 findings carry a standard or clause citation
+in at least one occurrence; 3 carry one in every occurrence.**
+
+The exemption should turn on whether the span is attributed, not on whether the
+author reached for `>`.
+
 **AN ENUMERATION IS NOT A SLOWER COUNT.** A count reports MAGNITUDE; an
 enumeration reports IDENTITY, and identity is what tells you whether a row was
 ever in the state the change is supposed to move it out of.

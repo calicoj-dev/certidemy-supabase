@@ -137,6 +137,123 @@ const concepts = (await allRows("concepts?select=slug,name,description,certifica
 const lessons = (await allRows("lessons?select=slug,language,content_md,module_id"))
   .filter((l) => l.language === "en");
 
+/* ============ THE GLOSSARY IS `concepts`, AND THAT MAKES THE EXEMPTION
+ * MACHINE-CHECKABLE ============
+ *
+ * There is no glossary table. A {glossary=slug} annotation in a lesson body
+ * resolves to a CONCEPT SLUG -- the concept layer IS the declared vocabulary.
+ *
+ * That turns the term-of-art exemption from a judgement into a lookup:
+ *
+ *   A phrase with a concept behind it is a DEFINED TERM the curriculum is
+ *   obliged to use verbatim. A phrase without one is prose that happens to
+ *   match the standard.
+ *
+ * Two kinds of evidence, and the second is the stronger:
+ *
+ *   NAME MATCH   the run is, or contains, a concept name
+ *   ANNOTATED    the run sits inside a glossary annotation somewhere in the
+ *                corpus -- an author declared it
+ *
+ * Exempt rows are REPORTED AS EXEMPT WITH THE ENTRY, never omitted. A gate
+ * that hides what it excused cannot be audited, which is the same rule as
+ * "(none reported)" meaning not asked. */
+const glossary = new Map();
+for (const c of concepts) glossary.set(norm(c.name), c.slug);
+const QUOTE = String.fromCharCode(34);
+const annotated = new Map();
+for (const l of lessons) {
+  const body = String(l.content_md || "");
+  let idx = 0;
+  for (;;) {
+    const open = body.indexOf("{glossary=", idx);
+    if (open < 0) break;
+    const q1 = body.indexOf(QUOTE, open);
+    const q2 = q1 < 0 ? -1 : body.indexOf(QUOTE, q1 + 1);
+    if (q1 < 0 || q2 < 0) { idx = open + 10; continue; }
+    const slug = body.slice(q1 + 1, q2);
+    /* The annotated phrase is the bracketed text immediately before it. */
+    const close = body.lastIndexOf("]", open);
+    const openB = close < 0 ? -1 : body.lastIndexOf("[", close);
+    if (openB >= 0) annotated.set(norm(body.slice(openB + 1, close)), slug);
+    idx = q2 + 1;
+  }
+}
+
+/**
+ * Is this run a declared term? Returns the evidence, or null.
+ *
+ * ============ THE DECLARED TERM MUST ACCOUNT FOR THE RUN ============
+ *
+ * The first version accepted `t.includes(phrase) || phrase.includes(t)` in
+ * either direction at any length, and it excused nine runs of which most were
+ * nonsense:
+ *
+ *   additional control objectives and controls can be needed
+ *       -> control-of-documented-information
+ *   requirements may include policies procedures work instructions legal ...
+ *       -> awareness-requirement
+ *
+ * A short declared term sitting anywhere inside a long clause fragment
+ * exempted the whole fragment. That is an exemption excusing the thing it
+ * exists to catch -- the `availability` shape, where a rule written to let
+ * control titles past let a nine-word reproduction of a defined term through.
+ *
+ * So containment must run the RIGHT WAY, or be near-total: the declared term
+ * either covers the run, or the run exceeds it by at most one word. A clause
+ * fragment that merely CONTAINS a defined term is prose carrying a term, not a
+ * term -- which is exactly what `the organization's own requirements for its
+ * ai management system` is, and it should be a finding rather than exempt.
+ */
+function tokens(x) { return norm(x).split(" ").filter(Boolean); }
+function covers(declared, run) {
+  const d = tokens(declared), t = tokens(run);
+  if (!d.length || !t.length) return false;
+  const ds = d.join(" "), ts = t.join(" ");
+  if (ds === ts) return true;
+  if (ds.includes(ts)) return true;                 // the term covers the run
+  if (ts.includes(ds) && t.length <= d.length + 1) return true;  // one word wider
+  return false;
+}
+function declaredTerm(runText) {
+  for (const [name, slug] of glossary) {
+    if (!name) continue;
+    if (covers(name, runText)) return { how: "concept name", slug };
+  }
+  for (const [phrase, slug] of annotated) {
+    if (!phrase) continue;
+    if (covers(phrase, runText)) return { how: "glossary annotation", slug };
+  }
+  return null;
+}
+
+/* POSITIVE AND NEGATIVE CONTROL for the exemption itself, because an
+ * over-firing exemption reports clean and a non-firing one reports a corpus of
+ * defects. Both directions, the same rule this repository already records for
+ * every guard whose subject can legitimately change. */
+(function controlDeclaredTerm() {
+  /* `norm` preserves the apostrophe, so a control written without one matches
+   * nothing and the control fails for a reason that has nothing to do with
+   * the rule under test -- which is how a control gets deleted. Built from
+   * a character code so no transport can eat it. */
+  const AP = String.fromCharCode(39);
+  const mustExempt = "persons doing work under the organization" + AP + "s control";
+  const mustNot = "the organization" + AP + "s own requirements for its ai management system";
+  const a = declaredTerm(mustExempt), b = declaredTerm(mustNot);
+  if (!a) {
+    console.error("CONTROL FAILED: the declared-term lookup does not exempt a phrase");
+    console.error("that carries a glossary annotation. It would report the whole");
+    console.error("curriculum vocabulary as findings.");
+    process.exit(2);
+  }
+  if (b) {
+    console.error("CONTROL FAILED: the lookup exempts a clause fragment that merely");
+    console.error("CONTAINS a defined term (" + b.slug + "). An exemption that excuses");
+    console.error("prose around a term excuses everything.");
+    process.exit(2);
+  }
+})();
+
 /** The sentence a run sits in, so a reader can tell reuse from collision. */
 function sentenceAround(unit, runText) {
   const parts = unit.split(/(?<=[.!?])\s+/);
@@ -167,7 +284,28 @@ for (const l of lessons) {
 }
 
 const all = [...seen.values()].map((r) => ({ ...r, n: r.rows.size, members: [...r.rows.values()] }));
-const repeated = all.filter((r) => r.n > 1).sort((a, b) => b.n - a.n || b.len - a.len);
+let repeated = all.filter((r) => r.n > 1).sort((a, b) => b.n - a.n || b.len - a.len);
+
+/* ============ TWO ARTIFACT CLASSES, EXCLUDED IN THE INSTRUMENT ============
+ *
+ * Both were found by reading the members and neither is a finding:
+ *
+ *   NESTED    the same phrase reported twice because two standards carry it
+ *             at different lengths -- 6w against 27002 and 7w against 27001.
+ *   NUMBERED  a run carrying a clause or control number, such as
+ *             `8 1 operational planning and control`. That is OUR OWN
+ *             CITATION colliding with ISO numbering, not reproduced prose.
+ *
+ * Same shape as the 61 concept names: artifacts of what was measured rather
+ * than facts about the corpus. The exclusion belongs HERE and not in the
+ * reading, because a reader who has to subtract them every time will stop. */
+const allTexts = repeated.map((r) => r.text);
+const isNested = (r) => allTexts.some((t) => t !== r.text && t.includes(r.text));
+const hasNumber = (r) => /(^| )[0-9]+( |$)/.test(r.text);
+const artifacts = { nested: repeated.filter(isNested).length, numbered: repeated.filter(hasNumber).length };
+const repeatedAll = repeated.length;
+repeated = repeated.filter((r) => !isNested(r) && !hasNumber(r));
+for (const r of repeated) r.term = declaredTerm(r.text);
 
 console.log("");
 console.log("REPEATED BELOW-FLOOR RUNS -- report only, nothing refuses on this");
@@ -175,7 +313,14 @@ console.log("  control: the canary measures " + CW.length + "w and is not report
 console.log("  min run " + MIN + "w, floor " + ABS_RUN + "w, attributed quotation excluded");
 console.log("");
 console.log("  distinct runs at or over " + MIN + "w   " + all.length + "   <- the denominator");
-console.log("  appearing in more than one row  " + repeated.length);
+console.log("  appearing in more than one row  " + repeatedAll);
+console.log("    less NESTED duplicates        " + artifacts.nested);
+console.log("    less CLAUSE/CONTROL NUMBERS   " + artifacts.numbered);
+console.log("  after artifacts                 " + repeated.length);
+const declaredN = repeated.filter((r) => r.term).length;
+console.log("");
+console.log("  DECLARED TERMS (exempt, entry named)  " + declaredN);
+console.log("  undeclared                            " + (repeated.length - declaredN));
 console.log("");
 const band = (lo, hi) => repeated.filter((r) => r.n >= lo && (hi === null || r.n <= hi)).length;
 console.log("  by number of rows:  2 rows " + band(2, 2) + "   3 rows " + band(3, 3) +
@@ -193,9 +338,51 @@ for (const rows of [2, 3, 4]) {
   }
 }
 console.log("");
-console.log("  WORST BY ROW COUNT:");
-for (const r of repeated.slice(0, 12)) {
+/* ============ THE RULE, AND ITS FIRING COUNT IN THE SAME BREATH ==========
+ *
+ * >= 3 rows AND >= 8w. Three rather than two because n=2 has no variance: two
+ * occurrences of an eight-word technical phrase is well inside collision.
+ * Eight rather than seven because the term-of-art rate climbs sharply at 7w.
+ * A 2-row, 6w rule surfaces 85 and would be repealed by the first person it
+ * inconveniences, and a repealed rule protects nothing. */
+const RULE_ROWS = 3, RULE_LEN = 8;
+const fires = repeated.filter((r) => r.n >= RULE_ROWS && r.len >= RULE_LEN);
+const findings = fires.filter((r) => !r.term);
+const exempt = fires.filter((r) => r.term);
+console.log("");
+console.log("THE RULE: >= " + RULE_ROWS + " rows AND >= " + RULE_LEN + "w, artifacts excluded");
+console.log("  fires                    " + fires.length);
+console.log("  of those, DECLARED TERM  " + exempt.length + "   exempt, entry named");
+console.log("  FINDINGS                 " + findings.length);
+console.log("");
+console.log("  FINDINGS -- repeated, below the floor, no declared term:");
+for (const r of findings) {
   console.log("    " + String(r.n).padStart(3) + " rows  " + r.len + "w  [" + r.src + "]  " + r.text.slice(0, 84));
+}
+if (exempt.length) {
+  console.log("");
+  console.log("  EXEMPT, with the entry that excuses each:");
+  for (const r of exempt) {
+    console.log("    " + String(r.n).padStart(3) + " rows  " + r.len + "w  " + r.text.slice(0, 56));
+    console.log("           " + r.term.how + " -> " + r.term.slug);
+  }
+}
+
+/* ============ THE DE FACTO VOCABULARY QUESTION ============
+ *
+ * A phrase recurring across many lessons IS behaving as a defined term,
+ * whether or not anyone declared it. Where no concept stands behind it, the
+ * honest answers are ADD THE ENTRY or STOP USING IT AS ONE, and both are
+ * deliberate acts -- unlike the current state, which is neither.
+ *
+ * This matters more than the leak score: a curriculum whose de facto defined
+ * terms are not its declared ones teaches an auditor vocabulary the exam does
+ * not test. */
+const defacto = repeated.filter((r) => r.n >= 4 && !r.term).sort((a, b) => b.n - a.n);
+console.log("");
+console.log("DE FACTO TERMS -- 4 or more rows, no concept behind them: " + defacto.length);
+for (const r of defacto.slice(0, 12)) {
+  console.log("    " + String(r.n).padStart(3) + " rows  " + r.len + "w  " + r.text.slice(0, 80));
 }
 
 const lines = [];
@@ -216,6 +403,32 @@ lines.push("- **a term of art** -- a phrase our prose must contain to teach at a
 lines.push("- **a carried quotation** -- the standard's wording, lifted once and spread.");
 lines.push("");
 lines.push("The sentence around each occurrence is printed so the three can be told apart.");
+lines.push("");
+/* The FINDINGS first, with their sentences, because the whole list is a
+ * denominator and the rule is what someone has to rule on. */
+lines.push("## The " + findings.length + " the rule surfaces");
+lines.push("");
+lines.push("Rule: at least " + RULE_ROWS + " rows AND at least " + RULE_LEN + "w, nested duplicates and");
+lines.push("clause/control numbers excluded, no declared term behind the phrase.");
+lines.push("");
+lines.push("**" + exempt.length + " of the " + fires.length + " fires were excused by a glossary entry.** The declared");
+lines.push("terms cluster at 6 to 7 words, below this rule, so the exemption is real and");
+lines.push("checkable and happens to excuse nothing here.");
+lines.push("");
+findings.forEach((r, i) => {
+  lines.push("### F" + (i + 1) + ". " + r.n + " rows -- " + r.len + "w of " + r.src);
+  lines.push("");
+  lines.push("> " + r.text);
+  lines.push("");
+  for (const m of r.members) {
+    lines.push("- **" + m.cert + "** `" + m.id + "` (" + m.corpus + ")");
+    lines.push("  - " + m.sentence.slice(0, 320).replace(/\n/g, " "));
+  }
+  lines.push("");
+});
+lines.push("---");
+lines.push("");
+lines.push("## Every repeated run, as the denominator");
 lines.push("");
 lines.push("| # | rows | run | source | text |");
 lines.push("|---|---|---|---|---|");

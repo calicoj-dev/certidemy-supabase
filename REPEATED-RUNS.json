@@ -1,9 +1,9 @@
 {
-  "measured": "2026-09-23T14:34:09.783Z",
+  "measured": "2026-09-23T14:49:59.013Z",
   "minRun": 6,
   "floor": 10,
   "distinctRuns": 839,
-  "repeated": 204,
+  "repeated": 161,
   "runs": [
     {
       "text": "persons doing work under the organization's control",
@@ -58,174 +58,6 @@
           "id": "aims-ia-02-03-competence-the-team-needs",
           "corpus": "lesson",
           "sentence": "Clause 7.2 concerns persons doing work under the organization's control that affects its **AI performance**; ISO 19011 clause 7 concerns the competence of **auditors**."
-        }
-      ]
-    },
-    {
-      "text": "deployment intended use and foreseeable misuse",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 8,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-clause-6-1-4-impact-assessment",
-          "corpus": "concept",
-          "sentence": "Clause 6.1.4 fixes its inputs - deployment, intended use and foreseeable misuse, read against the technical and societal setting and the jurisdictions involved - and sends the result into the 6.1.2 risk assessment."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-intended-purpose-consideration",
-          "corpus": "concept",
-          "sentence": "Intended purpose is what shapes both the role determination and, later, the impact assessment under 6.1.4, which addresses deployment, intended use and foreseeable misuse."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "anchoring-difference",
-          "corpus": "concept",
-          "sentence": "Risk is anchored to the AI objectives and asks what could deflect us; impact is anchored to deployment, intended use and foreseeable misuse and asks what the system does to people."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-06-two-assessments-not-one",
-          "corpus": "lesson",
-          "sentence": "What it does not permit is treating one process as discharging both requirements, because 6.1.4 requires its own defined process, its own documented result, and its own consideration of deployment, intended use and foreseeable misuse - none of which 6.1.2 asks for."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-06-the-ai-system-impact-assessment",
-          "corpus": "lesson",
-          "sentence": "\"explanation\": \"The clause names deployment, intended use and foreseeable misuse."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-07-risk-versus-impact",
-          "corpus": "lesson",
-          "sentence": "The impact assessment is anchored to the system in the world.** Clause 6.1.4 anchors on deployment, intended use and foreseeable misuse."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-01-a-determination-or-an-assertion",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Clause 6.1.4, because the impact assessment must determine potential consequences of deployment, intended use and foreseeable misuse - and foreseeable misuse has no meaning without a stated intended use.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-02-05-defining-one-audit",
-          "corpus": "lesson",
-          "sentence": "Clause 6.1.4 requires the assessment to determine potential consequences of deployment, intended use and foreseeable misuse - and the organization's own procedure says how it does that.\","
-        }
-      ]
-    },
-    {
-      "text": "persons doing work under the organization's",
-      "len": 6,
-      "src": "27002:2022",
-      "rows": 8,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-awareness-clause-7-3",
-          "corpus": "concept",
-          "sentence": "Requires persons doing work under the organization's control to be aware of the policy, their contribution to the effectiveness of the ISMS, and the implications of not conforming."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "competence-requirements-ai",
-          "corpus": "concept",
-          "sentence": "Scoped to persons doing work under the organization's control rather than to employees, so a contractor labelling data or an agency operating a deployed system is inside it."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "03-02-awareness-and-communication",
-          "corpus": "lesson",
-          "sentence": "The scope is the same phrase as clause 7.2: [persons doing work under the organization's control]{glossary=\"work-under-organizational-control\"}."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "03-01-resources-and-competence",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Yes; the clause covers persons doing work under the organization's control\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-07-controlled-not-merely-present",
-          "corpus": "lesson",
-          "sentence": "Clause 7.3, awareness**, requires persons doing work under the organization's control to be aware of the AI policy, their contribution to the effectiveness of the AIMS including the benefits of improved AI performance, and the implications of not conforming to AIMS requirements."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-13-competence-the-organization-claims",
-          "corpus": "lesson",
-          "sentence": "Clause 7.2 concerns persons doing work under the organization's control that affects its AI performance."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-06-integrated-audit-programme",
-          "corpus": "lesson",
-          "sentence": "Clause 7.2 requires competence for persons doing work under the organization's control that affects AI performance — and an internal auditor auditing the AIMS is doing exactly that."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-02-03-competence-the-team-needs",
-          "corpus": "lesson",
-          "sentence": "Clause 7.2 concerns persons doing work under the organization's control that affects its **AI performance**; ISO 19011 clause 7 concerns the competence of **auditors**."
-        }
-      ]
-    },
-    {
-      "text": "the organization's own requirements for its",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 8,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-risk-criteria",
-          "corpus": "concept",
-          "sentence": "The auditor tests the process against the criteria the organization itself established, since clause 9.2.1 makes the organization's own requirements for its AIMS part of the audit criteria alongside the standard."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-01-03-which-document-can-carry-a-finding",
-          "corpus": "lesson",
-          "sentence": "**the organization's own requirements** for its AI management system, and"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-02-06-testing-the-programme",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Conformity to the organization's own requirements for its ISMS.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-01-01-who-commissioned-it",
-          "corpus": "lesson",
-          "sentence": "conforms to **the organization's own requirements for its AI management system**, and"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-02-aims-internal-audit",
-          "corpus": "lesson",
-          "sentence": "Conforms to the organization's own requirements for its AI management system**, and **conforms to the requirements of the standard** — and **is effectively implemented and maintained.**"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-03-one-finding-or-several",
-          "corpus": "lesson",
-          "sentence": "Clause 9.2.1 a) 1) names it first: the internal audit provides information on whether the AIMS conforms to **the organization's own requirements for its AI management system**, and then to the requirements of the standard."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-02-03-scope-criteria-objectives",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"The organization's own requirements for its ISMS, which clause 9.2.1 names alongside the standard's requirements.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-02-05-defining-one-audit",
-          "corpus": "lesson",
-          "sentence": "**the organization's own requirements** for its AI management system, and"
         }
       ]
     },
@@ -320,50 +152,6 @@
           "id": "aims-ia-02-05-defining-one-audit",
           "corpus": "lesson",
           "sentence": "Clause 9.2.2 also requires the audit programme to cover frequency, methods, responsibilities, planning requirements and reporting; that auditors be selected and audits conducted so as to ensure objectivity and impartiality; that results be reported to relevant managers; and that documented information be available as evidence of the programme's implementation and of the audit results."
-        }
-      ]
-    },
-    {
-      "text": "6 1 3 f requires the",
-      "len": 6,
-      "src": "27005:2022",
-      "rows": 6,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-risk-owner-approval-of-treatment-plan",
-          "corpus": "concept",
-          "sentence": "Clause 6.1.3 f) requires the organization to obtain risk owners approval of the risk treatment plan and their acceptance of the residual information security risks."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-soa-inclusion-exclusion-justification",
-          "corpus": "concept",
-          "sentence": "Clause 6.1.3 f) requires the statement of applicability to contain the necessary controls and to provide justification for inclusions and exclusions."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-06-two-assessments-not-one",
-          "corpus": "lesson",
-          "sentence": "Annex A.1 permits controls to be excluded and clause 6.1.3 f) requires the justification; neither reaches clauses 4 to 10."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-04-can-this-finding-stand",
-          "corpus": "lesson",
-          "sentence": "Clause 6.1.3 f) requires the statement of applicability containing the necessary controls with justification, in requirement text."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "ISO/IEC 42001:2023 clause 6.1.3 f) requires the organization to produce a statement of applicability **holding the necessary controls** and **justifying both inclusions and exclusions**."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-04-tracing-the-soa-back",
-          "corpus": "lesson",
-          "sentence": "Clause 6.1.3 f) requires the organization to:"
         }
       ]
     },
@@ -564,120 +352,6 @@
       ]
     },
     {
-      "text": "the need for action to eliminate the",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 5,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-correction-versus-corrective-action",
-          "corpus": "concept",
-          "sentence": "ISO/IEC 27001 clause 10.2 a) requires action to control and correct the nonconformity and deal with the consequences; clause 10.2 b) requires evaluating the need for action to eliminate the causes."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "**Was the need for action to eliminate the cause evaluated?** Clause 10.2 b) - including whether similar nonconformities exist elsewhere, at b) 3)."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-05-fixing-it-and-fixing-it",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Clause 10.2 a) is satisfied by the correction; clause 10.2 b) requires the need for action to eliminate the cause to be evaluated, and nothing indicates that happened.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-06-correction-is-not-corrective-action",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"b) evaluating the need for action to eliminate the causes, including determining whether similar nonconformities exist or could occur, and d) reviewing the effectiveness of any corrective action taken.\" },"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-02-one-instance-or-a-pattern",
-          "corpus": "lesson",
-          "sentence": "Clause 10.2 b) requires evaluating the need for action to eliminate the causes so it does not recur or occur elsewhere."
-        }
-      ]
-    },
-    {
-      "text": "the effectiveness of any corrective action taken",
-      "len": 7,
-      "src": "27004:2016",
-      "rows": 5,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-clause-10-2-requirements",
-          "corpus": "concept",
-          "sentence": "Requires reaction, evaluation of the need to eliminate causes, implementation, review of the effectiveness of any corrective action taken, and changes to the ISMS if necessary, with corrective actions appropriate to the effects of the nonconformities encountered."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-corrective-action-verification",
-          "corpus": "concept",
-          "sentence": "ISO/IEC 27001 clause 10.2 d) requires the effectiveness of any corrective action taken to be reviewed - which requires evidence of the changed arrangement operating, not evidence that it was made."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "effectiveness-review",
-          "corpus": "concept",
-          "sentence": "The effectiveness of any corrective action taken must be reviewed, and actions must be appropriate to the effects encountered."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-05-fixing-it-and-fixing-it",
-          "corpus": "lesson",
-          "sentence": "\"How will you know it worked?\"** Clause 10.2 d) requires the effectiveness of any corrective action taken to be reviewed, and lesson 05-06 takes that up."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-06-correction-is-not-corrective-action",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"b) evaluating the need for action to eliminate the causes, including determining whether similar nonconformities exist or could occur, and d) reviewing the effectiveness of any corrective action taken.\" },"
-        }
-      ]
-    },
-    {
-      "text": "a 5 assessing impacts of ai systems",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 5,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-annex-a-5-impact-controls",
-          "corpus": "concept",
-          "sentence": "Table A.1 control family A.5, assessing impacts of AI systems, carries the reference controls supporting clauses 6.1.4 and 8.4, including A.5.2 on an AI system impact assessment process and A.5.5 on assessing societal impacts of AI systems."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-05-controls-first-annex-a-second",
-          "corpus": "lesson",
-          "sentence": "Annex A.5 controls are in the treatment layer, not the assessment layer.** Family A.5, assessing impacts of AI systems, contains reference controls that the organization may select as part of risk treatment."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-06-two-assessments-not-one",
-          "corpus": "lesson",
-          "sentence": "Annex A.5 - the reference controls.** Family A.5, assessing impacts of AI systems, includes A.5.2 on an AI system impact assessment process and A.5.5 on assessing societal impacts of AI systems."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "04-01-annex-a-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"A.5 Assessing impacts of AI systems\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.5 | Assessing impacts of AI systems |"
-        }
-      ]
-    },
-    {
       "text": "a description of or reference to",
       "len": 6,
       "src": "19011:2026",
@@ -712,82 +386,6 @@
           "id": "aims-ia-05-03-one-finding-or-several",
           "corpus": "lesson",
           "sentence": "Annex A.18.3 asks a nonconformity record to consider a description of or reference to the audit **criteria** - plural - and A.18.4 describes a combined finding as one combining the **references to multiple criteria**."
-        }
-      ]
-    },
-    {
-      "text": "a 7 data for ai systems",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 5,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-a-7-data-controls",
-          "corpus": "concept",
-          "sentence": "Annex A.7 data for AI systems"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-07-going-to-the-record",
-          "corpus": "lesson",
-          "sentence": "A.7 - data for AI systems.** **Acquisition of data**, **quality of data for AI systems**, **data provenance**, and **data preparation**."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "04-01-annex-a-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"data\", \"text\": \"A.7 Data for AI systems\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.7 | Data for AI systems |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-12-declared-and-operated",
-          "corpus": "lesson",
-          "sentence": "Family A.7, data for AI systems**, covers acquisition of data (A.7.3), quality of data (A.7.4), data provenance (A.7.5) and data preparation (A.7.6)."
-        }
-      ]
-    },
-    {
-      "text": "a 6 ai system life cycle",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 5,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-a-6-life-cycle-controls",
-          "corpus": "concept",
-          "sentence": "Annex A.6 AI system life cycle"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-07-going-to-the-record",
-          "corpus": "lesson",
-          "sentence": "A.6 - AI system life cycle.** Management guidance for AI system development, and controls across life cycle stages including **AI system technical documentation** and **recording of event logs**, which A.6.2.8 addresses across phases of the life cycle."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "04-01-annex-a-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"c\", \"text\": \"A.6 AI system life cycle\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.6 | AI system life cycle |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-12-declared-and-operated",
-          "corpus": "lesson",
-          "sentence": "Family A.6, AI system life cycle**, covers management guidance for AI system development and controls across the life cycle, including AI system technical documentation (A.6.2.7) and recording of event logs (A.6.2.8), which addresses at which phases log record keeping should be enabled and says that in any case this covers the time the AI system is in use."
         }
       ]
     },
@@ -926,38 +524,6 @@
       ]
     },
     {
-      "text": "whether climate change is a relevant issue",
-      "len": 7,
-      "src": "27001:2022/Amd1",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-amendment-1-2024-climate-change",
-          "corpus": "concept",
-          "sentence": "Amendment 1:2024 adds a single sentence to clause 4.1 obliging the organization to decide whether climate change is a relevant issue."
-        },
-        {
-          "cert": "ISMS-F",
-          "id": "02-03-amendment-1-2024",
-          "corpus": "lesson",
-          "sentence": "The organization determines whether climate change is a relevant issue."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-01-context-and-interested-parties",
-          "corpus": "lesson",
-          "sentence": "Determining whether climate change is a relevant issue is a requirement, whatever the answer."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "01-04-harmonised-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Interested parties, scope, and whether climate change is a relevant issue\" },"
-        }
-      ]
-    },
-    {
       "text": "understand the appropriateness and consequences of using",
       "len": 7,
       "src": "19011:2026",
@@ -990,38 +556,6 @@
       ]
     },
     {
-      "text": "consequences to the organization individuals and societies",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "AIMS-F",
-          "id": "ai-risk-assessment",
-          "corpus": "concept",
-          "sentence": "Anchored to the AI policy and objectives, and its analysis assesses consequences to the organization, individuals and societies - all three."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-05-the-ai-risk-assessment",
-          "corpus": "lesson",
-          "sentence": "Clause 6.1.2 requires consequences to the organization, individuals and societies to be assessed, and an assessment framed around failure has nowhere to record it.\""
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-07-risk-versus-impact",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Clause 6.1.2 requires the risk analysis to assess consequences to the organization, individuals and societies, so the axis is not direction of harm\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-02-02-where-the-effort-goes",
-          "corpus": "lesson",
-          "sentence": "The organization's AI risks** live under ISO/IEC 42001 clauses 6.1.2 and 8.2 - risks that aid or prevent achieving its AI objectives, analysed for consequences to the organization, individuals and societies."
-        }
-      ]
-    },
-    {
       "text": "the importance of the processes concerned",
       "len": 6,
       "src": "27001:2022",
@@ -1050,38 +584,6 @@
           "id": "isms-ia-02-07-when-the-scope-acquires-ai",
           "corpus": "lesson",
           "sentence": "Its basis is clause 9.2.2's requirement that the importance of the processes concerned be considered when establishing the programme - and a consideration recorded three years ago against a premise that has since changed has not been made for the process as it now stands."
-        }
-      ]
-    },
-    {
-      "text": "8 1 operational planning and control",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-clause-8-1-operational-control",
-          "corpus": "concept",
-          "sentence": "Clause 8.1 operational planning and control"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-06-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "::concept title=\"8.1: operational planning and control\""
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-03-leadership-policy-objectives",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Clause 8.1, operational planning and control\" },"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-03-aims-management-review",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Clause 8.1, operational planning and control\" },"
         }
       ]
     },
@@ -1150,102 +652,6 @@
       ]
     },
     {
-      "text": "9 1 requires the organization to",
-      "len": 6,
-      "src": "27004:2016",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-monitoring-and-measurement-clause-9-1",
-          "corpus": "concept",
-          "sentence": "Clause 9.1 requires the organization to determine six things: what needs monitoring and measuring including processes and controls, the methods, when performed, who shall monitor and measure, when results are analysed and evaluated, and who shall analyse and evaluate."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "01-01-what-an-aims-is",
-          "corpus": "lesson",
-          "sentence": "Clause 9.1 requires the organization to determine what needs monitoring and measuring and the methods used - and leaves the choice of metric to the organization.\""
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-06-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "clause 9.1 requires the organization to determine, including two about"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-01-aims-monitoring-and-measurement",
-          "corpus": "lesson",
-          "sentence": "Clause 9.1 requires the organization to determine four things:"
-        }
-      ]
-    },
-    {
-      "text": "a 4 resources for ai systems",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-a-4-resource-documentation",
-          "corpus": "concept",
-          "sentence": "Annex A.4 resources for AI systems"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-07-going-to-the-record",
-          "corpus": "lesson",
-          "sentence": "A.4 - resources for AI systems.** Documentation of the resources required at given life cycle stages, and specifically information about **data resources**, **tooling resources**, **system and computing resources**, and **human resources and their competences**."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.4 | Resources for AI systems |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-12-declared-and-operated",
-          "corpus": "lesson",
-          "sentence": "Table A.1 family **A.4, resources for AI systems**, requires the organization - where these controls are selected - to identify and document relevant resources for AI system life cycle activities, and as part of that resource identification to document information about:"
-        }
-      ]
-    },
-    {
-      "text": "10 2 nonconformity and corrective action",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-clause-10-2-corrective-action",
-          "corpus": "concept",
-          "sentence": "Clause 10.2 nonconformity and corrective action"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "03-04-operational-planning-and-control",
-          "corpus": "lesson",
-          "sentence": "It also means the loop from clause 10.2 — nonconformity and corrective action — is reachable from operations rather than only from audit findings."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-03-leadership-policy-objectives",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"c\", \"text\": \"Clause 10.2, nonconformity and corrective action\" },"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-03-aims-management-review",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"c\", \"text\": \"Clause 10.2, nonconformity and corrective action\" },"
-        }
-      ]
-    },
-    {
       "text": "significant obstacles encountered during the audit",
       "len": 6,
       "src": "19011:2026",
@@ -1274,38 +680,6 @@
           "id": "aims-ia-01-04-when-you-cannot-be-independent",
           "corpus": "lesson",
           "sentence": "Clause 4.3 asks that audit findings, conclusions and reports reflect the auditing activities truthfully and accurately, and that significant obstacles encountered during the audit be reported."
-        }
-      ]
-    },
-    {
-      "text": "a 2 policies related to ai",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 4,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-03-leadership-in-artifacts",
-          "corpus": "lesson",
-          "sentence": "Table A.1 family A.2, policies related to AI, carries three controls, and their relationship to clause 5.2 is worth holding precisely."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "04-01-annex-a-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"A.2 Policies related to AI\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.2 | Policies related to AI |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-12-declared-and-operated",
-          "corpus": "lesson",
-          "sentence": "**A.2 policies related to AI** and **A.3 internal organization** resemble their ISMS equivalents closely - a policy exists, is reviewed, roles are allocated, concerns can be reported."
         }
       ]
     },
@@ -1630,32 +1004,6 @@
           "id": "aims-ia-05-02-criterion-evidence-gap",
           "corpus": "lesson",
           "sentence": "Clause 4.3's fair presentation asks that communication be truthful, accurate, **objective**, timely, clear and complete."
-        }
-      ]
-    },
-    {
-      "text": "review the effectiveness of any corrective action taken",
-      "len": 8,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-follow-up-verification",
-          "corpus": "concept",
-          "sentence": "ISO/IEC 42001:2023 clause 10.2 d) requires the organization to review the effectiveness of any corrective action taken."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-06-correction-is-not-corrective-action",
-          "corpus": "lesson",
-          "sentence": "Limb d) requires the organization to **review the effectiveness of any corrective action taken**."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-04-nonconformity-and-corrective-action",
-          "corpus": "lesson",
-          "sentence": "Then: implement any action needed; review the effectiveness of any corrective action taken; and make changes to the AI management system if necessary."
         }
       ]
     },
@@ -2024,32 +1372,6 @@
       ]
     },
     {
-      "text": "that externally provided processes products or services",
-      "len": 7,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "AIMS-F",
-          "id": "03-04-operational-planning-and-control",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"That externally provided processes, products or services relevant to the AIMS be controlled\" },"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-06-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "The organization shall see that **externally provided processes, products or services** bearing on the ISMS **are controlled.**"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "And the clause continues with control of changes, review of the consequences of unintended changes, and ensuring that **externally provided processes, products or services relevant to the AI management system are controlled**."
-        }
-      ]
-    },
-    {
       "text": "it does not recur or occur elsewhere",
       "len": 7,
       "src": "27001:2022",
@@ -2076,58 +1398,6 @@
       ]
     },
     {
-      "text": "a 10 third party and customer relationships",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "AIMS-F",
-          "id": "04-01-annex-a-structure",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"third\", \"text\": \"A.10 Third-party and customer relationships\" }"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-10-justifying-both-directions",
-          "corpus": "lesson",
-          "sentence": "A.10 | Third-party and customer relationships |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "Where the organization has selected Table A.1 family **A.10**, third-party and customer relationships, those controls are the treatment-layer expression - allocating responsibilities, suppliers, customers."
-        }
-      ]
-    },
-    {
-      "text": "knowledge and skills 7 2 3",
-      "len": 6,
-      "src": "19011:2026",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-auditor-competence-elements",
-          "corpus": "concept",
-          "sentence": "ISO 19011:2026 clause 7.2 treats competence as personal behaviour (7.2.2) together with knowledge and skills (7.2.3), evaluated against criteria the organization establishes."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-auditor-competence",
-          "corpus": "concept",
-          "sentence": "ISO 19011:2026 clause 7.2 covers determining auditor competence, distinguishing personal behaviour (7.2.2) from knowledge and skills (7.2.3)."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-02-03-competence-the-team-needs",
-          "corpus": "lesson",
-          "sentence": "Knowledge and skills (7.2.3)** - which the clause splits into what every auditor needs and what the discipline demands: management system standards, the auditee's organizational context, applicable statutory and regulatory requirements, and discipline-specific knowledge."
-        }
-      ]
-    },
-    {
       "text": "does not act as an auditor",
       "len": 6,
       "src": "19011:2026",
@@ -2150,32 +1420,6 @@
           "id": "aims-ia-01-04-when-you-cannot-be-independent",
           "corpus": "lesson",
           "sentence": "A technical expert supports the team and does not act as an auditor - so the expert can be someone close to the domain without being the person forming the conclusions."
-        }
-      ]
-    },
-    {
-      "text": "available to interested parties as appropriate",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "ia-policy-availability-and-communication",
-          "corpus": "concept",
-          "sentence": "Clause 5.2 separately requires the policy to be available as documented information, communicated within the organization, and available to interested parties as appropriate."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-02-demonstrated-not-stated",
-          "corpus": "lesson",
-          "sentence": "Available to interested parties as appropriate is conditional and passive - it can be provided when appropriate."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-07-risk-versus-impact",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"c\", \"text\": \"Both, since documented information is available to interested parties as appropriate\" },"
         }
       ]
     },
@@ -2258,32 +1502,6 @@
       ]
     },
     {
-      "text": "retain documented information of the results",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-clause-8-4-operational-impact-assessment",
-          "corpus": "concept",
-          "sentence": "Clause 6.1.4 requires the process to be defined; clause 8.4 requires the organization to perform AI system impact assessments at planned times and when significant changes occur, and to retain documented information of the results."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "AI risk assessment | 6.1.2 | **8.2** - at planned intervals, and whenever significant change is proposed or happens; retain documented information of the results |"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-04-criteria-before-assessment",
-          "corpus": "lesson",
-          "sentence": "Clause 8.2 | The **results** - the organization shall perform AI risk assessments at planned intervals, and whenever significant change is proposed or happens, and **retain documented information of the results**."
-        }
-      ]
-    },
-    {
       "text": "assessing societal impacts of ai systems",
       "len": 6,
       "src": "42001:2023",
@@ -2306,32 +1524,6 @@
           "id": "aims-ia-04-04-criteria-before-assessment",
           "corpus": "lesson",
           "sentence": "Control A.5.5, where selected, addresses assessing societal impacts of AI systems, and clause 6.1.4 requires the impact assessment to determine what follows for individuals, for groups of them, or for both, and for societies."
-        }
-      ]
-    },
-    {
-      "text": "the status of actions from previous",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "ISMS-F",
-          "id": "05-03-management-review",
-          "corpus": "lesson",
-          "sentence": "the status of actions from previous reviews"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "The full 9.3.2 list also includes the status of actions from previous reviews, changes in external and internal issues, changes in interested party needs and expectations, feedback from interested parties, results of risk assessment and status of the risk treatment plan, and opportunities for continual improvement."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "Clause 9.3.2 a) closes the loop by requiring the status of actions from previous reviews."
         }
       ]
     },
@@ -2492,32 +1684,6 @@
       ]
     },
     {
-      "text": "6 1 3 b and c",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-05-controls-first-annex-a-second",
-          "corpus": "lesson",
-          "sentence": "subtitle: The order of clause 6.1.3 b) and c), and what the statement of applicability records"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-03-the-whole-of-clause-6",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"That controls may have been selected by filtering Annex A rather than determined from the treatment options, inverting the order clause 6.1.3 b) and c) set out.\" },"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-04-tracing-the-soa-back",
-          "corpus": "lesson",
-          "sentence": "**the controls determined necessary** (6.1.3 b) and c))"
-        }
-      ]
-    },
-    {
       "text": "risks that aid or prevent achieving",
       "len": 6,
       "src": "42001:2023",
@@ -2622,32 +1788,6 @@
       ]
     },
     {
-      "text": "carried out in a planned manner",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 3,
-      "members": [
-        {
-          "cert": "ISMS-F",
-          "id": "02-09-pdca-and-improvement",
-          "corpus": "lesson",
-          "sentence": "[Clause 6.3]{glossary=\"planned-change\"} is one sentence about what happens next: when the organization determines that a change to the ISMS is needed, the change is carried out in a planned manner."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Clause 6.3, since a change to the AI management system was not carried out in a planned manner.\" },"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "05-03-aims-management-review",
-          "corpus": "lesson",
-          "sentence": "\"explanation\": \"A change to the management system is carried out in a planned manner under clause 6.3."
-        }
-      ]
-    },
-    {
       "text": "requirements for auditing management systems for third party certification",
       "len": 9,
       "src": "19011:2026",
@@ -2704,26 +1844,6 @@
           "id": "aims-ia-03-05-the-question-that-finds-evidence",
           "corpus": "lesson",
           "sentence": "awareness of the **limited feasibility of non-verbal communication in virtual settings**, with focus instead on the type of question used to find objective evidence;"
-        }
-      ]
-    },
-    {
-      "text": "implement the controls determined according to 6 1 3",
-      "len": 9,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-soa-vs-implementation-evidence",
-          "corpus": "concept",
-          "sentence": "Clause 8.1 requires the organization to implement the controls determined according to 6.1.3, so a control declared as included and not implemented is a nonconformity against clause 8.1 rather than against Table A.1."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "\"on_consequence\": \"Clause 8.1 requires the organization to implement the controls determined according to 6.1.3."
         }
       ]
     },
@@ -3048,26 +2168,6 @@
       ]
     },
     {
-      "text": "the need for action to eliminate the cause",
-      "len": 8,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "**Was the need for action to eliminate the cause evaluated?** Clause 10.2 b) - including whether similar nonconformities exist elsewhere, at b) 3)."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-05-fixing-it-and-fixing-it",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Clause 10.2 a) is satisfied by the correction; clause 10.2 b) requires the need for action to eliminate the cause to be evaluated, and nothing indicates that happened.\" },"
-        }
-      ]
-    },
-    {
       "text": "and justification for inclusion or exclusion of controls",
       "len": 8,
       "src": "42001:2023",
@@ -3084,26 +2184,6 @@
           "id": "aims-ia-04-10-justifying-both-directions",
           "corpus": "lesson",
           "sentence": "Clause 3.26 defines the statement of applicability as documentation of all necessary controls and justification for inclusion or exclusion of controls."
-        }
-      ]
-    },
-    {
-      "text": "verification can be part of a subsequent audit",
-      "len": 8,
-      "src": "19011:2026",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-01-the-order-of-an-audit",
-          "corpus": "lesson",
-          "sentence": "The completion and effectiveness of those actions should be verified, and that verification **can be part of a subsequent audit**."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-06-correction-is-not-corrective-action",
-          "corpus": "lesson",
-          "sentence": "And the timing matters for AIMS work in a specific way: effectiveness of a corrective action addressing a process that runs quarterly cannot be established the week after the action - which is precisely why clause 6.7 records that verification can be part of a subsequent audit rather than requiring it immediately."
         }
       ]
     },
@@ -3224,26 +2304,6 @@
           "id": "02-01-context-and-interested-parties",
           "corpus": "lesson",
           "sentence": "Externally**, it names applicable legal requirements including prohibited uses of AI; the policies, guidance and decisions of regulators that shape how those requirements get interpreted and enforced; the incentives and consequences attached to how AI systems are used; the culture, traditions, values, norms and ethics that surround AI where the organization operates; and the competitive landscape and trends in AI-enabled products and services."
-        }
-      ]
-    },
-    {
-      "text": "6 1 4 ai system impact assessment",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aia-clause-6-1-4-impact-assessment",
-          "corpus": "concept",
-          "sentence": "Clause 6.1.4 AI system impact assessment"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-10-one-word-apart",
-          "corpus": "lesson",
-          "sentence": "**6.1.4** | — | **AI system impact assessment**, an input to the risk assessment |"
         }
       ]
     },
@@ -3448,26 +2508,6 @@
       ]
     },
     {
-      "text": "repairs updates and support a 6 2",
-      "len": 7,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-09-normative-and-should",
-          "corpus": "lesson",
-          "sentence": "**Two Table A.1 controls contain an internal `should`.** A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** cover monitoring of the system and its performance, repairs, updates and support."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-04-can-this-finding-stand",
-          "corpus": "lesson",
-          "sentence": "A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation of the AI system, and states that at a minimum this **should** cover monitoring of the system and its performance, repairs, updates and support."
-        }
-      ]
-    },
-    {
       "text": "including the benefits of improved ai performance",
       "len": 7,
       "src": "42001:2023",
@@ -3568,66 +2608,6 @@
       ]
     },
     {
-      "text": "management system conforms to the requirements of",
-      "len": 7,
-      "src": "27001:2022",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-03-leadership-in-artifacts",
-          "corpus": "lesson",
-          "sentence": "ensuring the **AI management system conforms to the requirements** of the standard;"
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "02-04-roles-responsibilities-authorities",
-          "corpus": "lesson",
-          "sentence": "Ensuring the AI management system conforms to the requirements of the standard.** This is the [conformance authority]{glossary=\"conformance-authority\"} — someone owns whether the system actually meets the requirements, as opposed to whether individual activities are performed."
-        }
-      ]
-    },
-    {
-      "text": "clauses 4 to 10 is not acceptable",
-      "len": 7,
-      "src": "27001:2022",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-01-what-the-scope-left-out",
-          "corpus": "lesson",
-          "sentence": "\"explanation\": \"Clause 1 states that leaving out any requirement of Clauses 4 to 10 is not acceptable where conformity is claimed."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-02-03-scope-criteria-objectives",
-          "corpus": "lesson",
-          "sentence": "**ISO/IEC 27001 Clause 1 states that leaving out any requirement of Clauses 4 to 10 is not acceptable where an organization claims conformity.** That governs the ISMS, not your audit."
-        }
-      ]
-    },
-    {
-      "text": "status of actions from previous management reviews",
-      "len": 7,
-      "src": "27001:2022",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"Status of actions from previous management reviews.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-07-where-the-audit-lands",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"t-932a\", \"text\": \"Clause 9.3.2 a) - status of actions from previous management reviews\" }"
-        }
-      ]
-    },
-    {
       "text": "be reflected in the statement of applicability",
       "len": 7,
       "src": "42001:2023",
@@ -3644,26 +2624,6 @@
           "id": "04-02-annex-a-and-the-soa",
           "corpus": "lesson",
           "sentence": "All identified risks and the risk management measures established to address them must be reflected in the Statement of Applicability.**"
-        }
-      ]
-    },
-    {
-      "text": "can be part of a subsequent audit",
-      "len": 7,
-      "src": "19011:2026",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-01-the-order-of-an-audit",
-          "corpus": "lesson",
-          "sentence": "Clause 6.6 completes the audit when the planned activities have been carried out; clause 6.7 covers follow-up, which the standard notes can be part of a subsequent audit."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-05-06-correction-is-not-corrective-action",
-          "corpus": "lesson",
-          "sentence": "ISO 19011 clause 6.7 records that verification of completion and effectiveness can be part of a subsequent audit."
         }
       ]
     },
@@ -3744,26 +2704,6 @@
           "id": "03-03-documented-information",
           "corpus": "lesson",
           "sentence": "A note adds that the extent of documented information varies from one organization to another because of size and type of activity, complexity of processes and their interactions, and the competence of people."
-        }
-      ]
-    },
-    {
-      "text": "9 1 monitoring measurement analysis and evaluation",
-      "len": 7,
-      "src": "27004:2016",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-F",
-          "id": "05-01-monitoring-and-measurement",
-          "corpus": "lesson",
-          "sentence": "subtitle: Clause 9.1 — monitoring, measurement, analysis and evaluation"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"d\", \"text\": \"Clause 9.1 monitoring, measurement, analysis and evaluation has not been performed.\" }"
         }
       ]
     },
@@ -4268,26 +3208,6 @@
       ]
     },
     {
-      "text": "the requirements of iso iec 27001",
-      "len": 6,
-      "src": "27000:2018",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-01-01-audit-parties",
-          "corpus": "lesson",
-          "sentence": "An internal audit exists to tell the organization something it does not otherwise know: whether its own information security management system conforms to its own requirements and to the requirements of ISO/IEC 27001, and whether it is effectively implemented and maintained."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-02-06-testing-the-programme",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Conformity to the requirements of ISO/IEC 27001.\" },"
-        }
-      ]
-    },
-    {
       "text": "conduct internal audits at planned intervals",
       "len": 6,
       "src": "27001:2022",
@@ -4344,26 +3264,6 @@
           "id": "05-03-aims-management-review",
           "corpus": "lesson",
           "sentence": "Results must include decisions on improvement and on any need for changes to the AIMS."
-        }
-      ]
-    },
-    {
-      "text": "iso iec 27001 and iso iec",
-      "len": 6,
-      "src": "27000:2018",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-01-05-which-document-says-what",
-          "corpus": "lesson",
-          "sentence": "ISO/IEC 27001 and ISO/IEC 17021-1 - what each one can be cited"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-10-one-word-apart",
-          "corpus": "lesson",
-          "sentence": "subtitle: Where ISO/IEC 27001 and ISO/IEC 42001 diverge, and why the differences are the dangerous part"
         }
       ]
     },
@@ -4508,46 +3408,6 @@
       ]
     },
     {
-      "text": "the appropriateness and consequences of using",
-      "len": 6,
-      "src": "19011:2026",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-03-08-what-the-tool-verified",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"b\", \"text\": \"Understanding the appropriateness and consequences of using such tools to conduct audits.\" },"
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-01-04-competence-of-the-team",
-          "corpus": "lesson",
-          "sentence": "Clause 7.2.3 addresses understanding the appropriateness and consequences of using such tools."
-        }
-      ]
-    },
-    {
-      "text": "reach similar conclusions in similar circumstances",
-      "len": 6,
-      "src": "19011:2026",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-01-02-when-two-principles-disagree",
-          "corpus": "lesson",
-          "sentence": "{ \"id\": \"a\", \"text\": \"One must be wrong, since clause 4.1 says auditors working independently should reach similar conclusions in similar circumstances.\" },"
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-03-04-demonstrated-not-described",
-          "corpus": "lesson",
-          "sentence": "\"on_consequence\": \"Clause 4.7's reliable and reproducible conclusions, and clause 4.1's claim that auditors working independently reach similar conclusions in similar circumstances.\","
-        }
-      ]
-    },
-    {
       "text": "are required to be used and",
       "len": 6,
       "src": "42001:2023",
@@ -4624,46 +3484,6 @@
           "id": "aims-ia-05-02-criterion-evidence-gap",
           "corpus": "lesson",
           "sentence": "ISO 19011:2026 clause 6.7 records that the outcome of an audit can indicate the need for corrections, corrective actions or opportunities for improvement, and that **such actions are normally settled and carried out by the auditee** inside an agreed time frame."
-        }
-      ]
-    },
-    {
-      "text": "confidentiality integrity and availability of information",
-      "len": 6,
-      "src": "27004:2016",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-10-one-word-apart",
-          "corpus": "lesson",
-          "sentence": "ISO/IEC 27001 asks whether the confidentiality, integrity and availability of information are managed."
-        },
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-04-03-the-whole-of-clause-6",
-          "corpus": "lesson",
-          "sentence": "**identifies** risks - applying the process to identify risks to confidentiality, integrity and availability of information within scope, and **identifies the risk owners**"
-        }
-      ]
-    },
-    {
-      "text": "complexity of processes and their interactions",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-07-controlled-not-merely-present",
-          "corpus": "lesson",
-          "sentence": "A NOTE records that the extent can differ between organizations due to size and type of activities, complexity of processes and their interactions, and competence of persons."
-        },
-        {
-          "cert": "AIMS-F",
-          "id": "03-03-documented-information",
-          "corpus": "lesson",
-          "sentence": "A note adds that the extent of documented information varies from one organization to another because of size and type of activity, complexity of processes and their interactions, and the competence of people."
         }
       ]
     },
@@ -4948,26 +3768,6 @@
       ]
     },
     {
-      "text": "relevant to the ai management system",
-      "len": 6,
-      "src": "42001:2023",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "AIMS-F",
-          "id": "02-01-context-and-interested-parties",
-          "corpus": "lesson",
-          "sentence": "Clause 4.2 asks for three things: the interested parties relevant to the AI management system, their relevant requirements, and which of those requirements the AIMS will address."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-02-boundaries-and-applicability",
-          "corpus": "lesson",
-          "sentence": "Clause 4.2 requires the organization to determine the interested parties relevant to the AI management system, their relevant requirements, and **which of those requirements will be addressed** through the AI management system."
-        }
-      ]
-    },
-    {
       "text": "the ai system impact assessment in",
       "len": 6,
       "src": "42001:2023",
@@ -4984,26 +3784,6 @@
           "id": "01-04-harmonised-structure",
           "corpus": "lesson",
           "sentence": "The AI system impact assessment, in clause 6.1.4, is another."
-        }
-      ]
-    },
-    {
-      "text": "externally provided processes products or services",
-      "len": 6,
-      "src": "27001:2022",
-      "rows": 2,
-      "members": [
-        {
-          "cert": "ISMS-IA",
-          "id": "isms-ia-02-07-when-the-scope-acquires-ai",
-          "corpus": "lesson",
-          "sentence": "The Annex A supplier relationship controls apply as they would to any external provision, and clause 8.1 additionally requires externally provided processes, products or services relevant to the ISMS to be controlled - the two work together rather than one excluding the other."
-        },
-        {
-          "cert": "AIMS-IA",
-          "id": "aims-ia-04-08-defined-versus-running",
-          "corpus": "lesson",
-          "sentence": "\"on_consequence\": \"Clause 8.1 requires externally provided processes, products or services relevant to the AIMS to be controlled."
         }
       ]
     },
