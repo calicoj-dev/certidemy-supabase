@@ -219,9 +219,35 @@ function runsAgainst(text, src) {
   const out = [];
   let lastEnd = -1;
   for (let i = 0; i + SEED <= w.length; i++) {
-    if (!src.grams.has(w.slice(i, i + SEED).join(" "))) continue;
-    let n = SEED;
-    while (i + n + 1 <= w.length && src.grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+    const cands = src.at.get(w.slice(i, i + SEED).join(" "));
+    if (!cands) continue;
+    /* ============ EXTEND BY POSITION, NOT BY MEMBERSHIP ============
+     *
+     * This read `while (src.grams.has(trailing seed-gram)) n++`, which asks
+     * whether that window exists ANYWHERE in the document rather than whether
+     * the document continues this way. The run HOPPED between unrelated
+     * places and the reported length became a property of the index.
+     *
+     * THE DISPROOF WAS ALREADY BEING COMPUTED AND THROWN AWAY. Three lines
+     * below, `sourcePositions` scans the source word for word for the WHOLE
+     * run and returns every position where it occurs contiguously. For a
+     * chained run that array is EMPTY. It was stored as `sourceAt`, used for
+     * the merge gap and for `inAnnex`, and never once consulted to ask
+     * whether the run was real -- the same shape as `matchingSources`
+     * returning empty for NOT ASKED. The evidence was in hand and the
+     * question was never put to it.
+     *
+     * Measured over 77,602 units: 292 fires became 272, twenty stopped, ZERO
+     * began, and 280 run lengths were overstated by a median of one word.
+     * Chaining can only ever inflate, so the zero is the shape of the defect
+     * rather than a coincidence. */
+    let n = 0;
+    for (const pos of cands) {
+      let k = 0;
+      while (i + k < w.length && src.words[pos + k] === w[i + k]) k++;
+      if (k > n) n = k;
+    }
+    if (n < SEED) continue;
     /* ============ NO SKIP, AND NO NESTED DUPLICATES EITHER ============
      *
      * This read `i += n - 1`, resuming the scan MID-RUN. Correct for counting

@@ -170,13 +170,20 @@ for (const [label, path] of Object.entries(PDFS)) {
     console.error("  Refusing: the source or the extractor moved, and no verdict below is comparable.");
     process.exit(1);
   }
+  /* THE POSITIONS, NOT ONLY THE MEMBERSHIP. A seed-gram set answers "does this
+   * window appear somewhere", which is the question that let a run hop between
+   * unrelated places in one document. `at` answers "where", and that is what
+   * an extension has to follow. */
   const own = new Set();
+  const at = new Map();
   for (let i = 0; i + SEED <= w.length; i++) {
     const gram = w.slice(i, i + SEED).join(" ");
     grams.add(gram);
     own.add(gram);
+    if (!at.has(gram)) at.set(gram, []);
+    at.get(gram).push(i);
   }
-  perSource.set(label, own);
+  perSource.set(label, { grams: own, at, words: w });
   srcParts.push(label + ":" + createHash("sha256").update(raw).digest("hex").slice(0, 8));
   console.log("  " + label.padEnd(12) + String(w.length).padStart(7) + " words");
 }
@@ -238,9 +245,40 @@ function longestRun(text) {
     const w = norm(unit).split(" ").filter(Boolean);
     for (const [label, own] of perSource) {
       for (let i = 0; i + SEED <= w.length; i++) {
-        if (!own.has(w.slice(i, i + SEED).join(" "))) continue;
-        let n = SEED;
-        while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+        const cands = own.at.get(w.slice(i, i + SEED).join(" "));
+        if (!cands) continue;
+        /* ============ EXTEND BY POSITION, NOT BY MEMBERSHIP ============
+         *
+         * This read:
+         *
+         *     while (own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+         *
+         * which asks whether the TRAILING seed-gram exists ANYWHERE in the
+         * document -- not whether the document continues this way. So the run
+         * HOPPED: it walked forward while each successive window existed
+         * somewhere, and the windows need not come from the same place.
+         *
+         * Measured per offset against 19011:2026:
+         *
+         *     the results of the evaluation of the collected audit evidence
+         *      4    9    8   7     6      5   4   0        0     0
+         *
+         * The longest real run is NINE, from `results`. The leading `the`
+         * matches a seed-gram elsewhere and chains it to TEN -- the floor. A
+         * nine-word run that does not fire became a ten-word run that does,
+         * on one word borrowed from another page.
+         *
+         * Extending from the candidate POSITIONS cannot do this: a real run
+         * has a position by construction and an invented one does not. It is
+         * correct at every seed, which is what returns the seed to being how a
+         * candidate is FOUND rather than how it is MEASURED. */
+        let n = 0;
+        for (const pos of cands) {
+          let k = 0;
+          while (i + k < w.length && own.words[pos + k] === w[i + k]) k++;
+          if (k > n) n = k;
+        }
+        if (n < SEED) continue;
         if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); bestSrc = label; }
         /* ============ NO SKIP. THE JUMP WAS A MEASUREMENT ERROR ============
          *
@@ -504,7 +542,7 @@ function longestIn(text, own) {
 
 for (const [label, sentence] of Object.entries(CANARIES)) {
   const want = norm(sentence).split(" ").filter(Boolean).length;
-  const own = perSource.get(label);
+  const own = perSource.get(label).grams;
   const got = own ? longestIn(sentence, own) : 0;
   ctl("POSITIVE: " + label + " indexed its own text",
     got === want,

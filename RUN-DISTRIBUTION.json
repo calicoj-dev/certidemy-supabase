@@ -1,0 +1,778 @@
+{
+  "measured": "2026-09-23T14:04:49.174Z",
+  "seed": 4,
+  "floor": 10,
+  "histogram": {
+    "concept": {
+      "4": 263,
+      "5": 93,
+      "6": 44,
+      "7": 34,
+      "8": 19,
+      "9": 15,
+      "10": 0,
+      "11": 0,
+      "11+": 0
+    },
+    "lessonProse": {
+      "4": 3234,
+      "5": 747,
+      "6": 384,
+      "7": 263,
+      "8": 152,
+      "9": 134,
+      "10": 1,
+      "11": 0,
+      "11+": 3
+    },
+    "quoted": {
+      "4": 3,
+      "5": 5,
+      "6": 3,
+      "7": 8,
+      "8": 5,
+      "9": 4,
+      "10": 10,
+      "11": 0,
+      "11+": 50
+    }
+  },
+  "aggregate": {
+    "19011:2026": {
+      "spans": 20,
+      "words": 448,
+      "longest": 52,
+      "standardWords": 20299
+    },
+    "27005:2022": {
+      "spans": 1,
+      "words": 4,
+      "longest": 4,
+      "standardWords": 27489
+    },
+    "27001:2022": {
+      "spans": 54,
+      "words": 716,
+      "longest": 30,
+      "standardWords": 7543
+    },
+    "42001:2023": {
+      "spans": 7,
+      "words": 96,
+      "longest": 27,
+      "standardWords": 20798
+    },
+    "27001:2022/Amd1": {
+      "spans": 6,
+      "words": 59,
+      "longest": 11,
+      "standardWords": 903
+    }
+  },
+  "quotations": [
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "run": 52,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 states it plainly in its evidence-based approach principle:",
+      "text": "Audit evidence should be verifiable. It should be based on **samples** of the information available, since an audit is conducted during a specified duration and with finite resources. An appropriate use of sampling should be applied, **since this is closely related to the confidence that can be placed in the audit conclusions.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "run": 45,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026's fair presentation principle:",
+      "text": "Fair presentation is the obligation to report truthfully and accurately. Audit findings, audit conclusions and audit reports should reflect truthfully and accurately the auditing activities. **Significant obstacles encountered during the audit and unresolved diverging opinions between the audit team and the auditee should be reported.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 45,
+      "src": "19011:2026",
+      "leadIn": "Here is the sentence that changes how the rest of this module works. ISO 19011:2026 clause 6.4.7:",
+      "text": "Only information that can be subject to **some degree of verification** should be accepted as audit evidence. **Where the degree of verification is low, the auditor should use their professional judgement to determine the degree of reliance that can be placed on it as evidence.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-05-competence-awareness-documents",
+      "run": 30,
+      "src": "27001:2022",
+      "leadIn": "**And one sentence of clause 7.5 people skip:**",
+      "text": "Documented information **of external origin**, determined by the organization to be necessary for the planning and operation of the information security management system, shall be identified as appropriate, and controlled."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 29,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 addresses this under **independence**, one of its seven principles. Two sentences carry the weight:",
+      "text": "Auditors should be independent of the activity being audited **wherever practicable** and should in all cases act in a manner that is free from bias and conflict of interest."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 29,
+      "src": "27001:2022",
+      "leadIn": "The standard's own notes say so:",
+      "text": "**NOTE 2** &nbsp; Annex A contains a list of possible information security controls. Users of this document are directed to Annex A **to ensure that no necessary information security controls are overlooked.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 27,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 addresses this under **independence**, one of its seven principles. Two sentences carry the weight:",
+      "text": "**When it is not possible for internal auditors to be independent of the activity being audited, every effort should be made to remove bias and encourage objectivity.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 27,
+      "src": "42001:2023",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, in order that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist, or could potentially occur;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 27,
+      "src": "27001:2022",
+      "leadIn": "Clause 6.3, in full:",
+      "text": "**Planning of changes.** When the organization determines the need for changes to the information security management system, the changes shall be carried out in a planned manner."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 26,
+      "src": "27001:2022",
+      "leadIn": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+      "text": "The organization shall determine the boundaries and applicability of the information security management system to establish its scope. When determining this scope, the organization shall consider:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-08-what-the-tool-verified",
+      "run": 25,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+      "text": "understand the appropriateness and consequences of using information and communications technology tools, and emerging technology to conduct audits (e.g. **artificial-intelligence-based evaluation tools**)"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-04-competence-of-the-team",
+      "run": 25,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 lists, among the generic knowledge and skills an auditor should have, the ability to:",
+      "text": "understand the appropriateness and consequences of using information and communications technology tools, and emerging technology to conduct audits (e.g. **artificial-intelligence-based evaluation tools**)"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-08-what-the-tool-verified",
+      "run": 24,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026's evidence-based approach ties this directly:",
+      "text": "An appropriate use of sampling should be applied, since this is closely related to the confidence that can be placed in the audit conclusions."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-01-whose-scheme-is-it",
+      "run": 24,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 records a distinction that shows up in the wording of findings.",
+      "text": "**NOTE 1 to 3.8** &nbsp; If the audit criteria are legal (including statutory or regulatory) requirements, the words *compliance* or *non-compliance* are often used in an audit finding."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-01-what-the-programme-is-for",
+      "run": 23,
+      "src": "27001:2022",
+      "leadIn": "ISO/IEC 27001 clause 9.2.2 is short, and one sentence of it does a lot of work:",
+      "text": "When establishing the internal audit programme(s), the organization shall consider the importance of the processes concerned and the results of previous audits."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-02-where-the-effort-goes",
+      "run": 23,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 makes the risk-based approach one of its seven principles, and its wording is unusually firm for a guidance document:",
+      "text": "The risk-based approach should substantively influence the planning and implementation of the audit programme, and the planning, conducting and reporting of audits."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 23,
+      "src": "27001:2022",
+      "leadIn": "Then the sentence from lesson 02-01, and clause 9.2.2's three lettered requirements:",
+      "text": "When establishing the internal audit programme(s), the organization shall consider the importance of the processes concerned and the results of previous audits."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 22,
+      "src": "27001:2022",
+      "leadIn": "Clause 5.3 is short and contains three requirements:",
+      "text": "Top management shall ensure that the responsibilities and authorities for roles relevant to information security are **assigned and communicated** within the organization."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 22,
+      "src": "27001:2022",
+      "leadIn": "**Requirements may not be excluded.** ISO/IEC 27001 **Clause 1 Scope** states:",
+      "text": "Excluding any of the requirements specified in Clauses 4 to 10 is not acceptable when an organization claims conformity to this document."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 21,
+      "src": "42001:2023",
+      "leadIn": "Clause 9.3.3:",
+      "text": "The results of the management review shall include **decisions related to continual improvement opportunities and any need for changes** to the information security management system."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 21,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "a) react to the nonconformity and, as applicable: 1) take action to control and correct it; 2) deal with the consequences;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 21,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2.2, the second subclause, governs the programme itself:",
+      "text": "The organization shall plan, establish, implement and maintain an audit programme(s), including the frequency, methods, responsibilities, planning requirements and reporting."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "run": 21,
+      "src": "27001:2022",
+      "leadIn": "The standard's own notes say so:",
+      "text": "**NOTE 3** &nbsp; The information security controls listed in Annex A **are not exhaustive** and additional information security controls can be included if needed."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 19,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 gives the term a definition in its clause 3:",
+      "text": "**remote auditing method** - method used for conducting audit activities from any place other than the location of the auditee"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 19,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2 has two subclauses and they do different jobs. The first sets what internal audits are for:",
+      "text": "The organization shall conduct internal audits at planned intervals to provide information on whether the information security management system:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 19,
+      "src": "27001:2022",
+      "leadIn": "**And clause 9.2.2's closing requirement:**",
+      "text": "Documented information shall be available as evidence of the implementation of the audit programme(s) and the audit results."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-04-tracing-the-soa-back",
+      "run": 19,
+      "src": "27001:2022",
+      "leadIn": "Clause 6.1.3 f) requires the organization to:",
+      "text": "obtain risk owners' approval of the information security risk treatment plan and **acceptance of the residual information security risks**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 18,
+      "src": "27001:2022",
+      "leadIn": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+      "text": "c) **interfaces and dependencies between activities performed by the organization, and those that are performed by other organizations.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 18,
+      "src": "42001:2023",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "Documented information shall be available as evidence of the nature of the nonconformities and any subsequent actions taken, and of the results of any corrective action."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 18,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 was published in May 2026, replacing the 2018 third edition. Its foreword names its main changes, and there are two:",
+      "text": "expansion of guidance on remote auditing methods through the introduction of guidance contained in ISO/IEC TS 17012"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 18,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026's second note defines what a virtual location is:",
+      "text": "where an organization performs work or provides a service using an online environment, enabling individuals to execute processes irrespective of physical locations"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "run": 17,
+      "src": "27001:2022",
+      "leadIn": "**Two more sentences close clause 9.1:**",
+      "text": "The organization shall **evaluate the information security performance and the effectiveness** of the information security management system."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-05-which-document-says-what",
+      "run": 16,
+      "src": "27001:2022",
+      "leadIn": "ISO/IEC 27001 clause 3 does not define its terms. It delegates:",
+      "text": "For the purposes of this document, the terms and definitions given in ISO/IEC 27000 apply."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 16,
+      "src": "27001:2022",
+      "leadIn": "Clause 5.1 opens:",
+      "text": "Top management shall **demonstrate leadership and commitment** with respect to the information security management system by:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 16,
+      "src": "27001:2022",
+      "leadIn": "Then the sentence from lesson 02-01, and clause 9.2.2's three lettered requirements:",
+      "text": "b) select auditors and conduct audits that ensure objectivity and the impartiality of the audit process;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 16,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 defines both, and using them interchangeably loses something.",
+      "text": "**audit evidence** - records, statements of fact or other information, which are relevant to the audit criteria and verifiable"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-08-assets-nobody-registered",
+      "run": 15,
+      "src": "27001:2022",
+      "leadIn": "Annex A control **5.9, inventory of information and other associated assets**, requires:",
+      "text": "An inventory of information and other associated assets, **including owners**, shall be developed and maintained."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "run": 15,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2.2 b) is one sentence, and it is the whole of what ISO/IEC 27001 says about who may audit:",
+      "text": "select auditors and conduct audits that ensure objectivity and the impartiality of the audit process"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-04-choosing-the-method",
+      "run": 14,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 was published in May 2026, replacing the 2018 third edition. Its foreword names its main changes, and there are two:",
+      "text": "expansion of Annex A to provide guidance on remote auditing methods and virtual locations"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 14,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2 has two subclauses and they do different jobs. The first sets what internal audits are for:",
+      "text": "a) conforms to 1) the organization's own requirements for its information security management system; 2) the requirements of this document;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 13,
+      "src": "27001:2022",
+      "leadIn": "Then the sentence from lesson 02-01, and clause 9.2.2's three lettered requirements:",
+      "text": "c) ensure that the results of the audits are reported to relevant management."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 13,
+      "src": "42001:2023",
+      "leadIn": "Here is the sentence that makes systemic analysis a requirement rather than a nicety. ISO/IEC 27001 clause 10.2 b):",
+      "text": "evaluate the need for action to eliminate the cause(s) of the nonconformity, in order that it does not recur or occur elsewhere, by:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 12,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2.2 c):",
+      "text": "ensure that the results of the audits are reported to relevant management"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 12,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "Corrective actions shall be **appropriate to the effects** of the nonconformities encountered."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-07-where-the-audit-stops",
+      "run": 12,
+      "src": "27001:2022",
+      "leadIn": "ISO/IEC 27001 Annex A control **8.34, protection of information systems during audit testing**, states:",
+      "text": "Audit tests and other assurance activities involving assessment of operational systems shall be **planned and agreed between the tester and appropriate management.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 11,
+      "src": "27001:2022",
+      "leadIn": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+      "text": "a) the external and internal issues referred to in 4.1;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 11,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.3.3:",
+      "text": "Documented information shall be available as evidence of the results of the management review."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 11,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "e) make changes to the information security management system, if necessary."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-01-whose-scheme-is-it",
+      "run": 11,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 defines it:",
+      "text": "**audit finding** - results of the evaluation of the collected audit evidence against the audit criteria"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 11,
+      "src": "27001:2022/Amd1",
+      "leadIn": "Its normative body, in full, as ISO/IEC 27001:2022 now carries it:",
+      "text": "*The organization shall determine whether climate change is a relevant issue.*"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 10,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.3.2 lists what the management review shall include consideration of. Audit results are in there, and their position matters:",
+      "text": "d) feedback on the information security performance, including trends in:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 10,
+      "src": "27001:2022",
+      "leadIn": "Then the sentence from lesson 02-01, and clause 9.2.2's three lettered requirements:",
+      "text": "a) define the audit criteria and scope for each audit;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 10,
+      "src": "27001:2022",
+      "leadIn": "Here is the sentence that makes systemic analysis a requirement rather than a nicety. ISO/IEC 27001 clause 10.2 b):",
+      "text": "3) **determining if similar nonconformities exist, or could potentially occur.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "run": 10,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 defines both, and using them interchangeably loses something.",
+      "text": "**objective evidence** - data supporting the existence or verity of something"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "leadIn": "Its normative body, in full, as ISO/IEC 27001:2022 now carries it:",
+      "text": "**4.1** &nbsp; Add the following sentence at the end of the subclause:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "leadIn": "Its normative body, in full, as ISO/IEC 27001:2022 now carries it:",
+      "text": "**4.2** &nbsp; Add the following note at the end of the subclause:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "leadIn": "Its normative body, in full, as ISO/IEC 27001:2022 now carries it:",
+      "text": "*NOTE 2 &nbsp; Relevant interested parties can have requirements related to climate change.*"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-07-two-sentences",
+      "run": 10,
+      "src": "27001:2022/Amd1",
+      "leadIn": "Clause 4.2's addition is a **note**, and notes are not requirements.",
+      "text": "NOTE 2 &nbsp; Relevant interested parties can have requirements related to climate change."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "run": 10,
+      "src": "27001:2022",
+      "leadIn": "**Two more sentences close clause 9.1:**",
+      "text": "Documented information shall be available as evidence of the results."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 10,
+      "src": "27001:2022",
+      "leadIn": "For an internal ISMS audit, the criteria are typically ISO/IEC 27001 **and** the organization's own requirements. Clause 9.2.1 lists both, in that order:",
+      "text": "whether the information security management system conforms to the organization's own requirements for its information security management system, and the requirements of this document"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+      "run": 9,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 clause 6.4.7, in the same paragraph that establishes degree of verification:",
+      "text": "**Audit evidence leading to audit findings should be recorded.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 9,
+      "src": "27001:2022",
+      "leadIn": "Clause 5.3 is short and contains three requirements:",
+      "text": "Top management shall assign the responsibility and authority for:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 9,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "d) **review the effectiveness of any corrective action taken**;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 9,
+      "src": "27001:2022",
+      "leadIn": "Now the attribution, and it is precise.",
+      "text": "**ISO/IEC 27001 clause 9.2.2 a) requires the organization to define the audit criteria and scope for each audit. It does not require audit objectives.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 8,
+      "src": "27001:2022",
+      "leadIn": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+      "text": "b) the requirements referred to in 4.2;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "run": 8,
+      "src": "27001:2022",
+      "leadIn": "The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:",
+      "text": "The scope shall be available as documented information."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-11-a-determination-not-an-answer",
+      "run": 8,
+      "src": "27001:2022/Amd1",
+      "leadIn": "ISO/IEC 42001:2023 clause 4.1 states, among its requirements:",
+      "text": "The organization **shall determine whether climate change is, for it, a relevant issue.**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-06-testing-the-claim",
+      "run": 8,
+      "src": "27001:2022",
+      "leadIn": "ISO/IEC 27001 clause 6.1.3 d) requires the Statement of Applicability to contain four things, and one of them turns it into an audit target:",
+      "text": "whether the necessary controls are implemented or not"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-06-closing-it-properly",
+      "run": 8,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 d):",
+      "text": "**review the effectiveness of any corrective action taken**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 7,
+      "src": "27001:2022",
+      "leadIn": "Clause 5.3 is short and contains three requirements:",
+      "text": "a) ensuring that the ISMS **conforms to the requirements** of this document;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "run": 7,
+      "src": "27001:2022",
+      "leadIn": "Clause 5.3 is short and contains three requirements:",
+      "text": "b) **reporting on the performance** of the ISMS to top management."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 7,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "When a nonconformity occurs, the organization shall:"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-04-10-one-word-apart",
+      "run": 7,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 defines it:",
+      "text": "**combined audit** - audit carried out together at a single auditee on **two or more management systems**"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "run": 7,
+      "src": "27001:2022",
+      "leadIn": "::deep-dive title=\"The same finding, rewritten\"",
+      "text": "**Requirement.** Supplier Security Procedure SEC-PR-08 section 4 requires a completed security assessment to be attached to the supplier file before contract signature. Annex A control 5.19, information security in supplier relationships, is recorded as implemented in the Statement of Applicability version 4."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 7,
+      "src": "27001:2022",
+      "leadIn": "Here is the sentence that makes systemic analysis a requirement rather than a nicety. ISO/IEC 27001 clause 10.2 b):",
+      "text": "2) determining the causes of the nonconformity;"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-08-defined-versus-running",
+      "run": 7,
+      "src": "42001:2023",
+      "leadIn": "Then, and this is the sentence that matters most in module 4:",
+      "text": "The organization **shall implement the controls settled under 6.1.3** that bear on operating the AI management system - controls tied to the AI system development and usage life cycle, for example. **The effectiveness of those controls shall be monitored, and corrective action shall be considered** where the intended results do not follow."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-03-scope-criteria-objectives",
+      "run": 7,
+      "src": "19011:2026",
+      "leadIn": "ISO 19011:2026 defines **audit scope** as the extent and boundaries of an audit. Its note lists what a scope generally includes, and one item on that list is newer than most people's mental model:",
+      "text": "physical **and virtual** locations, functions, organizational units, activities and processes, as well as the time period covered"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 6,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.3.2 lists what the management review shall include consideration of. Audit results are in there, and their position matters:",
+      "text": "4) fulfilment of information security objectives;"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-02-criterion-evidence-gap",
+      "run": 6,
+      "src": "27001:2022",
+      "leadIn": "A worked example, in full:",
+      "text": "**Criterion.** ISO/IEC 42001:2023 clause 8.4 requires the organization to perform AI system impact assessments at planned times and when significant changes occur, and to retain documented information of the results."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "run": 6,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.2 has two subclauses and they do different jobs. The first sets what internal audits are for:",
+      "text": "b) is effectively implemented and maintained."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 5,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.3.2 lists what the management review shall include consideration of. Audit results are in there, and their position matters:",
+      "text": "1) nonconformities and corrective actions;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-07-where-the-audit-lands",
+      "run": 5,
+      "src": "27001:2022",
+      "leadIn": "Clause 9.3.2 lists what the management review shall include consideration of. Audit results are in there, and their position matters:",
+      "text": "2) monitoring and measurement results;"
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "run": 5,
+      "src": "27001:2022",
+      "leadIn": "Clause 10.2 is short, and it does more than most people use:",
+      "text": "c) implement any action needed;"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-10-justifying-both-directions",
+      "run": 5,
+      "src": "42001:2023",
+      "leadIn": "Annex A opens with A.1 General, and two sentences from it govern everything in this lesson:",
+      "text": "The controls set out in Table A.1 give the organization a reference for meeting its objectives and handling risks that arise from designing and operating AI systems. **Not every control objective and control in Table A.1 has to be used, and an organization can design and implement controls of its own (see 6.1.3).**"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-03-one-finding-or-several",
+      "run": 5,
+      "src": "42001:2023",
+      "leadIn": "The practical form: state the primary criterion, then the others, and be explicit that one action may address them all.",
+      "text": "Clause 8.4 requires impact assessments when significant changes occur, with results retained. Control A.5.2, declared as included in the statement of applicability, addresses the impact assessment process. The organization's AI Impact Assessment Procedure v3 section 4 states that any change to training data triggers an assessment. The recommendation model was retrained on 3 March (record DR-441) and no assessment record exists. None of the three criteria is fulfilled for that change."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-03-09-a-trail-someone-else-can-follow",
+      "run": 4,
+      "src": "27005:2022",
+      "leadIn": "::deep-dive title=\"The same entry, written so it survives\"",
+      "text": "**Criterion:** organization's Supplier Security Procedure SEC-PR-08 s.4, requiring a completed security assessment before contract signature; and Annex A 5.19, included in the SoA as implemented."
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "run": 4,
+      "src": "27001:2022",
+      "leadIn": "A form of words that stays factual and inside the auditor's remit:",
+      "text": "The AI management system as declared covers two of the organization's five AI systems, with 26 of 38 reference controls included. Audit criteria comprised ISO/IEC 42001:2023 clauses 4 to 10, the 26 declared controls, and the organization's AI Policy v2 and AI Impact Assessment Procedure v3. Of these, clauses 4, 5, 6.1 and 8, eight declared controls and both internal documents were examined. The criteria examined were fulfilled except as recorded in findings 1 to 6."
+    },
+    {
+      "cert": "ISMS-IA",
+      "slug": "isms-ia-05-02-one-instance-or-a-pattern",
+      "run": 4,
+      "src": "27001:2022",
+      "leadIn": "Here is the sentence that makes systemic analysis a requirement rather than a nicety. ISO/IEC 27001 clause 10.2 b):",
+      "text": "1) reviewing the nonconformity;"
+    }
+  ]
+}

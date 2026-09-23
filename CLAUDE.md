@@ -2112,6 +2112,89 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A LARGE DISAGREEMENT BETWEEN TWO INSTRUMENTS IS A DEFECT IN ONE OF THEM
+UNTIL IDENTIFIED, NEVER A PARAMETER TO BE TUNED.** A factor of four is not a
+seed, a threshold or a window; it is a difference in WHAT IS BEING MEASURED.
+
+> **MECHANISM: when two measures of one property diverge by more than a small
+> factor, find ONE case and read it in both, before any parameter is adjusted
+> or either number is reported.**
+
+Occasion: 75 lesson reproductions against 9, resolved by reading a single
+52-word span and finding an attributed-quotation exemption one instrument
+applied and the other did not.
+
+**AND A DISCRIMINATOR'S STATE COUNT COMES FROM THE PHENOMENON, NOT FROM THE
+QUESTION.** *Is this run real* invites two answers; the text has three, and the
+missing one -- INTERPOLATED -- is the state that looks like the defect and is
+actually the phenomenon.
+
+> **MECHANISM: before a classifier ships, its states are checked against READ
+> MEMBERS of each class, and a class that is never populated is as suspicious
+> as one that swallows everything.**
+
+Occasion: 98 of 361 reported manufactured, **27 percent -- a plausible-looking
+artifact rate** -- of which 69 were real reproductions that would have been
+cleared. A wrong number that looks reasonable is the one that ships.
+
+**AND THE SEED QUESTION CLOSED BY MEASUREMENT AFTER THE FIX, NOT BY
+ARGUMENT.** Before: seed 5 refused 9 lesson rows, seed 4 refused 60. After
+extending by position, **seed 4 and seed 5 produce IDENTICAL verdicts on every
+certification** -- same refusals, same longest run. The 9-versus-60 divergence
+was entirely chaining. Two instruments that had disagreed for the whole life of
+the programme unify, and the seed becomes what it always should have been: how
+a candidate is found.
+
+**AND THE FIX RELEASED NOTHING IN PRODUCTION, WHICH ONLY THE ENUMERATION COULD
+SHOW.** The 20 rows it moves toward served were over the floor in
+`leak-score`'s seed-4 view -- reports, draft gating, the concept machinery --
+and the production lesson gate at seed 5 had never withheld them. **A release
+enumeration is also how you discover a change releases nothing**, and that is
+not a fact a count of affected rows can carry.
+
+**THE FLOOR OF 10 WAS CALIBRATED AGAINST A BROKEN INSTRUMENT IN BOTH
+DIRECTIONS**, and this is the clean measurement it never had. The greedy skip
+DEFLATED runs; the chained extension INFLATED them; the net on any given span
+is unknowable after the fact.
+
+True contiguous run lengths, whole corpus, after the fix:
+
+```
+population         4w   5w   6w   7w   8w   9w  10w  11+   total
+concept text      263   93   44   34   19   15    0    0     468
+lesson prose     3234  747  384  263  152  134    1    3    4918
+ATTRIBUTED quo      3    5    3    8    5    4   10   50      88
+```
+
+> **AND THE FLOOR STATED IN WORDS RATHER THAN NUMBERS: the corpus may carry
+> NINE contiguous unattributed words of ISO anywhere, with no limit on how many
+> times.** That may well be acceptable. It has never been said out loud, and it
+> is a different sentence from *we do not reproduce ISO text*.
+
+**The repetition half of that sentence is measured, because a per-span floor
+can no more see a repetition than it can see a sum:** 217 distinct near-floor
+runs (8w-9w), **45 of them in more than one row**, worst at 5 rows --
+`the organization's own requirements for its ai management system`, nine words
+of 42001, in five different lessons.
+
+**AND THE BLANKET QUOTATION EXEMPTION IS ONE CERTIFICATION, NOT A PRACTICE.**
+Measured per standard, and the aggregate is the number no per-span rule can
+reach:
+
+```
+standard          spans  words  longest   share of the standard
+27001:2022           54    716      30w   9.49%
+19011:2026           20    448      52w   2.21%
+42001:2023            7     96      27w   0.46%
+27001:2022/Amd1       6     59      11w   6.53%
+```
+
+**All 60 spans at or over 10 words are ISMS-IA, and 706 of the 716 quoted
+27001 words are ISMS-IA.** So the finding is not *"our courses quote
+standards"*; it is *"one certification reproduces about a tenth of ISO/IEC
+27001:2022 in attributed blockquotes"*, which is a positioning and licensing
+question rather than an instrument one.
+
 **A SEED FINDS A CANDIDATE. IT MUST NEVER MEASURE ONE.** Found 2026-09-23,
 and it is the largest instrument defect this programme has produced, because
 every leak number in it was measured by the construct below.
