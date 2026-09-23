@@ -1,0 +1,1133 @@
+{
+  "measured": "2026-09-23T15:54:56.748Z",
+  "note": "Derived from scripts that PATCH lessons. Cannot see hand edits in the SQL editor. A floor, not a total.",
+  "lessons": 50,
+  "translatedRows": 100,
+  "serving": 46,
+  "rows": [
+    {
+      "slug": "01-01-agile-manifesto",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a101",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "01-01-agile-manifesto",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a101",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a102",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-marking-spec.mjs"
+      ]
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a102",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-marking-spec.mjs"
+      ]
+    },
+    {
+      "slug": "01-03-the-ai-system-life-cycle",
+      "language": "es-419",
+      "id": "aec278df-7085-46dd-80ba-7992f9fa1c82",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "01-03-the-ai-system-life-cycle",
+      "language": "pt-BR",
+      "id": "30abfa2d-946f-4de0-b21a-940da0a7b336",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "01-05-who-the-developers-are",
+      "language": "es-419",
+      "id": "0a577097-a6ce-4828-a7b0-3d25acd04520",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "01-05-who-the-developers-are",
+      "language": "pt-BR",
+      "id": "bb46838f-cd1b-4e8f-a1bc-5e15ffee3af0",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "02-03-amendment-1-2024",
+      "language": "es-419",
+      "id": "0fbca1f3-098e-41d9-b345-76e701515cdc",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "verify-cert.mjs"
+      ]
+    },
+    {
+      "slug": "02-03-amendment-1-2024",
+      "language": "pt-BR",
+      "id": "99163614-e23d-4b21-9700-92ef2d884c59",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "verify-cert.mjs"
+      ]
+    },
+    {
+      "slug": "02-05-self-management-and-boundaries",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a207",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "02-05-self-management-and-boundaries",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a207",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "02-06-the-ai-system-impact-assessment",
+      "language": "pt-BR",
+      "id": "86f08a69-e97e-4145-beef-95df68cd7135",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "02-06-the-ai-system-impact-assessment",
+      "language": "es-419",
+      "id": "34bfa6c5-ff70-48ff-826b-bf051d2ca20f",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "02-07-roles-and-authorities",
+      "language": "pt-BR",
+      "id": "7f76a094-76b9-45cf-8772-d7b7b323b0c9",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "02-07-roles-and-authorities",
+      "language": "es-419",
+      "id": "603c547c-0e78-4339-978f-e93aff8ddf13",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "02-08-self-management",
+      "language": "pt-BR",
+      "id": "f6a055f9-e819-4e01-9ec6-dd881912b88d",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "02-08-self-management",
+      "language": "es-419",
+      "id": "fd83ac77-1767-4405-ab8d-cd826404d74a",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "03-01-resources-and-competence",
+      "language": "es-419",
+      "id": "8c2be3c5-989d-4177-ada8-e540b99420f2",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-01-resources-and-competence",
+      "language": "pt-BR",
+      "id": "53ddc2bf-05f3-4d35-97dd-9a40f13741c7",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-02-awareness-and-communication",
+      "language": "pt-BR",
+      "id": "b60a4e65-6fdc-452c-a867-cf578d0aef2d",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-02-awareness-and-communication",
+      "language": "es-419",
+      "id": "30f64882-fd61-4251-b2d3-9f52c6ed02eb",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-03-documented-information",
+      "language": "es-419",
+      "id": "18768dd4-a640-435e-8995-d09c7e535d9d",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-03-documented-information",
+      "language": "pt-BR",
+      "id": "62b0b7d3-584c-4039-a9fb-8bb67076c129",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-04-operational-planning-and-control",
+      "language": "es-419",
+      "id": "a1d9b556-3f7e-4d9a-8131-c73384b58936",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-04-operational-planning-and-control",
+      "language": "pt-BR",
+      "id": "8571e62e-5c33-43e4-9ce7-47c91ab75669",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-06-data-for-ai-systems",
+      "language": "pt-BR",
+      "id": "d0326f9f-eff7-4c64-a430-02d1ddd034fb",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-0306.mjs",
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "03-06-data-for-ai-systems",
+      "language": "es-419",
+      "id": "133e6c18-039c-4e9d-834d-ad917bb03475",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-0306.mjs",
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "04-01-annex-a-structure",
+      "language": "es-419",
+      "id": "c6869264-6b91-4e86-bf15-5296f0b0f55c",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "04-01-annex-a-structure",
+      "language": "pt-BR",
+      "id": "9e9c80c9-13b3-4204-b4e9-b962d90bafa7",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "04-03-governing-apparatus-controls",
+      "language": "pt-BR",
+      "id": "04d41f27-6dae-44ca-bcac-380377b3d9d9",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "04-03-governing-apparatus-controls",
+      "language": "es-419",
+      "id": "0a3d54b9-ddec-44f5-9e93-b1b89404c715",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "04-04-increment-and-definition-of-done",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a404",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "04-04-increment-and-definition-of-done",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a404",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-01-aims-monitoring-and-measurement",
+      "language": "pt-BR",
+      "id": "37b1f8d2-c651-4009-9ff8-0da4beb0f188",
+      "column": false,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "05-01-aims-monitoring-and-measurement",
+      "language": "es-419",
+      "id": "fa4148c4-e724-45b3-aefe-8ed8fff35694",
+      "column": false,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "05-02-aims-internal-audit",
+      "language": "es-419",
+      "id": "f19a7d13-7d22-49b7-9209-403107b43890",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "apply-rewrites-batch-1.mjs",
+        "retranslate-audit-sentence.mjs"
+      ]
+    },
+    {
+      "slug": "05-02-aims-internal-audit",
+      "language": "pt-BR",
+      "id": "b7485a23-f394-4280-9c3d-2b9c64a8ccdd",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "apply-rewrites-batch-1.mjs",
+        "retranslate-audit-sentence.mjs"
+      ]
+    },
+    {
+      "slug": "05-02-coaching-and-servant-leadership",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a502",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-02-coaching-and-servant-leadership",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a502",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-03-working-with-scrum-master",
+      "language": "pt-BR",
+      "id": "63cd3de7-69c2-4466-93c7-25774c48e6a6",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-03-working-with-scrum-master",
+      "language": "es-419",
+      "id": "5f087311-623e-4810-8645-83732f8fbaa9",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-05-terminology-drift",
+      "language": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a505",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-05-terminology-drift",
+      "language": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a505",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-06-certification-and-accreditation",
+      "language": "es-419",
+      "id": "66144a76-ec10-4408-a66d-01d5a8aa2077",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "05-06-certification-and-accreditation",
+      "language": "pt-BR",
+      "id": "e57a2ea3-9f29-4104-af7a-00ec2106ea4c",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "05-08-terminology-drift",
+      "language": "pt-BR",
+      "id": "00f2d1ec-cb26-4117-9271-ca12b201aaa5",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "05-08-terminology-drift",
+      "language": "es-419",
+      "id": "206e4bd2-84cc-4718-ad5d-e2ffc6a61f07",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "scrum-terminology-pass.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-01-01-who-commissioned-it",
+      "language": "es-419",
+      "id": "6c466ffb-ff00-420a-bfdd-47903c21cf4d",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "retranslate-audit-sentence.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-01-01-who-commissioned-it",
+      "language": "pt-BR",
+      "id": "2d0c6355-96bf-4a39-bff4-47a0c50657ba",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "retranslate-audit-sentence.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-02-07-the-programme-audits-itself",
+      "language": "es-419",
+      "id": "434802a1-07e8-4c86-b3d1-de750f5370e2",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-02-07-the-programme-audits-itself",
+      "language": "pt-BR",
+      "id": "d2983a3a-e718-40f8-8769-4ddb3ada79e6",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-03-what-the-sample-supports",
+      "language": "es-419",
+      "id": "29970c05-bd54-41af-8d4d-78e25d95227d",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-03-what-the-sample-supports",
+      "language": "pt-BR",
+      "id": "de231703-a5e4-45ce-9003-fa6f61ad3ccc",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-04-demonstrated-not-described",
+      "language": "pt-BR",
+      "id": "6ef9319d-0e40-4e22-a6c2-8f2d80cea0ed",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-04-demonstrated-not-described",
+      "language": "es-419",
+      "id": "249bfaf9-f0ec-4a52-936e-adcb556a1df1",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-08-opening-and-closing",
+      "language": "es-419",
+      "id": "d7b4588a-87a8-4d6a-9eef-c798a3eddf17",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-03-08-opening-and-closing",
+      "language": "pt-BR",
+      "id": "12e14131-b9f2-4482-84a3-5849738944fb",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-03-leadership-in-artifacts",
+      "language": "es-419",
+      "id": "2ab5f56e-8022-45ee-8cbf-4559c6c72b62",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-03-leadership-in-artifacts",
+      "language": "pt-BR",
+      "id": "83dd8495-3092-4420-8d24-57c5ac46215c",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-04-criteria-before-assessment",
+      "language": "es-419",
+      "id": "1fbc9d69-03c2-4976-887b-5188f4fa5562",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-04-criteria-before-assessment",
+      "language": "pt-BR",
+      "id": "dbb55583-a244-4fdb-b220-6af1a293c150",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-05-controls-first-annex-a-second",
+      "language": "es-419",
+      "id": "b59eec95-30d2-48a0-92e5-074af5d09467",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-05-controls-first-annex-a-second",
+      "language": "pt-BR",
+      "id": "4a92f02c-6471-4d8e-8d69-45af1b505fb1",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-06-two-assessments-not-one",
+      "language": "pt-BR",
+      "id": "dfb0d36d-c2c1-4c64-b86c-20eaca57dab7",
+      "column": false,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-06-two-assessments-not-one",
+      "language": "es-419",
+      "id": "972bd676-1a3f-40ad-987e-cde7596f5e39",
+      "column": false,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-07-controlled-not-merely-present",
+      "language": "es-419",
+      "id": "9af4349a-d673-4fe7-9157-70456ee89bae",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-07-controlled-not-merely-present",
+      "language": "pt-BR",
+      "id": "7fb9ee7a-568d-47dc-93bc-6239397c738b",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-10-justifying-both-directions",
+      "language": "pt-BR",
+      "id": "c0a8bec6-5fb1-4ea7-9ee0-2f9212fee1c8",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs",
+        "fix-aimsia-0410-span.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-10-justifying-both-directions",
+      "language": "es-419",
+      "id": "f4c610e2-c807-4569-83a8-54f28591c41c",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs",
+        "fix-aimsia-0410-span.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-13-competence-the-organization-claims",
+      "language": "pt-BR",
+      "id": "c8d42eb1-889b-4601-b2e4-c20637091d07",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-04-13-competence-the-organization-claims",
+      "language": "es-419",
+      "id": "a4b70a9c-4168-4163-a77b-b8c0c9a9aa6b",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "language": "es-419",
+      "id": "ed79cfc8-9bdf-4072-9ad1-c712f0f245d0",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "language": "pt-BR",
+      "id": "a407b761-a819-4ad1-a11b-1ce41ba02ebf",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-01-01-audit-parties",
+      "language": "es-419",
+      "id": "aac82636-7716-4635-8635-45cb2ef3cc52",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "retranslate-audit-sentence.mjs",
+        "revert-ismsia-citation.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-01-01-audit-parties",
+      "language": "pt-BR",
+      "id": "d0a0b224-efd7-49b8-af46-ceb0f2a396fa",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-audit-sentence-rewrite.mjs",
+        "retranslate-audit-sentence.mjs",
+        "revert-ismsia-citation.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "language": "es-419",
+      "id": "941b043c-ea5f-416a-885e-80bb85104f00",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "language": "pt-BR",
+      "id": "59455ac6-b0cf-499d-907f-49b4d1571bec",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "language": "es-419",
+      "id": "b152fa4c-b864-4fd6-99eb-1a0dfa5e46ac",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-02-06-testing-the-programme",
+      "language": "pt-BR",
+      "id": "92d8eeac-7de3-49e0-8678-3d045ec2dc19",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "language": "es-419",
+      "id": "432a5f1a-f545-49e9-8b17-eaab2571ae2e",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "language": "pt-BR",
+      "id": "41136e29-e65a-4cfa-9494-5922dcc72e5a",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "language": "pt-BR",
+      "id": "6f2c42b4-6b5f-46b9-9b10-e104b91e79ba",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "language": "es-419",
+      "id": "833e849d-f2b0-4c09-b241-2c2fb186f093",
+      "column": true,
+      "gate": true,
+      "reviewRequired": false,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "language": "es-419",
+      "id": "67f04805-9460-462a-9388-89f1c26c7442",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs",
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "language": "pt-BR",
+      "id": "c3c5d0e5-d492-4179-9310-69d2f3abe3ed",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs",
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "language": "pt-BR",
+      "id": "75557995-68b1-40e6-aeb7-7c3c78fe27ad",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs",
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "language": "es-419",
+      "id": "28449a93-a5f8-4456-9adc-082479e5ac72",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-queue-edits.mjs",
+        "apply-rewrites-batch-1.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "language": "pt-BR",
+      "id": "88635da3-1168-4b22-8d46-42a0ee9f921a",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs",
+        "fix-broken-attribution-chain.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "language": "es-419",
+      "id": "43fd34ff-284b-4dec-b055-59fcee84c0c5",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs",
+        "fix-broken-attribution-chain.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-05-competence-awareness-documents",
+      "language": "pt-BR",
+      "id": "0798027d-6f5c-4497-b932-db31ba7fcda8",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-05-competence-awareness-documents",
+      "language": "es-419",
+      "id": "5099b315-ddb6-4acf-b3ef-c1ce3c25c3d7",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "language": "es-419",
+      "id": "51d248db-c0c1-46a9-9637-91eb61cb8270",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs",
+        "fix-ismsia-0406-modal.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-06-defined-versus-running",
+      "language": "pt-BR",
+      "id": "e90c213b-a439-4ada-b2f4-5b0415956f54",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs",
+        "fix-ismsia-0406-modal.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-07-two-sentences",
+      "language": "pt-BR",
+      "id": "3b725623-792e-4409-a23e-b893c8857bab",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-04-07-two-sentences",
+      "language": "es-419",
+      "id": "53fc0077-476e-4be8-ab26-7b76ac25206d",
+      "column": true,
+      "gate": true,
+      "reviewRequired": true,
+      "scripts": [
+        "apply-hand-edits.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "language": "pt-BR",
+      "id": "01e00ee4-1a7a-49d2-862f-c10ea2a8dc32",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "language": "es-419",
+      "id": "1191d86f-1f78-4cd4-9b5c-a5f40df5c58a",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "language": "es-419",
+      "id": "d234a69b-8292-4044-926f-0d61ad853248",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs",
+        "fix-broken-attribution-chain.mjs"
+      ]
+    },
+    {
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "language": "pt-BR",
+      "id": "33f84788-8ca0-48dd-8044-a0e22065ab08",
+      "column": true,
+      "gate": false,
+      "reviewRequired": true,
+      "scripts": [
+        "convert-ceiling-breaches.mjs",
+        "fix-broken-attribution-chain.mjs"
+      ]
+    }
+  ]
+}
