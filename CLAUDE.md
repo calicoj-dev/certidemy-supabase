@@ -2112,6 +2112,48 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A MIGRATION'S ATOMICITY IS A PROPERTY OF THE TRANSPORT, AND THE TRANSPORT
+IS MEASURED, NOT ASSUMED.** Found 2026-09-23. 367 used a temporary table to
+capture its before-state and the SQL editor answered:
+
+```
+ERROR: 42P01: relation "_367_before" does not exist
+```
+
+`begin; ... commit;` in a file asserts an INTENT. Whether the client, the
+editor or the pooler honours it as ONE TRANSACTION ON ONE BACKEND is a separate
+fact -- **and a post-condition that cannot roll back its own writes is a
+comment.**
+
+**TWO CANDIDATE CAUSES WITH OPPOSITE IMPLICATIONS, AND THE DIFFERENCE IS NOT
+ABOUT 367:**
+
+| | | |
+|---|---|---|
+| **A** | the editor splits on semicolons and autocommits each | **no migration ever run through the editor was atomic**, and every post-condition that "aborted" did so after its own writes had committed |
+| **B** | one transaction, but the pooler moves statements between backends | a temp table on one is invisible from another. 367 breaks; atomicity is intact |
+
+**Evidence favours B** -- migration 366 v1 aborted on its own post-condition and
+ROLLED BACK, so a transaction was being held that day. That is an INFERENCE,
+and `scripts/sql/probe-editor-transaction.sql` measures it: a temp table and
+`pg_backend_pid()` as the first and last statement of one paste. Same pid with
+the table missing means A; different pids mean B.
+
+> **MECHANISM: a migration that must be atomic is written as ONE STATEMENT --
+> a single `DO` block, before-state in a variable rather than a temp table,
+> DDL and `create or replace function` inside it via distinct dollar tags.**
+> One statement is one transaction under every pooling mode. Or the transport
+> is probed and the result recorded. Not assumed either way.
+
+Same principle as the count assertion in `_pg.mjs`: **do not rely on a property
+of the transport, assert the property you need.**
+
+**AND IT IS THE THIRD TRANSPORT SURPRISE THIS WEEK.** Backslash collapse
+through a shell heredoc; apostrophes mangling a quoted heredoc in Git Bash; and
+now a paste that is not one transaction. **The channel between an authored
+artifact and its execution is not transparent, and every time we have found
+that out through a failure rather than through a check.**
+
 **A COLUMN NAME IS A CONTRACT, AND `en_hash` HAD ALREADY BROKEN IT TWICE
 BEFORE A THIRD COLUMN NEARLY TOOK THE NAME.** Found 2026-09-23 while writing
 367.
