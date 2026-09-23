@@ -2112,6 +2112,29 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**AND THERE IS NO THROWAWAY MEASUREMENT WHOSE NUMBER REACHES A REPORT.**
+Recorded 2026-09-22, and it is the paging rule's missing clause.
+
+The founding defect of this whole programme -- `limit=2000` against a
+1,000-row cap -- was committed again in a SCRATCH SCRIPT, written to be
+deleted, **while measuring the consequences of another instance of it.** It
+made the review cost come back as 14 of 41 when the answer is 24: eighteen
+reviews found no lesson to join to, because the lessons read was short.
+
+It happened a second time the same hour, in `retranslate-repaired-passages`'s
+own `g()` helper -- one request, no `Range`, no count -- so the new `--dry`
+inspection reported **105 translated rows for 104 lessons across two
+languages**, which is arithmetically impossible and is the only reason it was
+caught. Paged, the figures are 208 rows and 41 of 41 reviews.
+
+> **MECHANISM: any read that could exceed 1,000 rows goes through a paged
+> helper with its count assertion, INCLUDING in a script written to be
+> deleted** -- because the script is deleted and the number is not.
+
+The scratch file is the most dangerous place for this, not the least: it skips
+review, it skips the helper, and its output goes straight into a report where
+nothing distinguishes it from a measured figure.
+
 **A WRITE THAT FAILS AFTER THE PRINT IS WORSE THAN ONE THAT FAILS BEFORE.**
 Recorded 2026-09-22 from `check-repair-translation-parity.mjs`.
 

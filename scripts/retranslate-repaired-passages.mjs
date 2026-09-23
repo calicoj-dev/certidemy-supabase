@@ -58,7 +58,7 @@ import { reviewBlocks as blocks, solid } from "./lib/guide-runs.mjs";
 import { looksLikeLanguage, checkFaithful as langControl } from "./lib/language-guard.mjs";
 import { preservesObligationAcross, checkFaithful as obControl } from "./lib/obligation-guard.mjs";
 
-const KNOWN = new Set(["--apply", "--out", "--lang", "--limit", "--verbose", "--slug", "--only"]);
+const KNOWN = new Set(["--apply", "--dry", "--out", "--lang", "--limit", "--verbose", "--slug", "--only"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
     console.error("Unrecognised flag: " + a + ".");
@@ -71,6 +71,18 @@ const arg = (k, d) => {
   return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith("--") ? process.argv[i + 1] : d;
 };
 const APPLY = process.argv.includes("--apply");
+/* ============ --dry IS AN INSPECTION, NOT THE OPERATION WITH THE WRITE OFF ===
+ *
+ * Without --apply this script still translates every span, because the SPEC is
+ * its output -- so "dry" cost 942 model calls over the full batch list. That is
+ * the operation with one step disabled, and nobody inspects before running when
+ * inspecting is as expensive as running. The flag then protects nothing.
+ *
+ * --dry reports what would be touched -- lessons, spans, languages, and the
+ * reviews the edits would invalidate -- and CALLS NO MODEL. It exits before the
+ * first request. */
+const DRY = process.argv.includes("--dry");
+if (DRY && APPLY) { console.error("--dry and --apply are contradictory."); process.exit(2); }
 const VERBOSE = process.argv.includes("--verbose");
 const OUT = arg("out", "retranslate-spec.json");
 const ONLY_LANG = arg("lang", "");
@@ -108,17 +120,44 @@ if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set"); process.exit(
 if (!AKEY) { console.error("ANTHROPIC_API_KEY is not set"); process.exit(2); }
 const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
 const H = { apikey: KEY, Authorization: "Bearer " + KEY };
+/* PAGED, WITH A COUNT ASSERTION, AND IT DID NOT USED TO BE.
+ *
+ * This returned whatever one request gave it. PostgREST caps a response at
+ * 1,000 rows, does not warn, and answers 200 -- so `lessons?select=...` came
+ * back as 1,000 of 1,437 and every figure derived from it was short. The --dry
+ * inspection below reported 105 translated rows for 104 lessons across two
+ * languages, which is arithmetically impossible and is how it was caught.
+ *
+ * Termination is on REACHING THE SERVER'S COUNT, never on a short page: a short
+ * page is what a lowered row cap, a dropped page and a finished read all look
+ * like. */
 async function g(p) {
-  let last;
-  for (let i = 0; i < 12; i++) {
-    try {
-      const r = await fetch(BASE + "/" + p, { headers: H, signal: AbortSignal.timeout(60000) });
-      const t = await r.text();
-      if (!r.ok) throw new Error("HTTP " + r.status + " " + t.slice(0, 160));
-      return JSON.parse(t);
-    } catch (e) { last = e; }
+  const out = [];
+  let from = 0, total = null, last;
+  for (;;) {
+    let page = null;
+    for (let i = 0; i < 12; i++) {
+      try {
+        const r = await fetch(BASE + "/" + p, {
+          headers: { ...H, Range: from + "-" + (from + 499), Prefer: "count=exact" },
+          signal: AbortSignal.timeout(60000),
+        });
+        const t = await r.text();
+        if (!r.ok) throw new Error("HTTP " + r.status + " " + t.slice(0, 160));
+        total = Number(String(r.headers.get("content-range") || "").split("/")[1]);
+        page = JSON.parse(t);
+        break;
+      } catch (e) { last = e; }
+    }
+    if (page === null) throw last;
+    out.push(...page);
+    if (!Number.isFinite(total)) throw new Error("no parseable content-range on " + p);
+    if (out.length >= total) break;
+    if (page.length === 0) throw new Error("SHORT READ on " + p + ": empty page at offset " + from);
+    from += 500;
   }
-  throw last;
+  if (out.length !== total) throw new Error("SHORT READ on " + p + ": " + out.length + " of " + total);
+  return out;
 }
 
 const MODEL = "claude-sonnet-4-6";
@@ -212,6 +251,45 @@ for (const b of BATCHES) {
 spansBySlug.set("02-09-pdca-and-improvement", [{ after: "Clause 10.1 requires the ISMS itself to be improved on three counts: how well it fits the organisation, whether it is sufficient, and whether it works.", address: "27001 clause 10.1" }]);
 spansBySlug.set("05-02-internal-audit", [{ after: "The standard requires audits to be run so the process stays [objective and impartial]{glossary=\"auditor-objectivity\"} (clause 9.2.2 b).", address: "27001 clause 9.2.2 b" }]);
 spansBySlug.set("02-03-amendment-1-2024", [{ after: "it added a requirement to decide whether climate change is relevant to the organisation.", address: "27001 Amd.1:2024 to clause 4.1" }]);
+
+/* ------------------------------------------------------- the dry inspection */
+if (DRY) {
+  const slugs = [...spansBySlug.keys()];
+  const spanCount = [...spansBySlug.values()].reduce((a, v) => a + v.length, 0);
+  const langs = ONLY_LANG ? [ONLY_LANG] : ["es-419", "pt-BR"];
+
+  const rows = await g("lessons?select=id,slug,language");
+  const revs = await g("lesson_translation_reviews?select=lesson_id,verdict");
+  const byId = new Map(rows.map((r) => [r.id, r]));
+
+  const touched = new Set(slugs);
+  const inval = {};
+  for (const r of revs) {
+    const l = byId.get(r.lesson_id);
+    if (!l || !touched.has(l.slug) || !langs.includes(l.language)) continue;
+    inval[l.language] = (inval[l.language] || 0) + 1;
+  }
+  const translatedRows = rows.filter((r) => touched.has(r.slug) && langs.includes(r.language)).length;
+
+  console.log("");
+  console.log("DRY INSPECTION -- no model was called, nothing was written.");
+  console.log("");
+  console.log("  batches listed      " + BATCHES.length);
+  console.log("  lessons             " + slugs.length);
+  console.log("  spans               " + spanCount);
+  console.log("  languages           " + langs.join(", "));
+  console.log("  model calls a real run would make   " + (spanCount * langs.length));
+  console.log("");
+  console.log("  REVIEWS IT WOULD INVALIDATE  (every edited body moves its tr_hash)");
+  for (const k of Object.keys(inval).sort()) console.log("    " + k.padEnd(8) + inval[k]);
+  console.log("    total " + Object.values(inval).reduce((a, b) => a + b, 0) + " of " + revs.length);
+  console.log("");
+  console.log("  AND " + translatedRows + " translated row(s) go DARK until scan-iso-leaks runs again:");
+  console.log("    trg_lessons_clear_mcp_servable nulls mcp_scanned_at and sets mcp_servable=false");
+  console.log("    on any content_md change. They stay dark wherever a review existed, until re-read.");
+  console.log("");
+  process.exit(0);
+}
 
 /* ------------------------------------------------------------ the targets */
 const flagged = await g("lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.true");
