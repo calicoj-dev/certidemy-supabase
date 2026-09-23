@@ -255,7 +255,15 @@ if (JSON_OUT) {
     english_repair_scripts: repairFiles.length,
     english_repaired_lessons: [...englishRepaired.keys()],
     spans_tested: spans.length, tally,
-    control: { slugs: CONTROL_SLUGS, spans: controlRows.length, new: controlNew },
+    /* Derived, not a second hand-typed list. The constant this replaced was
+     * deleted when the control moved to the applied EDITS table, and the
+     * reference survived here -- so the JSON write threw AFTER the summary had
+     * printed. The script reported 77 uncovered and persisted a stale 79, and
+     * a downstream classifier read the file rather than the screen.
+     *
+     * A WRITE THAT FAILS AFTER THE PRINT IS WORSE THAN ONE THAT FAILS BEFORE:
+     * the run looks complete. */
+    control: { slugs: [...new Set(controlEdits.map((e) => e.slug))], spans: controlRows.length, new: controlNew },
     results, uncovered,
   }, null, 2), "utf8");
   console.log("");
