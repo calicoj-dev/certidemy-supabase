@@ -2112,6 +2112,67 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A LEXICAL PROXY STANDS IN FOR THE PROPERTY IT APPROXIMATES, AND IT WORKS ON
+THE CORPUS THAT MOTIVATED IT.** Two instances in one change, which is why it is
+a class and not a note:
+
+| the proxy | the property | how it failed |
+|---|---|---|
+| markdown `>` | is this attributed | an inline citation naming standard AND clause scored as a leak; a blockquote was exempt at any length |
+| a decimal `\d+\.\d+` | is this a clause address | ANY decimal near a span attributed it |
+
+**All 25 bare-number attributions in the corpus were read and all 25 are
+genuine** -- `Clause 5.1 opens:`, `Annex A control 5.9`, `Clause 9.2.2 c):`.
+That is a fact about today. The RULE said *a decimal near a span attributes
+it*, so *the sample supported 21.80 percent of the population* beside a long
+ISO run would exempt it. Nothing does that today; nothing stopped tomorrow.
+
+> **MECHANISM: an address counts when it is ANCHORED** -- introduced by
+> clause, annex, control, section, subclause, table or their Spanish and
+> Portuguese equivalents -- **or when it carries a lettered sub-item** like
+> `9.2.2 c)`, which no percentage or version string does. A bare decimal with
+> no anchor is a number.
+
+**Re-measured before adopting, and the tightening cost nothing:** attributed
+stays 59 of 61, withholdings stay 0, the over-ceiling set stays 10. Three
+occurrences lost an unanchored decimal and kept attribution through the named
+standard. `checkAddress()` asserts BOTH directions -- nine anchored forms drawn
+from real lead-ins must match, five percentages and version strings must not --
+and it is a scanner control, so a future tightening that breaks a real lead-in
+fails loudly instead of silently withholding correct quotation.
+
+**AN ERROR IN THE CONSERVATIVE DIRECTION IS NOT SELF-CORRECTING.** This is the
+sharpest thing in the week and it cuts against a ruling made twice.
+
+An instrument that OVER-withholds produces findings that look like rigour.
+Nobody investigates a refusal. Nobody files a bug against a gate that was too
+strict. The false positives read as the system working -- so **a conservative
+error survives longer than a permissive one** and is found only when somebody
+reads the members.
+
+> **MECHANISM: over-refusals are sampled and READ on the same schedule as
+> under-refusals, and a gate whose refusals have never been read is treated as
+> UNVALIDATED regardless of direction.**
+
+Occasion: nine occurrences reported unattributed by a fixed two-line look-back,
+every one of them attributed six lines up, inside a block.
+
+**Withholding is safe for the CORPUS and unsafe for the INSTRUMENT, and those
+are different things.** The safe-direction rule governs what to ship; it does
+not excuse the instrument from being checked in that direction.
+
+**AND A FIELD THAT DOES NOT TRAVEL BECOMES A NEGATIVE FINDING DOWNSTREAM.**
+Filed with `matchingSources` returning empty for NOT ASKED, because it is the
+same defect one layer out: there a function's empty return was read as a real
+negative; here a persisted record omitted `term`, so a downstream reader could
+not distinguish a declared phrase from an undeclared one and rebuilt the de
+facto vocabulary list with **the single genuinely declared phrase at the top of
+a list of undeclared ones.** The console had it right and the artifact did not.
+
+> **Every field a verdict depended on travels with the record**, not only the
+> verdict -- and a reader that cannot tell "absent" from "not recorded" must
+> be given a third value rather than an empty one.
+
 **THE QUOTATION EXEMPTION WAS KEYED ON MARKDOWN FORM, AND FORM IS EVIDENCE OF
 NOTHING.** Ruled and rebuilt 2026-09-23. `attributedQuote` was
 `isQuoteLine(line) && isAttributed(line, leadIn)` -- exempt if the author

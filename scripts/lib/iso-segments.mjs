@@ -71,8 +71,83 @@ export const norm = (s) =>
  * narrowing it to a closed list of clause numbers would silently stop
  * recognising a standard nobody has added yet. */
 export const STANDARD_RE = /\bISO(?:\/IEC)?\s*\d{4,5}\b/i;
-export const ADDRESS_RE =
-  /(\b\d+\.\d+(\.\d+)?\b|\bannex(e)?\s+[a-z]\b|\banexo\s+[a-z]\b|\btabl[ae]\s+a\.\d|\btabela\s+a\.\d)/i;
+
+/* ============ AN ADDRESS IS ANCHORED, NOT MERELY DECIMAL ============
+ *
+ * This was `\d+\.\d+` -- ANY decimal number counted as a clause address, so
+ * any decimal in the neighbourhood of a span attributed it.
+ *
+ * Every one of the 25 bare-number attributions in today's corpus was read and
+ * every one is genuine: `Clause 5.1 opens:`, `Annex A control 5.9`,
+ * `Clause 9.2.2 c):`. But the rule is not "these 25 are clause addresses"; the
+ * rule is "a decimal near a span attributes it". A lesson reading *the sample
+ * supported 21.80 percent of the population* or *availability of 99.9 percent*
+ * beside a long ISO run would exempt it. Nothing in the corpus does that today
+ * and nothing stops tomorrow.
+ *
+ * Same defect as the one it sits beside: A LEXICAL PROXY STANDING IN FOR THE
+ * PROPERTY IT APPROXIMATES. Markdown form proxied for attribution; a decimal
+ * proxies for a clause address. Both work on the corpus that motivated them.
+ *
+ * So a number counts when it is ANCHORED -- introduced by a structural word in
+ * any of our three languages -- or when it carries a lettered sub-item, which
+ * no percentage or version string does. The anchor list is language-aware for
+ * the reason recorded above this block: an English-only pattern once reported
+ * 54 trilingual violations that did not exist. */
+const ADDRESS_ANCHOR =
+  "(?:clauses?|sub-?clauses?|annexe?|annexes|controls?|sections?|subsections?|tables?|" +
+  "cl[aá]usulas?|apartados?|anexos?|secci[oó]n|secciones|se[cç][aã]o|se[cç][oõ]es|" +
+  "controles?|controlo|cap[ií]tulos?|tabelas?|tablas?|item|punto)";
+
+export const ADDRESS_RE = new RegExp(
+  "(" +
+    /* clause 9.2, annex A.1, control 5.9, table A.1 -- an anchor then a number,
+     * optionally with a leading annex letter. */
+    "\\b" + ADDRESS_ANCHOR + "\\s*(?:no\\.?\\s*)?(?:[a-z]\\.)?\\d+(?:\\.\\d+)*\\b" +
+    "|" +
+    /* annex A, control B -- an anchor then a bare letter. */
+    "\\b" + ADDRESS_ANCHOR + "\\s+[a-z]\\b" +
+    "|" +
+    /* 9.2.2 c) -- a lettered sub-item. No percentage or version carries one. */
+    "\\b\\d+(?:\\.\\d+)+\\s*[a-z]\\s*\\)" +
+  ")", "i");
+
+/**
+ * POSITIVE AND NEGATIVE CONTROL for the address pattern.
+ *
+ * An attribution detector that matches everything exempts the corpus; one that
+ * matches nothing reports it all as leaks. Both directions are asserted,
+ * because this one was loosened deliberately and a loosened guard that nobody
+ * watches fail is the guard this file keeps having to rebuild.
+ *
+ * The POSITIVE cases are drawn from real lead-ins measured in the corpus, so a
+ * future tightening that breaks them fails here rather than silently
+ * withholding correctly attributed quotation.
+ */
+export function checkAddress() {
+  const bad = [];
+  const MUST = [
+    "Clause 5.1 opens:",
+    "Clause 9.2.2 c):",
+    "Annex A control **5.9, inventory of information**",
+    "clause 6.1.4 fixes its inputs",
+    "Table A.1 lists them",
+    "Annex A is normative",
+    "la clausula 9.2 exige",
+    "o apartado 8.2 requer",
+    "secao 7.4 trata disso",
+  ];
+  const MUST_NOT = [
+    "the sample supported 21.80% of the population",
+    "availability of 99.9% is the target",
+    "version 3.2 of the tool",
+    "a ratio of 0.67 across the corpus",
+    "it took 1.5 hours",
+  ];
+  for (const t of MUST) if (!ADDRESS_RE.test(t)) bad.push("MISSED an address: " + t);
+  for (const t of MUST_NOT) if (ADDRESS_RE.test(t)) bad.push("MATCHED a bare number: " + t);
+  return bad;
+}
 
 /** Is this quoted line attributed, on the line itself or in its lead-in? */
 export function isAttributed(line, leadIn) {

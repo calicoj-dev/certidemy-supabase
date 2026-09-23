@@ -48,7 +48,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { segments, attributedQuote, quoteLines, isAttributed, isQuoteLine,
-         QUOTATION_CEILING, checkFaithful as segControl } from "./lib/iso-segments.mjs";
+         QUOTATION_CEILING, checkFaithful as segControl, checkAddress } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 import { runUnits, SEED as LEAK_SEED } from "./lib/leak-score.mjs";
 
@@ -522,6 +522,13 @@ ctl("the index is populated", grams.size > 10000, grams.size + " " + SEED + "-gr
 const segBad = segControl();
 ctl("segmenter fixtures", segBad.length === 0,
   segBad.length ? segBad[0] : "7 case(s) including manufactured adjacency and CRLF");
+
+/* The address pattern decides what counts as attribution, and attribution is
+ * now what decides the exemption. It is asserted in BOTH directions: real
+ * lead-ins must match, percentages and version strings must not. */
+const addrBad = checkAddress();
+ctl("address anchors", addrBad.length === 0,
+  addrBad.length ? addrBad[0] : "9 anchored forms match, 5 bare numbers do not");
 
 let identityBad = 0, identityEg = null;
 for (const l of lessons) {
