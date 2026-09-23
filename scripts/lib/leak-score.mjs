@@ -125,7 +125,20 @@ export const stripScaffolding = (s) => String(s || "")
     .replace(/^\s*(?:\*\*)?\(?[a-z0-9]{1,3}[.)](?:\*\*)?\s+/i, " "))
   .join("\n");
 
-export const norm = (s) => stripScaffolding(s).toLowerCase()
+/* ============ norm DOES NOT STRIP, AND THAT IS NOT AN OVERSIGHT ============
+ *
+ * The first version folded `stripScaffolding` into `norm`, and `buildSources`
+ * refused to load: `19011:2026 extracted 19905 words, manifest says 20299`.
+ *
+ * The control was right and the change was wrong. **Scaffolding stripping is a
+ * DESCRIPTION-SIDE operation.** ISO's own text carries ISO's own numbering,
+ * and removing it from the INDEX changes what the corpus is -- quietly, and in
+ * a way that would have made every stored word count and every recorded run
+ * incomparable with the ones before it.
+ *
+ * So `norm` is what it always was, both sides use it, and the stripping
+ * happens where description text is turned into measurable units. */
+export const norm = (s) => String(s || "").toLowerCase()
   .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
 export const W = (s) => norm(s).split(" ").filter(Boolean);
 
@@ -204,15 +217,35 @@ function sourcePositions(src, runWords) {
 function runsAgainst(text, src) {
   const w = W(text);
   const out = [];
+  let lastEnd = -1;
   for (let i = 0; i + SEED <= w.length; i++) {
     if (!src.grams.has(w.slice(i, i + SEED).join(" "))) continue;
     let n = SEED;
     while (i + n + 1 <= w.length && src.grams.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
-    const words = w.slice(i, i + n);
-    const sourceAt = sourcePositions(src, words);
-    const inAnnex = sourceAt.length > 0 && sourceAt.every((p) => p >= src.annexAt);
-    out.push({ start: i, len: n, text: words.join(" "), sourceAt, inAnnex });
-    i += n - 1;
+    /* ============ NO SKIP, AND NO NESTED DUPLICATES EITHER ============
+     *
+     * This read `i += n - 1`, resuming the scan MID-RUN. Correct for counting
+     * occurrences, wrong for finding the longest: a longer run beginning
+     * inside the consumed region is never looked for. The scanner carried the
+     * identical construct and it held a live ten-word reproduction one word
+     * below the serving floor.
+     *
+     * The error is ONE-DIRECTIONAL -- a skipped start can lose a run and never
+     * invent one -- so every run length this library has reported is a LOWER
+     * BOUND.
+     *
+     * Advancing by one would emit a run at every overlapping start, which the
+     * merge step below would then treat as separate spans and mis-measure the
+     * description gaps. So every start is EXAMINED and only a run reaching
+     * beyond everything kept so far is RECORDED: the longest run is found, and
+     * the list stays the ordered, non-nested sequence the merger expects. */
+    if (i + n > lastEnd) {
+      const words = w.slice(i, i + n);
+      const sourceAt = sourcePositions(src, words);
+      const inAnnex = sourceAt.length > 0 && sourceAt.every((p) => p >= src.annexAt);
+      out.push({ start: i, len: n, text: words.join(" "), sourceAt, inAnnex });
+      lastEnd = i + n;
+    }
   }
   return out;
 }
@@ -268,10 +301,18 @@ export function scoreAgainst(text, key, src) {
 /** Best result across every source. Per source, never a union of sources. */
 export function score(text, sources) {
   let best = null;
+  /* PER UNIT, PER SOURCE, MAXIMUM AFTER. Units are description lines with
+   * their scaffolding removed -- see `runUnits`. Scoring the whole text as one
+   * stream joins across list items and across line breaks, which is the
+   * manufactured adjacency this file's header already forbids across
+   * documents, one level down. A text with no line breaks is one unit and
+   * nothing changes for it. */
+  for (const unit of runUnits(text)) {
   for (const [key, src] of sources) {
-    const s = scoreAgainst(text, key, src);
+    const s = scoreAgainst(unit, key, src);
     if (!s.runs.length) continue;
     if (!best || s.unionCov > best.unionCov || (s.unionCov === best.unionCov && s.maxRun > best.maxRun)) best = s;
+  }
   }
   return best || { source: "", words: W(text).length, runs: [], merges: [], merged: [],
                    annexStructure: false, maxRun: 0, maxCov: 0, unionRun: 0, unionCov: 0 };

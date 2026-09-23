@@ -242,7 +242,30 @@ function longestRun(text) {
         let n = SEED;
         while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
         if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); bestSrc = label; }
-        i += n - 1;
+        /* ============ NO SKIP. THE JUMP WAS A MEASUREMENT ERROR ============
+         *
+         * This read `i += n - 1`, which resumes the scan MID-RUN after a
+         * match. That is correct for COUNTING OCCURRENCES and wrong for
+         * FINDING THE LONGEST: a longer run beginning inside the consumed
+         * region is never looked for.
+         *
+         * It cost a real one: `aims-ia-04-06` reported 9w where a 10-word
+         * reproduction of 42001 clause 6.1.4 existed, and that one word was
+         * the difference between the serving floor and a refusal. The lesson
+         * served in two languages for as long as the scanner has worked this
+         * way.
+         *
+         * AND IT ONLY EVER ERRS ONE WAY. A skipped start can only lose a run,
+         * never invent one -- so every leak number this instrument has ever
+         * produced is a LOWER BOUND, and the error is always in the direction
+         * that flatters.
+         *
+         * The per-unit split did not fix this. It reset the offset at a line
+         * boundary that happened to fall before the true start, which is luck.
+         * Two overlapping candidates inside ONE paragraph still lost the
+         * longer one, and paragraphs are where most of the corpus lives.
+         *
+         * Cost of not skipping, measured at this corpus size: nothing. */
       }
     }
   }
@@ -706,6 +729,26 @@ if (ctlFailed.length) {
     realRun >= THRESHOLD, realRun + "w measured, threshold " + THRESHOLD);
   chk("FIXTURE: the same words split across two items do NOT",
     splitRun < realRun, "split " + splitRun + "w vs whole " + realRun + "w");
+
+  /* ============ OVERLAPPING RUNS -- THE CASE THE SKIP USED TO LOSE ==========
+   *
+   * The fixture above was built around the list defect because the list defect
+   * was the one in front of us. **A control built around the defect that
+   * prompted it tests the defect, not the class** -- and it would not have
+   * caught `i += n - 1`, which lost a longer run beginning INSIDE an earlier
+   * match. That cost a live ten-word reproduction its refusal.
+   *
+   * So: a short canary followed, on the same line, by a longer one. Under the
+   * old greedy walk the first match consumed the scan position and the second
+   * was never looked for. The measured run must be the LONGER of the two, not
+   * the first one found. */
+  const shortC = Object.values(CANARIES)[1] ?? Object.values(CANARIES)[0];
+  const longC = Object.values(CANARIES)[0];
+  const sr = longestMeasured(shortC).best;
+  const lr = longestMeasured(longC).best;
+  const both = longestMeasured(shortC + " and then " + longC).best;
+  chk("FIXTURE: a later, longer run is not lost to an earlier match",
+    both >= Math.max(sr, lr), "short " + sr + "w, long " + lr + "w, together " + both + "w");
 
   /* And report what the ISO certifications actually came to, as information
    * rather than as an assertion. Zero is now the expected state. */

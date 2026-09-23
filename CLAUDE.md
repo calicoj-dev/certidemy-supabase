@@ -2112,6 +2112,62 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**AN OPTIMISATION INSIDE A MEASUREMENT IS A MEASUREMENT ERROR UNTIL PROVEN
+OTHERWISE.** Ruled 2026-09-23. The largest defect of the week, and it was found
+while fixing a smaller one.
+
+`i += n - 1` sat in the inner loop of BOTH run-finders -- `scan-iso-leaks` and
+`lib/leak-score.mjs`. It resumes the scan MID-RUN after a match, which is
+correct for COUNTING OCCURRENCES and wrong for FINDING THE LONGEST: a longer
+run beginning inside the consumed region is never looked for. The two uses were
+never distinguished because the loop was written once and read as obviously
+fine.
+
+**IT ERRS IN ONE DIRECTION ONLY.** A skipped start can lose a run and can never
+invent one. So **every leak number this programme has produced is a LOWER
+BOUND** -- the 371 span lengths, the draft scores, the 8-or-9 margin calibrated
+against them.
+
+**MEASURED, corpus-wide, after removing it:**
+
+```
+before   AIMS-IA 3 rows refused, everything else clean
+after    AIMS-F  05-01-aims-monitoring-and-measurement   12w
+         AIMS-IA aims-ia-05-05-a-report-for-someone...   11w
+         AIMS-IA aims-ia-04-06-two-assessments-not-one   10w
+```
+
+Two further lessons, six further rows, **all real contiguous reproductions of
+ISO/IEC 42001:2023, all serving in English until this was deployed**:
+
+```
+12w  "the organization should consider the performance of non ai systems or processes"
+11w  "ensure that the results of audits are reported to relevant managers"
+```
+
+> **MECHANISM: a measurement's inner loop is written for correctness and only
+> then measured for cost. A skip, a cache or an early exit inside one carries a
+> comment stating what it is allowed to miss.** At this corpus size not
+> skipping costs nothing.
+
+**AND THE PER-UNIT SPLIT DID NOT FIX IT.** It reset the offset at a line
+boundary that happened to fall before the true start -- luck, not a repair. The
+list case is the one shape that split rescues by accident; a paragraph is a
+single unwrapped line here, and a paragraph is where most of the corpus lives.
+
+**A CONTROL BUILT AROUND THE DEFECT THAT PROMPTED IT TESTS THE DEFECT, NOT THE
+CLASS.** The scaffolding fixture, written one prompt earlier, would never have
+caught this: it tests lists because a list was the bug in front of us. The
+overlapping-runs fixture was added with the skip fix and asserts that a later,
+longer run is not lost to an earlier match.
+
+**AND A STRIP THAT BELONGS ON ONE SIDE MUST NOT BE APPLIED TO BOTH.** Folding
+`stripScaffolding` into `norm` broke the index load -- *19011:2026 extracted
+19905 words, manifest says 20299* -- because ISO's own numbering is part of
+ISO's text. The manifest assertion caught it immediately. Scaffolding stripping
+is a DESCRIPTION-side operation; the index is never normalised differently from
+how it was built.
+
 **A COMPUTATION WITH A STATED INVARIANT HAS EXACTLY ONE IMPLEMENTATION.**
 Ruled 2026-09-23, and it is the general form of `_pg.mjs`'s count assertion and
 of the `matchingSources` lesson.
