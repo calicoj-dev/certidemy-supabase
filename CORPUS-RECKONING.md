@@ -81,6 +81,71 @@ languages. `mcp_servable` is a column; the gate is a function that ANDs it with
 two more clauses. Same defect this file exists to catalogue, committed while
 cataloguing it.
 
+### 1.2b PROVENANCE: the question cannot be answered from the database
+
+Asked 2026-09-22: were the Spanish and Portuguese lesson bodies regenerated
+after the English ISO repairs? **There is no instrument that can say.**
+
+**There is no `en_hash` on `lessons`.** The concept layer has per-row
+provenance — `concept_translations.en_hash` records the English a translation
+was generated FROM, and `mcp.concept` withholds the row when it stops matching.
+**The lesson layer has none of that.** `lesson_translation_reviews.en_hash`
+exists, but it pins a REVIEW, not a translation, and there are 41 of them
+against 958 non-English rows.
+
+**And `updated_at` is not provenance either.** All 1,437 lesson rows were
+written in a **twelve-second window**:
+
+```
+en       479 rows   updated_at  2026-09-21 18:55:24.469  ->  18:55:36.131
+es-419   479 rows   updated_at  2026-09-21 18:55:24.469  ->  18:55:36.273
+pt-BR    479 rows   updated_at  2026-09-21 18:55:24.469  ->  18:55:36.131
+```
+
+A bulk backfill. **My first query off this column reported "203 es-419 bodies
+predate their English" — that number is sub-second ordering inside one write
+and it is withdrawn.** `created_at` spans May to September but records when the
+ROW was created, and a repair edits `content_md` in place without creating one.
+
+**What IS known:** all 41 review rows are current on both sides — 41 of 41
+`en_hash` match, 41 of 41 `tr_hash` match. Those reviews are live and valid.
+They cover 4% of the non-English corpus.
+
+> **MECHANISM, and it is the one the concept layer already has: put `en_hash`
+> on `lessons`.** It answers this question permanently, and it gives the lesson
+> gate the tooth the concept gate has — an English repair would withhold its
+> translations automatically instead of leaving them serving and unmarked.
+> Until it exists, provenance for 12.8M characters is unrecoverable.
+
+### 1.2c The English is clean
+
+`scan-iso-leaks.mjs`, dry run, full corpus, 2026-09-22:
+
+```
+CONTROLS           index populated 165,912 5-grams; segmenter fixtures;
+                   IDENTITY on all 1437 bodies; NEGATIVE on AISM-I;
+                   three POSITIVE controls, each standard matching its own text
+VERDICTS >=10w     twelve certifications, 1,437 rows, 0 REFUSED
+                   longest run 11w (ISMS-F), and it is a named exemption
+```
+
+**The repairs held.** Ten controls pass, including three that prove the index
+can match at all — so the zero is a measurement rather than a silent failure.
+The one 11-word run is `04-02-control-attributes` naming ISO/IEC 27002's
+control-attribute categories, exempted with a stated reason.
+
+**But the verdict is taken over `lesson_group_id`, and non-English rows score
+zero by construction.** The script's own header says it: *"THE TRANSLATION OF A
+QUOTED CLAUSE IS STILL A REPRODUCTION OF ISO'S EXPRESSION. It is simply one
+this index cannot see."* So *0 refused* is a statement about the English and
+about nothing else.
+
+**Which is why 1.2b is the whole question.** English is clean now; the
+translated side is unmeasurable by construction; and whether the translations
+were made from the English before or after it was repaired is exactly the gap
+that neither instrument covers. **Provenance was the only available answer and
+it does not exist.**
+
 ### 1.3 Tasks, domains, modules
 
 | surface | rows/lang | cleared | provisional | review table |
