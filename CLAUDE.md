@@ -2112,6 +2112,26 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A WRITE THAT FAILS AFTER THE PRINT IS WORSE THAN ONE THAT FAILS BEFORE.**
+Recorded 2026-09-22 from `check-repair-translation-parity.mjs`.
+
+Its summary printed **77 uncovered lessons**. Its `writeFileSync` then threw on
+a `CONTROL_SLUGS` reference left behind when the control moved to the applied
+`EDITS` table -- so the file on disk kept a stale **79** from an earlier run.
+
+**The run looked complete.** The summary was right, the exit was quiet enough
+to miss, and the next instrument read the FILE rather than the screen: the
+classifier built its first result on 79. Two numbers, one script, and the wrong
+one was the durable half.
+
+> **MECHANISM: a script that both prints and persists does the WRITE FIRST, or
+> asserts afterwards that what it wrote matches what it printed.** A stale
+> artifact outlives the terminal, and terminals are not what downstream tools
+> read.
+
+Same family as the count assertion on a paged read: **the number that leaves
+the process is the one that has to be right.**
+
 **BEFORE AN ENDPOINT DEFECT IS REPORTED, THE REQUEST IS VERIFIED WELL-FORMED
 AGAINST THAT ENDPOINT'S OWN DECLARED INTERFACE.** Three times in one week a
 malformed probe was reported as a defect in the thing probed:
