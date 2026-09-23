@@ -2112,6 +2112,79 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**PROSE INSERTED INTO A QUOTATION BLOCK INHERITS THE BLOCK'S JOB.** Found
+2026-09-23, minutes after applying the ceiling conversions, by the scanner
+rather than by reading.
+
+Each conversion replaced an over-ceiling blockquote line with *a short
+quotation plus our sentence*. Where the replaced line sat in the MIDDLE of a
+multi-line quotation, the inserted prose became the new LEAD-IN for every quote
+line beneath it -- and our sentence carried no citation, so the remainder of
+clause 10.2 was judged unattributed. `isms-ia-05-05` came back refused at 18w.
+
+**The 18w span is a real reproduction of 42001 and it had always been there.**
+It was exempt because the block above it was attributed. The repair cut the
+chain, not the text.
+
+> **MECHANISM: prose inserted inside a quotation block must itself name the
+> clause**, because it is the lead-in for everything below it. A conversion
+> that explains a quotation in the middle of one has to re-state the citation,
+> or it silently un-attributes the remainder -- and the script that does it
+> asserts `ADDRESS_RE` matches its own replacement text.
+
+Same family as the segmenter defect an hour earlier and worth filing with it:
+**an edit made for one span removed the evidence a NEIGHBOURING span depended
+on.** Both times the unit of the change was smaller than the unit of the
+property.
+
+**A CONVERSION IS NOT A TRUNCATION.** The ten over-ceiling quotations came back
+as *a short marked quotation plus our sentence*, never as the same quotation
+with its tail deleted. A 52-word quotation cut to 25 is worse teaching than a
+five-word quotation plus an explanation, because the whole point of the ceiling
+is that we EXPLAIN rather than DELIVER.
+
+The phrase stays quoted where the WORDING is the examinable thing -- `some
+degree of verification`, `wherever practicable`, `of external origin` -- and
+everything else moves into our voice. Measured: **337 quoted words became 106**,
+and every edit declared the modal, conjunction and defined terms it had to
+preserve, asserted before the write.
+
+```
+52w -> 5w    45w -> 10w   45w -> 17w   30w -> 7w    29w -> 11w
+29w -> 10w   27w -> 11w   27w -> 17w   27w -> 10w   26w -> 10w
+```
+
+**AND THE CEILING IS ENFORCED ON ENGLISH ONLY, WHICH IS NOW CONCRETE RATHER
+THAN THEORETICAL.** The leak index holds English editions, so a translated
+quotation scores 0 by construction and a lesson group takes its verdict from
+the English sibling.
+
+So after this batch: `isms-ia-03-02`'s English carries a 5-word quotation and
+its **es-419 and pt-BR bodies still carry the full 52-word quotation,
+translated** --
+
+```
+es-419  "> La evidencia de auditoria debe ser verificable. Debe basarse en
+         **muestras** de la informacion disponible, ya que una auditoria se
+         lleva a cabo durante un periodo determinado y con recursos finitos..."
+```
+
+-- and `lesson_body_is_servable` returns TRUE for both, because that group has
+`mcp_translation_review_required = false`. **The ceiling was ruled for the
+corpus and applied to a third of it.**
+
+> **The translated bodies of every converted lesson are now BOTH over the
+> ceiling AND divergent from their English source.** That is two problems, not
+> one: a reproduction the index cannot see, and a lesson that says different
+> things in different languages. Neither is detectable by any instrument here.
+
+**AND `mcp_servable` SAID TRUE WHILE THE GATE SAID FALSE, ON SIX OF THE EIGHT.**
+The column is per row and the FUNCTION additionally requires an approved,
+hash-current translation review. Six translated rows are withheld by the review
+gate and their column reads `true`. The column is not the gate -- checked with
+`lesson_body_is_servable()` rather than read off the row, which is the only
+reason the two `isms-ia-03-02` rows were identified as genuinely serving.
+
 **A LEXICAL PROXY STANDS IN FOR THE PROPERTY IT APPROXIMATES, AND IT WORKS ON
 THE CORPUS THAT MOTIVATED IT.** Two instances in one change, which is why it is
 a class and not a note:
