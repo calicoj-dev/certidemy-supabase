@@ -2112,6 +2112,69 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A HELPER THAT RETURNS EMPTY ON MISUSE REPORTS A NEGATIVE FINDING IT NEVER
+MEASURED.** Recorded 2026-09-23. Fourth instrument failure of the week and the
+third where the instrument answered confidently without measuring.
+
+`matchingSources(spanText, sources)` searches for the WHOLE `spanText` as one
+contiguous run. Called with a paragraph instead of a matched span it returns
+`[]` -- which printed as `(none reported)` and reads as *no source matched*
+when the truth is *no source was asked*.
+
+**MEASURED across 371 reproduction spans, re-attributed correctly:**
+
+```
+printed NO source before        226
+now name a source               170
+now name MORE THAN ONE standard  47
+still name none                  56
+```
+
+**NOT MATERIALLY AFFECTED, and that was checked rather than hoped.** Every
+verdict in the affected documents came from `firesUnion(score(...))`, which
+never consulted the attribution: the 77-of-77 classification, the twenty-span
+selection by run length, and the drift classes are all independent of it. The
+damage is a column that read *none* where it should have read a document --
+cosmetic in `UNCOVERED-REPRODUCTION-AIMS-F.md`, and silently absent in
+`TWENTY-SPANS.md`.
+
+> **MECHANISM: a function whose empty return is indistinguishable from a real
+> negative either THROWS on a malformed argument or returns a third value
+> meaning NOT ASKED.** Empty is never a result.
+
+**AND THE 47 THAT NAME MORE THAN ONE STANDARD ARE A FINDING THE BUG WAS
+HIDING.** The harmonised management-system structure means clauses 4 to 10
+share sentences across 27001, 42001, 27002 and 27000 -- so **a 42001 lesson can
+reproduce 27001 and nobody would think to check**. Some spans match four
+indexed documents at once. Confirmed, not inferred: `score()` iterates every
+entry in the index and nothing anywhere filters sources by the lesson's
+certification. The index is nine documents: 19011:2026, 22989:2022, 27000:2018,
+27001:2022, 27001:2022/Amd1, 27002:2022, 27004:2016, 27005:2022, 42001:2023.
+
+**RESTORING A RESERVED TERM RESTORES THE TERM, NOT THE TERM'S PHRASE.**
+`determine`, `implement`, `available`, `appropriate`, `shall` are reserved for
+what each word imports, and a reserved term carries that import in isolation.
+The clause's object, order and connectives come with no such warrant.
+
+Occasion: a rewrite approved on reserved-term grounds restored `determine` --
+and brought *the internal and external communications relevant to the AI
+management system* with it. Eleven of ISO's words in a row, in a batch written
+to remove reproductions. **The ground was sound and the execution of it
+produced the defect.**
+
+> **The exception has a hard limit: ONE WORD.** If a redraft needs two of ISO's
+> words adjacent to make its point, the point needs a different sentence.
+
+Measured on the redrafts: 22w to 5w, 11w to 4w, 9w to 0w, with every reserved
+term preserved.
+
+**A LESSON IS A UNIT OF APPLICATION.** All accepted spans for one lesson land
+in one write, or none do -- and the reason is REVIEW INTEGRITY rather than
+cost. Two applications produce two review invalidations, and the second
+reviewer reads a body the first review never saw. **A reviewer who approves a
+lesson with one span applied and another pending has approved a lesson that
+will not exist by the time the approval means anything.**
+
 **A REWRITE IS SCORED BEFORE IT IS READ, AND AGAIN AFTER IT IS APPLIED.**
 Ruled 2026-09-23, and the batch that occasioned it proved the point on its
 first run.
