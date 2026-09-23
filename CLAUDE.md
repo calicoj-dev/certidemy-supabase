@@ -2984,6 +2984,33 @@ a concept row is ever cosmetic downstream.** Nothing was exposed only because
 both ISMS-F draws are blocked; had they been serving, a capitalisation pass
 would have withheld 44 live rows with no warning.
 
+**AND IT HAS A THIRD STATE THE FIELD NAME CANNOT CARRY: ENGLISH.** Found
+2026-09-22, on the wire, minutes after `get_concept` v3 shipped.
+
+`mcp.concept` computes the flag as `ct.description is null`, and **no
+`concept_translations` row has `language = 'en'`** -- the English lives on the
+concept itself. So the view answers **true for every English read**, and the
+first English `get_concept` v3 call told the caller that the description it had
+asked for was a substitute.
+
+The view is not wrong. It answers a question about a ROW -- *did a translation
+join* -- and the field is read as a question about a REQUEST -- *is this the
+language I asked for*. Those coincide for `es-419` and `pt-BR` and come apart
+for English, which is the only language whose text is not in that table.
+
+> **MECHANISM: the row-level meaning stays in the view, and the request-level
+> meaning is computed where the request is known** -- `request.language !== "en"
+> && row.description_is_fallback === true`, in the Worker. Pushing the language
+> test into the view would change `courseware-read`'s own contract for every
+> other caller to fix a question those callers are not asking.
+
+**It was caught because the verification asked for a case nobody had a reason
+to doubt.** The wire check covered a cleared row and an uncleared row -- the
+two the feature is about. English was in the list only because the brief said
+*"English is unchanged in substance"*, and the substance was unchanged; the
+flag beside it was not. **The control that finds this kind of defect is the one
+aimed at the case you are confident about.**
+
 **`description_is_fallback` RENDERS BOTH WITHHOLDING REASONS IDENTICALLY.**
 Recorded as a finding 2026-09-22. **The contract is NOT changed** --
 contractVersion 2 is partner-facing and this is not the week to move it.
