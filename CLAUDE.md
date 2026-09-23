@@ -2112,6 +2112,59 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A JOINED SPAN IS ONLY JOINED ACROSS TEXT THAT EXISTS ON BOTH SIDES.**
+Recorded 2026-09-23, and `scan-iso-leaks` has this defect in production.
+
+Numbering, lettering, markdown syntax and any other DESCRIPTION-SIDE
+scaffolding is stripped before a union is computed. Joining across it
+manufactures the adjacency the union rule exists to detect -- and the union
+rule already forbade it, because it requires a description gap of zero and a
+letter is a description token with no counterpart in the source.
+
+**Found twice on one day, in two instruments.**
+
+Mine first: clause 5.1's `a)` to `h)` joined WITH the letters scored **10w and
+fired** on the run *"g promoting continual improvement h supporting other
+relevant management roles"*. Letters stripped, the same list scores **6w**. The
+10w never existed.
+
+**Then the production scanner did it, and took a lesson dark.** After an
+accurate seven-word quotation of 27001 clause 5.2 g) was restored,
+`isms-ia-04-02` scored 10w and was REFUSED on:
+
+```
+"the organization g be available to interested parties as appropriate"
+```
+
+`organization` is the tail of item **f)**. `g` is the **letter**. The actual
+quotation is `be available to interested parties as appropriate` -- **seven
+words**, under every threshold. Three rows went unservable for a run that does
+not exist in any document.
+
+> **CONSEQUENCE: any accurate short quotation inside a lettered list can be
+> pushed over the floor by its neighbours.** The more faithfully a lesson
+> quotes, the likelier this is -- so the gate penalises exactly the behaviour
+> the reproduction policy asks for.
+
+**AND THE MARKED-QUOTATION EXEMPTION IS UNIMPLEMENTED, NOT MERELY
+UNACCOUNTED.** The policy permits a short distinctive quotation under ten
+words. Scored, `be available to interested parties, as appropriate` is **8w at
+coverage 1.00** -- every word ISO's, which is what a quotation IS -- so it
+fires the ratio gate outright. Nothing in any instrument knows it is
+attributed. Today the only thing standing between a permitted quotation and a
+refusal is a human waiver.
+
+> **MECHANISM: a span is exempt only if an attribution naming STANDARD AND
+> CLAUSE sits within a bounded distance and the span is under the policy limit;
+> an exempted span is REPORTED AS EXEMPT WITH ITS ATTRIBUTION, never omitted.**
+> A gate that hides what it excused cannot be audited -- the same shape as
+> `(none reported)` meaning *not asked*.
+>
+> And the allowance is PER SPAN with nothing counting the total. **Fifty
+> permitted eight-word quotations of one standard are a substantial
+> reproduction of it that no gate here would ever report**, because the
+> per-span floor cannot see a sum and nothing sums.
+
 **A HELPER THAT RETURNS EMPTY ON MISUSE REPORTS A NEGATIVE FINDING IT NEVER
 MEASURED.** Recorded 2026-09-23. Fourth instrument failure of the week and the
 third where the instrument answered confidently without measuring.

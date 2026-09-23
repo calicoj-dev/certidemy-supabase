@@ -1,0 +1,69 @@
+{
+  "applied": "2026-09-23T04:20:07.848Z",
+  "lessons": [
+    {
+      "slug": "01-03-the-ai-system-life-cycle",
+      "spans": [
+        1,
+        2
+      ]
+    },
+    {
+      "slug": "02-06-the-ai-system-impact-assessment",
+      "spans": [
+        3
+      ]
+    },
+    {
+      "slug": "03-01-resources-and-competence",
+      "spans": [
+        7
+      ]
+    },
+    {
+      "slug": "03-02-awareness-and-communication",
+      "spans": [
+        8,
+        9
+      ]
+    },
+    {
+      "slug": "03-03-documented-information",
+      "spans": [
+        5,
+        10
+      ]
+    },
+    {
+      "slug": "03-04-operational-planning-and-control",
+      "spans": [
+        6,
+        11
+      ]
+    },
+    {
+      "slug": "05-01-aims-monitoring-and-measurement",
+      "spans": [
+        13
+      ]
+    },
+    {
+      "slug": "05-02-aims-internal-audit",
+      "spans": [
+        14
+      ]
+    },
+    {
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "spans": [
+        "15a",
+        "15b",
+        "15c"
+      ]
+    }
+  ],
+  "held": [
+    "03-06-data-for-ai-systems (#4, absent from the apply list)",
+    "04-01-annex-a-structure (#12, own batch)"
+  ]
+}
