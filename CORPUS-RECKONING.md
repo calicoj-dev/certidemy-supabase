@@ -146,6 +146,78 @@ were made from the English before or after it was repaired is exactly the gap
 that neither instrument covers. **Provenance was the only available answer and
 it does not exist.**
 
+### 1.2d PARITY: does the translation render the old English or the new one?
+
+**Answered 2026-09-22 without a Spanish index**, because the repairs are a
+known set with a before and an after in all three languages, recorded in the
+emitted `*-spec.json` files. `scripts/check-repair-translation-parity.mjs`,
+read-only.
+
+```
+English repair scripts   25   naming 101 lesson(s)
+spec files               16   418 translated spans with a before and an after
+
+POSITIVE CONTROL  6 of 10 spans from retranslate-audit-sentence.mjs -> NEW
+VERDICTS          NEW 353    NEITHER 64    OLD 1
+UNCOVERED         77 lessons -- English repaired, no retranslation record
+```
+
+**The control fires**, which is what makes the rest readable: at least one
+repair was followed by a retranslation that landed and this comparison can see
+it. The 4 non-NEW control spans are `isms-ia-01-01-audit-parties`, whose text
+moved again after that script ran.
+
+**OLD: exactly one span.** `isms-ia-04-06-defined-versus-running` pt-BR, and it
+is a modal, not a reproduction:
+
+```
+was:  - e) **quando** os resultados deverao ser analisados e avaliados
+now:  - e) **quando** os resultados devem ser analisados e avaliados
+```
+
+**NEITHER: 64 spans across 21 lessons**, 54 from `retranslate-spec.json`
+(ISMS-IA) and 10 from the Scrum marking spec. Neither string is present
+verbatim, which means the body moved again after the spec was written — the
+`clausula`/`Seção` pins and the modal pins are the obvious candidates. **Not
+resolved by preference. They need a human.**
+
+**UNCOVERED: 77 lessons, and this is the finding.**
+
+| | |
+|---|---:|
+| AIMS-IA | 39 |
+| **AIMS-F** | **34** |
+| ISMS-IA | 6 |
+
+**There is no spec file for AIMS-F at all.** Every `*-spec.json` on disk is
+`aimsia-*` or `ismsia-*`. So 34 AIMS-F lessons had their English repaired with
+no record that a retranslation followed, and AIMS-F is the released
+certification.
+
+> **This is not evidence that those translations are wrong.** It is the
+> absence of evidence that they are right, over the one axis that was
+> answerable. 353 of 418 testable spans came back NEW, so where a record
+> exists the retranslations overwhelmingly landed — which makes the 77 a
+> question about record-keeping as much as about text.
+
+**And the instrument was wrong twice before it was right**, both caught by its
+own control:
+
+1. It tested `before` and `after` independently and reported **BOTH on 290 of
+   418 spans**. Many repairs APPEND — a marking pass adds a glossary
+   annotation and leaves the sentence — so `before` is a SUBSTRING of `after`
+   and the two can never be separated that way. Fixed with precedence: if the
+   new text is present the repair landed, whatever else is there.
+2. Its control span came from a spec file, and the audit-sentence
+   retranslation was applied from its own `EDITS` table, so the spec's `after`
+   was not the text that landed. **A control has to test the artifact that was
+   actually applied.**
+
+**The bound on urgency:** this corpus sits behind `courseware:lessons`. The
+concept reproductions were unauthenticated and anyone could pull them; these
+are licensed to a currently small set of partners. Serious, and a different
+risk profile — which is a reason to do it properly rather than quickly.
+
 ### 1.3 Tasks, domains, modules
 
 | surface | rows/lang | cleared | provisional | review table |
@@ -224,11 +296,13 @@ So neither half was wrong on its own and the combination 404s — which is worse
 than a plainly wrong note, because each half survives a spot check. Corrected,
 with the method recorded: read the URLs out of the signed document.
 
-**The mandated byte-hash passes — on a different object than the instruction
-names.** CLAUDE.md says to byte-hash before and after any `open-badge` deploy,
-expecting `366981ac…`. That hash is the **credentials.certidemy.com**
-document, measured today and matching exactly. The `open-badge` function
-returns 622 bytes hashing to `cac1a733…`.
+**The mandated byte-hash passes.** `366981ac…` is the credential document, and
+it is returned by BOTH `credentials.certidemy.com/credentials/[code]` and
+`open-badge?doc=credential&code=[code]` — measured before and after an
+`open-badge` deploy the same day, unchanged. **~~on a different object than the
+instruction names~~ — withdrawn**: the 622 bytes I first hashed were the issuer
+document, because I had omitted `doc`. Same root cause as the withdrawal
+below.
 
 **~~And `open-badge` ignores its input~~ -- WITHDRAWN 2026-09-22, same day.**
 

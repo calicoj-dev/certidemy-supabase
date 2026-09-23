@@ -1,0 +1,82 @@
+-- 367 PROPOSED -- NOT RUN. Filename carries PROPOSED deliberately so it cannot
+-- be pasted by accident, and so `ls migrations/` does not imply it applied.
+--
+-- en_hash on lessons: give the lesson gate the tooth the concept gate has.
+--
+-- ############ WHY, AND WHY IT IS NOT THE ANSWER TO THE QUESTION ############
+--
+-- concept_translations.en_hash records the English a translation was generated
+-- FROM, and mcp.concept withholds the row the moment it stops matching. An
+-- English repair therefore withholds its translations automatically.
+--
+-- lessons has nothing equivalent. lesson_translation_reviews.en_hash pins a
+-- REVIEW (41 rows against 958 non-English bodies), and every lessons row was
+-- bulk-written inside a twelve-second window on 2026-09-21, so updated_at
+-- orders nothing. Repair the English and the translated copy is served again,
+-- still carrying whatever it carried, with every instrument reporting clean --
+-- retranslate-audit-sentence.mjs says exactly that in its own header.
+--
+-- THIS RECORDS PROVENANCE FROM NOW FORWARD AND SAYS NOTHING ABOUT THE 958 ROWS
+-- ALREADY THERE. It runs BESIDE the parity check, not instead of it. The
+-- backward-looking question was answered by
+-- scripts/check-repair-translation-parity.mjs: 353 NEW, 64 NEITHER, 1 OLD,
+-- 77 lessons with no retranslation record at all.
+--
+-- ############ THE INITIAL STAMP IS THE WHOLE DESIGN DECISION ############
+--
+-- A new hash column has to start somewhere, and the choice is not cosmetic:
+--
+--   STAMP EVERY ROW FROM CURRENT ENGLISH
+--     Nothing is withheld on the day it runs. It is also the defect this
+--     repository spent a week removing from its clearance scripts -- writing
+--     the value the gate is about to compare against makes every row fresh BY
+--     CONSTRUCTION, so the gate is installed already blindfolded. It would
+--     assert that all 958 translations track the current English, which the
+--     parity check shows is unknown for 77 lessons and false for at least one.
+--
+--   STAMP NOTHING, NULL MEANS UNKNOWN
+--     Honest, and it withholds 958 bodies the moment the gate reads it --
+--     a paid surface going dark on a migration.
+--
+--   STAMP ONLY WHAT THE PARITY CHECK PROVED  <-- the one this proposes
+--     NEW verdicts get a hash computed from the current English, because the
+--     retranslation demonstrably landed. NEITHER, OLD and UNCOVERED are left
+--     NULL, and NULL is read as "not established" rather than as "stale".
+--
+-- SO THE GATE MUST DISTINGUISH NULL FROM MISMATCH, and that is the one thing
+-- not to compromise on. A mismatch means the English moved under a known
+-- translation: withhold. A NULL means nobody ever established the relationship:
+-- that is the 2026-09-21 bulk write, and it is not a reason to take a paid
+-- surface down.
+--
+-- ############ WHY IT IS NOT WRITTEN OUT BELOW ############
+--
+-- Because what 1.2 found changes the stamp, and 1.2 has not been read yet.
+-- Specifically: if the 64 NEITHER spans turn out to be later pins over correct
+-- retranslations, they join the NEW set and the initial stamp covers far more
+-- rows than if they turn out to be regressions.
+--
+-- WHAT THE MIGRATION WILL CONTAIN, so the shape can be argued with now:
+--
+--   1. alter table public.lessons add column en_hash text;
+--      Nullable, no default. A default would be a stamp.
+--
+--   2. A stamp limited to the lesson_group_ids the parity check reports NEW,
+--      computed with public.translation_hash over the ENGLISH sibling's
+--      content_md -- called, never reimplemented, because a second copy of a
+--      hash diverges and the divergence surfaces as rows withheld for an
+--      arithmetic difference rather than for an edit.
+--
+--   3. lesson_body_is_servable gains a clause that withholds on MISMATCH and
+--      ignores NULL, with the asymmetry stated in the function body.
+--
+--   4. Post-conditions, both directions: a row whose English is edited in a
+--      rolled-back block becomes unservable; a NULL row's servability is
+--      unchanged; and the count of servable bodies per language is compared
+--      BEFORE and AFTER rather than asserted against a literal.
+--
+--   5. check-hash-writers.mjs gains lessons.en_hash to its column list, so the
+--      "only a generator may stamp" rule covers it from the first day rather
+--      than after the first clearance script walks around it.
+--
+-- Nothing below this line. Deliberately.

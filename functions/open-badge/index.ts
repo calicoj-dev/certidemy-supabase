@@ -135,7 +135,29 @@ serve(async (req) => {
       .maybeSingle();
 
     if (issuerErr) throw new Error(`issuer lookup: ${issuerErr.message}`);
-    if (!issuerRow) return jsonResponse({ error: "issuer not configured" }, 503);
+
+    // ============ TWO CAUSES MUST NOT SHARE ONE STATUS ============
+    //
+    // `.eq("is_active", true)` makes this null for BOTH "no such issuer" and
+    // "the issuer exists and is switched off", and the old code answered 503
+    // to both. 503 tells a verifier to RETRY -- correct for a configuration
+    // fault that someone will fix, and wrong for a slug that will never exist.
+    // A verifier that retries a typo forever learns nothing, and a verifier
+    // that gives up on a temporarily disabled issuer gives up too early.
+    //
+    // So the two are separated by a second lookup, on the MISS PATH ONLY: a
+    // resolved issuer never pays for it. Same shape as the 503/500 split in
+    // courseware-read -- and the same reason: the status IS the instruction.
+    if (!issuerRow) {
+      const { data: anySlug } = await svc
+        .from("issuers")
+        .select("id")
+        .eq("slug", issuerSlug)
+        .maybeSingle();
+      return anySlug
+        ? jsonResponse({ error: "issuer not active" }, 503)
+        : jsonResponse({ error: "no such issuer" }, 404);
+    }
 
     const issuer = issuerRow as IssuerRow;
     const siteUrl = issuer.site_url;

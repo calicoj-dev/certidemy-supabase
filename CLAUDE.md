@@ -2112,6 +2112,32 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**BEFORE AN ENDPOINT DEFECT IS REPORTED, THE REQUEST IS VERIFIED WELL-FORMED
+AGAINST THAT ENDPOINT'S OWN DECLARED INTERFACE.** Three times in one week a
+malformed probe was reported as a defect in the thing probed:
+
+| reported | actually |
+|---|---|
+| `list_lessons` returns fields its schema forbids | a stale connector's cached schema; zero tools do |
+| `lesson_index` 500s in three languages | the probe had exhausted the pooler itself |
+| `open-badge` ignores its input | `doc` omitted, defaulting to `issuer`, so all three probes asked for the issuer profile and correctly received it |
+
+Each was caught by the session that made it, which is the pattern working --
+the rule makes it cheaper. **Mechanism: read the interface, construct the
+request against it, and only then call a non-matching response a defect.**
+
+**AND A NOTE THAT PAIRS A CORRECT HALF WITH ANOTHER CORRECT HALF IS WORSE THAN
+A WRONG NOTE.** This file paired `certidemy.com`'s paths with
+`credentials.certidemy.com`'s host. Both hosts serve; both path sets exist; the
+combination resolves to nothing.
+
+**Each half survives a spot check alone**, so the error is invisible to any
+check short of following the whole instruction -- and the instruction is the
+one somebody follows during an incident on the platform's most safety-critical
+URLs. **Mechanism: identifier URLs are read out of the signed document, because
+a document is the only thing that knows which URLs it promised, and a check
+follows the whole path rather than confirming its parts.**
+
 **AND A TOOL DESCRIPTION READ THROUGH A CONNECTOR IS A CLAIM ABOUT THAT
 CONNECTOR'S CACHE, NOT ABOUT THE SERVER.** Recorded 2026-09-22. A contract
 defect was reported, a fix was nearly written, and neither existed.
