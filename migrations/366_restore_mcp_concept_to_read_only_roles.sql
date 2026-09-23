@@ -67,6 +67,33 @@
 -- role means for our schema, to fix a gap that three other view/function pairs
 -- prove causes nothing. Recorded as the alternative rather than taken.
 --
+-- ############ THE CONDITION THAT DECISION RESTS ON ############
+--
+-- THE pg_read_all_data GAP IS INERT WHILE THAT ROLE STAYS NOLOGIN. That is a
+-- bounded call, not an assumption, and the bound is the whole of it: the
+-- argument is "there is no session to refuse", so it expires the moment there
+-- can be one.
+--
+-- Two ways it expires, and neither is exotic:
+--
+--   1. `alter role pg_read_all_data login` -- unlikely, and it would make a
+--      builtin group a principal, which nothing here would otherwise notice.
+--   2. A NEW ROLE IS MADE A MEMBER AND CAN LOG IN. This is the realistic one.
+--      It inherits SELECT on every mcp view and inherits no EXECUTE, so it
+--      lands in the gap the day it is created -- exactly how
+--      supabase_read_only_user and supabase_etl_admin got there.
+--
+-- THE `rolcanlogin` PREDICATE IN THE ASSERTION BELOW IS WHAT GUARDS BOTH. It
+-- is not a filter for convenience; it is the guard for the decision. Case 1
+-- makes pg_read_all_data itself start failing this migration's own assertion,
+-- and case 2 makes the new member fail it. Either way the next migration to
+-- run this block stops, names the role, and the call gets re-made with the
+-- condition no longer true.
+--
+-- `check-view-function-grant-gap.sql` reports the same set continuously and
+-- prints the inert class rather than filtering it, so the state is visible
+-- between migrations rather than only at one.
+--
 -- ############ 1. THE REGRESSION ############
 --
 -- 365 created mcp.concept_row_en_hash and mcp.translation_hash and granted
