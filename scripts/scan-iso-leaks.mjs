@@ -47,7 +47,8 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
-import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
+import { segments, attributedQuote, quoteLines, isAttributed, isQuoteLine,
+         QUOTATION_CEILING, checkFaithful as segControl } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 import { runUnits, SEED as LEAK_SEED } from "./lib/leak-score.mjs";
 
@@ -357,10 +358,49 @@ function longestRun(text) {
  * the moment it earns a column.
  */
 function longestMeasured(md) {
+  /* ============ THE EXEMPTION IS KEYED ON ATTRIBUTION, PER OCCURRENCE ======
+   *
+   * This used to measure `segments(md, attributedQuote)` -- every attributed
+   * BLOCKQUOTE cut away, everything else measured. The exemption was keyed on
+   * whether the author reached for `>`, and it failed both ways:
+   *
+   *   UNDER-EXEMPTED  an inline quotation naming the standard AND the clause
+   *                   in its own sentence got no exemption at all, while being
+   *                   more precisely attributed than most blockquotes.
+   *   OVER-EXEMPTED   a blockquote was exempt at ANY length. 52 contiguous
+   *                   words of ISO 19011 sat in a released certification and
+   *                   nobody had decided that.
+   *
+   * Now every line is measured and a RUN is exempt when its own occurrence is
+   * attributed AND it is within `QUOTATION_CEILING`. Both halves matter: the
+   * ceiling is what makes an exemption a ceiling rather than a waiver, which
+   * is the ground every NAMED exemption here has stood on from the start.
+   *
+   * ATTRIBUTION IS A PROPERTY OF THE OCCURRENCE, NEVER OF THE PHRASE. The same
+   * nine words attributed in one lesson and bare in four are one quotation and
+   * four reproductions; exempting the phrase would launder the bare uses under
+   * cover of the attributed one.
+   *
+   * `leadIn` is the most recent non-blank, NON-BLOCKQUOTE line, so a
+   * multi-line blockquote inherits the attribution introducing the block. A
+   * fixed look-back of N lines does NOT work here and was measured doing the
+   * wrong thing: it reported nine occurrences as unattributed that were lines
+   * inside a block whose lead-in sat six lines up.
+   */
   let best = 0, bestText = "", bestSrc = "";
-  for (const seg of segments(md, attributedQuote)) {
-    const r = longestRun(seg);
-    if (r.best > best) { best = r.best; bestText = r.bestText; bestSrc = r.bestSrc; }
+  const lines = String(md || "").split(/\r?\n/);
+  let leadIn = "";
+  for (const raw of lines) {
+    const t = raw.trim();
+    if (!t) continue;
+    const quote = isQuoteLine(raw);
+    const body = quote ? raw.replace(/^\s*>\s?/, "") : raw;
+    const r = longestRun(body);
+    if (r.best) {
+      const exempt = isAttributed(raw, leadIn) && r.best <= QUOTATION_CEILING;
+      if (!exempt && r.best > best) { best = r.best; bestText = r.bestText; bestSrc = r.bestSrc; }
+    }
+    if (!quote) leadIn = t;
   }
   return { best, bestText, bestSrc };
 }

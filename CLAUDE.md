@@ -2112,6 +2112,87 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**THE QUOTATION EXEMPTION WAS KEYED ON MARKDOWN FORM, AND FORM IS EVIDENCE OF
+NOTHING.** Ruled and rebuilt 2026-09-23. `attributedQuote` was
+`isQuoteLine(line) && isAttributed(line, leadIn)` -- exempt if the author
+reached for `>`. It failed in BOTH directions at once:
+
+| | |
+|---|---|
+| UNDER-EXEMPTED | *ISO 19011:2026 clause 3.8 defines audit criteria as the set of requirements used as a reference against which objective evidence is compared* names the standard, the clause AND the term, and scored as a leak. **18 of the 19 repeated-run findings carry a citation somewhere.** |
+| OVER-EXEMPTED | a blockquote was exempt at ANY length. That is how **52 contiguous words of ISO 19011** came to sit in a released certification with nobody having decided it. |
+
+Rebuilt: a span is exempt when a citation sits within a bounded distance of
+**that occurrence**, and it is within `QUOTATION_CEILING` (25 words, ruled by
+Juan). The ceiling now applies to attributed quotation AS A CLASS -- before, it
+governed one syntax and exempted the other entirely.
+
+**AN EXEMPTION ATTACHES TO AN OCCURRENCE, NEVER TO A PHRASE.** The same nine
+words attributed in one lesson and bare in four is **one attributed quotation
+and four reproductions**, not a run that is 80 percent attributed. A property
+some instances have and others lack cannot be carried by the text itself;
+exempting the phrase launders the unattributed uses under cover of the
+attributed one.
+
+> That also names the repair for the bare ones: not *rewrite the phrase* but
+> **attribute it where it is used, or stop using it there.**
+
+**A CUT IS A STATEMENT ABOUT DOCUMENT STRUCTURE. AN EXEMPTION IS A STATEMENT
+ABOUT ONE SPAN.** The first attempt keyed `segments()` itself on attribution,
+and a fixture caught it on the first run. Two things followed:
+
+- every prose line carrying a clause number stopped being measured at all;
+- cutting the LEAD-IN broke the lead-in CHAIN, so the blockquote beneath it was
+  judged with no attribution -- and **ISMS-IA went from 0 refusals to 72**, the
+  52-word span among them.
+
+Collapsing the two meant a span-level judgement deleted a line. `segments`
+keeps cutting on FORM, which is what segmentation is for; the attribution test
+moved to where the occurrence lives.
+
+**AND A FIXED LOOK-BACK WINDOW IS NOT A LEAD-IN.** The movement measurement
+used *the two preceding non-blank lines* and reported NINE occurrences as
+unattributed. Read, all nine were lines INSIDE a multi-line blockquote whose
+lead-in sat four or six lines up; their windows contained nothing but more
+blockquote. **Not nine reproductions -- one measurement error, in the
+withholding direction, which is the direction that looks like diligence.**
+`segments` already had it right: the lead-in is the most recent non-blank,
+NON-BLOCKQUOTE line, so a block inherits the attribution introducing it.
+
+**Measured movement before deploying, both directions:**
+
+```
+occurrences at or over 10w              61
+exempt today (blockquote + attributed)  57
+attributed under the rebuilt rule       59
+  STOP being exempt (withhold)           0
+  BECOME exempt   (RELEASE)              2   read before deploying
+  attributed AND over the 25w ceiling   10   <- what the ceiling bites on
+```
+
+**And the strict reading was measured rather than assumed.** *Standard AND
+clause* attributes only 15 of 61 and would withhold 44 properly attributed
+occurrences -- because CLAUDE.md already records that an unqualified clause
+reference means the certification's OWN standard. The bare-number cases were
+READ, not counted: `Clause 5.1 opens:`, `Annex A control 5.9`, `Clause 9.2.2
+c):`. Real addresses. **LOOSE adopted.**
+
+**A FIELD DROPPED FROM A PERSISTED RESULT IS REBUILT WRONGLY DOWNSTREAM.**
+`REPEATED-RUNS.json` omitted each run's `term`, so the de facto vocabulary
+list was regenerated from it with the ONE genuinely declared phrase at the top
+of a list of undeclared ones. The console had it right and the artifact did
+not -- the same shape as the script that printed 77 and persisted 79. **The
+number that leaves the process is the one that has to be right, and so is every
+field the verdict depended on.**
+
+**THE DE FACTO VOCABULARY IS NOT THE DECLARED ONE: 19 phrases, 4+ rows, no
+concept.** `be carried out in a planned manner` in seven rows, `based only on
+the audit evidence` in six, `the organization's own requirements for its ai
+management system` in five. Exactly one of two things is true of each and
+neither is the present state: it wants a concept, or it should be written
+differently each time. **An auditor taught vocabulary the exam does not test
+has been taught the wrong exam.**
+
 **PLAUSIBILITY IS NOT EVIDENCE, AND A NUMBER THAT LOOKS REASONABLE IS THE ONE
 THAT SHIPS.** Three instances in two days, filed as ONE rule because they are
 one mechanism wearing three costumes:

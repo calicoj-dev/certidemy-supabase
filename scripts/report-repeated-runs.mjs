@@ -457,7 +457,11 @@ if (JSON_OUT) {
   writeFileSync(join(ROOT, "REPEATED-RUNS.json"), JSON.stringify({
     measured: new Date().toISOString(), minRun: MIN, floor: ABS_RUN,
     distinctRuns: all.length, repeated: repeated.length,
-    runs: repeated.map((r) => ({ text: r.text, len: r.len, src: r.src, rows: r.n,
+    /* `term` travels with the row. Without it a downstream reader cannot tell
+     * a declared term from an undeclared one and will rebuild the de facto
+     * list wrongly -- which happened on the first emit, putting the one
+     * genuinely declared phrase at the top of a list of undeclared ones. */
+    runs: repeated.map((r) => ({ text: r.text, len: r.len, src: r.src, rows: r.n, term: r.term || null,
                                  members: r.members.map((m) => ({ cert: m.cert, id: m.id, corpus: m.corpus, sentence: m.sentence })) })),
   }, null, 2), "utf8");
   console.log("  wrote REPEATED-RUNS.json");

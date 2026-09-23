@@ -84,7 +84,47 @@ export function isAttributed(line, leadIn) {
 export const isQuoteLine = (line) => String(line).trim().startsWith(">");
 
 /**
- * The default exemption: an ATTRIBUTED blockquote line.
+ * The default exemption: an ATTRIBUTED line, whatever its markdown form.
+ *
+ * ============ FORM IS EVIDENCE OF NOTHING ============
+ *
+ * This read `isQuoteLine(line) && isAttributed(line, leadIn)` -- keyed on
+ * whether the author reached for `>`. It failed in BOTH directions at once:
+ *
+ *   UNDER-EXEMPTED  "ISO 19011:2026 clause 3.8 defines audit criteria as the
+ *                   set of requirements used as a reference against which
+ *                   objective evidence is compared" names the standard, the
+ *                   clause and the term, and was scored as a leak. It is more
+ *                   precisely attributed than most blockquotes.
+ *
+ *   OVER-EXEMPTED   a blockquote was exempt at ANY length. That is how 52
+ *                   contiguous words of ISO 19011 came to sit in a released
+ *                   certification with nobody having decided it.
+ *
+ * Rebuilt: a span is an attributed quotation when a citation sits within a
+ * BOUNDED DISTANCE of it -- in the span, or in the prose introducing it. The
+ * length limit then applies to attributed quotation AS A CLASS, which is what
+ * makes a ceiling mean anything; before, it governed one syntax and exempted
+ * the other entirely.
+ *
+ * ============ BUT THE EXEMPTION IS NOT A CUT, AND THAT WAS THE FIRST
+ * ATTEMPT'S DEFECT ============
+ *
+ * Keying `segments()` itself on attribution cut the LEAD-IN LINE -- prose,
+ * which merely contained a clause number -- out of the document. Two things
+ * followed, and a fixture caught both immediately:
+ *
+ *   - every prose line carrying a citation stopped being measured at all;
+ *   - cutting the lead-in broke the lead-in CHAIN, so the blockquote beneath
+ *     it was then judged with no attribution and the 52-word span became a
+ *     refusal. ISMS-IA went from 0 refusals to 72.
+ *
+ * A cut is a statement about DOCUMENT STRUCTURE. An exemption is a statement
+ * about ONE SPAN. Collapsing them meant a span-level judgement deleted a line.
+ *
+ * So `segments` keeps cutting on FORM, which is what segmentation is for, and
+ * the attribution test moved to where the occurrence lives -- see
+ * `longestMeasured` in `scan-iso-leaks.mjs`.
  *
  * Pass `() => false` to measure the document as a whole, which is what the
  * faithfulness control does.
@@ -141,6 +181,24 @@ export function quoteLines(md) {
   }
   return out;
 }
+
+/**
+ * The ceiling on an attributed quotation, in words.
+ *
+ * An ISO requirement sentence, or a lettered sub-item, is the examinable unit
+ * and is almost always under 25 words. Above that the clause is being
+ * DELIVERED rather than taught.
+ *
+ * Ruled 2026-09-23. It lives here rather than in `mcp_leak_policy` for the
+ * same reason the exemption does: it is the position, not a tunable, and it
+ * moves when IP-POSITION s6 moves.
+ *
+ * AND AN EXEMPTION IS A CEILING, NOT A WAIVER. Every named lesson exemption
+ * has carried a `maxRun` on that ground since it was written. The
+ * attributed-quotation exemption was the only unbounded one in the system,
+ * and it covered the longest spans in the corpus.
+ */
+export const QUOTATION_CEILING = 25;
 
 /**
  * POSITIVE CONTROL. Fixtures, so this fires without a database.
