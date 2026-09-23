@@ -64,6 +64,28 @@
  * The English assertion matters as much as the translated one. A predicate
  * that withheld everything would pass a one-sided check, and over-withholding
  * is the error direction that looks like diligence.
+ *
+ * ============ AND THE FIRST RUN EXPOSED TWO DEFECTS IN THIS SCRIPT ========
+ *
+ * It reported FAIL on "english STILL servable" -- and the gate was right.
+ * `trg_lessons_clear_mcp_servable` sets `mcp_servable = false` and nulls
+ * `mcp_scanned_at` on ANY content_md change. So:
+ *
+ *   1. THE ENGLISH WAS WITHHELD BY THE EDIT TRIGGER, NOT BY THE PROVENANCE
+ *      CLAUSE. Asserting on the gate as a whole cannot tell those apart --
+ *      the assertion was attributing a withholding to the thing under test
+ *      without checking which arm did it.
+ *
+ *   2. RESTORING THE BODY DID NOT RESTORE THE STATE. The trigger fires on the
+ *      restore too, so the bytes came back and `mcp_servable` stayed false.
+ *      A live English lesson was left dark, and the script reported that as a
+ *      failed assertion rather than as damage it had caused. It had to be
+ *      repaired by re-running scan-iso-leaks.
+ *
+ * A CONTROL THAT LEAVES THE CORPUS CHANGED IS NOT A CONTROL, and a control
+ * that cannot say WHICH predicate withheld a row is measuring the wrong thing.
+ * Both are fixed below: the scanner columns are captured and restored with the
+ * body, and each withholding is ATTRIBUTED before it is counted as evidence.
  */
 import { readFileSync, existsSync, writeFileSync, unlinkSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -111,9 +133,15 @@ if (RECOVER) {
     console.error("RECOVERY FAILED: the body read back does not match. The file is kept.");
     process.exit(1);
   }
+  if (rec.scan) {
+    const r2 = await fetch(BASE + "/lessons?id=eq." + rec.id, {
+      method: "PATCH", headers: { ...H, Prefer: "return=representation" },
+      body: JSON.stringify(rec.scan) });
+    if (!r2.ok) { console.error("RECOVERY PARTIAL: body restored, scanner verdict NOT. The file is kept."); process.exit(1); }
+  }
   unlinkSync(RECOVERY);
   console.log("");
-  console.log("RECOVERED " + rec.slug + " -- body restored byte-for-byte, recovery file removed.");
+  console.log("RECOVERED " + rec.slug + " -- body and scanner verdict restored, file removed.");
   process.exit(0);
 }
 if (existsSync(RECOVERY)) {
@@ -161,11 +189,56 @@ async function setBody(id, body) {
   return (await r.json())[0];
 }
 
+/* The edit trigger clears the scanner verdict on ANY content change -- and on
+ * the RESTORE too. So the restore is two writes: the body, then the scanner
+ * columns the trigger just wiped. Writing them in one PATCH would not work:
+ * the trigger fires on the same statement and would clear them again.
+ *
+ * WHICH COLUMNS TRAVEL TOGETHER IS NOT A MATTER OF MEMORY. The table carries
+ *
+ *   lessons_mcp_scan_coherent
+ *     CHECK (mcp_servable = false
+ *            OR (mcp_iso_longest_run IS NOT NULL
+ *                AND mcp_scanned_at IS NOT NULL
+ *                AND mcp_scan_sources IS NOT NULL))
+ *
+ * The first version of this snapshot carried three of those four and the
+ * restore failed with 23514 -- the constraint refusing to let the script leave
+ * the row in a state the scanner could never produce. A guard doing exactly
+ * its job, against a repair that was one column short.
+ *
+ * Same shape as the persisted record that dropped `term`: A FIELD THAT DOES
+ * NOT TRAVEL BECOMES A DEFECT DOWNSTREAM. Here the downstream was the restore
+ * path of the script itself. */
+async function restoreScanState(id, snap) {
+  const r = await fetch(BASE + "/lessons?id=eq." + id, {
+    method: "PATCH", headers: { ...H, Prefer: "return=representation" },
+    body: JSON.stringify({
+      mcp_servable: snap.mcp_servable,
+      mcp_scanned_at: snap.mcp_scanned_at,
+      mcp_iso_longest_run: snap.mcp_iso_longest_run,
+      mcp_scan_sources: snap.mcp_scan_sources,
+    }) });
+  if (!r.ok) {
+    const body = await r.text();
+    console.error("");
+    console.error("RESTORE OF THE SCANNER VERDICT FAILED: HTTP " + r.status);
+    console.error(body.slice(0, 300));
+    console.error("");
+    console.error("The lesson body is back but the row is WITHHELD. The recovery file is");
+    console.error("kept. The designed remedy for a lesson the edit trigger withheld is:");
+    console.error("  node --dns-result-order=ipv4first scripts/scan-iso-leaks.mjs --apply");
+    throw new Error("restore-scan HTTP " + r.status);
+  }
+  return (await r.json())[0];
+}
+
 /* Pick a subject: an English lesson whose translations are ALL servable right
  * now and carry a provenance stamp. Chosen from the data rather than named,
  * so the control keeps working after any one lesson is repaired -- the
  * "a control pinned to a defect forbids repairing it" rule. */
-const cols = "id,slug,language,lesson_group_id,content_md,en_content_hash,en_content_hash_basis";
+const cols = "id,slug,language,lesson_group_id,content_md,en_content_hash,en_content_hash_basis,"
+           + "mcp_servable,mcp_scanned_at,mcp_iso_longest_run,mcp_scan_sources";
 /* A missing column is a PostgREST 400, not an empty result. Caught and named,
  * because "the migration has not run" and "the gate is broken" must not
  * produce the same output -- the one-error-string-for-two-causes shape. */
@@ -221,8 +294,15 @@ const ok = (label, cond, detail) => {
 const original = en.content_md;
 let restored = false;
 /* On disk BEFORE the write, so it outlives a kill. */
+const snap = {
+  mcp_servable: en.mcp_servable,
+  mcp_scanned_at: en.mcp_scanned_at,
+  mcp_iso_longest_run: en.mcp_iso_longest_run,
+  mcp_scan_sources: en.mcp_scan_sources,
+};
 writeFileSync(RECOVERY, JSON.stringify({
-  id: en.id, slug: en.slug, at: new Date().toISOString(), content_md: original,
+  id: en.id, slug: en.slug, at: new Date().toISOString(),
+  content_md: original, scan: snap,
 }, null, 2), "utf8");
 try {
   ok("BEFORE: english servable", (await gate(en.id)) === true);
@@ -233,11 +313,31 @@ try {
   console.log("  -- one character appended to the ENGLISH body --");
   console.log("");
 
-  ok("AFTER: english STILL servable", (await gate(en.id)) === true,
-     "the gate must not withhold the source");
+  /* ATTRIBUTION, NOT JUST A VERDICT.
+   *
+   * English carries NO en_content_hash -- the provenance clause exempts
+   * `l.language = 'en'` outright -- so whatever withholds it, it is not the
+   * clause under test. Asserting that directly is stronger than asserting the
+   * gate stayed true, and it is true regardless of what the edit trigger did.
+   */
+  const enNow = (await get("lessons?select=en_content_hash,mcp_servable&id=eq." + en.id))[0];
+  ok("AFTER: the provenance clause cannot touch English",
+     enNow.en_content_hash === null,
+     "no en_content_hash, and the clause short-circuits on language = en");
+  ok("AFTER: english withheld only by the edit trigger",
+     enNow.mcp_servable === false,
+     "trg_lessons_clear_mcp_servable fired, which is expected and not this gate");
+
+  /* The translations are the measurement. Their mcp_servable is UNTOUCHED --
+   * the trigger fired on the English row, not on theirs -- so a false gate can
+   * only come from the provenance clause. That is what makes this evidence
+   * rather than an observation. */
   for (const t of tr) {
-    ok("AFTER: " + t.language + " withheld", (await gate(t.id)) === false,
-       "the provenance clause fired");
+    const tNow = (await get("lessons?select=mcp_servable&id=eq." + t.id))[0];
+    const g = await gate(t.id);
+    ok("AFTER: " + t.language + " withheld BY THE PROVENANCE CLAUSE",
+       g === false && tNow.mcp_servable === true,
+       "scanner verdict still true, so the clause is what withheld it");
   }
 } finally {
   const back = await setBody(en.id, original);
@@ -245,10 +345,19 @@ try {
   console.log("");
   ok("RESTORED: the english body is byte-identical", restored);
   if (restored) {
-    unlinkSync(RECOVERY);
-    ok("RECOVERY FILE removed", !existsSync(RECOVERY));
+    /* The trigger wiped the scanner verdict again on that restore. Put it
+     * back, or the lesson stays dark and this script becomes the outage it
+     * was written to prevent. */
+    const fixed = await restoreScanState(en.id, snap);
+    ok("RESTORED: scanner verdict put back",
+       fixed.mcp_servable === snap.mcp_servable &&
+       fixed.mcp_iso_longest_run === snap.mcp_iso_longest_run,
+       "mcp_servable=" + fixed.mcp_servable + ", run=" + fixed.mcp_iso_longest_run);
     ok("RESTORED: english servable again", (await gate(en.id)) === true);
     for (const t of tr) ok("RESTORED: " + t.language + " servable again", (await gate(t.id)) === true);
+    if (!existsSync(RECOVERY)) { /* nothing to remove */ }
+    else { unlinkSync(RECOVERY); }
+    ok("RECOVERY FILE removed", !existsSync(RECOVERY));
   } else {
     console.error("");
     console.error("  THE ORIGINAL BODY WAS NOT RESTORED. The recovery file is KEPT at");
