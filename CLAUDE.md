@@ -2112,6 +2112,61 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**THE ENUMERATION REQUIREMENT ATTACHES TO RELEASE, NOT TO CHANGE.** Ruled
+2026-09-23 after two gate deploys an hour apart, one of each kind.
+
+A gate change that can move any row toward SERVED enumerates them first and
+releases none unread -- the failure mode is text nobody cleared reaching a
+partner. A change that can only move rows toward WITHHELD has no such failure
+mode: the worst case is over-withholding, which is visible, reversible and
+costs only availability. **It ships on its controls.**
+
+Removing the greedy skip could only RAISE runs, so it could only withhold.
+Stripping scaffolding could lower them, so it carried a list. Treating the two
+alike would have either delayed the safe one or rushed the mixed one.
+
+**THE UNIT OF MEASUREMENT IS THE WHOLE BODY, MEASURED PER UNIT.** A span list
+is a WORKLIST, never a coverage claim: it enumerates what the instrument found,
+and a lesson containing one found span is not a lesson that has been measured.
+
+`05-01-aims-monitoring-and-measurement` had attention twice in one evening,
+took an applied rewrite, and carried a **twelve-word reproduction of 42001
+three paragraphs away** throughout. Not because anyone decided not to look --
+whole-body scoring was genuinely wrong until `runUnits` existed, because it
+joined across segments and produced garbage. It became right and nobody went
+back to use it.
+
+> **MECHANISM: every body is scanned whole, per unit, and the span list is
+> DERIVED from that scan rather than standing in for it.**
+
+**AND SELECTING THE BEST UNIT BY COVERAGE IS A HIDING MECHANISM.** Found in my
+own per-unit change, minutes after writing it. `score()` kept the
+highest-coverage unit, so a concept NAME -- a defined term at coverage 1.00 --
+beat a description carrying a **ten-word reproduction of 42001 clause 4.2 at
+coverage 0.17**, and the run was discarded. The row reported clean.
+
+A ratio is diluted by length and an absolute run is not; **that is the whole
+reason `ABS_RUN` exists**, and selecting across units by the diluted measure
+threw away exactly the case the undiluted one was added to catch. The governing
+unit is now the one the gate would act on: over the absolute floor first, then
+over the ratio, then highest coverage.
+
+**CONCEPT RE-SCORE, corpus-wide, after all of the above:**
+
+```
+description only          2 fire    (the recorded 15 were fixed by batches B-E)
+name + description       63 fire    61 of them from including the NAME
+at or over the 10w floor  1         aia-interested-party-requirements
+```
+
+**THE 61 ARE A FALSE-POSITIVE CLASS I MANUFACTURED**, by scoring the name as
+part of the row. Read: `human in the loop`, `ai system impact assessment`,
+`roles responsibilities and authorities`, `8 1 operational planning and
+control`. Clause titles and defined terms, which the title-class exemption
+already covers -- *naming a category is not reproducing the prose that defines
+it*. Reporting 63 as a finding would have sent someone to rewrite sixty-one
+concept names that are correct.
+
 **AN OPTIMISATION INSIDE A MEASUREMENT IS A MEASUREMENT ERROR UNTIL PROVEN
 OTHERWISE.** Ruled 2026-09-23. The largest defect of the week, and it was found
 while fixing a smaller one.

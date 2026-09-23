@@ -307,12 +307,34 @@ export function score(text, sources) {
    * manufactured adjacency this file's header already forbids across
    * documents, one level down. A text with no line breaks is one unit and
    * nothing changes for it. */
+  /* ============ THE WORST UNIT, NOT THE HIGHEST-COVERAGE ONE ============
+   *
+   * Choosing by coverage alone was a HIDING MECHANISM and it hid a real one.
+   * `aia-interested-party-requirements` carries a ten-word reproduction of
+   * 42001 clause 4.2 at coverage 0.17, inside a long sentence of our own. Its
+   * concept NAME, scored as a separate unit, is a defined term at coverage
+   * 1.00 -- so the name won the comparison and the description's 10w run was
+   * discarded. The row reported clean.
+   *
+   * A ratio is diluted by length and an absolute run is not; that is why
+   * ABS_RUN exists at all. Selecting across units by the diluted measure threw
+   * away exactly the case the undiluted one was added to catch.
+   *
+   * So the unit that GOVERNS is the one the gate would act on: a unit over the
+   * absolute floor first, then one over the coverage ratio, then the highest
+   * coverage. Ties on the longer run. */
+  const rank = (s) => (firesAbsolute(s) ? 2 : firesRatio(s) ? 1 : 0);
   for (const unit of runUnits(text)) {
-  for (const [key, src] of sources) {
-    const s = scoreAgainst(unit, key, src);
-    if (!s.runs.length) continue;
-    if (!best || s.unionCov > best.unionCov || (s.unionCov === best.unionCov && s.maxRun > best.maxRun)) best = s;
-  }
+    for (const [key, src] of sources) {
+      const s = scoreAgainst(unit, key, src);
+      if (!s.runs.length) continue;
+      if (!best) { best = s; continue; }
+      const rs = rank(s), rb = rank(best);
+      if (rs > rb) { best = s; continue; }
+      if (rs < rb) continue;
+      if (s.unionRun > best.unionRun) { best = s; continue; }
+      if (s.unionRun === best.unionRun && s.unionCov > best.unionCov) best = s;
+    }
   }
   return best || { source: "", words: W(text).length, runs: [], merges: [], merged: [],
                    annexStructure: false, maxRun: 0, maxCov: 0, unionRun: 0, unionCov: 0 };

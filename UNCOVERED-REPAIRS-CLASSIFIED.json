@@ -1,5 +1,5 @@
 {
-  "measured": "2026-09-23T02:26:00.791Z",
+  "measured": "2026-09-23T05:11:40.209Z",
   "gate": {
     "MIN_RUN": 4,
     "MIN_COV": 0.6,
@@ -239,8 +239,8 @@
       "note": "second span is inside a ::checkpoint explanation",
       "before": "organizations may not require all the controls listed in Annex A, **or may even exceed the list**",
       "after": "an organization may need only some of the Annex A controls, **or may go beyond the list**",
-      "run": 12,
-      "cov": 0.71,
+      "run": 13,
+      "cov": 0.76,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -320,11 +320,8 @@
         "27005:2022"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 5, line 1",
-      "liveEn": "**Assessments repeat.** The clause 8 operational requirements run risk assessments and impact assessments at planned intervals, and again whenever a significant change is proposed or occurs. A significant change is a life cycle event, and a system that has been retrained on new data has had one.",
-      "liveEs": "**Las evaluaciones se repiten.** Los requisitos operacionales de la cláusula 8 ejecutan evaluaciones del riesgo y evaluaciones de impacto a intervalos planificados, y también cada vez que se propone o se produce un cambio significativo. Un cambio significativo es un evento del ciclo de vida, y un sistema que ha sido reentrenado con nuevos datos ha experimentado uno.",
-      "livePt": "**As avaliações se repetem.** Os requisitos operacionais da cláusula 8 executam avaliações de riscos e avaliações de impacto em intervalos planejados, e novamente sempre que uma mudança significativa for proposta ou ocorrer. Uma mudança significativa é um evento do ciclo de vida, e um sistema que foi retreinado com novos dados passou por uma."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m1.mjs",
@@ -358,11 +355,8 @@
         "27005:2022"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 7, line 60",
-      "liveEn": "    \"explanation\": \"Risk assessments and impact assessments are performed at planned intervals, and again whenever a significant change is proposed or occurs. Retraining on new data is such a change. The Statement of Applicability records which controls are necessary and why; it does not automatically change because a system was retrained.\",",
-      "liveEs": "    \"explanation\": \"Las evaluaciones del riesgo y las evaluaciones de impacto se realizan a intervalos planificados o cuando se proponen o producen cambios significativos. El reentrenamiento con nuevos datos constituye dicho cambio. La Declaración de Aplicabilidad registra qué controles son necesarios y por qué; no cambia automáticamente porque un sistema haya sido reentrenado.\",",
-      "livePt": "    \"explanation\": \"As avaliações de riscos e as avaliações de impacto são realizadas em intervalos planejados ou quando mudanças significativas são propostas ou ocorrem. O retreinamento com novos dados constitui tal mudança. A Declaração de Aplicabilidade registra quais controles são necessários e por quê; ela não muda automaticamente porque um sistema foi retreinado.\","
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m1.mjs",
@@ -804,11 +798,8 @@
       "cov": 0.79,
       "srcs": [],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 1, line 7",
-      "liveEn": "Clause 8.4 adds the operational half: assessments are performed at planned intervals, and again whenever a significant change is proposed, and documented information on the results of all of them is retained.",
-      "liveEs": "La cláusula 8.4 añade la parte operativa: las evaluaciones se realizan a intervalos planificados, y también cada vez que se propone un cambio significativo, y se conserva la información documentada sobre los resultados de todas ellas.",
-      "livePt": "A cláusula 8.4 acrescenta a parte operacional: as avaliações são realizadas em intervalos planejados, e também sempre que uma mudança significativa for proposta, e a informação documentada sobre os resultados de todas elas é retida."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m2.mjs",
@@ -838,8 +829,8 @@
       "note": "NINE runs -- the densest lesson in the certification. Four are enumerations from Annex B guidance.",
       "before": "include fairness, accountability, transparency and explainability, security and privacy, safety and health, financial consequences, accessibility, and human rights",
       "after": "include fairness, accountability, transparency and explainability, privacy and security, health and safety, accessibility, human rights, and financial consequences",
-      "run": 11,
-      "cov": 0.61,
+      "run": 12,
+      "cov": 0.67,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -919,11 +910,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 3, line 0",
-      "liveEn": "Clause 7.2 requires three things. Determine the necessary [competence]{glossary=\"competence-requirements-ai\"} of people doing work under the organization's control that affects its AI performance. Ensure they are competent, grounded in suitable education, training or experience. And where applicable, take action to acquire the competence and **evaluate whether the action worked.**",
-      "liveEs": "El apartado 7.2 exige tres cosas. Determinar la [competencia]{glossary=\"competence-requirements-ai\"} necesaria de las personas que realizan trabajo bajo el control de la organización y que afecta su desempeño en IA. Asegurarse de que sean competentes sobre la base de educación, formación o experiencia apropiadas. Y cuando corresponda, tomar acciones para adquirir la competencia y **evaluar si la acción funcionó.**",
-      "livePt": "A Seção 7.2 exige três coisas. Determinar a [competência]{glossary=\"competence-requirements-ai\"} necessária das pessoas que realizam trabalho sob o controle da organização que afeta seu desempenho em IA. Garantir que essas pessoas sejam competentes, com base em educação, treinamento ou experiência adequados. E, quando aplicável, tomar ações para adquirir a competência e **avaliar se a ação funcionou.**"
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1014,11 +1002,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 1, line 0",
-      "liveEn": "Clause 7.3 is three bullet points long. Anyone working under the organization's control must be aware of:",
-      "liveEs": "La cláusula 7.3 tiene tres puntos. Cualquier persona que trabaje bajo el control de la organización debe ser consciente de:",
-      "livePt": "A Cláusula 7.3 tem três marcadores. Qualquer pessoa que trabalhe sob o controle da organização deve estar ciente de:"
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1052,11 +1037,8 @@
       "cov": 1,
       "srcs": [],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 3, line 0",
-      "liveEn": "Clause 7.4 requires the organization to work out which internal and external communications bear on the AI management system, and names four things it must decide:",
-      "liveEs": "La cláusula 7.4 exige que la organización determine qué comunicaciones internas y externas son pertinentes para el sistema de gestión de IA, y nombra cuatro cosas que debe decidir:",
-      "livePt": "A Cláusula 7.4 exige que a organização determine quais comunicações internas e externas são relevantes para o sistema de gestão de IA, e nomeia quatro coisas que ela deve decidir:"
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1128,11 +1110,8 @@
         "27001:2022"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 2, line 2",
-      "liveEn": "Clause 7.5.3 governs [control]{glossary=\"control-of-documented-information\"} and asks for two outcomes: the information is on hand and fit to use wherever and whenever it is needed, and it is adequately protected — against lost confidentiality, misuse, or lost integrity.",
-      "liveEs": "La cláusula 7.5.3 regula el [control]{glossary=\"control-of-documented-information\"} y exige dos resultados: que la información esté disponible y sea adecuada para su uso donde y cuando se necesite, y que esté protegida de manera suficiente —frente a pérdida de confidencialidad, uso indebido o pérdida de integridad—.",
-      "livePt": "A Seção 7.5.3 governa o [controle]{glossary=\"control-of-documented-information\"} e solicita dois resultados: a informação está disponível e adequada para uso onde e quando necessário, e está adequadamente protegida — contra perda de confidencialidade, uso indevido ou perda de integridade."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1151,7 +1130,7 @@
       "reproduction": true,
       "enLanded": true,
       "align": "block 2, line 2",
-      "liveEn": "Clause 7.5.3 governs [control]{glossary=\"control-of-documented-information\"} and asks for two outcomes: the information is on hand and fit to use wherever and whenever it is needed, and it is adequately protected — against lost confidentiality, misuse, or lost integrity.",
+      "liveEn": "Clause 7.5.3 governs [control]{glossary=\"control-of-documented-information\"} and asks for two outcomes: the information is **available** -- obtainable where and when it is needed, and fit to use when it arrives, which is not the same obligation as retention -- and it is adequately protected — against lost confidentiality, misuse, or lost integrity.",
       "liveEs": "La cláusula 7.5.3 regula el [control]{glossary=\"control-of-documented-information\"} y exige dos resultados: que la información esté disponible y sea adecuada para su uso donde y cuando se necesite, y que esté protegida de manera suficiente —frente a pérdida de confidencialidad, uso indebido o pérdida de integridad—.",
       "livePt": "A Seção 7.5.3 governa o [controle]{glossary=\"control-of-documented-information\"} e solicita dois resultados: a informação está disponível e adequada para uso onde e quando necessário, e está adequadamente protegida — contra perda de confidencialidade, uso indevido ou perda de integridade."
     },
@@ -1189,11 +1168,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 4, line 1",
-      "liveEn": "Documented information that came from outside, where the organization has decided it is needed to plan and run the AI management system, must be identified as appropriate and controlled.",
-      "liveEs": "La información documentada de origen externo, en los casos en que la organización haya decidido que es necesaria para planificar y ejecutar el sistema de gestión de IA, debe identificarse según corresponda y controlarse.",
-      "livePt": "A informação documentada de origem externa, onde a organização decidiu que é necessária para planejar e executar o sistema de gestão de IA, deve ser identificada conforme apropriado e controlada."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1210,11 +1186,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 1, line 0",
-      "liveEn": "Clause 8.1 requires the organization to plan, put in place and control whatever processes are needed to meet requirements and to carry out the actions clause 6 determined, and it says how: by establishing [criteria for the processes]{glossary=\"process-criteria\"}, and by implementing control of the processes in accordance with those criteria.",
-      "liveEs": "La cláusula 8.1 exige que la organización planifique, implemente y controle los procesos necesarios para cumplir los requisitos y para llevar a cabo las acciones que la cláusula 6 determinó, e indica cómo hacerlo: estableciendo [criterios para los procesos]{glossary=\"process-criteria\"} e implementando el control de los procesos de acuerdo con esos criterios.",
-      "livePt": "A Seção 8.1 exige que a organização planeje, implemente e controle quaisquer processos necessários para atender aos requisitos e para executar as ações determinadas pela Seção 6, e indica como fazê-lo: estabelecendo [critérios para os processos]{glossary=\"process-criteria\"} e implementando o controle dos processos de acordo com esses critérios."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1251,11 +1224,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 2, line 5",
-      "liveEn": "Documented information must be kept to whatever extent gives confidence that the processes were carried out as planned. Note the phrasing: *to the extent necessary to have confidence.* The test is whether the evidence supports the claim, not whether a form was completed.",
-      "liveEs": "La información documentada debe conservarse en la medida en que genere confianza en que los procesos se llevaron a cabo según lo planificado. Nótese la formulación: *en la medida necesaria para tener confianza.* La prueba es si la evidencia respalda la afirmación, no si se completó un formulario.",
-      "livePt": "A informação documentada deve ser mantida na medida em que isso proporcione confiança de que os processos foram executados conforme planejado. Observe a redação: *na medida necessária para ter confiança.* O teste é se as evidências sustentam a afirmação, não se um formulário foi preenchido."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -1489,7 +1459,7 @@
       "reproduction": true,
       "enLanded": true,
       "align": "block 2, line 1",
-      "liveEn": "Categories of data needed. Quantity needed. Sources — internal, purchased, shared, open, synthetic. Characteristics of the source — static, streamed, gathered or machine generated. The demographics and characteristics of data subjects, **including biases known or suspected, and other systematic errors**. Prior handling, including previous uses and conformity with privacy and security requirements. Data rights, including personal information and copyright. Associated metadata, including labelling details. And provenance.",
+      "liveEn": "Categories of data needed. Quantity needed. Sources — internal, purchased, shared, open, synthetic. Characteristics of the source — static, streamed, gathered or machine generated. The demographics and characteristics of data subjects, **including biases that are known, biases that are merely potential, or other systematic errors** -- any one of the three is in scope, and none of them depends on another being present. Prior handling, including previous uses and conformity with privacy and security requirements. Data rights, including personal information and copyright. Associated metadata, including labelling details. And provenance.",
       "liveEs": "Categorías de datos necesarios. Cantidad necesaria. Fuentes — internas, adquiridas, compartidas, abiertas, sintéticas. Características de la fuente — estática, en flujo continuo, recopilada o generada por máquina. Demografía y características de los sujetos de datos, **incluidos los sesgos conocidos o sospechados, y otros errores sistemáticos**. Manejo previo, incluidos usos anteriores y conformidad con los requisitos de privacidad y seguridad. Derechos sobre los datos, incluida la información personal y los derechos de autor. Metadatos asociados, incluidos los detalles de etiquetado. Y procedencia.",
       "livePt": "Categorias de dados necessários. Quantidade necessária. Fontes — internas, adquiridas, compartilhadas, abertas, sintéticas. Características da fonte — estática, transmitida em fluxo, coletada ou gerada por máquina. Dados demográficos e características dos titulares dos dados, **incluindo vieses conhecidos ou suspeitos e outros erros sistemáticos**. Tratamento anterior, incluindo usos anteriores e conformidade com requisitos de privacidade e segurança. Direitos sobre os dados, incluindo informações pessoais e direitos autorais. Metadados associados, incluindo detalhes de rotulagem. E proveniência."
     },
@@ -1507,11 +1477,8 @@
         "42001:2023"
       ],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 2, line 1",
-      "liveEn": "Categories of data needed. Quantity needed. Sources — internal, purchased, shared, open, synthetic. Characteristics of the source — static, streamed, gathered or machine generated. The demographics and characteristics of data subjects, **including biases known or suspected, and other systematic errors**. Prior handling, including previous uses and conformity with privacy and security requirements. Data rights, including personal information and copyright. Associated metadata, including labelling details. And provenance.",
-      "liveEs": "Categorías de datos necesarios. Cantidad necesaria. Fuentes — internas, adquiridas, compartidas, abiertas, sintéticas. Características de la fuente — estática, en flujo continuo, recopilada o generada por máquina. Demografía y características de los sujetos de datos, **incluidos los sesgos conocidos o sospechados, y otros errores sistemáticos**. Manejo previo, incluidos usos anteriores y conformidad con los requisitos de privacidad y seguridad. Derechos sobre los datos, incluida la información personal y los derechos de autor. Metadatos asociados, incluidos los detalles de etiquetado. Y procedencia.",
-      "livePt": "Categorias de dados necessários. Quantidade necessária. Fontes — internas, adquiridas, compartilhadas, abertas, sintéticas. Características da fonte — estática, transmitida em fluxo, coletada ou gerada por máquina. Dados demográficos e características dos titulares dos dados, **incluindo vieses conhecidos ou suspeitos e outros erros sistemáticos**. Tratamento anterior, incluindo usos anteriores e conformidade com requisitos de privacidade e segurança. Direitos sobre os dados, incluindo informações pessoais e direitos autorais. Metadados associados, incluindo detalhes de rotulagem. E proveniência."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m3.mjs",
@@ -2029,11 +1996,8 @@
       "cov": 0.93,
       "srcs": [],
       "reproduction": true,
-      "enLanded": true,
-      "align": "block 1, line 1",
-      "liveEn": "**What to monitor and measure.** **Which methods** to use for monitoring, measurement, analysis and evaluation, so far as each applies, so that the results are valid. **When** monitoring and measurement happens. And **when** the results are analysed and evaluated.",
-      "liveEs": "**Qué debe ser objeto de seguimiento y medición.** **Qué métodos** utilizar para el seguimiento, la medición, el análisis y la evaluación, en la medida en que cada uno aplique, de modo que los resultados sean válidos. **Cuándo** se realizan el seguimiento y la medición. Y **cuándo** se analizan y evalúan los resultados.",
-      "livePt": "**O que monitorar e medir.** **Quais métodos** usar para monitoramento, medição, análise e avaliação, na medida em que cada um se aplica, para que os resultados sejam válidos. **Quando** o monitoramento e a medição ocorrem. E **quando** os resultados são analisados e avaliados."
+      "enLanded": false,
+      "align": "english span not found -- repaired text is not in the live body"
     },
     {
       "file": "lesson-repairs-aimsf-m5.mjs",
@@ -2234,8 +2198,8 @@
       "address": "42001 definition of audit, note",
       "before": "an audit can be a **combined audit, combining two or more disciplines.**",
       "after": "a single audit may cover two or more disciplines at once -- what the standard calls a **combined audit.**",
-      "run": 8,
-      "cov": 0.67,
+      "run": 10,
+      "cov": 0.83,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -3416,10 +3380,10 @@
       "note": "7 runs; the clause 6.3.2 sentence carries two and is one span",
       "before": "the audit team leader should inform the audit client, the individual(s) managing the audit programme and the auditee",
       "after": "the audit team leader should tell the audit client, whoever manages the audit programme, and the auditee",
-      "run": 9,
-      "cov": 0.47,
+      "run": 10,
+      "cov": 0.53,
       "srcs": [],
-      "reproduction": false,
+      "reproduction": true,
       "enLanded": true,
       "align": "block 2, line 0",
       "liveEn": "Clause 6.3.1 states what happens when the review shows the documentation is inadequate: the audit team leader should tell the audit client, whoever manages the audit programme, and the auditee, and a decision should be made whether the audit should be continued or suspended until documentation concerns are resolved.",
@@ -4043,8 +4007,8 @@
       "note": "4 runs; the opening sentence carries two and is one span",
       "before": "requires the organization to determine the **boundaries and applicability** of the AI management system to establish its scope. When determining the scope it shall consider the external and internal issues from 4.1 and the requirements of interested parties from 4.2. The scope shall be available as documented information.",
       "after": "requires the organization to settle the **boundaries and applicability** of its AI management system, and so its scope. In settling that scope it shall take account of the external and internal issues from 4.1 and the interested-party requirements from 4.2. The scope shall be held as documented information.",
-      "run": 15,
-      "cov": 0.3,
+      "run": 16,
+      "cov": 0.32,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -4207,7 +4171,7 @@
       "note": "THIRTEEN runs. Clause 5.1's six bullets and 5.2's policy list are recast item by item.",
       "before": "- a) is **appropriate to the purpose** of the organization;",
       "after": "- a) **suits the organization's purpose**;",
-      "run": 9,
+      "run": 8,
       "cov": 1,
       "srcs": [
         "27001:2022",
@@ -4228,7 +4192,7 @@
       "note": "THIRTEEN runs. Clause 5.1's six bullets and 5.2's policy list are recast item by item.",
       "before": "- c) includes a **commitment to meet applicable requirements**;",
       "after": "- c) carries a **commitment to meet applicable requirements**;",
-      "run": 8,
+      "run": 7,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4248,8 +4212,8 @@
       "note": "THIRTEEN runs. Clause 5.1's six bullets and 5.2's policy list are recast item by item.",
       "before": "- d) includes a **commitment to continual improvement** of the AIMS.",
       "after": "- d) carries a **commitment to continually improve** the AIMS.",
-      "run": 9,
-      "cov": 0.9,
+      "run": 8,
+      "cov": 0.89,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -4438,7 +4402,7 @@
       "note": "10 runs; 6.1.2's five lettered items are recast individually. The NOTE's `can` is preserved deliberately.",
       "before": "- a) is **informed by and aligned with the AI policy** (5.2) and **AI objectives** (6.2);",
       "after": "- a) is **shaped by and consistent with the AI policy** (5.2) and the **AI objectives** (6.2);",
-      "run": 15,
+      "run": 14,
       "cov": 0.88,
       "srcs": [],
       "reproduction": true,
@@ -4456,7 +4420,7 @@
       "note": "10 runs; 6.1.2's five lettered items are recast individually. The NOTE's `can` is preserved deliberately.",
       "before": "- b) is designed such that **repeated AI risk assessments can produce consistent, valid and comparable results**;",
       "after": "- b) is designed so that **assessments repeated over time can give consistent, valid and comparable results**;",
-      "run": 16,
+      "run": 15,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4476,7 +4440,7 @@
       "note": "10 runs; 6.1.2's five lettered items are recast individually. The NOTE's `can` is preserved deliberately.",
       "before": "- c) **identifies risks** that aid or prevent achieving its AI objectives;",
       "after": "- c) **identifies risks** that help or hinder the AI objectives;",
-      "run": 11,
+      "run": 10,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4496,8 +4460,8 @@
       "note": "10 runs; 6.1.2's five lettered items are recast individually. The NOTE's `can` is preserved deliberately.",
       "before": "- d) **analyses** the AI risks, to assess the potential consequences to the organization, individuals and societies that would result if the identified risks materialized; to assess where applicable the realistic likelihood; and to determine the levels of risk;",
       "after": "- d) **analyses** the AI risks - what would follow for the organization, for individuals and for societies if an identified risk came about; how likely that realistically is, where that applies; and what the resulting risk levels are;",
-      "run": 23,
-      "cov": 0.61,
+      "run": 18,
+      "cov": 0.49,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -4640,7 +4604,7 @@
       "before": "- a) **select appropriate AI risk treatment options**, taking account of the risk assessment results;",
       "after": "- a) **select appropriate AI risk treatment options**, in light of what the risk assessment found;",
       "run": 10,
-      "cov": 0.71,
+      "cov": 0.77,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -4657,7 +4621,7 @@
       "note": "THIRTEEN runs; clause 6.1.3's six lettered items recast individually",
       "before": "- b) **determine all controls that are necessary** to implement the AI risk treatment options chosen, **and compare the controls with those in Annex A** to verify that no necessary controls have been omitted;",
       "after": "- b) **determine all controls that are necessary** to put the chosen treatment options into effect, **and compare those controls against Annex A** to check that none needed has been left out;",
-      "run": 33,
+      "run": 32,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4677,7 +4641,7 @@
       "note": "THIRTEEN runs; clause 6.1.3's six lettered items recast individually",
       "before": "- c) **consider the controls from Annex A** that are relevant for the implementation of the AI risk treatment options;",
       "after": "- c) **consider the controls from Annex A** bearing on how the treatment options will be implemented;",
-      "run": 19,
+      "run": 18,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4697,7 +4661,7 @@
       "note": "THIRTEEN runs; clause 6.1.3's six lettered items recast individually",
       "before": "- d) **identify if additional controls are necessary** beyond those in Annex A in order to implement all risk treatment options;",
       "after": "- d) **identify if additional controls are necessary** past Annex A's, so that every treatment option can be implemented;",
-      "run": 20,
+      "run": 19,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4717,7 +4681,7 @@
       "note": "THIRTEEN runs; clause 6.1.3's six lettered items recast individually",
       "before": "- e) **consider the guidance in Annex B** for the implementation of controls determined in b) and c);",
       "after": "- e) **consider the guidance in Annex B** when implementing the controls settled at b) and c);",
-      "run": 17,
+      "run": 16,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -4737,8 +4701,8 @@
       "note": "THIRTEEN runs; clause 6.1.3's six lettered items recast individually",
       "before": "- f) **produce a statement of applicability** that contains the necessary controls and provides justification for inclusions and exclusions.",
       "after": "- f) **produce a statement of applicability** listing the necessary controls, with a justification for what is in and what is out.",
-      "run": 11,
-      "cov": 0.61,
+      "run": 10,
+      "cov": 0.59,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -5061,7 +5025,7 @@
       "note": "4 runs; the 7.5.3 sentence carries two and is one span",
       "before": "- a) **documented information required by this document**;",
       "after": "- a) **the documented information this document requires**;",
-      "run": 7,
+      "run": 6,
       "cov": 1,
       "srcs": [
         "27001:2022",
@@ -5082,7 +5046,7 @@
       "note": "4 runs; the 7.5.3 sentence carries two and is one span",
       "before": "- b) **documented information determined by the organization as being necessary for the effectiveness** of the AI management system.",
       "after": "- b) **whatever documented information the organization judges necessary** for the AI management system to be effective.",
-      "run": 18,
+      "run": 17,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -5687,7 +5651,7 @@
       "align": "block 2, line 1",
       "liveEn": "> The controls set out in Table A.1 give the organization a reference for meeting its objectives and handling risks that arise from designing and operating AI systems. **Not every control objective and control in Table A.1 has to be used, and an organization can design and implement controls of its own (see 6.1.3).**",
       "liveEs": "> Los controles establecidos en la Tabla A.1 proporcionan a la organización una referencia para cumplir sus objetivos y gestionar los riesgos que surgen del diseño y la operación de sistemas de IA. **No es obligatorio utilizar todos los objetivos de control y controles de la Tabla A.1, y una organización puede diseñar e implementar sus propios controles (véase 6.1.3).**",
-      "livePt": "> Os controles detalhados na Tabela A.1 fornecem à organização uma referência para atender aos objetivos organizacionais e abordar os riscos relacionados ao projeto e à operação de sistemas de IA. **Nem todos os objetivos de controle e controles listados na Tabela A.1 precisam ser utilizados, e a organização pode projetar e implementar seus próprios controles (ver 6.1.3).**"
+      "livePt": "> Os controles estabelecidos na Tabela A.1 fornecem à organização uma referência para atender a seus objetivos e lidar com os riscos que surgem do projeto e da operação de sistemas de IA. **Não é obrigatório utilizar todos os objetivos de controle e controles da Tabela A.1, e uma organização pode projetar e implementar seus próprios controles (ver 6.1.3).**"
     },
     {
       "file": "lesson-repairs-aimsia-m4c.mjs",
@@ -6287,8 +6251,8 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- b) audit **scope**, particularly identification of the organization and the functions or processes audited;",
       "after": "- b) the audit's **scope**, naming in particular the organization and which functions or processes were audited;",
-      "run": 9,
-      "cov": 0.64,
+      "run": 8,
+      "cov": 0.62,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6305,7 +6269,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- c) identification of the **audit client**;",
       "after": "- c) who the **audit client** is;",
-      "run": 6,
+      "run": 5,
       "cov": 1,
       "srcs": [
         "19011:2026"
@@ -6325,7 +6289,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- d) identification of the **audit team** and auditee's participants;",
       "after": "- d) who was on the **audit team**, and who took part for the auditee;",
-      "run": 9,
+      "run": 8,
       "cov": 1,
       "srcs": [
         "19011:2026"
@@ -6345,7 +6309,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- e) **dates and locations** where auditing activities were conducted;",
       "after": "- e) the **dates and locations** at which auditing took place;",
-      "run": 9,
+      "run": 8,
       "cov": 1,
       "srcs": [],
       "reproduction": true,
@@ -6381,7 +6345,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- g) audit **findings and related audit evidence**;",
       "after": "- g) the **findings and the evidence behind them**;",
-      "run": 7,
+      "run": 6,
       "cov": 1,
       "srcs": [
         "19011:2026"
@@ -6419,7 +6383,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- i) a statement on the **degree to which the audit criteria have been fulfilled**;",
       "after": "- i) a statement of **how far the audit criteria have been fulfilled**;",
-      "run": 14,
+      "run": 13,
       "cov": 1,
       "srcs": [
         "19011:2026"
@@ -6439,7 +6403,7 @@
       "note": "FOURTEEN runs; clause 6.5.1's eleven report elements are recast item by item",
       "before": "- j) any **unresolved diverging opinions** between the audit team and the auditee;",
       "after": "- j) any **disagreement between the audit team and the auditee that was left unresolved**;",
-      "run": 12,
+      "run": 11,
       "cov": 1,
       "srcs": [
         "19011:2026"
@@ -6460,7 +6424,7 @@
       "before": "- k) a statement that **audits are by nature a sampling exercise**, and that as such there is a risk that the audit evidence examined is not representative.",
       "after": "- k) a statement that **auditing is by its nature a sampling exercise**, and so the evidence examined carries a risk of not being representative.",
       "run": 14,
-      "cov": 0.52,
+      "cov": 0.54,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6572,7 +6536,7 @@
       "before": "i) asks for **a statement on the degree to which the audit criteria have been fulfilled**",
       "after": "i) asks for **a statement of how far the audit criteria have been fulfilled**",
       "run": 13,
-      "cov": 0.81,
+      "cov": 0.87,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6607,8 +6571,8 @@
       "note": "10 runs; clause 10.2's five limbs recast individually",
       "before": "- a) **react to the nonconformity** and, as applicable, take action to control and correct it, and deal with the consequences;",
       "after": "- a) **react to the nonconformity** and, where applicable, act to control and correct it, and handle what follows;",
-      "run": 15,
-      "cov": 0.75,
+      "run": 14,
+      "cov": 0.74,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6625,8 +6589,8 @@
       "note": "10 runs; clause 10.2's five limbs recast individually",
       "before": "- b) **evaluate the need for action to eliminate the causes** of the nonconformity, so that it does not recur or occur elsewhere, by reviewing the nonconformity, determining its causes, and determining if similar nonconformities exist or can potentially occur;",
       "after": "- b) **evaluate the need for action to remove the causes** of the nonconformity, so it neither recurs nor appears elsewhere, by reviewing it, working out its causes, and asking whether similar nonconformities exist or could arise;",
-      "run": 14,
-      "cov": 0.36,
+      "run": 15,
+      "cov": 0.39,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6643,7 +6607,7 @@
       "note": "10 runs; clause 10.2's five limbs recast individually",
       "before": "- c) **implement any action needed**;",
       "after": "- c) **take whatever action is needed**;",
-      "run": 5,
+      "run": 4,
       "cov": 1,
       "srcs": [
         "27001:2022",
@@ -6664,7 +6628,7 @@
       "note": "10 runs; clause 10.2's five limbs recast individually",
       "before": "- d) **review the effectiveness** of any corrective action taken;",
       "after": "- d) **review how effective** any corrective action was;",
-      "run": 9,
+      "run": 8,
       "cov": 1,
       "srcs": [
         "27001:2022",
@@ -6685,7 +6649,7 @@
       "note": "10 runs; clause 10.2's five limbs recast individually",
       "before": "- e) **make changes to the AI management system**, if necessary.",
       "after": "- e) **change the AI management system**, if that is necessary.",
-      "run": 10,
+      "run": 9,
       "cov": 1,
       "srcs": [
         "42001:2023"
@@ -6817,7 +6781,7 @@
       "note": "11 runs; 9.3.2 d)'s three NUMBERED sub-items adjoin each other and one had to be broken",
       "before": "- a) the status of **actions from previous management reviews**;",
       "after": "- a) where **actions from earlier management reviews** stand;",
-      "run": 9,
+      "run": 8,
       "cov": 1,
       "srcs": [
         "27001:2022",
@@ -6838,7 +6802,7 @@
       "note": "11 runs; 9.3.2 d)'s three NUMBERED sub-items adjoin each other and one had to be broken",
       "before": "- b) **changes in external and internal issues** relevant to the AI management system;",
       "after": "- b) **changes in external and internal issues** bearing on the AI management system;",
-      "run": 13,
+      "run": 12,
       "cov": 1,
       "srcs": [],
       "reproduction": true,
@@ -6856,8 +6820,8 @@
       "note": "11 runs; 9.3.2 d)'s three NUMBERED sub-items adjoin each other and one had to be broken",
       "before": "- c) **changes in needs and expectations of interested parties** relevant to the AIMS;",
       "after": "- c) **changes in what interested parties need and expect** of the AIMS;",
-      "run": 9,
-      "cov": 0.69,
+      "run": 8,
+      "cov": 0.67,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6875,7 +6839,7 @@
       "before": "- d) **information on AI management system performance**, including **trends in**:",
       "after": "- d) **information on how the AI management system is performing**, including **trends in**:",
       "run": 7,
-      "cov": 0.7,
+      "cov": 0.78,
       "srcs": [],
       "reproduction": true,
       "enLanded": true,
@@ -6892,7 +6856,7 @@
       "note": "11 runs; 9.3.2 d)'s three NUMBERED sub-items adjoin each other and one had to be broken",
       "before": "  - 2) **monitoring and measurement results**;",
       "after": "  - 2) **what monitoring and measurement have shown**;",
-      "run": 5,
+      "run": 4,
       "cov": 1,
       "srcs": [
         "27001:2022",
