@@ -2112,6 +2112,75 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A MEASUREMENT WITHOUT AN EXPECTATION IS A RECORD, NOT A TEST.** Found
+2026-09-23. The wire matrix reported **75 pass / 0 fail** while es-419 search
+returned ZERO on every certification, and had done for at least two days.
+
+It recorded row counts and compared them to nothing. So a cell returning zero
+forever was indistinguishable, to the matrix, from a cell working perfectly.
+**A suite that stores what happened can detect CHANGE; it cannot detect
+WRONGNESS, and reporting it as pass/fail claims it can.**
+
+> **MECHANISM: every cell carries an expectation -- a floor, a range, or an
+> explicit "zero is correct here and this is why" -- and a cell with no
+> expectation is reported as UNASSERTED, never as a pass.** `NOT EXERCISED` was
+> already the right precedent: three cells refusing to claim something they had
+> not earned. Zero rows with no stated reason is the same class.
+
+The summary now carries THREE numbers. `n pass, m fail` cannot say whether a
+cell asserted anything.
+
+**AND THE SPANISH SEARCH DEFECT WAS IN THE TEST, NOT THE PRODUCT.** The
+matrix's query term was:
+
+```
+const QUERY = { en: "audit", "es-419": "auditoria", "pt-BR": "auditoria" };
+```
+
+Spanish is `auditoria` WITH AN I-ACUTE; Portuguese is `auditoria` without. **The
+same literal is correct for one language and matches nothing in the other.**
+Measured on AIMS-IA es-419 tasks: 19 rows match the accented form, **0** match
+the unaccented one. At the endpoint with the correct term: **69 rows**, against
+pt-BR 70 and English 80.
+
+**Spanish search was never broken. The matrix asked Spanish a question Spanish
+text cannot answer and scored the silence as a pass.**
+
+> A CONSTANT THAT IS CORRECT FOR ONE MEMBER OF A SET AND WRONG FOR ANOTHER IS
+> THE SAME DEFECT AS A SINGLE-LANGUAGE VOCABULARY PATTERN, and this file already
+> records that one. One literal, three languages, and nobody asked whether it
+> meant the same thing in each.
+
+**AND THE INVESTIGATION PRODUCED A FALSE CONFIRMATION, WHICH IS THE FOURTH
+TRANSPORT SURPRISE THIS WEEK.** A `curl` with the accented term inline returned
+**0** -- the shell mangled the character -- which looked exactly like a product
+defect and agreed with the hypothesis under test. It was caught only because
+the DATABASE said 19 rows with the identical regex, so two instruments
+disagreed. Sending the body as a UTF-8 file returned 69.
+
+The query terms are now built with `String.fromCharCode` rather than typed, and
+this is the fourth: backslash collapse, apostrophe mangling in a quoted
+heredoc, a paste that may not be one transaction, and now an accent eaten
+between a shell and an HTTP body.
+
+**AND THE pt-BR JUMP WAS THE CONCEPT WORK LANDING, CHECKED RATHER THAN
+ASSUMED.** pt-BR search went 20 -> 70, 14 -> 64, 2 -> 14 in a day.
+`courseware-query` searches concepts for a non-English language ONLY when that
+language has cleared concepts; measured now, es-419 is 157/158 cleared and
+pt-BR 155/158, so both search task AND concept where pt-BR previously searched
+tasks alone. The magnitudes agree -- es-419 69, pt-BR 70, English 80.
+
+**AND A CHECK CONSTRAINT IS A CONTROL THAT CANNOT GO STALE.**
+`lessons_mcp_scan_coherent` -- `mcp_servable = false OR (longest_run AND
+scanned_at AND scan_sources all present)` -- was written for the scanner and
+caught `verify-367`'s restore path two columns short, refusing to leave a row
+in a state the scanner could never produce.
+
+> **WHERE A SET OF COLUMNS MUST TRAVEL TOGETHER, A CHECK CONSTRAINT IS CHEAPER
+> AND STRONGER THAN A CONVENTION.** It constrains a COHERENCE property of the
+> row rather than anticipating a caller's mistake, so it catches callers
+> nobody imagined -- and it is pinned to no defect, so it can never expire.
+
 **A MIGRATION'S ATOMICITY IS A PROPERTY OF THE TRANSPORT, AND THE TRANSPORT
 IS MEASURED, NOT ASSUMED.** Found 2026-09-23. 367 used a temporary table to
 capture its before-state and the SQL editor answered:

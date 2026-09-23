@@ -79,7 +79,33 @@ const LANGS = ["en", "es-419", "pt-BR"];
  * actually advertises, so a partner reaches them first. */
 const CERTS = ["AIMS-IA", "ISMS-IA", "AIMS-F", "AISM-I", "AIGRM-I"];
 
-const QUERY = { "en": "audit", "es-419": "auditoria", "pt-BR": "auditoria" };
+/* ============ ONE TERM PER LANGUAGE, AND THE ACCENT IS THE POINT ==========
+ *
+ * This read `es-419: "auditoria"` -- WITHOUT THE ACCENT. Spanish is
+ * `auditoria` with an i-acute; Portuguese is `auditoria` without one. The same
+ * literal is correct for pt-BR and matches NOTHING in Spanish.
+ *
+ * Measured in the database for AIMS-IA es-419 tasks:
+ *
+ *   ~* backslash-y auditoria-with-accent    19 rows
+ *   ~* backslash-y auditoria-no-accent       0 rows
+ *
+ * So the matrix asked Spanish a question Spanish text cannot answer, got zero,
+ * and reported it as a PASS -- for at least two days across every
+ * certification. At the endpoint with the correct term: 69 rows, against
+ * pt-BR 70 and English 80.
+ *
+ * SPANISH SEARCH WAS NEVER BROKEN. The test was.
+ *
+ * The accented characters are built from escapes rather than typed, because a
+ * shell mangled this exact word during the investigation and produced a
+ * convincing false confirmation of a product defect. */
+const I_ACUTE = String.fromCharCode(0x00ED);
+const QUERY = {
+  "en": "audit",
+  "es-419": "auditor" + I_ACUTE + "a",
+  "pt-BR": "auditoria",
+};
 
 /* Which mcp view each resource reads, so a failing cell names the object to
  * go and look at rather than only the tool that surfaced it. */
@@ -141,6 +167,32 @@ async function call(body, headers = {}) {
   return lastRes ?? { status: 0, json: null, text: String(last?.message || last), attempts: 4 };
 }
 
+/* ============ THE EXPECTATIONS ============
+ *
+ * A floor per resource, with the reason stated. These are deliberately LOW --
+ * the point is to catch a surface returning nothing, not to pin a count that
+ * goes stale every time content lands. A floor that tracks the corpus is a
+ * literal assertion by another name.
+ *
+ * `search` is the one that needed this. Every certification in the matrix has
+ * tasks or concepts mentioning its own audit vocabulary in all three
+ * languages, so a search for that vocabulary returning zero is a finding in
+ * any of them. AISM-I and AIGRM-I are the exception and they say so.
+ */
+const EXPECT = {
+  certification: { min: 1, why: "a certification in the matrix exists, so it must return its row" },
+  task:          { min: 1, why: "every certification here has a published task list" },
+  concept:       { min: 1, why: "every certification here has concepts in all three languages" },
+  lesson_index:  { min: 1, why: "every certification here has lessons; the index lists them with or without bodies" },
+  /* search is per (cert, language) rather than per resource -- see SEARCH_EXPECT. */
+};
+
+/* AISM-I and AIGRM-I cite no ISO auditing standard, so the audit vocabulary is
+ * genuinely sparse or absent in them. ZERO IS CORRECT THERE AND THIS IS WHY --
+ * which is the whole point of the category: an expectation of zero is still an
+ * expectation, and it is checked. */
+const SEARCH_ZERO_OK = new Set(["AISM-I"]);
+
 function verdict(res, resource) {
   if (res.status === 0) return { ok: false, why: "unreachable: " + res.text.slice(0, 60) };
   if (res.status !== 200) {
@@ -153,6 +205,28 @@ function verdict(res, resource) {
              : Array.isArray(res.json.lessons) ? res.json.lessons.length : null;
   if (rows === null) return { ok: false, why: "200 with no rows array" };
   if (MUST_HAVE_ROWS.has(resource) && rows === 0) return { ok: false, why: "200 with zero rows" };
+
+  /* ============ A MEASUREMENT WITHOUT AN EXPECTATION IS A RECORD ==========
+   *
+   * This used to return { ok: true, rows } for anything that transported, and
+   * the row count was compared to NOTHING. So a cell returning zero forever was
+   * indistinguishable from a cell working perfectly, and es-419 search was
+   * reported as a pass for at least two days while returning nothing on every
+   * certification.
+   *
+   * A suite that stores what happened can detect CHANGE; it cannot detect
+   * WRONGNESS, and calling it pass/fail claims it can.
+   *
+   * So every cell now carries an expectation -- a floor, or an explicit
+   * statement that zero is correct here and why -- and a cell with no
+   * expectation is UNASSERTED, never a pass. `NOT EXERCISED` was already the
+   * right precedent: three cells refusing to claim something they had not
+   * earned. Zero rows with no stated reason is the same class. */
+  const exp = EXPECT[resource];
+  if (!exp) return { unasserted: true, rows, why: "no expectation is declared for this resource" };
+  if (typeof exp.min === "number" && rows < exp.min) {
+    return { ok: false, rows, why: "expected at least " + exp.min + " row(s), got " + rows + " -- " + exp.why };
+  }
   return { ok: true, rows };
 }
 
@@ -170,6 +244,34 @@ function verdict(res, resource) {
  */
 async function controls() {
   const out = [];
+
+  /* ============ THE EXPECTATION LOGIC NEEDS ITS OWN CONTROL ============
+   *
+   * `verdict` gained a floor and an UNASSERTED state, and a guard nobody has
+   * watched fail is indistinguishable from one that cannot. These are offline
+   * -- synthetic responses, no network -- so they cost nothing and cannot be
+   * skipped by a quiet endpoint.
+   *
+   * Three directions, because the new logic has three outcomes. */
+  const fake = (rows) => ({ status: 200, json: { rows: new Array(rows).fill({}) }, text: "" });
+  const vFloor = verdict(fake(0), "concept");
+  const vPass  = verdict(fake(3), "concept");
+  const vNone  = verdict(fake(3), "no_such_resource");
+  out.push({
+    name: "EXPECTATION -- a floor can fail",
+    pass: vFloor.ok === false,
+    detail: vFloor.ok === false ? "zero rows on a resource with a floor is a FAIL" : "a floor did not fire",
+  });
+  out.push({
+    name: "EXPECTATION -- a met floor passes",
+    pass: vPass.ok === true,
+    detail: vPass.ok === true ? "rows above the floor pass" : "a met floor did not pass",
+  });
+  out.push({
+    name: "EXPECTATION -- no declared expectation reports UNASSERTED",
+    pass: vNone.unasserted === true && vNone.ok !== true,
+    detail: vNone.unasserted === true ? "an undeclared resource is never a pass" : "an undeclared resource passed",
+  });
 
   const up = await call({ resource: "certification", certification: "AISM-I", language: "en" });
   const upV = verdict(up, "certification");
@@ -213,7 +315,21 @@ for (const resource of ["certification", "task", "concept", "search", "lesson_in
       if (resource === "search") body.query = QUERY[lang];
       if (resource !== "certification") body.limit = 50;
       const res = await call(body);
-      const v = verdict(res, resource);
+      let v = verdict(res, resource);
+      if (resource === "search" && v.unasserted) {
+        /* Asserted per (cert, language): a certification that teaches auditing
+         * must answer its own audit vocabulary in every language it publishes.
+         * Zero is permitted only where it is DECLARED and the reason given. */
+        if (SEARCH_ZERO_OK.has(cert)) {
+          v = { ok: true, rows: v.rows, note: "zero permitted: cites no auditing standard" };
+        } else if (v.rows > 0) {
+          v = { ok: true, rows: v.rows };
+        } else {
+          v = { ok: false, rows: 0,
+                why: "search for the audit term returned nothing in " + lang +
+                     " -- either the corpus lacks it or the query path does" };
+        }
+      }
       cells.push({ resource, view: VIEW_FOR[resource], lang, cert, attempts: res.attempts, ...v });
       await sleep(250);
     }
@@ -272,7 +388,19 @@ if (failed.length) {
  * 51 were examined. A matrix that examines nothing renders identically to one
  * that examined everything and held, unless the denominator is printed. */
 console.log("");
-console.log("  " + (examined - failed.length) + " pass, " + failed.length + " fail, " +
+const unasserted = cells.filter((c) => c.unasserted);
+if (unasserted.length) {
+  console.log("");
+  console.log("  UNASSERTED -- transported, but nothing said what the answer should be:");
+  for (const c of unasserted) {
+    console.log("    " + c.resource.padEnd(15) + c.lang.padEnd(8) + c.cert.padEnd(9) +
+                "rows " + String(c.rows).padStart(4) + "   " + c.why);
+  }
+}
+/* THREE NUMBERS, NOT TWO. `n/m hold` cannot say whether the nth looked at
+ * anything -- the same rule as the vacuous-invariant summary. */
+console.log("  " + (examined - failed.length - unasserted.length) + " pass, " +
+            failed.length + " fail, " + unasserted.length + " unasserted, " +
             skipped.length + " not exercised   (denominator: " + examined + " cell(s) examined)");
 
 if (JSON_OUT) {
