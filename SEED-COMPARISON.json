@@ -1,0 +1,112 @@
+{
+  "measured": "2026-09-23T05:47:37.909Z",
+  "lessons": 479,
+  "over4": 21,
+  "over5": 4,
+  "only4": 17,
+  "real": [],
+  "manufactured": [
+    {
+      "cert": "AIMS-F",
+      "slug": "04-05-data-and-information-controls",
+      "run": 10,
+      "text": "that the user is interacting with an ai system is"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "04-04-impact-and-life-cycle-controls",
+      "run": 10,
+      "text": "reconsider or manage the deficiencies of the intended use the"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-03-leadership-in-artifacts",
+      "run": 10,
+      "text": "the ai policy control the organization shall document a policy"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-01-03-which-document-can-carry-a-finding",
+      "run": 10,
+      "text": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "02-08-risk-treatment-and-the-soa",
+      "run": 11,
+      "text": "all the controls listed in annex a or may even exceed"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-01-three-things-a-finding-can-be",
+      "run": 10,
+      "text": "the results of the evaluation of the collected audit evidence"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-01-01-who-commissioned-it",
+      "run": 10,
+      "text": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-02-07-the-programme-audits-itself",
+      "run": 11,
+      "text": "documented information as evidence of the implementation of the audit programme"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "03-07-what-carries-over-from-an-isms",
+      "run": 10,
+      "text": "related to an ai system can be specific to the"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "04-06-use-and-third-party-controls",
+      "run": 10,
+      "text": "that the organization should document all parties intervening in the"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "03-05-third-party-ai-supply",
+      "run": 10,
+      "text": "and can decide to work with the supplier to achieve"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "05-02-aims-internal-audit",
+      "run": 10,
+      "text": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "cert": "AIMS-F",
+      "slug": "02-03-leadership-policy-objectives",
+      "run": 10,
+      "text": "guidance in b 6 1 and b 9 3 the"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-05-03-one-finding-or-several",
+      "run": 10,
+      "text": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-04-12-declared-and-operated",
+      "run": 10,
+      "text": "a 7 4 quality of data for ai systems and"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-02-02-where-the-effort-goes",
+      "run": 10,
+      "text": "to determine the extent number duration locations and schedule of"
+    },
+    {
+      "cert": "AIMS-IA",
+      "slug": "aims-ia-02-05-defining-one-audit",
+      "run": 10,
+      "text": "the organization's own requirements for its ai management system and"
+    }
+  ]
+}

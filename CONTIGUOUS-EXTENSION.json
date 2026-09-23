@@ -1,0 +1,2912 @@
+{
+  "measured": "2026-09-23T05:54:25.379Z",
+  "seed": 4,
+  "units": 77602,
+  "withRuns": 5386,
+  "firesChained": 292,
+  "firesContiguous": 272,
+  "stopFiring": [
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-08-risk-treatment-and-the-soa",
+      "field": "body",
+      "reported": 11,
+      "actual": 9,
+      "span": "all the controls listed in annex a or may even exceed"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-07-the-programme-audits-itself",
+      "field": "body",
+      "reported": 11,
+      "actual": 9,
+      "span": "documented information as evidence of the implementation of the audit programme"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-05-data-and-information-controls",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "that the user is interacting with an ai system is"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-05-data-and-information-controls",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "related to an ai system can be specific to the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "that the audit team leader should report the audit conclusions"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-04-impact-and-life-cycle-controls",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "reconsider or manage the deficiencies of the intended use the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-04-impact-and-life-cycle-controls",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "reconsider or manage the deficiencies of the intended use the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 10,
+      "actual": 6,
+      "span": "the ai policy control the organization shall document a policy"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the results of the evaluation of the collected audit evidence"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-07-what-carries-over-from-an-isms",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "related to an ai system can be specific to the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-06-use-and-third-party-controls",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "that the organization should document all parties intervening in the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-05-third-party-ai-supply",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "and can decide to work with the supplier to achieve"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-02-aims-internal-audit",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-03-leadership-policy-objectives",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "guidance in b 6 1 and b 9 3 the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-03-one-finding-or-several",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the organization's own requirements for its ai management system and"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-12-declared-and-operated",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "a 7 4 quality of data for ai systems and"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-02-where-the-effort-goes",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "to determine the extent number duration locations and schedule of"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "02-01-what-an-isms-is",
+      "field": "body",
+      "reported": 8,
+      "actual": 7,
+      "span": "the internal and external issues that affect the"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 7,
+      "actual": 6,
+      "span": "9 1 requires the organization to determine"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIHR-I",
+      "id": "02-08-the-defensible-record",
+      "field": "body",
+      "reported": 6,
+      "actual": 5,
+      "span": "the date and time of the"
+    }
+  ],
+  "stillFiring": [
+    {
+      "corpus": "concept",
+      "cert": "SD-AI-I",
+      "id": "human-in-the-loop",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIGRM-I",
+      "id": "human-in-the-loop",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIGRM-I",
+      "id": "iso-42005-impact-assessment",
+      "field": "description",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIGRM-I",
+      "id": "ai-impact-assessment",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AISM-I",
+      "id": "human-in-the-loop",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIE-I",
+      "id": "human-in-the-loop",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-6-1-4-impact-assessment",
+      "field": "name",
+      "reported": 7,
+      "actual": 7,
+      "span": "6 1 4 ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-collecting-verifying-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "collecting and verifying information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-programme-risks-and-opportunities-5-3",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "programme risks and opportunities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-annex-a-5-35-independent-review",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "5 35 independent review",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-8-1-operational-control",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "8 1 operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-roles-responsibilities-authorities-clause-5-3",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "roles responsibilities and authorities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-small-organization-independence-constraints",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "in a small organization",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-27001-requirements-as-audit-criteria",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "iso iec 27001 as",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-audit-team-selection-5-5-4",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "selecting audit team members",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-audit-team-leader-assignment-5-5-5",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "the audit team leader",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-remote-method-risks-annex-a-16",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "of remote auditing methods",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-review-of-documented-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "review of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-audit-feasibility-6-2-3",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "feasibility of the audit",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-internal-and-external-issues-clause-4-1",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "internal and external issues",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-information-security-policy-clause-5-2",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "the information security policy",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-risk-assessment-process-clause-6-1-2",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "the risk assessment process",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-risk-treatment-process-clause-6-1-3",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "the risk treatment process",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-soa-inclusion-and-exclusion-justification",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "justification for inclusion and exclusion",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-control-of-documented-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "control of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-operational-planning-and-control-clause-8-1",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "ISMS-IA",
+      "id": "ia-risk-assessment-and-treatment-in-operation-clause-8-2-8-3",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-audit-party-types",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "second and third party audits",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-audit-client-vs-auditee",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit client and auditee",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-small-organization-constraint",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "in a small organization",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-programme-risks",
+      "field": "name",
+      "reported": 7,
+      "actual": 6,
+      "span": "risks and opportunities to the audit",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-individual-audit-objectives",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "for an individual audit",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-programme-monitoring",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "monitoring the audit programme",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-programme-review-improvement",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "reviewing and improving the",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-remote-vs-onsite-tradeoff",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "remote and on site",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-sources-of-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "selecting sources of information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-intended-purpose-consideration",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "intended purpose of the ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-external-internal-issues",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "external and internal issues",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-4-3-scope",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "scope of the ai management system",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-5-leadership",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "5 1 leadership and commitment",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-interested-party-requirements",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "interested parties and their requirements",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-6-1-3-risk-treatment",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "6 1 3 ai risk treatment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-ai-policy-requirements",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "5 2 ai policy",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-statement-of-applicability",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "the statement of applicability",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-roles-responsibilities-authorities",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "5 3 roles responsibilities and authorities",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-6-1-2-risk-assessment",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "6 1 2 ai risk assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-repeatable-comparable-results",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "consistent valid and comparable results",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-7-5-documented-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "7 5 documented information",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-a-4-resource-documentation",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 4 resources for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-a-7-data-controls",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 7 data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-a-6-life-cycle-controls",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 6 ai system life cycle",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-10-2-corrective-action",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "10 2 nonconformity and corrective action",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-clause-9-3-management-review",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "9 3 management review",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-review-results-9-3-3",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "results of the management review",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-risk-based-approach",
+      "field": "name",
+      "reported": 6,
+      "actual": 6,
+      "span": "the risk based approach to auditing",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-IA",
+      "id": "aia-a-4-6-human-resources",
+      "field": "name",
+      "reported": 5,
+      "actual": 5,
+      "span": "a 4 6 human resources",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "SM-AI-II",
+      "id": "organizational-service",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "service to the organization",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "ai-system-life-cycle",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system life cycle",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "ai-system-impact-assessment",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "control-of-documented-information",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "control of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "operational-planning-and-control",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "data-for-ai-systems",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "concept",
+      "cert": "AIMS-F",
+      "id": "audit-criteria-and-scope",
+      "field": "name",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit criteria and scope",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-08-clause-8-operational-duties",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-07-treatment-plan-and-residual-risk",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-05-data-and-information-controls",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "capabilities for interested parties to report adverse impacts",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-06-annex-a-is-a-reference",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-06-annex-a-is-a-reference",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the statement of applicability",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIE-I",
+      "id": "03-03-human-in-the-loop",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIE-I",
+      "id": "03-03-human-in-the-loop",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIE-I",
+      "id": "03-03-human-in-the-loop",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-05-the-certification-route",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "nonconformity and corrective action",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "the status of actions from previous",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "changes in external and internal issues",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "the needs and expectations of interested parties",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "feedback from interested parties",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "opportunities for continual improvement",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-03-management-review",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the status of actions from previous management reviews",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-01-05-which-document-says-what",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "the organization shall conduct internal audits at planned intervals",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-02-demonstrated-not-stated",
+      "field": "body",
+      "reported": 8,
+      "actual": 7,
+      "span": "appropriate to the purpose of the organization",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-02-demonstrated-not-stated",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a commitment to satisfy applicable requirements",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-02-demonstrated-not-stated",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "a commitment to continual improvement",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-02-demonstrated-not-stated",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "be available to interested parties as appropriate",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-08-assets-nobody-registered",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "5 9 inventory of information and other associated assets",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-10-choosing-a-treatment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-05-a-report-for-someone-not-in-the-room",
+      "field": "body",
+      "reported": 14,
+      "actual": 11,
+      "span": "ensure that the results of audits are reported to relevant managers",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "02-04-scope",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "the information security policy and the",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-09-normative-and-should",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "reference control objectives and controls",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-09-normative-and-should",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "implementation guidance for ai controls",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-09-normative-and-should",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "potential ai related organizational objectives and risk sources",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-09-normative-and-should",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the ai management system across domains or sectors",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-04-impact-and-life-cycle-controls",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "define and document the specific processes for",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "04-02-control-attributes",
+      "field": "body",
+      "reported": 11,
+      "actual": 11,
+      "span": "identity and access management threat and vulnerability management continuity supplier relationships",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-02-awareness-and-communication",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "the implications of not conforming with",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-01-resources-and-competence",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the impact of the hardware used to run",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-11-the-clean-result",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "communicating the importance of effective ai management and of",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "provides a framework for setting ai objectives",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a commitment to meet applicable requirements",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "be communicated within the organization",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "the ai management system conforms to the requirements of",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-03-leadership-in-artifacts",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "reporting on the performance of the",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-01-03-which-document-can-carry-a-finding",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the organization's own requirements for its ai management system",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-01-03-which-document-can-carry-a-finding",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the requirements of iso iec",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "04-01-the-four-themes",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "information security in supplier relationships",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIGRM-I",
+      "id": "04-08-oversight-in-deployment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-09-prompt-data-leaving",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "reported to relevant management",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "status of actions from previous management reviews",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "fulfilment of information security objectives",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "6 2 initiating the audit",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "6 3 preparing auditing activities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "6 4 conducting auditing activities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "6 5 preparing and distributing the audit report",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "6 6 completing the audit",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-01-the-order-of-an-audit",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "6 7 conducting the audit follow up",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-06-data-for-ai-systems",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-06-data-for-ai-systems",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-06-data-for-ai-systems",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "SM-AI-I",
+      "id": "02-03-the-scrum-master",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "2 2 2 3",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIE-I",
+      "id": "03-04-policies-and-red-lines",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "2 determining the causes of the nonconformity",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-10-one-word-apart",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "iso iec 27001 iso iec",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-06-two-assessments-not-one",
+      "field": "body",
+      "reported": 10,
+      "actual": 10,
+      "span": "the ai system impact assessment shall determine the potential consequences",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-07-controlled-not-merely-present",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "7 5 documented information",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-07-controlled-not-merely-present",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a title date author or reference number",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-07-controlled-not-merely-present",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "review and approval for suitability and adequacy",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "05-01-monitoring-and-measurement",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "9 1 monitoring measurement analysis and evaluation",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIGRM-I",
+      "id": "02-10-human-oversight-control",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-04-operational-planning-and-control",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-04-operational-planning-and-control",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-04-operational-planning-and-control",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-04-the-four-treatment-options",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "02-03-amendment-1-2024",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "4 1 and 4 2",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-05-the-question-that-finds-evidence",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "the reason for the interview and any note taking",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-05-the-question-that-finds-evidence",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "initiated by asking individuals to describe their work",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-05-the-question-that-finds-evidence",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "thanked for their participation and cooperation",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-02-annex-a-and-the-soa",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "control objectives in general or for specific ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "SM-AI-I",
+      "id": "05-03-psychological-safety-and-coaching-the-po",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "5 5 5 6",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-13-competence-the-organization-claims",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "a 4 6 human resources",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the ai risk assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "sources events and outcomes",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "acceptance decisions and prioritization",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "documentation reporting and communication",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-06-the-ai-system-impact-assessment",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "deployment intended use and foreseeable misuse",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-03-naming-the-risk",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-08-risk-treatment-and-the-soa",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the ai risk assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-08-risk-treatment-and-the-soa",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-08-risk-treatment-and-the-soa",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai risk treatment plan",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-08-risk-treatment-and-the-soa",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the statement of applicability",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "audit evidence to support conformity and effectiveness if applicable",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "declaration of conformity if applicable",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a description of or reference to",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "related audit findings if applicable",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "the grade of the nonconformity where grading is used",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-01-three-things-a-finding-can-be",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the grade of the nonconformity",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "9 3 management review",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "nonconformities and corrective actions",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-07-where-the-audit-lands",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "opportunities for continual improvement",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "01-01-what-an-aims-is",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "an ai management system is",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-05-04-can-this-finding-stand",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the organization's own requirements",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIGRM-I",
+      "id": "01-08-ai-management-system",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "an ai management system is",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "SD-AI-I",
+      "id": "04-06-agentic-workflows",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "SD-AI-I",
+      "id": "04-06-agentic-workflows",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-04-nonconformity-and-corrective-action",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "nonconformity and corrective action",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-04-nonconformity-and-corrective-action",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "to review the effectiveness of any corrective action taken",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-06-testing-the-programme",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit programme 3 5",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-06-testing-the-programme",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "documented information on the",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-05-01-whose-scheme-is-it",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit finding 3 11",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AISM-I",
+      "id": "04-13-human-in-on-the-loop",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AISM-I",
+      "id": "04-13-human-in-on-the-loop",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "human in the loop",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "02-09-pdca-and-improvement",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "plan do check act",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "01-04-the-27000-family",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "for an information security management system",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-01-01-who-commissioned-it",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the organization's own requirements for its ai management system",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-01-01-who-commissioned-it",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "is effectively implemented and maintained",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-03-01-degree-of-verification",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit evidence 3 10",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-03-01-degree-of-verification",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "some degree of verification",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-08-identifying-ai-deployment-risks",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the needs and expectations of relevant interested parties",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "organizations that are part of the supply chain",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-01-a-programme-is-designed-not-scheduled",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "auditee's level of performance and level of maturity",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-07-two-sentences",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the organization shall determine whether climate change is",
+      "src": "27001:2022/Amd1"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-03-documented-information",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "control of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-03-documented-information",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "distribution access retrieval and use",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-03-documented-information",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "storage and preservation including preservation of legibility",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-03-documented-information",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "control of documented information documented information",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "8 1 operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 7,
+      "actual": 6,
+      "span": "9 1 requires the organization to",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "monitoring and measuring shall be",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "who shall monitor and measure",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "shall be analysed and evaluated",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-06-defined-versus-running",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "establishing criteria for the processes",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-07-what-carries-over-from-an-isms",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-01-the-assessment-process",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-11-a-determination-not-an-answer",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "iso iec 27001 does",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 8 information for interested parties",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 7 data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a 10 third party and customer relationships",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 2 policies related to ai",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a 5 assessing impacts of ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 6 ai system life cycle",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-01-annex-a-structure",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a 10 third party and customer relationships",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-02-applying-risk-criteria",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "id": "03-05-the-statement-of-applicability",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "risk assessment and treatment",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-06-integrated-audit-programme",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the statement of applicability",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-06-integrated-audit-programme",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 2 policies related to ai",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "a 3 internal organization",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 4 resources for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a 5 assessing impacts of ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 6 ai system life cycle",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 7 data for ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "a 8 information for interested parties of ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "a 9 use of ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-10-justifying-both-directions",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "a 10 third party and customer relationships",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-05-the-ai-risk-assessment",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the ai risk assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-05-the-ai-risk-assessment",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "distinguishing acceptable from non acceptable risks",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-05-the-ai-risk-assessment",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the organization individuals and societies",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-05-the-ai-risk-assessment",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "consequences to the organization individuals and societies",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-03-the-whole-of-clause-6",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "treatment options taking account of the",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-03-the-whole-of-clause-6",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the statement of applicability",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-03-the-whole-of-clause-6",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "a risk treatment plan",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-07-risk-versus-impact",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the ai risk assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-07-risk-versus-impact",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system impact assessment",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-04-roles-responsibilities-authorities",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "roles responsibilities and authorities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-04-roles-responsibilities-authorities",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "assign the responsibility and authority for",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-01-aims-monitoring-and-measurement",
+      "field": "body",
+      "reported": 7,
+      "actual": 6,
+      "span": "9 1 requires the organization to",
+      "src": "27004:2016"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-01-aims-monitoring-and-measurement",
+      "field": "body",
+      "reported": 14,
+      "actual": 12,
+      "span": "the organization should consider the performance of non ai systems or processes",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-01-aims-monitoring-and-measurement",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "results achieved by using ai systems",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "03-05-third-party-ai-supply",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-02-aims-internal-audit",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit criteria and scope",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-02-aims-internal-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "are reported to relevant managers",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-03-leadership-policy-objectives",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "how the results will be evaluated",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-03-leadership-policy-objectives",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "8 1 operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "02-03-leadership-policy-objectives",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "10 2 nonconformity and corrective action",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-01-02-principles-in-tension",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "discretion in the use and protection of information acquired",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-01-02-principles-in-tension",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the rational method for reaching reliable and reproducible",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-01-02-principles-in-tension",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "approach that considers risks and opportunities",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-05-competence-awareness-documents",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "control of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-05-competence-awareness-documents",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "retain appropriate documented information as evidence of competence",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-05-competence-awareness-documents",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "the information security policy",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-05-competence-awareness-documents",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "the implications of not conforming with",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-03-04-what-each-method-can-establish",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "review of documented information",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-03-07-where-the-audit-stops",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "5 35 independent review of information security",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "SM-AI-I",
+      "id": "05-04-coaching-the-organization-and-scaling",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "service to the organization",
+      "src": "27002:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-03-04-demonstrated-not-described",
+      "field": "body",
+      "reported": 7,
+      "actual": 7,
+      "span": "current the content is up to date",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-02-where-the-effort-goes",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "selection of the audit team",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-02-where-the-effort-goes",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "monitoring reviewing and improving the",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-01-04-competence-of-the-team",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "artificial intelligence based evaluation tools",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-03-aims-management-review",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "opportunities for continual improvement",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-03-aims-management-review",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "8 1 operational planning and control",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-03-aims-management-review",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "10 2 nonconformity and corrective action",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "05-03-aims-management-review",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "9 3 3 management review results",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-03-scope-criteria-objectives",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "audit criteria 3 8",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-03-scope-criteria-objectives",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "the audit objectives criteria and scope",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-03-scope-criteria-objectives",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the audit criteria and scope",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-04-tracing-the-soa-back",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "6 1 3 b and c",
+      "src": "27001:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-04-04-tracing-the-soa-back",
+      "field": "body",
+      "reported": 6,
+      "actual": 6,
+      "span": "6 1 3 f requires the",
+      "src": "27005:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-04-01-a-determination-or-an-assertion",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "shall determine whether climate change is a relevant issue",
+      "src": "27001:2022/Amd1"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-03-governing-apparatus-controls",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "policies related to ai",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-03-governing-apparatus-controls",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "resources for ai systems",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-03-governing-apparatus-controls",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "processes for handling deviations and exceptions to policy",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "04-03-governing-apparatus-controls",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system impact assessments",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-05-defining-one-audit",
+      "field": "body",
+      "reported": 8,
+      "actual": 8,
+      "span": "the suitability and adequacy of the management system",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-05-defining-one-audit",
+      "field": "body",
+      "reported": 10,
+      "actual": 9,
+      "span": "the organization's own requirements for its ai management system",
+      "src": "42001:2023"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "id": "aims-ia-02-05-defining-one-audit",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the requirements of iso iec",
+      "src": "27000:2018"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "id": "isms-ia-02-05-who-does-the-audit",
+      "field": "body",
+      "reported": 9,
+      "actual": 9,
+      "span": "access to adequate and appropriate information and communication technology",
+      "src": "19011:2026"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "01-03-the-ai-system-life-cycle",
+      "field": "body",
+      "reported": 5,
+      "actual": 5,
+      "span": "the ai system life cycle",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "01-03-the-ai-system-life-cycle",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system life cycle",
+      "src": "22989:2022"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "id": "01-03-the-ai-system-life-cycle",
+      "field": "body",
+      "reported": 4,
+      "actual": 4,
+      "span": "ai system life cycle",
+      "src": "22989:2022"
+    }
+  ]
+}

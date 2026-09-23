@@ -2112,6 +2112,126 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A SEED FINDS A CANDIDATE. IT MUST NEVER MEASURE ONE.** Found 2026-09-23,
+and it is the largest instrument defect this programme has produced, because
+every leak number in it was measured by the construct below.
+
+Both scorers extend a matched run like this:
+
+```
+let n = SEED;
+while (own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+```
+
+The test is *"is the trailing seed-gram present ANYWHERE in this document"*,
+not *"does the document continue this way"*. **So the extension HOPS.** A run
+walks forward while each successive window exists somewhere, and the windows
+need not come from the same place.
+
+Measured per offset against ISO 19011:2026:
+
+```
+the results of the evaluation of the collected audit evidence
+ 4    9    8   7     6      5   4   0        0     0
+```
+
+The longest genuinely contiguous run is **nine**, starting at `results`. The
+leading `the` matches a 4-gram somewhere else entirely, and chaining it on
+reports **ten** -- which is the absolute floor. **A nine-word run that does not
+fire became a ten-word run that does, on one word borrowed from another page.**
+
+**THE LIBRARY HELD THE DISPROOF AND DISCARDED IT.** `runsAgainst` calls
+`sourcePositions(src, words)` on every run it records -- a plain word-for-word
+scan returning every position where the WHOLE run occurs contiguously. For a
+chained run that array is empty. It is stored as `sourceAt`, used for the merge
+gap and for `inAnnex`, and **never once consulted to ask whether the run is
+real.**
+
+> **MECHANISM: extend by POSITION. Keep the candidate source positions from the
+> seed match and extend while some position still matches.** A real run has a
+> position by construction; an invented one does not. This is correct at EVERY
+> seed, and it returns the seed to being what it is for.
+
+**Measured before proposing, 77,602 units, with the canary asserted to measure
+its full 14w under BOTH extensions so neither can be shortening real runs:**
+
+```
+FIRES, extending by n-gram (today)   292
+FIRES, extending by position         272
+  still fire                         272
+  STOP firing                         20    all lessons, 0 concepts
+  NEWLY fire                           0    <- chaining only ever inflates
+runs whose length was overstated     280    median 1 word, worst 4
+```
+
+**AND THIS IS THE REAL ANSWER TO THE SEED QUESTION.** `scan-iso-leaks` seeds at
+5 and refuses 9 lesson rows; `leak-score` seeds at 4 and the same corpus yields
+60. That looked like a sensitivity dial and it is not: **a larger seed makes
+chaining arithmetically harder, so seed 5 chains LESS. It is not more correct,
+it is less wrong** -- and it pays by missing genuine short runs. Of 17 runs
+seed 4 reported at or over the floor that seed 5 did not, **17 were chained.**
+
+**A BINARY TEST ON A THREE-STATE PROPERTY CLEARS REAL DEFECTS.** The first
+version of this audit asked only *does this exact sequence appear contiguously*
+and called everything else MANUFACTURED -- **98 of 361 fires, 27 percent**. The
+list opened with
+
+```
+react to the nonconformity and as applicable take action to control and correct it
+```
+
+which is ISO/IEC 27001:2022 cl.10.2 almost word for word, absent contiguously
+because the standard reads *"and, as applicable: a) take action"* and the list
+letter is a token our prose has no occasion to carry. **That is a reproduction
+with an omission** -- the `confidentiality` shape already recorded here. Three
+states, and folding any two is a lie:
+
+| | |
+|---|---|
+| CONTIGUOUS | one piece, verbatim |
+| INTERPOLATED | several pieces, each near the last IN THE SOURCE. Still a reproduction |
+| CHAINED | pieces from far apart, or words the source does not contain |
+
+Measured: **263 contiguous, 69 interpolated, 29 chained.** Calling
+INTERPOLATED manufactured would have cleared 69 genuine reproductions.
+
+**Caught by reading the members, not by the count.** 27 percent looked like a
+plausible artifact rate.
+
+**A HAND-PICKED CONTROL ASSERTS THE AUTHOR OWN GUESS ABOUT THE CORPUS.** The
+CHAINED control was first a front-matter phrase welded to the canary; it came
+back INTERPOLATED, **correctly**, because those two sit close together. When a
+picked control fails there is no way to tell a broken classifier from a wrong
+guess, and the temptation is to edit the expectation until it agrees with the
+code. **That is how a control dies.**
+
+> **MECHANISM: CONSTRUCT controls from the index at runtime at offsets whose
+> answer is known by construction** -- one piece contiguous, two pieces two
+> words apart interpolated, two pieces five thousand words apart chained. No
+> judgement about the corpus is involved and the expectation cannot drift.
+
+**AND AN INSTRUMENT POINTED AT THE WRONG CORPUS REPORTS A CATASTROPHE.**
+Scoring lesson bodies with `leak-score` directly reported **75 lessons serving
+reproductions, the worst at 52 words**, against a production scanner reporting
+9 refusals and a longest run of 12. The scanner was right twice over: the
+52-word span is an ATTRIBUTED BLOCKQUOTE, which IP-POSITION s6 exempts and
+`scan-iso-leaks` cuts out before measuring, and `runUnits` alone is the
+description-side splitter.
+
+**Two instruments disagreeing by a factor of four is never a parameter
+difference**, and reporting it would have withheld correctly attributed
+quotation across four certifications.
+
+**THE BLANKET ATTRIBUTED-QUOTATION EXEMPTION CARRIES NO CEILING, AND THE NAMED
+ONES ALL DO.** A named lesson exemption records a reason and a `maxRun`, on the
+stated ground that an exemption is a ceiling rather than a waiver. The
+attributed-quotation exemption is unbounded: a quoted, attributed blockquote is
+exempt at any length. Measured, and nobody had ever seen the number --
+**59 exempt quotation lines at or over 10 words, median 18, longest 52**,
+concentrated in ISMS-IA. *"We permit attributed quotation"* and *"we permit 52
+contiguous words of ISO 19011"* are different sentences and only the first has
+been agreed.
+
 **A DELTA MEASUREMENT CHANGES ONE THING.** Ruled 2026-09-23, and it is a class
 rather than a post-mortem because it has two occasions in one week.
 
