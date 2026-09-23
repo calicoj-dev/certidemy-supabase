@@ -1,0 +1,232 @@
+{
+  "measured": "2026-09-23T03:57:17.297Z",
+  "gate": {
+    "MIN_RUN": 4,
+    "MIN_COV": 0.6,
+    "ABS_RUN": 10
+  },
+  "rows": [
+    {
+      "id": 1,
+      "slug": "01-03-the-ai-system-life-cycle",
+      "address": "42001 clause 8.2",
+      "iso": "assessments at planned intervals, or when significant changes are proposed or occur",
+      "rewrite": "Clause 8.2 sets two independent triggers for a risk assessment: the planned interval, or a significant change being proposed or occurring. Either one is enough on its own.",
+      "leak": {
+        "run": 4,
+        "cov": 0.14,
+        "fires": false,
+        "source": "27002:2022"
+      },
+      "lost": [
+        "term:intervals"
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "01-03-the-ai-system-life-cycle",
+      "address": "42001 clause 8.2",
+      "iso": "performed at planned intervals or when significant changes are proposed or occur.",
+      "rewrite": "The obligation fires on the planned interval or on a significant change -- whichever comes first, and neither waits for the other.",
+      "leak": {
+        "run": 0,
+        "cov": 0,
+        "fires": false,
+        "source": "(no match)"
+      },
+      "lost": [
+        "term:intervals"
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "02-06-the-ai-system-impact-assessment",
+      "address": "42001 clause 8.4",
+      "iso": "assessments are performed at planned intervals, or when significant changes are proposed to occur",
+      "rewrite": "Clause 8.4 requires the impact assessment to be performed at planned intervals or when a significant change is proposed or occurs. Two triggers, not a sequence.",
+      "leak": {
+        "run": 7,
+        "cov": 0.26,
+        "fires": false,
+        "source": "27005:2022"
+      },
+      "lost": []
+    },
+    {
+      "id": 4,
+      "slug": "03-06-data-for-ai-systems",
+      "address": "42001 A.7 data controls",
+      "iso": "known or potential biases or other systematic errors",
+      "rewrite": "A.7 asks the organization to look for biases that are known, biases that are merely potential, or other systematic errors -- any one of the three is in scope, and none of them depends on another being present.",
+      "leak": {
+        "run": 4,
+        "cov": 0.11,
+        "fires": false,
+        "source": "42001:2023"
+      },
+      "lost": []
+    },
+    {
+      "id": 5,
+      "slug": "03-03-documented-information",
+      "address": "42001 clause 7.5.3",
+      "iso": "is available and suitable for use where and when it is needed, and",
+      "rewrite": "Clause 7.5.3 requires documented information to be available -- obtainable where and when it is needed, and fit to use when it arrives. Availability is not the same obligation as retention, and 7.5.3 asks for the first.",
+      "leak": {
+        "run": 7,
+        "cov": 0.17,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": []
+    },
+    {
+      "id": 6,
+      "slug": "03-04-operational-planning-and-control",
+      "address": "42001 clause 8.1",
+      "iso": "be available to the extent necessary to have confidence that the processes",
+      "rewrite": "Clause 8.1 requires documented information to be available to the extent needed for confidence that the processes were carried out as planned. The test is whether it can be produced, not whether it was archived.",
+      "leak": {
+        "run": 5,
+        "cov": 0.14,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": [
+        "term:necessary"
+      ]
+    },
+    {
+      "id": 7,
+      "slug": "03-01-resources-and-competence",
+      "address": "42001 clause 7.2",
+      "iso": "are competent on the basis of appropriate education, training or experience",
+      "rewrite": "Clause 7.2 asks the organization to establish competence on the basis of appropriate education, training or experience -- appropriate to the work in question, which is what makes it auditable against a role rather than against a qualification.",
+      "leak": {
+        "run": 9,
+        "cov": 0.24,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": []
+    },
+    {
+      "id": 8,
+      "slug": "03-02-awareness-and-communication",
+      "address": "42001 clause 7.3",
+      "iso": "Persons doing work under the organization's control shall be aware of:",
+      "rewrite": "Clause 7.3 places a requirement -- shall -- on the organization: persons doing work under its control are to be made aware of the items listed below.",
+      "leak": {
+        "run": 6,
+        "cov": 0.23,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": []
+    },
+    {
+      "id": 9,
+      "slug": "03-02-awareness-and-communication",
+      "address": "42001 clause 7.4",
+      "iso": "determine the internal and external communications relevant to the AI management system, and",
+      "rewrite": "Clause 7.4 requires the organization to determine the internal and external communications relevant to the AI management system -- determine is the clause's verb and it implies a recorded decision, not an impression.",
+      "leak": {
+        "run": 11,
+        "cov": 0.33,
+        "fires": true,
+        "source": "42001:2023"
+      },
+      "lost": []
+    },
+    {
+      "id": 10,
+      "slug": "03-03-documented-information",
+      "address": "42001 clause 7.5.3",
+      "iso": "Documented information of external origin, determined by the organization to be necessary for the planning and operation of the AI management system",
+      "rewrite": "Clause 7.5.3 covers documented information of external origin that the organization has determined to be necessary for planning and operating the AI management system. External origin and a recorded determination are both part of what brings a document into scope.",
+      "leak": {
+        "run": 5,
+        "cov": 0.12,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": []
+    },
+    {
+      "id": 11,
+      "slug": "03-04-operational-planning-and-control",
+      "address": "42001 clause 8.1",
+      "iso": "plan, implement and control the processes needed to meet requirements and to implement the actions determined in clause 6",
+      "rewrite": "Clause 8.1 requires the organization to plan, implement and control the processes needed to meet its requirements and to carry out the clause 6 actions. Implement is the clause's word and it is the middle of three distinct obligations.",
+      "leak": {
+        "run": 9,
+        "cov": 0.23,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": [
+        "term:determined"
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "04-01-annex-a-structure",
+      "address": "42001 Annex A intro",
+      "held": "next batch, on the reserved-term ground alone",
+      "iso": "Not all the control objectives and controls listed are required to be used, and the organization can design and implement its own controls.",
+      "rewrite": "Annex A is a reference, not a checklist: the organization is not required to use every control objective and control listed, and it can design and implement controls of its own. The permission is real and the annex says so in its own opening.",
+      "leak": {
+        "run": 4,
+        "cov": 0.09,
+        "fires": false,
+        "source": "27002:2022"
+      },
+      "lost": [
+        "quant:all"
+      ]
+    },
+    {
+      "id": 13,
+      "slug": "05-01-aims-monitoring-and-measurement",
+      "address": "42001 clause 9.1",
+      "predicted": "expected to fire the absolute run floor",
+      "iso": "What needs to be monitored and measured. The methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results. When the monitoring and measuring is performed.",
+      "rewrite": "Clause 9.1 requires the organization to determine four things: what needs to be monitored and measured; the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results; when monitoring and measurement are performed; and when the results are analysed and evaluated.",
+      "leak": {
+        "run": 22,
+        "cov": 0.49,
+        "fires": true,
+        "source": "42001:2023"
+      },
+      "lost": []
+    },
+    {
+      "id": 14,
+      "slug": "05-02-aims-internal-audit",
+      "address": "42001 clause 9.2.2",
+      "iso": "conducted so as to ensure objectivity and the impartiality of the audit process",
+      "rewrite": "Clause 9.2.2 b) requires the organization to select auditors and conduct audits so as to ensure the objectivity and impartiality of the audit process. Objectivity and impartiality are properties of the process the organization must secure, not dispositions of the individual auditor.",
+      "leak": {
+        "run": 6,
+        "cov": 0.14,
+        "fires": false,
+        "source": "19011:2026"
+      },
+      "lost": []
+    },
+    {
+      "id": 15,
+      "slug": "isms-ia-04-02-demonstrated-not-stated",
+      "address": "27001 clause 5.2 g)",
+      "iso": "be available to interested parties, as appropriate",
+      "rewrite": "- g) be available to interested parties, as appropriate\n\nAvailable to is a narrower obligation than published. The clause is satisfied by furnishing the policy on request where it is appropriate to do so.",
+      "leak": {
+        "run": 8,
+        "cov": 0.24,
+        "fires": false,
+        "source": "27001:2022"
+      },
+      "lost": []
+    }
+  ]
+}

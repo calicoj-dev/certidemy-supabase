@@ -2112,6 +2112,54 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A REWRITE IS SCORED BEFORE IT IS READ, AND AGAIN AFTER IT IS APPLIED.**
+Ruled 2026-09-23, and the batch that occasioned it proved the point on its
+first run.
+
+The draft score is a FILTER and costs a minute. The applied score is the
+RECORD. They are different artifacts answering different questions, and running
+only the second means an expensive human review runs on text the cheap gate
+would have rejected.
+
+**I argued for scoring only the applied text**, on the ground that the score in
+the record should belong to what landed. That is right about the record and
+wrong about the sequence.
+
+**MEASURED, ON FIFTEEN DRAFTS WRITTEN TO REMOVE REPRODUCTIONS: two of them
+reproduced.**
+
+```
+#13  05-01  clause 9.1   run 22w  cov 0.49  FIRES   42001:2023
+#9   03-02  clause 7.4   run 11w  cov 0.33  FIRES   42001:2023
+#7   03-01  clause 7.2   run  9w                    27001:2022
+#11  03-04  clause 8.1   run  9w                    27001:2022
+#15  isms-ia-04-02 5.2g  run  8w                    27001:2022
+```
+
+**A REWRITE THAT REMOVES AN INACCURATE PARAPHRASE CAN REPLACE IT WITH AN
+ACCURATE REPRODUCTION.** #13 restored four determinations of clause 9.1 in the
+clause's own order and words: twenty-two contiguous tokens. It was predicted to
+fire at about fifteen. **Accuracy is not the test** -- the test is whether we
+reproduce, and a faithful restatement in the clause's sequence is CLOSER to
+reproduction than the loose version it corrected.
+
+**And #9 is the sharper one, because it was nobody's prediction.** The ruling
+approving it said `determine` and `implement` are reserved terms and must be
+restored. Restoring the reserved term restored the clause's PHRASE with it --
+*determine the internal and external communications relevant to the AI
+management system* is eleven of ISO's words in a row. **The defended exception
+created the defect.**
+
+> **MECHANISM: draft-score, then apply-score. And a span sitting one token
+> under the floor is a span the floor DID NOT CATCH, not one that passed** --
+> 8w and 9w are redrafted, not shipped.
+
+**Half the batch went back.** Nine of fifteen were clean; six are held. Four of
+those six sit in lessons whose sibling span is clean, so applying the clean half
+would touch each lesson twice -- two review invalidations, two withholding
+windows and two retranslations for one correction. **A batch is applied per
+lesson or not at all.**
+
 **A REPAIR IS VERIFIED AGAINST WHAT IT WAS SUPPOSED TO PRESERVE, NOT ONLY
 AGAINST WHAT IT WAS SUPPOSED TO REMOVE.** Ruled 2026-09-23. It is the positive
 form of the whole week.
