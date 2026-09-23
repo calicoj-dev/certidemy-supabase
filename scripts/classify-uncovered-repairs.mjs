@@ -31,16 +31,23 @@
  *
  * ============ WHAT IT CANNOT DO ============
  *
- * It locates the translated span by PARAGRAPH POSITION -- the English
- * paragraph containing the repaired text, then the same index in es-419 and
- * pt-BR. These bodies are structurally parallel markdown and that holds in
- * practice, but it is alignment by position and not by meaning. Where the
- * paragraph counts differ the row says so rather than guessing.
+ * It locates the translated span by BLOCK COORDINATE -- the (block, line) of
+ * the repaired text in the English, read back at the same coordinate in each
+ * translation, and VERIFIED by requiring the English cell to still contain the
+ * span. Measured 2026-09-23: 369 of 371 aligned, 2 unjudgeable, and both of
+ * those are spans whose repaired text is not in the live English at all.
+ *
+ * An earlier version aligned by PARAGRAPH ORDINAL and reported success on 370
+ * of 371 while being wrong on a quarter of the sample a human read -- five of
+ * twenty landed on a ::checkpoint JSON blob instead of the prose. It is still
+ * alignment by position rather than by meaning; what changed is that the
+ * position is now structural and checked.
  */
 import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { buildSources, score, firesUnion, matchingSources, MIN_RUN, MIN_COV, ABS_RUN } from "./lib/leak-score.mjs";
+import { reviewBlocks, solid } from "./lib/guide-runs.mjs";
 
 const KNOWN = new Set(["--json", "--verbose"]);
 const args = process.argv.slice(2);
@@ -122,19 +129,64 @@ for (const l of lessons) {
 }
 const paras = (t) => String(t).split(/\n\s*\n/).map((x) => x.replace(/\s+/g, " ").trim()).filter(Boolean);
 
+/* ============ ALIGNMENT BY BLOCK COORDINATE, NOT PARAGRAPH ORDINAL =========
+ *
+ * The ordinal version REPORTED SUCCESS on 370 of 371 spans and was wrong on a
+ * quarter of the sample anyone actually read: 5 of 20 landed on a
+ * `::checkpoint` JSON blob instead of the repaired prose. A checkpoint is one
+ * enormous paragraph, so a repair inside one -- or anywhere after the
+ * languages' paragraph counts diverge -- aligns to the wrong thing and says
+ * nothing about it.
+ *
+ * THAT IS A SILENT SUCCESS IN THE INSTRUMENT, not a gap in it: "aligned" meant
+ * "an index existed", never "the index points at the matching text".
+ *
+ * The repository already has the right primitive. `reviewBlocks(md)` splits
+ * into structural blocks and `solid(b)` gives a block's non-empty lines, which
+ * is how retranslate-repaired-passages addresses a span when it writes one. So
+ * the span is located as (block, line) in the ENGLISH and the same coordinate
+ * is read in each translation.
+ *
+ * AND THE ALIGNMENT IS VERIFIED, not assumed: the English cell found by
+ * coordinate must still contain the needle. If it does not, the row is
+ * MIS-ALIGNED and says so rather than presenting a paragraph as evidence. */
+const coordOf = (md, needle) => {
+  const bs = reviewBlocks(md);
+  for (let bi = 0; bi < bs.length; bi++) {
+    const sol = solid(bs[bi]);
+    for (let li = 0; li < sol.length; li++) {
+      if (sol[li].text.replace(/\s+/g, " ").includes(needle)) return { bi, li };
+    }
+  }
+  return null;
+};
+const cellAt = (md, bi, li) => {
+  const bs = reviewBlocks(md);
+  if (!bs[bi]) return null;
+  return solid(bs[bi])[li]?.text ?? null;
+};
+
 for (const r of repairs) {
   const b = bySlug.get(r.slug) ?? {};
-  const en = paras(b.en ?? ""), es = paras(b["es-419"] ?? ""), pt = paras(b["pt-BR"] ?? "");
   const needle = r.after.replace(/\s+/g, " ").trim();
-  const i = en.findIndex((p) => p.includes(needle));
-  r.enLanded = i >= 0;
-  if (i < 0) { r.align = "english span not found -- repaired text is not in the live body"; continue; }
-  if (en.length !== es.length || en.length !== pt.length) {
-    r.align = "paragraph counts differ (en " + en.length + ", es " + es.length + ", pt " + pt.length + ") -- not aligned";
+  const c = coordOf(b.en ?? "", needle);
+  r.enLanded = c !== null;
+  if (!c) { r.align = "english span not found -- repaired text is not in the live body"; continue; }
+
+  const enCell = cellAt(b.en ?? "", c.bi, c.li);
+  if (!enCell || !enCell.replace(/\s+/g, " ").includes(needle)) {
+    r.align = "MIS-ALIGNED -- the coordinate does not read back the English span";
     continue;
   }
-  r.align = "by paragraph index " + i;
-  r.liveEn = en[i]; r.liveEs = es[i]; r.livePt = pt[i];
+  const es = cellAt(b["es-419"] ?? "", c.bi, c.li);
+  const pt = cellAt(b["pt-BR"] ?? "", c.bi, c.li);
+  if (es === null || pt === null) {
+    r.align = "block " + c.bi + " line " + c.li + " has no counterpart (es " +
+              (es === null ? "missing" : "ok") + ", pt " + (pt === null ? "missing" : "ok") + ")";
+    continue;
+  }
+  r.align = "block " + c.bi + ", line " + c.li;
+  r.liveEn = enCell; r.liveEs = es; r.livePt = pt;
 }
 
 /* ---------------------------------------------- report */
