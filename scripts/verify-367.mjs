@@ -12,6 +12,29 @@
  *
  * Unknown flags exit 2. There is no --apply: the write is the measurement.
  *
+ * ============ IT EDITS A LIVE, RELEASED LESSON ============
+ *
+ * The subject is chosen from the data -- the first lesson group with an
+ * English row and two stamped translations that are ALL servable right now --
+ * so in practice it is a released ISMS-IA, AIMS-IA or Scrum lesson on a paid
+ * surface. It prints which one BEFORE it writes anything. Anyone running this
+ * should know that before they run it, not after.
+ *
+ * ============ AND `finally` DOES NOT COVER THE FAILURE THAT MATTERS ========
+ *
+ * A thrown assertion is caught by `finally`. A kill, a dropped connection or a
+ * container restart between the two PATCHes is not -- and it would leave a
+ * live lesson edited, its translations dark, and NOTHING ON DISK saying what
+ * the body used to be.
+ *
+ * So the original is written to a RECOVERY FILE before the first PATCH and
+ * deleted only after the restore verifies byte equality. If that file exists
+ * at startup the script REFUSES TO RUN and prints the recovery command. An
+ * unattended crash becomes a message instead of a silent corruption.
+ *
+ * That is the same rule as a migration capturing its BEFORE state: the thing
+ * that lets you undo must outlive the process that needs undoing.
+ *
  * ============ WHY THIS IS NOT OPTIONAL ============
  *
  * 367's post-conditions assert the NEGATIVE direction thoroughly: no English
@@ -42,19 +65,20 @@
  * that withheld everything would pass a one-sided check, and over-withholding
  * is the error direction that looks like diligence.
  */
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, writeFileSync, unlinkSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const KNOWN = new Set(["--slug", "--verbose"]);
+const KNOWN = new Set(["--slug", "--verbose", "--recover"]);
 const argv = process.argv.slice(2);
-let SLUG = null, VERBOSE = false;
+let SLUG = null, VERBOSE = false, RECOVER = false;
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
   if (!a.startsWith("--")) continue;
   if (!KNOWN.has(a)) { console.error("Unrecognised flag: " + a + ". This script rolls back; it takes no --apply."); process.exit(2); }
   if (a === "--slug") SLUG = argv[++i];
   if (a === "--verbose") VERBOSE = true;
+  if (a === "--recover") RECOVER = true;
 }
 const HERE = dirname(fileURLToPath(import.meta.url)), ROOT = join(HERE, "..");
 for (const p of [join(HERE, ".env"), join(ROOT, ".env")]) {
@@ -68,6 +92,51 @@ const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set"); process.exit(2); }
 const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
 const H = { apikey: KEY, Authorization: "Bearer " + KEY, "content-type": "application/json" };
+
+/* ============ THE RECOVERY FILE ============
+ *
+ * Written before the first PATCH, deleted after the restore verifies. Its
+ * presence at startup means a previous run died mid-edit, and the only safe
+ * response is to refuse and hand over the recovery. */
+const RECOVERY = join(ROOT, ".verify-367-recovery.json");
+if (RECOVER) {
+  if (!existsSync(RECOVERY)) { console.error("Nothing to recover: no recovery file."); process.exit(2); }
+  const rec = JSON.parse(readFileSync(RECOVERY, "utf8"));
+  const r = await fetch(BASE + "/lessons?id=eq." + rec.id, {
+    method: "PATCH", headers: { ...H, Prefer: "return=representation" },
+    body: JSON.stringify({ content_md: rec.content_md }) });
+  if (!r.ok) { console.error("RECOVERY FAILED: HTTP " + r.status + ". The file is kept."); process.exit(1); }
+  const back = (await r.json())[0];
+  if (back.content_md !== rec.content_md) {
+    console.error("RECOVERY FAILED: the body read back does not match. The file is kept.");
+    process.exit(1);
+  }
+  unlinkSync(RECOVERY);
+  console.log("");
+  console.log("RECOVERED " + rec.slug + " -- body restored byte-for-byte, recovery file removed.");
+  process.exit(0);
+}
+if (existsSync(RECOVERY)) {
+  let rec = null;
+  try { rec = JSON.parse(readFileSync(RECOVERY, "utf8")); } catch { /* unreadable is still a refusal */ }
+  console.error("");
+  console.error("REFUSING: a recovery file from a previous run is present.");
+  console.error("  " + RECOVERY);
+  if (rec) {
+    console.error("");
+    console.error("  lesson : " + rec.slug + "  (" + rec.id + ")");
+    console.error("  written: " + rec.at);
+    console.error("");
+    console.error("  A previous run edited that English body and did not restore it. The");
+    console.error("  original is IN THAT FILE. Restore it, confirm the body matches, then");
+    console.error("  delete the file:");
+    console.error("");
+    console.error("    node --dns-result-order=ipv4first scripts/verify-367.mjs --recover");
+  } else {
+    console.error("  The file could not be parsed. Do not delete it; inspect it by hand.");
+  }
+  process.exit(2);
+}
 
 /* The restore is explicit, verified byte-for-byte, and runs in a `finally` so
  * a thrown assertion cannot leave the body edited. The script refuses to exit
@@ -151,6 +220,10 @@ const ok = (label, cond, detail) => {
 
 const original = en.content_md;
 let restored = false;
+/* On disk BEFORE the write, so it outlives a kill. */
+writeFileSync(RECOVERY, JSON.stringify({
+  id: en.id, slug: en.slug, at: new Date().toISOString(), content_md: original,
+}, null, 2), "utf8");
 try {
   ok("BEFORE: english servable", (await gate(en.id)) === true);
   for (const t of tr) ok("BEFORE: " + t.language + " servable", (await gate(t.id)) === true);
@@ -172,11 +245,15 @@ try {
   console.log("");
   ok("RESTORED: the english body is byte-identical", restored);
   if (restored) {
+    unlinkSync(RECOVERY);
+    ok("RECOVERY FILE removed", !existsSync(RECOVERY));
     ok("RESTORED: english servable again", (await gate(en.id)) === true);
     for (const t of tr) ok("RESTORED: " + t.language + " servable again", (await gate(t.id)) === true);
   } else {
     console.error("");
-    console.error("  THE ORIGINAL BODY WAS NOT RESTORED. Restore it by hand before anything else.");
+    console.error("  THE ORIGINAL BODY WAS NOT RESTORED. The recovery file is KEPT at");
+    console.error("  " + RECOVERY);
+    console.error("  Run: node --dns-result-order=ipv4first scripts/verify-367.mjs --recover");
   }
 }
 

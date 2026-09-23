@@ -2112,6 +2112,89 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A COLUMN NAME IS A CONTRACT, AND `en_hash` HAD ALREADY BROKEN IT TWICE
+BEFORE A THIRD COLUMN NEARLY TOOK THE NAME.** Found 2026-09-23 while writing
+367.
+
+Both of these live inside `lesson_body_is_servable`, in one predicate:
+
+```
+lesson_translation_reviews.en_hash   left(md5(content_md), 8)
+lesson_translation_reviews.tr_hash   public.translation_hash(content_md)
+```
+
+**Two hash columns on ONE table, computed two ways.** Measured on a real body:
+
+```
+left(md5(x), 8)              ->  8b7691a0
+public.translation_hash(x)   ->  2c5a80ff        same = false
+```
+
+`translation_hash` length-prefixes each field, strips CR, and joins with
+separators, so it cannot be confused by a body containing the delimiter and it
+is stable across CRLF. Plain md5 has none of that.
+
+> **TWO COLUMNS SHARING A NAME AND COMPARED AGAINST DIFFERENT COMPUTATIONS
+> INSIDE ONE PREDICATE IS A DEFECT REGARDLESS OF WHICH COMPUTATION IS
+> CORRECT**, because the next reader carries the meaning across. This is the
+> `mcp_servable` lesson with the roles reversed: there a name promised more
+> than it delivered; here a name promised SAMENESS THAT WAS NOT THERE.
+
+367's column is therefore `en_content_hash`, not `en_hash`, and it names its
+function in its own comment.
+
+**OPEN ITEM, NOT DONE, WITH ITS COST STATED.** The review arm's `en_hash` is
+plain md5 while every other hash in this system is `translation_hash`.
+**Unifying it would invalidate all 41 existing reviews at once and withhold
+their rows.** That is a decision with a real cost and it does not belong inside
+a migration whose subject is a different gate. It has NOT been done. Recorded
+here rather than remembered, because an open item that lives only in a
+transcript is an item that does not exist.
+
+**A STAMP DOES TWO JOBS AND THEY MUST BE LABELLED SEPARATELY.** Ruled
+2026-09-23 on 367's initial stamp, and the first draft got it half right.
+
+| | |
+|---|---|
+| **(a) a claim about the PAST** | this translation tracks this English |
+| **(b) a mechanism for the FUTURE** | a baseline from which the next edit is detected |
+
+Refusing (a) for the 77 lessons the parity check never covered was correct --
+stamping them would be grandfathering. **But refusing (a) also declined (b) for
+them**, so they would carry NULL, the gate ignores NULL, and their review flag
+is unarmed: an English edit tomorrow would withhold nothing. That is the
+morning's failure, still live, on 77 lessons instead of eight.
+
+> **The blindfold was the stamp being UNLABELLED, not the stamp existing.**
+> Every translated row is stamped, and `en_content_hash_basis` records which
+> job the stamp is doing -- `proved` on the 61 the parity check confirmed,
+> `baseline` on the rest -- with a CHECK that the basis is present whenever the
+> hash is. `en_content_hash is not null` can no longer be read as a clearance.
+
+**AND A CONTROL THAT LIVES IN A COMMENT HAS NEVER FIRED.** 367's first draft
+put its demonstration in a SQL comment, four lines under a header quoting *a
+hash gate nobody has watched fire is the same object as a count assertion
+nobody has watched fail*. The post-conditions assert the NEGATIVE direction
+thoroughly -- nothing mis-stamped, servability moved on zero rows -- and every
+one of them passes just as cleanly if the new clause is dead code.
+
+`scripts/verify-367.mjs` edits one English body, asserts the English STAYS
+servable and BOTH translations go dark, restores byte-for-byte, and re-reads
+all three. Both directions, because a predicate that withheld everything would
+pass a one-sided check.
+
+**AND `finally` DOES NOT COVER THE FAILURE THAT MATTERS.** PostgREST gives no
+transaction to hold, so the script is NET-ZERO rather than read-only: it
+PATCHes a live released lesson and PATCHes it back. A thrown assertion is
+caught; a kill or a dropped connection between the two writes is not, and would
+leave a lesson edited with its translations dark and nothing on disk saying
+what the body used to be.
+
+> **MECHANISM: the thing that lets you undo must OUTLIVE THE PROCESS that
+> needs undoing.** The original goes to a recovery file before the first write
+> and is deleted only after the restore verifies; if that file exists at
+> startup the script refuses to run and prints `--recover`.
+
 **PROSE INSERTED INTO A QUOTATION BLOCK INHERITS THE BLOCK'S JOB.** Found
 2026-09-23, minutes after applying the ceiling conversions, by the scanner
 rather than by reading.

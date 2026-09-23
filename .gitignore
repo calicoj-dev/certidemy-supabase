@@ -40,3 +40,4 @@ scrum-marking-spec.json
 # The manifest at iso-corpus-manifest.json records what the index holds.
 iso-corpus/
 ../iso-corpus/
+.verify-367-recovery.json
