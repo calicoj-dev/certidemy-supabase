@@ -2112,6 +2112,72 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**ANYTHING NON-ASCII CROSSING A SHELL BOUNDARY IS CONSTRUCTED, NEVER TYPED.**
+Four transport surprises in four days, all the same class:
+
+| | |
+|---|---|
+| backslash collapse | a shell heredoc ate `\s`, so a tab class arrived as a literal tab and 28 checks reported NOT FOUND |
+| apostrophe mangling | a quoted heredoc in Git Bash failed to parse on `organization's` |
+| a paste that may not be one transaction | `on commit drop` vanished between two statements in the SQL editor |
+| an accent eaten | `auditor` + i-acute inline in a `curl` reached the endpoint as something else and returned 0 |
+
+**The channel between an authored artifact and its execution is not
+transparent, and every one of the four was discovered by a FAILURE rather than
+by a check.** Three produced a wrong answer that looked plausible; the fourth
+produced a wrong answer that AGREED WITH THE HYPOTHESIS UNDER TEST.
+
+> **MECHANISM: build non-ASCII from `String.fromCharCode` / `chr()` / a
+> `\uXXXX` escape, or send it as a FILE the shell never parses.** Same class
+> as the BOM-safe write convention already recorded here, and the same class as
+> the mojibake rule: the transport corrupts the text, not the author.
+
+**A HYPOTHESIS OFFERED BY WHOEVER IS DIRECTING BIASES THE EVIDENCE COLLECTED
+FOR IT.** Recorded 2026-09-23 at the director's own instance.
+
+A ranked candidate list was supplied -- *"the third is the one I would look at
+first, because a missing text-search configuration produces exactly this
+shape"* -- and the first probe CONFIRMED it, returning 0 for the accented term.
+
+**The candidate was structurally impossible**: search uses a word-boundary
+regex and no full-text configuration at all. The confirmation was a shell
+eating an accent.
+
+> **MECHANISM: a confirmation of a STATED EXPECTATION is checked against a
+> second, independent instrument before it is reported -- the same standard a
+> disconfirmation would get.** A ranked list is a useful starting point and a
+> bad stopping point, because the first confirming observation ENDS THE SEARCH.
+
+What caught it was not scepticism about the hypothesis. It was that **the
+database returned 19 rows for the identical regex** -- two instruments
+disagreeing, which is this file's own rule applied to a factor of infinity
+rather than of four.
+
+**AND THE TEST BUG UNCOVERED A REAL PRODUCT DEFECT WORTH MORE THAN ITSELF.**
+Search is ACCENT-SENSITIVE on a mobile-first LATAM product:
+
+```
+gestion       5 rows      gestion-with-accent      33
+informacion   0 rows      informacion-with-accent  26
+secao         0 rows      secao-with-cedilla       59
+```
+
+**751 distinct accented words in the es-419 corpus (12.9 percent of its
+vocabulary) and 1,008 in pt-BR (16.9 percent)**, and every one of the top
+fourteen in each is a plausible query term. `ACCENT-SENSITIVITY.md` carries the
+exposure and the `unaccent` proposal; nothing is deployed.
+
+**The 5-of-33 case is the dangerous one, not the zeros.** An empty result makes
+a user question their spelling. A short result looks like an answer.
+
+**AND WHERE A CONTROL CAN BE PROVED WITHOUT TOUCHING PRODUCTION, IT SHOULD BE.**
+`verify-367` costs a live lesson a few hundred milliseconds of darkness and
+needs a recovery file to be safe. The wire matrix's new expectation logic is
+proved on SYNTHETIC responses -- a floor that fails on zero, a floor that
+passes when met, an undeclared resource that abstains -- offline, free, and
+unskippable by a quiet endpoint. Production controls are the exception that
+earns the recovery guard, not the default.
+
 **A MEASUREMENT WITHOUT AN EXPECTATION IS A RECORD, NOT A TEST.** Found
 2026-09-23. The wire matrix reported **75 pass / 0 fail** while es-419 search
 returned ZERO on every certification, and had done for at least two days.
