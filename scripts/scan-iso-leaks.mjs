@@ -49,6 +49,7 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { segments, attributedQuote, quoteLines, checkFaithful as segControl } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
+import { runUnits } from "./lib/leak-score.mjs";
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
 for (const a of process.argv.slice(2)) {
@@ -215,15 +216,34 @@ console.log("  sources: " + SOURCES);
  * Callers pass a segment, not a whole document -- see `longestMeasured`.
  */
 function longestRun(text) {
-  const w = norm(text).split(" ").filter(Boolean);
+  /* ============ SCAFFOLDING AND LINE BOUNDARIES, FROM THE SHARED LIB ========
+   *
+   * This used to be `norm(text).split(" ")` over the whole segment, which
+   * joined across list letters and across line breaks. It refused
+   * `isms-ia-04-02` on
+   *
+   *     "the organization g be available to interested parties as appropriate"
+   *
+   * where `organization` ends item f) and `g` is the LETTER of item g). Ten
+   * words that exist in no document, and three rows went unservable for them.
+   *
+   * `runUnits` is now the ONLY implementation of that rule -- the same
+   * function `leak-score` uses -- because the rule had been written down three
+   * times and enforced zero times while the union lived in every caller.
+   *
+   * MEASURED PER UNIT, MAXIMUM AFTERWARDS. A run that spans two units is not a
+   * run; it is two runs a caller glued together. */
   let best = 0, bestText = "", bestSrc = "";
-  for (const [label, own] of perSource) {
-    for (let i = 0; i + SEED <= w.length; i++) {
-      if (!own.has(w.slice(i, i + SEED).join(" "))) continue;
-      let n = SEED;
-      while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
-      if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); bestSrc = label; }
-      i += n - 1;
+  for (const unit of runUnits(text)) {
+    const w = norm(unit).split(" ").filter(Boolean);
+    for (const [label, own] of perSource) {
+      for (let i = 0; i + SEED <= w.length; i++) {
+        if (!own.has(w.slice(i, i + SEED).join(" "))) continue;
+        let n = SEED;
+        while (i + n + 1 <= w.length && own.has(w.slice(i + n + 1 - SEED, i + n + 1).join(" "))) n++;
+        if (n > best) { best = n; bestText = w.slice(i, i + n).join(" "); bestSrc = label; }
+        i += n - 1;
+      }
     }
   }
   return { best, bestText, bestSrc };
@@ -653,6 +673,39 @@ if (ctlFailed.length) {
     overRun >= THRESHOLD, overRun + "w measured, threshold " + THRESHOLD);
   chk("SYNTHETIC: a body under the threshold is not refused",
     underRun < THRESHOLD, underRun + "w measured, threshold " + THRESHOLD);
+
+  /* ============ THE FIXTURE THE SCAFFOLDING FIX OWES ============
+   *
+   * Stripping list letters and measuring per line LOWERS runs, and a gate that
+   * is loosened without a demonstration that it still catches the thing it was
+   * loosened around is a gate we have merely stopped hearing from.
+   *
+   * So: a GENUINELY reproduced lettered list -- one canary sentence, split
+   * across `a)` and `b)` exactly as a real list would be -- must still fire.
+   * If stripping ever starts swallowing content rather than scaffolding, or if
+   * per-unit measurement starts losing runs that lie inside one item, this goes
+   * red.
+   *
+   * A FIXTURE, not a live row. The contradiction sweep's control was pinned to
+   * a defect in production and broke the day the defect was repaired; this one
+   * is built from the canary text and keeps working after any lesson is fixed.
+   *
+   * Both directions, as above: the same sentence BROKEN across two items must
+   * NOT fire, because that is the manufactured adjacency the fix removes. */
+  const canary = Object.values(CANARIES)[0];
+  const cw = canary.split(/\s+/).filter(Boolean);
+  const half = Math.ceil(cw.length / 2);
+  /* WHOLE sentence inside one lettered item -- a real reproduction wearing a list. */
+  const LIST_REAL = "- a) " + canary + "\n- b) something of our own that reproduces nothing";
+  /* The SAME words, split across two items -- adjacent only because a list put
+   * them next to each other. */
+  const LIST_SPLIT = "- a) " + cw.slice(0, half).join(" ") + "\n- b) " + cw.slice(half).join(" ");
+  const realRun = longestMeasured(LIST_REAL).best;
+  const splitRun = longestMeasured(LIST_SPLIT).best;
+  chk("FIXTURE: a reproduction inside a lettered item still fires",
+    realRun >= THRESHOLD, realRun + "w measured, threshold " + THRESHOLD);
+  chk("FIXTURE: the same words split across two items do NOT",
+    splitRun < realRun, "split " + splitRun + "w vs whole " + realRun + "w");
 
   /* And report what the ISO certifications actually came to, as information
    * rather than as an assertion. Zero is now the expected state. */

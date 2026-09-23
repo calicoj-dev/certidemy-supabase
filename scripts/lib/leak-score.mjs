@@ -90,9 +90,70 @@ export const ABS_RUN = 10;
 export const DESC_GAP_MAX = 0;
 export const SRC_GAP_MAX = 3;
 
-export const norm = (s) => String(s || "").toLowerCase()
+/* ============ SCAFFOLDING IS STRIPPED BEFORE ANYTHING IS JOINED ============
+ *
+ * THE ONE IMPLEMENTATION. A union may only be joined across text that exists
+ * on BOTH sides -- ours and the source's. Numbering, lettering, bullets and
+ * table pipes are DESCRIPTION-SIDE tokens with no counterpart in any standard,
+ * so a run crossing one is not contiguous in the sense the union rule means.
+ *
+ * Manufactured adjacency appeared three times in one evening, in three
+ * different instruments, each written by someone who had just read the rule
+ * forbidding it:
+ *
+ *   a hand-joined a)-h) list        10w  ->  6w once the letters went
+ *   a whole-body re-score           35w  ->  a pre-existing run, joined across lines
+ *   scan-iso-leaks, in production   10w  ->  7w; it refused a lesson for
+ *                                            "the organization g be available
+ *                                            to interested parties as
+ *                                            appropriate", where `organization`
+ *                                            ends item f) and `g` is the LETTER
+ *
+ * The rule was recorded three times and enforced zero times, because the union
+ * lived in every caller. It lives here now and callers import it.
+ *
+ * STRIPPED BEFORE NORMALISATION, deliberately. After `norm` a list letter is
+ * an ordinary one-character token and indistinguishable from the article "a";
+ * at the start of a line, before normalisation, it is unambiguous.
+ */
+export const stripScaffolding = (s) => String(s || "")
+  .split(/\r?\n/)
+  .map((line) => line
+    /* bullets, blockquote markers and leading table pipes */
+    .replace(/^\s*[-*+|>]+\s*/, " ")
+    /* a)  g)  1)  1.  iv)  **g)** -- a label, never a word */
+    .replace(/^\s*(?:\*\*)?\(?[a-z0-9]{1,3}[.)](?:\*\*)?\s+/i, " "))
+  .join("\n");
+
+export const norm = (s) => stripScaffolding(s).toLowerCase()
   .replace(/[‘’]/g, "'").replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
 export const W = (s) => norm(s).split(" ").filter(Boolean);
+
+/* ============ A RUN MAY NOT CROSS A LINE BOUNDARY ============
+ *
+ * Stripping the letters was necessary and NOT sufficient. With `g)` gone,
+ * `norm` still collapses the newline between two list items and glues them:
+ *
+ *   "...be made known across the organization" + "be available to interested
+ *    parties as appropriate"
+ *
+ * Nine words that appear in no document, assembled from the tail of item f)
+ * and the head of item g). Removing the letter moved the false run from ten
+ * words to nine; it did not make it real.
+ *
+ * TWO LIST ITEMS ARE NOT CONTIGUOUS TEXT. Neither are two table cells, nor a
+ * heading and the paragraph under it. The line IS the boundary in these
+ * bodies -- paragraphs are single unwrapped lines here, so splitting on it
+ * costs nothing and a legitimate run inside a paragraph is untouched.
+ *
+ * So a caller measures each unit and takes the maximum afterwards -- the same
+ * shape as "score per source document and take the max", which exists for the
+ * same reason: a union across things the source never joined is manufactured.
+ */
+export const runUnits = (s) => stripScaffolding(s)
+  .split(/\r?\n/)
+  .map((x) => x.trim())
+  .filter(Boolean);
 
 /** Per source: the word array, the seed-gram set, and gram -> positions. */
 export function buildSources() {

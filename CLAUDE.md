@@ -2112,6 +2112,56 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A COMPUTATION WITH A STATED INVARIANT HAS EXACTLY ONE IMPLEMENTATION.**
+Ruled 2026-09-23, and it is the general form of `_pg.mjs`'s count assertion and
+of the `matchingSources` lesson.
+
+Manufactured adjacency was caught three times in one evening, recorded as a
+rule each time, and recurred in the next instrument written. **The rule was not
+forgotten. It lived in prose while the union lived in every caller** --
+`lib/leak-score.mjs` computed one, `scan-iso-leaks` computed another with a
+DIFFERENT SEED, a scorer joined a whole body, and a fourth was asked for by
+hand. **A rule written down four times is a rule enforced zero times.**
+
+> **MECHANISM: the invariant is enforced by there being nowhere else to put
+> it.** `stripScaffolding` and `runUnits` live in `leak-score.mjs` and every
+> caller imports them. A caller needing different joining needs a new argument
+> to the shared function, not its own copy.
+
+**AND STRIPPING THE LETTERS WAS NECESSARY AND NOT SUFFICIENT.** With `g)` gone,
+`norm` still collapsed the newline and glued item f)'s tail to item g)'s head:
+ten words became nine, and nine words that appear in no document are not better
+than ten. **Two list items are not contiguous text** -- nor are two table
+cells, nor a heading and its paragraph. A run may not cross a line boundary,
+and the caller measures each unit and takes the maximum, the same shape as
+score-per-document-and-take-the-max.
+
+**THE FIX BOTH LOOSENS AND TIGHTENS, AND THE TIGHTENING WAS THE SURPRISE.**
+
+```
+isms-ia-04-02   10w -> 9w   released   the run included item f)'s tail and the letter g
+aims-ia-04-06    9w -> 10w  REFUSED    a real 42001 clause 6.1.4 reproduction
+```
+
+The second is a pre-existing defect in the scanner's search order, not in the
+scaffolding. `i += n - 1` resumes the scan MID-RUN after a match, so a longer
+run beginning inside the consumed region is never found. Per-unit measurement
+resets the offset and finds the true start -- one word earlier, which is the
+difference between 9w and the 10w floor.
+
+> **A GREEDY SCAN THAT SKIPS PAST WHAT IT MATCHED UNDER-REPORTS**, and it
+> under-reports silently, in the direction that flatters.
+
+**`aims-ia-04-06` en and es-419 were SERVING that reproduction**, at a stored
+run of 9w, for as long as the scanner has worked this way.
+
+**THE FIXTURE THE LOOSENING OWED.** A gate made less strict without a
+demonstration that it still catches the thing it was loosened around is a gate
+we have merely stopped hearing from. Measured: a canary sentence whole inside
+one lettered item still scores 17w and fires; the same words split across two
+items score 9w and do not. Built from canary text rather than a live row, so
+it keeps working after any lesson is repaired.
+
 **A JOINED SPAN IS ONLY JOINED ACROSS TEXT THAT EXISTS ON BOTH SIDES.**
 Recorded 2026-09-23, and `scan-iso-leaks` has this defect in production.
 
