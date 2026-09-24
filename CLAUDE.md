@@ -2112,6 +2112,68 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**ABSENCE OF A RESULT IS A THIRD STATE, AND COLLAPSING IT INTO EITHER OF THE
+OTHER TWO PRODUCES A CONFIDENT WRONG ANSWER.** ONE RULE, FIVE OCCASIONS IN ONE
+WEEK. Filed together deliberately: five separate entries would be read as five
+curiosities, and this is the shape of the most common bug in this codebase.
+
+| the third state | what it was collapsed into | what that produced |
+|---|---|---|
+| `matchingSources` returned `[]` for NOT ASKED | *nothing matched* | 226 spans printed `(none reported)`; 170 had a source |
+| the 19011 clause-4 anchor could not be verified | a percentage | two confident wrong figures, 1.27% then 2.52% |
+| wire-matrix `lesson` cells had no key | a pass | three cells claiming coverage they had not earned |
+| wire-matrix `search` cells returned zero | a pass | 75/0 reported while es-419 returned nothing for two days |
+| the deploy gate could not START | a gate that FAILED | *REACHABILITY GATE FAILED* printed for a path error, sending the reader to debug privileges |
+
+> **MECHANISM: every instrument has THREE outcomes -- it answered yes, it
+> answered no, or it could not answer -- and the third is reported under its
+> own name.** `UNSOUND`, `UNASSERTED`, `NOT EXERCISED`, `UNVERIFIABLE`,
+> `could-not-run`. A function whose empty return is indistinguishable from a
+> real negative either throws or returns a third value.
+
+**AND THE FIFTH INSTANCE WAS TWO WINDOWS TRANSPORT DEFECTS IN MY OWN GATE**,
+which is the fifth transport surprise of the week:
+
+- `shell: true` re-parsed `process.execPath` -- `C:\Program Files
+odejs
+ode.exe`
+  -- and the step died with *'C:\Program' is not recognized*.
+- `process.exit(2)` with fetch keep-alive sockets still open **aborts libuv on
+  Windows, and the abort REPLACES the exit code**, so the caller read a
+  different number and branched wrongly. `process.exitCode = n` and let Node
+  drain; `process.exit()` with open handles is not safe to read from a caller.
+
+**A QUIETLY ALTERED ARTIFACT IS WORSE THAN TWO PASTES.** When a migration has
+been read and approved, a change that belongs to a different subject goes in
+its OWN migration -- even when folding it in would save a round trip. The
+approver's memory of what they read is part of the record, and silently
+invalidating it costs more than the paste.
+
+Occasion: 370 was written separately from the approved 369 rather than added to
+it.
+
+**AND PRIVILEGE INTROSPECTION ON AN EXPOSED SCHEMA IS ITSELF AN EXPOSURE.**
+370 adds a function that enumerates which roles can reach what -- on a database
+where PostgREST turns a `public` function into an HTTP endpoint unless
+something revokes it. Measured before deciding:
+
+```
+anon USAGE on public                                     true
+anon USAGE on mcp                                        FALSE
+PostgREST exposes public   (rpc/lesson_body_is_servable)  200
+PostgREST exposes mcp      (rpc/unaccent)                 404
+a revoked public function, anon key                       401
+the same, no key at all                                   401
+```
+
+`mcp` would be stronger -- invisible to PostgREST entirely -- **and the deploy
+gate reaches this database through PostgREST and nothing else, so an `mcp`
+function it cannot call is a gate that cannot run.** So: `public`, revoked from
+PUBLIC, granted to `service_role` alone, and the post-conditions assert BOTH
+directions. An earlier draft did the revoke and asserted only that the function
+works: a revoke that silently failed would have left an open
+privilege-introspection endpoint with every post-condition green.
+
 **A PRE-DEPLOY CHECK THAT IS NOT IN THE DEPLOY PATH IS A RULE, NOT A CHECK.**
 Ruled 2026-09-24 after the second partner-surface outage in a week. **The
 difference between a rule and a check is that a check cannot be forgotten.**

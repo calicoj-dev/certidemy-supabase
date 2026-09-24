@@ -26,23 +26,49 @@
 -- exits 2 -- correct, and useless as a deploy gate, because a gate that always
 -- fails closed is a gate somebody disables.
 --
--- ############ WHY IT IS SAFE TO EXPOSE ############
+-- ############ IT IS PRIVILEGE INTROSPECTION ON AN EXPOSED SCHEMA ############
 --
--- It answers a BOOLEAN about privilege for a caller-supplied (role, function)
--- pair. It returns no data, no query text, no row contents; every fact it
--- reports is already derivable by anyone who can read pg_proc, and it is
--- granted to service_role only -- the credential the scripts already hold, and
--- which can read everything anyway.
+-- This function enumerates which roles can reach what. On this database that
+-- is a live question, because PostgREST makes a `public` function an HTTP
+-- endpoint unless something revokes it -- and an unauthenticated endpoint that
+-- lists our roles and their access, added in order to CHECK access, would be a
+-- worse trade than the schema USAGE we just declined.
+--
+-- MEASURED BEFORE DECIDING, not assumed:
+--
+--   anon USAGE on public                    true
+--   anon USAGE on mcp                       FALSE
+--   PostgREST exposes public                yes  (rpc/lesson_body_is_servable -> 200)
+--   PostgREST exposes mcp                   NO   (rpc/unaccent -> 404)
+--   a public function with EXECUTE revoked, called with an anon key   HTTP 401
+--   the same, called with no key at all                               HTTP 401
+--
+-- SO THE CHOICE IS FORCED AND IT IS WORTH STATING. `mcp` would be invisible to
+-- PostgREST entirely, which is stronger -- and the deploy gate reaches this
+-- database through PostgREST and nothing else, so an `mcp` function it cannot
+-- call is a gate that cannot run. A gate that cannot run is the thing this
+-- whole migration exists to stop.
+--
+-- So: `public`, REVOKED FROM PUBLIC, granted to service_role alone -- the
+-- identity the deploy script already authenticates as, which can read
+-- everything regardless. Measured above: that combination answers 401 to anon.
+--
+-- AND THE POST-CONDITIONS ASSERT BOTH DIRECTIONS. An earlier draft did the
+-- revoke and asserted only that the function WORKS. A revoke that silently
+-- failed would have left an open privilege-introspection endpoint and every
+-- post-condition would still have passed -- which is the one-sided-check shape
+-- this repository has recorded five times this week.
 --
 -- It is SECURITY DEFINER because pg_proc rows for schemas the caller cannot
 -- USE would otherwise be invisible -- which would make the function silently
 -- unable to answer the exact question it exists for. An empty result meaning
--- "not asked" is the failure this repository keeps paying for.
+-- "not asked" is that same failure again, one layer down.
 
 do $mig$
 declare
   v_usage  boolean;
   v_exec   boolean;
+  v_open   text;
 begin
   execute $fn$
     create or replace function public.mcp_check_reachable(p_roles text[], p_names text[])
@@ -100,11 +126,36 @@ begin
     raise exception 'expected USAGE false on extensions for mcp_reader; got % -- the gate cannot see the outage it exists for', v_usage;
   end if;
 
-  raise notice '370: mcp_check_reachable created; reports mcp.resolve_api_key reachable and extensions.unaccent gated at the schema door';
+  -- NEGATIVE, AND IT IS THE ONE THE EARLIER DRAFT LACKED: the revoke landed.
+  -- Nothing but the deploy identity may call a function that enumerates roles
+  -- and their privileges.
+  select string_agg(r.rolname, ', ' order by r.rolname) into v_open
+    from pg_roles r
+   where r.rolname in ('anon', 'authenticated', 'mcp_reader', 'mcp_holder')
+     and has_function_privilege(r.rolname,
+           'public.mcp_check_reachable(text[],text[])'::regprocedure, 'EXECUTE');
+  if v_open is not null then
+    raise exception 'privilege-introspection endpoint is callable by: % -- the revoke did not land', v_open;
+  end if;
+
+  -- POSITIVE: and the deploy identity CAN, or the gate cannot run and blocks
+  -- every deploy forever.
+  if not has_function_privilege('service_role',
+        'public.mcp_check_reachable(text[],text[])'::regprocedure, 'EXECUTE') then
+    raise exception 'service_role cannot call mcp_check_reachable; the deploy gate would never run';
+  end if;
+
+  raise notice '370: mcp_check_reachable created; service_role only, anon refused, extensions.unaccent reported gated at the schema door';
 end
 $mig$;
 
--- Read it back, as a separate statement.
+-- Read it back, as a separate statement -- including who can call it.
+select r.rolname,
+       has_function_privilege(r.rolname,
+         'public.mcp_check_reachable(text[],text[])'::regprocedure, 'EXECUTE') as can_call
+  from (values ('anon'),('authenticated'),('mcp_reader'),('mcp_holder'),('service_role')) r(rolname)
+ order by r.rolname;
+
 select * from public.mcp_check_reachable(
   array['mcp_reader','mcp_holder'],
   array['mcp.unaccent','extensions.unaccent','mcp.resolve_api_key']
