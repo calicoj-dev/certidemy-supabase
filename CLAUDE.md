@@ -2112,6 +2112,65 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A PRE-DEPLOY CHECK THAT IS NOT IN THE DEPLOY PATH IS A RULE, NOT A CHECK.**
+Ruled 2026-09-24 after the second partner-surface outage in a week. **The
+difference between a rule and a check is that a check cannot be forgotten.**
+
+Both halves of that outage were this distinction:
+
+| | |
+|---|---|
+| the RULE existed | CLAUDE.md records, from 364, that a reachability check asks `has_function_privilege` AND `has_schema_privilege` and names which gate is shut. Nothing triggered it |
+| the CHECK existed and covered the wrong path | `check-view-function-grant-gap.sql` walks functions named inside VIEWS. The call site that failed was **SQL assembled in TypeScript** |
+
+> **MECHANISM: a check whose purpose is to prevent a deploy RUNS AS PART OF
+> DEPLOYING, and a deploy path with no such gate is documented as having
+> none.** `scripts/deploy-courseware-read.mjs` is type check, reachability
+> gate, deploy, smoke -- and any step can stop it.
+
+**AND A POST-DEPLOY SMOKE IS THE OTHER HALF, BECAUSE ROLLBACK SPEED IS WHAT
+MAKES AN OUTAGE CHEAP.** One unauthenticated call per tool, English only,
+asserting 200 AND non-empty -- thirty seconds. It is not prevention: **the
+thing that makes an outage cheap is not preventing every one, it is noticing in
+ten seconds rather than ten minutes.** On failure it prints the ROLLBACK
+COMMAND, not only the error, because a smoke test that fails at 2am and prints
+a stack trace has told you the wrong thing.
+
+**THE DEPLOY WRAPPER THEN COMMITTED THE DEFECT IT EXISTS TO PREVENT, TWICE.**
+Worth recording because it is the same class both times:
+
+1. `shell: true` on Windows re-parsed `process.execPath`
+   (`C:\Program Files
+odejs
+ode.exe`) and the step died with *'C:\Program'
+   is not recognized* -- and the wrapper reported **REACHABILITY GATE FAILED**,
+   sending the reader to debug privileges when the problem was a path.
+2. `process.exit(2)` inside the gate, with fetch keep-alive sockets still open,
+   **aborts libuv on Windows and the abort REPLACES the exit code** -- so the
+   wrapper read a different number and again took the wrong branch.
+
+> **A STEP THAT COULD NOT START IS NOT A STEP THAT FAILED.** Three outcomes,
+> not two: ran-and-passed, ran-and-failed, could-not-run. Folding the third
+> into the second is the one-error-string-for-two-causes shape arriving
+> through process teardown rather than through an endpoint.
+
+`process.exitCode = n` and letting Node drain is the fix; `process.exit()` with
+open handles is not safe to read from a caller.
+
+**AND THE INCIDENT RECORD IS `INCIDENTS.md`, WITH DURATIONS.** Two outages in a
+week on one failure class -- 364 and this -- **both schema reachability, both
+self-inflicted by a change aimed at improving something.** A duration that
+lives only in a transcript is a duration nobody can quote, and *we do not know*
+is a worse answer than a figure.
+
+This one is recorded as **bounded 15-22 minutes** rather than to the minute,
+because the start is bounded by a deploy whose completion time was never
+recorded. 364's is recorded as **not measured** rather than estimated.
+
+**The tell worth keeping: it hit ENGLISH too.** That is what separated it from a
+translation-layer fault immediately. If English is affected, the cause is not
+about language.
+
 **ANYTHING NON-ASCII CROSSING A SHELL BOUNDARY IS CONSTRUCTED, NEVER TYPED.**
 Four transport surprises in four days, all the same class:
 

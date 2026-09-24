@@ -142,11 +142,21 @@ if (!rows) {
   console.log("");
   console.log("  Names to check by hand:");
   for (const k of names.sort()) console.log("    " + k);
-  process.exit(2);
+  /* EXIT CODE SET, NOT FORCED. `process.exit()` while fetch keep-alive sockets
+   * are still open aborts libuv on Windows -- "Assertion failed:
+   * !(handle->flags & UV_HANDLE_CLOSING)" -- and the abort REPLACES the exit
+   * code. The caller then sees a different number and takes a different
+   * branch: the deploy wrapper reported REACHABILITY GATE FAILED for a run
+   * that had reported UNVERIFIABLE.
+   *
+   * A wrapper reading the wrong exit code tells the reader the wrong cause,
+   * which is the one-error-string-for-two-causes shape again -- here arriving
+   * through a process-teardown bug rather than through an endpoint. */
+  process.exitCode = 2;
 }
 
 let fail = 0;
-for (const row of rows) {
+for (const row of rows ?? []) {
   const ok = row.can_execute === true && row.can_use_schema === true;
   if (!ok) fail++;
   const why = row.can_execute !== true
@@ -156,6 +166,12 @@ for (const row of rows) {
       : "";
   console.log("  " + (ok ? "PASS  " : "FAIL  ") + row.fname.padEnd(28) + row.rolname.padEnd(12) + why);
 }
-console.log("");
-if (fail) { console.log("UNREACHABLE: " + fail + ". Deploying this would 500 every call."); process.exit(1); }
-console.log("REACHABLE: every function the inline SQL names is callable by every role that runs it.");
+if (rows) {
+  console.log("");
+  if (fail) {
+    console.log("UNREACHABLE: " + fail + ". Deploying this would 500 every call.");
+    process.exitCode = 1;
+  } else {
+    console.log("REACHABLE: every function the inline SQL names is callable by every role that runs it.");
+  }
+}
