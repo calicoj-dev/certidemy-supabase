@@ -2112,6 +2112,42 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**POOLING TWO LANGUAGES MAKES EVERY COGNATE LOOK LIKE A DISAGREEMENT.** The
+accent work left a content question -- the accented query `gestion`-with-accent
+also moved, 33 to 37, which means our own Spanish carries the word unaccented
+somewhere. The first enumeration reported **5,569 prose cases** and every one
+of the top twenty was correct text:
+
+```
+auditoria 394 vs auditoria-with-accent 373    Portuguese against Spanish
+evidencia 220 vs evidencia-with-circumflex    Portuguese against Spanish
+como      1086 vs como-with-accent 191        "as" against "how"
+registro  147 vs registro-with-accent 4       noun against preterite
+```
+
+**Three classes where BOTH members are correct words**, and none of them is a
+defect:
+
+| | |
+|---|---|
+| CROSS-LANGUAGE COGNATES | scoping the vocabulary per language removes them entirely |
+| DIACRITIC PAIRS | `como`/`cuando`/`quienes` -- Spanish marks interrogatives, and the accent changes the WORD |
+| PART-OF-SPEECH PAIRS | `especifica` "specifies" against `especifica`-with-accent "specific"; `pode` against `pode`-with-circumflex |
+
+Narrowed: **5,569 -> 36 occurrences across 9 words.** The exclusions are 11
+diacritic pairs, 65 verb forms and 11 part-of-speech pairs, and the
+part-of-speech list is DECLARED BY NAME rather than inferred -- `minimo` and
+`minimo`-with-accent have exactly the same shape as `publica` and
+`publica`-with-accent, and only one of those pairs is a defect. **A rule that
+guessed there would be the lexical-proxy defect again**, so anything outside
+the declared list is reported for a human rather than judged.
+
+> **AND THE COUNT WAS WRONG IN THE SAME DIRECTION AS EVERY OTHER LEXICAL
+> COUNT IN THIS FILE.** A count of a lexical class is a draft until somebody
+> reads its members -- the translated-name census over-reported by 28, the
+> gloss detector fired on 653 of 1,730, the slug guard fired on the house
+> convention, and this one was wrong by a factor of 155.
+
 **A GATE MUST ASSERT THE PAIRS THAT HAPPEN, NOT THE CROSS-PRODUCT.** The
 inline-SQL reachability gate's FIRST REAL RUN blocked a correct deploy,
 reporting `mcp.resolve_api_key` and `mcp.resolve_oauth_caller` unreachable by

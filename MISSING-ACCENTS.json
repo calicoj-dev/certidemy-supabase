@@ -1,0 +1,337 @@
+{
+  "measured": "2026-09-24T04:27:04.838Z",
+  "fields": 10512,
+  "words": [
+    {
+      "stripped": "evidencia",
+      "accented": 156,
+      "prose": 12,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AIGRM-I",
+          "kind": "task",
+          "id": "1.1",
+          "field": "knowledge",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "3.5",
+          "field": "statement",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "3.5",
+          "field": "statement",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "3.5",
+          "field": "knowledge",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "3.5",
+          "field": "knowledge",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-competence-clause-7-2",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "vendor-certification",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIGRM-I",
+          "kind": "concept",
+          "id": "governance-vs-risk-vs-compliance",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "academic-qualification",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "accredited-certification",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "attendance-badge",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "course-completion-certificate",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "periodo",
+      "accented": 8,
+      "prose": 8,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-audit-programme-3-5",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "AIMS-IA",
+          "kind": "concept",
+          "id": "aia-audit-scope-definition",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-audit-scope-definition-3-6",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-control-design-versus-operating-effectiveness",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-annex-a-control-testing",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-evidence-retention-and-confidentiality",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "AIMS-IA",
+          "kind": "concept",
+          "id": "aia-programme-vs-individual-audit",
+          "field": "description",
+          "lang": "es-419"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "credential-currency",
+          "field": "description",
+          "lang": "es-419"
+        }
+      ]
+    },
+    {
+      "stripped": "influencia",
+      "accented": 5,
+      "prose": 7,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "1.1",
+          "field": "skills",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "task",
+          "id": "1.2",
+          "field": "knowledge",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "SM-AI-I",
+          "kind": "task",
+          "id": "5.5",
+          "field": "statement",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-internal-and-external-issues-clause-4-1",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "automated-decision-tool",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "materially-influences",
+          "field": "name",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "rules-based-filter",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "analise",
+      "accented": 105,
+      "prose": 4,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "ISMS-IA",
+          "kind": "concept",
+          "id": "ia-risk-assessment-process-clause-6-1-2",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIMS-IA",
+          "kind": "concept",
+          "id": "aia-risk-criteria",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIMS-IA",
+          "kind": "concept",
+          "id": "aia-cause-analysis",
+          "field": "description",
+          "lang": "pt-BR"
+        },
+        {
+          "cert": "AIMS-IA",
+          "kind": "concept",
+          "id": "aia-follow-up-verification",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "referencia",
+      "accented": 22,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AIMS-F",
+          "kind": "concept",
+          "id": "ai-policy",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "minimo",
+      "accented": 16,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AISM-I",
+          "kind": "concept",
+          "id": "keep-it-simple-and-practical",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "items",
+      "accented": 12,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "SM-AI-I",
+          "kind": "concept",
+          "id": "pbi-quality",
+          "field": "name",
+          "lang": "es-419"
+        }
+      ]
+    },
+    {
+      "stripped": "condicao",
+      "accented": 5,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AIHR-I",
+          "kind": "concept",
+          "id": "institution-proxy",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "minima",
+      "accented": 1,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AISM-I",
+          "kind": "concept",
+          "id": "keep-it-simple-and-practical",
+          "field": "description",
+          "lang": "es-419"
+        }
+      ]
+    },
+    {
+      "stripped": "continue",
+      "accented": 1,
+      "prose": 0,
+      "other": 2,
+      "proseRows": []
+    }
+  ]
+}
