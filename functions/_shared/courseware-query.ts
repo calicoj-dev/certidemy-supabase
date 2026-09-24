@@ -706,29 +706,68 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
         args.push("\\y" + rx(t));
         termParams.push(`$${args.length}`);
       }
+      // The pattern is unaccented ONCE PER QUERY, in SQL, by the same dictionary
+      // that normalises the text. Two normalisers would drift.
+      const P = (n: string) => `extensions.unaccent(${n})`;
       const score = (primary: string, secondary: string) => {
         const parts = [
-          `(case when ${primary} ~* $1 then 100 else 0 end)`,
-          `(case when ${secondary} ~* $1 then 40 else 0 end)`,
+          `(case when ${primary} ~* ${P("$1")} then 100 else 0 end)`,
+          `(case when ${secondary} ~* ${P("$1")} then 40 else 0 end)`,
         ];
         for (const p of termParams) {
-          parts.push(`(case when ${primary} ~* ${p} then 10 else 0 end)`);
-          parts.push(`(case when ${secondary} ~* ${p} then 3 else 0 end)`);
+          parts.push(`(case when ${primary} ~* ${P(p)} then 10 else 0 end)`);
+          parts.push(`(case when ${secondary} ~* ${P(p)} then 3 else 0 end)`);
         }
         return parts.join(" + ");
       };
       const anyOf = (primary: string, secondary: string) =>
-        [`${primary} ~* $1`, `${secondary} ~* $1`]
-          .concat(termParams.flatMap((p) => [`${primary} ~* ${p}`, `${secondary} ~* ${p}`]))
+        [`${primary} ~* ${P("$1")}`, `${secondary} ~* ${P("$1")}`]
+          .concat(termParams.flatMap((p) => [`${primary} ~* ${P(p)}`, `${secondary} ~* ${P(p)}`]))
           .join(" or ");
 
       const ksa =
         "coalesce(knowledge,'') || ' ' || coalesce(skills,'') || ' ' || coalesce(abilities,'')";
+
+      // ============ ACCENT-INSENSITIVE, AND WRAPPED ONCE PER ROW ============
+      //
+      // Search matched raw text against a raw pattern, so a query typed without
+      // accents did not match text carrying them. On a mobile-first LATAM
+      // product that is the ordinary case, not an edge case: 751 distinct
+      // accented words in the es-419 corpus (12.9% of its vocabulary) and 1,008
+      // in pt-BR (16.9%), and the top fourteen in each are all plausible
+      // queries.
+      //
+      //   gestion       5 rows      gestion-with-accent      33
+      //   informacion   0 rows      informacion-with-accent  26
+      //   secao         0 rows      secao-with-cedilla       59
+      //
+      // THE 5-OF-33 IS THE DANGEROUS ONE. A zero makes a user question their
+      // spelling; a short result looks like an answer.
+      //
+      // WRAPPED IN A SUBSELECT, NOT AT EVERY OCCURRENCE. `score()` and
+      // `anyOf()` between them mention each field 2 + 2n times, so wrapping
+      // inline would call unaccent eight times per row for a one-term query.
+      // Projecting the normalised columns once per row keeps it at two, and the
+      // matcher then reads plain column references.
+      //
+      // SCHEMA-QUALIFIED. Functions here run with `search_path = ''`, and an
+      // unqualified lookup under that setting is what took every non-English
+      // concept read down for four migrations (364). Do not tidy this away.
+      //
+      // The PATTERN is unaccented in SQL too -- `extensions.unaccent($1)` --
+      // rather than normalised in JS. One implementation of one idea: a JS-side
+      // stripper and a SQL-side dictionary would drift, and the drift would
+      // surface as a query matching in one layer and not the other. It is a
+      // parameter, so that is one call per query, not per row. Regex
+      // metacharacters are ASCII and pass through untouched.
+      const UA = (e: string) => `extensions.unaccent(${e})`;
       const taskPart =
         "select 'task' as kind, task_code as key, statement as title, domain_code, " +
-        score("statement", ksa) + " as score " +
-        "from mcp.task where certification = $4 and language = $2 " +
-        "and (" + anyOf("statement", ksa) + ")";
+        score("ua_primary", "ua_secondary") + " as score " +
+        "from (select task_code, statement, domain_code, " +
+        UA("statement") + " as ua_primary, " + UA(ksa) + " as ua_secondary " +
+        "from mcp.task where certification = $4 and language = $2) tsrc " +
+        "where (" + anyOf("ua_primary", "ua_secondary") + ")";
       // `and language = $2` MATTERS HERE AND DID NOT BEFORE 355. mcp.concept
       // had one row per concept, so omitting the filter was harmless and this
       // line sat beside taskPart, which has always carried it, looking
@@ -743,8 +782,11 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
       const conceptPart =
         " union all " +
         "select 'concept', slug, name, null::text, " +
-        score("name", "coalesce(description,'')") + " " +
-        "from mcp.concept where certification = $4 and language = $2 " +
+        score("ua_primary", "ua_secondary") + " " +
+        "from (select slug, name, description, description_is_fallback, " +
+        UA("name") + " as ua_primary, " + UA("coalesce(description,'')") + " as ua_secondary " +
+        "from mcp.concept where certification = $4 and language = $2) csrc " +
+        "where true " +
         // A cleared language still has uncleared rows, and mcp.concept serves
         // those as ENGLISH with description_is_fallback true. Matching them
         // against a Spanish query returns English hits the caller reads as
@@ -755,7 +797,7 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
         //
         // Never applied to English: every English row IS a fallback row.
         (a.language === "en" ? "" : "and not description_is_fallback ") +
-        "and (" + anyOf("name", "coalesce(description,'')") + ")";
+        "and (" + anyOf("ua_primary", "ua_secondary") + ")";
 
       // kind_total is a window count over ALL matches of that kind, computed
       // BEFORE the row_number cut -- so the caller is told how many exist, not
