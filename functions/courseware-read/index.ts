@@ -1415,6 +1415,18 @@ serve(async (req) => {
               "The syllabus, tasks and concepts for this certification are fully available.",
           };
         } else if (found.withholding_reason === "translation_review") {
+          // THIS MESSAGE ASSERTS SOMETHING ABOUT A DIFFERENT ROW -- "the English
+          // body is available now" -- and that is a claim, so it was measured
+          // rather than assumed. All 177 review-held rows have an English
+          // sibling and it is servable on every one of them.
+          //
+          // IT IS TRUE TODAY AND NOT TRUE BY CONSTRUCTION. An English body that
+          // the ISO scanner withholds while its translation is review-held would
+          // make this sentence false, in exactly the way the sentence it
+          // replaced was false. Nothing prevents that pairing; it simply does
+          // not exist yet. If a check is ever wanted for it, the predicate is
+          // "review-held row whose English sibling is not servable", today 0.
+          //
           // The old wording here asserted a cause too -- "its English was
           // recently edited to remove reproduced standard text" -- which is
           // true of some of these rows and not of most. A translation is held

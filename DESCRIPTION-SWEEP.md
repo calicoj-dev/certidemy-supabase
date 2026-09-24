@@ -87,8 +87,8 @@ refused with a FALSE reason          177    96.7%
 right" from "this message is right about this row"** — and a spot check lands on the
 common case by construction, except that here the common case was 3 percent.
 
-The full record is in `INCIDENTS.md`. The correction is migration 371, **written and
-not yet applied** — so as of this line the refusal is still wrong on 177 rows.
+The full record is in `INCIDENTS.md`. The correction is migration 371, applied 2026-09-24
+and verified on the wire in both directions.
 
 > **A PER-ROW CLAIM NEEDS A POPULATION, NOT A SUBJECT.** This file's other twelve rows
 > check claims that are true or false for the whole tool — what gets searched, what

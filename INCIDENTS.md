@@ -10,11 +10,12 @@ key-scoped surfaces a partner's agent reads.
 
 ---
 
-## 2026-09-16 to present — 177 lessons refused with a false statement about our own curriculum
+## 2026-09-16 to 2026-09-24 — 177 lessons refused with a false statement about our own curriculum
 
-**STILL OPEN AT THE TIME OF WRITING.** The fix is written and has not landed; the first
-attempt at migration 371 aborted on its own post-condition and changed nothing. Dated
-from when it began, not from when it will end.
+**CLOSED 2026-09-24.** Migration 371 applied on the second attempt and the deploy is live;
+both directions verified on the wire with a partner key. Attempt 1 aborted on its own
+post-condition and changed nothing — recorded below, because the abort is the mechanism
+working rather than a delay.
 
 **Class: a wrong answer, HTTP 404, for eight days. Not an outage — worse.**
 
@@ -29,8 +30,8 @@ sentence that was false, to the only audience that cannot check it.
 | **Genuinely withheld by the ISO scanner** | **6** (2 lesson groups x 3 languages) |
 | **Told the ISO reason wrongly** | **177 — 96.7 percent** |
 | **Started** | 2026-09-16, migration 350, when `lesson_body_is_servable` began ANDing the review arm into the value the refusal branches on |
-| **Ended** | **not yet.** Migration 371 is written; attempt 1 aborted on its own reachability post-condition (the new function was created EXECUTE-to-PUBLIC, because schema `mcp` has no `pg_default_acl` entry) |
-| **Duration** | **eight days and counting** |
+| **Ended** | 2026-09-24, migration 371 + deploy, verified on the wire |
+| **Duration** | **eight days** |
 | **Detected by** | a tool-description sweep asking what the server *says*, not what it does. No instrument was watching. |
 
 ### It is not merely the wrong reason. It is a claim our own scanner had measured false.
@@ -82,8 +83,8 @@ thirty for which the message was accurate.
 
 ### The fix, and the part that is structural
 
-Migration 371 — **written, not yet applied** — makes `mcp.lesson_withholding_reason`
-**the primary** and derives `lesson_body_is_servable` from it. The alternative — a reason function written beside
+Migration 371 makes `mcp.lesson_withholding_reason` **the primary** and derives
+`lesson_body_is_servable` from it. The alternative — a reason function written beside
 the verdict function — is the `mcp_servable` defect in advance: two implementations of
 one rule, drifting at the first edit, the drift surfacing as a row refused for a reason
 that is not why it was refused. **They cannot disagree, because there is nothing to
@@ -106,6 +107,34 @@ not exist: a total 400 on `get_lesson`, replacing a false answer with no answer.
 
 The assertion that fired was the both-directions reachability check. Its positive half —
 *the declared roles can call it* — would have passed cleanly while `anon` held EXECUTE.
+
+### Verified on the wire, both directions, with a partner key
+
+The negative half is the one that matters: a refusal that never mentions ISO would pass a
+one-sided check while having simply deleted the true message.
+
+```
+AIMS-F 01-01-what-an-aims-is   es-419  run 9   404  translation_pending_review
+AIMS-F 05-01-aims-monitoring…  en      run 12  404  body_withheld_standard_text
+```
+
+The second still names ISO, because for that row it is true.
+
+### And the new message makes a claim of its own, which was measured
+
+*"The English body is available now"* is an assertion about a DIFFERENT ROW. Checked
+across the population rather than on the subject: all 177 review-held rows have an English
+sibling and it is servable on every one.
+
+**True today, not true by construction.** An English body withheld by the ISO scanner
+while its translation is review-held would make the new sentence false in exactly the way
+the old one was. That pairing does not exist yet and nothing prevents it. The predicate is
+in a comment beside the message: *review-held row whose English sibling is not servable*,
+today 0.
+
+> Writing a replacement message is writing a new claim, and a new claim gets the
+> verification the old one failed. The temptation after a correction is to check that the
+> wrong sentence is gone.
 
 ### What it cost
 
