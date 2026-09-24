@@ -2112,6 +2112,61 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**THE WIRE MATRIX TESTS WHAT THE SERVER DOES. NOTHING TESTED WHAT THE SERVER
+SAYS IT DOES.** Found 2026-09-24 when the director called the deployed MCP
+server directly -- a second instrument on a surface every check in this
+repository already covered from the database side.
+
+`search_blueprint` said *"Concepts are searched in English, whatever language
+is requested"*. Measured:
+
+```
+AIMS-IA es-419 "management"  ->  0 rows
+AIMS-IA es-419 "gestion"     ->  10 rows, concepts included
+AIMS-IA es-419 concept       ->  Spanish
+```
+
+Concepts are searched in the REQUESTED language. **An agent reading that
+sentence holds English vocabulary, queries a Spanish blueprint, gets zero, and
+concludes the certification covers nothing about management** -- the
+silent-empty shape aimed at the one reader who cannot check.
+
+> **A partner integrates against the DESCRIPTION, so a false description is a
+> defect in the product whether or not the code is correct.**
+> `DESCRIPTION-SWEEP.md` tests every behavioural claim against the wire and
+> reports UNTESTED as its own row.
+
+**AND THE SENTENCE WAS REWRITTEN EIGHT DAYS EARLIER SPECIFICALLY SO IT WOULD
+NOT EXPIRE.** Commit `690a3b8` moved four sentences off the dead reason *"there
+is no concept_translations table"*, and its body says each now describes what
+comes back *"because that is the part a caller can act on AND THE PART THAT
+STAYS TRUE WHEN THE TABLE FILLS."*
+
+It did not. **Filling the table changed the BEHAVIOUR, not only the data**, so
+a sentence rewritten to survive that exact event expired at it.
+
+> **"Describes what a caller receives" is durable against a DATA change and not
+> against a BEHAVIOUR change -- and one event can cause both.** A durability
+> claim about a sentence is itself a claim, and it goes stale like any other.
+
+**A SECOND FALSE STRING CONTRADICTED ITS OWN TOOL DESCRIPTION IN THE SAME
+PAYLOAD.** `lessonAccess.note` promised *"get_lesson will return the body of any
+lesson listed here"* while the description two sentences above explains that
+`bodyAvailable: false` lessons ARE listed and ARE refused. Measured on
+`aims-ia-04-06`: listed, refused. Both shipped together.
+
+**AND A CONSTANT CARRIED ITS OWN EXPIRY INSTRUCTION, WHICH NOBODY EXECUTED.**
+`CONCEPTS_ARE_ENGLISH_ONLY = true` sat under a comment reading *"FLIP IT WHEN,
+AND ONLY WHEN, cleared translations exist -- that is the moment to replace it
+rather than edit it."* es-419 is 157 of 158 cleared. Nothing read the constant
+-- grep found only its declaration -- so it was **a false statement no code
+consulted**, which is exactly the kind the next reader believes.
+
+**Sweep results: 13 behavioural claims, 2 false and corrected, 8 true, 3
+UNTESTED and reported as such.** Four of the true ones were exact --
+allocation returned tasks 8 / concepts 2 at limit 10, and `totals` 36/60
+matched the word-boundary figures already in this file.
+
 **A THRESHOLD CHOSEN TO REDUCE NOISE IS JUSTIFIED AGAINST THE SIGNAL IT CAN
 HIDE, IN THE SAME BREATH THAT IT IS SET.** A cutoff is a CLAIM that nothing
 important lies below it.
