@@ -15,6 +15,7 @@ correct inside a code span.
 | es-419 | periodo | 8 | **8** | 0 |
 | pt-BR | influencia | 5 | **7** | 0 |
 | pt-BR | analise | 105 | **4** | 0 |
+| pt-BR | nao | 1110 | **1** | 0 |
 | pt-BR | referencia | 22 | **1** | 0 |
 | pt-BR | minimo | 16 | **1** | 0 |
 | es-419 | items | 12 | **1** | 0 |
@@ -105,6 +106,13 @@ Accented form: análise (105 occurrences)
   - ...A Seção 10.2 b) exige que a organização analise criticamente a não conformidade, determine suas causas e de...
 - **AIMS-IA** concept `aia-follow-up-verification` / description (pt-BR)
   - ...A Seção 10.2 d) da ISO/IEC 42001:2023 exige que a organização analise criticamente a eficácia de qualquer ação corretiva tomada. ...
+
+## nao -- 1 in prose
+
+Accented form: não (1110 occurrences)
+
+- **AISM-I** concept `keep-it-simple-and-practical` / description (pt-BR)
+  - ...use o minimo de etapas para atingir o objetivo; elimine o que nao agrega valor....
 
 ## referencia -- 1 in prose
 

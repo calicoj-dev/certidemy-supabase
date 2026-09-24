@@ -2112,6 +2112,48 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A COUNT IS READ BEFORE IT IS REPORTED.** This is the method of the whole
+week and it should be written down as one rather than left as a habit.
+
+**Every instrument error found in four days was caught by reading the members.
+Not one was caught by reasoning about the design.**
+
+| the number | the plausible explanation available | what reading it showed |
+|---|---|---|
+| the greedy skip | -- | read the runs |
+| the chained extension | -- | read the per-offset lengths |
+| 27 percent manufactured | *a believable artifact rate* | 69 of the 98 were real reproductions |
+| 63 concept fires | *the skip fix raised them* | 61 were NAMES, correct curriculum |
+| the frame hypothesis | *two instances look like a class* | the head of the distribution is ordinary English |
+| es-419 search returning zero | *a missing text-search dictionary* | the test's own constant was Portuguese |
+| 5,569 accent disagreements | *a big corpus has many* | the top twenty were Spanish-against-Portuguese cognates |
+
+**Several had a plausible explanation available, and the plausible explanation
+was wrong every single time.**
+
+> **MECHANISM: a reported count is accompanied by the reader's one-line
+> statement of what the members turned out to be, and a count nobody has read
+> is reported as UNREAD.** Not audited, not sampled for confidence -- somebody
+> looks at what the number is made of and says what it is.
+
+**AND THE ACCENT ENUMERATION DEMONSTRATED IT TWICE MORE IN ONE SITTING.**
+5,569 became 36 by reading the top twenty; then reading the 36 found that my
+own length floor of four characters hid `nao` -- **1 occurrence against 1,110
+for the accented form, sitting in the SAME SENTENCE as the `minimo` defect the
+detector did report.** A cutoff chosen for noise reduction had hidden the most
+common missing accent in Portuguese.
+
+Lowering it to three surfaced `tem`/`tem`-with-circumflex, `vem` and `nos`,
+which are Portuguese NUMBER AGREEMENT -- the circumflex marks the plural -- and
+are both correct. Declared, not inferred. Final: **98 words in both shapes, 11
+candidates, 37 prose occurrences.**
+
+**THE `mcp` SCHEMA IS NOT POSTGREST-EXPOSED**, so a script reaches it through
+the base tables or a declared RPC. Measured twice and been surprised by it
+twice -- `rpc/unaccent` answers 404 while `rpc/lesson_body_is_servable` answers
+200 -- **which is what a fact looks like just before it becomes a third
+outage.**
+
 **POOLING TWO LANGUAGES MAKES EVERY COGNATE LOOK LIKE A DISAGREEMENT.** The
 accent work left a content question -- the accented query `gestion`-with-accent
 also moved, 33 to 37, which means our own Spanish carries the word unaccented

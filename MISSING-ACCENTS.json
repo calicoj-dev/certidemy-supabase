@@ -1,5 +1,5 @@
 {
-  "measured": "2026-09-24T04:27:04.838Z",
+  "measured": "2026-09-24T04:32:03.577Z",
   "fields": 10512,
   "words": [
     {
@@ -246,6 +246,21 @@
           "cert": "AIMS-IA",
           "kind": "concept",
           "id": "aia-follow-up-verification",
+          "field": "description",
+          "lang": "pt-BR"
+        }
+      ]
+    },
+    {
+      "stripped": "nao",
+      "accented": 1110,
+      "prose": 1,
+      "other": 0,
+      "proseRows": [
+        {
+          "cert": "AISM-I",
+          "kind": "concept",
+          "id": "keep-it-simple-and-practical",
           "field": "description",
           "lang": "pt-BR"
         }

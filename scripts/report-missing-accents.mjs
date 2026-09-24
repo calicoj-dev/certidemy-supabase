@@ -175,6 +175,12 @@ const DIACRITIC_PAIRS = new Set([
   /* Plurals of the same interrogatives -- the first run missed them and they
    * are the identical class, not a new one. */
   "quienes", "cuales", "cuantos", "cuantas", "cuanta", "cuantos",
+  /* Portuguese number agreement: the circumflex marks the PLURAL of the verb.
+   * `tem` 39x against `tem`-with-circumflex 10x is singular against plural, not
+   * a misspelling -- and the same for `vem`. `nos` is "us"/"in the" against
+   * `nos`-with-accent "we". All correct; all surfaced only when the length
+   * floor dropped to three. */
+  "tem", "vem", "nos", "por", "so", "sao", "esta", "e",
 ]);
 
 /* ============ AND A THIRD CLASS: THE ACCENT MARKS PART OF SPEECH ==========
@@ -215,7 +221,14 @@ const byStripped = new Map();
 for (const d of docs) {
   for (const m of d.text.matchAll(/[\p{L}][\p{L}’']*/gu)) {
     const tok = m[0];
-    if (tok.length < 4) continue;
+    /* THREE-LETTER WORDS COUNT. The first version skipped anything under four
+     * characters and therefore could not see `nao`, `sao`, `ate`, `voce` -- and
+     * `nao` sits in the SAME sentence as the `minimo` defect it did report:
+     * "use o minimo de etapas ... elimine o que nao agrega". A length cutoff
+     * chosen for noise reduction hid the most common missing accent in
+     * Portuguese. Two is the floor now; one-letter words carry no accent worth
+     * finding. */
+    if (tok.length < 3) continue;
     const key = d.lang + "|" + strip(tok).toLowerCase();
     if (!byStripped.has(key)) byStripped.set(key, { forms: new Map() });
     const rec = byStripped.get(key);
