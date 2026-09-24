@@ -136,6 +136,24 @@ async function hasColumn(table, col) {
   }
   throw last;
 }
+/** Call a public function through PostgREST. `mcp` is not reachable this way;
+ *  `public` is. Returns the parsed body, or undefined if the call FAILED --
+ *  distinct from null, which is a legitimate return value here. */
+async function rpc(name, args) {
+  let last;
+  for (let i = 0; i < 8; i++) {
+    try {
+      const r = await fetch(REST + "/rpc/" + name, {
+        method: "POST", headers: { ...H, "content-type": "application/json" },
+        body: JSON.stringify(args), signal: AbortSignal.timeout(45000),
+      });
+      if (!r.ok) return undefined;
+      return JSON.parse(await r.text());
+    } catch (e) { last = e; }
+  }
+  throw last;
+}
+
 /** Ask the deployed function. */
 async function fn(body, extraHeaders = {}) {
   let last;
@@ -734,6 +752,85 @@ const FINGERPRINTS = {
           : cleared + " cleared translation(s); " + flagged + " of " + esRows.length + " still fall back",
     };
   },
+  371: async () => {
+    /* 371 made mcp.lesson_withholding_reason the primary and derived
+     * lesson_body_is_servable from it, because 177 of 183 withheld lessons were
+     * refused with "it reproduces clause text from an ISO standard" when the arm
+     * actually holding them was the TRANSLATION REVIEW.
+     *
+     * THE MIGRATION AND THE DEPLOY ARE PROBED SEPARATELY, because they fail
+     * differently and a compound claim inherits the credibility of its
+     * most-verified part. `ran` is the migration alone; `effective` is the
+     * deployed function on the wire.
+     *
+     * THE MIGRATION TELL IS THE ONE BEHAVIOUR CHANGE 371 DECLARES. Deriving the
+     * verdict from the reason would turn a nonexistent lesson from NULL into
+     * TRUE -- `reason is null` holds when the reason function selects no rows --
+     * so 371 guards it with an existence test and the answer becomes FALSE.
+     * Observable through PostgREST, needs no deploy, produced by nothing else. */
+    const bogus = await rpc("lesson_body_is_servable",
+      { p_lesson_id: "00000000-0000-0000-0000-000000000000" });
+    if (bogus === undefined) {
+      return { ran: false, why: "could not call lesson_body_is_servable -- says nothing about 371" };
+    }
+    const ran = bogus === false;
+    const why = ran
+      ? "a nonexistent lesson reports false, not null -- the verdict is derived from the reason"
+      : "a nonexistent lesson reports " + JSON.stringify(bogus) + "; before 371 that is null";
+
+    /* THE WIRE, BOTH DIRECTIONS, and the negative half is the one that matters.
+     * A refusal that never mentions ISO would pass a one-sided check while
+     * having simply deleted the true message -- so a genuinely reproducing
+     * lesson MUST still be refused as reproduction.
+     *
+     * Subjects chosen from the two arms rather than typed from memory: AIMS-F
+     * 05-01 is one of the 6 rows the scanner really withholds (longest run 12,
+     * over the floor of 10), and AIMS-F 01-01 es-419 is one of the 177 held for
+     * review (longest run 9 -- UNDER the floor, so our own instrument had
+     * already measured the ISO claim false on every one of them). */
+    /* `lesson` IS A PAID TOOL, so this half needs a courseware:lessons key and
+     * ABSTAINS without one rather than scoring the 401. The first version of
+     * this cell did not, and reported NOT EFFECTIVE against a function that was
+     * simply refusing an anonymous caller correctly. */
+    const CK = process.env.CERTIDEMY_API_KEY;
+    if (!CK) {
+      return { ran, why, effective: null,
+        effectiveWhy: "no CERTIDEMY_API_KEY: `lesson` is a paid tool and 401 is not a verdict on 371" };
+    }
+    const auth = { "x-certidemy-key": CK };
+    const review = await fn({ resource: "lesson", certification: "AIMS-F",
+      lesson_slug: "01-01-what-an-aims-is", language: "es-419" }, auth);
+    const iso = await fn({ resource: "lesson", certification: "AIMS-F",
+      lesson_slug: "05-01-aims-monitoring-and-measurement", language: "en" }, auth);
+    if (review.status === 401 || iso.status === 401) {
+      return { ran, why, effective: null,
+        effectiveWhy: "CERTIDEMY_API_KEY was refused 401 -- the key, not 371" };
+    }
+
+    /* A REFUSAL THAT DID NOT HAPPEN PROVES NOTHING. If either subject starts
+     * serving, the probe has lost it and must say so rather than scoring the
+     * silence -- a cell with no expectation is UNASSERTED, never a pass. */
+    if (review.status !== 404 || iso.status !== 404) {
+      return { ran, why, effective: null,
+        effectiveWhy: "subjects no longer refused (review " + review.status + ", iso " +
+          iso.status + ") -- cleared or released, so this cell asserts nothing" };
+    }
+    const rSaysIso = /ISO standard/.test(review.json?.error ?? "");
+    const iSaysIso = /ISO standard/.test(iso.json?.error ?? "");
+    const rReason = review.json?.reason ?? "(none)";
+    const effective = !rSaysIso && iSaysIso && rReason === "translation_pending_review";
+    return {
+      ran, why, effective,
+      effectiveWhy: effective
+        ? "the review-held lesson is refused as " + rReason +
+          " and the reproducing one still names ISO -- both directions"
+        : rSaysIso
+          ? "a review-held lesson is STILL told it reproduces ISO; the function predates 371"
+          : !iSaysIso
+            ? "a genuinely reproducing lesson no longer names ISO -- the true message was deleted"
+            : "review-held lesson refused as " + rReason + ", expected translation_pending_review",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
@@ -757,7 +854,19 @@ for (const num of nums.filter((x) => FINGERPRINTS[x]).sort((a, b) => a - b)) {
   const mark = r.ran === true ? "RAN    " : r.ran === false ? "NOT RUN" : "UNKNOWN";
   console.log("    " + num + "  " + mark + "  " + r.why);
   if ("effective" in r) {
-    console.log("         " + (r.effective ? "EFFECTIVE" : "NOT EFFECTIVE") + "  " + r.effectiveWhy);
+    /* THREE STATES, NOT TWO. This read `r.effective ? ... : "NOT EFFECTIVE"`,
+     * so a cell that ABSTAINED -- `effective: null`, meaning the probe could
+     * not reach its subject -- printed as a failure. 355 already returns null
+     * when it cannot read the view over the wire, and a transport error has
+     * been rendering as "the migration does not work" ever since.
+     *
+     * The summary below has always used `=== false`, so the two halves of this
+     * script disagreed: the list was right and the line was wrong. A guard that
+     * manufactures the failure it reports is worse than no guard. */
+    const mk = r.effective === true ? "EFFECTIVE    "
+             : r.effective === false ? "NOT EFFECTIVE"
+             : "UNASSERTED   ";
+    console.log("         " + mk + "  " + r.effectiveWhy);
   }
 }
 const unprobed = nums.filter((x) => !FINGERPRINTS[x] && x >= 330);

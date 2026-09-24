@@ -1370,9 +1370,28 @@ serve(async (req) => {
       //   body_available true   -> mcp.lesson still refused it, which after 335
       //                            can only mean this TRANSLATION is unreviewed
       if (args.resource === "lesson" && rows.length === 0) {
-        const probe = await conn.queryObject<{ body_available: boolean }>({
+        // ============ THE GATE NOW REPORTS WHICH ARM HELD THE ROW ==========
+        //
+        // This selected `body_available` alone and branched on it, on the
+        // reasoning that "body_available true AND mcp.lesson refused" could
+        // only mean an unreviewed translation. That branch was UNREACHABLE:
+        // `body_available` IS `lesson_body_is_servable`, which ANDs all three
+        // arms, so a row held by the review arm has body_available false and
+        // fell into the branch written for ISO reproduction.
+        //
+        // Measured before 371: 183 withheld rows, 6 genuinely ISO, 177 told
+        // the ISO reason wrongly -- a false statement about our own curriculum,
+        // made to a paying partner, on the subject where being believed is the
+        // business.
+        //
+        // 371 makes `mcp.lesson_withholding_reason` the primary and derives
+        // `lesson_body_is_servable` from it, so a reason and a verdict cannot
+        // drift. This reads the reason.
+        const probe = await conn.queryObject<
+          { body_available: boolean; withholding_reason: string | null }
+        >({
           text:
-            "select body_available from mcp.lesson_index " +
+            "select body_available, withholding_reason from mcp.lesson_index " +
             "where certification = $1 and lesson_slug = $2 and language = $3",
           args: [args.certification!, args.lesson_slug, args.language],
         });
@@ -1384,7 +1403,9 @@ serve(async (req) => {
               `No lesson '${args.lesson_slug}' in ${args.certification} for ${args.language}. ` +
               "Use list_lessons for the catalogue; it needs no credential.",
           };
-        } else if (found.body_available === false) {
+        } else if (found.withholding_reason === "iso_reproduction") {
+          // ONLY the scanner arm may be reported as reproduction. It is the only
+          // arm that measured any.
           withheld = {
             reason: "body_withheld_standard_text",
             message:
@@ -1393,14 +1414,39 @@ serve(async (req) => {
               "redistribute. This is not a problem with your credential and retrying will not change it. " +
               "The syllabus, tasks and concepts for this certification are fully available.",
           };
-        } else {
+        } else if (found.withholding_reason === "translation_review") {
+          // The old wording here asserted a cause too -- "its English was
+          // recently edited to remove reproduced standard text" -- which is
+          // true of some of these rows and not of most. A translation is held
+          // until somebody reads it, whatever prompted the translation.
           withheld = {
             reason: "translation_pending_review",
             message:
               `The lesson '${args.lesson_slug}' exists and its ${args.language} body is not available YET. ` +
-              "Its English was recently edited to remove reproduced standard text, and the translation is " +
-              "held until a human has confirmed the same text is not present in it. This is not a problem " +
-              "with your credential. The English body is available now; the translation will follow.",
+              "The translation is held until a human has reviewed it. This says nothing about the content " +
+              "of the lesson and nothing about your credential: the English body is available now, and the " +
+              "translation follows when the review clears.",
+          };
+        } else if (found.withholding_reason === "provenance_stale") {
+          withheld = {
+            reason: "translation_out_of_date",
+            message:
+              `The lesson '${args.lesson_slug}' exists and its ${args.language} body is not available YET. ` +
+              "The English was edited after this translation was made, so the translation is held until it " +
+              "has been brought back into step and reviewed. This is not a problem with your credential; " +
+              "the English body is available now.",
+          };
+        } else {
+          // A FOURTH STATE IS A RESULT, NOT A DEFAULT. If the row is missing a
+          // body and the gate names no arm, the two have disagreed and saying
+          // so is better than picking one of the three at random -- which is
+          // precisely how 177 rows came to be told about ISO.
+          withheld = {
+            reason: "body_unavailable_reason_unknown",
+            message:
+              `The lesson '${args.lesson_slug}' exists and its body is not available, and this server ` +
+              "cannot say which rule withheld it. That is a defect on our side rather than anything about " +
+              "your request or your credential. The syllabus, tasks and concepts are fully available.",
           };
         }
       }

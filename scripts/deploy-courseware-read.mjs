@@ -26,13 +26,16 @@
  *   1. deno check          a type error must never reach a deploy
  *   2. reachability gate   every function the inline SQL names, both gates,
  *                          per role. THIS is what the last outage needed.
- *   3. deploy              from the PARENT directory, --dns-resolver https,
+ *   3. schema precondition the migrations this code REQUIRES have run. A
+ *                          function that selects a column the view does not
+ *                          have yet answers 400 to every call.
+ *   4. deploy              from the PARENT directory, --dns-resolver https,
  *                          both of which this repository has paid for
- *   4. smoke               one unauthenticated call per tool. Not prevention:
+ *   5. smoke               one unauthenticated call per tool. Not prevention:
  *                          the thing that makes an outage cheap is noticing in
  *                          ten seconds rather than ten minutes.
  *
- * A failure at 2 or 4 prints what to do, not only what broke.
+ * A failure at 2, 3 or 5 prints what to do, not only what broke.
  */
 import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
@@ -72,7 +75,7 @@ function run(label, cmd, args, cwd, useShell = false) {
 console.log("");
 console.log("DEPLOY courseware-read" + (APPLY ? "" : "   (DRY RUN -- gates only, no deploy)"));
 
-const tc = run("1/4  type check", "deno",
+const tc = run("1/5  type check", "deno",
   ["check", "--node-modules-dir=auto", "functions/courseware-read/index.ts"], ROOT, true);
 if (!tc.ran) {
   console.error("");
@@ -87,7 +90,7 @@ if (!tc.ok) {
   process.exit(1);
 }
 
-const gate = run("2/4  reachability gate", process.execPath,
+const gate = run("2/5  reachability gate", process.execPath,
   ["--dns-result-order=ipv4first", "scripts/check-inline-sql-reachable.mjs"], ROOT);
 if (!gate.ran) {
   console.error("");
@@ -121,13 +124,41 @@ if (!gate.ok) {
   process.exit(1);
 }
 
+const pre = run("3/5  schema precondition", process.execPath,
+  ["--dns-result-order=ipv4first", "scripts/check-schema-preconditions.mjs"], ROOT);
+if (!pre.ran) {
+  console.error("");
+  console.error("THE PRECONDITION CHECK COULD NOT RUN: " + pre.why);
+  console.error("DEPLOY BLOCKED, and NOT because a migration is missing -- nothing was");
+  console.error("measured. Fix the invocation.");
+  process.exit(2);
+}
+if (pre.code === 2) {
+  console.error("");
+  console.error("A PRECONDITION COULD NOT BE MEASURED -- DEPLOY BLOCKED.");
+  console.error("  Nothing says a migration is missing. Nothing says it ran either, and");
+  console.error("  UNKNOWN is not a pass.");
+  process.exit(2);
+}
+if (!pre.ok) {
+  console.error("");
+  console.error("A REQUIRED MIGRATION HAS NOT RUN -- DEPLOY BLOCKED.");
+  console.error("");
+  console.error("  This code reads something the database does not have yet. Deploying it");
+  console.error("  would answer 400 to every call of the affected resource -- loud, total,");
+  console.error("  and entirely avoidable by running the migration first.");
+  console.error("");
+  console.error("  Run the migration named above in the SQL editor, then re-run this.");
+  process.exit(1);
+}
+
 if (!APPLY) {
   console.log("");
   console.log("GATES PASSED. Nothing deployed. Re-run with --apply.");
   process.exit(0);
 }
 
-const dep = run("3/4  deploy", "supabase",
+const dep = run("4/5  deploy", "supabase",
   ["functions", "deploy", "courseware-read", "--dns-resolver", "https"], PARENT, true);
 if (!dep.ran || !dep.ok) {
   console.error("");
@@ -145,7 +176,7 @@ if (SKIP_SMOKE) {
   process.exit(0);
 }
 
-const smoke = run("4/4  smoke", process.execPath,
+const smoke = run("5/5  smoke", process.execPath,
   ["--dns-result-order=ipv4first", "scripts/smoke-courseware-tools.mjs"], ROOT);
 if (!smoke.ran) {
   console.error("");
