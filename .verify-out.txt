@@ -1,0 +1,27 @@
+
+VERIFY UNACCENT -- accent-insensitive search
+
+EQUALITY -- accented and unaccented must return the SAME SET
+  (non-emptiness would have passed the broken state: gestion returned 5 of 33)
+  FAIL  es-419 auditoria   request failed: exhausted
+  FAIL  es-419 gestion   request failed: exhausted
+  FAIL  es-419 informacion   request failed: exhausted
+  FAIL  pt-BR avaliacao   request failed: exhausted
+  FAIL  pt-BR secao   request failed: exhausted
+
+NEGATIVE -- the matcher must still discriminate
+  FAIL  absent term returns zero in en   request failed: exhausted
+  FAIL  absent term returns zero in es-419   request failed: exhausted
+  FAIL  absent term returns zero in pt-BR   request failed: exhausted
+  FAIL  a near-miss does not collapse into a real term   'gestor' null rows vs accented term null rows
+
+ENGLISH UNCHANGED -- by count AND by ids
+  baseline measured 2026-09-24T03:29:31.009Z
+  FAIL  AIMS-IA|audit          80 -> null  CHANGED
+  FAIL  ISMS-IA|audit          78 -> null  CHANGED
+  FAIL  AIMS-F|audit           23 -> null  CHANGED
+  FAIL  AIGRM-I|audit          5 -> null  CHANGED
+  PASS  AIMS-IA|risk           34 -> 34, identical
+  PASS  ISMS-IA|control        39 -> 39, identical
+
+VERIFY UNACCENT FAILED (13).

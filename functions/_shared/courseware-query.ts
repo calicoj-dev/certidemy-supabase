@@ -708,7 +708,7 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
       }
       // The pattern is unaccented ONCE PER QUERY, in SQL, by the same dictionary
       // that normalises the text. Two normalisers would drift.
-      const P = (n: string) => `extensions.unaccent(${n})`;
+      const P = (n: string) => `mcp.unaccent(${n})`;
       const score = (primary: string, secondary: string) => {
         const parts = [
           `(case when ${primary} ~* ${P("$1")} then 100 else 0 end)`,
@@ -760,14 +760,54 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
       // surface as a query matching in one layer and not the other. It is a
       // parameter, so that is one call per query, not per row. Regex
       // metacharacters are ASCII and pass through untouched.
-      const UA = (e: string) => `extensions.unaccent(${e})`;
+      // ============ IT IS mcp.unaccent, NOT extensions.unaccent ============
+      //
+      // Deploying this calling `extensions.unaccent(...)` took SEARCH DOWN in
+      // every language: HTTP 500 {"error":"read failed"}, deterministic,
+      // surviving a 90-second rest -- which is how it was told apart from
+      // pooler exhaustion, the other cause of that same string.
+      //
+      //   role          USAGE on extensions    EXECUTE on unaccent
+      //   mcp_reader    FALSE                  true
+      //
+      // EXECUTE IS TRUE -- extension functions are granted to PUBLIC -- and the
+      // call is refused at the SCHEMA DOOR before the ACL is consulted. That is
+      // the 364 shape, which CLAUDE.md already records along with the rule that
+      // a reachability check asks for EXECUTE *and* schema USAGE. The control
+      // existed; it was not run before deploying.
+      //
+      // 369 adds `mcp.unaccent`, a SECURITY DEFINER wrapper that DELEGATES to
+      // the original, granted to mcp_reader and mcp_holder. Widening USAGE on
+      // `extensions` instead would reach 59 functions and pg_stat_statements
+      // for one dictionary lookup.
+      //
+      // ============ AND `materialized` IS LOAD-BEARING, MEASURED ============
+      //
+      // The first attempt put the normalised columns in a plain subselect and
+      // it did nothing: THE PLANNER PULLS A SUBQUERY UP, so the call was
+      // inlined back into the filter and the sort key and evaluated at every
+      // occurrence again. Measured on en/AIMS-IA/audit, 131 rows:
+      //
+      //   no unaccent                          19.1 ms
+      //   unaccent, plain subselect            85.8 ms   <- 4.5x, flattened
+      //   unaccent, MATERIALIZED CTE           20.9 ms   <- +1.7 ms
+      //
+      // A SUBSELECT IS NOT AN OPTIMISATION BARRIER; `materialized` is. The
+      // design was right in intent and inert in effect, and only EXPLAIN
+      // ANALYZE said so -- the SQL looked identical either way.
+      const UA = (e: string) => `mcp.unaccent(${e})`;
+      const uaTask =
+        "tsrc as materialized (select task_code, statement, domain_code, " +
+        UA("statement") + " as ua_primary, " + UA(ksa) + " as ua_secondary " +
+        "from mcp.task where certification = $4 and language = $2)";
+      const uaConcept =
+        "csrc as materialized (select slug, name, description, description_is_fallback, " +
+        UA("name") + " as ua_primary, " + UA("coalesce(description,'')") + " as ua_secondary " +
+        "from mcp.concept where certification = $4 and language = $2)";
       const taskPart =
         "select 'task' as kind, task_code as key, statement as title, domain_code, " +
         score("ua_primary", "ua_secondary") + " as score " +
-        "from (select task_code, statement, domain_code, " +
-        UA("statement") + " as ua_primary, " + UA(ksa) + " as ua_secondary " +
-        "from mcp.task where certification = $4 and language = $2) tsrc " +
-        "where (" + anyOf("ua_primary", "ua_secondary") + ")";
+        "from tsrc where (" + anyOf("ua_primary", "ua_secondary") + ")";
       // `and language = $2` MATTERS HERE AND DID NOT BEFORE 355. mcp.concept
       // had one row per concept, so omitting the filter was harmless and this
       // line sat beside taskPart, which has always carried it, looking
@@ -783,10 +823,7 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
         " union all " +
         "select 'concept', slug, name, null::text, " +
         score("ua_primary", "ua_secondary") + " " +
-        "from (select slug, name, description, description_is_fallback, " +
-        UA("name") + " as ua_primary, " + UA("coalesce(description,'')") + " as ua_secondary " +
-        "from mcp.concept where certification = $4 and language = $2) csrc " +
-        "where true " +
+        "from csrc where true " +
         // A cleared language still has uncleared rows, and mcp.concept serves
         // those as ENGLISH with description_is_fallback true. Matching them
         // against a Spanish query returns English hits the caller reads as
@@ -812,7 +849,8 @@ export function buildQuery(a: Args, clearedConcepts?: boolean): { q: Q; searched
       return {
         q: {
           text:
-            "with m as (" + taskPart + (withConcepts ? conceptPart : "") + "), " +
+            "with " + uaTask + (withConcepts ? ", " + uaConcept : "") + ", " +
+            "m as (" + taskPart + (withConcepts ? conceptPart : "") + "), " +
             // ::int ON BOTH, AND THE CAST IS THE FIX RATHER THAN A TIDY-UP.
             // count(*) and row_number() return BIGINT; deno-postgres maps bigint
             // to a JS BigInt; JSON.stringify THROWS on BigInt. So the query
