@@ -107,6 +107,29 @@ const QUERY = {
   "pt-BR": "auditoria",
 };
 
+/* ============ BOTH SPELLINGS, SO THE MATRIX CARRIES THE PROPERTY ==========
+ *
+ * One spelling per language tests that spelling. Since 368-370 the property is
+ * ACCENT INSENSITIVITY, and a matrix holding only the accented form would pass
+ * unchanged if unaccent were reverted tomorrow -- it would be measuring the
+ * half that never broke.
+ *
+ * So each language carries the form a user actually types as well. Spanish is
+ * the only one where they differ in the corpus; pt-BR `auditoria` is already
+ * unaccented, so its pair is `avaliacao` against the cedilla form, which does
+ * differ. English has no accented form and says so rather than carrying a
+ * duplicate cell that would always pass. */
+const QUERY_PLAIN = {
+  "en": null,                                        // no accented form exists
+  "es-419": "auditoria",                             // the same word, typed plainly
+  "pt-BR": "avaliacao",                              // pairs with avaliacao + cedilla
+};
+const QUERY_PLAIN_PAIR = {
+  "en": null,
+  "es-419": "auditor" + I_ACUTE + "a",
+  "pt-BR": "avalia" + String.fromCharCode(0x00E7) + String.fromCharCode(0x00E3) + "o",
+};
+
 /* Which mcp view each resource reads, so a failing cell names the object to
  * go and look at rather than only the tool that surfaced it. */
 const VIEW_FOR = {
@@ -336,6 +359,37 @@ for (const resource of ["certification", "task", "concept", "search", "lesson_in
   }
 }
 
+/* ============ THE ACCENT PAIR, ASSERTED AS EQUALITY ============
+ *
+ * A floor on the unaccented form would have passed the broken state: `gestion`
+ * returned 5 of 33 before 368-370, and five is rows. The property is that the
+ * two spellings return THE SAME SET, so that is what is asserted -- count and
+ * keys, not presence. */
+const pairs = [];
+for (const lang of LANGS) {
+  if (!QUERY_PLAIN[lang]) {
+    pairs.push({ lang, skipped: true, why: "no accented form of the query term exists in " + lang });
+    continue;
+  }
+  for (const cert of CERTS) {
+    const a = await call({ resource: "search", certification: cert, language: lang,
+                           limit: 50, query: QUERY_PLAIN_PAIR[lang] });
+    await sleep(250);
+    const b = await call({ resource: "search", certification: cert, language: lang,
+                           limit: 50, query: QUERY_PLAIN[lang] });
+    await sleep(250);
+    const keys = (r) => (r.json?.rows ?? []).map((x) => x.kind + ":" + x.key).join("|");
+    const ra = r0(a), rb = r0(b);
+    pairs.push({
+      lang, cert, accented: ra, plain: rb,
+      ok: ra !== null && rb !== null && ra === rb && keys(a) === keys(b),
+    });
+  }
+}
+function r0(res) {
+  return Array.isArray(res.json?.rows) ? res.json.rows.length : null;
+}
+
 /* NOT EXERCISED, not passed. Recorded as its own class so the denominator
  * cannot absorb it. */
 const skipped = [];
@@ -388,6 +442,17 @@ if (failed.length) {
  * 51 were examined. A matrix that examines nothing renders identically to one
  * that examined everything and held, unless the denominator is printed. */
 console.log("");
+console.log("");
+console.log("  ACCENT PAIRS -- accented and unaccented must return the SAME SET");
+let pairFail = 0;
+for (const p of pairs) {
+  if (p.skipped) { console.log("    " + p.lang.padEnd(8) + "NOT EXERCISED   " + p.why); continue; }
+  if (!p.ok) pairFail++;
+  console.log("    " + (p.ok ? "ok   " : "FAIL ") + p.lang.padEnd(8) + p.cert.padEnd(9) +
+    "accented " + String(p.accented).padStart(3) + "   plain " + String(p.plain).padStart(3) +
+    (p.ok ? "   identical keys" : "   DIFFERENT"));
+}
+
 const unasserted = cells.filter((c) => c.unasserted);
 if (unasserted.length) {
   console.log("");
@@ -399,6 +464,7 @@ if (unasserted.length) {
 }
 /* THREE NUMBERS, NOT TWO. `n/m hold` cannot say whether the nth looked at
  * anything -- the same rule as the vacuous-invariant summary. */
+if (pairFail) { failed.push({ resource: "accent-pair", why: pairFail + " pair(s) differ" }); }
 console.log("  " + (examined - failed.length - unasserted.length) + " pass, " +
             failed.length + " fail, " + unasserted.length + " unasserted, " +
             skipped.length + " not exercised   (denominator: " + examined + " cell(s) examined)");

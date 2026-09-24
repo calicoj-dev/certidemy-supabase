@@ -59,9 +59,41 @@ for (const p of [join(HERE, ".env"), join(ROOT, ".env")]) {
 const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set"); process.exit(2); }
 
-/* The roles the courseware path actually connects as. Named, not inferred:
- * a role list guessed from a config file is the thing that goes stale. */
-const ROLES = ["mcp_reader", "mcp_holder"];
+/* ============ A ROLE SET PER FUNCTION, NOT A CROSS-PRODUCT ============
+ *
+ * The first version asserted EVERY role against EVERY function and BLOCKED A
+ * CORRECT DEPLOY on its first real run, reporting mcp.resolve_api_key and
+ * mcp.resolve_oauth_caller as unreachable by mcp_holder.
+ *
+ * They are, and that is the design. `courseware-read` runs authentication on
+ * the READER pool -- resolveKey's own comment says "ON THE READER POOL,
+ * DELIBERATELY" -- and the holder pool exists for exactly one thing:
+ * `resource === "lesson"`. mcp_holder never calls a resolver, so granting it
+ * EXECUTE would WEAKEN the design rather than fix anything. The enforcement is
+ * that the reader pool is provably incapable of reading mcp.lesson and the
+ * holder pool is incapable of everything else: "an `if` here could be inverted
+ * by a refactor; a missing grant cannot."
+ *
+ * A GATE THAT OVER-REPORTS GETS DISABLED BY THE FIRST PERSON IT INCONVENIENCES,
+ * and it would have taken the real assertion with it.
+ *
+ * So each function declares the roles that actually call it, with the reason.
+ * An UNDECLARED function is not defaulted either way -- it exits 2 and forces a
+ * decision, because "which role runs this" is exactly the question that was got
+ * wrong. */
+const ROLE_FOR = {
+  "mcp.resolve_api_key": { roles: ["mcp_reader"],
+    why: "resolveKey() runs on the reader pool, deliberately -- auth precedes the pool choice" },
+  "mcp.resolve_oauth_caller": { roles: ["mcp_reader"],
+    why: "the OAuth twin of resolveKey, same pool, same reason" },
+  "mcp.feature_status": { roles: ["mcp_reader"],
+    why: "entitlement check, on the reader pool" },
+  "mcp.log_request": { roles: ["mcp_reader"],
+    why: "telemetry, on the reader pool" },
+  "mcp.unaccent": { roles: ["mcp_reader", "mcp_holder"],
+    why: "search SQL. Reader in practice -- search is never the lesson resource -- " +
+         "but 369 granted both so a future holder-side search cannot fail silently" },
+};
 
 /* Sources whose SQL is assembled in TypeScript and executed by those roles. */
 const SOURCES = [
@@ -103,8 +135,23 @@ if (found.size === 0) {
 const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
 const H = { apikey: KEY, Authorization: "Bearer " + KEY, "content-type": "application/json" };
 
-/* Resolve each name to a real function and ask both gates, per role. */
+/* Every extracted name must be declared. A new function added to the inline
+ * SQL must not inherit somebody's guess about which role runs it. */
 const names = [...found.keys()];
+const undeclared = names.filter((n) => !ROLE_FOR[n]);
+if (undeclared.length) {
+  console.error("");
+  console.error("UNDECLARED FUNCTION(S) IN THE INLINE SQL:");
+  for (const n of undeclared) console.error("  " + n + "   (" + [...found.get(n)].join(", ") + ")");
+  console.error("");
+  console.error("Add each to ROLE_FOR with the roles that actually call it and WHY.");
+  console.error("Defaulting is what produced the cross-product that blocked a correct deploy.");
+  process.exitCode = 2;
+}
+
+/* The union, only so one round trip answers everything; each pair is then
+ * judged against its own declared role set. */
+const ROLES = [...new Set(Object.values(ROLE_FOR).flatMap((d) => d.roles))];
 const sql =
   "select n.nspname || '.' || p.proname as fname, r.rolname, " +
   "has_function_privilege(r.rolname, p.oid, 'EXECUTE') as can_execute, " +
@@ -157,6 +204,10 @@ if (!rows) {
 
 let fail = 0;
 for (const row of rows ?? []) {
+  const decl = ROLE_FOR[row.fname];
+  /* Only assert the pairs that actually happen. A role that never calls this
+   * function is not a gap; reporting it as one is the cross-product defect. */
+  if (!decl || !decl.roles.includes(row.rolname)) continue;
   const ok = row.can_execute === true && row.can_use_schema === true;
   if (!ok) fail++;
   const why = row.can_execute !== true
@@ -166,8 +217,9 @@ for (const row of rows ?? []) {
       : "";
   console.log("  " + (ok ? "PASS  " : "FAIL  ") + row.fname.padEnd(28) + row.rolname.padEnd(12) + why);
 }
-if (rows) {
+if (rows && !undeclared.length) {
   console.log("");
+  console.log("  (pairs asserted: only the roles each function is declared to run under)");
   if (fail) {
     console.log("UNREACHABLE: " + fail + ". Deploying this would 500 every call.");
     process.exitCode = 1;

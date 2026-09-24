@@ -2112,6 +2112,57 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A GATE MUST ASSERT THE PAIRS THAT HAPPEN, NOT THE CROSS-PRODUCT.** The
+inline-SQL reachability gate's FIRST REAL RUN blocked a correct deploy,
+reporting `mcp.resolve_api_key` and `mcp.resolve_oauth_caller` unreachable by
+`mcp_holder`.
+
+**They are, and that is the design.** `courseware-read` authenticates on the
+READER pool -- `resolveKey`'s own comment says *"ON THE READER POOL,
+DELIBERATELY"* -- and the holder pool exists for exactly one thing,
+`resource === "lesson"`. mcp_holder never calls a resolver, so granting it
+EXECUTE would WEAKEN the design: the enforcement is that each pool is provably
+incapable of the other's work. *"An `if` here could be inverted by a refactor;
+a missing grant cannot."*
+
+> **MECHANISM: each function declares the roles that actually call it, with the
+> reason, and an UNDECLARED function exits 2 rather than defaulting either
+> way.** Which role runs a given statement is exactly the question that was got
+> wrong; it must be answered, not inherited.
+
+Firing count after the fix: 6 declared pairs, 6 pass. Before: 10 pairs, 2 false
+failures -- and **a gate that over-reports is disabled by the first person it
+inconveniences, taking the real assertion with it.**
+
+**AND THE ASYMMETRY IT FOUND IS INTENDED, CONFIRMED FROM THE CODE RATHER THAN
+ASSUMED.** `mcp.resolve_api_key` executable by `mcp_reader` and not
+`mcp_holder` is the two-pool design working: authentication precedes the pool
+choice, so it must run on the reader; the holder credential exists solely to
+read `mcp.lesson` and its inability to do anything else IS the paywall.
+
+**AND THE ACCENT WORK LANDED.** `mcp.unaccent` deployed through the gated path.
+Equality asserted rather than presence, because a floor would have passed the
+broken state -- `gestion` returned 5 of 33:
+
+```
+es-419  auditoria    69 == 69   informacion  26 == 26   gestion 37 == 37
+pt-BR   avaliacao    14 == 14   secao        59 == 59
+negative   an absent term returns 0 in all three languages
+negative   `gestor` returns 0 against the accented term's 37 -- no collapse
+english    80/78/23/5/34/39, identical to baseline BY IDS
+```
+
+Latency, endpoint, same 10-sample method: median **0.375s -> 0.386s**, max
+1.108s -> 0.598s. Server-side the materialized form measured 20.9 ms against a
+19.1 ms baseline; **the deployed wrapper could not be measured from the
+read-only connection, because 369 correctly revokes it there** -- stated rather
+than estimated.
+
+**The wire matrix now carries the PROPERTY, not one spelling of it.** A matrix
+holding only the accented form would pass unchanged if unaccent were reverted
+tomorrow -- it would be measuring the half that never broke. English reports
+NOT EXERCISED rather than carrying a duplicate cell that always passes.
+
 **ABSENCE OF A RESULT IS A THIRD STATE, AND COLLAPSING IT INTO EITHER OF THE
 OTHER TWO PRODUCES A CONFIDENT WRONG ANSWER.** ONE RULE, FIVE OCCASIONS IN ONE
 WEEK. Filed together deliberately: five separate entries would be read as five
