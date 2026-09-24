@@ -2112,6 +2112,72 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**`npm run cf:deploy` DOES NOT DEPLOY certidemy.com.** Found 2026-09-24, by a
+fresh-fetch verification that would otherwise have been a formality.
+
+`cf:deploy` pushed to `certidemy-web.jroman-mobile.workers.dev`. The production
+domain is built by **Workers CI from `origin/main`** -- the live response header
+says so: `x-certidemy-build-src: WORKERS_CI_COMMIT_SHA`. The live build was
+`f06b2c9`, exactly the commit before the two that were committed and never
+pushed.
+
+> **A LOCAL DEPLOY COMMAND THAT SUCCEEDS IS NOT EVIDENCE THAT THE THING YOU
+> EDITED IS LIVE.** `certidemy-web` reaches production through `git push`;
+> `x-certidemy-build` is the header that answers *which commit is serving*, and
+> it is the only thing that does.
+
+**AND THE VERIFICATION FOUND IT ONLY BECAUSE IT WAS A FRESH FETCH.** A
+connector's cached tool list would have shown the old text and been dismissed
+as stale, or shown new text and proved nothing. `tools/list` against
+`https://certidemy.com/mcp` answers, and it needs three things or it refuses by
+name: the `MCP-Protocol-Version` header (currently `2026-07-28`),
+`_meta.io.modelcontextprotocol/clientCapabilities` in params, and an `accept`
+of `application/json, text/event-stream`. Each refusal names the missing piece.
+
+**AND THE FIRST VERIFICATION SCORED A VACUOUS PASS.** It parsed 0 tools and
+reported the old string ABSENT -- absent because nothing was fetched. **The
+check written to confirm a deploy committed this file's own defect in its
+first run.** It now asserts the tool count before evaluating any string.
+
+**THE PAID PATH IS PROVEN FROM OUTSIDE FOR THE FIRST TIME.** `get_lesson` with
+the connector's key returned a full body -- `found: true`, every block, and
+`omitted: {interactive: 1, checkpoint: 1}`, which also verifies the claim that
+knowledge checks and exercises are withheld and counted. Every refusal recorded
+before this was equally consistent with a working paywall and a tool that
+serves nobody.
+
+**AND THE REFUSAL MESSAGE NAMES THE WRONG CAUSE.**
+`aims-ia-01-02-when-two-principles-disagree` in pt-BR is refused with *"It
+reproduces clause text from an ISO standard"*. Measured: its
+`mcp_iso_longest_run` is **5**, half the floor. It is withheld by the
+TRANSLATION REVIEW gate.
+
+`mcp.lesson_index.body_available` is computed from `lesson_body_is_servable`,
+which includes the review arm -- so the miss path's `body_available = false`
+branch, written for ISO reproduction, now also catches review-withheld rows and
+gives them the reproduction message. **One branch, two causes, and the partner
+is told the wrong one** -- the same shape as `{"error":"read failed"}` covering
+both a permission failure and pooler exhaustion.
+
+**API KEY POSTURE, DISCOVERED RATHER THAN DECIDED.** `lessonAccess.granted:
+true` revealed that the connector holds a STANDING key -- against PROMPT-15's
+*mint, use, revoke, never print*. `API-KEY-POSTURE.md` records it without key
+material:
+
+```
+total keys                                        14
+active                                             8
+active AND standing (no expiry)                    8
+active with courseware:lessons AND credentials:issue  5
+keys that have ever recorded a use                 1
+```
+
+**The connector's key carries `credentials:issue`**, which nothing it does
+needs. And **`last_used_at` is not written** -- the key that fetched a lesson
+minutes earlier is not the one key showing a use -- so **a live key cannot be
+told from a dormant one**, which makes "revoke what nobody uses" an action
+nobody can safely take. That gap is the precondition for cleaning up the rest.
+
 **THE WIRE MATRIX TESTS WHAT THE SERVER DOES. NOTHING TESTED WHAT THE SERVER
 SAYS IT DOES.** Found 2026-09-24 when the director called the deployed MCP
 server directly -- a second instrument on a surface every check in this
