@@ -2112,6 +2112,51 @@ nothing on the partner path uses those roles.
 Second time in a week that a change aimed at the partner path moved something
 adjacent -- the first was a casing fix invalidating 44 translations.
 
+**A THRESHOLD CHOSEN TO REDUCE NOISE IS JUSTIFIED AGAINST THE SIGNAL IT CAN
+HIDE, IN THE SAME BREATH THAT IT IS SET.** A cutoff is a CLAIM that nothing
+important lies below it.
+
+The missing-accent detector skipped tokens under four characters. That made
+`nao` -- **1,110 occurrences of the accented form, the most common accented
+word in Portuguese** -- unreachable by construction, and it sat in the SAME
+SENTENCE as a defect the detector did report. Not a rare case at the edge of
+the filter: the single highest-frequency one, invisible to every run.
+
+> **MECHANISM: where an instrument excludes by size, length or frequency, the
+> exclusion is stated WITH WHAT FALLS INSIDE IT, and at least once the
+> instrument is run with the threshold removed to see what it was hiding.**
+
+`THRESHOLDS.md` sweeps all fifteen. Ten have been measured against what they
+hide, several after being wrong once. **Two have not and should be run once
+without the floor:** `MIN_RUN = 4` on the ratio arm -- the floor moved 6 to 4
+the last time anyone looked, and the same argument applies at 3 -- and the
+accent EXPOSURE census, whose 751 and 1,008 figures exclude every word under
+four characters and are therefore FLOORS rather than totals.
+
+**AND THE DOMINANT FORM IS EVIDENCE ABOUT THE CORPUS, NOT ABOUT THE SENTENCE.**
+All 24 verb-form candidates read correct, and `analise` is the one a detector
+would have got wrong: *exige que a organizacao analise criticamente* is
+SUBJUNCTIVE AFTER `exige que`, grammatically obligatory, and cannot take the
+accented noun. A rule keyed on *this word usually appears accented* would flag
+a construction the language requires.
+
+**A GENERATION IS THE UNIT, NOT THE WORD.** Three of the four accent defects
+were one concept in two languages -- `minimo` and `nao` in the SAME SENTENCE,
+`minima` its Spanish sibling. Traced by `created_at`:
+
+```
+2026-09-21 05:03   13 rows   6 es-419 + 7 pt-BR   the post-358 retranslation
+```
+
+**ALL FOUR DEFECTS IN THE ENTIRE CORPUS CAME FROM THAT ONE MINUTE**, across 3
+of its 13 rows, against 10,512 text fields everywhere else. The other ten rows
+of the batch were read whole and are clean.
+
+> **So the 12.8M-character read should be STRATIFIED BY GENERATION rather than
+> sampled flat.** A uniform sample of a corpus whose defects cluster in
+> single-minute batches spends most of its attention on rows produced by runs
+> that went fine. One `created_at` query found the stratum.
+
 **A COUNT IS READ BEFORE IT IS REPORTED.** This is the method of the whole
 week and it should be written down as one rather than left as a habit.
 
