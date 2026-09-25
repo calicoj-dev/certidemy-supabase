@@ -177,33 +177,10 @@ const STR_ESCAPES = { b: "BACKSPACE", f: "FORMFEED", v: "VTAB", 0: "NUL" };
 /* Built from char codes, never typed: this line was mangled by a heredoc
  * twice while being written, which is the eighth instance of the defect
  * this very file exists to catch. */
-const splitLines = (t) => t.split(new RegExp(String.fromCharCode(13) + "?" + String.fromCharCode(10)));
-function codeOnLines(src) {
-  const out = [];
-  let inBlock = false;
-  for (const ln of splitLines(src)) {
-    let code = "", i = 0, quote = null;
-    while (i < ln.length) {
-      const c = ln[i], d = ln[i + 1];
-      if (inBlock) {
-        if (c === "*" && d === "/") { inBlock = false; i += 2; continue; }
-        i++; continue;
-      }
-      if (!quote && c === "/" && d === "*") { inBlock = true; i += 2; continue; }
-      if (!quote && c === "/" && d === "/") break;
-      if (quote) {
-        code += c;
-        if (c === "\\") { code += d || ""; i += 2; continue; }
-        if (c === quote) quote = null;
-        i++; continue;
-      }
-      if (c === '"' || c === "'") { quote = c; code += c; i++; continue; }
-      code += c; i++;
-    }
-    out.push(code);
-  }
-  return out;
-}
+/* MOVED to scripts/lib/js-source.mjs on 2026-09-25, when invariant 13 needed the
+ * same stripper. Two hand-written copies of one idea diverge, and the divergence
+ * would surface as one guard firing on a comment the other correctly ignores. */
+import { splitLines, codeOnLines } from "./lib/js-source.mjs";
 
 /** Every string-literal escape on a line, ignoring an escaped backslash. */
 function escapesOnLine(ln) {

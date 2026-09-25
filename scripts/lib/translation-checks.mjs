@@ -113,7 +113,20 @@ export function alignForComparison(en, tr) {
  * Accented characters are written as escapes so no transport can renormalise
  * them -- a composed and a decomposed accent render identically and do not
  * match. */
-const LW = "\p{L}\p{N}_";
+/* THIS LINE WAS `"\p{L}\p{N}_"` UNTIL 2026-09-25 AND GUARDED NOTHING. `\p` is not
+ * an escape in a STRING literal, so the backslash was dropped and the class was
+ * the literal set {p, {, L, }, N, _}: `deve` matched inside `dever`, `exige`
+ * inside `exigente`.
+ *
+ * THE SAME BROKEN REPAIR WAS WRITTEN TWICE -- render-gates.mjs had a byte-identical
+ * line under a byte-identical comment explaining the `\b` defect it was fixing.
+ * Two hand-written copies of one idea are wrong in the same way at the same time,
+ * which is why neither disagreed with the other and nothing surfaced it. Found by
+ * invariant 13's second pass, not by either library's fixtures.
+ *
+ * `\p{M}` is included: a combining mark belongs to the letter it sits on, so a
+ * boundary without it falls inside an NFD-decomposed accented word. */
+const LW = "\\p{L}\\p{N}\\p{M}_";
 const EDGE = (alts) => new RegExp("(?<![" + LW + "])(?:" + alts + ")(?![" + LW + "])", "iu");
 
 /* Obligation forms. `exige` is here because #21 and #20 both used it to render

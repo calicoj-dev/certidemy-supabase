@@ -445,7 +445,14 @@ const CIA = {
 function ciaCollision(english, translated, language, slug) {
   if (!/^isms/i.test(slug)) return [];
   if (/\b(integrity|confidentiality|availability)\b/i.test(english)) return [];
-  const hits = CIA[language].filter((t) => new RegExp("(^|[^\p{L}])" + t + "([^\p{L}]|$)", "iu").test(translated));
+  /* THE CLASS WAS `[^\p{L}]` WITH A SINGLE BACKSLASH UNTIL 2026-09-25, so it
+   * compiled to `[^p{L}]` -- a negated set of five literal characters, which
+   * nearly every character satisfies. The boundary admitted a match INSIDE a
+   * longer word, so this guard over-reported. Third instance of the same defect
+   * found in one pass; the other two were render-gates.mjs and
+   * translation-checks.mjs, both under comments explaining the bug they had. */
+  const NB = "[^\\p{L}\\p{N}\\p{M}]";
+  const hits = CIA[language].filter((t) => new RegExp("(^|" + NB + ")" + t + "(" + NB + "|$)", "iu").test(translated));
   return hits.map((t) => "CIA term `" + t + "` with no integrity/confidentiality/availability in the English");
 }
 

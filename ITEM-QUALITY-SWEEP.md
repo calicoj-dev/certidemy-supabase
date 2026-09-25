@@ -33,17 +33,18 @@ at 18,480 — and the numbers reconcile exactly: 18,485 translated rows minus th
 were re-run against a row perturbed in memory (an option dropped, the key moved)
 and **both fired**. A zero from a probe that cannot fire is not a zero.
 
-## 2. 5,785 rows carry a flag. I read the members of every class, and they are
+## 2. 5,546 rows carry a flag. I read the members of every class, and they are
    overwhelmingly the instrument, not the item.
 
 A count is read before it is reported. Per class, what the members turned out to
-be:
+be. **The flag counts are as the gates stand now, after the §4 repairs; the
+reading was done on the pre-repair output, which is why G3 carries two numbers.**
 
 | class | flags | read | verdict |
 |---|---|---|---|
 | `G7-pin` standard -> norma | 2,366 | 4 | **noise.** Fires on the ordinary sense of "standard" — *a standard chatbot*, *not a standard requirement*, *fails the plain-explanation standard* |
 | `cue-introduced` (secure 828 + practice 1,076) | 1,904 | 10 | **79% artifact** — see §3 |
-| `G3-modal` | 806 -> **350** | 8 | the 806 is a **broken gate** (§4). Of the 350 real-boundary fires, 8 of 8 read are English-side pattern gaps: `requires`, `to be determined`, `would need to`, `is therefore required` are all absent from `DEONTIC_EN` |
+| `G3-modal` | 806 -> **286** | 8 | the 806 was a **broken gate**, now repaired (§4). Of the members read, 8 of 8 were English-side pattern gaps: `requires`, `to be determined`, `would need to`, `is therefore required` were all absent from `DEONTIC_EN` |
 | `pin-other` coined acronym `SGAI` | 497 | 3 | **real, and a decision not a defect** — see §5 |
 | `G4-term` retained/maintained | 223 | 6 | **5 of 6 noise.** Fires on English "retain" in any sense: a context window, ML features, operational control, keeping a standard in a criteria set |
 | `accent` | 194 | 6 | **6 of 6 noise.** All are correct verb forms — `se limite`, `referencia`, `evidencia`, `sequencia`, and `analise`, the subjunctive after *exige que* that CLAUDE.md already records by name |
@@ -88,9 +89,19 @@ expansion alone** and do not move on the relative measure.
 > corpus, and the absolute cue margin should not be applied to a translated item
 > at all.
 
-## 4. Two instrument defects found, one of them live in the lesson pipeline
+**NOT CHANGED, deliberately (ruled 2026-09-25).** `CUE_CFG`'s `KEY_LEN_MARGIN`,
+`KEY_LEN_PCT` and `LEN_SPREAD_MAX` stay as they are. They are **calibrated on
+English**, they govern the English authoring path where they are sound, and
+moving them under time pressure would change what the generator accepts for a
+corpus this sweep says nothing about.
 
-**(a) `render-gates.mjs` G3 has no word boundaries. At all.**
+> **A relative margin is needed before the cue guard is used on a translation at
+> all**, and until one exists, a cue finding on a translated item is a finding
+> about character counts. The note belongs beside the constant, not only here.
+
+## 4. Three instrument defects found and repaired, all live in the lesson pipeline
+
+**(a) `render-gates.mjs` G3 had no word boundaries. At all.**
 
 ```js
 const L = "\p{L}\p{N}_";          // <- inside a STRING, \p is not an escape
@@ -105,19 +116,27 @@ The backslash is dropped, so `L` is the literal six-character set
 "permitem que o conjunto"   -> MATCH "tem que"
 ```
 
-**G3 falls from 806 to 350 with working boundaries — 57% of its fires were
-substring matches.** This is the `\b`-is-ASCII-only defect in a new costume, and
-**invariant 13 cannot see it**: that guard looks for `\b` beside a non-ASCII
-letter in a *regex literal*, and this is a lookbehind assembled from a *string*
-with no `\b` anywhere. A mangled escape that still parses is the worst kind.
+This is the `\b`-is-ASCII-only defect in a new costume, and **invariant 13 could
+not see it**: that guard looked for `\b` beside a non-ASCII letter in a *regex
+literal*, and this is a lookbehind assembled from a *string* with no `\b`
+anywhere. A mangled escape that still parses is the worst kind.
 
-Blast radius is contained: `EDGE()` is used only by `DEONTIC_EN` and
-`DEONTIC_TR`, and no other tracked library has a `\p{` inside a string literal.
-But G3 gates **lesson renderings**, so this has been live there too.
+**FIXED 2026-09-25, approved, with the regression run first.** The measured path,
+both halves separately attributable:
 
-The fix is one character per escape. **I have not applied it** — this run is
-report-only and changing a gate changes what the lesson pipeline refuses. Both
-numbers are measured and reported so it can be approved on evidence.
+```
+806   the shipped gate, boundaries dead
+350   boundaries fixed, English list unchanged        -57%
+286   boundaries fixed AND the English list widened   -64% overall
+```
+
+**Regression before landing: 38 subjects the pipeline has already accepted —
+batch `cda6698a`'s 30 renderings plus the 8 own-work rows — through G1–G7,
+Check A, Check B and Check D. 0 findings added, 0 removed.** No new refusal on
+accepted text, which was the condition for landing it.
+
+**And the guard, once extended, found two more live instances of the same
+defect** — see §4(c).
 
 **(b) `DEONTIC_EN` is much narrower than `DEONTIC_TR`.** The Spanish and
 Portuguese lists carry twelve forms each; the English list does not know
@@ -127,14 +146,53 @@ obligation" whenever the English expressed it in a form the list lacks — which
 is all eight members I read. Same family as the guard that contradicts itself
 across languages, already in CLAUDE.md.
 
+**FIXED in the same change**: `requires`, `is required to`, `needs to`, `need to`
+and `to be determined` are now in `DEONTIC_EN`, each with a positive fixture (the
+English form must suppress the gate) **and** a negative one (the same translation
+against English with the obligation removed must still fire — a one-sided fixture
+passes on a pattern that matches everything). That widening is the 350 → 286 step.
+
+**Residual, named rather than silently left:** an adverb between *is* and
+*required* — *"Disclosing AI use is therefore required"* — is still not matched.
+It was one of the eight members read. Not added, because it needs a pattern with
+interior `\s+` rather than another literal, and that is a change to the shape of
+the list rather than an entry in it.
+
+**(c) And the extended guard found two more instances of the identical defect**,
+on its first clean run:
+
+| | |
+|---|---|
+| `scripts/lib/translation-checks.mjs:116` | `const LW = "\p{L}\p{N}_"` — **the same broken repair, written twice**, under a byte-identical comment explaining the `\b` defect it was fixing. This is Check A and Check B |
+| `scripts/regenerate-moved-english.mjs:448` | `"(^|[^\p{L}])"` compiled to a negated set of five literal characters, which nearly every character satisfies — so the CIA-collision guard matched inside longer words and over-reported |
+
+**Two hand-written copies of one idea were wrong in the same way at the same
+time, which is exactly why neither disagreed with the other.** This repository's
+most reliable detector — one implementation of a property contradicting another
+— cannot fire when both copies carry the same bug. Both fixed, both inside the
+same regression, `\p{M}` included in all three.
+
+The comment stripper that both invariant 10 and invariant 13 now need moved to
+`scripts/lib/js-source.mjs` rather than being copied a second time.
+
 ## 5. The two findings that are about content, not instruments
 
-**Five SM-AI-I practice items exist only in Spanish.** Created 2026-09-18,
-`approved`, serving. No English sibling has ever existed and no pt-BR either —
-so these are Spanish-**origin** items, not translations, and every gate that
-works by comparison is structurally blind to them. They are also invisible to
-the three-language coverage check, which groups by `question_group_id` and finds
-a group of one.
+### UNCHECKABLE — five SM-AI-I practice items exist only in Spanish
+
+**This is their own state, not a clean result and not a defect.** Created
+2026-09-18, `approved`, serving. No English sibling has ever existed and no
+pt-BR either — so these are Spanish-**origin** items, not translations. Every
+gate in this sweep works by comparing a translation against its English, so
+**none of them examined these five rows at all**: key integrity, G1–G7, Check A
+and Check B are all structurally blind here, and reporting them as "0 findings"
+would be a vacuous pass over an empty comparison.
+
+They are also invisible to the three-language coverage check, which groups by
+`question_group_id` and finds a group of one.
+
+**Ruled 2026-09-25: they join the read queue after the 342 exposed items.** A
+human reading the Spanish against the blueprint is the only instrument that
+reaches them.
 
 ```
 SM-AI-I practice es-419  02517a54-ee1d-49cb-8c7c-7a885c9a701a
@@ -155,56 +213,56 @@ defect: it is internally consistent and a reader meets the same term everywhere.
 Columns after `flag` are flags, not rows. `G3ok` is the corrected-boundary G3.
 
 ```
-cert      pool      lang      rows  flag  K-int cue/sec cue/pra G3ok  G4   G7   pin  acc  unal
-AIE-I     practice  es-419     180    42      0       0      18     0    0   16    0    0     0
-AIE-I     practice  pt-BR      180    44      0       0      17     2    0   16    0    0     0
-AIE-I     secure    es-419     144    31      0      16       0     0    1    7    1    1     0
-AIE-I     secure    pt-BR      144    27      0      15       0     0    0    7    0    0     0
-AIGRM-I   practice  es-419     510   186      0       0      57     3    5   94    5    1     0
-AIGRM-I   practice  pt-BR      510   189      0       0      44     4   14   88    3    6     0
-AIGRM-I   secure    es-419     459   161      0      40       0     7   10   63    2    0     0
-AIGRM-I   secure    pt-BR      459   160      0      37       0     3    9   54    0    7     0
-AIHR-I    practice  es-419     280    99      0       0      26     2    1   53    1    0     0
-AIHR-I    practice  pt-BR      280   127      0       0      23     3   12   57    0   19     0
-AIHR-I    secure    es-419     224    73      0      16       0     2    4   39    0    0     0
-AIHR-I    secure    pt-BR      224    92      0      17       0     2    4   41    0   23     0
-AIMS-F    practice  es-419     350   119      0       0      35     4    4   89    8    0     0
-AIMS-F    practice  pt-BR      350    99      0       0      34     5   10   34    2    7     0
-AIMS-F    secure    es-419     280   120      0      36       0     4    1   69   25    2     0
-AIMS-F    secure    pt-BR      280    73      0      28       0     2   10   14    0    7     0
-AIMS-IA   practice  es-419     400   192      0       0      74    19    6   36   93    0     0
-AIMS-IA   practice  pt-BR      400   196      0       0      61    15    7   47  121   26     0
-AIMS-IA   secure    es-419     320   140      0      41       0    22    2   23  105    0     0
-AIMS-IA   secure    pt-BR      320   148      0      33       0    13    4   27  102   25     0
-AISM-I    practice  es-419     610   173      0       0      75     6   13   59    3    0     0
-AISM-I    practice  pt-BR      610   181      0       0      64     4   21   90    0    2     0
-AISM-I    secure    es-419     488   137      0      53       0     5    4   40    2    0     0
-AISM-I    secure    pt-BR      488   140      0      39       0     5   16   59    0    0     0
-ISMS-F    practice  es-419     490   125      0       0      34    11    5   54   12    0     0
-ISMS-F    practice  pt-BR      490   117      0       0      28     8    7   45    0    3     0
-ISMS-F    secure    es-419     392   106      0      37       0    10    4   51   12    0     0
-ISMS-F    secure    pt-BR      392    88      0      31       0     4    8   30    0    1     0
-ISMS-IA   practice  es-419     380   131      0       0      59    17    4   39   32    2     0
-ISMS-IA   practice  pt-BR      380   117      0       0      54     5    7   37   23   14     0
-ISMS-IA   secure    es-419     304   104      0      47       0    12    3   29   17    0     0
-ISMS-IA   secure    pt-BR      304    97      0      45       0     6    4   28   18   10     0
-SD-AI-I   practice  es-419     450   126      0       0      44     7    0   42    3    3     0
-SD-AI-I   practice  pt-BR      450   132      0       0      52    10    1   42    0    2     0
-SD-AI-I   secure    es-419     360   111      0      35       0     8    0   29    1    0     0
-SD-AI-I   secure    pt-BR      360   114      0      42       0     6    1   30    0    4     0
-SM-AI-I   practice  es-419     525   114      0       0      31     9    1   43    2    1     5
-SM-AI-I   practice  pt-BR      520   119      0       0      33     9    3   48    0    0     0
-SM-AI-I   secure    es-419     458   114      0      38       0    12    1   56    5    1     0
-SM-AI-I   secure    pt-BR      458   115      0      36       0     8    3   55    0    1     0
-SM-AI-II  practice  es-419     440   169      0       0      54    16    2  129    1    2     0
-SM-AI-II  practice  pt-BR      440   175      0       0      53    17    3  148    0    5     0
-SM-AI-II  secure    es-419     352   108      0      39       0    12    1   79    5    3     0
-SM-AI-II  secure    pt-BR      352   128      0      43       0    13    2   88    0    6     0
-SPO-AI-I  practice  es-419     460   111      0       0      52     5    0   40    7    3     0
-SPO-AI-I  practice  pt-BR      460   122      0       0      54     5    4   41    0    2     0
-SPO-AI-I  secure    es-419     389   101      0      33       0     5    0   30    0    2     0
-SPO-AI-I  secure    pt-BR      389    92      0      31       0     3    1   31    0    3     0
-                             18485  5785      0   <- totals: rows, rows flagged, key-integrity failures
+cert      pool      lang      rows  flag  K-int cue/sec cue/pra   G3  G4   G7   pin  acc  unal
+AIE-I     practice  es-419     180    42      0       0      18    0   0   16    0    0     0
+AIE-I     practice  pt-BR      180    44      0       0      17    2   0   16    0    0     0
+AIE-I     secure    es-419     144    31      0      16       0    0   1    7    1    1     0
+AIE-I     secure    pt-BR      144    26      0      15       0    0   0    7    0    0     0
+AIGRM-I   practice  es-419     510   160      0       0      57    2   5   94    5    1     0
+AIGRM-I   practice  pt-BR      510   161      0       0      44    4  14   88    3    6     0
+AIGRM-I   secure    es-419     459   145      0      40       0    5  10   63    2    0     0
+AIGRM-I   secure    pt-BR      459   138      0      37       0    3   9   54    0    7     0
+AIHR-I    practice  es-419     280    93      0       0      26    2   1   53    1    0     0
+AIHR-I    practice  pt-BR      280   109      0       0      23    3  12   57    0   19     0
+AIHR-I    secure    es-419     224    62      0      16       0    2   4   39    0    0     0
+AIHR-I    secure    pt-BR      224    76      0      17       0    2   4   41    0   23     0
+AIMS-F    practice  es-419     350   119      0       0      35    3   4   89    8    0     0
+AIMS-F    practice  pt-BR      350    98      0       0      34    2  10   34    2    7     0
+AIMS-F    secure    es-419     280   118      0      36       0    2   1   69   25    2     0
+AIMS-F    secure    pt-BR      280    73      0      28       0    0  10   14    0    7     0
+AIMS-IA   practice  es-419     400   185      0       0      74   16   6   36   93    0     0
+AIMS-IA   practice  pt-BR      400   192      0       0      61   14   7   47  121   26     0
+AIMS-IA   secure    es-419     320   137      0      41       0   16   2   23  105    0     0
+AIMS-IA   secure    pt-BR      320   146      0      33       0   12   4   27  102   25     0
+AISM-I    practice  es-419     610   170      0       0      75    5  13   59    3    0     0
+AISM-I    practice  pt-BR      610   177      0       0      64    3  21   90    0    2     0
+AISM-I    secure    es-419     488   132      0      53       0    5   4   40    2    0     0
+AISM-I    secure    pt-BR      488   136      0      39       0    5  16   59    0    0     0
+ISMS-F    practice  es-419     490   125      0       0      34    9   5   54   12    0     0
+ISMS-F    practice  pt-BR      490   115      0       0      28    4   7   45    0    3     0
+ISMS-F    secure    es-419     392   105      0      37       0    8   4   51   12    0     0
+ISMS-F    secure    pt-BR      392    86      0      31       0    2   8   30    0    1     0
+ISMS-IA   practice  es-419     380   123      0       0      59   13   4   39   32    2     0
+ISMS-IA   practice  pt-BR      380   114      0       0      54    5   7   37   23   14     0
+ISMS-IA   secure    es-419     304    98      0      47       0    8   3   29   17    0     0
+ISMS-IA   secure    pt-BR      304    92      0      45       0    6   4   28   18   10     0
+SD-AI-I   practice  es-419     450   124      0       0      44    4   0   42    3    3     0
+SD-AI-I   practice  pt-BR      450   130      0       0      52    9   1   42    0    2     0
+SD-AI-I   secure    es-419     360   106      0      35       0    7   0   29    1    0     0
+SD-AI-I   secure    pt-BR      360   108      0      42       0    4   1   30    0    4     0
+SM-AI-I   practice  es-419     525   112      0       0      31    8   1   43    2    1     5
+SM-AI-I   practice  pt-BR      520   116      0       0      33    7   3   48    0    0     0
+SM-AI-I   secure    es-419     458   113      0      38       0    9   1   56    5    1     0
+SM-AI-I   secure    pt-BR      458   112      0      36       0    6   3   55    0    1     0
+SM-AI-II  practice  es-419     440   168      0       0      54   14   2  129    1    2     0
+SM-AI-II  practice  pt-BR      440   174      0       0      53   16   3  148    0    5     0
+SM-AI-II  secure    es-419     352   108      0      39       0   11   1   79    5    3     0
+SM-AI-II  secure    pt-BR      352   128      0      43       0   11   2   88    0    6     0
+SPO-AI-I  practice  es-419     460   110      0       0      52    5   0   40    7    3     0
+SPO-AI-I  practice  pt-BR      460   118      0       0      54    4   4   41    0    2     0
+SPO-AI-I  secure    es-419     389   101      0      33       0    5   0   30    0    2     0
+SPO-AI-I  secure    pt-BR      389    90      0      31       0    3   1   31    0    3     0
+                             18485  5546      0   <- totals: rows, rows flagged, key-integrity failures
 ```
 
 AIMS-IA carries the highest `pin-other` load, and it is the acronym convention

@@ -127,10 +127,43 @@ export function g2CarriedTitle(en, tr) {
  *
  * EDGE() is Unicode-aware and is used wherever a pattern can begin or end with a
  * non-ASCII letter. Boundaries here are explicit lookarounds, never `\b`. */
-const L = "\p{L}\p{N}_";
+/* ============ THE BOUNDARY CLASS, AND THE BUG THAT WAS IN IT ============
+ *
+ * This read `const L = "\p{L}\p{N}_"` from 2026-09-25 until the item sweep found
+ * it. **`\p` is not an escape sequence inside a STRING literal**, so JavaScript
+ * dropped the backslash and L became the literal six-character set
+ * `{p, {, L, }, N, _}`. The lookarounds therefore guarded against nothing:
+ *
+ *     "o dever do analista"      ->  MATCH "deve"
+ *     "un nuevo deber de"        ->  MATCH "debe"
+ *     "permitem que o conjunto"  ->  MATCH "tem que"
+ *
+ * Measured over 18,485 translated items: G3 fired 806 times broken and 350 times
+ * fixed. **57 percent of its findings were substring matches**, and the gate was
+ * live on the lesson pipeline throughout.
+ *
+ * It is the `\b`-is-ASCII-only defect the comment above describes, committed in
+ * the repair for that very defect, one line below the explanation of it. And
+ * invariant 13 could not see it: that guard looks for `\b` beside a non-ASCII
+ * letter in a REGEX LITERAL, and this is a lookbehind assembled from a STRING
+ * with no `\b` anywhere. It now also refuses a `new RegExp` built from a string
+ * carrying an undoubled `\p`.
+ *
+ * `\p{M}` is in the class deliberately: a combining mark is part of the letter it
+ * sits on, so without it a boundary falls INSIDE an NFD-decomposed `tamano`-with-
+ * tilde. Same lesson, third time. */
+const L = "\\p{L}\\p{N}\\p{M}_";
 const EDGE = (alts) => new RegExp("(?<![" + L + "])(?:" + alts + ")(?![" + L + "])", "iu");
 
+/* THE ENGLISH LIST WAS MUCH NARROWER THAN ITS SIBLINGS, WHICH MADE G3 REPORT AN
+ * INSERTED OBLIGATION WHENEVER ENGLISH EXPRESSED ONE IN A FORM IT DID NOT KNOW.
+ * Every one of the eight members read from the item sweep was this: `requires`,
+ * `to be determined`, `would need to`. The Spanish and Portuguese lists carry
+ * twelve forms each; this one carried fourteen and missed the commonest verb.
+ * A guard whose two halves disagree about the same property reports the content
+ * as defective when the defect is in one list. */
 const DEONTIC_EN = EDGE("shall|must|should|is to be|are to be|is required|are required" +
+  "|requires|is required to|needs to|need to|to be determined" +
   "|has to|have to|is mandatory|are mandatory|is obligatory|are obligatory" +
   "|is compulsory|are compulsory");
 const DEONTIC_TR = {
@@ -503,6 +536,51 @@ export function renderGateControls() {
                        "El aprendizaje continuo es obligatorio para los sistemas dentro del alcance de un SGIA",
                        "es-419"),
        true, "G3 adjectival obligation inserted where the English has none");
+
+  /* ---- THE DEAD-BOUNDARY CONTROLS ----------------------------------------
+   * Verbatim from the 2026-09-25 item sweep, where the broken class let every
+   * one of these match inside a longer word. Each is a NEGATIVE: the modal is a
+   * substring of an ordinary noun or verb and must not fire. Without these the
+   * boundary class can silently die again and every gate still reports clean. */
+  fire(g3ModalInserted("The manager's role does not absorb the analyst's duty.",
+                       "O papel do gerente nao absorve o dever do analista.", "pt-BR"),
+       false, "G3 `deve` matched inside `dever`");
+  fire(g3ModalInserted("Republishing triggers a fresh labelling duty.",
+                       "Republicarlo genera un nuevo deber de etiquetado.", "es-419"),
+       false, "G3 `debe` matched inside `deber`");
+  fire(g3ModalInserted("Attributes allow the control set to be filtered.",
+                       "Os atributos permitem que o conjunto seja filtrado.", "pt-BR"),
+       false, "G3 `tem que` matched inside `permitem que`");
+  /* and the positive half, so the fix cannot be "delete the pattern" */
+  fire(g3ModalInserted("The organization reviews the scope.",
+                       "A organizacao deve revisar o escopo.", "pt-BR"),
+       true, "G3 standalone `deve` still fires");
+
+  /* ---- THE ENGLISH FORMS THE ITEM SWEEP FOUND MISSING ---------------------
+   * Each gets both halves: the English form must SUPPRESS the gate (the
+   * translation is faithful), and the same sentence with the obligation removed
+   * must still FIRE (the gate is not simply disabled). A one-sided fixture
+   * passes on a pattern that matches everything. */
+  for (const [enWith, enWithout, tr, lang, what] of [
+    ["ISO/IEC 42001 certification requires an accredited body.",
+     "ISO/IEC 42001 certification involves an accredited body.",
+     "La certificacion ISO/IEC 42001 debe realizarse por un organismo acreditado.", "es-419", "requires"],
+    ["The organization is required to review the scope.",
+     "The organization reviews the scope.",
+     "La organizacion debe revisar el alcance.", "es-419", "is required to"],
+    ["The auditor needs to record the finding.",
+     "The auditor records the finding.",
+     "O auditor deve registrar a constatacao.", "pt-BR", "needs to"],
+    ["Auditors need to record the finding.",
+     "Auditors record the finding.",
+     "Os auditores devem registrar a constatacao.", "pt-BR", "need to"],
+    ["ICT resources are among the items to be determined.",
+     "ICT resources are among the items listed.",
+     "Los recursos TIC estan entre los elementos que deben determinarse.", "es-419", "to be determined"],
+  ]) {
+    fire(g3ModalInserted(enWith, tr, lang), false, "G3 English `" + what + "` is deontic and must suppress");
+    fire(g3ModalInserted(enWithout, tr, lang), true, "G3 without `" + what + "` the same translation must fire");
+  }
   /* SYMMETRY, asserted rather than eyeballed: every adjectival obligation the
    * translated side recognises has an English counterpart that is recognised.
    * The pairing is what broke; a list can drift on one side silently. */

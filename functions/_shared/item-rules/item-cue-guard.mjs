@@ -68,6 +68,24 @@ function int(v, d) {
 // which wraps cueConfigFor and re-exports everything else unchanged. A rule that
 // only one runtime can read is not a shared rule.
 // ---------------------------------------------------------------------------
+// THESE THRESHOLDS ARE CALIBRATED ON ENGLISH AND DO NOT TRANSFER TO A
+// TRANSLATION. Recorded 2026-09-25; NOT changed, deliberately.
+//
+// KEY_LEN_MARGIN and LEN_SPREAD_MAX are ABSOLUTE character counts. Measured over
+// 18,480 translated items, es-419 runs 1.21x the length of its English and pt-BR
+// 1.15x, so a key already ten characters ahead in English is twenty-five ahead in
+// Spanish with no change in balance at all. Applied to translations, `auditItem`
+// flagged 1,904 items and 1,501 of them (79 percent) were that expansion alone.
+//
+// Measured RELATIVELY -- key length as a ratio of its longest rival, translated
+// minus English -- the median is NEGATIVE in both languages: translation makes the
+// key LESS dominant on average. There is no translation-introduced cue population.
+//
+// So: sound here, on the English authoring path these numbers were chosen for.
+// A RELATIVE margin is needed before this guard is pointed at a translated item,
+// and until one exists a cue finding on a translation is a finding about
+// character counts. Evidence: ITEM-QUALITY-SWEEP.md section 3, CUE-EXPANSION.json.
+// ---------------------------------------------------------------------------
 export const CUE_CFG = {
   // Reject if (longest option - shortest option) exceeds this many characters.
   LEN_SPREAD_MAX: 70,

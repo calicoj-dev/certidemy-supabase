@@ -103,9 +103,17 @@ const WORDS = /[\p{L}\p{M}]+/gu;
  * REGEX literal, and this is a lookbehind assembled from a string with no `\b`
  * anywhere. A mangled escape that still parses is the worst kind.
  *
- * The library is NOT edited here: this run is report-only, and changing a gate
- * changes what the lesson pipeline refuses. Both numbers are measured and both
- * are reported, so the fix can be approved on evidence rather than on my word.
+ * [FIXED IN THE LIBRARY 2026-09-25, approved after a regression over the accepted
+ * corpus showed 0 new refusals. `render-gates.mjs` now carries the doubled class
+ * AND the English obligation forms this sweep found missing. The measured path:
+ *
+ *     806   the shipped gate, boundaries dead
+ *     350   boundaries fixed, old English list      <- what THIS copy still is
+ *     286   boundaries fixed AND English widened    <- what the library is now
+ *
+ * This local copy is kept as the INTERMEDIATE, so the two halves of the repair
+ * stay separately attributable. It is not a second implementation of the gate:
+ * `G3-modal` in the output is the library, and it is the authority.]
  */
 const UL = "\\p{L}\\p{N}_";
 const UEDGE = (alts) => new RegExp("(?<![" + UL + "])(?:" + alts + ")(?![" + UL + "])", "iu");
@@ -136,8 +144,8 @@ const SEVERITY = [
   ["cue-introduced/secure", 5, "the key became a length cue in translation, in the exam pool"],
   ["cue-introduced/practice", 6, "the key became a length cue in translation"],
   ["inserted-obligation", 7, "the translation requires something the English does not"],
-  ["G3-modal-corrected", 8, "a deontic modal with none in the aligned English, WORKING boundaries"],
-  ["G3-modal", 8.5, "same, as the shipped library scores it -- its boundaries are dead"],
+  ["G3-modal", 8, "a deontic modal with none in the aligned English (the shipped gate)"],
+  ["G3-boundary-only", 8.5, "the same with boundaries fixed but the OLD English list -- the intermediate"],
   ["G4-term", 9, "a house term rendered against the pin"],
   ["G7-pin", 10, "a pinned phrase rendered against the pin"],
   ["pin-other", 11, "a pin-compliance rule other than cadence"],
@@ -383,8 +391,8 @@ async function main() {
           if (REFUSAL.test(t)) add("refusal", field, t.slice(0, 140));
           const cb = controlByte(t);
           if (cb) add("control-bytes", field, codeOf1(cb));
-          for (const f of g3Corrected(e, t, tr.language)) add("G3-modal-corrected", field, f.detail);
           for (const f of g3ModalInserted(e, t, tr.language)) add("G3-modal", field, f.detail);
+          for (const f of g3Corrected(e, t, tr.language)) add("G3-boundary-only", field, f.detail);
           for (const f of g4Terms(e, t, tr.language)) add("G4-term", field, f.detail);
           for (const f of g7Pins(e, t, tr.language)) add("G7-pin", field, f.detail);
           for (const p of checkPins(t, tr.language, e)) {
