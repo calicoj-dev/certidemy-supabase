@@ -32,6 +32,17 @@ export const DIACRITIC_PAIRS = new Set([
    * `nos`-with-accent "we". All correct; all surfaced only when the length
    * floor dropped to three. */
   "tem", "vem", "nos", "por", "so", "sao", "esta", "e",
+  /* ADDED 2026-09-24, from reading 1,000 flags over the 12M-character corpus.
+   * Every one is a pair where BOTH members are correct and common, and every
+   * one was missed because the first pass read a sample rather than the
+   * population:
+   *   hacia   "towards"          / hacia-with-accent  "was doing"   214 hits
+   *   estas   "these"            / estas-with-accent  "you are"     128 hits
+   *   aquele  "that one"         / aquele-with-crasis "to that one"  48 hits
+   *   aquela  the same, feminine                                     45 hits
+   * `esta` was already here and `estas` was not, which is the shape of the
+   * whole class: a list built from what somebody happened to see. */
+  "hacia", "estas", "aquele", "aquela", "aquelas", "aqueles", "essa", "essas",
 ]);
 
 /* ============ AND A THIRD CLASS: THE ACCENT MARKS PART OF SPEECH ==========
@@ -51,7 +62,30 @@ export const PART_OF_SPEECH_PAIRS = new Set([
   "especifica", "publica", "valida", "amplia", "continua", "integra",
   "pratica", "critica", "duplica", "explicita", "implicita", "pode",
   "termino", "titulo", "calculo", "numero", "circulo", "practica",
+  /* ADDED 2026-09-24: `seria` is "would be" against `seria`-with-accent
+   * "serious" -- 86 occurrences in pt-BR, every one the conditional. Same shape
+   * as `pode` / `pode`-with-circumflex, which was already here. */
+  "seria", "serias", "media", "medias", "invalida", "fabrica", "ancora",
 ]);
+
+/* ============ A FOURTH CLASS THAT IS NOT A LIST ============
+ *
+ * `items`, `decision`, `senior`, `record`, `formula`, `vision`, `exclusion`,
+ * `conclusion` -- 400-odd flags between them, and every one is an ENGLISH WORD
+ * sitting in a translated body against its accented Spanish cognate
+ * (`items`-with-accent, `decision`-with-accent...). Pooling two languages makes
+ * every cognate look like a disagreement; this is that, one layer in, inside a
+ * single row.
+ *
+ * IT CANNOT BE A DECLARED LIST, because the members are whatever English the
+ * curriculum happens to carry. But it has a mechanical test that needs no
+ * dictionary: **if the token appears in the row's own ENGLISH sibling, it is a
+ * carried English term and not a dropped accent.** Derived from the data
+ * already in hand, per row, rather than guessed at globally.
+ */
+export function isCarriedEnglish(token, englishBody) {
+  return new RegExp("(^|[^\\p{L}])" + token + "([^\\p{L}]|$)", "iu").test(englishBody);
+}
 /* A preterite/imperative shape: the two forms differ ONLY in that the accented
  * one carries its accent on the last vowel. Same stem, different tense. */
 export function isVerbFormPair(plain, accented) {
