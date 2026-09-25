@@ -76,10 +76,46 @@ export function g2CarriedTitle(en, tr) {
  * In a multiple-choice OPTION that is worse than a register slip, because a
  * modal makes one option read as the rule.
  */
-const DEONTIC_EN = /\b(shall|must|should|is to be|are to be|is required|are required|has to|have to)\b/i;
+/* THE TWO SIDES MUST RECOGNISE THE SAME CLASS OF OBLIGATION, and the first
+ * version did not. `es obligatorio` was deontic in Spanish while `is mandatory`
+ * was not deontic in English, so a faithful rendering of
+ *
+ *   "Continuous learning is mandatory for systems within an AIMS scope"
+ *
+ * as "El aprendizaje continuo es obligatorio ..." fired G3 against text that is
+ * already serving and is correct. One property, two implementations, and the
+ * disagreement is the finding -- CLAUDE.md records three of four such
+ * disagreements as gaps in the guard rather than defects in the content, and
+ * this is a fourth. The ADJECTIVAL obligation forms are listed on both sides,
+ * and a fixture asserts the pairing rather than trusting the eye. */
+/* AND `\b` IS ASCII-ONLY, WHICH MADE ONE ALTERNATIVE DEAD CODE.
+ *
+ * JavaScript's `\b` is defined against [A-Za-z0-9_]. An accented letter is not a
+ * word character, so in `/\b(deve|<e-acute> obrigatorio)\b/` the second
+ * alternative can NEVER match after a space -- there is no word boundary between
+ * two non-word characters. Measured:
+ *
+ *     /\b(deve|<e-acute> obrigatorio)\b/.test("x <e-acute> obrigatorio y")  ->  false
+ *     ... .test("x<e-acute> obrigatorio y")                                 ->  true
+ *
+ * So G3 could never have caught an inserted `<e-acute> obrigatorio` in
+ * Portuguese, and the Spanish sibling worked only because `es obligatorio`
+ * begins with an ASCII letter. The same guard, two languages, opposite
+ * behaviour -- and the disagreement is what surfaced it.
+ *
+ * EDGE() is Unicode-aware and is used wherever a pattern can begin or end with a
+ * non-ASCII letter. Boundaries here are explicit lookarounds, never `\b`. */
+const L = "\p{L}\p{N}_";
+const EDGE = (alts) => new RegExp("(?<![" + L + "])(?:" + alts + ")(?![" + L + "])", "iu");
+
+const DEONTIC_EN = EDGE("shall|must|should|is to be|are to be|is required|are required" +
+  "|has to|have to|is mandatory|are mandatory|is obligatory|are obligatory" +
+  "|is compulsory|are compulsory");
 const DEONTIC_TR = {
-  "es-419": /\b(debe|deben|deberá|deberán|debería|deberían|tiene que|tienen que|es obligatorio)\b/i,
-  "pt-BR": /\b(deve|devem|deverá|deverão|deveria|deveriam|tem que|têm que|é obrigatório|convém que)\b/i,
+  "es-419": EDGE("debe|deben|deberá|deberán|debería|deberían"
+    + "|tiene que|tienen que|es obligatorio|es obligatoria"),
+  "pt-BR": EDGE("deve|devem|deverá|deverão|deveria|deveriam"
+    + "|tem que|têm que|é obrigatório|é obrigatória|convém que"),
 };
 export function g3ModalInserted(en, tr, lang) {
   if (DEONTIC_EN.test(en)) return [];
@@ -371,6 +407,31 @@ export function renderGateControls() {
        false, "G3 no modal inserted");
   fire(g3ModalInserted("Records shall be retained.", "Os registros devem ser retidos.", "pt-BR"),
        false, "G3 modal present in the English too");
+  /* THE ADJECTIVAL OBLIGATION, BOTH SIDES. Verbatim from 01-03 q1 option c,
+   * which was already serving and which G3 wrongly flagged. */
+  fire(g3ModalInserted("Continuous learning is mandatory for systems within an AIMS scope",
+                       "El aprendizaje continuo es obligatorio para los sistemas dentro del alcance de un SGIA",
+                       "es-419"),
+       false, "G3 `is mandatory` is deontic in English too");
+  fire(g3ModalInserted("Continuous learning happens for systems within an AIMS scope",
+                       "El aprendizaje continuo es obligatorio para los sistemas dentro del alcance de un SGIA",
+                       "es-419"),
+       true, "G3 adjectival obligation inserted where the English has none");
+  /* SYMMETRY, asserted rather than eyeballed: every adjectival obligation the
+   * translated side recognises has an English counterpart that is recognised.
+   * The pairing is what broke; a list can drift on one side silently. */
+  /* THE ACCENTED FORMS ARE BUILT FROM ESCAPES, NEVER TYPED. The first version of
+   * this fixture typed `e`-acute directly and FAILED -- the literal reached the
+   * file NFD-decomposed (U+0065 U+0301) while the regex above holds it composed
+   * (U+00E9), so two strings that render identically did not match. That is this
+   * repository's transport rule arriving through a text editor rather than
+   * through a shell, and it is why the fixture exists at all. */
+  for (const [lang, pair] of [["es-419", ["es obligatorio", "is mandatory"]],
+                              ["pt-BR", ["é obrigatório", "is mandatory"]]]) {
+    const [tw, ew] = pair;
+    if (!DEONTIC_TR[lang].test("x " + tw + " y")) wrong.push("G3 symmetry: " + lang + " does not know `" + tw + "`");
+    if (!DEONTIC_EN.test("x " + ew + " y")) wrong.push("G3 symmetry: English does not know `" + ew + "`");
+  }
 
   fire(g4Terms("The audit scope covers three sites.", "La extension de la auditoria cubre tres sitios.", "es-419"),
        true, "G4 05-02 q4 scope->extension");

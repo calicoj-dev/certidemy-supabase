@@ -1,0 +1,54 @@
+{
+  "01-03|14|es-419": [
+    "**Las evaluaciones se repiten.** Los requisitos operacionales de la cláusula 8 ejecutan evaluaciones del riesgo y evaluaciones de impacto. La cláusula 8.2 establece dos disparadores independientes para una evaluación del riesgo: los intervalos planificados, o un cambio significativo que se proponga o se produzca. Cualquiera de los dos basta por sí solo. Un cambio significativo es un evento del ciclo de vida, y un sistema que ha sido reentrenado con nuevos datos ha experimentado uno."
+  ],
+  "01-03|14|pt-BR": [
+    "**As avaliações se repetem.** Os requisitos operacionais da cláusula 8 executam avaliações de riscos e avaliações de impacto. A cláusula 8.2 estabelece dois gatilhos independentes para uma avaliação de riscos: os intervalos planejados, ou uma mudança significativa que seja proposta ou que ocorra. Qualquer um deles basta por si só. Uma mudança significativa é um evento do ciclo de vida, e um sistema que foi retreinado com novos dados passou por uma."
+  ],
+  "03-02|9|es-419": [
+    "::concept title=\"La comunicación es un conjunto de decisiones\"",
+    "La cláusula 7.4 utiliza el verbo reservado **determinar**, que implica una decisión registrada y no una simple impresión. Lo que la organización tiene que decidir, y dejar por escrito, es qué comunicaciones son **pertinentes** para el sistema de gestión, tanto dentro de la organización como con el mundo exterior, y la cláusula nombra cuatro cosas que la organización debe decidir:"
+  ],
+  "03-02|9|pt-BR": [
+    "::concept title=\"A comunicação é um conjunto de decisões\"",
+    "A Cláusula 7.4 utiliza o verbo reservado **determinar**, que implica uma decisão registrada em vez de uma impressão. O que a organização precisa decidir, e documentar, é quais comunicações são **pertinentes** ao sistema de gestão, tanto dentro da organização quanto com o mundo externo a ela, e a cláusula nomeia quatro coisas que a organização deve decidir:"
+  ],
+  "03-04|2|es-419": [
+    "::concept title=\"Primero los criterios, luego el control\"",
+    "La cláusula 8.1 nombra tres obligaciones, de las cuales **implementar** es la del medio: la organización planifica sus procesos, los implementa y luego los controla, llevando a cabo las acciones **determinadas** en la cláusula 6. La cláusula indica también cómo: estableciendo [criterios para los procesos]{glossary=\"process-criteria\"} e implementando el control de los procesos de acuerdo con esos criterios."
+  ],
+  "03-04|2|pt-BR": [
+    "::concept title=\"Critérios primeiro, depois controle\"",
+    "A Seção 8.1 nomeia três obrigações, das quais **implementar** é a do meio: a organização planeja seus processos, os implementa e, em seguida, os controla, realizando as ações **determinadas** na Seção 6. A Seção também indica como: estabelecendo [critérios para os processos]{glossary=\"process-criteria\"} e implementando o controle dos processos de acordo com esses critérios."
+  ],
+  "03-04|11|es-419": [
+    "La información documentada debe estar **disponible** en la medida **necesaria** para tener confianza en que los procesos se llevaron a cabo según lo planificado. Nótese la redacción: *en la medida necesaria para tener confianza.* La prueba es si la evidencia respalda la afirmación, no si se completó un formulario.",
+    "::"
+  ],
+  "03-04|11|pt-BR": [
+    "As informações documentadas devem estar **disponíveis** na medida **necessária** para ter confiança de que os processos foram executados conforme planejado. Observe a formulação: *na medida necessária para ter confiança.* O critério é se a evidência sustenta a afirmação, não se um formulário foi preenchido.",
+    "::"
+  ],
+  "05-02|28|q2|es-419": [
+    "El apartado 9.2.2 exige que los auditores sean seleccionados y las auditorías realizadas de manera que se **asegure** la **objetividad** y la **imparcialidad** del proceso de auditoría — propiedades del proceso que la organización debe garantizar, no disposiciones del auditor individual. Auditar el propio trabajo es la forma canónica de incumplir ese requisito, y una regla que lo prohíba es una buena práctica, pero atribuir esa regla al texto de esta norma es una atribución incorrecta."
+  ],
+  "05-02|28|q2|pt-BR": [
+    "A Seção 9.2.2 exige que os auditores sejam selecionados e as auditorias conduzidas de forma a **assegurar** a **objetividade** e a **imparcialidade** do processo de auditoria — propriedades do processo que a organização deve garantir, não disposições do auditor individual. Auditar o próprio trabalho é a forma canônica de falhar nesse requisito, e uma regra que o proíba é uma boa prática, mas atribuir essa regra ao texto desta norma é uma atribuição incorreta."
+  ],
+  "02-06|9|pt-BR": [
+    "\r\nA cláusula 8.4 adiciona a metade operacional: as avaliações são realizadas nos intervalos planejados, ou quando uma mudança significativa é proposta ou ocorre — dois gatilhos, não uma sequência — e informações documentadas sobre os resultados de todas elas são retidas.\r\n::\r\n"
+  ],
+  "03-01|11|pt-BR": [
+    "… Assegurar que sejam competentes, e a Seção 7.2 vincula isso a que o histórico da pessoa — formação acadêmica, treinamento ou tempo dedicado à execução do trabalho — seja **adequado** à função. E, quando aplicável, tomar ações para adquirir a competência e **avaliar se a ação funcionou.**"
+  ],
+  "isms-ia-04-02|16|es-419": [
+    "**Lo que la política debe ser** - el mismo apartado, incisos e) a g):"
+  ],
+  "isms-ia-04-02|16|pt-BR": [
+    "**O que a política deve ser** - a mesma Seção, itens e) a g):"
+  ],
+  "_source": {
+    "prompt55": "C:\\Users\\Juan\\.claude\\jobs\\0e88073d\\tmp\\prompt55_1.txt",
+    "note": "isms-ia-04-02 b16 is from PROMPT-56 section 2, not PROMPT-55"
+  }
+}

@@ -54,7 +54,7 @@
           "_unit": 44,
           "structure": 3,
           "modal": 16,
-          "modal-sentence": 7,
+          "modal-sentence": 8,
           "clause-vocab": 3
         }
       },
@@ -66,7 +66,7 @@
           "register": 11,
           "structure": 3,
           "modal": 8,
-          "modal-sentence": 6,
+          "modal-sentence": 5,
           "accent": 1
         }
       }
@@ -80,7 +80,7 @@
           "_unit": 44,
           "modal": 11,
           "register": 5,
-          "modal-sentence": 7,
+          "modal-sentence": 6,
           "defined-term": 4
         }
       },
@@ -139,7 +139,7 @@
           "accent": 6,
           "convem": 11,
           "_unit": 35,
-          "modal-sentence": 12,
+          "modal-sentence": 13,
           "clause-vocab": 19,
           "modal": 9,
           "defined-term": 2,
@@ -152,7 +152,7 @@
         "by": {
           "accent": 6,
           "_unit": 35,
-          "modal-sentence": 7,
+          "modal-sentence": 6,
           "clause-vocab": 128,
           "modal": 4,
           "register": 2,
@@ -169,7 +169,7 @@
           "modal": 11,
           "_unit": 44,
           "accent": 2,
-          "modal-sentence": 15,
+          "modal-sentence": 16,
           "clause-vocab": 6
         }
       },
@@ -231,7 +231,7 @@
           "_unit": 49,
           "modal": 19,
           "clause-vocab": 4,
-          "modal-sentence": 17,
+          "modal-sentence": 19,
           "structure": 1
         }
       }
@@ -261,7 +261,7 @@
         "by": {
           "_unit": 61,
           "modal": 17,
-          "modal-sentence": 13,
+          "modal-sentence": 14,
           "accent": 3
         }
       },
@@ -272,7 +272,7 @@
           "_unit": 61,
           "register": 13,
           "modal": 10,
-          "modal-sentence": 12,
+          "modal-sentence": 10,
           "accent": 3
         }
       }
@@ -287,7 +287,7 @@
           "accent": 8,
           "convem": 22,
           "modal": 2,
-          "modal-sentence": 11,
+          "modal-sentence": 9,
           "structure": 1
         }
       },
@@ -1720,6 +1720,11 @@
         {
           "check": "_unit",
           "detail": "sentence"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): No podrás completar todas las celdas, y no debes fingir que sí.",
+          "severity": "report"
         }
       ],
       "id": "16607334-63f0-4cb4-8413-2c7be5980d35"
@@ -4117,6 +4122,11 @@
           "check": "modal-sentence",
           "detail": "should -> obligation (block): A Review pergunta \"construímos a coisa certa?\" A Retrospective faz uma pergunta ",
           "severity": "report"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (block): {\n  \"items\": [\n    { \"id\": \"a\", \"text\": \"O time examina onde as entregas travara",
+          "severity": "report"
         }
       ],
       "id": "33ddc685-de45-4d34-ad4e-2fc08f2ace90"
@@ -4934,6 +4944,11 @@
         {
           "check": "_unit",
           "detail": "block"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (block): O código gerado por IA é construído para parecer autoritativo. É idiomático, est",
+          "severity": "report"
         },
         {
           "check": "modal-sentence",
@@ -5885,6 +5900,11 @@
         {
           "check": "_unit",
           "detail": "sentence"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): Uma cultura em que as pessoas se sintam à vontade para dizer \"deveríamos mesmo u",
+          "severity": "report"
         },
         {
           "check": "modal-sentence",
@@ -6948,11 +6968,6 @@
           "check": "modal-sentence",
           "detail": "should -> obligation (block): Ajusta el nivel de escrutinio a las consecuencias. Una herramienta de programaci",
           "severity": "report"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (block): - El AI-washing es software convencional vendido bajo una etiqueta de IA, la may",
-          "severity": "report"
         }
       ],
       "id": "5d8d706e-1fb8-4a64-9b63-f7cf9420d1bc"
@@ -7992,11 +8007,6 @@
         },
         {
           "check": "modal-sentence",
-          "detail": "should -> obligation (block): Por eso, para los servicios de IA, la gestión de incidentes debe ampliar su crit",
-          "severity": "report"
-        },
-        {
-          "check": "modal-sentence",
           "detail": "should -> obligation (block): [\n  {\n    \"id\": \"q1\",\n    \"question\": \"Un servicio de pagos acaba de caerse dura",
           "severity": "report"
         }
@@ -8483,11 +8493,6 @@
         {
           "check": "_unit",
           "detail": "block"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (block): - El código generado por IA exige un escrutinio adicional porque su pulido confi",
-          "severity": "report"
         }
       ],
       "id": "7394681e-df9c-4724-a61b-f1751aee4158"
@@ -9131,11 +9136,6 @@
         {
           "check": "_unit",
           "detail": "sentence"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (sentence): Esto tiene una implicación directa en cómo comunicar: un pronóstico temprano deb",
-          "severity": "report"
         }
       ],
       "id": "7ac98ddd-1bd6-47f8-911c-ca055cf1cefa"
@@ -10088,6 +10088,11 @@
         {
           "check": "modal-sentence",
           "detail": "should -> obligation (sentence): Sua orientação apresenta a equidade como exemplo: se uma organização define a eq",
+          "severity": "report"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): É informativo, não um requisito, e é uma boa resposta à pergunta \"o que devemos ",
           "severity": "report"
         }
       ],
@@ -13317,11 +13322,6 @@
         {
           "check": "_unit",
           "detail": "sentence"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (sentence): A disciplina de redação do módulo 5 se aplica antecipadamente: **a constatação e",
-          "severity": "defect"
         }
       ],
       "id": "b550eaba-04cf-4d27-b58b-d2f017091f58"
@@ -16799,11 +16799,6 @@
           "detail": "block"
         },
         {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (block): {\n  \"scenario_title\": \"Doze dias de auditor, quatro sistemas de IA\",\n  \"intro\": ",
-          "severity": "defect"
-        },
-        {
           "check": "clause-vocab",
           "detail": "pt uses a flat `Seção`: cláusula 4.4",
           "severity": "report"
@@ -17166,11 +17161,6 @@
         {
           "check": "_unit",
           "detail": "sentence"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (sentence): Primero, puedes combinar tipos: usa un script donde el paso es fijo y automatiza",
-          "severity": "report"
         }
       ],
       "id": "deb306d2-ad97-42b4-a55a-e6f40f606227"
@@ -17259,6 +17249,11 @@
         {
           "check": "_unit",
           "detail": "sentence"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): **As melhorias chegam como uma lista, não como uma afirmação.** *Devemos melhora",
+          "severity": "report"
         },
         {
           "check": "modal-sentence",
@@ -17534,6 +17529,11 @@
         {
           "check": "modal-sentence",
           "detail": "should -> obligation (sentence): Ambos têm o mesmo valor subjacente: pegar um volume ingerenciável de sinais e co",
+          "severity": "report"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): Portanto, quando alguém pergunta \"devemos usar AIOps aqui?\", a resposta aplicada",
           "severity": "report"
         }
       ],
@@ -18340,6 +18340,11 @@
         {
           "check": "_unit",
           "detail": "sentence"
+        },
+        {
+          "check": "modal-sentence",
+          "detail": "should -> obligation (sentence): Recorrer a um não dispensa os outros; uma forte adoção de framework não torna vo",
+          "severity": "report"
         }
       ],
       "id": "f0c034d9-2f49-4889-9991-e70cbe050f8e"
@@ -18414,11 +18419,6 @@
         {
           "check": "modal-sentence",
           "detail": "should -> obligation (block): Lo que hace en cambio es requerir que la organización nombre los objetivos que i",
-          "severity": "report"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (block): {\n  \"scenario_title\": \"Cuatro preguntas que hace un equipo. ¿Cuáles responde rea",
           "severity": "report"
         }
       ],
@@ -18618,11 +18618,6 @@
         {
           "check": "_unit",
           "detail": "block"
-        },
-        {
-          "check": "modal-sentence",
-          "detail": "should -> obligation (block): [\n  {\n    \"id\": \"q1\",\n    \"question\": \"Por que a atrofia de habilidades causada ",
-          "severity": "report"
         }
       ],
       "id": "f7781e1b-2761-4957-834c-bd7b3500578c"

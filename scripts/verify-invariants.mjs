@@ -403,6 +403,45 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 13. No word-boundary regex that cannot fire.
+//
+// A word-boundary escape is ASCII-only, so it is not a boundary next to an
+// accented letter -- spelled out in words here rather than written as the
+// escape, because writing it is exactly what put a literal backspace in this
+// comment and tripped invariant 10 on the commit that added invariant 13. Four
+// modal forms in the translation checks -- including `debera` and `devera`, the
+// future-form obligations ISO Spanish and Portuguese reach for most -- had never
+// been able to match, and the checks reported passes over 917 rows regardless.
+// ---------------------------------------------------------------------------
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  const read = (out) => {
+    const m = /DENOMINATOR: (\d+) regex literal\(s\)/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) {
+      if (/cannot fire$/.test(line.trim()) && !/^\s*0 literal/.test(line)) continue;
+      if (/^\s{6}(`|alternative )/.test(line)) failures.push(line.trim());
+    }
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, [join(HERE, "check-word-boundary-regexes.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    if (!failures.length && examined > 0) {
+      failures.push("check-word-boundary-regexes.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("no dead word boundaries", failures,
+         "tracked .mjs/.ts/.js regex literals; \b is ASCII-only and is not a boundary next to an accent",
+         examined);
+}
+
+// ---------------------------------------------------------------------------
 // 11. NO MODEL REFUSAL IS SERVED AS CONTENT.
 //
 // A generated block came back "I need the actual English block content to

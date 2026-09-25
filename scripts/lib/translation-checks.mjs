@@ -93,13 +93,38 @@ export function alignForComparison(en, tr) {
 
 /* Obligation forms. `exige` is here because #21 and #20 both used it to render
  * `should` and `asks` -- it is a stronger verb than either. */
+/* BOUNDARIES ARE UNICODE-AWARE, BECAUSE `\b` IS NOT.
+ *
+ * JavaScript's `\b` is defined against [A-Za-z0-9_], so an accented letter is
+ * not a word character and there is no boundary between a space and an accent.
+ * `/\b(deve|<e-acute> obrigatorio)\b/` could never match its second alternative
+ * in real prose, and `/(...|debera)\b/` with an accented final `a` could never
+ * match its first.
+ *
+ * FOUR FORMS IN THIS FILE WERE DEAD: `debera`, `deverá`, `<e-acute> obrigatorio`
+ * and `<e-acute> recomendavel` -- and `debera`/`deverá` are the FUTURE-form
+ * obligations that ISO Spanish and Portuguese reach for most. Check A ran over
+ * 917 rows unable to see any of them, and reported passes the whole time.
+ *
+ * Found by an audit written after the same defect surfaced in G3, where it was
+ * visible only because the Spanish sibling worked: `es obligatorio` begins with
+ * an ASCII letter and `<e-acute> obrigatorio` does not.
+ *
+ * Accented characters are written as escapes so no transport can renormalise
+ * them -- a composed and a decomposed accent render identically and do not
+ * match. */
+const LW = "\p{L}\p{N}_";
+const EDGE = (alts) => new RegExp("(?<![" + LW + "])(?:" + alts + ")(?![" + LW + "])", "iu");
+
+/* Obligation forms. `exige` is here because #21 and #20 both used it to render
+ * `should` and `asks` -- it is a stronger verb than either. */
 const OBLIGATION = {
-  "es-419": /\b(debe|deben|deberá|deberán|exige|exigen|es obligatorio|ha de|han de)\b/i,
-  "pt-BR": /\b(deve|devem|deverá|deverão|exige|exigem|é obrigatório)\b/i,
+  "es-419": EDGE("debe|deben|deber\u00e1|deber\u00e1n|exige|exigen|es obligatorio|ha de|han de"),
+  "pt-BR": EDGE("deve|devem|dever\u00e1|dever\u00e3o|exige|exigem|\u00e9 obrigat\u00f3rio"),
 };
 const WEAK = {
-  "es-419": /\b(debería|deberían|convendría|se recomienda|es recomendable|puede|pueden)\b/i,
-  "pt-BR": /\b(deveria|deveriam|convém que|recomenda-se|é recomendável|pode|podem)\b/i,
+  "es-419": EDGE("deber\u00eda|deber\u00edan|convendr\u00eda|se recomienda|es recomendable|puede|pueden"),
+  "pt-BR": EDGE("deveria|deveriam|conv\u00e9m que|recomenda-se|\u00e9 recomend\u00e1vel|pode|podem"),
 };
 
 /**
