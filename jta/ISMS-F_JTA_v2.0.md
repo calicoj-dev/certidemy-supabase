@@ -491,7 +491,7 @@ incident-response problem.
 
 **5.1** — **K:** what must be monitored and measured, by what methods, and what effectiveness means. **S:** explains why measuring activity is not measuring effectiveness, and what makes an indicator useful. **A:** asks what a metric would prove before adopting it.
 
-**5.2** — **K:** the audit programme, audit criteria, the objectivity requirement, and finding types. **S:** explains the purpose of internal audit and why an auditor may not audit their own work. **A:** understands internal audit as an assurance mechanism rather than an inspection. *(Declared Understand deliberately. An applied version — identifying an objectivity conflict in a described assignment — is genuine Apply, but it cannot sit inside an Understand task because `trg_item_bloom_matches_task` stamps items from the task. Making it a 50th task was considered and declined: D5 already carries 9 tasks against 7 items, and objectivity holds as a principle at this tier.)*
+**5.2** — **K:** the audit programme, audit criteria, the objectivity requirement, and finding types. **S:** explains the purpose of internal audit, and why objectivity and impartiality are properties the audit process must secure rather than a rule about who may audit what. **A:** understands internal audit as an assurance mechanism rather than an inspection. *(Declared Understand deliberately. An applied version — identifying an objectivity conflict in a described assignment — is genuine Apply, but it cannot sit inside an Understand task because `trg_item_bloom_matches_task` stamps items from the task. Making it a 50th task was considered and declined: D5 already carries 9 tasks against 7 items, and objectivity holds as a principle at this tier.)*
 
 **5.3** — **K:** required review inputs, required outputs, and the cadence obligation. **S:** explains what management review must consider and what it must produce. **A:** recognizes review as a decision-making event rather than a status report.
 
@@ -513,7 +513,7 @@ incident-response problem.
 - `effectiveness-evaluation` - judging whether controls achieve their intended outcome.
 - `internal-audit-programme` - the planned programme of internal audits.
 - `audit-criteria` - the requirements against which conformity is judged.
-- `auditor-objectivity` - the requirement that auditors do not audit their own work.
+- `auditor-objectivity` - objectivity and impartiality as properties clause 9.2.2 b) requires of the audit process, not a rule about who may audit.
 - `audit-findings` - conformities, nonconformities and observations arising from an audit.
 - `management-review` - top management's periodic review of the ISMS.
 - `review-inputs` - the information the review must consider.

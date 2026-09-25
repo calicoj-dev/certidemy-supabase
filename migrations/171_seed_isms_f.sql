@@ -571,7 +571,11 @@ values
    'high'::criticality, 'weekly'::task_frequency, '2_understand'::bloom_level,
    true, false,
    $$the audit programme, audit criteria, the objectivity requirement, and finding types.$$,
-   $$explains the purpose of internal audit and why an auditor may not audit their own work.$$,
+   -- [SUPERSEDED 2026-09-25. The maxim is in NEITHER ISO/IEC 27001 NOR ISO 19011:2026
+   --  (HANDOFF-v6_2.md s2, full-text, zero hits). Corrected in the database and in
+   --  jta/ISMS-F_JTA_*.md by scripts/apply-own-work-drafts.mjs. The seed text below is
+   --  left as the record of what ran and must not be copied forward.]
+   $explains the purpose of internal audit and why an auditor may not audit their own work.$,
    $$understands internal audit as an assurance mechanism rather than an inspection.$$, 42),
   ('8e6fda5a-b8e5-4a60-b709-794990fda1ba', '0bb3878a-fb89-455d-a84c-bdb9a26b1643', '47c51bc6-4af0-4f72-9ecd-52e133c0413d', '5.3',
    $$Explain management review - its required inputs and its outputs.$$,

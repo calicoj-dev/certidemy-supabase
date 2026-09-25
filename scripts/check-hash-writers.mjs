@@ -76,6 +76,18 @@ const DUAL_ROLE = {
     "from the text it just wrote -- the one moment a hash records something rather than restating it. " +
     "It ASSERTS en_hash is unchanged rather than writing it, because an English-side hash is not its " +
     "to vouch for. Rows it did not edit are not touched.",
+  "apply-own-work-drafts.mjs":
+    "AUTHORS the own-work corrections (ISMS-F task 5.2 skills in three languages, the " +
+    "auditor-objectivity concept in two, one item explanation in three) AND records the task " +
+    "review in the same run. The halves are not separable here and that is the DIRECTOR'S " +
+    "INSTRUCTION, not a shortcut: editing the English skills moves task_ksa_en_hash, so English " +
+    "alone would leave explain_task serving English for es and pt until the translations landed. " +
+    "It stamps ONLY rows it wrote, from the text it just wrote -- the one moment a hash records " +
+    "something rather than restating it -- and the tr_hash is computed with the gate's own " +
+    "formula read out of pg_proc, translation_hash(knowledge, skills, abilities). Its first run " +
+    "GUESSED that formula, wrote two rows that could never match and left task 5.2 dark in both " +
+    "languages; the run now ASSERTS task_ksa_is_withheld is false afterwards and exits non-zero " +
+    "if not. It writes no lessons column and no gate-stored concept hash.",
   "apply-reread-clearance.mjs":
     "AUTHORS three translated rewords and CLEARS twelve rows. The halves are separated " +
     "in code: rows this run wrote are stamped from the text it wrote (provable); every " +

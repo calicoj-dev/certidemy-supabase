@@ -313,6 +313,43 @@ export function lessonClauseWord(body, lang, level) {
   return name;
 }
 
+/** THE CERTIFICATION'S HOUSE WORD, SET BY ITS LESSONS.
+ *
+ * Ruled 2026-09-25: lessons are where a learner reads the most text, so every
+ * other surface of a certification -- tasks, concepts, item stems, item
+ * explanations -- follows ITS certification's lesson house word, per level, for
+ * NEW OR EDITED TEXT ONLY. This is not a sweep; existing text is untouched.
+ *
+ * THE UNIT IS THE LESSON, not the reference. Each lesson votes once, with the
+ * word `lessonClauseWord` already decided for it, so one long lesson naming a
+ * single clause forty times cannot outvote nine lessons that disagree -- the same
+ * reasoning that made the per-lesson unit the distinct reference rather than the
+ * occurrence, applied one level up.
+ *
+ * The floor mirrors the per-lesson rule so the two cannot diverge: at least
+ * CLAUSE_WORD_FLOOR lessons with a clear lead, OR at least two and nothing else
+ * anywhere. Below that it ABSTAINS, and an abstention means the drafter's word
+ * stands rather than a guess being installed across a certification.
+ */
+export function certificationClauseWord(bodies, lang, level) {
+  const votes = {};
+  let voting = 0;
+  for (const body of bodies) {
+    const w = lessonClauseWord(body, lang, level);
+    if (!w) continue;
+    votes[w] = (votes[w] || 0) + 1;
+    voting++;
+  }
+  const ranked = Object.entries(votes).sort((a, b) => b[1] - a[1]);
+  if (!ranked.length) return { word: null, votes, voting, why: "no lesson has a house word at this level" };
+  const [name, n] = ranked[0];
+  const runnerUp = ranked[1] ? ranked[1][1] : 0;
+  if (runnerUp === 0 && n >= UNANIMOUS_MIN) return { word: name, votes, voting, why: "unanimous across " + n + " lesson(s)" };
+  if (n < CLAUSE_WORD_FLOOR) return { word: null, votes, voting, why: "only " + n + " lesson(s), floor is " + CLAUSE_WORD_FLOOR };
+  if (n === runnerUp) return { word: null, votes, voting, why: "tied at " + n };
+  return { word: name, votes, voting, why: n + " lesson(s) against " + runnerUp };
+}
+
 /**
  * G5, PER LEVEL. Each clause reference in the replacement is checked against the
  * house word for ITS OWN level, so a dotted `8.1` is judged against the lesson's

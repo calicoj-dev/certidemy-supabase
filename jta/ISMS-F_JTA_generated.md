@@ -729,7 +729,7 @@ verify-cert invariant 17 fails if they diverge.
 | Concept slugs | `audit-criteria`, `audit-findings`, `auditor-objectivity`, `internal-audit-programme` |
 
 - **K:** the audit programme, audit criteria, the objectivity requirement, and finding types.
-- **S:** explains the purpose of internal audit, and why objectivity and impartiality mean an auditor does not audit their own work.
+- **S:** explains the purpose of internal audit, and why objectivity and impartiality are properties the audit process must secure rather than a rule about who may audit what.
 - **A:** understands internal audit as an assurance mechanism rather than an inspection.
 
 ### Task 5.3 - Explain management review - its required inputs and its outputs.
