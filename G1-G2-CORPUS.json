@@ -1,0 +1,167 @@
+{
+  "measured": "2026-09-25",
+  "rows_examined": 958,
+  "blocks_compared": 19418,
+  "g1": {
+    "rows": 10,
+    "blocks": 10,
+    "members": [
+      {
+        "slug": "04-07-control-overlap-with-27001",
+        "language": "es-419",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=8 tr=7"
+          }
+        ]
+      },
+      {
+        "slug": "04-07-control-overlap-with-27001",
+        "language": "pt-BR",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=8 tr=7"
+          }
+        ]
+      },
+      {
+        "slug": "04-09-monitoring-incident-response",
+        "language": "es-419",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=5 tr=4"
+          }
+        ]
+      },
+      {
+        "slug": "04-09-monitoring-incident-response",
+        "language": "pt-BR",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=5 tr=4"
+          }
+        ]
+      },
+      {
+        "slug": "aims-ia-04-06-two-assessments-not-one",
+        "language": "es-419",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=8 tr=7"
+          }
+        ]
+      },
+      {
+        "slug": "aims-ia-04-06-two-assessments-not-one",
+        "language": "pt-BR",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=8 tr=7"
+          }
+        ]
+      },
+      {
+        "slug": "03-03-the-daily-scrum",
+        "language": "es-419",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=5 tr=4"
+          }
+        ]
+      },
+      {
+        "slug": "03-03-the-daily-scrum",
+        "language": "pt-BR",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=5 tr=4"
+          }
+        ]
+      },
+      {
+        "slug": "03-05-the-sprint-retrospective",
+        "language": "es-419",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=6 tr=5"
+          }
+        ]
+      },
+      {
+        "slug": "03-05-the-sprint-retrospective",
+        "language": "pt-BR",
+        "hits": [
+          {
+            "block": 0,
+            "detail": "list lines en=6 tr=5"
+          }
+        ]
+      }
+    ]
+  },
+  "g2": {
+    "rows": 0,
+    "blocks": 0,
+    "members": []
+  },
+  "unalignable": [
+    {
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "language": "es-419",
+      "en": 37,
+      "tr": 36
+    },
+    {
+      "slug": "isms-ia-05-05-fixing-it-and-fixing-it",
+      "language": "pt-BR",
+      "en": 37,
+      "tr": 36
+    },
+    {
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "language": "es-419",
+      "en": 31,
+      "tr": 30
+    },
+    {
+      "slug": "isms-ia-01-03-objectivity-of-the-assignment",
+      "language": "pt-BR",
+      "en": 31,
+      "tr": 30
+    },
+    {
+      "slug": "01-01-agile-manifesto",
+      "language": "es-419",
+      "en": 27,
+      "tr": 26
+    },
+    {
+      "slug": "01-01-agile-manifesto",
+      "language": "pt-BR",
+      "en": 27,
+      "tr": 26
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "language": "es-419",
+      "en": 27,
+      "tr": 21
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "language": "pt-BR",
+      "en": 27,
+      "tr": 21
+    }
+  ],
+  "no_english": 0
+}
