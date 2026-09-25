@@ -263,12 +263,32 @@ Object.assign(fetched, {
   const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
   const failures = [];
   let examined = 0;
+  // THE VERDICT COMES FROM THE NUMBER, THE DETAIL FROM THE LINES.
+  //
+  // This scraped `^\s{4}\S+\s+(en|es-419|pt-BR)\s+...` and called every match a
+  // failure. When the accent property was added to the matrix it began printing
+  // rows of that exact shape whose first token is **ok** -- so the suite
+  // reported `FAIL ... (75 examined)` and listed ten lines that say ok, against
+  // a matrix exiting 0 with `75 pass, 0 fail`.
+  //
+  // An extractor that invents failures is worse than one that misses them: a
+  // suite that is permanently red teaches people to read red as normal, which
+  // costs more than the check ever returned. The fix is not a better regex --
+  // the line shape was never the contract. The summary line is.
   const read = (out) => {
     const m = /denominator: (\d+) cell\(s\) examined/.exec(out);
     examined = m ? Number(m[1]) : 0;
-    for (const line of out.split(NEWLINE_RE)) {
-      if (/^\s{4}\S+\s+(en|es-419|pt-BR)\s+\S+\s+\S/.test(line)) failures.push(line.trim());
-    }
+    const v = /(\d+) pass, (\d+) fail, (\d+) unasserted/.exec(out);
+    if (!v) return out;                       // no summary: the matrix never finished
+    const failed = Number(v[2]), unasserted = Number(v[3]);
+    if (!failed && !unasserted) return out;
+    // Decorate with whatever lines look like failures, but never let a line
+    // CREATE one: if the count says n and nothing scrapes, say so plainly.
+    const lines = out.split(NEWLINE_RE).filter((l) =>
+      /^\s{4}FAIL\s/.test(l) ||
+      (/^\s{4}\S+\s+(en|es-419|pt-BR)\s+\S+\s+\S/.test(l) && !/^\s{4}ok\s/.test(l)));
+    failures.push(...(lines.length ? lines.map((l) => l.trim())
+      : [failed + " cell(s) failed, " + unasserted + " unasserted; see check-mcp-wire output"]));
     return out;
   };
   try {
@@ -285,6 +305,57 @@ Object.assign(fetched, {
   }
   record("every mcp view serves on the wire", failures,
          "deployed endpoint, no credential, view x language", examined);
+}
+
+// ---------------------------------------------------------------------------
+// 9. THE REFUSAL'S CLAIM ABOUT A DIFFERENT ROW.
+//
+// 371 gave a review-held translation a message saying "the English body is
+// available now". True for all 177 rows on the day it shipped, measured by
+// hand, and enforced by nothing -- the predicate lived in a COMMENT beside the
+// message.
+//
+// A condition written in a comment is a rule; a condition that runs is a check.
+// The same distinction as the deploy gate, and this is the half that was
+// missing: if an ISO-held English body ever pairs with a review-held
+// translation, the refusal starts lying again in exactly the way 371 fixed.
+//
+// The denominator is the number of rows that MAKE the claim, not the number of
+// lessons -- a check that examined 1,437 rows to test 177 claims would overstate
+// what it looked at.
+//
+// NETWORK, so VACUOUS when offline rather than failing, for the same reason as 8.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  // Same discipline as 8, and for the same reason: the COUNT is the verdict and
+  // the lines are decoration. A scraped line must never be able to invent a
+  // failure the script did not report.
+  const read = (out) => {
+    const m = /DENOMINATOR: (\d+) claim\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    const v = /rows where the claim is FALSE: (\d+)/.exec(out);
+    if (!v || Number(v[1]) === 0) return out;
+    const lines = out.split(NEWLINE_RE).filter((l) => /^\s{2}FALSE\s+\S/.test(l));
+    failures.push(...(lines.length ? lines.map((l) => l.trim())
+      : [v[1] + " claim(s) false; see check-refusal-claim output"]));
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, ["--dns-result-order=ipv4first", join(HERE, "check-refusal-claim.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000,
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    // UNSOUND or a dead control means nothing was measured: examined stays 0
+    // and this reads VACUOUS rather than as a failure it did not observe.
+    if (!failures.length && examined > 0) {
+      failures.push("check-refusal-claim.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("refusal claim holds", failures,
+         "review-held rows whose English sibling is servable", examined);
 }
 
 // ---------------------------------------------------------------------------
