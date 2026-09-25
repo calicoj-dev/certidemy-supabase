@@ -8,6 +8,13 @@ worse answer than a figure.
 Scope: `courseware-read` and the `mcp` views behind it — the unauthenticated and
 key-scoped surfaces a partner's agent reads.
 
+**And a second section, below the partner-surface ones: SELF-INFLICTED, NO PARTNER
+IMPACT.** Kept apart and kept honest. An entry there did not reach anybody outside
+this repository, and filing it beside a real outage would inflate the number this
+document exists to make trustworthy. It is here because the denominator for *how
+often a known failure class recurs* is the same kind of fact, and because a near
+miss recorded only in a transcript is a near miss nobody can count.
+
 ---
 
 ## 2026-09-16 to 2026-09-24 — 177 lessons refused with a false statement about our own curriculum
@@ -267,3 +274,94 @@ in the same denominator and it is the more serious of the three.
 is for.** Both deploy gates added this week — the reachability check and the smoke —
 would have passed this defect without a murmur, because the endpoint was up, fast and
 answering. Uptime is not the property to watch here.
+
+---
+---
+
+# Self-inflicted, no partner impact
+
+Nothing below reached a caller outside this repository. It is recorded for the
+recurrence count, which is the fact that makes a known failure class arguable.
+
+---
+
+## 2026-09-25 — the pooler exhausted by two of our own readers, ~2 minutes
+
+| | |
+|---|---|
+| **What happened** | the leak rescan and the invariant suite overlapped; `courseware-read` answered `503 service busy` |
+| **5xx served** | **22**, all on `/functions/v1/courseware-read` |
+| **Window** | 06:21:14Z – 06:23:12Z, measured from `function_edge_logs` |
+| **Who received them** | `ua=node`, from the workstation running the scripts. **All 22.** |
+| **Non-script callers in the same 65 minutes** | `pg_net/0.20.0` (dispatch-emails, dispatch-webhooks) 50 requests, one bingbot fetch of `credential-og` — **every one served 200** |
+| **Partner impact** | **none, measured** — not inferred from the absence of complaints |
+
+**The measurement needed a second attempt, and the first one failed silently.** The
+initial log query filtered on `log_attributes['status_code']`; the key is
+`response.status_code`, so it returned an empty set that read exactly like "no 5xx
+occurred". The whole status distribution was enumerated first — 200/201/204/206/401/404/503
+all present — before the figure was believed. An empty result is a fact about the
+probe until something proves the probe could have found anything.
+
+### Why "no partner impact" is not the finding
+
+The pooler is shared with the live app and the MCP. The ceiling is live isolates
+times a pool size of 2, and an evicted isolate's connections linger about 100
+seconds. Whether a partner was mid-call during those two minutes was luck, and luck
+is not a control.
+
+CLAUDE.md already carried the pacing rule. It was read, and then the second script
+was launched anyway, by the same session — which is the argument for a mechanism
+rather than a sentence, and the same argument this repository has made four times
+about counts, hashes and migration tips.
+
+### The fix
+
+`scripts/lib/heavy-reader-lock.mjs`, taken as a **pre-run check** by
+`scan-iso-leaks`, `verify-invariants`, `check-refusal-claim` and `check-mcp-wire`.
+A second heavy reader waits rather than refusing; a could-not-acquire exits **3**,
+distinct from "found something" and "could not look", because it never ran. Each
+script also caps its own in-flight requests, so the lock stops two scripts
+overlapping and the cap stops one script being the heaviest thing the endpoint has
+seen.
+
+A suite that spawns heavy readers would have deadlocked against its own children;
+the holder exports its name and children inherit it. Proven both ways.
+
+---
+
+## 2026-08 to 2026-09-25 — a shell heredoc halving backslashes: EIGHT instances
+
+**Not an outage. A recurrence count, and the reason a rule became a guard.**
+
+The house rule has been in CLAUDE.md for weeks: anything containing a backslash
+crosses a shell as a **file**, never as a heredoc. It has been broken eight times.
+
+| # | when | what it produced | how it was caught |
+|---|---|---|---|
+| 1–4 | 2026-09-24 | a literal newline inside a string literal | `node --check`, immediately |
+| 5 | 2026-09-24 | `/\b(integrity\|confidentiality\|availability)\b/i` arriving with two literal BACKSPACE bytes — valid JavaScript that matches nothing | a fixture happened to sit beside it |
+| 6 | 2026-09-24 | `"\b" + term` in a localisation guard: a backspace, not a word boundary. The guard passed the two rows it existed to refuse | read by a human |
+| 7 | 2026-09-25 | invariant 13's own comment: `\b` became a literal backspace | **invariant 10 failed the commit that added invariant 13** |
+| 8 | 2026-09-25 | `src.split(/\r?\n/)` became a literal newline inside a regex — **in the guard for this exact defect** | `node --check` |
+
+**Instances 5 and 6 are the dangerous shape and the reason the guard exists.** A
+mangled escape that still PARSES removes every signal you would normally rely on: it
+compiles, it runs, and it silently matches nothing. A syntax error is a gift.
+
+**Instance 7 is the guard working before anything shipped** — the first time this
+class was caught by a mechanism rather than by luck or by a person.
+
+### A third variant, found the same day
+
+`\b` inside a **string literal** is legal source that evaluates to U+0008 at
+runtime. The byte scan cannot see it by construction, so `check-control-bytes` grew
+a second pass over string literals, with comments excluded — its first run fired
+three times and all three were comments, two of them the note documenting instance 6.
+
+### Ruled 2026-09-25
+
+**No heredoc writes code, or anything containing a backslash. The file tool is the
+only path.** The guard stays, because a rule that has been broken eight times is a
+rule without a guard — but every instance still costs a debug cycle, and one of them
+landed in a guard's own message.

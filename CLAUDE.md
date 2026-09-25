@@ -2581,9 +2581,16 @@ system"*, *"Como um modelo de linguagem preve a proxima palavra"*. Narrowed to
 SECOND-PERSON ADDRESS TO AN OPERATOR, in all three languages, because a model
 asked to answer in Spanish refuses in Spanish.
 
+> **IF YOU ARE ABOUT TO TYPE `<<`, USE THE FILE TOOL INSTEAD.** Eight instances
+> by 2026-09-25 (`INCIDENTS.md`). The guard catches them, and catching is still
+> the wrong layer: every one costs a debug cycle and instance 7 landed inside a
+> guard's own message. The trigger is the token, not the judgement — you do not
+> get to decide this heredoc is the safe one.
+
 **CODE CONTAINING A BACKSLASH IS WRITTEN WITH THE FILE TOOL, NEVER THROUGH A
 HEREDOC — AND THERE IS NOW A GUARD, BECAUSE THE RULE ALONE FAILED FIVE TIMES IN
-ONE SESSION.** Recorded 2026-09-24.
+ONE SESSION.** Recorded 2026-09-24. **Eight by 2026-09-25**, the last two being
+invariant 13's own comment and the line-split inside the guard for this defect.
 
 A bash heredoc halved the backslashes in code written through it five separate
 times in one sitting. Four produced a literal newline inside a string literal
