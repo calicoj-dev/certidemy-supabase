@@ -61,6 +61,7 @@ import { fileURLToPath } from "node:url";
 import { looksLikeLanguage } from "./lib/language-guard.mjs";
 import { bothFormsCorrect } from "./lib/accent-classes.mjs";
 import { ISO_MS_VOCABULARY, PIN_FULL, PIN_LOAN } from "./lib/item-translation.mjs";
+import { pairCheckpointFields } from "./lib/checkpoint-fields.mjs";
 
 const KNOWN = new Set(["--emit", "--from", "--gate", "--verbose"]);
 const argv = process.argv.slice(2);
@@ -222,6 +223,99 @@ const TR_MODALS = {
 };
 const count = (re, s) => (s.match(re) || []).length;
 
+/* A SINGLE-LETTER WORD PATTERN IS THE WORST PLACE FOR AN ASCII BOUNDARY.
+ *
+ * The Spanish conjunctions are `o`, `u`, `y`, `e` -- one letter each -- and a
+ * word-boundary escape is defined against [A-Za-z0-9_]. An accented letter is
+ * not a word character, so the boundary FIRES INSIDE accented words:
+ *
+ *     /\bo\b/ matches the final o of `tamaño`, and of `año`
+ *     /\by\b/ matches the y of `español y` on the wrong side
+ *
+ * Measured: q3 option a of 05-02 es reads "...un umbral de tamaño", the gate
+ * counted a conjunction the English does not have, and refused the batch.
+ *
+ * This is the mirror of the dead-alternative defect invariant 13 catches. There
+ * the PATTERN carried the accent; here the pattern is plain ASCII and the TEXT
+ * carries it, so no amount of reading the pattern reveals it. A single-letter
+ * word pattern in an accented language is unsafe by construction.
+ *
+ * `\p{M}` is in the class as well as `\p{L}`: a decomposed n-tilde is `n` plus a
+ * combining mark, and without `\p{M}` the mark itself reads as a boundary.
+ */
+const UB = "\\p{L}\\p{N}\\p{M}_";
+const uWord = (alts) => new RegExp("(?<![" + UB + "])(?:" + alts + ")(?![" + UB + "])", "giu");
+const CONJ = {
+  "es-419": { or: uWord("o|u"), and: uWord("y|e") },
+  "pt-BR": { or: uWord("ou"), and: uWord("e") },
+};
+
+/** Both directions, on real corpus words. */
+export function conjunctionControls() {
+  const bad = [];
+  const cases = [
+    ["es-419", "or", "un umbral de tamaño", 0, "NFC n-tilde is not a conjunction"],
+    ["es-419", "or", "un umbral de tamaño", 0, "NFD n-tilde is not a conjunction"],
+    ["es-419", "or", "un año más", 0, "año is not a conjunction"],
+    ["es-419", "or", "riesgo o control", 1, "a real `o` still counts"],
+    ["es-419", "and", "español y portugués", 1, "a real `y` still counts"],
+    ["es-419", "and", "español", 0, "the l of español is not a conjunction"],
+    ["pt-BR", "or", "risco ou controle", 1, "a real `ou` still counts"],
+  ];
+  for (const [lang, kind, text, want, name] of cases) {
+    const got = count(CONJ[lang][kind], text);
+    if (got !== want) bad.push(name + ": expected " + want + ", got " + got);
+  }
+  return bad;
+}
+
+/** `should` that is actually a RECOMMENDATION.
+ *
+ * An interrogative `should` is not one. "How should this be corrected?" is a
+ * question about method, and Portuguese and Spanish render it with the plain
+ * obligation form -- "Como isso DEVE ser corrigido?" -- because `deveria` there
+ * is the wrong register, not a faithfulness gain.
+ *
+ * Counting it as a recommendation made the drift gate fire on 05-02 q2, whose
+ * stem is exactly that sentence and whose translation is correct. The gate was
+ * asking "did a recommendation harden into an obligation" of a clause that
+ * carried no recommendation to begin with.
+ *
+ * Narrow by construction: only a `should` inside a sentence that ENDS IN A
+ * QUESTION MARK and carries an interrogative opener is discounted. A plain
+ * "Records should be retained." is untouched.
+ */
+function recommendingShoulds(english) {
+  let n = 0;
+  for (const sentence of english.split(/(?<=[.!?])\s+/)) {
+    const hits = count(MODALS.should, sentence);
+    if (!hits) continue;
+    const interrogative = /\?\s*$/.test(sentence.trim()) &&
+      /\b(how|what|which|when|where|who|whom|whose|why)\b/i.test(sentence);
+    if (!interrogative) n += hits;
+  }
+  return n;
+}
+
+/** Both directions, asserted, because a modal gate that stops counting real
+ *  recommendations is worse than one that over-counts. */
+export function recommendingShouldControls() {
+  const bad = [];
+  const cases = [
+    ["Records should be retained.", 1, "a plain recommendation counts"],
+    ["How should this be corrected?", 0, "an interrogative should does not"],
+    ["A colleague states that ISO/IEC 42001 says auditors must not audit their own work. How should this be corrected?",
+      0, "05-02 q2 verbatim: the only should is interrogative"],
+    ["Auditors should be impartial. How should that be shown?", 1, "one of each"],
+    ["Should the organization retain records?", 1, "no wh-word, so not discounted"],
+  ];
+  for (const [text, want, name] of cases) {
+    const got = recommendingShoulds(text);
+    if (got !== want) bad.push(name + ": expected " + want + ", got " + got);
+  }
+  return bad;
+}
+
 /** Accented vocabulary for a language, built from the corpus. Floor 3, not 4 --
  *  a four-character floor made `nao` unreachable by construction, and `nao` is
  *  the most common accented word in Portuguese. */
@@ -246,15 +340,15 @@ function driftGate(english, translated, language) {
   const problems = [];
   const tm = TR_MODALS[language];
   const enObligation = count(MODALS.shall, english) + count(MODALS.must, english);
-  const enRecommend = count(MODALS.should, english);
+  const enRecommend = recommendingShoulds(english);
   const trObligation = count(tm.obligation, translated);
   const trRecommend = count(tm.recommend, translated);
   if (enObligation > 0 && trObligation === 0) problems.push("obligation modal lost (en " + enObligation + ")");
   if (enRecommend > 0 && trRecommend === 0 && trObligation > enObligation)
     problems.push("recommendation became obligation (should " + enRecommend + ")");
   const enOr = count(/\bor\b/gi, english), enAnd = count(/\band\b/gi, english);
-  const trOr = count(language === "es-419" ? /\bo\b|\bu\b/gi : /\bou\b/gi, translated);
-  const trAnd = count(language === "es-419" ? /\by\b|\be\b/gi : /\be\b/gi, translated);
+  const trOr = count(CONJ[language].or, translated);
+  const trAnd = count(CONJ[language].and, translated);
   if (enOr > 0 && trOr === 0) problems.push("every `or` disappeared (en " + enOr + ")");
   if (enOr === 0 && enAnd === 0 && (trOr > 0)) problems.push("a conjunction appeared that the English has not");
   for (const q of ["all", "every", "any", "no", "not"]) {
@@ -262,6 +356,32 @@ function driftGate(english, translated, language) {
     if (n > 0 && translated.trim() === "") problems.push("quantifier `" + q + "` unchecked on empty output");
   }
   return problems;
+}
+
+/** driftGate at the right grain.
+ *
+ * A `::checkpoint` block is JSON: 24 independently translated fields wrapped in
+ * braces and quotes. Running a prose gate over the raw block fails twice --
+ * sentence boundaries do not survive (`corrected?",` is not the end of a
+ * sentence to a splitter), and every count is diluted across five other
+ * questions that legitimately carry modals.
+ *
+ * 05-02 q2 showed both at once: its stem is "How should this be corrected?",
+ * the Portuguese renders it "Como isso deve ser corrigido?" -- correct, because
+ * `deveria` is the wrong register for a question -- and the block-grain gate
+ * called it a recommendation hardened into an obligation.
+ *
+ * Fields pair by ID. A block that does not parse falls back to whole-block
+ * comparison, which is what every non-checkpoint row gets anyway.
+ */
+function driftGateAtGrain(english, translated, language) {
+  const paired = pairCheckpointFields(english, translated);
+  if (!paired) return driftGate(english, translated, language);
+  const out = [];
+  for (const f of paired.pairs) {
+    for (const p of driftGate(f.en, f.tr, language)) out.push(f.path + ": " + p);
+  }
+  return out;
 }
 
 /** The per-span ceiling, on the OUTPUT. English is capped at 25 words; the
@@ -469,7 +589,7 @@ async function emit(outPath) {
                : r.kind === "lesson_terms" ? r.edits.map((e) => e[1]).join("\n")
                : r.to_block + "\n" + (r.add_paragraph || "");
     if (!looksLikeLanguage(text, r.language)) problems.push("language guard: does not read as " + r.language);
-    if (r.english_source) problems.push(...driftGate(r.english_source, text, r.language));
+    if (r.english_source) problems.push(...driftGateAtGrain(r.english_source, text, r.language));
     const acc = accentGate(text, vocab[r.language]);
     if (acc.length) problems.push("accent (floor 3): " + acc.slice(0, 4).join(", "));
     if (r.language === "pt-BR") problems.push(...convemPlacement(text));
@@ -636,14 +756,29 @@ async function applyFrom(specPath) {
                : r.kind === "lesson_terms" ? r.edits.map((e) => e[1]).join("\n")
                : r.to_block + "\n" + (r.add_paragraph || "");
     if (!looksLikeLanguage(text, r.language)) problems.push("language guard");
-    if (r.english_source) problems.push(...driftGate(r.english_source, text, r.language));
+    if (r.english_source) problems.push(...driftGateAtGrain(r.english_source, text, r.language));
     const acc = accentGate(text, vocab[r.language]);
     if (acc.length) problems.push("accent: " + acc.join(", "));
     if (r.language === "pt-BR") problems.push(...convemPlacement(text));
     if (r.english_source) problems.push(...ciaCollision(r.english_source, text, r.language, r.slug));
     if (r.kind === "lesson_span") {
-      const c = ceilingGate(r.en_block_words, r.to_block, r.language);
-      if (!c.ok) problems.push("per-span ceiling " + c.w + ">" + c.cap);
+      /* THE ENGLISH WORD COUNT IS COMPUTED, NOT READ OFF THE SPEC.
+       *
+       * `en_block_words` is 0 on every row of the batch-1 spec -- it is set by
+       * the quotation-ceiling emitter and not by the retranslation emitter, so
+       * the field exists, means nothing here, and reads as a real number.
+       *
+       * The consequence was total: the gate exempts a span whose ENGLISH is
+       * already over 25 words, and with a stored 0 that exemption could never
+       * fire, so every block was measured against a 34-word cap. All 22 rows
+       * failed, including 583-word checkpoints. The gate had become a different
+       * gate without changing a line.
+       *
+       * A stored count is a second copy of a fact that lives in the text. This
+       * file's own rule is to ask the text. */
+      const enWords = (r.english_source || "").split(/\s+/).filter(Boolean).length;
+      const c = ceilingGate(enWords, r.to_block, r.language);
+      if (!c.ok) problems.push("per-span ceiling " + c.w + ">" + c.cap + " (en " + enWords + "w)");
     }
     if (problems.length) { gateFailed++; console.error("  GATE FAIL " + r.slug + "/" + r.language + ": " + problems.join("; ")); }
   }
