@@ -49,7 +49,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { DECLARED_ENGLISH_EDITS, editsFor, reverseDeclaredEdits, declaredEditControls }
+import { DECLARED_ENGLISH_EDITS, editsFor, editCount, reverseLastK, declaredEditControls }
   from "./lib/declared-english-edits.mjs";
 
 const KNOWN = new Set(["--apply", "--slug"]);
@@ -115,42 +115,69 @@ const targets = rows.filter((r) => r.language !== "en");
  * The whole proof for one row. `tamperAt` flips one byte of the replayed English
  * so the control can watch this refuse.
  */
-async function verify(row, en, tamperAt) {
-  const back = reverseDeclaredEdits(row.slug, en.content_md);
-  if (!back.ok) return { ok: false, why: "backward replay refused -- " + back.why };
-  if (!back.applied.length) return { ok: false, why: "no declared edit applies to this lesson" };
-
-  let candidate = back.text;
-  if (tamperAt !== undefined) {
-    const i = Math.min(tamperAt, candidate.length - 1);
-    const ch = candidate[i] === "x" ? "y" : "x";
-    candidate = candidate.slice(0, i) + ch + candidate.slice(i + 1);
-  }
-
-  const computed = await trHash(candidate);
-  if (typeof computed !== "string" || !/^[0-9a-f]{8}$/.test(computed)) {
-    return { ok: false, why: "translation_hash returned " + JSON.stringify(computed) };
-  }
+async function verify(row, en, tamperAt, opts = {}) {
   if (!row.en_content_hash) return { ok: false, why: "no stored en_content_hash to prove against" };
-  if (computed !== row.en_content_hash) {
-    return { ok: false, computed,
-      why: "reversed English hashes to " + computed + ", stored stamp is " + row.en_content_hash +
-           " -- an English change outside the declared list" };
-  }
+  const max = editCount(row.slug);
+  if (!max) return { ok: false, why: "no declared edit applies to this lesson" };
 
-  /* SECOND CONDITION: every reversed edit must sit inside a block this batch
-   * rewrote in THIS language. A declared edit in a paragraph nobody
-   * retranslated means the translation does not track the current English
-   * there, and the hash equality above cannot see that. */
-  const written = spec.rows.filter((x) => x.slug === row.slug && x.language === row.language);
-  if (!written.length) return { ok: false, why: "this batch wrote nothing for this row" };
-  const outside = back.applied.filter((e) => !written.some((w) => w.english_source && w.english_source.includes(e.to)));
-  if (outside.length) {
-    return { ok: false,
-      why: outside.length + " declared edit(s) fall outside every block this batch wrote (" +
-           outside.map((e) => e.by).join(", ") + ")" };
+  /* TRY SUFFIXES, SMALLEST FIRST. A stamp absorbs the edits it was proved
+   * against, so the outstanding set is a SUFFIX of the declared list and the
+   * stamp itself says which one. k = 0 means it is already current. Reversing
+   * the whole list unconditionally overshoots any lesson stamped once already,
+   * and would report a correct database as an undeclared change. */
+  const tried = [];
+  for (let k = 0; k <= max; k++) {
+    const back = reverseLastK(row.slug, en.content_md, k);
+    if (!back.ok) { tried.push("k=" + k + " " + back.why); continue; }
+
+    let candidate = back.text;
+    if (tamperAt !== undefined) {
+      const i = Math.min(tamperAt, candidate.length - 1);
+      const ch = candidate[i] === "x" ? "y" : "x";
+      candidate = candidate.slice(0, i) + ch + candidate.slice(i + 1);
+    }
+    const computed = await trHash(candidate);
+    if (typeof computed !== "string" || !/^[0-9a-f]{8}$/.test(computed)) {
+      return { ok: false, why: "translation_hash returned " + JSON.stringify(computed) };
+    }
+    tried.push("k=" + k + " -> " + computed);
+    if (computed !== row.en_content_hash) continue;
+
+    if (k === 0) return { ok: true, edits: 0, alreadyCurrent: true };
+
+    /* SECOND CONDITION: every reversed edit must sit inside a block this batch
+     * rewrote in THIS language. A declared edit in a paragraph nobody
+     * retranslated means the translation does not track the current English
+     * there, and the hash equality cannot see that.
+     *
+     * `blocksFor` lets a caller supply the blocks instead of BATCH1-FINAL.json,
+     * for a fix applied outside that batch. */
+     const written = opts.blocksFor
+       ? opts.blocksFor(row)
+       : spec.rows.filter((x) => x.slug === row.slug && x.language === row.language)
+           .map((x) => x.english_source).filter(Boolean);
+    const allDeclared = back.applied.every((e) =>
+      Array.isArray(e.translatedIn) && e.translatedIn.includes(row.language));
+    if (!written.length && !allDeclared) {
+      return { ok: false, why: "no written block declared for this row and no edit declares this language" };
+    }
+    /* An edit is TRACKED for this row when a batch block contains it OR the edit
+     * itself declares this language in `translatedIn` -- the same commit updated
+     * that span's translation. Declared with the edit rather than inferred from
+     * whatever artifact is on disk. */
+    const outside = back.applied.filter((e) =>
+      !written.some((w) => w.includes(e.to)) &&
+      !(Array.isArray(e.translatedIn) && e.translatedIn.includes(row.language)));
+    if (outside.length) {
+      return { ok: false,
+        why: outside.length + " declared edit(s) fall outside every block written for this row (" +
+             outside.map((e) => e.by + " seq " + e.seq).join(", ") + ")" };
+    }
+    return { ok: true, edits: back.applied.length };
   }
-  return { ok: true, edits: back.applied.length };
+  return { ok: false,
+    why: "no suffix of the declared edits reproduces the stored stamp " + row.en_content_hash +
+         " [" + tried.join("; ") + "] -- an English change outside the declared list" };
 }
 
 console.log("");
@@ -181,12 +208,16 @@ console.log("");
   console.log("");
 }
 
-const staged = [], refused = [];
+const staged = [], refused = [], current = [];
 for (const r of targets) {
   const en = enOf.get(r.lesson_group_id);
   if (!en) { refused.push({ r, why: "no English sibling" }); continue; }
   const v = await verify(r, en, undefined);
   if (!v.ok) { refused.push({ r, why: v.why }); continue; }
+  /* k = 0 means the stamp already matches the live English. Re-stamping it would
+   * be a restatement -- the exact move this script exists to refuse -- so it is
+   * reported as CURRENT and left alone. */
+  if (v.alreadyCurrent) { current.push(r); continue; }
   staged.push({ r, en, edits: v.edits });
 }
 
@@ -198,7 +229,9 @@ for (const x of refused) {
   console.log("  REFUSED  " + (x.r.slug + " " + x.r.language).padEnd(50) + x.why);
 }
 console.log("");
-console.log("  proved " + staged.length + ", refused " + refused.length);
+for (const r of current) console.log("  CURRENT  " + (r.slug + " " + r.language).padEnd(50) + "stamp already matches the live English; nothing to prove");
+console.log("");
+console.log("  proved " + staged.length + ", already current " + current.length + ", refused " + refused.length);
 
 if (!APPLY) {
   console.log("");
