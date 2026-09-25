@@ -119,7 +119,7 @@ end $$;
 commit;
 
 -- ============================================================================
--- VERIFY (run after): expect 6 public per language, one/​few AI-Era, and the
+-- VERIFY (run after): expect 6 public per language, one/few AI-Era, and the
 -- secure exam pool still 1,107 untouched.
 --
 --   select pool, is_exam_scope, visibility, language, count(*)

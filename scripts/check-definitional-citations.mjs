@@ -221,15 +221,15 @@ console.log("  documents scanned                       " + docs.length);
  * the match. A clause 3 citation needs no verb at all: clause 3 is where
  * definitions live, and in 27001 it is empty.
  */
-const DEF_VERB = /(defines|defining|defined|definition|the term|means|glossar)/i;
-const REQ_MARK = /(requires?|required|shall|must|obliges?|expects?|asks?|mandates?|to define)/i;
+const DEF_VERB = /\b(defines|defining|defined|definition|the term|means|glossar)/i;
+const REQ_MARK = /\b(requires?|required|shall|must|obliges?|expects?|asks?|mandates?|to define)\b/i;
 
 /** Is this a claim that the STANDARD is the source of a meaning? */
 function definitional(before, tail) {
   /* "defined in ISO/IEC 27001" / "27001's definition of" -- standard as the
    * location of a definition, whichever side the words fall. */
-  if (/(defined|definition|defines)\s+(in|per|by|under|at)\s*$/i.test(before)) return true;
-  if (/^'?s?\s*(definition|definitions)/i.test(tail)) return true;
+  if (/\b(defined|definition|defines)\s+(in|per|by|under|at)\s*$/i.test(before)) return true;
+  if (/^'?s?\s*(definition|definitions)\b/i.test(tail)) return true;
 
   const m = DEF_VERB.exec(tail.slice(0, 90));
   if (!m) return false;

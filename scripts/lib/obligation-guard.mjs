@@ -58,11 +58,11 @@
  * Ordered longest-first within each language so "deberá" is not counted as
  * "debe" plus a suffix; matching is on word boundaries anyway, but the order
  * documents the intent. */
-/* ============ `` IS ASCII-ONLY, AND FIVE PATTERNS COULD NOT FIRE ==========
+/* ============ `\b` IS ASCII-ONLY, AND FIVE PATTERNS COULD NOT FIRE ==========
  *
- * JavaScript defines `` over [A-Za-z0-9_]. An accented letter is NOT a word
+ * JavaScript defines `\b` over [A-Za-z0-9_]. An accented letter is NOT a word
  * character to it, so a boundary between `a` and a space is no boundary at all
- * and `/deber[aa]n?/` never matched `debera` with the accent -- the ISO
+ * and `/\bdeber[aa]n?\b/` never matched `debera` with the accent -- the ISO
  * rendering of `shall`, and the form real Spanish actually writes.
  *
  * Found 2026-09-17 when the guard refused two correct AIMS-IA translations as
@@ -82,7 +82,7 @@
  *     pt strong   e necessario      leading vowel
  *     pt weak     e recomendavel    leading vowel
  *
- * So no pattern here is written with `` any more. `w()` builds the boundary
+ * So no pattern here is written with `\b` any more. `w()` builds the boundary
  * from an explicit Latin range, and `checkFaithful` asserts the accented forms
  * are seen -- the control that would have caught this on the day it was written.
  */

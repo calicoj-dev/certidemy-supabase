@@ -359,6 +359,50 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 10. NO CONTROL BYTE IN TRACKED SOURCE.
+//
+// A bash heredoc halved the backslashes in code written through it FIVE times
+// in one session. Four produced a literal newline and died at `node --check`.
+// The fifth did not: `/\b(integrity|...)\b/i` arrived carrying two literal
+// BACKSPACE bytes. That parses, runs, and matches nothing -- so the gate built
+// from it would have reported clean on every row, forever.
+//
+// CLAUDE.md already carried the rule. A rule broken five times in one session
+// is a rule without a guard, and this is the cheapest guard in the suite: a
+// directory walk over tracked .mjs/.ts/.sql.
+//
+// Its FIRST RUN found nineteen, in files nobody was looking at -- including two
+// dead regexes in `lib/iso-locator.mjs`, the ONE shared locator every ISO
+// instrument is required to use.
+//
+// LOCAL, so it does not go vacuous offline the way 8 and 9 do.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  const read = (out) => {
+    const m = /DENOMINATOR: (\d+) file\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) {
+      if (/^\s{2}(NUL|BEL|BACKSPACE|VTAB|FORMFEED|ESC|DEL|BOM|ZERO-WIDTH|0x)/.test(line)) failures.push(line.trim());
+    }
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, [join(HERE, "check-control-bytes.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    if (!failures.length && examined > 0) {
+      failures.push("check-control-bytes.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("no control bytes in source", failures,
+         "tracked .mjs/.ts/.sql; a mangled escape parses and matches nothing", examined);
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable

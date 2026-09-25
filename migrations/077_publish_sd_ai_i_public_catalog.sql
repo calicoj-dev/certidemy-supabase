@@ -1,4 +1,4 @@
-﻿-- Migration 077: publish SD-AI-I to the public catalog + file under Certidemy Scrum
+-- Migration 077: publish SD-AI-I to the public catalog + file under Certidemy Scrum
 --
 -- SD-AI-I was content-complete / exam-proven with status='available', but its
 -- is_published bridge flag was never flipped (the pending "publish" step), so the

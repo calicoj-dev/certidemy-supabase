@@ -127,9 +127,9 @@ const PATTERNS = {
     "pt-BR": /auto-?organiz\w*|self[- ]?organiz/i,
   },
   "development-team": {
-    en: /(?<![\w-])development team/i,
-    "es-419": /(?<![\w-])(equipo de desarrollo|development team)/i,
-    "pt-BR": /(?<![\w-])((time|equipe) de desenvolvimento|development team)/i,
+    en: /(?<![\w-])development team\b/i,
+    "es-419": /(?<![\w-])(equipo de desarrollo|development team)\b/i,
+    "pt-BR": /(?<![\w-])((time|equipe) de desenvolvimento|development team)\b/i,
   },
 };
 const FAMILY = arg("pattern", "servant-leader");

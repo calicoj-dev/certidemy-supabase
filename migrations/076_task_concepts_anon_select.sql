@@ -1,4 +1,4 @@
-﻿-- Migration 076: grant anon SELECT on task_concepts (AI-Era blueprint tag fix)
+-- Migration 076: grant anon SELECT on task_concepts (AI-Era blueprint tag fix)
 --
 -- FINDING (RLS != grant, same class as 070/071):
 --   The marketing blueprint drawer derives each task's "AI-Era" badge in JS by

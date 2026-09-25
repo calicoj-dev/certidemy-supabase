@@ -2528,6 +2528,42 @@ recorded. 364's is recorded as **not measured** rather than estimated.
 translation-layer fault immediately. If English is affected, the cause is not
 about language.
 
+**CODE CONTAINING A BACKSLASH IS WRITTEN WITH THE FILE TOOL, NEVER THROUGH A
+HEREDOC — AND THERE IS NOW A GUARD, BECAUSE THE RULE ALONE FAILED FIVE TIMES IN
+ONE SESSION.** Recorded 2026-09-24.
+
+A bash heredoc halved the backslashes in code written through it five separate
+times in one sitting. Four produced a literal newline inside a string literal
+and died immediately at `node --check`. **The fifth did not:**
+
+```
+/\b(integrity|confidentiality|availability)\b/i
+```
+
+arrived carrying two literal **BACKSPACE** bytes (0x08). That is valid
+JavaScript. It parses, it runs, and it matches nothing — so the gate built from
+it would have reported clean on every row forever. It was caught only because a
+fixture happened to sit beside it and fire.
+
+> **A MANGLED ESCAPE THAT STILL PARSES IS THE WORST KIND, because every signal
+> you would normally rely on says the code is fine.** A syntax error is a gift.
+
+**MECHANISM: `scripts/check-control-bytes.mjs`, invariant 10.** Any byte below
+0x20 that is not tab, LF or CR, plus DEL, BOM and the zero-width family, in any
+tracked `.mjs`, `.ts` or `.sql`. Exemptions are declared BY NAME with a reason —
+`item-hash.mjs` joins its hash fields on NUL deliberately, and that is the only
+one.
+
+**ITS FIRST RUN FOUND NINETEEN, AND THE RULE WAS ALREADY IN THIS FILE.** Two
+were live regexes in `lib/iso-locator.mjs` — the ONE shared locator every ISO
+instrument is required to use — where the word-list that narrows the title-class
+exemption could never match, leaving the broad form this file records as having
+excused `availability`. Five more were live regexes in
+`check-definitional-citations.mjs`, whose `invalid_27001` count was **0 while
+its detector was dead** and is **38** now that it is not. Four were in
+`obligation-guard.mjs`, in a comment explaining a `\b` defect, itself mangled by
+a `\b` defect.
+
 **ANYTHING NON-ASCII CROSSING A SHELL BOUNDARY IS CONSTRUCTED, NEVER TYPED.**
 Four transport surprises in four days, all the same class:
 

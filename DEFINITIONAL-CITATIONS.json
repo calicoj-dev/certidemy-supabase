@@ -34,15 +34,477 @@
   ],
   "documents": 9725,
   "counts": {
-    "invalid_27001": 0,
-    "valid_42001": 12,
-    "check_42001": 0
+    "invalid_27001": 38,
+    "valid_42001": 58,
+    "check_42001": 8
   },
   "limits": [
     "Detects a DEFINITIONAL claim by verb proximity. A definition attributed in some other phrasing is not reached.",
     "English only.",
     "Item distractors are excluded: only stems, correct options and explanations are scanned."
   ],
-  "invalid": [],
-  "check": []
+  "invalid": [
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "ref": "isms-ia-01-05-which-document-says-what",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ng platform. For you, the practical consequence is precise: **nonconformity, correction, corrective action and audit are not defined inside ISO/IEC 27001.** The standard uses them and relies on definitions held elsewhere. This is why the severity question in Module 5 has the answer it does. ISO/IEC 27001 does not define *nonconformity*, so it certainly does not define a major o"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-F",
+      "ref": "01-04-the-27000-family",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "introduced the family, and it was the terminology standard. It defined around seventy-seven terms, and the other standards pointed at it — ISO/IEC 27001 states that the terms and definitions of ISO/IEC 27000 apply. The 2026 edition changed that. The title dropped \"and vocabulary\". The terms clause shrank to roughly a dozen entries — only those needed to explain the overview it"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "ref": "01-04-harmonised-structure",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "urity, privacy, safety and environmental impact should be handled as one whole rather than separately for the AI part and everything else. [ISO/IEC 27001]{glossary=\"iso-42001-27001-integration\"} is the first standard it names. The reasoning is specific: in most contexts security is key to achieving the organization's objectives with the AI system, and because both share the hig"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "ref": "03-07-what-carries-over-from-an-isms",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "the sentence that matters most — controls partly relating to information security **can be implemented through the organization's existing ISO/IEC 27001.** So [integration]{glossary=\"iso-42001-27001-integration\"} is endorsed at the level of controls, not only at the level of documents. That is a strong endorsement and it is worth taking at face value. It is not a statement tha"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "ref": "isms-ia-05-01-whose-scheme-is-it",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "onal-choice prerequisites: [isms-ia-04-10-one-word-apart] preview: | An 11-minute lesson on finding classification - what a finding is, why ISO/IEC 27001 defines no severity scheme, and how to classify correctly against whatever scheme the programme has declared. authors: - Certidemy team status: draft --- ::hook Every auditor knows the difference between a major and a minor no"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "ref": "isms-ia-05-01-whose-scheme-is-it",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "rtidemy team status: draft --- ::hook Every auditor knows the difference between a major and a minor nonconformity. Neither term appears in ISO/IEC 27001. :: ::concept title=\"What a finding is\" ISO 19011:2026 defines it: > **audit finding** - results of the evaluation of the collected audit evidence against the audit criteria Three things in one sentence, and each has been a le"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "ISMS-IA",
+      "ref": "isms-ia-05-01-whose-scheme-is-it",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "eport harder to read, not clearer. :: ::summary - A finding is the result of evaluating evidence against criteria - including conformity. - ISO/IEC 27001 uses nonconformity and defines no severity scheme. - Major and minor come from certification practice under ISO/IEC 17021-1. - Observation and opportunity for improvement are local terms with local meanings. - Where the criter"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "01f078e2-ef75-41d1-af51-927e9021f273",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "er confuses evaluation with prioritization and ignores acceptance criteria. Treating evaluation as a sub-step of analysis misrepresents the ISO/IEC 27001 process structure, which defines them as distinct stages."
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "02e42086-92d8-4069-a6be-939bfe458523",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "Why does the Harmonised Structure make integrating ISO/IEC 42001 with ISO 9001 or ISO/IEC 27001 practical? Shared clause numbers and core definitions let organizations extend existing processes rather than build separate ones. The Harmonised Structure provides shared clause numbers, titles, and core text, so processes bu"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "10ab99e9-b0da-4924-b179-544fdaf183dd",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ts, because ISO/IEC 27001 recognises any item of value that holds information, regardless of whether it exists in physical or digital form. ISO/IEC 27001 defines an information asset as anything of value that holds or processes information; physical format does not exclude an item. Paper records such as contracts qualify as information assets. The filing cabinet is a physical c"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "17a66ead-6313-4e93-8004-dfbe6befdbc0",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": ". Which classification applies? Opportunity for Improvement, because the programme declares that category and the process already conforms. ISO/IEC 27001 defines no finding categories beyond nonconformity. Labels such as 'Observation' and 'Opportunity for Improvement' exist only where the organisation's own programme declares them. Because the programme here declares all three"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "1ba40875-0046-4b04-9f53-f9d7d2ab5efc",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "27001 certificate remain valid after the stage-2 audit? For a fixed certification cycle, subject to surveillance and recertification audits ISO/IEC 27001 certificates are issued for a defined certification cycle (typically three years) and require periodic surveillance audits and a recertification audit to remain valid. They do not continue indefinitely, nor do they lapse autom"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "2374aba3-c440-40a6-b5d4-d5c19d7bc7dc",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ments? The unpatched flaw is the vulnerability; the ransomware gang is the threat; together they create risk to the customer-records asset. ISO/IEC 27001 defines vulnerability as a weakness in an asset or control—here, the unpatched OS flaw. A threat is the potential cause of an unwanted incident—here, the ransomware gang. Risk arises when a threat can exploit a vulnerability t"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "34d4393a-8f12-412d-9c07-94b2aadb07ed",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "xplains this risk? Classification labels are organization-specific, so the same label can mean different things in different organizations. ISO/IEC 27001 recognizes that classification schemes are defined by each organization; there is no universal standard guaranteeing that a label like 'Confidential' carries identical meaning everywhere. The belief that labels are internation"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "365f309c-1283-4a43-b227-a3ced40b20c3",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "Both are physical security perimeters; the standard recognizes internal zones as distinct boundaries, not only the outermost building edge. ISO 27001 physical perimeter controls apply to any defined boundary protecting areas containing information assets, including internal zones such as server rooms. The claim that only the outermost wall counts ignores the layered-perimeter m"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "462eebf8-8358-4073-a614-dd471f50ca46",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "y for improvement confuses nonconformity with improvement findings. Classifying it as potential until a complaint arrives misrepresents how ISO/IEC 27001 defines nonconformity."
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "56d1f58f-0f7d-4feb-ac26-642a6cc377e7",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "an audit criterion meets the definition of nonconformity regardless of whether that criterion is a standard clause or a legal requirement. ISO/IEC 27001 defines no severity scheme, so there is no standard-mandated major/minor label to apply."
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "5b501e2c-0b96-42e9-9d88-fd25a908fa7b",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "erved fact. Classifying a breach of a 'shall' requirement as an observation because its impact seems limited misapplies severity judgement; ISO/IEC 27001:2022 defines no impact threshold below which a breached 'shall' requirement escapes nonconformity status."
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "6001b225-810b-4724-b8aa-08a1bc7a87c9",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "a process meets all requirements but shows improvement potential, the correct label is the programme-defined 'opportunity for improvement'. ISO/IEC 27001 defines no finding categories whatsoever, so treating it as the source of OFI obligations is false. ISO 19011:2026 defines 'audit finding' but does not standardise a classification scheme such as 'observation' or 'opportunity"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "657671c0-7669-4c73-91cf-d1e40738e68f",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "hat fixes only the specific instance found is incomplete against this requirement, regardless of how thoroughly it addresses that instance. ISO/IEC 27001 defines no severity classification scheme for nonconformities, so the absence of a major or minor label is not itself a clause 10.2 gap. The standard does not mandate that corrective action records cite a clause number; the ro"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "6b1035d7-6069-4170-bb0a-19549d44af42",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "n applies? Nonconformity (minor), because the programme reserves 'major' for systemic or repeated failures, and this is a first occurrence. ISO/IEC 27001 defines no severity scheme; the major/minor distinction originates in third-party certification practice under ISO/IEC 17021-1. When an internal programme adopts those labels, the programme's own definitions govern. Because th"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "73a6740c-e573-42c7-970a-bd671ad2ac55",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "What is the correct response? The programme is valid: ISO/IEC 27001 defines no severity scheme, so the organisation sets its own approach. ISO/IEC 27001 uses only the term nonconformity and defines no severity scheme. The major/minor distinction originates in third-party certification practice under ISO/IEC 17021-1 and is not imposed on internal audit programmes. An organisati"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "761cdc7f-47d1-4252-a42a-93011b8d9989",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "interested parties under ISO/IEC 27001? All four can affect or be affected by the ISMS, or can impose security-relevant requirements on it. ISO/IEC 27001 defines an interested party as any person or organization that can affect, be affected by, or perceive itself to be affected by the ISMS. This criterion covers both internal groups (employees, parent corporation) and external"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "84b6a027-7431-44a2-a3bf-0d2598c39770",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "specific risks such as training data provenance and emergent model behaviour, which standard attestation frameworks do not cover. SOC 2 and ISO 27001 attestations cover information-security controls within the provider's defined scope. They do not address AI-specific risks such as training data provenance, bias, or emergent model behaviour, because those dimensions fall outside"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "883d3162-82de-4dbd-b16b-46fbfab7a170",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ISO/IEC 27001 clause 10.2 or somewhere else?' What is the correct answer for classifying audit findings? From ISO/IEC 27000; clause 10.2 of ISO/IEC 27001 uses the term but does not define it. The term 'nonconformity' is defined in ISO/IEC 27000, the companion vocabulary standard. ISO/IEC 27001 clause 10.2 uses the term and requires reaction, correction, and corrective action, b"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "93d6f54c-0364-4714-bacc-225cab0304fb",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ption of a 'threat' under ISO 27001? Any potential cause of an unwanted incident, including natural disasters, failures, and human actions. ISO 27001 defines a threat as any potential cause of an unwanted incident, explicitly encompassing accidental events, natural phenomena, and technical failures — not only deliberate human acts. Describing a weakness that can be exploited de"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "a79c9863-474c-476f-87a6-e884a0d2d15a",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "terested party? An interested party is any person or group that can affect, be affected by, or perceive themselves as affected by the ISMS. ISO/IEC 27001 defines interested parties broadly as those who can affect or be affected by the ISMS, which explicitly includes internal groups such as employees and the board. Restricting the category to external parties only, to contract h"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "b6bbc6bf-9d9b-4ca7-8219-c4527a8c150c",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "asoning? Certification confirms the ISMS scope only; it gives no assurance about training data, model weights, or inference infrastructure. ISO 27001 certification attests to a management system within a defined scope; it does not provide evidence about model-specific assets such as training data or weights. Conflating scope-limited attestation with comprehensive assurance is t"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "c002f4d6-11df-486c-9349-60ac1b0a779d",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "e 4 call these groups? Interested parties, encompassing any person or organization with a stake in the organization's information security. ISO/IEC 27001 clause 4.2 uses the term 'interested parties' and explicitly includes both internal groups (such as employees) and external groups (such as customers and regulators). Limiting the concept to external parties, contractual parti"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "c18972a5-7213-4e74-8340-649b74ae3e1f",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "outside the asset register because the provider owns the model weights. Which assessment of this view is most accurate? Incorrect, because ISO/IEC 27001 defines assets by organizational risk, so the model, access path, and credentials belong in the register. ISO/IEC 27001 defines assets by the value and risk they represent to the organization, not by legal ownership of the und"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "c18972a5-7213-4e74-8340-649b74ae3e1f",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "Incorrect, because ISO/IEC 27001 defines assets by organizational risk, so the model, access path, and credentials belong in the register. ISO/IEC 27001 defines assets by the value and risk they represent to the organization, not by legal ownership of the underlying technology. An API-accessed model, its access credentials, and the inference pathway all carry risk—credential c"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "c1c9b265-a5d2-407f-a15e-c15d78399e6b",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "or applies the programme's declared scheme; since the programme includes 'opportunity for improvement', that is the correct classification. ISO/IEC 27001 defines no finding categories at all — 'opportunity for improvement' is the organisation's own declared category, not a standard-defined one carrying mandatory follow-up. The risk-based approach in ISO/IEC 27001 does not impos"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "c3c09519-a652-4ed6-adbb-7609f9cea176",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ch ISO/IEC 27001 term best describes the outdated locks? A vulnerability, because it is a weakness in a control that a threat could exploit ISO/IEC 27001 defines a vulnerability as a weakness in an asset or control that a threat could exploit. The outdated locks are a weakness in a physical control, making 'vulnerability' the correct term. Calling it a risk is incorrect because"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "c9487cd6-822d-4c3c-abb0-1e3db6c79ea4",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "fication attests to the provider's ISMS scope but does not address concentration risk from depending on one provider for multiple services. ISO 27001 certification attests to the provider's ISMS at a point in time within a defined scope. It cannot substitute for assessing concentration risk: three internal tools depending on a single provider create compounded exposure that the"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "e984ede9-a075-4f06-a651-3c3e17d48c81",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "im incorrect? AI cameras are an implementation mechanism; the control's intent—enforcing defined physical security boundaries—is unchanged. ISO/IEC 27001 physical perimeter controls define the objective of establishing and enforcing defined physical security boundaries. AI cameras are an implementation choice that fulfils that objective; they do not alter the control's intent o"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-IA",
+      "ref": "eeb205e5-04d4-4025-91e2-faa86b39a892",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ause 9.2 does not restrict audit scope to declared controls only. The personal-data boundary option applies a GDPR-adjacent scope test that ISO/IEC 27001 does not use; the standard's scope is defined by the organisation, not by data classification, so this boundary would not exclude the tool."
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "f557d332-783e-4db7-9df4-861e4f51fc7d",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "ditor-raised finding? It is a nonconformity in both cases; the source of discovery does not change the classification or required response. ISO/IEC 27001 defines a nonconformity as a failure to meet a requirement. Whether the finding originates from an internal review or an external audit does not affect its classification or the obligation to evaluate the need for corrective a"
+    },
+    {
+      "corpus": "item",
+      "cert": "ISMS-F",
+      "ref": "f6d99473-b123-4cfb-8058-b8da12f9433c",
+      "standard": "ISO/IEC 27001",
+      "address": null,
+      "verdict": "INVALID",
+      "why": "credits a definition to 27001; 27001 clause 3 defines nothing, it delegates to ISO/IEC 27000",
+      "context": "inition of nonconformity itself. The idea that audit-discovered issues do not qualify, or that only major gaps count, both misrepresent how ISO 27001 defines nonconformity."
+    }
+  ],
+  "check": [
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-F",
+      "ref": "01-04-harmonised-structure",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": ". That is deliberate, and it is stated in the standard rather than merely observed. :: ::concept title=\"One structure, several disciplines\" ISO/IEC 42001 applies the [harmonised structure]{glossary=\"harmonised-structure\"} — the same clause numbering and titles, the same core text, and a shared vocabulary — built to align management system standards with one another. That is why"
+    },
+    {
+      "corpus": "lesson",
+      "cert": "AIMS-IA",
+      "ref": "aims-ia-05-01-three-things-a-finding-can-be",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "h one condition\" Clause 6.4.8's provision is worth reading closely because it settles three questions at once. **Is grading required?** No. ISO/IEC 42001 defines no severity scheme and neither requires nor forbids one. **Is grading permitted?** Yes. Clause 6.4.8 states that nonconformities can be graded according to the organization's context and its risks, quantitatively (for"
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "177c3c72-f1d7-40e3-b2f1-5e836cc09f69",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "e patients are best classified as which role? AI subjects, because they are the individuals upon whom the AI system's outputs directly act. ISO/IEC 42001 defines AI subjects as individuals or entities upon whom an AI system's decisions or outputs have a direct effect. Patients receiving triage recommendations fit this definition. AI customers are organizations or individuals wh"
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "4b399a1c-f072-4012-9005-509ff36c5651",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "Which statement accurately describes the 'AI producer' role as defined in ISO/IEC 42001? It encompasses those who develop or create an AI system, including designers, developers, and testers. The AI producer role covers the full set of activities involved in developing or creating an AI system—including design, d"
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "b7f1dc8e-d26f-4ed7-be70-4eb4c9c5965b",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "ility, including roles and ownership related to AI system impact and responsible use. Although both standards place Leadership at Clause 5, ISO/IEC 42001 layers AI-specific accountability obligations onto the shared text, including defined roles for AI system ownership and responsible use. The shared clause number does not make the content identical, no technical qualification"
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "d97f1719-3e3b-4b39-ad06-138c326bd9bf",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "A gap-analysis team concludes that because Clause 8 numbering is shared with ISO/IEC 27001, the existing operational procedure satisfies ISO/IEC 42001 Clause 8 with no additional work. What flaw does this contain? Shared numbering means shared structure, not shared content; ISO/IEC 42001 Clause 8 includes AI-specific obligations absent from ISO/IEC 27001. The harmonised stru"
+    },
+    {
+      "corpus": "item",
+      "cert": "AIGRM-I",
+      "ref": "e2d5a802-b572-4203-b0ba-15d523b32e4e",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "andards family. ISO/IEC 22989 is the terminology companion, providing foundational AI concepts and definitions used consistently across the ISO/IEC 42001 family. Its definitions are reference guidance ensuring shared understanding across technical and governance teams."
+    },
+    {
+      "corpus": "item",
+      "cert": "AIMS-F",
+      "ref": "f7eb23b7-3340-4648-84d2-8dba2c3ad8ce",
+      "standard": "ISO/IEC 42001",
+      "address": null,
+      "verdict": "CHECK",
+      "why": "no 42001-defined term found nearby; 42001 clause 3 delegates the rest to ISO/IEC 22989",
+      "context": "r' role? AI subjects are individuals affected by a system's outputs; AI customers are entities that acquire or use AI products or services. ISO/IEC 42001 defines AI subjects as individuals who are affected by or exposed to an AI system's outputs. AI customers are entities that acquire or use AI products or services. The distinction is about impact exposure versus acquisition. A"
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-﻿-- Public read for tasks (anon + authenticated).
+-- Public read for tasks (anon + authenticated).
 -- The Blueprint/JTA drawer and cert detail pages read tasks for logged-out
 -- visitors. Without this dual-gate, anon got zero rows (GRANT was missing) and
 -- the drawer rendered empty. Applied in the SQL editor first; this is the

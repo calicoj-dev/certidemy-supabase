@@ -175,7 +175,7 @@ export function isHeadingSpan(raw, spanNorm, normFn) {
      * punctuation, AND no verb-bearing clause structure. Requiring it to be
      * title-cased or all-caps is what separates "AI system impact assessment"
      * from "property of being accessible and usable on demand". */
-    if (t.length <= 60 && !/[.;:]$/.test(t) && !/(is|are|shall|should|can|of being|the)/i.test(t)) return true;
+    if (t.length <= 60 && !/[.;:]$/.test(t) && !/\b(is|are|shall|should|can|of being|the)\b/i.test(t)) return true;
   }
   return false;
 }
