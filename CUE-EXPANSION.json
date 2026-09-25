@@ -1,0 +1,5118 @@
+{
+  "population": 18480,
+  "unpairable": 0,
+  "expansion_by_language": {
+    "pt-BR": {
+      "mean": 1.1483168850079635,
+      "median": 1.1437768240343347,
+      "p90": 1.2355371900826446
+    },
+    "es-419": {
+      "mean": 1.2103119025552318,
+      "median": 1.2046632124352332,
+      "p90": 1.3123028391167193
+    }
+  },
+  "delta_by_language": {
+    "pt-BR": {
+      "mean": -0.022730027442896372,
+      "sd": 0.0955566294735147,
+      "p50": -0.025850604910641728,
+      "p90": 0.10147572613026024,
+      "p99": 0.21696003111932316
+    },
+    "es-419": {
+      "mean": -0.028194432542952973,
+      "sd": 0.10053376923568845,
+      "p50": -0.029046194749086096,
+      "p90": 0.09911616161616155,
+      "p99": 0.22371206774876495
+    }
+  },
+  "threshold": {
+    "rule": "mean + 2sd of the whole translated population",
+    "value": 0.17076742145976515
+  },
+  "outliers": [
+    {
+      "id": "2868bc7b-7d2c-41b7-ba96-cf776fafe52e",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.54,
+      "ratio_en": 1.01,
+      "ratio_tr": 1.55,
+      "expansion": 1.271
+    },
+    {
+      "id": "555e34e1-f958-437e-bdef-819f53f2510f",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.4952,
+      "ratio_en": 1.01,
+      "ratio_tr": 1.505,
+      "expansion": 1.189
+    },
+    {
+      "id": "cdb85903-740b-4322-a70e-f06da5f4ddac",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.466,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.457,
+      "expansion": 1.328
+    },
+    {
+      "id": "f100ecf2-e1ac-47e6-85f4-5e2ea43a1339",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.4659,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.43,
+      "expansion": 1.228
+    },
+    {
+      "id": "7a645448-ea83-4b16-a3c8-fc0ce1c00b61",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.4657,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.43,
+      "expansion": 1.382
+    },
+    {
+      "id": "09198590-240c-47f6-bed5-085e64a1bae0",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.4445,
+      "ratio_en": 0.974,
+      "ratio_tr": 1.419,
+      "expansion": 1.247
+    },
+    {
+      "id": "161581db-25e5-451d-b05b-d61d271a8947",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.3992,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.39,
+      "expansion": 1.217
+    },
+    {
+      "id": "19abdc7f-94d9-4fbf-b1a4-6550ff1d9302",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.3887,
+      "ratio_en": 0.882,
+      "ratio_tr": 1.271,
+      "expansion": 1.148
+    },
+    {
+      "id": "58edde29-d9bb-49ff-a056-bc1ba3e4bc35",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.3504,
+      "ratio_en": 0.904,
+      "ratio_tr": 1.254,
+      "expansion": 1.224
+    },
+    {
+      "id": "2a4a76aa-dd59-4dcc-9abe-70d0ea0bf59c",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3502,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.321,
+      "expansion": 1.147
+    },
+    {
+      "id": "add2ad65-398a-44c1-adfb-95159d77afc6",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.35,
+      "ratio_en": 0.865,
+      "ratio_tr": 1.215,
+      "expansion": 1.212
+    },
+    {
+      "id": "01e30cd2-37ce-464f-ae0b-6e4e71c8b544",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.3406,
+      "ratio_en": 0.826,
+      "ratio_tr": 1.167,
+      "expansion": 1.134
+    },
+    {
+      "id": "f76da5cc-638b-405e-b38c-e702a6f20ee3",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3396,
+      "ratio_en": 0.935,
+      "ratio_tr": 1.274,
+      "expansion": 1.448
+    },
+    {
+      "id": "4369b642-e2bd-40bb-beb7-18c61b25c94b",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.3387,
+      "ratio_en": 1.041,
+      "ratio_tr": 1.38,
+      "expansion": 1.235
+    },
+    {
+      "id": "97a447ae-28de-420f-ad3d-622ae290716d",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3376,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.321,
+      "expansion": 1.214
+    },
+    {
+      "id": "1c336910-5ce9-45e0-8868-38d60ed28cfe",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.337,
+      "ratio_en": 1.027,
+      "ratio_tr": 1.364,
+      "expansion": 1.395
+    },
+    {
+      "id": "22ab6a15-b859-422d-8e30-a7d0bb0c6148",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3356,
+      "ratio_en": 1.007,
+      "ratio_tr": 1.343,
+      "expansion": 1.171
+    },
+    {
+      "id": "a2ab1431-01f7-4239-8572-d306829df2c5",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3288,
+      "ratio_en": 0.788,
+      "ratio_tr": 1.117,
+      "expansion": 1.249
+    },
+    {
+      "id": "d6508775-123e-4944-877f-a07e2e23787f",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3255,
+      "ratio_en": 0.934,
+      "ratio_tr": 1.26,
+      "expansion": 1.271
+    },
+    {
+      "id": "34f14bdb-d9e7-4acc-b07c-408180ab8b7e",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3237,
+      "ratio_en": 1,
+      "ratio_tr": 1.324,
+      "expansion": 1.268
+    },
+    {
+      "id": "f42e4d85-00be-48d7-b067-4f3d1edbfad7",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.3225,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.284,
+      "expansion": 1.179
+    },
+    {
+      "id": "1af906c6-927b-4890-bb2b-718aae207950",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3187,
+      "ratio_en": 0.84,
+      "ratio_tr": 1.158,
+      "expansion": 1.169
+    },
+    {
+      "id": "30c56963-6ecf-4cf8-9971-e8a8257641d0",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.3162,
+      "ratio_en": 1.017,
+      "ratio_tr": 1.333,
+      "expansion": 1.169
+    },
+    {
+      "id": "687b9527-c2b1-48c8-b3e0-bf138c1ddd59",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3147,
+      "ratio_en": 1.014,
+      "ratio_tr": 1.329,
+      "expansion": 1.135
+    },
+    {
+      "id": "b899d159-a509-4ade-a980-ac41a0e122fb",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3146,
+      "ratio_en": 0.969,
+      "ratio_tr": 1.284,
+      "expansion": 1.292
+    },
+    {
+      "id": "1a44ad9f-3036-4bc5-8859-74ac00192026",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.3134,
+      "ratio_en": 0.926,
+      "ratio_tr": 1.239,
+      "expansion": 1.11
+    },
+    {
+      "id": "e2bd97df-2e6e-4bae-a2f5-b8f39e9d458d",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3123,
+      "ratio_en": 1.019,
+      "ratio_tr": 1.331,
+      "expansion": 1.321
+    },
+    {
+      "id": "efe2af97-9137-482f-99a4-66a708688930",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3114,
+      "ratio_en": 0.917,
+      "ratio_tr": 1.228,
+      "expansion": 1.181
+    },
+    {
+      "id": "95b960f8-9e63-48a6-936e-c5168e602190",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3114,
+      "ratio_en": 1.057,
+      "ratio_tr": 1.368,
+      "expansion": 1.274
+    },
+    {
+      "id": "69b2e03b-a0b2-48cf-b080-bb035f77bb97",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.308,
+      "ratio_en": 1.07,
+      "ratio_tr": 1.378,
+      "expansion": 1.461
+    },
+    {
+      "id": "7c10afaa-794a-4f4c-b099-82e056df7760",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3077,
+      "ratio_en": 1,
+      "ratio_tr": 1.308,
+      "expansion": 1.219
+    },
+    {
+      "id": "9aad3ab2-cdfa-41bd-afca-a11fefa96b47",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.3068,
+      "ratio_en": 0.905,
+      "ratio_tr": 1.212,
+      "expansion": 1.317
+    },
+    {
+      "id": "114ce005-8a0f-4298-bbfe-ad3744942ca0",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.3062,
+      "ratio_en": 0.885,
+      "ratio_tr": 1.191,
+      "expansion": 1.193
+    },
+    {
+      "id": "3fa738ec-06b8-4b42-aa2d-d0585fe24a2d",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3056,
+      "ratio_en": 1.092,
+      "ratio_tr": 1.398,
+      "expansion": 1.191
+    },
+    {
+      "id": "4db6ff94-ef58-4aac-b38c-dc885bc26fb8",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3054,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.22,
+      "expansion": 1.344
+    },
+    {
+      "id": "a4dfd58c-8b88-40c8-becf-07acc72ca021",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.3049,
+      "ratio_en": 0.795,
+      "ratio_tr": 1.1,
+      "expansion": 1.204
+    },
+    {
+      "id": "3dda51e3-2c80-40ff-a563-740645c1f768",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.304,
+      "ratio_en": 1.032,
+      "ratio_tr": 1.336,
+      "expansion": 1.399
+    },
+    {
+      "id": "14776812-f287-45a4-ac8f-f54c9559355d",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2986,
+      "ratio_en": 0.949,
+      "ratio_tr": 1.248,
+      "expansion": 1.156
+    },
+    {
+      "id": "a7007732-f7f6-4036-86a4-ed92771db703",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2972,
+      "ratio_en": 1.029,
+      "ratio_tr": 1.326,
+      "expansion": 1.01
+    },
+    {
+      "id": "bde04adc-c32f-439e-a269-81ce1b51fd98",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2971,
+      "ratio_en": 0.881,
+      "ratio_tr": 1.179,
+      "expansion": 1.356
+    },
+    {
+      "id": "9af3123b-a183-43ca-8704-c28480dc7460",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.293,
+      "ratio_en": 0.785,
+      "ratio_tr": 1.078,
+      "expansion": 1.235
+    },
+    {
+      "id": "ed41b468-6d93-42fb-b94f-3a117ef62d0f",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2925,
+      "ratio_en": 1.029,
+      "ratio_tr": 1.321,
+      "expansion": 1.143
+    },
+    {
+      "id": "9ef0f897-8cca-4f8f-904c-773fcb7801dc",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2922,
+      "ratio_en": 0.767,
+      "ratio_tr": 1.059,
+      "expansion": 1.221
+    },
+    {
+      "id": "68b84fe3-bb89-4d1a-954e-160c12250397",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.29,
+      "ratio_en": 0.954,
+      "ratio_tr": 1.244,
+      "expansion": 1.213
+    },
+    {
+      "id": "076e7e97-5255-423c-93c6-c484893eb358",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2889,
+      "ratio_en": 1.096,
+      "ratio_tr": 1.385,
+      "expansion": 1.206
+    },
+    {
+      "id": "abe98cec-2946-4641-8f91-47af14fbfd4f",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2888,
+      "ratio_en": 1.098,
+      "ratio_tr": 1.387,
+      "expansion": 1.12
+    },
+    {
+      "id": "d1e72d2e-5670-49f3-9553-fa22359ffa52",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2881,
+      "ratio_en": 0.922,
+      "ratio_tr": 1.211,
+      "expansion": 1.097
+    },
+    {
+      "id": "ddca24bc-baf8-4f5a-a51c-d9f3ff90575d",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2872,
+      "ratio_en": 0.907,
+      "ratio_tr": 1.194,
+      "expansion": 1.326
+    },
+    {
+      "id": "e2d82d1a-b57a-40c4-ac16-d321c35bc7e7",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2857,
+      "ratio_en": 0.974,
+      "ratio_tr": 1.26,
+      "expansion": 1.149
+    },
+    {
+      "id": "e006530b-4082-4f3a-8cfa-6cdf676f7642",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2855,
+      "ratio_en": 1.094,
+      "ratio_tr": 1.38,
+      "expansion": 1.231
+    },
+    {
+      "id": "aaaf401e-1318-4e4d-9662-3ae3472f6275",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2847,
+      "ratio_en": 1.08,
+      "ratio_tr": 1.364,
+      "expansion": 1.231
+    },
+    {
+      "id": "cccf3582-9cd9-4d63-b145-1d8b981ede0c",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2837,
+      "ratio_en": 0.896,
+      "ratio_tr": 1.18,
+      "expansion": 1.129
+    },
+    {
+      "id": "de59145c-4705-4537-90fe-0329df0baf32",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2833,
+      "ratio_en": 0.949,
+      "ratio_tr": 1.232,
+      "expansion": 1.058
+    },
+    {
+      "id": "2ae563b7-520c-4591-b9db-98347954bd8e",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2823,
+      "ratio_en": 1.051,
+      "ratio_tr": 1.333,
+      "expansion": 1.271
+    },
+    {
+      "id": "a12e50dd-e163-42ae-b40a-96b16e6f7822",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2807,
+      "ratio_en": 1.07,
+      "ratio_tr": 1.351,
+      "expansion": 1.208
+    },
+    {
+      "id": "1b3c2fc6-e8a9-4d20-9925-e2e7ecb7e960",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2804,
+      "ratio_en": 0.785,
+      "ratio_tr": 1.065,
+      "expansion": 1.271
+    },
+    {
+      "id": "596bdb7e-12b0-4be3-93fd-3099cb48e385",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2799,
+      "ratio_en": 0.951,
+      "ratio_tr": 1.231,
+      "expansion": 1.398
+    },
+    {
+      "id": "2fc0e678-dded-4059-a6b1-45435dfcf690",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2787,
+      "ratio_en": 1.106,
+      "ratio_tr": 1.385,
+      "expansion": 1.134
+    },
+    {
+      "id": "d47c3016-bc59-4b3d-a48a-e6cd7cb93dfd",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2787,
+      "ratio_en": 0.989,
+      "ratio_tr": 1.267,
+      "expansion": 1.103
+    },
+    {
+      "id": "b725db50-9695-4379-bbcb-39711e1abfd9",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2779,
+      "ratio_en": 1.086,
+      "ratio_tr": 1.364,
+      "expansion": 1.286
+    },
+    {
+      "id": "15786fa4-29fa-4d2f-bdbc-dd73b5b2bce0",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2778,
+      "ratio_en": 0.946,
+      "ratio_tr": 1.224,
+      "expansion": 1.135
+    },
+    {
+      "id": "ff264f86-e24c-4949-9413-3530eddcb8f0",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2772,
+      "ratio_en": 1.022,
+      "ratio_tr": 1.299,
+      "expansion": 1.219
+    },
+    {
+      "id": "9e2bab8c-4c71-4350-a52d-fd0d424aaab4",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.277,
+      "ratio_en": 0.958,
+      "ratio_tr": 1.235,
+      "expansion": 1.337
+    },
+    {
+      "id": "4868a472-b0f9-4228-9191-f829fc8c3976",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2762,
+      "ratio_en": 1.085,
+      "ratio_tr": 1.361,
+      "expansion": 1.14
+    },
+    {
+      "id": "66051dcf-1510-4ee6-b9e8-ef3f0e05fa45",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2743,
+      "ratio_en": 1.07,
+      "ratio_tr": 1.344,
+      "expansion": 1.161
+    },
+    {
+      "id": "2e8297c9-7101-479b-8ed4-bbf56923803a",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.274,
+      "ratio_en": 0.957,
+      "ratio_tr": 1.231,
+      "expansion": 1.197
+    },
+    {
+      "id": "eabd8d07-1df4-4105-b0c2-8909d1776764",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2725,
+      "ratio_en": 0.926,
+      "ratio_tr": 1.198,
+      "expansion": 1.15
+    },
+    {
+      "id": "f6a0981f-3ea7-475b-ba66-09eca929ca18",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2722,
+      "ratio_en": 1.041,
+      "ratio_tr": 1.313,
+      "expansion": 1.31
+    },
+    {
+      "id": "53cd62e8-7eee-4c79-a1f3-c19b5815dfff",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2721,
+      "ratio_en": 0.954,
+      "ratio_tr": 1.226,
+      "expansion": 1.241
+    },
+    {
+      "id": "04b85bc5-d973-48b7-b812-7505e7695081",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2708,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.254,
+      "expansion": 1.036
+    },
+    {
+      "id": "646ef614-c3fc-469a-b276-1768e78932e5",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2703,
+      "ratio_en": 1.063,
+      "ratio_tr": 1.333,
+      "expansion": 1.097
+    },
+    {
+      "id": "2c3b8acc-159e-4408-a503-4ecb3cb3aa85",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2701,
+      "ratio_en": 0.974,
+      "ratio_tr": 1.244,
+      "expansion": 1.255
+    },
+    {
+      "id": "936f4f1a-3304-46f9-9e23-14383baa0e39",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2694,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.233,
+      "expansion": 1.18
+    },
+    {
+      "id": "9f1f32d5-c8f0-4096-a6d9-c48333b7725a",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2688,
+      "ratio_en": 1.049,
+      "ratio_tr": 1.317,
+      "expansion": 1.139
+    },
+    {
+      "id": "2864ac4d-60ba-4bf7-807c-5b1b176ddb3b",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2688,
+      "ratio_en": 0.816,
+      "ratio_tr": 1.085,
+      "expansion": 1.292
+    },
+    {
+      "id": "89e6be9a-b238-48b3-a974-3f583fe723d0",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2685,
+      "ratio_en": 0.974,
+      "ratio_tr": 1.242,
+      "expansion": 1.239
+    },
+    {
+      "id": "7fa6e346-3e54-4038-b354-7745c296d3be",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2685,
+      "ratio_en": 0.779,
+      "ratio_tr": 1.047,
+      "expansion": 1.198
+    },
+    {
+      "id": "a6865cdf-0bbe-4cea-8298-e5e158e6b5ab",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2676,
+      "ratio_en": 0.967,
+      "ratio_tr": 1.234,
+      "expansion": 1.312
+    },
+    {
+      "id": "15a0d01f-c896-4653-b280-354dc13388dd",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2644,
+      "ratio_en": 0.87,
+      "ratio_tr": 1.134,
+      "expansion": 1.163
+    },
+    {
+      "id": "e92135ee-cc7e-4d2c-995a-9c459cab791b",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2637,
+      "ratio_en": 1.032,
+      "ratio_tr": 1.296,
+      "expansion": 1.293
+    },
+    {
+      "id": "9d50d298-e8af-410f-8681-a2e0af5ced37",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2634,
+      "ratio_en": 1.081,
+      "ratio_tr": 1.344,
+      "expansion": 1.276
+    },
+    {
+      "id": "d852cc43-0070-4c9f-90d6-42d2da6e31ae",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2631,
+      "ratio_en": 1.093,
+      "ratio_tr": 1.357,
+      "expansion": 1.053
+    },
+    {
+      "id": "c0cbbf05-f18c-491e-b5f0-968214c6cd4d",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2623,
+      "ratio_en": 0.904,
+      "ratio_tr": 1.167,
+      "expansion": 1.227
+    },
+    {
+      "id": "805e2bca-7bc0-497a-95b4-db756f7ec058",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2619,
+      "ratio_en": 0.901,
+      "ratio_tr": 1.163,
+      "expansion": 1.285
+    },
+    {
+      "id": "67b9d4db-61c9-431b-aa89-40a89e496d1e",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2616,
+      "ratio_en": 1.053,
+      "ratio_tr": 1.315,
+      "expansion": 1.22
+    },
+    {
+      "id": "bd02f1fa-e9cf-4fe0-aee4-8a11043de89c",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.26,
+      "ratio_en": 1.013,
+      "ratio_tr": 1.273,
+      "expansion": 1.134
+    },
+    {
+      "id": "27066a48-2216-4f4b-9313-3669222e49f1",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2584,
+      "ratio_en": 1.024,
+      "ratio_tr": 1.283,
+      "expansion": 1.222
+    },
+    {
+      "id": "18a8c5cf-2c8f-4cb7-81dc-e264aebb5fc7",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2578,
+      "ratio_en": 1,
+      "ratio_tr": 1.258,
+      "expansion": 1.127
+    },
+    {
+      "id": "76960e6c-6895-46cc-aa9f-995b0e825820",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2564,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.172,
+      "expansion": 1.204
+    },
+    {
+      "id": "d3406256-71d2-48ff-886a-5a40c6c5cfeb",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2563,
+      "ratio_en": 1.014,
+      "ratio_tr": 1.27,
+      "expansion": 1.157
+    },
+    {
+      "id": "c8cec4dc-ae54-42bd-b3c5-43f889a75433",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2546,
+      "ratio_en": 0.934,
+      "ratio_tr": 1.189,
+      "expansion": 1.248
+    },
+    {
+      "id": "830381dd-a4f7-4cbb-bd42-e72a41747d62",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2543,
+      "ratio_en": 1.038,
+      "ratio_tr": 1.293,
+      "expansion": 1.187
+    },
+    {
+      "id": "fbb3bce1-2d79-441a-8f13-a808be2ce61d",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2541,
+      "ratio_en": 0.798,
+      "ratio_tr": 1.052,
+      "expansion": 1.22
+    },
+    {
+      "id": "d23af3ae-eeec-4a76-8101-7609528654be",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2535,
+      "ratio_en": 0.848,
+      "ratio_tr": 1.102,
+      "expansion": 1.166
+    },
+    {
+      "id": "7ca4f3b7-e386-45c8-945e-5a1ff126e833",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2514,
+      "ratio_en": 0.942,
+      "ratio_tr": 1.193,
+      "expansion": 1.266
+    },
+    {
+      "id": "b70f433f-2877-49f4-bd6f-b65a0481073f",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2514,
+      "ratio_en": 1.045,
+      "ratio_tr": 1.297,
+      "expansion": 1.246
+    },
+    {
+      "id": "a5b449b0-bb3b-4207-9480-a295d0669e6c",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2503,
+      "ratio_en": 0.932,
+      "ratio_tr": 1.183,
+      "expansion": 1.179
+    },
+    {
+      "id": "38425bc5-3cf9-4a28-9fdd-1918159a0a7c",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2498,
+      "ratio_en": 0.843,
+      "ratio_tr": 1.092,
+      "expansion": 1.205
+    },
+    {
+      "id": "03726e85-3e68-403d-963c-b9df920c8581",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2496,
+      "ratio_en": 1.096,
+      "ratio_tr": 1.346,
+      "expansion": 1.123
+    },
+    {
+      "id": "23c0c690-f48a-4cc2-a581-ee0d16ec117d",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2496,
+      "ratio_en": 0.865,
+      "ratio_tr": 1.115,
+      "expansion": 1.21
+    },
+    {
+      "id": "7a64561c-e507-4632-a0be-81b1ff206c38",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2491,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.257,
+      "expansion": 1.249
+    },
+    {
+      "id": "2bd8b45f-43db-4a40-8031-ba84c53394e3",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2484,
+      "ratio_en": 0.981,
+      "ratio_tr": 1.229,
+      "expansion": 1.366
+    },
+    {
+      "id": "e5c0d431-1d97-4047-bd56-18038e4037fd",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2468,
+      "ratio_en": 0.835,
+      "ratio_tr": 1.082,
+      "expansion": 1.178
+    },
+    {
+      "id": "381a4a82-e44c-4776-a372-18fa3bc7992b",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2466,
+      "ratio_en": 0.981,
+      "ratio_tr": 1.228,
+      "expansion": 1.133
+    },
+    {
+      "id": "ffd61d42-02a5-45e1-9040-462d8e570de7",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2466,
+      "ratio_en": 0.849,
+      "ratio_tr": 1.096,
+      "expansion": 1.245
+    },
+    {
+      "id": "a65765b3-1fd8-4c65-8791-07f549d4ba74",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2457,
+      "ratio_en": 1.085,
+      "ratio_tr": 1.331,
+      "expansion": 1.233
+    },
+    {
+      "id": "21fe6b00-0491-488d-b045-7319594245e9",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2449,
+      "ratio_en": 1.021,
+      "ratio_tr": 1.265,
+      "expansion": 1.294
+    },
+    {
+      "id": "d4056f27-65aa-4e8e-a073-316bd31f03a2",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2449,
+      "ratio_en": 1.029,
+      "ratio_tr": 1.274,
+      "expansion": 1.198
+    },
+    {
+      "id": "7c2cb7b0-5e3a-446d-9405-15f738cd5fe8",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2444,
+      "ratio_en": 0.965,
+      "ratio_tr": 1.209,
+      "expansion": 1.347
+    },
+    {
+      "id": "a74b51d7-06ba-464c-887b-ff2e9bb162a7",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2443,
+      "ratio_en": 1.054,
+      "ratio_tr": 1.298,
+      "expansion": 1.192
+    },
+    {
+      "id": "8febe963-db27-4b15-ac32-b4681fd34979",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2441,
+      "ratio_en": 1.052,
+      "ratio_tr": 1.296,
+      "expansion": 1.24
+    },
+    {
+      "id": "1541a48d-aa89-45ae-8463-1aaebc89ecd0",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.244,
+      "ratio_en": 0.885,
+      "ratio_tr": 1.129,
+      "expansion": 1.268
+    },
+    {
+      "id": "61006834-04fc-44b2-9685-c06b65eced30",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2439,
+      "ratio_en": 0.889,
+      "ratio_tr": 1.133,
+      "expansion": 1.162
+    },
+    {
+      "id": "e2b3b95c-9de5-4e7b-8850-851ce4736024",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2434,
+      "ratio_en": 1.009,
+      "ratio_tr": 1.252,
+      "expansion": 1.108
+    },
+    {
+      "id": "f8139ba7-1d37-4a33-99ea-6bc9c8d1996b",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2433,
+      "ratio_en": 0.917,
+      "ratio_tr": 1.16,
+      "expansion": 1.222
+    },
+    {
+      "id": "40b1db76-7012-41b7-b7ba-9dbb4d34d544",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2417,
+      "ratio_en": 1.104,
+      "ratio_tr": 1.345,
+      "expansion": 1.13
+    },
+    {
+      "id": "7af39222-5d6b-43ff-8f58-02ae77faacfe",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2408,
+      "ratio_en": 0.901,
+      "ratio_tr": 1.142,
+      "expansion": 1.214
+    },
+    {
+      "id": "aa0520fc-3c34-4845-b16b-1c713ec8973c",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2403,
+      "ratio_en": 0.868,
+      "ratio_tr": 1.108,
+      "expansion": 1.108
+    },
+    {
+      "id": "eef80122-c3ed-4fcd-95cd-ecbbf509ff66",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2402,
+      "ratio_en": 0.951,
+      "ratio_tr": 1.192,
+      "expansion": 1.28
+    },
+    {
+      "id": "f2ce6531-d12e-4ed7-869f-a3dda497c6d1",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2397,
+      "ratio_en": 1.033,
+      "ratio_tr": 1.273,
+      "expansion": 1.111
+    },
+    {
+      "id": "8dda99f7-3961-48f4-be79-e96296bcff84",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2394,
+      "ratio_en": 1.061,
+      "ratio_tr": 1.3,
+      "expansion": 1.174
+    },
+    {
+      "id": "cc5d1888-754f-4cca-aa53-0c8129a07599",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2393,
+      "ratio_en": 0.935,
+      "ratio_tr": 1.174,
+      "expansion": 1.166
+    },
+    {
+      "id": "6e953240-818a-403f-8dcc-200f8a46dcf1",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2389,
+      "ratio_en": 0.85,
+      "ratio_tr": 1.088,
+      "expansion": 1.169
+    },
+    {
+      "id": "9a941c88-b349-408e-9cb7-9105a02e58de",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2387,
+      "ratio_en": 0.955,
+      "ratio_tr": 1.194,
+      "expansion": 1.261
+    },
+    {
+      "id": "8822adf0-8ac1-413c-8f6b-c686c755f89d",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2384,
+      "ratio_en": 0.848,
+      "ratio_tr": 1.087,
+      "expansion": 1.198
+    },
+    {
+      "id": "6109d3d3-af09-4531-a9d5-3365006778d7",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2376,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.152,
+      "expansion": 1.271
+    },
+    {
+      "id": "5feaa24a-250f-4e1e-87f7-20df4d7e675a",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2374,
+      "ratio_en": 0.936,
+      "ratio_tr": 1.173,
+      "expansion": 1.071
+    },
+    {
+      "id": "254dd85f-48b9-4268-84d2-16c1f2292d35",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2374,
+      "ratio_en": 1.042,
+      "ratio_tr": 1.279,
+      "expansion": 1.147
+    },
+    {
+      "id": "ea1284af-6505-4b32-8140-eb8cda584898",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2373,
+      "ratio_en": 1.092,
+      "ratio_tr": 1.329,
+      "expansion": 1.359
+    },
+    {
+      "id": "ec18b24f-e1d2-42c9-9d4f-edcd77e25bf9",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2373,
+      "ratio_en": 1.046,
+      "ratio_tr": 1.283,
+      "expansion": 1.152
+    },
+    {
+      "id": "a671155f-9090-4c89-97bc-14e900eff940",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2372,
+      "ratio_en": 0.883,
+      "ratio_tr": 1.121,
+      "expansion": 1.233
+    },
+    {
+      "id": "5205519d-0715-4b99-b6a1-1277efc3ceb5",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2368,
+      "ratio_en": 0.941,
+      "ratio_tr": 1.178,
+      "expansion": 1.169
+    },
+    {
+      "id": "94b85329-af4c-4a07-8550-3896a8a6e2cf",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2362,
+      "ratio_en": 1.103,
+      "ratio_tr": 1.339,
+      "expansion": 1.178
+    },
+    {
+      "id": "5071ba44-9902-4e4d-a6cf-f4fcaaf64f89",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2353,
+      "ratio_en": 0.966,
+      "ratio_tr": 1.201,
+      "expansion": 1.243
+    },
+    {
+      "id": "2601140f-dde5-4ce3-8822-40102c871ce3",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2352,
+      "ratio_en": 0.929,
+      "ratio_tr": 1.164,
+      "expansion": 1.228
+    },
+    {
+      "id": "b52a4185-c8a4-46ab-bc4f-01b3b19d9f55",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2352,
+      "ratio_en": 0.919,
+      "ratio_tr": 1.154,
+      "expansion": 1.145
+    },
+    {
+      "id": "ed22bf71-6dd4-4d9c-aa7e-e48e1cb719dd",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2351,
+      "ratio_en": 0.978,
+      "ratio_tr": 1.214,
+      "expansion": 1.174
+    },
+    {
+      "id": "4149d749-85ad-47fb-9595-aa83eb4d2afc",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.235,
+      "ratio_en": 1.089,
+      "ratio_tr": 1.324,
+      "expansion": 1.219
+    },
+    {
+      "id": "430bf3b2-d313-456a-86b0-a2b45a107b6e",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2348,
+      "ratio_en": 1.035,
+      "ratio_tr": 1.27,
+      "expansion": 1.152
+    },
+    {
+      "id": "2be1e94e-2173-4d95-a4c1-385792789886",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2348,
+      "ratio_en": 1.023,
+      "ratio_tr": 1.258,
+      "expansion": 1.265
+    },
+    {
+      "id": "6cf695d3-2bdc-4cfc-9779-4ac966c16caa",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2345,
+      "ratio_en": 1.071,
+      "ratio_tr": 1.305,
+      "expansion": 1.293
+    },
+    {
+      "id": "2d3e4685-36c5-407f-915c-2be144ba779c",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2345,
+      "ratio_en": 0.973,
+      "ratio_tr": 1.208,
+      "expansion": 1.236
+    },
+    {
+      "id": "ea24768b-3e65-436d-88f4-551de5a2330e",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2344,
+      "ratio_en": 0.85,
+      "ratio_tr": 1.084,
+      "expansion": 1.287
+    },
+    {
+      "id": "6935c57a-2713-452d-89b3-2921df93c1d7",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2339,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.149,
+      "expansion": 1.323
+    },
+    {
+      "id": "6fa6d6c0-998b-45c8-8817-4d4eecc3b776",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2339,
+      "ratio_en": 0.905,
+      "ratio_tr": 1.139,
+      "expansion": 1.235
+    },
+    {
+      "id": "d519c130-5d91-441f-b2cb-a8cec94ff3fc",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2338,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.196,
+      "expansion": 1.061
+    },
+    {
+      "id": "ea8bec13-8aa8-4a03-baee-930758b2b3e9",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2329,
+      "ratio_en": 0.989,
+      "ratio_tr": 1.222,
+      "expansion": 1.348
+    },
+    {
+      "id": "5f3f1232-eec1-46d0-9e03-ba4441ba9c2f",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2325,
+      "ratio_en": 0.981,
+      "ratio_tr": 1.213,
+      "expansion": 1.261
+    },
+    {
+      "id": "880ffb2f-4bd3-4502-a2cb-231cbd456130",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.232,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.24,
+      "expansion": 1.149
+    },
+    {
+      "id": "b68c8d7d-f9af-4172-8d1d-3220072c94c5",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2312,
+      "ratio_en": 0.969,
+      "ratio_tr": 1.2,
+      "expansion": 1.296
+    },
+    {
+      "id": "f2c5ceca-fd91-461f-b8b0-95dbd95c836a",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2311,
+      "ratio_en": 0.823,
+      "ratio_tr": 1.054,
+      "expansion": 1.356
+    },
+    {
+      "id": "c057efc9-3ab8-460d-9e73-965facb18126",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2304,
+      "ratio_en": 1.046,
+      "ratio_tr": 1.276,
+      "expansion": 1.264
+    },
+    {
+      "id": "308249b2-809e-4e79-b2fd-75c37fa4fc39",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2301,
+      "ratio_en": 0.843,
+      "ratio_tr": 1.073,
+      "expansion": 1.107
+    },
+    {
+      "id": "c07312c6-e341-4a78-87c8-f5ceaab8e387",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2297,
+      "ratio_en": 1.019,
+      "ratio_tr": 1.248,
+      "expansion": 1.278
+    },
+    {
+      "id": "ff605ef6-0d83-45ab-9ece-2855c43b212d",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2295,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.192,
+      "expansion": 1.109
+    },
+    {
+      "id": "5003eebe-2ed6-41e3-b386-fb87750ef0ee",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2287,
+      "ratio_en": 1.042,
+      "ratio_tr": 1.271,
+      "expansion": 1.095
+    },
+    {
+      "id": "3403188d-2046-4f14-b5db-2d9d13b6d028",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2281,
+      "ratio_en": 1.096,
+      "ratio_tr": 1.324,
+      "expansion": 1.239
+    },
+    {
+      "id": "47ece805-0093-4b7e-ac83-b3a8b5a155be",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2277,
+      "ratio_en": 0.954,
+      "ratio_tr": 1.182,
+      "expansion": 1.263
+    },
+    {
+      "id": "fbdb18a8-f32f-45e8-ba78-81df6f7ef5bb",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2277,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.189,
+      "expansion": 1.291
+    },
+    {
+      "id": "88b5a723-bdae-434c-8e90-b1eadb6d7f98",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2274,
+      "ratio_en": 1.031,
+      "ratio_tr": 1.259,
+      "expansion": 1.25
+    },
+    {
+      "id": "d0953c36-dea0-4ffb-aaa9-4af7456fc972",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2269,
+      "ratio_en": 1,
+      "ratio_tr": 1.227,
+      "expansion": 1.06
+    },
+    {
+      "id": "2df888f2-3314-426d-91ee-36aaa40c37f2",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2268,
+      "ratio_en": 1.031,
+      "ratio_tr": 1.258,
+      "expansion": 1.328
+    },
+    {
+      "id": "0f0472c6-7a99-4f37-af09-bd857a2299b9",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2265,
+      "ratio_en": 1.024,
+      "ratio_tr": 1.25,
+      "expansion": 1.063
+    },
+    {
+      "id": "4699bb8a-49e2-43d5-90c7-e6d8c144be4c",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2265,
+      "ratio_en": 0.803,
+      "ratio_tr": 1.03,
+      "expansion": 1.195
+    },
+    {
+      "id": "74bf4ee1-0ee1-4f82-85b4-b46af9829cf0",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2258,
+      "ratio_en": 0.989,
+      "ratio_tr": 1.215,
+      "expansion": 1.253
+    },
+    {
+      "id": "57312061-c240-4274-92e2-8bbcc339120e",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2251,
+      "ratio_en": 0.871,
+      "ratio_tr": 1.096,
+      "expansion": 1.375
+    },
+    {
+      "id": "9f33c586-2049-4ffe-960b-a744efb9ada3",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.225,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.14,
+      "expansion": 1.202
+    },
+    {
+      "id": "a07d6f25-cf09-4ab9-9828-06dd81b5bc34",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2248,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.216,
+      "expansion": 1.291
+    },
+    {
+      "id": "28a7df9b-efac-45ef-9784-cd48c879fe64",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2247,
+      "ratio_en": 0.978,
+      "ratio_tr": 1.203,
+      "expansion": 1.113
+    },
+    {
+      "id": "12570a5e-a6f6-4485-b1fe-de8dbbe290dd",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2246,
+      "ratio_en": 1.103,
+      "ratio_tr": 1.328,
+      "expansion": 1.273
+    },
+    {
+      "id": "e8efcda7-347b-41a3-8994-97c4af6da302",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2246,
+      "ratio_en": 0.87,
+      "ratio_tr": 1.094,
+      "expansion": 1.124
+    },
+    {
+      "id": "ece994e1-3c5d-469e-a968-807586cbddb1",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2244,
+      "ratio_en": 0.871,
+      "ratio_tr": 1.096,
+      "expansion": 1.143
+    },
+    {
+      "id": "75086658-4b24-4331-814d-640afdb6cac5",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.224,
+      "ratio_en": 1.038,
+      "ratio_tr": 1.262,
+      "expansion": 1.308
+    },
+    {
+      "id": "dee699d8-83b9-4ecb-9406-59d1dcf42d42",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2239,
+      "ratio_en": 0.826,
+      "ratio_tr": 1.05,
+      "expansion": 1.214
+    },
+    {
+      "id": "9ec7ba3c-460c-44c2-830f-8864bcda1575",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2237,
+      "ratio_en": 0.853,
+      "ratio_tr": 1.077,
+      "expansion": 1.185
+    },
+    {
+      "id": "c10af9a3-8131-4b43-9d15-5b3b183847cc",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2231,
+      "ratio_en": 0.941,
+      "ratio_tr": 1.164,
+      "expansion": 1.244
+    },
+    {
+      "id": "9cfccf37-3743-47af-981d-e88f97d8cacb",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2228,
+      "ratio_en": 0.873,
+      "ratio_tr": 1.096,
+      "expansion": 1.28
+    },
+    {
+      "id": "bc12cb42-ad4b-41fb-a4bd-ba70093955f9",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2226,
+      "ratio_en": 1.068,
+      "ratio_tr": 1.291,
+      "expansion": 1.125
+    },
+    {
+      "id": "caf33283-989a-4338-ab9d-8136f524ccfc",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2225,
+      "ratio_en": 0.975,
+      "ratio_tr": 1.197,
+      "expansion": 1.199
+    },
+    {
+      "id": "653e3880-b098-4731-aa6a-3c6afe550a25",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2224,
+      "ratio_en": 1.034,
+      "ratio_tr": 1.256,
+      "expansion": 1.099
+    },
+    {
+      "id": "757b8639-3fdd-4835-9e42-6fb922698f54",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2219,
+      "ratio_en": 0.992,
+      "ratio_tr": 1.214,
+      "expansion": 1.055
+    },
+    {
+      "id": "3b39382d-98c1-42fc-8de2-d1aadebf390b",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2214,
+      "ratio_en": 0.965,
+      "ratio_tr": 1.186,
+      "expansion": 1.301
+    },
+    {
+      "id": "73135a37-e7e6-4644-9b31-815fec52c42b",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2214,
+      "ratio_en": 1.09,
+      "ratio_tr": 1.312,
+      "expansion": 1.234
+    },
+    {
+      "id": "895a5ccd-3675-4ec2-95a3-4b6c43bc0731",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2213,
+      "ratio_en": 0.798,
+      "ratio_tr": 1.019,
+      "expansion": 1.117
+    },
+    {
+      "id": "15a80dec-071f-4dc3-9bf4-b8bb44b46405",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.221,
+      "ratio_en": 1.056,
+      "ratio_tr": 1.277,
+      "expansion": 1.201
+    },
+    {
+      "id": "1c42da2c-f094-4274-b045-af82c65ab4ec",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2209,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.229,
+      "expansion": 1.303
+    },
+    {
+      "id": "098a7ae4-122a-484a-866d-e7e7e2605b5c",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2202,
+      "ratio_en": 0.904,
+      "ratio_tr": 1.124,
+      "expansion": 1.307
+    },
+    {
+      "id": "314bd534-a58f-4d3a-ab63-9ac8bc4c6682",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.22,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.191,
+      "expansion": 1.098
+    },
+    {
+      "id": "7e75cb5b-10ca-4561-88de-c04aad5ef365",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2196,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.191,
+      "expansion": 1.041
+    },
+    {
+      "id": "40c00d00-b3a4-4f1f-b02a-4dd43eefb635",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.219,
+      "ratio_en": 1,
+      "ratio_tr": 1.219,
+      "expansion": 1.134
+    },
+    {
+      "id": "bccfd445-04fc-4591-973a-ddebfd73aa95",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2186,
+      "ratio_en": 1.022,
+      "ratio_tr": 1.24,
+      "expansion": 1.243
+    },
+    {
+      "id": "545864ab-d6aa-431b-b2b8-070bbdcd0d8d",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2183,
+      "ratio_en": 1.045,
+      "ratio_tr": 1.263,
+      "expansion": 1.052
+    },
+    {
+      "id": "aec85f87-1105-4f8f-84cb-c9ae80263d75",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2176,
+      "ratio_en": 0.882,
+      "ratio_tr": 1.1,
+      "expansion": 1.219
+    },
+    {
+      "id": "35d9c193-c7ed-47ff-b1b2-bdc25f84ee8c",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2172,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.209,
+      "expansion": 1.267
+    },
+    {
+      "id": "1d259fe4-93ac-4128-aad6-04d4d7f8ef51",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.217,
+      "ratio_en": 1.022,
+      "ratio_tr": 1.239,
+      "expansion": 1.35
+    },
+    {
+      "id": "f8d724e5-a25f-4bd4-840f-8d64188ae597",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.217,
+      "ratio_en": 0.759,
+      "ratio_tr": 0.976,
+      "expansion": 1.112
+    },
+    {
+      "id": "fcd6294f-1f4d-4d49-a60a-5fd73af38b20",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2167,
+      "ratio_en": 0.963,
+      "ratio_tr": 1.18,
+      "expansion": 1.229
+    },
+    {
+      "id": "c2cd4af5-486b-4577-b2af-737b65145da2",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2167,
+      "ratio_en": 1.022,
+      "ratio_tr": 1.239,
+      "expansion": 1.098
+    },
+    {
+      "id": "9ed86b10-0895-47e8-b4e7-37ccb3df6d4a",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2167,
+      "ratio_en": 0.886,
+      "ratio_tr": 1.103,
+      "expansion": 1.182
+    },
+    {
+      "id": "e26590cc-f0c6-4599-909d-9d17b76f42b3",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2167,
+      "ratio_en": 1,
+      "ratio_tr": 1.217,
+      "expansion": 1.163
+    },
+    {
+      "id": "7962eda2-9a82-4819-9a53-ccc6f0039bb5",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2166,
+      "ratio_en": 1.052,
+      "ratio_tr": 1.268,
+      "expansion": 1.21
+    },
+    {
+      "id": "2fbc4c87-4324-44c4-a81c-67d4383e22ee",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2164,
+      "ratio_en": 1.102,
+      "ratio_tr": 1.319,
+      "expansion": 1.116
+    },
+    {
+      "id": "4cc35981-8efe-4c00-8a7c-37f5b90727f6",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2164,
+      "ratio_en": 1.054,
+      "ratio_tr": 1.27,
+      "expansion": 1.144
+    },
+    {
+      "id": "7080877d-274f-4d8e-9788-c57b160a9d84",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2159,
+      "ratio_en": 0.867,
+      "ratio_tr": 1.083,
+      "expansion": 1.179
+    },
+    {
+      "id": "0bbe2cb5-47d9-417e-a1df-238321dce46b",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2155,
+      "ratio_en": 0.891,
+      "ratio_tr": 1.107,
+      "expansion": 1.263
+    },
+    {
+      "id": "612f2710-1e62-4bf3-b94e-5b43df3293fa",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2154,
+      "ratio_en": 1.089,
+      "ratio_tr": 1.305,
+      "expansion": 1.193
+    },
+    {
+      "id": "464c9c54-f631-407f-a19f-8c520d9a8a1c",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2153,
+      "ratio_en": 1.039,
+      "ratio_tr": 1.254,
+      "expansion": 1.27
+    },
+    {
+      "id": "44161665-530d-468d-a500-48aec0824fa4",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.215,
+      "ratio_en": 0.955,
+      "ratio_tr": 1.17,
+      "expansion": 1.278
+    },
+    {
+      "id": "825b2f54-db58-4962-bc5f-700a15da3a94",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.215,
+      "ratio_en": 0.895,
+      "ratio_tr": 1.11,
+      "expansion": 1.217
+    },
+    {
+      "id": "57036c57-a248-4ed2-b2c3-85455a3976b5",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2149,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.13,
+      "expansion": 1.276
+    },
+    {
+      "id": "d28af927-b284-40fb-9895-588498e8a114",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2147,
+      "ratio_en": 0.939,
+      "ratio_tr": 1.154,
+      "expansion": 1.231
+    },
+    {
+      "id": "46ec609f-00e9-4cc7-bd9c-c54e18fee61a",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2147,
+      "ratio_en": 0.934,
+      "ratio_tr": 1.149,
+      "expansion": 1.228
+    },
+    {
+      "id": "416a228d-f9cc-4f82-8d16-a4bd111fb6fe",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2146,
+      "ratio_en": 0.895,
+      "ratio_tr": 1.109,
+      "expansion": 1.185
+    },
+    {
+      "id": "fb3b5694-5209-4ce8-9b37-f14e08c5dfc0",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2145,
+      "ratio_en": 0.945,
+      "ratio_tr": 1.16,
+      "expansion": 1.249
+    },
+    {
+      "id": "8d172445-6c9b-4763-9a2b-0f7bdee387f4",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2143,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.185,
+      "expansion": 1.114
+    },
+    {
+      "id": "4d50cd92-4d70-4294-b935-d1b054c6a189",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.214,
+      "ratio_en": 0.975,
+      "ratio_tr": 1.189,
+      "expansion": 1.25
+    },
+    {
+      "id": "f0e61a3d-d9d2-4b23-924c-4cffa7a0c73a",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2138,
+      "ratio_en": 1,
+      "ratio_tr": 1.214,
+      "expansion": 1.276
+    },
+    {
+      "id": "e43bd6a8-c0d2-4dc2-9897-09e5c5536f71",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2135,
+      "ratio_en": 0.942,
+      "ratio_tr": 1.155,
+      "expansion": 1.314
+    },
+    {
+      "id": "26c5deba-cad3-47ea-af06-3b6a9d4d76f1",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2131,
+      "ratio_en": 1.018,
+      "ratio_tr": 1.231,
+      "expansion": 1.103
+    },
+    {
+      "id": "67207030-b190-4e9c-ab6e-112ac02e48b9",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.213,
+      "ratio_en": 0.912,
+      "ratio_tr": 1.125,
+      "expansion": 1.222
+    },
+    {
+      "id": "b6204112-fa35-4253-9cea-a1efe3edaebb",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2127,
+      "ratio_en": 1.139,
+      "ratio_tr": 1.351,
+      "expansion": 1.063
+    },
+    {
+      "id": "eb73dd43-5409-43ff-a598-2aee07fd7092",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.212,
+      "ratio_en": 0.963,
+      "ratio_tr": 1.175,
+      "expansion": 1.197
+    },
+    {
+      "id": "d35389ab-a57f-43d8-8d6b-c8d11e8cadd4",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2118,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.176,
+      "expansion": 1.223
+    },
+    {
+      "id": "6f6df9ea-1627-4833-910f-4e3de9859f0d",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2117,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.203,
+      "expansion": 1.334
+    },
+    {
+      "id": "a4f84b9d-99ee-4cbf-ab54-1813609b9da5",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2107,
+      "ratio_en": 0.978,
+      "ratio_tr": 1.189,
+      "expansion": 1.271
+    },
+    {
+      "id": "6ef6b237-535c-4f8d-8123-7ba0f7d35a38",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2104,
+      "ratio_en": 0.959,
+      "ratio_tr": 1.169,
+      "expansion": 1.216
+    },
+    {
+      "id": "12432af2-5cc1-4c26-a0a1-ae236a1dbb22",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2102,
+      "ratio_en": 0.934,
+      "ratio_tr": 1.144,
+      "expansion": 1.191
+    },
+    {
+      "id": "3f8f073b-bd73-4241-b531-f0d86e7db3af",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2101,
+      "ratio_en": 0.929,
+      "ratio_tr": 1.139,
+      "expansion": 1.187
+    },
+    {
+      "id": "d5ee3dc7-6094-4a66-8e9b-3824b9034a2d",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2099,
+      "ratio_en": 0.925,
+      "ratio_tr": 1.135,
+      "expansion": 1.399
+    },
+    {
+      "id": "98612705-7b38-4b0b-8eba-af48c0f80608",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2099,
+      "ratio_en": 0.984,
+      "ratio_tr": 1.194,
+      "expansion": 1.155
+    },
+    {
+      "id": "7edff790-49a1-4093-a6d9-0a8744eb0e86",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2094,
+      "ratio_en": 1.078,
+      "ratio_tr": 1.288,
+      "expansion": 1.336
+    },
+    {
+      "id": "9ba19ac2-a6b6-4588-b35d-36747897e435",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.209,
+      "ratio_en": 0.883,
+      "ratio_tr": 1.092,
+      "expansion": 1.156
+    },
+    {
+      "id": "54ad3de4-5360-4cf8-9466-b8cab46dacf1",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2086,
+      "ratio_en": 1.053,
+      "ratio_tr": 1.262,
+      "expansion": 1.208
+    },
+    {
+      "id": "02b2e993-c265-4fa2-9284-d689e99491f6",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2082,
+      "ratio_en": 0.919,
+      "ratio_tr": 1.127,
+      "expansion": 1.189
+    },
+    {
+      "id": "2de2c376-1e35-4b61-81c7-f6d6164d1b7b",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2076,
+      "ratio_en": 1.021,
+      "ratio_tr": 1.228,
+      "expansion": 1.167
+    },
+    {
+      "id": "50d09b90-980c-4b02-80ad-0b0569ac5a38",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2067,
+      "ratio_en": 1.017,
+      "ratio_tr": 1.224,
+      "expansion": 1.292
+    },
+    {
+      "id": "4a22f0b9-3625-44a2-90a6-eb25de36bdb7",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2067,
+      "ratio_en": 1.022,
+      "ratio_tr": 1.229,
+      "expansion": 1.087
+    },
+    {
+      "id": "c4609ef7-6ae5-4f33-a542-fe6efa71e3e2",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2066,
+      "ratio_en": 0.981,
+      "ratio_tr": 1.188,
+      "expansion": 1.159
+    },
+    {
+      "id": "bfec538d-85ac-4b0f-ad2d-e85849b5228f",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2064,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.169,
+      "expansion": 1.143
+    },
+    {
+      "id": "c6d7256b-1259-4d35-b74b-f55bc6c2559c",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2064,
+      "ratio_en": 1.051,
+      "ratio_tr": 1.258,
+      "expansion": 1.276
+    },
+    {
+      "id": "e6cf217c-a304-47ed-b494-9c7e828760a8",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2061,
+      "ratio_en": 1,
+      "ratio_tr": 1.206,
+      "expansion": 1.212
+    },
+    {
+      "id": "4eac03d5-e839-4527-898f-0b94700ce52b",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.206,
+      "ratio_en": 1.092,
+      "ratio_tr": 1.298,
+      "expansion": 1.097
+    },
+    {
+      "id": "9f151c09-d403-46ea-aadd-dfa5a280e8f7",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2058,
+      "ratio_en": 0.87,
+      "ratio_tr": 1.075,
+      "expansion": 1.186
+    },
+    {
+      "id": "a07acf50-64ff-4c1d-a7f3-fb18fe305b65",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2056,
+      "ratio_en": 1.095,
+      "ratio_tr": 1.301,
+      "expansion": 1.12
+    },
+    {
+      "id": "c1064f70-0022-4755-b1af-e1737a42b520",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2056,
+      "ratio_en": 0.823,
+      "ratio_tr": 1.028,
+      "expansion": 1.281
+    },
+    {
+      "id": "c0a504ba-39a4-46b5-9e3d-66661965734b",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2054,
+      "ratio_en": 0.975,
+      "ratio_tr": 1.18,
+      "expansion": 1.294
+    },
+    {
+      "id": "9bd9971e-571f-45c7-9eef-2f666d4bee45",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2053,
+      "ratio_en": 0.9,
+      "ratio_tr": 1.105,
+      "expansion": 1.034
+    },
+    {
+      "id": "d728020a-dbb3-4e52-a13d-1532e4e2f776",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2053,
+      "ratio_en": 1.034,
+      "ratio_tr": 1.24,
+      "expansion": 1.222
+    },
+    {
+      "id": "1eefa079-73b0-4c87-8ac2-07e948c48480",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2048,
+      "ratio_en": 0.767,
+      "ratio_tr": 0.971,
+      "expansion": 1.272
+    },
+    {
+      "id": "133274ec-adae-40be-b335-5c4b8da9ded8",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2047,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.196,
+      "expansion": 1.334
+    },
+    {
+      "id": "58fd5f4c-bc35-4732-a05d-3010addd541e",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2047,
+      "ratio_en": 1.066,
+      "ratio_tr": 1.271,
+      "expansion": 1.109
+    },
+    {
+      "id": "3a9bdd74-d3cc-48d2-b08e-600b649ed214",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2046,
+      "ratio_en": 1.031,
+      "ratio_tr": 1.236,
+      "expansion": 1.172
+    },
+    {
+      "id": "210b7fc7-4d23-4b5b-86ef-1bc22e01b833",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2045,
+      "ratio_en": 0.957,
+      "ratio_tr": 1.162,
+      "expansion": 1.161
+    },
+    {
+      "id": "73d374ba-e019-4147-9201-a4b58e50de88",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2045,
+      "ratio_en": 0.93,
+      "ratio_tr": 1.134,
+      "expansion": 1.207
+    },
+    {
+      "id": "76ed9501-d522-42fe-bdc5-a13034ceba9e",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2041,
+      "ratio_en": 1.061,
+      "ratio_tr": 1.265,
+      "expansion": 1.108
+    },
+    {
+      "id": "a45ce025-99ef-446c-a312-c68574474ee4",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2039,
+      "ratio_en": 0.961,
+      "ratio_tr": 1.165,
+      "expansion": 1.22
+    },
+    {
+      "id": "f0d32dc0-14e7-497f-b937-64f1382cd7cb",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2038,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.195,
+      "expansion": 1.162
+    },
+    {
+      "id": "7f748cac-c30f-4a6b-a3e7-96c481d4d955",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2037,
+      "ratio_en": 1.098,
+      "ratio_tr": 1.302,
+      "expansion": 1.187
+    },
+    {
+      "id": "0116993f-6905-43aa-8c78-eee8c6305b27",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2035,
+      "ratio_en": 0.913,
+      "ratio_tr": 1.116,
+      "expansion": 1.184
+    },
+    {
+      "id": "8cade18a-c7c6-45a6-a2e6-28582243a4f7",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2035,
+      "ratio_en": 1.01,
+      "ratio_tr": 1.213,
+      "expansion": 1.276
+    },
+    {
+      "id": "18a9d07c-076a-441b-a863-bdb57d17667b",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2034,
+      "ratio_en": 1.019,
+      "ratio_tr": 1.222,
+      "expansion": 1.222
+    },
+    {
+      "id": "a90c82cd-5675-4e60-a1f7-4793f33bc1d8",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2033,
+      "ratio_en": 0.924,
+      "ratio_tr": 1.127,
+      "expansion": 1.158
+    },
+    {
+      "id": "2e09537a-a183-434f-9599-69b720db9aed",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2029,
+      "ratio_en": 0.754,
+      "ratio_tr": 0.957,
+      "expansion": 1.099
+    },
+    {
+      "id": "305a14e1-f129-435a-9964-6294408e9f77",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2026,
+      "ratio_en": 0.897,
+      "ratio_tr": 1.1,
+      "expansion": 1.118
+    },
+    {
+      "id": "53620f62-2baa-495d-bd4b-9964be1f5643",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2025,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.211,
+      "expansion": 1.244
+    },
+    {
+      "id": "30c68960-6dd5-4e08-b0b7-3e5da62ca845",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2024,
+      "ratio_en": 1.104,
+      "ratio_tr": 1.306,
+      "expansion": 1.22
+    },
+    {
+      "id": "d2ce9808-4eac-4c35-b8e6-48228ea01546",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2023,
+      "ratio_en": 0.945,
+      "ratio_tr": 1.147,
+      "expansion": 1.247
+    },
+    {
+      "id": "c6fef457-f038-43a1-84d1-50475eb54a67",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2019,
+      "ratio_en": 0.937,
+      "ratio_tr": 1.139,
+      "expansion": 1.227
+    },
+    {
+      "id": "f34034fc-5421-4981-9bf6-387a41b6181f",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2015,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.173,
+      "expansion": 1.362
+    },
+    {
+      "id": "583f0ef1-c168-41ef-a7c8-903f6c7dfe3b",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2014,
+      "ratio_en": 0.984,
+      "ratio_tr": 1.186,
+      "expansion": 1.272
+    },
+    {
+      "id": "0f3461f5-1c73-41d7-95a0-e783383cd3a5",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2013,
+      "ratio_en": 0.85,
+      "ratio_tr": 1.051,
+      "expansion": 1.245
+    },
+    {
+      "id": "0c54ff65-bccb-4199-ae6b-b6a203ceb924",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.2012,
+      "ratio_en": 1.059,
+      "ratio_tr": 1.261,
+      "expansion": 1.088
+    },
+    {
+      "id": "195ff0e3-177f-458d-899b-49b078bbdf57",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.201,
+      "ratio_en": 0.775,
+      "ratio_tr": 0.976,
+      "expansion": 1.118
+    },
+    {
+      "id": "2dad39c3-ac64-4a53-bbed-8a1d20ce8109",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.2006,
+      "ratio_en": 0.886,
+      "ratio_tr": 1.087,
+      "expansion": 1.159
+    },
+    {
+      "id": "5738236e-f2fd-4567-a7f5-4617cf07ce56",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.2002,
+      "ratio_en": 0.851,
+      "ratio_tr": 1.051,
+      "expansion": 1.122
+    },
+    {
+      "id": "f4c99d3f-bf9c-4975-b22c-0ec13ccaf85d",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.2001,
+      "ratio_en": 0.97,
+      "ratio_tr": 1.17,
+      "expansion": 1.21
+    },
+    {
+      "id": "596a58a8-ddbf-4b5a-addf-e843abcf189b",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1998,
+      "ratio_en": 0.856,
+      "ratio_tr": 1.056,
+      "expansion": 1.261
+    },
+    {
+      "id": "ede0e38c-5f06-48ef-a13a-eb0cb3f5653c",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1997,
+      "ratio_en": 0.777,
+      "ratio_tr": 0.977,
+      "expansion": 1.207
+    },
+    {
+      "id": "f39a2b55-4c56-48b9-92e7-04fc2aaa0e67",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1996,
+      "ratio_en": 0.85,
+      "ratio_tr": 1.05,
+      "expansion": 1.251
+    },
+    {
+      "id": "3386b62d-03fa-4156-a9cf-5f18e1704117",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1995,
+      "ratio_en": 0.752,
+      "ratio_tr": 0.951,
+      "expansion": 1.197
+    },
+    {
+      "id": "fea9a830-e6de-4fed-92f8-25b567caf494",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1992,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.182,
+      "expansion": 1.24
+    },
+    {
+      "id": "9e3b2dc0-6013-413f-a843-e8289ae714d1",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1991,
+      "ratio_en": 0.917,
+      "ratio_tr": 1.116,
+      "expansion": 1.264
+    },
+    {
+      "id": "0cc0164e-25b5-4501-8bf8-7ea5db5c1f44",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1989,
+      "ratio_en": 1.024,
+      "ratio_tr": 1.223,
+      "expansion": 1.132
+    },
+    {
+      "id": "1c85b8c5-0587-42bc-aae2-af91ff51b53b",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1988,
+      "ratio_en": 1.102,
+      "ratio_tr": 1.301,
+      "expansion": 1.141
+    },
+    {
+      "id": "93852c4d-bee9-4873-b34c-6199db031b07",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1988,
+      "ratio_en": 1.076,
+      "ratio_tr": 1.275,
+      "expansion": 1.146
+    },
+    {
+      "id": "42b09e4a-c36b-4fdb-ab9e-f59742962783",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1986,
+      "ratio_en": 0.892,
+      "ratio_tr": 1.091,
+      "expansion": 1.064
+    },
+    {
+      "id": "17cb175e-1a33-4ea7-90c3-878c86bd0180",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1985,
+      "ratio_en": 0.835,
+      "ratio_tr": 1.033,
+      "expansion": 1.18
+    },
+    {
+      "id": "5a89aa1b-623d-4a9b-9270-af15244dc89d",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1984,
+      "ratio_en": 1.018,
+      "ratio_tr": 1.216,
+      "expansion": 1.37
+    },
+    {
+      "id": "d00eab33-e941-4d0e-ae94-8c9599f93396",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1984,
+      "ratio_en": 1,
+      "ratio_tr": 1.198,
+      "expansion": 1.212
+    },
+    {
+      "id": "b2c43a5a-1207-4f79-b555-602765926d4b",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1983,
+      "ratio_en": 0.871,
+      "ratio_tr": 1.07,
+      "expansion": 1.233
+    },
+    {
+      "id": "c500396a-cf41-4886-ac12-ac6db710904a",
+      "cert": "SM-AI-II",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1979,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.16,
+      "expansion": 1.169
+    },
+    {
+      "id": "26b3cc39-6af4-48da-aa76-65f7dbf35960",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1979,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.162,
+      "expansion": 1.13
+    },
+    {
+      "id": "587b0dce-a180-4c35-9957-51f84dc666a0",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1975,
+      "ratio_en": 0.924,
+      "ratio_tr": 1.121,
+      "expansion": 1.175
+    },
+    {
+      "id": "2f5eeed4-f474-48f1-a056-fc0a94af7998",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1973,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.159,
+      "expansion": 1.193
+    },
+    {
+      "id": "3daa7624-d372-4068-bef5-36c81caf29eb",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1972,
+      "ratio_en": 0.74,
+      "ratio_tr": 0.937,
+      "expansion": 1.113
+    },
+    {
+      "id": "a9568169-7d66-4197-9f4f-09f657447f17",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1972,
+      "ratio_en": 1.098,
+      "ratio_tr": 1.295,
+      "expansion": 1.054
+    },
+    {
+      "id": "b60b10f6-d799-4118-b40a-df2f325ba962",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.197,
+      "ratio_en": 0.884,
+      "ratio_tr": 1.081,
+      "expansion": 1.104
+    },
+    {
+      "id": "0df0a9f1-45d7-447e-8eb2-750f4ef7b3ce",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1969,
+      "ratio_en": 1.073,
+      "ratio_tr": 1.27,
+      "expansion": 1.089
+    },
+    {
+      "id": "7f0c616e-9180-482e-9958-49cef92b25ee",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1968,
+      "ratio_en": 1.089,
+      "ratio_tr": 1.286,
+      "expansion": 1.133
+    },
+    {
+      "id": "4fafcfbd-4eb5-46b2-b400-34250c3ea53b",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1963,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.187,
+      "expansion": 1.07
+    },
+    {
+      "id": "0a43d56c-f83e-4ff1-bb46-35d1a074badb",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1962,
+      "ratio_en": 1.124,
+      "ratio_tr": 1.321,
+      "expansion": 1.145
+    },
+    {
+      "id": "20d83567-133a-49cb-ad97-4b263e7d2152",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1961,
+      "ratio_en": 1.04,
+      "ratio_tr": 1.236,
+      "expansion": 1.238
+    },
+    {
+      "id": "8d53d6c7-d025-4097-af52-b6892e0758bd",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1961,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.179,
+      "expansion": 1.182
+    },
+    {
+      "id": "640d19ec-121c-4f89-83bf-18d7da403eb5",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1958,
+      "ratio_en": 0.957,
+      "ratio_tr": 1.153,
+      "expansion": 1.116
+    },
+    {
+      "id": "20955ef9-d6b2-4778-8c64-06bfa3d6c1a1",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1957,
+      "ratio_en": 0.921,
+      "ratio_tr": 1.117,
+      "expansion": 1.271
+    },
+    {
+      "id": "201ebdf9-d8af-4aaa-b719-7923ee176405",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1957,
+      "ratio_en": 1.02,
+      "ratio_tr": 1.216,
+      "expansion": 1.178
+    },
+    {
+      "id": "e241a2a9-9632-420b-9ae3-3366653ac574",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1957,
+      "ratio_en": 1,
+      "ratio_tr": 1.196,
+      "expansion": 1.163
+    },
+    {
+      "id": "e839aa20-ef5a-4821-a6d2-032c258f0366",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1953,
+      "ratio_en": 0.949,
+      "ratio_tr": 1.144,
+      "expansion": 1.09
+    },
+    {
+      "id": "8470c564-c4ef-4632-a828-2143747c4a3a",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1952,
+      "ratio_en": 0.97,
+      "ratio_tr": 1.166,
+      "expansion": 1.192
+    },
+    {
+      "id": "2f32b3db-1d34-4207-9e29-eb066d6b928e",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1951,
+      "ratio_en": 0.982,
+      "ratio_tr": 1.177,
+      "expansion": 1.207
+    },
+    {
+      "id": "ae52f30c-7137-4eb5-a464-56c5f8779d8e",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1951,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.157,
+      "expansion": 1.127
+    },
+    {
+      "id": "f76f7c63-5c43-4311-a735-e2bf18aa3ec3",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1951,
+      "ratio_en": 0.97,
+      "ratio_tr": 1.165,
+      "expansion": 1.102
+    },
+    {
+      "id": "d6908b4f-96db-4b20-828a-b3646aa5d348",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1951,
+      "ratio_en": 1.095,
+      "ratio_tr": 1.29,
+      "expansion": 1.192
+    },
+    {
+      "id": "71fe4b0a-64d5-4174-a34c-3f88a2ce90d1",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.195,
+      "ratio_en": 1.043,
+      "ratio_tr": 1.238,
+      "expansion": 1.145
+    },
+    {
+      "id": "2e21f1c2-b642-4378-9ee7-4f6236c3381a",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1948,
+      "ratio_en": 0.979,
+      "ratio_tr": 1.174,
+      "expansion": 1.36
+    },
+    {
+      "id": "8290f89b-7977-440c-9519-29d9f9c1828f",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1948,
+      "ratio_en": 1.031,
+      "ratio_tr": 1.225,
+      "expansion": 1.208
+    },
+    {
+      "id": "6e907f72-1193-41cb-8846-89980b2d3d30",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1948,
+      "ratio_en": 0.88,
+      "ratio_tr": 1.075,
+      "expansion": 1.131
+    },
+    {
+      "id": "8458396d-c5a4-4863-bbe8-5aac9c965a96",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1948,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.186,
+      "expansion": 1.317
+    },
+    {
+      "id": "8e2bd899-8d30-4df4-b84a-07b792f30094",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1945,
+      "ratio_en": 0.984,
+      "ratio_tr": 1.178,
+      "expansion": 1.353
+    },
+    {
+      "id": "1df7d9b7-1409-4f9e-8923-1b9378a4363b",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1943,
+      "ratio_en": 1.017,
+      "ratio_tr": 1.211,
+      "expansion": 1.231
+    },
+    {
+      "id": "9b97be70-0a22-4b21-affa-62eb4fd2dfe7",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1941,
+      "ratio_en": 0.955,
+      "ratio_tr": 1.149,
+      "expansion": 1.209
+    },
+    {
+      "id": "0185c1eb-1b23-4950-b2c3-6aa5dab15532",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.194,
+      "ratio_en": 1.092,
+      "ratio_tr": 1.286,
+      "expansion": 1.159
+    },
+    {
+      "id": "50bcd7c9-4e71-4c20-ba4f-821b0083bfc3",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1938,
+      "ratio_en": 1.073,
+      "ratio_tr": 1.267,
+      "expansion": 1.117
+    },
+    {
+      "id": "8e762da6-cc9b-49a3-a719-2bfbdcd21c14",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1937,
+      "ratio_en": 0.919,
+      "ratio_tr": 1.113,
+      "expansion": 1.157
+    },
+    {
+      "id": "f3c5ea89-cc4a-4be4-be57-baa4ecbffcc1",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1937,
+      "ratio_en": 0.78,
+      "ratio_tr": 0.974,
+      "expansion": 1.132
+    },
+    {
+      "id": "d43c55f8-cbc2-43e4-b600-3ebdd71698c2",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1934,
+      "ratio_en": 0.946,
+      "ratio_tr": 1.14,
+      "expansion": 1.327
+    },
+    {
+      "id": "2ea25310-9ab1-4e75-aa41-f886e1d62059",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1933,
+      "ratio_en": 0.976,
+      "ratio_tr": 1.169,
+      "expansion": 1.27
+    },
+    {
+      "id": "b75cd4d8-bf11-4308-9a23-b68da58559f1",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1933,
+      "ratio_en": 1.077,
+      "ratio_tr": 1.27,
+      "expansion": 1.304
+    },
+    {
+      "id": "e5452986-cf8d-4344-b9da-0a11377332c2",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1932,
+      "ratio_en": 1.099,
+      "ratio_tr": 1.292,
+      "expansion": 1.209
+    },
+    {
+      "id": "7d5f7594-dd7c-4c62-b5c5-43b3c533cc2c",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1932,
+      "ratio_en": 0.757,
+      "ratio_tr": 0.95,
+      "expansion": 1.178
+    },
+    {
+      "id": "3115ff4b-e209-4c72-92fa-9fb3c9b52cce",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1931,
+      "ratio_en": 1.029,
+      "ratio_tr": 1.222,
+      "expansion": 1.313
+    },
+    {
+      "id": "dd71f907-da36-49f4-ae48-a340e371cb80",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.193,
+      "ratio_en": 1.047,
+      "ratio_tr": 1.24,
+      "expansion": 1.425
+    },
+    {
+      "id": "ee7871aa-139a-41b5-ad2e-537b4db93485",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.193,
+      "ratio_en": 0.962,
+      "ratio_tr": 1.155,
+      "expansion": 1.119
+    },
+    {
+      "id": "551184a6-cb64-423f-8417-cfcdc595f18f",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1927,
+      "ratio_en": 0.913,
+      "ratio_tr": 1.106,
+      "expansion": 1.14
+    },
+    {
+      "id": "adfc875a-3957-4567-b9f1-ee79b834f9c8",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1925,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.164,
+      "expansion": 1.213
+    },
+    {
+      "id": "e7347973-e426-46ee-8d16-4630864f490e",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1924,
+      "ratio_en": 0.845,
+      "ratio_tr": 1.038,
+      "expansion": 1.209
+    },
+    {
+      "id": "223ba997-e26c-4141-a3b6-f5c5a2bd5223",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1921,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.164,
+      "expansion": 1.246
+    },
+    {
+      "id": "73e6f716-617e-4a72-b6cd-dc4e48d979d4",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1919,
+      "ratio_en": 1.034,
+      "ratio_tr": 1.226,
+      "expansion": 1.131
+    },
+    {
+      "id": "94dc22f2-0c61-481d-af27-1c699bd05387",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1917,
+      "ratio_en": 0.933,
+      "ratio_tr": 1.125,
+      "expansion": 1.121
+    },
+    {
+      "id": "cbc06944-5099-446d-9950-da4578f460d8",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1913,
+      "ratio_en": 0.945,
+      "ratio_tr": 1.137,
+      "expansion": 1.236
+    },
+    {
+      "id": "a4ecc3e1-6505-4163-96c8-b9056560ff59",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1911,
+      "ratio_en": 0.876,
+      "ratio_tr": 1.067,
+      "expansion": 1.247
+    },
+    {
+      "id": "4bcdc056-1ce6-4f1f-afcd-7bcd07b676f6",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.191,
+      "ratio_en": 0.924,
+      "ratio_tr": 1.115,
+      "expansion": 1.091
+    },
+    {
+      "id": "c44a6d6d-a1a3-4798-bfdc-e759ec3ffe88",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1909,
+      "ratio_en": 1.091,
+      "ratio_tr": 1.282,
+      "expansion": 1.135
+    },
+    {
+      "id": "8c5bce83-51fd-4b46-9eae-7160bf34c784",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1908,
+      "ratio_en": 1,
+      "ratio_tr": 1.191,
+      "expansion": 1.193
+    },
+    {
+      "id": "4bb1bdc9-58e2-44f7-a813-9617e02e5c1f",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1908,
+      "ratio_en": 1.028,
+      "ratio_tr": 1.218,
+      "expansion": 1.282
+    },
+    {
+      "id": "5ba101ed-f30e-4056-9457-a23d89c807d4",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1907,
+      "ratio_en": 1.042,
+      "ratio_tr": 1.232,
+      "expansion": 1.211
+    },
+    {
+      "id": "bcdb3d97-38df-47c2-a219-778b56886f2f",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1905,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.199,
+      "expansion": 1.336
+    },
+    {
+      "id": "5e0fef04-609e-427b-922e-efee99c554d3",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1899,
+      "ratio_en": 0.896,
+      "ratio_tr": 1.086,
+      "expansion": 1.123
+    },
+    {
+      "id": "229bdca6-b62c-4077-89d2-5e341cc53f65",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1898,
+      "ratio_en": 1.093,
+      "ratio_tr": 1.283,
+      "expansion": 1.167
+    },
+    {
+      "id": "8ee6d341-543d-4782-8684-7191bff930b2",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1897,
+      "ratio_en": 0.899,
+      "ratio_tr": 1.089,
+      "expansion": 1.26
+    },
+    {
+      "id": "12b99d19-deb7-460c-a5c2-69f7bc2cabe8",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1894,
+      "ratio_en": 0.937,
+      "ratio_tr": 1.126,
+      "expansion": 1.115
+    },
+    {
+      "id": "d37fa8a5-4bd4-4a75-94c0-aa213c8d130f",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1892,
+      "ratio_en": 1.033,
+      "ratio_tr": 1.222,
+      "expansion": 1.07
+    },
+    {
+      "id": "ea3eb4ff-bed9-4045-bb10-f45ebc7aa9ad",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1892,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.197,
+      "expansion": 1.153
+    },
+    {
+      "id": "488c4f07-2fb7-4671-8c58-7037064a331d",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1889,
+      "ratio_en": 0.744,
+      "ratio_tr": 0.933,
+      "expansion": 1.262
+    },
+    {
+      "id": "238a467d-1446-4ee0-8928-c2cbe84e11e3",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1888,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.153,
+      "expansion": 1.219
+    },
+    {
+      "id": "a87bf127-4a32-4859-9243-4d43238be7fd",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1888,
+      "ratio_en": 1.011,
+      "ratio_tr": 1.2,
+      "expansion": 1.169
+    },
+    {
+      "id": "bbaf6b55-b6c2-4e7f-8c72-fe927bc33c41",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1887,
+      "ratio_en": 0.906,
+      "ratio_tr": 1.094,
+      "expansion": 1.166
+    },
+    {
+      "id": "9eea4a70-fbe6-462c-a7a1-e154cbca3220",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1885,
+      "ratio_en": 0.948,
+      "ratio_tr": 1.137,
+      "expansion": 1.203
+    },
+    {
+      "id": "45b3e0be-2d55-4dab-bc25-80684194a92b",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1883,
+      "ratio_en": 0.97,
+      "ratio_tr": 1.158,
+      "expansion": 1.215
+    },
+    {
+      "id": "9c0344d2-c540-4b21-bf6d-2ea8d9067b00",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1882,
+      "ratio_en": 0.78,
+      "ratio_tr": 0.968,
+      "expansion": 1.174
+    },
+    {
+      "id": "30e61bc9-a58d-4d97-b076-2c7b186587c4",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1881,
+      "ratio_en": 1.047,
+      "ratio_tr": 1.235,
+      "expansion": 1.165
+    },
+    {
+      "id": "adcf28a9-b43c-4154-8165-6a35166b15a8",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.188,
+      "ratio_en": 0.963,
+      "ratio_tr": 1.151,
+      "expansion": 1.164
+    },
+    {
+      "id": "f16f9b4f-3af1-4653-acbf-a10c7ff17c6c",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1878,
+      "ratio_en": 1.034,
+      "ratio_tr": 1.221,
+      "expansion": 1.206
+    },
+    {
+      "id": "c3db8c46-4374-4786-b99e-3757abd881ed",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1873,
+      "ratio_en": 0.885,
+      "ratio_tr": 1.073,
+      "expansion": 1.203
+    },
+    {
+      "id": "71fe7d53-bd06-4cf0-acdb-5d45e07ee69a",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1871,
+      "ratio_en": 0.944,
+      "ratio_tr": 1.132,
+      "expansion": 1.102
+    },
+    {
+      "id": "07f7221d-5ec7-4bf3-889b-8eced00486be",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1868,
+      "ratio_en": 0.922,
+      "ratio_tr": 1.108,
+      "expansion": 1.224
+    },
+    {
+      "id": "61eb09b0-cd36-4c93-8a0d-64b695a07ea8",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1868,
+      "ratio_en": 0.8,
+      "ratio_tr": 0.987,
+      "expansion": 1.253
+    },
+    {
+      "id": "c67418c3-36f5-4a52-a35d-be6908837889",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1865,
+      "ratio_en": 1.129,
+      "ratio_tr": 1.315,
+      "expansion": 1.103
+    },
+    {
+      "id": "9bef8cd6-4df4-4ac6-a9fb-7a645eb272a5",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1864,
+      "ratio_en": 0.921,
+      "ratio_tr": 1.107,
+      "expansion": 1.187
+    },
+    {
+      "id": "53b0ce76-31fc-4e8d-bb72-29b3307b4fb9",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1862,
+      "ratio_en": 0.896,
+      "ratio_tr": 1.082,
+      "expansion": 1.261
+    },
+    {
+      "id": "003cab32-4d11-4723-b082-9e4f67795c00",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1861,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.194,
+      "expansion": 1.253
+    },
+    {
+      "id": "5d070dbf-bccc-42a0-9519-f3e34c212734",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1859,
+      "ratio_en": 0.833,
+      "ratio_tr": 1.019,
+      "expansion": 1.155
+    },
+    {
+      "id": "0726d84b-eb2f-4627-a00b-a4f793ac9427",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1858,
+      "ratio_en": 1.035,
+      "ratio_tr": 1.221,
+      "expansion": 1.23
+    },
+    {
+      "id": "4ac19d7d-d0f2-4ab8-9eca-3480ce0c8379",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1858,
+      "ratio_en": 1.08,
+      "ratio_tr": 1.266,
+      "expansion": 1.253
+    },
+    {
+      "id": "6018f087-ee4a-414a-b002-ec2f26118d19",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1855,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.168,
+      "expansion": 1.08
+    },
+    {
+      "id": "5dd7044a-64d2-41a1-806f-3b38395c70a9",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1853,
+      "ratio_en": 1.087,
+      "ratio_tr": 1.273,
+      "expansion": 1.19
+    },
+    {
+      "id": "39712ca0-415b-4538-b99d-ac5a8073bb9e",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1853,
+      "ratio_en": 0.919,
+      "ratio_tr": 1.105,
+      "expansion": 1.118
+    },
+    {
+      "id": "a82d360a-2601-4b16-bbbd-41547514c54e",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1852,
+      "ratio_en": 1.088,
+      "ratio_tr": 1.273,
+      "expansion": 1.31
+    },
+    {
+      "id": "e744116e-ace2-4e7d-a8a6-3c88d0a6c5ff",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1851,
+      "ratio_en": 1.015,
+      "ratio_tr": 1.2,
+      "expansion": 1.034
+    },
+    {
+      "id": "439734cd-4ec4-4e33-8484-00df68f04d56",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.185,
+      "ratio_en": 0.901,
+      "ratio_tr": 1.086,
+      "expansion": 1.206
+    },
+    {
+      "id": "89dae277-bc9a-490f-afe7-d86dd9b15dd2",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.185,
+      "ratio_en": 0.945,
+      "ratio_tr": 1.13,
+      "expansion": 1.323
+    },
+    {
+      "id": "9dc1e17d-72cd-4554-a340-372b2e30403d",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1846,
+      "ratio_en": 0.881,
+      "ratio_tr": 1.065,
+      "expansion": 1.122
+    },
+    {
+      "id": "fb36c78c-b3cd-438e-940c-01a532539ad3",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1846,
+      "ratio_en": 0.993,
+      "ratio_tr": 1.178,
+      "expansion": 1.116
+    },
+    {
+      "id": "acf22c6a-1ec2-43ce-84a1-1c15c9a33ac6",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1845,
+      "ratio_en": 1.275,
+      "ratio_tr": 1.459,
+      "expansion": 1.14
+    },
+    {
+      "id": "677aeebe-311e-4b2b-afb4-6ee3614aa41d",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1843,
+      "ratio_en": 0.992,
+      "ratio_tr": 1.176,
+      "expansion": 1.103
+    },
+    {
+      "id": "9c4de2f5-8fbb-4f64-ad1b-2511e00ec7f0",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1843,
+      "ratio_en": 0.759,
+      "ratio_tr": 0.944,
+      "expansion": 1.13
+    },
+    {
+      "id": "ee0a7402-8998-4f57-b95d-430b994670ec",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.184,
+      "ratio_en": 0.958,
+      "ratio_tr": 1.142,
+      "expansion": 1.105
+    },
+    {
+      "id": "585f5ac4-9ffe-46e5-b975-eaa7eb042d9e",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1839,
+      "ratio_en": 0.958,
+      "ratio_tr": 1.142,
+      "expansion": 1.269
+    },
+    {
+      "id": "4a240791-ea24-4d90-ab39-bd5f61cd8257",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1839,
+      "ratio_en": 1.066,
+      "ratio_tr": 1.25,
+      "expansion": 1.06
+    },
+    {
+      "id": "c5948697-72aa-42c7-8bea-204bf85949ba",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1833,
+      "ratio_en": 1.071,
+      "ratio_tr": 1.254,
+      "expansion": 1.124
+    },
+    {
+      "id": "fb70ea99-42c3-4542-b5c9-5a621a41ceb5",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1833,
+      "ratio_en": 0.809,
+      "ratio_tr": 0.992,
+      "expansion": 1.266
+    },
+    {
+      "id": "113644f0-8300-4a6a-bddf-c36aba5b0aa8",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.183,
+      "ratio_en": 0.938,
+      "ratio_tr": 1.12,
+      "expansion": 1.105
+    },
+    {
+      "id": "ed88e37e-a782-437a-9f29-120aa1a84d34",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.183,
+      "ratio_en": 0.969,
+      "ratio_tr": 1.152,
+      "expansion": 1.187
+    },
+    {
+      "id": "02b4340c-4859-4e46-8e57-268c5eb0a6bf",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1829,
+      "ratio_en": 0.961,
+      "ratio_tr": 1.144,
+      "expansion": 1.296
+    },
+    {
+      "id": "66d8cb39-e83a-4e0f-aa27-657a482eeed3",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1829,
+      "ratio_en": 0.892,
+      "ratio_tr": 1.075,
+      "expansion": 1.111
+    },
+    {
+      "id": "fbb76eb4-fb66-4184-9d50-7c3c5a646cd8",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1826,
+      "ratio_en": 1.013,
+      "ratio_tr": 1.195,
+      "expansion": 1.144
+    },
+    {
+      "id": "52e18e3b-5182-4c04-bf8f-ca71edb3aa3a",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1826,
+      "ratio_en": 1.079,
+      "ratio_tr": 1.262,
+      "expansion": 1.198
+    },
+    {
+      "id": "755f0a08-f507-4eec-ba80-0cfb0087b188",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1826,
+      "ratio_en": 1.275,
+      "ratio_tr": 1.457,
+      "expansion": 1.081
+    },
+    {
+      "id": "918acc61-218e-4087-93f8-4eb7e69446b3",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1825,
+      "ratio_en": 1.096,
+      "ratio_tr": 1.278,
+      "expansion": 1.303
+    },
+    {
+      "id": "56b645db-bb80-4583-94b2-dade77c82d94",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1825,
+      "ratio_en": 1,
+      "ratio_tr": 1.182,
+      "expansion": 1.199
+    },
+    {
+      "id": "65c000f2-73d4-4ed0-b8d3-e4e351fdf38c",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1824,
+      "ratio_en": 1.026,
+      "ratio_tr": 1.209,
+      "expansion": 1.082
+    },
+    {
+      "id": "9f68009f-f6fa-4507-a0dd-ce93256dd09e",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1823,
+      "ratio_en": 0.888,
+      "ratio_tr": 1.07,
+      "expansion": 1.158
+    },
+    {
+      "id": "d94725c3-2e15-48a3-b628-c8f429f0bc70",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1822,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.146,
+      "expansion": 1.19
+    },
+    {
+      "id": "ec1c99e0-49c3-4e1e-8e72-57cbf6c3a620",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1821,
+      "ratio_en": 1.051,
+      "ratio_tr": 1.233,
+      "expansion": 1.213
+    },
+    {
+      "id": "a6208643-d4b5-4e3b-9079-ddd9a61dbc03",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1819,
+      "ratio_en": 0.971,
+      "ratio_tr": 1.153,
+      "expansion": 1.173
+    },
+    {
+      "id": "937dbb28-51e1-4734-bdd4-79eef3a78bdb",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1818,
+      "ratio_en": 0.959,
+      "ratio_tr": 1.141,
+      "expansion": 1.238
+    },
+    {
+      "id": "605407e6-8a3d-4037-b3e6-274ddacb2bbf",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1818,
+      "ratio_en": 0.943,
+      "ratio_tr": 1.124,
+      "expansion": 1.092
+    },
+    {
+      "id": "e3f2d334-ad08-4e64-a257-053f8bd4d6f4",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1818,
+      "ratio_en": 0.874,
+      "ratio_tr": 1.056,
+      "expansion": 1.117
+    },
+    {
+      "id": "eca124db-5420-4249-9d3a-25bda998737f",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1817,
+      "ratio_en": 0.955,
+      "ratio_tr": 1.137,
+      "expansion": 1.2
+    },
+    {
+      "id": "1393b579-d298-46cf-a307-e8ba9fa097ac",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1814,
+      "ratio_en": 0.968,
+      "ratio_tr": 1.149,
+      "expansion": 1.214
+    },
+    {
+      "id": "ae8387dc-7fc4-43cb-8108-d60c52c8c69b",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1807,
+      "ratio_en": 1.043,
+      "ratio_tr": 1.224,
+      "expansion": 1.196
+    },
+    {
+      "id": "6142c2ac-9ff1-49f9-9f02-90c11d071d64",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1805,
+      "ratio_en": 1,
+      "ratio_tr": 1.18,
+      "expansion": 1.2
+    },
+    {
+      "id": "a9e43826-c88a-4524-9827-8136ac037aff",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1805,
+      "ratio_en": 1.064,
+      "ratio_tr": 1.244,
+      "expansion": 1.238
+    },
+    {
+      "id": "5549db66-0929-4dba-8955-096d28d118ea",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1804,
+      "ratio_en": 1.024,
+      "ratio_tr": 1.204,
+      "expansion": 1.195
+    },
+    {
+      "id": "713677a1-8c4a-4468-98b4-6b84c777c3b8",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1802,
+      "ratio_en": 0.642,
+      "ratio_tr": 0.822,
+      "expansion": 1.225
+    },
+    {
+      "id": "9354cef1-e545-4c7e-83af-bc880ac31309",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.18,
+      "ratio_en": 0.973,
+      "ratio_tr": 1.153,
+      "expansion": 1.11
+    },
+    {
+      "id": "b85a1f94-10cf-4f28-a39d-a342fcc76b9e",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1796,
+      "ratio_en": 1.029,
+      "ratio_tr": 1.209,
+      "expansion": 1.127
+    },
+    {
+      "id": "96f2efa3-0752-473f-8163-666d652d59e0",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1795,
+      "ratio_en": 0.902,
+      "ratio_tr": 1.082,
+      "expansion": 1.159
+    },
+    {
+      "id": "0c6d5069-1d01-42bd-bc90-f6b8c575e9c9",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1793,
+      "ratio_en": 1,
+      "ratio_tr": 1.179,
+      "expansion": 1.121
+    },
+    {
+      "id": "26a8d074-b9c0-4478-9330-61b4557006f5",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1792,
+      "ratio_en": 0.788,
+      "ratio_tr": 0.968,
+      "expansion": 1.138
+    },
+    {
+      "id": "8f9e94aa-6e84-4b9f-b5d0-b0e9dcdeac89",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1792,
+      "ratio_en": 0.951,
+      "ratio_tr": 1.13,
+      "expansion": 1.121
+    },
+    {
+      "id": "f98cb1f7-3b41-4f4d-a491-149122b29b69",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1791,
+      "ratio_en": 1.085,
+      "ratio_tr": 1.264,
+      "expansion": 1.252
+    },
+    {
+      "id": "b05f44f9-5078-4164-ae88-8c23ae7f855d",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.179,
+      "ratio_en": 1.046,
+      "ratio_tr": 1.225,
+      "expansion": 1.127
+    },
+    {
+      "id": "2ff4f5be-0acd-413b-8985-41278c8732ca",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1788,
+      "ratio_en": 0.992,
+      "ratio_tr": 1.171,
+      "expansion": 1.118
+    },
+    {
+      "id": "84742468-258f-4ff5-acc7-13bec1a4bc2d",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1788,
+      "ratio_en": 0.887,
+      "ratio_tr": 1.066,
+      "expansion": 1.347
+    },
+    {
+      "id": "fba5e314-812d-46a6-b2e5-ca2efafbbb7a",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1788,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.162,
+      "expansion": 1.237
+    },
+    {
+      "id": "e8d05bf4-380b-49f6-8e91-9a30598313ac",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1785,
+      "ratio_en": 0.935,
+      "ratio_tr": 1.113,
+      "expansion": 1.207
+    },
+    {
+      "id": "66db4567-09e5-4e7e-9bd6-52acaeef8ed6",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1784,
+      "ratio_en": 0.895,
+      "ratio_tr": 1.073,
+      "expansion": 1.192
+    },
+    {
+      "id": "2a1448ec-267d-40ca-a5bc-45c1f46f1a00",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1784,
+      "ratio_en": 0.969,
+      "ratio_tr": 1.148,
+      "expansion": 1.189
+    },
+    {
+      "id": "f01d6d1e-5393-4477-93ab-d180f250089e",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1784,
+      "ratio_en": 0.912,
+      "ratio_tr": 1.091,
+      "expansion": 1.119
+    },
+    {
+      "id": "15e3c0d9-869e-4a1d-abb8-442767d69a7f",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1781,
+      "ratio_en": 0.915,
+      "ratio_tr": 1.093,
+      "expansion": 1.161
+    },
+    {
+      "id": "ea1f2452-0aa9-4398-bc68-263a5f76a9a4",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.178,
+      "ratio_en": 1,
+      "ratio_tr": 1.178,
+      "expansion": 1.163
+    },
+    {
+      "id": "b895e0c6-021b-432e-a20a-6e8192b205e5",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1776,
+      "ratio_en": 1,
+      "ratio_tr": 1.178,
+      "expansion": 1.302
+    },
+    {
+      "id": "3ef911cd-b55e-4669-9d78-7a4892e26229",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1774,
+      "ratio_en": 0.814,
+      "ratio_tr": 0.991,
+      "expansion": 1.19
+    },
+    {
+      "id": "2c7f3696-a0f6-4d36-a651-b75b006cc276",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1773,
+      "ratio_en": 1.052,
+      "ratio_tr": 1.23,
+      "expansion": 1.112
+    },
+    {
+      "id": "7ad89d9e-33d9-415f-bcc0-b2c59e9fa060",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1772,
+      "ratio_en": 0.837,
+      "ratio_tr": 1.014,
+      "expansion": 1.211
+    },
+    {
+      "id": "87a58dc4-44ea-4564-847b-c9e01fa20e34",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1771,
+      "ratio_en": 0.823,
+      "ratio_tr": 1,
+      "expansion": 1.104
+    },
+    {
+      "id": "895ec9f4-e080-489f-b630-f7d71b8f9d1f",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.177,
+      "ratio_en": 0.844,
+      "ratio_tr": 1.021,
+      "expansion": 1.134
+    },
+    {
+      "id": "8627805f-205c-4c07-9dc7-5e44f8c6d3c3",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.177,
+      "ratio_en": 0.846,
+      "ratio_tr": 1.023,
+      "expansion": 1.127
+    },
+    {
+      "id": "f1cd104c-cdb5-4a93-a004-029a0a579ce7",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.177,
+      "ratio_en": 0.898,
+      "ratio_tr": 1.075,
+      "expansion": 1.248
+    },
+    {
+      "id": "287c902f-2141-4a14-8588-66f809267dbe",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1768,
+      "ratio_en": 1.124,
+      "ratio_tr": 1.301,
+      "expansion": 1.17
+    },
+    {
+      "id": "a4548e01-db4f-47fb-9c70-bfff805b744a",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1768,
+      "ratio_en": 1.056,
+      "ratio_tr": 1.233,
+      "expansion": 1.202
+    },
+    {
+      "id": "d820b83c-8ff4-4886-97d4-f920dab147c5",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1765,
+      "ratio_en": 1.069,
+      "ratio_tr": 1.246,
+      "expansion": 1.211
+    },
+    {
+      "id": "1371c908-d568-445f-bf2d-d628f448189f",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1765,
+      "ratio_en": 1.079,
+      "ratio_tr": 1.255,
+      "expansion": 1.258
+    },
+    {
+      "id": "d60b4de2-d6c1-4097-94bc-ad79ebeaa6c9",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1765,
+      "ratio_en": 0.992,
+      "ratio_tr": 1.169,
+      "expansion": 1.289
+    },
+    {
+      "id": "9d1f9584-74fd-4558-8c27-f437eef1bca0",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1765,
+      "ratio_en": 0.739,
+      "ratio_tr": 0.916,
+      "expansion": 1.159
+    },
+    {
+      "id": "92c4c325-3143-483c-97db-80a31334078c",
+      "cert": "AIMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1764,
+      "ratio_en": 0.974,
+      "ratio_tr": 1.151,
+      "expansion": 1.102
+    },
+    {
+      "id": "130b6a97-fbe0-423b-b3a6-966d58c8e8b5",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1764,
+      "ratio_en": 0.846,
+      "ratio_tr": 1.022,
+      "expansion": 1.27
+    },
+    {
+      "id": "31fc2c40-b866-4b01-bde1-b7b72f79be83",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1764,
+      "ratio_en": 0.833,
+      "ratio_tr": 1.01,
+      "expansion": 1.132
+    },
+    {
+      "id": "aea74e08-5b65-45f7-b372-ee95d99c4521",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1763,
+      "ratio_en": 0.97,
+      "ratio_tr": 1.147,
+      "expansion": 1.232
+    },
+    {
+      "id": "6b16c90a-ad94-4ebf-a72b-b44262b2cd7b",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.176,
+      "ratio_en": 1.047,
+      "ratio_tr": 1.223,
+      "expansion": 1.126
+    },
+    {
+      "id": "d6b66cf3-4fa4-491e-a048-74ddd2171f95",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1759,
+      "ratio_en": 0.886,
+      "ratio_tr": 1.062,
+      "expansion": 1.271
+    },
+    {
+      "id": "544924d8-dec5-440f-a7b9-bee05740ff53",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1756,
+      "ratio_en": 1.031,
+      "ratio_tr": 1.206,
+      "expansion": 1.073
+    },
+    {
+      "id": "d889f5f5-0c52-424b-ac7e-aa2c833866c1",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1756,
+      "ratio_en": 0.907,
+      "ratio_tr": 1.083,
+      "expansion": 1.329
+    },
+    {
+      "id": "dc73d35c-b1f9-45d4-b5e6-9204cdcba883",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1754,
+      "ratio_en": 1.017,
+      "ratio_tr": 1.193,
+      "expansion": 1.224
+    },
+    {
+      "id": "f401bacf-860c-47d3-93a9-899835272b8b",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1754,
+      "ratio_en": 1.068,
+      "ratio_tr": 1.244,
+      "expansion": 1.186
+    },
+    {
+      "id": "5a40af8e-dd8b-4cca-a460-9a21705af361",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1754,
+      "ratio_en": 1.025,
+      "ratio_tr": 1.2,
+      "expansion": 1.167
+    },
+    {
+      "id": "0ef7ce0a-0550-4bff-86d0-478b55600848",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1753,
+      "ratio_en": 0.965,
+      "ratio_tr": 1.14,
+      "expansion": 1.134
+    },
+    {
+      "id": "9c1328cd-73a5-40a8-af7f-c398194efeaa",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1753,
+      "ratio_en": 0.954,
+      "ratio_tr": 1.129,
+      "expansion": 1.179
+    },
+    {
+      "id": "07297183-25e6-4679-bc26-ccc9efa2ea81",
+      "cert": "ISMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1752,
+      "ratio_en": 0.937,
+      "ratio_tr": 1.112,
+      "expansion": 1.171
+    },
+    {
+      "id": "c9310fe8-545c-45c9-add1-ad503a74348d",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1751,
+      "ratio_en": 0.983,
+      "ratio_tr": 1.158,
+      "expansion": 1.19
+    },
+    {
+      "id": "59578f35-c4e3-4e47-a919-8b665719c4ab",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.175,
+      "ratio_en": 0.916,
+      "ratio_tr": 1.091,
+      "expansion": 1.218
+    },
+    {
+      "id": "aa375b60-1667-4003-8de9-1dc7618bb722",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.175,
+      "ratio_en": 0.904,
+      "ratio_tr": 1.079,
+      "expansion": 1.176
+    },
+    {
+      "id": "c699dee9-02f0-49ca-80c4-5f1e6b615513",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.175,
+      "ratio_en": 1.067,
+      "ratio_tr": 1.242,
+      "expansion": 1.157
+    },
+    {
+      "id": "127679b0-0a96-4151-8ec6-2b0f5dfabd56",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1749,
+      "ratio_en": 0.977,
+      "ratio_tr": 1.152,
+      "expansion": 1.149
+    },
+    {
+      "id": "4a119389-a6e1-4427-957f-378e5940773e",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1748,
+      "ratio_en": 1.016,
+      "ratio_tr": 1.191,
+      "expansion": 1.16
+    },
+    {
+      "id": "82bd60dc-5f71-4d6d-9af0-e5bccdccf22e",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1748,
+      "ratio_en": 1.019,
+      "ratio_tr": 1.194,
+      "expansion": 1.118
+    },
+    {
+      "id": "6f8785b0-fa9e-493a-946d-d13ff1cd4924",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1747,
+      "ratio_en": 1.081,
+      "ratio_tr": 1.256,
+      "expansion": 1.188
+    },
+    {
+      "id": "d7d548fd-963e-45df-bda4-d73fa7a8a713",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1745,
+      "ratio_en": 0.975,
+      "ratio_tr": 1.15,
+      "expansion": 1.355
+    },
+    {
+      "id": "da71c9cc-d1ea-40c3-b722-813058b071ad",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1745,
+      "ratio_en": 0.978,
+      "ratio_tr": 1.152,
+      "expansion": 1.174
+    },
+    {
+      "id": "5b40f98e-846e-4d43-bc23-cd88e0261cb9",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1743,
+      "ratio_en": 0.991,
+      "ratio_tr": 1.165,
+      "expansion": 1.063
+    },
+    {
+      "id": "e5ab3eec-5b32-482c-b1c6-b8f76f08cef3",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1742,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.138,
+      "expansion": 1.083
+    },
+    {
+      "id": "64c6347e-916d-4baf-be1f-7702b269b26e",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1742,
+      "ratio_en": 1.043,
+      "ratio_tr": 1.217,
+      "expansion": 1.124
+    },
+    {
+      "id": "536eb7ce-057f-4b8f-b84f-562441eea5e6",
+      "cert": "SD-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1741,
+      "ratio_en": 1.08,
+      "ratio_tr": 1.254,
+      "expansion": 1.259
+    },
+    {
+      "id": "8a36261b-0ad5-4859-8145-cf6ddeade461",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1741,
+      "ratio_en": 1.055,
+      "ratio_tr": 1.229,
+      "expansion": 1.212
+    },
+    {
+      "id": "28bf7a7b-9690-4bb2-8a8d-d87c37f16c42",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.174,
+      "ratio_en": 0.964,
+      "ratio_tr": 1.138,
+      "expansion": 1.278
+    },
+    {
+      "id": "3418c95a-e38e-49e9-97f2-52c3c51841df",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1739,
+      "ratio_en": 1.008,
+      "ratio_tr": 1.182,
+      "expansion": 1.121
+    },
+    {
+      "id": "73499a24-54eb-436d-a3ab-f6ac913ebb0f",
+      "cert": "AIMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1737,
+      "ratio_en": 1.009,
+      "ratio_tr": 1.182,
+      "expansion": 1.283
+    },
+    {
+      "id": "72b83a1e-e438-4a6c-8a36-e58d246bb75c",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1737,
+      "ratio_en": 0.834,
+      "ratio_tr": 1.008,
+      "expansion": 1.144
+    },
+    {
+      "id": "cc1bf8fa-33f2-4985-bff2-9a4c359bf5bd",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1735,
+      "ratio_en": 0.967,
+      "ratio_tr": 1.14,
+      "expansion": 1.191
+    },
+    {
+      "id": "8c22bc45-fc3a-49e6-8162-03add62cf6a5",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1734,
+      "ratio_en": 0.726,
+      "ratio_tr": 0.899,
+      "expansion": 1.108
+    },
+    {
+      "id": "9262c924-a578-491a-be0b-cc2206d4104a",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1733,
+      "ratio_en": 0.937,
+      "ratio_tr": 1.11,
+      "expansion": 1.177
+    },
+    {
+      "id": "d4d52dae-46c4-449c-84fa-05f10db5ecae",
+      "cert": "AIMS-IA",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1732,
+      "ratio_en": 1.13,
+      "ratio_tr": 1.304,
+      "expansion": 1.144
+    },
+    {
+      "id": "9ba309a2-c82f-4a72-898e-5a749edcd327",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1732,
+      "ratio_en": 0.934,
+      "ratio_tr": 1.107,
+      "expansion": 1.087
+    },
+    {
+      "id": "b7151482-c40f-47b4-9d1b-298bb202b9bd",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1731,
+      "ratio_en": 1.124,
+      "ratio_tr": 1.298,
+      "expansion": 1.149
+    },
+    {
+      "id": "72c9be5d-3825-4f60-9490-f6eb578a4f59",
+      "cert": "SM-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.173,
+      "ratio_en": 1.009,
+      "ratio_tr": 1.182,
+      "expansion": 1.11
+    },
+    {
+      "id": "48bd7698-8fd0-42d0-ac9a-c27e73f7a45b",
+      "cert": "ISMS-F",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.173,
+      "ratio_en": 1.007,
+      "ratio_tr": 1.18,
+      "expansion": 1.258
+    },
+    {
+      "id": "715fa2a3-0a0b-46b2-962f-6db0e9ea0a26",
+      "cert": "SPO-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.173,
+      "ratio_en": 1.011,
+      "ratio_tr": 1.183,
+      "expansion": 1.213
+    },
+    {
+      "id": "1f989df2-94ad-4501-b3e3-abe5a717efe2",
+      "cert": "AIE-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1729,
+      "ratio_en": 1.057,
+      "ratio_tr": 1.23,
+      "expansion": 1.189
+    },
+    {
+      "id": "5c6eb1bb-2c33-4934-a95a-26eaf33a5e8d",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1728,
+      "ratio_en": 1.052,
+      "ratio_tr": 1.224,
+      "expansion": 1.162
+    },
+    {
+      "id": "7678f57b-f382-4221-8a31-2106f6c02b63",
+      "cert": "AIHR-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1728,
+      "ratio_en": 0.841,
+      "ratio_tr": 1.014,
+      "expansion": 1.182
+    },
+    {
+      "id": "1ab6060c-9ec3-4ac6-8138-efcd5271bb59",
+      "cert": "SM-AI-I",
+      "pool": "secure",
+      "lang": "es-419",
+      "delta": 0.1726,
+      "ratio_en": 0.968,
+      "ratio_tr": 1.14,
+      "expansion": 1.203
+    },
+    {
+      "id": "181ca88e-c487-49c0-8988-73fc966eef8d",
+      "cert": "SM-AI-II",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1726,
+      "ratio_en": 1.094,
+      "ratio_tr": 1.267,
+      "expansion": 1.049
+    },
+    {
+      "id": "567503f8-367b-4e96-91a3-089245f1a63b",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1721,
+      "ratio_en": 1.097,
+      "ratio_tr": 1.269,
+      "expansion": 1.207
+    },
+    {
+      "id": "badfda48-8064-4114-99f3-4ae6055da51e",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1721,
+      "ratio_en": 1.019,
+      "ratio_tr": 1.191,
+      "expansion": 1.174
+    },
+    {
+      "id": "d391b6ca-82a9-4c70-b750-d17cc2e1d64a",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1719,
+      "ratio_en": 1.007,
+      "ratio_tr": 1.179,
+      "expansion": 1.309
+    },
+    {
+      "id": "fad4a748-3d47-4338-9657-586131c7db45",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1716,
+      "ratio_en": 0.99,
+      "ratio_tr": 1.162,
+      "expansion": 1.044
+    },
+    {
+      "id": "3100f970-ef6d-4b60-8bfb-f8f83f2d4d1a",
+      "cert": "SPO-AI-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1715,
+      "ratio_en": 0.924,
+      "ratio_tr": 1.095,
+      "expansion": 1.224
+    },
+    {
+      "id": "1c39a32f-e6f8-408e-8a23-58d0aa6a48b7",
+      "cert": "AIGRM-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1715,
+      "ratio_en": 0.972,
+      "ratio_tr": 1.144,
+      "expansion": 1.174
+    },
+    {
+      "id": "298bae1e-0f93-46a4-8085-549d7f3b1038",
+      "cert": "AIHR-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1715,
+      "ratio_en": 1.023,
+      "ratio_tr": 1.195,
+      "expansion": 1.191
+    },
+    {
+      "id": "dcca7ad9-74c5-47d1-a95f-2ca8f7b35cb9",
+      "cert": "AIMS-IA",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1713,
+      "ratio_en": 1.12,
+      "ratio_tr": 1.291,
+      "expansion": 1.135
+    },
+    {
+      "id": "114b6ad6-2958-4a37-aab3-d5d33d51fd53",
+      "cert": "AIE-I",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1712,
+      "ratio_en": 0.847,
+      "ratio_tr": 1.018,
+      "expansion": 1.188
+    },
+    {
+      "id": "e69a2e13-fe76-4b3b-a007-16154850fe6e",
+      "cert": "ISMS-IA",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1711,
+      "ratio_en": 0.992,
+      "ratio_tr": 1.163,
+      "expansion": 1.143
+    },
+    {
+      "id": "9f945542-da9a-4181-b490-c7e1feca07c4",
+      "cert": "AIGRM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1711,
+      "ratio_en": 1.072,
+      "ratio_tr": 1.243,
+      "expansion": 1.179
+    },
+    {
+      "id": "d584fc1a-9eff-4f0a-b3d9-44d0b617590a",
+      "cert": "AISM-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1709,
+      "ratio_en": 0.851,
+      "ratio_tr": 1.022,
+      "expansion": 1.233
+    },
+    {
+      "id": "491c2694-47ce-4d23-bb95-604952af3ebe",
+      "cert": "ISMS-F",
+      "pool": "practice",
+      "lang": "pt-BR",
+      "delta": 0.1709,
+      "ratio_en": 0.935,
+      "ratio_tr": 1.106,
+      "expansion": 1.255
+    },
+    {
+      "id": "11ec37f1-5ea1-4848-bcab-785c4606ebe9",
+      "cert": "AISM-I",
+      "pool": "secure",
+      "lang": "pt-BR",
+      "delta": 0.1708,
+      "ratio_en": 1.026,
+      "ratio_tr": 1.197,
+      "expansion": 1.244
+    },
+    {
+      "id": "e7f5e52a-1f48-48ca-a882-c7470fd9b812",
+      "cert": "SD-AI-I",
+      "pool": "practice",
+      "lang": "es-419",
+      "delta": 0.1708,
+      "ratio_en": 0.929,
+      "ratio_tr": 1.1,
+      "expansion": 1.256
+    }
+  ]
+}
