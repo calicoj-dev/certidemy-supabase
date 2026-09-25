@@ -106,6 +106,13 @@ const REVIEW_RECORDERS = {
   "release-aimsf-translations.mjs":
     "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS " +
     "the gate's copy and never assigns it. Writes the pair into the review row it records.",
+  "record-own-work-review.mjs":
+    "CLEARANCE for the own-work attribution fix. Writes lesson_translation_reviews ONLY. " +
+    "Scoped by MAY_CLEAR to 05-02, whose translated bodies were read in full for batch " +
+    "cda6698a: isms-ia-01-03 es/pt are fixed but NOT cleared, because a corrected sentence " +
+    "is not a read of a 13,000-character lesson and its rows have never been reviewed. " +
+    "Asserts the director's replacement is present and the ISO 19011 attribution is gone " +
+    "before vouching for any row, and proves its md5 against a known Postgres value.",
   "record-batch1-review.mjs":
     "CLEARANCE for batch cda6698a. Writes lesson_translation_reviews ONLY and touches no lessons " +
     "column -- in particular not en_content_hash, which is why eight of its sixteen rows remain " +
@@ -324,6 +331,19 @@ console.log("  migration writers  " + migWriters.length);
 
 const undeclaredScripts = scriptWriters.filter((w) =>
   !GENERATORS[w.name] && !DUAL_ROLE[w.name] && !REVIEW_RECORDERS[w.name]);
+
+/* A RECORDER MUST BE DECLARED TOO, AND UNTIL NOW IT DID NOT HAVE TO BE.
+ *
+ * A file whose hash writes ALL target a `*_reviews` table lands in `recorders`
+ * rather than `writers`, and the undeclared check only ever looked at `writers`.
+ * So a new script writing review hashes passed the census silently -- found when
+ * `record-own-work-review.mjs` appeared in the output, was not in
+ * REVIEW_RECORDERS, and the run still printed PASS.
+ *
+ * This file's own header says these are DECLARED RATHER THAN INFERRED, because a
+ * heuristic that quietly reclassifies a gate write as a record is the failure
+ * mode. The heuristic was doing exactly that for a whole class. */
+const undeclaredRecorders = recorders.filter((w) => !REVIEW_RECORDERS[w.name]);
 const undeclaredMigs = migWriters.filter((w) => !MIGRATION_WRITERS[w.name]);
 
 console.log("");
@@ -353,6 +373,13 @@ if (recorders.length) {
   for (const r of recorders) console.log("  " + r.name.padEnd(42) + r.positions + " position(s)  " + r.targets.join(","));
 }
 
+if (undeclaredRecorders.length) {
+  console.log("");
+  console.log("UNDECLARED REVIEW-ROW RECORDERS:");
+  for (const w of undeclaredRecorders) {
+    console.log("  " + w.name.padEnd(42) + w.positions + " position(s)  " + w.targets.join(","));
+  }
+}
 if (undeclaredScripts.length) {
   console.log("");
   console.log("UNDECLARED SCRIPT WRITERS -- classify each before this passes:");
@@ -374,7 +401,8 @@ writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
   migration_writers: MIGRATION_WRITERS,
   script_writers: scriptWriters,
   migration_writers_found: migWriters,
-  undeclared_scripts: undeclaredScripts.map((w) => w.name),
+  undeclared_scripts: undeclaredScripts,
+  undeclared_recorders: undeclaredRecorders.map((w) => w.name),
   undeclared_migrations: undeclaredMigs.map((w) => w.name),
 }, null, 2), "utf8");
 
@@ -384,9 +412,9 @@ if (positions === 0) {
   console.error("VACUOUS: zero write positions examined. The matcher is wrong, not the corpus.");
   process.exit(2);
 }
-if (undeclaredScripts.length || undeclaredMigs.length) {
+if (undeclaredScripts.length || undeclaredMigs.length || undeclaredRecorders.length) {
   console.error("");
-  console.error("FAIL: " + (undeclaredScripts.length + undeclaredMigs.length) + " undeclared hash writer(s).");
+  console.error("FAIL: " + (undeclaredScripts.length + undeclaredMigs.length + undeclaredRecorders.length) + " undeclared hash writer(s).");
   console.error("A hash is written only by something that can PROVE the value -- a generator");
   console.error("holding the source it translated from. Any other caller must READ, COMPARE");
   console.error("and REFUSE the row on mismatch.");

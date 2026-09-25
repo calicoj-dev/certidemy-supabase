@@ -12,6 +12,7 @@
   "review_recorders": {
     "clear-ia-translations.mjs": "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. Carries the post-condition 'no hash was written by this run' over every row in scope.",
     "release-aimsf-translations.mjs": "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS the gate's copy and never assigns it. Writes the pair into the review row it records.",
+    "record-own-work-review.mjs": "CLEARANCE for the own-work attribution fix. Writes lesson_translation_reviews ONLY. Scoped by MAY_CLEAR to 05-02, whose translated bodies were read in full for batch cda6698a: isms-ia-01-03 es/pt are fixed but NOT cleared, because a corrected sentence is not a read of a 13,000-character lesson and its rows have never been reviewed. Asserts the director's replacement is present and the ISO 19011 attribution is gone before vouching for any row, and proves its md5 against a known Postgres value.",
     "record-batch1-review.mjs": "CLEARANCE for batch cda6698a. Writes lesson_translation_reviews ONLY and touches no lessons column -- in particular not en_content_hash, which is why eight of its sixteen rows remain provenance_stale afterwards and are reported rather than repaired. Both hashes are computed with the functions the REVIEW ARM uses, which are not the same function: left(md5(en),8) for en_hash and public.translation_hash(tr) for tr_hash. It refuses the whole batch unless every live body still matches the bytes BATCH1-FINAL.json wrote and every english_source is still in the live English, and it proves its md5 against a known Postgres value before writing."
   },
   "migration_writers": {
@@ -201,5 +202,6 @@
     }
   ],
   "undeclared_scripts": [],
+  "undeclared_recorders": [],
   "undeclared_migrations": []
 }
