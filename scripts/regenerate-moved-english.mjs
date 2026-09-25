@@ -62,7 +62,7 @@ import { looksLikeLanguage } from "./lib/language-guard.mjs";
 import { bothFormsCorrect } from "./lib/accent-classes.mjs";
 import { ISO_MS_VOCABULARY, PIN_FULL, PIN_LOAN } from "./lib/item-translation.mjs";
 
-const KNOWN = new Set(["--emit", "--from", "--verbose"]);
+const KNOWN = new Set(["--emit", "--from", "--gate", "--verbose"]);
 const argv = process.argv.slice(2);
 for (const a of argv) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
@@ -73,9 +73,10 @@ for (const a of argv) {
   }
 }
 const val = (f) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : ""; };
-const EMIT = val("--emit"), FROM = val("--from"), VERBOSE = argv.includes("--verbose");
-if ((!EMIT && !FROM) || (EMIT && FROM)) {
-  console.error("Exactly one of --emit <file> or --from <file> is required.");
+const EMIT = val("--emit"), FROM = val("--from"), GATE = val("--gate"), VERBOSE = argv.includes("--verbose");
+if ([EMIT, FROM, GATE].filter(Boolean).length !== 1) {
+  console.error("Exactly one of --emit <file>, --gate <file> or --from <file> is required.");
+  console.error("  --gate re-runs every gate on an existing batch and writes nothing.");
   process.exit(2);
 }
 
@@ -275,6 +276,96 @@ function ceilingGate(enBlockWords, trBlock, language) {
   return { w, cap, ok: w <= cap, note: "" };
 }
 
+
+/* ============ PLACEMENT, NOT PRESENCE ============
+ *
+ * The modal gate checked that the right TOKEN was present. It was, in all three
+ * rows it passed -- and all three were ungrammatical, because `convem que` is
+ * not a modal you drop into the modal's slot. It is a CONSTRUCTION:
+ *
+ *     Convem que [subject] [subjunctive]
+ *
+ * opening the clause. `As evidencias de auditoria convem que sejam verificaveis`
+ * has the token and is not Portuguese.
+ *
+ * Same shape as every other check this repository has had to sharpen: it asked
+ * about a COMPONENT of the property. Presence is a component of placement.
+ */
+function convemPlacement(text) {
+  const problems = [];
+  const re = /conv[eé]m que/gi;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    /* Markdown emphasis is not a word. Strip it before asking what precedes. */
+    const before = text.slice(0, m.index).replace(/[*_\s]+$/, "");
+    const clauseInitial = before === "" ||
+      /[>.;:!?—-]$/.test(before) ||
+      /(^|\s)(e|mas|porque|pois|portanto|ou|embora|quando|se)$/i.test(before);
+    if (!clauseInitial) {
+      problems.push("`convem que` is not clause-initial: ..." + before.slice(-46) + " [convem que]");
+    }
+  }
+  return problems;
+}
+
+/* ============ THE CIA VOCABULARY IS RESERVED IN AN ISMS COURSE ============
+ *
+ * `integridad` is INTEGRITY -- one of the three properties the whole
+ * certification is built on. The generator reached for it to render
+ * `completeness check`, in the one course where that collision costs most. The
+ * pt sibling got it right with `completude`, which is how it was caught.
+ *
+ * Flagged when a CIA term appears in an ISMS lesson and the English it
+ * translates carries none of integrity / confidentiality / availability.
+ */
+const CIA = {
+  "es-419": ["integridad", "confidencialidad", "disponibilidad"],
+  "pt-BR": ["integridade", "confidencialidade", "disponibilidade"],
+};
+function ciaCollision(english, translated, language, slug) {
+  if (!/^isms/i.test(slug)) return [];
+  if (/\b(integrity|confidentiality|availability)\b/i.test(english)) return [];
+  const hits = CIA[language].filter((t) => new RegExp("(^|[^\p{L}])" + t + "([^\p{L}]|$)", "iu").test(translated));
+  return hits.map((t) => "CIA term `" + t + "` with no integrity/confidentiality/availability in the English");
+}
+
+/* Controls for both, on fixtures. The first fixture is the exact text the old
+ * gate passed, and it MUST fail. */
+function placementControls() {
+  const cases = [
+    ["> As evidências de auditoria **convém que sejam verificáveis**.", true],
+    ["> **Convém que** a evidência de auditoria **seja verificável**.", false],
+    ["duas coisas que um relatório **convém que** contenha", true],
+    ["Convém que a organização determine os limites.", false],
+    ["A norma exige registros, e convém que sejam retidos.", false],
+  ];
+  let broken = 0;
+  for (const [text, shouldFire] of cases) {
+    if ((convemPlacement(text).length > 0) !== shouldFire) {
+      console.error("PLACEMENT CONTROL FAILED: " + text.slice(0, 60));
+      broken++;
+    }
+  }
+  const cia = [
+    [["isms-ia-x", "es-419", "a completeness check", "una verificación de integridad"], true],
+    [["isms-ia-x", "es-419", "a completeness check", "una verificación de completitud"], false],
+    [["isms-ia-x", "es-419", "the integrity of records", "la integridad de los registros"], false],
+    [["sm-ai-x", "es-419", "a completeness check", "una verificación de integridad"], false],
+  ];
+  for (const [[slug, lang, en, tr], shouldFire] of cia) {
+    if ((ciaCollision(en, tr, lang, slug).length > 0) !== shouldFire) {
+      console.error("CIA CONTROL FAILED: " + slug + " " + tr);
+      broken++;
+    }
+  }
+  return broken;
+}
+if (placementControls()) {
+  console.error("");
+  console.error("A gate control failed. No verdict printed: a broken checker reports clean.");
+  process.exit(2);
+}
+
 /* ---------------------------------------------------------------- build */
 async function accentVocab(language) {
   /* Words that appear ACCENTED somewhere in this language's corpus. An
@@ -381,6 +472,8 @@ async function emit(outPath) {
     if (r.english_source) problems.push(...driftGate(r.english_source, text, r.language));
     const acc = accentGate(text, vocab[r.language]);
     if (acc.length) problems.push("accent (floor 3): " + acc.slice(0, 4).join(", "));
+    if (r.language === "pt-BR") problems.push(...convemPlacement(text));
+    if (r.english_source) problems.push(...ciaCollision(r.english_source, text, r.language, r.slug));
     if (r.kind === "lesson_span") {
       const c = ceilingGate(r.en_block_words, r.to_block, r.language);
       if (!c.ok) problems.push("per-span ceiling: " + c.w + " words > allowance " + c.cap);
@@ -483,21 +576,102 @@ async function applyFrom(specPath) {
     console.error("");
     console.error("REFUSING TO APPLY -- THE RESCAN PATH IS NOT AVAILABLE HERE.");
     console.error("  " + guard.why);
-    console.error("");
-    console.error("  Every lesson body written here is set mcp_servable=false by");
-    console.error("  trg_lessons_clear_mcp_servable and stays withheld until scan-iso-leaks");
-    console.error("  runs over the new text. Two of these rows are SERVING right now");
-    console.error("  (SD-AI-I 05-03 es-419 and pt-BR) and this machine cannot restore them.");
-    console.error("");
-    console.error("  Run this where the ISO corpus lives, or fetch it first.");
+    console.error("  Every lesson body written here is set mcp_servable=false by the trigger");
+    console.error("  and stays withheld until scan-iso-leaks runs over the new text.");
     process.exitCode = 2;
     return;
   }
-  const spec = JSON.parse(readFileSync(specPath, "utf8"));
-  console.error("The rescan path is available but --from has not been exercised.");
-  console.error("Spec holds " + spec.rows.length + " row(s). Refusing to write on an untested path.");
-  process.exitCode = 2;
+
+  /* GATES RUN AGAIN ON THE WAY IN. An edited spec must not be able to smuggle
+   * anything past a check the generated one faced. */
+  const batch = JSON.parse(readFileSync(specPath, "utf8"));
+  const vocab = {};
+  for (const lang of LANGS) vocab[lang] = await accentVocab(lang);
+  let gateFailed = 0;
+  for (const r of batch.rows) {
+    const problems = [];
+    const text = r.kind === "concept_row" ? r.to_name + "\n" + r.to_description
+               : r.kind === "lesson_terms" ? r.edits.map((e) => e[1]).join("\n")
+               : r.to_block + "\n" + (r.add_paragraph || "");
+    if (!looksLikeLanguage(text, r.language)) problems.push("language guard");
+    if (r.english_source) problems.push(...driftGate(r.english_source, text, r.language));
+    const acc = accentGate(text, vocab[r.language]);
+    if (acc.length) problems.push("accent: " + acc.join(", "));
+    if (r.language === "pt-BR") problems.push(...convemPlacement(text));
+    if (r.english_source) problems.push(...ciaCollision(r.english_source, text, r.language, r.slug));
+    if (r.kind === "lesson_span") {
+      const c = ceilingGate(r.en_block_words, r.to_block, r.language);
+      if (!c.ok) problems.push("per-span ceiling " + c.w + ">" + c.cap);
+    }
+    if (problems.length) { gateFailed++; console.error("  GATE FAIL " + r.slug + "/" + r.language + ": " + problems.join("; ")); }
+  }
+  if (gateFailed) { console.error(gateFailed + " row(s) fail on the way in. Nothing written."); process.exitCode = 1; return; }
+
+  /* ONE BATCH ROW FOR ALL OF IT. */
+  const spec = { register: batch.register, pins: batch.pins,
+                 hand_edited: batch.hand_edited || null,
+                 rows: batch.rows.map((r) => ({ slug: r.slug, language: r.language, kind: r.kind })) };
+  const made = await rest("translation_batches", {
+    method: "POST", headers: { Prefer: "return=representation" },
+    body: JSON.stringify({ kind: "lesson_span", generator: batch.generator, model: batch.model,
+      spec, note: "English moved: ceiling conversions, the 2020-Guide term pass, one concept repair" }),
+  });
+  const batchId = made[0].id;
+  console.log("");
+  console.log("BATCH " + batchId);
+
+  /* Apply, then READ BACK AND BYTE-COMPARE. The write path has never run, so
+   * its first run gets the strictest check available: not 'the PATCH returned
+   * 200' but 'the bytes in the database equal the bytes I computed'. */
+  let bad = 0;
+  for (const r of batch.rows) {
+    let intended = null, id = null, table = null, patch = null;
+    if (r.kind === "concept_row") {
+      table = "concept_translations"; id = r.translation_id;
+      patch = { name: r.to_name, description: r.to_description, translation_batch_id: batchId };
+    } else {
+      const cur = await rest("lessons?select=id,content_md&id=eq." + r.lesson_id);
+      if (cur.length !== 1) { console.log("  MISS  " + r.slug + "/" + r.language); bad++; continue; }
+      let body = cur[0].content_md;
+      if (r.kind === "lesson_span") {
+        const hits = body.split(r.from_block).length - 1;
+        if (hits !== 1) { console.log("  MISS  " + r.slug + "/" + r.language + " from_block matched " + hits); bad++; continue; }
+        const at = body.indexOf(r.from_block);
+        body = body.slice(0, at) + r.to_block +
+               (r.add_paragraph ? "\n\n" + r.add_paragraph : "") +
+               body.slice(at + r.from_block.length);
+      } else {
+        for (const [from, to] of r.edits) {
+          const n = body.split(from).length - 1;
+          if (n !== 1) { console.log("  MISS  " + r.slug + "/" + r.language + " term matched " + n); bad++; body = null; break; }
+          body = body.replace(from, to);
+        }
+        if (body === null) continue;
+      }
+      table = "lessons"; id = r.lesson_id; intended = body;
+      patch = { content_md: body, translation_batch_id: batchId };
+    }
+    await rest(table + "?id=eq." + id, { method: "PATCH",
+      headers: { Prefer: "return=minimal" }, body: JSON.stringify(patch) });
+    const back = await rest(table + "?id=eq." + id +
+      (table === "lessons" ? "&select=content_md,translation_batch_id"
+                                : "&select=name,description,translation_batch_id"));
+    const got = back[0];
+    const okBytes = table === "lessons"
+      ? got.content_md === intended
+      : got.name === r.to_name && got.description === r.to_description;
+    const okBatch = got.translation_batch_id === batchId;
+    if (!okBytes || !okBatch) bad++;
+    console.log("  " + ((okBytes && okBatch) ? "ok   " : "FAIL ") +
+      r.slug.padEnd(42) + r.language +
+      (okBytes ? "  bytes match" : "  BYTES DIFFER") +
+      (okBatch ? ", batch stamped" : ", BATCH NOT STAMPED"));
+  }
+  console.log("");
+  if (bad) { console.log(bad + " row(s) did not verify."); process.exitCode = 1; }
+  else console.log("All " + batch.rows.length + " rows written and byte-verified under batch " + batchId);
 }
 
 if (EMIT) await emit(EMIT);
+if (GATE) await gateOnly(GATE);
 if (FROM) await applyFrom(FROM);
