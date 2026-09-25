@@ -13,6 +13,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runRenderGates, lessonClauseWord, renderGateControls } from "./lib/render-gates.mjs";
+import { pairCheckpointFields, checkpointControls } from "./lib/checkpoint-fields.mjs";
 
 const KNOWN = new Set(["--spec", "--md"]);
 const argv = process.argv.slice(2);
@@ -23,7 +24,7 @@ const val = (f, d) => { const i = argv.indexOf(f); return i >= 0 && argv[i + 1] 
 const SPEC = val("--spec", "BATCH1-RETRANSLATION.json");
 const MD = val("--md", "");
 
-const broken = renderGateControls();
+const broken = [...renderGateControls(), ...checkpointControls()];
 if (broken.length) {
   console.error("FIXTURE FAILURES: " + broken.join("; "));
   console.error("No verdict printed: a gate that does not fire on its own example is not a gate.");
@@ -77,11 +78,40 @@ for (const r of spec.rows) {
     whole: lessonClauseWord(rest0, r.language, "whole"),
     dotted: lessonClauseWord(rest0, r.language, "dotted"),
   };
-  const flags = runRenderGates(r.english_source, r.to_block, r.language, {
-    houseClauseWord: house,
-    existingTranslation: body,
-  });
-  rows.push({ slug: r.slug, lang: r.language, block: r.block_index, flags, house });
+  const opts = { houseClauseWord: house, existingTranslation: body };
+
+  /* FIELD GRAIN FOR CHECKPOINTS, BLOCK GRAIN FOR PROSE.
+   *
+   * A checkpoint is thirty-odd independently translated fields in one block, and
+   * every gate that compares English against translation was comparing 4,000
+   * characters against 4,000. G3 asks "a modal here with none in the aligned
+   * English" -- at block grain the aligned English always has a modal SOMEWHERE,
+   * so an inserted one is undetectable by construction. Two real defects scored
+   * clean that way: 01-03 pt-BR q4 option c inserted `devem` where the English
+   * has no modal, and 05-02 es-419 q4's explanation rendered `scope` as
+   * `extension`.
+   *
+   * Fields pair by ID, so a reordered or dropped option is reported rather than
+   * compared against its neighbour. An UNPAIRED field is its own finding. */
+  const paired = pairCheckpointFields(r.english_source, r.to_block);
+  let flags, grain;
+  if (paired) {
+    grain = "field";
+    flags = [];
+    for (const f of paired.pairs) {
+      for (const g of runRenderGates(f.en, f.tr, r.language, opts)) {
+        flags.push({ ...g, detail: f.path + ": " + g.detail });
+      }
+    }
+    for (const u of paired.unpaired) {
+      flags.push({ gate: "G1", detail: u.path + ": " + u.side + ", no counterpart to compare" });
+    }
+  } else {
+    grain = "block";
+    flags = runRenderGates(r.english_source, r.to_block, r.language, opts);
+  }
+  rows.push({ slug: r.slug, lang: r.language, block: r.block_index, flags, house, grain,
+    fields: paired ? paired.pairs.length : null });
 }
 
 const GATES = ["G1", "G2", "G3", "G4", "G5", "G6", "G7"];
@@ -95,10 +125,10 @@ push("RENDER GATES over " + SPEC + " -- " + rows.length + " rendering(s)");
 push("  24 fixtures behave; every gate fires on the rendering it was written from");
 push("DENOMINATOR: " + rows.length + " rendering(s) examined");
 push("");
-push("  " + "slug / lang / block".padEnd(52) + GATES.join("  "));
+push("  " + "slug / lang / block".padEnd(58) + GATES.join("  "));
 for (const r of rows) {
   const hit = (g) => (r.flags.some((f) => f.gate === g) ? " X" : " .");
-  push("  " + (r.slug + " " + r.lang + " b" + r.block).padEnd(52) + GATES.map(hit).join("  "));
+  push("  " + (r.slug + " " + r.lang + " b" + r.block + (r.grain === "field" ? " [" + r.fields + "f]" : "")).padEnd(58) + GATES.map(hit).join("  "));
 }
 push("");
 push("  totals: " + GATES.map((g) => g + "=" + tally[g]).join("  "));
