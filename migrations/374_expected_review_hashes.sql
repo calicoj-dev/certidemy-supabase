@@ -14,7 +14,7 @@
 --     fields where task_ksa_is_withheld uses
 --     translation_hash(knowledge, skills, abilities) -- three arguments, no
 --     statement, no join. Two review rows were written that could never match and
---     ISMS-F task 5.2 went dark in both languages for 44 seconds.
+--     ISMS-F task 5.2 went dark in both languages for 44 seconds (INCIDENTS.md).
 --
 -- CLAUDE.md already carried the rule -- recompute with the function that WROTE
 -- the value. Both slips happened anyway, by sessions that had read it. A rule
@@ -23,6 +23,36 @@
 -- So the expressions move OUT of the writers and INTO one read-only function per
 -- arm, built from the SAME expressions the gate evaluates. A writer asks; it does
 -- not know the formula and cannot get it wrong.
+--
+-- ============ THE REVIEW-SELECTION RULE: **ANY**, NOT LATEST ============
+--
+-- Named here because the first version of this migration's fixture got it wrong
+-- and REFUSED ITSELF against a perfectly correct database. Read out of pg_proc,
+-- not remembered:
+--
+--   lesson   mcp.lesson_withholding_reason:  NOT EXISTS (... r.en_hash = ... AND
+--            r.tr_hash = ...) -- so ANY approved review matching BOTH hashes
+--            clears the row. Not the latest. Not the only one. Any.
+--   task     public.task_ksa_is_withheld:    the same NOT EXISTS shape, same rule.
+--   concept  mcp.concept joins concept_translations and compares the ROW'S OWN
+--            en_hash / tr_hash columns. There is no review table in that
+--            predicate, so the relation is 1:1 and nothing is selected.
+--
+-- A SUBJECT ROUTINELY CARRIES SEVERAL APPROVED REVIEWS, one per time it was
+-- cleared, and the older ones are stale BY DESIGN -- that is what supersession
+-- looks like in a table with no supersession column. Attempt 1 asserted that
+-- EVERY approved review on a serving lesson matched the helper, and raised on
+-- three rows that each hold one stale review and one current one:
+--
+--   05-02-aims-internal-audit es-419   06:38 stale, 14:07 current
+--   05-02-aims-internal-audit pt-BR    06:38 stale, 14:07 current
+--   isms-ia-04-02 pt-BR                09-18 stale, 09-25 current
+--
+-- In all three the helper reproduced the CURRENT review's hashes exactly. The
+-- helper was right and the fixture was wrong -- the literal-assertion failure
+-- this repository records four times over, this time inside the very fixture
+-- written to prevent an inferred formula. Those three rows are now a NAMED
+-- POSITIVE CONTROL below: they must be in the checked set and they must pass.
 --
 -- ============ WHAT THIS DOES NOT CHANGE ============
 --
@@ -45,6 +75,14 @@
 -- caller needs USAGE on mcp -- which service_role has and anon does not. That is
 -- the same reachability property 364 was written about, and it is deliberate
 -- here: a writer helper has no business being callable by a partner role.
+--
+-- ============ TRANSPORT ============
+--
+-- One begin/commit block. Attempt 1 raised inside the post-condition and the SQL
+-- editor ROLLED THE WHOLE THING BACK -- verified afterwards: none of the three
+-- functions existed and nothing else had landed. That is a datapoint on the open
+-- question in CLAUDE.md about whether the editor honours a transaction: on
+-- 2026-09-25 it did.
 
 begin;
 
@@ -116,54 +154,92 @@ declare
   v_agree int;
   v_bad text;
   v_anon int;
+  v_control int;
 begin
   -- ============ THE FIXTURE ============
   --
-  -- For every APPROVED review row whose subject the gate currently serves, what
-  -- the helper returns MUST equal what the review stored. That is the whole
-  -- claim: the helper speaks for the gate.
+  -- For every subject the gate CURRENTLY SERVES, AT LEAST ONE approved review
+  -- must carry exactly what the helper returns. That is the gate's own rule --
+  -- NOT EXISTS over any matching review -- and asserting anything stricter
+  -- raises against a correct database, which is how attempt 1 failed.
   --
-  -- Only rows the gate ACCEPTS are compared. A stale review is stale on purpose
-  -- -- that is the gate working -- and folding those in would make this assert
-  -- the opposite of what it means.
+  -- Only rows the gate ACCEPTS are examined. A stale review is stale on purpose;
+  -- a withheld row has nothing to agree with.
 
   -- LESSON arm
   select count(*),
-         count(*) filter (where r.en_hash = e.en_hash and r.tr_hash = e.tr_hash),
-         string_agg(l.slug || '/' || l.language, ', ')
-           filter (where r.en_hash <> e.en_hash or r.tr_hash <> e.tr_hash)
+         count(*) filter (where exists (
+           select 1 from public.lesson_translation_reviews r
+            where r.lesson_id = l.id and r.verdict = 'approved'
+              and r.en_hash = e.en_hash and r.tr_hash = e.tr_hash)),
+         string_agg(l.slug || '/' || l.language, ', ') filter (where not exists (
+           select 1 from public.lesson_translation_reviews r
+            where r.lesson_id = l.id and r.verdict = 'approved'
+              and r.en_hash = e.en_hash and r.tr_hash = e.tr_hash))
     into v_total, v_agree, v_bad
-    from public.lesson_translation_reviews r
-    join public.lessons l on l.id = r.lesson_id
+    from public.lessons l
     cross join lateral public.expected_review_hashes_lesson(l.id) e
-   where r.verdict = 'approved'
-     and public.lesson_body_is_servable(l.id);
-  if v_total > 0 and v_agree <> v_total then
-    raise exception 'lesson arm: % of % approved+serving review(s) disagree with the helper: %',
+   where l.language <> 'en'
+     and public.lesson_body_is_servable(l.id)
+     and exists (select 1 from public.lesson_translation_reviews r
+                  where r.lesson_id = l.id and r.verdict = 'approved');
+  if v_total = 0 then
+    raise exception 'lesson arm examined NOTHING -- a fixture with no subjects is vacuous, not passing';
+  end if;
+  if v_agree <> v_total then
+    raise exception 'lesson arm: % of % serving lesson(s) have NO approved review matching the helper: %',
       v_total - v_agree, v_total, coalesce(v_bad, '?');
   end if;
-  raise notice 'lesson arm: %/% approved+serving reviews agree', v_agree, v_total;
+  raise notice 'lesson arm: %/% serving lessons have a matching approved review', v_agree, v_total;
 
-  -- TASK arm
+  -- NAMED POSITIVE CONTROL. The three rows attempt 1 raised on each hold one
+  -- STALE review and one CURRENT one. They must be in the checked set and must
+  -- pass; a future narrowing that quietly drops them fails here instead.
+  select count(*) into v_control
+    from public.lessons l
+    cross join lateral public.expected_review_hashes_lesson(l.id) e
+   where (l.slug, l.language) in (
+           ('05-02-aims-internal-audit', 'es-419'),
+           ('05-02-aims-internal-audit', 'pt-BR'),
+           ('isms-ia-04-02-demonstrated-not-stated', 'pt-BR'))
+     and public.lesson_body_is_servable(l.id)
+     and (select count(*) from public.lesson_translation_reviews r
+           where r.lesson_id = l.id and r.verdict = 'approved') > 1
+     and exists (select 1 from public.lesson_translation_reviews r
+                  where r.lesson_id = l.id and r.verdict = 'approved'
+                    and r.en_hash = e.en_hash and r.tr_hash = e.tr_hash);
+  if v_control <> 3 then
+    raise exception 'multi-review control: % of 3 rows qualify and pass; attempt 1 raised on exactly these', v_control;
+  end if;
+  raise notice 'multi-review control: 3/3 -- a stale review beside a current one does not fail the gate';
+
+  -- TASK arm, same rule
   select count(*),
-         count(*) filter (where r.en_hash = e.en_hash and r.tr_hash = e.tr_hash),
-         string_agg(tt.id::text || '/' || tt.language, ', ')
-           filter (where r.en_hash <> e.en_hash or r.tr_hash <> e.tr_hash)
+         count(*) filter (where exists (
+           select 1 from public.task_translation_reviews r
+            where r.task_translation_id = tt.id and r.verdict = 'approved'
+              and r.en_hash = e.en_hash and r.tr_hash = e.tr_hash)),
+         string_agg(tt.language || '/' || tt.id::text, ', ') filter (where not exists (
+           select 1 from public.task_translation_reviews r
+            where r.task_translation_id = tt.id and r.verdict = 'approved'
+              and r.en_hash = e.en_hash and r.tr_hash = e.tr_hash))
     into v_total, v_agree, v_bad
-    from public.task_translation_reviews r
-    join public.task_translations tt on tt.id = r.task_translation_id
+    from public.task_translations tt
     cross join lateral public.expected_review_hashes_task(tt.id) e
-   where r.verdict = 'approved'
-     and not public.task_ksa_is_withheld(tt.id);
-  if v_total > 0 and v_agree <> v_total then
-    raise exception 'task arm: % of % approved+serving review(s) disagree with the helper: %',
+   where not public.task_ksa_is_withheld(tt.id)
+     and exists (select 1 from public.task_translation_reviews r
+                  where r.task_translation_id = tt.id and r.verdict = 'approved');
+  if v_total = 0 then
+    raise exception 'task arm examined NOTHING -- vacuous, not passing';
+  end if;
+  if v_agree <> v_total then
+    raise exception 'task arm: % of % serving translation(s) have NO approved review matching the helper: %',
       v_total - v_agree, v_total, coalesce(v_bad, '?');
   end if;
-  raise notice 'task arm: %/% approved+serving reviews agree', v_agree, v_total;
+  raise notice 'task arm: %/% serving task translations have a matching approved review', v_agree, v_total;
 
-  -- CONCEPT arm. Its hashes are the GATE'S OWN STORED VALUES on
-  -- concept_translations, not a review table, so the comparison is against the
-  -- rows the view currently joins.
+  -- CONCEPT arm. 1:1 -- the gate compares the ROW'S OWN columns, so the helper
+  -- must equal them exactly and there is no review to select.
   select count(*),
          count(*) filter (where ct.en_hash = e.en_hash and ct.tr_hash = e.tr_hash),
          string_agg(co.slug || '/' || ct.language, ', ')
@@ -176,7 +252,10 @@ begin
      and co.retired_at is null
      and ct.en_hash = mcp.concept_row_en_hash(co.id)
      and ct.tr_hash = mcp.translation_hash(ct.name, ct.description);
-  if v_total > 0 and v_agree <> v_total then
+  if v_total = 0 then
+    raise exception 'concept arm examined NOTHING -- vacuous, not passing';
+  end if;
+  if v_agree <> v_total then
     raise exception 'concept arm: % of % serving row(s) disagree with the helper: %',
       v_total - v_agree, v_total, coalesce(v_bad, '?');
   end if;
