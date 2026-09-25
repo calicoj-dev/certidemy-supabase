@@ -89,6 +89,10 @@ reading the distribution rather than trusting the count; the two figures are wit
 
 ### So 1.1 was derived from the REPOSITORY instead
 
+**[CORRECTED 2026-09-24. The list below said 20 and was wrong in BOTH
+directions. The corrected derivation is the section after it; this one is kept
+because the way it was wrong is the point.]**
+
 The applied scripts declare their targets, which is a record rather than a recollection.
 Union of `apply-0306`, `apply-batch-a`, `apply-ia-batch`, `apply-ismsf-batch-1/2/close`,
 `apply-rewrites-batch-1`, `convert-ceiling-breaches`, `fix-aimsia-0410-span`,
@@ -99,7 +103,7 @@ Union of `apply-0306`, `apply-batch-a`, `apply-ia-batch`, `apply-ismsf-batch-1/2
 40 translations of them:  38 withheld,  2 SERVING
 ```
 
-**The 2 serving are `aims-ia-04-10` es-419 and `isms-ia-04-06` es-419.** Quoted-word
+**[STRUCK 2026-09-24: these two do NOT belong in this set. `fix-aimsia-0410-span.mjs` and `fix-ismsia-0406-modal.mjs` both declare `LANG = "pt-BR"` and PATCH the pt-BR body. I took their slugs without reading which LANGUAGE they wrote, filing two TRANSLATION repairs as English edits -- a 1.2 counted as a 1.1, the one direction that throws a correction away.]** ~~The 2 serving are `aims-ia-04-10` es-419 and `isms-ia-04-06` es-419.~~ Quoted-word
 counts 59 vs 53 and 36 vs 28 against their English — within normal expansion, so they do
 not look like untrimmed quotation. They are named because they are in the 1.1 set by
 provenance and nothing is holding them.
@@ -171,3 +175,95 @@ which an unknown share is legitimate.
 3. **The 141 never-reviewed rows are a queue-sizing question, not a regeneration one**, and
    they dwarf both buckets.
 4. **The 11 concept rows go to review as they stand** — that half is unambiguous.
+
+
+---
+
+# CORRECTED DERIVATION -- 2026-09-24
+
+The first pass was wrong twice, and both errors were unstated claims inside my own
+extraction rather than anything about the data.
+
+| | the unstated claim | what it cost |
+|---|---|---|
+| **language** | *a script naming a slug edited its English* | `fix-aimsia-0410-span` and `fix-ismsia-0406-modal` both declare `LANG = "pt-BR"`. Two translation repairs were filed as English edits |
+| **date window** | *every relevant script was committed since 2026-09-21* | `git log --since` hid `apply-audit-sentence-rewrite.mjs` and `scrum-terminology-pass.mjs`, both English editors |
+
+Re-derived by grepping every script that PATCHes `lessons` with `content_md`, no date
+window, recording the declared language: **six English editors, two pt-BR editors, five
+that touch concepts and not lessons at all.**
+
+```
+English lesson editors   apply-0306, apply-audit-sentence-rewrite, apply-rewrites-batch-1,
+                         convert-ceiling-breaches, fix-broken-attribution-chain,
+                         scrum-terminology-pass
+pt-BR editors            fix-aimsia-0410-span, fix-ismsia-0406-modal
+concepts, not lessons    apply-batch-a, apply-ia-batch, apply-ismsf-batch-1/2/close
+```
+
+**29 English lessons, not 20.** Against the gate:
+
+```
+cert       translations  withheld  SERVING  lessons
+SM-AI-I              10         0       10        5
+SD-AI-I               8         0        8        4
+AIMS-F               18        18        0        9
+AIMS-IA               2         2        0        1
+ISMS-IA              20        20        0       10
+```
+
+**18 serving, not 2.** They are the Scrum certifications, whose English took the
+2020-Guide terminology pass while the translations did not.
+
+## §2's caveat, stated rather than implied
+
+Derived from **scripts**, checked against **migrations**. What it still cannot see:
+
+- **Direct SQL run in the editor and never committed.** Nothing in this repository would
+  record it.
+- **Six more scripts write `lessons.content_md` with NO declared language**
+  (`apply-blueprint-repairs`, `apply-marking-spec`, `fix-modal-inflation`,
+  `retranslate-audit-sentence`, `revert-ismsia-citation`, and `scrum-terminology-pass`
+  itself under a second pattern). My extractor classified `scrum-terminology-pass` as an
+  English editor under one grep and as undeclared under another. **An extractor that
+  gives two answers about the same file is not reliable enough to assign a bucket**, and
+  that is why the list below is a floor.
+
+**Migrations: none in this programme write `content_md`.** Five ever have -- 024, 027,
+028, 075, 332 -- all long before this work.
+
+## The terminology divergence, read rather than counted
+
+Do the serving Scrum translations carry terms their English retired? A lexical scan said
+**15**. Reading them says **2**, plus one to judge:
+
+| | |
+|---|---|
+| **real** | `SD-AI-I 05-03-working-with-scrum-master` es-419 *"Es un lider servidor cuyo trabajo es ayudar a los Developers"* and pt-BR *"E um lider-servidor"* -- the retired servant-leader framing, English no longer has it |
+| **to judge** | `SPO-AI-I 02-02-scrum-team` es-419 *"No hay un 'equipo de QA' que reporte a un 'equipo de desarrollo'"* -- lowercase, in scare quotes, describing an anti-pattern rather than naming the Scrum role |
+| **12 false positives** | every `servidor` in SM-AI-I is a COMPUTER SERVER: *"servidores heredados"*, *"un servidor se cayo"*, *"servidor de build"*, *"servidor de compilacion"* |
+
+**A count of a lexical class is a draft until somebody reads its members**, and this one
+over-reported by a factor of seven.
+
+## §4 -- the 141 by generation batch. Report only.
+
+Never reviewed, English never touched. 174 rows carry no review row at all; 141 of those
+are outside the English-edited set. By `created_at` minute:
+
+```
+2026-08-07 15:56   49   AIMS-F     \  one run, 66 rows
+2026-08-07 15:57   17   AIMS-F     /
+2026-09-12 19:59   38   AIMS-IA    \  one run, 53 rows
+2026-09-12 19:58   15   AIMS-IA    /
+2026-08-12 04:05   25   ISMS-IA    \  one run, 47 rows
+2026-08-12 04:06   22   ISMS-IA    /
+2026-09-12 04:35    6   SM-AI-II
+2026-05-24 11:36    2   SM-AI-I
+```
+
+**Three runs account for 166 of 174 -- 95 percent.** So the read samples BY RUN, not
+flat: four strata cover everything, and the two largest are single-certification.
+
+This is the accent finding's shape again -- all four defects in the corpus came from one
+minute -- and it says the queue is far smaller than 141 independent reads.

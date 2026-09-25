@@ -2849,6 +2849,22 @@ es-419  "> La evidencia de auditoria debe ser verificable. Debe basarse en
 `mcp_translation_review_required = false`. **The ceiling was ruled for the
 corpus and applied to a third of it.**
 
+> **[CORRECTED 2026-09-24. BOTH ROWS ARE WITHHELD. The sentence above was true
+> when written and is the most expensive kind of stale line we keep: a claim
+> about SERVING STATE in the file everyone reads first.]** Measured through the
+> gate rather than off the column:
+>
+> ```
+> isms-ia-03-02  es-419  review_required = TRUE   withheld, translation_review, 0 reviews
+> isms-ia-03-02  pt-BR   review_required = TRUE   withheld, translation_review, 0 reviews
+> isms-ia-03-02  en                               serving
+> ```
+>
+> The flag was armed after this note was written, so the group is now held by
+> the review arm. **The content half of the finding stands**: both translated
+> bodies still carry the full 52-word quotation their English no longer has.
+> What changed is that nobody is being served it.
+
 > **The translated bodies of every converted lesson are now BOTH over the
 > ceiling AND divergent from their English source.** That is two problems, not
 > one: a reproduction the index cannot see, and a lesson that says different
@@ -2860,6 +2876,9 @@ hash-current translation review. Six translated rows are withheld by the review
 gate and their column reads `true`. The column is not the gate -- checked with
 `lesson_body_is_servable()` rather than read off the row, which is the only
 reason the two `isms-ia-03-02` rows were identified as genuinely serving.
+**[Those two rows no longer serve -- see the correction above. The METHOD in
+this paragraph is the live instruction and it is what found the change: ask
+`lesson_body_is_servable()`, never read `mcp_servable` off the row.]**
 
 **A LEXICAL PROXY STANDS IN FOR THE PROPERTY IT APPROXIMATES, AND IT WORKS ON
 THE CORPUS THAT MOTIVATED IT.** Two instances in one change, which is why it is
@@ -5744,6 +5763,28 @@ would have "fixed" correct text.
 because a second vocabulary was written beside the first; it is now computed from
 it. Two hand-written lists of the same idea will diverge, and the divergence
 shows up as a refusal of correct work.
+
+**A CHECK READS A PRODUCER'S VERDICT FROM THE FIELD THE PRODUCER DECLARES AS
+ITS VERDICT, NEVER FROM HOW IT HAPPENS TO PRINT.** Recorded 2026-09-24.
+
+`verify-invariants` decided whether the wire matrix had failed by scraping a
+line shape out of its output. When the accent property was added, the matrix
+began printing rows of exactly that shape whose first token is **ok** -- so the
+suite reported **FAIL** and listed ten lines that each say `ok`, against a
+matrix exiting 0 with `75 pass, 0 fail`.
+
+**A regex over output is a contract nobody agreed to, and it breaks when the
+producer IMPROVES its output.** That is the sharp part: the matrix got better
+and its consumer went red. Nothing was wrong except the coupling.
+
+> **MECHANISM: the verdict comes from the declared summary -- `n pass, m fail`
+> -- and scraped lines are DECORATION. A count that says `m` with no scrapable
+> line still fails, naming the count**, because the alternative is a failure
+> that reports clean.
+
+Same family as the rule below, one level up: there a guard matched an English
+word where the property was a PLACE; here a guard matched a LAYOUT where the
+property was a NUMBER.
 
 **Guards match code shapes, never English words** — a check for `to anon` once
 aborted on a comment saying "no grant to anon or authenticated."
