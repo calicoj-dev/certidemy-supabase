@@ -15,7 +15,12 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const j = JSON.parse(readFileSync(join(ROOT, "STRATIFIED-READ.json"), "utf8"));
-const CH = ["structure", "accent", "modal", "convem", "cia", "ceiling", "ratio", "language"];
+const CH = ["structure", "accent", "modal-sentence", "defined-term", "register",
+            "convem", "cia", "ceiling", "ratio", "language"];
+/* Reported but NOT counted toward a verdict: `clause-vocab` is a consistency
+ * measure, `modal` is the superseded document-level ranking, and `unalignable`
+ * is a coverage fact rather than a defect. */
+const REPORT_ONLY = ["clause-vocab", "modal", "unalignable"];
 const B = "`";
 const o = [];
 const chars = j.rows.reduce((a, r) => a + r.chars, 0);
@@ -115,6 +120,67 @@ o.push("worth reading. Settling one needs sentence alignment, which is what the 
 o.push("It skews pt-BR, consistent with ABNT rendering " + B + "should" + B + " as " + B + "deve" + B + " in registers where");
 o.push(B + "convem que" + B + " would be the careful form -- the same construction the batch review corrected");
 o.push("three times by hand.", "");
+
+/* ---------------------------------------------------------------- verdicts */
+o.push("## Per-stratum verdict -- hand-edit, regenerate, or clear", "");
+o.push("A stratum is CLEARED when the checks report nothing material **and** a fresh random half");
+o.push("reads clean. **No stratum can be cleared today**, because the random half has not been");
+o.push("re-read since checks A to D existed -- the reading that produced them was against the");
+o.push("older set. The column below is therefore hand-edit or regenerate, and the clear column");
+o.push("waits on a read.", "");
+o.push("Density is MATERIAL flags per 10k characters: structure, accent, modal-sentence,");
+o.push("defined-term, register, convem, cia, ceiling, ratio, language. Not clause-vocab (a");
+o.push("consistency measure), not the superseded document-level modal, not unalignable.", "");
+o.push("| stratum | rows | material flags | /10k | rows clean | verdict |");
+o.push("|---|---|---|---|---|---|");
+const verdicts = [];
+for (const [k, langs] of Object.entries(j.strata).sort()) {
+  const rows = j.rows.filter((r) => r.key === k);
+  const mat = rows.reduce((a, r) => a + r.flags.filter((f) => !REPORT_ONLY.includes(f.check)).length, 0);
+  const chs = rows.reduce((a, r) => a + r.chars, 0);
+  const clean = rows.filter((r) => !r.flags.some((f) => !REPORT_ONLY.includes(f.check))).length;
+  const rate = mat / (chs / 10000);
+  /* The threshold is stated, not implied: above 1.0 material flags per 10k the
+   * defects are dense enough that fixing them one sentence at a time costs more
+   * than regenerating and re-reviewing the batch. Below it they are sparse and
+   * each one is pinpointed to a sentence, which is what makes a hand-edit
+   * cheaper AND safer than replacing text a human has read. */
+  const verdict = rate >= 1.0 ? "REGENERATE" : "hand-edit";
+  verdicts.push({ k, rate, verdict });
+  o.push("| " + k + " | " + rows.length + " | " + mat + " | **" + rate.toFixed(2) + "** | " +
+    clean + "/" + rows.length + " | " + verdict + " |");
+}
+o.push("");
+o.push("**The threshold is 1.0 material flags per 10,000 characters, and it is a judgement with a");
+o.push("reason rather than a measurement.** Above it, fixing sentence by sentence costs more than");
+o.push("regenerating and re-reviewing; below it, every flag is pinpointed to a sentence, which");
+o.push("makes a hand-edit both cheaper and safer than replacing text a human has already read.", "");
+{
+  const rates = verdicts.map((v) => v.rate).sort((a, b) => a - b);
+  const same = new Set(verdicts.map((v) => v.verdict)).size === 1;
+  if (same) {
+    o.push("### And it did not discriminate, which is worth saying", "");
+    o.push("**Every stratum returns the same verdict.** The highest density is " +
+      rates[rates.length - 1].toFixed(2) + " and the cut is at 1.0, so");
+    o.push("nothing reaches it. A threshold that produces one answer for every member is not a");
+    o.push("threshold -- it is a constant wearing a column heading, and presenting it as a decision");
+    o.push("would be the vacuous-pass shape in a table.", "");
+    o.push("The DATA does separate: " + rates[0].toFixed(2) + " to " + rates[rates.length - 1].toFixed(2) +
+      " is a " + (rates[rates.length - 1] / rates[0]).toFixed(1) + "-fold spread, and the clean-row");
+    o.push("share runs from 84 percent down to 46. The cut point is the part that needs a decision,");
+    o.push("and it is yours -- the spread is here so it can be set against something.", "");
+    o.push("| | stratum | /10k | clean |");
+    o.push("|---|---|---|---|");
+    const ranked = [...verdicts].sort((a, b) => b.rate - a.rate).slice(0, 4);
+    for (const v of ranked) {
+      const rows = j.rows.filter((r) => r.key === v.k);
+      const clean = rows.filter((r) => !r.flags.some((f) => !REPORT_ONLY.includes(f.check))).length;
+      o.push("| densest | " + v.k + " | " + v.rate.toFixed(2) + " | " +
+        Math.round(100 * clean / rows.length) + "% |");
+    }
+    o.push("");
+  }
+}
 
 o.push("## What none of this can do", "");
 o.push("Every check compares a translation with its **English**. None can see a translated");

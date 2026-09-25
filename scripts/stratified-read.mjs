@@ -39,6 +39,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { looksLikeLanguage } from "./lib/language-guard.mjs";
 import { bothFormsCorrect, isCarriedEnglish } from "./lib/accent-classes.mjs";
+import { checkModalSentences, checkDefinedTerms, checkRegister, checkClauseVocab,
+         registerOf, controls }
+  from "./lib/translation-checks.mjs";
 
 const KNOWN = new Set(["--sample", "--json", "--strata"]);
 const argv = process.argv.slice(2);
@@ -59,6 +62,15 @@ for (const p of [join(HERE, ".env"), join(ROOT, ".env")]) {
     if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
   }
 }
+/* The A-D fixtures run before anything is measured. A check tuned until it is
+ * quiet has been deleted without anybody saying so. */
+const broken = controls();
+if (broken.length) {
+  console.error('FIXTURE FAILURES: ' + broken.join('; '));
+  console.error('No verdict printed: a broken checker reports clean.');
+  process.exit(2);
+}
+
 const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!KEY) { console.error("SUPABASE_SERVICE_ROLE_KEY is not set -- nothing measured, which is not a pass."); process.exit(2); }
 const BASE = "https://pctynukndxnmnxiqpgck.supabase.co/rest/v1";
@@ -137,7 +149,7 @@ function convemPlacement(text) {
   return out;
 }
 
-function checkRow(en, tr, lang, cert, vocab) {
+function checkRow(en, tr, lang, cert, vocab, certRegister) {
   const flags = [];
   const enS = structure(en), trS = structure(tr);
 
@@ -194,6 +206,23 @@ function checkRow(en, tr, lang, cert, vocab) {
   }
 
   if (!looksLikeLanguage(tr, lang)) flags.push({ check: "language", detail: "does not read as " + lang });
+
+  /* ---- A to D: the checks a human read bought, aligned by SENTENCE ----
+   *
+   * GUIDANCE is the auditor certifications, where ISO 19011 is the subject and
+   * its principles are `should` throughout. There a recommendation rendered as
+   * an obligation is a defect; in our own prose it is reported, because we may
+   * be firmer about our own advice than ISO is about its guidance. */
+  const guidance = /-(IA)$/.test(cert);
+  const modal = checkModalSentences(en, tr, lang, { guidance });
+  const defined = checkDefinedTerms(en, tr, lang);
+  /* Unalignable is a THIRD STATE and is counted as itself. Folding it into
+   * "clean" would claim a check that never ran. */
+  if (modal.unalignable) flags.push({ check: "unalignable", detail: "sentence counts differ; A and B did not run" });
+  for (const f of [...modal.flags, ...defined.flags, ...checkRegister(tr, lang, certRegister).flags,
+                   ...checkClauseVocab(tr, lang).flags]) {
+    flags.push({ check: f.check, detail: f.detail, severity: f.severity });
+  }
   return flags;
 }
 
@@ -221,6 +250,27 @@ for (const l of lessons) {
   }
 }
 
+/* PER-CERTIFICATION REGISTER, DERIVED FROM THE POPULATION. The ISO
+ * certifications address the reader as `usted` and the practitioner ones as
+ * `tu`; both are deliberate, so the finding is a row that disagrees with its
+ * OWN certification rather than any row carrying `tu`. Computed over every
+ * es-419 row, reviewed or not, because the convention is a property of the
+ * certification and not of this population. */
+const certRegister = new Map();
+{
+  const tally = new Map();
+  for (const l of lessons) {
+    if (l.language !== "es-419") continue;
+    const cert = certOfModule.get(l.module_id);
+    if (!cert) continue;
+    const r = registerOf(l.content_md || "");
+    if (!r) continue;
+    if (!tally.has(cert)) tally.set(cert, { tu: 0, usted: 0 });
+    tally.get(cert)[r]++;
+  }
+  for (const [cert, t] of tally) certRegister.set(cert, t.tu >= t.usted ? "tu" : "usted");
+}
+
 const POP = lessons.filter((l) => l.language !== "en" && !reviewed.has(l.id));
 const strata = new Map();
 const perRow = [];
@@ -229,7 +279,7 @@ for (const l of POP) {
   if (!en) continue;
   const cert = certOfModule.get(l.module_id) || "?";
   const key = cert + " " + String(l.created_at).slice(0, 10);
-  const flags = checkRow(en.content_md, l.content_md, l.language, cert, vocab[l.language]);
+  const flags = checkRow(en.content_md, l.content_md, l.language, cert, vocab[l.language], certRegister.get(cert));
   perRow.push({ key, cert, slug: l.slug, language: l.language, chars: l.content_md.length, flags, id: l.id });
   if (!strata.has(key)) strata.set(key, {});
   const s = strata.get(key);
@@ -239,7 +289,8 @@ for (const l of POP) {
   for (const f of flags) s[l.language].by[f.check] = (s[l.language].by[f.check] || 0) + 1;
 }
 
-const CHECKS = ["structure", "accent", "modal", "convem", "cia", "ceiling", "ratio", "language"];
+const CHECKS = ["structure", "accent", "modal", "modal-sentence", "defined-term", "register",
+                "clause-vocab", "convem", "cia", "ceiling", "ratio", "language", "unalignable"];
 console.log("");
 console.log("STRATIFIED READ -- mechanical checks over the NEVER-REVIEWED translated corpus");
 console.log("DENOMINATOR: " + perRow.length + " row(s) examined, " +
@@ -265,11 +316,42 @@ if (SAMPLE_OUT) {
   /* Deterministic, so the sample can be re-derived. No Math.random: a sample
    * nobody can reproduce is a sample nobody can check. */
   const hash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
-  const passage = (md, seed) => {
-    const paras = md.split(/\n\s*\n/).filter((p) => p.trim().length > 40);
-    if (!paras.length) return md.slice(0, 600);
-    const at = seed % Math.max(1, paras.length - 2);
-    return paras.slice(at, at + 3).join("\n\n");
+  /* ============ ALIGNED BY BLOCK COORDINATE, NEVER BY ORDINAL ============
+   *
+   * The first version took the Nth paragraph of each body. Two of the 48
+   * passages came out misaligned -- one where the Spanish carried a paragraph
+   * the English excerpt did not, one where the two halves were from entirely
+   * different parts of the lesson. That is the ordinal-alignment defect that
+   * put five of twenty excerpts onto checkpoint JSON earlier in the week: an
+   * INDEX is not a COORDINATE when the two documents can differ in length.
+   *
+   * A block coordinate is the (type, ordinal-within-type) pair. Two bodies that
+   * carry the same sequence of block types can be aligned on it exactly; two
+   * that cannot are exactly the rows the structure check already flags, and
+   * this REFUSES to sample them rather than printing a pair that is not a pair.
+   */
+  const blocks = (md) => md.split(/\n\s*\n/).map((t) => t.trim()).filter(Boolean).map((t) => ({
+    type: /^::/.test(t) ? "directive" : /^#{1,6}\s/.test(t) ? "heading"
+        : /^\s*>/.test(t) ? "quote" : /^```/.test(t) ? "fence"
+        : /^\s*(?:[-*+]|\d+[.)])\s/.test(t) ? "list" : "para",
+    text: t,
+  }));
+  const signature = (bs) => bs.map((b) => b.type).join(",");
+
+  /** Three blocks from the same coordinate in both, or null if they do not
+   *  align. Null is a RESULT and is reported, not silently skipped. */
+  const alignedPassage = (enMd, trMd, seed) => {
+    const eb = blocks(enMd), tb = blocks(trMd);
+    if (signature(eb) !== signature(tb)) return null;
+    const proseAt = eb.map((b, i) => (b.type === "para" && b.text.length > 120 ? i : -1)).filter((i) => i >= 0);
+    if (!proseAt.length) return null;
+    const start = proseAt[seed % proseAt.length];
+    const take = (bs) => bs.slice(start, start + 3).map((b) => b.text).join("\n\n");
+    const enP = take(eb), trP = take(tb);
+    /* Both halves must carry the same structural markers, or they are not the
+     * same passage however well the indices line up. */
+    if (signature(eb.slice(start, start + 3)) !== signature(tb.slice(start, start + 3))) return null;
+    return { en: enP, tr: trP };
   };
   const out = ["# Stratified read -- paired sample", "",
     "Four ADVERSARIAL passages (from the lessons the checks flagged most) and four RANDOM " +
@@ -288,6 +370,7 @@ if (SAMPLE_OUT) {
       strata.size + " strata and " + perRow.length + " rows; this document samples the named ones.", "");
   }
   let n = 0;
+  const unaligned = [];
   for (const [key] of [...strata.entries()].sort()) {
     if (only && !only.some((o) => key.startsWith(o))) continue;
     for (const lang of ["es-419", "pt-BR"]) {
@@ -299,20 +382,36 @@ if (SAMPLE_OUT) {
         "", inStratum.length + " row(s) in this stratum; " + flagged.length + " adversarial, " + clean.length + " random.", "");
       for (const [label, set] of [["ADVERSARIAL", flagged], ["RANDOM", clean]]) {
         for (const r of set) {
-          n++;
           const tr = lessons.find((l) => l.id === r.id);
           const en = enByGroup.get(tr.lesson_group_id);
-          const seed = hash(r.slug);
+          const pair = alignedPassage(en.content_md, tr.content_md, hash(r.slug));
+          if (!pair) {
+            unaligned.push(r.slug + "/" + lang);
+            out.push("### " + (++n) + ". " + label + " -- `" + r.slug + "` / " + lang,
+              "", "**NOT SAMPLED: the two bodies do not share a block signature.** Printing a pair",
+              "that is not a pair is worse than printing nothing -- this row needs the structure",
+              "flag read first.", "");
+            continue;
+          }
+          n++;
           out.push("### " + n + ". " + label + " -- `" + r.slug + "` / " + lang);
           out.push("");
           out.push(r.flags.length ? "flags: " + r.flags.map((f) => f.check + " (" + f.detail + ")").join("; ")
                                   : "flags: none -- this is the half that tests the checks");
-          out.push("", "**EN**", "", "```", passage(en.content_md, seed), "```", "",
-            "**" + lang + "**", "", "```", passage(tr.content_md, seed), "```", "");
+          out.push("", "**EN**", "", "```", pair.en, "```", "",
+            "**" + lang + "**", "", "```", pair.tr, "```", "");
         }
       }
     }
   }
+  if (unaligned.length) {
+    out.push("---", "", "## Not sampled -- " + unaligned.length + " row(s) whose bodies do not align", "");
+    out.push("These carry a different sequence of blocks from their English, so there is no");
+    out.push("coordinate at which the two can be compared. They are the structure finding, and a");
+    out.push("passage pair would have been fiction.", "");
+    for (const u of unaligned) out.push("- `" + u + "`");
+    out.push("");
+  }
   writeFileSync(SAMPLE_OUT, out.join("\n"), "utf8");
-  console.log("  wrote " + SAMPLE_OUT + " -- " + n + " passages");
+  console.log("  wrote " + SAMPLE_OUT + " -- " + n + " passages, " + unaligned.length + " refused as unalignable");
 }

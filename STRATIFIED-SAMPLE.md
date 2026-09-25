@@ -14,104 +14,304 @@ Sampled strata: **AIMS-F 2026-08-07, ISMS-IA 2026-08-12, AIMS-IA 2026-09-12**. T
 
 35 row(s) in this stratum; 4 adversarial, 4 random.
 
-### 1. ADVERSARIAL -- `05-06-integrated-audit-programme` / es-419
+### 1. ADVERSARIAL -- `03-04-operational-planning-and-control` / es-419
 
-flags: accent (formula); modal (should x1, no weak modal, 3 obligations vs 2 en)
+flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1)
 
 **EN**
 
 ```
-**Clause 8 records do not transfer.** The AI risk assessment, treatment and impact assessment records required at planned intervals or on significant change are AI records. An ISMS produces its own risk records on its own cycle, and neither set answers the other's question.
+Documented information must be **available** to the extent **necessary** for confidence that the processes were carried out as planned. Note the phrasing: *to the extent necessary to have confidence.* The test is whether the evidence supports the claim, not whether a form was completed.
+::
 
-**Data and life cycle evidence has no counterpart.** Provenance records, representativeness assessments, preparation criteria, verification and validation against evaluation criteria, event logging determinations — an ISMS auditor has no clause to match these against, and an AI auditor will not accept information security evidence in their place.
+::callout type="pitfall"
+Clause 8.1's change requirement has two halves and the second is the one that gets dropped. The organization controls **planned** changes, and reviews the consequences of **unintended** changes, taking action to mitigate adverse effects. Unintended change is the normal condition for AI systems — a supplier updates a model, an upstream data source shifts its schema, a dependency changes behaviour in a minor release. None of that is a change the organization planned, and all of it is inside this clause.
+::
 
-[This category]{glossary="evidence-that-cannot-be-shared"} is where an integrated programme goes wrong quietly. The programme is shared, the plan is shared, the audit is combined — and the evidence pack contains one risk assessment where two were needed, because at the point of collection they looked like the same artifact.
+::concept title="Change, planned and otherwise"
+[Change control for AI]{glossary="change-control-ai"} inherits the shape of change control anywhere and then acquires two complications.
+```
+
+**es-419**
+
+```
+La información documentada debe conservarse en la medida en que genere confianza en que los procesos se llevaron a cabo según lo planificado. Nótese la formulación: *en la medida necesaria para tener confianza.* La prueba es si la evidencia respalda la afirmación, no si se completó un formulario.
+::
+
+::callout type="pitfall"
+El requisito de cambios del capítulo 8.1 tiene dos partes y la segunda es la que se omite. La organización controla los cambios **planificados** y revisa las consecuencias de los cambios **no previstos**, tomando acciones para mitigar los efectos adversos. El cambio no previsto es la condición normal para los sistemas de IA: un proveedor actualiza un modelo, una fuente de datos de origen modifica su esquema, una dependencia cambia su comportamiento en una versión menor. Nada de eso es un cambio que la organización planificó, y todo ello está dentro de este capítulo.
+::
+
+::concept title="Cambios, planificados y no planificados"
+El [control de cambios para la IA]{glossary="change-control-ai"} hereda la forma del control de cambios en cualquier ámbito y luego adquiere dos complicaciones.
+```
+
+### 2. ADVERSARIAL -- `02-04-roles-responsibilities-authorities` / es-419
+
+flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.1); clause-vocab (es uses `apartado`: capítulo 9.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 9.1); clause-vocab (es uses `apartado`: capítulo 5.3)
+
+**EN**
+
+```
+Both halves matter. An assignment nobody knows about is not an assignment — the person holding it cannot act on it, and the people who should escalate to them do not know to. Communication is not administrative tidiness here; it is what makes the assignment operative.
+
+Note that the clause pairs responsibility with **authority** throughout. This is the older lesson of every management system standard and it applies with force here. Giving someone responsibility for AI risk without the authority to stop a deployment produces a role that can only document its own concerns being overruled.
+
+The standard then names two assignments specifically, and only two.
 ::
 ```
 
 **es-419**
 
 ```
-**Los registros del capítulo 8 no son transferibles.** Los registros de evaluación del riesgo de IA, tratamiento y evaluación de impacto requeridos a intervalos planificados o ante cambios significativos son registros de IA. Un SGSI produce sus propios registros de riesgo en su propio ciclo, y ninguno de los dos conjuntos responde a la pregunta del otro.
+Ambas partes importan. Una asignación que nadie conoce no es una asignación: la persona que la tiene no puede actuar en consecuencia, y quienes deberían escalar hacia ella no saben que deben hacerlo. La comunicación no es un trámite administrativo aquí; es lo que hace que la asignación sea operativa.
 
-**La evidencia de datos y del ciclo de vida no tiene contraparte.** Registros de procedencia, evaluaciones de representatividad, criterios de preparación, verificación y validación frente a criterios de evaluación, determinaciones de registro de eventos: un auditor de SGSI no tiene ningún apartado con el que contrastar estos elementos, y un auditor de IA no aceptará evidencia de seguridad de la información en su lugar.
+Nótese que el capítulo vincula la responsabilidad con la **autoridad** a lo largo de todo su texto. Esta es la lección más antigua de toda norma de sistema de gestión y se aplica con fuerza aquí. Otorgar a alguien responsabilidad sobre el riesgo de IA sin la autoridad para detener un despliegue produce un rol que solo puede documentar sus propias preocupaciones siendo ignoradas.
 
-[Esta categoría]{glossary="evidence-that-cannot-be-shared"} es donde un programa integrado falla silenciosamente. El programa es compartido, el plan es compartido, la auditoría es combinada, y el paquete de evidencias contiene una sola evaluación del riesgo donde se necesitaban dos, porque en el momento de la recopilación parecían el mismo artefacto.
+La norma luego nombra dos asignaciones específicamente, y solo dos.
 ::
 ```
 
-### 2. ADVERSARIAL -- `04-03-governing-apparatus-controls` / es-419
+### 3. ADVERSARIAL -- `01-04-harmonised-structure` / es-419
 
-flags: accent (confiaran)
+flags: accent (formula); unalignable (sentence counts differ; A and B did not run); register (reads as tu (3 tu / 1 usted) in a usted certification); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: Capítulo 4); clause-vocab (es uses `apartado`: Capítulo 6); clause-vocab (es uses `apartado`: Capítulo 7); clause-vocab (es uses `apartado`: Capítulo 9); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8)
 
 **EN**
 
 ```
-It should also carry the principles guiding AI-related activity and — most often absent — **processes for handling deviations and exceptions.** A policy without an exception route gets ignored the first time it meets a deadline.
+A partial list, each covered later in this course: the requirement to determine the organization's roles; the requirement to determine whether climate change is a relevant issue; AI risk criteria that must support assessing risk impacts as well as risks; the AI system impact assessment and the requirement to consider its results in the risk assessment; and the clause 8 restatement of assessment and treatment as things that must actually be performed at planned intervals.
 
-**Alignment with other policies.** The organization determines where other policies are affected by or apply to its AI objectives. The guidance is direct about why: many domains intersect AI, including quality, security, safety and privacy, and the organization should analyse where current policies necessarily intersect and either update them or bring provisions into the AI policy.
+Annex A is a separate exercise. Its 38 controls are organized by categories that do not correspond to ISO/IEC 27001's four themes, and a control-by-control mapping between the two is more misleading than helpful. Some obligations genuinely overlap; others look equivalent and are not. Lesson 4.7 works through that distinction, because getting it wrong produces a Statement of Applicability that passes review while leaving an AI obligation unmet.
+::
 
-**Review of the policy** at planned intervals or as needed, to keep it suitable, adequate and effective. The guidance asks for a management-approved role responsible for developing, reviewing and evaluating it, and says the review should take management review results into account.
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "What does the harmonised structure guarantee between ISO/IEC 42001 and ISO/IEC 27001?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "That equivalent requirements appear under equivalent clause numbers and titles" },
+      { "id": "b", "text": "That an organization certified to one is deemed conformant to the other" },
+      { "id": "c", "text": "That the Annex A controls of each map one to one" },
+      { "id": "d", "text": "That a single audit satisfies both standards" }
+    ],
+    "correct": ["a"],
+    "explanation": "The harmonised structure means identical clause numbers, titles, text and core definitions. It says nothing about conformance transferring, and the two Annex A structures are organized differently. A combined audit is possible but is a separate matter from the shared structure.",
+    "concept_slugs": ["harmonised-structure"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q2",
+    "question": "How does the standard characterise integration with other management system standards?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "As optional, and appropriate only for large organizations" },
+      { "id": "b", "text": "As essential to developing and using an AI system responsibly" },
+      { "id": "c", "text": "As a matter for the certification body to determine" },
+      { "id": "d", "text": "As applicable only where the organization already holds another certification" }
+    ],
+    "correct": ["b"],
+    "explanation": "Annex D.2 states that integration is essential, reasoning that an AI system uses many technologies and that objectives such as safety, security and privacy should be managed holistically rather than separately for the AI components and everything else.",
+    "concept_slugs": ["integrated-management-system"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q3",
+    "question": "An organization proposes reusing its existing ISO/IEC 27001 competence records unchanged to satisfy clause 7.2 of ISO/IEC 42001. What is the flaw?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Clause 7.2 does not exist in ISO/IEC 42001" },
+      { "id": "b", "text": "Competence records may not be shared between management systems" },
+      { "id": "c", "text": "The clause carries over but the required competence is a different body of knowledge" },
+      { "id": "d", "text": "Competence must be evidenced by external certification in both cases" }
+    ],
+    "correct": ["c"],
+    "explanation": "The harmonised structure means clause 7.2 asks the same question in both standards. It does not mean the answer transfers. AI competence spans different knowledge and is evidenced differently, so the machinery can be reused while the content must be re-examined.",
+    "concept_slugs": ["iso-42001-27001-integration"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q4",
+    "question": "Which of these has no counterpart in ISO/IEC 27001?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "The requirement for top management to establish a policy" },
+      { "id": "b", "text": "The requirement to determine the organization's roles with respect to its systems" },
+      { "id": "c", "text": "The requirement to retain documented information about risk assessment" },
+      { "id": "d", "text": "The requirement to conduct internal audits at planned intervals" }
+    ],
+    "correct": ["b"],
+    "explanation": "Role determination is specific to ISO/IEC 42001 — an information asset does not change your obligations depending on how you relate to it. Policy, documented information and internal audit all carry across the harmonised structure.",
+    "concept_slugs": ["clauses-four-to-ten", "iso-42001-27001-integration"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  }
+]
+::
 ```
 
 **es-419**
 
 ```
-También debería incluir los principios que guían las actividades relacionadas con la IA y — lo que más frecuentemente está ausente — **procesos para gestionar desviaciones y excepciones.** Una política sin una vía de excepción se ignora la primera vez que se enfrenta a un plazo.
+Una lista parcial, cada elemento tratado más adelante en este curso: el requisito de determinar los roles de la organización; el requisito de determinar si el cambio climático es un asunto pertinente; los criterios de riesgo de IA que deben permitir evaluar los impactos del riesgo además de los riesgos en sí; la evaluación del impacto del sistema de IA y el requisito de considerar sus resultados en la evaluación del riesgo; y la reafirmación en el capítulo 8 de que la evaluación y el tratamiento son cosas que deben realizarse efectivamente a intervalos planificados.
 
-**Alineación con otras políticas.** La organización determina dónde otras políticas se ven afectadas por sus objetivos de IA o son aplicables a ellos. La guía es directa sobre el motivo: muchos dominios se intersectan con la IA, incluidos la calidad, la seguridad, la protección y la privacidad, y la organización debería analizar dónde las políticas actuales se intersectan necesariamente y actualizarlas o incorporar disposiciones en la política de IA.
+El Anexo A es un ejercicio aparte. Sus 38 controles están organizados por categorías que no se corresponden con los cuatro temas de ISO/IEC 27001, y una correspondencia control por control entre ambas normas resulta más engañosa que útil. Algunas obligaciones se superponen genuinamente; otras parecen equivalentes y no lo son. La lección 4.7 trabaja sobre esa distinción, porque equivocarse produce una Declaración de Aplicabilidad que supera la revisión mientras deja una obligación de IA sin cumplir.
+::
 
-**Revisión de la política** a intervalos planificados o cuando sea necesario, para mantenerla adecuada, suficiente y eficaz. La guía solicita un rol aprobado por la dirección responsable de desarrollarla, revisarla y evaluarla, y señala que la revisión debería tener en cuenta los resultados de la revisión por la dirección.
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "¿Qué garantiza la estructura armonizada entre ISO/IEC 42001 e ISO/IEC 27001?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Que los requisitos equivalentes aparecen bajo números y títulos de capítulo equivalentes" },
+      { "id": "b", "text": "Que una organización certificada en una se considera conforme con la otra" },
+      { "id": "c", "text": "Que los controles del Anexo A de cada norma se corresponden uno a uno" },
+      { "id": "d", "text": "Que una sola auditoría satisface ambas normas" }
+    ],
+    "correct": ["a"],
+    "explanation": "La estructura armonizada implica números de capítulo, títulos, texto y definiciones básicas idénticos. No dice nada sobre la transferencia de conformidad, y las dos estructuras del Anexo A están organizadas de manera diferente. Una auditoría combinada es posible, pero es un asunto distinto de la estructura compartida.",
+    "concept_slugs": ["harmonised-structure"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q2",
+    "question": "¿Cómo caracteriza la norma la integración con otras normas de sistemas de gestión?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Como opcional, y apropiada solo para organizaciones grandes" },
+      { "id": "b", "text": "Como esencial para el desarrollo y uso responsable de un sistema de IA" },
+      { "id": "c", "text": "Como un asunto que corresponde determinar al organismo de certificación" },
+      { "id": "d", "text": "Como aplicable solo cuando la organización ya cuenta con otra certificación" }
+    ],
+    "correct": ["b"],
+    "explanation": "El Anexo D.2 establece que la integración es esencial, argumentando que un sistema de IA utiliza muchas tecnologías y que objetivos como la seguridad, la protección y la privacidad deben gestionarse de manera holística en lugar de hacerlo por separado para los componentes de IA y todo lo demás.",
+    "concept_slugs": ["integrated-management-system"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q3",
+    "question": "Una organización propone reutilizar sin cambios sus registros de competencia de ISO/IEC 27001 para satisfacer el apartado 7.2 de ISO/IEC 42001. ¿Cuál es el problema?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "El apartado 7.2 no existe en ISO/IEC 42001" },
+      { "id": "b", "text": "Los registros de competencia no pueden compartirse entre sistemas de gestión" },
+      { "id": "c", "text": "El capítulo se traslada, pero la competencia requerida es un cuerpo de conocimiento diferente" },
+      { "id": "d", "text": "La competencia debe evidenciarse mediante certificación externa en ambos casos" }
+    ],
+    "correct": ["c"],
+    "explanation": "La estructura armonizada significa que el apartado 7.2 formula la misma pregunta en ambas normas. No significa que la respuesta se traslade. La competencia en IA abarca conocimientos diferentes y se evidencia de manera distinta, por lo que la maquinaria puede reutilizarse mientras que el contenido debe reexaminarse.",
+    "concept_slugs": ["iso-42001-27001-integration"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q4",
+    "question": "¿Cuál de estos elementos no tiene equivalente en ISO/IEC 27001?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "El requisito de que la alta dirección establezca una política" },
+      { "id": "b", "text": "El requisito de determinar los roles de la organización con respecto a sus sistemas" },
+      { "id": "c", "text": "El requisito de conservar información documentada sobre la evaluación del riesgo" },
+      { "id": "d", "text": "El requisito de realizar auditorías internas a intervalos planificados" }
+    ],
+    "correct": ["b"],
+    "explanation": "La determinación de roles es específica de ISO/IEC 42001 — un activo de información no cambia tus obligaciones según cómo te relacionas con él. La política, la información documentada y la auditoría interna se trasladan a través de la estructura armonizada.",
+    "concept_slugs": ["clauses-four-to-ten", "iso-42001-27001-integration"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  }
+]
+::
 ```
 
-### 3. ADVERSARIAL -- `03-06-data-for-ai-systems` / es-419
+### 4. ADVERSARIAL -- `03-03-documented-information` / es-419
 
-flags: modal (should x1, no weak modal, 2 obligations vs 0 en)
+flags: defined-term (extent: extent rendered with the SCOPE term collapses two defined audit terms -- Una nota añade que el alcance de la información documentada varía de una organiz); clause-vocab (es uses `apartado`: cláusula 7.5.3); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8)
 
 **EN**
 
 ```
-**Synthetic data.** Generated by a model, from data the generating model was trained on. Its provenance is not a chain of custody but a lineage through a system whose own inputs may be undocumented. The organization can record the generation process, the model used and its version, and the seed data it had rights to — which is meaningfully better than nothing and is not the same assurance as a traceable source.
+Every one of those is created by someone else, is necessary for planning and operation, and can change without the organization being consulted. The supplier controls require the organization to determine what information it needs from suppliers and to ensure adequate documentation is delivered — and clause 7.5.3 is what says that documentation, once received, has to be controlled like anything else.
 
-**Model outputs used as inputs.** A system's outputs become another system's training data, sometimes deliberately and sometimes because a dataset was assembled from sources that included generated content. The provenance record has to reach back through a system rather than through a set of hands.
+**The practical failure is a model card downloaded once, filed, and never checked against the version now in production.**
+::
 
-The standard does not resolve either case, and it would be wrong to imply that it does. What it requires is a documented **process** for recording provenance over the life cycles of the data and the system, and a judgement about whether measures to verify provenance are needed given the source, content and context of use.
+::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
+{
+  "items": [
+    {
+      "id": "a",
+      "text": "Distribution, access, retrieval and use"
+    },
+    {
+      "id": "b",
+      "text": "Storage and preservation, including preservation of legibility"
+    },
+    {
+      "id": "c",
+      "text": "Control of changes, such as version control"
+    },
+    {
+      "id": "d",
+      "text": "Retention and disposition"
+    }
+  ],
+  "correct_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "explanation": "The order is the record's own life: made available, kept, changed under control, and eventually retained for a period and disposed of. Preservation of legibility is the item people skip, and it is the reason a record stored in a format nobody can open in five years fails this clause even though the file still exists. For AI systems the retention question is sharper than usual, because event logs and impact assessments may need to outlive the system that produced them."
+}
+::
 ```
 
 **es-419**
 
 ```
-**Datos sintéticos.** Generados por un modelo, a partir de datos con los que fue entrenado el modelo generador. Su procedencia no es una cadena de custodia sino un linaje a través de un sistema cuyos propios insumos pueden estar indocumentados. La organización puede registrar el proceso de generación, el modelo utilizado y su versión, y los datos semilla sobre los que tenía derechos — lo cual es significativamente mejor que nada y no equivale a la misma garantía que una fuente rastreable.
+Cada uno de esos elementos es creado por otra persona, es necesario para la planificación y operación, y puede cambiar sin que la organización sea consultada. Los requisitos sobre proveedores exigen que la organización determine qué información necesita de ellos y que se asegure de que la documentación adecuada sea entregada; y el apartado 7.5.3 es el que establece que esa documentación, una vez recibida, debe controlarse como cualquier otra.
 
-**Resultados de modelos usados como insumos.** Los resultados de un sistema se convierten en datos de entrenamiento de otro sistema, a veces de forma deliberada y a veces porque un conjunto de datos fue ensamblado a partir de fuentes que incluían contenido generado. El registro de procedencia debe remontarse a través de un sistema en lugar de a través de un conjunto de manos.
+**El fallo práctico es una ficha de modelo descargada una vez, archivada y nunca verificada contra la versión que está en producción.**
+::
 
-La norma no resuelve ninguno de los dos casos, y sería incorrecto insinuar que lo hace. Lo que requiere es un **proceso** documentado para registrar la procedencia a lo largo de los ciclos de vida de los datos y del sistema, y un juicio sobre si se necesitan medidas para verificar la procedencia dado el origen, el contenido y el contexto de uso.
-```
-
-### 4. ADVERSARIAL -- `02-06-the-ai-system-impact-assessment` / es-419
-
-flags: accent (formula)
-
-**EN**
-
-```
-::concept title="Impacts on societies"
-The societal half is where organizations tend to run out of vocabulary, so the guidance supplies categories: economic, including access to financial services, employment, taxes, trade and commerce; environmental sustainability, including natural resources and greenhouse gas emissions; government, including legislative processes, national security, criminal justice and misinformation for political gain; health and safety, including access to healthcare, diagnosis and treatment, and potential physical and psychological harm; and norms, traditions, culture and values, including misinformation leading to bias or harm.
-
-The guidance is explicit that [societal impacts]{glossary="impact-on-societies"} can be **beneficial as well as detrimental** — AI can improve access to services as readily as restrict it, and can reduce environmental impact as well as add to it. An assessment that only catalogues harms is not doing what the clause asks.
-
-It also directs a specific kind of thinking: consider how these systems might be **misused** in ways that harm society, and how they might instead **help undo historical harms**. Both directions.
-```
-
-**es-419**
-
-```
-::concept title="Impactos en las sociedades"
-La parte societal es donde las organizaciones suelen quedarse sin vocabulario, por lo que la orientación proporciona categorías: económica, incluido el acceso a servicios financieros, el empleo, los impuestos, el comercio y los negocios; sostenibilidad ambiental, incluidos los recursos naturales y las emisiones de gases de efecto invernadero; gobierno, incluidos los procesos legislativos, la seguridad nacional, la justicia penal y la desinformación con fines políticos; salud y seguridad, incluido el acceso a la atención sanitaria, el diagnóstico y tratamiento, y el posible daño físico y psicológico; y normas, tradiciones, cultura y valores, incluida la desinformación que conduce a sesgos o daños.
-
-La orientación es explícita en que los [impactos sociales]{glossary="impact-on-societies"} pueden ser **beneficiosos además de perjudiciales**: la IA puede mejorar el acceso a los servicios con la misma facilidad con que puede restringirlo, y puede reducir el impacto ambiental además de incrementarlo. Una evaluación que solo cataloga daños no está haciendo lo que el apartado solicita.
-
-También orienta hacia un tipo específico de reflexión: considerar cómo estos sistemas podrían ser **utilizados indebidamente** de maneras que dañen a la sociedad, y cómo podrían en cambio **ayudar a revertir daños históricos**. Ambas direcciones.
+::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
+{
+  "items": [
+    {
+      "id": "a",
+      "text": "Distribución, acceso, recuperación y uso"
+    },
+    {
+      "id": "b",
+      "text": "Almacenamiento y conservación, incluida la preservación de la legibilidad"
+    },
+    {
+      "id": "c",
+      "text": "Control de cambios, como el control de versiones"
+    },
+    {
+      "id": "d",
+      "text": "Retención y disposición"
+    }
+  ],
+  "correct_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "explanation": "El orden es el ciclo de vida propio del registro: se pone a disposición, se conserva, se modifica bajo control y, finalmente, se retiene durante un período y se dispone de él. La preservación de la legibilidad es el elemento que la gente omite, y es la razón por la que un registro almacenado en un formato que nadie puede abrir cinco años después incumple este capítulo aunque el archivo siga existiendo. Para los sistemas de IA, la cuestión de la retención es más crítica que de costumbre, porque los registros de eventos y las evaluaciones de impacto pueden necesitar sobrevivir al sistema que los generó."
+}
+::
 ```
 
 ### 5. RANDOM -- `04-01-annex-a-structure` / es-419
@@ -121,115 +321,95 @@ flags: none -- this is the half that tests the checks
 **EN**
 
 ```
-**[Annex B is normative]{glossary="annex-b-normative"}**, not informative. It is marked as such in the standard's own contents, and it provides implementation guidance for every control listed in Annex A.
+Annexes C and D are informative. C lists potential organizational objectives and risk sources; D covers use across domains and sectors.
+::
 
-What confuses people is a genuine subtlety. Annex B's general clause states that an organization is **not required to document or justify which parts of that guidance it adopted** in the Statement of Applicability. So the guidance itself is not subject to the SoA discipline that applies to the controls.
+::concept title="A reference, not a checklist"
+Annex A's own general clause says two things that shape how the whole module should be read.
 
-That produces a useful distinction. The annex carries normative status, but its contents are guidance about how to implement, expressed with *should* rather than *shall*, and an organization can extend or modify the guidance or define its own implementation to suit its requirements and treatment needs.
+**Not every listed control objective and control must be used**, and an organization may design and implement its own.
 ```
 
 **es-419**
 
 ```
-**[El Anexo B es normativo]{glossary="annex-b-normative"}**, no informativo. Así está indicado en el índice de la propia norma, y proporciona orientación para la implementación de cada control listado en el Anexo A.
+Los Anexos C y D son informativos. C enumera posibles objetivos organizacionales y fuentes de riesgo; D aborda el uso en distintos dominios y sectores.
+::
 
-Lo que genera confusión es una sutileza genuina. El apartado general del Anexo B establece que las organizaciones **no tienen que documentar ni justificar la inclusión o exclusión de la orientación para la implementación** en la Declaración de Aplicabilidad. Por lo tanto, la orientación en sí no está sujeta a la disciplina de la Declaración de Aplicabilidad que aplica a los controles.
+::concept title="Una referencia, no una lista de verificación"
+El apartado general del propio Annex A establece dos cosas que determinan cómo debería leerse todo el módulo.
 
-Esto produce una distinción útil. El anexo tiene carácter normativo, pero su contenido es orientación sobre cómo implementar, expresada con *debería* en lugar de *debe*, y una organización puede ampliar o modificar la orientación o definir su propia implementación según sus requisitos y necesidades de tratamiento.
+**No es necesario utilizar todos los objetivos de control y controles listados**, y una organización puede diseñar e implementar los propios.
 ```
 
-### 6. RANDOM -- `03-04-operational-planning-and-control` / es-419
+### 6. RANDOM -- `03-05-third-party-ai-supply` / es-419
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-It means selecting a control in the Statement of Applicability is not the end of the obligation. The control has to be implemented, its effectiveness monitored, and where it is not producing the intended result, corrective action considered. A control that was chosen, deployed, and never looked at again has satisfied clause 6.1.3 and failed clause 8.1.
+The guidance asks the organization to consider different types of supplier, what each supplies, and **how much risk that can carry for the system and to the organization as a whole** — and to let that shape three things: which suppliers are selected, what requirements are placed on them, and how much ongoing monitoring and evaluation they get.
 
-It also means the loop from clause 10.2 — nonconformity and corrective action — is reachable from operations rather than only from audit findings. An organization waiting for internal audit to tell it a control is ineffective is using the slowest available instrument.
-
-Documented information must be **available** to the extent **necessary** for confidence that the processes were carried out as planned. Note the phrasing: *to the extent necessary to have confidence.* The test is whether the evidence supports the claim, not whether a form was completed.
+So supplier treatment is risk-differentiated by design. A library that formats dates and a foundation model that generates customer-facing text are both supplied components, and treating them identically means one is over-managed or the other is under-managed.
 ::
+
+::concept title="What the organization must do"
+Three [obligations]{glossary="supplier-obligations"} sit in the supplier control and its guidance.
 ```
 
 **es-419**
 
 ```
-Significa que seleccionar un control en la Declaración de Aplicabilidad no es el fin de la obligación. El control debe implementarse, monitorearse su eficacia y, cuando no produce el resultado previsto, considerarse una acción correctiva. Un control que fue elegido, desplegado y nunca revisado ha cumplido el apartado 6.1.3 y ha incumplido el capítulo 8.1.
+La orientación pide a la organización que considere los diferentes tipos de proveedores, qué suministra cada uno y **cuánto riesgo puede esto conllevar para el sistema y para la organización en su conjunto** — y que eso oriente tres aspectos: qué proveedores se seleccionan, qué requisitos se les imponen y cuánto seguimiento y evaluación continua reciben.
 
-También significa que el ciclo del apartado 10.2 —no conformidad y acción correctiva— es alcanzable desde las operaciones y no solo desde los hallazgos de auditoría. Una organización que espera a que la auditoría interna le informe que un control es ineficaz está utilizando el instrumento más lento disponible.
-
-La información documentada debe conservarse en la medida en que genere confianza en que los procesos se llevaron a cabo según lo planificado. Nótese la formulación: *en la medida necesaria para tener confianza.* La prueba es si la evidencia respalda la afirmación, no si se completó un formulario.
+Por tanto, el tratamiento de proveedores es diferenciado por riesgo por diseño. Una biblioteca que formatea fechas y un modelo de base que genera texto orientado al cliente son ambos componentes suministrados, y tratarlos de manera idéntica significa que uno está sobreadministrado o el otro está subadministrado.
 ::
+
+::concept title="Qué debe hacer la organización"
+Tres [obligaciones]{glossary="supplier-obligations"} se encuentran en el control de proveedores y su orientación.
 ```
 
-### 7. RANDOM -- `04-06-use-and-third-party-controls` / es-419
+### 7. RANDOM -- `02-08-risk-treatment-and-the-soa` / es-419
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-The customer control is most often skipped, because it points outward in a direction organizations do not habitually think about. The guidance asks the organization to understand customer expectations when supplying — arriving as design requirements, contractual terms or usage agreements — and to know where responsibility sits with provider and where with customer.
+Note what those grounds have in common. Both point at something checkable. "The risk assessment did not identify a risk this control addresses" can be verified against the risk assessment. "We do not act as a provider for any system in scope, so provider-facing controls do not apply" can be verified against the role determination from lesson 1.2. **A justification that cannot be checked against another artifact is an assertion.**
 
-Its example is instructive: risks arising from a customer's use can be treated by **giving the customer appropriate information**, so they can treat the corresponding risks. Where a system is valid only for a certain domain, those limits should be communicated.
-
-**That is risk treatment by disclosure**, and it only works if the disclosure actually reaches someone who can act on it.
-::
-```
-
-**es-419**
-
-```
-El control de clientes es el que se omite con mayor frecuencia, porque apunta hacia afuera en una dirección en la que las organizaciones no suelen pensar. La orientación pide a la organización que comprenda las expectativas de los clientes al suministrar — que llegan como requisitos de diseño, términos contractuales o acuerdos de uso — y que sepa dónde recae la responsabilidad en el proveedor y dónde en el cliente.
-
-Su ejemplo es ilustrativo: los riesgos derivados del uso por parte de un cliente pueden tratarse **dando al cliente información apropiada**, para que pueda tratar los riesgos correspondientes. Cuando un sistema es válido solo para un determinado dominio, esos límites deben comunicarse.
-
-**Eso es tratamiento del riesgo mediante divulgación**, y solo funciona si la divulgación llega efectivamente a alguien que pueda actuar en consecuencia.
-::
-```
-
-### 8. RANDOM -- `05-03-aims-management-review` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Documented information must be kept as evidence of what management reviews produced. **Evidence of the results** — the decisions, not the discussion. Minutes recording what was said satisfy a governance convention; [records]{glossary="review-records"} of what was decided satisfy the clause.
-
-The distinction shows up immediately at audit. An auditor asking what the review decided, and being handed a narrative of what was presented, has found something.
+The standard also permits documented justifications for excluding control objectives in general, or for specific AI systems — so exclusions can be scoped rather than all-or-nothing.
 ::
 
-::interactive widget="highlight-mistake" id="review-output-review" concept_slugs="review-results"
+::interactive widget="highlight-mistake" id="soa-justification-review" concept_slugs="inclusion-exclusion-justification"
 {
-  "scenario_title": "Four items from a management review record. Which one is not a review result as the clause requires?",
-  "text": "A. Agreed: the AIMS scope will be extended to cover AI features in purchased software; change to be planned under clause 6.3, owner named, target end of Q3. B. Agreed: additional competence required in domain review of model outputs; two roles to be recruited or contracted. C. Noted: the monitoring dashboard was presented and showed a rising trend in override rates in the claims function. D. Agreed: impact assessment cadence to move from annual to on-change for the three systems classed as high impact.",
+  "scenario_title": "Four exclusion justifications from a draft Statement of Applicability. Which one is not a justification?",
+  "text": "A. Excluded: the organization acts solely as a customer for all systems in scope, and this control addresses obligations of providers supplying systems to third parties. B. Excluded: no risk requiring this control was identified in the risk assessment dated 14 May, which covered all systems within scope. C. Excluded: not applicable to our business model. D. Excluded: the applicable sector regulation provides an exemption for systems below the stated processing threshold, which all in-scope systems meet.",
   "highlights": [
     {
       "id": "c",
-      "span": "Noted: the monitoring dashboard was presented and showed a rising trend in override rates in the claims function.",
+      "span": "not applicable to our business model.",
       "is_correct": true,
-      "feedback": "An input recorded as though it were a result. It is not useless - a rising override trend is exactly the signal the review exists to surface - but the clause requires the results to include decisions, and noting a trend without deciding anything about it leaves the loop open."
+      "feedback": "Not a justification. It states a conclusion and offers nothing an auditor can test - no role determination, no risk assessment, no external requirement. Length is not what distinguishes it; testability is."
     },
     {
       "id": "a",
-      "span": "the AIMS scope will be extended to cover AI features in purchased software; change to be planned under clause 6.3, owner named, target end of Q3.",
+      "span": "the organization acts solely as a customer for all systems in scope, and this control addresses obligations of providers supplying systems to third parties.",
       "is_correct": false,
-      "feedback": "A decision with a consequence, and it explicitly routes the change through clause 6.3 - which is where a change to the management system belongs."
+      "feedback": "A working justification. It points at the role determination, which is a checkable artifact, and role genuinely governs which controls apply."
     },
     {
       "id": "b",
-      "span": "additional competence required in domain review of model outputs; two roles to be recruited or contracted.",
+      "span": "no risk requiring this control was identified in the risk assessment dated 14 May, which covered all systems within scope.",
       "is_correct": false,
-      "feedback": "A decision. It names a need and an action, which is what makes it reportable at the next review as a prior action."
+      "feedback": "A working justification, and it names one of the two grounds the standard itself recognises - the control not being deemed necessary by the risk assessment. The date and stated scope are what make it testable."
     },
     {
       "id": "d",
-      "span": "impact assessment cadence to move from annual to on-change for the three systems classed as high impact.",
+      "span": "the applicable sector regulation provides an exemption for systems below the stated processing threshold, which all in-scope systems meet.",
       "is_correct": false,
-      "feedback": "A decision, and a substantive one - it changes when a required process runs, for a named set of systems."
+      "feedback": "A working justification, resting on the second recognised ground - not required by applicable external requirements. An auditor can go and read the regulation and check the threshold."
     }
   ],
   "minimum_correct": 1
@@ -240,11 +420,69 @@ The distinction shows up immediately at audit. An auditor asking what the review
 **es-419**
 
 ```
-La segunda se conecta directamente con el apartado 6.3 de la lección 2.3. Cuando una revisión determina que el sistema de gestión necesita cambiar, el apartado 6.3 exige que ese cambio se lleve a cabo de manera planificada. Los dos forman un ciclo: la revisión identifica la necesidad, el apartado 6.3 rige la ejecución, y la siguiente revisión verifica el estado de las acciones de la anterior.
+Nótese lo que esos fundamentos tienen en común. Ambos apuntan a algo verificable. "La evaluación del riesgo no identificó un riesgo que este control aborde" puede verificarse contra la evaluación del riesgo. "No actuamos como proveedor de ningún sistema en alcance, por lo que los controles orientados a proveedores no aplican" puede verificarse contra la determinación de rol de la lección 1.2. **Una justificación que no puede verificarse contra otro artefacto es una mera afirmación.**
 
-La información documentada debe conservarse como evidencia de lo que produjeron las revisiones por la dirección. **Evidencia de los resultados** — las decisiones, no la discusión. Las actas que registran lo que se dijo satisfacen una convención de gobernanza; los [registros]{glossary="review-records"} de lo que se decidió satisfacen el apartado.
+La norma también permite justificaciones documentadas para excluir objetivos de control en general, o para sistemas de IA específicos — de modo que las exclusiones pueden tener alcance delimitado en lugar de ser de todo o nada.
+::
 
-La distinción aparece de inmediato en una auditoría. Un auditor que pregunta qué decidió la revisión y recibe un relato narrativo de lo que se presentó ha encontrado algo.
+::interactive widget="highlight-mistake" id="soa-justification-review" concept_slugs="inclusion-exclusion-justification"
+{
+  "scenario_title": "Cuatro justificaciones de exclusión de un borrador de Declaración de Aplicabilidad. ¿Cuál no es una justificación?",
+  "text": "A. Excluido: la organización actúa únicamente como cliente en todos los sistemas en alcance, y este control aborda obligaciones de proveedores que suministran sistemas a terceros. B. Excluido: no se identificó ningún riesgo que requiera este control en la evaluación del riesgo del 14 de mayo, que cubrió todos los sistemas dentro del alcance. C. Excluido: no aplicable a nuestro modelo de negocio. D. Excluido: la regulación sectorial aplicable establece una exención para sistemas por debajo del umbral de procesamiento indicado, que todos los sistemas en alcance cumplen.",
+  "highlights": [
+    {
+      "id": "c",
+      "span": "no aplicable a nuestro modelo de negocio.",
+      "is_correct": true,
+      "feedback": "No es una justificación. Enuncia una conclusión y no ofrece nada que un auditor pueda verificar — ni determinación de rol, ni evaluación del riesgo, ni requisito externo. Lo que la distingue no es su extensión, sino su falta de verificabilidad."
+    },
+    {
+      "id": "a",
+      "span": "la organización actúa únicamente como cliente en todos los sistemas en alcance, y este control aborda obligaciones de proveedores que suministran sistemas a terceros.",
+      "is_correct": false,
+      "feedback": "Una justificación válida. Apunta a la determinación de rol, que es un artefacto verificable, y el rol efectivamente determina qué controles aplican."
+    },
+    {
+      "id": "b",
+      "span": "no se identificó ningún riesgo que requiera este control en la evaluación del riesgo del 14 de mayo, que cubrió todos los sistemas dentro del alcance.",
+      "is_correct": false,
+      "feedback": "Una justificación válida, que además nombra uno de los dos fundamentos que la propia norma reconoce — que el control no se considere necesario según la evaluación del riesgo. La fecha y el alcance declarado son lo que la hacen verificable."
+    },
+    {
+      "id": "d",
+      "span": "la regulación sectorial aplicable establece una exención para sistemas por debajo del umbral de procesamiento indicado, que todos los sistemas en alcance cumplen.",
+      "is_correct": false,
+      "feedback": "Una justificación válida, basada en el segundo fundamento reconocido — no requerido por los requisitos externos aplicables. Un auditor puede consultar la regulación y verificar el umbral."
+    }
+  ],
+  "minimum_correct": 1
+}
+::
+```
+
+### 8. RANDOM -- `04-04-impact-and-life-cycle-controls` / es-419
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+**[Operation and monitoring]{glossary="operation-monitoring-controls"}**, with the necessary elements defined and documented — at minimum system and performance monitoring, repairs, updates and support. This is where lesson 1.3's continuous learning and drift live as an obligation.
+
+**Technical documentation** determined for each relevant category of interested party — users, partners, supervisory authorities — and provided in an appropriate form.
+
+**Event logging**, and this one is worded distinctively. See below.
+::
+```
+
+**es-419**
+
+```
+**[Operación y monitoreo]{glossary="operation-monitoring-controls"}**, con los elementos necesarios definidos y documentados — como mínimo, monitoreo del sistema y del rendimiento, reparaciones, actualizaciones y soporte. Aquí es donde el aprendizaje continuo y la deriva de la lección 1.3 se convierten en una obligación.
+
+**Documentación técnica** determinada para cada categoría relevante de partes interesadas — usuarios, socios, autoridades supervisoras — y proporcionada en una forma adecuada.
+
+**Registro de eventos**, y este está redactado de manera distintiva. Véase a continuación.
 ::
 ```
 
@@ -256,284 +494,174 @@ La distinción aparece de inmediato en una auditoría. Un auditor que pregunta q
 
 ### 9. ADVERSARIAL -- `04-03-governing-apparatus-controls` / pt-BR
 
-flags: accent (analise); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial)
+flags: accent (analise); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Este é o complemento do Anexo A à cláusula 5.2, e a orientação acrescenta o que a cláusula); clause-vocab (pt uses a flat `Seção`: cláusula 5.2); clause-vocab (pt uses a flat `Seção`: cláusula )
 
 **EN**
 
 ```
-It should also carry the principles guiding AI-related activity and — most often absent — **processes for handling deviations and exceptions.** A policy without an exception route gets ignored the first time it meets a deadline.
+The guidance notes the organization can use existing reporting mechanisms as part of this process, and points at ISO 37002 for further consideration.
 
-**Alignment with other policies.** The organization determines where other policies are affected by or apply to its AI objectives. The guidance is direct about why: many domains intersect AI, including quality, security, safety and privacy, and the organization should analyse where current policies necessarily intersect and either update them or bring provisions into the AI policy.
-
-**Review of the policy** at planned intervals or as needed, to keep it suitable, adequate and effective. The guidance asks for a management-approved role responsible for developing, reviewing and evaluating it, and says the review should take management review results into account.
-```
-
-**pt-BR**
-
-```
-Convém que ela também contenha os princípios que orientam as atividades relacionadas à IA e — o que mais frequentemente está ausente — **processos para tratar desvios e exceções.** Uma política sem uma rota de exceção é ignorada na primeira vez que encontra um prazo.
-
-**Alinhamento com outras políticas.** A organização determina onde outras políticas são afetadas pelos seus objetivos de IA ou se aplicam a eles. A orientação é direta quanto ao motivo: muitos domínios se intersectam com a IA, incluindo qualidade, segurança, proteção e privacidade, e convém que a organização analise onde as políticas vigentes necessariamente se cruzam e as atualize ou incorpore disposições à política de IA.
-
-**Revisão da política** em intervalos planejados ou conforme necessário, para mantê-la adequada, suficiente e eficaz. A orientação solicita um papel aprovado pela direção responsável por desenvolver, revisar e avaliá-la, e indica que a revisão convém que leve em conta os resultados da análise crítica pela direção.
-```
-
-### 10. ADVERSARIAL -- `04-05-data-and-information-controls` / pt-BR
-
-flags: convem (convem-que not clause-initial); convem (convem-que not clause-initial)
-
-**EN**
-
-```
-The guidance answers this itself, and the answer is a criterion rather than a list: whether and what information is provided should be determined by the **intended use and reasonably foreseeable misuse**, the **expertise of the user**, and the **specific impact** of the system.
-
-Three users of the same system illustrate the point.
-
-**A system administrator** needs the technical requirements, the limitations, the monitoring capabilities and the functions that let them influence system operation. They do not need to be told they are interacting with AI.
-```
-
-**pt-BR**
-
-```
-O próprio guia responde a isso, e a resposta é um critério, não uma lista: se e quais informações são fornecidas deveriam ser determinadas pelo **uso pretendido e pelo uso indevido razoavelmente previsível**, pela **expertise do usuário** e pelo **impacto específico** do sistema.
-
-Três usuários do mesmo sistema ilustram o ponto.
-
-**Um administrador de sistema** precisa dos requisitos técnicos, das limitações, das capacidades de monitoramento e das funções que permitem influenciar a operação do sistema. Ele não precisa ser informado de que está interagindo com IA.
-```
-
-### 11. ADVERSARIAL -- `01-06-what-an-aims-is-not` / pt-BR
-
-flags: accent (referencia); modal (should x4, no weak modal, 2 obligations vs 0 en)
-
-**EN**
-
-```
-What the standard adds is the machinery around the principles: that they be documented, carried into specific life cycle stages, assessed against, monitored, and improved when they fail. Principles without that machinery are a statement of intent. That is the gap an AIMS closes, and it is worth saying plainly to any organization that believes it has already done this work.
+**Why this matters more than its placement suggests.** Most of what goes wrong is visible to someone before it appears in a metric. A support agent notices the suggestions have got worse; an analyst sees outputs that do not match the domain. Without a safe route to say so, the earliest signal is discarded.
 ::
 
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "An organization asks which fairness metric ISO/IEC 42001 mandates for classification systems. What is the accurate answer?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "The metric named in Annex B for the relevant system type" },
-      { "id": "b", "text": "None; the organization names its own objectives and builds their pursuit into the work" },
-      { "id": "c", "text": "Whichever metric the certification body specifies during stage 2" },
-      { "id": "d", "text": "The metric required by the applicable sector standard" }
-    ],
-    "correct": ["b"],
-    "explanation": "The standard specifies no metrics or testing methods. Where fairness is an objective, the guidance expects it to be carried into specification, data acquisition, conditioning, training and validation — with the choice of measure left to the organization and open to justification.",
-    "concept_slugs": ["aims-vs-model-assurance"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q2",
-    "question": "How does the standard treat the NIST AI Risk Management Framework?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "As an alternative that organizations may adopt in place of this standard" },
-      { "id": "b", "text": "As a complementary reference, cited for its description of roles and their relationship to the life cycle" },
-      { "id": "c", "text": "As a normative reference whose requirements carry into this standard" },
-      { "id": "d", "text": "It is not referenced" }
-    ],
-    "correct": ["b"],
-    "explanation": "It is cited in the context clause for role types and their relationship to the life cycle, and appears in the bibliography. The only normative reference is ISO/IEC 22989, whose terms carry into this standard.",
-    "concept_slugs": ["nist-ai-rmf-relationship"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "An organization with an established AI ethics board and published principles asks what an AIMS adds. What is the most accurate answer?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "A standard-mandated set of principles replacing its own" },
-      { "id": "b", "text": "The machinery around the principles: documentation, integration into life cycle stages, assessment, monitoring and improvement" },
-      { "id": "c", "text": "Nothing; an ethics programme satisfies the standard's requirements" },
-      { "id": "d", "text": "An obligation to appoint an independent ethics officer" }
-    ],
-    "correct": ["b"],
-    "explanation": "The standard endorses no principle set and requires no ethics function. It requires that objectives be identified, carried into specific stages, assessed against and improved. An existing ethics programme is a plausible source of those objectives; what it usually lacks is the machinery.",
-    "concept_slugs": ["aims-vs-ethics-framework"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q4",
-    "question": "Why does the standard describe itself as taking an AI technology specific view?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "To indicate it applies only to organizations that develop AI systems" },
-      { "id": "b", "text": "To distinguish it from sector and discipline standards that address their objectives from a technology neutral view" },
-      { "id": "c", "text": "To signal that its controls are technical rather than organizational" },
-      { "id": "d", "text": "To limit its application to the sectors named in Annex D" }
-    ],
-    "correct": ["b"],
-    "explanation": "Annex D contrasts the two views: existing standards address objectives such as safety or quality technology-neutrally, while this one adds the AI-specific considerations. That contrast is the reasoning behind the conclusion that integration is essential. Annex D names sectors as examples, not as limits.",
-    "concept_slugs": ["sector-application-annex-d"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  }
-]
-::
-
-::summary
-- The standard governs technical practice without specifying it — no metrics, methods or architectures.
-- It requires objectives to be identified, integrated into life cycle stages, and evaluated against.
-- NIST AI RMF, ISO/IEC 23894, 22989, 5338 and 42005 are referenced as complements, not competitors.
-- Annex C lists candidate objectives and risk sources; it is informative.
-- The standard takes an AI-specific view alongside technology-neutral sector and discipline standards.
-- An existing ethics programme supplies objectives; the AIMS supplies the machinery around them.
-::
-
-```
-
-**pt-BR**
-
-```
-O que a norma acrescenta é a estrutura em torno dos princípios: que sejam documentados, incorporados a estágios específicos do ciclo de vida, avaliados, monitorados e aprimorados quando falham. Princípios sem essa estrutura são uma declaração de intenção. Essa é a lacuna que um sistema de gestão de IA fecha, e vale a pena dizer claramente a qualquer organização que acredita já ter feito esse trabalho.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "Uma organização pergunta qual métrica de equidade a ISO/IEC 42001 exige para sistemas de classificação. Qual é a resposta correta?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "A métrica indicada no Anexo B para o tipo de sistema relevante" },
-      { "id": "b", "text": "Nenhuma; a organização define seus próprios objetivos e incorpora sua busca ao trabalho" },
-      { "id": "c", "text": "Qualquer métrica que o organismo de certificação especifique durante o estágio 2" },
-      { "id": "d", "text": "A métrica exigida pela norma setorial aplicável" }
-    ],
-    "correct": ["b"],
-    "explanation": "A norma não especifica métricas nem métodos de teste. Quando a equidade é um objetivo, a orientação espera que ela seja incorporada à especificação, aquisição de dados, condicionamento, treinamento e validação — com a escolha da medida deixada para a organização e aberta à justificativa.",
-    "concept_slugs": ["aims-vs-model-assurance"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q2",
-    "question": "Como a norma trata o NIST AI Risk Management Framework?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Como uma alternativa que as organizações podem adotar no lugar desta norma" },
-      { "id": "b", "text": "Como uma referência complementar, citada por sua descrição de papéis e sua relação com o ciclo de vida" },
-      { "id": "c", "text": "Como uma referência normativa cujos requisitos se incorporam a esta norma" },
-      { "id": "d", "text": "Ele não é referenciado" }
-    ],
-    "correct": ["b"],
-    "explanation": "Ele é citado na Seção de contexto pelos tipos de papéis e sua relação com o ciclo de vida, e aparece na bibliografia. A única referência normativa é a ISO/IEC 22989, cujos termos se incorporam a esta norma.",
-    "concept_slugs": ["nist-ai-rmf-relationship"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "Uma organização com um conselho de ética em IA estabelecido e princípios publicados pergunta o que um sistema de gestão de IA acrescenta. Qual é a resposta mais precisa?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Um conjunto de princípios definido pela norma que substitui os seus próprios" },
-      { "id": "b", "text": "A estrutura em torno dos princípios: documentação, integração nos estágios do ciclo de vida, avaliação, monitoramento e melhoria" },
-      { "id": "c", "text": "Nada; um programa de ética satisfaz os requisitos da norma" },
-      { "id": "d", "text": "A obrigação de nomear um responsável de ética independente" }
-    ],
-    "correct": ["b"],
-    "explanation": "A norma não endossa nenhum conjunto de princípios nem exige uma função de ética. Ela exige que os objetivos sejam identificados, incorporados a estágios específicos, avaliados e aprimorados. Um programa de ética existente é uma fonte plausível desses objetivos; o que geralmente falta é a estrutura.",
-    "concept_slugs": ["aims-vs-ethics-framework"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q4",
-    "question": "Por que a norma se descreve como adotando uma visão específica da tecnologia de IA?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Para indicar que se aplica apenas a organizações que desenvolvem sistemas de IA" },
-      { "id": "b", "text": "Para distingui-la das normas setoriais e disciplinares que abordam seus objetivos a partir de uma visão tecnologicamente neutra" },
-      { "id": "c", "text": "Para sinalizar que seus controles são técnicos em vez de organizacionais" },
-      { "id": "d", "text": "Para limitar sua aplicação aos setores mencionados no Anexo D" }
-    ],
-    "correct": ["b"],
-    "explanation": "O Anexo D contrasta as duas visões: as normas existentes abordam objetivos como segurança ou qualidade de forma tecnologicamente neutra, enquanto esta acrescenta as considerações específicas de IA. Esse contraste é o raciocínio por trás da conclusão de que a integração é essencial. O Anexo D cita setores como exemplos, não como limites.",
-    "concept_slugs": ["sector-application-annex-d"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  }
-]
-::
-
-::summary
-- A norma rege a prática técnica sem especificá-la — sem métricas, métodos ou arquiteturas.
-- Ela exige que os objetivos sejam identificados, integrados nos estágios do ciclo de vida e avaliados.
-- NIST AI RMF, ISO/IEC 23894, 22989, 5338 e 42005 são referenciados como complementos, não concorrentes.
-- O Anexo C lista objetivos candidatos e fontes de risco; é informativo.
-- A norma adota uma visão específica de IA ao lado das normas setoriais e disciplinares tecnologicamente neutras.
-- Um programa de ética existente fornece os objetivos; o sistema de gestão de IA fornece a estrutura em torno deles.
-::
-
-```
-
-### 12. ADVERSARIAL -- `05-03-aims-management-review` / pt-BR
-
-flags: accent (analise); convem (convem-que not clause-initial)
-
-**EN**
-
-```
-Documented information must be kept as evidence of what management reviews produced. **Evidence of the results** — the decisions, not the discussion. Minutes recording what was said satisfy a governance convention; [records]{glossary="review-records"} of what was decided satisfy the clause.
-
-The distinction shows up immediately at audit. An auditor asking what the review decided, and being handed a narrative of what was presented, has found something.
-::
-
-::interactive widget="highlight-mistake" id="review-output-review" concept_slugs="review-results"
-{
-  "scenario_title": "Four items from a management review record. Which one is not a review result as the clause requires?",
-  "text": "A. Agreed: the AIMS scope will be extended to cover AI features in purchased software; change to be planned under clause 6.3, owner named, target end of Q3. B. Agreed: additional competence required in domain review of model outputs; two roles to be recruited or contracted. C. Noted: the monitoring dashboard was presented and showed a rising trend in override rates in the claims function. D. Agreed: impact assessment cadence to move from annual to on-change for the three systems classed as high impact.",
-  "highlights": [
-    {
-      "id": "c",
-      "span": "Noted: the monitoring dashboard was presented and showed a rising trend in override rates in the claims function.",
-      "is_correct": true,
-      "feedback": "An input recorded as though it were a result. It is not useless - a rising override trend is exactly the signal the review exists to surface - but the clause requires the results to include decisions, and noting a trend without deciding anything about it leaves the loop open."
-    },
-    {
-      "id": "a",
-      "span": "the AIMS scope will be extended to cover AI features in purchased software; change to be planned under clause 6.3, owner named, target end of Q3.",
-      "is_correct": false,
-      "feedback": "A decision with a consequence, and it explicitly routes the change through clause 6.3 - which is where a change to the management system belongs."
-    },
-    {
-      "id": "b",
-      "span": "additional competence required in domain review of model outputs; two roles to be recruited or contracted.",
-      "is_correct": false,
-      "feedback": "A decision. It names a need and an action, which is what makes it reportable at the next review as a prior action."
-    },
-    {
-      "id": "d",
-      "span": "impact assessment cadence to move from annual to on-change for the three systems classed as high impact.",
-      "is_correct": false,
-      "feedback": "A decision, and a substantive one - it changes when a required process runs, for a named set of systems."
-    }
-  ],
-  "minimum_correct": 1
-}
+::callout type="pitfall"
+Reprisal protection covers the investigator as well as the reporter. That is an unusual provision and a deliberate one: a process where investigating a concern about a favoured project carries career risk produces investigations that find nothing.
 ::
 ```
 
 **pt-BR**
 
 ```
-O segundo conecta-se diretamente à Seção 6.3 da lição 2.3. Quando uma análise crítica determina que o sistema de gestão precisa mudar, a Seção 6.3 exige que essa mudança seja realizada de forma planejada. As duas formam um ciclo: a análise crítica identifica a necessidade, a 6.3 governa a execução, e a próxima análise crítica verifica o status das ações da anterior.
+A orientação observa que a organização pode usar mecanismos de reporte existentes como parte desse processo, e remete à ISO 37002 para considerações adicionais.
 
-A informação documentada deve ser mantida como evidência do que as análises críticas pela direção produziram. **Evidência dos resultados** — as decisões, não a discussão. Atas que registram o que foi dito satisfazem uma convenção de governança; [registros]{glossary="review-records"} do que foi decidido satisfazem a cláusula.
-
-Essa distinção aparece imediatamente em uma auditoria. Um auditor que pergunta o que a análise crítica decidiu e recebe uma narrativa do que foi apresentado encontrou algo.
+**Por que isso importa mais do que sua posição sugere.** A maior parte do que dá errado é visível para alguém antes de aparecer em uma métrica. Um agente de suporte percebe que as sugestões pioraram; um analista vê resultados que não correspondem ao domínio. Sem uma rota segura para dizê-lo, o sinal mais precoce é descartado.
 ::
+
+::callout type="pitfall"
+A proteção contra represálias abrange o investigador tanto quanto quem reporta. Essa é uma disposição incomum e deliberada: um processo em que investigar uma preocupação sobre um projeto favorito implica risco à carreira produz investigações que não encontram nada.
+::
+```
+
+### 10. ADVERSARIAL -- `03-04-operational-planning-and-control` / pt-BR
+
+flags: modal (should x2, no weak modal, 14 obligations vs 11 en); modal-sentence (should -> obligation: O padrão já deve ser familiar.); defined-term (available: available is a duty to furnish on request; retained is a duty to keep -- A informação documentada deve ser mantida na medida em que isso proporcione conf); clause-vocab (pt uses a flat `Seção`: Cláusula 8.1); clause-vocab (pt uses a flat `Seção`: cláusula)
+
+**EN**
+
+```
+Documented information must be **available** to the extent **necessary** for confidence that the processes were carried out as planned. Note the phrasing: *to the extent necessary to have confidence.* The test is whether the evidence supports the claim, not whether a form was completed.
+::
+
+::callout type="pitfall"
+Clause 8.1's change requirement has two halves and the second is the one that gets dropped. The organization controls **planned** changes, and reviews the consequences of **unintended** changes, taking action to mitigate adverse effects. Unintended change is the normal condition for AI systems — a supplier updates a model, an upstream data source shifts its schema, a dependency changes behaviour in a minor release. None of that is a change the organization planned, and all of it is inside this clause.
+::
+
+::concept title="Change, planned and otherwise"
+[Change control for AI]{glossary="change-control-ai"} inherits the shape of change control anywhere and then acquires two complications.
+```
+
+**pt-BR**
+
+```
+A informação documentada deve ser mantida na medida em que isso proporcione confiança de que os processos foram executados conforme planejado. Observe a redação: *na medida necessária para ter confiança.* O teste é se as evidências sustentam a afirmação, não se um formulário foi preenchido.
+::
+
+::callout type="pitfall"
+O requisito de mudanças da Seção 8.1 tem duas partes, e a segunda é a que costuma ser descartada. A organização controla as mudanças **planejadas** e analisa as consequências das mudanças **não intencionais**, tomando ações para mitigar efeitos adversos. A mudança não intencional é a condição normal para sistemas de IA — um fornecedor atualiza um modelo, uma fonte de dados upstream altera seu esquema, uma dependência muda de comportamento em uma versão secundária. Nada disso é uma mudança que a organização planejou, e tudo isso está dentro do escopo desta Seção.
+::
+
+::concept title="Mudança, planejada e não planejada"
+O [controle de mudanças para IA]{glossary="change-control-ai"} herda a forma do controle de mudanças em geral e adquire duas complicações adicionais.
+```
+
+### 11. ADVERSARIAL -- `04-05-data-and-information-controls` / pt-BR
+
+flags: convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Os critérios para decidir o que é fornecido devem ser documentados, com base no uso preten); modal-sentence (should -> obligation: **A compreensibilidade é o objetivo, e o guia afirma que a organização deve entender o que)
+
+**EN**
+
+```
+**Data provenance** — defining and documenting a process for recording provenance across the life cycles of the data and the system.
+
+**Data preparation** — defining and documenting the criteria for selecting preparation methods, and the methods used.
+
+The pattern across all five is *define, document, and do*. Worth noticing here because data work usually happens as technique rather than as documented decision: the standard treats an imputation method or a labelling rule as a choice requiring justification, not a step someone took.
+::
+```
+
+**pt-BR**
+
+```
+**Proveniência dos dados** — definir e documentar um processo para registrar a proveniência ao longo dos ciclos de vida dos dados e do sistema.
+
+**Preparação dos dados** — definir e documentar os critérios para selecionar métodos de preparação e os métodos utilizados.
+
+O padrão em todos os cinco é *definir, documentar e executar*. Vale notar aqui porque o trabalho com dados geralmente acontece como técnica, e não como decisão documentada: a norma trata um método de imputação ou uma regra de rotulagem como uma escolha que requer justificativa, não como um passo que alguém simplesmente executou.
+::
+```
+
+### 12. ADVERSARIAL -- `02-06-the-ai-system-impact-assessment` / pt-BR
+
+flags: modal-sentence (should -> obligation: A organização deve avaliar essas expectativas e considerar como abordá-las.); modal-sentence (should -> obligation: Mas sua presença muda como o documento deve ser redigido.); clause-vocab (pt uses a flat `Seção`: cláusula 8.4); clause-vocab (pt uses a flat `Seção`: cláusula )
+
+**EN**
+
+```
+---
+lesson_id: 02-06-the-ai-system-impact-assessment
+module_slug: aims-context-and-planning
+certification_code: AIMS-F
+title: The AI system impact assessment
+subtitle: Foreseeable misuse, jurisdiction, and consequences you may have to disclose
+language: en
+lesson_group_id: 02-06-the-ai-system-impact-assessment
+duration_minutes: 15
+order_index: 6
+task_codes: ["2.6"]
+concept_slugs:
+  - ai-system-impact-assessment
+  - impact-on-individuals
+  - impact-on-societies
+  - foreseeable-misuse
+  - jurisdictional-context
+  - impact-assessment-documentation
+prerequisites:
+  - 02-05-the-ai-risk-assessment
+preview: |
+  The requirement most specific to this standard. It reaches past intended use
+  into foreseeable misuse, past the organization into societies, and its result
+  may be released to interested parties.
+authors:
+  - Certidemy team
+status: draft
+---
+
+::hook
+The impact assessment asks a question no other clause asks: not what could go wrong for you, but what this system does to people when it works exactly as intended.
+::
+
+::concept title="What clause 6.1.4 requires"
+The [AI system impact assessment]{glossary="ai-system-impact-assessment"} is a formal process, and a documented one, that an organization developing, providing or using AI runs to find out what its systems do to individuals, to groups, and to societies — and then to do something about what it finds.
+```
+
+**pt-BR**
+
+```
+---
+lesson_id: 02-06-the-ai-system-impact-assessment
+module_slug: aims-context-and-planning
+certification_code: AIMS-F
+title: A avaliação de impacto do sistema de IA
+subtitle: Uso indevido previsível, jurisdição e consequências que podem precisar ser divulgadas
+language: pt-BR
+lesson_group_id: 02-06-the-ai-system-impact-assessment
+duration_minutes: 15
+order_index: 6
+task_codes: ["2.6"]
+concept_slugs:
+  - ai-system-impact-assessment
+  - impact-on-individuals
+  - impact-on-societies
+  - foreseeable-misuse
+  - jurisdictional-context
+  - impact-assessment-documentation
+prerequisites:
+  - 02-05-the-ai-risk-assessment
+preview: |
+  O requisito mais específico desta norma. Vai além do uso pretendido
+  para alcançar o uso indevido previsível, além da organização para abranger
+  as sociedades, e seu resultado pode ser divulgado às partes interessadas.
+authors:
+  - Certidemy team
+status: draft
+---
+
+::hook
+A avaliação de impacto faz uma pergunta que nenhuma outra Seção faz: não o que pode dar errado para você, mas o que este sistema faz às pessoas quando funciona exatamente como pretendido.
+::
+
+::concept title="O que a Seção 6.1.4 exige"
+A [avaliação de impacto do sistema de IA]{glossary="ai-system-impact-assessment"} é um processo formal e documentado que uma organização que desenvolve, fornece ou utiliza IA executa para descobrir o que seus sistemas fazem a indivíduos, a grupos e a sociedades — e, em seguida, para agir sobre o que encontra.
 ```
 
 ### 13. RANDOM -- `03-03-documented-information` / pt-BR
@@ -543,907 +671,580 @@ flags: none -- this is the half that tests the checks
 **EN**
 
 ```
-**From Annex A:** documented AI system impact assessments retained for a defined period; resource documentation; system design and development documentation; verification and validation records; deployment plans; technical documentation; event logs.
+Every one of those is created by someone else, is necessary for planning and operation, and can change without the organization being consulted. The supplier controls require the organization to determine what information it needs from suppliers and to ensure adequate documentation is delivered — and clause 7.5.3 is what says that documentation, once received, has to be controlled like anything else.
 
-Two observations. The clause 8 items accumulate rather than replace, which means an organization needs a retention decision for a growing series, not just a current file. And the Annex A items are the ones most likely to live in engineering tooling rather than a document management system — which is fine, provided clause 7.5.3's control requirements are actually met wherever they live.
+**The practical failure is a model card downloaded once, filed, and never checked against the version now in production.**
 ::
 
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "An organization receives a model card from a provider and files it. The provider updates the model six months later. What does clause 7.5.3 require?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Nothing; documents produced by third parties are outside the AIMS" },
-      { "id": "b", "text": "That documented information of external origin necessary for planning and operation be identified and controlled" },
-      { "id": "c", "text": "That the provider be required to hold its own certification" },
-      { "id": "d", "text": "That the model card be reproduced in the organization's own template" }
-    ],
-    "correct": ["b"],
-    "explanation": "External-origin information that the organization determines is necessary for planning and operation must be identified as appropriate and controlled. A model card filed once and never checked against the version in production is uncontrolled, whatever its original quality.",
-    "concept_slugs": ["external-origin-documents"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  },
-  {
-    "id": "q2",
-    "question": "Which requirement applies when documented information is created or updated?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Approval by top management" },
-      { "id": "b", "text": "Identification and description, appropriate format and media, and review and approval for suitability and adequacy" },
-      { "id": "c", "text": "Translation into every language the organization operates in" },
-      { "id": "d", "text": "Publication to interested parties" }
-    ],
-    "correct": ["b"],
-    "explanation": "Those three are the clause 7.5.2 requirements. Top management approval is required for specific artifacts elsewhere, not for documented information generally, and neither translation nor publication is a creation requirement.",
-    "concept_slugs": ["creating-and-updating"],
-    "bloom_level": "3_apply",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "An organization documents extensively, reasoning that more records mean a stronger management system. What does the standard suggest?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Extent varies with organization size, process complexity and the competence of people" },
-      { "id": "b", "text": "A minimum page count is specified per clause" },
-      { "id": "c", "text": "Documentation volume is a measure of AIMS maturity" },
-      { "id": "d", "text": "All processes must be documented to the same level of detail" }
-    ],
-    "correct": ["a"],
-    "explanation": "A note to clause 7.5.1 names those three factors. The requirement is what the standard demands plus what the organization determines is necessary for effectiveness — a judgement, not a volume target.",
-    "concept_slugs": ["documented-information"],
-    "bloom_level": "3_apply",
-    "difficulty": 2
-  },
-  {
-    "id": "q4",
-    "question": "Why do the clause 8 records require a retention decision rather than only a current version?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Because certification bodies require three years of history" },
-      { "id": "b", "text": "Because the clause requires results of all risk assessments, treatments and impact assessments to be retained" },
-      { "id": "c", "text": "Because superseded records must be published to interested parties" },
-      { "id": "d", "text": "Because impact assessments cannot be updated once documented" }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 8 uses the word 'all' for each of the three, so the records accumulate as a series across reassessments rather than replacing each other. That makes retention and disposition a live decision under clause 7.5.3 rather than an afterthought.",
-    "concept_slugs": ["control-of-documented-information", "documented-information"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  }
-]
+::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
+{
+  "items": [
+    {
+      "id": "a",
+      "text": "Distribution, access, retrieval and use"
+    },
+    {
+      "id": "b",
+      "text": "Storage and preservation, including preservation of legibility"
+    },
+    {
+      "id": "c",
+      "text": "Control of changes, such as version control"
+    },
+    {
+      "id": "d",
+      "text": "Retention and disposition"
+    }
+  ],
+  "correct_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "explanation": "The order is the record's own life: made available, kept, changed under control, and eventually retained for a period and disposed of. Preservation of legibility is the item people skip, and it is the reason a record stored in a format nobody can open in five years fails this clause even though the file still exists. For AI systems the retention question is sharper than usual, because event logs and impact assessments may need to outlive the system that produced them."
+}
 ::
 ```
 
 **pt-BR**
 
 ```
-**Do Anexo A:** avaliações de impacto do sistema de IA documentadas e retidas por um período definido; documentação de recursos; documentação de projeto e desenvolvimento do sistema; registros de verificação e validação; planos de implantação; documentação técnica; logs de eventos.
+Cada um desses itens é criado por outra pessoa, é necessário para o planejamento e a operação, e pode mudar sem que a organização seja consultada. Os requisitos de fornecedores exigem que a organização determine quais informações precisa deles e garanta que a documentação adequada seja entregue — e a Seção 7.5.3 é o que determina que essa documentação, uma vez recebida, deve ser controlada como qualquer outra.
 
-Duas observações. Os itens da Seção 8 se acumulam em vez de se substituírem, o que significa que a organização precisa de uma decisão de retenção para uma série crescente, não apenas para um arquivo atual. E os itens do Anexo A são os que mais provavelmente residem em ferramentas de engenharia em vez de em um sistema de gestão de documentos — o que é aceitável, desde que os requisitos de controle da Seção 7.5.3 sejam efetivamente atendidos onde quer que estejam.
+**A falha prática é um cartão de modelo baixado uma vez, arquivado e nunca verificado em relação à versão em produção.**
 ::
 
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "Uma organização recebe um cartão de modelo de um fornecedor e o arquiva. O fornecedor atualiza o modelo seis meses depois. O que a Seção 7.5.3 exige?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Nada; documentos produzidos por terceiros estão fora do sistema de gestão de IA" },
-      { "id": "b", "text": "Que a informação documentada de origem externa necessária para o planejamento e a operação seja identificada e controlada" },
-      { "id": "c", "text": "Que o fornecedor seja obrigado a obter sua própria certificação" },
-      { "id": "d", "text": "Que o cartão de modelo seja reproduzido no modelo próprio da organização" }
-    ],
-    "correct": ["b"],
-    "explanation": "A informação de origem externa que a organização determina ser necessária para o planejamento e a operação deve ser identificada conforme apropriado e controlada. Um cartão de modelo arquivado uma vez e nunca verificado em relação à versão em produção está sem controle, independentemente de sua qualidade original.",
-    "concept_slugs": ["external-origin-documents"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  },
-  {
-    "id": "q2",
-    "question": "Qual requisito se aplica quando uma informação documentada é criada ou atualizada?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Aprovação pela alta direção" },
-      { "id": "b", "text": "Identificação e descrição, formato e mídia adequados, e análise crítica e aprovação quanto à pertinência e adequação" },
-      { "id": "c", "text": "Tradução para todos os idiomas em que a organização opera" },
-      { "id": "d", "text": "Publicação para as partes interessadas" }
-    ],
-    "correct": ["b"],
-    "explanation": "Esses três são os requisitos da Seção 7.5.2. A aprovação pela alta direção é exigida para artefatos específicos em outros pontos, não para a informação documentada em geral, e nem a tradução nem a publicação são requisitos de criação.",
-    "concept_slugs": ["creating-and-updating"],
-    "bloom_level": "3_apply",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "Uma organização documenta extensivamente, argumentando que mais registros significam um sistema de gestão mais robusto. O que a norma sugere?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "A extensão varia com o porte da organização, a complexidade dos processos e a competência das pessoas" },
-      { "id": "b", "text": "Um número mínimo de páginas é especificado por seção" },
-      { "id": "c", "text": "O volume de documentação é uma medida de maturidade do sistema de gestão de IA" },
-      { "id": "d", "text": "Todos os processos devem ser documentados com o mesmo nível de detalhe" }
-    ],
-    "correct": ["a"],
-    "explanation": "Uma nota à Seção 7.5.1 menciona esses três fatores. O requisito é o que a norma exige mais o que a organização determina ser necessário para a eficácia — um julgamento, não uma meta de volume.",
-    "concept_slugs": ["documented-information"],
-    "bloom_level": "3_apply",
-    "difficulty": 2
-  },
-  {
-    "id": "q4",
-    "question": "Por que os registros da Seção 8 exigem uma decisão de retenção em vez de apenas uma versão atual?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Porque os organismos de certificação exigem três anos de histórico" },
-      { "id": "b", "text": "Porque a seção exige que os resultados de todas as avaliações de riscos, tratamentos e avaliações de impacto sejam retidos" },
-      { "id": "c", "text": "Porque os registros substituídos devem ser publicados para as partes interessadas" },
-      { "id": "d", "text": "Porque as avaliações de impacto não podem ser atualizadas após serem documentadas" }
-    ],
-    "correct": ["b"],
-    "explanation": "A Seção 8 usa a palavra 'todas' para cada um dos três casos, portanto os registros se acumulam como uma série ao longo das reavaliações em vez de se substituírem. Isso torna a retenção e o descarte uma decisão ativa sob a Seção 7.5.3, e não uma reflexão tardia.",
-    "concept_slugs": ["control-of-documented-information", "documented-information"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  }
-]
+::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
+{
+  "items": [
+    {
+      "id": "a",
+      "text": "Distribuição, acesso, recuperação e uso"
+    },
+    {
+      "id": "b",
+      "text": "Armazenamento e preservação, incluindo a preservação da legibilidade"
+    },
+    {
+      "id": "c",
+      "text": "Controle de alterações, como controle de versão"
+    },
+    {
+      "id": "d",
+      "text": "Retenção e descarte"
+    }
+  ],
+  "correct_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "explanation": "A ordem é a própria vida do registro: disponibilizado, mantido, alterado sob controle e, por fim, retido por um período e descartado. A preservação da legibilidade é o item que as pessoas pulam, e é a razão pela qual um registro armazenado em um formato que ninguém consegue abrir em cinco anos falha nesta seção mesmo que o arquivo ainda exista. Para sistemas de IA, a questão da retenção é mais crítica do que o habitual, pois logs de eventos e avaliações de impacto podem precisar sobreviver ao sistema que os gerou."
+}
 ::
 ```
 
-### 14. RANDOM -- `03-05-third-party-ai-supply` / pt-BR
+### 14. RANDOM -- `05-05-the-certification-route` / pt-BR
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-So supplier treatment is risk-differentiated by design. A library that formats dates and a foundation model that generates customer-facing text are both supplied components, and treating them identically means one is over-managed or the other is under-managed.
-::
-
-::concept title="What the organization must do"
-Three [obligations]{glossary="supplier-obligations"} sit in the supplier control and its guidance.
-
-**Establish a process** ensuring that the organization's use of supplier-provided services, products or materials lines up with its own approach to responsible development and use of AI systems. Note the framing — alignment with *your* approach, which presupposes you have one.
-```
-
-**pt-BR**
-
-```
-Portanto, o tratamento de fornecedores é diferenciado por risco por design. Uma biblioteca que formata datas e um modelo de base que gera texto voltado ao cliente são ambos componentes fornecidos, e tratá-los de forma idêntica significa que um será gerenciado em excesso ou o outro será gerenciado de forma insuficiente.
-::
-
-::concept title="O que a organização deve fazer"
-Três [obrigações]{glossary="supplier-obligations"} constam no controle de fornecedores e em sua orientação.
-
-**Estabelecer um processo** que garanta que o uso de serviços, produtos ou materiais fornecidos por fornecedores esteja alinhado com a própria abordagem da organização para o desenvolvimento e uso responsável de sistemas de IA. Observe o enquadramento — alinhamento com *sua* abordagem, o que pressupõe que você tenha uma.
-```
-
-### 15. RANDOM -- `03-02-awareness-and-communication` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The practical implication is that AI awareness content probably needs a different segmentation from security awareness content — organized by **what people do with AI** rather than by system access level. A support agent overriding suggestions needs to know what an override is for and when it matters. Someone pasting into a generative tool needs to know what the policy says about that specific act.
-
-Neither of them needs the full policy. Both need the part of it that governs the thing they do daily, and the standard's requirement is that they be aware — which is a claim about what they know, not about what was sent to them.
+The useful preparation is not a document set. It is running the system long enough to have produced records in the ordinary course — which clause 8 requires whether or not anyone is coming to look.
 ::
 
 ::checkpoint
 [
   {
     "id": "q1",
-    "question": "Which of the three awareness items is most often omitted from awareness material?",
+    "question": "Where do the requirements for the two-stage initial audit come from?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "The AI policy" },
-      { "id": "b", "text": "Their contribution to the effectiveness of the AIMS, including the benefits of improved AI performance" },
-      { "id": "c", "text": "The implications of not conforming with AIMS requirements" },
-      { "id": "d", "text": "The organization's certification status" }
+      { "id": "a", "text": "Clause 9.2 of ISO/IEC 42001" },
+      { "id": "b", "text": "ISO/IEC 17021-1, the generic standard for management system certification bodies" },
+      { "id": "c", "text": "Annex D of ISO/IEC 42001" },
+      { "id": "d", "text": "The accreditation body's national requirements" }
     ],
     "correct": ["b"],
-    "explanation": "Awareness material tends to cover the policy and the consequences of breaching it, and to skip the positive half — what a person's own work contributes and what improved performance is worth. Certification status is not among the three items.",
-    "concept_slugs": ["awareness-requirement"],
+    "explanation": "ISO/IEC 42001 describes no certification process at all. The two-stage audit, surveillance and recertification come from ISO/IEC 17021-1, which is why they apply the same way to an information security management system. Clause 9.2 concerns the organization's own internal audits.",
+    "concept_slugs": ["stage-one-stage-two", "certification-route"],
     "bloom_level": "2_understand",
     "difficulty": 2
   },
   {
     "id": "q2",
-    "question": "An organization holds an annual AI training session and records completion. Has it satisfied clause 7.3?",
+    "question": "What does ISO/IEC 42006 govern?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "Yes; training satisfies the awareness requirement" },
-      { "id": "b", "text": "Not necessarily; awareness concerns what people know, and training is a clause 7.2 competence action" },
-      { "id": "c", "text": "Only if the session is repeated for contractors separately" },
-      { "id": "d", "text": "Only if attendance exceeds a stated threshold" }
+      { "id": "a", "text": "Requirements for organizations implementing an AI management system" },
+      { "id": "b", "text": "Requirements for bodies auditing and certifying AI management systems, including competence, impartiality and audit time" },
+      { "id": "c", "text": "Requirements for certifying the competence of individuals in AI governance" },
+      { "id": "d", "text": "Guidance on AI risk management" }
     ],
     "correct": ["b"],
-    "explanation": "The two clauses address different things. Training builds competence under 7.2, where effectiveness must be evaluated. Awareness under 7.3 is a claim about what people are aware of. A session may serve both, but completion records evidence attendance rather than either outcome.",
-    "concept_slugs": ["awareness-requirement", "work-under-organizational-control"],
+    "explanation": "It sets requirements for the certifiers, which is what makes a certificate from one body comparable to one from another. Organizational requirements are in 42001, personnel certification in ISO/IEC 17024, and risk management guidance in ISO/IEC 23894.",
+    "concept_slugs": ["iso-42006-role"],
     "bloom_level": "2_understand",
-    "difficulty": 3
+    "difficulty": 2
   },
   {
     "id": "q3",
-    "question": "What four things does clause 7.4 require the organization to determine?",
+    "question": "Which statement about accreditation and certification is correct?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "What, when, with whom, and how" },
-      { "id": "b", "text": "Who, why, how much, and how often" },
-      { "id": "c", "text": "Audience, channel, budget, and approval" },
-      { "id": "d", "text": "Internal, external, routine, and incident" }
+      { "id": "a", "text": "An organization is accredited and its auditor is certified" },
+      { "id": "b", "text": "Accreditation assesses the certifier; certification assesses the organization" },
+      { "id": "c", "text": "Both terms describe the same assessment at different scales" },
+      { "id": "d", "text": "Accreditation is required before an organization may seek certification" }
     ],
-    "correct": ["a"],
-    "explanation": "Those four decisions, for both internal and external communications relevant to the AIMS. Their absence is what distinguishes planned communication from reacting to events as they arise.",
-    "concept_slugs": ["communication-planning"],
+    "correct": ["b"],
+    "explanation": "An accreditation body assesses certification bodies; a certification body assesses organizations. Reversing them produces claims that cannot be true, and the confusion is the most common error in this area.",
+    "concept_slugs": ["accreditation-vs-certification"],
     "bloom_level": "2_understand",
     "difficulty": 2
   },
   {
     "id": "q4",
-    "question": "A concerns-reporting process exists but few people know about it. Which requirements are engaged?",
+    "question": "An organization with comprehensive documentation and three months of operating history is heading into stage 2. What is the most likely difficulty?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "Only the Annex A control, since the process exists" },
-      { "id": "b", "text": "The control, plus communication and awareness — a channel nobody knows about does not function" },
-      { "id": "c", "text": "Only clause 7.4, since promotion is a communication activity" },
-      { "id": "d", "text": "None; promotion of internal processes is outside the standard" }
+      { "id": "a", "text": "The Statement of Applicability will be judged incomplete" },
+      { "id": "b", "text": "There may be too little operating record for the body to sample" },
+      { "id": "c", "text": "The scope will require amendment" },
+      { "id": "d", "text": "Documentation will be found excessive" }
     ],
     "correct": ["b"],
-    "explanation": "The guidance expects the reporting mechanism to be available and promoted to employed and contracted persons, with protection from reprisals. Existence is the control, promotion is communication, and people knowing it is safe to use is awareness. All three have to work.",
-    "concept_slugs": ["communication-planning", "work-under-organizational-control"],
+    "explanation": "Stage 2 examines operation rather than design. Assessments on schedule, results retained, treatment verified, corrective action reviewed — all require history. A documented system with no operating record has nothing to sample.",
+    "concept_slugs": ["stage-one-stage-two", "surveillance-and-recertification"],
     "bloom_level": "2_understand",
     "difficulty": 3
   }
 ]
+::
+
+::summary
+- ISO/IEC 42001 places requirements on the organization and describes no certification process.
+- ISO/IEC 42006 sets requirements for bodies auditing and certifying an AIMS.
+- ISO/IEC 17021-1 is where the two-stage audit, surveillance and recertification live.
+- Stage 1 examines design; stage 2 examines operation; surveillance samples.
+- Accreditation assesses the certifier; certification assesses the organization.
+- Management system certification is not personnel certification, and conformity is not compliance.
 ::
 ```
 
 **pt-BR**
 
 ```
-A implicação prática é que o conteúdo de conscientização sobre IA provavelmente precisa de uma segmentação diferente do conteúdo de conscientização sobre segurança — organizado pelo **que as pessoas fazem com a IA** e não pelo nível de acesso ao sistema. Um agente de suporte que substitui sugestões precisa saber para que serve uma substituição e quando ela importa. Alguém que cola em uma ferramenta generativa precisa saber o que a política diz sobre esse ato específico.
-
-Nenhum deles precisa da política completa. Ambos precisam da parte que rege o que fazem diariamente, e o requisito da norma é que estejam cientes — o que é uma afirmação sobre o que sabem, não sobre o que lhes foi enviado.
+A preparação útil não é um conjunto de documentos. É operar o sistema por tempo suficiente para ter produzido registros no curso normal das atividades — o que a Seção 8 exige independentemente de alguém vir verificar.
 ::
 
 ::checkpoint
 [
   {
     "id": "q1",
-    "question": "Qual dos três itens de conscientização é mais frequentemente omitido dos materiais de conscientização?",
+    "question": "De onde vêm os requisitos para a auditoria inicial em dois estágios?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "A política de IA" },
-      { "id": "b", "text": "Sua contribuição para a eficácia do sistema de gestão de IA, incluindo os benefícios da melhoria do desempenho da IA" },
-      { "id": "c", "text": "As implicações de não estar em conformidade com os requisitos do sistema de gestão de IA" },
-      { "id": "d", "text": "O status de certificação da organização" }
+      { "id": "a", "text": "Seção 9.2 da ISO/IEC 42001" },
+      { "id": "b", "text": "ISO/IEC 17021-1, a norma genérica para organismos de certificação de sistemas de gestão" },
+      { "id": "c", "text": "Anexo D da ISO/IEC 42001" },
+      { "id": "d", "text": "Os requisitos nacionais do organismo de acreditação" }
     ],
     "correct": ["b"],
-    "explanation": "Os materiais de conscientização tendem a cobrir a política e as consequências de violá-la, e a omitir a metade positiva — o que o próprio trabalho de uma pessoa contribui e o que a melhoria do desempenho representa. O status de certificação não está entre os três itens.",
-    "concept_slugs": ["awareness-requirement"],
+    "explanation": "A ISO/IEC 42001 não descreve nenhum processo de certificação. A auditoria em dois estágios, a vigilância e a recertificação vêm da ISO/IEC 17021-1, razão pela qual se aplicam da mesma forma a um sistema de gestão da segurança da informação. A Seção 9.2 diz respeito às auditorias internas da própria organização.",
+    "concept_slugs": ["stage-one-stage-two", "certification-route"],
     "bloom_level": "2_understand",
     "difficulty": 2
   },
   {
     "id": "q2",
-    "question": "Uma organização realiza um treinamento anual de IA e registra a conclusão. Ela satisfez a Seção 7.3?",
+    "question": "O que a ISO/IEC 42006 governa?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "Sim; o treinamento satisfaz o requisito de conscientização" },
-      { "id": "b", "text": "Não necessariamente; conscientização diz respeito ao que as pessoas sabem, e treinamento é uma ação de competência prevista na Seção 7.2" },
-      { "id": "c", "text": "Somente se a sessão for repetida separadamente para prestadores de serviço" },
-      { "id": "d", "text": "Somente se a participação superar um limite estabelecido" }
+      { "id": "a", "text": "Requisitos para organizações que implementam um sistema de gestão de IA" },
+      { "id": "b", "text": "Requisitos para organismos que auditam e certificam sistemas de gestão de IA, incluindo competência, imparcialidade e tempo de auditoria" },
+      { "id": "c", "text": "Requisitos para certificar a competência de indivíduos em governança de IA" },
+      { "id": "d", "text": "Orientações sobre gestão de riscos de IA" }
     ],
     "correct": ["b"],
-    "explanation": "As duas seções tratam de coisas diferentes. O treinamento desenvolve competência na 7.2, onde a eficácia deve ser avaliada. A conscientização na 7.3 é uma afirmação sobre o que as pessoas estão cientes. Uma sessão pode servir a ambas, mas os registros de conclusão evidenciam presença, não nenhum dos dois resultados.",
-    "concept_slugs": ["awareness-requirement", "work-under-organizational-control"],
+    "explanation": "Ela estabelece requisitos para os certificadores, o que é o que torna um certificado de um organismo comparável ao de outro. Os requisitos organizacionais estão na 42001, a certificação de pessoas na ISO/IEC 17024 e as orientações sobre gestão de riscos na ISO/IEC 23894.",
+    "concept_slugs": ["iso-42006-role"],
     "bloom_level": "2_understand",
-    "difficulty": 3
+    "difficulty": 2
   },
   {
     "id": "q3",
-    "question": "Quais são as quatro coisas que a Seção 7.4 exige que a organização determine?",
+    "question": "Qual afirmação sobre acreditação e certificação está correta?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "O quê, quando, com quem e como" },
-      { "id": "b", "text": "Quem, por quê, quanto e com que frequência" },
-      { "id": "c", "text": "Público, canal, orçamento e aprovação" },
-      { "id": "d", "text": "Interno, externo, rotineiro e de incidente" }
+      { "id": "a", "text": "Uma organização é acreditada e seu auditor é certificado" },
+      { "id": "b", "text": "A acreditação avalia o certificador; a certificação avalia a organização" },
+      { "id": "c", "text": "Ambos os termos descrevem a mesma avaliação em escalas diferentes" },
+      { "id": "d", "text": "A acreditação é exigida antes que uma organização possa buscar a certificação" }
     ],
-    "correct": ["a"],
-    "explanation": "Essas quatro decisões, para comunicações internas e externas relevantes para o sistema de gestão de IA. A ausência delas é o que distingue a comunicação planejada de reagir a eventos conforme surgem.",
-    "concept_slugs": ["communication-planning"],
+    "correct": ["b"],
+    "explanation": "Um organismo de acreditação avalia os organismos de certificação; um organismo de certificação avalia as organizações. Inverter essa relação produz afirmações que não podem ser verdadeiras, e a confusão é o erro mais comum nesta área.",
+    "concept_slugs": ["accreditation-vs-certification"],
     "bloom_level": "2_understand",
     "difficulty": 2
   },
   {
     "id": "q4",
-    "question": "Existe um processo de relato de preocupações, mas poucas pessoas sabem sobre ele. Quais requisitos estão envolvidos?",
+    "question": "Uma organização com documentação abrangente e três meses de histórico operacional está prestes a entrar no Estágio 2. Qual é a dificuldade mais provável?",
     "type": "single_choice",
     "options": [
-      { "id": "a", "text": "Apenas o controle do Anexo A, já que o processo existe" },
-      { "id": "b", "text": "O controle, mais comunicação e conscientização — um canal que ninguém conhece não funciona" },
-      { "id": "c", "text": "Apenas a Seção 7.4, já que a divulgação é uma atividade de comunicação" },
-      { "id": "d", "text": "Nenhum; a divulgação de processos internos está fora do escopo da norma" }
+      { "id": "a", "text": "A Declaração de Aplicabilidade será considerada incompleta" },
+      { "id": "b", "text": "Pode haver histórico operacional insuficiente para o organismo realizar amostragem" },
+      { "id": "c", "text": "O escopo precisará ser alterado" },
+      { "id": "d", "text": "A documentação será considerada excessiva" }
     ],
     "correct": ["b"],
-    "explanation": "A orientação espera que o mecanismo de relato esteja disponível e seja divulgado para pessoas empregadas e contratadas, com proteção contra represálias. A existência é o controle, a divulgação é comunicação, e as pessoas saberem que é seguro usá-lo é conscientização. Os três precisam funcionar.",
-    "concept_slugs": ["communication-planning", "work-under-organizational-control"],
+    "explanation": "O Estágio 2 examina a operação, e não o projeto. Avaliações realizadas no prazo, resultados retidos, tratamento verificado, ação corretiva revisada — tudo isso exige histórico. Um sistema documentado sem histórico operacional não tem nada a ser amostrado.",
+    "concept_slugs": ["stage-one-stage-two", "surveillance-and-recertification"],
     "bloom_level": "2_understand",
     "difficulty": 3
   }
 ]
 ::
+
+::summary
+- A ISO/IEC 42001 impõe requisitos à organização e não descreve nenhum processo de certificação.
+- A ISO/IEC 42006 estabelece requisitos para os organismos que auditam e certificam um sistema de gestão de IA.
+- A ISO/IEC 17021-1 é onde residem a auditoria em dois estágios, a vigilância e a recertificação.
+- O Estágio 1 examina o projeto; o Estágio 2 examina a operação; a vigilância faz amostragem.
+- A acreditação avalia o certificador; a certificação avalia a organização.
+- A certificação de sistema de gestão não é certificação de pessoas, e conformidade não é conformidade legal.
+::
 ```
 
-### 16. RANDOM -- `05-05-the-certification-route` / pt-BR
+### 15. RANDOM -- `01-02-determining-your-roles` / pt-BR
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-::callout type="terminology"
-Do not state specific durations for the certification cycle from memory. The cycle length and surveillance frequency are set by ISO/IEC 17021-1 and by accreditation body requirements, and they are the kind of detail that varies and gets amended. What is durable is the shape: two initial stages, periodic surveillance, and periodic recertification.
+ISO/IEC 22989 describes these roles in detail, and the NIST AI Risk Management Framework describes role types and how they relate to the life cycle. The standard points at both rather than reproducing them.
 ::
 
-::concept title="What ISO/IEC 42006 adds"
-Certification bodies auditing an AI management system need something a generic standard cannot give them, and [ISO/IEC 42006]{glossary="iso-42006-role"} is where it comes from.
+::callout type="pitfall"
+"Developer" is not one of the six. It sits **inside** AI producers, alongside designers, testers, deployers and several others. Treating developer as a peer category — as much of the market's shorthand does — flattens a category that holds ten kinds of work and makes it easy to conclude a role does not apply to you when it does.
+::
 
-**Competence requirements for auditors.** Auditing an AIMS requires understanding of AI systems, their life cycle and this standard's obligations. A body competent in information security is not thereby competent here — lesson 3.7's point, applied to the certifier.
+::concept title="Most organizations hold several at once"
+A bank builds an internal fraud model, buys a customer service assistant from a vendor, and offers a document-summarizing feature to its corporate clients.
 ```
 
 **pt-BR**
 
 ```
-::concept title="O caminho em si"
-Da ISO/IEC 17021-1, aplicável à certificação de sistemas de gestão em geral:
+A ISO/IEC 22989 descreve esses papéis em detalhes, e o NIST AI Risk Management Framework descreve os tipos de papéis e como eles se relacionam com o ciclo de vida. A norma aponta para ambos em vez de reproduzi-los.
+::
 
-**[Estágio 1]{glossary="stage-one-stage-two"}** tem foco na documentação. O organismo de certificação examina se o sistema de gestão foi projetado para atender aos requisitos — o escopo, a política, o processo de avaliação de riscos e o tratamento de riscos, a Declaração de Aplicabilidade, o programa de auditoria interna e a análise crítica pela direção — e avalia se a organização está pronta para o Estágio 2. As constatações nesta fase geralmente dizem respeito à prontidão, e não à conformidade.
+::callout type="pitfall"
+"Desenvolvedor" não é uma das seis categorias. Ele está **dentro** dos produtores de IA, ao lado de designers, testadores, implantadores e vários outros. Tratar desenvolvedor como uma categoria equivalente — como grande parte do jargão do mercado faz — achata uma categoria que abrange dez tipos de trabalho e facilita a conclusão de que um papel não se aplica a você quando na verdade se aplica.
+::
 
-**O Estágio 2** tem foco na implementação. O organismo examina se o sistema está efetivamente em operação: evidências de processos em execução, registros produzidos, decisões tomadas. É aqui que o material da Seção 8 da Lição 3.8 é testado, e onde uma organização com excelente documentação mas sem histórico operacional enfrenta dificuldades.
+::concept title="A maioria das organizações ocupa vários papéis ao mesmo tempo"
+Um banco constrói um modelo interno de detecção de fraudes, compra um assistente de atendimento ao cliente de um fornecedor e oferece um recurso de resumo de documentos a seus clientes corporativos.
+```
+
+### 16. RANDOM -- `02-05-the-ai-risk-assessment` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+[Identifying]{glossary="risk-identification-ai"} against that list surfaces things a conventional IT risk assessment does not reach, because the conventional assessment asks what could go wrong with a system that behaves as specified. Several of these concern a system that behaves exactly as built and still produces an unwanted outcome.
+
+The [analysis and evaluation]{glossary="risk-analysis-and-evaluation"} steps then face a genuine difficulty that the standard does not resolve for you. Likelihood is qualified — *where applicable* — and for some AI risks it is not applicable in any meaningful sense. What is the likelihood that a model's behaviour drifts in a way that disadvantages a group nobody thought to measure? The honest answer is that likelihood is the wrong instrument, and the criteria have to be able to handle a risk assessed on consequence alone.
+
+ISO/IEC 23894 provides guidance on implementing risk management for organizations developing, providing or using AI. Where the organization needs more method than this standard supplies, that is where the standard points.
+::
+```
+
+**pt-BR**
+
+```
+[Identificar]{glossary="risk-identification-ai"} com base nessa lista revela aspectos que uma avaliação de risco de TI convencional não alcança, pois a avaliação convencional pergunta o que pode dar errado em um sistema que se comporta conforme especificado. Vários desses itens dizem respeito a um sistema que se comporta exatamente como foi construído e ainda assim produz um resultado indesejado.
+
+As etapas de [análise e avaliação de riscos]{glossary="risk-analysis-and-evaluation"} enfrentam então uma dificuldade genuína que a norma não resolve por você. A probabilidade é qualificada — *onde aplicável* — e para alguns riscos de IA ela não é aplicável de forma significativa. Qual é a probabilidade de que o comportamento de um modelo se desvie de maneira que prejudique um grupo que ninguém pensou em medir? A resposta honesta é que a probabilidade é o instrumento errado, e os critérios precisam ser capazes de lidar com um risco avaliado apenas com base na consequência.
+
+A ISO/IEC 23894 fornece orientações sobre a implementação da gestão de riscos para organizações que desenvolvem, fornecem ou utilizam IA. Quando a organização precisar de mais método do que esta norma oferece, é para lá que ela aponta.
+::
 ```
 
 ---
 
 ## AIMS-IA 2026-09-12 / es-419
 
-30 row(s) in this stratum; 4 adversarial, 4 random.
+30 row(s) in this stratum; 4 adversarial, 2 random.
 
-### 17. ADVERSARIAL -- `aims-ia-03-05-the-question-that-finds-evidence` / es-419
+### 17. ADVERSARIAL -- `aims-ia-04-13-competence-the-organization-claims` / es-419
 
-flags: accent (formula); accent (incomoda)
+flags: accent (formula); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2)
 
 **EN**
 
 ```
-**Posturing.** The auditor, wanting to appear competent, uses terminology imprecisely and asks questions that reveal the gap. The interviewee then adjusts - simplifying, filling in what they assume was meant, and sometimes correcting the auditor rather than answering. The evidence degrades because the conversation is now about the auditor.
+Clause 7.2 concerns persons doing work under the organization's control that affects its AI performance. As AI systems take over more of the work, some of what previously required a competent person is now performed by a system - triage decisions, first-line classification, drafting, monitoring.
 
-The way through is to be plain about the role. *I am not going to be able to evaluate the methodology, so I want to understand what records this produces and see the last three.* Nobody is embarrassed, the specialist knows what is useful, and the audit gets artifacts instead of an argument.
+Two observations, and the first is more important than it looks.
 
-This is also where a technical expert on the audit team earns their place, per clause 3.15. The expert can interrogate methodology; the auditor takes what the expert establishes and tests it against the criteria. Two competences, two people, and clause 4.2 b) satisfied for each.
+**The competence requirement does not disappear; it moves.** Where a system performs work a person used to do, the people whose competence now affects AI performance are the ones who configure it, evaluate whether it is performing acceptably, and decide when to intervene. That is different competence from doing the original task, and an organization that automated a task and retained its old competence determination has a determination describing work nobody does any more.
+```
+
+**es-419**
+
+```
+El capítulo 7.2 se refiere a las personas que realizan trabajo bajo el control de la organización que afecta a su desempeño en IA. A medida que los sistemas de IA asumen más trabajo, parte de lo que antes requería una persona competente ahora lo realiza un sistema: decisiones de clasificación inicial, clasificación de primera línea, redacción, monitoreo.
+
+Dos observaciones, y la primera es más importante de lo que parece.
+
+**El requisito de competencia no desaparece; se desplaza.** Cuando un sistema realiza el trabajo que antes hacía una persona, las personas cuya competencia ahora afecta al desempeño en IA son quienes lo configuran, evalúan si está funcionando de manera aceptable y deciden cuándo intervenir. Esa es una competencia diferente a la de realizar la tarea original, y una organización que automatizó una tarea y conservó su antigua determinación de competencia tiene una determinación que describe un trabajo que ya nadie realiza.
+```
+
+### 18. ADVERSARIAL -- `aims-ia-04-01-a-determination-or-an-assertion` / es-419
+
+flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1)
+
+**EN**
+
+```
+Reading the role determination and finding it internally coherent establishes nothing. Two documents by the same organization usually agree. The independent reference point is what the organization actually does:
+
+- **procurement and vendor records** - what AI services and licences are paid for;
+- **engineering repositories and model registries** - what is built and what is deployed;
+- **product documentation and customer contracts** - what is offered externally;
+- **the interested parties in clause 4.2** - who the organization itself says is affected.
+
+Comparing that estate to the determination produces three kinds of finding, in increasing order of usefulness:
+```
+
+**es-419**
+
+```
+Leer la determinación de roles y encontrarla internamente coherente no establece nada. Dos documentos de la misma organización suelen coincidir. El punto de referencia independiente es lo que la organización realmente hace:
+
+- **registros de adquisiciones y proveedores** — qué servicios y licencias de IA se pagan;
+- **repositorios de ingeniería y registros de modelos** — qué se construye y qué se despliega;
+- **documentación de productos y contratos con clientes** — qué se ofrece externamente;
+- **las partes interesadas del capítulo 4.2** — a quiénes la propia organización dice que afecta.
+
+Comparar ese inventario con la determinación produce tres tipos de hallazgo, en orden creciente de utilidad:
+```
+
+### 19. ADVERSARIAL -- `aims-ia-04-08-defined-versus-running` / es-419
+
+flags: accent (clausula); unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: clausula 7.5.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6)
+
+**EN**
+
+```
+The monitoring limb is a second, separate obligation and it is the one organizations most often miss entirely: **the effectiveness of those controls shall be monitored**, and corrective actions considered where intended results are not achieved. An organization that implemented its declared controls and never asked whether they work has met the first half of that sentence.
+::
+
+::concept title="Defining and performing are split across the standard, and each pair has two clauses"
+The split runs through the whole standard and the pairs are worth holding as a table, because most misplaced findings in module 4 come from citing the planning clause when the operating clause is the one that failed.
+
+| Activity | Defined at | Performed at |
+|---|---|---|
+| AI risk assessment | 6.1.2 | **8.2** - at planned intervals, and whenever significant change is proposed or happens; retain documented information of the results |
+| AI risk treatment | 6.1.3 | **8.3** - implement the risk treatment plan; retain documented information of the results |
+| AI system impact assessment | 6.1.4 | **8.4** - at planned times and when significant changes occur; retain documented information of the results |
+| Controls from the SoA | 6.1.3 | **8.1** - implement, and monitor their effectiveness |
+```
+
+**es-419**
+
+```
+El componente de monitoreo es una segunda obligación separada y es la que las organizaciones más frecuentemente omiten por completo: **la eficacia de esos controles deberá monitorearse**, y deberán considerarse acciones correctivas cuando no se logren los resultados previstos. Una organización que implementó sus controles declarados y nunca preguntó si funcionan ha cumplido solo la primera mitad de esa oración.
+::
+
+::concept title="Definir y ejecutar están separados en la norma, y cada par tiene dos apartados"
+La separación recorre toda la norma y vale la pena mantener los pares como una tabla, porque la mayoría de los hallazgos mal ubicados en el módulo 4 provienen de citar el apartado de planificación cuando el apartado de operación es el que falló.
+
+| Actividad | Definida en | Ejecutada en |
+|---|---|---|
+| Evaluación del riesgo de IA | 6.1.2 | **8.2** - a intervalos planificados y siempre que se proponga o se produzca un cambio significativo; conservar información documentada de los resultados |
+| Tratamiento del riesgo de IA | 6.1.3 | **8.3** — implementar el plan de tratamiento del riesgo; conservar información documentada de los resultados |
+| Evaluación del impacto del sistema de IA | 6.1.4 | **8.4** — en momentos planificados y cuando se producen cambios significativos; conservar información documentada de los resultados |
+| Controles de la Declaración de Aplicabilidad | 6.1.3 | **8.1** — implementar y monitorear su eficacia |
+```
+
+### 20. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / es-419
+
+flags: clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 4.2); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3)
+
+**EN**
+
+```
+**Does the scope reflect the roles determined?** An organization determining that it develops, provides and uses AI systems, whose scope statement addresses only use, has not carried its own determination through. The obligations that attach to developing and providing sit outside a scope that does not reach them.
+
+**Does the scope reflect the issues determined?** If clause 4.1 identified operations in two new jurisdictions as a relevant external issue, and the scope's virtual locations and activities do not reach the systems operating there, the consideration clause 4.3 requires did not happen.
+::
+
+::concept title="Interested-party requirements are the third input, and the least worked"
+Clause 4.2 requires the organization to determine the interested parties relevant to the AI management system, their relevant requirements, and **which of those requirements will be addressed** through the AI management system.
+```
+
+**es-419**
+
+```
+**¿Refleja el alcance los roles determinados?** Una organización que determina que desarrolla, proporciona y usa sistemas de IA, cuyo enunciado de alcance aborda solo el uso, no ha trasladado su propia determinación hasta el final. Las obligaciones asociadas al desarrollo y la provisión quedan fuera de un alcance que no las alcanza.
+
+**¿Refleja el alcance los asuntos determinados?** Si el apartado 4.1 identificó operaciones en dos nuevas jurisdicciones como un asunto externo relevante, y las ubicaciones virtuales y actividades del alcance no llegan a los sistemas que operan allí, la consideración que exige el capítulo 4.3 no tuvo lugar.
+::
+
+::concept title="Los requisitos de las partes interesadas son el tercer insumo, y el menos trabajado"
+El apartado 4.2 requiere que la organización determine las partes interesadas relevantes para el sistema de gestión de IA, sus requisitos relevantes, y **cuáles de esos requisitos serán atendidos** a través del sistema de gestión de IA.
+```
+
+### 21. RANDOM -- `aims-ia-01-01-who-commissioned-it` / es-419
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+Read the first limb again. **Two sets of criteria, not one, and the organization's own come first in the standard's wording.** An AI management system can satisfy every clause of ISO/IEC 42001 and still fail the organization's own AI policy - and that is a finding, raised against a criterion the organization wrote itself.
+
+The third limb is separate from the first two. Conformity is about whether the arrangements meet the requirements. Effective implementation and maintenance is about whether they operate. An AIMS that is documented to the letter and dormant in practice conforms and is not effectively implemented.
+
+No certificate results. Nobody outside the organization is entitled to the report. The entire value of the exercise is that management learns something true before someone else does.
 ::
 ```
 
 **es-419**
 
 ```
-**Postura.** El auditor, queriendo parecer competente, usa terminología de forma imprecisa y hace preguntas que revelan la brecha. El entrevistado entonces se ajusta: simplifica, completa lo que supone que se quiso decir y a veces corrige al auditor en lugar de responder. La evidencia se deteriora porque la conversación ahora trata sobre el auditor.
+Lea el primer punto nuevamente. **Dos conjuntos de criterios, no uno, y los de la propia organización aparecen primero en la redacción de la norma.** Un sistema de gestión de IA puede satisfacer cada capítulo de ISO/IEC 42001 y aun así incumplir la propia política de IA de la organización — y eso es un hallazgo, planteado frente a un criterio que la propia organización redactó.
 
-La salida es ser directo sobre el rol. *No voy a poder evaluar la metodología, así que quiero entender qué registros produce esto y ver los últimos tres.* Nadie se incomoda, el especialista sabe qué es útil y la auditoría obtiene artefactos en lugar de un debate.
+El tercer punto es independiente de los dos primeros. La conformidad se refiere a si los acuerdos cumplen los requisitos. La implementación y el mantenimiento eficaces se refieren a si estos operan en la práctica. Un sistema de gestión de IA documentado al pie de la letra pero inactivo en la práctica es conforme y no está implementado de manera eficaz.
 
-Aquí es también donde un experto técnico en el equipo de auditoría cumple su función, conforme al apartado 3.15. El experto puede interrogar la metodología; el auditor toma lo que el experto establece y lo contrasta con los criterios. Dos competencias, dos personas, y el apartado 4.2 b) satisfecho para cada una.
+No se emite ningún certificado. Nadie fuera de la organización tiene derecho al informe. El valor total del ejercicio radica en que la dirección aprende algo verdadero antes de que lo haga otra persona.
 ::
 ```
 
-### 18. ADVERSARIAL -- `aims-ia-04-08-defined-versus-running` / es-419
+### 22. RANDOM -- `aims-ia-02-06-choosing-the-method` / es-419
 
-flags: accent (clausula)
-
-**EN**
-
-```
-Two obligations. Monitor effectiveness. Consider corrective action where intended results are not achieved.
-
-This is not clause 9.1, which addresses monitoring, measurement, analysis and evaluation of the AI management system's performance and effectiveness. Clause 8.1's monitoring is narrower and more specific: the controls the organization determined under 6.1.3 and implemented.
-
-The evidence gap in most organizations is that controls are implemented and then assumed to work. What would evidence monitoring:
-```
-
-**es-419**
-
-```
-Dos obligaciones. Monitorear la eficacia. Considerar acciones correctivas donde no se logren los resultados previstos.
-
-Esto no es el apartado 9.1, que aborda el monitoreo, la medición, el análisis y la evaluación del desempeño y la eficacia del sistema de gestión de IA. El monitoreo del apartado 8.1 es más acotado y específico: los controles que la organización determinó conforme al apartado 6.1.3 e implementó.
-
-La brecha de evidencia en la mayoría de las organizaciones es que los controles se implementan y luego se asume que funcionan. ¿Qué evidenciaría el monitoreo?
-```
-
-### 19. ADVERSARIAL -- `aims-ia-05-06-correction-is-not-corrective-action` / es-419
-
-flags: accent (clausula)
+flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-The same logic runs through most AIMS findings:
-
-- A **data provenance record** incomplete for one dataset - are the others complete, and were they produced the same way?
-- A **declared control** not operated in one team - do other teams operate it?
-- A **model card** missing its version identifier - is that one model or the template?
-- A **competence determination** covering engineering and not operations - does the same omission run through every role family?
-
-The distinguishing question is whether the cause is **local or systemic**, and the organization is required to determine which. An auditor can test whether they did: the corrective action record either addresses the question or it does not.
-```
-
-**es-419**
-
-```
-La misma lógica se aplica a la mayoría de los hallazgos del sistema de gestión de IA:
-
-- Un **registro de procedencia de datos** incompleto para un conjunto de datos: ¿los demás están completos y se produjeron de la misma manera?
-- Un **control declarado** no operado en un equipo: ¿otros equipos lo operan?
-- Una **tarjeta de modelo** sin identificador de versión: ¿es un modelo o la plantilla?
-- Una **determinación de competencia** que cubre ingeniería pero no operaciones: ¿la misma omisión se repite en todas las familias de roles?
-
-La pregunta que distingue es si la causa es **local o sistémica**, y la organización está obligada a determinarlo. Un auditor puede verificar si lo hizo: el registro de acción correctiva aborda la pregunta o no la aborda.
-```
-
-### 20. ADVERSARIAL -- `aims-ia-03-04-demonstrated-not-described` / es-419
-
-flags: accent (formula)
-
-**EN**
-
-```
-Which gives a practical test for any finding before it is written: **could a second auditor, given the audit record, reach this conclusion without having been in the room?** If not, the finding is resting on something that was not evidence.
+The output of these questions is usually a **combination**, which clause 5.5.3 expressly provides for: remote for the registries and logs, on-site for the interviews that matter and for anything physical.
 ::
 
-::interactive widget="toggle-and-observe" id="turning-an-interview-into-evidence" concept_slugs="aia-evidence-vs-assertion,aia-collecting-verifying-information,aia-verifying-information,aia-evidence-based-approach"
+::interactive widget="drag-match" id="method-to-evidence" concept_slugs="aia-method-fit-to-evidence,aia-remote-audit-methods,aia-virtual-location,aia-auditing-methods"
 {
-  "scenario_title": "A convincing explanation",
-  "intro": "An engineer explains the pre-deployment evaluation process fluently and appears entirely credible. The auditor wants to conclude that the control operates. Switch each step on.",
-  "toggles": [
-    {
-      "id": "record",
-      "label": "The auditor records the statement as a statement of fact, attributed and dated",
-      "off_consequence": "An impression, held by the auditor. Clause 6.4.7 says evidence leading to audit findings should be recorded, and there is nothing to record from.",
-      "on_consequence": "A statement of fact, which clause 3.10 includes in audit evidence. Low on the verification scale, and on it."
-    },
-    {
-      "id": "corroborate",
-      "label": "The auditor obtains evaluation records and deployment history for three named models",
-      "off_consequence": "The conclusion rests on one person's account. Clause 4.6 asks that findings and conclusions be based only on the audit evidence, and a single unverified account is thin support for a statement about a control.",
-      "on_consequence": "Records that can be re-examined. The statement is now corroborated or contradicted by something independent of the speaker.",
-      "depends_on": ["record"]
-    },
-    {
-      "id": "test",
-      "label": "The records are tested against Annex A.5 - complete, correct, consistent, current",
-      "off_consequence": "The records exist and nobody asked whether they say what they need to say. An evaluation dated after its deployment passes an existence check and fails the control.",
-      "on_consequence": "Completeness against the organization's own template, consistency between evaluation dates and deployment dates, currency against the pipeline as rebuilt. This is where the real finding usually appears.",
-      "depends_on": ["corroborate"]
-    },
-    {
-      "id": "reproduce",
-      "label": "The auditor asks whether a second auditor could reach this conclusion from the record alone",
-      "off_consequence": "The conclusion is the auditor's, and defensible only while they are in the room to defend it.",
-      "on_consequence": "Clause 4.7's reliable and reproducible conclusions, and clause 4.1's claim that auditors working independently reach similar conclusions in similar circumstances.",
-      "depends_on": ["test"]
-    }
+  "items": [
+    { "id": "s1", "text": "Establishing what versions of a model were in production during the audit period, from the registry and deployment history." },
+    { "id": "s2", "text": "Establishing whether the physical access controls protecting an on-premises training cluster operate as documented." },
+    { "id": "s3", "text": "Establishing whether the data preparation control operates as described, where the auditor must choose which records to open." },
+    { "id": "s4", "text": "Establishing how the incident process actually ran during a live model failure, from the people who were in the room." }
   ],
-  "reflection_prompt": "Was the engineer's explanation wasted?",
-  "reflection_answer": "No - it did the job an interview does. It told the auditor what to go and look for, which records would exist, and where a gap would show. What it could not do is carry the conclusion, because clause 3.10 requires audit evidence to be verifiable and clause 4.6 asks that conclusions rest only on the audit evidence. The interview directed the audit; the records supported it. An auditor who skips the interview works blind, and one who stops there has an impression rather than a finding."
+  "targets": [
+    { "id": "t-remote", "text": "Remote - virtual location, no loss" },
+    { "id": "t-onsite-phys", "text": "On-site - physical control to be observed" },
+    { "id": "t-remote-driven", "text": "Remote, with the auditor directing what is opened" },
+    { "id": "t-onsite-people", "text": "On-site or live interview - evidence held by people" }
+  ],
+  "correct": {
+    "s1": "t-remote",
+    "s2": "t-onsite-phys",
+    "s3": "t-remote-driven",
+    "s4": "t-onsite-people"
+  },
+  "explanation": "The third is the distinction that matters most in practice. Both it and the first are remote, and they are not the same exercise: reading a registry establishes what it says, while testing a control requires the auditor to select the sample rather than receive it. Annex A.16 asks that agreed remote access protocols, devices and software be available - which is what makes auditor-directed examination possible rather than a demonstration."
 }
 ::
 
-::deep-dive title="Evidence you are shown and evidence you find"
-There is a distinction Annex A.5 gestures at that is worth making explicit for AIMS work, because so much of the evidence is mediated by someone with access.
+::deep-dive title="Combined audits, and the trap of one method for two disciplines"
+Clause 5.5.3 notes that where an auditee runs two or more management systems in different disciplines, combined audits may go into the programme. Many organizations adding an AIMS already hold an ISMS, and combining the audits is attractive: shared opening meeting, shared interviews, one disruption instead of two.
 ```
 
 **es-419**
 
 ```
-Lo que ofrece una prueba práctica para cualquier hallazgo antes de redactarlo: **¿podría un segundo auditor, a partir del registro de auditoría, llegar a esta conclusión sin haber estado en la sala?** Si no, el hallazgo se apoya en algo que no era evidencia.
+El resultado de estas preguntas es habitualmente una **combinación**, que el apartado 5.5.3 prevé expresamente: remoto para los registros y los logs, presencial para las entrevistas que importan y para todo lo que sea físico.
 ::
 
-::interactive widget="toggle-and-observe" id="turning-an-interview-into-evidence" concept_slugs="aia-evidence-vs-assertion,aia-collecting-verifying-information,aia-verifying-information,aia-evidence-based-approach"
+::interactive widget="drag-match" id="method-to-evidence" concept_slugs="aia-method-fit-to-evidence,aia-remote-audit-methods,aia-virtual-location,aia-auditing-methods"
 {
-  "scenario_title": "Una explicación convincente",
-  "intro": "Un ingeniero explica el proceso de evaluación previa al despliegue con fluidez y parece completamente creíble. El auditor quiere concluir que el control opera. Active cada paso.",
-  "toggles": [
-    {
-      "id": "record",
-      "label": "El auditor registra la declaración como una declaración de hechos, con atribución y fecha",
-      "off_consequence": "Una impresión que el auditor conserva. El apartado 6.4.7 indica que la evidencia que conduce a hallazgos de auditoría debe quedar registrada, y no hay nada de lo que partir.",
-      "on_consequence": "Una declaración de hechos, que el apartado 3.10 incluye en la evidencia de auditoría. Ocupa un lugar bajo en la escala de verificación, pero está en ella."
-    },
-    {
-      "id": "corroborate",
-      "label": "El auditor obtiene registros de evaluación e historial de despliegue de tres modelos identificados",
-      "off_consequence": "La conclusión se apoya en el relato de una sola persona. El apartado 4.6 exige que los hallazgos y conclusiones se basen únicamente en la evidencia de auditoría, y un único relato no verificado es un respaldo endeble para una afirmación sobre un control.",
-      "on_consequence": "Registros que pueden volver a examinarse. La declaración queda ahora corroborada o contradicha por algo independiente del interlocutor.",
-      "depends_on": ["record"]
-    },
-    {
-      "id": "test",
-      "label": "Los registros se someten a las pruebas del Anexo A.5: completos, correctos, coherentes, actuales",
-      "off_consequence": "Los registros existen y nadie preguntó si dicen lo que deben decir. Una evaluación fechada después de su despliegue supera una verificación de existencia y falla el control.",
-      "on_consequence": "Completitud respecto a la propia plantilla de la organización, coherencia entre las fechas de evaluación y las fechas de despliegue, actualidad respecto al pipeline reconstruido. Aquí es donde suele aparecer el hallazgo real.",
-      "depends_on": ["corroborate"]
-    },
-    {
-      "id": "reproduce",
-      "label": "El auditor se pregunta si un segundo auditor podría llegar a esta conclusión a partir del registro por sí solo",
-      "off_consequence": "La conclusión es del auditor y solo es defendible mientras él esté presente para defenderla.",
-      "on_consequence": "Las conclusiones fiables y reproducibles del apartado 4.7, y la afirmación del apartado 4.1 de que los auditores que trabajan de forma independiente llegan a conclusiones similares en circunstancias similares.",
-      "depends_on": ["test"]
-    }
+  "items": [
+    { "id": "s1", "text": "Establecer qué versiones de un modelo estuvieron en producción durante el período de auditoría, a partir del registro y el historial de despliegues." },
+    { "id": "s2", "text": "Establecer si los controles de acceso físico que protegen un clúster de entrenamiento en las instalaciones operan según lo documentado." },
+    { "id": "s3", "text": "Establecer si el control de preparación de datos opera según lo descrito, cuando el auditor debe elegir qué registros abrir." },
+    { "id": "s4", "text": "Establecer cómo se desarrolló realmente el proceso de incidentes durante un fallo en vivo del modelo, a partir de las personas que estaban presentes." }
   ],
-  "reflection_prompt": "¿Fue inútil la explicación del ingeniero?",
-  "reflection_answer": "No: cumplió la función que cumple una entrevista. Le indicó al auditor qué buscar, qué registros deberían existir y dónde aparecería una brecha. Lo que no pudo hacer es sostener la conclusión, porque el apartado 3.10 exige que la evidencia de auditoría sea verificable y el apartado 4.6 pide que las conclusiones se basen únicamente en la evidencia de auditoría. La entrevista orientó la auditoría; los registros la respaldaron. Un auditor que omite la entrevista trabaja a ciegas, y uno que se detiene ahí tiene una impresión en lugar de un hallazgo."
+  "targets": [
+    { "id": "t-remote", "text": "Remoto - ubicación virtual, sin pérdida" },
+    { "id": "t-onsite-phys", "text": "Presencial - control físico a observar" },
+    { "id": "t-remote-driven", "text": "Remoto, con el auditor dirigiendo qué se abre" },
+    { "id": "t-onsite-people", "text": "Presencial o entrevista en vivo - evidencia en poder de personas" }
+  ],
+  "correct": {
+    "s1": "t-remote",
+    "s2": "t-onsite-phys",
+    "s3": "t-remote-driven",
+    "s4": "t-onsite-people"
+  },
+  "explanation": "El tercero es el matiz que más importa en la práctica. Tanto este como el primero son remotos, pero no son el mismo ejercicio: leer un registro establece lo que dice, mientras que probar un control requiere que el auditor seleccione la muestra en lugar de recibirla. El Anexo A.16 pide que los protocolos de acceso remoto acordados, los dispositivos y el software estén disponibles, que es lo que hace posible el examen dirigido por el auditor en lugar de una demostración."
 }
 ::
 
-::deep-dive title="Evidencia que le muestran y evidencia que usted encuentra"
-Hay una distinción que el Anexo A.5 insinúa y que vale la pena hacer explícita para el trabajo con sistemas de gestión de IA, porque gran parte de la evidencia está mediada por alguien con acceso.
-```
-
-### 21. RANDOM -- `aims-ia-02-01-a-programme-is-designed-not-scheduled` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-ISO/IEC 42001 clause 5.3 requires top management to assign responsibility and authority for reporting on AIMS performance to top management. An audit programme with no identifiable client is often an early indicator that this assignment was made on paper only.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "An organization's AIMS audit programme objective reads: \"To verify ongoing conformity with ISO/IEC 42001 and readiness for certification.\" What is the most accurate assessment?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Adequate - it names the standard and the purpose of the programme." },
-      { "id": "b", "text": "Weak against clause 5.2: it does not derive from the organization's context and cannot direct planning, since any audit plan would serve it equally." },
-      { "id": "c", "text": "Nonconforming - programme objectives must be quantitative." },
-      { "id": "d", "text": "Adequate for a first cycle, after which it should be replaced." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 5.2 asks that objectives be consistent with the audit client's strategic direction and context and that they direct the planning and conducting of audits. Nothing requires them to be quantitative, and nothing makes generic objectives acceptable in a first cycle - a first cycle has a context too.",
-    "concept_slugs": ["aia-programme-objectives", "aia-objectives-from-context"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q2",
-    "question": "Which statement correctly distinguishes a programme objective from an individual audit objective?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Programme objectives concern conformity; audit objectives concern effectiveness." },
-      { "id": "b", "text": "A programme objective directs a set of audits over a time frame; an audit objective states what one audit is to accomplish, and ISO 19011 asks that the second be consistent with the first." },
-      { "id": "c", "text": "Programme objectives are set by the auditor; audit objectives are set by the auditee." },
-      { "id": "d", "text": "They are the same thing described at different levels of detail." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 5.2 covers programme objectives and 5.5.2 covers individual audit objectives, requiring consistency between them. Both can address conformity and effectiveness. Clause 5.2 places programme objectives with the audit client and 5.5.2 places audit objectives with the individual managing the programme; neither belongs to the auditee.",
-    "concept_slugs": ["aia-programme-vs-individual-audit"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q3",
-    "question": "An organization deployed AI systems in two new jurisdictions this year. Its audit programme objectives are unchanged from last year. What does ISO 19011:2026 clause 5.2 suggest about this?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Nothing - objectives should be stable to allow comparison between cycles." },
-      { "id": "b", "text": "Objectives should be consistent with the audit client's context, and a material change in context that produced no change in objectives suggests they were not derived from it." },
-      { "id": "c", "text": "The programme is nonconforming, because clause 5.2 requires annual revision of objectives." },
-      { "id": "d", "text": "Only the individual audit objectives need to change." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 5.2 ties objectives to the audit client's strategic direction and context and lists changes to processes, products, services and projects among what they can be based on. It does not require annual revision, and stability is not itself a defect - what the unchanged objectives suggest is worth testing, not concluding.",
-    "concept_slugs": ["aia-objectives-from-context", "aia-programme-objectives"],
-    "bloom_level": "2_understand",
-    "difficulty": 4
-  },
-  {
-    "id": "q4",
-    "question": "Why does ISO 19011:2026 clause 5.1 say the extent of an audit programme should follow from the auditee's size and character and the maturity of its management systems?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "So that larger organizations receive proportionally more audit days." },
-      { "id": "b", "text": "So that the programme is sized to what this organization's systems actually require, rather than to a general standard of what an audit programme looks like." },
-      { "id": "c", "text": "Because certification bodies calculate audit time on the same basis." },
-      { "id": "d", "text": "Because clause 9.2 of ISO/IEC 42001 requires programme extent to be documented." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 5.1 lists size, nature, functionality, complexity, risks and opportunities, scope and maturity - a set of factors about this auditee, not a formula. Certification body audit-time calculation is a different exercise governed by ISO/IEC 17021-1 and, for AI, ISO/IEC 42006. Clause 9.2.2 requires an audit programme covering frequency, methods, responsibilities, planning requirements and reporting, not its extent as such.",
-    "concept_slugs": ["aia-programme-objectives", "aia-objectives-from-context"],
-    "bloom_level": "2_understand",
-    "difficulty": 4
-  }
-]
-::
-
-::summary
-- An audit programme is arrangements for a set of audits over a time frame directed towards a specific purpose - the purpose is what makes it a design.
-- Clause 5.2 places programme objectives with the audit client and ties them to its strategic direction and context.
-- Objectives that any audit plan would serve equally are describing rather than directing.
-- Programme extent should reflect this auditee's size, nature, complexity, risks and maturity.
-- Programme objectives direct a set of audits; individual audit objectives state what one audit accomplishes, and must be consistent with them.
-- A programme objective the organization set itself is a requirement it set itself, and can be audited against.
-::
-
-```
-
-**es-419**
-
-```
-El apartado 5.3 de ISO/IEC 42001 exige que la alta dirección asigne la responsabilidad y la autoridad para informar sobre el desempeño del sistema de gestión de IA a la alta dirección. Un programa de auditoría sin un cliente identificable es a menudo un indicador temprano de que esa asignación se realizó solo en papel.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "El objetivo del programa de auditoría del sistema de gestión de IA de una organización dice: \"Verificar la conformidad continua con ISO/IEC 42001 y la preparación para la certificación.\" ¿Cuál es la evaluación más precisa?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Adecuado: nombra la norma y el propósito del programa." },
-      { "id": "b", "text": "Débil frente al apartado 5.2: no se deriva del contexto de la organización y no puede orientar la planificación, ya que cualquier plan de auditoría lo serviría por igual." },
-      { "id": "c", "text": "No conforme: los objetivos del programa deben ser cuantitativos." },
-      { "id": "d", "text": "Adecuado para un primer ciclo, tras el cual debería reemplazarse." }
-    ],
-    "correct": ["b"],
-    "explanation": "El apartado 5.2 pide que los objetivos sean coherentes con la dirección estratégica y el contexto del cliente de la auditoría, y que orienten la planificación y la realización de las auditorías. Nada exige que sean cuantitativos, y nada hace que los objetivos genéricos sean aceptables en un primer ciclo: un primer ciclo también tiene un contexto.",
-    "concept_slugs": ["aia-programme-objectives", "aia-objectives-from-context"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q2",
-    "question": "¿Qué afirmación distingue correctamente un objetivo del programa de un objetivo de la auditoría individual?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Los objetivos del programa se refieren a la conformidad; los objetivos de la auditoría se refieren a la eficacia." },
-      { "id": "b", "text": "Un objetivo del programa orienta un conjunto de auditorías durante un período de tiempo; un objetivo de la auditoría establece qué debe lograr una auditoría, e ISO 19011 pide que el segundo sea coherente con el primero." },
-      { "id": "c", "text": "Los objetivos del programa los establece el auditor; los objetivos de la auditoría los establece el auditado." },
-      { "id": "d", "text": "Son la misma cosa descrita en diferentes niveles de detalle." }
-    ],
-    "correct": ["b"],
-    "explanation": "El apartado 5.2 cubre los objetivos del programa y el 5.5.2 cubre los objetivos de la auditoría individual, exigiendo coherencia entre ellos. Ambos pueden abordar la conformidad y la eficacia. El apartado 5.2 sitúa los objetivos del programa en el cliente de la auditoría y el 5.5.2 sitúa los objetivos de la auditoría en el individuo que gestiona el programa; ninguno pertenece al auditado.",
-    "concept_slugs": ["aia-programme-vs-individual-audit"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  },
-  {
-    "id": "q3",
-    "question": "Una organización desplegó sistemas de IA en dos nuevas jurisdicciones este año. Sus objetivos del programa de auditoría no han cambiado respecto al año anterior. ¿Qué sugiere el apartado 5.2 de ISO 19011:2026 al respecto?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Nada: los objetivos deben ser estables para permitir la comparación entre ciclos." },
-      { "id": "b", "text": "Los objetivos deben ser coherentes con el contexto del cliente de la auditoría, y un cambio material en el contexto que no produjo ningún cambio en los objetivos sugiere que no se derivaron de él." },
-      { "id": "c", "text": "El programa no es conforme, porque el apartado 5.2 exige la revisión anual de los objetivos." },
-      { "id": "d", "text": "Solo los objetivos de la auditoría individual necesitan cambiar." }
-    ],
-    "correct": ["b"],
-    "explanation": "El apartado 5.2 vincula los objetivos con la dirección estratégica y el contexto del cliente de la auditoría, y enumera los cambios en procesos, productos, servicios y proyectos entre aquello en lo que pueden basarse. No exige revisión anual, y la estabilidad no es en sí misma un defecto: lo que los objetivos sin cambios sugieren vale la pena investigar, no concluir.",
-    "concept_slugs": ["aia-objectives-from-context", "aia-programme-objectives"],
-    "bloom_level": "2_understand",
-    "difficulty": 4
-  },
-  {
-    "id": "q4",
-"question": "¿Por qué la cláusula 5.1 de ISO 19011:2026 establece que el alcance de un programa de auditoría debería derivarse del tamaño y las características del auditado y de la madurez de sus sistemas de gestión?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Para que las organizaciones más grandes reciban proporcionalmente más días de auditoría." },
-      { "id": "b", "text": "Para que el programa se dimensione según lo que los sistemas de esta organización realmente requieren, en lugar de un estándar general de cómo debe verse un programa de auditoría." },
-      { "id": "c", "text": "Porque los organismos de certificación calculan el tiempo de auditoría sobre la misma base." },
-      { "id": "d", "text": "Porque el apartado 9.2 de ISO/IEC 42001 exige que el alcance del programa esté documentado." }
-    ],
-    "correct": ["b"],
-    "explanation": "El apartado 5.1 enumera tamaño, naturaleza, funcionalidad, complejidad, riesgos y oportunidades, alcance y madurez: un conjunto de factores sobre este auditado, no una fórmula. El cálculo del tiempo de auditoría por parte de los organismos de certificación es un ejercicio diferente regido por ISO/IEC 17021-1 y, para la IA, por ISO/IEC 42006. El apartado 9.2.2 exige un programa de auditoría que cubra frecuencia, métodos, responsabilidades, requisitos de planificación e informes, no su alcance como tal.",
-    "concept_slugs": ["aia-programme-objectives", "aia-objectives-from-context"],
-    "bloom_level": "2_understand",
-    "difficulty": 4
-  }
-]
-::
-
-::summary
-- Un programa de auditoría son los acuerdos para un conjunto de auditorías durante un período de tiempo orientadas hacia un propósito específico: el propósito es lo que lo convierte en un diseño.
-- El apartado 5.2 sitúa los objetivos del programa en el cliente de la auditoría y los vincula a su dirección estratégica y contexto.
-- Los objetivos que cualquier plan de auditoría serviría por igual están describiendo en lugar de orientando.
-- El alcance del programa debería reflejar el tamaño, la naturaleza, la complejidad, los riesgos y la madurez de este auditado.
-- Los objetivos del programa orientan un conjunto de auditorías; los objetivos de la auditoría individual establecen qué logra una auditoría, y deben ser coherentes con aquellos.
-- Un objetivo del programa que la organización se fijó a sí misma es un requisito que se fijó a sí misma, y puede ser auditado en su contra.
-::
-
-```
-
-### 22. RANDOM -- `aims-ia-01-01-who-commissioned-it` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
----
-lesson_id: aims-ia-01-01-who-commissioned-it
-module_slug: aia-audit-function
-certification_code: AIMS-IA
-title: Who Commissioned It
-subtitle: First, second and third party - and why the consultant running your audit does not change the answer
-language: en
-lesson_group_id: aims-ia-01-01-who-commissioned-it
-duration_minutes: 11
-order_index: 1
-task_codes: ["1.1"]
-concept_slugs:
-  - aia-audit-party-types
-  - aia-internal-audit-definition
-  - aia-audit-client-vs-auditee
-prerequisites: []
-preview: |
-  An 11-minute lesson on the three audit parties, what decides
-  which one you are conducting, and why an AI management system
-  audit can involve an outside specialist and still be internal.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Your organization has no one who can evaluate a fine-tuned model. You bring in someone who can. Have you just stopped conducting an internal audit?
-::
-
-::concept title="Three audits, and technique is not what separates them"
-ISO 19011:2026 sets out three types of audit in a table near the front of the standard. What distinguishes them is not how evidence is gathered - an auditor samples, interviews and verifies the same way in all three. What distinguishes them is **who commissioned the audit, whose requirements serve as the criteria, and what the audit can result in.**
-```
-
-**es-419**
-
-```
----
-lesson_id: aims-ia-01-01-who-commissioned-it
-module_slug: aia-audit-function
-certification_code: AIMS-IA
-title: Quién lo encargó
-subtitle: Primera, segunda y tercera parte — y por qué el consultor que conduce su auditoría no cambia la respuesta
-language: es-419
-lesson_group_id: aims-ia-01-01-who-commissioned-it
-duration_minutes: 11
-order_index: 1
-task_codes: ["1.1"]
-concept_slugs:
-  - aia-audit-party-types
-  - aia-internal-audit-definition
-  - aia-audit-client-vs-auditee
-prerequisites: []
-preview: |
-  Una lección de 11 minutos sobre los tres tipos de auditoría, qué
-  determina cuál se está realizando y por qué una auditoría de un
-  sistema de gestión de IA puede involucrar a un especialista externo
-  y seguir siendo interna.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Su organización no cuenta con nadie que pueda evaluar un modelo ajustado. Usted contrata a alguien que sí puede. ¿Ha dejado de realizar una auditoría interna?
-::
-
-::concept title="Tres auditorías, y la técnica no es lo que las distingue"
-La norma ISO 19011:2026 establece tres tipos de auditoría en una tabla al inicio del documento. Lo que los distingue no es la forma en que se recopila la evidencia — un auditor muestrea, entrevista y verifica de la misma manera en los tres. Lo que los distingue es **quién encargó la auditoría, cuyos requisitos sirven como criterios y qué puede resultar de ella.**
-```
-
-### 23. RANDOM -- `aims-ia-05-01-three-things-a-finding-can-be` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-- a **description of or reference to the audit criteria** against which conformity is demonstrated;
-- the **audit evidence** to support conformity and effectiveness, if applicable;
-- a **declaration of conformity**, if applicable.
-
-Note the same three elements as a nonconformity record, which is not a coincidence: a conformity is a finding, and a finding names its criterion and its evidence either way.
-
-Recording conformities matters more in an internal audit than an external one. The certification body's report is about whether a certificate should issue; yours is information for management, and *this area was examined and found sound, on this evidence* is information. It also distinguishes an area examined and passed from an area never opened - which lesson 03-03's sampling statement addresses from the other direction.
-```
-
-**es-419**
-
-```
-- una **descripción o referencia a los criterios de auditoría** frente a los cuales se demuestra la conformidad;
-- la **evidencia de auditoría** que respalde la conformidad y la eficacia, cuando corresponda;
-- una **declaración de conformidad**, cuando corresponda.
-
-Nótese que son los mismos tres elementos que un registro de no conformidad, lo cual no es casualidad: una conformidad es un hallazgo, y un hallazgo nombra su criterio y su evidencia en cualquier caso.
-
-Registrar las conformidades importa más en una auditoría interna que en una externa. El informe del organismo de certificación trata sobre si debería emitirse un certificado; el informe interno es información para la dirección, y *esta área fue examinada y se encontró en buen estado, con esta evidencia* es información. También distingue un área examinada y aprobada de un área que nunca se abrió, algo que la declaración de muestreo de la lección 03-03 aborda desde la otra dirección.
-```
-
-### 24. RANDOM -- `aims-ia-05-02-criterion-evidence-gap` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-::concept title="The remedy belongs to the auditee"
-ISO 19011:2026 clause 6.7 records that the outcome of an audit can indicate the need for corrections, corrective actions or opportunities for improvement, and that **such actions are normally settled and carried out by the auditee** inside an agreed time frame.
-
-So a finding that prescribes the fix has made a decision that is not the auditor's. Three reasons it is a poor idea, beyond the question of remit:
-
-**It narrows the auditee's options.** *Should implement a mandatory gate in the release process* excludes every other way of meeting clause 8.4 - a scheduled review, a trigger in the change process, a different assignment of responsibility. The auditee may have a better answer.
-```
-
-**es-419**
-
-```
-::concept title="El remedio corresponde al auditado"
-La cláusula 6.7 de la norma ISO 19011:2026 registra que el resultado de una auditoría puede indicar la necesidad de correcciones, acciones correctivas u oportunidades de mejora, y que **tales acciones normalmente son acordadas y llevadas a cabo por el auditado** dentro de un plazo acordado.
-
-Por lo tanto, un hallazgo que prescribe la solución ha tomado una decisión que no corresponde al auditor. Tres razones por las que esto es inadecuado, más allá de la cuestión de las atribuciones:
-
-**Limita las opciones del auditado.** *Debería implementar una compuerta obligatoria en el proceso de lanzamiento* excluye cualquier otra forma de cumplir el apartado 8.4: una revisión programada, un disparador en el proceso de cambio, una asignación diferente de responsabilidades. El auditado puede tener una respuesta mejor.
+::deep-dive title="Auditorías combinadas y la trampa de un único método para dos disciplinas"
+El apartado 5.5.3 señala que, cuando un auditado opera dos o más sistemas de gestión de distintas disciplinas, las auditorías combinadas pueden incluirse en el programa. Muchas organizaciones que añaden un sistema de gestión de IA ya cuentan con un SGSI, y combinar las auditorías resulta atractivo: reunión de apertura compartida, entrevistas compartidas, una sola interrupción en lugar de dos.
 ```
 
 ---
 
 ## AIMS-IA 2026-09-12 / pt-BR
 
-26 row(s) in this stratum; 4 adversarial, 4 random.
+26 row(s) in this stratum; 4 adversarial, 2 random.
 
-### 25. ADVERSARIAL -- `aims-ia-03-02-enough-to-plan-against` / pt-BR
+### 23. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / pt-BR
 
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial)
+flags: modal (should x3, no weak modal, 14 obligations vs 11 en); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3)
 
 **EN**
 
 ```
-That is a defined outcome with named recipients. It is not a matter of the auditor working harder.
+**Does the scope reflect the roles determined?** An organization determining that it develops, provides and uses AI systems, whose scope statement addresses only use, has not carried its own determination through. The obligations that attach to developing and providing sit outside a scope that does not reach them.
 
-The common failure is silent absorption: the documentation is thin, the auditor decides to work it out during fieldwork, and the audit proceeds with its preparation stage effectively skipped. The costs land later - a plan built on guesses, sampling that cannot be justified because the population was never established, and interviews used to discover what a document should have said.
-
-**Inadequate is a judgement against the audit's objectives, scope and criteria**, not against a general standard of tidiness. An organization with sparse documentation and a scope narrow enough that the auditor can still plan is fine. An organization with extensive documentation that never says which systems are in production is not, however thick the folder.
+**Does the scope reflect the issues determined?** If clause 4.1 identified operations in two new jurisdictions as a relevant external issue, and the scope's virtual locations and activities do not reach the systems operating there, the consideration clause 4.3 requires did not happen.
 ::
+
+::concept title="Interested-party requirements are the third input, and the least worked"
+Clause 4.2 requires the organization to determine the interested parties relevant to the AI management system, their relevant requirements, and **which of those requirements will be addressed** through the AI management system.
 ```
 
 **pt-BR**
 
 ```
-Esse é um resultado definido com destinatários nomeados. Não é uma questão de o auditor trabalhar mais.
+**O escopo reflete os papéis determinados?** Uma organização que determinou que desenvolve, fornece e usa sistemas de IA, cujo enunciado de escopo aborda apenas o uso, não levou sua própria determinação adiante. As obrigações associadas ao desenvolvimento e ao fornecimento ficam fora de um escopo que não as alcança.
 
-A falha comum é a absorção silenciosa: a documentação é escassa, o auditor decide resolver isso durante o trabalho de campo, e a auditoria prossegue com sua etapa de preparação efetivamente ignorada. Os custos aparecem depois — um plano construído sobre suposições, amostragem que não pode ser justificada porque a população nunca foi estabelecida, e entrevistas usadas para descobrir o que um documento deveria ter dito.
-
-**Inadequada é um julgamento em relação aos objetivos, escopo e critérios da auditoria**, não em relação a um padrão geral de organização. Uma organização com documentação escassa e um escopo suficientemente estreito para que o auditor ainda possa planejar está bem. Uma organização com documentação extensa que nunca indica quais sistemas estão em produção não está, por mais volumosa que seja a pasta.
+**O escopo reflete as questões determinadas?** Se a Seção 4.1 identificou operações em duas novas jurisdições como uma questão externa relevante, e os locais virtuais e as atividades do escopo não alcançam os sistemas que operam lá, a consideração que a Seção 4.3 exige não ocorreu.
 ::
+
+::concept title="Os requisitos das partes interessadas são o terceiro insumo, e o menos trabalhado"
+A Seção 4.2 exige que a organização determine as partes interessadas relevantes para o sistema de gestão de IA, seus requisitos relevantes e **quais desses requisitos serão atendidos** por meio do sistema de gestão de IA.
 ```
 
-### 26. ADVERSARIAL -- `aims-ia-02-01-a-programme-is-designed-not-scheduled` / pt-BR
+### 24. ADVERSARIAL -- `aims-ia-02-01-a-programme-is-designed-not-scheduled` / pt-BR
 
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial)
+flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); unalignable (sentence counts differ; A and B did not run); clause-vocab (pt uses a flat `Seção`: cláusula 3.5); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula 5.1)
 
 **EN**
 
 ```
+The answer matters because clause 5.2 asks the audit client not only to establish objectives but to ensure the programme is implemented effectively. Where no one holds that role, the usual symptom is a programme that exists on paper and slips in practice - audits deferred, scopes quietly narrowed, findings from the previous cycle never revisited - with no one whose responsibility it was to notice.
+
 ISO/IEC 42001 clause 5.3 requires top management to assign responsibility and authority for reporting on AIMS performance to top management. An audit programme with no identifiable client is often an early indicator that this assignment was made on paper only.
 ::
 
@@ -1515,21 +1316,13 @@ ISO/IEC 42001 clause 5.3 requires top management to assign responsibility and au
   }
 ]
 ::
-
-::summary
-- An audit programme is arrangements for a set of audits over a time frame directed towards a specific purpose - the purpose is what makes it a design.
-- Clause 5.2 places programme objectives with the audit client and ties them to its strategic direction and context.
-- Objectives that any audit plan would serve equally are describing rather than directing.
-- Programme extent should reflect this auditee's size, nature, complexity, risks and maturity.
-- Programme objectives direct a set of audits; individual audit objectives state what one audit accomplishes, and must be consistent with them.
-- A programme objective the organization set itself is a requirement it set itself, and can be audited against.
-::
-
 ```
 
 **pt-BR**
 
 ```
+A resposta importa porque a Seção 5.2 pede ao cliente da auditoria não apenas que estabeleça objetivos, mas que assegure que o programa seja implementado de forma eficaz. Quando ninguém ocupa esse papel, o sintoma habitual é um programa que existe no papel e escorrega na prática — auditorias adiadas, escopos silenciosamente reduzidos, constatações do ciclo anterior nunca revisitadas — sem que ninguém tivesse a responsabilidade de perceber.
+
 A Seção 5.3 da ISO/IEC 42001 exige que a alta direção atribua responsabilidade e autoridade para reportar o desempenho do sistema de gestão de IA à alta direção. Um programa de auditoria sem um cliente identificável é frequentemente um indicador precoce de que essa atribuição foi feita apenas no papel.
 ::
 
@@ -1601,270 +1394,304 @@ A Seção 5.3 da ISO/IEC 42001 exige que a alta direção atribua responsabilida
   }
 ]
 ::
-
-::summary
-- Um programa de auditoria é um conjunto de disposições para auditorias ao longo de um período de tempo direcionadas a um propósito específico — o propósito é o que o torna um projeto.
-- A Seção 5.2 coloca os objetivos do programa com o cliente da auditoria e os vincula à sua direção estratégica e contexto.
-- Objetivos que qualquer plano de auditoria serviria igualmente estão descrevendo, não orientando.
-- A extensão do programa convém que reflita o tamanho, a natureza, a complexidade, os riscos e a maturidade deste auditado.
-- Os objetivos do programa orientam um conjunto de auditorias; os objetivos da auditoria individual declaram o que uma auditoria realiza, e devem ser consistentes com eles.
-- Um objetivo de programa que a organização estabeleceu para si mesma é um requisito que ela estabeleceu para si mesma, e pode ser auditado em relação a ele.
-::
-
 ```
 
-### 27. ADVERSARIAL -- `aims-ia-02-03-competence-the-team-needs` / pt-BR
+### 25. ADVERSARIAL -- `aims-ia-05-04-can-this-finding-stand` / pt-BR
 
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial)
+flags: modal-sentence (should -> obligation: O A.6.2.6 exige que a organização defina e documente os elementos necessários para a opera); modal-sentence (should -> obligation: O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de ); clause-vocab (pt uses a flat `Seção`: cláusula 3.16); clause-vocab (pt uses a flat `Seção`: cláusula 3.14); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 3.26)
 
 **EN**
 
 ```
-**For objectivity:** because the expert does not audit, the expert can be closer to the domain than an auditor could be. A data scientist from a different product line can explain evaluation methodology without forming conclusions about their colleagues' work. This is often the cleanest available answer to the independence-against-competence tension from lesson 01-04.
-::
+**Look for a different criterion that does carry it.** Frequently one exists. An observation that will not stand against ISO 19011 clause 5.5.3's method-selection guidance may stand against ISO/IEC 42001 clause 9.2.2, which requires the audit programme to include methods. An observation that will not stand against Annex B guidance may stand against clause 6.1.3 e) if the guidance was never considered at all, or against clause 8.1 if a declared control is not operated.
 
-::concept title="Every remedy costs something, and the choice is recorded"
-Four responses to a competence gap, each with a real cost.
+**Check the organization's own requirements.** The criterion most often forgotten, per lesson 05-03. If the organization's own procedure requires what the auditor thinks should happen, clause 9.2.1 a) 1) makes it a criterion and the finding stands.
 
-| Remedy | Cost |
-|---|---|
-| Train the auditor | Lead time, and it does not help this cycle |
-| Add a technical expert | Availability; the expert's own proximity to the work must be considered |
-| Pair with a competent auditor | Consumes two people's days for one person's coverage |
-| Contract an external auditor | Money and lead time; remains a first-party audit |
-| Narrow the scope and say so | The area goes unaudited, and the report must state it |
-```
-
-**pt-BR**
-
-```
-**Para a objetividade:** como o especialista não audita, ele pode estar mais próximo do domínio do que um auditor poderia estar. Um cientista de dados de uma linha de produto diferente pode explicar a metodologia de avaliação sem formar conclusões sobre o trabalho de seus colegas. Essa é frequentemente a resposta mais limpa disponível para a tensão entre independência e competência discutida na lição 01-04.
-::
-
-::concept title="Cada solução tem um custo, e a escolha é registrada"
-Quatro respostas a uma lacuna de competência, cada uma com um custo real.
-
-| Solução | Custo |
-|---|---|
-| Treinar o auditor | Prazo de preparação; não ajuda neste ciclo |
-| Incluir um especialista técnico | Disponibilidade; a proximidade do especialista com o trabalho deve ser considerada |
-| Parear com um auditor competente | Consome os dias de duas pessoas para cobrir o trabalho de uma |
-| Contratar um auditor externo | Custo financeiro e prazo; continua sendo uma auditoria de primeira parte |
-| Reduzir o escopo e declarar isso | A área fica sem auditoria, e o relatório deve registrar a omissão |
-```
-
-### 28. ADVERSARIAL -- `aims-ia-03-08-opening-and-closing` / pt-BR
-
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial)
-
-**EN**
-
-```
-Everything up to that point is the auditor's own work, checked by the auditor. At the closing meeting the finding meets a person who knows the system, has an interest in it being wrong, and will say so. A finding that survives that is likely to survive the report, the management review and any subsequent challenge. A finding that does not was going to fail somewhere.
-
-The three ways findings fail at closing are worth recognising in advance:
-
-**The evidence is not what the auditor thought.** The record was superseded, the export was filtered, the system shown was staging. This is a good outcome - a wrong finding withdrawn at closing costs the auditor a sentence and costs the organization nothing.
-```
-
-**pt-BR**
-
-```
-Tudo até esse ponto é o trabalho do próprio auditor, verificado pelo auditor. Na reunião de encerramento, a constatação encontra uma pessoa que conhece o sistema, tem interesse em que ela esteja errada e vai dizê-lo. Uma constatação que sobrevive a isso provavelmente sobreviverá ao relatório, à análise crítica pela direção e a qualquer contestação subsequente. Uma constatação que não sobrevive teria falhado em algum momento.
-
-As três formas pelas quais as constatações falham no encerramento valem ser reconhecidas com antecedência:
-
-**A evidência não é o que o auditor pensava.** O registro foi substituído, a exportação foi filtrada, o sistema mostrado era de homologação. Este é um bom resultado - uma constatação errada retirada no encerramento custa ao auditor uma frase e não custa nada à organização.
-```
-
-### 29. RANDOM -- `aims-ia-01-01-who-commissioned-it` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
----
-lesson_id: aims-ia-01-01-who-commissioned-it
-module_slug: aia-audit-function
-certification_code: AIMS-IA
-title: Who Commissioned It
-subtitle: First, second and third party - and why the consultant running your audit does not change the answer
-language: en
-lesson_group_id: aims-ia-01-01-who-commissioned-it
-duration_minutes: 11
-order_index: 1
-task_codes: ["1.1"]
-concept_slugs:
-  - aia-audit-party-types
-  - aia-internal-audit-definition
-  - aia-audit-client-vs-auditee
-prerequisites: []
-preview: |
-  An 11-minute lesson on the three audit parties, what decides
-  which one you are conducting, and why an AI management system
-  audit can involve an outside specialist and still be internal.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Your organization has no one who can evaluate a fine-tuned model. You bring in someone who can. Have you just stopped conducting an internal audit?
-::
-
-::concept title="Three audits, and technique is not what separates them"
-ISO 19011:2026 sets out three types of audit in a table near the front of the standard. What distinguishes them is not how evidence is gathered - an auditor samples, interviews and verifies the same way in all three. What distinguishes them is **who commissioned the audit, whose requirements serve as the criteria, and what the audit can result in.**
-```
-
-**pt-BR**
-
-```
----
-lesson_id: aims-ia-01-01-who-commissioned-it
-module_slug: aia-audit-function
-certification_code: AIMS-IA
-title: Quem Encomendou
-subtitle: Primeira, segunda e terceira parte — e por que o consultor que conduz sua auditoria não muda a resposta
-language: pt-BR
-lesson_group_id: aims-ia-01-01-who-commissioned-it
-duration_minutes: 11
-order_index: 1
-task_codes: ["1.1"]
-concept_slugs:
-  - aia-audit-party-types
-  - aia-internal-audit-definition
-  - aia-audit-client-vs-auditee
-prerequisites: []
-preview: |
-  Uma lição de 11 minutos sobre os três tipos de auditoria, o que
-  determina qual deles está sendo conduzido e por que uma auditoria
-  de sistema de gestão de IA pode envolver um especialista externo
-  e ainda assim ser interna.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Sua organização não tem ninguém capaz de avaliar um modelo ajustado. Você contrata alguém que tem essa capacidade. Você acabou de deixar de conduzir uma auditoria interna?
-::
-
-::concept title="Três auditorias, e a técnica não é o que as diferencia"
-A ISO 19011:2026 estabelece três tipos de auditoria em uma tabela próxima ao início da norma. O que os distingue não é a forma como as evidências são coletadas — um auditor amostra, entrevista e verifica da mesma maneira nos três tipos. O que os distingue é **quem encomendou a auditoria, cujos requisitos servem como critérios e o que a auditoria pode resultar.**
-```
-
-### 30. RANDOM -- `aims-ia-01-05-inside-and-outside-the-remit` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-You ask whether the AIMS conforms to **the organization's own requirements** as well as the standard's, and whether it is effectively implemented and maintained. Your criteria are wider on one axis - the organization's own policy, its declared processes, its stated competence standard - and your output is information nobody outside the organization is entitled to.
-
-That wider criteria set is why "the certification body looked at this" is never an answer to a clause 9.2 question. The certification body did not audit against the organization's own AI policy, and could not have, because it is not their criterion.
-
-The reverse also holds and is worth saying to an anxious auditee: a nonconformity you raise internally is not a certification finding, is not visible to the certification body unless the organization shows them, and is the system working as designed. The whole point of clause 9.2 is that management learns something true before someone else does.
+**And withdraw it if none of those work.** An auditor who withdraws their own finding at the closing meeting has done the job correctly. It costs a sentence. A finding pressed through on a criterion that will not carry it costs the auditor's credibility on every other finding in the report, and lesson 03-08 covered why the closing meeting is where that becomes visible.
 ::
 ```
 
 **pt-BR**
 
 ```
-Você pergunta se o sistema de gestão de IA está em conformidade com **os requisitos da própria organização**, além dos da norma, e se está efetivamente implementado e mantido. Seus critérios são mais amplos em um eixo — a política de IA da organização, seus processos declarados, seu padrão de competência estabelecido — e seu produto é uma informação à qual ninguém fora da organização tem direito.
+**Procure um critério diferente que a suporte.** Com frequência, existe um. Uma observação que não se sustenta contra a orientação da Seção 5.5.3 da ISO 19011 sobre seleção de métodos pode se sustentar contra a Seção 9.2.2 da ISO/IEC 42001, que exige que o programa de auditoria inclua métodos. Uma observação que não se sustenta contra a orientação do Anexo B pode se sustentar contra a Seção 6.1.3 e) se a orientação nunca foi considerada, ou contra a Seção 8.1 se um controle declarado não está sendo operado.
 
-Esse conjunto de critérios mais amplo é a razão pela qual "o organismo de certificação examinou isso" nunca é uma resposta a uma questão da Seção 9.2. O organismo de certificação não auditou em relação à política de IA da própria organização e não poderia tê-lo feito, porque esse não é o critério dele.
+**Verifique os requisitos próprios da organização.** O critério mais frequentemente esquecido, conforme a lição 05-03. Se o próprio procedimento da organização exige o que o auditor considera que deveria acontecer, a Seção 9.2.1 a) 1) o torna um critério e a constatação se sustenta.
 
-O inverso também se aplica e vale ser dito a um auditado ansioso: uma não conformidade que você levanta internamente não é uma constatação de certificação, não é visível ao organismo de certificação a menos que a organização a mostre, e é o sistema funcionando conforme projetado. O objetivo central da Seção 9.2 é que a gestão aprenda algo verdadeiro antes que outra pessoa o faça.
+**E retire-a se nenhuma dessas alternativas funcionar.** Um auditor que retira sua própria constatação na reunião de encerramento fez o trabalho corretamente. Custa uma frase. Uma constatação pressionada com um critério que não a suporta custa a credibilidade do auditor em todas as outras constatações do relatório, e a lição 03-08 explicou por que a reunião de encerramento é onde isso se torna visível.
 ::
 ```
 
-### 31. RANDOM -- `aims-ia-02-07-the-programme-audits-itself` / pt-BR
+### 26. ADVERSARIAL -- `aims-ia-02-03-competence-the-team-needs` / pt-BR
 
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-::deep-dive title="Auditing your own programme, and the awkwardness of it"
-Task 4.x work in module 4 includes auditing clause 9.2 itself - the organization's internal audit programme. Where the person conducting that audit is the person who runs the programme, they are examining their own work, and lesson 01-04's carve-out applies with the safeguards it named.
-
-There is a practical point beyond the objectivity one. The programme manager knows what was deferred, narrowed and skipped, and knows it without needing to look. That knowledge is not audit evidence - clause 4.6 asks that findings and conclusions be based only on the audit evidence - and an auditor who writes a finding from memory has produced something the record does not support, even where it is true.
-
-The discipline is to make the knowledge into evidence: the schedules, the scope changes, the deferral decisions, the follow-up records. If the programme's own records cannot show what the manager already knows, that gap is itself the finding, and it is the clause 9.2.2 documentation requirement it fails.
-```
-
-**pt-BR**
-
-```
-::deep-dive title="Auditar o próprio programa e o desconforto disso"
-O trabalho da tarefa 4.x no módulo 4 inclui auditar a própria Seção 9.2 — o programa de auditoria interna da organização. Quando a pessoa que conduz essa auditoria é a mesma que gerencia o programa, ela está examinando seu próprio trabalho, e a ressalva da lição 01-04 se aplica com as salvaguardas que ela nomeou.
-
-Há um ponto prático além da questão da objetividade. O gestor do programa sabe o que foi adiado, reduzido e ignorado, e sabe isso sem precisar consultar nada. Esse conhecimento não é evidência de auditoria — a Seção 4.6 exige que constatações e conclusões sejam baseadas apenas na evidência de auditoria — e um auditor que registra uma constatação de memória produziu algo que o registro não sustenta, mesmo que seja verdadeiro.
-
-A disciplina é transformar o conhecimento em evidência: os cronogramas, as mudanças de escopo, as decisões de adiamento, os registros de acompanhamento. Se os próprios registros do programa não conseguem mostrar o que o gestor já sabe, essa lacuna é em si a constatação, e é o requisito de documentação da Seção 9.2.2 que ela descumpre.
-```
-
-### 32. RANDOM -- `aims-ia-05-03-one-finding-or-several` / pt-BR
-
-flags: none -- this is the half that tests the checks
+flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Esse julgamento requer compreensão do domínio, e um auditor sem ela deve declarar o que te); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 3.17)
 
 **EN**
 
 ```
-::interactive widget="toggle-and-observe" id="one-fact-three-criteria" concept_slugs="aia-multiple-criteria-findings,aia-combining-vs-separating-findings,aia-criteria-cross-reference"
+Clause 5.3 places this squarely in the programme's risks: lack of competent auditors is named there, and the clause asks that such risks be presented to the audit client when developing the programme and its resource requirements. **The competence decision is made when the programme is planned, not discovered during fieldwork.**
+::
+
+::interactive widget="drag-match" id="which-remedy-fits" concept_slugs="aia-competence-gap-remedies,aia-technical-expert-vs-auditor,aia-aims-specific-knowledge"
 {
-  "scenario_title": "One missing record, three criteria, and a fourth question",
-  "intro": "No impact assessment record exists for a model retrained in March. Clause 8.4 applies, control A.5.2 is declared, and the organization's own procedure requires assessment on any training data change. Switch each decision on.",
-  "toggles": [
-    {
-      "id": "identify",
-      "label": "All criteria the evidence engages are identified before anything is drafted",
-      "off_consequence": "The finding is written against the first criterion that came to mind. The declared control and the organization's own procedure go unmentioned, and clause 9.2.1 makes the second of those a criterion in its own right.",
-      "on_consequence": "Annex A.18.4 asks the auditor to consider the effect on corresponding or similar criteria. The full picture is available before the drafting choice is made."
-    },
-    {
-      "id": "test",
-      "label": "The auditor asks whether one corrective action would satisfy all three",
-      "off_consequence": "The choice between one finding and three is made by habit. Either the count inflates or three criteria hide behind one.",
-      "on_consequence": "The question resolves it: performing the assessment and fixing what let it be skipped satisfies all three, so one finding citing three criteria is the right shape.",
-      "depends_on": ["identify"]
-    },
-    {
-      "id": "name",
-      "label": "All three criteria are named in the finding, not just the primary one",
-      "off_consequence": "The closure test runs against the one cited criterion. The declared control and the internal procedure go unchecked, and the auditee was never told they were engaged.",
-      "on_consequence": "Annex A.18.3 asks for reference to the audit criteria, plural. Whoever closes the action checks against all three.",
-      "depends_on": ["test"]
-    },
-    {
-      "id": "separate",
-      "label": "The auditor checks whether any criterion fails for a different reason",
-      "off_consequence": "A procedure that was followed correctly but does not itself meet clause 8.4 is hidden inside a finding about a missed assessment, and one corrective action closes both on paper.",
-      "on_consequence": "Where a criterion fails for a different reason it needs a different remedy, and that is the case for separating. Over-combining conceals exactly this.",
-      "depends_on": ["name"]
-    }
+  "items": [
+    { "id": "s1", "text": "The audit team can plan and conduct the audit but cannot judge whether a model evaluation report supports the deployment claim made for it." },
+    { "id": "s2", "text": "The only person who understands the retraining pipeline is the engineer who operates it, and the audit covers that area." },
+    { "id": "s3", "text": "No one available in this cycle can evaluate the data provenance records for the two acquired systems, and no expert can be engaged in time." },
+    { "id": "s4", "text": "A capable auditor lacks AIMS experience but will run this programme for several cycles." }
   ],
-  "reflection_prompt": "Why does the count matter beyond tidiness?",
-  "reflection_answer": "Because clause 9.3.2 requires management review to consider trends in nonconformities and corrective actions. A trend driven by how an auditor chose to split findings measures the auditor rather than the management system, and management is making decisions from it. Ten findings from three facts reads as deterioration; one finding hiding three unremedied criteria reads as improvement. Neither is information."
+  "targets": [
+    { "id": "t-expert", "text": "Technical expert supports the team; auditors still form the conclusions" },
+    { "id": "t-safeguards", "text": "Proceed with declared safeguards under the clause 4.6 carve-out" },
+    { "id": "t-narrow", "text": "Narrow the scope and state the omission in the report" },
+    { "id": "t-train", "text": "Train and pair, accepting it does not help this cycle" }
+  ],
+  "correct": {
+    "s1": "t-expert",
+    "s2": "t-safeguards",
+    "s3": "t-narrow",
+    "s4": "t-train"
+  },
+  "explanation": "The third is the one people avoid choosing, and it is often correct. Auditing an area you cannot evaluate produces a finding about whether documents exist, which is worse than a stated gap - it looks like coverage. Clause 4.3 asks that significant obstacles encountered be reported, and an area nobody could competently audit is exactly such an obstacle."
 }
 ::
 
-::deep-dive title="The criterion the auditor keeps forgetting is the organization's own"
-Of the three layers in an AIMS finding, the one omitted most often is not the control - it is the organization's own requirement.
-
-Clause 9.2.1 a) 1) names it first: the internal audit provides information on whether the AIMS conforms to **the organization's own requirements for its AI management system**, and then to the requirements of the standard. Lesson 01-03 established it and lesson 02-05 made it a scoping element.
+::deep-dive title="Auditing the organization's competence determination with your own in question"
+There is an uncomfortable case worth naming, because it arrives in small organizations regularly.
 ```
 
 **pt-BR**
 
 ```
-Ele é esquecido porque exige mais trabalho. Os requisitos da norma são os mesmos para todas as organizações e um auditor os carrega entre os compromissos. Os requisitos da própria organização precisam ser encontrados, lidos e compreendidos para cada auditoria — a política de IA, os procedimentos, o padrão de competência que ela estabeleceu, os objetivos que publicou, os compromissos nas justificativas de sua Declaração de Aplicabilidade.
+A Seção 5.3 coloca isso diretamente nos riscos do programa: a falta de auditores competentes é mencionada ali, e a seção exige que esses riscos sejam apresentados ao cliente da auditoria ao desenvolver o programa e seus requisitos de recursos. **A decisão sobre competência é tomada quando o programa é planejado, não descoberta durante o trabalho de campo.**
+::
 
-Duas consequências que vale a pena guardar:
+::interactive widget="drag-match" id="which-remedy-fits" concept_slugs="aia-competence-gap-remedies,aia-technical-expert-vs-auditor,aia-aims-specific-knowledge"
+{
+  "items": [
+    { "id": "s1", "text": "A equipe de auditoria consegue planejar e conduzir a auditoria, mas não consegue julgar se um relatório de avaliação de modelo sustenta a afirmação de implantação feita para ele." },
+    { "id": "s2", "text": "A única pessoa que entende o pipeline de retreinamento é o engenheiro que o opera, e a auditoria cobre essa área." },
+    { "id": "s3", "text": "Ninguém disponível neste ciclo consegue avaliar os registros de proveniência de dados dos dois sistemas adquiridos, e nenhum especialista pode ser contratado a tempo." },
+    { "id": "s4", "text": "Um auditor capaz não tem experiência em sistema de gestão de IA, mas conduzirá este programa por vários ciclos." }
+  ],
+  "targets": [
+    { "id": "t-expert", "text": "Especialista técnico apoia a equipe; os auditores ainda formam as conclusões" },
+    { "id": "t-safeguards", "text": "Prosseguir com salvaguardas declaradas sob a ressalva da Seção 4.6" },
+    { "id": "t-narrow", "text": "Reduzir o escopo e declarar a omissão no relatório" },
+    { "id": "t-train", "text": "Treinar e parear, aceitando que não ajuda neste ciclo" }
+  ],
+  "correct": {
+    "s1": "t-expert",
+    "s2": "t-safeguards",
+    "s3": "t-narrow",
+    "s4": "t-train"
+  },
+  "explanation": "A terceira é a que as pessoas evitam escolher, e frequentemente é a correta. Auditar uma área que não se consegue avaliar produz uma constatação sobre se documentos existem, o que é pior do que uma lacuna declarada — parece cobertura. A Seção 4.3 exige que obstáculos significativos encontrados durante a auditoria sejam relatados, e uma área que ninguém conseguiu auditar com competência é exatamente esse tipo de obstáculo."
+}
+::
 
-**Uma constatação contra um requisito interno é frequentemente a mais sólida disponível.** A organização o redigiu, portanto o critério não está em disputa, e geralmente é mais específico do que a norma — *qualquer mudança nos dados de treinamento aciona uma avaliação* é verificável de uma forma que *quando ocorrem mudanças significativas* não é, porque a organização já definiu o que conta.
+::deep-dive title="Auditar a determinação de competência da organização com a sua própria em questão"
+Há um caso desconfortável que vale nomear, pois aparece regularmente em organizações pequenas.
+```
+
+### 27. RANDOM -- `aims-ia-01-01-who-commissioned-it` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+Read the first limb again. **Two sets of criteria, not one, and the organization's own come first in the standard's wording.** An AI management system can satisfy every clause of ISO/IEC 42001 and still fail the organization's own AI policy - and that is a finding, raised against a criterion the organization wrote itself.
+
+The third limb is separate from the first two. Conformity is about whether the arrangements meet the requirements. Effective implementation and maintenance is about whether they operate. An AIMS that is documented to the letter and dormant in practice conforms and is not effectively implemented.
+
+No certificate results. Nobody outside the organization is entitled to the report. The entire value of the exercise is that management learns something true before someone else does.
+::
+```
+
+**pt-BR**
+
+```
+Leia o primeiro item novamente. **Dois conjuntos de critérios, não um, e os da própria organização vêm primeiro na redação da norma.** Um sistema de gestão de IA pode satisfazer todas as seções da ISO/IEC 42001 e ainda assim não atender à própria política de IA da organização — e isso é uma constatação, levantada contra um critério que a própria organização redigiu.
+
+O terceiro item é separado dos dois primeiros. Conformidade diz respeito a se os arranjos atendem aos requisitos. Implementação e manutenção efetivas dizem respeito a se eles operam. Um sistema de gestão de IA documentado à risca, mas inativo na prática, está em conformidade e não está efetivamente implementado.
+
+Nenhum certificado é emitido. Ninguém fora da organização tem direito ao relatório. Todo o valor do exercício está no fato de que a gestão aprende algo verdadeiro antes que outra pessoa o faça.
+::
+```
+
+### 28. RANDOM -- `aims-ia-01-03-which-document-can-carry-a-finding` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+Note the asymmetry that follows. ISO 19011 offers guidance and requires nothing. ISO/IEC 17021-1 imposes requirements, on certification bodies. ISO/IEC 42001 imposes requirements, on organizations operating an AI management system. Only the last two contain anything an audit finding can rest on, and only one of them applies to your auditee.
+::
+
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "A draft finding reads: \"Nonconformity against ISO 19011:2026 clause 5.5.3 - the audit programme did not balance on-site and remote methods with consideration of associated risks.\" What should the auditor do?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Issue it - clause 5.5.3 addresses method selection and the programme did not follow it." },
+      { "id": "b", "text": "Restate it as an observation or opportunity for improvement, because ISO 19011 contains no requirements and cannot be the criterion for a nonconformity." },
+      { "id": "c", "text": "Issue it against ISO/IEC 42001 clause 9.2 instead, since that clause requires an audit programme." },
+      { "id": "d", "text": "Escalate to the certification body for a determination." }
+    ],
+    "correct": ["b"],
+    "explanation": "Clause 5.5.3 is a should, like the rest of ISO 19011. The substance may be worth raising, and an observation is how it is raised. Option c is tempting but wrong as stated: clause 9.2.2 requires an audit programme including methods, so a finding could conceivably be built there - but only if the evidence shows the organization failed its own or the standard's requirement, not by relabelling a 19011 recommendation.",
+    "concept_slugs": ["aia-19011-is-guidance-only", "aia-method-vs-criteria"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  },
+  {
+    "id": "q2",
+    "question": "An auditee states: \"Our audit programme is compliant with ISO 19011:2026.\" What is the accurate response?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Accept it and request the certificate of compliance." },
+      { "id": "b", "text": "ISO 19011 states no requirements and is addressed to auditors rather than to organizations, so there is nothing to be compliant with or certified against - the programme can be described as following its guidance." },
+      { "id": "c", "text": "Compliance with ISO 19011 is possible but must be assessed by a third party." },
+      { "id": "d", "text": "The claim is correct if the organization has documented its audit programme." }
+    ],
+    "correct": ["b"],
+    "explanation": "Because the document contains no requirements there is nothing to conform to, and no certification exists against it. The claim is a category error rather than a falsehood about the programme, and the useful correction is to describe the programme as following ISO 19011 guidance.",
+    "concept_slugs": ["aia-no-certification-to-19011", "aia-19011-is-guidance-only"],
+    "bloom_level": "3_apply",
+    "difficulty": 3
+  },
+  {
+    "id": "q3",
+    "question": "An organization's own AI policy requires a documented evaluation before any model is deployed. The auditor finds two models deployed without one. ISO/IEC 42001 contains no clause requiring pre-deployment evaluation in those terms. What follows?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "No finding - the standard imposes no such requirement, so there is no criterion to fail." },
+      { "id": "b", "text": "A nonconformity - clause 9.2.1 names the organization's own requirements for its AI management system as audit criteria, and the policy is one of them." },
+      { "id": "c", "text": "An observation only, because internal policy is weaker than a standard requirement." },
+      { "id": "d", "text": "A finding against clause 5.2, because the AI policy was not followed." }
+    ],
+    "correct": ["b"],
+    "explanation": "Clause 9.2.1 a) 1) makes the organization's own requirements audit criteria in their own right, and ISO 19011 clause 3.8 notes that requirements may include policies. Option d misplaces the criterion: clause 5.2 requires the policy to be established and to have certain properties, not that every provision of it be met - the failure is against the policy itself.",
+    "concept_slugs": ["aia-audit-criteria-definition", "aia-method-vs-criteria"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  },
+  {
+    "id": "q4",
+    "question": "An auditee asks to see the requirement obliging them to follow ISO 19011 in their internal audits. What is the accurate answer?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "ISO/IEC 42001 clause 9.2.2 requires audits to be conducted in accordance with ISO 19011." },
+      { "id": "b", "text": "There is none. ISO/IEC 42001 clause 9.2 states its own internal audit requirements, and mentions ISO 19011 once in a note about where audit evidence and audit criteria are defined." },
+      { "id": "c", "text": "ISO 19011 clause 1 obliges any organization conducting management system audits to apply it." },
+      { "id": "d", "text": "The obligation arises from ISO/IEC 17021-1, which applies ISO 19011 to all audit types." }
+    ],
+    "correct": ["b"],
+    "explanation": "ISO 19011 is a methodology an auditor chooses to apply, not a criterion the auditee is held to - it has no normative references and names no management system standard. Clause 9.2.2 sets out what the organization shall do without citing it. ISO 19011 clause 1 says the document gives guidance, and ISO/IEC 17021-1 governs certification bodies rather than an internal programme.",
+    "concept_slugs": ["aia-method-vs-criteria", "aia-19011-is-guidance-only"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  }
+]
+::
+
+::summary
+- ISO 19011:2026 is the audit method; ISO/IEC 42001:2023 is the criteria. Findings are raised against criteria.
+- ISO 19011 contains one shall - patent boilerplate - and 264 shoulds, and has no normative references.
+- Nothing can be found non-conforming to ISO 19011, and no organization is certified against it.
+- Audit criteria are the set of requirements evidence is compared against, and may include the organization's own policies.
+- Clause 9.2.1 names two sets of criteria: the organization's own AIMS requirements and the standard's.
+- ISO/IEC 42001 does not require the use of ISO 19011; it mentions it once, in a note about defined terms.
+::
+```
+
+**pt-BR**
+
+```
+Observe a assimetria que decorre disso. A ISO 19011 oferece orientação e não exige nada. A ISO/IEC 17021-1 impõe requisitos, aos organismos de certificação. A ISO/IEC 42001 impõe requisitos, às organizações que operam um sistema de gestão de IA. Apenas as duas últimas contêm algo em que uma constatação de auditoria pode se basear, e apenas uma delas se aplica ao seu auditado.
+::
+
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "Uma constatação em rascunho diz: \"Não conformidade contra a ISO 19011:2026 Seção 5.5.3 — o programa de auditoria não equilibrou métodos presenciais e remotos considerando os riscos associados.\" O que o auditor deve fazer?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Emiti-la — a Seção 5.5.3 trata da seleção de métodos e o programa não a seguiu." },
+      { "id": "b", "text": "Reformulá-la como uma observação ou oportunidade de melhoria, pois a ISO 19011 não contém requisitos e não pode ser o critério de uma não conformidade." },
+      { "id": "c", "text": "Emiti-la contra a Seção 9.2 da ISO/IEC 42001, já que essa seção exige um programa de auditoria." },
+      { "id": "d", "text": "Escalar ao organismo de certificação para uma determinação." }
+    ],
+    "correct": ["b"],
+    "explanation": "A Seção 5.5.3 é um should, como todo o restante da ISO 19011. O conteúdo pode valer a pena ser levantado, e uma observação é a forma de fazê-lo. A opção c é tentadora, mas incorreta como formulada: a Seção 9.2.2 exige um programa de auditoria que inclua métodos, portanto uma constatação poderia ser construída ali — mas somente se a evidência mostrar que a organização descumpriu seu próprio requisito ou o da norma, e não simplesmente por rerotular uma recomendação da ISO 19011.",
+    "concept_slugs": ["aia-19011-is-guidance-only", "aia-method-vs-criteria"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  },
+  {
+    "id": "q2",
+    "question": "Um auditado afirma: \"Nosso programa de auditoria está em conformidade com a ISO 19011:2026.\" Qual é a resposta correta?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Aceitar a afirmação e solicitar o certificado de conformidade." },
+      { "id": "b", "text": "A ISO 19011 não estabelece requisitos e é dirigida a auditores, não a organizações, portanto não há nada com o que estar em conformidade ou contra o que certificar — o programa pode ser descrito como seguindo suas orientações." },
+      { "id": "c", "text": "A conformidade com a ISO 19011 é possível, mas deve ser avaliada por terceira parte." },
+      { "id": "d", "text": "A afirmação está correta se a organização tiver documentado seu programa de auditoria." }
+    ],
+    "correct": ["b"],
+    "explanation": "Como o documento não contém requisitos, não há nada com o que estar em conformidade, e não existe certificação contra ele. A afirmação é um erro de categoria, e não uma inverdade sobre o programa; a correção útil é descrever o programa como seguindo as orientações da ISO 19011.",
+    "concept_slugs": ["aia-no-certification-to-19011", "aia-19011-is-guidance-only"],
+    "bloom_level": "3_apply",
+    "difficulty": 3
+  },
+  {
+    "id": "q3",
+    "question": "A própria política de IA de uma organização exige uma avaliação documentada antes de qualquer modelo ser implantado. O auditor constata que dois modelos foram implantados sem ela. A ISO/IEC 42001 não contém nenhuma seção que exija avaliação pré-implantação nesses termos. O que se conclui?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Nenhuma constatação — a norma não impõe tal requisito, portanto não há critério a ser descumprido." },
+      { "id": "b", "text": "Uma não conformidade — a Seção 9.2.1 nomeia os próprios requisitos da organização para seu sistema de gestão de IA como critérios de auditoria, e a política é um deles." },
+      { "id": "c", "text": "Apenas uma observação, pois a política interna é mais fraca do que um requisito normativo." },
+      { "id": "d", "text": "Uma constatação contra a Seção 5.2, pois a política de IA não foi seguida." }
+    ],
+    "correct": ["b"],
+    "explanation": "A Seção 9.2.1 a) 1) torna os próprios requisitos da organização critérios de auditoria por direito próprio, e a Seção 3.8 da ISO 19011 observa que os requisitos podem incluir políticas. A opção d situa o critério incorretamente: a Seção 5.2 exige que a política seja estabelecida e possua certas propriedades, não que cada disposição dela seja cumprida — o descumprimento é contra a própria política.",
+    "concept_slugs": ["aia-audit-criteria-definition", "aia-method-vs-criteria"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  },
+  {
+    "id": "q4",
+    "question": "Um auditado pede para ver o requisito que o obriga a seguir a ISO 19011 em suas auditorias internas. Qual é a resposta correta?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "A Seção 9.2.2 da ISO/IEC 42001 exige que as auditorias sejam conduzidas em conformidade com a ISO 19011." },
+      { "id": "b", "text": "Não existe tal requisito. A Seção 9.2 da ISO/IEC 42001 estabelece seus próprios requisitos de auditoria interna e menciona a ISO 19011 uma única vez, em uma nota sobre onde evidência de auditoria e critérios de auditoria são definidos." },
+      { "id": "c", "text": "A Seção 1 da ISO 19011 obriga qualquer organização que conduza auditorias de sistemas de gestão a aplicá-la." },
+      { "id": "d", "text": "A obrigação decorre da ISO/IEC 17021-1, que aplica a ISO 19011 a todos os tipos de auditoria." }
+    ],
+    "correct": ["b"],
+    "explanation": "A ISO 19011 é uma metodologia que o auditor opta por aplicar, não um critério ao qual o auditado está sujeito — ela não possui referências normativas e não menciona nenhuma norma de sistema de gestão. A Seção 9.2.2 estabelece o que a organização deve fazer sem citá-la. A Seção 1 da ISO 19011 afirma que o documento fornece orientação, e a ISO/IEC 17021-1 rege organismos de certificação, não um programa interno.",
+    "concept_slugs": ["aia-method-vs-criteria", "aia-19011-is-guidance-only"],
+    "bloom_level": "3_apply",
+    "difficulty": 4
+  }
+]
+::
+
+::summary
+- A ISO 19011:2026 é o método de auditoria; a ISO/IEC 42001:2023 é o critério. As constatações são levantadas contra critérios.
+- A ISO 19011 contém um único shall — texto padrão sobre patentes — e 264 shoulds, e não possui referências normativas.
+- Nada pode ser constatado como não conforme à ISO 19011, e nenhuma organização é certificada contra ela.
+- Os critérios de auditoria são o conjunto de requisitos contra os quais a evidência é comparada, e podem incluir as próprias políticas da organização.
+- A Seção 9.2.1 nomeia dois conjuntos de critérios: os próprios requisitos de sistema de gestão de IA da organização e os da norma.
+- A ISO/IEC 42001 não exige o uso da ISO 19011; ela a menciona uma única vez, em uma nota sobre termos definidos.
+::
 ```
 
 ---
@@ -1873,269 +1700,406 @@ Duas consequências que vale a pena guardar:
 
 34 row(s) in this stratum; 4 adversarial, 4 random.
 
-### 33. ADVERSARIAL -- `isms-ia-05-05-fixing-it-and-fixing-it` / es-419
+### 29. ADVERSARIAL -- `isms-ia-01-01-audit-parties` / es-419
 
-flags: structure (quotes en=2 tr=1); ratio (span 1 ratio 3.35 > p95 1.563)
+flags: modal (should x1, no weak modal, 2 obligations vs 0 en); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: Capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
 
 **EN**
 
 ```
-**Was b) 3) actually done?** The most skippable of the three and the most revealing. Where a finding in one area produced no examination of similar areas, item 3 was not performed - and that is a finding available on almost any corrective action review.
-
-**Method does not matter.** Five whys, fishbone, fault tree, or a paragraph of reasoning by someone who understands the process. The standard prescribes none. What it requires is that causes were determined and that the determination holds up.
+They overlap in evidence and they are not interchangeable in obligation. One piece of evidence can serve more than one of them - the same interview record might support a clause 9.2 finding and a 5.36 compliance review. What cannot happen is one **activity** being offered as discharging all three without anyone checking that its scope, criteria and independence actually satisfied each.
 ::
 
-::interactive widget="drag-match" id="correction-or-corrective-action" concept_slugs="ia-correction-versus-corrective-action,ia-recurrence-prevention,ia-root-cause-analysis-adequacy"
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "An organization's certification body completed a surveillance audit three months ago and raised no findings. The internal audit programme has not run this year. Which statement is correct?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "The clause 9.2 obligation is satisfied, because an audit of the ISMS was conducted at a planned interval." },
+      { "id": "b", "text": "The clause 9.2 obligation is outstanding, because a third-party audit answers a different question under different criteria." },
+      { "id": "c", "text": "The clause 9.2 obligation is satisfied only if the certification body's report is shared with management." },
+      { "id": "d", "text": "The clause 9.2 obligation is deferred until the next surveillance visit." }
+    ],
+    "correct": ["b"],
+    "explanation": "A third-party audit is commissioned by the certification body, applies its criteria, and results in a decision about a certificate. Clause 9.2 requires the organization to obtain information for itself, against its own requirements as well as the standard's. Neither the report being shared nor the timing changes the type of audit that was conducted.",
+    "concept_slugs": ["ia-who-may-conduct-each-audit-type", "ia-first-party-audit-purpose"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q2",
+    "question": "A retailer engages an independent consultancy to conduct its scheduled internal audit, using the retailer's own audit criteria and reporting to the retailer's management. How should this audit be classified?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Second party, because an external organization conducted it." },
+      { "id": "b", "text": "Third party, because the consultancy is independent of the retailer." },
+      { "id": "c", "text": "First party, because the retailer commissioned it, its criteria apply, and it is the audience." },
+      { "id": "d", "text": "It cannot be classified until the consultancy's accreditation status is known." }
+    ],
+    "correct": ["c"],
+    "explanation": "ISO 19011:2026 clause 3.1 defines audit, and a note there allows an internal audit to be run in-house or handed to an outside party engaged to carry it out. Who performs the fieldwork does not determine the audit type. The commissioner, the criteria and the audience do.",
+    "concept_slugs": ["ia-first-party-audit-purpose", "ia-19011-table-1-audit-types"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q3",
+    "question": "An auditor is told: \"We commissioned an independent review of our security approach in March, so control 5.35 and clause 9.2 are both covered.\" What is the most accurate response?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Correct, provided the review was documented and conducted at a planned interval." },
+      { "id": "b", "text": "Correct for control 5.35 only; clause 9.2 requires an internal audit programme examining conformity and effective implementation of the management system." },
+      { "id": "c", "text": "Correct for clause 9.2 only; control 5.35 additionally requires a certification body to be involved." },
+      { "id": "d", "text": "Incorrect for both; independent review is guidance rather than a requirement." }
+    ],
+    "correct": ["b"],
+    "explanation": "Both obligations speak of planned intervals, which is why they are confused. Control 5.35 asks whether the organization's approach to managing information security holds up under independent review. Clause 9.2 asks whether the management system conforms and is effectively implemented and maintained. Control 5.35 does not involve a certification body, and Annex A controls are not guidance.",
+    "concept_slugs": ["ia-clause-9-2-versus-control-5-35", "ia-annex-a-5-35-independent-review"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q4",
+    "question": "Which of the following are true of a second-party audit? Select all that apply.",
+    "type": "multi_choice",
+    "options": [
+      { "id": "a", "text": "It is conducted by a party with an interest in the organization, such as a customer." },
+      { "id": "b", "text": "An organization auditing its own external provider is conducting one." },
+      { "id": "c", "text": "It results in a certificate of conformity being issued or withheld." },
+      { "id": "d", "text": "ISO 19011 offers guidance applicable to it." }
+    ],
+    "correct": ["a", "b", "d"],
+    "explanation": "Certificates come from third-party certification audits, governed by ISO/IEC 17021-1 with ISO/IEC 27006 for ISMS specifics. ISO 19011's introduction states that it concentrates on first-party audits and on audits an organization conducts of its external providers and other external interested parties - which is the second-party case.",
+    "concept_slugs": ["ia-second-party-audit-context", "ia-third-party-certification-audit"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  }
+]
+::
+
+::summary
+- Audit type is set by who commissioned it, whose criteria apply and what it can result in.
+- An internal audit may be performed by an external party and remain first party.
+- Clause 9.2 checks the management system; Annex A 5.35 independently reviews the whole approach.
+- Both say "planned intervals"; satisfying one does not satisfy the other.
+- Clause 9.2 is owed by everyone; 5.35 is an Annex A control and may be justifiably excluded.
+- Third-party certification auditing is governed by ISO/IEC 17021-1, not by ISO 19011.
+::
+```
+
+**es-419**
+
+```
+Se superponen en evidencia y no son intercambiables en obligación. Una pieza de evidencia puede servir para más de uno — el mismo registro de entrevista podría respaldar un hallazgo del capítulo 9.2 y una revisión de cumplimiento del 5.36. Lo que no puede ocurrir es que una **actividad** se ofrezca como cumplimiento de las tres sin que nadie verifique que su alcance, criterios e independencia satisfacen efectivamente cada una.
+::
+
+::checkpoint
+[
+  {
+    "id": "q1",
+    "question": "El organismo de certificación de una organización completó una auditoría de seguimiento hace tres meses y no levantó ningún hallazgo. El programa de auditoría interna no se ha ejecutado este año. ¿Cuál afirmación es correcta?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "La obligación del capítulo 9.2 está satisfecha, porque se realizó una auditoría del SGSI a un intervalo planificado." },
+      { "id": "b", "text": "La obligación del capítulo 9.2 está pendiente, porque una auditoría de tercera parte responde a una pregunta diferente bajo criterios diferentes." },
+      { "id": "c", "text": "La obligación del capítulo 9.2 está satisfecha solo si el informe del organismo de certificación se comparte con la dirección." },
+      { "id": "d", "text": "La obligación del capítulo 9.2 queda diferida hasta la próxima visita de seguimiento." }
+    ],
+    "correct": ["b"],
+    "explanation": "Una auditoría de tercera parte es encargada por el organismo de certificación, aplica sus criterios y resulta en una decisión sobre un certificado. El capítulo 9.2 requiere que la organización obtenga información para sí misma, frente a sus propios requisitos además de los de la norma. Ni que el informe se comparta ni el momento en que se realice cambia el tipo de auditoría que se llevó a cabo.",
+    "concept_slugs": ["ia-who-may-conduct-each-audit-type", "ia-first-party-audit-purpose"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  },
+  {
+    "id": "q2",
+    "question": "Un minorista contrata a una consultoría independiente para llevar a cabo su auditoría interna programada, utilizando los propios criterios de auditoría del minorista e informando a la dirección del minorista. ¿Cómo debe clasificarse esta auditoría?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Segunda parte, porque una organización externa la realizó." },
+      { "id": "b", "text": "Tercera parte, porque la consultoría es independiente del minorista." },
+      { "id": "c", "text": "Primera parte, porque el minorista la encargó, sus criterios se aplican y él es el destinatario." },
+      { "id": "d", "text": "No puede clasificarse hasta que se conozca el estado de acreditación de la consultoría." }
+    ],
+    "correct": ["c"],
+    "explanation": "ISO 19011:2026 define auditoría en 3.1, y una nota allí permite que una auditoría interna se realice internamente o se encargue a un tercero contratado para llevarla a cabo. Quién realiza el trabajo de campo no determina el tipo de auditoría. Lo que lo determina es el comitente, los criterios y el destinatario.",
+    "concept_slugs": ["ia-first-party-audit-purpose", "ia-19011-table-1-audit-types"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q3",
+    "question": "A un auditor se le dice: «Encargamos una revisión independiente de nuestro enfoque de seguridad en marzo, así que el control 5.35 y el capítulo 9.2 están ambos cubiertos». ¿Cuál es la respuesta más precisa?",
+    "type": "single_choice",
+    "options": [
+      { "id": "a", "text": "Correcto, siempre que la revisión haya sido documentada y realizada a un intervalo planificado." },
+      { "id": "b", "text": "Correcto solo para el control 5.35; el capítulo 9.2 requiere un programa de auditoría interna que examine la conformidad y la implementación eficaz del sistema de gestión." },
+      { "id": "c", "text": "Correcto solo para el capítulo 9.2; el control 5.35 requiere adicionalmente la participación de un organismo de certificación." },
+      { "id": "d", "text": "Incorrecto para ambos; la revisión independiente es orientación y no un requisito." }
+    ],
+    "correct": ["b"],
+    "explanation": "Ambas obligaciones hablan de intervalos planificados, que es la razón por la que se confunden. El control 5.35 pregunta si el enfoque de la organización para gestionar la seguridad de la información se sostiene bajo una revisión independiente. El capítulo 9.2 pregunta si el sistema de gestión cumple y está implementado y mantenido de manera eficaz. El control 5.35 no involucra a un organismo de certificación, y los controles del Anexo A no son orientación.",
+    "concept_slugs": ["ia-clause-9-2-versus-control-5-35", "ia-annex-a-5-35-independent-review"],
+    "bloom_level": "2_understand",
+    "difficulty": 3
+  },
+  {
+    "id": "q4",
+    "question": "¿Cuáles de las siguientes afirmaciones son verdaderas sobre una auditoría de segunda parte? Seleccione todas las que apliquen.",
+    "type": "multi_choice",
+    "options": [
+      { "id": "a", "text": "Es realizada por una parte con interés en la organización, como un cliente." },
+      { "id": "b", "text": "Una organización que audita a su propio proveedor externo está realizando una." },
+      { "id": "c", "text": "Resulta en la emisión o denegación de un certificado de conformidad." },
+      { "id": "d", "text": "ISO 19011 ofrece orientación aplicable a ella." }
+    ],
+    "correct": ["a", "b", "d"],
+    "explanation": "Los certificados provienen de auditorías de certificación de tercera parte, regidas por ISO/IEC 17021-1 con ISO/IEC 27006 para los aspectos específicos del SGSI. La introducción de ISO 19011 establece que se concentra en las auditorías de primera parte y en las auditorías que una organización realiza de sus proveedores externos y otras partes interesadas externas — que es el caso de segunda parte.",
+    "concept_slugs": ["ia-second-party-audit-context", "ia-third-party-certification-audit"],
+    "bloom_level": "2_understand",
+    "difficulty": 2
+  }
+]
+::
+
+::summary
+- El tipo de auditoría está determinado por quién la encargó, qué criterios se aplican y cuál puede ser su resultado.
+- Una auditoría interna puede ser realizada por una parte externa y seguir siendo de primera parte.
+- El capítulo 9.2 verifica el sistema de gestión; el control 5.35 del Anexo A revisa de forma independiente el enfoque global.
+- Ambos mencionan "intervalos planificados"; satisfacer uno no satisface el otro.
+- El capítulo 9.2 es una obligación de toda organización; el 5.35 es un control del Anexo A y puede ser justificadamente excluido.
+- La auditoría de certificación de tercera parte está regida por ISO/IEC 17021-1, no por ISO 19011.
+::
+```
+
+### 30. ADVERSARIAL -- `isms-ia-04-01-what-the-scope-left-out` / es-419
+
+flags: structure (quotes en=3 tr=2); unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
+
+**EN**
+
+```
+**What "consider" means matters here.** It does not require the other organization to be inside the scope - it cannot be. It requires the interface to have been identified and its treatment decided: through supplier controls, through contractual requirements, through a declared boundary that names where the organization's responsibility ends.
+
+**A scope that is silent about a dependency has not considered it, and that silence is the finding.** Not the dependency existing, which is normal, but the absence of any evidence it was determined.
+::
+
+::callout type="pitfall"
+"That's the provider's responsibility" is a legitimate treatment of an interface and an illegitimate reason to omit it from the scope determination. The point of naming the interface is to record where responsibility transfers.
+::
+```
+
+**es-419**
+
+```
+**El significado de "considerar" importa aquí.** No exige que la otra organización esté dentro del alcance —no puede estarlo—. Exige que la interfaz haya sido identificada y que su tratamiento haya sido decidido: mediante controles de proveedores, mediante requisitos contractuales, mediante un límite declarado que indique dónde termina la responsabilidad de la organización.
+
+**Un alcance que guarda silencio sobre una dependencia no la ha considerado, y ese silencio es el hallazgo.** No la existencia de la dependencia, que es normal, sino la ausencia de cualquier evidencia de que fue determinada.
+::
+
+::callout type="pitfall"
+"Eso es responsabilidad del proveedor" es un tratamiento legítimo de una interfaz y una razón ilegítima para omitirla de la determinación del alcance. El propósito de nombrar la interfaz es registrar dónde se transfiere la responsabilidad.
+::
+```
+
+### 31. ADVERSARIAL -- `isms-ia-02-06-testing-the-programme` / es-419
+
+flags: clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
+
+**EN**
+
+```
+Audit reports are usually present - they are the visible output. Evidence of *implementation* is thinner: that the programme was established, that it ran as planned, and that deviations were handled.
+
+What tends to satisfy it:
+
+- The programme itself, dated and approved.
+- Evidence that the scheduled audits happened - completed reports mapped against the plan.
+- A record of deviations. An audit deferred, cancelled or rescoped, with the reason.
+- Evidence that results reached relevant management, per 9.2.2 c). A report filed in a folder that management does not read has not been reported to them.
+```
+
+**es-419**
+
+```
+Los informes de auditoría suelen estar presentes: son el resultado visible. La evidencia de la *implementación* es más escasa: que el programa fue establecido, que se ejecutó según lo planificado y que las desviaciones fueron gestionadas.
+
+Lo que tiende a satisfacerlo:
+
+- El programa en sí, con fecha y aprobación.
+- Evidencia de que las auditorías programadas se realizaron: informes completados mapeados contra el plan.
+- Un registro de desviaciones. Una auditoría diferida, cancelada o con alcance modificado, con la razón correspondiente.
+- Evidencia de que los resultados llegaron a la dirección pertinente, conforme al apartado 9.2.2 c). Un informe archivado en una carpeta que la dirección no lee no le ha sido comunicado.
+```
+
+### 32. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / es-419
+
+flags: ceiling (span 2 en=24 tr=36 cap=34); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
+
+**EN**
+
+```
+Scope is what the audit will examine. It is not what the audit will conclude about, which is a separate discipline covered in Module 3.
+::
+
+::concept title="Criteria: what evidence is compared against"
+ISO 19011:2026 defines **audit criteria** as the set of requirements used as a reference against which objective evidence is compared. Its notes make the breadth explicit - criteria may be policies, procedures or work instructions, legal requirements and contractual obligations and industry standards.
+
+For an internal ISMS audit, the criteria are typically ISO/IEC 27001 **and** the organization's own requirements. Clause 9.2.1 lists both, in that order:
+```
+
+**es-419**
+
+```
+El alcance es lo que la auditoría examinará. No es aquello sobre lo que la auditoría concluirá, que es una disciplina separada tratada en el Módulo 3.
+::
+
+::concept title="Criterios: contra qué se compara la evidencia"
+ISO 19011:2026 define los **criterios de auditoría** como el conjunto de requisitos utilizados como referencia contra la cual se compara la evidencia objetiva. Sus notas hacen explícita la amplitud del término: los criterios pueden ser políticas, procedimientos o instrucciones de trabajo, requisitos legales y obligaciones contractuales y normas del sector.
+
+Para una auditoría interna del SGSI, los criterios son típicamente ISO/IEC 27001 **y** los propios requisitos de la organización. El apartado 9.2.1 enumera ambos, en ese orden:
+```
+
+### 33. RANDOM -- `isms-ia-02-05-who-does-the-audit` / es-419
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+What is not available is the fourth option everyone reaches for: **run the audit as planned and write the conclusion as though the resource had been there.**
+::
+
+::interactive widget="sort-into-order" id="staffing-decision-order" concept_slugs="ia-audit-team-selection-5-5-4,ia-audit-programme-resources-5-4-4,ia-audit-team-leader-assignment-5-5-5,ia-technical-expert-role"
 {
   "items": [
-    { "id": "a1", "text": "The five suppliers missing security assessments were assessed retrospectively and the files updated." },
-    { "id": "a2", "text": "The procurement system now blocks contract approval unless an assessment document is attached." },
-    { "id": "a3", "text": "The procurement team attended a refresher session on the supplier onboarding procedure." },
-    { "id": "a4", "text": "Someone checked whether the same gap exists in the three other onboarding routes the organization operates." }
+    { "id": "a", "text": "Establish what the audit must conclude about, from its scope and criteria" },
+    { "id": "b", "text": "Determine what knowledge and skills reaching those conclusions requires" },
+    { "id": "c", "text": "Compare that against what the available auditors collectively hold, and identify the gap" },
+    { "id": "d", "text": "Close the gap with a team member or a technical expert, or narrow the scope, or record a limitation" },
+    { "id": "e", "text": "Assign responsibility for the audit to a team leader" }
   ],
-  "targets": [
-    { "id": "t-correction", "text": "Correction - clause 10.2 a), addresses the instances" },
-    { "id": "t-corrective", "text": "Corrective action - eliminates the cause so it cannot recur by the same route" },
-    { "id": "t-neither", "text": "Neither reliably - changes knowledge, not what the arrangement permits" },
-    { "id": "t-b3", "text": "Clause 10.2 b) 3) - determining if similar nonconformities exist or could occur" }
-  ],
-  "correct": {
-    "a1": "t-correction",
-    "a2": "t-corrective",
-    "a3": "t-neither",
-    "a4": "t-b3"
-  },
-  "explanation": "The third is the one organizations offer most and it is the weakest, because the failure here was permitted by the system rather than caused by ignorance - a fully trained team facing the same system produces the same gap. The fourth is the step most often skipped entirely, and it is a named requirement rather than good practice: clause 10.2 b) 3) obliges the organization to determine whether similar nonconformities exist or could potentially occur, which is exactly the question that finds the other three onboarding routes."
+  "correct_order": ["a", "b", "c", "d", "e"],
+  "explanation": "The order matters because each step depends on the one before it. Starting anywhere other than the scope produces a team assembled from who was free rather than from what the audit needs - which is the usual way an audit ends up unable to evaluate what it is looking at. Note that step d has three exits, not one: closing the gap is preferable, but narrowing the scope and recording a limitation are legitimate resolutions. Proceeding with an unclosed, unnarrowed and unrecorded gap is not."
 }
 ::
+
+::deep-dive title="Auditing the resourcing decision"
+Resourcing is one of the hardest things to audit because the evidence is usually absent by design - nobody documents the audit they did not have time to do properly.
 ```
 
 **es-419**
 
 ```
-**¿Se realizó realmente b) 3)?** El más fácil de omitir de los tres y el más revelador. Cuando un hallazgo en un área no generó ningún examen de áreas similares, el punto 3 no se realizó — y eso es un hallazgo disponible en casi cualquier revisión de acción correctiva.
-
-**El método no importa.** Cinco porqués, diagrama de espina de pescado, árbol de fallos, o un párrafo de razonamiento de alguien que entiende el proceso. La norma no prescribe ninguno. Lo que exige es que las causas fueron determinadas y que la determinación se sostiene.
+Lo que no está disponible es la cuarta opción a la que todos recurren: **ejecutar la auditoría según lo planificado y redactar la conclusión como si el recurso hubiera estado disponible.**
 ::
 
-::interactive widget="drag-match" id="correction-or-corrective-action" concept_slugs="ia-correction-versus-corrective-action,ia-recurrence-prevention,ia-root-cause-analysis-adequacy"
+::interactive widget="sort-into-order" id="staffing-decision-order" concept_slugs="ia-audit-team-selection-5-5-4,ia-audit-programme-resources-5-4-4,ia-audit-team-leader-assignment-5-5-5,ia-technical-expert-role"
 {
   "items": [
-    { "id": "a1", "text": "Los cinco proveedores a los que les faltaba la evaluación de seguridad fueron evaluados de manera retroactiva y los expedientes fueron actualizados." },
-    { "id": "a2", "text": "El sistema de adquisiciones ahora bloquea la aprobación del contrato a menos que se adjunte un documento de evaluación." },
-    { "id": "a3", "text": "El equipo de adquisiciones asistió a una sesión de actualización sobre el procedimiento de incorporación de proveedores." },
-    { "id": "a4", "text": "Alguien verificó si la misma brecha existe en las otras tres rutas de incorporación que opera la organización." }
+    { "id": "a", "text": "Establecer sobre qué debe concluir la auditoría, a partir de su alcance y criterios" },
+    { "id": "b", "text": "Determinar qué conocimientos y habilidades requiere llegar a esas conclusiones" },
+    { "id": "c", "text": "Comparar eso con lo que los auditores disponibles poseen colectivamente e identificar la brecha" },
+    { "id": "d", "text": "Cerrar la brecha con un miembro del equipo o un experto técnico, o reducir el alcance, o registrar una limitación" },
+    { "id": "e", "text": "Asignar la responsabilidad de la auditoría a un líder del equipo" }
   ],
-  "targets": [
-    { "id": "t-correction", "text": "Corrección — apartado 10.2 a), aborda las instancias" },
-    { "id": "t-corrective", "text": "Acción correctiva — elimina la causa para que no pueda volver a ocurrir por la misma vía" },
-    { "id": "t-neither", "text": "Ninguna de las dos de manera confiable — cambia el conocimiento, no lo que el sistema permite" },
-    { "id": "t-b3", "text": "Apartado 10.2 b) 3) — determinar si existen no conformidades similares o podrían ocurrir" }
-  ],
-  "correct": {
-    "a1": "t-correction",
-    "a2": "t-corrective",
-    "a3": "t-neither",
-    "a4": "t-b3"
-  },
-  "explanation": "La tercera es la que las organizaciones ofrecen con mayor frecuencia y es la más débil, porque el fallo aquí fue permitido por el sistema en lugar de ser causado por ignorancia — un equipo completamente capacitado que enfrenta el mismo sistema produce la misma brecha. La cuarta es el paso que se omite con mayor frecuencia, y es un requisito explícito en lugar de una buena práctica: el apartado 10.2 b) 3) obliga a la organización a determinar si existen no conformidades similares o podrían ocurrir potencialmente, que es exactamente la pregunta que descubre las otras tres rutas de incorporación."
+  "correct_order": ["a", "b", "c", "d", "e"],
+  "explanation": "El orden importa porque cada paso depende del anterior. Comenzar en cualquier otro punto produce un equipo ensamblado según quién estaba disponible, en lugar de según lo que la auditoría necesita, que es la forma habitual en que una auditoría termina sin poder evaluar lo que está examinando. Nótese que el paso d tiene tres salidas, no una: cerrar la brecha es preferible, pero reducir el alcance y registrar una limitación son resoluciones legítimas. Continuar con una brecha no cerrada, no reducida y no registrada no lo es."
 }
 ::
+
+::deep-dive title="Auditar la decisión de recursos"
+Los recursos son una de las cosas más difíciles de auditar porque la evidencia suele estar ausente por diseño: nadie documenta la auditoría que no tuvo tiempo de realizar correctamente.
 ```
 
-### 34. ADVERSARIAL -- `isms-ia-04-05-competence-awareness-documents` / es-419
-
-flags: structure (quotes en=0 tr=1)
-
-**EN**
-
-```
-**7.2 c) actions taken and effectiveness evaluated.** Find someone who was found not competent and had action taken. What was the action, and how did anyone know it worked? If nobody has ever been found lacking, ask how competence is assessed - an assessment that never finds a gap may not be an assessment.
-
-**7.2 d) documented information retained as evidence of competence.** Whatever a) said was needed, is there something on file establishing it?
-
-**Four questions, two people, twenty minutes.** That is a better clause 7.2 audit than reading a training register end to end.
-::
-```
-
-**es-419**
-
-```
-**7.2 c) acciones tomadas y eficacia evaluada.** Encontrar a alguien que haya sido identificado como no competente y se hayan tomado acciones. ¿Cuál fue la acción y cómo supo alguien que funcionó? Si nunca se ha encontrado a nadie con deficiencias, preguntar cómo se evalúa la competencia: una evaluación que nunca detecta una brecha puede no ser realmente una evaluación.
-
-**7.2 d) información documentada conservada como evidencia de competencia.** Cualquiera que sea lo que a) estableció como necesario, ¿hay algo en el expediente que lo acredite?
-
-**Cuatro preguntas, dos personas, veinte minutos.** Eso es una mejor auditoría del apartado 7.2 que leer un registro de capacitación de principio a fin.
-::
-```
-
-### 35. ADVERSARIAL -- `isms-ia-04-01-what-the-scope-left-out` / es-419
-
-flags: structure (quotes en=3 tr=2)
-
-**EN**
-
-```
-::concept title="Clause 4.3 names three inputs"
-The scope is not a boundary somebody drew. It is a determination clause 4.3 requires to be made from stated inputs:
-
-> The organization **shall determine the boundaries and applicability** of the ISMS to establish its scope.
-
-Clause 4.3 then names three inputs the organization is required to consider when it does so:
-> a) the external and internal issues referred to in 4.1;
-> b) the requirements referred to in 4.2;
-> c) **interfaces and dependencies between activities performed by the organization, and those that are performed by other organizations.**
->
-> The scope shall be available as documented information.
-```
-
-**es-419**
-
-```
-**Las actividades, ubicaciones y activos pueden excluirse del alcance del SGSI.** Una organización puede certificar una unidad de negocio, tres de cinco sedes, o una única línea de producto. El apartado 4.3 pide que se determinen los límites y la aplicabilidad, lo que presupone que algunas cosas quedan fuera de ellos.
-
-**Los requisitos no pueden excluirse.** El **Capítulo 1 Alcance** de ISO/IEC 27001 establece:
-
-> Excluir cualquiera de los requisitos especificados en los capítulos 4 a 10 no es aceptable cuando una organización declara conformidad con este documento.
-```
-
-### 36. ADVERSARIAL -- `isms-ia-01-03-objectivity-of-the-assignment` / es-419
-
-flags: structure (quotes en=2 tr=3)
-
-**EN**
-
-```
-Read the second one again. The standard does not prohibit the assignment. It **anticipates** that internal auditors sometimes cannot be independent of what they are auditing, and it tells you what to do about it: remove bias, encourage objectivity, make the effort visible.
-
-That is a more usable position than the maxim, and a more honest one. In an organization of forty people, full independence from every audited activity is not attainable. A standard that pretended otherwise would be ignored.
-::
-
-::callout type="terminology"
-The phrase "an auditor may not audit their own work" is practice convention. It is a good rule of thumb and the canonical way to fail 9.2.2 b) - but it is not a quotation from either standard, and it should not be presented as one.
-::
-```
-
-**es-419**
-
-```
-::concept title="La independencia es una propiedad de la asignación"
-La objetividad no es una credencial que el auditor lleva de un encargo a otro. Se establece, o no, para cada asignación.
-
-El mismo auditor puede ser completamente independiente del proceso de gestión de incidentes y estar totalmente en conflicto respecto a la gestión de accesos, porque desempeña un rol de aprobación de accesos. Nada en la persona cambió. Lo que cambió fue la relación entre la persona y la actividad.
-
-Por lo tanto, la pregunta nunca es "¿es esta persona un auditor independiente?". Es: **dado lo que esta persona hace en la organización, ¿puede evaluar esta actividad basándose únicamente en la evidencia?**
-```
-
-### 37. RANDOM -- `isms-ia-03-09-a-trail-someone-else-can-follow` / es-419
+### 34. RANDOM -- `isms-ia-03-02-what-the-sample-supports` / es-419
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-::concept title="What a working paper has to contain"
-The test is simple and demanding: **could a competent auditor who was not present reach the same conclusion from your record?**
+**Most internal audits use judgement-based sampling**, and that is appropriate. The error is not using it. The error is writing a population-level conclusion from it.
+::
 
-That requires four things, and the first is the one most often thin.
+::callout type="pitfall"
+"We examined ten access changes and found no exceptions, so access control is operating effectively" is a population claim from a judgement-based sample. The examination may have been excellent. The sentence is not supportable.
+::
 
-- **The specific evidence.** Not "reviewed access records" but *which* records - the identifier, the date, the system, the query or filter that produced them. Lesson 03-03's point applies: an export you cannot reconstruct is weaker later than it felt at the time.
-- **The criterion.** The clause, control, policy or contractual term the evidence was compared against. Named, not implied.
-- **What the evidence showed**, separated from what you concluded from it. These get merged in a hurry and the merge is what makes a finding hard to defend.
-- **The reliance judgement, where the verification was partial.** Lesson 03-01 asked you to determine reliance; this is where you write down what you determined and why. Reconstructing that months later is not possible.
+::concept title="Adequacy is about the conclusion, not the sample"
+This is the discipline the lesson turns on.
 ```
 
 **es-419**
 
 ```
-::concept title="Qué debe contener un papel de trabajo"
-La prueba es simple y exigente: **¿podría un auditor competente que no estuvo presente llegar a la misma conclusión a partir de tu registro?**
+**La mayoría de las auditorías internas utilizan muestreo basado en criterio**, y eso es apropiado. El error no es usarlo. El error es redactar una conclusión a nivel de población a partir de él.
+::
 
-Eso requiere cuatro cosas, y la primera es la que más frecuentemente resulta débil.
+::callout type="pitfall"
+"Examinamos diez cambios de acceso y no encontramos excepciones, por lo que el control de acceso opera de manera efectiva" es una afirmación sobre la población a partir de una muestra basada en criterio. El examen puede haber sido excelente. La oración no es sostenible.
+::
 
-- **La evidencia específica.** No "se revisaron registros de acceso", sino *cuáles* registros: el identificador, la fecha, el sistema, la consulta o el filtro que los generó. El punto de la lección 03-03 aplica: una exportación que no puedes reconstruir es más débil tiempo después de lo que parecía en el momento.
-- **El criterio.** El capítulo, control, política o término contractual con el que se comparó la evidencia. Nombrado, no implícito.
-- **Lo que mostró la evidencia**, separado de lo que concluiste a partir de ella. Estos se fusionan con las prisas, y esa fusión es lo que hace difícil defender un hallazgo.
-- **El juicio de confianza, cuando la verificación fue parcial.** La lección 03-01 te pidió determinar la confianza; aquí es donde escribes lo que determinaste y por qué. Reconstruir eso meses después no es posible.
+::concept title="La adecuación se refiere a la conclusión, no a la muestra"
+Esta es la disciplina en torno a la cual gira la lección.
 ```
 
-### 38. RANDOM -- `isms-ia-04-09-the-control-that-passed-last-year` / es-419
+### 35. RANDOM -- `isms-ia-03-04-what-each-method-can-establish` / es-419
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-**Ask for the rejection records.** Rate, reasons, and how they have moved. This single request establishes whether the control operates, and its trend establishes something about the protected process that nothing else the organization holds does.
+The mistake is treating them as interchangeable ways of getting to the same place. They are not. **Each one establishes a different kind of thing**, and choosing wrongly produces evidence that does not bear on the question you asked.
 
-**Ask what a reviewer sees.** Watch one review happen if you can, per lesson 03-04's observation method. What is on the screen, what else is open, how long does it take.
+Before selecting, name what the audit trail needs to establish. Usually it is one of three:
 
-**Ask when effectiveness was last established, and against what.** If the answer predates a provider change, a volume change or a scope change, the evidence was drawn under different conditions - and the question is not whether the control failed but whether anyone would know.
+- **That an arrangement exists** - a policy, a procedure, a defined responsibility.
+- **That the arrangement is understood** by the people who have to operate it.
+- **That the arrangement operates** - that the thing actually happens, on the records that exist, in the period under audit.
 ```
 
 **es-419**
 
 ```
-**Solicite los registros de rechazo.** Tasa, motivos y cómo han evolucionado. Esta única solicitud establece si el control opera, y su tendencia establece algo sobre el proceso protegido que ninguna otra cosa que tenga la organización hace.
+El error consiste en tratarlos como formas intercambiables de llegar al mismo lugar. No lo son. **Cada uno establece un tipo diferente de cosa**, y elegir incorrectamente produce evidencia que no responde a la pregunta formulada.
 
-**Pregunte qué ve un revisor.** Observe una revisión en tiempo real si puede, según el método de observación de la lección 03-04. Qué hay en la pantalla, qué más está abierto, cuánto tiempo toma.
+Antes de seleccionar, defina qué necesita establecer el expediente de auditoría. Por lo general, es una de estas tres cosas:
 
-**Pregunte cuándo se estableció por última vez la efectividad, y contra qué.** Si la respuesta es anterior a un cambio de proveedor, un cambio de volumen o un cambio de alcance, la evidencia fue extraída bajo condiciones diferentes — y la pregunta no es si el control falló sino si alguien lo sabría.
+- **Que existe un acuerdo** — una política, un procedimiento, una responsabilidad definida.
+- **Que el acuerdo es comprendido** por las personas que deben operarlo.
+- **Que el acuerdo opera** — que la cosa realmente ocurre, en los registros existentes, durante el período auditado.
 ```
 
-### 39. RANDOM -- `isms-ia-03-05-the-question-that-gets-evidence` / es-419
+### 36. RANDOM -- `isms-ia-03-07-where-the-audit-stops` / es-419
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-1. **Open question** - what happens.
-2. **Specific instance** - tell me about the last time, or a recent one.
-3. **The artefact** - can we look at the record that produced.
+The second question is often the one somebody in the room wants answered, and it is not what an ISMS audit is for. An auditor who drifts into it is doing work they may not be competent for, on a system they may damage, producing a conclusion that is not what the audit was scoped to deliver.
 
-Step three is where the interview stops being an interview and becomes document review. That transition is the productive part. Lesson 03-01's rule applies: the statement never supports the finding; the record you asked for because of the statement does.
-
-**A closed question cannot reach step three**, because it never produced a specific instance to ask about.
+**The boundary is not a limit on curiosity.** Noticing that a rule looks wrong is exactly what a good auditor does. What follows the noticing is where the discipline lives.
 ::
+
+::concept title="What to do at the boundary"
+Three honest responses, and they are the same three as lesson 01-04's competence gaps, because it is the same problem viewed from the evidence side.
 ```
 
 **es-419**
 
 ```
-**Pregunte sobre el proceso, no sobre la persona.** "¿Qué ocurre cuando..." en lugar de "¿qué hace usted cuando...". La primera invita a una descripción; la segunda invita a una defensa.
+La segunda pregunta es con frecuencia la que alguien en la sala quiere responder, y no es para lo que sirve una auditoría del SGSI. Un auditor que se adentra en ella está realizando un trabajo para el que puede no tener competencia, sobre un sistema que puede dañar, y produciendo una conclusión que no es lo que la auditoría tenía alcance para entregar.
 
-**Trate el procedimiento informal como información, no como una confesión.** Cuando alguien describe un atajo, la respuesta útil es curiosidad sobre por qué la vía habitual no funcionó. Ahí es donde realmente está el hallazgo: un control que las personas no pueden seguir es un problema del control, no un problema de disciplina.
-
-**No los corrija.** Si un entrevistado describe algo que no coincide con lo que dice el procedimiento, anótelo y continúe. Explicar el proceso correcto les enseña la respuesta que usted esperaba y detiene el flujo de todo lo que aún no sabía.
-```
-
-### 40. RANDOM -- `isms-ia-01-02-principles-in-tension` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Assign the expert and independence is compromised. Assign someone else and the audit may miss what a competent examination would have caught.
-
-Neither principle wins by rank. The resolution comes from asking what the audit is trying to establish, and what would make its conclusion unreliable. **An audit conducted by someone who cannot understand the evidence produces a conclusion nobody should rely on. An audit conducted by someone auditing their own design produces a conclusion nobody should rely on either.** The answer is usually neither of the two obvious options - it is an arrangement that borrows the competence without borrowing the conflict.
+**El límite no es una restricción a la curiosidad.** Notar que una regla parece incorrecta es exactamente lo que hace un buen auditor. Lo que sigue a esa observación es donde reside la disciplina.
 ::
 
-::concept title="Evidence-based against risk-based"
-The second collision is quieter and more common.
-```
-
-**es-419**
-
-```
-Asignar al experto compromete la independencia. Asignar a otra persona puede hacer que la auditoría pase por alto lo que un examen competente habría detectado.
-
-Ningún principio gana por jerarquía. La resolución surge de preguntarse qué intenta establecer la auditoría y qué haría que su conclusión fuera poco confiable. **Una auditoría realizada por alguien que no puede comprender la evidencia produce una conclusión en la que nadie debería confiar. Una auditoría realizada por alguien que audita su propio diseño produce una conclusión en la que nadie debería confiar tampoco.** La respuesta suele ser ninguna de las dos opciones obvias — es un arreglo que toma prestada la competencia sin tomar prestado el conflicto.
-::
-
-::concept title="Basado en evidencia frente a basado en riesgos"
-La segunda colisión es más silenciosa y más frecuente.
+::concept title="Qué hacer al llegar al límite"
+Tres respuestas honestas, y son las mismas tres de la lección 01-04 sobre brechas de competencia, porque es el mismo problema visto desde el lado de la evidencia.
 ```
 
 ---
@@ -2144,467 +2108,260 @@ La segunda colisión es más silenciosa y más frecuente.
 
 31 row(s) in this stratum; 4 adversarial, 4 random.
 
-### 41. ADVERSARIAL -- `isms-ia-04-03-the-whole-of-clause-6` / pt-BR
+### 37. ADVERSARIAL -- `isms-ia-03-08-what-the-tool-verified` / pt-BR
 
-flags: accent (formula); accent (analise); modal (should x1, no weak modal, 9 obligations vs 7 en)
-
-**EN**
-
-```
-And b) is testable in a way people forget: **repeated assessments producing comparable results.** Compare this year's assessment against last year's. If the same risk moved two levels with no change in the environment, the process is not producing comparable results and that is a 6.1.2 b) finding.
-::
-
-::callout type="pitfall"
-ISO/IEC 27001 does not require a risk register. Clauses 6.1.2 and 6.1.3 require documented information about the **processes**; clauses 8.2 and 8.3 require documented information **of the results**. A register is one good way to satisfy those. A finding that no register exists cites a requirement the standard does not contain.
-::
-
-::concept title="6.1.3: treatment, and what Annex A is for"
-Clause 6.1.3 requires a defined and applied treatment process that:
-```
-
-**pt-BR**
-
-```
-E o item b) é verificável de uma forma que as pessoas esquecem: **avaliações repetidas produzindo resultados comparáveis.** Compare a avaliação deste ano com a do ano passado. Se o mesmo risco mudou dois níveis sem nenhuma alteração no ambiente, o processo não está produzindo resultados comparáveis e isso é uma constatação relativa à Seção 6.1.2 b).
-::
-
-::callout type="pitfall"
-A ISO/IEC 27001 não exige um registro de riscos. As Seções 6.1.2 e 6.1.3 exigem informação documentada sobre os **processos**; as Seções 8.2 e 8.3 exigem informação documentada **dos resultados**. Um registro é uma boa forma de atender a esses requisitos. Uma constatação de que não existe registro cita um requisito que a norma não contém.
-::
-
-::concept title="6.1.3: tratamento e para que serve o Anexo A"
-A Seção 6.1.3 exige um processo de tratamento definido e aplicado que:
-```
-
-### 42. ADVERSARIAL -- `isms-ia-04-05-competence-awareness-documents` / pt-BR
-
-flags: structure (quotes en=0 tr=1); accent (clausula)
+flags: clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
 
 **EN**
 
 ```
-**7.2 c) actions taken and effectiveness evaluated.** Find someone who was found not competent and had action taken. What was the action, and how did anyone know it worked? If nobody has ever been found lacking, ask how competence is assessed - an assessment that never finds a gap may not be an assessment.
-
-**7.2 d) documented information retained as evidence of competence.** Whatever a) said was needed, is there something on file establishing it?
-
-**Four questions, two people, twenty minutes.** That is a better clause 7.2 audit than reading a training register end to end.
-::
-```
-
-**pt-BR**
-
-```
-**7.2 c) ações tomadas e eficácia avaliada.** Encontre alguém que foi identificado como não competente e teve ação tomada. Qual foi a ação, e como alguém soube que funcionou? Se ninguém jamais foi identificado como deficiente, pergunte como a competência é avaliada — uma avaliação que nunca encontra lacunas pode não ser uma avaliação.
-
-**7.2 d) informação documentada retida como evidência de competência.** O que quer que a) tenha declarado como necessário, há algo no arquivo que o estabeleça?
-
-**Quatro perguntas, duas pessoas, vinte minutos.** Isso é uma auditoria da Seção 7.2 melhor do que ler um registro de treinamento do início ao fim.
-::
-```
-
-### 43. ADVERSARIAL -- `isms-ia-02-02-where-the-effort-goes` / pt-BR
-
-flags: convem (convem-que not clause-initial); convem (convem-que not clause-initial)
-
-**EN**
-
-```
----
-lesson_id: isms-ia-02-02-where-the-effort-goes
-module_slug: ia-audit-programme
-certification_code: ISMS-IA
-title: Where the Effort Goes
-subtitle: Risk-based frequency, coverage across the cycle, and why clause order is not priority order
-language: en
-lesson_group_id: isms-ia-02-02-where-the-effort-goes
-duration_minutes: 12
-order_index: 2
-task_codes: ["2.2"]
-concept_slugs:
-  - ia-risk-based-audit-programme
-  - ia-programme-risks-and-opportunities-5-3
-  - ia-process-importance-as-prioritisation-factor
-  - ia-coverage-across-programme-cycle
-  - ia-clause-order-carries-no-priority
-prerequisites: [isms-ia-02-01-what-the-programme-is-for]
-preview: |
-  A 12-minute lesson on allocating finite audit effort by risk and
-  importance, achieving coverage across a cycle rather than within
-  one audit, and the risks that attach to the programme itself.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Equal time for every area feels fair. It guarantees that the areas which matter most are examined least thoroughly.
-::
-
-::concept title="The risk-based approach is not a suggestion"
-ISO 19011:2026 makes the risk-based approach one of its seven principles, and its wording is unusually firm for a guidance document:
-```
-
-**pt-BR**
-
-```
----
-lesson_id: isms-ia-02-02-where-the-effort-goes
-module_slug: ia-audit-programme
-certification_code: ISMS-IA
-title: Para Onde Vai o Esforço
-subtitle: Frequência baseada em risco, cobertura ao longo do ciclo e por que a ordem das seções não é ordem de prioridade
-language: pt-BR
-lesson_group_id: isms-ia-02-02-where-the-effort-goes
-duration_minutes: 12
-order_index: 2
-task_codes: ["2.2"]
-concept_slugs:
-  - ia-risk-based-audit-programme
-  - ia-programme-risks-and-opportunities-5-3
-  - ia-process-importance-as-prioritisation-factor
-  - ia-coverage-across-programme-cycle
-  - ia-clause-order-carries-no-priority
-prerequisites: [isms-ia-02-01-what-the-programme-is-for]
-preview: |
-  Uma lição de 12 minutos sobre como alocar o esforço finito de auditoria
-  por risco e importância, alcançar cobertura ao longo de um ciclo em vez
-  de em uma única auditoria, e os riscos que recaem sobre o próprio programa.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Dedicar tempo igual a cada área parece justo. Isso garante que as áreas que mais importam sejam examinadas com menos profundidade.
-::
-
-::concept title="A abordagem baseada em risco não é uma sugestão"
-A ISO 19011:2026 torna a abordagem baseada em risco um de seus sete princípios, e sua redação é incomumente firme para um documento de orientação:
-```
-
-### 44. ADVERSARIAL -- `isms-ia-05-05-fixing-it-and-fixing-it` / pt-BR
-
-flags: structure (quotes en=2 tr=1); ratio (span 1 ratio 2.94 > p95 1.461)
-
-**EN**
-
-```
-**Was b) 3) actually done?** The most skippable of the three and the most revealing. Where a finding in one area produced no examination of similar areas, item 3 was not performed - and that is a finding available on almost any corrective action review.
-
-**Method does not matter.** Five whys, fishbone, fault tree, or a paragraph of reasoning by someone who understands the process. The standard prescribes none. What it requires is that causes were determined and that the determination holds up.
-::
-
-::interactive widget="drag-match" id="correction-or-corrective-action" concept_slugs="ia-correction-versus-corrective-action,ia-recurrence-prevention,ia-root-cause-analysis-adequacy"
-{
-  "items": [
-    { "id": "a1", "text": "The five suppliers missing security assessments were assessed retrospectively and the files updated." },
-    { "id": "a2", "text": "The procurement system now blocks contract approval unless an assessment document is attached." },
-    { "id": "a3", "text": "The procurement team attended a refresher session on the supplier onboarding procedure." },
-    { "id": "a4", "text": "Someone checked whether the same gap exists in the three other onboarding routes the organization operates." }
-  ],
-  "targets": [
-    { "id": "t-correction", "text": "Correction - clause 10.2 a), addresses the instances" },
-    { "id": "t-corrective", "text": "Corrective action - eliminates the cause so it cannot recur by the same route" },
-    { "id": "t-neither", "text": "Neither reliably - changes knowledge, not what the arrangement permits" },
-    { "id": "t-b3", "text": "Clause 10.2 b) 3) - determining if similar nonconformities exist or could occur" }
-  ],
-  "correct": {
-    "a1": "t-correction",
-    "a2": "t-corrective",
-    "a3": "t-neither",
-    "a4": "t-b3"
-  },
-  "explanation": "The third is the one organizations offer most and it is the weakest, because the failure here was permitted by the system rather than caused by ignorance - a fully trained team facing the same system produces the same gap. The fourth is the step most often skipped entirely, and it is a named requirement rather than good practice: clause 10.2 b) 3) obliges the organization to determine whether similar nonconformities exist or could potentially occur, which is exactly the question that finds the other three onboarding routes."
-}
-::
-```
-
-**pt-BR**
-
-```
-**O item b) 3) foi realmente executado?** O mais fácil de pular dos três e o mais revelador. Onde um achado em uma área não produziu nenhum exame de áreas semelhantes, o item 3 não foi realizado — e isso é um achado disponível em quase qualquer análise de ação corretiva.
-
-**O método não importa.** Cinco porquês, diagrama de Ishikawa, árvore de falhas ou um parágrafo de raciocínio de alguém que entende o processo. A norma não prescreve nenhum. O que ela exige é que as causas foram determinadas e que a determinação se sustenta.
-::
-
-::interactive widget="drag-match" id="correction-or-corrective-action" concept_slugs="ia-correction-versus-corrective-action,ia-recurrence-prevention,ia-root-cause-analysis-adequacy"
-{
-  "items": [
-    { "id": "a1", "text": "Os cinco fornecedores sem avaliações de segurança foram avaliados retroativamente e os arquivos atualizados." },
-    { "id": "a2", "text": "O sistema de aquisição agora bloqueia a aprovação do contrato a menos que um documento de avaliação esteja anexado." },
-    { "id": "a3", "text": "A equipe de aquisição participou de uma sessão de atualização sobre o procedimento de integração de fornecedores." },
-    { "id": "a4", "text": "Alguém verificou se a mesma lacuna existe nas outras três rotas de integração que a organização opera." }
-  ],
-  "targets": [
-    { "id": "t-correction", "text": "Correção — Seção 10.2 a), trata das ocorrências" },
-    { "id": "t-corrective", "text": "Ação corretiva — elimina a causa para que não possa se repetir pelo mesmo caminho" },
-    { "id": "t-neither", "text": "Nenhuma das duas de forma confiável — muda o conhecimento, não o que o arranjo permite" },
-    { "id": "t-b3", "text": "Seção 10.2 b) 3) — determinação se não conformidades semelhantes existem ou poderiam ocorrer" }
-  ],
-  "correct": {
-    "a1": "t-correction",
-    "a2": "t-corrective",
-    "a3": "t-neither",
-    "a4": "t-b3"
-  },
-  "explanation": "A terceira é a que as organizações oferecem com mais frequência e é a mais fraca, porque a falha aqui foi permitida pelo sistema e não causada pela ignorância — uma equipe totalmente treinada diante do mesmo sistema produz a mesma lacuna. A quarta é a etapa mais frequentemente ignorada por completo, e é um requisito explícito e não uma boa prática: a Seção 10.2 b) 3) obriga a organização a determinar se não conformidades semelhantes existem ou poderiam potencialmente ocorrer, que é exatamente a pergunta que encontra as outras três rotas de integração."
-}
-::
-```
-
-### 45. RANDOM -- `isms-ia-03-05-the-question-that-gets-evidence` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-1. **Open question** - what happens.
-2. **Specific instance** - tell me about the last time, or a recent one.
-3. **The artefact** - can we look at the record that produced.
-
-Step three is where the interview stops being an interview and becomes document review. That transition is the productive part. Lesson 03-01's rule applies: the statement never supports the finding; the record you asked for because of the statement does.
-
-**A closed question cannot reach step three**, because it never produced a specific instance to ask about.
-::
-```
-
-**pt-BR**
-
-```
-1. **Pergunta aberta** — o que acontece.
-2. **Instância específica** — fale sobre a última vez, ou uma recente.
-3. **O artefato** — podemos ver o registro que isso gerou.
-
-O terceiro passo é onde a entrevista deixa de ser uma entrevista e se torna revisão de documentos. Essa transição é a parte produtiva. A regra da lição 03-01 se aplica: a declaração nunca sustenta a constatação; o registro que você solicitou por causa da declaração, sim.
-
-**Uma pergunta fechada não consegue chegar ao terceiro passo**, porque nunca produziu uma instância específica sobre a qual perguntar.
-::
-```
-
-### 46. RANDOM -- `isms-ia-05-02-one-instance-or-a-pattern` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Which is the point worth holding: **a single finding can be systemic.** One exception, in a process where the control is impossible to follow as written, is evidence about the arrangement. Counting instances is a useful signal and it is not the test.
-
-**The reverse is also true.** Five findings that share nothing but a report are five findings, and grouping them to look decisive is its own distortion.
-::
-
-::interactive widget="scenario-mcq" id="isolated-or-systemic" concept_slugs="ia-isolated-versus-systemic-failure,ia-nonconformity-determination,ia-absence-of-evidence-versus-evidence-of-absence"
-{
-  "scenario_title": "Four findings, or one",
-  "steps": [
-    {
-      "id": "step-1",
-      "situation": "Auditing a distributor. You find four instances of supplier security assessments missing before contract signature, in four different business units. Each unit uses the same procurement system. The procedure requires the assessment to be attached before the contract can be approved; the system allows approval without it.",
-      "question": "How do you report this?",
-      "options": [
-        { "id": "a", "text": "Four nonconformities, one per business unit", "next": "step-1a" },
-        { "id": "b", "text": "One nonconformity: the arrangement permits approval without the required assessment, evidenced in four units", "next": "step-2" },
-        { "id": "c", "text": "One nonconformity per unit, plus an observation that the system permits it", "next": "step-1c" }
-      ]
-    },
-    {
-      "id": "step-1a",
-      "situation": "Four separate findings send four business units to fix their own behaviour. Each will, and the next contract approved in a fifth unit will have the same gap - because nothing about the arrangement changed. The units did not cause this; the system permitted it.",
-      "question": "Try again.",
-      "options": [
-        { "id": "b", "text": "One nonconformity about the arrangement, evidenced in four units", "next": "step-2" },
-        { "id": "c", "text": "Four nonconformities plus an observation about the system", "next": "step-1c" }
-      ]
-    },
-    {
-      "id": "step-1c",
-      "situation": "Closer, and it puts the cause in the weaker category. An observation typically requires no action, so the thing that actually needs fixing is the part nobody must act on, while four units are asked to try harder.",
-      "question": "Try again.",
-      "options": [
-        { "id": "b", "text": "One nonconformity about the arrangement, evidenced in four units", "next": "step-2" }
-      ]
-    },
-    {
-      "id": "step-2",
-      "situation": "Correct. The procurement lead responds: this is really four separate lapses by four teams, and each team has been reminded of the procedure.",
-      "question": "What is the useful reply?",
-      "options": [
-        { "id": "a", "text": "Accept it - the corrective action addresses each instance", "next": "step-2a" },
-        { "id": "b", "text": "Ask what would prevent the same thing in a fifth unit next month, given the system still permits approval without the assessment", "next": "step-3" },
-        { "id": "c", "text": "Escalate to top management as a leadership failure", "next": "step-2c" }
-      ]
-    },
-    {
-      "id": "step-2a",
-      "situation": "Reminding people is a correction - it addresses the instances. Clause 10.2 b) requires evaluating the need for action to eliminate the causes so it does not recur or occur elsewhere. Four reminders leave the cause untouched, and lesson 05-05 takes this apart properly.",
-      "question": "Try again.",
-      "options": [
-        { "id": "b", "text": "Ask what prevents recurrence in a fifth unit", "next": "step-3" },
-        { "id": "c", "text": "Escalate as a leadership failure", "next": "step-2c" }
-      ]
-    },
-    {
-      "id": "step-2c",
-      "situation": "Nothing in the evidence points at leadership. A system that permits a step to be skipped is a design issue, and characterising it as a leadership failure makes the conversation about blame rather than about the gate that is missing.",
-      "question": "Try again.",
-      "options": [
-        { "id": "b", "text": "Ask what prevents recurrence in a fifth unit", "next": "step-3" }
-      ]
-    },
-    {
-      "id": "step-3",
-      "situation": "The question lands. The procurement lead had not considered that the system permits it, and raises a change request for a mandatory attachment gate.",
-      "question": "What made the difference?",
-      "options": [
-        { "id": "a", "text": "The auditor was persistent" },
-        { "id": "b", "text": "The finding located the failure in the arrangement rather than in four teams, so the response could address the cause" },
-        { "id": "c", "text": "Escalation created pressure" }
-      ]
-    }
-  ],
-  "best_path": ["step-1:b", "step-2:b", "step-3:b"],
-  "explanation": "Four instances sharing one system and one procedure are evidence about the arrangement, and where the arrangement makes non-compliance possible and easy the failure is systemic regardless of the count. Note what the finding does not do: it does not blame the four units, whose behaviour was permitted by the system they were given. And note the connection to clause 10.2 b) 3) - determining whether similar nonconformities exist or could occur is the organization's obligation, and a finding written per-unit makes that determination harder rather than easier."
-}
-::
-```
-
-**pt-BR**
-
-```
-Que é o ponto que vale guardar: **uma única constatação pode ser sistêmica.** Uma exceção, em um processo onde o controle é impossível de seguir como escrito, é evidência sobre o arranjo. Contar instâncias é um sinal útil e não é o teste.
-
-**O inverso também é verdadeiro.** Cinco constatações que não compartilham nada além de um relatório são cinco constatações, e agrupá-las para parecer decisivo é sua própria distorção.
-::
-
-::interactive widget="scenario-mcq" id="isolated-or-systemic" concept_slugs="ia-isolated-versus-systemic-failure,ia-nonconformity-determination,ia-absence-of-evidence-versus-evidence-of-absence"
-{
-  "scenario_title": "Quatro constatações, ou uma",
-  "steps": [
-    {
-      "id": "step-1",
-      "situation": "Auditando um distribuidor. Você encontra quatro instâncias de avaliações de segurança de fornecedores ausentes antes da assinatura do contrato, em quatro unidades de negócio diferentes. Cada unidade usa o mesmo sistema de compras. O procedimento exige que a avaliação seja anexada antes que o contrato possa ser aprovado; o sistema permite a aprovação sem ela.",
-      "question": "Como você relata isso?",
-      "options": [
-        { "id": "a", "text": "Quatro não conformidades, uma por unidade de negócio", "next": "step-1a" },
-        { "id": "b", "text": "Uma não conformidade: o arranjo permite a aprovação sem a avaliação exigida, evidenciada em quatro unidades", "next": "step-2" },
-        { "id": "c", "text": "Uma não conformidade por unidade, mais uma observação de que o sistema o permite", "next": "step-1c" }
-      ]
-    },
-    {
-      "id": "step-1a",
-      "situation": "Quatro constatações separadas enviam quatro unidades de negócio para corrigir seu próprio comportamento. Cada uma o fará, e o próximo contrato aprovado em uma quinta unidade terá a mesma lacuna — porque nada no arranjo mudou. As unidades não causaram isso; o sistema o permitiu.",
-      "question": "Tente novamente.",
-      "options": [
-        { "id": "b", "text": "Uma não conformidade sobre o arranjo, evidenciada em quatro unidades", "next": "step-2" },
-        { "id": "c", "text": "Quatro não conformidades mais uma observação sobre o sistema", "next": "step-1c" }
-      ]
-    },
-    {
-      "id": "step-1c",
-      "situation": "Mais próximo, e coloca a causa na categoria mais fraca. Uma observação normalmente não requer ação, portanto o que realmente precisa ser corrigido fica na parte que ninguém é obrigado a agir, enquanto quatro unidades são solicitadas a se esforçar mais.",
-      "question": "Tente novamente.",
-      "options": [
-        { "id": "b", "text": "Uma não conformidade sobre o arranjo, evidenciada em quatro unidades", "next": "step-2" }
-      ]
-    },
-    {
-      "id": "step-2",
-      "situation": "Correto. O responsável pelas compras responde: na verdade, são quatro falhas separadas de quatro equipes, e cada equipe foi lembrada do procedimento.",
-      "question": "Qual é a resposta útil?",
-      "options": [
-        { "id": "a", "text": "Aceitar — a ação corretiva aborda cada instância", "next": "step-2a" },
-        { "id": "b", "text": "Perguntar o que impediria o mesmo problema em uma quinta unidade no próximo mês, dado que o sistema ainda permite a aprovação sem a avaliação", "next": "step-3" },
-        { "id": "c", "text": "Escalar para a alta direção como uma falha de liderança", "next": "step-2c" }
-      ]
-    },
-    {
-      "id": "step-2a",
-      "situation": "Lembrar as pessoas é uma correção — ela aborda as instâncias. A Seção 10.2 b) exige avaliar a necessidade de ação para eliminar as causas de modo que não se repita ou ocorra em outro lugar. Quatro lembretes deixam a causa intocada, e a Lição 05-05 analisa isso adequadamente.",
-      "question": "Tente novamente.",
-      "options": [
-        { "id": "b", "text": "Perguntar o que impede a recorrência em uma quinta unidade", "next": "step-3" },
-        { "id": "c", "text": "Escalar como uma falha de liderança", "next": "step-2c" }
-      ]
-    },
-    {
-      "id": "step-2c",
-      "situation": "Nada na evidência aponta para a liderança. Um sistema que permite que uma etapa seja ignorada é um problema de design, e caracterizá-lo como uma falha de liderança torna a conversa sobre culpa em vez de sobre a barreira que está faltando.",
-      "question": "Tente novamente.",
-      "options": [
-        { "id": "b", "text": "Perguntar o que impede a recorrência em uma quinta unidade", "next": "step-3" }
-      ]
-    },
-    {
-      "id": "step-3",
-      "situation": "A pergunta surte efeito. O responsável pelas compras não havia considerado que o sistema o permite e abre uma solicitação de mudança para uma barreira obrigatória de anexo.",
-      "question": "O que fez a diferença?",
-      "options": [
-        { "id": "a", "text": "O auditor foi persistente" },
-        { "id": "b", "text": "A constatação localizou a falha no arranjo, e não em quatro equipes, de modo que a resposta pôde abordar a causa" },
-        { "id": "c", "text": "A escalada criou pressão" }
-      ]
-    }
-  ],
-  "best_path": ["step-1:b", "step-2:b", "step-3:b"],
-  "explanation": "Quatro instâncias que compartilham um sistema e um procedimento são evidência sobre o arranjo, e quando o arranjo torna o não cumprimento possível e fácil, a falha é sistêmica independentemente da contagem. Note o que a constatação não faz: ela não culpa as quatro unidades, cujo comportamento foi permitido pelo sistema que lhes foi dado. E note a conexão com a Seção 10.2 b) 3) — determinar se não conformidades similares existem ou poderiam ocorrer é a obrigação da organização, e uma constatação escrita por unidade torna essa determinação mais difícil, e não mais fácil."
-}
-::
-```
-
-### 47. RANDOM -- `isms-ia-01-05-which-document-says-what` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-- The **two-stage initial audit**, surveillance visits, and the recertification cycle.
-- The **certificate validity period**.
-- The **major and minor nonconformity** distinction.
-
-**None of those appears in ISO/IEC 27001.** It contains no conformity assessment provisions at all. If you cite a three-year cycle or a major nonconformity to ISO/IEC 27001, you have attributed a real thing to the wrong document - and an auditee who knows the standard will notice.
+**The specific risk is a blind spot with a shape.** A tool trained or configured to find things that look like known problems will reliably not surface the problem that looks like nothing. An audit that finds no anomalies in a tool-selected sample has established that the tool found no anomalies.
 ::
 
 ::callout type="exam-watch"
-Three claims commonly attributed to ISO/IEC 27001 that are not in it: the requirement for a risk register, the major/minor severity scheme, and the certification cycle. Each is real practice, and each belongs somewhere else.
+Know what **shape** a tool's misses have, not its accuracy percentage. Template matching finds absence, not weakness - a clause present but reduced to best endeavours passes. Anomaly detection finds the unusual, not the routine problem. Keyword search finds the term, not the paraphrase. **The shape of the miss is what determines what a clean result means**, and an auditor who cannot describe it cannot say what their sample established.
 ::
+
+::concept title="Provenance, and the question to ask"
+Lesson 03-03 established that provenance is what you lose first with remote evidence. With tool-assisted evidence you lose it in a different way: not the source of the record, but **the process that selected or transformed it.**
 ```
 
 **pt-BR**
 
 ```
-Uma constatação defensável tem três partes, e é na primeira que os erros de atribuição aparecem.
+**O risco específico é um ponto cego com uma forma definida.** Uma ferramenta treinada ou configurada para encontrar coisas que se parecem com problemas conhecidos não irá, de forma confiável, identificar o problema que não se parece com nada. Uma auditoria que não encontra anomalias em uma amostra selecionada por ferramenta estabeleceu que a ferramenta não encontrou anomalias.
+::
 
-1. **O requisito.** Identificado especificamente - uma seção da ISO/IEC 27001, um controle que a organização incluiu em sua Declaração de Aplicabilidade, uma declaração na própria política da organização, uma obrigação contratual ou legal.
-2. **A evidência.** O que foi examinado e o que revelou.
-3. **A lacuna.** Como a evidência não satisfaz o requisito.
+::callout type="exam-watch">
+Saiba qual **forma** têm as omissões de uma ferramenta, não seu percentual de precisão. A correspondência por modelo encontra ausência, não fraqueza — uma cláusula presente, mas reduzida a melhores esforços, passa. A detecção de anomalias encontra o incomum, não o problema rotineiro. A busca por palavras-chave encontra o termo, não a paráfrase. **A forma da omissão é o que determina o que um resultado limpo significa**, e um auditor que não consegue descrevê-la não pode dizer o que sua amostra estabeleceu.
+::
 
-Se o passo um produz "todo mundo sabe disso" ou "é uma boa prática", pare. Ou localize o requisito nos critérios, ou a constatação é uma observação sobre a prática, e não uma não conformidade - o que ainda pode valer a pena relatar, mas não como falha contra uma norma.
+::concept title="Proveniência e a pergunta a fazer"
+A lição 03-03 estabeleceu que a proveniência é o que se perde primeiro com evidências remotas. Com evidências assistidas por ferramenta, ela se perde de uma forma diferente: não a origem do registro, mas **o processo que o selecionou ou transformou.**
 ```
 
-### 48. RANDOM -- `isms-ia-05-04-what-the-report-must-disclose` / pt-BR
+### 38. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / pt-BR
+
+flags: ceiling (span 2 en=24 tr=33 cap=32); unalignable (sentence counts differ; A and B did not run); clause-vocab (pt uses a flat `Seção`: cláusula 9.2.2); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula)
+
+**EN**
+
+```
+Scope is what the audit will examine. It is not what the audit will conclude about, which is a separate discipline covered in Module 3.
+::
+
+::concept title="Criteria: what evidence is compared against"
+ISO 19011:2026 defines **audit criteria** as the set of requirements used as a reference against which objective evidence is compared. Its notes make the breadth explicit - criteria may be policies, procedures or work instructions, legal requirements and contractual obligations and industry standards.
+
+For an internal ISMS audit, the criteria are typically ISO/IEC 27001 **and** the organization's own requirements. Clause 9.2.1 lists both, in that order:
+```
+
+**pt-BR**
+
+```
+Escopo é o que a auditoria examinará. Não é sobre o que a auditoria concluirá, o que é uma disciplina separada abordada no Módulo 3.
+::
+
+::concept title="Critérios: contra o que as evidências são comparadas"
+A ISO 19011:2026 define **critérios de auditoria** como o conjunto de requisitos usados como referência contra os quais as evidências objetivas são comparadas. Suas notas tornam a abrangência explícita - os critérios podem ser políticas, procedimentos ou instruções de trabalho, requisitos legais e obrigações contratuais e normas do setor.
+
+Para uma auditoria interna de SGSI, os critérios são tipicamente a ISO/IEC 27001 **e** os próprios requisitos da organização. A Seção 9.2.1 lista ambos, nessa ordem:
+```
+
+### 39. ADVERSARIAL -- `isms-ia-04-05-competence-awareness-documents` / pt-BR
+
+**NOT SAMPLED: the two bodies do not share a block signature.** Printing a pair
+that is not a pair is worse than printing nothing -- this row needs the structure
+flag read first.
+
+### 40. ADVERSARIAL -- `isms-ia-05-04-what-the-report-must-disclose` / pt-BR
+
+flags: clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
+
+**EN**
+
+```
+**Method disclosure is the same principle applied to how the evidence was obtained.** It is not a new obligation invented for AI. Reports have always said "a sample of twelve records was examined, selected as those processed during the migration" - because the selection shapes what the absence of exceptions means.
+::
+
+::concept title="The test: did it shape the evidence?"
+Lesson 03-08 established that a tool making selection decisions is making a sampling decision. Here is what follows for the report.
+
+**Disclose where the tool shaped which evidence was examined or how it was interpreted.**
+```
+
+**pt-BR**
+
+```
+**A divulgação do método é o mesmo princípio aplicado à forma como as evidências foram obtidas.** Não é uma obrigação nova criada para a IA. Os relatórios sempre disseram "uma amostra de doze registros foi examinada, selecionados por serem os processados durante a migração" — porque a seleção determina o que a ausência de exceções significa.
+::
+
+::concept title="O critério: a ferramenta moldou as evidências?"
+A lição 03-08 estabeleceu que uma ferramenta que toma decisões de seleção está tomando uma decisão de amostragem. Eis o que isso implica para o relatório.
+
+**Divulgue quando a ferramenta moldou quais evidências foram examinadas ou como foram interpretadas.**
+```
+
+### 41. RANDOM -- `isms-ia-05-02-one-instance-or-a-pattern` / pt-BR
 
 flags: none -- this is the half that tests the checks
 
 **EN**
 
 ```
-::concept title="What the report is for"
-ISO 19011:2026 covers preparing the audit report as its own step. The report is the audit's product - for most readers it is the only part of the audit they will ever see.
+---
+lesson_id: isms-ia-05-02-one-instance-or-a-pattern
+module_slug: ia-findings-and-follow-up
+certification_code: ISMS-IA
+title: One Instance or a Pattern
+subtitle: What makes evidence a nonconformity, and when findings stop being separate
+language: en
+lesson_group_id: isms-ia-05-02-one-instance-or-a-pattern
+duration_minutes: 13
+order_index: 2
+task_codes: ["5.2"]
+concept_slugs:
+  - ia-nonconformity-determination
+  - ia-generating-audit-findings-6-4-8
+  - ia-isolated-versus-systemic-failure
+  - ia-absence-of-evidence-versus-evidence-of-absence
+prerequisites: [isms-ia-05-01-whose-scheme-is-it]
+preview: |
+  A 13-minute lesson on determining whether evidence establishes a
+  nonconformity, and whether a set of findings indicates a systemic
+  failure - using the standard's own hook for systemic reasoning.
+authors:
+  - Certidemy team
+status: draft
+---
 
-Which sets the standard for what belongs in it: **a reader must be able to assess the conclusions.** Not re-perform the audit, and not take the conclusions on trust. Assess them.
+::hook
+Five findings in five areas can be five problems or one. The report that treats them as five has answered an easier question.
+::
 
-That requires knowing at minimum what was examined, against what criteria, and how - which is why lesson 03-02 insisted on recording the population and the selection basis. A conclusion whose basis is invisible asks for trust rather than offering assessment.
+::concept title="Three things a nonconformity needs"
+ISO 19011:2026 covers generating audit findings as its own step - evaluating audit evidence against the audit criteria to determine findings.
 ```
 
 **pt-BR**
 
 ```
-::concept title="Para que serve o relatório"
-A ISO 19011:2026 trata a elaboração do relatório de auditoria como uma etapa própria. O relatório é o produto da auditoria — para a maioria dos leitores, é a única parte da auditoria que eles verão.
+---
+lesson_id: isms-ia-05-02-one-instance-or-a-pattern
+module_slug: ia-findings-and-follow-up
+certification_code: ISMS-IA
+title: Uma Instância ou um Padrão
+subtitle: O que torna uma evidência uma não conformidade e quando constatações deixam de ser separadas
+language: pt-BR
+lesson_group_id: isms-ia-05-02-one-instance-or-a-pattern
+duration_minutes: 13
+order_index: 2
+task_codes: ["5.2"]
+concept_slugs:
+  - ia-nonconformity-determination
+  - ia-generating-audit-findings-6-4-8
+  - ia-isolated-versus-systemic-failure
+  - ia-absence-of-evidence-versus-evidence-of-absence
+prerequisites: [isms-ia-05-01-whose-scheme-is-it]
+preview: |
+  Uma lição de 13 minutos sobre como determinar se uma evidência estabelece
+  uma não conformidade e se um conjunto de constatações indica uma falha
+  sistêmica — usando o próprio gancho da norma para o raciocínio sistêmico.
+authors:
+  - Certidemy team
+status: draft
+---
 
-Isso define o padrão para o que deve constar nele: **o leitor deve ser capaz de avaliar as conclusões.** Não de refazer a auditoria, nem de aceitar as conclusões por confiança. Avaliá-las.
+::hook
+Cinco constatações em cinco áreas podem ser cinco problemas ou um. O relatório que as trata como cinco respondeu a uma pergunta mais fácil.
+::
 
-Para isso, é necessário saber, no mínimo, o que foi examinado, com base em quais critérios e como — razão pela qual a lição 03-02 insistiu em registrar a população e o critério de seleção. Uma conclusão cuja base é invisível pede confiança em vez de oferecer avaliação.
+::concept title="Três coisas que uma não conformidade precisa"
+A ISO 19011:2026 aborda a geração de constatações de auditoria como uma etapa própria — avaliar as evidências de auditoria em relação aos critérios de auditoria para determinar as constatações.
 ```
+
+### 42. RANDOM -- `isms-ia-03-06-testing-the-claim` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+The other three elements matter too, and they shape the test. The SoA also records the necessary controls, the justification for including them, and the justification for excluding any Annex A control. Lesson 04-04 examines whether those justifications hold together. Here, the operative one is the implementation claim.
+
+A control marked as not implemented is not a finding by itself. It may be an accepted risk with a treatment plan behind it. What would be a finding is a control marked implemented that is not.
+::
+
+::concept title="Designed and operating are different questions"
+A control can be well designed and never run. It can run for nine months and stop. It can run every time and not achieve what it was selected to achieve.
+```
+
+**pt-BR**
+
+```
+Os outros três elementos também importam e moldam o teste. A Declaração de Aplicabilidade também registra os controles necessários, a justificativa para incluí-los e a justificativa para excluir qualquer controle do Anexo A. A lição 04-04 examina se essas justificativas se sustentam. Aqui, o elemento operativo é a afirmação de implementação.
+
+Um controle marcado como não implementado não é, por si só, uma constatação. Pode ser um risco aceito com um plano de tratamento por trás. O que seria uma constatação é um controle marcado como implementado que não está.
+::
+
+::concept title="Design e operação são perguntas diferentes"
+Um controle pode ser bem projetado e nunca ter sido executado. Pode funcionar por nove meses e parar. Pode funcionar sempre e não alcançar o que foi selecionado para alcançar.
+```
+
+### 43. RANDOM -- `isms-ia-01-04-competence-of-the-team` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+**Personal behaviour** - the disposition an auditor brings. Ethical conduct, open-mindedness, observation, perceptiveness, tenacity, the willingness to act on conclusions that are unwelcome.
+
+**Knowledge and skills** - what the auditor knows and can do. This splits again: generic knowledge and skills that apply to auditing any management system, and discipline-specific knowledge of the subject being audited.
+
+The generic half is what makes someone an auditor. It includes applying audit principles and methods, planning and organising work, prioritising matters of significance, collecting information through interviews, listening, observation and the review of documented information, understanding the appropriateness and consequences of sampling, verifying the relevance and accuracy of collected information, and confirming that the evidence is sufficient and appropriate to support the findings.
+```
+
+**pt-BR**
+
+```
+**Comportamento pessoal** — a disposição que o auditor traz. Conduta ética, mente aberta, capacidade de observação, perspicácia, tenacidade e disposição para agir com base em conclusões que sejam inconvenientes.
+
+**Conhecimento e habilidades** — o que o auditor sabe e é capaz de fazer. Isso se divide novamente: conhecimento e habilidades genéricos, aplicáveis à auditoria de qualquer sistema de gestão, e conhecimento específico da disciplina sendo auditada.
+
+A metade genérica é o que faz alguém ser um auditor. Ela inclui a aplicação de princípios e métodos de auditoria, planejamento e organização do trabalho, priorização de assuntos relevantes, coleta de informações por meio de entrevistas, escuta, observação e análise de informação documentada, compreensão da adequação e das consequências da amostragem, verificação da relevância e exatidão das informações coletadas e confirmação de que as evidências são suficientes e adequadas para embasar as constatações.
+```
+
+### 44. RANDOM -- `isms-ia-05-03-the-statement-that-survives` / pt-BR
+
+flags: none -- this is the half that tests the checks
+
+**EN**
+
+```
+**The requirement.** Named specifically - the clause of ISO/IEC 27001, the control the organization included in its Statement of Applicability, the section of the organization's own procedure, the contractual or legal obligation. Lesson 01-05 established that if you cannot name it, you do not have a nonconformity.
+
+**The evidence.** What was examined and what it showed. Specific enough that someone could go and look at the same thing: which records, from what population, covering what period.
+
+**The gap.** How the evidence fails to satisfy the requirement. Usually one sentence, and often the shortest of the three.
+```
+
+**pt-BR**
+
+```
+**O requisito.** Nomeado de forma específica — a Seção da ISO/IEC 27001, o controle que a organização incluiu em sua Declaração de Aplicabilidade, a seção do próprio procedimento da organização, a obrigação contratual ou legal. A lição 01-05 estabeleceu que, se você não consegue nomeá-lo, não há não conformidade.
+
+**A evidência.** O que foi examinado e o que revelou. Específica o suficiente para que alguém possa ir verificar a mesma coisa: quais registros, de qual população, cobrindo qual período.
+
+**A lacuna.** Como a evidência deixa de satisfazer o requisito. Geralmente uma frase, e frequentemente a mais curta das três.
+```
+
+---
+
+## Not sampled -- 1 row(s) whose bodies do not align
+
+These carry a different sequence of blocks from their English, so there is no
+coordinate at which the two can be compared. They are the structure finding, and a
+passage pair would have been fiction.
+
+- `isms-ia-04-05-competence-awareness-documents/pt-BR`
