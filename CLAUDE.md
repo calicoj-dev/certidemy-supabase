@@ -2528,6 +2528,59 @@ recorded. 364's is recorded as **not measured** rather than estimated.
 translation-layer fault immediately. If English is affected, the cause is not
 about language.
 
+**ASCII-ONLY PROTECTS A TRANSPORT. IT IS NOT A SPELLING, AND A MODEL WILL
+IMITATE IT.** Recorded 2026-09-25. It is the heredoc rule turned inside out.
+
+A retranslation prompt carried its register note written ASCII-only, out of
+habit and out of caution about the shell:
+
+```
+"Brazilian Portuguese (pt-BR). ISO sections are a flat `Secao`. `adequacao`
+ for appropriateness. `extensao` for extent. `disponivel` for available."
+```
+
+**The model copied the spelling it was shown.** `Secao`, `disponivel` and
+`extensao` all reached a generated block from that string, and the accent gate
+caught them — three defects whose sole author was the prompt.
+
+> **MECHANISM: the ASCII-only rule applies to what crosses a SHELL or the SQL
+> EDITOR. It never applies to text a model will imitate.** A prompt that models
+> the spelling it wants IS the prompt; writing the target term unaccented is
+> asking for unaccented output. Prompt files reach disk through the file tool
+> and never through a heredoc, so there is nothing to protect against there.
+
+Same family as every transport note here, with the direction reversed: the
+others are about a channel corrupting text in flight. This is about a
+precaution against that corruption being read as content.
+
+**AND A MODEL REFUSAL IS NOT A TRANSLATION, WHICH NOTHING WAS LOOKING FOR.**
+Same day. A generated block came back
+
+```
+I need the actual English block content to translate. You've only provided
+the heading describing what the block is about.
+```
+
+and reached the gates, where it failed for an UNRELATED reason — a
+sentence-count mismatch. **Luck is not a check.** A guard added that hour
+immediately caught a SECOND refusal in the same 30-block batch.
+
+It is invisible to everything else: correctly accented, no modal defect,
+fluent. The only thing wrong is that it is not the lesson. Served to a partner
+it is the most embarrassing thing in the catalogue.
+
+`scripts/lib/refusal-pattern.mjs`, checked over every translated text field by
+`check-model-refusals.mjs` and invariant 11. **Measured 2026-09-25: 98,381
+values, 60.4M characters, three languages, ZERO hits** — the served corpus is
+clean, and the positive control is the two real refusals verbatim.
+
+**THE FIRST PATTERN FIRED ON 37 ROWS AND EVERY ONE WAS CURRICULUM.** It included
+`as an AI` and `as a language model`, which in an AI certification catalogue are
+the subject matter: *"classified as an AI customer"*, *"has an AI management
+system"*, *"Como um modelo de linguagem preve a proxima palavra"*. Narrowed to
+SECOND-PERSON ADDRESS TO AN OPERATOR, in all three languages, because a model
+asked to answer in Spanish refuses in Spanish.
+
 **CODE CONTAINING A BACKSLASH IS WRITTEN WITH THE FILE TOOL, NEVER THROUGH A
 HEREDOC — AND THERE IS NOW A GUARD, BECAUSE THE RULE ALONE FAILED FIVE TIMES IN
 ONE SESSION.** Recorded 2026-09-24.

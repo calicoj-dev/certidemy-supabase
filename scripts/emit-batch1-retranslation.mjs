@@ -42,6 +42,7 @@ import { looksLikeLanguage } from "./lib/language-guard.mjs";
 import { bothFormsCorrect, isCarriedEnglish } from "./lib/accent-classes.mjs";
 import { checkModalSentences, checkDefinedTerms, checkRegister, checkClauseVocab,
          registerOf, controls } from "./lib/translation-checks.mjs";
+import { REFUSAL as META_RESPONSE } from "./lib/refusal-pattern.mjs";
 
 const argv = process.argv.slice(2);
 for (const a of argv) {
@@ -99,8 +100,14 @@ const REGISTER_NOTE = {
 /* A MODEL REFUSAL IS NOT A TRANSLATION, and nothing was looking for one. One
  * block came back "I need the actual English block content to translate. You've
  * only provided the heading..." and reached the gates, where it failed for an
- * unrelated reason -- a sentence-count mismatch. Luck is not a check. */
-const META_RESPONSE = /\b(I need the actual|I(?:'m| am) (?:unable|sorry)|you(?:'ve| have) only provided|please (?:share|provide)|as an AI|I cannot translate|could you (?:share|provide))\b/i;
+ * UNRELATED reason -- a sentence-count mismatch. Luck is not a check.
+ *
+ * IMPORTED, NOT REDECLARED. My first version of this pattern carried `as an AI`
+ * and `as a language model`, which over the whole catalogue matched 37 rows of
+ * ORDINARY CURRICULUM -- "classified as an AI customer", "Como um modelo de
+ * linguagem preve a proxima palavra". In an AI certification catalogue that is
+ * the subject matter. The narrowed pattern lives in check-model-refusals.mjs
+ * with its fixtures, and a second copy here would drift from it. */
 
 async function rest(path) {
   let last;

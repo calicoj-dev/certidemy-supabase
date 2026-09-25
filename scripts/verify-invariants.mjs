@@ -403,6 +403,43 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 11. NO MODEL REFUSAL IS SERVED AS CONTENT.
+//
+// A generated block came back "I need the actual English block content to
+// translate. You've only provided the heading" and reached the gates, where it
+// failed for an UNRELATED reason. A guard added that day caught a SECOND one in
+// the same 30-block batch -- and every translation run before it had nothing
+// looking for this at all.
+//
+// It is invisible to every other check we own: correctly accented, no modal
+// defect, fluent. The only thing wrong with it is that it is not the lesson.
+//
+// NETWORK, so VACUOUS when offline rather than failing.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  const read = (out) => {
+    const m = /DENOMINATOR: ([\d,]+) field value\(s\) examined/.exec(out);
+    examined = m ? Number(m[1].replace(/,/g, "")) : 0;
+    for (const line of out.split(NEWLINE_RE)) if (/^\s{2}HIT\s/.test(line)) failures.push(line.trim());
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, ["--dns-result-order=ipv4first", join(HERE, "check-model-refusals.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000,
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    if (!failures.length && examined > 0) {
+      failures.push("check-model-refusals.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("no model refusal is served", failures,
+         "every translated text field, incl. item options", examined);
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable
