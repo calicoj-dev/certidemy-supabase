@@ -847,6 +847,56 @@ async function applyFrom(specPath) {
   console.log("");
   if (bad) { console.log(bad + " row(s) did not verify."); process.exitCode = 1; }
   else console.log("All " + batch.rows.length + " rows written and byte-verified under batch " + batchId);
+
+  /* ============ PROVED PROVENANCE, IN THE APPLY PATH ============
+   *
+   * Writing the translation is not the end of the job. If the English moved
+   * after 367 stamped `en_content_hash`, the provenance arm withholds the row
+   * even though the translation was made against the CURRENT English -- which is
+   * how batch cda6698a ended with eight correct rows dark and nothing in the
+   * repository able to clear them.
+   *
+   * So the proof runs here, on exactly the rows this run wrote. It is INVOKED,
+   * not reimplemented: `stamp-proved-provenance.mjs` replays the declared English
+   * edits backward and stamps only where the reversed body hashes to the stored
+   * stamp AND every reversed edit sits inside a block this batch rewrote. A
+   * second copy of that reasoning in this file would diverge, and the divergence
+   * would surface as a stamp vouching for an English nobody checked.
+   *
+   * ITS FAILURE IS NOT THIS RUN'S FAILURE. The bytes are written and verified;
+   * an unprovable row stays withheld with a named reason, which is the correct
+   * outcome and is reported rather than escalated. A batch now leaves the apply
+   * path either servable or with a reason.
+   */
+  if (bad) {
+    console.log("PROVENANCE: skipped -- rows above did not verify, so nothing may be vouched for.");
+    return;
+  }
+  const slugs = [...new Set(batch.rows.filter((r) => r.kind !== "concept").map((r) => r.slug))];
+  if (!slugs.length) return;
+  console.log("PROVENANCE -- proving what the English edits were, per row");
+  const { execFileSync } = await import("node:child_process");
+  let proved = 0, unproved = 0;
+  for (const slug of slugs) {
+    try {
+      const out = execFileSync(process.execPath,
+        ["--dns-result-order=ipv4first", join(HERE, "stamp-proved-provenance.mjs"), "--slug", slug, "--apply"],
+        { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+      for (const line of out.split(/\r?\n/)) {
+        if (/^\s{2}(PASS|FAIL|REFUSED|PROVED)\s/.test(line)) console.log("  " + line.trim());
+        if (/^\s{2}PASS\s/.test(line)) proved++;
+      }
+    } catch (err) {
+      const out = String(err.stdout || "") + String(err.stderr || "");
+      for (const line of out.split(/\r?\n/)) {
+        if (/^\s{2}(REFUSED|FAIL)\s/.test(line)) { console.log("  " + line.trim()); unproved++; }
+      }
+      if (!unproved) console.log("  " + slug + ": prover could not run -- " + String(err.message).slice(0, 110));
+    }
+  }
+  console.log("");
+  console.log("  provenance stamped on " + proved + " row(s)" +
+    (unproved ? ", " + unproved + " left withheld with a named reason" : ""));
 }
 
 if (EMIT) await emit(EMIT);

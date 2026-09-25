@@ -26,6 +26,28 @@
  * The existing structure check counts blocks across a whole body. This counts
  * MARKER LINES inside one block, which is where a replacement can break framing
  * without changing any block count at all.
+ *
+ * ============ IT IS CONFOUNDED IN THE FRONTMATTER BLOCK ============
+ *
+ * Measured 2026-09-25 over the whole translated corpus: G1 fired on 10 rows, all
+ * in BLOCK 0, and reading the members split them two ways.
+ *
+ *   4 rows (2 lessons x 2 languages)  REAL -- the translated `concept_slugs`
+ *                                     list is short by one entry
+ *   6 rows (3 lessons x 2 languages)  FALSE -- a multi-line YAML `preview:`
+ *                                     value wraps differently between languages,
+ *                                     and a wrapped line beginning with `-` is
+ *                                     counted as a list marker
+ *
+ * YAML WRAPPING IS NOT MARKDOWN STRUCTURE. A `preview` that breaks across four
+ * lines in English and three in Spanish is the same value, and a bullet-looking
+ * continuation line inside it is not a bullet. So a G1 hit in block 0 is a
+ * CANDIDATE and has to be read; only outside block 0 is it structural.
+ *
+ * Not narrowed to skip block 0, deliberately: the 4 real rows are in there, and
+ * a real metadata divergence a partner can see is worth six candidates that need
+ * reading. Stated instead, because a count nobody has read is the defect this
+ * repository records most often.
  */
 const markers = (t) => {
   const lines = t.split("\n");

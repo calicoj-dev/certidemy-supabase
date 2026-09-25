@@ -47,6 +47,16 @@ const ROOT = join(HERE, "..");
  * the next instance of the defect, so the reason is required by the check
  * itself -- an entry with an empty justification fails. */
 const GENERATORS = {
+  "stamp-proved-provenance.mjs":
+    "GENERATOR-CLASS. Writes lessons.en_content_hash and nothing else, and only where it HOLDS " +
+    "THE PROOF: it replays every declared English edit BACKWARD over the live body and requires " +
+    "translation_hash(reversed) to equal the stored stamp, which an undeclared change anywhere in " +
+    "12,000 characters would break. It additionally requires every reversed edit to fall inside a " +
+    "block the batch rewrote in that language, because English that moved in an untranslated " +
+    "paragraph means the translation does not track it there and the hash equality cannot see that. " +
+    "A row failing either test is REFUSED and named. A positive control tampers one byte of a " +
+    "replayed English in memory and the run aborts unless that is rejected. This is the second " +
+    "writer the column has ever had; 367 was the first.",
   "gen-concept-translations.mjs":
     "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. " +
     "This is the only moment the hash is a record of something rather than a restatement.",
