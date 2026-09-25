@@ -1,0 +1,264 @@
+{
+  "lesson_rows": 1437,
+  "with_frontmatter": 1387,
+  "without_frontmatter": 50,
+  "agree": 1387,
+  "diverge": [],
+  "without_frontmatter_by_language": {
+    "en": 12,
+    "pt-BR": 19,
+    "es-419": 19
+  },
+  "without_frontmatter_rows": [
+    {
+      "slug": "01-01-agile-manifesto",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a101"
+    },
+    {
+      "slug": "01-01-agile-manifesto",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a101"
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a102"
+    },
+    {
+      "slug": "01-02-empirical-process-control",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a102"
+    },
+    {
+      "slug": "01-03-the-five-scrum-values",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a103"
+    },
+    {
+      "slug": "01-03-the-five-scrum-values",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a103"
+    },
+    {
+      "slug": "01-03-the-five-scrum-values",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a103"
+    },
+    {
+      "slug": "01-04-when-to-use-scrum",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a104"
+    },
+    {
+      "slug": "01-04-when-to-use-scrum",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a104"
+    },
+    {
+      "slug": "01-04-when-to-use-scrum",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a104"
+    },
+    {
+      "slug": "02-01-how-the-scrum-team-is-built",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a205"
+    },
+    {
+      "slug": "02-01-how-the-scrum-team-is-built",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a205"
+    },
+    {
+      "slug": "02-01-how-the-scrum-team-is-built",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a205"
+    },
+    {
+      "slug": "02-04-the-developers",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a206"
+    },
+    {
+      "slug": "02-04-the-developers",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a206"
+    },
+    {
+      "slug": "02-04-the-developers",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a206"
+    },
+    {
+      "slug": "02-05-self-management-and-boundaries",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a207"
+    },
+    {
+      "slug": "02-05-self-management-and-boundaries",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a207"
+    },
+    {
+      "slug": "03-01-the-sprint",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a301"
+    },
+    {
+      "slug": "03-01-the-sprint",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a301"
+    },
+    {
+      "slug": "03-01-the-sprint",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a301"
+    },
+    {
+      "slug": "03-02-sprint-planning",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a302"
+    },
+    {
+      "slug": "03-02-sprint-planning",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a302"
+    },
+    {
+      "slug": "03-02-sprint-planning",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a302"
+    },
+    {
+      "slug": "03-03-the-daily-scrum",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a303"
+    },
+    {
+      "slug": "03-03-the-daily-scrum",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a303"
+    },
+    {
+      "slug": "03-05-the-sprint-retrospective",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a305"
+    },
+    {
+      "slug": "03-05-the-sprint-retrospective",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a305"
+    },
+    {
+      "slug": "03-06-timeboxes-and-event-anti-patterns",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a306"
+    },
+    {
+      "slug": "03-06-timeboxes-and-event-anti-patterns",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a306"
+    },
+    {
+      "slug": "03-06-timeboxes-and-event-anti-patterns",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a306"
+    },
+    {
+      "slug": "04-01-artifacts-and-commitments",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a401"
+    },
+    {
+      "slug": "04-01-artifacts-and-commitments",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a401"
+    },
+    {
+      "slug": "04-01-artifacts-and-commitments",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a401"
+    },
+    {
+      "slug": "04-04-increment-and-definition-of-done",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a404"
+    },
+    {
+      "slug": "04-04-increment-and-definition-of-done",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a404"
+    },
+    {
+      "slug": "04-05-invest-burndown-velocity",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a405"
+    },
+    {
+      "slug": "04-05-invest-burndown-velocity",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a405"
+    },
+    {
+      "slug": "04-05-invest-burndown-velocity",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a405"
+    },
+    {
+      "slug": "05-01-impediments",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a501"
+    },
+    {
+      "slug": "05-01-impediments",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a501"
+    },
+    {
+      "slug": "05-01-impediments",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a501"
+    },
+    {
+      "slug": "05-02-coaching-and-servant-leadership",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a502"
+    },
+    {
+      "slug": "05-02-coaching-and-servant-leadership",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a502"
+    },
+    {
+      "slug": "05-02-coaching-and-servant-leadership",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a502"
+    },
+    {
+      "slug": "05-03-psychological-safety-and-coaching-the-po",
+      "lang": "en",
+      "id": "c0000000-0000-0000-0000-00000000a503"
+    },
+    {
+      "slug": "05-03-psychological-safety-and-coaching-the-po",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a503"
+    },
+    {
+      "slug": "05-03-psychological-safety-and-coaching-the-po",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a503"
+    },
+    {
+      "slug": "05-05-terminology-drift",
+      "lang": "es-419",
+      "id": "c0000000-0000-0000-0000-0000e519a505"
+    },
+    {
+      "slug": "05-05-terminology-drift",
+      "lang": "pt-BR",
+      "id": "c0000000-0000-0000-0000-0000b7b7a505"
+    }
+  ]
+}
