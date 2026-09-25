@@ -365,3 +365,73 @@ three times and all three were comments, two of them the note documenting instan
 only path.** The guard stays, because a rule that has been broken eight times is a
 rule without a guard — but every instance still costs a debug cycle, and one of them
 landed in a guard's own message.
+
+---
+
+## 2026-09-25 — ISMS-F task 5.2 withheld in es and pt, 44 seconds
+
+**Self-inflicted. Zero outside callers in the window, measured.**
+
+| | |
+|---|---|
+| **What happened** | The English `skills` of ISMS-F task 5.2 was rewritten, which moves `task_ksa_en_hash`. Both translations are pinned to that hash, so both went dark until a matching review row existed. The review rows written seconds later carried a **wrong `tr_hash`**, so they did not match and the rows stayed dark until the hash was corrected. |
+| **Start** | `2026-09-25 14:50:00.278Z` — `PATCH /rest/v1/tasks` |
+| **es-419 recovered** | `14:50:44.427Z` — **44.1 seconds** |
+| **pt-BR recovered** | `14:50:44.858Z` — **44.6 seconds** |
+| **Degradation** | `explain_task` served the English `skills` for es-419 and pt-BR. Statement, knowledge and abilities were unaffected; nothing 404'd. |
+| **Outside impact** | **None.** |
+
+### The window, measured from `edge_logs` and `function_edge_logs`
+
+```
+14:50:00.278  PATCH /rest/v1/tasks                      <- English skills; both translations go dark
+14:50:00.432  PATCH /rest/v1/task_translations (es)
+14:50:00.561  PATCH /rest/v1/task_translations (pt)
+14:50:01.141  POST  /rest/v1/task_translation_reviews   <- 201, but tr_hash could never match
+14:50:01.280  task_ksa_is_withheld -> true
+14:50:01.389  task_ksa_is_withheld -> true
+14:50:44.171  PATCH review (es)  ->  14:50:44.427 withheld = false
+14:50:44.719  PATCH review (pt)  ->  14:50:44.858 withheld = false
+```
+
+Inside those 44 seconds: **28 requests in total, 0 to `courseware-read`, and 0 from any
+caller that is not this workstation (`ua=node`), the pg_net cron, or the Supabase edge
+runtime.** So no `explain_task` or `get_syllabus` call of any certification or language
+landed in the window, and the narrower question — ISMS-F in es or pt — is answered by that.
+
+**Both probes carry a positive control**, because a count of zero is a fact about the probe
+until something proves the probe could have found anything: in a wider window
+(14:00–15:15Z) `courseware-read` appears **9** times and non-`node` callers touching task
+tables appear **50** times, the last at 14:42:25 — seven and a half minutes before the
+window opened.
+
+### Two measurement traps on the way to that number
+
+- **`task_translations.updated_at` did not move.** It still reads 2026-08-04 after a PATCH
+  of `skills`, so there is no update trigger on that table and the column cannot date the
+  write. The timeline above comes from the API logs, not from it. Same shape as the
+  bulk-write timestamp already recorded in CLAUDE.md: *a timestamp that does not move is not
+  a record of when anything changed.*
+- **The first three log queries returned empty for the wrong reasons** — a `PATCH` filter on
+  a method field that reports differently, and a window three hours off. Empty was treated as
+  a fact about the probe until the controls above proved otherwise.
+
+### Cause, and what it says about the design
+
+The one-run design was correct and the run did not honour it. The writer **inferred** the
+`tr_hash` formula — `translation_hash` over four newline-joined fields — where the gate
+evaluates `translation_hash(knowledge, skills, abilities)`: three arguments, no statement, no
+join. Read out of `pg_proc` afterwards in one query.
+
+Worse than the slip: the run **printed `withheld=true` as a neutral status line** while both
+languages were dark. It had a guarantee and no assertion of it.
+
+### Fixes
+
+1. The run now ASSERTS `task_ksa_is_withheld` is false for every row it meant to clear, and
+   exits non-zero otherwise. A recorder that clears nothing it meant to clear is a failure,
+   not a report.
+2. Migration **374** gives each gate a read-only function stating what it will compare
+   against, built from the gate's own expressions, so a writer asks instead of
+   reimplementing. Second occurrence of this class in one day — the first recomputed a lesson
+   `en_hash` with `translation_hash` where the arm uses `left(md5(content_md), 8)`.

@@ -752,6 +752,50 @@ const FINGERPRINTS = {
           : cleared + " cleared translation(s); " + flagged + " of " + esRows.length + " still fall back",
     };
   },
+  374: async () => {
+    /* 374 added one read-only helper per review arm, so a writer can ASK a gate
+     * what it will compare against instead of reimplementing the formula. Two
+     * writers inferred a formula wrongly on 2026-09-25 and the second put ISMS-F
+     * task 5.2 dark in both languages for 44 seconds.
+     *
+     * THE TELL IS THAT THE HELPER AGREES WITH A REVIEW THE GATE CURRENTLY
+     * ACCEPTS. Calling the function proves only that it exists; a helper that
+     * returned constants would pass that. So this takes a task translation the
+     * gate is serving RIGHT NOW and checks the helper reproduces the hashes its
+     * approved review stored -- which is the whole claim the migration makes.
+     *
+     * Probed through PostgREST, no deploy involved. A row that cannot be found
+     * returns "no probe" rather than false: silence about a thing is not a claim
+     * about it. */
+    const tt = await rest("task_translations?select=id&limit=50");
+    if (!Array.isArray(tt) || !tt.length) {
+      return { ran: false, why: "no task_translations readable -- says nothing about 374" };
+    }
+    let checked = 0, agreed = 0, callable = false;
+    for (const row of tt) {
+      const e = await rpc("expected_review_hashes_task", { p_tt_id: row.id });
+      if (e === undefined) continue;
+      callable = true;
+      const got = Array.isArray(e) ? e[0] : e;
+      if (!got || !got.en_hash) continue;
+      const rev = await rest("task_translation_reviews?select=en_hash,tr_hash,verdict" +
+        "&task_translation_id=eq." + row.id + "&verdict=eq.approved");
+      if (!Array.isArray(rev) || !rev.length) continue;
+      const withheld = await rpc("task_ksa_is_withheld", { p_tt_id: row.id });
+      if (withheld !== false) continue;   /* only rows the gate ACCEPTS */
+      checked++;
+      if (rev.some((r) => r.en_hash === got.en_hash && r.tr_hash === got.tr_hash)) agreed++;
+    }
+    if (!callable) {
+      return { ran: false, why: "expected_review_hashes_task is not callable -- 374 has not run" };
+    }
+    if (!checked) {
+      return { ran: null, why: "the helper exists, but no approved+serving task review was found to compare it with" };
+    }
+    return { ran: agreed === checked,
+      why: agreed + " of " + checked + " approved+serving task review(s) match what the helper returns" };
+  },
+
   371: async () => {
     /* 371 made mcp.lesson_withholding_reason the primary and derived
      * lesson_body_is_servable from it, because 177 of 183 withheld lessons were
