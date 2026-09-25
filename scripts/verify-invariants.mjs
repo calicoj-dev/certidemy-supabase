@@ -440,6 +440,49 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 12. NO SPAN REPLACEMENT LEFT A BROKEN SENTENCE.
+//
+// A batch-1 `from` anchor began with the word `assessments`, which was the TAIL
+// of "risk assessments and impact assessments". Replacing it ate the second
+// noun and stranded the modifier:
+//
+//     ... run risk assessments and impact Clause 8.2 sets two independent
+//     triggers for a risk assessment ...
+//
+// AIMS-F 01-03 has served that English since 2026-09-23, and the retranslation
+// rendered the orphan as a VERB in both languages -- a fluent sentence saying
+// something the English never did.
+//
+// EVERY TRANSLATION GATE PASSED IT, and they were right to: they compare a
+// translation against its English, and here the ENGLISH is the broken party.
+// Nothing else in the suite looks at English prose for its own sake.
+//
+// LOCAL SOURCE, NETWORK READ: vacuous offline rather than failing.
+{
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const failures = [];
+  let examined = 0;
+  const read = (out) => {
+    const m = /DENOMINATOR: (\d+) splice\(s\) examined/.exec(out);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) if (/^\s{2}BREAK\s/.test(line)) failures.push(line.trim());
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, ["--dns-result-order=ipv4first", join(HERE, "check-rewrite-seams.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 300000,
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    if (!failures.length && examined > 0) {
+      failures.push("check-rewrite-seams.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("no rewrite left a broken seam", failures,
+         "declared span replacements, against the live English", examined);
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable

@@ -46,13 +46,25 @@ import { REFUSAL as META_RESPONSE } from "./lib/refusal-pattern.mjs";
 
 const argv = process.argv.slice(2);
 for (const a of argv) {
-  if (a.startsWith("--") && a !== "--emit" && a !== "--regate") { console.error("Unrecognised flag: " + a); process.exit(2); }
+  if (a.startsWith("--") && !["--emit", "--regate", "--retry"].includes(a)) { console.error("Unrecognised flag: " + a); process.exit(2); }
 }
 const i = argv.indexOf("--emit");
 const OUT = i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : "";
 const ri = argv.indexOf("--regate");
 const REGATE = ri >= 0 && argv[ri + 1] && !argv[ri + 1].startsWith("--") ? argv[ri + 1] : "";
-if (!OUT && !REGATE) { console.error("--emit <file>, or --regate <rejected file>."); process.exit(2); }
+const yi = argv.indexOf("--retry");
+const RETRY = yi >= 0 && argv[yi + 1] && !argv[yi + 1].startsWith("--") ? argv[yi + 1] : "";
+if (!OUT && !REGATE && !RETRY) {
+  console.error("--emit <file>, --regate <rejected file>, or --retry <rejected file>.");
+  process.exit(2);
+}
+const LOAD = REGATE || RETRY;
+
+/* --retry REGENERATES ONLY THE BLOCKS A GATE REFUSED, and leaves every block it
+ * passed byte-for-byte alone. Re-running the whole emit to fix three blocks
+ * would replace twenty-seven that a gate has already cleared with twenty-seven
+ * nobody has seen -- the generator is not deterministic, and that is the whole
+ * reason this script emits bytes rather than printing a preview. */
 
 /* RE-GATE, NEVER REGENERATE, TO FIX A GATE. The generator is not deterministic,
  * so regenerating to clear a checker bug replaces text that was fine with text
@@ -203,15 +215,28 @@ async function translate(englishBlock, language, note) {
 
 /* ---------------------------------------------------------------- build */
 let batch;
-if (REGATE) {
-  batch = JSON.parse(readFileSync(REGATE, "utf8"));
-  for (const r of batch.rows) delete r.gate_problems;
+if (LOAD) {
+  batch = JSON.parse(readFileSync(LOAD, "utf8"));
+  const refused = batch.rows.filter((r) => (r.gate_problems || []).length);
   console.log("");
-  console.log("RE-GATING " + REGATE + " -- " + batch.rows.length + " block(s), nothing regenerated");
+  if (RETRY) {
+    console.log("RETRYING " + refused.length + " refused block(s) of " + batch.rows.length +
+      "; the other " + (batch.rows.length - refused.length) + " are untouched");
+    for (const r of refused) {
+      const note = "A previous attempt was REJECTED by an automated check for: " +
+        r.gate_problems.join("; ") + ". Produce the translation again, correcting exactly that, " +
+        "and nothing else. Return ONLY the translated block, never a question or a comment.";
+      try { r.to_block = await translate(r.english_source, r.language, note); r.retried = true; }
+      catch (e) { console.error("  retry failed for " + r.slug + "/" + r.language + ": " + String(e).slice(0, 80)); }
+    }
+  } else {
+    console.log("RE-GATING " + LOAD + " -- " + batch.rows.length + " block(s), nothing regenerated");
+  }
+  for (const r of batch.rows) delete r.gate_problems;
 }
 
-const anchors = REGATE ? [] : SOURCES.flatMap((f) => (existsSync(join(HERE, f)) ? anchorsFrom(f) : []));
-if (!REGATE && !anchors.length) { console.error("extracted ZERO anchors -- the parser matched nothing, which is not a result"); process.exit(2); }
+const anchors = LOAD ? [] : SOURCES.flatMap((f) => (existsSync(join(HERE, f)) ? anchorsFrom(f) : []));
+if (!LOAD && !anchors.length) { console.error("extracted ZERO anchors -- the parser matched nothing, which is not a result"); process.exit(2); }
 const bySlug = new Map();
 for (const a of anchors) {
   if (EXCLUDE.has(a.slug)) continue;
@@ -222,10 +247,10 @@ console.log("");
 console.log("ANCHORS: " + anchors.length + " declared across " + SOURCES.length + " script(s), " +
   bySlug.size + " slug(s) after excluding " + [...EXCLUDE].join(", "));
 
-if (!REGATE) batch = { generator: "emit-batch1-retranslation.mjs", model: MODEL, kind: "lesson_span",
+if (!LOAD) batch = { generator: "emit-batch1-retranslation.mjs", model: MODEL, kind: "lesson_span",
                       register: REGISTER_NOTE, rows: [] };
 const problems = [];
-for (const [slug, texts] of (REGATE ? [] : bySlug)) {
+for (const [slug, texts] of (LOAD ? [] : bySlug)) {
   const rows = await rest("lessons?select=id,slug,language,content_md,lesson_group_id&slug=eq." + slug);
   const en = rows.find((r) => r.language === "en");
   if (!en) { problems.push(slug + ": no English row"); continue; }
@@ -307,13 +332,13 @@ if (problems.length) {
   for (const x of problems) console.log("  " + x);
 }
 if (failed) {
-  writeFileSync((OUT || REGATE).replace(/\.rejected\.json$|\.json$/, "") + ".rejected.json", JSON.stringify(batch, null, 2), "utf8");
+  writeFileSync((OUT || LOAD).replace(/\.rejected\.json$|\.json$/, "") + ".rejected.json", JSON.stringify(batch, null, 2), "utf8");
   console.log("");
   console.log("ABORT: " + failed + " block(s) failed a gate. Rejected draft written so they can be READ.");
   process.exitCode = 1;
 } else {
-  writeFileSync(OUT || REGATE.replace(/\.rejected\.json$/, ".json"), JSON.stringify(batch, null, 2), "utf8");
+  writeFileSync(OUT || LOAD.replace(/\.rejected\.json$/, ".json"), JSON.stringify(batch, null, 2), "utf8");
   console.log("");
-  console.log("EMITTED " + (OUT || REGATE.replace(/\.rejected\.json$/, ".json")) + " -- " + batch.rows.length + " block(s) across " +
+  console.log("EMITTED " + (OUT || LOAD.replace(/\.rejected\.json$/, ".json")) + " -- " + batch.rows.length + " block(s) across " +
     new Set(batch.rows.map((r) => r.slug)).size + " lesson(s). Nothing written to the database.");
 }
