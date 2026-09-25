@@ -265,6 +265,21 @@ reading, not so you pick the most natural phrase in isolation.
   top management              alta direccion                alta direcao                  27 / 28
   corrective action           accion correctiva             acao corretiva                22 / 23
   continual improvement       mejora continua               melhoria continua              7 / 7
+  appropriateness             idoneidad                     adequacao                     18 / 58
+
+ADDED 2026-09-24, AND IT IS A PIN RATHER THAN AN OBSERVATION. ISO 19011's
+competence clause was rendered TWO WAYS inside one certification:
+isms-ia-01-04 es says "comprender la PERTINENCIA y las consecuencias",
+isms-ia-03-08 es says "comprender la IDONEIDAD y las consecuencias", from the
+same English. idoneidad -> pertinencia is already on the recorded drift list
+from the 2026-09-21 batch, where it arrived as an UNREQUESTED change inside a
+clearance granted for something else.
+
+POPULATION NAMED, because a count whose name does not say what it is measured
+over is half a fact: lesson bodies plus concept name-and-description rows, all
+non-English. es-419 idoneidad 18 : pertinencia 3. pt-BR adequacao 58 :
+pertinencia 6. The house form wins six to one and ten to one, so the pin
+records a convention that already exists rather than imposing a new one.
 
 OPEN FOR THE NEXT BILINGUAL PASS - 16 LESSON PASSAGES, NOT ITEMS.
 The quotation audit (IP-POSITION.md) found 16 runs of 20+ words of ISO text in
