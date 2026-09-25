@@ -585,6 +585,48 @@ async function applyFrom(specPath) {
   /* GATES RUN AGAIN ON THE WAY IN. An edited spec must not be able to smuggle
    * anything past a check the generated one faced. */
   const batch = JSON.parse(readFileSync(specPath, "utf8"));
+
+  /* AND THE SPEC MUST STILL BE ABOUT THE LIVE ENGLISH.
+   *
+   * A batch is emitted from the English as it stood; then somebody fixes the
+   * English, which is the right thing to do and is exactly what happened to
+   * eight of these thirty renderings. The emission becomes a faithful
+   * translation of a sentence that no longer exists -- well-formed, passing
+   * every render gate, and wrong. Nothing about it looks stale.
+   *
+   * This is the en_hash gate's question asked of a FILE rather than a row. The
+   * gate protects the database and nothing protected the artifact beside it, so
+   * the check belongs HERE, in the apply path, not in a note: a pre-apply check
+   * that is not in the apply path is a rule, and a rule can be forgotten. */
+  {
+    const slugs = [...new Set(batch.rows.map((r) => r.slug))];
+    const liveEn = new Map();
+    for (const s of slugs) {
+      const rows = await rest("lessons?select=slug,content_md&language=eq.en&slug=eq." + s);
+      if (rows[0]) liveEn.set(s, rows[0].content_md);
+    }
+    const staleRows = [];
+    for (const r of batch.rows) {
+      if (!r.english_source) continue;
+      const body = liveEn.get(r.slug);
+      /* Absent English is its own state, not "current". */
+      if (body === undefined) { staleRows.push([r, "no English row"]); continue; }
+      if (!body.includes(r.english_source)) staleRows.push([r, "English source block has moved"]);
+    }
+    if (staleRows.length) {
+      console.error("");
+      console.error("REFUSING TO APPLY -- " + staleRows.length + " of " + batch.rows.length +
+        " rendering(s) were generated from English that has since changed.");
+      for (const [r, why] of staleRows) {
+        console.error("  STALE  " + (r.slug + " " + r.language + " b" + r.block_index).padEnd(52) + why);
+      }
+      console.error("");
+      console.error("  Re-emit those rows. Applying them would write a faithful translation of");
+      console.error("  a sentence that is no longer in the lesson.");
+      process.exitCode = 2;
+      return;
+    }
+  }
   const vocab = {};
   for (const lang of LANGS) vocab[lang] = await accentVocab(lang);
   let gateFailed = 0;

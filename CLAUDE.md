@@ -4720,6 +4720,68 @@ it**, which is the `migration tip vs disk` shape. The fixture holds the
 original text of both rows and keeps working after the repair; the live status
 is reported separately, as a different question.
 
+**AN EMITTED ARTIFACT GOES STALE AGAINST ITS SOURCE EXACTLY AS A STORED HASH
+DOES, AND NOTHING WAS WATCHING THE FILE.** Found 2026-09-25, in the apply path
+for batch 1.
+
+A batch is emitted from the English as it stands. Then somebody fixes the
+English -- which is the correct thing to do, and is what happened to three
+template sentences and the 01-03 seam. **Eight of the thirty renderings are now
+faithful translations of sentences that are no longer in the lesson**, and
+nothing about them looks stale: they are well-formed, they pass every render
+gate, and applying them would write correct Spanish for deleted English.
+
+This is the `en_hash` gate's question asked of a FILE instead of a row. The gate
+protects the database; nothing protected the artifact sitting beside it -- and
+the artifact is what the apply path reads.
+
+> **MECHANISM: the apply path asserts every `english_source` still occurs in the
+> live English and refuses the whole batch otherwise, naming the rows.** A
+> missing English row is its own state, not "current". A pre-apply check that is
+> not IN the apply path is a rule, and a rule can be forgotten -- this one was,
+> by the session that had fixed the English an hour earlier.
+
+**AND THE MEASUREMENT GRAIN IS PART OF WHAT A GATE MEASURES.** Same day, same
+batch. A `::checkpoint` block is JSON: 24 independently translated fields inside
+what every instrument treated as ONE block. Every gate comparing English against
+translation was comparing 4,000 characters against 4,000.
+
+**G3 asks "is there a modal here with none in the aligned English". At block
+grain the aligned English always has a modal SOMEWHERE**, so an inserted one is
+undetectable BY CONSTRUCTION -- not missed, unreachable. Two defects a human read
+had found both scored clean and both fire at field grain:
+
+```
+G3  01-03 pt-BR q4.option.c   "Assessments re-engage" -> "DEVEM ser retomadas"
+G4  05-02 es-419 q4.explanation   scope -> `extension`, house term is `alcance`
+```
+
+Eight more surfaced that nobody had seen, all pin drift in one block: `deriva`
+became `desvio` twice and `etapas` became `fases` across all six fields of q2.
+Findings went 24 to 34 while CLEAN RENDERINGS STAYED AT 15 OF 30 -- the four
+checkpoint blocks were already failing on other gates, so **the clean count could
+not show this and only the finding count could. A block already failing hides
+how much it fails by.**
+
+**The replacement grain is the other half.** Emitted as a block, a rewrite of one
+option arrives as a rewrite of all 24: measured, the regeneration changed **67
+fields and left 29 alone**, so approving the fix to one option approves 66
+rewrites nobody asked for -- *every regenerated word is an unreviewed word*, at
+28 words to the one requested.
+
+> **MECHANISM: fields pair by ID, never by position**, so a reordered or dropped
+> option is reported rather than compared against its neighbour; an unpaired
+> field is its own finding; and a block that does not parse returns null, so *no
+> fields changed* is never available as an answer about a block nobody could
+> read. `replaceCheckpointField` edits the JSON-ENCODED string in place rather
+> than rebuilding through `JSON.stringify`, so an applied edit diffs as one field
+> instead of as the whole block, and asserts no sibling moved.
+
+Machine fields are a separate verdict and the serious one: `correct`, `type`,
+`bloom_level`, `difficulty` and `concept_slugs` are not translated, so a
+regeneration that moves one has changed **what the question TESTS** and no prose
+gate would ever report it. Measured here: 0 drift across all four blocks.
+
 **THE GENERATOR IS THE ONLY CALLER THAT MAY STAMP A HASH, AND IT HAD TO LEARN
 TWO NEW THINGS TO DO IT.** Recorded from the retranslation run.
 
