@@ -1,6 +1,6 @@
 {
   "measured": "2026-09-22",
-  "positions_examined": 34,
+  "positions_examined": 36,
   "generators": {
     "gen-concept-translations.mjs": "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. This is the only moment the hash is a record of something rather than a restatement."
   },
@@ -10,7 +10,8 @@
   },
   "review_recorders": {
     "clear-ia-translations.mjs": "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. Carries the post-condition 'no hash was written by this run' over every row in scope.",
-    "release-aimsf-translations.mjs": "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS the gate's copy and never assigns it. Writes the pair into the review row it records."
+    "release-aimsf-translations.mjs": "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS the gate's copy and never assigns it. Writes the pair into the review row it records.",
+    "record-batch1-review.mjs": "CLEARANCE for batch cda6698a. Writes lesson_translation_reviews ONLY and touches no lessons column -- in particular not en_content_hash, which is why eight of its sixteen rows remain provenance_stale afterwards and are reported rather than repaired. Both hashes are computed with the functions the REVIEW ARM uses, which are not the same function: left(md5(en),8) for en_hash and public.translation_hash(tr) for tr_hash. It refuses the whole batch unless every live body still matches the bytes BATCH1-FINAL.json wrote and every english_source is still in the live English, and it proves its md5 against a known Postgres value before writing."
   },
   "migration_writers": {
     "352_translation_side_hash.sql": "backfill, with tr_hash_basis recording measured vs assumed per row",
@@ -46,6 +47,17 @@
       "positions": 1,
       "targets": [
         "concept_translations"
+      ],
+      "hows": [
+        "js-body"
+      ]
+    },
+    {
+      "name": "record-batch1-review.mjs",
+      "sql": false,
+      "positions": 2,
+      "targets": [
+        "unknown"
       ],
       "hows": [
         "js-body"

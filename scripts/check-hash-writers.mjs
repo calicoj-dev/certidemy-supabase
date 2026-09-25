@@ -96,6 +96,14 @@ const REVIEW_RECORDERS = {
   "release-aimsf-translations.mjs":
     "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS " +
     "the gate's copy and never assigns it. Writes the pair into the review row it records.",
+  "record-batch1-review.mjs":
+    "CLEARANCE for batch cda6698a. Writes lesson_translation_reviews ONLY and touches no lessons " +
+    "column -- in particular not en_content_hash, which is why eight of its sixteen rows remain " +
+    "provenance_stale afterwards and are reported rather than repaired. Both hashes are computed " +
+    "with the functions the REVIEW ARM uses, which are not the same function: left(md5(en),8) for " +
+    "en_hash and public.translation_hash(tr) for tr_hash. It refuses the whole batch unless every " +
+    "live body still matches the bytes BATCH1-FINAL.json wrote and every english_source is still " +
+    "in the live English, and it proves its md5 against a known Postgres value before writing.",
 };
 
 /* Migrations are reviewed SQL, run once, under a named number, and several
