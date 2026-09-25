@@ -1,6 +1,6 @@
 {
-  "measured": "2026-09-22",
-  "positions_examined": 36,
+  "measured": "2026-09-25",
+  "positions_examined": 37,
   "generators": {
     "gen-concept-translations.mjs": "GENERATOR. Translates from the English it has just read and stamps en_hash from that same text. This is the only moment the hash is a record of something rather than a restatement."
   },
@@ -27,7 +27,8 @@
     "335_lesson_translation_reviews.sql": "creates the review table",
     "339_task_translation_reviews.sql": "creates the review table",
     "340_bilingual_queue_reviews.sql": "creates review rows",
-    "313_canonical_item_hash.sql": "item canonical hash, a different column family"
+    "313_canonical_item_hash.sql": "item canonical hash, a different column family",
+    "367_lessons_en_content_hash.sql": "ADDS en_content_hash and stamps every translated lesson in one reviewed statement. The stamp does two jobs and en_content_hash_basis says which: `proved` where the parity check confirmed the translation tracks that English, `baseline` where it only establishes a point from which the NEXT edit is detected. Refusing to stamp the unproved rows would have left their provenance arm unarmed, which was the morning's defect. AND IT IS THE ONLY WRITER THIS COLUMN HAS EVER HAD: no script stamps it, so a batch that rewrites a translation after its English moved leaves the row provenance_stale with nothing to clear it. That is a live gap, not a clean bill -- see INCIDENTS.md 2026-09-25."
   },
   "script_writers": [
     {
@@ -166,6 +167,17 @@
     },
     {
       "name": "364_concept_translation_tr_hash.sql",
+      "sql": true,
+      "positions": 1,
+      "targets": [
+        null
+      ],
+      "hows": [
+        "sql-assign"
+      ]
+    },
+    {
+      "name": "367_lessons_en_content_hash.sql",
       "sql": true,
       "positions": 1,
       "targets": [

@@ -125,6 +125,15 @@ const MIGRATION_WRITERS = {
   "339_task_translation_reviews.sql": "creates the review table",
   "340_bilingual_queue_reviews.sql": "creates review rows",
   "313_canonical_item_hash.sql": "item canonical hash, a different column family",
+  "367_lessons_en_content_hash.sql":
+    "ADDS en_content_hash and stamps every translated lesson in one reviewed statement. " +
+    "The stamp does two jobs and en_content_hash_basis says which: `proved` where the parity " +
+    "check confirmed the translation tracks that English, `baseline` where it only establishes " +
+    "a point from which the NEXT edit is detected. Refusing to stamp the unproved rows would " +
+    "have left their provenance arm unarmed, which was the morning's defect. " +
+    "AND IT IS THE ONLY WRITER THIS COLUMN HAS EVER HAD: no script stamps it, so a batch that " +
+    "rewrites a translation after its English moved leaves the row provenance_stale with nothing " +
+    "to clear it. That is a live gap, not a clean bill -- see INCIDENTS.md 2026-09-25.",
 };
 
 /* ============ WHAT COUNTS AS A WRITE ============
@@ -136,7 +145,26 @@ const MIGRATION_WRITERS = {
  * Distinguishing these is the whole job. Matching the bare column name would
  * report every reader as a writer, which is the over-reporting failure that
  * gets a guard deleted. */
-const COLS = ["en_hash", "tr_hash"];
+/* THE COLUMN LIST IS THE CENSUS'S SCOPE, AND IT WAS TWO THIRDS OF ONE.
+ *
+ * `en_hash` and `tr_hash` are the REVIEW arm's hashes. `en_content_hash`, added
+ * by 367 and read by the PROVENANCE arm of mcp.lesson_withholding_reason, was
+ * outside the scan entirely -- so the census printed "every hash writer is
+ * declared" while an entire gate's stored value had no coverage at all.
+ *
+ * It matters because that is the arm that surfaced on 2026-09-25: eight lesson
+ * rows held by `provenance_stale` after their English moved, against a stamp
+ * 367 wrote on 2026-09-23. A census that cannot see who writes a column cannot
+ * answer who should have re-written it.
+ *
+ * Note it is not a substring of anything already here -- `en_hash` does not
+ * occur inside `en_content_hash` -- so nothing was matching it by accident
+ * either. The scope was simply narrower than the claim.
+ *
+ * `en_content_hash_basis` is NOT a hash and is deliberately absent: it records
+ * WHICH JOB a stamp is doing (`proved` against `baseline`), and a CHECK
+ * constraint already ties it to the hash's presence. */
+const COLS = ["en_hash", "tr_hash", "en_content_hash"];
 
 function writePositions(src, isSql) {
   const hits = [];
@@ -328,7 +356,7 @@ if (undeclaredMigs.length) {
 }
 
 writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
-  measured: "2026-09-22",
+  measured: new Date().toISOString().slice(0, 10),
   positions_examined: positions,
   generators: GENERATORS,
   dual_role: DUAL_ROLE,
