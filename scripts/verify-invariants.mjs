@@ -47,6 +47,11 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { getAll, requireKey } from "./_pg.mjs";
+import { acquireHeavyReaderLock } from "./lib/heavy-reader-lock.mjs";
+
+/* PRE-RUN CHECK, not a note: one corpus-wide reader at a time. Two of these
+ * overlapping returned 22 x 503 from courseware-read on 2026-09-25. */
+const releaseHeavyReaderLock = await acquireHeavyReaderLock("verify-invariants");
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const asJson = process.argv.includes("--json");

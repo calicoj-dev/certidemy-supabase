@@ -51,6 +51,11 @@ import { segments, attributedQuote, quoteLines, isAttributed, isQuoteLine,
          QUOTATION_CEILING, checkFaithful as segControl, checkAddress } from "./lib/iso-segments.mjs";
 import { PDFS, sourcesAvailable, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 import { runUnits, SEED as LEAK_SEED } from "./lib/leak-score.mjs";
+import { acquireHeavyReaderLock } from "./lib/heavy-reader-lock.mjs";
+
+/* PRE-RUN CHECK, not a note: one corpus-wide reader at a time. Two of these
+ * overlapping returned 22 x 503 from courseware-read on 2026-09-25. */
+const releaseHeavyReaderLock = await acquireHeavyReaderLock("scan-iso-leaks");
 
 const KNOWN = new Set(["--apply", "--cert", "--verbose", "--seed"]);
 for (const a of process.argv.slice(2)) {

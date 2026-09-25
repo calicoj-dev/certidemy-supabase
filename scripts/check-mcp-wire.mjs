@@ -42,6 +42,11 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { acquireHeavyReaderLock } from "./lib/heavy-reader-lock.mjs";
+
+/* PRE-RUN CHECK, not a note: one corpus-wide reader at a time. Two of these
+ * overlapping returned 22 x 503 from courseware-read on 2026-09-25. */
+const releaseHeavyReaderLock = await acquireHeavyReaderLock("check-mcp-wire");
 
 const KNOWN = new Set(["--json", "--quiet"]);
 for (const a of process.argv.slice(2)) {
