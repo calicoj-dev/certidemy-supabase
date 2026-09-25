@@ -1,7 +1,44 @@
-# Web session: three edits in `certidemy-web`
+# Web session: edits in `certidemy-web`
 
-All three are needed before Friday. They are independent of each other and of
-anything still running in the supabase repo.
+Items 1 to 3 are needed before Friday. They are independent of each other and of
+anything still running in the supabase repo. Items 4 and 5 are carried, not
+urgent, and both are recorded here because a supabase session cannot make them.
+
+---
+
+## Carried, added 2026-09-25 — not before Friday
+
+**4. `get_lesson` should publish `concept_slugs` from `lesson_concepts`, not from
+the served body.**
+
+Measured: `concept_slugs` in a lesson body's frontmatter agrees with
+`lesson_concepts` on **all 1,387 rows that have frontmatter**, so there is no
+divergence to reconcile. The problem is **absence** — 50 rows carry no frontmatter
+at all, and on **7 SM-AI-I lessons the English has it and both translations do
+not**: `01-01-agile-manifesto`, `01-02-empirical-process-control`,
+`02-05-self-management-and-boundaries`, `03-03-the-daily-scrum`,
+`03-05-the-sprint-retrospective`, `04-04-increment-and-definition-of-done`,
+`05-05-terminology-drift`.
+
+So **`get_lesson` returns no `concept_slugs` for es-419 or pt-BR on those seven
+lessons**, and reading that as "this lesson covers no concepts" would be wrong.
+Publishing from `lesson_concepts` — the relational truth the coverage invariant,
+the blueprint and the readiness roll-up all already read — fixes every case at
+once and removes a second copy of the fact rather than adding a third.
+
+**Do not fix it by writing frontmatter into the translated bodies.** A
+translated-side edit moves `tr_hash`, so migration 364 would correctly withhold
+all 14 rows until a human re-reviewed them: fourteen rows dark and fourteen
+reviews spent on a metadata field no reader sees.
+
+Evidence in the supabase repo: `FRONTMATTER-CONCEPTS.json`,
+`scripts/measure-frontmatter-concepts.mjs`, and the entry in `OPEN-ITEMS.md`.
+
+**5. `lib/engine/sessions.ts` carries a stale comment.** It says the question bank
+is *"currently English-only"*. There are **18,485 translated items live to
+learners** (9,245 es-419, 9,240 pt-BR), and `fetchConceptPractice` already filters
+on `language`. The code is right and the comment is wrong, which is the kind that
+gets believed.
 
 ---
 
