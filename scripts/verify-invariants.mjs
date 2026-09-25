@@ -437,7 +437,7 @@ Object.assign(fetched, {
     }
   }
   record("no dead word boundaries", failures,
-         "tracked .mjs/.ts/.js regex literals; \b is ASCII-only and is not a boundary next to an accent",
+         "tracked .mjs/.ts/.js regex literals; a word-boundary escape is ASCII-only and is not a boundary next to an accent",
          examined);
 }
 
