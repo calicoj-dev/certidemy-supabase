@@ -12,15 +12,10 @@ correct inside a code span.
 | lang | word | accented | unaccented in prose | elsewhere |
 |---|---|---|---|---|
 | pt-BR | evidencia | 156 | **12** | 0 |
-| es-419 | periodo | 8 | **8** | 0 |
 | pt-BR | influencia | 5 | **7** | 0 |
 | pt-BR | analise | 105 | **4** | 0 |
-| pt-BR | nao | 1110 | **1** | 0 |
 | pt-BR | referencia | 22 | **1** | 0 |
-| pt-BR | minimo | 16 | **1** | 0 |
 | es-419 | items | 12 | **1** | 0 |
-| pt-BR | condicao | 5 | **1** | 0 |
-| es-419 | minima | 1 | **1** | 0 |
 | es-419 | continue | 1 | **0** | 2 |
 
 ---
@@ -54,27 +49,6 @@ Accented form: evidência (156 occurrences)
 - **AIHR-I** concept `course-completion-certificate` / description (pt-BR)
   - ...Um artefato que evidencia exposição a um conteúdo, sem uma medida independente de com...
 
-## periodo -- 8 in prose
-
-Accented form: período (8 occurrences)
-
-- **ISMS-IA** concept `ia-audit-programme-3-5` / description (es-419)
-  - ... plan que está por encima de las auditorías: varias de ellas programadas a lo largo de un periodo y dirigidas a un mismo propósito, en lugar de un único trab...
-- **AIMS-IA** concept `aia-audit-scope-definition` / description (es-419)
-  - ... abarcar ubicaciones físicas y virtuales, funciones, unidades, actividades, procesos y el periodo. En una auditoría de un AIMS, las ubicaciones virtuales y l...
-- **ISMS-IA** concept `ia-audit-scope-definition-3-6` / description (es-419)
-  - ...s físicas y virtuales, funciones, unidades organizacionales, actividades y procesos, y el periodo de tiempo cubierto....
-- **ISMS-IA** concept `ia-control-design-versus-operating-effectiveness` / description (es-419)
-  - ...de estar bien diseñado y documentado y aun así no operar, u operar solo durante parte del periodo. La evidencia de que un control existe no es evidencia de q...
-- **ISMS-IA** concept `ia-annex-a-control-testing` / description (es-419)
-  - ...Seleccionar evidencia que muestre si el control operó como se afirma a lo largo del periodo auditado, y no solo en el momento de la auditoría....
-- **ISMS-IA** concept `ia-evidence-retention-and-confidentiality` / description (es-419)
-  - ...ros de auditoría contienen información que el principio de confidencialidad protege, y su periodo de conservación y su manejo se determinan en lugar de dejar...
-- **AIMS-IA** concept `aia-programme-vs-individual-audit` / description (es-419)
-  - ...oherentes con los primeros. El programa abarca un conjunto de auditorías a lo largo de un periodo y dirige hacia dónde va el esfuerzo de auditoría; una audit...
-- **AIHR-I** concept `credential-currency` / description (es-419)
-  - ...Si una credencial está vigente y qué afirma su periodo de validez sobre la actualidad de la competencia....
-
 ## influencia -- 7 in prose
 
 Accented form: influência, influenciá (5 occurrences)
@@ -107,13 +81,6 @@ Accented form: análise (105 occurrences)
 - **AIMS-IA** concept `aia-follow-up-verification` / description (pt-BR)
   - ...A Seção 10.2 d) da ISO/IEC 42001:2023 exige que a organização analise criticamente a eficácia de qualquer ação corretiva tomada. ...
 
-## nao -- 1 in prose
-
-Accented form: não (1110 occurrences)
-
-- **AISM-I** concept `keep-it-simple-and-practical` / description (pt-BR)
-  - ...use o minimo de etapas para atingir o objetivo; elimine o que nao agrega valor....
-
 ## referencia -- 1 in prose
 
 Accented form: referência (22 occurrences)
@@ -121,30 +88,9 @@ Accented form: referência (22 occurrences)
 - **AIMS-F** concept `ai-policy` / description (pt-BR)
   - ... contínua, e deve referenciar as demais políticas com as quais a IA se cruza. Uma que não referencia nenhuma descreve uma organização que não tem nenhuma; uma s...
 
-## minimo -- 1 in prose
-
-Accented form: mínimo (16 occurrences)
-
-- **AISM-I** concept `keep-it-simple-and-practical` / description (pt-BR)
-  - ...use o minimo de etapas para atingir o objetivo; elimine o que nao agrega...
-
 ## items -- 1 in prose
 
 Accented form: ítems (12 occurrences)
 
 - **SM-AI-I** concept `pbi-quality` / name (es-419)
   - ...Calidad de los Product Backlog Items...
-
-## condicao -- 1 in prose
-
-Accented form: condição (5 occurrences)
-
-- **AIHR-I** concept `institution-proxy` / description (pt-BR)
-  - ...dade ou empregador que funciona como proxy de origem educacional ou socioeconômica, ou de condicao protegida....
-
-## minima -- 1 in prose
-
-Accented form: mínima (1 occurrences)
-
-- **AISM-I** concept `keep-it-simple-and-practical` / description (es-419)
-  - ...usar la cantidad minima de pasos para lograr el objetivo; eliminar lo que no agrega...

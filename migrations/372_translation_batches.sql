@@ -144,6 +144,19 @@ begin
 end
 $mig$;
 
+-- ############ APPLIED 2026-09-24 ############
+--
+-- Read from pg_catalog rather than from the notices:
+--
+--   translation_batches exists, RLS enabled            yes
+--   lessons.translation_batch_id                       present
+--   concept_translations.translation_batch_id          present
+--   anon can SELECT translation_batches                false
+--   service_role can INSERT                            true
+--   batches / lessons stamped / concepts stamped       0 / 0 / 0
+--
+-- Nothing was backfilled, which is the post-condition that mattered.
+
 -- Read it back, as a separate statement.
 select
   (select count(*) from public.translation_batches) as batches,

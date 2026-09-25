@@ -1414,6 +1414,25 @@ serve(async (req) => {
               "redistribute. This is not a problem with your credential and retrying will not change it. " +
               "The syllabus, tasks and concepts for this certification are fully available.",
           };
+        } else if (found.withholding_reason === "unscanned") {
+          // NOT "it reproduces ISO text". `mcp_servable` is false for two
+          // unrelated reasons and 371 collapsed them: the scanner REFUSED the
+          // body, or the scanner has not RUN since the body was edited. The
+          // trigger clears mcp_servable on every write, so the second is the
+          // normal state of a freshly edited lesson.
+          //
+          // The two need opposite answers. Reproduction is permanent and
+          // retrying will not help; this clears itself when scan-iso-leaks next
+          // runs, which makes it the one withholding reason where "try later"
+          // is true.
+          withheld = {
+            reason: "body_pending_scan",
+            message:
+              `The lesson '${args.lesson_slug}' exists and its body is not available YET. ` +
+              "It was edited recently and our reproduction scan has not run over the new text. " +
+              "The body is withheld until it has. This is not a problem with your credential and " +
+              "it is not a statement about the content: the scan usually runs within a day.",
+          };
         } else if (found.withholding_reason === "translation_review") {
           // THIS MESSAGE ASSERTS SOMETHING ABOUT A DIFFERENT ROW -- "the English
           // body is available now" -- and that is a claim, so it was measured

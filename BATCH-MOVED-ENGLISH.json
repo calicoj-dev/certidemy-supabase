@@ -1,0 +1,298 @@
+{
+  "generator": "regenerate-moved-english.mjs",
+  "model": "claude-sonnet-4-6",
+  "kind": "lesson_span",
+  "register": {
+    "es-419": "Latin American Spanish (es-419). ISO sub-items are `apartado`; `clausula` is the house form for clause. Use `idoneidad` for appropriateness, never `pertinencia`.",
+    "pt-BR": "Brazilian Portuguese (pt-BR). ISO sections are `Secao` (flat, not two-tier). Use `analise critica` for review, and `adequacao` for appropriateness."
+  },
+  "pins": {
+    "PIN_FULL": [
+      "Sprint Goal",
+      "Product Goal",
+      "Sprint Backlog",
+      "Product Backlog",
+      "Definition of Done",
+      "Sprint Review",
+      "Sprint Retrospective",
+      "Daily Scrum"
+    ],
+    "PIN_LOAN": [
+      "backlog",
+      "sprint",
+      "story points",
+      "velocity",
+      "timebox"
+    ]
+  },
+  "rows": [
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "language": "es-419",
+      "lesson_id": "833e849d-f2b0-4c09-b241-2c2fb186f093",
+      "from_block": "> La evidencia de auditoría debe ser verificable. Debe basarse en **muestras** de la información disponible, ya que una auditoría se lleva a cabo durante un período determinado y con recursos finitos. Debe aplicarse un uso apropiado del muestreo, **ya que esto está estrechamente relacionado con la confianza que puede depositarse en las conclusiones de la auditoría.**",
+      "to_block": "> La evidencia de auditoría **debería ser verificable**.",
+      "add_paragraph": "El resto del principio del enfoque basado en evidencia explica por qué el muestreo es inherente a la auditoría y no un atajo adoptado bajo presión. Una auditoría se lleva a cabo durante un período fijo con recursos limitados, por lo que lo que el equipo examina es necesariamente una **muestra** de lo que existe, y la calidad con la que se realiza ese muestreo determina el peso que pueden sostener las conclusiones.",
+      "add_after_block": true,
+      "english_source": "> Audit evidence **should be verifiable**.\n\nThe rest of the evidence-based approach principle explains why sampling is inherent to auditing rather than a shortcut taken under pressure. An audit runs for a fixed period with limited resources, so what the team examines is necessarily a **sample** of what exists - and how well that sampling is done governs how much weight the conclusions can bear.",
+      "en_block_words": 5,
+      "ceiling": {
+        "w": 7,
+        "cap": 34,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-03-02-what-the-sample-supports",
+      "language": "pt-BR",
+      "lesson_id": "6f2c42b4-6b5f-46b9-9b10-e104b91e79ba",
+      "from_block": "> As evidências de auditoria devem ser verificáveis. Devem ser baseadas em **amostras** das informações disponíveis, uma vez que uma auditoria é realizada durante um período determinado e com recursos finitos. Deve ser aplicado um uso apropriado de amostragem, **pois isso está intimamente relacionado à confiança que pode ser depositada nas conclusões da auditoria.**",
+      "to_block": "> As evidências de auditoria **convém que sejam verificáveis**.",
+      "add_paragraph": "O restante do princípio da abordagem baseada em evidências explica por que a amostragem é inerente à auditoria, e não um atalho adotado sob pressão. Uma auditoria ocorre em um período fixo e com recursos limitados, portanto o que a equipe examina é necessariamente uma **amostra** do que existe — e a qualidade dessa amostragem determina o peso que as conclusões podem suportar.",
+      "add_after_block": true,
+      "english_source": "> Audit evidence **should be verifiable**.\n\nThe rest of the evidence-based approach principle explains why sampling is inherent to auditing rather than a shortcut taken under pressure. An audit runs for a fixed period with limited resources, so what the team examines is necessarily a **sample** of what exists - and how well that sampling is done governs how much weight the conclusions can bear.",
+      "en_block_words": 5,
+      "ceiling": {
+        "w": 8,
+        "cap": 32,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "language": "es-419",
+      "lesson_id": "1191d86f-1f78-4cd4-9b5c-a5f40df5c58a",
+      "from_block": "> La presentación justa es la obligación de informar con veracidad y exactitud. Los hallazgos de auditoría, las conclusiones de auditoría y los informes de auditoría deben reflejar con veracidad y exactitud las actividades de auditoría. **Los obstáculos significativos encontrados durante la auditoría y las opiniones divergentes no resueltas entre el equipo auditor y el auditado deben ser informados.**",
+      "to_block": "> La presentación justa es la obligación de **informar con veracidad y precisión**.",
+      "add_paragraph": "El principio nombra entonces dos cosas que un informe **debería** incluir y que la mayoría de las declaraciones omite silenciosamente: los obstáculos que afectaron materialmente el desarrollo de la auditoría, y las discrepancias entre el equipo y el auditado que nunca se resolvieron.",
+      "add_after_block": true,
+      "english_source": "> Fair presentation is the obligation to **report truthfully and accurately**.\n\nThe principle then names two things a report **should** carry that most statements quietly leave out: obstacles that materially got in the way of the audit, and disagreements between the team and the auditee that were never settled.",
+      "en_block_words": 10,
+      "ceiling": {
+        "w": 12,
+        "cap": 34,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-05-03-the-statement-that-survives",
+      "language": "pt-BR",
+      "lesson_id": "01e00ee4-1a7a-49d2-862f-c10ea2a8dc32",
+      "from_block": "> A apresentação justa é a obrigação de relatar com veracidade e precisão. Os achados de auditoria, as conclusões de auditoria e os relatórios de auditoria devem refletir com veracidade e precisão as atividades de auditoria. **Obstáculos significativos encontrados durante a auditoria e opiniões divergentes não resolvidas entre a equipe de auditoria e o auditado devem ser relatados.**",
+      "to_block": "> Apresentação justa é a obrigação de **relatar de forma verdadeira e precisa**.",
+      "add_paragraph": "O princípio então nomeia duas coisas que um relatório **convém que** contenha e que a maioria das declarações omite silenciosamente: obstáculos que interferiram materialmente na auditoria e divergências entre a equipe e o auditado que nunca foram resolvidas.",
+      "add_after_block": true,
+      "english_source": "> Fair presentation is the obligation to **report truthfully and accurately**.\n\nThe principle then names two things a report **should** carry that most statements quietly leave out: obstacles that materially got in the way of the audit, and disagreements between the team and the auditee that were never settled.",
+      "en_block_words": 10,
+      "ceiling": {
+        "w": 12,
+        "cap": 32,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "language": "es-419",
+      "lesson_id": "67f04805-9460-462a-9388-89f1c26c7442",
+      "from_block": "> La organización debe determinar los límites y la aplicabilidad del sistema de gestión de seguridad de la información para establecer su alcance. Al determinar este alcance, la organización debe considerar:\n> a) los asuntos externos e internos a los que se hace referencia en 4.1;\n> b) los requisitos a los que se hace referencia en 4.2;\n> c) **las interfaces y dependencias entre las actividades realizadas por la organización y las realizadas por otras organizaciones.**\n>\n> El alcance debe estar disponible como información documentada.",
+      "to_block": "> La organización **debe determinar los límites y la aplicabilidad** del SGSI para establecer su alcance.",
+      "add_paragraph": "El apartado 4.3 nombra tres entradas que la organización debe considerar al hacerlo:",
+      "add_after_block": true,
+      "english_source": "> The organization **shall determine the boundaries and applicability** of the ISMS to establish its scope.\n\nClause 4.3 then names three inputs the organization is required to consider when it does so:",
+      "en_block_words": 15,
+      "ceiling": {
+        "w": 15,
+        "cap": 34,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-04-01-what-the-scope-left-out",
+      "language": "pt-BR",
+      "lesson_id": "c3c5d0e5-d492-4179-9310-69d2f3abe3ed",
+      "from_block": "> A organização deve determinar os limites e a aplicabilidade do sistema de gestão de segurança da informação para estabelecer seu escopo. Ao determinar esse escopo, a organização deve considerar:\n> a) as questões externas e internas referidas em 4.1;\n> b) os requisitos referidos em 4.2;\n> c) **as interfaces e dependências entre as atividades realizadas pela organização e aquelas realizadas por outras organizações.**\n>\n> O escopo deve estar disponível como informação documentada.",
+      "to_block": "> A organização **deve determinar os limites e a aplicabilidade** do SGSI para estabelecer seu escopo.",
+      "add_paragraph": "A Seção 4.3 então nomeia três entradas que a organização deve considerar ao fazê-lo:",
+      "add_after_block": true,
+      "english_source": "> The organization **shall determine the boundaries and applicability** of the ISMS to establish its scope.\n\nClause 4.3 then names three inputs the organization is required to consider when it does so:",
+      "en_block_words": 15,
+      "ceiling": {
+        "w": 15,
+        "cap": 32,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "language": "es-419",
+      "lesson_id": "43fd34ff-284b-4dec-b055-59fcee84c0c5",
+      "from_block": "> **NOTA 2** &nbsp; El Anexo A contiene una lista de posibles controles de seguridad de la información. Se dirige a los usuarios de este documento al Anexo A **para asegurarse de que no se pase por alto ningún control de seguridad de la información necesario.**\n>\n> **NOTA 3** &nbsp; Los controles de seguridad de la información enumerados en el Anexo A **no son exhaustivos** y se pueden incluir controles de seguridad de la información adicionales si es necesario.",
+      "to_block": "> **NOTA 2** &nbsp; El Anexo A contiene una lista de controles de seguridad de la información **posibles**.",
+      "add_paragraph": "El apartado 6.1.3, NOTA 2 continúa dirigiendo a los usuarios al Anexo A como verificación de integridad: una manera de confirmar que no se omitió nada necesario, en lugar de un menú para seleccionar. La NOTA 3 agrega:",
+      "add_after_block": true,
+      "english_source": "> **NOTE 2** &nbsp; Annex A contains a list of **possible** information security controls.\n\nClause 6.1.3's NOTE 2 goes on to direct users to Annex A as a completeness check - a way of confirming that nothing necessary was missed, rather than a menu to select from. NOTE 3 adds:",
+      "en_block_words": 13,
+      "ceiling": {
+        "w": 17,
+        "cap": 34,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-04-03-the-whole-of-clause-6",
+      "language": "pt-BR",
+      "lesson_id": "88635da3-1168-4b22-8d46-42a0ee9f921a",
+      "from_block": "> **NOTA 2** &nbsp; O Anexo A contém uma lista de possíveis controles de segurança da informação. Os usuários deste documento são direcionados ao Anexo A **para garantir que nenhum controle de segurança da informação necessário seja negligenciado.**\n>\n> **NOTA 3** &nbsp; Os controles de segurança da informação listados no Anexo A **não são exaustivos** e controles adicionais de segurança da informação podem ser incluídos se necessário.",
+      "to_block": "> **NOTA 2** &nbsp; O Anexo A contém uma lista de controles de segurança da informação **possíveis**.",
+      "add_paragraph": "A Seção 6.1.3, NOTA 2 orienta os usuários a utilizar o Anexo A como uma verificação de completude — uma forma de confirmar que nada necessário foi omitido, e não como um menu para seleção. A NOTA 3 acrescenta:",
+      "add_after_block": true,
+      "english_source": "> **NOTE 2** &nbsp; Annex A contains a list of **possible** information security controls.\n\nClause 6.1.3's NOTE 2 goes on to direct users to Annex A as a completeness check - a way of confirming that nothing necessary was missed, rather than a menu to select from. NOTE 3 adds:",
+      "en_block_words": 13,
+      "ceiling": {
+        "w": 16,
+        "cap": 32,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "language": "es-419",
+      "lesson_id": "432a5f1a-f545-49e9-8b17-eaab2571ae2e",
+      "from_block": "> Solo la información que pueda ser objeto de **algún grado de verificación** debe aceptarse como evidencia de auditoría. **Cuando el grado de verificación sea bajo, el auditor debe usar su juicio profesional para determinar el grado de confiabilidad que puede otorgársele como evidencia.**",
+      "to_block": "> Solo la información que pueda estar sujeta a **algún grado de verificación** debería aceptarse como evidencia de auditoría.",
+      "add_paragraph": "El apartado 6.4.7 hace entonces algo que una prueba de umbral no haría. Cuando ese grado es bajo, no le indica al auditor que descarte la información: le asigna un juicio sobre cuánta confianza puede depositarse en ella, y espera que ese juicio sea profesional y no arbitrario.",
+      "add_after_block": true,
+      "english_source": "> Only information that can be subject to **some degree of verification** should be accepted as audit evidence.\n\nClause 6.4.7 then does something a threshold test would not. Where that degree is low, it does not tell the auditor to discard the information: it hands them a judgement about how much reliance the information can carry, and expects that judgement to be professional rather than arbitrary.",
+      "en_block_words": 17,
+      "ceiling": {
+        "w": 18,
+        "cap": 34,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_span",
+      "slug": "isms-ia-03-01-degree-of-verification",
+      "language": "pt-BR",
+      "lesson_id": "41136e29-e65a-4cfa-9494-5922dcc72e5a",
+      "from_block": "> Somente informações que possam ser submetidas a **algum grau de verificação** devem ser aceitas como evidência de auditoria. **Quando o grau de verificação for baixo, o auditor deve usar seu julgamento profissional para determinar o grau de confiabilidade que pode ser atribuído a ela como evidência.**",
+      "to_block": "> Somente informações que possam ser submetidas a **algum grau de verificação** convém que sejam aceitas como evidência de auditoria.",
+      "add_paragraph": "A Seção 6.4.7 então faz algo que um teste de limite não faria. Onde esse grau é baixo, ela não instrui o auditor a descartar a informação: entrega a ele um julgamento sobre quanto peso a informação pode suportar, e espera que esse julgamento seja profissional, e não arbitrário.",
+      "add_after_block": true,
+      "english_source": "> Only information that can be subject to **some degree of verification** should be accepted as audit evidence.\n\nClause 6.4.7 then does something a threshold test would not. Where that degree is low, it does not tell the auditor to discard the information: it hands them a judgement about how much reliance the information can carry, and expects that judgement to be professional rather than arbitrary.",
+      "en_block_words": 17,
+      "ceiling": {
+        "w": 19,
+        "cap": 32,
+        "ok": true,
+        "note": ""
+      },
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_terms",
+      "slug": "05-03-working-with-scrum-master",
+      "language": "es-419",
+      "lesson_id": "5f087311-623e-4810-8645-83732f8fbaa9",
+      "edits": [
+        [
+          "Es un líder servidor cuyo trabajo es",
+          "Es un verdadero líder que sirve, y su trabajo es"
+        ],
+        [
+          "como líder servidor sin autoridad",
+          "como un verdadero líder que sirve, sin autoridad"
+        ],
+        [
+          "El SM es un líder servidor que elimina",
+          "El SM es un verdadero líder que sirve, que elimina"
+        ],
+        [
+          "malinterpreta el rol de líder servidor",
+          "malinterpreta el rol del Scrum Master"
+        ],
+        [
+          "sirve a los Developers como líder servidor",
+          "es un verdadero líder que sirve a los Developers"
+        ]
+      ],
+      "gate_problems": []
+    },
+    {
+      "kind": "lesson_terms",
+      "slug": "05-03-working-with-scrum-master",
+      "language": "pt-BR",
+      "lesson_id": "63cd3de7-69c2-4466-93c7-25774c48e6a6",
+      "edits": [
+        [
+          "É um líder-servidor cujo trabalho é",
+          "É um verdadeiro líder que serve, e seu trabalho é"
+        ],
+        [
+          "como um líder-servidor sem autoridade",
+          "como um verdadeiro líder que serve, sem autoridade"
+        ],
+        [
+          "O SM é um líder-servidor que remove",
+          "O SM é um verdadeiro líder que serve, que remove"
+        ],
+        [
+          "distorce o papel de líder-servidor",
+          "distorce o papel do Scrum Master"
+        ],
+        [
+          "serve os Developers como líder-servidor",
+          "é um verdadeiro líder que serve os Developers"
+        ]
+      ],
+      "gate_problems": []
+    },
+    {
+      "kind": "concept_row",
+      "slug": "aia-interested-party-requirements",
+      "language": "es-419",
+      "translation_id": "a56b25f1-896c-4078-9000-8f9a7685e146",
+      "to_name": "Partes interesadas y sus requisitos",
+      "to_description": "El apartado 4.2 de ISO/IEC 42001:2023 solicita tres cosas, y la tercera es la que más frecuentemente falta. La organización debe **determinar** quiénes son sus partes interesadas, qué requiere cada una de ellas, y cuáles de esos requisitos abordará realmente el sistema de gestión de IA. Nombrar un requisito sin registrar si el AIMS lo responde deja la determinación incompleta.",
+      "english_source": "NAME: Interested parties and their requirements\n\nDESCRIPTION: Clause 4.2 of ISO/IEC 42001:2023 asks for three things, and the third is the one most often missing. The organization must **determine** who its interested parties are, what each of them requires, and which of those requirements the AI management system will actually address. Naming a requirement without recording whether the AIMS answers it leaves the determination incomplete.",
+      "gate_problems": []
+    },
+    {
+      "kind": "concept_row",
+      "slug": "aia-interested-party-requirements",
+      "language": "pt-BR",
+      "translation_id": "2537a6db-1182-4d57-89ff-eb007d474812",
+      "to_name": "Partes interessadas e seus requisitos",
+      "to_description": "A Seção 4.2 da ISO/IEC 42001:2023 solicita três coisas, e a terceira é a que mais frequentemente está ausente. A organização deve **determinar** quem são suas partes interessadas, o que cada uma delas requer e quais desses requisitos o sistema de gestão de IA realmente abordará. Nomear um requisito sem registrar se o AIMS o atende deixa a determinação incompleta.",
+      "english_source": "NAME: Interested parties and their requirements\n\nDESCRIPTION: Clause 4.2 of ISO/IEC 42001:2023 asks for three things, and the third is the one most often missing. The organization must **determine** who its interested parties are, what each of them requires, and which of those requirements the AI management system will actually address. Naming a requirement without recording whether the AIMS answers it leaves the determination incomplete.",
+      "gate_problems": []
+    }
+  ]
+}

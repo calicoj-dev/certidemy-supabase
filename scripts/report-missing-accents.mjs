@@ -36,6 +36,7 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { DIACRITIC_PAIRS, PART_OF_SPEECH_PAIRS, isVerbFormPair } from "./lib/accent-classes.mjs";
 
 const KNOWN = new Set(["--out", "--json"]);
 const argv = process.argv.slice(2);
@@ -168,53 +169,9 @@ function classify(text, index, token) {
  *
  * Neither can be called a defect without a dictionary, and a report that calls
  * 5,569 correct words defects is a report nobody reads twice. */
-const DIACRITIC_PAIRS = new Set([
-  "como", "cuando", "donde", "que", "quien", "cual", "cuanto", "mas", "si",
-  "el", "tu", "mi", "se", "de", "te", "aun", "solo", "porque", "esta", "este",
-  "aquel", "adonde", "aquella", "aquello",
-  /* Plurals of the same interrogatives -- the first run missed them and they
-   * are the identical class, not a new one. */
-  "quienes", "cuales", "cuantos", "cuantas", "cuanta", "cuantos",
-  /* Portuguese number agreement: the circumflex marks the PLURAL of the verb.
-   * `tem` 39x against `tem`-with-circumflex 10x is singular against plural, not
-   * a misspelling -- and the same for `vem`. `nos` is "us"/"in the" against
-   * `nos`-with-accent "we". All correct; all surfaced only when the length
-   * floor dropped to three. */
-  "tem", "vem", "nos", "por", "so", "sao", "esta", "e",
-]);
-
-/* ============ AND A THIRD CLASS: THE ACCENT MARKS PART OF SPEECH ==========
- *
- * `especifica` is "specifies" and `especifica`-with-accent is "specific";
- * `publica` / `valida` / `amplia` / `continua` / `integra` are the same shape,
- * and in Portuguese `pode` is "can" against `pode`-with-circumflex "could".
- * Both members are correct words and the pair is a homograph, not a
- * misspelling.
- *
- * THIS IS NOT MECHANICALLY SEPARABLE FROM A REAL MISSING ACCENT without a
- * dictionary -- `minimo` and `mínimo` have exactly the same shape and only one
- * of them is a word. So these are declared by name, the list says so, and
- * anything outside it is REPORTED FOR A HUMAN rather than judged. A report
- * that guessed here would be the lexical-proxy defect again. */
-const PART_OF_SPEECH_PAIRS = new Set([
-  "especifica", "publica", "valida", "amplia", "continua", "integra",
-  "pratica", "critica", "duplica", "explicita", "implicita", "pode",
-  "termino", "titulo", "calculo", "numero", "circulo", "practica",
-]);
-/* A preterite/imperative shape: the two forms differ ONLY in that the accented
- * one carries its accent on the last vowel. Same stem, different tense. */
-function isVerbFormPair(plain, accented) {
-  if (plain.length !== accented.length) return false;
-  const p = [...plain], a = [...accented];
-  let diffAt = -1;
-  for (let i = 0; i < p.length; i++) {
-    if (p[i] === a[i]) continue;
-    if (diffAt >= 0) return false;
-    if (strip(a[i]) !== p[i]) return false;
-    diffAt = i;
-  }
-  return diffAt === p.length - 1;
-}
+/* The three classes where BOTH forms are correct live in lib/accent-classes.mjs
+ * so the report and the regeneration GATE cannot diverge. They did: a new gate
+ * reimplemented the naive check and fired on que/como/trabajo across 14 rows. */
 
 /* Group by stripped form PER LANGUAGE. */
 const byStripped = new Map();
