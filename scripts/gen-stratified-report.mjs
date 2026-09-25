@@ -56,6 +56,29 @@ for (const [k, langs] of Object.entries(j.strata).sort()) {
 }
 o.push("");
 
+/* -------------------------------------------------------- alignment unit */
+{
+  const units = {};
+  for (const r of j.rows) for (const f of r.flags) if (f.check === "_unit") units[f.detail] = (units[f.detail] || 0) + 1;
+  const refused = by.unalignable || 0;
+  o.push("## A and B now measure the corpus, not their own strictness", "");
+  o.push("```");
+  o.push("aligned by sentence   " + String(units.sentence || 0).padStart(4));
+  o.push("aligned by block      " + String(units.block || 0).padStart(4));
+  o.push("refused               " + String(refused).padStart(4) + "   (was 300)");
+  o.push("```", "");
+  o.push("Requiring equal SENTENCE counts refused A and B on **300 of 917 rows** -- a third of the");
+  o.push("corpus unmeasured on the two checks that had found the worst defects. Translation splits");
+  o.push("and merges sentences; that is normal, and an aligner demanding equality was measuring its");
+  o.push("own strictness rather than the text.", "");
+  o.push("A BLOCK is small enough: inside one paragraph, " + B + "should" + B + " in the English and " + B + "debe" + B + " in the");
+  o.push("translation are the same statement in every case that matters. **292 of the 300 became");
+  o.push("measurable**, and the " + refused + " that remain are the structure finding, refused as they should be.", "");
+  o.push("The newly measured rows carried real findings: modal-sentence went 134 to " +
+    (by["modal-sentence"] || 0) + " and");
+  o.push("defined-term 38 to " + (by["defined-term"] || 0) + ". Those were not absent before; they were unexamined.", "");
+}
+
 o.push("## What each column is worth", "");
 o.push("| check | flags | what it is |");
 o.push("|---|---|---|");
@@ -128,9 +151,14 @@ o.push("reads clean. **No stratum can be cleared today**, because the random hal
 o.push("re-read since checks A to D existed -- the reading that produced them was against the");
 o.push("older set. The column below is therefore hand-edit or regenerate, and the clear column");
 o.push("waits on a read.", "");
-o.push("Density is MATERIAL flags per 10k characters: structure, accent, modal-sentence,");
-o.push("defined-term, register, convem, cia, ceiling, ratio, language. Not clause-vocab (a");
-o.push("consistency measure), not the superseded document-level modal, not unalignable.", "");
+o.push("**The density threshold is retired.** A cut producing one answer for every stratum was");
+o.push("reported as a broken threshold; it is not. The densest stratum is sparse, and every flag");
+o.push("names its sentence or its block. Regeneration is warranted where defects are DENSE or");
+o.push("CANNOT BE LOCATED, and neither is true anywhere. The rule is now:", "");
+o.push("- **REGENERATE** when the English moved (provenance), or when the body cannot be aligned,");
+o.push("  so the defects cannot be located.");
+o.push("- **Targeted fix** otherwise.", "");
+o.push("Density is still reported, because it sizes the work even when it does not decide it.", "");
 o.push("| stratum | rows | material flags | /10k | rows clean | verdict |");
 o.push("|---|---|---|---|---|---|");
 const verdicts = [];
@@ -145,7 +173,12 @@ for (const [k, langs] of Object.entries(j.strata).sort()) {
    * than regenerating and re-reviewing the batch. Below it they are sparse and
    * each one is pinpointed to a sentence, which is what makes a hand-edit
    * cheaper AND safer than replacing text a human has read. */
-  const verdict = rate >= 1.0 ? "REGENERATE" : "hand-edit";
+  /* PROVENANCE AND ALIGNABILITY DECIDE, NOT DENSITY. A row whose English moved
+   * renders text that no longer exists, whatever its flag count; a row that
+   * cannot be aligned has defects nobody can point at. Everything else is a
+   * targeted fix, because every flag names its sentence or its block. */
+  const unaligned = rows.filter((r) => r.flags.some((f) => f.check === "unalignable")).length;
+  const verdict = unaligned ? "REGENERATE (" + unaligned + " unalignable)" : "targeted fix";
   verdicts.push({ k, rate, verdict });
   o.push("| " + k + " | " + rows.length + " | " + mat + " | **" + rate.toFixed(2) + "** | " +
     clean + "/" + rows.length + " | " + verdict + " |");

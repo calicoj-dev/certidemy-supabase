@@ -45,6 +45,50 @@ export function alignSentences(en, tr) {
   return e.map((s, i) => [s, t[i]]);
 }
 
+/* ============ BLOCKS, BECAUSE SENTENCE COUNTS LEGITIMATELY DIFFER =========
+ *
+ * Requiring equal sentence counts refused A and B on 300 of 917 rows -- a third
+ * of the corpus unmeasured on the two checks that found the worst defects.
+ * Translation splits and merges sentences; that is normal and is not a defect,
+ * so an aligner that demands equality is measuring its own strictness.
+ *
+ * A BLOCK is small enough. Within one paragraph, a `should` in the English and
+ * a `debe` in the translation are the same statement in every case that
+ * matters, and the pairing needs no sentence correspondence at all.
+ *
+ * Rows whose BLOCK counts differ are the structure finding, which is a much
+ * smaller set -- and those are refused, as they should be.
+ */
+export function blocksOf(md) {
+  return md.split(/\n\s*\n/).map((t) => t.trim()).filter(Boolean)
+    /* A ``` fence is code and has no prose to compare. A `::` DIRECTIVE is not:
+     * `::concept title="..."` wraps teaching prose and `::checkpoint` wraps
+     * question and explanation strings, and both carry the modals and defined
+     * terms these checks exist for. Dropping the whole block refused A and B on
+     * twelve of thirteen blocks in the batch-1 emit -- the filter refusing, not
+     * the text. Only the directive HEADER line is removed. */
+    .filter((t) => !/^```/.test(t))
+    .map((t) => t.replace(/^::[^\n]*\n?/, "").replace(/^\s*>\s?/gm, "").replace(/^#{1,6}\s+/gm, ""))
+    .filter((t) => t.trim().length > 0);
+}
+
+/** Paired blocks, or null when the two bodies are not the same shape. */
+export function alignBlocks(en, tr) {
+  const e = blocksOf(en), t = blocksOf(tr);
+  if (!e.length || e.length !== t.length) return null;
+  return e.map((b, i) => [b, t[i]]);
+}
+
+/** Sentence pairs where possible, block pairs otherwise. The unit is reported
+ *  so a finding can say how tightly it was located. */
+export function alignForComparison(en, tr) {
+  const s = alignSentences(en, tr);
+  if (s) return { unit: "sentence", pairs: s };
+  const b = alignBlocks(en, tr);
+  if (b) return { unit: "block", pairs: b };
+  return null;
+}
+
 /* ---------------------------------------------------------------- A. modal */
 
 /* Obligation forms. `exige` is here because #21 and #20 both used it to render
@@ -72,8 +116,9 @@ const WEAK = {
  * own advice.
  */
 export function checkModalSentences(en, tr, lang, { guidance = false } = {}) {
-  const pairs = alignSentences(en, tr);
-  if (!pairs) return { unalignable: true, flags: [] };
+  const a = alignForComparison(en, tr);
+  if (!a) return { unalignable: true, flags: [] };
+  const { unit, pairs } = a;
   const flags = [];
   for (const [e, t] of pairs) {
     if (!/\bshould\b/i.test(e)) continue;
@@ -83,7 +128,8 @@ export function checkModalSentences(en, tr, lang, { guidance = false } = {}) {
     flags.push({
       check: "modal-sentence",
       severity: guidance ? "defect" : "report",
-      detail: "should -> obligation: " + t.slice(0, 90),
+      unit,
+      detail: "should -> obligation (" + unit + "): " + t.slice(0, 80),
     });
   }
   return { unalignable: false, flags };
@@ -127,16 +173,17 @@ export const DEFINED_TERMS = [
 ];
 
 export function checkDefinedTerms(en, tr, lang) {
-  const pairs = alignSentences(en, tr);
-  if (!pairs) return { unalignable: true, flags: [] };
+  const a = alignForComparison(en, tr);
+  if (!a) return { unalignable: true, flags: [] };
+  const { unit, pairs } = a;
   const flags = [];
   for (const [e, t] of pairs) {
     for (const term of DEFINED_TERMS) {
       if (!term.en.test(e)) continue;
       if (term.ok[lang].test(t)) continue;
       if (!term.wrong[lang].test(t)) continue;
-      flags.push({ check: "defined-term", severity: "defect",
-        detail: term.name + ": " + term.why + " -- " + t.slice(0, 80) });
+      flags.push({ check: "defined-term", severity: "defect", unit,
+        detail: term.name + " (" + unit + "): " + term.why + " -- " + t.slice(0, 70) });
     }
   }
   return { unalignable: false, flags };

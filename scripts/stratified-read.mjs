@@ -40,7 +40,7 @@ import { fileURLToPath } from "node:url";
 import { looksLikeLanguage } from "./lib/language-guard.mjs";
 import { bothFormsCorrect, isCarriedEnglish } from "./lib/accent-classes.mjs";
 import { checkModalSentences, checkDefinedTerms, checkRegister, checkClauseVocab,
-         registerOf, controls }
+         registerOf, alignForComparison, controls }
   from "./lib/translation-checks.mjs";
 
 const KNOWN = new Set(["--sample", "--json", "--strata"]);
@@ -218,7 +218,14 @@ function checkRow(en, tr, lang, cert, vocab, certRegister) {
   const defined = checkDefinedTerms(en, tr, lang);
   /* Unalignable is a THIRD STATE and is counted as itself. Folding it into
    * "clean" would claim a check that never ran. */
-  if (modal.unalignable) flags.push({ check: "unalignable", detail: "sentence counts differ; A and B did not run" });
+  /* THE ALIGNMENT UNIT IS RECORDED, NOT JUST ITS FAILURE. Requiring equal
+   * SENTENCE counts refused A and B on 300 of 917 rows -- a third of the corpus
+   * unmeasured on the two checks that found the worst defects. Translation
+   * splits and merges sentences; that is normal. A BLOCK is small enough for
+   * `should` and `debe` to be the same statement, so the aligner falls back to
+   * it, and only a BLOCK mismatch -- the structure finding -- refuses now. */
+  if (modal.unalignable) flags.push({ check: "unalignable", detail: "block counts differ; A and B did not run" });
+  else flags.push({ check: "_unit", detail: (alignForComparison(en, tr) || {}).unit || "sentence" });
   for (const f of [...modal.flags, ...defined.flags, ...checkRegister(tr, lang, certRegister).flags,
                    ...checkClauseVocab(tr, lang).flags]) {
     flags.push({ check: f.check, detail: f.detail, severity: f.severity });

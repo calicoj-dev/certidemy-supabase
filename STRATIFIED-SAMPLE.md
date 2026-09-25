@@ -12,11 +12,11 @@ Sampled strata: **AIMS-F 2026-08-07, ISMS-IA 2026-08-12, AIMS-IA 2026-09-12**. T
 
 ## AIMS-F 2026-08-07 / es-419
 
-35 row(s) in this stratum; 4 adversarial, 4 random.
+35 row(s) in this stratum; 4 adversarial, 0 random.
 
 ### 1. ADVERSARIAL -- `03-04-operational-planning-and-control` / es-419
 
-flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1)
+flags: _unit (block); defined-term (available (block): available is a duty to furnish on request; retained is a duty to keep -- La información documentada debe conservarse en la medida en que genere); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1); clause-vocab (es uses `apartado`: capítulo 8.1)
 
 **EN**
 
@@ -48,7 +48,7 @@ El [control de cambios para la IA]{glossary="change-control-ai"} hereda la forma
 
 ### 2. ADVERSARIAL -- `02-04-roles-responsibilities-authorities` / es-419
 
-flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.1); clause-vocab (es uses `apartado`: capítulo 9.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 9.1); clause-vocab (es uses `apartado`: capítulo 5.3)
+flags: _unit (block); clause-vocab (es uses `apartado`: cláusula 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.1); clause-vocab (es uses `apartado`: capítulo 9.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 5.3); clause-vocab (es uses `apartado`: capítulo 9.1); clause-vocab (es uses `apartado`: capítulo 5.3)
 
 **EN**
 
@@ -74,7 +74,7 @@ La norma luego nombra dos asignaciones específicamente, y solo dos.
 
 ### 3. ADVERSARIAL -- `01-04-harmonised-structure` / es-419
 
-flags: accent (formula); unalignable (sentence counts differ; A and B did not run); register (reads as tu (3 tu / 1 usted) in a usted certification); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: Capítulo 4); clause-vocab (es uses `apartado`: Capítulo 6); clause-vocab (es uses `apartado`: Capítulo 7); clause-vocab (es uses `apartado`: Capítulo 9); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8)
+flags: accent (formula); _unit (block); register (reads as tu (3 tu / 1 usted) in a usted certification); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: Capítulo 4); clause-vocab (es uses `apartado`: Capítulo 6); clause-vocab (es uses `apartado`: Capítulo 7); clause-vocab (es uses `apartado`: Capítulo 9); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8)
 
 **EN**
 
@@ -234,7 +234,7 @@ El Anexo A es un ejercicio aparte. Sus 38 controles están organizados por categ
 
 ### 4. ADVERSARIAL -- `03-03-documented-information` / es-419
 
-flags: defined-term (extent: extent rendered with the SCOPE term collapses two defined audit terms -- Una nota añade que el alcance de la información documentada varía de una organiz); clause-vocab (es uses `apartado`: cláusula 7.5.3); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8)
+flags: _unit (sentence); defined-term (extent (sentence): extent rendered with the SCOPE term collapses two defined audit terms -- Una nota añade que el alcance de la información documentada varía de u); clause-vocab (es uses `apartado`: cláusula 7.5.3); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 7.5); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: capítulo 7); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 9); clause-vocab (es uses `apartado`: capítulo 10); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8)
 
 **EN**
 
@@ -314,187 +314,15 @@ Cada uno de esos elementos es creado por otra persona, es necesario para la plan
 ::
 ```
 
-### 5. RANDOM -- `04-01-annex-a-structure` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Annexes C and D are informative. C lists potential organizational objectives and risk sources; D covers use across domains and sectors.
-::
-
-::concept title="A reference, not a checklist"
-Annex A's own general clause says two things that shape how the whole module should be read.
-
-**Not every listed control objective and control must be used**, and an organization may design and implement its own.
-```
-
-**es-419**
-
-```
-Los Anexos C y D son informativos. C enumera posibles objetivos organizacionales y fuentes de riesgo; D aborda el uso en distintos dominios y sectores.
-::
-
-::concept title="Una referencia, no una lista de verificación"
-El apartado general del propio Annex A establece dos cosas que determinan cómo debería leerse todo el módulo.
-
-**No es necesario utilizar todos los objetivos de control y controles listados**, y una organización puede diseñar e implementar los propios.
-```
-
-### 6. RANDOM -- `03-05-third-party-ai-supply` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The guidance asks the organization to consider different types of supplier, what each supplies, and **how much risk that can carry for the system and to the organization as a whole** — and to let that shape three things: which suppliers are selected, what requirements are placed on them, and how much ongoing monitoring and evaluation they get.
-
-So supplier treatment is risk-differentiated by design. A library that formats dates and a foundation model that generates customer-facing text are both supplied components, and treating them identically means one is over-managed or the other is under-managed.
-::
-
-::concept title="What the organization must do"
-Three [obligations]{glossary="supplier-obligations"} sit in the supplier control and its guidance.
-```
-
-**es-419**
-
-```
-La orientación pide a la organización que considere los diferentes tipos de proveedores, qué suministra cada uno y **cuánto riesgo puede esto conllevar para el sistema y para la organización en su conjunto** — y que eso oriente tres aspectos: qué proveedores se seleccionan, qué requisitos se les imponen y cuánto seguimiento y evaluación continua reciben.
-
-Por tanto, el tratamiento de proveedores es diferenciado por riesgo por diseño. Una biblioteca que formatea fechas y un modelo de base que genera texto orientado al cliente son ambos componentes suministrados, y tratarlos de manera idéntica significa que uno está sobreadministrado o el otro está subadministrado.
-::
-
-::concept title="Qué debe hacer la organización"
-Tres [obligaciones]{glossary="supplier-obligations"} se encuentran en el control de proveedores y su orientación.
-```
-
-### 7. RANDOM -- `02-08-risk-treatment-and-the-soa` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Note what those grounds have in common. Both point at something checkable. "The risk assessment did not identify a risk this control addresses" can be verified against the risk assessment. "We do not act as a provider for any system in scope, so provider-facing controls do not apply" can be verified against the role determination from lesson 1.2. **A justification that cannot be checked against another artifact is an assertion.**
-
-The standard also permits documented justifications for excluding control objectives in general, or for specific AI systems — so exclusions can be scoped rather than all-or-nothing.
-::
-
-::interactive widget="highlight-mistake" id="soa-justification-review" concept_slugs="inclusion-exclusion-justification"
-{
-  "scenario_title": "Four exclusion justifications from a draft Statement of Applicability. Which one is not a justification?",
-  "text": "A. Excluded: the organization acts solely as a customer for all systems in scope, and this control addresses obligations of providers supplying systems to third parties. B. Excluded: no risk requiring this control was identified in the risk assessment dated 14 May, which covered all systems within scope. C. Excluded: not applicable to our business model. D. Excluded: the applicable sector regulation provides an exemption for systems below the stated processing threshold, which all in-scope systems meet.",
-  "highlights": [
-    {
-      "id": "c",
-      "span": "not applicable to our business model.",
-      "is_correct": true,
-      "feedback": "Not a justification. It states a conclusion and offers nothing an auditor can test - no role determination, no risk assessment, no external requirement. Length is not what distinguishes it; testability is."
-    },
-    {
-      "id": "a",
-      "span": "the organization acts solely as a customer for all systems in scope, and this control addresses obligations of providers supplying systems to third parties.",
-      "is_correct": false,
-      "feedback": "A working justification. It points at the role determination, which is a checkable artifact, and role genuinely governs which controls apply."
-    },
-    {
-      "id": "b",
-      "span": "no risk requiring this control was identified in the risk assessment dated 14 May, which covered all systems within scope.",
-      "is_correct": false,
-      "feedback": "A working justification, and it names one of the two grounds the standard itself recognises - the control not being deemed necessary by the risk assessment. The date and stated scope are what make it testable."
-    },
-    {
-      "id": "d",
-      "span": "the applicable sector regulation provides an exemption for systems below the stated processing threshold, which all in-scope systems meet.",
-      "is_correct": false,
-      "feedback": "A working justification, resting on the second recognised ground - not required by applicable external requirements. An auditor can go and read the regulation and check the threshold."
-    }
-  ],
-  "minimum_correct": 1
-}
-::
-```
-
-**es-419**
-
-```
-Nótese lo que esos fundamentos tienen en común. Ambos apuntan a algo verificable. "La evaluación del riesgo no identificó un riesgo que este control aborde" puede verificarse contra la evaluación del riesgo. "No actuamos como proveedor de ningún sistema en alcance, por lo que los controles orientados a proveedores no aplican" puede verificarse contra la determinación de rol de la lección 1.2. **Una justificación que no puede verificarse contra otro artefacto es una mera afirmación.**
-
-La norma también permite justificaciones documentadas para excluir objetivos de control en general, o para sistemas de IA específicos — de modo que las exclusiones pueden tener alcance delimitado en lugar de ser de todo o nada.
-::
-
-::interactive widget="highlight-mistake" id="soa-justification-review" concept_slugs="inclusion-exclusion-justification"
-{
-  "scenario_title": "Cuatro justificaciones de exclusión de un borrador de Declaración de Aplicabilidad. ¿Cuál no es una justificación?",
-  "text": "A. Excluido: la organización actúa únicamente como cliente en todos los sistemas en alcance, y este control aborda obligaciones de proveedores que suministran sistemas a terceros. B. Excluido: no se identificó ningún riesgo que requiera este control en la evaluación del riesgo del 14 de mayo, que cubrió todos los sistemas dentro del alcance. C. Excluido: no aplicable a nuestro modelo de negocio. D. Excluido: la regulación sectorial aplicable establece una exención para sistemas por debajo del umbral de procesamiento indicado, que todos los sistemas en alcance cumplen.",
-  "highlights": [
-    {
-      "id": "c",
-      "span": "no aplicable a nuestro modelo de negocio.",
-      "is_correct": true,
-      "feedback": "No es una justificación. Enuncia una conclusión y no ofrece nada que un auditor pueda verificar — ni determinación de rol, ni evaluación del riesgo, ni requisito externo. Lo que la distingue no es su extensión, sino su falta de verificabilidad."
-    },
-    {
-      "id": "a",
-      "span": "la organización actúa únicamente como cliente en todos los sistemas en alcance, y este control aborda obligaciones de proveedores que suministran sistemas a terceros.",
-      "is_correct": false,
-      "feedback": "Una justificación válida. Apunta a la determinación de rol, que es un artefacto verificable, y el rol efectivamente determina qué controles aplican."
-    },
-    {
-      "id": "b",
-      "span": "no se identificó ningún riesgo que requiera este control en la evaluación del riesgo del 14 de mayo, que cubrió todos los sistemas dentro del alcance.",
-      "is_correct": false,
-      "feedback": "Una justificación válida, que además nombra uno de los dos fundamentos que la propia norma reconoce — que el control no se considere necesario según la evaluación del riesgo. La fecha y el alcance declarado son lo que la hacen verificable."
-    },
-    {
-      "id": "d",
-      "span": "la regulación sectorial aplicable establece una exención para sistemas por debajo del umbral de procesamiento indicado, que todos los sistemas en alcance cumplen.",
-      "is_correct": false,
-      "feedback": "Una justificación válida, basada en el segundo fundamento reconocido — no requerido por los requisitos externos aplicables. Un auditor puede consultar la regulación y verificar el umbral."
-    }
-  ],
-  "minimum_correct": 1
-}
-::
-```
-
-### 8. RANDOM -- `04-04-impact-and-life-cycle-controls` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-**[Operation and monitoring]{glossary="operation-monitoring-controls"}**, with the necessary elements defined and documented — at minimum system and performance monitoring, repairs, updates and support. This is where lesson 1.3's continuous learning and drift live as an obligation.
-
-**Technical documentation** determined for each relevant category of interested party — users, partners, supervisory authorities — and provided in an appropriate form.
-
-**Event logging**, and this one is worded distinctively. See below.
-::
-```
-
-**es-419**
-
-```
-**[Operación y monitoreo]{glossary="operation-monitoring-controls"}**, con los elementos necesarios definidos y documentados — como mínimo, monitoreo del sistema y del rendimiento, reparaciones, actualizaciones y soporte. Aquí es donde el aprendizaje continuo y la deriva de la lección 1.3 se convierten en una obligación.
-
-**Documentación técnica** determinada para cada categoría relevante de partes interesadas — usuarios, socios, autoridades supervisoras — y proporcionada en una forma adecuada.
-
-**Registro de eventos**, y este está redactado de manera distintiva. Véase a continuación.
-::
-```
-
 ---
 
 ## AIMS-F 2026-08-07 / pt-BR
 
-35 row(s) in this stratum; 4 adversarial, 4 random.
+35 row(s) in this stratum; 4 adversarial, 0 random.
 
-### 9. ADVERSARIAL -- `04-03-governing-apparatus-controls` / pt-BR
+### 5. ADVERSARIAL -- `04-03-governing-apparatus-controls` / pt-BR
 
-flags: accent (analise); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Este é o complemento do Anexo A à cláusula 5.2, e a orientação acrescenta o que a cláusula); clause-vocab (pt uses a flat `Seção`: cláusula 5.2); clause-vocab (pt uses a flat `Seção`: cláusula )
+flags: accent (analise); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); _unit (sentence); modal-sentence (should -> obligation (sentence): Este é o complemento do Anexo A à cláusula 5.2, e a orientação acrescenta o que ); clause-vocab (pt uses a flat `Seção`: cláusula 5.2); clause-vocab (pt uses a flat `Seção`: cláusula )
 
 **EN**
 
@@ -522,9 +350,9 @@ A proteção contra represálias abrange o investigador tanto quanto quem report
 ::
 ```
 
-### 10. ADVERSARIAL -- `03-04-operational-planning-and-control` / pt-BR
+### 6. ADVERSARIAL -- `03-04-operational-planning-and-control` / pt-BR
 
-flags: modal (should x2, no weak modal, 14 obligations vs 11 en); modal-sentence (should -> obligation: O padrão já deve ser familiar.); defined-term (available: available is a duty to furnish on request; retained is a duty to keep -- A informação documentada deve ser mantida na medida em que isso proporcione conf); clause-vocab (pt uses a flat `Seção`: Cláusula 8.1); clause-vocab (pt uses a flat `Seção`: cláusula)
+flags: modal (should x2, no weak modal, 14 obligations vs 11 en); _unit (sentence); modal-sentence (should -> obligation (sentence): O padrão já deve ser familiar.); defined-term (available (sentence): available is a duty to furnish on request; retained is a duty to keep -- A informação documentada deve ser mantida na medida em que isso propor); clause-vocab (pt uses a flat `Seção`: Cláusula 8.1); clause-vocab (pt uses a flat `Seção`: cláusula)
 
 **EN**
 
@@ -554,9 +382,9 @@ O requisito de mudanças da Seção 8.1 tem duas partes, e a segunda é a que co
 O [controle de mudanças para IA]{glossary="change-control-ai"} herda a forma do controle de mudanças em geral e adquire duas complicações adicionais.
 ```
 
-### 11. ADVERSARIAL -- `04-05-data-and-information-controls` / pt-BR
+### 7. ADVERSARIAL -- `04-05-data-and-information-controls` / pt-BR
 
-flags: convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Os critérios para decidir o que é fornecido devem ser documentados, com base no uso preten); modal-sentence (should -> obligation: **A compreensibilidade é o objetivo, e o guia afirma que a organização deve entender o que)
+flags: convem (convem-que not clause-initial); convem (convem-que not clause-initial); _unit (sentence); modal-sentence (should -> obligation (sentence): Os critérios para decidir o que é fornecido devem ser documentados, com base no ); modal-sentence (should -> obligation (sentence): **A compreensibilidade é o objetivo, e o guia afirma que a organização deve ente)
 
 **EN**
 
@@ -580,9 +408,9 @@ O padrão em todos os cinco é *definir, documentar e executar*. Vale notar aqui
 ::
 ```
 
-### 12. ADVERSARIAL -- `02-06-the-ai-system-impact-assessment` / pt-BR
+### 8. ADVERSARIAL -- `02-06-the-ai-system-impact-assessment` / pt-BR
 
-flags: modal-sentence (should -> obligation: A organização deve avaliar essas expectativas e considerar como abordá-las.); modal-sentence (should -> obligation: Mas sua presença muda como o documento deve ser redigido.); clause-vocab (pt uses a flat `Seção`: cláusula 8.4); clause-vocab (pt uses a flat `Seção`: cláusula )
+flags: _unit (sentence); modal-sentence (should -> obligation (sentence): A organização deve avaliar essas expectativas e considerar como abordá-las.); modal-sentence (should -> obligation (sentence): Mas sua presença muda como o documento deve ser redigido.); clause-vocab (pt uses a flat `Seção`: cláusula 8.4); clause-vocab (pt uses a flat `Seção`: cláusula )
 
 **EN**
 
@@ -664,329 +492,15 @@ A avaliação de impacto faz uma pergunta que nenhuma outra Seção faz: não o 
 A [avaliação de impacto do sistema de IA]{glossary="ai-system-impact-assessment"} é um processo formal e documentado que uma organização que desenvolve, fornece ou utiliza IA executa para descobrir o que seus sistemas fazem a indivíduos, a grupos e a sociedades — e, em seguida, para agir sobre o que encontra.
 ```
 
-### 13. RANDOM -- `03-03-documented-information` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Every one of those is created by someone else, is necessary for planning and operation, and can change without the organization being consulted. The supplier controls require the organization to determine what information it needs from suppliers and to ensure adequate documentation is delivered — and clause 7.5.3 is what says that documentation, once received, has to be controlled like anything else.
-
-**The practical failure is a model card downloaded once, filed, and never checked against the version now in production.**
-::
-
-::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
-{
-  "items": [
-    {
-      "id": "a",
-      "text": "Distribution, access, retrieval and use"
-    },
-    {
-      "id": "b",
-      "text": "Storage and preservation, including preservation of legibility"
-    },
-    {
-      "id": "c",
-      "text": "Control of changes, such as version control"
-    },
-    {
-      "id": "d",
-      "text": "Retention and disposition"
-    }
-  ],
-  "correct_order": [
-    "a",
-    "b",
-    "c",
-    "d"
-  ],
-  "explanation": "The order is the record's own life: made available, kept, changed under control, and eventually retained for a period and disposed of. Preservation of legibility is the item people skip, and it is the reason a record stored in a format nobody can open in five years fails this clause even though the file still exists. For AI systems the retention question is sharper than usual, because event logs and impact assessments may need to outlive the system that produced them."
-}
-::
-```
-
-**pt-BR**
-
-```
-Cada um desses itens é criado por outra pessoa, é necessário para o planejamento e a operação, e pode mudar sem que a organização seja consultada. Os requisitos de fornecedores exigem que a organização determine quais informações precisa deles e garanta que a documentação adequada seja entregue — e a Seção 7.5.3 é o que determina que essa documentação, uma vez recebida, deve ser controlada como qualquer outra.
-
-**A falha prática é um cartão de modelo baixado uma vez, arquivado e nunca verificado em relação à versão em produção.**
-::
-
-::interactive widget="sort-into-order" id="record-lifecycle" concept_slugs="control-of-documented-information"
-{
-  "items": [
-    {
-      "id": "a",
-      "text": "Distribuição, acesso, recuperação e uso"
-    },
-    {
-      "id": "b",
-      "text": "Armazenamento e preservação, incluindo a preservação da legibilidade"
-    },
-    {
-      "id": "c",
-      "text": "Controle de alterações, como controle de versão"
-    },
-    {
-      "id": "d",
-      "text": "Retenção e descarte"
-    }
-  ],
-  "correct_order": [
-    "a",
-    "b",
-    "c",
-    "d"
-  ],
-  "explanation": "A ordem é a própria vida do registro: disponibilizado, mantido, alterado sob controle e, por fim, retido por um período e descartado. A preservação da legibilidade é o item que as pessoas pulam, e é a razão pela qual um registro armazenado em um formato que ninguém consegue abrir em cinco anos falha nesta seção mesmo que o arquivo ainda exista. Para sistemas de IA, a questão da retenção é mais crítica do que o habitual, pois logs de eventos e avaliações de impacto podem precisar sobreviver ao sistema que os gerou."
-}
-::
-```
-
-### 14. RANDOM -- `05-05-the-certification-route` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The useful preparation is not a document set. It is running the system long enough to have produced records in the ordinary course — which clause 8 requires whether or not anyone is coming to look.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "Where do the requirements for the two-stage initial audit come from?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Clause 9.2 of ISO/IEC 42001" },
-      { "id": "b", "text": "ISO/IEC 17021-1, the generic standard for management system certification bodies" },
-      { "id": "c", "text": "Annex D of ISO/IEC 42001" },
-      { "id": "d", "text": "The accreditation body's national requirements" }
-    ],
-    "correct": ["b"],
-    "explanation": "ISO/IEC 42001 describes no certification process at all. The two-stage audit, surveillance and recertification come from ISO/IEC 17021-1, which is why they apply the same way to an information security management system. Clause 9.2 concerns the organization's own internal audits.",
-    "concept_slugs": ["stage-one-stage-two", "certification-route"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q2",
-    "question": "What does ISO/IEC 42006 govern?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Requirements for organizations implementing an AI management system" },
-      { "id": "b", "text": "Requirements for bodies auditing and certifying AI management systems, including competence, impartiality and audit time" },
-      { "id": "c", "text": "Requirements for certifying the competence of individuals in AI governance" },
-      { "id": "d", "text": "Guidance on AI risk management" }
-    ],
-    "correct": ["b"],
-    "explanation": "It sets requirements for the certifiers, which is what makes a certificate from one body comparable to one from another. Organizational requirements are in 42001, personnel certification in ISO/IEC 17024, and risk management guidance in ISO/IEC 23894.",
-    "concept_slugs": ["iso-42006-role"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "Which statement about accreditation and certification is correct?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "An organization is accredited and its auditor is certified" },
-      { "id": "b", "text": "Accreditation assesses the certifier; certification assesses the organization" },
-      { "id": "c", "text": "Both terms describe the same assessment at different scales" },
-      { "id": "d", "text": "Accreditation is required before an organization may seek certification" }
-    ],
-    "correct": ["b"],
-    "explanation": "An accreditation body assesses certification bodies; a certification body assesses organizations. Reversing them produces claims that cannot be true, and the confusion is the most common error in this area.",
-    "concept_slugs": ["accreditation-vs-certification"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q4",
-    "question": "An organization with comprehensive documentation and three months of operating history is heading into stage 2. What is the most likely difficulty?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "The Statement of Applicability will be judged incomplete" },
-      { "id": "b", "text": "There may be too little operating record for the body to sample" },
-      { "id": "c", "text": "The scope will require amendment" },
-      { "id": "d", "text": "Documentation will be found excessive" }
-    ],
-    "correct": ["b"],
-    "explanation": "Stage 2 examines operation rather than design. Assessments on schedule, results retained, treatment verified, corrective action reviewed — all require history. A documented system with no operating record has nothing to sample.",
-    "concept_slugs": ["stage-one-stage-two", "surveillance-and-recertification"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  }
-]
-::
-
-::summary
-- ISO/IEC 42001 places requirements on the organization and describes no certification process.
-- ISO/IEC 42006 sets requirements for bodies auditing and certifying an AIMS.
-- ISO/IEC 17021-1 is where the two-stage audit, surveillance and recertification live.
-- Stage 1 examines design; stage 2 examines operation; surveillance samples.
-- Accreditation assesses the certifier; certification assesses the organization.
-- Management system certification is not personnel certification, and conformity is not compliance.
-::
-```
-
-**pt-BR**
-
-```
-A preparação útil não é um conjunto de documentos. É operar o sistema por tempo suficiente para ter produzido registros no curso normal das atividades — o que a Seção 8 exige independentemente de alguém vir verificar.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "De onde vêm os requisitos para a auditoria inicial em dois estágios?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Seção 9.2 da ISO/IEC 42001" },
-      { "id": "b", "text": "ISO/IEC 17021-1, a norma genérica para organismos de certificação de sistemas de gestão" },
-      { "id": "c", "text": "Anexo D da ISO/IEC 42001" },
-      { "id": "d", "text": "Os requisitos nacionais do organismo de acreditação" }
-    ],
-    "correct": ["b"],
-    "explanation": "A ISO/IEC 42001 não descreve nenhum processo de certificação. A auditoria em dois estágios, a vigilância e a recertificação vêm da ISO/IEC 17021-1, razão pela qual se aplicam da mesma forma a um sistema de gestão da segurança da informação. A Seção 9.2 diz respeito às auditorias internas da própria organização.",
-    "concept_slugs": ["stage-one-stage-two", "certification-route"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q2",
-    "question": "O que a ISO/IEC 42006 governa?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Requisitos para organizações que implementam um sistema de gestão de IA" },
-      { "id": "b", "text": "Requisitos para organismos que auditam e certificam sistemas de gestão de IA, incluindo competência, imparcialidade e tempo de auditoria" },
-      { "id": "c", "text": "Requisitos para certificar a competência de indivíduos em governança de IA" },
-      { "id": "d", "text": "Orientações sobre gestão de riscos de IA" }
-    ],
-    "correct": ["b"],
-    "explanation": "Ela estabelece requisitos para os certificadores, o que é o que torna um certificado de um organismo comparável ao de outro. Os requisitos organizacionais estão na 42001, a certificação de pessoas na ISO/IEC 17024 e as orientações sobre gestão de riscos na ISO/IEC 23894.",
-    "concept_slugs": ["iso-42006-role"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q3",
-    "question": "Qual afirmação sobre acreditação e certificação está correta?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Uma organização é acreditada e seu auditor é certificado" },
-      { "id": "b", "text": "A acreditação avalia o certificador; a certificação avalia a organização" },
-      { "id": "c", "text": "Ambos os termos descrevem a mesma avaliação em escalas diferentes" },
-      { "id": "d", "text": "A acreditação é exigida antes que uma organização possa buscar a certificação" }
-    ],
-    "correct": ["b"],
-    "explanation": "Um organismo de acreditação avalia os organismos de certificação; um organismo de certificação avalia as organizações. Inverter essa relação produz afirmações que não podem ser verdadeiras, e a confusão é o erro mais comum nesta área.",
-    "concept_slugs": ["accreditation-vs-certification"],
-    "bloom_level": "2_understand",
-    "difficulty": 2
-  },
-  {
-    "id": "q4",
-    "question": "Uma organização com documentação abrangente e três meses de histórico operacional está prestes a entrar no Estágio 2. Qual é a dificuldade mais provável?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "A Declaração de Aplicabilidade será considerada incompleta" },
-      { "id": "b", "text": "Pode haver histórico operacional insuficiente para o organismo realizar amostragem" },
-      { "id": "c", "text": "O escopo precisará ser alterado" },
-      { "id": "d", "text": "A documentação será considerada excessiva" }
-    ],
-    "correct": ["b"],
-    "explanation": "O Estágio 2 examina a operação, e não o projeto. Avaliações realizadas no prazo, resultados retidos, tratamento verificado, ação corretiva revisada — tudo isso exige histórico. Um sistema documentado sem histórico operacional não tem nada a ser amostrado.",
-    "concept_slugs": ["stage-one-stage-two", "surveillance-and-recertification"],
-    "bloom_level": "2_understand",
-    "difficulty": 3
-  }
-]
-::
-
-::summary
-- A ISO/IEC 42001 impõe requisitos à organização e não descreve nenhum processo de certificação.
-- A ISO/IEC 42006 estabelece requisitos para os organismos que auditam e certificam um sistema de gestão de IA.
-- A ISO/IEC 17021-1 é onde residem a auditoria em dois estágios, a vigilância e a recertificação.
-- O Estágio 1 examina o projeto; o Estágio 2 examina a operação; a vigilância faz amostragem.
-- A acreditação avalia o certificador; a certificação avalia a organização.
-- A certificação de sistema de gestão não é certificação de pessoas, e conformidade não é conformidade legal.
-::
-```
-
-### 15. RANDOM -- `01-02-determining-your-roles` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-ISO/IEC 22989 describes these roles in detail, and the NIST AI Risk Management Framework describes role types and how they relate to the life cycle. The standard points at both rather than reproducing them.
-::
-
-::callout type="pitfall"
-"Developer" is not one of the six. It sits **inside** AI producers, alongside designers, testers, deployers and several others. Treating developer as a peer category — as much of the market's shorthand does — flattens a category that holds ten kinds of work and makes it easy to conclude a role does not apply to you when it does.
-::
-
-::concept title="Most organizations hold several at once"
-A bank builds an internal fraud model, buys a customer service assistant from a vendor, and offers a document-summarizing feature to its corporate clients.
-```
-
-**pt-BR**
-
-```
-A ISO/IEC 22989 descreve esses papéis em detalhes, e o NIST AI Risk Management Framework descreve os tipos de papéis e como eles se relacionam com o ciclo de vida. A norma aponta para ambos em vez de reproduzi-los.
-::
-
-::callout type="pitfall"
-"Desenvolvedor" não é uma das seis categorias. Ele está **dentro** dos produtores de IA, ao lado de designers, testadores, implantadores e vários outros. Tratar desenvolvedor como uma categoria equivalente — como grande parte do jargão do mercado faz — achata uma categoria que abrange dez tipos de trabalho e facilita a conclusão de que um papel não se aplica a você quando na verdade se aplica.
-::
-
-::concept title="A maioria das organizações ocupa vários papéis ao mesmo tempo"
-Um banco constrói um modelo interno de detecção de fraudes, compra um assistente de atendimento ao cliente de um fornecedor e oferece um recurso de resumo de documentos a seus clientes corporativos.
-```
-
-### 16. RANDOM -- `02-05-the-ai-risk-assessment` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-[Identifying]{glossary="risk-identification-ai"} against that list surfaces things a conventional IT risk assessment does not reach, because the conventional assessment asks what could go wrong with a system that behaves as specified. Several of these concern a system that behaves exactly as built and still produces an unwanted outcome.
-
-The [analysis and evaluation]{glossary="risk-analysis-and-evaluation"} steps then face a genuine difficulty that the standard does not resolve for you. Likelihood is qualified — *where applicable* — and for some AI risks it is not applicable in any meaningful sense. What is the likelihood that a model's behaviour drifts in a way that disadvantages a group nobody thought to measure? The honest answer is that likelihood is the wrong instrument, and the criteria have to be able to handle a risk assessed on consequence alone.
-
-ISO/IEC 23894 provides guidance on implementing risk management for organizations developing, providing or using AI. Where the organization needs more method than this standard supplies, that is where the standard points.
-::
-```
-
-**pt-BR**
-
-```
-[Identificar]{glossary="risk-identification-ai"} com base nessa lista revela aspectos que uma avaliação de risco de TI convencional não alcança, pois a avaliação convencional pergunta o que pode dar errado em um sistema que se comporta conforme especificado. Vários desses itens dizem respeito a um sistema que se comporta exatamente como foi construído e ainda assim produz um resultado indesejado.
-
-As etapas de [análise e avaliação de riscos]{glossary="risk-analysis-and-evaluation"} enfrentam então uma dificuldade genuína que a norma não resolve por você. A probabilidade é qualificada — *onde aplicável* — e para alguns riscos de IA ela não é aplicável de forma significativa. Qual é a probabilidade de que o comportamento de um modelo se desvie de maneira que prejudique um grupo que ninguém pensou em medir? A resposta honesta é que a probabilidade é o instrumento errado, e os critérios precisam ser capazes de lidar com um risco avaliado apenas com base na consequência.
-
-A ISO/IEC 23894 fornece orientações sobre a implementação da gestão de riscos para organizações que desenvolvem, fornecem ou utilizam IA. Quando a organização precisar de mais método do que esta norma oferece, é para lá que ela aponta.
-::
-```
-
 ---
 
 ## AIMS-IA 2026-09-12 / es-419
 
-30 row(s) in this stratum; 4 adversarial, 2 random.
+30 row(s) in this stratum; 4 adversarial, 0 random.
 
-### 17. ADVERSARIAL -- `aims-ia-04-13-competence-the-organization-claims` / es-419
+### 9. ADVERSARIAL -- `aims-ia-04-13-competence-the-organization-claims` / es-419
 
-flags: accent (formula); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2)
+flags: accent (formula); _unit (sentence); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: Capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 10.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.3); clause-vocab (es uses `apartado`: capítulo 7.2); clause-vocab (es uses `apartado`: capítulo 7.2)
 
 **EN**
 
@@ -1008,9 +522,9 @@ Dos observaciones, y la primera es más importante de lo que parece.
 **El requisito de competencia no desaparece; se desplaza.** Cuando un sistema realiza el trabajo que antes hacía una persona, las personas cuya competencia ahora afecta al desempeño en IA son quienes lo configuran, evalúan si está funcionando de manera aceptable y deciden cuándo intervenir. Esa es una competencia diferente a la de realizar la tarea original, y una organización que automatizó una tarea y conservó su antigua determinación de competencia tiene una determinación que describe un trabajo que ya nadie realiza.
 ```
 
-### 18. ADVERSARIAL -- `aims-ia-04-01-a-determination-or-an-assertion` / es-419
+### 10. ADVERSARIAL -- `aims-ia-04-01-a-determination-or-an-assertion` / es-419
 
-flags: unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1)
+flags: _unit (block); modal-sentence (should -> obligation (block): **Externas.** La regulación en las jurisdicciones donde operan los sistemas — y ); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.2); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.1)
 
 **EN**
 
@@ -1038,9 +552,9 @@ Leer la determinación de roles y encontrarla internamente coherente no establec
 Comparar ese inventario con la determinación produce tres tipos de hallazgo, en orden creciente de utilidad:
 ```
 
-### 19. ADVERSARIAL -- `aims-ia-04-08-defined-versus-running` / es-419
+### 11. ADVERSARIAL -- `aims-ia-04-08-defined-versus-running` / es-419
 
-flags: accent (clausula); unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: clausula 7.5.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6)
+flags: accent (clausula); _unit (block); modal-sentence (should -> obligation (block): Y la observación honesta de auditoría es que no encontrar nada aquí es común, po); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: clausula 7.5.1); clause-vocab (es uses `apartado`: cláusula 8.1); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 6); clause-vocab (es uses `apartado`: capítulo 8); clause-vocab (es uses `apartado`: capítulo 6)
 
 **EN**
 
@@ -1076,9 +590,9 @@ La separación recorre toda la norma y vale la pena mantener los pares como una 
 | Controles de la Declaración de Aplicabilidad | 6.1.3 | **8.1** — implementar y monitorear su eficacia |
 ```
 
-### 20. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / es-419
+### 12. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / es-419
 
-flags: clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 4.2); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3)
+flags: _unit (sentence); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 4.2); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.1); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3); clause-vocab (es uses `apartado`: capítulo 4.3)
 
 **EN**
 
@@ -1104,113 +618,15 @@ Clause 4.2 requires the organization to determine the interested parties relevan
 El apartado 4.2 requiere que la organización determine las partes interesadas relevantes para el sistema de gestión de IA, sus requisitos relevantes, y **cuáles de esos requisitos serán atendidos** a través del sistema de gestión de IA.
 ```
 
-### 21. RANDOM -- `aims-ia-01-01-who-commissioned-it` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Read the first limb again. **Two sets of criteria, not one, and the organization's own come first in the standard's wording.** An AI management system can satisfy every clause of ISO/IEC 42001 and still fail the organization's own AI policy - and that is a finding, raised against a criterion the organization wrote itself.
-
-The third limb is separate from the first two. Conformity is about whether the arrangements meet the requirements. Effective implementation and maintenance is about whether they operate. An AIMS that is documented to the letter and dormant in practice conforms and is not effectively implemented.
-
-No certificate results. Nobody outside the organization is entitled to the report. The entire value of the exercise is that management learns something true before someone else does.
-::
-```
-
-**es-419**
-
-```
-Lea el primer punto nuevamente. **Dos conjuntos de criterios, no uno, y los de la propia organización aparecen primero en la redacción de la norma.** Un sistema de gestión de IA puede satisfacer cada capítulo de ISO/IEC 42001 y aun así incumplir la propia política de IA de la organización — y eso es un hallazgo, planteado frente a un criterio que la propia organización redactó.
-
-El tercer punto es independiente de los dos primeros. La conformidad se refiere a si los acuerdos cumplen los requisitos. La implementación y el mantenimiento eficaces se refieren a si estos operan en la práctica. Un sistema de gestión de IA documentado al pie de la letra pero inactivo en la práctica es conforme y no está implementado de manera eficaz.
-
-No se emite ningún certificado. Nadie fuera de la organización tiene derecho al informe. El valor total del ejercicio radica en que la dirección aprende algo verdadero antes de que lo haga otra persona.
-::
-```
-
-### 22. RANDOM -- `aims-ia-02-06-choosing-the-method` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The output of these questions is usually a **combination**, which clause 5.5.3 expressly provides for: remote for the registries and logs, on-site for the interviews that matter and for anything physical.
-::
-
-::interactive widget="drag-match" id="method-to-evidence" concept_slugs="aia-method-fit-to-evidence,aia-remote-audit-methods,aia-virtual-location,aia-auditing-methods"
-{
-  "items": [
-    { "id": "s1", "text": "Establishing what versions of a model were in production during the audit period, from the registry and deployment history." },
-    { "id": "s2", "text": "Establishing whether the physical access controls protecting an on-premises training cluster operate as documented." },
-    { "id": "s3", "text": "Establishing whether the data preparation control operates as described, where the auditor must choose which records to open." },
-    { "id": "s4", "text": "Establishing how the incident process actually ran during a live model failure, from the people who were in the room." }
-  ],
-  "targets": [
-    { "id": "t-remote", "text": "Remote - virtual location, no loss" },
-    { "id": "t-onsite-phys", "text": "On-site - physical control to be observed" },
-    { "id": "t-remote-driven", "text": "Remote, with the auditor directing what is opened" },
-    { "id": "t-onsite-people", "text": "On-site or live interview - evidence held by people" }
-  ],
-  "correct": {
-    "s1": "t-remote",
-    "s2": "t-onsite-phys",
-    "s3": "t-remote-driven",
-    "s4": "t-onsite-people"
-  },
-  "explanation": "The third is the distinction that matters most in practice. Both it and the first are remote, and they are not the same exercise: reading a registry establishes what it says, while testing a control requires the auditor to select the sample rather than receive it. Annex A.16 asks that agreed remote access protocols, devices and software be available - which is what makes auditor-directed examination possible rather than a demonstration."
-}
-::
-
-::deep-dive title="Combined audits, and the trap of one method for two disciplines"
-Clause 5.5.3 notes that where an auditee runs two or more management systems in different disciplines, combined audits may go into the programme. Many organizations adding an AIMS already hold an ISMS, and combining the audits is attractive: shared opening meeting, shared interviews, one disruption instead of two.
-```
-
-**es-419**
-
-```
-El resultado de estas preguntas es habitualmente una **combinación**, que el apartado 5.5.3 prevé expresamente: remoto para los registros y los logs, presencial para las entrevistas que importan y para todo lo que sea físico.
-::
-
-::interactive widget="drag-match" id="method-to-evidence" concept_slugs="aia-method-fit-to-evidence,aia-remote-audit-methods,aia-virtual-location,aia-auditing-methods"
-{
-  "items": [
-    { "id": "s1", "text": "Establecer qué versiones de un modelo estuvieron en producción durante el período de auditoría, a partir del registro y el historial de despliegues." },
-    { "id": "s2", "text": "Establecer si los controles de acceso físico que protegen un clúster de entrenamiento en las instalaciones operan según lo documentado." },
-    { "id": "s3", "text": "Establecer si el control de preparación de datos opera según lo descrito, cuando el auditor debe elegir qué registros abrir." },
-    { "id": "s4", "text": "Establecer cómo se desarrolló realmente el proceso de incidentes durante un fallo en vivo del modelo, a partir de las personas que estaban presentes." }
-  ],
-  "targets": [
-    { "id": "t-remote", "text": "Remoto - ubicación virtual, sin pérdida" },
-    { "id": "t-onsite-phys", "text": "Presencial - control físico a observar" },
-    { "id": "t-remote-driven", "text": "Remoto, con el auditor dirigiendo qué se abre" },
-    { "id": "t-onsite-people", "text": "Presencial o entrevista en vivo - evidencia en poder de personas" }
-  ],
-  "correct": {
-    "s1": "t-remote",
-    "s2": "t-onsite-phys",
-    "s3": "t-remote-driven",
-    "s4": "t-onsite-people"
-  },
-  "explanation": "El tercero es el matiz que más importa en la práctica. Tanto este como el primero son remotos, pero no son el mismo ejercicio: leer un registro establece lo que dice, mientras que probar un control requiere que el auditor seleccione la muestra en lugar de recibirla. El Anexo A.16 pide que los protocolos de acceso remoto acordados, los dispositivos y el software estén disponibles, que es lo que hace posible el examen dirigido por el auditor en lugar de una demostración."
-}
-::
-
-::deep-dive title="Auditorías combinadas y la trampa de un único método para dos disciplinas"
-El apartado 5.5.3 señala que, cuando un auditado opera dos o más sistemas de gestión de distintas disciplinas, las auditorías combinadas pueden incluirse en el programa. Muchas organizaciones que añaden un sistema de gestión de IA ya cuentan con un SGSI, y combinar las auditorías resulta atractivo: reunión de apertura compartida, entrevistas compartidas, una sola interrupción en lugar de dos.
-```
-
 ---
 
 ## AIMS-IA 2026-09-12 / pt-BR
 
-26 row(s) in this stratum; 4 adversarial, 2 random.
+26 row(s) in this stratum; 4 adversarial, 0 random.
 
-### 23. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / pt-BR
+### 13. ADVERSARIAL -- `aims-ia-04-02-boundaries-and-applicability` / pt-BR
 
-flags: modal (should x3, no weak modal, 14 obligations vs 11 en); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3)
+flags: modal (should x3, no weak modal, 14 obligations vs 11 en); _unit (sentence); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.1); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 4.3)
 
 **EN**
 
@@ -1236,9 +652,9 @@ Clause 4.2 requires the organization to determine the interested parties relevan
 A Seção 4.2 exige que a organização determine as partes interessadas relevantes para o sistema de gestão de IA, seus requisitos relevantes e **quais desses requisitos serão atendidos** por meio do sistema de gestão de IA.
 ```
 
-### 24. ADVERSARIAL -- `aims-ia-02-01-a-programme-is-designed-not-scheduled` / pt-BR
+### 14. ADVERSARIAL -- `aims-ia-02-01-a-programme-is-designed-not-scheduled` / pt-BR
 
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); unalignable (sentence counts differ; A and B did not run); clause-vocab (pt uses a flat `Seção`: cláusula 3.5); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula 5.1)
+flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); _unit (block); clause-vocab (pt uses a flat `Seção`: cláusula 3.5); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula 5.1)
 
 **EN**
 
@@ -1396,9 +812,9 @@ A Seção 5.3 da ISO/IEC 42001 exige que a alta direção atribua responsabilida
 ::
 ```
 
-### 25. ADVERSARIAL -- `aims-ia-05-04-can-this-finding-stand` / pt-BR
+### 15. ADVERSARIAL -- `aims-ia-05-04-can-this-finding-stand` / pt-BR
 
-flags: modal-sentence (should -> obligation: O A.6.2.6 exige que a organização defina e documente os elementos necessários para a opera); modal-sentence (should -> obligation: O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o registro de ); clause-vocab (pt uses a flat `Seção`: cláusula 3.16); clause-vocab (pt uses a flat `Seção`: cláusula 3.14); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 3.26)
+flags: _unit (sentence); modal-sentence (should -> obligation (sentence): O A.6.2.6 exige que a organização defina e documente os elementos necessários pa); modal-sentence (should -> obligation (sentence): O A.6.2.8 exige que a organização determine em quais fases do ciclo de vida o re); clause-vocab (pt uses a flat `Seção`: cláusula 3.16); clause-vocab (pt uses a flat `Seção`: cláusula 3.14); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 4.2); clause-vocab (pt uses a flat `Seção`: cláusula 3.26)
 
 **EN**
 
@@ -1422,9 +838,9 @@ flags: modal-sentence (should -> obligation: O A.6.2.6 exige que a organização
 ::
 ```
 
-### 26. ADVERSARIAL -- `aims-ia-02-03-competence-the-team-needs` / pt-BR
+### 16. ADVERSARIAL -- `aims-ia-02-03-competence-the-team-needs` / pt-BR
 
-flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); modal-sentence (should -> obligation: Esse julgamento requer compreensão do domínio, e um auditor sem ela deve declarar o que te); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 3.17)
+flags: accent (secao); convem (convem-que not clause-initial); convem (convem-que not clause-initial); convem (convem-que not clause-initial); _unit (sentence); modal-sentence (should -> obligation (sentence): Esse julgamento requer compreensão do domínio, e um auditor sem ela deve declara); clause-vocab (pt uses a flat `Seção`: cláusula 3.15); clause-vocab (pt uses a flat `Seção`: cláusula 3.17)
 
 **EN**
 
@@ -1494,215 +910,15 @@ A Seção 5.3 coloca isso diretamente nos riscos do programa: a falta de auditor
 Há um caso desconfortável que vale nomear, pois aparece regularmente em organizações pequenas.
 ```
 
-### 27. RANDOM -- `aims-ia-01-01-who-commissioned-it` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Read the first limb again. **Two sets of criteria, not one, and the organization's own come first in the standard's wording.** An AI management system can satisfy every clause of ISO/IEC 42001 and still fail the organization's own AI policy - and that is a finding, raised against a criterion the organization wrote itself.
-
-The third limb is separate from the first two. Conformity is about whether the arrangements meet the requirements. Effective implementation and maintenance is about whether they operate. An AIMS that is documented to the letter and dormant in practice conforms and is not effectively implemented.
-
-No certificate results. Nobody outside the organization is entitled to the report. The entire value of the exercise is that management learns something true before someone else does.
-::
-```
-
-**pt-BR**
-
-```
-Leia o primeiro item novamente. **Dois conjuntos de critérios, não um, e os da própria organização vêm primeiro na redação da norma.** Um sistema de gestão de IA pode satisfazer todas as seções da ISO/IEC 42001 e ainda assim não atender à própria política de IA da organização — e isso é uma constatação, levantada contra um critério que a própria organização redigiu.
-
-O terceiro item é separado dos dois primeiros. Conformidade diz respeito a se os arranjos atendem aos requisitos. Implementação e manutenção efetivas dizem respeito a se eles operam. Um sistema de gestão de IA documentado à risca, mas inativo na prática, está em conformidade e não está efetivamente implementado.
-
-Nenhum certificado é emitido. Ninguém fora da organização tem direito ao relatório. Todo o valor do exercício está no fato de que a gestão aprende algo verdadeiro antes que outra pessoa o faça.
-::
-```
-
-### 28. RANDOM -- `aims-ia-01-03-which-document-can-carry-a-finding` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-Note the asymmetry that follows. ISO 19011 offers guidance and requires nothing. ISO/IEC 17021-1 imposes requirements, on certification bodies. ISO/IEC 42001 imposes requirements, on organizations operating an AI management system. Only the last two contain anything an audit finding can rest on, and only one of them applies to your auditee.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "A draft finding reads: \"Nonconformity against ISO 19011:2026 clause 5.5.3 - the audit programme did not balance on-site and remote methods with consideration of associated risks.\" What should the auditor do?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Issue it - clause 5.5.3 addresses method selection and the programme did not follow it." },
-      { "id": "b", "text": "Restate it as an observation or opportunity for improvement, because ISO 19011 contains no requirements and cannot be the criterion for a nonconformity." },
-      { "id": "c", "text": "Issue it against ISO/IEC 42001 clause 9.2 instead, since that clause requires an audit programme." },
-      { "id": "d", "text": "Escalate to the certification body for a determination." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 5.5.3 is a should, like the rest of ISO 19011. The substance may be worth raising, and an observation is how it is raised. Option c is tempting but wrong as stated: clause 9.2.2 requires an audit programme including methods, so a finding could conceivably be built there - but only if the evidence shows the organization failed its own or the standard's requirement, not by relabelling a 19011 recommendation.",
-    "concept_slugs": ["aia-19011-is-guidance-only", "aia-method-vs-criteria"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  },
-  {
-    "id": "q2",
-    "question": "An auditee states: \"Our audit programme is compliant with ISO 19011:2026.\" What is the accurate response?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Accept it and request the certificate of compliance." },
-      { "id": "b", "text": "ISO 19011 states no requirements and is addressed to auditors rather than to organizations, so there is nothing to be compliant with or certified against - the programme can be described as following its guidance." },
-      { "id": "c", "text": "Compliance with ISO 19011 is possible but must be assessed by a third party." },
-      { "id": "d", "text": "The claim is correct if the organization has documented its audit programme." }
-    ],
-    "correct": ["b"],
-    "explanation": "Because the document contains no requirements there is nothing to conform to, and no certification exists against it. The claim is a category error rather than a falsehood about the programme, and the useful correction is to describe the programme as following ISO 19011 guidance.",
-    "concept_slugs": ["aia-no-certification-to-19011", "aia-19011-is-guidance-only"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  },
-  {
-    "id": "q3",
-    "question": "An organization's own AI policy requires a documented evaluation before any model is deployed. The auditor finds two models deployed without one. ISO/IEC 42001 contains no clause requiring pre-deployment evaluation in those terms. What follows?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "No finding - the standard imposes no such requirement, so there is no criterion to fail." },
-      { "id": "b", "text": "A nonconformity - clause 9.2.1 names the organization's own requirements for its AI management system as audit criteria, and the policy is one of them." },
-      { "id": "c", "text": "An observation only, because internal policy is weaker than a standard requirement." },
-      { "id": "d", "text": "A finding against clause 5.2, because the AI policy was not followed." }
-    ],
-    "correct": ["b"],
-    "explanation": "Clause 9.2.1 a) 1) makes the organization's own requirements audit criteria in their own right, and ISO 19011 clause 3.8 notes that requirements may include policies. Option d misplaces the criterion: clause 5.2 requires the policy to be established and to have certain properties, not that every provision of it be met - the failure is against the policy itself.",
-    "concept_slugs": ["aia-audit-criteria-definition", "aia-method-vs-criteria"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  },
-  {
-    "id": "q4",
-    "question": "An auditee asks to see the requirement obliging them to follow ISO 19011 in their internal audits. What is the accurate answer?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "ISO/IEC 42001 clause 9.2.2 requires audits to be conducted in accordance with ISO 19011." },
-      { "id": "b", "text": "There is none. ISO/IEC 42001 clause 9.2 states its own internal audit requirements, and mentions ISO 19011 once in a note about where audit evidence and audit criteria are defined." },
-      { "id": "c", "text": "ISO 19011 clause 1 obliges any organization conducting management system audits to apply it." },
-      { "id": "d", "text": "The obligation arises from ISO/IEC 17021-1, which applies ISO 19011 to all audit types." }
-    ],
-    "correct": ["b"],
-    "explanation": "ISO 19011 is a methodology an auditor chooses to apply, not a criterion the auditee is held to - it has no normative references and names no management system standard. Clause 9.2.2 sets out what the organization shall do without citing it. ISO 19011 clause 1 says the document gives guidance, and ISO/IEC 17021-1 governs certification bodies rather than an internal programme.",
-    "concept_slugs": ["aia-method-vs-criteria", "aia-19011-is-guidance-only"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  }
-]
-::
-
-::summary
-- ISO 19011:2026 is the audit method; ISO/IEC 42001:2023 is the criteria. Findings are raised against criteria.
-- ISO 19011 contains one shall - patent boilerplate - and 264 shoulds, and has no normative references.
-- Nothing can be found non-conforming to ISO 19011, and no organization is certified against it.
-- Audit criteria are the set of requirements evidence is compared against, and may include the organization's own policies.
-- Clause 9.2.1 names two sets of criteria: the organization's own AIMS requirements and the standard's.
-- ISO/IEC 42001 does not require the use of ISO 19011; it mentions it once, in a note about defined terms.
-::
-```
-
-**pt-BR**
-
-```
-Observe a assimetria que decorre disso. A ISO 19011 oferece orientação e não exige nada. A ISO/IEC 17021-1 impõe requisitos, aos organismos de certificação. A ISO/IEC 42001 impõe requisitos, às organizações que operam um sistema de gestão de IA. Apenas as duas últimas contêm algo em que uma constatação de auditoria pode se basear, e apenas uma delas se aplica ao seu auditado.
-::
-
-::checkpoint
-[
-  {
-    "id": "q1",
-    "question": "Uma constatação em rascunho diz: \"Não conformidade contra a ISO 19011:2026 Seção 5.5.3 — o programa de auditoria não equilibrou métodos presenciais e remotos considerando os riscos associados.\" O que o auditor deve fazer?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Emiti-la — a Seção 5.5.3 trata da seleção de métodos e o programa não a seguiu." },
-      { "id": "b", "text": "Reformulá-la como uma observação ou oportunidade de melhoria, pois a ISO 19011 não contém requisitos e não pode ser o critério de uma não conformidade." },
-      { "id": "c", "text": "Emiti-la contra a Seção 9.2 da ISO/IEC 42001, já que essa seção exige um programa de auditoria." },
-      { "id": "d", "text": "Escalar ao organismo de certificação para uma determinação." }
-    ],
-    "correct": ["b"],
-    "explanation": "A Seção 5.5.3 é um should, como todo o restante da ISO 19011. O conteúdo pode valer a pena ser levantado, e uma observação é a forma de fazê-lo. A opção c é tentadora, mas incorreta como formulada: a Seção 9.2.2 exige um programa de auditoria que inclua métodos, portanto uma constatação poderia ser construída ali — mas somente se a evidência mostrar que a organização descumpriu seu próprio requisito ou o da norma, e não simplesmente por rerotular uma recomendação da ISO 19011.",
-    "concept_slugs": ["aia-19011-is-guidance-only", "aia-method-vs-criteria"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  },
-  {
-    "id": "q2",
-    "question": "Um auditado afirma: \"Nosso programa de auditoria está em conformidade com a ISO 19011:2026.\" Qual é a resposta correta?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Aceitar a afirmação e solicitar o certificado de conformidade." },
-      { "id": "b", "text": "A ISO 19011 não estabelece requisitos e é dirigida a auditores, não a organizações, portanto não há nada com o que estar em conformidade ou contra o que certificar — o programa pode ser descrito como seguindo suas orientações." },
-      { "id": "c", "text": "A conformidade com a ISO 19011 é possível, mas deve ser avaliada por terceira parte." },
-      { "id": "d", "text": "A afirmação está correta se a organização tiver documentado seu programa de auditoria." }
-    ],
-    "correct": ["b"],
-    "explanation": "Como o documento não contém requisitos, não há nada com o que estar em conformidade, e não existe certificação contra ele. A afirmação é um erro de categoria, e não uma inverdade sobre o programa; a correção útil é descrever o programa como seguindo as orientações da ISO 19011.",
-    "concept_slugs": ["aia-no-certification-to-19011", "aia-19011-is-guidance-only"],
-    "bloom_level": "3_apply",
-    "difficulty": 3
-  },
-  {
-    "id": "q3",
-    "question": "A própria política de IA de uma organização exige uma avaliação documentada antes de qualquer modelo ser implantado. O auditor constata que dois modelos foram implantados sem ela. A ISO/IEC 42001 não contém nenhuma seção que exija avaliação pré-implantação nesses termos. O que se conclui?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "Nenhuma constatação — a norma não impõe tal requisito, portanto não há critério a ser descumprido." },
-      { "id": "b", "text": "Uma não conformidade — a Seção 9.2.1 nomeia os próprios requisitos da organização para seu sistema de gestão de IA como critérios de auditoria, e a política é um deles." },
-      { "id": "c", "text": "Apenas uma observação, pois a política interna é mais fraca do que um requisito normativo." },
-      { "id": "d", "text": "Uma constatação contra a Seção 5.2, pois a política de IA não foi seguida." }
-    ],
-    "correct": ["b"],
-    "explanation": "A Seção 9.2.1 a) 1) torna os próprios requisitos da organização critérios de auditoria por direito próprio, e a Seção 3.8 da ISO 19011 observa que os requisitos podem incluir políticas. A opção d situa o critério incorretamente: a Seção 5.2 exige que a política seja estabelecida e possua certas propriedades, não que cada disposição dela seja cumprida — o descumprimento é contra a própria política.",
-    "concept_slugs": ["aia-audit-criteria-definition", "aia-method-vs-criteria"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  },
-  {
-    "id": "q4",
-    "question": "Um auditado pede para ver o requisito que o obriga a seguir a ISO 19011 em suas auditorias internas. Qual é a resposta correta?",
-    "type": "single_choice",
-    "options": [
-      { "id": "a", "text": "A Seção 9.2.2 da ISO/IEC 42001 exige que as auditorias sejam conduzidas em conformidade com a ISO 19011." },
-      { "id": "b", "text": "Não existe tal requisito. A Seção 9.2 da ISO/IEC 42001 estabelece seus próprios requisitos de auditoria interna e menciona a ISO 19011 uma única vez, em uma nota sobre onde evidência de auditoria e critérios de auditoria são definidos." },
-      { "id": "c", "text": "A Seção 1 da ISO 19011 obriga qualquer organização que conduza auditorias de sistemas de gestão a aplicá-la." },
-      { "id": "d", "text": "A obrigação decorre da ISO/IEC 17021-1, que aplica a ISO 19011 a todos os tipos de auditoria." }
-    ],
-    "correct": ["b"],
-    "explanation": "A ISO 19011 é uma metodologia que o auditor opta por aplicar, não um critério ao qual o auditado está sujeito — ela não possui referências normativas e não menciona nenhuma norma de sistema de gestão. A Seção 9.2.2 estabelece o que a organização deve fazer sem citá-la. A Seção 1 da ISO 19011 afirma que o documento fornece orientação, e a ISO/IEC 17021-1 rege organismos de certificação, não um programa interno.",
-    "concept_slugs": ["aia-method-vs-criteria", "aia-19011-is-guidance-only"],
-    "bloom_level": "3_apply",
-    "difficulty": 4
-  }
-]
-::
-
-::summary
-- A ISO 19011:2026 é o método de auditoria; a ISO/IEC 42001:2023 é o critério. As constatações são levantadas contra critérios.
-- A ISO 19011 contém um único shall — texto padrão sobre patentes — e 264 shoulds, e não possui referências normativas.
-- Nada pode ser constatado como não conforme à ISO 19011, e nenhuma organização é certificada contra ela.
-- Os critérios de auditoria são o conjunto de requisitos contra os quais a evidência é comparada, e podem incluir as próprias políticas da organização.
-- A Seção 9.2.1 nomeia dois conjuntos de critérios: os próprios requisitos de sistema de gestão de IA da organização e os da norma.
-- A ISO/IEC 42001 não exige o uso da ISO 19011; ela a menciona uma única vez, em uma nota sobre termos definidos.
-::
-```
-
 ---
 
 ## ISMS-IA 2026-08-12 / es-419
 
-34 row(s) in this stratum; 4 adversarial, 4 random.
+34 row(s) in this stratum; 4 adversarial, 0 random.
 
-### 29. ADVERSARIAL -- `isms-ia-01-01-audit-parties` / es-419
+### 17. ADVERSARIAL -- `isms-ia-01-01-audit-parties` / es-419
 
-flags: modal (should x1, no weak modal, 2 obligations vs 0 en); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: Capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
+flags: modal (should x1, no weak modal, 2 obligations vs 0 en); _unit (sentence); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: Capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
 
 **EN**
 
@@ -1874,9 +1090,9 @@ Se superponen en evidencia y no son intercambiables en obligación. Una pieza de
 ::
 ```
 
-### 30. ADVERSARIAL -- `isms-ia-04-01-what-the-scope-left-out` / es-419
+### 18. ADVERSARIAL -- `isms-ia-04-01-what-the-scope-left-out` / es-419
 
-flags: structure (quotes en=3 tr=2); unalignable (sentence counts differ; A and B did not run); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
+flags: structure (quotes en=3 tr=2); _unit (block); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 4.3); clause-vocab (es uses `apartado`: cláusula 6.1.3); clause-vocab (es uses `apartado`: capítulo 4); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
 
 **EN**
 
@@ -1904,9 +1120,9 @@ flags: structure (quotes en=3 tr=2); unalignable (sentence counts differ; A and 
 ::
 ```
 
-### 31. ADVERSARIAL -- `isms-ia-02-06-testing-the-programme` / es-419
+### 19. ADVERSARIAL -- `isms-ia-02-06-testing-the-programme` / es-419
 
-flags: clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
+flags: _unit (sentence); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2); clause-vocab (es uses `apartado`: capítulo 9.2)
 
 **EN**
 
@@ -1934,9 +1150,9 @@ Lo que tiende a satisfacerlo:
 - Evidencia de que los resultados llegaron a la dirección pertinente, conforme al apartado 9.2.2 c). Un informe archivado en una carpeta que la dirección no lee no le ha sido comunicado.
 ```
 
-### 32. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / es-419
+### 20. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / es-419
 
-flags: ceiling (span 2 en=24 tr=36 cap=34); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
+flags: ceiling (span 2 en=24 tr=36 cap=34); _unit (sentence); clause-vocab (es uses `apartado`: cláusula 9.2.2); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: cláusula 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1); clause-vocab (es uses `apartado`: Capítulo 1)
 
 **EN**
 
@@ -1962,155 +1178,15 @@ ISO 19011:2026 define los **criterios de auditoría** como el conjunto de requis
 Para una auditoría interna del SGSI, los criterios son típicamente ISO/IEC 27001 **y** los propios requisitos de la organización. El apartado 9.2.1 enumera ambos, en ese orden:
 ```
 
-### 33. RANDOM -- `isms-ia-02-05-who-does-the-audit` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-What is not available is the fourth option everyone reaches for: **run the audit as planned and write the conclusion as though the resource had been there.**
-::
-
-::interactive widget="sort-into-order" id="staffing-decision-order" concept_slugs="ia-audit-team-selection-5-5-4,ia-audit-programme-resources-5-4-4,ia-audit-team-leader-assignment-5-5-5,ia-technical-expert-role"
-{
-  "items": [
-    { "id": "a", "text": "Establish what the audit must conclude about, from its scope and criteria" },
-    { "id": "b", "text": "Determine what knowledge and skills reaching those conclusions requires" },
-    { "id": "c", "text": "Compare that against what the available auditors collectively hold, and identify the gap" },
-    { "id": "d", "text": "Close the gap with a team member or a technical expert, or narrow the scope, or record a limitation" },
-    { "id": "e", "text": "Assign responsibility for the audit to a team leader" }
-  ],
-  "correct_order": ["a", "b", "c", "d", "e"],
-  "explanation": "The order matters because each step depends on the one before it. Starting anywhere other than the scope produces a team assembled from who was free rather than from what the audit needs - which is the usual way an audit ends up unable to evaluate what it is looking at. Note that step d has three exits, not one: closing the gap is preferable, but narrowing the scope and recording a limitation are legitimate resolutions. Proceeding with an unclosed, unnarrowed and unrecorded gap is not."
-}
-::
-
-::deep-dive title="Auditing the resourcing decision"
-Resourcing is one of the hardest things to audit because the evidence is usually absent by design - nobody documents the audit they did not have time to do properly.
-```
-
-**es-419**
-
-```
-Lo que no está disponible es la cuarta opción a la que todos recurren: **ejecutar la auditoría según lo planificado y redactar la conclusión como si el recurso hubiera estado disponible.**
-::
-
-::interactive widget="sort-into-order" id="staffing-decision-order" concept_slugs="ia-audit-team-selection-5-5-4,ia-audit-programme-resources-5-4-4,ia-audit-team-leader-assignment-5-5-5,ia-technical-expert-role"
-{
-  "items": [
-    { "id": "a", "text": "Establecer sobre qué debe concluir la auditoría, a partir de su alcance y criterios" },
-    { "id": "b", "text": "Determinar qué conocimientos y habilidades requiere llegar a esas conclusiones" },
-    { "id": "c", "text": "Comparar eso con lo que los auditores disponibles poseen colectivamente e identificar la brecha" },
-    { "id": "d", "text": "Cerrar la brecha con un miembro del equipo o un experto técnico, o reducir el alcance, o registrar una limitación" },
-    { "id": "e", "text": "Asignar la responsabilidad de la auditoría a un líder del equipo" }
-  ],
-  "correct_order": ["a", "b", "c", "d", "e"],
-  "explanation": "El orden importa porque cada paso depende del anterior. Comenzar en cualquier otro punto produce un equipo ensamblado según quién estaba disponible, en lugar de según lo que la auditoría necesita, que es la forma habitual en que una auditoría termina sin poder evaluar lo que está examinando. Nótese que el paso d tiene tres salidas, no una: cerrar la brecha es preferible, pero reducir el alcance y registrar una limitación son resoluciones legítimas. Continuar con una brecha no cerrada, no reducida y no registrada no lo es."
-}
-::
-
-::deep-dive title="Auditar la decisión de recursos"
-Los recursos son una de las cosas más difíciles de auditar porque la evidencia suele estar ausente por diseño: nadie documenta la auditoría que no tuvo tiempo de realizar correctamente.
-```
-
-### 34. RANDOM -- `isms-ia-03-02-what-the-sample-supports` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-**Most internal audits use judgement-based sampling**, and that is appropriate. The error is not using it. The error is writing a population-level conclusion from it.
-::
-
-::callout type="pitfall"
-"We examined ten access changes and found no exceptions, so access control is operating effectively" is a population claim from a judgement-based sample. The examination may have been excellent. The sentence is not supportable.
-::
-
-::concept title="Adequacy is about the conclusion, not the sample"
-This is the discipline the lesson turns on.
-```
-
-**es-419**
-
-```
-**La mayoría de las auditorías internas utilizan muestreo basado en criterio**, y eso es apropiado. El error no es usarlo. El error es redactar una conclusión a nivel de población a partir de él.
-::
-
-::callout type="pitfall"
-"Examinamos diez cambios de acceso y no encontramos excepciones, por lo que el control de acceso opera de manera efectiva" es una afirmación sobre la población a partir de una muestra basada en criterio. El examen puede haber sido excelente. La oración no es sostenible.
-::
-
-::concept title="La adecuación se refiere a la conclusión, no a la muestra"
-Esta es la disciplina en torno a la cual gira la lección.
-```
-
-### 35. RANDOM -- `isms-ia-03-04-what-each-method-can-establish` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The mistake is treating them as interchangeable ways of getting to the same place. They are not. **Each one establishes a different kind of thing**, and choosing wrongly produces evidence that does not bear on the question you asked.
-
-Before selecting, name what the audit trail needs to establish. Usually it is one of three:
-
-- **That an arrangement exists** - a policy, a procedure, a defined responsibility.
-- **That the arrangement is understood** by the people who have to operate it.
-- **That the arrangement operates** - that the thing actually happens, on the records that exist, in the period under audit.
-```
-
-**es-419**
-
-```
-El error consiste en tratarlos como formas intercambiables de llegar al mismo lugar. No lo son. **Cada uno establece un tipo diferente de cosa**, y elegir incorrectamente produce evidencia que no responde a la pregunta formulada.
-
-Antes de seleccionar, defina qué necesita establecer el expediente de auditoría. Por lo general, es una de estas tres cosas:
-
-- **Que existe un acuerdo** — una política, un procedimiento, una responsabilidad definida.
-- **Que el acuerdo es comprendido** por las personas que deben operarlo.
-- **Que el acuerdo opera** — que la cosa realmente ocurre, en los registros existentes, durante el período auditado.
-```
-
-### 36. RANDOM -- `isms-ia-03-07-where-the-audit-stops` / es-419
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The second question is often the one somebody in the room wants answered, and it is not what an ISMS audit is for. An auditor who drifts into it is doing work they may not be competent for, on a system they may damage, producing a conclusion that is not what the audit was scoped to deliver.
-
-**The boundary is not a limit on curiosity.** Noticing that a rule looks wrong is exactly what a good auditor does. What follows the noticing is where the discipline lives.
-::
-
-::concept title="What to do at the boundary"
-Three honest responses, and they are the same three as lesson 01-04's competence gaps, because it is the same problem viewed from the evidence side.
-```
-
-**es-419**
-
-```
-La segunda pregunta es con frecuencia la que alguien en la sala quiere responder, y no es para lo que sirve una auditoría del SGSI. Un auditor que se adentra en ella está realizando un trabajo para el que puede no tener competencia, sobre un sistema que puede dañar, y produciendo una conclusión que no es lo que la auditoría tenía alcance para entregar.
-
-**El límite no es una restricción a la curiosidad.** Notar que una regla parece incorrecta es exactamente lo que hace un buen auditor. Lo que sigue a esa observación es donde reside la disciplina.
-::
-
-::concept title="Qué hacer al llegar al límite"
-Tres respuestas honestas, y son las mismas tres de la lección 01-04 sobre brechas de competencia, porque es el mismo problema visto desde el lado de la evidencia.
-```
-
 ---
 
 ## ISMS-IA 2026-08-12 / pt-BR
 
-31 row(s) in this stratum; 4 adversarial, 4 random.
+31 row(s) in this stratum; 4 adversarial, 0 random.
 
-### 37. ADVERSARIAL -- `isms-ia-03-08-what-the-tool-verified` / pt-BR
+### 21. ADVERSARIAL -- `isms-ia-03-08-what-the-tool-verified` / pt-BR
 
-flags: clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
+flags: _unit (sentence); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
 
 **EN**
 
@@ -2140,9 +1216,9 @@ Saiba qual **forma** têm as omissões de uma ferramenta, não seu percentual de
 A lição 03-03 estabeleceu que a proveniência é o que se perde primeiro com evidências remotas. Com evidências assistidas por ferramenta, ela se perde de uma forma diferente: não a origem do registro, mas **o processo que o selecionou ou transformou.**
 ```
 
-### 38. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / pt-BR
+### 22. ADVERSARIAL -- `isms-ia-02-03-scope-criteria-objectives` / pt-BR
 
-flags: ceiling (span 2 en=24 tr=33 cap=32); unalignable (sentence counts differ; A and B did not run); clause-vocab (pt uses a flat `Seção`: cláusula 9.2.2); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula)
+flags: ceiling (span 2 en=24 tr=33 cap=32); _unit (block); clause-vocab (pt uses a flat `Seção`: cláusula 9.2.2); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula); clause-vocab (pt uses a flat `Seção`: Cláusula 1); clause-vocab (pt uses a flat `Seção`: Cláusula)
 
 **EN**
 
@@ -2168,15 +1244,9 @@ A ISO 19011:2026 define **critérios de auditoria** como o conjunto de requisito
 Para uma auditoria interna de SGSI, os critérios são tipicamente a ISO/IEC 27001 **e** os próprios requisitos da organização. A Seção 9.2.1 lista ambos, nessa ordem:
 ```
 
-### 39. ADVERSARIAL -- `isms-ia-04-05-competence-awareness-documents` / pt-BR
+### 23. ADVERSARIAL -- `isms-ia-05-04-what-the-report-must-disclose` / pt-BR
 
-**NOT SAMPLED: the two bodies do not share a block signature.** Printing a pair
-that is not a pair is worse than printing nothing -- this row needs the structure
-flag read first.
-
-### 40. ADVERSARIAL -- `isms-ia-05-04-what-the-report-must-disclose` / pt-BR
-
-flags: clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
+flags: _unit (sentence); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula ); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula); clause-vocab (pt uses a flat `Seção`: cláusula)
 
 **EN**
 
@@ -2202,159 +1272,11 @@ A lição 03-08 estabeleceu que uma ferramenta que toma decisões de seleção e
 **Divulgue quando a ferramenta moldou quais evidências foram examinadas ou como foram interpretadas.**
 ```
 
-### 41. RANDOM -- `isms-ia-05-02-one-instance-or-a-pattern` / pt-BR
+### 24. ADVERSARIAL -- `isms-ia-04-05-competence-awareness-documents` / pt-BR
 
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
----
-lesson_id: isms-ia-05-02-one-instance-or-a-pattern
-module_slug: ia-findings-and-follow-up
-certification_code: ISMS-IA
-title: One Instance or a Pattern
-subtitle: What makes evidence a nonconformity, and when findings stop being separate
-language: en
-lesson_group_id: isms-ia-05-02-one-instance-or-a-pattern
-duration_minutes: 13
-order_index: 2
-task_codes: ["5.2"]
-concept_slugs:
-  - ia-nonconformity-determination
-  - ia-generating-audit-findings-6-4-8
-  - ia-isolated-versus-systemic-failure
-  - ia-absence-of-evidence-versus-evidence-of-absence
-prerequisites: [isms-ia-05-01-whose-scheme-is-it]
-preview: |
-  A 13-minute lesson on determining whether evidence establishes a
-  nonconformity, and whether a set of findings indicates a systemic
-  failure - using the standard's own hook for systemic reasoning.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Five findings in five areas can be five problems or one. The report that treats them as five has answered an easier question.
-::
-
-::concept title="Three things a nonconformity needs"
-ISO 19011:2026 covers generating audit findings as its own step - evaluating audit evidence against the audit criteria to determine findings.
-```
-
-**pt-BR**
-
-```
----
-lesson_id: isms-ia-05-02-one-instance-or-a-pattern
-module_slug: ia-findings-and-follow-up
-certification_code: ISMS-IA
-title: Uma Instância ou um Padrão
-subtitle: O que torna uma evidência uma não conformidade e quando constatações deixam de ser separadas
-language: pt-BR
-lesson_group_id: isms-ia-05-02-one-instance-or-a-pattern
-duration_minutes: 13
-order_index: 2
-task_codes: ["5.2"]
-concept_slugs:
-  - ia-nonconformity-determination
-  - ia-generating-audit-findings-6-4-8
-  - ia-isolated-versus-systemic-failure
-  - ia-absence-of-evidence-versus-evidence-of-absence
-prerequisites: [isms-ia-05-01-whose-scheme-is-it]
-preview: |
-  Uma lição de 13 minutos sobre como determinar se uma evidência estabelece
-  uma não conformidade e se um conjunto de constatações indica uma falha
-  sistêmica — usando o próprio gancho da norma para o raciocínio sistêmico.
-authors:
-  - Certidemy team
-status: draft
----
-
-::hook
-Cinco constatações em cinco áreas podem ser cinco problemas ou um. O relatório que as trata como cinco respondeu a uma pergunta mais fácil.
-::
-
-::concept title="Três coisas que uma não conformidade precisa"
-A ISO 19011:2026 aborda a geração de constatações de auditoria como uma etapa própria — avaliar as evidências de auditoria em relação aos critérios de auditoria para determinar as constatações.
-```
-
-### 42. RANDOM -- `isms-ia-03-06-testing-the-claim` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-The other three elements matter too, and they shape the test. The SoA also records the necessary controls, the justification for including them, and the justification for excluding any Annex A control. Lesson 04-04 examines whether those justifications hold together. Here, the operative one is the implementation claim.
-
-A control marked as not implemented is not a finding by itself. It may be an accepted risk with a treatment plan behind it. What would be a finding is a control marked implemented that is not.
-::
-
-::concept title="Designed and operating are different questions"
-A control can be well designed and never run. It can run for nine months and stop. It can run every time and not achieve what it was selected to achieve.
-```
-
-**pt-BR**
-
-```
-Os outros três elementos também importam e moldam o teste. A Declaração de Aplicabilidade também registra os controles necessários, a justificativa para incluí-los e a justificativa para excluir qualquer controle do Anexo A. A lição 04-04 examina se essas justificativas se sustentam. Aqui, o elemento operativo é a afirmação de implementação.
-
-Um controle marcado como não implementado não é, por si só, uma constatação. Pode ser um risco aceito com um plano de tratamento por trás. O que seria uma constatação é um controle marcado como implementado que não está.
-::
-
-::concept title="Design e operação são perguntas diferentes"
-Um controle pode ser bem projetado e nunca ter sido executado. Pode funcionar por nove meses e parar. Pode funcionar sempre e não alcançar o que foi selecionado para alcançar.
-```
-
-### 43. RANDOM -- `isms-ia-01-04-competence-of-the-team` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-**Personal behaviour** - the disposition an auditor brings. Ethical conduct, open-mindedness, observation, perceptiveness, tenacity, the willingness to act on conclusions that are unwelcome.
-
-**Knowledge and skills** - what the auditor knows and can do. This splits again: generic knowledge and skills that apply to auditing any management system, and discipline-specific knowledge of the subject being audited.
-
-The generic half is what makes someone an auditor. It includes applying audit principles and methods, planning and organising work, prioritising matters of significance, collecting information through interviews, listening, observation and the review of documented information, understanding the appropriateness and consequences of sampling, verifying the relevance and accuracy of collected information, and confirming that the evidence is sufficient and appropriate to support the findings.
-```
-
-**pt-BR**
-
-```
-**Comportamento pessoal** — a disposição que o auditor traz. Conduta ética, mente aberta, capacidade de observação, perspicácia, tenacidade e disposição para agir com base em conclusões que sejam inconvenientes.
-
-**Conhecimento e habilidades** — o que o auditor sabe e é capaz de fazer. Isso se divide novamente: conhecimento e habilidades genéricos, aplicáveis à auditoria de qualquer sistema de gestão, e conhecimento específico da disciplina sendo auditada.
-
-A metade genérica é o que faz alguém ser um auditor. Ela inclui a aplicação de princípios e métodos de auditoria, planejamento e organização do trabalho, priorização de assuntos relevantes, coleta de informações por meio de entrevistas, escuta, observação e análise de informação documentada, compreensão da adequação e das consequências da amostragem, verificação da relevância e exatidão das informações coletadas e confirmação de que as evidências são suficientes e adequadas para embasar as constatações.
-```
-
-### 44. RANDOM -- `isms-ia-05-03-the-statement-that-survives` / pt-BR
-
-flags: none -- this is the half that tests the checks
-
-**EN**
-
-```
-**The requirement.** Named specifically - the clause of ISO/IEC 27001, the control the organization included in its Statement of Applicability, the section of the organization's own procedure, the contractual or legal obligation. Lesson 01-05 established that if you cannot name it, you do not have a nonconformity.
-
-**The evidence.** What was examined and what it showed. Specific enough that someone could go and look at the same thing: which records, from what population, covering what period.
-
-**The gap.** How the evidence fails to satisfy the requirement. Usually one sentence, and often the shortest of the three.
-```
-
-**pt-BR**
-
-```
-**O requisito.** Nomeado de forma específica — a Seção da ISO/IEC 27001, o controle que a organização incluiu em sua Declaração de Aplicabilidade, a seção do próprio procedimento da organização, a obrigação contratual ou legal. A lição 01-05 estabeleceu que, se você não consegue nomeá-lo, não há não conformidade.
-
-**A evidência.** O que foi examinado e o que revelou. Específica o suficiente para que alguém possa ir verificar a mesma coisa: quais registros, de qual população, cobrindo qual período.
-
-**A lacuna.** Como a evidência deixa de satisfazer o requisito. Geralmente uma frase, e frequentemente a mais curta das três.
-```
+**NOT SAMPLED: the two bodies do not share a block signature.** Printing a pair
+that is not a pair is worse than printing nothing -- this row needs the structure
+flag read first.
 
 ---
 
