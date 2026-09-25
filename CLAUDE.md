@@ -2581,11 +2581,18 @@ system"*, *"Como um modelo de linguagem preve a proxima palavra"*. Narrowed to
 SECOND-PERSON ADDRESS TO AN OPERATOR, in all three languages, because a model
 asked to answer in Spanish refuses in Spanish.
 
-> **IF YOU ARE ABOUT TO TYPE `<<`, USE THE FILE TOOL INSTEAD.** Eight instances
-> by 2026-09-25 (`INCIDENTS.md`). The guard catches them, and catching is still
-> the wrong layer: every one costs a debug cycle and instance 7 landed inside a
-> guard's own message. The trigger is the token, not the judgement — you do not
-> get to decide this heredoc is the safe one.
+> **`<<` IS BLOCKED BY A HOOK. USE THE FILE TOOL, `git commit -F`, OR `<`.**
+> `.claude/hooks/no-heredoc.mjs`, a `PreToolUse` hook on Bash wired in
+> `.claude/settings.json`; `.claude/hooks/test-no-heredoc.mjs` asserts both
+> directions and it has been watched refusing a real attempt.
+>
+> **TEN instances by 2026-09-25** (`INCIDENTS.md`). This sentence read *"eight
+> instances, use the file tool instead"* and was **broken twice more the same
+> day by the author who had just narrowed it to the token** — neither harmful,
+> which is worse, because a rule whose violations are usually harmless is one
+> nobody develops a reflex against. **Luck is not a check.** The trigger is the
+> token, not the judgement, and now it is not yours to make: a rule that
+> survives its tenth violation had to become a mechanism.
 
 **CODE CONTAINING A BACKSLASH IS WRITTEN WITH THE FILE TOOL, NEVER THROUGH A
 HEREDOC — AND THERE IS NOW A GUARD, BECAUSE THE RULE ALONE FAILED FIVE TIMES IN

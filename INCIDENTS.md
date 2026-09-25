@@ -330,7 +330,7 @@ the holder exports its name and children inherit it. Proven both ways.
 
 ---
 
-## 2026-08 to 2026-09-25 — a shell heredoc halving backslashes: EIGHT instances
+## 2026-08 to 2026-09-25 — a shell heredoc halving backslashes: TEN instances, now blocked by a hook
 
 **Not an outage. A recurrence count, and the reason a rule became a guard.**
 
@@ -344,6 +344,8 @@ crosses a shell as a **file**, never as a heredoc. It has been broken eight time
 | 6 | 2026-09-24 | `"\b" + term` in a localisation guard: a backspace, not a word boundary. The guard passed the two rows it existed to refuse | read by a human |
 | 7 | 2026-09-25 | invariant 13's own comment: `\b` became a literal backspace | **invariant 10 failed the commit that added invariant 13** |
 | 8 | 2026-09-25 | `src.split(/\r?\n/)` became a literal newline inside a regex — **in the guard for this exact defect** | `node --check` |
+| 9 | 2026-09-25 | a `git commit -F -` message heredoc. Nothing was mangled — the message carried no backslash | noticed by the author, after the fact |
+| 10 | 2026-09-25 | a `python - <<PYEOF` patch script editing a `.mjs` file. Nothing was mangled | noticed by the author, after the fact |
 
 **Instances 5 and 6 are the dangerous shape and the reason the guard exists.** A
 mangled escape that still PARSES removes every signal you would normally rely on: it
@@ -365,6 +367,40 @@ three times and all three were comments, two of them the note documenting instan
 only path.** The guard stays, because a rule that has been broken eight times is a
 rule without a guard — but every instance still costs a debug cycle, and one of them
 landed in a guard's own message.
+
+### And the rule failed twice more the same day, which is why it is now a hook
+
+**Instances 9 and 10 happened AFTER the rule had been narrowed to a bare token** —
+*if you are about to type `<<`, use the file tool* — and they were committed by the
+author who had just written that sentence down, in the session that recorded
+instance 8.
+
+**Neither mangled anything**, and that is the point rather than a mitigation. The
+rule was keyed on the token precisely so that no judgement about content was
+required; both instances happened anyway, and both were harmless by luck rather
+than by design. **Luck is not a check.** A rule that survives its tenth violation
+is not a rule, and a rule whose violations are usually harmless is one nobody
+develops a reflex against.
+
+> **MECHANISM: a Claude Code `PreToolUse` hook on the Bash tool refuses any command
+> containing `<<`.** `.claude/hooks/no-heredoc.mjs`, wired in `.claude/settings.json`.
+> The refusal names the remedy — the file tool, `git commit -F`, or `<` redirection
+> — because a guard that blocks without saying what to do instead is a guard people
+> route around.
+
+**Both directions are asserted and it was watched firing.**
+`.claude/hooks/test-no-heredoc.mjs` runs the real hook as a child process over ten
+cases: five heredoc shapes refused with exit 2, five ordinary commands allowed,
+including `git commit -F` and a single `<` redirection, which must NOT be caught.
+An unparseable payload **allows and says so** — a hook that blocks everything on a
+format change is a hook the next person disables, taking the real guard with it.
+Then a live heredoc was attempted through the Bash tool and was refused by the
+installed hook, which is the only evidence that the wiring works and not just the
+script.
+
+This is the same succession as every other mechanism here: the migration tip became
+a probe, the count assertion replaced a literal, and the heredoc rule became a hook.
+**A rule can be forgotten. A hook cannot.**
 
 ---
 
