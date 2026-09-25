@@ -267,12 +267,26 @@ export function clauseWordCounts(body) {
  *
  *  Three, and a clear lead, PER LEVEL. Abstaining is a result. */
 export const CLAUSE_WORD_FLOOR = 3;
+/** The house clause word for one level, or null when the evidence is too thin.
+ *
+ *  TWO WAYS TO HOLD, and the second is the floor being LOWERED on purpose:
+ *
+ *    (a) at least CLAUSE_WORD_FLOOR distinct references, with a clear lead;
+ *    (b) at least 2 distinct references and ZERO for every other form.
+ *
+ *  The floor exists to stop noise outvoting noise. It should not overrule a
+ *  lesson that has never once used another word. `isms-ia-04-02` reads
+ *  `capitulo` twice at whole level and nothing else, ever -- unanimous, and the
+ *  three-reference floor was calling that no evidence. Unanimous-but-thin is a
+ *  state the floor alone cannot distinguish from silence, so it is named. */
+const UNANIMOUS_MIN = 2;
 export function lessonClauseWord(body, lang, level) {
   const counts = clauseWordCounts(body)[level] || {};
   const ranked = Object.entries(counts).sort((a, b) => b[1] - a[1]);
   if (!ranked.length) return null;
   const [name, n] = ranked[0];
   const runnerUp = ranked[1] ? ranked[1][1] : 0;
+  if (runnerUp === 0 && n >= UNANIMOUS_MIN) return name;
   if (n < CLAUSE_WORD_FLOOR || n === runnerUp) return null;
   return name;
 }
@@ -281,6 +295,19 @@ export function lessonClauseWord(body, lang, level) {
  * G5, PER LEVEL. Each clause reference in the replacement is checked against the
  * house word for ITS OWN level, so a dotted `8.1` is judged against the lesson's
  * dotted convention and a whole `8` against its whole one.
+ *
+ * KNOWN GAP, NOT CLOSED: AN UNNUMBERED REFERENCE IS INVISIBLE HERE.
+ *
+ * `REF` requires a number, so "the same clause, items e) to g)" and "the clause
+ * also says how" carry no digits and are never examined. They still HAVE a
+ * level -- an unnumbered reference takes the level of whatever it points to, so
+ * "the same clause" after a 5.2 is a DOTTED reference and must follow the dotted
+ * convention -- and nothing here can resolve that pointer.
+ *
+ * It matters: three of the strings in batch 1 carry one, and each had to be
+ * decided by a human reading what the sentence pointed at. Stated rather than
+ * left as silence, because a gate that examines 2 of 3 references in a paragraph
+ * and reports clean is claiming more than it checked.
  */
 export function g5ClauseWord(tr, lang, house) {
   if (!house) return [];
@@ -469,6 +496,27 @@ export function renderGateControls() {
        false, "G5 pt Secao at both levels");
   fire(g5ClauseWord("La clausula 8 lo exige.", "es-419", { whole: null, dotted: "apartado" }),
        false, "G5 abstains at a level with no convention");
+
+  /* THE UNANIMITY ESCAPE, both directions. Two distinct references and nothing
+   * else ever is a convention; two against one is noise. Built as bodies so the
+   * counting unit -- the distinct reference -- is exercised too, not just the
+   * threshold. */
+  {
+    const unanimous = "Vease el capitulo 5. Y tambien el capitulo 9 para el resto.";
+    const contested = "Vease el capitulo 5. Y el capitulo 9. Pero la clausula 7 dice otra cosa.";
+    const repeated = "El capitulo 5 manda. El capitulo 5 otra vez. El capitulo 5 de nuevo.";
+    if (lessonClauseWord(unanimous, "es-419", "whole") !== "capítulo") {
+      wrong.push("G5 unanimity: 2 distinct refs and zero others should hold");
+    }
+    if (lessonClauseWord(contested, "es-419", "whole") !== null) {
+      wrong.push("G5 unanimity: 2 against 1 should abstain, not hold");
+    }
+    /* And the unit stays the DISTINCT REFERENCE: one reference named three
+     * times is still one, so it must not clear the floor of three. */
+    if (lessonClauseWord(repeated, "es-419", "whole") !== null) {
+      wrong.push("G5 unit: one reference repeated three times must not clear the floor");
+    }
+  }
 
   fire(g6NewAcronym("The AIMS covers three systems.", "El SGIA cubre tres sistemas.", "El AIMS existente."),
        true, "G6 invented SGIA");
