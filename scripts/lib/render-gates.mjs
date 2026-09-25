@@ -154,34 +154,109 @@ const CLAUSE_WORDS = {
   "es-419": [["apartado", /\bapartados?\b/gi], ["cláusula", /\bcl[aá]usulas?\b/gi], ["capítulo", /\bcap[ií]tulos?\b/gi]],
   "pt-BR": [["Seção", /\bse[cç][aã]o|\bse[cç][oõ]es\b/gi], ["cláusula", /\bcl[aá]usulas?\b/gi]],
 };
-/** The form the rest of the body uses, or null when there is no convention to
- *  follow.
+
+/* ============ THE HOUSE WORD DEPENDS ON THE LEVEL, IN SPANISH ============
+ *
+ * The Spanish national convention is `capitulo` for a whole-number clause and
+ * `apartado` for a dotted subclause. One house word per lesson would apply a
+ * whole-number form to "8.1", which is wrong, and would call a lesson
+ * inconsistent for doing the right thing.
+ *
+ * MEASURED over the eight lessons in this batch, and it splits cleanly in
+ * Spanish and NOT AT ALL in Portuguese:
+ *
+ *   isms-ia-04-02 es   whole capitulo=8      dotted apartado=35     <- textbook
+ *   03-01 es           whole capitulo=2      dotted apartado=12
+ *   03-03 es           whole capitulo=9      dotted apartado=10
+ *   isms-ia-04-02 pt   whole secao=8         dotted secao=34        <- no split
+ *   03-03 pt           whole secao=9         dotted secao=13
+ *
+ * So the key is (language, level), and Portuguese simply resolves to the same
+ * word at both. Counting the two levels together is what made `03-04 es` look
+ * like a capitulo lesson: its dotted references really are capitulo 17 to
+ * apartado 9, which is a genuine internal inconsistency rather than a level
+ * effect, and it only becomes visible once the levels are separated.
+ */
+const REF = /\b(apartados?|cl[aá]usulas?|cap[ií]tulos?|se[cç][aã]o|se[cç][oõ]es)\s+(\d+(?:\.\d+)*)/gi;
+/** Normalise a matched clause word to its canonical form. Plural stripping by
+ *  suffix turned `secoes` into `sec`, which split the count of the very word it
+ *  was meant to canonicalise -- so the mapping is explicit, not derived. */
+function canonWord(raw) {
+  const w = raw.toLowerCase();
+  if (/^apartado/.test(w)) return "apartado";
+  if (/^cl[aá]usula/.test(w)) return "cláusula";
+  if (/^cap[ií]tulo/.test(w)) return "capítulo";
+  if (/^se[cç]/.test(w)) return "Seção";
+  return w;
+}
+export const refLevel = (num) => (num.includes(".") ? "dotted" : "whole");
+
+/** Counts per (level, word) for a body, in DISTINCT REFERENCES.
+ *
+ *  THE UNIT IS THE REFERENCE, NOT THE OCCURRENCE, and counting occurrences got
+ *  this wrong in a way that would have written the wrong word. `03-04` es reads
+ *
+ *      capitulo 8.1   17 occurrences   ->  ONE distinct reference
+ *      apartado 6.1, 6.3, 9.1, 10.2     ->  FOUR distinct references
+ *
+ *  so by occurrence `capitulo` wins 17 to 9 and by reference `apartado` wins
+ *  4 to 1. The second is the convention; the first is one repeated phrase --
+ *  8.1 is the lesson's subject, named in nearly every paragraph -- outvoting
+ *  every other reference in the body.
+ *
+ *  Same family as every other denominator error here: the number was real and
+ *  measured the wrong population. */
+export function clauseWordCounts(body) {
+  const seen = { whole: {}, dotted: {} };
+  for (const m of body.matchAll(REF)) {
+    const lvl = refLevel(m[2]);
+    const w = canonWord(m[1]);
+    /* The bare number, so `8.1]{glossary=...}` and `8.1` are one reference. */
+    const num = m[2].replace(/[^\d.]+$/, "");
+    (seen[lvl][w] = seen[lvl][w] || new Set()).add(num);
+  }
+  const out = { whole: {}, dotted: {} };
+  for (const lvl of ["whole", "dotted"]) {
+    for (const [w, set] of Object.entries(seen[lvl])) out[lvl][w] = set.size;
+  }
+  return out;
+}
+/** The house word for one LEVEL, or null when there is no convention to follow.
  *
  *  A FLOOR, BECAUSE ONE OCCURRENCE IS NOT A CONVENTION. The first version took
- *  the winner at any count and declared `capitulo` the house word of 01-03 es
- *  on the strength of a single occurrence, against a single `clausula` -- then
- *  flagged the replacement twice for disagreeing with it. That is a guard
- *  inventing a rule out of noise and then enforcing it.
+ *  the winner at any count and declared `capitulo` the house form of 01-03 es
+ *  on a single occurrence against a single `clausula` -- then flagged the
+ *  replacement twice for disagreeing with it. That is a guard inventing a rule
+ *  out of noise and enforcing it.
  *
- *  Three, and the winner must also lead the runner-up, or the lesson has no
- *  house word and G5 abstains. Abstaining is a RESULT here, not a pass. */
+ *  Three, and a clear lead, PER LEVEL. Abstaining is a result. */
 export const CLAUSE_WORD_FLOOR = 3;
-export function lessonClauseWord(body, lang) {
-  const counts = CLAUSE_WORDS[lang]
-    .map(([name, re]) => [name, (body.match(re) || []).length])
-    .sort((a, b) => b[1] - a[1]);
-  const [name, n] = counts[0];
-  const runnerUp = counts[1] ? counts[1][1] : 0;
+export function lessonClauseWord(body, lang, level) {
+  const counts = clauseWordCounts(body)[level] || {};
+  const ranked = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  if (!ranked.length) return null;
+  const [name, n] = ranked[0];
+  const runnerUp = ranked[1] ? ranked[1][1] : 0;
   if (n < CLAUSE_WORD_FLOOR || n === runnerUp) return null;
   return name;
 }
-export function g5ClauseWord(tr, lang, houseWord) {
-  if (!houseWord) return [];
+
+/**
+ * G5, PER LEVEL. Each clause reference in the replacement is checked against the
+ * house word for ITS OWN level, so a dotted `8.1` is judged against the lesson's
+ * dotted convention and a whole `8` against its whole one.
+ */
+export function g5ClauseWord(tr, lang, house) {
+  if (!house) return [];
   const out = [];
-  for (const [name, re] of CLAUSE_WORDS[lang]) {
-    if (name === houseWord) continue;
-    const n = (tr.match(re) || []).length;
-    if (n) out.push({ gate: "G5", detail: "uses `" + name + "` x" + n + "; this lesson uses `" + houseWord + "`" });
+  for (const m of tr.matchAll(REF)) {
+    const lvl = refLevel(m[2]);
+    const want = house[lvl];
+    if (!want) continue;
+    const got = canonWord(m[1]);
+    if (got === want) continue;
+    out.push({ gate: "G5", detail: got + " " + m[2] + " is a " + lvl +
+      " reference; this lesson uses `" + want + "` for those" });
   }
   return out;
 }
@@ -312,12 +387,27 @@ export function renderGateControls() {
   fire(g4Terms("documented information is retained", "as informacoes documentadas sao retidas", "pt-BR"),
        false, "G4 retained->retidas");
 
-  fire(g5ClauseWord("La clausula 8 y el apartado 8.2 lo exigen.", "es-419", "cláusula"),
-       true, "G5 01-03 two clause words in one paragraph");
-  fire(g5ClauseWord("La clausula 8 y la clausula 8.2 lo exigen.", "es-419", "cláusula"),
-       false, "G5 one clause word, the lesson's");
-  fire(g5ClauseWord("A Secao 8.4 acrescenta a metade operacional.", "pt-BR", "cláusula"),
-       true, "G5 02-06 Secao in a clausula lesson");
+  /* G5 is now per LEVEL. A dotted reference is judged against the dotted
+   * convention, which is what makes `capitulo 8` beside `apartado 8.1` correct
+   * rather than inconsistent -- the Spanish national convention, confirmed by
+   * measurement on isms-ia-04-02 es (whole capitulo=8, dotted apartado=35). */
+  const UNE = { whole: "capítulo", dotted: "apartado" };
+  fire(g5ClauseWord("El capitulo 8 y el apartado 8.1 lo exigen.", "es-419", UNE),
+       false, "G5 UNE: capitulo for whole, apartado for dotted");
+  fire(g5ClauseWord("El apartado 8 lo exige.", "es-419", UNE),
+       true, "G5 apartado used for a WHOLE-number reference");
+  fire(g5ClauseWord("El capitulo 8.1 lo exige.", "es-419", UNE),
+       true, "G5 capitulo used for a DOTTED reference");
+  fire(g5ClauseWord("La clausula 8.4 lo exige.", "es-419", UNE),
+       true, "G5 02-06 clausula where the lesson uses apartado");
+  fire(g5ClauseWord("A clausula 8.4 acrescenta a metade operacional.", "pt-BR",
+                    { whole: "Seção", dotted: "Seção" }),
+       true, "G5 02-06 pt clausula in a Secao lesson");
+  fire(g5ClauseWord("A Secao 8.4 acrescenta a metade operacional.", "pt-BR",
+                    { whole: "Seção", dotted: "Seção" }),
+       false, "G5 pt Secao at both levels");
+  fire(g5ClauseWord("La clausula 8 lo exige.", "es-419", { whole: null, dotted: "apartado" }),
+       false, "G5 abstains at a level with no convention");
 
   fire(g6NewAcronym("The AIMS covers three systems.", "El SGIA cubre tres sistemas.", "El AIMS existente."),
        true, "G6 invented SGIA");

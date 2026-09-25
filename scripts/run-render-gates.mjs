@@ -71,11 +71,17 @@ for (const r of spec.rows) {
   /* The house clause word comes from the body MINUS the block being replaced,
    * so a replacement cannot vote for its own spelling. */
   const rest0 = body.split(r.from_block).join(" ");
+  /* PER LEVEL, and computed from the body MINUS the block being replaced so a
+   * replacement cannot vote for its own spelling. */
+  const house = {
+    whole: lessonClauseWord(rest0, r.language, "whole"),
+    dotted: lessonClauseWord(rest0, r.language, "dotted"),
+  };
   const flags = runRenderGates(r.english_source, r.to_block, r.language, {
-    houseClauseWord: lessonClauseWord(rest0, r.language),
+    houseClauseWord: house,
     existingTranslation: body,
   });
-  rows.push({ slug: r.slug, lang: r.language, block: r.block_index, flags });
+  rows.push({ slug: r.slug, lang: r.language, block: r.block_index, flags, house });
 }
 
 const GATES = ["G1", "G2", "G3", "G4", "G5", "G6", "G7"];
