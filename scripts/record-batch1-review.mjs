@@ -50,8 +50,8 @@
  * repaired.
  */
 import { existsSync, readFileSync } from "node:fs";
-import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
+import { expectedLessonHashes, assertCleared } from "./lib/expected-review-hashes.mjs";
 import { fileURLToPath } from "node:url";
 
 const KNOWN = new Set(["--apply"]);
@@ -106,36 +106,11 @@ const rows = await rest("lessons?select=id,slug,language,lesson_group_id,content
 const enOf = new Map(rows.filter((r) => r.language === "en").map((r) => [r.lesson_group_id, r]));
 const targets = rows.filter((r) => r.language !== "en");
 
-/* Hashes computed by the SAME FUNCTIONS THE GATE USES -- server side, so there
- * is no second implementation to drift. */
-async function trHash(text) {
-  return rest("rpc/translation_hash", { method: "POST", body: JSON.stringify({ p_a: text }) });
-}
-/* The review arm's en_hash is `left(md5(en.content_md), 8)` -- PLAIN md5, not
- * translation_hash, and the two are different values on the same text. There is
- * no RPC for it, so it is computed here.
- *
- * CLAUDE.md records a 41-of-41 FALSE ALARM from exactly this move: recomputing a
- * stored hash with a formula that merely looks equivalent. So the equivalence is
- * PROVED against a real body rather than assumed, and the proof runs before
- * anything is written. A pair that stops agreeing -- a normalisation change, a
- * server encoding change -- refuses the run instead of writing sixteen review
- * rows the gate will reject. */
-const md5_8 = (text) => createHash("md5").update(text, "utf8").digest("hex").slice(0, 8);
-const MD5_CONTROL = { slug: "03-03-documented-information", expect: "65c2c508" };
+/* THE GATE IS ASKED, NOT REIMPLEMENTED (migration 374). No local formula, so
+ * nothing here can drift from the arm it is writing for -- and no Postgres md5
+ * control is needed, because the arithmetic is no longer mine. */
+const rpc = (name, args) => rest("rpc/" + name, { method: "POST", body: JSON.stringify(args) });
 
-{
-  const c = rows.find((x) => x.language === "en" && x.slug === MD5_CONTROL.slug);
-  if (!c) { console.error("MD5 CONTROL: " + MD5_CONTROL.slug + " English row not found; cannot prove the hash."); process.exit(2); }
-  const got = md5_8(c.content_md);
-  if (got !== MD5_CONTROL.expect) {
-    console.error("MD5 CONTROL FAILED: computed " + got + ", Postgres md5 gives " + MD5_CONTROL.expect + ".");
-    console.error("  Node and Postgres no longer agree on this text. Nothing written.");
-    process.exit(2);
-  }
-  console.log("");
-  console.log("  md5 control: node and Postgres agree on " + MD5_CONTROL.slug + " (" + got + ")");
-}
 console.log("");
 console.log("RECORD THE BATCH 1 REVIEW -- " + targets.length + " translated row(s)");
 console.log("  reviewer of record: " + REVIEWER);
@@ -180,8 +155,9 @@ if (problems.length) {
 
 /* 3. the two hashes, each from the predicate that consumes it */
 for (const s of staged) {
-  s.tr_hash = await trHash(s.r.content_md);
-  s.en_hash = md5_8(s.en.content_md);
+  const want = await expectedLessonHashes(rpc, s.r.id);
+  s.en_hash = want.en_hash;
+  s.tr_hash = want.tr_hash;
   if (typeof s.tr_hash !== "string" || !/^[0-9a-f]{8}$/.test(s.tr_hash)) {
     problems.push(s.tag + ": translation_hash returned " + JSON.stringify(s.tr_hash));
   }
@@ -217,20 +193,13 @@ await rest("lesson_translation_reviews", {
 
 /* READ BACK THROUGH THE GATE, never off the column. */
 console.log("");
-let serving = 0;
-const still = [];
-for (const s of staged) {
-  const ok = await rest("rpc/lesson_body_is_servable", {
-    method: "POST", body: JSON.stringify({ p_lesson_id: s.r.id }) });
-  if (ok) { serving++; continue; }
-  const why = await rest("rpc/lesson_withholding_reason", {
-    method: "POST", body: JSON.stringify({ p_lesson_id: s.r.id }) }).catch(() => "unreadable");
-  still.push(s.tag + "  " + why);
-}
 console.log("  " + payload.length + " review row(s) written");
-console.log("  serving now: " + serving + " of " + staged.length);
+/* ASSERTED, NOT PRINTED: the gate decides whether a row cleared. */
+const still = await assertCleared(rpc, staged.map((x) => ({ id: x.r.id, label: x.tag, arm: "lesson" })));
+console.log("  serving now: " + (staged.length - still.length) + " of " + staged.length);
+for (const t of still) console.log("      FAIL  still held: " + t);
 if (still.length) {
   console.log("");
-  console.log("  STILL HELD, and by what:");
-  for (const t of still) console.log("      " + t);
+  console.log("  " + still.length + " row(s) meant to clear are still withheld.");
+  process.exitCode = 1;
 }

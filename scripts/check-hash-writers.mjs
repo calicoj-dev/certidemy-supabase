@@ -356,6 +356,51 @@ const undeclaredScripts = scriptWriters.filter((w) =>
  * heuristic that quietly reclassifies a gate write as a record is the failure
  * mode. The heuristic was doing exactly that for a whole class. */
 const undeclaredRecorders = recorders.filter((w) => !REVIEW_RECORDERS[w.name]);
+
+/* ============ A LOCAL HASH FORMULA IS A FINDING ============
+ *
+ * Migration 374 exposes each gate's own hash expressions, so a writer asks
+ * instead of reimplementing. Anything still computing a review or gate hash in
+ * JavaScript has a second implementation of somebody else's rule, and this
+ * repository has watched that go wrong twice in one day: a lesson clearance
+ * recomputed en_hash with translation_hash where the arm uses
+ * left(md5(content_md), 8) and reported 41 of 41 rows stale; the own-work apply
+ * hashed four newline-joined fields where the task gate hashes three arguments,
+ * and ISMS-F task 5.2 went dark in both languages for 44 seconds.
+ *
+ * Both formulas AGREED with the gate on the day they were written. Agreement is
+ * not the property that matters -- having one implementation is.
+ *
+ * HARD for a declared writer, ADVISORY for anything else, because a script that
+ * merely compares a hash it computed is a weaker version of the same hazard and
+ * the first person inconvenienced by a hard failure there would delete the rule.
+ */
+const HASH_COLS = /\b(en_hash|tr_hash|en_content_hash)\b/;
+const localFormula = [];
+for (const f of files) {
+  if (f.sql) continue;
+  let src;
+  try { src = readFileSync(f.path, "utf8"); } catch { continue; }
+  /* Strip block comments: every switched script explains the formula it removed,
+   * and a rule that fires on the note describing the defect it prevents is the
+   * migration-290 shape. */
+  const code = src.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/^\s*\/\/.*$/gm, " ");
+  if (!/createHash\s*\(\s*["']md5["']/.test(code)) continue;
+  if (!HASH_COLS.test(code)) continue;
+  const declared = !!(GENERATORS[f.name] || DUAL_ROLE[f.name] || REVIEW_RECORDERS[f.name]);
+  localFormula.push({ file: f.name, name: f.name, declared });
+}
+const localFormulaHard = localFormula.filter((x) => x.declared);
+if (localFormula.length) {
+  console.log("");
+  console.log("LOCAL HASH FORMULAS -- ask the 374 helper instead:");
+  for (const x of localFormula) {
+    console.log("  " + (x.declared ? "FINDING " : "advisory") + "  " + x.file);
+  }
+} else {
+  console.log("");
+  console.log("no script computes a review or gate hash locally; every writer asks the 374 helpers");
+}
 const undeclaredMigs = migWriters.filter((w) => !MIGRATION_WRITERS[w.name]);
 
 console.log("");
@@ -414,7 +459,10 @@ writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
   script_writers: scriptWriters,
   migration_writers_found: migWriters,
   undeclared_scripts: undeclaredScripts,
-  undeclared_recorders: undeclaredRecorders.map((w) => w.name),
+  undeclared_recorders: undeclaredRecorders,
+  /* Keep the DECLARED flag: a flat name list loses the only thing that separates
+   * a finding from an advisory, and that is the whole discriminator here. */
+  local_hash_formulas: localFormula.map((w) => ({ file: w.name, declared: w.declared })),
   undeclared_migrations: undeclaredMigs.map((w) => w.name),
 }, null, 2), "utf8");
 
@@ -424,9 +472,10 @@ if (positions === 0) {
   console.error("VACUOUS: zero write positions examined. The matcher is wrong, not the corpus.");
   process.exit(2);
 }
-if (undeclaredScripts.length || undeclaredMigs.length || undeclaredRecorders.length) {
+if (undeclaredScripts.length || undeclaredMigs.length || undeclaredRecorders.length || localFormulaHard.length) {
   console.error("");
-  console.error("FAIL: " + (undeclaredScripts.length + undeclaredMigs.length + undeclaredRecorders.length) + " undeclared hash writer(s).");
+  console.error("FAIL: " + (undeclaredScripts.length + undeclaredMigs.length + undeclaredRecorders.length) +
+    " undeclared hash writer(s), " + localFormulaHard.length + " declared writer(s) with a local hash formula.");
   console.error("A hash is written only by something that can PROVE the value -- a generator");
   console.error("holding the source it translated from. Any other caller must READ, COMPARE");
   console.error("and REFUSE the row on mismatch.");

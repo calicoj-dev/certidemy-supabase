@@ -33,7 +33,7 @@
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createHash } from "node:crypto";
+import { expectedConceptHashes } from "./lib/expected-review-hashes.mjs";
 
 const KNOWN = new Set(["--apply"]);
 for (const a of process.argv.slice(2)) {
@@ -82,10 +82,12 @@ async function allRows(path) {
   if (out.length !== total) throw new Error("PAGING INCOMPLETE on " + path + ": " + out.length + " of " + total);
   return out;
 }
-const enHash = (n, d) => createHash("md5")
-  .update(String(n ?? "").replaceAll(String.fromCharCode(13), "") + "|" +
-          String(d ?? "").replaceAll(String.fromCharCode(13), ""))
-  .digest("hex").slice(0, 16);
+/* THE GATE IS ASKED, NOT REIMPLEMENTED (migration 374). The local `enHash`
+ * reimplemented concept_row_en_hash in JavaScript -- md5 of name|description
+ * with CRs stripped, 16 hex. It happened to agree, and that is luck: this
+ * repository has twice had a recorder's inferred formula disagree with a gate,
+ * once producing a 41-of-41 false alarm and once taking a served task dark.
+ * There is no longer a formula here to drift. */
 
 const PAIRS = [["AIMS-IA", "es-419"], ["AIMS-IA", "pt-BR"], ["ISMS-IA", "es-419"], ["ISMS-IA", "pt-BR"]];
 const SEED = "2026-09-22-aims-ia-retranslation";
@@ -116,8 +118,9 @@ for (const [cert, lang] of PAIRS) {
   const verified = [], refused = [];
   for (const t of rows) {
     const c = conBy.get(t.concept_id);
-    const enOk = t.en_hash === enHash(c.name, c.description);
-    const trOk = t.tr_hash === await rpc("translation_hash", { p_a: t.name, p_b: t.description });
+    const want = await expectedConceptHashes(rpc, t.id);
+    const enOk = t.en_hash === want.en_hash;
+    const trOk = t.tr_hash === want.tr_hash;
     if (enOk && trOk) verified.push(t);
     else refused.push({ t, slug: c.slug, enOk, trOk });
   }

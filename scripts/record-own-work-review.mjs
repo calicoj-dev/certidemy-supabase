@@ -28,8 +28,8 @@
  * the failure this file exists to avoid.
  */
 import { existsSync, readFileSync } from "node:fs";
-import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
+import { expectedLessonHashes, assertCleared } from "./lib/expected-review-hashes.mjs";
 import { fileURLToPath } from "node:url";
 
 const KNOWN = new Set(["--apply"]);
@@ -68,9 +68,12 @@ async function rest(path, init) {
   }
   throw last;
 }
-const trHash = (t) => rest("rpc/translation_hash", { method: "POST", body: JSON.stringify({ p_a: t }) });
-const md5_8 = (t) => createHash("md5").update(t, "utf8").digest("hex").slice(0, 8);
-const MD5_CONTROL = { slug: "03-03-documented-information", expect: "65c2c508" };
+/* THE GATE IS ASKED, NOT REIMPLEMENTED. Migration 374 put each arm's hash
+ * expressions inside the database; this script has no formula of its own and
+ * therefore nothing to get wrong. The local md5 helper and its Postgres control
+ * are gone -- a control proving my arithmetic matches Postgres is only needed
+ * while the arithmetic is mine. */
+const rpc = (name, args) => rest("rpc/" + name, { method: "POST", body: JSON.stringify(args) });
 
 const AIMS = "05-02-aims-internal-audit";
 const ISMS = "isms-ia-01-03-objectivity-of-the-assignment";
@@ -127,17 +130,8 @@ for (const r of notCleared) {
     "text fixed, but never reviewed -- a corrected sentence is not a read of the lesson");
 }
 
-{
-  const c = rows.find((x) => x.language === "en" && x.slug === MD5_CONTROL.slug);
-  const probe = c || (await rest("lessons?select=content_md&language=eq.en&slug=eq." + MD5_CONTROL.slug))[0];
-  if (!probe) { console.error("MD5 CONTROL: probe row not found."); process.exit(2); }
-  const got = md5_8(probe.content_md);
-  if (got !== MD5_CONTROL.expect) {
-    console.error("MD5 CONTROL FAILED: computed " + got + ", Postgres gives " + MD5_CONTROL.expect + ".");
-    process.exit(2);
-  }
-  console.log("  md5 control: node and Postgres agree (" + got + ")");
-}
+/* No local hash control: there is no local hash. 374's own fixture proves the
+ * helpers speak for the gates, and it is watched to fail. */
 console.log("");
 
 const staged = [], problems = [];
@@ -158,8 +152,9 @@ if (problems.length) {
   process.exitCode = 1;
 } else {
   for (const s of staged) {
-    s.tr_hash = await trHash(s.r.content_md);
-    s.en_hash = md5_8(s.en.content_md);
+    const want = await expectedLessonHashes(rpc, s.r.id);
+    s.en_hash = want.en_hash;
+    s.tr_hash = want.tr_hash;
     if (typeof s.tr_hash !== "string" || !/^[0-9a-f]{8}$/.test(s.tr_hash)) {
       problems.push(s.tag + ": translation_hash returned " + JSON.stringify(s.tr_hash));
     }
@@ -185,15 +180,17 @@ if (problems.length) {
       });
       console.log("");
       console.log("  " + staged.length + " review row(s) written");
-      let serving = 0;
-      const still = [];
-      for (const s of staged) {
-        const ok = await rest("rpc/lesson_body_is_servable", {
-          method: "POST", body: JSON.stringify({ p_lesson_id: s.r.id }) });
-        if (ok) serving++; else still.push(s.tag);
+      /* ASSERTED, NOT PRINTED. Writing a review row is not clearing a row --
+       * the gate decides. A recorder that clears nothing it meant to clear
+       * exits non-zero. */
+      const still = await assertCleared(rpc, staged.map((s2) => ({ id: s2.r.id, label: s2.tag, arm: "lesson" })));
+      console.log("  serving now: " + (staged.length - still.length) + " of " + staged.length);
+      for (const t of still) console.log("      FAIL  still held: " + t);
+      if (still.length) {
+        console.log("");
+        console.log("  " + still.length + " row(s) meant to clear are still withheld. This run did not do what it says.");
+        process.exitCode = 1;
       }
-      console.log("  serving now: " + serving + " of " + staged.length);
-      for (const t of still) console.log("      still held: " + t);
     }
   }
 }

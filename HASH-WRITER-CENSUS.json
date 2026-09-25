@@ -35,17 +35,6 @@
   },
   "script_writers": [
     {
-      "name": "apply-own-work-drafts.mjs",
-      "sql": false,
-      "positions": 2,
-      "targets": [
-        "unknown"
-      ],
-      "hows": [
-        "js-body"
-      ]
-    },
-    {
       "name": "apply-reread-clearance.mjs",
       "sql": false,
       "positions": 1,
@@ -215,5 +204,47 @@
   ],
   "undeclared_scripts": [],
   "undeclared_recorders": [],
+  "local_hash_formulas": [
+    {
+      "file": "apply-batch-a.mjs",
+      "declared": false
+    },
+    {
+      "file": "apply-ia-batch.mjs",
+      "declared": false
+    },
+    {
+      "file": "apply-ismsf-batch-1.mjs",
+      "declared": false
+    },
+    {
+      "file": "apply-ismsf-batch-2.mjs",
+      "declared": false
+    },
+    {
+      "file": "apply-ismsf-close.mjs",
+      "declared": false
+    },
+    {
+      "file": "apply-paired-review-fixes.mjs",
+      "declared": false
+    },
+    {
+      "file": "check-open-items.mjs",
+      "declared": false
+    },
+    {
+      "file": "delete-aimsf-concept-translations.mjs",
+      "declared": false
+    },
+    {
+      "file": "gen-bilingual-queue.mjs",
+      "declared": false
+    },
+    {
+      "file": "verify-aimsf-translations.mjs",
+      "declared": false
+    }
+  ],
   "undeclared_migrations": []
 }

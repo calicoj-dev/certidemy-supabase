@@ -48,9 +48,9 @@
  * concept is withheld, so no learner can meet both today.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { expectedTaskHashes, assertCleared } from "./lib/expected-review-hashes.mjs";
 
 const KNOWN = new Set(["--apply"]);
 for (const a of process.argv.slice(2)) {
@@ -87,8 +87,7 @@ async function rest(path, init) {
   }
   throw last;
 }
-const trHash = (t) => rest("rpc/translation_hash", { method: "POST", body: JSON.stringify({ p_a: t }) });
-const md5_8 = (t) => createHash("md5").update(t, "utf8").digest("hex").slice(0, 8);
+const rpc = (name, args) => rest("rpc/" + name, { method: "POST", body: JSON.stringify(args) });
 
 const TASK_ID = "0fe570da-9789-4830-a82f-c76d0c8a9ee3";
 const CONCEPT_SLUG = "auditor-objectivity";
@@ -258,44 +257,42 @@ if (problems.length) {
       body: JSON.stringify({ skills: SKILLS[r.language] }) });
     console.log("  " + (b[0].skills === SKILLS[r.language] ? "PASS  " : "FAIL  ") + "task 5.2 " + r.language + " skills");
   }
-  const ksaHash = await rest("rpc/task_ksa_en_hash", { method: "POST", body: JSON.stringify({ p_task_id: TASK_ID }) });
   const now = new Date().toISOString();
   const fresh = await rest("task_translations?select=id,language,statement,knowledge,skills,abilities&task_id=eq." + TASK_ID);
   const reviews = [];
   for (const r of fresh) {
-    /* THE GATE'S OWN FORMULA, READ OUT OF pg_proc, NOT GUESSED.
-     * `task_ksa_is_withheld` compares
-     *     r.tr_hash = public.translation_hash(tt.knowledge, tt.skills, tt.abilities)
-     * -- three arguments, no statement, no join. The first run of this script
-     * invented a newline-joined four-field hash, wrote two review rows that could
-     * never match, and left task 5.2 withheld in BOTH languages -- precisely the
-     * outcome the one-run design existed to prevent. CLAUDE.md's rule, broken
-     * again: recompute with the function that WROTE the value. */
-    const tr = await rest("rpc/translation_hash", { method: "POST",
-      body: JSON.stringify({ p_a: r.knowledge, p_b: r.skills, p_c: r.abilities }) });
+    /* THE GATE IS ASKED, NOT REIMPLEMENTED. Migration 374 exposes the task
+     * arm's own expressions; this script no longer knows the formula. Its first
+     * run invented translation_hash over four newline-joined fields where the
+     * gate uses (knowledge, skills, abilities) and left ISMS-F task 5.2 dark in
+     * both languages for 44 seconds. There is now nothing here to get wrong. */
+    const want = await expectedTaskHashes(rpc, r.id);
+    const tr = want.tr_hash;
     reviews.push({ task_translation_id: r.id, reviewed_at: now,
       reviewed_by: "director read (PROMPT-63), own-work attribution",
-      verdict: "approved", en_hash: ksaHash, tr_hash: tr, tr_hash_basis: "observed",
+      verdict: "approved", en_hash: want.en_hash, tr_hash: tr, tr_hash_basis: "observed",
       basis: "The own-work maxim is in neither ISO/IEC 27001 nor ISO 19011:2026 (HANDOFF-v6_2.md s2, " +
              "full-text, zero hits). Skills rewritten in all three languages in one run so no interval " +
              "serves English-only; statement, knowledge and abilities untouched. No clause number, so no " +
              "clause-word question arises. Repo sources corrected in the same commit." });
   }
   await rest("task_translation_reviews", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify(reviews) });
-  console.log("  " + reviews.length + " task review row(s) written, en_hash " + ksaHash);
+  console.log("  " + reviews.length + " task review row(s) written, en_hash " +
+    (reviews[0] ? reviews[0].en_hash : "?") + " (from the 374 helper)");
   /* ASSERTED, NOT PRINTED. The entire reason English and both translations land
    * in one run is that nothing serves English-only afterwards. A row still
    * withheld here is THIS RUN FAILING ITS OWN GUARANTEE, and the first run
    * printed exactly that as a neutral line while both languages were dark. */
-  let stillDark = 0;
+  /* ASSERTED THROUGH THE SHARED HELPER, which counts an unreachable gate as
+   * NOT cleared -- "could not ask" is not a clearance. */
+  const still = await assertCleared(rpc, fresh.map((r) => ({ id: r.id, label: "task 5.2 " + r.language, arm: "task" })));
   for (const r of fresh) {
-    const w = await rest("rpc/task_ksa_is_withheld", { method: "POST", body: JSON.stringify({ p_tt_id: r.id }) });
-    if (w) stillDark++;
-    console.log("      " + (w ? "FAIL  " : "ok    ") + "task 5.2 " + r.language + "  withheld=" + w);
+    const dark = still.some((t) => t.startsWith("task 5.2 " + r.language));
+    console.log("      " + (dark ? "FAIL  " : "ok    ") + "task 5.2 " + r.language + "  withheld=" + dark);
   }
-  if (stillDark) {
+  if (still.length) {
     console.log("");
-    console.log("  " + stillDark + " task translation(s) STILL WITHHELD -- explain_task serves English for them.");
+    console.log("  " + still.length + " task translation(s) STILL WITHHELD -- explain_task serves English for them.");
     console.log("  This run did not keep its guarantee. Not a neutral outcome.");
     process.exitCode = 1;
   }

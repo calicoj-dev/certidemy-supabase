@@ -37,9 +37,9 @@
  * thing anyone could know about these 308 rows.
  */
 import { readFileSync, existsSync } from "node:fs";
-import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { expectedConceptHashes } from "./lib/expected-review-hashes.mjs";
 
 const KNOWN = new Set(["--apply"]);
 for (const a of process.argv.slice(2)) {
@@ -80,17 +80,27 @@ async function countOf(path) {
   return Number((r.headers.get("content-range") || "/0").split("/")[1]);
 }
 const CR = String.fromCharCode(13);
-const enHash = (n, d) => createHash("md5")
-  .update(String(n ?? "").split(CR).join("") + "|" + String(d ?? "").split(CR).join(""))
-  .digest("hex").slice(0, 16);
+/* THE GATE IS ASKED, NOT REIMPLEMENTED (migration 374). The local `enHash`
+ * reimplemented concept_row_en_hash in JavaScript -- md5 of name|description
+ * with CRs stripped, 16 hex. It happened to agree, and that is luck: this
+ * repository has twice had a recorder's inferred formula disagree with a gate,
+ * once producing a 41-of-41 false alarm and once taking a served task dark.
+ * There is no longer a formula here to drift. */
 
 const cert = (await rest("certifications?select=id&code=eq.AIMS-F"))[0];
 const concepts = (await rest("concepts?select=id,slug,name,description,retired_at&certification_id=eq." + cert.id + "&limit=1000"))
   .filter((c) => c.retired_at === null);
 const ids = concepts.map((c) => c.id);
-const tr = await rest("concept_translations?select=concept_id,language,name,description,en_hash,is_provisional,review_status"
+const tr = await rest("concept_translations?select=id,concept_id,language,name,description,en_hash,is_provisional,review_status"
   + "&concept_id=in.(" + ids.join(",") + ")&limit=2000");
-const want = new Map(concepts.map((c) => [c.id, enHash(c.name, c.description)]));
+/* Per TRANSLATION row, because the helper is addressed by concept_translation
+ * id -- which is also the grain the gate compares at. */
+const want = new Map();
+for (const t of tr) {
+  if (!t.id) throw new Error("concept_translation row has no id -- the helper is addressed by it");
+  const w = await expectedConceptHashes(rpc, t.id);
+  want.set(t.concept_id, w.en_hash);
+}
 
 console.log("");
 console.log("PRE-CONDITIONS");

@@ -68,7 +68,6 @@
  */
 
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
-import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contractForDomain, domainForCert } from "./lib/item-translation.mjs";
@@ -232,19 +231,28 @@ async function callModel(system, user) {
 }
 
 
-const CR = String.fromCharCode(13);
-/* The English a translation is made FROM. Declared here because the plan
- * below needs it to tell a stale row from a present one. */
-const enHash = (name, description) =>
-  createHash("md5")
-    .update(String(name ?? "").split(CR).join("") + "|" + String(description ?? "").split(CR).join(""))
-    .digest("hex").slice(0, 16);
+/* THE ENGLISH HASH IS ASKED FOR, NOT REIMPLEMENTED.
+ *
+ * This used to be md5(name|description) with CRs stripped, written in JS. It
+ * agreed with public.concept_row_en_hash -- verified 2026-09-25, same 16 hex --
+ * and agreeing today is luck, not a guarantee. Two recorders inferred a gate
+ * formula this week and both were wrong; one produced a 41-of-41 false alarm
+ * and one took a served task dark for 44 seconds.
+ *
+ * This planner needs the hash for concepts that may have NO translation row
+ * yet, so it cannot use the 374 helper (addressed by concept_translation id).
+ * It calls the gate's own function instead, which is the same principle at the
+ * only grain available here. */
+const enHashOf = (conceptId) => rpc("concept_row_en_hash", { p_concept_id: conceptId });
 
 /* ------------------------------------------------------------------- plan */
 const certs = Object.fromEntries((await all("certifications?select=id,code")).map((c) => [c.id, c.code]));
 const concepts = await all("concepts?select=id,slug,name,description,certification_id");
 const existing = await all("concept_translations?select=concept_id,language,en_hash");
-const enOf = new Map(concepts.map((c) => [c.id, enHash(c.name, c.description)]));
+/* Awaited per concept: the hash now comes from the database, so the map is
+ * built with a loop rather than a synchronous map(). */
+const enOf = new Map();
+for (const c of concepts) enOf.set(c.id, await enHashOf(c.id));
 /* A row counts as PRESENT only if its stored en_hash still matches the English
  * it was translated from. Under --stale a mismatch makes it absent again, so
  * the planner picks it up and the write below replaces it. */
@@ -376,7 +384,7 @@ for (let i = 0; i < plan.length; i++) {
       concept_id: c.id, language: p.lang,
       name: t.name ?? null, description: t.description ?? null,
       is_provisional: true, review_status: "unreviewed",
-      en_hash: enHash(c.name, c.description),
+      en_hash: enOf.get(c.id) ?? await enHashOf(c.id),
       tr_hash: trHash,
     });
   }
