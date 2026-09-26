@@ -67,6 +67,18 @@ domains in any language, and no task emptied — the thinnest task keeps 7 items
 | 311 | `34c109a8` | **yes** |
 | 312 | `7938f0eb` | **yes** |
 
+### Found by the 2017-marker sweep, not by the read — added 2026-09-26
+
+Neither was presented in any of the eight attempts, so the 342-item read could not
+have reached them. Both are Tier B: **the key is still the best available option, so
+nobody was scored wrongly — the rationale cites a rule the 2020 Guide removed.**
+Full reasoning in `SCRUM-2017-REPORT.md`.
+
+| id | cert | task | why |
+|---|---|---|---|
+| `65946c58` | SM-AI-I | 3.6 | the explanation asserts *"the Scrum Guide expects the team to identify at least one high-priority improvement and add it"*. 2017 said exactly that; 2020 says the most impactful improvements **may** even be added |
+| `7c00917f` | SM-AI-I | 3.3 | the **key** reads *"detailing enough work to cover at least the first days of the Sprint"* — 2017 Sprint Backlog wording that 2020 removed. The explanation repeats it |
+
 ### Explanations that state something false
 
 | # | id | cert | what the explanation asserts |

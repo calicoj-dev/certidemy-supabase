@@ -1,0 +1,1124 @@
+{
+  "examined": 1555,
+  "hits": 84,
+  "per_cert": [
+    {
+      "cert": "SM-AI-I",
+      "items": 454,
+      "bare": 16,
+      "contrasted": 49
+    },
+    {
+      "cert": "SM-AI-II",
+      "items": 352,
+      "bare": 0,
+      "contrasted": 1
+    },
+    {
+      "cert": "SPO-AI-I",
+      "items": 389,
+      "bare": 1,
+      "contrasted": 0
+    },
+    {
+      "cert": "SD-AI-I",
+      "items": 360,
+      "bare": 4,
+      "contrasted": 13
+    }
+  ],
+  "findings": [
+    {
+      "id": "06a37d7e-a7c4-4bd1-942c-92fbe1cea718",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "stem",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A Scrum Master learns 'self-organizing' was deprecated in 2020 and concludes teams now need more external direction. What action reflects a correct understanding?"
+    },
+    {
+      "id": "06a37d7e-a7c4-4bd1-942c-92fbe1cea718",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:b",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Maintain prior practices unchanged; 'self-managing' carries the same meaning as 'self-organizing' in practical application."
+    },
+    {
+      "id": "06a37d7e-a7c4-4bd1-942c-92fbe1cea718",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:c",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Assign an internal coordinator role; replacing 'self-organizing' implies a need for structured internal team leadership."
+    },
+    {
+      "id": "06a37d7e-a7c4-4bd1-942c-92fbe1cea718",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:d",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Increase managerial check-ins; deprecating 'self-organizing' signals teams proved unable to govern themselves adequately."
+    },
+    {
+      "id": "0aad23fd-96ab-4a8b-8bbb-0e15347796f6",
+      "cert": "SM-AI-I",
+      "task": "3.10",
+      "marker": "per-item accept or reject at the Sprint Review",
+      "field": "option:d",
+      "hit": "accept or reject each item",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Product Owner did not formally accept or reject each item, leaving increment status unresolved at the event's end."
+    },
+    {
+      "id": "1f179485-d6fe-4ce3-be4c-48341da21442",
+      "cert": "SM-AI-I",
+      "task": "3.7",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "servant-leadership",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Scrum Master, acting in a servant-leadership role on behalf of the Scrum Team."
+    },
+    {
+      "id": "2fe75bcc-d5b3-4d38-98d2-7de2d9d71500",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Influencing without formal authority is a hallmark of servant leadership as practiced by a Scrum Master. The Scrum Master serves the organization by fostering adoption and effective Scrum use, which expli"
+    },
+    {
+      "id": "2fe75bcc-d5b3-4d38-98d2-7de2d9d71500",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:a",
+      "hit": "Servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Servant leadership through influence without authority, serving the organization by enabling conditions for Scrum to succeed."
+    },
+    {
+      "id": "2fe75bcc-d5b3-4d38-98d2-7de2d9d71500",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A gap in servant leadership, because effective organizational change requires formal managerial authority."
+    },
+    {
+      "id": "2fe75bcc-d5b3-4d38-98d2-7de2d9d71500",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "servant-leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Overreach, because the Scrum Master's servant-leadership scope is limited to team-level processes."
+    },
+    {
+      "id": "3b54be04-f730-4163-bb8a-d92c3dd3ba3a",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "A trainer calls the Scrum Master a 'servant-leader.' A colleague claims that exact phrase appears in the 2020 Scrum Guide. Which statement best classifies this disagreement?"
+    },
+    {
+      "id": "3b54be04-f730-4163-bb8a-d92c3dd3ba3a",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "The 2020 Scrum Guide replaced 'servant-leader' with 'true leader,' making 'servant-leader' legacy training language. The colleague is mistaken; 'servant-leader' does not appear in t"
+    },
+    {
+      "id": "3b54be04-f730-4163-bb8a-d92c3dd3ba3a",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:a",
+      "hit": "Servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "'Servant-leader' was added in 2020 to replace the older 'true leader' phrase from the 2017 guide."
+    },
+    {
+      "id": "3b54be04-f730-4163-bb8a-d92c3dd3ba3a",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "Servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "'Servant-leader' is official 2020 guide language, so the trainer and guide are fully aligned."
+    },
+    {
+      "id": "3b54be04-f730-4163-bb8a-d92c3dd3ba3a",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "Servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "'Servant-leader' is legacy terminology; the 2020 guide uses 'true leader' instead."
+    },
+    {
+      "id": "433eea57-eb0d-488b-98ea-45716195fda3",
+      "cert": "SM-AI-I",
+      "task": "2.5",
+      "marker": "per-item accept or reject at the Sprint Review",
+      "field": "explanation",
+      "hit": "acceptance criteria per item",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "one as one of their explicit accountabilities in the Scrum Guide. The Product Owner defines what to build and acceptance criteria per item, but establishing quality through the DoD belongs to the Developers. The Scrum Master coaches adherence but does not own "
+    },
+    {
+      "id": "4e527ee6-5174-446e-817c-f44a779b5b71",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "tly part of the definition. The argument that manager task assignment was always acceptable confuses the 2017 self-organizing language with the 2020 self-managing update, which strengthened team ownership of work allocation."
+    },
+    {
+      "id": "4e527ee6-5174-446e-817c-f44a779b5b71",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:a",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "Self-managing replaced self-organizing in name only; manager task assignment was always acceptable under both."
+    },
+    {
+      "id": "4f8327e8-53c5-49fe-ae7b-f61c097e957c",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "Servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Servant leadership means serving the entire Scrum Team and the organization, not shielding Developers from the Product Owner. Facilitating healthy col"
+    },
+    {
+      "id": "4fa79c26-fbf8-475d-a005-bdd37ebcfa19",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "eadership overrides the 'who' dimension, directly violating self-management. The claim that self-managing and self-organizing are interchangeable is incorrect: the 2020 shift explicitly expanded autonomy to include 'who', which the pre-2020 term did not cover."
+    },
+    {
+      "id": "4fa79c26-fbf8-475d-a005-bdd37ebcfa19",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:a",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "Acceptable: self-managing replaced self-organizing in name only, so external coordination of roles remains valid."
+    },
+    {
+      "id": "5535addc-523c-41ae-a761-e3b31da6514f",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant leadership",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A Scrum Master notices the team repeatedly skips the Sprint Retrospective, claiming it wastes time. Applying servant leadership, what should the Scrum Master do?"
+    },
+    {
+      "id": "5535addc-523c-41ae-a761-e3b31da6514f",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "Servant leadership",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "Servant leadership does not mean passive deference. The Scrum Master is accountable for Scrum's health and must proactively coach the team when they a"
+    },
+    {
+      "id": "5535addc-523c-41ae-a761-e3b31da6514f",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "servant leaders",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "Defer to the team and cancel future Retrospectives, since servant leaders follow team decisions."
+    },
+    {
+      "id": "65946c58-7e86-4bb6-a45f-f24483a4882d",
+      "cert": "SM-AI-I",
+      "task": "3.6",
+      "marker": "at least one high priority process improvement",
+      "field": "explanation",
+      "hit": "at least one high-priority improvement",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Scrum Guide expects the team to identify at least one high-priority improvement and add it to the next Sprint Backlog as real work with a clear owner and timebox. Keeping improvements in a se"
+    },
+    {
+      "id": "69969045-11dc-411b-a2ff-1fc434d77e57",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Developers keeps skipping the Sprint Retrospective, calling it a waste of time. Applying servant leadership, what should the Scrum Master do?"
+    },
+    {
+      "id": "69969045-11dc-411b-a2ff-1fc434d77e57",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "Servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Servant leadership does not mean passive deference; a servant leader challenges and redirects the team when needed while still serving their growth. C"
+    },
+    {
+      "id": "709d3ff6-74ae-4860-8286-d52344b766ce",
+      "cert": "SM-AI-I",
+      "task": "3.6",
+      "marker": "at least one high priority process improvement",
+      "field": "explanation",
+      "hit": "at least one high-priority improvement",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "The 2020 Scrum Guide states that at least one high-priority improvement may be added to the next Sprint Backlog, making it visible, trackable work. A separate improvement backlog outs"
+    },
+    {
+      "id": "7c00917f-3219-4687-bc17-eafef870a7fa",
+      "cert": "SM-AI-I",
+      "task": "3.3",
+      "marker": "first days of the Sprint",
+      "field": "option:b",
+      "hit": "first days of the Sprint",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "A plan for building the increment, detailing enough work to cover at least the first days of the Sprint."
+    },
+    {
+      "id": "7e969c9d-c10b-418b-93ce-38b087e953f4",
+      "cert": "SM-AI-I",
+      "task": "3.10",
+      "marker": "three questions",
+      "field": "explanation",
+      "hit": "three questions",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "y answering three fixed questions without discussing goal alignment turns the event into a status ritual. The three questions are not mandatory per the 2020 Scrum Guide—they are one possible structure. Sprint Goal alignment is not reserved for Sprint Planning "
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "stem",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A Developer uses 'self-organizing' in Sprint Retrospective notes. The Scrum Master wants to correct this. What is the accurate correction?"
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "The 2020 Scrum Guide deprecated 'self-organizing' and introduced 'self-managing,' meaningfully expanding scope to include who performs the work and what to work on. Claiming both term"
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:a",
+      "hit": "Self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "'Self-organizing' is still current; it describes how work is done, while 'self-managing' describes who does it — both terms apply."
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:b",
+      "hit": "Self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "'Self-organizing' is deprecated, but 'self-managing' is only a rename with identical meaning, so the practical difference is negligible."
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:c",
+      "hit": "Self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "'Self-organizing' still applies to Developers specifically; 'self-managing' applies only at the broader Scrum Team level."
+    },
+    {
+      "id": "812a3c77-e254-41ce-ad80-0d7ae195c593",
+      "cert": "SM-AI-I",
+      "task": "2.6",
+      "marker": "self-organizing",
+      "field": "option:d",
+      "hit": "Self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "'Self-organizing' is deprecated; the 2020 Scrum Guide replaced it with 'self-managing,' expanding scope to include who and what."
+    },
+    {
+      "id": "8451528f-00b6-4505-97b8-bdb402275ee2",
+      "cert": "SM-AI-I",
+      "task": "4.4",
+      "marker": "per-item accept or reject at the Sprint Review",
+      "field": "option:d",
+      "hit": "Acceptance criteria written per Product Backlog item",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "Acceptance criteria written per Product Backlog item to confirm individual completion."
+    },
+    {
+      "id": "894d347d-ed79-47f8-afc0-5c0dc4951929",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant-leadership",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "A team member's repeated late deliveries are blocking the Sprint Goal. What servant-leadership action is most appropriate for the Scrum Master?"
+    },
+    {
+      "id": "894d347d-ed79-47f8-afc0-5c0dc4951929",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "Servant leadership",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "Servant leadership includes courageous, respectful accountability; it does not prohibit confronting behaviors that harm the team. Engaging directly to"
+    },
+    {
+      "id": "894d347d-ed79-47f8-afc0-5c0dc4951929",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:d",
+      "hit": "servant leaders",
+      "state": "BARE",
+      "key": [
+        "b"
+      ],
+      "excerpt": "Wait for the team member to raise the problem, since servant leaders act only when explicitly asked for help."
+    },
+    {
+      "id": "91b41518-c7c4-4f19-9d53-877605058956",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The 2020 Scrum Guide's language change from 'servant-leader' to 'true leader who serves' is a terminological refinement, not a behavioral shift. The Scrum Master continues to prioritize the needs"
+    },
+    {
+      "id": "91b41518-c7c4-4f19-9d53-877605058956",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Yes—removing 'servant-leader' means the Scrum Master no longer needs to prioritize others' needs over a personal agenda."
+    },
+    {
+      "id": "91b41518-c7c4-4f19-9d53-877605058956",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:d",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Yes—the term separates servant leadership from true leadership, so each Scrum role now applies a distinct leadership philosophy."
+    },
+    {
+      "id": "92210787-de02-4f39-a84f-fac9f4698381",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A pre-2020 study guide says the Scrum Master 'serves the team as a servant-leader.' How should a candidate interpret this relative to the 2020 Scrum Guide?"
+    },
+    {
+      "id": "92210787-de02-4f39-a84f-fac9f4698381",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "The 2020 Scrum Guide uses 'true leader' rather than 'servant-leader,' so legacy materials using that phrase require translation. The Scrum Master's stance did not become managerial; the guide retained a "
+    },
+    {
+      "id": "92210787-de02-4f39-a84f-fac9f4698381",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "It is current; 'servant-leader' is the 2020 guide's primary label for the Scrum Master."
+    },
+    {
+      "id": "b3a42b2d-fc99-42a1-af71-5ce418590f3f",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "self-organizing",
+      "field": "stem",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "An older Scrum course describes Developers as 'self-organizing.' The 2020 Scrum Guide changed this to 'self-managing.' Why did the terminology shift?"
+    },
+    {
+      "id": "b3a42b2d-fc99-42a1-af71-5ce418590f3f",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "um Guide specifically means Developers choose who does which work — a broader and more precise autonomy than 'self-organizing' implied. The change is substantive, not cosmetic, and the Scrum Master role was not eliminated as a result."
+    },
+    {
+      "id": "b57f9b0c-5e9a-4d60-96e9-3850e38cd452",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "A legacy training manual labels the Scrum Master a 'servant-leader.' How does the 2020 Scrum Guide treat this term?"
+    },
+    {
+      "id": "b57f9b0c-5e9a-4d60-96e9-3850e38cd452",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "The 2020 Scrum Guide replaced 'servant-leader' with 'true leader,' so 'servant-leader' is now legacy language, not current official terminology. Retaining 'servant-leader' as the of"
+    },
+    {
+      "id": "b57f9b0c-5e9a-4d60-96e9-3850e38cd452",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:a",
+      "hit": "servant-leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "It removed the term because servant-leadership conflicts with Scrum's self-managing principles."
+    },
+    {
+      "id": "b57f9b0c-5e9a-4d60-96e9-3850e38cd452",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "It replaced 'servant-leader' with 'true leader' — making 'servant-leader' outdated terminology."
+    },
+    {
+      "id": "b57f9b0c-5e9a-4d60-96e9-3850e38cd452",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "option:c",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "It retained 'servant-leader' as the official label, so the term remains current."
+    },
+    {
+      "id": "c10b3203-e1af-43b7-b32b-2036fdc12864",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "self-organizing",
+      "field": "stem",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A legacy manual calls Developers 'self-organizing.' The 2020 Scrum Guide replaced that term with 'self-managing.' What does this shift primarily signal?"
+    },
+    {
+      "id": "c10b3203-e1af-43b7-b32b-2036fdc12864",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The 2020 Scrum Guide replaced 'self-organizing' with 'self-managing' to explicitly extend Developer autonomy to deciding who does what, how, and when — not merely how the team forms"
+    },
+    {
+      "id": "c2684c92-44a8-4ce9-bc19-b41bf73e34f0",
+      "cert": "SM-AI-I",
+      "task": "5.7",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "Replacing 'servant-leader' with 'true leader' did not grant the Scrum Master managerial or decision-making authority; the role remains service-oriented. The word"
+    },
+    {
+      "id": "c4e0156d-839b-44a7-bafc-87f0364c6b14",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "A colleague claims the 2020 Scrum Guide dropped servant leadership entirely and replaced it with a different philosophy. What is the correct response?"
+    },
+    {
+      "id": "c4e0156d-839b-44a7-bafc-87f0364c6b14",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant-leader",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "The 2020 Scrum Guide replaced the hyphenated label 'servant-leader' with 'true leader who serves' but preserved the underlying servant-leadership philosophy. The change is terminological, not philosophi"
+    },
+    {
+      "id": "c4e0156d-839b-44a7-bafc-87f0364c6b14",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:a",
+      "hit": "servant leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "The colleague is correct; servant leadership and true leadership are distinct philosophies assigned to different Scrum roles."
+    },
+    {
+      "id": "c4e0156d-839b-44a7-bafc-87f0364c6b14",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "servant-leadership",
+      "state": "CONTRASTED",
+      "key": [
+        "b"
+      ],
+      "excerpt": "The colleague is incorrect; the 2020 Guide retains servant-leadership substance under 'true leader who serves,' changing only the term."
+    },
+    {
+      "id": "c58fe984-9ccb-4823-8ece-a57c9f2c2a39",
+      "cert": "SM-AI-I",
+      "task": "4.13",
+      "marker": "per-item accept or reject at the Sprint Review",
+      "field": "option:b",
+      "hit": "accepted all acceptance criteria for each item",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "Both form the Increment because the Product Owner accepted all acceptance criteria for each item."
+    },
+    {
+      "id": "ebc99c3c-41a8-4695-95b7-3800a27a8f25",
+      "cert": "SM-AI-I",
+      "task": "2.7",
+      "marker": "servant-leader",
+      "field": "option:a",
+      "hit": "servant leadership",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "No boundary, because coaching the team to escalate all blockers to the SM reflects servant leadership."
+    },
+    {
+      "id": "f6c628d8-0b26-4c55-afaa-84b53cda5c8d",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "stem",
+      "hit": "servant leadership",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A Scrum Master is asked why servant leadership applies across many industries, not just software. Which statement best explains this?"
+    },
+    {
+      "id": "f6c628d8-0b26-4c55-afaa-84b53cda5c8d",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant leadership",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Greenleaf's 1970 essay presented servant leadership as a broad, domain-agnostic philosophy—serve others first—that was not tied to any industry. Agile and Scrum communities later adop"
+    },
+    {
+      "id": "fd090cf0-7620-4dbb-97ea-b4797e36a4cf",
+      "cert": "SM-AI-I",
+      "task": "5.4",
+      "marker": "servant-leader",
+      "field": "explanation",
+      "hit": "servant leader",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A servant leader serves the team's long-term success, which includes surfacing risks and offering data to support better decisions without overriding te"
+    },
+    {
+      "id": "dbeb953e-7689-4644-ae7b-0e09e03a2d67",
+      "cert": "SPO-AI-I",
+      "task": "3.2",
+      "marker": "servant-leader",
+      "field": "option:b",
+      "hit": "servant-leadership",
+      "state": "BARE",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Scrum Master, because resolving team-PO conflicts falls within the Scrum Master's servant-leadership duties."
+    },
+    {
+      "id": "0c9b16c3-14fb-4915-9a13-d0d8a194a0b0",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "stem",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A 2017-era wiki states the Development Team is 'self-organizing.' Which 2020 Scrum Guide term replaces it, and to whom does it now apply?"
+    },
+    {
+      "id": "0c9b16c3-14fb-4915-9a13-d0d8a194a0b0",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "self-organizing",
+      "field": "stem",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A 2017-era wiki states the Development Team is 'self-organizing.' Which 2020 Scrum Guide term replaces it, and to whom does it now apply?"
+    },
+    {
+      "id": "0c9b16c3-14fb-4915-9a13-d0d8a194a0b0",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "explanation",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "d 'self-organizing' with 'self-managing' and broadened its scope to the whole Scrum Team, not just the former Development Team sub-group. The guide does not use 'autonomous' or 'self-directing' as replacement terms, and neither the Scrum Master nor the Product"
+    },
+    {
+      "id": "0c9b16c3-14fb-4915-9a13-d0d8a194a0b0",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "self-organizing",
+      "field": "explanation",
+      "hit": "self-organizing",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "The 2020 Scrum Guide replaced 'self-organizing' with 'self-managing' and broadened its scope to the whole Scrum Team, not just the former Development Team sub-group. The guide does "
+    },
+    {
+      "id": "0c9b16c3-14fb-4915-9a13-d0d8a194a0b0",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "option:d",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "'Self-managing' replaces it and applies to the entire Scrum Team, not only to the former Development Team."
+    },
+    {
+      "id": "288ebb29-fbe9-4c98-b482-b7c2a3669f2c",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "stem",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A legacy document states 'the Development Team commits to the Sprint Backlog.' What does the 2020 Scrum Guide actually say about this?"
+    },
+    {
+      "id": "2c77a359-0e32-4648-8f80-804cec3e4317",
+      "cert": "SD-AI-I",
+      "task": "1.9",
+      "marker": "Development Team",
+      "field": "stem",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "The 2020 Scrum Guide removed the Development Team sub-team. What replaced it?"
+    },
+    {
+      "id": "2c77a359-0e32-4648-8f80-804cec3e4317",
+      "cert": "SD-AI-I",
+      "task": "1.9",
+      "marker": "Development Team",
+      "field": "explanation",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "c"
+      ],
+      "excerpt": "The 2020 Scrum Guide dissolved the Development Team sub-team and replaced it with the Developer accountability, which belongs to every Scrum Team member who works on creating the Increm"
+    },
+    {
+      "id": "5ec39adf-7ae2-4424-b8b8-dfe8843b3b73",
+      "cert": "SD-AI-I",
+      "task": "2.4",
+      "marker": "three questions",
+      "field": "explanation",
+      "hit": "three questions",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "The Scrum Guide offers the three questions as one possible technique, not a mandatory script. Developers may use any structure that helps them inspect progress toward the Sprint"
+    },
+    {
+      "id": "5ec39adf-7ae2-4424-b8b8-dfe8843b3b73",
+      "cert": "SD-AI-I",
+      "task": "2.4",
+      "marker": "three questions",
+      "field": "option:c",
+      "hit": "three questions",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "Adopt it; the three questions are required by the Scrum framework to ensure compliance."
+    },
+    {
+      "id": "5ec39adf-7ae2-4424-b8b8-dfe8843b3b73",
+      "cert": "SD-AI-I",
+      "task": "2.4",
+      "marker": "three questions",
+      "field": "option:d",
+      "hit": "three questions",
+      "state": "BARE",
+      "key": [
+        "d"
+      ],
+      "excerpt": "Treat the three questions as one useful technique while keeping focus on the Sprint Goal."
+    },
+    {
+      "id": "73ec1a16-6355-4c97-afc0-f5b045e5fc80",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "stem",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "A Scrum team's documentation still uses the term 'Development Team' from a pre-2020 guide. Which 2020 Scrum Guide term replaces it, and what structural change accompanied that replacement?"
+    },
+    {
+      "id": "73ec1a16-6355-4c97-afc0-f5b045e5fc80",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "explanation",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "d"
+      ],
+      "excerpt": "The 2020 Scrum Guide eliminated the Development Team as a distinct sub-team. Developers are now accountable members of one Scrum Team, not a nested layer. The change was structural, not "
+    },
+    {
+      "id": "c85cbb7f-c505-4fb1-9e05-c49e02438ffd",
+      "cert": "SD-AI-I",
+      "task": "2.4",
+      "marker": "three questions",
+      "field": "explanation",
+      "hit": "three questions",
+      "state": "BARE",
+      "key": [
+        "c"
+      ],
+      "excerpt": " event purposeful. Reporting completed work to the Scrum Master confuses the event with a status meeting. The three questions are a suggested technique, not a mandatory script, so requiring them in sequence misrepresents the framework."
+    },
+    {
+      "id": "cd4a96cf-b102-4eeb-ad04-4ac5091a5acb",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "stem",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "A job posting requires experience with the 'Development Team sub-team.' A candidate familiar with the 2020 Scrum Guide would recognize this as referring to which current concept?"
+    },
+    {
+      "id": "cd4a96cf-b102-4eeb-ad04-4ac5091a5acb",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "explanation",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The 2020 Scrum Guide removed the Development Team as a named sub-team. The people doing the work are now called Developers and are accountable members of one Scrum Team, with no neste"
+    },
+    {
+      "id": "cd4a96cf-b102-4eeb-ad04-4ac5091a5acb",
+      "cert": "SD-AI-I",
+      "task": "5.8",
+      "marker": "Development Team",
+      "field": "option:c",
+      "hit": "Development Team",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "The Scrum Team—the 2020 Guide merged the Development Team, Product Owner, and Scrum Master into a single flat role."
+    },
+    {
+      "id": "d4f241db-ec8d-49d8-b5bc-0b0ec102e12d",
+      "cert": "SM-AI-II",
+      "task": "2.6",
+      "marker": "per-item accept or reject at the Sprint Review",
+      "field": "option:b",
+      "hit": "acceptance criteria define who is accountable for each item",
+      "state": "CONTRASTED",
+      "key": [
+        "a"
+      ],
+      "excerpt": "Escalate to the Product Owner to arbitrate, because the Product Owner's acceptance criteria define who is accountable for each item."
+    }
+  ]
+}
