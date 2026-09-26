@@ -875,6 +875,55 @@ const FINGERPRINTS = {
             : "review-held lesson refused as " + rReason + ", expected translation_pending_review",
     };
   },
+  375: async () => {
+    /* 375 is the source library: source_passages, task_sources, item_grounding.
+     *
+     * THE THING THAT MATTERS IS NOT THAT THE TABLE EXISTS, IT IS THAT IT IS SHUT.
+     * These rows are licensed clause text from ISO/IEC 42001, 27001, 27002 and
+     * ISO 19011, and the whole design says they are internal: service_role only,
+     * RLS on, anon and authenticated refused. A probe that only asked "does the
+     * table exist" would report green on a table PostgREST was serving to the
+     * world, which is the one failure that matters here.
+     *
+     * So `ran` is existence and `effective` is the REFUSAL, tested the only way a
+     * refusal can be tested -- by asking as a party that must not be able to read.
+     * `rest()` here holds the service-role key, so it standing in for anon would
+     * be the "credential the test holds IS the hypothesis" defect; the anon read
+     * is made with the anon key explicitly.
+     *
+     * Loading is a SEPARATE step (scripts/load-source-passages.mjs), so an empty
+     * table is a correct state right after the migration and must not read as a
+     * failed migration. Row counts are reported, never asserted. */
+    const sp = await rest("source_passages?select=source_id&limit=1");
+    const ts = await rest("task_sources?select=task_id&limit=1");
+    const ig = await rest("item_grounding?select=question_id&limit=1");
+    const exists = Array.isArray(sp) && Array.isArray(ts) && Array.isArray(ig);
+    if (!exists) {
+      return { ran: false, why: "one of source_passages / task_sources / item_grounding is not reachable with the service-role key" };
+    }
+    /* The negative half, as anon. A 401/404 here is the correct answer. */
+    let anonBlocked = null;
+    const anon = process.env.SUPABASE_ANON_KEY;
+    if (anon) {
+      try {
+        const r = await fetch(REST + "/source_passages?select=source_id&limit=1", {
+          headers: { apikey: anon, Authorization: "Bearer " + anon },
+        });
+        anonBlocked = r.status === 401 || r.status === 403 || r.status === 404;
+      } catch { anonBlocked = null; }
+    }
+    const n = Array.isArray(sp) ? "reachable" : "unreachable";
+    return {
+      ran: true,
+      why: "all three tables exist and the service role can read them (" + n + "); loading is a separate step, so an empty table is correct here",
+      effective: anonBlocked === null ? undefined : anonBlocked,
+      effectiveWhy: anonBlocked === null
+        ? "no SUPABASE_ANON_KEY: whether anon is refused is UNASSERTED, not confirmed"
+        : anonBlocked
+          ? "anon is refused on source_passages -- the licensed text is not readable through PostgREST"
+          : "ANON CAN READ source_passages -- licensed standard text is being served",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */

@@ -1,0 +1,543 @@
+{
+  "library_passages": 548,
+  "items": 9230,
+  "unresolved": [
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "4",
+      "cited": 10,
+      "state": "CONTAINER",
+      "note": "4 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "5",
+      "cited": 9,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "6",
+      "cited": 6,
+      "state": "CONTAINER",
+      "note": "6 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "6.1",
+      "cited": 2,
+      "state": "CONTAINER",
+      "note": "4 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "7",
+      "cited": 3,
+      "state": "CONTAINER",
+      "note": "8 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "8",
+      "cited": 69,
+      "state": "CONTAINER",
+      "note": "4 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "9.2",
+      "cited": 24,
+      "state": "CONTAINER",
+      "note": "2 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 42001",
+      "clause": "A.6",
+      "cited": 1,
+      "state": "CONTAINER",
+      "note": "11 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "10",
+      "cited": 3,
+      "state": "CONTAINER",
+      "note": "1 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "10.1",
+      "cited": 4,
+      "state": "EXTRACTOR GAP",
+      "note": "the heading is in the document and the library does not have it"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "4",
+      "cited": 34,
+      "state": "CONTAINER",
+      "note": "4 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "5",
+      "cited": 10,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "5.10",
+      "cited": 1,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.5.10"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "5.15",
+      "cited": 2,
+      "state": "EXTRACTOR GAP",
+      "note": "the heading is in the document and the library does not have it"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "5.18",
+      "cited": 2,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.5.18"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "5.35",
+      "cited": 13,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.5.35"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "6",
+      "cited": 7,
+      "state": "CONTAINER",
+      "note": "4 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "6.1",
+      "cited": 10,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "6.7",
+      "cited": 1,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.6.7"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "7.5",
+      "cited": 2,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "8",
+      "cited": 5,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "8.13",
+      "cited": 3,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.8.13"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "8.5",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "8.8",
+      "cited": 1,
+      "state": "ANNEX CONTROL, cited without its A. prefix",
+      "note": "resolves to A.8.8"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "9.2.1",
+      "cited": 15,
+      "state": "EXTRACTOR GAP",
+      "note": "the heading is in the document and the library does not have it"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "9.3",
+      "cited": 14,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO/IEC 27001",
+      "clause": "A.1",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27002, ISO 19011"
+    },
+    {
+      "source": "ISO/IEC 27002",
+      "clause": "6.1.3",
+      "cited": 2,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "10.2",
+      "cited": 35,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "5.18",
+      "cited": 3,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "5.19",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "5.23",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "5.25",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "6.1.1",
+      "cited": 8,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "6.1.2",
+      "cited": 46,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "6.1.3",
+      "cited": 26,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "6.1.4",
+      "cited": 42,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "6.2",
+      "cited": 9,
+      "state": "CONTAINER",
+      "note": "3 subclause(s) held; the parent is split, not missing"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "7.5.1",
+      "cited": 3,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "7.5.3",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.1",
+      "cited": 7,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.2",
+      "cited": 9,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.20",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.22",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.3",
+      "cited": 5,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.32",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.4",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "8.8",
+      "cited": 6,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001, ISO/IEC 27002"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "9.1",
+      "cited": 7,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "9.2",
+      "cited": 13,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "9.2.1",
+      "cited": 3,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "9.2.2",
+      "cited": 10,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "9.3",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.10.2",
+      "cited": 2,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.4.4",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.5.19",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.5.2",
+      "cited": 10,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.6.2.2",
+      "cited": 2,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.6.2.5",
+      "cited": 4,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.6.2.6",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.7.2",
+      "cited": 8,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.7.3",
+      "cited": 6,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.7.4",
+      "cited": 13,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.8.2",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001, ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.8.8",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 27001"
+    },
+    {
+      "source": "ISO 19011",
+      "clause": "A.9.3",
+      "cited": 1,
+      "state": "RESOLVES IN ANOTHER HELD STANDARD",
+      "note": "attribution unclear -- present in ISO/IEC 42001"
+    }
+  ],
+  "ambiguous_buckets": [
+    "(ambiguous: no held source named)",
+    "(ambiguous: ISO/IEC 42001 + ISO 19011)",
+    "(ambiguous: ISO/IEC 42001 + ISO/IEC 27001)",
+    "(ambiguous: ISO/IEC 27001 + ISO 19011)",
+    "(ambiguous: ISO/IEC 42001 + ISO/IEC 27001 + ISO 19011)",
+    "(ambiguous: ISO/IEC 27001 + ISO/IEC 27002 + ISO 19011)",
+    "(ambiguous: ISO/IEC 27001 + ISO/IEC 27002)"
+  ],
+  "gaps": [
+    {
+      "source": "ITIL 4",
+      "items": 9,
+      "per_cert": {
+        "AISM-I": 9
+      }
+    },
+    {
+      "source": "EU AI Act",
+      "items": 144,
+      "per_cert": {
+        "AIGRM-I": 124,
+        "AIMS-F": 17,
+        "AIE-I": 2,
+        "AIMS-IA": 1
+      }
+    },
+    {
+      "source": "NYC Local Law 144",
+      "items": 2,
+      "per_cert": {
+        "AIHR-I": 2
+      }
+    },
+    {
+      "source": "ISO/IEC 17021",
+      "items": 74,
+      "per_cert": {
+        "AIMS-F": 19,
+        "ISMS-IA": 28,
+        "AIMS-IA": 19,
+        "ISMS-F": 8
+      }
+    },
+    {
+      "source": "ISO/IEC 17024",
+      "items": 5,
+      "per_cert": {
+        "ISMS-F": 5
+      }
+    },
+    {
+      "source": "EBM Guide",
+      "items": 17,
+      "per_cert": {
+        "SPO-AI-I": 17
+      }
+    },
+    {
+      "source": "ISO/IEC 22989",
+      "items": 12,
+      "per_cert": {
+        "AIGRM-I": 12
+      }
+    },
+    {
+      "source": "NIST AI RMF",
+      "items": 30,
+      "per_cert": {
+        "AIGRM-I": 27,
+        "AIMS-F": 3
+      }
+    }
+  ],
+  "uncited_passages": 407
+}
