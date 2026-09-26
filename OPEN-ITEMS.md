@@ -3,63 +3,84 @@
 ## Decisions waiting on a person, not on work
 
 **SHOULD THE SECURE POOLS GET A SOURCE-CONFORMANCE AUDIT BEFORE MORE EXAMS RUN?**
-Raised 2026-09-26 by the director's read of the 342 exposed items. **This is the
-largest open question on the platform.**
+**ANSWERED 2026-09-26. The rate holds, it holds everywhere, and it is a GENERATOR
+problem.** This replaces the question that stood here; the reasoning that raised it is
+in `SCRUM-2017-REPORT.md` and the two reads are `ITEM-EXPOSURE.md` and
+`AUDIT-FINDINGS-480.md`.
 
-The read was scoped to translation quality on the 342 items that had actually been
-presented. It found the **Spanish sound** — no translation moved a key or made a
-distractor correct anywhere in 342 items — and the **English not**: five items whose
-key is wrong against their own source (now retired), and at least four teaching
-**2017 Scrum Guide** content in a certification that claims the 2020 Guide.
+**822 English secure items have now been read against their own cited sources**
+— 342 from the exposed set and 480 from a stratified random sample of all twelve
+certifications, seed 20260926, with no overlap. **16 wrong keys, 92 contested.**
 
-> **A translation review could never have found this, and this was a translation
-> review.** The defect is in the source, so it is present in all three languages,
-> and every gate this repository owns compares a translation against its English.
-> The English is the party nothing checks.
+| cert | live EN secure | read | wrong keys | rate | contested |
+|---|---|---|---|---|---|
+| AIGRM-I | 457 | 40 | **2** | 5.0% | 3 |
+| AIMS-F | 278 | 40 | **2** | 5.0% | 12 |
+| SM-AI-I | 452 | 230 | **6** | 2.6% | 27 |
+| AIHR-I | 223 | 40 | **1** | 2.5% | 3 |
+| ISMS-F | 391 | 40 | **1** | 2.5% | 3 |
+| SD-AI-I | 359 | 40 | **1** | 2.5% | 3 |
+| SPO-AI-I | 388 | 40 | **1** | 2.5% | 5 |
+| AIE-I | 143 | 112 | **1** | 0.9% | 7 |
+| AISM-I | 487 | 120 | **1** | 0.8% | 6 |
+| AIMS-IA | 320 | 40 | **0** | 0.0% | 11 |
+| ISMS-IA | 304 | 40 | **0** | 0.0% | 6 |
+| SM-AI-II | 352 | 40 | **0** | 0.0% | 6 |
+| **total** | **4154** | **822** | **16** | **1.9%** | **92** |
 
-**What has been examined, and what has not:**
+**The two samples agree**: 1.5% wrong keys on the exposed 342, 2.3% on the random 480.
+The second was drawn at random from every certification, so the rate is a property of
+the bank and not of what eight attempts happened to draw. **Every certification has
+defects**; three have no wrong key yet and all three have contested items.
 
-```
-                     secure EN items    checked against source
-exposed in an exam        342 (es-419)   yes, by hand, 2026-09-26
-everything else         4,166 (EN)       NO
-```
+### It is a generator problem, not a translation problem
 
-| certification | form length | secure items per language |
+The errors cluster by **source**, not by language:
+
+- 2017 Scrum Guide wording across the four Scrum certifications
+- 19011:2018-style clause numbering in AIMS-IA and ISMS-IA
+- "requirements" the ISO standards do not contain
+- an odd-one-out option pattern the generator repeats (Tier D, nine items)
+
+**The Spanish read clean across all 342.** No translation moved a key or made a
+distractor correct. Every defect found in both reads is in the English, so every fix
+lands in all three languages and no translation pass would have found any of them.
+
+### What remains, and what the next step is
+
+| | |
+|---|---|
+| English secure items live | **4154** |
+| read across both samples | 822 |
+| retired as Tier A | 16 |
+| **not yet read** | **3348** |
+
+**The next step is batches of 480, read the same way**: stratified by domain per
+certification, seed recorded, no overlap with what has been read, Tier A retired on the
+spot after the domain-quota feasibility check. At 3348 remaining that is
+about 7 more batches. `scripts/build-audit-sample.mjs`
+already excludes read groups, so each batch is one command.
+
+### The one thing only Juan can supply: human SMEs
+
+**92 contested items are waiting on subject-matter judgement, and an AI
+read cannot close them.** Four domains:
+
+| domain | who is needed | queue depth |
 |---|---|---|
-| AIE-I | 25 | 143 |
-| AIGRM-I | 80 | 459 |
-| AIHR-I | 40 | 224 |
-| AIMS-F | 40 | 280 |
-| AIMS-IA | 50 | 320 |
-| AISM-I | 80 | 488 |
-| ISMS-F | 40 | 392 |
-| ISMS-IA | 50 | 304 |
-| SD-AI-I | 80 | 360 |
-| SM-AI-I | 80 | 454 |
-| SM-AI-II | 50 | 352 |
-| SPO-AI-I | 80 | 389 |
-| **total** | | **4,166** (12,496 across three languages) |
+| Scrum (2020 Guide) | a PST or equivalent | 41 |
+| ITIL 4 / ISO 20000 | a service-management practitioner | 6 |
+| ISO auditor (27001 / 42001 / 19011) | a lead auditor | 32 |
+| EU AI Act and HR / employment law | counsel or a compliance specialist | 13 |
 
-**The base rate is the part that decides this.** Of 342 items read, 5 had a wrong
-key (1.5%) and 30 more were Tier B (8.8%). If that rate holds across 4,166 English
-secure items it implies roughly **60 wrong keys and 365 questionable items** —
-but 342 is not a random sample of the bank: it is what eight attempts on three
-certifications happened to draw, and 4 of the 5 Tier A findings are SM-AI-I, whose
-2017-versus-2020 Guide problem may be specific to it. **Extrapolating from it would
-be the two-point comparison this repository already records.** The rate needs a
-stratified sample per certification before it means anything.
+> **Under ISO/IEC 17024 an AI read is TRIAGE. It does not replace SME sign-off.** What
+> the two reads can do is put the right items in front of the right expert and retire the
+> ones that are plainly wrong; what they cannot do is be the judgement of record for a
+> scored examination. Tier A was retired on measurement. **Tier B is not rescored on
+> "contested" and must not be** — that decision belongs to a named human with the
+> standard open.
 
-**Under ISO/IEC 17024 the question is not whether the rate is low.** It is whether
-we can say the examination measures what the blueprint claims. An item keyed against
-the wrong edition of its own source does not, and it is scored.
-
-**The cheap first move, if you want one before deciding:** SM-AI-I and SD-AI-I both
-cite the 2020 Scrum Guide and both are in the bank; a targeted search for
-2017-edition wording across their 814 English secure items is mechanical and needs no
-SME. It would size the edition problem without committing to a full audit.
-
-
+Queues: `ITEM-REVIEW-QUEUE.md` (Tier B, SME) and `ITEM-FIX-QUEUE.md` (Tiers C, D, E).
 
 **A SPANISH SCRUM/ITIL GLOSSARY TO PIN — nine terms, none settled.** Raised
 2026-09-26 from the Tier C read. Counts in `TIER-C-SPANISH-DRAFTS.md`; every one of

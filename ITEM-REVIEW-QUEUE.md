@@ -151,3 +151,87 @@ two variants. How many still collide after translation:
 the English sibling's stem, reached through `question_group_id`, or a declared
 list of duplicate groups. **Not changed here:** it is an edge-function change and
 this pass was measurement plus the Tier A retirement. Reported per §2.
+
+---
+
+## From the 480-item audit sample — added 2026-09-26
+
+The director's read of `AUDIT-SAMPLE.md`, 40 English secure items per certification.
+**62 Tier B items across 12 certifications.** Same rule as above:
+two options are defensible, or the key rests on a claim the source does not make.
+**Nothing is rescored on "contested."**
+
+> **These are defects in the ENGLISH**, and the errors cluster by SOURCE — 2017 Scrum
+> Guide wording, 19011:2018-style clause numbers, and "requirements" the ISO standards
+> do not contain. That is a generator problem, not a translation problem. An SME fix
+> lands in all three languages.
+
+| cert | id | task | why |
+|---|---|---|---|
+| AIE-I | `fdcd8167` | 1.1 | #3 and #5 contradict each other on whether rule-based systems are AI |
+| AIE-I | `494911a3` | 1.2 | #3 and #5 contradict each other on whether rule-based systems are AI |
+| AIE-I | `8523c745` | 2.4 | contested |
+| AIE-I | `3479ebab` | 3.5 | a "written approval" rule is invented |
+| AIGRM-I | `875f45e1` | 3.1 | the Annex III triage scope, plus the missing Art. 25(1)(c) provider shift |
+| AIGRM-I | `39d91b5b` | 4.3 | 42001 6.1.2 covers individuals and societies too |
+| AIGRM-I | `6ebc2e8b` | 5.1 | contested |
+| AIHR-I | `ef0212f7` | 1.2 | jurisdiction-dependent |
+| AIHR-I | `ab1030f1` | 2.4 | contested |
+| AIHR-I | `5abec73c` | 2.6 | the ADA requires accommodation, not a pre-built equivalent path |
+| AIMS-F | `b97b25ea` | 1.2 | invented AI-partner definition |
+| AIMS-F | `66fea350` | 2.2 | contested |
+| AIMS-F | `ab6263f0` | 3.6 | B.7.5 says "can include", not must |
+| AIMS-F | `dd09940d` | 3.6 | B.7.5 says "can include", not must |
+| AIMS-F | `be876cdf` | 3.8 | contested |
+| AIMS-F | `a90aee16` | 3.8 | contested |
+| AIMS-F | `b965acf2` | 4.2 | there is no human-oversight Annex A control |
+| AIMS-F | `52004aae` | 4.3 | A.3.3 sits inside A.3 |
+| AIMS-F | `591b9767` | 4.4 | provenance is A.7.5, not A.6.1 |
+| AIMS-F | `430a65d2` | 4.6 | contested |
+| AIMS-F | `83f159c4` | 1.5 | a date-dependent AI Act fact |
+| AIMS-F | `f50f74e8` | 2.1 | contested |
+| AIMS-IA | `e5ac972c` | 2.2 | the 19011 5.3 citation should be 5.5.1 g / 5.6 |
+| AIMS-IA | `1b3204d6` | 2.5 | contested |
+| AIMS-IA | `d3a7d8d1` | 2.6 | contradicts #180 |
+| AIMS-IA | `f78251d1` | 3.2 | 6.3.1 should be 6.4.6 |
+| AIMS-IA | `a60747a4` | 3.4 | contested |
+| AIMS-IA | `b5cb06e4` | 3.6 | 6.4.5 / A.16 should be 6.5.1 / 4.3 |
+| AIMS-IA | `251b199e` | 4.13 | contested |
+| AIMS-IA | `10b5f922` | 4.5 | 3.26 puts the justification in the SoA |
+| AIMS-IA | `40f77ab2` | 4.5 | B.1: no rationale required; and the "Annex B is should throughout" line is false (B.7.6 is a shall) |
+| AIMS-IA | `106ba660` | 5.2 | contested |
+| AIMS-IA | `1fd382be` | 5.4 | A.7.6 is a "shall", so a nonconformity is defensible |
+| AISM-I | `0c57c72e` | 3.10 | contested |
+| AISM-I | `0ce9ffa3` | 4.6 | contested |
+| ISMS-F | `82b3a221` | 4.11 | Annex A has no "unchanged by AI" label |
+| ISMS-F | `08073000` | 5.3 | 9.3.3 names no resource outputs |
+| ISMS-F | `309bf077` | 5.8 | contested |
+| ISMS-IA | `62d3f05f` | 2.7 | contested |
+| ISMS-IA | `1d72ac82` | 4.10 | contested |
+| ISMS-IA | `1b990908` | 4.3 | the stem makes option a also correct |
+| ISMS-IA | `324e7cbc` | 4.7 | contested |
+| ISMS-IA | `809cfdb7` | 5.1 | contested |
+| ISMS-IA | `40e07225` | 5.5 | 10.2 b) 3) makes c defensible |
+| SD-AI-I | `0a37670f` | 4.1 | contested |
+| SD-AI-I | `c55258bb` | 4.10 | contested |
+| SD-AI-I | `e5102d70` | 4.4 | the DoD applies to the Increment, so distractor d is Guide-correct |
+| SM-AI-I | `41099eea` | 1.7 | contested |
+| SM-AI-I | `59c4cd39` | 2.7 | contested |
+| SM-AI-I | `b33f6f7b` | 3.6 | contested |
+| SM-AI-I | `d199b366` | 3.9 | omits the PO negotiation the Guide requires |
+| SM-AI-II | `8313061d` | 1.7 | contested |
+| SM-AI-II | `70f3d16e` | 1.9 | contested |
+| SM-AI-II | `8ad54965` | 3.3 | contested |
+| SM-AI-II | `d43baa5d` | 4.5 | contested |
+| SM-AI-II | `75504c35` | 5.2 | contested |
+| SM-AI-II | `7940031c` | 5.5 | contested |
+| SPO-AI-I | `c08b0309` | 3.7 | conflicts with #455 |
+| SPO-AI-I | `21f9d683` | 4.5 | contested |
+| SPO-AI-I | `949e36dd` | 5.4 | EBM lists Release Frequency under Time to Market; the key is mislabelled Lead Time |
+| SPO-AI-I | `f7fc872b` | 5.9 | contested |
+| SPO-AI-I | `e9032f24` | 2.2 | PROMOTED FROM TIER C: one PO per PRODUCT, not per team, and the false statement is in the key text |
+
+**`e9032f24` (SPO-AI-I) was promoted from Tier C by the director**, because the false
+statement — one Product Owner per *product*, not per team — is in the **key text** rather
+than the explanation. A false statement in the key is a keyed-answer question, not a
+wording fix.

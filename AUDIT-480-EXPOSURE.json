@@ -1,0 +1,72 @@
+{
+  "tier_a": [
+    {
+      "n": 61,
+      "id": "05e3cd2e",
+      "cert": "AIGRM-I"
+    },
+    {
+      "n": 62,
+      "id": "1331b1f7",
+      "cert": "AIGRM-I"
+    },
+    {
+      "n": 81,
+      "id": "9bcd2f15",
+      "cert": "AIHR-I"
+    },
+    {
+      "n": 123,
+      "id": "3f0430cf",
+      "cert": "AIMS-F"
+    },
+    {
+      "n": 152,
+      "id": "1dddb20e",
+      "cert": "AIMS-F"
+    },
+    {
+      "n": 249,
+      "id": "e7d7e400",
+      "cert": "ISMS-F"
+    },
+    {
+      "n": 349,
+      "id": "57eb5129",
+      "cert": "SD-AI-I"
+    },
+    {
+      "n": 382,
+      "id": "66de9c82",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 400,
+      "id": "c10b3203",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 220,
+      "id": "de570ed8",
+      "cert": "AISM-I"
+    },
+    {
+      "n": 475,
+      "id": "a3f8c31e",
+      "cert": "SPO-AI-I"
+    }
+  ],
+  "shortfalls": [],
+  "skipped": [],
+  "exposure": [
+    {
+      "item": "c10b3203",
+      "language": "en",
+      "in_scored_attempt": true,
+      "attempt": "089a0501-1779-4d3e-bba6-f2634206de40",
+      "cert": "SM-AI-I",
+      "submitted": "2026-08-13",
+      "answer": null
+    }
+  ]
+}

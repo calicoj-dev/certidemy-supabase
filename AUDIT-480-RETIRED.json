@@ -1,0 +1,189 @@
+{
+  "retired_at": "2026-09-26T13:27:02.091Z",
+  "reason": "Tier A from the 480-item audit sample, director read 2026-09-26: the key is wrong against the item's own cited source. Retired from the secure pool pending a rewrite. See AUDIT-FINDINGS-480.md and AUDIT-480-RETIRED.json.",
+  "groups": [
+    "c2f81871-338c-459a-8137-6516142283cc",
+    "db7cb929-6dbf-45a3-b138-1a99e78e64dc",
+    "e6117519-18af-468f-8863-2a39316516d5",
+    "944b5a04-e947-427e-aba6-6946f77f9dfb",
+    "c9a66360-a26b-43ec-87e3-8cc3ce66efdb",
+    "0eb8ef6e-d47f-4373-9c43-22ab8a6cb46f",
+    "09cb970f-422b-47e9-ab12-e2d990df764f",
+    "8dbce3c7-9106-499a-8d10-a867c0ea1a6e",
+    "bd46f2d6-2ef2-4055-a4bf-8dbb2c374ffc",
+    "1911d99f-4d99-45ba-b909-829c7f94c9bb",
+    "1bad6acc-a52c-4885-95b2-f24ac8fa219b"
+  ],
+  "rows": [
+    {
+      "id": "05e3cd2e-e711-41d0-81cb-5fe6b8bee9c5",
+      "language": "en",
+      "group": "c2f81871-338c-459a-8137-6516142283cc"
+    },
+    {
+      "id": "d513d856-fdcf-4de0-ba24-21354ed3f897",
+      "language": "es-419",
+      "group": "c2f81871-338c-459a-8137-6516142283cc"
+    },
+    {
+      "id": "1e42666e-211c-4b3c-9e09-b03b669de0fe",
+      "language": "pt-BR",
+      "group": "c2f81871-338c-459a-8137-6516142283cc"
+    },
+    {
+      "id": "58ac96ad-f18f-46b4-bf51-72cd0872ed13",
+      "language": "es-419",
+      "group": "db7cb929-6dbf-45a3-b138-1a99e78e64dc"
+    },
+    {
+      "id": "1331b1f7-edf3-4b50-ae0b-02ba19bbc2a5",
+      "language": "en",
+      "group": "db7cb929-6dbf-45a3-b138-1a99e78e64dc"
+    },
+    {
+      "id": "7f512ea2-2bf9-482d-bbd1-58641639abd2",
+      "language": "pt-BR",
+      "group": "db7cb929-6dbf-45a3-b138-1a99e78e64dc"
+    },
+    {
+      "id": "9bcd2f15-71b9-4f42-a7fd-1dec79bfdcd2",
+      "language": "en",
+      "group": "e6117519-18af-468f-8863-2a39316516d5"
+    },
+    {
+      "id": "a4c49ed4-2705-4d77-8b16-38dd388c306d",
+      "language": "es-419",
+      "group": "e6117519-18af-468f-8863-2a39316516d5"
+    },
+    {
+      "id": "534eaa93-aaeb-4238-8587-1305d91185dc",
+      "language": "pt-BR",
+      "group": "e6117519-18af-468f-8863-2a39316516d5"
+    },
+    {
+      "id": "3f0430cf-dc41-41cf-bf9d-efa41e94d4d5",
+      "language": "en",
+      "group": "944b5a04-e947-427e-aba6-6946f77f9dfb"
+    },
+    {
+      "id": "924a979f-77ad-40ad-bfba-0ff0b68197ad",
+      "language": "es-419",
+      "group": "944b5a04-e947-427e-aba6-6946f77f9dfb"
+    },
+    {
+      "id": "394f5d50-9fa6-44da-b20c-aa3cf4da4677",
+      "language": "pt-BR",
+      "group": "944b5a04-e947-427e-aba6-6946f77f9dfb"
+    },
+    {
+      "id": "1dddb20e-1620-4863-aa88-89ab68a8690d",
+      "language": "en",
+      "group": "c9a66360-a26b-43ec-87e3-8cc3ce66efdb"
+    },
+    {
+      "id": "34028557-06cb-40a3-82aa-c16fdcbbf8fc",
+      "language": "es-419",
+      "group": "c9a66360-a26b-43ec-87e3-8cc3ce66efdb"
+    },
+    {
+      "id": "7c05b179-85ff-4384-8500-68e5d5f48b45",
+      "language": "pt-BR",
+      "group": "c9a66360-a26b-43ec-87e3-8cc3ce66efdb"
+    },
+    {
+      "id": "e7d7e400-0bae-46c8-bf1d-3ce21ad2f804",
+      "language": "en",
+      "group": "0eb8ef6e-d47f-4373-9c43-22ab8a6cb46f"
+    },
+    {
+      "id": "2b083d0d-4d75-495b-8eb8-f021a5a3542d",
+      "language": "es-419",
+      "group": "0eb8ef6e-d47f-4373-9c43-22ab8a6cb46f"
+    },
+    {
+      "id": "0abc5e03-2d72-4c66-93c8-f9fba4455922",
+      "language": "pt-BR",
+      "group": "0eb8ef6e-d47f-4373-9c43-22ab8a6cb46f"
+    },
+    {
+      "id": "57eb5129-3859-4ff1-83b0-b6d28be28b67",
+      "language": "en",
+      "group": "09cb970f-422b-47e9-ab12-e2d990df764f"
+    },
+    {
+      "id": "2648cf47-79aa-4a98-a4fd-bf79ac6f90f1",
+      "language": "es-419",
+      "group": "09cb970f-422b-47e9-ab12-e2d990df764f"
+    },
+    {
+      "id": "f63370f1-0673-405a-b61f-6d8cbf585994",
+      "language": "pt-BR",
+      "group": "09cb970f-422b-47e9-ab12-e2d990df764f"
+    },
+    {
+      "id": "66de9c82-abcc-42df-b2da-b77cf22522ef",
+      "language": "en",
+      "group": "8dbce3c7-9106-499a-8d10-a867c0ea1a6e"
+    },
+    {
+      "id": "1559ee6e-17a8-4473-8658-fcdf17516cc9",
+      "language": "es-419",
+      "group": "8dbce3c7-9106-499a-8d10-a867c0ea1a6e"
+    },
+    {
+      "id": "904738bf-f641-48bb-8cab-66ca43332808",
+      "language": "pt-BR",
+      "group": "8dbce3c7-9106-499a-8d10-a867c0ea1a6e"
+    },
+    {
+      "id": "c10b3203-e1af-43b7-b32b-2036fdc12864",
+      "language": "en",
+      "group": "bd46f2d6-2ef2-4055-a4bf-8dbb2c374ffc"
+    },
+    {
+      "id": "c21e4b3f-6d36-4f48-a849-841b35ca91d0",
+      "language": "es-419",
+      "group": "bd46f2d6-2ef2-4055-a4bf-8dbb2c374ffc"
+    },
+    {
+      "id": "52aa211a-b6a1-420d-9b88-94b704c28b36",
+      "language": "pt-BR",
+      "group": "bd46f2d6-2ef2-4055-a4bf-8dbb2c374ffc"
+    },
+    {
+      "id": "de570ed8-30c1-4f59-9c19-7cfb45d40c79",
+      "language": "en",
+      "group": "1911d99f-4d99-45ba-b909-829c7f94c9bb"
+    },
+    {
+      "id": "629cfd11-5fe9-43cf-a91c-a6de32547f4c",
+      "language": "es-419",
+      "group": "1911d99f-4d99-45ba-b909-829c7f94c9bb"
+    },
+    {
+      "id": "6462747a-fafb-48a2-a370-cdf8651a0de8",
+      "language": "pt-BR",
+      "group": "1911d99f-4d99-45ba-b909-829c7f94c9bb"
+    },
+    {
+      "id": "a3f8c31e-8091-4a29-8c2d-da83b8aef086",
+      "language": "en",
+      "group": "1bad6acc-a52c-4885-95b2-f24ac8fa219b"
+    },
+    {
+      "id": "05a6729c-5268-4c84-83ec-e3048a8e5c0b",
+      "language": "es-419",
+      "group": "1bad6acc-a52c-4885-95b2-f24ac8fa219b"
+    },
+    {
+      "id": "d9156979-93cd-4976-a271-06aaf620736c",
+      "language": "pt-BR",
+      "group": "1bad6acc-a52c-4885-95b2-f24ac8fa219b"
+    }
+  ],
+  "skipped": [],
+  "secure_before": 12496,
+  "secure_after": 12463,
+  "practice_before": 15220,
+  "practice_after": 15220
+}
