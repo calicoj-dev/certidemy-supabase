@@ -1,0 +1,21 @@
+{
+  "attempt": "09bf8b45-d4cb-4156-8bc1-bd636db4cee9",
+  "actor": "9bec43f7-89b1-4195-bffc-0cecf4238dae",
+  "annotation": {
+    "item": "6c0b1bce",
+    "tier": "A",
+    "finding": "key wrong against source; item retired 2026-09-26",
+    "outcome_under_credit_all": "pass 20/25",
+    "decision": "no change - candidate retook same day and holds AIE-I-UW8V-ZRUY",
+    "decided_by": "Juan"
+  },
+  "admin_action_id": "6127aad4-ed87-45e7-adc8-dec95627f027",
+  "frozen": {
+    "score_pct": 76,
+    "passed": false,
+    "total_questions": 25,
+    "correct_answers": 19,
+    "voucher_id": "20b405ac-1d25-46ab-94bc-a2aa307822e1",
+    "submitted_at": "2026-08-26T18:28:42.006+00:00"
+  }
+}

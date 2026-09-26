@@ -1,0 +1,38 @@
+{
+  "slug": "05-01-aims-monitoring-and-measurement",
+  "reviewer": "platform owner (the director), read of DRAFT-0501-TRANSLATIONS.md, 2026-09-26",
+  "house_words": [
+    {
+      "lang": "es-419",
+      "word": "seguimiento",
+      "occurrences": 27
+    },
+    {
+      "lang": "pt-BR",
+      "word": "monitoramento",
+      "occurrences": 25
+    }
+  ],
+  "edits": {
+    "es-419": [
+      {
+        "name": "span 1",
+        "to": "ISO/IEC 42001 Anexo B, B.6.2.6 advierte sobre un error específico al elegir criterios de desempeño. Aquello que el sistema de IA desplazó suele seguir funcionando en algún lugar: un flujo de trabajo manual, un motor de reglas, un modelo anterior. Su desempeño debería tratarse como contexto al fijar los criterios."
+      },
+      {
+        "name": "span 2",
+        "to": "B.6.2.6 añade un elemento relacionado que es fácil pasar por alto. Un sistema puede empezar a dar problemas porque las personas comenzaron a usarlo para otra cosa, no porque el modelo haya cambiado: una tarea para la que nunca fue diseñado, o una que nadie previó. Debería considerarse si ese uso sigue siendo apropiado."
+      }
+    ],
+    "pt-BR": [
+      {
+        "name": "span 1",
+        "to": "ISO/IEC 42001 Anexo B, B.6.2.6 alerta contra um erro específico na escolha de critérios de desempenho. Aquilo que o sistema de IA substituiu normalmente continua funcionando em algum lugar: um fluxo de trabalho manual, um motor de regras, um modelo mais antigo. Convém que seu desempenho seja tratado como contexto ao definir os critérios."
+      },
+      {
+        "name": "span 2",
+        "to": "B.6.2.6 acrescenta um item relacionado que é fácil de ignorar. Um sistema pode começar a dar problemas porque as pessoas passaram a usá-lo para outra finalidade, não porque o modelo mudou: uma tarefa para a qual nunca foi projetado, ou uma que ninguém previu. Convém que se considere se tal uso continua adequado."
+      }
+    ]
+  }
+}

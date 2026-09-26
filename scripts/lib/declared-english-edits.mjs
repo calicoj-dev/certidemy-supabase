@@ -134,6 +134,26 @@ export const DECLARED_ENGLISH_EDITS = [
     from: "It is a good rule of thumb and the canonical way to fail 9.2.2 b) - but it is not a quotation from either standard, and it should not be presented as one.",
     to: "Auditing your own work is the canonical way to fail 9.2.2 b), and the rule against it is a good rule of thumb - but it is not a quotation from either standard, and it should not be presented as one.",
   },
+  {
+    seq: 8,
+    /* Both translations were retranslated in the same session and reviewed by the
+     * director, so this edit is tracked for both rows. */
+    translatedIn: ["es-419", "pt-BR"],
+    slug: "05-01-aims-monitoring-and-measurement",
+    by: "apply-0501-english.mjs",
+    why: "a 12-word reproduction of ISO/IEC 42001 Annex B B.6.2.6 withheld all three rows; the clause is now named instead of copied",
+    from: "The guidance warns against a specific error in choosing performance criteria: the organization should consider the performance of non-AI systems or processes already in operation and use them as relevant context.",
+    to: "ISO/IEC 42001 Annex B, B.6.2.6 warns against a specific error in choosing performance criteria. Whatever the AI system displaced is usually still running somewhere -- a manual workflow, a rule engine, an older model -- and how well it performs should be treated as context when the criteria are set.",
+  },
+  {
+    seq: 9,
+    translatedIn: ["es-419", "pt-BR"],
+    slug: "05-01-aims-monitoring-and-measurement",
+    by: "apply-0501-english.mjs",
+    why: "9w of the same clause, inside the drafting margin; `drift` replaced with `go wrong` because drift is a term this certification teaches about the MODEL, not about use",
+    from: "The guidance adds a related item that is easy to miss: where systems are being used for purposes other than those they were designed for, or in ways nobody anticipated, whether those uses are appropriate should be considered.",
+    to: "B.6.2.6 adds a related item that is easy to miss. A system can go wrong because people started pointing it at something else, not because the model moved: a job it was never designed to do, or one nobody foresaw. Whether such a use is still appropriate should itself be considered.",
+  },
 ];
 
 /** Edits declared for one slug, in sequence order. */

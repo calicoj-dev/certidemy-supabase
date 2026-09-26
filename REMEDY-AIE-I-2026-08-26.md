@@ -1,6 +1,46 @@
-# Remedy draft: the AIE-I attempt that failed by one item
+# Remedy: the AIE-I attempt that failed by one item
 
-**Drafted, not applied. Juan decides this one.**
+## DECIDED 2026-09-26 BY JUAN — ANNOTATE, DO NOT CHANGE
+
+**No score change. No pass-flag change. No voucher change.** The candidate retook
+AIE-I the same day, scored 100% and holds `AIE-I-UW8V-ZRUY`, so nothing is owed. The
+record is annotated so it says what we now know.
+
+**What was written, and nothing else:**
+
+| | |
+|---|---|
+| `exam_attempts.integrity_flags` | one key MERGED in, `post_administration_review`, naming item `6c0b1bce`, its Tier A finding, the credit-all outcome, the decision and `decided_by: Juan`. The nine pre-existing sitting keys are intact — 9 keys became 10 |
+| `admin_actions` | one row, `exam_attempt.post_administration_review`, actor `9bec43f7-89b1-4195-bffc-0cecf4238dae` — the sole `platform_admin`, looked up rather than placeholdered |
+
+**Verified after the write:** `score_pct` 76, `passed` false, `correct_answers` 19,
+`total_questions` 25, `submitted_at` and `voucher_id` all byte-identical to before;
+the voucher is still `redeemed` at 2 of 2; no credential exists on this attempt.
+
+**Triggers were read BEFORE writing, not after.** `exam_attempts` has **0 user
+triggers**; its 16 internal triggers are all `RI_ConstraintTrigger%`, none of them
+constrained on `integrity_flags`; there are no rules on the table. Backed by a
+positive control on the same query — `credentials` returns 4 user triggers, `lessons`
+3, `quiz_questions` 3 — so the zero is a fact about the table and not about the query.
+**Nothing recalculates, re-issues or notifies on this update.**
+
+**One post-condition reported FAIL and the assertion was the defect.** "It matches
+what was sent byte for byte" compared the written and read-back objects with
+`JSON.stringify`. Postgres `jsonb` normalises key order — it sorts keys by length
+then bytes — so `outcome_under_credit_all` came back last and the strings differed
+while the content was identical. Postgres's own `=` on the two values returns **true**,
+checked directly. The comparison is now key-by-key with its own fixtures, because a
+guard that cries wolf gets ignored, and *byte for byte* was simply the wrong claim to
+make about a jsonb column.
+
+`AIE-I-ANNOTATION.json` carries the applied record.
+
+---
+
+## The draft as it stood before the decision
+
+*Kept as the record of what was proposed. The SQL below was NOT run: statements 1 and
+2 were declined, and statement 3 was rewritten as the annotation above.*
 
 Attempt `09bf8b45-d4cb-4156-8bc1-bd636db4cee9`, AIE-I, submitted
 2026-08-26 18:28:42Z. **19 / 25 = 76%, against a mark of 80%.** One item short.

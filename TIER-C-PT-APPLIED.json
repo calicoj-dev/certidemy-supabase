@@ -1,0 +1,35 @@
+{
+  "edits": 4,
+  "items": 3,
+  "applied": [
+    {
+      "id": "669c16fb",
+      "field": "explanation",
+      "from": "deixa os usuários sem recursos",
+      "to": "deixa os usuários sem uma via de recurso"
+    },
+    {
+      "id": "d711f047",
+      "field": "option:c",
+      "from": "integrada ao sistema de valores",
+      "to": "integrada ao sistema de valor"
+    },
+    {
+      "id": "d711f047",
+      "field": "explanation",
+      "from": "incorporada em todo o sistema de valores",
+      "to": "incorporada em todo o sistema de valor"
+    },
+    {
+      "id": "6ff484f7",
+      "field": "option:d",
+      "from": "que ele deve esclarecer o Sprint Goal",
+      "to": "que esclareça o Sprint Goal"
+    }
+  ],
+  "dismissed_after_reading": [
+    "#85 7312ac33 correct",
+    "#113 df6bafc6 faithful",
+    "#309 b7c850be English says must"
+  ]
+}

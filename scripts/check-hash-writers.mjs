@@ -137,6 +137,14 @@ const REVIEW_RECORDERS = {
     "tr_hash_basis is 'assumed', matching the 30 pre-existing rows. Asserts no key moved, no " +
     "option reordered, and that only the declared fields changed; the review insert is made " +
     "idempotent by skipping items that already carry a row from this reviewer.",
+  "apply-tier-c-pt.mjs":
+    "TIER C pt-BR FIXES, the three slips that survived a read of six probe hits (#170 recourse, " +
+    "#171 sistema de valor twice, #224 an inserted modal in option d only -- the stem of the same " +
+    "item renders `should` correctly and is asserted untouched). Writes item_translation_reviews " +
+    "ONLY. Computes en_hash/tr_hash with itemHash8 for the same reason as apply-tier-c-es.mjs: " +
+    "THE ITEM ARM HAS NO GATE, so there is no expected_review_hashes_item to ask and no stored " +
+    "value the computation could contradict. The review insert skips items that already carry a " +
+    "row from this reviewer, so a re-run cannot duplicate.",
   "clear-ia-translations.mjs":
     "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on " +
     "mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. " +
