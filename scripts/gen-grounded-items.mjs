@@ -379,13 +379,25 @@ Return a JSON array. Each element:
 
 RULES
 - Four options. Exactly one is correct.
-- Every distractor must be wrong for a reason a competent candidate could check against the
-  passages. "Plausible but vague" is not a reason.
+
+- EVERY DISTRACTOR IS WRONG ON SUBSTANCE: it is a misconception a partly prepared candidate
+  actually holds. Examples: the wrong clause or control, the wrong actor, the wrong timing, an
+  input confused with an output, guidance treated as a requirement, two similar controls
+  confused.
+  DO NOT make a distractor wrong by adding an absolute (only, every, all, always, never, no
+  exceptions, entirely) or a justification tail (because..., since..., so..., which...) to an
+  otherwise true statement. IF A DISTRACTOR MINUS ITS QUALIFIER WOULD BE TRUE, IT IS NOT A
+  DISTRACTOR.
+  Write the four options in the same grammatical form and similar length. If the key carries a
+  hedge the standard uses (can), phrase at least one distractor with similar care.
+
 - Do not make the key the longest option, and do not make it the only negated one.
 - State a requirement ONLY where the passage says "shall". If the passage says "should" or
   "can", the item must not say must, shall or required.
-- Never reproduce more than about 25 words of the standard in the item text itself. The
-  key_support field is internal and is not shown to a candidate, so quote freely THERE.`;
+- Keep the standard's own wording out of the stem and the options: at most about eight
+  consecutive words shared with any source. In the explanation you may include ONE short
+  quotation in quotation marks, naming its clause, of at most one sentence. The key_support
+  field is internal and is never shown to a candidate, so quote freely THERE.`;
 
 function writerUser(task, domain, passages, k) {
   const src = passages.map((p) =>

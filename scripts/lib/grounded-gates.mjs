@@ -45,12 +45,17 @@ const NBSP = new RegExp("[" + [0x00a0, 0x2007, 0x202f].map((c) => String.fromCha
  * invariant 10 exists to catch exactly that. Note `normForVerbatim` has already folded the
  * dash family to ASCII "-" by the time this runs; the wider set is here so the same pattern
  * is correct if it is ever pointed at un-normalised text. */
-const LIST_MARKER_BEFORE = (() => {
-  const dashes = [0x2d, 0x2010, 0x2011, 0x2012, 0x2013, 0x2014, 0x2015, 0x2022, 0x2043]
-    .map((c) => String.fromCharCode(c)).join("");
-  const d = "[" + dashes + "]";
-  return new RegExp("(?:[;:]|\\)|" + d + ")\\s*(?:\\d+\\)|[a-z]\\)|" + d + ")?\\s*$");
-})();
+const DASH_CLASS = "[" + [0x2d, 0x2010, 0x2011, 0x2012, 0x2013, 0x2014, 0x2015, 0x2022, 0x2043]
+  .map((c) => String.fromCharCode(c)).join("") + "]";
+
+const LIST_MARKER_BEFORE =
+  new RegExp("(?:[;:]|\\)|" + DASH_CLASS + ")\\s*(?:\\d+\\)|[a-z]\\)|" + DASH_CLASS + ")?\\s*$");
+
+/* The same marker set, at the START of a quoted anchor -- "f) produce a statement of
+ * applicability..." quotes the list item WITH its letter. Built from the one dash class, so the
+ * two tests can never drift apart. */
+const LIST_MARKER_AT_START =
+  new RegExp("^\\s*(?:\\d+\\)|[a-z]\\)|" + DASH_CLASS + "\\s)", "i");
 
 export function normForVerbatim(s) {
   return String(s == null ? "" : s)
@@ -87,8 +92,22 @@ const REQUIRE_RE = /\b(?:shall|must|require|requires|required to|is required|are
 const RECOMMEND_RE = /\b(?:should|is recommended|are recommended|ought to)\b/i;
 const PERMIT_RE = /\b(?:may|can|is permitted|are permitted|is allowed|are allowed)\b/i;
 
+/* ============ THE ABSENCE OF A REQUIREMENT IS NOT A REQUIREMENT ============
+ *
+ * The director's ruling. An item whose key says "need not be documented" or "is not required to"
+ * asserts that NO obligation exists -- which a passage saying so licenses directly. Read as a
+ * deontic claim it inverts the gate: the strongest word in the sentence is `required`, so the
+ * item looked like it was asserting a requirement and was refused for resting on a `can` clause.
+ * That refused a correct B.1 item.
+ *
+ * Negated forms are removed before the strength test rather than added to it, so they cannot be
+ * mistaken for the thing they deny. */
+const NEGATED_DEONTIC = new RegExp(
+  "\\b(?:need(?:s)? not|not required|no requirement|does not (?:have to|need to)|do not (?:have to|need to)" +
+  "|is not obliged|are not obliged|not mandatory|nothing requires)\\b", "gi");
+
 export function claimStrength(text) {
-  const t = String(text || "");
+  const t = String(text || "").replace(NEGATED_DEONTIC, " ");
   if (REQUIRE_RE.test(t)) return "requirement";
   if (RECOMMEND_RE.test(t)) return "recommendation";
   if (PERMIT_RE.test(t)) return "permission";
@@ -178,7 +197,20 @@ export function anchorForceInPassage(anchor, passage) {
    * Condition 2 is what stops this being a loophole. A `shall` sentence that finished, with
    * ordinary prose after it, leaves the anchor preceded by prose rather than by a marker --
    * and the negative control asserts exactly that case still refuses. */
-  const opensListItem = LIST_MARKER_BEFORE.test(before.slice(-40));
+  /* AND THE MARKER IS OFTEN INSIDE THE ANCHOR, NOT BEFORE IT. This looked only backwards, and
+   * ISO/IEC 42001 clause 6.1.3 f) reads
+   *
+   *     "f) produce a statement of applicability that contains the necessary controls..."
+   *
+   * -- the quoted anchor OPENS with its own marker, and the 40 characters before it end
+   * "...other management systems, if applicable." So the test failed and the gate refused the
+   * statement-of-applicability item on 6.1.3, whose shall sits in the lead-in "the organization
+   * shall define an AI risk treatment process to:". That refusal also reached section 5, where it
+   * flagged one of the director's findings FOR THE WRONG REASON -- a catch that was really a
+   * gate defect agreeing with him by accident, which is worse than a miss because it inflates
+   * the instrument's apparent recall. */
+  const startsWithMarker = LIST_MARKER_AT_START.test(needle);
+  const opensListItem = startsWithMarker || LIST_MARKER_BEFORE.test(before.slice(-40));
   if (!opensListItem) return direct;
   if (/\b(?:shall|must)\b[^:]{0,300}:/.test(before)) return "requirement";
   if (/\bshould\b[^:]{0,300}:/.test(before)) return "recommendation";
@@ -319,27 +351,52 @@ export function gateModalFidelity(item, passagesByKey) {
    * for the wording of its own question. */
   const claimText = [keyOptionText(item), item.explanation].filter(Boolean).join(" ");
   const claim = claimStrength(claimText);
-  const anchorClaim = anchorForceInPassage(item.key_support || "", p);
-  const licensed = LICENSES[p.normative] || [];
 
-  if (!licensed.includes(claim)) {
-    return { id: "modal-fidelity", pass: false, examined: 1,
-      reason: "the item states a " + claim + " and clause " + item.key_support_clause +
-        " is " + p.normative + " -- a " + p.normative + " passage cannot license a " + claim };
-  }
-  /* The PASSAGE's class is not enough: a shall-clause contains sentences that are not
-   * themselves requirements. The anchor sentence has to carry the modal too. */
+  /* ============ THE ANCHOR SENTENCE'S OWN MODAL GOVERNS; THE CLASS IS THE FALLBACK ============
+   *
+   * The director's ruling, and my definitions-are-informative change is what made it necessary.
+   * Clause 3.26 is a DEFINITION, so its class is now `informative` -- and its NOTE 2 reads
+   * "...shall be reflected in the statement of applicability". An item resting on that note
+   * asserts a requirement the sentence really carries, and the gate refused it on the strength of
+   * a class I had just assigned to the whole clause. The ruling was too blunt at this grain.
+   *
+   * So the ANCHOR SENTENCE decides, with lead-in inheritance, and the passage class is consulted
+   * only when the sentence carries no modal of its own. A definition remains informative for
+   * every sentence that says nothing; the one sentence that says "shall" is a requirement. */
+  const sentenceForce = anchorForceInPassage(item.key_support || "", p);
+  const anchorClaim = sentenceForce !== "none" ? sentenceForce : p.normative === "informative" ? "none" : p.normative;
+  const forceFrom = sentenceForce !== "none" ? "the anchor sentence" : "the passage class";
+
+  /* ============ REFUSE ONLY INFLATION ============
+   *
+   * The ruling, and it replaces a licence table that was refusing correct items three ways:
+   *
+   *   a DEFINITION item on clause 3.4, refused because a definition "cannot license a permission"
+   *   "the organization can design their own controls" on A.1, refused the same way
+   *   "need not be documented" on B.1, refused as an unlicensed claim
+   *
+   * A PERMISSION OR A DESCRIPTIVE CLAIM IS NEVER STRONGER THAN ITS ANCHOR, so there is nothing
+   * to inflate. And "need not / does not have to / not required" is the ABSENCE of a
+   * requirement -- licensed by a passage that says so, not an assertion that needs a shall.
+   *
+   * What remains is the only defect this gate was ever for, and it is the Tier A shape:
+   *   an item asserts must/shall/required on an anchor that does not carry it
+   *   an item asserts should on an anchor that only permits or says nothing
+   */
   if (claim === "requirement" && anchorClaim !== "requirement") {
     return { id: "modal-fidelity", pass: false, examined: 1,
-      reason: "the item states a requirement and the anchor sentence carries no shall/must -- " +
-        "the passage's class is not the sentence's claim" };
+      reason: "the item asserts a requirement and the anchor carries none -- force taken from " +
+        forceFrom + " (" + anchorClaim + "), clause " + normClause(item.key_support_clause) +
+        " is classed " + p.normative };
   }
-  if (claim === "recommendation" && anchorClaim === "permission") {
+  if (claim === "recommendation" && anchorClaim !== "requirement" && anchorClaim !== "recommendation") {
     return { id: "modal-fidelity", pass: false, examined: 1,
-      reason: "the item states a recommendation and the anchor sentence only permits" };
+      reason: "the item asserts a recommendation and the anchor only " +
+        (anchorClaim === "permission" ? "permits" : "describes") + " -- force taken from " + forceFrom };
   }
   return { id: "modal-fidelity", pass: true, examined: 1,
-    reason: "item claims a " + claim + "; anchor is a " + anchorClaim + " in a " + p.normative + " passage" };
+    reason: "item asserts a " + claim + "; anchor is a " + anchorClaim + " by " + forceFrom +
+      " (clause classed " + p.normative + ")" };
 }
 
 /** G4 -- superseded wording, anywhere in the item. */
@@ -376,6 +433,10 @@ export function gateStructure(item, cfg = CUE_CFG) {
   const ki = opts.findIndex((t) => t === String(keyText || ""));
   const distractors = opts.filter((_, i) => i !== ki);
   const problems = [];
+  /* TWO LISTS. `problems` refuse the item; `notes` travel with it. A gate that can only reject
+   * has no way to say "worth a look", so it ends up either silent about a real pattern or wrong
+   * about a correct item -- and the second is how a guard gets deleted. */
+  const notes = [];
 
   /* the existing cue guard, unchanged */
   const audit = auditItem(item, cfg);
@@ -400,15 +461,28 @@ export function gateStructure(item, cfg = CUE_CFG) {
    * carrying one is not findable as the odd one out.
    *
    * So those forms are removed before the test rather than added to it: a guard that fires on
-   * ordinary English is deleted by the first person it inconveniences. */
+   * ordinary English is deleted by the first person it inconveniences.
+   *
+   * ============ AND IT IS A FLAG NOW, NOT A REJECTION ============
+   *
+   * The director's ruling, after the scope-widener fix was still not enough. It went on firing
+   * on grammar rather than on verdicts: "so the defect cannot reappear" is a PURPOSE CLAUSE, and
+   * "implications of not conforming" is a NOUN PHRASE. Neither makes the key findable.
+   *
+   * A NEGATION TEST ON WORDS CANNOT TELL A VERDICT FROM A GRAMMATICAL FORM, and the real case --
+   * an option that is the odd one out by what it CONCLUDES -- is what the options-only probe
+   * already catches, by reading the shapes rather than matching a word list. So this reports and
+   * does not reject. The opening-word rule below stays a rejection: "Awareness, Awareness,
+   * Awareness, X" was a genuine cue and a repeated opening word is not a grammatical accident. */
   const SCOPE_WIDENER = /\bnot\s+(?:only|just|limited\s+to|merely|solely)\b/gi;
   const NEG = /\b(?:not|never|no|cannot|without|except|excluding|neither)\b/i;
   const negs = opts.map((t) => NEG.test(String(t).replace(SCOPE_WIDENER, " ")));
   if (ki >= 0 && negs[ki] && negs.filter(Boolean).length === 1) {
-    problems.push("the key is the only negated option -- a reader can find it without knowing the subject");
+    notes.push("the key is the only negated option (FLAG, not a refusal: a word test cannot tell " +
+      "a verdict from a purpose clause or a noun phrase -- the options probe covers the real case)");
   }
   if (ki >= 0 && !negs[ki] && negs.filter(Boolean).length === opts.length - 1) {
-    problems.push("every distractor is negated and the key is not");
+    notes.push("every distractor is negated and the key is not (FLAG, not a refusal)");
   }
 
   /* ODD-ONE-OUT, OPENING-WORD FORM -- ON THE FIRST CONTENT WORD, NOT THE FIRST WORD.
@@ -429,7 +503,10 @@ export function gateStructure(item, cfg = CUE_CFG) {
   }
 
   return { id: "structure", pass: problems.length === 0, examined: opts.length,
-    reason: problems.length ? problems.join("; ") : opts.length + " options, no structural tell" };
+    notes,
+    reason: problems.length ? problems.join("; ")
+      : opts.length + " options, no structural tell" +
+        (notes.length ? "  [FLAGGED, not refused: " + notes.join("; ") + "]" : "") };
 }
 
 /**
@@ -585,6 +662,25 @@ export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
     return { id: "anchor-is-primary", pass: true, examined: prim.size,
       reason: "the key anchors in " + key + ", a primary passage of this task" };
   }
+
+  /* ============ ANNEX B GUIDANCE COUNTS WITH ITS ANNEX A CONTROL ============
+   *
+   * The director's ruling. In ISO/IEC 42001, B.x.y IS the implementation guidance FOR A.x.y --
+   * same subject, same numbering, one document. If A.x.y is what the task examines, an item
+   * anchored in B.x.y is anchored in the task's subject, and refusing it threw away two good
+   * items: 4.3 on B.2.3 (A.2.3 primary) and 4.4 on B.6.2.6 (A.6.2.6 primary).
+   *
+   * This does NOT weaken the modal rule. B is guidance and says "should", so a `should` anchor
+   * still cannot license a `must` -- modal-fidelity does that job, separately and unchanged.
+   *
+   * And it still refuses the case it was ruled for: task 1.3's key on B.6.2.6 fails, because
+   * A.6.2.6 is not primary for 1.3. The pairing is with the CONTROL, not with the annex. */
+  const paired = /^B\.(.+)$/.exec(key);
+  if (paired && prim.has("A." + paired[1])) {
+    return { id: "anchor-is-primary", pass: true, examined: prim.size,
+      reason: "the key anchors in " + key + ", the implementation guidance for A." + paired[1] +
+        ", which IS primary for this task" };
+  }
   return {
     id: "anchor-is-primary", pass: false, examined: prim.size,
     reason: "the key anchors in " + key + ", which is " +
@@ -734,15 +830,23 @@ export function groundedGateControls() {
     ["accepts a requirement claim on a shall anchor", () => gateModalFidelity(good, byKey).pass, true],
     ["refuses superseded wording", () => gateSuperseded({ ...good,
       options: [...good.options, { text: "The Development Team decides" }] }).pass, false],
-    ["refuses a key that is the only negated option", () => gateStructure({
-      ...good,
-      options: [
-        { text: "The programme does not require an external body to perform the audit", is_correct: true },
-        { text: "The programme requires an external body every year" },
-        { text: "The programme requires a qualification register" },
-        { text: "The programme requires a corrective action plan first" },
-      ],
-    }).pass, false],
+    /* CHANGED BY RULING, NOT TO MAKE A NUMBER LOOK BETTER. The negation rule is now a FLAG: it
+     * fired on a purpose clause and on a noun phrase, and a word test cannot tell either from a
+     * verdict. The assertion is therefore two-part -- the item is NOT refused, AND the
+     * observation is still recorded. Dropping the note as well would be a gate quietly getting
+     * quieter, which is how a real pattern stops being visible. */
+    ["a lone negated key is FLAGGED, not refused", () => {
+      const r = gateStructure({
+        ...good,
+        options: [
+          { text: "The programme does not require an external body to perform the audit", is_correct: true },
+          { text: "The programme requires an external body every year" },
+          { text: "The programme requires a qualification register" },
+          { text: "The programme requires a corrective action plan first" },
+        ],
+      });
+      return r.pass === true && (r.notes || []).some((n) => /only negated option/.test(n));
+    }, true],
     ["refuses a stem that duplicates a live item", () => gateNearDuplicate(good,
       [{ id: "live-1", stem: good.question_text }]).pass, false],
     ["abstains on a stem too short to judge", () => gateNearDuplicate({ question_text: "What is AI?" }, [{ id: "l", stem: "x y z" }]).pass, null],
@@ -888,13 +992,17 @@ export function groundedGateControls() {
         { text: "Tools operated by a third party on the organization's behalf" },
       ],
     }).pass, true],
-    ["a real verdict negation on the key still fires", () => gateStructure({
+    /* THE OPENING-WORD RULE IS STILL A REJECTION, by ruling: three distractors opening on the
+     * same content word is a cue, not a grammatical accident. The director's example was
+     * "Awareness, Awareness, Awareness, X". This is the case that proves the negation change did
+     * not quietly disarm the whole gate. */
+    ["a repeated opening content word is still REFUSED", () => gateStructure({
       question_text: "Which applies?",
       options: [
-        { text: "The programme does not require an external body", is_correct: true },
-        { text: "The programme requires an external body" },
-        { text: "The programme requires a qualification register" },
-        { text: "The programme requires a corrective action plan" },
+        { text: "Competence is determined for persons whose work affects AI performance", is_correct: true },
+        { text: "Awareness is provided to every person in the organization" },
+        { text: "Awareness is recorded for each external provider" },
+        { text: "Awareness is reviewed at each management review" },
       ],
     }).pass, false],
 
@@ -926,6 +1034,87 @@ export function groundedGateControls() {
 
     ["reproduction is UNASSERTED without the leak index, never clean", () =>
       gateReproduction({ question_text: "x", options: [{ text: "y", is_correct: true }] }, null, null).pass, null],
+
+    /* ============ THE DIRECTOR'S SECOND READ: FIVE GATES THAT REFUSED CORRECT ITEMS ============
+     * Every case below is a real pilot-2 item he named, with the real clause text. */
+
+    ["6.1.3 f) inherits the lead-in shall when the ANCHOR carries the marker", () => {
+      const p = { clause: "6.1.3", normative: "shall", title: "AI risk treatment",
+        text: "Taking the risk assessment results into account, the organization shall define an AI risk " +
+          "treatment process to: a) select appropriate AI risk treatment options; b) determine all " +
+          "controls that are necessary; c) compare the controls with those in Annex A; d) produce " +
+          "an AI risk treatment plan; e) integrate with other management systems, if applicable. " +
+          "f) produce a statement of applicability that contains the necessary controls and provide " +
+          "justification for inclusion and exclusion of controls." };
+      return gateModalFidelity({
+        question_text: "What must the organization produce?",
+        options: [{ text: "A statement of applicability that must justify inclusion and exclusion", is_correct: true },
+          { text: "Other" }],
+        explanation: "Clause 6.1.3 f) requires the statement of applicability.",
+        key_support_clause: "6.1.3",
+        key_support: "f) produce a statement of applicability that contains the necessary controls and provide justification for inclusion and exclusion of controls.",
+      }, new Map([["6.1.3", p]])).pass;
+    }, true],
+
+    ["a PERMISSION claim on a can passage passes -- nothing to inflate", () => {
+      const p = { clause: "A.1", normative: "can", title: "General",
+        text: "Not all the control objectives and controls listed are required to be used, and the " +
+          "organization can design and implement its own controls." };
+      return gateModalFidelity({
+        question_text: "Which description is correct?",
+        options: [{ text: "The organization can design and implement its own controls", is_correct: true }, { text: "Other" }],
+        explanation: "Annex A.1 allows an organization to design its own controls.",
+        key_support_clause: "A.1",
+        key_support: "the organization can design and implement its own controls",
+      }, new Map([["A.1", p]])).pass;
+    }, true],
+
+    ["\"need not\" is the ABSENCE of a requirement, not an assertion of one", () => {
+      const p = { clause: "B.1", normative: "can", title: "General",
+        text: "Organizations do not have to document or justify inclusion or exclusion of " +
+          "implementation guidance in the statement of applicability." };
+      return gateModalFidelity({
+        question_text: "What follows for the implementation guidance?",
+        options: [{ text: "It need not be documented or justified in the statement of applicability", is_correct: true },
+          { text: "Other" }],
+        explanation: "Annex B.1 says organizations do not have to document or justify the guidance.",
+        key_support_clause: "B.1",
+        key_support: "Organizations do not have to document or justify inclusion or exclusion of implementation guidance",
+      }, new Map([["B.1", p]])).pass;
+    }, true],
+
+    ["a NOTE carrying shall inside an informative definition licenses a requirement", () => {
+      /* Clause 3.26 is a definition, so its CLASS is informative -- and its Note 2 says shall.
+       * The sentence governs; the class is only the fallback. */
+      const p = { clause: "3.26", normative: "informative", title: "statement of applicability",
+        text: "documented statement describing the control objectives and controls that are relevant " +
+          "and applicable. NOTE 2 All necessary controls shall be reflected in the statement of " +
+          "applicability." };
+      return gateModalFidelity({
+        question_text: "What must appear in the statement of applicability?",
+        options: [{ text: "All necessary controls, which shall be reflected there", is_correct: true }, { text: "Other" }],
+        explanation: "Note 2 to 3.26 requires it.",
+        key_support_clause: "3.26",
+        key_support: "All necessary controls shall be reflected in the statement of applicability",
+      }, new Map([["3.26", p]])).pass;
+    }, true],
+    ["and a definition sentence with NO modal still cannot license a requirement", () => {
+      const p = { clause: "3.4", normative: "informative", title: "management system",
+        text: "set of interrelated or interacting elements of an organization to establish policies " +
+          "and objectives, as well as processes to achieve those objectives." };
+      return gateModalFidelity({
+        question_text: "What must a management system include?",
+        options: [{ text: "It shall include the processes to achieve the objectives", is_correct: true }, { text: "Other" }],
+        explanation: "The definition requires the processes.",
+        key_support_clause: "3.4",
+        key_support: "set of interrelated or interacting elements of an organization to establish policies and objectives",
+      }, new Map([["3.4", p]])).pass;
+    }, false],
+
+    ["B.x.y guidance counts as primary when A.x.y is primary", () =>
+      gateAnchorIsPrimary({ key_support_clause: "B.2.3" }, ["A.2.2", "A.2.3", "A.2.4"], ["B.2.x"]).pass, true],
+    ["but only for ITS OWN control: B.6.2.6 fails where A.6.2.6 is not primary", () =>
+      gateAnchorIsPrimary({ key_support_clause: "B.6.2.6" }, ["A.6.1", "A.6.2", "B.6.2.1"], ["B.6.2.6"]).pass, false],
 
     /* ============ THREE MORE FROM THE 40-ITEM PILOT ============ */
     ["a distractor pointer may be short; the key's anchor may not", () => {

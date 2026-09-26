@@ -84,9 +84,18 @@ L("A single item can fail more than one gate, so these do not sum to the rejecti
 L("");
 L("| n | gate |");
 L("|---|---|");
+/* THE OPTIONS PROBE NEVER REJECTS, SO IT DOES NOT BELONG IN A REJECTION TABLE.
+ * The director's correction. It appeared here at 18 -- the largest row in the table -- for a
+ * check that by design only flags, which read as the single biggest cause of rejection while
+ * rejecting nothing at all. Its count is reported in its own section. */
 for (const [k, n] of Object.entries(j.reject_counts || {}).sort((a, b) => b[1] - a[1])) {
+  if (/^options probe/i.test(k)) continue;
   L("| " + n + " | " + k + " |");
 }
+L("");
+L("**The options-only probe is not in this table.** It flags; it never rejects. Listing it here");
+L("made a check that rejects nothing look like the largest cause of rejection. Its count is in");
+L("its own section below.");
 L("");
 L("**`solver COULD NOT RUN` is not a rejection and is never counted as one.** A step that");
 L("could not start is not a step that failed: folding it into the rejections would blame the");

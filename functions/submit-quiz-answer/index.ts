@@ -44,7 +44,7 @@ serve(async (req) => {
     // 1. Load the authoritative question record.
     const { data: question, error: qErr } = await svc
       .from('quiz_questions')
-      .select('id, certification_id, module_id, correct_answer, explanation, difficulty')
+      .select('id, certification_id, module_id, correct_answer, explanation, difficulty, language')
       .eq('id', body.question_id)
       .single();
     if (qErr || !question) throw new HttpError(404, 'question not found');
@@ -198,6 +198,7 @@ serve(async (req) => {
       just_correct: is_correct,
       last_difficulty: question.difficulty,
       exclude_question_id: question.id,
+      language: question.language,
     });
 
     return jsonResponse({
@@ -226,6 +227,10 @@ async function recommendNext(
     just_correct: boolean;
     last_difficulty: number;
     exclude_question_id: string;
+    /* The learner is answering in ONE language and must be recommended one in the same
+     * language. Threaded from the answered question rather than defaulted, because a default
+     * would silently be English for a pt-BR learner. */
+    language: string;
   },
 ) {
   // Aim difficulty: nudge up after a correct answer, down after a wrong one.
@@ -245,10 +250,34 @@ async function recommendNext(
 
   const weak_ids = (weak ?? []).map((r: any) => r.concept_id);
 
+  // ============ THIS QUERY SERVES A STEM TO A LEARNER AND FILTERED ALMOST NOTHING ========
+  //
+  // Found 2026-09-26, while proving that a draft item could not reach a candidate. It could:
+  // this path selected on certification_id and module_id and NOTHING ELSE, then returned
+  // `question_text` to the learner as the next recommended item. Four separate holes in one
+  // query, and three of them are live today regardless of drafts:
+  //
+  //   status         a draft or a rejected item is recommendable. Nothing had ever inserted a
+  //                  non-approved row, so the hole was unobserved rather than closed -- the
+  //                  empty-table shape this repository already records for company_features.
+  //   pool           SECURE items are recommendable into a practice flow. 278 of AIMS-F's 630
+  //                  English rows are pool='secure', so a learner answering practice questions
+  //                  could be handed a certification exam stem. That is an exam-integrity
+  //                  defect, not a content one.
+  //   retired_at     a retired item is served again, which is exactly what retiring prevents
+  //                  everywhere else (migration 089). Three AIMS-F rows are retired.
+  //   language       no filter at all, so an English learner can be recommended a pt-BR stem.
+  //
+  // The pool and retired holes are the serious ones and they predate any of this work. The
+  // status filter is what makes inserting graded drafts safe.
   let q = svc
     .from('quiz_questions')
     .select('id, question_text, difficulty, module_id')
     .eq('certification_id', args.certification_id)
+    .eq('status', 'approved')
+    .eq('pool', 'practice')
+    .eq('language', args.language)
+    .is('retired_at', null)
     .neq('id', args.exclude_question_id);
 
   if (args.module_id) q = q.eq('module_id', args.module_id);
