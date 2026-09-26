@@ -78,12 +78,32 @@ if (broken.length) {
   process.exit(2);
 }
 
+/* ============ TRACKED IS NOT THE POPULATION. A NEW FILE IS WHERE THE DEFECT IS ============
+ *
+ * This scanned `git ls-files` only, and on 2026-09-26 it reported CLEAN over 842 files while
+ * an UNTRACKED script carried two literal backspace bytes inside a regex -- put there by a
+ * `\b` that passed through a shell string, which is the exact defect this check exists to
+ * find. The file was new, so it was not tracked, so it was not examined, and the guard's
+ * silence read as a pass.
+ *
+ * A freshly written file is the MOST likely place for a mangled escape, not the least. So the
+ * population is tracked files PLUS untracked files git does not ignore -- `--others
+ * --exclude-standard` -- which is the set a commit would add.
+ */
 let files;
 try {
-  files = execFileSync("git", ["ls-files", "*.mjs", "*.ts", "*.sql"], { cwd: ROOT, encoding: "utf8" })
-    .split(/\r?\n/).filter(Boolean);
+  const tracked = execFileSync("git", ["ls-files", "*.mjs", "*.ts", "*.sql"],
+    { cwd: ROOT, encoding: "utf8" }).split(/\r?\n/).filter(Boolean);
+  const untracked = execFileSync("git",
+    ["ls-files", "--others", "--exclude-standard", "*.mjs", "*.ts", "*.sql"],
+    { cwd: ROOT, encoding: "utf8" }).split(/\r?\n/).filter(Boolean);
+  files = [...new Set([...tracked, ...untracked])];
+  if (untracked.length) {
+    console.log("  (" + untracked.length + " untracked, non-ignored file(s) included -- a new file is " +
+      "where a mangled escape appears, and it is not tracked yet)");
+  }
 } catch (e) {
-  console.error("could not list tracked files: " + String(e).slice(0, 90));
+  console.error("could not list files: " + String(e).slice(0, 90));
   console.error("Nothing was examined, which is not a pass.");
   process.exit(2);
 }
