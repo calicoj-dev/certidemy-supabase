@@ -5690,6 +5690,229 @@ items measured" true rather than hoped.
 
 ---
 
+## The declared population, and six clauses no gap check could see
+
+**Paid for 2026-09-26, and it is the sharpest form of a rule this file already carries.**
+
+The director found ISO/IEC 42001 `A.4.6` and `A.9.4` missing from the source library. Both are in
+the PDF; one was cited by a pilot survivor. Every coverage report said the annex was complete.
+
+**A COUNT DERIVED FROM WHAT YOU FOUND CANNOT TELL YOU WHAT YOU MISSED.** Both gap reports were
+derived from the extraction:
+
+| report | how it was built | what it cannot see |
+|---|---|---|
+| annex control coverage | a hand-typed population count | which ids, when the count is short by design |
+| holes in a numbered sequence | looks BETWEEN ids it holds | a missing **first or last child** |
+
+`A.4.5` and `A.9.3` were the last ids held in their groups, so there was no hole for `A.4.6` and
+`A.9.4` to sit in. **The population has to come from the DOCUMENT**:
+`scripts/check-library-completeness.mjs` reads each standard's own table of contents, Table A.1's
+control rows and its clause-3 definition headings. A cross-reference in prose is not a
+declaration. Every source's parse carries a positive control and reports **UNVERIFIABLE** rather
+than clean when it cannot find its own known ids.
+
+**AND ITS FIRST RUN REPORTED 94 MISSING CONTROLS FOR ISO/IEC 27002, ALL FALSE.** That document's
+Annex A is an **attribute matrix** whose rows carry the numbers 5.1 to 8.34 -- references to its
+own main-body clauses, which the library holds. Read as control ids they became 94 controls that
+do not exist in that standard. The extractor already gates on the table's CAPTION for exactly
+this; the checker needed the same gate. **Asking what the document says the table IS beats any
+test of the table's shape**, because flattened to text a control table and an attribute matrix
+look alike.
+
+**THE DECLARED LIST THEN FOUND THREE EXTRACTION DEFECTS NOTHING ELSE COULD.**
+
+> **A SEPARATOR THAT LEAVES NOTHING AFTER IT IS NOT A SEPARATOR.** The annex-table splitter took
+> the FIRST occurrence of "Control" as the column header dividing a control's title from its
+> statement. For `A.4.6` that occurrence is at character **515 of a 522-character body** -- the
+> next row's header bleeding in -- so the split produced an EMPTY statement, the substance floor
+> rejected it, and the control vanished with no output at all. Each occurrence is now tried in
+> order and the first one leaving a substantive remainder wins. **The same fix recovered four
+> more ISO/IEC 27001 annex controls: 81 to 85 of 93.**
+
+> **A CLAUSE WHOSE WHOLE TEXT IS ON THE HEADING LINE WAS DROPPED AS EMPTY.** ISO/IEC 27001
+> renders short clauses as one line -- `"7.1\tResources The organization shall determine and
+> provide..."` -- and the body started at the NEXT line, which is the next heading. Clauses 7.1,
+> 7.4 and 10.1 (Resources, Communication, Continual improvement), all cited by the live bank,
+> were absent for that reason. The remainder now joins the body **when it carries a sentence** --
+> a modal or a full stop -- because a clause TITLE has neither. A length threshold would have
+> been the size-test error this file has already paid for twice.
+
+> **AND A DEFINED TERM MAY OPEN WITH AN INITIALISM.** The definitions lookahead required a
+> lowercase term, on the ground that ISO writes them in lower case. 42001's `3.24` is **"AI system
+> impact assessment"**, so the marker was rejected and a definition the live bank cites was
+> absent. Widened to lower case OR a short all-caps run, which keeps the cross-reference guard
+> (a `3.28]` inside a `[SOURCE: ...]` bracket is followed by no letter at all).
+
+**THE COLUMN BOUNDARY IS A RUN OF SPACES AND IS VISIBLE ONLY BEFORE COLLAPSING.** `-layout`
+renders a control row as `"A.4.6    Human resources                    As part of resource..."`,
+so the title and the statement are separated by a wide gap rather than by a word. Collapsing
+whitespace first destroys the only signal the layout gives.
+
+**THE TEXT AND THE TITLE ARE WON SEPARATELY.** The union across extraction modes kept whole
+records and picked the longer text -- so the recovered controls arrived TITLELESS, because
+`-layout` is the only mode that can see a column boundary while `plain` often has the fuller
+statement. The task map's strongest signal is the clause TITLE, so a titleless passage can never
+be matched by the thing that matches best.
+
+**A DEFINITION IMPOSES NOTHING, WHATEVER ITS NOTES CONTAIN.** `normativeOf` reads the strongest
+modal in a passage's own text, which is right for a requirement clause and wrong for a
+terms-and-definitions entry: 42001 clause 3.2 carries "can" in a NOTE and was classed `can`, so
+the modal gate treated a definition as licensing a permission. Ruled by the director:
+definitions are `informative` in every source, **declared by where the passage sits and never
+inferred from its words**. 59 rows. In the next pilot the modal gate fired three times on
+definition clauses, which is the ruling doing real work.
+
+**AND THE LOADER'S PRE-FLIGHT MISDIAGNOSED AN APPLIED MIGRATION.** It probed with `?limit=1`
+through `getAll`, which pages with `Range` headers, so PostgREST answered **416 Range Not
+Satisfiable** and the script printed *"migration 375 has not been applied yet"* against a table
+holding 676 rows. That message would have sent Juan to re-apply an applied migration -- the error
+naming the wrong half of the system, the family this file records for the missing `apikey` header
+and for IPv6. The probe is now an equality filter that can match nothing, and **only a 404 is
+read as an absent table**; anything else is reported as its own state rather than diagnosed.
+
+---
+
+## The gates that decide, and the ones that were wrong about correct items
+
+**The director read the first pilot item by item against the PDF.** Every change below is a real
+item he named, and the pattern is worth stating before the list: **five of the six gate defects
+were a gate refusing a CORRECT item**, and the sixth was a gate that did not exist.
+
+**AN OPTIONS-ONLY PROBE IS NOT A HARDER EXAM.** Juan's position and the director's: the exam
+should be fair and feel good to take. The cue gates go after items **a candidate with ZERO
+KNOWLEDGE can answer**, which is a different thing from easy items.
+
+> That kind of item does not make an exam easier. **It makes the score mean nothing.** The remedy
+> is never trickery, a longer stem or more difficulty -- it is to **rewrite the cue out**.
+> Difficulty is set by the cut score.
+
+**REPRODUCTION IN SERVED FIELDS WAS UNGATED, AND 17 OF 31 SURVIVORS CARRIED A RUN OF 10+ WORDS.**
+The worst was 20 words -- the same Annex B.1 sentence an item in the 480-audit was flagged for.
+**The generator reproduces the standard because it is handed the standard**, which is the cost of
+grounding and the reason this gate is not optional on that path.
+
+The ruling, and its reason is QUALITY rather than copyright: **a key that is the standard's
+sentence word for word is the option that "sounds like ISO"**, so a candidate can find it by
+recognition without understanding it.
+
+```
+stem and options   at most a 9-word run shared with any source
+explanation        9 words unquoted, plus ONE attributed quotation: quoted, naming its
+                   clause, at most one sentence -- a teaching citation
+key_support        exempt: internal, never served
+```
+
+**ONE IMPLEMENTATION.** The runs come from `lib/leak-score.mjs` -- the lesson scanner's own
+tokenisation and its own nine-document index, which asserts each document's word count against
+the manifest, so this path inherits a positive control for free. **The quotation allowance is a
+MODE in that module, not a copy.** The lesson rule is unchanged.
+
+**AND THE INDEX IS WIDER THAN THE TASK MAP, DELIBERATELY.** One rejection is a 16-word run
+against ISO/IEC 22989 -- a standard no passage was supplied from, so the item reproduced it from
+recall while writing about something else. **Recognition does not care which document we happened
+to map.**
+
+**A LETTERED SUB-ITEM'S MODAL, FOURTH INSTANCE -- AND THIS TIME THE FIELD WAS WRONG.**
+Modal-fidelity read the STEM. Item 1.6 asks *"what must the standard be read as requiring"* and
+its key and anchor both say `can`; the gate refused it for the wording of its own question.
+
+> **A STEM ASKS. A DISTRACTOR IS MEANT TO BE FALSE.** What an item ASSERTS is its key, and what
+> it teaches is its explanation. Those two fields carry the claim; the other two do not.
+
+**AND "NOT ONLY" IS A SCOPE WIDENER, NOT A VERDICT NEGATION.** The odd-one-out rule refused an
+item for *"not only those built in house"*, which does not negate the option's verdict -- it
+WIDENS its scope. `not only`, `not just`, `not limited to` all say *this and more*. Removed
+before the test rather than added to it, because a guard that fires on ordinary English is
+deleted by the first person it inconveniences.
+
+**THE ANCHOR MUST BE A PRIMARY PASSAGE OF THE TASK, AND THAT ONE RULE DID THE MOST WORK.** Two
+of the first pilot's survivors anchored in a real clause, verbatim, at the right modal strength
+-- and the clause was not what the task examines: one tested drift monitoring on a task about
+the AI system LIFE CYCLE, one tested audit frequency on a task about the CERTIFICATION ROUTE.
+Every gate that existed passed them. In the next pilot this gate fired **nine times**, mostly on
+keys resting on Annex B GUIDANCE where the task's primary is the Annex A control.
+
+**AND THE RANGE EXPANSION FOR THAT MAP ASKS THE LIBRARY.** `A.6.2.2-A.6.2.8` and `B.2.x` are
+resolved against what is held, so a range covers what exists -- a typed list would have gone
+stale the same week, since the extractor recovered two controls. **A range that expands to
+NOTHING is an error, not an empty list**: that is the failure mode of a declared map, where a
+typo maps a task to no passages and every item for it is then refused for a reason that names
+the item.
+
+**A LOOKUP BY NAME STATES ITS MODE.** Searching title-or-text for everything was wrong in both
+directions: `corrective action` matched six passages when the ruling asks for the DEFINITION, and
+`audit programme` matched forty. `@definition:` / `@title:` / `@text:` -- **a lookup whose
+breadth is a side effect of which fields it happens to search is not a resolution.**
+
+**A CONTAINER IS ITS OWN STATE IN A MAP TOO.** 42001's `A.6` is a group heading whose children
+the library holds, so it has no row to link to. Reporting it as "not in the library" would read
+as a defect in the standard or the extractor.
+
+---
+
+## Anchor or flag: the instrument that catches a wrong key
+
+**Measured 2026-09-26 against the director's read of 40 AIMS-F items.**
+
+| instrument | caught of his 14 | both Tier A? |
+|---|---|---|
+| blind solver | 5, then 2 on a re-run | **no** -- accepted `1dddb20e`, the invented control |
+| **anchor or flag** | **7** | **yes, both** |
+
+**THE SOLVER'S FAILURE IS STRUCTURAL, NOT A TUNING PROBLEM.** A model asked whether it can reach
+the key will usually find a way to: it accepted the invented "drift incident" control by
+reasoning to it from B.6.2.6. **Anchoring does not ask for an opinion. It asks for the SENTENCE**
+-- and where there is no sentence, there is no anchor. `1dddb20e` and `b97b25ea` are an invented
+control and an invented definition; neither needs a model's judgement, both need somebody to
+fail to find the text.
+
+**AND THE FIRST VERSION OF ANCHOR-OR-FLAG REPORTED 2 OF 14, WORSE THAN THE SOLVER.** Eight of
+the twelve misses came back `cannot be checked` with reasons naming 42001 clause 9.3, clause 7.5,
+Annex A.7. **Those clauses are IN THE LIBRARY** -- they are simply not in the task's primary map,
+which is the off-task finding the gate exists to make, recorded instead as an excuse.
+
+> **"NOT AMONG THE PASSAGES I GAVE YOU" IS NOT "A SOURCE WE DO NOT HOLD".** Asked to anchor
+> within a task's primary set, a model reports everything outside it as unheld. The claim is now
+> TESTED against the library rather than believed: a held source named means FLAG, and only a
+> genuinely absent source is cannot-be-checked. Five real catches moved out of the excuse bucket,
+> one of them a Tier A.
+
+**A FINDING LIST IS NOT ONE QUESTION.** Five of the twelve Tier B findings are recorded
+"contested" -- an arguable second option. **The key of a contested item is well supported, which
+is exactly why it anchors**, so anchoring cannot see one by construction. Recall is reported
+against both denominators: 7 of 14, and 5 of the 9 that are a named defect in the key.
+
+**AND NEITHER INSTRUMENT SEES A CONTESTED DISTRACTOR.** Three misses anchored cleanly AND the
+solver accepted them. That is the honest limit of both, and it is where an SME is the only
+instrument.
+
+**THE FINDINGS LOADER READ ONE SHAPE OF THREE, TWICE.** `audit-480-findings.mjs` stores tier A as
+objects, tier B as a FLAT ARRAY OF TRIPLES, and tiers C/D/E as an object of triples. The first
+loader read objects, so C/D/E added nothing; the second read objects and grouped triples, so
+**TIER B still added nothing** -- and the comparison reported `director_tier_ab: 2` when the real
+number is 14, turning all twelve Tier B items into "extra flags" or silent misses.
+
+> **A LOADER VERIFIES ITS OWN WORK: every prefix the declaration holds for this certification
+> must come back attached, and one that does not stops the run.** The earlier control asserted
+> only that the two Tier A findings attached -- it PASSED while twelve were being dropped, which
+> is a control narrower than the defect it was written for.
+
+**AND A FLAG COUNT OF 18 IN 22 IS A DESIGN ERROR IN THE REPORT, NOT 18 FINDINGS.** The
+options-only probe flagged 82 percent of the second pilot's survivors. Reading the members:
+**twelve of the eighteen cues describe one thing** -- the generator makes a distractor wrong by
+ADDING AN ABSOLUTE OR RESTRICTIVE QUALIFIER, or a self-justifying "because..." clause, and leaves
+the key as the plain statement. One habit of the writer prompt, exploitable without knowing the
+subject. The remedy is the ruled one -- rewrite the cue out, in the prompt -- and it is a change
+to what the generator accepts, so it waits for a decision rather than being made quietly.
+
+**A WATCHER IS STOPPED BY WHOEVER STARTS IT.** Seven `until grep ... sleep 20` loops from the
+first pilot were still running hours later, polling for a line whose text had never been pinned.
+`run_in_background` on the real command and the harness's own notification does the same job with
+nothing left behind.
+
+---
+
 ## Working style
 
 **Complete files or fully scripted edits.** Never snippets.
