@@ -129,38 +129,88 @@ if (!sampled.length) {
  * below is what stops it: the map must come out non-empty and must contain the two AIMS-F
  * Tier A findings by name.
  */
+/* ============ THREE SHAPES, AND THE SECOND ONE COST THE WHOLE COMPARISON ============
+ *
+ * `audit-480-findings.mjs` stores its tiers three different ways:
+ *
+ *   TIER_A         array of OBJECTS      { n, id, cert, why }
+ *   TIER_B         array of TRIPLES      [ cert, id, why ]
+ *   TIER_C/D/E     OBJECT keyed by fix type, values arrays of TRIPLES
+ *
+ * The first loader read objects only, so tiers C, D and E added nothing. The second read
+ * objects and grouped triples, so TIER_B -- a flat array of triples -- STILL added nothing, and
+ * the comparison reported `director_tier_ab: 2` when the real number is 14. Every one of the
+ * director's twelve AIMS-F Tier B items carried `director_tier: null`, which turned each of them
+ * into an "extra flag" or a silent miss.
+ *
+ * TWICE IS A MECHANISM, NOT A LAPSE. So this reads all three shapes AND verifies its own work:
+ * every prefix the declaration holds for this certification must come back attached, and a
+ * prefix that does not attach stops the run. A loader that silently reads one shape of three
+ * produces a comparison whose denominator is wrong and whose every number looks reasonable. */
 const tierOf = new Map();
-const put = (cert, id, tier) => { if (cert === CERT) tierOf.set(String(id).slice(0, 8), tier); };
-for (const r of AUDIT480_TIER_A) put(r.cert, r.id, "A");
-for (const r of AUDIT480_TIER_B) put(r.cert, r.id, "B");
-for (const [grouped, tier] of [[AUDIT480_TIER_C, "C"], [AUDIT480_TIER_D, "D"], [AUDIT480_TIER_E, "E"]]) {
-  if (Array.isArray(grouped)) {
-    for (const r of grouped) put(r.cert, r.id, tier);
-  } else {
-    for (const rows of Object.values(grouped || {})) {
-      for (const t of rows || []) {
-        if (Array.isArray(t)) put(t[0], t[1], tier);
-        else put(t.cert, t.id, tier);
-      }
+const attached = [];
+const put = (cert, id, tier) => {
+  if (cert !== CERT) return;
+  tierOf.set(String(id).slice(0, 8), tier);
+  attached.push(String(id).slice(0, 8));
+};
+const eat = (node, tier) => {
+  if (!node) return;
+  if (Array.isArray(node)) {
+    /* A flat array is either objects or triples; a triple is [cert, id, why]. */
+    for (const r of node) {
+      if (Array.isArray(r)) put(r[0], r[1], tier);
+      else if (r && typeof r === "object") put(r.cert, r.id, tier);
     }
+    return;
   }
-}
-/* POSITIVE CONTROL. The two AIMS-F Tier A findings are known by name from the 480-item
- * audit; if this loader cannot see them, its silence about everything else is worthless. */
+  if (typeof node === "object") { for (const v of Object.values(node)) eat(v, tier); }
+};
+eat(AUDIT480_TIER_A, "A");
+eat(AUDIT480_TIER_B, "B");
+eat(AUDIT480_TIER_C, "C");
+eat(AUDIT480_TIER_D, "D");
+eat(AUDIT480_TIER_E, "E");
+
+/* EVERY LISTED PREFIX MUST ATTACH. Counted straight off the declaration, whatever shape each
+ * tier uses, so this cannot be satisfied by a loader that reads the same shape twice. */
 {
-  const wantA = AUDIT480_TIER_A.filter((r) => r.cert === CERT).map((r) => String(r.id).slice(0, 8));
-  const missing = wantA.filter((id) => tierOf.get(id) !== "A");
-  if (!tierOf.size || missing.length) {
-    console.error("REFUSING TO RUN -- the findings loader is not reading the declaration:");
-    console.error("  tiers loaded for " + CERT + ": " + tierOf.size);
-    if (missing.length) console.error("  Tier A findings it could not see: " + missing.join(", "));
-    console.error("Every solver flag would then look like a finding the director never made.");
+  const declaredForCert = [];
+  const walk = (node) => {
+    if (!node) return;
+    if (Array.isArray(node)) {
+      for (const r of node) {
+        if (Array.isArray(r)) { if (r[0] === CERT) declaredForCert.push(String(r[1]).slice(0, 8)); }
+        else if (r && typeof r === "object") { if (r.cert === CERT) declaredForCert.push(String(r.id).slice(0, 8)); }
+        else walk(r);
+      }
+      return;
+    }
+    if (typeof node === "object") for (const v of Object.values(node)) walk(v);
+  };
+  for (const t of [AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D, AUDIT480_TIER_E]) walk(t);
+  const missing = [...new Set(declaredForCert)].filter((id) => !tierOf.has(id));
+  if (!declaredForCert.length || missing.length) {
+    console.error("REFUSING TO RUN -- the findings loader did not attach every listed prefix.");
+    console.error("  declared for " + CERT + ": " + declaredForCert.length +
+      "   attached: " + tierOf.size + "   NOT ATTACHED: " + missing.length);
+    if (missing.length) console.error("  " + missing.join(", "));
+    console.error("");
+    console.error("This has now been wrong twice, both times by reading one shape of three. Every");
+    console.error("unattached prefix becomes an extra flag or a silent miss, and the comparison's");
+    console.error("denominator is wrong while every number in it looks reasonable.");
     process.exitCode = 2; process.exit();
   }
-  console.log("findings loaded for " + CERT + ": " + tierOf.size +
-    " (" + ["A", "B", "C", "D", "E"].map((t) => t + "=" +
-      [...tierOf.values()].filter((v) => v === t).length).join(" ") + ")");
+  console.log("findings loader: " + declaredForCert.length + " prefix(es) declared for " + CERT +
+    ", all attached");
 }
+/* The earlier control asserted only that the two Tier A findings attached. It PASSED while all
+ * twelve Tier B ones were being dropped -- a control narrower than the defect it was written for,
+ * which is the shape this repository records as a guard that cannot see its own subject. The
+ * every-prefix assertion above replaces it and subsumes it. */
+console.log("findings loaded for " + CERT + ": " + tierOf.size +
+  " (" + ["A", "B", "C", "D", "E"].map((t) => t + "=" +
+    [...tierOf.values()].filter((v) => v === t).length).join(" ") + ")");
 
 /* ---------------------------------------------------------------- inputs */
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));

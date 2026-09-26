@@ -1,0 +1,1114 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "method": "anchor or flag, primary passages only, code gates decide",
+ "sampled": 40,
+ "anchored": 20,
+ "flagged": 14,
+ "cannot_be_checked": 6,
+ "director_tier_ab": 14,
+ "caught_by_anchor": 7,
+ "caught_by_solver": 2,
+ "anchorable": 9,
+ "contested": 5,
+ "caught_of_anchorable": 5,
+ "solver_caught_of_contested": 0,
+ "extra_flags": 7,
+ "extra_lesser_tier": 0,
+ "items": [
+  {
+   "n": 121,
+   "prefix": "09db140e",
+   "director_tier": null,
+   "task": "1.1",
+   "state": "flag",
+   "kind": "no anchor found",
+   "key_claim": "An internal AIMS audit belongs to the 'Check' phase of the PDCA cycle because audits are a performance evaluation mechanism that monitors the AIMS against its requirements.",
+   "reason": "no supplied passage supports the key: None of the supplied passages (3.4 definition of management system, 4.4 AI management system, 1 Scope) mention internal audit, performance evaluation, or the Plan-Do-Check-Act cycle. The key would require ISO/IEC 42001 Clause 9 (Performance evaluation, in particular 9.2 Internal audit) and the Introduction's PDCA description, neither of which is among the supplied passages."
+  },
+  {
+   "n": 122,
+   "prefix": "b97b25ea",
+   "director_tier": "B",
+   "task": "1.2",
+   "state": "cannot-be-checked",
+   "rests_on": "ISO/IEC 22989 (clause 4.1 NOTE 1 states 'A detailed description of these roles is provided by ISO/IEC 22989'); also the NIST AI risk management framework [29] cited for role/life-cycle relationships",
+   "key_claim": "The 'AI partner' role denotes an organization collaborating across the AI system lifecycle such that joint development creates shared responsibility for the system's AI impacts.",
+   "reason": "the key rests on ISO/IEC 22989 (clause 4.1 NOTE 1 states 'A detailed description of these roles is provided by ISO/IEC 22989'); also the NIST AI risk management framework [29] cited for role/life-cycle relationships, which the library does not hold"
+  },
+  {
+   "n": 123,
+   "prefix": "3f0430cf",
+   "director_tier": "A",
+   "task": "1.4",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "The Harmonised (high-level) Structure gives ISO/IEC 42001 and ISO/IEC 27001 a common Clause 9 review framework, but ISO/IEC 42001 additionally demands AI-specific performance data in its management review that ISO/IEC 27001 reviews do not contain.",
+   "rests_on": "ISO/IEC 42001 Clause 9.3 (management review inputs/outputs) and ISO/IEC 27001 Clause 9.3 — neither clause text is among the supplied passages; only Annex D (D.1, D.2) was provided.",
+   "reason": "the key rests on ISO/IEC 42001 Clause 9.3 (management review inputs/outputs) and ISO/IEC 27001 Clause 9.3 — neither clause text is among the supplied passages; only Annex D (D.1, D.2) was provided. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 1.4 examines"
+  },
+  {
+   "n": 124,
+   "prefix": "83f159c4",
+   "director_tier": "B",
+   "task": "1.5",
+   "state": "cannot-be-checked",
+   "rests_on": "Regulation (EU) 2024/1689 (the EU AI Act), including its risk-tier classification and its application/transitional timeline provisions and any subsequent amendments thereto",
+   "key_claim": "The EU AI Act imposes obligations differentiated by risk tier and applies them on a phased implementation timeline that has been revised since the Act's adoption.",
+   "reason": "the key rests on Regulation (EU) 2024/1689 (the EU AI Act), including its risk-tier classification and its application/transitional timeline provisions and any subsequent amendments thereto, which the library does not hold"
+  },
+  {
+   "n": 125,
+   "prefix": "a0772e2c",
+   "director_tier": null,
+   "task": "1.6",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "ISO/IEC 42001 certification confirms only that the organization's AI management system contains processes governing how bias validation activities are determined and monitored — not that individual models were validated or certified.",
+   "rests_on": "ISO/IEC 17021-1 and ISO/IEC 42006 — what a certification audit attests to (system conformity rather than product/model conformity) is defined there, not in the supplied ISO/IEC 42001 passages; the supplied passages also contain nothing on bias validation specifically.",
+   "reason": "the key rests on ISO/IEC 17021-1 and ISO/IEC 42006 — what a certification audit attests to (system conformity rather than product/model conformity) is defined there, not in the supplied ISO/IEC 42001 passages; the supplied passages also contain nothing on bias validation specifically. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.6 examines"
+  },
+  {
+   "n": 126,
+   "prefix": "8d880a2b",
+   "director_tier": null,
+   "task": "1.6",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "Annex D of ISO/IEC 42001 is informative sector-specific guidance and does not displace the normative context-of-the-organization requirements of Clause 4, which still apply in full.",
+   "rests_on": "ISO/IEC 42001 Annex D (sector guidance) and Clause 4 (Context of the organization) — neither is among the supplied passages",
+   "reason": "the key rests on ISO/IEC 42001 Annex D (sector guidance) and Clause 4 (Context of the organization) — neither is among the supplied passages -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.6 examines"
+  },
+  {
+   "n": 127,
+   "prefix": "f50f74e8",
+   "director_tier": "B",
+   "task": "2.1",
+   "key_claim": "Clause 4.1 requires the organization to determine/assess whether climate change is a relevant issue irrespective of whether it holds an environmental management system certification such as ISO 14001.",
+   "anchor": {
+    "clause": "4.1",
+    "support": "The organization shall determine whether climate change is a relevant issue."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 4.1, verbatim, modal consistent"
+  },
+  {
+   "n": 128,
+   "prefix": "66fea350",
+   "director_tier": "B",
+   "task": "2.2",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "The organization must expand its AIMS scope to include the vendor-supplied AI ranking feature, because third-party AI used within the organization's processes falls inside the AIMS boundary.",
+   "rests_on": "ISO/IEC 42001 clauses 4.1 and 4.2 (external/internal issues and interested-party requirements, referenced but not supplied) and Annex A controls on third-party/supplier AI relationships (e.g. A.10), which are where an obligation covering externally supplied AI would be stated.",
+   "reason": "the key rests on ISO/IEC 42001 clauses 4.1 and 4.2 (external/internal issues and interested-party requirements, referenced but not supplied) and Annex A controls on third-party/supplier AI relationships (e.g. A.10), which are where an obligation covering externally supplied AI would be stated. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 2.2 examines"
+  },
+  {
+   "n": 129,
+   "prefix": "f2265782",
+   "director_tier": null,
+   "task": "2.3",
+   "key_claim": "The reviewer is incorrect: ISO/IEC 42001 requires the AI policy to state high-level commitments and provide a framework for setting objectives, while measurability (numeric targets) is a requirement of AI objectives, not of the policy.",
+   "anchor": {
+    "clause": "5.2",
+    "support": "Top management shall establish an AI policy that: a) is appropriate to the purpose of the organization; b) provides a framework for setting AI objectives (see 6.2); c) includes a commitment to meet applicable requirements; d) includes a commitment to continual improvement of the AI management system."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 5.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 5.2, verbatim, modal consistent"
+  },
+  {
+   "n": 130,
+   "prefix": "5d0d9624",
+   "director_tier": null,
+   "task": "2.4",
+   "key_claim": "Failing to revisit role and authority assignments after significantly expanding AI use is a concern, because those assignments must reflect the organization's current AI scope and needs.",
+   "anchor": {
+    "clause": "A.3.2",
+    "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.3.2, verbatim, modal consistent"
+  },
+  {
+   "n": 131,
+   "prefix": "255323d0",
+   "director_tier": null,
+   "task": "2.4",
+   "key_claim": "Assigning both the AIMS-conformance authority and the performance-reporting authority to a single person is permissible, because ISO/IEC 42001 lists them as two distinct assigned authorities without requiring that different individuals hold them.",
+   "anchor": {
+    "clause": "5.3",
+    "support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 5.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 5.3, verbatim, modal consistent"
+  },
+  {
+   "n": 132,
+   "prefix": "ea67eb46",
+   "director_tier": null,
+   "task": "2.6",
+   "key_claim": "The AI system impact assessment must cover consequences for individuals, groups of individuals, and societies together, so societal impacts should be retained in the assessment.",
+   "anchor": {
+    "clause": "6.1.4",
+    "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.4, verbatim, modal consistent"
+  },
+  {
+   "n": 133,
+   "prefix": "b1ea2bf8",
+   "director_tier": null,
+   "task": "2.6",
+   "key_claim": "The AI system impact assessment must cover denied applicants — individuals affected by the system's decisions — even if they never directly interact with the system, because impacts on individuals or groups of individuals generally, not just users, are in scope.",
+   "anchor": {
+    "clause": "6.1.4",
+    "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.4, verbatim, modal consistent"
+  },
+  {
+   "n": 134,
+   "prefix": "a335a9a2",
+   "director_tier": null,
+   "task": "2.6",
+   "key_claim": "Applicants must be included in the AI system impact assessment because the assessment must cover individuals affected by the system's decisions, not only those who interact with it directly.",
+   "anchor": {
+    "clause": "6.1.4",
+    "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.4, verbatim, modal consistent"
+  },
+  {
+   "n": 135,
+   "prefix": "cbfcb33f",
+   "director_tier": null,
+   "task": "2.8",
+   "key_claim": "Acceptance of residual AI risk must be approved by designated/authorized management, not by the risk owner alone.",
+   "anchor": {
+    "clause": "6.1.3",
+    "support": "The organization shall obtain approval from the designated management for the AI risk treatment plan and for acceptance of the residual AI risks."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.3, verbatim, modal consistent"
+  },
+  {
+   "n": 136,
+   "prefix": "f74447c0",
+   "director_tier": null,
+   "task": "3.2",
+   "key_claim": "ISO/IEC 42001 requires the organization to determine the AIMS-relevant external (and internal) communications — what, when, with whom, and how to communicate.",
+   "anchor": {
+    "clause": "7.4",
+    "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 7.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 7.4, verbatim, modal consistent"
+  },
+  {
+   "n": 137,
+   "prefix": "e001ba3c",
+   "director_tier": "D",
+   "task": "3.2",
+   "key_claim": "A generic corporate communication policy is insufficient because ISO/IEC 42001 requires communications to be determined specifically as relevant to the AI management system (what, when, with whom, how).",
+   "anchor": {
+    "clause": "7.4",
+    "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 7.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 7.4, verbatim, modal consistent"
+  },
+  {
+   "n": 138,
+   "prefix": "ab6263f0",
+   "director_tier": "B",
+   "task": "3.6",
+   "key_claim": "Data provenance under ISO/IEC 42001 must record the whole chain of data handling — creation, update/transformation, validation and transfer of control — across the life cycles of the data and the AI system, not just the original source.",
+   "anchor": {
+    "clause": "B.7.5",
+    "support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item states a requirement and clause B.7.5 is should -- a should passage cannot license a requirement"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.5, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item states a requirement and clause B.7.5 is should -- a should passage cannot license a requirement"
+  },
+  {
+   "n": 139,
+   "prefix": "dd09940d",
+   "director_tier": "B",
+   "task": "3.6",
+   "state": "cannot-be-checked",
+   "rests_on": "ISO 8000-2 (cited by B.7.5 for the provenance record contents) is not among the supplied passages; also note B.7.5 phrases this as 'can include' guidance, while the key states 'must cover'.",
+   "key_claim": "Under ISO/IEC 42001, data provenance tracking extends across the data life cycle — covering creation, intermediate transformations/updates, validation and transfer of control — rather than being limited to the final dataset.",
+   "reason": "the key rests on ISO 8000-2 (cited by B.7.5 for the provenance record contents) is not among the supplied passages; also note B.7.5 phrases this as 'can include' guidance, while the key states 'must cover'., which the library does not hold"
+  },
+  {
+   "n": 140,
+   "prefix": "87d03b82",
+   "director_tier": null,
+   "task": "3.6",
+   "key_claim": "The organization should set data quality requirements appropriate to the AI system's purpose (and risk) and then show that the data used actually meet those requirements.",
+   "anchor": {
+    "clause": "A.7.4",
+    "support": "The organization shall define and document requirements for data quality and ensure that data used to develop and operate the AI system meet those requirements."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.7.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.7.4, verbatim, modal consistent"
+  },
+  {
+   "n": 141,
+   "prefix": "121f8e71",
+   "director_tier": null,
+   "task": "3.7",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "Competence records from information security cannot by themselves demonstrate AI management competence; competence must be determined and demonstrated against AI-specific criteria.",
+   "rests_on": "ISO/IEC 27001 Clause 7.2 (the records being relied upon) is referenced in the stem but not supplied; the supplied passages support only the requirement that competence be determined relative to AI performance, not an explicit prohibition on reusing other-domain evidence.",
+   "reason": "the key rests on ISO/IEC 27001 Clause 7.2 (the records being relied upon) is referenced in the stem but not supplied; the supplied passages support only the requirement that competence be determined relative to AI performance, not an explicit prohibition on reusing other-domain evidence. -- the library HOLDS ISO/IEC 27001, so this is not an unheld source: the clause is not what task 3.7 examines"
+  },
+  {
+   "n": 142,
+   "prefix": "be876cdf",
+   "director_tier": "B",
+   "task": "3.8",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "Storing AI system impact assessment results in a personal email folder does not satisfy clause 8, because the retained results must be controlled documented information that is traceable to the specific AIMS activity.",
+   "rests_on": "The 'controlled' and 'traceable' elements of the key derive from ISO/IEC 42001 clause 7.5 (documented information / control of documented information), which is not among the supplied passages. Clauses 8.2, 8.3 and 8.4 as supplied require only that documented information of results be retained, and say nothing about control, traceability or storage location.",
+   "reason": "the key rests on The 'controlled' and 'traceable' elements of the key derive from ISO/IEC 42001 clause 7.5 (documented information / control of documented information), which is not among the supplied passages. Clauses 8.2, 8.3 and 8.4 as supplied require only that documented information of results be retained, and say nothing about control, traceability or storage location. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 3.8 examines"
+  },
+  {
+   "n": 143,
+   "prefix": "a90aee16",
+   "director_tier": "B",
+   "task": "3.8",
+   "key_claim": "A significant change in an AI system's outputs or performance triggers the clause 8 review obligations (risk assessment/impact assessment) regardless of whether the change was intentional.",
+   "anchor": {
+    "clause": "8.2",
+    "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 8.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 8.2, verbatim, modal consistent"
+  },
+  {
+   "n": 144,
+   "prefix": "87c740c9",
+   "director_tier": "E",
+   "task": "4.1",
+   "key_claim": "Annex B's force comes from clause 6.1.3 e), which requires the organization to consider Annex B guidance when implementing the controls it has determined, so the guidance is not a set of sentences each of which must be implemented verbatim and tailoring is permitted.",
+   "anchor": {
+    "clause": "6.1.3",
+    "support": "e) consider the guidance in Annex B for the implementation of controls determined in b) and c);"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.3, verbatim, modal consistent"
+  },
+  {
+   "n": 145,
+   "prefix": "b40e412a",
+   "director_tier": null,
+   "task": "4.1",
+   "key_claim": "Annex A being 'not exhaustive' means organizations may add controls beyond those listed, but omitting a listed control still requires risk-based justification (documented in the statement of applicability).",
+   "anchor": {
+    "clause": "6.1.3",
+    "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item states a requirement and the anchor sentence carries no shall/must -- the passage's class is not the sentence's claim"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item states a requirement and the anchor sentence carries no shall/must -- the passage's class is not the sentence's claim"
+  },
+  {
+   "n": 146,
+   "prefix": "b965acf2",
+   "director_tier": "B",
+   "task": "4.2",
+   "key_claim": "The bare statement 'Not applicable to our products' fails because ISO/IEC 42001 requires the statement of applicability to provide actual justification for excluding a control, not merely an assertion of non-applicability.",
+   "anchor": {
+    "clause": "6.1.3",
+    "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item states a requirement and the anchor sentence carries no shall/must -- the passage's class is not the sentence's claim"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls D defensible: Clause 6.1.3 f) ties valid exclusion justifications to the risk assessment, and 3.26 Note 2 says all identified risks and their controls shall be reflected in the SoA, so one could argue the exclusion must be linked to risk assessment results — though the passages do not require demonstrating that no residual risk remains."
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item states a requirement and the anchor sentence carries no shall/must -- the passage's class is not the sentence's claim"
+  },
+  {
+   "n": 147,
+   "prefix": "379b53fe",
+   "director_tier": "C",
+   "task": "4.3",
+   "key_claim": "When the AI portfolio expands, the organization should reassess the adequacy of its resources across people, tooling and infrastructure rather than relying on an old one-time assessment.",
+   "anchor": {
+    "clause": "A.4.2",
+    "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.4.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.4.2, verbatim, modal consistent"
+  },
+  {
+   "n": 148,
+   "prefix": "52004aae",
+   "director_tier": "B",
+   "task": "4.3",
+   "key_claim": "The gap—no documented process for staff to raise AI-related concerns—is closed by the 'Reporting of concerns' control, which requires the organization to define and put in place such a process.",
+   "anchor": {
+    "clause": "A.3.3",
+    "support": "Reporting of concerns The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.3.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls B defensible: A.3.3 sits within the A.3 'Internal organization' group and A.3.2 requires defining and allocating AI roles and responsibilities, so assigning a role to receive concerns is arguably supportable, though it is not the control aimed at the reporting process itself."
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.3.3, verbatim, modal consistent"
+  },
+  {
+   "n": 149,
+   "prefix": "591b9767",
+   "director_tier": "B",
+   "task": "4.4",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "The required response to an AI system whose training dataset lacks documented provenance is to document and retain that provenance information under the responsible development controls, which cover data quality and transparency.",
+   "rests_on": "ISO/IEC 42001 Annex A.7 controls on data for AI systems (in particular the data provenance and data quality controls, e.g. A.7.4/A.7.5) — these clauses are not among the supplied passages.",
+   "reason": "the key rests on ISO/IEC 42001 Annex A.7 controls on data for AI systems (in particular the data provenance and data quality controls, e.g. A.7.4/A.7.5) — these clauses are not among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 4.4 examines"
+  },
+  {
+   "n": 150,
+   "prefix": "430a65d2",
+   "director_tier": "B",
+   "task": "4.6",
+   "key_claim": "The AI provider should perform AI-specific due diligence on the bank's downstream deployment context and allocate AI system life-cycle responsibilities between itself and the bank.",
+   "anchor": {
+    "clause": "A.10.2",
+    "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.10.2, verbatim, modal consistent"
+  },
+  {
+   "n": 151,
+   "prefix": "2d291853",
+   "director_tier": null,
+   "task": "4.6",
+   "key_claim": "The responsible-use requirement is most directly fulfilled by defining responsible-use objectives and establishing processes that ensure the AI system is used in accordance with its intended use and accompanying documentation.",
+   "anchor": {
+    "clause": "A.9.4",
+    "support": "Intended use of the AI system The organization shall ensure that the AI system is used according to the intended uses of the AI system and its accompanying documentation."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.9.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.9.4, verbatim, modal consistent"
+  },
+  {
+   "n": 152,
+   "prefix": "1dddb20e",
+   "director_tier": "A",
+   "task": "4.7",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "An existing ISO/IEC 27001 incident-response procedure cannot satisfy the ISO/IEC 42001 AI incident obligation because it is built around security-breach triggers and containment and lacks detection criteria and escalation paths for AI-specific failures such as biased outputs and model drift.",
+   "rests_on": "ISO/IEC 42001 Annex A/B control text on AI system operation, monitoring and incident/event response (e.g. B.6.2.6 / B.6.2.8) — not among the supplied passages",
+   "reason": "the key rests on ISO/IEC 42001 Annex A/B control text on AI system operation, monitoring and incident/event response (e.g. B.6.2.6 / B.6.2.8) — not among the supplied passages -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 4.7 examines"
+  },
+  {
+   "n": 153,
+   "prefix": "9f9c2248",
+   "director_tier": null,
+   "task": "4.7",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "A single supplier assessment procedure that genuinely covers both the AI-specific objectives of ISO/IEC 42001 and the information security objectives of ISO/IEC 27001 is conformant; the standards permit integrated implementation rather than requiring separate documentation.",
+   "rests_on": "ISO/IEC 27001 (and audit-finding classification criteria, e.g. ISO/IEC 17021-1) are not among the supplied passages; the anchor supports the permissibility of integration in general, not the specific supplier-assessment control or the grading of the finding.",
+   "reason": "the key rests on ISO/IEC 27001 (and audit-finding classification criteria, e.g. ISO/IEC 17021-1) are not among the supplied passages; the anchor supports the permissibility of integration in general, not the specific supplier-assessment control or the grading of the finding. -- the library HOLDS ISO/IEC 27001, so this is not an unheld source: the clause is not what task 4.7 examines"
+  },
+  {
+   "n": 154,
+   "prefix": "b7d1c5da",
+   "director_tier": null,
+   "task": "5.1",
+   "key_claim": "The review pack measures AI system performance but omits evaluation of the AI management system's own effectiveness, which ISO/IEC 42001 requires as a distinct obligation.",
+   "anchor": {
+    "clause": "9.1",
+    "support": "The organization shall evaluate the performance and the effectiveness of the AI management system."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 9.1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 9.1, verbatim, modal consistent"
+  },
+  {
+   "n": 155,
+   "prefix": "5d504d63",
+   "director_tier": null,
+   "task": "5.1",
+   "key_claim": "The colleague is wrong: ISO/IEC 42001 lets the organization itself determine when monitoring and measurement are performed, so a quarterly schedule is acceptable.",
+   "anchor": {
+    "clause": "9.1",
+    "support": "The organization shall determine: — what needs to be monitored and measured; — the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results; — when the monitoring and measuring shall be performed;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 9.1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 9.1, verbatim, modal consistent"
+  },
+  {
+   "n": 156,
+   "prefix": "24177d84",
+   "director_tier": null,
+   "task": "5.2",
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "In an AIMS internal audit, the audit scope defines the boundaries of what is audited (e.g. processes, locations, time period), whereas the audit criteria are the set of requirements used as the reference against which conformity is assessed.",
+   "rests_on": "ISO 19011:2018 / ISO 9000:2015 definitions of 'audit scope' and 'audit criteria' (not among the supplied passages)",
+   "reason": "the key rests on ISO 19011:2018 / ISO 9000:2015 definitions of 'audit scope' and 'audit criteria' (not among the supplied passages) -- the library HOLDS ISO 19011, so this is not an unheld source: the clause is not what task 5.2 examines"
+  },
+  {
+   "n": 157,
+   "prefix": "79209585",
+   "director_tier": "E",
+   "task": "5.3",
+   "key_claim": "Decisions on continual improvement opportunities and any need for changes to the AIMS are a required result (output) of the management review, not an input.",
+   "anchor": {
+    "clause": "9.3.3",
+    "support": "The results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the AI management system."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 9.3.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 9.3.3, verbatim, modal consistent"
+  },
+  {
+   "n": 158,
+   "prefix": "fcb8a516",
+   "director_tier": null,
+   "task": "5.5",
+   "state": "cannot-be-checked",
+   "reason": "task 5.5 has no primary passages -- it is on HOLD by ruling (5.5 needs ISO/IEC 42006 and 17021-1). Nothing could be checked, which is not a pass and not a flag"
+  },
+  {
+   "n": 159,
+   "prefix": "c318ef8f",
+   "director_tier": null,
+   "task": "5.5",
+   "state": "cannot-be-checked",
+   "reason": "task 5.5 has no primary passages -- it is on HOLD by ruling (5.5 needs ISO/IEC 42006 and 17021-1). Nothing could be checked, which is not a pass and not a flag"
+  },
+  {
+   "n": 160,
+   "prefix": "fa5276a3",
+   "director_tier": null,
+   "task": "5.5",
+   "state": "cannot-be-checked",
+   "reason": "task 5.5 has no primary passages -- it is on HOLD by ruling (5.5 needs ISO/IEC 42006 and 17021-1). Nothing could be checked, which is not a pass and not a flag"
+  }
+ ]
+}
