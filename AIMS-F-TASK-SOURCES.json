@@ -1,0 +1,6965 @@
+{
+ "certification": "AIMS-F",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "library_passages": 185,
+ "generated_from": "SOURCE-PASSAGES.json",
+ "exemplars_exercised": 8,
+ "top_cap": 6,
+ "tasks": [
+  {
+   "code": "1.1",
+   "task_id": "f3ae583b-893e-4bac-8920-d215edc38aa1",
+   "domain": "D1",
+   "statement": "Explain what an AI management system is and what a management system standard does",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": "technical",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.69,
+     "terms": [
+      "technical",
+      "what",
+      "elements",
+      "iso",
+      "iec",
+      "responsible",
+      "describe",
+      "processes"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.59,
+     "terms": [
+      "elements",
+      "technical",
+      "iso",
+      "iec",
+      "processes",
+      "requirement",
+      "what",
+      "possible"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.527,
+     "terms": [
+      "because",
+      "technology",
+      "elements",
+      "processes",
+      "iso",
+      "iec",
+      "itself"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.4",
+     "title": "management system set of",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.525,
+     "terms": [
+      "interrelated",
+      "elements",
+      "policies",
+      "processes"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.431,
+     "terms": [
+      "iso",
+      "iec",
+      "policies",
+      "processes",
+      "technology",
+      "bodies"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.2",
+     "title": "interested party person or",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.423,
+     "terms": [
+      "itself",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "1.2",
+   "task_id": "9509cd6e-7309-4ee1-a6d4-231c18482cab",
+   "domain": "D1",
+   "statement": "Determine the organization's roles with respect to its AI systems",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 23,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.682,
+     "terms": [
+      "roles",
+      "respect",
+      "role",
+      "one",
+      "providers",
+      "producers",
+      "developers",
+      "designers"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 17,
+     "title_phrase": "applicability",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 1.281,
+     "terms": [
+      "applicability",
+      "controls",
+      "roles",
+      "respect",
+      "role",
+      "one",
+      "providers",
+      "producers"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.6.2.7",
+     "title": "AI system technical documentation The organization shall determine what AI system techni-",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "what",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.718,
+     "terms": [
+      "what",
+      "category",
+      "partners",
+      "authorities"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.666,
+     "terms": [
+      "what",
+      "category",
+      "partners",
+      "authorities",
+      "operators",
+      "described",
+      "customers",
+      "also"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.3",
+     "title": "Determining the scope of the AI management system",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "determining",
+     "title_run": 1,
+     "title_coverage": 0.13,
+     "body_score": 0.496,
+     "terms": [
+      "determining",
+      "applicability",
+      "respect",
+      "controls"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.49,
+     "terms": [
+      "identify",
+      "requirement",
+      "what",
+      "also",
+      "determining",
+      "described",
+      "respect",
+      "roles"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "1.3",
+   "task_id": "4ee54620-e668-4267-af4a-f4cf0e23504e",
+   "domain": "D1",
+   "statement": "Describe the AI system life cycle and why it anchors AIMS obligations",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "system life cycle",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 21,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.269,
+     "terms": [
+      "define",
+      "performance",
+      "activity",
+      "production",
+      "model",
+      "continuous",
+      "learning",
+      "change"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.6.1.3",
+     "title": "Processes for responsible AI sys-  The organization shall define and document the specific",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "processes",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.792,
+     "terms": [
+      "processes",
+      "define",
+      "specific"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.1.3",
+     "title": "Processes for responsible design and development of AI systems",
+     "normative": "should",
+     "shared": 13,
+     "title_phrase": "processes",
+     "title_run": 1,
+     "title_coverage": 0.11,
+     "body_score": 0.714,
+     "terms": [
+      "processes",
+      "define",
+      "specific",
+      "consideration",
+      "without",
+      "stages",
+      "model",
+      "iso"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.25",
+     "title": "data quality characteristic of",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.682,
+     "terms": [
+      "specific",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.676,
+     "terms": [
+      "what",
+      "stages",
+      "iso",
+      "iec",
+      "during",
+      "described",
+      "need",
+      "describe"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.624,
+     "terms": [
+      "obligations",
+      "iso",
+      "iec",
+      "own",
+      "need",
+      "across",
+      "also",
+      "production"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "1.4",
+   "task_id": "9c70da53-ef14-415a-b889-f61fe8760a03",
+   "domain": "D1",
+   "statement": "Explain the harmonised structure and how ISO/IEC 42001 sits alongside ISO/IEC 27001 and ISO 9001",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "D.1",
+     "title": "General",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.628,
+     "terms": [
+      "developing",
+      "using",
+      "annex",
+      "standards",
+      "also",
+      "part",
+      "applies",
+      "integration"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 10,
+     "title_phrase": "with other management system",
+     "title_run": 4,
+     "title_coverage": 0.44,
+     "body_score": 0.627,
+     "terms": [
+      "integration",
+      "standards",
+      "using",
+      "iso",
+      "iec",
+      "developing",
+      "structure",
+      "integrated"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "6.1.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.576,
+     "terms": [
+      "iso",
+      "iec",
+      "how",
+      "identify",
+      "developing",
+      "using",
+      "annex",
+      "part"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "2",
+     "title": "Normative references",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.406,
+     "terms": [
+      "text",
+      "applies",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.10.3",
+     "title": "Suppliers",
+     "normative": "should",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.353,
+     "terms": [
+      "developing",
+      "using",
+      "part",
+      "what",
+      "how",
+      "integrated"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.35,
+     "terms": [
+      "needs",
+      "identify",
+      "iso",
+      "iec",
+      "what",
+      "also",
+      "how"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "1.5",
+   "task_id": "0b958e89-bd6a-4b60-9c46-8924d98dd279",
+   "domain": "D1",
+   "statement": "Explain the regulatory drivers for an AIMS and why certification is not compliance",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.494,
+     "terms": [
+      "obligations",
+      "iso",
+      "iec",
+      "conformity",
+      "about",
+      "independent",
+      "risk",
+      "regulatory"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.8.4",
+     "title": "Communication of incidents",
+     "normative": "should",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.487,
+     "terms": [
+      "itself",
+      "obligations",
+      "around",
+      "about",
+      "than",
+      "regulatory",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.2",
+     "title": "interested party person or",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.423,
+     "terms": [
+      "itself",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "6.1.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.389,
+     "terms": [
+      "establish",
+      "risk",
+      "iso",
+      "iec",
+      "than",
+      "one",
+      "any",
+      "role"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.18",
+     "title": "audit systematic and independent",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "independent",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.367,
+     "terms": [
+      "independent",
+      "evidence",
+      "itself",
+      "iso"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.337,
+     "terms": [
+      "compliance",
+      "iso",
+      "iec",
+      "what",
+      "than",
+      "establish"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "1.6",
+   "task_id": "11021dac-f612-4491-8b4e-87fa93c76abc",
+   "domain": "D1",
+   "statement": "Distinguish an AIMS from model-level assurance and from AI ethics frameworks",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.257,
+     "terms": [
+      "risk",
+      "annex",
+      "them",
+      "they",
+      "whether",
+      "about"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 1,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.124,
+     "terms": [
+      "risk"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.072,
+     "terms": [
+      "risk",
+      "about"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 1,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.067,
+     "terms": [
+      "risk"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 1,
+     "title_phrase": "life cycle",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.133,
+     "terms": [
+      "risk"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.741,
+     "terms": [
+      "given",
+      "application",
+      "they",
+      "about",
+      "across",
+      "complementary",
+      "risk",
+      "sector"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.69,
+     "terms": [
+      "whether",
+      "roles",
+      "description",
+      "described",
+      "nist",
+      "risk",
+      "framework",
+      "ethics"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.616,
+     "terms": [
+      "activity",
+      "whether",
+      "technical",
+      "model",
+      "requirement",
+      "than",
+      "they",
+      "described"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "6.1.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.562,
+     "terms": [
+      "assurance",
+      "risk",
+      "application",
+      "described",
+      "than",
+      "scope",
+      "across",
+      "sector"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.3.7",
+     "title": "Technology readiness",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.499,
+     "terms": [
+      "risk",
+      "annex",
+      "informative",
+      "across"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.3",
+     "title": "Determining the scope of the AI management system",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "scope",
+     "title_run": 1,
+     "title_coverage": 0.13,
+     "body_score": 0.451,
+     "terms": [
+      "scope",
+      "boundaries",
+      "evaluation"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "2.1",
+   "task_id": "c8410871-a62e-4e53-a54e-03b3bdb6d149",
+   "domain": "D2",
+   "statement": "Determine the organization's context and interested parties for an AIMS",
+   "cited": [
+    {
+     "clause": "4.1",
+     "state": "held"
+    },
+    {
+     "clause": "4.2",
+     "state": "held"
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.297,
+     "terms": [
+      "interested",
+      "obligations",
+      "regulators",
+      "customers",
+      "well"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.23",
+     "title": "information security preservation of",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "information security",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 27,
+     "title_phrase": "context",
+     "title_run": 1,
+     "title_coverage": 0.17,
+     "body_score": 1.662,
+     "terms": [
+      "context",
+      "external",
+      "internal",
+      "issues",
+      "purpose",
+      "intended",
+      "whether",
+      "climate"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "4.2",
+     "title": "Understanding the needs and expectations of interested parties",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.25,
+     "body_score": 0.899,
+     "terms": [
+      "interested",
+      "climate",
+      "change"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 16,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.769,
+     "terms": [
+      "well",
+      "whether",
+      "interested",
+      "applicable",
+      "legal",
+      "intended",
+      "change",
+      "identify"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.2.10",
+     "title": "Security",
+     "normative": "should",
+     "shared": 3,
+     "title_phrase": "security",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 0.69,
+     "terms": [
+      "context",
+      "issues",
+      "beyond"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.651,
+     "terms": [
+      "context",
+      "external",
+      "internal",
+      "issues",
+      "purpose",
+      "intended",
+      "whether",
+      "climate"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.2",
+     "title": "interested party person or",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "interested",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.625,
+     "terms": [
+      "interested",
+      "affected",
+      "perceive"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "2.2",
+   "task_id": "0222de29-d7b1-4eaf-8970-c89cc3d1565d",
+   "domain": "D2",
+   "statement": "Determine the scope of the AI management system",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "4.3",
+     "title": "Determining the scope of the AI management system",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "the scope of the ai",
+     "title_run": 5,
+     "title_coverage": 0.63,
+     "body_score": 0.67,
+     "terms": [
+      "scope",
+      "issues",
+      "available",
+      "activities",
+      "respect",
+      "controls"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.209,
+     "terms": [
+      "available",
+      "activities",
+      "including",
+      "determined"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 1,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.078,
+     "terms": [
+      "including"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.2",
+     "title": "interested party person or",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "interested party",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.555,
+     "terms": [
+      "what",
+      "description",
+      "including",
+      "software",
+      "activities",
+      "features",
+      "standard",
+      "controls"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.527,
+     "terms": [
+      "define",
+      "account",
+      "including",
+      "model",
+      "issues",
+      "what",
+      "developed",
+      "determined"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": "context",
+     "title_run": 1,
+     "title_coverage": 0.17,
+     "body_score": 0.524,
+     "terms": [
+      "context",
+      "issues",
+      "developed",
+      "respect",
+      "including",
+      "description",
+      "controls",
+      "scope"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.448,
+     "terms": [
+      "controls",
+      "exclusion",
+      "context",
+      "issues",
+      "developed",
+      "respect",
+      "including",
+      "description"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 7,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.429,
+     "terms": [
+      "most",
+      "context",
+      "given",
+      "controls",
+      "software",
+      "model",
+      "available"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.327,
+     "terms": [
+      "account",
+      "define",
+      "controls",
+      "determined",
+      "exclusion",
+      "available"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "2.3",
+   "task_id": "e657c81e-1933-47b5-a382-6016412f239d",
+   "domain": "D2",
+   "statement": "Explain leadership requirements, the AI policy, AI objectives and planning of changes",
+   "cited": [
+    {
+     "clause": "6.3",
+     "state": "held"
+    },
+    {
+     "clause": "8.1",
+     "state": "held"
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "6.3",
+     "title": "Planning of changes",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "planning of changes",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 3.26,
+     "terms": [
+      "planning",
+      "changes",
+      "determines",
+      "need",
+      "carried",
+      "out",
+      "planned",
+      "manner"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "5.2",
+     "title": "AI policy",
+     "normative": "shall",
+     "shared": 11,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.902,
+     "terms": [
+      "policy",
+      "top",
+      "appropriate",
+      "provides",
+      "framework",
+      "applicable",
+      "continual",
+      "improvement"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "10.1",
+     "title": "Continual improvement",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "continual improvement",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.711,
+     "terms": [
+      "continual",
+      "improvement"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.2",
+     "title": "AI policy",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.228,
+     "terms": [
+      "policy",
+      "business",
+      "including",
+      "interested",
+      "processes"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.4",
+     "title": "Review of the AI policy",
+     "normative": "should",
+     "shared": 6,
+     "title_phrase": "the ai policy",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.408,
+     "terms": [
+      "policy",
+      "planned",
+      "improvement",
+      "changes",
+      "business",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.2",
+     "title": "AI objectives and planning to achieve them",
+     "normative": "shall",
+     "shared": 16,
+     "title_phrase": "ai objectives and planning",
+     "title_run": 4,
+     "title_coverage": 0.57,
+     "body_score": 1.194,
+     "terms": [
+      "planning",
+      "policy",
+      "measurable",
+      "practicable",
+      "applicable",
+      "monitored",
+      "communicated",
+      "updated"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "control of",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.368,
+     "terms": [
+      "available",
+      "applicable",
+      "including",
+      "changes",
+      "planning",
+      "appropriate",
+      "change"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.3",
+     "title": "top management person or",
+     "normative": "informative",
+     "shared": 2,
+     "title_phrase": "top management",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.316,
+     "terms": [
+      "top",
+      "delegate"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.147,
+     "terms": [
+      "interested",
+      "appropriate",
+      "including",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.3.3",
+     "title": "Management review results",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "results",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 1.102,
+     "terms": [
+      "results",
+      "continual",
+      "improvement",
+      "need",
+      "changes",
+      "available"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.4",
+     "title": "Communication",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.065,
+     "terms": [
+      "including",
+      "what",
+      "will",
+      "how"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.2",
+     "title": "Understanding the needs and expectations of interested parties",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.25,
+     "body_score": 0.809,
+     "terms": [
+      "interested",
+      "will",
+      "change"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.1",
+     "title": "Resources",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.781,
+     "terms": [
+      "continual",
+      "improvement",
+      "clause"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 19,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.751,
+     "terms": [
+      "meeting",
+      "expectation",
+      "interested",
+      "including",
+      "applicable",
+      "change",
+      "need",
+      "processes"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.12",
+     "title": "continual improvement recurring activity to enhance performance (3.11)",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "continual improvement",
+     "title_run": 2,
+     "title_coverage": 0.29,
+     "body_score": 0.71,
+     "terms": [
+      "continual",
+      "improvement",
+      "planned",
+      "results"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "2.4",
+   "task_id": "654f737f-18d0-4b97-a858-b47f1398965c",
+   "domain": "D2",
+   "statement": "Assign roles, responsibilities and authorities for AI",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "5.3",
+     "title": "Roles, responsibilities and authorities",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": "roles responsibilities and authorities",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 1.692,
+     "terms": [
+      "roles",
+      "responsibilities",
+      "authorities",
+      "top",
+      "assign",
+      "authority",
+      "ensuring",
+      "conforms"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.3.2",
+     "title": "AI roles and responsibilities",
+     "normative": "should",
+     "shared": 17,
+     "title_phrase": "roles and",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.991,
+     "terms": [
+      "roles",
+      "responsibilities",
+      "ensuring",
+      "areas",
+      "risk",
+      "impact",
+      "resource",
+      "security"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.3",
+     "title": "top management person or",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "top management",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.421,
+     "terms": [
+      "top",
+      "person",
+      "authority"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.275,
+     "terms": [
+      "impact",
+      "assessment",
+      "risk",
+      "safety",
+      "privacy",
+      "security"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.273,
+     "terms": [
+      "impact",
+      "assessment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.25",
+     "title": "data quality characteristic of",
+     "normative": "informative",
+     "shared": 1,
+     "title_phrase": "data quality",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.273,
+     "terms": [
+      "quality"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 1,
+     "title_phrase": "life cycle",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.133,
+     "terms": [
+      "risk"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "C.3.3",
+     "title": "Level of automation",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.001,
+     "terms": [
+      "impact",
+      "areas",
+      "safety",
+      "security"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.9.3",
+     "title": "Objectives for responsible use of AI system",
+     "normative": "should",
+     "shared": 13,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.7,
+     "terms": [
+      "identify",
+      "safety",
+      "privacy",
+      "security",
+      "human",
+      "oversight",
+      "authority",
+      "ensuring"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.3.4",
+     "title": "Risk sources related to machine learning",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.17,
+     "body_score": 0.509,
+     "terms": [
+      "risk",
+      "quality",
+      "impact",
+      "safety"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.21",
+     "title": "control <risk> measure that maintains and/or modifies risk (3.7)",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.11,
+     "body_score": 0.465,
+     "terms": [
+      "risk",
+      "person",
+      "accountable",
+      "performance",
+      "top",
+      "security",
+      "impact",
+      "assessment"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.46,
+     "terms": [
+      "security",
+      "privacy",
+      "quality",
+      "need",
+      "assessment",
+      "across",
+      "risk",
+      "safety"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.457,
+     "terms": [
+      "roles",
+      "human",
+      "impact",
+      "oversight",
+      "authorities",
+      "risk",
+      "outcome",
+      "performance"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "2.5",
+   "task_id": "f3b161db-0725-4ad4-9fb0-49963090c91b",
+   "domain": "D2",
+   "statement": "Apply the AI risk assessment process",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 33,
+     "title_phrase": "ai risk assessment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 2.005,
+     "terms": [
+      "risk",
+      "assessment",
+      "process",
+      "informed",
+      "aligned",
+      "policy",
+      "assessing",
+      "consequences"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "ai risk assessment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.573,
+     "terms": [
+      "risk",
+      "assessment",
+      "assessments",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "5.2",
+     "title": "AI policy",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.261,
+     "terms": [
+      "policy",
+      "applicable",
+      "iso",
+      "iec"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.2",
+     "title": "AI policy",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.219,
+     "terms": [
+      "policy",
+      "informed",
+      "risk",
+      "assessments"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.588,
+     "terms": [
+      "risk",
+      "treatment",
+      "assessments",
+      "identify",
+      "risks",
+      "process",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 14,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.523,
+     "terms": [
+      "risk",
+      "treatment",
+      "assessment",
+      "results",
+      "process",
+      "annex",
+      "risks",
+      "identify"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.4",
+     "title": "Review of the AI policy",
+     "normative": "should",
+     "shared": 3,
+     "title_phrase": "the ai policy",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.194,
+     "terms": [
+      "policy",
+      "assessing",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.5.5",
+     "title": "Assessing societal impacts of AI The organization shall assess and document the potential ",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "assessing",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.562,
+     "terms": [
+      "assessing",
+      "impacts",
+      "assess",
+      "potential"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.4",
+     "title": "Assessing AI system impact on inThe organization shall assess and document the potential d",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "assessing",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.166,
+     "terms": [
+      "assessing",
+      "assess",
+      "potential",
+      "individuals",
+      "impacts"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.2",
+     "title": "AI system impact assessment The organization shall establish a process to assess the proce",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "to assess",
+     "title_run": 2,
+     "title_coverage": 0.15,
+     "body_score": 1.155,
+     "terms": [
+      "assessment",
+      "process",
+      "assess",
+      "potential",
+      "consequences",
+      "individuals",
+      "societies"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.5.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.021,
+     "terms": [
+      "assess",
+      "impacts",
+      "individuals",
+      "societies"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "6.1.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 20,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.825,
+     "terms": [
+      "risks",
+      "prevent",
+      "risk",
+      "criteria",
+      "support",
+      "distinguishing",
+      "acceptable",
+      "non-acceptable"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.1",
+     "title": "General",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.742,
+     "terms": [
+      "annex",
+      "potential",
+      "risk",
+      "sources",
+      "risks",
+      "applicable",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "2.6",
+   "task_id": "a66ad85e-39d1-4130-bfe8-a9b83f175c99",
+   "domain": "D2",
+   "statement": "Apply the AI system impact assessment",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 25,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 1.182,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "potential",
+      "consequences",
+      "individuals",
+      "groups",
+      "societies"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 0.273,
+     "terms": [
+      "impact",
+      "assessment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 26,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 0.8,
+     "body_score": 1.056,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "potential",
+      "consequences",
+      "individuals",
+      "groups",
+      "societies"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.3",
+     "title": "Documentation of AI system impact assessments",
+     "normative": "should",
+     "shared": 16,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.5,
+     "body_score": 0.554,
+     "terms": [
+      "impact",
+      "interested",
+      "assessment",
+      "legal",
+      "intended",
+      "foreseeable",
+      "misuse",
+      "impacts"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.207,
+     "terms": [
+      "interested",
+      "appropriate",
+      "technical",
+      "including",
+      "impact"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.5.2",
+     "title": "AI system impact assessment The organization shall establish a process to assess the proce",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 0.31,
+     "body_score": 1.397,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "potential",
+      "consequences",
+      "individuals",
+      "groups",
+      "societies"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.5.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 5,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.309,
+     "terms": [
+      "impacts",
+      "individuals",
+      "groups",
+      "societies",
+      "affected"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.5.5",
+     "title": "Assessing societal impacts of AI The organization shall assess and document the potential ",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "the potential",
+     "title_run": 2,
+     "title_coverage": 0.15,
+     "body_score": 1.234,
+     "terms": [
+      "societal",
+      "impacts",
+      "potential"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.4",
+     "title": "Assessing AI system impact on inThe organization shall assess and document the potential d",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.23,
+     "body_score": 1.007,
+     "terms": [
+      "impact",
+      "potential",
+      "groups",
+      "individuals",
+      "impacts"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.25",
+     "title": "data quality characteristic of",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.938,
+     "terms": [
+      "specific",
+      "context",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.5.4",
+     "title": "Assessing AI system impact on individuals or groups of individuals",
+     "normative": "should",
+     "shared": 20,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.3,
+     "body_score": 0.911,
+     "terms": [
+      "impact",
+      "individuals",
+      "groups",
+      "potential",
+      "impacts",
+      "societies",
+      "specific",
+      "protection"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "2.7",
+   "task_id": "69bdf505-7533-415a-9e7b-1d0f639aea84",
+   "domain": "D2",
+   "statement": "Differentiate the AI risk assessment from the AI system impact assessment and determine what a situation requires",
+   "cited": [
+    {
+     "clause": "6.1.4",
+     "state": "held"
+    },
+    {
+     "clause": "6.1.2",
+     "state": "held"
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 18,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 0.831,
+     "terms": [
+      "impact",
+      "assessment",
+      "assessing",
+      "consequences",
+      "individuals",
+      "both",
+      "societies",
+      "deployment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 13,
+     "title_phrase": "ai risk assessment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.661,
+     "terms": [
+      "risk",
+      "assessment",
+      "assessing",
+      "consequences",
+      "impact",
+      "results",
+      "individuals",
+      "societies"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "ai risk assessment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.406,
+     "terms": [
+      "risk",
+      "assessment",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 0.396,
+     "terms": [
+      "impact",
+      "assessment",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 13,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 0.8,
+     "body_score": 0.477,
+     "terms": [
+      "impact",
+      "assessment",
+      "consequences",
+      "individuals",
+      "both",
+      "societies",
+      "intended",
+      "context"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.263,
+     "terms": [
+      "risk",
+      "treatment",
+      "assessment",
+      "results",
+      "account",
+      "them",
+      "required",
+      "interested"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.254,
+     "terms": [
+      "risk",
+      "treatment",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.3",
+     "title": "Documentation of AI system impact assessments",
+     "normative": "should",
+     "shared": 12,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.5,
+     "body_score": 0.428,
+     "terms": [
+      "impact",
+      "results",
+      "interested",
+      "assessment",
+      "intended",
+      "foreseeable",
+      "misuse",
+      "individuals"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 6,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.327,
+     "terms": [
+      "interested",
+      "obligations",
+      "technical",
+      "results",
+      "impact",
+      "jurisdictional"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.5.2",
+     "title": "AI system impact assessment The organization shall establish a process to assess the proce",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "ai system impact assessment",
+     "title_run": 4,
+     "title_coverage": 0.31,
+     "body_score": 0.939,
+     "terms": [
+      "impact",
+      "assessment",
+      "consequences",
+      "individuals",
+      "both",
+      "societies"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.5.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.74,
+     "terms": [
+      "individuals",
+      "both",
+      "societies"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.5.4",
+     "title": "Assessing AI system impact on inThe organization shall assess and document the potential d",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.23,
+     "body_score": 0.661,
+     "terms": [
+      "assessing",
+      "impact",
+      "individuals"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 17,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.624,
+     "terms": [
+      "account",
+      "technical",
+      "criteria",
+      "interested",
+      "output",
+      "intended",
+      "requirement",
+      "what"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.6.2.7",
+     "title": "AI system technical documentation The organization shall determine what AI system techni-",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "determine what",
+     "title_run": 2,
+     "title_coverage": 0.17,
+     "body_score": 0.548,
+     "terms": [
+      "technical",
+      "what",
+      "interested",
+      "them"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.8",
+     "title": "process set of interrelated",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.491,
+     "terms": [
+      "called",
+      "output",
+      "context"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "2.8",
+   "task_id": "6e66eef6-901b-444d-82e9-a87499ca5d06",
+   "domain": "D2",
+   "statement": "Apply AI risk treatment and produce the Statement of Applicability",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 33,
+     "title_phrase": "ai risk treatment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 1.61,
+     "terms": [
+      "risk",
+      "treatment",
+      "assessment",
+      "appropriate",
+      "options",
+      "all",
+      "controls",
+      "necessary"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "ai risk treatment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.827,
+     "terms": [
+      "risk",
+      "treatment",
+      "implement",
+      "plan",
+      "verify",
+      "risks",
+      "options",
+      "all"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 19,
+     "title_phrase": "statement of applicability",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.833,
+     "terms": [
+      "statement",
+      "applicability",
+      "documentation",
+      "all",
+      "necessary",
+      "controls",
+      "justification",
+      "inclusion"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.439,
+     "terms": [
+      "risk",
+      "assessment",
+      "all"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.434,
+     "terms": [
+      "risk",
+      "assessment",
+      "produce",
+      "identifies",
+      "risks",
+      "identified",
+      "applicable",
+      "treatment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.21",
+     "title": "control <risk> measure that maintains and/or modifies risk (3.7)",
+     "normative": "shall",
+     "shared": 21,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.11,
+     "body_score": 0.897,
+     "terms": [
+      "risk",
+      "controls",
+      "any",
+      "all",
+      "assessment",
+      "both",
+      "identified",
+      "statement"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.671,
+     "terms": [
+      "controls",
+      "risks",
+      "all",
+      "required",
+      "implement",
+      "annex"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.646,
+     "terms": [
+      "annex",
+      "controls",
+      "inclusion",
+      "exclusion",
+      "statement",
+      "applicability",
+      "all",
+      "risk"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.1",
+     "title": "General",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.644,
+     "terms": [
+      "annex",
+      "risk",
+      "risks",
+      "applicable",
+      "evidence",
+      "being",
+      "against"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.6.2.7",
+     "title": "AI system technical documentation The organization shall determine what AI system techni-",
+     "normative": "informative",
+     "shared": 5,
+     "title_phrase": "documentation",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.628,
+     "terms": [
+      "documentation",
+      "what",
+      "needed",
+      "them",
+      "appropriate"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 15,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.612,
+     "terms": [
+      "necessary",
+      "applicable",
+      "identified",
+      "what",
+      "address",
+      "external",
+      "both",
+      "appropriate"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.1",
+   "task_id": "6ce9455d-0af6-457e-9126-1f3cd7961e82",
+   "domain": "D3",
+   "statement": "Determine resources and competence needs for an AIMS",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.169,
+     "terms": [
+      "needed",
+      "determined",
+      "appropriate"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "life cycle",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "4.4",
+     "title": "AI management system",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.647,
+     "terms": [
+      "establish",
+      "implement",
+      "maintain",
+      "continually",
+      "improve",
+      "needed"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "10.1",
+     "title": "Continual improvement",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.222,
+     "terms": [
+      "continually",
+      "improve",
+      "effectiveness"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.3",
+     "title": "Awareness",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.065,
+     "terms": [
+      "persons",
+      "doing",
+      "work",
+      "under",
+      "effectiveness",
+      "performance"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.2",
+     "title": "Competence",
+     "normative": "shall",
+     "shared": 17,
+     "title_phrase": "competence",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 0.959,
+     "terms": [
+      "competence",
+      "person",
+      "doing",
+      "work",
+      "under",
+      "affects",
+      "performance",
+      "persons"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.4.2",
+     "title": "Resource documentation The organization shall identify and document relevant resources req",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "identify",
+     "title_run": 1,
+     "title_coverage": 0.09,
+     "body_score": 0.768,
+     "terms": [
+      "identify",
+      "resources",
+      "stages"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 16,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.742,
+     "terms": [
+      "roles",
+      "one",
+      "human",
+      "domain",
+      "experts",
+      "oversight",
+      "described",
+      "under"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.2",
+   "task_id": "aa691f4d-1764-47a7-8ecb-1b7123d0473d",
+   "domain": "D3",
+   "statement": "Explain awareness and communication requirements",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "5.2",
+     "title": "AI policy",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.183,
+     "terms": [
+      "policy",
+      "communicated"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.2",
+     "title": "AI policy",
+     "normative": "should",
+     "shared": 2,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.108,
+     "terms": [
+      "policy",
+      "including"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.4",
+     "title": "Review of the AI policy",
+     "normative": "should",
+     "shared": 2,
+     "title_phrase": "the ai policy",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.126,
+     "terms": [
+      "policy",
+      "effectiveness"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.3",
+     "title": "Awareness",
+     "normative": "shall",
+     "shared": 14,
+     "title_phrase": "awareness",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 2.744,
+     "terms": [
+      "awareness",
+      "persons",
+      "doing",
+      "work",
+      "under",
+      "policy",
+      "contribution",
+      "effectiveness"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.4",
+     "title": "Communication",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "communication",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 2.367,
+     "terms": [
+      "communication",
+      "internal",
+      "external",
+      "communications",
+      "including",
+      "what",
+      "will",
+      "how"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.2",
+     "title": "Competence",
+     "normative": "shall",
+     "shared": 22,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.792,
+     "terms": [
+      "doing",
+      "work",
+      "under",
+      "performance",
+      "persons",
+      "training",
+      "effectiveness",
+      "including"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.743,
+     "terms": [
+      "performance",
+      "including",
+      "what",
+      "communication",
+      "internal",
+      "external",
+      "both",
+      "how"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 7,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.457,
+     "terms": [
+      "both",
+      "internal",
+      "effectiveness",
+      "across",
+      "performance",
+      "process",
+      "implications"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "5.1",
+     "title": "Leadership and commitment",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.401,
+     "terms": [
+      "policy",
+      "conforming",
+      "persons",
+      "effectiveness",
+      "awareness"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.3",
+   "task_id": "0b2e6160-b5da-4ffe-9d59-542336ee89ab",
+   "domain": "D3",
+   "statement": "Manage documented information for an AIMS",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "6.3",
+     "title": "Planning of changes",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "of changes",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.852,
+     "terms": [
+      "changes",
+      "determines"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 16,
+     "title_phrase": "control of",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 1.226,
+     "terms": [
+      "controlled",
+      "distribution",
+      "access",
+      "storage",
+      "preservation",
+      "including",
+      "legibility",
+      "changes"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 6,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.824,
+     "terms": [
+      "controlled",
+      "format",
+      "media",
+      "including",
+      "evidence",
+      "records"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "information for",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.2,
+     "terms": [
+      "require",
+      "appropriate",
+      "including",
+      "records"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.2",
+     "title": "Creating and updating documented information",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.4,
+     "body_score": 1.233,
+     "terms": [
+      "appropriate",
+      "identification",
+      "description",
+      "format",
+      "media",
+      "review",
+      "approval",
+      "suitability"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "9.3.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.177,
+     "terms": [
+      "review",
+      "suitability",
+      "adequacy",
+      "effectiveness"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "10.1",
+     "title": "Continual improvement",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.134,
+     "terms": [
+      "suitability",
+      "adequacy",
+      "effectiveness"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.5.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.102,
+     "terms": [
+      "determined",
+      "necessary",
+      "effectiveness",
+      "extent",
+      "size",
+      "complexity",
+      "competence",
+      "persons"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.2.4",
+     "title": "Review of the AI policy         The AI policy shall be reviewed at planned intervals or",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "review",
+     "title_run": 1,
+     "title_coverage": 0.07,
+     "body_score": 0.963,
+     "terms": [
+      "review",
+      "suitability",
+      "adequacy",
+      "effectiveness"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.9",
+     "title": "competence ability to apply knowledge and skills to achieve intended results",
+     "normative": "can",
+     "shared": 7,
+     "title_phrase": "competence",
+     "title_run": 1,
+     "title_coverage": 0.09,
+     "body_score": 0.74,
+     "terms": [
+      "competence",
+      "controlled",
+      "format",
+      "media",
+      "including",
+      "evidence",
+      "records"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "3.4",
+   "task_id": "cde47b72-f8d6-4142-9c43-bbebbf1d8d60",
+   "domain": "D3",
+   "statement": "Explain operational planning and control",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "8.1",
+     "title": "Operational planning and control",
+     "normative": "shall",
+     "shared": 32,
+     "title_phrase": "operational planning and control",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 1.757,
+     "terms": [
+      "operational",
+      "planning",
+      "processes",
+      "actions",
+      "determined",
+      "criteria",
+      "accordance",
+      "controls"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "risk treatment",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.563,
+     "terms": [
+      "risk",
+      "treatment",
+      "effectiveness",
+      "identify",
+      "accordance",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "risk treatment",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.32,
+     "terms": [
+      "risk",
+      "treatment",
+      "taking",
+      "results",
+      "controls",
+      "identify",
+      "determined"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.17",
+     "title": "corrective action action to",
+     "normative": "informative",
+     "shared": 2,
+     "title_phrase": "action to",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.886,
+     "terms": [
+      "corrective",
+      "action"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "10.2",
+     "title": "Nonconformity and corrective action",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": "and corrective",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.562,
+     "terms": [
+      "corrective",
+      "action",
+      "consequences",
+      "does",
+      "effectiveness",
+      "changes",
+      "actions",
+      "effects"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.457,
+     "terms": [
+      "controlled",
+      "processes",
+      "results",
+      "achieved"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.32,
+     "terms": [
+      "controlled",
+      "changes",
+      "determined",
+      "planning",
+      "operation"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.13",
+     "title": "effectiveness extent to which",
+     "normative": "informative",
+     "shared": 5,
+     "title_phrase": "effectiveness",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 1.727,
+     "terms": [
+      "effectiveness",
+      "extent",
+      "planned",
+      "results",
+      "achieved"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.12",
+     "title": "continual improvement recurring activity to enhance performance (3.11)",
+     "normative": "informative",
+     "shared": 6,
+     "title_phrase": "activity",
+     "title_run": 1,
+     "title_coverage": 0.14,
+     "body_score": 1.182,
+     "terms": [
+      "activity",
+      "effectiveness",
+      "extent",
+      "planned",
+      "results",
+      "achieved"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "6.3",
+     "title": "Planning of changes",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "planning",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 0.953,
+     "terms": [
+      "planning",
+      "changes",
+      "planned"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 0.835,
+     "terms": [
+      "risk",
+      "accordance",
+      "planned",
+      "changes",
+      "results"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 16,
+     "title_phrase": "operation",
+     "title_run": 1,
+     "title_coverage": 0.2,
+     "body_score": 0.762,
+     "terms": [
+      "operation",
+      "activity",
+      "criteria",
+      "confidence",
+      "intended",
+      "identify",
+      "processes",
+      "externally"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.5.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.683,
+     "terms": [
+      "determined",
+      "effectiveness",
+      "extent",
+      "processes",
+      "products",
+      "services"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.5",
+   "task_id": "a6f57523-acf7-42f2-84b4-043ca95d032a",
+   "domain": "D3",
+   "statement": "Apply the AIMS to AI systems and components obtained from third parties",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "C.3.3",
+     "title": "Level of automation",
+     "normative": "can",
+     "shared": 1,
+     "title_phrase": "level of",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.296,
+     "terms": [
+      "level"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.17",
+     "title": "corrective action action to",
+     "normative": "informative",
+     "shared": 2,
+     "title_phrase": "corrective action",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.886,
+     "terms": [
+      "corrective",
+      "action"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "10.2",
+     "title": "Nonconformity and corrective action",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "corrective action",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.247,
+     "terms": [
+      "corrective",
+      "action",
+      "does",
+      "appropriate"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.10.3",
+     "title": "Suppliers",
+     "normative": "should",
+     "shared": 32,
+     "title_phrase": "suppliers",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 1.535,
+     "terms": [
+      "suppliers",
+      "approach",
+      "responsible",
+      "datasets",
+      "machine",
+      "learning",
+      "algorithms",
+      "models"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.10.3",
+     "title": "Suppliers The organization shall establish a process to ensure that its usage of services,",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "suppliers",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.697,
+     "terms": [
+      "suppliers",
+      "approach",
+      "responsible"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 15,
+     "title_phrase": "monitoring",
+     "title_run": 1,
+     "title_coverage": 0.2,
+     "body_score": 0.646,
+     "terms": [
+      "monitoring",
+      "ongoing",
+      "whether",
+      "used",
+      "learning",
+      "intended",
+      "components",
+      "what"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "C.3.4",
+     "title": "Risk sources related to machine learning",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "machine learning",
+     "title_run": 2,
+     "title_coverage": 0.33,
+     "body_score": 0.588,
+     "terms": [
+      "risk",
+      "machine",
+      "learning",
+      "used"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "C.3.5",
+     "title": "System hardware issues",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.557,
+     "terms": [
+      "risk",
+      "components",
+      "models"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 13,
+     "title_phrase": "documentation",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.495,
+     "terms": [
+      "documentation",
+      "what",
+      "provide",
+      "appropriate",
+      "intended",
+      "software",
+      "monitoring",
+      "used"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "3.6",
+   "task_id": "0740e0ff-b38e-4d56-a116-3628c5f35c6e",
+   "domain": "D3",
+   "statement": "Explain data management requirements for AI systems",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "C.2.11",
+     "title": "Transparency and explainability",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "transparency and explainability",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.563,
+     "terms": [
+      "transparency",
+      "explainability",
+      "characteristics"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.7.3",
+     "title": "Acquisition of data",
+     "normative": "should",
+     "shared": 20,
+     "title_phrase": "of data",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 1.31,
+     "terms": [
+      "acquisition",
+      "used",
+      "categories",
+      "sources",
+      "needed",
+      "quantity",
+      "characteristics",
+      "subject"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "C.3.2",
+     "title": "Lack of transparency and explainability",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "transparency and explainability",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.524,
+     "terms": [
+      "transparency",
+      "explainability"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.23",
+     "title": "information security preservation of",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "information security",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.151,
+     "terms": [
+      "security",
+      "integrity"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.7.6",
+     "title": "Data preparation                  The organization shall define and document its criteria",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "preparation",
+     "title_run": 1,
+     "title_coverage": 0.1,
+     "body_score": 1.396,
+     "terms": [
+      "preparation",
+      "criteria",
+      "methods",
+      "used"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.7.2",
+     "title": "Data for development and enhancement of AI system",
+     "normative": "should",
+     "shared": 17,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.107,
+     "terms": [
+      "but",
+      "privacy",
+      "security",
+      "implications",
+      "safety",
+      "threats",
+      "transparency",
+      "explainability"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.7.5",
+     "title": "Data provenance",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": "provenance",
+     "title_run": 1,
+     "title_coverage": 0.5,
+     "body_score": 0.877,
+     "terms": [
+      "provenance",
+      "used",
+      "creation",
+      "update",
+      "transcription",
+      "abstraction",
+      "validation",
+      "transfer"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "C.2.9",
+     "title": "Safety",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "safety",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 0.706,
+     "terms": [
+      "safety",
+      "lead",
+      "property"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 14,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.588,
+     "terms": [
+      "potential",
+      "because",
+      "affects",
+      "rights",
+      "but",
+      "used",
+      "sources",
+      "outcomes"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 13,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.535,
+     "terms": [
+      "errors",
+      "criteria",
+      "including",
+      "used",
+      "identify",
+      "update",
+      "operational",
+      "than"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.7",
+   "task_id": "9a296376-990c-4cc9-a15d-df601c13a169",
+   "domain": "D3",
+   "statement": "Analyze which of an existing ISMS's support and operation machinery carries over to an AIMS",
+   "cited": [
+    {
+     "clause": "7",
+     "state": "container",
+     "children": [
+      "7.1",
+      "7.2",
+      "7.3",
+      "7.4",
+      "7.5.1",
+      "7.5.2",
+      "7.5.3",
+      "7.5"
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.356,
+     "terms": [
+      "controlled",
+      "processes",
+      "evidence"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.1",
+     "title": "Operational planning and control",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "planning and",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.335,
+     "terms": [
+      "operational",
+      "planning",
+      "processes",
+      "controls",
+      "operation",
+      "annex",
+      "controlled"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.23",
+     "title": "information security preservation of",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "information security",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.198,
+     "terms": [
+      "security",
+      "iso",
+      "iec",
+      "process"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.193,
+     "terms": [
+      "controlled",
+      "planning",
+      "operation"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.4",
+     "title": "management system set of",
+     "normative": "can",
+     "shared": 5,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.657,
+     "terms": [
+      "elements",
+      "processes",
+      "structure",
+      "planning",
+      "operation"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 18,
+     "title_phrase": "operation",
+     "title_run": 1,
+     "title_coverage": 0.2,
+     "body_score": 0.651,
+     "terms": [
+      "operation",
+      "elements",
+      "support",
+      "iso",
+      "iec",
+      "processes",
+      "what",
+      "new"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.6.2.6",
+     "title": "AI system operation and monitor-  The organization shall define and document the necessary",
+     "normative": "should",
+     "shared": 3,
+     "title_phrase": "operation",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.592,
+     "terms": [
+      "operation",
+      "elements",
+      "support"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.9",
+     "title": "competence ability to apply knowledge and skills to achieve intended results",
+     "normative": "can",
+     "shared": 5,
+     "title_phrase": "competence",
+     "title_run": 1,
+     "title_coverage": 0.09,
+     "body_score": 0.526,
+     "terms": [
+      "competence",
+      "knowledge",
+      "controlled",
+      "processes",
+      "evidence"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "4.3",
+     "title": "Determining the scope of the AI management system",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.463,
+     "terms": [
+      "planning",
+      "support",
+      "operation",
+      "controls"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 14,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.455,
+     "terms": [
+      "what",
+      "form",
+      "but",
+      "elements",
+      "operation",
+      "iso",
+      "iec",
+      "process"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "3.8",
+   "task_id": "f744af58-38e1-4e73-a13e-e312ef68571a",
+   "domain": "D3",
+   "statement": "Apply the clause 8 operational requirements for assessment and treatment",
+   "cited": [
+    {
+     "clause": "8",
+     "state": "container",
+     "children": [
+      "8.1",
+      "8.2",
+      "8.3",
+      "8.4"
+     ]
+    },
+    {
+     "clause": "6",
+     "state": "container",
+     "children": [
+      "6.1.1",
+      "6.1.2",
+      "6.1.3",
+      "6.1.4",
+      "6.2",
+      "6.3"
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "8.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 17,
+     "title_phrase": "ai risk treatment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 1.745,
+     "terms": [
+      "risk",
+      "treatment",
+      "plan",
+      "effectiveness",
+      "assessments",
+      "identify",
+      "new",
+      "risks"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 13,
+     "title_phrase": "ai risk treatment",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 0.521,
+     "terms": [
+      "risk",
+      "treatment",
+      "assessment",
+      "results",
+      "process",
+      "options",
+      "all",
+      "risks"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 1.668,
+     "terms": [
+      "impact",
+      "assessment",
+      "assessments",
+      "planned",
+      "intervals",
+      "significant",
+      "proposed",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.318,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "defined",
+      "results",
+      "risk",
+      "assessments",
+      "performed"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 1.678,
+     "terms": [
+      "risk",
+      "assessment",
+      "assessments",
+      "planned",
+      "intervals",
+      "significant",
+      "proposed",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.3",
+     "title": "Documentation of AI system impact assessments",
+     "normative": "should",
+     "shared": 10,
+     "title_phrase": "ai system impact assessments",
+     "title_run": 4,
+     "title_coverage": 0.67,
+     "body_score": 0.406,
+     "terms": [
+      "impact",
+      "assessments",
+      "results",
+      "defined",
+      "retained",
+      "updated",
+      "assessment",
+      "any"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "ai risk",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.325,
+     "terms": [
+      "risk",
+      "assessment",
+      "process",
+      "impact",
+      "assessments",
+      "results",
+      "risks",
+      "treatment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 11,
+     "title_phrase": "ai system impact",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.47,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "significant",
+      "performed",
+      "any",
+      "treatment",
+      "trigger"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.259,
+     "terms": [
+      "any",
+      "processes",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 1,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.063,
+     "terms": [
+      "change"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.2.4",
+     "title": "Review of the AI policy         The AI policy shall be reviewed at planned intervals or",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "at planned intervals",
+     "title_run": 3,
+     "title_coverage": 0.2,
+     "body_score": 1.006,
+     "terms": [
+      "reviewed",
+      "planned",
+      "intervals",
+      "effectiveness"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.13",
+     "title": "effectiveness extent to which",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "effectiveness",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.905,
+     "terms": [
+      "effectiveness",
+      "planned",
+      "results"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.3",
+     "title": "Documentation of AI system imThe organization shall document the results of AI system pact",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "the results of",
+     "title_run": 3,
+     "title_coverage": 0.21,
+     "body_score": 0.86,
+     "terms": [
+      "results",
+      "assessments",
+      "impact",
+      "defined"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "9.3.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.848,
+     "terms": [
+      "planned",
+      "intervals",
+      "effectiveness"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "9.2.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.744,
+     "terms": [
+      "planned",
+      "intervals",
+      "implemented"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 16,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.666,
+     "terms": [
+      "what",
+      "them",
+      "all",
+      "defined",
+      "process",
+      "risk",
+      "impact",
+      "assessment"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "4.1",
+   "task_id": "6641359e-0da4-46b3-9d15-9a110e904b20",
+   "domain": "D4",
+   "statement": "Explain the structure of Annex A and the status of Annex B",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "statement of applicability",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.383,
+     "terms": [
+      "statement",
+      "applicability",
+      "all",
+      "controls",
+      "listed",
+      "annex",
+      "risks",
+      "used"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.20",
+     "title": "monitoring determining the status",
+     "normative": "can",
+     "shared": 1,
+     "title_phrase": "the status",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.329,
+     "terms": [
+      "status"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 15,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.896,
+     "terms": [
+      "controls",
+      "provide",
+      "reference",
+      "meeting",
+      "addressing",
+      "risks",
+      "design",
+      "all"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 16,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.799,
+     "terms": [
+      "all",
+      "controls",
+      "implement",
+      "annex",
+      "provides",
+      "reference",
+      "meeting",
+      "addressing"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.622,
+     "terms": [
+      "annex",
+      "controls",
+      "listed",
+      "provides",
+      "objective",
+      "justify",
+      "statement",
+      "applicability"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.592,
+     "terms": [
+      "own",
+      "implement",
+      "structure",
+      "controls",
+      "across",
+      "also",
+      "used",
+      "design"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "C.3.7",
+     "title": "Technology readiness",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.527,
+     "terms": [
+      "also",
+      "annex",
+      "informative",
+      "across"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.6.2.7",
+     "title": "AI system technical documentation The organization shall determine what AI system techni-",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.516,
+     "terms": [
+      "each",
+      "category",
+      "provide"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "4.2",
+   "task_id": "d0970098-ef03-4a0f-be4b-97172afeb005",
+   "domain": "D4",
+   "statement": "Explain how Annex A relates to the Statement of Applicability",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 22,
+     "title_phrase": "statement of applicability",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 1.293,
+     "terms": [
+      "statement",
+      "applicability",
+      "all",
+      "necessary",
+      "controls",
+      "justification",
+      "inclusion",
+      "exclusion"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.3",
+     "title": "AI risk treatment",
+     "normative": "shall",
+     "shared": 21,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 1.29,
+     "terms": [
+      "risk",
+      "all",
+      "controls",
+      "necessary",
+      "annex",
+      "risks",
+      "additional",
+      "beyond"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.21",
+     "title": "control <risk> measure that maintains and/or modifies risk (3.7)",
+     "normative": "shall",
+     "shared": 21,
+     "title_phrase": "risk",
+     "title_run": 1,
+     "title_coverage": 0.11,
+     "body_score": 1.243,
+     "terms": [
+      "risk",
+      "controls",
+      "all",
+      "identified",
+      "specific",
+      "statement",
+      "applicability",
+      "necessary"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 15,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.869,
+     "terms": [
+      "necessary",
+      "general",
+      "whether",
+      "some",
+      "need",
+      "identified",
+      "address",
+      "how"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 13,
+     "title_phrase": "general",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 0.781,
+     "terms": [
+      "general",
+      "annex",
+      "relates",
+      "controls",
+      "inclusion",
+      "exclusion",
+      "statement",
+      "applicability"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.8.2",
+     "title": "System documentation and information for users",
+     "normative": "should",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.603,
+     "terms": [
+      "necessary",
+      "general",
+      "itself",
+      "how",
+      "need",
+      "some",
+      "them",
+      "additional"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 5,
+     "title_phrase": "general",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 0.561,
+     "terms": [
+      "general",
+      "controls",
+      "risks",
+      "all",
+      "annex"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "4.3",
+   "task_id": "bd26a7f2-14ac-4cf4-9d20-0493a9e42a39",
+   "domain": "D4",
+   "statement": "Select controls for AI policy, internal organization and resources",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "B.3.2",
+     "title": "AI roles and responsibilities",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": "ai roles and responsibilities",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 0.368,
+     "terms": [
+      "roles",
+      "responsibilities",
+      "defining",
+      "role",
+      "policies",
+      "how",
+      "human"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.4.6",
+     "title": "Human resources",
+     "normative": "should",
+     "shared": 6,
+     "title_phrase": "human resources",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.299,
+     "terms": [
+      "human",
+      "resources",
+      "about",
+      "competences",
+      "roles",
+      "used"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "5.2",
+     "title": "AI policy",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.298,
+     "terms": [
+      "policy",
+      "establish",
+      "policies",
+      "controls"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.2",
+     "title": "AI policy",
+     "normative": "should",
+     "shared": 3,
+     "title_phrase": "ai policy",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.148,
+     "terms": [
+      "policy",
+      "policies",
+      "resources"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.4.5",
+     "title": "System and computing resources",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "system and computing",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.18,
+     "terms": [
+      "computing",
+      "resources",
+      "about",
+      "used"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.3",
+     "title": "Alignment with other organizational policies",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "other organizational policies",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.382,
+     "terms": [
+      "policies",
+      "affected",
+      "apply",
+      "policy",
+      "governing"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.2.4",
+     "title": "Review of the AI policy",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "the ai policy",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.356,
+     "terms": [
+      "policy",
+      "planned",
+      "intervals",
+      "role",
+      "policies"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.2.3",
+     "title": "Alignment with other organizaThe organization shall determine where other policies can tio",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "where other",
+     "title_run": 2,
+     "title_coverage": 0.17,
+     "body_score": 1.045,
+     "terms": [
+      "policies",
+      "affected",
+      "apply"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.4.5",
+     "title": "System and computing resources As part of resource identification, the organization shall ",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "system and computing",
+     "title_run": 3,
+     "title_coverage": 0.25,
+     "body_score": 1.03,
+     "terms": [
+      "computing",
+      "resources",
+      "about"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.3.3",
+     "title": "Reporting of concerns           The organization shall define and put in place a process t",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "in place",
+     "title_run": 2,
+     "title_coverage": 0.17,
+     "body_score": 0.954,
+     "terms": [
+      "concerns",
+      "place",
+      "about",
+      "role"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.4.4",
+     "title": "Tooling resources As part of resource identification, the organization shall document info",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "tooling",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 0.937,
+     "terms": [
+      "tooling",
+      "resources",
+      "about"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.2.4",
+     "title": "Review of the AI policy         The AI policy shall be reviewed at planned intervals or",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "the ai policy",
+     "title_run": 3,
+     "title_coverage": 0.2,
+     "body_score": 0.717,
+     "terms": [
+      "policy",
+      "planned",
+      "intervals"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "5.3",
+     "title": "Roles, responsibilities and authorities",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "roles",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.685,
+     "terms": [
+      "roles",
+      "responsibilities",
+      "defining",
+      "allocating"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "4.4",
+   "task_id": "552e578a-f641-44d9-a844-ccab405af6f2",
+   "domain": "D4",
+   "statement": "Select controls across impact assessment and the AI system life cycle",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "system life cycle",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.349,
+     "terms": [
+      "design",
+      "deployment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.19",
+     "title": "measurement process (3.8) to",
+     "normative": "informative",
+     "shared": 1,
+     "title_phrase": "process to",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.566,
+     "terms": [
+      "process"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.4",
+     "title": "AI system verification and validation",
+     "normative": "should",
+     "shared": 20,
+     "title_phrase": "verification and validation",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.722,
+     "terms": [
+      "verification",
+      "validation",
+      "measures",
+      "criteria",
+      "release",
+      "plan",
+      "whole",
+      "impacts"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 20,
+     "title_phrase": "operation and monitoring",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.719,
+     "terms": [
+      "operation",
+      "monitoring",
+      "minimum",
+      "each",
+      "technical",
+      "criteria",
+      "interested",
+      "design"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.2",
+     "title": "AI system requirements and specification",
+     "normative": "should",
+     "shared": 3,
+     "title_phrase": "requirements and specification",
+     "title_run": 3,
+     "title_coverage": 0.6,
+     "body_score": 0.119,
+     "terms": [
+      "specification",
+      "processes",
+      "design"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.1.2",
+     "title": "Objectives for responsible development of AI system",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": "objectives for responsible development",
+     "title_run": 4,
+     "title_coverage": 0.57,
+     "body_score": 0.243,
+     "terms": [
+      "responsible",
+      "measures",
+      "design",
+      "processes",
+      "specification",
+      "verification",
+      "validation"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.1.3",
+     "title": "Processes for responsible design and development of AI systems",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": "processes for responsible design and",
+     "title_run": 5,
+     "title_coverage": 0.56,
+     "body_score": 0.244,
+     "terms": [
+      "processes",
+      "responsible",
+      "design",
+      "impact",
+      "release",
+      "criteria",
+      "interested"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.7",
+     "title": "AI system technical documentation",
+     "normative": "should",
+     "shared": 26,
+     "title_phrase": "technical documentation",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.951,
+     "terms": [
+      "technical",
+      "documentation",
+      "each",
+      "category",
+      "interested",
+      "deployment",
+      "operation",
+      "monitoring"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 15,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.63,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "assessing",
+      "potential",
+      "consequences",
+      "individuals",
+      "groups"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.396,
+     "terms": [
+      "impact",
+      "assessment",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.2",
+     "title": "interested party person or",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "interested party",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.338,
+     "terms": [
+      "interested",
+      "party"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.606,
+     "terms": [
+      "criteria",
+      "each",
+      "stage"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.5.5",
+     "title": "Assessing societal impacts of AI The organization shall assess and document the potential ",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "assessing",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.562,
+     "terms": [
+      "assessing",
+      "impacts",
+      "assess",
+      "potential"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.4",
+     "title": "Assessing AI system impact on inThe organization shall assess and document the potential d",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "assessing",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.547,
+     "terms": [
+      "assessing",
+      "impact",
+      "assess",
+      "potential",
+      "groups",
+      "individuals",
+      "impacts"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.6.2.8",
+     "title": "AI system recording of event logs The organization shall determine at which phases of the",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "determine at which",
+     "title_run": 3,
+     "title_coverage": 0.2,
+     "body_score": 1.505,
+     "terms": [
+      "event",
+      "logs",
+      "phases",
+      "minimum"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.2",
+     "title": "AI system impact assessment The organization shall establish a process to assess the proce",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": "process to assess",
+     "title_run": 3,
+     "title_coverage": 0.23,
+     "body_score": 1.427,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "assess",
+      "potential",
+      "consequences",
+      "individuals",
+      "groups"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.9.2",
+     "title": "Processes for responsible use of AI The organization shall define and document the process",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "processes for responsible",
+     "title_run": 3,
+     "title_coverage": 0.21,
+     "body_score": 1.325,
+     "terms": [
+      "processes",
+      "responsible",
+      "process"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "4.5",
+   "task_id": "e986f0d0-5a55-45c3-be35-bff5968db38c",
+   "domain": "D4",
+   "statement": "Select controls for data and for information to interested parties",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "B.7.6",
+     "title": "Data preparation",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "data preparation",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.292,
+     "terms": [
+      "preparation",
+      "criteria",
+      "selecting",
+      "methods",
+      "needs",
+      "quality"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "for interested parties",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.208,
+     "terms": [
+      "interested",
+      "obligations",
+      "about",
+      "including",
+      "impact"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.25",
+     "title": "data quality characteristic of",
+     "normative": "informative",
+     "shared": 2,
+     "title_phrase": "data quality",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.596,
+     "terms": [
+      "quality",
+      "meet"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.273,
+     "terms": [
+      "impact",
+      "assessment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 6,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.228,
+     "terms": [
+      "impact",
+      "assessment",
+      "deployment",
+      "interested",
+      "controls",
+      "impacts"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.8.4",
+     "title": "Communication of incidents The organization shall determine and document a plan for commun",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "plan for",
+     "title_run": 2,
+     "title_coverage": 0.17,
+     "body_score": 2.026,
+     "terms": [
+      "incidents",
+      "plan",
+      "communicating",
+      "users"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.7.3",
+     "title": "Acquisition of data The organization shall determine and document details about the acquis",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "details about",
+     "title_run": 2,
+     "title_coverage": 0.15,
+     "body_score": 2.001,
+     "terms": [
+      "acquisition",
+      "details",
+      "about",
+      "selection"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.7.6",
+     "title": "Data preparation                  The organization shall define and document its criteria",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": "data preparation",
+     "title_run": 2,
+     "title_coverage": 0.2,
+     "body_score": 1.714,
+     "terms": [
+      "preparation",
+      "criteria",
+      "selecting",
+      "methods"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.8.3",
+     "title": "External reporting The organization shall provide capabilities for interested parties to r",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "capabilities for interested parties to",
+     "title_run": 5,
+     "title_coverage": 0.45,
+     "body_score": 1.714,
+     "terms": [
+      "capabilities",
+      "interested",
+      "report",
+      "adverse",
+      "impacts"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.7.5",
+     "title": "Data provenance The organization shall define and document a process for recording the pro",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "provenance",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.678,
+     "terms": [
+      "provenance",
+      "recording",
+      "over",
+      "cycles"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.8.5",
+     "title": "Information for interested parties The organization shall determine and document their",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "for interested parties",
+     "title_run": 3,
+     "title_coverage": 0.27,
+     "body_score": 1.637,
+     "terms": [
+      "interested",
+      "obligations",
+      "about"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "4.6",
+   "task_id": "b07fa071-643b-4eb9-8851-3864a533b892",
+   "domain": "D4",
+   "statement": "Select controls for use of AI systems and for third-party and customer relationships",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "C.3.6",
+     "title": "System life cycle issues",
+     "normative": "can",
+     "shared": 0,
+     "title_phrase": "system life cycle",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0,
+     "terms": [],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.9.2",
+     "title": "Processes for responsible use of AI systems",
+     "normative": "should",
+     "shared": 7,
+     "title_phrase": "responsible use of ai systems",
+     "title_run": 5,
+     "title_coverage": 0.71,
+     "body_score": 0.411,
+     "terms": [
+      "processes",
+      "responsible",
+      "define",
+      "third",
+      "what",
+      "examples",
+      "required"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.9.3",
+     "title": "Objectives for responsible use of AI system",
+     "normative": "should",
+     "shared": 28,
+     "title_phrase": "responsible use of ai",
+     "title_run": 4,
+     "title_coverage": 0.57,
+     "body_score": 0.992,
+     "terms": [
+      "responsible",
+      "identify",
+      "guide",
+      "expectations",
+      "what",
+      "fairness",
+      "accountability",
+      "transparency"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.10.2",
+     "title": "Allocating responsibilities The organization shall ensure that responsibilities within the",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "responsibilities within the",
+     "title_run": 3,
+     "title_coverage": 0.3,
+     "body_score": 2.204,
+     "terms": [
+      "responsibilities",
+      "within",
+      "between",
+      "partners",
+      "suppliers",
+      "customers",
+      "third"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.10.4",
+     "title": "Customers The organization shall ensure that its responsible approach to the development a",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "customers",
+     "title_run": 1,
+     "title_coverage": 0.08,
+     "body_score": 1.84,
+     "terms": [
+      "customers",
+      "responsible",
+      "customer",
+      "expectations",
+      "needs"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.9.3",
+     "title": "Objectives for responsible use of AI The organization shall identify and document objectiv",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "responsible use of ai",
+     "title_run": 4,
+     "title_coverage": 0.31,
+     "body_score": 1.797,
+     "terms": [
+      "responsible",
+      "identify",
+      "guide"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.9.2",
+     "title": "Processes for responsible use of AI The organization shall define and document the process",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "responsible use of ai",
+     "title_run": 4,
+     "title_coverage": 0.29,
+     "body_score": 1.781,
+     "terms": [
+      "processes",
+      "responsible",
+      "define",
+      "process"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.3.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.101,
+     "terms": [
+      "establish",
+      "accountability",
+      "within",
+      "responsible"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "A.3.2",
+     "title": "AI roles and responsibilities Roles and responsibilities for AI shall be defined and alloc",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "responsibilities",
+     "title_run": 1,
+     "title_coverage": 0.07,
+     "body_score": 0.993,
+     "terms": [
+      "responsibilities",
+      "according",
+      "needs"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "4.7",
+   "task_id": "4ce111b2-ee3c-4f7b-b74e-b14a7e190423",
+   "domain": "D4",
+   "statement": "Analyze overlap between ISO/IEC 42001 and ISO/IEC 27001 controls",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "3.26",
+     "title": "statement of applicability documentation",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": "statement of applicability",
+     "title_run": 3,
+     "title_coverage": 0.75,
+     "body_score": 0.444,
+     "terms": [
+      "statement",
+      "applicability",
+      "controls",
+      "annex",
+      "whether",
+      "used",
+      "but",
+      "one"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.23",
+     "title": "information security preservation of",
+     "normative": "can",
+     "shared": 4,
+     "title_phrase": "information security",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.204,
+     "terms": [
+      "security",
+      "iso",
+      "iec",
+      "both"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.581,
+     "terms": [
+      "obligations",
+      "security",
+      "iso",
+      "iec",
+      "but",
+      "given",
+      "both",
+      "controls"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 12,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.548,
+     "terms": [
+      "whether",
+      "some",
+      "used",
+      "model",
+      "iso",
+      "iec",
+      "both",
+      "was"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.1",
+     "title": "General",
+     "normative": "can",
+     "shared": 8,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.476,
+     "terms": [
+      "annex",
+      "controls",
+      "but",
+      "justify",
+      "statement",
+      "applicability",
+      "used",
+      "implementing"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "4.1",
+     "title": "Understanding the organization and its context",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.45,
+     "terms": [
+      "whether",
+      "used",
+      "but",
+      "one",
+      "iso",
+      "iec",
+      "applicability",
+      "controls"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.21",
+     "title": "control <risk> measure that maintains and/or modifies risk (3.7)",
+     "normative": "shall",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.388,
+     "terms": [
+      "controls",
+      "but",
+      "iso",
+      "iec",
+      "security",
+      "both",
+      "statement",
+      "applicability"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.7.5",
+     "title": "Data provenance",
+     "normative": "should",
+     "shared": 5,
+     "title_phrase": "provenance",
+     "title_run": 1,
+     "title_coverage": 0.5,
+     "body_score": 0.354,
+     "terms": [
+      "provenance",
+      "used",
+      "iso",
+      "record",
+      "whether"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "5.1",
+   "task_id": "61d642ce-9b33-480a-81e0-b9e324f06f40",
+   "domain": "D5",
+   "statement": "Explain monitoring, measurement, analysis and evaluation for an AIMS",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "9.1",
+     "title": "Monitoring, measurement, analysis and evaluation",
+     "normative": "shall",
+     "shared": 20,
+     "title_phrase": "monitoring measurement analysis and evaluation",
+     "title_run": 5,
+     "title_coverage": 1,
+     "body_score": 2.715,
+     "terms": [
+      "monitoring",
+      "measurement",
+      "analysis",
+      "evaluation",
+      "what",
+      "needs",
+      "monitored",
+      "measured"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.352,
+     "terms": [
+      "evidence",
+      "results",
+      "records"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.126,
+     "terms": [
+      "available",
+      "only"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 15,
+     "title_phrase": "monitoring",
+     "title_run": 1,
+     "title_coverage": 0.2,
+     "body_score": 0.75,
+     "terms": [
+      "monitoring",
+      "performance",
+      "well",
+      "needs",
+      "used",
+      "model",
+      "requirement",
+      "what"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "9.3.3",
+     "title": "Management review results",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "results",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 0.521,
+     "terms": [
+      "results",
+      "available",
+      "evidence"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.5.2",
+     "title": "AI system impact assessment process",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.501,
+     "terms": [
+      "performed",
+      "used",
+      "technology",
+      "analysis",
+      "evaluation",
+      "performs",
+      "how",
+      "perform"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.3",
+     "title": "Awareness",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.497,
+     "terms": [
+      "doing",
+      "effectiveness",
+      "performance"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.475,
+     "terms": [
+      "using",
+      "effectiveness",
+      "used",
+      "technology",
+      "performance",
+      "evaluation",
+      "measurement",
+      "model"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "9.3.2",
+     "title": "Management review inputs",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.452,
+     "terms": [
+      "needs",
+      "performance",
+      "monitoring",
+      "measurement",
+      "results"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "5.2",
+   "task_id": "12db5a8a-fcdc-48f1-a0da-eba8ffc09e0e",
+   "domain": "D5",
+   "statement": "Explain the internal audit requirement",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "9.2.2",
+     "title": "Internal audit programme",
+     "normative": "shall",
+     "shared": 20,
+     "title_phrase": "internal audit",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 1.818,
+     "terms": [
+      "internal",
+      "audit",
+      "programme",
+      "frequency",
+      "methods",
+      "responsibilities",
+      "planning",
+      "reporting"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.2.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 11,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 2.695,
+     "terms": [
+      "internal",
+      "audits",
+      "planned",
+      "intervals",
+      "provide",
+      "whether",
+      "conforms",
+      "own"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.1",
+     "title": "Objective",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "objective",
+     "title_run": 1,
+     "title_coverage": 1,
+     "body_score": 1.386,
+     "terms": [
+      "objective",
+      "criteria",
+      "each"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "7.4",
+     "title": "Communication",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.053,
+     "terms": [
+      "internal",
+      "external",
+      "what",
+      "how"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.18",
+     "title": "audit systematic and independent",
+     "normative": "can",
+     "shared": 9,
+     "title_phrase": "audit",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.887,
+     "terms": [
+      "audit",
+      "process",
+      "criteria",
+      "internal",
+      "party",
+      "external",
+      "conducted",
+      "itself"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.8.3",
+     "title": "External reporting The organization shall provide capabilities for interested parties to r",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "external",
+     "title_run": 1,
+     "title_coverage": 0.09,
+     "body_score": 0.866,
+     "terms": [
+      "external",
+      "reporting",
+      "provide"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.16",
+     "title": "nonconformity non-fulfilment of a requirement (3.14)",
+     "normative": "can",
+     "shared": 10,
+     "title_phrase": "requirement",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.76,
+     "terms": [
+      "requirement",
+      "audit",
+      "process",
+      "criteria",
+      "internal",
+      "party",
+      "external",
+      "conducted"
+     ],
+     "evidence": "title word"
+    }
+   ]
+  },
+  {
+   "code": "5.3",
+   "task_id": "e2bd1e09-6070-4ae5-bc33-5c7b8e851194",
+   "domain": "D5",
+   "statement": "Explain management review inputs and results",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "9.3.2",
+     "title": "Management review inputs",
+     "normative": "shall",
+     "shared": 25,
+     "title_phrase": "management review inputs",
+     "title_run": 3,
+     "title_coverage": 1,
+     "body_score": 2.706,
+     "terms": [
+      "review",
+      "inputs",
+      "status",
+      "actions",
+      "previous",
+      "reviews",
+      "changes",
+      "external"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "10.1",
+     "title": "Continual improvement",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "continual improvement",
+     "title_run": 2,
+     "title_coverage": 1,
+     "body_score": 0.711,
+     "terms": [
+      "continual",
+      "improvement"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.3.3",
+     "title": "Management review results",
+     "normative": "shall",
+     "shared": 8,
+     "title_phrase": "management review",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 1.69,
+     "terms": [
+      "review",
+      "results",
+      "continual",
+      "improvement",
+      "opportunities",
+      "any",
+      "changes",
+      "reviews"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "4.2",
+     "title": "Understanding the needs and expectations of interested parties",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "the needs and expectations of",
+     "title_run": 5,
+     "title_coverage": 0.63,
+     "body_score": 0.714,
+     "terms": [
+      "needs",
+      "expectations",
+      "interested"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.20",
+     "title": "monitoring determining the status",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "the status",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.558,
+     "terms": [
+      "monitoring",
+      "status"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "10.2",
+     "title": "Nonconformity and corrective action",
+     "normative": "shall",
+     "shared": 7,
+     "title_phrase": "and corrective",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.381,
+     "terms": [
+      "corrective",
+      "nonconformities",
+      "any",
+      "review",
+      "changes",
+      "actions",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.258,
+     "terms": [
+      "any",
+      "including",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.235,
+     "terms": [
+      "including",
+      "changes",
+      "external",
+      "decision"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "B.8.5",
+     "title": "Information for interested parties",
+     "normative": "should",
+     "shared": 4,
+     "title_phrase": "interested parties",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.147,
+     "terms": [
+      "interested",
+      "about",
+      "including",
+      "results"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.3",
+     "title": "top management person or",
+     "normative": "informative",
+     "shared": 1,
+     "title_phrase": "top management",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.129,
+     "terms": [
+      "top"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.3.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 1.226,
+     "terms": [
+      "top",
+      "review",
+      "planned",
+      "intervals"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.4",
+     "title": "Communication",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.969,
+     "terms": [
+      "internal",
+      "external",
+      "including",
+      "what"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.12",
+     "title": "continual improvement recurring activity to enhance performance (3.11)",
+     "normative": "informative",
+     "shared": 5,
+     "title_phrase": "continual improvement",
+     "title_run": 2,
+     "title_coverage": 0.29,
+     "body_score": 0.843,
+     "terms": [
+      "continual",
+      "improvement",
+      "performance",
+      "planned",
+      "results"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.2.4",
+     "title": "Review of the AI policy         The AI policy shall be reviewed at planned intervals or",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "at planned intervals",
+     "title_run": 3,
+     "title_coverage": 0.2,
+     "body_score": 0.746,
+     "terms": [
+      "review",
+      "planned",
+      "intervals"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 15,
+     "title_phrase": "monitoring",
+     "title_run": 1,
+     "title_coverage": 0.2,
+     "body_score": 0.688,
+     "terms": [
+      "monitoring",
+      "performance",
+      "needs",
+      "interested",
+      "including",
+      "identify",
+      "issues",
+      "expectations"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.683,
+     "terms": [
+      "planned",
+      "intervals",
+      "changes",
+      "results"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "5.4",
+   "task_id": "580c6166-d01e-4669-90c4-0d041794da89",
+   "domain": "D5",
+   "statement": "Apply nonconformity and corrective action",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "10.2",
+     "title": "Nonconformity and corrective action",
+     "normative": "shall",
+     "shared": 28,
+     "title_phrase": "nonconformity and corrective action",
+     "title_run": 4,
+     "title_coverage": 1,
+     "body_score": 1.805,
+     "terms": [
+      "nonconformity",
+      "corrective",
+      "action",
+      "occurs",
+      "correct",
+      "consequences",
+      "need",
+      "eliminate"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.17",
+     "title": "corrective action action to",
+     "normative": "informative",
+     "shared": 7,
+     "title_phrase": "corrective action",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 3.353,
+     "terms": [
+      "corrective",
+      "action",
+      "eliminate",
+      "cause",
+      "nonconformity",
+      "prevent",
+      "recurrence"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.10",
+     "title": "documented information information required",
+     "normative": "can",
+     "shared": 2,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.237,
+     "terms": [
+      "any",
+      "achieved"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "7.5.3",
+     "title": "Control of documented information",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "documented information",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.196,
+     "terms": [
+      "needed",
+      "changes",
+      "necessary",
+      "appropriate"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "A.2.4",
+     "title": "Review of the AI policy         The AI policy shall be reviewed at planned intervals or",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": "reviewed",
+     "title_run": 1,
+     "title_coverage": 0.07,
+     "body_score": 0.692,
+     "terms": [
+      "reviewed",
+      "needed",
+      "effectiveness"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.16",
+     "title": "nonconformity non-fulfilment of a requirement (3.14)",
+     "normative": "can",
+     "shared": 8,
+     "title_phrase": "nonconformity",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.68,
+     "terms": [
+      "nonconformity",
+      "corrective",
+      "action",
+      "eliminate",
+      "cause",
+      "prevent",
+      "recurrence",
+      "process"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "8.1",
+     "title": "Operational planning and control",
+     "normative": "shall",
+     "shared": 13,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.656,
+     "terms": [
+      "needed",
+      "actions",
+      "effectiveness",
+      "corrective",
+      "achieved",
+      "them",
+      "necessary",
+      "changes"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.20",
+     "title": "monitoring determining the status",
+     "normative": "can",
+     "shared": 3,
+     "title_phrase": "determining",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.586,
+     "terms": [
+      "determining",
+      "process",
+      "need"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 14,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.551,
+     "terms": [
+      "necessary",
+      "whether",
+      "need",
+      "what",
+      "changes",
+      "was",
+      "appropriate",
+      "than"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "9.3.3",
+     "title": "Management review results",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.547,
+     "terms": [
+      "any",
+      "need",
+      "changes"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "5.5",
+   "task_id": "7abca1cd-b294-4b26-b7d3-017c49e19160",
+   "domain": "D5",
+   "statement": "Describe the certification route and what ISO/IEC 42006 governs",
+   "cited": [],
+   "candidates": [
+    {
+     "clause": "3.25",
+     "title": "data quality characteristic of",
+     "normative": "informative",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.749,
+     "terms": [
+      "meet",
+      "iso",
+      "iec"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "7.4",
+     "title": "Communication",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.728,
+     "terms": [
+      "including",
+      "what",
+      "how"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "3.18",
+     "title": "audit systematic and independent",
+     "normative": "can",
+     "shared": 5,
+     "title_phrase": "audit",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.539,
+     "terms": [
+      "audit",
+      "evidence",
+      "two",
+      "conducted",
+      "iso"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "9.2.2",
+     "title": "Internal audit programme",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "audit",
+     "title_run": 1,
+     "title_coverage": 0.33,
+     "body_score": 0.46,
+     "terms": [
+      "audit",
+      "including",
+      "audits",
+      "impartiality",
+      "evidence"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.16",
+     "title": "nonconformity non-fulfilment of a requirement (3.14)",
+     "normative": "can",
+     "shared": 5,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.408,
+     "terms": [
+      "audit",
+      "evidence",
+      "two",
+      "conducted",
+      "iso"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "B.6.2.6",
+     "title": "AI system operation and monitoring",
+     "normative": "should",
+     "shared": 9,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.366,
+     "terms": [
+      "including",
+      "compliance",
+      "meet",
+      "iso",
+      "iec",
+      "what",
+      "how",
+      "than"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  },
+  {
+   "code": "5.6",
+   "task_id": "b25cd4de-2a99-485b-b695-383c005295bb",
+   "domain": "D5",
+   "statement": "Analyze whether an integrated ISO/IEC 27001 and ISO/IEC 42001 audit programme can share evidence",
+   "cited": [
+    {
+     "clause": "9",
+     "state": "held"
+    }
+   ],
+   "candidates": [
+    {
+     "clause": "9.3.3",
+     "title": "Management review results",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "management review",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.432,
+     "terms": [
+      "review",
+      "evidence"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.2.2",
+     "title": "Internal audit programme",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "audit programme",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.407,
+     "terms": [
+      "internal",
+      "audit",
+      "programme",
+      "process",
+      "evidence"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "9.3.2",
+     "title": "Management review inputs",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": "management review",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.327,
+     "terms": [
+      "review",
+      "internal",
+      "audit"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "risk assessment",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.283,
+     "terms": [
+      "risk",
+      "assessment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.2",
+     "title": "AI risk assessment",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "risk assessment",
+     "title_run": 2,
+     "title_coverage": 0.67,
+     "body_score": 0.148,
+     "terms": [
+      "risk",
+      "assessment",
+      "process",
+      "impact"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "8.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 2,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.273,
+     "terms": [
+      "impact",
+      "assessment"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "6.1.4",
+     "title": "AI system impact assessment",
+     "normative": "shall",
+     "shared": 5,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.5,
+     "body_score": 0.187,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "both",
+      "risk"
+     ],
+     "evidence": "title phrase"
+    },
+    {
+     "clause": "3.18",
+     "title": "audit systematic and independent",
+     "normative": "can",
+     "shared": 10,
+     "title_phrase": "audit",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 1.023,
+     "terms": [
+      "audit",
+      "process",
+      "evidence",
+      "internal",
+      "combined",
+      "combining",
+      "two",
+      "more"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "3.16",
+     "title": "nonconformity non-fulfilment of a requirement (3.14)",
+     "normative": "can",
+     "shared": 11,
+     "title_phrase": "nonconformity",
+     "title_run": 1,
+     "title_coverage": 0.25,
+     "body_score": 0.867,
+     "terms": [
+      "nonconformity",
+      "audit",
+      "process",
+      "evidence",
+      "internal",
+      "combined",
+      "combining",
+      "two"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "9.2.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 3,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.58,
+     "terms": [
+      "internal",
+      "whether",
+      "own"
+     ],
+     "evidence": "body overlap"
+    },
+    {
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "normative": "can",
+     "shared": 11,
+     "title_phrase": "integration",
+     "title_run": 1,
+     "title_coverage": 0.11,
+     "body_score": 0.543,
+     "terms": [
+      "integration",
+      "iso",
+      "iec",
+      "own",
+      "given",
+      "both",
+      "integrated",
+      "internal"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "A.5.2",
+     "title": "AI system impact assessment The organization shall establish a process to assess the proce",
+     "normative": "shall",
+     "shared": 4,
+     "title_phrase": "impact assessment",
+     "title_run": 2,
+     "title_coverage": 0.15,
+     "body_score": 0.532,
+     "terms": [
+      "impact",
+      "assessment",
+      "process",
+      "both"
+     ],
+     "evidence": "title word"
+    },
+    {
+     "clause": "6.1.1",
+     "title": "General",
+     "normative": "shall",
+     "shared": 10,
+     "title_phrase": null,
+     "title_run": 0,
+     "title_coverage": 0,
+     "body_score": 0.499,
+     "terms": [
+      "risk",
+      "iso",
+      "iec",
+      "internal",
+      "described",
+      "more",
+      "one",
+      "impact"
+     ],
+     "evidence": "body overlap"
+    }
+   ]
+  }
+ ]
+}
