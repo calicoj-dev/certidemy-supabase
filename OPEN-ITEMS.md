@@ -2,6 +2,74 @@
 
 ## Decisions waiting on a person, not on work
 
+**SHOULD THE SECURE POOLS GET A SOURCE-CONFORMANCE AUDIT BEFORE MORE EXAMS RUN?**
+Raised 2026-09-26 by the director's read of the 342 exposed items. **This is the
+largest open question on the platform.**
+
+The read was scoped to translation quality on the 342 items that had actually been
+presented. It found the **Spanish sound** — no translation moved a key or made a
+distractor correct anywhere in 342 items — and the **English not**: five items whose
+key is wrong against their own source (now retired), and at least four teaching
+**2017 Scrum Guide** content in a certification that claims the 2020 Guide.
+
+> **A translation review could never have found this, and this was a translation
+> review.** The defect is in the source, so it is present in all three languages,
+> and every gate this repository owns compares a translation against its English.
+> The English is the party nothing checks.
+
+**What has been examined, and what has not:**
+
+```
+                     secure EN items    checked against source
+exposed in an exam        342 (es-419)   yes, by hand, 2026-09-26
+everything else         4,166 (EN)       NO
+```
+
+| certification | form length | secure items per language |
+|---|---|---|
+| AIE-I | 25 | 143 |
+| AIGRM-I | 80 | 459 |
+| AIHR-I | 40 | 224 |
+| AIMS-F | 40 | 280 |
+| AIMS-IA | 50 | 320 |
+| AISM-I | 80 | 488 |
+| ISMS-F | 40 | 392 |
+| ISMS-IA | 50 | 304 |
+| SD-AI-I | 80 | 360 |
+| SM-AI-I | 80 | 454 |
+| SM-AI-II | 50 | 352 |
+| SPO-AI-I | 80 | 389 |
+| **total** | | **4,166** (12,496 across three languages) |
+
+**The base rate is the part that decides this.** Of 342 items read, 5 had a wrong
+key (1.5%) and 30 more were Tier B (8.8%). If that rate holds across 4,166 English
+secure items it implies roughly **60 wrong keys and 365 questionable items** —
+but 342 is not a random sample of the bank: it is what eight attempts on three
+certifications happened to draw, and 4 of the 5 Tier A findings are SM-AI-I, whose
+2017-versus-2020 Guide problem may be specific to it. **Extrapolating from it would
+be the two-point comparison this repository already records.** The rate needs a
+stratified sample per certification before it means anything.
+
+**Under ISO/IEC 17024 the question is not whether the rate is low.** It is whether
+we can say the examination measures what the blueprint claims. An item keyed against
+the wrong edition of its own source does not, and it is scored.
+
+**The cheap first move, if you want one before deciding:** SM-AI-I and SD-AI-I both
+cite the 2020 Scrum Guide and both are in the bank; a targeted search for
+2017-edition wording across their 814 English secure items is mechanical and needs no
+SME. It would size the edition problem without committing to a full audit.
+
+
+
+**A SPANISH SCRUM/ITIL GLOSSARY TO PIN — nine terms, none settled.** Raised
+2026-09-26 from the Tier C read. Counts in `TIER-C-SPANISH-DRAFTS.md`; every one of
+the nine is genuinely split in the live corpus, so **no sweep can pick a side the
+corpus has already chosen.** Sharpest case: *el* Sprint Review 380 rows against *la*
+152, while *la* Sprint Retrospective leads 152 to 94 — the corpus disagrees with
+itself about the gender of two events in the same family. `prompt` is 225 English
+against 196 *indicador*; `Developers` 1001 against 766 *desarrolladores*. This wants
+one decision per term, then a pinned list, not a replacement pass.
+
 **`SGAI` — a coined acronym, 497 uses, consistent.** Recorded 2026-09-25 from the
 item translation sweep; **nothing changed, deliberately.**
 

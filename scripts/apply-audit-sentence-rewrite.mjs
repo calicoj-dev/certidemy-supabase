@@ -22,6 +22,26 @@
  * rather than after it, because a rewrite that fixed only the wording would
  * leave the false citation in place and look finished.
  *
+ * [WRONG, MARKED 2026-09-26. The paragraph above is preserved because it is the
+ * record of what ran, and the reasoning in it is the defect.
+ *
+ * "19011:2026 carries nothing of it" is true of the seventeen-word WORDING and
+ * false of the SUBSTANCE. Read out of the PDF, ISO 19011:2026 clause 3.1, Note 1
+ * to entry: "internal audits, sometimes called first-party audits, are conducted
+ * by, or on behalf of, the organization itself." That IS the allowance the
+ * lessons describe, so 19011 was never a misattribution and the correction from
+ * 19011 to 27000:2018 was a lateral move justified by a false premise.
+ *
+ * This script tested CONTIGUITY and concluded MISATTRIBUTION. CLAUDE.md already
+ * records that an expression-matching instrument finds REPRODUCTION, never
+ * ATTRIBUTION -- the two produce an identical signal from a contiguity scan.
+ *
+ * The outcome was benign. On isms-ia-01-01-audit-parties the WORDING half landed
+ * and the ATTRIBUTION half did not, so the reproduction is gone and the sound
+ * citation survived, now naming clause 3.1. Nothing needs repairing. Full
+ * verdict and the PDF evidence: ANCHOR-SAMPLE.md, and SPLICES.md records both
+ * anchors as PARTIAL rather than lost.]
+ *
  * ============ WHAT CHANGES AND WHAT DOES NOT ============
  *
  * Each replacement scores 0 words of contiguous run against every indexed

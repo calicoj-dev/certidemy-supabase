@@ -1,0 +1,1016 @@
+{
+  "tierA": [
+    {
+      "n": 72,
+      "id": "6c0b1bce",
+      "full": "6c0b1bce-7c0c-4031-9612-9008a9fbad10",
+      "cert": "AIE-I"
+    },
+    {
+      "n": 334,
+      "id": "38352993",
+      "full": "38352993-97c1-4dd2-ac5e-86badfcc7ec0",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 341,
+      "id": "4282297a",
+      "full": "4282297a-11ae-44eb-ad38-39f723befe40",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 222,
+      "id": "f0cfcac8",
+      "full": "f0cfcac8-7327-4199-981a-cd54023eac59",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 202,
+      "id": "0896c92e",
+      "full": "0896c92e-b1ef-4c94-a8aa-4ccc1b4e1584",
+      "cert": "SM-AI-I"
+    }
+  ],
+  "tierB": [
+    {
+      "n": 290,
+      "id": "5ea5663f",
+      "full": "5ea5663f-6781-4721-8ee1-159907825b2a",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 249,
+      "id": "c15bfd3c",
+      "full": "c15bfd3c-60ad-42c1-ab75-099e8433da27",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 189,
+      "id": "7c7c4f5f",
+      "full": "7c7c4f5f-34f1-47f8-b499-fd3ff9880ab9",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 311,
+      "id": "34c109a8",
+      "full": "34c109a8-afcf-4070-baa5-1c1e7297fece",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 312,
+      "id": "7938f0eb",
+      "full": "7938f0eb-498a-41c5-859f-b86d728d6645",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 299,
+      "id": "d7d0f799",
+      "full": "d7d0f799-ee2f-4b4e-be33-4649230ae8c7",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 300,
+      "id": "d9836819",
+      "full": "d9836819-0390-49d9-ad1f-7f9e0d6862ca",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 302,
+      "id": "916b683e",
+      "full": "916b683e-98b8-4519-8c21-8cfb41156048",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 195,
+      "id": "39dcb820",
+      "full": "39dcb820-d9ae-4faf-9ffd-984616338884",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 197,
+      "id": "d56397d4",
+      "full": "d56397d4-017d-4ebb-9ed4-4e212127389b",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 241,
+      "id": "c475334f",
+      "full": "c475334f-8565-4fbb-9973-3810027682b4",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 204,
+      "id": "b898581c",
+      "full": "b898581c-9f5f-4a63-ba72-9715ee2a04a0",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 268,
+      "id": "83f18417",
+      "full": "83f18417-2606-42b2-bbb4-47da71aef3ae",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 252,
+      "id": "84acea98",
+      "full": "84acea98-fa7b-456b-a484-0b7d592a8d51",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 261,
+      "id": "476a4a0c",
+      "full": "476a4a0c-bcec-49d2-b053-9c8ab6783078",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 256,
+      "id": "4a4569a6",
+      "full": "4a4569a6-b6ff-442b-8eef-1725e4d8ceaa",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 176,
+      "id": "29959842",
+      "full": "29959842-326f-4c38-a542-4ab144592e0c",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 191,
+      "id": "c81b53a2",
+      "full": "c81b53a2-081e-4450-bcd1-13537cbd3e02",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 181,
+      "id": "4666275a",
+      "full": "4666275a-360c-4c10-97cf-0ed76f09812e",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 231,
+      "id": "e8f2dd0c",
+      "full": "e8f2dd0c-504c-45e0-aa3a-b83922c58af7",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 226,
+      "id": "2faab9a1",
+      "full": "2faab9a1-1e18-464a-9d92-8da1fec6de12",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 227,
+      "id": "e7460496",
+      "full": "e7460496-76a1-4fac-af43-66dae3ab7a4d",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 342,
+      "id": "38b1d499",
+      "full": "38b1d499-9c64-49e1-985f-c62f7ee1d910",
+      "cert": "SM-AI-I"
+    },
+    {
+      "n": 128,
+      "id": "7fc0401f",
+      "full": "7fc0401f-a7b0-43b6-8c9c-ea628b74ffe4",
+      "cert": "AISM-I"
+    },
+    {
+      "n": 132,
+      "id": "6902cf27",
+      "full": "6902cf27-4730-48a6-b184-ddd2333d5b3d",
+      "cert": "AISM-I"
+    },
+    {
+      "n": 143,
+      "id": "e43bd6a8",
+      "full": "e43bd6a8-c0d2-4dc2-9897-09e5c5536f71",
+      "cert": "AISM-I"
+    },
+    {
+      "n": 127,
+      "id": "251045a1",
+      "full": "251045a1-9023-4639-824e-9f4166c29598",
+      "cert": "AISM-I"
+    },
+    {
+      "n": 74,
+      "id": "e0646031",
+      "full": "e0646031-af81-400c-bec2-c5637ebb95d3",
+      "cert": "AIE-I"
+    },
+    {
+      "n": 84,
+      "id": "2d1af4b4",
+      "full": "2d1af4b4-88fd-42af-8fa6-d5fe2175c52c",
+      "cert": "AIE-I"
+    },
+    {
+      "n": 96,
+      "id": "da20ee66",
+      "full": "da20ee66-4ba6-4736-b2d9-dff04a7610e6",
+      "cert": "AIE-I"
+    }
+  ],
+  "attempts": [
+    {
+      "cert": "SM-AI-I",
+      "when": "2026-08-12",
+      "attempt": "616a240f-a9e2-45d2-b67e-41aa478a5344",
+      "pass": 80,
+      "total": 80,
+      "needed": 64,
+      "scored": 79,
+      "recorded": 79,
+      "passed": true,
+      "tierA_presented": 3,
+      "tierA_right": 3,
+      "tierB_presented": 9,
+      "tierB_right": 9,
+      "credit_all": 79,
+      "credit_all_pass": true,
+      "worst_case": 67,
+      "worst_case_pass": true,
+      "deletion_scored": 67,
+      "deletion_total": 68,
+      "deletion_needed": 55,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "A",
+          "n": 202,
+          "id": "0896c92e",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "The 2020 Guide: the Product Owner \"may delegate the responsibility to others... remains accountable.\" That is option a nearly word for word, and the key rejects it."
+        },
+        {
+          "tier": "A",
+          "n": 222,
+          "id": "f0cfcac8",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "The 2020 Guide: the SCRUM TEAM creates the Definition of Done. The key says \"the Developers\" (2017 wording), and no option is correct."
+        },
+        {
+          "tier": "A",
+          "n": 334,
+          "id": "38352993",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "The 2020 Guide: Scrum TEAMS \"internally decide who does what, when, and how.\" The key calls that a misreading."
+        },
+        {
+          "tier": "B",
+          "n": 176,
+          "id": "29959842",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 197,
+          "id": "d56397d4",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 226,
+          "id": "2faab9a1",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "explanation contradicts #227"
+        },
+        {
+          "tier": "B",
+          "n": 227,
+          "id": "e7460496",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "explanation contradicts #226"
+        },
+        {
+          "tier": "B",
+          "n": 241,
+          "id": "c475334f",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 249,
+          "id": "c15bfd3c",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "\"hardening Sprint\" called a gap"
+        },
+        {
+          "tier": "B",
+          "n": 252,
+          "id": "84acea98",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "the 2017 \"first days\" rule"
+        },
+        {
+          "tier": "B",
+          "n": 302,
+          "id": "916b683e",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "\"never show undone work\" is not in the Guide"
+        },
+        {
+          "tier": "B",
+          "n": 342,
+          "id": "38b1d499",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "explanation invents a \"SAFe Chief Product Owner\""
+        }
+      ]
+    },
+    {
+      "cert": "AIE-I",
+      "when": "2026-08-17",
+      "attempt": "1f85ddbe-66b4-4462-83fb-e3ca043ab510",
+      "pass": 80,
+      "total": 25,
+      "needed": 20,
+      "scored": 25,
+      "recorded": 25,
+      "passed": true,
+      "tierA_presented": 0,
+      "tierA_right": 0,
+      "tierB_presented": 2,
+      "tierB_right": 2,
+      "credit_all": 25,
+      "credit_all_pass": true,
+      "worst_case": 23,
+      "worst_case_pass": true,
+      "deletion_scored": 23,
+      "deletion_total": 23,
+      "deletion_needed": 19,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "B",
+          "n": 74,
+          "id": "e0646031",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "contradicts the logic of #72"
+        },
+        {
+          "tier": "B",
+          "n": 84,
+          "id": "2d1af4b4",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        }
+      ]
+    },
+    {
+      "cert": "AIE-I",
+      "when": "2026-08-26",
+      "attempt": "09bf8b45-d4cb-4156-8bc1-bd636db4cee9",
+      "pass": 80,
+      "total": 25,
+      "needed": 20,
+      "scored": 19,
+      "recorded": 19,
+      "passed": false,
+      "tierA_presented": 1,
+      "tierA_right": 0,
+      "tierB_presented": 1,
+      "tierB_right": 1,
+      "credit_all": 20,
+      "credit_all_pass": true,
+      "worst_case": 18,
+      "worst_case_pass": false,
+      "deletion_scored": 18,
+      "deletion_total": 23,
+      "deletion_needed": 19,
+      "deletion_pass": false,
+      "items": [
+        {
+          "tier": "A",
+          "n": 72,
+          "id": "6c0b1bce",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": false,
+          "why": "The stem already contains a task instruction (\"List each candidate's strengths...\"). The key says the task is missing, and it refers to resumes the stem never mentions."
+        },
+        {
+          "tier": "B",
+          "n": 74,
+          "id": "e0646031",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "contradicts the logic of #72"
+        }
+      ]
+    },
+    {
+      "cert": "AIE-I",
+      "when": "2026-08-26",
+      "attempt": "cb7ca922-e5ee-4f20-9716-75ddf4e8e55c",
+      "pass": 80,
+      "total": 25,
+      "needed": 20,
+      "scored": 25,
+      "recorded": 25,
+      "passed": true,
+      "tierA_presented": 0,
+      "tierA_right": 0,
+      "tierB_presented": 1,
+      "tierB_right": 1,
+      "credit_all": 25,
+      "credit_all_pass": true,
+      "worst_case": 24,
+      "worst_case_pass": true,
+      "deletion_scored": 24,
+      "deletion_total": 24,
+      "deletion_needed": 20,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "B",
+          "n": 96,
+          "id": "da20ee66",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "the key names a person the stem never introduces"
+        }
+      ]
+    },
+    {
+      "cert": "AISM-I",
+      "when": "2026-08-27",
+      "attempt": "73c79397-51a7-4529-b84d-af5c5d85b9d2",
+      "pass": 80,
+      "total": 80,
+      "needed": 64,
+      "scored": 76,
+      "recorded": 76,
+      "passed": true,
+      "tierA_presented": 0,
+      "tierA_right": 0,
+      "tierB_presented": 4,
+      "tierB_right": 3,
+      "credit_all": 76,
+      "credit_all_pass": true,
+      "worst_case": 73,
+      "worst_case_pass": true,
+      "deletion_scored": 73,
+      "deletion_total": 76,
+      "deletion_needed": 61,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "B",
+          "n": 127,
+          "id": "251045a1",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 128,
+          "id": "7fc0401f",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": false,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 132,
+          "id": "6902cf27",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 143,
+          "id": "e43bd6a8",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "the explanation cites a fact the stem does not give"
+        }
+      ]
+    },
+    {
+      "cert": "AIE-I",
+      "when": "2026-09-04",
+      "attempt": "5e2ffba9-ab31-4da0-a0c2-d8deec81067b",
+      "pass": 80,
+      "total": 25,
+      "needed": 20,
+      "scored": 25,
+      "recorded": 25,
+      "passed": true,
+      "tierA_presented": 1,
+      "tierA_right": 1,
+      "tierB_presented": 1,
+      "tierB_right": 1,
+      "credit_all": 25,
+      "credit_all_pass": true,
+      "worst_case": 23,
+      "worst_case_pass": true,
+      "deletion_scored": 23,
+      "deletion_total": 23,
+      "deletion_needed": 19,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "A",
+          "n": 72,
+          "id": "6c0b1bce",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "The stem already contains a task instruction (\"List each candidate's strengths...\"). The key says the task is missing, and it refers to resumes the stem never mentions."
+        },
+        {
+          "tier": "B",
+          "n": 84,
+          "id": "2d1af4b4",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        }
+      ]
+    },
+    {
+      "cert": "SM-AI-I",
+      "when": "2026-09-07",
+      "attempt": "fbba8850-a77b-48ba-9931-563daed8b966",
+      "pass": 80,
+      "total": 80,
+      "needed": 64,
+      "scored": 77,
+      "recorded": 77,
+      "passed": true,
+      "tierA_presented": 1,
+      "tierA_right": 1,
+      "tierB_presented": 8,
+      "tierB_right": 7,
+      "credit_all": 77,
+      "credit_all_pass": true,
+      "worst_case": 69,
+      "worst_case_pass": true,
+      "deletion_scored": 69,
+      "deletion_total": 71,
+      "deletion_needed": 57,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "A",
+          "n": 341,
+          "id": "4282297a",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "SAFe does NOT keep a single Product Backlog -- it has ART and Team backlogs. The key says all three do."
+        },
+        {
+          "tier": "B",
+          "n": 195,
+          "id": "39dcb820",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 204,
+          "id": "b898581c",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "nobody is accountable for facilitating the Daily Scrum"
+        },
+        {
+          "tier": "B",
+          "n": 241,
+          "id": "c475334f",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 256,
+          "id": "4a4569a6",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 268,
+          "id": "83f18417",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "the Scrum Master ends a Developer event"
+        },
+        {
+          "tier": "B",
+          "n": 290,
+          "id": "5ea5663f",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "Sprint Planning is whole-team in the 2020 Guide"
+        },
+        {
+          "tier": "B",
+          "n": 311,
+          "id": "34c109a8",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": false,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 312,
+          "id": "7938f0eb",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        }
+      ]
+    },
+    {
+      "cert": "SM-AI-I",
+      "when": "2026-09-23",
+      "attempt": "bf6492e4-94aa-4b48-9b1c-c5415fd24ee5",
+      "pass": 80,
+      "total": 80,
+      "needed": 64,
+      "scored": 73,
+      "recorded": 73,
+      "passed": true,
+      "tierA_presented": 2,
+      "tierA_right": 2,
+      "tierB_presented": 12,
+      "tierB_right": 8,
+      "credit_all": 73,
+      "credit_all_pass": true,
+      "worst_case": 63,
+      "worst_case_pass": false,
+      "deletion_scored": 63,
+      "deletion_total": 66,
+      "deletion_needed": 53,
+      "deletion_pass": true,
+      "items": [
+        {
+          "tier": "A",
+          "n": 202,
+          "id": "0896c92e",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "The 2020 Guide: the Product Owner \"may delegate the responsibility to others... remains accountable.\" That is option a nearly word for word, and the key rejects it."
+        },
+        {
+          "tier": "A",
+          "n": 341,
+          "id": "4282297a",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "d"
+          ],
+          "correct": true,
+          "why": "SAFe does NOT keep a single Product Backlog -- it has ART and Team backlogs. The key says all three do."
+        },
+        {
+          "tier": "B",
+          "n": 176,
+          "id": "29959842",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 181,
+          "id": "4666275a",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "explanation states \"Dedication replaced Commitment\", which no Guide did"
+        },
+        {
+          "tier": "B",
+          "n": 189,
+          "id": "7c7c4f5f",
+          "answered": [
+            "d"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": false,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 191,
+          "id": "c81b53a2",
+          "answered": [
+            "a"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": true,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 231,
+          "id": "e8f2dd0c",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "explanation asserts per-item reject, contradicting #240"
+        },
+        {
+          "tier": "B",
+          "n": 241,
+          "id": "c475334f",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": false,
+          "why": "two defensible options"
+        },
+        {
+          "tier": "B",
+          "n": 249,
+          "id": "c15bfd3c",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "a"
+          ],
+          "correct": false,
+          "why": "\"hardening Sprint\" called a gap"
+        },
+        {
+          "tier": "B",
+          "n": 261,
+          "id": "476a4a0c",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "the 2017 \"at least one improvement\" rule"
+        },
+        {
+          "tier": "B",
+          "n": 268,
+          "id": "83f18417",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "the Scrum Master ends a Developer event"
+        },
+        {
+          "tier": "B",
+          "n": 299,
+          "id": "d7d0f799",
+          "answered": [
+            "b"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": true,
+          "why": "\"never show undone work\" is not in the Guide"
+        },
+        {
+          "tier": "B",
+          "n": 300,
+          "id": "d9836819",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "c"
+          ],
+          "correct": true,
+          "why": "\"never show undone work\" is not in the Guide"
+        },
+        {
+          "tier": "B",
+          "n": 312,
+          "id": "7938f0eb",
+          "answered": [
+            "c"
+          ],
+          "key": [
+            "b"
+          ],
+          "correct": false,
+          "why": "two defensible options"
+        }
+      ]
+    }
+  ]
+}

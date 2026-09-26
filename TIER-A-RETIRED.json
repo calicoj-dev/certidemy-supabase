@@ -1,0 +1,92 @@
+{
+  "retired_at": "2026-09-26T04:38:36.535Z",
+  "reason": "Tier A: the key is wrong against the item's own source. Director's read of the 342 exposed items, 2026-09-26. Retired from the secure pool pending a rewrite; candidates who saw it are credited. See ITEM-REVIEW-QUEUE.md and TIER-A-OUTCOMES.json.",
+  "groups": [
+    "f312df77-e42c-4737-9976-c1129c57f35e",
+    "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823",
+    "79a0a39c-1476-455c-b574-5b1d17ee0a11",
+    "81883745-e918-48d8-993c-d8225fa13b1c",
+    "59fd22ef-edc8-4e90-9351-49935ae04053"
+  ],
+  "rows": [
+    {
+      "id": "b23b80f5-7dd1-4f92-abd1-ac9be81c0584",
+      "language": "en",
+      "group": "f312df77-e42c-4737-9976-c1129c57f35e"
+    },
+    {
+      "id": "6c0b1bce-7c0c-4031-9612-9008a9fbad10",
+      "language": "es-419",
+      "group": "f312df77-e42c-4737-9976-c1129c57f35e"
+    },
+    {
+      "id": "b2c2749a-1387-43cb-9c6e-15a3cb45063b",
+      "language": "pt-BR",
+      "group": "f312df77-e42c-4737-9976-c1129c57f35e"
+    },
+    {
+      "id": "499d35a6-2ffe-4b55-9a23-6e973250bf40",
+      "language": "en",
+      "group": "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823"
+    },
+    {
+      "id": "38352993-97c1-4dd2-ac5e-86badfcc7ec0",
+      "language": "es-419",
+      "group": "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823"
+    },
+    {
+      "id": "45b6ac61-656d-4f68-a250-155f6b11b6fc",
+      "language": "pt-BR",
+      "group": "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823"
+    },
+    {
+      "id": "f777f9a3-8878-4d58-87f3-70cbfb419f6c",
+      "language": "en",
+      "group": "79a0a39c-1476-455c-b574-5b1d17ee0a11"
+    },
+    {
+      "id": "4282297a-11ae-44eb-ad38-39f723befe40",
+      "language": "es-419",
+      "group": "79a0a39c-1476-455c-b574-5b1d17ee0a11"
+    },
+    {
+      "id": "79174350-cc8a-4911-b36e-970b7e59f63b",
+      "language": "pt-BR",
+      "group": "79a0a39c-1476-455c-b574-5b1d17ee0a11"
+    },
+    {
+      "id": "c46a3474-ed93-4d0e-94c6-23474059a211",
+      "language": "en",
+      "group": "81883745-e918-48d8-993c-d8225fa13b1c"
+    },
+    {
+      "id": "f0cfcac8-7327-4199-981a-cd54023eac59",
+      "language": "es-419",
+      "group": "81883745-e918-48d8-993c-d8225fa13b1c"
+    },
+    {
+      "id": "d31779e8-62bc-424f-818a-12f5f260c991",
+      "language": "pt-BR",
+      "group": "81883745-e918-48d8-993c-d8225fa13b1c"
+    },
+    {
+      "id": "b30383ac-1fc6-4a4d-9f72-f2e608cbd207",
+      "language": "en",
+      "group": "59fd22ef-edc8-4e90-9351-49935ae04053"
+    },
+    {
+      "id": "0896c92e-b1ef-4c94-a8aa-4ccc1b4e1584",
+      "language": "es-419",
+      "group": "59fd22ef-edc8-4e90-9351-49935ae04053"
+    },
+    {
+      "id": "60f48a9a-5186-4812-acb7-51b2ff4c348b",
+      "language": "pt-BR",
+      "group": "59fd22ef-edc8-4e90-9351-49935ae04053"
+    }
+  ],
+  "secure_before": 12511,
+  "secure_after": 12496,
+  "practice_before": 15220,
+  "practice_after": 15220
+}

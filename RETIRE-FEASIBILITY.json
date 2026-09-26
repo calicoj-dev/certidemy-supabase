@@ -1,0 +1,48 @@
+{
+  "groups": [
+    "f312df77-e42c-4737-9976-c1129c57f35e",
+    "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823",
+    "79a0a39c-1476-455c-b574-5b1d17ee0a11",
+    "81883745-e918-48d8-993c-d8225fa13b1c",
+    "59fd22ef-edc8-4e90-9351-49935ae04053"
+  ],
+  "tierA": [
+    {
+      "n": 72,
+      "id": "6c0b1bce",
+      "full": "6c0b1bce-7c0c-4031-9612-9008a9fbad10",
+      "group": "f312df77-e42c-4737-9976-c1129c57f35e",
+      "task": "2.2"
+    },
+    {
+      "n": 334,
+      "id": "38352993",
+      "full": "38352993-97c1-4dd2-ac5e-86badfcc7ec0",
+      "group": "9af81eea-5e1b-4ec7-81d7-6d4ff1efb823",
+      "task": "5.7"
+    },
+    {
+      "n": 341,
+      "id": "4282297a",
+      "full": "4282297a-11ae-44eb-ad38-39f723befe40",
+      "group": "79a0a39c-1476-455c-b574-5b1d17ee0a11",
+      "task": "5.9"
+    },
+    {
+      "n": 222,
+      "id": "f0cfcac8",
+      "full": "f0cfcac8-7327-4199-981a-cd54023eac59",
+      "group": "81883745-e918-48d8-993c-d8225fa13b1c",
+      "task": "2.5"
+    },
+    {
+      "n": 202,
+      "id": "0896c92e",
+      "full": "0896c92e-b1ef-4c94-a8aa-4ccc1b4e1584",
+      "group": "59fd22ef-edc8-4e90-9351-49935ae04053",
+      "task": "2.11"
+    }
+  ],
+  "keyDrift": [],
+  "findings": []
+}
