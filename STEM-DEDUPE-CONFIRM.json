@@ -1,0 +1,439 @@
+{
+  "combos": 73,
+  "survivors": [],
+  "shortfalls": [],
+  "removed": [
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D2",
+      "removed": 1,
+      "after": 91,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 3,
+      "after": 94,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D4",
+      "removed": 1,
+      "after": 114,
+      "quota": 14
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D2",
+      "removed": 1,
+      "after": 91,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 3,
+      "after": 94,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D4",
+      "removed": 1,
+      "after": 114,
+      "quota": 14
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D2",
+      "removed": 1,
+      "after": 91,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 3,
+      "after": 94,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D4",
+      "removed": 1,
+      "after": 114,
+      "quota": 14
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 55,
+      "quota": 10
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 39,
+      "quota": 6
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 39,
+      "quota": 6
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D1",
+      "removed": 1,
+      "after": 39,
+      "quota": 6
+    },
+    {
+      "cert": "AIGRM-I",
+      "lang": "en",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 1,
+      "after": 89,
+      "quota": 16
+    },
+    {
+      "cert": "AIGRM-I",
+      "lang": "es-419",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 1,
+      "after": 89,
+      "quota": 16
+    },
+    {
+      "cert": "AIGRM-I",
+      "lang": "pt-BR",
+      "pool": "secure",
+      "domain": "D3",
+      "removed": 1,
+      "after": 89,
+      "quota": 16
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 2,
+      "after": 108,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D3",
+      "removed": 3,
+      "after": 107,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 2,
+      "after": 128,
+      "quota": 14
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 2,
+      "after": 108,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D3",
+      "removed": 3,
+      "after": 107,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 2,
+      "after": 128,
+      "quota": 14
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 2,
+      "after": 108,
+      "quota": 18
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D3",
+      "removed": 3,
+      "after": 107,
+      "quota": 20
+    },
+    {
+      "cert": "SM-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 2,
+      "after": 128,
+      "quota": 14
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 71,
+      "quota": 10
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "AIE-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "SPO-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 1,
+      "after": 119,
+      "quota": 24
+    },
+    {
+      "cert": "SPO-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 1,
+      "after": 119,
+      "quota": 24
+    },
+    {
+      "cert": "SPO-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D4",
+      "removed": 1,
+      "after": 119,
+      "quota": 24
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 2,
+      "after": 68,
+      "quota": 10
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 2,
+      "after": 68,
+      "quota": 10
+    },
+    {
+      "cert": "SD-AI-I",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D1",
+      "removed": 2,
+      "after": 68,
+      "quota": 10
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D5",
+      "removed": 1,
+      "after": 69,
+      "quota": 9
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "en",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D5",
+      "removed": 1,
+      "after": 69,
+      "quota": 9
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "es-419",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D5",
+      "removed": 1,
+      "after": 69,
+      "quota": 9
+    },
+    {
+      "cert": "AIMS-IA",
+      "lang": "pt-BR",
+      "pool": "practice",
+      "domain": "D2",
+      "removed": 1,
+      "after": 69,
+      "quota": 10
+    }
+  ]
+}

@@ -44,6 +44,7 @@ import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 import { consumeAttempt } from "../_shared/vouchers.ts";
+import { normStem, stemIdentity } from "../_shared/item-rules/stem-identity.mjs";
 
 const SUPPORTED_LANGUAGES = ["en", "es-419", "pt-BR"] as const;
 type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -62,7 +63,37 @@ interface QuestionRow {
   difficulty: number;
   task_id: string | null;
   domain_id: string | null;
+  /** Identity for the one-variant-per-stem rule. See `stemIdentity`. */
+  dedupe_key: string;
 }
+
+// ============ THE DUPLICATE RULE IS ABOUT IDENTITY, NOT TEXT ============
+//
+// Until 2026-09-26 the one-variant-per-stem rule compared the TRANSLATED
+// `question_text`, first 160 characters. That works in the language it was
+// written in and fails in the other two: AIE-I's duplicate pair renders as
+// "¿Qué afirmación describe..." and "¿Cuál enunciado describe..." in es-419, so
+// the two stems are different strings and BOTH survived into the form.
+//
+// Measured across every secure pool: 9 English duplicate-stem families, of which
+// 4 escaped the guard in es-419 and 2 in pt-BR. A candidate could be asked the
+// same question twice, with different options, and the two together give the
+// answer away. That is an exam-integrity defect, not a tidiness one.
+//
+// So the key is the ENGLISH SIBLING's stem, resolved through `question_group_id`
+// and normalised exactly as the English guard already normalised it. ONE
+// implementation serves every language, so the guard cannot work in one and fail
+// in the others again.
+//
+// A row whose group has no English sibling gets its own id as the key. It is
+// therefore never deduped against anything, which is the correct default: a
+// duplicate has to be PROVEN, and with no English side there is nothing to prove
+// it against. Silently treating such rows as mutual duplicates would drop items
+// from a form on no evidence.
+//
+// `normStem` and `stemIdentity` live in `_shared/item-rules/stem-identity.mjs` so
+// the deployed function and the fixtures import the SAME implementation. A
+// fixture against a second copy proves the copy.
 
 interface DomainRow {
   id: string;
@@ -242,7 +273,7 @@ serve(async (req) => {
     //    approved practice items in the language.
     let questionQuery = svc
       .from("quiz_questions")
-      .select("id, question_text, question_type, options, difficulty, task_id")
+      .select("id, question_text, question_type, options, difficulty, task_id, question_group_id")
       .eq("certification_id", body.certification_id)
       .eq("pool", pool)
       .eq("language", language)
@@ -295,6 +326,37 @@ serve(async (req) => {
       );
     }
 
+    // 4b. The English stem per group, which is what the duplicate rule compares.
+    //
+    // Fetched for EVERY language including English itself, so there is one code
+    // path rather than a branch that only the translated languages exercise --
+    // the shape that let the old guard pass its English tests while failing in
+    // es-419. For an English request this simply re-reads the same rows.
+    const groupIds = [
+      ...new Set(
+        (question_rows as any[]).map((q) => q.question_group_id).filter((g): g is string => !!g),
+      ),
+    ];
+    const englishStemByGroup = new Map<string, string>();
+    for (let i = 0; i < groupIds.length; i += 200) {
+      const slice = groupIds.slice(i, i + 200);
+      const { data: enRows, error: enErr } = await svc
+        .from("quiz_questions")
+        .select("question_group_id, question_text")
+        .eq("language", "en")
+        .is("retired_at", null)
+        .in("question_group_id", slice);
+      // A DROPPED READ MUST NOT BECOME AN ANSWER. Losing the English stems would
+      // silently degrade the rule to "every row is unique", which is exactly the
+      // defect being fixed, so it fails loudly instead.
+      if (enErr) throw new HttpError(500, "could not read English stems for the duplicate rule");
+      for (const r of enRows ?? []) {
+        if (r.question_group_id && r.question_text) {
+          englishStemByGroup.set(r.question_group_id, normStem(r.question_text));
+        }
+      }
+    }
+
     const candidates: QuestionRow[] = question_rows.map((q: any) => ({
       id: q.id,
       question_text: q.question_text,
@@ -303,6 +365,7 @@ serve(async (req) => {
       difficulty: q.difficulty,
       task_id: q.task_id,
       domain_id: q.task_id ? domainByTask.get(q.task_id) ?? null : null,
+      dedupe_key: stemIdentity(q, englishStemByGroup),
     }));
 
     // 5. Blueprint-weighted allocation across domains (largest-remainder).
@@ -490,14 +553,16 @@ function pickAcrossTasksBalanced(
   // the integrity gate at step 8.
   //
   // Shuffled first so it is not always the same variant that survives.
+  //
+  // THE KEY IS `dedupe_key`, NOT `question_text` -- see `stemIdentity`. Comparing
+  // translated text made this guard work in English and fail in es-419 and pt-BR.
   const stemShuffled = [...pool];
   shuffle(stemShuffled);
   const seenStem = new Set<string>();
   const deduped: QuestionRow[] = [];
   for (const q of stemShuffled) {
-    const stem = (q.question_text ?? "").trim().slice(0, 160);
-    if (seenStem.has(stem)) continue;
-    seenStem.add(stem);
+    if (seenStem.has(q.dedupe_key)) continue;
+    seenStem.add(q.dedupe_key);
     deduped.push(q);
   }
   pool = deduped;
