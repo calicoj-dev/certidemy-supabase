@@ -1,0 +1,162 @@
+[
+  {
+    "p": "7312ac33",
+    "label": "#85 confident",
+    "cls": "meaning",
+    "state": "SAME SLIP",
+    "correct": "segura / autoconfiante -- confiável means trustworthy",
+    "detail": "option:a: ...pois uma resposta numérica confiante dela é suficientemente confiável para um relatório de cliente...."
+  },
+  {
+    "p": "64495519",
+    "label": "#130 vendor/provider",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1251 chars, probe did not match"
+  },
+  {
+    "p": "df6bafc6",
+    "label": "#113 vendor/provider",
+    "cls": "meaning",
+    "state": "SAME SLIP",
+    "correct": "fornecedor de IA",
+    "detail": "option:a: ...responsabilidade pela qualidade das saídas é transferida ao fornecedor do modelo assim que o modelo passa pela validação inicial e é implantado...."
+  },
+  {
+    "p": "5fe28afb",
+    "label": "#119 readiness",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 947 chars, probe did not match"
+  },
+  {
+    "p": "c330fb40",
+    "label": "#114 distinct",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1081 chars, probe did not match"
+  },
+  {
+    "p": "4b5d4ed5",
+    "label": "#103 sensitive",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1078 chars, probe did not match"
+  },
+  {
+    "p": "7df0197d",
+    "label": "#170 recourse",
+    "cls": "meaning",
+    "state": "SAME SLIP",
+    "correct": "sem recurso / sem via de recurso",
+    "detail": "explanation: ...o ou suprimir indicadores de complexidade deixa os usuários sem recursos, e uma explicação técnica do modelo atende às necessidades dos desenvolvedores, não à calibração ..."
+  },
+  {
+    "p": "c94769f9",
+    "label": "#207 most directly",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1325 chars, probe did not match"
+  },
+  {
+    "p": "a6477254",
+    "label": "#277 rank",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1002 chars, probe did not match"
+  },
+  {
+    "p": "41611b9c",
+    "label": "#289 rank",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 1095 chars, probe did not match"
+  },
+  {
+    "p": "0bf3f292",
+    "label": "#41 pattern-matching",
+    "cls": "meaning",
+    "state": "clean",
+    "detail": "read 991 chars, probe did not match"
+  },
+  {
+    "p": "40d5d539",
+    "label": "#224 inserted modal (KEY)",
+    "cls": "modal",
+    "state": "SAME SLIP",
+    "correct": "no modal -- the English says `remind ... to clarify`",
+    "detail": "stem: ...s tarefas executar e em que sequência. O que o Scrum Master deve fazer?...  |  option:d: ...Lembrar ao Product Owner que ele deve esclarecer o Sprint Goal e os itens do backlog, deixando as decisões em nível de tarefa para os Desenvolv..."
+  },
+  {
+    "p": "5a5917ca",
+    "label": "#309 inserted modal",
+    "cls": "modal",
+    "state": "SAME SLIP",
+    "correct": "no modal, and `next` must survive",
+    "detail": "explanation: ...naliza um problema organizacional sistêmico. O Scrum Master deve escalar e defender mudanças estruturais, não atribuir o problema a falhas de planejamento do time, repass..."
+  },
+  {
+    "p": "16d3e0c9",
+    "label": "#161 key-only gloss",
+    "cls": "cue",
+    "state": "clean",
+    "detail": "read 1351 chars, probe did not match"
+  },
+  {
+    "p": "c699dee9",
+    "label": "#171 value system",
+    "cls": "meaning",
+    "state": "SAME SLIP",
+    "correct": "sistema de valor",
+    "detail": "explanation: ...contradiz o princípio de que ela está incorporada em todo o sistema de valores. Cada decisão de gestão de serviços — não apenas as tomadas por uma equipe verde dedicada —...  |  option:c: ...Sustentabilidade integrada ao sistema de valores, significando que todas as decisões de gestão de serviços carregam dimensões ambientais e s..."
+  },
+  {
+    "p": "f02f62e3",
+    "label": "#25 bad verb",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1093 chars, probe did not match"
+  },
+  {
+    "p": "04be5971",
+    "label": "#322 calque",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1196 chars, probe did not match"
+  },
+  {
+    "p": "8ce51417",
+    "label": "#328 bad verb",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1034 chars, probe did not match"
+  },
+  {
+    "p": "6dc29170",
+    "label": "#336 English imperative",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1059 chars, probe did not match"
+  },
+  {
+    "p": "2cc60850",
+    "label": "#93 ungrammatical",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1153 chars, probe did not match"
+  },
+  {
+    "p": "1a568ec2",
+    "label": "#184 wrong article",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 935 chars, probe did not match"
+  },
+  {
+    "p": "499c3a66",
+    "label": "#187 lost interrogative",
+    "cls": "grammar",
+    "state": "clean",
+    "detail": "read 1116 chars, probe did not match"
+  }
+]

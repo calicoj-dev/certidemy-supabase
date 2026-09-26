@@ -1,0 +1,157 @@
+{
+  "edits": 25,
+  "items": 22,
+  "reviews": 22,
+  "applied": [
+    {
+      "id": "7312ac33",
+      "field": "option:a",
+      "from": "respuesta numérica confiable",
+      "to": "respuesta numérica segura"
+    },
+    {
+      "id": "64495519",
+      "field": "option:c",
+      "from": "no un incidente de responsabilidad del proveedor.",
+      "to": "no un incidente de responsabilidad del proveedor del servicio."
+    },
+    {
+      "id": "df6bafc6",
+      "field": "option:a",
+      "from": "se transfiere al proveedor del modelo",
+      "to": "se transfiere al proveedor de IA"
+    },
+    {
+      "id": "df6bafc6",
+      "field": "explanation",
+      "from": "la transferencia al proveedor no elimina",
+      "to": "la transferencia al proveedor de IA no elimina"
+    },
+    {
+      "id": "5fe28afb",
+      "field": "option:d",
+      "from": "requiere disponibilidad antes de cualquier decisión",
+      "to": "requiere preparación antes de cualquier decisión"
+    },
+    {
+      "id": "c330fb40",
+      "field": "option:b",
+      "from": "Es un componente distintivo del SVS",
+      "to": "Es un componente distinto del SVS"
+    },
+    {
+      "id": "c330fb40",
+      "field": "explanation",
+      "from": "un componente del SVS distintivo y omnipresente",
+      "to": "un componente del SVS distinto y omnipresente"
+    },
+    {
+      "id": "4b5d4ed5",
+      "field": "question_text",
+      "from": "cifras presupuestarias confidenciales",
+      "to": "cifras presupuestarias sensibles"
+    },
+    {
+      "id": "7df0197d",
+      "field": "explanation",
+      "from": "deja a los usuarios sin recursos",
+      "to": "deja a los usuarios sin una vía de recurso"
+    },
+    {
+      "id": "c94769f9",
+      "field": "question_text",
+      "from": "¿Qué concepto de Scrum representa de manera más incorrecta este comportamiento?",
+      "to": "¿Qué concepto de Scrum tergiversa más directamente este comportamiento?"
+    },
+    {
+      "id": "f02f62e3",
+      "field": "question_text",
+      "from": "se deferentan silenciosamente a los seniors",
+      "to": "ceden silenciosamente ante los seniors"
+    },
+    {
+      "id": "04be5971",
+      "field": "explanation",
+      "from": "malrepresenta su origen",
+      "to": "tergiversa su origen"
+    },
+    {
+      "id": "8ce51417",
+      "field": "option:d",
+      "from": "disposición del equipo a autogestirse",
+      "to": "disposición del equipo a autogestionarse"
+    },
+    {
+      "id": "6dc29170",
+      "field": "option:a",
+      "from": "Defer al Product Owner",
+      "to": "Remitirlo al Product Owner"
+    },
+    {
+      "id": "2cc60850",
+      "field": "option:c",
+      "from": "dejando a ninguna persona responsable por cada decisión",
+      "to": "y no deja a nadie responsable de cada decisión"
+    },
+    {
+      "id": "1a568ec2",
+      "field": "explanation",
+      "from": "la Respeto genuino",
+      "to": "el Respeto genuino"
+    },
+    {
+      "id": "499c3a66",
+      "field": "question_text",
+      "from": "están más directamente enraizados en cuál par de ideas:",
+      "to": "¿en cuál par de ideas están más directamente enraizados?"
+    },
+    {
+      "id": "a6477254",
+      "field": "option:a",
+      "from": "abrir el rango del backlog de la historia",
+      "to": "abrir la posición de la historia en el backlog"
+    },
+    {
+      "id": "41611b9c",
+      "field": "option:b",
+      "from": "asignar a cada elemento un rango numérico",
+      "to": "asignar a cada elemento un orden numérico"
+    },
+    {
+      "id": "0bf3f292",
+      "field": "option:a",
+      "from": "la herramienta coincide con patrones aprendidos",
+      "to": "la herramienta reconoce patrones aprendidos"
+    },
+    {
+      "id": "40d5d539",
+      "field": "option:d",
+      "from": "que debe clarificar el Sprint Goal",
+      "to": "que clarifique el Sprint Goal"
+    },
+    {
+      "id": "5a5917ca",
+      "field": "question_text",
+      "from": "¿Cuál es la acción más apropiada que debe tomar el Scrum Master?",
+      "to": "¿Cuál es la siguiente acción más apropiada para el Scrum Master?"
+    },
+    {
+      "id": "16d3e0c9",
+      "field": "option:d",
+      "from": "Pérdida de habilidades (deskilling), porque",
+      "to": "Pérdida de habilidades, porque"
+    },
+    {
+      "id": "c699dee9",
+      "field": "option:c",
+      "from": "tejida en el sistema de valores",
+      "to": "tejida en el sistema de valor"
+    },
+    {
+      "id": "c699dee9",
+      "field": "explanation",
+      "from": "integrada en todo el sistema de valores",
+      "to": "integrada en todo el sistema de valor"
+    }
+  ]
+}

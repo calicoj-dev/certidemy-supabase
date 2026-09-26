@@ -111,6 +111,32 @@ const DUAL_ROLE = {
  * it treats the gate's copy.
  */
 const REVIEW_RECORDERS = {
+  /* ============ THE ITEM ARM HAS NO GATE, AND THAT IS THE DECLARATION ============
+   *
+   * Every other recorder here READS the value the gate will compare against --
+   * migration 374 exposes one function per arm for the lesson, task and concept
+   * gates, and `lib/expected-review-hashes.mjs` is the only path to them.
+   *
+   * There is NO such function for items, because NOTHING READS
+   * `item_translation_reviews`: the app's fetch path consults no review at all.
+   * `en_hash` is nonetheless NOT NULL, so a row cannot be recorded without one.
+   *
+   * So this recorder computes the pair with `itemHash8` from `lib/item-hash.mjs` --
+   * the same module that produced the 30 pre-existing rows -- and sets
+   * `tr_hash_basis = 'assumed'`, matching them. That IS a locally computed hash, it
+   * is declared here rather than hidden, and the reason it is acceptable is that
+   * there is no gate whose value it could contradict. The moment an item gate
+   * exists, this declaration becomes wrong and this script must switch to asking
+   * it. */
+  "apply-tier-c-es.mjs":
+    "TIER C SPANISH FIXES, 25 field edits across 22 es-419 items, approved by the director " +
+    "2026-09-26. Writes item_translation_reviews ONLY, one row per edited item, so the next " +
+    "reader can tell a reviewed row from one that was never read. Computes en_hash/tr_hash with " +
+    "itemHash8 because the ITEM ARM HAS NO GATE -- nothing reads this table, so there is no " +
+    "expected_review_hashes_item to ask and no stored value the computation could contradict. " +
+    "tr_hash_basis is 'assumed', matching the 30 pre-existing rows. Asserts no key moved, no " +
+    "option reordered, and that only the declared fields changed; the review insert is made " +
+    "idempotent by skipping items that already carry a row from this reviewer.",
   "clear-ia-translations.mjs":
     "CLEARANCE. Verifies both stored hashes against current content and REFUSES the row on " +
     "mismatch; flips is_provisional only. Writes en_hash/tr_hash into concept_translation_reviews. " +
