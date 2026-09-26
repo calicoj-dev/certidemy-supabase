@@ -1,23 +1,113 @@
 {
   "measured": "2026-09-21",
-  "files_scanned": 233,
-  "reads_found": 204,
+  "files_scanned": 381,
+  "reads_found": 459,
   "counts": {
-    "UNSAFE": 44,
-    "CAPPED": 7,
+    "UNSAFE": 47,
+    "CAPPED": 12,
     "PAGED-NO-ASSERT": 0,
-    "DYNAMIC": 0,
-    "SAFE-SCALAR": 61,
-    "SAFE-COUNT": 6,
-    "SAFE-PAGED": 86
+    "DYNAMIC": 1,
+    "SAFE-SCALAR": 97,
+    "SAFE-COUNT": 7,
+    "SAFE-PAGED": 295
   },
-  "unsafe_against_big_table": 10,
-  "capped_against_big_table": 3,
+  "unsafe_against_big_table": 12,
+  "capped_against_big_table": 5,
   "limits": [
     "Static analysis of string literals. A query assembled at runtime from variables is not seen.",
     "SAFE-PAGED is per FILE: a file that pages correctly somewhere is credited everywhere, so it can hide a second unpaged read."
   ],
   "rows": [
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,user_id,certification_id,score_pct,passed,total_questions,correct_answer"
+    },
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "profiles",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "profiles?select=id,platform_role&id=eq."
+    },
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "admin_actions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "admin_actions?select=id,action&target_id=eq."
+    },
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,score_pct,passed,total_questions,correct_answers,voucher_id,submitted_at"
+    },
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "vouchers",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "vouchers?select=id,status,attempts_allowed,attempts_used&id=eq."
+    },
+    {
+      "file": "annotate-aie-i-attempt.mjs",
+      "table": "credentials",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "COUNT-ONLY",
+      "query": "credentials?select=credential_code,status&exam_attempt_id=eq."
+    },
+    {
+      "file": "apply-0501-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md,mcp_servable,mcp_iso_longest_run&slug=eq."
+    },
+    {
+      "file": "apply-0501-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,language,content_md,mcp_servable,mcp_scanned_at,mcp_iso_longest_run&slug=eq."
+    },
+    {
+      "file": "apply-0501-translations.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md&slug=eq."
+    },
+    {
+      "file": "apply-0501-translations.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,language,content_md,mcp_servable,mcp_scanned_at&slug=eq."
+    },
     {
       "file": "apply-audit-sentence-rewrite.mjs",
       "table": "lessons",
@@ -35,6 +125,42 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=content_md,mcp_servable,mcp_scanned_at&id=eq."
+    },
+    {
+      "file": "apply-batch-a.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-batch-a.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-batch-a.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-batch-a.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
     },
     {
       "file": "apply-blueprint-repairs.mjs",
@@ -154,6 +280,150 @@
       "query": "lessons?select=content_md&slug=eq."
     },
     {
+      "file": "apply-ia-batch.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-ia-batch.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ia-batch.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ia-batch.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
+      "file": "apply-ismsf-batch-1.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-ismsf-batch-1.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-batch-1.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-batch-1.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
+      "file": "apply-ismsf-batch-2.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-ismsf-batch-2.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-batch-2.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-batch-2.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
+      "file": "apply-ismsf-close.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-ismsf-close.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-close.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-ismsf-close.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
       "file": "apply-marking-spec.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -161,6 +431,78 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,content_md&id=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "task_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "task_translations?select=id,language,skills&task_id=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "tasks",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "tasks?select=id,skills&id=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "concepts",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id&slug=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,language,name,description&concept_id=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,explanation&question_group_id=eq."
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "item_translation_reviews",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "COUNT-ONLY",
+      "query": "item_translation_reviews?select=question_id&question_id=in.("
+    },
+    {
+      "file": "apply-own-work-drafts.mjs",
+      "table": "task_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "task_translations?select=id,language,statement,knowledge,skills,abilities&task_id=eq."
     },
     {
       "file": "apply-paired-review-fixes.mjs",
@@ -214,7 +556,7 @@
       "limit": 2000,
       "dynamic": true,
       "purpose": "rows",
-      "query": "concept_translations?select=concept_id,language,en_hash&concept_id=in.("
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional&concept_id=in.("
     },
     {
       "file": "apply-paired-review-fixes.mjs",
@@ -277,7 +619,7 @@
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
-      "query": "concept_translations?select=id,name,description"
+      "query": "concept_translations?select=id,name,description,tr_hash"
     },
     {
       "file": "apply-reread-clearance.mjs",
@@ -296,6 +638,78 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translation_reviews?select=certification,language,verdict,seed,superseded_at&superseded_"
+    },
+    {
+      "file": "apply-retranslation-review.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-retranslation-review.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id,retired_at"
+    },
+    {
+      "file": "apply-retranslation-review.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "apply-retranslation-review.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "apply-rewrites-batch-1.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "apply-rewrites-batch-1.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=content_md&id=eq."
+    },
+    {
+      "file": "apply-tier-c-es.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,certification_id,question_text,options,corre"
+    },
+    {
+      "file": "apply-tier-c-pt.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,question_text,options,correct_answer,explana"
     },
     {
       "file": "audit-review-gate.mjs",
@@ -325,6 +739,177 @@
       "query": "lessons?select=id,slug,language,module_id,lesson_group_id,content_md,mcp_servable,mcp_translatio"
     },
     {
+      "file": "build-480-queues.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id&language=eq.en&order=id"
+    },
+    {
+      "file": "build-480-queues.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "build-480-queues.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=id"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,name,num_questions&order=code"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code,certification_id,weight_pct&order=id"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,statement,domain_id&order=id"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "exam_session_items",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_session_items?select=session_id,question_id&language=neq.en&order=session_id"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,session_id&order=id"
+    },
+    {
+      "file": "build-audit-sample.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,question_group_id,task_id,question_text,options,correc"
+    },
+    {
+      "file": "build-batch1-final.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "build-exposed-items.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,name,passing_score_pct&order=id"
+    },
+    {
+      "file": "build-exposed-items.mjs",
+      "table": "exam_session_items",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_session_items?select=session_id,question_id,language,user_answer,presented_order&language=n"
+    },
+    {
+      "file": "build-exposed-items.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,user_id,session_id,certification_id,score_pct,passed,total_questions,cor"
+    },
+    {
+      "file": "build-splice-file.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md&language=eq.en&slug=in.("
+    },
+    {
+      "file": "census-attributed-quotation.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "census-attributed-quotation.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "census-isms-f-concepts.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "census-isms-f-concepts.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "check-anchor-sample.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,updated_at&language=eq.en&slug=in.("
+    },
+    {
       "file": "check-attribution-parity.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -368,6 +953,24 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("
+    },
+    {
+      "file": "check-batch1-serving.mjs",
+      "table": "lessons",
+      "klass": "DYNAMIC",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select="
+    },
+    {
+      "file": "check-batch1-serving.mjs",
+      "table": "lesson_translation_reviews",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lesson_translation_reviews?select=lesson_id,reviewed_at,reviewed_by,verdict,en_hash,tr_hash,tr_h"
     },
     {
       "file": "check-citation-correspondence.mjs",
@@ -406,6 +1009,24 @@
       "query": "quiz_questions?select=id,certification_id,question_text,options,correct_answer,explanation,langu"
     },
     {
+      "file": "check-cited-clauses-resolve.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "check-cited-clauses-resolve.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,question_text,options,explanation&language=eq.en&statu"
+    },
+    {
       "file": "check-definitional-citations.mjs",
       "table": "certifications",
       "klass": "UNSAFE",
@@ -440,6 +1061,15 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "quiz_questions?select=id,certification_id,question_text,options,correct_answer,explanation,langu"
+    },
+    {
+      "file": "check-hash-writers.mjs",
+      "table": "concept_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,en_hash,tr_hash"
     },
     {
       "file": "check-migration-state.mjs",
@@ -604,6 +1234,96 @@
       "query": "concept_translations?select=concept_id&is_provisional=is.false"
     },
     {
+      "file": "check-migration-state.mjs",
+      "table": "task_translations",
+      "klass": "CAPPED",
+      "limit": 50,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_translations?select=id&limit=50"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "task_translation_reviews",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "task_translation_reviews?select=en_hash,tr_hash,verdict"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "source_passages",
+      "klass": "CAPPED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id&limit=1"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "task_sources",
+      "klass": "CAPPED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id&limit=1"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "item_grounding",
+      "klass": "CAPPED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&limit=1"
+    },
+    {
+      "file": "check-near-duplicate-pairs.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,pool,task_id,question_text,"
+    },
+    {
+      "file": "check-near-duplicate-pairs.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "check-near-duplicate-pairs.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,domain_id&order=id"
+    },
+    {
+      "file": "check-near-duplicate-pairs.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code&order=id"
+    },
+    {
+      "file": "check-normative-drift.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md"
+    },
+    {
       "file": "check-open-items.mjs",
       "table": "lessons",
       "klass": "SAFE-PAGED",
@@ -647,6 +1367,258 @@
       "dynamic": false,
       "purpose": "COUNT-ONLY",
       "query": "task_translation_reviews?select=task_translation_id"
+    },
+    {
+      "file": "check-open-items.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
+      "file": "check-open-items.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id,name,description"
+    },
+    {
+      "file": "check-open-items.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "check-repair-translation-parity.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md"
+    },
+    {
+      "file": "check-retire-feasibility.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,num_questions,passing_score_pct&order=id"
+    },
+    {
+      "file": "check-retire-feasibility.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code,certification_id,weight_pct&order=id"
+    },
+    {
+      "file": "check-retire-feasibility.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,domain_id,certification_id&order=id"
+    },
+    {
+      "file": "check-retire-feasibility.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,pool,task_id,correct_answer"
+    },
+    {
+      "file": "check-spec-english-current.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "check-tier-c-pt-siblings.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,language&language=eq.es-419&status=eq.approved&retire"
+    },
+    {
+      "file": "check-tier-c-pt-siblings.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,language,question_text,options,explanation&language=e"
+    },
+    {
+      "file": "classify-run-alignment.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "classify-run-alignment.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "classify-run-alignment.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "classify-run-alignment.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "classify-uncovered-repairs.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md"
+    },
+    {
+      "file": "clear-ia-translations.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "clear-ia-translations.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "clear-ia-translations.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "clear-ia-translations.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash,en_ha"
+    },
+    {
+      "file": "compare-seeds.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "compare-seeds.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "compare-seeds.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "confirm-stem-dedupe.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,num_questions&order=id"
+    },
+    {
+      "file": "confirm-stem-dedupe.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code,certification_id,weight_pct&order=id"
+    },
+    {
+      "file": "confirm-stem-dedupe.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,domain_id&order=id"
+    },
+    {
+      "file": "confirm-stem-dedupe.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,pool,task_id&status=eq.appr"
+    },
+    {
+      "file": "confirm-stem-dedupe.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=question_group_id,question_text&language=eq.en&status=eq.approved&retired_"
     },
     {
       "file": "count-bare-pinned-nouns.mjs",
@@ -721,6 +1693,78 @@
       "query": "concept_translations?select=concept_id"
     },
     {
+      "file": "diagnose-0501-gate.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,language,mcp_servable,mcp_translation_review_required&slug=eq.05-01-aims-monit"
+    },
+    {
+      "file": "diagnose-0501-gate.mjs",
+      "table": "lesson_translation_reviews",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lesson_translation_reviews?select=reviewed_at,verdict,en_hash,tr_hash,tr_hash_basis,reviewed_by&"
+    },
+    {
+      "file": "diff-english-checkpoint.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "draft-aimsf-task-sources.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "draft-aimsf-task-sources.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code,title,weight_pct&order=code"
+    },
+    {
+      "file": "draft-aimsf-task-sources.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,certification_id,code,title,weight_pct&order=code"
+    },
+    {
+      "file": "draft-aimsf-task-sources.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,domain_id,code,statement,knowledge,skills,abilities,bloom_level"
+    },
+    {
+      "file": "dump-0501-spans.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=language,content_md&slug=eq.05-01-aims-monitoring-and-measurement&order=language"
+    },
+    {
       "file": "dump-drift-rules.mjs",
       "table": "drift_rules",
       "klass": "SAFE-SCALAR",
@@ -730,6 +1774,150 @@
       "query": "drift_rules?select=${cols}&is_active=eq.true&order=severity,legacy_term"
     },
     {
+      "file": "dump-tier-c.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,question_text,options,correct_answer,explana"
+    },
+    {
+      "file": "emit-audit-decision.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "emit-audit-decision.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id&language=eq.en&pool=eq.secure&status=eq.approved&retir"
+    },
+    {
+      "file": "emit-batch1-retranslation.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md,lesson_group_id&slug=eq."
+    },
+    {
+      "file": "emit-batch1-retranslation.mjs",
+      "table": "lessons",
+      "klass": "CAPPED",
+      "limit": 1000,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=language,content_md&language=neq.en&limit=1000"
+    },
+    {
+      "file": "emit-ceiling-breaches.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "emit-ceiling-breaches.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "emit-ceiling-breaches.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "emit-release-enumeration.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "emit-release-enumeration.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "emit-release-enumeration.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md,module_id,lesson_group_id,mcp_servable,mcp_iso_longes"
+    },
+    {
+      "file": "fix-0103-seam.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md,mcp_servable,mcp_scanned_at,"
+    },
+    {
+      "file": "fix-english-template-sentences.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "fix-missing-accents.mjs",
+      "table": "concepts",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug&slug=in.("
+    },
+    {
+      "file": "fix-missing-accents.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,concept_id,language,name,description,tr_hash"
+    },
+    {
+      "file": "fix-missing-accents.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,language,name,description,tr_hash,concept_id"
+    },
+    {
       "file": "fix-modal-inflation.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -737,6 +1925,15 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,content_md&id=eq."
+    },
+    {
+      "file": "fix-own-work-attribution.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md&slug=in.("
     },
     {
       "file": "gate-concept-descriptions.mjs",
@@ -755,6 +1952,15 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "concepts?select=slug,retired_at&certification_id=eq."
+    },
+    {
+      "file": "gate-existing-translations.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md&slug=eq."
     },
     {
       "file": "gen-bilingual-queue.mjs",
@@ -791,6 +1997,15 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "gen-clause-substitutions.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=content_md&slug=eq."
     },
     {
       "file": "gen-concept-repair-queue.mjs",
@@ -889,7 +2104,7 @@
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
-      "query": "concept_translations?select=concept_id,language"
+      "query": "concept_translations?select=concept_id,language,en_hash"
     },
     {
       "file": "gen-concept-translations.mjs",
@@ -899,6 +2114,51 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,is_provisional"
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,num_questions,exam_blueprint&code=eq."
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,certification_id,code,title,weight_pct&order=code"
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,domain_id,code,statement,knowledge,skills,abilities,bloom_level"
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text,pool,status&certification_id=eq."
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "COUNT-ONLY",
+      "query": "quiz_questions?select=id,status,is_exam_scope&certification_id=eq."
     },
     {
       "file": "gen-iso-repair-spec.mjs",
@@ -1072,6 +2332,24 @@
       "query": "concept_translation_reviews?select=certification,language,verdict"
     },
     {
+      "file": "gen-union-fires.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "gen-union-fires.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
       "file": "iso-passage-census.mjs",
       "table": "certifications",
       "klass": "UNSAFE",
@@ -1142,6 +2420,87 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
+    },
+    {
+      "file": "list-english-moved.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,mcp_servable,mcp_translation_review_required"
+    },
+    {
+      "file": "load-source-passages.mjs",
+      "table": "source_passages",
+      "klass": "SAFE-PAGED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id&limit=1"
+    },
+    {
+      "file": "load-source-passages.mjs",
+      "table": "source_passages",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id,edition,clause,normative"
+    },
+    {
+      "file": "locate-0501-run.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,mcp_iso_longest_run&slug=eq.05-01-aims-monitoring-and-me"
+    },
+    {
+      "file": "measure-absolute-floor.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-absolute-floor.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-attribution-exemption.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-attribution-exemption.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "measure-attribution-exemption.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
     },
     {
       "file": "measure-blockquote-exemption.mjs",
@@ -1223,6 +2582,105 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,certification_id,slug,name,description,retired_at"
+    },
+    {
+      "file": "measure-concept-serving.mjs",
+      "table": "concepts",
+      "klass": "SAFE-COUNT",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id&retired_at=is.null&certification_id=eq."
+    },
+    {
+      "file": "measure-concept-slug-drift.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md&order=id"
+    },
+    {
+      "file": "measure-contiguous-extension.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-contiguous-extension.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "measure-contiguous-extension.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-contiguous-extension.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "measure-cue-expansion.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "measure-cue-expansion.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,question_group_id,language,pool,question_text,options,"
+    },
+    {
+      "file": "measure-frontmatter-concepts.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md&order=id"
+    },
+    {
+      "file": "measure-frontmatter-concepts.mjs",
+      "table": "lesson_concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lesson_concepts?select=lesson_id,concept_id&order=lesson_id"
+    },
+    {
+      "file": "measure-frontmatter-concepts.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug&order=id"
     },
     {
       "file": "measure-index-widening.mjs",
@@ -1324,6 +2782,150 @@
       "query": "lesson_translation_reviews?select=lesson_id&limit=1"
     },
     {
+      "file": "measure-quotation-denominator.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-quotation-denominator.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "measure-quotation-denominator.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "measure-run-distribution.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-run-distribution.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "measure-run-distribution.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-run-distribution.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "measure-teaching-move.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-teaching-move.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-tier-a-outcomes.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,passing_score_pct&order=id"
+    },
+    {
+      "file": "measure-tier-a-outcomes.mjs",
+      "table": "exam_session_items",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_session_items?select=session_id,question_id,language,user_answer,presented_order&language=n"
+    },
+    {
+      "file": "measure-tier-a-outcomes.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,user_id,session_id,certification_id,score_pct,passed,total_questions,cor"
+    },
+    {
+      "file": "measure-title-class.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-title-class.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-union-rule.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "measure-union-rule.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
       "file": "measure-unreachable-paragraphs.mjs",
       "table": "lessons",
       "klass": "SAFE-PAGED",
@@ -1369,6 +2971,33 @@
       "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
     },
     {
+      "file": "pin-initialism-case.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "pin-initialism-case.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "pin-initialism-case.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,certification_id,retired_at"
+    },
+    {
       "file": "pin-secao-case.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -1403,6 +3032,24 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
+    },
+    {
+      "file": "propose-ismsf-dispositions.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "propose-ismsf-dispositions.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
     },
     {
       "file": "propose-match-terms.mjs",
@@ -1441,6 +3088,132 @@
       "query": "concepts?select=id,slug,name,match_terms&certification_id=eq.${cert.id}&order=slug"
     },
     {
+      "file": "record-batch1-review.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md,translation_batch_id"
+    },
+    {
+      "file": "record-own-work-review.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md"
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": 1000,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=content_md&language=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md,lesson_group_id&slug=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,content_md&slug=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "concepts",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description&slug=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,language,name,description,en_hash&concept_id=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "regenerate-moved-english.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,content_md&id=eq."
+    },
+    {
+      "file": "regress-render-gates.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "tasks?select=id,skills&id=eq."
+    },
+    {
+      "file": "regress-render-gates.mjs",
+      "table": "task_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "task_translations?select=id,language,skills&task_id=eq."
+    },
+    {
+      "file": "regress-render-gates.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id&slug=eq."
+    },
+    {
+      "file": "regress-render-gates.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concept_translations?select=id,language,name,description&concept_id=eq."
+    },
+    {
+      "file": "regress-render-gates.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,explanation&question_group_id=eq."
+    },
+    {
       "file": "release-aimsf-translations.mjs",
       "table": "certifications",
       "klass": "SAFE-SCALAR",
@@ -1465,7 +3238,7 @@
       "limit": 2000,
       "dynamic": true,
       "purpose": "rows",
-      "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional,review_s"
+      "query": "concept_translations?select=id,concept_id,language,name,description,en_hash,is_provisional,revie"
     },
     {
       "file": "release-aimsf-translations.mjs",
@@ -1522,6 +3295,150 @@
       "query": "concept_translation_reviews?select=language,verdict,seed,source_gate_ran,superseded_at&certifica"
     },
     {
+      "file": "report-harmonised-pairing.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "report-harmonised-pairing.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "report-missing-accents.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "report-missing-accents.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,certification_id"
+    },
+    {
+      "file": "report-missing-accents.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,certification_id,retired_at"
+    },
+    {
+      "file": "report-missing-accents.mjs",
+      "table": "task_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_translations?select=task_id,language,statement,knowledge,skills,abilities"
+    },
+    {
+      "file": "report-missing-accents.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,name,description"
+    },
+    {
+      "file": "report-repeated-runs.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "report-repeated-runs.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "report-repeated-runs.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "report-repeated-runs.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id"
+    },
+    {
+      "file": "report-reproduction-distribution.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "report-reproduction-distribution.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "rescore-concepts.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "rescore-concepts.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "rescore-concepts.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,name,description"
+    },
+    {
       "file": "restore-quote-markers.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -1538,6 +3455,114 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=content_md&slug=eq."
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,num_questions&order=id"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "domains",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "domains?select=id,code,certification_id,weight_pct&order=id"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,domain_id&order=id"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,pool,task_id,correct_answer"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "exam_attempts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "exam_attempts?select=id,session_id,certification_id,score_pct,passed,total_questions,correct_ans"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "COUNT-ONLY",
+      "query": "quiz_questions?select=id&status=eq.approved&retired_at=is.null&pool=eq.practice&order=id"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,task_id&status=eq.approved&"
+    },
+    {
+      "file": "retire-audit-480-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id&status=eq.approved&retired_at=is.null&pool=eq.practice&order=id"
+    },
+    {
+      "file": "retire-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,certification_id,language,pool,task_id,correct_answer"
+    },
+    {
+      "file": "retire-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "COUNT-ONLY",
+      "query": "quiz_questions?select=id&status=eq.approved&retired_at=is.null&pool=eq.practice&order=id"
+    },
+    {
+      "file": "retire-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_group_id,language&status=eq.approved&retired_at=is.null&pool=e"
+    },
+    {
+      "file": "retire-tier-a.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id&status=eq.approved&retired_at=is.null&pool=eq.practice&order=id"
     },
     {
       "file": "retranslate-audit-sentence.mjs",
@@ -1564,12 +3589,39 @@
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
+      "query": "lessons?select=..."
+    },
+    {
+      "file": "retranslate-repaired-passages.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language"
+    },
+    {
+      "file": "retranslate-repaired-passages.mjs",
+      "table": "lesson_translation_reviews",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lesson_translation_reviews?select=lesson_id,verdict"
+    },
+    {
+      "file": "retranslate-repaired-passages.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&mcp_translation_review_required=is.tr"
     },
     {
       "file": "retranslate-repaired-passages.mjs",
       "table": "lessons",
-      "klass": "SAFE-SCALAR",
+      "klass": "SAFE-PAGED",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -1592,6 +3644,42 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=content_md,mcp_servable&id=eq."
+    },
+    {
+      "file": "run-render-gates.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md&slug=eq."
+    },
+    {
+      "file": "scan-2017-guide-markers.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "scan-2017-guide-markers.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=id"
+    },
+    {
+      "file": "scan-2017-guide-markers.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,task_id,question_text,options,correct_answer,explanati"
     },
     {
       "file": "scan-concept-iso.mjs",
@@ -1675,6 +3763,42 @@
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
+      "file": "score-0501-drafts.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=content_md&slug=eq.05-01-aims-monitoring-and-measurement&language=eq.en"
+    },
+    {
+      "file": "score-lesson-bodies.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "score-lesson-bodies.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "score-lesson-bodies.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md,module_id,title,mcp_servable,mcp_iso_longest_run"
+    },
+    {
       "file": "scrum-terminology-pass.mjs",
       "table": "certifications",
       "klass": "UNSAFE",
@@ -1702,6 +3826,105 @@
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
+      "file": "size-reemit.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "solve-audit-sample.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "solve-audit-sample.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text,options,correct_answer,explanation,status,pool,re"
+    },
+    {
+      "file": "solve-audit-sample.mjs",
+      "table": "tasks",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,certification_id&order=code"
+    },
+    {
+      "file": "stamp-proved-provenance.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md,"
+    },
+    {
+      "file": "stratified-read.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,content_md,created_at,module_id&order=id"
+    },
+    {
+      "file": "stratified-read.mjs",
+      "table": "modules",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id&order=id"
+    },
+    {
+      "file": "stratified-read.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "stratified-read.mjs",
+      "table": "lesson_translation_reviews",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lesson_translation_reviews?select=lesson_id&order=lesson_id"
+    },
+    {
+      "file": "survey-mss-frames.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=slug,language,content_md"
+    },
+    {
+      "file": "survey-mss-frames.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=slug,description,retired_at"
+    },
+    {
       "file": "sweep-clausula.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -1718,6 +3941,24 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "modules?select=id,certification_id"
+    },
+    {
+      "file": "sweep-item-translations.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=id"
+    },
+    {
+      "file": "sweep-item-translations.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
     },
     {
       "file": "sweep-modal-inflation.mjs",
@@ -1747,6 +3988,24 @@
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md&module_id=in.("
     },
     {
+      "file": "sweep-requirement-contradictions.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "sweep-requirement-contradictions.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
       "file": "triage-held-paragraphs.mjs",
       "table": "lessons",
       "klass": "SAFE-PAGED",
@@ -1763,6 +4022,33 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,content_md,lesson_group_id&language=eq.en&lesson_group_id=eq."
+    },
+    {
+      "file": "verify-367.mjs",
+      "table": "lessons",
+      "klass": "UNSAFE",
+      "limit": 2000,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select="
+    },
+    {
+      "file": "verify-367.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=en_content_hash,mcp_servable&id=eq."
+    },
+    {
+      "file": "verify-367.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=mcp_servable&id=eq."
     },
     {
       "file": "verify-aimsf-translations.mjs",
@@ -1853,6 +4139,15 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "drift_rules?select=id,legacy_term,match_mode,pattern,lang,is_active,authority_citation_id"
+    },
+    {
+      "file": "withhold-diverged-translations.mjs",
+      "table": "lessons",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,slug,language,lesson_group_id,mcp_translation_review_required"
     }
   ]
 }

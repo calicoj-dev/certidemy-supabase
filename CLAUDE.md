@@ -5393,6 +5393,303 @@ Mojibake detection is blunt SQL, not clever regex: `content_md like '%â€%'`.
 
 ---
 
+## The source library, and what building it cost
+
+**Built 2026-09-26.** `scripts/extract-source-passages.mjs` splits the held standards at
+clause level into `SOURCE-PASSAGES.json`; migration 375 is the table; the grounded
+generator path is `scripts/gen-grounded-items.mjs`. Everything below was paid for while
+building it, and every one of them is a shape this file already records, arriving through a
+new door.
+
+**A CLEANER THAT RUNS AFTER THE THING IT CLEANS IS NOT A CLEANER.** ISO/IEC 27001:2022
+renders its headings with a TAB and a ZERO-WIDTH SPACE between the number and the title:
+
+```
+"4.3\t<U+200B>Determining the scope of the information security management system"
+```
+
+so a pattern expecting a letter after the whitespace matched nothing. The furniture stripper
+removes zero-width characters and **ran after the split**, which is the entire defect. Four
+versions of the extractor under-covered every document because of it, and **clause 4.3 --
+cited 73 times by the live bank -- was absent from the library** while a sibling heuristic
+called it a LIKELY INVENTED ADDRESS.
+
+**AND THE SIBLING HEURISTIC WAS WORTH NOTHING. ASK THE DOCUMENT.** It reported **78 invented
+addresses**. Reading the members showed almost none was:
+
+| what it called invented | what it is |
+|---|---|
+| `42001 clause 8`, cited 33x | a CONTAINER. The library splits it into 8.1-8.4; the parent has no row and never will |
+| `27001 control 5.35`, cited 13x | an ANNEX CONTROL cited without its `A.` prefix, which is how practitioners write it |
+| `27001 clause 10.1`, cited 4x | real, and my extractor missed it |
+| `19011 clause 10.2`, cited 35x | **not a 19011 address at all** -- 19011:2026's top level ends at 7. It is 27001's Nonconformity clause, which is exactly what an auditor item cites |
+
+One heuristic, four causes, four different fixes, and the label named none of them.
+`scripts/check-cited-clauses-resolve.mjs` now asks the PDF whether a heading for the address
+exists, which is a measurement rather than a guess about neighbours, and reports five states.
+**Final: 0 addresses absent from their document.** 40 resolve in a DIFFERENT held standard
+(attribution unclear), 17 are containers, 6 are annex controls cited bare, 3 are extractor
+gaps. Every negative verdict carries a positive control per document, because failing to find
+something is what a broken search does.
+
+> **A HEURISTIC ABOUT NEIGHBOURS IS NOT EVIDENCE ABOUT A MEMBER.** The document is on disk.
+> Ask it.
+
+**THE ANNEX HEADING HAS THREE DECOYS AND THE PREFIX IS THE ANNEX YOU ARE IN.** This file
+already records the table-of-contents decoy. Measuring found two more, and the second cost a
+positive control:
+
+| decoy | where |
+|---|---|
+| the contents entry | dot leaders, already handled |
+| **a PROSE SENTENCE opening with the annex name** | 42001 at 17 percent: *"Annex A with additional controls established by the organization"* |
+| the real heading | the LAST one, because a document refers forward to its own annex |
+
+Taking the prose sentence as the boundary moved clause 9.3.2 into the annex and renamed it
+`A.9.3.2`. And the prefix itself was wrong: everything after Annex A was labelled `A.` unless
+it already began `A.` or `B.`, **so ISO/IEC 42001's Annexes C and D -- real annexes with real
+content -- were mislabelled or lost.** The heading pattern also allowed only `A` or `B` as an
+annex letter, so `D.1 General` never matched. **That letter set was written from the annexes
+the first document happened to have, which is reasoning from a sample of one.** Fixed by
+tracking the current annex letter while scanning: 42001 Annex C 0 -> 21 passages, Annex D 0 -> 2.
+
+**AND THE COST OF THAT ONE WAS PAID BY THE PILOT.** An item cited clause D.2, the gate
+reported it absent, and Annex D exists. **A library gap read as an invented address sends the
+reader to rewrite a possibly-correct item instead of to fix the extractor.**
+
+> **NOT IN THE STANDARD AND NOT HELD BY US ARE DIFFERENT ANSWERS.** `gateClauseExists`
+> returns `pass: null` for an address the library DECLARES missing -- the item is not
+> cleared, because nothing could check it, and not blamed.
+
+**A HOLE IN A NUMBERED SEQUENCE IS A NAMED GAP, NOT AN ABSENCE.** ISO numbers its definitions
+consecutively, so a missing `3.24` between a held `3.23` and a held `3.25` is a defect in the
+extractor and nothing in the output said so. The sequence is the document's own, so this needs
+no declared population. **Measured: 12 holes, named** -- `42001 3.24`, ten 27001 annex
+controls, `19011 6.2`. `annex_gaps` and `sequence_gaps` travel INSIDE `SOURCE-PASSAGES.json`,
+because the gate that refuses an unanchorable citation needs the list and must not re-derive
+it.
+
+**A SHAPE-BASED EXEMPTION LETS A DIFFERENT THING PAST, AND THE CAPTION IS THE PROPERTY.**
+The annex-table splitter, pointed at ISO/IEC 27002's Annex A, produced **35 passages of
+interleaved column fragments**, one of them 1,400 characters of `#Preventive
+#Confidentiality #Governance`. They carried clause numbers and would have been offered to the
+generator as the text of a control. The four Table A.1 captions separate cleanly:
+
+```
+27001   "Information security controls"              a control table
+42001   "Control objectives and controls"            a control table
+27002   "Matrix of controls and attribute values"    NOT
+19011   "Auditing methods"                           NOT
+```
+
+A shape test let the matrix through; asking what the document says the table IS does not.
+**Same family as the title-class exemption that excused `availability`.**
+
+**AND THE SUBSTANCE FLOOR WAS A SIZE TEST, WHICH HID THE SHORTEST GENUINE MEMBER.** "At least
+eight words and 40 characters" rejected 27001 control **A.7.8 -- "Equipment shall be sited
+securely and protected." -- which is the whole control, seven words long.** Replaced by a
+test that names what it excludes: the table's COLUMN HEADERS. Anything else is a passage,
+however short. **Third instance in this file of a cutoff chosen for noise hiding a real
+member, after `nao` and the ten-word gloss filter.**
+
+**A JUNK PASSAGE THAT OCCUPIES A REAL ADDRESS IS WORSE THAN A MISSING ONE**, because the
+coverage report then says the address is held. Five 27001 controls came out with the word
+`Control` as their entire text -- the table's column header, produced by the heading pass
+reading table lines -- and they counted toward coverage. Where a control table exists, the
+table splitter is the only authority on control addresses in it.
+
+**COVERAGE IS DECLARED, SO A PARTIAL CANNOT READ AS COMPLETE.** ISO/IEC 27001:2022 has 93
+Annex A controls, counted from the standard. The extractor holds **81 and names the 12 it does
+not**. Without the declaration the report says "81 controls" and nothing says 81 is short.
+
+> **AND THE MISSING ONES ARE NOT FILLED FROM ISO/IEC 27002.** 27002 carries a clause of the
+> same number for every control and it is a DIFFERENT DOCUMENT with a different modal:
+> 27002 states guidance with *should* where 27001's Annex A states a control with *shall*.
+> Substituting one for the other would put a *should* sentence behind an item claiming a
+> requirement -- the exact defect the modal-fidelity gate exists to catch, introduced by the
+> library instead of by the model.
+
+---
+
+## The grounded generator, and the gates that decide
+
+> **An item is only as true as the passage it can point to, and the pointing is checked by
+> code, not by a model.** The model may write the item. It may not be the one who decides the
+> item is supported.
+
+`scripts/gen-grounded-items.mjs` is a NEW path beside `gen-cert-secure.mjs`, which is
+untouched. Six code gates (`scripts/lib/grounded-gates.mjs`, no model involved) and one BLIND
+solver (`scripts/lib/blind-solver.mjs`). Survivors land `status='draft'`, never approved --
+and `generate-mock-exam` filters `status = 'approved'`, **read from its source rather than
+assumed**, so a draft cannot reach any form.
+
+**THE SOLVER IS BLIND BY ALLOWLIST AND THE BLINDNESS IS ASSERTED.** It gets the passages and
+the item and works the answer out; it never sees the key, the explanation or the generation
+context. `critiqueAndRevise` in the old pipeline is a hostile reviewer holding the same memory
+as the writer AND is shown the answer, which makes its agreement worthless. **This file
+records that the credential a test holds IS the hypothesis; here it is the INFORMATION.**
+`assertBlind` re-reads the finished payload and throws if the key text, a key-bearing field
+name or the explanation appears anywhere in it -- a leak would make every agreement
+meaningless and nothing about the output would look wrong.
+
+**THE ITEM'S CLAIM AND THE ANCHOR'S FORCE ARE DIFFERENT QUESTIONS, and one pattern was wrong
+twice.** Both corrections came from reading what the gate refused, never from a count:
+
+1. **A bare verb is how a stem asks.** `requires|required to` missed *"what does ISO/IEC 42001
+   REQUIRE the organization to establish"*, so the commonest requirement stem in the corpus
+   registered as claiming nothing and a `should` passage licensed it. Caught by the gate's own
+   control before it ran on anything.
+2. **A NOUN IS NOT A CLAIM.** Widening to every inflection then included `requirement(s)`,
+   and clause B.1's own permission sentence reads *"according to their specific REQUIREMENTS
+   and risk treatment needs"* -- so a correct permission item on a `can` passage was refused.
+
+So the ITEM side needs a deontic VERB and the ANCHOR side needs a modal verb, strictly, and a
+noun never counts on either.
+
+**A LETTERED SUB-ITEM INHERITS ITS LIST'S MODAL.** ISO puts the modal in the lead-in and the
+substance in a lettered list, so an anchor quoting `7.2 c)` carries no `shall` and is
+nonetheless a requirement -- the shall is four lines up. The first gate refused exactly that,
+on a correct clause 7.2 item. **Same shape as the leak scanner judging a blockquote with no
+attribution because the lead-in sat above the window it looked at.** The force is now looked
+for upstream of the anchor IN THE PASSAGE; a passage with no upstream shall still cannot
+license a requirement.
+
+**AND IT TOOK THREE VERSIONS, EACH WRONG FOR A DIFFERENT REASON, ALL FOUND BY READING WHAT
+THE GATE REFUSED.** Filed together because the progression is the lesson:
+
+| version | the rule | what it refused |
+|---|---|---|
+| 1 | a `shall:` lead-in with `a)`-style items between it and the anchor | **ISO/IEC 42001 uses EM DASHES**, so three correct clause 6.1.2 and 7.2 items were refused. The letter-style list was written from 27001, which is reasoning from a sample of one -- the same mistake as the annex letter set |
+| 2 | the anchor is in the same SENTENCE the modal opened | clause 6.1.2 ends item b) with *"as indicated in 6.1.4."* -- a genuine full stop inside a list the lead-in still governs, three items before the anchor |
+| 3 | a modal opening a list appears earlier, **AND the anchor BEGINS A LIST ITEM** | holds on all three real cases, and the negative control -- a finished `shall` sentence followed by ordinary prose -- still refuses |
+
+> **A FULL STOP INSIDE A LIST ITEM DOES NOT CLOSE THE LIST**, and "the sentence the modal
+> governs" is therefore the wrong unit for an ISO clause. What makes version 3 narrow rather
+> than a loophole is the SECOND condition: prose after a finished sentence leaves the anchor
+> preceded by prose, and a list item leaves it preceded by a marker.
+
+Every version was caught the same way -- **reading the members of the refusal list, never the
+count.** Versions 1 and 2 both looked like a small, reasonable number of modal failures.
+
+**A WORD LIST IS PER SUBJECT, AND APPLYING IT EVERYWHERE REFUSES CORRECT WORK.** The
+superseded-wording list is entirely about the 2020 Scrum Guide, and it refused two ISO/IEC
+42001 items for `development-team`:
+
+```
+"A development team evaluates a new AI model only on data drawn from a single region"
+"A development team asks whether the AI management system standard tells them..."
+```
+
+Neither has anything to do with the Scrum role renamed in 2020. Rules now carry a SUBJECT and
+an unrecognised certification gets **no** rules rather than all of them, because silently
+applying a Scrum word list to an unrecognised certification is how this happened. Scoping is
+asserted in both directions -- the same phrase in a Scrum item must still fire, or scoping is
+just a way of switching the guard off.
+
+**THE FIVE-WORD ANCHOR FLOOR BELONGS ON THE KEY AND NOWHERE ELSE.** A key's anchor must be
+the sentence that SUPPORTS the key. A distractor's anchor points at the text the distractor
+misreads, and *"as appropriate"* or *"at planned intervals"* is often exactly the phrase that
+makes it wrong. The key's floor applied to distractors threw away two otherwise clean items
+over a three-word pointer. Distractors are still required VERBATIM: what was relaxed is the
+length, not the check.
+
+**AN ODD-ONE-OUT RULE ON THE FIRST WORD FIRES ON AN ARTICLE.** It refused an item whose key
+opened *"An audit programme"* against a distractor opening *"A single annual audit"* -- an
+article against an article, true of most option sets. The parallelism worth catching is in the
+first CONTENT word.
+
+**THE NEAR-DUPLICATE MEASURE IS RELATIVE AND ITS BLINDNESS IS STATED.** The share of the
+SHORTER stem's distinctive terms, never a character threshold: two 400-character stems
+differing in 60 characters are near-identical and two 90-character stems differing in 60 are
+different questions. **It compares STEMS, so two items with different stems and the same
+answer are invisible to it** -- which is exactly the eight near-duplicate pairs the 480-item
+audit found by reading, and no threshold will find those.
+
+**`temperature` IS DEPRECATED FOR THIS MODEL FAMILY AND THE 400 READS AS ITEMS FAILING.** The
+first pilot run lost all four items to it, reported -- correctly -- as `writer could not run`
+rather than as items the gates refused. **A step that could not start is not a step that
+failed**, and that distinction is the only reason the output was not read as a gate result.
+
+**AND THE BLINDNESS GUARD WORD-SCANNED THE PAYLOAD, WHICH IS THIS FILE'S OWN DEFECT INSIDE
+THE ONE CHECK THAT HAS TO BE TRUSTWORTHY.** `assertBlind` searched the serialised payload for
+`/is_correct|correct_answer|explanation|key_support/` and **aborted a 40-item pilot on item
+three**, because a distractor's TEXT contained the word *explanation*. An item about
+documenting an explanation is not a leaking payload.
+
+> **A GUARD MATCHES CODE SHAPES, NEVER ENGLISH WORDS.** This file already records a check for
+> `to anon` aborting on a comment reading *"no grant to anon or authenticated"*. The
+> structural half now walks the payload's PROPERTY NAMES against an allowlist -- which is
+> what "carries a key-bearing field" actually means -- and the content half stays a VALUE
+> comparison against that item's own explanation and anchor, because those ask whether the
+> key-bearing TEXT is present rather than whether a word is.
+
+**AND THE CRASH COST 40 WRITER CALLS, WHICH IS THE PERSIST RULE ONE STEP EARLIER THAN I HAD
+IT.** The generator persisted its artifact after gating, so a gate that threw lost every
+model call in the run. Generation is the expensive, unrepeatable half; gating is cheap and
+repeatable. **Raw writer output is now written BEFORE any gate runs**, to `*-raw.json`,
+marked as ungated so it cannot be read as a result -- and `--from` re-gates it without paying
+for the writer again, which is also how a changed gate gets run on the OLD input.
+
+**A LEAK IS LOUD AND PER ITEM, NOT FATAL TO THE RUN.** Letting `assertBlind` throw was the
+reason one defective payload cost thirty-nine good ones. The item is refused -- an agreement
+from a solver that could see the key is worth nothing -- and the run continues.
+
+**AND `node -e` IS A HEREDOC WEARING DIFFERENT CLOTHES. THE ELEVENTH INSTANCE, AND THE GUARD
+COULD NOT SEE IT.** Recorded 2026-09-26, and it is the sharpest version of this defect family
+because two separate mechanisms failed in sequence.
+
+A regex was patched into a script through `node -e '...'` rather than with the file tool. The
+`\b` crossed a shell-quoted JavaScript STRING, where `\b` is the BACKSPACE ESCAPE, so the
+pattern reached disk as
+
+```
+/<BS>(?:EU AI Act|AI Act|42006|17021|17024|ITIL|...)<BS>/i
+```
+
+-- valid JavaScript, parses, runs, **matches nothing**. It reported `0 flags name a source we
+do not hold` while three of eight flags said *"None of the supplied passages mention ISO/IEC
+42006"* in as many words. The same filter applied to the artifact that run had just written
+found three. **An instrument disagreeing with itself is a stop condition**, and it is the only
+reason this was found at all.
+
+> **THE HOUSE RULE IS ABOUT BACKSLASHES CROSSING A SHELL, NOT ABOUT HEREDOCS.** `<<` is
+> blocked by a hook; `node -e` is not, and it halves a backslash the same way. Code containing
+> a backslash is written with the FILE TOOL. Where a control character or a backslash must be
+> constructed at runtime, build it from `String.fromCharCode` -- which is how this one was
+> repaired, because an Edit cannot match an invisible byte.
+
+**AND INVARIANT 10 REPORTED CLEAN OVER 842 FILES WHILE THE DEFECT SAT IN A 843rd.**
+`check-control-bytes` listed `git ls-files`, and the file was NEW -- untracked, therefore not
+examined, therefore silent. **A freshly written file is the MOST likely place for a mangled
+escape, not the least**, and the population excluded exactly the file being written.
+
+> **TRACKED IS NOT THE POPULATION.** The check now scans tracked files PLUS
+> `--others --exclude-standard` -- the set a commit would add -- and says how many untracked
+> files it included. Same shape as every coverage gap in this file: a check that examines half
+> its subject reports success, not a gap.
+
+**Watched firing on the live instance before the fix**, which is the only evidence worth
+having that it is closed: it named both bytes and the line. Then the bytes were removed and it
+went quiet.
+
+**AND RE-GATING OLD ITEMS AGAINST A CHANGED LIBRARY IS AN UNATTRIBUTABLE DELTA.** After
+fixing the gates I also re-extracted the library, then re-ran the same 40 items: survivors
+went 23 -> 21 and **seven verbatim failures all named one clause, `B.10.4`**. Not seven model
+errors -- the annex relabelling corrected that passage's boundaries, and the anchors had been
+copied out of its old, contaminated text. **The items were written against one library and
+judged against another.** This file's own rule says run the new instrument on the OLD input
+first and change one thing at a time; the fix here is the opposite of a re-gate, because the
+input is not separable from the library: generate afresh against the current library so the
+passages the writer saw are the passages the gates check.
+
+**A DRY RUN OF A GENERATOR IS A SAMPLE, NOT A PREVIEW -- so this one PERSISTS FIRST.** The
+generator writes its artifact before reporting, and `--apply --from=<artifact>` inserts THAT
+artifact rather than generating afresh. That is the generate-once-then-persist path this file
+records as missing from the old generators, and it is what makes "the items reported are the
+items measured" true rather than hoped.
+
+---
+
 ## Working style
 
 **Complete files or fully scripted edits.** Never snippets.
