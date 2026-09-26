@@ -1,0 +1,3942 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "attempted": 40,
+ "generated": 39,
+ "survivors": 31,
+ "generation_note": "RAW WRITER OUTPUT, ungated and unsolved. Not a result. Generated in TWO PASSES: 31 items in the first, then 8 for the tasks a network outage cost (2.6, 4.7, 5.1-5.6 -- the whole of domain D5). Same library, same mapping, same gates; only the clock differs.",
+ "reject_counts": {
+  "code: modal-fidelity": 3,
+  "code: structure": 4,
+  "solver: second defensible option": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "items": [
+  {
+   "task_code": "1.1",
+   "domain": "D1",
+   "item": {
+    "question_text": "A candidate is asked to describe, in plain terms, what an \"AI management system\" is. Which description matches the defined meaning of a management system?",
+    "options": [
+     {
+      "text": "The organization's interrelated elements used to set policies and objectives, and the processes to achieve them",
+      "is_correct": true
+     },
+     {
+      "text": "The defined set of activities for ongoing operation of an AI system, covering monitoring, repairs, updates and support",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's process for assessing potential consequences of an AI system for individuals, groups and societies",
+      "is_correct": false
+     },
+     {
+      "text": "The body of technical documentation describing an AI system's purpose, assumptions, limitations and monitoring functions",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.4 defines a management system as the set of interrelated or interacting elements of an organization used to establish policies and objectives, together with the processes to achieve those objectives; Note 2 adds structure, roles and responsibilities, planning and operation. The other options name specific AI-related activities or artefacts (operation and monitoring, impact assessment, technical documentation), not the management system itself.",
+    "key_support_clause": "3.4",
+    "key_support": "set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "At the minimum this should include system and performance monitoring, repairs, updates and support.",
+      "why_wrong": "This describes elements for operating an AI system, which is one guidance control, not the definition of a management system."
+     },
+     {
+      "index": 2,
+      "clause": "B.5.2",
+      "support": "The organization should establish a process to assess the potential consequences for individuals or groups of individuals, or both, and societies that can result from the AI system throughout its life cycle.",
+      "why_wrong": "This is the AI system impact assessment process, a single process within the system rather than the system as defined."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.7",
+      "support": "The organization should document technical information related to the responsible operation of the AI system.",
+      "why_wrong": "Technical documentation is an output about the technology, not the interrelated organizational elements that constitute a management system."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a none in a can passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.2/3.4 defines a management system as the \"set of interrelated or interacting elements of an organization to establish policies and objectives, as well as processes to achieve those objectives\".",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A company trains an AI model in-house, packages it as a hosted platform sold to client organizations, and also integrates third-party data feeds into it. Considering the organization's roles with respect to its AI systems, which statement best describes the position?",
+    "options": [
+     {
+      "text": "It can hold several roles at once, and its roles can affect applicability of requirements and controls.",
+      "is_correct": true
+     },
+     {
+      "text": "Only one role can apply to an organization, so it must choose between being a provider and being a producer.",
+      "is_correct": false
+     },
+     {
+      "text": "The company must first document the AI management system scope and only afterwards consider any of its roles.",
+      "is_correct": false
+     },
+     {
+      "text": "Determining its roles is purely optional advice, so the company may leave role determination out altogether.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.1 requires the organization to determine its roles with respect to its AI systems, lists roles that can include 'one or more of the following' (provider, producer, customer, partner, subject, relevant authority), and states that the organization's roles can determine the applicability and extent of applicability of the requirements and controls.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization’s roles can determine the applicability and extent of applicability of the requirements and controls in this document.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "These roles can include, but are not limited to, one or more of the following",
+      "why_wrong": "The passage expressly allows one or more roles, so an organization is not limited to a single role."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1;",
+      "why_wrong": "Scope determination draws on the Clause 4.1 outputs, so role determination is not deferred until after the scope is documented."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination is stated as a 'shall', so it cannot be omitted as optional advice."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a permission in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 30%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.1 states roles 'can include... one or more of the following' and that 'The organization's roles can determine the applicability and extent of applicability of the requirements and controls in this document.'",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A deployed classification system is not retrained on production data, yet over several months its measured accuracy against production data declines, with no errors or failures logged. Which description best matches the guidance on AI system operation and monitoring?",
+    "options": [
+     {
+      "text": "The decline shows the system is operating as a continuously learning system, since production and output data are feeding back into the model.",
+      "is_correct": false
+     },
+     {
+      "text": "The decline is an error or failure condition, so it is addressed through the repair processes rather than through performance monitoring.",
+      "is_correct": false
+     },
+     {
+      "text": "Performance can change without continuous learning, usually from concept or data drift in production data, and monitoring can reveal a need for retraining.",
+      "is_correct": true
+     },
+     {
+      "text": "Because continuous learning is not used, ongoing performance monitoring against production data is not among the minimum elements of operation.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "B.6.2.6 states that the performance of some AI systems can change even where continuous learning is not used, usually because of concept or data drift in production data, and that in such cases monitoring can identify the need for retraining so the system continues to meet its design goals.",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "The performance of some AI systems can change even if such systems do not use continuous learning, usually due to concept or data drift in production data.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.6.2.6",
+      "support": "Some deployed AI systems evolve their performance as a result of ML, where production data and output data are used to further train the ML model.",
+      "why_wrong": "Continuous learning is defined by production and output data being used to further train the model, which the scenario explicitly excludes."
+     },
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "Repairs can include responses to errors and failures in the system.",
+      "why_wrong": "Repairs respond to errors and failures, which the scenario states have not occurred; drift is handled through monitoring and retraining."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.6",
+      "support": "At the minimum this should include system and performance monitoring, repairs, updates and support.",
+      "why_wrong": "System and performance monitoring, including whether the system performs as expected with production data, is listed as a minimum element regardless of continuous learning."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a permission in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 38%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "C",
+     "answer_reason": "B.6.2.6 states that performance of some AI systems can change even without continuous learning, usually due to concept or data drift in production data, and that monitoring can identify the need for retraining.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "Annex D discusses using an AI management system together with an information security management system. According to that annex, what makes the combined use of ISO/IEC 42001 and ISO/IEC 27001 straightforward for an organization?",
+    "options": [
+     {
+      "text": "Both standards are built on the same high-level structure, so their integrated use is facilitated.",
+      "is_correct": true
+     },
+     {
+      "text": "ISO/IEC 27001 is cited as a normative reference of this document, so parts of its content form requirements here.",
+      "is_correct": false
+     },
+     {
+      "text": "The risk criteria of the AI management system are drawn directly from ISO/IEC 27001, so only one risk process is run.",
+      "is_correct": false
+     },
+     {
+      "text": "Independent conformity assessment to ISO 9001 has to be completed first, which then aligns the two security-related systems.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Annex D.2 states that because both ISO/IEC 27001 and the AI management system use the high-level structure, their integrated use is facilitated and of great benefit, and that security-related controls (see B.6.1.2) can be integrated with the organization's ISO/IEC 27001 implementation.",
+    "key_support_clause": "D.2",
+    "key_support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "2",
+      "support": "ISO/IEC 22989:2022, Information technology — Artificial intelligence — Artificial intelligence concepts and terminology",
+      "why_wrong": "Clause 2 lists only ISO/IEC 22989:2022 as a normative reference; ISO/IEC 27001 appears only in the bibliography and Annex D."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.1",
+      "support": "NOTE 1 Considerations to determine the amount and type of risk that an organization is willing to pursue or retain are provided in ISO/IEC 38507 and ISO/IEC 23894.",
+      "why_wrong": "Clause 6.1.1 has the organization establish its own AI risk criteria and points to ISO/IEC 38507 and ISO/IEC 23894, not to ISO/IEC 27001 as the source of criteria."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Independent conformity assessment to ISO 9001 facilitates business across organizations and inspires customer confidence in products or services.",
+      "why_wrong": "Annex D.2 presents joint use with ISO 9001 as an optional benefit for customer confidence, not as a precondition for integrating with ISO/IEC 27001."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a none in a can passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 17,
+     "reason": "closest live item on this task shares 50%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause D.2 states \"Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "An organization has a documented plan under its AI management system for communicating incidents to users. Its legal team asks whether that plan alone settles who must be told, and how quickly, when an incident occurs. Which statement best reflects the Annex B guidance on communication of incidents?",
+    "options": [
+     {
+      "text": "Notification obligations vary with the context in which the system operates, so the organization is expected to work out what those obligations are.",
+      "is_correct": true
+     },
+     {
+      "text": "The management system standard itself fixes the notification timeline and the list of authorities, so external rules need not be consulted.",
+      "is_correct": false
+     },
+     {
+      "text": "AI incident reporting has to be run entirely separately from the organization's wider incident management arrangements.",
+      "is_correct": false
+     },
+     {
+      "text": "An AI component inside a product affecting safety carries the same notification treatment as any other type of system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.8.4 guidance states the organization should understand its obligations around notifying users and other interested parties, depending on the operating context; the plan documented under the AIMS does not by itself determine those external obligations.",
+    "key_support_clause": "B.8.4",
+    "key_support": "The organization should understand its obligations around notifying users and other interested party about incidents, depending on the context in which the system operates.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.8.4",
+      "support": "Legal requirements (such as contracts) and regulatory activity can apply, which can specify requirements for:",
+      "why_wrong": "The passage attributes the timeline and the authorities to be notified to legal requirements and regulatory activity, not to the management system standard."
+     },
+     {
+      "index": 2,
+      "clause": "B.8.4",
+      "support": "The organization can integrate incident response and reporting activities for AI into their broader organizational incident management activities, but should be aware of unique requirements related to AI systems, or individual components of AI systems (e.g. a PII data breach in training data for the system can have different reporting requirements related to privacy).",
+      "why_wrong": "Integration with broader incident management is explicitly permitted, so full separation is not what the guidance says."
+     },
+     {
+      "index": 3,
+      "clause": "B.8.4",
+      "support": "For example, an incident with an AI component that is part of a product that affects safety can have different notification requirements than other types of systems.",
+      "why_wrong": "The passage gives safety-affecting products as an example where notification requirements can differ, contradicting the claim of identical treatment."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "examined": 1,
+     "reason": "the item states a requirement and clause B.8.4 is should -- a should passage cannot license a requirement"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 33%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "modal-fidelity"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.6",
+   "domain": "D1",
+   "item": {
+    "question_text": "A development team asks whether the AI management system standard tells them what numeric performance target their classifier must reach. Which statement best reflects how the standard handles this?",
+    "options": [
+     {
+      "text": "The organization can select a fitting performance metric and set the value it expects the system to meet.",
+      "is_correct": true
+     },
+     {
+      "text": "The statement of applicability shall record the approved numeric accuracy threshold for each AI system.",
+      "is_correct": false
+     },
+     {
+      "text": "Annex D fixes the performance thresholds that apply to each sector in which the AI system is deployed.",
+      "is_correct": false
+     },
+     {
+      "text": "The AI risk criteria established during planning serve directly as the model's required accuracy thresholds.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.2.6 illustrates, in permissive language, that an organization can judge a metric such as F1 to be appropriate and then establish the value the system is expected to meet. The standard governs how such criteria are chosen and monitored; it does not itself prescribe a figure.",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "For example, an organization can determine that the F1 score is an appropriate performance metric based on its assessment of the impact of false positives and false negatives, as described in ISO/IEC TS 4213.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "The statement of applicability covers controls and their inclusion or exclusion justification, not model performance thresholds."
+     },
+     {
+      "index": 2,
+      "clause": "D.2",
+      "support": "Besides the generic management system standards mentioned above, an AI management system can also be used jointly with a management system dedicated to a sector.",
+      "why_wrong": "Annex D addresses joint use with sector management system standards in permissive terms and sets no performance thresholds."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.1",
+      "support": "The organization shall establish and maintain AI risk criteria that support:",
+      "why_wrong": "Risk criteria serve to distinguish acceptable from non-acceptable risk and to support assessment and treatment, not to define a model's accuracy target."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "examined": 1,
+     "reason": "the item states a requirement and clause B.6.2.6 is should -- a should passage cannot license a requirement"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 15%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "modal-fidelity"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "A retailer is adapting its existing ISO/IEC 27001 context analysis for a new AI management system. The draft lists supplier dependencies, data-centre resilience and applicable privacy law, and the team plans to leave it there. Which action best completes the context determination for the AIMS?",
+    "options": [
+     {
+      "text": "Add a determination of whether climate change is a relevant issue for the organization.",
+      "is_correct": true
+     },
+     {
+      "text": "Restrict the issues considered to confidentiality, integrity and availability of information.",
+      "is_correct": false
+     },
+     {
+      "text": "Leave out the intended purpose of the AI systems, as purpose belongs in operational planning.",
+      "is_correct": false
+     },
+     {
+      "text": "Postpone deciding the organization's roles in relation to its AI systems until the scope statement is signed off.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.1 adds an explicit determination that an information-security-shaped analysis typically omits: whether climate change is a relevant issue. The other options contradict the same clause, which also requires consideration of the AI systems' intended purpose and determination of the organization's roles.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall determine whether climate change is a relevant issue.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.2.10",
+      "support": "In the context of AI and in particular with regard to AI systems based on ML approaches, new security issues should be considered beyond classical information and system security concerns.",
+      "why_wrong": "Confining AIMS context issues to the classical information-security properties ignores the broader external and internal issues clause 4.1 covers."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+      "why_wrong": "Clause 4.1 expressly places the intended purpose of the AI systems within the context determination, so it cannot be omitted."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination is part of clause 4.1 and feeds the scope in 4.3, so it cannot be deferred until after the scope is approved."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 36%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.1 explicitly states \"The organization shall determine whether climate change is a relevant issue\", a requirement absent from the draft.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "A municipal transport authority is deploying an AI system that allocates paratransit vehicles. A residents' association, which is neither a customer, a regulator nor a contracted supplier, states publicly that the allocation logic will disadvantage its neighbourhood. How should the AIMS team handle this group when working through Clause 4.2?",
+    "options": [
+     {
+      "text": "Treat the group as a relevant interested party and decide which of its requirements the AIMS will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Leave the group out, since interested parties are limited to customers, regulators and contracted suppliers.",
+      "is_correct": false
+     },
+     {
+      "text": "Include the group only once it can demonstrate a legal or contractual claim against the authority.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the group only if the jurisdiction obliges the authority to report system information to authorities.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of interested party reaches anyone who can perceive themselves to be affected, so the association qualifies; Clause 4.2 then has the organization determine the relevant requirements and which of them the AIMS will address.",
+    "key_support_clause": "3.2",
+    "key_support": "that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "interested party person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "The definition is not limited to customers, regulators or suppliers; perceiving oneself to be affected is sufficient."
+     },
+     {
+      "index": 2,
+      "clause": "4.2",
+      "support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+      "why_wrong": "Clause 4.2 sets no legal or contractual claim test for identifying relevant interested parties."
+     },
+     {
+      "index": 3,
+      "clause": "B.8.5",
+      "support": "In some cases, a jurisdiction can require information about the system to be shared with authorities such as regulators.",
+      "why_wrong": "This concerns reporting obligations to authorities, not the criterion for identifying relevant interested parties under 4.2."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "examined": 1,
+     "reason": "the item states a recommendation and clause 3.2 is can -- a can passage cannot license a recommendation"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 23%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "modal-fidelity"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A financial services firm is drafting its AIMS scope statement. Its estate includes one fraud model built in-house, a purchased CRM with a vendor-supplied lead-scoring feature, a support desk tool that calls an external large language model interface, and several teams using a generative assistant that was never declared to IT. The draft scope reads: \"AI systems developed by the organization.\" Which action best conforms to the standard's scope requirements?",
+    "options": [
+     {
+      "text": "Extend the boundary to cover the CRM scoring feature and the LLM interface, because AI systems that are used or provided—not only those built—are considered when setting scope, and record the resulting scope as documented information.",
+      "is_correct": true
+     },
+     {
+      "text": "Keep the drafted boundary and record the vendor CRM feature and the LLM interface as excluded controls, with justification entered in the statement of applicability.",
+      "is_correct": false
+     },
+     {
+      "text": "Keep the drafted boundary for vendor-supplied AI, provided the suppliers hold and can produce the AI system technical documentation for those features on request.",
+      "is_correct": false
+     },
+     {
+      "text": "Leave the scope undocumented until the estate stabilises, then confirm the in-house-only boundary once shadow usage has been eliminated.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.3 requires the organization to determine boundaries and applicability considering the 4.1 issues and 4.2 requirements, and requires the scope to be available as documented information. Clause 4.1 expressly directs consideration of the intended purpose of AI systems that are developed, provided or used, so purchased and embedded AI capability cannot be placed outside the boundary merely because the organization did not build it.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "The statement of applicability justifies inclusion or exclusion of controls, not the exclusion of AI systems the organization uses from the AIMS boundary determined under 4.3."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.7",
+      "support": "The organization should determine what AI system technical documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.",
+      "why_wrong": "This is a 'should' control about supplying technical documentation to interested parties; supplier-held documentation does not remove used or embedded AI from the scope considerations of 4.1 and 4.3."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Deferring documentation of the scope conflicts with the requirement that the scope be available as documented information."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "the key is the only negated option -- a reader can find it without knowing the subject"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 31%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "2.3",
+   "domain": "D2",
+   "item": {
+    "question_text": "An organization decides to merge two internal AI governance committees and rewrite several documented AIMS procedures. This is a change to the management system itself, not to an AI system in operation. Which requirement applies most directly to this decision?",
+    "options": [
+     {
+      "text": "The change must be carried out in a planned manner.",
+      "is_correct": true
+     },
+     {
+      "text": "The change must be expressed as an AI objective that is measurable where practicable.",
+      "is_correct": false
+     },
+     {
+      "text": "The effectiveness of the change must be monitored as a control related to AI system operation, with corrective action considered.",
+      "is_correct": false
+     },
+     {
+      "text": "The change must be treated as an externally provided process and controlled on that basis.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.3 covers changes to the AI management system itself and requires only that, once the need is determined, the changes be carried out in a planned manner. The other options draw on clauses addressing objectives (6.2) or operational planning and control (8.1), which concern operational processes and controls rather than a restructuring of the management system.",
+    "key_support_clause": "6.3",
+    "key_support": "When the organization determines the need for changes to the AI management system, the changes shall be carried out in a planned manner.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.2",
+      "support": "b) be measurable (if practicable);",
+      "why_wrong": "The measurability requirement applies to AI objectives established under 6.2, not to a decision to change the management system, which is governed by 6.3."
+     },
+     {
+      "index": 2,
+      "clause": "8.1",
+      "support": "The effectiveness of these controls shall be monitored and corrective actions shall be considered if the intended results are not achieved.",
+      "why_wrong": "This applies to the controls determined under 6.1.3 that relate to the operation of the AI management system, not to a structural change to the management system itself."
+     },
+     {
+      "index": 3,
+      "clause": "8.1",
+      "support": "The organization shall ensure that externally provided processes, products or services that are relevant to the AI management system are controlled.",
+      "why_wrong": "An internal restructuring of committees and procedures is not an externally provided process, product or service."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 40%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.3 states that when the organization determines the need for changes to the AI management system, the changes shall be carried out in a planned manner, which directly addresses a change to the AIMS itself.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "During a review of a company's AI management system, an assessor checks the assignments made by top management. Which assignment does Clause 5.3 explicitly oblige top management to make?",
+    "options": [
+     {
+      "text": "Authority for reporting on the performance of the AI management system to top management",
+      "is_correct": true
+     },
+     {
+      "text": "Responsibility for setting the level of automation used in each deployed AI system",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility for monitoring the accuracy of AI system outputs during operation",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility for allocating named owners for supplier relationships and privacy",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 5.3 states two assignments that top management shall make: authority for ensuring the AIMS conforms to the document, and authority for reporting AIMS performance to top management. Option A is the second of these. The other options come from guidance clauses expressed as 'should' or 'can', or from clauses that place no assignment duty on top management.",
+    "key_support_clause": "5.3",
+    "key_support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.3",
+      "support": "The level of automation can have an impact on various areas of concerns, such as safety, fairness or security.",
+      "why_wrong": "Level of automation is discussed only as a possible risk source, with no assignment duty placed on top management by Clause 5.3."
+     },
+     {
+      "index": 2,
+      "clause": "B.9.3",
+      "support": "— monitoring the performance of the AI system, including the accuracy of the AI system outputs;",
+      "why_wrong": "Output monitoring appears as an example of human oversight in a 'should' guidance control, not as one of the two authorities Clause 5.3 requires top management to assign."
+     },
+     {
+      "index": 3,
+      "clause": "B.3.2",
+      "support": "Control Roles and responsibilities for AI should be defined and allocated according to the needs of the organization.",
+      "why_wrong": "Supplier relationships and privacy are listed as areas that can require defined roles in guidance stated as 'should', not as an explicit Clause 5.3 assignment by top management."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "every distractor opens with the word \"responsibility\" and the key does not"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 27%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "2.5",
+   "domain": "D2",
+   "item": {
+    "question_text": "A financial services firm has run its standard IT risk assessment on a new credit-scoring AI system, covering confidentiality, integrity and availability of the data and infrastructure. The AI governance lead must now complete the analysis step of the organization's AI risk assessment process. Which additional analysis does the AIMS require at this step?",
+    "options": [
+     {
+      "text": "Compare the controls chosen for the identified risks against Annex A to confirm none necessary have been omitted",
+      "is_correct": false
+     },
+     {
+      "text": "Assess the consequences to the organization, to individuals and to societies if the identified risks materialize",
+      "is_correct": true
+     },
+     {
+      "text": "Produce a statement of applicability listing the necessary controls, with justification for each inclusion and exclusion",
+      "is_correct": false
+     },
+     {
+      "text": "Review the AI policy at planned intervals to confirm its continuing suitability, adequacy and effectiveness before proceeding",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 6.1.2 d) 1) requires the AI risk assessment process to analyse AI risks so as to assess the potential consequences to the organization, individuals and societies should the risks materialize. This is the AI-specific dimension that a purely IT-asset-focused assessment (confidentiality, integrity, availability) would not surface. The other options belong to the risk treatment process (6.1.3) or to policy review guidance (B.2.4), not to the analysis step of the risk assessment.",
+    "key_support_clause": "6.1.2",
+    "key_support": "assess the potential consequences to the organization, individuals and societies that would result if the identified risks were to materialize",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "6.1.3",
+      "support": "compare the controls with those in Annex A to verify that no necessary controls have been omitted",
+      "why_wrong": "This belongs to the AI risk treatment process in 6.1.3 b), which follows the assessment, not to the analysis of risks under 6.1.2 d)."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "produce a statement of applicability that contains the necessary controls",
+      "why_wrong": "The statement of applicability is an output of the risk treatment process in 6.1.3 f), not part of analysing AI risks in 6.1.2."
+     },
+     {
+      "index": 3,
+      "clause": "B.2.4",
+      "support": "The AI policy should be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "Policy review is implementation guidance expressed as 'should' in B.2.4 and is not a step of the AI risk analysis required by 6.1.2 d)."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 53%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause 6.1.2 d) 1) requires the analysis step of the AI risk assessment to assess the potential consequences to the organization, individuals and societies if identified risks materialize, going beyond standard IT confidentiality/integrity/availability concerns.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "2.7",
+   "domain": "D2",
+   "item": {
+    "question_text": "A deployment team has completed and documented an AI system impact assessment for a new triage tool, covering deployment, intended use and foreseeable misuse in the relevant technical, societal and jurisdictional context. The AI governance lead now asks how this output relates to the AI risk assessment required for the same system. Which course of action is consistent with the management system requirements?",
+    "options": [
+     {
+      "text": "Take the impact assessment results into account in the risk assessment, which still determines risk levels and prioritises risks for treatment.",
+      "is_correct": true
+     },
+     {
+      "text": "Treat the impact assessment as covering consequences to individuals and societies, so that the risk analysis only has to assess consequences to the organization.",
+      "is_correct": false
+     },
+     {
+      "text": "Publish the impact assessment to relevant interested parties, since this release is a precondition before the risk analysis can proceed.",
+      "is_correct": false
+     },
+     {
+      "text": "Rely on the documented impact assessment in place of retaining documented information about the risk assessment process.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.1.4 makes the impact assessment an input to risk assessment ('shall consider the results ... in the risk assessment (see 6.1.2)'), while 6.1.2 e) keeps the risk assessment anchored to comparison with risk criteria and prioritization of risks for treatment. The two are separately required; the impact assessment feeds the risk assessment rather than replacing any part of it.",
+    "key_support_clause": "6.1.4",
+    "key_support": "The organization shall consider the results of the AI system impact assessment in the risk assessment (see 6.1.2).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.2",
+      "support": "assess the potential consequences to the organization, individuals and societies that would result if the identified risks were to materialize;",
+      "why_wrong": "The risk analysis itself already covers consequences to individuals and societies, so it cannot be narrowed to organizational consequences."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.4",
+      "support": "Where appropriate, the result of the system impact assessment can be made available to relevant interested parties as defined by the organization.",
+      "why_wrong": "Release to interested parties is a conditional option, not a mandatory precondition for the risk assessment."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.2",
+      "support": "The organization shall retain documented information about the AI risk assessment process.",
+      "why_wrong": "Documented information about the risk assessment process is separately required and is not satisfied by impact assessment documentation."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 60%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.4 requires that the organization 'shall consider the results of the AI system impact assessment in the risk assessment (see 6.1.2)', while 6.1.2 d)–e) still requires the risk assessment to determine levels of risk and prioritize risks for treatment.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "2.8",
+   "domain": "D2",
+   "item": {
+    "question_text": "An AI development team has completed its risk treatment step. To implement one chosen treatment option it designed a control that does not appear in Annex A. It also concluded, from the risk assessment and a review of applicable external requirements, that one Annex A control is not needed. Under ISO/IEC 42001 6.1.3, how should these two outcomes be reflected?",
+    "options": [
+     {
+      "text": "Record both in the statement of applicability, justifying the inclusion of the organization-designed control and the exclusion of the Annex A control.",
+      "is_correct": true
+     },
+     {
+      "text": "Record only the Annex A controls in the statement of applicability, since organization-designed controls sit outside its scope and are tracked in the treatment plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the two controls and also document a justification for the items of Annex B implementation guidance that the organization decided not to follow.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the organization-designed control with its justification, and simply omit the unneeded Annex A control, as only included controls carry a justification.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.1.3 f) requires the statement of applicability to contain the necessary controls determined under b), c) and d) — which expressly includes controls additional to Annex A — together with justification for both inclusion and exclusion of controls; the grounds cited (not deemed necessary by the risk assessment, not required by applicable external requirements) are exactly the exclusion justifications the clause recognises.",
+    "key_support_clause": "6.1.3",
+    "key_support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "Organizations may not require all controls listed in Annex A or may even exceed the list in Annex A with additional controls established by the organization itself.",
+      "why_wrong": "The statement of applicability covers all necessary controls, including additional ones established by the organization beyond Annex A, so restricting it to Annex A controls is incorrect."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Annex B implementation guidance does not have to be documented or justified in the statement of applicability."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "Justification is required for exclusion as well as inclusion, so silently omitting the unneeded control does not conform."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a recommendation; anchor is a none in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 41%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.3 f) requires a statement of applicability containing the necessary controls [including additional controls identified under d)] with justification for both inclusion and exclusion of controls, and notes exclusion can be justified where the risk assessment or external requirements deem them unnecessary.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.1",
+   "domain": "D3",
+   "item": {
+    "question_text": "An organization deploying an AI-based triage tool staffs the project with three data scientists and one clinical domain expert. Reviewing the roles, the AIMS manager finds that no assigned person has the competence needed for the human oversight duties that affect AI performance. Applying the competence requirements of the AI management system, what is the organization required to do?",
+    "options": [
+     {
+      "text": "Take action to acquire the missing competence and then evaluate whether that action was effective.",
+      "is_correct": true
+     },
+     {
+      "text": "Recruit an external oversight specialist, because mentoring or reassigning current employees cannot close a competence gap.",
+      "is_correct": false
+     },
+     {
+      "text": "Deliver an awareness briefing covering the AI policy and the implications of nonconformity, which closes a competence gap.",
+      "is_correct": false
+     },
+     {
+      "text": "Accept only formal academic qualifications as the basis for demonstrating the competence of these persons.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 7.2 requires the organization to determine necessary competence for persons whose work affects AI performance and, where applicable, to take actions to acquire the necessary competence and evaluate the effectiveness of those actions; appropriate documented information is kept as evidence.",
+    "key_support_clause": "7.2",
+    "key_support": "where applicable, take actions to acquire the necessary competence, and evaluate the effectiveness of the actions taken",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "7.2",
+      "support": "NOTE 2 Applicable actions can include, for example: the provision of training to, the mentoring of, or the reassignment of currently employed persons; or the hiring or contracting of competent persons.",
+      "why_wrong": "Hiring is only one of several possible actions listed; training, mentoring or reassignment are equally acceptable, so hiring is not mandated."
+     },
+     {
+      "index": 2,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "Awareness under 7.3 is a separate requirement and does not substitute for acquiring and evaluating the competence required by 7.2."
+     },
+     {
+      "index": 3,
+      "clause": "7.2",
+      "support": "ensure that these persons are competent on the basis of appropriate education, training or experience",
+      "why_wrong": "Competence may be based on training or experience as well as education, so restricting evidence to academic qualifications contradicts the clause."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 7.2 requires the organization, where applicable, to 'take actions to acquire the necessary competence, and evaluate the effectiveness of the actions taken'.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.2",
+   "domain": "D3",
+   "item": {
+    "question_text": "A certification candidate is asked to explain the awareness provision of the AI management system. Which statement best reflects it?",
+    "options": [
+     {
+      "text": "Anyone doing work under the organization's control is to be aware of the AI policy, their contribution to AIMS effectiveness, and the implications of non-conformity.",
+      "is_correct": true
+     },
+     {
+      "text": "Only directly employed staff need awareness of the AI policy; contractors and other external workers are addressed solely through evidence of competence records.",
+      "is_correct": false
+     },
+     {
+      "text": "Awareness is satisfied only when documented information is retained for each person as evidence that the AI policy has been read and understood.",
+      "is_correct": false
+     },
+     {
+      "text": "Awareness concerns external communication with interested parties, so the organization determines what, when, with whom and how to communicate outside the organization only.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 7.3 (Awareness) applies to persons doing work under the organization's control, not just employees, and lists exactly three awareness topics: the AI policy, contribution to the effectiveness of the AIMS including benefits of improved AI performance, and the implications of not conforming with AIMS requirements.",
+    "key_support_clause": "7.3",
+    "key_support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "The scope is persons doing work under the organization's control, which is broader than directly employed staff."
+     },
+     {
+      "index": 2,
+      "clause": "7.2",
+      "support": "Appropriate documented information shall be available as evidence of competence.",
+      "why_wrong": "The documented-evidence provision belongs to competence in 7.2; the awareness clause sets no such record requirement."
+     },
+     {
+      "index": 3,
+      "clause": "7.4",
+      "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+      "why_wrong": "Communication determination covers internal as well as external communications, and it is clause 7.4, not awareness."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 20%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 7.3 states that persons doing work under the organization's control shall be aware of the AI policy, their contribution to the effectiveness of the AI management system, and the implications of not conforming.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.3",
+   "domain": "D3",
+   "item": {
+    "question_text": "An AIMS team uses a supplier's dataset documentation pack, obtained from outside the organization, and has determined it is necessary for planning and operating the AI management system. Applying the control of documented information requirements, what does the team have to do with this pack?",
+    "options": [
+     {
+      "text": "Identify it as appropriate and control it alongside internal documented information.",
+      "is_correct": true
+     },
+     {
+      "text": "Leave it outside the AIMS documentation set, because only documents created inside the organization fall under document control.",
+      "is_correct": false
+     },
+     {
+      "text": "Share it with the relevant regulatory authority within the appropriate timeframe before it may be used in the AIMS.",
+      "is_correct": false
+     },
+     {
+      "text": "Have top management approve it at planned intervals as part of the review of the AI management system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 7.5.3 states that documented information of external origin determined by the organization to be necessary for the planning and operation of the AIMS shall be identified as appropriate and controlled, i.e. it is brought into the same control regime (distribution/access, storage, change control, retention) as internal documented information.",
+    "key_support_clause": "7.5.3",
+    "key_support": "Documented information of external origin determined by the organization to be necessary for the planning and operation of the AI management system shall be identified as appropriate and controlled.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "7.5.3",
+      "support": "Documented information of external origin determined by the organization to be necessary for the planning and operation of the AI management system shall be identified as appropriate and controlled.",
+      "why_wrong": "The clause explicitly brings necessary external-origin documented information under control, so excluding it because it was not created internally is contrary to the requirement."
+     },
+     {
+      "index": 2,
+      "clause": "B.8.5",
+      "support": "Information can be reported to interested parties such as customers or regulatory authorities within the appropriate timeframe.",
+      "why_wrong": "Annex B.8.5 is guidance phrased with 'can'/'should' about reporting obligations to interested parties, not a precondition for controlling an external document."
+     },
+     {
+      "index": 3,
+      "clause": "9.3.1",
+      "support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "The planned-interval top management review applies to the AI management system as a whole, not to approval of each externally sourced document."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 33%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 7.5.3 states that documented information of external origin determined necessary for the planning and operation of the AI management system shall be identified as appropriate and controlled.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.4",
+   "domain": "D3",
+   "item": {
+    "question_text": "A provider outsources its training-data labelling activity to an external supplier. The labelling activity feeds an AI system that is in scope of the AI management system. Which statement best reflects the operational planning and control requirement that applies to this arrangement?",
+    "options": [
+     {
+      "text": "The outsourced labelling activity is relevant to the AI management system, so the organization has to ensure it is controlled.",
+      "is_correct": true
+     },
+     {
+      "text": "Because the labelling is performed externally, the controls determined during risk treatment apply only to activities performed in-house.",
+      "is_correct": false
+     },
+     {
+      "text": "Records showing the labelling process ran as planned need only be produced if the external supplier asks the organization for them.",
+      "is_correct": false
+     },
+     {
+      "text": "Monitoring of control effectiveness for the supplier is deferred to the internal audit programme, and corrective action is considered only when an auditor raises a finding.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 8.1 states that externally provided processes, products or services relevant to the AI management system are to be controlled by the organization; outsourcing the activity does not remove it from the scope of operational control.",
+    "key_support_clause": "8.1",
+    "key_support": "The organization shall ensure that externally provided processes, products or services that are relevant to the AI management system are controlled.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "8.1",
+      "support": "The organization shall implement the controls determined according to 6.1.3 that are related to the operation of the AI management system (e.g. AI system development and usage life cycle related controls).",
+      "why_wrong": "Clause 8.1 ties the controls to operation of the AI management system and separately requires externally provided processes to be controlled, so external performance does not exempt the activity."
+     },
+     {
+      "index": 2,
+      "clause": "8.1",
+      "support": "Documented information shall be available to the extent necessary to have confidence that the processes have been carried out as planned.",
+      "why_wrong": "The trigger for documented information is the confidence that processes ran as planned, not a request from the supplier."
+     },
+     {
+      "index": 3,
+      "clause": "8.1",
+      "support": "The effectiveness of these controls shall be monitored and corrective actions shall be considered if the intended results are not achieved.",
+      "why_wrong": "Monitoring of control effectiveness is ongoing and corrective action is considered whenever intended results are not achieved, not only after an audit finding."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 45%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 8.1 states that \"The organization shall ensure that externally provided processes, products or services that are relevant to the AI management system are controlled.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.5",
+   "domain": "D3",
+   "item": {
+    "question_text": "A retailer licenses a pre-trained ranking model from a vendor and embeds it in its customer-facing app. Post-deployment monitoring shows the model is not performing as intended and is producing outcomes that conflict with the retailer's stated responsible-AI approach. According to the Annex B guidance on suppliers, what is the appropriate response regarding the vendor?",
+    "options": [
+     {
+      "text": "Call on the vendor to take corrective actions; the retailer can choose to work with the vendor to achieve this.",
+      "is_correct": true
+     },
+     {
+      "text": "Treat the matter as closed once the retailer has documented how the vendor's model is integrated into its own AI system.",
+      "is_correct": false
+     },
+     {
+      "text": "Accept the behaviour as an inherent technical limitation of a bought-in component and simply record it in the AI system technical documentation supplied to users.",
+      "is_correct": false
+     },
+     {
+      "text": "Raise the monitoring and evaluation requirements applied to every supplier to the same uniform maximum level, irrespective of what each supplier provides or the risk it poses.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.10.3 states that where supplied AI systems or components do not perform as intended or lead to impacts misaligned with the organization's responsible approach, the organization should require the supplier to take corrective actions, and it can decide to work with the supplier to achieve this.",
+    "key_support_clause": "B.10.3",
+    "key_support": "Where the organization considers that the AI system or AI system components from a supplier do not perform as intended or can result in impacts to individuals or groups of individuals, or both, and societies that are not aligned with the responsible approach to AI systems taken by the organization, the organization should require the supplier to take corrective actions.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.10.3",
+      "support": "Organizations should document how the AI system and AI system components are integrated into AI systems developed or used by the organization.",
+      "why_wrong": "Documenting integration is a separate expectation and does not substitute for calling on the supplier to take corrective actions when the component underperforms."
+     },
+     {
+      "index": 2,
+      "clause": "B.10.3",
+      "support": "The organization should ensure that the supplier of an AI system delivers appropriate and adequate documentation related to the AI system (see B.6.2.7 and B.8.2).",
+      "why_wrong": "Guidance directs the organization to seek corrective action from the supplier, not merely to document the misaligned behaviour as an accepted limitation."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.3",
+      "support": "Organizations should consider different types of suppliers, what they supply, and the varying level of risk this can pose to the system and organization as a whole in determining the selection of suppliers, the requirements placed on those suppliers, and the levels of ongoing monitoring and evaluation needed for the suppliers.",
+      "why_wrong": "Requirements and monitoring levels are to follow the type of supplier and the risk posed, so a uniform maximum level for all suppliers contradicts the guidance."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 18%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause B.10.3 states that where supplier-provided AI system components do not perform as intended or produce impacts not aligned with the organization's responsible AI approach, the organization should require the supplier to take corrective actions and can decide to work with the supplier to achieve this.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.6",
+   "domain": "D3",
+   "item": {
+    "question_text": "Guidance on data management for AI system development lists several data properties. Which of the following is a data property that bears on whether the AI system behaves as intended in its setting of use, rather than one of the properties that information security is defined as preserving?",
+    "options": [
+     {
+      "text": "Representativeness of training data compared to the operational domain of use",
+      "is_correct": true
+     },
+     {
+      "text": "Confidentiality of the information used, which is one of the properties that the definition of information security preserves",
+      "is_correct": false
+     },
+     {
+      "text": "Availability of the information used, which is one of the properties that the definition of information security preserves",
+      "is_correct": false
+     },
+     {
+      "text": "Integrity of the information used, which is one of the properties that the definition of information security preserves",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.7.2 lists representativeness of training data compared to the operational domain of use among the topics that data management can include; it concerns how well the data reflects the domain the system operates in and is not one of the properties named in the definition of information security in 3.23 (confidentiality, integrity, availability).",
+    "key_support_clause": "B.7.2",
+    "key_support": "representativeness of training data compared to operational domain of use",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.23",
+      "support": "preservation of confidentiality, integrity and availability of information",
+      "why_wrong": "Confidentiality is expressly one of the properties preserved by information security, so it does not meet the condition in the stem."
+     },
+     {
+      "index": 2,
+      "clause": "3.23",
+      "support": "preservation of confidentiality, integrity and availability of information",
+      "why_wrong": "Availability is expressly one of the properties preserved by information security, so it does not meet the condition in the stem."
+     },
+     {
+      "index": 3,
+      "clause": "3.23",
+      "support": "preservation of confidentiality, integrity and availability of information",
+      "why_wrong": "Integrity is expressly one of the properties preserved by information security, so it does not meet the condition in the stem."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 22%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "B.7.2 lists “representativeness of training data compared to operational domain of use” as a data management topic bearing on fitness for the setting of use, whereas confidentiality, integrity and availability are the properties preserved per the information security definition in 3.23.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.7",
+   "domain": "D3",
+   "item": {
+    "question_text": "An organization with a mature, certified ISO/IEC 27001 ISMS is standing up an AI management system. Its ISMS already has a document control procedure, an internal/external communication plan, an annual security awareness programme, a competence matrix for security roles, and operational control procedures for security processes. Which conclusion about what carries over is best supported by the AIMS requirements?",
+    "options": [
+     {
+      "text": "The competence element has to be worked out again for persons whose work affects AI performance, with documented evidence of that competence.",
+      "is_correct": true
+     },
+     {
+      "text": "The ISMS operational control procedures transfer as they stand, because the controls to be implemented are the same set in both systems.",
+      "is_correct": false
+     },
+     {
+      "text": "The security awareness programme transfers untouched, because awareness content does not depend on which management system is in place.",
+      "is_correct": false
+     },
+     {
+      "text": "The existing ISMS scope statement covers the AI management system unchanged, because the organizational boundaries have not moved.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 7.2 ties competence determination to work that affects AI performance and requires documented information as evidence of competence; the body of knowledge and the evidence are therefore not the ISMS security competence set, so this element must be rebuilt rather than inherited.",
+    "key_support_clause": "7.2",
+    "key_support": "determine the necessary competence of person(s) doing work under its control that affects its AI performance",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "8.1",
+      "support": "The organization shall implement the controls determined according to 6.1.3 that are related to the operation of the AI management system (e.g. AI system development and usage life cycle related controls).",
+      "why_wrong": "Clause 8.1 points to controls determined for the AI management system, such as AI system life cycle controls, so the content of operational control is not the same set as the ISMS security processes."
+     },
+     {
+      "index": 2,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "Awareness must cover the AI policy and the AI management system specifically, so the security awareness content cannot transfer untouched even if the delivery infrastructure can."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "The boundaries and applicability of the AI management system must be determined and made available as documented information, not assumed from the existing ISMS scope."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a requirement; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 60%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 7.2 requires the organization to determine the necessary competence of persons doing work that affects its AI performance, ensure competence, and keep documented information as evidence, so the competence element must be redone for AI roles.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "3.8",
+   "domain": "D3",
+   "item": {
+    "question_text": "An organization operating a certified AI management system proposes extending an in-service AI system to a new customer segment and jurisdiction. The change has been approved in principle but has not yet been implemented, and the next scheduled review of assessments is eight months away. Under Clause 8, what is the correct course of action for the AI risk assessment?",
+    "options": [
+     {
+      "text": "Carry out an AI risk assessment now, because a significant change is proposed, and retain the documented results.",
+      "is_correct": true
+     },
+     {
+      "text": "Wait until the change has actually been implemented in production before any AI risk assessment is carried out.",
+      "is_correct": false
+     },
+     {
+      "text": "Rely on the next planned-interval assessment in eight months, since planned intervals are the only trigger stated.",
+      "is_correct": false
+     },
+     {
+      "text": "Record any newly identified risks in the statement of applicability, instead of running the risk treatment process for them.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 8.2 requires AI risk assessments to be performed at planned intervals or when significant changes are proposed or occur, so a proposed (not yet implemented) significant change is itself a trigger; 8.2 also requires documented information of the results of all AI risk assessments to be retained.",
+    "key_support_clause": "8.2",
+    "key_support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "8.2",
+      "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+      "why_wrong": "The trigger includes changes that are proposed, so waiting until implementation delays a required assessment."
+     },
+     {
+      "index": 2,
+      "clause": "8.2",
+      "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+      "why_wrong": "Planned intervals are not the only trigger; significant changes proposed or occurring also require an assessment."
+     },
+     {
+      "index": 3,
+      "clause": "8.3",
+      "support": "When risk assessments identify new risks that require treatment, a risk treatment process in accordance with 6.1.3 shall be performed for these risks.",
+      "why_wrong": "New risks requiring treatment must go through the risk treatment process, not merely be recorded in the statement of applicability."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 56%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 8.2 requires AI risk assessments 'at planned intervals or when significant changes are proposed or occur' and that documented information of the results be retained, so the proposed (not yet implemented) change triggers an assessment now.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.1",
+   "domain": "D4",
+   "item": {
+    "question_text": "In an AIMS, what status does the standard give to the control objectives and controls set out in Table A.1?",
+    "options": [
+     {
+      "text": "They are a reference set; an organization can also design and implement its own controls.",
+      "is_correct": true
+     },
+     {
+      "text": "Every control listed in Table A.1 has to be implemented, with no exceptions permitted.",
+      "is_correct": false
+     },
+     {
+      "text": "Controls not appearing in Table A.1 cannot be adopted, because the list is exhaustive.",
+      "is_correct": false
+     },
+     {
+      "text": "Because the controls are pre-defined, an organization does not need a risk treatment process.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.1 presents Table A.1 as a reference for meeting objectives and addressing risks, states that not all listed control objectives and controls are required to be used, and allows the organization to design and implement its own controls.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The passage explicitly says not all listed controls are required to be used, so mandatory implementation of every control is contradicted."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "If different or additional controls are necessary beyond those in Annex A, the organization can design such controls or take them from existing sources.",
+      "why_wrong": "Additional controls beyond Annex A can be designed or taken from existing sources, so the list is not exhaustive."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "Taking the risk assessment results into account, the organization shall define an AI risk treatment process to:",
+      "why_wrong": "A risk treatment process is required regardless of the existence of the Annex A reference controls."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a requirement in a can passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "every distractor is negated and the key is not"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "4.1",
+   "domain": "D4",
+   "item": {
+    "question_text": "An AIMS coordinator asks how the Annex B implementation guidance relates to the statement of applicability. Which description matches the standard?",
+    "options": [
+     {
+      "text": "Its inclusion or exclusion need not be justified in the statement of applicability.",
+      "is_correct": true
+     },
+     {
+      "text": "Each item of guidance an organization adopts has to be listed and justified in the statement of applicability.",
+      "is_correct": false
+     },
+     {
+      "text": "The guidance always fulfils an organization's specific control requirements, so no further tailoring arises.",
+      "is_correct": false
+     },
+     {
+      "text": "The guidance covers only a selected subset of the Table A.1 controls, chiefly those on AI system life cycle.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.1 states that the guidance supports implementation of the Table A.1 controls, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability.",
+    "key_support_clause": "B.1",
+    "key_support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.1",
+      "support": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)",
+      "why_wrong": "The passage removes any obligation to document or justify guidance in the statement of applicability; the statement of applicability addresses controls."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "The implementation guidance is not always suitable or sufficient in all situations and does not always fulfil the organization’s specific control requirements.",
+      "why_wrong": "The passage says the guidance is not always suitable or sufficient, contradicting the claim that it always fulfils requirements."
+     },
+     {
+      "index": 3,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "Guidance is provided for all controls in Table A.1, not a selected subset."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a none in a can passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 33%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause B.1 states that organizations 'do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)'.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "An AI management system team is preparing its Statement of Applicability (SoA) and asks how Annex A feeds into it. Which description best reflects the relationship?",
+    "options": [
+     {
+      "text": "The SoA records the necessary controls with justification for inclusion or exclusion; Annex A is a reference set that an organization may not need in full, or may go beyond.",
+      "is_correct": true
+     },
+     {
+      "text": "Annex A is exhaustive, so every control listed in it has to be shown as implemented in the SoA.",
+      "is_correct": false
+     },
+     {
+      "text": "Only controls drawn from Annex A may be entered in the SoA; controls devised by the organization itself are recorded outside it.",
+      "is_correct": false
+     },
+     {
+      "text": "Both the Annex A controls and the Annex B implementation guidance have to be individually justified for inclusion or exclusion in the SoA.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.26 defines the statement of applicability as documentation of all necessary controls plus justification for inclusion or exclusion, and Note 1 makes clear that an organization may need fewer than all Annex A controls or may exceed the list with its own controls. Clause 6.1.3 f) mirrors this.",
+    "key_support_clause": "3.26",
+    "key_support": "Organizations may not require all controls listed in Annex A or may even exceed the list in Annex A with additional controls established by the organization itself.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "Annex A is a reference rather than an exhaustive mandatory list, so not every listed control has to be implemented."
+     },
+     {
+      "index": 2,
+      "clause": "3.26",
+      "support": "Organizations may not require all controls listed in Annex A or may even exceed the list in Annex A with additional controls established by the organization itself.",
+      "why_wrong": "Controls established by the organization itself are part of the set reflected in the statement of applicability, not kept separate from it."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Annex B implementation guidance is expressly exempt from inclusion/exclusion justification in the statement of applicability."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a permission in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "the key is the only negated option -- a reader can find it without knowing the subject"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 44%"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure"
+   ],
+   "unasserted": [],
+   "solver": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "During an internal review, four teams each explain why a particular Annex A control does not appear as implemented in the organization's Statement of Applicability. Which explanation matches the kind of justification for exclusion that the standard itself illustrates?",
+    "options": [
+     {
+      "text": "The risk assessment did not deem the control necessary for the organization.",
+      "is_correct": true
+     },
+     {
+      "text": "The control was left out silently because Annex A controls are only a reference list.",
+      "is_correct": false
+     },
+     {
+      "text": "The Annex B implementation guidance for the control was judged unsuitable for the organization's context.",
+      "is_correct": false
+     },
+     {
+      "text": "Management accepted the associated residual risk, so neither that risk nor its treatment measure appears in the Statement of Applicability.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.1.3 f) states that justification for exclusion can include cases where the controls are not deemed necessary by the risk assessment, or where external requirements do not require them. A risk-assessment-based rationale is therefore an adequately reasoned exclusion.",
+    "key_support_clause": "6.1.3",
+    "key_support": "Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "statement of applicability documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls",
+      "why_wrong": "Exclusion has to be justified in the statement of applicability, so a silent omission is not acceptable."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Unsuitable implementation guidance is not a basis for excluding a control, since guidance can be extended, modified or replaced by the organization's own implementation."
+     },
+     {
+      "index": 3,
+      "clause": "3.26",
+      "support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+      "why_wrong": "Identified risks and the measures established to address them have to be reflected in the statement of applicability regardless of management acceptance."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a permission in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 30%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.3 f) explicitly illustrates that \"Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.3",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization has an approved AI policy, but its existing quality, information security and privacy policies were written before any AI systems were deployed and none of them has been examined to see whether the organization's AI objectives affect them. Which Annex A control category most directly addresses this gap?",
+    "options": [
+     {
+      "text": "Review of the AI policy",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles and responsibilities",
+      "is_correct": false
+     },
+     {
+      "text": "Alignment with other organizational policies",
+      "is_correct": true
+     },
+     {
+      "text": "AI policy",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "The gap is that no analysis has been done of where existing organizational policies intersect with the organization's AI objectives. That is precisely the subject of the alignment control (A.2.3 / B.2.3), which addresses determining where other policies can be affected by or apply to the organization's AI objectives; the guidance points to domains such as quality, security, safety and privacy.",
+    "key_support_clause": "B.2.3",
+    "key_support": "The organization should determine where other policies can be affected by or apply to, the organization’s objectives with respect to AI systems.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.2.4",
+      "support": "The AI policy should be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "This control concerns periodic review of the AI policy itself, not identifying other organizational policies touched by AI objectives."
+     },
+     {
+      "index": 1,
+      "clause": "B.3.2",
+      "support": "Roles and responsibilities for AI should be defined and allocated according to the needs of the organization.",
+      "why_wrong": "This control assigns accountability to people and functions, not the intersection of policy documents."
+     },
+     {
+      "index": 3,
+      "clause": "B.2.2",
+      "support": "The organization should document a policy for the development or use of AI systems.",
+      "why_wrong": "The organization already has a documented AI policy; the missing activity is analysing other policies, which is a separate control."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls A defensible: B.2.4 notes the AI policy review should assess opportunities for improvement of the organization's policies in response to changes, which a candidate could argue covers the gap, though it targets the AI policy itself rather than other policies.",
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause A.2.3/B.2.3 requires the organization to determine where other policies (quality, security, safety, privacy) can be affected by or apply to its AI objectives, and to update them or add provisions to the AI policy.",
+     "second_defensible": "A",
+     "second_defensible_reason": "B.2.4 notes the AI policy review should assess opportunities for improvement of the organization's policies in response to changes, which a candidate could argue covers the gap, though it targets the AI policy itself rather than other policies.",
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "rejected by solver"
+  },
+  {
+   "task_code": "4.3",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization has inventoried where its AI workloads run and what development tooling is used, but there is no documented information on which specialists (for example data scientists, human oversight staff and domain experts) support the system across its life cycle, or what competences they hold. Which resource control category covers this gap?",
+    "options": [
+     {
+      "text": "Human resources",
+      "is_correct": true
+     },
+     {
+      "text": "System and computing resources",
+      "is_correct": false
+     },
+     {
+      "text": "Tooling resources",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles and responsibilities",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Under the resource identification controls, documenting information about the people and their competences used across development, deployment, operation, maintenance and decommissioning is the human resources control (A.4.6 / B.4.6). Its guidance explicitly lists data scientists, roles related to human oversight, and domain experts.",
+    "key_support_clause": "B.4.6",
+    "key_support": "As part of resource identification, the organization should document information about the human resources and their competences utilized for the development, deployment, operation, change management, maintenance, transfer and decommissioning, as well as verification and integration of the AI system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.4.5",
+      "support": "As part of resource identification, the organization should document information about the system and computing resources utilized for the AI system.",
+      "why_wrong": "The scenario states that the location and processing resources are already inventoried, so this control is not the gap."
+     },
+     {
+      "index": 2,
+      "clause": "A.4.4",
+      "support": "As part of resource identification, the organization shall document information about the tooling resources utilized for the AI system.",
+      "why_wrong": "Tooling is already documented; the missing information concerns people and their competences."
+     },
+     {
+      "index": 3,
+      "clause": "B.3.2",
+      "support": "Roles and responsibilities for AI should be defined and allocated according to the needs of the organization.",
+      "why_wrong": "This control is about defining and allocating accountability, not about documenting human resources and competences as part of resource identification."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 31%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause B.4.6 (Human resources) requires documenting information about the human resources and their competences utilized across the AI system life cycle, explicitly listing data scientists, human oversight roles and domain experts.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.4",
+   "domain": "D4",
+   "item": {
+    "question_text": "A lender's deployed scoring model does not learn continuously. It passed every pre-release test against its documented release criteria, and users received complete technical documentation. Eighteen months later, staff discover that gradual drift in production data has degraded output quality; nobody had been tracking live performance, and the need for retraining surfaced only after customer complaints. Which Annex B life-cycle control category most directly addresses this gap?",
+    "options": [
+     {
+      "text": "AI system requirements and specification — documenting the rationale and goals for building the system",
+      "is_correct": false
+     },
+     {
+      "text": "AI system verification and validation — defining testing methodologies, test data selection and release criteria",
+      "is_correct": false
+     },
+     {
+      "text": "AI system operation and monitoring — defining the elements needed for ongoing operation of the system",
+      "is_correct": true
+     },
+     {
+      "text": "AI system technical documentation — supplying documentation in appropriate form to each category of interested party",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "B.6.2.6 covers the ongoing operation of a deployed AI system, with system and performance monitoring, repairs, updates and support as the minimum elements, and it expressly anticipates performance change from concept or data drift in production data, where monitoring can identify the need for retraining. The failure described is an absence of post-deployment monitoring, so B.6.2.6 is the category that would have caught it.",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "At the minimum this should include system and performance monitoring, repairs, updates and support.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.6.2.2",
+      "support": "The organization should specify and document requirements for new AI systems or material enhancements to existing systems.",
+      "why_wrong": "This category concerns specifying requirements for new systems or material enhancements, not detecting degradation of an already operating system."
+     },
+     {
+      "index": 1,
+      "clause": "B.6.2.4",
+      "support": "The organization should define and document verification and validation measures for the AI system and specify criteria for their use.",
+      "why_wrong": "The system already met its documented verification, validation and release criteria before release, so the gap lies after deployment rather than in the V&V measures."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.7",
+      "support": "The organization should determine what AI system technical documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.",
+      "why_wrong": "Documentation was complete and provided to users; the missing activity was observing live performance, not producing or distributing documents."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 35%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "C",
+     "answer_reason": "B.6.2.6 explicitly covers ongoing system and performance monitoring and states that performance can change without continuous learning due to concept or data drift, where monitoring can identify the need for retraining.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.5",
+   "domain": "D4",
+   "item": {
+    "question_text": "A municipality deploys an AI system that screens housing-benefit applications. Residents and a tenants' advocacy group state that when the system produces an outcome that harms them, there is no route by which they can tell the municipality about it. Which Annex A control most directly addresses this gap?",
+    "options": [
+     {
+      "text": "Document details about the acquisition and selection of the data used in the system.",
+      "is_correct": false
+     },
+     {
+      "text": "Determine and document a plan for communicating incidents to users of the system.",
+      "is_correct": false
+     },
+     {
+      "text": "Provide capabilities for interested parties to report adverse impacts of the system.",
+      "is_correct": true
+     },
+     {
+      "text": "Define and document a process for recording data provenance across the life cycles of the data and the system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Control A.8.3 (External reporting) is the control that requires the organization to give interested parties — here, affected residents and the advocacy group — a means of reporting adverse impacts of the AI system. The other options address incident communication flowing outward to users (A.8.4) or data-related controls (A.7.3, A.7.5), none of which creates an inbound channel for affected parties.",
+    "key_support_clause": "A.8.3",
+    "key_support": "The organization shall provide capabilities for interested parties to report adverse impacts of the AI system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.7.3",
+      "support": "The organization shall determine and document details about the acquisition and selection of the data used in AI systems.",
+      "why_wrong": "This control concerns documenting how data was obtained and chosen, not giving affected parties a way to report harm."
+     },
+     {
+      "index": 1,
+      "clause": "A.8.4",
+      "support": "The organization shall determine and document a plan for communicating incidents to users of the AI system.",
+      "why_wrong": "This control sends information from the organization out to users; it does not create the inbound reporting capability the residents lack."
+     },
+     {
+      "index": 3,
+      "clause": "A.7.5",
+      "support": "The organization shall define and document a process for recording the provenance of data used in its AI systems over the life cycles of the data and the AI system.",
+      "why_wrong": "Provenance recording tracks the origin and history of data and has no bearing on external parties reporting adverse impacts."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a permission; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 15%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "C",
+     "answer_reason": "A.8.3 External reporting requires the organization to provide capabilities for interested parties to report adverse impacts of the AI system, which is exactly the missing inbound route described.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.6",
+   "domain": "D4",
+   "item": {
+    "question_text": "A retail company does not build AI systems; it deploys a recommendation system licensed from a vendor and also resells access to it to its own business customers. While selecting Annex A controls for use and for third-party/customer relationships, the compliance lead asks which action the standard actually obliges the company to take. Which one is stated as an obligation?",
+    "options": [
+     {
+      "text": "Allocate life-cycle responsibilities between the company, its supplier, its customers and other third parties.",
+      "is_correct": true
+     },
+     {
+      "text": "Implement all nine listed responsible-use objectives (fairness, accountability, transparency, explainability, reliability, safety, robustness and redundancy, privacy and security, accessibility) as a mandatory complete set.",
+      "is_correct": false
+     },
+     {
+      "text": "Place a human reviewer with authority to override the AI system's decisions at every stage of the AI system life cycle, without exception.",
+      "is_correct": false
+     },
+     {
+      "text": "Treat the controls for responsible use as inapplicable, because the AI system was sourced from a vendor rather than developed in-house.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.10.2 is a 'shall' control: responsibilities within the AI system life cycle are to be allocated between the organization and its partners, suppliers, customers and third parties. The other options either elevate Annex B 'should'/'can' guidance (B.9.3) into a requirement or misapply the scope of the use controls (B.9.2, A.9.2).",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.9.3",
+      "support": "Depending on its context, the organization should identify its objectives related to responsible use.",
+      "why_wrong": "B.9.3 offers the nine items as examples under a 'should', context-dependent, not a mandatory exhaustive set."
+     },
+     {
+      "index": 2,
+      "clause": "B.9.3",
+      "support": "involving human reviewers to check the outputs of the AI system, including having authority to override decisions made by the AI system;",
+      "why_wrong": "Override authority appears in a 'can include' list, and the organization only determines at which life cycle stages oversight objectives should be incorporated, not at every stage."
+     },
+     {
+      "index": 3,
+      "clause": "B.9.2",
+      "support": "Whether the AI system is developed by the organization itself or sourced from a third party, the organization should be clear on what these considerations are and develop policies to address them.",
+      "why_wrong": "The responsible-use controls apply regardless of whether the system is built in-house or sourced from a third party."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 43%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.10.2 states as a 'shall': the organization shall ensure responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "2.6",
+   "domain": "D2",
+   "item": {
+    "question_text": "A provider is rolling out the same CV-screening AI in two countries with different employment laws and different levels of public familiarity with automated hiring. The project team runs one generic impact assessment covering only the advertised use case, keeps its output separate from the risk assessment, and plans no publication. Which change is needed to align the assessment with the management system requirements?",
+    "options": [
+     {
+      "text": "Take the deployment's technical and societal context and the applicable jurisdictions into account in the assessment.",
+      "is_correct": true
+     },
+     {
+      "text": "Keep the assessment output separate from the risk assessment so the two activities stay independent.",
+      "is_correct": false
+     },
+     {
+      "text": "Publish the assessment results to all interested parties before deployment.",
+      "is_correct": false
+     },
+     {
+      "text": "Limit the assessment to intended use, because foreseeable misuse is outside its scope.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.1.4 states that the AI system impact assessment shall take into account the specific technical and societal context where the system is deployed and the applicable jurisdictions, so a single generic assessment covering two different national contexts does not meet the requirement.",
+    "key_support_clause": "6.1.4",
+    "key_support": "The AI system impact assessment shall take into account the specific technical and societal context where the AI system is deployed and applicable jurisdictions.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.4",
+      "support": "The organization shall consider the results of the AI system impact assessment in the risk assessment (see 6.1.2).",
+      "why_wrong": "Clause 6.1.4 requires the impact assessment results to be considered in the risk assessment, so deliberately keeping them separate breaches the requirement."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.4",
+      "support": "Where appropriate, the result of the system impact assessment can be made available to relevant interested parties as defined by the organization.",
+      "why_wrong": "Making results available is a permitted option 'where appropriate' and limited to parties the organization defines, not a mandatory publication to all interested parties."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.4",
+      "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies.",
+      "why_wrong": "Foreseeable misuse is expressly within the scope of the assessment, so restricting it to intended use is non-conforming."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 39%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.4 states the AI system impact assessment 'shall take into account the specific technical and societal context where the AI system is deployed and applicable jurisdictions', which a single generic assessment across two legal regimes fails to do.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "4.7",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization certified to ISO/IEC 27001 maps an AI Annex A data provenance control to its existing 27001 access control on the deployed model's inference endpoint, and records in the Statement of Applicability that the AI control is \"satisfied by the ISMS\". Which analysis of this mapping is best supported by the standard?",
+    "options": [
+     {
+      "text": "The mapping is sound, because Annex D.2 states that an organization with an ISO/IEC 27001 implementation may treat any AI control touching data as already implemented through the ISMS.",
+      "is_correct": false
+     },
+     {
+      "text": "The mapping is sound, because once the security-related AI controls are integrated with the ISMS, the associated risks and controls no longer need to be reflected in the Statement of Applicability.",
+      "is_correct": false
+     },
+     {
+      "text": "The mapping is unsound: endpoint access control addresses security, whereas the provenance control looks for a documented process for recording where the data came from.",
+      "is_correct": true
+     },
+     {
+      "text": "The mapping cannot be assessed, because the Annex B implementation guidance for data provenance would first have to be documented and justified for inclusion or exclusion in the Statement of Applicability.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "B.7.5 sets a distinct objective: a defined, documented process for recording data provenance over the life cycles of the data and the AI system. Annex D.2 only contemplates integrating controls that (partly) relate to information security with the ISO/IEC 27001 implementation; an access control on an endpoint protects the deployed system, it does not record the origin and handling history of the training data. Overlap with ISO/IEC 27001 is therefore not equivalence for this control pair.",
+    "key_support_clause": "B.7.5",
+    "key_support": "The organization should define and document a process for recording the provenance of data used in its AI systems over the life cycles of the data and the AI system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "D.2",
+      "support": "In this case, the way to implement controls which (partly) relate to information security in this document (see B.6.1.2) can be integrated with the organization’s implementation of ISO/IEC 27001.",
+      "why_wrong": "D.2 limits integration to controls that (partly) relate to information security, not to every AI control that involves data."
+     },
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+      "why_wrong": "Integration with an ISMS does not remove the requirement that identified risks and their controls appear in the Statement of Applicability."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)",
+      "why_wrong": "Annex B implementation guidance is expressly exempt from documentation or justification in the Statement of Applicability."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a recommendation in a should passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 17,
+     "reason": "closest live item on this task shares 67%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "C",
+     "answer_reason": "B.7.5 requires a documented process for recording the provenance of data (creation, update, transcription, validation, transfer of control) over the data and AI system life cycles, which an access control on an inference endpoint does not deliver; D.2 only supports integrating controls that (partly) relate to information security.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.1",
+   "domain": "D5",
+   "item": {
+    "question_text": "A provider tracks its deployed classifier against an agreed F1 threshold, records the monthly figures, and files them as evidence. An auditor notes that nothing else is being evaluated under Clause 9.1. Which statement best explains the gap?",
+    "options": [
+     {
+      "text": "The organization is also to evaluate how the AI management system itself performs and how effective it is, not only the AI system's output metric.",
+      "is_correct": true
+     },
+     {
+      "text": "Reporting the F1 score is sufficient, because performance criteria are set according to the task the AI system carries out, such as classification.",
+      "is_correct": false
+     },
+     {
+      "text": "No gap exists until the management review, since that is the only point at which monitoring and measurement results are to be analysed and evaluated.",
+      "is_correct": false
+     },
+     {
+      "text": "The gap is evidential only: the methods used are to be documented, whereas keeping records of the resulting measurements is left to the organization's discretion.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.1 requires evaluation of both the performance and the effectiveness of the AI management system, which is distinct from a model performance metric such as F1 tracked for the AI system in operation.",
+    "key_support_clause": "9.1",
+    "key_support": "The organization shall evaluate the performance and the effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "Performance criteria for AI systems in operation should be determined by the task under consideration, such as classification, regression, ranking, clustering or dimensionality reduction.",
+      "why_wrong": "This is guidance on AI system performance criteria and does not replace the Clause 9.1 requirement to evaluate the management system's performance and effectiveness."
+     },
+     {
+      "index": 2,
+      "clause": "9.1",
+      "support": "when the results from monitoring and measurement shall be analysed and evaluated",
+      "why_wrong": "Clause 9.1 requires the organization itself to determine when results are analysed and evaluated; the management review is an input point, not the sole permitted occasion."
+     },
+     {
+      "index": 3,
+      "clause": "9.1",
+      "support": "Documented information shall be available as evidence of the results.",
+      "why_wrong": "Evidence of the results is required, so records of measurements are not discretionary, and the missing element is evaluation of the AIMS itself."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 20%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 9.1 expressly states \"The organization shall evaluate the performance and the effectiveness of the AI management system\", which goes beyond monitoring a single AI system output metric such as F1.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.2",
+   "domain": "D5",
+   "item": {
+    "question_text": "An organization plans an internal audit of its AI risk assessment process and appoints, as sole auditor, the manager who designed and runs that process. Under the internal audit programme clause, which requirement is most directly compromised by this assignment?",
+    "options": [
+     {
+      "text": "Auditors are to be selected so that the audit process stays objective and impartial.",
+      "is_correct": true
+     },
+     {
+      "text": "Internal audits have to be carried out by an external party acting on the organization's behalf.",
+      "is_correct": false
+     },
+     {
+      "text": "Audit results are to be made public to all interested parties instead of being given to managers.",
+      "is_correct": false
+     },
+     {
+      "text": "Findings of previous audits are to be excluded when the audit programme is established.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.2.2 b) requires the organization to select auditors and conduct audits in a way that ensures objectivity and impartiality of the audit process. An auditor auditing a process he or she designed and operates cannot evaluate it impartially, so this is the requirement at risk.",
+    "key_support_clause": "9.2.2",
+    "key_support": "The organization shall: a) define the audit objectives, criteria and scope for each audit; b) select auditors and conduct audits to ensure objectivity and the impartiality of the audit process; c) ensure that the results of audits are reported to relevant managers.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.18",
+      "support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+      "why_wrong": "An internal audit may be done by the organization itself or by an external party, so use of an external party is an option, not an obligation."
+     },
+     {
+      "index": 2,
+      "clause": "9.2.2",
+      "support": "ensure that the results of audits are reported to relevant managers",
+      "why_wrong": "Audit results are to be reported to relevant managers, not published to all interested parties."
+     },
+     {
+      "index": 3,
+      "clause": "9.2.2",
+      "support": "When establishing the internal audit programme(s), the organization shall consider the importance of the processes concerned and the results of previous audits.",
+      "why_wrong": "Previous audit results must be considered when establishing the programme, not excluded."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 40%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 9.2.2 b) requires the organization to 'select auditors and conduct audits to ensure objectivity and the impartiality of the audit process', which is directly breached by having the process owner audit his own process.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.3",
+   "domain": "D5",
+   "item": {
+    "question_text": "A review pack prepared for top management lists: status of actions from previous management reviews; changes in external and internal issues relevant to the AIMS; trends in nonconformities and corrective actions; monitoring and measurement results; audit results; and opportunities for continual improvement. Which input listed in the management review clause is missing from this pack?",
+    "options": [
+     {
+      "text": "Changes in the needs and expectations of interested parties that are relevant to the AIMS",
+      "is_correct": true
+     },
+     {
+      "text": "A schedule of what will be communicated internally and externally, when, with whom and how, for the AIMS",
+      "is_correct": false
+     },
+     {
+      "text": "Retained documented information of the results of all AI risk assessments performed at planned intervals",
+      "is_correct": false
+     },
+     {
+      "text": "Identification and control of documented information of external origin needed for AIMS planning and operation",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.3.2 item c) lists changes in needs and expectations of interested parties relevant to the AI management system as a required management review input; every other listed input in the question is already present in the pack. The other options are requirements from other clauses (7.4, 8.2, 7.5.3) and are not among the inputs enumerated in 9.3.2.",
+    "key_support_clause": "9.3.2",
+    "key_support": "The management review shall include: a) the status of actions from previous management reviews; b) changes in external and internal issues that are relevant to the AI management system; c) changes in needs and expectations of interested parties that are relevant to the AI management system; d) information on the AI management system performance, including trends in: 1) nonconformities and corrective actions; 2) monitoring and measurement results; 3) audit results; e) opportunities for continual improvement.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "7.4",
+      "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+      "why_wrong": "Communication planning is a clause 7.4 requirement and is not one of the management review inputs enumerated in 9.3.2."
+     },
+     {
+      "index": 2,
+      "clause": "8.2",
+      "support": "The organization shall retain documented information of the results of all AI risk assessments.",
+      "why_wrong": "Retention of risk assessment results is required by clause 8.2, not listed as a management review input in 9.3.2."
+     },
+     {
+      "index": 3,
+      "clause": "7.5.3",
+      "support": "Documented information of external origin determined by the organization to be necessary for the planning and operation of the AI management system shall be identified as appropriate and controlled.",
+      "why_wrong": "This is a control-of-documented-information requirement in 7.5.3, not an input listed in 9.3.2."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 65%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 9.3.2 c) requires 'changes in needs and expectations of interested parties that are relevant to the AI management system', which is the only listed input absent from the pack.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.4",
+   "domain": "D5",
+   "item": {
+    "question_text": "A deployed credit-scoring model begins producing invalid outputs after an upstream feature table is populated with stale records. The team immediately switches the model back to the previous version so the bad outputs stop. Under the AIMS nonconformity and corrective action requirements, which of the following is the corrective action, as distinct from the actions already taken?",
+    "options": [
+     {
+      "text": "Switch the model back to the previous version so the invalid outputs stop straight away.",
+      "is_correct": false
+     },
+     {
+      "text": "Determine what caused the stale data and check whether other models using that pipeline could fail the same way.",
+      "is_correct": true
+     },
+     {
+      "text": "Notify the affected applicants, manually re-run every invalid decision, and issue corrected outcomes to everyone impacted by the failure.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the nature of the failure in the incident log and file it with the audit evidence for the next review.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 10.2 b) separates reaction/correction from corrective action: corrective action is the evaluation of the need for action to eliminate the cause(s) so the nonconformity does not recur or occur elsewhere, carried out by reviewing the nonconformity, determining its causes, and determining if similar nonconformities exist or can potentially occur. Investigating the stale-data cause and checking other models on the same pipeline is exactly that. Clause 3.17 likewise defines corrective action as action to eliminate the cause(s) and prevent recurrence.",
+    "key_support_clause": "10.2",
+    "key_support": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, so that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist or can potentially occur;",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "10.2",
+      "support": "1) take action to control and correct it;",
+      "why_wrong": "Rolling back the model is the correction taken in reacting to the nonconformity under 10.2 a) 1), not action on the cause."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "2) deal with the consequences;",
+      "why_wrong": "Notifying applicants and re-running decisions deals with the consequences under 10.2 a) 2) and does not address the cause."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "Documented information shall be available as evidence of: — the nature of the nonconformities and any subsequent actions taken;",
+      "why_wrong": "Recording the nonconformity satisfies the documented information evidence requirement rather than constituting corrective action."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a permission in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 31%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause 10.2 b) defines corrective action as evaluating the need to eliminate the cause(s) so the nonconformity does not recur or occur elsewhere — reviewing the nonconformity, determining its causes and determining if similar nonconformities exist or can potentially occur — while 3.17 defines corrective action as eliminating the cause and preventing recurrence.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.5",
+   "domain": "D5",
+   "item": {
+    "question_text": "A certification consultant is explaining how audit frequency works under the AI management system standard. Which statement is consistent with the standard's internal audit clause?",
+    "options": [
+     {
+      "text": "The organization itself sets how often internal audits occur, as part of establishing its audit programme.",
+      "is_correct": true
+     },
+     {
+      "text": "An audit under the standard is always carried out by a party outside the organization.",
+      "is_correct": false
+     },
+     {
+      "text": "The standard fixes the surveillance and recertification intervals that a certification body must apply.",
+      "is_correct": false
+     },
+     {
+      "text": "Audit results may be retained internally only and need not be reported to relevant managers.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.2.2 places the audit programme, expressly including its frequency, with the organization. Nothing in the clause hands frequency to an external certifier; requirements on bodies that audit and certify management systems sit in separate documents, not in this standard.",
+    "key_support_clause": "9.2.2",
+    "key_support": "The organization shall plan, establish, implement and maintain (an) audit programme(s), including the frequency, methods, responsibilities, planning requirements and reporting.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.18",
+      "support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+      "why_wrong": "The definition expressly allows an audit to be conducted by the organization itself, so it is not always external."
+     },
+     {
+      "index": 2,
+      "clause": "9.2.2",
+      "support": "The organization shall plan, establish, implement and maintain (an) audit programme(s), including the frequency, methods, responsibilities, planning requirements and reporting.",
+      "why_wrong": "The clause assigns audit frequency to the organization's own programme and says nothing about intervals applied by a certification body."
+     },
+     {
+      "index": 3,
+      "clause": "9.2.2",
+      "support": "c) ensure that the results of audits are reported to relevant managers.",
+      "why_wrong": "Reporting audit results to relevant managers is explicitly required, so retaining them internally without reporting is not permitted."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 33%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 9.2.2 requires the organization to plan, establish, implement and maintain audit programme(s) 'including the frequency, methods, responsibilities, planning requirements and reporting', so the organization sets audit frequency.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  },
+  {
+   "task_code": "5.6",
+   "domain": "D5",
+   "item": {
+    "question_text": "An organization runs one integrated internal audit programme covering both its ISMS and its AI management system. For the AIMS part, the audit team offers the organization's AI system impact assessment records as the evidence of risk assessment, and notes that audit results were discussed only in the management review. Which analysis of this evidence position is correct?",
+    "options": [
+     {
+      "text": "Impact assessment results feed the risk assessment, but retained results of AI risk assessments are still needed.",
+      "is_correct": true
+     },
+     {
+      "text": "A single combined audit is not acceptable; the ISMS and the AIMS have to be audited as two separate audits with separate reports.",
+      "is_correct": false
+     },
+     {
+      "text": "Documented information is only needed for the audit results themselves, so no record of the audit programme's implementation is expected.",
+      "is_correct": false
+     },
+     {
+      "text": "Reporting audit results to relevant managers is satisfied entirely by tabling them as an input to the management review.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 6.1.4 states that the results of the AI system impact assessment are to be considered in the risk assessment (6.1.2); the impact assessment is therefore an input, not a substitute. Clause 8.2 independently requires AI risk assessments in accordance with 6.1.2 and retention of documented information of the results of all AI risk assessments, so both record sets are needed.",
+    "key_support_clause": "8.2",
+    "key_support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur. The organization shall retain documented information of the results of all AI risk assessments.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.18",
+      "support": "An audit can be an internal audit (first party) or an external audit (second party or third party), and it can be a combined audit (combining two or more disciplines).",
+      "why_wrong": "The definition of audit expressly contemplates a combined audit covering two or more disciplines, so separate audits are not imposed."
+     },
+     {
+      "index": 2,
+      "clause": "9.2.2",
+      "support": "Documented information shall be available as evidence of the implementation of the audit programme(s) and the audit results.",
+      "why_wrong": "Evidence is required for the implementation of the audit programme as well as for the audit results."
+     },
+     {
+      "index": 3,
+      "clause": "9.2.2",
+      "support": "c) ensure that the results of audits are reported to relevant managers.",
+      "why_wrong": "Reporting to relevant managers is a distinct requirement of the audit programme and is not discharged merely by listing audit results as a management review input."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item claims a none; anchor is a requirement in a shall passage"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 46%"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.4 requires the organization to consider impact assessment results in the risk assessment, while 8.2/6.1.2 separately require AI risk assessments at planned intervals with documented information of the results of all AI risk assessments retained, so impact assessment records cannot substitute for risk assessment records.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "verdict": "survivor"
+  }
+ ]
+}
