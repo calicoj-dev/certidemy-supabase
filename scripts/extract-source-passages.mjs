@@ -208,14 +208,49 @@ function splitAnnexTable(lines, from) {
       const m2 = /\bAnnex\s+[B-Z]\s*\((?:normative|informative)\)|\bBibliography\b/.exec(s);
       return m2 ? s.slice(0, m2.index) : s;
     };
-    const body = stopAt([m.lead, ...lines.slice(m.line + 1, end)].map((s) => s.trim()).filter(Boolean)
+    /* THE COLUMN BOUNDARY IS A RUN OF SPACES, AND IT IS ONLY VISIBLE BEFORE COLLAPSING.
+     * In `-layout` a control row renders as
+     *
+     *     "A.4.6    Human resources                    As part of resource identification,"
+     *
+     * so the title and the statement are separated by a wide gap, not by the word "Control".
+     * Split the LEAD on that gap first, while it still exists: collapsing whitespace destroys
+     * the only signal the layout gives. */
+    const leadRaw = String(m.lead || "");
+    const gap = /^(.{2,70}?)\s{3,}(\S.*)$/.exec(leadRaw);
+    const leadTitle = gap ? gap[1].trim() : null;
+    const leadRest = gap ? gap[2] : leadRaw;
+
+    const body = stopAt([leadRest, ...lines.slice(m.line + 1, end)].map((s) => s.trim()).filter(Boolean)
       .filter((s) => !isFurnitureLine(s)).join(" ")
       .replace(/(\w)-\s+(\w)/g, "$1$2")     /* de-hyphenate a wrapped word */
       .replace(/\s{2,}/g, " ").trim());
-    /* "Control" is the column header, so it separates the title from the statement. */
-    const at = body.indexOf("Control");
-    let title = (at > 0 ? body.slice(0, at) : body).trim();
-    let text = (at >= 0 ? body.slice(at + "Control".length) : body).trim();
+
+    /* "Control" is the column header where the layout puts one on its own, so it separates
+     * the title from the statement -- BUT ONLY WHERE IT ACTUALLY SEPARATES SOMETHING.
+     *
+     * A SEPARATOR THAT LEAVES NOTHING AFTER IT IS NOT A SEPARATOR. ISO/IEC 42001's A.4.6 and
+     * A.9.4 -- both real controls, one of them cited by a pilot survivor -- were DROPPED
+     * because `indexOf` found "Control" at character 515 of a 522-character body. That
+     * occurrence is the next row's header bleeding in; splitting there left an empty string,
+     * which then failed the substance floor and the control vanished silently. Two controls
+     * lost to a first-match assumption, and the coverage report could not see it because the
+     * declared population was inferred from the extraction.
+     *
+     * So each occurrence is tried in order and the first one that leaves a substantive
+     * remainder wins; if none does, there is no header here and the whole body is the
+     * statement. */
+    let title = leadTitle || "";
+    let text = body;
+    for (let at = body.indexOf("Control"); at >= 0; at = body.indexOf("Control", at + 1)) {
+      const after = body.slice(at + "Control".length).trim();
+      if (after.length < 30) continue;           /* not a separator: nothing follows it */
+      title = (title || body.slice(0, at).trim());
+      text = after;
+      break;
+    }
+    title = String(title || "").trim();
+    text = String(text || "").trim();
     /* THE TITLE CAN WRAP ACROSS THE COLUMN HEADER, so its tail lands at the front of the
      * control statement: A.5.1 came out titled "Policies for information secu" with text
      * beginning "rity Information security policy shall...". De-hyphenation could not
@@ -235,6 +270,26 @@ function splitAnnexTable(lines, from) {
   return out;
 }
 
+/* A CLAUSE WHOSE WHOLE TEXT IS ON THE HEADING LINE WAS DROPPED AS EMPTY.
+ *
+ * ISO/IEC 27001 renders short clauses as one line:
+ *
+ *     "7.1\tResources The organization shall determine and provide the resources needed..."
+ *
+ * The body used to start at the NEXT line, which is the next heading, so the body came back
+ * empty and `continue` discarded the clause. Clauses 7.1, 7.4 and 10.1 -- Resources,
+ * Communication, Continual improvement, all cited by the live bank -- were absent from the
+ * library for that reason, and nothing reported it: the sequence check looks BETWEEN held ids
+ * and 7.1 is a first child, 10.1 a last one.
+ *
+ * So the heading line's remainder joins the body WHEN IT CARRIES A SENTENCE. The discriminator
+ * is a modal verb or a full stop: a clause TITLE is a name and has neither, while
+ * "Resources The organization shall determine..." has both. Using a length threshold instead
+ * would be the size-test error this file has already paid for twice.
+ */
+const REMAINDER_CARRIES_TEXT = (s) =>
+  /\b(?:shall|should|may|can|must)\b/i.test(String(s)) || /\.\s/.test(String(s));
+
 function cut(lines, marks) {
   const lastOf = new Map();
   for (const m of marks) lastOf.set(m.clause, m);
@@ -243,7 +298,9 @@ function cut(lines, marks) {
   for (let i = 0; i < ordered.length; i++) {
     const h = ordered[i];
     const end = i + 1 < ordered.length ? ordered[i + 1].line : lines.length;
-    const body = lines.slice(h.line + 1, end).join("\n").replace(/[ \t]+\n/g, "\n").trim();
+    const after = lines.slice(h.line + 1, end).join("\n").replace(/[ \t]+\n/g, "\n").trim();
+    const sameLine = REMAINDER_CARRIES_TEXT(h.rest) ? String(h.rest).trim() : "";
+    const body = [sameLine, after].filter(Boolean).join("\n").trim();
     if (!body) continue;
     out.push({ clause: h.clause, title: h.title, text: body });
   }
@@ -313,7 +370,7 @@ function splitIso(text) {
     /* A bare numeric address inside an annex belongs to that annex. An address that already
      * carries its own letter (B.6.2.6, D.2) is left exactly as the document wrote it. */
     if (annexOf[i] && /^\d/.test(num)) num = annexOf[i] + "." + num;
-    marks.push({ clause: num, title: m[2].trim().slice(0, 90), line: i });
+    marks.push({ clause: num, title: m[2].trim().slice(0, 90), rest: m[2], line: i });
   });
   const body = cut(lines, marks);
 
@@ -486,7 +543,14 @@ function splitDefinitions(text, headings) {
 
   const markers = [];
   for (let k = 1; k <= 200; k++) {
-    const re = new RegExp("(^|[^(\\d.])" + top + "\\." + k + "\\s+(?=[a-z])", "g");
+    /* THE TERM MAY BEGIN WITH AN INITIALISM. The lookahead was `(?=[a-z])`, on the ground
+     * that ISO writes defined terms in lower case -- and ISO/IEC 42001's 3.24 is
+     * "AI system impact assessment", so the marker was rejected and the definition the live
+     * bank cites was absent from the library. The lowercase requirement is still what keeps a
+     * cross-reference out (a "3.28]" inside a [SOURCE: ...] bracket is not followed by a
+     * letter at all), so it is widened rather than dropped: lower case, or a short
+     * ALL-CAPS run followed by a space, which is what an initialism looks like. */
+    const re = new RegExp("(^|[^(\\d.])" + top + "\\." + k + "\\s+(?=[a-z]|[A-Z]{2,4}\\s)", "g");
     let m, at = -1;
     while ((m = re.exec(flat)) !== null) {
       const start = m.index + m[1].length;
@@ -529,7 +593,24 @@ const split = (kind, text) => kind === "scrum" ? splitScrum(text)
   : kind === "amendment" ? splitAmendment(text) : splitIsoWithTerms(text);
 
 /** shall / should / can / informative, from the passage's own strongest modal. */
-function normativeOf(text) {
+/**
+ * A DEFINITION IMPOSES NOTHING, WHATEVER ITS NOTES CONTAIN.
+ *
+ * `normativeOf` reads the strongest modal in a passage's own text, which is right for a
+ * requirement clause and wrong for a terms-and-definitions entry: ISO/IEC 42001's clause 3.2
+ * carries "can" in a NOTE and was classed `can`, so the modal gate treated it as licensing a
+ * permission. It licenses nothing -- a definition says what a word means.
+ *
+ * The pilot refused a correct item on that basis (task 2.1), which is the right direction for
+ * the wrong reason, and the director ruled the class: terms-and-definitions entries are
+ * `informative` in every source. This is DECLARED by where the passage sits, never inferred
+ * from its words -- exactly the distinction that makes the rest of the modal gate work.
+ */
+const isDefinitionClause = (kind, clause) =>
+  kind !== "scrum" && /^3(\.\d+)+$/.test(String(clause));
+
+function normativeOf(text, opts = {}) {
+  if (opts.definition) return "informative";
   const t = " " + text.toLowerCase() + " ";
   if (/\bshall\b/.test(t)) return "shall";
   if (/\bshould\b/.test(t)) return "should";
@@ -561,8 +642,20 @@ for (const s of SOURCES) {
     const got = split(s.kind, text);
     if (got.length) modesUsed.push((layout ? "-layout" : "plain") + ":" + got.length);
     for (const p of got) {
+      /* THE TEXT AND THE TITLE ARE WON SEPARATELY. The longer text is the more complete
+       * extraction, but `-layout` is the mode that can see a table's column boundary, so it
+       * is often the only mode with a title while `plain` has the fuller statement. Keeping
+       * whole records meant the recovered A.4.6 and A.9.4 arrived titleless -- and the task
+       * mapping's strongest signal is the clause TITLE, so a titleless passage can never be
+       * matched by the thing that matches best. */
       const prev = byClause.get(p.clause);
-      if (!prev || p.text.length > prev.text.length) byClause.set(p.clause, p);
+      if (!prev) { byClause.set(p.clause, p); continue; }
+      const win = p.text.length > prev.text.length ? p : prev;
+      const other = win === p ? prev : p;
+      if (!String(win.title || "").trim() && String(other.title || "").trim()) {
+        win.title = other.title;
+      }
+      byClause.set(p.clause, win);
     }
   }
   const best = { got: [...byClause.values()], modes: modesUsed.join(" + ") };
@@ -571,7 +664,7 @@ for (const s of SOURCES) {
     passages.push({
       source_id: s.id, edition: s.edition, clause: p.clause, title: p.title,
       text: stripFurniture(p.text).replace(/\s+/g, " ").trim(),
-      normative: normativeOf(p.text),
+      normative: normativeOf(p.text, { definition: isDefinitionClause(s.kind, p.clause) }),
       extracted_from: s.path.split(/[\\/]/).pop(),
       chars: p.text.length,
     });
@@ -620,6 +713,16 @@ const CONTROLS = [
   ["ISO/IEC 42001", "2023", "A.2.2", /shall document a policy/i],
   ["ISO/IEC 42001", "2023", "A.2.4", /reviewed at planned intervals/i],
   ["ISO/IEC 42001", "2023", "A.3.2", /roles and responsibilities/i],
+
+  /* Recovered by the completeness check, which measures against the standard's own
+   * declaration instead of against what the extractor found. Each of these was absent while
+   * every coverage report said the document was complete. */
+  ["ISO/IEC 42001", "2023", "3.24", /impact assessment/i],
+  ["ISO/IEC 42001", "2023", "A.4.6", /human resources|competence/i],
+  ["ISO/IEC 42001", "2023", "A.9.4", /intended use/i],
+  ["ISO/IEC 27001", "2022", "7.1", /resources/i],
+  ["ISO/IEC 27001", "2022", "7.4", /communication/i],
+  ["ISO/IEC 27001", "2022", "10.1", /continual improvement/i],
 ];
 const ctlFail = [];
 for (const [sid, ed, clause, re] of CONTROLS) {

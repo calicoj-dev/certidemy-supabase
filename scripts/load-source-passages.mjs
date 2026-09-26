@@ -48,17 +48,36 @@ async function main() {
   const KEY = requireKey(HERE);
   const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
 
-  /* ---------------------------------------------------------------- pre-flight */
-  let exists = true;
+  /* ---------------------------------------------------------------- pre-flight
+   *
+   * THE PROBE MUST NOT FIGHT THE PAGER, AND A MALFORMED PROBE IS NOT AN ABSENT TABLE.
+   * This asked for `?limit=1` through `getAll`, which pages with `Range` headers -- so
+   * PostgREST answered 416 Range Not Satisfiable and the script reported "migration 375 has
+   * not been applied yet" against a table holding 676 rows. That message would have sent Juan
+   * to re-apply an applied migration: the error named the wrong half of the system, which is
+   * the family this repository records for the missing `apikey` header and for IPv6.
+   *
+   * So the probe is an equality filter that can match nothing -- bounded, no `limit`, no Range
+   * conflict -- and only a 404 or a "does not exist" is read as an absent table. Anything else
+   * is reported as its own state rather than diagnosed. */
   try {
-    await getAll(KEY, "source_passages?select=source_id&limit=1");
+    await getAll(KEY, "source_passages?select=source_id&source_id=eq.__probe_no_such_source__");
   } catch (e) {
-    exists = false;
-    console.error("COULD NOT RUN -- public.source_passages is not reachable.");
-    console.error("  " + String(e && e.message || e).split("\n")[0]);
+    const msg = String((e && e.message) || e);
+    const absent = /\b404\b/.test(msg) || /does not exist/i.test(msg) ||
+      /Could not find the table/i.test(msg);
+    console.error(absent
+      ? "COULD NOT RUN -- public.source_passages does not exist."
+      : "COULD NOT RUN -- the pre-flight probe failed for a reason that is NOT an absent table.");
+    console.error("  " + msg.split("\n")[0]);
     console.error("");
-    console.error("Migration 375 has not been applied yet. Hand it to Juan:");
-    console.error("  migrations/375_source_passages.sql");
+    if (absent) {
+      console.error("Migration 375 has not been applied. Hand it to Juan:");
+      console.error("  migrations/375_source_passages.sql");
+    } else {
+      console.error("Do NOT read this as a missing migration. The table may exist and the probe");
+      console.error("may be wrong -- fix the probe, or report the error as it stands.");
+    }
     console.error("This is NOT a failed load. Nothing was attempted.");
     return 3;
   }

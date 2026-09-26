@@ -1,0 +1,49 @@
+{
+ "measured_against": "the standards' own contents, Table A.1 rows and clause-3 headings",
+ "sources": [
+  {
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "state": "COMPLETE",
+   "declared": 107,
+   "held": 188,
+   "missing": []
+  },
+  {
+   "source_id": "ISO/IEC 27001",
+   "edition": "2022",
+   "state": "PARTIAL",
+   "declared": 137,
+   "held": 119,
+   "missing": [
+    "9.2.1",
+    "A.5.15",
+    "A.7.11",
+    "A.8.1",
+    "A.8.5",
+    "A.8.9",
+    "A.8.11",
+    "A.8.15",
+    "A.8.32"
+   ]
+  },
+  {
+   "source_id": "ISO/IEC 27002",
+   "edition": "2022",
+   "state": "PARTIAL",
+   "declared": 108,
+   "held": 221,
+   "missing": [
+    "4.1"
+   ]
+  },
+  {
+   "source_id": "ISO 19011",
+   "edition": "2026",
+   "state": "COMPLETE",
+   "declared": 74,
+   "held": 130,
+   "missing": []
+  }
+ ]
+}
