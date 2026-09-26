@@ -1,0 +1,738 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "method": "blind solver, passages mapped to the item's TASK (an existing item names no clause)",
+ "sampled": 40,
+ "resolved": 40,
+ "director_tier_ab": 2,
+ "caught": 1,
+ "missed": 1,
+ "extra_flags": 9,
+ "extra_lesser_tier": 0,
+ "flags_naming_an_unheld_source": 3,
+ "could_not_be_asked": 0,
+ "items": [
+  {
+   "n": 121,
+   "prefix": "09db140e",
+   "director_tier": null,
+   "task": "1.1",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: Internal audit is a performance-evaluation activity that checks the management system against its requirements, so it falls in the 'Check' phase — though none of the supplied passages address PDCA or internal audit, so this rests on general management-system knowledge rather than the excerpts.",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "Internal audit is a performance-evaluation activity that checks the management system against its requirements, so it falls in the 'Check' phase — though none of the supplied passages address PDCA or internal audit, so this rests on general management-system knowledge rather than the excerpts.",
+    "second_defensible": "B",
+    "second_defensible_reason": "Because the passages say nothing about PDCA phases or audits, a candidate could equally argue 'Act' on the grounds that audit findings drive corrective action, and nothing in the excerpts excludes it.",
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  },
+  {
+   "n": 122,
+   "prefix": "b97b25ea",
+   "director_tier": null,
+   "task": "1.2",
+   "passages": 6,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "Clause 4.1 NOTE 1 lists 'AI partners, including AI system integrators and data providers' as a distinct role alongside providers and customers, i.e. parties collaborating in the AI system lifecycle rather than merely buying, reselling or filing paperwork.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 123,
+   "prefix": "3f0430cf",
+   "director_tier": "A",
+   "task": "1.4",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: Annex D.2 states that because ISO/IEC 27001 and the AI management system share the high-level (harmonised) structure their integrated use is facilitated, while D.1 stresses that the AI management system adds AI technology specific considerations on top of technology-neutral management system standards.",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Annex D.2 states that because ISO/IEC 27001 and the AI management system share the high-level (harmonised) structure their integrated use is facilitated, while D.1 stresses that the AI management system adds AI technology specific considerations on top of technology-neutral management system standards.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  },
+  {
+   "n": 124,
+   "prefix": "83f159c4",
+   "director_tier": null,
+   "task": "1.5",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: None of the supplied passages mention the EU AI Act; B is selected on general knowledge of the Act's risk-tiered, phased application rather than on the passages.",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "None of the supplied passages mention the EU AI Act; B is selected on general knowledge of the Act's risk-tiered, phased application rather than on the passages.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  },
+  {
+   "n": 125,
+   "prefix": "a0772e2c",
+   "director_tier": null,
+   "task": "1.6",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 4.4 requires the organization to 'establish, implement, maintain, continually improve and document an AI management system, including the processes needed', and clauses 6.1.2/6.1.3/8.2/8.3 and B.6.2.6 frame conformity in terms of risk assessment, treatment and ongoing monitoring processes — not verified outcomes for individual models.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 126,
+   "prefix": "8d880a2b",
+   "director_tier": null,
+   "task": "1.6",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "The passages label Annex D as '(informative)' while Clause 4.1/4.3 retain 'shall' requirements to determine context, scope and roles, so Annex D cannot displace them.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 127,
+   "prefix": "f50f74e8",
+   "director_tier": null,
+   "task": "2.1",
+   "passages": 8,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 4.1 states unconditionally that \"The organization shall determine whether climate change is a relevant issue,\" with no dependence on holding an environmental management system certificate.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 128,
+   "prefix": "66fea350",
+   "director_tier": null,
+   "task": "2.2",
+   "passages": 10,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 4.1 requires the organization to consider the intended purpose of AI systems \"developed, provided or used by the organization\" and its roles (including AI customer/user), and clause 4.3 requires the scope to be determined from those 4.1 issues and 4.2 interested-party requirements, so a third-party AI feature actively used in the organization's HR process belongs within the AIMS boundary.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 129,
+   "prefix": "f2265782",
+   "director_tier": null,
+   "task": "2.3",
+   "passages": 16,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 5.2 requires the AI policy only to be appropriate, provide a framework for setting AI objectives and include commitments, while clause 6.2 places the measurability requirement ('be measurable (if practicable)') on the AI objectives.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 130,
+   "prefix": "5d0d9624",
+   "director_tier": null,
+   "task": "2.4",
+   "passages": 13,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 5.3 requires top management to ensure responsibilities and authorities for relevant roles are assigned and communicated, and B.3.2 says roles should be defined and allocated according to the organization's needs, considering AI policies, objectives and identified risks across all relevant areas — so an expanded AI scope requires revisiting role assignments.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 131,
+   "prefix": "255323d0",
+   "director_tier": null,
+   "task": "2.4",
+   "passages": 13,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 5.3 requires top management to assign responsibility and authority for both (a) conformance and (b) reporting on performance, but sets no requirement that these be assigned to different individuals.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 132,
+   "prefix": "ea67eb46",
+   "director_tier": null,
+   "task": "2.6",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 6.1.4 requires the impact assessment to determine potential consequences for individuals or groups of individuals, or both, and societies, and A.5.5 separately requires assessing and documenting potential societal impacts, so societal impacts must remain part of the assessment.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 133,
+   "prefix": "b1ea2bf8",
+   "director_tier": null,
+   "task": "2.6",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 6.1.4 and B.5.2 require assessing potential consequences for individuals, groups and societies affected by the AI system — including effects on 'the legal position or life opportunities of individuals' — not just direct users, so denied applicants are in scope.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 134,
+   "prefix": "a335a9a2",
+   "director_tier": null,
+   "task": "2.6",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "B.5.2 requires the organization to consider whether an AI system affects 'the legal position or life opportunities of individuals', which covers loan applicants regardless of whether they interact with the system, and B.5.4/A.5.4 require assessing impacts on individuals throughout the life cycle.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 135,
+   "prefix": "cbfcb33f",
+   "director_tier": null,
+   "task": "2.8",
+   "passages": 11,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "Clause 6.1.3 states \"The organization shall obtain approval from the designated management for the AI risk treatment plan and for acceptance of the residual AI risks\", so residual risk acceptance cannot rest with the risk owner alone.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 136,
+   "prefix": "f74447c0",
+   "director_tier": null,
+   "task": "3.2",
+   "passages": 9,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 7.4 requires the organization to determine internal and external communications relevant to the AI management system, including what, when, with whom and how to communicate.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 137,
+   "prefix": "e001ba3c",
+   "director_tier": "D",
+   "task": "3.2",
+   "passages": 9,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 7.4 requires the organization to determine the internal and external communications specifically relevant to the AI management system (what, when, with whom, how), so a generic corporate policy not scoped to the AIMS does not meet the requirement.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 138,
+   "prefix": "ab6263f0",
+   "director_tier": null,
+   "task": "3.6",
+   "passages": 10,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "B.7.5 states a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of control of data, plus data sharing and transformations, recorded over the life cycles of the data and AI system.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 139,
+   "prefix": "dd09940d",
+   "director_tier": null,
+   "task": "3.6",
+   "passages": 10,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "B.7.5 states a provenance record can include creation, update, transcription, abstraction, validation and transferring of control of data, and that data transformations should also be considered under data provenance, so tracking spans the whole data life cycle rather than just the final dataset.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 140,
+   "prefix": "87d03b82",
+   "director_tier": null,
+   "task": "3.6",
+   "passages": 10,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "B.7.2 and B.6.2.6 require data management and performance criteria to be defined according to the AI system's intended purpose, task and risk (e.g. representativeness relative to the operational domain, accuracy and integrity), with means and processes to evaluate that the defined criteria are met.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 141,
+   "prefix": "121f8e71",
+   "director_tier": null,
+   "task": "3.7",
+   "passages": 17,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 7.2 requires the organization to determine the necessary competence of persons whose work affects its AI performance and ensure competence on that basis, so security-domain records do not by themselves evidence competence against AI-specific criteria.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 142,
+   "prefix": "be876cdf",
+   "director_tier": null,
+   "task": "3.8",
+   "passages": 20,
+   "state": "rejected",
+   "reason": "the solver picked the key but calls A defensible: A candidate could note that no passage prescribes a storage location and that 3.10 allows documented information in any format or medium, though this ignores the control requirements of 7.5.3.",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 8.4 requires retained documented information of impact assessment results, and 7.5.3 requires that documented information required by the AIMS be controlled so it is available, retrievable, protected, version-controlled and subject to retention/disposition — conditions a personal email folder does not demonstrably meet.",
+    "second_defensible": "A",
+    "second_defensible_reason": "A candidate could note that no passage prescribes a storage location and that 3.10 allows documented information in any format or medium, though this ignores the control requirements of 7.5.3.",
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": "second defensible option"
+  },
+  {
+   "n": 143,
+   "prefix": "a90aee16",
+   "director_tier": null,
+   "task": "3.8",
+   "passages": 20,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 8.2 requires AI risk assessment when significant changes are 'proposed or occur', and clause 8.1 expressly requires the organization to 'review the consequences of unintended changes, taking action to mitigate any adverse effects', so an unintentional performance degradation triggers clause 8 activity.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 144,
+   "prefix": "87c740c9",
+   "director_tier": "D",
+   "task": "4.1",
+   "passages": 8,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 6.1.3 e) only requires the organization to 'consider the guidance in Annex B for the implementation of controls', and B.1 states organizations 'do not have to document or justify inclusion or exclusion of implementation guidance' and 'can extend or modify the implementation guidance or define their own implementation of a control'.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 145,
+   "prefix": "b40e412a",
+   "director_tier": null,
+   "task": "4.1",
+   "passages": 8,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "Clause 6.1.3 d)–f) states additional controls beyond Annex A can be identified while the statement of applicability must 'provide justification for inclusion and exclusion of controls', so omission requires risk-based justification rather than being free.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 146,
+   "prefix": "b965acf2",
+   "director_tier": null,
+   "task": "4.2",
+   "passages": 7,
+   "state": "rejected",
+   "reason": "the solver picked the key but calls D defensible: A candidate could argue from 6.1.3 f) and Note 2 to 3.26 (all identified risks and their controls shall be reflected in the SoA) that exclusions must be tied to the risk assessment, though the passages do not require demonstrating that no residual risk remains — residual risks are instead formally accepted by management.",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "Clause 6.1.3 f) requires the statement of applicability to \"provide justification for inclusion and exclusion of controls\", with valid justifications being substantiated ones such as the control not being deemed necessary by the risk assessment or not required by external requirements — a bare 'not applicable' assertion supplies no such substantiation.",
+    "second_defensible": "D",
+    "second_defensible_reason": "A candidate could argue from 6.1.3 f) and Note 2 to 3.26 (all identified risks and their controls shall be reflected in the SoA) that exclusions must be tied to the risk assessment, though the passages do not require demonstrating that no residual risk remains — residual risks are instead formally accepted by management.",
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": "second defensible option"
+  },
+  {
+   "n": 147,
+   "prefix": "379b53fe",
+   "director_tier": "C",
+   "task": "4.3",
+   "passages": 13,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Resource controls cover multiple resource categories—human resources (B.4.6), tooling (A.4.4) and system and computing resources (A.4.5)—and B.4.5 notes different resources can be required for continual improvement and different life-cycle stages, so adequacy of people, tools and infrastructure should be reassessed as the portfolio expands.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 148,
+   "prefix": "52004aae",
+   "director_tier": null,
+   "task": "4.3",
+   "passages": 13,
+   "state": "rejected",
+   "reason": "the solver picked the key but calls B defensible: A candidate could argue the reporting-of-concerns control sits within the internal organization control set alongside A.3.2 roles and responsibilities (B.3.2), so assigning a role to receive concerns is related, though it does not itself establish the required reporting process.",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "Clause A.3.3 (Reporting of concerns) requires the organization to define and put in place a process to report concerns about its role with respect to an AI system throughout its life cycle, which directly closes the identified gap.",
+    "second_defensible": "B",
+    "second_defensible_reason": "A candidate could argue the reporting-of-concerns control sits within the internal organization control set alongside A.3.2 roles and responsibilities (B.3.2), so assigning a role to receive concerns is related, though it does not itself establish the required reporting process.",
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": "second defensible option"
+  },
+  {
+   "n": 149,
+   "prefix": "591b9767",
+   "director_tier": null,
+   "task": "4.4",
+   "passages": 17,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "B.6.2.7 requires documenting \"information about the data used during system development\" and assumptions/quality measures on data, and B.6.1.3 lists \"training data expectations and rules (e.g. what data can be used, approved data suppliers and labelling)\" among responsible design and development processes, so the finding is remedied by documenting and retaining provenance information.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 150,
+   "prefix": "430a65d2",
+   "director_tier": null,
+   "task": "4.6",
+   "passages": 9,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "A.10.2 requires responsibilities within the AI system life cycle to be allocated between the organization, its partners, suppliers, customers and third parties, and A.10.4 requires considering customer expectations and needs in the responsible approach.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 151,
+   "prefix": "2d291853",
+   "director_tier": null,
+   "task": "4.6",
+   "passages": 9,
+   "state": "rejected",
+   "reason": "the solver picked the key but calls A defensible: B.9.3 lists fairness, accountability, transparency and explainability as responsible-use objectives, so a candidate could argue for A, though the passages present them as context-dependent examples ('depending on its context') rather than mandatory controls.",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "A.9.2 and A.9.3 require the organization to define and document processes for responsible use of AI systems and to identify and document objectives guiding responsible use, which is exactly what option B describes (with B.9.3 adding that use should follow the instructions/documentation for the intended deployment).",
+    "second_defensible": "A",
+    "second_defensible_reason": "B.9.3 lists fairness, accountability, transparency and explainability as responsible-use objectives, so a candidate could argue for A, though the passages present them as context-dependent examples ('depending on its context') rather than mandatory controls.",
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": "second defensible option"
+  },
+  {
+   "n": 152,
+   "prefix": "1dddb20e",
+   "director_tier": "A",
+   "task": "4.7",
+   "passages": 8,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 3.23 scopes information security to confidentiality, integrity and availability, while B.6.2.6 requires monitoring, detection and response processes for AI-specific failures such as concept/data drift, retraining needs and AI-specific threats, so a security-breach-triggered 27001 procedure leaves those detection and escalation elements unaddressed.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 153,
+   "prefix": "9f9c2248",
+   "director_tier": null,
+   "task": "4.7",
+   "passages": 8,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Annex D.2 explicitly states that ISO/IEC 42001 and ISO/IEC 27001 share the high-level structure and that their integrated use is 'facilitated and of great benefit', with security-related controls able to be integrated with the organization's ISO/IEC 27001 implementation.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 154,
+   "prefix": "b7d1c5da",
+   "director_tier": null,
+   "task": "5.1",
+   "passages": 9,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 9.1 requires the organization to 'evaluate the performance and the effectiveness of the AI management system', which is distinct from monitoring AI system/model performance (B.6.2.6), and only the latter is evidenced in the review pack.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 155,
+   "prefix": "5d504d63",
+   "director_tier": null,
+   "task": "5.1",
+   "passages": 9,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 9.1 states the organization shall determine 'when the monitoring and measuring shall be performed', so a quarterly schedule set by the organization is permissible and no continuous requirement is imposed.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 156,
+   "prefix": "24177d84",
+   "director_tier": null,
+   "task": "5.2",
+   "passages": 7,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "Clause 3.18 defines an audit as evaluating evidence objectively to determine the extent to which the audit criteria are fulfilled (i.e. criteria are the requirements assessed against), while 9.2.2 a) lists scope as a separate element defining what each audit covers.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 157,
+   "prefix": "79209585",
+   "director_tier": null,
+   "task": "5.3",
+   "passages": 16,
+   "state": "accepted",
+   "reason": "solved to the key from the passages, no second defensible option",
+   "solver": {
+    "answer": "B",
+    "answer_reason": "Clause 9.3.3 states the results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the AI management system, whereas A, C and D are listed in 9.3.2 as inputs.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": true
+   },
+   "error": null,
+   "kind": null
+  },
+  {
+   "n": 158,
+   "prefix": "fcb8a516",
+   "director_tier": null,
+   "task": "5.5",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: The supplied passages never mention ISO/IEC 42006 at all; C is selected on general knowledge that 42006 sets requirements for bodies providing audit and certification of AI management systems while 42001 sets the AIMS requirements for organizations (the passages only show 42001's own AIMS requirements, e.g. clauses 7.4 and 9.2.2).",
+   "solver": {
+    "answer": "C",
+    "answer_reason": "The supplied passages never mention ISO/IEC 42006 at all; C is selected on general knowledge that 42006 sets requirements for bodies providing audit and certification of AI management systems while 42001 sets the AIMS requirements for organizations (the passages only show 42001's own AIMS requirements, e.g. clauses 7.4 and 9.2.2).",
+    "second_defensible": "A",
+    "second_defensible_reason": "Since nothing in the passages addresses ISO/IEC 42006's scope, a candidate could equally assert it governs accreditation bodies without contradiction from the given text.",
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  },
+  {
+   "n": 159,
+   "prefix": "c318ef8f",
+   "director_tier": null,
+   "task": "5.5",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: The provided passages (ISO/IEC 42001 clauses 3.18, 9.2.2 on internal audit programmes) say nothing about ISO/IEC 17021-1 two-stage certification audits, but D reflects the standard purpose of Stage 1 as a readiness/documentation review preceding Stage 2.",
+   "solver": {
+    "answer": "D",
+    "answer_reason": "The provided passages (ISO/IEC 42001 clauses 3.18, 9.2.2 on internal audit programmes) say nothing about ISO/IEC 17021-1 two-stage certification audits, but D reflects the standard purpose of Stage 1 as a readiness/documentation review preceding Stage 2.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  },
+  {
+   "n": 160,
+   "prefix": "fa5276a3",
+   "director_tier": null,
+   "task": "5.5",
+   "passages": 6,
+   "state": "rejected",
+   "reason": "the solver says the passages do not settle the question: The passages show ISO/IEC 42001 stating requirements ('shall') for the AI management system (e.g. 7.4, 9.2.2) and define audit as including external second- or third-party audits (3.18, Notes 1–2), consistent with independent bodies assessing conformity rather than the standard itself certifying.",
+   "solver": {
+    "answer": "A",
+    "answer_reason": "The passages show ISO/IEC 42001 stating requirements ('shall') for the AI management system (e.g. 7.4, 9.2.2) and define audit as including external second- or third-party audits (3.18, Notes 1–2), consistent with independent bodies assessing conformity rather than the standard itself certifying.",
+    "second_defensible": null,
+    "second_defensible_reason": null,
+    "settled_by_passages": false
+   },
+   "error": null,
+   "kind": "unsettled by the mapped passages"
+  }
+ ]
+}
