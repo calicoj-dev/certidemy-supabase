@@ -307,7 +307,17 @@ export function gateModalFidelity(item, passagesByKey) {
   const p = passagesByKey.get(normClause(item.key_support_clause));
   if (!p) return { id: "modal-fidelity", pass: false, examined: 0, reason: "no passage to compare against" };
 
-  const claimText = [item.question_text, keyOptionText(item)].filter(Boolean).join(" ");
+  /* ============ THE KEY AND THE EXPLANATION, NEVER THE STEM OR A DISTRACTOR ============
+   *
+   * The director's ruling, and pilot item 1.6 is why: modal-fidelity fired on the STEM's "must"
+   * while the stem only ASKED what the standard requires -- the key said "can" and so did the
+   * anchor. A stem asks. A distractor is meant to be false, so its modal is not a claim the item
+   * makes at all.
+   *
+   * What the item ASSERTS is its key, and what it teaches is its explanation. Those are the two
+   * fields whose modal has to match the passage. Reading the stem made the gate refuse an item
+   * for the wording of its own question. */
+  const claimText = [keyOptionText(item), item.explanation].filter(Boolean).join(" ");
   const claim = claimStrength(claimText);
   const anchorClaim = anchorForceInPassage(item.key_support || "", p);
   const licensed = LICENSES[p.normative] || [];
@@ -382,9 +392,18 @@ export function gateStructure(item, cfg = CUE_CFG) {
     }
   }
 
-  /* odd-one-out, negation form */
+  /* ODD-ONE-OUT, NEGATION FORM -- AND A SCOPE MARKER IS NOT A VERDICT NEGATION.
+   *
+   * The director's ruling, and pilot item 2.2 is why: it fired on "not only those built", which
+   * does not negate the option's verdict -- it WIDENS its scope. "not only", "not just" and
+   * "not limited to" all say *this and more*, which is the opposite of a negation, and an option
+   * carrying one is not findable as the odd one out.
+   *
+   * So those forms are removed before the test rather than added to it: a guard that fires on
+   * ordinary English is deleted by the first person it inconveniences. */
+  const SCOPE_WIDENER = /\bnot\s+(?:only|just|limited\s+to|merely|solely)\b/gi;
   const NEG = /\b(?:not|never|no|cannot|without|except|excluding|neither)\b/i;
-  const negs = opts.map((t) => NEG.test(t));
+  const negs = opts.map((t) => NEG.test(String(t).replace(SCOPE_WIDENER, " ")));
   if (ki >= 0 && negs[ki] && negs.filter(Boolean).length === 1) {
     problems.push("the key is the only negated option -- a reader can find it without knowing the subject");
   }
@@ -478,8 +497,153 @@ export function gateNearDuplicate(item, liveStemsForTask) {
   return { id: "near-duplicate", pass: null, examined: liveStemsForTask.length, reason: r.state + ": " + r.reason };
 }
 
+/* ============================================================================
+ * G7 -- REPRODUCTION IN SERVED FIELDS. The gap the first pilot had no gate for.
+ * ============================================================================
+ *
+ * Measured on the 31 survivors: 17 of them carried a run of 10 or more words from the 42001
+ * text in a stem, an option or an explanation -- the worst a 20-word B.1 sentence, the same one
+ * an item in the 480-audit was flagged for. The generator reproduces the standard BECAUSE IT IS
+ * HANDED THE STANDARD, which is the cost of grounding and is exactly why this gate is not
+ * optional on this path.
+ *
+ * The ruling, and the reason is quality rather than copyright: a key that is the standard's
+ * sentence word for word is the option that "sounds like ISO", so a candidate can pick it by
+ * recognition without understanding it. `key_support` is exempt because it is never served.
+ *
+ * ONE IMPLEMENTATION: the runs come from `scripts/lib/leak-score.mjs`, the same tokenisation and
+ * the same `score()` the lesson scanner uses. The quotation allowance is a MODE there, not a
+ * copy here.
+ */
+export function gateReproduction(item, sources, leak) {
+  if (!sources || !leak) {
+    return { id: "reproduction", pass: null, examined: 0,
+      reason: "the leak index was not supplied -- UNASSERTED, not clean" };
+  }
+  const { score, ITEM_MAX_RUN, splitOneAttributedQuotation } = leak;
+  const fields = [
+    { name: "stem", text: item.question_text, quotationAllowed: false },
+    ...(item.options || []).map((o, i) => ({
+      name: "option " + String.fromCharCode(97 + i), text: (o && o.text) || "", quotationAllowed: false })),
+    { name: "explanation", text: item.explanation, quotationAllowed: true },
+  ].filter((f) => String(f.text || "").trim());
+
+  if (!fields.length) {
+    return { id: "reproduction", pass: false, examined: 0, reason: "the item has no served text" };
+  }
+
+  const bad = [];
+  let worst = 0, worstWhere = null, quotation = null;
+  for (const f of fields) {
+    let text = String(f.text);
+    if (f.quotationAllowed) {
+      const q = splitOneAttributedQuotation(text);
+      if (!q.ok) { bad.push(f.name + ": " + q.reason); continue; }
+      if (q.quotation) quotation = { field: f.name, words: q.quotation.split(/\s+/).length };
+      text = q.remainder;
+    }
+    const s = score(text, sources);
+    const run = (s && s.unionRun) || 0;
+    if (run > worst) { worst = run; worstWhere = f.name; }
+    if (run > ITEM_MAX_RUN) {
+      bad.push(f.name + ": a " + run + "-word run shared with " + (s.source || "a source") +
+        " -- the ceiling is " + ITEM_MAX_RUN);
+    }
+  }
+  return {
+    id: "reproduction", pass: bad.length === 0, examined: fields.length,
+    longest_served_run: worst, longest_in: worstWhere, quotation,
+    reason: bad.length ? bad.join("; ")
+      : fields.length + " served field(s), longest run " + worst + " words in " + worstWhere +
+        (quotation ? ", plus one " + quotation.words + "-word attributed quotation" : ""),
+  };
+}
+
+/* ============================================================================
+ * G8 -- THE KEY'S ANCHOR MUST BE A PRIMARY PASSAGE OF THE TASK
+ * ============================================================================
+ *
+ * The director's ruling, and one rule that takes out both off-task items in the first pilot:
+ * #3 tested drift monitoring on a task about the AI system LIFE CYCLE, and #30 tested
+ * internal-audit frequency on a task about the CERTIFICATION ROUTE. Both anchored in a real
+ * clause, verbatim, at the right modal strength -- so every gate that existed passed them. What
+ * was wrong is that the clause is not what the task examines.
+ *
+ * A DISTRACTOR'S REASON MAY USE A SUPPORTING PASSAGE. The key may not: it is the thing the item
+ * measures, and the task says what that is.
+ */
+export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
+  const prim = new Set(primaryClauses || []);
+  const supp = new Set(supportingClauses || []);
+  if (!prim.size) {
+    return { id: "anchor-is-primary", pass: null, examined: 0,
+      reason: "the task has no primary passages -- UNASSERTED. A task mapped to nothing cannot " +
+        "clear an item, and that is a fact about the MAP, not the item" };
+  }
+  const key = normClause(item.key_support_clause);
+  if (prim.has(key)) {
+    return { id: "anchor-is-primary", pass: true, examined: prim.size,
+      reason: "the key anchors in " + key + ", a primary passage of this task" };
+  }
+  return {
+    id: "anchor-is-primary", pass: false, examined: prim.size,
+    reason: "the key anchors in " + key + ", which is " +
+      (supp.has(key) ? "SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not"
+        : "not mapped to this task at all") +
+      ". Primary: " + [...prim].slice(0, 12).join(", ") + (prim.size > 12 ? " ..." : ""),
+  };
+}
+
+/* ============================================================================
+ * G9 -- A PHRASE EVERY DISTRACTOR SHARES AND THE KEY DOES NOT
+ * ============================================================================
+ *
+ * The director's ruling, and item #15 of the first pilot is why. All three of its distractors
+ * ended "which is one of the properties that the definition of information security preserves",
+ * and the stem excluded exactly that property -- so the key was findable from the options alone,
+ * with no knowledge of the subject.
+ *
+ * That kind of item does not make an exam easy. It makes the score mean nothing.
+ */
+export function gateSharedDistractorPhrase(item, minRun = 4) {
+  const opts = (item.options || []).map((o) => String((o && o.text) || ""));
+  const keyText = keyOptionText(item);
+  const ki = opts.findIndex((t) => t === String(keyText || ""));
+  if (ki < 0 || opts.length < 3) {
+    return { id: "shared-distractor-phrase", pass: null, examined: 0,
+      reason: "fewer than three options, or the key could not be located" };
+  }
+  const distractors = opts.filter((_, i) => i !== ki);
+  if (distractors.length < 2) {
+    return { id: "shared-distractor-phrase", pass: null, examined: distractors.length,
+      reason: "fewer than two distractors to compare" };
+  }
+  const wordsOf = (t) => normForVerbatim(t).split(" ").filter(Boolean);
+  const keyWords = wordsOf(opts[ki]).join(" ");
+  const first = wordsOf(distractors[0]);
+  let longest = "";
+  for (let n = first.length; n >= minRun && !longest; n--) {
+    for (let i = 0; i + n <= first.length; i++) {
+      const run = first.slice(i, i + n).join(" ");
+      if (!distractors.every((d) => wordsOf(d).join(" ").includes(run))) continue;
+      if (keyWords.includes(run)) continue;      /* shared WITH the key is parallel writing */
+      longest = run;
+      break;
+    }
+  }
+  if (!longest) {
+    return { id: "shared-distractor-phrase", pass: true, examined: distractors.length,
+      reason: distractors.length + " distractors share no run of " + minRun + "+ words the key lacks" };
+  }
+  return { id: "shared-distractor-phrase", pass: false, examined: distractors.length,
+    reason: "every distractor contains \"" + longest + "\" (" + longest.split(" ").length +
+      " words) and the key does not -- the key is findable from the options alone" };
+}
+
 /** Run every code gate. `pass: null` anywhere means the item is not cleared. */
-export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps = [], liveStemsForTask = [], cueCfg = CUE_CFG, cert }) {
+export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps = [],
+  liveStemsForTask = [], cueCfg = CUE_CFG, cert,
+  primaryClauses = null, supportingClauses = null, sources = null, leak = null }) {
   const gates = [
     gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps),
     gateVerbatim(item, passagesByKey),
@@ -487,6 +651,11 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     gateSuperseded(item, cert),
     gateStructure(item, cueCfg),
     gateNearDuplicate(item, liveStemsForTask),
+    gateSharedDistractorPhrase(item),
+    /* These two are UNASSERTED rather than skipped when their input is absent, so a run without
+     * the task map or without the leak index cannot read as a clean pass. */
+    gateAnchorIsPrimary(item, primaryClauses, supportingClauses),
+    gateReproduction(item, sources, leak),
   ];
   const failed = gates.filter((g) => g.pass === false);
   const unasserted = gates.filter((g) => g.pass === null || g.examined === 0);
@@ -529,7 +698,23 @@ export function groundedGateControls() {
   };
 
   const cases = [
-    ["accepts a sound grounded item", () => runCodeGates(good, { passagesByKey: byKey, liveStemsForTask: [{ id: "x", stem: "Completely unrelated stem about data quality and provenance records." }] }).passed, true],
+    /* THE SOUND ITEM NOW HAS TO BE GIVEN THE TASK MAP AND THE LEAK INDEX, because two gates
+     * report UNASSERTED without them and an unasserted gate does not clear an item. That is the
+     * design, so the control supplies them rather than the expectation being relaxed -- a
+     * control that passes because a gate abstained is measuring nothing. The leak index is
+     * stubbed with a source the item does not reproduce, which is the honest stand-in: the real
+     * index is nine PDFs and this file must stay runnable without them. */
+    ["accepts a sound grounded item", () => runCodeGates(good, {
+      passagesByKey: byKey,
+      liveStemsForTask: [{ id: "x", stem: "Completely unrelated stem about data quality and provenance records." }],
+      primaryClauses: ["9.2.2"], supportingClauses: ["3.18"],
+      sources: { stub: true },
+      leak: {
+        ITEM_MAX_RUN: 9,
+        score: () => ({ unionRun: 3, source: "stub" }),
+        splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }),
+      },
+    }).passed, true],
     ["refuses a paraphrased anchor", () => gateVerbatim({ ...good, key_support: "The organization shall create and keep an audit programme" }, byKey).pass, false],
     ["refuses an anchor of under five words", () => gateVerbatim({ ...good, key_support: "shall plan an audit" }, byKey).pass, false],
     ["refuses a clause not in the library", () => gateClauseExists({ ...good, key_support_clause: "9.9.9" }, byKey).pass, false],
@@ -649,13 +834,98 @@ export function groundedGateControls() {
       const p = { clause: "X.1", normative: "shall", title: "Mixed",
         text: "The organization shall document the policy. Guidance on communication is available in " +
           "several forms, including the following practices that many organizations adopt." };
+      /* The KEY asserts the requirement, because that is the field the gate now reads. The
+       * point of the case is unchanged: the `shall` sentence FINISHED before the anchor, so it
+       * lends the anchor nothing and a requirement claim is refused. */
       return gateModalFidelity({
-        question_text: "What must the organization do about communication?",
-        options: [{ text: "Adopt the listed practices", is_correct: true }, { text: "Other" }],
+        question_text: "What follows about communication?",
+        options: [{ text: "The organization shall adopt the listed practices", is_correct: true }, { text: "Other" }],
+        explanation: "The listed practices must be adopted.",
         key_support_clause: "X.1",
         key_support: "including the following practices that many organizations adopt",
       }, new Map([["X.1", p]])).pass;
     }, false],
+
+    /* ============ THE DIRECTOR'S READ OF THE FIRST PILOT ============
+     * Each of these is a real item he named, and each names the gate that was wrong about it. */
+
+    ["1.6: modal-fidelity must NOT read the stem's \"must\"", () => {
+      /* The stem ASKS what the standard requires; the key and the anchor both say "can". */
+      const p = { clause: "B.1", normative: "can", title: "General",
+        text: "The organization can extend or modify the implementation guidance or define their own " +
+          "implementation of a control according to their specific requirements." };
+      return gateModalFidelity({
+        question_text: "Which response is consistent with what the standard must be read as requiring here?",
+        options: [{ text: "The organization can extend or modify the guidance for its own needs", is_correct: true },
+          { text: "Something else" }],
+        explanation: "Annex B guidance can be extended or modified.",
+        key_support_clause: "B.1",
+        key_support: "The organization can extend or modify the implementation guidance or define their own implementation of a control",
+      }, new Map([["B.1", p]])).pass;
+    }, true],
+    ["a MUST in the key is still refused on a can passage", () => {
+      const p = { clause: "B.1", normative: "can", title: "General",
+        text: "The organization can extend or modify the implementation guidance or define their own implementation." };
+      return gateModalFidelity({
+        question_text: "What follows?",
+        options: [{ text: "The organization must modify the implementation guidance", is_correct: true }, { text: "Other" }],
+        explanation: "It must be modified.",
+        key_support_clause: "B.1",
+        key_support: "The organization can extend or modify the implementation guidance or define their own implementation",
+      }, new Map([["B.1", p]])).pass;
+    }, false],
+
+    ["2.2: \"not only\" is a scope widener, not a verdict negation", () => gateStructure({
+      question_text: "Which scope applies?",
+      /* The distractors deliberately do NOT share an opening content word: the first draft had
+       * all three opening with "Systems", so the case failed on the opening-word rule and told
+       * me nothing about the negation rule it was written for. A control has to isolate the
+       * thing it is testing. */
+      options: [
+        { text: "Every AI system in use, not only those built in house", is_correct: true },
+        { text: "Models procured under a framework agreement" },
+        { text: "Applications listed in the statement of applicability" },
+        { text: "Tools operated by a third party on the organization's behalf" },
+      ],
+    }).pass, true],
+    ["a real verdict negation on the key still fires", () => gateStructure({
+      question_text: "Which applies?",
+      options: [
+        { text: "The programme does not require an external body", is_correct: true },
+        { text: "The programme requires an external body" },
+        { text: "The programme requires a qualification register" },
+        { text: "The programme requires a corrective action plan" },
+      ],
+    }).pass, false],
+
+    ["#15: a phrase every distractor shares and the key lacks", () => gateSharedDistractorPhrase({
+      question_text: "Which property is NOT preserved by the definition?",
+      options: [
+        { text: "Accountability", is_correct: true },
+        { text: "Confidentiality, which is one of the properties that the definition preserves" },
+        { text: "Integrity, which is one of the properties that the definition preserves" },
+        { text: "Availability, which is one of the properties that the definition preserves" },
+      ],
+    }).pass, false],
+    ["parallel options that share a phrase WITH the key do not fire", () => gateSharedDistractorPhrase({
+      question_text: "Which applies?",
+      options: [
+        { text: "The organization shall retain documented information of the results", is_correct: true },
+        { text: "The organization shall retain documented information of the plan" },
+        { text: "The organization shall retain documented information of the scope" },
+        { text: "The organization shall retain documented information of the policy" },
+      ],
+    }).pass, true],
+
+    ["#3 and #30: a key anchored in a SUPPORTING passage is refused", () =>
+      gateAnchorIsPrimary({ key_support_clause: "B.6.2.6" }, ["A.6.1", "A.6.2"], ["B.6.2.6"]).pass, false],
+    ["a key anchored in a primary passage passes", () =>
+      gateAnchorIsPrimary({ key_support_clause: "9.2.2" }, ["9.2.1", "9.2.2"], ["3.18"]).pass, true],
+    ["a task with no primary map is UNASSERTED, not a refusal", () =>
+      gateAnchorIsPrimary({ key_support_clause: "9.2.2" }, [], []).pass, null],
+
+    ["reproduction is UNASSERTED without the leak index, never clean", () =>
+      gateReproduction({ question_text: "x", options: [{ text: "y", is_correct: true }] }, null, null).pass, null],
 
     /* ============ THREE MORE FROM THE 40-ITEM PILOT ============ */
     ["a distractor pointer may be short; the key's anchor may not", () => {

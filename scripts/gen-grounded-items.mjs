@@ -49,6 +49,8 @@ import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, bl
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
+import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
+  OPTIONS_PROBE_SYSTEM, optionsProbeControls } from "./lib/options-probe.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -82,14 +84,15 @@ const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 /* ---------------------------------------------------------------- the controls run first */
 {
   const a = groundedGateControls(), b = blindSolverControls(), c = supersededControls();
-  const fails = [...a.fails, ...b.fails, ...c.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined) + " cases");
+  const d = optionsProbeControls();
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + " -- all pass");
 }
 
 function env(k) {
@@ -154,6 +157,32 @@ const passagesByKey = new Map(lib.passages
 const annexGaps = lib.annex_gaps || [];
 const sequenceGaps = lib.sequence_gaps || [];
 
+/* ============ THE DECLARED-GAP LIST IS THE THIRD SOURCE, AND THE AUTHORITATIVE ONE ============
+ *
+ * `annex_gaps` and `sequence_gaps` are derived from what the extractor FOUND, so neither can
+ * see a missing last child: ISO/IEC 42001's A.4.6 and A.9.4 were absent while both reported
+ * the annex complete. `check-library-completeness.mjs` measures against each standard's own
+ * contents, Table A.1 rows and clause-3 headings, so its list is what the gate must consult to
+ * tell NOT IN THE STANDARD from NOT HELD BY US.
+ *
+ * Read as a file rather than re-derived, and its ABSENCE is reported rather than defaulted to
+ * an empty list -- an empty gap list would make every unheld clause look invented, which is the
+ * exact misreading that sent a pilot item's clause D.2 to the rewrite pile. */
+let declaredGaps = [];
+const complPath = join(ROOT, "LIBRARY-COMPLETENESS.json");
+if (existsSync(complPath)) {
+  const compl = JSON.parse(readFileSync(complPath, "utf8"));
+  declaredGaps = (compl.sources || [])
+    .filter((s) => s.source_id === mapping.standard && s.edition === mapping.edition)
+    .map((s) => ({ holes: s.missing || [] }));
+  const n = declaredGaps.reduce((a, g) => a + g.holes.length, 0);
+  console.log("  declared gaps       " + n + " id(s) the standard declares and the library does not hold");
+} else {
+  console.log("  declared gaps       UNKNOWN -- LIBRARY-COMPLETENESS.json is absent.");
+  console.log("                      Run check-library-completeness.mjs, or a real-but-unheld");
+  console.log("                      clause will be refused as if the standard did not contain it.");
+}
+
 const KEY = requireKey(HERE);
 const certs = await getAll(KEY, "certifications?select=id,code,num_questions,exam_blueprint&code=eq." + CERT);
 if (!certs.length) { console.error(CERT + " not found"); process.exitCode = 2; process.exit(); }
@@ -179,12 +208,85 @@ for (const r of liveRows) {
  * ACROSS THE BLUEPRINT, BY DOMAIN WEIGHT, largest remainder -- the same basis
  * `generate-mock-exam` allocates a form on. A pilot spread evenly over tasks would
  * over-sample the light domains and tell us nothing about the shape of a real form. */
+/* ---------------------------------------------------------------- the task map, from the table
+ *
+ * READ FROM `task_sources`, NOT FROM THE RANKER'S JSON. The ranker offered candidates; the table
+ * holds the director's ruling, written by write-task-sources.mjs with role primary or supporting.
+ * A generator reading the candidate file would be anchoring items in a guess. */
+const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
+const clauseOfPassage = new Map(
+  (await getAll(KEY, "source_passages?select=id,source_id,edition,clause&order=id"))
+    .map((r) => [r.id, r]));
+const mapByTask = new Map();
+for (const r of tsRows) {
+  if (!mapByTask.has(r.task_id)) mapByTask.set(r.task_id, { primary: [], supporting: [] });
+  const p = clauseOfPassage.get(r.passage_id);
+  if (p) mapByTask.get(r.task_id)[r.role].push(p.clause);
+}
+const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
+const primaryOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).primary || [];
+const supportingOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).supporting || [];
+const mappedFromTable = tasks.filter((t) => primaryOf(t.code).length);
+console.log("  task_sources        " + tsRows.length + " link(s); " + mappedFromTable.length +
+  " of " + tasks.length + " tasks have a primary passage");
+if (!tsRows.length) {
+  console.error("REFUSING TO RUN: task_sources is empty, so no key could be checked against a");
+  console.error("primary passage and every item would be UNASSERTED on that gate. Run");
+  console.error("scripts/write-task-sources.mjs --apply first.");
+  process.exitCode = 3; process.exit();
+}
+
+/* ---------------------------------------------------------------- the leak index
+ *
+ * ONE IMPLEMENTATION. `buildSources()` is the lesson scanner's own index, built from the same
+ * PDFs with the same tokenisation, and it asserts each document's word count against
+ * iso-corpus-manifest.json -- which is a positive control this path gets for free. Writing an
+ * item-specific scorer would be a second implementation of one computation. */
+const leakMod = await import("./lib/leak-score.mjs");
+let leakSources = null;
+try {
+  leakSources = leakMod.buildSources();
+  const qc = leakMod.quotationModeControls();
+  if (qc.fails.length) {
+    console.error("REFUSING TO RUN: the quotation mode's controls fail:");
+    for (const f of qc.fails) console.error("  " + f);
+    process.exitCode = 2; process.exit();
+  }
+  console.log("  leak index          " + leakSources.size + " document(s), quotation-mode controls " +
+    qc.examined + "/" + qc.examined + " pass");
+} catch (e) {
+  console.error("REFUSING TO RUN: the leak index could not be built -- " + String(e.message).slice(0, 160));
+  console.error("The reproduction gate would report UNASSERTED on every item, and an item that");
+  console.error("nobody checked for reproduction must not be presented as a survivor.");
+  process.exitCode = 3; process.exit();
+}
+
+/** The anchor family: the clause a key rests on, normalised the way the gates normalise it. */
+const normClauseForFamily = (c) => {
+  const m = /^\s*([A-Z]?\.?\d+(?:\.\d+){0,3})/.exec(String(c || ""));
+  return m ? m[1].replace(/^\./, "").replace(/^([A-Z])(\d)/, "$1.$2") : null;
+};
+const record0Bump = (k) => bump(k);
+
 const mapByCode = new Map((mapping.tasks || []).map((t) => [t.code, t]));
-const mappedTasks = tasks.filter((t) => {
-  const m = mapByCode.get(t.code);
-  return m && ((m.cited || []).some((c) => c.state === "held") || (m.candidates || []).length);
-});
+
+/* ============ THE RULING DECIDES WHICH TASKS GENERATE, NOT THE RANKER ============
+ *
+ * A task generates only if `task_sources` gives it a PRIMARY passage. That is the same fact the
+ * anchor gate checks, so the allocation and the gate can never disagree -- a task allocated
+ * items it cannot anchor would produce a run of refusals that name the items rather than the map.
+ *
+ * TASK 5.5 IS ON HOLD by ruling: the certification route needs ISO/IEC 42006 and 17021-1 and
+ * neither is held. It has no primary passages, so it drops out here, and its share of D5 is
+ * redistributed across D5's other tasks by the round-robin below -- the domain keeps its weight,
+ * which is what matters for a form, and the redistribution is STATED rather than left implicit. */
+const HELD_TASKS = tasks.filter((t) => !primaryOf(t.code).length).map((t) => t.code);
+const mappedTasks = tasks.filter((t) => primaryOf(t.code).length);
 const unmapped = tasks.filter((t) => !mappedTasks.includes(t));
+if (HELD_TASKS.length) {
+  console.log("  tasks with no primary passage, generating nothing: " + HELD_TASKS.join(" "));
+  console.log("  their share stays with their DOMAIN and is redistributed across its other tasks");
+}
 
 const alloc = new Map();
 if (ONLY) {
@@ -227,6 +329,7 @@ console.log("  tasks mapped       " + mappedTasks.length + " of " + tasks.length
   (unmapped.length ? "   unmapped, generating nothing: " + unmapped.map((t) => t.code).join(" ") : ""));
 console.log("  items to attempt   " + N + " allocated across " + new Set([...alloc.keys()].map((id) => tasks.find((t) => t.id === id).domain_id)).size + " domains by weight");
 console.log("");
+
 
 /* ---------------------------------------------------------------- the prompt */
 function passagesFor(t) {
@@ -366,20 +469,74 @@ if (!FROM) {
 /* ---------------------------------------------------------------- gate */
 console.log("");
 console.log("GATES");
+let retriedOk = 0, retriedStillBad = 0;
 for (const g of generated) {
   const t = g.task;
-  const item = g.item;
+  let item = g.item;
   const ps = passagesFor(t);
-  const code = runCodeGates(item, {
-    passagesByKey, annexGaps, sequenceGaps, cert: CERT,
+  const gateInput = () => ({
+    passagesByKey, annexGaps, sequenceGaps: [...sequenceGaps, ...declaredGaps], cert: CERT,
     liveStemsForTask: liveByTask.get(t.id) || [], cueCfg,
+    primaryClauses: primaryOf(t.code), supportingClauses: supportingOf(t.code),
+    sources: leakSources, leak: leakMod,
   });
+  let code = runCodeGates(item, gateInput());
 
+  /* ============ ONE PARAPHRASE RETRY, AND ONLY FOR REPRODUCTION ============
+   *
+   * The director's ruling. Reproduction is the one failure a rewrite can fix without changing
+   * what the item MEASURES: the claim, the key and the anchor all stay, and only our wording
+   * moves. A modal error or a wrong anchor is a different item, so those are never retried.
+   *
+   * The offending run is NAMED in the retry, because "paraphrase this" without it produces a
+   * rewrite that misses the same span. And the retry is RE-GATED, not trusted -- the first
+   * pilot's lesson was that a rewrite written to remove a reproduction can introduce another. */
+  const reproFailed = code.gates.find((x) => x.id === "reproduction" && x.pass === false);
+  const onlyRepro = code.failed.length === 1 && code.failed[0] === "reproduction" && !code.unasserted.length;
+  if (reproFailed && onlyRepro) {
+    let revised = null;
+    try {
+      revised = parseArray(await claude(WRITER_SYSTEM,
+        writerUser(t, domById.get(t.domain_id) || {}, ps, 1) +
+        "\n\nREWRITE THE ITEM BELOW. It is sound except that it reproduces the standard in a served" +
+        "\nfield. " + reproFailed.reason +
+        "\n\nParaphrase ONLY the offending run, in our own words. Keep the same claim, the same key," +
+        "\nthe same key_support and the same clause. Do not change what the item measures." +
+        "\n\n" + JSON.stringify({ ...item, options: item.options.map((o) => ({ text: o.text })) }, null, 1),
+        6000));
+    } catch (e) {
+      record0Bump("reproduction retry could not run");
+    }
+    const cand = Array.isArray(revised) && revised.length ? revised[0] : null;
+    if (cand && Array.isArray(cand.options) && cand.options.length === item.options.length) {
+      const opts = cand.options.map((o, i) => ({
+        text: String((o && o.text) || ""), is_correct: i === Number(cand.correct_index),
+      }));
+      /* The key must still be the same option, or this is a different item wearing a retry. */
+      const keyMoved = opts.findIndex((o) => o.is_correct) !== item.options.findIndex((o) => o.is_correct);
+      const candidate = { ...item, ...cand, options: opts };
+      const recoded = keyMoved ? null : runCodeGates(candidate, gateInput());
+      if (recoded && recoded.passed) {
+        item = candidate; code = recoded; retriedOk++;
+      } else {
+        retriedStillBad++;
+        bump(keyMoved ? "retry moved the key" : "reproduction survived the retry");
+      }
+    } else if (cand) { retriedStillBad++; bump("retry returned a malformed item"); }
+  }
+
+  const reproGate = code.gates.find((x) => x.id === "reproduction");
   const record = {
     task_code: t.code, domain: (domById.get(t.domain_id) || {}).code,
     item, gates: code.gates.map((x) => ({ id: x.id, pass: x.pass, examined: x.examined, reason: x.reason })),
     code_passed: code.passed, failed: code.failed, unasserted: code.unasserted,
-    solver: null, verdict: null,
+    /* The longest run actually SERVED, per item, so the reproduction ceiling can be seen to
+     * have held rather than asserted to have. */
+    longest_served_run: reproGate ? (reproGate.longest_served_run ?? null) : null,
+    longest_served_in: reproGate ? (reproGate.longest_in ?? null) : null,
+    attributed_quotation: reproGate ? (reproGate.quotation ?? null) : null,
+    grounding_family: normClauseForFamily(item.key_support_clause),
+    solver: null, options_probe: null, verdict: null,
   };
 
   if (!code.passed) {
@@ -421,7 +578,35 @@ for (const g of generated) {
   record.solver = { ...v, raw: parsed };
   if (v.state === "accepted") {
     record.verdict = "survivor";
-    console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " + item.key_support_clause);
+
+    /* ============ THE OPTIONS-ONLY PROBE: FLAGGED, NEVER REJECTED ============
+     *
+     * A third model call, on the survivors only, seeing the four option texts and nothing else.
+     * It flags an item a candidate with NO KNOWLEDGE could answer from the shape of the options.
+     * It does not reject: with four options it is right one in four by luck, and it will always
+     * produce a story. So a flag needs BOTH the key and a concrete, checkable cue, and it goes
+     * on the director's read list with that cue rather than being thrown away. */
+    try {
+      const op = optionsPayload(item);
+      assertOptionsOnly(op, item);
+      const probeRaw = parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op), 800));
+      const pv = optionsProbeVerdict(probeRaw, keyLabel);
+      record.options_probe = pv;
+      if (pv.state === "flag") {
+        bump("options probe: a cue in the options alone");
+        console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
+          item.key_support_clause + "   OPTIONS-PROBE FLAG (" + pv.cue_kind + ")");
+      } else {
+        console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " + item.key_support_clause);
+      }
+    } catch (e) {
+      /* A probe that could not run leaves the item a survivor and says the probe is UNRUN --
+       * folding it into "no cue" would claim a check nobody performed. */
+      record.options_probe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
+      bump("options probe COULD NOT RUN");
+      console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
+        item.key_support_clause + "   (options probe could not run)");
+    }
   } else if (v.state === "rejected") {
     record.verdict = "rejected by solver";
     bump("solver: " + (v.reason.startsWith("the solver answered") ? "answered differently"
@@ -451,6 +636,60 @@ for (const [k, n] of [...rejectCounts].sort((a, b) => b[1] - a[1])) {
   console.log("    " + String(n).padStart(4) + "  " + k);
 }
 
+/* ============ ANCHOR CLUSTERS: FLAGGED, NOT REJECTED ============
+ *
+ * Items in DIFFERENT tasks whose keys rest on the SAME clause cross-cue each other on one form:
+ * a candidate who reads one learns the answer to the others. The first pilot had three such
+ * clusters and stem identity could not see any of them, because the stems differ -- which is
+ * exactly why the existing dedupe misses them.
+ *
+ * Same task is not a cluster: a task's items are expected to share its clauses, and the form
+ * assembler already picks across tasks. The cross-cueing case is the cross-TASK one.
+ *
+ * Recorded as `grounding_family` per item and listed here. `generate-mock-exam` is NOT touched. */
+const clusters = [];
+{
+  const byFamily = new Map();
+  for (const r of results) {
+    if (r.verdict !== "survivor" || !r.grounding_family) continue;
+    if (!byFamily.has(r.grounding_family)) byFamily.set(r.grounding_family, []);
+    byFamily.get(r.grounding_family).push(r);
+  }
+  for (const [family, rows] of byFamily) {
+    const distinctTasks = [...new Set(rows.map((r) => r.task_code))];
+    if (rows.length > 1 && distinctTasks.length > 1) {
+      clusters.push({ family, tasks: distinctTasks, items: rows.length });
+    }
+  }
+  clusters.sort((a, b) => b.items - a.items);
+}
+console.log("");
+console.log("  ANCHOR CLUSTERS (same clause, DIFFERENT tasks -- these cross-cue on one form)");
+if (!clusters.length) console.log("    none");
+for (const c of clusters) {
+  console.log("    " + c.family.padEnd(10) + c.items + " survivors across tasks " + c.tasks.join(", "));
+}
+
+const probeFlags = results.filter((r) => r.options_probe && r.options_probe.state === "flag");
+console.log("");
+console.log("  OPTIONS-ONLY PROBE  " + probeFlags.length + " flag(s) of " + survivors.length + " survivor(s)");
+for (const r of probeFlags) {
+  console.log("    " + r.task_code + "  (" + r.options_probe.cue_kind + ") " +
+    String(r.options_probe.cue).slice(0, 96));
+}
+const probeUnrun = results.filter((r) => r.options_probe && r.options_probe.state === "could-not-run").length;
+if (probeUnrun) console.log("    " + probeUnrun + " probe(s) COULD NOT RUN -- not a clean result for those items");
+
+console.log("");
+console.log("  PARAPHRASE RETRY (reproduction only)  fixed " + retriedOk + ", still failing " + retriedStillBad);
+
+const runs = survivors.map((r) => r.longest_served_run).filter((x) => typeof x === "number");
+console.log("  LONGEST SERVED RUN across survivors   max " + (runs.length ? Math.max(...runs) : "n/a") +
+  ", median " + (runs.length ? runs.slice().sort((a, b) => a - b)[Math.floor(runs.length / 2)] : "n/a") +
+  "   (the ceiling is 9)");
+const over = survivors.filter((r) => typeof r.longest_served_run === "number" && r.longest_served_run > 9);
+console.log("  survivors over the ceiling            " + over.length + " (must be 0)");
+
 writeFileSync(join(ROOT, OUT), JSON.stringify({
   certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
   attempted: N, generated: generated.length, survivors: survivors.length,
@@ -458,6 +697,12 @@ writeFileSync(join(ROOT, OUT), JSON.stringify({
   reject_counts: Object.fromEntries(rejectCounts),
   tasks_mapped: mappedTasks.length, tasks_total: tasks.length,
   unmapped_tasks: unmapped.map((t) => t.code),
+  held_tasks: HELD_TASKS,
+  paraphrase_retry: { fixed: retriedOk, still_failing: retriedStillBad },
+  anchor_clusters: clusters,
+  options_probe_flags: probeFlags.length,
+  options_probe_unrun: probeUnrun,
+  longest_served_run_max: runs.length ? Math.max(...runs) : null,
   items: results,
 }, null, 1) + "\n", "utf8");
 console.log("");

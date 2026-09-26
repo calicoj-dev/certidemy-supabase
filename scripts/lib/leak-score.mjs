@@ -434,3 +434,104 @@ export function isHarmonised(s, sources) {
   const longest = s.merged.slice().sort((a, b) => b.len - a.len)[0];
   return matchingSources(longest.text, sources).length > 1;
 }
+
+/* ============================================================================
+ * ONE ATTRIBUTED QUOTATION: A MODE, NOT A SECOND SCORER
+ * ============================================================================
+ *
+ * ITEM-SCALE REPRODUCTION. The lesson rule is unchanged and lives above; this mode exists for
+ * the EXAM ITEM, where the director's ruling is narrower and has a different reason:
+ *
+ *   stem and options   at most a 9-word run shared with any source. This is about QUALITY, not
+ *                      copyright -- a key that is the standard's sentence word for word is the
+ *                      option that "sounds like ISO", so a candidate can find it by
+ *                      recognition without understanding it.
+ *   explanation        unquoted runs at most 9 words, plus ONE attributed quotation: in
+ *                      quotation marks, naming its clause, at most one sentence. That is a
+ *                      teaching citation and it is the ordinary shape of a short quotation for
+ *                      instruction.
+ *
+ * This function does the SPLITTING only. The caller then scores the remainder with `score()`,
+ * so there is still exactly one run-finding implementation and the tokenisation is this file's.
+ * Writing a second scorer for items is the defect this file's own header forbids: a computation
+ * with a stated invariant has exactly one implementation.
+ *
+ * `key_support` is never passed here. It is internal, never served, and exempt by ruling.
+ */
+export const ITEM_MAX_RUN = 9;              /* stem, options, and unquoted explanation prose */
+export const QUOTATION_MAX_WORDS = 30;      /* "at most one sentence" */
+
+/** A clause address, anchored the way this repository already requires. */
+const QUOTED_ADDRESS = /\b(?:clause|clauses|annex|control|controls|section|subclause)\s+(?:[A-Z]\.?)?\d+(?:\.\d+){0,3}/i;
+
+/**
+ * Split an explanation into its one permitted attributed quotation and the prose around it.
+ *
+ * Returns { remainder, quotation, ok, reason }. `ok: false` means the quotation itself breaks
+ * the ruling -- more than one, too long, or unattributed -- and the caller refuses the item
+ * rather than scoring a text it has silently altered.
+ */
+export function splitOneAttributedQuotation(text) {
+  const s = String(text || "");
+  /* Straight and curly double quotes, both -- a model writes either and the transport folds one
+   * into the other. ASSEMBLED FROM CHARACTER CODES: typing the curly pair into the literal is
+   * how non-ASCII gets into source, and this file is scanned by invariant 10. */
+  const QUOTES = [0x22, 0x201c, 0x201d].map((c) => String.fromCharCode(c)).join("");
+  const re = new RegExp("[" + QUOTES + "]([^" + QUOTES + "]{8,})[" + QUOTES + "]", "g");
+  const spans = [];
+  let m;
+  while ((m = re.exec(s)) !== null) spans.push({ whole: m[0], inner: m[1], index: m.index });
+
+  if (!spans.length) return { remainder: s, quotation: null, ok: true, reason: "no quotation" };
+  if (spans.length > 1) {
+    return { remainder: s, quotation: null, ok: false,
+      reason: spans.length + " quoted spans -- the ruling allows ONE attributed quotation" };
+  }
+  const q = spans[0];
+  const words = q.inner.trim().split(/\s+/).filter(Boolean).length;
+  if (words > QUOTATION_MAX_WORDS) {
+    return { remainder: s, quotation: q.inner, ok: false,
+      reason: "the quotation is " + words + " words; the ruling allows at most one sentence (" +
+        QUOTATION_MAX_WORDS + " words)" };
+  }
+  if (!QUOTED_ADDRESS.test(s)) {
+    return { remainder: s, quotation: q.inner, ok: false,
+      reason: "the quotation names no clause -- an attributed quotation has to say what it is quoting" };
+  }
+  /* The quotation is removed for scoring. A SEPARATOR is left in its place, because joining the
+   * prose either side of it would manufacture an adjacency that is not in the text -- the same
+   * defect this file records for list items and for cross-document unions. */
+  const remainder = (s.slice(0, q.index) + "\n" + s.slice(q.index + q.whole.length)).trim();
+  return { remainder, quotation: q.inner, ok: true, reason: words + "-word attributed quotation exempted" };
+}
+
+/** Controls for the mode, both directions. */
+export function quotationModeControls() {
+  const cases = [
+    ["prose with no quotation passes through unchanged",
+      "Clause 9.2.2 requires an audit programme covering frequency and methods.",
+      (r) => r.ok && r.quotation === null],
+    ["one short attributed quotation is exempted",
+      'Clause 9.2.2 says the organization shall "plan, establish, implement and maintain an audit programme".',
+      (r) => r.ok && r.quotation && !r.remainder.includes("audit programme".slice(0, 5) + " an") ],
+    ["two quotations are refused",
+      'Clause 9.2.2 says "one thing here" and clause 9.1 says "another thing here".',
+      (r) => !r.ok && /ONE attributed quotation/.test(r.reason)],
+    ["an unattributed quotation is refused",
+      'The standard says "the organization shall plan, establish and maintain an audit programme".',
+      (r) => !r.ok && /names no clause/.test(r.reason)],
+    ["an over-long quotation is refused",
+      'Clause 9.2.2 says "' + new Array(40).fill("word").join(" ") + '".',
+      (r) => !r.ok && /at most one sentence/.test(r.reason)],
+    ["the remainder is not joined across the removed span",
+      'Clause 9.2.2 requires this "quoted span of at least eight words here" and also that.',
+      (r) => r.ok && /\n/.test(r.remainder)],
+  ];
+  const fails = [];
+  for (const [name, text, ok] of cases) {
+    let r;
+    try { r = splitOneAttributedQuotation(text); } catch (e) { r = { ok: false, reason: "threw: " + e.message }; }
+    if (!ok(r)) fails.push(name + " -- got " + JSON.stringify(r).slice(0, 150));
+  }
+  return { examined: cases.length, fails };
+}
