@@ -924,6 +924,47 @@ const FINGERPRINTS = {
           : "ANON CAN READ source_passages -- licensed standard text is being served",
     };
   },
+  376: async () => {
+    /* 376 adds item_grounding.grounding_family: the clause an item's key anchors in, so two
+     * items in different tasks that rest on the same clause can be seen to cross-cue each
+     * other. Stem identity cannot see that -- their stems differ, which is why it misses them.
+     *
+     * THE INTERESTING HALF OF A MIGRATION THAT ONLY ADDS A COLUMN IS WHETHER IT CHANGED
+     * ANYTHING IT WAS NOT SUPPOSED TO. `ran` is that the column is selectable; `effective` is
+     * that the table is still shut to anon, asked with the anon key rather than inferred.
+     *
+     * generate-mock-exam does not read the column and is not meant to yet, so an all-NULL
+     * column is the correct state here and is reported, never asserted against. */
+    const probe = await rest("item_grounding?select=grounding_family&question_id=eq." +
+      "00000000-0000-0000-0000-000000000000");
+    if (!Array.isArray(probe)) {
+      return { ran: false, why: "item_grounding.grounding_family is not selectable -- 376 has not been applied" };
+    }
+    let anonBlocked = null;
+    const anon = process.env.SUPABASE_ANON_KEY;
+    if (anon) {
+      try {
+        const r = await fetch(REST + "/item_grounding?select=question_id&limit=1", {
+          headers: { apikey: anon, Authorization: "Bearer " + anon },
+        });
+        anonBlocked = r.status === 401 || r.status === 403 || r.status === 404;
+      } catch { anonBlocked = null; }
+    }
+    const all = await rest("item_grounding?select=question_id,grounding_family");
+    const rows = Array.isArray(all) ? all.length : 0;
+    const withFamily = Array.isArray(all) ? all.filter((r) => r.grounding_family).length : 0;
+    return {
+      ran: true,
+      why: "grounding_family is selectable; " + rows + " grounding row(s), " + withFamily +
+        " carrying a family (an empty column is correct until the generator inserts)",
+      effective: anonBlocked === null ? undefined : anonBlocked,
+      effectiveWhy: anonBlocked === null
+        ? "no SUPABASE_ANON_KEY: whether anon is still refused is UNASSERTED, not confirmed"
+        : anonBlocked
+          ? "anon is still refused on item_grounding -- adding a column did not open the table"
+          : "ANON CAN READ item_grounding -- adding a column opened a table holding licensed text",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
