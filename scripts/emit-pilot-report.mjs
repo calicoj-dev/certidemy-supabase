@@ -102,8 +102,137 @@ L("| `modal-fidelity` | a `must` claim needs a `shall` anchor in a `shall` claus
 L("| `superseded-wording` | retired edition wording anywhere in the item | no |");
 L("| `structure` | cue guard, key-as-longest, odd-one-out by negation and by opening word | no |");
 L("| `near-duplicate` | share of the **shorter** stem's distinctive terms against live items on the same task | no |");
+L("| `shared-distractor-phrase` | a run of 4+ words every distractor carries and the key does not | no |");
+L("| `anchor-is-primary` | the key anchors in a **primary** passage of the task, not a supporting one | no |");
+L("| `reproduction` | at most a 9-word run shared with any source, in any **served** field | no |");
 L("| blind solver | is it solvable to the key from the passages, with no second defensible option | **yes, and it never sees the key** |");
+L("| options-only probe | could a candidate with no knowledge pick the key from the option shapes | **yes, and it sees only the options** |");
 L("");
+L("The three gates below the line are new in this run, and each answers a defect the director");
+L("found by reading the first pilot:");
+L("");
+L("- **`anchor-is-primary`** takes out the off-task items. Two of the first pilot's survivors");
+L("  anchored in a real clause, verbatim, at the right modal strength -- and the clause was not");
+L("  what the task examines. Every gate that existed passed them.");
+L("- **`shared-distractor-phrase`** takes out the giveaway: three distractors ending in the same");
+L("  clause that the stem excludes.");
+L("- **`reproduction`** is the gap the first pilot had no gate for at all.");
+L("");
+/* ---------------------------------------------------------------- the ruled additions */
+if (j.paraphrase_retry) {
+  L("## The paraphrase retry");
+  L("");
+  L("| | |");
+  L("|---|---|");
+  L("| reproduction failures given one retry | " + ((j.paraphrase_retry.fixed || 0) + (j.paraphrase_retry.still_failing || 0)) + " |");
+  L("| **fixed on retry** | **" + (j.paraphrase_retry.fixed || 0) + "** |");
+  L("| still failing after retry | " + (j.paraphrase_retry.still_failing || 0) + " |");
+  L("");
+  L("The retry is offered for REPRODUCTION ONLY. It is the one failure a rewrite can fix without");
+  L("changing what the item measures: the claim, the key and the anchor all stay and only our");
+  L("wording moves. A modal error or a wrong anchor is a different item, so neither is retried.");
+  L("The offending run is named in the retry -- \"paraphrase this\" without it rewrites around the");
+  L("wrong span -- and the result is RE-GATED, never trusted.");
+  L("");
+}
+
+{
+  const runs = survivors.map((r) => r.longest_served_run).filter((x) => typeof x === "number");
+  L("## Reproduction in served fields");
+  L("");
+  L("| | |");
+  L("|---|---|");
+  L("| ceiling, stem and options | a run of at most **9** words shared with any source |");
+  L("| ceiling, explanation | 9 words unquoted, plus ONE attributed quotation of at most one sentence |");
+  L("| longest served run, max across survivors | " + (runs.length ? Math.max(...runs) : "n/a") + " |");
+  L("| median | " + (runs.length ? runs.slice().sort((a, b) => a - b)[Math.floor(runs.length / 2)] : "n/a") + " |");
+  L("| **survivors over the ceiling** | **" + runs.filter((x) => x > 9).length + "** |");
+  L("");
+  L("The first pilot had no such gate and **17 of its 31 survivors carried a run of 10 words or");
+  L("more**, the worst 20. The generator reproduces the standard because it is handed the");
+  L("standard, which is the cost of grounding and the reason this gate is not optional here.");
+  L("");
+  L("The runs are measured with the lesson scanner's own tokenisation -- one implementation. The");
+  L("quotation allowance is a MODE in that module, not a copy. `key_support` is exempt because it");
+  L("is never served.");
+  L("");
+  L("**And the index is wider than the library.** The scanner holds nine documents, including");
+  L("ISO/IEC 22989, 27000, 27004 and 27005, which the task map does not use. One rejection in this");
+  L("run is a 16-word run against **22989:2022** -- a standard no passage was supplied from, so the");
+  L("item reproduced it from recall while writing about something else. Scoring against the wider");
+  L("index is deliberate: the ceiling is about what a candidate can recognise, and recognition does");
+  L("not care which document we happened to map.");
+  L("");
+}
+
+if (j.anchor_clusters) {
+  L("## Anchor clusters -- flagged, not rejected");
+  L("");
+  if (!j.anchor_clusters.length) {
+    L("_None: no two survivors in different tasks anchor in the same clause._");
+  } else {
+    L("Items in **different tasks** whose keys rest on the **same clause**. A candidate who reads");
+    L("one learns the answer to the others, and stem identity cannot see it -- their stems differ,");
+    L("which is exactly why the deployed dedupe misses them.");
+    L("");
+    L("| clause | survivors | tasks |");
+    L("|---|---|---|");
+    for (const c of j.anchor_clusters) L("| " + c.family + " | " + c.items + " | " + c.tasks.join(", ") + " |");
+    L("");
+    L("Recorded per item as `grounding_family`. **`generate-mock-exam` is not touched**, by");
+    L("instruction; migration 376 adds the column so the assembler can dedupe on it if you rule that way.");
+  }
+  L("");
+}
+
+{
+  const flags = items.filter((r) => r.options_probe && r.options_probe.state === "flag");
+  const unrun = items.filter((r) => r.options_probe && r.options_probe.state === "could-not-run");
+  L("## The options-only probe");
+  L("");
+  L("A third model call on the survivors, seeing the four option texts and **nothing else** -- no");
+  L("stem, no passages, no key. It flags an item a candidate with zero knowledge could answer from");
+  L("the shape of the options. It never rejects: with four options it is right one time in four by");
+  L("luck, so a flag needs both the key AND a concrete, checkable cue.");
+  L("");
+  L("| | |");
+  L("|---|---|");
+  L("| survivors probed | " + survivors.length + " |");
+  L("| **flagged** | **" + flags.length + "** |");
+  L("| probe could not run | " + unrun.length + " |");
+  L("");
+  if (flags.length && survivors.length && flags.length / survivors.length > 0.4) {
+    L("> **THIS RATE IS A DESIGN ERROR IN THE REPORT, NOT " + flags.length + " FINDINGS.** " +
+      Math.round(100 * flags.length / survivors.length) + " percent of survivors");
+    L("> flagged. This repository's own rule is that a guard firing on the normal case gets deleted");
+    L("> by the first person it inconveniences, and that a firing count above a stated threshold is");
+    L("> a design error rather than a backlog of fixes. So the members were read before the number");
+    L("> was reported.");
+    L("");
+    const qual = flags.filter((r) => /absolute|restrictive|qualifier|exhaustive|excuse|justif/i.test(r.options_probe.cue || ""));
+    L("> **AND READING THEM FOUND ONE PATTERN, NOT " + flags.length + ".** " + qual.length + " of the " + flags.length +
+      " cues describe the same thing:");
+    L("> the generator makes a distractor wrong by ADDING AN ABSOLUTE OR RESTRICTIVE QUALIFIER, or a");
+    L("> self-justifying \"because...\" clause, and leaves the key as the plain statement. That is one");
+    L("> habit of the writer prompt, and it is exploitable without knowing the subject.");
+    L("");
+    L("> **The remedy is the one you ruled: rewrite the cue out.** Not a harder gate, not trickery,");
+    L("> not a longer stem. It belongs in the writer prompt -- tell it not to manufacture a wrong");
+    L("> answer by qualifying a right one -- and that is a change to what the generator ACCEPTS, so");
+    L("> it is not made here. The remaining " + (flags.length - qual.length) + " cues are parallelism and length, listed below.");
+    L("");
+  }
+  if (flags.length) {
+    L("| task | cue kind | the cue, as the probe stated it |");
+    L("|---|---|---|");
+    for (const r of flags) {
+      L("| " + r.task_code + " | `" + r.options_probe.cue_kind + "` | " +
+        String(r.options_probe.cue).replace(/\|/g, "/").replace(/\s+/g, " ").slice(0, 190) + " |");
+    }
+    L("");
+  }
+}
+
 L("---");
 L("");
 L("## Survivors");
@@ -139,6 +268,11 @@ for (const r of survivors) {
   const gl = (r.gates || []).map((g) => g.id + " " + (g.pass === true ? "pass" : g.pass === false ? "FAIL" : "unasserted") +
     " (" + g.examined + ")").join(" · ");
   L("*gates:* " + gl);
+  L("");
+  L("*longest served run:* " + (typeof r.longest_served_run === "number" ? r.longest_served_run + " words" + (r.longest_served_in ? " in the " + r.longest_served_in : "") : "not measured") +
+    "  (ceiling 9)" + (r.attributed_quotation ? "  plus one " + r.attributed_quotation.words + "-word attributed quotation in the " + r.attributed_quotation.field : "") +
+    "   *anchor family:* " + (r.grounding_family || "none") +
+    (r.options_probe && r.options_probe.state === "flag" ? "   **OPTIONS-PROBE FLAG (" + r.options_probe.cue_kind + ")**" : ""));
   L("");
 }
 if (!survivors.length) L("_No item survived every gate._");
