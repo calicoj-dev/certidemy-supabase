@@ -965,6 +965,58 @@ const FINGERPRINTS = {
           : "ANON CAN READ item_grounding -- adding a column opened a table holding licensed text",
     };
   },
+
+  377: async () => {
+    /* 377 is source_passage_translations: the official ES and PT text of a held passage, at the
+     * SAME clause address as the English, so a terminology lookup has one address to ask about.
+     *
+     * `ran` is that the table is selectable. `effective` is the half that matters and it is the
+     * NEGATIVE one, asked with the anon key rather than inferred from a grant: this table exists
+     * to be read by the generator and by nobody else, and a table that is open is indistinguishable
+     * from a table that is shut until something tries. RLS plus no grant is closed; a grant plus no
+     * policies is open, and only asking answers which one this is.
+     *
+     * An EMPTY table is the correct state until the loader runs, and it is reported rather than
+     * asserted against -- a probe that fails because nothing has been inserted yet would be a
+     * migration state check reporting a loading decision. */
+    const probe = await rest("source_passage_translations?select=passage_id,language,aligned_by" +
+      "&passage_id=eq.00000000-0000-0000-0000-000000000000");
+    if (!Array.isArray(probe)) {
+      return { ran: false, why: "source_passage_translations is not selectable -- 377 has not been applied" };
+    }
+    let anonBlocked = null;
+    const anon = process.env.SUPABASE_ANON_KEY;
+    if (anon) {
+      try {
+        const r = await fetch(REST + "/source_passage_translations?select=passage_id&limit=1", {
+          headers: { apikey: anon, Authorization: "Bearer " + anon },
+        });
+        anonBlocked = r.status === 401 || r.status === 403 || r.status === 404;
+      } catch { anonBlocked = null; }
+    }
+    const all = await rest("source_passage_translations?select=language,aligned_by");
+    const rows = Array.isArray(all) ? all.length : 0;
+    const byLang = {};
+    const byAlign = {};
+    for (const r of Array.isArray(all) ? all : []) {
+      byLang[r.language] = (byLang[r.language] || 0) + 1;
+      byAlign[r.aligned_by] = (byAlign[r.aligned_by] || 0) + 1;
+    }
+    const order = byAlign.order || 0;
+    return {
+      ran: true,
+      why: "source_passage_translations is selectable; " + rows + " row(s) " +
+        JSON.stringify(byLang) + ", aligned " + JSON.stringify(byAlign) +
+        (rows === 0 ? " (empty is correct until the loader runs)" : "") +
+        (order ? " -- NOTE " + order + " row(s) aligned BY ORDER, which is an assumption about position" : ""),
+      effective: anonBlocked === null ? undefined : anonBlocked,
+      effectiveWhy: anonBlocked === null
+        ? "no SUPABASE_ANON_KEY: whether anon is refused is UNASSERTED, not confirmed"
+        : anonBlocked
+          ? "anon is refused on source_passage_translations"
+          : "ANON CAN READ source_passage_translations -- internal-only source text is readable through PostgREST",
+    };
+  },
 };
 
 /* ------------------------------------------------------------------ report */
