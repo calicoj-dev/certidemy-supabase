@@ -1,0 +1,446 @@
+{
+ "measured": "2026-09-27",
+ "model": "claude-opus-5",
+ "old_bank": {
+  "n": 40,
+  "key_pick": 39,
+  "flag": 39,
+  "cue_kinds": {
+   "shared-phrase": 8,
+   "odd-verdict": 13,
+   "only-hedged": 14,
+   "only-negation": 1,
+   "length": 2,
+   "grammar": 1
+  },
+  "unresolved": 0,
+  "could_not_run": 0
+ },
+ "pilot_2": {
+  "n": 22,
+  "picked": 19,
+  "flagged": 18,
+  "kinds": {
+   "only-hedged": 4,
+   "odd-verdict": 6,
+   "shared-phrase": 3,
+   "length": 2,
+   "grammar": 2,
+   "only-negation": 1
+  }
+ },
+ "pilot_3": {
+  "n": 27,
+  "picked": 21,
+  "flagged": 21,
+  "kinds": {
+   "grammar": 2,
+   "odd-verdict": 6,
+   "shared-phrase": 5,
+   "length": 6,
+   "only-hedged": 2
+  }
+ },
+ "per_item": [
+  {
+   "prefix": "09db140e",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "Only option A uses the domain acronym ('AIMS') and the formal term 'performance evaluation' instead of everyday wording, making it the jargon-matched odd one out.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): Only option A uses the domain acronym ('AIMS') and the formal term 'performance evaluation' instead of everyday wording, making it the jargon-matched odd one out.",
+   "n_options": 4
+  },
+  {
+   "prefix": "b97b25ea",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "B, C and D each name a concrete contractual/commercial arrangement (co-filing, reseller licence, subscription SLA); A is the odd one out, describing shared responsibility rather than a contract type.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): B, C and D each name a concrete contractual/commercial arrangement (co-filing, reseller licence, subscription SLA); A is the odd one out, describing shared responsibility rather than a contract type.",
+   "n_options": 4
+  },
+  {
+   "prefix": "3f0430cf",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "A, B and D are absolute ('no ... need to be added', 'replaces ... entirely', 'without adding any'), while C is the only qualified 'shared ... but additionally requires' option.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and D are absolute ('no ... need to be added', 'replaces ... entirely', 'without adding any'), while C is the only qualified 'shared ... but additionally requires' option.",
+   "n_options": 4
+  },
+  {
+   "prefix": "83f159c4",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A, C and D each contain an absolute term ('identical...regardless', 'fully...all...no', 'conclusive proof'), while B is the only qualified/hedged statement.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, C and D each contain an absolute term ('identical...regardless', 'fully...all...no', 'conclusive proof'), while B is the only qualified/hedged statement.",
+   "n_options": 4
+  },
+  {
+   "prefix": "a0772e2c",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A, C and D all make absolute claims about models ('all models', 'individual AI models', 'each deployed model'); B is the only option phrased at the system/process level without a universal quantifier.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): A, C and D all make absolute claims about models ('all models', 'individual AI models', 'each deployed model'); B is the only option phrased at the system/process level without a universal quantifier.",
+   "n_options": 4
+  },
+  {
+   "prefix": "8d880a2b",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "Three options assert Annex D overrides or triggers something (mandatory controls, replaces Clause 4, normative + reduces analysis); D is the lone option that keeps the other clauses fully in force, the classic 'both still apply' outlier.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options assert Annex D overrides or triggers something (mandatory controls, replaces Clause 4, normative + reduces analysis); D is the lone option that keeps the other clauses fully in force, the classic 'both still apply' outlier.",
+   "n_options": 4
+  },
+  {
+   "prefix": "f50f74e8",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C each attach a narrowing qualifier ('only if...', 'limit assessment to... the only...', 'whichever... the organization operates'), while D is the sole unrestricted 'regardless of' statement.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and C each attach a narrowing qualifier ('only if...', 'limit assessment to... the only...', 'whichever... the organization operates'), while D is the sole unrestricted 'regardless of' statement.",
+   "n_options": 4
+  },
+  {
+   "prefix": "66fea350",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A and D are absolutist exclusions ('bears no obligation', 'Permanently exclude', 'cannot control') and C merely defers, leaving B as the only option that takes positive inclusive action with a rule-stating justification.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A and D are absolutist exclusions ('bears no obligation', 'Permanently exclude', 'cannot control') and C merely defers, leaving B as the only option that takes positive inclusive action with a rule-stating justification.",
+   "n_options": 4
+  },
+  {
+   "prefix": "f2265782",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "A, B and D each hinge on an absolute claim ('every ... must', 'removes the need', 'prohibits'), while C is the only option phrased as a qualified distinction (X belongs here, not there).",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and D each hinge on an absolute claim ('every ... must', 'removes the need', 'prohibits'), while C is the only option phrased as a qualified distinction (X belongs here, not there).",
+   "n_options": 4
+  },
+  {
+   "prefix": "5d0d9624",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "Three options hinge on absolute/limiting qualifiers ('one-time setup', 'only at the next... audit', 'automatically covers any'), while C is the single option with no such absolute word.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): Three options hinge on absolute/limiting qualifiers ('one-time setup', 'only at the next... audit', 'automatically covers any'), while C is the single option with no such absolute word.",
+   "n_options": 4
+  },
+  {
+   "prefix": "255323d0",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A and D are absolutist mirror-images ('explicitly prohibits' / 'requires separate individuals') and C attaches an extra never-stated condition ('at every management review'), leaving B as the only moderately-worded option ('identifies them as distinct ... but does not require').",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A and D are absolutist mirror-images ('explicitly prohibits' / 'requires separate individuals') and C attaches an extra never-stated condition ('at every management review'), leaving B as the only moderately-worded option ('identifies them as distinct ... but does not require').",
+   "n_options": 4
+  },
+  {
+   "prefix": "ea67eb46",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "Three options remove/relocate societal impacts and justify it with restrictive absolutes ('separate documents', 'mandatory template', 'only public-sector'); B is the lone retain verdict without such an absolute.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options remove/relocate societal impacts and justify it with restrictive absolutes ('separate documents', 'mandatory template', 'only public-sector'); B is the lone retain verdict without such an absolute.",
+   "n_options": 4
+  },
+  {
+   "prefix": "b1ea2bf8",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "Three options begin with the restrictive word \"Only\"; C is the sole non-restrictive, inclusive option (\"even those who never interact\"), making it the odd one out.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options begin with the restrictive word \"Only\"; C is the sole non-restrictive, inclusive option (\"even those who never interact\"), making it the odd one out.",
+   "n_options": 4
+  },
+  {
+   "prefix": "a335a9a2",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "A defers, B excludes, and D includes only conditionally ('only if'), so C is the single option asserting inclusion without a limiting qualifier -- the odd one out among three restrictive verdicts.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A defers, B excludes, and D includes only conditionally ('only if'), so C is the single option asserting inclusion without a limiting qualifier -- the odd one out among three restrictive verdicts.",
+   "n_options": 4
+  },
+  {
+   "prefix": "cbfcb33f",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "B, C and D each tack on a self-justifying causal clause ('since owning the risk...', 'as approval is a prerequisite', 'as any remaining exposure...'), while A states the rule plainly without needing to argue for itself.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each tack on a self-justifying causal clause ('since owning the risk...', 'as approval is a prerequisite', 'as any remaining exposure...'), while A states the rule plainly without needing to argue for itself.",
+   "n_options": 4
+  },
+  {
+   "prefix": "f74447c0",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "A, B and D each hinge on an absolute/restrictive word ('all ... default requirement', 'only when', 'solely'), while C is the sole non-absolute option and the only one listing an open enumeration (what, to whom, when, how)",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): A, B and D each hinge on an absolute/restrictive word ('all ... default requirement', 'only when', 'solely'), while C is the sole non-absolute option and the only one listing an open enumeration (what, to whom, when, how)",
+   "n_options": 4
+  },
+  {
+   "prefix": "e001ba3c",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "B and D are categorical ('invalid unless', 'mandates a standalone') and A is a flat negation ('cannot satisfy'); C is the only option phrased as a qualified, descriptive shortfall.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): B and D are categorical ('invalid unless', 'mandates a standalone') and A is a flat negation ('cannot satisfy'); C is the only option phrased as a qualified, descriptive shortfall.",
+   "n_options": 4
+  },
+  {
+   "prefix": "ab6263f0",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "Three options narrow the scope with an 'Only.../plus... , since ...' justification clause; B alone is unrestricted and carries no 'since' rationale.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options narrow the scope with an 'Only.../plus... , since ...' justification clause; B alone is unrestricted and carries no 'since' rationale.",
+   "n_options": 4
+  },
+  {
+   "prefix": "dd09940d",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "B, C and D are each restrictive or negating ('are not linked', 'required only for', 'mandatory only for'), while A is the only inclusive option and also the longest, listing four items.",
+   "cue_kind": "only-negation",
+   "reason": "picked the key from the options alone and named a cue (only-negation): B, C and D are each restrictive or negating ('are not linked', 'required only for', 'mandatory only for'), while A is the only inclusive option and also the longest, listing four items.",
+   "n_options": 4
+  },
+  {
+   "prefix": "87d03b82",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C each contain an absolute ('technical matter only', a fixed '95%' threshold, 'uniformly across all'), while D is the only context-dependent, qualified option.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and C each contain an absolute ('technical matter only', a fixed '95%' threshold, 'uniformly across all'), while D is the only context-dependent, qualified option.",
+   "n_options": 4
+  },
+  {
+   "prefix": "121f8e71",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A, C and D each hang on a sweeping or extra-specific qualifier ('regardless of...', 'sufficient ... without further assessment', 'only if ... national accreditation scheme'), while B is the only option that states a reason-plus-conclusion without an added absolute condition.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A, C and D each hang on a sweeping or extra-specific qualifier ('regardless of...', 'sufficient ... without further assessment', 'only if ... national accreditation scheme'), while B is the only option that states a reason-plus-conclusion without an added absolute condition.",
+   "n_options": 4
+  },
+  {
+   "prefix": "be876cdf",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "B uses the absolute blanket wording 'any record in any form' and A dismisses the requirement, while C invents an extra-strict condition ('formally approved by the certification body'); D is the qualified, standard-terminology option ('controlled documented information traceable to the specific ... activity').",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): B uses the absolute blanket wording 'any record in any form' and A dismisses the requirement, while C invents an extra-strict condition ('formally approved by the certification body'); D is the qualified, standard-terminology option ('controlled documented information traceable to the specific ... activity').",
+   "n_options": 4
+  },
+  {
+   "prefix": "a90aee16",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "B and C are narrowed by restrictive 'only' clauses and A restricts by citing a different clause; D is the sole option with no limiting qualifier, and it is the direct mirror-negation of B ('intentional' vs 'regardless of whether it was intentional').",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): B and C are narrowed by restrictive 'only' clauses and A restricts by citing a different clause; D is the sole option with no limiting qualifier, and it is the direct mirror-negation of B ('intentional' vs 'regardless of whether it was intentional').",
+   "n_options": 4
+  },
+  {
+   "prefix": "87c740c9",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "All four share the opener 'Annex B is normative', but D is roughly three times longer and adds a specific clause citation and a qualifying 'but...not...' construction, while A, B and C are single short clauses.",
+   "cue_kind": "length",
+   "reason": "picked the key from the options alone and named a cue (length): All four share the opener 'Annex B is normative', but D is roughly three times longer and adds a specific clause citation and a qualifying 'but...not...' construction, while A, B and C are single short clauses.",
+   "n_options": 4
+  },
+  {
+   "prefix": "b40e412a",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "C and D use absolutes ('all listed controls are optional... freely substituted', 'all 38 controls remain strictly mandatory regardless'), while A is the only two-part qualified statement balancing both directions.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): C and D use absolutes ('all listed controls are optional... freely substituted', 'all 38 controls remain strictly mandatory regardless'), while A is the only two-part qualified statement balancing both directions.",
+   "n_options": 4
+  },
+  {
+   "prefix": "b965acf2",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "A is the only absolute ('always'/'never'), and B and D are near-identical twins sharing the frame 'The exclusion is invalid because it was not ...' — leaving C as the uniquely worded remaining option.",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): A is the only absolute ('always'/'never'), and B and D are near-identical twins sharing the frame 'The exclusion is invalid because it was not ...' — leaving C as the uniquely worded remaining option.",
+   "n_options": 4
+  },
+  {
+   "prefix": "379b53fe",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A, C, D each contain a restrictive limiter ('Limit the review to', 'Update only', 'require only a single'), while B is the only unrestricted, inclusive option (lists people, tools, and infrastructure).",
+   "cue_kind": "shared-phrase",
+   "reason": "picked the key from the options alone and named a cue (shared-phrase): A, C, D each contain a restrictive limiter ('Limit the review to', 'Update only', 'require only a single'), while B is the only unrestricted, inclusive option (lists people, tools, and infrastructure).",
+   "n_options": 4
+  },
+  {
+   "prefix": "52004aae",
+   "keyLabel": "A",
+   "state": "no-cue",
+   "pick": "B",
+   "cue": "A and B are the only two options mentioning 'staff' raising AI concerns, forming the near-duplicate pair; within that pair A merely restates its own label ('reporting of concerns' = 'process to raise issues') while B adds a distinct concrete mechanism ('a named role').",
+   "cue_kind": "shared-phrase",
+   "reason": "picked B, not the key -- the options do not give it away",
+   "n_options": 4
+  },
+  {
+   "prefix": "591b9767",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C all justify with a 'because ...' clause containing an absolutist qualifier ('only', 'primarily', 'primary'), while D alone uses a neutral 'which encompass' relative clause with no such qualifier.",
+   "cue_kind": "grammar",
+   "reason": "picked the key from the options alone and named a cue (grammar): A, B and C all justify with a 'because ...' clause containing an absolutist qualifier ('only', 'primarily', 'primary'), while D alone uses a neutral 'which encompass' relative clause with no such qualifier.",
+   "n_options": 4
+  },
+  {
+   "prefix": "430a65d2",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C each deflect or narrow the obligation (hand it to procurement, reuse an existing standard clause, declare it out of scope), while D is the only option that adds an action rather than limiting one.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and C each deflect or narrow the obligation (hand it to procurement, reuse an existing standard clause, declare it out of scope), while D is the only option that adds an action rather than limiting one.",
+   "n_options": 4
+  },
+  {
+   "prefix": "2d291853",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A and C contain absolutist qualifiers ('all ... mandatory', 'each ... primary') and D narrowly offloads the task to one team; B is the only broadly-framed process option without an absolute or a delegation.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A and C contain absolutist qualifiers ('all ... mandatory', 'each ... primary') and D narrowly offloads the task to one team; B is the only broadly-framed process option without an absolute or a delegation.",
+   "n_options": 4
+  },
+  {
+   "prefix": "1dddb20e",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C each contain an absolute/universal qualifier ('prohibited regardless of', 'unchanged ... because both', 'equally without reassessing'), while D is the only hedged, specific statement without a sweeping claim.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and C each contain an absolute/universal qualifier ('prohibited regardless of', 'unchanged ... because both', 'equally without reassessing'), while D is the only hedged, specific statement without a sweeping claim.",
+   "n_options": 4
+  },
+  {
+   "prefix": "9f9c2248",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "D is the only verdict that accepts the practice (all three others allege a defect), and the two competing distractors rely on absolute wording ('requires ... separately', 'cannot simultaneously'), which is typical of written-in wrong options.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): D is the only verdict that accepts the practice (all three others allege a defect), and the two competing distractors rely on absolute wording ('requires ... separately', 'cannot simultaneously'), which is typical of written-in wrong options.",
+   "n_options": 4
+  },
+  {
+   "prefix": "b7d1c5da",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "D is the longest option and the only one with a two-part 'X is present, but Y is not' structure plus an em-dash appositive ('a distinct requirement') that does extra defining work; C is the only option denying any problem.",
+   "cue_kind": "length",
+   "reason": "picked the key from the options alone and named a cue (length): D is the longest option and the only one with a two-part 'X is present, but Y is not' structure plus an em-dash appositive ('a distinct requirement') that does extra defining work; C is the only option denying any problem.",
+   "n_options": 4
+  },
+  {
+   "prefix": "5d504d63",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C all carry restrictive qualifiers ('can only be met', 'only if', 'correct for... but wrong for...'), while D is the sole flat, unconditional verdict.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and C all carry restrictive qualifiers ('can only be met', 'only if', 'correct for... but wrong for...'), while D is the sole flat, unconditional verdict.",
+   "n_options": 4
+  },
+  {
+   "prefix": "24177d84",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "C is the only option that denies any distinction ('interchangeable'), and A/B assign the two terms to people/assigned auditors rather than defining them; D alone gives both terms separate parallel definitions, the standard shape of a keyed definitional pair.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): C is the only option that denies any distinction ('interchangeable'), and A/B assign the two terms to people/assigned auditors rather than defining them; D alone gives both terms separate parallel definitions, the standard shape of a keyed definitional pair.",
+   "n_options": 4
+  },
+  {
+   "prefix": "79209585",
+   "keyLabel": "B",
+   "state": "flag",
+   "pick": "B",
+   "cue": "A, C and D all describe information gathered over a stated time window ('during the review period', 'since the last review'), while B is the only option phrased as decisions/outcomes with no time reference.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): A, C and D all describe information gathered over a stated time window ('during the review period', 'since the last review'), while B is the only option phrased as decisions/outcomes with no time reference.",
+   "n_options": 4
+  },
+  {
+   "prefix": "fcb8a516",
+   "keyLabel": "C",
+   "state": "flag",
+   "pick": "C",
+   "cue": "C is the only option that assigns a distinct role to each of the two standards in a parallel two-clause structure (semicolon), while A, B and D each collapse them into one relationship claim.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): C is the only option that assigns a distinct role to each of the two standards in a parallel two-clause structure (semicolon), while A, B and D each collapse them into one relationship claim.",
+   "n_options": 4
+  },
+  {
+   "prefix": "c318ef8f",
+   "keyLabel": "D",
+   "state": "flag",
+   "pick": "D",
+   "cue": "A, B and C each assert an extreme or self-contradictory shortcut ('bypassing Stage 1', 'provisional certificate before full evidence', 'equivalent in depth to Stage 2 but limited to documentation'), while D is the only moderate, two-part statement with no such absolute.",
+   "cue_kind": "only-hedged",
+   "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and C each assert an extreme or self-contradictory shortcut ('bypassing Stage 1', 'provisional certificate before full evidence', 'equivalent in depth to Stage 2 but limited to documentation'), while D is the only moderate, two-part statement with no such absolute.",
+   "n_options": 4
+  },
+  {
+   "prefix": "fa5276a3",
+   "keyLabel": "A",
+   "state": "flag",
+   "pick": "A",
+   "cue": "B, C and D each contain a dismissive/absolute twist ('guidance only', 'self-certify', 'making third-party certification bodies unnecessary'), while A is the only option stating the plain division of roles without such a reversal.",
+   "cue_kind": "odd-verdict",
+   "reason": "picked the key from the options alone and named a cue (odd-verdict): B, C and D each contain a dismissive/absolute twist ('guidance only', 'self-certify', 'making third-party certification bodies unnecessary'), while A is the only option stating the plain division of roles without such a reversal.",
+   "n_options": 4
+  }
+ ]
+}
