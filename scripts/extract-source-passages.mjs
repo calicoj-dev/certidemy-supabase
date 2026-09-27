@@ -46,6 +46,7 @@ import { PDFS } from "./lib/citation-index.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
+const INCOMING = join(ROOT, "sources", "incoming");
 const KNOWN = new Set(["--verbose"]);
 for (const a of process.argv.slice(2)) {
   if (!KNOWN.has(a)) { console.error("unknown flag " + JSON.stringify(a)); process.exitCode = 2; process.exit(); }
@@ -59,6 +60,61 @@ const SOURCES = [
   { id: "ISO/IEC 27002", edition: "2022", path: PDFS["27002:2022"], kind: "iso" },
   { id: "ISO 19011", edition: "2026", path: PDFS["19011:2026"], kind: "iso" },
   { id: "Scrum Guide", edition: "2020", path: join(ROOT, "reference", "scrum-guide-2020.pdf"), kind: "scrum" },
+
+  /* ============ THE SOURCES THE BANK CITED AND WE DID NOT HOLD ============
+   *
+   * Editions PINNED, as with the Scrum Guide, and for the same reason: a library the generator
+   * quotes from must not offer a choice of edition.
+   *
+   *   42006:2025 only    the 2024 DIS draft is superseded and is not loaded
+   *   17021-1:2015       17021-3 is a different part (QMS auditor competence) and is not cited
+   *
+   * Neither of those two files is in sources/incoming/, so nothing had to be excluded -- worth
+   * saying plainly rather than claiming a filter did work it never did. */
+  { id: "EU AI Act", edition: "2024/1689", kind: "euact", mode: "plain",
+    path: join(INCOMING, "OJ_L_202401689_EN_TXT.pdf") },
+  { id: "NIST AI RMF", edition: "1.0", kind: "nist", mode: "plain",
+    path: join(INCOMING, "NIST.AI.100-1.pdf") },
+  { id: "EBM Guide", edition: "2024", kind: "ebm", mode: "plain",
+    path: join(INCOMING, "Evidence Based Management Guide 2024.pdf") },
+  /* `stripPageNumbers` for ITIL, which prints a bare page number against every page break and no
+   * running header. Off for the four ISO documents the pilot used: it would change their character
+   * counts for no benefit they need, and a library that moves under a finished measurement makes
+   * the measurement unattributable. */
+  { id: "ITIL 4 Foundation", edition: "2019", kind: "itil", mode: "layout", licensed: true,
+    stripPageNumbers: true,
+    path: join(INCOMING, "(ITIL) Axelos - ITIL Foundation 4 edition-Axelos (2019)[1].pdf") },
+  /* `paragraphGrain` on these two only. Both number their PARAGRAPHS and are cited that way, and
+   * both are new here -- nothing has been generated or gated against them, so re-graining costs no
+   * comparison. It is deliberately OFF for the four ISO documents the pilot used. */
+  { id: "ISO/IEC 42006", edition: "2025", kind: "iso", bsAdoption: true, licensed: true,
+    paragraphGrain: true,
+    path: join(INCOMING, "1010556932-BS-ISO-IEC-42006-2025-Information-Technology-Artificial-Intelligence.pdf") },
+  { id: "ISO/IEC 17021-1", edition: "2015", kind: "iso", bsAdoption: true, licensed: true,
+    paragraphGrain: true,
+    path: join(INCOMING, "BSI-EN-ISO-IEC-17021-1-2015.pdf") },
+];
+
+/* ============ PARALLEL TEXT: THE SAME PASSAGE, ANOTHER LANGUAGE ============
+ *
+ * NOT separate sources. Each of these is the official translation of a source above, keyed to the
+ * SAME passage id, so a Spanish or Portuguese item naming an AI Act concept can be checked against
+ * the official term -- `responsable del despliegue` for "deployer" -- rather than against a
+ * translation somebody made up.
+ *
+ * AND THE EU SPANISH IS SPAIN SPANISH. Our Spanish is es-419. This is a REFERENCE for it, never a
+ * mandate: the house glossary still decides. Recorded here because a parallel corpus that looks
+ * authoritative is exactly the thing a later reader would treat as one.
+ */
+const PARALLEL = [
+  { of: "EU AI Act", edition: "2024/1689", language: "es", kind: "euact", mode: "plain",
+    path: join(INCOMING, "OJ_L_202401689_ES_TXT.pdf") },
+  { of: "EU AI Act", edition: "2024/1689", language: "pt", kind: "euact", mode: "plain",
+    path: join(INCOMING, "OJ_L_202401689_PT_TXT.pdf") },
+  { of: "EBM Guide", edition: "2024", language: "es", kind: "ebm", mode: "plain",
+    path: join(INCOMING, "2024-EBM-Guide-Spanish-European.pdf") },
+  { of: "EBM Guide", edition: "2024", language: "pt", kind: "ebm", mode: "plain",
+    path: join(INCOMING, "2024-EBM-Guide-Portuguese-Brazillian_0.pdf") },
 ];
 
 const pdfText = (p, layout) => execFileSync("pdftotext",
@@ -290,6 +346,77 @@ function splitAnnexTable(lines, from) {
 const REMAINDER_CARRIES_TEXT = (s) =>
   /\b(?:shall|should|may|can|must)\b/i.test(String(s)) || /\.\s/.test(String(s));
 
+/* ============ THE DOCUMENT'S OWN CONTENTS LIST IS THE TITLE, AND THAT RETIRES A GUESS ============
+ *
+ * `ISO_HEADING` caps the heading remainder at 90 characters, to stop a decimal in running prose
+ * being read as a clause number. That cap decided two things it was never meant to decide, and
+ * ISO/IEC 42006 shows both in adjacent lines -- the whole clause is on the heading line here:
+ *
+ *     7.4 Personnel records The requirements of ISO/IEC 17021-1:2015, 7.4 apply.      74 chars
+ *     7.5 Outsourcing Outsourcing in accordance with ... not permitted ...           150 chars
+ *
+ * 7.4 came in UNDER the cap, so the whole line became its TITLE and its own statement was never
+ * stored as text -- the passage then took the NEXT clause's line as its body, which is a junk
+ * passage occupying a real address, the shape this repository records as worse than a missing one.
+ * 7.5 came in OVER the cap, so it was not a heading at all in this mode.
+ *
+ * A heuristic for where a title ends and a sentence begins would be a guess. THE DOCUMENT ALREADY
+ * DECLARES ITS TITLES, in the contents list this extractor otherwise only skips:
+ *
+ *     7.4 Personnel records.........................................................8
+ *
+ * So a line whose leading number is followed by that number's DECLARED title is a heading, at any
+ * length, and everything after the declared title is text BY CONSTRUCTION rather than by a modal
+ * test. Same principle as the declared population in the completeness check: ask the document. */
+const contentsTitles = (lines) => {
+  const out = new Map();
+  /* TWO CONTENTS FORMS, AND THE SECOND IS WHY THE TOP-LEVEL CLAUSES HAD NO DECLARED TITLE. A
+   * BS contents list in plain mode puts a top-level number on a line of its OWN and the title with
+   * its dot leaders on the next non-blank line, while a subclause keeps both on one line:
+   *
+   *     1                                  <- the number, alone
+   *                                        <- a blank
+   *     Scope...........................9  <- the title
+   *     5.1 Legal and contractual matters................10   <- one line, the subclause form
+   *
+   * Reading only the one-line form gave 5.1 a declared title and clause 5 none, which is the
+   * shape that leaves a document half-covered while every count looks reasonable. */
+  const pendingNumber = new Map();
+  {
+    let held = null;
+    for (let i = 0; i < lines.length; i++) {
+      const t = String(lines[i]).trim();
+      if (!t) continue;
+      const bare = /^([A-Z]?\.?\d+(?:\.\d+){0,3})$/.exec(t);
+      if (bare) { held = bare[1]; continue; }
+      if (held && isContentsLine(t)) pendingNumber.set(i, held);
+      held = null;
+    }
+  }
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i];
+    if (!isContentsLine(ln)) continue;
+    /* THE GAP IS `\s+`, NOT `\s{1,6}`, BECAUSE `-layout` RENDERS THE CONTENTS AS COLUMNS. The
+     * narrow form harvested 50 titles from 42006 and ZERO from 17021-1, and the difference was not
+     * the document: both modes run for a BS adoption, and in `-layout` the number and the title are
+     * separated by a column's worth of spaces. The dot leaders are what identify this line -- the
+     * width of the gap carries no information. */
+    let m = /^\s{0,8}([A-Z]?\.?\d+(?:\.\d+){0,3})\s+(.+?)\s*\.{4,}\s*\d+\s*$/.exec(ln);
+    if (!m && pendingNumber.has(i)) {
+      const t = /^\s*(.+?)\s*\.{4,}\s*\d+\s*$/.exec(ln);
+      if (t) m = [ln, pendingNumber.get(i), t[1]];
+    }
+    if (!m) continue;
+    const title = m[2].trim();
+    /* FIRST DECLARATION WINS. A contents list is printed once; a later dotted line carrying the
+     * same number is a second contents block (42006 prints one per part) and agreeing copies are
+     * harmless, but a disagreeing one must not silently replace the first. */
+    const key = m[1].replace(/^\./, "");
+    if (title && title.length >= 3 && !out.has(key)) out.set(key, title);
+  }
+  return out;
+};
+
 function cut(lines, marks) {
   const lastOf = new Map();
   for (const m of marks) lastOf.set(m.clause, m);
@@ -299,15 +426,90 @@ function cut(lines, marks) {
     const h = ordered[i];
     const end = i + 1 < ordered.length ? ordered[i + 1].line : lines.length;
     const after = lines.slice(h.line + 1, end).join("\n").replace(/[ \t]+\n/g, "\n").trim();
-    const sameLine = REMAINDER_CARRIES_TEXT(h.rest) ? String(h.rest).trim() : "";
+    /* `restIsText` is set only where the DOCUMENT's contents list said the title ends, so the
+     * remainder is text by construction and the modal test has nothing left to decide. */
+    const sameLine = (h.restIsText || REMAINDER_CARRIES_TEXT(h.rest)) ? String(h.rest).trim() : "";
     const body = [sameLine, after].filter(Boolean).join("\n").trim();
     if (!body) continue;
-    out.push({ clause: h.clause, title: h.title, text: body });
+    out.push({ clause: h.clause, title: h.title, text: body, titleDeclared: !!h.restIsText });
   }
   return out;
 }
 
-function splitIso(text) {
+/* ============ A NUMBERED PARAGRAPH IS A CITABLE ADDRESS, AND SEQUENCE IS THE GUARD ============
+ *
+ * ISO/IEC 17021-1 numbers its PARAGRAPHS -- 4.2.1, 4.2.2, 4.2.3 -- and that is how the standard is
+ * cited. Measured: 264 numbered paragraph starts, of which only 96 became rows, because 147 of the
+ * misses carry a statement longer than `ISO_HEADING`'s 90-character cap. Their text is not lost --
+ * it sits inside the parent clause's row -- but an item citing 4.2.2 has no row to anchor in.
+ *
+ * THE CAP CANNOT SIMPLY BE RAISED, because it is what stops a decimal in running prose being read
+ * as a clause number. The guard that replaces it is the document's own SEQUENCE: a paragraph is
+ * accepted only if it is the first child of its parent or follows the sibling before it. Prose
+ * mentioning "9.4.2" in passing does not continue a sequence. Same mechanism as the recital and
+ * article guards in `splitEuAct`, which is the house form for this.
+ *
+ * IT IS SCOPED PER SOURCE, DELIBERATELY. Turning it on for ISO/IEC 42001 would re-grain the
+ * document every pilot item was generated and gated against, and this repository records that
+ * re-gating old items against a changed library produces an unattributable delta. The two BS
+ * adoptions are new, nothing has been generated from them, and they are the two that need it. */
+const PARAGRAPH_START = /^\s{0,3}(\d+(?:\.\d+){1,4})[ \t]+([A-Z(].*)$/;
+
+function paragraphMarks(lines, declared, headings) {
+  const taken = new Set(headings.map((h) => h.clause));
+  const cands = [];
+  lines.forEach((ln, i) => {
+    if (isContentsLine(ln)) return;
+    const m = PARAGRAPH_START.exec(ln);
+    if (!m) return;
+    /* A paragraph must carry a statement, not a title: a short remainder with no terminal
+     * punctuation is a heading and `splitIso`'s own scan already owns that case. */
+    if (m[2].trim().length < 40) return;
+    cands.push({ clause: m[1], rest: m[2], line: i, cand: true });
+  });
+
+  /* ============ THE SEQUENCE IS WALKED IN DOCUMENT ORDER, HEADINGS INCLUDED ============
+   *
+   * A paragraph cannot be required to be the FIRST child of its parent, because its earlier
+   * siblings are often ordinary headings that this pass skips: ISO/IEC 17021-1 clause 10.2 has
+   * 10.2.1 to 10.2.3 as short titled headings and 10.2.4 with its whole statement on the heading
+   * line, so 10.2.4 was refused for being fourth and was the one id the completeness check
+   * reported missing.
+   *
+   * SEEDING THE GUARD WITH EACH PARENT'S HIGHEST TAKEN CHILD WAS THE WRONG FIX AND COST TEN ROWS:
+   * where a heading exists at 9.6.5.3, a legitimate paragraph 9.6.5.1 then looks out of sequence.
+   * The order matters, so the two streams are MERGED BY LINE and the counter advances as the
+   * document does. */
+  const stream = [...headings.map((h) => ({ clause: h.clause, line: h.line })), ...cands]
+    .sort((a, b) => a.line - b.line || (a.cand ? 1 : -1));
+  const last = new Map();
+  const out = [];
+  for (const c of stream) {
+    const dot = c.clause.lastIndexOf(".");
+    if (dot < 0) continue;
+    const parent = c.clause.slice(0, dot);
+    const n = Number(c.clause.slice(dot + 1));
+    if (!Number.isFinite(n)) continue;
+    const prev = last.get(parent);
+    const inSequence = prev === undefined ? n === 1 : n === prev + 1;
+    if (!inSequence) continue;
+    last.set(parent, n);
+    if (!c.cand || taken.has(c.clause)) continue;
+    /* THE PARAGRAPH HAS NO TITLE OF ITS OWN. Its parent clause's declared title is the honest
+     * label -- it is what the paragraph is under -- and the task map matches on titles, so an
+     * empty one would make these rows unmatchable by the signal that matches best. */
+    out.push({
+      clause: c.clause,
+      title: declared.get(parent) || "",
+      rest: c.rest,
+      restIsText: true,
+      line: c.line,
+    });
+  }
+  return out;
+}
+
+function splitIso(text, declaredSeed, opts) {
   /* ZERO-WIDTH SPACES SIT BETWEEN THE NUMBER AND THE TITLE, and they are why the first
    * four versions of this extractor under-covered every ISO document. ISO/IEC 27001
    * renders its headings as
@@ -361,17 +563,70 @@ function splitIso(text) {
   }
   const annexAt = annexOf.findIndex((x) => x !== null);
 
+  /* A BS ADOPTION'S CONTENTS LIST IS IN THE PART THAT GETS STRIPPED. The national furniture sits
+   * ahead of ISO clause 1 and so does the contents, so the caller harvests the titles from the
+   * discarded head and seeds them here -- otherwise the one source that needed the declared title
+   * most would be the one source that never had one. */
+  const declared = contentsTitles(lines);
+  if (declaredSeed) for (const [k, v] of declaredSeed) if (!declared.has(k)) declared.set(k, v);
   const marks = [];
   lines.forEach((ln, i) => {
     if (isContentsLine(ln)) return;
-    const m = ISO_HEADING.exec(ln) || ISO_HEADING_TABBED.exec(ln);
+    /* THE DECLARED FORM IS TRIED FIRST AND HAS NO LENGTH CAP. It cannot fire on running prose,
+     * because prose does not open a line with a clause number followed by that clause's own
+     * declared title. Where it fires, the title and the text boundary are the document's. */
+    let declHit = null;
+    const lead = /^\s{0,8}([A-Z]?\.?\d+(?:\.\d+){0,3})[\s\t]+(.*)$/.exec(ln);
+    if (lead) {
+      const t = declared.get(lead[1].replace(/^\./, ""));
+      if (t && lead[2].toLowerCase().startsWith(t.toLowerCase())) {
+        declHit = { num: lead[1], title: t, rest: lead[2].slice(t.length) };
+      }
+    }
+    const m = declHit
+      ? [ln, declHit.num, declHit.title]
+      : (ISO_HEADING.exec(ln) || ISO_HEADING_TABBED.exec(ln));
     if (!m) return;
     let num = m[1].replace(/^\./, "").replace(/^([A-Z])(\d)/, "$1.$2");
+    /* NO ISO CLAUSE NUMBER HAS A ZERO COMPONENT, and a table of decimals does. ISO/IEC 42006's
+     * Annex B tabulates audit-time adjustment factors -- "1.0 to 2.0", "0.5 to 1.0" -- and inside
+     * an annex those became clause B.1.0 and B.0.5, one of them ten characters long. The loader's
+     * 20-character CHECK refused the batch, which is the validate-before-writing rule doing its
+     * job; this stops the row existing at all. Clause numbers run 4.1, 9.3.2, A.8.34: a component
+     * of exactly "0", or one with a leading zero, is a number from the page and not an address.
+     *
+     * A LEADING ZERO COMPONENT IS THE EXCEPTION AND IT IS REAL: ISO numbers an INTRODUCTION 0.1,
+     * 0.2, 0.3, and ISO/IEC 27002 has seven of them. The first version of this rule rejected the
+     * whole component set and took all seven with it -- a correct clause deleted to remove a table
+     * cell. So only a zero component AFTER the first is a page number, which still rejects B.1.0
+     * and B.0.5 while keeping 0.1 to 0.7.
+     *
+     * AND IT IS TESTED AFTER THE ANNEX PREFIX, not before. Tested before, clause `0.1` passes --
+     * its only later component is "1" -- and is then prefixed to `B.0.1`, so seven copies of
+     * 27002's introduction survived inside Annex B while the rule that should have caught them had
+     * already run. The id the library stores is the id the rule has to judge. */
     /* A bare numeric address inside an annex belongs to that annex. An address that already
      * carries its own letter (B.6.2.6, D.2) is left exactly as the document wrote it. */
     if (annexOf[i] && /^\d/.test(num)) num = annexOf[i] + "." + num;
-    marks.push({ clause: num, title: m[2].trim().slice(0, 90), rest: m[2], line: i });
+    {
+      const parts = num.split(".");
+      const bad = parts.slice(1).some((c) => /^\d/.test(c) && (c === "0" || /^0\d/.test(c)));
+      if (bad) return;
+    }
+    marks.push({
+      clause: num,
+      title: m[2].trim().slice(0, 90),
+      rest: declHit ? declHit.rest : m[2],
+      restIsText: !!declHit && declHit.rest.trim().length > 0,
+      line: i,
+    });
   });
+  if (opts && opts.paragraphGrain) {
+    /* The heading marks with their LINES, because the paragraph guard walks both streams in
+     * document order. A Set of ids was enough for de-duplication and not for sequencing. */
+    for (const pm of paragraphMarks(lines, declared, marks.slice())) marks.push(pm);
+  }
+
   const body = cut(lines, marks);
 
   /* The annex table, where there is one. Its identifiers are already A-prefixed, and a
@@ -582,15 +837,415 @@ function splitDefinitions(text, headings) {
   return out;
 }
 
-function splitIsoWithTerms(text) {
-  const headings = splitIso(text);
+function splitIsoWithTerms(text, declaredSeed, opts) {
+  const headings = splitIso(text, declaredSeed, opts);
   const defs = splitDefinitions(text, headings);
   const have = new Set(headings.map((h) => h.clause));
   return [...headings, ...defs.filter((d) => !have.has(d.clause))];
 }
 
-const split = (kind, text) => kind === "scrum" ? splitScrum(text)
-  : kind === "amendment" ? splitAmendment(text) : splitIsoWithTerms(text);
+/* ============================================================================
+ * THE SOURCES JUAN SUPPLIED, IN THE SAME EXTRACTOR
+ * ============================================================================
+ *
+ * One extractor, one completeness check -- his instruction, and the right one: a second pipeline
+ * would be a second implementation of clause splitting, and the two would diverge exactly where
+ * it matters (which text a gate checks a quotation against).
+ *
+ * Each of these is a different document GENRE, not a different pipeline. A Regulation numbers
+ * articles and paragraphs; a framework names functions and categories; a BS adoption wraps an ISO
+ * standard in national furniture. The splitters differ; everything downstream does not.
+ */
+
+/**
+ * EU AI Act, Regulation (EU) 2024/1689, from the Official Journal.
+ *
+ * THREE GRAINS, because the citations in our bank use three:
+ *   Art. 50(2)        an article's numbered paragraph -- the obligation grain
+ *   Annex III 4(a)    an annex point, to its letter
+ *   Recital 27        classed informative, ALWAYS: a recital explains, it never requires
+ *
+ * Plain `pdftotext` is the mode: it puts "Article 50 <title>" on one line and each numbered
+ * paragraph on its own, which is exactly the paragraph grain. `-layout` splits the heading from
+ * its title and wraps paragraphs, so it would need reassembling to get back to the same thing.
+ */
+/* ============ THE SAME SPLITTER IN THREE LANGUAGES, WITHOUT TYPING AN ACCENT ============
+ *
+ * The Spanish edition heads its articles `Articulo` WITH AN ACUTE ACCENT on the i, and the
+ * Portuguese `Artigo`. Typing either into this file would violate the ASCII-only rule that protects
+ * every transport here, and building them from `String.fromCharCode` would put two spellings in the
+ * source for one concept. `Art` followed by non-space is all three, and the number after it is what
+ * makes the line an article heading rather than the word "Artificial".
+ *
+ * These are the ONLY language-dependent tokens in the EU splitter: recitals are `(N)`, paragraphs
+ * are `N.` or `(N)`, annex points are `N.` and `(a)`, and annex numbers are Roman in all three. That
+ * is why one splitter can carry three languages -- and it is why an alignment assertion is worth
+ * something: the structure is supposed to be identical, so a difference is a finding. */
+const EU_ARTICLE = /^\s*Art\S{0,10}\s+(\d{1,3})\s*(.*)$/;
+/* PORTUGUESE WRITES THE ARTICLE NUMBER AS AN ORDINAL -- "Artigo 1.o Objeto" -- so a pattern
+ * requiring whitespace after the digit found no Article 1, and with no article boundary the whole
+ * document was treated as front matter: EVERY Portuguese article came back absent while 300 rows
+ * aligned happily, because recitals and annex points are numbered the same in all three languages.
+ * A partial success is what made it look like a translation-coverage fact rather than my regex. */
+const EU_ARTICLE_1 = /^\s*Art\S{0,10}\s+1(?![0-9])/;
+const EU_ANNEX = /^\s*(?:ANNEX|ANEXO)\s+([IVXL]+)\b(.*)$/;
+
+function splitEuAct(text) {
+  const lines = String(text).replace(CONTROL_BYTES, "").split(/\r?\n/);
+  const out = [];
+
+  /* Where the articles begin. Everything before it that looks like "(N)" is a RECITAL; the same
+   * shape after it is a cross-reference or a lettered point, so the boundary is what makes the
+   * recital pass safe. */
+  const firstArticle = lines.findIndex((l) => EU_ARTICLE_1.test(l));
+  const bodyStart = firstArticle < 0 ? lines.length : firstArticle;
+
+  /* ---- recitals ---- */
+  {
+    const marks = [];
+    for (let i = 0; i < bodyStart; i++) {
+      const m = /^\s*\((\d{1,3})\)\s+(\S.*)$/.exec(lines[i]);
+      if (!m) continue;
+      const n = Number(m[1]);
+      /* Sequential only: the recitals run 1..180 in order, so a number that goes backwards is a
+       * citation inside a recital rather than the start of one. */
+      if (marks.length && n !== marks[marks.length - 1].n + 1) continue;
+      if (!marks.length && n !== 1) continue;
+      marks.push({ n, line: i, lead: m[2] });
+    }
+    marks.forEach((mk, k) => {
+      const end = k + 1 < marks.length ? marks[k + 1].line : bodyStart;
+      const body = [mk.lead, ...lines.slice(mk.line + 1, end)].map((s) => s.trim())
+        .filter(Boolean).join(" ").replace(/\s{2,}/g, " ").trim();
+      if (body.length >= 40) {
+        out.push({ clause: "Recital " + mk.n, title: null, text: body, forceNormative: "informative" });
+      }
+    });
+  }
+
+  /* ---- articles, at paragraph grain ---- */
+  const artMarks = [];
+  for (let i = bodyStart; i < lines.length; i++) {
+    if (EU_ANNEX.test(lines[i])) break;
+    const m = EU_ARTICLE.exec(lines[i]);
+    if (!m) continue;
+    /* PARAGRAPH 1 CAN SIT ON THE HEADING LINE, and where it does the whole article was arriving as
+     * a TITLE. One article per edition does this -- EN Article 64 (AI Office) and PT Artigo 98 --
+     * so it is rare enough to have looked like a translation difference and common enough to cost
+     * two of the four structural differences reported. The split point is " 1. ", paragraph one:
+     * an article title can carry a number ("Regulation (EU) No 167/2013") and does not carry that. */
+    /* AN ARTICLE HEADING IS SEQUENTIAL; A CROSS-REFERENCE IS NOT. "Article 18 of Regulation (EU)
+     * 2019/1020 shall apply mutatis mutandis" sits inside Article 97's text and was read as a
+     * heading, producing a second `Art. 18` row whose text was the NEXT heading it swallowed --
+     * junk at a real address, and it is the row a lookup for Art. 18 could have returned.
+     *
+     * It was found by the alignment check: neither translation produced that row, which read as a
+     * translation gap and was an English defect. Same guard as the recitals directly above. */
+    const nextNum = Number(m[1]);
+    if (artMarks.length ? nextNum !== Number(artMarks[artMarks.length - 1].num) + 1 : nextNum !== 1) continue;
+    const rest = (m[2] || "").trim();
+    const at = rest.search(/\s1\.\s/);
+    artMarks.push({
+      num: m[1],
+      title: at > 0 ? rest.slice(0, at).trim() : rest,
+      inline: at > 0 ? rest.slice(at + 1).trim() : "",
+      line: i,
+    });
+  }
+  artMarks.forEach((am, k) => {
+    const end = k + 1 < artMarks.length ? artMarks[k + 1].line
+      : lines.findIndex((l, i) => i > am.line && EU_ANNEX.test(l));
+    const stop = end < 0 ? lines.length : end;
+    /* ONE LINE CAN CARRY SEVERAL PARAGRAPHS, so the segment is expanded before it is scanned. The
+     * paragraph loop works a line at a time, and this edition puts "1. ... 2. ..." on a single
+     * line wherever the typesetting ran them together -- which is why Article 64 reported one
+     * paragraph against the translations' two even after the heading-line fix.
+     *
+     * Splitting on every " N. " OVER-SPLITS on purpose: "Regulation (EU) No 182/2011. 2. Caso"
+     * is indistinguishable from a paragraph start by any local test. The SEQUENCE GUARD downstream
+     * is what makes that safe -- a fragment whose number does not advance is folded back into the
+     * paragraph above it, which is exactly where it came from. */
+    const expand = (ln) => String(ln).split(/(?=\s\d{1,2}\.\s)/g).map((x) => x.trim());
+    const seg = [am.inline, ...lines.slice(am.line + 1, stop)]
+      .flatMap(expand).filter((x) => x !== "");
+
+    /* Numbered paragraphs. An unnumbered line continues the paragraph above it -- Article 50(4)
+     * has a second unnumbered paragraph, and attaching it to 50(4) is what the citation means. */
+    /* TWO PARAGRAPH NUMBERINGS, AND THE DEFINITIONS ARTICLE USES THE SECOND ONE.
+     *
+     * Most articles number paragraphs "1." on their own line. ARTICLE 3 -- Definitions, the most
+     * cited article in the Regulation -- numbers its 68 definitions "(1)", "(2)" in parentheses,
+     * so a matcher for the first form collapsed every definition into a single `Art. 3` row and
+     * `Art. 3(1)` did not exist. That is the id our bank uses for the definition of an AI system.
+     *
+     * The parenthesised form is accepted with a SEQUENCE GUARD: it counts only when it advances
+     * from the previous one, so "(58) Directive (EU) 2020/1828" inside a paragraph is a citation
+     * rather than the start of paragraph 58. A lettered "(a)" cannot match either pattern. */
+    const paras = [];
+    let cur = null, lastNum = 0;
+    for (const raw of seg) {
+      const ln = raw.trim();
+      if (!ln) continue;
+      const dotted = /^(\d{1,2})\.\s+(\S.*)$/.exec(ln);
+      const paren = /^\((\d{1,3})\)\s+(\S.*)$/.exec(ln);
+      /* A THIRD FORM, AND IT IS THE DEFINITIONS ARTICLE IN SPANISH AND PORTUGUESE. English writes
+       * "(1)" and the Spanish edition writes "1)" -- same article, same 68 definitions, one bracket
+       * apart -- so Art. 3 came back with 68 paragraphs in English and ZERO in Spanish. It is
+       * covered by the same sequence guard as the other two, which is what keeps a "1)" inside a
+       * lettered list from starting a paragraph. */
+      const trailing = /^(\d{1,3})\)\s+(\S.*)$/.exec(ln);
+      const m = dotted || paren || trailing;
+      if (m && Number(m[1]) === lastNum + 1) {
+        lastNum = Number(m[1]);
+        cur = { p: m[1], parts: [m[2]] };
+        paras.push(cur);
+        continue;
+      }
+      if (cur) cur.parts.push(ln);
+      else { cur = { p: null, parts: [ln] }; paras.push(cur); }
+    }
+    for (const pa of paras) {
+      const body = pa.parts.join(" ").replace(/\s{2,}/g, " ").trim();
+      if (body.length < 40) continue;
+      out.push({
+        clause: pa.p ? "Art. " + am.num + "(" + pa.p + ")" : "Art. " + am.num,
+        title: am.title || null, text: body,
+      });
+    }
+    /* The article's own title is worth a row when it has no numbered paragraphs at all. */
+    if (!paras.length && am.title) {
+      out.push({ clause: "Art. " + am.num, title: am.title, text: am.title });
+    }
+  });
+
+  /* ---- annexes, at point grain ---- */
+  const annexMarks = [];
+  lines.forEach((l, i) => {
+    const m = EU_ANNEX.exec(l);
+    if (m) annexMarks.push({ roman: m[1], title: (m[2] || "").trim(), line: i });
+  });
+  annexMarks.forEach((an, k) => {
+    const end = k + 1 < annexMarks.length ? annexMarks[k + 1].line : lines.length;
+    let point = null, letter = null, buf = [];
+    const flush = () => {
+      const body = buf.join(" ").replace(/\s{2,}/g, " ").trim();
+      if (body.length >= 40) {
+        const id = "Annex " + an.roman + (point ? " " + point : "") + (letter ? "(" + letter + ")" : "");
+        out.push({ clause: id, title: an.title || null, text: body });
+      }
+      buf = [];
+    };
+    for (let i = an.line + 1; i < end; i++) {
+      const ln = (lines[i] || "").trim();
+      if (!ln) continue;
+      if (/^\d{1,3}\/\d{1,3}$/.test(ln)) continue;          /* page furniture: "82/144" */
+      const pm = /^(\d{1,2})\.\s*(.*)$/.exec(ln);
+      /* `(a)` in English, `a)` in Spanish and Portuguese -- the same one-bracket difference as the
+       * definitions numbering, and it cost 81 of the 83 unaligned annex points. Both accepted. */
+      const lm = /^\(?([a-z])\)\s*(.*)$/.exec(ln);
+      if (pm) { flush(); point = pm[1]; letter = null; buf = pm[2] ? [pm[2]] : []; continue; }
+      if (lm) { flush(); letter = lm[1]; buf = lm[2] ? [lm[2]] : []; continue; }
+      buf.push(ln);
+    }
+    flush();
+  });
+  return out;
+}
+
+/**
+ * NIST AI RMF 1.0. The Core's functions and categories, plus the numbered sections of Parts 1
+ * and 2.
+ *
+ * VOLUNTARY GUIDANCE, SO NEVER `shall`. The framework says "should" and describes; it imposes
+ * nothing. An item that reads a NIST category as a requirement is making a claim no document
+ * supports, and the modal gate is what has to refuse it -- so the ceiling is enforced here, at
+ * extraction, rather than left to whatever modal a sentence happens to contain.
+ */
+function splitNist(text) {
+  const lines = String(text).replace(CONTROL_BYTES, "").split(/\r?\n/);
+  const marks = [];
+  lines.forEach((l, i) => {
+    const t = l.trim();
+    const core = /^(GOVERN|MAP|MEASURE|MANAGE)\s+(\d+(?:\.\d+)?)\s*:\s*(.*)$/.exec(t);
+    if (core) { marks.push({ clause: core[1] + " " + core[2], title: core[3].trim(), line: i }); return; }
+    const sec = /^(\d+(?:\.\d+){0,2})\s+([A-Z][^\n]{3,90})$/.exec(t);
+    if (sec && !isContentsLine(t)) marks.push({ clause: sec[1], title: sec[2].trim(), line: i });
+  });
+  const lastOf = new Map();
+  for (const m of marks) lastOf.set(m.clause, m);
+  const ordered = [...lastOf.values()].sort((a, b) => a.line - b.line);
+  const out = [];
+  ordered.forEach((h, i) => {
+    const end = i + 1 < ordered.length ? ordered[i + 1].line : lines.length;
+    const body = lines.slice(h.line + 1, end).map((s) => s.trim()).filter(Boolean)
+      .join(" ").replace(/\s{2,}/g, " ").trim();
+    const text2 = (h.title ? h.title + " " : "") + body;
+    if (text2.trim().length >= 40) {
+      /* `forceNormative` caps it: voluntary guidance is never a requirement. */
+      out.push({ clause: h.clause, title: h.title, text: text2.trim(), capNormative: "should" });
+    }
+  });
+  return out;
+}
+
+/**
+ * EBM Guide. Sections and the Key Value Area names.
+ *
+ * INFORMATIVE THROUGHOUT, and it carries no numbering of its own, so the ids are its own
+ * headings. THAT MAKES ITS DECLARED POPULATION WEAKER THAN EVERY OTHER SOURCE HERE and the report
+ * says so rather than implying a clause list exists.
+ */
+function splitEbm(text) {
+  const lines = String(text).replace(CONTROL_BYTES, "").split(/\r?\n/);
+  const KVA = ["Unrealized Value", "Current Value", "Ability to Innovate", "Time-to-Market"];
+  const marks = [];
+  lines.forEach((l, i) => {
+    const t = l.trim();
+    if (!t || t.length > 70) return;
+    if (isContentsLine(t)) return;
+    /* A heading here is a short line that is title case and ends without a full stop. The KVA
+     * names are declared by name so they cannot be missed by a shape test. */
+    const isKva = KVA.some((k) => t === k || t === k + ":");
+    const looksHeading = /^[A-Z][A-Za-z0-9 ()\/&'-]{3,68}$/.test(t) && !/[.;:]$/.test(t);
+    if (isKva || looksHeading) marks.push({ clause: t.replace(/:$/, ""), title: t.replace(/:$/, ""), line: i });
+  });
+  const lastOf = new Map();
+  for (const m of marks) lastOf.set(m.clause, m);
+  const ordered = [...lastOf.values()].sort((a, b) => a.line - b.line);
+  const out = [];
+  ordered.forEach((h, i) => {
+    const end = i + 1 < ordered.length ? ordered[i + 1].line : lines.length;
+    const body = lines.slice(h.line + 1, end).map((s) => s.trim()).filter(Boolean)
+      .join(" ").replace(/\s{2,}/g, " ").trim();
+    if (body.length >= 60) out.push({ clause: h.clause, title: h.title, text: body, forceNormative: "informative" });
+  });
+  return out;
+}
+
+/**
+ * A BS or BS EN adoption of an ISO standard: the same text behind national furniture.
+ *
+ * THE NATIONAL FOREWORD AND COVER PAGES ARE FURNITURE, and the director's instruction is to strip
+ * them and ASSERT the body starts at ISO clause 1. That assertion is the point: a foreword left in
+ * place would put BSI's own sentences into a library the gates quote from as if they were the
+ * standard's.
+ */
+/* ============ THE RUNNING HEADER IS FURNITURE AND IT SITS MID-SENTENCE ============
+ *
+ * `stripFurniture` catches the ISO form `ISO/IEC 42001:2023(E)`, and a BS adoption prints its own
+ * on every page, in two shapes neither of which that pattern matches -- the first has no language
+ * suffix at all and the second carries a part number the pattern's `\d{4,5}` cannot hold:
+ *
+ *     8 BS ISO/IEC 42006:2025
+ *     9 BS EN ISO/IEC 17021-1:2015 ISO/IEC 17021-1:2015(E)
+ *
+ * They were landing INSIDE clauses -- 30 passages in 42006 and 42 in 17021-1 -- because the page
+ * break falls mid-sentence and `stripFurniture` turns the form feed into a space. Removing them at
+ * WHOLE-LINE grain, before anything joins lines, is what lets the sentence close up cleanly; doing
+ * it on the joined passage leaves the page number behind in the middle of a requirement.
+ *
+ * THE PAGE NUMBER IS IDENTIFIED BY ITS NEIGHBOUR, NOT BY BEING A NUMBER. A line holding only a
+ * digit or a roman numeral is a clause number in a contents list and a page number next to a page
+ * header; stripping bare numbers on sight would have eaten the contents numbering this extractor
+ * now depends on. Adjacency is the evidence. */
+const BS_RUNNING_HEADER = new RegExp(
+  "^BS(?:\\s+EN)?\\s+ISO(?:/IEC)?\\s*\\d{4,5}(?:-\\d+)?(?::\\d{4})?" +
+  "(?:\\s+ISO(?:/IEC)?\\s*\\d{4,5}(?:-\\d+)?(?::\\d{4})?\\s*\\([A-Za-z]{1,3}\\))?$", "i");
+const ISO_RUNNING_HEADER = new RegExp(
+  "^ISO(?:/IEC)?\\s*\\d{4,5}(?:-\\d+)?(?::\\d{4})?\\s*\\([A-Za-z]{1,3}\\)$", "i");
+const PAGE_NUMBER_ONLY = /^(?:\d{1,4}|[ivxlcdm]{1,7})$/i;
+
+/* A FORM FEED IS THE PAGE BOUNDARY, AND THAT IS WHAT MAKES A BARE NUMBER A PAGE NUMBER. ITIL 4
+ * prints no running header -- just the page number, alone on a line, against the page break -- so
+ * the header-adjacency rule above has nothing to anchor on and six passages opened with a page
+ * number where their first sentence should be. The form feed is the anchor instead. It is the same
+ * argument: the evidence is the NEIGHBOUR, never the fact that the line holds only digits. */
+const FORM_FEED = String.fromCharCode(12);
+
+function stripRunningHeaders(lines) {
+  const drop = new Set();
+  const norm = (s) => String(s).replace(CONTROL_BYTES, "").replace(/\f/g, "").trim();
+  const nextNonBlank = (from, step) => {
+    for (let j = from; j >= 0 && j < lines.length; j += step) {
+      if (norm(lines[j])) return j;
+    }
+    return -1;
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const t = norm(lines[i]);
+    if (!t || (!BS_RUNNING_HEADER.test(t) && !ISO_RUNNING_HEADER.test(t))) continue;
+    drop.add(i);
+    /* Walk outward past blanks in both directions for the page number that belongs to this
+     * header. Both directions, because the number sits before the form feed on one page and the
+     * ISO sub-header follows it on the next. */
+    for (const step of [-1, 1]) {
+      for (let j = i + step; j >= 0 && j < lines.length; j += step) {
+        const u = norm(lines[j]);
+        if (!u) continue;
+        if (PAGE_NUMBER_ONLY.test(u) && !drop.has(j)) drop.add(j);
+        break;
+      }
+    }
+  }
+  /* Second pass: a numeric-only line whose nearest non-blank neighbour on either side begins at a
+   * page break. Run after the header pass so a number already claimed by a header is not counted
+   * twice, and never on a line some other rule kept. */
+  for (let i = 0; i < lines.length; i++) {
+    if (drop.has(i)) continue;
+    if (!PAGE_NUMBER_ONLY.test(norm(lines[i]))) continue;
+    const before = nextNonBlank(i - 1, -1), after = nextNonBlank(i + 1, 1);
+    const atBreak = (j) => j >= 0 && String(lines[j]).indexOf(FORM_FEED) === 0;
+    if (atBreak(after) || atBreak(before) || String(lines[i]).indexOf(FORM_FEED) === 0) drop.add(i);
+  }
+  return { kept: lines.filter((_, i) => !drop.has(i)), dropped: drop.size };
+}
+
+function splitIsoBs(text) {
+  const lines = String(text).replace(CONTROL_BYTES, "").split(/\r?\n/);
+  /* The LAST "1 Scope" that is a heading, because the contents lists it first. */
+  let scopeAt = -1;
+  lines.forEach((l, i) => { if (/^\s*1\s+Scope\s*$/.test(l) && !isContentsLine(l)) scopeAt = i; });
+  if (scopeAt < 0) return { error: "no ISO clause 1 Scope heading -- the national furniture cannot be stripped safely" };
+  const body = stripRunningHeaders(lines.slice(scopeAt));
+  /* THE HEAD IS DISCARDED AS FURNITURE AND ITS CONTENTS LIST IS NOT. The titles are returned so
+   * the caller can seed them; the BSI foreword itself never reaches the library. */
+  return {
+    lines: body.kept.join("\n"),
+    scopeAt,
+    headers: body.dropped,
+    declared: contentsTitles(lines.slice(0, scopeAt)),
+  };
+}
+
+/** ITIL 4 Foundation: numbered sections. `-layout` keeps each heading on its own line. */
+function splitItil(text) {
+  const lines = String(text).replace(CONTROL_BYTES, "").split(/\r?\n/);
+  const marks = [];
+  lines.forEach((l, i) => {
+    const t = l.trim();
+    const m = /^(\d+(?:\.\d+){0,3})\s+([A-Z][^\n]{3,90})$/.exec(t);
+    if (m && !isContentsLine(t)) marks.push({ clause: m[1], title: m[2].trim(), line: i });
+  });
+  const lastOf = new Map();
+  for (const m of marks) lastOf.set(m.clause, m);
+  const ordered = [...lastOf.values()].sort((a, b) => a.line - b.line);
+  const out = [];
+  ordered.forEach((h, i) => {
+    const end = i + 1 < ordered.length ? ordered[i + 1].line : lines.length;
+    const body = lines.slice(h.line + 1, end).map((s) => s.trim()).filter(Boolean)
+      .join(" ").replace(/\s{2,}/g, " ").trim();
+    if (body.length >= 60) out.push({ clause: h.clause, title: h.title, text: body });
+  });
+  return out;
+}
+
+const split = (kind, text, declaredSeed, opts) => kind === "scrum" ? splitScrum(text)
+  : kind === "amendment" ? splitAmendment(text)
+  : kind === "euact" ? splitEuAct(text)
+  : kind === "nist" ? splitNist(text)
+  : kind === "ebm" ? splitEbm(text)
+  : kind === "itil" ? splitItil(text)
+  : splitIsoWithTerms(text, declaredSeed, opts);
 
 /** shall / should / can / informative, from the passage's own strongest modal. */
 /**
@@ -606,8 +1261,26 @@ const split = (kind, text) => kind === "scrum" ? splitScrum(text)
  * `informative` in every source. This is DECLARED by where the passage sits, never inferred
  * from its words -- exactly the distinction that makes the rest of the modal gate work.
  */
-const isDefinitionClause = (kind, clause) =>
-  kind !== "scrum" && /^3(\.\d+)+$/.test(String(clause));
+const isDefinitionClause = (kind, clause) => {
+  const c = String(clause);
+  /* ISO puts its definitions in clause 3.x. */
+  if (kind !== "scrum" && kind !== "euact" && /^3(\.\d+)+$/.test(c)) return true;
+  /* AND THE REGULATION PUTS ITS 68 DEFINITIONS IN ARTICLE 3. The director's ruling is about
+   * definitions, not about a numbering convention: Art. 3(1) defines "AI system" and contains the
+   * word "may" -- which classed it `can`, so it read as licensing a permission. A definition
+   * licenses nothing whatever document it sits in. */
+  if (kind === "euact" && /^Art\. 3\(\d+\)$/.test(c)) return true;
+  return false;
+};
+
+/** The classes, strongest first. A cap lowers a class and can never raise one. */
+const CLASS_ORDER = ["shall", "should", "can", "informative"];
+function capClass(cls, cap) {
+  if (!cap) return cls;
+  const i = CLASS_ORDER.indexOf(cls), j = CLASS_ORDER.indexOf(cap);
+  if (i < 0 || j < 0) return cls;
+  return i < j ? cap : cls;     /* strongest allowed is the cap */
+}
 
 function normativeOf(text, opts = {}) {
   if (opts.definition) return "informative";
@@ -636,10 +1309,43 @@ for (const s of SOURCES) {
    * the only signal available without re-reading the PDF. */
   const byClause = new Map();
   const modesUsed = [];
-  for (const layout of [true, false]) {
+  /* A SOURCE MAY DECLARE ITS MODE, and the new documents do. Running both and taking the union is
+   * right for an ISO PDF, where neither mode is reliably better. It is wrong for the Official
+   * Journal: plain mode puts a whole numbered paragraph on one line, which IS the citation grain,
+   * while -layout wraps it -- so unioning would mix two grains of the same article and the longer
+   * of two differently-split texts would win arbitrarily. Where the grain depends on the mode, the
+   * mode is part of the source's definition rather than a measurement. */
+  const modes = s.mode === "plain" ? [false] : s.mode === "layout" ? [true] : [true, false];
+  for (const layout of modes) {
     let text;
+    let declaredSeed = null;
     try { text = pdfText(s.path, layout); } catch { continue; }
-    const got = split(s.kind, text);
+
+    /* A BS or BS EN adoption: strip the national furniture and ASSERT the body starts at ISO
+     * clause 1. Failing loudly here is the point -- a foreword left in would put BSI's own
+     * sentences into a library the gates quote from as the standard's. */
+    if (s.bsAdoption) {
+      const stripped = splitIsoBs(text);
+      if (stripped.error) {
+        problems.push(s.id + " " + s.edition + ": " + stripped.error);
+        continue;
+      }
+      text = stripped.lines;
+      declaredSeed = stripped.declared;
+      /* PER MODE, NOT ONCE. Recording only the first mode's strip is what hid `decl0`: the figure
+       * shown came from `-layout` while `plain` was the mode that produced every passage, so a
+       * harvest that worked in one mode and not the other looked like a harvest that never worked. */
+      modesUsed.push("bs-strip" + (layout ? "-layout" : "-plain") + "@" + stripped.scopeAt
+        + "+hdr" + stripped.headers + "+decl" + stripped.declared.size);
+    }
+
+    if (s.stripPageNumbers) {
+      const cleaned = stripRunningHeaders(text.split(/\r?\n/));
+      text = cleaned.kept.join("\n");
+      modesUsed.push("pagenum" + (layout ? "-layout" : "-plain") + ":-" + cleaned.dropped);
+    }
+
+    const got = split(s.kind, text, declaredSeed, { paragraphGrain: !!s.paragraphGrain });
     if (got.length) modesUsed.push((layout ? "-layout" : "plain") + ":" + got.length);
     for (const p of got) {
       /* THE TEXT AND THE TITLE ARE WON SEPARATELY. The longer text is the more complete
@@ -655,6 +1361,13 @@ for (const s of SOURCES) {
       if (!String(win.title || "").trim() && String(other.title || "").trim()) {
         win.title = other.title;
       }
+      /* A DECLARED TITLE BEATS A LONGER ONE. The longest TEXT is the more complete extraction and
+       * that rule stands, but a title is not a quantity: one mode can glue the clause's first
+       * sentence onto the title while the other stops where the contents list says it stops. */
+      if (other.titleDeclared && !win.titleDeclared) {
+        win.title = other.title;
+        win.titleDeclared = true;
+      }
       byClause.set(p.clause, win);
     }
   }
@@ -664,13 +1377,124 @@ for (const s of SOURCES) {
     passages.push({
       source_id: s.id, edition: s.edition, clause: p.clause, title: p.title,
       text: stripFurniture(p.text).replace(/\s+/g, " ").trim(),
-      normative: normativeOf(p.text, { definition: isDefinitionClause(s.kind, p.clause) }),
+      /* THREE WAYS A PASSAGE'S CLASS IS DECIDED, and only the first reads the words:
+       *
+       *   normativeOf         the sentence's own strongest modal -- the ISO default
+       *   forceNormative      DECLARED by the splitter and not negotiable. A recital explains and
+       *                       never requires; the EBM Guide is informative throughout.
+       *   capNormative        a CEILING. NIST is voluntary guidance, so a sentence containing
+       *                       "shall" -- quoting someone else, or describing an obligation that
+       *                       lives elsewhere -- must not make a NIST category a requirement.
+       *
+       * The cap is the one that matters for the gates: without it an item could assert a
+       * requirement on the authority of a framework that imposes none, which is the invented
+       * requirement this whole path exists to refuse. */
+      normative: p.forceNormative ? p.forceNormative
+        : capClass(normativeOf(p.text, { definition: isDefinitionClause(s.kind, p.clause) }), p.capNormative),
       extracted_from: s.path.split(/[\\/]/).pop(),
       chars: p.text.length,
     });
   }
   perSource.push({ id: s.id, edition: s.edition, passages: best.got.length,
     chars: best.got.reduce((a, b) => a + b.text.length, 0), mode: best.modes });
+}
+
+/* ============ PARALLEL TEXT, KEYED TO THE ENGLISH PASSAGE ID ============
+ *
+ * NOT a source. Each of these is the official translation of a source above, and its job is
+ * TERMINOLOGY -- what the Regulation itself calls a deployer in Spanish -- so it has to sit at the
+ * same address as the English or it cannot be looked up by the thing that needs it.
+ *
+ * TWO ALIGNMENT MECHANISMS, AND ONLY ONE OF THEM IS SOUND. The EU AI Act numbers its articles,
+ * paragraphs and annex points identically in every language, so its rows align BY ID and a
+ * difference is a real finding. The EBM Guide has no numbering at all -- its ids are its own English
+ * headings -- so a translated heading can only be matched BY POSITION, which is an assumption about
+ * the document rather than a fact about the text. It is therefore attempted only when the heading
+ * COUNT matches, and reported as `by-order` rather than presented as equivalent to an id match.
+ *
+ * A row that cannot be aligned is reported UNALIGNED and written nowhere. This is the third state:
+ * "no translation held" and "a translation we could not place" are different facts, and silently
+ * dropping the second would make the coverage figure a claim about my aligner. */
+const parallel = [];
+const parallelReport = [];
+const alignDiffs = [];
+for (const q of PARALLEL) {
+  const en = passages.filter((p) => p.source_id === q.of && p.edition === q.edition);
+  if (!existsSync(q.path)) {
+    parallelReport.push({ of: q.of, language: q.language, state: "FILE ABSENT", rows: 0 });
+    continue;
+  }
+  let got = [];
+  try {
+    const raw = pdfText(q.path, q.mode === "layout");
+    got = split(q.kind, raw, null, {});
+  } catch (e) {
+    parallelReport.push({ of: q.of, language: q.language, state: "could-not-extract: " + e.message, rows: 0 });
+    continue;
+  }
+  const enById = new Map(en.map((p) => [p.clause, p]));
+  let byId = 0, byOrder = 0, unaligned = 0;
+  if (q.kind === "euact") {
+    for (const p of got) {
+      const hit = enById.get(p.clause);
+      const body = String(p.text).replace(/\s+/g, " ").trim();
+      if (!hit || body.length < 20) { unaligned++; continue; }
+      byId++;
+      parallel.push({
+        source_id: q.of, edition: q.edition, language: q.language,
+        clause: p.clause, text: body, aligned_by: "id",
+        extracted_from: q.path.split(/[\\/]/).pop(),
+      });
+    }
+  } else if (got.length === en.length) {
+    /* Position alignment, and only because the counts agree. The English order is the order the
+     * splitter emitted, which is document order in both editions. */
+    for (let i = 0; i < got.length; i++) {
+      const body = String(got[i].text).replace(/\s+/g, " ").trim();
+      if (body.length < 20) { unaligned++; continue; }
+      byOrder++;
+      parallel.push({
+        source_id: q.of, edition: q.edition, language: q.language,
+        clause: en[i].clause, text: body, aligned_by: "order",
+        extracted_from: q.path.split(/[\\/]/).pop(),
+      });
+    }
+  } else {
+    unaligned = got.length;
+  }
+  parallelReport.push({
+    of: q.of, language: q.language,
+    state: byId ? "aligned by id" : byOrder ? "aligned by ORDER (heading counts agree)"
+      : "UNALIGNED -- " + got.length + " translated units against " + en.length + " English",
+    rows: byId + byOrder, unaligned, extracted: got.length, english: en.length,
+  });
+
+  /* THE STRUCTURAL ASSERTION THE DIRECTOR ASKED FOR: every article number present in one language
+   * must be present in the others, and an article whose PARAGRAPH COUNT differs is reported by
+   * name. A translation that splits an article differently is either a extraction defect or a
+   * genuine difference in the Official Journal, and both need a human to look. */
+  if (q.kind === "euact") {
+    const arts = (rows) => {
+      const m = new Map();
+      for (const r of rows) {
+        const a = /^Art\. (\d{1,3})(?:\((\d{1,3})\))?$/.exec(r.clause);
+        if (!a) continue;
+        if (!m.has(a[1])) m.set(a[1], 0);
+        if (a[2]) m.set(a[1], m.get(a[1]) + 1);
+      }
+      return m;
+    };
+    const A = arts(en), B = arts(got.map((p) => ({ clause: p.clause })));
+    for (const [num, n] of A) {
+      if (!B.has(num)) { alignDiffs.push({ language: q.language, article: num, issue: "ABSENT in translation" }); continue; }
+      if (B.get(num) !== n) {
+        alignDiffs.push({ language: q.language, article: num, issue: "paragraph count " + n + " EN vs " + B.get(num) });
+      }
+    }
+    for (const num of B.keys()) {
+      if (!A.has(num)) alignDiffs.push({ language: q.language, article: num, issue: "present in translation, ABSENT in English" });
+    }
+  }
 }
 
 /* POSITIVE CONTROLS. An extractor returning nothing for something known to be present
@@ -714,6 +1538,37 @@ const CONTROLS = [
   ["ISO/IEC 42001", "2023", "A.2.4", /reviewed at planned intervals/i],
   ["ISO/IEC 42001", "2023", "A.3.2", /roles and responsibilities/i],
 
+  /* ============ THE NEW SOURCES, ONE CONTROL PER GRAIN THAT HAS A CITATION ============
+   * Each is an id our bank actually cites, so a silent regression in any splitter stops the run
+   * rather than producing a library that is quietly missing the grain people ask for. */
+  ["EU AI Act", "2024/1689", "Art. 50(2)", /synthetic (?:audio|content)|machine-readable/i],
+  ["EU AI Act", "2024/1689", "Art. 3(1)", /machine-based system/i],
+  ["EU AI Act", "2024/1689", "Art. 3(4)", /deployer/i],
+  ["EU AI Act", "2024/1689", "Annex III 4(a)", /recruitment|selection/i],
+  ["EU AI Act", "2024/1689", "Recital 27", /risk-based approach/i],
+  ["NIST AI RMF", "1.0", "GOVERN 1", /polic|process|procedure/i],
+  ["NIST AI RMF", "1.0", "MAP 2", /categoriz|context|classif/i],
+  /* THE 2024 EBM GUIDE DOES NOT USE ITS KEY VALUE AREA NAMES AS HEADINGS, so there is no
+   * "Unrealized Value" id to control on. My first control named one and failed -- the CONTROL was
+   * wrong about the document, not the extraction. What this guide heads is its section titles and
+   * its individual MEASURE names, and both are controlled here instead. The four KVA names are
+   * still reported as a named gap by the completeness check rather than silently absent. */
+  ["EBM Guide", "2024", "EBM Uses Key Value Areas to Examine Improvement Opportunities", /key value area/i],
+  ["EBM Guide", "2024", "Revenue per Employee", /revenue|employee/i],
+  /* 7.2 is a CONTAINER in 42006 -- 7.2.1, 7.2.2.1 and 7.2.2.2 carry the text. Controlling on a
+   * container asked the splitter for a row it is right not to produce. */
+  ["ISO/IEC 42006", "2025", "7.1.2", /competence|technical/i],
+  ["ISO/IEC 42006", "2025", "7.2.2.2", /auditor/i],
+  /* 5.2 IS NOW A CONTAINER, AND THIS CONTROL CAUGHT THE MOMENT IT BECAME ONE -- it failed the
+   * first run after `paragraphGrain` went on, which is a control working rather than a defect.
+   * Re-pointing it at a paragraph would be editing the expectation until it agrees with the code,
+   * so the paragraph it moved to is asserted HERE and the container state is asserted in
+   * CONTAINER_CONTROLS below. Two assertions, because "5.2 is absent" and "5.2 is a clause with
+   * children" are different facts and only the second one is true. */
+  ["ISO/IEC 17021-1", "2015", "5.2.1", /undertaken impartially/i],
+  ["ISO/IEC 17021-1", "2015", "5.2.3", /identify, analyse/i],
+  ["ITIL 4 Foundation", "2019", "1.1", /service management|value/i],
+
   /* Recovered by the completeness check, which measures against the standard's own
    * declaration instead of against what the extractor found. Each of these was absent while
    * every coverage report said the document was complete. */
@@ -738,8 +1593,34 @@ for (const s of perSource) {
 }
 console.log("  " + "TOTAL".padEnd(32) + String(passages.length).padStart(5) + " passages");
 console.log("");
+/* ============ A CONTAINER CONTROL, BECAUSE ABSENT AND HAS-CHILDREN ARE DIFFERENT FACTS ============
+ *
+ * `paragraphGrain` turned ISO/IEC 17021-1 clause 5.2 from a row into a container, and the positive
+ * control on it failed. The cheap response is to re-point the control at a paragraph and move on --
+ * and that is how a control dies, because the next time 5.2 genuinely disappears nothing will say
+ * so. These assert the container state itself: the clause has NO row of its own AND its children
+ * are held. Both halves, so a document that lost clause 5.2 entirely fails here. */
+const CONTAINER_CONTROLS = [
+  ["ISO/IEC 17021-1", "2015", "5.2", 3],
+  ["ISO 19011", "2026", "5.4", 2],
+];
+const ctnFail = [];
+for (const [id, ed, clause, minKids] of CONTAINER_CONTROLS) {
+  const mine = passages.filter((p) => p.source_id === id && p.edition === ed);
+  const self = mine.some((p) => p.clause === clause);
+  const kids = mine.filter((p) => p.clause.startsWith(clause + ".")).length;
+  if (self) ctnFail.push(id + " " + ed + " " + clause + ": expected a CONTAINER, got a row of its own");
+  else if (kids < minKids) {
+    ctnFail.push(id + " " + ed + " " + clause + ": container with " + kids +
+      " children held, expected at least " + minKids + " -- the clause may have been LOST, not nested");
+  }
+}
+
 console.log("POSITIVE CONTROLS  " + (ctlFail.length ? "FAILED" : "all " + CONTROLS.length + " pass"));
 for (const c of ctlFail) console.log("    " + c);
+console.log("CONTAINER CONTROLS  " + (ctnFail.length ? "FAILED" : "all " + CONTAINER_CONTROLS.length + " pass"));
+for (const c of ctnFail) console.log("    " + c);
+for (const c of ctnFail) ctlFail.push(c);
 
 /* ============ COVERAGE IS DECLARED, SO A PARTIAL CANNOT READ AS COMPLETE ============
  *
@@ -781,9 +1662,22 @@ for (const s of perSource) {
   for (const [g, set] of groups) {
     const ns = [...set].sort((a, b) => a - b);
     if (ns.length < 3) continue;   /* two points cannot show a hole */
-    const holes = [];
-    for (let i = ns[0]; i < ns[ns.length - 1]; i++) if (!set.has(i)) holes.push(g + "." + i);
-    if (holes.length) seqGaps.push({ source_id: s.id, edition: s.edition, group: g, holes });
+    /* A HOLE WHOSE CHILDREN ARE ALL HELD IS A CONTAINER, NOT A MISS, and folding the two together
+     * is the one-error-string-for-two-causes shape aimed at a coverage report. ISO 19011 clause 5.4
+     * has no statement of its own -- 5.4.1 and 5.4.2 carry the text -- so no row is produced for it
+     * and nothing is missing. Reported separately because only one of the two is work. */
+    const held = new Set(passages
+      .filter((p) => p.source_id === s.id && p.edition === s.edition).map((p) => p.clause));
+    const hasChild = (c) => [...held].some((h) => h.startsWith(c + "."));
+    const holes = [], containers = [];
+    for (let i = ns[0]; i < ns[ns.length - 1]; i++) {
+      if (set.has(i)) continue;
+      const c = g + "." + i;
+      (hasChild(c) ? containers : holes).push(c);
+    }
+    if (holes.length || containers.length) {
+      seqGaps.push({ source_id: s.id, edition: s.edition, group: g, holes, containers });
+    }
   }
 }
 
@@ -814,12 +1708,35 @@ for (const a of ANNEX_POPULATION) {
   }
 }
 console.log("");
-console.log("HOLES IN A NUMBERED SEQUENCE  " + seqGaps.reduce((a, g) => a + g.holes.length, 0) +
+const seqMissed = seqGaps.filter((g) => g.holes.length);
+const seqContainers = seqGaps.reduce((a, g) => a + g.containers.length, 0);
+console.log("HOLES IN A NUMBERED SEQUENCE  " + seqMissed.reduce((a, g) => a + g.holes.length, 0) +
   "   (the document numbers consecutively, so these are MISSED, not absent)");
-for (const g of seqGaps) {
+for (const g of seqMissed) {
   console.log("  " + (g.source_id + " " + g.edition).padEnd(30) + g.holes.join(" "));
 }
-if (!seqGaps.length) console.log("  none");
+if (!seqMissed.length) console.log("  none");
+console.log("CONTAINERS, no statement of their own, every child held  " + seqContainers +
+  "   (not work -- listed so the number above is not read as covering them)");
+for (const g of seqGaps.filter((x) => x.containers.length)) {
+  console.log("  " + (g.source_id + " " + g.edition).padEnd(30) + g.containers.join(" "));
+}
+
+console.log("");
+console.log("PARALLEL TEXT  " + parallel.length + " rows at an English passage id");
+for (const r of parallelReport) {
+  console.log("  " + (r.of + " " + r.language).padEnd(28) + String(r.rows).padStart(4) +
+    " rows   " + r.state + (r.unaligned ? "   unaligned " + r.unaligned : ""));
+}
+console.log("  ARTICLE STRUCTURE, EN against each translation  " +
+  (alignDiffs.length ? alignDiffs.length + " difference(s)" : "identical"));
+for (const d of alignDiffs.slice(0, 25)) {
+  console.log("    " + d.language + "  Art. " + d.article + "  " + d.issue);
+}
+if (alignDiffs.length > 25) console.log("    ... and " + (alignDiffs.length - 25) + " more (in the JSON)");
+console.log("  The Spanish edition is SPAIN Spanish. It is a REFERENCE for es-419, never a mandate;");
+console.log("  the house glossary decides. Recorded here because a partner-facing term picked off");
+console.log("  an EU translation would otherwise arrive with the Regulation's authority.");
 
 console.log("");
 console.log("normative: " + ["shall", "should", "can", "informative"]
@@ -836,7 +1753,11 @@ if (problems.length || ctlFail.length) {
  * citation needs the list and must not re-derive it: a second copy of this fact would
  * go stale the first time the extractor improves. */
 writeFileSync(join(ROOT, "SOURCE-PASSAGES.json"),
-  JSON.stringify({ sources: perSource, annex_gaps: annexGaps, sequence_gaps: seqGaps, passages }, null, 1) + "\n", "utf8");
+  JSON.stringify({
+    sources: perSource, annex_gaps: annexGaps, sequence_gaps: seqGaps,
+    parallel_report: parallelReport, parallel_align_diffs: alignDiffs,
+    passages, parallel,
+  }, null, 1) + "\n", "utf8");
 console.log("");
 console.log("wrote SOURCE-PASSAGES.json");
 if (VERBOSE) {

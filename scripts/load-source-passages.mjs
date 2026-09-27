@@ -29,14 +29,23 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 
 let APPLY = false;
+let PRUNE = false;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
+  /* `--prune` DELETES, so it requires `--apply` and is refused alone: this is the --apply family,
+   * where the absence of a flag must never be the thing that makes a destructive run safe. */
+  if (a === "--prune") { PRUNE = true; continue; }
   console.error("unknown flag " + JSON.stringify(a));
   console.error("");
   console.error("THIS DIRECTORY HAS TWO OPPOSITE FLAG CONVENTIONS:");
   console.error("  --apply family  dry by default, --apply writes   <- this script");
   console.error("  --dry family    LIVE by default, --dry is safe   (load-lessons-direct.mjs)");
   console.error("A flag someone believed in that silently did nothing is how a loader runs live.");
+  process.exitCode = 2; process.exit();
+}
+if (PRUNE && !APPLY) {
+  console.error("--prune DELETES rows and requires --apply. Refusing.");
+  console.error("Run without either flag first: the report names every row a prune would remove.");
   process.exitCode = 2; process.exit();
 }
 
@@ -137,6 +146,22 @@ async function main() {
   }
 
   if (!APPLY) {
+    /* THE STALE-ROW REPORT BELONGS IN THE DRY RUN, and its first version did not have it: the
+     * enumeration of what `--prune` would delete printed only on a run that was already writing,
+     * so the report you need in order to decide was behind the decision. Reading the live table is
+     * read-only and costs one paged fetch. */
+    const liveNow = await getAll(KEY, "source_passages?select=source_id,edition,clause");
+    const stale = liveNow.filter((r) => !seen.has(r.source_id + "|" + r.edition + "|" + r.clause));
+    console.log("");
+    console.log("  rows live now                                      " + liveNow.length);
+    console.log("  rows in the table this artifact does not describe   " + stale.length);
+    for (const r of stale) {
+      console.log("      STALE  " + (r.source_id + " " + r.edition).padEnd(30) + r.clause);
+    }
+    if (stale.length) {
+      console.log("    These occupy real addresses and the gates anchor against them.");
+      console.log("    --apply --prune removes exactly these, asserting both directions after.");
+    }
     console.log("");
     console.log("Nothing written. Re-run with --apply.");
     return 0;
@@ -200,6 +225,52 @@ async function main() {
   const extra = live.filter((r) => !seen.has(r.source_id + "|" + r.edition + "|" + r.clause));
   console.log("  rows in the table this artifact does not describe   " + extra.length +
     (extra.length ? "  <- " + extra.slice(0, 5).map((r) => r.source_id + " " + r.clause).join(", ") : ""));
+
+  /* ============ A STALE ROW OCCUPIES A REAL ADDRESS ============
+   *
+   * This is an UPSERT, so a row the extractor no longer produces stays in the table for ever. It
+   * is not inert: `source_passages` is what the gates anchor against, so a container the extractor
+   * has stopped emitting still answers a lookup with its children's text, and 27002's introduction
+   * mislabelled into Annex B still answers as B.0.1. That is the junk-at-a-real-address shape, and
+   * the address makes it worse than an absence.
+   *
+   * ENUMERATED, NEVER COUNTED, and opt-in: `--prune` with `--apply`. The report names every row it
+   * will delete, and afterwards asserts BOTH directions -- nothing the artifact describes went with
+   * it, and nothing it does not describe survived. */
+  if (extra.length) {
+    for (const r of extra) {
+      console.log("      STALE  " + (r.source_id + " " + r.edition).padEnd(30) + r.clause);
+    }
+    if (!PRUNE) {
+      console.log("    Not deleted. Re-run with --apply --prune to remove exactly these.");
+    } else {
+      let gone = 0;
+      for (const r of extra) {
+        /* One identity at a time, each fully qualified on the natural key. A single filtered
+         * DELETE over a list would be fewer round trips and would delete whatever the filter
+         * happened to match; this cannot remove a row it did not name. */
+        const q = "source_passages?source_id=eq." + encodeURIComponent(r.source_id) +
+          "&edition=eq." + encodeURIComponent(r.edition) +
+          "&clause=eq." + encodeURIComponent(r.clause);
+        const res = await fetch(REST_URL + "/" + q, {
+          method: "DELETE",
+          headers: { apikey: KEY, Authorization: "Bearer " + KEY, Prefer: "return=minimal" },
+        });
+        if (!res.ok) throw new Error("delete failed for " + r.source_id + " " + r.clause + ": " +
+          res.status + " " + (await res.text()).slice(0, 160));
+        gone++;
+      }
+      const after = await getAll(KEY, "source_passages?select=source_id,edition,clause");
+      const afterKeys = new Set(after.map((r) => r.source_id + "|" + r.edition + "|" + r.clause));
+      const lostByPrune = [...seen].filter((k) => !afterKeys.has(k));
+      const stillExtra = after.filter((r) => !seen.has(r.source_id + "|" + r.edition + "|" + r.clause));
+      console.log("    PRUNED " + gone + " row(s); table now " + after.length);
+      console.log("    artifact identities lost to the prune   " + lostByPrune.length);
+      console.log("    rows still undescribed                  " + stillExtra.length);
+      if (lostByPrune.length) throw new Error("the prune deleted " + lostByPrune.length + " row(s) the artifact describes");
+      if (stillExtra.length) throw new Error(stillExtra.length + " undescribed row(s) survived the prune");
+    }
+  }
   const offVocab = live.filter((r) => !["shall", "should", "can", "informative"].includes(r.normative));
   console.log("  rows with a normative value outside the CHECK        " + offVocab.length);
   if (offVocab.length) throw new Error("the CHECK constraint is not doing its job");

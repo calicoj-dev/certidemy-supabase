@@ -58,7 +58,60 @@ const SOURCES = [
     control: ["5.1", "8.34"] },
   { id: "ISO 19011", edition: "2026", path: PDFS["19011:2026"],
     control: ["5.1", "6.7"] },
+
+  /* ============ THE NEW SOURCES, AND THEY DO NOT ALL DECLARE THEMSELVES ============
+   *
+   * `declare: "contents"` is the mechanism every entry above uses: the document's own dot-leader
+   * contents list. The two BS adoptions have one, so they are checked exactly the same way.
+   *
+   * THE OTHER THREE HAVE NO CONTENTS LIST THIS CAN READ, and that is reported as ITS OWN STATE
+   * rather than folded either way. Deriving their population from what the extractor found would
+   * be circular -- a count derived from the extraction cannot see what the extraction missed, which
+   * is the whole reason this file exists -- and calling them UNVERIFIABLE would read as a parse
+   * defect when the document simply has no list. NO DECLARATION is the honest third answer.
+   *
+   * The AI Act is the exception among them: it numbers everything, and its own last article, last
+   * annex and last recital are readable FROM THE DOCUMENT. So its population is declared as a
+   * CONTIGUOUS RANGE and checked as one. */
+  { id: "ISO/IEC 42006", edition: "2025", path: PDFS["42006:2025"], declare: "contents",
+    control: ["5.1", "7.1.2", "9.1.3"] },
+  { id: "ISO/IEC 17021-1", edition: "2015", path: PDFS["17021-1:2015"], declare: "contents",
+    control: ["4.1", "5.2", "9.1", "10.2"] },
+  { id: "EU AI Act", edition: "2024/1689", path: PDFS["euact:2024/1689"], declare: "euact",
+    control: ["Art. 1", "Art. 113", "Annex III", "Recital 180"] },
+  { id: "NIST AI RMF", edition: "1.0", path: PDFS["nist-ai-rmf:1.0"], declare: "none",
+    why: "The framework prints no contents list with page references that this can parse. Its Core is a TABLE of functions and categories; a population read off the extraction would be a count of what was found." },
+  { id: "EBM Guide", edition: "2024", path: PDFS["ebm:2024"], declare: "none",
+    why: "No numbering of any kind: the ids are the guide's own headings. There is nothing to compare a held set against, and the extractor says so in its own output." },
+  { id: "ITIL 4 Foundation", edition: "2019", path: PDFS["itil4:2019"], declare: "none",
+    why: "Its contents list carries page numbers in a column rather than dot leaders, so this parser cannot read it. A declared population is possible here and has not been built." },
 ];
+
+/* The AI Act's population, read OFF THE DOCUMENT rather than typed from knowledge: its last
+ * article heading is 113, its last annex XIII, and its last numbered paragraph before Article 1 is
+ * recital 180. Every integer in between must be held -- a contiguity check catches a hole, and the
+ * three endpoints are what catch a missing tail. */
+function declaredEuAct(text) {
+  const out = new Set();
+  const lines = String(text).replace(ZW, "").split(/\r?\n/);
+  let maxArt = 0, maxRec = 0;
+  const annexes = new Set();
+  let seenArticle1 = false;
+  for (const ln of lines) {
+    const a = /^\s*Article\s+(\d{1,3})\b/.exec(ln);
+    if (a) { seenArticle1 = true; maxArt = Math.max(maxArt, Number(a[1])); }
+    const x = /^\s*ANNEX\s+([IVXL]+)\b/.exec(ln);
+    if (x) annexes.add(x[1]);
+    if (!seenArticle1) {
+      const r = /^\s*\((\d{1,3})\)\s+\S/.exec(ln);
+      if (r) maxRec = Math.max(maxRec, Number(r[1]));
+    }
+  }
+  for (let i = 1; i <= maxArt; i++) out.add("Art. " + i);
+  for (let i = 1; i <= maxRec; i++) out.add("Recital " + i);
+  for (const a of annexes) out.add("Annex " + a);
+  return out;
+}
 
 const isContentsLine = (ln) => /\.{4,}\s*\d+\s*$/.test(ln);
 
@@ -141,6 +194,17 @@ for (const s of SOURCES) {
   /* Both extraction modes contribute to the DECLARATION too: the contents renders differently
    * under -layout, and the table rows are only fully visible in one of them. Declaring from
    * one mode would be the same sample-of-one error the extractor already paid for. */
+  /* NO DECLARATION IS A RESULT. Reported with the held count and the reason, never as complete and
+   * never as a parse failure -- the document has no list, which is a fact about the document. */
+  if (s.declare === "none") {
+    console.log("  " + (s.id + " " + s.edition).padEnd(30) + "held " + String(held.size).padStart(4) +
+      "   NO DECLARED POPULATION");
+    console.log("    " + s.why);
+    report.push({ source_id: s.id, edition: s.edition, state: "NO DECLARED POPULATION",
+      held: held.size, why: s.why });
+    continue;
+  }
+
   const declared = new Set();
   for (const layout of [true, false]) {
     let text = "";
@@ -149,7 +213,7 @@ for (const s of SOURCES) {
         ["-q", "-enc", "UTF-8", ...(layout ? ["-layout"] : []), s.path, "-"],
         { encoding: "utf8", maxBuffer: 268435456 });
     } catch { continue; }
-    for (const id of declaredIn(text)) declared.add(id);
+    for (const id of (s.declare === "euact" ? declaredEuAct(text) : declaredIn(text))) declared.add(id);
   }
 
   const ctlMissing = s.control.filter((c) => !declared.has(c));
@@ -165,7 +229,13 @@ for (const s of SOURCES) {
 
   /* A CONTAINER IS NOT MISSING. The library splits clause 8 into 8.1 to 8.4 on purpose, and
    * the contents declares both. An id with held children is held. */
-  const isContainer = (id) => [...held].some((h) => h.startsWith(id + "."));
+  /* THE CHILD SEPARATOR IS PART OF THE ID SCHEME, AND IT IS NOT ALWAYS A DOT. An ISO subclause is
+   * `8.1` under `8`; an AI Act paragraph is `Art. 5(1)` under `Art. 5`; an annex point is
+   * `Annex III 1(a)` under `Annex III`. Testing only for a dot reported 88 of the Regulation's 113
+   * articles MISSING while every one of them is held at paragraph grain -- a coverage alarm on a
+   * complete document, which is the kind that gets a real gap dismissed next to it. */
+  const isContainer = (id) =>
+    [...held].some((h) => h.startsWith(id + ".") || h.startsWith(id + "(") || h.startsWith(id + " "));
   const missing = [...declared]
     .filter((id) => !held.has(id))
     .filter((id) => !isContainer(id))

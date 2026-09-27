@@ -42,6 +42,16 @@ iso-corpus/
 ../iso-corpus/
 .verify-367-recovery.json
 
+# THE SUPPLIED SOURCE DOCUMENTS ARE NOT COMMITTED EITHER, and this is the same decision as
+# iso-corpus/ above -- it just arrived through a different door, INSIDE the repository, which
+# is exactly why it needs saying. sources/incoming/ holds ITIL 4 Foundation (AXELOS, licensed),
+# BS ISO/IEC 42006:2025 and BS EN ISO/IEC 17021-1:2015 (BSI, licensed per seat), the EU AI Act
+# and NIST AI RMF (public), and the official ES/PT editions. A `git add -A` would have put
+# three licensed standards in version control.
+# What IS committed is iso-corpus-manifest.json: every file's sha256, bytes, pages and
+# extracted word count, so the corpus is auditable without the bytes being in git.
+sources/incoming/
+
 # THE SOURCE LIBRARY IS NOT COMMITTED, and that is the same decision as the ISO PDFs
 # living outside this repository. SOURCE-PASSAGES.json is 1.3 MB of full clause text from
 # ISO/IEC 42001, 27001, 27002 and ISO 19011 -- committing it would put the licensed text in

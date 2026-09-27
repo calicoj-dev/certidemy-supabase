@@ -6,7 +6,7 @@
    "edition": "2023",
    "state": "COMPLETE",
    "declared": 107,
-   "held": 188,
+   "held": 185,
    "missing": []
   },
   {
@@ -30,20 +30,63 @@
   {
    "source_id": "ISO/IEC 27002",
    "edition": "2022",
-   "state": "PARTIAL",
+   "state": "COMPLETE",
    "declared": 108,
-   "held": 221,
-   "missing": [
-    "4.1"
-   ]
+   "held": 214,
+   "missing": []
   },
   {
    "source_id": "ISO 19011",
    "edition": "2026",
    "state": "COMPLETE",
    "declared": 74,
-   "held": 130,
+   "held": 121,
    "missing": []
+  },
+  {
+   "source_id": "ISO/IEC 42006",
+   "edition": "2025",
+   "state": "COMPLETE",
+   "declared": 69,
+   "held": 98,
+   "missing": []
+  },
+  {
+   "source_id": "ISO/IEC 17021-1",
+   "edition": "2015",
+   "state": "COMPLETE",
+   "declared": 115,
+   "held": 249,
+   "missing": []
+  },
+  {
+   "source_id": "EU AI Act",
+   "edition": "2024/1689",
+   "state": "COMPLETE",
+   "declared": 306,
+   "held": 951,
+   "missing": []
+  },
+  {
+   "source_id": "NIST AI RMF",
+   "edition": "1.0",
+   "state": "NO DECLARED POPULATION",
+   "held": 111,
+   "why": "The framework prints no contents list with page references that this can parse. Its Core is a TABLE of functions and categories; a population read off the extraction would be a count of what was found."
+  },
+  {
+   "source_id": "EBM Guide",
+   "edition": "2024",
+   "state": "NO DECLARED POPULATION",
+   "held": 38,
+   "why": "No numbering of any kind: the ids are the guide's own headings. There is nothing to compare a held set against, and the extractor says so in its own output."
+  },
+  {
+   "source_id": "ITIL 4 Foundation",
+   "edition": "2019",
+   "state": "NO DECLARED POPULATION",
+   "held": 134,
+   "why": "Its contents list carries page numbers in a column rather than dot leaders, so this parser cannot read it. A declared population is possible here and has not been built."
   }
  ]
 }
