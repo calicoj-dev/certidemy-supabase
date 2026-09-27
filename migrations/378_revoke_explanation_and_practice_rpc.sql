@@ -63,8 +63,41 @@ begin
 
   ---------------------------------------------------------------------------
   -- (2) the practice-insert RPC
+  --
+  -- ============ REVOKED FROM PUBLIC FIRST, AND THAT IS THE WHOLE CORRECTION ============
+  --
+  -- The first version of this migration said `from anon, authenticated` and FAILED on its own
+  -- post-condition in Juan's hands:
+  --
+  --   ERROR P0001: create_practice_questions is still executable by anon or authenticated
+  --
+  -- Measured rather than assumed. The function's ACL is:
+  --
+  --   EXECUTE granted to:  PUBLIC, postgres, service_role
+  --
+  -- `anon` and `authenticated` appear NOWHERE in it. They hold EXECUTE through PUBLIC, which is
+  -- the Postgres DEFAULT for a function -- so `revoke ... from anon, authenticated` removed nothing,
+  -- succeeded silently, and the post-condition then correctly refused to believe it.
+  --
+  -- THIS IS THIS REPOSITORY'S OWN RULE, WITH THE REVOKE ON THE WRONG SIDE OF IT. The rule says a
+  -- privilege check must ask `has_*_privilege` because an ACL comparison sees only what someone
+  -- TYPED. The post-condition did exactly that and was right. The REVOKE was the half written
+  -- against what I assumed had been typed -- and you cannot revoke a grant that was never made.
+  --
+  -- A COLUMN GRANT DOES NOT HAVE THIS SHAPE, checked before shipping the fix rather than after:
+  -- the column ACLs for `explanation` and `question_text` name `anon, authenticated` DIRECTLY, and
+  -- `correct_answer` has no column ACL at all. So (1) above targets real grants and needed no
+  -- change. Fixing one instance of a class and leaving its sibling unexamined is how the next
+  -- failure gets written.
+  --
+  -- service_role is GRANTED BACK EXPLICITLY. It already holds EXECUTE directly, so revoking PUBLIC
+  -- would not have stripped it -- but the real callers depend on it
+  -- (generate-practice-questions via getServiceClient, backfill-practice.mjs via the service key),
+  -- and a grant that exists only because nothing removed it is the kind this migration is cleaning
+  -- up. Idempotent, and it makes the intent legible.
   ---------------------------------------------------------------------------
-  revoke execute on function public.create_practice_questions(jsonb) from anon, authenticated;
+  revoke execute on function public.create_practice_questions(jsonb) from public, anon, authenticated;
+  grant  execute on function public.create_practice_questions(jsonb) to service_role;
 
   ---------------------------------------------------------------------------
   -- POST-CONDITIONS. Both directions, asked with has_*_privilege rather than read off an ACL:
@@ -99,6 +132,23 @@ begin
   if has_function_privilege('anon', 'public.create_practice_questions(jsonb)'::regprocedure, 'EXECUTE')
      or has_function_privilege('authenticated', 'public.create_practice_questions(jsonb)'::regprocedure, 'EXECUTE') then
     raise exception 'create_practice_questions is still executable by anon or authenticated';
+  end if;
+
+  -- AND PUBLIC IS NAMED, because PUBLIC is what actually held it. `has_function_privilege('anon',
+  -- ...)` already returns false once PUBLIC is revoked, so this assertion is redundant to the check
+  -- above -- and it is here anyway: the first version of this migration failed because nobody had
+  -- looked at PUBLIC, and an assertion that names the cause is what stops the next reader repeating
+  -- the mistake on a different object. Read from the ACL deliberately, since PUBLIC is not a role
+  -- has_function_privilege can be asked about.
+  if exists (
+    select 1
+      from pg_proc p
+      join pg_namespace n on n.oid = p.pronamespace
+      cross join aclexplode(coalesce(p.proacl, acldefault('f', p.proowner))) as a
+     where n.nspname = 'public' and p.proname = 'create_practice_questions'
+       and a.privilege_type = 'EXECUTE' and a.grantee = 0
+  ) then
+    raise exception 'PUBLIC still holds EXECUTE on create_practice_questions -- every role inherits it';
   end if;
 
   -- POSITIVE: service_role keeps it, or the generator and the backfill script both stop working.
