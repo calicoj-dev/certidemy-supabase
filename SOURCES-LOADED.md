@@ -409,21 +409,20 @@ items between them.** Those are ISO standards and therefore buyable, unlike a Ne
 
 ## Ready to push
 
+Three commits on `main`, nothing pushed:
+
 ```
-  M  scripts/extract-source-passages.mjs        six sources, nine extraction defects, paragraph grain
-  M  scripts/check-library-completeness.mjs     all sources, NO DECLARED POPULATION as a third state
-  M  scripts/build-iso-manifest.mjs             two directories, one manifest, stale gaps rewritten
-  M  scripts/lib/citation-index.mjs             resolve the second directory; verifyCorpus with it
-  M  scripts/measure-index-widening.mjs         baseline derived, not typed
-  M  scripts/scan-iso-leaks.mjs                 negative control re-founded on synthetic text
-  M  scripts/load-source-passages.mjs           --prune, and the stale report in the dry run
-  M  iso-corpus-manifest.json                   15 indexed, 5 excluded, word counts asserted
-  A  scripts/count-source-citations.mjs         the per-certification citation census
-  A  migrations/377_source_passage_translations.sql
-  A  SOURCES-LOADED.md                          this report
-  A  SOURCE-CITATION-COUNTS.json
-  M  LIBRARY-COMPLETENESS.json
-  M  CLAUDE.md
+  54de720  six sources through one extractor, and nine defects that were all mine
+             extract-source-passages, check-library-completeness, load-source-passages (--prune),
+             migration 377, LIBRARY-COMPLETENESS.json, .gitignore (sources/incoming/)
+
+  c620ddb  the leak index widens, and the negative control it broke was founded on a coverage gap
+             build-iso-manifest, citation-index, measure-index-widening, scan-iso-leaks,
+             iso-corpus-manifest.json, count-source-citations, this report, CLAUDE.md
+
+  59f0bca  377 gets its probe, in the commit the migration should have had it in
+             check-migration-state: 377 now reports NOT RUN and OUTSTANDING rather than NO PROBE
 ```
 
-`SOURCE-PASSAGES.json` stays gitignored. Nothing is pushed.
+`SOURCE-PASSAGES.json` and `sources/incoming/` stay gitignored; no licensed PDF is in either
+commit, checked. `migrations/377_source_passage_translations.sql` is yours to run.
