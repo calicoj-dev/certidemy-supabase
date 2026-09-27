@@ -1,0 +1,295 @@
+{
+ "inserted_on": "2026-09-27",
+ "ids": [
+  "017478b5-4493-4fbf-b770-ca79b3793211",
+  "9cbef19e-fb2a-4b2e-81d4-0e8b1983d64d",
+  "7256f658-65d1-4e47-a87f-db2ef3a07943",
+  "4acadf6b-dbf3-4963-9a4b-7cba67e06698",
+  "ce86479f-13a2-4e51-9f29-2f8bd87d2a40",
+  "3359b050-7490-453b-bfb0-a0c927d7b561",
+  "4467ac24-a439-4401-8acb-a047e116af32",
+  "e641c343-176d-4e16-9b17-4612cb53321b",
+  "d124df3c-551b-4675-af59-17f19104fc1d",
+  "1f2f7dc7-58a6-4f3c-b739-5b7cba08319f",
+  "3ca45f4c-60b3-451c-a1c7-d4ca0eb831ba",
+  "1ea0ea64-70f1-4f0a-af86-12828def498c",
+  "ab040514-af2d-4882-8606-e9851d3fa7bd",
+  "cdde7e6b-2349-448c-b3db-eb962875acfe",
+  "4024c897-d358-4ff1-a7d0-065269e29bfa",
+  "d48a4f53-0833-4aec-b673-1e33b12e38a6",
+  "594c7d73-560c-44ba-85e5-328c08ab2c7d",
+  "82edb6a3-c15c-4ae4-b027-b65cff3eccc9",
+  "9bd5796f-8d5d-4e3c-ab83-4c721b3e656b",
+  "333a50d8-1b07-4f98-b652-d9bd662f0dc4",
+  "8cf14ae1-f31c-4443-9b61-2e85bde6fec7",
+  "a287616d-45cf-4e76-9f09-8ad8a5771dc1",
+  "169fb07b-b3fa-4505-b047-4e20ed3e955d",
+  "9ecce8e5-937e-47c6-b022-294e5006372e",
+  "ef2a9c5d-91b0-45c2-b781-5b0c7ce9292c",
+  "99524730-8c57-4d14-a6e4-f4b2fa9cca27",
+  "4b317d6c-8d05-4496-8e36-8e93f56e2323",
+  "17f802fb-f887-4c53-bac8-53d99bc95822",
+  "fd65b423-e32c-4197-8aea-fb7f8a300c25",
+  "4c69db20-3547-46db-bd7b-437f41481fd8",
+  "f93d06cc-0dc4-45ac-bf57-6e9cfd77b386",
+  "07561e42-fe03-459e-a21f-9cc74889a39b"
+ ],
+ "rows": [
+  {
+   "id": "017478b5-4493-4fbf-b770-ca79b3793211",
+   "pilot": 3,
+   "ord": 1,
+   "task": "1.1",
+   "anchor": "3.4",
+   "grounding_family": "3.4"
+  },
+  {
+   "id": "9cbef19e-fb2a-4b2e-81d4-0e8b1983d64d",
+   "pilot": 3,
+   "ord": 2,
+   "task": "1.2",
+   "anchor": "4.1",
+   "grounding_family": "4.1"
+  },
+  {
+   "id": "7256f658-65d1-4e47-a87f-db2ef3a07943",
+   "pilot": 3,
+   "ord": 3,
+   "task": "1.4",
+   "anchor": "D.2",
+   "grounding_family": "D.2"
+  },
+  {
+   "id": "4acadf6b-dbf3-4963-9a4b-7cba67e06698",
+   "pilot": 3,
+   "ord": 4,
+   "task": "2.1",
+   "anchor": "4.1",
+   "grounding_family": "4.1"
+  },
+  {
+   "id": "ce86479f-13a2-4e51-9f29-2f8bd87d2a40",
+   "pilot": 3,
+   "ord": 5,
+   "task": "2.2",
+   "anchor": "4.3",
+   "grounding_family": "4.3"
+  },
+  {
+   "id": "3359b050-7490-453b-bfb0-a0c927d7b561",
+   "pilot": 3,
+   "ord": 6,
+   "task": "2.4",
+   "anchor": "5.3",
+   "grounding_family": "5.3"
+  },
+  {
+   "id": "4467ac24-a439-4401-8acb-a047e116af32",
+   "pilot": 3,
+   "ord": 7,
+   "task": "2.5",
+   "anchor": "6.1.2",
+   "grounding_family": "6.1.2"
+  },
+  {
+   "id": "e641c343-176d-4e16-9b17-4612cb53321b",
+   "pilot": 3,
+   "ord": 8,
+   "task": "2.6",
+   "anchor": "8.4",
+   "grounding_family": "8.4"
+  },
+  {
+   "id": "d124df3c-551b-4675-af59-17f19104fc1d",
+   "pilot": 3,
+   "ord": 9,
+   "task": "2.7",
+   "anchor": "6.1.4",
+   "grounding_family": "6.1.4"
+  },
+  {
+   "id": "1f2f7dc7-58a6-4f3c-b739-5b7cba08319f",
+   "pilot": 3,
+   "ord": 10,
+   "task": "2.8",
+   "anchor": "6.1.3",
+   "grounding_family": "6.1.3"
+  },
+  {
+   "id": "3ca45f4c-60b3-451c-a1c7-d4ca0eb831ba",
+   "pilot": 3,
+   "ord": 11,
+   "task": "3.1",
+   "anchor": "7.2",
+   "grounding_family": "7.2"
+  },
+  {
+   "id": "1ea0ea64-70f1-4f0a-af86-12828def498c",
+   "pilot": 3,
+   "ord": 12,
+   "task": "3.2",
+   "anchor": "7.3",
+   "grounding_family": "7.3"
+  },
+  {
+   "id": "ab040514-af2d-4882-8606-e9851d3fa7bd",
+   "pilot": 3,
+   "ord": 13,
+   "task": "3.4",
+   "anchor": "8.1",
+   "grounding_family": "8.1"
+  },
+  {
+   "id": "cdde7e6b-2349-448c-b3db-eb962875acfe",
+   "pilot": 3,
+   "ord": 14,
+   "task": "3.6",
+   "anchor": "B.7.2",
+   "grounding_family": "B.7.2"
+  },
+  {
+   "id": "4024c897-d358-4ff1-a7d0-065269e29bfa",
+   "pilot": 3,
+   "ord": 15,
+   "task": "3.7",
+   "anchor": "7.2",
+   "grounding_family": "7.2"
+  },
+  {
+   "id": "d48a4f53-0833-4aec-b673-1e33b12e38a6",
+   "pilot": 3,
+   "ord": 16,
+   "task": "3.8",
+   "anchor": "8.2",
+   "grounding_family": "8.2"
+  },
+  {
+   "id": "594c7d73-560c-44ba-85e5-328c08ab2c7d",
+   "pilot": 3,
+   "ord": 17,
+   "task": "4.1",
+   "anchor": "A.1",
+   "grounding_family": "A.1"
+  },
+  {
+   "id": "82edb6a3-c15c-4ae4-b027-b65cff3eccc9",
+   "pilot": 3,
+   "ord": 18,
+   "task": "4.1",
+   "anchor": "B.1",
+   "grounding_family": "B.1"
+  },
+  {
+   "id": "9bd5796f-8d5d-4e3c-ab83-4c721b3e656b",
+   "pilot": 3,
+   "ord": 19,
+   "task": "4.2",
+   "anchor": "6.1.3",
+   "grounding_family": "6.1.3"
+  },
+  {
+   "id": "333a50d8-1b07-4f98-b652-d9bd662f0dc4",
+   "pilot": 3,
+   "ord": 20,
+   "task": "4.3",
+   "anchor": "B.2.3",
+   "grounding_family": "B.2.3"
+  },
+  {
+   "id": "8cf14ae1-f31c-4443-9b61-2e85bde6fec7",
+   "pilot": 3,
+   "ord": 21,
+   "task": "4.3",
+   "anchor": "A.3.3",
+   "grounding_family": "A.3.3"
+  },
+  {
+   "id": "a287616d-45cf-4e76-9f09-8ad8a5771dc1",
+   "pilot": 3,
+   "ord": 22,
+   "task": "4.4",
+   "anchor": "B.6.2.6",
+   "grounding_family": "B.6.2.6"
+  },
+  {
+   "id": "169fb07b-b3fa-4505-b047-4e20ed3e955d",
+   "pilot": 3,
+   "ord": 23,
+   "task": "4.5",
+   "anchor": "A.8.3",
+   "grounding_family": "A.8.3"
+  },
+  {
+   "id": "9ecce8e5-937e-47c6-b022-294e5006372e",
+   "pilot": 3,
+   "ord": 24,
+   "task": "4.6",
+   "anchor": "A.9.3",
+   "grounding_family": "A.9.3"
+  },
+  {
+   "id": "ef2a9c5d-91b0-45c2-b781-5b0c7ce9292c",
+   "pilot": 3,
+   "ord": 25,
+   "task": "5.1",
+   "anchor": "9.1",
+   "grounding_family": "9.1"
+  },
+  {
+   "id": "99524730-8c57-4d14-a6e4-f4b2fa9cca27",
+   "pilot": 3,
+   "ord": 26,
+   "task": "5.2",
+   "anchor": "9.2.1",
+   "grounding_family": "9.2.1"
+  },
+  {
+   "id": "4b317d6c-8d05-4496-8e36-8e93f56e2323",
+   "pilot": 3,
+   "ord": 27,
+   "task": "5.3",
+   "anchor": "9.3.2",
+   "grounding_family": "9.3.2"
+  },
+  {
+   "id": "17f802fb-f887-4c53-bac8-53d99bc95822",
+   "pilot": 2,
+   "ord": 7,
+   "task": "2.6",
+   "anchor": "6.1.4",
+   "grounding_family": "6.1.4"
+  },
+  {
+   "id": "fd65b423-e32c-4197-8aea-fb7f8a300c25",
+   "pilot": 2,
+   "ord": 10,
+   "task": "3.3",
+   "anchor": "7.5.2",
+   "grounding_family": "7.5.2"
+  },
+  {
+   "id": "4c69db20-3547-46db-bd7b-437f41481fd8",
+   "pilot": 2,
+   "ord": 12,
+   "task": "3.5",
+   "anchor": "B.10.3",
+   "grounding_family": "B.10.3"
+  },
+  {
+   "id": "f93d06cc-0dc4-45ac-bf57-6e9cfd77b386",
+   "pilot": 2,
+   "ord": 18,
+   "task": "4.6",
+   "anchor": "A.10.2",
+   "grounding_family": "A.10.2"
+  },
+  {
+   "id": "07561e42-fe03-459e-a21f-9cc74889a39b",
+   "pilot": 2,
+   "ord": 20,
+   "task": "5.2",
+   "anchor": "9.2.2",
+   "grounding_family": "9.2.2"
+  }
+ ]
+}
