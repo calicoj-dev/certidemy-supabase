@@ -17,13 +17,14 @@
  *
  * Then code decides, and a blind model decides, and neither is the writer:
  *
- *   six CODE gates        scripts/lib/grounded-gates.mjs -- no model involved
+ *   nine CODE gates       scripts/lib/grounded-gates.mjs -- no model involved
  *   one BLIND solver      scripts/lib/blind-solver.mjs -- sees the passages and the item,
  *                         never the key, the explanation or the generation context
  *
- * Survivors land as status='draft'. NEVER approved. Approval for the secure pool is a
- * separate human step, and `generate-mock-exam` filters `status = 'approved'` -- read from
- * its source, not assumed -- so a draft cannot reach any form, exam or simulator.
+ * Survivors land in an UNSERVABLE status, NEVER approved. The ruling says "draft"; the CHECK
+ * vocabulary has no such value, so they land as `pending_review` -- see insert-pilot-drafts.mjs.
+ * Approval for the secure pool is a separate human step, and `generate-mock-exam` filters
+ * `status = 'approved'` exactly -- read from its source, not assumed -- so neither can reach a form.
  *
  * ============ FLAGS ============
  *
@@ -51,6 +52,60 @@ import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
   OPTIONS_PROBE_SYSTEM, optionsProbeControls } from "./lib/options-probe.mjs";
+import { shapeCues, shapeCueControls, KEY_LENGTH_TOLERANCE } from "./lib/shape-cues.mjs";
+
+/* ============ THE DE-CUE WRITER, AND IT MAY TOUCH NOTHING BUT THE DISTRACTORS ============
+ *
+ * The rules are the director's, stated as constraints rather than advice because a writer given
+ * "make them better" returns four new options and a different item. The reply shape is a single
+ * object with one text per distractor, in the order given, so the applier can pair them positionally
+ * and refuse anything else. */
+const DE_CUE_SYSTEM = `You repair the SHAPE of a multiple-choice item's distractors. You never
+change what the item tests.
+
+You are given a stem, the KEY, the current distractors, and one or more CUES that instruments found
+in the option set -- properties that let someone pick the key without knowing the subject.
+
+Rewrite ONLY the distractors so the cue is gone. Hard rules:
+- The stem and the key are FIXED. Do not restate, reword or comment on them.
+- Every distractor must still be WRONG, and wrong for a reason a knowledgeable person could name.
+- Match the key in LENGTH: each distractor within 20 percent of the key's word count.
+- Match the key in GRAMMATICAL FORM: same opening part of speech, same sentence shape.
+- Match the key in VERDICT PATTERN: if the key asserts, they assert; if the key denies, at least one
+  denies.
+- If the key is COMPOUND (two clauses, or a statement plus a qualifier), make at least TWO
+  distractors compound.
+- If the key is UNCONDITIONAL, make at least ONE distractor unconditional.
+- Never make a distractor wrong merely by adding an absolute ("always", "never", "only", "all") or a
+  self-justifying "because ..." clause. That is the habit these cues come from.
+
+Reply with ONLY this JSON object:
+{"distractors":["text for the first distractor","text for the second","..."]}
+The array must have exactly one entry per distractor shown, in the same order.`;
+
+/** The key's index, from `is_correct`. */
+const keyIdxOf = (it) => (it.options || []).findIndex((o) => o && o.is_correct);
+
+/**
+ * Put rewritten distractor texts back in their original positions. Positional pairing, and it
+ * refuses a count mismatch: a reordered or dropped distractor compared against its neighbour is the
+ * checkpoint-field defect, and the applier is where it has to be caught.
+ */
+function applyDistractors(item, texts, ki) {
+  if (!Array.isArray(texts)) return null;
+  const slots = item.options.map((_, i) => i).filter((i) => i !== ki);
+  if (texts.length !== slots.length) return null;
+  if (texts.some((t) => !String(t || "").trim())) return null;
+  const options = item.options.map((o) => ({ ...o }));
+  slots.forEach((slot, n) => { options[slot] = { ...options[slot], text: String(texts[n]).trim() }; });
+  /* The key must be untouched, byte for byte, or this is a different item wearing a retry. */
+  if (options[ki].text !== item.options[ki].text) return null;
+  if (options.findIndex((o) => o.is_correct) !== ki) return null;
+  return { ...item, options };
+}
+
+let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueRevertedGates = 0,
+    deCueMalformed = 0, deCueUnrun = 0;
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -85,14 +140,15 @@ const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 {
   const a = groundedGateControls(), b = blindSolverControls(), c = supersededControls();
   const d = optionsProbeControls();
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined) + " cases");
+  const e = shapeCueControls();
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + " -- all pass");
 }
 
 function env(k) {
@@ -619,6 +675,102 @@ for (const g of generated) {
       console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
         item.key_support_clause + "   (options probe could not run)");
     }
+
+    /* ============ THE DE-CUE RETRY: DISTRACTORS ONLY, ONE ATTEMPT ============
+     *
+     * Ruled in PROMPT-78 section 2 and amended in PROMPT-79: the probe stays a flag with no target
+     * rate, and the retry is worth doing anyway because it fixes the item's SHAPE without touching
+     * what it TESTS. So the key, the stem, the explanation and the anchor stay BYTE-IDENTICAL and only
+     * the distractors move.
+     *
+     * IT RUNS FOR THE PROBE'S FLAG AND FOR THE FOUR CODE CUES ALIKE, because all five describe the
+     * same defect: something about the option set answers the question without the subject.
+     *
+     * AND EVERYTHING THE DISTRACTORS AFFECT IS RE-RUN -- the code gates, the BLIND SOLVER and the
+     * probe. The solver matters most: a rewritten distractor can become a second correct answer,
+     * which is exactly what pilot-2 #15 was. A retry that fails the solver is REVERTED TO THE
+     * ORIGINAL rather than rejected, because the original had already passed. */
+    const preCues = shapeCues(item);
+    const wantsDeCue = (record.options_probe && record.options_probe.state === "flag") || preCues.length > 0;
+    record.shape_cues_before = preCues.map((c) => ({ id: c.id, cue: c.cue }));
+    if (wantsDeCue) {
+      deCueAttempted++;
+      const cueList = [
+        ...(record.options_probe && record.options_probe.state === "flag"
+          ? ["options probe (" + record.options_probe.cue_kind + "): " + record.options_probe.cue] : []),
+        ...preCues.map((c) => c.id + ": " + c.cue),
+      ].join("\n  - ");
+      const keyText = item.options[keyIdxOf(item)].text;
+      let revised = null;
+      try {
+        revised = parseObject(await claude(DE_CUE_SYSTEM,
+          "CUE(S) A CANDIDATE COULD USE, from instruments that saw only the options:\n  - " + cueList +
+          "\n\nSTEM (do not change):\n" + item.question_text +
+          "\n\nKEY (do not change, reproduce it EXACTLY as option " + keyLabel + "):\n" + keyText +
+          "\n\nDISTRACTORS to rewrite, in order:\n" +
+          item.options.map((o, i) => (i === keyIdxOf(item) ? null : "  " +
+            String.fromCharCode(65 + i) + ": " + o.text)).filter(Boolean).join("\n"),
+          3000));
+      } catch (e) {
+        record.de_cue = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
+        deCueUnrun++;
+      }
+      if (revised && Array.isArray(revised.distractors)) {
+        const cand = applyDistractors(item, revised.distractors, keyIdxOf(item));
+        if (!cand) {
+          record.de_cue = { state: "malformed", reason: "the retry did not return one text per distractor" };
+          deCueMalformed++;
+        } else {
+          /* Everything the distractors can affect, in order of cost. */
+          const recoded = runCodeGates(cand, gateInput());
+          let reSolver = null, reProbe = null, keptIt = false;
+          if (!recoded.passed) {
+            record.de_cue = { state: "reverted", reason: "the rewritten distractors failed " + recoded.failed.join(", ") };
+            deCueRevertedGates++;
+          } else {
+            try {
+              const p2 = blindPayload(cand, ps);
+              assertBlind(p2, cand);
+              const parsed2 = parseObject(await claude(SOLVER_SYSTEM, solverUser(p2, ps), 1500));
+              reSolver = solverVerdict(parsed2, keyLabel);
+            } catch (e) {
+              reSolver = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
+            }
+            if (reSolver.state !== "accepted") {
+              /* REVERTED, NOT REJECTED. The original passed; a failed improvement must not cost a
+               * sound item. This is pilot-2 #15's defect caught before it can land. */
+              record.de_cue = { state: "reverted", reason: "the solver no longer accepts it: " + reSolver.state };
+              deCueRevertedSolver++;
+            } else {
+              try {
+                const op2 = optionsPayload(cand);
+                assertOptionsOnly(op2, cand);
+                reProbe = optionsProbeVerdict(parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op2), 800)), keyLabel);
+              } catch (e) {
+                reProbe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
+              }
+              item = cand;
+              record.item = cand;
+              record.gates = recoded.gates.map((x) => ({ id: x.id, pass: x.pass, examined: x.examined, reason: x.reason }));
+              record.solver = { ...reSolver };
+              record.options_probe = reProbe;
+              record.de_cue = { state: "applied",
+                probe_before: cueList.slice(0, 200),
+                probe_after: reProbe ? reProbe.state : null };
+              keptIt = true;
+              deCueApplied++;
+            }
+          }
+          if (!keptIt) record.de_cue_candidate_discarded = true;
+        }
+      } else if (revised) {
+        record.de_cue = { state: "malformed", reason: "no distractors array" };
+        deCueMalformed++;
+      }
+      record.shape_cues_after = shapeCues(item).map((c) => ({ id: c.id, cue: c.cue }));
+    } else {
+      record.shape_cues_after = record.shape_cues_before;
+    }
   } else if (v.state === "rejected") {
     record.verdict = "rejected by solver";
     bump("solver: " + (v.reason.startsWith("the solver answered") ? "answered differently"
@@ -695,6 +847,38 @@ if (probeUnrun) console.log("    " + probeUnrun + " probe(s) COULD NOT RUN -- no
 console.log("");
 console.log("  PARAPHRASE RETRY (reproduction only)  fixed " + retriedOk + ", still failing " + retriedStillBad);
 
+/* ============ THE DE-CUE RETRY, AND THE KEY-PICK RATE BEFORE AND AFTER ============
+ *
+ * KEY-PICK, not the flag rate: "it named the key, cue or no cue" is the number comparable across
+ * banks, and the baseline measured the AUTHORED bank at 98 percent. A flag additionally needs the
+ * model to articulate a cue, which depends on it bothering to.
+ *
+ * `reverted` is reported in its own right and split by WHICH check reverted it, because a retry that
+ * the solver refuses is the pilot-2 #15 defect being caught -- a success for the process, not a
+ * failure of it. */
+const pickRate = (rows) => {
+  const ran = rows.filter((r) => r.options_probe && r.options_probe.state !== "could-not-run" && r.options_probe.pick);
+  const hit = ran.filter((r) => r.options_probe.pick === String.fromCharCode(65 + r.item.correct_index));
+  return { n: ran.length, hit: hit.length, pct: ran.length ? Math.round(100 * hit.length / ran.length) : null };
+};
+const after = pickRate(survivors);
+console.log("");
+console.log("  DE-CUE RETRY (distractors only, one attempt)");
+console.log("    attempted " + deCueAttempted + "   applied " + deCueApplied +
+  "   reverted " + (deCueRevertedSolver + deCueRevertedGates) +
+  " (solver " + deCueRevertedSolver + ", code gates " + deCueRevertedGates + ")" +
+  "   malformed " + deCueMalformed + "   could-not-run " + deCueUnrun);
+console.log("    KEY-PICK RATE after the retry: " + after.hit + "/" + after.n +
+  (after.pct === null ? "" : "  " + after.pct + "%") + "   (chance 25%, authored bank 98%)");
+const cueTally = (field) => survivors.reduce((a, r) => {
+  for (const c of (r[field] || [])) a[c.id] = (a[c.id] || 0) + 1;
+  return a;
+}, {});
+console.log("    SHAPE CUES before: " + JSON.stringify(cueTally("shape_cues_before")));
+console.log("    SHAPE CUES after : " + JSON.stringify(cueTally("shape_cues_after")) +
+  "   (key-length tolerance " + KEY_LENGTH_TOLERANCE + "x)");
+console.log("    Each of these FLAGS. None rejects, and the probe has no target rate.");
+
 const runs = survivors.map((r) => r.longest_served_run).filter((x) => typeof x === "number");
 console.log("  LONGEST SERVED RUN across survivors   max " + (runs.length ? Math.max(...runs) : "n/a") +
   ", median " + (runs.length ? runs.slice().sort((a, b) => a - b)[Math.floor(runs.length / 2)] : "n/a") +
@@ -711,6 +895,11 @@ writeFileSync(join(ROOT, OUT), JSON.stringify({
   unmapped_tasks: unmapped.map((t) => t.code),
   held_tasks: HELD_TASKS,
   paraphrase_retry: { fixed: retriedOk, still_failing: retriedStillBad },
+  de_cue_retry: { attempted: deCueAttempted, applied: deCueApplied,
+    reverted_by_solver: deCueRevertedSolver, reverted_by_gates: deCueRevertedGates,
+    malformed: deCueMalformed, could_not_run: deCueUnrun },
+  key_pick_after: after,
+  shape_cues_before: cueTally("shape_cues_before"), shape_cues_after: cueTally("shape_cues_after"),
   anchor_clusters: clusters,
   options_probe_flags: probeFlags.length,
   options_probe_unrun: probeUnrun,

@@ -38,6 +38,15 @@ export const SOURCE_PREFIX = {
   "27001": { source_id: "ISO/IEC 27001", edition: "2022" },
   "27002": { source_id: "ISO/IEC 27002", edition: "2022" },
   "19011": { source_id: "ISO 19011", edition: "2026" },
+  /* Added when tasks 5.5 and 1.5 came off hold. 5.5 resolves BY TITLE against these two, per the
+   * ruling -- the clause numbers in the ruling's parentheses are the check on what a title resolved
+   * to, not the thing typed into the map. */
+  "42006": { source_id: "ISO/IEC 42006", edition: "2025" },
+  "17021": { source_id: "ISO/IEC 17021-1", edition: "2015" },
+  /* The AI Act's ids are `Art. 6(1)`, not a decimal, and its prefix is not a standard number -- which
+   * is why the plain-prefix pattern below accepts a short alphanumeric key as well as a 4-5 digit
+   * one. 1.5's additions are TYPED article ids because the ruling approved those exact articles. */
+  "euact": { source_id: "EU AI Act", edition: "2024/1689" },
 };
 
 /**
@@ -52,9 +61,24 @@ export const AIMSF_TASK_SOURCES = {
     supporting: ["A.6.1.2", "A.6.1.3", "A.6.2.2-A.6.2.8", "B.6.2.2-B.6.2.8", "A.7.5"],
   },
   "1.4": { primary: ["D.1", "D.2"], supporting: ["3.4", "4.4", "2", "27001:4.4"] },
+  /* ============ 1.5's ADDITIONS APPROVED, AND THE NOTE IS LIFTED. Ruled 2026-09-27 ============
+   *
+   * "Explain the regulatory drivers for an AIMS and why certification is not compliance."
+   *
+   * The note forbade "certification is not compliance" items until the AI Act and 42006/17021-1 were
+   * acquired. All three are held, so it is GONE rather than marked -- it was a live instruction, and a
+   * marker beside an instruction competes with it instead of removing it.
+   *
+   * THE GATES DECIDE NOW, which is the ruling's own reasoning: an item with no passage saying so
+   * cannot anchor, so the prohibition does not need to be restated as prose. */
   "1.5": {
-    primary: ["4.1", "5.2"], supporting: ["D.2", "B.8.4"],
-    note: "Keys on 42001 text only. NO \"certification is not compliance\" items until the EU AI Act and 42006/17021-1 are acquired.",
+    primary: ["4.1", "5.2"],
+    supporting: ["D.2", "B.8.4",
+      "euact:Art. 6(1)",   /* classification rules for high-risk AI systems */
+      "euact:Art. 17(1)",  /* quality management system */
+      "euact:Art. 41(1)",  /* common specifications */
+      "euact:Art. 43(1)",  /* conformity assessment */
+      "42006:1"],          /* what 42006 governs, which is the other half of the distinction */
   },
   "1.6": {
     primary: ["1", "3.4"], supporting: ["C.2", "B.6.2.4", "4.1"],
@@ -115,9 +139,39 @@ export const AIMSF_TASK_SOURCES = {
      * point this at the wrong definition. */
     supporting: ["10.1", "@definition:nonconformity", "@definition:corrective"],
   },
+  /* ============ 5.5 IS OFF HOLD. Ruled 2026-09-27 ============
+   *
+   * "Describe the certification route and what ISO/IEC 42006 governs." Both standards are now held
+   * (42006 98 passages, 17021-1 249, 0 missing against their own declarations).
+   *
+   * THE ROUTE ITSELF LIVES IN 17021-1, so it is PRIMARY too, not supporting -- that is the ruling,
+   * and it matters: primary is the only place a key may anchor, so an item about stage 1 and stage 2
+   * could not otherwise be keyed to the clause that defines them.
+   *
+   * RESOLVED BY TITLE, NOT BY TYPED NUMBER. The numbers in the ruling's parentheses are the CHECK on
+   * what each title resolved to; write-task-sources.mjs reports the resolution per entry. */
   "5.5": {
-    primary: [], supporting: [],
-    hold: "No grounded items. Needs ISO/IEC 42006 and 17021-1, which are not held.",
+    primary: [
+      "42006:1",                              /* Scope -- the one id the ruling names outright */
+      "@42006:title:scope of certification",  /* 9.1.3 */
+      "@42006:title:certification documents", /* 8.2.2 */
+      "@42006:title:competence",              /* 7.1.2 and its specific siblings */
+      "@17021:title:stage 1",
+      "@17021:title:stage 2",
+      "@17021:title:surveillance",
+      "@17021:title:recertification",
+      "@17021:title:audit programme",         /* where the three-year cycle lives */
+    ],
+    supporting: [
+      /* AUDIT TIME IS THE ONE ENTRY THAT IS TYPED, and the title lookup is why. `title:audit time`
+       * resolves to FOURTEEN clauses -- 9.1.4.2 plus the whole of Annex A and Annex B's audit-time
+       * factor tables (A.1-A.8, B.2.x). The ruling names 9.1.4.2, and the parenthetical number is
+       * the check on what a title resolved to: here the check fails the lookup 14 to 1. Supporting
+       * context is what a distractor's reason may anchor in, and a factor table is not context for
+       * "describe the certification route" -- it is a different subject that shares a phrase. */
+      "42006:9.1.4.2",
+      "@17021:title:management of impartiality", /* 5.2.1 and its twelve sibling paragraphs */
+    ],
   },
   "5.6": {
     primary: ["9.2.2", "D.2"],
@@ -184,7 +238,10 @@ export function expandEntry(entry, passages) {
 
   /* an optional source prefix */
   let src = DEFAULT_SOURCE, body = raw;
-  const pre = /^(\d{4,5}):(.+)$/.exec(raw);
+  /* A SHORT ALPHANUMERIC KEY, not only a standard number: the EU AI Act's prefix is `euact` and its
+   * clause ids look like `Art. 6(1)`. A plain clause carries no colon, so widening this cannot
+   * capture one by accident. */
+  const pre = /^([A-Za-z0-9-]{3,10}):(.+)$/.exec(raw);
   if (pre) {
     src = SOURCE_PREFIX[pre[1]];
     if (!src) return { error: raw + ": unknown source prefix" };

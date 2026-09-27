@@ -497,10 +497,29 @@ function paragraphMarks(lines, declared, headings) {
     if (!c.cand || taken.has(c.clause)) continue;
     /* THE PARAGRAPH HAS NO TITLE OF ITS OWN. Its parent clause's declared title is the honest
      * label -- it is what the paragraph is under -- and the task map matches on titles, so an
-     * empty one would make these rows unmatchable by the signal that matches best. */
+     * empty one would make these rows unmatchable by the signal that matches best.
+     *
+     * AND THE NEAREST ANCESTOR HEADING IS THE FALLBACK, because the contents list only declares
+     * about three levels. ISO/IEC 17021-1's "Stage 1" is a FOUR-level heading (9.3.1.2) that the
+     * contents does not carry, so a paragraph under it got an empty title -- and since the
+     * container row itself is no longer emitted, the title "Stage 1" disappeared from the library
+     * entirely. A title lookup for it then resolved to nothing, which is how the task map's
+     * resolve-by-title ruling surfaced a defect my own paragraph-grain change had introduced.
+     *
+     * The heading pass already found those titles; they are handed in as `headings`, so the
+     * nearest ancestor with a title is used when the immediate parent has none. Nearest rather
+     * than any, so a paragraph is labelled by the heading it actually sits under. */
+    const ancestorTitle = () => {
+      let best = null;
+      for (const h of headings) {
+        if (!h.title || !c.clause.startsWith(h.clause + ".")) continue;
+        if (!best || h.clause.length > best.clause.length) best = h;
+      }
+      return best ? best.title : "";
+    };
     out.push({
       clause: c.clause,
-      title: declared.get(parent) || "",
+      title: declared.get(parent) || ancestorTitle(),
       rest: c.rest,
       restIsText: true,
       line: c.line,
