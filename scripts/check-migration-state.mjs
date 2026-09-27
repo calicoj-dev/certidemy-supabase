@@ -966,6 +966,46 @@ const FINGERPRINTS = {
     };
   },
 
+  379: async () => {
+    /* 379 gives a human's read of an ENGLISH item somewhere to live: four columns on
+     * item_grounding, which is already the per-item provenance record.
+     *
+     * `ran` is that the columns are selectable. `effective` is the half worth asserting: the table
+     * must still be SHUT to anon and authenticated, because item_grounding holds licensed standard
+     * text as evidence and adding a column is exactly the kind of change that opens a table without
+     * anyone looking. Asked with the anon key rather than inferred from a grant. */
+    const probe = await rest("item_grounding?select=reviewed_by,review_verdict&limit=1");
+    if (!Array.isArray(probe)) {
+      return { ran: false, why: "item_grounding.reviewed_by is not selectable -- 379 has not been applied" };
+    }
+    let anonBlocked = null;
+    const anon = process.env.SUPABASE_ANON_KEY;
+    if (anon) {
+      try {
+        const r = await fetch(REST + "/item_grounding?select=question_id&limit=1",
+          { headers: { apikey: anon, Authorization: "Bearer " + anon } });
+        anonBlocked = r.status === 401 || r.status === 403 || r.status === 404;
+      } catch { anonBlocked = null; }
+    }
+    const all = await rest("item_grounding?select=question_id,review_verdict,reviewed_by");
+    const rows = Array.isArray(all) ? all.length : 0;
+    const byVerdict = {};
+    for (const r of Array.isArray(all) ? all : []) {
+      byVerdict[r.review_verdict ?? "(none)"] = (byVerdict[r.review_verdict ?? "(none)"] || 0) + 1;
+    }
+    return {
+      ran: true,
+      why: "the review columns are selectable; " + rows + " grounding row(s) " + JSON.stringify(byVerdict) +
+        (rows === 0 ? " (empty is correct until the drafts are inserted)" : ""),
+      effective: anonBlocked === null ? undefined : anonBlocked,
+      effectiveWhy: anonBlocked === null
+        ? "no SUPABASE_ANON_KEY: whether anon is refused is UNASSERTED, not confirmed"
+        : anonBlocked
+          ? "anon is still refused on item_grounding -- adding review columns did not open it"
+          : "ANON CAN READ item_grounding -- adding review columns opened a table holding licensed text",
+    };
+  },
+
   378: async () => {
     /* 378 revokes two things the key-exposure sweep found closed only by accident:
      * `quiz_questions.explanation` from anon and authenticated, and EXECUTE on
