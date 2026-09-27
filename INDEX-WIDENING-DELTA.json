@@ -2,20 +2,26 @@
   "measured": "2026-09-21",
   "narrow_sources": [
     "19011:2026",
-    "27001:2022",
-    "42001:2023"
-  ],
-  "added_sources": [
     "22989:2022",
     "27000:2018",
     "27001:2022/Amd1",
+    "27001:2022",
     "27002:2022",
     "27004:2016",
-    "27005:2022"
+    "27005:2022",
+    "42001:2023"
+  ],
+  "added_sources": [
+    "itil4:2019",
+    "42006:2025",
+    "17021-1:2015",
+    "ebm:2024",
+    "nist-ai-rmf:1.0",
+    "euact:2024/1689"
   ],
   "grams": {
-    "narrow": 37944,
-    "wide": 153135
+    "narrow": 153135,
+    "wide": 324698
   },
   "gate": {
     "seed": 4,
@@ -24,129 +30,129 @@
   },
   "live": {
     "rows": 1729,
-    "fired_narrow": 5,
-    "fired_wide": 16,
+    "fired_narrow": 1,
+    "fired_wide": 12,
     "newly": [
       {
-        "cert": "ISMS-F",
-        "slug": "risk-identification",
-        "description": "finding, recognizing and describing risks",
-        "run": 5,
-        "words": 5,
+        "cert": "AISM-I",
+        "slug": "management-practice",
+        "description": "a set of organizational resources designed for performing work or accomplishing an objective.",
+        "run": 13,
+        "words": 13,
         "cov": 1,
-        "matched": "finding recognizing and describing risks",
-        "source": "27000:2018",
-        "predicted_tier": "A"
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "iso-27005-risk",
-        "description": "guidance on information security risk management",
-        "run": 6,
-        "words": 6,
-        "cov": 1,
-        "matched": "guidance on information security risk management",
-        "source": "27002:2022",
+        "matched": "a set of organizational resources designed for performing work or accomplishing an objective",
+        "source": "itil4:2019",
         "predicted_tier": null
       },
       {
-        "cert": "ISMS-F",
-        "slug": "threat",
-        "description": "a potential cause of an unwanted incident",
-        "run": 6,
-        "words": 7,
-        "cov": 0.8571428571428571,
-        "matched": "potential cause of an unwanted incident",
-        "source": "27000:2018",
-        "predicted_tier": "A"
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "availability",
-        "description": "information is accessible and usable on demand by an authorized entity",
-        "run": 9,
-        "words": 11,
-        "cov": 0.8181818181818182,
-        "matched": "accessible and usable on demand by an authorized entity",
-        "source": "22989:2022",
-        "predicted_tier": null
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "cryptographic-controls",
-        "description": "use and management of cryptography",
-        "run": 4,
-        "words": 5,
-        "cov": 0.8,
-        "matched": "use and management of",
-        "source": "27002:2022",
-        "predicted_tier": null
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "avoid-risk",
-        "description": "not undertaking the activity that gives rise to the risk",
-        "run": 8,
+        "cert": "AISM-I",
+        "slug": "governance-definition",
+        "description": "the means by which an organization is directed and controlled.",
+        "run": 10,
         "words": 10,
-        "cov": 0.8,
-        "matched": "the activity that gives rise to the risk",
-        "source": "27000:2018",
+        "cov": 1,
+        "matched": "the means by which an organization is directed and controlled",
+        "source": "itil4:2019",
         "predicted_tier": null
       },
       {
-        "cert": "ISMS-F",
-        "slug": "security-control",
-        "description": "a measure that modifies risk",
+        "cert": "SPO-AI-I",
+        "slug": "product-ecosystem-actors",
+        "description": "Stakeholders, customers, users, and sponsors.",
         "run": 4,
         "words": 5,
         "cov": 0.8,
-        "matched": "a measure that modifies",
-        "source": "27002:2022",
-        "predicted_tier": "B"
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "supplier-controls",
-        "description": "controls governing information security in supplier relationships",
-        "run": 5,
-        "words": 7,
-        "cov": 0.7142857142857143,
-        "matched": "information security in supplier relationships",
-        "source": "27002:2022",
-        "predicted_tier": null
-      },
-      {
-        "cert": "ISMS-F",
-        "slug": "iso-27002-controls",
-        "description": "implementation guidance for the reference controls",
-        "run": 4,
-        "words": 6,
-        "cov": 0.6666666666666666,
-        "matched": "implementation guidance for the",
-        "source": "27000:2018",
+        "matched": "customers users and sponsors",
+        "source": "itil4:2019",
         "predicted_tier": null
       },
       {
         "cert": "AIGRM-I",
-        "slug": "technical-documentation-requirement",
-        "description": "Documentation demonstrating the system meets requirements.",
+        "slug": "gpai-obligations",
+        "description": "Documentation and transparency obligations on providers of general-purpose AI models.",
+        "run": 8,
+        "words": 11,
+        "cov": 0.7272727272727273,
+        "matched": "obligations on providers of general purpose ai models",
+        "source": "euact:2024/1689",
+        "predicted_tier": null
+      },
+      {
+        "cert": "SPO-AI-I",
+        "slug": "story-independence",
+        "description": "Items that can be delivered independently.",
         "run": 4,
         "words": 6,
         "cov": 0.6666666666666666,
-        "matched": "the system meets requirements",
-        "source": "22989:2022",
+        "matched": "that can be delivered",
+        "source": "itil4:2019",
+        "predicted_tier": null
+      },
+      {
+        "cert": "SM-AI-I",
+        "slug": "scrum-adoption",
+        "description": "Introducing Scrum at the organizational level.",
+        "run": 4,
+        "words": 6,
+        "cov": 0.6666666666666666,
+        "matched": "at the organizational level",
+        "source": "nist-ai-rmf:1.0",
+        "predicted_tier": null
+      },
+      {
+        "cert": "AISM-I",
+        "slug": "incident-management",
+        "description": "restoring normal service operation as quickly as possible after an unplanned interruption.",
+        "run": 8,
+        "words": 12,
+        "cov": 0.6666666666666666,
+        "matched": "restoring normal service operation as quickly as possible",
+        "source": "itil4:2019",
+        "predicted_tier": null
+      },
+      {
+        "cert": "AISM-I",
+        "slug": "guiding-principles",
+        "description": "universal recommendations that guide an organization in all circumstances.",
+        "run": 6,
+        "words": 9,
+        "cov": 0.6666666666666666,
+        "matched": "guide an organization in all circumstances",
+        "source": "itil4:2019",
+        "predicted_tier": null
+      },
+      {
+        "cert": "AIGRM-I",
+        "slug": "explainability-for-stakeholders",
+        "description": "Providing explanations appropriate to the audience.",
+        "run": 4,
+        "words": 6,
+        "cov": 0.6666666666666666,
+        "matched": "appropriate to the audience",
+        "source": "17021-1:2015",
+        "predicted_tier": null
+      },
+      {
+        "cert": "AIGRM-I",
+        "slug": "minimal-risk",
+        "description": "The majority of AI systems; no specific obligations.",
+        "run": 5,
+        "words": 8,
+        "cov": 0.625,
+        "matched": "the majority of ai systems",
+        "source": "euact:2024/1689",
         "predicted_tier": "B"
       },
       {
-        "cert": "ISMS-F",
-        "slug": "risk-criteria",
-        "description": "the terms of reference against which risk significance is judged",
-        "run": 6,
-        "words": 10,
-        "cov": 0.6,
-        "matched": "the terms of reference against which",
-        "source": "27005:2022",
-        "predicted_tier": "A"
+        "cert": "AIGRM-I",
+        "slug": "synthetic-content-labeling",
+        "description": "Marking AI-generated or manipulated content as artificial.",
+        "run": 5,
+        "words": 8,
+        "cov": 0.625,
+        "matched": "ai generated or manipulated content",
+        "source": "euact:2024/1689",
+        "predicted_tier": null
       }
     ]
   },
@@ -155,8 +161,8 @@
     "newly": []
   },
   "tier_a_prediction": {
-    "named": 23,
-    "firing": 3,
+    "named": 52,
+    "firing": 0,
     "firing_unpredicted": 11
   }
 }

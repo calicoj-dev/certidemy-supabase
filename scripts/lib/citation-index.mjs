@@ -61,9 +61,16 @@ const MANIFEST_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "..", 
 export const MANIFEST = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
 const CORPUS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "iso-corpus");
 
+/* A SOURCE'S DIRECTORY IS A FACT ABOUT THE SOURCE, so the manifest carries it and this resolves
+ * it. The licensed ISO corpus sits outside the repository; the sources supplied on 2026-09-26 sit
+ * in `sources/incoming`, also gitignored. Defaulting to the ISO corpus keeps every existing entry
+ * resolving exactly as before -- the entries have no `dir` field and do not need one. */
+const INCOMING_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "sources", "incoming");
+const dirFor = (e) => (e.dir === "incoming" ? INCOMING_DIR : CORPUS_DIR);
+
 /** key -> absolute path, for every manifest entry marked `indexed`. */
 export const PDFS = Object.fromEntries(
-  MANIFEST.entries.filter((e) => e.indexed).map((e) => [e.key, join(CORPUS_DIR, e.file)]),
+  MANIFEST.entries.filter((e) => e.indexed).map((e) => [e.key, join(dirFor(e), e.file)]),
 );
 
 /* ============ THE LEAK INDEX AND THE CITATION INDEX ARE NOT THE SAME ======
@@ -115,7 +122,11 @@ export function expectedWords(key) {
 export function verifyCorpus() {
   const bad = [];
   for (const e of MANIFEST.entries.filter((x) => x.indexed)) {
-    const p = join(CORPUS_DIR, e.file);
+    /* Resolved the SAME way `PDFS` resolves it. A second path expression here is a second copy of
+     * one fact, and this copy failed the moment the first one grew a directory: every new source
+     * reported "absent" from a control whose whole job is to prove the index is what the manifest
+     * describes -- a corpus control failing on a healthy corpus. */
+    const p = join(dirFor(e), e.file);
     if (!existsSync(p)) { bad.push(e.file + ": absent"); continue; }
     const sha = createHash("sha256").update(readFileSync(p)).digest("hex");
     if (sha !== e.sha256) bad.push(e.file + ": sha256 " + sha.slice(0, 12) + " != manifest " + e.sha256.slice(0, 12));

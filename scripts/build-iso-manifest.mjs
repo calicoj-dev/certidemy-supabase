@@ -123,7 +123,95 @@ const FACTS = {
     standard: "SS ISO/IEC 42006:2025 (Singapore Standard, identical adoption)",
     title: "Information technology - Artificial intelligence - Requirements for bodies providing audit and certification of artificial intelligence management systems",
     edition: "Preview extract", date: "2025", key: "42006:2025-PREVIEW", indexed: false,
-    why: "PREVIEW ONLY: cover, scope and contents, not the requirements. It is also a Singapore Standard adoption rather than the ISO document. Indexing it would make 42006 read as covered while holding none of its text.",
+    why: "PREVIEW ONLY: cover, scope and contents, not the requirements. It is also a Singapore Standard adoption rather than the ISO document. Indexing it would make 42006 read as covered while holding none of its text. SUPERSEDED as a coverage gap 2026-09-26: the full BS ISO/IEC 42006:2025 is now held and indexed. This extract stays excluded -- two editions of one standard in the index would attribute a run to whichever matched first.",
+  },
+
+  /* ============ THE SOURCES JUAN SUPPLIED, IN THE SAME MANIFEST ============
+   *
+   * They live in a DIFFERENT directory and are otherwise identical in kind: licensed or public
+   * text we index, whose bytes must be pinned. A second manifest would be a second copy of one
+   * fact, and the first thing a second copy does is disagree with the first.
+   *
+   * Bibliographic facts transcribed from each title page, like every entry above.
+   *
+   * THE TWO BS ADOPTIONS ARE THE UK IMPLEMENTATIONS and the editions are pinned to exactly what
+   * the director named: 42006:2025 (not the DIS draft, which is superseded) and 17021-1:2015 (not
+   * part 3, which nothing cites). */
+  "OJ_L_202401689_EN_TXT.pdf": {
+    dir: "incoming",
+    standard: "Regulation (EU) 2024/1689",
+    title: "Laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)",
+    edition: "OJ L series, 2024/1689", date: "2024-07-12", key: "euact:2024/1689", indexed: true,
+    note: "Public law. Kept under the same file convention as the licensed sources so one loader reads all of them.",
+  },
+  "NIST.AI.100-1.pdf": {
+    dir: "incoming",
+    standard: "NIST AI 100-1",
+    title: "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+    edition: "1.0", date: "2023-01", key: "nist-ai-rmf:1.0", indexed: true,
+    note: "Public, free of charge. VOLUNTARY guidance: the extractor caps its passages at 'should' so no item can assert a requirement on its authority.",
+  },
+  "Evidence Based Management Guide 2024.pdf": {
+    dir: "incoming",
+    standard: "Evidence-Based Management Guide",
+    title: "Improving Value Delivery under Conditions of Uncertainty",
+    edition: "May 2024", date: "2024-05", key: "ebm:2024", indexed: true,
+    note: "Scrum.org, Attribution Share-Alike licence. Informative throughout; it defines no requirement.",
+  },
+  "(ITIL) Axelos - ITIL Foundation 4 edition-Axelos (2019)[1].pdf": {
+    dir: "incoming",
+    standard: "ITIL Foundation: ITIL 4 Edition",
+    title: "ITIL Foundation, ITIL 4 Edition",
+    edition: "ITIL 4 Edition", date: "2019", key: "itil4:2019", indexed: true,
+    note: "AXELOS Limited 2019, licensed. Prints a bare page number against every page break and no running header, which is why the extractor identifies its page numbers by the form feed beside them.",
+  },
+  "1010556932-BS-ISO-IEC-42006-2025-Information-Technology-Artificial-Intelligence.pdf": {
+    dir: "incoming",
+    standard: "BS ISO/IEC 42006:2025",
+    title: "Information technology - Artificial intelligence - Requirements for bodies providing audit and certification of artificial intelligence management systems",
+    edition: "UK implementation of ISO/IEC 42006:2025", date: "2025", key: "42006:2025", indexed: true,
+    note: "The full requirements document, superseding the preview extract above as a coverage gap. BSI national foreword and cover are furniture and are stripped; the extractor asserts the body begins at ISO clause 1.",
+  },
+  "BSI-EN-ISO-IEC-17021-1-2015.pdf": {
+    dir: "incoming",
+    standard: "BS EN ISO/IEC 17021-1:2015",
+    title: "Conformity assessment - Requirements for bodies providing audit and certification of management systems - Part 1: Requirements",
+    edition: "UK implementation of EN ISO/IEC 17021-1:2015", date: "2015", key: "17021-1:2015", indexed: true,
+    note: "Part 1 only. Part 3 is a different part and nothing cites it. Title page bears a third-party reseller watermark, recorded here for the same reason the watermarks above are.",
+  },
+
+  /* ============ PARALLEL TEXT: IN THE MANIFEST, OUT OF THE LEAK INDEX ============
+   *
+   * These are the official ES and PT editions of two sources above. They are in the manifest
+   * because their bytes must be pinned like anything else we read, and `indexed: false` because
+   * THE LEAK INDEX IS ENGLISH-ONLY BY CONSTRUCTION and making it multilingual is a
+   * re-calibration, not a corpus addition: this repository records that widening an index changes
+   * its error modes, and the same widening would put every Spanish and Portuguese lesson body in
+   * scope of a gate that has never scored one. That is a measured decision with its own before and
+   * after, and it is named as an open gap rather than taken here. */
+  "OJ_L_202401689_ES_TXT.pdf": {
+    dir: "incoming", standard: "Regulation (EU) 2024/1689 (ES)",
+    title: "Artificial Intelligence Act, Spanish edition", edition: "OJ L series", date: "2024-07-12",
+    key: "euact:2024/1689:es", indexed: false,
+    why: "Parallel text, not a source. Aligned to the English passage ids for terminology. SPAIN Spanish: a reference for es-419, never a mandate.",
+  },
+  "OJ_L_202401689_PT_TXT.pdf": {
+    dir: "incoming", standard: "Regulation (EU) 2024/1689 (PT)",
+    title: "Artificial Intelligence Act, Portuguese edition", edition: "OJ L series", date: "2024-07-12",
+    key: "euact:2024/1689:pt", indexed: false,
+    why: "Parallel text, not a source. Aligned to the English passage ids for terminology.",
+  },
+  "2024-EBM-Guide-Spanish-European.pdf": {
+    dir: "incoming", standard: "Evidence-Based Management Guide (ES)",
+    title: "EBM Guide, European Spanish edition", edition: "2024", date: "2024",
+    key: "ebm:2024:es", indexed: false,
+    why: "Parallel text. NOT ALIGNED: the guide has no numbering, so its ids are English headings and the translated heading count disagrees. Reported unaligned rather than matched by position.",
+  },
+  "2024-EBM-Guide-Portuguese-Brazillian_0.pdf": {
+    dir: "incoming", standard: "Evidence-Based Management Guide (PT-BR)",
+    title: "EBM Guide, Brazilian Portuguese edition", edition: "2024", date: "2024",
+    key: "ebm:2024:pt", indexed: false,
+    why: "Parallel text. NOT ALIGNED, same reason as the Spanish edition.",
   },
 };
 
@@ -133,7 +221,38 @@ function pdfText(p, args = []) {
   return readFileSync(o, "utf8");
 }
 
-const files = readdirSync(DIR).filter((f) => f.toLowerCase().endsWith(".pdf")).sort();
+/* ============ TWO DIRECTORIES, ONE MANIFEST, AND THE ASSERTION STILL RUNS BOTH WAYS ============
+ *
+ * The licensed ISO corpus lives outside the repository; the sources Juan supplied live in
+ * `sources/incoming`. Each FACTS entry names its directory, so the both-directions check below is
+ * per directory: a PDF in `incoming` with no facts is as much a defect as one in the ISO corpus,
+ * and the check that catches it is the same check. A second builder for the second directory would
+ * have been the obvious move and it is how the two would drift. */
+const DIRS = {
+  corpus: DIR,
+  incoming: join(HERE, "..", "sources", "incoming"),
+};
+for (const [name, d] of Object.entries(DIRS)) {
+  if (!existsSync(d)) { console.error("directory not found (" + name + "): " + d); process.exit(2); }
+}
+const dirOf = (f) => DIRS[FACTS[f] && FACTS[f].dir === "incoming" ? "incoming" : "corpus"];
+
+const files = [];
+for (const [name, d] of Object.entries(DIRS)) {
+  for (const f of readdirSync(d).filter((x) => x.toLowerCase().endsWith(".pdf"))) {
+    const want = FACTS[f] ? (FACTS[f].dir === "incoming" ? "incoming" : "corpus") : name;
+    /* A file found in a directory its facts do not name is a MOVED source, which must fail rather
+     * than be hashed from wherever it turned up. */
+    if (FACTS[f] && want !== name) {
+      console.error("");
+      console.error(f + " is in " + name + " but its manifest facts say " + want + ".");
+      console.error("Refusing: a manifest that does not say where a source is cannot be checked.");
+      process.exit(1);
+    }
+    files.push(f);
+  }
+}
+files.sort();
 
 /* BOTH DIRECTIONS. A file on disk with no FACTS entry would be silently
  * skipped; a FACTS entry with no file would silently claim coverage. */
@@ -149,7 +268,7 @@ if (unknown.length || absent.length) {
 
 const entries = [];
 for (const f of files) {
-  const p = join(DIR, f);
+  const p = join(dirOf(f), f);
   const buf = readFileSync(p);
   const sha = createHash("sha256").update(buf).digest("hex");
   const full = pdfText(p);
@@ -194,14 +313,19 @@ if (thin.length) {
 }
 
 const manifest = {
-  what: "The ISO corpus the leak scanners index. The PDFs are licensed per seat and gitignored; this manifest is the committed, auditable record of what they are.",
-  corpus_dir: "../iso-corpus (gitignored)",
+  what: "The sources the leak scanners index. Most are licensed per seat and gitignored; this manifest is the committed, auditable record of what they are.",
+  corpus_dirs: ["../iso-corpus (gitignored)", "sources/incoming (gitignored)"],
   built: new Date().toISOString().slice(0, 10),
   counts: { files: entries.length, indexed: indexed.length, excluded: excluded.length },
   open_coverage_gaps: [
-    "MONOLINGUAL: every entry is an English edition, so a Spanish or Portuguese rendering of a defined term scores 0 and always has. 3,460 translated concept rows and every translated lesson body sit outside any leak instrument.",
-    "ISO/IEC 42006: held as a preview extract only, and as a Singapore Standard adoption. Not indexed and must not be reported as covered.",
-    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index.",
+    /* THE 42006 GAP IS CLOSED AND THE LINE IS REWRITTEN RATHER THAN MARKED. This list is read as a
+     * statement about the present -- it is what tells someone whether a standard is worth buying --
+     * so a closed gap left in it argues against buying something already owned. That exact defect
+     * is recorded in CLAUDE.md against this very file. */
+    "MONOLINGUAL, AND NARROWER THAN IT WAS: every INDEXED entry is an English edition, so a Spanish or Portuguese rendering of a defined term still scores 0. The official ES and PT editions of the AI Act are now HELD (as parallel text, indexed: false) so the gap is closeable for that source by a measured re-calibration; it is not closed, because widening this index changes its error modes and would put every translated lesson body in scope of a gate that has never scored one.",
+    "EDITION VARIANCE: near-wording from a different edition of an indexed standard is out of reach of any n-gram threshold. For a DEFINED TERM the anti-gloss rule is the defence, not this index. The 42006 preview extract is deliberately still excluded now the full BS adoption is indexed -- two editions of one standard would attribute a run to whichever matched first.",
+    "THE CITATION INDEX IS STILL THREE STANDARDS. Six sources were added to the LEAK index and CITATION_SOURCES is unchanged, deliberately: widening it would make addresses that verify-cert flags today resolve, on every certification, which is a content decision rather than a corpus one.",
+    "EU AI ACT ANNEX POINTS, NAMED NOT COUNTED: 13 English annex points have no Spanish row and 2 have no Portuguese row (Annex X 3-4, Annex XII 1-2 and their letters in ES; Annex XI 1(d) and Annex XII 1(f) in PT). Article structure is identical in all three languages.",
   ],
   entries,
 };

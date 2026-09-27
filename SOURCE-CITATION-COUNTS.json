@@ -1,0 +1,63 @@
+{
+ "measured": "2026-09-26",
+ "certifications": [
+  {
+   "certification": "AIGRM-I",
+   "items": 457,
+   "held_only": 78,
+   "unheld_only": 7,
+   "both": 6,
+   "no_source_named": 366,
+   "per_source": {
+    "EU AI Act": 54,
+    "ISO/IEC 42001": 27,
+    "NIST AI RMF": 17,
+    "ISO/IEC 23894": 7,
+    "ISO/IEC 38507": 7,
+    "GDPR": 4,
+    "ISO/IEC 42005": 3,
+    "ISO/IEC 27001": 2
+   }
+  },
+  {
+   "certification": "AIHR-I",
+   "items": 223,
+   "held_only": 7,
+   "unheld_only": 4,
+   "both": 0,
+   "no_source_named": 212,
+   "per_source": {
+    "NIST AI RMF": 7,
+    "NYC Local Law 144": 2,
+    "EEOC / Title VII": 1,
+    "ADA (Americans with Disabilities Act)": 1
+   }
+  },
+  {
+   "certification": "AISM-I",
+   "items": 487,
+   "held_only": 20,
+   "unheld_only": 1,
+   "both": 0,
+   "no_source_named": 466,
+   "per_source": {
+    "NIST AI RMF": 17,
+    "ITIL 4 Foundation": 3,
+    "GDPR": 1
+   }
+  },
+  {
+   "certification": "SPO-AI-I",
+   "items": 388,
+   "held_only": 56,
+   "unheld_only": 0,
+   "both": 0,
+   "no_source_named": 332,
+   "per_source": {
+    "Scrum Guide": 43,
+    "EBM Guide": 8,
+    "NIST AI RMF": 5
+   }
+  }
+ ]
+}

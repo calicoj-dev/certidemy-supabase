@@ -5401,6 +5401,158 @@ generator path is `scripts/gen-grounded-items.mjs`. Everything below was paid fo
 building it, and every one of them is a shape this file already records, arriving through a
 new door.
 
+**SIX MORE SOURCES WENT IN THE SAME DAY, THROUGH THE SAME EXTRACTOR, AND THE FULL REPORT IS
+`SOURCES-LOADED.md`.** EU AI Act, NIST AI RMF 1.0, EBM Guide 2024, ITIL 4 Foundation,
+BS ISO/IEC 42006:2025 and BS EN ISO/IEC 17021-1:2015 -- 686 passages to **2,248**, across 11
+source/edition rows. Refusing to build a second pipeline is what found every defect below.
+
+> **A CONTROL FOUNDED ON A COVERAGE GAP EXPIRES THE DAY THE GAP IS FILLED, AND FILLING IT IS
+> THE GOAL.** `scan-iso-leaks`' negative control asserted *"AISM-I (cites no ISO) stays under
+> the threshold"*. It went red the moment ITIL 4 was indexed, because **AISM-I is the AI
+> SERVICE MANAGEMENT certification and ITIL is its subject** -- longest run 8w to 17w, and a
+> control guarding a redistribution rule failed against a corpus nobody had touched.
+>
+> It was not wrong. Its premise was a fact about WHAT WE HAD NOT BOUGHT. Same family as the
+> regression control that depended on a defect staying in production and the invariant that
+> outlived its subject, with the dependency inverted: this one depended on an ABSENCE.
+>
+> **MECHANISM: the subject is text that cannot match BY CONSTRUCTION, and the control proves
+> that about itself before asserting anything** -- every 4-gram of a synthetic body is checked
+> against the index and the control reports UNSOUND if any is present. Nothing we buy will
+> contain it. AISM-I is still measured and printed as a MEASUREMENT, not asserted as a control.
+
+**AND THE WIDENING IS A RE-CALIBRATION, SO THE BASELINE IS THE INDEX AS IT STOOD -- DERIVED,
+NOT TYPED.** `measure-index-widening` compared against `CITATION_SOURCES`, the three standards
+loose in Documents in September. Run unchanged it would have measured **3 against 15**: tonight's
+widening welded to September's, with no way to attribute a fire to either. The baseline is now
+the manifest entries that do not come from `sources/incoming`, so it cannot go stale the next
+time a source is bought.
+
+Measured, and the members read rather than the count reported:
+
+```
+live concept descriptions    1 firing -> 12, so 11 NEWLY
+  AISM-I management-practice     13w coverage 1.00   ITIL, the whole description verbatim
+  AISM-I governance-definition   10w coverage 1.00   ITIL, the whole description verbatim
+  four at 4w coverage 0.67       ordinary English -- collision, not reproduction
+
+lesson bodies                AIGRM-I 0 -> 6 refused (18w), AISM-I 0 -> 9 (17w)
+```
+
+**Two live concept descriptions are ITIL's own definitions word for word, and ITIL is
+licensed.** Reported, not edited; the lesson scan was DRY and withheld nothing.
+
+**AND THE SAME COUNT CANNOT SEE WHAT RESTS ON A SOURCE WITHOUT NAMING IT.** Only **3** AISM-I
+secure items name ITIL; the leak scan found **9 AISM-I lesson groups reproducing it at up to
+17 words**. A citation census is a floor on what is checkable, never a measure of what a
+certification depends on -- `scripts/count-source-citations.mjs`, and the enumeration is in
+`SOURCE-CITATION-COUNTS.json`.
+
+**THE DOCUMENT'S OWN CONTENTS LIST IS THE TITLE, AND THAT RETIRED A GUESS.** `ISO_HEADING` caps
+a heading remainder at 90 characters to keep a decimal in prose out, and ISO/IEC 42006 shows
+both failures of that cap in adjacent lines -- a whole clause fits on the heading line here:
+
+```
+7.4 Personnel records The requirements of ISO/IEC 17021-1:2015, 7.4 apply.    74 chars  UNDER the cap
+7.5 Outsourcing Outsourcing in accordance with ... is not permitted ...      150 chars  OVER the cap
+```
+
+7.4 became a passage whose TITLE was its own statement and whose TEXT was 7.5's -- junk at a
+real address. 7.5 was not a heading at all. A heuristic for where a title ends would be a
+guess; **the contents list declares it**, so a line whose number is followed by that number's
+declared title is a heading at any length and the remainder is text BY CONSTRUCTION.
+
+**A STALE ROW IN `source_passages` OCCUPIES A REAL ADDRESS, AND THE LOADER IS AN UPSERT.** 21
+rows the extractor no longer produces sat in the table -- 12 containers, and 7 copies of 27002's
+introduction mislabelled into Annex B as `B.0.1` to `B.0.7`. Not inert: the gates anchor against
+this table, so a retired container still answers a lookup with its children's text.
+
+> **`--prune` requires `--apply`, names every identity it will delete, and asserts BOTH
+> directions afterwards** -- nothing the artifact describes went with it, nothing undescribed
+> survived. Checked first that **0 of 318 `task_sources` rows and 0 `item_grounding` rows**
+> pointed at any of them. And the enumeration now prints in the DRY run, because the first
+> version printed it only while writing: the report you need in order to decide was behind the
+> decision.
+
+**NO ISO CLAUSE NUMBER HAS A ZERO COMPONENT -- EXCEPT THE INTRODUCTION.** 42006's Annex B
+tabulates audit-time factors ("1.0 to 2.0"), which inside an annex became clauses `B.1.0` and
+`B.0.5`; the loader refused the batch on its 20-character CHECK, which is validate-before-writing
+working. **The first version of the rule then deleted seven real clauses**: ISO numbers an
+introduction `0.1` to `0.7` and 27002 has seven. Only a zero component AFTER the first is a page
+number -- **and it must be tested after the annex prefix**, or `0.1` passes and is then prefixed
+to `B.0.1`, so the rule that should have caught those seven had already run.
+
+**A PARAGRAPH IS A CITABLE ADDRESS, AND SEQUENCE IS THE GUARD.** ISO/IEC 17021-1 numbers its
+PARAGRAPHS and is cited that way; **168 of 264 had no row**, 147 of them over the 90-character
+cap. The cap cannot be raised without letting prose decimals in, so the replacement guard is the
+document's own sequence. **Scoped to the two BS adoptions deliberately**: turning it on for
+42001 would re-grain the document every pilot item was gated against.
+
+> **AND SEEDING THAT GUARD WITH EACH PARENT'S HIGHEST TAKEN CHILD COST TEN ROWS.** A heading at
+> 9.6.5.3 made a legitimate paragraph 9.6.5.1 look out of sequence. The two streams -- headings
+> and paragraph candidates -- are MERGED BY LINE so the counter advances as the document does.
+> That recovered `10.2.4 Control of records`, the one id the completeness check reported missing.
+
+**THE CHILD SEPARATOR IS PART OF THE ID SCHEME.** An ISO subclause is `8.1` under `8`; an AI Act
+paragraph is `Art. 5(1)` under `Art. 5`; an annex point is `Annex III 1(a)` under `Annex III`.
+The container test knew only the dot and reported **88 of the Regulation's 113 articles MISSING
+while every one is held** -- a coverage alarm on a complete document, which is the kind that gets
+a real gap dismissed next to it.
+
+**`NO DECLARED POPULATION` IS A THIRD STATE.** NIST, the EBM Guide and ITIL print no contents
+list `check-library-completeness` can read. Deriving their population from what the extractor
+found would be circular -- a count derived from the extraction cannot see what the extraction
+missed -- and `UNVERIFIABLE` would read as a parse defect when the document simply has no list.
+The AI Act's population IS declared, read off the document: last article **113**, last annex
+**XIII**, last recital **180**, every one of 306 ids held.
+
+**ONE SPLITTER, THREE LANGUAGES, AND THE ALIGNMENT CHECK FOUND 116 DIFFERENCES THAT WERE ALL
+MINE.** The EU editions are structurally identical by design, so a difference is either a real
+finding or a defect in the instrument -- and it was the instrument every time:
+
+| symptom | cause |
+|---|---|
+| every Portuguese article ABSENT | PT writes `Artigo 1.o` as an ORDINAL, so no article boundary was found and the whole document was read as front matter. 300 rows aligned happily, because recitals are numbered identically in all three languages |
+| ES `Art. 3` 68 paragraphs vs 0 | English writes `(1)`, Spanish writes `1)` -- the definitions article, one bracket apart |
+| 83 English annex points with no Spanish row | `(a)` in English, `a)` in Spanish and Portuguese |
+| EN `Art. 64` 1 paragraph vs 2 | one line can carry several paragraphs |
+| a spurious EN `Art. 18` | **"Article 18 of Regulation (EU) 2019/1020 shall apply mutatis mutandis"** inside Article 97, read as a heading, its text the next heading it swallowed |
+
+**116 -> 0, and the last one is the entry: neither translation produced that row, which read as
+a translation gap and was an ENGLISH defect.** Articles are sequential; a cross-reference is not.
+A partial success is what made it look like a fact about coverage rather than about a regex.
+
+**AND NON-ASCII IS NEVER TYPED, EVEN WHEN THE DOCUMENT IS SPANISH.** `Art` followed by non-space
+is `Article`, `Articulo` and `Artigo`; annexes are `ANNEX` or `ANEXO`. Four language-dependent
+tokens carry three languages with no accent in the source and no second spelling of one concept.
+
+**A LEXICAL FURNITURE PROBE FIRED ON THE TEXT OF THE LAW.** Eight AI Act passages matched an
+"Official Journal" pattern, because the Regulation talks about publication in the Official
+Journal. Zero furniture, eight false positives, and the fix was nearly applied to real text.
+
+**THE PAGE NUMBER IS IDENTIFIED BY ITS NEIGHBOUR, NEVER BY BEING A NUMBER.** A BS running header
+(`8 BS ISO/IEC 42006:2025`) sits MID-SENTENCE, so it is removed at whole-line grain before
+anything joins lines -- 72 contaminated passages to 0. ITIL prints no header at all, just a bare
+page number against the page break, so there the anchor is the FORM FEED. Stripping bare numeric
+lines on sight would have eaten the contents numbering the title fix depends on.
+
+**AND A COVERAGE GAP CLOSED IS REWRITTEN, NOT MARKED.** The manifest said ISO/IEC 42006 was
+*"held as a preview extract only... must not be reported as covered"*. The full BS adoption is
+now indexed, and a closed gap left in that list argues against buying something already owned --
+the exact defect this file already records against `iso-corpus-manifest.json`. The preview
+extract stays EXCLUDED, because two editions of one standard would attribute a run to whichever
+matched first.
+
+**`CITATION_SOURCES` IS STILL THREE, AND THAT IS A SEPARATE DECISION.** Six sources joined the
+LEAK index; widening the CITATION index would make addresses `verify-cert` flags today resolve
+on every certification, which is a content decision rather than a corpus one.
+
+**AND THE LICENSED PDFS ARRIVED INSIDE THE REPOSITORY, WHICH IS WHY `.gitignore` NEEDED A LINE.**
+`iso-corpus/` lives outside and always has. `sources/incoming/` does not: a `git add -A` would
+have committed ITIL 4 Foundation and two BSI standards. What is committed is the manifest --
+sha256, bytes, pages and extracted word count per file -- so the corpus is auditable without the
+bytes being in git.
+
 **A CLEANER THAT RUNS AFTER THE THING IT CLEANS IS NOT A CLEANER.** ISO/IEC 27001:2022
 renders its headings with a TAB and a ZERO-WIDTH SPACE between the number and the title:
 

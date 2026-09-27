@@ -35,7 +35,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFS, CITATION_SOURCES, pdftotextAvailable, expectedWords, verifyCorpus, MANIFEST } from "./lib/citation-index.mjs";
 
-const KNOWN = new Set(["--out"]);
+const KNOWN = new Set(["--out", "--narrow=citation"]);
 for (const a of process.argv.slice(2)) {
   if (a.startsWith("--") && !KNOWN.has(a)) {
     console.error("Unrecognised flag: " + a + ". READ-ONLY; no --apply, no --dry. Known: --out.");
@@ -118,9 +118,24 @@ for (const e of MANIFEST.entries.filter((x) => !x.indexed)) {
   console.log("  " + "EXCLUDED".padEnd(17) + "        " + e.standard);
 }
 
-/* NARROW is what the index held before tonight: the three standards that were
- * loose in Documents. WIDE is every manifest entry marked indexed. */
-const NARROW_KEYS = CITATION_SOURCES;
+/* ============ THE BASELINE IS THE INDEX AS IT STOOD, AND IT IS DERIVED ============
+ *
+ * Written for the 2026-09-21 widening, this compared against CITATION_SOURCES -- the three
+ * standards that were then loose in Documents. On 2026-09-26 six more sources were indexed, and
+ * running it unchanged would have measured 3 against 15: tonight's widening welded to September's,
+ * with no way to attribute a fire to either. A delta measurement changes ONE thing.
+ *
+ * So the baseline is the set that was indexed before this addition, DERIVED from the manifest --
+ * the entries that do not come from `sources/incoming` -- rather than typed as a key list that
+ * would go stale the next time a source is bought. `--narrow=citation` still gives the original
+ * comparison, because the September figures were reported against it and must stay reproducible. */
+const BASELINE = process.argv.includes("--narrow=citation") ? "citation" : "pre-incoming";
+const PRE_INCOMING = MANIFEST.entries
+  .filter((e) => e.indexed && e.dir !== "incoming").map((e) => e.key);
+const NARROW_KEYS = BASELINE === "citation" ? CITATION_SOURCES : PRE_INCOMING;
+console.log("");
+console.log("  BASELINE  " + BASELINE + "  (" + NARROW_KEYS.length + " sources)   WIDE  " +
+  Object.keys(PDFS).length + " sources");
 const WIDE_KEYS = Object.keys(PDFS);
 const NEW_KEYS = WIDE_KEYS.filter((k) => !NARROW_KEYS.includes(k));
 /* ============ PER SOURCE, NEVER AGAINST THE UNION ============

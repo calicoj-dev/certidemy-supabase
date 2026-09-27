@@ -21,10 +21,10 @@
  *
  * So this script refuses to write unless BOTH controls fire:
  *
- *   NEGATIVE CONTROL -- AISM-I must come out clean. It cites no ISO standard
- *       at all (IP-POSITION section 6), 183 lessons, longest shared run 8 words.
- *       If AISM-I starts tripping, the index has become too loose or the
- *       normaliser has changed, and the verdicts are noise.
+ *   NEGATIVE CONTROL -- synthetic text no indexed source contains must come out clean,
+ *       and it proves that about itself first: if any of its own 4-grams are in the
+ *       index it reports UNSOUND. It used to be AISM-I, on the ground that no
+ *       indexed source covered it -- a premise ITIL 4 retired on 2026-09-26.
  *
  *   POSITIVE CONTROL -- a named lesson known to quote a standard at length must
  *       trip, and by at least the run length recorded here. If it does not, the
@@ -549,12 +549,47 @@ ctl("IDENTITY: with nothing exempt the body is returned unchanged",
   identityBad ? identityBad + " row(s) differ, e.g. " + identityEg
               : "all " + lessons.length + " bodies byte-identical");
 
-/* NEGATIVE: a corpus known to cite no ISO standard must come out clean. */
+/* ============ THE NEGATIVE CONTROL WAS FOUNDED ON A COVERAGE GAP ============
+ *
+ * It asserted that AISM-I comes out clean because "it cites no ISO standard" -- true when written,
+ * and it failed on 2026-09-26 the moment ITIL 4 was indexed. AISM-I is the AI SERVICE MANAGEMENT
+ * certification: ITIL is its subject, so its longest run went 8w to 17w and a control guarding a
+ * redistribution rule went red against a corpus nobody had touched.
+ *
+ * THE CONTROL WAS NOT WRONG, IT WAS EXPIRED. Its premise was that no indexed source covers this
+ * certification -- a fact about what we had NOT BOUGHT. This repository already records the same
+ * shape twice: a check that pins a defect in production, and a regression control that forbade a
+ * repair. A control resting on an absence expires the day the absence is filled, and filling it is
+ * the goal.
+ *
+ * SO THE SUBJECT IS TEXT THAT CANNOT MATCH BY CONSTRUCTION, and the control proves that about
+ * itself before asserting anything: every 4-gram of the synthetic body is checked against the
+ * index, and if any is present the control reports UNSOUND rather than passing. It cannot expire
+ * when a source is bought, because nothing we buy will contain it. */
+const NEG_BODY = [
+  "The quarterly pumpkin ledger reconciles nine velvet bicycles against tuesday's marmalade budget.",
+  "Auditors of the lighthouse bakery counted seventeen accordions and one exceptionally punctual otter.",
+  "Our greenhouse committee ratified the banana timetable without consulting the resident trombone.",
+].join("\n\n");
+const negRun = longestRun(NEG_BODY).best;
+const negGrams = (() => {
+  const w = String(NEG_BODY).toLowerCase().replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean);
+  let hit = 0;
+  for (let i = 0; i + LEAK_SEED <= w.length; i++) if (grams.has(w.slice(i, i + LEAK_SEED).join(" "))) hit++;
+  return hit;
+})();
+ctl("NEGATIVE: text no indexed source contains scores under the threshold",
+  negGrams === 0 && negRun < THRESHOLD,
+  negGrams
+    ? "UNSOUND: " + negGrams + " of the control's own 4-grams are in the index, so it proves nothing"
+    : "0 of its 4-grams indexed, longest run " + negRun + "w, threshold " + THRESHOLD);
+
+/* AISM-I is still MEASURED, and reported rather than asserted. It is the certification the ITIL
+ * widening moved most, so its number is worth printing beside the control that used to be it. */
 const aism = scored.filter((s) => s.cert === "AISM-I");
 const aismMax = aism.reduce((a, s) => Math.max(a, s.run), 0);
-ctl("NEGATIVE: AISM-I (cites no ISO) stays under the threshold",
-  aism.length > 100 && aismMax < THRESHOLD,
-  aism.length + " lessons, longest run " + aismMax + "w, threshold " + THRESHOLD);
+console.log("  measured (not a control): AISM-I " + aism.length + " lessons, longest run " +
+  aismMax + "w -- ITIL 4 is indexed and AISM-I is about service management");
 
 /* ============ POSITIVE: THREE SYNTHETIC CANARIES, ONE PER SOURCE ============
  *
