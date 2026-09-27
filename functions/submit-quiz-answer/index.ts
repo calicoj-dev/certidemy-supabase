@@ -41,13 +41,66 @@ serve(async (req) => {
     const svc = getServiceClient();
     const now = new Date();
 
+    // ============ THE CALLER MUST OWN THE SESSION, AND THE SESSION MUST FIT THIS ENDPOINT ======
+    //
+    // Found 2026-09-27. This function authenticated the caller and then trusted `session_id` from
+    // the request body, so ANY learner could write attempt rows into ANY other learner's session --
+    // and read out a key while doing it. The JWT proved who was calling and nothing checked what
+    // they were calling about, which is the shape `requireIssuerAccess` exists to prevent one table
+    // over on the issuing path.
+    //
+    // THE KIND VOCABULARY IS READ FROM THE DATA, NOT GUESSED. `quiz_sessions.kind` is one of
+    // practice | review | certification_exam | mock_exam, and all 813 attempts this endpoint has
+    // ever written sat on a `practice` (594) or `review` (219) session. An exam session is graded by
+    // score-mock-exam; accepting one here has never happened and must not start.
+    //
+    // BOTH CHECKS RUN BEFORE ANYTHING IS READ OR WRITTEN, so a refusal leaves no attempt row and
+    // discloses nothing -- validate before writing, so ABORT means nothing happened.
+    const GRADEABLE_SESSION_KINDS = ['practice', 'review'];
+    const { data: session, error: sErr } = await svc
+      .from('quiz_sessions')
+      .select('id, user_id, kind')
+      .eq('id', body.session_id)
+      .maybeSingle();
+    if (sErr) throw new HttpError(500, 'session lookup failed');
+    if (!session) throw new HttpError(404, 'session not found');
+    if (session.user_id !== user_id) {
+      // Deliberately the same wording as a missing session: whether a given session id exists is
+      // not something a stranger should be able to probe.
+      throw new HttpError(404, 'session not found');
+    }
+    if (!GRADEABLE_SESSION_KINDS.includes(session.kind)) {
+      throw new HttpError(403, 'this session kind is not graded here');
+    }
+
     // 1. Load the authoritative question record.
+    //    `pool` and `status` are selected because the refusal below needs them. They are NOT
+    //    returned to the caller.
     const { data: question, error: qErr } = await svc
       .from('quiz_questions')
-      .select('id, certification_id, module_id, correct_answer, explanation, difficulty, language')
+      .select('id, certification_id, module_id, correct_answer, explanation, difficulty, language, pool, status')
       .eq('id', body.question_id)
       .single();
     if (qErr || !question) throw new HttpError(404, 'question not found');
+
+    // ============ A SECURE ITEM IS NEVER GRADED HERE ============
+    //
+    // This read filtered on id alone and the response returns `correct_answer` and `explanation`.
+    // Measured as a stranger on 2026-09-27: a brand-new learner with no entitlement posted a live
+    // SECURE exam item's id and received its key. get-active-exam-session is careful never to send
+    // correct_answer and it does send question IDS, so a candidate with an exam in progress holds
+    // everything needed.
+    //
+    // Refused outright rather than filtered into a 404: the item exists, and the reason it is
+    // refused is what the next reader needs. 0 of 813 practice-path attempts have ever been on a
+    // secure item, so this breaks nothing that has ever happened.
+    //
+    // NON-APPROVED PRACTICE ITEMS ARE STILL GRADED, deliberately. A learner mid-session whose item
+    // was retired underneath them would otherwise lose the answer they just gave; 4 such calls have
+    // happened. They can no longer be RECOMMENDED, which is the separate fix below.
+    if (question.pool === 'secure') {
+      throw new HttpError(403, 'secure items are graded only by the exam scorer');
+    }
 
     // 2. Grade.
     const is_correct = setsEqual(

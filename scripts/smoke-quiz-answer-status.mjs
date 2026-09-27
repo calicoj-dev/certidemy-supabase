@@ -185,6 +185,55 @@ async function main() {
       console.log("  POOL     no secure item found -- UNASSERTED, not clean");
     }
 
+    /* ============ SOMEONE ELSE'S SESSION ============
+     *
+     * The function authenticated the caller and then trusted `session_id` from the body, so any
+     * learner could write attempts into any other learner's session. The subject here is a REAL
+     * session belonging to a REAL user -- read-only in intent, and the call is expected to be
+     * refused; if it is NOT refused it writes one attempt row into that session, which is exactly
+     * the finding and is reported as such rather than hidden.
+     *
+     * The control above already proved the endpoint serves, so a refusal here means the ownership
+     * check fired and not that the endpoint is down. */
+    const others = await getAll(KEY, "quiz_sessions?select=id,user_id,kind&kind=in.(practice,review)");
+    const foreign = others.find((s) => s.user_id !== userId);
+    let foreignRefused = null;
+    if (foreign) {
+      const r = await fetch(PROJECT + "/functions/v1/submit-quiz-answer", {
+        method: "POST",
+        headers: { apikey: ANON, Authorization: "Bearer " + jwt, "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: foreign.id, question_id: approved.id, user_answer: ["a"], time_taken_seconds: 5 }),
+      });
+      foreignRefused = r.status === 403 || r.status === 404;
+      console.log("  SESSION  another user's session " + foreign.id.slice(0, 8) + "  HTTP " + r.status +
+        "   " + (foreignRefused ? "refused" : "ACCEPTED -- an attempt row was written into it"));
+      if (!foreignRefused) {
+        await svc("quiz_attempts?user_id=eq." + userId + "&session_id=eq." + foreign.id,
+          { method: "DELETE", headers: { Prefer: "return=minimal" } });
+        console.log("    the row this wrote into it has been deleted");
+      }
+    } else {
+      console.log("  SESSION  no other user's session found -- UNASSERTED, not clean");
+    }
+
+    /* An exam-kind session must also be refused: score-mock-exam is the grader for those. */
+    const examKind = await getAll(KEY, "quiz_sessions?select=id,user_id,kind&kind=in.(certification_exam,mock_exam)");
+    let examKindRefused = null;
+    if (examKind.length) {
+      const r = await fetch(PROJECT + "/functions/v1/submit-quiz-answer", {
+        method: "POST",
+        headers: { apikey: ANON, Authorization: "Bearer " + jwt, "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: examKind[0].id, question_id: approved.id, user_answer: ["a"], time_taken_seconds: 5 }),
+      });
+      examKindRefused = r.status === 403 || r.status === 404;
+      console.log("  KIND     an exam-kind session  HTTP " + r.status + "   " +
+        (examKindRefused ? "refused" : "ACCEPTED"));
+      if (!examKindRefused) {
+        await svc("quiz_attempts?user_id=eq." + userId + "&session_id=eq." + examKind[0].id,
+          { method: "DELETE", headers: { Prefer: "return=minimal" } });
+      }
+    }
+
     /* The recommendation half, which the deploy was for. Sampled, and said to be sampled. */
     const recs = [];
     for (let i = 0; i < 6; i++) {
@@ -204,20 +253,44 @@ async function main() {
     console.log("    thousands. What proves the fix is live is that the DEPLOYED body downloads");
     console.log("    byte-identical to the committed source and carries all four filters.");
 
+    /* THE SAME OBSERVATION IS A FINDING OR A DECISION DEPENDING ON THE POOL, so the message has to
+     * say which. Grading a non-approved PRACTICE item is deliberate -- it stops a learner whose item
+     * was retired mid-session from losing the answer they just gave. Grading a SECURE one was the
+     * defect. Printing "STATUS-BLIND: FINDING" after the fix would leave the output reading as an
+     * open hole, which is the stale-claim shape pointed at a report instead of a document. */
     console.log("");
-    if (subServed) {
+    if (subServed && secureServed === false) {
+      console.log("  Non-approved PRACTICE items are still graded, which is the ruling: a learner");
+      console.log("  whose item was retired mid-session keeps the answer they just gave. They can no");
+      console.log("  longer be recommended. Secure items are refused, so the key is not reachable.");
+    } else if (subServed) {
       console.log("  FINDING: the grading path is STATUS-BLIND. A caller holding a question id");
       console.log("  receives correct_answer and explanation whatever the item's status, because");
       console.log("  the first read filters on id alone and runs as service_role.");
     } else {
-      console.log("  The grading path refused the non-approved item.");
+      console.log("  The grading path refused the non-approved item -- a learner mid-session on a");
+      console.log("  just-retired item would lose their answer. That is not the ruling.");
     }
     if (secureServed) {
       console.log("  AND POOL-BLIND: a SECURE exam item's key comes back the same way. Exam question");
       console.log("  ids reach the client through get-active-exam-session, so this is reachable by a");
       console.log("  candidate holding nothing but their own JWT and an exam in progress.");
     }
-    return (subServed || secureServed) ? 1 : 0;
+
+    /* ============ THE VERDICT, IN THE THREE STATES THE RULING ASKED FOR ============
+     *
+     * control served + secure refused + someone else's session refused. The control is first
+     * because without it every refusal below is equally consistent with a broken deployment. */
+    console.log("");
+    const expected = ctlServed && secureServed === false && foreignRefused === true;
+    console.log("  EXPECTED AFTER THE FIX: control served, secure refused, foreign session refused");
+    console.log("    control served          " + (ctlServed ? "yes" : "NO"));
+    console.log("    secure refused         " + (secureServed === null ? "UNASSERTED" : secureServed ? "NO -- key returned" : "yes"));
+    console.log("    foreign session refused " + (foreignRefused === null ? "UNASSERTED" : foreignRefused ? "yes" : "NO"));
+    console.log("    exam-kind refused      " + (examKindRefused === null ? "UNASSERTED" : examKindRefused ? "yes" : "NO"));
+    console.log("    non-approved practice still graded  " + (subServed ? "yes (intended)" : "no -- a learner mid-session would be stranded"));
+    console.log("  " + (expected ? "AS RULED." : "NOT YET AS RULED."));
+    return expected ? 0 : 1;
   } finally {
     /* ---- net-zero. Everything this wrote, removed, and the removal is read back. ---- */
     if (userId) {
