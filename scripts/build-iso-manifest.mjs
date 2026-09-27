@@ -180,6 +180,56 @@ const FACTS = {
     note: "Part 1 only. Part 3 is a different part and nothing cites it. Title page bears a third-party reseller watermark, recorded here for the same reason the watermarks above are.",
   },
 
+  /* ============ THREE SUPPLIED 2026-09-26 AND NONE OF THEM LOADABLE ============
+   *
+   * They are in the manifest because the both-directions check demands it -- a PDF on disk with no
+   * facts would be silently skipped, and this file refuses to build rather than describe a
+   * directory it cannot account for. They are `indexed: false` for two different reasons, and the
+   * second one is not the reason anybody expected.
+   *
+   * TWO ARE SCANS. Measured before anything else was attempted, which is the order the director
+   * asked for: 23894 is 34 pages carrying 34 JPEG images and 38507 is 36 pages with ZERO embedded
+   * fonts. `pdftotext` returns nothing from either. Not OCR'd -- an OCR of a licensed standard
+   * would put a TRANSCRIPTION of the text in a library the gates quote from as the standard, and a
+   * verbatim gate cannot tell a transcription error from a model's invention.
+   *
+   * THE THIRD IS NOT A SCAN AND IS WORSE. `ISO-42005.pdf` is `ISO/IEC FDIS 42005` -- a Final DRAFT,
+   * with "Voting terminates on 2025-04-16" on its cover -- supplied as a PARTIAL iTeh Standards
+   * preview that stops inside clause 5.7. Three standing rulings already cover it:
+   *
+   *   a DRAFT      the 42006 DIS was refused for being superseded. An FDIS is the same class, and
+   *                the published ISO/IEC 42005:2025 exists.
+   *   a PREVIEW    the 42006 preview extract is excluded because indexing it would make the
+   *                standard read as covered while holding almost none of its text. 12 pages.
+   *   CORRUPTED    the reseller watermark is interleaved INTO the body, mid-word:
+   *                  "5.1.3 External factors in(clhudet:tps://standards.iteh.ai)"
+   *                That is the licence-watermark defect this repository already records against
+   *                27001's headings, except it lands inside sentences rather than beside them -- so
+   *                a verbatim anchor drawn from here could be unmatchable, or match the wrong
+   *                words, for a reason nobody reading the item would see.
+   *
+   * Reported for the director rather than decided: 42005 is cited by 3 live AIGRM-I items and is
+   * worth buying. The PUBLISHED edition would be indexed the day it arrives. */
+  "Iso-iec-23894-2023.pdf": {
+    dir: "incoming", standard: "ISO/IEC 23894:2023",
+    title: "Information technology - Artificial intelligence - Guidance on risk management",
+    edition: "First edition", date: "2023-02", key: "23894:2023-SCAN", indexed: false,
+    why: "NO TEXT LAYER: 34 pages, 34 JPEG images, pdftotext returns zero words. A scan. NOT OCR'd -- an OCR is a transcription, and a verbatim gate cannot tell a transcription error from an invention. Cited by 7 live AIGRM-I items; a text edition is worth buying.",
+  },
+  "ISO-38507-2022.pdf": {
+    dir: "incoming", standard: "ISO/IEC 38507:2022",
+    title: "Information technology - Governance of IT - Governance implications of the use of artificial intelligence by organizations",
+    edition: "First edition", date: "2022-04", key: "38507:2022-SCAN", indexed: false,
+    why: "NO TEXT LAYER: 36 pages, zero embedded fonts, pdftotext returns zero words. A scan, and a second one nobody expected. Not OCR'd, same reason as 23894. Cited by 7 live AIGRM-I items.",
+  },
+  "ISO-42005.pdf": {
+    dir: "incoming", standard: "ISO/IEC FDIS 42005 (FINAL DRAFT, partial preview)",
+    title: "Information technology - Artificial intelligence - AI system impact assessment",
+    edition: "FDIS draft, voting terminated 2025-04-16", date: "2025", key: "42005:2025-FDIS-PREVIEW",
+    indexed: false,
+    why: "THREE REASONS, ANY ONE SUFFICIENT: it is a DRAFT (the 42006 DIS was refused as superseded and the published 42005:2025 exists); it is a PARTIAL preview of 12 pages stopping inside clause 5.7 (the same exclusion as the 42006 preview extract); and the iTeh reseller watermark is spliced INTO the body text mid-word, so a verbatim anchor from it could be unmatchable or wrong. Cited by 3 live AIGRM-I items. The PUBLISHED edition would be indexed on arrival.",
+  },
+
   /* ============ PARALLEL TEXT: IN THE MANIFEST, OUT OF THE LEAK INDEX ============
    *
    * These are the official ES and PT editions of two sources above. They are in the manifest

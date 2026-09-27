@@ -4,11 +4,11 @@
     "../iso-corpus (gitignored)",
     "sources/incoming (gitignored)"
   ],
-  "built": "2026-09-26",
+  "built": "2026-09-27",
   "counts": {
-    "files": 20,
+    "files": 23,
     "indexed": 15,
-    "excluded": 5
+    "excluded": 8
   },
   "open_coverage_gaps": [
     "MONOLINGUAL, AND NARROWER THAN IT WAS: every INDEXED entry is an English edition, so a Spanish or Portuguese rendering of a defined term still scores 0. The official ES and PT editions of the AI Act are now HELD (as parallel text, indexed: false) so the gap is closeable for that source by a measured re-calibration; it is not closed, because widening this index changes its error modes and would put every translated lesson body in scope of a gate that has never scored one.",
@@ -106,6 +106,51 @@
       "bytes": 797949,
       "pages": 16,
       "extracted_words": 4602
+    },
+    {
+      "file": "ISO-38507-2022.pdf",
+      "dir": "incoming",
+      "standard": "ISO/IEC 38507:2022",
+      "title": "Information technology - Governance of IT - Governance implications of the use of artificial intelligence by organizations",
+      "edition": "First edition",
+      "date": "2022-04",
+      "key": "38507:2022-SCAN",
+      "indexed": false,
+      "why": "NO TEXT LAYER: 36 pages, zero embedded fonts, pdftotext returns zero words. A scan, and a second one nobody expected. Not OCR'd, same reason as 23894. Cited by 7 live AIGRM-I items.",
+      "sha256": "ee95499f3134a60b8cc521a78577d657339d247b7c098b423fbd2e9b09601f6e",
+      "bytes": 6118544,
+      "pages": 36,
+      "extracted_words": 0
+    },
+    {
+      "file": "ISO-42005.pdf",
+      "dir": "incoming",
+      "standard": "ISO/IEC FDIS 42005 (FINAL DRAFT, partial preview)",
+      "title": "Information technology - Artificial intelligence - AI system impact assessment",
+      "edition": "FDIS draft, voting terminated 2025-04-16",
+      "date": "2025",
+      "key": "42005:2025-FDIS-PREVIEW",
+      "indexed": false,
+      "why": "THREE REASONS, ANY ONE SUFFICIENT: it is a DRAFT (the 42006 DIS was refused as superseded and the published 42005:2025 exists); it is a PARTIAL preview of 12 pages stopping inside clause 5.7 (the same exclusion as the 42006 preview extract); and the iTeh reseller watermark is spliced INTO the body text mid-word, so a verbatim anchor from it could be unmatchable or wrong. Cited by 3 live AIGRM-I items. The PUBLISHED edition would be indexed on arrival.",
+      "sha256": "1ac56220d521e75655008976bb9adff70a104472af086ceb83d4045a8ed1e9cc",
+      "bytes": 1771311,
+      "pages": 12,
+      "extracted_words": 4227
+    },
+    {
+      "file": "Iso-iec-23894-2023.pdf",
+      "dir": "incoming",
+      "standard": "ISO/IEC 23894:2023",
+      "title": "Information technology - Artificial intelligence - Guidance on risk management",
+      "edition": "First edition",
+      "date": "2023-02",
+      "key": "23894:2023-SCAN",
+      "indexed": false,
+      "why": "NO TEXT LAYER: 34 pages, 34 JPEG images, pdftotext returns zero words. A scan. NOT OCR'd -- an OCR is a transcription, and a verbatim gate cannot tell a transcription error from an invention. Cited by 7 live AIGRM-I items; a text edition is worth buying.",
+      "sha256": "640a8a288f10ea8581db858236bd1ba33a513c487967c63967f2028971d040af",
+      "bytes": 17995710,
+      "pages": 34,
+      "extracted_words": 0
     },
     {
       "file": "NIST.AI.100-1.pdf",
