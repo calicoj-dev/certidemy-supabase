@@ -104,6 +104,7 @@ function applyDistractors(item, texts, ki) {
   return { ...item, options };
 }
 
+const flagCounts = new Map();
 let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueRevertedGates = 0,
     deCueMalformed = 0, deCueUnrun = 0;
 
@@ -661,7 +662,7 @@ for (const g of generated) {
       const pv = optionsProbeVerdict(probeRaw, keyLabel);
       record.options_probe = pv;
       if (pv.state === "flag") {
-        bump("options probe: a cue in the options alone");
+        flagCounts.set("options probe: a cue in the options alone", (flagCounts.get("options probe: a cue in the options alone") || 0) + 1);
         console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
           item.key_support_clause + "   OPTIONS-PROBE FLAG (" + pv.cue_kind + ")");
       } else {
@@ -671,7 +672,7 @@ for (const g of generated) {
       /* A probe that could not run leaves the item a survivor and says the probe is UNRUN --
        * folding it into "no cue" would claim a check nobody performed. */
       record.options_probe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
-      bump("options probe COULD NOT RUN");
+      flagCounts.set("options probe COULD NOT RUN", (flagCounts.get("options probe COULD NOT RUN") || 0) + 1);
       console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
         item.key_support_clause + "   (options probe could not run)");
     }
@@ -693,6 +694,14 @@ for (const g of generated) {
     const preCues = shapeCues(item);
     const wantsDeCue = (record.options_probe && record.options_probe.state === "flag") || preCues.length > 0;
     record.shape_cues_before = preCues.map((c) => ({ id: c.id, cue: c.cue }));
+    /* ============ THE BEFORE VERDICT IS KEPT, NOT RECONSTRUCTED ============
+     *
+     * The retry overwrites `options_probe` with the post-rewrite verdict, and the first pilot-4 run
+     * therefore lost the ORIGINAL pick on every de-cued item -- so "the key-pick rate before and
+     * after", which is the thing the ruling asks for, had to be reconstructed from whether the cue
+     * list happened to name the probe. A reconstructed number is weaker than a recorded one and it
+     * cannot be checked later. Both verdicts are now stored. */
+    record.options_probe_before = record.options_probe ? { ...record.options_probe } : null;
     if (wantsDeCue) {
       deCueAttempted++;
       const cueList = [
@@ -795,9 +804,24 @@ console.log("  rejected by code   " + results.filter((r) => r.verdict === "rejec
 console.log("  rejected by solver " + results.filter((r) => r.verdict === "rejected by solver").length);
 console.log("  undecided          " + results.filter((r) => r.verdict === "solver could not run").length);
 console.log("");
-console.log("  WHY, by gate (a rejection can name more than one):");
+/* ============ A FLAG IS NOT A REJECTION, AND THIS TABLE IS HEADED "WHY" ============
+ *
+ * The options probe was counted into rejectCounts, so a table headed WHY ITEMS WERE REJECTED listed
+ * it at 23 while 11 items were rejected -- a number larger than the thing it claims to explain,
+ * which is arithmetically impossible and reads as the probe being the largest cause of rejection.
+ * The director ruled it out of this table once; it was removed from the emitted REPORT and left in
+ * the generator that produces it, which is the same defect surviving on a second surface.
+ *
+ * Flags now have their own tally, printed under its own heading. */
+console.log("  WHY REJECTED, by gate (a rejection can name more than one):");
 for (const [k, n] of [...rejectCounts].sort((a, b) => b[1] - a[1])) {
   console.log("    " + String(n).padStart(4) + "  " + k);
+}
+if (flagCounts.size) {
+  console.log("  FLAGGED, NEVER REJECTED (these items are survivors):");
+  for (const [k, n] of [...flagCounts].sort((a, b) => b[1] - a[1])) {
+    console.log("    " + String(n).padStart(4) + "  " + k);
+  }
 }
 
 /* ============ ANCHOR CLUSTERS: FLAGGED, NOT REJECTED ============
@@ -856,20 +880,22 @@ console.log("  PARAPHRASE RETRY (reproduction only)  fixed " + retriedOk + ", st
  * `reverted` is reported in its own right and split by WHICH check reverted it, because a retry that
  * the solver refuses is the pilot-2 #15 defect being caught -- a success for the process, not a
  * failure of it. */
-const pickRate = (rows) => {
-  const ran = rows.filter((r) => r.options_probe && r.options_probe.state !== "could-not-run" && r.options_probe.pick);
-  const hit = ran.filter((r) => r.options_probe.pick === String.fromCharCode(65 + r.item.correct_index));
+const pickRateOf = (rows, field) => {
+  const ran = rows.filter((r) => r[field] && r[field].state !== "could-not-run" && r[field].pick);
+  const hit = ran.filter((r) => r[field].pick === String.fromCharCode(65 + r.item.correct_index));
   return { n: ran.length, hit: hit.length, pct: ran.length ? Math.round(100 * hit.length / ran.length) : null };
 };
-const after = pickRate(survivors);
+const before = pickRateOf(survivors, "options_probe_before");
+const after = pickRateOf(survivors, "options_probe");
 console.log("");
 console.log("  DE-CUE RETRY (distractors only, one attempt)");
 console.log("    attempted " + deCueAttempted + "   applied " + deCueApplied +
   "   reverted " + (deCueRevertedSolver + deCueRevertedGates) +
   " (solver " + deCueRevertedSolver + ", code gates " + deCueRevertedGates + ")" +
   "   malformed " + deCueMalformed + "   could-not-run " + deCueUnrun);
-console.log("    KEY-PICK RATE after the retry: " + after.hit + "/" + after.n +
-  (after.pct === null ? "" : "  " + after.pct + "%") + "   (chance 25%, authored bank 98%)");
+console.log("    KEY-PICK RATE  before " + before.hit + "/" + before.n + (before.pct === null ? "" : "  " + before.pct + "%") +
+  "   after " + after.hit + "/" + after.n + (after.pct === null ? "" : "  " + after.pct + "%") +
+  "   (chance 25%, authored bank 98%)");
 const cueTally = (field) => survivors.reduce((a, r) => {
   for (const c of (r[field] || [])) a[c.id] = (a[c.id] || 0) + 1;
   return a;
@@ -898,7 +924,7 @@ writeFileSync(join(ROOT, OUT), JSON.stringify({
   de_cue_retry: { attempted: deCueAttempted, applied: deCueApplied,
     reverted_by_solver: deCueRevertedSolver, reverted_by_gates: deCueRevertedGates,
     malformed: deCueMalformed, could_not_run: deCueUnrun },
-  key_pick_after: after,
+  key_pick_before: before, key_pick_after: after,
   shape_cues_before: cueTally("shape_cues_before"), shape_cues_after: cueTally("shape_cues_after"),
   anchor_clusters: clusters,
   options_probe_flags: probeFlags.length,
