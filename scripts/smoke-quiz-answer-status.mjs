@@ -216,6 +216,25 @@ async function main() {
       console.log("  SESSION  no other user's session found -- UNASSERTED, not clean");
     }
 
+    /* ============ A NONEXISTENT SESSION IS REFUSED BEFORE ANYTHING HAPPENS ============
+     *
+     * This is the case that made the exposure unmeasurable: the attempt insert's FK to
+     * quiz_sessions failed, the error was discarded, and the key came back with no audit row. It
+     * must now be refused at the session lookup -- before the question is read, before grading, and
+     * with no row written anywhere. A random uuid cannot be a real session. */
+    const ghost = "00000000-0000-4000-8000-0000000000ff";
+    const g = await fetch(PROJECT + "/functions/v1/submit-quiz-answer", {
+      method: "POST",
+      headers: { apikey: ANON, Authorization: "Bearer " + jwt, "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: ghost, question_id: approved.id, user_answer: ["a"], time_taken_seconds: 5 }),
+    });
+    let gBody = null;
+    try { gBody = await g.json(); } catch { gBody = null; }
+    const ghostRefused = g.status === 404 && !(gBody && gBody.correct_answer);
+    console.log("  GHOST    a session id that does not exist  HTTP " + g.status +
+      "   key returned: " + (gBody && gBody.correct_answer ? "YES" : "no") +
+      "   " + (ghostRefused ? "refused" : "NOT REFUSED"));
+
     /* An exam-kind session must also be refused: score-mock-exam is the grader for those. */
     const examKind = await getAll(KEY, "quiz_sessions?select=id,user_id,kind&kind=in.(certification_exam,mock_exam)");
     let examKindRefused = null;
@@ -282,9 +301,10 @@ async function main() {
      * control served + secure refused + someone else's session refused. The control is first
      * because without it every refusal below is equally consistent with a broken deployment. */
     console.log("");
-    const expected = ctlServed && secureServed === false && foreignRefused === true;
+    const expected = ctlServed && secureServed === false && foreignRefused === true && ghostRefused === true;
     console.log("  EXPECTED AFTER THE FIX: control served, secure refused, foreign session refused");
     console.log("    control served          " + (ctlServed ? "yes" : "NO"));
+    console.log("    ghost session refused   " + (ghostRefused ? "yes" : "NO -- a key with no audit row"));
     console.log("    secure refused         " + (secureServed === null ? "UNASSERTED" : secureServed ? "NO -- key returned" : "yes"));
     console.log("    foreign session refused " + (foreignRefused === null ? "UNASSERTED" : foreignRefused ? "yes" : "NO"));
     console.log("    exam-kind refused      " + (examKindRefused === null ? "UNASSERTED" : examKindRefused ? "yes" : "NO"));

@@ -966,6 +966,54 @@ const FINGERPRINTS = {
     };
   },
 
+  378: async () => {
+    /* 378 revokes two things the key-exposure sweep found closed only by accident:
+     * `quiz_questions.explanation` from anon and authenticated, and EXECUTE on
+     * create_practice_questions from both.
+     *
+     * `ran` IS THE NEGATIVE HALF HERE, which is unusual and is the point: the migration's whole
+     * effect is that something STOPS working. So the probe asks PostgREST for the column with the
+     * ANON key and expects to be refused -- run as service_role it would succeed either way and
+     * prove nothing, which is this repository's own rule that the credential the test holds is the
+     * hypothesis.
+     *
+     * `effective` is the POSITIVE half: the quiz player's own columns must still be readable. A
+     * revoke that over-reached would take practice down, and a probe that only checked the refusal
+     * would report success. */
+    const anon = process.env.SUPABASE_ANON_KEY;
+    if (!anon) {
+      /* `ran: null` renders UNKNOWN, not NOT RUN. Returning false here would assert that 378 has
+       * not been applied, when what happened is that the probe could not ask -- a step that could
+       * not start is not a step that failed, and this file already makes that distinction for 333. */
+      return { ran: null, why: "no SUPABASE_ANON_KEY, so nothing asked: a service-role probe cannot answer this one, because the credential the test holds IS the hypothesis" };
+    }
+    const ask = async (cols) => {
+      try {
+        const r = await fetch(REST + "/quiz_questions?select=" + cols + "&limit=1",
+          { headers: { apikey: anon, Authorization: "Bearer " + anon } });
+        return r.status;
+      } catch { return null; }
+    };
+    const expl = await ask("explanation");
+    const player = await ask("id,question_text,question_type,options,difficulty,bloom_level");
+    if (expl === null || player === null) {
+      return { ran: false, why: "could not reach PostgREST with the anon key -- could-not-run, not a verdict" };
+    }
+    /* 401 is what an unauthenticated anon read of a policy-protected table returns; 403 is the
+     * column grant refusing. Either is a refusal. A 200 means the column is still readable. */
+    const revoked = expl === 401 || expl === 403;
+    return {
+      ran: revoked,
+      why: revoked
+        ? "anon is refused on quiz_questions.explanation (HTTP " + expl + ")"
+        : "ANON CAN STILL SELECT explanation (HTTP " + expl + ") -- 378 has not been applied",
+      effective: player === 401 || player === 403 || player === 200 ? player !== 403 : undefined,
+      effectiveWhy: player === 403
+        ? "THE REVOKE OVER-REACHED: the quiz player's own columns are refused (HTTP 403)"
+        : "the quiz player's columns still answer (HTTP " + player + "), so the revoke was narrow",
+    };
+  },
+
   377: async () => {
     /* 377 is source_passage_translations: the official ES and PT text of a held passage, at the
      * SAME clause address as the English, so a terminology lookup has one address to ask about.

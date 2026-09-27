@@ -109,7 +109,21 @@ serve(async (req) => {
     );
 
     // 3. Log the attempt.
-    await svc.from('quiz_attempts').insert({
+    //
+    // ============ A RESPONSE CARRYING A KEY MUST NOT EXIST WITHOUT AN AUDIT ROW ============
+    //
+    // This insert's error was DISCARDED, and that is what made the exposure unmeasurable rather
+    // than merely unmeasured. `session_id` has a foreign key to quiz_sessions and `user_id` one to
+    // profiles, so a caller passing a session id that does not exist got a 23503 -- the error was
+    // swallowed, the function carried on, and it returned correct_answer and explanation WITH NO
+    // ROW WRITTEN. The cheapest possible exploit was also the one that left no trace, so "0 attempts
+    // on secure items" proved nothing about whether anyone had called it.
+    //
+    // Now the row IS the precondition for the answer. If it cannot be written, the caller gets an
+    // error and no key -- the same shape as the dropped-read rule this repository is built around,
+    // with the direction reversed: there a failed READ became a legitimate-looking empty result,
+    // here a failed WRITE became a legitimate-looking answer.
+    const { error: aErr } = await svc.from('quiz_attempts').insert({
       session_id: body.session_id,
       user_id,
       question_id: body.question_id,
@@ -118,6 +132,12 @@ serve(async (req) => {
       time_taken_seconds: body.time_taken_seconds,
       attempted_at: now.toISOString(),
     });
+    if (aErr) {
+      // Deliberately not echoing the database message: it names constraints and columns, and the
+      // caller gets nothing they could not have worked out from a 500.
+      console.error('quiz_attempts insert failed, refusing to answer:', aErr.message);
+      throw new HttpError(500, 'attempt could not be recorded');
+    }
 
     // 4. Update concept mastery (one upsert per concept tagged on the question).
     const { data: tagged } = await svc
