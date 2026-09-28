@@ -93,6 +93,38 @@ const SOURCES = [
   { id: "ISO/IEC 17021-1", edition: "2015", kind: "iso", bsAdoption: true, licensed: true,
     paragraphGrain: true,
     path: join(INCOMING, "BSI-EN-ISO-IEC-17021-1-2015.pdf") },
+
+  /* ============ THE TWO VOCABULARY STANDARDS, ADDED 2026-09-28 ============
+   *
+   * Both were already in `iso-corpus-manifest.json` and already in the LEAK index -- what they were
+   * not in is the LIBRARY, so nothing could anchor to them. That is the distinction the manifest's own
+   * comment draws: the leak index hashes every indexed source, and the library is what a gate can point
+   * an item at.
+   *
+   * WHY THEY MATTER MORE THAN THEIR SIZE SUGGESTS. ISO/IEC 27001 clause 3 defines NOTHING -- it
+   * delegates its whole vocabulary to 27000 -- and ISO/IEC 42001 clause 3 delegates to 22989 before
+   * adding its own. So every ISMS defined term and every AI defined term has, until now, been
+   * unanchorable: an item testing what `information asset` or `AI system` means had no passage to rest
+   * on, and CLAUDE.md records a `security-control` gloss that scored 0 against an indexed document for
+   * exactly this reason.
+   *
+   * THE EDITION IS RECORDED AND IT IS NOT THE LATEST. ISO/IEC 27000:2026 exists and we do not hold it,
+   * so 2018 is the working basis. Recording the edition internally is what makes the upgrade a reload
+   * and a diff rather than a hunt -- and the learner never sees either, because `gateNo27000` refuses
+   * the number in any served field.
+   *
+   * 22989 carries no such restriction: it is named in AIMS-F content already.
+   */
+  { id: "ISO/IEC 27000", edition: "2018", kind: "iso", licensed: true,
+    learnerFacing: false,
+    note: "VOCABULARY ONLY, AND NEVER NAMED TO A LEARNER. 27001 cl.3 delegates its whole vocabulary " +
+      "here. Anchorable internally for ISMS-F and ISMS-IA vocabulary tasks; clause 4 at awareness " +
+      "level. The 2026 edition exists and is not held, so this is the working basis.",
+    path: PDFS["27000:2018"] },
+  { id: "ISO/IEC 22989", edition: "2022", kind: "iso", licensed: true,
+    note: "AI vocabulary. 42001 cl.3 delegates to it before adding its own terms. Anchorable for the " +
+      "AIMS-F vocabulary tasks.",
+    path: PDFS["22989:2022"] },
 ];
 
 /* ============ PARALLEL TEXT: THE SAME PASSAGE, ANOTHER LANGUAGE ============
@@ -321,6 +353,54 @@ function splitAnnexTable(lines, from) {
     /* A title is a name. Capping it means a passage whose split went wrong shows up as an
      * odd title rather than as 1,400 characters of another annex in the title column. */
     title = title.replace(/[\s,;:-]+$/, "").slice(0, 90);
+
+    /* ============ THE STATEMENT CELL CAN BE EMPTY ON THE TITLE'S LINE ============
+     *
+     * NINE ISO/IEC 27001 ROWS WERE LOST THIS WAY, eight Annex A controls and clause 9.2.1 --
+     * A.5.15, A.7.11, A.8.1, A.8.5, A.8.9, A.8.11, A.8.15, A.8.32. In `-layout` the table's two
+     * columns interleave, and for these rows the number and title sit in the left column with only
+     * the word `Control` beside them:
+     *
+     *     "        8.11 Data masking             Control"
+     *     "        8.12 Data leakage prevention  Data masking shall be used in accordance with..."
+     *
+     * A.8.11's STATEMENT is on the NEXT row's line, in the right column, because the cell's text
+     * begins after its header. So the body between this marker and the next contains nothing but
+     * the header, the substance floor rejected it, and the control vanished.
+     *
+     * THE RECOVERY READS THE RIGHT COLUMN. Statement cells are delimited by `Control` headers, not
+     * by row numbers: everything after THIS row's header and before the NEXT one is this control's
+     * statement, once each line's left-column `N.N Title` prefix is removed.
+     *
+     * IT RUNS ONLY WHERE THE PRIMARY PATH FOUND NOTHING, so it can add a control and can never
+     * change one that already extracted. That is the whole reason it is a fallback rather than a
+     * rewrite of the splitter: 119 held controls stay byte-identical. */
+    if (text.length < 20) {
+      const startAt = m.line;
+      /* The next `Control` header at or after the following line ends this statement. */
+      let stop = lines.length;
+      for (let i = startAt + 1; i < lines.length; i++) {
+        if (/^\s*Control\s*$/.test(lines[i])) { stop = i; break; }
+        if (/^Annex\s+[B-Z]\b/i.test(lines[i].trim()) || /^Bibliography$/i.test(lines[i].trim())) { stop = i; break; }
+      }
+      const right = [];
+      for (let i = startAt + 1; i < stop; i++) {
+        let ln = lines[i];
+        if (!ln.trim() || isFurnitureLine(ln.trim())) continue;
+        /* Strip a left-column entry: a number and title followed by the column gap. What remains is
+         * the right column. A line with no such prefix is right-column text already. */
+        const lc = /^\s*(?:A\.)?\d+\.\d+\s+\S.*?\s{2,}(\S.*)$/.exec(ln);
+        if (lc) { right.push(lc[1]); continue; }
+        if (/^\s*(?:A\.)?\d+\.\d+\s+\S[^\s]*(\s\S+){0,8}\s*$/.test(ln)) continue;  /* left column only */
+        right.push(ln.trim());
+      }
+      const recovered = right.join(" ").replace(/(\w)-\s+(\w)/g, "$1$2").replace(/\s{2,}/g, " ").trim();
+      if (recovered.length >= 20) {
+        text = recovered;
+        if (!title && leadTitle) title = leadTitle;
+      }
+    }
+
     if (text.length >= 20) out.push({ clause: m.clause, title, text });
   });
   return out;
@@ -556,12 +636,43 @@ function splitIso(text, declaredSeed, opts) {
    * clause 9.3.2 into the annex and renamed it A.9.3.2. So the test is the HEADING FORM
    * (nothing after "Annex A" but an optional normative marker) and the LAST such line,
    * because the document refers forward to its own annex before reaching it. */
-  const annexLetterAt = (ln) => {
+  /* ============ A FOURTH DECOY: THE CONTENTS ENTRY THAT CARRIES THE MARKER ============
+   *
+   * The test above allows anything AFTER the normative marker, and ISO/IEC 22989's contents entry is
+   * `Annex A (informative) Mapping of the AI system life cycle with the OECD's...` -- which matches. In
+   * `-layout` its dot leaders wrap onto the next line, so `isContentsLine` cannot see them either, and
+   * the real heading at 94 percent of the document is a BARE `Annex A` with `(informative)` on the
+   * following line. So the only line carrying the marker was the contents entry, the boundary landed at
+   * 7 percent, and 114 MAIN-BODY clauses came out annex-prefixed: `A.1 Scope`, `A.3.1`. 103 of them
+   * duplicated a correct plain id from the other extraction mode, which is a junk passage at a real
+   * address -- the worst of the three states, because coverage then reports the address as held.
+   *
+   * STRICT FIRST, LOOSE ONLY IF NOTHING IS STRICT. A line whose remainder is EMPTY or EXACTLY the
+   * marker is unambiguously a heading; a contents entry always carries its title. Where a document has
+   * any strict heading for a letter, the loose ones for that letter are decoys and are ignored. Where it
+   * has none -- a document that puts the annex title on the heading line -- the loose form is still
+   * accepted, so no document that worked before changes.
+   */
+  const annexMatch = (ln) => {
     if (isContentsLine(ln)) return null;
     const m = /^\s*Annex\s+([A-Z])\b(.*)$/.exec(ln);
     if (!m) return null;
     const rest = m[2].trim();
-    return (rest === "" || /^\((?:normative|informative)\)/i.test(rest)) ? m[1] : null;
+    if (rest === "") return { letter: m[1], strict: true };
+    if (/^\((?:normative|informative)\)$/i.test(rest)) return { letter: m[1], strict: true };
+    if (/^\((?:normative|informative)\)/i.test(rest)) return { letter: m[1], strict: false };
+    return null;
+  };
+  const strictLetters = new Set();
+  for (const ln of lines) {
+    const a = annexMatch(ln);
+    if (a && a.strict) strictLetters.add(a.letter);
+  }
+  const annexLetterAt = (ln) => {
+    const a = annexMatch(ln);
+    if (!a) return null;
+    if (!a.strict && strictLetters.has(a.letter)) return null;   /* a decoy for a letter we can see properly */
+    return a.letter;
   };
   /* THE PREFIX IS THE ANNEX YOU ARE IN, NOT "A". The first version prefixed every bare
    * address after Annex A with "A." unless it already began with A. or B. -- so ISO/IEC
@@ -571,12 +682,23 @@ function splitIso(text, declaredSeed, opts) {
    * reported the address as absent from a standard that contains it. Annex D exists --
    * "Use of the AI management system across domains or sectors" -- and the item may have
    * been right. Tracking the current annex letter while scanning is the general fix. */
+  /* ============ AND THE LETTER ONLY EVER GOES FORWARD ============
+   *
+   * The strict-first rule above cost 100 ISO/IEC 27002 passages on its first run: that document prints
+   * a bare `Annex A` as a RUNNING PAGE HEADER, which is strict by shape, and it recurs after Annex B
+   * has begun. So the letter flipped back to A midway through Annex B, 100 `B.*` ids disappeared and 95
+   * `A.*` passages silently acquired Annex B's text -- a regression the delta caught and a read of the
+   * removed ids named.
+   *
+   * A document's annexes run A, B, C in order and never revisit. A heading for a letter at or before
+   * the current one is a page header or a cross-reference, whatever its shape. Same defence as the
+   * clause-marker sequence check, one level up. */
   const annexOf = new Array(lines.length).fill(null);
   {
     let cur = null;
     for (let i = 0; i < lines.length; i++) {
       const L = annexLetterAt(lines[i]);
-      if (L) cur = L;
+      if (L && (cur === null || L > cur)) cur = L;
       annexOf[i] = cur;
     }
   }
