@@ -36,11 +36,40 @@ would invite a conclusion the arithmetic does not support.
 Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's own
 "about 30%" and "roughly 1 in 10 serious" from an independent count.
 
+## Verdict tally, and what the first mechanical subset did to the rate
+
+Updated 2026-09-28, after the seven **PENDING LIBRARY READ** findings were settled against the held
+source library. Every source they needed -- the EU AI Act, ISO/IEC 27001, ISO 19011, ISO/IEC 42001 --
+is now indexed, so all seven were decidable without a judgement call.
+
+| verdict | n |
+|---|---|
+| READ REQUIRED | 19 |
+| CONFIRMED | 13 |
+| NOT A DEFECT | 3 |
+| CANNOT CHECK | 1 |
+| **total** | **36** |
+
+**Three of the seven were NOT DEFECTS**, and that is the number worth carrying rather than the four
+that were. The reviewer's flags are *raised questions*, and the first subset that could be checked
+mechanically came back **4 confirmed, 3 cleared**. So the headline "34 of 118 flagged, 30%" is a
+FLAGGED rate and not a defect rate, and on the only evidence available so far the defect rate is
+materially lower. The remaining 19 READ REQUIRED findings are not yet
+evidence of anything in either direction.
+
+**And the four that were confirmed share a shape worth naming.** In three of them -- `3c8dcbbe`,
+`a60747a4`, `10ab99e9` -- **the item's reasoning is correct and its CITATION is wrong**, and in two
+of those the item's own explanation states the correct version while the key states the wrong one.
+That is a cheaper repair than it looks: reword the key, keep the item. It is also a defect class no
+leak scanner or cue guard can see, because nothing about the sentence is wrong except which clause it
+attributes the obligation to.
+
+
 ## Verdicts
 
 | item | en | cert | task | class | verdict | decided by |
 |---|---|---|---|---|---|---|
-| `795e29e2` | `072cded6` | AIGRM-I | 1.10 | serious | **PENDING LIBRARY READ** | library:euact |
+| `795e29e2` | `072cded6` | AIGRM-I | 1.10 | serious | **CONFIRMED** | library:euact |
 | `8eb59772` | `d5d5565b` | AIMS-IA | 1.2 | serious | **READ REQUIRED** | human |
 | `557a3d96` | `11cefa2b` | SM-AI-II | 5.8 | serious | **READ REQUIRED** | human |
 | `9609d7a7` | `2eb848c4` | AIMS-IA | 4.2 | serious | **READ REQUIRED** | text |
@@ -49,12 +78,12 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 | `ea4072dd` | `8264fc9c` | SD-AI-I | 2.6 | serious | **CONFIRMED** | scrum2020 |
 | `c389caa1` | `5bded17a` | SM-AI-I | 1.5 | serious | **CONFIRMED** | scrum2020 |
 | `85474389` | `5bded17a` | SM-AI-I | 1.5 | serious | **CONFIRMED** | scrum2020 |
-| `69ef9bff` | `3c8dcbbe` | ISMS-IA | 5.5 | serious | **PENDING LIBRARY READ** | library:27001 |
-| `5cc34922` | `a60747a4` | AIMS-IA | 3.4 | serious | **PENDING LIBRARY READ** | library:19011 |
-| `17cf1490` | `10ab99e9` | ISMS-F | 1.2 | serious | **PENDING LIBRARY READ** | library:27001 |
-| `0feda920` | `1fd382be` | AIMS-IA | 5.4 | serious | **PENDING LIBRARY READ** | library:42001 |
-| `806ec467` | `40e46097` | AIMS-IA | 4.9 | serious | **PENDING LIBRARY READ** | library:42001 |
-| `7eb176c5` | `42872513` | AIMS-IA | 2.4 | serious | **PENDING LIBRARY READ** | library:42001 |
+| `69ef9bff` | `3c8dcbbe` | ISMS-IA | 5.5 | serious | **CONFIRMED** | library:27001 |
+| `5cc34922` | `a60747a4` | AIMS-IA | 3.4 | serious | **CONFIRMED** | library:19011 |
+| `17cf1490` | `10ab99e9` | ISMS-F | 1.2 | serious | **CONFIRMED** | library:27001 |
+| `0feda920` | `1fd382be` | AIMS-IA | 5.4 | serious | **NOT A DEFECT** | library:42001 |
+| `806ec467` | `40e46097` | AIMS-IA | 4.9 | serious | **NOT A DEFECT** | library:42001 |
+| `7eb176c5` | `42872513` | AIMS-IA | 2.4 | serious | **NOT A DEFECT** | library:42001 |
 | `71ef31f3` | `2121352e` | SM-AI-II | 1.8 | serious | **READ REQUIRED** | text |
 | `7d8f0d0d` | `560dcf1d` | AIE-I | 2.6 | cue | **CONFIRMED** | code |
 | `a9a6ae61` | `7d28e906` | AIGRM-I | 4.11 | cue | **CONFIRMED** | code |
@@ -79,11 +108,11 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 
 ## Evidence, per finding
 
-### `795e29e2` (en `072cded6`) AIGRM-I 1.10 -- PENDING LIBRARY READ
+### `795e29e2` (en `072cded6`) AIGRM-I 1.10 -- CONFIRMED
 
 *Claim:* Probable double key: distractor (b) describes a distributor that puts its name on a high-risk system, which under AI Act Art. 25(1)(a) takes on the provider's obligations, and the item's own explanation concedes it.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **EU AI Act Art. 25(1)** is held and reads: *"Any distributor, importer, deployer or other third-party shall be considered to be a provider of a high-risk AI system ... (a) they put their name or trademark on a high-risk AI system already placed on the market"*. Distractor (b) -- *"Distributors assume provider obligations whenever they market the system under a private label or house brand"* -- is therefore TRUE, and the item's own explanation concedes it in as many words: *"A distributor does assume provider obligations only if it places the system on the market under its own name."* Two defensible answers. The only thing separating them is that (b) says *whenever* where Art. 25(1) is scoped to high-risk systems, which is too thin to carry a key.
 
 ### `8eb59772` (en `d5d5565b`) AIMS-IA 1.2 -- READ REQUIRED
 
@@ -139,41 +168,41 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 
 *Passage key:* Scrum Guide 2020, Increment
 
-### `69ef9bff` (en `3c8dcbbe`) ISMS-IA 5.5 -- PENDING LIBRARY READ
+### `69ef9bff` (en `3c8dcbbe`) ISMS-IA 5.5 -- CONFIRMED
 
 *Claim:* The key paraphrases 27001 10.2 b) as evaluating whether the cause was eliminated. 10.2 b) is about evaluating the NEED FOR ACTION; effectiveness review is 10.2 d).
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **27001 clause 10.2** is held in full. b) is *"evaluate the need for action to eliminate the causes of nonconformity"*; reviewing whether the action worked is d), *"review the effectiveness of any corrective action taken"*. The key says *"clause 10.2 b) requires evaluating whether the cause has been eliminated"*, which is d)'s obligation attached to b). **The item's DIAGNOSIS is right and its CITATION is wrong** -- and its own explanation gets it right (*"requires the organisation to evaluate the need to eliminate causes"*), so the defect is confined to the wording of the key. Reword the key; the item does not need replacing.
 
-### `5cc34922` (en `a60747a4`) AIMS-IA 3.4 -- PENDING LIBRARY READ
+### `5cc34922` (en `a60747a4`) AIMS-IA 3.4 -- CONFIRMED
 
 *Claim:* Says "ISO 19011 Annex A.5 requires", but 19011 is guidance.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **ISO 19011 contains `shall` in 0 of its 120 held passages**, and A.5 itself is `should` x4, `shall` x0: *"the auditors should consider whether the information provides sufficient objective evidence ... a) complete b) correct c) consistent d) current"*. The key says *"Annex A.5 **requires** evidence to be complete, correct, consistent, and current"*. The four dimensions are right and the modal is wrong: 19011 is a guidance document and states no requirements at all. The explanation already says *"asks the auditor to consider"*, so again only the key is wrong.
 
-### `17cf1490` (en `10ab99e9`) ISMS-F 1.2 -- PENDING LIBRARY READ
+### `17cf1490` (en `10ab99e9`) ISMS-F 1.2 -- CONFIRMED
 
 *Claim:* Says 27001 "defines an information asset". It does not.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **`information asset` appears in 0 of ISO/IEC 27001's held passages**, against three positive controls that all resolve in the same document -- `information security` 59, `asset` 9, `documented information` 16 -- so the absence is a fact about the standard and not about the search. The phrase is in **ISO/IEC 27002 5.9 and 5.33 and ISO/IEC 27000**; 27001 clause 3 delegates its whole vocabulary to 27000. The key and the explanation both say *"ISO/IEC 27001 defines an information asset"*. The classification is correct and the attribution is not.
 
-### `0feda920` (en `1fd382be`) AIMS-IA 5.4 -- PENDING LIBRARY READ
+### `0feda920` (en `1fd382be`) AIMS-IA 5.4 -- NOT A DEFECT
 
 *Claim:* Check that the 42001 6.1.3 citation says what the item claims about Annex B.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* The citation says what the item claims. **42001 B.1** is held: *"the implementation guidance is not always suitable or sufficient in all situations"* and *"organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability"*. **6.1.3 e)** is *"consider the guidance in Annex B"*. The key -- observation rather than nonconformity, because Annex B is `should`, B.1 disclaims sufficiency, and consideration is evidenced -- is grounded in both. Cleared.
 
-### `806ec467` (en `40e46097`) AIMS-IA 4.9 -- PENDING LIBRARY READ
+### `806ec467` (en `40e46097`) AIMS-IA 4.9 -- NOT A DEFECT
 
 *Claim:* Same 42001 6.1.3 / Annex B check.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **42001 6.1.3** is held and e) reads *"consider the guidance in Annex B for the implementation of controls determined in b) and c)"*, under the clause's opening *"the organization shall define an AI risk treatment process to"*. So there IS a `shall` attached to considering Annex B, and no record of consideration breaches it. The key is the best-supported of the four. Cleared -- and it pairs correctly with `1fd382be`, where consideration WAS evidenced and the same reasoning yields an observation instead.
 
-### `7eb176c5` (en `42872513`) AIMS-IA 2.4 -- PENDING LIBRARY READ
+### `7eb176c5` (en `42872513`) AIMS-IA 2.4 -- NOT A DEFECT
 
 *Claim:* Check the developer/provider/user role set against 42001 and 22989.
 
-*Evidence:* the cited address has to be located and its text compared with the claim; see the per-item section below
+*Evidence, read 2026-09-28 against the held library:* **42001 4.1** is held and states *"The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization. The organization shall determine its roles with respect to these AI systems"*, with NOTE 1 listing AI providers, AI producers and the rest. The key's reasoning -- re-training is development, licensing is providing, so 4.1 required all three roles to be determined -- rests on that sentence. Cleared.
 
 ### `71ef31f3` (en `2121352e`) SM-AI-II 1.8 -- READ REQUIRED
 
