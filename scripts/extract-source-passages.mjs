@@ -578,18 +578,37 @@ const contentsTitles = (lines) => {
      * the document: both modes run for a BS adoption, and in `-layout` the number and the title are
      * separated by a column's worth of spaces. The dot leaders are what identify this line -- the
      * width of the gap carries no information. */
-    let m = /^\s{0,8}([A-Z]?\.?\d+(?:\.\d+){0,3})\s+(.+?)\s*\.{4,}\s*\d+\s*$/.exec(ln);
-    if (!m && pendingNumber.has(i)) {
+    /* ============ A CONTENTS LINE CAN CARRY MANY ENTRIES, AND THE ANCHOR HID THAT ============
+     *
+     * The one-entry form was anchored to END OF LINE -- `(title)\.{4,}\s*\d+\s*$` -- which is right when
+     * each entry is its own line and catastrophic when they are not. In PLAIN mode ISO/IEC 27001 renders
+     * its whole contents block as ONE line, so the lazy title had to stretch to the LAST page number on
+     * it: clause 9.2.1's declared title came out as
+     *
+     *     "General......... 8 9.2.2 Internal audit programme......... 9 9.3 Management review... "
+     *
+     * which of course never matched the body line, so the declared-title rule could not fire and 9.2.1 --
+     * whose whole text sits on its heading line, over the 90-character cap -- was dropped by both paths.
+     * The rule was never disabled for 27001; its INPUT was garbage.
+     *
+     * So every `number title.....page` triple on the line is read, not just the one at its end. */
+    const entries = [];
+    const ENTRY = /([A-Z]?\.?\d+(?:\.\d+){0,3})[\s\t]+(.+?)\s*\.{4,}\s*(\d+)/g;
+    for (const e of String(ln).matchAll(ENTRY)) entries.push([e[1], e[2]]);
+    if (!entries.length && pendingNumber.has(i)) {
       const t = /^\s*(.+?)\s*\.{4,}\s*\d+\s*$/.exec(ln);
-      if (t) m = [ln, pendingNumber.get(i), t[1]];
+      if (t) entries.push([pendingNumber.get(i), t[1]]);
     }
-    if (!m) continue;
-    const title = m[2].trim();
-    /* FIRST DECLARATION WINS. A contents list is printed once; a later dotted line carrying the
-     * same number is a second contents block (42006 prints one per part) and agreeing copies are
-     * harmless, but a disagreeing one must not silently replace the first. */
-    const key = m[1].replace(/^\./, "");
-    if (title && title.length >= 3 && !out.has(key)) out.set(key, title);
+    for (const [num, rawTitle] of entries) {
+      /* A title cannot contain dot leaders or a page number; where a greedy read picked some up, the
+       * title ends at the first run of dots. */
+      const title = String(rawTitle).split(/\.{4,}/)[0].trim();
+      /* FIRST DECLARATION WINS. A contents list is printed once; a later dotted line carrying the
+       * same number is a second contents block (42006 prints one per part) and agreeing copies are
+       * harmless, but a disagreeing one must not silently replace the first. */
+      const key = num.replace(/^\./, "");
+      if (title && title.length >= 3 && !out.has(key)) out.set(key, title);
+    }
   }
   return out;
 };
@@ -824,6 +843,19 @@ function splitIso(text, declaredSeed, opts) {
     const m = declHit
       ? [ln, declHit.num, declHit.title]
       : (ISO_HEADING.exec(ln) || ISO_HEADING_TABBED.exec(ln));
+    /* DEBUG_HEADING=<clause> traces why one clause is or is not recognised as a heading. Added because
+     * the declared-title rule is enabled for every source and 9.2.1 still missed, so the question was
+     * which of the three tests rejected the line rather than whether the rule was on. */
+    if (process.env.DEBUG_HEADING && ln.includes(process.env.DEBUG_HEADING)) {
+      console.error("[heading] line=" + (i + 1) + " indent=" + (ln.length - ln.trimStart().length) +
+        " contentsLine=" + isContentsLine(ln));
+      console.error("[heading]   lead=" + (lead ? JSON.stringify(lead[1]) : "no") +
+        " declaredTitle=" + JSON.stringify(lead ? declared.get(lead[1].replace(/^\./, "")) : null) +
+        " declHit=" + (declHit ? JSON.stringify(declHit.title) : "no"));
+      console.error("[heading]   ISO_HEADING=" + (ISO_HEADING.exec(ln) ? "match" : "no") +
+        " TABBED=" + (ISO_HEADING_TABBED.exec(ln) ? "match" : "no") +
+        " -> " + (m ? "HEADING " + m[1] : "REJECTED"));
+    }
     if (!m) return;
     let num = m[1].replace(/^\./, "").replace(/^([A-Z])(\d)/, "$1.$2");
     /* NO ISO CLAUSE NUMBER HAS A ZERO COMPONENT, and a table of decimals does. ISO/IEC 42006's
