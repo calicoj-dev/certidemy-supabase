@@ -1,0 +1,319 @@
+{
+  "version": 1,
+  "ruled": "2026-09-27, PROMPT-84 step 1b, by the platform owner",
+  "purpose": "The house translation glossary, kept as DATA so one list feeds the lint, the pipeline gate and the bulk remediation. A term written into three scripts diverges; a term written once cannot.",
+  "how_scope_works": "`scope` is a list of certification codes, or \"*\" for every certification. A term is only checked where it applies: `provider` means something specific under the EU AI Act and nothing in a Scrum item, and a word list applied outside its subject refuses correct work -- which is exactly how the superseded-Scrum-wording list came to refuse two ISO/IEC 42001 items for `development-team`.",
+  "severities": {
+    "failure": "A forbidden variant. Blocks a new row in the pipeline gate.",
+    "flag": "Reported for a human. Never blocks."
+  },
+  "families": {
+    "eu_ai_act": {
+      "note": "Roles under Regulation (EU) 2024/1689. The Spanish forms are the official ES edition's; the Portuguese are the house forms ruled on 2026-09-27. The official PT edition of the Regulation IS held (sources/incoming/OJ_L_202401689_PT_TXT.pdf) and is the reference if these are ever disputed.",
+      "scope": [
+        "AIGRM-I",
+        "AIHR-I",
+        "AIMS-F",
+        "AIMS-IA",
+        "AIE-I"
+      ],
+      "terms": [
+        {
+          "key": "provider",
+          "en": "provider",
+          "es": "proveedor",
+          "pt": "prestador",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "fornecedor",
+              "provedor"
+            ]
+          },
+          "severity": "failure",
+          "note": "The Spanish form collides with the vendor sense. Where a row means the COMMERCIAL VENDOR rather than the Regulation's role, Spanish uses `suministrador` -- see the vendor entry.",
+          "autofix": {
+            "es": false,
+            "pt": true
+          },
+          "autofix_note": "pt fornecedor->prestador is the director-ruled bulk substitution. es is NOT auto-fixable: proveedor is CORRECT for the Regulation's role and wrong only for a commercial vendor, and nothing mechanical tells the senses apart."
+        },
+        {
+          "key": "deployer",
+          "en": "deployer",
+          "es": "responsable del despliegue",
+          "pt": "responsável pela implantação",
+          "forbidden": {
+            "es": [
+              "desplegador"
+            ],
+            "pt": [
+              "implantador",
+              "implantadores",
+              "deployer"
+            ]
+          },
+          "severity": "failure",
+          "note": "Bare `deployer` left in Portuguese is forbidden: it is a defined role in the Regulation and has an official rendering.",
+          "autofix": {
+            "es": true,
+            "pt": true
+          },
+          "autofix_note": "One-to-one in both languages; the role has exactly one rendering."
+        },
+        {
+          "key": "vendor",
+          "en": "vendor",
+          "es": "suministrador",
+          "pt": "fornecedor",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "note": "THE ONE PLACE THE TWO LANGUAGES DIVERGE ON PURPOSE. Spanish needs `suministrador` for the vendor because `proveedor` is the Regulation's provider role. Portuguese has the opposite problem: `prestador` is the role, so `fornecedor` is free for the vendor. A row using `proveedor` for a vendor is not mechanically distinguishable from one using it for the role, so this is a FLAG for a human and never an auto-substitution.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "SENSE-DEPENDENT in both directions. Flag only."
+        },
+        {
+          "key": "high-risk",
+          "en": "high-risk",
+          "es": "alto riesgo",
+          "pt": "risco elevado",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "alto risco"
+            ]
+          },
+          "severity": "flag",
+          "note": "`alto risco` is ordinary Portuguese and reads correctly; the official rendering is `risco elevado`. Flagged rather than failed because the mixed corpus predates the ruling.",
+          "autofix": {
+            "es": false,
+            "pt": true
+          },
+          "autofix_note": "pt alto risco->risco elevado is one-to-one. Reported as a FLAG rather than a gate failure, per its declared severity."
+        },
+        {
+          "key": "act-name",
+          "en": "EU AI Act",
+          "es": "Reglamento de IA de la UE",
+          "pt": "Regulamento da IA da UE",
+          "forbidden": {
+            "es": [
+              "EU AI Act",
+              "AI Act"
+            ],
+            "pt": [
+              "EU AI Act",
+              "AI Act"
+            ]
+          },
+          "severity": "failure",
+          "note": "The Act's name is not left in English in either language.",
+          "autofix": {
+            "es": true,
+            "pt": true
+          },
+          "autofix_note": "The Act has one name per language."
+        }
+      ]
+    },
+    "aims_acronym": {
+      "note": "The AI management system's acronym. Spelling it out is always allowed in either language.",
+      "scope": "*",
+      "terms": [
+        {
+          "key": "aims-acronym",
+          "en": "AIMS",
+          "es": "SGIA",
+          "pt": "SGIA",
+          "forbidden": {
+            "es": [
+              "SGSIA",
+              "SGia"
+            ],
+            "pt": [
+              "SGSIA",
+              "SGia"
+            ]
+          },
+          "severity": "failure",
+          "note": "SGSIA reads as SGSI, which is the ISMS -- a different management system, and on an ISO auditing certification that is a meaning error rather than a style one. Bare `AIMS` is allowed only as the certification code (AIMS-F, AIMS-IA), which the lint excludes by requiring a word boundary that is not a hyphen.",
+          "autofix": {
+            "es": true,
+            "pt": true
+          },
+          "autofix_note": "SGSIA and SGia are one-to-one to SGIA. The bare English AIMS is 866 occurrences and is a POLICY backlog rather than a defect list -- reported, never auto-substituted, because a row may be glossing the English acronym on purpose."
+        }
+      ]
+    },
+    "iso_vocabulary_pt": {
+      "note": "ABNT conventions for ISO certifications in pt-BR.",
+      "scope": [
+        "ISMS-F",
+        "ISMS-IA",
+        "AIMS-F",
+        "AIMS-IA"
+      ],
+      "terms": [
+        {
+          "key": "standard-noun",
+          "en": "standard",
+          "es": "norma",
+          "pt": "norma",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "padrão",
+              "padrões"
+            ]
+          },
+          "severity": "flag",
+          "note": "In an ISO certification a `standard` is a norma; `padrão` is a pattern or a benchmark. DOWNGRADED FROM failure TO flag ON ITS FIRST MEASUREMENT: it fires on 264 pt ISO rows, and `padrão` legitimately means `pattern` in AI content (`reconhecimento de padrões`). A gate on it would refuse correct work, and a guard that fires on the normal case is deleted by the first person it inconveniences. It becomes a failure when somebody has read the members.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "SENSE-DEPENDENT. padrao is both `standard` and `pattern`. Measured over the 264 ISO pt rows carrying it: 1 clearly the pattern sense, 15 clearly the standard sense, 248 not decidable by a crude probe. UNREAD, so flag only."
+        },
+        {
+          "key": "accreditation",
+          "en": "accreditation",
+          "es": "acreditación",
+          "pt": "acreditação",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "credenciamento",
+              "credenciada"
+            ]
+          },
+          "severity": "failure",
+          "note": "Accreditation of a certification body is acreditação. `credenciamento` is a different administrative act.",
+          "autofix": {
+            "es": true,
+            "pt": true
+          },
+          "autofix_note": "One-to-one; 2 occurrences."
+        },
+        {
+          "key": "shall",
+          "en": "shall",
+          "es": "debe",
+          "pt": "deve",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "untranslated_check": false,
+          "metalinguistic": true,
+          "autofix": false,
+          "note": "Checked RELATIVE TO THE ENGLISH by the modal rule below, never as a word list: a pt row containing `deve` is only wrong if its English sentence carries no `shall`. AND THE ENGLISH WORD IS OFTEN THE SUBJECT OF THE ITEM -- `as declaracoes 'should' da ISO 19011 ... mais fracas do que 'shall'` is an item ABOUT the two modals, where leaving them in English is required and translating them would destroy the question. The untranslated check is therefore OFF for this term: it fired on 156 such rows."
+        },
+        {
+          "key": "should",
+          "en": "should",
+          "es": "debería",
+          "pt": "convém que",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "untranslated_check": false,
+          "metalinguistic": true,
+          "autofix": false,
+          "note": "ABNT renders `should` as `convém que`. `deveria` is flagged ONLY where the English sentence carries `should`, and only in an ISO certification -- a flag, not a failure, because the whole translated ISO corpus predates this ruling. Untranslated check OFF for the same reason as `shall`: the bare English modal is the object of study in the auditor certifications."
+        }
+      ]
+    },
+    "clause_reference_pt": {
+      "note": "One clause-reference word per row. The house form is seção / subseção.",
+      "scope": [
+        "ISMS-F",
+        "ISMS-IA",
+        "AIMS-F",
+        "AIMS-IA"
+      ],
+      "terms": [
+        {
+          "key": "clause-word",
+          "en": "clause",
+          "es": "cláusula",
+          "pt": "seção",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "variants": {
+            "pt": [
+              "seção",
+              "subseção",
+              "cláusula",
+              "item"
+            ]
+          },
+          "severity": "flag",
+          "note": "MIXING is the finding, not any single word. `cláusula` is the dominant form in the item bank (14,837 occurrences against 142) and `apartado`/`seção` dominate the lessons, and the 2026-09-20 census established that rewriting the majority to match the minority is not a consistency fix. So the corpus-wide word is NOT changed here; what is reported is a single ROW that uses two of these words for the same thing.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "The corpus word is deliberately NOT imposed; only a row mixing two is reported."
+        }
+      ]
+    },
+    "iso_19011": {
+      "note": "ISO 19011 vocabulary.",
+      "scope": [
+        "ISMS-IA",
+        "AIMS-IA"
+      ],
+      "terms": [
+        {
+          "key": "fair-presentation",
+          "en": "fair presentation",
+          "es": "presentación ecuánime",
+          "pt": "apresentação justa",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "unverified": "pt",
+          "note": "THE PORTUGUESE FORM IS NOT VERIFIED. The ABNT NBR ISO 19011 edition is not on disk, so `apresentação justa` is the house form and NOT an official rendering. It is a FLAG and the lint says so: asserting an official term we do not hold is the defect the Scrum section of this ruling exists to avoid.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "The pt form is unverified against ABNT, so it is never written by a machine."
+        }
+      ]
+    },
+    "scrum_2020": {
+      "note": "HELD OPEN. NOT SEEDED.",
+      "scope": [
+        "SM-AI-I",
+        "SM-AI-II",
+        "SPO-AI-I",
+        "SD-AI-I"
+      ],
+      "blocked": "The official 2020 Spanish and Portuguese Scrum Guides are NOT ON DISK. Only reference/scrum-guide-2020.pdf (English) is held. The ruling says to take the official terms from those editions and forbids reconstructing them from memory, so this family carries NO terms and the lint checks none of them. The terms needed are listed in SCRUM-GLOSSARY-NEEDED.md.",
+      "ruled_without_the_guides": {
+        "roles_stay_english": [
+          "Product Owner",
+          "Scrum Master",
+          "Developers"
+        ],
+        "sprint_is_feminine_in_pt": "a Sprint",
+        "first_use_carries_the_english": "e.g. Objetivo del Sprint (Sprint Goal), Definição de Pronto (Definition of Done)"
+      },
+      "terms": []
+    }
+  }
+}

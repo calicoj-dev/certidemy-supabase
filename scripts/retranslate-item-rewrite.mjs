@@ -63,6 +63,7 @@ import {
   ISO_MS_VOCABULARY, ACCOUNTABLE_FALSE_FRIEND, contractForDomain, domainForCert,
 } from "./lib/item-translation.mjs";
 import { checkPins } from "./lib/pin-compliance.mjs";
+import { lintRow } from "./lib/translation-term-lint.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(HERE, "..");
@@ -344,7 +345,44 @@ for (const entry of spec) {
       failures++; continue;
     }
 
-    console.log(`   ${lang.code}  guard ok (${g.want}/${g.avoid}), pins ok`);
+    // THE HOUSE GLOSSARY, AS A GATE ON NEW ROWS. Ruled 2026-09-27.
+    //
+    // FORBIDDEN is a failure and MIXED is a flag, which is the ruling, and the severity comes from
+    // the glossary rather than from this call site -- so a term downgraded there stops blocking here
+    // with no second edit. `padrao` and `alto risco` are exactly that: on a forbidden list, declared
+    // `flag`, and a gate on them would refuse correct Portuguese.
+    //
+    // The row is assembled in the shape lintRow reads, and the ENGLISH goes in because the modal rule
+    // is relative: `deveria` is only wrong where the English says `should`.
+    const lintRowObj = {
+      language: lang.code,
+      question_text: out.question_text ?? row.question_text,
+      options: out.options ?? row.options,
+      explanation: out.explanation ?? row.explanation,
+    };
+    const lintEnObj = { language: "en", question_text: en.question_text, options: en.options, explanation: en.explanation };
+    const lint = lintRow(lintRowObj, certCode, lintEnObj);
+    if (lint.forbidden.length) {
+      console.error(`   ${lang.code}: GLOSSARY VIOLATION - refusing`);
+      for (const h of lint.forbidden) {
+        console.error(`     ${h.family}.${h.key} "${h.variant}" in ${h.field} -> expected "${h.expected}"`);
+      }
+      failures++; continue;
+    }
+    for (const h of lint.mixed) {
+      console.log(`   ${lang.code}  glossary FLAG: ${h.family}.${h.key} ` +
+        `${h.variant ? '"' + h.variant + '"' : (h.variants || []).join(" + ")}` +
+        `${h.house ? " (house: " + h.house + ")" : ""}`);
+    }
+    for (const h of lint.untranslated) {
+      console.log(`   ${lang.code}  glossary FLAG: English "${h.english}" left in ${h.field}`);
+    }
+    for (const h of lint.unchecked) {
+      console.log(`   ${lang.code}  glossary UNCHECKED: ${h.family}.${h.key} - ${h.why}`);
+    }
+
+    console.log(`   ${lang.code}  guard ok (${g.want}/${g.avoid}), pins ok, glossary ok` +
+      `${lint.mixed.length + lint.untranslated.length ? " (" + (lint.mixed.length + lint.untranslated.length) + " flag(s))" : ""}`);
     for (const f of toTranslate) {
       const b = f === "options" ? JSON.stringify(row[f]) : String(row[f] ?? "");
       const a = f === "options" ? JSON.stringify(out[f]) : String(out[f] ?? "");
