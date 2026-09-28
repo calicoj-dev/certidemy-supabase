@@ -951,6 +951,7 @@ if (!APPLY) {
     process.exitCode = 2;
   } else {
     let wrote = 0;
+    const insertedIds = [];
     for (const r of survivors) {
       const t = tasks.find((x) => x.code === r.task_code);
       const body = {
@@ -974,13 +975,33 @@ if (!APPLY) {
         /* draft, never approved, and out of exam scope: two independent reasons it cannot
          * reach a form, because a guarantee that depends on one column staying true is not
          * a guarantee. */
-        status: "draft", pool: "secure", is_exam_scope: false,
-        item_origin: "generated", bloom_level: t.bloom_level,
+        /* ============ pending_review, AND EVERY DEFAULT-ABLE COLUMN NAMED ============
+         *
+         * This said `status: "draft"` from the day it was written, and no row could ever carry it:
+         * `quiz_questions_status_check` allows pending_review | approved | rejected. `--apply` had
+         * never run, so the branch read exactly like one that works -- the second defect of that
+         * shape on this path, after the integer `correct_answer` where the bank stores ["c"].
+         *
+         * `pending_review` is the vocabulary's word for this state and is excluded everywhere
+         * `approved` is required. Ruled 2026-09-27.
+         *
+         * AND EVERY COLUMN A DEFAULT COULD DECIDE IS WRITTEN, as insert-pilot-drafts.mjs does. The
+         * defaults are status='approved', visibility='secure' and is_exam_scope=true: two happen to
+         * be safe for an unapproved row and one is catastrophic, and which is which is not a thing
+         * to rely on. `language` and `question_type` are named for the same reason. */
+        status: "pending_review",
+        pool: "secure",
+        visibility: "secure",
+        is_exam_scope: false,
+        item_origin: "generated",
+        question_type: "single_choice",
+        bloom_level: t.bloom_level,
+        difficulty: 3,
       };
       const res = await fetch(REST_URL + "/quiz_questions", {
         method: "POST",
         headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json",
-          Prefer: "return=minimal" },
+          Prefer: "return=representation" },
         body: JSON.stringify([body]),
       });
       if (!res.ok) {
@@ -989,14 +1010,39 @@ if (!APPLY) {
         break;
       }
       wrote++;
+      const back = await res.json().catch(() => null);
+      const id = Array.isArray(back) ? (back[0] || {}).id : (back || {}).id;
+      if (id) insertedIds.push(id);
     }
-    console.log("  inserted " + wrote + " draft row(s)");
-    const back = await getAll(KEY, "quiz_questions?select=id,status,is_exam_scope&certification_id=eq." +
-      cert.id + "&status=eq.draft&order=id");
-    console.log("  POST-CONDITION  draft rows now live: " + back.length +
-      ", of which in exam scope: " + back.filter((r) => r.is_exam_scope).length + " (must be 0)");
-    if (back.filter((r) => r.is_exam_scope).length) {
-      throw new Error("a draft row is flagged is_exam_scope -- it could reach a secure form");
+    console.log("  inserted " + wrote + " pending_review row(s)");
+
+    /* ============ THE POST-CONDITION READS BACK THE ROWS IT WROTE ============
+     *
+     * It used to query `status=eq.draft`, which no row can carry -- so after the status fix it would
+     * have returned ZERO rows and reported "0 in exam scope (must be 0)" as a pass. A post-condition
+     * whose filter matches nothing is the vacuous-pass shape this repository opens with, and the
+     * status change is exactly the edit that would have created it.
+     *
+     * So it reads back BY ID, asserts the count, and asserts every column this path names -- the
+     * same discipline as insert-pilot-drafts.mjs. */
+    if (!insertedIds.length) throw new Error("nothing was inserted, so there is nothing to verify");
+    const back = await getAll(KEY,
+      "quiz_questions?select=id,status,pool,visibility,is_exam_scope,item_origin,language" +
+      "&id=in.(" + insertedIds.join(",") + ")");
+    const bad = [];
+    for (const r of back) {
+      if (r.status !== "pending_review") bad.push(r.id.slice(0, 8) + " status=" + r.status);
+      if (r.is_exam_scope !== false) bad.push(r.id.slice(0, 8) + " is_exam_scope=" + r.is_exam_scope);
+      if (r.pool !== "secure") bad.push(r.id.slice(0, 8) + " pool=" + r.pool);
+      if (r.visibility !== "secure") bad.push(r.id.slice(0, 8) + " visibility=" + r.visibility);
+      if (r.item_origin !== "generated") bad.push(r.id.slice(0, 8) + " item_origin=" + r.item_origin);
+      if (r.language !== "en") bad.push(r.id.slice(0, 8) + " language=" + r.language);
+    }
+    console.log("  POST-CONDITION  read back " + back.length + " of " + insertedIds.length +
+      "; every named column as written: " + (bad.length ? bad.length + " VIOLATION(S)" : "yes"));
+    for (const b of bad.slice(0, 8)) console.log("      " + b);
+    if (back.length !== insertedIds.length || bad.length) {
+      throw new Error("the inserted rows do not read back as written -- see above");
     }
   }
 }

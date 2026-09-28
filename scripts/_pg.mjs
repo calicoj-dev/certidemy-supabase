@@ -103,6 +103,41 @@ export function requireKey(scriptDir) {
  * same silent-wrongness this file exists to prevent.
  */
 export async function getAll(key, path) {
+  /* ============ A PAGED READ WITHOUT AN ORDER IS A DIFFERENT ANSWER EVERY TIME ============
+   *
+   * Found 2026-09-28, and it is the count assertion's blind spot rather than a failure of it.
+   *
+   * `Range: 0-999` then `1000-1999` over a query with NO `order by` is unordered pagination:
+   * Postgres may return the pages in any order it likes, so a row can appear in two pages while
+   * another appears in none. THE COUNT STILL MATCHES -- 28,179 rows collected against 28,179
+   * reported -- so the assertion below passes and the SET is silently wrong.
+   *
+   * Measured on `quiz_questions?select=status`, twice in one minute:
+   *
+   *     run 1   approved 27764   rejected 415   pending_review  0
+   *     run 2   approved 27838   rejected 341   pending_review  0
+   *     with &order=id            approved 27899  rejected 248  pending_review 32   (stable, 0 dups)
+   *
+   * The 32 rows it lost were the ones being looked for. Worse, a caller that builds an id-keyed map
+   * from an unordered read gets a map with holes, and `map.get(id)` on a missing row returns
+   * undefined -- which every caller here treats as "not applicable" and skips. A dropped read
+   * becoming an answer, one level below where this file already guards against it.
+   *
+   * IT COST A REPORTED FIGURE. The key-exposure exposure counts went from "11 post-retirement
+   * attempts, 1 user" to 55 attempts across 3 users once the reads were ordered.
+   *
+   * SO THE ORDER IS REQUIRED, NOT RECOMMENDED. A note would have to be remembered by every caller;
+   * this cannot be. PostgREST has no stable implicit order to fall back on, and picking one here
+   * ("append order=id") would be wrong for the tables whose key is not `id`.
+   *
+   * BUT IT IS REQUIRED ONLY WHERE THE HAZARD EXISTS, WHICH IS BEFORE THE SECOND PAGE. Demanding it
+   * of every path fired on 51 call sites, nearly all of them single-row reads bounded by
+   * `&id=eq.<uuid>` or `&code=eq.AIMS-F` that never paginate at all -- and a guard that fires on the
+   * normal case is deleted by the first person it inconveniences, taking the real assertion with it.
+   *
+   * A read whose total fits in one page is ordered or not with no consequence: there is no second
+   * page for a row to move between. The total arrives in the FIRST response, so the check belongs
+   * exactly there -- after page one, before page two. Zero false positives by construction. */
   const rows = [];
   let total = null;
 
@@ -147,6 +182,20 @@ export async function getAll(key, path) {
     // short page is not evidence of exhaustion -- it is what a lowered row
     // cap, a dropped page and a finished read all look like.
     if (rows.length >= total) break;
+
+    // A SECOND PAGE IS ABOUT TO BE FETCHED, so the order now decides which rows
+    // come back. See the header: the count assertion cannot see an unordered
+    // read's overlap, because the totals match while the set is wrong. This is
+    // the only point at which the hazard becomes real, so it is the only point
+    // that refuses.
+    if (!/[?&]order=/.test(String(path))) {
+      throw new Error(
+        `getAll: ${path}\nneeds ${total} rows, which is more than one page of ${PAGE}, and the ` +
+          `path has no \`order=\`. Unordered Range pagination can return one row twice and ` +
+          `another not at all, and the count assertion cannot see it: the totals match while the ` +
+          `SET is wrong. Add an explicit order on a unique column, e.g. \`&order=id\`.`,
+      );
+    }
 
     // Stall guard. An empty page before the total is reached cannot make
     // progress, so returning here would return short.

@@ -103,6 +103,28 @@ and in bulk, and an explanation usually names the correct option in prose.
 
 ## 3 — Was it used? The answer is "not in the 24 hours we can see, and unknowable before that"
 
+> **[NUMBERS CORRECTED 2026-09-28. Every count in this section, and in section 1's table, was measured
+> through UNORDERED paged reads. `getAll` pages with `Range` headers, and over a query with no
+> `order by` that returns a different SET on each run while the row count still matches — so the
+> id-keyed map the counts were computed through had holes, and an attempt whose question was missing
+> from the map was silently skipped. Re-measured with ordered reads, twice, identical both times.
+>
+> The safety-critical half is unchanged and that is the important part: still ZERO secure items served
+> through the practice path, and the exam side still clean. The retired-and-rejected exposure is five
+> times larger than reported.]**
+>
+> | | reported | corrected |
+> |---|---|---|
+> | practice-path attempts on a SECURE item | 0 | **0** |
+> | practice-path attempts on a non-approved item | 4 | **48** |
+> | attempts after the item's retirement | 11 | **55** |
+> | distinct users / sessions / questions behind those | 1 / 3 / 9 | **3 / 14 / 27** |
+> | exam-session items serving a non-approved item | 0 | **0** |
+>
+> The conclusions below stand: nothing reached a secure item through the practice path, the logs still
+> only cover 24 hours, and the swallowed insert still means the period before that is UNKNOWN rather
+> than clean. `scripts/_pg.mjs` now refuses an unordered read before it fetches a second page.
+
 ### First, your question about the attempt row — and it changes the answer
 
 **No. `submit-quiz-answer` did not reliably write an attempt row on a call that returned a key**, so

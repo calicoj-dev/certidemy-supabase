@@ -150,7 +150,7 @@ async function main() {
      * enumeration of what `--prune` would delete printed only on a run that was already writing,
      * so the report you need in order to decide was behind the decision. Reading the live table is
      * read-only and costs one paged fetch. */
-    const liveNow = await getAll(KEY, "source_passages?select=source_id,edition,clause");
+    const liveNow = await getAll(KEY, "source_passages?select=source_id,edition,clause&order=id");
     const stale = liveNow.filter((r) => !seen.has(r.source_id + "|" + r.edition + "|" + r.clause));
     console.log("");
     console.log("  rows live now                                      " + liveNow.length);
@@ -207,7 +207,7 @@ async function main() {
   }
 
   /* ---------------------------------------------------------------- post-conditions */
-  const live = await getAll(KEY, "source_passages?select=source_id,edition,clause,normative");
+  const live = await getAll(KEY, "source_passages?select=source_id,edition,clause,normative&order=id");
   const liveKeys = new Set(live.map((r) => r.source_id + "|" + r.edition + "|" + r.clause));
   const missing = [...seen].filter((k) => !liveKeys.has(k));
   console.log("");
@@ -260,7 +260,7 @@ async function main() {
           res.status + " " + (await res.text()).slice(0, 160));
         gone++;
       }
-      const after = await getAll(KEY, "source_passages?select=source_id,edition,clause");
+      const after = await getAll(KEY, "source_passages?select=source_id,edition,clause&order=id");
       const afterKeys = new Set(after.map((r) => r.source_id + "|" + r.edition + "|" + r.clause));
       const lostByPrune = [...seen].filter((k) => !afterKeys.has(k));
       const stillExtra = after.filter((r) => !seen.has(r.source_id + "|" + r.edition + "|" + r.clause));
