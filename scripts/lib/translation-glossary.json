@@ -26,17 +26,17 @@
           "forbidden": {
             "es": [],
             "pt": [
-              "fornecedor",
-              "provedor"
+              "fornecedor"
             ]
           },
           "severity": "failure",
           "note": "The Spanish form collides with the vendor sense. Where a row means the COMMERCIAL VENDOR rather than the Regulation's role, Spanish uses `suministrador` -- see the vendor entry.",
           "autofix": {
             "es": false,
-            "pt": true
+            "pt": false
           },
-          "autofix_note": "pt fornecedor->prestador is the director-ruled bulk substitution. es is NOT auto-fixable: proveedor is CORRECT for the Regulation's role and wrong only for a commercial vendor, and nothing mechanical tells the senses apart."
+          "autofix_note": "NEITHER LANGUAGE IS AUTO-FIXABLE. `proveedor` is correct for the Regulation's role in Spanish, and `fornecedor` is the ordinary Portuguese word for a commercial vendor or supplier -- `fornecedor de dados`, `o fornecedor do modelo`. Exactly the sense collision the Spanish side already had, mirrored. A bulk substitution may run only over a read sample that establishes the role sense dominates, with the non-role members excluded by id.",
+          "regulation_scoped": true
         },
         {
           "key": "deployer",
@@ -59,7 +59,8 @@
             "es": true,
             "pt": true
           },
-          "autofix_note": "One-to-one in both languages; the role has exactly one rendering."
+          "autofix_note": "One-to-one in both languages, and the article agreement is part of the substitution: `o implantador` -> `o responsavel pela implantacao`, `do implantador` -> `do responsavel pela implantacao`, plural likewise. Bare `deployer` is fixable only in rows ABOUT the Regulation.",
+          "regulation_scoped": true
         },
         {
           "key": "vendor",
@@ -119,8 +120,46 @@
             "pt": true
           },
           "autofix_note": "The Act has one name per language."
+        },
+        {
+          "key": "provider-provedor",
+          "en": "provider",
+          "es": "proveedor",
+          "pt": "prestador",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "provedor"
+            ]
+          },
+          "severity": "flag",
+          "regulation_scoped": true,
+          "not_gated_in": [
+            "AIMS-F",
+            "AIMS-IA"
+          ],
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Never auto-fixed.",
+          "note": "`provedor` IS correct Portuguese in senses this catalogue uses -- `provedor de nuvem` is a cloud provider, not the Regulation's role. More importantly the ABNT edition of ISO/IEC 42001 and 22989 may render the 22989 role as `provedor de IA`, and we do not hold that edition, so the house form cannot be asserted there. It is therefore a FLAG everywhere and is NOT GATED AT ALL in AIMS-F or AIMS-IA until the ABNT term is known. Separated from the `fornecedor` entry because the two have different severities and different reasons, and one entry carrying both would hide that."
         }
-      ]
+      ],
+      "regulation_scope": {
+        "rule": "The EU AI Act role terms are a FAILURE only in a row that is ABOUT the Regulation. Detected on the row's own text OR its English sibling naming the AI Act, the Regulation, 2024/1689, or an Article number. Elsewhere the same word is a FLAG.",
+        "why": "42001 and 22989 have their own role vocabulary, and a 42001 role question is not wrong for using it. Gating the Regulation's terms across the whole catalogue would refuse correct work on the two certifications whose subject is a different standard -- the scope error this repository already paid for when a Scrum word list refused two ISO/IEC 42001 items.",
+        "markers": [
+          "AI Act",
+          "Regulation (EU) 2024/1689",
+          "2024/1689",
+          "Regulamento",
+          "Reglamento",
+          "Article",
+          "Artigo",
+          "Articulo"
+        ]
+      }
     },
     "aims_acronym": {
       "note": "The AI management system's acronym. Spelling it out is always allowed in either language.",

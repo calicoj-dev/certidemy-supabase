@@ -7,10 +7,10 @@ Nothing was written.
 |---|---|
 | rows examined | 18453 (approved, not retired, es-419 + pt-BR, pool=all) |
 | rows with no English sibling | 5 |
-| findings | 3675 |
-| FORBIDDEN (gate failure) | 1950 |
-| MIXED (flag) | 858 |
-| UNTRANSLATED (flag) | 867 |
+| findings | 3676 |
+| FORBIDDEN (gate failure) | 731 |
+| MIXED (flag) | 2077 |
+| UNTRANSLATED (flag) | 868 |
 | UNCHECKED (could not run) | 0 |
 | distinct rows involved | 1584 |
 
@@ -29,15 +29,15 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 
 | certification | language | forbidden | mixed | untranslated | unchecked | rows |
 |---|---|---|---|---|---|---|
-| AIE-I | pt-BR | 83 | 9 | 0 | 0 | 55 |
-| AIGRM-I | es-419 | 106 | 0 | 80 | 0 | 58 |
-| AIGRM-I | pt-BR | 699 | 176 | 81 | 0 | 274 |
-| AIHR-I | es-419 | 2 | 0 | 0 | 0 | 2 |
-| AIHR-I | pt-BR | 420 | 1 | 0 | 0 | 160 |
-| AIMS-F | es-419 | 17 | 0 | 232 | 0 | 114 |
-| AIMS-F | pt-BR | 349 | 112 | 219 | 0 | 240 |
+| AIE-I | pt-BR | 0 | 92 | 0 | 0 | 55 |
+| AIGRM-I | es-419 | 74 | 32 | 80 | 0 | 58 |
+| AIGRM-I | pt-BR | 386 | 489 | 82 | 0 | 274 |
+| AIHR-I | es-419 | 0 | 2 | 0 | 0 | 2 |
+| AIHR-I | pt-BR | 0 | 421 | 0 | 0 | 160 |
+| AIMS-F | es-419 | 12 | 5 | 232 | 0 | 114 |
+| AIMS-F | pt-BR | 105 | 356 | 219 | 0 | 240 |
 | AIMS-IA | es-419 | 84 | 0 | 131 | 0 | 155 |
-| AIMS-IA | pt-BR | 179 | 272 | 124 | 0 | 316 |
+| AIMS-IA | pt-BR | 59 | 392 | 124 | 0 | 316 |
 | ISMS-F | pt-BR | 2 | 131 | 0 | 0 | 92 |
 | ISMS-IA | es-419 | 9 | 0 | 0 | 0 | 3 |
 | ISMS-IA | pt-BR | 0 | 157 | 0 | 0 | 115 |
@@ -46,24 +46,47 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 
 | term | class | occurrences |
 |---|---|---|
-| eu_ai_act.provider `fornecedor` | forbidden | 983 |
 | aims_acronym.aims-acronym | untranslated | 866 |
+| eu_ai_act.provider `fornecedor` | mixed | 857 |
 | iso_vocabulary_pt.standard-noun `padrão` | mixed | 315 |
 | eu_ai_act.high-risk `alto risco` | mixed | 272 |
 | eu_ai_act.act-name `AI Act` | forbidden | 179 |
-| eu_ai_act.deployer `implantador` | forbidden | 175 |
-| eu_ai_act.provider `provedor` | forbidden | 159 |
+| eu_ai_act.provider-provedor `provedor` | mixed | 159 |
 | eu_ai_act.act-name `EU AI Act` | forbidden | 157 |
 | aims_acronym.aims-acronym `SGSIA` | forbidden | 146 |
+| eu_ai_act.provider `fornecedor` | forbidden | 126 |
+| eu_ai_act.deployer `implantador` | mixed | 124 |
 | iso_vocabulary_pt.should | mixed | 119 |
 | clause_reference_pt.clause-word | mixed | 83 |
 | iso_vocabulary_pt.standard-noun `padrões` | mixed | 69 |
-| eu_ai_act.deployer `desplegador` | forbidden | 63 |
-| eu_ai_act.deployer `implantadores` | forbidden | 54 |
+| eu_ai_act.deployer `implantador` | forbidden | 51 |
+| eu_ai_act.deployer `desplegador` | mixed | 39 |
+| eu_ai_act.deployer `implantadores` | forbidden | 30 |
+| eu_ai_act.deployer `desplegador` | forbidden | 24 |
+| eu_ai_act.deployer `implantadores` | mixed | 24 |
 | aims_acronym.aims-acronym `SGia` | forbidden | 16 |
-| eu_ai_act.deployer `deployer` | forbidden | 16 |
+| eu_ai_act.deployer `deployer` | mixed | 16 |
 | iso_vocabulary_pt.accreditation `credenciamento` | forbidden | 2 |
 | eu_ai_act.provider | untranslated | 1 |
+| eu_ai_act.provider-provedor | untranslated | 1 |
+
+## FORBIDDEN by term and certification
+
+| term | AIGRM-I es | AIGRM-I pt | AIMS-F es | AIMS-F pt | AIMS-IA es | AIMS-IA pt | ISMS-F pt | ISMS-IA es | total |
+|---|---|---|---|---|---|---|---|---|---|
+| eu_ai_act.act-name `AI Act` | 25 | 106 | 2 | 55 |  |  |  |  | 188 |
+| eu_ai_act.provider `fornecedor` |  | 175 |  |  |  | 1 |  |  | 176 |
+| eu_ai_act.act-name `EU AI Act` | 25 | 82 | 2 | 55 |  |  |  |  | 164 |
+| aims_acronym.aims-acronym `SGSIA` |  |  |  |  | 86 | 62 |  | 15 | 163 |
+| eu_ai_act.deployer `implantador` |  | 58 |  |  |  |  |  |  | 58 |
+| eu_ai_act.deployer `implantadores` |  | 34 |  |  |  |  |  |  | 34 |
+| eu_ai_act.deployer `desplegador` | 26 |  |  |  |  |  |  |  | 26 |
+| aims_acronym.aims-acronym `SGia` |  |  | 8 | 3 | 4 | 1 |  |  | 16 |
+| iso_vocabulary_pt.accreditation `credenciamento` |  |  |  |  |  |  | 2 |  | 2 |
+
+Every blank cell is a certification where that term is not a gate failure: either it does not occur,
+or the Regulation-scope rule and `not_gated_in` downgraded it to a flag. A blank is therefore a
+SCOPE statement, not an absence of rows -- the flags are in the per-term table above.
 
 ## What is auto-fixable and what is not
 

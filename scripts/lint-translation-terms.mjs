@@ -158,6 +158,43 @@ for (const [k, n] of [...byTerm.entries()].sort((a, b) => b[1] - a[1])) {
   p("| " + (m ? m[1] + (m[3] ? " `" + m[3] + "`" : "") : k) + " | " + (m ? m[2] : "?") + " | " + n + " |");
 }
 p("");
+/* ============ THE CROSS-TAB IS THE ONE THAT SCOPES A FIX ============
+ *
+ * The two margins above cannot answer the only question a bulk pass needs answered: WHICH term, on WHICH
+ * certification. `fornecedor` at 126 forbidden reads as one job; split by certification it is AIGRM-I's job
+ * and nobody else's, and a pass scoped to the whole corpus would edit rows on certifications where the term
+ * is a flag by ruling. Same shape as every population error in CLAUDE.md -- a total told the truth about
+ * the total and nothing about where the work is. FORBIDDEN only: it is the class the pipeline gate blocks
+ * on, so it is the class a fix has to clear. */
+p("## FORBIDDEN by term and certification");
+p("");
+{
+  const cross = new Map(), termTot = new Map(), certs = new Set();
+  for (const f of findings) {
+    if (f.cls !== "forbidden") continue;
+    const term = f.family + "." + f.key + (f.variant ? " `" + f.variant + "`" : "");
+    const ck = f.code + " " + (f.language === "es-419" ? "es" : "pt");
+    certs.add(ck);
+    cross.set(term + "||" + ck, (cross.get(term + "||" + ck) || 0) + f.n);
+    termTot.set(term, (termTot.get(term) || 0) + f.n);
+  }
+  if (!termTot.size) {
+    p("No FORBIDDEN findings -- nothing to cross-tabulate.");
+  } else {
+    const cols = [...certs].sort();
+    p("| term | " + cols.join(" | ") + " | total |");
+    p("|---" + cols.map(() => "|---").join("") + "|---|");
+    for (const [term, tot] of [...termTot.entries()].sort((a, b) => b[1] - a[1])) {
+      p("| " + term + " | " +
+        cols.map((c) => String(cross.get(term + "||" + c) || "")).join(" | ") + " | " + tot + " |");
+    }
+    p("");
+    p("Every blank cell is a certification where that term is not a gate failure: either it does not occur,");
+    p("or the Regulation-scope rule and `not_gated_in` downgraded it to a flag. A blank is therefore a");
+    p("SCOPE statement, not an absence of rows -- the flags are in the per-term table above.");
+  }
+}
+p("");
 p("## What is auto-fixable and what is not");
 p("");
 p("A ONE-TO-ONE substitution of a forbidden variant may go in the bulk pass. Anything whose correct");

@@ -42,6 +42,18 @@ const termRe = (s, caseSensitive = false) =>
 const isMiscasing = (variant, house) =>
   Boolean(house) && variant.toLowerCase() === String(house).toLowerCase() && variant !== house;
 
+/* Does this row, or its English sibling, name the Regulation? The markers are declared in the glossary
+ * rather than typed here, so one list serves the lint, the gate and the bulk pass. The English sibling
+ * counts because a translated row may name the Act only in the source it was translated from. */
+const REG_MARKERS = ((GLOSSARY.families.eu_ai_act || {}).regulation_scope || {}).markers || [];
+const regulationMarked = (whole, en) => {
+  const hay = String(whole || "") + " " +
+    (en ? [en.question_text, ...(Array.isArray(en.options) ? en.options.map((o) => (o && o.text) || "") : []),
+      en.explanation].join(" ") : "");
+  return REG_MARKERS.some((mk) =>
+    new RegExp("(?<![\\w])" + String(mk).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(hay));
+};
+
 /** Every (family, term) pair that applies to a certification, for one language key. */
 function applicable(code) {
   const out = [];
@@ -93,8 +105,30 @@ export function lintRow(row, code, en) {
           const rec = { family: t.family, key: t.key, field, variant: bad, n: hits.length,
             severity: t.severity, expected: t[lk] || null,
             autofix: (t.autofix && t.autofix[lk]) === true };
-          if (t.severity === "failure") res.forbidden.push(rec);
-          else res.mixed.push({ ...rec, note: "on the forbidden list, but declared severity `flag`" });
+          /* ============ A REGULATION TERM IS A FAILURE ONLY IN A ROW ABOUT THE REGULATION ============
+           *
+           * 42001 and 22989 carry their own role vocabulary, and a 42001 role question is not wrong for
+           * using it. Gating the EU AI Act's terms across the catalogue would refuse correct work on the
+           * two certifications whose subject is a different standard -- the scope error this repository
+           * paid for when a Scrum word list refused two ISO/IEC 42001 items.
+           *
+           * So a `regulation_scoped` term downgrades to a flag unless the row, or its English sibling,
+           * names the Regulation. And `not_gated_in` removes it entirely for a certification where the
+           * house form cannot be asserted at all -- `provedor` in AIMS-F and AIMS-IA, where the ABNT
+           * edition may use it for the 22989 role and we do not hold that edition. */
+          const notGated = Array.isArray(t.not_gated_in) && t.not_gated_in.includes(code);
+          const aboutReg = t.regulation_scoped ? regulationMarked(whole, en) : true;
+          if (notGated) {
+            res.mixed.push({ ...rec, severity: "flag",
+              note: "not gated in " + code + ": the house form cannot be asserted there yet" });
+          } else if (t.severity === "failure" && aboutReg) {
+            res.forbidden.push(rec);
+          } else if (t.severity === "failure") {
+            res.mixed.push({ ...rec, severity: "flag",
+              note: "a Regulation term in a row that is not about the Regulation -- flag, not a failure" });
+          } else {
+            res.mixed.push({ ...rec, note: "on the forbidden list, but declared severity `flag`" });
+          }
         }
       }
     }
@@ -153,8 +187,35 @@ export function translationLintControls() {
   const row = (language, stem, opts = [], expl = "") =>
     ({ language, question_text: stem, options: opts.map((t, i) => ({ id: "abcd"[i], text: t })), explanation: expl });
 
-  const a = lintRow(row("pt-BR", "O fornecedor deve registrar o sistema."), "AIGRM-I", null);
-  if (!a.forbidden.some((f) => f.variant === "fornecedor")) fails.push("forbidden pt `fornecedor` did not fire on AIGRM-I");
+  /* ============ THE REGULATION SCOPE, BOTH DIRECTIONS ============
+   *
+   * A Regulation role term is a FAILURE in a row about the Regulation and a FLAG elsewhere. The first two
+   * controls here previously asserted the unconditional failure and correctly broke when the scope rule
+   * landed -- kept as the paired cases rather than rewritten into one, because the whole ruling is the
+   * difference between them. */
+  const a = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o fornecedor deve registrar o sistema."),
+    "AIGRM-I", null);
+  if (!a.forbidden.some((f) => f.variant === "fornecedor")) {
+    fails.push("forbidden pt `fornecedor` did not fire in a row that names the Regulation");
+  }
+  const aOut = lintRow(row("pt-BR", "O fornecedor de dados entrega o conjunto de treinamento."), "AIGRM-I", null);
+  if (aOut.forbidden.length) {
+    fails.push("`fornecedor` was a FAILURE in a row that is not about the Regulation -- it must be a flag");
+  }
+  if (!aOut.mixed.some((f) => f.variant === "fornecedor")) {
+    fails.push("`fornecedor` outside the Regulation was not reported at all");
+  }
+  /* The English sibling counts: a translated row may name the Act only in what it was translated from. */
+  const aEn = lintRow(row("pt-BR", "O fornecedor deve registrar o sistema."), "AIGRM-I",
+    row("en", "Under the EU AI Act, the provider must register the system."));
+  if (!aEn.forbidden.some((f) => f.variant === "fornecedor")) {
+    fails.push("the English sibling naming the Act did not make it a failure");
+  }
+  /* `provedor` is NOT GATED in AIMS-F or AIMS-IA, and is a flag elsewhere. */
+  const pv = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o provedor registra o sistema."), "AIMS-IA", null);
+  if (pv.forbidden.length) fails.push("`provedor` was gated in AIMS-IA, where the ABNT term is unknown");
+  const pv2 = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o provedor registra o sistema."), "AIGRM-I", null);
+  if (!pv2.mixed.some((f) => f.variant === "provedor")) fails.push("`provedor` was not reported on AIGRM-I");
 
   /* SCOPE: the same word in a Scrum certification is not examined at all. */
   const b = lintRow(row("pt-BR", "O fornecedor entrega o incremento."), "SM-AI-I", null);
@@ -191,7 +252,7 @@ export function translationLintControls() {
   const k1 = lintRow(row("pt-BR", "Um sistema de alto risco exige supervisão."), "AIGRM-I", null);
   if (k1.forbidden.length) fails.push("`alto risco` (severity flag) landed in FORBIDDEN, which the gate blocks");
   if (!k1.mixed.some((x) => x.variant === "alto risco")) fails.push("`alto risco` was not reported at all");
-  const k2 = lintRow(row("pt-BR", "O fornecedor deve registrar."), "AIGRM-I", null);
+  const k2 = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o fornecedor deve registrar."), "AIGRM-I", null);
   if (!k2.forbidden.some((x) => x.variant === "fornecedor")) fails.push("a `failure` term stopped landing in FORBIDDEN");
 
   /* THE METALINGUISTIC OPT-OUT. An item ABOUT the two modals must not be reported for carrying them. */
@@ -205,7 +266,7 @@ export function translationLintControls() {
   const j = lintRow(row("pt-BR", "O prestador deve manter a norma e a acreditação."), "AIMS-IA", null);
   if (j.forbidden.length) fails.push("a clean pt row fired: " + JSON.stringify(j.forbidden));
 
-  return { examined: 15, fails };
+  return { examined: 20, fails };
 }
 
 

@@ -2054,6 +2054,124 @@ if (problems.length || ctlFail.length) {
 /* `annex_gaps` travels WITH the passages, because the gate that refuses an unanchorable
  * citation needs the list and must not re-derive it: a second copy of this fact would
  * go stale the first time the extractor improves. */
+/* ============ 27002's PER-CONTROL ATTRIBUTE TABLE IS FURNITURE, AND 27002 SAYS SO ITSELF ============
+ *
+ * Found 2026-09-28 while reading the candidates offered for ISMS-F task 4.8. **93 of 114 ISO/IEC 27002
+ * passages began with the control's attribute table**, and the table extracts as column-interleaved
+ * nonsense because it is a table:
+ *
+ *   Control type Information Cybersecurity Operational Security domains #Preventive security properties
+ *   concepts capabilities #Governance_and_ #Confidentiality #Identify #Supplier_relation- Ecosystem
+ *   #Protec- #Integrity ships_security tion #Availability Control Processes and procedures should be...
+ *
+ * The control's actual statement starts about forty tokens in. Three consequences, and the third is the one
+ * that made this worth stopping for: the text is wrong at the head; an anchor quoted from it would be
+ * hashtag soup; and **the judge sees 700 characters of which the first 250 are noise**, on the two
+ * certifications about to be run.
+ *
+ * This is the interleaved-column defect already recorded against 27002's ANNEX A matrix, arriving in the
+ * MAIN BODY through a different door -- and the fix is the same move that fixed the annex: ask what the
+ * document says the thing IS. **ISO/IEC 27002 clause 4.3 "Control layout" declares it**:
+ *
+ *   "-- Control title ... -- Attribute table: A table shows the value(s) of each attribute ...
+ *    -- Control: What the control is; -- Purpose: Why ...; -- Guidance: How ...; -- Other information ..."
+ *
+ * So the cut is a LOOKUP against the document's own declaration, not a test of the table's shape.
+ *
+ * TWO THINGS THE FIRST DRAFT GOT WRONG AND THE CONTROLS CATCH:
+ *   - `Control type` is the attribute table's own first cell, so cutting at the first `Control` cuts
+ *     nothing. Each occurrence is tried in order and the first leaving a SUBSTANTIVE remainder wins --
+ *     the same rule that recovered A.4.6, where the separator sat at character 515 of 522.
+ *   - clause 4.3 itself contains every one of those labels, as the declaration. Only passages in the
+ *     control clauses 5 to 8 are touched, and 4.3 must come through unchanged.
+ *
+ * The attributes are DISCARDED rather than parsed into a field. They are recoverable only by reading the
+ * PDF's columns, and a hand-parsed version of interleaved text would be a second copy that is wrong. */
+{
+  const before = passages.filter((p) => p.source_id === "ISO/IEC 27002").length;
+  let cut = 0, noSep = 0;
+  const substantive = (s) => String(s || "").trim().length >= 40 && /[a-z]{3}/.test(String(s || ""));
+  const cutTable = (text) => {
+    const s = String(text || "");
+    /* every `Control` that is not the table cell `Control type`, earliest first */
+    const re = /(?:^|\s)Control\s+(?!type\b)/g;
+    let m;
+    while ((m = re.exec(s))) {
+      const rest = s.slice(m.index + m[0].length);
+      if (substantive(rest)) return rest.trim();
+    }
+    return null;
+  };
+  for (const p of passages) {
+    if (p.source_id !== "ISO/IEC 27002") continue;
+    if (!/^[5-8]\./.test(String(p.clause))) continue;     /* control clauses only; 4.3 is the declaration */
+    if (!/^Control type/.test(String(p.text || ""))) continue;
+    const r = cutTable(p.text);
+    if (r) { p.text = r; p.chars = r.length; cut++; } else noSep++;
+  }
+  /* ============ AND THE GATE FOUND AN OVER-RUN IT WAS NOT LOOKING FOR ============
+   *
+   * The hashtag control above refused the first write naming ONE clause: 5.31. The cut had worked; what
+   * survived was a SECOND control's attribute table, because **5.31's passage runs past "Other information
+   * No other information." into "5.32 Intellectual property rights Control type ..."** -- its end boundary
+   * is wrong, 5.32's heading having not been recognised as one. 5.32 is held separately at 3,646 characters,
+   * so this is an over-run and not a missing control, and the 93 are all present.
+   *
+   * Worth recording that SIZE could not have found it: 33 control passages exceed 4,000 characters and
+   * almost all are legitimately long -- 8.8 is 10,557. The hashtag test names exactly one. A test for the
+   * PROPERTY found what a test for the symptom would have buried in 33 false positives.
+   *
+   * The truncation asks the document again: cut at the earliest point where a LATER held control's own
+   * declared heading -- its number followed by its title -- appears inside this passage. Those titles come
+   * from the document's contents list, so nothing here is a guess about where a control ends. */
+  let truncated = 0;
+  const ctlList = passages.filter((p) => p.source_id === "ISO/IEC 27002" && /^[5-8]\./.test(String(p.clause)));
+  const order = new Map(ctlList.map((p, i) => [p.clause, i]));
+  for (const p of ctlList) {
+    const mine = order.get(p.clause);
+    let at = -1;
+    for (const q of ctlList) {
+      if (order.get(q.clause) <= mine || !q.title) continue;
+      const needle = q.clause + " " + q.title;
+      const k = String(p.text).indexOf(needle);
+      if (k > 200 && (at < 0 || k < at)) at = k;
+    }
+    if (at > 0) {
+      p.text = String(p.text).slice(0, at).trim();
+      p.chars = p.text.length;
+      truncated++;
+    }
+  }
+  /* BOTH DIRECTIONS, on the live rows rather than on a fixture, because the population is the check. */
+  const fails = [];
+  const decl = passages.find((p) => p.source_id === "ISO/IEC 27002" && p.clause === "4.3");
+  if (!decl || !/Attribute table/.test(String(decl.text || ""))) {
+    fails.push("clause 4.3 Control layout is missing or no longer declares the attribute table -- the cut " +
+      "rests on that declaration and must not run without it");
+  }
+  if (!decl || !/^The layout for each control/.test(String(decl.text || "").trim())) {
+    fails.push("clause 4.3 was itself cut -- the declaration must come through untouched");
+  }
+  const still = passages.filter((p) => p.source_id === "ISO/IEC 27002" && /#Preventive|#Detective|#Corrective/
+    .test(String(p.text || ""))).map((p) => p.clause);
+  const stillCtl = still.filter((c) => /^[5-8]\./.test(c));
+  if (stillCtl.length) fails.push("attribute hashtags survive in control clauses: " + stillCtl.join(", "));
+  if (cut < 80) fails.push("only " + cut + " control(s) had a table cut; 27002 has 93 controls");
+  const empty = passages.filter((p) => p.source_id === "ISO/IEC 27002" && /^[5-8]\./.test(String(p.clause)) &&
+    !substantive(p.text)).map((p) => p.clause);
+  if (empty.length) fails.push("control(s) left without a substantive statement: " + empty.join(", "));
+  console.log("");
+  console.log("ISO/IEC 27002 ATTRIBUTE TABLE, cut per clause 4.3's own declaration");
+  console.log("  passages " + before + "   tables cut " + cut + "   no separator found " + noSep +
+    "   over-runs truncated at the next control's declared heading " + truncated);
+  if (fails.length) {
+    console.error("  CONTROLS FAILED -- nothing written:");
+    fails.forEach((f) => console.error("    " + f));
+    process.exitCode = 3; process.exit();
+  }
+  console.log("  controls: 5 case(s), 0 fail");
+}
+
 /* ============ 27002 CHOOSES BETWEEN TWO READINGS OF THE SAME 27001 PAGE ============
  *
  * Ruled 2026-09-28, after three attempts to pick the right reading by shape all failed: one blanket rule

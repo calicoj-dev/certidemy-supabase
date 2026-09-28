@@ -81,11 +81,30 @@ const EXEMPLARS = {
   ],
 };
 
+/* ============ THE POOL WAS TOO NARROW, AND THE ZERO-CANDIDATE TASKS PROVED IT ============
+ *
+ * Six ISMS-F tasks came back with no candidate, and reading them showed the ranker had not been given the
+ * documents they are about:
+ *
+ *   4.2  "control attributes and how they support selection and reporting"  ->  ISO/IEC 27002 clause 4.2,
+ *        "Themes and attributes". Held all along; never searched.
+ *   5.5  "stage 1, stage 2, surveillance and the three-year cycle"          ->  ISO/IEC 17021-1 9.3.1.2.1
+ *        "Stage 1", 9.3.1.3 "Stage 2", 9.6.2 surveillance. Held; never searched.
+ *
+ * A certification is examined on the standard it is named after PLUS the documents that standard delegates
+ * to and the ones the scheme itself runs on. 27001 defines no vocabulary (clause 3 delegates to 27000), its
+ * controls are elaborated in 27002, and the certification PROCESS a Foundation candidate is taught lives in
+ * 17021-1. Leaving those out does not make the mapping conservative, it makes six tasks unanswerable.
+ *
+ * AIMS-F KEEPS 42001 ALONE, DELIBERATELY. Its 150 links were reviewed against 42001, so widening its pool
+ * would change what the control measures. The consequence is stated rather than hidden: the other three
+ * face a LARGER candidate pool than the control did, so precision measured on AIMS-F is an upper bound for
+ * them, not a like-for-like prediction. */
 const CERTS = {
   "AIMS-F": { standards: ["ISO/IEC 42001"] },
-  "ISMS-F": { standards: ["ISO/IEC 27001"] },
-  "AIMS-IA": { standards: ["ISO/IEC 42001", "ISO 19011"] },
-  "ISMS-IA": { standards: ["ISO/IEC 27001", "ISO 19011"] },
+  "ISMS-F": { standards: ["ISO/IEC 27001", "ISO/IEC 27002", "ISO/IEC 27000", "ISO/IEC 17021-1"] },
+  "AIMS-IA": { standards: ["ISO/IEC 42001", "ISO 19011", "ISO/IEC 22989", "ISO/IEC 42006"] },
+  "ISMS-IA": { standards: ["ISO/IEC 27001", "ISO 19011", "ISO/IEC 27002", "ISO/IEC 27000"] },
 };
 
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
