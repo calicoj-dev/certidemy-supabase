@@ -39,7 +39,8 @@
  * so a contents entry can never win.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFS } from "./lib/citation-index.mjs";
@@ -55,21 +56,17 @@ const VERBOSE = process.argv.includes("--verbose");
 
 const SOURCES = [
   { id: "ISO/IEC 42001", edition: "2023", path: PDFS["42001:2023"], kind: "iso" },
-  /* ============ 27001 IS LAYOUT-ONLY, BECAUSE ITS ANNEX IS A TWO-COLUMN TABLE ============
+  /* 27001 RUNS BOTH MODES, and an attempt to make it layout-only is recorded here so nobody repeats it.
+   * The annex table is only readable in `-layout`, so restricting the source to that mode looked like the
+   * fix for the six misattached controls -- and the extractor's own citation self-check REFUSED THE WRITE:
+   * clauses 4.3, 5.2, 6.1.3, 7.1, 7.4, 9.2.2, 10.1 and 10.2 come from PLAIN mode and vanished. Eight
+   * main-body clauses, several cited by the live bank, traded for six annex controls.
    *
-   * Ruled 2026-09-28 after the all-93 witness found six misattached controls. The annex rule that is
-   * actually correct -- a row's statement is the right-column text after that row's OWN `Control` header
-   * -- depends on SEEING the columns, which only `-layout` preserves. In plain mode the columns are
-   * flattened into reading order, so the same rule hands a row its NEIGHBOUR's statement.
-   *
-   * Running both modes and taking the longer text made that worse rather than better: the misattached
-   * string is its own title PLUS a neighbour's statement, so it is LONGER than the correct statement and
-   * won the union every time. Fixing the layout path alone changed nothing for that reason -- measured, 0
-   * passages changed, which is what sent me looking at the union.
-   *
-   * So the mode is part of this source's definition, exactly as it is for the Official Journal, and for
-   * the same stated reason: where the GRAIN depends on the mode, the mode is not a measurement. */
-  { id: "ISO/IEC 27001", edition: "2022", path: PDFS["27001:2022"], kind: "iso", mode: "layout" },
+   * The real culprit was never the mode: it was `byClause` preferring the LONGEST text, where a
+   * misattached row is longer than a correct one. `fromAnnexTable` fixes that at the merge and both modes
+   * stay. */
+  { id: "ISO/IEC 27001", edition: "2022", path: PDFS["27001:2022"], kind: "iso",
+    annexTableAuthoritative: true },
   { id: "ISO/IEC 27001", edition: "2022/Amd1:2024", path: PDFS["27001:2022/Amd1"], kind: "amendment" },
   { id: "ISO/IEC 27002", edition: "2022", path: PDFS["27002:2022"], kind: "iso" },
   { id: "ISO 19011", edition: "2026", path: PDFS["19011:2026"], kind: "iso" },
@@ -262,7 +259,7 @@ const ISO_HEADING_TABBED = /^ {0,8}([A-Z]?\.?\d+(?:\.\d+){0,3})\t\s*([A-Za-z].{2
  * zero annex controls while reporting nothing wrong. Cut by the identifier markers --
  * the same "use the document's own sequential numbering" move the definitions needed.
  */
-function splitAnnexTable(lines, from) {
+function splitAnnexTable(lines, from, rightColumnAlways = false) {
   const marks = [];
   for (let i = from; i < lines.length; i++) {
     const ln = lines[i].trim();
@@ -422,7 +419,11 @@ function splitAnnexTable(lines, from) {
      * every annex row, and `leadRest` is used only when the right-column read finds nothing. That
      * inverts which one is the exception, which is the point: the special case was the correct one.
      */
-    {
+    /* The right-column read is the primary path only where the source declares its annex table
+     * authoritative. Applied everywhere it broke ISO/IEC 42001's A.2.2 and A.2.4 -- the extractor's own
+     * citation self-check refused the write -- because that annex is not the interleaved two-column
+     * layout this rule is about. Elsewhere it stays what it was: the recovery for an empty cell. */
+    if (text.length < 20) {
       const startAt = m.line;
       /* ============ THE STATEMENT BEGINS AFTER THIS ROW'S OWN HEADER ============
        *
@@ -485,7 +486,9 @@ function splitAnnexTable(lines, from) {
       }
     }
 
-    if (text.length >= 20) out.push({ clause: m.clause, title, text });
+    /* `fromAnnexTable` is how the merge knows this reading came from the two-column splitter rather than
+     * from the heading pass. Without it the merge falls back to length, which prefers a misattached row. */
+    if (text.length >= 20) out.push({ clause: m.clause, title, text, fromAnnexTable: true });
   });
   return out;
 }
@@ -878,7 +881,7 @@ function splitIso(text, declaredSeed, opts) {
     return !!m && !isContentsLine(ln) && /\bcontrols\s*$/i.test(m[1].trim());
   });
   if (tableAt < 0) return body;
-  const table = splitAnnexTable(lines, tableAt);
+  const table = splitAnnexTable(lines, tableAt, opts && opts.annexTableAuthoritative === true);
   if (!table.length) return body;
 
   /* WHERE A CONTROL TABLE EXISTS, THE TABLE SPLITTER IS THE ONLY AUTHORITY ON CONTROL
@@ -1578,7 +1581,8 @@ for (const s of SOURCES) {
       modesUsed.push("pagenum" + (layout ? "-layout" : "-plain") + ":-" + cleaned.dropped);
     }
 
-    const got = split(s.kind, text, declaredSeed, { paragraphGrain: !!s.paragraphGrain });
+    const got = split(s.kind, text, declaredSeed,
+      { paragraphGrain: !!s.paragraphGrain, annexTableAuthoritative: !!s.annexTableAuthoritative });
     if (got.length) modesUsed.push((layout ? "-layout" : "plain") + ":" + got.length);
     for (const p of got) {
       /* THE TEXT AND THE TITLE ARE WON SEPARATELY. The longer text is the more complete
@@ -1589,7 +1593,27 @@ for (const s of SOURCES) {
        * matched by the thing that matches best. */
       const prev = byClause.get(p.clause);
       if (!prev) { byClause.set(p.clause, p); continue; }
-      const win = p.text.length > prev.text.length ? p : prev;
+      /* ============ THE ANNEX TABLE OUTRANKS LENGTH, AND THIS WAS THE OVERWRITER ============
+       *
+       * `the longest text wins` is right for two renderings of the same prose and WRONG for a
+       * two-column table, because a MISATTACHED row is longer than a correct one: it is the row's own
+       * title plus a neighbour's statement. So the heading pass -- which, in this file's own words,
+       * "matches whatever line happens to look like a heading" -- beat the table splitter on exactly
+       * the six controls the 27002 witness flagged.
+       *
+       * That is why three separate fixes to the annex splitter each measured 0 passages changed: the
+       * splitter was producing the correct statement, winning its own table-first union, and then losing
+       * here on length. The table is the only thing that can read a table; for an address it produced,
+       * it wins whatever the other pass found. */
+      /* AND IT IS DECLARED PER SOURCE, because 42001 refused it. With the precedence applied to every
+       * source, 42001's A.2.2 and A.2.4 stopped matching their expected content and the extractor's own
+       * citation self-check refused the write -- its annex is not the interleaved two-column layout that
+       * makes the table splitter the better reader. Whether 42001's annex has the same latent defect is
+       * the subject of the Annex A/B witness, not something to assume from 27001's page design. */
+      const tableWins = s.annexTableAuthoritative === true;
+      const win = tableWins && prev.fromAnnexTable && !p.fromAnnexTable ? prev
+        : tableWins && p.fromAnnexTable && !prev.fromAnnexTable ? p
+        : p.text.length > prev.text.length ? p : prev;
       const other = win === p ? prev : p;
       if (!String(win.title || "").trim() && String(other.title || "").trim()) {
         win.title = other.title;
@@ -1985,13 +2009,112 @@ if (problems.length || ctlFail.length) {
 /* `annex_gaps` travels WITH the passages, because the gate that refuses an unanchorable
  * citation needs the list and must not re-derive it: a second copy of this fact would
  * go stale the first time the extractor improves. */
-writeFileSync(join(ROOT, "SOURCE-PASSAGES.json"),
+/* ============ THE 27002 TWO-DIRECTION WITNESS, AS A GATE ON THE WRITE ============
+ *
+ * Ruled 2026-09-28: extraction FAILS if any ISO/IEC 27001 Annex A control matches a NEIGHBOUR better
+ * than itself. That makes the six-control repair self-verifying and guards against the regression I
+ * caused while attempting it -- a blanket right-column rule shifted 79 of 93 controls by one row, and
+ * only an independent witness catches that. A count of extracted controls cannot: 93 stayed 93.
+ *
+ * THE WITNESS OWES NOTHING TO THIS EXTRACTOR'S 27001 READING. ISO/IEC 27002 states each control at the
+ * same number in the guidance voice, so 27001's "Logs ... shall be produced" is 27002's "... should be
+ * produced". Both neighbours are compared, because off-by-one has two directions and four of the six
+ * live failures borrow BACKWARD -- a check that looks one way is half a check.
+ */
+{
+  const p1 = new Map(passages.filter((p) => p.source_id === "ISO/IEC 27001" && p.edition === "2022")
+    .map((p) => [String(p.clause), p]));
+  const p2 = new Map(passages.filter((p) => p.source_id === "ISO/IEC 27002" && p.edition === "2022")
+    .map((p) => [String(p.clause), p]));
+  const nrm = (s) => String(s || "").toLowerCase().replace(/\bshall\b/g, "should")
+    .replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  const runOf = (stmt, other) => {
+    if (!other) return 0;
+    const a = nrm(stmt).split(" "), b = nrm(other).split(" ");
+    const grams = new Set();
+    for (let i = 0; i < b.length; i++) grams.add(b.slice(i, i + 4).join(" "));
+    let best = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (!grams.has(a.slice(i, i + 4).join(" "))) continue;
+      let n = 4;
+      while (i + n < a.length && grams.has(a.slice(i + n - 3, i + n + 1).join(" "))) n++;
+      if (n > best) best = n;
+    }
+    return best;
+  };
+  const shift = (c, d) => {
+    const [g, n] = c.slice(2).split(".").map(Number);
+    return n + d >= 1 ? "A." + g + "." + (n + d) : null;
+  };
+  const bad = [];
+  let checked = 0, unwitnessed = 0;
+  for (const [clause, p] of p1) {
+    if (!/^A\.\d+\.\d+$/.test(clause)) continue;
+    const own = p2.get(clause.slice(2));
+    if (!own) { unwitnessed++; continue; }
+    checked++;
+    const ro = runOf(p.text, own.text);
+    const nb = [shift(clause, 1), shift(clause, -1)]
+      .map((c) => (c ? { c, r: runOf(p.text, (p2.get(c.slice(2)) || {}).text) } : null)).filter(Boolean);
+    const worst = nb.reduce((m, x) => (x.r > m.r ? x : m), { c: null, r: 0 });
+    if (worst.r >= 6 && worst.r > ro) {
+      bad.push(clause + ": own " + ro + " words against " + worst.r + " for " + worst.c);
+    }
+  }
+  console.log("");
+  console.log("27002 WITNESS over ISO/IEC 27001 Annex A");
+  console.log("  controls checked      " + checked + "   (no 27002 clause at that number: " + unwitnessed + ")");
+  console.log("  matching a NEIGHBOUR better than themselves  " + bad.length);
+  for (const b of bad) console.log("    " + b);
+  if (bad.length) {
+    console.error("");
+    console.error("REFUSING TO WRITE: " + bad.length + " ISO/IEC 27001 Annex A control(s) carry a");
+    console.error("neighbour's statement. A statement under the wrong control number resolves, passes every");
+    console.error("gate, and hands an item the wrong requirement -- worse than a missing control.");
+    console.error("Repair the extraction, or run with ALLOW_MISATTACHED_27001=1 to write anyway and say so.");
+    if (process.env.ALLOW_MISATTACHED_27001 !== "1") { process.exitCode = 3; process.exit(); }
+    console.error("ALLOW_MISATTACHED_27001=1 -- writing a library with " + bad.length + " known misattached controls.");
+  }
+}
+
+/* ============ THE FILE READ AFTERWARDS MUST BE THE FILE THIS RUN WROTE ============
+ *
+ * Ruled 2026-09-28. Three fixes in a row measured "0 passages changed", and a stale or cached artifact
+ * produces exactly that reading -- so the run now proves its own output's identity rather than leaving
+ * the next reader to assume it. Path, mtime and sha256, before and after.
+ *
+ * It was NOT the cause here (the cause was the byClause length rule), and that is why this stays: the
+ * hypothesis was cheap to test and expensive to leave open, and the next "0 changed" should not cost
+ * another three rounds to rule out. */
+const OUT_PATH = join(ROOT, "SOURCE-PASSAGES.json");
+const sha = (p) => {
+  try { return createHash("sha256").update(readFileSync(p)).digest("hex").slice(0, 16); }
+  catch { return "(absent)"; }
+};
+const mtimeOf = (p) => {
+  try { return statSync(p).mtime.toISOString(); } catch { return "(absent)"; }
+};
+const beforeSha = sha(OUT_PATH), beforeMtime = mtimeOf(OUT_PATH);
+
+writeFileSync(OUT_PATH,
   JSON.stringify({
     sources: perSource, annex_gaps: annexGaps, sequence_gaps: seqGaps,
     parallel_report: parallelReport, parallel_align_diffs: alignDiffs,
     passages, parallel,
   }, null, 1) + "\n", "utf8");
+
+const afterSha = sha(OUT_PATH), afterMtime = mtimeOf(OUT_PATH);
 console.log("");
+console.log("ARTIFACT IDENTITY");
+console.log("  path    " + OUT_PATH);
+console.log("  before  sha256 " + beforeSha + "   mtime " + beforeMtime);
+console.log("  after   sha256 " + afterSha + "   mtime " + afterMtime);
+if (beforeSha === afterSha) {
+  console.log("  UNCHANGED BYTES -- this run produced a byte-identical artifact. If you expected a change,");
+  console.log("  the change is not happening, and it is not a stale read.");
+} else {
+  console.log("  bytes changed, and the reader after this run sees THIS sha256");
+}
 console.log("wrote SOURCE-PASSAGES.json");
 if (VERBOSE) {
   for (const s of perSource) {
