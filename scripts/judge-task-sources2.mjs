@@ -127,17 +127,33 @@ RULES.
   practice, a vendor concept -- set none_apply true, return no primary, and say so. That is a legitimate
   answer and better than a loose match.`;
 
+/* ============ PASS 2 RETURNS ONLY WHAT IT DROPS ============
+ *
+ * The first design asked pass 2 to re-emit every candidate in one of two lists, each with a reason.
+ * On the three tasks with the most candidates -- 20, 29 and 30 -- it returned nothing parseable, and
+ * a retry with an explicit instruction did not help either. Those three plus one malformed pass 1
+ * account for **48 of the 55 misses**: excluding them, recall on the other 31 tasks is 93.1 percent.
+ *
+ * The cause is the output budget. Thirty candidates re-emitted with source, clause, reason and
+ * confidence is a long answer, and a truncated JSON object parses to nothing -- so the task scored
+ * as "confirmed none" when what happened was "the answer did not fit".
+ *
+ * Asking for the DROPS alone makes the answer short and bounded by the number of rejections rather
+ * than by the number of candidates, and it is the better question anyway: pass 1 already gave a
+ * reason for each pick, and pass 2's job is to remove what the TEXT disqualifies. Keep-by-default
+ * with an explicit drop list cannot silently lose a candidate -- anything not named is kept, so a
+ * short answer now means "few drops" instead of "no verdict". */
 const SYSTEM2 = `You are confirming a shortlist you produced from clause TITLES alone. Now you have the TEXT.
 
 For each candidate decide whether an exam item written for this task could rest its KEY on that passage.
 
-Return JSON only:
+Return JSON only, and list ONLY the ones you are DROPPING:
 
-{"confirmed":[{"source":"...","clause":"...","reason":"<one line>","confidence":"high"|"medium"|"low"}],
- "dropped":[{"source":"...","clause":"...","why":"<one line: what the text turned out to be>"}]}
+{"dropped":[{"source":"...","clause":"...","why":"<one line: what the text turned out to be>"}]}
 
 RULES.
-- Every candidate appears in exactly one of the two lists. Copy source and clause exactly as given.
+- ANYTHING YOU DO NOT NAME IS KEPT. Do not echo the candidates you are keeping.
+- Copy source and clause exactly as given, for the ones you drop.
 - KEEP a passage whose text states what the task tests, even if the title was vague.
 - DROP a passage whose text turns out to be about something else, or which only mentions the subject
   without stating anything an item could test.
@@ -378,29 +394,25 @@ for (const t of FROM ? [] : tasks) {
       reason: String(e.message).slice(0, 140) });
     process.stdout.write("!"); continue;
   }
-  let confirmed = (v2 && Array.isArray(v2.confirmed) ? v2.confirmed : [])
-    .map((x) => { const c = resolveClause(x.source, x.clause); return c ? { ...x, clause: c } : null; })
-    .filter(Boolean);
-  let dropped = (v2 && Array.isArray(v2.dropped) ? v2.dropped : []);
-  /* ONE RETRY WHEN PASS 2 UNDER-ACCOUNTS. A pick with no verdict is not a rejection, and the first
-   * run lost 93 of 469 that way -- one task handed over 26 candidates and got back nothing at all.
-   * Retried once; if it still under-accounts the shortfall is reported rather than scored as zero. */
-  if (confirmed.length + dropped.length < picks.length) {
-    try {
-      const again = parseObject(await claude(SYSTEM2 +
-        "\n\nYour previous answer omitted candidates. EVERY candidate must appear in exactly one of " +
-        "the two lists. Return all " + picks.length + " of them.",
-      JSON.stringify(p2, null, 1), 4000));
-      const c2 = (again && Array.isArray(again.confirmed) ? again.confirmed : [])
-        .map((x) => { const c = resolveClause(x.source, x.clause); return c ? { ...x, clause: c } : null; })
-        .filter(Boolean);
-      const d2 = (again && Array.isArray(again.dropped) ? again.dropped : []);
-      if (c2.length + d2.length > confirmed.length + dropped.length) { confirmed = c2; dropped = d2; }
-    } catch { /* keep the first answer; the shortfall is reported */ }
-  }
-  results.push({ task: t.code, state: "judged", statement: t.statement,
+  /* KEEP-BY-DEFAULT. Pass 2 names only its drops, so a candidate can never be lost to a truncated
+   * answer: confirmed is derived by subtraction, and every pick is accounted for by construction.
+   *
+   * `v2 === null` is a THIRD STATE and is not "dropped nothing". A pass 2 that did not parse must
+   * not silently confirm all 30 picks -- that would replace losing everything with keeping
+   * everything, which is the same defect wearing the opposite sign. It is recorded as unanswered. */
+  const pass2Answered = Boolean(v2 && Array.isArray(v2.dropped));
+  const dropped = pass2Answered ? v2.dropped : [];
+  const dropKeys = new Set(dropped
+    .map((x) => { const c = resolveClause(x.source, x.clause); return c ? x.source + "|" + c : null; })
+    .filter(Boolean));
+  const confirmed = pass2Answered
+    ? picks.filter((x) => !dropKeys.has(x.source + "|" + x.clause))
+    : [];
+  results.push({ task: t.code, state: pass2Answered ? "judged" : "pass2-unanswered",
+    statement: t.statement,
     pass1: picks.map((x) => x.source + "|" + x.clause),
-    primary: confirmed, dropped, none_apply: !!v1.none_apply, note: v1.note || null, invented });
+    primary: confirmed, dropped, pass2Answered,
+    none_apply: !!v1.none_apply, note: v1.note || null, invented });
   process.stdout.write(".");
   writeFileSync(RAW, JSON.stringify({ cert: CERT, ungated: true,
     note: "RAW two-pass output, not scored.", results }, null, 1) + "\n", "utf8");
@@ -510,8 +522,7 @@ const unaccounted = [];
 for (const r of results) {
   const p1 = (r.pass1 || []).length;
   if (!p1) continue;
-  const seen = ((r.primary || []).length + (r.dropped || []).length);
-  if (seen < p1) unaccounted.push({ task: r.task, offered: p1, accounted: seen });
+  if (r.pass2Answered === false) unaccounted.push({ task: r.task, offered: p1, accounted: 0 });
 }
 if (unaccounted.length) {
   console.log("");
