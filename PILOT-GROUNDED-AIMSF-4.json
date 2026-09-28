@@ -80,15 +80,15 @@
       "is_correct": true
      },
      {
-      "text": "Assigned persons or groups with their own functions, responsibilities and authorities for achieving the organization's objectives",
+      "text": "Technical documentation about an AI system supplied to users, partners and supervisory authorities in suitable form",
       "is_correct": false
      },
      {
-      "text": "Designated persons of an organization who direct and control it at the highest level and delegate authority",
+      "text": "A defined process for assessing how an AI system can affect individuals, groups and societies",
       "is_correct": false
      },
      {
-      "text": "Formal intentions and direction of an organization expressed by top management and the resources allocated to them",
+      "text": "The ongoing activities of monitoring performance, carrying out repairs, issuing updates and providing support",
       "is_correct": false
      }
     ],
@@ -197,9 +197,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (odd-verdict): A is the only option defining a structure of an organization ('connected elements of an organization... policies and objectives') while B, C and D all describe documents/p",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Connected elements of an organization that set its policies and objectives and the processes meeting them",
+     "Assigned persons or groups with their own functions, responsibilities and authorities for achieving the organization's objectives",
+     "Designated persons of an organization who direct and control it at the highest level and delegate authority",
+     "Formal intentions and direction of an organization expressed by top management and the resources allocated to them"
+    ]
    },
    "shape_cues_after": []
   },
@@ -448,11 +458,11 @@
     "question_text": "An organization that already runs a certified information security management system is now putting an AI management system in place. According to Annex D of ISO/IEC 42001, what does this pairing offer the organization?",
     "options": [
      {
-      "text": "The privacy controls of the AI management system map onto the existing certification, while its security controls must be built as an entirely separate programme.",
+      "text": "Privacy-related controls of the AI management system are the ones best folded into the existing ISO 9001 arrangements.",
       "is_correct": false
      },
      {
-      "text": "The existing certification must be surrendered before the AI management system is registered, and the two schemes are then rebuilt as a single combined standard.",
+      "text": "Certification to ISO 9001 is obtained first, and the AI management system is then layered on top of that system.",
       "is_correct": false
      },
      {
@@ -460,7 +470,7 @@
       "is_correct": true
      },
      {
-      "text": "The security objectives for AI components are documented in a wholly separate register, and the harmonized structure of the two standards offers no practical overlap.",
+      "text": "Security objectives for the AI components are handled apart from those covering the remaining parts of the system.",
       "is_correct": false
      }
     ],
@@ -574,9 +584,19 @@
     }
    ],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (length): C is by far the longest option and the only one joining two clauses ('share a common high-level structure' + 'controls can sit within...'), while A, B, D are short single-claus",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "The privacy controls of the AI management system map onto the existing certification, while its security controls must be built as an entirely separate programme.",
+     "The existing certification must be surrendered before the AI management system is registered, and the two schemes are then rebuilt as a single combined standard.",
+     "The two systems share a common high-level structure, so combined use is easier, and security-related AI controls can sit within the existing ISO/IEC 27001 work.",
+     "The security objectives for AI components are documented in a wholly separate register, and the harmonized structure of the two standards offers no practical overlap."
+    ]
    },
    "shape_cues_after": []
   },
@@ -1206,7 +1226,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (length): B is the longest option and the only inclusive one (it adds the vendor features and a documentation requirement), while A, C and D each narrow or reverse the scope ('keep outsi",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "rule",
+    "final_reason": "clang cleared, no new cue, limiters intact",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -1465,15 +1489,15 @@
       "is_correct": true
      },
      {
-      "text": "Extend the analysis to produce a statement of applicability justifying each control included or excluded.",
+      "text": "Produce a statement of applicability with justification for included and excluded controls before rating risks.",
       "is_correct": false
      },
      {
-      "text": "Rebuild the risk criteria from the analysis outputs so the criteria reflect this model's ratings.",
+      "text": "Derive the risk criteria afterwards from the ratings that the template produced for this model.",
       "is_correct": false
      },
      {
-      "text": "Replace the consequence analysis with a likelihood-only score drawn from the bank's historical incident data.",
+      "text": "Defer the rating of harm to affected people until the model is running and later reassessed.",
       "is_correct": false
      }
     ],
@@ -1587,9 +1611,19 @@
     }
    ],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (shared-phrase): A and D form a pair on the same topic (rating harm to individuals/affected people); C and D both push work to later ('afterwards', 'until... later reassessed'), leaving ",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Widen the consequence analysis to rate harm to individuals and to society alongside harm to the bank.",
+     "Extend the analysis to produce a statement of applicability justifying each control included or excluded.",
+     "Rebuild the risk criteria from the analysis outputs so the criteria reflect this model's ratings.",
+     "Replace the consequence analysis with a likelihood-only score drawn from the bank's historical incident data."
+    ]
    },
    "shape_cues_after": []
   },
@@ -1604,15 +1638,15 @@
       "is_correct": true
      },
      {
-      "text": "Conduct a fresh information security risk assessment for the change and retain documented information on the treatment decisions.",
+      "text": "Defer any re-assessment until the next scheduled internal audit reviews the existing documented file.",
       "is_correct": false
      },
      {
-      "text": "Adopt the supplier's own impact assessment for the upgraded model and retain that report as documented information.",
+      "text": "Treat the privacy impact assessment already held by the security function as covering the AI aspects.",
       "is_correct": false
      },
      {
-      "text": "Record the automation change in the change log and confirm the original assessment still holds good.",
+      "text": "Release the assessment findings to the relevant interested parties before the change is allowed to proceed.",
       "is_correct": false
      }
     ],
@@ -1721,9 +1755,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (odd-verdict): B and C are avoidance options (defer / reuse an existing document) and D adds an extra release step; only A states the plain do-it-and-keep-records action in standard clau",
-    "probe_after": "no-cue"
+    "probe_after": "no-cue",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Carry out a fresh assessment for the proposed change and retain documented information on what it found.",
+     "Conduct a fresh information security risk assessment for the change and retain documented information on the treatment decisions.",
+     "Adopt the supplier's own impact assessment for the upgraded model and retain that report as documented information.",
+     "Record the automation change in the change log and confirm the original assessment still holds good."
+    ]
    },
    "shape_cues_after": []
   },
@@ -1862,7 +1906,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (odd-verdict): B, C and D each contain a disqualifying flourish (B 'letting the impact work stand in for', C 'hold ... open until', D the absolute 'obligatory'), while A is the only plai",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "rule",
+    "final_reason": "clang cleared; `until` -> `before` is an equivalent limiter",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -1877,15 +1925,15 @@
       "is_correct": true
      },
      {
-      "text": "Its own monitoring control and the two omitted reference controls, with the reasoning held in the treatment plan",
+      "text": "Only controls taken from Annex A, with the self-designed control recorded in the treatment plan instead",
       "is_correct": false
      },
      {
-      "text": "The two omitted reference controls and their justification, with its own monitoring control listed in the treatment plan",
+      "text": "The Annex B implementation guidance chosen for each control, entered and justified alongside the controls",
       "is_correct": false
      },
      {
-      "text": "Its own monitoring control and the two omitted reference controls, each mapped to Annex A control objectives",
+      "text": "No reasoning for the two omitted controls, once designated management has signed off the treatment plan",
       "is_correct": false
      }
     ],
@@ -1999,9 +2047,19 @@
     }
    ],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (only-negation): B and D are the restrictive/negative options ('Only controls taken from Annex A', 'No reasoning...'), while A is the inclusive option that folds in both elements the oth",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Its own monitoring control and the two omitted reference controls, each with the reasoning recorded",
+     "Its own monitoring control and the two omitted reference controls, with the reasoning held in the treatment plan",
+     "The two omitted reference controls and their justification, with its own monitoring control listed in the treatment plan",
+     "Its own monitoring control and the two omitted reference controls, each mapped to Annex A control objectives"
+    ]
    },
    "shape_cues_after": []
   },
@@ -2016,15 +2074,15 @@
       "is_correct": true
      },
      {
-      "text": "Brief the staff on the AI policy and their contribution to system effectiveness, and then confirm they grasp the implications of nonconformity, with records kept.",
+      "text": "Brief the existing team members on the AI policy, their contribution to the system and what failing to conform would mean for the organization.",
       "is_correct": false
      },
      {
-      "text": "Determine and provide the resources the relevant life-cycle stage needs, covering tools, data and computing, and then check that provision was sufficient, with findings documented.",
+      "text": "Identify and record the resources that the relevant life-cycle stage and other AI-related activities call for, covering tools, data and computing.",
       "is_correct": false
      },
      {
-      "text": "Apply distribution, storage, change and retention controls to the team's existing qualification and training records, and then verify the controls operate, with access evidence retained.",
+      "text": "Apply distribution, storage, change and retention arrangements to the team's existing qualification and training records held by the organization.",
       "is_correct": false
      }
     ],
@@ -2133,9 +2191,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (length): A is the longest option and the only one with a two-part structure (take action ... then evaluate effectiveness, with evidence retained), while B, C and D are single flat claus",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Act to obtain the missing capability, for example by training, mentoring, reassignment or hiring, and then judge whether the action worked, with evidence kept.",
+     "Brief the staff on the AI policy and their contribution to system effectiveness, and then confirm they grasp the implications of nonconformity, with records kept.",
+     "Determine and provide the resources the relevant life-cycle stage needs, covering tools, data and computing, and then check that provision was sufficient, with findings documented.",
+     "Apply distribution, storage, change and retention controls to the team's existing qualification and training records, and then verify the controls operate, with access evidence retained."
+    ]
    },
    "shape_cues_after": []
   },
@@ -2150,15 +2218,15 @@
       "is_correct": true
      },
      {
-      "text": "They are covered by the awareness requirement, and their formal qualifications are to be verified by the certification body as part of the audit sample.",
+      "text": "They are outside scope, since awareness applies to payroll staff, while contracted specialists are covered through competence arrangements instead.",
       "is_correct": false
      },
      {
-      "text": "They fall under the awareness requirement, and their awareness is to be demonstrated through signed attendance records retained for every session the organization delivers.",
+      "text": "They are within scope once documented information is held for each of them as evidence that awareness sessions were delivered and understood.",
       "is_correct": false
      },
      {
-      "text": "They sit inside the requirement's scope, and the organization is to determine what it communicates, when, to whom, and by what means.",
+      "text": "They are within scope once the organization has settled what will be communicated, at what times, to which parties, and by what means.",
       "is_correct": false
      }
     ],
@@ -2267,9 +2335,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (shared-phrase): Three options begin \"They are within scope\" (B is the lone \"outside scope\" negation), and of those three, C and D tack on a restrictive \"once ...\" condition, leaving A a",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "They are within scope, and are to be aware of the AI policy, how they contribute to the system's effectiveness, and what non-conformity implies.",
+     "They are covered by the awareness requirement, and their formal qualifications are to be verified by the certification body as part of the audit sample.",
+     "They fall under the awareness requirement, and their awareness is to be demonstrated through signed attendance records retained for every session the organization delivers.",
+     "They sit inside the requirement's scope, and the organization is to determine what it communicates, when, to whom, and by what means."
+    ]
    },
    "shape_cues_after": []
   },
@@ -2284,15 +2362,15 @@
       "is_correct": true
      },
      {
-      "text": "A distribution list, legible storage conditions, version numbering, and a set retention period before authorized disposal.",
+      "text": "Rules for retrieval and use, legible storage, version numbering, and how long it is kept before disposal.",
       "is_correct": false
      },
      {
-      "text": "A scheduled review agenda, attendance by top management, and a recorded decision that the system remains effective.",
+      "text": "A scheduled review by top management confirming that the management system stays suitable, adequate and effective.",
       "is_correct": false
      },
      {
-      "text": "A statement of external reporting duties, the interested parties to be informed, and the channels used for notification.",
+      "text": "A recorded statement of what the organization owes by way of reporting on the AI system to outside parties.",
       "is_correct": false
      }
     ],
@@ -2401,9 +2479,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (shared-phrase): A and C share the distinctive phrase \"suitable and adequate\" (C extends it with \"effective\"), so the answer is likely one of that overlapping pair; A is the more list-li",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "A title and reference number, a workable file format and medium, and sign-off that it is suitable and adequate.",
+     "A distribution list, legible storage conditions, version numbering, and a set retention period before authorized disposal.",
+     "A scheduled review agenda, attendance by top management, and a recorded decision that the system remains effective.",
+     "A statement of external reporting duties, the interested parties to be informed, and the channels used for notification."
+    ]
    },
    "shape_cues_after": []
   },
@@ -2542,7 +2630,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (odd-verdict): Three options (B, C, D) all cede or postpone responsibility to the vendor or a later audit, while A alone is the retain-control verdict — the odd one out.\n  - clang: the k",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "HUMAN OVERRIDE",
+    "final_reason": "check 5 flags `until` dropped; `at the next scheduled internal audit` preserves the deferral. Director's call, 2026-09-28",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -2799,7 +2891,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (shared-phrase): A, B and D all concern 'records' being unaltered/shielded/reachable (a parallel triad); C is the only option not about records and breaks the shared pattern\n  - clang: t",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "HUMAN OVERRIDE",
+    "final_reason": "check 5 flags `without` dropped; `the system has not authorized` preserves the negation. Director's call, 2026-09-28",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -2814,15 +2910,15 @@
       "is_correct": true
      },
      {
-      "text": "Awareness of the security policy carries over unchanged to AI, and the AI policy itself may be communicated later.",
+      "text": "Awareness briefings that already cover the security policy will serve, without adding content on the AI policy.",
       "is_correct": false
      },
      {
-      "text": "Documented information has to be rebuilt as a separate AI register, and maintained under its own control procedure.",
+      "text": "Document control has to be rebuilt as a separate AI register, held apart from the security records.",
       "is_correct": false
      },
      {
-      "text": "Operational planning is discharged by the existing security process controls, and the AI risk treatment controls are implemented afterwards.",
+      "text": "Operational planning is satisfied by the security process controls alone, without the controls chosen in risk treatment.",
       "is_correct": false
      }
     ],
@@ -2928,9 +3024,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (shared-phrase): B and D both end with a dismissive 'without ...' clause and C says the records are held 'apart from the security records'; A is the only option stating a positive requir",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Competence has to be worked out afresh for people whose work bears on AI performance, and evidence of it retained.",
+     "Awareness of the security policy carries over unchanged to AI, and the AI policy itself may be communicated later.",
+     "Documented information has to be rebuilt as a separate AI register, and maintained under its own control procedure.",
+     "Operational planning is discharged by the existing security process controls, and the AI risk treatment controls are implemented afterwards."
+    ]
    },
    "shape_cues_after": []
   },
@@ -3069,7 +3175,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (odd-verdict): Three options describe postponing or filing the action (hold until live, defer to next audit, record instead of re-running) while A is the only one that acts immediately r",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "ALREADY REVERTED",
+    "final_basis": "the re-de-cue run reverted it",
+    "final_reason": "rejected",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -3217,15 +3327,15 @@
       "is_correct": true
      },
      {
-      "text": "They form a mandatory baseline, and an organization must implement every listed control.",
+      "text": "Organizations list in the statement of applicability the guidance items adopted per control.",
       "is_correct": false
      },
      {
-      "text": "They constitute an exhaustive catalogue, and an organization can select any subset it prefers.",
+      "text": "Organizations can treat the guidance as sufficient for their particular control requirements.",
       "is_correct": false
      },
      {
-      "text": "They serve as certification requirements, and an organization can omit its own risk assessment.",
+      "text": "Organizations find guidance for some table entries and devise the rest themselves.",
       "is_correct": false
      }
     ],
@@ -3331,9 +3441,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (odd-verdict): Three options attach a limiting clause ('closed set', 'in full', 'only where an exclusion is claimed') while A is the single permissive option with no restriction.",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "They form a reference set, and an organization can build controls of its own.",
+     "They form a mandatory baseline, and an organization must implement every listed control.",
+     "They constitute an exhaustive catalogue, and an organization can select any subset it prefers.",
+     "They serve as certification requirements, and an organization can omit its own risk assessment."
+    ]
    },
    "shape_cues_after": [
     {
@@ -3587,7 +3707,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (shared-phrase): B, C and D all end with a 'so ...' consequence clause describing something being dropped/omitted; A is the only one that instead ends with an 'and ... is written down' d",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "ALREADY REVERTED",
+    "final_basis": "the re-de-cue run reverted it",
+    "final_reason": "1 new absolute(s): any",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -3731,7 +3855,7 @@
     "question_text": "A logistics firm has an approved AI policy that it reviews each year, and it keeps records of the servers and cloud services running its route-optimization models. An assessor notes that the firm's long-standing information security and quality policies were drafted before any AI work began and have never been examined to see whether they bear on, or are affected by, the firm's AI objectives. Which Annex A control category best fits this finding?",
     "options": [
      {
-      "text": "Documenting a policy that states the organization's objectives for developing AI systems",
+      "text": "Defining and allocating AI roles and responsibilities to suit organizational needs",
       "is_correct": false
      },
      {
@@ -3739,11 +3863,11 @@
       "is_correct": true
      },
      {
-      "text": "Reviewing the AI policy at planned intervals against the organization's changing objectives",
+      "text": "Reviewing the AI policy at planned intervals and as circumstances change",
       "is_correct": false
      },
      {
-      "text": "Documenting the computing resources that the organization's AI policies and objectives require",
+      "text": "Documenting human resources and their competences used across the system life cycle",
       "is_correct": false
      }
     ],
@@ -3854,9 +3978,19 @@
     }
    ],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "clang: the key echoes \"policies\", \"objectives\" from the stem and no distractor does",
-    "probe_after": "no-cue"
+    "probe_after": "no-cue",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Documenting a policy that states the organization's objectives for developing AI systems",
+     "Determining where the organization's other policies bear on its AI objectives",
+     "Reviewing the AI policy at planned intervals against the organization's changing objectives",
+     "Documenting the computing resources that the organization's AI policies and objectives require"
+    ]
    },
    "shape_cues_after": []
   },
@@ -4007,15 +4141,15 @@
       "is_correct": true
      },
      {
-      "text": "Set up a process by which staff can escalate incidents affecting the tool internally",
+      "text": "Write a plan covering how incidents will be announced to people who use the tool",
       "is_correct": false
      },
      {
-      "text": "Set up a register in which the agency logs information owed to regulators about the tool",
+      "text": "Record what the agency owes regulators by way of information about the tool",
       "is_correct": false
      },
      {
-      "text": "Set up a procedure through which suppliers can report data quality problems in the tool",
+      "text": "Record how the datasets behind the tool were obtained and chosen for use",
       "is_correct": false
      }
     ],
@@ -4121,9 +4255,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (odd-verdict): Three options are documentation actions (\"Write a plan\", \"Record\", \"Record\") while A is the only one that sets up an ongoing mechanism, making it the odd verb out; it also",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "Set up a channel through which affected parties can flag negative effects of the tool",
+     "Set up a process by which staff can escalate incidents affecting the tool internally",
+     "Set up a register in which the agency logs information owed to regulators about the tool",
+     "Set up a procedure through which suppliers can report data quality problems in the tool"
+    ]
    },
    "shape_cues_after": []
   },
@@ -4259,7 +4403,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (only-hedged): D is the only option that off-loads the duty and the only one carrying a justifying 'since...' clause, and B and C are pinned to absolutes ('the nine... as the objective s",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "rule",
+    "final_reason": "clang cleared, no new cue, limiters intact",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -4394,15 +4542,15 @@
       "is_correct": true
      },
      {
-      "text": "The controls for retaining and disposing of records, as appropriate, so that documentation stays orderly.",
+      "text": "The arrangements for storing, versioning, retaining and eventually disposing of the resulting records.",
       "is_correct": false
      },
      {
-      "text": "The topics to be tabled for leadership review, where relevant, so that oversight remains meaningful.",
+      "text": "The trends in nonconformities, corrective actions and audit outcomes to be tabled for senior leaders.",
       "is_correct": false
      },
      {
-      "text": "The circumstances that trigger an impact assessment, as needed, so that affected persons are protected.",
+      "text": "The circumstances that would prompt an assessment of consequences for individuals and for societies.",
       "is_correct": false
      }
     ],
@@ -4511,9 +4659,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (only-hedged): A is the only option carrying a hedging qualifier (\"as applicable\") and a vague evaluative term (\"sound\"), while B, C and D each name concrete, specific content.",
-    "probe_after": "no-cue"
+    "probe_after": "no-cue",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "The techniques to be applied, as applicable, so that the outcomes obtained are sound.",
+     "The controls for retaining and disposing of records, as appropriate, so that documentation stays orderly.",
+     "The topics to be tabled for leadership review, where relevant, so that oversight remains meaningful.",
+     "The circumstances that trigger an impact assessment, as needed, so that affected persons are protected."
+    ]
    },
    "shape_cues_after": []
   },
@@ -4528,15 +4686,15 @@
       "is_correct": true
      },
      {
-      "text": "A selection of F1 as the headline performance metric is set out in the annex controls, and the remaining shortfall is purely documentary.",
+      "text": "A choice of F1 as the operating metric is mandated by the annex guidance covering the running and monitoring of AI systems.",
       "is_correct": false
      },
      {
-      "text": "A retention of monitoring records begins at management review, and figures gathered before that point fall outside what the clause requires.",
+      "text": "A record of monitoring outcomes need only be kept from the moment those outcomes are first presented to senior leaders.",
       "is_correct": false
      },
      {
-      "text": "A completed assessment of the consequences of the system for individuals and for societies supplies the evaluation owed, and closes the gap.",
+      "text": "A completed assessment of the consequences of the system for individuals and for societies would close the gap on its own.",
       "is_correct": false
      }
     ],
@@ -4645,9 +4803,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (odd-verdict): B, C and D each contain an absolute/restrictive limiter ('is mandated', 'need only ... from the moment', 'on its own'), while A is the only option stating a plain additive",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "A judgement of how well the management system itself works, and whether it achieves what it is meant to, is also owed.",
+     "A selection of F1 as the headline performance metric is set out in the annex controls, and the remaining shortfall is purely documentary.",
+     "A retention of monitoring records begins at management review, and figures gathered before that point fall outside what the clause requires.",
+     "A completed assessment of the consequences of the system for individuals and for societies supplies the evaluation owed, and closes the gap."
+    ]
    },
    "shape_cues_after": []
   },
@@ -4786,7 +4954,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (length): A is noticeably longer and is the only compound option (three conjoined clauses joined by 'and'), while B, C, D are single short 'Whether X' clauses\n  - key-length: the key is ",
-    "probe_after": "flag"
+    "probe_after": "flag",
+    "final_decision": "KEEP",
+    "final_basis": "rule",
+    "final_reason": "key-length cleared, no new cue, limiters intact",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -4801,15 +4973,15 @@
       "is_correct": true
      },
      {
-      "text": "The setting of objectives, criteria and scope for each audit so the programme stays focused and repeatable",
+      "text": "The setting of objectives, criteria and scope before each individual audit is carried out",
       "is_correct": false
      },
      {
-      "text": "The reporting of audit results to the relevant managers so that corrective action can be taken promptly",
+      "text": "The passing of audit findings to the managers who are responsible for the areas audited",
       "is_correct": false
      },
      {
-      "text": "The weighing of process importance and prior audit findings when planning so the programme stays risk-based",
+      "text": "The weighing of process importance and earlier audit findings when the programme is set up",
       "is_correct": false
      }
     ],
@@ -4918,9 +5090,19 @@
    "verdict": "survivor",
    "shape_cues_before": [],
    "de_cue": {
-    "state": "applied",
+    "state": "reverted",
     "probe_before": "options probe (length): A is the only option that appends a purpose clause giving a rationale ('so the process stays objective and impartial'), making it the longest and most self-justifying option",
-    "probe_after": "no-cue"
+    "probe_after": "no-cue",
+    "final_decision": "REVERT",
+    "final_basis": "not in the final keep list",
+    "final_reason": "",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B",
+    "reverted_from": [
+     "The choice of auditors and the way audits are run so the process stays objective and impartial",
+     "The setting of objectives, criteria and scope for each audit so the programme stays focused and repeatable",
+     "The reporting of audit results to the relevant managers so that corrective action can be taken promptly",
+     "The weighing of process importance and prior audit findings when planning so the programme stays risk-based"
+    ]
    },
    "shape_cues_after": []
   },
@@ -5187,7 +5369,11 @@
    "de_cue": {
     "state": "applied",
     "probe_before": "options probe (odd-verdict): A is the only option whose scope extends beyond this one incident (\"so the same fault does not reappear in other models\"); B, C and D are all confined to the single case a",
-    "probe_after": "no-cue"
+    "probe_after": "no-cue",
+    "final_decision": "ALREADY REVERTED",
+    "final_basis": "the re-de-cue run reverted it",
+    "final_reason": "rejected",
+    "final_ruled": "2026-09-28, PROMPT-85 addendum section B"
    },
    "shape_cues_after": []
   },
@@ -5311,5 +5497,21 @@
    "options_probe": null,
    "verdict": "rejected by code"
   }
- ]
+ ],
+ "de_cue_final": {
+  "ruled": "2026-09-28, PROMPT-85 addendum section B",
+  "keep": [
+   "2.2#1",
+   "2.7#1",
+   "3.4#1 (override)",
+   "3.6#1 (override)",
+   "4.6#1",
+   "5.2#1"
+  ],
+  "kept": 6,
+  "reverted": 15,
+  "already_reverted": 3,
+  "database_rows_affected": 0,
+  "note": "Pilot 4 was never inserted. The clang-triggered keeps stand as finished rewrites; ruling A removes clang from the de-cue TRIGGER for future runs and keeps it in check 3 as a delta."
+ }
 }

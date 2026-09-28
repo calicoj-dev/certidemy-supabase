@@ -53,7 +53,8 @@ import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
   OPTIONS_PROBE_SYSTEM, optionsProbeControls } from "./lib/options-probe.mjs";
 import { shapeCues, shapeCueControls, KEY_LENGTH_TOLERANCE } from "./lib/shape-cues.mjs";
-import { deCueRewriteCheck, deCueCheckControls } from "./lib/de-cue-checks.mjs";
+import { deCueRewriteCheck, deCueCheckControls, newCodeCue, triggerCleared,
+  limiterDropped } from "./lib/de-cue-checks.mjs";
 
 /* ============ THE DE-CUE WRITER, AND IT MAY TOUCH NOTHING BUT THE DISTRACTORS ============
  *
@@ -721,9 +722,30 @@ for (const g of generated) {
      * probe. The solver matters most: a rewritten distractor can become a second correct answer,
      * which is exactly what pilot-2 #15 was. A retry that fails the solver is REVERTED TO THE
      * ORIGINAL rather than rejected, because the original had already passed. */
+    /* ============ THE TRIGGER IS A CODE CUE, AND NOT EVERY CODE CUE ============
+     *
+     * Ruled 2026-09-28 after the director read all 24 pilot-4 rewrites.
+     *
+     * THE PROBE NO LONGER TRIGGERS ANYTHING. It is a model call that picks the key on 98 percent of the
+     * AUTHORED bank, so it reads examiner convention rather than a defect. Most of pilot 4's rewrites
+     * were probe-only on items with no code cue, and rewriting to satisfy it produced parallel, clunkier
+     * distractors that it flagged anyway -- three items went from no-cue to flag, with the cue kind
+     * simply moving to shared-phrase. It is printed as a flag and recorded, and it starts nothing.
+     *
+     * AND CLANG DOES NOT TRIGGER EITHER, until it is narrowed. Its first real measurement -- possible
+     * only after `keyIndex` learned to read a database row -- is 1790 of 4155 secure items, 43 percent,
+     * against a module whose own header says every rule fires on a minority. Members read: "the key
+     * echoes `review`", "`product`", "`developer`". That is the item's subject, not a cue.
+     *
+     * Clang REMAINS in revert check 3, where it compares an item against itself. "A cue appeared that
+     * was not there" does not depend on the base rate; "this item has a cue, rewrite it" does. */
+    const TRIGGER_CUES = new Set(["key-length", "only-hedged", "odd-verdict", "opposite-pair", "agreement"]);
     const preCues = shapeCues(item);
-    const wantsDeCue = (record.options_probe && record.options_probe.state === "flag") || preCues.length > 0;
+    const triggering = preCues.filter((c) => TRIGGER_CUES.has(c.id));
+    const wantsDeCue = triggering.length > 0;
     record.shape_cues_before = preCues.map((c) => ({ id: c.id, cue: c.cue }));
+    record.decue_trigger = triggering.map((c) => c.id);
+    record.decue_non_trigger_cues = preCues.filter((c) => !TRIGGER_CUES.has(c.id)).map((c) => c.id);
     /* ============ THE BEFORE VERDICT IS KEPT, NOT RECONSTRUCTED ============
      *
      * The retry overwrites `options_probe` with the post-rewrite verdict, and the first pilot-4 run
@@ -739,11 +761,10 @@ for (const g of generated) {
     record.item_before_decue = JSON.parse(JSON.stringify(item));
     if (wantsDeCue) {
       deCueAttempted++;
-      const cueList = [
-        ...(record.options_probe && record.options_probe.state === "flag"
-          ? ["options probe (" + record.options_probe.cue_kind + "): " + record.options_probe.cue] : []),
-        ...preCues.map((c) => c.id + ": " + c.cue),
-      ].join("\n  - ");
+      /* The writer is told ONLY the cues it is being asked to clear. Handing it the probe's cue as well
+       * is what produced rewrites aimed at a signal the rule no longer acts on -- and a rewrite aimed at
+       * the wrong target still costs the plausibility risk. */
+      const cueList = triggering.map((c) => c.id + ": " + c.cue).join("\n  - ");
       const keyText = item.options[keyIdxOf(item)].text;
       let revised = null;
       try {
@@ -775,9 +796,39 @@ for (const g of generated) {
           const origD = item.options.filter((_, i) => i !== ki2).map((o) => o.text);
           const newD = cand.options.filter((_, i) => i !== ki2).map((o) => o.text);
           const rw = deCueRewriteCheck(origD, newD, controlTitles);
-          record.de_cue_rewrite_check = rw;
-          if (rw.revert) {
-            record.de_cue = { state: "reverted", reason: rw.reason };
+          /* ============ CHECKS 3, 4 AND 5, ALSO FREE, ALSO BEFORE ANY MODEL CALL ============
+           *
+           * All three come from the director's read of pilot 4, and all three revert:
+           *
+           *   3  a cue id the original did not carry        2.6 and 4.1 went none -> clang
+           *   4  the triggering cue did not clear           4.3 went clang -> clang
+           *   5  a restrictive limiter was dropped          3.2 lost `once`, 5.1 lost `on its own`
+           *
+           * Check 4 is why the trigger list is recorded: without it, "the cue cleared" has no subject.
+           * Check 5 accepts ANY limiter as the equivalent, per the ruling -- 2.7 traded `until` for
+           * `before` and the restriction is intact. */
+          const postCues = shapeCues(cand).map((c) => c.id);
+          const c3 = newCodeCue(preCues.map((c) => c.id), postCues);
+          const c4 = triggerCleared(record.decue_trigger, postCues);
+          const c5 = limiterDropped(origD, newD);
+          record.de_cue_rewrite_check = { ...rw, new_code_cue: c3, trigger_cleared: c4, limiter_dropped: c5 };
+          record.shape_cues_after = shapeCues(cand).map((c) => ({ id: c.id, cue: c.cue }));
+          /* ONE REVERT PATH, FIVE REASONS. Every one of them must short-circuit -- set the state,
+           * restore the recorded cue list, push the record and skip the gates and the solver, because
+           * the item that ships is the ORIGINAL and it has already passed all of them.
+           *
+           * My first wiring of checks 3, 4 and 5 set the state and FELL THROUGH to the gates, which
+           * would have re-gated a reverted item and then overwritten its verdict with the rewrite's.
+           * Collapsing the five into one exit is what makes that impossible to get wrong again. */
+          const revertReason =
+            rw.revert ? rw.reason
+            : c3.length ? "check 3: new code cue " + c3.join(", ") + " that the original did not carry"
+            : !c4.cleared ? "check 4: the triggering cue " + c4.remaining.join(", ") + " did not clear"
+            : c5.length ? "check 5: limiter dropped -- " +
+                c5.map((x) => "option " + (x.index + 1) + " lost " + JSON.stringify(x.limiter)).join("; ")
+            : null;
+          if (revertReason) {
+            record.de_cue = { state: "reverted", reason: revertReason };
             deCueRevertedRewrite++;
             record.shape_cues_after = record.shape_cues_before;
             results.push(record);

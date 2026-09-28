@@ -592,6 +592,45 @@ export function gateNearDuplicate(item, liveStemsForTask) {
  * the same `score()` the lesson scanner uses. The quotation allowance is a MODE there, not a
  * copy here.
  */
+/* ============ G10 -- ISO/IEC 27000 IS NEVER NAMED IN A SERVED FIELD ============
+ *
+ * Juan's ruling, 2026-09-28, on loading ISO/IEC 27000:2018 as a vocabulary source. The standard is
+ * anchorable INTERNALLY -- its clause 3 is where 27001's vocabulary actually lives, since 27001
+ * clause 3 delegates the whole of it -- and it must not appear to a learner.
+ *
+ * TWO REASONS, and the second is the one a code rule can enforce:
+ *
+ *   The edition we hold is 2018 and a 2026 edition exists. An item naming the year pins a claim to an
+ *   edition we will replace; an item naming the standard without a year is worse, because the reader
+ *   cannot tell which edition it meant.
+ *
+ *   An explanation should cite 27001 where the term is used there, and otherwise state the definition
+ *   in OUR OWN WORDS with no source line at all. Naming 27000 is a third option nobody chose.
+ *
+ * SERVED FIELDS ONLY: stem, options, explanation. `key_support` is internal and is where an anchor to
+ * 27000 legitimately lives, which is the whole point of loading it.
+ */
+export function gateNo27000(item) {
+  const fields = [
+    ["stem", item.question_text],
+    ...(item.options || []).map((o, i) => ["option " + String.fromCharCode(97 + i), (o && o.text) || ""]),
+    ["explanation", item.explanation],
+  ].filter(([, t]) => String(t || "").trim());
+  if (!fields.length) {
+    return { id: "no-27000", pass: null, examined: 0, reason: "the item has no served text -- UNASSERTED" };
+  }
+  /* Word-bounded, so a six-figure number containing 27000 is not a citation. Both the bare number and
+   * the spelled forms, because `ISO/IEC 27000` and `ISO 27000` and a bare `27000` all name it. */
+  const re = /(?<!\d)27000(?!\d)/;
+  const hits = fields.filter(([, t]) => re.test(String(t)));
+  if (hits.length) {
+    return { id: "no-27000", pass: false, examined: fields.length,
+      detail: "ISO/IEC 27000 named in " + hits.map(([n]) => n).join(", ") +
+        " -- cite 27001 where the term is used there, or state the definition in our own words" };
+  }
+  return { id: "no-27000", pass: true, examined: fields.length };
+}
+
 export function gateReproduction(item, sources, leak) {
   if (!sources || !leak) {
     return { id: "reproduction", pass: null, examined: 0,
@@ -752,6 +791,7 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
      * the task map or without the leak index cannot read as a clean pass. */
     gateAnchorIsPrimary(item, primaryClauses, supportingClauses),
     gateReproduction(item, sources, leak),
+    gateNo27000(item),
   ];
   const failed = gates.filter((g) => g.pass === false);
   const unasserted = gates.filter((g) => g.pass === null || g.examined === 0);
@@ -1146,6 +1186,43 @@ export function groundedGateControls() {
         key_support: "The organization can extend or modify the implementation guidance or define their own implementation of a control",
       }, new Map([["B.1", soft2]])).pass;
     }, true],
+
+    /* ============ G10, ISO/IEC 27000 IN A SERVED FIELD ============ */
+    ["no-27000 refuses the standard named in an explanation", () => gateNo27000({
+      question_text: "Which statement defines an information asset?",
+      options: [{ text: "Anything of value to the organization" }, { text: "Any server" }],
+      explanation: "ISO/IEC 27000 defines the term; 27001 then uses it.",
+    }).pass, false],
+    ["no-27000 refuses it in a stem", () => gateNo27000({
+      question_text: "As ISO/IEC 27000 defines it, what is availability?",
+      options: [{ text: "Accessible on demand" }, { text: "Encrypted at rest" }],
+      explanation: "Availability is being accessible when an authorised party needs it.",
+    }).pass, false],
+    ["no-27000 refuses it in an option", () => gateNo27000({
+      question_text: "Which standard supplies the vocabulary?",
+      options: [{ text: "ISO/IEC 27000" }, { text: "ISO 9001" }],
+      explanation: "The vocabulary clause delegates.",
+    }).pass, false],
+    /* CLEAN: 27001 is the standard an explanation SHOULD cite, and it must not trip the rule. */
+    ["no-27000 passes an explanation citing 27001", () => gateNo27000({
+      question_text: "Which statement defines an information asset?",
+      options: [{ text: "Anything of value to the organization" }, { text: "Any server" }],
+      explanation: "ISO/IEC 27001 uses the term in clause 8; an asset is anything of value to the organization.",
+    }).pass, true],
+    /* A LONGER NUMBER CONTAINING 27000 IS NOT A CITATION -- the word boundary, both directions. */
+    ["no-27000 passes a six-figure number containing 27000", () => gateNo27000({
+      question_text: "The register holds 127000 records. What does the auditor sample?",
+      options: [{ text: "A risk-based subset" }, { text: "Every record" }],
+      explanation: "Sampling is risk-based; 270000 would change nothing about the method.",
+    }).pass, true],
+    /* `key_support` is INTERNAL and is exactly where an anchor to 27000 belongs. */
+    ["no-27000 ignores key_support, which is never served", () => gateNo27000({
+      question_text: "Which statement defines an information asset?",
+      options: [{ text: "Anything of value to the organization" }, { text: "Any server" }],
+      explanation: "An asset is anything of value to the organization.",
+      key_support_clause: "3.2",
+      key_support: "ISO/IEC 27000:2018, 3.2: asset -- anything that has value to the organization",
+    }).pass, true],
   ];
 
   const fails = [];
