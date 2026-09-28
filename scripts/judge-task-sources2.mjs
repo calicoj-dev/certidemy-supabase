@@ -43,13 +43,17 @@ import { standardsFor } from "./lib/iso-cert-standards.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = null, OUT = "TASK-SOURCE-PROPOSALS2", FROM = null;
+let CERT = null, OUT = "TASK-SOURCE-PROPOSALS2", FROM = null, REDO = null;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
   if ((m = /^--from=(.+)$/.exec(a))) { FROM = m[1]; continue; }
-  console.error("unknown flag " + JSON.stringify(a) + ". Known: --cert=, --out=, --from=");
+  /* --redo re-judges NAMED tasks and keeps every other persisted verdict. The point is that a fix
+   * aimed at two tasks is measured by changing those two tasks and nothing else: re-running all 35
+   * would move other verdicts through ordinary model variation and make the delta unattributable. */
+  if ((m = /^--redo=(.+)$/.exec(a))) { REDO = new Set(m[1].split(",").map((s) => s.trim())); continue; }
+  console.error("unknown flag " + JSON.stringify(a) + ". Known: --cert=, --out=, --from=, --redo=");
   console.error("There is no --apply. Nothing here writes task_sources.");
   process.exitCode = 2; process.exit();
 }
@@ -63,7 +67,7 @@ for (const p of [join(HERE, ".env"), join(ROOT, ".env")]) {
   }
 }
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-if (!ANTHROPIC_API_KEY && !FROM) {
+if (!ANTHROPIC_API_KEY && (!FROM || REDO)) {
   console.error("ANTHROPIC_API_KEY not set"); process.exitCode = 2; process.exit();
 }
 /* SAME MODEL as the first attempt, deliberately: this run changes the ALGORITHM (two passes, no cap)
@@ -352,9 +356,23 @@ if (FROM) {
     console.error("that raw file is for " + prior.cert); process.exitCode = 2; process.exit();
   }
   results.push(...prior.results);
-  console.log("re-scoring " + results.length + " persisted verdict(s) -- no model call made");
+  if (REDO) {
+    const have = new Set(results.map((r) => r.task));
+    const unknown = [...REDO].filter((c) => !have.has(c));
+    if (unknown.length) {
+      console.error("--redo names task(s) not in the raw file: " + unknown.join(", "));
+      console.error("  Known: " + [...have].sort().join(", "));
+      process.exitCode = 2; process.exit();
+    }
+    for (let i = results.length - 1; i >= 0; i--) if (REDO.has(results[i].task)) results.splice(i, 1);
+    console.log("kept " + results.length + " persisted verdict(s); re-judging " +
+      [...REDO].sort().join(", ") + " only");
+  } else {
+    console.log("re-scoring " + results.length + " persisted verdict(s) -- no model call made");
+  }
 }
-for (const t of FROM ? [] : tasks) {
+const toRun = FROM ? (REDO ? tasks.filter((t) => REDO.has(t.code)) : []) : tasks;
+for (const t of toRun) {
   /* pass 1: titles only, complete list */
   const p1 = payload1(t);
   assertBlind(p1);
@@ -384,41 +402,55 @@ for (const t of FROM ? [] : tasks) {
     writeFileSync(RAW, JSON.stringify({ cert: CERT, ungated: true, results }, null, 1) + "\n", "utf8");
     continue;
   }
-  /* pass 2: the TEXT of exactly those picks, confirm or drop */
-  const p2 = payload2(t, picks);
-  assertBlind(p2);
-  let v2 = null;
-  try { v2 = parseObject(await claude(SYSTEM2, JSON.stringify(p2, null, 1), 3000)); }
-  catch (e) {
-    results.push({ task: t.code, state: "could-not-run", pass: 2, pass1: picks,
-      reason: String(e.message).slice(0, 140) });
-    process.stdout.write("!"); continue;
-  }
-  /* KEEP-BY-DEFAULT. Pass 2 names only its drops, so a candidate can never be lost to a truncated
-   * answer: confirmed is derived by subtraction, and every pick is accounted for by construction.
+  /* ============ PASS 2 IS CHUNKED AT 12, BECAUSE THE LIMIT WAS A SHAPE AND NOT A NUMBER ============
    *
-   * `v2 === null` is a THIRD STATE and is not "dropped nothing". A pass 2 that did not parse must
-   * not silently confirm all 30 picks -- that would replace losing everything with keeping
-   * everything, which is the same defect wearing the opposite sign. It is recorded as unanswered. */
-  const pass2Answered = Boolean(v2 && Array.isArray(v2.dropped));
-  const dropped = pass2Answered ? v2.dropped : [];
+   * Pass 2 failed to answer at all on the tasks with the most candidates -- 20, 29 and 30 in one
+   * run; 18 and 32 in the next, after the answer had already been shortened to drops-only. Two
+   * different sizes, same failure, so raising `max_tokens` a third time would have been fitting a
+   * number to the last instance rather than removing the dependency.
+   *
+   * Twelve candidates per call bounds the work per call by construction. The chunks are independent
+   * -- a drop is a judgement about one passage against the task, not against its neighbours -- so
+   * the union of the drops is the same verdict the whole list would have produced, and a chunk that
+   * fails to answer costs only its own twelve.
+   *
+   * A chunk that does not answer is STILL the third state. Its candidates are neither kept nor
+   * dropped; they are recorded as unanswered, because confirming twelve picks nobody judged would
+   * replace losing an answer with inventing one. */
+  const CHUNK = 12;
+  const chunks = [];
+  for (let i = 0; i < picks.length; i += CHUNK) chunks.push(picks.slice(i, i + CHUNK));
+  const dropped = [];
+  const answered = [];               /* picks that belong to a chunk pass 2 actually answered */
+  let chunkFailures = 0;
+  for (const part of chunks) {
+    const p2 = payload2(t, part);
+    assertBlind(p2);
+    let v2 = null;
+    try { v2 = parseObject(await claude(SYSTEM2, JSON.stringify(p2, null, 1), 3000)); }
+    catch { v2 = null; }
+    if (!v2 || !Array.isArray(v2.dropped)) { chunkFailures++; continue; }
+    dropped.push(...v2.dropped);
+    answered.push(...part);
+  }
+  const pass2Answered = chunkFailures === 0;
   const dropKeys = new Set(dropped
     .map((x) => { const c = resolveClause(x.source, x.clause); return c ? x.source + "|" + c : null; })
     .filter(Boolean));
-  const confirmed = pass2Answered
-    ? picks.filter((x) => !dropKeys.has(x.source + "|" + x.clause))
-    : [];
+  const confirmed = answered.filter((x) => !dropKeys.has(x.source + "|" + x.clause));
   results.push({ task: t.code, state: pass2Answered ? "judged" : "pass2-unanswered",
     statement: t.statement,
     pass1: picks.map((x) => x.source + "|" + x.clause),
     primary: confirmed, dropped, pass2Answered,
+    chunks: chunks.length, chunk_failures: chunkFailures,
+    unjudged: picks.length - answered.length,
     none_apply: !!v1.none_apply, note: v1.note || null, invented });
-  process.stdout.write(".");
+  process.stdout.write(chunkFailures ? "x" : ".");
   writeFileSync(RAW, JSON.stringify({ cert: CERT, ungated: true,
     note: "RAW two-pass output, not scored.", results }, null, 1) + "\n", "utf8");
 }
 process.stdout.write("\n");
-if (!FROM) console.log("  raw verdicts persisted to " + RAW);
+if (!FROM || REDO) console.log("  raw verdicts persisted to " + RAW);
 
 /* ============ ONLY NOW ARE THE ACCEPTED LINKS READ ============ */
 linksRead = true;

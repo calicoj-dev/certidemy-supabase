@@ -716,37 +716,6 @@
    "invented": []
   },
   {
-   "task": "1.6",
-   "state": "pass2-unanswered",
-   "statement": "Distinguish an AIMS from model-level assurance and from AI ethics frameworks",
-   "pass1": [
-    "ISO/IEC 42001|1",
-    "ISO/IEC 42001|3.4",
-    "ISO/IEC 42001|4.3",
-    "ISO/IEC 42001|4.4",
-    "ISO/IEC 42001|6.1.2",
-    "ISO/IEC 42001|6.1.3",
-    "ISO/IEC 42001|6.1.4",
-    "ISO/IEC 42001|3.24",
-    "ISO/IEC 42001|A.1",
-    "ISO/IEC 42001|A.6.2.4",
-    "ISO/IEC 42001|B.6.2.4",
-    "ISO/IEC 42001|B.1",
-    "ISO/IEC 42001|C.1",
-    "ISO/IEC 42001|C.2.5",
-    "ISO/IEC 42001|D.1",
-    "ISO/IEC 42001|D.2",
-    "ISO/IEC 42006|1",
-    "ISO/IEC 42006|9.1.3"
-   ],
-   "primary": [],
-   "dropped": [],
-   "pass2Answered": false,
-   "none_apply": false,
-   "note": "The NIST AI RMF relationship appears in front matter/bibliography rather than a numbered clause; no clause title covers it.",
-   "invented": []
-  },
-  {
    "task": "2.1",
    "state": "judged",
    "statement": "Determine the organization's context and interested parties for an AIMS",
@@ -3917,51 +3886,6 @@
    "invented": []
   },
   {
-   "task": "5.5",
-   "state": "pass2-unanswered",
-   "statement": "Describe the certification route and what ISO/IEC 42006 governs",
-   "pass1": [
-    "ISO/IEC 42001|1",
-    "ISO/IEC 42006|1",
-    "ISO/IEC 42006|3.1",
-    "ISO/IEC 42006|4",
-    "ISO/IEC 42006|5.2.1",
-    "ISO/IEC 42006|7.1.1",
-    "ISO/IEC 42006|7.1.2",
-    "ISO/IEC 42006|7.1.3.1",
-    "ISO/IEC 42006|9.1.4.2",
-    "ISO/IEC 42006|9.3.2.1",
-    "ISO/IEC 42006|9.3.2.2",
-    "ISO/IEC 42006|9.5",
-    "ISO/IEC 42006|9.6.2.2",
-    "ISO/IEC 42006|9.6.3",
-    "ISO/IEC 42006|A.1",
-    "ISO/IEC 42006|8.2.2",
-    "ISO/IEC 17021-1|1",
-    "ISO/IEC 17021-1|3.4",
-    "ISO/IEC 17021-1|3.1",
-    "ISO/IEC 17021-1|3.15",
-    "ISO/IEC 17021-1|9.3.1.1",
-    "ISO/IEC 17021-1|9.3.1.2.1",
-    "ISO/IEC 17021-1|9.3.1.3",
-    "ISO/IEC 17021-1|9.3.1.4",
-    "ISO/IEC 17021-1|9.5.3.1",
-    "ISO/IEC 17021-1|9.5.4",
-    "ISO/IEC 17021-1|9.6.1",
-    "ISO/IEC 17021-1|9.6.2.1.1",
-    "ISO/IEC 17021-1|9.6.2.2",
-    "ISO/IEC 17021-1|9.6.3.1.1",
-    "ISO/IEC 17021-1|9.6.3.2.1",
-    "ISO/IEC 17021-1|9.1.3.1"
-   ],
-   "primary": [],
-   "dropped": [],
-   "pass2Answered": false,
-   "none_apply": false,
-   "note": "Accreditation (assessing the certifier) is defined outside these three documents; the closest anchors are the scope statements of 42006 and 17021-1.",
-   "invented": []
-  },
-  {
    "task": "5.6",
    "state": "judged",
    "statement": "Analyze whether an integrated ISO/IEC 27001 and ISO/IEC 42001 audit programme can share evidence",
@@ -4147,6 +4071,346 @@
    "pass2Answered": true,
    "none_apply": false,
    "note": null,
+   "invented": []
+  },
+  {
+   "task": "1.6",
+   "state": "judged",
+   "statement": "Distinguish an AIMS from model-level assurance and from AI ethics frameworks",
+   "pass1": [
+    "ISO/IEC 42001|1",
+    "ISO/IEC 42001|3.4",
+    "ISO/IEC 42001|4.3",
+    "ISO/IEC 42001|4.4",
+    "ISO/IEC 42001|6.1.2",
+    "ISO/IEC 42001|6.1.3",
+    "ISO/IEC 42001|6.1.4",
+    "ISO/IEC 42001|A.1",
+    "ISO/IEC 42001|A.6.1.2",
+    "ISO/IEC 42001|A.6.1.3",
+    "ISO/IEC 42001|A.6.2.4",
+    "ISO/IEC 42001|C.1",
+    "ISO/IEC 42001|C.2.5",
+    "ISO/IEC 42001|C.2.11",
+    "ISO/IEC 42001|D.1",
+    "ISO/IEC 42001|D.2",
+    "ISO/IEC 42001|B.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "1",
+     "reason": "Scope states what the standard does and does not specify (a management system, applicable regardless of AI technology, no technical thresholds).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "3.4",
+     "reason": "Definition of management system — the object being distinguished from model assurance and ethics frameworks.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.4",
+     "reason": "Requires establishing processes and their interactions — the 'system for deciding' rather than the technical answer.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "6.1.2",
+     "reason": "Organization defines its own risk criteria; standard prescribes the process, not thresholds.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "6.1.3",
+     "reason": "Treatment/control selection is organization-determined, illustrating AIMS governs rather than dictates technical practice.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "6.1.4",
+     "reason": "Impact assessment requirement is a process obligation, distinct from ethics-framework value statements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.1",
+     "reason": "Annex A general note on nature and use of the controls (reference controls, not technical specifications).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.1.2",
+     "reason": "Requires objectives for responsible development to be identified by the organization — no prescribed fairness/evaluation values.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.1.3",
+     "reason": "Requires processes for responsible design/development, i.e. governance over technical practice.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.4",
+     "reason": "Verification and validation control requires criteria to be defined, not any specified testing protocol — core AIMS vs model assurance distinction.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "D.1",
+     "reason": "Annex D general — informative guidance on use of the AIMS across domains/sectors.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.1",
+     "reason": "Annex B general statement that the guidance is implementation support, not mandatory technical method.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.3",
+     "title": "Determining the scope of the AI management system",
+     "why": "Text is the organizational scope-statement requirement (boundaries/applicability, documented scope), not a basis for distinguishing AIMS from model assurance or ethics frameworks."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.1",
+     "title": "General",
+     "why": "Informative preamble listing potential objectives/risk sources and pointing to ISO/IEC 23894; states nothing testable about AIMS vs model-level assurance or ethics frameworks."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.2.5",
+     "title": "Fairness",
+     "why": "One-line description of unfairness risk; states no thresholds, methods or scope boundary an item could key on"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.2.11",
+     "title": "Transparency and explainability",
+     "why": "Definitional gloss on transparency/explainability only; says nothing about AIMS scope vs technical practice"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "D.2",
+     "title": "Integration of AI management system with other management system",
+     "why": "Guidance on integrating with ISO/IEC 27001/27701/9001, not on AIMS vs model assurance or ethics frameworks"
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The NIST AI RMF relationship is not a clause of any listed standard (bibliography/teaching material); keys on that concept must rest on 42001 Scope or be treated as out of standard.",
+   "invented": []
+  },
+  {
+   "task": "5.5",
+   "state": "judged",
+   "statement": "Describe the certification route and what ISO/IEC 42006 governs",
+   "pass1": [
+    "ISO/IEC 42001|1",
+    "ISO/IEC 42006|1",
+    "ISO/IEC 42006|4",
+    "ISO/IEC 42006|3.1",
+    "ISO/IEC 42006|5.2.1",
+    "ISO/IEC 42006|7.1.2",
+    "ISO/IEC 42006|7.1.3.1",
+    "ISO/IEC 42006|9.1.4.2",
+    "ISO/IEC 42006|A.1",
+    "ISO/IEC 42006|9.3.2.1",
+    "ISO/IEC 42006|9.3.2.2",
+    "ISO/IEC 42006|9.5",
+    "ISO/IEC 42006|9.6.2.2",
+    "ISO/IEC 42006|9.6.3",
+    "ISO/IEC 17021-1|1",
+    "ISO/IEC 17021-1|9.3.1.1",
+    "ISO/IEC 17021-1|9.3.1.2.1",
+    "ISO/IEC 17021-1|9.3.1.3",
+    "ISO/IEC 17021-1|9.6.1",
+    "ISO/IEC 17021-1|9.6.2.1.1",
+    "ISO/IEC 17021-1|9.6.2.2",
+    "ISO/IEC 17021-1|9.6.3.1.1",
+    "ISO/IEC 17021-1|9.6.3.2.1",
+    "ISO/IEC 17021-1|5.1.3",
+    "ISO/IEC 17021-1|3.4",
+    "ISO/IEC 17021-1|3.15",
+    "ISO/IEC 17021-1|3.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "1",
+     "reason": "Scope states what conforming to 42001 demonstrates (responsibility/accountability for AI roles) and contains no certification process requirements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "1",
+     "reason": "Scope defines 42006 as requirements for bodies auditing and certifying an AIMS — the core of what 42006 governs.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "3.1",
+     "reason": "Definition of artificial intelligence management system as used for certification scope.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "7.1.2",
+     "reason": "Generic technical competence requirements for certification body personnel — competence element of 42006.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "7.1.3.1",
+     "reason": "AIMS-specific competence requirements, a distinctive contribution of 42006.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.1.4.2",
+     "reason": "Audit time requirements — explicitly named as something 42006 sets.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.3.2.1",
+     "reason": "Stage 1 requirements as applied to AIMS certification.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.3.2.2",
+     "reason": "Stage 2 requirements as applied to AIMS certification.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.5",
+     "reason": "Certification decision step in the certification route.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.6.2.2",
+     "reason": "Surveillance audits in the AIMS certification cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.6.3",
+     "reason": "Re-certification in the AIMS certification cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "1",
+     "reason": "Scope states 17021-1 contains requirements for bodies auditing and certifying management systems, and its use by accreditation bodies.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.1",
+     "reason": "General requirements for the initial certification audit conducted in two stages.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.2.1",
+     "reason": "Stage 1 objectives and content — source of the two-stage route.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.3",
+     "reason": "Stage 2 purpose — source of the two-stage route.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.2.1.1",
+     "reason": "Surveillance activities general requirements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.2.2",
+     "reason": "Surveillance audit requirements and frequency.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.1.1",
+     "reason": "Recertification audit planning, including the cycle timing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.1",
+     "reason": "Recertification audit requirements closing the certification cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "5.1.3",
+     "reason": "Certification body holds responsibility for certification decisions — distinguishes certifier's role.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.4",
+     "reason": "Definition of certification audit, underpinning the accreditation vs certification distinction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.1",
+     "reason": "Definition of certified client — the organization being assessed.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "4",
+     "why": "Bare cross-reference: 'principles of ISO/IEC 17021-1 Clause 4 apply' — no testable content on the certification route"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "5.2.1",
+     "why": "Pure pointer to 5.2.2 and ISO/IEC 17021-1 5.2; states no requirement itself"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "A.1",
+     "why": "Annex elaboration/guidance on audit-time calculation already required by 9.1.4.2"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.1",
+     "why": "Text is about internal review/decision arrangements for maintaining certification, not about the certification route, its stages, or accreditation vs certification roles."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.15",
+     "title": "certification scheme conformity assessment",
+     "why": "Bare one-line definition of 'certification scheme'; says nothing about the certification route, audit stages, or accreditation vs certification."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Accreditation itself is defined in ISO/IEC 17011, not in scope; 17021-1 Scope is the closest passage stating the certifier/accreditor relationship.",
    "invented": []
   }
  ]
