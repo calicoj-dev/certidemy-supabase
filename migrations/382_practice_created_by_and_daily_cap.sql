@@ -87,6 +87,24 @@ begin
       using hint = 'Read the live column before re-applying; this migration adds it.';
   end if;
 
+  -- ============ IT MUST NOT REVERT A SECURITY PROPERTY AS A SIDE EFFECT ============
+  --
+  -- This migration replaces the function, and its body carries no security clause -- so if the
+  -- live function were SECURITY DEFINER, applying this would silently turn it back into an
+  -- invoker. That is the same defect as the escalation it would be undoing, with the sign
+  -- flipped: a security change hidden inside a migration whose subject is a column.
+  --
+  -- The pre-fix 381 was applied before it was corrected, which is exactly how the database got
+  -- into that state. 383 reverts it deliberately, and this refuses until it has.
+  if exists (
+    select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+     where n.nspname = 'public' and p.proname = 'create_practice_questions' and p.prosecdef
+  ) then
+    raise exception 'create_practice_questions is SECURITY DEFINER'
+      using detail = 'The pre-fix 381 is live. This migration would revert that silently.',
+            hint   = 'Apply 383 first -- it reverts the security properties on purpose.';
+  end if;
+
   select count(*), md5(string_agg(id::text, E'\n' order by id)) into v_rows, v_hash
     from public.quiz_questions;
   perform set_config('certidemy.m382_rows', v_rows::text, true);

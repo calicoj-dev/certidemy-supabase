@@ -38,7 +38,7 @@
  * Folding the third into FLAGGED would blame an item for a purchasing decision; folding it into
  * ANCHORED would clear an item nothing checked.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
@@ -51,10 +51,12 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F";
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
+  if (a === "--pinned") { PINNED = true; continue; }
+  if (a === "--legacy-keying") { LEGACY_KEYING = true; continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
@@ -168,6 +170,25 @@ const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
 const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
 const pById = new Map((await getAll(KEY, "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id"))
   .map((r) => [r.id, r]));
+/* the pinned-parse record: read under --pinned, written otherwise */
+const PARSE_FILE = join(ROOT, "ANCHOR-PARSE-" + CERT + ".json");
+const pinned = new Map();
+const parseOut = {};
+if (PINNED) {
+  if (!existsSync(PARSE_FILE)) {
+    console.error("--pinned needs " + PARSE_FILE + ", which does not exist.");
+    console.error("Run once WITHOUT --pinned to record the parse, then re-run with it.");
+    process.exitCode = 2; process.exit();
+  }
+  const prior = JSON.parse(readFileSync(PARSE_FILE, "utf8"));
+  if (prior.cert !== CERT) {
+    console.error("that parse file is for " + prior.cert); process.exitCode = 2; process.exit();
+  }
+  for (const [k, v] of Object.entries(prior.parses || {})) pinned.set(k, v);
+  console.log("PINNED PARSE: " + pinned.size + " persisted anchor(s) from " + prior.recorded +
+    " (model " + prior.model + "). No anchoring call will be made.");
+}
+
 const mapByTask = new Map();
 for (const r of tsRows) {
   if (!mapByTask.has(r.task_id)) mapByTask.set(r.task_id, { primary: [], supporting: [] });
@@ -265,10 +286,31 @@ for (const s of sampled) {
   };
   const keyLabel = String.fromCharCode(65 + ki);
 
-  /* ---- ask for the anchor ---- */
+  /* ============ THE PARSE IS PINNED, SO A RE-RUN IS A BEFORE/AFTER ============
+   *
+   * This measure asks a model for each item's anchor on every run, so the GATES' INPUTS move between
+   * runs. The last re-run moved five items and only one was the gate change: `87d03b82` re-anchored
+   * from B.7.4 to A.7.4 and cleared, and `b965acf2` kept the same clause 6.1.3, quoted a different
+   * support sentence, and flipped the other way. An aggregate delta over that is unattributable, and
+   * this repository's own rule is to change ONE thing.
+   *
+   * So each item's parsed anchor is persisted to `ANCHOR-PARSE-<CERT>.json`, and `--pinned` re-gates
+   * from it with no model call. A gate change is then measured against identical inputs. The pin
+   * file is a RECORD OF A PARSE, not a result: it carries the model and the date, and a run that
+   * writes it says so, because a cached input silently reused is its own defect. */
   let parsed = null, err = null;
-  try { parsed = parseObject(await claude(ANCHOR_SYSTEM, anchorUser(item, keyLabel, map.primary))); }
-  catch (e) { err = String(e.message).slice(0, 160); }
+  if (PINNED) {
+    parsed = pinned.get(base.prefix) || null;
+    if (!parsed) {
+      out.push({ ...base, task: code, state: "cannot-be-checked",
+        reason: "--pinned: no persisted parse for this item. Run once without --pinned first." });
+      continue;
+    }
+  } else {
+    try { parsed = parseObject(await claude(ANCHOR_SYSTEM, anchorUser(item, keyLabel, map.primary))); }
+    catch (e) { err = String(e.message).slice(0, 160); }
+    if (parsed) parseOut[base.prefix] = parsed;
+  }
   if (!parsed) {
     out.push({ ...base, task: code, state: "cannot-be-checked",
       reason: "the anchoring call " + (err ? "failed: " + err : "returned nothing parseable") });
@@ -315,10 +357,82 @@ for (const s of sampled) {
   }
 
   /* ---- the same code gates as the generator ---- */
+  /* ============ KEYED BY (SOURCE, CLAUSE), BECAUSE A CLAUSE ADDRESS IS NOT A KEY ============
+   *
+   * This map was keyed on the clause ALONE, so a same-numbered clause from a second standard
+   * silently overwrote the first and a gate then compared an anchor against the WRONG document's
+   * text. Measured on AIMS-F before the fix -- 7 collisions across 3 tasks:
+   *
+   *   task 1.4   4.4                      ISO/IEC 27001 vs ISO/IEC 42001
+   *   task 3.7   7.1 7.2 7.3 7.4 8.1      ISO/IEC 42001 vs ISO/IEC 27001
+   *   task 5.6   9.2.2                    ISO/IEC 42001 vs ISO/IEC 27001
+   *
+   * The harmonised management-system structure guarantees this for every auditor certification, and
+   * this repository already records the rule: the key is (standard, address), never the address.
+   *
+   * ============ AND THE TASK'S OWN STANDARDS DISAMBIGUATE ============
+   *
+   * A model naming a bare `7.2` has not said which document. Resolving it needs a preference order,
+   * and the task's own linked passages ARE that order: the standard a task actually draws on is the
+   * one it means. So a bare address resolves against the sources this task links to, in the order
+   * they appear in its map, and a resolution through more than one candidate is RECORDED rather than
+   * silently taking the first -- an ambiguity nobody is told about is how the old collisions hid. */
   const primaryClauses = map.primary.map((p) => p.clause);
   const supportingClauses = map.supporting.map((p) => p.clause);
+  const taskSources = [...new Set([...map.primary, ...map.supporting].map((p) => p.source_id))];
   const byKeyForSource = new Map();
-  for (const p of [...map.primary, ...map.supporting]) byKeyForSource.set(p.clause, p);
+  for (const p of [...map.primary, ...map.supporting]) {
+    byKeyForSource.set(p.source_id + "|" + p.clause, p);
+  }
+  /* A bare clause is ALSO offered under its plain address, but only where exactly ONE of this
+   * task's standards holds it. Where two do, the plain key is deliberately left unset so the gate
+   * reports "not in the library" instead of quietly answering from the wrong standard -- a loud
+   * refusal beats a silent wrong answer, which is the whole lesson of the view-first deploy. */
+  const ambiguous = [];
+  if (LEGACY_KEYING) {
+    /* ============ THE OLD BEHAVIOUR, KEPT SO THE FIX CAN BE MEASURED ============
+     *
+     * `--legacy-keying` reproduces exactly what this did before: one entry per clause, LAST WRITE
+     * WINS, so a same-numbered clause from a second standard silently replaced the first. It exists
+     * only so the keying change can be run against the SAME pinned parse -- one thing changed, which
+     * is the only way the delta means anything. It is not a fallback and nothing else uses it. */
+    for (const p of [...map.primary, ...map.supporting]) byKeyForSource.set(p.clause, p);
+  } else {
+    const byClause = new Map();
+    for (const p of [...map.primary, ...map.supporting]) {
+      if (!byClause.has(p.clause)) byClause.set(p.clause, []);
+      if (!byClause.get(p.clause).some((q) => q.source_id === p.source_id)) {
+        byClause.get(p.clause).push(p);
+      }
+    }
+    for (const [clause, ps] of byClause) {
+      if (ps.length === 1) byKeyForSource.set(clause, ps[0]);
+      else ambiguous.push(clause + " (" + ps.map((p) => p.source_id).join(" vs ") + ")");
+    }
+  }
+  /* ============ AND THE ITEM'S OWN CLAUSE FIELD BREAKS A TIE ============
+   *
+   * Where two of the task's standards hold the same address, the plain key is unset above. But the
+   * item usually SAYS which document -- `ISO/IEC 42006 clause 1`, `ISO/IEC 27001 7.2` -- and
+   * `normClause` throws that away on its way to the address. So the source is read off the same
+   * field and, when it names one of this task's standards, it resolves the tie for THIS item.
+   *
+   * This is the narrowest fix that leaves the gate contract alone: the gates still look up a plain
+   * address, and the call site decides which document that address means. Re-keying the gates
+   * themselves would change the generator's credential path and is a separate change. */
+  {
+    const raw = String((parsed && parsed.key_support_clause) || "");
+    const named = taskSources.find((s) => {
+      const bare = s.replace(/^ISO(\/IEC)?\s*/, "").replace(/[-:]/g, "[-: ]?");
+      return new RegExp("ISO(/IEC)?\\s*" + bare, "i").test(raw);
+    });
+    if (named) {
+      const addr = normClause(raw);
+      const p = byKeyForSource.get(named + "|" + addr);
+      if (p) byKeyForSource.set(addr, p);
+    }
+  }
+  void taskSources;
   const candidate = { ...item, key_support: parsed.key_support, key_support_clause: parsed.key_support_clause };
   const gates = [
     gateClauseExists(candidate, byKeyForSource, annexGaps, [...seqGaps, ...declaredGaps]),
@@ -444,7 +558,18 @@ console.log("  THE BLIND SOLVER, AS A SEPARATE SIGNAL  " + solverFlags.length + 
 console.log("  NOT A RATE where the denominator is small: " + dirAB.length + " findings is " +
   dirAB.length + " observations.");
 
-writeFileSync(join(ROOT, "ANCHOR-OR-FLAG-" + CERT + ".json"), JSON.stringify({
+if (!PINNED) {
+  /* the parse is recorded as a RECORD, with the model and the date, so a later --pinned run can say
+   * what it is re-gating and nobody mistakes a cached input for a result. */
+  writeFileSync(PARSE_FILE, JSON.stringify({ cert: CERT, model: MODEL,
+    recorded: new Date().toISOString().slice(0, 19) + "Z",
+    note: "A RECORD OF A PARSE, not a result. --pinned re-gates from this with no model call.",
+    parses: parseOut }, null, 1) + String.fromCharCode(10), "utf8");
+  console.log("  recorded " + Object.keys(parseOut).length + " parse(s) to " +
+    "ANCHOR-PARSE-" + CERT + ".json");
+}
+const OUT_NAME = "ANCHOR-OR-FLAG-" + CERT + (LEGACY_KEYING ? "-legacy" : "") + ".json";
+writeFileSync(join(ROOT, OUT_NAME), JSON.stringify({
   certification: CERT, model: MODEL, method: "anchor or flag, primary passages only, code gates decide",
   sampled: sampled.length,
   anchored: anchored.length, flagged: flags.length, cannot_be_checked: unchecked.length,
@@ -456,4 +581,4 @@ writeFileSync(join(ROOT, "ANCHOR-OR-FLAG-" + CERT + ".json"), JSON.stringify({
   items: out,
 }, null, 1) + "\n", "utf8");
 console.log("");
-console.log("wrote ANCHOR-OR-FLAG-" + CERT + ".json");
+console.log("wrote " + OUT_NAME);

@@ -474,14 +474,87 @@ for (const l of links) {
  * right part of the standard, separately from whether it picked the same address within it. */
 const spine = (cl) => String(cl).replace(/^[A-D]\./, "").split(".").slice(0, 2).join(".");
 
+/* ============ CONTAINER-EQUIVALENT SCORING ============
+ *
+ * Ruled 2026-09-28: a proposed PARENT counts as covering its reviewed CHILDREN, by the same rule
+ * `gateClauseExists` uses. That rule is ONE LEVEL DOWN -- `k.startsWith(c + ".")` with the remainder
+ * a single numeric segment -- so `9.2` resolves through `9.2.1` and never through an unrelated `9.20`.
+ *
+ * THE RULING'S TWO HALVES DO NOT AGREE ON EVERY CASE, AND THAT IS REPORTED RATHER THAN RESOLVED
+ * QUIETLY. "Covering its reviewed children" reads as any descendant; "the same rule gateClauseExists
+ * uses" pins it to one level. Task 5.5's reviewed leaves are `9.6.3.2.1` and friends, which are TWO
+ * and THREE levels below the `9.6.3` the judgment proposed -- so the two readings give different
+ * answers on exactly the task that decides the gate.
+ *
+ * The named MECHANISM is the headline, because a mechanism is a smaller claim than an intent. The
+ * transitive figure is computed and printed beside it so the choice is visible and yours, and a
+ * strict figure is kept so neither can be mistaken for the other.
+ *
+ * The SAME source is required on both sides. A clause address is not a key -- 27001 `7.2` is not
+ * 42001 `7.2` -- and this repository has seven live collisions from keying on the clause alone. */
+const childOneLevel = (parentKey, childKey) => {
+  const [ps, pc] = String(parentKey).split("|");
+  const [cs, cc] = String(childKey).split("|");
+  if (ps !== cs || !cc.startsWith(pc + ".")) return false;
+  return /^\d+$/.test(cc.slice(pc.length + 1));
+};
+const childAnyDepth = (parentKey, childKey) => {
+  const [ps, pc] = String(parentKey).split("|");
+  const [cs, cc] = String(childKey).split("|");
+  if (ps !== cs || !cc.startsWith(pc + ".")) return false;
+  return /^\d+(?:\.\d+)*$/.test(cc.slice(pc.length + 1));
+};
+{
+  /* both directions, before any number is printed */
+  const fails = [];
+  if (!childOneLevel("S|9.2", "S|9.2.1")) fails.push("one level: 9.2 should cover 9.2.1");
+  if (childOneLevel("S|9.2", "S|9.2.1.1")) fails.push("one level: 9.2 must NOT cover 9.2.1.1");
+  if (childOneLevel("S|9.2", "S|9.20")) fails.push("one level: 9.2 must NOT cover 9.20");
+  if (childOneLevel("A|9.2", "B|9.2.1")) fails.push("one level: a different SOURCE must not match");
+  if (!childAnyDepth("S|9.6.3", "S|9.6.3.2.1")) fails.push("any depth: 9.6.3 should cover 9.6.3.2.1");
+  if (childAnyDepth("S|9.6.3", "S|9.6.30")) fails.push("any depth: 9.6.3 must NOT cover 9.6.30");
+  console.log("container-equivalence controls: 6 case(s), " + fails.length + " fail");
+  if (fails.length) { fails.forEach((f) => console.error("   " + f)); process.exitCode = 3; process.exit(); }
+}
+
+/** Score one task under a given child predicate. `null` = strict, address equality only. */
+function scoreTask(R, P, childPred) {
+  const foundReviewed = new Set();
+  const usefulProposals = new Set();
+  for (const x of P) {
+    if (R.has(x)) { foundReviewed.add(x); usefulProposals.add(x); continue; }
+    if (!childPred) continue;
+    for (const r of R) {
+      if (childPred(x, r)) { foundReviewed.add(r); usefulProposals.add(x); }
+    }
+  }
+  return {
+    tp: foundReviewed.size,
+    fp: [...P].filter((x) => !usefulProposals.has(x)).length,
+    fn: [...R].filter((x) => !foundReviewed.has(x)).length,
+    missed: [...R].filter((x) => !foundReviewed.has(x)),
+    extra: [...P].filter((x) => !usefulProposals.has(x)),
+  };
+}
+
 let tp = 0, fp = 0, fn = 0, sTP = 0, sFP = 0, sFN = 0;
+const strict = { tp: 0, fp: 0, fn: 0 };
+const deep = { tp: 0, fp: 0, fn: 0 };
 const missed = [], extra = [];
 for (const t of tasks) {
   const R = accepted.get(t.code) || new Set();
   const r = results.find((x) => x.task === t.code);
   const P = new Set(((r && r.primary) || []).map((x) => x.source + "|" + x.clause));
-  for (const x of P) { if (R.has(x)) tp++; else { fp++; extra.push(t.code + " -> " + x); } }
-  for (const x of R) { if (!P.has(x)) { fn++; missed.push(t.code + " -> " + x); } }
+
+  const s0 = scoreTask(R, P, null);
+  strict.tp += s0.tp; strict.fp += s0.fp; strict.fn += s0.fn;
+  const s1 = scoreTask(R, P, childOneLevel);
+  tp += s1.tp; fp += s1.fp; fn += s1.fn;
+  s1.missed.forEach((x) => missed.push(t.code + " -> " + x));
+  s1.extra.forEach((x) => extra.push(t.code + " -> " + x));
+  const s2 = scoreTask(R, P, childAnyDepth);
+  deep.tp += s2.tp; deep.fp += s2.fp; deep.fn += s2.fn;
+
   const RS = new Set([...R].map((k) => spine(k.split("|")[1])));
   const PS = new Set([...P].map((k) => spine(k.split("|")[1])));
   for (const x of PS) { if (RS.has(x)) sTP++; else sFP++; }
@@ -527,9 +600,18 @@ console.log("  pass 2 confirmed    " + (tp + fp) +
 console.log("");
 console.log("  against " + accepted.size + " task(s) with a reviewed mapping, " + (tp + fn) +
   " reviewed primaries:");
-console.log("    RECALL             " + pct(recall) + "   (" + tp + " of " + (tp + fn) + ")");
+console.log("    RECALL             " + pct(recall) + "   (" + tp + " of " + (tp + fn) + ")" +
+  "   <- container-equivalent, one level (the ruled mechanism)");
 console.log("    PRECISION          " + pct(precision) + "   (" + tp + " of " + (tp + fp) + ")");
 console.log("    RECALL, subject    " + pct(sRecall) + "   (" + sTP + " of " + (sTP + sFN) + ")");
+console.log("");
+console.log("    the same run under the other two readings, so the choice is visible:");
+console.log("      STRICT   address equality only        recall " +
+  pct(strict.tp / (strict.tp + strict.fn)) + "   precision " + pct(strict.tp / (strict.tp + strict.fp)));
+console.log("      ONE LEVEL gateClauseExists' own rule  recall " +
+  pct(tp / (tp + fn)) + "   precision " + pct(tp / (tp + fp)));
+console.log("      ANY DEPTH a parent covers any child   recall " +
+  pct(deep.tp / (deep.tp + deep.fn)) + "   precision " + pct(deep.tp / (deep.tp + deep.fp)));
 console.log("    missed " + missed.length + "   extra " + extra.length);
 console.log("");
 console.log("  CEILING: " + offerable + " of " + totalReviewed +

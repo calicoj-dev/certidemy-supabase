@@ -1,0 +1,612 @@
+{
+ "cert": "ISMS-F",
+ "ungated": true,
+ "results": [
+  {
+   "task": "1.1",
+   "state": "judged",
+   "statement": "Define confidentiality, integrity and availability, and the supporting properties.",
+   "pass1": [
+    "ISO/IEC 27000|3.10",
+    "ISO/IEC 27000|3.36",
+    "ISO/IEC 27000|3.7",
+    "ISO/IEC 27000|3.28",
+    "ISO/IEC 27000|3.6",
+    "ISO/IEC 27000|3.48",
+    "ISO/IEC 27000|3.55",
+    "ISO/IEC 27000|3.5",
+    "ISO/IEC 27000|4.2.3",
+    "ISO/IEC 27002|3.1.5",
+    "ISO/IEC 27002|3.1.31",
+    "ISO/IEC 27001|3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.10",
+     "reason": "Definition of confidentiality — a core property the task requires stating accurately.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.28",
+     "reason": "Definition of information security as preservation of confidentiality, integrity and availability, plus the supporting properties.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.6",
+     "reason": "Definition of authenticity — a supporting property.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.48",
+     "reason": "Definition of non-repudiation — a supporting property.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.55",
+     "reason": "Definition of reliability — a supporting property.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.36",
+     "why": "Text is actually interested party / internal context / level of risk; no integrity definition present."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.7",
+     "why": "Text is the 'base measure' definition; the availability definition is not in the passage."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.5",
+     "why": "Defines authentication, which is not one of the three core or four supporting properties."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.3",
+     "why": "Narrative on controls and risk management that merely mentions CIA without defining the properties."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.5",
+     "why": "Text is chain of custody and confidential information, not the authenticity property definition."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.31",
+     "why": "Text is rule, sensitive information, threat and topic-specific policy, not the reliability definition."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "3",
+     "why": "Pure cross-reference to ISO/IEC 27000 terminology; contains no definitions."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Accountability, if counted among the supporting properties, has no standalone definition clause in the listed standards; it appears only within the information security definition (27000 3.28 / 4.2.3).",
+   "invented": []
+  },
+  {
+   "task": "1.2",
+   "state": "judged",
+   "statement": "Distinguish asset, threat, vulnerability, risk and control and explain how they relate.",
+   "pass1": [
+    "ISO/IEC 27000|3.74",
+    "ISO/IEC 27000|3.77",
+    "ISO/IEC 27000|3.61",
+    "ISO/IEC 27000|3.14",
+    "ISO/IEC 27002|3.1.8",
+    "ISO/IEC 27000|3.28",
+    "ISO/IEC 27000|3.12",
+    "ISO/IEC 27000|3.40",
+    "ISO/IEC 27000|3.39",
+    "ISO/IEC 27000|3.68",
+    "ISO/IEC 27000|3.63",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|4.2.2",
+    "ISO/IEC 27000|4.2.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27001|A.5.9"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.74",
+     "reason": "Definition of threat as potential cause of an unwanted incident — core term.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.77",
+     "reason": "Definition of vulnerability as weakness of an asset/control that can be exploited by a threat.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.61",
+     "reason": "Definition of risk (effect of uncertainty on objectives) — the composed concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "reason": "Definition of control as measure modifying risk — distinguishes control from the other terms.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.8",
+     "reason": "Alternative/current definition of control (measure that maintains and/or modifies risk).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Narrative on selecting and implementing controls to modify identified risks.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.2",
+     "reason": "Explains information as an asset that has value and requires protection.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.3",
+     "reason": "Explains information security concepts underpinning the vocabulary.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.28",
+     "why": "Defines information security as preservation of CIA; says nothing about asset/threat/vulnerability/risk composition."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.12",
+     "why": "Definition of consequence as outcome of an event; not about the five-term relationship."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.40",
+     "why": "Likelihood stub plus 'management system' definition; unrelated to the terminology set."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.39",
+     "why": "Defines level of risk as consequence × likelihood; a measurement term, not the asset/threat/vulnerability composition."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.68",
+     "why": "Risk identification/management process definitions; about process steps, not distinguishing the five terms."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.63",
+     "why": "Risk analysis process definition; assessment-stage vocabulary, not the term relationships."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "why": "Risk assessment as sum of identification/analysis/evaluation; process definition only."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "why": "Describes the risk assessment/analysis/evaluation process; only lists assets, threats, vulnerabilities in passing without stating how they compose into risk."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Procedural requirements for the risk assessment process (criteria, identify, analyse, evaluate), not the definition or relationship of the five terms."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "why": "Guidance on building and maintaining an asset inventory, not on what an asset is or how it relates to threat/vulnerability/risk."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "why": "One-line control statement requiring an asset inventory; nothing testable about the five-term relationship."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27000:2018 no longer defines 'asset'; asset coverage rests on 4.2.2 and the inventory controls.",
+   "invented": []
+  },
+  {
+   "task": "1.3",
+   "state": "judged",
+   "statement": "Explain the difference between an information security event, incident and breach.",
+   "pass1": [
+    "ISO/IEC 27000|3.21",
+    "ISO/IEC 27000|3.30",
+    "ISO/IEC 27000|3.31",
+    "ISO/IEC 27000|3.32",
+    "ISO/IEC 27002|5.25",
+    "ISO/IEC 27002|6.8",
+    "ISO/IEC 27002|5.26",
+    "ISO/IEC 27002|5.24",
+    "ISO/IEC 27002|5.34",
+    "ISO/IEC 27002|3.1",
+    "ISO/IEC 27001|A.5.25",
+    "ISO/IEC 27001|A.6.8"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.21",
+     "reason": "Defines 'event' as an occurrence or change of a particular set of circumstances — the base term.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.30",
+     "reason": "Definition of information security event — the lower threshold term the task contrasts.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.31",
+     "reason": "Definition of information security incident — single or series of events that compromise operations/security.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.25",
+     "reason": "States the assessment and decision that determines whether an event is classified as an incident — the threshold itself.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.8",
+     "reason": "Requires reporting of observed or suspected events, showing events are reported before classification.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.25",
+     "reason": "Annex A control on assessment and decision on information security events (event-to-incident threshold).",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.32",
+     "why": "Defines the incident-management process set, not the event/incident/breach thresholds."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.26",
+     "why": "Guidance on responding to incidents; says nothing about distinguishing events, incidents or breaches."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.24",
+     "why": "Planning/preparation guidance on roles and processes, not definitional thresholds."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.34",
+     "why": "PII privacy compliance guidance; no treatment of breach as an escalation term."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1",
+     "why": "Excerpt lists access control, asset, attack, authentication - none of the three target terms."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.8",
+     "why": "Bare requirement for an event-reporting mechanism; states no distinction between the terms."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "'Data breach' is not a defined term in ISO/IEC 27000/27001/27002; only event and incident are defined, so breach must be handled as legal/regulatory escalation language.",
+   "invented": []
+  },
+  {
+   "task": "1.4",
+   "state": "judged",
+   "statement": "Recognize the core members of the ISO/IEC 27000 family and what each does.",
+   "pass1": [
+    "ISO/IEC 27000|5.1",
+    "ISO/IEC 27000|5.2",
+    "ISO/IEC 27000|5.3.1",
+    "ISO/IEC 27000|5.4.1",
+    "ISO/IEC 27000|5.4.4",
+    "ISO/IEC 27000|5.4.2",
+    "ISO/IEC 27000|5.4.3",
+    "ISO/IEC 27000|5.3.2",
+    "ISO/IEC 27000|5.3.3",
+    "ISO/IEC 27000|4.7",
+    "ISO/IEC 27000|0.2",
+    "ISO/IEC 27000|0.3",
+    "ISO/IEC 27002|1",
+    "ISO/IEC 27002|0.7",
+    "ISO/IEC 27001|1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.1",
+     "reason": "Introduces the structure of the ISMS family of standards and how the members relate.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.2",
+     "reason": "States the role of ISO/IEC 27000 itself as the overview and vocabulary document.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.3.1",
+     "reason": "States that ISO/IEC 27001 carries the ISMS requirements against which organizations certify.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.1",
+     "reason": "States that ISO/IEC 27002 provides guidance on information security controls.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.4",
+     "reason": "States that ISO/IEC 27005 provides information security risk management guidance.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.2",
+     "reason": "Role of ISO/IEC 27003 (implementation guidance) as a distractor/complement in the family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.3",
+     "reason": "Role of ISO/IEC 27004 (monitoring and measurement) within the family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.3.2",
+     "reason": "Role of ISO/IEC 27006 (requirements for certification bodies) as a family member.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.3.3",
+     "reason": "Role of ISO/IEC 27009 (sector-specific application) as a family member.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "0.2",
+     "reason": "Purpose of ISO/IEC 27000 as the overview/terminology document of the family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "1",
+     "reason": "Scope statement showing 27002 is a reference set of controls/guidance, not requirements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.7",
+     "reason": "Related International Standards - positions 27002 relative to 27001 and the rest of the family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "1",
+     "reason": "Scope statement establishing 27001 as the requirements standard for an ISMS.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.7",
+     "why": "Text lists business benefits of adopting an ISMS, not the identity or function of individual family standards."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "0.3",
+     "why": "Text explains verbal forms (shall/should/may/can) and notes, unrelated to family membership or roles."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "1.5",
+   "state": "judged",
+   "statement": "Explain how AI systems change the information security attack surface.",
+   "pass1": [
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|8.26",
+    "ISO/IEC 27002|8.27",
+    "ISO/IEC 27002|8.25",
+    "ISO/IEC 27002|5.7",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.32",
+    "ISO/IEC 27002|5.8",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27000|3.77",
+    "ISO/IEC 27000|3.74",
+    "ISO/IEC 27000|3.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "Model, training data and prompt stores must be recognised and inventoried as information and associated assets - the 'model as asset' point.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "reason": "Prompts and inference inputs/outputs are information requiring classification, supporting 'prompt as data'.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.26",
+     "reason": "Application security requirements are the anchor for treating an AI system as an application with new security requirements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.27",
+     "reason": "Secure architecture and engineering principles underpin the notion of the inference boundary / trust boundary.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.7",
+     "reason": "Threat intelligence is how changes in the threat/attack surface from new technology are tracked.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "AI capability is typically consumed as a cloud service; exposure of data to an external service boundary.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.32",
+     "reason": "Supports the ability point: AI adoption is a change to be managed, not a procurement event.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.8",
+     "reason": "Information security in project management - security considered when AI projects are initiated.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "reason": "Data leakage prevention speaks to prompt content leaving the organisation's boundary.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "New AI exposure must be identified and analysed through the information security risk assessment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Operational planning and control covers planned changes such as introducing AI systems.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.77",
+     "reason": "Definition of vulnerability underpins any 'attack surface' explanation.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Text is rules/policy for acceptable use and handling behaviour, not exposure or attack-surface change."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.25",
+     "why": "Generic checklist of secure development lifecycle practices; says nothing about new technology exposure or attack surface."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "why": "Supplier risk process text frames adoption purely as procurement/vendor management, the framing the task says is insufficient."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.74",
+     "why": "Bare one-line definition of 'threat'; says nothing about exposure, assets-as-targets or attack surface that a key could rest on."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.2",
+     "why": "Bare one-line definition of 'attack'; terminology only, states nothing about how a system's exposure or attack surface is constituted or changed."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope names AI, prompts, models or inference; the AI-specific framing is course material mapped onto asset, classification, architecture, change and risk clauses.",
+   "invented": []
+  },
+  {
+   "task": "1.6",
+   "state": "judged",
+   "statement": "Distinguish model-level risks from agentic risks.",
+   "pass1": [],
+   "primary": [],
+   "none_apply": true,
+   "note": "Agentic vs model-level AI risk, delegated authority and autonomy/blast radius are course-specific AI-security teaching material; ISO/IEC 27001/27002/27000/17021-1 contain no passage addressing AI models or agentic systems, so no clause can carry the key.",
+   "invented": [],
+   "dropped": []
+  },
+  {
+   "task": "1.7",
+   "state": "judged",
+   "statement": "Classify a described AI-related security concern against the appropriate threat category.",
+   "pass1": [],
+   "primary": [],
+   "none_apply": true,
+   "note": "The AI threat taxonomy assessed here (training data poisoning, prompt injection, insecure output handling, tool misuse) comes from OWASP LLM Top 10 / AI-specific guidance, not from ISO/IEC 27001, 27002, 27000 or 17021-1; none of the listed clauses define or enumerate AI threat categories (27000 3.74 defines 'threat' generically only).",
+   "invented": [],
+   "dropped": []
+  }
+ ]
+}
