@@ -4,8 +4,8 @@
  "examined": 18453,
  "no_english_sibling": 5,
  "counts": {
-  "forbidden": 731,
-  "mixed": 2077,
+  "forbidden": 729,
+  "mixed": 2079,
   "untranslated": 868,
   "unchecked": 0
  },
@@ -31024,7 +31024,7 @@
    "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
   },
   {
-   "cls": "forbidden",
+   "cls": "mixed",
    "id": "913e62b8",
    "code": "AIMS-IA",
    "language": "pt-BR",
@@ -31034,9 +31034,10 @@
    "field": "question_text",
    "variant": "fornecedor",
    "n": 1,
-   "severity": "failure",
+   "severity": "flag",
    "expected": "prestador",
-   "autofix": false
+   "autofix": false,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
   },
   {
    "cls": "forbidden",
@@ -52409,7 +52410,7 @@
    "expected": "SGIA"
   },
   {
-   "cls": "forbidden",
+   "cls": "mixed",
    "id": "fa538609",
    "code": "AIGRM-I",
    "language": "pt-BR",
@@ -52419,9 +52420,10 @@
    "field": "option:b",
    "variant": "fornecedor",
    "n": 1,
-   "severity": "failure",
+   "severity": "flag",
    "expected": "prestador",
-   "autofix": false
+   "autofix": false,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
   },
   {
    "cls": "forbidden",

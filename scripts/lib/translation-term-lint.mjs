@@ -45,13 +45,29 @@ const isMiscasing = (variant, house) =>
 /* Does this row, or its English sibling, name the Regulation? The markers are declared in the glossary
  * rather than typed here, so one list serves the lint, the gate and the bulk pass. The English sibling
  * counts because a translated row may name the Act only in the source it was translated from. */
+/* ============ A MARKER IS BOUNDED ON BOTH SIDES, AND THE FIRST VERSION WAS NOT ============
+ *
+ * The first version anchored only the LEFT: `(?<![\w])AI Act`. So the marker `AI Act` matched inside
+ * **"documented AI activities"** -- `AI act` + `ivities` -- and gated an ISO/IEC 42001 internal-auditor row
+ * that mentions the Regulation nowhere. Measured on that row: the English sibling contains no `EU AI Act`,
+ * no `Regulation (EU)`, no `2024/1689`.
+ *
+ * The consequence was the worst available one, because the row's `fornecedor` IS the ordinary commercial
+ * sense -- *um fornecedor terceiro identificado pelo nome* -- so a bulk substitution scoped by this gate
+ * would have rewritten a correct vendor noun into the Regulation's role term. The scope rule exists to
+ * prevent exactly that and a missing boundary inverted it.
+ *
+ * Same family as the `\b` defects this repository already records, with the direction reversed: those were
+ * boundaries that could never match, this is a boundary that was never asked for. `termRe` above has had
+ * both sides since it was written; this helper was written later and only copied half of it. */
 const REG_MARKERS = ((GLOSSARY.families.eu_ai_act || {}).regulation_scope || {}).markers || [];
+const markerRe = (mk) => new RegExp(
+  "(?<![\\w\\-áéíóúâêôãõçüñ])" + esc(mk) + "(?![\\w\\-áéíóúâêôãõçüñ])", "i");
 const regulationMarked = (whole, en) => {
   const hay = String(whole || "") + " " +
     (en ? [en.question_text, ...(Array.isArray(en.options) ? en.options.map((o) => (o && o.text) || "") : []),
       en.explanation].join(" ") : "");
-  return REG_MARKERS.some((mk) =>
-    new RegExp("(?<![\\w])" + String(mk).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(hay));
+  return REG_MARKERS.some((mk) => markerRe(mk).test(hay));
 };
 
 /** Every (family, term) pair that applies to a certification, for one language key. */
@@ -211,6 +227,13 @@ export function translationLintControls() {
   if (!aEn.forbidden.some((f) => f.variant === "fornecedor")) {
     fails.push("the English sibling naming the Act did not make it a failure");
   }
+  /* A MARKER MUST NOT MATCH INSIDE A LONGER WORD. The live instance: `AI Act` matched
+   * "documented AI activities" and gated a 42001 row that names the Regulation nowhere. */
+  const aSub = lintRow(row("pt-BR", "O fornecedor terceiro entregou abaixo do esperado."), "AIMS-IA",
+    row("en", "The system sits within the Division's documented AI activities."));
+  if (aSub.forbidden.length) {
+    fails.push("a marker matched inside a longer word (AI activities) and gated a non-Regulation row");
+  }
   /* `provedor` is NOT GATED in AIMS-F or AIMS-IA, and is a flag elsewhere. */
   const pv = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o provedor registra o sistema."), "AIMS-IA", null);
   if (pv.forbidden.length) fails.push("`provedor` was gated in AIMS-IA, where the ABNT term is unknown");
@@ -266,7 +289,7 @@ export function translationLintControls() {
   const j = lintRow(row("pt-BR", "O prestador deve manter a norma e a acreditação."), "AIMS-IA", null);
   if (j.forbidden.length) fails.push("a clean pt row fired: " + JSON.stringify(j.forbidden));
 
-  return { examined: 20, fails };
+  return { examined: 21, fails };
 }
 
 
