@@ -58,23 +58,59 @@ for (const p of lib.passages) {
  * standard name is not an address -- the anchored-address rule already recorded here.
  */
 const SOURCES = [
-  { id: "ISO/IEC 42001", held: true, re: /\b(?:ISO\/IEC\s*)?42001\b/gi },
-  { id: "ISO/IEC 27001", held: true, re: /\b(?:ISO\/IEC\s*)?27001\b/gi },
-  { id: "ISO/IEC 27002", held: true, re: /\b(?:ISO\/IEC\s*)?27002\b/gi },
-  { id: "ISO 19011", held: true, re: /\b(?:ISO\s*)?19011\b/gi },
-  { id: "Scrum Guide", held: true, re: /\bScrum Guide\b/gi },
-  /* NOT HELD -- these are the acquisition decisions */
-  { id: "ITIL 4", held: false, re: /\bITIL\b/gi },
-  { id: "EU AI Act", held: false, re: /\b(?:EU\s*)?AI Act\b/gi },
-  { id: "NYC Local Law 144", held: false, re: /\bLL\s*144\b|\bLocal Law 144\b/gi },
-  { id: "Colorado SB 24-205", held: false, re: /\bSB\s*24-205\b/gi },
-  { id: "ISO/IEC 17021", held: false, re: /\b17021\b/gi },
-  { id: "ISO/IEC 17024", held: false, re: /\b17024\b/gi },
-  { id: "EBM Guide", held: false, re: /\bEvidence[- ]Based Management\b|\bEBM\b/g },
-  { id: "ISO/IEC 20000", held: false, re: /\b20000\b/gi },
-  { id: "ISO/IEC 22989", held: false, re: /\b22989\b/gi },
-  { id: "NIST AI RMF", held: false, re: /\bNIST AI RMF\b|\bAI RMF\b/gi },
+  { id: "ISO/IEC 42001", librarySource: "ISO/IEC 42001", re: /\b(?:ISO\/IEC\s*)?42001\b/gi },
+  { id: "ISO/IEC 27001", librarySource: "ISO/IEC 27001", re: /\b(?:ISO\/IEC\s*)?27001\b/gi },
+  { id: "ISO/IEC 27002", librarySource: "ISO/IEC 27002", re: /\b(?:ISO\/IEC\s*)?27002\b/gi },
+  { id: "ISO 19011", librarySource: "ISO 19011", re: /\b(?:ISO\s*)?19011\b/gi },
+  { id: "Scrum Guide", librarySource: "Scrum Guide", re: /\bScrum Guide\b/gi },
+  /* ============ `held` IS DERIVED FROM THE LIBRARY, NOT TYPED ============
+   *
+   * Every entry below carried a hand-written `held: false`, and on 2026-09-28 SIX of them were wrong:
+   * ITIL 4, the EU AI Act, ISO/IEC 17021-1, the EBM Guide, ISO/IEC 22989 and NIST AI RMF are all in the
+   * library. So this script's own report listed them under "SOURCES THE BANK CITES AND WE DO NOT HOLD" --
+   * a table arguing for acquisitions already made, which is the exact defect CLAUDE.md records against a
+   * gate that printed NOT ON DISK for two standards it had already indexed.
+   *
+   * `librarySource` names the source_id as SOURCE-PASSAGES.json spells it, and `held` is computed from
+   * whether the library actually holds passages for it. An entry with no `librarySource` is a genuine
+   * acquisition decision -- nothing in the library could ever satisfy it -- and those are the only four
+   * left: NYC LL 144, Colorado SB 24-205, ISO/IEC 17024 and ISO/IEC 20000. */
+  { id: "ITIL 4", librarySource: "ITIL 4 Foundation", re: /\bITIL\b/gi },
+  { id: "EU AI Act", librarySource: "EU AI Act", re: /\b(?:EU\s*)?AI Act\b/gi },
+  { id: "NYC Local Law 144", re: /\bLL\s*144\b|\bLocal Law 144\b/gi },
+  { id: "Colorado SB 24-205", re: /\bSB\s*24-205\b/gi },
+  { id: "ISO/IEC 17021", librarySource: "ISO/IEC 17021-1", re: /\b17021\b/gi },
+  { id: "ISO/IEC 17024", re: /\b17024\b/gi },
+  { id: "EBM Guide", librarySource: "EBM Guide", re: /\bEvidence[- ]Based Management\b|\bEBM\b/g },
+  { id: "ISO/IEC 20000", re: /\b20000\b/gi },
+  { id: "ISO/IEC 22989", librarySource: "ISO/IEC 22989", re: /\b22989\b/gi },
+  { id: "ISO/IEC 27000", librarySource: "ISO/IEC 27000", re: /\b27000\b/gi },
+  { id: "NIST AI RMF", librarySource: "NIST AI RMF", re: /\bNIST AI RMF\b|\bAI RMF\b/gi },
 ];
+
+/* ONE RULE FOR EVERY ENTRY. `held` is never typed: it is true when the library holds passages for the
+ * entry's `librarySource`. An entry with no `librarySource` is unheld by definition and is a genuine
+ * acquisition decision. Asserted non-empty, because a mis-spelled source_id would silently report every
+ * standard as unheld and the report would read as a purchasing list. */
+{
+  let resolved = 0;
+  for (const h of SOURCES) {
+    h.held = Boolean(h.librarySource && heldSources.has(h.librarySource));
+    if (h.librarySource) {
+      if (!heldSources.has(h.librarySource)) {
+        console.error("SOURCES: librarySource " + JSON.stringify(h.librarySource) +
+          " matches no source_id in the library -- fix the spelling, do not type `held`.");
+        console.error("  library holds: " + [...heldSources].sort().join(", "));
+        process.exitCode = 2; process.exit();
+      }
+      resolved++;
+    }
+  }
+  if (!resolved) {
+    console.error("SOURCES: no entry resolved to a library source. Refusing to report.");
+    process.exitCode = 2; process.exit();
+  }
+}
 
 /* ============ AN UNQUALIFIED CLAUSE REFERENCE MEANS THE CERTIFICATION'S OWN STANDARD
  *

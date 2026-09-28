@@ -312,9 +312,33 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
   if (!named.length) {
     return { id: "clause-exists", pass: false, examined: 0, reason: "no clause named" };
   }
-  const bad = [], unheld = [];
+  /* ============ A CONTAINER RESOLVES TO ITS CHILDREN ============
+   *
+   * Ruled in PROMPT-85 section 5 and implemented here. A cited address whose own row the library does not
+   * hold, but whose SUBCLAUSES it does, is held: `42001 clause 10` has no row of its own because the
+   * extractor splits it into 10.1 and 10.2, and `9.3.1.2` is held only as 9.3.1.2.1.
+   *
+   * WHY IT MATTERS NOW RATHER THAN IN PRINCIPLE. Until the contents-title fix, three containers -- 42001
+   * "10", 27001 "9.2", 19011 "6.5" -- were held as rows carrying THEIR CHILDREN'S TEXT. A citation of
+   * them resolved, to junk. Removing those rows is correct and it turned a silent wrong answer into a
+   * loud refusal: without this resolution, `clause 10` would now fail as "not in the library", which
+   * sends the reader to fix an item that is citing a real address correctly.
+   *
+   * It is a CONTAINER rule, not a prefix rule: only a child one level down counts, so `9.2` resolves
+   * through 9.2.1 and never through an unrelated 9.20. And the resolution is RECORDED in the reason, so a
+   * pass via children is not indistinguishable from a pass on the address itself. */
+  const childrenOf = (c) => {
+    const out = [];
+    for (const k of passagesByKey.keys()) {
+      if (String(k).startsWith(c + ".") && /^\d+$/.test(String(k).slice(c.length + 1))) out.push(k);
+    }
+    return out;
+  };
+  const bad = [], unheld = [], viaChildren = [];
   for (const c of named) {
     if (passagesByKey.has(c)) continue;
+    const kids = childrenOf(c);
+    if (kids.length) { viaChildren.push(c + " -> " + kids.sort().join(", ")); continue; }
     if (known.has(c)) unheld.push(c);
     else bad.push(c + " is not in the library and the library does not declare it missing");
   }
@@ -326,7 +350,9 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
       reason: "NOT HELD, not absent: " + unheld.join(", ") + " is real in the standard and the " +
         "library declares it missing. The item is neither cleared nor blamed -- fix the extractor." };
   }
-  return { id: "clause-exists", pass: true, examined: named.length, reason: named.length + " clause(s) resolve" };
+  return { id: "clause-exists", pass: true, examined: named.length,
+    reason: named.length + " clause(s) resolve" +
+      (viaChildren.length ? "; " + viaChildren.length + " as a container: " + viaChildren.join("; ") : "") };
 }
 
 /**
@@ -1186,6 +1212,28 @@ export function groundedGateControls() {
         key_support: "The organization can extend or modify the implementation guidance or define their own implementation of a control",
       }, new Map([["B.1", soft2]])).pass;
     }, true],
+
+    /* ============ A CONTAINER RESOLVES THROUGH ITS CHILDREN ============ */
+    ["clause-exists resolves a container through its children", () => gateClauseExists(
+      { key_support_clause: "10", key_support: "x" },
+      new Map([["10.1", { text: "a" }], ["10.2", { text: "b" }]])).pass, true],
+    /* The case the ruling named: 9.3.1.2 held only as 9.3.1.2.1. */
+    ["clause-exists resolves 9.3.1.2 through 9.3.1.2.1", () => gateClauseExists(
+      { key_support_clause: "9.3.1.2", key_support: "x" },
+      new Map([["9.3.1.2.1", { text: "a" }]])).pass, true],
+    /* AND IT IS A CONTAINER RULE, NOT A PREFIX RULE. `9.2` must not resolve through `9.20`, which is a
+     * sibling two orders away and not a child of anything. */
+    ["clause-exists does NOT resolve 9.2 through 9.20", () => gateClauseExists(
+      { key_support_clause: "9.2", key_support: "x" },
+      new Map([["9.20", { text: "a" }]])).pass, false],
+    /* An address with neither a row nor children still fails, or the rule would clear anything. */
+    ["clause-exists still refuses an invented address", () => gateClauseExists(
+      { key_support_clause: "19.7", key_support: "x" },
+      new Map([["10.1", { text: "a" }]])).pass, false],
+    /* The resolution is RECORDED, so a pass via children is distinguishable from a pass on the address. */
+    ["clause-exists records that it resolved as a container", () => /as a container/.test(
+      gateClauseExists({ key_support_clause: "10", key_support: "x" },
+        new Map([["10.1", { text: "a" }]])).reason), true],
 
     /* ============ G10, ISO/IEC 27000 IN A SERVED FIELD ============ */
     ["no-27000 refuses the standard named in an explanation", () => gateNo27000({
