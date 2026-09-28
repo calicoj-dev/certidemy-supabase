@@ -56,13 +56,13 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 | `806ec467` | `40e46097` | AIMS-IA | 4.9 | serious | **PENDING LIBRARY READ** | library:42001 |
 | `7eb176c5` | `42872513` | AIMS-IA | 2.4 | serious | **PENDING LIBRARY READ** | library:42001 |
 | `71ef31f3` | `2121352e` | SM-AI-II | 1.8 | serious | **READ REQUIRED** | text |
-| `7d8f0d0d` | `560dcf1d` | AIE-I | 2.6 | cue | **CANNOT CHECK** | code |
-| `a9a6ae61` | `7d28e906` | AIGRM-I | 4.11 | cue | **CANNOT CHECK** | code |
+| `7d8f0d0d` | `560dcf1d` | AIE-I | 2.6 | cue | **CONFIRMED** | code |
+| `a9a6ae61` | `7d28e906` | AIGRM-I | 4.11 | cue | **CONFIRMED** | code |
 | `23c0c690` | `8754e40a` | AIMS-F | 5.5 | cue | **CANNOT CHECK** | code |
-| `6c348d5a` | `4ad776d5` | AISM-I | 4.4 | cue | **CANNOT CHECK** | code |
-| `4fc2f5d8` | `0eaf8ad9` | AISM-I | 3.12 | cue | **CANNOT CHECK** | code |
-| `7a26883d` | `bf3a3098` | SD-AI-I | 4.2 | cue | **CANNOT CHECK** | code |
-| `8e762da6` | `bf3a3098` | SD-AI-I | 4.2 | cue | **CANNOT CHECK** | code |
+| `6c348d5a` | `4ad776d5` | AISM-I | 4.4 | cue | **CONFIRMED** | code |
+| `4fc2f5d8` | `0eaf8ad9` | AISM-I | 3.12 | cue | **CONFIRMED** | code |
+| `7a26883d` | `bf3a3098` | SD-AI-I | 4.2 | cue | **CONFIRMED** | code |
+| `8e762da6` | `bf3a3098` | SD-AI-I | 4.2 | cue | **CONFIRMED** | code |
 | `d020924e` | `f7ca2c3d` | SPO-AI-I | 1.2 | cue | **READ REQUIRED** | human |
 | `52bdac42` | `40d0f916` | AIGRM-I | 2.5 | minor | **READ REQUIRED** | human |
 | `d2bef13e` | `64727926` | AIHR-I | 2.9 | minor | **READ REQUIRED** | human |
@@ -181,17 +181,17 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 
 *Evidence:* requires reading the item's own wording
 
-### `7d8f0d0d` (en `560dcf1d`) AIE-I 2.6 -- CANNOT CHECK
+### `7d8f0d0d` (en `560dcf1d`) AIE-I 2.6 -- CONFIRMED
 
 *Claim:* Three options say "Proceed" and only the key does not; the key is also the longest.
 
-*Evidence:* the cue type(s) claimed -- shared-opening -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire, including key-length, which IS implemented and is silent here. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: key-length (the key is 16 words against a median distractor of 12 (1.33x, tolerance 1.25x)); odd-verdict (all three distractors open "proceed because" and the key opens "use ai to")
 
-### `a9a6ae61` (en `7d28e906`) AIGRM-I 4.11 -- CANNOT CHECK
+### `a9a6ae61` (en `7d28e906`) AIGRM-I 4.11 -- CONFIRMED
 
 *Claim:* Three options say "sound" and one says "flawed".
 
-*Evidence:* the cue type(s) claimed -- shared-opening -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: clang (the key echoes "performance" from the stem and no distractor does)
 
 ### `23c0c690` (en `8754e40a`) AIMS-F 5.5 -- CANNOT CHECK
 
@@ -199,29 +199,29 @@ Overall: 34 of 118 items flagged, 15 serious -- which corroborates the ruling's 
 
 *Evidence:* the cue type(s) claimed -- rebuttal -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire, including key-length, which IS implemented and is silent here. Nothing looked for the cue the reviewer named.
 
-### `6c348d5a` (en `4ad776d5`) AISM-I 4.4 -- CANNOT CHECK
+### `6c348d5a` (en `4ad776d5`) AISM-I 4.4 -- CONFIRMED
 
 *Claim:* Only the key is hedged.
 
-*Evidence:* the cue type(s) claimed -- hedging -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: only-hedged (the key is the only hedged option (may, could))
 
-### `4fc2f5d8` (en `0eaf8ad9`) AISM-I 3.12 -- CANNOT CHECK
+### `4fc2f5d8` (en `0eaf8ad9`) AISM-I 3.12 -- CONFIRMED
 
 *Claim:* "jointly" against three options that say "alone".
 
-*Evidence:* the cue type(s) claimed -- shared-opening -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire, including opposite-pair, which IS implemented and is silent here. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: only-hedged (the key is the only hedged option (can))
 
-### `7a26883d` (en `bf3a3098`) SD-AI-I 4.2 -- CANNOT CHECK
+### `7a26883d` (en `bf3a3098`) SD-AI-I 4.2 -- CONFIRMED
 
 *Claim:* Only the key is hedged.
 
-*Evidence:* the cue type(s) claimed -- hedging -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: only-hedged (the key is the only hedged option (may))
 
-### `8e762da6` (en `bf3a3098`) SD-AI-I 4.2 -- CANNOT CHECK
+### `8e762da6` (en `bf3a3098`) SD-AI-I 4.2 -- CONFIRMED
 
 *Claim:* Same item as 7a26883d.
 
-*Evidence:* the cue type(s) claimed -- hedging -- have NO detector in this repository. The four that exist (clang, agreement, opposite-pair, key-length) do not fire. Nothing looked for the cue the reviewer named.
+*Evidence:* code cue check fires: only-hedged (the key is the only hedged option (may))
 
 ### `d020924e` (en `f7ca2c3d`) SPO-AI-I 1.2 -- READ REQUIRED
 

@@ -99,18 +99,22 @@ const FINDINGS = [
  *
  *   key-length      implemented (key over 1.25x the median distractor)
  *   opposite-pair   implemented (two options that are each other's negation)
- *   hedging         NO DETECTOR -- only the key carries a qualifier
- *   shared-opening  NO DETECTOR -- n-1 options open with the same word or verdict
- *   rebuttal        NO DETECTOR -- the key argues against a distractor
+ *   only-hedged     IMPLEMENTED 2026-09-28 (was `hedging`, had no detector)
+ *   odd-verdict     IMPLEMENTED 2026-09-28 (was `shared-opening`, had no detector)
+ *   rebuttal        STILL NO DETECTOR, and deliberately so -- it needs meaning, not shape
+ *
+ * On the first run of this script three of these five had no rule at all, so seven findings came back
+ * CANNOT CHECK. Two are now built, and the verdicts below are what they say. `rebuttal` remains a
+ * declared gap: an item whose only cue is a rebuttal passes all six rules.
  */
 const CUE_TYPE = {
-  "7d8f0d0d": ["shared-opening", "key-length"],
-  "a9a6ae61": ["shared-opening"],
+  "7d8f0d0d": ["odd-verdict", "key-length"],
+  "a9a6ae61": ["odd-verdict"],
   "23c0c690": ["rebuttal", "key-length"],
-  "6c348d5a": ["hedging"],
-  "4fc2f5d8": ["shared-opening", "opposite-pair"],
-  "7a26883d": ["hedging"],
-  "8e762da6": ["hedging"],
+  "6c348d5a": ["only-hedged"],
+  "4fc2f5d8": ["odd-verdict", "opposite-pair"],
+  "7a26883d": ["only-hedged"],
+  "8e762da6": ["only-hedged"],
 };
 
 /* ---------------------------------------------------------------- controls first */
@@ -213,7 +217,8 @@ for (const [pfx, cls, claim, how] of FINDINGS) {
      * looked. Seven of the eight came back that way on the first run, and the ruling's own sentence --
      * "these are the shape cues the grounded gates already catch" -- is what that would have appeared
      * to support. So the verdict splits by whether a rule for the CLAIMED cue type exists. */
-    const IMPLEMENTED = new Set(["clang", "agreement", "opposite-pair", "key-length"]);
+    const IMPLEMENTED = new Set(["clang", "agreement", "opposite-pair", "key-length",
+      "only-hedged", "odd-verdict"]);
     const claimed = CUE_TYPE[pfx] || [];
     const covered = claimed.filter((t) => IMPLEMENTED.has(t));
     const uncovered = claimed.filter((t) => !IMPLEMENTED.has(t));

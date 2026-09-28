@@ -104,6 +104,98 @@ export function changedReference(originals, rewrites, controlTitles = []) {
   return found;
 }
 
+/* ============ CHECK 3: NO NEW CODE CUE ============
+ *
+ * A rewrite may not introduce a cue the original did not have. From the director's read of pilot 4:
+ * task 2.6 and task 4.1 both went none -> clang, and 2.8 swapped clang -> opposite-pair. Trading one
+ * cue for another is not an improvement, and adding one to a clean item is a regression.
+ *
+ * This is a DELTA use of the cue rules, which is the use they are sound for. Their absolute rates are
+ * another matter -- clang fires on 43 percent of the secure bank -- but "a cue appeared where there was
+ * none" is a comparison within one item and does not depend on the rate.
+ */
+export function newCodeCue(cuesBefore, cuesAfter) {
+  const before = new Set(cuesBefore || []);
+  return [...new Set(cuesAfter || [])].filter((id) => !before.has(id));
+}
+
+/* ============ CHECK 4: THE TRIGGERING CUE MUST CLEAR ============
+ *
+ * A rewrite that leaves the cue it was called for is not worth the plausibility risk it carries. Pilot
+ * 4 task 4.3 went clang -> clang: the distractors changed, the cue did not, and the item absorbed a
+ * rewrite for nothing.
+ */
+export function triggerCleared(cuesBefore, cuesAfter) {
+  const after = new Set(cuesAfter || []);
+  const remaining = [...new Set(cuesBefore || [])].filter((id) => after.has(id));
+  return { cleared: remaining.length === 0, remaining };
+}
+
+/* ============ CHECK 5: THE LIMITER IS WHAT MAKES A DISTRACTOR WRONG ============
+ *
+ * A restrictive limiter is often the ENTIRE reason a distractor is false. Drop it and the distractor
+ * becomes defensible, which moves the item toward a second correct answer -- the worst failure a
+ * distractor rewrite can produce, and invisible to every other check here.
+ *
+ * Both instances from pilot 4:
+ *
+ *   3.2 options 2 and 3   "within scope ONCE X"          -> "within scope, AND X"
+ *   5.1 option 3          "would close the gap ON ITS OWN" -> "IS the evidence this clause asks for"
+ *
+ * In the first, `once` made the claim conditional and `and` makes it true. In the second, `on its own`
+ * was the whole error and its removal makes the option a correct statement.
+ *
+ * Compared PER DISTRACTOR against its own original: a limiter elsewhere in the option set is not a
+ * substitute for the one this distractor lost.
+ */
+export const LIMITERS = [
+  "only", "once", "alone", "on its own", "instead", "rather than", "without", "until",
+  "before", "merely", "solely",
+];
+
+/* ============ "OR AN EQUIVALENT" IS HALF THE RULE, AND THE FIRST VERSION DROPPED IT ============
+ *
+ * The ruling is that the rewrite must keep the limiter OR AN EQUIVALENT. My first implementation fired
+ * per LIMITER -- `until` gone means fire -- which reported drift on four items the director's own read
+ * kept. Reading the members showed why:
+ *
+ *   2.7 opt2   "Hold the impact work open UNTIL risk levels have been determined"
+ *           -> "Determine the risk levels first, then insert them ... BEFORE treatment planning"
+ *
+ * `until` left and `before` arrived. The restriction is intact and the check called it a loss. So the
+ * unit is the OPTION, not the word: a rewrite carrying ANY limiter from the list has kept an
+ * equivalent, and only an option that carries NONE has dropped the restriction.
+ *
+ * WHAT THIS STILL CANNOT SEE, stated rather than tuned away. Three of the four members carry the
+ * restriction in words that are not on any list:
+ *
+ *   3.4 opt3   "DEFER review ... UNTIL the next audit"  ->  "review ... AT THE NEXT scheduled audit"
+ *   3.6 opt2   "parties WITHOUT authorization"          ->  "parties the system HAS NOT authorized"
+ *   2.5 opt3   "DEFER ... UNTIL the model is running"   ->  "SHIFT ... OUT OF the analysis"
+ *
+ * Those read as preserved to me. Extending the list until they pass would be fitting the rule to the
+ * expected count -- the error this repository records against every threshold that was adjusted after
+ * seeing its result. They are reported as members for a human instead.
+ *
+ * The one I read as a REAL loss is 2.5 opt1: "with justification for included and excluded controls
+ * BEFORE rating risks" -> "justifying included and excluded controls, AND attach it to the analysis".
+ * The ordering WAS the error, and the rewrite states no ordering at all.
+ */
+const limiterRe = (lim) => new RegExp("(?<![\\w-])" + lim.replace(/ /g, "\\s+") + "(?![\\w-])", "i");
+const limitersIn = (t) => LIMITERS.filter((lim) => limiterRe(lim).test(String(t || "")));
+
+export function limiterDropped(originals, rewrites) {
+  const found = [];
+  for (let i = 0; i < Math.min(originals.length, rewrites.length); i++) {
+    const had = limitersIn(originals[i]);
+    if (!had.length) continue;
+    const kept = limitersIn(rewrites[i]);
+    if (kept.length) continue;                 // any limiter is an equivalent
+    found.push({ index: i, limiter: had.join(", "), kept: null });
+  }
+  return found;
+}
+
 /** Both checks, as a revert decision. */
 export function deCueRewriteCheck(originals, rewrites, controlTitles = []) {
   const abs = newAbsolutes(originals, rewrites);
@@ -174,10 +266,56 @@ export function deCueCheckControls() {
     ["The board remains answerable for the outcome"],
     ["Accountability", "Transparency"]), "a long single-word title cannot fire");
 
+  /* ============ CHECKS 3, 4 AND 5, WITH THE PILOT-4 ITEM THAT MOTIVATED EACH ============ */
+
+  /* CHECK 3 -- 2.6 and 4.1 went none -> clang; 2.8 swapped clang -> opposite-pair. */
+  if (!newCodeCue([], ["clang"]).length) fails.push("check 3: a cue appearing from none did not fire");
+  if (!newCodeCue(["clang"], ["opposite-pair"]).length) fails.push("check 3: a swapped cue did not fire");
+  if (newCodeCue(["clang"], ["clang"]).length) fails.push("check 3: an unchanged cue must not count as new");
+  if (newCodeCue(["clang", "key-length"], ["clang"]).length) {
+    fails.push("check 3: clearing a cue must not read as adding one");
+  }
+
+  /* CHECK 4 -- 4.3 went clang -> clang: the rewrite changed the text and not the cue. */
+  if (triggerCleared(["clang"], ["clang"]).cleared) fails.push("check 4: an uncleared trigger passed");
+  if (!triggerCleared(["clang"], []).cleared) fails.push("check 4: a cleared trigger was reported uncleared");
+  if (!triggerCleared(["key-length"], ["clang"]).cleared) {
+    fails.push("check 4: the trigger cleared but a DIFFERENT cue appeared -- that is check 3's job, not this one");
+  }
+
+  /* CHECK 5 -- the two real drifts, in the director's own words. */
+  if (!limiterDropped(["The tool is within scope once the output controls access"],
+    ["The tool is within scope, and the output controls access"]).length) {
+    fails.push("check 5: pilot 4 task 3.2 -- dropping `once` did not fire");
+  }
+  if (!limiterDropped(["Reviewing the log would close the gap on its own"],
+    ["Reviewing the log is the evidence this clause asks for"]).length) {
+    fails.push("check 5: pilot 4 task 5.1 -- dropping `on its own` did not fire");
+  }
+  if (limiterDropped(["The tool is within scope only once the output controls access"],
+    ["Only once the output controls access is the tool within scope"]).length) {
+    fails.push("check 5: a limiter that survives a reordering must not fire");
+  }
+  if (limiterDropped(["The programme may be combined where scope allows"],
+    ["A combined programme is permitted when the scopes align"]).length) {
+    fails.push("check 5: an option with no limiter must not fire");
+  }
+  /* OR AN EQUIVALENT -- pilot 4 task 2.7, verbatim. `until` leaves and `before` arrives, so the
+   * restriction is intact. Firing here is what made the first version disagree with the read. */
+  if (limiterDropped(["Hold the impact work open until risk levels have been determined, then insert those levels into it"],
+    ["Determine the risk levels first, then insert them into the impact assessment before treatment planning"]).length) {
+    fails.push("check 5: a DIFFERENT limiter in the rewrite must count as the equivalent (task 2.7)");
+  }
+  /* A limiter in ANOTHER distractor is not a substitute for the one this distractor lost. */
+  if (!limiterDropped(["It applies once the model is retrained", "It applies only to new models"],
+    ["It applies when the model is retrained", "It applies only to new models"]).length) {
+    fails.push("check 5: per-distractor comparison failed -- a sibling's limiter masked a loss");
+  }
+
   /* An integer is not an address. */
   quiet(deCueRewriteCheck(
     ["The team reviews 4 records each quarter"],
     ["The team reviews a sample of records each quarter"]), "a bare integer is not an address");
 
-  return { examined: 9, fails };
+  return { examined: 23, fails };
 }

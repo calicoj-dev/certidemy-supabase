@@ -17,9 +17,10 @@ Nothing was written.
 **UNCHECKED is a third state, not a pass.** It is a row carrying `deveria` whose English sibling is
 missing, so the relative modal rule could not run. A rule that cannot see its source abstains.
 
-**The Scrum family is EMPTY and checks nothing.** The official 2020 Spanish and Portuguese Scrum
-Guides are not on disk, and the ruling forbids reconstructing official terms from memory. The terms
-needed are in `SCRUM-GLOSSARY-NEEDED.md`.
+**The Scrum family is EMPTY and checks nothing.** The official 2020 es-419 and pt-BR Guides ARRIVED
+2026-09-28 at `reference/scrum-guide-2020-es-419.pdf` and `-pt-br.pdf`, but having the guides is not
+having the terms: the family is still unseeded, so nothing Scrum is linted. `SCRUM-GLOSSARY-NEEDED.md`
+lists what to extract.
 
 **`fair presentation` in pt-BR is declared UNVERIFIED** -- the ABNT NBR ISO 19011 edition is not
 held, so `apresentação justa` is a house form and is only ever a flag.

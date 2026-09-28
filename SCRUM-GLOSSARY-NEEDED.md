@@ -1,20 +1,31 @@
-# Scrum glossary: the terms needed, and the two files that would supply them
+# Scrum glossary: the terms needed, and the two files that now supply them
 
-**STOPPED, as ruled.** The official 2020 Spanish and Portuguese Scrum Guides are **not on disk**. Only
-`reference/scrum-guide-2020.pdf` (English) is held. The ruling says to take the official terms from
-those editions and forbids reconstructing them from memory, so the `scrum_2020` family in
-`scripts/lib/translation-glossary.json` carries **zero terms** and the lint checks **none** of them.
+> **[THE GUIDES ARRIVED 2026-09-28. The paragraph below said they were not on disk, which is no longer
+> true, and a false claim about present state is the thing this repository punishes hardest.]**
+>
+> ```
+> reference/scrum-guide-2020-es-419.pdf    Latin South American Spanish
+> reference/scrum-guide-2020-pt-br.pdf     Brazilian Portuguese, v3.0
+> ```
+>
+> **These are NOT at the paths this file originally named** (`-es.pdf`, `-pt-BR.pdf`), and the files
+> were kept rather than renamed. `es-419` is the locale code the platform actually uses, and a bare
+> `-es` is the Spain/Latin-America ambiguity that has already cost something once: the EU AI Act's
+> official Spanish edition is SPAIN Spanish, which is why the glossary records it as a reference and
+> never a mandate. A filename that cannot express that distinction is the wrong filename. The doc is
+> the second copy, so the doc moved.
+>
+> **The `scrum_2020` family is still EMPTY.** Having the guides is not having the terms: they have to
+> be extracted, read and seeded, and the lint still checks none of them until that is done.
 
-## What to download
+## Where they came from
+
+Both are CC BY-SA 4.0, like the English one already tracked in `reference/`, so committing them is fine.
 
 ```
 Scrum Guide 2020, Spanish     https://scrumguides.org/download.html  (Espanol)
 Scrum Guide 2020, Portuguese  https://scrumguides.org/download.html  (Portugues do Brasil)
 ```
-
-Both are CC BY-SA 4.0, like the English one already tracked in `reference/`, so they can be committed
-rather than gitignored. Put them at `reference/scrum-guide-2020-es.pdf` and
-`reference/scrum-guide-2020-pt-BR.pdf` and this file becomes a ten-minute job.
 
 ## The terms, grouped by what they are
 

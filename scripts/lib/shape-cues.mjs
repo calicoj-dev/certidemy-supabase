@@ -33,10 +33,29 @@ const words = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9' ]+/g, " ")
 const contentWords = (s) => words(s).filter((w) => w.length >= 5 && !STOP.has(w));
 
 const optTexts = (item) => (item.options || []).map((o) => String((o && o.text) || ""));
+/* ============ THE KEY IS FOUND IN THREE SHAPES, AND MISSING THE THIRD MADE EVERY RULE SILENT ======
+ *
+ * Generator items carry `correct_index`. Gated artifacts carry `is_correct` on the option. A row read
+ * from `quiz_questions` carries NEITHER: the key is `correct_answer`, a jsonb ARRAY OF OPTION IDS
+ * (`["d"]`), and the options are `{id, text}`.
+ *
+ * So every one of these rules returned null for every live row, and `shapeCues` returned an empty list
+ * -- which is indistinguishable from a clean item. It was caught because the director found a cue by
+ * eye in AIE-I item 560dcf1d (three distractors opening `Proceed`, the key opening `Use AI`), the
+ * odd-verdict control built from that exact shape fired, and the live row did not. Two instruments
+ * disagreeing about one item.
+ *
+ * A bank-wide count run before this fix would have reported ZERO cues across every certification and
+ * read as a clean bank.
+ */
 const keyIndex = (item) => {
   if (typeof item.correct_index === "number") return item.correct_index;
-  const i = (item.options || []).findIndex((o) => o && o.is_correct);
-  return i;
+  const flagged = (item.options || []).findIndex((o) => o && o.is_correct);
+  if (flagged >= 0) return flagged;
+  const ca = item.correct_answer;
+  const ids = Array.isArray(ca) ? ca.map(String) : (typeof ca === "string" ? [ca] : []);
+  if (ids.length !== 1) return -1;           // a multi-select has no single key to be long or hedged
+  return (item.options || []).findIndex((o) => o && String(o.id) === ids[0]);
 };
 
 /**
@@ -167,7 +186,110 @@ export function keyLengthCue(item) {
     mid + " (" + ratio.toFixed(2) + "x, tolerance " + KEY_LENGTH_TOLERANCE + "x)", ratio };
 }
 
-export const SHAPE_CUES = [clangCue, agreementCue, oppositePairCue, keyLengthCue];
+/* ============ ONLY-HEDGED ============
+ *
+ * Two shapes, and they are the same cue seen from either end: the option set makes the key the only
+ * CAUTIOUS one, or the only one that is not ABSOLUTE. Either way a candidate who knows nothing picks
+ * the measured-sounding option, which is examiner convention rather than knowledge.
+ *
+ * Both arms require the asymmetry to be TOTAL -- every distractor on one side, the key alone on the
+ * other. A 2-of-3 split is ordinary English; the cue is the clean sweep. That is the same narrowing
+ * the cue guard's ABS_WORDS arm already uses, and CLAUDE.md records why: a partial asymmetry fires on
+ * most well-written items.
+ */
+const HEDGES = [
+  /\bmay\b/i, /\bmight\b/i, /\bcan\b/i, /\bcould\b/i, /\btypically\b/i, /\bgenerally\b/i,
+  /\busually\b/i, /\bwhere appropriate\b/i, /\bas needed\b/i, /\bin most cases\b/i,
+];
+const ABSOLUTES = [
+  /\balways\b/i, /\bnever\b/i, /\ball\b/i, /\bonly\b/i, /\bmust\b/i, /\bentirely\b/i,
+  /\bexclusively\b/i, /\bany\b/i,
+];
+const hasAny = (res, t) => res.some((re) => re.test(String(t || "")));
+const whichAny = (res, t) => res.filter((re) => re.test(String(t || "")))
+  .map((re) => String(re).replace(/^\/\\b|\\b\/i$/g, "").replace(/\\s/g, " "));
+
+export function onlyHedgedCue(item) {
+  const ki = keyIndex(item);
+  const texts = optTexts(item);
+  if (ki < 0 || texts.length < 3) return null;
+  const key = texts[ki];
+  const distractors = texts.filter((_, i) => i !== ki);
+
+  if (hasAny(HEDGES, key) && distractors.every((t) => !hasAny(HEDGES, t))) {
+    return { id: "only-hedged", arm: "hedge",
+      cue: "the key is the only hedged option (" + whichAny(HEDGES, key).join(", ") + ")" };
+  }
+  /* The mirror: the key is the only option carrying NO absolute. */
+  if (!hasAny(ABSOLUTES, key) && distractors.length >= 3 && distractors.every((t) => hasAny(ABSOLUTES, t))) {
+    return { id: "only-hedged", arm: "absolute",
+      cue: "every distractor carries an absolute and the key carries none (" +
+        distractors.map((t) => whichAny(ABSOLUTES, t)[0]).join(", ") + ")" };
+  }
+  return null;
+}
+
+/* ============ ODD-VERDICT ============
+ *
+ * Three options open the same way and the key does not, so the option set sorts itself before a
+ * candidate reads a word of substance. `Proceed, because...` three times against one `Use AI to
+ * organize...` is the live instance -- AIE-I item 560dcf1d, which the director found by eye.
+ *
+ * ONLY THE 3-VERSUS-1 SHAPE FIRES, and that is the ruling. The 2-2 shape -- the key sharing an opening
+ * with one distractor while the other two share a different one -- is not a cue: it gives a candidate
+ * a pair to choose between rather than an answer, so firing on it would be firing on the normal case.
+ * A 4-option item is therefore the only size this can fire on at all, which is stated rather than
+ * implied because every secure item here has four.
+ */
+const OPENING_STOP = new Set(["the", "a", "an", "it", "is", "this", "that", "to"]);
+const opening = (t) => {
+  const w = words(t);
+  if (!w.length) return null;
+  /* One to three words, skipping a leading article so `The reasoning is sound` and `Reasoning is
+   * sound` collapse. The phrase is what a candidate's eye lands on, not the determiner. */
+  const start = OPENING_STOP.has(w[0]) && w.length > 1 ? 1 : 0;
+  return w.slice(start, start + 3).join(" ") || null;
+};
+
+export function oddVerdictCue(item) {
+  const ki = keyIndex(item);
+  const texts = optTexts(item);
+  if (ki < 0 || texts.length !== 4) return null;
+  const keyOpen = opening(texts[ki]);
+  const dOpens = texts.map((t, i) => (i === ki ? null : opening(t))).filter(Boolean);
+  if (dOpens.length !== 3 || !keyOpen) return null;
+
+  /* The three distractors must agree with each other and differ from the key. Agreement is on the
+   * first token at minimum, and the reported phrase is the longest prefix all three share. */
+  const firstTok = (s) => s.split(" ")[0];
+  if (new Set(dOpens.map(firstTok)).size !== 1) return null;
+  if (firstTok(keyOpen) === firstTok(dOpens[0])) return null;
+
+  let shared = dOpens[0].split(" ");
+  for (const o of dOpens.slice(1)) {
+    const w = o.split(" ");
+    let n = 0;
+    while (n < shared.length && n < w.length && shared[n] === w[n]) n++;
+    shared = shared.slice(0, n);
+  }
+  return { id: "odd-verdict",
+    cue: "all three distractors open " + JSON.stringify(shared.join(" ")) +
+      " and the key opens " + JSON.stringify(keyOpen) };
+}
+
+/* ============ REBUTTAL IS A KNOWN GAP, AND IT STAYS ONE ============
+ *
+ * The third cue type the director found by eye -- the key arguing against a distractor -- is NOT
+ * detected here and is not going to be. It needs MEANING: "This option is superior to the one naming
+ * the absence of a separate scope entry" is a rebuttal, and no shape distinguishes it from a key that
+ * simply explains itself. A shape proxy for it would fire on every well-reasoned key, which is the
+ * lexical-proxy error this file's header already warns about.
+ *
+ * Recorded so its silence is never read as coverage: an item whose only cue is a rebuttal passes all
+ * six rules, and only a human read finds it.
+ */
+export const SHAPE_CUES = [clangCue, agreementCue, oppositePairCue, keyLengthCue,
+  onlyHedgedCue, oddVerdictCue];
 
 /** All four, as a flag list. Never a verdict. */
 export function shapeCues(item) {
@@ -235,5 +357,68 @@ export function shapeCueControls() {
   quiet(keyLengthCue, mk("Q?", ["one two three four five", "one two three four", "one two three five", "one two three six"], 0),
     "key-length quiet at exactly the tolerance");
 
-  return { examined: 11, fails };
+  /* ONLY-HEDGED, both arms and both directions. */
+  fires(onlyHedgedCue, mk("What does the clause require of the review?",
+    ["The review may be brought forward where appropriate",
+     "The review is held in March", "The review is held in June", "The review is held in September"], 0),
+    "only-hedged fires on the hedge arm");
+  fires(onlyHedgedCue, mk("Which statement about the control is correct?",
+    ["It is applied where the risk assessment indicates a need",
+     "It must always be applied to every system", "It applies only to systems that never change",
+     "It must be applied to all systems entirely"], 0),
+    "only-hedged fires on the absolute arm");
+  quiet(onlyHedgedCue, mk("What does the clause require of the review?",
+    ["The review may be brought forward", "The review may be deferred once",
+     "The review can be split in two", "The review might be combined"], 0),
+    "only-hedged quiet when every option hedges");
+  quiet(onlyHedgedCue, mk("Which statement about the control is correct?",
+    ["It is applied after a risk assessment", "It must always be applied",
+     "It applies to two systems", "It is applied yearly"], 0),
+    "only-hedged quiet on a 1-of-3 absolute split");
+
+  /* ODD-VERDICT: the live AIE-I shape, plus the 2-2 case that must NOT fire. */
+  fires(oddVerdictCue, mk("What should the manager do instead?",
+    ["Use AI to organize applicant notes, but keep a qualified human responsible",
+     "Proceed, because technical capability confirms AI is the right tool",
+     "Proceed, because AI applies criteria consistently",
+     "Proceed, because AI rankings are unbiased"], 0),
+    "odd-verdict fires on 3 distractors opening alike");
+  quiet(oddVerdictCue, mk("What should the manager do instead?",
+    ["Proceed, but keep a qualified human responsible", "Proceed, because the tool is capable",
+     "Stop, because the tool is unvalidated", "Stop, because the data is stale"], 0),
+    "odd-verdict quiet on the 2-2 shape, which is a pair to choose from and not an answer");
+  quiet(oddVerdictCue, mk("Which action is required?",
+    ["Reclassify the tool as in scope", "Conduct a bias audit first",
+     "Request reclassification from the vendor", "Take no action"], 0),
+    "odd-verdict quiet when the openings differ");
+  /* A LEADING ARTICLE MUST NOT HIDE THE AGREEMENT: `The reasoning is sound` and `Reasoning is sound`
+   * collapse to the same opening, which is what a candidate's eye does. */
+  fires(oddVerdictCue, mk("How should the finding be judged?",
+    ["It rests on a sample the auditor never examined",
+     "The reasoning is sound because the criteria were met",
+     "Reasoning is sound because the evidence was verified",
+     "The reasoning is sound given the programme scope"], 0),
+    "odd-verdict fires across a dropped leading article");
+
+  /* ============ THE DATABASE ROW SHAPE, WHICH EVERY RULE WAS BLIND TO ============
+   *
+   * Same option set as the odd-verdict case above, expressed the way `quiz_questions` stores it:
+   * `correct_answer: ["d"]` and options carrying `id`, with no `is_correct` anywhere. Without this
+   * control the rules pass their fixtures and return nothing for every live row. */
+  const dbRow = {
+    question_text: "What should the manager do instead?",
+    correct_answer: ["d"],
+    options: [
+      { id: "a", text: "Proceed, because technical capability confirms AI is the right tool" },
+      { id: "b", text: "Proceed, because AI applies criteria consistently" },
+      { id: "c", text: "Proceed, because AI rankings are unbiased" },
+      { id: "d", text: "Use AI to organize applicant notes, but keep a qualified human responsible" },
+    ],
+  };
+  fires(oddVerdictCue, dbRow, "odd-verdict fires on a DATABASE row (correct_answer + option ids)");
+  /* And a multi-select has no single key, so the rules abstain rather than picking one. */
+  quiet(oddVerdictCue, { ...dbRow, correct_answer: ["c", "d"] },
+    "a multi-select row must not be scored as if it had one key");
+
+  return { examined: 21, fails };
 }
