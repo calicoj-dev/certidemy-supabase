@@ -14,11 +14,9 @@
    "edition": "2022",
    "state": "PARTIAL",
    "declared": 137,
-   "held": 125,
+   "held": 127,
    "missing": [
-    "9.2.1",
-    "A.5.15",
-    "A.8.9"
+    "9.2.1"
    ]
   },
   {

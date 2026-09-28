@@ -375,16 +375,52 @@ function splitAnnexTable(lines, from) {
      * IT RUNS ONLY WHERE THE PRIMARY PATH FOUND NOTHING, so it can add a control and can never
      * change one that already extracted. That is the whole reason it is a fallback rather than a
      * rewrite of the splitter: 119 held controls stay byte-identical. */
+    /* A BODY THAT IS ONLY A TITLE AND THE COLUMN HEADER IS AN EMPTY STATEMENT CELL.
+     *
+     * A.8.9 renders as `8.9  Configuration management Control` -- ONE space between the title and the
+     * header, where the column-gap test needs three. So the title was never split off, `text` came out
+     * as "Configuration management Control", 32 characters, and the fallback below never ran because 32
+     * is over its threshold. The substance floor then rejected it as the 3-word fragment it is and the
+     * control was reported NOT HELD, which is the right call on that text and the wrong outcome.
+     *
+     * Where the body ENDS in the bare column header, the header is the separator whatever precedes it:
+     * the title comes off and the statement is empty, which is the state the fallback exists for. */
+    const endsInHeader = /^(.*?)\s*\bControl\s*$/.exec(text);
+    if (endsInHeader && endsInHeader[1].trim().length <= 70) {
+      if (!title) title = endsInHeader[1].trim();
+      text = "";
+    }
+
     if (text.length < 20) {
       const startAt = m.line;
-      /* The next `Control` header at or after the following line ends this statement. */
+      /* ============ THE STATEMENT BEGINS AFTER THIS ROW'S OWN HEADER ============
+       *
+       * In `-layout` the header sits on the title's line, so the first standalone `Control` after the
+       * marker belongs to the NEXT row. In PLAIN mode it is on its own line directly under the title, so
+       * the first one is THIS row's -- and stopping at it recovered nothing, which is why A.5.15 stayed
+       * missing: its layout line carries a running header before the number (`... / ISO/IEC 27001:2022
+       * 5.15 Access control`) so no marker is found there at all, leaving plain mode as the only route.
+       *
+       * So: if this row's own line already carries the header, collect from the next line; otherwise the
+       * first standalone header is this row's own and collection starts after it. Either way the stop is
+       * the NEXT header. */
+      let ownHeaderAt = /\bControl\b/.test(lines[startAt]) ? startAt : -1;
+      if (ownHeaderAt < 0) {
+        for (let i = startAt + 1; i < Math.min(lines.length, startAt + 6); i++) {
+          if (/^\s*Control\s*$/.test(lines[i])) { ownHeaderAt = i; break; }
+          if (/^\s*(?:A\.)?\d+\.\d+\s/.test(lines[i])) break;   /* the next row came first: no own header */
+        }
+      }
+      const from2 = (ownHeaderAt >= 0 ? ownHeaderAt : startAt) + 1;
       let stop = lines.length;
-      for (let i = startAt + 1; i < lines.length; i++) {
+      for (let i = from2; i < lines.length; i++) {
         if (/^\s*Control\s*$/.test(lines[i])) { stop = i; break; }
         if (/^Annex\s+[B-Z]\b/i.test(lines[i].trim()) || /^Bibliography$/i.test(lines[i].trim())) { stop = i; break; }
       }
+      const startAtEff = from2 - 1;
+      void startAtEff;
       const right = [];
-      for (let i = startAt + 1; i < stop; i++) {
+      for (let i = from2; i < stop; i++) {
         let ln = lines[i];
         if (!ln.trim() || isFurnitureLine(ln.trim())) continue;
         /* Strip a left-column entry: a number and title followed by the column gap. What remains is

@@ -49,7 +49,18 @@ for (const a of process.argv.slice(2)) {
 
 /* The six the fallback recovered, named explicitly rather than inferred from the artifact -- the point
  * is to check these, so the list is the subject of the check and not its output. */
-const RECOVERED = ["A.7.11", "A.8.1", "A.8.5", "A.8.11", "A.8.15", "A.8.32"];
+/* ============ EVERY ANNEX A CONTROL, NOT ONLY THE RECOVERED ONES ============
+ *
+ * Ruled 2026-09-28. Checking only the six the fallback recovered answered the narrow question and left
+ * the wide one open: the 119 controls the primary path produced were never checked for misattachment
+ * either, and they came from a splitter that pairs a row number with a statement cell by POSITION. The
+ * witness costs nothing to run over all of them.
+ *
+ * `RECOVERED` stays as a label so the report can separate the two populations -- a recovered control and
+ * a primary-path control are different evidence about the extractor, and folding them would hide which
+ * half a finding came from. */
+const RECOVERED = new Set(["A.7.11", "A.8.1", "A.8.5", "A.8.9", "A.8.11", "A.8.15",
+  "A.8.32", "A.5.15"]);
 
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
 const p27001 = new Map(lib.passages.filter((p) => p.source_id === "ISO/IEC 27001" && p.edition === "2022")
@@ -108,8 +119,22 @@ const runAgainst = (statement, other) => {
   return { run: best, words: a.length };
 };
 
+/* ============ EVERY ANNEX A CONTROL, NOT ONLY THE EIGHT RECOVERED ============
+ *
+ * Ruled 2026-09-28. Checking only the recovered ones answered the narrow question and left the wide one
+ * open: the controls the PRIMARY path produced were never checked for misattachment either, and that
+ * path pairs a row number with a statement cell by position -- the same failure mode, a different code
+ * path. The witness costs nothing to run over all of them.
+ *
+ * The two populations are reported apart, because a recovered control and a primary-path control are
+ * different evidence about the extractor and folding them would hide which half a finding came from. */
+const ALL_ANNEX_A = [...p27001.keys()].filter((c) => /^A\.\d+\.\d+$/.test(c)).sort((x, y) => {
+  const a = x.slice(2).split(".").map(Number), b = y.slice(2).split(".").map(Number);
+  return a[0] - b[0] || a[1] - b[1];
+});
+
 const rows = [];
-for (const clause of RECOVERED) {
+for (const clause of ALL_ANNEX_A) {
   const mine = p27001.get(clause);
   const nxt = p27001.get(nextNumber(clause));
   const other = p27002.get(clause.slice(2));           /* 27002 numbers without the A. */
@@ -135,19 +160,38 @@ for (const clause of RECOVERED) {
    * 27002's sentence at the SAME number decides where it can, and the same test is run against 27002's
    * NEXT number -- so a genuine off-by-one shows as a longer run against the neighbour. The title test
    * is the fallback, and UNDECIDED remains a real outcome rather than a pass. */
+  /* ============ BOTH NEIGHBOURS, BECAUSE OFF-BY-ONE HAS TWO DIRECTIONS ============
+   *
+   * The first version compared only against the NEXT number, so a statement borrowed from the PREVIOUS
+   * control was invisible -- and that is the direction two live passages actually failed in: A.8.12
+   * (Data leakage prevention) holds A.8.11's data-masking statement, and A.8.22 (Segregation of
+   * networks) holds A.8.21's. Both came back UNDECIDED rather than MISATTACHED, which reads as "no
+   * evidence" when the evidence was one clause in the other direction.
+   *
+   * A check for an off-by-one that looks one way only is half a check. */
+  const prevNumber = (c) => {
+    const [g, n] = c.slice(2).split(".").map(Number);
+    return n > 1 ? "A." + g + "." + (n - 1) : null;
+  };
   const otherNext = p27002.get(nextNumber(clause).slice(2));
+  const pn = prevNumber(clause);
+  const otherPrev = pn ? p27002.get(pn.slice(2)) : null;
   const runOwn = runAgainst(stmt, other ? other.text : null);
   const runNext = runAgainst(stmt, otherNext ? otherNext.text : null);
+  const runPrev = runAgainst(stmt, otherPrev ? otherPrev.text : null);
 
   let verdict, why;
-  const ro = runOwn ? runOwn.run : 0, rn = runNext ? runNext.run : 0;
-  if (ro >= 6 && ro > rn) {
+  const ro = runOwn ? runOwn.run : 0, rn = runNext ? runNext.run : 0, rp = runPrev ? runPrev.run : 0;
+  const worstNeighbour = Math.max(rn, rp);
+  const whichNeighbour = rn >= rp ? "NEXT (" + nextNumber(clause) + ")" : "PREVIOUS (" + pn + ")";
+  if (ro >= 6 && ro >= worstNeighbour) {
     verdict = "CORRECT";
     why = "ISO/IEC 27002 clause " + clause.slice(2) + " carries " + ro + " of the same words in a row" +
-      (rn ? " against " + rn + " for the neighbour" : "");
-  } else if (rn >= 6 && rn > ro) {
+      (worstNeighbour ? " against " + worstNeighbour + " for the best neighbour" : "");
+  } else if (worstNeighbour >= 6 && worstNeighbour > ro) {
     verdict = "MISATTACHED";
-    why = "ISO/IEC 27002's NEXT clause matches better (" + rn + " words in a row against " + ro + ")";
+    why = "ISO/IEC 27002's " + whichNeighbour + " clause matches better (" + worstNeighbour +
+      " words in a row against " + ro + " for its own number)";
   } else {
     const ownStrong = vsOwn && vsOwn.matched > 0;
     const nextStrong = vsNext && vsNext.matched > 0;
@@ -163,7 +207,7 @@ for (const clause of RECOVERED) {
   }
 
   rows.push({ clause, mineTitle, nextTitle, stmt, vsOwn, vsNext, vs27002, other, otherNext,
-    runOwn, runNext, window, at, verdict, why });
+    runOwn, runNext, runPrev, otherPrev, pn, window, at, verdict, why, recovered: RECOVERED.has(clause) });
 }
 
 const md = [];
