@@ -419,11 +419,20 @@ function splitAnnexTable(lines, from, rightColumnAlways = false) {
      * every annex row, and `leadRest` is used only when the right-column read finds nothing. That
      * inverts which one is the exception, which is the point: the special case was the correct one.
      */
-    /* The right-column read is the primary path only where the source declares its annex table
-     * authoritative. Applied everywhere it broke ISO/IEC 42001's A.2.2 and A.2.4 -- the extractor's own
-     * citation self-check refused the write -- because that annex is not the interleaved two-column
-     * layout this rule is about. Elsewhere it stays what it was: the recovery for an empty cell. */
-    if (text.length < 20) {
+    /* ============ BOTH READINGS ARE PRODUCED; 27002 CHOOSES BETWEEN THEM ============
+     *
+     * 27001's Annex A has two row layouts and no blanket rule fits either one -- making the right-column
+     * read primary shifted 79 of 93 controls by a row, and leaving it as an empty-cell fallback leaves
+     * six carrying a neighbour's statement. So the splitter stops choosing: it emits the same-line
+     * reading as `text` and the right-column reading as `textAlt`, and the selection happens later,
+     * where ISO/IEC 27002 is available to say which one is this control's own.
+     *
+     * BOTH CANDIDATES ARE 27001 PDF TEXT. 27002 never contributes a word to the library; it only picks
+     * which of two readings of the SAME page belongs to the number. That distinction is the reason this
+     * is sound rather than a cross-contamination.
+     */
+    let textAlt = "";
+    if (true) {
       const startAt = m.line;
       /* ============ THE STATEMENT BEGINS AFTER THIS ROW'S OWN HEADER ============
        *
@@ -474,8 +483,9 @@ function splitAnnexTable(lines, from, rightColumnAlways = false) {
         console.error("[" + m.clause + "] recovered(" + recovered.length + ")=" +
           JSON.stringify(recovered.slice(0, 100)));
       }
-      if (recovered.length >= 20) {
-        text = recovered;
+      textAlt = recovered;                      /* the candidate, kept whether or not it is used below */
+      if (text.length < 20 && recovered.length >= 20) {
+        text = recovered;                       /* an empty statement cell: the right column is the only reading */
         /* The title is the row's own left-column text, never the statement's opening. Where the gap test
          * could not split it -- two spaces instead of three -- `leadRaw` is the title plus the previous
          * row's statement, so the title is taken up to the first sentence boundary or the header. */
@@ -488,7 +498,7 @@ function splitAnnexTable(lines, from, rightColumnAlways = false) {
 
     /* `fromAnnexTable` is how the merge knows this reading came from the two-column splitter rather than
      * from the heading pass. Without it the merge falls back to length, which prefers a misattached row. */
-    if (text.length >= 20) out.push({ clause: m.clause, title, text, fromAnnexTable: true });
+    if (text.length >= 20) out.push({ clause: m.clause, title, text, textAlt, fromAnnexTable: true });
   });
   return out;
 }
@@ -1634,6 +1644,9 @@ for (const s of SOURCES) {
     passages.push({
       source_id: s.id, edition: s.edition, clause: p.clause, title: p.title,
       text: stripFurniture(p.text).replace(/\s+/g, " ").trim(),
+      /* The alternate reading of the same page, carried so the 27002 witness can choose after extraction.
+       * Deleted again once the choice is made, so it never reaches the library. */
+      textAlt: p.textAlt ? stripFurniture(p.textAlt).replace(/\s+/g, " ").trim() : undefined,
       /* THREE WAYS A PASSAGE'S CLASS IS DECIDED, and only the first reads the words:
        *
        *   normativeOf         the sentence's own strongest modal -- the ISO default
@@ -2009,6 +2022,144 @@ if (problems.length || ctlFail.length) {
 /* `annex_gaps` travels WITH the passages, because the gate that refuses an unanchorable
  * citation needs the list and must not re-derive it: a second copy of this fact would
  * go stale the first time the extractor improves. */
+/* ============ 27002 CHOOSES BETWEEN TWO READINGS OF THE SAME 27001 PAGE ============
+ *
+ * Ruled 2026-09-28, after three attempts to pick the right reading by shape all failed: one blanket rule
+ * left six controls carrying a neighbour's statement, the opposite blanket rule shifted 79 of 93 by a row,
+ * and restricting the mode cost eight main-body clauses. 27001's Annex A simply has two row layouts.
+ *
+ * So the extractor stops guessing. Each row carries BOTH readings -- same-line (`text`) and
+ * right-column-after-its-own-header (`textAlt`) -- and the choice is made here, per row, by the only
+ * instrument that can tell them apart: does ISO/IEC 27002's clause of the SAME number match this reading
+ * better than either neighbour's does?
+ *
+ * 27002 CONTRIBUTES NO TEXT. Both candidates are 27001's own page; the witness only says which of the two
+ * belongs to the number. `textAlt` is deleted afterwards so nothing downstream can mistake a candidate
+ * for a passage.
+ */
+const witness27002 = (() => {
+  const p2 = new Map(passages.filter((p) => p.source_id === "ISO/IEC 27002" && p.edition === "2022")
+    .map((p) => [String(p.clause), p]));
+  const nrm = (s) => String(s || "").toLowerCase().replace(/\bshall\b/g, "should")
+    .replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  const runOf = (stmt, other) => {
+    if (!other || !stmt) return 0;
+    const a = nrm(stmt).split(" "), b = nrm(other).split(" ");
+    const grams = new Set();
+    for (let i = 0; i < b.length; i++) grams.add(b.slice(i, i + 4).join(" "));
+    let best = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (!grams.has(a.slice(i, i + 4).join(" "))) continue;
+      let n = 4;
+      while (i + n < a.length && grams.has(a.slice(i + n - 3, i + n + 1).join(" "))) n++;
+      if (n > best) best = n;
+    }
+    return best;
+  };
+  const shift = (c, d) => {
+    const [g, n] = c.slice(2).split(".").map(Number);
+    return n + d >= 1 ? "A." + g + "." + (n + d) : null;
+  };
+  /* Score one candidate: its own run, and the best run any neighbour achieves against it. */
+  const score = (clause, stmt) => {
+    const own = runOf(stmt, (p2.get(clause.slice(2)) || {}).text);
+    const nb = [shift(clause, 1), shift(clause, -1)].filter(Boolean)
+      .map((c) => ({ c, r: runOf(stmt, (p2.get(c.slice(2)) || {}).text) }));
+    const worst = nb.reduce((m, x) => (x.r > m.r ? x : m), { c: null, r: 0 });
+    return { own, nbRun: worst.r, nbClause: worst.c, clean: own >= 6 && own >= worst.r };
+  };
+  return { score, has: (clause) => p2.has(clause.slice(2)) };
+})();
+
+const chosenRoute = new Map();
+for (const p of passages) {
+  if (p.source_id !== "ISO/IEC 27001" || p.edition !== "2022") continue;
+  if (!/^A\.\d+\.\d+$/.test(String(p.clause))) { delete p.textAlt; continue; }
+  const alt = p.textAlt;
+  if (!alt || alt === p.text) { chosenRoute.set(p.clause, "same-line (no alternate)"); delete p.textAlt; continue; }
+  const a = witness27002.score(p.clause, p.text);
+  const b = witness27002.score(p.clause, alt);
+  /* ============ THE DISCRIMINATOR IS THE NEIGHBOUR RUN, NOT THE OWN RUN ============
+   *
+   * My first rule was "prefer the clean candidate, then the higher own run", and it REGRESSED A.7.8 --
+   * a control that was already correct at "Equipment shall be sited securely and protected." It chose a
+   * candidate that had swallowed A.7.9 and A.7.10, because a bled reading still CONTAINS the row's own
+   * sentence: its own run stays high while the contamination pushes the neighbour run up too.
+   *
+   * Worse, the gate could not catch it, because the gate scores the same way the chooser did -- one
+   * instrument judging its own choice. Contamination is what distinguishes the two candidates, so the
+   * rule is the LOWEST neighbour run, with the higher own run only as a tie-break. A correct statement
+   * matches its own 27002 clause and barely matches its neighbours; that asymmetry is the signal. */
+  let take = "same-line";
+  if (b.nbRun < a.nbRun) take = "right-column";
+  else if (b.nbRun === a.nbRun && b.own > a.own) take = "right-column";
+  if (take === "right-column") {
+    p.text = alt;
+    p.chars = alt.length;
+  }
+  chosenRoute.set(p.clause, take + "  own " + (take === "right-column" ? b.own : a.own) +
+    " vs neighbour " + (take === "right-column" ? b.nbRun : a.nbRun));
+  delete p.textAlt;
+}
+/* A CANDIDATE IS NOT A PASSAGE. `textAlt` existed only so 27002 could choose between two readings, and it
+ * leaked into 31 ISO/IEC 42001 rows on the first run because the delete ran only inside the 27001 branch.
+ * Stripped from every passage here, so nothing downstream can read a candidate as library text. */
+for (const p of passages) delete p.textAlt;
+{
+  const byRoute = [...chosenRoute.values()].reduce((m, v) => {
+    const k = v.split(" ")[0]; m[k] = (m[k] || 0) + 1; return m;
+  }, {});
+  console.log("");
+  console.log("27002 CHOSE BETWEEN TWO 27001 READINGS, per Annex A row");
+  for (const [k, v] of Object.entries(byRoute)) console.log("  " + k.padEnd(16) + v);
+}
+
+/* ============ THE REVIEWED OVERRIDE, APPLIED BEFORE THE GATE SO THE GATE CHECKS IT ============
+ *
+ * Two rows resist every shape rule because NEITHER candidate reading is correct: a one-sentence statement
+ * cell means the same-line reading carries the next control's statement too. `source-overrides-27001.json`
+ * holds those two, copied from the PDF with their page numbers.
+ *
+ * IT IS APPLIED BEFORE THE WITNESS, NOT AFTER. An override the gate does not check is a second copy of a
+ * fact with nothing watching it -- and the whole reason this gate exists is that a misattached statement
+ * looks exactly like a correct one. It also asserts its own before-state: an override whose clause has
+ * stopped being produced, or whose recorded defect no longer matches what the extractor emits, FAILS the
+ * build rather than silently overwriting something it was not reviewed against.
+ */
+{
+  const OV = join(ROOT, "source-overrides-27001.json");
+  if (existsSync(OV)) {
+    const spec = JSON.parse(readFileSync(OV, "utf8"));
+    const stale = [], applied = [];
+    for (const o of spec.overrides || []) {
+      const p = passages.find((x) => x.source_id === spec.source_id && x.edition === spec.edition &&
+        String(x.clause) === o.clause);
+      if (!p) { stale.push(o.clause + ": the extractor no longer produces this clause"); continue; }
+      const cur = String(p.text || "");
+      if (o.replaces_starts_with && !cur.startsWith(o.replaces_starts_with)) {
+        stale.push(o.clause + ": the extracted text no longer starts with the reviewed defect -- re-review " +
+          "before overriding. got: " + JSON.stringify(cur.slice(0, 70)));
+        continue;
+      }
+      p.text = o.statement;
+      p.chars = o.statement.length;
+      if (o.title) p.title = o.title;
+      p.provenance = "reviewed override, 27001 PDF page " + o.page;
+      applied.push(o.clause);
+    }
+    console.log("");
+    console.log("REVIEWED OVERRIDES  applied " + applied.length + (applied.length ? " (" + applied.join(", ") + ")" : "") +
+      "   stale " + stale.length);
+    for (const s of stale) console.log("    STALE " + s);
+    if (stale.length) {
+      console.error("");
+      console.error("REFUSING TO WRITE: an override no longer matches what the extractor produces.");
+      console.error("A reviewed correction applied to text nobody reviewed is worse than no override.");
+      process.exitCode = 3; process.exit();
+    }
+  }
+}
+
 /* ============ THE 27002 TWO-DIRECTION WITNESS, AS A GATE ON THE WRITE ============
  *
  * Ruled 2026-09-28: extraction FAILS if any ISO/IEC 27001 Annex A control matches a NEIGHBOUR better

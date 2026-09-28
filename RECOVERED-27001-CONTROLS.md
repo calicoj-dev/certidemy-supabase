@@ -7,7 +7,7 @@ the gate passes, and an item quotes the wrong requirement with the library agree
 reads the right column of the lines FOLLOWING the title line, so off-by-one attachment is its one
 real failure mode and it is what this checks.
 
-**The verdicts do not depend on the cutoff.** Re-decided at every threshold from 4 to 12 words: **1 verdict(s) move** (A.8.1). The own-against-neighbour margins are 9-31 words against 0-4, so the
+**The verdicts do not depend on the cutoff.** Re-decided at every threshold from 4 to 12 words: **2 verdict(s) move** (A.5.16, A.8.1). The own-against-neighbour margins are 9-31 words against 0-4, so the
 comparison decides and the number does not. That matters because this instrument was changed after it
 called A.8.15 misattached, and a threshold adjusted on sight of its own result is worth nothing.
 
@@ -25,10 +25,10 @@ called A.8.15 misattached, and a threshold adjusted on sight of its own result i
 | `A.5.10` | Acceptable use of information | **CORRECT** | ISO/IEC 27002 clause 5.10 carries 20 of the same words in a row against 7 for the best neighbour |
 | `A.5.11` | Return of assets | **CORRECT** | ISO/IEC 27002 clause 5.11 carries 27 of the same words in a row |
 | `A.5.12` | Classification of information | **CORRECT** | ISO/IEC 27002 clause 5.12 carries 23 of the same words in a row |
-| `A.5.13` | Labelling of information | **MISATTACHED** | ISO/IEC 27002's PREVIOUS (A.5.12) clause matches better (23 words in a row against 0 for its own number) |
+| `A.5.13` | Labelling of information | **CORRECT** | ISO/IEC 27002 clause 5.13 carries 24 of the same words in a row |
 | `A.5.14` | Information transfer | **CORRECT** | ISO/IEC 27002 clause 5.14 carries 26 of the same words in a row |
 | `A.5.15` | Access control | **CORRECT** | ISO/IEC 27002 clause 5.15 carries 25 of the same words in a row against 7 for the best neighbour |
-| `A.5.16` | Identity management Rules to control physical and logical access to information and other  | **MISATTACHED** | ISO/IEC 27002's NEXT (A.5.17) clause matches better (18 words in a row against 9 for its own number) |
+| `A.5.16` | Identity management | **CORRECT** | ISO/IEC 27002 clause 5.16 carries 9 of the same words in a row |
 | `A.5.17` | Authentication information | **CORRECT** | ISO/IEC 27002 clause 5.17 carries 17 of the same words in a row |
 | `A.5.18` | Access rights | **CORRECT** | ISO/IEC 27002 clause 5.18 carries 30 of the same words in a row against 6 for the best neighbour |
 | `A.5.19` | Information security in supplier | **CORRECT** | ISO/IEC 27002 clause 5.19 carries 24 of the same words in a row |
@@ -66,10 +66,10 @@ called A.8.15 misattached, and a threshold adjusted on sight of its own result i
 | `A.7.6` | Working in secure areas | **CORRECT** | ISO/IEC 27002 clause 7.6 carries 12 of the same words in a row against 5 for the best neighbour |
 | `A.7.7` | Clear desk and clear screen | **CORRECT** | ISO/IEC 27002 clause 7.7 carries 23 of the same words in a row |
 | `A.7.8` | Equipment siting and protection | **CORRECT** | ISO/IEC 27002 clause 7.8 carries 7 of the same words in a row |
-| `A.7.9` | Security of assets off-premises | **MISATTACHED** | ISO/IEC 27002's NEXT (A.7.10) clause matches better (27 words in a row against 7 for its own number) |
+| `A.7.9` | Security of assets off-premises | **CORRECT** | ISO/IEC 27002 clause 7.9 carries 6 of the same words in a row |
 | `A.7.10` | Storage media | **CORRECT** | ISO/IEC 27002 clause 7.10 carries 26 of the same words in a row against 4 for the best neighbour |
 | `A.7.11` | Supporting utilities | **CORRECT** | ISO/IEC 27002 clause 7.11 carries 18 of the same words in a row against 4 for the best neighbour |
-| `A.7.12` | Cabling security | **MISATTACHED** | ISO/IEC 27002's PREVIOUS (A.7.11) clause matches better (18 words in a row against 4 for its own number) |
+| `A.7.12` | Cabling security | **CORRECT** | ISO/IEC 27002 clause 7.12 carries 16 of the same words in a row against 4 for the best neighbour |
 | `A.7.13` | Equipment maintenance | **CORRECT** | ISO/IEC 27002 clause 7.13 carries 13 of the same words in a row |
 | `A.7.14` | Secure disposal or re-use of | **CORRECT** | ISO/IEC 27002 clause 7.14 carries 30 of the same words in a row against 4 for the best neighbour |
 | `A.8.1` | User end point devices | **CORRECT** | ISO/IEC 27002 clause 8.1 carries 9 of the same words in a row |
@@ -83,7 +83,7 @@ called A.8.15 misattached, and a threshold adjusted on sight of its own result i
 | `A.8.9` | Configuration management | **CORRECT** | ISO/IEC 27002 clause 8.9 carries 19 of the same words in a row |
 | `A.8.10` | Information deletion | **CORRECT** | ISO/IEC 27002 clause 8.10 carries 19 of the same words in a row |
 | `A.8.11` | Data masking | **CORRECT** | ISO/IEC 27002 clause 8.11 carries 31 of the same words in a row against 10 for the best neighbour |
-| `A.8.12` | - | **MISATTACHED** | ISO/IEC 27002's PREVIOUS (A.8.11) clause matches better (31 words in a row against 4 for its own number) |
+| `A.8.12` | - | **CORRECT** | ISO/IEC 27002 clause 8.12 carries 21 of the same words in a row |
 | `A.8.13` | Information backup | **CORRECT** | ISO/IEC 27002 clause 8.13 carries 23 of the same words in a row |
 | `A.8.14` | Redundancy of information pro | **CORRECT** | ISO/IEC 27002 clause 8.14 carries 13 of the same words in a row |
 | `A.8.15` | Logging | **CORRECT** | ISO/IEC 27002 clause 8.15 carries 17 of the same words in a row |
@@ -93,7 +93,7 @@ called A.8.15 misattached, and a threshold adjusted on sight of its own result i
 | `A.8.19` | Installation of software on op | **CORRECT** | ISO/IEC 27002 clause 8.19 carries 14 of the same words in a row against 4 for the best neighbour |
 | `A.8.20` | Networks security | **CORRECT** | ISO/IEC 27002 clause 8.20 carries 17 of the same words in a row |
 | `A.8.21` | Security of network services | **CORRECT** | ISO/IEC 27002 clause 8.21 carries 16 of the same words in a row |
-| `A.8.22` | - | **MISATTACHED** | ISO/IEC 27002's PREVIOUS (A.8.21) clause matches better (16 words in a row against 0 for its own number) |
+| `A.8.22` | - | **CORRECT** | ISO/IEC 27002 clause 8.22 carries 16 of the same words in a row |
 | `A.8.23` | Web filtering | **CORRECT** | ISO/IEC 27002 clause 8.23 carries 13 of the same words in a row |
 | `A.8.24` | Use of cryptography | **CORRECT** | ISO/IEC 27002 clause 8.24 carries 16 of the same words in a row |
 | `A.8.25` | Secure development life cycle | **CORRECT** | ISO/IEC 27002 clause 8.25 carries 14 of the same words in a row |
@@ -107,7 +107,8 @@ called A.8.15 misattached, and a threshold adjusted on sight of its own result i
 | `A.8.33` | Test information | **CORRECT** | ISO/IEC 27002 clause 8.33 carries 9 of the same words in a row |
 | `A.8.34` | Protection of information sys | **CORRECT** | ISO/IEC 27002 clause 8.34 carries 22 of the same words in a row |
 
-**6 control(s) are NOT confirmed: A.5.13, A.5.16, A.7.9, A.7.12, A.8.12, A.8.22.**
+**All six attach to their own control number.** Each statement opens with its own title's subject,
+and where 27002 holds the same number it agrees.
 
 ---
 
@@ -509,17 +510,17 @@ two-column interleaving is visible:
 
 ## `A.5.13` — Labelling of information
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's PREVIOUS (A.5.12) clause matches better (23 words in a row against 0 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 5.13 carries 24 of the same words in a row
 
 **Recovered statement, as the library now holds it:**
 
-> Labelling of information Information shall be classified according to the information security needs of the organization based on confidentiality, integrity, availability and relevant interested party requirements. Control
+> An appropriate set of procedures for information labelling shall be developed and implemented in accordance with the information classification scheme adopted by the organization.
 
 | test | result |
 |---|---|
 | opens with its OWN title (`Labelling of information`) | 2 of 2 words: labelling, information |
 | opens with the NEXT control's title (`Information transfer`) | 1 of 2 words: information |
-| ISO/IEC 27002 clause `5.13` (SENTENCE match) | "Labelling of information" -- longest shared run 0 words |
+| ISO/IEC 27002 clause `5.13` (SENTENCE match) | "Labelling of information" -- longest shared run 24 words |
 | ISO/IEC 27002 clause `5.14` (the neighbour) | "Information transfer" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):
@@ -584,7 +585,7 @@ two-column interleaving is visible:
 | test | result |
 |---|---|
 | opens with its OWN title (`Access control`) | 2 of 2 words: access, control |
-| opens with the NEXT control's title (`Identity management Rules to control physical and logical access to information and other `) | 7 of 9 words: rules, control, physical, logical, access, information, other |
+| opens with the NEXT control's title (`Identity management`) | 0 of 2 words: none |
 | ISO/IEC 27002 clause `5.15` (SENTENCE match) | "Access control" -- longest shared run 25 words |
 | ISO/IEC 27002 clause `5.16` (the neighbour) | "Identity management" -- longest shared run 7 words |
 
@@ -601,20 +602,20 @@ two-column interleaving is visible:
 
 ---
 
-## `A.5.16` — Identity management Rules to control physical and logical access to information and other 
+## `A.5.16` — Identity management
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's NEXT (A.5.17) clause matches better (18 words in a row against 9 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 5.16 carries 9 of the same words in a row
 
 **Recovered statement, as the library now holds it:**
 
-> The full life cycle of identities shall be managed. 5.17 Authentication information Control Allocation and management of authentication information shall be controlled by a management process, including advising personnel on appropriate handling of authentication information.
+> The full life cycle of identities shall be managed.
 
 | test | result |
 |---|---|
-| opens with its OWN title (`Identity management Rules to control physical and logical access to information and other `) | 0 of 9 words: none |
-| opens with the NEXT control's title (`Authentication information`) | 1 of 2 words: authentication |
+| opens with its OWN title (`Identity management`) | 0 of 2 words: none |
+| opens with the NEXT control's title (`Authentication information`) | 0 of 2 words: none |
 | ISO/IEC 27002 clause `5.16` (SENTENCE match) | "Identity management" -- longest shared run 9 words |
-| ISO/IEC 27002 clause `5.17` (the neighbour) | "Authentication information" -- longest shared run 18 words |
+| ISO/IEC 27002 clause `5.17` (the neighbour) | "Authentication information" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):
 
@@ -1857,18 +1858,18 @@ SNV / licensed to 14955111 - Schweiz. Vereinigung für Qualitäts- und Managemen
 
 ## `A.7.9` — Security of assets off-premises
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's NEXT (A.7.10) clause matches better (27 words in a row against 7 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 7.9 carries 6 of the same words in a row
 
 **Recovered statement, as the library now holds it:**
 
-> Security of assets off-premises Control Off-site assets shall be protected. Control Storage media shall be managed through their life cycle of acquisition, use, transportation and disposal in accordance with the organization’s classification scheme and handling requirements.
+> Off-site assets shall be protected.
 
 | test | result |
 |---|---|
-| opens with its OWN title (`Security of assets off-premises`) | 3 of 3 words: security, assets, premises |
+| opens with its OWN title (`Security of assets off-premises`) | 1 of 3 words: assets |
 | opens with the NEXT control's title (`Storage media`) | 0 of 2 words: none |
-| ISO/IEC 27002 clause `7.9` (SENTENCE match) | "Security of assets off-premises" -- longest shared run 7 words |
-| ISO/IEC 27002 clause `7.10` (the neighbour) | "Storage media" -- longest shared run 27 words |
+| ISO/IEC 27002 clause `7.9` (SENTENCE match) | "Security of assets off-premises" -- longest shared run 6 words |
+| ISO/IEC 27002 clause `7.10` (the neighbour) | "Storage media" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):
 
@@ -1956,17 +1957,17 @@ two-column interleaving is visible:
 
 ## `A.7.12` — Cabling security
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's PREVIOUS (A.7.11) clause matches better (18 words in a row against 4 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 7.12 carries 16 of the same words in a row against 4 for the best neighbour
 
 **Recovered statement, as the library now holds it:**
 
-> Cabling security Information processing facilities shall be protected from power failures and other disruptions caused by failures in supporting utilities. Control
+> Cables carrying power, data or supporting information services shall be protected from interception, interference or damage.
 
 | test | result |
 |---|---|
-| opens with its OWN title (`Cabling security`) | 2 of 2 words: cabling, security |
+| opens with its OWN title (`Cabling security`) | 1 of 2 words: cabling |
 | opens with the NEXT control's title (`Equipment maintenance`) | 0 of 2 words: none |
-| ISO/IEC 27002 clause `7.12` (SENTENCE match) | "Cabling security" -- longest shared run 4 words |
+| ISO/IEC 27002 clause `7.12` (SENTENCE match) | "Cabling security" -- longest shared run 16 words |
 | ISO/IEC 27002 clause `7.13` (the neighbour) | "Equipment maintenance" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):
@@ -2418,18 +2419,18 @@ two-column interleaving is visible:
 
 ## `A.8.12` — (no title)
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's PREVIOUS (A.8.11) clause matches better (31 words in a row against 4 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 8.12 carries 21 of the same words in a row
 
 **Recovered statement, as the library now holds it:**
 
-> Data leakage prevention Data masking shall be used in accordance with the organization’s topic-specific policy on access control and other related topic-specific policies, and business requirements, taking applicable legislation into consideration. Control
+> Data leakage prevention measures shall be applied to systems, networks and any other devices that process, store or transmit sensitive information.
 
 | test | result |
 |---|---|
 | opens with its OWN title (`-`) | no title |
 | opens with the NEXT control's title (`Information backup`) | 0 of 2 words: none |
-| ISO/IEC 27002 clause `8.12` (SENTENCE match) | "Data leakage prevention" -- longest shared run 4 words |
-| ISO/IEC 27002 clause `8.13` (the neighbour) | "Information backup" -- longest shared run 4 words |
+| ISO/IEC 27002 clause `8.12` (SENTENCE match) | "Data leakage prevention" -- longest shared run 21 words |
+| ISO/IEC 27002 clause `8.13` (the neighbour) | "Information backup" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):
 
@@ -2748,17 +2749,17 @@ SNV / licensed to 14955111 - Schweiz. Vereinigung für Qualitäts- und Managemen
 
 ## `A.8.22` — (no title)
 
-**Verdict: MISATTACHED** — ISO/IEC 27002's PREVIOUS (A.8.21) clause matches better (16 words in a row against 0 for its own number)
+**Verdict: CORRECT** — ISO/IEC 27002 clause 8.22 carries 16 of the same words in a row
 
 **Recovered statement, as the library now holds it:**
 
-> Segregation of networks Security mechanisms, service levels and service requirements of network services shall be identified, implemented and monitored. Control
+> Groups of information services, users and information systems shall be segregated in the organization’s networks.
 
 | test | result |
 |---|---|
 | opens with its OWN title (`-`) | no title |
 | opens with the NEXT control's title (`Web filtering`) | 0 of 1 words: none |
-| ISO/IEC 27002 clause `8.22` (SENTENCE match) | "Segregation of networks" -- longest shared run 0 words |
+| ISO/IEC 27002 clause `8.22` (SENTENCE match) | "Segregation of networks" -- longest shared run 16 words |
 | ISO/IEC 27002 clause `8.23` (the neighbour) | "Web filtering" -- longest shared run 0 words |
 
 **ISO/IEC 27002's own text at the same number** (independent witness, guidance voice):

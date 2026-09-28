@@ -1,0 +1,32 @@
+{
+  "source_id": "ISO/IEC 27001",
+  "edition": "2022",
+  "ruled": "2026-09-28, PROMPT time-box: one automated attempt, then a reviewed override",
+  "why_this_file_exists": "Two Annex A rows cannot be resolved by choosing between the splitter's two readings, because NEITHER reading is correct: the row's statement cell is a single short sentence, so the same-line reading carries that sentence AND the next control's, while the right-column reading starts after the bleed. Both are forward bleeds, not wrong-cell choices. Three automated attempts were spent before this file: a blanket right-column rule shifted 79 of 93 controls by one row, layout-only cost eight main-body clauses, and the two-reading selection fixed four of the six. Engineering a fourth rule for two rows is worse value than a reviewed override the gate verifies.",
+  "rules": [
+    "Every statement below is COPIED FROM THE 27001 PDF, verbatim, with the page it appears on. Nothing is paraphrased and nothing comes from ISO/IEC 27002.",
+    "The override is applied AFTER extraction and BEFORE the 27002 witness gate, so the gate verifies it rather than trusting it. An override that does not satisfy the witness fails the build exactly as a bad extraction does.",
+    "An override whose clause the extractor stops producing, or whose `replaces` no longer matches what the extractor produced, is reported as STALE and fails the build -- the same reason a migration asserts a before-state rather than a literal.",
+    "This file is reviewed text about a licensed standard, so it holds only the control STATEMENT, which the library already holds internally and never serves to a learner."
+  ],
+  "overrides": [
+    {
+      "clause": "A.5.16",
+      "title": "Identity management",
+      "page": 18,
+      "statement": "The full life cycle of identities shall be managed.",
+      "defect": "forward bleed: the extracted text was this sentence followed by `5.17 Authentication information Control Allocation and management of authentication information shall be controlled by a management process...`, so A.5.16 carried A.5.17's requirement as well as its own.",
+      "witness_before": "own 9 words against 18 for A.5.17",
+      "replaces_starts_with": "The full life cycle of identities shall be managed. 5.17"
+    },
+    {
+      "clause": "A.7.9",
+      "title": "Security of assets off-premises",
+      "page": 21,
+      "statement": "Off-site assets shall be protected.",
+      "defect": "forward bleed: the extracted text was `Security of assets off-premises Control Off-site assets shall be protected. Control Storage media shall be managed through their life cycle...`, so A.7.9 carried A.7.10's requirement. The PDF line itself interleaves the two columns -- `7.10 Storage media   Off-site assets shall be protected.` -- which is why no shape rule separates them.",
+      "witness_before": "own 7 words against 27 for A.7.10",
+      "replaces_starts_with": "Security of assets off-premises Control Off-site assets shall be protected."
+    }
+  ]
+}
