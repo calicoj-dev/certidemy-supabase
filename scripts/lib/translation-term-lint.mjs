@@ -102,11 +102,29 @@ export function lintRow(row, code, en) {
   const whole = fields.map(([, v]) => v).join("\n");
 
   for (const t of applicable(code)) {
-    /* FORBIDDEN */
-    for (const bad of (t.forbidden && t.forbidden[lk]) || []) {
+    /* ============ OVERLAPPING VARIANTS ARE COUNTED ONCE, LONGEST FIRST ============
+     *
+     * `AI Act` and `EU AI Act` are both forbidden variants of the same term, and every occurrence of
+     * the second CONTAINS the first. Counting each variant independently reported both: 188 `AI Act`
+     * and 164 `EU AI Act` against 188 distinct occurrences, so **164 were counted twice** and only 24
+     * standalone `AI Act` exist.
+     *
+     * Found by `pin-glossary-autofix`'s census gate, which substitutes longest-first and therefore
+     * consumes each occurrence once: it reported 485 where the lint said 649, and the difference was
+     * exactly 164. A number nobody could reconcile is the point of making the two agree before a bulk
+     * write -- the disagreement WAS the finding, and the writer was the correct half.
+     *
+     * Longest variant first, and each matched span is masked so a shorter variant cannot claim it. */
+    const forb = ((t.forbidden && t.forbidden[lk]) || []).slice().sort((a, b) => b.length - a.length);
+    const claimed = new Map();   /* field -> array of [start, end) already counted for THIS term */
+    for (const bad of forb) {
       const cs = isMiscasing(bad, t[lk]);
       for (const [field, text] of fields) {
-        const hits = [...text.matchAll(termRe(bad, cs))];
+        if (!claimed.has(field)) claimed.set(field, []);
+        const taken = claimed.get(field);
+        const hits = [...text.matchAll(termRe(bad, cs))]
+          .filter((h) => !taken.some(([s, e]) => h.index < e && h.index + h[0].length > s));
+        hits.forEach((h) => taken.push([h.index, h.index + h[0].length]));
         if (hits.length) {
           /* ============ THE CLASS FOLLOWS THE DECLARED SEVERITY ============
            *
@@ -227,6 +245,16 @@ export function translationLintControls() {
   if (!aEn.forbidden.some((f) => f.variant === "fornecedor")) {
     fails.push("the English sibling naming the Act did not make it a failure");
   }
+  /* AN OVERLAPPING VARIANT IS COUNTED ONCE. `EU AI Act` contains `AI Act`; both are forbidden
+   * variants of one term, and counting each independently double-counted 164 occurrences. */
+  const ov = lintRow(row("pt-BR", "O EU AI Act e depois o AI Act sozinho."), "AIGRM-I", null);
+  const ovN = ov.forbidden.filter((f) => f.key === "act-name").reduce((n, f) => n + f.n, 0);
+  if (ovN !== 2) {
+    fails.push("overlapping variants counted " + ovN + " where 2 distinct occurrences exist");
+  }
+  if (!ov.forbidden.some((f) => f.variant === "EU AI Act")) {
+    fails.push("the LONGER variant lost to the shorter one -- longest must be claimed first");
+  }
   /* A MARKER MUST NOT MATCH INSIDE A LONGER WORD. The live instance: `AI Act` matched
    * "documented AI activities" and gated a 42001 row that names the Regulation nowhere. */
   const aSub = lintRow(row("pt-BR", "O fornecedor terceiro entregou abaixo do esperado."), "AIMS-IA",
@@ -289,7 +317,7 @@ export function translationLintControls() {
   const j = lintRow(row("pt-BR", "O prestador deve manter a norma e a acreditação."), "AIMS-IA", null);
   if (j.forbidden.length) fails.push("a clean pt row fired: " + JSON.stringify(j.forbidden));
 
-  return { examined: 21, fails };
+  return { examined: 23, fails };
 }
 
 

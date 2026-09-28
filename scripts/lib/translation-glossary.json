@@ -59,8 +59,18 @@
             "es": true,
             "pt": true
           },
-          "autofix_note": "One-to-one in both languages, and the article agreement is part of the substitution: `o implantador` -> `o responsavel pela implantacao`, `do implantador` -> `do responsavel pela implantacao`, plural likewise. Bare `deployer` is fixable only in rows ABOUT the Regulation.",
-          "regulation_scoped": true
+          "autofix_note": "The article is untouched: `o implantador` -> `o responsável pela implantação` and `do implantador` -> `do responsável pela implantação`, because `responsável` takes the same masculine article. Only NUMBER moves, which is why the plural has its own target rather than being derived. Bare `deployer` is fixable only in rows about the Regulation, which the regulation scope already enforces.",
+          "regulation_scoped": true,
+          "autofix_to": {
+            "es": {
+              "desplegador": "responsable del despliegue"
+            },
+            "pt": {
+              "implantador": "responsável pela implantação",
+              "implantadores": "responsáveis pela implantação",
+              "deployer": "responsável pela implantação"
+            }
+          }
         },
         {
           "key": "vendor",
@@ -94,9 +104,9 @@
           "note": "`alto risco` is ordinary Portuguese and reads correctly; the official rendering is `risco elevado`. Flagged rather than failed because the mixed corpus predates the ruling.",
           "autofix": {
             "es": false,
-            "pt": true
+            "pt": false
           },
-          "autofix_note": "pt alto risco->risco elevado is one-to-one. Reported as a FLAG rather than a gate failure, per its declared severity."
+          "autofix_note": "OFF, and the contradiction is the reason rather than a preference. This term is severity `flag`: `alto risco` is ordinary Portuguese and was ruled a flag deliberately, so it never lands in FORBIDDEN and an autofix for it could never fire. A flag-severity term with autofix true is a contradiction in the data, and pin-glossary-autofix refuses to run rather than quietly skipping it."
         },
         {
           "key": "act-name",
@@ -119,7 +129,17 @@
             "es": true,
             "pt": true
           },
-          "autofix_note": "The Act has one name per language."
+          "autofix_note": "The Act has one name per language.",
+          "autofix_to": {
+            "es": {
+              "EU AI Act": "Reglamento de IA de la UE",
+              "AI Act": "Reglamento de IA de la UE"
+            },
+            "pt": {
+              "EU AI Act": "Regulamento da IA da UE",
+              "AI Act": "Regulamento da IA da UE"
+            }
+          }
         },
         {
           "key": "provider-provedor",
@@ -186,7 +206,17 @@
             "es": true,
             "pt": true
           },
-          "autofix_note": "SGSIA and SGia are one-to-one to SGIA. The bare English AIMS is 866 occurrences and is a POLICY backlog rather than a defect list -- reported, never auto-substituted, because a row may be glossing the English acronym on purpose."
+          "autofix_note": "SGSIA and SGia are one-to-one to SGIA. The bare English AIMS is 866 occurrences and is a POLICY backlog rather than a defect list -- reported, never auto-substituted, because a row may be glossing the English acronym on purpose.",
+          "autofix_to": {
+            "es": {
+              "SGSIA": "SGIA",
+              "SGia": "SGIA"
+            },
+            "pt": {
+              "SGSIA": "SGIA",
+              "SGia": "SGIA"
+            }
+          }
         }
       ]
     },
@@ -234,10 +264,10 @@
           "severity": "failure",
           "note": "Accreditation of a certification body is acreditação. `credenciamento` is a different administrative act.",
           "autofix": {
-            "es": true,
-            "pt": true
+            "es": false,
+            "pt": false
           },
-          "autofix_note": "One-to-one; 2 occurrences."
+          "autofix_note": "OFF. `credenciamento` -> `acreditação` is one-to-one, but `credenciada` is an adjective against a noun house form and would produce `entidade acreditação`. Two occurrences corpus-wide; a manual list is cheaper than a rule that has to know part of speech."
         },
         {
           "key": "shall",

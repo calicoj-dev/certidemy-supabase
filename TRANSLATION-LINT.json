@@ -4,7 +4,7 @@
  "examined": 18453,
  "no_english_sibling": 5,
  "counts": {
-  "forbidden": 729,
+  "forbidden": 572,
   "mixed": 2079,
   "untranslated": 868,
   "unchecked": 0
@@ -23,7 +23,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -174,7 +174,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -190,7 +190,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -801,21 +801,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "03fac306",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "03fac306",
    "code": "AIGRM-I",
@@ -828,7 +813,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -844,7 +829,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -924,7 +909,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -940,7 +925,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -1210,7 +1195,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -1432,36 +1417,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "06af81a2",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "06af81a2",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "06c87455",
    "code": "ISMS-IA",
@@ -1534,7 +1489,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -1624,7 +1579,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -1687,7 +1642,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2018,7 +1973,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2034,7 +1989,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2108,7 +2063,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2278,7 +2233,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2294,7 +2249,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2577,7 +2532,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2769,21 +2724,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "0dd5e2e5",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "0dd5e2e5",
    "code": "AIGRM-I",
@@ -2796,7 +2736,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -2934,8 +2874,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:a",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -2950,8 +2890,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "option:a",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -3191,7 +3131,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -3250,8 +3190,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:c",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -3266,8 +3206,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "option:c",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -3501,81 +3441,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "11e07947",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "11e07947",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "11e07947",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "11e07947",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "11e07947",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -3855,21 +3720,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "13aeb982",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "13aeb982",
    "code": "AIGRM-I",
@@ -3882,7 +3732,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -3898,7 +3748,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -3914,7 +3764,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -3930,7 +3780,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4174,81 +4024,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "15276937",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "15276937",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "15276937",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "15276937",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "15276937",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "152822f6",
    "code": "AIMS-IA",
@@ -4299,7 +4074,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4614,7 +4389,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4630,7 +4405,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4646,7 +4421,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4809,7 +4584,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4825,7 +4600,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -4881,7 +4656,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5270,9 +5045,9 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:d",
-   "variant": "padrão",
-   "n": 1,
+   "field": "explanation",
+   "variant": "padrões",
+   "n": 2,
    "severity": "flag",
    "expected": "norma",
    "autofix": false,
@@ -5286,9 +5061,9 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
-   "n": 2,
+   "field": "option:d",
+   "variant": "padrão",
+   "n": 1,
    "severity": "flag",
    "expected": "norma",
    "autofix": false,
@@ -5359,7 +5134,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5487,7 +5262,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5503,7 +5278,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5646,7 +5421,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5863,7 +5638,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5918,7 +5693,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -5934,7 +5709,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -6263,7 +6038,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -6465,7 +6240,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -6746,7 +6521,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -6862,7 +6637,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -7036,7 +6811,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -7134,7 +6909,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -7701,8 +7476,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrão",
+   "field": "question_text",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -7717,8 +7492,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "question_text",
-   "variant": "padrões",
+   "field": "explanation",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -7866,7 +7641,7 @@
    "n": 1,
    "severity": "failure",
    "expected": "acreditação",
-   "autofix": true
+   "autofix": false
   },
   {
    "cls": "forbidden",
@@ -7881,7 +7656,7 @@
    "n": 1,
    "severity": "failure",
    "expected": "acreditação",
-   "autofix": true
+   "autofix": false
   },
   {
    "cls": "mixed",
@@ -8255,36 +8030,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "293d6245",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "293d6245",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "293d6245",
    "code": "AIGRM-I",
@@ -8297,7 +8042,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -8313,7 +8058,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -8329,7 +8074,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -8345,7 +8090,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -8377,7 +8122,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -8688,21 +8433,6 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "2b5bc03c",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "option:b",
    "variant": "implantadores",
    "n": 1,
@@ -8720,6 +8450,21 @@
    "key": "deployer",
    "field": "explanation",
    "variant": "implantadores",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "2b5bc03c",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantador",
    "n": 1,
    "severity": "failure",
    "expected": "responsável pela implantação",
@@ -8753,7 +8498,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -9068,6 +8813,22 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
+   "field": "explanation",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "flag",
+   "expected": "responsável pela implantação",
+   "autofix": true,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
+  },
+  {
+   "cls": "mixed",
+   "id": "2cc898e5",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
    "field": "option:a",
    "variant": "implantador",
    "n": 1,
@@ -9118,22 +8879,6 @@
    "key": "deployer",
    "field": "explanation",
    "variant": "implantador",
-   "n": 1,
-   "severity": "flag",
-   "expected": "responsável pela implantação",
-   "autofix": true,
-   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
-  },
-  {
-   "cls": "mixed",
-   "id": "2cc898e5",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -9381,7 +9126,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -9397,7 +9142,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -9806,36 +9551,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "2fef1e18",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "2fef1e18",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "3093132f",
    "code": "AIMS-IA",
@@ -10093,21 +9808,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "31fc2c40",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "31fdf0b0",
    "code": "ISMS-IA",
@@ -10341,7 +10041,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10357,7 +10057,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10373,7 +10073,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10389,7 +10089,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10405,7 +10105,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10421,7 +10121,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10493,7 +10193,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10982,7 +10682,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -10998,7 +10698,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -11558,7 +11258,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -11574,7 +11274,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12046,7 +11746,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12263,7 +11963,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12410,21 +12110,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "3cb703b1",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "3ccdfe6b",
    "code": "AIMS-IA",
@@ -12547,7 +12232,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12631,7 +12316,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12647,7 +12332,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -12762,7 +12447,7 @@
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
    "field": "option:c",
-   "variant": "padrão",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -12778,7 +12463,7 @@
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
    "field": "option:c",
-   "variant": "padrões",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -13610,8 +13295,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrão",
+   "field": "option:b",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -13626,8 +13311,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:b",
-   "variant": "padrões",
+   "field": "explanation",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -13744,8 +13429,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:c",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -13760,8 +13445,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "option:c",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -13781,7 +13466,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -13838,7 +13523,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -14134,7 +13819,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -14162,21 +13847,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "454365c2",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -14247,36 +13917,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "45713071",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "45713071",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -14650,36 +14290,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "466b60a2",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "466b60a2",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "466b60a2",
    "code": "AIMS-F",
@@ -14692,7 +14302,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -15234,7 +14844,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -15416,7 +15026,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -15715,36 +15325,6 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:c",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4a871300",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4a871300",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "explanation",
    "variant": "implantadores",
    "n": 1,
@@ -15759,6 +15339,36 @@
    "language": "pt-BR",
    "pool": "practice",
    "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "option:c",
+   "variant": "implantador",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "4a871300",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantador",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "4a871300",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
    "key": "act-name",
    "field": "option:b",
    "variant": "EU AI Act",
@@ -15777,36 +15387,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4a871300",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4a871300",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -15965,36 +15545,6 @@
   },
   {
    "cls": "forbidden",
-   "id": "4a92062e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4a92062e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
    "id": "4ae31932",
    "code": "AIGRM-I",
    "language": "pt-BR",
@@ -16018,36 +15568,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4ae31932",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4ae31932",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -16203,51 +15723,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "4bf383a0",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4bf383a0",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4bf383a0",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "4bf383a0",
    "code": "AIGRM-I",
@@ -16260,7 +15735,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -16276,7 +15751,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -16365,7 +15840,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -16381,7 +15856,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -16511,6 +15986,22 @@
    "field": "explanation",
    "english": "AIMS",
    "expected": "SGIA"
+  },
+  {
+   "cls": "mixed",
+   "id": "4ce430be",
+   "code": "AIMS-IA",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
+   "field": "explanation",
+   "variant": "padrões",
+   "n": 1,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
   },
   {
    "cls": "mixed",
@@ -16571,22 +16062,6 @@
    "field": "explanation",
    "variant": "padrão",
    "n": 3,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
-  },
-  {
-   "cls": "mixed",
-   "id": "4ce430be",
-   "code": "AIMS-IA",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
-   "n": 1,
    "severity": "flag",
    "expected": "norma",
    "autofix": false,
@@ -16821,36 +16296,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "4eaa5aa6",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "4eaa5aa6",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "4eac03d5",
    "code": "AIMS-IA",
@@ -16918,8 +16363,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:b",
-   "variant": "padrão",
+   "field": "option:c",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -16934,8 +16379,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:c",
-   "variant": "padrões",
+   "field": "option:b",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -17057,7 +16502,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -17073,7 +16518,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -17130,8 +16575,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:a",
-   "variant": "padrão",
+   "field": "explanation",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -17146,8 +16591,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
+   "field": "option:a",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -17319,7 +16764,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -17367,7 +16812,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -17383,7 +16828,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -17539,36 +16984,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "50d74925",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "50d74925",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "50d82c11",
    "code": "AIMS-IA",
@@ -17619,21 +17034,6 @@
    "key": "act-name",
    "field": "question_text",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "50ffedd7",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -18099,7 +17499,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -18115,7 +17515,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -18406,36 +17806,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "5431245f",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5431245f",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "5431245f",
    "code": "AIMS-F",
@@ -18448,7 +17818,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -18868,7 +18238,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -19076,7 +18446,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -19249,21 +18619,6 @@
    "key": "act-name",
    "field": "question_text",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "584f19cb",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -19488,81 +18843,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "59796f00",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "59796f00",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "59796f00",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "59796f00",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "59796f00",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "59a3b5bf",
    "code": "AIMS-IA",
@@ -19575,7 +18855,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -19707,81 +18987,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5a1db12d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5a1db12d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5a1db12d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5a1db12d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "5a1db12d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -20242,7 +19447,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -20256,22 +19461,6 @@
    "field": "question_text",
    "english": "AIMS",
    "expected": "SGIA"
-  },
-  {
-   "cls": "mixed",
-   "id": "5beb58f7",
-   "code": "ISMS-IA",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrão",
-   "n": 1,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
   },
   {
    "cls": "mixed",
@@ -20332,6 +19521,22 @@
    "field": "explanation",
    "variant": "padrões",
    "n": 2,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
+   "id": "5beb58f7",
+   "code": "ISMS-IA",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
+   "field": "explanation",
+   "variant": "padrão",
+   "n": 1,
    "severity": "flag",
    "expected": "norma",
    "autofix": false,
@@ -20512,7 +19717,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -20528,7 +19733,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -20544,7 +19749,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -20718,7 +19923,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21040,7 +20245,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21158,7 +20363,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21610,7 +20815,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21713,22 +20918,6 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:a",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "flag",
-   "expected": "responsável pela implantação",
-   "autofix": true,
-   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
-  },
-  {
-   "cls": "mixed",
-   "id": "61f29864",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "option:b",
    "variant": "implantadores",
    "n": 1,
@@ -21763,6 +20952,22 @@
    "key": "deployer",
    "field": "explanation",
    "variant": "implantadores",
+   "n": 1,
+   "severity": "flag",
+   "expected": "responsável pela implantação",
+   "autofix": true,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
+  },
+  {
+   "cls": "mixed",
+   "id": "61f29864",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "option:a",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -21837,7 +21042,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21853,7 +21058,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21961,7 +21166,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -21977,7 +21182,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -22601,7 +21806,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -22617,7 +21822,7 @@
    "n": 3,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -22985,36 +22190,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "698b2a67",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "698b2a67",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "698b2a67",
    "code": "AIMS-F",
@@ -23027,7 +22202,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23073,7 +22248,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23686,7 +22861,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23702,7 +22877,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23718,7 +22893,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23734,7 +22909,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -23844,36 +23019,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "6db8c7fc",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "6db8c7fc",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "6db8c7fc",
    "code": "AIMS-F",
@@ -23886,7 +23031,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24014,7 +23159,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24200,8 +23345,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:a",
-   "variant": "padrão",
+   "field": "explanation",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -24216,8 +23361,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
+   "field": "option:a",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -24496,7 +23641,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24512,7 +23657,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24528,7 +23673,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24544,7 +23689,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24714,7 +23859,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -24964,8 +24109,8 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:b",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -24980,8 +24125,8 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "option:b",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -25102,22 +24247,6 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "question_text",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "flag",
-   "expected": "responsável pela implantação",
-   "autofix": true,
-   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
-  },
-  {
-   "cls": "mixed",
-   "id": "74e72ce2",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "option:a",
    "variant": "implantadores",
    "n": 1,
@@ -25185,6 +24314,22 @@
    "field": "explanation",
    "variant": "implantadores",
    "n": 2,
+   "severity": "flag",
+   "expected": "responsável pela implantação",
+   "autofix": true,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
+  },
+  {
+   "cls": "mixed",
+   "id": "74e72ce2",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "question_text",
+   "variant": "implantador",
+   "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
    "autofix": true,
@@ -25375,7 +24520,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25468,51 +24613,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "75c0c021",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "75c0c021",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "75c0c021",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "75c0c021",
    "code": "AIGRM-I",
@@ -25525,7 +24625,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25541,7 +24641,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25637,7 +24737,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25777,7 +24877,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25793,7 +24893,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -25881,7 +24981,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26013,7 +25113,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26029,7 +25129,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26045,7 +25145,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26103,7 +25203,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26386,36 +25486,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "7a64b8cb",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "7a64b8cb",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "7a64b8cb",
    "code": "AIMS-F",
@@ -26685,7 +25755,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -26701,7 +25771,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27102,51 +26172,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "7d9c1a0b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "7d9c1a0b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "7d9c1a0b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "7e71f19e",
    "code": "AIGRM-I",
@@ -27154,8 +26179,8 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:c",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -27170,8 +26195,8 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "option:c",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -27223,7 +26248,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27320,7 +26345,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27336,7 +26361,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27591,7 +26616,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27655,7 +26680,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27782,21 +26807,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "82b2041b",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "82e0c422",
    "code": "AIMS-IA",
@@ -27809,7 +26819,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -27888,36 +26898,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "82f2d65d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "82f2d65d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "82f538be",
    "code": "AIMS-IA",
@@ -27966,7 +26946,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28314,7 +27294,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28330,7 +27310,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28346,7 +27326,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28492,7 +27472,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28508,7 +27488,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28656,7 +27636,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28672,7 +27652,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28688,7 +27668,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28976,7 +27956,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -28992,7 +27972,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -29008,7 +27988,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -29039,7 +28019,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -29103,7 +28083,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -29201,36 +28181,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "890966b0",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "890966b0",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "890966b0",
    "code": "AIMS-F",
@@ -29243,7 +28193,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -29407,7 +28357,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -30117,8 +29067,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "question_text",
-   "variant": "implantador",
+   "field": "explanation",
+   "variant": "implantadores",
    "n": 1,
    "severity": "failure",
    "expected": "responsável pela implantação",
@@ -30132,8 +29082,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
+   "field": "question_text",
+   "variant": "implantador",
    "n": 1,
    "severity": "failure",
    "expected": "responsável pela implantação",
@@ -30155,21 +29105,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "8ce82a89",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "8ce82a89",
    "code": "AIGRM-I",
@@ -30182,7 +29117,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -30307,7 +29242,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -30323,7 +29258,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -30339,7 +29274,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -30924,7 +29859,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -31115,81 +30050,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "9176556b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9176556b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9176556b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9176556b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9176556b",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "9176556b",
    "code": "AIMS-F",
@@ -31202,7 +30062,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -31218,7 +30078,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -31463,21 +30323,6 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantador",
-   "n": 2,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "92b5ab36",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "option:a",
    "variant": "implantadores",
    "n": 1,
@@ -31496,6 +30341,21 @@
    "field": "explanation",
    "variant": "implantadores",
    "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "92b5ab36",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantador",
+   "n": 2,
    "severity": "failure",
    "expected": "responsável pela implantação",
    "autofix": true
@@ -31733,7 +30593,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32028,6 +30888,21 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
+   "field": "explanation",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "9560df56",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
    "field": "option:c",
    "variant": "implantador",
    "n": 1,
@@ -32046,21 +30921,6 @@
    "field": "explanation",
    "variant": "implantador",
    "n": 2,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9560df56",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
-   "n": 1,
    "severity": "failure",
    "expected": "responsável pela implantação",
    "autofix": true
@@ -32226,7 +31086,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32242,7 +31102,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32258,7 +31118,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32274,7 +31134,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32290,7 +31150,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32306,7 +31166,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32322,7 +31182,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32338,7 +31198,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32354,7 +31214,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32676,7 +31536,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32692,7 +31552,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32756,7 +31616,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -32952,96 +31812,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9994b631",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "999f96d5",
    "code": "AIMS-F",
@@ -33086,7 +31856,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -33102,7 +31872,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -33118,7 +31888,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -33208,66 +31978,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9af1ba4b",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9af1ba4b",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9af1ba4b",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9af1ba4b",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Reglamento de IA de la UE",
@@ -33386,96 +32096,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9b2998f3",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Reglamento de IA de la UE",
@@ -33625,6 +32245,22 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
+   "field": "option:d",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "flag",
+   "expected": "responsável pela implantação",
+   "autofix": true,
+   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
+  },
+  {
+   "cls": "mixed",
+   "id": "9b9b859a",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
    "field": "option:a",
    "variant": "implantador",
    "n": 1,
@@ -33672,29 +32308,13 @@
    "language": "pt-BR",
    "pool": "practice",
    "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "option:d",
-   "variant": "implantadores",
-   "n": 1,
-   "severity": "flag",
-   "expected": "responsável pela implantação",
-   "autofix": true,
-   "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
-  },
-  {
-   "cls": "mixed",
-   "id": "9b9b859a",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
    "key": "high-risk",
    "field": "question_text",
    "variant": "alto risco",
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -33710,7 +32330,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -33726,7 +32346,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34129,7 +32749,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34157,7 +32777,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34237,7 +32857,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34421,66 +33041,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "9f40db62",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9f40db62",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9f40db62",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "9f40db62",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "9f4d85b8",
    "code": "AIMS-F",
@@ -34585,7 +33145,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34601,7 +33161,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34855,7 +33415,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -34969,7 +33529,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -35169,7 +33729,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -35185,7 +33745,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -35533,36 +34093,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "a536b1e0",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "a536b1e0",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -35975,7 +34505,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -35991,7 +34521,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36007,7 +34537,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36103,7 +34633,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36582,7 +35112,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36902,7 +35432,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36918,7 +35448,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -36934,7 +35464,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37060,7 +35590,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37118,7 +35648,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37221,7 +35751,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37280,6 +35810,22 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
+   "field": "explanation",
+   "variant": "padrões",
+   "n": 2,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
+   "id": "afe2a032",
+   "code": "ISMS-IA",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
    "field": "option:c",
    "variant": "padrão",
    "n": 1,
@@ -37298,22 +35844,6 @@
    "key": "standard-noun",
    "field": "option:d",
    "variant": "padrão",
-   "n": 2,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
-  },
-  {
-   "cls": "mixed",
-   "id": "afe2a032",
-   "code": "ISMS-IA",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
    "n": 2,
    "severity": "flag",
    "expected": "norma",
@@ -37416,7 +35946,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37476,7 +36006,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37592,7 +36122,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37608,7 +36138,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37624,7 +36154,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37876,7 +36406,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -37892,7 +36422,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -38408,36 +36938,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "b51a956e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "b51a956e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "b55d810d",
    "code": "AIHR-I",
@@ -38513,7 +37013,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -38942,81 +37442,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "b76e8550",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "b76e8550",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "b76e8550",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "b76e8550",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "b76e8550",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "b78dab44",
    "code": "AIMS-IA",
@@ -39077,7 +37502,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -39093,7 +37518,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -39410,22 +37835,6 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:c",
-   "variant": "padrão",
-   "n": 1,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
-  },
-  {
-   "cls": "mixed",
-   "id": "b96d1cff",
-   "code": "ISMS-IA",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
    "field": "question_text",
    "variant": "padrões",
    "n": 1,
@@ -39460,6 +37869,22 @@
    "key": "standard-noun",
    "field": "explanation",
    "variant": "padrões",
+   "n": 1,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
+   "id": "b96d1cff",
+   "code": "ISMS-IA",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
+   "field": "option:c",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -39638,21 +38063,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "ba2362b1",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "ba40449c",
    "code": "ISMS-IA",
@@ -39736,81 +38146,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "ba5b6171",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "ba5b6171",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "ba5b6171",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "ba5b6171",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "ba5b6171",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -39997,7 +38332,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -40013,7 +38348,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -40264,7 +38599,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -40384,66 +38719,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "be9f126e",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "be9f126e",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "be9f126e",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "be9f126e",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -40955,7 +39230,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -40971,7 +39246,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -41001,7 +39276,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -41548,7 +39823,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -41754,7 +40029,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -41770,7 +40045,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -42217,6 +40492,21 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
+   "field": "explanation",
+   "variant": "implantadores",
+   "n": 2,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "c8a8aa3b",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
    "field": "option:a",
    "variant": "implantador",
    "n": 1,
@@ -42261,21 +40551,6 @@
    "language": "pt-BR",
    "pool": "secure",
    "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
-   "n": 2,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "c8a8aa3b",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
    "key": "act-name",
    "field": "question_text",
    "variant": "EU AI Act",
@@ -42294,36 +40569,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "c8a8aa3b",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "c8a8aa3b",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -42342,7 +40587,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -42370,36 +40615,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "c8df3868",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "c8df3868",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -42643,7 +40858,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -42659,7 +40874,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -42864,22 +41079,6 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:b",
-   "variant": "padrão",
-   "n": 1,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
-  },
-  {
-   "cls": "mixed",
-   "id": "cbae0baf",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
    "field": "option:a",
    "variant": "padrões",
    "n": 1,
@@ -42915,6 +41114,22 @@
    "field": "explanation",
    "variant": "padrões",
    "n": 2,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
+   "id": "cbae0baf",
+   "code": "AIMS-F",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
+   "field": "option:b",
+   "variant": "padrão",
+   "n": 1,
    "severity": "flag",
    "expected": "norma",
    "autofix": false,
@@ -43157,21 +41372,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "cd2c6332",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "cd5a4b23",
    "code": "AIMS-F",
@@ -43262,7 +41462,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -43513,7 +41713,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -43529,7 +41729,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -43940,7 +42140,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44054,36 +42254,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "d0bc77cd",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "d0bc77cd",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "d0bc77cd",
    "code": "AIGRM-I",
@@ -44096,7 +42266,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44112,7 +42282,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44128,7 +42298,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44144,7 +42314,7 @@
    "n": 2,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44160,7 +42330,7 @@
    "n": 3,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -44187,8 +42357,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrão",
+   "field": "option:c",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -44203,8 +42373,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:c",
-   "variant": "padrões",
+   "field": "explanation",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -44618,21 +42788,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "d66506ea",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "d6769565",
    "code": "AIMS-IA",
@@ -45014,7 +43169,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45030,7 +43185,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45046,7 +43201,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45062,7 +43217,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45078,7 +43233,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45144,7 +43299,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45443,21 +43598,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "d9d78208",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "d9d8a5c7",
    "code": "AIGRM-I",
@@ -45470,7 +43610,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -45946,6 +44086,36 @@
    "pool": "secure",
    "family": "eu_ai_act",
    "key": "deployer",
+   "field": "question_text",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "db6be5bd",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "db6be5bd",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
    "field": "option:a",
    "variant": "implantador",
    "n": 1,
@@ -45984,36 +44154,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "db6be5bd",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "question_text",
-   "variant": "implantadores",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "db6be5bd",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "db6be5bd",
    "code": "AIGRM-I",
@@ -46026,7 +44166,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46154,7 +44294,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46170,7 +44310,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46276,7 +44416,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46557,7 +44697,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46573,7 +44713,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46589,7 +44729,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -46663,7 +44803,7 @@
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
    "field": "explanation",
-   "variant": "padrão",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -46679,7 +44819,7 @@
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
    "field": "explanation",
-   "variant": "padrões",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -46891,36 +45031,6 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:b",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "df74e21c",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantador",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "df74e21c",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "deployer",
    "field": "option:c",
    "variant": "implantadores",
    "n": 1,
@@ -46950,12 +45060,27 @@
    "language": "pt-BR",
    "pool": "practice",
    "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "EU AI Act",
+   "key": "deployer",
+   "field": "option:b",
+   "variant": "implantador",
    "n": 1,
    "severity": "failure",
-   "expected": "Regulamento da IA da UE",
+   "expected": "responsável pela implantação",
+   "autofix": true
+  },
+  {
+   "cls": "forbidden",
+   "id": "df74e21c",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantador",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
    "autofix": true
   },
   {
@@ -46967,7 +45092,7 @@
    "family": "eu_ai_act",
    "key": "act-name",
    "field": "question_text",
-   "variant": "AI Act",
+   "variant": "EU AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -47221,36 +45346,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "e1a3207e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e1a3207e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "e1a3207e",
    "code": "AIGRM-I",
@@ -47263,7 +45358,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -47291,36 +45386,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e1cf26e5",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e1cf26e5",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -47379,36 +45444,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e236b127",
-   "code": "AIMS-F",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e236b127",
-   "code": "AIMS-F",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Reglamento de IA de la UE",
@@ -47821,7 +45856,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -47837,7 +45872,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -47853,7 +45888,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -47983,96 +46018,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:b",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e51b64d4",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -48273,36 +46218,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "e5e2d357",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e5e2d357",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "e5e2d357",
    "code": "AIGRM-I",
@@ -48315,7 +46230,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -48343,36 +46258,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e60bb57e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e60bb57e",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -48419,7 +46304,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -48595,22 +46480,6 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:c",
-   "variant": "padrão",
-   "n": 1,
-   "severity": "flag",
-   "expected": "norma",
-   "autofix": false,
-   "note": "on the forbidden list, but declared severity `flag`"
-  },
-  {
-   "cls": "mixed",
-   "id": "e78f502d",
-   "code": "ISMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "iso_vocabulary_pt",
-   "key": "standard-noun",
    "field": "option:a",
    "variant": "padrões",
    "n": 1,
@@ -48653,6 +46522,22 @@
   },
   {
    "cls": "mixed",
+   "id": "e78f502d",
+   "code": "ISMS-F",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "iso_vocabulary_pt",
+   "key": "standard-noun",
+   "field": "option:c",
+   "variant": "padrão",
+   "n": 1,
+   "severity": "flag",
+   "expected": "norma",
+   "autofix": false,
+   "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
    "id": "e7a17fab",
    "code": "AIE-I",
    "language": "pt-BR",
@@ -48680,7 +46565,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -48712,7 +46597,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -48957,21 +46842,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "e8d3571b",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "untranslated",
    "id": "e8d63684",
    "code": "AIMS-F",
@@ -49095,51 +46965,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 2,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e921464f",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:a",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e921464f",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:d",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "e921464f",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 2,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -49376,7 +47201,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -49680,7 +47505,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -49913,7 +47738,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -49941,36 +47766,6 @@
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "eceb6189",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "eceb6189",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -50208,8 +48003,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "explanation",
-   "variant": "implantador",
+   "field": "option:c",
+   "variant": "implantadores",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -50224,8 +48019,8 @@
    "pool": "practice",
    "family": "eu_ai_act",
    "key": "deployer",
-   "field": "option:c",
-   "variant": "implantadores",
+   "field": "explanation",
+   "variant": "implantador",
    "n": 1,
    "severity": "flag",
    "expected": "responsável pela implantação",
@@ -50353,21 +48148,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "ee53a588",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "ee7871aa",
    "code": "ISMS-IA",
@@ -50476,7 +48256,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -50792,51 +48572,6 @@
   },
   {
    "cls": "forbidden",
-   "id": "effa8dc0",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "effa8dc0",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "option:c",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "effa8dc0",
-   "code": "AIMS-F",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
    "id": "f027c9f8",
    "code": "AIGRM-I",
    "language": "pt-BR",
@@ -51111,7 +48846,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -51629,7 +49364,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -51646,6 +49381,21 @@
    "severity": "failure",
    "expected": "prestador",
    "autofix": false
+  },
+  {
+   "cls": "forbidden",
+   "id": "f4ee4a3d",
+   "code": "AIGRM-I",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "eu_ai_act",
+   "key": "deployer",
+   "field": "explanation",
+   "variant": "implantadores",
+   "n": 1,
+   "severity": "failure",
+   "expected": "responsável pela implantação",
+   "autofix": true
   },
   {
    "cls": "forbidden",
@@ -51684,39 +49434,9 @@
    "language": "pt-BR",
    "pool": "secure",
    "family": "eu_ai_act",
-   "key": "deployer",
-   "field": "explanation",
-   "variant": "implantadores",
-   "n": 1,
-   "severity": "failure",
-   "expected": "responsável pela implantação",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "f4ee4a3d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
    "key": "act-name",
    "field": "explanation",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "f4ee4a3d",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Regulamento da IA da UE",
@@ -51759,7 +49479,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -51775,7 +49495,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -51803,7 +49523,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -51819,7 +49539,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52198,8 +49918,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrão",
+   "field": "option:a",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -52214,8 +49934,8 @@
    "pool": "practice",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "option:a",
-   "variant": "padrões",
+   "field": "explanation",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -52235,7 +49955,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52251,7 +49971,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52298,7 +50018,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52314,7 +50034,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52687,21 +50407,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "fa7fdf51",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "fa7fdf51",
    "code": "AIGRM-I",
@@ -52714,7 +50419,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52904,7 +50609,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -52952,7 +50657,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -53431,36 +51136,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "fcea9de3",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "fcea9de3",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "fcea9de3",
    "code": "AIGRM-I",
@@ -53473,7 +51148,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -53489,7 +51164,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -53502,21 +51177,6 @@
    "key": "act-name",
    "field": "question_text",
    "variant": "EU AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Reglamento de IA de la UE",
-   "autofix": true
-  },
-  {
-   "cls": "forbidden",
-   "id": "fcf48d7e",
-   "code": "AIGRM-I",
-   "language": "es-419",
-   "pool": "practice",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "question_text",
-   "variant": "AI Act",
    "n": 1,
    "severity": "failure",
    "expected": "Reglamento de IA de la UE",
@@ -53831,21 +51491,6 @@
    "autofix": true
   },
   {
-   "cls": "forbidden",
-   "id": "fe8263ea",
-   "code": "AIGRM-I",
-   "language": "pt-BR",
-   "pool": "secure",
-   "family": "eu_ai_act",
-   "key": "act-name",
-   "field": "explanation",
-   "variant": "AI Act",
-   "n": 1,
-   "severity": "failure",
-   "expected": "Regulamento da IA da UE",
-   "autofix": true
-  },
-  {
    "cls": "mixed",
    "id": "fe8263ea",
    "code": "AIGRM-I",
@@ -53858,7 +51503,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -53933,8 +51578,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "question_text",
-   "variant": "padrão",
+   "field": "explanation",
+   "variant": "padrões",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -53949,8 +51594,8 @@
    "pool": "secure",
    "family": "iso_vocabulary_pt",
    "key": "standard-noun",
-   "field": "explanation",
-   "variant": "padrões",
+   "field": "question_text",
+   "variant": "padrão",
    "n": 1,
    "severity": "flag",
    "expected": "norma",
@@ -54058,7 +51703,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -54074,7 +51719,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
@@ -54218,7 +51863,7 @@
    "n": 1,
    "severity": "flag",
    "expected": "risco elevado",
-   "autofix": true,
+   "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
   }
  ]
