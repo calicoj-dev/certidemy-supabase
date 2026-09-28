@@ -1,0 +1,94 @@
+{
+  "measured_against": "the nine-source leak index after the 2026-09-26 widening",
+  "note": "DRAFTS ONLY. Nothing here has been written to any table. Each entry is scored by scripts/score-leak-rewrite-drafts.mjs before it appears in LEAK-REWRITES-DRAFT.md, because a rewrite written to remove a reproduction can introduce one.",
+  "drafts": [
+    {
+      "cert": "AISM-I",
+      "slug": "management-practice",
+      "source": "itil4:2019",
+      "why": "The whole description is ITIL's definition word for word: 13 contiguous words, coverage 1.00. ITIL is licensed, and this is served unauthenticated through get_concept.",
+      "current": "a set of organizational resources designed for performing work or accomplishing an objective.",
+      "draft": "ITIL groups capability into practices rather than processes, so a practice carries the people, tools, information and suppliers a piece of work needs and not only its steps. Asking which practice owns an activity is how you find who is accountable for it."
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "governance-definition",
+      "source": "itil4:2019",
+      "why": "Ten contiguous words, coverage 1.00 -- again the entire description is the source's definition.",
+      "current": "the means by which an organization is directed and controlled.",
+      "draft": "Governance sets direction and holds management to it; it does not do the work. The examinable distinction is that governance decides what the organization is for and evaluates whether management delivered it, while management runs the practices that deliver."
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "incident-management",
+      "source": "itil4:2019",
+      "why": "Eight words of ITIL's own incident definition. Under the ten-word floor and distinctive enough that a reader would recognise it.",
+      "current": "restoring normal service operation as quickly as possible after an unplanned interruption.",
+      "draft": "Restoration is the goal rather than diagnosis: an incident closes when the service works again, even if nobody yet knows why it broke. That is what separates it from problem management, which owns the cause and is not in a hurry."
+    },
+    {
+      "cert": "AISM-I",
+      "slug": "guiding-principles",
+      "source": "itil4:2019",
+      "why": "Six words of ITIL's phrasing, coverage 0.67 over a nine-word description. The terseness is what makes the coverage high.",
+      "current": "universal recommendations that guide an organization in all circumstances.",
+      "draft": "A principle holds whatever the organization happens to be doing, which is what makes it a principle and not a practice. They are recommendations, so one can be set aside with a stated reason and never quietly ignored."
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "gpai-obligations",
+      "source": "euact:2024/1689",
+      "why": "Eight words of the Regulation. The AI Act is public law rather than licensed text, so the reproduction question is weaker here -- but the anti-gloss rule is not, and this says nothing the Regulation does not.",
+      "current": "Documentation and transparency obligations on providers of general-purpose AI models.",
+      "draft": "These land on whoever places the model on the market, not on whoever fine-tunes or deploys it later, and they attach to the model itself -- so they apply even where no high-risk use has been declared."
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "minimal-risk",
+      "source": "euact:2024/1689",
+      "why": "Five words, coverage 0.625 over eight. Predicted tier B by the calibration.",
+      "current": "The majority of AI systems; no specific obligations.",
+      "draft": "Most systems land here, and the practical consequence is that the Regulation obliges the provider to do nothing. So a claim of minimal risk is a claim about how the system is used, and it is the provider who has to be able to defend the classification."
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "synthetic-content-labeling",
+      "source": "euact:2024/1689",
+      "why": "Five words of the Regulation over an eight-word description.",
+      "current": "Marking AI-generated or manipulated content as artificial.",
+      "draft": "The duty is to make the artificiality detectable, which means machine-readable marking rather than a visible caption alone. It falls on the provider of the generating system, separately from any duty on whoever publishes the output."
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "product-ecosystem-actors",
+      "source": "itil4:2019",
+      "why": "Four words, and the match is ordinary English. The real defect is that the description is a LIST: it teaches nothing and would fail the anti-gloss rule at a leak score of zero.",
+      "current": "Stakeholders, customers, users, and sponsors.",
+      "draft": "A user is not a customer and a sponsor is neither: the person who uses the product, the person who pays for it and the person funding the team can be three people with conflicting definitions of value. That is why a Product Owner has to name all three rather than say stakeholders."
+    },
+    {
+      "cert": "SPO-AI-I",
+      "slug": "story-independence",
+      "source": "itil4:2019",
+      "why": "Four words of ordinary English. Again the description is a restatement of its own name.",
+      "current": "Items that can be delivered independently.",
+      "draft": "Independence is what lets the Product Owner reorder the backlog without renegotiating a bundle. Where two items can only ship together they are one item, however they are written."
+    },
+    {
+      "cert": "SM-AI-I",
+      "slug": "scrum-adoption",
+      "source": "nist-ai-rmf:1.0",
+      "why": "Four words matching NIST, which is a collision rather than a reproduction. The description restates its own name.",
+      "current": "Introducing Scrum at the organizational level.",
+      "draft": "Beyond one team, Scrum meets structures it does not control -- budget cycles, reporting lines, annual planning -- so the Scrum Master's work shifts from coaching events to influencing those. That is the difference between a team adopting Scrum and an organization doing so."
+    },
+    {
+      "cert": "AIGRM-I",
+      "slug": "explainability-for-stakeholders",
+      "source": "17021-1:2015",
+      "why": "Four words matching a BSI adoption. A collision, and the description restates its own name.",
+      "current": "Providing explanations appropriate to the audience.",
+      "draft": "One explanation cannot serve an auditor, an affected individual and an engineer: the auditor needs the process, the individual needs the reason for their own outcome, and the engineer needs the mechanism. Choosing the audience first is the whole task."
+    }
+  ]
+}
