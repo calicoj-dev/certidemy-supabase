@@ -242,6 +242,10 @@
       "declared": false
     },
     {
+      "file": "apply-leak-rewrites.mjs",
+      "declared": false
+    },
+    {
       "file": "apply-paired-review-fixes.mjs",
       "declared": false
     },

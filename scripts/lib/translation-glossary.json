@@ -382,7 +382,81 @@
         "sprint_is_feminine_in_pt": "a Sprint",
         "first_use_carries_the_english": "e.g. Objetivo del Sprint (Sprint Goal), Definição de Pronto (Definition of Done)"
       },
-      "terms": []
+      "terms": [
+        {
+          "key": "scrum-team",
+          "en": "Scrum Team",
+          "es": "Scrum Team",
+          "pt": "Scrum Team",
+          "forbidden": {
+            "es": [
+              "Equipo Scrum",
+              "Equipo de Scrum"
+            ],
+            "pt": [
+              "Time Scrum",
+              "Equipe Scrum",
+              "Time de Scrum"
+            ]
+          },
+          "severity": "flag",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "untranslated_check": false,
+          "census": "house Scrum Team es 1047 / pt 1023; departures es 49, pt 75 -- 4 to 7 percent",
+          "note": "A minority form against a clear house convention, in both languages. FLAG rather than failure because 75 pt-BR occurrences of Equipe/Time Scrum are a real editorial choice somebody made repeatedly, not a slip, and the official guide keeps Scrum Team in English in both editions."
+        },
+        {
+          "key": "developers-es",
+          "en": "Developers",
+          "es": "Developers",
+          "pt": null,
+          "forbidden": {
+            "es": [
+              "Desarrolladores",
+              "Equipo de Desarrollo"
+            ],
+            "pt": []
+          },
+          "severity": "flag",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "untranslated_check": false,
+          "census": "es Developers 2357 vs Desarrolladores 500 -- 17 percent",
+          "note": "Spanish only. pt-BR is 1504 Developers against 1354 Desenvolvedores, which is a SPLIT CORPUS and not a convention with exceptions -- gating it would refuse 47 percent of the rows. The two languages genuinely differ here and the entry says so rather than averaging them."
+        },
+        {
+          "key": "development-team-retired",
+          "en": "Developers",
+          "es": "Developers",
+          "pt": "Developers",
+          "forbidden": {
+            "es": [
+              "Equipo de Desarrollo"
+            ],
+            "pt": [
+              "Time de Desenvolvimento",
+              "Equipe de Desenvolvimento"
+            ]
+          },
+          "severity": "failure",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "untranslated_check": false,
+          "subject": "scrum",
+          "census": "es 6, pt 2 -- eight occurrences corpus-wide",
+          "note": "The 2020 Guide RETIRED `Development Team` as a role: the Scrum Team has no sub-team. This is the one entry that is a FAILURE rather than a flag, because it is not a register choice -- an item using it is testing a role that the current Guide does not contain. Eight occurrences, so the firing count is stated and small. Not auto-fixed: `Time de Desenvolvimento` sometimes appears inside a distractor that is wrong ON PURPOSE, and only a read can tell those apart."
+        }
+      ],
+      "source": "Scrum Guide 2020, official es-419 and pt-BR editions in reference/, read 2026-09-28",
+      "house_form_note": "THE HOUSE FORM IS ENGLISH AND IT DIFFERS FROM THE OFFICIAL TRANSLATIONS. Measured over 6,847 translated rows: Sprint Goal 1780/1782 against the official Objetivo del Sprint 9 and Meta da Sprint 0; Definition of Done 1934/1888 against Definicion de Terminado 0 and Definicao de Pronto 2. Encoding the official rendering as the house form would fire on ~9,000 occurrences. The divergence is a DECISION, recorded in SCRUM-GLOSSARY.md, and it has not been ruled on.",
+      "gender_note": "`Sprint` takes OPPOSITE genders in the two official guides and neither is unanimous: el sprint 64 / la sprint 17 in es-419, a sprint 71 / o sprint 15 in pt-BR. A gender rule would fire on the official translation itself, so there is none."
     }
   }
 }
