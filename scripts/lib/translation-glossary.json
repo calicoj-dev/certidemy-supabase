@@ -455,8 +455,49 @@
         }
       ],
       "source": "Scrum Guide 2020, official es-419 and pt-BR editions in reference/, read 2026-09-28",
-      "house_form_note": "THE HOUSE FORM IS ENGLISH AND IT DIFFERS FROM THE OFFICIAL TRANSLATIONS. Measured over 6,847 translated rows: Sprint Goal 1780/1782 against the official Objetivo del Sprint 9 and Meta da Sprint 0; Definition of Done 1934/1888 against Definicion de Terminado 0 and Definicao de Pronto 2. Encoding the official rendering as the house form would fire on ~9,000 occurrences. The divergence is a DECISION, recorded in SCRUM-GLOSSARY.md, and it has not been ruled on.",
-      "gender_note": "`Sprint` takes OPPOSITE genders in the two official guides and neither is unanimous: el sprint 64 / la sprint 17 in es-419, a sprint 71 / o sprint 15 in pt-BR. A gender rule would fire on the official translation itself, so there is none."
+      "house_form_note": "RULED 2026-09-28: THE ENGLISH TERMS ARE THE HOUSE CONVENTION AND THEY STAY. Measured over 6,847 translated rows, our corpus keeps the Scrum artifacts and events in English -- Sprint Goal 1780 in es-419 against the official Objetivo del Sprint 9; Definition of Done 1934 against Definicion de Terminado 0; in pt-BR, Meta da Sprint 0 and Definicao de Pronto 2. The official 2020 editions translate those three and keep the roles and events in English. WE KEEP ALL OF THEM IN ENGLISH, deliberately. No bulk rewrite. The official forms are ALLOWED as a parenthetical gloss on first use -- see `allowed_glosses` -- and are never required and never substituted for the house term.",
+      "gender_note": "`Sprint` takes OPPOSITE genders in the two official guides and neither is unanimous: el sprint 64 / la sprint 17 in es-419, a sprint 71 / o sprint 15 in pt-BR. A gender rule would fire on the official translation itself, so there is none.",
+      "allowed_glosses": {
+        "note": "A gloss is the official term in PARENTHESES immediately after the house term, on FIRST USE in a lesson: `Sprint Goal (Objetivo del Sprint)`. It is an allowance, not an obligation, and it is never a substitution. The lessons where each term first appears are enumerated in SCRUM-GLOSS-FIRST-USE.md so the gloss can be added at the right place.",
+        "source": "Scrum Guide 2020, official es-419 and pt-BR editions, reference/",
+        "terms": [
+          {
+            "en": "Sprint Goal",
+            "es": "Objetivo del Sprint",
+            "pt": "Meta da Sprint"
+          },
+          {
+            "en": "Product Goal",
+            "es": "Objetivo del Producto",
+            "pt": "Meta do Produto"
+          },
+          {
+            "en": "Definition of Done",
+            "es": "Definición de Terminado",
+            "pt": "Definição de Pronto"
+          },
+          {
+            "en": "Increment",
+            "es": null,
+            "pt": "Incremento"
+          },
+          {
+            "en": "stakeholders",
+            "es": "interesados",
+            "pt": null
+          }
+        ]
+      },
+      "never_forbid": [
+        "Objetivo del Sprint",
+        "Meta da Sprint",
+        "Objetivo del Producto",
+        "Meta do Produto",
+        "Definición de Terminado",
+        "Definição de Pronto",
+        "Incremento",
+        "interesados"
+      ]
     }
   }
 }

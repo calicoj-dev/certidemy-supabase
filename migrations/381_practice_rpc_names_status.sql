@@ -101,8 +101,24 @@ $mig$;
 create or replace function public.create_practice_questions(p_questions jsonb)
 returns uuid[]
 language plpgsql
-security definer
-set search_path = ''
+-- ============================================================================
+-- NOT security definer, AND NOT set search_path. CORRECTED BEFORE THIS RAN.
+-- ============================================================================
+--
+-- The first draft of this migration carried `security definer set search_path =
+-- ''`, copied from a template. The live function is NEITHER, which migration 378
+-- states in as many words: "It is granted to anon and authenticated, is NOT
+-- security definer, and writes to quiz_questions."
+--
+-- So a migration whose whole subject is naming ONE column would have silently
+-- made the function run as its owner. That is a privilege escalation nobody
+-- ruled, in a `create or replace` where the only visible change is a column
+-- list -- and `create or replace function` REPLACES the security properties
+-- too, it does not merge them.
+--
+-- Nothing had run: 381 is unapplied. The post-condition below now asserts
+-- `prosecdef = false` in both directions, so this cannot be reintroduced by a
+-- later copy of the same template.
 as $fn$
 declare
   elem     jsonb;
@@ -142,13 +158,13 @@ begin
       v_task_id,
       v_group_id,
       elem->>'question_text',
-      (elem->>'question_type')::public.question_type,
+      (elem->>'question_type')::question_type,
       elem->'options',
       elem->'correct_answer',
       nullif(elem->>'explanation', ''),
       (elem->>'difficulty')::smallint,
       coalesce(
-        nullif(elem->>'bloom_level', '')::public.bloom_level,
+        nullif(elem->>'bloom_level', '')::bloom_level,
         (select t.bloom_level from public.tasks t where t.id = v_task_id)
       ),
       coalesce(nullif(elem->>'bank_revision', ''), 'v2-jta'),
@@ -223,7 +239,23 @@ begin
     raise exception 'the body no longer names: %', v_offenders;
   end if;
 
-  raise notice 'OK: status named, % generated row(s) unchanged, checksum %', v_rows, v_hash;
+  -- 4. BOTH DIRECTIONS on the security property: the function must NOT be definer.
+  if exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+              where n.nspname = 'public' and p.proname = 'create_practice_questions'
+                and p.prosecdef) then
+    raise exception 'create_practice_questions became SECURITY DEFINER'
+      using detail = 'It is security invoker on the live database (see migration 378) and this',
+            hint   = 'migration must not change that. A template was copied; remove the clause.';
+  end if;
+  if exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+              where n.nspname = 'public' and p.proname = 'create_practice_questions'
+                and p.proconfig is not null
+                and exists (select 1 from unnest(p.proconfig) c where c like 'search_path=%')) then
+    raise exception 'create_practice_questions acquired a pinned search_path'
+      using hint = 'The live function has none; this migration changes one column list and nothing else.';
+  end if;
+
+  raise notice 'OK: status named, invoker unchanged, % generated row(s) unchanged, checksum %', v_rows, v_hash;
 end
 $post$;
 

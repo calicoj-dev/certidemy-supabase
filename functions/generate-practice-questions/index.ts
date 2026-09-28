@@ -141,6 +141,14 @@ interface PayloadRow {
   // field was accepted by the jsonb payload and silently dropped, and the row
   // took the column default 'authored'. There was no error to notice.
   item_origin: "generated";
+  // REQUIRED, and it is the whole basis of the 60-per-day cap (migration 382).
+  // The RPC cannot verify it: 378 revoked EXECUTE from `authenticated` and granted
+  // it to `service_role`, so `auth.uid()` is null inside the function and the
+  // learner has to be passed in. That makes the cap exactly as trustworthy as the
+  // `authenticate(req)` call above -- which verifies the JWT -- and no more.
+  // Omitting it does not fail: a null `created_by` is EXEMPT from the cap, so a
+  // caller that forgets this field silently gets no cap at all.
+  created_by: string;
   question_text: string;
   question_type: string;
   options: unknown;
@@ -331,6 +339,9 @@ serve(async (req) => {
           // column would be right today and wrong on the next weak-concepts
           // session. REQUIRES migration 301; before it, this is dropped.
           item_origin: "generated",
+          // The VERIFIED learner from authenticate(req), never anything off the
+          // request body. Migration 382 counts the daily cap on this value.
+          created_by: user_id,
           question_text: q.question_text,
           question_type: q.question_type,
           options: q.options,
@@ -381,6 +392,15 @@ serve(async (req) => {
     const { data: ids, error: rpcErr } = await svc.rpc('create_practice_questions', {
       p_questions: payload,
     });
+    // THE CAP REFUSES BY NAME, NOT AS A GENERIC FAILURE. Migration 382 raises
+    // `check_violation` with "practice item daily cap reached" and writes nothing.
+    // Surfaced as 429 with the detail, because "persist failed" would send the
+    // reader to look at the database when the answer is "come back tomorrow" --
+    // the error naming the wrong half of the system, which this repository keeps
+    // paying for. The cap is per learner per UTC day.
+    if (rpcErr && /daily cap reached/i.test(rpcErr.message ?? '')) {
+      throw new HttpError(429, `practice item daily cap reached. ${rpcErr.details ?? ''}`.trim());
+    }
     if (rpcErr) throw new Error(`persist failed: ${rpcErr.message}`);
     const question_ids: string[] = (ids ?? []) as string[];
     if (question_ids.length === 0) throw new Error('persist returned no ids');
