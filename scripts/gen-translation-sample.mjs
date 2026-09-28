@@ -16,14 +16,33 @@
  * tells the reviewer what each group must carry. Pointing it at a random sample would produce a
  * document whose own framing is false about its contents, which is worse than a second renderer.
  *
- * ============ WHY A SAMPLE IS PAIRED AND NOT INDEPENDENT ============
+ * ============ INDEPENDENT BY DEFAULT, PAIRED ON REQUEST, AND THE DEFAULT ONCE LIED ABOUT ITSELF ====
  *
- * The same group is drawn in BOTH languages. CLAUDE.md records what independent per-language draws
- * cost: two cleared draws served a defect rooted in the English, because a defect in the source traps
- * both renderings and only a cross-language contrast shows it. Coverage halves; evidence per item
- * doubles. The English is printed beside both for the same reason -- a translation can only be judged
- * against what it translates, and a translation that is BETTER than its English is evidence about the
- * English.
+ * `--paired` draws GROUPS and emits both languages of each, so every item carries its own
+ * cross-language control. Without it the draws are INDEPENDENT: the per-stratum seed is
+ * `seed XOR hash(cert|language)` and the language is in the hash, so the two languages shuffle
+ * differently and land on different groups.
+ *
+ * THE FIRST VERSION OF THIS HEADER SAID THE SAME GROUP WAS DRAWN IN BOTH LANGUAGES. It was not, and
+ * the document said so too: measured on the 2026-09-27 draw, 120 English renderings and 118 distinct,
+ * so exactly 2 of 60 pairs shared a sibling. I wrote the pairing rationale and then seeded per
+ * language, which is the rationale's own opposite -- and nothing measured it, because the figure the
+ * document reported was "English siblings paired: 120 of 120", which counts whether each row FOUND an
+ * English sibling and not whether the two languages found the SAME one. A count that looks like the
+ * property and is not is worse than no count.
+ *
+ * The trade-off is real in both directions, so it is a flag rather than a fix:
+ *
+ *   independent   ~2N distinct groups seen, one rendering each, no contrast
+ *   --paired       N distinct groups, two renderings each, every one its own control
+ *
+ * CLAUDE.md records what independent draws cost -- two cleared draws served a defect rooted in the
+ * English, because a source defect traps both renderings and only a contrast shows it. It also
+ * records what the independent draw bought here: the English defect rate, which is several times the
+ * translation defect rate and was only visible because ~118 distinct English items were read.
+ *
+ * The English is printed beside both either way: a translation can only be judged against what it
+ * translates, and a translation BETTER than its English is evidence about the English.
  *
  * ============ THE SEED IS RECORDED AND THE STRATUM IS PART OF IT ============
  *
@@ -50,13 +69,14 @@ import { requireKey, getAll, getAllIn } from "./_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let SEED = 4919, PER_CERT = 5, OUT = "TRANSLATION-SAMPLE.md";
+let SEED = 4919, PER_CERT = 5, OUT = "TRANSLATION-SAMPLE.md", PAIRED = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--seed=(\d+)$/.exec(a))) { SEED = Number(m[1]); continue; }
   if ((m = /^--per-cert=(\d+)$/.exec(a))) { PER_CERT = Number(m[1]); continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
-  console.error("unknown flag " + JSON.stringify(a) + ". Known: --seed=, --per-cert=, --out=");
+  if (a === "--paired") { PAIRED = true; continue; }
+  console.error("unknown flag " + JSON.stringify(a) + ". Known: --seed=, --per-cert=, --out=, --paired");
   console.error("This script is READ-ONLY: there is no --apply and no --dry, because it writes nothing.");
   process.exitCode = 2; process.exit();
 }
@@ -109,12 +129,46 @@ const certByRow = new Map(certs.map((c) => [c.id, c]));
 
 /* ---------------------------------------------------------------- the draw, per stratum */
 const strata = [];
+let pairedGroups = 0;
 for (const c of certs) {
+  const byLang = new Map(LANGS.map((l) => [l, pop
+    .filter((r) => r.certification_id === c.id && r.language === l)
+    .sort((x, y) => (x.id < y.id ? -1 : x.id > y.id ? 1 : 0))]));
+
+  if (PAIRED) {
+    /* ============ THE UNIT IS THE GROUP, AND THE SEED CANNOT CARRY THE LANGUAGE ============
+     *
+     * Draw from the groups present in BOTH languages, seed WITHOUT the language, and emit each drawn
+     * group in both. Putting the language in the hash is what made the default draw independent while
+     * its own header claimed otherwise, so here it is structurally absent rather than merely omitted:
+     * one shuffle, one list of groups, both languages read off it. */
+    const rowsByGroup = new Map();
+    for (const l of LANGS) {
+      for (const r of byLang.get(l)) {
+        if (!r.question_group_id) continue;
+        if (!rowsByGroup.has(r.question_group_id)) rowsByGroup.set(r.question_group_id, new Map());
+        rowsByGroup.get(r.question_group_id).set(l, r);
+      }
+    }
+    const complete = [...rowsByGroup.entries()]
+      .filter(([, m]) => LANGS.every((l) => m.has(l)))
+      .map(([g]) => g)
+      .sort();
+    const drawnGroups = shuffled(complete, SEED ^ strHash(c.code)).slice(0, PER_CERT);
+    pairedGroups += drawnGroups.length;
+    for (const lang of LANGS) {
+      strata.push({
+        cert: c, lang, population: complete.length, paired: true,
+        drawn: drawnGroups.map((g) => rowsByGroup.get(g).get(lang)),
+      });
+    }
+    continue;
+  }
+
   for (const lang of LANGS) {
-    const inStratum = pop.filter((r) => r.certification_id === c.id && r.language === lang)
-      .sort((x, y) => (x.id < y.id ? -1 : x.id > y.id ? 1 : 0));
+    const inStratum = byLang.get(lang);
     const drawn = shuffled(inStratum, SEED ^ strHash(c.code + "|" + lang)).slice(0, PER_CERT);
-    strata.push({ cert: c, lang, population: inStratum.length, drawn });
+    strata.push({ cert: c, lang, population: inStratum.length, paired: false, drawn });
   }
 }
 
@@ -213,9 +267,37 @@ p("| population | secure, approved, not retired, es-419 or pt-BR |");
 p("| items drawn | " + totalDrawn + " (" + strata.length + " strata) |");
 p("| paired English sibling | " + (totalDrawn - noGroup.length - noEnglish.length) + " of " + totalDrawn + " |");
 p("");
-p("**The same group is drawn in both languages**, so every item carries its own cross-language");
-p("control. An independent draw per language maximises distinct items and is structurally blind to a");
-p("defect rooted in the English -- which is how two cleared draws came to serve one.");
+/* ============ THE PAIRING CLAIM IS MEASURED, NOT ASSERTED ============
+ *
+ * The first version of this document claimed the same group was drawn in both languages while the seed
+ * carried the language and made the draws independent. So the claim is now computed from the draw
+ * itself: how many groups appear in both languages. A sentence about a property, printed next to the
+ * count of that property, cannot go stale the way the first one did.
+ *
+ * "English siblings paired: N of N" did NOT catch it, and that is the lesson: it counts whether each
+ * row found an English sibling, not whether the two languages found the SAME one. */
+const groupsPerLang = new Map(LANGS.map((l) => [l, new Set(strata
+  .filter((s) => s.lang === l).flatMap((s) => s.drawn.map((r) => r.question_group_id).filter(Boolean)))]));
+const sharedGroups = [...groupsPerLang.get(LANGS[0])].filter((g) => groupsPerLang.get(LANGS[1])?.has(g)).length;
+const distinctGroups = new Set([...groupsPerLang.values()].flatMap((s) => [...s])).size;
+
+if (PAIRED) {
+  p("**PAIRED: the same group is drawn in both languages**, measured rather than claimed -- **" +
+    sharedGroups + " of " + Math.max(1, Math.round(totalDrawn / 2)) + " pairs share a group**, over " +
+    distinctGroups + " distinct groups. Every item therefore carries its own cross-language control.");
+  p("");
+  p("A defect rooted in the ENGLISH traps both renderings, so only a contrast can show it -- which is");
+  p("how two independently drawn, cleared draws came to serve one.");
+} else {
+  p("**INDEPENDENT DRAWS, which is NOT a cross-language control.** The per-stratum seed is");
+  p("`seed XOR hash(cert|language)` and the language is in the hash, so the two languages shuffle");
+  p("differently: **" + sharedGroups + " of " + Math.max(1, Math.round(totalDrawn / 2)) +
+    " pairs share a group**, over " + distinctGroups + " distinct groups.");
+  p("");
+  p("That buys breadth -- roughly twice as many distinct items read -- and it is structurally blind to");
+  p("a defect rooted in the English, because a source defect traps both renderings and only a contrast");
+  p("shows it. Pass `--paired` to draw groups instead and get the control at half the breadth.");
+}
 p("");
 p("**A translation that is BETTER than its English is a finding about the English.** An expanded");
 p("initialism, a capitalised proper noun, a spelled-out term the English left raw: eleven AIMS-F");
@@ -278,8 +360,15 @@ writeFileSync(join(ROOT, OUT), md.join("\n") + "\n", "utf8");
 console.log("TRANSLATION SAMPLE");
 console.log("  seed " + SEED + "   per cert " + PER_CERT + "   strata " + strata.length);
 console.log("  population read: " + pop.length + " secure translated rows");
-console.log("  drawn: " + totalDrawn + "   English siblings paired: " +
-  (totalDrawn - noGroup.length - noEnglish.length));
+/* "English siblings paired" was the phrase that hid an independent draw behind a pairing claim: it
+ * counts rows that FOUND an English sibling, never whether the two languages found the SAME group.
+ * Renamed to what it measures, with the pairing figure printed beside it so the two cannot be
+ * mistaken for each other again. */
+console.log("  drawn: " + totalDrawn + "   rows with an English sibling: " +
+  (totalDrawn - noGroup.length - noEnglish.length) + " of " + totalDrawn);
+console.log("  cross-language pairing: " + sharedGroups + " of " + Math.max(1, Math.round(totalDrawn / 2)) +
+  " pairs share a group, over " + distinctGroups + " distinct groups" +
+  (PAIRED ? "   (--paired)" : "   (INDEPENDENT draws -- pass --paired for the control)"));
 console.log("  renderings with a key marked: " + (renderings - unidentified) + " of " + renderings +
   "   multi-select: " + multiSelect);
 if (unidentified) {

@@ -137,6 +137,41 @@ const REVIEW_RECORDERS = {
     "tr_hash_basis is 'assumed', matching the 30 pre-existing rows. Asserts no key moved, no " +
     "option reordered, and that only the declared fields changed; the review insert is made " +
     "idempotent by skipping items that already carry a row from this reviewer.",
+  /* ============ TWO RECORDERS FOUND BY WIDENING THE DETECTOR, 2026-09-27 ============
+   *
+   * Neither was found by reading. Both build their row with `reviews.push({ ... })` and POST the
+   * array later, which the old fixed-window matcher could not see -- so both wrote review rows while
+   * this check reported PASS and printed a census that did not contain them.
+   *
+   * And both are the STRONGEST form of recorder: they ask migration 374's
+   * `expected_review_hashes_*` through `lib/expected-review-hashes.mjs` and store the gate's own
+   * value rather than computing one. So the gap was never a correctness problem in them -- it was a
+   * coverage problem in the instrument, which is the worse kind, because the clean census was being
+   * read as evidence that every writer was accounted for. */
+  "apply-own-work-drafts.mjs":
+    "THREE APPROVED DRAFTS, repo and database in one run, because editing an English task's `skills` " +
+    "moves task_ksa_en_hash and both translations are pinned to it. Writes task_translation_reviews " +
+    "ONLY, with both hashes from `expectedTaskHashes` -- the 374 helper -- after an earlier run had " +
+    "invented translation_hash over four newline-joined fields and got a different answer, which is " +
+    "the precedent for asking rather than reimplementing. tr_hash_basis 'observed'.",
+  "apply-0501-translations.mjs":
+    "LESSON SPAN TRANSLATIONS plus the review that re-opens the gate. Writes " +
+    "lesson_translation_reviews ONLY, and takes both hashes from migration 374's " +
+    "`expected_review_hashes_lesson` via lib/expected-review-hashes.mjs -- never a local formula, " +
+    "which matters because the lesson arm's two hashes are computed differently (left(md5(en),8) for " +
+    "en_hash, translation_hash(tr) for tr_hash) and reimplementing either would withhold rows for an " +
+    "arithmetic difference rather than an edit. tr_hash_basis 'observed'.",
+  "apply-prompt84-b-items.mjs":
+    "PROMPT-84 B FINDINGS, 23 field edits across 6 items in BOTH languages (4 es-419, 2 pt-BR) from " +
+    "the director's read of the 120-item translation sample. Writes item_translation_reviews ONLY, " +
+    "one row per edited item. Computes en_hash/tr_hash with itemHash8 for the same reason as the two " +
+    "Tier C recorders: THE ITEM ARM HAS NO GATE, so there is no expected_review_hashes_item to ask " +
+    "and no stored value the computation could contradict. tr_hash_basis is 'assumed'. Asserts no key " +
+    "moved, no option reordered, and that status/visibility/is_exam_scope/pool are unchanged on " +
+    "read-back -- these are live SECURE items. Re-runnable: an edit whose anchor is gone and whose " +
+    "target is present is reported as ALREADY APPLIED rather than as an error, which is what let the " +
+    "provenance rows be recovered after the first run landed the text and then failed on the verdict " +
+    "vocabulary (approved|rejected, not 'corrected').",
   "apply-tier-c-pt.mjs":
     "TIER C pt-BR FIXES, the three slips that survived a read of six probe hits (#170 recourse, " +
     "#171 sistema de valor twice, #224 an inserted modal in option d only -- the stem of the same " +
@@ -266,7 +301,30 @@ function writePositions(src, isSql) {
          * require a body/JSON.stringify/insert nearby. */
         if (/select=[^"'`]*$/.test(before)) continue;
         const ctx = src.slice(Math.max(0, m.index - 400), m.index + 200);
-        const isBody = /JSON\.stringify\s*\(\s*\{|body:\s*JSON\.stringify|method:\s*["'](POST|PATCH|PUT)/i.test(ctx);
+        let isBody = /JSON\.stringify\s*\(\s*\{|body:\s*JSON\.stringify|method:\s*["'](POST|PATCH|PUT)/i.test(ctx);
+        /* ============ A ROW BUILT INTO AN ARRAY IS STILL A WRITE ============
+         *
+         * The window above requires the REQUEST to sit within a few hundred characters of the key.
+         * A script that builds rows with `rows.push({ ... en_hash: ... })` and POSTs the array later
+         * is invisible to it -- and the gap is widened by anything in between, including a comment.
+         *
+         * Demonstrated by `apply-prompt84-b-items.mjs`: it writes six review rows, it was DECLARED,
+         * and this check reported PASS with zero positions found for it. A declaration with no
+         * detected position is the worst outcome here, because the census prints a clean list and the
+         * writer it cannot see is the next undeclared one.
+         *
+         * So: follow the PROGRAM, not the window. Find the array the object is pushed into, and
+         * accept it if the FILE sends that array as a request body. Same rule the unpaged-read audit
+         * had to learn -- a static classifier that reads a fixed window reads the wrong unit. */
+        let pushedInto = null;
+        if (!isBody) {
+          const push = /([A-Za-z_$][\w$]*)\s*\.push\s*\(\s*\{[^{}]*$/.exec(
+            src.slice(Math.max(0, m.index - 1200), m.index));
+          if (push && new RegExp("body:\\s*JSON\\.stringify\\(\\s*" + push[1] + "\\b").test(src)) {
+            isBody = true;
+            pushedInto = push[1];
+          }
+        }
         /* ============ THE TARGET TABLE IS THE CLASSIFICATION ============
          *
          * `concept_translation_reviews.en_hash` is the RECORD OF A REVIEW: it
@@ -287,9 +345,24 @@ function writePositions(src, isSql) {
          * concept_translations three lines later, so a +300 window resolved the
          * review write to the content table and reported a clean recorder as a
          * defect. The target is fixed by the nearest PRECEDING reference. */
+        const TABLES = /(concept_translation_reviews|concept_translations|lesson_translation_reviews|task_translation_reviews|item_translation_reviews)/g;
         const near = src.slice(Math.max(0, m.index - 900), m.index);
-        const tbl = [...near.matchAll(/(concept_translation_reviews|concept_translations|lesson_translation_reviews|task_translation_reviews|item_translation_reviews)/g)].pop();
-        const target = tbl ? tbl[1] : "unknown";
+        const tbl = [...near.matchAll(TABLES)].pop();
+        let target = tbl ? tbl[1] : "unknown";
+        /* WHERE THE ROW WAS PUSHED INTO AN ARRAY, THE TABLE COMES FROM THE REQUEST THAT SENDS THAT
+         * ARRAY -- which is forward of the key and therefore invisible to the backwards window. That
+         * is not the proximity guess the window rule warns about: the ARRAY IDENTIFIER ties the two
+         * together, so this follows the program rather than the distance. Without it
+         * apply-0501-translations.mjs resolved to "unknown", was classed js-body instead of
+         * review-record, and a correct recorder read as an undeclared defect. */
+        if (pushedInto) {
+          const sendAt = src.search(new RegExp("body:\\s*JSON\\.stringify\\(\\s*" + pushedInto + "\\b"));
+          if (sendAt > 0) {
+            const stmt = src.slice(Math.max(0, sendAt - 300), sendAt);
+            const t2 = [...stmt.matchAll(TABLES)].pop();
+            if (t2) target = t2[1];
+          }
+        }
         const isReviewRow = target.endsWith("_reviews");
         hits.push({ col, at: m.index, target, how: isBody ? (isReviewRow ? "review-record" : "js-body") : "js-object" });
       }
