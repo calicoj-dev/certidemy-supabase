@@ -281,8 +281,29 @@ export function gateVerbatim(item, passagesByKey) {
  * model named a real address and formatted it loosely; refusing that measures the
  * formatting, not the grounding. The leading address is extracted and the rest ignored.
  */
+/* ============ THE ADDRESS IS EXTRACTED, NOT REQUIRED AT THE START ============
+ *
+ * `^` anchored the pattern to the start of the string, so a clause field naming the document
+ * defeated it entirely. Measured on `fcb8a516` in a re-run: the model returned
+ *
+ *     "ISO/IEC 42006 clause 1 (Scope)"
+ *
+ * `normClause` returned the whole string, the passage map missed, `gateClauseExists` reported
+ * *"not in the library"* about a clause the library DOES hold, and `gateModalFidelity` reported
+ * *"no passage to compare against"*. Two gates blamed the item and the library for a formatting
+ * difference they could have resolved -- the same defect that scored an entire linking run at 0.0%
+ * recall when a title list joined clause and title with spaces.
+ *
+ * So the address is now FOUND anywhere in the string, after an optional `clause`/`annex`/`control`
+ * word. A leading document designation is skipped, because `ISO/IEC 42006` would otherwise donate
+ * its `42006` as the address -- which is why the scan starts after the last such designation. */
 export function normClause(c) {
-  const m = /^\s*([A-Z]?\.?\d+(?:\.\d+){0,3})/.exec(String(c || ""));
+  let s = String(c || "").trim();
+  /* drop a leading document designation so its digits cannot be read as the address */
+  s = s.replace(/^(?:BS\s+)?(?:EN\s+)?ISO(?:\/IEC)?(?:\/IEEE)?\s*\d+(?:[-:]\d+)*(?::\d{4})?\s*/i, "");
+  /* an explicit anchor word wins: `clause 9.2`, `Annex A.5`, `control A.8.16` */
+  const anchored = /\b(?:clause|subclause|annex|control|section)\s+([A-Z]?\.?\d+(?:\.\d+){0,3})/i.exec(s);
+  const m = anchored || /([A-Z]?\.?\d+(?:\.\d+){0,3})/.exec(s);
   if (!m) return String(c || "").trim();
   return m[1].replace(/^\./, "").replace(/^([A-Z])(\d)/, "$1.$2");
 }
@@ -409,11 +430,52 @@ export function gateModalFidelity(item, passagesByKey) {
    *   an item asserts must/shall/required on an anchor that does not carry it
    *   an item asserts should on an anchor that only permits or says nothing
    */
+  /* ============ A SCOPE CLAUSE CANNOT BE INFLATED BY A DESCRIPTION OF WHAT A DOCUMENT GOVERNS ====
+   *
+   * The director's ruling on `fcb8a516`, and the item is the whole argument. Its anchor is
+   * ISO/IEC 42006 CLAUSE 1, Scope. Its key reads:
+   *
+   *   "ISO/IEC 42006 governs certification bodies auditing AI management systems; ISO/IEC 42001
+   *    governs the AIMS requirements organizations MUST meet."
+   *
+   * `claimStrength` sees `must` and calls it a requirement. It is not a requirement THIS item
+   * imposes -- it is a report of what a DIFFERENT standard obliges, inside a sentence whose whole
+   * job is to say which document covers what. A scope clause states applicability and carries no
+   * obligation by construction, so there is nothing there to inflate.
+   *
+   * BOTH CONDITIONS, because either alone is too wide:
+   *
+   *   1. the anchor is a SCOPE clause -- clause 1, or a title naming scope or field of application;
+   *   2. every requirement-bearing sentence in the claim ATTRIBUTES the requirement to a named
+   *      document with a scope verb -- sets / defines / specifies / governs / covers / applies to.
+   *
+   * `requires` is deliberately NOT a scope verb. "ISO/IEC 42001 REQUIRES organizations to document
+   * a policy" against a scope anchor is exactly the Tier A inflation this gate exists for, and it
+   * names a document too -- so attribution alone cannot be the exemption. The line is between a
+   * document SETTING requirements, which is what a scope clause says, and a document REQUIRING
+   * something of the reader, which a scope clause never does. */
+  const isScopeAnchor = normClause(item.key_support_clause) === "1" ||
+    /\b(?:scope|field of application)\b/i.test(String(p.title || ""));
+  const SCOPE_VERB = /\b(?:sets?|setting|defines?|defining|specifies|specifying|governs?|governing|covers?|covering|applies to|applicable to|addresses|addressing|is intended for|are intended for)\b/i;
+  const DOC_NAME = /\b(?:ISO\/IEC\s*\d|ISO\s*\d|this document|the standard|the document|BS\s*(?:EN\s*)?ISO)/i;
+  const requirementSentences = String(claimText).split(/(?<=[.!?;])\s+/)
+    .filter((s) => claimStrength(s) === "requirement");
+  const allDescriptive = requirementSentences.length > 0 &&
+    requirementSentences.every((s) => DOC_NAME.test(s) && SCOPE_VERB.test(s));
+
+  if (claim === "requirement" && anchorClaim !== "requirement" && isScopeAnchor && allDescriptive) {
+    return { id: "modal-fidelity", pass: true, examined: 1,
+      reason: "the claim DESCRIBES what a document governs, against a scope clause -- " +
+        requirementSentences.length + " requirement-bearing sentence(s), each attributing the " +
+        "obligation to a named document with a scope verb. A scope clause imposes nothing, so " +
+        "there is nothing to inflate." };
+  }
   if (claim === "requirement" && anchorClaim !== "requirement") {
     return { id: "modal-fidelity", pass: false, examined: 1,
       reason: "the item asserts a requirement and the anchor carries none -- force taken from " +
         forceFrom + " (" + anchorClaim + "), clause " + normClause(item.key_support_clause) +
-        " is classed " + p.normative };
+        " is classed " + p.normative +
+        (isScopeAnchor ? " (scope anchor, but the claim is not purely descriptive)" : "") };
   }
   if (claim === "recommendation" && anchorClaim !== "requirement" && anchorClaim !== "recommendation") {
     return { id: "modal-fidelity", pass: false, examined: 1,
@@ -894,6 +956,63 @@ export function groundedGateControls() {
     ["refuses a must claim whose anchor carries no shall", () => gateModalFidelity(
       { ...good, key_support: "including the frequency, methods, responsibilities, planning requirements and reporting" }, byKey).pass, false],
     ["accepts a requirement claim on a shall anchor", () => gateModalFidelity(good, byKey).pass, true],
+    /* normClause extracts an address from a verbose clause field, and must not take a digit out of
+     * the document designation. The first four are the shapes a model actually returned. */
+    ["normClause: a bare address", () => normClause("9.2.2"), "9.2.2"],
+    ["normClause: document, word and title", () => normClause("ISO/IEC 42006 clause 1 (Scope)"), "1"],
+    ["normClause: document then address", () => normClause("ISO/IEC 42001 6.1.3"), "6.1.3"],
+    ["normClause: an annex control", () => normClause("ISO/IEC 27001 Annex A control A.8.16"), "A.8.16"],
+    ["normClause: a dated document does not donate its year", () => normClause("ISO 19011:2026 clause 5.3"), "5.3"],
+    ["normClause: an already-normal annex address", () => normClause("A.6.2.4"), "A.6.2.4"],
+    /* ============ THE SCOPE-CLAUSE EXEMPTION, BOTH DIRECTIONS ============
+     *
+     * The positive case is `fcb8a516` verbatim: a scope anchor and a key that reports what two
+     * documents govern, carrying a `must` that belongs to the OTHER standard's obligation.
+     *
+     * The negative case is the one that matters. It keeps the same scope anchor and the same
+     * document name, and replaces the scope verb with `requires` -- which is an obligation claim
+     * and must STILL be refused. Without this second case the exemption would be "any claim that
+     * names a standard", and that is how a real Tier A inflation walks through. */
+    ["a descriptive claim about what documents govern is NOT inflation on a scope clause", () => {
+      const scope = { clause: "1", title: "Scope", normative: "can",
+        text: "The requirements contained in this document, when implemented, support the " +
+          "demonstration of competence, consistency and reliability by the bodies performing " +
+          "auditing and certification of an artificial intelligence management system (AIMS) " +
+          "according to ISO/IEC 42001 for organizations that provide, develop or use AI systems." };
+      return gateModalFidelity({
+        key_support_clause: "1",
+        key_support: "The requirements contained in this document, when implemented, support the " +
+          "demonstration of competence",
+        options: [{ text: "ISO/IEC 42006 governs certification bodies auditing AI management " +
+          "systems; ISO/IEC 42001 governs the AIMS requirements organizations must meet.",
+        is_correct: true }],
+        explanation: "ISO/IEC 42006 sets requirements for bodies that audit and certify " +
+          "organizations' AI management systems. ISO/IEC 42001 defines the AIMS requirements " +
+          "that organizations must implement.",
+      }, new Map([["1", scope]])).pass;
+    }, true],
+    ["but a real obligation claim on a scope clause is STILL refused", () => {
+      const scope = { clause: "1", title: "Scope", normative: "can",
+        text: "This document specifies requirements for bodies providing audit and certification." };
+      return gateModalFidelity({
+        key_support_clause: "1",
+        key_support: "This document specifies requirements for bodies providing audit",
+        options: [{ text: "ISO/IEC 42001 requires every organization to document an AI policy " +
+          "before certification.", is_correct: true }],
+        explanation: "ISO/IEC 42001 requires the policy to be documented.",
+      }, new Map([["1", scope]])).pass;
+    }, false],
+    ["and a bare requirement with no document named is refused on a scope clause too", () => {
+      const scope = { clause: "1", title: "Scope", normative: "can",
+        text: "This document specifies requirements for bodies providing audit and certification." };
+      return gateModalFidelity({
+        key_support_clause: "1",
+        key_support: "This document specifies requirements for bodies providing audit",
+        options: [{ text: "Organizations shall retain documented information of every audit.",
+          is_correct: true }],
+        explanation: "The records must be kept.",
+      }, new Map([["1", scope]])).pass;
+    }, false],
     ["refuses superseded wording", () => gateSuperseded({ ...good,
       options: [...good.options, { text: "The Development Team decides" }] }).pass, false],
     /* CHANGED BY RULING, NOT TO MAKE A NUMBER LOOK BETTER. The negation rule is now a FLAG: it

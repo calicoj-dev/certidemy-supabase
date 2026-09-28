@@ -3,17 +3,17 @@
  "model": "claude-opus-5",
  "method": "anchor or flag, primary passages only, code gates decide",
  "sampled": 40,
- "anchored": 21,
- "flagged": 16,
- "cannot_be_checked": 3,
+ "anchored": 22,
+ "flagged": 17,
+ "cannot_be_checked": 1,
  "director_tier_ab": 14,
- "caught_by_anchor": 6,
+ "caught_by_anchor": 9,
  "caught_by_solver": 2,
  "anchorable": 9,
  "contested": 5,
- "caught_of_anchorable": 4,
+ "caught_of_anchorable": 7,
  "solver_caught_of_contested": 0,
- "extra_flags": 10,
+ "extra_flags": 8,
  "extra_lesser_tier": 0,
  "items": [
   {
@@ -23,19 +23,20 @@
    "task": "1.1",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "An internal AIMS audit belongs to the 'Check' phase of PDCA because audits are a performance evaluation mechanism monitoring the AIMS against its requirements.",
-   "rests_on": "ISO/IEC 42001 Clause 9 (Performance evaluation), specifically 9.2 Internal audit, and the PDCA model description in the Introduction — neither is among the supplied passages.",
-   "reason": "the key rests on ISO/IEC 42001 Clause 9 (Performance evaluation), specifically 9.2 Internal audit, and the PDCA model description in the Introduction — neither is among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.1 examines"
+   "key_claim": "An internal AIMS audit belongs to the 'Check' phase of PDCA because it is a performance evaluation activity that monitors and verifies the AIMS against its requirements.",
+   "rests_on": "ISO/IEC 42001 Clause 9 (Performance evaluation), specifically 9.2 Internal audit, and the PDCA/Introduction material of ISO/IEC 42001 — none of which are among the supplied passages.",
+   "reason": "the key rests on ISO/IEC 42001 Clause 9 (Performance evaluation), specifically 9.2 Internal audit, and the PDCA/Introduction material of ISO/IEC 42001 — none of which are among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.1 examines"
   },
   {
    "n": 122,
    "prefix": "b97b25ea",
    "director_tier": "B",
    "task": "1.2",
-   "state": "cannot-be-checked",
-   "rests_on": "ISO/IEC 22989 (the supplied 4.1 NOTE 1 states only that 'A detailed description of these roles is provided by ISO/IEC 22989'; the substantive definition of 'AI partner' as lifecycle collaboration with shared responsibility for AI impacts lives in that document, which is not among the supplied passages). The NIST AI risk management framework [29] is likewise cited but not held.",
-   "key_claim": "The 'AI partner' role denotes an organization collaborating across the AI system lifecycle (e.g. joint development) such that responsibility for the system's AI impacts is shared.",
-   "reason": "the key rests on ISO/IEC 22989 (the supplied 4.1 NOTE 1 states only that 'A detailed description of these roles is provided by ISO/IEC 22989'; the substantive definition of 'AI partner' as lifecycle collaboration with shared responsibility for AI impacts lives in that document, which is not among the supplied passages). The NIST AI risk management framework [29] is likewise cited but not held., which the library does not hold"
+   "state": "flag",
+   "kind": "off-task anchor",
+   "key_claim": "The 'AI partner' role denotes an organization collaborating across the AI system life cycle (e.g. joint development) such that responsibility for the system's AI impacts is shared.",
+   "rests_on": "ISO/IEC 22989 (the supplied 4.1 text states 'A detailed description of these roles is provided by ISO/IEC 22989'); also referenced NIST AI Risk Management Framework",
+   "reason": "the key rests on ISO/IEC 22989 (the supplied 4.1 text states 'A detailed description of these roles is provided by ISO/IEC 22989'); also referenced NIST AI Risk Management Framework -- the library HOLDS ISO/IEC 22989, so this is not an unheld source: the clause is not what task 1.2 examines"
   },
   {
    "n": 123,
@@ -44,9 +45,9 @@
    "task": "1.4",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "The Harmonised (high-level) Structure gives ISO/IEC 42001 and ISO/IEC 27001 a common Clause 9 framework, but ISO/IEC 42001 additionally requires AI-specific performance data in management review that ISO/IEC 27001 reviews do not contain.",
-   "rests_on": "ISO/IEC 42001 Clause 9 (9.1 monitoring, measurement, analysis and evaluation; 9.3 management review) and the corresponding Clause 9 of ISO/IEC 27001 — neither clause text is among the supplied passages; only Annex D (D.1, D.2) was provided.",
-   "reason": "the key rests on ISO/IEC 42001 Clause 9 (9.1 monitoring, measurement, analysis and evaluation; 9.3 management review) and the corresponding Clause 9 of ISO/IEC 27001 — neither clause text is among the supplied passages; only Annex D (D.1, D.2) was provided. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 1.4 examines"
+   "key_claim": "The Harmonised Structure gives ISO/IEC 42001 and ISO/IEC 27001 a common Clause 9 review framework, but ISO/IEC 42001 additionally demands AI-specific performance data in the management review that ISO/IEC 27001 reviews do not contain.",
+   "rests_on": "ISO/IEC 42001 Clause 9.3 (Management review) and ISO/IEC 27001 Clause 9.3 — neither clause text is among the supplied passages; only Annex D (D.1 and D.2) was provided.",
+   "reason": "the key rests on ISO/IEC 42001 Clause 9.3 (Management review) and ISO/IEC 27001 Clause 9.3 — neither clause text is among the supplied passages; only Annex D (D.1 and D.2) was provided. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 1.4 examines"
   },
   {
    "n": 124,
@@ -54,9 +55,9 @@
    "director_tier": "B",
    "task": "1.5",
    "state": "cannot-be-checked",
-   "rests_on": "Regulation (EU) 2024/1689 (EU AI Act), including its risk-tier structure and the amendments to its application/transitional timeline",
-   "key_claim": "The EU AI Act imposes risk-tiered obligations (prohibited, high-risk, limited-risk, minimal-risk) under a phased implementation timeline that has been amended since the Act's adoption.",
-   "reason": "the key rests on Regulation (EU) 2024/1689 (EU AI Act), including its risk-tier structure and the amendments to its application/transitional timeline, which the library does not hold"
+   "rests_on": "Regulation (EU) 2024/1689 (EU AI Act), including its amended application/transitional timeline",
+   "key_claim": "The EU AI Act imposes risk-tiered obligations under a phased implementation timeline that has been revised since the Act's adoption.",
+   "reason": "the key rests on Regulation (EU) 2024/1689 (EU AI Act), including its amended application/transitional timeline, which the library does not hold"
   },
   {
    "n": 125,
@@ -65,9 +66,9 @@
    "task": "1.6",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "ISO/IEC 42001 certification confirms only that the organization has a management system containing processes by which activities such as bias validation are determined and monitored — it does not certify individual models or mandate specific bias tests.",
-   "rests_on": "What a certificate attests to (system-level conformity rather than product/model conformity) is governed by ISO/IEC 17021-1 and ISO/IEC 42006, which are not among the supplied passages; the supplied passages support only the fact that the object of ISO/IEC 42001 is a management system consisting of processes (see also clause 3.4: 'as well as processes (3.8) to achieve those objectives'). The specific subject matter 'bias validation' does not appear in any supplied passage.",
-   "reason": "the key rests on What a certificate attests to (system-level conformity rather than product/model conformity) is governed by ISO/IEC 17021-1 and ISO/IEC 42006, which are not among the supplied passages; the supplied passages support only the fact that the object of ISO/IEC 42001 is a management system consisting of processes (see also clause 3.4: 'as well as processes (3.8) to achieve those objectives'). The specific subject matter 'bias validation' does not appear in any supplied passage. -- the library HOLDS ISO/IEC 42001, ISO/IEC 42006, ISO/IEC 17021-1, so this is not an unheld source: the clause is not what task 1.6 examines"
+   "key_claim": "ISO/IEC 42001 certification confirms only that the organization's AI management system contains processes for determining and monitoring activities such as bias validation, not that individual models were validated or certified.",
+   "rests_on": "The specific assertion about what a certification audit confirms (system-level conformity rather than product/model certification) rests on the conformity assessment standards ISO/IEC 17021-1 and ISO/IEC 42006, which are not among the supplied passages. The supplied passages also contain no text on bias validation.",
+   "reason": "the key rests on The specific assertion about what a certification audit confirms (system-level conformity rather than product/model certification) rests on the conformity assessment standards ISO/IEC 17021-1 and ISO/IEC 42006, which are not among the supplied passages. The supplied passages also contain no text on bias validation. -- the library HOLDS ISO/IEC 42006, ISO/IEC 17021-1, so this is not an unheld source: the clause is not what task 1.6 examines"
   },
   {
    "n": 126,
@@ -76,16 +77,16 @@
    "task": "1.6",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "Annex D is informative sector guidance and does not displace the normative context-of-the-organization requirements in Clause 4, which still apply in full.",
-   "rests_on": "ISO/IEC 42001 Annex D and Clause 4 (Context of the organization) — neither is among the supplied passages",
-   "reason": "the key rests on ISO/IEC 42001 Annex D and Clause 4 (Context of the organization) — neither is among the supplied passages -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.6 examines"
+   "key_claim": "Annex D of ISO/IEC 42001 is informative sector-specific guidance and does not displace or dilute the normative context-of-the-organization requirements, which continue to apply in full to every organization.",
+   "rests_on": "ISO/IEC 42001 Annex D (sector guidance) and Clause 4 (Context of the organization) — neither is among the supplied passages",
+   "reason": "the key rests on ISO/IEC 42001 Annex D (sector guidance) and Clause 4 (Context of the organization) — neither is among the supplied passages -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 1.6 examines"
   },
   {
    "n": 127,
    "prefix": "f50f74e8",
    "director_tier": "B",
    "task": "2.1",
-   "key_claim": "Clause 4.1 requires the organization to determine whether climate change is a relevant issue, independent of whether it operates or is certified to an environmental management system such as ISO 14001.",
+   "key_claim": "Clause 4.1 requires the organization to determine whether climate change is a relevant issue, independent of whether it operates or is certified to an environmental management system.",
    "anchor": {
     "clause": "4.1",
     "support": "The organization shall determine whether climate change is a relevant issue."
@@ -127,16 +128,16 @@
    "task": "2.2",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "Because third-party (vendor-supplied) AI used within the organization's processes falls inside the AI management system boundary, the organization must expand its AIMS scope to cover the cloud HR vendor's applicant-ranking feature.",
-   "rests_on": "ISO/IEC 42001 clauses 4.1 and 4.2 (referenced by 4.3 but not supplied) and Annex A controls on third-party/supplier relationships (e.g. A.10), which are the provisions that would address AI supplied or operated by another party.",
-   "reason": "the key rests on ISO/IEC 42001 clauses 4.1 and 4.2 (referenced by 4.3 but not supplied) and Annex A controls on third-party/supplier relationships (e.g. A.10), which are the provisions that would address AI supplied or operated by another party. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 2.2 examines"
+   "key_claim": "Because the cloud HR vendor's AI applicant-ranking feature is used within the organization's own processes, the organization must expand its AIMS scope to cover it rather than limiting scope to internally developed AI.",
+   "rests_on": "ISO/IEC 42001 clause 4.1 (determining the organization's role, e.g. as AI user of third-party systems) and Annex A/B controls on third-party and supplier relationships (e.g. A.10) — neither is among the supplied passages.",
+   "reason": "the key rests on ISO/IEC 42001 clause 4.1 (determining the organization's role, e.g. as AI user of third-party systems) and Annex A/B controls on third-party and supplier relationships (e.g. A.10) — neither is among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 2.2 examines"
   },
   {
    "n": 129,
    "prefix": "f2265782",
    "director_tier": null,
    "task": "2.3",
-   "key_claim": "The reviewer is incorrect: ISO/IEC 42001 requires the AI policy only to state high-level commitments and provide a framework for setting objectives, while measurability (numeric targets) is a requirement placed on AI objectives, not on the policy text.",
+   "key_claim": "The reviewer is wrong: an AI policy is meant to carry high-level commitments and provide the framework for objectives, while measurable/numeric targets are a requirement of AI objectives rather than of the policy itself.",
    "anchor": {
     "clause": "6.2",
     "support": "The AI objectives shall: a) be consistent with the AI policy (see 5.2); b) be measurable (if practicable);"
@@ -176,7 +177,7 @@
    "prefix": "5d0d9624",
    "director_tier": null,
    "task": "2.4",
-   "key_claim": "The organization's role and authority assignments must continue to match its current AI scope, so expanding AI into new business domains without revisiting them is a concern.",
+   "key_claim": "Failing to revisit role and authority assignments after significantly expanding AI use is a concern, because those assignments must reflect the organization's current AI scope and needs.",
    "anchor": {
     "clause": "A.3.2",
     "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization."
@@ -216,7 +217,7 @@
    "prefix": "255323d0",
    "director_tier": null,
    "task": "2.4",
-   "key_claim": "Assigning both the AIMS-conformance authority and the AIMS-performance-reporting authority to a single person is permissible, because ISO/IEC 42001 lists them as two distinct assigned authorities without requiring separate holders.",
+   "key_claim": "Assigning both the AIMS-conformance authority and the AIMS-performance-reporting authority to a single person is permissible: the standard lists them as two distinct authorities but does not require that different people hold them.",
    "anchor": {
     "clause": "5.3",
     "support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management."
@@ -256,7 +257,7 @@
    "prefix": "ea67eb46",
    "director_tier": null,
    "task": "2.6",
-   "key_claim": "The AI system impact assessment must cover consequences for individuals, groups of individuals and societies together, so societal impacts should be retained in the assessment.",
+   "key_claim": "The organization should keep societal impacts in the AI system impact assessment, because the assessment must cover consequences for individuals, groups of individuals and societies together.",
    "anchor": {
     "clause": "6.1.4",
     "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
@@ -296,10 +297,10 @@
    "prefix": "b1ea2bf8",
    "director_tier": null,
    "task": "2.6",
-   "key_claim": "The impact assessment scope must include all affected individuals — here, denied applicants who never interact with the system — not just direct users, internal staff or regulators.",
+   "key_claim": "The impact assessment must cover denied applicants — affected individuals who may never directly interact with the system — because consequences on third-party individuals are within scope.",
    "anchor": {
     "clause": "6.1.4",
-    "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
+    "support": "The organization shall define a process for assessing the potential consequences for individuals or groups of individuals, or both, and societies that can result from the development, provision or use of AI systems."
    },
    "gates": [
     {
@@ -336,7 +337,7 @@
    "prefix": "a335a9a2",
    "director_tier": null,
    "task": "2.6",
-   "key_claim": "Applicants whose credit decisions are made by the AI system must be included in the impact assessment because the assessment must cover individuals affected by the system's use, not only those who interact with it directly.",
+   "key_claim": "Applicants must be included in the AI system impact assessment because the assessment must cover individuals whose legal position or life opportunities the system affects, even if they never interact with it.",
    "anchor": {
     "clause": "6.1.4",
     "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies."
@@ -376,7 +377,7 @@
    "prefix": "cbfcb33f",
    "director_tier": null,
    "task": "2.8",
-   "key_claim": "Acceptance of residual AI risk must be approved by designated management, not by the risk owner alone.",
+   "key_claim": "Residual AI risk acceptance cannot be signed off by the risk owner alone; it must be approved by designated/authorized management.",
    "anchor": {
     "clause": "6.1.3",
     "support": "The organization shall obtain approval from the designated management for the AI risk treatment plan and for acceptance of the residual AI risks."
@@ -416,7 +417,7 @@
    "prefix": "f74447c0",
    "director_tier": null,
    "task": "3.2",
-   "key_claim": "ISO/IEC 42001 requires the organization to determine, for external (and internal) communications relevant to the AI management system, what will be communicated, when, with whom, and how.",
+   "key_claim": "ISO/IEC 42001 requires the organization to determine, for AIMS-relevant external (and internal) communications, what will be communicated, when, with whom, and how.",
    "anchor": {
     "clause": "7.4",
     "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate."
@@ -456,7 +457,7 @@
    "prefix": "e001ba3c",
    "director_tier": "D",
    "task": "3.2",
-   "key_claim": "A pre-existing generic corporate communication policy is insufficient because ISO/IEC 42001 requires communications determined specifically as relevant to the AI management system (what, when, with whom, how).",
+   "key_claim": "A generic corporate communication policy is insufficient because ISO/IEC 42001 requires communications determined specifically as relevant to the AI management system (what, when, with whom, how).",
    "anchor": {
     "clause": "7.4",
     "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate."
@@ -496,7 +497,7 @@
    "prefix": "ab6263f0",
    "director_tier": "B",
    "task": "3.6",
-   "key_claim": "Data provenance under ISO/IEC 42001 must record the whole chain of data handling — creation, transformation/update, validation and transfer — across the data and AI system life cycles, not just the original source.",
+   "key_claim": "Data provenance under ISO/IEC 42001 must capture the full chain of creation, transformation, validation and transfer steps across the data life cycle, not just the original source.",
    "anchor": {
     "clause": "B.7.5",
     "support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data."
@@ -536,20 +537,10 @@
    "prefix": "dd09940d",
    "director_tier": "B",
    "task": "3.6",
-   "state": "cannot-be-checked",
-   "rests_on": "ISO 8000-2 (the enumerated provenance elements are attributed to it; the source itself is not among the supplied passages)",
-   "key_claim": "Provenance tracking under ISO/IEC 42001 extends across the data life cycle — covering creation, intermediate transformations, validation and transfer of control — rather than being limited to the final dataset.",
-   "reason": "the key rests on ISO 8000-2 (the enumerated provenance elements are attributed to it; the source itself is not among the supplied passages), which the library does not hold"
-  },
-  {
-   "n": 140,
-   "prefix": "87d03b82",
-   "director_tier": null,
-   "task": "3.6",
-   "key_claim": "The organization should set data quality requirements appropriate to the particular AI system's intended purpose (rather than a fixed numeric threshold or a uniform set of dimensions) and then ensure/demonstrate that the data meet those requirements.",
+   "key_claim": "Provenance tracking under ISO/IEC 42001 extends beyond the final dataset to cover data creation, intermediate transformations/updates, validation, and transfer of control.",
    "anchor": {
-    "clause": "B.7.4",
-    "support": "For AI systems that use supervised or semi-supervised machine learning, it is important that the quality of training, validation, test and production data are defined, measured and improved to the extent possible, and the organization should ensure that the data are suitable for its intended purpose."
+    "clause": "B.7.5",
+    "support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data."
    },
    "gates": [
     {
@@ -565,12 +556,12 @@
     {
      "id": "modal-fidelity",
      "pass": false,
-     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.4 is classed should"
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
     },
     {
      "id": "anchor-is-primary",
      "pass": true,
-     "reason": "the key anchors in B.7.4, a primary passage of this task"
+     "reason": "the key anchors in B.7.5, a primary passage of this task"
     }
    ],
    "solver": {
@@ -579,7 +570,47 @@
    },
    "state": "flag",
    "kind": "modal-fidelity",
-   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.4 is classed should"
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
+  },
+  {
+   "n": 140,
+   "prefix": "87d03b82",
+   "director_tier": null,
+   "task": "3.6",
+   "key_claim": "The organization should set data quality criteria appropriate to the AI system's intended purpose (and risk) and then show that the data used actually meet those criteria.",
+   "anchor": {
+    "clause": "A.7.4",
+    "support": "The organization shall define and document requirements for data quality and ensure that data used to develop and operate the AI system meet those requirements."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.7.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.7.4, verbatim, modal consistent"
   },
   {
    "n": 141,
@@ -588,9 +619,9 @@
    "task": "3.7",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "Competence evidence from information-security roles does not by itself demonstrate the AI-specific competence ISO/IEC 42001 requires; a separate assessment against AI management competence criteria is needed.",
-   "rests_on": "ISO/IEC 27001 Clause 7.2 (the source of the reused competence records) is referenced in the stem but its text is not among the supplied passages.",
-   "reason": "the key rests on ISO/IEC 27001 Clause 7.2 (the source of the reused competence records) is referenced in the stem but its text is not among the supplied passages. -- the library HOLDS ISO/IEC 27001, so this is not an unheld source: the clause is not what task 3.7 examines"
+   "key_claim": "Competence records from information security cannot by themselves demonstrate the competence required for AI management; competence must be determined and assessed specifically against AI management criteria (i.e. work affecting AI performance).",
+   "rests_on": "ISO/IEC 27001 Clause 7.2 (the source of the reused competence records) is referenced by the item but its text is not among the supplied passages; the supplied ISO/IEC 42001 7.2 anchors the AI-performance-specific competence requirement but does not itself state that other-domain records are inadmissible.",
+   "reason": "the key rests on ISO/IEC 27001 Clause 7.2 (the source of the reused competence records) is referenced by the item but its text is not among the supplied passages; the supplied ISO/IEC 42001 7.2 anchors the AI-performance-specific competence requirement but does not itself state that other-domain records are inadmissible. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 3.7 examines"
   },
   {
    "n": 142,
@@ -599,16 +630,16 @@
    "task": "3.8",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "Storing AI system impact assessment results in a personal email folder does not satisfy clause 8, because the results must be retained as controlled documented information that is traceable to the specific AIMS activity.",
-   "rests_on": "The 'controlled' and 'traceable' qualifiers in the key are not stated in any supplied passage; they derive from ISO/IEC 42001 clause 7.5 (Documented information / Control of documented information), which is not among the passages.",
-   "reason": "the key rests on The 'controlled' and 'traceable' qualifiers in the key are not stated in any supplied passage; they derive from ISO/IEC 42001 clause 7.5 (Documented information / Control of documented information), which is not among the passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 3.8 examines"
+   "key_claim": "Storing AI system impact assessment results in a project manager's personal email folder does not satisfy clause 8, because retained results must be controlled documented information traceable to the specific AIMS activity.",
+   "rests_on": "ISO/IEC 42001 clause 7.5 (documented information — creation, updating and control), which is where the 'controlled' and traceability obligations for retained documented information reside; that clause was not supplied. The supplied 8.4 text establishes only the duty to retain documented information of the results, not the control/traceability criteria the key turns on.",
+   "reason": "the key rests on ISO/IEC 42001 clause 7.5 (documented information — creation, updating and control), which is where the 'controlled' and traceability obligations for retained documented information reside; that clause was not supplied. The supplied 8.4 text establishes only the duty to retain documented information of the results, not the control/traceability criteria the key turns on. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 3.8 examines"
   },
   {
    "n": 143,
    "prefix": "a90aee16",
    "director_tier": "B",
    "task": "3.8",
-   "key_claim": "A significant change in an AI system's outputs or performance — such as accuracy degradation from data drift — triggers the clause 8 review obligation even though no intentional model change was made.",
+   "key_claim": "A significant change in an AI system's outputs or performance obliges the organization to perform the clause 8 review (risk assessment / impact assessment) regardless of whether the change was intentional.",
    "anchor": {
     "clause": "8.2",
     "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur."
@@ -648,7 +679,7 @@
    "prefix": "87c740c9",
    "director_tier": "E",
    "task": "4.1",
-   "key_claim": "Annex B, though normative, is guidance the organization is required only to consider when implementing the controls it determined under clause 6.1.3 b) and c) — it is not a set of sentences each of which must be implemented without tailoring.",
+   "key_claim": "Annex B does not impose its own sentence-by-sentence requirements; clause 6.1.3 e) only requires the organization to consider Annex B guidance when implementing the controls it has determined, and the guidance may be tailored.",
    "anchor": {
     "clause": "6.1.3",
     "support": "e) consider the guidance in Annex B for the implementation of controls determined in b) and c);"
@@ -688,7 +719,7 @@
    "prefix": "b40e412a",
    "director_tier": null,
    "task": "4.1",
-   "key_claim": "Annex A being 'not exhaustive' means organizations may add controls beyond those listed, but omitting a listed control still requires risk-based justification (recorded in the statement of applicability).",
+   "key_claim": "Annex A being 'not exhaustive' means organizations may add controls beyond the list, while omission of a listed control still requires risk-based justification (documented in the statement of applicability).",
    "anchor": {
     "clause": "6.1.3",
     "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls."
@@ -728,10 +759,10 @@
    "prefix": "b965acf2",
    "director_tier": "B",
    "task": "4.2",
-   "key_claim": "The SoA exclusion is inadequate because ISO/IEC 42001 requires a substantiated justification for excluding a control, not a bare assertion of non-applicability.",
+   "key_claim": "The exclusion is inadequate because ISO/IEC 42001 requires the statement of applicability to carry an actual justification for excluding a control, and a bare 'not applicable' assertion does not constitute such a justification.",
    "anchor": {
     "clause": "6.1.3",
-    "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls."
+    "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls. Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements."
    },
    "gates": [
     {
@@ -746,8 +777,8 @@
     },
     {
      "id": "modal-fidelity",
-     "pass": true,
-     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 6.1.3 is classed shall"
     },
     {
      "id": "anchor-is-primary",
@@ -757,18 +788,18 @@
    ],
    "solver": {
     "state": "rejected",
-    "reason": "the solver picked the key but calls D defensible: Clause 3.26 Note 2 and 6.1.3 f) tie justification to the risk assessment results, so a candidate could argue the exclusion must be linked to identified risks, though the passages never demand a demonstration that no residual risk remains."
+    "reason": "the solver picked the key but calls D defensible: A candidate could argue from 6.1.3 f) and Note 2 to entry in 3.26 (all identified risks and their controls reflected in the SoA) that exclusions must be grounded in the risk assessment, though the passages do not require demonstrating that no residual risk remains since residual risks are instead formally accepted."
    },
-   "state": "anchored",
-   "kind": null,
-   "reason": "anchored in 6.1.3, verbatim, modal consistent"
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 6.1.3 is classed shall"
   },
   {
    "n": 147,
    "prefix": "379b53fe",
    "director_tier": "C",
    "task": "4.3",
-   "key_claim": "Because the AI portfolio has expanded, the organization should reassess the adequacy of its resources across human resources, tooling and system/computing infrastructure rather than limiting the review to hardware, budget records, or relying on the original one-time assessment.",
+   "key_claim": "Because the AI portfolio has expanded, the organization should reassess whether its resources — human, tooling and system/computing — remain adequate, rather than relying on the eighteen-month-old assessment.",
    "anchor": {
     "clause": "A.4.2",
     "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization."
@@ -808,7 +839,7 @@
    "prefix": "52004aae",
    "director_tier": "B",
    "task": "4.3",
-   "key_claim": "The gap of having no documented process for staff to raise AI-related concerns is closed by the reporting of concerns control, which requires establishing an internal process for raising such issues.",
+   "key_claim": "The gap is closed under the reporting of concerns control, which requires an established internal process for raising AI-related concerns.",
    "anchor": {
     "clause": "A.3.3",
     "support": "The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle."
@@ -837,7 +868,7 @@
    ],
    "solver": {
     "state": "rejected",
-    "reason": "the solver picked the key but calls B defensible: A.3.3 sits within the A.3 'Internal organization' category, so naming that broader category (with A.3.2 roles and responsibilities) is arguably supportable, though assigning a role does not itself establish the required reporting process."
+    "reason": "the solver picked the key but calls B defensible: A.3.3 sits within the A.3 'Internal organization' category (and A.3.2 requires defining and allocating AI roles), so a candidate could argue the internal organization controls, including naming a role to receive concerns, address the gap."
    },
    "state": "anchored",
    "kind": null,
@@ -850,19 +881,19 @@
    "task": "4.4",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "The correct remediation is to document and retain data provenance information under ISO/IEC 42001's responsible development controls, which cover data quality and transparency as well as bias.",
-   "rests_on": "ISO/IEC 42001 Annex A.7 data controls (e.g. A.7.4 quality of data for AI systems, A.7.5 data provenance) — not among the supplied passages",
-   "reason": "the key rests on ISO/IEC 42001 Annex A.7 data controls (e.g. A.7.4 quality of data for AI systems, A.7.5 data provenance) — not among the supplied passages -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 4.4 examines"
+   "key_claim": "Under ISO/IEC 42001, the required response to an undocumented training-data provenance finding is to document and retain the provenance information under responsible development controls, which cover data quality and transparency.",
+   "rests_on": "ISO/IEC 42001 Annex A data controls (A.7 series, e.g. A.7.2 Data for development and enhancement of AI systems, A.7.3 Acquisition of data, A.7.5 Data provenance) — these are the clauses that impose documentation of data provenance and quality, and they are not among the supplied passages.",
+   "reason": "the key rests on ISO/IEC 42001 Annex A data controls (A.7 series, e.g. A.7.2 Data for development and enhancement of AI systems, A.7.3 Acquisition of data, A.7.5 Data provenance) — these are the clauses that impose documentation of data provenance and quality, and they are not among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 4.4 examines"
   },
   {
    "n": 150,
    "prefix": "430a65d2",
    "director_tier": "B",
    "task": "4.6",
-   "key_claim": "The AI provider should perform AI-specific due diligence on the bank's downstream deployment context and allocate AI life-cycle responsibilities between itself and the bank.",
+   "key_claim": "The AI provider should allocate AI system life-cycle responsibilities between itself and the downstream party (the bank), rather than treating third-party obligations as satisfied by legal paperwork or limiting them to upstream suppliers.",
    "anchor": {
     "clause": "A.10.2",
-    "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties."
+    "support": "Allocating responsibilities The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties."
    },
    "gates": [
     {
@@ -899,7 +930,7 @@
    "prefix": "2d291853",
    "director_tier": null,
    "task": "4.6",
-   "key_claim": "Fulfilling the Annex A responsible-use requirement means defining responsible-use objectives and establishing documented processes that ensure the AI system is actually used in line with its intended use and accompanying documentation.",
+   "key_claim": "The responsible-use requirement is most directly met by defining responsible-use objectives and establishing processes that ensure the AI system is used in accordance with its intended use and accompanying documentation.",
    "anchor": {
     "clause": "A.9.4",
     "support": "The organization shall ensure that the AI system is used according to the intended uses of the AI system and its accompanying documentation."
@@ -941,9 +972,9 @@
    "task": "4.7",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "The false equivalence is exposed because the ISO/IEC 27001 incident-response procedure is built around security-breach triggers and containment and therefore lacks detection criteria and escalation paths for AI-specific failures such as biased outputs and model drift, so the ISO/IEC 42001 control remains unmet.",
-   "rests_on": "The ISO/IEC 42001 AI incident/event reporting control text (Annex A and the Annex B implementation guidance, e.g. B.6.1.2 as cross-referenced) and the ISO/IEC 27001 information security incident management controls are not among the supplied passages; only ISO/IEC 42001 Annex D.2 on management system integration was provided.",
-   "reason": "the key rests on The ISO/IEC 42001 AI incident/event reporting control text (Annex A and the Annex B implementation guidance, e.g. B.6.1.2 as cross-referenced) and the ISO/IEC 27001 information security incident management controls are not among the supplied passages; only ISO/IEC 42001 Annex D.2 on management system integration was provided. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 4.7 examines"
+   "key_claim": "The reused ISO/IEC 27001 incident-response procedure only covers security-breach triggers and containment, so it leaves ISO/IEC 42001's requirement for detection criteria and escalation paths for AI-specific failures (biased outputs, model drift) unmet.",
+   "rests_on": "ISO/IEC 42001 Annex A/B control text on AI system incident detection, reporting and response (e.g. the AI incident control and its implementation guidance) — not among the supplied passages.",
+   "reason": "the key rests on ISO/IEC 42001 Annex A/B control text on AI system incident detection, reporting and response (e.g. the AI incident control and its implementation guidance) — not among the supplied passages. -- the library HOLDS ISO/IEC 42001, so this is not an unheld source: the clause is not what task 4.7 examines"
   },
   {
    "n": 153,
@@ -952,16 +983,16 @@
    "task": "4.7",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "A single, shared supplier assessment procedure that genuinely covers both the AI-specific objectives of ISO/IEC 42001 and the information security objectives of ISO/IEC 27001 is conformant; the standards permit integrated implementation rather than requiring separate documentation.",
-   "rests_on": "ISO/IEC 27001 (and ISO/IEC 42001 Annex A/B control B.6.1.2 text, plus certification/audit-finding grading rules from ISO/IEC 17021) are not among the supplied passages; the supplied D.2 text only establishes that integrated implementation is permitted and beneficial, not the specific supplier-assessment criteria or the finding classification.",
-   "reason": "the key rests on ISO/IEC 27001 (and ISO/IEC 42001 Annex A/B control B.6.1.2 text, plus certification/audit-finding grading rules from ISO/IEC 17021) are not among the supplied passages; the supplied D.2 text only establishes that integrated implementation is permitted and beneficial, not the specific supplier-assessment criteria or the finding classification. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, ISO/IEC 17021-1, so this is not an unheld source: the clause is not what task 4.7 examines"
+   "key_claim": "A single supplier assessment procedure that covers both the AI-specific criteria of ISO/IEC 42001 and the information security criteria of ISO/IEC 27001 is conformant with both standards; integrated documentation is permitted.",
+   "rests_on": "ISO/IEC 27001 (the information security requirements the shared procedure is said to satisfy are not among the supplied passages); ISO/IEC 42001 Annex A/B supplier-related controls are also not supplied, so the AI-specific supplier assessment requirement itself cannot be anchored here.",
+   "reason": "the key rests on ISO/IEC 27001 (the information security requirements the shared procedure is said to satisfy are not among the supplied passages); ISO/IEC 42001 Annex A/B supplier-related controls are also not supplied, so the AI-specific supplier assessment requirement itself cannot be anchored here. -- the library HOLDS ISO/IEC 42001, ISO/IEC 27001, so this is not an unheld source: the clause is not what task 4.7 examines"
   },
   {
    "n": 154,
    "prefix": "b7d1c5da",
    "director_tier": null,
    "task": "5.1",
-   "key_claim": "The review pack measures AI system performance but omits evaluation of the AI management system's own effectiveness, which ISO/IEC 42001 requires as a distinct obligation.",
+   "key_claim": "The review pack measures AI system performance but omits evaluation of the AI management system's own effectiveness, which ISO/IEC 42001 requires as a separate obligation.",
    "anchor": {
     "clause": "9.1",
     "support": "The organization shall evaluate the performance and the effectiveness of the AI management system."
@@ -1001,10 +1032,10 @@
    "prefix": "5d504d63",
    "director_tier": null,
    "task": "5.1",
-   "key_claim": "The colleague is wrong: ISO/IEC 42001 lets the organization itself determine when monitoring and measurement are performed, so a quarterly schedule is acceptable.",
+   "key_claim": "The colleague is wrong: ISO/IEC 42001 does not mandate continuous monitoring; the organization itself determines when monitoring and measurement are performed, so a quarterly schedule is acceptable.",
    "anchor": {
     "clause": "9.1",
-    "support": "The organization shall determine: — what needs to be monitored and measured; — the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results; — when the monitoring and measuring shall be performed; — when the results from monitoring and measurement shall be analysed and evaluated."
+    "support": "The organization shall determine: — what needs to be monitored and measured; — the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results; — when the monitoring and measuring shall be performed;"
    },
    "gates": [
     {
@@ -1043,9 +1074,9 @@
    "task": "5.2",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "Audit scope defines the boundaries of what the audit covers, whereas audit criteria are the set of requirements against which conformity is assessed.",
-   "rests_on": "ISO 19011 / ISO 9000 vocabulary (definitions of 'audit scope' and 'audit criteria')",
-   "reason": "the key rests on ISO 19011 / ISO 9000 vocabulary (definitions of 'audit scope' and 'audit criteria') -- the library HOLDS ISO 19011, so this is not an unheld source: the clause is not what task 5.2 examines"
+   "key_claim": "Audit scope and audit criteria are distinct concepts: scope defines the boundaries of what the audit covers, while criteria are the requirements against which conformity is assessed.",
+   "rests_on": "The substantive definitions of 'audit scope' (extent/boundaries of an audit) and 'audit criteria' (set of requirements used as a reference against which objective evidence is compared) come from ISO 19011:2018 / ISO 9000:2015 vocabulary, which is not among the supplied passages. The supplied clause 9.2.2 establishes only that criteria and scope are separate items the organization must define for each audit (and that the organization, not the auditor or certification body, defines them), which rules out options A, B and C but does not itself define either term.",
+   "reason": "the key rests on The substantive definitions of 'audit scope' (extent/boundaries of an audit) and 'audit criteria' (set of requirements used as a reference against which objective evidence is compared) come from ISO 19011:2018 / ISO 9000:2015 vocabulary, which is not among the supplied passages. The supplied clause 9.2.2 establishes only that criteria and scope are separate items the organization must define for each audit (and that the organization, not the auditor or certification body, defines them), which rules out options A, B and C but does not itself define either term. -- the library HOLDS ISO 19011, so this is not an unheld source: the clause is not what task 5.2 examines"
   },
   {
    "n": 157,
@@ -1092,7 +1123,7 @@
    "prefix": "fcb8a516",
    "director_tier": null,
    "task": "5.5",
-   "key_claim": "ISO/IEC 42006 sets requirements for bodies performing audit and certification of AI management systems, whereas ISO/IEC 42001 is the AIMS standard organizations are certified against.",
+   "key_claim": "ISO/IEC 42006 sets requirements for bodies that audit and certify AI management systems, whereas ISO/IEC 42001 sets the AIMS requirements that organizations themselves must meet.",
    "anchor": {
     "clause": "1",
     "support": "The requirements contained in this document, when implemented, support the demonstration of competence, consistency and reliability by the bodies performing auditing and certification of an artificial intelligence management system (AIMS) according to ISO/IEC 42001 for organizations that provide, develop or use AI systems."
@@ -1110,8 +1141,8 @@
     },
     {
      "id": "modal-fidelity",
-     "pass": false,
-     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause 1 is classed can"
+     "pass": true,
+     "reason": "the claim DESCRIBES what a document governs, against a scope clause -- 2 requirement-bearing sentence(s), each attributing the obligation to a named document with a scope verb. A scope clause imposes nothing, so there is nothing to inflate."
     },
     {
      "id": "anchor-is-primary",
@@ -1123,25 +1154,25 @@
     "state": "accepted",
     "reason": "solved to the key from the passages, no second defensible option"
    },
-   "state": "flag",
-   "kind": "modal-fidelity",
-   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause 1 is classed can"
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 1, verbatim, modal consistent"
   },
   {
    "n": 159,
    "prefix": "c318ef8f",
    "director_tier": null,
    "task": "5.5",
-   "key_claim": "The primary purpose of Stage 1 is to review the client's documented management system information and evaluate readiness/preparedness for Stage 2, identifying areas of concern before the Stage 2 on-site audit.",
+   "key_claim": "Stage 1 of a two-stage initial certification audit serves to review the client's documented management system information and evaluate readiness for Stage 2, identifying areas of concern (potential gaps) before the Stage 2 on-site audit.",
    "anchor": {
     "clause": "9.3.1.2",
-    "support": "The objectives of stage 1 are to: a) review the client’s management system documented information; b) evaluate the client’s site-specific conditions and to undertake discussions with the client’s personnel to determine the preparedness for stage 2;"
+    "support": "Documented conclusions with regard to fulfilment of the stage 1 objectives and the readiness for stage 2 shall be communicated to the client, including identification of any areas of concern that could be classified as a nonconformity during stage 2."
    },
    "gates": [
     {
      "id": "clause-exists",
-     "pass": false,
-     "reason": "9.3.1.2 is not in the library and the library does not declare it missing"
+     "pass": true,
+     "reason": "1 clause(s) resolve; 1 as a container: 9.3.1.2 -> 9.3.1.2.1"
     },
     {
      "id": "verbatim",
@@ -1164,8 +1195,8 @@
     "reason": "solved to the key from the passages, no second defensible option"
    },
    "state": "flag",
-   "kind": "clause-exists, verbatim, modal-fidelity, anchor-is-primary",
-   "reason": "clause-exists: 9.3.1.2 is not in the library and the library does not declare it missing; verbatim: key: clause 9.3.1.2 is not in the library; modal-fidelity: no passage to compare against; anchor-is-primary: the key anchors in 9.3.1.2, which is not mapped to this task at all. Primary: 9.5.4, 9.1.3.3, 9.6.5, 9.6.3.2.5, 9.6.3.1.3, 1, 9.3.1.2.1, 7.1.3.2, 9.6.3.2.2, 9.1.3.2, 9.1.3.1, 9.6.2.2 ..."
+   "kind": "verbatim, modal-fidelity, anchor-is-primary",
+   "reason": "verbatim: key: clause 9.3.1.2 is not in the library; modal-fidelity: no passage to compare against; anchor-is-primary: the key anchors in 9.3.1.2, which is not mapped to this task at all. Primary: 9.5.4, 9.1.3.3, 9.6.5, 9.6.3.2.5, 9.6.3.1.3, 1, 9.3.1.2.1, 7.1.3.2, 9.6.3.2.2, 9.1.3.2, 9.1.3.1, 9.6.2.2 ..."
   },
   {
    "n": 160,
@@ -1174,9 +1205,9 @@
    "task": "5.5",
    "state": "flag",
    "kind": "off-task anchor",
-   "key_claim": "ISO/IEC 42001 sets out the AIMS requirements an organization implements, while conformity assessment (certification) is performed by independent third-party certification bodies, which can be accredited.",
-   "rests_on": "ISO/IEC 42001 itself is not among the supplied passages; that it 'defines AIMS requirements' is only indirectly evidenced by ISO/IEC 42006 Clause 1, which refers to certification of an AIMS 'according to ISO/IEC 42001' and notes ISO/IEC 42006 'can be used as a criteria document for accreditation or peer assessment'.",
-   "reason": "the key rests on ISO/IEC 42001 itself is not among the supplied passages; that it 'defines AIMS requirements' is only indirectly evidenced by ISO/IEC 42006 Clause 1, which refers to certification of an AIMS 'according to ISO/IEC 42001' and notes ISO/IEC 42006 'can be used as a criteria document for accreditation or peer assessment'. -- the library HOLDS ISO/IEC 42001, ISO/IEC 42006, so this is not an unheld source: the clause is not what task 5.5 examines"
+   "key_claim": "ISO/IEC 42001 sets out the AIMS requirements against which organizations conform, while the conformity assessment (certification) is carried out by independent third-party certification bodies operating under accreditation.",
+   "rests_on": "ISO/IEC 42001 itself is not among the supplied passages; the stem's premise (that a conforming organization can generate evidence of responsibility regarding its AI systems) and the statement that ISO/IEC 42001 'defines AIMS requirements' come from that standard. The certification-body/accreditation half of the key is anchored in the ISO/IEC 42006 Scope passage (including its NOTE that the document can be used as a criteria document for accreditation or peer assessment).",
+   "reason": "the key rests on ISO/IEC 42001 itself is not among the supplied passages; the stem's premise (that a conforming organization can generate evidence of responsibility regarding its AI systems) and the statement that ISO/IEC 42001 'defines AIMS requirements' come from that standard. The certification-body/accreditation half of the key is anchored in the ISO/IEC 42006 Scope passage (including its NOTE that the document can be used as a criteria document for accreditation or peer assessment). -- the library HOLDS ISO/IEC 42001, ISO/IEC 42006, so this is not an unheld source: the clause is not what task 5.5 examines"
   }
  ]
 }
