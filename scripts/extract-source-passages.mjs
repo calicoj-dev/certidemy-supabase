@@ -55,7 +55,21 @@ const VERBOSE = process.argv.includes("--verbose");
 
 const SOURCES = [
   { id: "ISO/IEC 42001", edition: "2023", path: PDFS["42001:2023"], kind: "iso" },
-  { id: "ISO/IEC 27001", edition: "2022", path: PDFS["27001:2022"], kind: "iso" },
+  /* ============ 27001 IS LAYOUT-ONLY, BECAUSE ITS ANNEX IS A TWO-COLUMN TABLE ============
+   *
+   * Ruled 2026-09-28 after the all-93 witness found six misattached controls. The annex rule that is
+   * actually correct -- a row's statement is the right-column text after that row's OWN `Control` header
+   * -- depends on SEEING the columns, which only `-layout` preserves. In plain mode the columns are
+   * flattened into reading order, so the same rule hands a row its NEIGHBOUR's statement.
+   *
+   * Running both modes and taking the longer text made that worse rather than better: the misattached
+   * string is its own title PLUS a neighbour's statement, so it is LONGER than the correct statement and
+   * won the union every time. Fixing the layout path alone changed nothing for that reason -- measured, 0
+   * passages changed, which is what sent me looking at the union.
+   *
+   * So the mode is part of this source's definition, exactly as it is for the Official Journal, and for
+   * the same stated reason: where the GRAIN depends on the mode, the mode is not a measurement. */
+  { id: "ISO/IEC 27001", edition: "2022", path: PDFS["27001:2022"], kind: "iso", mode: "layout" },
   { id: "ISO/IEC 27001", edition: "2022/Amd1:2024", path: PDFS["27001:2022/Amd1"], kind: "amendment" },
   { id: "ISO/IEC 27002", edition: "2022", path: PDFS["27002:2022"], kind: "iso" },
   { id: "ISO 19011", edition: "2026", path: PDFS["19011:2026"], kind: "iso" },
@@ -391,7 +405,24 @@ function splitAnnexTable(lines, from) {
       text = "";
     }
 
-    if (text.length < 20) {
+    /* ============ THE STATEMENT IS ALWAYS THE RIGHT COLUMN AFTER THIS ROW'S OWN HEADER ============
+     *
+     * `leadRest` -- the text after the wide gap on the row's OWN line -- is not this row's statement. In
+     * the interleaved layout it is the PREVIOUS row's statement continuing, because a cell's text begins
+     * after its header and the next row's number shares that line:
+     *
+     *     "8.11 Data masking             Control"
+     *     "8.12 Data leakage prevention  Data masking shall be used in accordance with..."
+     *
+     * Taking `leadRest` gave A.8.12 the data-masking requirement -- A.8.11's control, under A.8.12's
+     * number. The all-93 witness against ISO/IEC 27002 found six of these: A.5.13, A.5.16, A.7.9, A.7.12,
+     * A.8.12 and A.8.22, four of them borrowing BACKWARD from the previous control.
+     *
+     * So the right-column read is no longer a fallback for an empty cell -- it is the primary path for
+     * every annex row, and `leadRest` is used only when the right-column read finds nothing. That
+     * inverts which one is the exception, which is the point: the special case was the correct one.
+     */
+    {
       const startAt = m.line;
       /* ============ THE STATEMENT BEGINS AFTER THIS ROW'S OWN HEADER ============
        *
@@ -431,9 +462,26 @@ function splitAnnexTable(lines, from) {
         right.push(ln.trim());
       }
       const recovered = right.join(" ").replace(/(\w)-\s+(\w)/g, "$1$2").replace(/\s{2,}/g, " ").trim();
+      /* A NAMED CLAUSE CAN BE TRACED. Set DEBUG_CLAUSE=A.8.12 to see what this row's split actually did
+       * -- added because three rounds of reasoning about this block were wrong and one print settled it. */
+      if (process.env.DEBUG_CLAUSE === m.clause) {
+        console.error("[" + m.clause + "] leadRaw=" + JSON.stringify(String(leadRaw).slice(0, 80)));
+        console.error("[" + m.clause + "] leadTitle=" + JSON.stringify(leadTitle) +
+          " title=" + JSON.stringify(title) + " textBefore=" + JSON.stringify(String(text).slice(0, 80)));
+        console.error("[" + m.clause + "] line=" + m.line + " ownHeaderAt=" + ownHeaderAt +
+          " from2=" + from2 + " stop=" + stop + " rightLines=" + right.length);
+        console.error("[" + m.clause + "] recovered(" + recovered.length + ")=" +
+          JSON.stringify(recovered.slice(0, 100)));
+      }
       if (recovered.length >= 20) {
         text = recovered;
-        if (!title && leadTitle) title = leadTitle;
+        /* The title is the row's own left-column text, never the statement's opening. Where the gap test
+         * could not split it -- two spaces instead of three -- `leadRaw` is the title plus the previous
+         * row's statement, so the title is taken up to the first sentence boundary or the header. */
+        if (!title) {
+          const t = leadTitle || String(leadRaw).split(/\s{2,}|\bControl\b/)[0];
+          title = String(t || "").trim();
+        }
       }
     }
 
@@ -869,6 +917,14 @@ function splitIso(text, declaredSeed, opts) {
       .replace(/[\s#|]+/g, " ").trim().length >= 25;
   };
   const fromTable = new Map(table.filter((t) => isSubstantive(t.text)).map((t) => [t.clause, t]));
+  if (process.env.DEBUG_CLAUSE) {
+    const c = process.env.DEBUG_CLAUSE;
+    const t = table.find((x) => x.clause === c);
+    const b = body.find((x) => x.clause === c);
+    console.error("[union " + c + "] table=" + (t ? JSON.stringify(String(t.text).slice(0, 60)) : "ABSENT") +
+      " substantive=" + (t ? isSubstantive(t.text) : "-") + " inFromTable=" + fromTable.has(c));
+    console.error("[union " + c + "] headingPass=" + (b ? JSON.stringify(String(b.text).slice(0, 60)) : "ABSENT"));
+  }
   const kept = body.filter((b) => {
     if (!/^A\.\d+\.\d+/.test(b.clause)) return true;        /* prose and group headings */
     if (fromTable.has(b.clause)) return false;              /* the table read it better */
