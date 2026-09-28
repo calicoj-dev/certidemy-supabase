@@ -271,7 +271,10 @@ for (const e of EXEMPT) {
 }
 
 console.log("");
-console.log("CONTROL BYTES -- " + files.length + " tracked .mjs/.ts/.sql file(s) examined");
+/* "tracked" was wrong here from the moment the population was widened to include untracked files,
+ * and it is the wrong word in the summary line of the check whose whole fix was about the population.
+ * A label that misnames what was examined is the defect, in miniature. */
+console.log("CONTROL BYTES -- " + files.length + " .mjs/.ts/.sql file(s) examined (tracked + untracked, non-ignored)");
 console.log("DENOMINATOR: " + files.length + " file(s) examined");
 if (stringEscapes.length) {
   console.log("");

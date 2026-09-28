@@ -17,6 +17,14 @@ verify.json
 # Translation review sheets - regenerable from live data via gen-translation-review.mjs
 TRANSLATION-REVIEW-*.md
 
+# THE TRANSLATION SAMPLE IS THE EXAMINATION BANK, and that is a stronger reason than the one
+# above it. TRANSLATION-REVIEW-*.md is ignored for being regenerable; this file holds 120 LIVE
+# SECURE items with their keys and explanations, in three languages, drawn from all twelve
+# certifications. A candidate who read it would hold a fifth of some certifications' forms.
+# Regenerable in one command, and the command with its seed is printed in the document's header:
+#   node --dns-result-order=ipv4first scripts/gen-translation-sample.mjs --seed=4919 --per-cert=5
+TRANSLATION-SAMPLE.md
+
 fixtures/
 scripts/anchor/node_modules/
 

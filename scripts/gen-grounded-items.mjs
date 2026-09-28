@@ -53,6 +53,7 @@ import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
   OPTIONS_PROBE_SYSTEM, optionsProbeControls } from "./lib/options-probe.mjs";
 import { shapeCues, shapeCueControls, KEY_LENGTH_TOLERANCE } from "./lib/shape-cues.mjs";
+import { deCueRewriteCheck, deCueCheckControls } from "./lib/de-cue-checks.mjs";
 
 /* ============ THE DE-CUE WRITER, AND IT MAY TOUCH NOTHING BUT THE DISTRACTORS ============
  *
@@ -66,9 +67,24 @@ change what the item tests.
 You are given a stem, the KEY, the current distractors, and one or more CUES that instruments found
 in the option set -- properties that let someone pick the key without knowing the subject.
 
+RESHAPE EACH DISTRACTOR. NEVER REPLACE IT. This is the governing rule and the others serve it:
+keep each distractor's underlying MISCONCEPTION and the THING IT NAMES -- the same control, the same
+clause, the same actor, the same step -- and change only its FORM: length, grammar, verdict shape.
+Where the stem asks which control or which clause, every distractor stays a real control or a real
+clause. A rewrite that swaps a plausible misconception for an implausible one, or a real control for an
+invented process, raises symmetry and lowers difficulty for the wrong reason: the item stops measuring
+what it measured.
+
 Rewrite ONLY the distractors so the cue is gone. Hard rules:
 - The stem and the key are FIXED. Do not restate, reword or comment on them.
 - Every distractor must still be WRONG, and wrong for a reason a knowledgeable person could name.
+- KEEP every clause number, control id and control name that the original distractor used. If the
+  original said "Control A.8.4 on access to source code", the rewrite still says A.8.4.
+- DO NOT INTRODUCE AN ABSOLUTE the original did not have: only, every, all, always, never, entirely,
+  wholly, "must be surrendered", "offers no ...". Adding one is the habit these cues come from, and a
+  rewrite that adds one is reverted.
+- A distractor must not become TRUE. Restating a real requirement from a DIFFERENT clause than the
+  stem asks about makes it defensible rather than wrong, and that is a worse item than the cue was.
 - Match the key in LENGTH: each distractor within 20 percent of the key's word count.
 - Match the key in GRAMMATICAL FORM: same opening part of speech, same sentence shape.
 - Match the key in VERDICT PATTERN: if the key asserts, they assert; if the key denies, at least one
@@ -105,7 +121,7 @@ function applyDistractors(item, texts, ki) {
 }
 
 const flagCounts = new Map();
-let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueRevertedGates = 0,
+let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueRevertedGates = 0, deCueRevertedRewrite = 0,
     deCueMalformed = 0, deCueUnrun = 0;
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -142,14 +158,15 @@ const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
   const a = groundedGateControls(), b = blindSolverControls(), c = supersededControls();
   const d = optionsProbeControls();
   const e = shapeCueControls();
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined) + " cases");
+  const f = deCueCheckControls();
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + " -- all pass");
 }
 
 function env(k) {
@@ -208,6 +225,19 @@ if (!existsSync(mapPath)) {
   process.exitCode = 3; process.exit();
 }
 const mapping = JSON.parse(readFileSync(mapPath, "utf8"));
+/* ============ ANNEX CONTROL TITLES, RESOLVED FROM THE LIBRARY ============
+ *
+ * The changed-reference check needs to know what a real control is CALLED, so it can see when a
+ * rewrite drops one. Typed here it would be a second copy of a library fact and would go stale the
+ * first time a source is re-extracted -- the defect this repository records against every hand-kept
+ * list. Derived: the titles of every annex passage held, in every source.
+ *
+ * The check itself ignores anything under 12 characters, so single words like "Access" cannot fire. */
+const controlTitles = [...new Set(lib.passages
+  .filter((p) => /^[A-D]\./.test(String(p.clause || "")))
+  .map((p) => String(p.title || "").trim())
+  .filter((t) => t.length >= 12))];
+
 const passagesByKey = new Map(lib.passages
   .filter((p) => p.source_id === mapping.standard && p.edition === mapping.edition)
   .map((p) => [p.clause, p]));
@@ -702,6 +732,11 @@ for (const g of generated) {
      * list happened to name the probe. A reconstructed number is weaker than a recorded one and it
      * cannot be checked later. Both verdicts are now stored. */
     record.options_probe_before = record.options_probe ? { ...record.options_probe } : null;
+    /* THE PRE-DE-CUE ITEM IS KEPT. The retry replaces record.item, so the original distractors were
+     * lost -- and reviewing a rewrite means reading it BESIDE what it replaced. Recovering them from
+     * the raw artifact worked for 21 of 24 items and not for the 3 the paraphrase retry had also
+     * touched. An artifact that cannot answer the question it exists for is half an artifact. */
+    record.item_before_decue = JSON.parse(JSON.stringify(item));
     if (wantsDeCue) {
       deCueAttempted++;
       const cueList = [
@@ -730,6 +765,25 @@ for (const g of generated) {
           record.de_cue = { state: "malformed", reason: "the retry did not return one text per distractor" };
           deCueMalformed++;
         } else {
+          /* ============ THE TWO REWRITE CHECKS COME FIRST, BECAUSE THEY ARE FREE ============
+           *
+           * Both are code, both revert. They run before the gates and long before the solver: an
+           * absolute the rewrite introduced, or a real control it replaced with an invented process,
+           * is decidable without a single model call. Ordering the cheap decisive check first is the
+           * same reason the solver runs before the probe. */
+          const ki2 = keyIdxOf(item);
+          const origD = item.options.filter((_, i) => i !== ki2).map((o) => o.text);
+          const newD = cand.options.filter((_, i) => i !== ki2).map((o) => o.text);
+          const rw = deCueRewriteCheck(origD, newD, controlTitles);
+          record.de_cue_rewrite_check = rw;
+          if (rw.revert) {
+            record.de_cue = { state: "reverted", reason: rw.reason };
+            deCueRevertedRewrite++;
+            record.shape_cues_after = record.shape_cues_before;
+            results.push(record);
+            continue;
+          }
+
           /* Everything the distractors can affect, in order of cost. */
           const recoded = runCodeGates(cand, gateInput());
           let reSolver = null, reProbe = null, keptIt = false;
@@ -890,8 +944,8 @@ const after = pickRateOf(survivors, "options_probe");
 console.log("");
 console.log("  DE-CUE RETRY (distractors only, one attempt)");
 console.log("    attempted " + deCueAttempted + "   applied " + deCueApplied +
-  "   reverted " + (deCueRevertedSolver + deCueRevertedGates) +
-  " (solver " + deCueRevertedSolver + ", code gates " + deCueRevertedGates + ")" +
+  "   reverted " + (deCueRevertedSolver + deCueRevertedGates + deCueRevertedRewrite) +
+  " (rewrite checks " + deCueRevertedRewrite + ", solver " + deCueRevertedSolver + ", code gates " + deCueRevertedGates + ")" +
   "   malformed " + deCueMalformed + "   could-not-run " + deCueUnrun);
 console.log("    KEY-PICK RATE  before " + before.hit + "/" + before.n + (before.pct === null ? "" : "  " + before.pct + "%") +
   "   after " + after.hit + "/" + after.n + (after.pct === null ? "" : "  " + after.pct + "%") +
@@ -922,6 +976,7 @@ writeFileSync(join(ROOT, OUT), JSON.stringify({
   held_tasks: HELD_TASKS,
   paraphrase_retry: { fixed: retriedOk, still_failing: retriedStillBad },
   de_cue_retry: { attempted: deCueAttempted, applied: deCueApplied,
+    reverted_by_rewrite_check: deCueRevertedRewrite,
     reverted_by_solver: deCueRevertedSolver, reverted_by_gates: deCueRevertedGates,
     malformed: deCueMalformed, could_not_run: deCueUnrun },
   key_pick_before: before, key_pick_after: after,

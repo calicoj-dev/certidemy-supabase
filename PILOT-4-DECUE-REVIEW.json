@@ -1,0 +1,863 @@
+{
+ "from": "PILOT-GROUNDED-AIMSF-4.json",
+ "raw": "PILOT-GROUNDED-AIMSF-4-raw.json",
+ "model": "claude-opus-5",
+ "applied": 21,
+ "reverted": 3,
+ "byCause": {
+  "rewrite": 1,
+  "gates": 0,
+  "solver": 2
+ },
+ "malformed": 0,
+ "unrun": 0,
+ "key_pick": {
+  "n": 21,
+  "before": 19,
+  "after": 19
+ },
+ "items": [
+  {
+   "task": "1.1",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Technical documentation about an AI system supplied to users, partners and supervisory authorities in suitable form",
+    "A defined process for assessing how an AI system can affect individuals, groups and societies",
+    "The ongoing activities of monitoring performance, carrying out repairs, issuing updates and providing support"
+   ],
+   "newD": [
+    "Assembled documents of an organization that describe its AI systems and the information supplied to users",
+    "Structured process of an organization that assesses its AI impacts on individuals and the societies affected",
+    "Combined activities of an organization that monitor its AI performance and the updates and support provided"
+   ],
+   "probe_before": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options (B, C, D) explicitly contain \"AI\" while A is the only one without it, making A the structural odd one out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options (B, C, D) explicitly contain \"AI\" while A is the only one without it, making A the structural odd one out."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "1.4",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Privacy-related controls of the AI management system are the ones best folded into the existing ISO 9001 arrangements.",
+    "Certification to ISO 9001 is obtained first, and the AI management system is then layered on top of that system.",
+    "Security objectives for the AI components are handled apart from those covering the remaining parts of the system."
+   ],
+   "newD": [
+    "The privacy-related controls of the AI management system are the ones best folded into the existing ISO 9001 arrangements, so the security work stays separately maintained.",
+    "The certification to ISO 9001 is obtained first, and the AI management system is then layered on top of that system once the quality arrangements are running.",
+    "The security objectives for the AI components are handled apart from those covering the remaining parts of the system, and each set is reviewed on its own."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is by far the longest and is the only compound option joining two clauses ('share a common high-level structure... and ... can sit within'), while A, B, D are short single assertions.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): C is by far the longest and is the only compound option joining two clauses ('share a common high-level structure... and ... can sit within'), while A, B, D are short single assertions.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is the longest option and the only one asserting compatibility/combination; A, B and D all assert some form of separation or sequencing, making C the odd 'integrative' verdict.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): C is the longest option and the only one asserting compatibility/combination; A, B and D all assert some form of separation or sequencing, making C the odd 'integrative' verdict."
+   },
+   "shape_before": [
+    {
+     "id": "key-length",
+     "cue": "the key is 28 words against a median distractor of 19 (1.47x, tolerance 1.25x)"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "C"
+  },
+  {
+   "task": "2.2",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Keep the bought-in tools outside the boundary and record that exclusion with its justification in the statement of applicability.",
+    "Derive the boundary from the risk treatment options already selected, and review internal and external issues once the boundary is fixed.",
+    "Confine the boundary to internally built systems and cover the bought-in features by obtaining technical documentation from each supplier."
+   ],
+   "newD": [
+    "Set the boundary around the in-house models, log the vendor-supplied features as justified exclusions in the statement of applicability, and keep that record current.",
+    "Derive the boundary from the risk treatment options already selected, bring the vendor-supplied features in afterwards, and review internal and external issues once it is fixed.",
+    "Confine the boundary to internally built systems, cover the vendor-supplied features by obtaining technical documentation from each supplier, and file that documentation as evidence."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "B is the longest option and the only one that includes rather than excludes the vendor-supplied features (A and D both carve them out, C reverses the order), making it the inclusive three-clause outlier.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): B is the longest option and the only one that includes rather than excludes the vendor-supplied features (A and D both carve them out, C reverses the order), making it the inclusive three-clause outlier.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "A and D are near-paraphrases of each other (both confine the boundary to internally built systems and then 'file/log' a record), so neither can be uniquely right; C reverses the normal order ('afterwards', 'once it is fixed'), leaving B as the odd-one-out that stands alone.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and D are near-paraphrases of each other (both confine the boundary to internally built systems and then 'file/log' a record), so neither can be uniquely right; C reverses the normal order ('afterwards', 'once it is fixed'), leaving B as the odd-one-out that stands alone."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"vendor\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "B"
+  },
+  {
+   "task": "2.5",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Produce a statement of applicability with justification for included and excluded controls before rating risks.",
+    "Derive the risk criteria afterwards from the ratings that the template produced for this model.",
+    "Defer the rating of harm to affected people until the model is running and later reassessed."
+   ],
+   "newD": [
+    "Produce a statement of applicability justifying included and excluded controls, and attach it to the analysis.",
+    "Derive the bank's risk criteria from the ratings the template produced and record both in the analysis.",
+    "Shift the rating of harm to affected people out of the analysis and into operational monitoring."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and D are the complementary pair (both about rating harm to individuals/people), and A is the affirmative member while D postpones it; C likewise postpones ('afterwards'), leaving A as the only option that acts now.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and D are the complementary pair (both about rating harm to individuals/people), and A is the affirmative member while D postpones it; C likewise postpones ('afterwards'), leaving A as the only option that acts now.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and D are the only two options about the same element (rating harm to individuals/affected people) and they state opposite actions — include vs. remove — making them the contrasting pair, and the inclusive/widening member of such a pair is the usual key.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and D are the only two options about the same element (rating harm to individuals/affected people) and they state opposite actions — include vs. remove — making them the contrasting pair, and the inclusive/widening member of such a pair is the usual key."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"analysis\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "2.6",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Defer any re-assessment until the next scheduled internal audit reviews the existing documented file.",
+    "Treat the privacy impact assessment already held by the security function as covering the AI aspects.",
+    "Release the assessment findings to the relevant interested parties before the change is allowed to proceed."
+   ],
+   "newD": [
+    "Schedule the re-assessment into the next internal audit cycle and record the existing file as current.",
+    "Extend the privacy impact assessment held by the security function to cover the AI aspects and file it.",
+    "Issue the existing assessment findings to the relevant interested parties and record the acknowledgements received."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C are both 'avoid new work' options (defer it, reuse an existing file) and D adds an extra release-before-proceeding condition, leaving A as the only plain do-it-and-document action.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B and C are both 'avoid new work' options (defer it, reuse an existing file) and D adds an extra release-before-proceeding condition, leaving A as the only plain do-it-and-document action.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D all defer to an already-existing assessment/file ('existing file', 'held by the security function', 'existing assessment findings'); A is the only option that proposes a new action, making the other three a matched set of near-duplicates.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D all defer to an already-existing assessment/file ('existing file', 'held by the security function', 'existing assessment findings'); A is the only option that proposes a new action, making the other three a matched set of near-duplicates."
+   },
+   "shape_before": [],
+   "shape_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"documented\" from the stem and no distractor does",
+     "words": [
+      "documented"
+     ]
+    }
+   ],
+   "keyLabel": "A"
+  },
+  {
+   "task": "2.7",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Record the documented consequences as the risk levels themselves, letting the impact work stand in for risk analysis.",
+    "Hold the impact work open until risk levels have been determined, then insert those levels into it.",
+    "Treat release of the impact findings to relevant interested parties as the obligatory next step."
+   ],
+   "newD": [
+    "Enter the documented consequences directly as the risk levels, then move those levels into treatment planning.",
+    "Determine the risk levels first, then insert them into the impact assessment before treatment planning.",
+    "Release the impact findings to relevant interested parties, then begin treatment planning on that basis."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A alone is a plain two-step sequence; B, C and D each carry a flag-word qualifier ('stand in for', 'hold open until', 'obligatory') that marks them as altered variants of the same process.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A alone is a plain two-step sequence; B, C and D each carry a flag-word qualifier ('stand in for', 'hold open until', 'obligatory') that marks them as altered variants of the same process.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A, B and C all pair 'risk levels' with 'treatment (planning)' while D drops the risk-level term entirely, marking D as the odd one out; of the remaining three, B and C are mirror-image distortions of each other (consequences = levels vs. levels into impact assessment), leaving A as the unpaired, intermediate-step variant.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A, B and C all pair 'risk levels' with 'treatment (planning)' while D drops the risk-level term entirely, marking D as the odd one out; of the remaining three, B and C are mirror-image distortions of each other (consequences = levels vs. levels into impact assessment), leaving A as the unpaired, intermediate-step variant."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"treatment\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "2.8",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Only controls taken from Annex A, with the self-designed control recorded in the treatment plan instead",
+    "The Annex B implementation guidance chosen for each control, entered and justified alongside the controls",
+    "No reasoning for the two omitted controls, once designated management has signed off the treatment plan"
+   ],
+   "newD": [
+    "The Annex A reference controls, its own monitoring control being recorded instead in the risk treatment plan",
+    "The Annex B implementation guidance chosen for each reference control, entered and justified alongside the monitoring control",
+    "The two omitted reference controls listed without reasoning, once designated management has signed off the treatment plan"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D open with absolute limiters (\"Only...\", \"No...\") and C names a single narrow item, while A is the only option that combines both listed elements plus the recorded reasoning.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): B and D open with absolute limiters (\"Only...\", \"No...\") and C names a single narrow item, while A is the only option that combines both listed elements plus the recorded reasoning.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that simply combines both listed items (its own control plus the two omitted ones) with reasoning, while each distractor attaches a disqualifier — reasoning moved elsewhere (B), a different annex (C), or explicitly 'without reasoning' plus a sign-off condition (D).",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A is the only option that simply combines both listed items (its own control plus the two omitted ones) with reasoning, while each distractor attaches a disqualifier — reasoning moved elsewhere (B), a different annex (C), or explicitly 'without reasoning' plus a sign-off condition (D)."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"monitoring\", \"reference\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [
+    {
+     "id": "opposite-pair",
+     "cue": "options A and D are the same statement in opposite polarity, and one is the key"
+    }
+   ],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.1",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Brief the existing team members on the AI policy, their contribution to the system and what failing to conform would mean for the organization.",
+    "Identify and record the resources that the relevant life-cycle stage and other AI-related activities call for, covering tools, data and computing.",
+    "Apply distribution, storage, change and retention arrangements to the team's existing qualification and training records held by the organization."
+   ],
+   "newD": [
+    "Brief the existing team members on the AI policy, their contribution and the consequences of nonconformity, treating that briefing as the remedy for the capability gap.",
+    "Identify and record the resources the relevant life-cycle stage and other AI activities call for, covering tools, data and computing, and treat that record as sufficient.",
+    "Apply the distribution, storage, change and retention arrangements to the team's existing qualification and training records, and accept those held records as the evidence of competence."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the longest option and the only one with a two-part structure (take action + then evaluate the action, with evidence retained), whereas B, C and D are single flat clauses.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is the longest option and the only one with a two-part structure (take action + then evaluate the action, with evidence retained), whereas B, C and D are single flat clauses.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each end with a 'treat that as sufficient / as the remedy / accept as the evidence' clause; A alone lacks that shared closing qualifier and instead adds an act-then-evaluate step.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each end with a 'treat that as sufficient / as the remedy / accept as the evidence' clause; A alone lacks that shared closing qualifier and instead adds an act-then-evaluate step."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.2",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "They are outside scope, since awareness applies to payroll staff, while contracted specialists are covered through competence arrangements instead.",
+    "They are within scope once documented information is held for each of them as evidence that awareness sessions were delivered and understood.",
+    "They are within scope once the organization has settled what will be communicated, at what times, to which parties, and by what means."
+   ],
+   "newD": [
+    "They are within scope of competence requirements rather than awareness ones, as contracted specialists are assessed on qualifications while awareness applies to payroll staff.",
+    "They are within scope, and documented information is retained for each of them as evidence that awareness sessions were delivered, attended and understood.",
+    "They are within scope, and the awareness duty for them is met by determining what is communicated, at what times, to which parties, and by what means."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B is the lone \"outside scope\" verdict while C and D both hedge with \"within scope once ...\" conditions; A is the only plain unconditional \"within scope\" answer, so it stands apart from the paired C/D pattern.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B is the lone \"outside scope\" verdict while C and D both hedge with \"within scope once ...\" conditions; A is the only plain unconditional \"within scope\" answer, so it stands apart from the paired C/D pattern.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B is the only option that rejects the premise shared by the other three ('within scope'), so it is the odd verdict and likely a distractor; of the remaining three, A is the shortest and the only one that does not tack on an extra specific mechanism (retained records / communication planning).",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B is the only option that rejects the premise shared by the other three ('within scope'), so it is the odd verdict and likely a distractor; of the remaining three, A is the shortest and the only one that does not tack on an extra specific mechanism (retained records / communication planning)."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.3",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Rules for retrieval and use, legible storage, version numbering, and how long it is kept before disposal.",
+    "A scheduled review by top management confirming that the management system stays suitable, adequate and effective.",
+    "A recorded statement of what the organization owes by way of reporting on the AI system to outside parties."
+   ],
+   "newD": [
+    "A rule for retrieval and use, a legible storage medium, and version numbering that fixes the disposal date.",
+    "A review by top management, held at planned intervals, confirming the system still meets its intended outcomes and objectives.",
+    "A recorded statement of the organization's reporting obligations to external interested parties, and the channels used."
+   ],
+   "probe_before": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": "B is the longest, most itemized option (four listed elements), while A and C share the stock phrase \"suitable and adequate\" and D is a single short statement.",
+    "cue_kind": "length",
+    "reason": "picked B, not the key -- the options do not give it away",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and B are the only two options built as parallel three-item lists ('A X, a Y, and Z'), so the key is likely one of them; B's third item adds an extra, oddly specific twist ('fixes the disposal date') that reads like a spoiler, leaving A.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and B are the only two options built as parallel three-item lists ('A X, a Y, and Z'), so the key is likely one of them; B's third item adds an extra, oddly specific twist ('fixes the disposal date') that reads like a spoiler, leaving A."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.4",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Hand accountability for the retraining to the vendor, whose contract terms set the criteria applied",
+    "Accept the vendor's own certification as the criteria governing how the retraining is performed",
+    "Defer review of unintended changes arising from the retraining until the next scheduled internal audit"
+   ],
+   "newD": [
+    "Keep the outsourced retraining under its control while the vendor's contract terms set the criteria applied",
+    "Keep the retraining within the management system by adopting the vendor's certification as its governing criteria",
+    "Control the retraining process but review unintended changes from it at the next scheduled internal audit"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options hand off or postpone responsibility (vendor contract, vendor certification, defer to next audit); only A retains control, making it the odd one out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options hand off or postpone responsibility (vendor contract, vendor certification, defer to next audit); only A retains control, making it the odd one out.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each tack on a specific extra condition ('while the vendor's contract terms...', 'by adopting the vendor's certification...', 'but review... at the next scheduled internal audit'), while A is the only option with no added qualifying rider.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each tack on a specific extra condition ('while the vendor's contract terms...', 'by adopting the vendor's certification...', 'but review... at the next scheduled internal audit'), while A is the only option with no added qualifying rider."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"control\", \"management\", \"system\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.6",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Whether records stay unaltered from creation through to their later use in training",
+    "Whether sensitive records are shielded from disclosure to parties without authorization",
+    "Whether the records stay reachable by authorized staff at the moment they are needed"
+   ],
+   "newD": [
+    "Whether the data feeding the system stays unaltered from creation through to model training",
+    "Whether sensitive inputs are shielded from disclosure to parties the system has not authorized",
+    "Whether the system's stored data stays reachable by authorized staff when it is needed"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D are parallel records-focused phrasings about records being unaltered / shielded / reachable; C is the only option not about records and instead about training data matching the deployment domain",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and D are parallel records-focused phrasings about records being unaltered / shielded / reachable; C is the only option not about records and instead about training data matching the deployment domain",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D all describe data-protection properties phrased around unauthorized/authorized access ('unaltered', 'shielded from disclosure to parties... not authorized', 'reachable by authorized staff'), while C is the only one about whether data matches the deployment domain.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A, B and D all describe data-protection properties phrased around unauthorized/authorized access ('unaltered', 'shielded from disclosure to parties... not authorized', 'reachable by authorized staff'), while C is the only one about whether data matches the deployment domain."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"system\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "C"
+  },
+  {
+   "task": "3.7",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Awareness briefings that already cover the security policy will serve, without adding content on the AI policy.",
+    "Document control has to be rebuilt as a separate AI register, held apart from the security records.",
+    "Operational planning is satisfied by the security process controls alone, without the controls chosen in risk treatment."
+   ],
+   "newD": [
+    "Awareness briefings that already cover the security policy carry over to AI as they stand, and their records remain valid.",
+    "Document control has to be rebuilt as a separate AI register, maintained under its own numbering and review cycle.",
+    "Operational planning is satisfied by the existing security process controls, and the AI treatment plan serves as a later annex."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options contain an exclusion clause (B and D end with 'without ...', C with 'held apart from ...'); A is the only option with no negative/exclusionary tail and instead adds a second positive requirement.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): Three options contain an exclusion clause (B and D end with 'without ...', C with 'held apart from ...'); A is the only option with no negative/exclusionary tail and instead adds a second positive requirement.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D are a matched pair both saying existing arrangements carry over unchanged, and C is an extreme 'rebuild separately' claim; A is the only option stating a fresh requirement plus retained evidence, which stands apart from the pair-plus-extreme pattern.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B and D are a matched pair both saying existing arrangements carry over unchanged, and C is an extreme 'rebuild separately' claim; A is the only option stating a fresh requirement plus retained evidence, which stands apart from the pair-plus-extreme pattern."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "3.8",
+   "state": "reverted",
+   "by": "blind solver",
+   "reason": "rejected",
+   "exact": true,
+   "origD": [
+    "Hold the system impact assessment until the change has actually gone live in production, and keep records of the results then.",
+    "Defer verification that the existing treatment plan still works to the next internal audit, and keep the results in the audit file.",
+    "Record any newly identified risk needing action in the statement of applicability rather than re-running the treatment process."
+   ],
+   "newD": [
+    "Run the system impact assessment now against the deployed model as it currently operates in production, and keep records of the results.",
+    "Verify that the existing treatment plan still works by scheduling an extra internal audit of the deployed system, and keep the results in the audit file.",
+    "Document newly identified risks needing action in the statement of applicability during the current cycle, and treat that entry as the record."
+   ]
+  },
+  {
+   "task": "4.1",
+   "state": "applied",
+   "exact": false,
+   "origD": [
+    "Organizations list in the statement of applicability the guidance items adopted per control.",
+    "Organizations can treat the guidance as sufficient for their particular control requirements.",
+    "Organizations find guidance for some table entries and devise the rest themselves."
+   ],
+   "newD": [
+    "They are listed in the statement of applicability, and an organization records the guidance items adopted.",
+    "They supply sufficient guidance, and an organization can meet its particular control requirements from them.",
+    "They carry guidance for some entries, and an organization devises the remaining ones itself."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option whose subject is \"They\" (and the only compound two-clause sentence); the other three all start with \"Organizations\".",
+    "cue_kind": "grammar",
+    "reason": "picked the key from the options alone and named a cue (grammar): A is the only option whose subject is \"They\" (and the only compound two-clause sentence); the other three all start with \"Organizations\".",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and D share the 'organization supplies its own controls' clause while C makes the absolute claim that the set is 'sufficient'; A states the shared idea in the most general, unqualified form",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and D share the 'organization supplies its own controls' clause while C makes the absolute claim that the set is 'sufficient'; A states the shared idea in the most general, unqualified form"
+   },
+   "shape_before": [],
+   "shape_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"controls\" from the stem and no distractor does",
+     "words": [
+      "controls"
+     ]
+    }
+   ],
+   "keyLabel": "A"
+  },
+  {
+   "task": "4.2",
+   "state": "reverted",
+   "by": "rewrite check",
+   "reason": "1 new absolute(s): any",
+   "exact": false,
+   "origD": [
+    "The Annex A reference list reproduced in full, with an implementation status noted against each listed entry",
+    "The implementation guidance drawn from Annex B, with a note showing which items were adopted and which were set aside",
+    "The risk treatment plan itself, together with the designated management's approval of the acceptance of residual risk"
+   ],
+   "newD": [
+    "The Annex A reference list was reproduced in full, and an implementation status noted against each entry did not require any accompanying reasoning",
+    "The implementation guidance drawn from Annex B was consulted, and a note of which items were adopted or set aside records the removal",
+    "The risk treatment plan was approved by designated management, and that recorded acceptance of residual risk stands in place of a stated justification"
+   ],
+   "check": {
+    "revert": true,
+    "new_absolutes": [
+     {
+      "index": 0,
+      "absolute": "any"
+     }
+    ],
+    "changed_references": [],
+    "reason": "1 new absolute(s): any"
+   },
+   "probe_before": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "Three options are noun phrases that fit a 'what must be documented' stem while A is a full clause with a negation, and B and C are a near-identical Annex A/Annex B pair, leaving D as the odd-but-grammatically-fitting, most specified choice.",
+    "cue_kind": "grammar",
+    "reason": "picked D, not the key -- the options do not give it away",
+    "measured_here": true
+   }
+  },
+  {
+   "task": "4.3",
+   "state": "applied",
+   "exact": false,
+   "origD": [
+    "Defining and allocating AI roles and responsibilities to suit organizational needs",
+    "Reviewing the AI policy at planned intervals and as circumstances change",
+    "Documenting human resources and their competences used across the system life cycle"
+   ],
+   "newD": [
+    "Allocating AI roles and responsibilities consistent with the organization's AI policy",
+    "Reviewing the AI policy at planned intervals to keep objectives current",
+    "Documenting the human resources and competences supporting the organization's AI objectives"
+   ],
+   "probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "Three options begin with a 'D' gerund (Defining, Determining, Documenting) while C alone begins with 'Reviewing', making it the odd one out in verb form/letter.",
+    "cue_kind": "grammar",
+    "reason": "picked C, not the key -- the options do not give it away",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": "B, C and D all end by referencing the organization's AI 'objectives'; A is the only option that omits that shared noun and instead ties back to the AI policy.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked A, not the key -- the options do not give it away"
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"policies\", \"objectives\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"policies\" from the stem and no distractor does",
+     "words": [
+      "policies"
+     ]
+    }
+   ],
+   "keyLabel": "B"
+  },
+  {
+   "task": "4.5",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Write a plan covering how incidents will be announced to people who use the tool",
+    "Record what the agency owes regulators by way of information about the tool",
+    "Record how the datasets behind the tool were obtained and chosen for use"
+   ],
+   "newD": [
+    "Set up a route by which the agency announces incidents to users of the tool",
+    "Set up a register of the information about the tool that regulators are owed",
+    "Set up a log tracking how the datasets behind the tool were obtained and chosen"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the longest option and the only one framed around outsiders reporting harms; the other three are neutral internal paperwork tasks (two even share the opening verb 'Record').",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the longest option and the only one framed around outsiders reporting harms; the other three are neutral internal paperwork tasks (two even share the opening verb 'Record').",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four share the stem \"Set up a…\", but B, C and D all describe one-way outputs from the agency (announcing to users, a register for regulators, an internal log), while A is the odd one out as the only inbound channel from affected parties — the singleton in a 3-1 split.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): All four share the stem \"Set up a…\", but B, C and D all describe one-way outputs from the agency (announcing to users, a register for regulators, an internal log), while A is the odd one out as the only inbound channel from affected parties — the singleton in a 3-1 split."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "4.6",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Take the nine responsible-use objectives named in Annex B as the objective set for this deployment",
+    "Station a clinical reviewer able to reverse tool outputs at each stage of the tool's life cycle",
+    "Leave documentation of the responsible-use process to the vendor, since the tool was bought in"
+   ],
+   "newD": [
+    "Adopt the responsible-use objectives named in Annex B as the objectives the hospital applies to this deployment and its vendor dealings",
+    "Station a clinical reviewer able to reverse the tool's outputs across the phases of the hospital's deployment and the vendor's updates",
+    "Assign documentation of the responsible-use process to the vendor, with the hospital retaining the configuration records it produces locally"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that spreads the action across several named parties (hospital, vendor, others), while B adopts a fixed list wholesale, C uses the absolute 'at each stage', and D hands everything to a single party ('leave ... to the vendor') — the inclusive middle option is the odd-one-out in the good way",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option that spreads the action across several named parties (hospital, vendor, others), while B adopts a fixed list wholesale, C uses the absolute 'at each stage', and D hands everything to a single party ('leave ... to the vendor') — the inclusive middle option is the odd-one-out in the good way",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that is a catch-all: it names the hospital, the vendor AND 'other parties' across the whole life cycle, whereas B, C and D each narrow to one mechanism or party (Annex B, a clinical reviewer, the vendor).",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A is the only option that is a catch-all: it names the hospital, the vendor AND 'other parties' across the whole life cycle, whereas B, C and D each narrow to one mechanism or party (Annex B, a clinical reviewer, the vendor)."
+   },
+   "shape_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"hospital\" from the stem and no distractor does"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "5.1",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "The arrangements for storing, versioning, retaining and eventually disposing of the resulting records.",
+    "The trends in nonconformities, corrective actions and audit outcomes to be tabled for senior leaders.",
+    "The circumstances that would prompt an assessment of consequences for individuals and for societies."
+   ],
+   "newD": [
+    "The arrangements for retaining, versioning and disposing of records, as needed, so that retrieval stays orderly.",
+    "The trends in nonconformities, corrective actions and audits, where available, so that leaders are briefed quarterly.",
+    "The circumstances triggering assessment of consequences for individuals and societies, so that harms are foreseen."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option containing a hedging insertion ('as applicable') and the only one with a purpose clause ('so that ... are sound'); the other three are flat descriptive noun phrases.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option containing a hedging insertion ('as applicable') and the only one with a purpose clause ('so that ... are sound'); the other three are flat descriptive noun phrases.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "A, B and C each contain a hedging qualifier ('as applicable', 'as needed', 'where available') while D alone has none, making it the structural odd one out.",
+    "cue_kind": "only-hedged",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "5.1",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "A choice of F1 as the operating metric is mandated by the annex guidance covering the running and monitoring of AI systems.",
+    "A record of monitoring outcomes need only be kept from the moment those outcomes are first presented to senior leaders.",
+    "A completed assessment of the consequences of the system for individuals and for societies would close the gap on its own."
+   ],
+   "newD": [
+    "A choice of F1 as the operating metric, and its reporting interval, is fixed by the annex guidance on running and monitoring AI systems.",
+    "A record of monitoring outcomes dates from its presentation to senior leaders, and earlier working figures sit outside the documented evidence.",
+    "A completed assessment of the consequences of the system for individuals and for societies is the evidence this clause asks for."
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each carry a restrictive/absolute qualifier ('is mandated', 'need only be kept from the moment', 'on its own'), while A is the one plain unqualified statement.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each carry a restrictive/absolute qualifier ('is mandated', 'need only be kept from the moment', 'on its own'), while A is the one plain unqualified statement.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each assert one narrow, exclusive fact ('fixed by the annex guidance', 'dates from its presentation', 'is the evidence this clause asks for'), while A is the only inclusive/hedged option ('is also owed'), making it the shape-wise odd one out.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each assert one narrow, exclusive fact ('fixed by the annex guidance', 'dates from its presentation', 'is the evidence this clause asks for'), while A is the only inclusive/hedged option ('is also owed'), making it the shape-wise odd one out."
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "5.2",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "Whether the criteria and requirements set for each stage of the AI system life cycle have been documented",
+    "Whether interested parties have a usable channel for raising adverse impacts of the AI system",
+    "Whether internal and external messages about the system reach the intended parties at the intended time"
+   ],
+   "newD": [
+    "Whether the criteria and requirements set for each stage of the AI system life cycle have been documented and carry current approval signatures",
+    "Whether interested parties have a usable channel for raising adverse impacts of the AI system, and the reports they submit get logged promptly",
+    "Whether internal and external messages about the system reach the intended parties at the intended time, and the channels used remain available"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is markedly longer and is the only option bundling three conditions joined by 'and', while B, C, D are single short clauses",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is markedly longer and is the only option bundling three conditions joined by 'and', while B, C, D are single short clauses",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four begin \"Whether …\", but B, C and D each name a narrow concrete mechanism (approval signatures, a reporting channel, message delivery) while A alone is the broad umbrella statement covering requirements plus the standard plus ongoing maintenance.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): All four begin \"Whether …\", but B, C and D each name a narrow concrete mechanism (approval signatures, a reporting channel, message delivery) while A alone is the broad umbrella statement covering requirements plus the standard plus ongoing maintenance."
+   },
+   "shape_before": [
+    {
+     "id": "key-length",
+     "cue": "the key is 23 words against a median distractor of 16 (1.44x, tolerance 1.25x)"
+    }
+   ],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "5.2",
+   "state": "applied",
+   "exact": true,
+   "origD": [
+    "The setting of objectives, criteria and scope before each individual audit is carried out",
+    "The passing of audit findings to the managers who are responsible for the areas audited",
+    "The weighing of process importance and earlier audit findings when the programme is set up"
+   ],
+   "newD": [
+    "The setting of objectives, criteria and scope before each audit so the audit's boundaries are agreed",
+    "The passing of audit findings to the managers responsible for the areas audited so corrective action can follow",
+    "The weighing of process importance and earlier audit findings when the programme is planned so effort is prioritised"
+   ],
+   "probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that appends a purpose/justification clause (\"so the process stays objective and impartial\"); the other three are bare noun phrases.",
+    "cue_kind": "grammar",
+    "reason": "picked the key from the options alone and named a cue (grammar): A is the only option that appends a purpose/justification clause (\"so the process stays objective and impartial\"); the other three are bare noun phrases.",
+    "measured_here": true
+   },
+   "probe_after": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "shape_before": [],
+   "shape_after": [],
+   "keyLabel": "A"
+  },
+  {
+   "task": "5.4",
+   "state": "reverted",
+   "by": "blind solver",
+   "reason": "rejected",
+   "exact": true,
+   "origD": [
+    "Switching production traffic back to the prior model version and re-running the applications that were wrongly rejected",
+    "Logging what went wrong and what was done about it, and retaining that record as evidence for the auditor",
+    "Confirming with the affected applicants that their re-run decisions now match the expected outcome before closing the ticket"
+   ],
+   "newD": [
+    "Switching production traffic back to the prior model version and re-running the rejected applications in the other portfolios scored from the same refreshed dataset",
+    "Logging what went wrong and what was done about it, and retaining that record as evidence for the auditor reviewing the wider model inventory",
+    "Confirming with the affected applicants that their re-run decisions match the expected outcome, and sampling other models for similar misrejections before closing the ticket"
+   ]
+  }
+ ]
+}
