@@ -1,6 +1,7 @@
 {
  "cert": "ISMS-F",
  "ungated": true,
+ "note": "RAW two-pass output, not scored.",
  "results": [
   {
    "task": "1.1",
@@ -607,6 +608,4902 @@
    "note": "The AI threat taxonomy assessed here (training data poisoning, prompt injection, insecure output handling, tool misuse) comes from OWASP LLM Top 10 / AI-specific guidance, not from ISO/IEC 27001, 27002, 27000 or 17021-1; none of the listed clauses define or enumerate AI threat categories (27000 3.74 defines 'threat' generically only).",
    "invented": [],
    "dropped": []
+  },
+  {
+   "task": "2.1",
+   "state": "judged",
+   "statement": "Explain what an ISMS is and what a management system does.",
+   "pass1": [
+    "ISO/IEC 27000|3.33",
+    "ISO/IEC 27000|3.41",
+    "ISO/IEC 27000|4.2.4",
+    "ISO/IEC 27000|4.2.5",
+    "ISO/IEC 27000|4.3",
+    "ISO/IEC 27000|4.4",
+    "ISO/IEC 27000|4.5.1",
+    "ISO/IEC 27000|4.2.1",
+    "ISO/IEC 27000|4.1",
+    "ISO/IEC 27000|4.2.3",
+    "ISO/IEC 27000|4.5.6",
+    "ISO/IEC 27000|4.5.7",
+    "ISO/IEC 27000|4.6",
+    "ISO/IEC 27000|3.53",
+    "ISO/IEC 27000|3.49",
+    "ISO/IEC 27000|3.54",
+    "ISO/IEC 27000|3.13",
+    "ISO/IEC 27001|4.4",
+    "ISO/IEC 27001|0.1",
+    "ISO/IEC 27001|0.2",
+    "ISO/IEC 27001|5.2",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|10.1",
+    "ISO/IEC 27002|0.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.41",
+     "reason": "Definition of management system (policy, objectives, processes to achieve them).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.4",
+     "reason": "Explains what 'management' means in the ISMS context.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.5",
+     "reason": "Describes the management system model: framework of policy, objectives, processes, resources.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.3",
+     "reason": "Process approach — systematic rather than ad hoc management of security.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.4",
+     "reason": "Why an ISMS is important — what a management system adds over isolated controls.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.1",
+     "reason": "Overview of establishing, monitoring, maintaining and improving an ISMS.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.1",
+     "reason": "Overview and principles of an ISMS.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "reason": "Monitoring, maintaining and improving ISMS effectiveness — the improvement element of the model.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.7",
+     "reason": "Continual improvement as an inherent part of the management system.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.53",
+     "reason": "Definition of policy — a component of the management system structure.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.49",
+     "reason": "Definition of objective — a component of the management system structure.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.54",
+     "reason": "Definition of process — a component of the management system structure.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.13",
+     "reason": "Definition of continual improvement — the improvement element of the model.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.4",
+     "reason": "Requirement to establish, implement, maintain and continually improve an ISMS including its processes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.1",
+     "reason": "Introduction describing the ISMS as preserving CIA by applying a risk management process.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.2",
+     "reason": "Common management system structure (harmonized structure) shared with other MSS.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.2",
+     "reason": "Policy element of the management-system model.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "reason": "Objectives and planning to achieve them — objectives element of the model.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.1",
+     "reason": "Continual improvement element of the management-system model.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.33",
+     "why": "Text is actually the definition of an ISMS *professional* (a person), not of an ISMS — cannot anchor an ISMS-definition key."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.1",
+     "why": "General background on information as an asset, threats and risk exposure; says nothing about management-system structure or what an ISMS adds."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.3",
+     "why": "Defines information security and control selection (CIA, risk-based controls) rather than the management system model."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.6",
+     "why": "Text is a list of critical success factors for implementation, not a statement of what an ISMS is or what a management system does."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.1",
+     "why": "Text describes the purpose/scope of ISO/IEC 27002 and forms of information; only mentions the ISMS in passing."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core is ISO/IEC 27000 Clause 4 and the 3.33/3.41 definitions; 27001 clauses supply the policy-objectives-process-improvement structure.",
+   "invented": []
+  },
+  {
+   "task": "2.2",
+   "state": "judged",
+   "statement": "Explain clause 4 - internal and external issues, and interested parties.",
+   "pass1": [
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27000|3.37",
+    "ISO/IEC 27000|3.22",
+    "ISO/IEC 27000|3.38",
+    "ISO/IEC 27000|3.56",
+    "ISO/IEC 27000|4.5.2",
+    "ISO/IEC 27002|0.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "reason": "States the requirement to determine external and internal issues relevant to the ISMS purpose and outcomes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "reason": "States the requirement to determine interested parties and which of their requirements are relevant to information security.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "reason": "Amendment 1 text on climate change relevance to internal/external issues.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "reason": "Amendment 1 text on interested party requirements relating to climate change.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "Shows scope is determined by considering the 4.1 issues and 4.2 requirements, i.e. context precedes scope.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.37",
+     "reason": "Definition of interested party.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.22",
+     "reason": "Definition of external context.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.38",
+     "reason": "Definition of internal context.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.56",
+     "reason": "Definition of requirement (need or expectation), used to distinguish a requirement from a preference.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.2",
+     "reason": "Sources of information security requirements, supporting which party needs are security-relevant.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.2",
+     "why": "Text is about identifying security requirements via asset valuation and risk assessment, not about context, issues or interested parties' requirements."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.3",
+   "state": "judged",
+   "statement": "Explain the climate-change consideration introduced by Amendment 1:2024.",
+   "pass1": [
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|7.5.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "reason": "Amendment 1:2024 adds to 4.1 the requirement to determine whether climate change is a relevant issue in the organization's context.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "reason": "Amendment 1:2024 adds the note that interested parties can have requirements related to climate change.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.1",
+     "why": "Generic documented-information requirement; says nothing about climate change or recording a non-relevance determination."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The list shows duplicate tokens 4.1/4.2 for both the base clauses and the 'Amendment 1: change to 4.1/4.2' entries; both variants are intended.",
+   "invented": []
+  },
+  {
+   "task": "2.4",
+   "state": "judged",
+   "statement": "Explain how the ISMS scope is determined, bounded and documented.",
+   "pass1": [
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|4.4",
+    "ISO/IEC 27001|7.5.1",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27000|3.33",
+    "ISO/IEC 27000|3.22",
+    "ISO/IEC 27000|3.38",
+    "ISO/IEC 27000|3.37",
+    "ISO/IEC 27000|3.19",
+    "ISO/IEC 27000|3.51",
+    "ISO/IEC 27000|4.2.5",
+    "ISO/IEC 17021-1|8.2.2",
+    "ISO/IEC 17021-1|9.1.2.2",
+    "ISO/IEC 17021-1|9.6.5.1",
+    "ISO/IEC 17021-1|9.6.4.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "The requirement to determine the boundaries and applicability of the ISMS, consider issues/requirements/interfaces and dependencies, and make the scope available as documented information.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.51",
+     "reason": "Outsourcing definition bears directly on dependencies that cross the scope boundary.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "why": "Amendment text adding climate-change relevance to context; says nothing about scope boundaries."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "why": "Amendment note on interested parties and climate change; not about scope."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.4",
+     "why": "Generic requirement to establish and improve the ISMS and its processes; no scope determination or documentation content."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.1",
+     "why": "General documented-information requirement, only elaborates documentation in general, not the scope statement."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.33",
+     "why": "Garbled definition of an ISMS 'professional person'; no scope content."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.22",
+     "why": "Definition of external context; background to 4.1, not scope boundaries or interfaces."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.38",
+     "why": "Definition of internal context; background only, states nothing testable about scope."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.37",
+     "why": "Definition of interested party; unrelated to drawing scope boundaries."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.19",
+     "why": "Generic definition of documented information; does not address the scope statement."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.5",
+     "why": "Generic description of what a management system comprises and its benefits; says nothing about scope boundaries or documentation."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "8.2.2",
+     "why": "Lists required content of the certification certificate, not how an ISMS scope is bounded or a scope statement composed."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.2.2",
+     "why": "Accepting or declining a certification application; no scope content."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.5.1",
+     "why": "Requires the certification body to have a suspension/withdrawal procedure; about certification status, not ISMS scope determination."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.4.1",
+     "why": "Certification body handling of an application to extend certification scope; not about drawing ISMS boundaries."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core key rests on ISO/IEC 27001 4.3; 17021-1 items are included only for the consequences-of-scope angle.",
+   "invented": []
+  },
+  {
+   "task": "2.5",
+   "state": "judged",
+   "statement": "Analyze how a scope boundary is challenged when SaaS AI tools cross system and organizational lines.",
+   "pass1": [
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|4.4",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27001|A.5.14",
+    "ISO/IEC 27001|A.5.19",
+    "ISO/IEC 27001|A.5.20",
+    "ISO/IEC 27001|A.5.21",
+    "ISO/IEC 27001|A.5.22",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.21",
+    "ISO/IEC 27002|5.22",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.14",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|8.23",
+    "ISO/IEC 27000|3.51",
+    "ISO/IEC 27000|3.27",
+    "ISO/IEC 17021-1|9.1.2.2",
+    "ISO/IEC 17021-1|9.6.4.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "The requirement to determine ISMS boundaries including interfaces and dependencies with externally provided services — exactly what SaaS AI tooling disturbs.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Externally provided processes, products or services relevant to the ISMS must be controlled — the outsourcing hinge of scope.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Inventory of information and associated assets; unlisted SaaS AI is a classic boundary-erosion symptom.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "reason": "Acceptable use of information — browser-accessible AI tooling used outside documented rules.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.14",
+     "reason": "Information transfer to an external party occurs when data is pasted into a SaaS AI tool.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.19",
+     "reason": "Information security in supplier relationships — third party processing crossing organizational lines.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.20",
+     "reason": "Security requirements agreed within supplier agreements for the SaaS provider.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "reason": "Information security for use of cloud services — the direct control for SaaS AI in scope.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "Guidance on acquisition, use and exit of cloud services and where responsibility divides.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "Guidance on supplier relationship risks relevant to third party AI processing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "Asset inventory guidance; undocumented tools are how the boundary stops being true.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.14",
+     "reason": "Transfer rules for information leaving the organization via a browser tool.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "reason": "Data leakage prevention guidance explicitly addresses information leaving via external/cloud services.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.23",
+     "reason": "Web filtering guidance addresses browser-reachable external services.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.51",
+     "reason": "Definition of outsource — the vocabulary underpinning third party processing inside scope.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.27",
+     "reason": "Definition of information processing facilities, which determines what falls inside a boundary.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "why": "Amendment text about climate change relevance only; nothing about scope boundaries or SaaS."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "why": "Amendment note on interested parties and climate change; unrelated to boundary or third-party reach."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.4",
+     "why": "Generic requirement to establish/maintain the ISMS and its processes; says nothing testable about scope boundaries diverging from reality."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.21",
+     "why": "ICT supply chain risk control; about upstream product/service chain, not about a scope boundary being crossed by a SaaS tool."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.22",
+     "why": "Ongoing monitoring and change management of supplier service delivery; operational supplier oversight, not scope boundary analysis."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "why": "Text is a checklist of contractual terms to include in supplier agreements, not about scope boundaries or where information actually flows."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.21",
+     "why": "Text concerns propagation of security requirements down the ICT product/service supply chain and component provenance, unrelated to scope statement validity."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.22",
+     "why": "Text is about monitoring supplier service performance and change management against agreements, not about the documented boundary diverging from the actual one."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Text is acceptable-use policy content (expected behaviours, permitted/prohibited use), addressing user conduct rather than where the ISMS boundary sits or how it erodes."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.2.2",
+     "why": "Certification body procedure for accepting/declining an application — nothing about ISMS scope boundaries diverging from reality."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.4.1",
+     "why": "Procedure for a certification body handling a request to extend certification scope, not analysis of a scope statement ceasing to describe the estate."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "AI-specific SaaS behaviour itself is teaching material; the standards passages cited are the scope/outsourcing/cloud requirements a key must rest on.",
+   "invented": []
+  },
+  {
+   "task": "2.6",
+   "state": "judged",
+   "statement": "Explain clause 5 - leadership, commitment, and the information security policy.",
+   "pass1": [
+    "ISO/IEC 27001|5.1",
+    "ISO/IEC 27001|5.2",
+    "ISO/IEC 27001|5.3",
+    "ISO/IEC 27001|7.3",
+    "ISO/IEC 27001|7.4",
+    "ISO/IEC 27001|A.5.1",
+    "ISO/IEC 27002|5.1",
+    "ISO/IEC 27002|5.4",
+    "ISO/IEC 27000|3.53",
+    "ISO/IEC 27000|3.75",
+    "ISO/IEC 27000|4.6"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.1",
+     "reason": "States top management's leadership and commitment obligations — the core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.2",
+     "reason": "Sets what the information security policy must establish and the requirement to communicate and make it available.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.3",
+     "reason": "Third element of clause 5: assignment of roles, responsibilities and authorities by top management.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.3",
+     "reason": "Awareness of the policy — supports the point that a policy must reach people to operate.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.1",
+     "reason": "Annex A control on policies for information security — defined, approved, published, communicated, acknowledged.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.53",
+     "reason": "Definition of 'policy' as intentions and direction formally expressed by top management.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.75",
+     "reason": "Definition of 'top management' — who bears the clause 5 obligations.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.4",
+     "title": "Communication",
+     "why": "Text is about planning ISMS communications generally (what/when/whom/how), not leadership, commitment or policy communication under clause 5."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.1",
+     "why": "Implementation guidance elaborating the Annex A policy control; the testable requirement itself is stated in 27001 5.2/A.5.1."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.4",
+     "why": "Guidance on management's duties toward personnel briefing/awareness, not a statement of clause 5 leadership or policy requirements."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.6",
+     "why": "Informative list of example success factors; only mentions management commitment in passing without stating a requirement."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.7",
+   "state": "judged",
+   "statement": "Explain roles, responsibilities and authorities within an ISMS.",
+   "pass1": [
+    "ISO/IEC 27001|5.3",
+    "ISO/IEC 27001|5.1",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|A.5.2",
+    "ISO/IEC 27001|A.5.3",
+    "ISO/IEC 27001|A.5.4",
+    "ISO/IEC 27002|5.2",
+    "ISO/IEC 27002|5.3",
+    "ISO/IEC 27002|5.4",
+    "ISO/IEC 27000|3.71",
+    "ISO/IEC 27000|3.75",
+    "ISO/IEC 27000|3.24",
+    "ISO/IEC 27000|3.23",
+    "ISO/IEC 27000|4.2.4",
+    "ISO/IEC 27000|4.6"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.3",
+     "reason": "The requirement that top management assign and communicate responsibilities AND authorities for ISMS roles — the core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.1",
+     "reason": "Top management's own leadership accountabilities, including ensuring roles are supported and resourced.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Requires identification of risk owners as part of risk assessment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.2",
+     "reason": "Control requiring information security roles and responsibilities to be defined and allocated.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.4",
+     "reason": "Management responsibilities for personnel applying information security.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.2",
+     "reason": "Guidance on defining, allocating and documenting security roles and responsibilities, including asset/risk ownership.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.71",
+     "reason": "Definition of risk owner: person or entity with accountability AND authority to manage a risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.75",
+     "reason": "Definition of top management: person/group directing and controlling at the highest level with authority to delegate.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.24",
+     "reason": "Definition of governing body — accountability structure above management.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.4",
+     "reason": "Explains management's direction, authority and assignment of responsibilities in the ISMS.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Text shown covers treatment options, controls and the Statement of Applicability; no statement about roles, authority or risk owners."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "Two lines on implementing the treatment plan and retaining records; says nothing about who owns or authorizes."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.3",
+     "why": "Control on segregating conflicting duties — a different topic from pairing responsibility with authority or naming an owner."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.3",
+     "why": "Guidance on which conflicting activities to separate; not about assigned authority or accountability holders."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.4",
+     "why": "Implementation guidance elaborating the A.5.4 control (briefing, awareness, terms of employment) rather than stating role/authority assignment."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.23",
+     "why": "Bare definition of governance as a system of direction/control; says nothing about who holds which role, responsibility or authority."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.6",
+     "why": "Generic list of ISMS success factors; only mentions management commitment in passing without stating any role, responsibility or authority assignment."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.8",
+   "state": "judged",
+   "statement": "Apply policy reasoning to determine what an acceptable AI use provision must address.",
+   "pass1": [
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27002|5.1",
+    "ISO/IEC 27001|A.5.1",
+    "ISO/IEC 27002|5.36",
+    "ISO/IEC 27001|A.5.36",
+    "ISO/IEC 27002|6.4",
+    "ISO/IEC 27001|A.6.4",
+    "ISO/IEC 27002|6.2",
+    "ISO/IEC 27002|6.3",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.19",
+    "ISO/IEC 27002|8.23",
+    "ISO/IEC 27002|8.16",
+    "ISO/IEC 27002|8.15",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27000|3.53",
+    "ISO/IEC 27001|5.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "reason": "The acceptable use control: rules for acceptable use of information and assets — the direct basis for an acceptable AI use provision.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "reason": "Annex A statement of the acceptable use control the task builds on.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.1",
+     "reason": "Topic-specific policies: what a policy must contain, be approved, communicated and enforced.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.1",
+     "reason": "Annex A requirement for information security policy and topic-specific policies.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.36",
+     "reason": "Compliance with policies and standards — how a policy provision is checked and made enforceable in practice.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.36",
+     "reason": "Annex A control on compliance with policies, rules and standards.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.4",
+     "reason": "Disciplinary process — the consequence mechanism that makes an acceptable-use rule enforceable.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.4",
+     "reason": "Annex A disciplinary process control supporting enforceability.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.23",
+     "reason": "Web filtering — technical means of restricting access to unsanctioned external AI services.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.2",
+     "reason": "Policy requirements: appropriate, communicated, available — criteria for a workable provision.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.2",
+     "why": "Text is about employment contractual terms and conditions, not about what an acceptable-use policy must provide or its enforceability."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.3",
+     "why": "Text is about awareness/education/training programmes, not about drafting or enforcing acceptable-use provisions."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Text is about acquisition, management and exit processes for cloud services, a different subject from acceptable AI use provisions."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.19",
+     "why": "Text is technical guidance on controlling software installation for system integrity, not policy content or enforceability."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.16",
+     "why": "Generic guidance on monitoring networks/systems for anomalous behaviour and incident detection; says nothing about acceptable-use provisions or policy enforceability."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.15",
+     "why": "Technical logging guidance (what events to log, how to protect logs); not about what a use policy must contain."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "why": "Guidance on DLP tooling to detect/block unauthorized disclosure; a technical control, not policy-provision content or the sanctioned/unsanctioned rule."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.53",
+     "why": "Bare one-line definition of 'policy' as intentions and direction; nothing testable about acceptable-use provisions or enforceability."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope addresses AI specifically; the AI framing is applied to the generic acceptable-use and policy controls.",
+   "invented": []
+  },
+  {
+   "task": "2.9",
+   "state": "judged",
+   "statement": "Explain continual improvement and the plan-do-check-act model as the ISMS operating rhythm.",
+   "pass1": [
+    "ISO/IEC 27001|10.1",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.3.1",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|9.3.3",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|6.1.1",
+    "ISO/IEC 27001|4.4",
+    "ISO/IEC 27001|0.1",
+    "ISO/IEC 27000|4.3",
+    "ISO/IEC 27000|4.5.6",
+    "ISO/IEC 27000|4.5.7",
+    "ISO/IEC 27000|3.13",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|4.2.5",
+    "ISO/IEC 27000|4.6",
+    "ISO/IEC 27002|0.6"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.1",
+     "reason": "States the obligation to continually improve the suitability, adequacy and effectiveness of the ISMS.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "Nonconformity and corrective action - the 'act' step that drives improvement from findings.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "Monitoring, measurement, analysis and evaluation - the 'check' step of the cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "Internal audit as a recurring check activity in the ISMS rhythm.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.1",
+     "reason": "Management review at planned intervals - periodic check/act point.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "reason": "Review inputs include opportunities for continual improvement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.3",
+     "reason": "Review results include decisions on continual improvement opportunities and ISMS changes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Control of planned changes and review of unintended changes - the 'do' step and planned change concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "reason": "Objectives are monitored, updated and planned - the 'plan' step feeding improvement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.1",
+     "reason": "Planning actions to address risks and opportunities, including improvement of results.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.4",
+     "reason": "Requirement to establish, implement, maintain and continually improve the ISMS.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.1",
+     "reason": "Introduction frames the ISMS as an ongoing, preserved and improved system.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "reason": "Monitor, maintain and improve the effectiveness of the ISMS.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.7",
+     "reason": "Dedicated passage on continual improvement of the ISMS.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.13",
+     "reason": "Definition of continual improvement as a recurring activity.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "why": "Text details audit programme mechanics (criteria, scope, auditor objectivity, reporting) rather than the PDCA rhythm or the improvement obligation stated in 9.2.1/10.1."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.3",
+     "why": "Defines the process approach (inputs/outputs, interacting processes); says nothing about PDCA or the improvement obligation."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "why": "Bare definition of corrective action tied to nonconformity, not the PDCA rhythm or continual improvement obligation."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "why": "Text is a run of unrelated vocabulary entries (corrective action, derived measure, documented information)."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.5",
+     "why": "Describes what a management system is; only mentions continual improvement in passing as a benefit."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.6",
+     "why": "List of critical success factors for ISMS implementation; improvement appears only as one item in the list."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.6",
+     "why": "About the information/system life cycle from creation to disposal, not the management system improvement cycle."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "PDCA is not named explicitly in the 2022 editions; ISO/IEC 27000 4.3 and 27001 clauses 6-10 carry the cycle.",
+   "invented": []
+  },
+  {
+   "task": "3.1",
+   "state": "judged",
+   "statement": "Explain the risk assessment process - identification, analysis and evaluation.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|6.1.1",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|3.68",
+    "ISO/IEC 27000|3.63",
+    "ISO/IEC 27000|3.67",
+    "ISO/IEC 27000|3.66",
+    "ISO/IEC 27000|3.39",
+    "ISO/IEC 27000|3.40",
+    "ISO/IEC 27000|3.12",
+    "ISO/IEC 27000|3.61",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|3.70"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Defines the required information security risk assessment process: criteria, identification, analysis, evaluation — the core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "reason": "Definition of risk assessment as the overall process of identification, analysis and evaluation.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.68",
+     "reason": "Definition of risk identification — finding, recognizing, describing risks.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.63",
+     "reason": "Definition of risk analysis — understanding nature of risk and determining level of risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.67",
+     "reason": "Definition of risk evaluation — comparing analysis results with risk criteria to decide significance.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.66",
+     "reason": "Risk criteria are the reference against which evaluation is made.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.39",
+     "reason": "Level of risk is the output of analysis.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "reason": "Narrative explanation of assessing information security risks and what the process produces.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.70",
+     "reason": "Risk management process situates assessment among communication, treatment and monitoring.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "why": "Operational timing/retention of assessment records, not the identify-analyse-evaluate stages."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.1",
+     "why": "General planning for risks and opportunities; says nothing about the assessment stages."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Risk treatment, control selection and SoA — a different process from assessment."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.40",
+     "why": "One-line 'chance of something happening' plus mostly management-system definition text; nothing testable on the assessment process."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.12",
+     "why": "Generic definition of consequence; does not state anything about the three assessment stages."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.61",
+     "why": "Definition of 'risk' as effect of uncertainty; says nothing about the identification/analysis/evaluation stages of assessment."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.10",
+   "state": "judged",
+   "statement": "Apply treatment reasoning to select a defensible option for a described AI-related risk.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|3.57",
+    "ISO/IEC 27000|3.66",
+    "ISO/IEC 27000|3.14",
+    "ISO/IEC 27000|3.39",
+    "ISO/IEC 27002|0.4",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27002|3.1.8"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "States the risk treatment process: selecting treatment options, determining necessary controls, comparing to Annex A, SoA, acceptance of residual risk — the core of defensible treatment selection.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Narrative on treating information security risks; presents the treatment options and their proportionality to risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Selecting and implementing controls, including proportionality and cost/benefit of control choice.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment with the notes enumerating the treatment options (avoid, take, remove source, change likelihood/consequence, share, retain).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance — the 'accept/retain' option and its link to appetite.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.66",
+     "reason": "Risk criteria definition — the reference against which significance and acceptability of a risk is judged.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "reason": "Determining controls: how controls are selected/derived from risk treatment, including alternatives and custom controls (compensating controls).",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Text is the risk assessment process (identify/analyse/evaluate), not treatment option selection."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "Two sentences on implementing the treatment plan and retaining records; nothing about choosing an option."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "why": "Bare definitions of residual risk and review; says nothing about selecting a treatment."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "why": "Generic definition of 'control'; no content on compensating controls or treatment choice."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.39",
+     "why": "Definition of level of risk as consequence × likelihood only; no treatment reasoning."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "why": "Generic explanation that controls modify or maintain risk and that the document offers a mixture of control themes; says nothing about the four treatment options, appetite, proportionality or compensating controls."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.8",
+     "why": "Terminology entry defining 'control' (plus adjacent unrelated definitions such as disruption, endpoint device, entity); no treatment-selection content to key an item on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The AI framing is context only; the assessable content is the generic treatment-selection and appetite machinery in 27001 6.1.2/6.1.3 and 27000 4.5.4-4.5.5.",
+   "invented": []
+  },
+  {
+   "task": "3.11",
+   "state": "judged",
+   "statement": "Analyze why a conventional risk assessment can return a clean result for an estate with unmanaged AI exposure.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|6.1.1",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27001|A.8.19",
+    "ISO/IEC 27001|A.8.32",
+    "ISO/IEC 27001|A.5.8",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.19",
+    "ISO/IEC 27002|8.32",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|3.68",
+    "ISO/IEC 27000|3.57"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Defines the risk assessment process, including risk identification — a method that never identifies AI assets/risks yields a clean but empty result.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Requires risk assessments at planned intervals and when significant changes occur; unmanaged AI adoption is the change that was never re-assessed.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "Scope determination; AI exposure sitting outside the declared scope is a structural reason a clean result is meaningless.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Inventory of information and other associated assets — the asset register gap that makes AI use invisible to an asset-based assessment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.32",
+     "reason": "Change management; changes introduced outside the process never trigger reassessment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "Monitoring/measurement: whether the method actually evaluates what it claims, not just that it produced a result.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "Guidance on maintaining an accurate, complete inventory — the control whose failure produces the blind spot.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "Guidance on identifying and governing cloud services in use, including unsanctioned ones.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "reason": "Explains what assessing information security risks entails, including identification of assets and risks — the step that determines visibility.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "reason": "Definition of risk assessment as identification, analysis and evaluation — grounds the argument that omission at identification propagates to a clean result.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.68",
+     "reason": "Risk identification definition: finding, recognizing and describing risks — what the method failed to do for AI.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "reason": "Residual risk concept; a clean result misrepresents residual risk when exposures were never identified.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.1",
+     "why": "Generic ISMS planning for risks and opportunities; says nothing about assessment visibility or unseen assets."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "why": "Amendment text is solely about climate change relevance, unrelated to AI exposure or method blind spots."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "why": "States a control requirement for acceptable use rules, not anything about why an assessment method missed exposure."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "why": "Control on cloud service acquisition/use/exit processes; mentions the delivery channel but states nothing testable about assessment blind spots."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.19",
+     "why": "One-line control on securely managing software installation; no bearing on asset-register gaps or clean assessment results."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.8",
+     "why": "One-line control on integrating security into project management; too generic to key an item on assessment invisibility."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Text is an acceptable-use policy control (expected behaviours, permitted/prohibited use, handling rules); says nothing about asset visibility, register gaps or assessment blind spots."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.19",
+     "why": "Text is detailed operational guidance on controlling software installation/updates (trained admins, rollback, logs), not about why an assessment failed to see exposure."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.32",
+     "why": "Text is generic change-control procedure guidance (planning, authorization, testing, communication); elaborates a different requirement, not assessment visibility."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "why": "Text is generic supplier-relationship risk process guidance (types of suppliers, commencement/termination); only adjacent, states nothing about invisible adoption or false assurance."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No ISO/IEC 27001/27002 clause names AI explicitly; the examinable mechanism is asset identification and the scope/trigger requirements of the risk assessment process.",
+   "invented": []
+  },
+  {
+   "task": "3.2",
+   "state": "judged",
+   "statement": "Apply stated risk criteria to determine whether an analysed risk falls within acceptance.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27000|3.66",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|3.63",
+    "ISO/IEC 27000|3.67",
+    "ISO/IEC 27000|3.39",
+    "ISO/IEC 27000|3.40",
+    "ISO/IEC 27000|3.12",
+    "ISO/IEC 27000|3.61",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|3.57",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|4.5.4"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Requires establishing and maintaining risk acceptance criteria and criteria for performing assessments, and analysing/evaluating risks against them — the core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.66",
+     "reason": "Definition of risk criteria — terms of reference against which significance of risk is evaluated.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance — informed decision to take a particular risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.63",
+     "reason": "Definition of risk analysis (comprehend nature of risk and determine level of risk).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.67",
+     "reason": "Definition of risk evaluation — comparing analysis results with risk criteria to decide acceptability.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.39",
+     "reason": "Definition of level of risk as magnitude expressed as combination of consequences and likelihood.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.12",
+     "reason": "Definition of consequence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.61",
+     "reason": "Definition of risk (effect of uncertainty on objectives) underpinning the pairing.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "reason": "Definition of residual risk — relevant to retained/accepted risk after treatment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment, including retaining/accepting risk as an option.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "reason": "Narrative on assessing information security risks against criteria and prioritizing.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Narrative on treating risks, including accepting/retaining risks that meet criteria.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Text covers treatment option selection, Annex A comparison and the Statement of Applicability, not applying criteria to judge acceptance."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "why": "Text only requires assessments at planned intervals/on change and retention of results; merely cross-references the 6.1.2 a) criteria."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "Text is only about implementing the treatment plan and retaining results; nothing on criteria or acceptance."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.40",
+     "why": "Body text contains only a source note and the definition of 'management system'; the likelihood definition itself is not in the passage."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "title": "risk assessment overall process",
+     "why": "Bare definitional chain (identification/analysis/evaluation) with no statement of criteria or acceptance thresholds to test."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.3",
+   "state": "judged",
+   "statement": "Apply risk identification to a described situation to name the asset, threat and vulnerability.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27000|3.68",
+    "ISO/IEC 27000|3.74",
+    "ISO/IEC 27000|3.77",
+    "ISO/IEC 27000|3.61",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|3.71",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|8.8",
+    "ISO/IEC 27002|5.7"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Requires the risk assessment process to identify risks (risk identification) and assign risk owners; the requirement basis for naming a statable risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.68",
+     "reason": "Definition of risk identification: finding, recognizing and describing risks — the core process the task applies.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.74",
+     "reason": "Definition of threat (potential cause of an unwanted incident) — one of the three components to be named.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.77",
+     "reason": "Definition of vulnerability (weakness of an asset/control that can be exploited) — one of the three components to be named.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.61",
+     "reason": "Definition of risk, underpinning how a risk is stated and composed.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "why": "Only sets timing/retention for risk assessments; says nothing about asset-threat-vulnerability identification."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "why": "Bare definition of risk assessment as identification+analysis+evaluation; no asset/threat/vulnerability content."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "why": "General guidance on risk assessment method, analysis and evaluation; only mentions assets/threats/vulnerabilities in passing."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.71",
+     "why": "Definition of risk owner only; unrelated to naming asset, threat and vulnerability."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "why": "Control guidance on building and maintaining an asset inventory, not on composing a risk statement."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.8",
+     "why": "Operational guidance on technical vulnerability management (patching, monitoring), not risk identification."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.7",
+     "why": "Guidance on collecting and layering threat intelligence, not on asset-threat-vulnerability mapping."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "'Risk register' as a term is not in these standards; nearest anchor is the documented risk assessment results in 27001 6.1.2/8.2.",
+   "invented": []
+  },
+  {
+   "task": "3.4",
+   "state": "judged",
+   "statement": "List the four risk treatment options.",
+   "pass1": [
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|3.14",
+    "ISO/IEC 27002|3.1.8"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Describes treating information security risks and enumerates the treatment options (apply controls/modify, accept/retain, avoid, share).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment, whose notes list the options (avoiding, taking, removing source, changing likelihood/consequence, sharing, retaining).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance (retain risk), one of the four options.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Sets out the treatment process, controls determination and SoA, but never names or enumerates the treatment options."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "why": "About criteria for selecting and implementing controls, not the treatment option set."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "why": "Definition of 'control'; mentions modifying risk only incidentally, states nothing about treatment options."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.8",
+     "why": "Definition of 'control' plus unrelated terms (disruption, endpoint device, entity); no treatment options."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27001:2022 6.1.3 states options generically; the explicit four-option naming is in ISO/IEC 27000 4.5.4 and the risk treatment definition.",
+   "invented": []
+  },
+  {
+   "task": "3.5",
+   "state": "judged",
+   "statement": "Explain the purpose and required content of the Statement of Applicability.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27002|0.4",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27000|3.14"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "Contains the explicit requirement to produce a Statement of Applicability with necessary controls, justification for inclusion/exclusion and implementation status.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Explains selecting and implementing controls and the role of the Statement of Applicability in the ISMS overview.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Risk assessment process steps only; no mention of the SoA or its content."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "Operational requirement to implement the risk treatment plan and retain results; says nothing about the SoA."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "why": "Describes risk treatment options and acceptance criteria; no SoA element."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "why": "General guidance on determining controls and balancing cost; does not state SoA purpose or required content."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "why": "Defines what a control is and the control categories; unrelated to the SoA."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "why": "Terminology entry for 'control'/'control objective'; nothing on the SoA."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27001 6.1.3 d) is the only normative statement of required SoA content; the rest are supporting context.",
+   "invented": []
+  },
+  {
+   "task": "3.6",
+   "state": "judged",
+   "statement": "Explain why Annex A is a set of reference controls, not a checklist to be copied into the SoA.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|0.1",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27002|0.4",
+    "ISO/IEC 27002|0.2",
+    "ISO/IEC 27002|1",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|3.14"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "Requires controls to be determined from risk treatment and then compared with Annex A, and requires the SoA with justifications — the exact passage on Annex A's reference status.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "reason": "Determining controls — states controls are determined by risk assessment/treatment and other requirements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.2",
+     "reason": "Information security requirements as the source of control need (risk, legal, business).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "1",
+     "reason": "Scope states the document is a reference set of generic controls for selection and implementation.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Treating information security risks — treatment options precede control choice.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Selecting and implementing controls — explicit statement that controls are selected on the basis of risk.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Sets out the risk assessment process only; says nothing about Annex A, control selection or the SoA."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "One-line operational requirement to implement the treatment plan and retain results; nothing about Annex A or SoA logic."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.1",
+     "why": "General introductory prose on adopting an ISMS; no statement about reference controls or risk-driven selection that an item could key on."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "why": "Definitional text on what a control is (modifies/maintains risk); does not address selection basis, Annex A status or the SoA."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "why": "Describes risk analysis/evaluation methodology, not the derivation of controls or the SoA."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "why": "Bare vocabulary entry for 'control'/'control objective'; no testable proposition on reference sets or SoA justification."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core key rests on 27001 6.1.3 (comparison with Annex A + SoA justification); supporting passages fetched for the reference-set framing.",
+   "invented": []
+  },
+  {
+   "task": "3.7",
+   "state": "judged",
+   "statement": "Explain the risk treatment plan and the role of residual risk and risk-owner approval.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27000|3.57",
+    "ISO/IEC 27000|3.71",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27001|5.3",
+    "ISO/IEC 27002|0.4"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "States the risk treatment process: formulate a risk treatment plan and obtain risk owners' approval of the plan and acceptance of residual risks.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "reason": "Requires implementation of the risk treatment plan and retention of documented information on results.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Identifies risk owners during risk assessment, establishing who is accountable for accepting risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "reason": "Definition of residual risk (risk remaining after risk treatment).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.71",
+     "reason": "Definition of risk owner — accountability for the risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment — distinguishes deciding treatment from planning it.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance as an informed decision, underpinning residual risk acceptance.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "why": "General overview guidance on treatment options and acceptance criteria; says nothing about the treatment plan, residual risk or risk-owner approval."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "why": "Guidance on selecting/implementing controls and the SoA, not on planning treatment or approving residual risk."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.3",
+     "why": "Assignment of general ISMS roles/authorities by top management; does not address risk owners or residual risk acceptance."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "why": "Introductory guidance on how controls are determined and balanced against cost; no treatment plan, residual risk or approval content."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.8",
+   "state": "judged",
+   "statement": "Apply risk identification to a described AI deployment to surface the information risks it introduces.",
+   "pass1": [
+    "ISO/IEC 27000|3.68",
+    "ISO/IEC 27000|3.74",
+    "ISO/IEC 27000|3.77",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|3.10",
+    "ISO/IEC 27000|3.36",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27002|5.14",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.34",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|8.11",
+    "ISO/IEC 27002|8.33",
+    "ISO/IEC 27002|8.26",
+    "ISO/IEC 27002|3.1.31",
+    "ISO/IEC 27002|3.1.5"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.68",
+     "reason": "Defines risk identification - the exact process the task asks the candidate to apply to an AI deployment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.74",
+     "reason": "Threat definition underpins naming what the AI deployment threatens.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.77",
+     "reason": "Vulnerability definition supports identifying weaknesses introduced by an AI system.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "reason": "Risk assessment as the overall process of which identification is the first step.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.10",
+     "reason": "Confidentiality property threatened by context leakage and training-data exposure.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Requires a risk assessment process that identifies information security risks and risk owners - the requirement being applied.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Requires performing risk assessments at planned intervals or when significant changes (e.g. a new AI deployment) occur.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Inventory of information and associated assets - the asset register the AI system was not built for.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "reason": "Classification determines the sensitivity of data exposed to an AI service.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "Cloud service security - most AI deployments are third-party cloud services; risk identification points here.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "Supplier relationship risks relevant to an AI model provider.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "reason": "Data leakage prevention - directly addresses context/data leakage to an AI system.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.33",
+     "reason": "Test information - closest analogue to training-data confidentiality controls.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.26",
+     "reason": "Application security requirements - identifying security requirements for a new system type.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.36",
+     "title": "integrity property of accuracy and completeness",
+     "why": "Text is actually the definitions of interested party, internal context and level of risk — nothing on integrity or AI-related risk identification."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "why": "General explanatory guidance on risk assessment method, cost/benefit and periodicity — elaborates the 6.1.2 requirement rather than stating anything testable about identifying risks in a new system type."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "why": "Implementation guidance on keeping an asset inventory accurate and up to date — elaborates A.5.9, says nothing about identifying risks or threats."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Turned out to be about acceptable-use policy content and user responsibilities, not risk identification or asset-threat mapping."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.14",
+     "why": "Text is rules/agreements for transfer facilities and in-transit protection, not identification of risks introduced by a system type."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "why": "Text is a checklist of terms to include in supplier contracts, elaborating requirements stated elsewhere."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.34",
+     "why": "Text is about legal/regulatory privacy compliance procedures and privacy-officer roles, not AI-related risk identification."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.11",
+     "why": "Text is implementation guidance on masking/pseudonymization techniques, a control rather than risk identification."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.31",
+     "why": "Definitions stub (rule, sensitive information, threat, topic-specific policy); mentions terms without stating anything testable about AI risks."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.5",
+     "why": "Definitions stub (authenticity, chain of custody, confidential information) with no testable content for this task."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope addresses AI explicitly; AI-specific risk categories are course material mapped onto generic risk identification and information-handling controls.",
+   "invented": []
+  },
+  {
+   "task": "3.9",
+   "state": "judged",
+   "statement": "Explain how prompt and context data leaving the organization constitutes an information security risk.",
+   "pass1": [
+    "ISO/IEC 27002|5.14",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27002|5.13",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.34",
+    "ISO/IEC 27002|8.10",
+    "ISO/IEC 27002|6.6",
+    "ISO/IEC 27002|6.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|A.5.14",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27000|3.10",
+    "ISO/IEC 27000|3.28"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.14",
+     "reason": "Prompt submission to an external model is an information transfer outside the organization; transfer rules and agreements govern it.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "An external inference service is a cloud service; requirements, retention and provider handling are addressed here.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "reason": "Severity of the disclosure is determined by the classification of the information placed in the prompt.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "reason": "Acceptable use rules on what information may be entered into or processed by external tools.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "reason": "Prompt data egress is precisely the leakage channel data leakage prevention addresses.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "The model provider is a supplier; risk from using its service must be managed.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "reason": "Provider retention, reuse and confidentiality terms are set in supplier agreements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.10",
+     "reason": "Retention by the provider and deletion of transferred information.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Treating prompt egress as an identified information security risk with consequence and likelihood.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.14",
+     "reason": "Annex A statement of the information transfer control the task rests on.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "reason": "Annex A statement on information security for use of cloud services.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.10",
+     "reason": "Confidentiality definition: unauthorized disclosure is the property breached by egress.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.13",
+     "why": "Text is about label mechanics/placement techniques, not about disclosure or classification persisting across an external boundary."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.3",
+     "why": "Text describes the awareness/training programme itself, not why data leaving the organization is a disclosure risk."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.6",
+     "why": "Text covers drafting terms of NDAs with personnel/parties; nothing an item on prompt egress severity could key on."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.34",
+     "why": "Text is about privacy policy, privacy officer roles and legal compliance for PII, not about data leaving to an external service."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.28",
+     "why": "Generic definition of information security as preservation of CIA; states nothing about disclosure, transfer or external handling that an item on prompt egress could key on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Concepts 'inference boundary' and 'prompt data egress' are teaching vocabulary; the nearest normative anchors are transfer, cloud-service, classification and leakage controls.",
+   "invented": []
+  },
+  {
+   "task": "4.1",
+   "state": "judged",
+   "statement": "Recognize the four Annex A control themes and the number of reference controls.",
+   "pass1": [
+    "ISO/IEC 27002|4.1",
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|4.3",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27002|1",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27002|A.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.1",
+     "reason": "States the four theme clauses (organizational, people, physical, technological) and how controls are grouped/numbered.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the themes and attribute classification used to categorize each control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "reason": "Explains the nature and organization of the control set referenced by Annex A.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.3",
+     "why": "Describes the per-control layout elements (title, attribute table, purpose, guidance), not the themes or control count."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "1",
+     "why": "Generic scope statement about a reference set of controls; no theme names or number of controls."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Risk treatment process and Statement of Applicability requirements; Annex A only referenced as a comparison list, no themes or count."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "A.2",
+     "why": "Guidance on creating organization-specific attributes and views, not the Annex A theme structure."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The count of reference controls (93) and the Annex A theme headings A.5-A.8 are not separate numbered clauses in the supplied title list; 27002 4.1/4.2 carry the theme structure.",
+   "invented": []
+  },
+  {
+   "task": "4.10",
+   "state": "judged",
+   "statement": "Apply awareness and acceptable-use reasoning to a described shadow AI situation.",
+   "pass1": [
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|6.3",
+    "ISO/IEC 27002|6.8",
+    "ISO/IEC 27002|5.36",
+    "ISO/IEC 27002|5.1",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.19",
+    "ISO/IEC 27002|6.4",
+    "ISO/IEC 27002|5.4",
+    "ISO/IEC 27001|7.3",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27001|A.6.3",
+    "ISO/IEC 27001|A.6.8",
+    "ISO/IEC 27001|A.5.36"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "reason": "Acceptable use of information and associated assets — the rule set an unapproved AI tool use breaches and that a response must clarify.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.3",
+     "reason": "Awareness, education and training — the awareness-over-prohibition response the task asks for.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.8",
+     "reason": "Information security event reporting — underpins reporting culture and not driving use underground.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.36",
+     "reason": "Compliance with policies, rules and standards — how non-compliance is detected and addressed.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.3",
+     "reason": "Awareness requirement: personnel must be aware of policy, their contribution and implications of non-conformance.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "reason": "Annex A acceptable use control that the situation engages.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.3",
+     "reason": "Annex A awareness/training control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.8",
+     "reason": "Annex A event reporting control supporting reporting culture.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.1",
+     "why": "Generic policy-definition/approval/review content; nothing on awareness vs prohibition or user non-compliance"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Cloud service acquisition/exit processes and provider-customer responsibilities, not unsanctioned tool use by staff"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.19",
+     "why": "Administrator-controlled software installation on operational systems, a technical change-control topic"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.4",
+     "why": "Formal disciplinary/graduated sanction process — the punitive route the task asks to reject, not the key"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.4",
+     "why": "Restates management's duty to ensure personnel awareness; only elaborates requirements keyed elsewhere (6.3/7.3)"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.36",
+     "why": "Text only requires periodic review of compliance with policies — a monitoring/audit requirement, not awareness, acceptable use, or reporting-culture reasoning."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "'Shadow AI' is not a standard term; the examinable anchors are acceptable use, awareness and event reporting.",
+   "invented": []
+  },
+  {
+   "task": "4.11",
+   "state": "judged",
+   "statement": "Explain the physical controls theme, and why AI does not materially change it.",
+   "pass1": [
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|7.1",
+    "ISO/IEC 27002|7.2",
+    "ISO/IEC 27002|7.3",
+    "ISO/IEC 27002|7.4",
+    "ISO/IEC 27002|7.5",
+    "ISO/IEC 27002|7.6",
+    "ISO/IEC 27002|7.7",
+    "ISO/IEC 27002|7.8",
+    "ISO/IEC 27002|7.9",
+    "ISO/IEC 27002|7.10",
+    "ISO/IEC 27002|7.11",
+    "ISO/IEC 27002|7.12",
+    "ISO/IEC 27002|7.13",
+    "ISO/IEC 27002|7.14",
+    "ISO/IEC 27001|A.7.1",
+    "ISO/IEC 27001|A.7.2",
+    "ISO/IEC 27001|A.7.3",
+    "ISO/IEC 27001|A.7.4",
+    "ISO/IEC 27001|A.7.5",
+    "ISO/IEC 27001|A.7.6",
+    "ISO/IEC 27001|A.7.7",
+    "ISO/IEC 27001|A.7.8",
+    "ISO/IEC 27001|A.7.9",
+    "ISO/IEC 27001|A.7.10",
+    "ISO/IEC 27001|A.7.11",
+    "ISO/IEC 27001|A.7.12",
+    "ISO/IEC 27001|A.7.13",
+    "ISO/IEC 27001|A.7.14"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the four themes including 'physical' — the basis for describing what the physical theme groups.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.1",
+     "reason": "Physical security perimeters — core concept named by the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.2",
+     "reason": "Physical entry control, a member of the physical theme family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.7",
+     "reason": "Clear desk and clear screen — named concept in the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.8",
+     "reason": "Equipment siting and protection — the equipment security concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.9",
+     "reason": "Security of assets off-premises — equipment security beyond the perimeter.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.1",
+     "reason": "Annex A statement of the physical perimeter control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.2",
+     "reason": "Annex A physical entry control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.3",
+     "reason": "Annex A securing offices, rooms and facilities.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.4",
+     "reason": "Annex A physical security monitoring.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.5",
+     "reason": "Annex A protection against physical and environmental threats.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.6",
+     "reason": "Annex A working in secure areas.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.7",
+     "reason": "Annex A clear desk and clear screen — named concept.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.8",
+     "reason": "Annex A equipment siting and protection — named concept.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.9",
+     "reason": "Annex A security of assets off-premises.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.10",
+     "reason": "Annex A storage media.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.11",
+     "reason": "Annex A supporting utilities.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.12",
+     "reason": "Annex A cabling security.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.13",
+     "reason": "Annex A equipment maintenance.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.7.14",
+     "reason": "Annex A secure disposal or re-use of equipment.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.3",
+     "why": "Detailed siting/signage guidance for offices and rooms; elaborates perimeter protection rather than stating anything the task tests."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.4",
+     "why": "Operational detail on surveillance systems, CCTV and detectors; not a concept named by the task."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.5",
+     "why": "Guidance on natural-disaster and environmental threat siting; about environmental resilience, not the theme's scope or AI-invariance."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.6",
+     "why": "Behavioural rules for personnel inside secure areas; guidance elaborating entry control, not a testable point here."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.10",
+     "why": "Media life-cycle handling guidance tied to the classification scheme; adjacent to asset handling rather than the physical theme's core families."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.11",
+     "why": "Utility maintenance and redundancy guidance; availability/facilities detail outside the task's concepts."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.12",
+     "why": "Detailed implementation guidance on cable routing/shielding/inspection; elaborates a control stated elsewhere and says nothing about the theme's scope or AI."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.13",
+     "why": "Operational maintenance-programme guidance (service intervals, authorized technicians, records); elaboration only, not the theme's definition."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "7.14",
+     "why": "Guidance on wiping/destroying media and removing labels before disposal or re-use; cross-refers to 7.10/8.10, elaboration rather than testable theme content."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The 'unchanged by AI' reasoning is course argument, not standard text; keys must rest on the physical control statements themselves.",
+   "invented": []
+  },
+  {
+   "task": "4.12",
+   "state": "judged",
+   "statement": "Explain the technological controls theme - logging, cryptography, secure development, data leakage prevention.",
+   "pass1": [
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|4.1",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|8.15",
+    "ISO/IEC 27002|8.16",
+    "ISO/IEC 27002|8.17",
+    "ISO/IEC 27002|8.24",
+    "ISO/IEC 27002|8.25",
+    "ISO/IEC 27002|8.26",
+    "ISO/IEC 27002|8.27",
+    "ISO/IEC 27002|8.28",
+    "ISO/IEC 27002|8.29",
+    "ISO/IEC 27002|8.30",
+    "ISO/IEC 27002|8.31",
+    "ISO/IEC 27002|8.33",
+    "ISO/IEC 27002|8.4",
+    "ISO/IEC 27002|8.11",
+    "ISO/IEC 27002|8.10",
+    "ISO/IEC 27002|8.23",
+    "ISO/IEC 27001|A.8.12",
+    "ISO/IEC 27001|A.8.15",
+    "ISO/IEC 27001|A.8.16",
+    "ISO/IEC 27001|A.8.17",
+    "ISO/IEC 27001|A.8.24",
+    "ISO/IEC 27001|A.8.25",
+    "ISO/IEC 27001|A.8.26",
+    "ISO/IEC 27001|A.8.27",
+    "ISO/IEC 27001|A.8.28",
+    "ISO/IEC 27001|A.8.29",
+    "ISO/IEC 27001|A.8.30",
+    "ISO/IEC 27001|A.8.31",
+    "ISO/IEC 27001|A.8.33",
+    "ISO/IEC 27001|A.8.11"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the four themes including technological controls and attribute scheme the task asks candidates to read as a layered set.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "reason": "Data leakage prevention control - named concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.15",
+     "reason": "Logging control - named concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.16",
+     "reason": "Monitoring activities - named concept (logging and monitoring).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.17",
+     "reason": "Clock synchronization supports reliable logging; interaction within logging family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.24",
+     "reason": "Use of cryptography - cryptographic controls concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.25",
+     "reason": "Secure development life cycle - core of secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.26",
+     "reason": "Application security requirements - member of secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.27",
+     "reason": "Secure system architecture and engineering principles - secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.28",
+     "reason": "Secure coding - secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.29",
+     "reason": "Security testing in development and acceptance - secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.30",
+     "reason": "Outsourced development - secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.31",
+     "reason": "Separation of development, test and production environments - secure development family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.33",
+     "reason": "Test information - secure development family and data protection interaction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.4",
+     "reason": "Access to source code - interacts with secure development controls.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.11",
+     "reason": "Data masking - interacts with data leakage prevention as a layered protection.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.10",
+     "reason": "Information deletion - technological data protection control interacting with DLP.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.12",
+     "reason": "Annex A statement of data leakage prevention control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.15",
+     "reason": "Annex A logging control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.16",
+     "reason": "Annex A monitoring activities control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.17",
+     "reason": "Annex A clock synchronization supporting logging.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.24",
+     "reason": "Annex A use of cryptography control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.25",
+     "reason": "Annex A secure development life cycle control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.26",
+     "reason": "Annex A application security requirements control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.27",
+     "reason": "Annex A secure architecture and engineering principles control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.28",
+     "reason": "Annex A secure coding control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.29",
+     "reason": "Annex A security testing control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.30",
+     "reason": "Annex A outsourced development control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.31",
+     "reason": "Annex A separation of environments control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.33",
+     "reason": "Annex A test information control.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.11",
+     "reason": "Annex A data masking control relating to leakage prevention.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.1",
+     "why": "Turns out to be a table-of-contents note listing clause numbers and annexes; states nothing about what the technological controls address."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.23",
+     "why": "Text is about blocking malicious/unauthorized websites for malware protection, not logging, cryptography, secure development or data leakage prevention."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "27001 Annex A titles A.8.12/A.8.22 render blank in the list; A.8.12 is Data leakage prevention.",
+   "invented": []
+  },
+  {
+   "task": "4.13",
+   "state": "judged",
+   "statement": "Apply information-classification reasoning to content a user is about to enter into an AI tool.",
+   "pass1": [
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27002|5.13",
+    "ISO/IEC 27002|5.14",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|8.12",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|5.34",
+    "ISO/IEC 27002|8.11",
+    "ISO/IEC 27001|A.5.12",
+    "ISO/IEC 27001|A.5.13",
+    "ISO/IEC 27001|A.5.14",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27001|A.8.12"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "reason": "Defines classification scheme and that classification reflects value/sensitivity regardless of medium — the basis for judging the content.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.13",
+     "reason": "Labelling procedures per the classification scheme; underpins whether a label persists when content is retyped elsewhere.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.14",
+     "reason": "Transfer rules for information leaving the organization — pasting into an external AI tool is a transfer.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "reason": "Acceptable use rules for information and associated assets, including permitted use of information by classification.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.11",
+     "reason": "Data masking/redaction as the means by which otherwise-prohibited content can be made permissible.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.12",
+     "reason": "Annex A control requiring classification of information.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.13",
+     "reason": "Annex A control requiring labelling per the classification scheme.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.14",
+     "reason": "Annex A control on information transfer rules.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "reason": "Annex A control on acceptable use of information.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.12",
+     "why": "Text is about DLP tooling, monitoring and blocking channels — control-side prevention, not the user's classification/handling decision at the point of entry."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Text covers acquisition, management and exit processes and shared responsibility for cloud services, not classification handling rules for content entered into a tool."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.34",
+     "why": "Text is about establishing privacy policy, procedures and a privacy officer role for legal compliance, not about whether classified content may be entered into an external tool."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.12",
+     "why": "Text is a technical requirement to deploy data leakage prevention measures on systems/networks/devices, not classification schemes or handling rules governing a user's decision to enter content into a tool."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "AI tools are not named in these standards; the examinable basis is the classification/labelling/transfer/acceptable-use handling rules applied to the paste action.",
+   "invented": []
+  },
+  {
+   "task": "4.2",
+   "state": "judged",
+   "statement": "Explain control attributes and how they support selection and reporting.",
+   "pass1": [
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|4.3",
+    "ISO/IEC 27002|A.1",
+    "ISO/IEC 27002|A.2",
+    "ISO/IEC 27002|4.1",
+    "ISO/IEC 27002|0.4",
+    "ISO/IEC 27002|0.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the five control attributes (control type, information security properties, cybersecurity concepts, operational capabilities, security domains) and their purpose in viewing/filtering controls.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "A.1",
+     "reason": "Annex A general explanation of using attributes to create different views of the control set.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "A.2",
+     "reason": "Worked organizational views built by filtering/sorting on attributes - supports selection and reporting angle.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.3",
+     "title": "Control layout",
+     "why": "Describes the presentation layout of each control (title, table, purpose, guidance); only names the attribute table in passing without explaining attributes."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.1",
+     "title": "Clauses",
+     "why": "Document structure and annex inventory; only cross-references 4.2/Annex A without stating anything about the attributes themselves."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "title": "Determining controls",
+     "why": "About risk-assessment-driven control determination and cost/benefit balance, not about attributes or views."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "title": "Controls",
+     "why": "Defines what a control is (modifies/maintains risk) and the four themes; says nothing about attributes."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Control attributes are an ISO/IEC 27002 construct; ISO/IEC 27001 Annex A itself carries no attributes.",
+   "invented": []
+  },
+  {
+   "task": "4.3",
+   "state": "judged",
+   "statement": "Explain the purpose of the organizational controls theme.",
+   "pass1": [
+    "ISO/IEC 27002|4.1",
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|4.3",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27002|A.2",
+    "ISO/IEC 27002|5.1",
+    "ISO/IEC 27002|5.2",
+    "ISO/IEC 27002|5.3",
+    "ISO/IEC 27002|5.4",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.11",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27002|5.13",
+    "ISO/IEC 27001|A.5.1",
+    "ISO/IEC 27001|A.5.2",
+    "ISO/IEC 27001|A.5.3",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27001|A.5.12"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.1",
+     "reason": "Explains how the controls are grouped into clauses 5-8 (organizational, people, physical, technological), the basis of the theme question.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the four themes and states what the organizational theme covers and why controls are placed there.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.1",
+     "reason": "Policy controls - a named concept of the organizational theme.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.2",
+     "reason": "Information security roles and responsibilities - named concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.3",
+     "reason": "Segregation of duties - named concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.4",
+     "reason": "Management responsibilities - governance member of the organizational family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "Inventory of information and other associated assets - asset management concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "reason": "Acceptable use of assets - asset management family member.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.11",
+     "reason": "Return of assets - asset management family member.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "reason": "Classification of information - named concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.1",
+     "reason": "Annex A organizational control for policies, mirrors the theme content.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.2",
+     "reason": "Annex A organizational control for roles and responsibilities.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.3",
+     "reason": "Annex A organizational control for segregation of duties.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Annex A organizational control for asset inventory.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.12",
+     "reason": "Annex A organizational control for classification of information.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.3",
+     "why": "Describes the layout/format of each control entry (title, attributes, purpose, guidance), not the organizational theme."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "why": "Generic definition of 'control' as risk-modifying measure; only name-checks the four themes without characterizing the organizational one."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "A.2",
+     "why": "About creating organization-specific attributes and alternative views, not about the organizational controls theme."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.13",
+     "why": "Text is procedural guidance on labelling techniques implementing the 5.12 scheme, not a governance concept the task tests."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Theme purpose is stated in ISO/IEC 27002 4.1-4.2; the clause 5 controls listed are the family members the task names.",
+   "invented": []
+  },
+  {
+   "task": "4.4",
+   "state": "judged",
+   "statement": "Apply asset-inventory reasoning to determine which AI components are information assets.",
+   "pass1": [
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27001|A.5.12",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.13",
+    "ISO/IEC 27000|3.27",
+    "ISO/IEC 27000|3.35",
+    "ISO/IEC 27000|4.2.2",
+    "ISO/IEC 27002|8.15",
+    "ISO/IEC 27002|5.23"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "The inventory of information and other associated assets control is exactly the practice being extended to AI components.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Annex A statement of the inventory requirement that the task applies to models, agents, prompt logs and vector stores.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.27",
+     "reason": "Definition of information processing facilities underpins what counts as an associated asset (model serving, vector store).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.35",
+     "reason": "Definition of information system supports classifying an AI agent/pipeline as an asset.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.2.2",
+     "reason": "States what information is and why it is an asset requiring protection — the underlying reasoning of the task.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "why": "Text is about classifying information by CIA needs and policy, not about identifying/inventorying assets."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.12",
+     "why": "Bare classification requirement; says nothing about what qualifies as an asset or inventory scope."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Text covers acceptable-use rules and handling behaviour, not asset identification."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.13",
+     "why": "Text is labelling procedures implementing the classification scheme, unrelated to inventory reasoning."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.15",
+     "why": "Text is about producing/protecting/analysing event logs, not about treating logs as inventoried assets."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Text is cloud service acquisition/exit and shared responsibility, not asset inventory determination."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope names AI components explicitly; the inventory clauses are the practice being extended.",
+   "invented": []
+  },
+  {
+   "task": "4.5",
+   "state": "judged",
+   "statement": "Apply least-privilege and identity-lifecycle reasoning to a described access arrangement.",
+   "pass1": [
+    "ISO/IEC 27002|5.15",
+    "ISO/IEC 27002|5.16",
+    "ISO/IEC 27002|5.18",
+    "ISO/IEC 27002|8.2",
+    "ISO/IEC 27002|8.3",
+    "ISO/IEC 27002|5.17",
+    "ISO/IEC 27002|8.5",
+    "ISO/IEC 27002|8.18",
+    "ISO/IEC 27002|5.3",
+    "ISO/IEC 27002|6.5",
+    "ISO/IEC 27002|5.11",
+    "ISO/IEC 27002|8.4",
+    "ISO/IEC 27001|A.5.15",
+    "ISO/IEC 27001|A.5.16",
+    "ISO/IEC 27001|A.5.18",
+    "ISO/IEC 27001|A.8.2",
+    "ISO/IEC 27001|A.8.3",
+    "ISO/IEC 27001|A.5.17",
+    "ISO/IEC 27001|A.8.18",
+    "ISO/IEC 27001|A.5.3",
+    "ISO/IEC 27001|A.6.5",
+    "ISO/IEC 27000|3.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.15",
+     "reason": "States the access control rule-setting requirement based on business and security requirements — the basis for judging whether rights exceed the role.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.16",
+     "reason": "Identity lifecycle: creation, change and removal of identities across the full life cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.18",
+     "reason": "Provisioning, review, modification and removal of access rights per topic-specific access control policy — core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.2",
+     "reason": "Privileged access rights: restriction and management of elevated rights, directly examined.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.3",
+     "reason": "Information access restriction — least-privilege application at information/function level.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.18",
+     "reason": "Privileged utility programs — a specific privileged-access surface.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.3",
+     "reason": "Segregation of duties constrains what a single role's rights may combine.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.4",
+     "reason": "Access to source code as a restricted-access example of least privilege.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.15",
+     "reason": "Annex A control statement for access control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.16",
+     "reason": "Annex A control statement for identity management (full life cycle).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.18",
+     "reason": "Annex A control statement for provisioning/review/removal of access rights.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.2",
+     "reason": "Annex A control statement for privileged access rights.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.3",
+     "reason": "Annex A control statement for information access restriction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.1",
+     "reason": "Definition of access control — means to ensure access is authorized and restricted per requirements.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.17",
+     "why": "Text is about allocating and handling authentication secrets (passwords/PINs), not about scope of rights or identity lifecycle."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.5",
+     "why": "Text covers authentication strength/MFA techniques, i.e. proving identity, not right-sizing privileges."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.5",
+     "why": "Text concerns confidentiality/IP duties surviving employment end, not revocation or adjustment of access rights."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.11",
+     "why": "Text is about physical/electronic asset return on exit, not access-rights lifecycle."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.17",
+     "why": "Text is about allocation/handling of authentication information (credentials), not rights scoping or identity lifecycle."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.18",
+     "why": "Text concerns restricting utility software that overrides controls, not a role's access rights."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.3",
+     "why": "Text states segregation of conflicting duties, a separate requirement from least privilege or lifecycle."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.5",
+     "why": "Text is about post-employment security duties and communication, not revocation or scoping of access."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "\"Least privilege\" is not a defined term in these standards; it is expressed within the access control and privileged access clauses.",
+   "invented": []
+  },
+  {
+   "task": "4.6",
+   "state": "judged",
+   "statement": "Analyze how access control assumptions break when a non-human actor holds credentials and acts.",
+   "pass1": [
+    "ISO/IEC 27002|5.16",
+    "ISO/IEC 27002|5.15",
+    "ISO/IEC 27002|5.17",
+    "ISO/IEC 27002|5.18",
+    "ISO/IEC 27002|8.2",
+    "ISO/IEC 27002|8.3",
+    "ISO/IEC 27002|8.5",
+    "ISO/IEC 27002|8.15",
+    "ISO/IEC 27002|8.16",
+    "ISO/IEC 27002|8.18",
+    "ISO/IEC 27002|5.3",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27002|5.28",
+    "ISO/IEC 27002|3.1.5",
+    "ISO/IEC 27002|3.1.20",
+    "ISO/IEC 27000|3.1",
+    "ISO/IEC 27000|3.5",
+    "ISO/IEC 27000|3.6",
+    "ISO/IEC 27000|3.48",
+    "ISO/IEC 27001|A.5.15",
+    "ISO/IEC 27001|A.5.16",
+    "ISO/IEC 27001|A.5.17",
+    "ISO/IEC 27001|A.5.18",
+    "ISO/IEC 27001|A.8.2",
+    "ISO/IEC 27001|A.8.5",
+    "ISO/IEC 27001|A.8.15",
+    "ISO/IEC 27001|A.8.16"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.16",
+     "reason": "Identity management explicitly covers identities assigned to non-human entities — the core passage for agent identity assumptions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.15",
+     "reason": "Access control rules and need-to-know/need-to-use model whose underlying human-actor assumption the task probes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.17",
+     "reason": "Authentication information (secret management) — agent credentials and their handling.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.18",
+     "reason": "Provisioning, review and revocation of access rights — standing authority versus just-in-time grant.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.2",
+     "reason": "Privileged access rights, including time-limited/event-driven privilege, the JIT authority concept.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.3",
+     "reason": "Information access restriction assumes a bounded requesting subject; relevant when an agent acts on behalf of many users.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.5",
+     "reason": "Secure authentication techniques presuppose an interactive human user; breaks for autonomous actors.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.15",
+     "reason": "Logging requirements (user IDs, activities) underpin the attribution problem when an agent's credential is logged instead of the initiating person.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.18",
+     "reason": "Privileged utility programs — automated tooling running with elevated authority.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.3",
+     "reason": "Segregation of duties collapses when one non-human identity performs multiple conflicting duties.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.20",
+     "reason": "Definition of personnel (persons under the organization's direction) shows the human-actor assumption in the control set.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.1",
+     "reason": "Definition of access control — the assumption set the task dissects.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.5",
+     "reason": "Definition of authentication (assurance of a claimed characteristic of an entity).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.6",
+     "reason": "Definition of authenticity underpinning identity claims by non-human actors.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.48",
+     "reason": "Definition of non-repudiation — proving occurrence and origin of an action, i.e. the attribution problem.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.15",
+     "reason": "Annex A control statement for access control, keyable for a control-identification item.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.16",
+     "reason": "Annex A identity management control statement covering full life cycle of identities.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.17",
+     "reason": "Annex A authentication information control statement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.18",
+     "reason": "Annex A access rights provisioning/review/removal control statement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.2",
+     "reason": "Annex A privileged access rights control statement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.5",
+     "reason": "Annex A secure authentication control statement.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.15",
+     "reason": "Annex A logging control statement relevant to attribution of recorded activity.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Text is about acceptable-use rules and expected behaviour of human personnel/external party users; says nothing about non-human actors holding credentials or access-control assumptions."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.16",
+     "why": "Text is detection-side guidance on what traffic/logs to monitor for anomalies; it does not state any access-control or attribution assumption an item could key on."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.28",
+     "why": "Text is forensic evidence identification/collection/preservation and court admissibility, not access-control or identity assumptions."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.5",
+     "why": "Despite the 'authenticity' title, the text shown is the definitions of chain of custody and confidential information — nothing testable about non-human identity or attribution."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.16",
+     "title": "Monitoring activities",
+     "why": "Text is a generic detection requirement (monitor networks/systems for anomalous behaviour and act on incidents) — says nothing about identity, credentials, authority scope or attribution, so no access-control assumption can be keyed to it."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "The standards contain no AI-agent concepts; the task tests where these access-control passages' human-actor assumptions stop holding, so items must key on the assumptions stated in these clauses.",
+   "invented": []
+  },
+  {
+   "task": "4.7",
+   "state": "judged",
+   "statement": "Explain supplier relationship controls and the security requirements placed on suppliers.",
+   "pass1": [
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.21",
+    "ISO/IEC 27002|5.22",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.30",
+    "ISO/IEC 27001|A.5.19",
+    "ISO/IEC 27001|A.5.20",
+    "ISO/IEC 27001|A.5.21",
+    "ISO/IEC 27001|A.5.22",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27000|3.51"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "Defines information security in supplier relationships - the core control the task explains.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "reason": "States what security requirements must be agreed and documented in supplier agreements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.21",
+     "reason": "Covers supply-chain reach: managing security across the ICT product/service supply chain.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.22",
+     "reason": "Covers monitoring, review and change management of supplier service delivery after contract signature.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.19",
+     "reason": "Annex A control statement for information security in supplier relationships.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.20",
+     "reason": "Annex A control statement for addressing information security within supplier agreements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.21",
+     "reason": "Annex A control statement for managing information security in the ICT supply chain.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.22",
+     "reason": "Annex A control statement for monitoring, review and change management of supplier services.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Requires control of externally provided processes, products and services - suppliers inside the ISMS.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.51",
+     "reason": "Definition of 'outsource', underpinning why suppliers remain part of the estate.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Text is about acquiring/managing/exiting cloud services and shared responsibility, not the supplier-relationship requirements this task tests."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "why": "Control statement covers cloud service acquisition/use/exit processes, a separate topic from supplier agreements and delivery monitoring."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.30",
+     "why": "Text is a secure-development control about directing and reviewing outsourced system development, not general supplier relationship controls."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.8",
+   "state": "judged",
+   "statement": "Analyze what supplier assurance can and cannot establish about a foundation-model provider.",
+   "pass1": [
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.21",
+    "ISO/IEC 27002|5.22",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.30",
+    "ISO/IEC 27002|5.35",
+    "ISO/IEC 27002|8.14",
+    "ISO/IEC 27002|5.30",
+    "ISO/IEC 27001|A.5.19",
+    "ISO/IEC 27001|A.5.20",
+    "ISO/IEC 27001|A.5.21",
+    "ISO/IEC 27001|A.5.22",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27000|3.51",
+    "ISO/IEC 27000|3.57"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "Defines managing information security risks from supplier products/services — the base for treating a model provider as a supplier.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "reason": "Supplier agreements: what can be contractually required (and hence assured) from a provider, including audit/attestation rights.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.21",
+     "reason": "ICT supply chain assurance where direct inspection of components is unavailable; reliance on declarations/evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.22",
+     "reason": "Monitoring/review of supplier services, including use of independent audit reports and attestations in place of inspection.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "reason": "Cloud-service-specific assurance limits; model providers are consumed as a cloud service with limited visibility.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.30",
+     "reason": "Outsourced development: assurance over work the organization cannot inspect directly.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.19",
+     "reason": "Annex A statement of supplier relationship control applied to the model provider.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.20",
+     "reason": "Annex A control on security in supplier agreements — what assurance can be contracted for.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.21",
+     "reason": "Annex A ICT supply chain control relevant to inspectability limits.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.22",
+     "reason": "Annex A control on monitoring/review of supplier services — attestation-based assurance.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "reason": "Annex A control for cloud service use, the delivery mode of a foundation model.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Control of externally provided processes/products — the requirement to control what is outsourced.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.51",
+     "reason": "Definition of outsource — a model provider arrangement remains the organization's responsibility.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "reason": "Residual risk — what remains after assurance that cannot be obtained.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.35",
+     "why": "Text is about independent review of the organization's own approach to managing information security, not supplier/provider assurance."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.14",
+     "why": "Text covers technical redundancy of information processing facilities for availability, nothing on supplier assurance or concentration risk."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.30",
+     "why": "Text is BIA/RTO-driven ICT continuity planning, not about what supplier assurance can or cannot establish."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Generic risk assessment process requirements; says nothing about suppliers, external providers or assurance limits."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "'Foundation model' and 'concentration risk' are not standard terms; nearest anchors are the supplier/cloud control family.",
+   "invented": []
+  },
+  {
+   "task": "4.9",
+   "state": "judged",
+   "statement": "Explain the people controls theme - screening, terms, awareness, disciplinary process.",
+   "pass1": [
+    "ISO/IEC 27002|6.1",
+    "ISO/IEC 27002|6.2",
+    "ISO/IEC 27002|6.3",
+    "ISO/IEC 27002|6.4",
+    "ISO/IEC 27002|6.5",
+    "ISO/IEC 27002|6.6",
+    "ISO/IEC 27002|6.7",
+    "ISO/IEC 27002|6.8",
+    "ISO/IEC 27002|4.2",
+    "ISO/IEC 27002|3.1.20",
+    "ISO/IEC 27001|A.6.1",
+    "ISO/IEC 27001|A.6.2",
+    "ISO/IEC 27001|A.6.3",
+    "ISO/IEC 27001|A.6.4",
+    "ISO/IEC 27001|A.6.5",
+    "ISO/IEC 27001|A.6.6",
+    "ISO/IEC 27001|A.6.7",
+    "ISO/IEC 27001|A.6.8",
+    "ISO/IEC 27001|7.3",
+    "ISO/IEC 27001|7.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.1",
+     "reason": "Screening control - what it addresses and its point (pre-employment) in the lifecycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.2",
+     "reason": "Terms and conditions of employment control - contractual security obligations at hiring.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.3",
+     "reason": "Information security awareness, education and training control - during employment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.4",
+     "reason": "Disciplinary process control - response to policy violations.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.5",
+     "reason": "Responsibilities after termination or change of employment - end of lifecycle people control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.6",
+     "reason": "Confidentiality/NDA agreements - people theme control tied to terms of employment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.7",
+     "reason": "Remote working - member of the people controls family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.8",
+     "reason": "Information security event reporting by personnel - member of the people controls family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.2",
+     "reason": "Defines the four themes including the people theme and attribute scheme.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.1",
+     "reason": "Annex A statement of the Screening control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.2",
+     "reason": "Annex A statement of Terms and conditions of employment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.3",
+     "reason": "Annex A statement of awareness, education and training control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.4",
+     "reason": "Annex A statement of the Disciplinary process control.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.5",
+     "reason": "Annex A statement of responsibilities after termination/change.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.6",
+     "reason": "Annex A confidentiality/non-disclosure agreements control.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.7",
+     "reason": "Annex A remote working control within people theme.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.6.8",
+     "reason": "Annex A event reporting control within people theme.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.3",
+     "reason": "Management system awareness requirement that the A.6.3 control operationalizes.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.20",
+     "why": "Terminology entry that merely defines 'personnel' before running into unrelated PII/privacy definitions; states no people-control requirement an item could key on."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.2",
+     "why": "States the ISMS competence/documented-evidence requirement of Clause 7 support, not a people control in the Annex A people theme."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "People-theme family named member by member in both 27001 Annex A and 27002.",
+   "invented": []
+  },
+  {
+   "task": "5.1",
+   "state": "judged",
+   "statement": "Explain monitoring, measurement, analysis and evaluation under clause 9.1.",
+   "pass1": [
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27000|3.20",
+    "ISO/IEC 27000|3.46",
+    "ISO/IEC 27000|3.43",
+    "ISO/IEC 27000|3.42",
+    "ISO/IEC 27000|3.25",
+    "ISO/IEC 27000|3.26",
+    "ISO/IEC 27000|3.52",
+    "ISO/IEC 27000|3.8",
+    "ISO/IEC 27000|3.18",
+    "ISO/IEC 27000|3.44",
+    "ISO/IEC 27000|3.45",
+    "ISO/IEC 27000|4.5.6",
+    "ISO/IEC 27000|5.4.3",
+    "ISO/IEC 27002|8.16",
+    "ISO/IEC 27001|A.8.16"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "The clause the task explains: what to monitor/measure, methods, when, by whom, and evaluation of ISMS performance and effectiveness.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "reason": "Objectives must be measurable and monitored, providing the basis for what gets measured and what effectiveness means.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.20",
+     "reason": "Definition of effectiveness — extent to which planned activities are realized and planned results achieved; core to distinguishing activity from effectiveness.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.46",
+     "reason": "Definition of monitoring (determining the status of a system/process).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.43",
+     "reason": "Definition of measurement (process to determine a value).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.42",
+     "reason": "Definition of measure, underpinning indicator/base/derived measure terminology.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.25",
+     "reason": "Definition of indicator — what makes a metric relate to an information need.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.52",
+     "reason": "Definition of performance (measurable result), distinguishing performance from effectiveness.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.8",
+     "reason": "Base measure definition, relevant to how indicators are constructed.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.18",
+     "reason": "Derived measure definition, relevant to indicator construction.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.45",
+     "reason": "Measurement method definition — the 'by what methods' element of 9.1.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "reason": "Narrative on monitoring, maintaining and improving ISMS effectiveness.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.3",
+     "reason": "ISO/IEC 27004 described as the measurement guidance standard supporting clause 9.1.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "why": "Text is the management review input list; it only mentions monitoring and measurement results as one input, testing review inputs rather than 9.1 measurement."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.26",
+     "why": "Text is a run of unrelated definitions (information processing facilities, information security, events, incidents), not a usable statement on measurement or indicators."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.16",
+     "why": "Technical control guidance on monitoring networks/systems for anomalous behaviour and incident detection, not clause 9.1 performance measurement/effectiveness evaluation."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.16",
+     "why": "Annex A control requiring technical monitoring for anomalous behaviour; unrelated to 9.1 monitoring, measurement, analysis and evaluation of ISMS performance."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.44",
+     "why": "Narrow terminology definition of a measurement function (combining base measures); says nothing about what to measure, methods choice, or effectiveness."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core is 27001 9.1 plus the ISO/IEC 27000 measurement vocabulary that defines effectiveness, indicator and information need.",
+   "invented": []
+  },
+  {
+   "task": "5.2",
+   "state": "judged",
+   "statement": "Explain the internal audit programme and its purpose.",
+   "pass1": [
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27000|3.3",
+    "ISO/IEC 27000|3.4",
+    "ISO/IEC 27000|3.11",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|4.5.6",
+    "ISO/IEC 17021-1|3.2",
+    "ISO/IEC 17021-1|3.11",
+    "ISO/IEC 17021-1|3.12",
+    "ISO/IEC 17021-1|3.13",
+    "ISO/IEC 17021-1|9.4.5.1",
+    "ISO/IEC 17021-1|9.4.5.2",
+    "ISO/IEC 17021-1|9.4.5.3",
+    "ISO/IEC 17021-1|9.2.1.1",
+    "ISO/IEC 17021-1|9.2.1.2",
+    "ISO/IEC 17021-1|9.2.1.3",
+    "ISO/IEC 17021-1|10.2.6.1",
+    "ISO/IEC 17021-1|10.2.6.2",
+    "ISO/IEC 17021-1|10.2.6.3",
+    "ISO/IEC 17021-1|10.2.6.4"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "States the requirement to conduct internal audits at planned intervals and the conformity/effective-implementation criteria the audit tests.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "The audit programme itself: planning, criteria and scope for each audit, auditor selection ensuring objectivity and impartiality, reporting results, retained evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "reason": "Definition of audit (systematic, independent, documented process; audit evidence against audit criteria).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.4",
+     "reason": "Definition of audit scope.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "reason": "Definition of conformity — the state audit determines.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.2",
+     "reason": "Definition of impartiality as presence of objectivity, with the objectivity/conflict-of-interest notes the task relies on.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.11",
+     "reason": "Definition of nonconformity as a finding type.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.12",
+     "reason": "Major nonconformity — finding classification.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.13",
+     "reason": "Minor nonconformity — finding classification.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.4.5.1",
+     "reason": "Identifying and recording audit findings against audit criteria.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.4.5.2",
+     "reason": "Classification/recording of findings.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.4.5.3",
+     "reason": "Recording of findings including opportunities for improvement.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.2.1.2",
+     "reason": "Audit scope determination.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.6.1",
+     "reason": "Internal audit requirement for a body's own management system — objectivity/impartiality of internal auditors.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.6.2",
+     "reason": "Internal audit programme planning.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.6.4",
+     "reason": "Action on internal audit findings.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "why": "Lists management review inputs; audit results only appear as one input, nothing about the audit programme itself."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "why": "Requirements for reacting to nonconformity and corrective action, not audit findings or the audit programme."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "why": "Text is actually the definition of non-repudiation, unrelated to audit."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "why": "String of unrelated definitions (correction, corrective action, derived measure, documented information), not audit-related."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "why": "Definition of corrective action only; about improvement process, not the audit programme."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "why": "General narrative on monitoring/reviewing ISMS effectiveness; does not state anything about internal audit programme, criteria or objectivity."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.2.1.1",
+     "why": "Only allocates who sets objectives/scope/criteria in a certification-body audit; says nothing about the internal audit programme, criteria content or objectivity."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.2.1.3",
+     "why": "Defines audit scope boundaries and multi-site coverage for certification audits — not audit programme, criteria, objectivity or finding types."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.6.3",
+     "why": "A certification-body-specific 12-month frequency rule; not a property of the ISMS internal audit programme an ISMS-F item should key on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core key rests on ISO/IEC 27001 9.2.1/9.2.2; definitional and finding-type support drawn from 27000 and 17021-1.",
+   "invented": []
+  },
+  {
+   "task": "5.3",
+   "state": "judged",
+   "statement": "Explain management review - its required inputs and its outputs.",
+   "pass1": [
+    "ISO/IEC 27001|9.3.1",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|9.3.3",
+    "ISO/IEC 27001|7.5.3",
+    "ISO/IEC 27000|3.58",
+    "ISO/IEC 27000|4.5.6",
+    "ISO/IEC 17021-1|10.2.5.1",
+    "ISO/IEC 17021-1|10.2.5.2",
+    "ISO/IEC 17021-1|10.2.5.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.1",
+     "reason": "States top management shall review the ISMS at planned intervals - the cadence obligation.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "reason": "Enumerates the required management review inputs.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.3",
+     "reason": "States the required outputs/results of management review (decisions on improvement and changes).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.58",
+     "reason": "Definition of 'review' as an activity undertaken to determine suitability, adequacy and effectiveness - underpins review as a decision event.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.5.1",
+     "reason": "Management review timing/interval requirement for a certification body's own management system.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.5.2",
+     "reason": "Lists required management review inputs.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.5.3",
+     "reason": "Lists required management review outputs/decisions.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.3",
+     "why": "Text is about controlling documented information generally, not management review inputs/outputs/cadence."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "why": "General narrative on monitoring/improving the ISMS that only mentions reporting to management for review; states no required inputs, outputs or cadence."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core is ISO/IEC 27001 9.3.1-9.3.3; 17021-1 10.2.5.x included only as a parallel review requirement.",
+   "invented": []
+  },
+  {
+   "task": "5.4",
+   "state": "judged",
+   "statement": "Explain nonconformity and corrective action, including root cause.",
+   "pass1": [
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|10.1",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|3.11",
+    "ISO/IEC 27000|3.20",
+    "ISO/IEC 27000|3.13",
+    "ISO/IEC 27000|3.56",
+    "ISO/IEC 17021-1|3.11",
+    "ISO/IEC 17021-1|3.12",
+    "ISO/IEC 17021-1|3.13",
+    "ISO/IEC 17021-1|9.4.9",
+    "ISO/IEC 17021-1|9.4.10",
+    "ISO/IEC 17021-1|10.2.7"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "The requirement clause on nonconformity and corrective action: react/correct, evaluate need to eliminate causes, review effectiveness.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "reason": "Definition of correction (eliminate a detected nonconformity) — one half of the distinction tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "reason": "Definition of corrective action (eliminate the cause) — the other half of the distinction.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.20",
+     "reason": "Definition of effectiveness, underpinning the effectiveness check of corrective action.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.11",
+     "reason": "Certification-side definition of nonconformity.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.12",
+     "reason": "Major nonconformity definition — grading of findings that must be corrected.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.13",
+     "reason": "Minor nonconformity definition.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.4.9",
+     "reason": "Cause analysis of nonconformities — root cause requirement in the audit process.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.4.10",
+     "reason": "Effectiveness of corrections and corrective actions — what properly closes a nonconformity.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "10.2.7",
+     "reason": "Corrective actions requirement for the certification body's own management system.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.1",
+     "why": "Single sentence on continual improvement only; says nothing about nonconformity, correction or root cause."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "why": "Text is actually the definition of non-repudiation, not nonconformity."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "why": "Only defines conformity as fulfilment of a requirement; no corrective-action content."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.13",
+     "why": "Definition of continual improvement only, unrelated to nonconformity handling."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.56",
+     "why": "Generic definition of 'requirement'; does not state anything testable about nonconformity or corrective action."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "5.5",
+   "state": "judged",
+   "statement": "Recognize the certification process - stage 1, stage 2, surveillance and the three-year cycle.",
+   "pass1": [
+    "ISO/IEC 17021-1|9.1.3.1",
+    "ISO/IEC 17021-1|9.1.3.2",
+    "ISO/IEC 17021-1|9.1.3.3",
+    "ISO/IEC 17021-1|9.1.3.4",
+    "ISO/IEC 17021-1|9.3.1.1",
+    "ISO/IEC 17021-1|9.3.1.2.1",
+    "ISO/IEC 17021-1|9.3.1.3",
+    "ISO/IEC 17021-1|9.3.1.4",
+    "ISO/IEC 17021-1|9.5.3.1",
+    "ISO/IEC 17021-1|9.5.4",
+    "ISO/IEC 17021-1|9.6.1",
+    "ISO/IEC 17021-1|9.6.2.1.1",
+    "ISO/IEC 17021-1|9.6.2.1.2",
+    "ISO/IEC 17021-1|9.6.2.2",
+    "ISO/IEC 17021-1|9.6.3.1.1",
+    "ISO/IEC 17021-1|9.6.3.1.2",
+    "ISO/IEC 17021-1|9.6.3.1.3",
+    "ISO/IEC 17021-1|9.6.3.2.1",
+    "ISO/IEC 17021-1|9.6.3.2.2",
+    "ISO/IEC 17021-1|9.6.3.2.3",
+    "ISO/IEC 17021-1|9.6.3.2.4",
+    "ISO/IEC 17021-1|9.6.3.2.5",
+    "ISO/IEC 17021-1|3.4"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.3.2",
+     "reason": "Audit programme content and the two-stage initial certification audit sequence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.3.3",
+     "reason": "Audit programme requirements bearing on cycle timing.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.1",
+     "reason": "General requirement that initial certification audit is conducted in two stages.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.2.1",
+     "reason": "States what happens at stage 1.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.3",
+     "reason": "States what happens at stage 2.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.3.1.4",
+     "reason": "Conclusions of the initial certification audit linking stage 1 and stage 2.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.5.4",
+     "reason": "Decision point for granting recertification at the end of the cycle.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.2.1.1",
+     "reason": "Surveillance activities general - frequency and timing within the cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.2.1.2",
+     "reason": "Timing of the first surveillance audit after initial certification.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.2.2",
+     "reason": "States what is covered in a surveillance audit.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.1.1",
+     "reason": "Recertification audit planning and purpose at the end of the three-year cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.1.2",
+     "reason": "Recertification planning including need for a stage 1 in some cases.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.1.3",
+     "reason": "Recertification planning requirements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.1",
+     "reason": "What the recertification audit covers.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.3",
+     "reason": "Recertification audit conduct and expiry handling.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.4",
+     "reason": "Expiry of certification when recertification not completed before expiry date.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.5",
+     "reason": "Restoration/expiry rules following recertification timing.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.4",
+     "reason": "Definition of certification audit covering initial, surveillance, recertification and special audits.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.3.1",
+     "why": "Generic requirement that an audit programme cover the full cycle and all requirements; states no stages, surveillance or timing."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.1.3.4",
+     "why": "About taking account of certification granted by another body and evidence of corrective actions, not the stage/surveillance sequence."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.5.3.1",
+     "why": "Lists the information the audit team submits for the certification decision, not what occurs at each stage or the cycle timing."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.1",
+     "why": "Concerns internal review/decision arrangements for maintaining certification, not the audit stages or three-year timeline."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "9.6.3.2.2",
+     "why": "Text is about time limits for correcting major nonconformities, not about the stages or the three-year cycle sequence."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "All primary passages are in ISO/IEC 17021-1 clause 9; the 27000-series standards do not describe the audit cycle.",
+   "invented": []
   }
  ]
 }

@@ -105,9 +105,44 @@ task 5.6   9.2.2  ISO/IEC 42001 vs ISO/IEC 27001
 single map entry -- the later link silently wins, and a gate then compares an anchor against the wrong
 standard's text. The harmonised clause structure guarantees this for every auditor certification.
 
-**Not fixed here.** The gates take `passagesByKey` and look up by clause, and the generator calls them
-the same way, so re-keying is a change to the gate contract on the credential path. It is a separate
-migration-sized edit and it should not be made at the end of a long session.
+### FIXED 2026-09-28, and measured with the parse pinned: it changes nothing today
+
+`byKeyForSource` is now keyed `source_id + "|" + clause`. A bare address is ALSO offered under its
+plain form, but **only where exactly one of the task's standards holds it** -- where two do, the plain
+key is deliberately left unset so the gate reports "not in the library" rather than quietly answering
+from the wrong standard. A loud refusal beats a silent wrong answer.
+
+Where the item's own clause field names a document -- `ISO/IEC 42006 clause 1`, which `normClause`
+otherwise discards on its way to the address -- that name breaks the tie for that item. This is the
+narrowest fix that leaves the gate contract alone: the gates still look up a plain address, and the
+call site decides which document it means.
+
+**And the measurement is a real before/after, because the parse is pinned.** Each item's parsed anchor
+is persisted to `ANCHOR-PARSE-AIMS-F.json`; `--pinned` re-gates from it with no model call, and
+`--legacy-keying` reproduces the old clause-only map exactly. Both runs therefore saw IDENTICAL inputs
+and differed in one thing.
+
+```
+                     legacy keying    source-keyed
+sampled                        40              40
+anchored                       23              23
+flagged                        16              16
+cannot_be_checked               1               1
+items whose verdict changed                     0
+```
+
+> **Zero.** The 7 collisions are real and the fix is right, and **its effect on these 40 items today
+> is nil** -- none of them anchors on a colliding address. That is worth recording at the same weight
+> as a positive result: the alternative reading, that the collisions were causing the flags, would
+> have sent someone to re-examine 16 items for a cause that was not operating.
+
+The collisions stay latent rather than fixed-and-invisible: `ambiguous` is computed per task, so a
+future item that DOES anchor on `7.2` across two standards gets a refusal that names both, instead of
+a verdict from whichever link happened to be written last.
+
+**The pinned parse is the other half, and it is what the last re-run lacked.** Five items moved between
+two unpinned runs and only one was the gate change. A model-backed measure re-run is not a before/after
+until its inputs are frozen, and now they can be.
 
 ---
 

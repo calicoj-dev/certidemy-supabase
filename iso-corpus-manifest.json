@@ -120,7 +120,24 @@
       "sha256": "ee95499f3134a60b8cc521a78577d657339d247b7c098b423fbd2e9b09601f6e",
       "bytes": 6118544,
       "pages": 36,
-      "extracted_words": 0
+      "extracted_words": 0,
+      "provenance": "ocr",
+      "scan_gap": {
+        "missing_pages": [
+          2
+        ],
+        "clauses_absent": [
+          "3.1 Terms related to AI",
+          "3.2 Terms related to governance",
+          "4.1 General"
+        ],
+        "how_identified": "The footer sequence (c) ISO/IEC 2022 - All rights reserved <n> runs 1 to 28 with gaps at 2 and 26. Page 2's gap is CONFIRMED against the contents: it places four clauses there and three have no heading anywhere in the body. Page 26's gap is UNCONFIRMED -- the contents places no clause there -- so it is not reported as missing and must not be re-scanned on that evidence.",
+        "corroborated_by": "OCR-SOURCES-BLOCKED.md reached the same three addresses by a different route: clause numbers present in the contents block and absent later in the body. Two instruments, one answer.",
+        "script": "scripts/find-ocr-missing-page.mjs",
+        "action": "Juan re-scans or photographs page 2 of ISO/IEC 38507:2022.",
+        "blocks_indexing": true
+      },
+      "note": " NOT INDEXED: provenance ocr, and page 2 of the scan is missing (see scan_gap). Loads as NO DECLARED POPULATION when it loads -- a scanned document has no machine-readable contents list, and deriving one from the hand transcription would check the extraction against the transcription."
     },
     {
       "file": "ISO-42005.pdf",
@@ -150,7 +167,14 @@
       "sha256": "640a8a288f10ea8581db858236bd1ba33a513c487967c63967f2028971d040af",
       "bytes": 17995710,
       "pages": 34,
-      "extracted_words": 0
+      "extracted_words": 0,
+      "provenance": "ocr",
+      "scan_gap": {
+        "missing_pages": [],
+        "how_identified": "Footer gaps at 2, 3, 4, 6 and 17. Page 6 is CONFIRMED PRESENT -- every clause the contents places there (5.3, 5.4, 5.4.1) has a body heading, so the footer failed to read rather than the page being absent. The other four are UNCONFIRMED: the contents places no clause on them.",
+        "note": "NO CONFIRMED MISSING PAGE. The first run of the instrument reported 92 gaps here, every one an artefact of reading the roman front matter as arabic -- tesseract renders ii as 11 and iii as 111, so the page range appeared to run to 111. Recorded because a clean result from a fixed instrument is only worth something once the broken reading is on record beside it.",
+        "script": "scripts/find-ocr-missing-page.mjs"
+      }
     },
     {
       "file": "NIST.AI.100-1.pdf",

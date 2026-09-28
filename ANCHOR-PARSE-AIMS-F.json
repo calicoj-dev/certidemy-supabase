@@ -1,0 +1,288 @@
+{
+ "cert": "AIMS-F",
+ "model": "claude-opus-5",
+ "recorded": "2026-09-28T23:19:59Z",
+ "note": "A RECORD OF A PARSE, not a result. --pinned re-gates from this with no model call.",
+ "parses": {
+  "79209585": {
+   "key_claim": "Decisions on continual improvement opportunities and any need for changes to the AIMS are a required output (result) of the management review, not an input.",
+   "key_support_clause": "9.3.3",
+   "key_support": "The results of the management review shall include decisions related to continual improvement opportunities and any need for changes to the AI management system.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "09db140e": {
+   "key_claim": "An internal AIMS audit belongs to the 'Check' phase of PDCA because it is a performance evaluation activity that monitors the AI management system against its requirements.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 42001 Clause 9 (Performance evaluation), specifically 9.2 Internal audit, and the PDCA/Introduction material of ISO/IEC 42001 (and ISO/IEC Directives Part 1 Annex SL harmonized structure) — none of which are among the supplied passages.",
+   "cannot_anchor_reason": "The supplied passages cover only the definition of 'management system' (3.4), the general AIMS establishment requirement (4.4), and the Scope (1). None of them mention internal audit, performance evaluation, or the Plan-Do-Check-Act cycle, so nothing here supports assigning internal audit to the 'Check' phase."
+  },
+  "b97b25ea": {
+   "key_claim": "The 'AI partner' role captures a shared lifecycle collaboration in which joint development creates shared responsibility for the AI system's impacts.",
+   "key_support_clause": "4.1",
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 22989 (cited in 4.1 NOTE 1 as providing 'a detailed description of these roles'), and the NIST AI Risk Management Framework [29]",
+   "cannot_anchor_reason": "Clause 4.1 NOTE 1 only lists the role in a bare enumeration — 'AI partners, including AI system integrators and data providers' — and expressly defers the detailed description of these roles to ISO/IEC 22989, which is not among the supplied passages. No supplied sentence characterises AI partners as lifecycle collaborators or attributes shared responsibility for AI impacts to them, so the distinguishing content of the key (and the grounds for excluding the reseller/subscription/co-filing distractors) cannot be anchored here."
+  },
+  "3f0430cf": {
+   "key_claim": "The Harmonised (high-level) Structure gives ISO/IEC 42001 and ISO/IEC 27001 a common Clause 9 management review framework, but ISO/IEC 42001 additionally requires AI-specific performance data in its review inputs that ISO/IEC 27001 reviews do not contain.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 42001 Clause 9 (Performance evaluation / management review) text is not among the supplied passages, nor is ISO/IEC 27001 Clause 9.",
+   "cannot_anchor_reason": "The supplied passages are only Annex D (D.1 and D.2), which discuss integration of the AI management system with other management system standards. D.2 notes that 'Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization', and D.1 notes the AI management system 'provides AI technology specific considerations', but neither passage states any requirement about Clause 9 management review inputs or AI-specific performance data in the review agenda. Anchoring the key would require stretching these general integration statements to a specific Clause 9 requirement that is not supplied."
+  },
+  "83f159c4": {
+   "key_claim": "The EU AI Act imposes risk-tiered obligations on AI systems under a phased implementation timeline that has been revised since the Act's adoption.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "EU AI Act (Regulation (EU) 2024/1689) and its amending/phasing instruments",
+   "cannot_anchor_reason": "The supplied passages are ISO/IEC 42001 clauses 4.1 and 5.2, which address determining organizational context (including applicable legal requirements and regulator decisions) and establishing an AI policy. Neither passage describes the EU AI Act, its risk tiers, its application timeline, or the evidentiary status of ISO/IEC 42001 certification, so no sentence in them supports the key."
+  },
+  "a0772e2c": {
+   "key_claim": "ISO/IEC 42001 certification confirms only that the organization's management system contains processes for determining and monitoring activities such as bias validation — not that individual models were validated or certified.",
+   "key_support_clause": "3.4",
+   "key_support": "management system set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives",
+   "rests_on_unheld_source": "The bias-validation-specific element of the key (that the AIMS determines and monitors bias validation activities) would rest on ISO/IEC 42001 clauses 6.1/8 and Annex A controls, and on certification-scheme rules (ISO/IEC 42006, ISO/IEC 17021-1), none of which are among the supplied passages.",
+   "cannot_anchor_reason": null
+  },
+  "8d880a2b": {
+   "key_claim": "Annex D of ISO/IEC 42001 is informative sector guidance and does not displace the normative context-of-the-organization requirements, which still apply in full to every organization.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 42001 Annex D and Clause 4 (Context of the organization) — neither is among the supplied passages",
+   "cannot_anchor_reason": "The only supplied passages are ISO/IEC 42001 Clause 1 (Scope) and Clause 3.4 (management system definition), both marked informative. Neither mentions Annex D, the informative status of annexes, nor the Clause 4 context-of-the-organization requirements, so nothing in the supplied text supports or refutes the key."
+  },
+  "f50f74e8": {
+   "key_claim": "Clause 4.1 requires the organization to determine whether climate change is a relevant issue, independently of whether it operates an environmental management system such as ISO 14001.",
+   "key_support_clause": "4.1",
+   "key_support": "The organization shall determine whether climate change is a relevant issue.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "66fea350": {
+   "key_claim": "Because the vendor-provided AI feature is used within the organization's own hiring process, it belongs inside the AIMS boundary and the scope must be expanded to cover it.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 42001 clause 4.1 (understanding the organization and its context, including its role as AI user/provider) and Annex A.10 / clause 8 provisions on third-party and supplier AI relationships — none of these are among the supplied passages.",
+   "cannot_anchor_reason": "The only supplied passage, clause 4.3, requires the organization to determine the boundaries and applicability of the AIMS considering 4.1 issues and 4.2 requirements, and to document the scope. It contains no sentence stating or implying that AI supplied by a third party but used in the organization's processes must fall within the AIMS boundary. Anchoring the key to 4.3 would require reading in a proposition ('third-party AI used in organizational processes falls within the AIMS boundary') that the text does not contain; the distinction between internally developed and externally sourced AI is never addressed in the passage."
+  },
+  "f2265782": {
+   "key_claim": "The reviewer is wrong: an AI policy is required only to state high-level commitments and provide a framework for setting objectives, while measurable/numeric targets are a feature of AI objectives, not of the policy.",
+   "key_support_clause": "5.2",
+   "key_support": "Top management shall establish an AI policy that: a) is appropriate to the purpose of the organization; b) provides a framework for setting AI objectives (see 6.2); c) includes a commitment to meet applicable requirements; d) includes a commitment to continual improvement of the AI management system.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "5d0d9624": {
+   "key_claim": "Failing to revisit role and authority assignments after significantly expanding AI use is a concern, because those assignments must reflect the organization's current AI scope and needs.",
+   "key_support_clause": "A.3.2",
+   "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "255323d0": {
+   "key_claim": "Assigning both the AIMS-conformance authority and the AIMS-performance-reporting authority to one person is permissible, because ISO/IEC 42001 lists them as two distinct assigned authorities without requiring different holders.",
+   "key_support_clause": "5.3",
+   "key_support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": "Partial anchor: the passage supports that the two authorities are distinct items to be assigned, but the 'does not require separate holders' element rests on the absence of any separation requirement in the supplied text rather than on an affirmative sentence."
+  },
+  "ea67eb46": {
+   "key_claim": "The AI system impact assessment must cover consequences for individuals or groups of individuals and for societies together, so societal impacts should be retained in the assessment.",
+   "key_support_clause": "6.1.4",
+   "key_support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "b1ea2bf8": {
+   "key_claim": "The impact assessment must cover individuals affected by the AI system's decisions — including denied applicants who never directly interact with the system — not just direct users, internal staff or regulators.",
+   "key_support_clause": "6.1.4",
+   "key_support": "The organization shall define a process for assessing the potential consequences for individuals or groups of individuals, or both, and societies that can result from the development, provision or use of AI systems.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": "Partial anchor: the passages require assessment of consequences for 'individuals or groups of individuals' generally (6.1.4, A.5.2, A.5.4) and of 'intended use and foreseeable misuse', with no limitation to direct users; however, no supplied sentence explicitly states that individuals who never interact with the system are in scope — that is an inference from the unrestricted wording."
+  },
+  "a335a9a2": {
+   "key_claim": "Applicants who are denied credit must be included in the AI system impact assessment because the assessment must cover all individuals affected by the system's deployment and use, not only those who interact with its interface.",
+   "key_support_clause": "6.1.4",
+   "key_support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "cbfcb33f": {
+   "key_claim": "Acceptance of residual AI risk cannot be signed off by the risk owner alone; it must be approved by designated (authorized) management.",
+   "key_support_clause": "6.1.3",
+   "key_support": "The organization shall obtain approval from the designated management for the AI risk treatment plan and for acceptance of the residual AI risks.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "f74447c0": {
+   "key_claim": "The organization must determine the AIMS-relevant external communications — what, when, with whom, and how to communicate.",
+   "key_support_clause": "7.4",
+   "key_support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "e001ba3c": {
+   "key_claim": "A generic corporate communication policy is insufficient because ISO/IEC 42001 requires communications to be determined specifically as relevant to the AI management system (what, when, with whom, how).",
+   "key_support_clause": "7.4",
+   "key_support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "ab6263f0": {
+   "key_claim": "Data provenance must capture the full chain of the data's life cycle — creation, transformation/update, validation and transfer steps — not merely the original source.",
+   "key_support_clause": "B.7.5",
+   "key_support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "dd09940d": {
+   "key_claim": "Provenance tracking under ISO/IEC 42001 must span the data's creation, intermediate transformations/updates, validation and transfer of control, not merely the final dataset.",
+   "key_support_clause": "B.7.5",
+   "key_support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "87d03b82": {
+   "key_claim": "ISO/IEC 42001 expects the organization to define data quality requirements/criteria appropriate to the AI system's intended purpose (rather than a fixed numeric threshold or uniform dimensions) and then ensure/demonstrate the data meet them.",
+   "key_support_clause": "A.7.4",
+   "key_support": "The organization shall define and document requirements for data quality and ensure that data used to develop and operate the AI system meet those requirements.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "121f8e71": {
+   "key_claim": "Competence evidence from information security does not by itself demonstrate the AI-specific competence ISO/IEC 42001 requires; a separate assessment against AI management competence criteria is needed.",
+   "key_support_clause": "7.2",
+   "key_support": "The organization shall: — determine the necessary competence of person(s) doing work under its control that affects its AI performance; — ensure that these persons are competent on the basis of appropriate education, training or experience; — where applicable, take actions to acquire the necessary competence, and evaluate the effectiveness of the actions taken.",
+   "rests_on_unheld_source": "ISO/IEC 27001 Clause 7.2 (the source of the pre-existing competence records) is not among the supplied passages; the passages support only the positive requirement to determine competence affecting AI performance, not an explicit prohibition on reusing security-domain records.",
+   "cannot_anchor_reason": null
+  },
+  "be876cdf": {
+   "key_claim": "Storing AI system impact assessment results in a project manager's personal email folder does not satisfy clause 8, because retained results must be controlled documented information traceable to the specific AIMS activity.",
+   "key_support_clause": "8.4",
+   "key_support": "The organization shall retain documented information of the results of all AI system impact assessments.",
+   "rests_on_unheld_source": "ISO/IEC 42001 clause 7.5 (documented information / control of documented information) — the supplied clause 8 passages establish only the duty to RETAIN documented information of results; the distinguishing qualifiers in the key (that such information must be 'controlled' and 'traceable to the specific AIMS activity', and hence that a personal email folder is inadequate) are not stated in any supplied passage and derive from the unheld 7.5 requirements.",
+   "cannot_anchor_reason": null
+  },
+  "a90aee16": {
+   "key_claim": "A significant change in an AI system's outputs or performance obliges the organization to perform the clause 8 operational review (risk assessment / impact assessment), regardless of whether the change was intentional.",
+   "key_support_clause": "8.2",
+   "key_support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "87c740c9": {
+   "key_claim": "Annex B's guidance is not a sentence-by-sentence mandate: clause 6.1.3 e) only requires the organization to consider that guidance when implementing the controls it has determined, so tailoring is permitted.",
+   "key_support_clause": "6.1.3",
+   "key_support": "e) consider the guidance in Annex B for the implementation of controls determined in b) and c);",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "b40e412a": {
+   "key_claim": "'Not exhaustive' means organizations may determine and add controls beyond those in Annex A, but omission of a listed control still has to be justified on a risk basis in the statement of applicability.",
+   "key_support_clause": "6.1.3",
+   "key_support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "b965acf2": {
+   "key_claim": "ISO/IEC 42001 requires that exclusions of controls from the statement of applicability be accompanied by a substantive justification, so a bare 'not applicable' assertion is insufficient.",
+   "key_support_clause": "6.1.3",
+   "key_support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "379b53fe": {
+   "key_claim": "Because the AI portfolio has grown, the organization should reassess whether its resources — human, tooling and system/computing/infrastructure — remain adequate, rather than relying on the eighteen-month-old assessment or on a single resource category.",
+   "key_support_clause": "A.4.2",
+   "key_support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": "Anchored, but only partially: A.4.2 (with A.4.3–A.4.6) supports the breadth of resource types — data, tooling, system and computing, and human resources and their competences — so limiting the review to computational capacity or budget records is unsupported. However, no supplied passage states an explicit requirement to re-perform or periodically review the resource assessment; the planned-interval review wording in the passages (A.2.4) applies to the AI policy, not to resource identification."
+  },
+  "52004aae": {
+   "key_claim": "The gap is closed by the 'reporting of concerns' control, which requires an established internal process for raising AI-related concerns.",
+   "key_support_clause": "A.3.3",
+   "key_support": "Reporting of concerns The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "591b9767": {
+   "key_claim": "The correct remediation is to document and retain the training dataset's provenance information, because ISO/IEC 42001's responsible development controls cover data quality and transparency.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "ISO/IEC 42001 Annex A.7 controls on data for AI systems (e.g. data acquisition, data quality and data provenance), which are not among the supplied passages",
+   "cannot_anchor_reason": "None of the supplied passages mentions data provenance, data quality, or retention of dataset information. The responsible-development passages held (A.6.1.2, A.6.1.3) require identifying/documenting objectives and processes for responsible design and development but say nothing about dataset provenance; A.5.3 requires retaining impact assessment results, not provenance records. Anchoring the key to any of these would require stretching the text."
+  },
+  "430a65d2": {
+   "key_claim": "The AI provider should perform AI-specific due diligence on the bank's deployment context and allocate AI life-cycle responsibilities between itself and the bank (a downstream customer/third party), rather than relying on procurement, generic contracts, or limiting third-party controls to upstream suppliers.",
+   "key_support_clause": "A.10.2",
+   "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": "Partial anchor only: the 'allocate life-cycle responsibilities between both parties' half of the key is supported verbatim by A.10.2 (and the customer dimension by A.10.4). The 'conduct AI-specific due diligence on the bank's deployment context' half is not stated in any supplied passage — A.10.3 imposes a process for supplier-provided services (upstream), not due diligence on a downstream deployer's context."
+  },
+  "2d291853": {
+   "key_claim": "Satisfying the Annex A use-of-AI controls is most directly achieved by defining responsible-use objectives and putting in place processes that ensure the AI system is used in line with its intended use and accompanying documentation.",
+   "key_support_clause": "A.9.4",
+   "key_support": "The organization shall ensure that the AI system is used according to the intended uses of the AI system and its accompanying documentation.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "1dddb20e": {
+   "key_claim": "Reusing the ISO/IEC 27001 incident-response procedure does not satisfy the ISO/IEC 42001 AI incident control, because the security procedure's breach triggers and containment steps omit detection criteria and escalation paths for AI-specific failures such as biased outputs and model drift.",
+   "key_support_clause": null,
+   "key_support": null,
+   "rests_on_unheld_source": "The ISO/IEC 42001 Annex A/B control text on AI system incident/failure reporting and response (e.g. Annex A control on reporting concerns and Annex B guidance such as B.6.2.6) is not among the supplied passages; only Annex D.2 on integration with other management system standards was provided, and it contains no statement about AI incident detection criteria or escalation paths.",
+   "cannot_anchor_reason": "The only supplied passage (D.2) states that AI management system controls which partly relate to information security can be integrated with an ISO/IEC 27001 implementation. It is permissive guidance about integration and says nothing about what an ISO/IEC 27001 incident-response procedure covers or omits, nor about AI-specific incident triggers, detection signals or escalation paths. No sentence in the supplied text asserts or implies the key's claim, so anchoring it would require stretching the passage beyond what it says."
+  },
+  "9f9c2248": {
+   "key_claim": "A single supplier assessment procedure that genuinely covers both the AI-specific objectives of ISO/IEC 42001 and the information security objectives of ISO/IEC 27001 is conformant; neither standard requires separate documentation for each management system.",
+   "key_support_clause": "D.2",
+   "key_support": "In this case, the way to implement controls which (partly) relate to information security in this document (see B.6.1.2) can be integrated with the organization’s implementation of ISO/IEC 27001.",
+   "rests_on_unheld_source": "ISO/IEC 27001 (the information security requirements themselves, and the certificate-scope point in option B, are not among the supplied passages; only the Annex D.2 integration guidance is held)",
+   "cannot_anchor_reason": null
+  },
+  "b7d1c5da": {
+   "key_claim": "The review pack measures AI system performance but omits evaluation of the AI management system's effectiveness, which ISO/IEC 42001 requires as a distinct obligation.",
+   "key_support_clause": "9.1",
+   "key_support": "The organization shall evaluate the performance and the effectiveness of the AI management system.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "5d504d63": {
+   "key_claim": "The colleague is wrong: ISO/IEC 42001 lets the organization itself determine when monitoring and measurement are performed, so a quarterly schedule is acceptable.",
+   "key_support_clause": "9.1",
+   "key_support": "The organization shall determine: — what needs to be monitored and measured; — the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results; — when the monitoring and measuring shall be performed;",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "24177d84": {
+   "key_claim": "Audit scope and audit criteria are distinct concepts: scope sets the boundaries (what is included) of the audit, while criteria are the requirements/reference against which conformity is assessed.",
+   "key_support_clause": "9.2.2",
+   "key_support": null,
+   "rests_on_unheld_source": "ISO 19011:2018 / ISO 9000:2015 (definitions of 'audit scope' and 'audit criteria')",
+   "cannot_anchor_reason": "The supplied passages only require the organization to 'define the audit objectives, criteria and scope for each audit' (9.2.2 a), which shows the two are separate items to be defined but never states what each one means. The substantive definitions the key asserts — that scope delimits the audit boundaries and that criteria are the requirements used to judge conformity — appear in the ISO vocabulary/auditing standards, not in clauses 9.2.1 or 9.2.2 as supplied."
+  },
+  "fcb8a516": {
+   "key_claim": "ISO/IEC 42006 sets requirements for bodies performing auditing and certification of AI management systems, whereas ISO/IEC 42001 sets the AIMS requirements that organizations themselves implement.",
+   "key_support_clause": "ISO/IEC 42006 clause 1 (Scope)",
+   "key_support": "The requirements contained in this document, when implemented, support the demonstration of competence, consistency and reliability by the bodies performing auditing and certification of an artificial intelligence management system (AIMS) according to ISO/IEC 42001 for organizations that provide, develop or use AI systems.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "c318ef8f": {
+   "key_claim": "Stage 1 of a two-stage initial certification audit exists to review the client's documented management system information and evaluate readiness/preparedness for Stage 2, flagging areas of concern before the Stage 2 on-site audit.",
+   "key_support_clause": "9.3.1.2.1",
+   "key_support": "The objectives of stage 1 are to: a) review the client’s management system documented information; b) evaluate the client’s site-specific conditions and to undertake discussions with the client’s personnel to determine the preparedness for stage 2;",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  },
+  "fa5276a3": {
+   "key_claim": "ISO/IEC 42001 sets out the AIMS requirements, while conformity assessment (certification) against it is carried out by independent third-party certification bodies operating under accreditation.",
+   "key_support_clause": "1",
+   "key_support": "Certification of AIMS is a third-party conformity assessment activity (as described in ISO/IEC 17000:2020, 4.5), and bodies performing this activity are third-party conformity assessment bodies.",
+   "rests_on_unheld_source": "ISO/IEC 42001 (the stem's statement that a conforming organization can generate evidence of responsibility regarding its AI systems comes from ISO/IEC 42001 itself, which is not among the supplied passages; the supplied ISO/IEC 42006 Scope only refers to certification 'according to ISO/IEC 42001' and notes the document can be used as a criteria document for accreditation)",
+   "cannot_anchor_reason": null
+  }
+ }
+}
