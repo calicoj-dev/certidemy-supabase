@@ -34,6 +34,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
+import { CERT_STANDARDS } from "./lib/iso-cert-standards.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -96,16 +97,20 @@ const EXEMPLARS = {
  * controls are elaborated in 27002, and the certification PROCESS a Foundation candidate is taught lives in
  * 17021-1. Leaving those out does not make the mapping conservative, it makes six tasks unanswerable.
  *
- * AIMS-F KEEPS 42001 ALONE, DELIBERATELY. Its 150 links were reviewed against 42001, so widening its pool
- * would change what the control measures. The consequence is stated rather than hidden: the other three
- * face a LARGER candidate pool than the control did, so precision measured on AIMS-F is an upper bound for
- * them, not a like-for-like prediction. */
-const CERTS = {
-  "AIMS-F": { standards: ["ISO/IEC 42001"] },
-  "ISMS-F": { standards: ["ISO/IEC 27001", "ISO/IEC 27002", "ISO/IEC 27000", "ISO/IEC 17021-1"] },
-  "AIMS-IA": { standards: ["ISO/IEC 42001", "ISO 19011", "ISO/IEC 22989", "ISO/IEC 42006"] },
-  "ISMS-IA": { standards: ["ISO/IEC 27001", "ISO 19011", "ISO/IEC 27002", "ISO/IEC 27000"] },
-};
+ * AIMS-F WAS HELD AT 42001 ALONE AND NO LONGER IS. [CORRECTED 2026-09-28.] The old reasoning was that its
+ * 150 links were reviewed against 42001, so widening the pool would change what the control measures. That
+ * is a statement about the INSTRUMENT, and it was wrong about the SUBJECT: task 5.5 is "describe the
+ * certification route and what ISO/IEC 42006 governs", and 24 of its reviewed primaries are ISO/IEC 17021-1
+ * and ISO/IEC 42006 addresses. Held at 42001 they could not be proposed however good the judgment was, and
+ * the blind run scored them as misses AGAINST THE JUDGMENT while printing that everything had been offered.
+ *
+ * Comparability with a superseded run is worth less than asking the question the certification examines.
+ * All four pools now come from `lib/iso-cert-standards.mjs`, and the consequence for precision is the same
+ * for every certification rather than for three of them. */
+/* The source list is shared with `judge-task-sources2.mjs` -- see `lib/iso-cert-standards.mjs` for
+ * why it is a module and not a field in this script's output. */
+const CERTS = Object.fromEntries(
+  Object.entries(CERT_STANDARDS).map(([k, v]) => [k, { standards: v }]));
 
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
 const STOP = new Set(`a an and are as at be been being but by can for from has have in into is it its

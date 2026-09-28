@@ -39,6 +39,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
+import { standardsFor } from "./lib/iso-cert-standards.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -115,7 +116,7 @@ PRIMARY means: an item written for this task should be able to rest its key on t
 states the thing the task tests.
 
 RULES.
-- Choose ONLY from the title list. Copy the source id and clause exactly. Do not invent a clause.
+- Choose ONLY from the title list. The clause is the token in SQUARE BRACKETS: from the line '  [6.1.3]  AI risk treatment' the clause is 6.1.3 -- without the brackets and without the title. Copy the source id exactly. Do not invent a clause.
 - Be GENEROUS at this stage. You are choosing what to look at, and the text of everything you pick will
   be fetched and shown to you in a second pass where you can drop it. Missing a clause here is permanent;
   including a doubtful one costs only a second look.
@@ -158,7 +159,9 @@ if (!certDraft) {
     (draft.certs || []).map((c) => c.cert).join(", "));
   process.exitCode = 2; process.exit();
 }
-const STANDARDS = certDraft.standards;
+/* From the shared module, NOT from the ranker.s artifact: the judge does not depend on the ranker
+ * having succeeded, and a stale artifact can no longer silently scope this run. */
+const STANDARDS = standardsFor(CERT);
 
 const KEY = requireKey(HERE);
 const certRows = await getAll(KEY, "certifications?select=id,code&code=eq." + CERT);
@@ -181,12 +184,80 @@ try {
 } catch { /* no task_concepts: the payload omits concepts and the report says so */ }
 
 const byKey = new Map(lib.passages.map((p) => [p.source_id + "|" + p.clause, p]));
-/* THE COMPLETE LIST. Every passage of every in-scope standard, in document order, with no cap. */
+/* THE COMPLETE LIST. Every passage of every in-scope standard, in document order, with no cap.
+ *
+ * ============ THE CLAUSE IS DELIMITED, BECAUSE THE FIRST FORMAT LOST THE WHOLE RUN ============
+ *
+ * The first version printed `  3.4  management system set of interrelated...` -- clause and title
+ * separated by spaces -- and told the model to copy the clause "exactly as given". It copied the
+ * whole line. Every one of 34 tasks returned addresses like `3.4  management system set of`, none
+ * matched a held key, all were classed INVENTED, and the run scored 0.0% recall on 0 proposals.
+ *
+ * **That was reported as a judgment of 0% and it was a formatting defect in my own prompt.** The
+ * reasons and notes in the raw output are sound -- one reads *"the certification-basis concept rests
+ * on ISO/IEC 42006, which is not in scope"*, which is correct and useful. The instrument destroyed a
+ * working answer and then reported the answer as the failure. */
 const inScope = lib.passages.filter((p) => STANDARDS.includes(p.source_id));
 const titleList = STANDARDS.map((s) => s + ":\n" + inScope
   .filter((p) => p.source_id === s)
-  .map((p) => "  " + p.clause + "  " + String(p.title || "").slice(0, 70))
+  .map((p) => "  [" + p.clause + "]  " + String(p.title || "").slice(0, 70))
   .join("\n")).join("\n\n");
+
+/* ============ AND INGEST RESOLVES RATHER THAN DEMANDS EXACT EQUALITY ============
+ *
+ * A delimiter makes the right answer easy; it does not make the wrong answer impossible. So a
+ * returned address is RESOLVED against what the library holds -- exact match, else the longest held
+ * clause that the string begins with at a token boundary. `3.4  management system set of` resolves
+ * to `3.4`; `3.41` never resolves to `3.4`, because the boundary is required.
+ *
+ * An address that still does not resolve is genuinely invented and is reported as such. The point is
+ * that a formatting difference the instrument CAN repair must not be scored as a wrong answer. */
+const clausesBySource = new Map();
+for (const p of inScope) {
+  if (!clausesBySource.has(p.source_id)) clausesBySource.set(p.source_id, []);
+  clausesBySource.get(p.source_id).push(p.clause);
+}
+for (const [, arr] of clausesBySource) arr.sort((a, b) => b.length - a.length);
+function resolveClause(source, raw) {
+  const held = clausesBySource.get(source);
+  if (!held) return null;
+  /* a bracketed address is the format we asked for, so unwrap it before matching */
+  let s = String(raw == null ? "" : raw).trim().replace(/^\[([^\]]+)\]/, "$1").trim();
+  if (!s) return null;
+  if (byKey.has(source + "|" + s)) return s;
+  for (const c of held) {
+    if (s === c) return c;
+    if (!s.startsWith(c)) continue;
+    /* ============ A DOT IS NOT A BOUNDARY, AND THE CONTROL CAUGHT THAT ============
+     *
+     * The first boundary set included `.` and `-`, so `6.1.39` resolved to the held `6.1` -- a
+     * DIFFERENT clause, silently. That is worse than refusing to resolve: it attaches a proposal to
+     * a real address nobody chose. The remainder must start with whitespace or a closing
+     * punctuation mark; a dotted or hyphenated continuation means this is a deeper address. */
+    if (/^[\s\]:,]/.test(s.slice(c.length))) return c;
+  }
+  return null;
+}
+{
+  /* BOTH DIRECTIONS, on the live library, before any call is paid for. */
+  const fails = [];
+  const src = STANDARDS[0];
+  const sample = (clausesBySource.get(src) || []).find((c) => /\./.test(c));
+  if (!sample) fails.push("no dotted clause in " + src + " to test the resolver against");
+  else {
+    if (resolveClause(src, sample) !== sample) fails.push("an exact clause did not resolve");
+    if (resolveClause(src, sample + "  Some Title Here") !== sample) {
+      fails.push("clause+title did not resolve -- the defect that lost the first run");
+    }
+    if (resolveClause(src, "[" + sample + "]") !== sample) fails.push("a bracketed clause did not resolve");
+    if (resolveClause(src, sample + ".9") !== null) fails.push("a DEEPER dotted address resolved to its parent");
+    if (resolveClause(src, sample + "9") !== null) fails.push("a LONGER clause resolved to a shorter one");
+    if (resolveClause(src, "99.99.99") !== null) fails.push("a genuinely invented clause resolved");
+    if (resolveClause("NO SUCH SOURCE", sample) !== null) fails.push("an unknown source resolved");
+  }
+  console.log("clause-resolver controls: 7 case(s), " + fails.length + " fail");
+  if (fails.length) { fails.forEach((f) => console.error("   " + f)); process.exitCode = 3; process.exit(); }
+}
 
 /* ============ BLINDNESS ============ */
 let linksRead = false;
@@ -284,8 +355,11 @@ for (const t of FROM ? [] : tasks) {
   /* an address the library does not hold is dropped and reported, never stored */
   const picks = [], invented = [];
   for (const x of v1.primary) {
-    if (byKey.has(x.source + "|" + x.clause)) picks.push(x);
-    else invented.push(x.source + " " + x.clause);
+    const c = resolveClause(x.source, x.clause);
+    if (c) picks.push({ ...x, clause: c, clause_as_returned: x.clause === c ? undefined : x.clause });
+    /* the WHOLE object, not a derived string: the first version stored `source + " " + clause` and
+     * threw away the reason and confidence, so a re-score could not recover pass 1's work. */
+    else invented.push(x);
   }
   if (!picks.length) {
     results.push({ task: t.code, state: "judged", statement: t.statement, pass1: [], primary: [],
@@ -304,9 +378,26 @@ for (const t of FROM ? [] : tasks) {
       reason: String(e.message).slice(0, 140) });
     process.stdout.write("!"); continue;
   }
-  const confirmed = (v2 && Array.isArray(v2.confirmed) ? v2.confirmed : [])
-    .filter((x) => byKey.has(x.source + "|" + x.clause));
-  const dropped = (v2 && Array.isArray(v2.dropped) ? v2.dropped : []);
+  let confirmed = (v2 && Array.isArray(v2.confirmed) ? v2.confirmed : [])
+    .map((x) => { const c = resolveClause(x.source, x.clause); return c ? { ...x, clause: c } : null; })
+    .filter(Boolean);
+  let dropped = (v2 && Array.isArray(v2.dropped) ? v2.dropped : []);
+  /* ONE RETRY WHEN PASS 2 UNDER-ACCOUNTS. A pick with no verdict is not a rejection, and the first
+   * run lost 93 of 469 that way -- one task handed over 26 candidates and got back nothing at all.
+   * Retried once; if it still under-accounts the shortfall is reported rather than scored as zero. */
+  if (confirmed.length + dropped.length < picks.length) {
+    try {
+      const again = parseObject(await claude(SYSTEM2 +
+        "\n\nYour previous answer omitted candidates. EVERY candidate must appear in exactly one of " +
+        "the two lists. Return all " + picks.length + " of them.",
+      JSON.stringify(p2, null, 1), 4000));
+      const c2 = (again && Array.isArray(again.confirmed) ? again.confirmed : [])
+        .map((x) => { const c = resolveClause(x.source, x.clause); return c ? { ...x, clause: c } : null; })
+        .filter(Boolean);
+      const d2 = (again && Array.isArray(again.dropped) ? again.dropped : []);
+      if (c2.length + d2.length > confirmed.length + dropped.length) { confirmed = c2; dropped = d2; }
+    } catch { /* keep the first answer; the shortfall is reported */ }
+  }
   results.push({ task: t.code, state: "judged", statement: t.statement,
     pass1: picks.map((x) => x.source + "|" + x.clause),
     primary: confirmed, dropped, none_apply: !!v1.none_apply, note: v1.note || null, invented });
@@ -357,11 +448,28 @@ const recall = (tp + fn) ? tp / (tp + fn) : 0;
 const precision = (tp + fp) ? tp / (tp + fp) : 0;
 const sRecall = (sTP + sFN) ? sTP / (sTP + sFN) : 0;
 
-/* candidate-set ceiling: with the complete list, every held address was offered, so the ceiling is
- * whatever share of the reviewed set the library holds at all. Stated rather than assumed. */
-const heldReviewed = [...accepted.values()].reduce((n, s) =>
-  n + [...s].filter((k) => byKey.has(k)).length, 0);
+/* ============ THE CEILING IS MEASURED AGAINST WHAT WAS OFFERED, NOT AGAINST THE LIBRARY ============
+ *
+ * The first version tested `byKey.has(k)` -- membership of the WHOLE library -- and printed *"150 of
+ * 150 reviewed primaries are addresses the library holds, and ALL of them were offered."* That second
+ * clause was false. AIMS-F's scoped standard list is ISO/IEC 42001 alone, and 24 of its reviewed
+ * primaries are ISO/IEC 17021-1 and ISO/IEC 42006 addresses. The library holds them; the title list
+ * this run showed the judge did not.
+ *
+ * So the instrument asserted the absence of the exact ceiling it was built to remove, because the
+ * claim was computed over the wrong population. That is this repository's most-recorded defect
+ * arriving inside the fix for a previous instance of it. The ceiling is now computed against
+ * `inScopeKeys`, and OUT-OF-SCOPE reviewed primaries are reported as their own state -- they are not
+ * misses by the judgment, they are a gap in the scoped source list. */
+const inScopeKeys = new Set(inScope.map((p) => p.source_id + "|" + p.clause));
 const totalReviewed = [...accepted.values()].reduce((n, s) => n + s.size, 0);
+const offerable = [...accepted.values()].reduce((n, s) =>
+  n + [...s].filter((k) => inScopeKeys.has(k)).length, 0);
+const outOfScope = [];
+for (const [code, s] of accepted) {
+  for (const k of s) if (!inScopeKeys.has(k)) outOfScope.push(code + " -> " + k);
+}
+const oosSources = [...new Set(outOfScope.map((s) => s.split(" -> ")[1].split("|")[0]))];
 
 console.log("");
 console.log("JUDGED TASK SOURCES 2  " + CERT + "   two-pass, COMPLETE title list, no cap");
@@ -379,8 +487,42 @@ console.log("    RECALL             " + pct(recall) + "   (" + tp + " of " + (tp
 console.log("    PRECISION          " + pct(precision) + "   (" + tp + " of " + (tp + fp) + ")");
 console.log("    RECALL, subject    " + pct(sRecall) + "   (" + sTP + " of " + (sTP + sFN) + ")");
 console.log("    missed " + missed.length + "   extra " + extra.length);
-console.log("  candidate ceiling: " + heldReviewed + " of " + totalReviewed +
-  " reviewed primaries are addresses the library holds, and ALL of them were offered.");
+console.log("");
+console.log("  CEILING: " + offerable + " of " + totalReviewed +
+  " reviewed primaries are in the scoped title list and were therefore offered.");
+if (outOfScope.length) {
+  const offRecall = offerable ? (tp / offerable) : 0;
+  console.log("  OUT OF SCOPE: " + outOfScope.length + " reviewed primar" +
+    (outOfScope.length === 1 ? "y is" : "ies are") + " NOT in this certification's source list -- " +
+    oosSources.join(", "));
+  console.log("    These could not be proposed however good the judgment is. They are a gap in the");
+  console.log("    SCOPED SOURCE LIST, not a miss. Recall against what was offerable: " + pct(offRecall) +
+    " (" + tp + " of " + offerable + ")");
+}
+/* ============ PASS 2 MUST ACCOUNT FOR EVERY CANDIDATE PASS 1 GAVE IT ============
+ *
+ * SYSTEM2 says every candidate appears in exactly one of the two lists, and nothing checked it. On
+ * the first real run **93 of 469 picks vanished without a verdict across 4 tasks** -- task 4.3 handed
+ * pass 2 twenty-six candidates and got back zero confirmed and zero dropped, which scored as ten
+ * misses. A silent empty answer was read as "nothing qualifies" when it means "pass 2 did not
+ * answer", which is the third state this repository keeps having to re-learn. */
+const unaccounted = [];
+for (const r of results) {
+  const p1 = (r.pass1 || []).length;
+  if (!p1) continue;
+  const seen = ((r.primary || []).length + (r.dropped || []).length);
+  if (seen < p1) unaccounted.push({ task: r.task, offered: p1, accounted: seen });
+}
+if (unaccounted.length) {
+  console.log("");
+  console.log("  PASS 2 DID NOT ACCOUNT FOR EVERY CANDIDATE -- " + unaccounted.length + " task(s), " +
+    unaccounted.reduce((n, u) => n + (u.offered - u.accounted), 0) + " pick(s) with no verdict:");
+  for (const u of unaccounted) {
+    console.log("    " + u.task + "  offered " + u.offered + ", accounted " + u.accounted);
+  }
+  console.log("    A pick with no verdict is NOT a rejection. These tasks are UNDER-MEASURED and the");
+  console.log("    recall above is a FLOOR for them.");
+}
 
 const lowConf = [];
 for (const r of results) for (const p of r.primary || []) {

@@ -513,25 +513,37 @@ Produce the JSON array now.`;
  * and these were practice, so a warning landed on a certification that already
  * carried warnings and was invisible.
  */
+/*
+ * RULED 2026-09-28 (PROMPT-84 section 4.1): EXACTLY FOUR OPTIONS, EXACTLY ONE
+ * KEY, NO true_false -- AT EVERY TIER, not only at tier 2.
+ *
+ * The shape rule used to be conditional on tier, and `tier` is read from the
+ * certification row. That made the guard depend on a SECOND COLUMN staying
+ * true, which is the argument this repository already made for putting the
+ * generated-item exclusion on both pools: a guarantee that rests on another
+ * column is not a guarantee. A tier that is null, absent, or mis-set silently
+ * downgraded the shape check to "two or more options", and a two-option item
+ * on a live certification is what that produced on 2026-09-12.
+ *
+ * There is no certification here that wants a two-option practice item. The
+ * conditional bought nothing and cost an incident, so it is gone rather than
+ * corrected -- `tier` is still taken, and it is no longer what decides shape.
+ */
 function validateQuestion(q: any, tier: number): q is GeneratedQuestion {
   if (!q || typeof q !== 'object') return false;
   if (typeof q.question_text !== 'string' || q.question_text.length < 10) return false;
-  // single_choice / true_false only — the exam has no select-all questions.
-  if (!['single_choice', 'true_false'].includes(q.question_type)) return false;
 
-  // TIER 2: four defensible options, one best. No true_false at any bloom level
-  // - the tier-2 contract is about the SPREAD of defensibility, and a two-option
-  // item cannot have a second-best.
-  if (tier >= 2) {
-    if (q.question_type !== 'single_choice') return false;
-    if (!Array.isArray(q.options) || q.options.length !== 4) return false;
-  }
+  // single_choice ONLY. A two-option item lets a guesser score 50%, and the
+  // whole claim a credential makes is that the candidate discriminated.
+  if (q.question_type !== 'single_choice') return false;
+  if (!Array.isArray(q.options) || q.options.length !== 4) return false;
 
-  if (!Array.isArray(q.options) || q.options.length < 2) return false;
   // Exactly one correct answer; reject any multi-answer leftovers.
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return false;
   const option_ids = new Set(q.options.map((o: any) => o.id));
+  if (option_ids.size !== 4) return false;               // four DISTINCT ids
   if (!q.correct_answer.every((id: string) => option_ids.has(id))) return false;
   if (typeof q.difficulty !== 'number' || q.difficulty < 1 || q.difficulty > 5) return false;
+  void tier;   // retained in the signature; deliberately not consulted for shape
   return true;
 }

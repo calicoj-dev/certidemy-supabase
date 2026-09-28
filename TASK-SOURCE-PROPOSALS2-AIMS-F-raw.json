@@ -1,445 +1,343 @@
 {
  "cert": "AIMS-F",
  "ungated": true,
+ "note": "RAW two-pass output, not scored.",
  "results": [
   {
    "task": "1.1",
    "state": "judged",
    "statement": "Explain what an AI management system is and what a management system standard does",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "The certification-basis concept rests on ISO/IEC 42006, which is not in scope; no clause of 42001 states certification requirements, so that element may have to key off Clause 1 Scope.",
-   "invented": [
-    "ISO/IEC 42001 1  Scope",
-    "ISO/IEC 42001 3.4  management system set of",
-    "ISO/IEC 42001 3.5  policy intentions and direction",
-    "ISO/IEC 42001 3.6  objective result to be",
-    "ISO/IEC 42001 3.8  process set of interrelated",
-    "ISO/IEC 42001 3.21  control <risk> measure that maintains and/or modifies risk (3.7)",
-    "ISO/IEC 42001 3.12  continual improvement recurring activity to enhance performance (3.11)",
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 4.4  AI management system",
-    "ISO/IEC 42001 10.1  Continual improvement",
-    "ISO/IEC 42001 A.1  General",
-    "ISO/IEC 42001 D.1  General",
-    "ISO/IEC 42001 D.2  Integration of AI management system with other management system",
-    "ISO/IEC 42001 2  Normative references"
+   "pass1": [
+    "ISO/IEC 42001|1",
+    "ISO/IEC 42001|3.4",
+    "ISO/IEC 42001|3.5",
+    "ISO/IEC 42001|3.6",
+    "ISO/IEC 42001|3.8",
+    "ISO/IEC 42001|4.3",
+    "ISO/IEC 42001|4.4",
+    "ISO/IEC 42001|10.1",
+    "ISO/IEC 42001|A.1",
+    "ISO/IEC 42001|D.1",
+    "ISO/IEC 42001|D.2",
+    "ISO/IEC 42006|1",
+    "ISO/IEC 42006|3.1",
+    "ISO/IEC 17021-1|1",
+    "ISO/IEC 17021-1|3.4"
    ],
-   "dropped": []
+   "primary": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "1",
+     "reason": "States the standard specifies requirements for an AI management system within an organization's context and applies to any organization providing or using AI products/services.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "3.4",
+     "reason": "Gives the defining formula of a management system: interrelated elements establishing policies, objectives and processes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.4",
+     "reason": "Core requirement to establish, implement, maintain, continually improve and document the AIMS including its processes and interactions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "10.1",
+     "reason": "States continual improvement of the AIMS's suitability, adequacy and effectiveness, anchoring the PDCA concept.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.1",
+     "reason": "States Annex A controls are a reference, not all mandatory, supporting the distinction between management system requirements and controls.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "D.1",
+     "reason": "States the AIMS is applicable to any organization and gives an AI-technology-specific view versus technology-neutral management system standards.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "1",
+     "reason": "States 42006 adds requirements to 17021-1 for bodies auditing and certifying an AIMS — the certification basis.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "3.1",
+     "reason": "Explicit definition of AIMS as interrelated elements establishing policies, objectives and processes for provision, development or use of AI systems.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "1",
+     "reason": "States it contains requirements for bodies certifying management systems, explaining why organization-level certification is possible.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "3.5",
+     "why": "Bare terminology entry for 'policy'; states nothing about the AIMS or what a management system standard does."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "3.6",
+     "why": "Generic definition of 'objective' with discipline examples; not a statement about the management system concept."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "3.8",
+     "why": "Generic definition of 'process' only; nothing testable for this task."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.3",
+     "why": "Turns out to be the scope-determination requirement (boundaries, documented scope), belonging to the context task."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "D.2",
+     "why": "Guidance on integrating the AIMS with ISO/IEC 27001, 27701, 9001, not on what an AIMS or MSS is."
+    },
+    {
+     "source": "ISO/IEC 17021-1",
+     "clause": "3.4",
+     "why": "Definition of certification audit with joint/combined/integrated audit notes — audit-type material, not the AIMS concept."
+    }
+   ],
+   "none_apply": false,
+   "note": "PDCA is described in the 42001 Introduction, which is not a numbered clause in the list; clause 4.4 and 10.1 are the closest normative anchors.",
+   "invented": []
   },
   {
    "task": "1.2",
    "state": "judged",
    "statement": "Determine the organization's roles with respect to its AI systems",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "Core key should rest on 4.1; Annex A/B role and responsibility controls included for the applicability consequences.",
-   "invented": [
-    "ISO/IEC 42001 4.1  Understanding the organization and its context",
-    "ISO/IEC 42001 4.2  Understanding the needs and expectations of interested parties",
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 1  Scope",
-    "ISO/IEC 42001 6.1.3  AI risk treatment",
-    "ISO/IEC 42001 A.3.2  AI roles and responsibilities",
-    "ISO/IEC 42001 B.3.2  AI roles and responsibilities",
-    "ISO/IEC 42001 A.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 B.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 A.10.3  Suppliers",
-    "ISO/IEC 42001 B.10.3  Suppliers",
-    "ISO/IEC 42001 A.10.4  Customers",
-    "ISO/IEC 42001 B.10.4  Customers",
-    "ISO/IEC 42001 5.3  Roles, responsibilities and authorities",
-    "ISO/IEC 42001 B.9.4  Intended use of the AI system",
-    "ISO/IEC 42001 B.7.3  Acquisition of data"
+   "pass1": [
+    "ISO/IEC 42001|4.1",
+    "ISO/IEC 42001|4.3",
+    "ISO/IEC 42001|A.1",
+    "ISO/IEC 42001|B.1",
+    "ISO/IEC 42001|A.9",
+    "ISO/IEC 42001|A.10",
+    "ISO/IEC 42001|B.10.2",
+    "ISO/IEC 42006|9.1.3",
+    "ISO/IEC 42006|A.2.1"
    ],
-   "dropped": []
+   "primary": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.1",
+     "reason": "States the shall-requirement to determine roles and enumerates provider, producer, customer, partner, subject and authority categories.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.10.2",
+     "reason": "Explicitly requires documenting parties and their roles and ties role to PII controller/processor obligations, the data-processing element of the task knowledge.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "4.3",
+     "why": "Text is about boundaries/applicability of the AIMS scope and documented scope; never mentions roles."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.1",
+     "why": "Generic preamble that Annex A controls are a reference and need not all be used; says nothing about roles."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.1",
+     "why": "Generic statement that Annex B is non-mandatory implementation guidance; no role content."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.9",
+     "why": "Control statements on responsible use processes, objectives and intended use; does not state role-dependent applicability."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.10",
+     "why": "Control on apportioning responsibilities among third parties, not on determining the organization's own roles."
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "9.1.3",
+     "why": "About certification scope being reflected in the SoA, not about AI role determination."
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "A.2.1",
+     "why": "Audit time determination based on persons in the AI life cycle; unrelated to role categories."
+    }
+   ],
+   "none_apply": false,
+   "note": "42001 Clause 3 does not define the role terms (they come from ISO/IEC 22989), so 4.1 is the anchor.",
+   "invented": []
   },
   {
    "task": "1.3",
    "state": "judged",
    "statement": "Describe the AI system life cycle and why it anchors AIMS obligations",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "ISO/IEC 5338 itself is outside scope; only 42001's reference to it (B.6.2.1 / Clause 2) is examinable.",
-   "invented": [
-    "ISO/IEC 42001 A.6.2  AI system life cycle Objective: To define the criteria and requirement",
-    "ISO/IEC 42001 A.6.2.2  AI system requirements and spec- The organization shall specify and do",
-    "ISO/IEC 42001 A.6.2.3  Documentation of AI system design The organization shall document the ",
-    "ISO/IEC 42001 A.6.2.4  AI system verification and valida- The organization shall define and d",
-    "ISO/IEC 42001 A.6.2.5  AI system deployment               The organization shall document a d",
-    "ISO/IEC 42001 A.6.2.6  AI system operation and monitor-  The organization shall define and do",
-    "ISO/IEC 42001 A.6.2.7  AI system technical documentation The organization shall determine wha",
-    "ISO/IEC 42001 A.6.2.8  AI system recording of event logs The organization shall determine at ",
-    "ISO/IEC 42001 B.6.2.1  Objective",
-    "ISO/IEC 42001 B.6.2.2  AI system requirements and specification",
-    "ISO/IEC 42001 B.6.2.3  Documentation of AI system design and development",
-    "ISO/IEC 42001 B.6.2.4  AI system verification and validation",
-    "ISO/IEC 42001 B.6.2.5  AI system deployment",
-    "ISO/IEC 42001 B.6.2.6  AI system operation and monitoring",
-    "ISO/IEC 42001 B.6.2.7  AI system technical documentation",
-    "ISO/IEC 42001 B.6.2.8  AI system recording of event logs",
-    "ISO/IEC 42001 A.6.1.3  Processes for responsible AI sys-  The organization shall define and d",
-    "ISO/IEC 42001 B.6.1.3  Processes for responsible design and development of AI systems",
-    "ISO/IEC 42001 C.3.4  Risk sources related to machine learning",
-    "ISO/IEC 42001 C.3.6  System life cycle issues",
-    "ISO/IEC 42001 C.2.6  Maintainability",
-    "ISO/IEC 42001 6.3  Planning of changes",
-    "ISO/IEC 42001 8.1  Operational planning and control",
-    "ISO/IEC 42001 9.1  Monitoring, measurement, analysis and evaluation"
+   "pass1": [
+    "ISO/IEC 42001|A.6.2.2",
+    "ISO/IEC 42001|A.6.2.3",
+    "ISO/IEC 42001|A.6.2.4",
+    "ISO/IEC 42001|A.6.2.5",
+    "ISO/IEC 42001|A.6.2.6",
+    "ISO/IEC 42001|A.6.2.7",
+    "ISO/IEC 42001|A.6.2.8",
+    "ISO/IEC 42001|A.6.1.2",
+    "ISO/IEC 42001|A.6.1.3",
+    "ISO/IEC 42001|B.6.2.1",
+    "ISO/IEC 42001|B.6.2.5",
+    "ISO/IEC 42001|B.6.2.6",
+    "ISO/IEC 42001|B.6.2.4",
+    "ISO/IEC 42001|B.6.1.3",
+    "ISO/IEC 42001|C.3.4",
+    "ISO/IEC 42001|C.3.6",
+    "ISO/IEC 42001|C.2.6",
+    "ISO/IEC 42001|6.3",
+    "ISO/IEC 42001|8.1",
+    "ISO/IEC 42001|9.1",
+    "ISO/IEC 42006|A.2.1"
    ],
-   "dropped": []
-  },
-  {
-   "task": "1.4",
-   "state": "malformed",
-   "pass": 1
-  },
-  {
-   "task": "1.5",
-   "state": "judged",
-   "statement": "Explain the regulatory drivers for an AIMS and why certification is not compliance",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "The EU AI Act risk tiers and timetable are external to ISO/IEC 42001; no clause can key that portion, which rests on 4.1/4.2 as the regulatory-driver hook only.",
-   "invented": [
-    "ISO/IEC 42001 1  Scope",
-    "ISO/IEC 42001 4.1  Understanding the organization and its context",
-    "ISO/IEC 42001 4.2  Understanding the needs and expectations of interested parties",
-    "ISO/IEC 42001 3.15  conformity fulfilment of a",
-    "ISO/IEC 42001 3.14  requirement need or expectation",
-    "ISO/IEC 42001 5.2  AI policy",
-    "ISO/IEC 42001 A.2.2  AI policy",
-    "ISO/IEC 42001 B.2.3  Alignment with other organizational policies",
-    "ISO/IEC 42001 D.2  Integration of AI management system with other management system",
-    "ISO/IEC 42001 C.2.1  Accountability"
+   "primary": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.2",
+     "reason": "States the requirements/specification stage obligation, usable to key an activity-to-stage placement item.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.3",
+     "reason": "States the design and development stage documentation obligation — a distinct life-cycle stage.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.4",
+     "reason": "States the verification and validation stage obligation, distinguishable from deployment and operation.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.5",
+     "reason": "States pre-deployment plan/requirements, anchoring the deployment stage.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.6",
+     "reason": "States ongoing operation and monitoring obligations (monitoring, updates, support) — the post-release stage that defeats deploy-and-forget.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.8",
+     "reason": "Requires determining which life-cycle phases need event logging, with a minimum of when the system is in use.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.6.2.1",
+     "reason": "Objective explicitly states criteria and requirements are defined for each stage of the AI system life cycle.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.6.2.5",
+     "reason": "Spells out deployment-stage content (release criteria, environment differences, sign-offs) for stage placement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.6.2.6",
+     "reason": "Explicitly addresses monitoring against production data and continuous-learning systems evolving in use.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.6.2.4",
+     "reason": "Describes verification/validation activities (test data, release criteria) used to separate that stage from deployment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "B.6.1.3",
+     "reason": "States that life-cycle stages are considered and that the organization can specify its own stages against a generic model.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.3.6",
+     "reason": "States risk sources arise across the entire life cycle from design to decommissioning — the core anchoring claim.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "8.1",
+     "reason": "Requires implementation and monitoring of development-and-usage life cycle related controls, including control of changes.",
+     "confidence": "medium"
+    }
    ],
-   "dropped": []
-  },
-  {
-   "task": "1.6",
-   "state": "judged",
-   "statement": "Distinguish an AIMS from model-level assurance and from AI ethics frameworks",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "The NIST AI RMF reference appears in the Introduction/Bibliography, which is not in the supplied title list; Clause 1 and 2 are the closest normative anchors.",
-   "invented": [
-    "ISO/IEC 42001 1  Scope",
-    "ISO/IEC 42001 2  Normative references",
-    "ISO/IEC 42001 3.4  management system set of",
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 4.4  AI management system",
-    "ISO/IEC 42001 6.1.2  AI risk assessment",
-    "ISO/IEC 42001 6.2  AI objectives and planning to achieve them",
-    "ISO/IEC 42001 8.1  Operational planning and control",
-    "ISO/IEC 42001 A.1  General",
-    "ISO/IEC 42001 A.6.2.4  AI system verification and valida- The organization shall define and d",
-    "ISO/IEC 42001 B.6.2.4  AI system verification and validation",
-    "ISO/IEC 42001 A.6.2.6  AI system operation and monitor-  The organization shall define and do",
-    "ISO/IEC 42001 B.6.2.6  AI system operation and monitoring",
-    "ISO/IEC 42001 C.1  General",
-    "ISO/IEC 42001 C.2.1  Accountability",
-    "ISO/IEC 42001 C.2.5  Fairness",
-    "ISO/IEC 42001 C.2.7  Privacy",
-    "ISO/IEC 42001 C.2.9  Safety",
-    "ISO/IEC 42001 C.2.11  Transparency and explainability",
-    "ISO/IEC 42001 C.3.4  Risk sources related to machine learning",
-    "ISO/IEC 42001 D.1  General",
-    "ISO/IEC 42001 D.2  Integration of AI management system with other management system"
+   "dropped": [
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.2.7",
+     "why": "About supplying technical documentation to categories of interested parties, not about life-cycle stages."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.1.2",
+     "why": "About setting responsible-development objectives; only mentions the development life cycle in passing."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "A.6.1.3",
+     "why": "Bare control requiring documented design/development processes; the life-cycle content lives in B.6.1.3."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.3.4",
+     "why": "Turned out to be about data quality and poisoning as ML risk sources, not life-cycle stages or drift."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "C.2.6",
+     "why": "One-line definition of maintainability; states nothing testable about stages, drift or retraining."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "6.3",
+     "why": "Concerns planned changes to the management system, not the AI system life cycle."
+    },
+    {
+     "source": "ISO/IEC 42001",
+     "clause": "9.1",
+     "why": "Generic AIMS monitoring and measurement clause; no life-cycle or drift content."
+    },
+    {
+     "source": "ISO/IEC 42006",
+     "clause": "A.2.1",
+     "why": "Uses 'AI life cycle' only to count personnel for audit-time determination."
+    }
    ],
-   "dropped": []
-  },
-  {
-   "task": "2.1",
-   "state": "judged",
-   "statement": "Determine the organization's context and interested parties for an AIMS",
-   "pass1": [],
-   "primary": [],
    "none_apply": false,
-   "note": "Core is 4.1/4.2 plus the interested party definition; Annex B items included only for the 'affected individuals' framing and may be dropped.",
-   "invented": [
-    "ISO/IEC 42001 4.1  Understanding the organization and its context",
-    "ISO/IEC 42001 4.2  Understanding the needs and expectations of interested parties",
-    "ISO/IEC 42001 3.2  interested party person or",
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 B.5.4  Assessing AI system impact on individuals or groups of individuals",
-    "ISO/IEC 42001 B.5.5  Assessing societal impacts of AI systems",
-    "ISO/IEC 42001 3.14  requirement need or expectation"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.2",
-   "state": "judged",
-   "statement": "Determine the scope of the AI management system",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "A.9.2 appears with a blank title in the supplied list; it is the 'processes for responsible use of AI systems' control.",
-   "invented": [
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 4.1  Understanding the organization and its context",
-    "ISO/IEC 42001 4.2  Understanding the needs and expectations of interested parties",
-    "ISO/IEC 42001 4.4  AI management system",
-    "ISO/IEC 42001 7.5.1  General",
-    "ISO/IEC 42001 3.26  statement of applicability documentation",
-    "ISO/IEC 42001 A.9.2  ",
-    "ISO/IEC 42001 A.9.4  Intended use of the AI system",
-    "ISO/IEC 42001 A.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 A.10.3  Suppliers",
-    "ISO/IEC 42001 B.9.2  Processes for responsible use of AI systems",
-    "ISO/IEC 42001 B.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 B.10.3  Suppliers",
-    "ISO/IEC 42001 D.2  Integration of AI management system with other management system"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.3",
-   "state": "judged",
-   "statement": "Explain leadership requirements, the AI policy, AI objectives and planning of changes",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": null,
-   "invented": [
-    "ISO/IEC 42001 5.1  Leadership and commitment",
-    "ISO/IEC 42001 5.2  AI policy",
-    "ISO/IEC 42001 5.3  Roles, responsibilities and authorities",
-    "ISO/IEC 42001 6.2  AI objectives and planning to achieve them",
-    "ISO/IEC 42001 6.3  Planning of changes",
-    "ISO/IEC 42001 8.1  Operational planning and control",
-    "ISO/IEC 42001 3.3  top management person or",
-    "ISO/IEC 42001 3.5  policy intentions and direction",
-    "ISO/IEC 42001 3.6  objective result to be",
-    "ISO/IEC 42001 A.2.2  AI policy",
-    "ISO/IEC 42001 A.2.3  ",
-    "ISO/IEC 42001 A.2.4  Review of the AI policy",
-    "ISO/IEC 42001 B.2.2  AI policy",
-    "ISO/IEC 42001 B.2.3  Alignment with other organizational policies",
-    "ISO/IEC 42001 B.2.4  Review of the AI policy"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.4",
-   "state": "judged",
-   "statement": "Assign roles, responsibilities and authorities for AI",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": null,
-   "invented": [
-    "ISO/IEC 42001 5.3  Roles, responsibilities and authorities",
-    "ISO/IEC 42001 A.3.2  AI roles and responsibilities",
-    "ISO/IEC 42001 B.3.2  AI roles and responsibilities",
-    "ISO/IEC 42001 B.3.1  Objective",
-    "ISO/IEC 42001 5.1  Leadership and commitment",
-    "ISO/IEC 42001 A.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 B.10.2  Allocating responsibilities",
-    "ISO/IEC 42001 C.2.1  Accountability",
-    "ISO/IEC 42001 A.3.3  Reporting of concerns",
-    "ISO/IEC 42001 3.3  top management person or"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.5",
-   "state": "judged",
-   "statement": "Apply the AI risk assessment process",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "Annex C children selected rather than the C.2/C.3 headings; ISO/IEC 23894 is outside the standard's normative text.",
-   "invented": [
-    "ISO/IEC 42001 6.1.1  General",
-    "ISO/IEC 42001 6.1.2  AI risk assessment",
-    "ISO/IEC 42001 6.1.3  AI risk treatment",
-    "ISO/IEC 42001 8.2  AI risk assessment",
-    "ISO/IEC 42001 6.1.4  AI system impact assessment",
-    "ISO/IEC 42001 6.2  AI objectives and planning to achieve them",
-    "ISO/IEC 42001 5.2  AI policy",
-    "ISO/IEC 42001 3.7  risk effect of uncertainty",
-    "ISO/IEC 42001 C.1  General",
-    "ISO/IEC 42001 C.2.1  Accountability",
-    "ISO/IEC 42001 C.2.2  AI expertise",
-    "ISO/IEC 42001 C.2.3  Availability and quality of training and test data",
-    "ISO/IEC 42001 C.2.4  Environmental impact",
-    "ISO/IEC 42001 C.2.5  Fairness",
-    "ISO/IEC 42001 C.2.6  Maintainability",
-    "ISO/IEC 42001 C.2.7  Privacy",
-    "ISO/IEC 42001 C.2.8  Robustness",
-    "ISO/IEC 42001 C.2.9  Safety",
-    "ISO/IEC 42001 C.2.10  Security",
-    "ISO/IEC 42001 C.2.11  Transparency and explainability",
-    "ISO/IEC 42001 C.3.1  Complexity of environment",
-    "ISO/IEC 42001 C.3.2  Lack of transparency and explainability",
-    "ISO/IEC 42001 C.3.3  Level of automation",
-    "ISO/IEC 42001 C.3.4  Risk sources related to machine learning",
-    "ISO/IEC 42001 C.3.5  System hardware issues",
-    "ISO/IEC 42001 C.3.6  System life cycle issues",
-    "ISO/IEC 42001 C.3.7  Technology readiness"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.6",
-   "state": "judged",
-   "statement": "Apply the AI system impact assessment",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "A.5 children selected in preference to the heading; A.5.4 appears untitled in the list.",
-   "invented": [
-    "ISO/IEC 42001 6.1.4  AI system impact assessment",
-    "ISO/IEC 42001 8.4  AI system impact assessment",
-    "ISO/IEC 42001 3.24  AI system impact assessment",
-    "ISO/IEC 42001 A.5.2  AI system impact assessment",
-    "ISO/IEC 42001 A.5.3  Documentation of AI system im",
-    "ISO/IEC 42001 A.5.4  ",
-    "ISO/IEC 42001 A.5.5  Assessing societal impacts of AI",
-    "ISO/IEC 42001 B.5.1  Objective",
-    "ISO/IEC 42001 B.5.2  AI system impact assessment process",
-    "ISO/IEC 42001 B.5.3  Documentation of AI system impact assessments",
-    "ISO/IEC 42001 B.5.4  Assessing AI system impact on individuals or groups of individuals",
-    "ISO/IEC 42001 B.5.5  Assessing societal impacts of AI systems",
-    "ISO/IEC 42001 A.5  Assessing impacts of AI systems",
-    "ISO/IEC 42001 A.9.4  Intended use of the AI system",
-    "ISO/IEC 42001 B.9.4  Intended use of the AI system"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.7",
-   "state": "judged",
-   "statement": "Differentiate the AI risk assessment from the AI system impact assessment and determine what a situation requires",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "Annex A and Annex B impact-assessment members listed individually; Annex A titles appear truncated in the supplied list.",
-   "invented": [
-    "ISO/IEC 42001 6.1.2  AI risk assessment",
-    "ISO/IEC 42001 6.1.4  AI system impact assessment",
-    "ISO/IEC 42001 3.24  AI system impact assessment",
-    "ISO/IEC 42001 3.7  risk effect of uncertainty",
-    "ISO/IEC 42001 8.2  AI risk assessment",
-    "ISO/IEC 42001 8.4  AI system impact assessment",
-    "ISO/IEC 42001 6.1.3  AI risk treatment",
-    "ISO/IEC 42001 6.1.1  General",
-    "ISO/IEC 42001 A.5  Assessing impacts of AI systems",
-    "ISO/IEC 42001 A.5.2  AI system impact assessment",
-    "ISO/IEC 42001 A.5.3  Documentation of AI system im",
-    "ISO/IEC 42001 A.5.4  ",
-    "ISO/IEC 42001 A.5.5  Assessing societal impacts of AI",
-    "ISO/IEC 42001 B.5.2  AI system impact assessment process",
-    "ISO/IEC 42001 B.5.3  Documentation of AI system impact assessments",
-    "ISO/IEC 42001 B.5.4  Assessing AI system impact on individuals or groups of individuals",
-    "ISO/IEC 42001 B.5.5  Assessing societal impacts of AI systems",
-    "ISO/IEC 42001 B.5.1  Objective"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "2.8",
-   "state": "judged",
-   "statement": "Apply AI risk treatment and produce the Statement of Applicability",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "Core key rests on 6.1.3; other picks support control-set comparison, guidance consideration and SoA terminology.",
-   "invented": [
-    "ISO/IEC 42001 6.1.3  AI risk treatment",
-    "ISO/IEC 42001 8.3  AI risk treatment",
-    "ISO/IEC 42001 3.26  statement of applicability documentation",
-    "ISO/IEC 42001 6.1.2  AI risk assessment",
-    "ISO/IEC 42001 3.21  control <risk> measure that maintains and/or modifies risk (3.7)",
-    "ISO/IEC 42001 A.1  General",
-    "ISO/IEC 42001 B.1  General",
-    "ISO/IEC 42001 6.1.1  General"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "3.1",
-   "state": "judged",
-   "statement": "Determine resources and competence needs for an AIMS",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": null,
-   "invented": [
-    "ISO/IEC 42001 7.1  Resources",
-    "ISO/IEC 42001 7.2  Competence",
-    "ISO/IEC 42001 3.9  competence ability to apply knowledge and skills to achieve intended r",
-    "ISO/IEC 42001 A.4.2  Resource documentation",
-    "ISO/IEC 42001 A.4.3  Data resources",
-    "ISO/IEC 42001 A.4.4  Tooling resources",
-    "ISO/IEC 42001 A.4.5  System and computing resources",
-    "ISO/IEC 42001 A.4.6  Human resources",
-    "ISO/IEC 42001 B.4.1  Objective",
-    "ISO/IEC 42001 B.4.2  Resource documentation",
-    "ISO/IEC 42001 B.4.3  Data resources",
-    "ISO/IEC 42001 B.4.4  Tooling resources",
-    "ISO/IEC 42001 B.4.5  System and computing resources",
-    "ISO/IEC 42001 B.4.6  Human resources",
-    "ISO/IEC 42001 C.2.2  AI expertise",
-    "ISO/IEC 42001 7.3  Awareness",
-    "ISO/IEC 42001 5.3  Roles, responsibilities and authorities"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "3.2",
-   "state": "judged",
-   "statement": "Explain awareness and communication requirements",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": null,
-   "invented": [
-    "ISO/IEC 42001 7.3  Awareness",
-    "ISO/IEC 42001 7.4  Communication",
-    "ISO/IEC 42001 7.2  Competence",
-    "ISO/IEC 42001 5.2  AI policy",
-    "ISO/IEC 42001 3.9  competence ability to apply knowledge and skills to achieve intended r"
-   ],
-   "dropped": []
-  },
-  {
-   "task": "3.3",
-   "state": "judged",
-   "statement": "Manage documented information for an AIMS",
-   "pass1": [],
-   "primary": [],
-   "none_apply": false,
-   "note": "Core is 7.5.1–7.5.3 and 3.10; the other clauses are the specific 'retain/available as documented information' requirements the skill of identifying required records draws on.",
-   "invented": [
-    "ISO/IEC 42001 3.10  documented information information required",
-    "ISO/IEC 42001 7.5.1  General",
-    "ISO/IEC 42001 7.5.2  Creating and updating documented information",
-    "ISO/IEC 42001 7.5.3  Control of documented information",
-    "ISO/IEC 42001 4.3  Determining the scope of the AI management system",
-    "ISO/IEC 42001 5.2  AI policy",
-    "ISO/IEC 42001 6.1.2  AI risk assessment",
-    "ISO/IEC 42001 6.1.3  AI risk treatment",
-    "ISO/IEC 42001 6.1.4  AI system impact assessment",
-    "ISO/IEC 42001 6.2  AI objectives and planning to achieve them",
-    "ISO/IEC 42001 7.2  Competence",
-    "ISO/IEC 42001 8.1  Operational planning and control",
-    "ISO/IEC 42001 8.2  AI risk assessment",
-    "ISO/IEC 42001 8.3  AI risk treatment",
-    "ISO/IEC 42001 8.4  AI system impact assessment",
-    "ISO/IEC 42001 9.1  Monitoring, measurement, analysis and evaluation",
-    "ISO/IEC 42001 9.2.2  Internal audit programme",
-    "ISO/IEC 42001 9.3.3  Management review results",
-    "ISO/IEC 42001 10.2  Nonconformity and corrective action",
-    "ISO/IEC 42001 3.26  statement of applicability documentation"
-   ],
-   "dropped": []
+   "note": "ISO/IEC 5338 is a normative/bibliographic reference only; no clause in scope defines its stages, so life-cycle stage placement rests on A.6.2.x / B.6.2.x.",
+   "invented": []
   }
  ]
 }

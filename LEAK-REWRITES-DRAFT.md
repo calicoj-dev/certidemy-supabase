@@ -76,7 +76,7 @@ verdict: current **FIRES**, draft **clean**
 | | run | coverage | words | source | matched span |
 |---|---|---|---|---|---|
 | current | 8 | 0.667 | 12 | itil4:2019 | `restoring normal service operation as quickly as possible` |
-| **draft** | 0 | 0 | 41 | - | - |
+| **draft** | 0 | 0 | 35 | - | - |
 
 verdict: current **FIRES**, draft **clean**
 
@@ -86,7 +86,7 @@ verdict: current **FIRES**, draft **clean**
 
 **draft**
 
-> Restoration is the goal rather than diagnosis: an incident closes when the service works again, even if nobody yet knows why it broke. That is what separates it from problem management, which owns the cause and is not in a hurry.
+> Restoration is the goal rather than diagnosis: an incident closes when the service works again, even if nobody yet knows why it broke. That is what separates it from problem management, which owns the cause.
 
 ---
 
@@ -97,7 +97,7 @@ verdict: current **FIRES**, draft **clean**
 | | run | coverage | words | source | matched span |
 |---|---|---|---|---|---|
 | current | 6 | 0.667 | 9 | itil4:2019 | `guide an organization in all circumstances` |
-| **draft** | 0 | 0 | 38 | - | - |
+| **draft** | 0 | 0 | 48 | - | - |
 
 verdict: current **FIRES**, draft **clean**
 
@@ -107,7 +107,7 @@ verdict: current **FIRES**, draft **clean**
 
 **draft**
 
-> A principle holds whatever the organization happens to be doing, which is what makes it a principle and not a practice. They are recommendations, so one can be set aside with a stated reason and never quietly ignored.
+> A principle holds whatever the organization happens to be doing, which is what makes it a principle and not a practice. All seven apply in every situation, though not all are equally relevant each time, so the skill being tested is weighing them together rather than choosing one.
 
 ---
 
@@ -118,7 +118,7 @@ verdict: current **FIRES**, draft **clean**
 | | run | coverage | words | source | matched span |
 |---|---|---|---|---|---|
 | current | 8 | 0.727 | 11 | euact:2024/1689 | `obligations on providers of general purpose ai models` |
-| **draft** | 4 | 0.105 | 38 | euact:2024/1689 | `on the market not` |
+| **draft** | 6 | 0.12 | 50 | euact:2024/1689 | `and places it on the market` |
 
 verdict: current **FIRES**, draft **clean**
 
@@ -128,7 +128,7 @@ verdict: current **FIRES**, draft **clean**
 
 **draft**
 
-> These land on whoever places the model on the market, not on whoever fine-tunes or deploys it later, and they attach to the model itself -- so they apply even where no high-risk use has been declared.
+> These fall on the provider of the model -- whoever develops it and places it on the market, and equally a downstream party whose substantial modification makes it the provider for that modification. They attach to the model itself, so they apply even where no high-risk use has been declared.
 
 ---
 
@@ -139,7 +139,7 @@ verdict: current **FIRES**, draft **clean**
 | | run | coverage | words | source | matched span |
 |---|---|---|---|---|---|
 | current | 5 | 0.625 | 8 | euact:2024/1689 | `the majority of ai systems` |
-| **draft** | 4 | 0.085 | 47 | itil4:2019 | `to be able to` |
+| **draft** | 5 | 0.074 | 68 | euact:2024/1689 | `voluntary codes of conduct are` |
 
 verdict: current **FIRES**, draft **clean**
 
@@ -149,7 +149,7 @@ verdict: current **FIRES**, draft **clean**
 
 **draft**
 
-> Most systems land here, and the practical consequence is that the Regulation obliges the provider to do nothing. So a claim of minimal risk is a claim about how the system is used, and it is the provider who has to be able to defend the classification.
+> Most systems land here, and that means no risk-tier obligations rather than no obligations at all: the AI-literacy duty in Article 4 reaches providers and deployers of every AI system, and voluntary codes of conduct are encouraged. So a claim of minimal risk is a claim about how the system is used, and it is the provider who has to be able to defend the classification.
 
 ---
 
@@ -202,7 +202,7 @@ verdict: current **FIRES**, draft **clean**
 | | run | coverage | words | source | matched span |
 |---|---|---|---|---|---|
 | current | 4 | 0.667 | 6 | itil4:2019 | `that can be delivered` |
-| **draft** | 0 | 0 | 29 | - | - |
+| **draft** | 0 | 0 | 35 | - | - |
 
 verdict: current **FIRES**, draft **clean**
 
@@ -212,7 +212,7 @@ verdict: current **FIRES**, draft **clean**
 
 **draft**
 
-> Independence is what lets the Product Owner reorder the backlog without renegotiating a bundle. Where two items can only ship together they are one item, however they are written.
+> Independence is what lets the Product Owner reorder the backlog without renegotiating a bundle. Where two items can only ship together they are usually better treated as one item, or split along a different line.
 
 ---
 

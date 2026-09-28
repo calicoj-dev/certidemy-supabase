@@ -1,0 +1,22 @@
+{
+  "applied": "2026-09-28",
+  "rows": 11,
+  "as_drafted": [
+    "management-practice",
+    "governance-definition",
+    "product-ecosystem-actors",
+    "scrum-adoption",
+    "explainability-for-stakeholders",
+    "synthetic-content-labeling"
+  ],
+  "corrected": [
+    "incident-management",
+    "guiding-principles",
+    "gpai-obligations",
+    "minimal-risk",
+    "story-independence"
+  ],
+  "withheld_translations": 198,
+  "serving_withheld": 24,
+  "untouchedHash": "d9581caa1459b094"
+}
