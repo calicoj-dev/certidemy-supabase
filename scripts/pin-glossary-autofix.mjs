@@ -47,7 +47,13 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
-import { requireKey, getAll } from "./_pg.mjs";
+/* REST_URL comes from `_pg.mjs`, which derives it from the project ref. The first version built the
+ * URL from `process.env.SUPABASE_URL`, which nothing in this repository sets -- so the write threw
+ * `Failed to parse URL from undefined/rest/v1/...` on the first row. Nothing was written, because it
+ * failed before the first PATCH rather than partway through, and the row was read back to confirm
+ * that rather than assumed. A second source for a value `_pg.mjs` already exports is the duplication
+ * this repository keeps paying for. */
+import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { lintRow } from "./lib/translation-term-lint.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -396,7 +402,7 @@ if (!APPLY) {
     .update(JSON.stringify([e.row.question_text, e.row.options, e.row.explanation])).digest("hex")]));
   let wrote = 0;
   for (const e of edits) {
-    const res = await fetch(process.env.SUPABASE_URL + "/rest/v1/quiz_questions?id=eq." + e.row.id, {
+    const res = await fetch(REST_URL + "/quiz_questions?id=eq." + e.row.id, {
       method: "PATCH",
       headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json",
         Prefer: "return=minimal" },
@@ -427,12 +433,29 @@ if (!APPLY) {
         JSON.stringify(got.options) !== JSON.stringify(e.next.options)) {
       fails.push("row " + e.row.id + " does not match what was sent");
     }
-    const whole = [got.question_text, ...(Array.isArray(got.options) ? got.options.map((o) => (o && o.text) || "") : []),
-      got.explanation].join(" ");
+    /* ============ THE POST-CONDITION MUST KNOW WHAT THE WRITE DELIBERATELY LEFT ============
+     *
+     * The first version asserted that no substituted variant survives anywhere in the row, and
+     * reported 3 failures on a correct write: those rows carry BOTH a substituted occurrence and a
+     * parenthetical gloss the substitution is designed to skip. An assertion that does not share the
+     * writer's exclusions calls its own correct behaviour a defect -- and a post-condition that cries
+     * wolf is one the next person switches off, taking the real check with it.
+     *
+     * So a surviving occurrence fails only if it is NOT a gloss, which is the same predicate the
+     * writer used. Checked per field, because the gloss test needs the surrounding characters. */
+    const outFields = [["q", got.question_text],
+      ...(Array.isArray(got.options) ? got.options.map((o, i) => ["o" + i, (o && o.text) || ""]) : []),
+      ["x", got.explanation]];
     for (const v of Object.keys(e.counts)) {
-      const p = PLANS.find((x) => x.variants.includes(v));
-      if (variantRe(v, p ? p.caseSensitive[v] : false).test(whole)) {
-        fails.push("row " + e.row.id + " still contains " + v);
+      const p = PLANS.find((x) => x.lang === LANG_KEY[got.language] && x.variants.includes(v));
+      const re = variantRe(v, p ? p.caseSensitive[v] : false);
+      for (const [, text] of outFields) {
+        const s = String(text || "");
+        let m; re.lastIndex = 0;
+        while ((m = re.exec(s))) {
+          if (isParentheticalGloss(s, m.index, m[0].length)) continue;
+          fails.push("row " + e.row.id + " still contains " + v + " outside a gloss");
+        }
       }
     }
     if (got.status !== e.row.status || String(got.visibility) !== String(e.row.visibility) ||
