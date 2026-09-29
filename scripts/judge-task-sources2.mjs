@@ -203,7 +203,55 @@ try {
   }
 } catch { /* no task_concepts: the payload omits concepts and the report says so */ }
 
-const byKey = new Map(lib.passages.map((p) => [p.source_id + "|" + p.clause, p]));
+/* ============ AN AMENDMENT IS A SECOND EDITION AT THE SAME ADDRESS ============
+ *
+ * `byKey` was keyed `source_id|clause`, and the library holds ISO/IEC 27001 clauses 4.1 and 4.2 TWICE
+ * -- once in edition `2022` and once in `2022/Amd1:2024`. Measured: exactly two pairs collide, and the
+ * amendment comes later in the array, so it WON the key and the base clause text became unreachable.
+ *
+ * Two consequences, both visible in the first ISMS-F run. The title list showed `4.1` twice, so the
+ * judgment proposed it twice for task 2.2 with two different confidences; and `byKey.get()` returned
+ * the AMENDMENT, so pass 2 judged amendment text for a proposal that meant the base clause.
+ *
+ * This is the (standard, address) rule one level deeper: the key is (standard, EDITION, address). The
+ * base edition keeps the plain key so nothing else moves, and the amendment gets its own -- a reader
+ * asking for `27001 4.1` means the clause, not the change note.
+ *
+ * BLAST RADIUS, measured rather than estimated: 8 proposals across ISMS-F (6) and ISMS-IA (2), one
+ * task with a literal duplicate. AIMS-F and AIMS-IA name neither clause. Those 8 are flagged in
+ * TASK-SOURCE-READ-SAMPLE.md rather than re-running 127 tasks for them. */
+const byKey = new Map();
+{
+  const base = lib.passages.filter((p) => !/Amd/i.test(String(p.edition || "")));
+  const amended = lib.passages.filter((p) => /Amd/i.test(String(p.edition || "")));
+  for (const p of base) byKey.set(p.source_id + "|" + p.clause, p);
+  for (const p of amended) {
+    const plain = p.source_id + "|" + p.clause;
+    /* the amendment never displaces a base clause; it is addressable by its own edition */
+    byKey.set(p.source_id + " " + p.edition + "|" + p.clause, p);
+    if (!byKey.has(plain)) byKey.set(plain, p);
+  }
+  const collisions = lib.passages.reduce((m, p) => {
+    const k = p.source_id + "|" + p.clause;
+    m.set(k, (m.get(k) || 0) + 1); return m;
+  }, new Map());
+  const dbl = [...collisions.entries()].filter(([, n]) => n > 1);
+  if (dbl.length) {
+    console.log("library: " + dbl.length + " (source, clause) pair(s) held in more than one edition -- " +
+      dbl.map(([k]) => k).join(", ") + ". The BASE edition holds the plain key.");
+  }
+  /* both directions */
+  const fails = [];
+  const b41 = byKey.get("ISO/IEC 27001|4.1");
+  if (b41 && /Amd/i.test(String(b41.edition || ""))) {
+    fails.push("the amendment still wins the plain key for 27001 4.1");
+  }
+  if (!byKey.has("ISO/IEC 27001 2022/Amd1:2024|4.1")) {
+    fails.push("the amendment is not addressable under its own edition");
+  }
+  if (fails.length) { fails.forEach((f) => console.error("   " + f)); process.exitCode = 3; process.exit(); }
+  console.log("edition-key controls: 2 case(s), 0 fail");
+}
 /* THE COMPLETE LIST. Every passage of every in-scope standard, in document order, with no cap.
  *
  * ============ THE CLAUSE IS DELIMITED, BECAUSE THE FIRST FORMAT LOST THE WHOLE RUN ============
@@ -598,6 +646,24 @@ console.log("  pass 1 picked       " + results.reduce((n, r) => n + ((r.pass1 ||
 console.log("  pass 2 confirmed    " + (tp + fp) +
   "   dropped " + results.reduce((n, r) => n + ((r.dropped || []).length), 0));
 console.log("");
+/* ============ NO REVIEWED MAPPING IS UNMEASURABLE, NOT ZERO PERCENT ============
+ *
+ * The first version printed `RECALL 0.0% (0 of 0)` and `STRICT recall NaN%` for the three
+ * certifications that have no reviewed links at all -- which is the whole reason they are being
+ * proposed. A 0.0% reads as "the judgment found nothing"; the truth is "there is nothing to compare
+ * against". That is the third-state collapse this repository records over and over, printed by my own
+ * script, in the numbers most likely to be quoted back.
+ *
+ * A percentage needs a denominator. Where there is none, the report says so and prints no figure. */
+if (accepted.size === 0 || (tp + fn) === 0) {
+  console.log("  NO REVIEWED MAPPING for " + CERT + " -- recall and precision are UNMEASURABLE here,");
+  console.log("  not zero. There is nothing to compare " + (tp + fp) + " proposal(s) against, which is");
+  console.log("  why they are PROPOSALS. The only figures that mean anything for this certification:");
+  console.log("    proposals            " + (tp + fp));
+  console.log("    tasks with none      " +
+    results.filter((r) => r.state === "judged" && !(r.primary || []).length).length);
+  console.log("    none_apply           " + results.filter((r) => r.none_apply).length);
+} else {
 console.log("  against " + accepted.size + " task(s) with a reviewed mapping, " + (tp + fn) +
   " reviewed primaries:");
 console.log("    RECALL             " + pct(recall) + "   (" + tp + " of " + (tp + fn) + ")" +
@@ -616,6 +682,7 @@ console.log("    missed " + missed.length + "   extra " + extra.length);
 console.log("");
 console.log("  CEILING: " + offerable + " of " + totalReviewed +
   " reviewed primaries are in the scoped title list and were therefore offered.");
+}
 if (outOfScope.length) {
   const offRecall = offerable ? (tp / offerable) : 0;
   console.log("  OUT OF SCOPE: " + outOfScope.length + " reviewed primar" +

@@ -1,0 +1,4843 @@
+{
+ "cert": "ISMS-IA",
+ "standards": [
+  "ISO/IEC 27001",
+  "ISO 19011",
+  "ISO/IEC 27002",
+  "ISO/IEC 27000"
+ ],
+ "model": "claude-opus-5",
+ "mode": "two-pass, complete title list, no cap",
+ "blind": true,
+ "measured_against_reviewed": 0,
+ "recall": 0,
+ "precision": 0,
+ "recall_subject": 0,
+ "tp": 0,
+ "fp": 313,
+ "fn": 0,
+ "missed": [],
+ "extra": [
+  "1.1 -> ISO 19011|3.1",
+  "1.1 -> ISO 19011|3.13",
+  "1.1 -> ISO/IEC 27001|9.2.1",
+  "1.1 -> ISO/IEC 27001|9.2.2",
+  "1.1 -> ISO/IEC 27001|A.5.35",
+  "1.1 -> ISO/IEC 27002|5.35",
+  "1.1 -> ISO/IEC 27000|3.3",
+  "1.2 -> ISO 19011|4.1",
+  "1.2 -> ISO 19011|4.2",
+  "1.2 -> ISO 19011|4.3",
+  "1.2 -> ISO 19011|4.4",
+  "1.2 -> ISO 19011|4.5",
+  "1.2 -> ISO 19011|4.6",
+  "1.2 -> ISO 19011|4.7",
+  "1.2 -> ISO 19011|4.8",
+  "1.3 -> ISO/IEC 27001|9.2.2",
+  "1.3 -> ISO 19011|4.6",
+  "1.3 -> ISO 19011|6.3.3",
+  "1.3 -> ISO 19011|3.1",
+  "1.3 -> ISO 19011|3.16",
+  "1.3 -> ISO/IEC 27000|3.3",
+  "1.4 -> ISO 19011|7.1",
+  "1.4 -> ISO 19011|7.2.1",
+  "1.4 -> ISO 19011|7.2.2",
+  "1.4 -> ISO 19011|7.2.3.1",
+  "1.4 -> ISO 19011|7.2.3.2",
+  "1.4 -> ISO 19011|7.2.3.3",
+  "1.4 -> ISO 19011|7.2.3.4",
+  "1.4 -> ISO 19011|7.2.3.5",
+  "1.4 -> ISO 19011|5.5.4",
+  "1.4 -> ISO 19011|A.16",
+  "1.4 -> ISO 19011|3.23",
+  "1.4 -> ISO 19011|3.15",
+  "1.4 -> ISO 19011|3.17",
+  "1.4 -> ISO/IEC 27000|5.4.5",
+  "1.5 -> ISO 19011|1",
+  "1.5 -> ISO 19011|3",
+  "1.5 -> ISO 19011|3.1",
+  "1.5 -> ISO 19011|3.8",
+  "1.5 -> ISO 19011|3.22",
+  "1.5 -> ISO/IEC 27001|1",
+  "1.5 -> ISO/IEC 27001|2",
+  "1.5 -> ISO/IEC 27001|3",
+  "1.5 -> ISO/IEC 27001|9.2.2",
+  "1.5 -> ISO/IEC 27001|10.2",
+  "1.5 -> ISO/IEC 27000|1",
+  "1.5 -> ISO/IEC 27000|3",
+  "1.5 -> ISO/IEC 27000|3.3",
+  "1.5 -> ISO/IEC 27000|3.16",
+  "1.5 -> ISO/IEC 27000|3.17",
+  "1.5 -> ISO/IEC 27000|3.11",
+  "1.5 -> ISO/IEC 27000|3.56",
+  "1.5 -> ISO/IEC 27000|0.2",
+  "1.5 -> ISO/IEC 27000|5.2",
+  "1.5 -> ISO/IEC 27000|5.3.1",
+  "1.5 -> ISO/IEC 27000|5.3.2",
+  "1.5 -> ISO/IEC 27000|5.4.5",
+  "1.5 -> ISO/IEC 27000|5.1",
+  "1.5 -> ISO/IEC 27002|0.7",
+  "2.1 -> ISO 19011|5.2",
+  "2.1 -> ISO 19011|5.1",
+  "2.1 -> ISO/IEC 27001|9.2.2",
+  "2.1 -> ISO/IEC 27001|9.2.1",
+  "2.1 -> ISO/IEC 27001|6.2",
+  "2.2 -> ISO 19011|4.8",
+  "2.2 -> ISO 19011|5.3",
+  "2.2 -> ISO 19011|5.4.3",
+  "2.2 -> ISO 19011|5.1",
+  "2.2 -> ISO 19011|6.3.2.1",
+  "2.2 -> ISO/IEC 27001|9.2.2",
+  "2.2 -> ISO/IEC 27001|0.1",
+  "2.3 -> ISO 19011|5.5.2",
+  "2.3 -> ISO 19011|3.6",
+  "2.3 -> ISO 19011|3.8",
+  "2.3 -> ISO 19011|5.5.1",
+  "2.3 -> ISO/IEC 27001|9.2.2",
+  "2.3 -> ISO/IEC 27001|9.2.1",
+  "2.3 -> ISO/IEC 27000|3.4",
+  "2.4 -> ISO 19011|5.5.3",
+  "2.4 -> ISO 19011|3.4",
+  "2.4 -> ISO 19011|A.16",
+  "2.4 -> ISO 19011|A.1",
+  "2.4 -> ISO 19011|5.3",
+  "2.5 -> ISO 19011|5.4.4",
+  "2.5 -> ISO 19011|5.5.4",
+  "2.5 -> ISO 19011|5.5.5",
+  "2.5 -> ISO 19011|3.15",
+  "2.5 -> ISO 19011|3.17",
+  "2.5 -> ISO 19011|3.18",
+  "2.5 -> ISO 19011|6.3.3",
+  "2.5 -> ISO 19011|6.2.3",
+  "2.5 -> ISO 19011|7.2.3.4",
+  "2.5 -> ISO 19011|7.2.3.5",
+  "2.5 -> ISO/IEC 27001|9.2.2",
+  "2.6 -> ISO/IEC 27001|9.2.1",
+  "2.6 -> ISO/IEC 27001|9.2.2",
+  "2.6 -> ISO 19011|3.5",
+  "2.6 -> ISO 19011|5.1",
+  "2.7 -> ISO 19011|5.3",
+  "2.7 -> ISO 19011|5.2",
+  "2.7 -> ISO 19011|5.4.3",
+  "2.7 -> ISO 19011|5.6",
+  "2.7 -> ISO 19011|4.8",
+  "2.7 -> ISO 19011|6.3.2.1",
+  "2.7 -> ISO 19011|A.12",
+  "2.7 -> ISO/IEC 27001|9.2.2",
+  "2.7 -> ISO/IEC 27001|4.3",
+  "2.7 -> ISO/IEC 27001|8.1",
+  "2.7 -> ISO/IEC 27001|8.2",
+  "2.7 -> ISO/IEC 27001|A.5.9",
+  "2.7 -> ISO/IEC 27001|A.5.19",
+  "2.7 -> ISO/IEC 27001|A.5.20",
+  "2.7 -> ISO/IEC 27001|A.5.21",
+  "2.7 -> ISO/IEC 27001|A.5.22",
+  "2.7 -> ISO/IEC 27001|A.5.23",
+  "2.7 -> ISO/IEC 27001|A.8.32",
+  "2.7 -> ISO/IEC 27002|5.19",
+  "2.7 -> ISO/IEC 27002|5.22",
+  "2.7 -> ISO/IEC 27002|8.32",
+  "3.1 -> ISO 19011|3.10",
+  "3.1 -> ISO 19011|3.9",
+  "3.1 -> ISO 19011|3.1",
+  "3.1 -> ISO 19011|6.4.7",
+  "3.1 -> ISO 19011|4.7",
+  "3.1 -> ISO 19011|6.4.8",
+  "3.1 -> ISO 19011|3.11",
+  "3.2 -> ISO 19011|4.7",
+  "3.2 -> ISO 19011|6.4.7",
+  "3.2 -> ISO 19011|A.6.1",
+  "3.2 -> ISO 19011|A.6.2",
+  "3.2 -> ISO 19011|A.6.3",
+  "3.3 -> ISO 19011|A.16",
+  "3.3 -> ISO 19011|6.4.7",
+  "3.3 -> ISO 19011|A.5",
+  "3.3 -> ISO 19011|3.10",
+  "3.3 -> ISO 19011|3.9",
+  "3.3 -> ISO 19011|4.7",
+  "3.4 -> ISO 19011|6.4.7",
+  "3.4 -> ISO 19011|6.4.6",
+  "3.4 -> ISO 19011|A.14",
+  "3.5 -> ISO 19011|A.17",
+  "3.5 -> ISO 19011|3.10",
+  "3.5 -> ISO 19011|3.9",
+  "3.6 -> ISO/IEC 27001|6.1.3",
+  "3.6 -> ISO 19011|6.4.7",
+  "3.6 -> ISO 19011|6.4.8",
+  "3.6 -> ISO 19011|4.7",
+  "3.6 -> ISO 19011|A.5",
+  "3.6 -> ISO 19011|A.14",
+  "3.6 -> ISO 19011|3.9",
+  "3.6 -> ISO 19011|3.10",
+  "3.6 -> ISO 19011|3.8",
+  "3.6 -> ISO/IEC 27002|4.3",
+  "3.6 -> ISO/IEC 27002|3.1.8",
+  "3.6 -> ISO/IEC 27000|3.14",
+  "3.6 -> ISO/IEC 27000|4.5.5",
+  "3.6 -> ISO/IEC 27000|3.20",
+  "3.7 -> ISO/IEC 27001|A.8.34",
+  "3.7 -> ISO/IEC 27002|8.34",
+  "3.7 -> ISO 19011|6.2.3",
+  "3.7 -> ISO 19011|3.17",
+  "3.7 -> ISO 19011|5.5.4",
+  "3.7 -> ISO 19011|5.5.2",
+  "3.7 -> ISO 19011|6.3.2.2",
+  "3.7 -> ISO 19011|6.4.4",
+  "3.7 -> ISO 19011|7.2.3.3",
+  "3.7 -> ISO 19011|A.1",
+  "3.8 -> ISO 19011|6.4.7",
+  "3.8 -> ISO 19011|4.7",
+  "3.8 -> ISO 19011|7.2.3",
+  "3.8 -> ISO 19011|7.2.3.2",
+  "3.8 -> ISO 19011|A.5",
+  "3.8 -> ISO 19011|A.6",
+  "3.8 -> ISO 19011|A.6.1",
+  "3.8 -> ISO 19011|A.1",
+  "3.8 -> ISO 19011|4.4",
+  "3.8 -> ISO 19011|3.10",
+  "3.8 -> ISO 19011|3.9",
+  "3.8 -> ISO 19011|6.4.6",
+  "3.9 -> ISO 19011|6.4.7",
+  "3.9 -> ISO 19011|5.5.7",
+  "3.9 -> ISO 19011|6.4.8",
+  "3.9 -> ISO 19011|A.13",
+  "3.9 -> ISO 19011|A.5",
+  "3.9 -> ISO 19011|A.18.1",
+  "3.9 -> ISO 19011|A.18.2",
+  "3.9 -> ISO 19011|A.18.3",
+  "3.9 -> ISO 19011|4.7",
+  "3.9 -> ISO 19011|4.5",
+  "3.9 -> ISO 19011|6.6",
+  "3.9 -> ISO 19011|3.10",
+  "3.9 -> ISO 19011|3.11",
+  "4.1 -> ISO/IEC 27001|4.3",
+  "4.1 -> ISO/IEC 27001|1",
+  "4.1 -> ISO 19011|A.8",
+  "4.1 -> ISO/IEC 27000|3.38",
+  "4.1 -> ISO/IEC 27000|3.51",
+  "4.10 -> ISO 19011|5.5.4",
+  "4.10 -> ISO 19011|7.2.3.3",
+  "4.10 -> ISO 19011|7.2.3.5",
+  "4.2 -> ISO/IEC 27001|5.1",
+  "4.2 -> ISO/IEC 27001|5.2",
+  "4.2 -> ISO/IEC 27001|5.3",
+  "4.2 -> ISO 19011|A.9",
+  "4.3 -> ISO/IEC 27001|6.1.1",
+  "4.3 -> ISO/IEC 27001|6.1.2",
+  "4.3 -> ISO/IEC 27001|6.1.3",
+  "4.3 -> ISO/IEC 27001|6.2",
+  "4.3 -> ISO/IEC 27001|8.1",
+  "4.3 -> ISO/IEC 27001|8.2",
+  "4.3 -> ISO/IEC 27001|8.3",
+  "4.3 -> ISO/IEC 27000|3.62",
+  "4.3 -> ISO/IEC 27000|3.66",
+  "4.3 -> ISO/IEC 27000|3.71",
+  "4.3 -> ISO/IEC 27000|3.72",
+  "4.3 -> ISO/IEC 27000|3.49",
+  "4.3 -> ISO/IEC 27000|4.5.3",
+  "4.3 -> ISO/IEC 27000|4.5.4",
+  "4.3 -> ISO/IEC 27000|4.5.5",
+  "4.3 -> ISO/IEC 27002|0.4",
+  "4.3 -> ISO 19011|A.10",
+  "4.4 -> ISO/IEC 27001|6.1.3",
+  "4.4 -> ISO/IEC 27001|8.3",
+  "4.4 -> ISO/IEC 27000|3.71",
+  "4.4 -> ISO/IEC 27000|3.62",
+  "4.4 -> ISO/IEC 27000|3.72",
+  "4.4 -> ISO/IEC 27000|4.5.5",
+  "4.4 -> ISO/IEC 27000|4.5.4",
+  "4.4 -> ISO 19011|6.4.8",
+  "4.5 -> ISO/IEC 27001|7.2",
+  "4.5 -> ISO/IEC 27001|7.3",
+  "4.5 -> ISO/IEC 27001|7.5.1",
+  "4.5 -> ISO/IEC 27001|7.5.2",
+  "4.5 -> ISO/IEC 27001|7.5.3",
+  "4.6 -> ISO/IEC 27001|8.1",
+  "4.6 -> ISO/IEC 27001|8.2",
+  "4.6 -> ISO/IEC 27001|8.3",
+  "4.6 -> ISO/IEC 27001|9.1",
+  "4.6 -> ISO/IEC 27001|6.1.2",
+  "4.6 -> ISO/IEC 27001|6.1.3",
+  "4.6 -> ISO 19011|A.4",
+  "4.6 -> ISO/IEC 27000|3.46",
+  "4.7 -> ISO/IEC 27001|4.1",
+  "4.7 -> ISO/IEC 27001|4.2",
+  "4.8 -> ISO/IEC 27001|A.5.9",
+  "4.8 -> ISO/IEC 27002|5.9",
+  "4.8 -> ISO/IEC 27001|4.3",
+  "4.9 -> ISO/IEC 27001|9.1",
+  "4.9 -> ISO/IEC 27001|8.1",
+  "4.9 -> ISO/IEC 27001|8.2",
+  "4.9 -> ISO/IEC 27001|A.8.32",
+  "4.9 -> ISO/IEC 27001|A.8.16",
+  "4.9 -> ISO/IEC 27002|5.36",
+  "4.9 -> ISO/IEC 27002|5.35",
+  "4.9 -> ISO/IEC 27002|3.1.8",
+  "4.9 -> ISO/IEC 27000|3.20",
+  "4.9 -> ISO/IEC 27000|3.14",
+  "4.9 -> ISO/IEC 27000|4.5.6",
+  "4.9 -> ISO 19011|A.2",
+  "4.9 -> ISO 19011|A.4",
+  "4.9 -> ISO 19011|A.3",
+  "4.9 -> ISO 19011|A.5",
+  "4.9 -> ISO 19011|6.4.7",
+  "4.9 -> ISO 19011|4.7",
+  "4.9 -> ISO 19011|3.27",
+  "5.1 -> ISO 19011|3.11",
+  "5.1 -> ISO 19011|3.8",
+  "5.1 -> ISO 19011|3.21",
+  "5.1 -> ISO 19011|3.22",
+  "5.1 -> ISO 19011|6.4.8",
+  "5.1 -> ISO/IEC 27001|10.2",
+  "5.1 -> ISO/IEC 27000|3.47",
+  "5.1 -> ISO/IEC 27000|3.11",
+  "5.2 -> ISO 19011|6.4.8",
+  "5.2 -> ISO 19011|A.18.1",
+  "5.2 -> ISO 19011|A.18.3",
+  "5.2 -> ISO 19011|6.4.7",
+  "5.2 -> ISO 19011|A.5",
+  "5.2 -> ISO 19011|4.7",
+  "5.2 -> ISO 19011|3.11",
+  "5.2 -> ISO 19011|3.22",
+  "5.2 -> ISO 19011|3.10",
+  "5.2 -> ISO 19011|3.9",
+  "5.2 -> ISO 19011|3.21",
+  "5.2 -> ISO 19011|3.8",
+  "5.2 -> ISO/IEC 27001|10.2",
+  "5.2 -> ISO/IEC 27001|7.5.1",
+  "5.2 -> ISO/IEC 27000|3.56",
+  "5.3 -> ISO 19011|A.18.3",
+  "5.3 -> ISO 19011|6.4.8",
+  "5.3 -> ISO 19011|4.3",
+  "5.3 -> ISO 19011|3.22",
+  "5.3 -> ISO 19011|3.11",
+  "5.3 -> ISO 19011|3.10",
+  "5.3 -> ISO 19011|3.8",
+  "5.3 -> ISO 19011|6.5.1",
+  "5.4 -> ISO 19011|6.5.1",
+  "5.4 -> ISO 19011|6.4.7",
+  "5.4 -> ISO 19011|4.3",
+  "5.5 -> ISO/IEC 27001|10.2",
+  "5.5 -> ISO/IEC 27000|3.16",
+  "5.5 -> ISO/IEC 27000|3.17",
+  "5.5 -> ISO 19011|6.7",
+  "5.6 -> ISO/IEC 27001|10.2",
+  "5.6 -> ISO 19011|6.7",
+  "5.6 -> ISO 19011|5.5.6",
+  "5.6 -> ISO 19011|A.5",
+  "5.6 -> ISO 19011|3.10",
+  "5.6 -> ISO/IEC 27000|3.16",
+  "5.6 -> ISO/IEC 27000|3.17",
+  "5.6 -> ISO/IEC 27000|3.20",
+  "5.7 -> ISO/IEC 27001|9.3.2",
+  "5.7 -> ISO/IEC 27001|9.2.2"
+ ],
+ "low_confidence": [
+  {
+   "task": "1.3",
+   "source": "ISO 19011",
+   "clause": "3.16",
+   "reason": "Definition of auditor, supporting the point that independence is a property of the assignment, not a status.",
+   "confidence": "low"
+  },
+  {
+   "task": "1.3",
+   "source": "ISO/IEC 27000",
+   "clause": "3.3",
+   "reason": "ISMS-family definition of audit as systematic, independent and documented process.",
+   "confidence": "low"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO 19011",
+   "clause": "3.22",
+   "reason": "ISO 19011's nonconformity definition, contrasted with where ISO/IEC 27001's nonconformity is defined.",
+   "confidence": "low"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 27002",
+   "clause": "0.7",
+   "reason": "Positions ISO/IEC 27002 relative to ISO/IEC 27001 and the rest of the family.",
+   "confidence": "low"
+  },
+  {
+   "task": "2.3",
+   "source": "ISO 19011",
+   "clause": "5.5.1",
+   "reason": "General provisions for implementing the audit programme within which individual audits are defined.",
+   "confidence": "low"
+  },
+  {
+   "task": "2.4",
+   "source": "ISO 19011",
+   "clause": "5.3",
+   "reason": "Audit programme risks and opportunities, which include risks arising from chosen auditing methods.",
+   "confidence": "low"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 27001",
+   "clause": "9.2.2",
+   "reason": "Internal audit programme requirement: objectivity and competence of auditors for the ISMS audit.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.5",
+   "source": "ISO 19011",
+   "clause": "3.9",
+   "reason": "Definition of objective evidence, distinguishing evidence from mere assertion/agreement.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.6",
+   "source": "ISO/IEC 27002",
+   "clause": "3.1.8",
+   "reason": "Definition of control as a measure that maintains and/or modifies risk.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.6",
+   "source": "ISO/IEC 27000",
+   "clause": "3.14",
+   "reason": "Definition of control.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.7",
+   "source": "ISO 19011",
+   "clause": "A.1",
+   "reason": "Applying auditing methods — which methods are available to an auditor and their limits.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.8",
+   "source": "ISO 19011",
+   "clause": "3.9",
+   "reason": "Objective evidence definition supports what an AI summary does not establish.",
+   "confidence": "low"
+  },
+  {
+   "task": "3.8",
+   "source": "ISO 19011",
+   "clause": "6.4.6",
+   "reason": "Reviewing documented information while conducting the audit — what review the auditor did or did not perform.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.1",
+   "source": "ISO/IEC 27000",
+   "clause": "3.38",
+   "reason": "Definition of internal context supporting clause 4.1 issues.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.1",
+   "source": "ISO/IEC 27000",
+   "clause": "3.51",
+   "reason": "Definition of outsource - the undeclared interface case.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.3",
+   "source": "ISO/IEC 27000",
+   "clause": "3.49",
+   "reason": "Definition of objective, underpinning information security objectives.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.3",
+   "source": "ISO/IEC 27000",
+   "clause": "4.5.3",
+   "reason": "Explains assessing information security risks — supporting narrative for the 6.1.2 process.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.3",
+   "source": "ISO/IEC 27000",
+   "clause": "4.5.4",
+   "reason": "Explains treating information security risks — supporting narrative for 6.1.3.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.3",
+   "source": "ISO/IEC 27000",
+   "clause": "4.5.5",
+   "reason": "Selecting and implementing controls, relevant to how controls are determined rather than picked from a catalogue.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.4",
+   "source": "ISO/IEC 27000",
+   "clause": "3.62",
+   "reason": "Definition of risk acceptance as an informed decision, supports judging acceptance evidence.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.4",
+   "source": "ISO/IEC 27000",
+   "clause": "3.72",
+   "reason": "Definition of risk treatment, underpins tracing SoA inclusion/exclusion to a treatment decision.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.4",
+   "source": "ISO/IEC 27000",
+   "clause": "4.5.4",
+   "reason": "Describes treating information security risks, the decisions the SoA must be consistent with.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.6",
+   "source": "ISO/IEC 27000",
+   "clause": "3.46",
+   "reason": "Definition of monitoring, underpinning the 9.1 measurement arrangements.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.9",
+   "source": "ISO 19011",
+   "clause": "3.27",
+   "reason": "Definition of effectiveness used in judging the control claim.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.2",
+   "source": "ISO 19011",
+   "clause": "A.5",
+   "reason": "Verifying information - underpins the rule that absent/unverified evidence cannot found a nonconformity.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.2",
+   "source": "ISO 19011",
+   "clause": "3.21",
+   "reason": "Definition of conformity, the alternative determination.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.2",
+   "source": "ISO 19011",
+   "clause": "3.8",
+   "reason": "Audit criteria - the requirement set against which non-fulfilment is judged.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.2",
+   "source": "ISO/IEC 27001",
+   "clause": "7.5.1",
+   "reason": "Establishes what documented information must exist, supporting whether absent evidence should have existed.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.2",
+   "source": "ISO/IEC 27000",
+   "clause": "3.56",
+   "reason": "Definition of requirement - the thing that must be non-fulfilled for a nonconformity.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.3",
+   "source": "ISO 19011",
+   "clause": "6.5.1",
+   "reason": "Report content requirements may constrain how nonconformities are expressed to the recipient.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO 19011",
+   "clause": "3.10",
+   "reason": "Definition of audit evidence, underpinning what counts as sufficient evidence to close a finding.",
+   "confidence": "low"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 27000",
+   "clause": "3.20",
+   "reason": "Definition of effectiveness used in judging whether corrective action worked.",
+   "confidence": "low"
+  }
+ ],
+ "results": [
+  {
+   "task": "1.1",
+   "state": "judged",
+   "statement": "Distinguish first-party, second-party and third-party audits by purpose, criteria and who may conduct them - and distinguish the clause 9.2 internal audit requirement from the Annex A 5.35 independent review control.",
+   "pass1": [
+    "ISO 19011|3.1",
+    "ISO 19011|1",
+    "ISO 19011|3.13",
+    "ISO 19011|3.14",
+    "ISO 19011|3.8",
+    "ISO 19011|4.6",
+    "ISO 19011|5.2",
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|A.5.35",
+    "ISO/IEC 27002|5.35",
+    "ISO/IEC 27000|3.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.1",
+     "reason": "Definition of audit with notes distinguishing internal (first-party) audits conducted by/on behalf of the organization from external audits by independent auditing organizations; Table 1 sits with this definition.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.13",
+     "reason": "'Audit client' definition underpins who commissions each audit type (second-party = customer/interested party).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "States the internal audit requirement at planned intervals — the obligation being distinguished from 5.35.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Internal audit programme requirements, including objectivity/impartiality of auditors — who may conduct a first-party audit.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.35",
+     "reason": "Annex A control requiring independent review of the approach to managing information security at planned intervals — the control contrasted with clause 9.2.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.35",
+     "reason": "Implementation guidance on independent review, including who may perform it, showing it is not discharged by the clause 9.2 internal audit.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "reason": "ISMS-family definition of audit (systematic, independent, documented process) as the vocabulary anchor.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "1",
+     "why": "Generic scope of the guidance document; says nothing about first-/second-/third-party categories or who conducts them."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.14",
+     "why": "Bare one-line definition of 'auditee'; nothing testable about audit types or 9.2 vs 5.35."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "why": "Generic definition of audit criteria; does not differentiate criteria across first-, second- or third-party audits."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.6",
+     "why": "Guidance on the independence principle for auditors generally, not on categorising audit types or the 9.2/5.35 distinction."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.2",
+     "why": "Guidance on setting audit programme objectives; no statement of audit party categories or who may conduct them."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "1.2",
+   "state": "judged",
+   "statement": "Determine how an auditor resolves a situation where two ISO 19011 audit principles point in different directions.",
+   "pass1": [
+    "ISO 19011|4.1",
+    "ISO 19011|4.2",
+    "ISO 19011|4.3",
+    "ISO 19011|4.4",
+    "ISO 19011|4.5",
+    "ISO 19011|4.6",
+    "ISO 19011|4.7",
+    "ISO 19011|4.8",
+    "ISO 19011|A.3",
+    "ISO 19011|7.2.2",
+    "ISO 19011|6.3.2.1",
+    "ISO 19011|6.4.5"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "4.1",
+     "reason": "States adherence to the principles is fundamental and that Clauses 5-7 rest on all seven, with no order of precedence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.2",
+     "reason": "Integrity principle text, one of the seven that may be engaged in a conflict.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.3",
+     "reason": "Fair presentation principle text, engaged when reporting obligations pull against other principles.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.4",
+     "reason": "Due professional care principle text, one side of the independence/care tension named in the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.5",
+     "reason": "Confidentiality principle text, a common counterweight to fair presentation and evidence-based approach.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.6",
+     "reason": "Independence principle text, one side of the independence/due care tension named in the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach principle text, one side of the evidence-based/risk-based tension.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.8",
+     "reason": "Risk-based approach principle text, the other side of the evidence-based/risk-based tension.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "why": "Text is about judging whether the intent of a management system standard clause is met, not about weighing audit principles against each other."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.2",
+     "why": "Lists desired personal behaviours/attributes; only cross-references Clause 4 without stating anything about principles conflicting or their precedence."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.1",
+     "why": "Operational guidance on applying the risk-based approach in audit planning; elaborates one principle rather than addressing interaction or resolution between principles."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.5",
+     "why": "Text is about selecting auditing methods and access to information by location; unrelated to audit principles."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "1.3",
+   "state": "judged",
+   "statement": "Determine whether a proposed internal auditor assignment preserves objectivity and impartiality, given that auditor's other duties in the organization.",
+   "pass1": [
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.2.1",
+    "ISO 19011|4.6",
+    "ISO 19011|4.1",
+    "ISO 19011|5.5.4",
+    "ISO 19011|6.3.3",
+    "ISO 19011|7.2.2",
+    "ISO 19011|5.4.4",
+    "ISO 19011|3.1",
+    "ISO 19011|3.16",
+    "ISO/IEC 27000|3.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires selection of auditors and conduct of audits that ensure objectivity and impartiality of the audit process - the requirement the assignment is judged against.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.6",
+     "reason": "States auditors should be independent of the activity audited where practicable and that bias be removed where internal independence is not possible - the core passage for compensating arrangements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.3",
+     "reason": "Assigning work to the audit team - where the audited area is matched to an auditor, the point objectivity is preserved or lost.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.1",
+     "reason": "Definition of audit as a systematic, independent and documented process - vocabulary anchor for independence.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.16",
+     "reason": "Definition of auditor, supporting the point that independence is a property of the assignment, not a status.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "reason": "ISMS-family definition of audit as systematic, independent and documented process.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "why": "States only the purpose/frequency of internal audits; says nothing about auditor selection, objectivity or impartiality."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.1",
+     "why": "Introductory pointer to the seven principles; contains no rule about auditor independence that an item could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "why": "Audit team selection driven by competence and team size; does not address impartiality or auditing one's own area."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.2",
+     "why": "List of desired personal behaviours/attributes of auditors, not a statement about independence of the activity audited."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.4",
+     "why": "Audit programme resourcing considerations (time, cost, tools, availability); unrelated to objectivity of an assignment."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27002 5.35 (independent review) deliberately excluded - different activity from the clause 9.2 internal audit assignment.",
+   "invented": []
+  },
+  {
+   "task": "1.4",
+   "state": "judged",
+   "statement": "Identify the competence gaps in an audit team against a given audit's scope, including the technology competence a remote or hybrid audit demands.",
+   "pass1": [
+    "ISO 19011|7.1",
+    "ISO 19011|7.2.1",
+    "ISO 19011|7.2.2",
+    "ISO 19011|7.2.3.1",
+    "ISO 19011|7.2.3.2",
+    "ISO 19011|7.2.3.3",
+    "ISO 19011|7.2.3.4",
+    "ISO 19011|7.2.3.5",
+    "ISO 19011|7.2.4",
+    "ISO 19011|7.3",
+    "ISO 19011|5.5.4",
+    "ISO 19011|5.5.3",
+    "ISO 19011|6.3.3",
+    "ISO 19011|A.16",
+    "ISO 19011|A.1",
+    "ISO 19011|3.23",
+    "ISO 19011|3.15",
+    "ISO 19011|3.17",
+    "ISO 19011|3.4",
+    "ISO 19011|6.4.9.2",
+    "ISO/IEC 27000|5.4.5",
+    "ISO/IEC 27000|3.9"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "7.1",
+     "reason": "General statement that auditor competence is evaluated against the knowledge and skills needed for the audit scope.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.1",
+     "reason": "Sets out the competence elements (personal behaviour plus knowledge and skills) that a gap analysis is measured against.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.2",
+     "reason": "Personal behaviour element of auditor competence named in the task knowledge.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.1",
+     "reason": "General knowledge and skills requirements, including the item on appropriateness and consequences of ICT and emerging technology (AI) tools for auditing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.2",
+     "reason": "Generic knowledge and skills of management system auditors used to identify gaps.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.3",
+     "reason": "Discipline-specific (ISMS) competence additions relevant to the audit scope.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.4",
+     "reason": "Audit team leader competence, part of assessing team gaps.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.5",
+     "reason": "Knowledge and skills for auditing multiple disciplines, relevant to combined scope gaps.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "reason": "Selecting audit team members so that collective team competence covers the audit objectives and scope, including use of technical experts.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "reason": "Using remote auditing methods; adds technical skills to use the appropriate technology while auditing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.23",
+     "reason": "Definition of competence as the ability to apply knowledge and skills.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.15",
+     "reason": "Definition of audit team, supporting team-level versus individual competence.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.17",
+     "reason": "Definition of technical expert, the usual means of covering a team competence gap.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.5",
+     "reason": "Identifies ISO/IEC 27007 as the source of ISMS-specific auditor competence additions.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.4",
+     "why": "Text lists how competence is acquired (training, experience, supervision), not how to identify a gap against an audit's scope or technology profile."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.3",
+     "why": "Text only distinguishes qualitative vs quantitative evaluation criteria for auditors, not competence elements or gap analysis."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "Text is about selecting on-site/remote/combined auditing methods, not about the competence needed to use them."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.3",
+     "why": "Text is about allocating work assignments within the team, not about identifying competence gaps against scope or technology."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "why": "Text is a catalogue of auditing methods (on-site/remote, human interaction); only glances at competence without stating anything testable about gaps."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.4",
+     "why": "Bare definition of remote auditing method; says nothing about the competence or technology skills it demands."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.9.2",
+     "why": "Text lists the content of audit conclusions; does not address competence gaps as limitations."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.9",
+     "why": "Text under this entry is actually the definition of confidentiality, not competence."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27007 itself is not in the listed standards; its ISMS-specific competence content is reachable only via 19011 7.2.3.3 and 27000 5.4.5.",
+   "invented": []
+  },
+  {
+   "task": "1.5",
+   "state": "judged",
+   "statement": "Distinguish what ISO 19011 provides, what ISO/IEC 27001 requires and what ISO/IEC 17021-1 governs - and where ISO/IEC 27001's terms are actually defined.",
+   "pass1": [
+    "ISO 19011|1",
+    "ISO 19011|2",
+    "ISO 19011|3",
+    "ISO 19011|3.1",
+    "ISO 19011|3.8",
+    "ISO 19011|3.22",
+    "ISO/IEC 27001|1",
+    "ISO/IEC 27001|2",
+    "ISO/IEC 27001|3",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27000|1",
+    "ISO/IEC 27000|3",
+    "ISO/IEC 27000|3.3",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.11",
+    "ISO/IEC 27000|3.56",
+    "ISO/IEC 27000|0.2",
+    "ISO/IEC 27000|5.2",
+    "ISO/IEC 27000|5.3.1",
+    "ISO/IEC 27000|5.3.2",
+    "ISO/IEC 27000|5.4.5",
+    "ISO/IEC 27000|5.1",
+    "ISO/IEC 27002|1",
+    "ISO/IEC 27002|0.7"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "1",
+     "reason": "Scope states ISO 19011 provides guidance on auditing management systems (first- and second-party) and is not a requirements document.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3",
+     "reason": "Where ISO 19011's own audit terms are defined, as distinct from ISO/IEC 27001's terms.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.1",
+     "reason": "Definition of audit in the guidance document, contrasted with ISO/IEC 27000's definition used by 27001.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Audit criteria definition supports the concept of ISO/IEC 27001 used as audit criteria rather than as auditing guidance.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "reason": "ISO 19011's nonconformity definition, contrasted with where ISO/IEC 27001's nonconformity is defined.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "1",
+     "reason": "Scope defines what ISO/IEC 27001 requires and excludes conformity assessment provisions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "2",
+     "reason": "The undated normative reference to ISO/IEC 27000 through which 27001's terms are imported.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "3",
+     "reason": "Clause 3 delegates all terms and definitions to ISO/IEC 27000 rather than defining them in 27001.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Internal audit programme requirements are stated in 27001, not in ISO 19011.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "Nonconformity and corrective action requirements use terms that 27001 does not itself define.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "1",
+     "reason": "Scope states ISO/IEC 27000 provides the terms and definitions used across the ISMS family.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3",
+     "reason": "The clause that actually holds the definitions ISO/IEC 27001 relies on.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "reason": "Definition of audit applicable to ISO/IEC 27001.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "reason": "Definition of correction applicable to ISO/IEC 27001.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "reason": "Definition of corrective action applicable to ISO/IEC 27001.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "reason": "Definition of conformity applicable to ISO/IEC 27001.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.56",
+     "reason": "Definition of requirement, underpinning what 'required' means across the documents.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "0.2",
+     "reason": "States the purpose of ISO/IEC 27000 as the vocabulary source for the ISMS family.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.2",
+     "reason": "Describes ISO/IEC 27000 as the overview and terminology standard.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.3.1",
+     "reason": "Describes ISO/IEC 27001 as the requirements standard used as audit/certification criteria.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.3.2",
+     "reason": "Describes ISO/IEC 27006, which supplements ISO/IEC 17021-1 for bodies certifying ISMS - the 17021-1 domain.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.4.5",
+     "reason": "Describes ISO/IEC 27007 as ISMS auditing guidance building on ISO 19011 - guidance versus requirements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "5.1",
+     "reason": "General framing of which documents in the family state requirements and which give guidance.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.7",
+     "reason": "Positions ISO/IEC 27002 relative to ISO/IEC 27001 and the rest of the family.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "2",
+     "title": "Normative references",
+     "why": "Text is just 'There are no normative references in this document' - states nothing about guidance vs requirements, certification scope, or where terms are defined."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "why": "Text is actually the 3.48 non-repudiation entry; the nonconformity definition appears only in the title, so nothing testable about where the term is defined."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "1",
+     "title": "Scope",
+     "why": "Scope of 27002's control set and its uses; says nothing about auditing, requirements vs guidance attribution, or where 27001 terms are defined."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 17021-1 itself is not in scope; the only in-scope passages that speak to it are ISO 19011's Introduction/Scope and ISO/IEC 27000 5.3.2.",
+   "invented": []
+  },
+  {
+   "task": "2.1",
+   "state": "judged",
+   "statement": "Determine audit programme objectives from the organization's ISMS objectives, its information security risks, and the results of previous audits.",
+   "pass1": [
+    "ISO 19011|5.2",
+    "ISO 19011|5.1",
+    "ISO 19011|5.3",
+    "ISO 19011|5.4.3",
+    "ISO 19011|3.5",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|6.1.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.2",
+     "reason": "Directly on establishing audit programme objectives and the inputs they derive from.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.1",
+     "reason": "General requirements for the audit programme, framing what the programme must address.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires the programme to consider importance of processes and results of previous audits.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "States the purpose of internal audit — conformity and effective implementation — feeding programme objectives.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "reason": "ISMS information security objectives as a programme input.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "why": "Text covers risks/opportunities threatening the audit programme itself (planning, resources, team selection), not deriving programme objectives from ISMS inputs."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.3",
+     "why": "Text is about determining the scope/extent of the programme, a different element from establishing programme objectives."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.5",
+     "why": "Bare definition of 'audit programme'; states nothing testable about deriving objectives from organizational inputs."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "why": "Amendment text is only a note that interested parties can have climate-change-related requirements."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Text specifies the risk assessment process itself, with no link to audit programme objectives."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core pairing is ISO 19011:5.2 with ISO/IEC 27001:9.2.2; the rest supply the organizational inputs.",
+   "invented": []
+  },
+  {
+   "task": "2.2",
+   "state": "judged",
+   "statement": "Determine risk-based frequency and priority across the areas within ISMS scope.",
+   "pass1": [
+    "ISO 19011|4.8",
+    "ISO 19011|5.3",
+    "ISO 19011|5.2",
+    "ISO 19011|5.4.3",
+    "ISO 19011|5.4.4",
+    "ISO 19011|5.1",
+    "ISO 19011|5.5.1",
+    "ISO 19011|5.5.2",
+    "ISO 19011|5.6",
+    "ISO 19011|6.3.2.1",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|0.1",
+    "ISO/IEC 27001|4.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "4.8",
+     "reason": "The risk-based approach principle: audits focus on matters significant to the audit client, driving programme and audit planning.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "reason": "Determining and evaluating audit programme risks and opportunities — the basis for risk-based frequency and priority.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.3",
+     "reason": "Establishing the scope of the audit programme, including factors such as risk and importance of processes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.1",
+     "reason": "General clause on the audit programme covering extent, timing and frequency of audits.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.1",
+     "reason": "Risk-based approach to audit planning — allocating time and attention to significant matters.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires the audit programme to consider the importance of processes concerned and results of previous audits; frequency/planned intervals.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.1",
+     "reason": "Introduction states the order of requirements does not reflect their importance — clause order is not priority order.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.2",
+     "why": "Text is about establishing audit programme objectives and their inputs, not about allocating frequency, depth or priority across areas."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.4",
+     "why": "Text is a logistics/resourcing checklist (time, travel, tools, competence), not a basis for risk-based frequency or priority."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.1",
+     "why": "Text is a generic operational implementation checklist for the programme; scheduling is listed but no risk-based prioritisation stated."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.2",
+     "why": "Text covers setting objectives, scope and criteria for an individual audit, not programme-level frequency or priority."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.6",
+     "why": "Text is about monitoring programme performance and triggers for modification, not determining risk-based frequency or depth."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "why": "Text only states audits at planned intervals and the conformity criteria; says nothing testable about risk-based frequency or priority."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "why": "Text is the requirement to determine ISMS scope boundaries and document it; says nothing about audit frequency, depth, or risk-based prioritization."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.3",
+   "state": "judged",
+   "statement": "Define the scope, criteria and objectives of an individual audit within the programme.",
+   "pass1": [
+    "ISO 19011|5.5.2",
+    "ISO 19011|3.6",
+    "ISO 19011|3.8",
+    "ISO 19011|3.7",
+    "ISO 19011|5.4.3",
+    "ISO 19011|5.5.1",
+    "ISO 19011|6.2.3",
+    "ISO 19011|6.3.2.2",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27000|3.4",
+    "ISO/IEC 27000|3.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.2",
+     "reason": "Directly prescribes defining the objectives, scope and criteria for each individual audit.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.6",
+     "reason": "Definition of audit scope: extent and boundaries, locations, functions, activities, time period.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Definition of audit criteria as the requirements against which objective evidence is compared.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.1",
+     "reason": "General provisions for implementing the audit programme within which individual audits are defined.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires defining audit criteria and scope for each audit (no objectives requirement) - the key contrast tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "General internal audit requirement establishing what audits are conducted against.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.4",
+     "reason": "Vocabulary definition of audit scope.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.7",
+     "why": "One-line definition of 'audit plan' only; says nothing about scope, criteria or objectives that an item could test."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.3",
+     "why": "Concerns the scope of the audit programme as a whole, not the scope/criteria/objectives of an individual audit."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.2.3",
+     "why": "About determining audit feasibility, a different step of audit initiation."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.2",
+     "why": "Guidance on what the audit plan should address during planning; elaborates rather than defines scope/criteria/objectives."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "why": "Determining the ISMS scope, not the scope of an audit."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "why": "Definition of 'audit' only; it references audit criteria but defers their definition to ISO 19011 and says nothing about scope or objectives."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.4",
+   "state": "judged",
+   "statement": "Select on-site, remote or hybrid auditing methods for a given audit against the factors ISO 19011 sets out.",
+   "pass1": [
+    "ISO 19011|5.5.3",
+    "ISO 19011|3.4",
+    "ISO 19011|A.16",
+    "ISO 19011|A.1",
+    "ISO 19011|A.15",
+    "ISO 19011|6.2.3",
+    "ISO 19011|6.3.2.2",
+    "ISO 19011|5.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "reason": "The clause that requires selecting and determining auditing methods for an individual audit.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.4",
+     "reason": "Definition of remote auditing method, including virtual locations and combination with on-site methods.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "reason": "Detailed guidance on using remote auditing methods and the additional risks they introduce.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "reason": "Applying auditing methods — on-site/remote and human-interaction matrix underpinning method choice.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "reason": "Audit programme risks and opportunities, which include risks arising from chosen auditing methods.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.15",
+     "title": "Visiting the auditee’s location",
+     "why": "Logistics/health-and-safety checklist for site visits, not factors for choosing between on-site, remote or hybrid methods."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.2.3",
+     "title": "Determining the feasibility of the audit",
+     "why": "Lists feasibility factors for whether an audit can proceed at all; only a passing note about ICT, nothing on method selection."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.2",
+     "title": "Audit planning details",
+     "why": "Enumerates what the audit plan must address; auditing methods appear only as a plan content item, with no selection criteria."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "All primaries sit in ISO 19011; the ISMS standards do not address auditing methods.",
+   "invented": []
+  },
+  {
+   "task": "2.5",
+   "state": "judged",
+   "statement": "Determine audit team composition and resourcing for a given audit.",
+   "pass1": [
+    "ISO 19011|5.4.4",
+    "ISO 19011|5.5.4",
+    "ISO 19011|5.5.5",
+    "ISO 19011|3.15",
+    "ISO 19011|3.17",
+    "ISO 19011|3.16",
+    "ISO 19011|3.18",
+    "ISO 19011|6.3.3",
+    "ISO 19011|6.2.3",
+    "ISO 19011|7.2.3.4",
+    "ISO 19011|7.2.3.5",
+    "ISO 19011|5.3",
+    "ISO 19011|6.4.9.2",
+    "ISO/IEC 27001|9.2.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.4",
+     "reason": "Determining audit programme resources, including access to adequate and appropriate information and communication technology.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "reason": "Selecting audit team members: size, composition, competence needed, use of technical experts.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.5",
+     "reason": "Assigning responsibility for an individual audit to the audit team leader.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.15",
+     "reason": "Definition of audit team, including technical experts and trainees accompanying it.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.17",
+     "reason": "Definition of technical expert: provides knowledge/expertise but does not act as an auditor.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.18",
+     "reason": "Definition of observer, another role that may accompany but not audit.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.3",
+     "reason": "Audit team leader assigns work to team members, including experts and trainees.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.2.3",
+     "reason": "Feasibility of the audit depends on availability of sufficient time and resources/competent personnel.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.4",
+     "reason": "Generic competence of the audit team leader — what the leader role contributes.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.5",
+     "reason": "Knowledge and skills for auditing multiple disciplines, driving team composition choices.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Internal audit programme requirement: objectivity and competence of auditors for the ISMS audit.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.16",
+     "why": "Bare one-line definition of 'auditor' with no content on team composition or role limits an item could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "why": "Text is about identifying audit programme risks and opportunities; team/resource issues appear only as examples in a risk list, not as composition or resourcing rules."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.9.2",
+     "why": "Text is about the content of audit conclusions (conformity, effectiveness, trends), not team composition or resourcing."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.6",
+   "state": "judged",
+   "statement": "Determine whether an audit programme satisfies clause 9.2, including what \"planned intervals\" requires and does not require.",
+   "pass1": [
+    "ISO/IEC 27001|9.2.1",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|7.5.3",
+    "ISO 19011|3.5",
+    "ISO 19011|5.1",
+    "ISO 19011|5.2",
+    "ISO 19011|5.3",
+    "ISO 19011|5.4.3",
+    "ISO 19011|5.4.4",
+    "ISO 19011|5.5.7",
+    "ISO 19011|5.6",
+    "ISO 19011|5.7",
+    "ISO 19011|6.3.2.1",
+    "ISO/IEC 27000|3.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.1",
+     "reason": "States the requirement for internal audits at planned intervals and the two conformity questions the audit must answer.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Lists the audit programme content requirements (frequency, methods, responsibilities, planning, reporting) and the documented information evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.5",
+     "reason": "Definition of audit programme - set of audits planned for a specific time frame and directed towards a specific purpose.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.1",
+     "reason": "General guidance on establishing and managing an audit programme, against which a described programme is judged.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.3",
+     "why": "General controls for documented information (availability, protection, version control), not audit programme or intervals."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.2",
+     "why": "Guidance on setting audit programme objectives, not on frequency/interval or 9.2 conformity."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "why": "Guidance on identifying audit programme risks and opportunities, a different subject."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.3",
+     "why": "Guidance on determining audit programme scope factors; elaboration, not a testable 9.2 requirement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.4",
+     "why": "Guidance on resources (time, cost, travel, tools) for the programme."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.7",
+     "why": "Guidance listing audit records; only elaborates the evidence requirement stated in 9.2.2."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.6",
+     "why": "Guidance on monitoring programme performance and triggers for modification, not 9.2 conformity."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.7",
+     "why": "Guidance on reviewing/improving the programme after the fact, not interval or 9.2 requirements."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.1",
+     "why": "Guidance on risk-based planning of an individual audit engagement (team composition, sampling, plan detail), not on audit programme content or planned intervals under 9.2."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "why": "Bare vocabulary definition of 'audit' with notes on audit types; says nothing about programme requirements or intervals."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "2.7",
+   "state": "judged",
+   "statement": "Determine how AI systems within the ISMS scope change the audit programme's risk profile and its prioritisation.",
+   "pass1": [
+    "ISO 19011|5.3",
+    "ISO 19011|5.2",
+    "ISO 19011|5.4.3",
+    "ISO 19011|5.6",
+    "ISO 19011|5.7",
+    "ISO 19011|4.8",
+    "ISO 19011|6.3.2.1",
+    "ISO 19011|A.12",
+    "ISO 19011|A.10",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27001|A.5.19",
+    "ISO/IEC 27001|A.5.20",
+    "ISO/IEC 27001|A.5.21",
+    "ISO/IEC 27001|A.5.22",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27001|A.8.32",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27002|5.19",
+    "ISO/IEC 27002|5.20",
+    "ISO/IEC 27002|5.21",
+    "ISO/IEC 27002|5.22",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27002|8.32"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "reason": "The task is literally determining and evaluating audit programme risks and opportunities when scope acquires AI systems.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.2",
+     "reason": "Programme objectives must reflect changes in the auditee's context and risk, which AI adoption alters.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.4.3",
+     "reason": "Establishing programme scope and the factors (changes, technology, new processes) that shape it.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.6",
+     "reason": "Monitoring the programme against changed risk, triggering re-prioritisation mid-cycle.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.8",
+     "reason": "Risk-based approach principle underpinning prioritisation of audit effort.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.1",
+     "reason": "Risk-based planning of an individual audit — priority and emphasis on AI-affected areas.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.12",
+     "reason": "Audit of supply chain — model providers enter the programme as suppliers.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires the programme to consider importance of processes and changes affecting the organization — the frequency/priority requirement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "Determines whether AI systems are inside the ISMS scope and therefore auditable.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Control of planned changes and externally provided processes — model updates as changes to the audited environment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Risk assessment at planned intervals or when significant changes occur — AI adoption as such a change.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Inventory of assets — basis for detecting shadow AI at programme planning.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.19",
+     "reason": "Supplier relationships control through which model providers enter the programme.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.20",
+     "reason": "Security within supplier agreements — model provider contracts.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.21",
+     "reason": "ICT supply chain security covering AI service components.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.22",
+     "reason": "Monitoring, review and change management of supplier services — model updates by the provider.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "reason": "Cloud service security — most model providers are consumed as cloud services.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.32",
+     "reason": "Change management — whether a model update is treated as a change to the environment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.19",
+     "reason": "Guidance on supplier relationship management applied to model providers.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.22",
+     "reason": "Guidance on monitoring and change management of supplier services — provider-side model changes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.32",
+     "reason": "Change management guidance against which an uncontrolled model update is judged.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.10",
+     "why": "Text is about auditing the auditee's own risk-and-opportunity determination process, not about the audit programme's risk profile or prioritisation."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.7",
+     "why": "Text covers retrospective review/lessons-learned and improvement of the programme, not risk-driven re-prioritisation for newly in-scope systems."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "why": "Implementation guidance on keeping asset inventories accurate (review cadence, automatic updates); adds nothing testable about AI systems or audit programme risk."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.20",
+     "why": "Enumerates contract terms for supplier agreements (classification mapping, legal requirements); elaboration of A.5.20, not about model providers or audit interval."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.21",
+     "why": "Guidance on propagating security requirements through the ICT supply chain and component disclosure; elaborates A.5.21 without touching the tested point."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "title": "Information security for use of cloud services",
+     "why": "Text is generic cloud-service acquisition/exit and shared-responsibility guidance; says nothing about supplier/model-provider change velocity or audit programme prioritisation."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope names AI explicitly; AI-specific framing must be carried by the scenario, with keys resting on programme risk, change management and supplier-relationship passages.",
+   "invented": []
+  },
+  {
+   "task": "3.1",
+   "state": "judged",
+   "statement": "Determine what degree of verification collected information carries, and what reliance a finding can therefore place on it.",
+   "pass1": [
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|3.1",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|A.3",
+    "ISO 19011|4.7",
+    "ISO 19011|4.4",
+    "ISO 19011|6.4.8",
+    "ISO 19011|3.11",
+    "ISO 19011|A.14",
+    "ISO 19011|A.17",
+    "ISO 19011|A.18.1",
+    "ISO/IEC 27000|3.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Defines audit evidence as records/statements/other information relevant to criteria AND verifiable - the core distinction tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Defines objective evidence separately, the term the task contrasts with audit evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.1",
+     "reason": "Definition of audit uses objective evidence, not audit evidence - the wording point in the knowledge statement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "States only information subject to some degree of verification should be accepted as audit evidence and that professional judgement governs reliance when that degree is low.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach principle: verifiable evidence as the rational basis for conclusions.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Findings are generated by evaluating audit evidence against criteria - what a finding may rest on.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.11",
+     "reason": "Definition of audit finding as evaluation of collected audit evidence.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "why": "Guidance elaborating on how to check documented information (complete/correct/consistent/current); does not state the verification-degree or reliance rule itself."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "why": "Turns out to be about judging whether the intent of a standard's clause is met, not about reliance on unverified information."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.4",
+     "why": "Generic statement on diligence and reasoned judgement; says nothing testable about verification or evidence reliance."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Merely a list of possible information sources, with no statement about verifiability or reliance."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.17",
+     "why": "Interview conduct technique; only mentions objective evidence in passing."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "title": "Determining audit findings",
+     "why": "Generic checklist of considerations for determining findings; says nothing about degree of verification or reliance on unverified information."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.3",
+     "title": "audit systematic, independent and",
+     "why": "Definition of 'audit' that only cross-references audit evidence to ISO 19011 without stating anything about verifiability or reliance."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.2",
+   "state": "judged",
+   "statement": "Determine a sampling approach and judge whether a sample supports the conclusion drawn from it.",
+   "pass1": [
+    "ISO 19011|4.7",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.6.1",
+    "ISO 19011|A.6.2",
+    "ISO 19011|A.6.3",
+    "ISO 19011|A.5",
+    "ISO 19011|A.14",
+    "ISO 19011|6.4.8",
+    "ISO 19011|6.4.9.2",
+    "ISO 19011|3.10",
+    "ISO 19011|3.12",
+    "ISO 19011|A.3",
+    "ISO 19011|5.5.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach: evidence based on samples, sampling linked to confidence in audit conclusions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Requires information be collected by means of appropriate sampling and verified.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.1",
+     "reason": "General sampling guidance: when and why to sample, sampling risk.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.2",
+     "reason": "Judgement-based sampling method named in task concepts.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.3",
+     "reason": "Statistical sampling method named in task concepts.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "why": "Text is criteria for verifying documented information (complete/correct/consistent/current), not sampling or sample adequacy."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Merely a list of possible information sources; says nothing testable about sampling approach or sufficiency."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "why": "About evaluating evidence against criteria and grading/recording nonconformities, not about sampling."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.9.2",
+     "why": "Lists topics audit conclusions should address; no mention of sampling or evidential sufficiency."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "why": "Bare definition of audit evidence; no content on sampling a key could rest on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.12",
+     "why": "Bare definition of audit conclusion; nothing about sample support."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "why": "Professional judgement about interpreting standard clauses' intent, unrelated to sampling judgement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "General guidance on selecting audit methods (on-site/remote/combined); sampling is only listed as one method, nothing testable about sample adequacy or confidence."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Group heading A.6 omitted in favour of children A.6.1-A.6.3 per rule.",
+   "invented": []
+  },
+  {
+   "task": "3.3",
+   "state": "judged",
+   "statement": "Assess the reliability of evidence obtained through remote auditing methods.",
+   "pass1": [
+    "ISO 19011|A.16",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|A.1",
+    "ISO 19011|5.5.3",
+    "ISO 19011|3.4",
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|4.7",
+    "ISO 19011|A.14",
+    "ISO 19011|A.17",
+    "ISO 19011|5.3",
+    "ISO 19011|6.2.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "reason": "Directly addresses remote auditing methods, their additional risks (data security, confidentiality, technology failure) and evidence limitations.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "States that only verifiable information may be audit evidence and sets the verification test applied to remotely-obtained evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Guidance on verifying information, including reliability and corroboration of what is presented.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence (records, statements of fact, verifiable).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Definition of objective evidence — what observation/verification establishes.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach principle: verifiable evidence as the rational basis for conclusions.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "why": "General guidance on choosing/combining auditing methods; says nothing about the reliability or verification of evidence obtained remotely."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "Programme-level selection/balancing of on-site vs remote methods, not assessment of evidence reliability."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.4",
+     "why": "Bare definition of remote auditing method (location-based); states nothing testable about evidence reliability or provenance."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Plain list of possible information sources; no criteria for judging reliability of remotely-obtained evidence."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.17",
+     "why": "Interview technique guidance; only a passing remark on virtual non-verbal cues, not evidence reliability."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.3",
+     "why": "Audit programme risk identification generally; remote methods appear only as one bullet on method selection risk."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.2.3",
+     "why": "Text is about determining audit feasibility (information, cooperation, time, events), only noting ICT access as a resource; says nothing about reliability or verification of remotely-obtained evidence."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.4",
+   "state": "judged",
+   "statement": "Select the evidence-gathering method that fits the evidence sought.",
+   "pass1": [
+    "ISO 19011|6.4.7",
+    "ISO 19011|6.4.6",
+    "ISO 19011|5.5.3",
+    "ISO 19011|A.1",
+    "ISO 19011|A.14",
+    "ISO 19011|A.17",
+    "ISO 19011|A.5",
+    "ISO 19011|A.2",
+    "ISO 19011|4.7",
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|A.16"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Names the methods of collecting information (interviews, observation, review of documented information) and requires evidence to be verified — the core of the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.6",
+     "reason": "Reviewing documented information during the audit, and its limits as evidence of operation.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "reason": "Selecting sources of information matched to the evidence sought.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "title": "Selecting and determining auditing methods",
+     "why": "Text is about programme-level balancing of on-site vs remote and joint/combined audits; only lists methods in passing, says nothing about what each method can establish."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "title": "Applying auditing methods",
+     "why": "Turns out to be about auditor location and degree of human interaction (Table A.1 on-site/remote), not about matching evidence-gathering technique to evidence sought."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.17",
+     "title": "Conducting interviews",
+     "why": "Technique guidance on how to run an interview (timing, question types, putting interviewee at ease); does not state what an interview can or cannot establish."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "title": "Verifying information",
+     "why": "Criteria for judging information quality (complete, correct, consistent, current), i.e. verification guidance, not selection of a collection method."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.2",
+     "title": "Auditing of processes",
+     "why": "General statement that auditing a management system means auditing processes and interactions; no method-selection content."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "title": "Evidence-based approach",
+     "why": "Principle about verifiability and sampling for reliable conclusions; does not address choice among interview/observation/document review."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "title": "audit evidence records, statements",
+     "why": "Bare definition of audit evidence; no basis for testing method selection."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "title": "objective evidence data supporting",
+     "why": "Bare definition; only a passing note that evidence can be obtained by observation, measurement or test, with no distinction of what each establishes."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "title": "Using remote auditing methods",
+     "why": "About technology, access protocols and risks of remote auditing, not about which evidence-gathering method fits the evidence sought."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "All primaries sit in ISO 19011; ISO/IEC 27001/27002/27000 do not address evidence-gathering methods.",
+   "invented": []
+  },
+  {
+   "task": "3.5",
+   "state": "judged",
+   "statement": "Select the question form that elicits evidence rather than confirmation in a given interview situation.",
+   "pass1": [
+    "ISO 19011|A.17",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|4.7",
+    "ISO 19011|A.14",
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|7.2.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.17",
+     "reason": "Interview guidance — question form, open questions, avoiding leading/closed questions that elicit confirmation.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence (records, statements of fact) — statements must be verifiable.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Definition of objective evidence, distinguishing evidence from mere assertion/agreement.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "why": "General guidance on collecting/verifying information and sampling; says nothing about question form or interview technique."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "why": "Criteria for verifying documented information (complete, correct, consistent, current), not interviewing or question form."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "why": "States the evidence-based principle and sampling confidence; no content on eliciting evidence through questioning."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Bare list of possible information sources; only mentions interviews without any testable content."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.2",
+     "why": "List of desired auditor personal behaviours; unrelated to question form or corroboration."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.6",
+   "state": "judged",
+   "statement": "Determine whether an Annex A control operates as claimed in the Statement of Applicability.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|6.1.2",
+    "ISO 19011|6.4.7",
+    "ISO 19011|6.4.8",
+    "ISO 19011|4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|A.14",
+    "ISO 19011|A.4",
+    "ISO 19011|A.2",
+    "ISO 19011|A.6.2",
+    "ISO 19011|A.18.1",
+    "ISO 19011|A.18.3",
+    "ISO 19011|3.9",
+    "ISO 19011|3.10",
+    "ISO 19011|3.8",
+    "ISO/IEC 27002|0.3",
+    "ISO/IEC 27002|4.3",
+    "ISO/IEC 27002|3.1.8",
+    "ISO/IEC 27000|3.14",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|3.20"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "Requires the Statement of Applicability, including d) whether each necessary control is implemented or not - the claim the auditor tests.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Collecting and verifying information: only verifiable information can be audit evidence - the basis for testing an operating claim.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Generating audit findings by evaluating evidence against criteria (the SoA claim plus 27001 requirements).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach - conclusions about whether a control operates must rest on verifiable evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information - guidance on what establishes that something claimed is so.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "reason": "Selecting sources of information - which evidence would establish that the control operates.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Definition of objective evidence - the standard of proof for an operating claim.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence - records, statements of fact verifiable against criteria.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Audit criteria - the SoA claim and 27001 requirements as the criteria against which the control is tested.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "4.3",
+     "reason": "Control layout (control, purpose, guidance) - basis for judging whether the implemented control achieves its purpose.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.8",
+     "reason": "Definition of control as a measure that maintains and/or modifies risk.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "reason": "Definition of control.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Selecting and implementing controls - implementation as distinct from selection.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.20",
+     "reason": "Definition of effectiveness - extent to which planned activities are realized and planned results achieved.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "One-line requirement to implement the risk treatment plan and retain results; says nothing about the SoA claim or testing a control's operation."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "why": "Generic operational planning/control of ISMS processes, not about whether an Annex A control operates as claimed."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "why": "Requirements for the organization's own monitoring and measurement programme, not the auditor's test of an SoA implementation claim."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Risk assessment process requirements only; no mention of controls, SoA or implementation."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.4",
+     "why": "General guidance on focusing on management system results/performance; states nothing testable about control operation evidence."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.2",
+     "why": "General statement that auditing a management system means auditing processes and their interactions; no content on evidence of control operation."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.2",
+     "why": "Text is about how to choose judgement-based samples and its statistical drawbacks, not about testing whether a claimed control operates."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "why": "Generic checklist of considerations when forming audit findings; no statement an item on SoA claims/operating evidence could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Turns out to be a list of what a nonconformity record should contain, i.e. reporting mechanics rather than control operation."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.3",
+     "why": "Explains that controls modify or maintain risk and that the document offers a generic best-practice mixture; says nothing about implementation status or the SoA claim."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Individual Annex A / 27002 control texts (e.g. A.5.18, A.8.13, A.8.8) may be cited as the example control in an item; add specific ones once the scenario control is fixed.",
+   "invented": []
+  },
+  {
+   "task": "3.7",
+   "state": "judged",
+   "statement": "Determine when control testing has reached the boundary of an ISMS audit and become a technical assessment.",
+   "pass1": [
+    "ISO/IEC 27001|A.8.34",
+    "ISO/IEC 27002|8.34",
+    "ISO 19011|6.2.3",
+    "ISO 19011|3.17",
+    "ISO 19011|5.5.4",
+    "ISO 19011|5.5.2",
+    "ISO 19011|5.5.3",
+    "ISO 19011|6.3.2.2",
+    "ISO 19011|6.4.4",
+    "ISO 19011|6.4.5",
+    "ISO 19011|7.2.3.3",
+    "ISO 19011|4.4",
+    "ISO 19011|A.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.34",
+     "reason": "The control the task names: audit tests on operational systems must be planned and agreed, defining where management system auditing stops and technical assessment begins.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.34",
+     "reason": "Implementation guidance on agreeing scope, access and constraints for audit testing of operational systems.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.2.3",
+     "reason": "Feasibility of the audit — whether sufficient competence, access and cooperation exist for the proposed testing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.17",
+     "reason": "Definition of technical expert — the person brought in when testing exceeds auditor competence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "reason": "Selecting audit team members, including technical experts, based on competence needed.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.2",
+     "reason": "Defining objectives, scope and criteria of the individual audit — the agreed terms a test must stay inside.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.3.2.2",
+     "reason": "Audit planning details, including methods, resources and agreement with auditee on access arrangements.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.4",
+     "reason": "Communicating during the audit — escalating and agreeing changes to scope rather than improvising.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.3",
+     "reason": "Discipline-specific competence of auditors — boundary of what an ISMS auditor is competent to test.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "reason": "Applying auditing methods — which methods are available to an auditor and their limits.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "Text is about choosing on-site/remote, combined and joint audit methods, not about limits of control testing."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.5",
+     "why": "Generic statement that methods depend on where information is located; says nothing about technical testing or agreed terms."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.4",
+     "why": "Generic principle statement on diligence and judgement; no testable content on the audit/technical-assessment boundary."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "3.8",
+   "state": "judged",
+   "statement": "Determine what an AI-assisted evidence process establishes and what it leaves unverified.",
+   "pass1": [
+    "ISO 19011|6.4.7",
+    "ISO 19011|4.7",
+    "ISO 19011|7.2.3",
+    "ISO 19011|7.2.3.2",
+    "ISO 19011|A.5",
+    "ISO 19011|A.3",
+    "ISO 19011|A.6",
+    "ISO 19011|A.6.1",
+    "ISO 19011|A.6.2",
+    "ISO 19011|A.6.3",
+    "ISO 19011|A.1",
+    "ISO 19011|5.5.3",
+    "ISO 19011|A.16",
+    "ISO 19011|A.14",
+    "ISO 19011|4.4",
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|6.4.6"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Requires information to be verified; an AI summary of an unopened document is unverified and reliance must be judged.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach ties sampling (including tool-driven record selection) to confidence in audit conclusions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3",
+     "reason": "Knowledge and skills clause containing the item on appropriateness and consequences of ICT and emerging technology (AI evaluation tools).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.2",
+     "reason": "Generic knowledge and skills list including use of ICT/AI-based evaluation tools to conduct audits.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information — degree of verification and provenance of tool output.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6",
+     "reason": "Sampling: tool-driven selection of records is a sampling decision.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.1",
+     "reason": "General sampling principles applied to AI-selected records.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "reason": "Applying auditing methods — an AI tool is a method whose appropriateness must be evaluated.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.4",
+     "reason": "Due professional care — accountability for the conclusion remains with the auditor regardless of tool used.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence (verifiable records/statements) distinguishes it from unverified AI output.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Objective evidence definition supports what an AI summary does not establish.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.6",
+     "reason": "Reviewing documented information while conducting the audit — what review the auditor did or did not perform.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "why": "Text is about judging the intent of standard clauses, not about reliance on evidence or tool output."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.2",
+     "why": "Describes factors for judgement-based sampling; no bearing on what an AI-assisted step establishes or leaves unverified."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.3",
+     "why": "Technical guidance on statistical sampling plans (attribute vs variable), unrelated to tool-driven selection or verification."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "Programme-level on-site/remote method selection; says nothing about verification or tool reliability."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "title": "Using remote auditing methods",
+     "why": "Logistics/competence guidance for remote auditing (access protocols, technical checks, contingency), not about reliability or verification status of tool-generated output."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "title": "Selecting sources of information",
+     "why": "Bare enumeration of possible information sources; states nothing about verification, sampling confidence, or reliance on tool output."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "All primaries sit in ISO 19011; the 27000-series clauses do not address auditor use of AI tools.",
+   "invented": []
+  },
+  {
+   "task": "3.9",
+   "state": "judged",
+   "statement": "Maintain traceability from an evidence source through to the finding it supports.",
+   "pass1": [
+    "ISO 19011|6.4.7",
+    "ISO 19011|5.5.7",
+    "ISO 19011|6.4.8",
+    "ISO 19011|A.13",
+    "ISO 19011|A.14",
+    "ISO 19011|A.5",
+    "ISO 19011|A.18.1",
+    "ISO 19011|A.18.2",
+    "ISO 19011|A.18.3",
+    "ISO 19011|4.7",
+    "ISO 19011|4.5",
+    "ISO 19011|6.6",
+    "ISO 19011|3.9",
+    "ISO 19011|3.10",
+    "ISO 19011|3.11"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Requires audit evidence leading to findings to be recorded — the core traceability requirement named by the task.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.7",
+     "reason": "Managing audit-related records: retention, confidentiality and custody of working papers.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Generating audit findings from evaluated evidence against criteria — the finding end of the trace.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.13",
+     "reason": "Preparing audit working documents: what a working-paper record contains and how it is retained/secured.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information: only verifiable information can serve as defensible audit evidence.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "reason": "Determining audit findings — linking evidence to a criterion conclusion.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.2",
+     "reason": "Recording conformities: what must be recorded to support the finding.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "reason": "Recording nonconformities: statement of evidence supporting the finding, defensible to a second auditor.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach principle — verifiable evidence as basis for reproducible conclusions.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.5",
+     "reason": "Confidentiality principle governing handling of evidence and working papers.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.6",
+     "reason": "Completing the audit: retention or disposal of audit documents and confidentiality thereof.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence (records, statements of fact, verifiable).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.11",
+     "reason": "Definition of audit finding as evidence evaluated against criteria — the traceability link itself.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Just an enumeration of possible information sources; says nothing about recording evidence or linking it to a finding."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "why": "Generic definition of objective evidence and how it can be obtained; says nothing about recording evidence or traceability to findings."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.1",
+   "state": "judged",
+   "statement": "Determine whether a declared ISMS scope is complete and defensible against clause 4.",
+   "pass1": [
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO/IEC 27001|1",
+    "ISO/IEC 27001|4.4",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO 19011|A.8",
+    "ISO 19011|A.12",
+    "ISO/IEC 27000|3.33",
+    "ISO/IEC 27000|3.22",
+    "ISO/IEC 27000|3.38",
+    "ISO/IEC 27000|3.37",
+    "ISO/IEC 27000|3.51"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "States the scope determination must consider 4.1 issues, 4.2 requirements and interfaces/dependencies, and be documented information.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "1",
+     "reason": "States that excluding any requirement of Clauses 4 to 10 is not acceptable when conformity is claimed.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.8",
+     "reason": "Guidance on auditing the organization's context, i.e. verifying scope determination against 4.1/4.2.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.38",
+     "reason": "Definition of internal context supporting clause 4.1 issues.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.51",
+     "reason": "Definition of outsource - the undeclared interface case.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "why": "Amendment text adds only the climate-change sentence; says nothing about scope determination or issues generally."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "why": "Amendment note only adds that interested parties can have climate-change requirements; no testable scope content."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.4",
+     "why": "General requirement to establish/maintain the ISMS and its processes; does not address scope boundaries or interfaces."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "why": "Operational planning and control of processes and externally provided services; not about scope determination."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.12",
+     "why": "Guidance on second-party/supply-chain audit programmes, not on evaluating ISMS scope."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.33",
+     "why": "Garbled term entry defining ISMS as a 'person'; no scope requirement to test."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.22",
+     "why": "Bare definition of external context; states no requirement about scope completeness."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.37",
+     "title": "interested party (preferred term)",
+     "why": "Bare one-line definition of interested party/stakeholder; says nothing about scope determination, interfaces or clause 4 requirements that an item could key on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.10",
+   "state": "pass2-unanswered",
+   "statement": "Distinguish ISMS conformity from AI management system conformity where the two scopes overlap.",
+   "pass1": [
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|7.2",
+    "ISO 19011|3.2",
+    "ISO 19011|3.8",
+    "ISO 19011|3.21",
+    "ISO 19011|3.22",
+    "ISO 19011|A.18.4",
+    "ISO 19011|5.5.2",
+    "ISO 19011|5.5.4",
+    "ISO 19011|7.2.3.3",
+    "ISO 19011|7.2.3.5",
+    "ISO/IEC 27000|3.11"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "reason": "Audit team selection must cover both disciplines in a combined audit.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.3",
+     "reason": "Discipline-specific competence — ISMS competence does not confer AI management system competence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.5",
+     "reason": "Knowledge and skills for auditing multiple disciplines, the combined ISMS/AIMS case.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.2",
+     "why": "Generic guidance on setting objectives/scope/criteria for any single audit; says nothing about overlapping ISMS/AIMS scopes or divergent requirements."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "why": "Bare one-line definition of conformity with no content distinguishing one management system's conformity from another's."
+    }
+   ],
+   "pass2Answered": false,
+   "chunks": 2,
+   "chunk_failures": 1,
+   "unjudged": 12,
+   "none_apply": false,
+   "note": "ISO/IEC 42001 is not among the standards supplied, so its clauses (6.1.4, 9.2.2, Annex D.2) cannot be cited; keys must rest on the ISO/IEC 27001 and ISO 19011 side of the comparison.",
+   "invented": []
+  },
+  {
+   "task": "4.2",
+   "state": "judged",
+   "statement": "Determine whether evidence shows top management has demonstrated the leadership, policy and role assignments clause 5 requires.",
+   "pass1": [
+    "ISO/IEC 27001|5.1",
+    "ISO/IEC 27001|5.2",
+    "ISO/IEC 27001|5.3",
+    "ISO 19011|A.9",
+    "ISO 19011|4.7",
+    "ISO 19011|A.5",
+    "ISO/IEC 27000|3.75",
+    "ISO/IEC 27000|3.53",
+    "ISO/IEC 27001|A.5.1",
+    "ISO/IEC 27001|A.5.2",
+    "ISO/IEC 27001|A.5.4",
+    "ISO/IEC 27002|5.1",
+    "ISO/IEC 27002|5.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.1",
+     "reason": "States the eight things top management must demonstrate — the core of what the task examines.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.2",
+     "reason": "Sets the policy content requirements and the availability/communication/documented-information requirements tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "5.3",
+     "reason": "Requires assignment and communication of roles, responsibilities and authorities, including ISMS conformity and performance reporting.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.9",
+     "reason": "Guidance on auditing leadership and commitment — what evidence demonstrates rather than documents commitment.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "why": "Generic principle on evidence-based auditing and sampling; says nothing about clause 5 leadership, policy or roles."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "why": "General guidance on verifying that information is complete/correct/consistent/current, not about top management evidence."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.75",
+     "why": "Definition of 'top management' only; states no requirement an item on clause 5 demonstration could key on."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.53",
+     "why": "One-line definition of 'policy'; no testable requirement content."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.1",
+     "why": "Annex A control on defining/approving/reviewing policies, not the clause 5.2 top-management policy requirements."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.2",
+     "why": "Annex A control on allocating roles per organizational needs; not clause 5.3 top-management assignment/communication requirements."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.4",
+     "why": "Annex A control requiring personnel to apply policy; unrelated to clause 5 leadership demonstration."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.1",
+     "why": "Implementation guidance elaborating the A.5.1 control's policy content, not the clause 5.2 requirements themselves."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.2",
+     "why": "Control guidance on allocating information security roles/responsibilities generally, not on top management's demonstrated leadership, policy or clause 5.3 assignments in ISO/IEC 27001."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core is 27001 5.1-5.3; 19011 A.9 supplies the demonstrated-vs-documented audit angle.",
+   "invented": []
+  },
+  {
+   "task": "4.3",
+   "state": "judged",
+   "statement": "Determine whether an organization's risk assessment, risk treatment, information security objectives and planning of changes conform to clause 6.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.1",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|3.64",
+    "ISO/IEC 27000|3.66",
+    "ISO/IEC 27000|3.71",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|3.57",
+    "ISO/IEC 27000|3.49",
+    "ISO/IEC 27000|4.5.3",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27002|0.4",
+    "ISO 19011|A.10",
+    "ISO 19011|A.2"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.1",
+     "reason": "General requirement to determine risks and opportunities and plan actions — the frame for the clause 6 conformity judgement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "States the risk assessment process requirements: acceptance criteria, criteria for performing assessments, consistent/valid/comparable results, risk owners.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "States the risk treatment process, NOTE 2/NOTE 3 on Annex A as a completeness check, SoA and risk owner approval, documented information on the process.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "reason": "The seven requirements on information security objectives and five on planning to achieve them.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Operational planning and control, including control of planned changes and review of unintended changes — adjacent to planning of changes.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Requires documented information of risk assessment results — key to 'no risk register required, but results retained'.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "reason": "Requires documented information of risk treatment results and traceability of outputs to treatment decisions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance underpinning risk acceptance criteria.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.66",
+     "reason": "Definition of risk criteria — the terms of reference against which significance of risk is evaluated.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.71",
+     "reason": "Definition of risk owner, required by 6.1.2 and 6.1.3.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment, the process examined by the task.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.49",
+     "reason": "Definition of objective, underpinning information security objectives.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.3",
+     "reason": "Explains assessing information security risks — supporting narrative for the 6.1.2 process.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Explains treating information security risks — supporting narrative for 6.1.3.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Selecting and implementing controls, relevant to how controls are determined rather than picked from a catalogue.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "reason": "Determining controls — controls are determined by risk treatment, not selected from a list; supports Annex A as completeness check.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.10",
+     "reason": "Auditing risks and opportunities — how to audit the organization's risk process as operated.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.64",
+     "title": "risk assessment overall process",
+     "why": "Bare vocabulary entry (duplicated verbatim inside the 3.62 block) that only names the three sub-processes and states nothing testable about clause 6 conformity."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "why": "Just notes on residual/retained risk plus the definition of 'review'; nothing about clause 6 process requirements an item could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.2",
+     "why": "Generic statement that auditing a management system means auditing processes; says nothing testable about clause 6 risk assessment, treatment, objectives or planning of changes."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Clause 6.3 'Planning of changes' is part of the task's scope but does not appear in the supplied ISO/IEC 27001 title list (it is absent from the standard's contents page); 8.1 is included as the nearest available passage on change control.",
+   "invented": []
+  },
+  {
+   "task": "4.4",
+   "state": "judged",
+   "statement": "Determine whether a Statement of Applicability is consistent with the risk treatment decisions behind it.",
+   "pass1": [
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|7.5.3",
+    "ISO/IEC 27000|3.71",
+    "ISO/IEC 27000|3.57",
+    "ISO/IEC 27000|3.62",
+    "ISO/IEC 27000|3.72",
+    "ISO/IEC 27000|4.5.5",
+    "ISO/IEC 27000|4.5.4",
+    "ISO/IEC 27002|0.4",
+    "ISO 19011|6.4.8",
+    "ISO 19011|A.18.3",
+    "ISO 19011|6.4.7"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "States the SoA requirement: necessary controls, justification for inclusion, implementation status, justification for exclusion, plus risk treatment plan approval and residual risk acceptance by risk owners.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "reason": "Requires implementation of the risk treatment plan and retained evidence of results - the operational counterpart the SoA's implementation status must match.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.71",
+     "reason": "Definition of risk owner, needed for judging who must approve treatment and accept residual risk.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.62",
+     "reason": "Definition of risk acceptance as an informed decision, supports judging acceptance evidence.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.72",
+     "reason": "Definition of risk treatment, underpins tracing SoA inclusion/exclusion to a treatment decision.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.5",
+     "reason": "Explains selecting and implementing controls and the comparison with Annex A that drives exclusion justification.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.4",
+     "reason": "Describes treating information security risks, the decisions the SoA must be consistent with.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Generating audit findings - basis for raising an unjustified exclusion as a nonconformity against 6.1.3 d).",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "why": "Text sets out the risk assessment process (criteria, identification, analysis, evaluation); it only mentions identifying risk owners and says nothing about the SoA or treatment-decision consistency."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "why": "Text is about performing risk assessments at planned intervals and retaining results, not about SoA content or treatment decisions."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.3",
+     "why": "Text is generic document control (availability, protection, versioning, retention), unrelated to SoA/treatment consistency."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.57",
+     "why": "Text is only notes to the residual-risk entry plus the definition of 'review'; states nothing testable about residual risk acceptance or the SoA."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.4",
+     "why": "Introductory guidance on how to determine controls and balance investment; elaborates 6.1.3 b) without stating anything about the SoA or its justifications."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Checklist of what a nonconformity record should contain; nothing about the SoA or risk treatment decisions."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "why": "Generic guidance on collecting/verifying information and sampling methods; no content an SoA-consistency item could key on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.5",
+   "state": "judged",
+   "statement": "Select the evidence that would establish conformity with a given clause 7 requirement for competence, awareness or documented information.",
+   "pass1": [
+    "ISO/IEC 27001|7.2",
+    "ISO/IEC 27001|7.3",
+    "ISO/IEC 27001|7.5.1",
+    "ISO/IEC 27001|7.5.2",
+    "ISO/IEC 27001|7.5.3",
+    "ISO/IEC 27001|7.1",
+    "ISO/IEC 27001|7.4",
+    "ISO/IEC 27000|3.9",
+    "ISO/IEC 27000|3.19",
+    "ISO 19011|3.10",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.14",
+    "ISO/IEC 27002|6.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.2",
+     "reason": "States the competence requirement (determine, ensure competent on basis of education/training/experience, take actions, retain documented information as evidence) that the item's evidence must satisfy.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.3",
+     "reason": "States exactly what persons must be aware of, the benchmark for awareness evidence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.1",
+     "reason": "Defines what documented information the ISMS must include - basis for evidence of existence/scope.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.2",
+     "reason": "Requirements for creating and updating documented information (identification, format, review and approval) - evidence of adequacy.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.3",
+     "reason": "Control of documented information requirements (availability, protection, distribution, version, retention) - evidence of control.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.1",
+     "why": "States only the generic resources requirement; nothing on competence, awareness or documented information evidence."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.4",
+     "why": "Communication planning requirements only; outside the competence/awareness/documented-information scope of the task."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.9",
+     "why": "Text supplied is actually the definition of confidentiality, not competence."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.19",
+     "why": "Bare term definition of documented information; states no requirement an evidence-selection item could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "why": "Generic definition of audit evidence; does not state any clause 7 conformity requirement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "why": "General guidance on collecting/verifying information during an audit, not on clause 7 evidence of competence or documented information."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.14",
+     "why": "Generic list of possible information sources; guidance only, no testable clause 7 requirement."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "6.3",
+     "why": "Implementation guidance for the Annex A awareness/training control, not the clause 7 requirements or the evidence that demonstrates conformity with them."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.6",
+   "state": "judged",
+   "statement": "Determine whether operational planning and control and the clause 9.1 measurement arrangements are operating as planned.",
+   "pass1": [
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|6.2",
+    "ISO 19011|A.2",
+    "ISO 19011|A.4",
+    "ISO/IEC 27000|3.46",
+    "ISO/IEC 27000|3.43"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "The task's core subject: operational planning and control - processes planned, implemented, controlled and evidenced as carried out.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Performing risk assessments at planned intervals or on significant change - the operation of the 6.1.2 process.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "reason": "Implementing the risk treatment plan - the operation of the 6.1.3 process.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "The six determinations including who monitors/measures and who analyses/evaluates - directly tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "Defines the risk assessment process that clause 8.2 performs; needed for the define-versus-perform pairing.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "Defines the risk treatment process and plan that clause 8.3 implements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.4",
+     "reason": "Performance results as audit evidence of operation rather than existence of a plan.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.46",
+     "reason": "Definition of monitoring, underpinning the 9.1 measurement arrangements.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "why": "Text is about setting and planning information security objectives, not operational planning/control or 9.1 measurement arrangements in operation."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.2",
+     "why": "Generic auditor guidance on processes interacting as a coherent system; states nothing testable about verifying planned arrangements are running."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.43",
+     "why": "Text supplied is the definitions of measurement function and measurement method, not the measurement concept used by 9.1."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.7",
+   "state": "judged",
+   "statement": "Determine whether the organization has addressed the climate change consideration Amendment 1:2024 adds to clause 4.1.",
+   "pass1": [
+    "ISO/IEC 27001|4.1",
+    "ISO/IEC 27001|4.2",
+    "ISO 19011|A.8"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.1",
+     "reason": "The amended clause 4.1 is where the climate change relevance determination is stated (base text plus Amendment 1 change to 4.1).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.2",
+     "reason": "Amendment 1 adds the note that interested parties can have climate-change-related requirements.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.8",
+     "why": "General guidance on auditing context determination; never mentions climate change or the Amendment 1:2024 requirement."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 27001 lists duplicate tokens 4.1/4.2 for base text and the Amendment 1 entries; both variants should be fetched.",
+   "invented": []
+  },
+  {
+   "task": "4.8",
+   "state": "judged",
+   "statement": "Identify AI systems and AI-derived assets inside the ISMS scope that the asset inventory has not captured.",
+   "pass1": [
+    "ISO/IEC 27001|A.5.9",
+    "ISO/IEC 27002|5.9",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|A.5.10",
+    "ISO/IEC 27002|5.10",
+    "ISO/IEC 27001|A.5.23",
+    "ISO/IEC 27002|5.23",
+    "ISO/IEC 27001|A.5.12",
+    "ISO/IEC 27002|5.12",
+    "ISO/IEC 27001|A.8.15",
+    "ISO/IEC 27002|8.15",
+    "ISO/IEC 27001|A.8.19",
+    "ISO/IEC 27002|8.19"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.9",
+     "reason": "Requires an inventory of information and other associated assets with owners — the control the missing AI assets breach.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.9",
+     "reason": "Implementation guidance on what the inventory must capture (asset types, owners, accuracy, currency) — basis for judging AI assets unaccounted for.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "Determining ISMS scope decides which AI systems and derived assets fall inside scope.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.10",
+     "why": "Requires rules for acceptable use/handling of assets, not identification or inventory of assets."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.10",
+     "why": "Guidance on acceptable-use policy content; says nothing about discovering unaccounted asset classes."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.23",
+     "why": "About establishing cloud acquisition/use/exit processes, not inventorying AI assets."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.23",
+     "why": "Guidance on shared responsibility and cloud security requirements; not asset identification."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.12",
+     "why": "Classification of information once identified, not detection of missing assets."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.12",
+     "why": "Guidance on classification schemes and owners' accountability for classification; not inventory gaps."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.15",
+     "why": "Control on producing/protecting/analysing logs — the control distractor, not the inventory key."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.15",
+     "why": "Guidance on what events to log and how to protect logs; does not address logs as uninventoried assets."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.19",
+     "why": "Requires secure management of software installation, not identification of unaccounted AI assets."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.19",
+     "why": "Text is procedural guidance on controlling and authorizing software installation/rollback/audit logs on operational systems, not about asset inventory or identifying unaccounted AI assets."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope names AI assets explicitly; the key must rest on the generic asset-inventory requirement (A.5.9/27002 5.9) applied to AI.",
+   "invented": []
+  },
+  {
+   "task": "4.9",
+   "state": "judged",
+   "statement": "Determine whether an Annex A control still operates as claimed where the process it protects has become non-deterministic.",
+   "pass1": [
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|8.1",
+    "ISO/IEC 27001|8.2",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|A.8.32",
+    "ISO/IEC 27001|A.8.16",
+    "ISO/IEC 27001|A.5.36",
+    "ISO/IEC 27001|A.8.29",
+    "ISO/IEC 27002|8.32",
+    "ISO/IEC 27002|8.16",
+    "ISO/IEC 27002|5.36",
+    "ISO/IEC 27002|5.35",
+    "ISO/IEC 27002|0.6",
+    "ISO/IEC 27002|3.1.8",
+    "ISO/IEC 27002|3.1.31",
+    "ISO/IEC 27000|3.20",
+    "ISO/IEC 27000|3.14",
+    "ISO/IEC 27000|4.5.6",
+    "ISO 19011|A.2",
+    "ISO 19011|A.4",
+    "ISO 19011|A.3",
+    "ISO 19011|A.5",
+    "ISO 19011|6.4.7",
+    "ISO 19011|6.4.8",
+    "ISO 19011|4.7",
+    "ISO 19011|3.27",
+    "ISO 19011|A.18.3"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "Requires the organization to determine what needs monitoring/measuring to evaluate control and ISMS effectiveness — the basis for testing a continuing effectiveness claim.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.1",
+     "reason": "Operational planning and control, including control of planned changes and review of unintended changes — the process changing character is such a change.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.2",
+     "reason": "Risk assessment at planned intervals or when significant changes occur; a process becoming non-deterministic triggers reassessment.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.32",
+     "reason": "Change management to information processing facilities and systems — the control's continued validity after the protected process changes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.16",
+     "reason": "Monitoring activities for anomalous behaviour — evidence type that can support continued effectiveness over varying output.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.36",
+     "reason": "Guidance on periodic review that controls still operate as specified.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "5.35",
+     "reason": "Independent review of the approach to managing information security at planned intervals or when significant changes occur.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.8",
+     "reason": "Definition of control as a measure that maintains and/or modifies risk — anchors 'operates as claimed'.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.20",
+     "reason": "Definition of effectiveness (extent to which planned activities are realized and planned results achieved) — the claim under test.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.14",
+     "reason": "Definition of control as measure modifying risk.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "4.5.6",
+     "reason": "Monitor, maintain and improve the effectiveness of the ISMS — continued effectiveness over time.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.2",
+     "reason": "Auditing of processes — assessing whether a process consistently delivers intended results.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.4",
+     "reason": "Performance results — judging whether evidence demonstrates the intended outcome is still achieved.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "reason": "Professional judgement in deciding whether prior evidence still supports the claim.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information — sufficiency and currency of evidence offered.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Collecting and verifying information sufficient to support findings about current operation.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach — verifiable evidence for current conformity, not historical assertion.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.27",
+     "reason": "Definition of effectiveness used in judging the control claim.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "One-line requirement to implement the risk treatment plan and retain records; says nothing about continued control effectiveness."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "why": "Covers control selection, Annex A comparison and Statement of Applicability, not whether an implemented control still works."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "why": "Audit programme planning (frequency, criteria, auditor objectivity), not evaluation of a control's continued effectiveness."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "why": "Generic nonconformity/corrective action text plus Annex A preamble; no content on effectiveness drift."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.5.36",
+     "why": "Garbled one-line control on periodic policy-compliance review; only mentions review, states nothing testable about control effectiveness after process change."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "A.8.29",
+     "why": "Security testing within the development life cycle, not revalidation of an operating control over a changed process."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.32",
+     "why": "Implementation guidance elaborating the Annex A.8.32 change-management requirement stated elsewhere."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "8.16",
+     "why": "Implementation guidance listing what to include in monitoring scope; says nothing about re-validating a control's effectiveness after the protected process changes."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "0.6",
+     "why": "General introductory text on information and system life cycles; only notes changes are opportunities to improve controls, nothing testable on effectiveness drift."
+    },
+    {
+     "source": "ISO/IEC 27002",
+     "clause": "3.1.31",
+     "why": "Body text is a run of unrelated definitions (rule, sensitive information, threat, topic-specific policy); the reliability definition appears only in the heading."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "why": "Generic guidance on generating/grading and reviewing findings and nonconformities; says nothing about control effectiveness over a changed process."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Checklist of what a nonconformity record should contain — documentation guidance, not effectiveness evaluation."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 3,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "No standard in scope addresses non-determinism/AI directly; picks are the effectiveness, change-impact and evidence-currency passages the judgement must rest on.",
+   "invented": []
+  },
+  {
+   "task": "5.1",
+   "state": "judged",
+   "statement": "Classify a finding against the audit programme's declared classification scheme.",
+   "pass1": [
+    "ISO 19011|3.11",
+    "ISO 19011|3.8",
+    "ISO 19011|3.21",
+    "ISO 19011|3.22",
+    "ISO 19011|6.4.8",
+    "ISO 19011|A.18.1",
+    "ISO 19011|A.18.2",
+    "ISO 19011|A.18.3",
+    "ISO 19011|A.18.4",
+    "ISO 19011|A.7",
+    "ISO 19011|5.5.6",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.11",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.11",
+     "reason": "Defines audit finding as evaluation of audit evidence against criteria — the object being classified.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Audit criteria definition; Note 1 records compliance/non-compliance language for legal requirements.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.21",
+     "reason": "Conformity definition underpinning the conformity/compliance wording distinction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "reason": "Nonconformity definition used when classifying a finding.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "States how findings are generated, evaluated and classified (including grading if the programme provides for it).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "Uses nonconformity with reaction, correction and corrective action but sets no severity scheme.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "reason": "Authoritative definition of nonconformity (not defined in 27001).",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "reason": "Definition of conformity used in finding classification.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "why": "Generic checklist of considerations when determining findings; only lists 'categorization (if any)' without stating any scheme or rule an item could key on."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.2",
+     "why": "Guidance on what to include in records of conformity, not on classifying or grading findings."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Record-content guidance for nonconformities that merely cross-refers grading back to 6.4.8."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.4",
+     "why": "About handling findings spanning multiple criteria in combined audits, not about severity/classification schemes."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.7",
+     "why": "Guidance on auditing an auditee's compliance processes, not on compliance-vs-conformity finding terminology."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.6",
+     "why": "Audit programme result management (report approval, follow-up), says nothing about classifying findings."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "why": "Text sets out audit programme planning, criteria, auditor objectivity and reporting duties; says nothing about finding categories or classification/severity."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "why": "Text is a run of unrelated definitions (corrective action, derived measure, documented information) about remediation/records, not finding classification."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "why": "Bare definition of corrective action — post-finding remediation, nothing an item on classifying findings could key on."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Major/minor severity comes from ISO/IEC 17021-1 certification practice, which is outside the standards in scope; no clause states it.",
+   "invented": []
+  },
+  {
+   "task": "5.2",
+   "state": "judged",
+   "statement": "Determine whether the evidence constitutes a nonconformity, and whether a set of findings indicates a systemic rather than an isolated failure.",
+   "pass1": [
+    "ISO 19011|6.4.8",
+    "ISO 19011|A.18.1",
+    "ISO 19011|A.18.3",
+    "ISO 19011|A.18.2",
+    "ISO 19011|A.18.4",
+    "ISO 19011|6.4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|4.7",
+    "ISO 19011|A.6.2",
+    "ISO 19011|3.11",
+    "ISO 19011|3.22",
+    "ISO 19011|3.10",
+    "ISO 19011|3.9",
+    "ISO 19011|3.21",
+    "ISO 19011|3.8",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|7.5.1",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.56"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Generating audit findings: evaluating evidence against criteria, determining nonconformities and considering findings that indicate a pattern/trend.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "reason": "Determining audit findings, including consideration of whether findings are isolated or systemic.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "reason": "Recording nonconformities - what must be stated for evidence to establish a nonconformity.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Collecting and verifying information; only verifiable information can be audit evidence supporting a nonconformity.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information - underpins the rule that absent/unverified evidence cannot found a nonconformity.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "reason": "Evidence-based approach principle: findings must rest on verifiable evidence and samples.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.11",
+     "reason": "Definition of audit finding (evaluation of audit evidence against audit criteria).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "reason": "Definition of nonconformity as non-fulfilment of a requirement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence - what counts as evidence for a finding.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "reason": "Definition of objective evidence - data supporting existence or verity of something.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.21",
+     "reason": "Definition of conformity, the alternative determination.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Audit criteria - the requirement set against which non-fulfilment is judged.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "Clause 10.2 b) 3) requires determining whether similar nonconformities exist or could occur - the standard's hook for systemic reasoning.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.5.1",
+     "reason": "Establishes what documented information must exist, supporting whether absent evidence should have existed.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.56",
+     "reason": "Definition of requirement - the thing that must be non-fulfilled for a nonconformity.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.2",
+     "why": "Text covers what to record for conformity findings, not the determination of a nonconformity or systemic reasoning."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.4",
+     "why": "Text is about handling one finding across multiple management-system criteria in combined audits, not isolated-vs-systemic nonconformity judgement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.2",
+     "why": "Text describes factors for choosing judgement-based sampling, not what evidence must establish to support a nonconformity."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "title": "nonconformity non-fulfilment of a requirement (3.56)",
+     "why": "Text supplied is actually the 3.48 non-repudiation definition, not the nonconformity definition."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "5.3",
+   "state": "judged",
+   "statement": "Select the nonconformity statement that correctly links the evidence to the requirement it fails.",
+   "pass1": [
+    "ISO 19011|A.18.3",
+    "ISO 19011|A.18.1",
+    "ISO 19011|6.4.8",
+    "ISO 19011|4.3",
+    "ISO 19011|4.7",
+    "ISO 19011|3.22",
+    "ISO 19011|3.11",
+    "ISO 19011|3.10",
+    "ISO 19011|3.8",
+    "ISO 19011|3.9",
+    "ISO 19011|6.5.1",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27000|3.47"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "reason": "Directly governs how nonconformities are recorded: the statement of the nonconformity, the supporting audit evidence and the audit criteria not fulfilled.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.8",
+     "reason": "Generating audit findings: evaluating evidence against criteria and identifying nonconformities, the basis of the statement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.3",
+     "reason": "Fair presentation principle explicitly named in the KSA: findings and reports must reflect the audit truthfully and accurately.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "reason": "Definition of nonconformity as non-fulfilment of a requirement — the requirement link the statement must name.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.11",
+     "reason": "Definition of audit finding: result of evaluating audit evidence against audit criteria.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence — the evidence element of a nonconformity statement.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "reason": "Definition of audit criteria — the requirement against which evidence is compared.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.5.1",
+     "reason": "Report content requirements may constrain how nonconformities are expressed to the recipient.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.1",
+     "why": "Guidance on what to consider when determining findings (sampling, categorization, prior audits), not on how a nonconformity statement links evidence to requirement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "why": "Text is about verifiability and sampling underpinning conclusions, not about the content or objectivity of a nonconformity statement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.9",
+     "why": "Bare definition of objective evidence and how it is obtained; states nothing testable about the requirement-evidence link or statement wording."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "why": "Sets out the auditee's corrective-action process, not anything the auditor's nonconformity statement must contain."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "why": "Text is actually the definition of non-repudiation, not nonconformity, and says nothing about nonconformity statements."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "5.4",
+   "state": "judged",
+   "statement": "Determine what an audit report must disclose about AI-assisted evidence processing so that a reader can judge the reliability of the evidence.",
+   "pass1": [
+    "ISO 19011|6.5.1",
+    "ISO 19011|6.4.7",
+    "ISO 19011|5.5.3",
+    "ISO 19011|A.1",
+    "ISO 19011|A.5",
+    "ISO 19011|A.3",
+    "ISO 19011|4.3",
+    "ISO 19011|4.7",
+    "ISO 19011|4.4",
+    "ISO 19011|6.4.9.2",
+    "ISO 19011|A.6.1",
+    "ISO 19011|A.16"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.5.1",
+     "reason": "States what the audit report must contain — the direct basis for judging whether AI-assisted evidence processing must be disclosed.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.7",
+     "reason": "Requires information to be verified and the degree of reliance on unverified/low-verification evidence to be a stated matter of professional judgement.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.3",
+     "reason": "Fair presentation: report must truthfully and accurately reflect audit activities, including method limitations.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.3",
+     "why": "Programme-level selection of audit methods; says nothing about disclosing methods in the report or judging evidence reliability."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.1",
+     "why": "Annex guidance listing on-site/remote method combinations; no reporting or disclosure requirement."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "why": "Elaborating guidance on checking information completeness/correctness under 6.4.7; not about report content."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.3",
+     "why": "Generic guidance on judging the intent of standard clauses, not on reliance placed on weakly verified evidence."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "why": "States evidence should be verifiable and sampling affects confidence, but says nothing an item could test about disclosure."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.4",
+     "why": "Generic principle on diligence and reasoned judgement; no testable content on reporting or evidence reliability."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.4.9.2",
+     "why": "Lists topics audit conclusions should address; not about disclosing how evidence was obtained or processed."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.6.1",
+     "why": "General explanation of sampling risk; no requirement about what the report must disclose."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.16",
+     "why": "Logistics and competence for remote auditing technology; unrelated to report disclosure of evidence-shaping methods."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Concepts map almost entirely to ISO 19011 clause 6 and Annex A; the 27000-series clauses are not relevant to audit report content.",
+   "invented": []
+  },
+  {
+   "task": "5.5",
+   "state": "judged",
+   "statement": "Determine whether a proposed correction, root cause analysis and corrective action adequately address a nonconformity.",
+   "pass1": [
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27001|10.1",
+    "ISO 19011|6.7",
+    "ISO 19011|3.22",
+    "ISO 19011|A.18.3",
+    "ISO/IEC 27000|3.13"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "The clause the task tests: react/correct the nonconformity (a) versus evaluate and eliminate causes to prevent recurrence (b), actions appropriate to effects.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "reason": "Defines correction as action to eliminate a detected nonconformity - the distinction not defined in 27001.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "reason": "Defines corrective action as action to eliminate the cause and prevent recurrence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.7",
+     "reason": "Audit follow-up: verification of completion and effectiveness of corrective action taken by the auditee.",
+     "confidence": "medium"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "title": "nonconformity non-fulfilment of a requirement (3.56)",
+     "why": "Text supplied is actually the non-repudiation definition (3.48), nothing on nonconformity handling."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.1",
+     "why": "One-line generic continual improvement requirement; says nothing about correction, causes or corrective action."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "why": "Bare definition of nonconformity only; no content on correction or corrective action adequacy."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Guidance on what to record in a nonconformity statement, not on evaluating correction/root cause/corrective action."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.13",
+     "why": "Bare definition of continual improvement; unrelated to correction versus corrective action."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "Core key rests on ISO/IEC 27001 10.2 with the correction/corrective action definitions imported from ISO/IEC 27000.",
+   "invented": []
+  },
+  {
+   "task": "5.6",
+   "state": "judged",
+   "statement": "Determine the verification approach for a corrective action and whether a finding may be closed.",
+   "pass1": [
+    "ISO/IEC 27001|10.2",
+    "ISO 19011|6.7",
+    "ISO 19011|6.6",
+    "ISO 19011|5.5.6",
+    "ISO 19011|4.7",
+    "ISO 19011|A.5",
+    "ISO 19011|3.10",
+    "ISO 19011|3.27",
+    "ISO/IEC 27000|3.16",
+    "ISO/IEC 27000|3.17",
+    "ISO/IEC 27000|3.20",
+    "ISO/IEC 27001|10.1"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "reason": "Requires correction, cause analysis, corrective action and review of the effectiveness of corrective action taken — the basis for closure criteria.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.7",
+     "reason": "Conducting the audit follow-up: verification of completion and effectiveness of corrective actions.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.6",
+     "reason": "Managing audit programme results includes ensuring follow-up on corrective actions is reviewed.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.5",
+     "reason": "Verifying information — how evidence is verified before conclusions such as closure are drawn.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.10",
+     "reason": "Definition of audit evidence, underpinning what counts as sufficient evidence to close a finding.",
+     "confidence": "low"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.16",
+     "reason": "Definition of correction (fixing the instance) versus corrective action — closure decision hinges on this distinction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.17",
+     "reason": "Definition of corrective action (eliminating the cause to prevent recurrence).",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.20",
+     "reason": "Definition of effectiveness used in judging whether corrective action worked.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "6.6",
+     "why": "Text is about when an audit is complete, record retention and confidentiality of audit information, not verification or closure of findings."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "4.7",
+     "why": "General principle on sampling and reliability of audit conclusions; says nothing about verifying corrective action or closing findings."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.27",
+     "why": "Definition of effectiveness followed by the integrity/principles text; no statement about follow-up verification or closure."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.1",
+     "why": "One-sentence continual improvement requirement; nothing on corrective action verification or closure."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  },
+  {
+   "task": "5.7",
+   "state": "judged",
+   "statement": "Determine which audit results clause 9.3 requires to reach management review.",
+   "pass1": [
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.3.1",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|10.2",
+    "ISO/IEC 27001|6.2",
+    "ISO/IEC 27001|9.3.3",
+    "ISO 19011|6.5.2",
+    "ISO 19011|5.5.6"
+   ],
+   "primary": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "reason": "Lists management review inputs including audit results under feedback on information security performance — the passage the task's key rests on.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "Requires audit results to be reported to relevant management, the hand-off the task examines.",
+     "confidence": "high"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.1",
+     "why": "Only states top management reviews the ISMS at planned intervals; says nothing about which inputs/audit results must reach the review."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "why": "Sets monitoring/measurement determinations and evidence; never states that results feed management review."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "10.2",
+     "why": "Corrective action handling and records only; no link to management review inputs."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.2",
+     "why": "Objective-setting and planning requirements; does not address management review inputs."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.3",
+     "why": "Covers review outputs (decisions, changes), not the audit results required as inputs."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "6.5.2",
+     "why": "Guidance on timing and distribution of the audit report to interested parties, not on management review inputs."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.6",
+     "why": "Audit programme management activities (report approval, distribution, follow-up); does not state what must reach management review."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 1,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": null,
+   "invented": []
+  }
+ ]
+}
