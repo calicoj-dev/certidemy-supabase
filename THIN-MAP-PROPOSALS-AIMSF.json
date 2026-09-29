@@ -1,0 +1,173 @@
+{
+ "floor": 4,
+ "tasks": [
+  {
+   "code": "1.2",
+   "effNow": 1,
+   "after": 4,
+   "reaches": true,
+   "promote": [
+    "3.2",
+    "A.3.2",
+    "A.10.2"
+   ],
+   "withheld": 3
+  },
+  {
+   "code": "2.1",
+   "effNow": 2,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "3.2",
+    "4.1",
+    "4.2"
+   ],
+   "withheld": 1
+  },
+  {
+   "code": "2.2",
+   "effNow": 2,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "4.1",
+    "4.2",
+    "4.4"
+   ],
+   "withheld": 2
+  },
+  {
+   "code": "2.4",
+   "effNow": 3,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "3.3",
+    "A.3.3"
+   ],
+   "withheld": 2
+  },
+  {
+   "code": "2.7",
+   "effNow": 3,
+   "after": 6,
+   "reaches": true,
+   "promote": [
+    "8.2",
+    "8.4",
+    "A.5.2"
+   ],
+   "withheld": 0
+  },
+  {
+   "code": "2.8",
+   "effNow": 2,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "6.1.1",
+    "8.3",
+    "A.1"
+   ],
+   "withheld": 1
+  },
+  {
+   "code": "3.1",
+   "effNow": 3,
+   "after": 8,
+   "reaches": true,
+   "promote": [
+    "A.4.2",
+    "A.4.3",
+    "A.4.4",
+    "A.4.5",
+    "A.4.6"
+   ],
+   "withheld": 5
+  },
+  {
+   "code": "3.2",
+   "effNow": 3,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "5.2",
+    "A.3.3"
+   ],
+   "withheld": 0
+  },
+  {
+   "code": "3.4",
+   "effNow": 3,
+   "after": 6,
+   "reaches": true,
+   "promote": [
+    "6.1.3",
+    "6.2",
+    "6.3"
+   ],
+   "withheld": 0
+  },
+  {
+   "code": "4.2",
+   "effNow": 2,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "A.1",
+    "6.1.3",
+    "3.26"
+   ],
+   "withheld": 2
+  },
+  {
+   "code": "5.1",
+   "effNow": 3,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "6.2",
+    "A.6.2.6"
+   ],
+   "withheld": 1
+  },
+  {
+   "code": "5.2",
+   "effNow": 2,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "3.18",
+    "9.2.1",
+    "9.2.2"
+   ],
+   "withheld": 0
+  },
+  {
+   "code": "5.3",
+   "effNow": 3,
+   "after": 6,
+   "reaches": true,
+   "promote": [
+    "10.1",
+    "9.3.2",
+    "9.3.3"
+   ],
+   "withheld": 0
+  },
+  {
+   "code": "5.4",
+   "effNow": 1,
+   "after": 5,
+   "reaches": true,
+   "promote": [
+    "42001 3.16",
+    "42001 3.17",
+    "42001 10.1",
+    "10.2"
+   ],
+   "withheld": 7
+  }
+ ]
+}
