@@ -642,16 +642,25 @@ function writerUser(task, domain, passages, k) {
     " SUPPORTING passage and do not paraphrase a primary one to fit." +
     (full.length ? "\n\nAT THE ANCHOR CAP for this task -- do NOT anchor any key in these; they" +
       " already carry " + CAP + " item(s) each: " + full.map((f) => f.clause).join(", ") : "") +
-    /* PROMPT-93 s2. Both of these answer defects READ in the output rather than guessed at: the probe
-     * flags clustered on one habit (broad moderate key, narrow absolute distractors), and four batch-1
-     * survivors asked what sits at a numbered clause. */
-    "\n\nDISTRACTOR BREADTH. Most items rejected for being answerable from the options alone share one" +
-    " shape: the key is the broad, measured statement and every distractor is narrow, absolute or" +
-    " technical, so a candidate who knows nothing picks the moderate one. AT LEAST ONE DISTRACTOR MUST BE" +
-    " AS BROAD AND AS MEASURED IN TONE AS THE KEY. Make a distractor wrong on its SUBSTANCE, not by" +
-    " hanging an absolute qualifier or a self-justifying 'because...' clause on it." +
-    (k > 1 ? "\n\nVARY WHICH OPTION IS THE GENERAL ONE across these " + k + " items: sometimes the key" +
-      " should be the specific option and a broad statement should be the distractor that is wrong." : "") +
+    /* ============ THE DISTRACTOR-BREADTH INSTRUCTION WAS REVERTED, PROMPT-94 s2 ============
+     *
+     * It stood here for one run and was removed by the director who wrote it, on his own measurement. It
+     * asked for at least one distractor as broad and as measured in tone as the key, and for the key to
+     * alternate between the general and the specific option.
+     *
+     * MEASURED AGAINST ITS OWN TARGET, it made the habit MORE common, not less: the share of probed
+     * survivors whose flag describes a distractor made wrong by ADDING a qualifier went from 49 percent to
+     * 69 percent. The cue_kind table said the opposite -- `odd-verdict` fell from 36 percent of flags to 21 --
+     * and that was a RELABELLING: more parallel options is exactly what the instruction asks for, so the
+     * probe noticed the shared opening phrase first and filed the same defect under `shared-phrase`.
+     *
+     * NOT REPLACED WITH A BETTER VERSION. Writing a second instruction on one confounded run -- prompt,
+     * task set and maps all changed in one session -- would be fitting the instrument to the expected
+     * answer. The probe stays a flag with no target rate, and cues get judged by reading the items.
+     *
+     * The clause-number rule below STAYS: it is backed by `clause-number-recall` in the code gates, so the
+     * prompt states the gate's own test in the gate's own words and a model that ignores it costs a
+     * rejection rather than a bad insert. It fired on 1 of 53 batch-2 survivors and 0 of 47 in R2. */
     "\n\nCLAUSE NUMBERS. You may cite a clause number, but ONLY if the item can be answered without" +
     " knowing what that number contains. Name the topic. Code REFUSES a stem that asks what is 'at'," +
     " 'in' or 'under' clause X, which obligation 'belongs to' X, or which option 'matches' X --" +
