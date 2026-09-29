@@ -1,0 +1,432 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "attempted": 40,
+ "generated": 2,
+ "survivors": 2,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 0,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 0,
+  "applied": 0,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 2,
+  "hit": 1,
+  "pct": 50
+ },
+ "key_pick_after": {
+  "n": 2,
+  "hit": 1,
+  "pct": 50
+ },
+ "shape_cues_before": {},
+ "shape_cues_after": {},
+ "anchor_clusters": [],
+ "options_probe_flags": 0,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 4,
+ "items": [
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "Which of the following is offered in Annex C as an illustration of where risk can come from?",
+    "options": [
+     {
+      "text": "Choosing an unsuitable accuracy metric for a classification task.",
+      "is_correct": false
+     },
+     {
+      "text": "Leaving a fielded system without upkeep over a long period.",
+      "is_correct": true
+     },
+     {
+      "text": "Publishing technical documentation that management has not approved.",
+      "is_correct": false
+     },
+     {
+      "text": "Running an AI management system apart from a quality system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause C.3.6 notes that risk can arise anywhere across the whole life cycle, and its illustrations include design flaws, poor deployment, absence of maintenance, and decommissioning problems; lack of upkeep of a system already in the field matches the maintenance example. The other options come from operational performance guidance, documentation guidance and integration guidance rather than from the C.3.6 illustrations.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.6.2.6",
+      "support": "For example, an organization can determine that the F1 score is an appropriate performance metric based on its assessment of the impact of false positives and false negatives, as described in ISO/IEC TS 4213.",
+      "why_wrong": "Metric selection is operational guidance on performance criteria, not one of the life-cycle risk-source illustrations."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.7",
+      "support": "Documentation should be approved by the relevant management within the organization.",
+      "why_wrong": "Documentation approval sits in the technical documentation guidance, not among the examples of risk sources."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.",
+      "why_wrong": "Integration with other management system standards is a separate topic and is not given as an example of a risk source."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in C.3.6, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option b"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option b",
+   "attributed_quotation": null,
+   "grounding_family": "C.3.6",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause C.3.6 lists 'lack of maintenance' among life cycle examples of sources of risk, which matches leaving a fielded system without upkeep.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "verdict": "survivor",
+   "item_id": "81de1ecb",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "item_before_decue": {
+    "question_text": "Which of the following is offered in Annex C as an illustration of where risk can come from?",
+    "options": [
+     {
+      "text": "Choosing an unsuitable accuracy metric for a classification task.",
+      "is_correct": false
+     },
+     {
+      "text": "Leaving a fielded system without upkeep over a long period.",
+      "is_correct": true
+     },
+     {
+      "text": "Publishing technical documentation that management has not approved.",
+      "is_correct": false
+     },
+     {
+      "text": "Running an AI management system apart from a quality system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause C.3.6 notes that risk can arise anywhere across the whole life cycle, and its illustrations include design flaws, poor deployment, absence of maintenance, and decommissioning problems; lack of upkeep of a system already in the field matches the maintenance example. The other options come from operational performance guidance, documentation guidance and integration guidance rather than from the C.3.6 illustrations.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.6.2.6",
+      "support": "For example, an organization can determine that the F1 score is an appropriate performance metric based on its assessment of the impact of false positives and false negatives, as described in ISO/IEC TS 4213.",
+      "why_wrong": "Metric selection is operational guidance on performance criteria, not one of the life-cycle risk-source illustrations."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.7",
+      "support": "Documentation should be approved by the relevant management within the organization.",
+      "why_wrong": "Documentation approval sits in the technical documentation guidance, not among the examples of risk sources."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.",
+      "why_wrong": "Integration with other management system standards is a separate topic and is not given as an example of a risk source."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "An insurer runs an approved model for three years with no patching, no updates and no support arrangement in place. Using the illustrations in Annex C, this fits best under which heading?",
+    "options": [
+     {
+      "text": "Upkeep of the system in service was absent.",
+      "is_correct": true
+     },
+     {
+      "text": "The original design of the system was flawed.",
+      "is_correct": false
+     },
+     {
+      "text": "The system was put into service inadequately.",
+      "is_correct": false
+     },
+     {
+      "text": "Withdrawal of the system raised unresolved issues.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause C.3.6 notes that risk sources can arise anywhere across the whole life cycle, and the examples it gives include missing maintenance alongside design flaws, poor deployment and decommissioning problems. Three years in service with no patching, updates or support is the missing-maintenance case.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The scenario describes neglect during service, not a defect present at design time."
+     },
+     {
+      "index": 2,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The system entered service acceptably; what is missing is attention afterwards."
+     },
+     {
+      "index": 3,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The system is still running, so no decommissioning issue is described."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 20%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in C.3.6, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": null,
+   "grounding_family": "C.3.6",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause C.3.6 lists 'lack of maintenance' among life cycle sources of risk, which matches three years with no patching, updates or support.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "A is the only option stating an absolute absence (\"was absent\"), which is the kind of extreme wording test-wise candidates eliminate; among the remaining, C is the moderately hedged wording (\"inadequately\") rather than a flat verdict.",
+    "cue_kind": "only-hedged",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "dd535172",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "A is the only option stating an absolute absence (\"was absent\"), which is the kind of extreme wording test-wise candidates eliminate; among the remaining, C is the moderately hedged wording (\"inadequately\") rather than a flat verdict.",
+    "cue_kind": "only-hedged",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "An insurer runs an approved model for three years with no patching, no updates and no support arrangement in place. Using the illustrations in Annex C, this fits best under which heading?",
+    "options": [
+     {
+      "text": "Upkeep of the system in service was absent.",
+      "is_correct": true
+     },
+     {
+      "text": "The original design of the system was flawed.",
+      "is_correct": false
+     },
+     {
+      "text": "The system was put into service inadequately.",
+      "is_correct": false
+     },
+     {
+      "text": "Withdrawal of the system raised unresolved issues.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause C.3.6 notes that risk sources can arise anywhere across the whole life cycle, and the examples it gives include missing maintenance alongside design flaws, poor deployment and decommissioning problems. Three years in service with no patching, updates or support is the missing-maintenance case.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The scenario describes neglect during service, not a defect present at design time."
+     },
+     {
+      "index": 2,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The system entered service acceptably; what is missing is attention afterwards."
+     },
+     {
+      "index": 3,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+      "why_wrong": "The system is still running, so no decommissioning issue is described."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  }
+ ]
+}

@@ -47,6 +47,11 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
+import { createHash } from "node:crypto";
+import { CAP, atCap, applyCap, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
+import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN_WORDS }
+  from "./lib/effective-primary.mjs";
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
@@ -128,7 +133,7 @@ let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueReverted
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 
-let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null;
+let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
@@ -141,6 +146,12 @@ for (const a of process.argv.slice(2)) {
    * reason. Topping up the named tasks keeps every item generated against the same library
    * and the same mapping, which is the property that matters. */
   if ((m = /^--tasks=(.+)$/.exec(a))) { ONLY = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
+  /* --ids=<content id>,... inserts a NAMED SUBSET of an artifact. The id is a hash of the stem, not a
+   * position: a position silently points at a different item once the artifact is regenerated, and this
+   * flag exists precisely to insert the items a human read. */
+  if ((m = /^--ids=(.+)$/.exec(a))) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
+  /* the ruled is_exam_scope for these pending_review rows. The DEFAULT STAYS FALSE. */
+  if (a === "--exam-scope") { EXAM_SCOPE = true; continue; }
   if (a === "--apply") { APPLY = true; continue; }
   console.error("unknown flag " + JSON.stringify(a));
   console.error("");
@@ -154,20 +165,28 @@ OUT = OUT || ("PILOT-GROUNDED-" + CERT.replace(/[^A-Za-z0-9-]/g, "") + ".json");
 
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 
+/* A STABLE ID FOR AN ARTIFACT ITEM: a hash of the normalised stem. Positions are not ids -- an artifact
+ * regenerated between the read and the insert would leave --ids=2,4 pointing at items nobody saw. */
+const itemId = (item) => createHash("sha256")
+  .update(String((item && item.question_text) || "").replace(/\s+/g, " ").trim())
+  .digest("hex").slice(0, 8);
+
 /* ---------------------------------------------------------------- the controls run first */
 {
   const a = groundedGateControls(), b = blindSolverControls(), c = supersededControls();
   const d = optionsProbeControls();
   const e = shapeCueControls();
   const f = deCueCheckControls();
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined) + " cases");
+  const g = effectivePrimaryControls({ quiet: true });
+  const h = anchorCapControls({ quiet: true });
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + " -- all pass");
 }
 
 function env(k) {
@@ -320,9 +339,21 @@ for (const r of tsRows) {
 const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
 const primaryOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).primary || [];
 const supportingOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).supporting || [];
-const mappedFromTable = tasks.filter((t) => primaryOf(t.code).length);
+/* ---- EFFECTIVE primaries, ruled PROMPT-86 s2: not a container, own text, >= " + MIN_WORDS + " words ----
+ *
+ * `primaryOf(code).length` counted ANY primary row. Task 1.3 had six of which TWO were containers
+ * (A.6.1, A.6.2) whose text is their children's text run together -- long enough to pass any word
+ * floor, and useless to anchor in, because a quotation from one can span several controls. */
+const libClauses = [...passagesByKey.keys()];
+const passageOfClause = (c) => passagesByKey.get(c);
+const effectivePrimariesOf = (code) =>
+  classifyPrimaries(primaryOf(code), passageOfClause, libClauses).filter((r) => r.effective)
+    .map((r) => r.clause);
+const effectiveCountOf = (code) => effectivePrimaryCount(primaryOf(code), passageOfClause, libClauses);
+const mappedFromTable = tasks.filter((t) => effectiveCountOf(t.code));
 console.log("  task_sources        " + tsRows.length + " link(s); " + mappedFromTable.length +
-  " of " + tasks.length + " tasks have a primary passage");
+  " of " + tasks.length + " tasks have an EFFECTIVE primary passage (not a container, own text, " +
+  ">= " + MIN_WORDS + " words)");
 if (!tsRows.length) {
   console.error("REFUSING TO RUN: task_sources is empty, so no key could be checked against a");
   console.error("primary passage and every item would be UNASSERTED on that gate. Run");
@@ -374,7 +405,21 @@ const mapByCode = new Map((mapping.tasks || []).map((t) => [t.code, t]));
  * neither is held. It has no primary passages, so it drops out here, and its share of D5 is
  * redistributed across D5's other tasks by the round-robin below -- the domain keeps its weight,
  * which is what matters for a form, and the redistribution is STATED rather than left implicit. */
-const HELD_TASKS = tasks.filter((t) => !primaryOf(t.code).length).map((t) => t.code);
+/* the hold list uses the SAME definition as the allocation, or a task with only container primaries
+ * would be allocated items it cannot anchor and the refusals would name the items, not the map. */
+/* the within-task anchor cap census: kept audit items + already-inserted rows. This run's survivors are
+ * added at gate time, because a cap that counted only the current run would let each run add CAP more
+ * to a clause that already carries four. */
+const capInfo = await buildCapCensus({ KEY, getAll, certId: cert.id, tasks, ROOT, cert: CERT });
+const capCensus = capInfo.byTask;
+const atCapFor = (code) => atCap(capCensus.get(code) || new Map(), CAP);
+console.log("  anchor cap          " + CAP + " per (source, clause) per task; " +
+  [...capCensus.values()].reduce((s, m) => s + [...m.values()].filter((n) => n >= CAP).length, 0) +
+  " clause(s) at the cap (from " + capInfo.fromKept + " kept + " + capInfo.fromInserted +
+  " inserted)" + (capInfo.unknownAnchor.length ? "; " + capInfo.unknownAnchor.length +
+    " kept item(s) with NO recorded anchor, not counted" : ""));
+
+const HELD_TASKS = tasks.filter((t) => !effectiveCountOf(t.code)).map((t) => t.code);
 const mappedTasks = tasks.filter((t) => primaryOf(t.code).length);
 const unmapped = tasks.filter((t) => !mappedTasks.includes(t));
 if (HELD_TASKS.length) {
@@ -517,10 +562,16 @@ RULES
  * use a supporting passage -- that is the gate's own contract, so prompt and gate cannot drift. */
 function writerUser(task, domain, passages, k) {
   const prim = new Set(primaryOf(task.code));
+  /* clauses already at the cap for THIS task. The writer is told AND the gate refuses, so a model that
+   * ignores the instruction costs a rejection rather than a bad insert. */
+  const full = atCapFor(task.code);
+  const fullSet = new Set(full.map((f) => f.clause));
   const fmt = (p) =>
     "--- clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
     "  [this clause is " + p.normative + "; " +
-    (prim.has(p.clause) ? "PRIMARY for this task -- a KEY MAY anchor here" :
+    (prim.has(p.clause) ? (fullSet.has(p.clause)
+      ? "PRIMARY but ALREADY AT THE ANCHOR CAP -- DO NOT anchor a key here"
+      : "PRIMARY for this task -- a KEY MAY anchor here") :
       "SUPPORTING -- a distractor's reason may use it, a KEY MAY NOT anchor here") + "] ---\n" + p.text;
   const primaries = passages.filter((p) => prim.has(p.clause));
   const others = passages.filter((p) => !prim.has(p.clause));
@@ -535,6 +586,8 @@ function writerUser(task, domain, passages, k) {
     primaries.length + " of them, and code refuses a key anchored anywhere else. If a PRIMARY passage" +
     " does not support the point you want to make, make a different point: do not anchor in a" +
     " SUPPORTING passage and do not paraphrase a primary one to fit." +
+    (full.length ? "\n\nAT THE ANCHOR CAP for this task -- do NOT anchor any key in these; they" +
+      " already carry " + CAP + " item(s) each: " + full.map((f) => f.clause).join(", ") : "") +
     "\n\nWrite " + k + " item(s). Return the JSON array only.";
 }
 
@@ -557,7 +610,22 @@ if (FROM) {
    * dropped between artifacts -- this repository has already had a verdict rebuilt wrongly
    * downstream because the record omitted a field the verdict depended on. */
   priorNote = prior.note || null;
-  for (const r of prior.items || []) generated.push({ item: r.item, task: tasks.find((t) => t.code === r.task_code) });
+  let priorItems = prior.items || [];
+  if (IDS) {
+    /* EVERY requested id must match, or the insert quietly covers fewer items than were approved --
+     * the short-read-as-complete shape, pointed at a write. */
+    const have = new Map(priorItems.map((r) => [itemId(r.item), r]));
+    const missing = IDS.filter((x) => !have.has(x));
+    if (missing.length) {
+      console.error("--ids: " + missing.length + " id(s) match no item in " + FROM + ": " + missing.join(", "));
+      console.error("ids present: " + [...have.keys()].join(", "));
+      process.exitCode = 2; process.exit();
+    }
+    priorItems = IDS.map((x) => have.get(x));
+    console.log("  --ids: " + priorItems.length + " of " + (prior.items || []).length +
+      " item(s); all " + IDS.length + " requested id(s) matched");
+  }
+  for (const r of priorItems) generated.push({ item: r.item, task: tasks.find((t) => t.code === r.task_code) });
 } else {
   for (const [taskId, k] of alloc) {
     const t = tasks.find((x) => x.id === taskId);
@@ -727,6 +795,7 @@ for (const g of generated) {
   const v = solverVerdict(parsed, keyLabel);
   record.solver = { ...v, raw: parsed };
   if (v.state === "accepted") {
+    record.item_id = itemId(record.item);
     record.verdict = "survivor";
 
     /* ============ THE OPTIONS-ONLY PROBE: FLAGGED, NEVER REJECTED ============
@@ -950,6 +1019,24 @@ for (const g of generated) {
 }
 
 /* ---------------------------------------------------------------- report */
+/* ============ THE ANCHOR CAP, APPLIED AFTER EVERY OTHER GATE ============
+ *
+ * Last, because it is a property of the SET rather than of an item: an over-cap item is not defective,
+ * it is surplus. THE REJECTION IS NEVER A REWRITE -- ruled -- because rewriting the distractors cannot
+ * change where the key rests, and would spend a model call to produce an item still to be refused.
+ * Earlier items in the artifact win, which is stated because an order nobody states is irreproducible. */
+for (const code of new Set(results.map((r) => r.task_code))) {
+  const mine = results.filter((r) => r.verdict === "survivor" && r.task_code === code);
+  const decided = applyCap(mine.map((r) => ({ ref: r, source_id: "ISO/IEC 42001",
+    clause: r.item.key_support_clause })), capCensus.get(code) || new Map(), CAP);
+  for (const d of decided) {
+    if (!d.over_cap) continue;
+    d.ref.verdict = "rejected";
+    d.ref.failed = [...(d.ref.failed || []), "anchor-cap"];
+    d.ref.anchor_cap = { over_cap: true, reason: d.reason };
+    bump("code: anchor-cap");
+  }
+}
 const survivors = results.filter((r) => r.verdict === "survivor");
 console.log("");
 console.log("OUTCOME");
@@ -1148,7 +1235,7 @@ if (!APPLY) {
         status: "pending_review",
         pool: "secure",
         visibility: "secure",
-        is_exam_scope: false,
+        is_exam_scope: EXAM_SCOPE,
         item_origin: "generated",
         question_type: "single_choice",
         bloom_level: t.bloom_level,
@@ -1188,7 +1275,10 @@ if (!APPLY) {
     const bad = [];
     for (const r of back) {
       if (r.status !== "pending_review") bad.push(r.id.slice(0, 8) + " status=" + r.status);
-      if (r.is_exam_scope !== false) bad.push(r.id.slice(0, 8) + " is_exam_scope=" + r.is_exam_scope);
+      /* the post-condition asserts what was WRITTEN, not a constant. It hardcoded false and fired on
+       * the first --exam-scope insert, reporting a correctly written row as a violation -- a gate that
+       * cannot see a flag the writer honours is a gate that disagrees with its own program. */
+      if (r.is_exam_scope !== EXAM_SCOPE) bad.push(r.id.slice(0, 8) + " is_exam_scope=" + r.is_exam_scope + " (wrote " + EXAM_SCOPE + ")");
       if (r.pool !== "secure") bad.push(r.id.slice(0, 8) + " pool=" + r.pool);
       if (r.visibility !== "secure") bad.push(r.id.slice(0, 8) + " visibility=" + r.visibility);
       if (r.item_origin !== "generated") bad.push(r.id.slice(0, 8) + " item_origin=" + r.item_origin);

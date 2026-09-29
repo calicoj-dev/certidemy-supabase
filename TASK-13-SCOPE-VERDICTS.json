@@ -1,0 +1,72 @@
+{
+ "task": "1.3",
+ "statement": "Describe the AI system life cycle and why it anchors AIMS obligations",
+ "candidates": [
+  "A.6.2.2",
+  "A.6.2.3",
+  "A.6.2.4",
+  "A.6.2.5",
+  "A.6.2.6",
+  "A.6.2.7",
+  "A.6.2.8"
+ ],
+ "promote": [
+  "A.6.2.2",
+  "A.6.2.3",
+  "A.6.2.4",
+  "A.6.2.5",
+  "A.6.2.6",
+  "A.6.2.7",
+  "A.6.2.8"
+ ],
+ "withheld": [],
+ "absent": [],
+ "detail": {
+  "promote": [
+   {
+    "clause": "A.6.2.2",
+    "role": "supporting",
+    "words": 24,
+    "why": "AI system requirements and specification is the life-cycle stage where obligations first attach, and the task is about why the life cycle anchors AIMS obligations."
+   },
+   {
+    "clause": "A.6.2.3",
+    "role": "supporting",
+    "words": 27,
+    "why": "Documentation of AI system design and development is a life-cycle-stage control: it is one of the stages the task asks a candidate to describe."
+   },
+   {
+    "clause": "A.6.2.4",
+    "role": "supporting",
+    "words": 26,
+    "why": "Verification and validation is a named life-cycle stage and carries its own requirement text, which is what an item needs to anchor in."
+   },
+   {
+    "clause": "A.6.2.5",
+    "role": "supporting",
+    "words": 23,
+    "why": "Deployment is the stage C.3.6 names as a risk source ('inadequate deployment'), so the control is the requirement behind the example the task currently leans on."
+   },
+   {
+    "clause": "A.6.2.6",
+    "role": "supporting",
+    "words": 37,
+    "why": "Operation and monitoring is the post-release stage, and the task's whole point is that obligations do not stop when a system ships."
+   },
+   {
+    "clause": "A.6.2.7",
+    "role": "supporting",
+    "words": 40,
+    "why": "Technical documentation and information for users spans the life cycle and is a control in its own right, not guidance about another control."
+   },
+   {
+    "clause": "A.6.2.8",
+    "role": "supporting",
+    "words": 38,
+    "why": "Event logs are the operating-stage record, which is part of the life cycle the task covers."
+   }
+  ],
+  "reject": [],
+  "missing": []
+ }
+}

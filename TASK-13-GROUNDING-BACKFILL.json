@@ -1,0 +1,15 @@
+{
+ "backfilled": [
+  {
+   "id": "8d1e4481",
+   "clause": "C.3.6"
+  },
+  {
+   "id": "d16bcf46",
+   "clause": "C.3.6"
+  }
+ ],
+ "total_after": 34,
+ "cap_visible_c36_on_13": 2,
+ "open_item": "gen-grounded-items.mjs --apply writes quiz_questions and NO item_grounding row. Until it does, every item it inserts is invisible to the anchor-cap census."
+}

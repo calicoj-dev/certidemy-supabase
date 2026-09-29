@@ -1,0 +1,40 @@
+{
+ "prefixes": [
+  "8d1e4481",
+  "d16bcf46"
+ ],
+ "rows": [
+  {
+   "id": "8d1e4481",
+   "status": "pending_review",
+   "pool": "secure",
+   "visibility": "secure",
+   "is_exam_scope": true,
+   "item_origin": "generated",
+   "task": "1.3"
+  },
+  {
+   "id": "d16bcf46",
+   "status": "pending_review",
+   "pool": "secure",
+   "visibility": "secure",
+   "is_exam_scope": true,
+   "item_origin": "generated",
+   "task": "1.3"
+  }
+ ],
+ "grounding": [
+  {
+   "id": "8d1e4481",
+   "clause": "C.3.6",
+   "source": "ISO/IEC 42001"
+  },
+  {
+   "id": "d16bcf46",
+   "clause": "C.3.6",
+   "source": "ISO/IEC 42001"
+  }
+ ],
+ "approved_secure_13": 8,
+ "failures": 0
+}
