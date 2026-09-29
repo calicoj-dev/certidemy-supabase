@@ -5,7 +5,7 @@
  "no_english_sibling": 5,
  "counts": {
   "forbidden": 139,
-  "mixed": 2652,
+  "mixed": 2662,
   "untranslated": 868,
   "unchecked": 0
  },
@@ -5671,6 +5671,22 @@
    "note": "a Regulation term in a row that is not about the Regulation -- flag, not a failure"
   },
   {
+   "cls": "mixed",
+   "id": "1998288c",
+   "code": "ISMS-IA",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:d",
+   "variants": [
+    "não não"
+   ],
+   "house": "não",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
    "cls": "untranslated",
    "id": "19cd6f86",
    "code": "AIMS-IA",
@@ -9127,6 +9143,22 @@
    "field": "question_text",
    "english": "AIMS",
    "expected": "SGIA"
+  },
+  {
+   "cls": "mixed",
+   "id": "2aa4ad77",
+   "code": "SM-AI-II",
+   "language": "es-419",
+   "pool": "secure",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "explanation",
+   "variants": [
+    "pregunta pregunta"
+   ],
+   "house": "pregunta",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
   },
   {
    "cls": "mixed",
@@ -16260,6 +16292,22 @@
   },
   {
    "cls": "mixed",
+   "id": "4a33e2be",
+   "code": "ISMS-IA",
+   "language": "es-419",
+   "pool": "secure",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:c",
+   "variants": [
+    "una una"
+   ],
+   "house": "una",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
+   "cls": "mixed",
    "id": "4a48e62f",
    "code": "ISMS-F",
    "language": "pt-BR",
@@ -18619,6 +18667,70 @@
    "field": "explanation",
    "english": "AIMS",
    "expected": "SGIA"
+  },
+  {
+   "cls": "mixed",
+   "id": "54a9aaa8",
+   "code": "AIMS-IA",
+   "language": "es-419",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:a",
+   "variants": [
+    "muestra muestra"
+   ],
+   "house": "muestra",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
+   "cls": "mixed",
+   "id": "54a9aaa8",
+   "code": "AIMS-IA",
+   "language": "es-419",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:b",
+   "variants": [
+    "muestra muestra"
+   ],
+   "house": "muestra",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
+   "cls": "mixed",
+   "id": "54a9aaa8",
+   "code": "AIMS-IA",
+   "language": "es-419",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:c",
+   "variants": [
+    "muestra muestra"
+   ],
+   "house": "muestra",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
+   "cls": "mixed",
+   "id": "54a9aaa8",
+   "code": "AIMS-IA",
+   "language": "es-419",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:d",
+   "variants": [
+    "muestra muestra"
+   ],
+   "house": "muestra",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
   },
   {
    "cls": "untranslated",
@@ -40616,6 +40728,22 @@
   },
   {
    "cls": "mixed",
+   "id": "bc6dfe22",
+   "code": "AIMS-IA",
+   "language": "pt-BR",
+   "pool": "secure",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:b",
+   "variants": [
+    "não não"
+   ],
+   "house": "não",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
+   "cls": "mixed",
    "id": "bccfd445",
    "code": "SPO-AI-I",
    "language": "es-419",
@@ -47530,6 +47658,22 @@
    "note": "on the forbidden list, but declared severity `flag`"
   },
   {
+   "cls": "mixed",
+   "id": "df21b605",
+   "code": "ISMS-IA",
+   "language": "es-419",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:b",
+   "variants": [
+    "muestra muestra"
+   ],
+   "house": "muestra",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
+  },
+  {
    "cls": "forbidden",
    "id": "df32d088",
    "code": "AIGRM-I",
@@ -49057,6 +49201,22 @@
    "expected": "risco elevado",
    "autofix": false,
    "note": "on the forbidden list, but declared severity `flag`"
+  },
+  {
+   "cls": "mixed",
+   "id": "e7e3ba7b",
+   "code": "ISMS-F",
+   "language": "pt-BR",
+   "pool": "practice",
+   "family": "text_quality",
+   "key": "doubled-word",
+   "severity": "flag",
+   "field": "option:d",
+   "variants": [
+    "não não"
+   ],
+   "house": "não",
+   "note": "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides."
   },
   {
    "cls": "mixed",

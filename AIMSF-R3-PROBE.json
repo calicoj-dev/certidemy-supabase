@@ -1,0 +1,954 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 17,
+  "input_tokens": 34717,
+  "output_tokens": 13501,
+  "usd": 1.5333,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 1,
+    "input": 3084,
+    "output": 6216
+   },
+   "paraphrase": {
+    "calls": 3,
+    "input": 11819,
+    "output": 3083
+   },
+   "solver": {
+    "calls": 8,
+    "input": 16254,
+    "output": 1792
+   },
+   "options-probe": {
+    "calls": 4,
+    "input": 2366,
+    "output": 1584
+   },
+   "de-cue": {
+    "calls": 1,
+    "input": 1194,
+    "output": 826
+   }
+  }
+ },
+ "attempted": 4,
+ "generated": 4,
+ "survivors": 4,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 3,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 1,
+  "applied": 0,
+  "reverted_by_rewrite_check": 1,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 4,
+  "hit": 3,
+  "pct": 75
+ },
+ "key_pick_after": {
+  "n": 4,
+  "hit": 3,
+  "pct": 75
+ },
+ "shape_cues_before": {
+  "clang": 1,
+  "only-hedged": 1
+ },
+ "shape_cues_after": {
+  "clang": 1,
+  "only-hedged": 1
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 3,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 8,
+ "items": [
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "A hospital is deploying an AI triage tool. A local patient-advocacy group has no contract with the hospital and has not demonstrated any harm, yet its members believe the tool disadvantages them. When the hospital compiles its list of parties relevant to the AI management system, how should this group be handled?",
+    "options": [
+     {
+      "text": "Include the group, since a body that perceives itself as affected falls within the definition.",
+      "is_correct": true
+     },
+     {
+      "text": "Exclude the group until it produces evidence of measurable harm from the tool's outputs.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the group as an unrelated third party outside the contractual and regulatory chain.",
+      "is_correct": false
+     },
+     {
+      "text": "Defer the question to the scope exercise, which settles who counts as a relevant party.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The defined term in Clause 3.2 covers not only those actually affected but also any person or organization that can 'perceive itself to be affected' by a decision or activity, so a self-perceived effect is enough to make the advocacy group relevant; demonstrated harm or a contractual link is not the threshold.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Perceiving itself to be affected already satisfies the definition, so proof of harm is not the threshold."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "The definition turns on effect or perceived effect, not on a contractual or regulatory link."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope determination draws on the already-identified interested parties and their requirements, so it cannot decide who they are."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.2 defines an interested party as a person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity, so a group that perceives itself as disadvantaged qualifies without contract or proven harm.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C are two variants of the same 'exclude' verdict (so they cancel each other), and D merely defers instead of answering; A is the only option that gives a distinct verdict backed by an appeal to the definition.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B and C are two variants of the same 'exclude' verdict (so they cancel each other), and D merely defers instead of answering; A is the only option that gives a distinct verdict backed by an appeal to the definition."
+   },
+   "verdict": "survivor",
+   "item_id": "d06e0261",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C are two variants of the same 'exclude' verdict (so they cancel each other), and D merely defers instead of answering; A is the only option that gives a distinct verdict backed by an appeal to the definition.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B and C are two variants of the same 'exclude' verdict (so they cancel each other), and D merely defers instead of answering; A is the only option that gives a distinct verdict backed by an appeal to the definition."
+   },
+   "item_before_decue": {
+    "question_text": "A hospital is deploying an AI triage tool. A local patient-advocacy group has no contract with the hospital and has not demonstrated any harm, yet its members believe the tool disadvantages them. When the hospital compiles its list of parties relevant to the AI management system, how should this group be handled?",
+    "options": [
+     {
+      "text": "Include the group, since a body that perceives itself as affected falls within the definition.",
+      "is_correct": true
+     },
+     {
+      "text": "Exclude the group until it produces evidence of measurable harm from the tool's outputs.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the group as an unrelated third party outside the contractual and regulatory chain.",
+      "is_correct": false
+     },
+     {
+      "text": "Defer the question to the scope exercise, which settles who counts as a relevant party.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The defined term in Clause 3.2 covers not only those actually affected but also any person or organization that can 'perceive itself to be affected' by a decision or activity, so a self-perceived effect is enough to make the advocacy group relevant; demonstrated harm or a contractual link is not the threshold.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Perceiving itself to be affected already satisfies the definition, so proof of harm is not the threshold."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "The definition turns on effect or perceived effect, not on a contractual or regulatory link."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope determination draws on the already-identified interested parties and their requirements, so it cannot decide who they are."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "A project team building an AI management system has listed the parties relevant to it and has captured what each of them requires. Working on the needs and expectations of interested parties, what determination still remains for the team?",
+    "options": [
+     {
+      "text": "Which of the captured requirements the AI management system will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Whether climate change is an issue relevant to the organization's purpose.",
+      "is_correct": false
+     },
+     {
+      "text": "The boundaries and applicability that establish the management system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's roles with respect to the AI systems it provides or uses.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 sets three determinations: the relevant interested parties, their relevant requirements, and finally which of those captured requirements the management system itself will take on. The other options are determinations belonging to the context and scope work, not to the interested-party analysis.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "This determination sits in the external and internal issues work, not in the interested-party determination described in the stem."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Fixing boundaries is the scope step, which is carried out after interested-party requirements are known."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination belongs to understanding the organization and its context, not to the interested-party determination."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 19%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.2 requires determining the interested parties, their relevant requirements, and \"which of these requirements will be addressed through the AI management system\" — the only one of the three not yet done.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "Three options (A, C, D) all reference the AI/management system, while B alone introduces an unrelated topic (climate change), marking B as the odd-content distractor; among the remaining three, C is the generic textbook-style 'boundaries and applicability ... scope' phrasing.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "c98acc3a",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"captured\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "Three options (A, C, D) all reference the AI/management system, while B alone introduces an unrelated topic (climate change), marking B as the odd-content distractor; among the remaining three, C is the generic textbook-style 'boundaries and applicability ... scope' phrasing.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "A project team building an AI management system has listed the parties relevant to it and has captured what each of them requires. Working on the needs and expectations of interested parties, what determination still remains for the team?",
+    "options": [
+     {
+      "text": "Which of the captured requirements the AI management system will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Whether climate change is an issue relevant to the organization's purpose.",
+      "is_correct": false
+     },
+     {
+      "text": "The boundaries and applicability that establish the management system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's roles with respect to the AI systems it provides or uses.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 sets three determinations: the relevant interested parties, their relevant requirements, and finally which of those captured requirements the management system itself will take on. The other options are determinations belonging to the context and scope work, not to the interested-party analysis.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "This determination sits in the external and internal issues work, not in the interested-party determination described in the stem."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Fixing boundaries is the scope step, which is carried out after interested-party requirements are known."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination belongs to understanding the organization and its context, not to the interested-party determination."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"captured\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "During an AI management system workshop, a sustainability lead asks where climate change belongs in the analysis of parties relevant to the system. Which statement is consistent with the standard?",
+    "options": [
+     {
+      "text": "Relevant parties can hold requirements that are connected to climate change.",
+      "is_correct": true
+     },
+     {
+      "text": "Relevant parties are obliged to declare whether climate change concerns them.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate-related requirements are left out of the consideration of system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate change becomes relevant once a regulator imposes a reporting duty.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The note to Clause 4.2 observes that 'Relevant interested parties can have requirements related to climate change', a possibility to take into account rather than a duty placed on those parties.",
+    "key_support_clause": "4.2",
+    "key_support": "NOTE Relevant interested parties can have requirements related to climate change.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "It is the organization, not the interested parties, that carries the determination about climate change relevance."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Requirements of interested parties, including climate-related ones, feed directly into the scope consideration."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "The relevance determination is made by the organization itself and is not triggered by a regulator's reporting duty."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 8 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.2's NOTE states \"Relevant interested parties can have requirements related to climate change,\" matching option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only permissive/hedged option ('can hold'), while B and D assert obligations/conditions and C is the only exclusionary ('left out') statement.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only permissive/hedged option ('can hold'), while B and D assert obligations/conditions and C is the only exclusionary ('left out') statement."
+   },
+   "verdict": "survivor",
+   "item_id": "f3efc767",
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only permissive/hedged option ('can hold'), while B and D assert obligations/conditions and C is the only exclusionary ('left out') statement.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only permissive/hedged option ('can hold'), while B and D assert obligations/conditions and C is the only exclusionary ('left out') statement."
+   },
+   "item_before_decue": {
+    "question_text": "During an AI management system workshop, a sustainability lead asks where climate change belongs in the analysis of parties relevant to the system. Which statement is consistent with the standard?",
+    "options": [
+     {
+      "text": "Relevant parties can hold requirements that are connected to climate change.",
+      "is_correct": true
+     },
+     {
+      "text": "Relevant parties are obliged to declare whether climate change concerns them.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate-related requirements are left out of the consideration of system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate change becomes relevant once a regulator imposes a reporting duty.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The note to Clause 4.2 observes that 'Relevant interested parties can have requirements related to climate change', a possibility to take into account rather than a duty placed on those parties.",
+    "key_support_clause": "4.2",
+    "key_support": "NOTE Relevant interested parties can have requirements related to climate change.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "It is the organization, not the interested parties, that carries the determination about climate change relevance."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Requirements of interested parties, including climate-related ones, feed directly into the scope consideration."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "The relevance determination is made by the organization itself and is not triggered by a regulator's reporting duty."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": [
+     {
+      "index": 2,
+      "limiter": "once",
+      "kept": null
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "check 5: limiter dropped -- option 3 lost \"once\""
+   }
+  },
+  {
+   "task_code": "2.1",
+   "domain": "D2",
+   "item": {
+    "question_text": "A bank's AI management system team has drawn up its list of relevant parties by asking who bears the consequences of its credit-scoring model. An external data provider whose feeds materially shape the model's decisions has been left off the list. What does the defined term for interested party indicate here?",
+    "options": [
+     {
+      "text": "A party able to affect a decision or activity comes within the term.",
+      "is_correct": true
+     },
+     {
+      "text": "A party is identified by the consequences it bears from the decision.",
+      "is_correct": false
+     },
+     {
+      "text": "A data feed supplier comes within the term once it holds a contract.",
+      "is_correct": false
+     },
+     {
+      "text": "A supplier becomes relevant when its feeds sit inside the declared scope.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of interested party in Clause 3.2 covers a person or organization on either side of the relationship: one that influences a decision or activity as well as one that is, or believes itself to be, on the receiving end of it. The phrase \"can affect, be affected by\" (3.2) means the data provider qualifies on the influencing limb alone, since its feeds shape the model's decisions.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Bearing consequences is one limb of the definition; a party that can affect the decision also qualifies."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "A contract is not the criterion in the definition, which turns on affecting or being affected."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope is settled by considering interested-party requirements, so it cannot be the gateway for recognizing a party."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 26%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a, plus one 5-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 5
+   },
+   "grounding_family": "3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.2 defines interested party as a person or organization that \"can affect, be affected by, or perceive itself to be affected by a decision or activity\", so the data provider whose feeds shape the model's decisions falls within the term by virtue of affecting it.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and C share the key phrase \"comes within the term\", and A states it as an unconditional broad criterion while C attaches a narrow condition; A is the broadest of the four.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and C share the key phrase \"comes within the term\", and A states it as an unconditional broad criterion while C attaches a narrow condition; A is the broadest of the four."
+   },
+   "verdict": "survivor",
+   "item_id": "565db21b",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and C share the key phrase \"comes within the term\", and A states it as an unconditional broad criterion while C attaches a narrow condition; A is the broadest of the four.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and C share the key phrase \"comes within the term\", and A states it as an unconditional broad criterion while C attaches a narrow condition; A is the broadest of the four."
+   },
+   "item_before_decue": {
+    "question_text": "A bank's AI management system team has drawn up its list of relevant parties by asking who bears the consequences of its credit-scoring model. An external data provider whose feeds materially shape the model's decisions has been left off the list. What does the defined term for interested party indicate here?",
+    "options": [
+     {
+      "text": "A party able to affect a decision or activity comes within the term.",
+      "is_correct": true
+     },
+     {
+      "text": "A party is identified by the consequences it bears from the decision.",
+      "is_correct": false
+     },
+     {
+      "text": "A data feed supplier comes within the term once it holds a contract.",
+      "is_correct": false
+     },
+     {
+      "text": "A supplier becomes relevant when its feeds sit inside the declared scope.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of interested party in Clause 3.2 covers a person or organization on either side of the relationship: one that influences a decision or activity as well as one that is, or believes itself to be, on the receiving end of it. The phrase \"can affect, be affected by\" (3.2) means the data provider qualifies on the influencing limb alone, since its feeds shape the model's decisions.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Bearing consequences is one limb of the definition; a party that can affect the decision also qualifies."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "A contract is not the criterion in the definition, which turns on affecting or being affected."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope is settled by considering interested-party requirements, so it cannot be the gateway for recognizing a party."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  }
+ ]
+}

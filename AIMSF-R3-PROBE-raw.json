@@ -1,0 +1,220 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 1,
+  "input_tokens": 3084,
+  "output_tokens": 6216,
+  "usd": 0.5125,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 1,
+    "input": 3084,
+    "output": 6216
+   }
+  }
+ },
+ "attempted": 4,
+ "generated": 4,
+ "note": "RAW WRITER OUTPUT, ungated and unsolved. Not a result. Re-gate with --from=AIMSF-R3-PROBE-raw.json",
+ "items": [
+  {
+   "task_code": "2.1",
+   "item": {
+    "question_text": "A hospital is deploying an AI triage tool. A local patient-advocacy group has no contract with the hospital and has not demonstrated any harm, yet its members believe the tool disadvantages them. When the hospital compiles its list of parties relevant to the AI management system, how should this group be handled?",
+    "options": [
+     {
+      "text": "Include the group, since a body that perceives itself as affected falls within the definition.",
+      "is_correct": true
+     },
+     {
+      "text": "Exclude the group until it produces evidence of measurable harm from the tool's outputs.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the group as an unrelated third party outside the contractual and regulatory chain.",
+      "is_correct": false
+     },
+     {
+      "text": "Defer the question to the scope exercise, which settles who counts as a relevant party.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The defined term for interested party in Clause 3.2 reaches a party 'that can affect, be affected by, or perceive itself to be affected by a decision or activity', so self-perceived effect is enough; evidence of harm or a contract is not the test.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Perceiving itself to be affected already satisfies the definition, so proof of harm is not the threshold."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "The definition turns on effect or perceived effect, not on a contractual or regulatory link."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope determination draws on the already-identified interested parties and their requirements, so it cannot decide who they are."
+     }
+    ]
+   }
+  },
+  {
+   "task_code": "2.1",
+   "item": {
+    "question_text": "A project team building an AI management system has listed the parties relevant to it and has captured what each of them requires. Working on the needs and expectations of interested parties, what determination still remains for the team?",
+    "options": [
+     {
+      "text": "Which of the captured requirements the AI management system will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Whether climate change is an issue relevant to the organization's purpose.",
+      "is_correct": false
+     },
+     {
+      "text": "The boundaries and applicability that establish the management system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's roles with respect to the AI systems it provides or uses.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 sets three determinations, the last being 'which of these requirements will be addressed through the AI management system'; the other options are determinations belonging to the context and scope work, not to the interested-party analysis.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "This determination sits in the external and internal issues work, not in the interested-party determination described in the stem."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Fixing boundaries is the scope step, which is carried out after interested-party requirements are known."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination belongs to understanding the organization and its context, not to the interested-party determination."
+     }
+    ]
+   }
+  },
+  {
+   "task_code": "2.1",
+   "item": {
+    "question_text": "During an AI management system workshop, a sustainability lead asks where climate change belongs in the analysis of parties relevant to the system. Which statement is consistent with the standard?",
+    "options": [
+     {
+      "text": "Relevant parties can hold requirements that are connected to climate change.",
+      "is_correct": true
+     },
+     {
+      "text": "Relevant parties are obliged to declare whether climate change concerns them.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate-related requirements are left out of the consideration of system scope.",
+      "is_correct": false
+     },
+     {
+      "text": "Climate change becomes relevant once a regulator imposes a reporting duty.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The note to Clause 4.2 observes that 'Relevant interested parties can have requirements related to climate change', a possibility to take into account rather than a duty placed on those parties.",
+    "key_support_clause": "4.2",
+    "key_support": "NOTE Relevant interested parties can have requirements related to climate change.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "It is the organization, not the interested parties, that carries the determination about climate change relevance."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Requirements of interested parties, including climate-related ones, feed directly into the scope consideration."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "The relevance determination is made by the organization itself and is not triggered by a regulator's reporting duty."
+     }
+    ]
+   }
+  },
+  {
+   "task_code": "2.1",
+   "item": {
+    "question_text": "A bank's AI management system team has drawn up its list of relevant parties by asking who bears the consequences of its credit-scoring model. An external data provider whose feeds materially shape the model's decisions has been left off the list. What does the defined term for interested party indicate here?",
+    "options": [
+     {
+      "text": "A party able to affect a decision or activity comes within the term.",
+      "is_correct": true
+     },
+     {
+      "text": "A party is identified by the consequences it bears from the decision.",
+      "is_correct": false
+     },
+     {
+      "text": "A data feed supplier comes within the term once it holds a contract.",
+      "is_correct": false
+     },
+     {
+      "text": "A supplier becomes relevant when its feeds sit inside the declared scope.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.2 defines an interested party as one 'that can affect, be affected by, or perceive itself to be affected by a decision or activity', so a data provider that shapes the model's decisions qualifies on the 'can affect' limb alone.",
+    "key_support_clause": "3.2",
+    "key_support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "Bearing consequences is one limb of the definition; a party that can affect the decision also qualifies."
+     },
+     {
+      "index": 2,
+      "clause": "3.2",
+      "support": "person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "A contract is not the criterion in the definition, which turns on affecting or being affected."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "When determining this scope, the organization shall consider: — the external and internal issues referred to in 4.1; — the requirements referred to in 4.2.",
+      "why_wrong": "Scope is settled by considering interested-party requirements, so it cannot be the gateway for recognizing a party."
+     }
+    ]
+   }
+  }
+ ]
+}

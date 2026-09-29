@@ -498,6 +498,240 @@
         "Incremento",
         "interesados"
       ]
+    },
+    "iso_22989_roles": {
+      "note": "ISO/IEC 22989:2022 clause 5.19 stakeholder roles, added PROMPT-94 s3 when four family-level 5.19 entries were promoted to PRIMARY on AIMS-F task 1.2. An item anchored in 22989 must use its role names exactly, so the names are pinned before any 1.2 item is translated. EVERY FORM BELOW WAS COUNTED IN THE CORPUS by scripts/census-22989-role-terms.mjs; none was chosen.",
+      "scope": [
+        "AIMS-F",
+        "AIMS-IA",
+        "AIGRM-I",
+        "AIHR-I",
+        "AIE-I",
+        "AISM-I"
+      ],
+      "severity_rule": "failure where one form is UNANIMOUS (no competing form attested) and appears at least 10 times; flag otherwise. A failure blocks a row, and blocking on a term seen twice would be a rule built on two observations.",
+      "provider_is_absent_deliberately": {
+        "why": "The eu_ai_act family says pt `prestador` and FORBIDS `fornecedor`. The corpus renders 22989's AI provider as `fornecedor de IA` 65 times, `provedor de IA` 21, and `prestador de IA` ZERO. Both families scope AIMS-F, so an entry here would put two families in contradiction about one word.",
+        "contained_today": "`regulation_scoped` in eu_ai_act downgrades `fornecedor` to a FLAG in a row that is not about the Regulation. 983 lint findings mention it; none is a failure. Nothing is broken.",
+        "open_decision": "Does 22989's AI provider render as `fornecedor de IA` (the corpus, 65) or `prestador de IA` (eu_ai_act's expected, 0 occurrences)? Director's call. Until it is made, no 22989 entry claims the word, and `provider` keeps its single existing rule."
+      },
+      "terms": [
+        {
+          "key": "ai_producer",
+          "en": "AI producer",
+          "es": "productor de IA",
+          "pt": "produtor de IA",
+          "forbidden": {
+            "es": [
+              "fabricante de IA"
+            ],
+            "pt": [
+              "fabricante de IA",
+              "criador de IA"
+            ]
+          },
+          "severity": "failure",
+          "attested": {
+            "es-419": 22,
+            "pt-BR": 21
+          },
+          "note": "Unanimous in both languages with no competing form attested.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [
+              "fabricante de IA -- a manufacturer. 22989's producer DESIGNS, DEVELOPS, TESTS AND DEPLOYS; manufacture is not the relation."
+            ],
+            "pt": [
+              "fabricante de IA -- same: a manufacturer, not a producer in 22989's sense.",
+              "criador de IA -- a creator, which collapses the producer role into authorship."
+            ]
+          },
+          "forbidden_attested": 0,
+          "forbidden_note": "PREVENTIVE, not corrective. Every variant above was counted in the corpus and appears ZERO times in both languages, so this rule catches nothing today by design -- the purpose is to pin the name before a 22989-anchored item is translated. A quiet lint here is NOT evidence the rule worked."
+        },
+        {
+          "key": "ai_customer",
+          "en": "AI customer",
+          "es": "cliente de IA",
+          "pt": "cliente de IA",
+          "forbidden": {
+            "es": [
+              "consumidor de IA"
+            ],
+            "pt": [
+              "consumidor de IA"
+            ]
+          },
+          "severity": "failure",
+          "attested": {
+            "es-419": 21,
+            "pt-BR": 21
+          },
+          "note": "Unanimous in both languages, and identical across them.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [
+              "consumidor de IA -- a consumer is a distinct legal category and 22989's customer may be an organization."
+            ],
+            "pt": [
+              "consumidor de IA -- same."
+            ]
+          },
+          "forbidden_attested": 0,
+          "forbidden_note": "PREVENTIVE, not corrective. Every variant above was counted in the corpus and appears ZERO times in both languages, so this rule catches nothing today by design -- the purpose is to pin the name before a 22989-anchored item is translated. A quiet lint here is NOT evidence the rule worked."
+        },
+        {
+          "key": "ai_partner",
+          "en": "AI partner",
+          "es": "socio de IA",
+          "pt": "parceiro de IA",
+          "forbidden": {
+            "es": [
+              "asociado de IA"
+            ],
+            "pt": [
+              "associado de IA"
+            ]
+          },
+          "severity": "failure",
+          "attested": {
+            "es-419": 13,
+            "pt-BR": 13
+          },
+          "note": "Unanimous: `asociado de IA` appears 0 times in Spanish and Portuguese has no competing form.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [
+              "asociado de IA -- an associate. 22989's partner provides services in the context of AI -- integration, testing, audit -- which `asociado` does not carry."
+            ],
+            "pt": [
+              "associado de IA -- same."
+            ]
+          },
+          "forbidden_attested": 0,
+          "forbidden_note": "PREVENTIVE, not corrective. Every variant above was counted in the corpus and appears ZERO times in both languages, so this rule catches nothing today by design -- the purpose is to pin the name before a 22989-anchored item is translated. A quiet lint here is NOT evidence the rule worked."
+        },
+        {
+          "key": "ai_subject",
+          "en": "AI subject",
+          "es": "sujeto de IA",
+          "pt": "sujeito de IA",
+          "forbidden": {
+            "es": [
+              "objeto de IA"
+            ],
+            "pt": [
+              "objeto de IA"
+            ]
+          },
+          "severity": "flag",
+          "attested": {
+            "es-419": 8,
+            "pt-BR": 8
+          },
+          "note": "Unanimous but under the 10-occurrence bar, so it reports rather than blocks.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [
+              "objeto de IA -- REVERSES the relation. 22989's AI subject is the person or entity the system acts UPON; `objeto` makes them a thing."
+            ],
+            "pt": [
+              "objeto de IA -- same reversal."
+            ]
+          },
+          "forbidden_attested": 0,
+          "forbidden_note": "PREVENTIVE, not corrective. Every variant above was counted in the corpus and appears ZERO times in both languages, so this rule catches nothing today by design -- the purpose is to pin the name before a 22989-anchored item is translated. A quiet lint here is NOT evidence the rule worked."
+        },
+        {
+          "key": "relevant_authority",
+          "en": "relevant authority",
+          "es": "autoridad competente",
+          "pt": "autoridade competente",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "attested": {
+            "es-419": 2,
+            "pt-BR": 3
+          },
+          "note": "Thinly attested, and `competente` is arguably a narrower idea than 22989's `relevant` -- the corpus made this choice already and it is recorded rather than endorsed. Far too thin to block a row.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": false,
+          "enforceable_note": "NO forbidden variant, so this entry CANNOT FIRE and is a RECORD of the house form rather than a rule. Attested 2/3 times, which is too thin to pin a confusable on -- that would be a rule built on two observations."
+        },
+        {
+          "key": "ai_user",
+          "en": "AI user",
+          "es": "usuario de IA",
+          "pt": "usuario de IA",
+          "forbidden": {
+            "es": [],
+            "pt": []
+          },
+          "severity": "flag",
+          "attested": {
+            "es-419": 1,
+            "pt-BR": 2
+          },
+          "note": "One and two occurrences. Recorded so a future rendering is compared against something, and it cannot block anything at this attestation. Note 22989's own 5.19.4.2 is 14 words and below the effective-primary floor, so no key anchors on it.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": false,
+          "enforceable_note": "NO forbidden variant, so this entry CANNOT FIRE and is a RECORD of the house form rather than a rule. Attested 1/2 times, which is too thin to pin a confusable on -- that would be a rule built on two observations."
+        }
+      ],
+      "unattested_and_therefore_absent": [
+        {
+          "en": "AI developer",
+          "es-419": "desarrollador de IA (2)",
+          "pt-BR": "no candidate appears (0)",
+          "why": "Portuguese has no attested form at all, so there is nothing to pin. An invented `desenvolvedor de IA` would be a rule the corpus has never followed -- and 22989's AI developer is a SUB-ROLE that stayed supporting, so no key anchors on it either."
+        }
+      ],
+      "enforceability": {
+        "note": "The lint's only detection mechanism is the per-term `forbidden` list. A term with an empty one is read on every row and can produce no finding. The first version of this family had empty lists throughout, so it could not fire at all, and its own control caught that on the first run.",
+        "enforceable": [
+          "ai_producer",
+          "ai_customer",
+          "ai_partner",
+          "ai_subject"
+        ],
+        "record_only": [
+          "relevant_authority",
+          "ai_user"
+        ],
+        "firing_count_today": 0,
+        "firing_count_note": "Zero, and expected to be zero: no competing form is attested anywhere in 6.5M characters of es-419 or 6.2M of pt-BR. The controls in translation-term-lint.mjs are what prove the enforceable terms CAN fire."
+      }
     }
   }
 }

@@ -32,20 +32,27 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { boundaryVerdict, headingsOfSource, definitionBoundaryControls }
   from "./lib/definition-boundary.mjs";
 
-let APPLY = false;
+let APPLY = false, VERDICTS = "THIN-MAP-VERDICTS-93.json";
 for (const a of process.argv.slice(2)) {
+  let m;
   if (a === "--apply") { APPLY = true; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --apply (dry by default; `--dry` is not a flag here).");
+  if ((m = /^--verdicts=(.+)$/.exec(a))) { VERDICTS = m[1]; continue; }
+  console.error("Unrecognised flag: " + a + ". Known: --apply, --verdicts=<file> (dry by default; `--dry` is not a flag here).");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const spec = JSON.parse(readFileSync(join(ROOT, "THIN-MAP-VERDICTS-93.json"), "utf8"));
+const spec = JSON.parse(readFileSync(join(ROOT, VERDICTS), "utf8"));
 const ADDED_BY = spec.added_by;
-if (ADDED_BY !== "director-93") {
-  console.error("ABORT: the verdict file's added_by is " + JSON.stringify(ADDED_BY) + ", not director-93.");
+/* The tag comes from the FILE. Hardcoding "director-93" here was a second copy of a fact the file already
+ * carries, and it would have refused every later ruling. What is asserted instead is the SHAPE: a tag must
+ * name a director ruling, so a blank or a stray value cannot be written into task_sources.added_by. */
+if (!/^director-[0-9]+$/.test(String(ADDED_BY || ""))) {
+  console.error("ABORT: the verdict file's added_by is " + JSON.stringify(ADDED_BY) +
+    ", which does not name a director ruling (expected director-<n>).");
   process.exit(2);
 }
+console.log("verdict file: " + VERDICTS + "   tag: " + ADDED_BY);
 const words = (t) => String(t || "").trim().split(/\s+/).filter(Boolean).length;
 
 /* THE MODULE'S CONTROLS RUN FIRST. A boundary verdict decides whether a ruled clause is promoted, so a broken
@@ -105,11 +112,12 @@ for (const t of spec.tasks) {
   if (!task) { console.error("ABORT: task " + t.task + " is not a task of " + spec.certification); process.exit(2); }
   const live = byTask.get(task.id) || new Map();
   for (const b of t.boundary_check_first || []) {
-    const hits = sp.filter((x) => x.source_id === "ISO/IEC 42001" && x.clause === b.clause);
+    const bsrc = t.source_id || "ISO/IEC 42001";
+    const hits = sp.filter((x) => x.source_id === bsrc && x.clause === b.clause);
     /* THE SWALLOW SIGNAL DECIDES, NOT THE LENGTH. My first version cleared only a passage under the 60-word
      * trigger, so 3.26 stayed HELD at 89 words after being repaired -- and 89 words is the correct entry,
      * the definition plus both of ISO's notes. Length is the reason to look, never the verdict. */
-    const of42001 = sp.filter((x) => x.source_id === "ISO/IEC 42001");
+    const of42001 = sp.filter((x) => x.source_id === bsrc);
     const v = boundaryVerdict(b.clause, hits.length === 1 ? hits[0] : null, {
       clausesOfSameSource: new Set(of42001.map((x) => String(x.clause))),
       headings: headingsOfSource(of42001),
@@ -119,7 +127,10 @@ for (const t of spec.tasks) {
     if (v.state === "clean") t.promote = [...t.promote, b.clause];
   }
   for (const c of t.promote) {
-    const src = /^22989/.test(c) ? "ISO/IEC 22989" : "ISO/IEC 42001";
+    /* DECLARED, NOT INFERRED. A clause number does not identify a document: 42001, 27001, 19011 and 22989
+     * all have a 5.19-shaped address space, and the key is (standard, address). The previous version tested
+     * the clause string for a leading "22989", which no clause carries, so it could never have matched. */
+    const src = t.source_id || "ISO/IEC 42001";
     const hits = sp.filter((x) => x.source_id === src && x.clause === c);
     if (hits.length !== 1) {
       console.error("ABORT: task " + t.task + " clause " + c + " resolved to " + hits.length +
@@ -130,6 +141,7 @@ for (const t of spec.tasks) {
     const row = live.get(pas.id);
     plan.push({
       task: t.task, task_id: task.id, clause: c, passage_id: pas.id, chars: words(pas.text),
+      src,
       action: !row ? "insert" : row.role === "primary" ? "already primary" : "promote",
       from: row ? row.role : "(not linked)", tag: row ? row.added_by : null,
     });
@@ -152,7 +164,8 @@ console.log("PLAN, " + plan.length + " clause(s)");
 let lastTask = null;
 for (const r of plan) {
   if (r.task !== lastTask) { console.log("  task " + r.task); lastTask = r.task; }
-  console.log("    " + r.clause.padEnd(10) + r.action.padEnd(16) + "from " + String(r.from).padEnd(12) +
+  console.log("    " + (r.src === "ISO/IEC 42001" ? "" : "[" + r.src + "] ") +
+    r.clause.padEnd(10) + r.action.padEnd(16) + "from " + String(r.from).padEnd(12) +
     r.chars + "w" + (r.tag ? "   (tagged " + r.tag + ")" : ""));
 }
 const toPatch = plan.filter((r) => r.action === "promote");

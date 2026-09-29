@@ -7,12 +7,12 @@ Nothing was written.
 |---|---|
 | rows examined | 18453 (approved, not retired, es-419 + pt-BR, pool=all) |
 | rows with no English sibling | 5 |
-| findings | 3659 |
+| findings | 3669 |
 | FORBIDDEN (gate failure) | 139 |
-| MIXED (flag) | 2652 |
+| MIXED (flag) | 2662 |
 | UNTRANSLATED (flag) | 868 |
 | UNCHECKED (could not run) | 0 |
-| distinct rows involved | 1801 |
+| distinct rows involved | 1807 |
 
 **UNCHECKED is a third state, not a pass.** It is a row carrying `deveria` whose English sibling is
 missing, so the relative modal rule could not run. A rule that cannot see its source abstains.
@@ -36,13 +36,14 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 | AIHR-I | pt-BR | 0 | 421 | 0 | 0 | 160 |
 | AIMS-F | es-419 | 0 | 5 | 232 | 0 | 106 |
 | AIMS-F | pt-BR | 0 | 356 | 219 | 0 | 231 |
-| AIMS-IA | es-419 | 0 | 0 | 131 | 0 | 93 |
-| AIMS-IA | pt-BR | 0 | 393 | 124 | 0 | 290 |
-| ISMS-F | pt-BR | 2 | 131 | 0 | 0 | 92 |
-| ISMS-IA | pt-BR | 0 | 157 | 0 | 0 | 115 |
+| AIMS-IA | es-419 | 0 | 4 | 131 | 0 | 93 |
+| AIMS-IA | pt-BR | 0 | 394 | 124 | 0 | 291 |
+| ISMS-F | pt-BR | 2 | 132 | 0 | 0 | 93 |
+| ISMS-IA | es-419 | 0 | 2 | 0 | 0 | 2 |
+| ISMS-IA | pt-BR | 0 | 158 | 0 | 0 | 116 |
 | SD-AI-I | es-419 | 5 | 157 | 0 | 0 | 116 |
 | SD-AI-I | pt-BR | 1 | 24 | 0 | 0 | 25 |
-| SM-AI-II | es-419 | 0 | 106 | 0 | 0 | 40 |
+| SM-AI-II | es-419 | 0 | 107 | 0 | 0 | 41 |
 | SM-AI-II | pt-BR | 0 | 29 | 0 | 0 | 23 |
 | SM-AI-I | es-419 | 1 | 146 | 0 | 0 | 90 |
 | SM-AI-I | pt-BR | 1 | 15 | 0 | 0 | 16 |
@@ -70,6 +71,7 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 | scrum_2020.scrum-team `Time Scrum` | mixed | 28 |
 | eu_ai_act.deployer `implantadores` | mixed | 24 |
 | eu_ai_act.deployer `deployer` | mixed | 16 |
+| text_quality.doubled-word | mixed | 10 |
 | scrum_2020.development-team-retired `Equipo de Desarrollo` | forbidden | 6 |
 | scrum_2020.developers-es `Equipo de Desarrollo` | mixed | 6 |
 | eu_ai_act.act-name `EU AI Act` | forbidden | 5 |

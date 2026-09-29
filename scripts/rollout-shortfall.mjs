@@ -35,7 +35,18 @@ for (const a of process.argv.slice(2)) {
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const FLOOR = 8, MIN_PRIMARY = 4, EXCLUDE = new Set(["1.3"]);
+/* ============ THE FLOOR IS PER TASK, DERIVED, AND RECORDED IN ONE PLACE ============
+ *
+ * Ruled PROMPT-94 s4. TASK-FLOORS-AIMSF.json holds the RULE; the number is derived here from the live
+ * effective-primary count, because a task with n effective primaries can hold at most 2n secure items
+ * without breaching the cap. Typing 6 per task would have gone stale within the hour: 1.2 went from 3
+ * effective primaries to 7 in this same session and a derived floor tracked it with no edit. */
+const FLOORS = JSON.parse(readFileSync(join(ROOT, "TASK-FLOORS-AIMSF.json"), "utf8"));
+const FLOOR = FLOORS.default_floor;
+const MIN_EFFECTIVE_TO_GENERATE = 3;
+const MIN_PRIMARY = 4, EXCLUDE = new Set(["1.3"]);
+/* min(default, 2 x effective): three primaries at the cap of 2 is six items, which is the ruling. */
+const floorFor = (effective) => Math.min(FLOOR, CAP * effective);
 
 const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
@@ -108,10 +119,15 @@ for (const t of tasks) {
     keptUsable++;
   }
   const have = keptUsable + inserted;
-  const shortfall = Math.max(0, FLOOR - have);
-  const eligible = effective >= MIN_PRIMARY && shortfall > 0 && !EXCLUDE.has(t.code);
+  const floor = floorFor(effective);
+  const shortfall = Math.max(0, floor - have);
+  /* THREE STATES, not two. `too_thin` is a MAP question addressed to the director; `at_floor` is
+   * finished; `eligible` is work. Folding the first into the second would hide it beside tasks that
+   * need nothing. */
+  const tooThin = effective < MIN_EFFECTIVE_TO_GENERATE;
+  const eligible = !tooThin && shortfall > 0 && !EXCLUDE.has(t.code);
   rows.push({ code: t.code, keep: per.keep, keptUsable, keptOverCap, inserted, provisional: per.provisional,
-    have, shortfall, effective, eligible,
+    have, shortfall, effective, eligible, floor, tooThin,
     atCap: [...running.entries()].filter(([, n]) => n >= CAP).map(([k]) => k.replace("|", " ")) });
 }
 rows.sort((a, b) => String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
@@ -120,6 +136,11 @@ const scope = rows.filter((r) => r.eligible);
 const md = [];
 const p = (s = "") => md.push(s);
 p("# AIMS-F rollout: the per-task shortfall");
+p("");
+p("**The floor is PER TASK**, derived as `min(" + FLOOR + ", " + CAP + " x effective primaries)`. Ruled");
+p("PROMPT-94 s4: a task with three effective primaries gets a floor of 6, because three clauses at the");
+p("cap of " + CAP + " is six items. The rule lives in TASK-FLOORS-AIMSF.json; the number is derived, so a");
+p("task that gains a primary returns to " + FLOOR + " with no edit anywhere.");
 p("");
 p("**Read-only.** Ruled PROMPT-87 s5. Kept items count only up to the cap of " + CAP + " per");
 p("(source, clause); the " + rows.reduce((s, r) => s + r.provisional, 0) + " provisional items count as");

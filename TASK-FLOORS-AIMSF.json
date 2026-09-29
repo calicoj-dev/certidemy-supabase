@@ -1,0 +1,19 @@
+{
+  "ruled": "2026-09-29, PROMPT-94 s4",
+  "certification": "AIMS-F",
+  "default_floor": 8,
+  "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED. Ruled PROMPT-94 s4 after four tasks turned out to have exactly three effective primaries and the director's own test applied: a lower floor for that task, not a stretched map. A floor written into a script would be a second copy of a ruling; a floor written per task in a comment would be fourteen. scripts/rollout-shortfall.mjs reads this file and has no floor of its own beyond the default.",
+  "the_rule": {
+    "three_effective_primaries": "floor 6 -- three clauses at the within-task anchor cap of 2.",
+    "fewer_than_three": "NOT GENERATED. Listed for the director with its explanation, because a task that cannot reach three anchorable clauses is a map question and not a generation question.",
+    "four_or_more": "the default floor of 8 stands."
+  },
+  "derivation_note": "The floor FOLLOWS from the effective-primary count and the cap: a task with n effective primaries can hold at most 2n secure items without exceeding the cap, so 3 primaries caps at 6. rollout-shortfall therefore DERIVES the floor from the live count rather than reading a number per task -- and this file records the RULE plus the tasks it applied to on the day it was ruled, so a later reader can tell a ruling from a coincidence.",
+  "measured_2026_09_29": {
+    "tasks_at_three_effective_primaries": ["2.1", "4.2", "5.2", "5.4"],
+    "tasks_below_three": [],
+    "note_1_2": "1.2 was in this set until the 22989 clause 5.19 promotion (PROMPT-94 s3) took it from 3 effective primaries to 7. It carries the default floor of 8.",
+    "note_5_4": "5.4 has FOUR primary links and three effective: 42001 clause 3.16 is 6 words after its boundary repair, under the 15-word effective-primary floor. The repair LOWERED the effective count, correctly -- the 111 words it used to have were its neighbours'."
+  },
+  "expires": "This is a ruling about tasks whose maps are thin TODAY. A task that later gains a fourth effective primary returns to the default floor of 8 automatically, because the floor is derived rather than typed. Nothing here needs editing for that to happen."
+}

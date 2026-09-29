@@ -1,0 +1,119 @@
+{
+ "tasks": 4,
+ "attempted": 13,
+ "survivors": 11,
+ "spend": {
+  "calls": 57,
+  "input": 104490,
+  "output": 44215,
+  "usd": 4.8834,
+  "byRole": {
+   "writer": {
+    "calls": 4,
+    "input": 11332,
+    "output": 22144
+   },
+   "paraphrase": {
+    "calls": 8,
+    "input": 30962,
+    "output": 8192
+   },
+   "solver": {
+    "calls": 26,
+    "input": 46788,
+    "output": 5326
+   },
+   "options-probe": {
+    "calls": 14,
+    "input": 8502,
+    "output": 4459
+   },
+   "de-cue": {
+    "calls": 3,
+    "input": 3628,
+    "output": 3776
+   },
+   "solver-recheck": {
+    "calls": 2,
+    "input": 3278,
+    "output": 318
+   }
+  }
+ },
+ "usd_per_survivor": 0.4439,
+ "gate_totals": {
+  "solver": 1
+ },
+ "per_task": [
+  {
+   "task": "2.1",
+   "batch": "R3 probe",
+   "shortfall": 4,
+   "attempted": 4,
+   "survivors": 4,
+   "gates": {},
+   "cues": {
+    "odd-verdict": 1,
+    "only-hedged": 1,
+    "shared-phrase": 1
+   },
+   "distinct_anchors": 2,
+   "anchors": [
+    "3.2",
+    "4.2"
+   ]
+  },
+  {
+   "task": "4.2",
+   "batch": "R3 rest",
+   "shortfall": 3,
+   "attempted": 3,
+   "survivors": 2,
+   "gates": {},
+   "cues": {
+    "only-hedged": 2
+   },
+   "distinct_anchors": 2,
+   "anchors": [
+    "3.26",
+    "A.1"
+   ]
+  },
+  {
+   "task": "5.2",
+   "batch": "R3 rest",
+   "shortfall": 2,
+   "attempted": 2,
+   "survivors": 2,
+   "gates": {},
+   "cues": {
+    "odd-verdict": 1,
+    "only-negation": 1
+   },
+   "distinct_anchors": 1,
+   "anchors": [
+    "3.18"
+   ]
+  },
+  {
+   "task": "5.4",
+   "batch": "R3 rest",
+   "shortfall": 4,
+   "attempted": 4,
+   "survivors": 3,
+   "gates": {
+    "solver": 1
+   },
+   "cues": {
+    "odd-verdict": 2
+   },
+   "distinct_anchors": 3,
+   "anchors": [
+    "3.17",
+    "3.16",
+    "10.1"
+   ]
+  }
+ ],
+ "stopped": []
+}

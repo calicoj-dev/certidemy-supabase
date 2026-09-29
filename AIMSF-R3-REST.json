@@ -1,0 +1,1942 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 40,
+  "input_tokens": 69773,
+  "output_tokens": 30714,
+  "usd": 3.3501,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 3,
+    "input": 8248,
+    "output": 15928
+   },
+   "paraphrase": {
+    "calls": 5,
+    "input": 19143,
+    "output": 5109
+   },
+   "solver": {
+    "calls": 18,
+    "input": 30534,
+    "output": 3534
+   },
+   "options-probe": {
+    "calls": 10,
+    "input": 6136,
+    "output": 2875
+   },
+   "de-cue": {
+    "calls": 2,
+    "input": 2434,
+    "output": 2950
+   },
+   "solver-recheck": {
+    "calls": 2,
+    "input": 3278,
+    "output": 318
+   }
+  }
+ },
+ "attempted": 9,
+ "generated": 9,
+ "survivors": 7,
+ "generation_note": null,
+ "reject_counts": {
+  "solver: second defensible option": 1,
+  "code: anchor-cap": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 5,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 2,
+  "applied": 2,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 7,
+  "hit": 6,
+  "pct": 86
+ },
+ "key_pick_after": {
+  "n": 7,
+  "hit": 6,
+  "pct": 86
+ },
+ "shape_cues_before": {
+  "key-length": 1,
+  "only-hedged": 2,
+  "clang": 2
+ },
+ "shape_cues_after": {
+  "clang": 2
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 7,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 6,
+ "items": [
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "An auditor is reviewing how an organization's Statement of Applicability handles the risks it has identified for its AI systems. Which description matches the coverage expected of that document?",
+    "options": [
+     {
+      "text": "The risks the organization has identified, together with the control measures set up to deal with them, are carried through into the document.",
+      "is_correct": true
+     },
+     {
+      "text": "Only the residual risks accepted by management appear there, because treated risks are tracked solely in the risk treatment plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Identified risks stay in the risk register, and the document is confined to listing the controls drawn from Table A.1.",
+      "is_correct": false
+     },
+     {
+      "text": "Each item of implementation guidance the organization has adopted is entered there beside the control it supports.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Note 2 to entry in the definition of the statement of applicability (3.26) sets the expected coverage: every risk the organization has identified, and the risk management measures put in place to address those risks, are to be carried into that document. Option A describes exactly that coverage, while the other options narrow it to residual risk, to Annex A entries, or to implementation guidance.",
+    "key_support_clause": "3.26",
+    "key_support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+      "why_wrong": "The coverage is not limited to residual risk; all identified risks and the controls addressing them are reflected in the statement of applicability."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The document is not confined to Table A.1 entries, since the organization's own controls can also form part of its necessary controls."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Implementation guidance is not an item that organizations have to document or justify in the statement of applicability."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.26, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option b"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option b",
+   "attributed_quotation": null,
+   "grounding_family": "3.26",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.26 Note 2 states that all identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each carry a restrictive limiter (\"Only ... solely\", \"confined to\", \"Each item\"), while A is the sole unrestricted, inclusive statement.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each carry a restrictive limiter (\"Only ... solely\", \"confined to\", \"Each item\"), while A is the sole unrestricted, inclusive statement."
+   },
+   "verdict": "survivor",
+   "item_id": "fdb0fda4",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each carry a restrictive limiter (\"Only ... solely\", \"confined to\", \"Each item\"), while A is the sole unrestricted, inclusive statement.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each carry a restrictive limiter (\"Only ... solely\", \"confined to\", \"Each item\"), while A is the sole unrestricted, inclusive statement."
+   },
+   "item_before_decue": {
+    "question_text": "An auditor is reviewing how an organization's Statement of Applicability handles the risks it has identified for its AI systems. Which description matches the coverage expected of that document?",
+    "options": [
+     {
+      "text": "The risks the organization has identified, together with the control measures set up to deal with them, are carried through into the document.",
+      "is_correct": true
+     },
+     {
+      "text": "Only the residual risks accepted by management appear there, because treated risks are tracked solely in the risk treatment plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Identified risks stay in the risk register, and the document is confined to listing the controls drawn from Table A.1.",
+      "is_correct": false
+     },
+     {
+      "text": "Each item of implementation guidance the organization has adopted is entered there beside the control it supports.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Note 2 to entry in the definition of the statement of applicability (3.26) sets the expected coverage: every risk the organization has identified, and the risk management measures put in place to address those risks, are to be carried into that document. Option A describes exactly that coverage, while the other options narrow it to residual risk, to Annex A entries, or to implementation guidance.",
+    "key_support_clause": "3.26",
+    "key_support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+      "why_wrong": "The coverage is not limited to residual risk; all identified risks and the controls addressing them are reflected in the statement of applicability."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The document is not confined to Table A.1 entries, since the organization's own controls can also form part of its necessary controls."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Implementation guidance is not an item that organizations have to document or justify in the statement of applicability."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "How does the control list in Table A.1 relate to the set of controls an organization actually operates for AI risk treatment?",
+    "options": [
+     {
+      "text": "Table A.1 serves as a reference set, and an organization can devise and apply controls of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "Annex B holds the reference controls, and Table A.1 sets out how each of them can be put into practice.",
+      "is_correct": false
+     },
+     {
+      "text": "Table A.1 is an exhaustive catalogue of the controls available for treating AI risks, and an organization can select from it.",
+      "is_correct": false
+     },
+     {
+      "text": "Controls an organization devises for itself sit outside the scope of the statement of applicability, which covers Table A.1 entries.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 presents Table A.1 as a reference point for meeting objectives and addressing AI risks, and it goes on to say that the listed control objectives and controls need not all be taken up and that an organization is free to work out and put in place controls of its own.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The roles are reversed: Table A.1 carries the reference controls and Annex B carries the implementation guidance."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "The Annex A controls are not exhaustive and additional control objectives and controls can be needed.",
+      "why_wrong": "The Annex A list is explicitly not exhaustive, so treating it as a closed catalogue is incorrect."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "The organization can provide documented justifications for excluding any control objectives in general or for specific AI systems, whether those listed in Annex A or established by the organization itself.",
+      "why_wrong": "Controls established by the organization itself are handled in the statement of applicability alongside the Annex A ones."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a requirement by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 27%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option d"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option d",
+   "attributed_quotation": null,
+   "grounding_family": "A.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "C is the only option with an absolute quantifier (\"exhaustive catalogue\") and D is the only one framed as an exclusion, while A is the permissive/hedged variant of the same Table A.1 claim.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): C is the only option with an absolute quantifier (\"exhaustive catalogue\") and D is the only one framed as an exclusion, while A is the permissive/hedged variant of the same Table A.1 claim."
+   },
+   "verdict": "survivor",
+   "item_id": "17930ef7",
+   "shape_cues_before": [
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)"
+    },
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "key-length",
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that is permissive/hedged ('serves as a reference set... can devise and apply controls of its own'); the other three are absolute or exclusionary claims ('exhaustive catalogue', 'sit outside the scope', a fixed role swap).",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option that is permissive/hedged ('serves as a reference set... can devise and apply controls of its own'); the other three are absolute or exclusionary claims ('exhaustive catalogue', 'sit outside the scope', a fixed role swap)."
+   },
+   "item_before_decue": {
+    "question_text": "How does the control list in Table A.1 relate to the set of controls an organization actually operates for AI risk treatment?",
+    "options": [
+     {
+      "text": "Table A.1 serves as a reference set, and an organization can devise and apply controls of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "Annex B holds the reference controls, while Table A.1 sets out how to put each of them into practice.",
+      "is_correct": false
+     },
+     {
+      "text": "Table A.1 is an exhaustive catalogue of the controls available for treating AI risks.",
+      "is_correct": false
+     },
+     {
+      "text": "Controls the organization devises for itself sit outside the scope of the statement of applicability.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 presents Table A.1 as a reference point for meeting objectives and addressing AI risks, and it goes on to say that the listed control objectives and controls need not all be taken up and that an organization is free to work out and put in place controls of its own.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The roles are reversed: Table A.1 carries the reference controls and Annex B carries the implementation guidance."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "The Annex A controls are not exhaustive and additional control objectives and controls can be needed.",
+      "why_wrong": "The Annex A list is explicitly not exhaustive, so treating it as a closed catalogue is incorrect."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "The organization can provide documented justifications for excluding any control objectives in general or for specific AI systems, whether those listed in Annex A or established by the organization itself.",
+      "why_wrong": "Controls established by the organization itself are handled in the statement of applicability alongside the Annex A ones."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "key-length: the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)\n  - only-hedged: the key is the only hedged option (can)",
+    "probe_after": "flag"
+   }
+  },
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization decides that eight of the controls in Table A.1 are not needed, and its Statement of Applicability simply makes no reference to them. Why is this handling of the omissions unsatisfactory?",
+    "options": [
+     {
+      "text": "The document is intended to record the necessary controls together with the reasoning for including or leaving out controls.",
+      "is_correct": true
+     },
+     {
+      "text": "Once a control appears in Table A.1, leaving it out of the organization's control set is not an option open to the organization.",
+      "is_correct": false
+     },
+     {
+      "text": "Omissions become acceptable only after the organization puts equivalent controls of its own design in their place.",
+      "is_correct": false
+     },
+     {
+      "text": "The shortfall lies in Annex B, whose guidance items have to be accounted for whenever they are not followed.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.26 defines the statement of applicability as \"documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls\", so exclusions that are simply unmentioned leave the document incomplete.",
+    "key_support_clause": "3.26",
+    "key_support": "documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "Exclusion of listed controls is legitimate; what is missing here is the recorded reasoning, not permission to exclude."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements.",
+      "why_wrong": "Substitution by self-designed equivalents is not the basis on which an exclusion is reasoned."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Implementation guidance is not something organizations have to document or justify in the statement of applicability."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.26, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 14-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [
+    "anchor-cap"
+   ],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 14
+   },
+   "grounding_family": "3.26",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 6.1.3 f) and 3.26 require the statement of applicability to contain the necessary controls and provide justification for inclusion and exclusion of controls, so silently omitting eight Annex A controls fails that requirement.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the balanced both-directions statement (includes AND omits), while B, C and D are each absolute/restrictive ('not an option', 'only after', 'have to be').",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the balanced both-directions statement (includes AND omits), while B, C and D are each absolute/restrictive ('not an option', 'only after', 'have to be')."
+   },
+   "verdict": "rejected",
+   "item_id": "8fbb176b",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the balanced both-directions statement (includes AND omits), while B, C and D are each absolute/restrictive ('not an option', 'only after', 'have to be').",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the balanced both-directions statement (includes AND omits), while B, C and D are each absolute/restrictive ('not an option', 'only after', 'have to be')."
+   },
+   "item_before_decue": {
+    "question_text": "An organization decides that eight of the controls in Table A.1 are not needed, and its Statement of Applicability simply makes no reference to them. Why is this handling of the omissions unsatisfactory?",
+    "options": [
+     {
+      "text": "The document is intended to record the necessary controls together with the reasoning for including or leaving out controls.",
+      "is_correct": true
+     },
+     {
+      "text": "Once a control appears in Table A.1, leaving it out of the organization's control set is not an option open to the organization.",
+      "is_correct": false
+     },
+     {
+      "text": "Omissions become acceptable only after the organization puts equivalent controls of its own design in their place.",
+      "is_correct": false
+     },
+     {
+      "text": "The shortfall lies in Annex B, whose guidance items have to be accounted for whenever they are not followed.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.26 defines the statement of applicability as \"documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls\", so exclusions that are simply unmentioned leave the document incomplete.",
+    "key_support_clause": "3.26",
+    "key_support": "documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "Exclusion of listed controls is legitimate; what is missing here is the recorded reasoning, not permission to exclude."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.3",
+      "support": "Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements.",
+      "why_wrong": "Substitution by self-designed equivalents is not the basis on which an exclusion is reasoned."
+     },
+     {
+      "index": 3,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Implementation guidance is not something organizations have to document or justify in the statement of applicability."
+     }
+    ]
+   },
+   "shape_cues_after": [],
+   "anchor_cap": {
+    "over_cap": true,
+    "reason": "anchor-cap: ISO/IEC 42001 3.26 already carries 2 secure item(s) for this task and the cap is 2"
+   }
+  },
+  {
+   "task_code": "5.2",
+   "domain": "D5",
+   "item": {
+    "question_text": "An AI management system audit is being arranged, and the sponsor asks who is permitted to perform it if it is to count as an internal audit.",
+    "options": [
+     {
+      "text": "The organization itself, or an outside party acting on its behalf, can carry it out.",
+      "is_correct": true
+     },
+     {
+      "text": "The organization's own staff can carry it out; an outside party doing so makes it external.",
+      "is_correct": false
+     },
+     {
+      "text": "The outside body engaged for the work can conduct it, but that makes it third-party.",
+      "is_correct": false
+     },
+     {
+      "text": "An audit covering two or more disciplines at once can count as an external audit.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of audit in clause 3.18 states in Note 2 that \"An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.\" So engaging an outside party does not, by itself, change the audit from internal to external.",
+    "key_support_clause": "3.18",
+    "key_support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.18",
+      "support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+      "why_wrong": "An external party acting on the organization's behalf still performs an internal (first party) audit."
+     },
+     {
+      "index": 2,
+      "clause": "3.18",
+      "support": "Note 1 to entry: An audit can be an internal audit (first party) or an external audit (second party or third party), and it can be a combined audit (combining two or more disciplines).",
+      "why_wrong": "Third-party status depends on the audit being external, not on whether an outside body was hired to act for the organization."
+     },
+     {
+      "index": 3,
+      "clause": "3.18",
+      "support": "Note 1 to entry: An audit can be an internal audit (first party) or an external audit (second party or third party), and it can be a combined audit (combining two or more disciplines).",
+      "why_wrong": "Combining disciplines describes the scope of an audit and does not make it external."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 36%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.18, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 18-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 18
+   },
+   "grounding_family": "3.18",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that allows both alternatives (in-house OR outside party) while B and C each exclude one and D changes the topic entirely; the umbrella option that subsumes its rivals is the usual key.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option that allows both alternatives (in-house OR outside party) while B and C each exclude one and D changes the topic entirely; the umbrella option that subsumes its rivals is the usual key."
+   },
+   "verdict": "survivor",
+   "item_id": "9e49d229",
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and B are a direct contradiction pair on who may perform it, and A is the inclusive 'either party' version while B, C, D all assert an exclusive reclassification rule; the inclusive member of a contradictory pair is the usual test-wise pick.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A and B are a direct contradiction pair on who may perform it, and A is the inclusive 'either party' version while B, C, D all assert an exclusive reclassification rule; the inclusive member of a contradictory pair is the usual test-wise pick."
+   },
+   "item_before_decue": {
+    "question_text": "An AI management system audit is being arranged, and the sponsor asks who is permitted to perform it if it is to count as an internal audit.",
+    "options": [
+     {
+      "text": "The organization itself, or an outside party acting on its behalf, can carry it out.",
+      "is_correct": true
+     },
+     {
+      "text": "The organization's own staff carry it out; an outside party doing it makes it external.",
+      "is_correct": false
+     },
+     {
+      "text": "An outside body engaged for the work turns the exercise into a third-party audit.",
+      "is_correct": false
+     },
+     {
+      "text": "An audit that covers two or more disciplines at once is classed as an external audit.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of audit in clause 3.18 states in Note 2 that \"An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.\" So engaging an outside party does not, by itself, change the audit from internal to external.",
+    "key_support_clause": "3.18",
+    "key_support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.18",
+      "support": "Note 2 to entry: An internal audit is conducted by the organization (3.1) itself, or by an external party on its behalf.",
+      "why_wrong": "An external party acting on the organization's behalf still performs an internal (first party) audit."
+     },
+     {
+      "index": 2,
+      "clause": "3.18",
+      "support": "Note 1 to entry: An audit can be an internal audit (first party) or an external audit (second party or third party), and it can be a combined audit (combining two or more disciplines).",
+      "why_wrong": "Third-party status depends on the audit being external, not on whether an outside body was hired to act for the organization."
+     },
+     {
+      "index": 3,
+      "clause": "3.18",
+      "support": "Note 1 to entry: An audit can be an internal audit (first party) or an external audit (second party or third party), and it can be a combined audit (combining two or more disciplines).",
+      "why_wrong": "Combining disciplines describes the scope of an audit and does not make it external."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "only-hedged: the key is the only hedged option (can)",
+    "probe_after": "flag"
+   }
+  },
+  {
+   "task_code": "5.2",
+   "domain": "D5",
+   "item": {
+    "question_text": "A data governance lead designed and runs the organization's AI risk assessment process. She is now assigned to audit that same process for the internal audit programme. Which characteristic of an audit is undermined by this assignment?",
+    "options": [
+     {
+      "text": "That evidence is gathered and appraised without bias by someone detached from the work.",
+      "is_correct": true
+     },
+     {
+      "text": "That the programme weighs how significant the audited processes are and earlier findings.",
+      "is_correct": false
+     },
+     {
+      "text": "That objectives, criteria and scope are settled for each individual audit engagement.",
+      "is_correct": false
+     },
+     {
+      "text": "That the findings produced reach the managers accountable for the area examined.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.18 defines an audit as a \"systematic and independent process (3.8) for obtaining evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled\"; auditing one's own process destroys that independence and objective evaluation. The other options describe genuine programme elements that this assignment does not touch.",
+    "key_support_clause": "3.18",
+    "key_support": "audit systematic and independent process (3.8) for obtaining evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "9.2.2",
+      "support": "When establishing the internal audit programme(s), the organization shall consider the importance of the processes concerned and the results of previous audits.",
+      "why_wrong": "This concerns how the programme is built, not the auditor's relationship to the audited process."
+     },
+     {
+      "index": 2,
+      "clause": "9.2.2",
+      "support": "a) define the audit objectives, criteria and scope for each audit;",
+      "why_wrong": "Defining objectives, criteria and scope is unaffected by who has been selected to audit."
+     },
+     {
+      "index": 3,
+      "clause": "9.2.2",
+      "support": "c) ensure that the results of audits are reported to relevant managers.",
+      "why_wrong": "Reporting of results is a separate element and is not what the auditor's self-review compromises."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell  [FLAGGED, not refused: the key is the only negated option (FLAG, not a refusal: a word test cannot tell a verdict from a purpose clause or a noun phrase -- the options probe covers the real case)]"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 50%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in 3.18, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 23-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 23
+   },
+   "grounding_family": "3.18",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.18 defines audit as a 'systematic and independent process for obtaining evidence and evaluating it objectively', and 9.2.2 b) requires selecting auditors to ensure objectivity and impartiality — auditing her own process undermines exactly this.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option phrased with a negation ('without bias') and the only one adding a second qualifying clause about the person ('by someone detached from the work'), making it the odd one out in form.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A is the only option phrased with a negation ('without bias') and the only one adding a second qualifying clause about the person ('by someone detached from the work'), making it the odd one out in form."
+   },
+   "verdict": "survivor",
+   "item_id": "27558ffa",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option phrased with a negation ('without bias') and the only one adding a second qualifying clause about the person ('by someone detached from the work'), making it the odd one out in form.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A is the only option phrased with a negation ('without bias') and the only one adding a second qualifying clause about the person ('by someone detached from the work'), making it the odd one out in form."
+   },
+   "item_before_decue": {
+    "question_text": "A data governance lead designed and runs the organization's AI risk assessment process. She is now assigned to audit that same process for the internal audit programme. Which characteristic of an audit is undermined by this assignment?",
+    "options": [
+     {
+      "text": "That evidence is gathered and appraised without bias by someone detached from the work.",
+      "is_correct": true
+     },
+     {
+      "text": "That the programme weighs how significant the audited processes are and earlier findings.",
+      "is_correct": false
+     },
+     {
+      "text": "That objectives, criteria and scope are settled for each individual audit engagement.",
+      "is_correct": false
+     },
+     {
+      "text": "That the findings produced reach the managers accountable for the area examined.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.18 defines an audit as a \"systematic and independent process (3.8) for obtaining evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled\"; auditing one's own process destroys that independence and objective evaluation. The other options describe genuine programme elements that this assignment does not touch.",
+    "key_support_clause": "3.18",
+    "key_support": "audit systematic and independent process (3.8) for obtaining evidence and evaluating it objectively to determine the extent to which the audit criteria are fulfilled",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "9.2.2",
+      "support": "When establishing the internal audit programme(s), the organization shall consider the importance of the processes concerned and the results of previous audits.",
+      "why_wrong": "This concerns how the programme is built, not the auditor's relationship to the audited process."
+     },
+     {
+      "index": 2,
+      "clause": "9.2.2",
+      "support": "a) define the audit objectives, criteria and scope for each audit;",
+      "why_wrong": "Defining objectives, criteria and scope is unaffected by who has been selected to audit."
+     },
+     {
+      "index": 3,
+      "clause": "9.2.2",
+      "support": "c) ensure that the results of audits are reported to relevant managers.",
+      "why_wrong": "Reporting of results is a separate element and is not what the auditor's self-review compromises."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "5.4",
+   "domain": "D5",
+   "item": {
+    "question_text": "A support assistant released replies containing customer personal data, breaching the organization's documented handling rule. The team (i) switched the feature off, (ii) contacted the affected customers and arranged remediation, (iii) traced the fault to a redaction step missing from the text pipeline and built that check into the pipeline, and (iv) six weeks later confirmed no further leaks had occurred. Which step is the corrective action, as opposed to a correction or the handling of consequences?",
+    "options": [
+     {
+      "text": "Building the missing redaction check into the pipeline so the same gap cannot reappear",
+      "is_correct": true
+     },
+     {
+      "text": "Switching the feature off so that no further exposed replies could be sent out",
+      "is_correct": false
+     },
+     {
+      "text": "Contacting the affected customers and arranging remediation for the exposure caused",
+      "is_correct": false
+     },
+     {
+      "text": "Confirming six weeks later that the fix had held and no further leaks had occurred",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The vocabulary entry for corrective action (3.17) defines it as action directed at removing the cause of a nonconformity so that the failure does not happen again. Only the pipeline change addresses the traced cause; the others are containment, consequence handling, and the later effectiveness review.",
+    "key_support_clause": "3.17",
+    "key_support": "corrective action action to eliminate the cause(s) of a nonconformity (3.16) and to prevent recurrence",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "take action to control and correct it",
+      "why_wrong": "Turning the feature off is the immediate correction, which leaves the underlying pipeline defect untouched."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "deal with the consequences",
+      "why_wrong": "Remediation for affected customers deals with consequences of the failure rather than its cause."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "review the effectiveness of any corrective action taken",
+      "why_wrong": "The later check is the review of whether the corrective action worked, not the action itself."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 4,
+     "reason": "the key anchors in 3.17, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "3.17",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.17 defines corrective action as action to eliminate the cause(s) of a nonconformity and prevent recurrence, which matches building the missing redaction check into the pipeline after determining the cause (10.2 b) and c)).",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "Three options end with a negative-outcome clause ('so the same gap cannot reappear', 'no further exposed replies', 'no further leaks'); C is the only one without such a clause.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "eea72c20",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"missing\", \"redaction\", \"check\", \"pipeline\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "Three options end with a negative-outcome clause ('so the same gap cannot reappear', 'no further exposed replies', 'no further leaks'); C is the only one without such a clause.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "A support assistant released replies containing customer personal data, breaching the organization's documented handling rule. The team (i) switched the feature off, (ii) contacted the affected customers and arranged remediation, (iii) traced the fault to a redaction step missing from the text pipeline and built that check into the pipeline, and (iv) six weeks later confirmed no further leaks had occurred. Which step is the corrective action, as opposed to a correction or the handling of consequences?",
+    "options": [
+     {
+      "text": "Building the missing redaction check into the pipeline so the same gap cannot reappear",
+      "is_correct": true
+     },
+     {
+      "text": "Switching the feature off so that no further exposed replies could be sent out",
+      "is_correct": false
+     },
+     {
+      "text": "Contacting the affected customers and arranging remediation for the exposure caused",
+      "is_correct": false
+     },
+     {
+      "text": "Confirming six weeks later that the fix had held and no further leaks had occurred",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The vocabulary entry for corrective action (3.17) defines it as action directed at removing the cause of a nonconformity so that the failure does not happen again. Only the pipeline change addresses the traced cause; the others are containment, consequence handling, and the later effectiveness review.",
+    "key_support_clause": "3.17",
+    "key_support": "corrective action action to eliminate the cause(s) of a nonconformity (3.16) and to prevent recurrence",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "take action to control and correct it",
+      "why_wrong": "Turning the feature off is the immediate correction, which leaves the underlying pipeline defect untouched."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "deal with the consequences",
+      "why_wrong": "Remediation for affected customers deals with consequences of the failure rather than its cause."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "review the effectiveness of any corrective action taken",
+      "why_wrong": "The later check is the review of whether the corrective action worked, not the action itself."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"missing\", \"redaction\", \"check\", \"pipeline\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "5.4",
+   "domain": "D5",
+   "item": {
+    "question_text": "An AI scoring model issued incorrect eligibility decisions because a reference dataset bought from a vendor still contained withdrawn product codes. The team has already purged the stale codes from the live store. Which further step would qualify as the corrective action for this failure?",
+    "options": [
+     {
+      "text": "Adding acceptance checks on incoming vendor data so stale codes are caught before use",
+      "is_correct": true
+     },
+     {
+      "text": "Reissuing every affected eligibility decision using the corrected set of product codes",
+      "is_correct": false
+     },
+     {
+      "text": "Recording the failure and the steps taken in the organization's evidence records",
+      "is_correct": false
+     },
+     {
+      "text": "Establishing whether other data feeds in use carry the same kind of defect",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The vocabulary entry at 3.17 defines corrective action as removing what caused a nonconformity so that it does not happen again; the acceptance check on vendor data attacks the source of the defect and stops it entering a second time. Reissuing decisions is correction of the outputs already produced, record-keeping supplies evidence, and looking for similar cases is part of evaluating the need for action.",
+    "key_support_clause": "3.17",
+    "key_support": "corrective action action to eliminate the cause(s) of a nonconformity (3.16) and to prevent recurrence",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "take action to control and correct it",
+      "why_wrong": "Reissuing the decisions corrects the output already produced but does not remove the cause."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "Documented information shall be available as evidence of:",
+      "why_wrong": "Keeping evidence of the failure and actions is a record-keeping duty, not the action that removes the cause."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "determining if similar nonconformities exist or can potentially occur",
+      "why_wrong": "Searching for similar cases belongs to evaluating the need for action, which precedes the action itself."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 21%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 4,
+     "reason": "the key anchors in 3.17, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "3.17",
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls D defensible: Clause 10.2 b)3) makes determining whether similar nonconformities exist part of the corrective-action process, so a candidate could defend it, though it is an evaluation step rather than the action eliminating the cause.",
+    "runs": 2,
+    "second": {
+     "state": "rejected",
+     "reason": "the solver picked the key but calls C defensible: Clause 10.2 b) 3) lists determining if similar nonconformities exist or can potentially occur as part of the corrective action process, so a candidate could defend it, though it is evaluation rather than the action eliminating the cause."
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.17 defines corrective action as action to eliminate the cause(s) of a nonconformity and prevent recurrence, which is what acceptance checks on incoming vendor data do, whereas purging and reissuing merely correct and deal with consequences (10.2 a)).",
+     "second_defensible": "D",
+     "second_defensible_reason": "Clause 10.2 b)3) makes determining whether similar nonconformities exist part of the corrective-action process, so a candidate could defend it, though it is an evaluation step rather than the action eliminating the cause.",
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": null,
+   "verdict": "rejected by solver",
+   "item_id": "bc6828ae"
+  },
+  {
+   "task_code": "5.4",
+   "domain": "D5",
+   "item": {
+    "question_text": "An AI team has documented thresholds for the quality of data used to build and run its systems. During monitoring it finds that a training set actually used in production falls below those documented thresholds. Which of the following situations, on the facts given, amounts to a nonconformity?",
+    "options": [
+     {
+      "text": "The training set in use falls short of the data quality thresholds the organization documented",
+      "is_correct": true
+     },
+     {
+      "text": "An internal reviewer proposes a quicker labelling method that current procedures do not use",
+      "is_correct": false
+     },
+     {
+      "text": "A monitored model indicator is reported in descriptive terms instead of as a number",
+      "is_correct": false
+     },
+     {
+      "text": "A vendor agreement covered by the supplier process is scheduled for renewal next quarter",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Under the definition in 3.16, a nonconformity exists where a requirement has not been fulfilled. The organization set and documented data quality requirements, and data actually used fails them, so a requirement is unfulfilled. The other situations describe a suggestion, a reporting format and a contract date, none of which shows a requirement unmet.",
+    "key_support_clause": "3.16",
+    "key_support": "nonconformity non-fulfilment of a requirement (3.14)",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.16",
+      "support": "nonconformity non-fulfilment of a requirement (3.14)",
+      "why_wrong": "An idea for a better method identifies no unfulfilled requirement, so nothing has been breached."
+     },
+     {
+      "index": 2,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "Performance findings may be qualitative, so descriptive reporting is not by itself a failure against a requirement."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "A forthcoming renewal date under the supplier process shows no requirement that has gone unmet."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 32%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 4,
+     "reason": "the key anchors in 3.16, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "3.16",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.16 defines nonconformity as non-fulfilment of a requirement, and A.7.4 requires that data used to develop and operate the AI system meet the organization's documented data quality requirements, which the training set does not.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Only A states a shortfall against a documented requirement (a deficiency verdict); B, C and D all describe neutral, non-violating situations.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Only A states a shortfall against a documented requirement (a deficiency verdict); B, C and D all describe neutral, non-violating situations."
+   },
+   "verdict": "survivor",
+   "item_id": "76c313cc",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"training\", \"falls\", \"quality\", \"thresholds\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Only A states a shortfall against a documented requirement (a deficiency verdict); B, C and D all describe neutral, non-violating situations.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Only A states a shortfall against a documented requirement (a deficiency verdict); B, C and D all describe neutral, non-violating situations."
+   },
+   "item_before_decue": {
+    "question_text": "An AI team has documented thresholds for the quality of data used to build and run its systems. During monitoring it finds that a training set actually used in production falls below those documented thresholds. Which of the following situations, on the facts given, amounts to a nonconformity?",
+    "options": [
+     {
+      "text": "The training set in use falls short of the data quality thresholds the organization documented",
+      "is_correct": true
+     },
+     {
+      "text": "An internal reviewer proposes a quicker labelling method that current procedures do not use",
+      "is_correct": false
+     },
+     {
+      "text": "A monitored model indicator is reported in descriptive terms instead of as a number",
+      "is_correct": false
+     },
+     {
+      "text": "A vendor agreement covered by the supplier process is scheduled for renewal next quarter",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Under the definition in 3.16, a nonconformity exists where a requirement has not been fulfilled. The organization set and documented data quality requirements, and data actually used fails them, so a requirement is unfulfilled. The other situations describe a suggestion, a reporting format and a contract date, none of which shows a requirement unmet.",
+    "key_support_clause": "3.16",
+    "key_support": "nonconformity non-fulfilment of a requirement (3.14)",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.16",
+      "support": "nonconformity non-fulfilment of a requirement (3.14)",
+      "why_wrong": "An idea for a better method identifies no unfulfilled requirement, so nothing has been breached."
+     },
+     {
+      "index": 2,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "Performance findings may be qualitative, so descriptive reporting is not by itself a failure against a requirement."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "A forthcoming renewal date under the supplier process shows no requirement that has gone unmet."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"training\", \"falls\", \"quality\", \"thresholds\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "5.4",
+   "domain": "D5",
+   "item": {
+    "question_text": "A provider has closed out every corrective action raised in its last internal audit, verified that each one worked, and has no open findings. Regarding improvement of its AI management system, what obligation continues to apply?",
+    "options": [
+     {
+      "text": "It must go on improving how suitable, adequate and effective that system is",
+      "is_correct": true
+     },
+     {
+      "text": "It may hold improvement work until a further finding or the next audit cycle",
+      "is_correct": false
+     },
+     {
+      "text": "It limits improvement to whatever system changes the closed findings showed to be needed",
+      "is_correct": false
+     },
+     {
+      "text": "It satisfies improvement by re-checking that the closed actions achieved their intended results",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 10.1 is a standing duty independent of findings: \"The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.\" Waiting for the next finding, confining improvement to changes flowing from closed nonconformities, or equating improvement with effectiveness re-checks all fall short of that continuing obligation.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "10.1",
+      "support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+      "why_wrong": "Improvement is a continuing duty, not something triggered by the arrival of the next finding."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "make changes to the AI management system, if necessary",
+      "why_wrong": "System changes following a nonconformity are one route to improvement, not the boundary of the improvement duty."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "review the effectiveness of any corrective action taken",
+      "why_wrong": "Reviewing whether corrective actions worked is a separate step from the ongoing improvement of the system."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 31%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 4,
+     "reason": "the key anchors in 10.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 15-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 15
+   },
+   "grounding_family": "10.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 10.1 imposes a standing obligation that the organization \"shall continually improve the suitability, adequacy and effectiveness of the AI management system\", independent of any nonconformity.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options (B, C, D) all describe limiting, deferring or discharging the improvement duty, while A is the lone option stating an ongoing mandatory obligation ('must go on improving'), making it the odd verdict out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options (B, C, D) all describe limiting, deferring or discharging the improvement duty, while A is the lone option stating an ongoing mandatory obligation ('must go on improving'), making it the odd verdict out."
+   },
+   "verdict": "survivor",
+   "item_id": "5cf5d7db",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options (B, C, D) all describe limiting, deferring or discharging the improvement duty, while A is the lone option stating an ongoing mandatory obligation ('must go on improving'), making it the odd verdict out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options (B, C, D) all describe limiting, deferring or discharging the improvement duty, while A is the lone option stating an ongoing mandatory obligation ('must go on improving'), making it the odd verdict out."
+   },
+   "item_before_decue": {
+    "question_text": "A provider has closed out every corrective action raised in its last internal audit, verified that each one worked, and has no open findings. Regarding improvement of its AI management system, what obligation continues to apply?",
+    "options": [
+     {
+      "text": "It must go on improving how suitable, adequate and effective that system is",
+      "is_correct": true
+     },
+     {
+      "text": "It may hold improvement work until a further finding or the next audit cycle",
+      "is_correct": false
+     },
+     {
+      "text": "It limits improvement to whatever system changes the closed findings showed to be needed",
+      "is_correct": false
+     },
+     {
+      "text": "It satisfies improvement by re-checking that the closed actions achieved their intended results",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 10.1 is a standing duty independent of findings: \"The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.\" Waiting for the next finding, confining improvement to changes flowing from closed nonconformities, or equating improvement with effectiveness re-checks all fall short of that continuing obligation.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "10.1",
+      "support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+      "why_wrong": "Improvement is a continuing duty, not something triggered by the arrival of the next finding."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "make changes to the AI management system, if necessary",
+      "why_wrong": "System changes following a nonconformity are one route to improvement, not the boundary of the improvement duty."
+     },
+     {
+      "index": 3,
+      "clause": "10.2",
+      "support": "review the effectiveness of any corrective action taken",
+      "why_wrong": "Reviewing whether corrective actions worked is a separate step from the ongoing improvement of the system."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  }
+ ]
+}

@@ -324,6 +324,33 @@ export function translationLintControls() {
   const pv2 = lintRow(row("pt-BR", "Sob o Regulamento da IA da UE, o provedor registra o sistema."), "AIGRM-I", null);
   if (!pv2.mixed.some((f) => f.variant === "provedor")) fails.push("`provedor` was not reported on AIGRM-I");
 
+  /* ============ iso_22989_roles, BOTH DIRECTIONS ============
+   *
+   * Added PROMPT-94 s3 and it fired on ZERO live rows. Zero is a clean result only once a wrong form is
+   * shown to be caught: the family is read (the lint walks every family), and being read is not being
+   * able to fire. */
+  const r1 = lintRow(row("es-419", "El productor de IA disena el sistema."), "AIMS-F",
+    row("en", "The AI producer designs the system."));
+  if (r1.forbidden.length || r1.mixed.some((f) => f.family === "iso_22989_roles")) {
+    fails.push("the corpus's own form `productor de IA` was reported: " +
+      JSON.stringify([...r1.forbidden, ...r1.mixed].slice(0, 2)));
+  }
+  /* the wrong form: Spanish rendering the producer role as a manufacturer */
+  const r2 = lintRow(row("es-419", "El fabricante de IA disena el sistema."), "AIMS-F",
+    row("en", "The AI producer designs the system."));
+  const r2hit = [...r2.forbidden, ...r2.mixed, ...(r2.untranslated || [])]
+    .some((f) => f.family === "iso_22989_roles" && f.key === "ai_producer");
+  if (!r2hit) {
+    fails.push("iso_22989_roles CANNOT FIRE: an es row rendering `AI producer` as `fabricante de IA` was " +
+      "not reported at all, so the family's zero live findings mean nothing");
+  }
+  /* a `flag` term must never be raised to a failure -- raising a severity is a ruling */
+  const r3 = lintRow(row("pt-BR", "O objeto de IA nao consente."), "AIMS-F",
+    row("en", "The AI subject does not consent."));
+  if (r3.forbidden.some((f) => f.family === "iso_22989_roles")) {
+    fails.push("`ai_subject` is declared `flag` and fired as a FAILURE");
+  }
+
   /* SCOPE: the same word in a Scrum certification is not examined at all. */
   const b = lintRow(row("pt-BR", "O fornecedor entrega o incremento."), "SM-AI-I", null);
   if (b.forbidden.length) fails.push("forbidden pt `fornecedor` fired outside its scope (SM-AI-I)");

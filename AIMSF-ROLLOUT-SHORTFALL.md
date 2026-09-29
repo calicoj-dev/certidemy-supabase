@@ -1,5 +1,10 @@
 # AIMS-F rollout: the per-task shortfall
 
+**The floor is PER TASK**, derived as `min(8, 2 x effective primaries)`. Ruled
+PROMPT-94 s4: a task with three effective primaries gets a floor of 6, because three clauses at the
+cap of 2 is six items. The rule lives in TASK-FLOORS-AIMSF.json; the number is derived, so a
+task that gains a primary returns to 8 with no edit anywhere.
+
 **Read-only.** Ruled PROMPT-87 s5. Kept items count only up to the cap of 2 per
 (source, clause); the 15 provisional items count as
 ZERO until ruled on. Scope is 4+ effective primaries and a shortfall above zero,
@@ -8,12 +13,12 @@ excluding 1.3.
 | task | kept | usable | over cap | inserted | provisional | have | shortfall | eff. primaries | in scope |
 |---|---|---|---|---|---|---|---|---|---|
 | 1.1 | 3 | 3 | 0 | 5 | 0 | 8 | **0** | 5 | no |
-| 1.2 | 2 | 1 | 1 | 1 | 1 | 2 | **6** | 3 | no |
+| 1.2 | 2 | 1 | 1 | 1 | 1 | 2 | **6** | 7 | **yes** |
 | 1.3 | 1 | 1 | 0 | 3 | 0 | 4 | **4** | 11 | _excluded_ |
 | 1.4 | 2 | 2 | 0 | 6 | 1 | 8 | **0** | 11 | no |
 | 1.5 | 2 | 2 | 0 | 5 | 1 | 7 | **1** | 12 | **yes** |
 | 1.6 | 3 | 3 | 0 | 0 | 1 | 3 | **5** | 12 | **yes** |
-| 2.1 | 3 | 1 | 2 | 1 | 0 | 2 | **6** | 3 | no |
+| 2.1 | 3 | 1 | 2 | 1 | 0 | 2 | **4** | 3 | **yes** |
 | 2.2 | 4 | 1 | 3 | 1 | 0 | 2 | **6** | 5 | **yes** |
 | 2.3 | 8 | 5 | 3 | 0 | 0 | 5 | **3** | 8 | **yes** |
 | 2.4 | 7 | 2 | 5 | 1 | 0 | 3 | **5** | 5 | **yes** |
@@ -30,18 +35,18 @@ excluding 1.3.
 | 3.7 | 2 | 2 | 0 | 1 | 0 | 3 | **5** | 10 | **yes** |
 | 3.8 | 7 | 4 | 3 | 1 | 0 | 5 | **3** | 4 | **yes** |
 | 4.1 | 5 | 4 | 1 | 2 | 0 | 6 | **2** | 4 | **yes** |
-| 4.2 | 7 | 2 | 5 | 1 | 0 | 3 | **5** | 3 | no |
+| 4.2 | 7 | 2 | 5 | 1 | 0 | 3 | **3** | 3 | **yes** |
 | 4.3 | 5 | 5 | 0 | 2 | 0 | 7 | **1** | 10 | **yes** |
 | 4.4 | 3 | 3 | 0 | 1 | 1 | 4 | **4** | 13 | **yes** |
 | 4.5 | 6 | 4 | 2 | 1 | 0 | 5 | **3** | 9 | **yes** |
 | 4.6 | 5 | 4 | 1 | 2 | 1 | 6 | **2** | 8 | **yes** |
 | 4.7 | 1 | 1 | 0 | 0 | 0 | 1 | **7** | 6 | **yes** |
 | 5.1 | 6 | 2 | 4 | 1 | 1 | 3 | **5** | 5 | **yes** |
-| 5.2 | 5 | 2 | 3 | 2 | 0 | 4 | **4** | 3 | no |
+| 5.2 | 5 | 2 | 3 | 2 | 0 | 4 | **2** | 3 | **yes** |
 | 5.3 | 7 | 4 | 3 | 1 | 0 | 5 | **3** | 4 | **yes** |
-| 5.4 | 7 | 2 | 5 | 0 | 0 | 2 | **6** | 3 | no |
+| 5.4 | 7 | 2 | 5 | 0 | 0 | 2 | **4** | 3 | **yes** |
 | 5.5 | 3 | 3 | 0 | 0 | 0 | 3 | **5** | 34 | **yes** |
 | 5.6 | 3 | 3 | 0 | 0 | 0 | 3 | **5** | 10 | **yes** |
 
-**27 task(s) in scope, 117 item(s) to generate.** 5 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
+**32 task(s) in scope, 136 item(s) to generate.** 0 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
 

@@ -17,6 +17,8 @@
    "shortfall": 0,
    "effective": 5,
    "eligible": false,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 3.4",
     "ISO/IEC 42001 4.4",
@@ -32,8 +34,10 @@
    "provisional": 1,
    "have": 2,
    "shortfall": 6,
-   "effective": 3,
-   "eligible": false,
+   "effective": 7,
+   "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 4.1"
    ]
@@ -49,6 +53,8 @@
    "shortfall": 4,
    "effective": 11,
    "eligible": false,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 C.3.6"
    ]
@@ -64,6 +70,8 @@
    "shortfall": 0,
    "effective": 11,
    "eligible": false,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 D.2",
     "ISO/IEC 42001 4.1"
@@ -80,6 +88,8 @@
    "shortfall": 1,
    "effective": 12,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 1"
    ]
@@ -95,6 +105,8 @@
    "shortfall": 5,
    "effective": 12,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": []
   },
   {
@@ -105,9 +117,11 @@
    "inserted": 1,
    "provisional": 0,
    "have": 2,
-   "shortfall": 6,
+   "shortfall": 4,
    "effective": 3,
-   "eligible": false,
+   "eligible": true,
+   "floor": 6,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 4.1"
    ]
@@ -123,6 +137,8 @@
    "shortfall": 6,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 4.3"
    ]
@@ -138,6 +154,8 @@
    "shortfall": 3,
    "effective": 8,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 5.2",
     "ISO/IEC 42001 6.3"
@@ -154,6 +172,8 @@
    "shortfall": 5,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 5.3"
    ]
@@ -169,6 +189,8 @@
    "shortfall": 4,
    "effective": 20,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.2",
     "ISO/IEC 42001 6.1.1"
@@ -185,6 +207,8 @@
    "shortfall": 5,
    "effective": 7,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.4"
    ]
@@ -200,6 +224,8 @@
    "shortfall": 6,
    "effective": 6,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.4"
    ]
@@ -215,6 +241,8 @@
    "shortfall": 6,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.3"
    ]
@@ -230,6 +258,8 @@
    "shortfall": 6,
    "effective": 8,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 7.2"
    ]
@@ -245,6 +275,8 @@
    "shortfall": 4,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 7.3",
     "ISO/IEC 42001 7.4"
@@ -261,6 +293,8 @@
    "shortfall": 4,
    "effective": 17,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 7.5.2",
     "ISO/IEC 42001 7.5.3"
@@ -277,6 +311,8 @@
    "shortfall": 6,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 8.1"
    ]
@@ -292,6 +328,8 @@
    "shortfall": 6,
    "effective": 9,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 B.10.3"
    ]
@@ -307,6 +345,8 @@
    "shortfall": 5,
    "effective": 11,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 B.7.2"
    ]
@@ -322,6 +362,8 @@
    "shortfall": 5,
    "effective": 10,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": []
   },
   {
@@ -335,6 +377,8 @@
    "shortfall": 3,
    "effective": 4,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 8.2",
     "ISO/IEC 42001 8.3"
@@ -351,6 +395,8 @@
    "shortfall": 2,
    "effective": 4,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 A.1",
     "ISO/IEC 42001 B.1",
@@ -365,9 +411,11 @@
    "inserted": 1,
    "provisional": 0,
    "have": 3,
-   "shortfall": 5,
+   "shortfall": 3,
    "effective": 3,
-   "eligible": false,
+   "eligible": true,
+   "floor": 6,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.3"
    ]
@@ -383,6 +431,8 @@
    "shortfall": 1,
    "effective": 10,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 A.3.3"
    ]
@@ -398,6 +448,8 @@
    "shortfall": 4,
    "effective": 13,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": []
   },
   {
@@ -411,6 +463,8 @@
    "shortfall": 3,
    "effective": 9,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 A.8.2"
    ]
@@ -426,6 +480,8 @@
    "shortfall": 2,
    "effective": 8,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 A.10.2"
    ]
@@ -441,6 +497,8 @@
    "shortfall": 7,
    "effective": 6,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": []
   },
   {
@@ -454,6 +512,8 @@
    "shortfall": 5,
    "effective": 5,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 9.1"
    ]
@@ -466,9 +526,11 @@
    "inserted": 2,
    "provisional": 0,
    "have": 4,
-   "shortfall": 4,
+   "shortfall": 2,
    "effective": 3,
-   "eligible": false,
+   "eligible": true,
+   "floor": 6,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 9.2.2",
     "ISO/IEC 42001 9.2.1"
@@ -485,6 +547,8 @@
    "shortfall": 3,
    "effective": 4,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 9.3.2",
     "ISO/IEC 42001 9.3.1"
@@ -498,9 +562,11 @@
    "inserted": 0,
    "provisional": 0,
    "have": 2,
-   "shortfall": 6,
+   "shortfall": 4,
    "effective": 3,
-   "eligible": false,
+   "eligible": true,
+   "floor": 6,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 10.2"
    ]
@@ -516,6 +582,8 @@
    "shortfall": 5,
    "effective": 34,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 1"
    ]
@@ -531,6 +599,8 @@
    "shortfall": 5,
    "effective": 10,
    "eligible": true,
+   "floor": 8,
+   "tooThin": false,
    "atCap": [
     "ISO/IEC 42001 6.1.2"
    ]
@@ -538,12 +608,20 @@
  ],
  "in_scope": [
   {
+   "task": "1.2",
+   "shortfall": 6
+  },
+  {
    "task": "1.5",
    "shortfall": 1
   },
   {
    "task": "1.6",
    "shortfall": 5
+  },
+  {
+   "task": "2.1",
+   "shortfall": 4
   },
   {
    "task": "2.2",
@@ -610,6 +688,10 @@
    "shortfall": 2
   },
   {
+   "task": "4.2",
+   "shortfall": 3
+  },
+  {
    "task": "4.3",
    "shortfall": 1
   },
@@ -634,8 +716,16 @@
    "shortfall": 5
   },
   {
+   "task": "5.2",
+   "shortfall": 2
+  },
+  {
    "task": "5.3",
    "shortfall": 3
+  },
+  {
+   "task": "5.4",
+   "shortfall": 4
   },
   {
    "task": "5.5",
@@ -646,5 +736,5 @@
    "shortfall": 5
   }
  ],
- "total_to_generate": 117
+ "total_to_generate": 136
 }

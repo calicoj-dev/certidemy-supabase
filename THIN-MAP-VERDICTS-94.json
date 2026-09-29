@@ -1,0 +1,38 @@
+{
+  "ruled": "2026-09-29, PROMPT-94 s3",
+  "certification": "AIMS-F",
+  "added_by": "director-94",
+  "why_this_file_exists": "THIN-MAP-22989-PROPOSAL.md proposed four family-level entries from ISO/IEC 22989 clause 5.19 for AIMS-F task 1.2, and the director approved them. This file holds the approval so the write cannot exceed it: scripts/promote-thin-maps-93.mjs reads a verdict file and can promote nothing the file does not list.",
+  "director_note": "The roles in 1.2's KSAs (AI provider, producer, customer, partner, subject, relevant authority) are 22989's categories, and 42001 4.1 NOTE 1 points there. Promote the four family-level 5.19 entries proposed, as director-94.",
+  "rules": [
+    "The four are the FAMILY-level entries. The sub-role definitions (AI platform provider, AI system integrator, Data provider, AI auditor, AI evaluator, Data subject, Policy makers, Regulators and the rest) stay SUPPORTING: a distinction inside one family would test 22989's taxonomy rather than 42001's requirement, and a distractor can still draw on them.",
+    "22989 is a FOURTH primary source on AIMS-F and the first vocabulary standard to carry a key here. 42001 already shares the certification with ISO/IEC 17021-1 (26 primary rows) and ISO/IEC 42006 (17), so a second source is established practice; what is new is the kind of document.",
+    "42001 references ISO/IEC 22989 UNDATED, under boilerplate saying the latest edition applies. We hold 2022. The gap tracks forward on its own, exactly as CLAUDE.md records for ISO/IEC 27000.",
+    "Items anchored in 22989 must use its role names exactly, in every language. The translation glossary gains the role family before any 1.2 item is translated -- PROMPT-94 s3."
+  ],
+  "tasks": [
+    {
+      "task": "1.2",
+      "source_id": "ISO/IEC 22989",
+      "promote": ["5.19.1", "5.19.2.1", "5.19.3.1", "5.19.5.1"],
+      "decline": [
+        { "clause": "5.19.2.2", "why": "AI platform provider is a SUB-ROLE inside the provider family; the family entry 5.19.2.1 carries the examinable distinction" },
+        { "clause": "5.19.2.3", "why": "AI service or product provider, same reason" },
+        { "clause": "5.19.3.2", "why": "AI developer, a sub-role of producer" },
+        { "clause": "5.19.5.2", "why": "AI system integrator, a sub-role of partner" },
+        { "clause": "5.19.5.3", "why": "Data provider, a sub-role of partner" },
+        { "clause": "5.19.5.4", "why": "AI auditor, a sub-role of partner" },
+        { "clause": "5.19.5.5", "why": "AI evaluator, a sub-role of partner" },
+        { "clause": "5.19.6.2", "why": "Data subject, a sub-role of subject" },
+        { "clause": "5.19.6.3", "why": "Other subjects, a sub-role of subject" },
+        { "clause": "5.19.7.2", "why": "Policy makers, a sub-role of relevant authorities" },
+        { "clause": "5.19.7.3", "why": "Regulators, a sub-role of relevant authorities" },
+        { "clause": "5.19.4.2", "why": "AI users is 14 words, under the 15-word effective-primary floor, so it could not carry a key regardless" },
+        { "clause": "5.19.4", "why": "a CONTAINER -- its text is its children's, and the children are held separately" },
+        { "clause": "5.19.5", "why": "a CONTAINER" },
+        { "clause": "5.19.6", "why": "a CONTAINER" }
+      ],
+      "also": "5.19.4.1 (AI customer, General) and 5.19.6.1 / 5.19.7.1 are the remaining family Generals. 5.19.4.1 was NOT in the proposed four and is NOT promoted here; the four approved are the ones put to the director and approved by him. A later ruling can widen it."
+    }
+  ]
+}
