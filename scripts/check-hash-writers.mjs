@@ -602,7 +602,23 @@ if (undeclaredMigs.length) {
 
 writeFileSync(join(ROOT, "HASH-WRITER-CENSUS.json"), JSON.stringify({
   measured: new Date().toISOString().slice(0, 10),
-  positions_examined: positions,
+  /* ============ IT COUNTS CANDIDATES, NOT WRITERS, AND THE NAME DID NOT SAY SO ============
+   *
+   * RECONCILED 2026-09-29. Adding a detected hash writer left this at 51 where it should have gone
+   * to 52, and that looked like a lost position. It was not: `positions += hits.length` counts EVERY
+   * matched key, and `hits` includes the ones classified `js-object` -- a key that is not in a
+   * request body. Line 431 filters those out of `writers`; line 432 counts them in the total.
+   *
+   * So `apply-concept-clearance-22.mjs`'s `tr_hash` key was ALWAYS in the 51. What the helper rule
+   * changed was its CLASSIFICATION, from `js-object` to `js-body` -- detection was never the issue,
+   * and the count was right both times.
+   *
+   * The console line has always said "candidate(s) examined" and was correct; this field was called
+   * `positions_examined`, which reads as writer positions. Renamed, because a number whose name does
+   * not say what it is measured over is half a fact -- and here the half that was missing is exactly
+   * what made a correct count look like a defect for an hour. */
+  candidates_examined: positions,
+  writer_positions: writers.reduce((n, w) => n + w.positions, 0),
   generators: GENERATORS,
   dual_role: DUAL_ROLE,
   review_recorders: REVIEW_RECORDERS,

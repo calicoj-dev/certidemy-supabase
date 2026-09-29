@@ -3356,11 +3356,6 @@
    "invented": []
   },
   {
-   "task": "4.12",
-   "state": "malformed",
-   "pass": 1
-  },
-  {
    "task": "4.13",
    "state": "judged",
    "statement": "Analyze whether people performing AI-related work meet the competence requirements the AIMS claims",
@@ -5133,6 +5128,11 @@
    "none_apply": false,
    "note": null,
    "invented": []
+  },
+  {
+   "task": "4.12",
+   "state": "malformed",
+   "pass": 1
   }
  ]
 }

@@ -14,7 +14,7 @@
  "precision": 0,
  "recall_subject": 0,
  "tp": 0,
- "fp": 313,
+ "fp": 323,
  "fn": 0,
  "missed": [],
  "extra": [
@@ -215,9 +215,19 @@
   "4.1 -> ISO 19011|A.8",
   "4.1 -> ISO/IEC 27000|3.38",
   "4.1 -> ISO/IEC 27000|3.51",
-  "4.10 -> ISO 19011|5.5.4",
-  "4.10 -> ISO 19011|7.2.3.3",
+  "4.10 -> ISO 19011|3.2",
   "4.10 -> ISO 19011|7.2.3.5",
+  "4.10 -> ISO 19011|7.2.3.3",
+  "4.10 -> ISO 19011|A.18.4",
+  "4.10 -> ISO/IEC 27001|9.2.2",
+  "4.10 -> ISO/IEC 27001|9.3.2",
+  "4.10 -> ISO/IEC 27001|9.1",
+  "4.10 -> ISO/IEC 27001|6.1.3",
+  "4.10 -> ISO/IEC 27001|6.1.2",
+  "4.10 -> ISO/IEC 27001|4.3",
+  "4.10 -> ISO/IEC 27001|7.2",
+  "4.10 -> ISO/IEC 27001|0.2",
+  "4.10 -> ISO/IEC 27000|3.11",
   "4.2 -> ISO/IEC 27001|5.1",
   "4.2 -> ISO/IEC 27001|5.2",
   "4.2 -> ISO/IEC 27001|5.3",
@@ -555,6 +565,13 @@
    "source": "ISO/IEC 27000",
    "clause": "3.20",
    "reason": "Definition of effectiveness used in judging whether corrective action worked.",
+   "confidence": "low"
+  },
+  {
+   "task": "4.10",
+   "source": "ISO/IEC 27000",
+   "clause": "3.11",
+   "reason": "Conformity definition anchoring the 'conformity to which requirement' distinction.",
    "confidence": "low"
   }
  ],
@@ -3137,69 +3154,6 @@
    "invented": []
   },
   {
-   "task": "4.10",
-   "state": "pass2-unanswered",
-   "statement": "Distinguish ISMS conformity from AI management system conformity where the two scopes overlap.",
-   "pass1": [
-    "ISO/IEC 27001|9.2.2",
-    "ISO/IEC 27001|9.3.2",
-    "ISO/IEC 27001|9.1",
-    "ISO/IEC 27001|6.1.3",
-    "ISO/IEC 27001|6.1.2",
-    "ISO/IEC 27001|4.3",
-    "ISO/IEC 27001|7.2",
-    "ISO 19011|3.2",
-    "ISO 19011|3.8",
-    "ISO 19011|3.21",
-    "ISO 19011|3.22",
-    "ISO 19011|A.18.4",
-    "ISO 19011|5.5.2",
-    "ISO 19011|5.5.4",
-    "ISO 19011|7.2.3.3",
-    "ISO 19011|7.2.3.5",
-    "ISO/IEC 27000|3.11"
-   ],
-   "primary": [
-    {
-     "source": "ISO 19011",
-     "clause": "5.5.4",
-     "reason": "Audit team selection must cover both disciplines in a combined audit.",
-     "confidence": "medium"
-    },
-    {
-     "source": "ISO 19011",
-     "clause": "7.2.3.3",
-     "reason": "Discipline-specific competence — ISMS competence does not confer AI management system competence.",
-     "confidence": "high"
-    },
-    {
-     "source": "ISO 19011",
-     "clause": "7.2.3.5",
-     "reason": "Knowledge and skills for auditing multiple disciplines, the combined ISMS/AIMS case.",
-     "confidence": "high"
-    }
-   ],
-   "dropped": [
-    {
-     "source": "ISO 19011",
-     "clause": "5.5.2",
-     "why": "Generic guidance on setting objectives/scope/criteria for any single audit; says nothing about overlapping ISMS/AIMS scopes or divergent requirements."
-    },
-    {
-     "source": "ISO/IEC 27000",
-     "clause": "3.11",
-     "why": "Bare one-line definition of conformity with no content distinguishing one management system's conformity from another's."
-    }
-   ],
-   "pass2Answered": false,
-   "chunks": 2,
-   "chunk_failures": 1,
-   "unjudged": 12,
-   "none_apply": false,
-   "note": "ISO/IEC 42001 is not among the standards supplied, so its clauses (6.1.4, 9.2.2, Annex D.2) cannot be cited; keys must rest on the ISO/IEC 27001 and ISO 19011 side of the comparison.",
-   "invented": []
-  },
-  {
    "task": "4.2",
    "state": "judged",
    "statement": "Determine whether evidence shows top management has demonstrated the leadership, policy and role assignments clause 5 requires.",
@@ -4837,6 +4791,169 @@
    "unjudged": 0,
    "none_apply": false,
    "note": null,
+   "invented": []
+  },
+  {
+   "task": "4.10",
+   "state": "judged",
+   "statement": "Distinguish ISMS conformity from AI management system conformity where the two scopes overlap.",
+   "pass1": [
+    "ISO 19011|3.2",
+    "ISO 19011|3.8",
+    "ISO 19011|3.21",
+    "ISO 19011|3.22",
+    "ISO 19011|5.5.2",
+    "ISO 19011|5.5.4",
+    "ISO 19011|7.2.3.5",
+    "ISO 19011|7.2.3.3",
+    "ISO 19011|A.18.4",
+    "ISO 19011|A.18.3",
+    "ISO/IEC 27001|9.2.2",
+    "ISO/IEC 27001|9.3.2",
+    "ISO/IEC 27001|9.1",
+    "ISO/IEC 27001|6.1.3",
+    "ISO/IEC 27001|8.3",
+    "ISO/IEC 27001|6.1.2",
+    "ISO/IEC 27001|4.3",
+    "ISO/IEC 27001|7.2",
+    "ISO/IEC 27001|0.2",
+    "ISO/IEC 27000|3.11",
+    "ISO/IEC 27000|3.47",
+    "ISO/IEC 27000|3.33"
+   ],
+   "primary": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.2",
+     "reason": "Defines combined audit — two or more management systems audited together at a single auditee, the setting the task describes.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.5",
+     "reason": "Knowledge and skills for auditing multiple disciplines — ISMS competence is not AIMS competence.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "7.2.3.3",
+     "reason": "Discipline-specific competence of auditors; supports the AIMS-vs-ISMS competence distinction.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.4",
+     "reason": "Dealing with audit findings related to multiple criteria — directly governs findings where two systems' scopes overlap.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.2.2",
+     "reason": "ISMS internal audit programme wording (criteria and scope; report to relevant management) is one side of the divergence tested.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.3.2",
+     "reason": "ISMS management review inputs include objectives fulfilment, interested party feedback and risk assessment/treatment status — the diverging list.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "9.1",
+     "reason": "ISMS monitoring clause names who shall monitor and who shall analyse — a wording difference the auditor must detect.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.3",
+     "reason": "ISMS risk treatment requires risk owners' approval of the plan and acceptance of residual risk — contrasts with AIMS designated management approval.",
+     "confidence": "high"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "6.1.2",
+     "reason": "ISMS risk assessment inputs; contrast with the AI system impact assessment feeding the AIMS risk assessment.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "4.3",
+     "reason": "Determining the ISMS scope — the boundary against which overlap with another management system is judged.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "7.2",
+     "reason": "Competence requirement is ISMS-specific; conformity here is not evidence of AIMS competence.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "0.2",
+     "reason": "Compatibility with other management system standards — harmonized structure shared but text diverges.",
+     "confidence": "medium"
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.11",
+     "reason": "Conformity definition anchoring the 'conformity to which requirement' distinction.",
+     "confidence": "low"
+    }
+   ],
+   "dropped": [
+    {
+     "source": "ISO 19011",
+     "clause": "3.8",
+     "why": "Generic definition of audit criteria; says nothing about overlapping ISMS/AIMS scopes or divergent requirements."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.21",
+     "why": "Bare definition of conformity as fulfilment of a requirement; no content distinguishing two management systems."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "3.22",
+     "why": "Bare definition of nonconformity; nothing testable about scope overlap or standard-specific divergence."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.2",
+     "why": "General guidance on setting objectives/scope/criteria for any individual audit; no multi-standard distinction."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "5.5.4",
+     "why": "Team-selection guidance that only lists 'whether the audit is combined or joint' as one factor; mentions but does not state anything about distinguishing the two systems."
+    },
+    {
+     "source": "ISO 19011",
+     "clause": "A.18.3",
+     "why": "Checklist for recording a nonconformity record; generic, not about overlapping ISMS/AIMS criteria."
+    },
+    {
+     "source": "ISO/IEC 27001",
+     "clause": "8.3",
+     "why": "Two generic sentences on implementing/retaining the treatment plan - wording mirrors the AIMS clause and contains no point of divergence to test."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.47",
+     "why": "Text supplied is actually the definition of non-repudiation, not nonconformity - unrelated to the task."
+    },
+    {
+     "source": "ISO/IEC 27000",
+     "clause": "3.33",
+     "why": "Text is a garbled 'ISMS professional' definition, not the ISMS definition; states nothing testable about ISMS vs AIMS conformity."
+    }
+   ],
+   "pass2Answered": true,
+   "chunks": 2,
+   "chunk_failures": 0,
+   "unjudged": 0,
+   "none_apply": false,
+   "note": "ISO/IEC 42001 (incl. 6.1.4 and Annex D.2) is referenced by the task but is not among the supplied standards; items must key the ISMS/19011 side and treat 42001 content as contrast only.",
    "invented": []
   }
  ]
