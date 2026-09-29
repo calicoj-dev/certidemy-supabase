@@ -1,0 +1,11 @@
+{
+  "applied": "2026-09-29",
+  "cleared": 22,
+  "edited": [
+    "AIGRM-I/gpai-obligations pt-BR",
+    "AIGRM-I/minimal-risk pt-BR",
+    "AIGRM-I/synthetic-content-labeling pt-BR"
+  ],
+  "untouchedHash": "4f4ee319ee57bea6",
+  "note": "en_hash asserted, never written. tr_hash restamped ONLY on the three edited rows, from the text just written, computed by public.translation_hash."
+}

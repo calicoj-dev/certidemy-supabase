@@ -71,6 +71,18 @@ const GENERATORS = {
  * to say how the two halves are kept apart.
  */
 const DUAL_ROLE = {
+  "apply-concept-clearance-22.mjs":
+    "AUTHORS three pt-BR edits (the EU AI Act role terms in AIGRM-I gpai-obligations, minimal-risk " +
+    "and synthetic-content-labeling, ruled by the director) and CLEARS twenty-two rows. It stamps " +
+    "tr_hash for THE THREE ROWS IT WROTE ONLY, from the text it just wrote, and computes it by " +
+    "calling public.translation_hash rather than reimplementing it -- the gate is read off " +
+    "mcp.concept's own predicate, tr_hash = translation_hash(name, description), so the argument " +
+    "list cannot be guessed wrong. It ASSERTS en_hash matches the live English on all 22 and writes " +
+    "en_hash nowhere; a row whose English has moved is REFUSED rather than cleared. The nineteen " +
+    "approved as written get is_provisional = false and no hash touched. Read-back checks the gate's " +
+    "three predicates per row and checksums the other 3,438 translation rows as unchanged. " +
+    "THIS SCRIPT IS WHY THE HELPER RULE ABOVE EXISTS: it writes through a local patch() helper and " +
+    "the census reported PASS over it until the classifier learned to follow one hop.",
   "apply-retranslation-review.mjs":
     "AUTHORS 19 translated edits across 14 renderings and stamps tr_hash for THOSE ROWS ONLY, " +
     "from the text it just wrote -- the one moment a hash records something rather than restating it. " +
@@ -323,6 +335,38 @@ function writePositions(src, isSql) {
           if (push && new RegExp("body:\\s*JSON\\.stringify\\(\\s*" + push[1] + "\\b").test(src)) {
             isBody = true;
             pushedInto = push[1];
+          }
+        }
+        /* ============ AND A WRITE THROUGH A LOCAL HELPER IS STILL A WRITE ============
+         *
+         * `apply-concept-clearance-22.mjs` stamps tr_hash as
+         *
+         *     await patch("concept_translations?...", { tr_hash: trHash });
+         *
+         * and `patch()` is a one-line local helper defined 150 lines earlier that holds the
+         * `method: "PATCH"` and the `JSON.stringify`. The window above sees neither, so this check
+         * reported PASS over a real hash writer -- the exact outcome its own header calls the worst
+         * one, because the census prints a clean list and the writer it cannot see is the next
+         * undeclared one.
+         *
+         * Same lesson as the unpaged-read audit and as `verify-invariants`' seven false UNSAFE reads:
+         * FOLLOW THE PROGRAM, not the window. One hop is enough -- the local functions whose bodies
+         * send a request are collected once per file, and a key sitting in a call to one of them is a
+         * body wherever that call is. */
+        if (!isBody) {
+          const senders = new Set();
+          const decl = /(?:const|let|var|function)\s+([A-Za-z_$][\w$]*)\s*(?:=\s*)?(?:async\s*)?(?:\([^)]*\)\s*=>|\([^)]*\)\s*\{|=\s*async)/g;
+          for (const d of src.matchAll(decl)) {
+            const body = src.slice(d.index, d.index + 900);
+            if (/method:\s*["'](POST|PATCH|PUT)/i.test(body) && /JSON\.stringify/.test(body)) {
+              senders.add(d[1]);
+            }
+          }
+          if (senders.size) {
+            const callWin = src.slice(Math.max(0, m.index - 400), m.index);
+            for (const s of senders) {
+              if (new RegExp("(?<![.\\w])" + s + "\\s*\\(").test(callWin)) { isBody = true; break; }
+            }
           }
         }
         /* ============ THE TARGET TABLE IS THE CLASSIFICATION ============

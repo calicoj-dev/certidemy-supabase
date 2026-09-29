@@ -56,8 +56,10 @@ const RECOVER = process.argv.includes("--recover");
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const RECOVERY = join(ROOT, "VERIFY-382-RECOVERY.json");
-/* fixed, so a leftover row is identifiable by eye and by query */
-const SYNTHETIC = "00000000-0000-4382-8000-0000000cap00";
+/* Fixed, so a leftover row is identifiable by eye and by query -- and VALID HEX, which the first
+ * version was not: `0000000cap00` carries a `p`, so Postgres answered 22P02 invalid input syntax.
+ * `4382` in the version field and `caf` at the end keep it recognisable without leaving hex. */
+const SYNTHETIC = "00000000-0000-4382-8000-00000000caf0";
 
 const KEY = requireKey(HERE);
 const H = { apikey: KEY, Authorization: "Bearer " + KEY, "content-type": "application/json" };
@@ -100,8 +102,29 @@ let pre;
 try {
   pre = await getAll(KEY, "quiz_questions?select=id,created_by&created_by=eq." + SYNTHETIC + "&order=id");
 } catch (e) {
-  console.error("cannot read quiz_questions.created_by: " + String(e.message).slice(0, 140));
-  console.error("Migration 382 is probably not applied. This script measures nothing without it.");
+  /* ============ ONE ERROR STRING FOR TWO CAUSES, IN MY OWN PRE-FLIGHT ============
+   *
+   * The first version printed "Migration 382 is probably not applied" for ANY failure here, and the
+   * first real run proved why that is wrong: the column existed, 382 was applied, and Postgres
+   * answered 22P02 -- invalid input syntax -- because the synthetic uuid contained a `p`. The message
+   * blamed a migration for a typo in this file, and a reader would have gone to re-apply an applied
+   * migration. That is the family this repository records for the missing `apikey` header and for
+   * IPv6: the error naming the wrong half of the system.
+   *
+   * So only 42703 -- undefined_column -- is read as an absent column. Anything else is reported as
+   * itself, with its code, and does not get a diagnosis attached to it. */
+  const msg = String(e.message || "");
+  console.error("pre-flight read failed: " + msg.slice(0, 200));
+  if (/42703/.test(msg)) {
+    console.error("");
+    console.error("That is 42703, undefined_column: `quiz_questions.created_by` does not exist, so");
+    console.error("migration 382 has not been applied. This script measures nothing without it.");
+  } else {
+    console.error("");
+    console.error("This is NOT evidence that 382 is missing -- the code above is not 42703. It is");
+    console.error("reported as itself rather than diagnosed, because guessing a cause here is how a");
+    console.error("reader gets sent to re-apply an applied migration.");
+  }
   { BAIL = 2; return; }
 }
 if (pre.length) {

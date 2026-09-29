@@ -255,6 +255,35 @@ export function translationLintControls() {
   if (!ov.forbidden.some((f) => f.variant === "EU AI Act")) {
     fails.push("the LONGER variant lost to the shorter one -- longest must be claimed first");
   }
+  /* ============ A CONCEPT IS A VALID SUBJECT, AND THE SHAPE HAS TO BE LINTABLE ============
+   *
+   * `gen-concept-translations` now gates on this the way `retranslate-item-rewrite` does, and a
+   * concept has a NAME and a DESCRIPTION rather than a stem and options. It is passed as
+   * question_text = name, options = [], explanation = description. These cases assert that shape is
+   * read -- a lint that silently examined nothing here would report clean on every concept forever,
+   * which is how this generator came to emit `provedor` with no check at all.
+   *
+   * The live instance is the third: `minimal-risk` pt-BR carried both `implantadores` and `provedor`,
+   * and only the first is a FAILURE. That is why wiring the gate catches one of the three rows the
+   * director corrected by hand and not all three -- recorded rather than papered over. */
+  const conceptRow = (desc, name) => ({ language: "pt-BR", question_text: name || "conceito",
+    options: [], explanation: desc });
+  const cA = lintRow(conceptRow("O dever alcança provedores e implantadores de todo sistema de IA " +
+    "sob o Artigo 4."), "AIGRM-I", null);
+  if (!cA.forbidden.some((f) => f.variant === "implantadores")) {
+    fails.push("a CONCEPT-shaped row was not linted: implantadores did not fire in the description");
+  }
+  const cB = lintRow(conceptRow("Recaem sobre o prestador do modelo que o coloca no mercado."),
+    "AIGRM-I", null);
+  if (cB.forbidden.length) fails.push("the corrected concept text was refused: " +
+    cB.forbidden.map((f) => f.variant).join(", "));
+  const cC = lintRow(conceptRow("Recai sobre o provedor do sistema gerador."), "AIGRM-I", null);
+  if (cC.forbidden.length) {
+    fails.push("`provedor` was a FAILURE -- it is declared `flag`, and raising it is a ruling");
+  }
+  if (!cC.mixed.some((f) => f.variant === "provedor")) {
+    fails.push("`provedor` in a concept description was not reported at all");
+  }
   /* A MARKER MUST NOT MATCH INSIDE A LONGER WORD. The live instance: `AI Act` matched
    * "documented AI activities" and gated a 42001 row that names the Regulation nowhere. */
   const aSub = lintRow(row("pt-BR", "O fornecedor terceiro entregou abaixo do esperado."), "AIMS-IA",
@@ -317,7 +346,7 @@ export function translationLintControls() {
   const j = lintRow(row("pt-BR", "O prestador deve manter a norma e a acreditação."), "AIMS-IA", null);
   if (j.forbidden.length) fails.push("a clean pt row fired: " + JSON.stringify(j.forbidden));
 
-  return { examined: 23, fails };
+  return { examined: 27, fails };
 }
 
 

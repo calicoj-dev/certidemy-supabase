@@ -72,6 +72,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contractForDomain, domainForCert } from "./lib/item-translation.mjs";
 import { looksLikeLanguage } from "./lib/language-guard.mjs";
+import { lintRow } from "./lib/translation-term-lint.mjs";
 
 let APPLY = false, ONLY_CERT = null, ONLY_LANG = null, BUDGET = 1200, LIMIT_BATCHES = 0, ROWCAP = 40;
 let STALE = false;
@@ -366,6 +367,47 @@ for (let i = 0; i < plan.length; i++) {
     if (c.description && t.description && !looksLikeLanguage(t.description, p.lang)) {
       problems.push(p.code + "/" + p.lang + " " + c.slug + ": description does not read as " + p.lang);
       guardFail++;
+    }
+    /* ============ THE GLOSSARY GATE, WHICH THIS GENERATOR DID NOT HAVE ============
+     *
+     * It produced `provedor` in AIGRM-I pt-BR -- the EU AI Act role term that is `prestador` in the
+     * house glossary -- and nothing stopped it. Three rows reached the director's read carrying it,
+     * and he corrected them by hand. `retranslate-item-rewrite` has gated on `lintRow` for weeks;
+     * this path had no check at all, so the same corpus was protected on one route and open on the
+     * other. That is the mirrored-pair failure with both halves inside one repository.
+     *
+     * Wired the same way: a FORBIDDEN hit refuses the row, and flags are printed. The row is
+     * assembled in the shape `lintRow` reads -- a concept has a name and a description rather than a
+     * stem and options, so both go in as fields it can see, and the ENGLISH goes in because the modal
+     * rule is RELATIVE and abstains without a source.
+     *
+     * A refusal here costs one regeneration. Not refusing costs a human read, which is what it cost. */
+    {
+      const lintObj = { language: p.lang, question_text: t.name ?? "", options: [],
+        explanation: t.description ?? "" };
+      const lintEn = { language: "en", question_text: c.name ?? "", options: [],
+        explanation: c.description ?? "" };
+      const lint = lintRow(lintObj, p.code, lintEn);
+      if (lint.forbidden.length) {
+        console.log("  " + label + "  GLOSSARY VIOLATION on " + c.slug + " -- refusing the row:");
+        for (const h of lint.forbidden) {
+          console.log("      " + h.family + "." + h.key + ' "' + h.variant + '" in ' + h.field +
+            " -> expected \"" + h.expected + "\"");
+        }
+        problems.push(p.code + "/" + p.lang + " " + c.slug + ": glossary violation " +
+          lint.forbidden.map((h) => h.variant).join(", "));
+        guardFail++;
+        bad = true;
+        break;
+      }
+      for (const h of lint.mixed) {
+        console.log("  " + label + "  glossary FLAG " + c.slug + ": " + h.family + "." + h.key +
+          (h.variant ? ' "' + h.variant + '"' : "") + (h.note ? " -- " + h.note : ""));
+      }
+      for (const h of lint.untranslated) {
+        console.log("  " + label + '  glossary FLAG ' + c.slug + ': English "' + h.english +
+          '" left in ' + h.field);
+      }
     }
     /* ============ tr_hash IS NOT NULL SINCE MIGRATION 364 ============
      *
