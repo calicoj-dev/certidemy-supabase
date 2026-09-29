@@ -36,7 +36,10 @@ for (const b of loaded) {
     const code = r.task_code;
     if (!byTask.has(code)) {
       byTask.set(code, { code, batch: b.name, attempted: 0, survivors: 0, gates: {}, cues: {},
-        clauses: new Set(), items: [] });
+        clauses: new Set(), items: [],
+        /* TWO measurements, never one. keyPick = the probe picked the key from the options alone;
+         * flags = it picked the key AND named the cue. flags is a SUBSET of keyPick. */
+        keyPick: 0, flags: 0, probed: 0 });
     }
     const t = byTask.get(code);
     t.attempted++;
@@ -46,6 +49,14 @@ for (const b of loaded) {
       t.items.push(r);
       const pr = r.options_probe || {};
       if (pr.state === "flag") t.cues[pr.cue_kind || "flag"] = (t.cues[pr.cue_kind || "flag"] || 0) + 1;
+      /* A PROBE THAT DID NOT RUN IS NOT A PROBE THAT FOUND NOTHING. `probed` is the denominator, so a
+       * could-not-run cell cannot quietly improve a rate. */
+      if (pr.state) {
+        t.probed++;
+        const keyLabel = String.fromCharCode(65 + (r.item || {}).correct_index);
+        if (pr.pick === keyLabel) t.keyPick++;
+        if (pr.state === "flag") t.flags++;
+      }
     } else {
       /* a rejection can name more than one gate; solver states are counted under their own names */
       const failed = (r.gates || []).filter((g) => g.pass === false).map((g) => g.id);
@@ -113,8 +124,8 @@ p("| **total** | **" + spend.calls + "** | **" + spend.input + "** | **" + spend
 p("");
 p("## Per task");
 p("");
-p("| task | batch | shortfall | attempted | survived | rejections by gate | cue flags | distinct anchors |");
-p("|---|---|---|---|---|---|---|---|");
+p("| task | batch | shortfall | attempted | survived | rejections by gate | key-pick | flag | cue flags | distinct anchors |");
+p("|---|---|---|---|---|---|---|---|---|---|");
 const shortfalls = JSON.parse(readFileSync(join(ROOT, "AIMSF-ROLLOUT-SHORTFALL.json"), "utf8"));
 const sfOf = new Map(shortfalls.per_task.map((r) => [r.code, r.shortfall]));
 for (const r of rows) {
@@ -122,14 +133,38 @@ for (const r of rows) {
     .map(([k, v]) => "`" + k + "` " + v).join(", ") || "—";
   const c = Object.entries(r.cues).sort((a, b) => b[1] - a[1])
     .map(([k, v]) => k + " " + v).join(", ") || "—";
+  const rate = (n) => r.probed ? Math.round((n / r.probed) * 100) + "% (" + n + "/" + r.probed + ")" : "—";
   p("| " + r.code + " | " + r.batch + " | " + (sfOf.get(r.code) ?? "—") + " | " + r.attempted + " | **" +
-    r.survivors + "** | " + g + " | " + c + " | " + r.clauses.size + " |");
+    r.survivors + "** | " + g + " | " + rate(r.keyPick) + " | " + rate(r.flags) + " | " + c + " | " +
+    r.clauses.size + " |");
 }
 p("");
 const gateTotals = {};
 for (const r of rows) for (const [k, v] of Object.entries(r.gates)) gateTotals[k] = (gateTotals[k] || 0) + v;
 p("**Rejections across the run:** " +
   (Object.entries(gateTotals).sort((a, b) => b[1] - a[1]).map(([k, v]) => "`" + k + "` " + v).join(", ") || "none"));
+p("");
+const tot = rows.reduce((a, r) => ({ probed: a.probed + r.probed, keyPick: a.keyPick + r.keyPick,
+  flags: a.flags + r.flags }), { probed: 0, keyPick: 0, flags: 0 });
+const pct = (n, d) => d ? Math.round((n / d) * 100) + "%" : "n/a";
+p("### The options probe, against the authored bank");
+p("");
+p("**These are two measurements and only one of them compares to 98 percent.** The authored bank's");
+p("98 percent is a KEY-PICK rate: how often the probe, shown the options alone with no stem, picks the");
+p("key. A FLAG is narrower -- it picked the key AND could name the cue it used -- so the flag count is a");
+p("subset of the key-pick count by construction. Reading a flag rate against 98 percent would report an");
+p("improvement nobody measured.");
+p("");
+p("| | rate | |");
+p("|---|---|---|");
+p("| **key-pick, these survivors** | **" + pct(tot.keyPick, tot.probed) + "** (" + tot.keyPick + "/" +
+  tot.probed + ") | the figure comparable to 98% |");
+p("| key-pick, authored bank | 98% | measured in the 480-item audit |");
+p("| key-pick, chance | 25% | four options |");
+p("| flag (picked the key AND named the cue) | " + pct(tot.flags, tot.probed) + " (" + tot.flags + "/" +
+  tot.probed + ") | a SUBSET of key-pick, not comparable to 98% |");
+p("");
+p("The probe FLAGS and never rejects, and it has no target rate. Per-task rates are in the table above.");
 p("");
 p("`quote-noise`: **" + (gateTotals["quote-noise"] || 0) + "**. That count is what will say later whether");
 p("the extraction repair is worth money.");
