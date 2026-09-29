@@ -1,0 +1,83 @@
+{
+ "cert": "AIMS-IA",
+ "task": "4.12",
+ "statement": "Analyze whether a control declared in the statement of applicability is implemented as declared",
+ "added_by": "director hand link 2026-09-29",
+ "rows": [
+  {
+   "passage_id": "9ecb1844-f048-442b-ab13-965ac1cf8b12",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.3",
+   "role": "primary",
+   "edition": "2023",
+   "title": "AI risk treatment"
+  },
+  {
+   "passage_id": "faa45f8e-a02a-4d83-9477-44c5df093c71",
+   "source": "ISO/IEC 42001",
+   "clause": "8.1",
+   "role": "primary",
+   "edition": "2023",
+   "title": "Operational planning and control"
+  },
+  {
+   "passage_id": "05759757-9423-41d5-8703-5c849f68b10d",
+   "source": "ISO/IEC 42001",
+   "clause": "8.3",
+   "role": "primary",
+   "edition": "2023",
+   "title": "AI risk treatment"
+  },
+  {
+   "passage_id": "8b5ada42-013f-4729-8784-6da4c9b51e8d",
+   "source": "ISO 19011",
+   "clause": "6.4.7",
+   "role": "primary",
+   "edition": "2026",
+   "title": "Collecting and verifying information"
+  },
+  {
+   "passage_id": "2dde7234-1576-403d-bd90-a5dddbbbca26",
+   "source": "ISO 19011",
+   "clause": "6.4.8",
+   "role": "primary",
+   "edition": "2026",
+   "title": "Generating the audit findings"
+  },
+  {
+   "passage_id": "142e540a-8906-499f-92ca-81f8a62a6107",
+   "source": "ISO/IEC 42001",
+   "clause": "3.26",
+   "role": "supporting",
+   "edition": "2023",
+   "title": "statement of applicability documentation"
+  },
+  {
+   "passage_id": "1f555300-e944-47e7-b834-fdef4c511a52",
+   "source": "ISO/IEC 42001",
+   "clause": "7.5.3",
+   "role": "supporting",
+   "edition": "2023",
+   "title": "Control of documented information"
+  },
+  {
+   "passage_id": "29c95e9f-deed-4b13-a6c1-915ac14629eb",
+   "source": "ISO 19011",
+   "clause": "6.4.6",
+   "role": "supporting",
+   "edition": "2026",
+   "title": "Reviewing documented information while conducting the audit"
+  },
+  {
+   "passage_id": "c588cd04-6af6-4814-a643-ece8d553812a",
+   "source": "ISO 19011",
+   "clause": "A.5",
+   "role": "supporting",
+   "edition": "2026",
+   "title": "Verifying information"
+  }
+ ],
+ "inserted": 9,
+ "already_present": 0,
+ "zero_primary_tasks": []
+}
