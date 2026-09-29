@@ -74,3 +74,10 @@ SOURCE-PASSAGES.json
 # every item including the rejected ones, and --from reads it, so the raw file is redundant
 # once gating has run. It is also more licensed quotation than needs to be in git.
 PILOT-*-raw.json
+
+# The gating CHECKPOINT is a crash-recovery file, not an artifact. It carries the same records the gated
+# artifact does (plus a per-item spend and rejection delta), so committing it would be a second copy of
+# every verdict -- and a second copy of the licensed key_support with them. A completed run renames it
+# to `.done`; both spellings are ignored.
+*.partial.jsonl
+*.partial.jsonl.done
