@@ -3,19 +3,20 @@
  "model": "claude-opus-5",
  "standard": "ISO/IEC 42001",
  "edition": "2023",
- "attempted": 40,
- "generated": 2,
- "survivors": 1,
+ "attempted": 1,
+ "generated": 1,
+ "survivors": 0,
  "generation_note": null,
  "reject_counts": {
-  "solver: second defensible option": 1
+  "solver: solver-split": 1,
+  "solver: passages do not settle it": 1
  },
  "tasks_mapped": 35,
  "tasks_total": 35,
  "unmapped_tasks": [],
  "held_tasks": [],
  "paraphrase_retry": {
-  "fixed": 0,
+  "fixed": 1,
   "still_failing": 0
  },
  "de_cue_retry": {
@@ -28,67 +29,67 @@
   "could_not_run": 0
  },
  "key_pick_before": {
-  "n": 1,
+  "n": 0,
   "hit": 0,
-  "pct": 0
+  "pct": null
  },
  "key_pick_after": {
-  "n": 1,
+  "n": 0,
   "hit": 0,
-  "pct": 0
+  "pct": null
  },
  "shape_cues_before": {},
  "shape_cues_after": {},
  "anchor_clusters": [],
  "options_probe_flags": 0,
  "options_probe_unrun": 0,
- "longest_served_run_max": 5,
+ "longest_served_run_max": null,
  "items": [
   {
-   "task_code": "1.3",
-   "domain": "D1",
+   "task_code": "4.3",
+   "domain": "D4",
    "item": {
-    "question_text": "A deployed classifier does not learn continuously, but its accuracy declines as the production data shifts, and the team prepares a retraining round. Which Annex A life-cycle control covers this activity?",
+    "question_text": "A deployer's resource records list the data sets, the modelling tools and the cloud hosting used by its AI system. An internal audit finds nothing recorded about which specialists, and with what skills, carry out maintenance, transfer and retirement of the system. Which Annex A control category best closes this specific gap?",
     "options": [
      {
-      "text": "Operation and monitoring, whose documented elements cover performance monitoring and updates",
+      "text": "The human resources control within resources for AI systems",
       "is_correct": true
      },
      {
-      "text": "Verification and validation, whose documented measures come with criteria for their use",
+      "text": "The AI roles and responsibilities control within internal organization",
       "is_correct": false
      },
      {
-      "text": "Deployment, whose documented plan confirms the applicable requirements before go-live",
+      "text": "The tooling resources control within resources for AI systems",
       "is_correct": false
      },
      {
-      "text": "Technical documentation, whose content is matched to categories of interested parties",
+      "text": "The resource documentation control within resources for AI systems",
       "is_correct": false
      }
     ],
     "correct_index": 0,
-    "explanation": "Detecting shifted performance in production and updating the system sits in the operation and monitoring stage. A.6.2.6 calls for documented elements for the ongoing running of the AI system, covering as a minimum the monitoring of the system and its performance, the fixing of faults, the issuing of updates and the provision of support. The other options name controls attached to earlier stages or to documentation provision.",
-    "key_support_clause": "A.6.2.6",
-    "key_support": "At the minimum, this should include system and performance monitoring, repairs, updates and support.",
+    "explanation": "Clause A.4.6 is the resource-identification control aimed at people: it calls for recorded detail on the personnel used for the AI system and the competences they bring, spanning the stages from build and operation through to maintenance, transfer and retirement. The audit finding concerns exactly that missing record of who does the work and with what skills, so A.4.6 is the category that closes it.",
+    "key_support_clause": "A.4.6",
+    "key_support": "As part of resource identification, the organization shall document information about the human resources and their competences utilized for the development, deployment, operation, change management, maintenance, transfer and decommissioning, as well as verification and integration of the AI system.",
     "distractor_support": [
      {
       "index": 1,
-      "clause": "A.6.2.4",
-      "support": "and validation measures for the AI system and specify criteria for their use.",
-      "why_wrong": "Verification and validation measures are set for testing the system, not for handling drift in live production data."
+      "clause": "A.3.2",
+      "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+      "why_wrong": "This control is about defining and allocating accountability inside the organization, not about documenting the people and competences counted as an AI system resource."
      },
      {
       "index": 2,
-      "clause": "A.6.2.5",
-      "support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
-      "why_wrong": "The deployment control addresses what happens ahead of go-live, not performance change during use."
+      "clause": "A.4.4",
+      "support": "As part of resource identification, the organization shall document information about the tooling resources utilized for the AI system.",
+      "why_wrong": "Tooling is already documented in the scenario, so this control addresses a resource category that is not the gap."
      },
      {
       "index": 3,
-      "clause": "A.6.2.7",
-      "support": "documentation is needed for each relevant category of interested parties",
-      "why_wrong": "This control concerns determining and supplying technical documentation, not monitoring or retraining."
+      "clause": "A.4.2",
+      "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
+      "why_wrong": "This is the umbrella identification control, whereas the gap concerns the specific resource category for people and their competences."
      }
     ]
    },
@@ -109,7 +110,7 @@
      "id": "modal-fidelity",
      "pass": true,
      "examined": 1,
-     "reason": "item asserts a none; anchor is a recommendation by the anchor sentence (clause classed shall)"
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
     },
     {
      "id": "superseded-wording",
@@ -127,7 +128,7 @@
      "id": "near-duplicate",
      "pass": true,
      "examined": 20,
-     "reason": "closest live item on this task shares 17%"
+     "reason": "closest live item on this task shares 44%"
     },
     {
      "id": "shared-distractor-phrase",
@@ -138,14 +139,14 @@
     {
      "id": "anchor-is-primary",
      "pass": true,
-     "examined": 13,
-     "reason": "the key anchors in A.6.2.6, a primary passage of this task"
+     "examined": 10,
+     "reason": "the key anchors in A.4.6, a primary passage of this task"
     },
     {
      "id": "reproduction",
      "pass": true,
      "examined": 6,
-     "reason": "6 served field(s), longest run 5 words in explanation"
+     "reason": "6 served field(s), longest run 5 words in option b"
     },
     {
      "id": "no-27000",
@@ -157,210 +158,26 @@
    "failed": [],
    "unasserted": [],
    "longest_served_run": 5,
-   "longest_served_in": "explanation",
+   "longest_served_in": "option b",
    "attributed_quotation": null,
-   "grounding_family": "A.6.2.6",
+   "grounding_family": "A.4.6",
    "solver": {
-    "state": "accepted",
-    "reason": "solved to the key from the passages, no second defensible option",
+    "state": "split",
+    "runs": 2,
+    "first": {
+     "state": "rejected",
+     "reason": "the solver picked the key but calls D defensible: A.4.2/B.4.2 is the umbrella resource documentation control and expressly lists human resources (people with necessary expertise) among the resources to identify and document, so a candidate could defend it as covering the gap, though it is less specific than A.4.6."
+    },
+    "second": {
+     "state": "could-not-run",
+     "reason": "BLIND SOLVER PAYLOAD IS NOT BLIND: the payload is not byte-identical to the item's own question and options"
+    },
+    "reason": "solver-split: run 1 rejected, run 2 could-not-run with options shuffled -- BLIND SOLVER PAYLOAD IS NOT BLIND: the payload is not byte-identical to the item's own question and options",
     "raw": {
      "answer": "A",
-     "answer_reason": "B.6.2.6 (AI system operation and monitoring) explicitly addresses systems that do not use continuous learning whose performance changes due to concept or data drift, stating that monitoring can identify the need for retraining, and includes updates among the minimum elements.",
-     "second_defensible": null,
-     "second_defensible_reason": null,
-     "settled_by_passages": true
-    }
-   },
-   "options_probe": {
-    "state": "no-cue",
-    "pick": "D",
-    "cue": "Options A, B and C all read \"whose documented <noun>\" while D alone drops \"documented\" and says \"whose content\", making it the odd one out in wording.",
-    "cue_kind": "shared-phrase",
-    "reason": "picked D, not the key -- the options do not give it away"
-   },
-   "verdict": "survivor",
-   "item_id": "35f851d3",
-   "shape_cues_before": [],
-   "decue_trigger": [],
-   "decue_non_trigger_cues": [],
-   "options_probe_before": {
-    "state": "no-cue",
-    "pick": "D",
-    "cue": "Options A, B and C all read \"whose documented <noun>\" while D alone drops \"documented\" and says \"whose content\", making it the odd one out in wording.",
-    "cue_kind": "shared-phrase",
-    "reason": "picked D, not the key -- the options do not give it away"
-   },
-   "item_before_decue": {
-    "question_text": "A deployed classifier does not learn continuously, but its accuracy declines as the production data shifts, and the team prepares a retraining round. Which Annex A life-cycle control covers this activity?",
-    "options": [
-     {
-      "text": "Operation and monitoring, whose documented elements cover performance monitoring and updates",
-      "is_correct": true
-     },
-     {
-      "text": "Verification and validation, whose documented measures come with criteria for their use",
-      "is_correct": false
-     },
-     {
-      "text": "Deployment, whose documented plan confirms the applicable requirements before go-live",
-      "is_correct": false
-     },
-     {
-      "text": "Technical documentation, whose content is matched to categories of interested parties",
-      "is_correct": false
-     }
-    ],
-    "correct_index": 0,
-    "explanation": "Detecting shifted performance in production and updating the system sits in the operation and monitoring stage. A.6.2.6 calls for documented elements for the ongoing running of the AI system, covering as a minimum the monitoring of the system and its performance, the fixing of faults, the issuing of updates and the provision of support. The other options name controls attached to earlier stages or to documentation provision.",
-    "key_support_clause": "A.6.2.6",
-    "key_support": "At the minimum, this should include system and performance monitoring, repairs, updates and support.",
-    "distractor_support": [
-     {
-      "index": 1,
-      "clause": "A.6.2.4",
-      "support": "and validation measures for the AI system and specify criteria for their use.",
-      "why_wrong": "Verification and validation measures are set for testing the system, not for handling drift in live production data."
-     },
-     {
-      "index": 2,
-      "clause": "A.6.2.5",
-      "support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
-      "why_wrong": "The deployment control addresses what happens ahead of go-live, not performance change during use."
-     },
-     {
-      "index": 3,
-      "clause": "A.6.2.7",
-      "support": "documentation is needed for each relevant category of interested parties",
-      "why_wrong": "This control concerns determining and supplying technical documentation, not monitoring or retraining."
-     }
-    ]
-   },
-   "shape_cues_after": []
-  },
-  {
-   "task_code": "1.3",
-   "domain": "D1",
-   "item": {
-    "question_text": "An auditor asks why AIMS obligations are spread across stages instead of concentrating at release. Which description best captures the stated aim of the AI system life cycle control set?",
-    "options": [
-     {
-      "text": "Setting the criteria and requirements that apply at each separate stage",
-      "is_correct": true
-     },
-     {
-      "text": "Gathering evidence from earlier work into a single release decision",
-      "is_correct": false
-     },
-     {
-      "text": "Tracking where data came from across the data and system life cycles",
-      "is_correct": false
-     },
-     {
-      "text": "Documenting objectives and processes for responsible design and development",
-      "is_correct": false
-     }
-    ],
-    "correct_index": 0,
-    "explanation": "The objective stated at B.6.2.1 for this control set is to establish, stage by stage, what the criteria and requirements are across the AI system life cycle, which is why obligations attach at every stage rather than only at release. The other options restate the aim of data provenance, restate the aim of the responsible development guidance, or collapse the life cycle into a single release gate.",
-    "key_support_clause": "B.6.2.1",
-    "key_support": "To define the criteria and requirements for each stage of the AI system life cycle.",
-    "distractor_support": [
-     {
-      "index": 1,
-      "clause": "B.6.2.1",
-      "support": "To define the criteria and requirements for each stage of the AI system life cycle.",
-      "why_wrong": "The stated aim is stage-by-stage criteria, not evidence funnelled into one release decision."
-     },
-     {
-      "index": 2,
-      "clause": "A.7.5",
-      "support": "Data provenance The organization shall define and document a process for recording the provenance of data used in its AI systems over the life cycles of the data and the AI system.",
-      "why_wrong": "This is the aim of the data provenance control, not of the life cycle control set."
-     },
-     {
-      "index": 3,
-      "clause": "B.6.1.1",
-      "support": "To ensure that the organization identifies and documents objectives and implements processes for the responsible design and development of AI systems.",
-      "why_wrong": "This is the objective of the management guidance for development, a different control set."
-     }
-    ]
-   },
-   "gates": [
-    {
-     "id": "clause-exists",
-     "pass": true,
-     "examined": 4,
-     "reason": "4 clause(s) resolve"
-    },
-    {
-     "id": "verbatim",
-     "pass": true,
-     "examined": 4,
-     "reason": "4 anchor(s) verbatim in their named passage"
-    },
-    {
-     "id": "modal-fidelity",
-     "pass": true,
-     "examined": 1,
-     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
-    },
-    {
-     "id": "superseded-wording",
-     "pass": true,
-     "examined": 6,
-     "reason": "6 field(s) carry no retired wording"
-    },
-    {
-     "id": "structure",
-     "pass": true,
-     "examined": 4,
-     "reason": "4 options, no structural tell"
-    },
-    {
-     "id": "near-duplicate",
-     "pass": true,
-     "examined": 20,
-     "reason": "closest live item on this task shares 58%"
-    },
-    {
-     "id": "shared-distractor-phrase",
-     "pass": true,
-     "examined": 3,
-     "reason": "3 distractors share no run of 4+ words the key lacks"
-    },
-    {
-     "id": "anchor-is-primary",
-     "pass": true,
-     "examined": 13,
-     "reason": "the key anchors in B.6.2.1, a primary passage of this task"
-    },
-    {
-     "id": "reproduction",
-     "pass": true,
-     "examined": 6,
-     "reason": "6 served field(s), longest run 6 words in stem"
-    },
-    {
-     "id": "no-27000",
-     "pass": true,
-     "examined": 6
-    }
-   ],
-   "code_passed": true,
-   "failed": [],
-   "unasserted": [],
-   "longest_served_run": 6,
-   "longest_served_in": "stem",
-   "attributed_quotation": null,
-   "grounding_family": "B.6.2.1",
-   "solver": {
-    "state": "rejected",
-    "reason": "the solver picked the key but calls D defensible: B.6.1.1 states an objective about identifying and documenting objectives and processes for responsible design and development, which a candidate could mistake for the life cycle set's aim though it belongs to A.6.1 (management guidance) rather than A.6.2.",
-    "raw": {
-     "answer": "A",
-     "answer_reason": "Clause B.6.2.1/A.6.2 states the objective of the AI system life cycle control set is \"To define the criteria and requirements for each stage of the AI system life cycle.\"",
+     "answer_reason": "A.4.6 requires the organization to document information about the human resources and their competences utilized for development, deployment, operation, change management, maintenance, transfer and decommissioning of the AI system — exactly the missing specialist/skills records.",
      "second_defensible": "D",
-     "second_defensible_reason": "B.6.1.1 states an objective about identifying and documenting objectives and processes for responsible design and development, which a candidate could mistake for the life cycle set's aim though it belongs to A.6.1 (management guidance) rather than A.6.2.",
+     "second_defensible_reason": "A.4.2/B.4.2 is the umbrella resource documentation control and expressly lists human resources (people with necessary expertise) among the resources to identify and document, so a candidate could defend it as covering the gap, though it is less specific than A.4.6.",
      "settled_by_passages": true
     }
    },

@@ -1,0 +1,282 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 5,
+  "input_tokens": 27190,
+  "output_tokens": 3699,
+  "usd": 0.6853,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 2,
+    "input": 15017,
+    "output": 3043
+   },
+   "solver": {
+    "calls": 3,
+    "input": 12173,
+    "output": 656
+   }
+  }
+ },
+ "attempted": 1,
+ "generated": 1,
+ "survivors": 1,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 1,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 0,
+  "applied": 0,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 1,
+  "hit": 0,
+  "pct": 0
+ },
+ "key_pick_after": {
+  "n": 1,
+  "hit": 0,
+  "pct": 0
+ },
+ "shape_cues_before": {
+  "clang": 1
+ },
+ "shape_cues_after": {
+  "clang": 1
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 0,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 5,
+ "items": [
+  {
+   "task_code": "4.3",
+   "domain": "D4",
+   "item": {
+    "question_text": "An insurer has an approved and published AI policy, and management reviews it every twelve months. An internal audit finds that the insurer's long-standing data protection and information security policies were written years before any AI deployment, and nobody has examined whether those policies bear on, or are affected by, the insurer's AI-related aims. Which Annex A control best closes this particular gap?",
+    "options": [
+     {
+      "text": "Working out where the insurer's other policies bear on, or are touched by, its AI-related aims",
+      "is_correct": true
+     },
+     {
+      "text": "Documenting a policy that covers how the insurer develops or makes use of AI systems",
+      "is_correct": false
+     },
+     {
+      "text": "Reviewing the AI policy at planned intervals and further when circumstances make it necessary",
+      "is_correct": false
+     },
+     {
+      "text": "Identifying and documenting the resources needed for activities at AI life cycle stages",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The gap is the unexamined intersection between pre-existing corporate policies and the AI objectives, which is the subject of A.2.3 on alignment with other organizational policies: that control obliges the organization to work out which of its other policies its AI-related objectives touch or are touched by. The policy itself already exists (A.2.2) and is already on a review cycle (A.2.4), and no resource inventory question arises (A.4.2).",
+    "key_support_clause": "A.2.3",
+    "key_support": "Alignment with other organizaThe organization shall determine where other policies can tional policies be affected by or apply to, the organization’s objectives with respect to AI systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.2.2",
+      "support": "The organization shall document a policy for the development or use of AI systems.",
+      "why_wrong": "The insurer already has a documented and approved AI policy, so the deficiency is not the absence of that policy."
+     },
+     {
+      "index": 2,
+      "clause": "A.2.4",
+      "support": "The AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "A twelve-month management review cycle already satisfies the planned-interval review control, which says nothing about other corporate policies."
+     },
+     {
+      "index": 3,
+      "clause": "A.4.2",
+      "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
+      "why_wrong": "This control concerns inventorying data, tooling, system and human resources, not reconciling policy documents with AI objectives."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 38%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 10,
+     "reason": "the key anchors in A.2.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "A.2.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.2.3 requires the organization to determine where other policies can be affected by or apply to its objectives with respect to AI systems, which is exactly the unexamined intersection with the legacy data protection and security policies.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "A, B and C all contain the word \"policy\" (\"other policies\", \"a policy\", \"the AI policy\") while D is the only option that omits it, making it the lone odd term out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "a8c86815",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"insurer's\", \"policies\", \"related\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "A, B and C all contain the word \"policy\" (\"other policies\", \"a policy\", \"the AI policy\") while D is the only option that omits it, making it the lone odd term out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "An insurer has an approved and published AI policy, and management reviews it every twelve months. An internal audit finds that the insurer's long-standing data protection and information security policies were written years before any AI deployment, and nobody has examined whether those policies bear on, or are affected by, the insurer's AI-related aims. Which Annex A control best closes this particular gap?",
+    "options": [
+     {
+      "text": "Working out where the insurer's other policies bear on, or are touched by, its AI-related aims",
+      "is_correct": true
+     },
+     {
+      "text": "Documenting a policy that covers how the insurer develops or makes use of AI systems",
+      "is_correct": false
+     },
+     {
+      "text": "Reviewing the AI policy at planned intervals and further when circumstances make it necessary",
+      "is_correct": false
+     },
+     {
+      "text": "Identifying and documenting the resources needed for activities at AI life cycle stages",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The gap is the unexamined intersection between pre-existing corporate policies and the AI objectives, which is the subject of A.2.3 on alignment with other organizational policies: that control obliges the organization to work out which of its other policies its AI-related objectives touch or are touched by. The policy itself already exists (A.2.2) and is already on a review cycle (A.2.4), and no resource inventory question arises (A.4.2).",
+    "key_support_clause": "A.2.3",
+    "key_support": "Alignment with other organizaThe organization shall determine where other policies can tional policies be affected by or apply to, the organization’s objectives with respect to AI systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.2.2",
+      "support": "The organization shall document a policy for the development or use of AI systems.",
+      "why_wrong": "The insurer already has a documented and approved AI policy, so the deficiency is not the absence of that policy."
+     },
+     {
+      "index": 2,
+      "clause": "A.2.4",
+      "support": "The AI policy shall be reviewed at planned intervals or additionally as needed to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "A twelve-month management review cycle already satisfies the planned-interval review control, which says nothing about other corporate policies."
+     },
+     {
+      "index": 3,
+      "clause": "A.4.2",
+      "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
+      "why_wrong": "This control concerns inventorying data, tooling, system and human resources, not reconciling policy documents with AI objectives."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"insurer's\", \"policies\", \"related\" from the stem and no distractor does"
+    }
+   ]
+  }
+ ]
+}

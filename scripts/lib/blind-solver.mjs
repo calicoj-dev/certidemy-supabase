@@ -93,7 +93,23 @@ export function assertBlind(payload, item) {
       text: String((o && o.text) || ""),
     })),
   };
-  const faithful = JSON.stringify(payload) === JSON.stringify(itemVisible);
+  /* ============ A PERMUTATION IS FAITHFUL ============
+   *
+   * This was a byte-identical comparison, and PROMPT-91 s2 requires the second solver run to SHUFFLE the
+   * options. The two collided: every run-two payload was refused as "not byte-identical" and the second
+   * call never reached the API, so every item split by construction.
+   *
+   * Fidelity exists to prove no text was altered, added or removed -- which is what makes an explanation
+   * overlapping the payload harmless. A permutation preserves every part of that. So: the stem must match
+   * exactly, and the option texts must match as a MULTISET. A rewritten option changes a text, a dropped
+   * or added one changes the count, an appended explanation changes the stem. All still caught. */
+  const sameStem = String((payload || {}).question || "") === itemVisible.question;
+  const bag = (arr) => (arr || []).map((o) => String((o && o.text) || "")).sort();
+  const payloadBag = bag((payload || {}).options);
+  const itemBag = bag(itemVisible.options);
+  const sameOptions = payloadBag.length === itemBag.length &&
+    payloadBag.every((t, i) => t === itemBag[i]);
+  const faithful = sameStem && sameOptions;
   if (!faithful) {
     bad.push("the payload is not byte-identical to the item's own question and options");
   }

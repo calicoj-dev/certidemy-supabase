@@ -212,6 +212,37 @@ if (!ANTHROPIC_API_KEY) { console.error("ANTHROPIC_API_KEY not found (scripts/.e
  * of this script lost every item to that -- reported, correctly, as "writer could not run"
  * rather than as items the gates refused. Sampling is not something this path needs to
  * control: the blind solver and the code gates decide, not the writer's variance. */
+/* ============ THE SPEND METER ============
+ *
+ * Every call's token usage, tagged by role. The API has always returned this and nothing read it, which
+ * is why every cost figure in this repository has been in CALLS rather than dollars. Prices are per
+ * MILLION tokens and live in ONE place, so a stale price cannot hide inside an estimate. */
+const PRICE_PER_MTOK = { input: 15.0, output: 75.0 };   /* claude-opus, USD per million tokens */
+const SPEND = { calls: 0, input: 0, output: 0, byRole: {} };
+let CALL_ROLE = "unattributed";
+function meter(role, usage) {
+  const inp = Number((usage || {}).input_tokens || 0);
+  const out = Number((usage || {}).output_tokens || 0);
+  SPEND.calls++; SPEND.input += inp; SPEND.output += out;
+  const r = SPEND.byRole[role] || (SPEND.byRole[role] = { calls: 0, input: 0, output: 0 });
+  r.calls++; r.input += inp; r.output += out;
+}
+function spendUSD(s) {
+  const x = s || SPEND;
+  return (x.input / 1e6) * PRICE_PER_MTOK.input + (x.output / 1e6) * PRICE_PER_MTOK.output;
+}
+function spendReport() {
+  const out = ["  SPEND  " + SPEND.calls + " call(s), " + SPEND.input + " in / " + SPEND.output +
+    " out tokens, $" + spendUSD().toFixed(2) + "   (at $" + PRICE_PER_MTOK.input + "/$" +
+    PRICE_PER_MTOK.output + " per Mtok)"];
+  for (const [role, r] of Object.entries(SPEND.byRole)) {
+    out.push("    " + role.padEnd(13) + String(r.calls).padStart(4) + " call(s)  " +
+      String(r.input).padStart(8) + " in  " + String(r.output).padStart(7) + " out  $" +
+      spendUSD(r).toFixed(2));
+  }
+  return out.join(String.fromCharCode(10));
+}
+
 async function claude(system, user, maxTokens = 4000) {
   for (let attempt = 1; ; attempt++) {
     try {
@@ -222,6 +253,7 @@ async function claude(system, user, maxTokens = 4000) {
       });
       if (!res.ok) throw new Error("Anthropic " + res.status + ": " + (await res.text()).slice(0, 300));
       const data = await res.json();
+      meter(CALL_ROLE, data.usage);
       return (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n");
     } catch (e) {
       /* A read retry is safe; there is no write on this path. */
@@ -651,6 +683,7 @@ if (FROM) {
        * seven grounded items in one response truncated, the array would not parse, and the run
        * reported `writer returned nothing` under an OUTCOME block that reads like a gate result. */
       const budget = Math.min(32000, 2000 + 2200 * k);
+      CALL_ROLE = "writer";
       const rawText = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), budget);
       arr = parseArray(rawText);
       /* THREE CAUSES, THREE MESSAGES. parseArray returns null whether the response carried no
@@ -710,6 +743,8 @@ const RAW = OUT.replace(/\.json$/, "") + "-raw.json";
 if (!FROM) {
   writeFileSync(join(ROOT, RAW), JSON.stringify({
     certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
+  spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
+    usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
     attempted: N, generated: generated.length,
     note: "RAW WRITER OUTPUT, ungated and unsolved. Not a result. Re-gate with --from=" + RAW,
     items: generated.map((g) => ({ task_code: g.task.code, item: g.item })),
@@ -748,6 +783,7 @@ for (const g of generated) {
   if (reproFailed && onlyRepro) {
     let revised = null;
     try {
+      CALL_ROLE = "paraphrase";
       revised = parseArray(await claude(WRITER_SYSTEM,
         writerUser(t, domById.get(t.domain_id) || {}, ps, 1) +
         "\n\nREWRITE THE ITEM BELOW. It is sound except that it reproduces the standard in a served" +
@@ -821,12 +857,52 @@ for (const g of generated) {
   }
   let parsed = null;
   try {
+    CALL_ROLE = "solver";
     parsed = parseObject(await claude(SOLVER_SYSTEM, solverUser(payload, ps), 1500));
   } catch (e) {
     parsed = null;
     record.solver_error = String(e.message).slice(0, 200);
   }
-  const v = solverVerdict(parsed, keyLabel);
+  const v1 = solverVerdict(parsed, keyLabel);
+  /* ============ RUN TWO: INDEPENDENT, SHUFFLED, AND BOTH MUST PASS ============
+   *
+   * Ruled PROMPT-91 s2. The solver gave one item two verdicts, so a single pass is a sample. Run two is
+   * a fresh call with the options shuffled, so a verdict resting on option order cannot survive both.
+   * The shuffle is seeded by the item's content id: an unseeded shuffle would make a split
+   * unrepeatable, and an unrepeatable finding cannot be argued with. */
+  let v = v1;
+  if (v1.state !== "could-not-run") {
+    let seed = parseInt(itemId(record.item).slice(0, 8), 16) || 1;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    const opts = payload.options.slice();
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(rnd() * (i + 1));
+      const tmp = opts[i]; opts[i] = opts[j]; opts[j] = tmp;
+    }
+    /* the key's TEXT is what identifies it after a shuffle, never its old label */
+    const keyText = (payload.options.find((o) => o.label === keyLabel) || {}).text;
+    const p2 = { ...payload,
+      options: opts.map((o, i) => ({ label: String.fromCharCode(65 + i), text: o.text })) };
+    const keyLabel2 = (p2.options.find((o) => o.text === keyText) || {}).label || keyLabel;
+    let v2 = { state: "could-not-run", reason: "run two did not execute" };
+    try {
+      assertBlind(p2, record.item);
+      CALL_ROLE = "solver";
+      v2 = solverVerdict(parseObject(await claude(SOLVER_SYSTEM, solverUser(p2, ps), 1500)), keyLabel2);
+    } catch (e) {
+      v2 = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
+    }
+    if (v1.state === "accepted" && v2.state === "accepted") {
+      v = { ...v1, runs: 2, second: v2 };
+    } else if (v1.state === v2.state) {
+      v = { ...v1, runs: 2, second: v2 };
+    } else {
+      v = { state: "split", runs: 2, first: v1, second: v2,
+        reason: "solver-split: run 1 " + v1.state + ", run 2 " + v2.state +
+          " with options shuffled -- " + String(v2.reason || v1.reason || "").slice(0, 140) };
+      bump("solver: solver-split");
+    }
+  }
   record.solver = { ...v, raw: parsed };
   if (v.state === "accepted") {
     record.item_id = itemId(record.item);
@@ -842,6 +918,7 @@ for (const g of generated) {
     try {
       const op = optionsPayload(item);
       assertOptionsOnly(op, item);
+      CALL_ROLE = "options-probe";
       const probeRaw = parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op), 800));
       const pv = optionsProbeVerdict(probeRaw, keyLabel);
       record.options_probe = pv;
@@ -921,6 +998,7 @@ for (const g of generated) {
       const keyText = item.options[keyIdxOf(item)].text;
       let revised = null;
       try {
+        CALL_ROLE = "de-cue";
         revised = parseObject(await claude(DE_CUE_SYSTEM,
           "CUE(S) A CANDIDATE COULD USE, from instruments that saw only the options:\n  - " + cueList +
           "\n\nSTEM (do not change):\n" + item.question_text +
@@ -998,6 +1076,7 @@ for (const g of generated) {
             try {
               const p2 = blindPayload(cand, ps);
               assertBlind(p2, cand);
+              CALL_ROLE = "solver-recheck";
               const parsed2 = parseObject(await claude(SOLVER_SYSTEM, solverUser(p2, ps), 1500));
               reSolver = solverVerdict(parsed2, keyLabel);
             } catch (e) {
@@ -1012,6 +1091,7 @@ for (const g of generated) {
               try {
                 const op2 = optionsPayload(cand);
                 assertOptionsOnly(op2, cand);
+                CALL_ROLE = "options-probe";
                 reProbe = optionsProbeVerdict(parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op2), 800)), keyLabel);
               } catch (e) {
                 reProbe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
@@ -1038,7 +1118,7 @@ for (const g of generated) {
     } else {
       record.shape_cues_after = record.shape_cues_before;
     }
-  } else if (v.state === "rejected") {
+  } else if ((v.state === "rejected" || v.state === "split")) {
     record.verdict = "rejected by solver";
     bump("solver: " + (v.reason.startsWith("the solver answered") ? "answered differently"
       : v.reason.includes("defensible") ? "second defensible option" : "passages do not settle it"));
@@ -1074,6 +1154,7 @@ for (const code of new Set(results.map((r) => r.task_code))) {
 const survivors = results.filter((r) => r.verdict === "survivor");
 console.log("");
 console.log("OUTCOME");
+console.log(spendReport());
 console.log("  generated          " + generated.length);
 console.log("  survivors          " + survivors.length);
 console.log("  rejected by code   " + results.filter((r) => r.verdict === "rejected by code").length);
@@ -1190,6 +1271,10 @@ console.log("  survivors over the ceiling            " + over.length + " (must b
 
 writeFileSync(join(ROOT, OUT), JSON.stringify({
   certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
+  /* the FINAL spend, after gating. The raw artifact carries only the writer calls, because it is written
+   * before any gate runs -- so a cost read off that one would omit every solver call. */
+  spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
+    usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
   attempted: N, generated: generated.length, survivors: survivors.length,
   generation_note: priorNote,
   reject_counts: Object.fromEntries(rejectCounts),

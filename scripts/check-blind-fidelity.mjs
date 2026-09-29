@@ -61,12 +61,20 @@ add("a REWRITTEN option fires on fidelity", true, () => {
   p.options[1].text = p.options[1].text + "  (this is the key)";
   return assertBlind(p, item);
 });
+add("a reorder PLUS a rewritten option still fires", true, () => {
+  const p = blindPayload(item);
+  const t = p.options[0].text; p.options[0].text = p.options[1].text; p.options[1].text = t;
+  p.options[2].text = p.options[2].text + "  (this is the key)";
+  return assertBlind(p, item);
+});
 add("a DROPPED option fires on fidelity", true, () => {
   const p = blindPayload(item);
   p.options.splice(3, 1);
   return assertBlind(p, item);
 });
-add("REORDERED options fire on fidelity", true, () => {
+/* INVERTED, PROMPT-91 s2: the second solver run shuffles the options deliberately, and a reorder
+ * alters no text. Fidelity is a multiset test now, so a permutation is faithful. */
+add("REORDERED options are FAITHFUL -- a permutation alters no text", false, () => {
   const p = blindPayload(item);
   const t = p.options[0].text; p.options[0].text = p.options[1].text; p.options[1].text = t;
   return assertBlind(p, item);
