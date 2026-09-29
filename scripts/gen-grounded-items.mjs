@@ -487,16 +487,23 @@ console.log("");
 
 
 /* ---------------------------------------------------------------- the prompt */
+/* ============ THE PASSAGES COME FROM `task_sources`, NOT FROM THE RANKER'S JSON ============
+ *
+ * Measured on task 1.3 after its promotion: the mapping file offered seven clauses of which exactly ONE
+ * was primary, while task_sources held thirteen primaries. Twelve -- including all seven controls just
+ * promoted -- were never put in front of the writer. Once C.3.6 reached the anchor cap the writer had no
+ * legal anchor left and returned an empty array, which was the correct answer to an impossible prompt.
+ *
+ * The role LABELS already came from task_sources while the passage SET came from the mapping file, so
+ * promoting a clause changed what the prompt would call it and not whether it was there. The rule was
+ * already in this file for the role map; this applies it to the set.
+ *
+ * Primaries first, so the writer reads what it may anchor in before what it may not. */
 function passagesFor(t) {
-  const m = mapByCode.get(t.code) || {};
-  const clauses = [
-    ...(m.cited || []).filter((c) => c.state === "held").map((c) => c.clause),
-    ...(m.cited || []).filter((c) => c.state === "container").flatMap((c) => c.children || []),
-    ...(m.candidates || []).map((c) => c.clause),
-  ];
+  const prim = primaryOf(t.code), supp = supportingOf(t.code);
   const out = [];
   const seen = new Set();
-  for (const c of clauses) {
+  for (const c of [...prim, ...supp]) {
     if (seen.has(c)) continue;
     seen.add(c);
     const p = passagesByKey.get(c);
@@ -638,12 +645,33 @@ if (FROM) {
        * seven grounded items in one response truncated, the array would not parse, and the run
        * reported `writer returned nothing` under an OUTCOME block that reads like a gate result. */
       const budget = Math.min(32000, 2000 + 2200 * k);
-      arr = parseArray(await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), budget));
+      const rawText = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), budget);
+      arr = parseArray(rawText);
+      /* THREE CAUSES, THREE MESSAGES. parseArray returns null whether the response carried no
+       * brackets, would not parse, or was empty -- and one bumped string for all three is why two
+       * runs ended on 'writer returned nothing' with no way to tell a refusal from a truncation. */
+      if (!Array.isArray(arr) || !arr.length) {
+        const head = String(rawText || "").replace(/\s+/g, " ").slice(0, 300);
+        const hasOpen = String(rawText || "").includes("[");
+        const hasClose = String(rawText || "").includes("]");
+        const why = !rawText ? "the model returned NOTHING (empty response)"
+          : !hasOpen ? "the response carried NO array at all -- prose or a refusal"
+          : !hasClose ? "the array was NOT CLOSED -- the response was TRUNCATED, so the budget " +
+            "of " + budget + " tokens was too small for " + k + " item(s)"
+          : Array.isArray(arr) ? "the model returned an EMPTY array"
+          : "the bracketed text would not parse as JSON";
+        console.log("  " + t.code + "  WRITER PRODUCED NO ITEMS: " + why);
+        console.log("      response length " + String(rawText || "").length +
+          " char(s); head: " + head);
+        bump("writer produced no items: " + why);
+        continue;
+      }
     } catch (e) {
       console.log("  " + t.code + "  WRITER FAILED: " + String(e.message).slice(0, 120));
       bump("writer could not run");
       continue;
     }
+    /* unreachable for the empty case -- handled above with a named cause -- and kept as a type guard */
     if (!Array.isArray(arr) || !arr.length) { bump("writer returned nothing"); continue; }
     /* A SHORT ARRAY IS REPORTED, NEVER SILENTLY ACCEPTED. `slice(0, k)` below takes what arrived, so
      * a half-truncated response would have produced 3 of 7 and printed "wrote 3 item(s)" with nothing

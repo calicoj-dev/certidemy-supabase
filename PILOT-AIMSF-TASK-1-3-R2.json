@@ -8,7 +8,7 @@
  "survivors": 0,
  "generation_note": null,
  "reject_counts": {
-  "writer returned nothing": 1
+  "writer produced no items: the model returned an EMPTY array": 1
  },
  "tasks_mapped": 35,
  "tasks_total": 35,
