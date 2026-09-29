@@ -1,0 +1,830 @@
+{
+ "certs": [
+  "AIMS-F",
+  "AIMS-IA",
+  "ISMS-F",
+  "ISMS-IA"
+ ],
+ "in_scope": [
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "10.2",
+   "title": "Nonconformity and corrective action",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-IA 5.1",
+    "ISMS-F 5.4",
+    "ISMS-IA 1.5",
+    "ISMS-IA 5.5",
+    "ISMS-IA 5.6",
+    "ISMS-F 2.9",
+    "ISMS-IA 5.2"
+   ],
+   "supportingFor": [
+    "ISMS-F 5.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "7.2",
+   "title": "Competence",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.3",
+    "AIMS-F 3.1",
+    "AIMS-F 3.7",
+    "AIMS-F 3.2",
+    "AIMS-F 5.6",
+    "AIMS-IA 4.13"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.4"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.19",
+   "title": "Information security in supplier relationships",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.7",
+    "ISMS-F 2.5",
+    "ISMS-F 3.9",
+    "ISMS-IA 2.7",
+    "ISMS-F 4.8"
+   ],
+   "supportingFor": [
+    "ISMS-F 3.8"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.2",
+   "title": "Allocating responsibilities",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 2.4",
+    "AIMS-F 2.4",
+    "AIMS-F 3.5",
+    "AIMS-F 4.6",
+    "AIMS-F 3.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.2"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "6.3.3",
+   "title": "Assigning work to the audit team",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-IA 2.5",
+    "ISMS-IA 1.3",
+    "AIMS-IA 3.1",
+    "AIMS-IA 2.3"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.1",
+   "title": "Applying auditing methods",
+   "signatures": [
+    "doubled-word"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.6",
+    "ISMS-IA 2.4",
+    "AIMS-IA 2.6",
+    "ISMS-IA 3.8"
+   ],
+   "supportingFor": [
+    "ISMS-IA 3.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.7",
+   "title": "AI system technical documentation The organization shall determine what AI system techni-",
+   "signatures": [
+    "column-interleave",
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.7",
+    "AIMS-F 1.3",
+    "AIMS-F 4.4",
+    "AIMS-F 3.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "D.2",
+   "title": "Integration of AI management system with other management system",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 4.7",
+    "AIMS-F 3.7",
+    "AIMS-F 1.4",
+    "AIMS-F 5.6"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.5"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.5.21",
+   "title": "Managing information security",
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.7",
+    "ISMS-IA 2.7",
+    "ISMS-F 4.8"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.2.3",
+   "title": null,
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.3",
+    "AIMS-F 4.7",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 2.3"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.3.2",
+   "title": "AI roles and responsibilities",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.3",
+    "AIMS-F 2.4",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.2"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.3",
+   "title": "Data resources",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-IA 3.7",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 3.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.6",
+   "title": "Human resources",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.7",
+    "AIMS-F 4.3",
+    "AIMS-IA 4.13"
+   ],
+   "supportingFor": [
+    "AIMS-F 3.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.5.4",
+   "title": null,
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.6",
+    "AIMS-F 4.4",
+    "AIMS-F 2.6"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.4",
+   "title": "AI system verification and valida- The organization shall define and document verification",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.6",
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.3",
+   "title": "Acquisition of data",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-F 3.5",
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "D.1",
+   "title": "General",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.6",
+    "AIMS-F 4.7",
+    "AIMS-F 1.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.1"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.6.3",
+   "title": "Statistical sampling",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.3",
+    "ISMS-IA 3.2"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.9",
+   "title": "Auditing leadership and commitment",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.3",
+    "ISMS-IA 4.2"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.26",
+   "title": "Application security requirements",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 1.5",
+    "ISMS-F 4.12"
+   ],
+   "supportingFor": [
+    "ISMS-F 3.8"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.27",
+   "title": "Secure system architecture and engineering principles",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 1.5",
+    "ISMS-F 4.12"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.2.4",
+   "title": "Review of the AI policy",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.3",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 2.3"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.3.3",
+   "title": "Reporting of concerns",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 4.3",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 2.4",
+    "AIMS-F 3.2"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.2",
+   "title": "Resource documentation",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.7",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 3.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.4",
+   "title": "Tooling resources",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.7",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 3.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.5",
+   "title": "System and computing resources",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-IA 3.7",
+    "AIMS-F 4.3"
+   ],
+   "supportingFor": [
+    "AIMS-F 3.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.2",
+   "title": "Objectives for responsible develop- The organization shall identify and document objective",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.6",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.3"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.3",
+   "title": "Processes for responsible AI sys-  The organization shall define and document the specific",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.6",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 1.3"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.2",
+   "title": "AI system requirements and spec- The organization shall specify and document require-",
+   "signatures": [
+    "column-interleave",
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.3",
+   "title": "Documentation of AI system design The organization shall document the AI system design and",
+   "signatures": [
+    "column-interleave",
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.5",
+   "title": "AI system deployment               The organization shall document a deployment plan and",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.6",
+   "title": "AI system operation and monitor-  The organization shall define and document the necessary",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 5.1"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.8",
+   "title": "AI system recording of event logs The organization shall determine at which phases of the",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "AIMS-F 1.3",
+    "AIMS-F 4.4"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.2",
+   "title": null,
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.4",
+   "title": "Quality of data for AI systems",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7",
+    "AIMS-F 5.4"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.5",
+   "title": "Data provenance",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7",
+    "AIMS-F 1.3"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.6",
+   "title": "Data preparation",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6",
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.7"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.1.2",
+   "title": "The certification body shall provide upon request information about:",
+   "signatures": [
+    "column-interleave"
+   ],
+   "primaryFor": [
+    "ISMS-F 5.6"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27000",
+   "clause": "1",
+   "title": "Scope",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-IA 1.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.5.24",
+   "title": "Information security incident",
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "ISMS-F 5.7"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.7.1",
+   "title": "Physical security perimeters",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.11"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.8",
+   "title": "Information security in project management",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 1.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.17",
+   "title": "Authentication information",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.6"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.24",
+   "title": "Use of cryptography",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.12"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.28",
+   "title": "Secure coding",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.12"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.29",
+   "title": "Security testing in development and acceptance",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.12"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "A.1",
+   "title": "General",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.2"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "A.2",
+   "title": "Organizational views",
+   "signatures": [
+    "hyphen-break",
+    "doubled-word"
+   ],
+   "primaryFor": [
+    "ISMS-F 4.2"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.2",
+   "title": null,
+   "signatures": [
+    "run-together"
+   ],
+   "primaryFor": [
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.3",
+   "title": "External reporting",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.4",
+   "title": "Communication of incidents",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 4.5"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.9.4",
+   "title": "Intended use of the AI system",
+   "signatures": [
+    "title-bleed"
+   ],
+   "primaryFor": [
+    "AIMS-F 4.6"
+   ],
+   "supportingFor": []
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "B.7.6",
+   "title": "Data preparation",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 3.6"
+   ],
+   "supportingFor": [
+    "AIMS-F 4.5"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "7.1.2",
+   "title": "Generic technical competence requirements",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [
+    "AIMS-F 5.5"
+   ],
+   "supportingFor": [
+    "AIMS-IA 2.3"
+   ]
+  }
+ ],
+ "supporting_only": [
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "3.2",
+   "title": "impartiality presence of objectivity",
+   "signatures": [
+    "doubled-word"
+   ],
+   "primaryFor": [],
+   "supportingFor": [
+    "ISMS-F 5.2"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "0.2",
+   "title": "Information security requirements",
+   "signatures": [
+    "hyphen-break"
+   ],
+   "primaryFor": [],
+   "supportingFor": [
+    "ISMS-F 2.2",
+    "ISMS-F 3.6"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "3.27",
+   "title": "effectiveness extent to which",
+   "signatures": [
+    "doubled-word"
+   ],
+   "primaryFor": [],
+   "supportingFor": [
+    "ISMS-IA 4.9"
+   ]
+  }
+ ],
+ "library_damaged_total": 125
+}

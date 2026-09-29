@@ -29,11 +29,11 @@
    "passages": 951,
    "column-interleave": 0,
    "title-bleed": 0,
-   "hyphen-break": 4,
+   "hyphen-break": 0,
    "doubled-word": 3,
    "doubled-word-at-junction": 0,
    "run-together": 0,
-   "damaged": 7
+   "damaged": 3
   },
   "ISO 19011": {
    "passages": 114,
@@ -59,11 +59,11 @@
    "passages": 131,
    "column-interleave": 0,
    "title-bleed": 0,
-   "hyphen-break": 9,
+   "hyphen-break": 8,
    "doubled-word": 3,
    "doubled-word-at-junction": 1,
    "run-together": 0,
-   "damaged": 12
+   "damaged": 11
   },
   "ISO/IEC 27000": {
    "passages": 121,
@@ -89,21 +89,21 @@
    "passages": 113,
    "column-interleave": 0,
    "title-bleed": 0,
-   "hyphen-break": 15,
+   "hyphen-break": 14,
    "doubled-word": 4,
    "doubled-word-at-junction": 0,
    "run-together": 0,
-   "damaged": 18
+   "damaged": 17
   },
   "ISO/IEC 42001": {
    "passages": 169,
    "column-interleave": 9,
    "title-bleed": 16,
-   "hyphen-break": 6,
+   "hyphen-break": 7,
    "doubled-word": 0,
    "doubled-word-at-junction": 5,
    "run-together": 4,
-   "damaged": 32
+   "damaged": 33
   },
   "ISO/IEC 42006": {
    "passages": 91,
@@ -119,21 +119,21 @@
    "passages": 105,
    "column-interleave": 0,
    "title-bleed": 0,
-   "hyphen-break": 22,
+   "hyphen-break": 21,
    "doubled-word": 0,
    "doubled-word-at-junction": 0,
-   "run-together": 1,
-   "damaged": 22
+   "run-together": 0,
+   "damaged": 21
   },
   "NIST AI RMF": {
    "passages": 89,
    "column-interleave": 0,
    "title-bleed": 11,
-   "hyphen-break": 5,
+   "hyphen-break": 4,
    "doubled-word": 0,
    "doubled-word-at-junction": 0,
    "run-together": 0,
-   "damaged": 16
+   "damaged": 15
   },
   "Scrum Guide": {
    "passages": 26,
@@ -150,11 +150,11 @@
   "passages": 2325,
   "column-interleave": 12,
   "title-bleed": 31,
-  "hyphen-break": 72,
+  "hyphen-break": 65,
   "doubled-word": 17,
   "doubled-word-at-junction": 22,
-  "run-together": 7,
-  "damaged": 132
+  "run-together": 6,
+  "damaged": 125
  },
  "damaged": [
   {
@@ -182,16 +182,16 @@
    "source": "ISO/IEC 42001",
    "clause": "A.6.2.2",
    "signatures": [
-    "hyphen-break",
-    "column-interleave"
+    "column-interleave",
+    "hyphen-break"
    ]
   },
   {
    "source": "ISO/IEC 42001",
    "clause": "A.6.2.3",
    "signatures": [
-    "hyphen-break",
-    "column-interleave"
+    "column-interleave",
+    "hyphen-break"
    ]
   },
   {
@@ -219,8 +219,8 @@
    "source": "ISO/IEC 42001",
    "clause": "A.6.2.7",
    "signatures": [
-    "hyphen-break",
-    "column-interleave"
+    "column-interleave",
+    "hyphen-break"
    ]
   },
   {
@@ -233,6 +233,13 @@
   {
    "source": "ISO/IEC 42001",
    "clause": "B.7.6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "D.1",
    "signatures": [
     "hyphen-break"
    ]
@@ -477,13 +484,6 @@
   },
   {
    "source": "ISO/IEC 27002",
-   "clause": "8.22",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "ISO/IEC 27002",
    "clause": "8.24",
    "signatures": [
     "hyphen-break"
@@ -597,20 +597,6 @@
   },
   {
    "source": "EU AI Act",
-   "clause": "Recital 14",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "EU AI Act",
-   "clause": "Recital 49",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "EU AI Act",
    "clause": "Art. 30(3)",
    "signatures": [
     "doubled-word"
@@ -618,23 +604,9 @@
   },
   {
    "source": "EU AI Act",
-   "clause": "Art. 34(2)",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "EU AI Act",
    "clause": "Art. 43(3)",
    "signatures": [
     "doubled-word"
-   ]
-  },
-  {
-   "source": "EU AI Act",
-   "clause": "Annex I 14",
-   "signatures": [
-    "hyphen-break"
    ]
   },
   {
@@ -677,13 +649,6 @@
    "clause": "3.1",
    "signatures": [
     "title-bleed"
-   ]
-  },
-  {
-   "source": "NIST AI RMF",
-   "clause": "3.2",
-   "signatures": [
-    "hyphen-break"
    ]
   },
   {
@@ -856,13 +821,6 @@
   },
   {
    "source": "ITIL 4 Foundation",
-   "clause": "5.1.8",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "ITIL 4 Foundation",
    "clause": "5.1.13.2",
    "signatures": [
     "hyphen-break"
@@ -907,8 +865,7 @@
    "source": "ITIL 4 Foundation",
    "clause": "5.3.3",
    "signatures": [
-    "hyphen-break",
-    "run-together"
+    "hyphen-break"
    ]
   },
   {
@@ -1056,13 +1013,6 @@
   {
    "source": "ISO/IEC 22989",
    "clause": "8.7.1",
-   "signatures": [
-    "hyphen-break"
-   ]
-  },
-  {
-   "source": "ISO/IEC 22989",
-   "clause": "8.7.2",
    "signatures": [
     "hyphen-break"
    ]

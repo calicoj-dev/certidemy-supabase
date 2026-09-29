@@ -46,6 +46,9 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+/* THE SPAN SIGNATURES COME FROM THE GATE, so the census and the gate can never disagree about what
+ * noise is. Only the PASSAGE-level signatures -- title-bleed, column-interleave -- are local. */
+import { noiseIn } from "./lib/quote-noise.mjs";
 
 for (const a of process.argv.slice(2)) {
   console.error("Unrecognised flag: " + a + ". READ-ONLY, takes none.");
@@ -71,19 +74,14 @@ export function titleBleed(p) {
   return null;
 }
 
-/* ---- a doubling, classified by where it sits relative to the title/term junction ---- */
-export function doubledWord(p) {
-  const text = String(p.text || "");
-  const m = /\b([A-Za-z]{3,})\s+\1\b/.exec(text);
-  if (!m) return null;
+/* The junction classifier stays here: it decides WHERE a doubling sits relative to a passage's title,
+ * which is a passage question. Whether the text contains a doubling at all now comes from the gate. */
+export function doublingPosition(p, at) {
   const title = String(p.title || "").trim().replace(/\s+/g, " ");
-  const numPrefix = (/^\s*\d+(?:\.\d+)*\s+/.exec(text) || [""])[0].length;
-  const junctionEnd = Math.max(title.length, numPrefix + title.length) + 8;
-  return { at: m.index, junction: m.index <= junctionEnd, word: m[1] };
+  const numPrefix = (/^\s*\d+(?:\.\d+)*\s+/.exec(String(p.text || "")) || [""])[0].length;
+  return at <= Math.max(title.length, numPrefix + title.length) + 8;
 }
 
-export const HYPHEN_BREAK = /[a-z]-\s+[a-z]/;
-export const RUN_TOGETHER = /[a-z]{2}[A-Z][a-z]{2}/;
 
 const NAMES = ["column-interleave", "title-bleed", "hyphen-break", "doubled-word",
   "doubled-word-at-junction", "run-together"];
@@ -91,12 +89,6 @@ const NAMES = ["column-interleave", "title-bleed", "hyphen-break", "doubled-word
 /* the junction class is ISO's layout, not damage */
 const DAMAGE = ["column-interleave", "title-bleed", "hyphen-break", "doubled-word", "run-together"];
 
-/* camelCase terms that are NOT extraction damage. Declared by name: a rule that inferred them would be
- * the lexical-proxy trap, and the cost of guessing is a real run-together excused. */
-export const CAMEL_OK = [
-  "DevOps", "DevGuide", "DevSecOps", "GitHub", "OWASP", "PowerShell", "JavaScript", "TypeScript",
-  "McAfee", "MacOS", "iOS", "eIDAS", "ePrivacy", "eHealth",
-];
 
 /* ============ COLUMN INTERLEAVE: THE ROOT CAUSE, NOT A FOURTH SYMPTOM ============
  *
@@ -125,19 +117,16 @@ export function signaturesOf(p) {
   const hits = [];
   const push = (name, at) => hits.push({ name, at,
     sample: text.slice(Math.max(0, at - 34), at + 60).replace(/\s+/g, " ") });
-  const tb = titleBleed(p);
-  if (tb) push("title-bleed", 0);
-  const hb = HYPHEN_BREAK.exec(text);
-  if (hb) push("hyphen-break", hb.index);
-  const dw = doubledWord(p);
-  if (dw) push(dw.junction ? "doubled-word-at-junction" : "doubled-word", dw.at);
+  /* passage-level, local */
+  if (titleBleed(p)) push("title-bleed", 0);
   const ci = columnInterleave(p);
   if (ci) push("column-interleave", ci.at);
-  /* run-together, minus declared camelCase: DevOps is a word, not a line join */
-  let scrub = text;
-  for (const w of CAMEL_OK) scrub = scrub.split(w).join(" ".repeat(w.length));
-  const rt = RUN_TOGETHER.exec(scrub);
-  if (rt) push("run-together", rt.index);
+  /* span-level, from the gate -- one definition of what noise is */
+  for (const n of noiseIn(text)) {
+    if (n.name === "doubled-word") {
+      push(doublingPosition(p, n.at) ? "doubled-word-at-junction" : "doubled-word", n.at);
+    } else push(n.name, n.at);
+  }
   return hits;
 }
 

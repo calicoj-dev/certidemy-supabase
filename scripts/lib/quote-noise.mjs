@@ -26,35 +26,61 @@
  */
 
 /* Each signature is a SHAPE, never a spelling: a list of known bad strings would miss the next one. */
+/* Conjunctions that follow a SUSPENDED hyphen. "low- and medium-risk" is correct English; a real wrap
+ * is "docu- mented", whose tail is a word continuation. Three languages, because stems are served in
+ * three. */
+const SUSPENDED = /[A-Za-z]-\s+(?:and|or|nor|y|o|e|ou|nem)\b/i;
+
+/* The clause-opening words a genuine run-together joins to. Every real instance in the library does:
+ * "specThe", "inforThe", "organizaThe", "commuProcesses", "prepaThe". A product name joins to a noun --
+ * DataRobot, SageMaker, LangChain, WebSocket, OrderService -- which is why an allowlist of brands cannot
+ * work and this list can. Declared, not inferred. */
+/* SHORT PREPOSITIONS ARE OUT. "In", "On", "At", "As", "For", "It", "An" appear as the tail of ordinary
+ * camelCase -- "LinkedIn" alone produced all twelve remaining hits in the served sweep. A clause opener
+ * that is only two letters cannot discriminate, so the list carries only words long and specific enough
+ * to be a real sentence start. Both directions are controlled. */
+const OPENERS = ["The", "This", "These", "Those", "Processes", "Information", "Where", "When",
+  "Organizations", "Controls", "Documented", "Records", "Evidence", "Personnel"];
+const RUN_TOGETHER_RE = new RegExp("[a-z]{2}(" + OPENERS.join("|") + ")\\b");
+
 export const NOISE = [
-  ["hyphen-break", /[A-Za-z]-\s+[a-z]/,
+  /* PER OCCURRENCE, not per span. The first version exempted the WHOLE span if any suspended hyphen
+   * appeared in it, so "low- and medium-risk techni- cal documentation" passed: one correct
+   * construction disabled the detector for a real wrap beside it. Its own control caught that. */
+  ["hyphen-break", (t) => {
+    const re = /[A-Za-z]-\s+[a-z]/g;
+    for (let m = re.exec(t); m; m = re.exec(t)) {
+      const window = t.slice(m.index, m.index + m[0].length + 10);
+      if (!SUSPENDED.test(window)) return m;
+    }
+    return null;
+  },
     "a word broken across a line join, as in \"docu- mented\""],
-  ["doubled-word", /\b([A-Za-z]{3,})\s+\1\b/,
+  /* UNICODE-AWARE boundaries: `\b` is ASCII-only and split "excluidos" at its accent, reporting the
+   * tail "dos" as a doubled word. */
+  ["doubled-word", (t) => /(?<![\p{L}\p{M}])(\p{L}{3,})\s+\1(?![\p{L}\p{M}])/u.exec(t),
     "the same word twice, as in \"and and development development\""],
-  ["run-together", /[a-z]{2}[A-Z][a-z]{2}/,
-    "two words joined with no space at a line join, as in \"specThe\""],
+  ["run-together", (t) => RUN_TOGETHER_RE.exec(t),
+    "a word joined to a clause opener with no space, as in \"specThe\""],
 ];
 
 /* camelCase terms that are NOT damage. Declared by name -- inferring them would be the lexical-proxy trap,
  * and the cost of guessing is a real run-together excused. Shared shape with the census's own list. */
-export const CAMEL_OK = [
-  "DevOps", "DevGuide", "DevSecOps", "GitHub", "OWASP", "PowerShell", "JavaScript", "TypeScript",
-  "MacOS", "iOS", "eIDAS", "ePrivacy", "eHealth",
-];
+/* The camelCase ALLOWLIST IS RETIRED. It was the wrong mechanism: product names are unbounded and the
+ * served bank produced eleven in one sweep. run-together now keys on the clause opener instead, which
+ * needs no list of brands. Kept as an empty export so an importer breaks loudly rather than silently. */
+export const CAMEL_OK = [];
 
 /** Every noise signature present in one span, with the matched text. */
 export function noiseIn(span) {
   const raw = String(span || "");
-  let scrub = raw;
-  for (const w of CAMEL_OK) scrub = scrub.split(w).join(" ".repeat(w.length));
   const out = [];
-  for (const [name, re, why] of NOISE) {
-    const m = re.exec(name === "run-together" ? scrub : raw);
+  for (const [name, fn, why] of NOISE) {
+    const m = fn(raw);
     if (m) out.push({ name, why, at: m.index, matched: m[0] });
   }
   return out;
 }
-
 /**
  * The gate. Examines the key's support and every distractor's support.
  * @returns {{id:string, pass:boolean|null, examined:number, reason:string}}
@@ -87,6 +113,56 @@ export function gateQuoteNoise(item) {
     reason: spans.length + " support span(s) carry no extraction noise" };
 }
 
+/**
+ * ============ SERVED FIELDS: THE ONE PLACE NOISE REACHES A CANDIDATE ============
+ *
+ * Ruled PROMPT-88 s0. `quote-noise` governs ANCHORS, which are internal and never served -- noise there
+ * corrupts the audit trail and the reference the text gates compare against, which is bad for different
+ * reasons. This governs what a candidate can actually read.
+ *
+ * WHICH FIELDS ARE SERVED DEPENDS ON THE POOL. A stem and its options are served for every item. An
+ * explanation is served for a PRACTICE item and not for a secure one: migration 378 revokes
+ * `explanation` from anon and authenticated, and records that every secure row carries
+ * visibility='secure' which no read policy matches. So a secure explanation is examined as INTERNAL and
+ * a practice explanation as SERVED -- the same text, two severities, decided by one column.
+ */
+export function servedFields(item, { pool } = {}) {
+  const out = [];
+  if (item && item.question_text) out.push({ what: "stem", text: item.question_text });
+  for (const [i, o] of ((item && item.options) || []).entries()) {
+    const t = o && (o.text || "");
+    if (t) out.push({ what: "option[" + i + "]", text: t });
+  }
+  /* the pool decides whether the explanation is served. UNKNOWN pool is treated as SERVED: the safe
+   * error is examining a field that turns out to be internal, never skipping one that is served. */
+  const secure = String(pool || "") === "secure";
+  if (!secure && item && item.explanation) out.push({ what: "explanation", text: item.explanation });
+  return out;
+}
+
+/**
+ * The gate. A hit on any served field is a FAILURE.
+ * @returns {{id:string, pass:boolean|null, examined:number, reason:string}}
+ */
+export function gateServedNoise(item, opts = {}) {
+  const spans = servedFields(item, opts);
+  if (!spans.length) {
+    return { id: "served-noise", pass: null, examined: 0,
+      reason: "no served field to examine -- UNASSERTED, not clean" };
+  }
+  const bad = [];
+  for (const s2 of spans) {
+    for (const n of noiseIn(s2.text)) {
+      bad.push(s2.what + " carries " + n.name + " (" + JSON.stringify(n.matched) + ")");
+    }
+  }
+  if (bad.length) {
+    return { id: "served-noise", pass: false, examined: spans.length,
+      reason: bad.join("; ") + " -- this text IS served to a candidate" };
+  }
+  return { id: "served-noise", pass: true, examined: spans.length,
+    reason: spans.length + " served field(s) carry no extraction noise" };
+}
 /** Controls: a positive and a negative case for every signature, plus the vacuous case. */
 export function quoteNoiseControls({ quiet = false } = {}) {
   const clean = "The organization shall document a deployment plan and ensure that appropriate " +
@@ -153,6 +229,67 @@ export function quoteNoiseControls({ quiet = false } = {}) {
     "To define the criteria and requirements for each stage of the AI system life cycle.",
   ].every((k) => gateQuoteNoise({ key_support: k }).pass === true));
 
+  /* ============ THE THREE NARROWINGS, BOTH DIRECTIONS ============
+   * Each was narrowed after the served sweep produced 56 hits of which ZERO were real. The risk of
+   * narrowing on a false-positive sweep is over-correction, so every real shape is asserted to survive. */
+
+  /* (1) suspended hyphen vs a real wrap */
+  add("a suspended hyphen is NOT a break: 'low- and medium-risk'", true,
+    () => gateQuoteNoise({ key_support: "exempts low- and medium-risk outcomes from documentation" }).pass);
+  add("'pre- and post-change' is NOT a break", true,
+    () => gateQuoteNoise({ key_support: "Compare pre- and post-change feature distributions" }).pass);
+  add("Spanish 'corto- o largo-plazo' is NOT a break", true,
+    () => gateQuoteNoise({ key_support: "aplica a horizontes corto- o largo-plazo" }).pass);
+  add("a REAL wrap is still caught: 'docu- mented'", false,
+    () => gateQuoteNoise({ key_support: "based on objectives, docu- mented requirements" }).pass);
+  add("a real wrap next to a conjunction elsewhere is still caught", false,
+    () => gateQuoteNoise({ key_support: "low- and medium-risk techni- cal documentation" }).pass);
+
+  /* (2) the ASCII word boundary, which split an accented word */
+  add("an accented word is NOT a doubling: 'excluidos dos' with an accent", true,
+    () => gateQuoteNoise({ key_support: "s\u00e3o explicitamente exclu\u00eddos dos frameworks de governan\u00e7a" }).pass);
+  add("'genuinas nas' with an accent is NOT a doubling", true,
+    () => gateQuoteNoise({ key_support: "reflete diferen\u00e7as genu\u00ednas nas qualifica\u00e7\u00f5es" }).pass);
+  add("a REAL doubling is still caught, accents present or not", false,
+    () => gateQuoteNoise({ key_support: "documenta\u00e7\u00e3o and and development development based on" }).pass);
+  add("a real doubling of an ACCENTED word is caught", false,
+    () => gateQuoteNoise({ key_support: "a organiza\u00e7\u00e3o organiza\u00e7\u00e3o deve documentar" }).pass);
+
+  /* (3) camelCase vs a clause opener */
+  add("a product name is NOT a run-together: DataRobot", true,
+    () => gateQuoteNoise({ key_support: "Must have 3+ years using DataRobot for model deployment" }).pass);
+  add("TensorFlow, SageMaker, LangChain, WebSocket are not run-togethers", true,
+    () => gateQuoteNoise({ key_support: "chain outputs with LangChain, deploy via SageMaker over WebSocket to TensorFlow" }).pass);
+  add("an exception class name is not a run-together: NullPointerException", true,
+    () => gateQuoteNoise({ key_support: "the trace shows a NullPointerException in OrderService" }).pass);
+  add("LinkedIn is NOT a run-together -- a two-letter opener cannot discriminate", true,
+    () => gateQuoteNoise({ key_support: "a candidate profile listed publicly on LinkedIn and pasted into a tool" }).pass);
+  add("a REAL run-together is still caught: 'specThe'", false,
+    () => gateQuoteNoise({ key_support: "AI system requirements and specThe organization shall specify" }).pass);
+  add("'inforThe' is still caught", false,
+    () => gateQuoteNoise({ key_support: "System documentation and inforThe organization shall determine" }).pass);
+  add("'commuProcesses' is still caught", false,
+    () => gateQuoteNoise({ key_support: "in the information and commuProcesses and procedures shall be" }).pass);
+  /* ---- served-noise: the same signatures, on the fields a candidate reads ---- */
+  const cleanStem = "An organization deploys a model without a monitoring plan. What does the standard require?";
+  add("a clean served item passes", true, () => gateServedNoise({ question_text: cleanStem,
+    options: [{ text: "Define documented monitoring elements." }, { text: "Nothing further." }] },
+  { pool: "secure" }).pass);
+  add("noise in the STEM is a failure", false, () => gateServedNoise({
+    question_text: "What does the docu- mented requirement say?", options: [{ text: "A" }] }).pass);
+  add("noise in an OPTION is a failure", false, () => gateServedNoise({
+    question_text: cleanStem, options: [{ text: "System documentation and inforThe organization shall" }] }).pass);
+  add("noise in a PRACTICE explanation is a failure", false, () => gateServedNoise({
+    question_text: cleanStem, options: [{ text: "A" }],
+    explanation: "design and and development development based on objectives" }, { pool: "practice" }).pass);
+  add("the SAME explanation in a SECURE item is not a served failure", true, () => gateServedNoise({
+    question_text: cleanStem, options: [{ text: "A" }],
+    explanation: "design and and development development based on objectives" }, { pool: "secure" }).pass);
+  add("an UNKNOWN pool treats the explanation as served -- the safe error", false, () => gateServedNoise({
+    question_text: cleanStem, options: [{ text: "A" }],
+    explanation: "design and and development development based on objectives" }).pass);
+  add("an item with no served field is UNASSERTED, not a pass", null,
+    () => gateServedNoise({}).pass);
   const fails = [];
   for (const [what, expect, fn] of cases) {
     let got;

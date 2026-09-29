@@ -1,0 +1,290 @@
+{
+ "signatures": [
+  "hyphen-break",
+  "doubled-word",
+  "run-together"
+ ],
+ "per_cert": [
+  {
+   "cert": "AIE-I",
+   "rows": 1145,
+   "spans": 6320,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "AIGRM-I",
+   "rows": 2907,
+   "spans": 16065,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "AIHR-I",
+   "rows": 1535,
+   "spans": 8485,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "AIMS-F",
+   "rows": 1927,
+   "spans": 10688,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "AIMS-IA",
+   "rows": 2160,
+   "spans": 12000,
+   "rowsWithHit": 2,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 5,
+   "run-together": 0
+  },
+  {
+   "cert": "AISM-I",
+   "rows": 3312,
+   "spans": 18366,
+   "rowsWithHit": 1,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 1,
+   "run-together": 0
+  },
+  {
+   "cert": "ISMS-F",
+   "rows": 2667,
+   "spans": 14775,
+   "rowsWithHit": 1,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 1,
+   "run-together": 0
+  },
+  {
+   "cert": "ISMS-IA",
+   "rows": 2052,
+   "spans": 11400,
+   "rowsWithHit": 3,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 3,
+   "run-together": 0
+  },
+  {
+   "cert": "SD-AI-I",
+   "rows": 2481,
+   "spans": 13671,
+   "rowsWithHit": 1,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 1,
+   "run-together": 0
+  },
+  {
+   "cert": "SM-AI-I",
+   "rows": 3025,
+   "spans": 16597,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "SM-AI-II",
+   "rows": 2386,
+   "spans": 13256,
+   "rowsWithHit": 1,
+   "internalRows": 1,
+   "hyphen-break": 0,
+   "doubled-word": 1,
+   "run-together": 0
+  },
+  {
+   "cert": "SPO-AI-I",
+   "rows": 2583,
+   "spans": 14235,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  },
+  {
+   "cert": "ZZ-TEST-I",
+   "rows": 1,
+   "spans": 5,
+   "rowsWithHit": 0,
+   "internalRows": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "run-together": 0
+  }
+ ],
+ "totals": {
+  "rows": 28181,
+  "spans": 155863,
+  "rowsWithHit": 9,
+  "hyphen-break": 0,
+  "doubled-word": 12,
+  "run-together": 0
+ },
+ "served_hits": [
+  {
+   "cert": "AIMS-IA",
+   "id": "54a9aaa8",
+   "lang": "es-419",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[0]",
+   "signature": "doubled-word",
+   "matched": "muestra muestra",
+   "sample": "La muestra muestra que seis de las 18 tarjetas de modelo examinadas carec"
+  },
+  {
+   "cert": "AIMS-IA",
+   "id": "54a9aaa8",
+   "lang": "es-419",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[1]",
+   "signature": "doubled-word",
+   "matched": "muestra muestra",
+   "sample": "La muestra muestra que seis de las 18 tarjetas de modelo examinadas carec"
+  },
+  {
+   "cert": "AIMS-IA",
+   "id": "54a9aaa8",
+   "lang": "es-419",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[2]",
+   "signature": "doubled-word",
+   "matched": "muestra muestra",
+   "sample": "La muestra muestra que seis de las 18 tarjetas de modelo examinadas carec"
+  },
+  {
+   "cert": "AIMS-IA",
+   "id": "54a9aaa8",
+   "lang": "es-419",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[3]",
+   "signature": "doubled-word",
+   "matched": "muestra muestra",
+   "sample": "La muestra muestra que seis de las 18 tarjetas de modelo examinadas carec"
+  },
+  {
+   "cert": "AIMS-IA",
+   "id": "bc6dfe22",
+   "lang": "pt-BR",
+   "pool": "secure",
+   "status": "approved",
+   "field": "option[1]",
+   "signature": "doubled-word",
+   "matched": "não não",
+   "sample": " no máximo, observações de auditoria, e não não conformidades."
+  },
+  {
+   "cert": "AISM-I",
+   "id": "72082029",
+   "lang": "pt-BR",
+   "pool": "secure",
+   "status": "approved",
+   "field": "option[2]",
+   "signature": "doubled-word",
+   "matched": "prática prática",
+   "sample": "to diagnóstico desenvolvido por meio de prática prática repetida."
+  },
+  {
+   "cert": "ISMS-F",
+   "id": "e7e3ba7b",
+   "lang": "pt-BR",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[3]",
+   "signature": "doubled-word",
+   "matched": "não não",
+   "sample": "ervações são oportunidades de melhoria, não não conformidades."
+  },
+  {
+   "cert": "ISMS-IA",
+   "id": "1998288c",
+   "lang": "pt-BR",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[3]",
+   "signature": "doubled-word",
+   "matched": "não não",
+   "sample": "dados organizacionais são observações e não não conformidades contra o Anexo A 5.9, pois nenhum ativo de infor"
+  },
+  {
+   "cert": "ISMS-IA",
+   "id": "4a33e2be",
+   "lang": "es-419",
+   "pool": "secure",
+   "status": "approved",
+   "field": "option[2]",
+   "signature": "doubled-word",
+   "matched": "una una",
+   "sample": "Las Unidades A y B tienen cada una una no conformidad con la cláusula 8.1, pero sus diferentes causas"
+  },
+  {
+   "cert": "ISMS-IA",
+   "id": "df21b605",
+   "lang": "es-419",
+   "pool": "practice",
+   "status": "approved",
+   "field": "option[1]",
+   "signature": "doubled-word",
+   "matched": "muestra muestra",
+   "sample": "al con la confiabilidad del proceso. La muestra muestra que 20 contratos contenían la cláusula; no evalúa si e"
+  },
+  {
+   "cert": "SD-AI-I",
+   "id": "89a7d2ef",
+   "lang": "pt-BR",
+   "pool": "practice",
+   "status": "approved",
+   "field": "explanation",
+   "signature": "doubled-word",
+   "matched": "padrão padrão",
+   "sample": " curta duração com pull requests são um padrão padrão do desenvolvimento baseado em trunk que combina integraç"
+  },
+  {
+   "cert": "SM-AI-II",
+   "id": "417f066d",
+   "lang": "pt-BR",
+   "pool": "practice",
+   "status": "approved",
+   "field": "explanation",
+   "signature": "doubled-word",
+   "matched": "padrão padrão",
+   "sample": "que a resposta de emergência se torne o padrão padrão. Levantar na Retrospective é genuinamente defensável — d"
+  }
+ ],
+ "internal_secure_explanation_hits": [
+  {
+   "cert": "SM-AI-II",
+   "id": "2aa4ad77",
+   "lang": "es-419",
+   "signature": "doubled-word",
+   "matched": "pregunta pregunta"
+  }
+ ]
+}
